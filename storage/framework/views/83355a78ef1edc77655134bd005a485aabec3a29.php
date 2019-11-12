@@ -51,11 +51,11 @@
                             <th class="text-center "><?php echo e($history->created_at); ?></th>
                             <th class="text-center "><?php echo e($history->id); ?></th>
                             <th class="text-center ">-</th>
-                            <th class="text-center "><a href="<?php echo e(route('management.charts.item',
-                             $history->id)); ?>"><?php echo e($history->name); ?></a> </th>
-                            <th class="text-center "><?php echo e($history->receipt_total); ?></th>
-                            <th class="text-center "><?php echo e($history->payment_total); ?></th>
-                            <th class="text-center "><?php echo e($total_amount); ?></th>
+                            <th class="text-center "><a href="<?php echo e(route('management.charts.item',[
+                             $history->id,$chart->id])); ?>"><?php echo e($history->name); ?></a> </th>
+                            <th class="text-center "><?php echo e(money_format("%i",$history->receipt_total )); ?></th>
+                            <th class="text-center "><?php echo e(money_format("%i",$history->payment_total)); ?></th>
+                            <th class="text-center "><?php echo e(money_format("%i",$total_amount)); ?></th>
 
                         </tr>
 

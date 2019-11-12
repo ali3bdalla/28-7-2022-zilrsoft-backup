@@ -12,7 +12,7 @@
 //
 		public function getTotalAttribute()
 		{
-			return money_format("%i",rand(1,100) * 100);
+			return 0;//money_format("%i",rand(1,100) * 100)
 		}
 		public function scopeMainOnly($query)
 		{

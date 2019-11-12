@@ -14,6 +14,9 @@
 		{
 			
 			
+			
+//			var_dump($invoice_item['cost']);
+//			exit();
 			$qty = $this->get_item_qty($invoice_item); //  detect qty of the item should be created
 			$accounting_data = $this->get_item_accounting_data_except_price($qty,$invoice_item);
 			$accounting_data['price'] = $this->get_item_price($invoice_type,$invoice_item);
@@ -100,7 +103,7 @@
 			if ($this->is_kit){
 				$result = $this->fetchKitData($qty,$source_request_item_data);
 			}else
-				$result = collect($source_request_item_data)->only(['discount','tax','net','total','subtotal']);
+				$result = collect($source_request_item_data)->only(['discount','tax','net','total','subtotal','cost']);
 			
 			$result['organization_id'] = auth()->user()->organization_id;
 			$result['creator_id'] = auth()->user()->id;

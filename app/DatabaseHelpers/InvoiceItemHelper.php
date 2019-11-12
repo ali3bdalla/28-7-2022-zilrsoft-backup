@@ -24,10 +24,18 @@
 			}else if ($this->invoice->invoice_type == 'r_purchase'){
 				$result = $this->item->handleReturnPurchaseHistory($this,$cost,$current_stock,$this->item->available_qty);
 			}
-
+			
+			
+		
+			$cost =  $result['final_stock_cost'];
+			
 			$this->item->update([
-				'cost' => $result['final_stock_cost']
+				'cost' =>$cost
 			]);
+	
+			
+			//return $result['final_stock_cost'];
+			
 		}
 		
 		public function add_expenses_to_invoice_item($expenses,$widget = 1)

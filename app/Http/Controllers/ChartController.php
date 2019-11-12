@@ -3,15 +3,17 @@
 	namespace App\Http\Controllers;
 	
 	use App\Chart;
+	use App\Http\Controllers\ControllersHelper\ChartControllerClientsHelper;
 	use App\Http\Controllers\ControllersHelper\ChartControllerGatewayHelper;
 	use App\Http\Controllers\ControllersHelper\ChartControllerStockHelper;
+	use App\Item;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
 	
 	class ChartController extends Controller
 	{
 		
-		use ChartControllerGatewayHelper,ChartControllerStockHelper;
+		use ChartControllerGatewayHelper,ChartControllerStockHelper,ChartControllerClientsHelper;
 		
 		/**
 		 * Display a listing of the resource.
@@ -75,6 +77,10 @@
 			
 			
 			
+			if ($chart->slug == 'clients')
+				$view = $this->chart_clients_view($chart);
+			
+			
 			
 			return $view;
 			//
@@ -116,4 +122,21 @@
 		{
 			//
 		}
+		
+		
+		
+		
+		public function item(Item $item,Chart $chart)
+		{
+			
+			
+			$activities =  $this->get_single_item_history_depend_on_current_chart($item,$chart);
+			
+			
+//			return $activities;
+			
+			return view('accounting.single_item_histories',compact('item','activities','chart'));
+			//
+		}
 	}
+	

@@ -50,7 +50,7 @@ Vue.use(ToggleButton);
 import categoriesList from './components/categories/ListComponent';
 import accountingChartAccountsList from './components/accounting/chartaccount/chart_account_tree';
 
-
+import ItemAccountingCostHistoryComponent from './components/items/accountingCostHistory';
 
 import filterList from './components/filters/ListComponent';
 import InputTextArea from './components/InputTextAreaComponent';
@@ -125,6 +125,9 @@ import saleDataTable from './components/datatables/saleTable';
 Vue.component('item-serials-list-component', ItemSerialComponent);
 Vue.component('live-server-date-and-time', liveServerDateAndTime);
 Vue.component('expenses-list-component', ExpensesListComponent);
+
+
+Vue.component('item-accounting-cost-history-component', ItemAccountingCostHistoryComponent);
 
 Vue.component('input-text-component', InputText);
 Vue.component('print-invoice-component', printInvoiceComponent);

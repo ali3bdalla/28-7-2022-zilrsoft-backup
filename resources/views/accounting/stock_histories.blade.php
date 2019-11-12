@@ -54,11 +54,11 @@
                             <th class="text-center ">{{$history->created_at}}</th>
                             <th class="text-center ">{{$history->id}}</th>
                             <th class="text-center ">-</th>
-                            <th class="text-center "><a href="{{route('management.charts.item',
-                             $history->id) }}">{{ $history->name }}</a> </th>
-                            <th class="text-center ">{{ $history->receipt_total }}</th>
-                            <th class="text-center ">{{ $history->payment_total }}</th>
-                            <th class="text-center ">{{ $total_amount  }}</th>
+                            <th class="text-center "><a href="{{route('management.charts.item',[
+                             $history->id,$chart->id]) }}">{{ $history->name }}</a> </th>
+                            <th class="text-center ">{{ money_format("%i",$history->receipt_total )}}</th>
+                            <th class="text-center ">{{money_format("%i",$history->payment_total)  }}</th>
+                            <th class="text-center ">{{ money_format("%i",$total_amount)  }}</th>
 
                         </tr>
 

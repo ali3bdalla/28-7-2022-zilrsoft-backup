@@ -2,6 +2,8 @@
 
 namespace App\Relationships;
 use App\CountryBank;
+use App\Invoice;
+use App\InvoiceItems;
 use \App\Organization;
 use \App\Manager;
 use App\GatewayAccounts;
@@ -18,9 +20,11 @@ trait UserRelationships
 	public function organization(){
 		return $this->belongsTo(Organization::class,'organizaiton_id');
 	}
-
-
-
+	
+	public function client_history()
+	{
+		return $this->hasMany(InvoiceItems::class,'user_id')->whereIn('invoice_type',['sale','r_sale']);
+	}
 
     public function creator()
     {

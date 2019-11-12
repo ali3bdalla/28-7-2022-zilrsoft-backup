@@ -62,7 +62,10 @@ return [
         'stock_qty'=>'الكمية المتوفرة',
         'cost'=>'تكلفة الوحدة',
         'date'=>'تاريخ',
-        'profits'=>'الارباح'
+        'profits'=>'الارباح',
+	    'debit'=>'المدين',
+	    'credit'=>'الدائن',
+	    'balance'=>'الرصيد',
     ],
 	
 	'create_filter_value' => __('pages/filters.create_value'),

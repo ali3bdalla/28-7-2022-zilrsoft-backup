@@ -1000,9 +1000,10 @@
 
 
 
+                        console.log(response.data)
                     })
                     .catch(function (error) {
-                        // console.log(error.response.data.errors);
+                        console.log(error.response.data.errors);
                         vm.errors = error.response.data.errors;
                         vm.showerror();
                         // console.log(vm.errors);

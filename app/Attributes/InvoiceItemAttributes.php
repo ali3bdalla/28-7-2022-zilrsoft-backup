@@ -33,7 +33,6 @@
 			}
 			
 			
-			
 			$this->item->update([
 				'cost' => $result['final_stock_cost']
 			]);
@@ -127,5 +126,25 @@
 			
 			return money_format('%i',$value);
 		}
+		
+		public function getAccountingDepetAttribute()
+		{
+			if(!in_array($this->invoice_type,['sale','r_purchase']))
+				return $this->cost * $this->qty;
+			
+			
+			return 0;
+		}
+		
+		
+		public function getAccountingCreditAttribute()
+		{
+			if(in_array($this->invoice_type,['sale','r_purchase']))
+				return $this->cost * $this->qty;
+			
+			
+			return 0;
+		}
+		
 		
 	}
