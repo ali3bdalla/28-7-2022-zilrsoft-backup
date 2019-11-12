@@ -1,0 +1,37 @@
+@extends('layouts.master2')
+
+
+@section('title',__('pages/payments.create_payment'))
+@section('desctipion','')
+@section('route',route('management.payments.index'))
+
+
+
+@section('translator')
+    <script defer>
+        window.translator = `@json(trans('pages/payments'))`
+    </script>
+@stop
+
+
+
+@section('content')
+
+
+    {{--    {{ $clients }}--}}
+
+{{--    <div class="box">--}}
+{{--        <div class="card-body">--}}
+            <create-payment-form-component
+                    :organization_gateways='@json($organization_gateways)'
+                    :organization-banks='@json($organization_accounts)'
+                    :country-banks='@json($all_banks)'
+                    :clients='@json($clients)'
+                    :vendors='@json($vendors)'
+
+            ></create-payment-form-component>
+{{--        </div>--}}
+{{--    </div>--}}
+
+
+@stop

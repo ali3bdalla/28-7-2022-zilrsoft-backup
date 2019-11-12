@@ -1,0 +1,414 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+@font-face {
+    /*font-family: 'al-mohanad';*/
+    font-weight: 400;
+    /*src: url('../../fonts/ae-almohanad.ttf') format('truetype');*/
+  }
+html {
+    line-height: 1;
+    height: 100%;
+
+}
+html,body{
+    direction:rtl;
+
+}
+
+ul {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size:15px;
+}
+
+caption, th, td {
+    text-align: left;
+    font-weight: normal;
+    vertical-align: middle;
+}
+
+q, blockquote {
+    quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+    content: "";
+    content: none;
+}
+
+a img {
+    border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+    display: block;
+}
+
+body {
+    /*font-family: 'al-mohanad' !important;*/
+    font-weight: 300;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+    color: #777777;
+    min-height:100%;
+    position:relative;
+}
+body a {
+    text-decoration: none;
+    color: inherit;
+}
+body a:hover {
+    color: inherit;
+    opacity: 0.7;
+}
+body .container {
+    min-width: 500px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+body .clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+body .left {
+    float: right;
+}
+body .right {
+    float: left;
+}
+body .helper {
+    /*height: 100%;*/
+}
+
+header {
+    height: 40px;
+    /*margin-top: 20px;*/
+    margin-bottom: 20px;
+    padding: 0px 5px 0;
+}
+header figure {
+    width: 200px;
+}
+.logo{
+    max-width:200px;
+}
+
+header .company-info {
+    color: #807c7c;
+}
+header .company-info .company{
+    font-size:19px;
+    color:#333;
+    margin-top:5px;
+}
+header .company-info .title {
+    margin-bottom: 5px;
+    color: #0859a4;
+    font-weight: 600;
+    font-size: 2em;
+    
+}
+header .company-info .line {
+    height: 9px;
+    margin: 0 4px;
+    border-right: 1px solid #0859a4;
+    color:#fff;
+}
+
+section .details {
+    min-width: 500px;
+    margin-bottom: 10px;
+    padding: 10px 35px;
+    background-color: #0859a4;
+    color: #ffffff;
+    font-size:16px;
+}
+section .details .client {
+    width: 55%;
+    line-height: 16px;
+}
+section .details .client .name {
+    font-weight: 600;
+}
+section .details .data {
+    width: 45%;
+}
+.info-group{
+    margin-bottom: 5px;
+}
+ .inline{
+    display: inline-block;
+}
+
+section .details .title {
+    font-size: 25px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+section .table-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+section .no-break {
+    page-break-inside: avoid;
+}
+section table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+section table .no {
+    width: 40px;
+}
+section table .desc {
+    width: 59%;
+}
+section table .unit, section table .total {
+    width: 11%;
+}
+section table .part_number{
+    width: 18%;
+}
+
+section table .qty{
+    width: 40px;
+}
+section table tbody.head {
+    vertical-align: middle;
+    border-color: inherit;
+}
+section table tbody.head th {
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0;
+    background: #BDB9B9;
+    margin-bottom:10px;
+    
+}
+section table tbody.head th.no{
+    background:#fff;
+}
+section table tbody.head th div {
+    color:#000;
+    padding: 7px 0;
+    width: 100%;
+}
+section table tbody.head th.desc {
+    text-align:right;
+    padding:0 20px;
+}
+section table tbody.body td {
+    padding:  0 2px;
+    background: #F3F3F3;
+    text-align: center;
+}
+section table tbody.body td.part_number{
+    text-align:left !important;
+}
+section table tbody.body h3 {
+    margin-bottom: 5px;
+    color: #0859a4;
+    font-weight: 600;
+}
+section table tbody.body .no {
+    padding: 0px;
+    background-color: #0859a4;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 600;
+}
+th.no{
+    background-color: #fff;
+
+}
+section table tbody.body .desc {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: transparent;
+    color: #777787;
+    text-align: right;
+}
+section table tbody.body .total {
+    color: #0859a4;
+    font-weight: 600;
+}
+section table tbody.body tr.total td {
+    padding: 5px 10px;
+    background-color: transparent;
+    border: none;
+    color: #777777;
+    text-align: left;
+}
+section table tbody.body tr.total .empty {
+    background: white;
+}
+section table tbody.body tr.total .total {
+    font-size: 1.18181818181818em;
+    font-weight: 600;
+    color: #0859a4;
+}
+section table.grand-total {
+    margin-top: 10px;
+    margin-bottom: 0;
+    border-spacing: 0 3px;			
+}
+.total_numbers{
+    width:35%;
+    float: left;;
+    margin-top:20px;
+}
+
+.total_numbers .number {
+    background-color: #0859a4;
+    color: #ffffff;
+    font-weight: 350;
+    text-align: right;
+    line-height:1.6;
+    padding: 0 10px;
+    margin-bottom:2px;
+}
+.total_numbers .label{
+    width:110px;
+    float:right;
+    text-transform:uppercase;
+}
+.total_numbers .value{
+    float:right;
+}
+section table.grand-total tbody td.no, section table.grand-total tbody td.desc, section table.grand-total tbody td.qty {
+    background-color: transparent;
+}
+section table.grand-total .qty, section table.grand-total .unit, section table.grand-total .total{
+    width:19%;
+    font-size:16px;
+}
+
+section table.grand-total tbody td.grand-total {
+    padding: 0;
+    font-weight: 600;
+    background-color: transparent;
+}
+section table.grand-total tbody td.grand-total div {
+    float: left;
+    padding: 10px 5px;
+    background-color: #21BCEA;
+}
+section table.grand-total tbody td.grand-total.grand-value {
+
+    color:#000
+}
+
+.stamp{
+    width:150px;
+    float:right;
+    margin-right: 70px;
+    margin-bottom:15px;
+    text-align:center;
+}
+h3,b{
+    font-size:18px;
+}
+.customer-phone{
+    margin-top: 3px;
+}
+.issued_by{
+    width:30%;
+    float:left;
+    margin-bottom:15px;
+}   
+.clear{
+    clear:both;
+}
+
+footer {
+    margin-top:20px;
+    margin-bottom: 20px;
+    padding: 0 5px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width:100%;
+}
+footer .thanks {
+    margin-bottom: 40px;
+    color: #0859a4;
+    font-size: 1.16666666666667em;
+    font-weight: 600;
+}
+ .notice {
+    margin-bottom: 25px;
+    width:65%;
+    float:right;
+    
+}
+p{
+    line-height:1.4;
+}
+.notice ol{
+    padding-right:20px;
+}
+.end {
+    padding-top: 5px;
+    border-top: 2px solid #0859a4;
+    text-align: center;
+    width:100%;
+    margin-top:10px;
+   
+}
+.end a {
+    color:#0859a4;
+}
+.bank_details{
+    width:280px;
+    margin-right: 30px;
+    text-align: right;
+    
+}
+.btn-deal{
+    background: #84bf58;
+    color:#fff !important;
+    font-size:17px;
+    padding:30px;
+    margin: 20px 0;
+    border-radius:4px;
+    height:30px;
+    width:150px;
+    display:block;
+    
+}
+.center_btn{
+    text-align:center;
+}
+@page {
+    margin-left:0;
+    margin-right:0;
+    margin-top:20px;
+}
