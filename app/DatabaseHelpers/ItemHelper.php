@@ -5,6 +5,7 @@
 	
 	use App\Item;
 	use App\PurchaseInvoice;
+	use App\SaleInvoice;
 	use Illuminate\Support\Facades\DB;
 	
 	trait ItemHelper
@@ -13,12 +14,14 @@
 		public function init_create_invoice_item($invoice_item,$invoice_type,$user_id,$sub_invoice,$expenses)
 		{
 			
-			
-			
-//			var_dump($invoice_item['cost']);
-//			exit();
 			$qty = $this->get_item_qty($invoice_item); //  detect qty of the item should be created
 			$accounting_data = $this->get_item_accounting_data_except_price($qty,$invoice_item);
+			
+			if ($sub_invoice instanceof SaleInvoice)
+				$accounting_data['cost'] = $this->cost;
+			else
+				$accounting_data['cost'] = $accounting_data['total'] / $qty;
+			
 			$accounting_data['price'] = $this->get_item_price($invoice_type,$invoice_item);
 			$accounting_data['invoice_type'] = $invoice_type;
 			
@@ -46,9 +49,6 @@
 			if (!empty($expenses))
 				$new_invoice_item->add_expenses_to_invoice_item($expenses,$invoice_item['widget']);
 			
-			//
-			//			var_dump($invoice_item);
-			//			exit();
 			//update serial if item need contain serials array
 			if ($this->is_need_serial)
 				$this->
@@ -78,7 +78,7 @@
 			
 			
 			if (!$this->is_kit){
-				if ($sub_invoice instanceof  PurchaseInvoice){
+				if ($sub_invoice instanceof PurchaseInvoice){
 					$this->update_item_last_purchase_price($accounting_data['price']);
 					$this->update_item_sales_price($invoice_item['price_with_tax']);
 					
@@ -88,9 +88,6 @@
 			
 			return $this;
 		}
-		
-		
-		
 		
 		public function get_item_qty($source_request_item_data)
 		{
@@ -104,6 +101,7 @@
 				$result = $this->fetchKitData($qty,$source_request_item_data);
 			}else
 				$result = collect($source_request_item_data)->only(['discount','tax','net','total','subtotal','cost']);
+			
 			
 			$result['organization_id'] = auth()->user()->organization_id;
 			$result['creator_id'] = auth()->user()->id;

@@ -1,4 +1,4 @@
-<?php $__env->startSection('title',$item->name); ?>
+<?php $__env->startSection('title',$chart->name); ?>
 
 
 <?php $__env->startSection('translator'); ?>
@@ -20,7 +20,7 @@
 
 
     <div class="">
-        <item-accounting-cost-history-component :item='<?php echo json_encode($item, 15, 512) ?>' :activities='<?php echo json_encode($activities, 15, 512) ?>
+        <item-accounting-cost-history-component  :activities='<?php echo json_encode($activities, 15, 512) ?>
                 '></item-accounting-cost-history-component>
     </div>
 

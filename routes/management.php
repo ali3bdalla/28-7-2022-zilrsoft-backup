@@ -46,6 +46,7 @@
 
 		Route::prefix('chart')->name('charts.')->group(function(){
 		   Route::get('item/{item}/{chart}',"ChartController@item")->name('item');
+		   Route::get('client/{client}/{chart}',"ChartController@client")->name('client');
         });
 		
 		Route::prefix('sales')->name('sales.')->group(function (){

@@ -7,6 +7,7 @@
 	use App\Http\Controllers\ControllersHelper\ChartControllerGatewayHelper;
 	use App\Http\Controllers\ControllersHelper\ChartControllerStockHelper;
 	use App\Item;
+	use App\User;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
 	
@@ -71,15 +72,12 @@
 				$view = $this->chart_gateway_view($chart);
 			
 			
-			
 			if ($chart->slug == 'stock')
 				$view = $this->chart_stock_view($chart);
 			
 			
-			
 			if ($chart->slug == 'clients')
 				$view = $this->chart_clients_view($chart);
-			
 			
 			
 			return $view;
@@ -123,20 +121,22 @@
 			//
 		}
 		
-		
-		
-		
 		public function item(Item $item,Chart $chart)
 		{
 			
 			
-			$activities =  $this->get_single_item_history_depend_on_current_chart($item,$chart);
-			
-			
-//			return $activities;
+			$activities = $this->get_single_item_history_depend_on_current_chart($item,$chart);
 			
 			return view('accounting.single_item_histories',compact('item','activities','chart'));
 			//
+		}
+		
+		public function client(User $client,Chart $chart)
+		{
+			$activities = $this->get_client_debit_data($client);
+			
+			return view('accounting.single_item_histories',compact('client','activities','chart'));
+			
 		}
 	}
 	

@@ -58,7 +58,8 @@
                         <td>-</td>
                         <td>{{ parseFloat(total_debit).toFixed(2) }}</td>
                         <td>{{ parseFloat(total_credit).toFixed(2)   }}</td>
-                        <td>{{  parseFloat(total_debit).toFixed(2)  - parseFloat(total_credit).toFixed(2)}}</td>
+                        <td>{{  parseFloat(parseFloat(total_debit).toFixed(2)  -
+                            parseFloat(total_credit).toFixed(2)).toFixed(2)}}</td>
 
                     </tr>
                 </tbody>
@@ -81,7 +82,7 @@
 
     export default {
 
-        props: ['item', 'activities'],
+        props: ['activities'],
 
         data: function () {
             return {

@@ -1,7 +1,7 @@
 @extends('layouts.master2')
 
 
-@section('title',$item->name)
+@section('title',$chart->name)
 
 
 @section('translator')
@@ -23,7 +23,7 @@
 
 
     <div class="">
-        <item-accounting-cost-history-component :item='@json($item)' :activities='@json($activities)
+        <item-accounting-cost-history-component  :activities='@json($activities)
                 '></item-accounting-cost-history-component>
     </div>
 

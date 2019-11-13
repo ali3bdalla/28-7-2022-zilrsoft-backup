@@ -4,8 +4,6 @@
 	namespace App\DatabaseHelpers;
 	
 	
-	use App\ItemExpenses;
-	
 	trait InvoiceItemHelper
 	{
 		
@@ -26,15 +24,10 @@
 			}
 			
 			
-		
-			$cost =  $result['final_stock_cost'];
-			
 			$this->item->update([
-				'cost' =>$cost
+				'cost' => $result['final_stock_cost']
 			]);
-	
 			
-			//return $result['final_stock_cost'];
 			
 		}
 		
@@ -44,7 +37,7 @@
 			
 			foreach ($expenses as $expense){
 				$amount = $expense['amount'] * $widget;
-
+				
 				$data = [
 					'amount' => $amount,
 					'invoice_id' => $this->invoice->id,
@@ -58,7 +51,5 @@
 			}
 			return $result;
 		}
-		
-		
 		
 	}
