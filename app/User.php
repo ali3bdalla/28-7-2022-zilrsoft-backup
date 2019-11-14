@@ -3,6 +3,7 @@
 	namespace App;
 	
 	use App\Attributes\UserAttributes;
+	use App\DatabaseHelpers\UserHelper;
 	use App\Relationships\UserRelationships;
 	use App\Scopes\OrganizationScope;
 	use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@
 	class User extends Model
 	{
 		
-		use SoftDeletes,UserRelationships,UserAttributes;
+		use SoftDeletes,UserRelationships,UserAttributes,UserHelper;
 		
 		protected $guarded = [];
 		

@@ -41,26 +41,25 @@
 
                 <tbody>
 			 <?php
-			 $total_amount = 0;
+			 $total_balance = 0;
 			 ?>
-                @foreach($clients as $client)
+                @foreach($activities as $history)
 
 
+
+                    <?php $total_balance = ($total_balance + $history->debit - $history->credit); ?>
 
                     <tr>
-                        <th class="text-center ">{{$client->created_at}}</th>
-                        <th class="text-center ">{{$client->id}}</th>
-
-                        <th class="text-center "><a href="{{route('management.charts.client',[
-                             $client->id,$chart->id]) }}">{{ $client->name }}</a></th>
+                        <th class="text-center datedirection">{{ $history->created_at }}</th>
+                        <th class="text-center ">{{ $history->invoice->id }}</th>
                         <th class="text-center ">-</th>
-                        <th class="text-center ">{{ money_format("%i",$client->histories['total_debit'])}}</th>
-                        <th class="text-center ">{{money_format("%i",$client->histories['total_credit'])  }}</th>
-                        <th class="text-center ">{{ money_format("%i",$client->histories['total_debit'] -
-                         $client->histories['total_credit'])  }}</th>
+                        <th class="text-center "><a href="{{route('management.sales.show',$history->invoice_id) }}">{{
+                        $history->invoice->title }}</a></th>
+                        <th class="text-center ">{{ money_format("%i",$history->debit) }}</th>
+                        <th class="text-center ">{{ money_format("%i",$history->credit) }}</th>
+                        <th class="text-center ">{{ money_format("%i",$total_balance)}}</th>
 
                     </tr>
-
 
 
 

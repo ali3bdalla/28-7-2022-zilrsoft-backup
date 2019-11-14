@@ -516,10 +516,10 @@
 				
 				
 				if (in_array($history['invoice_type'],['purchase','beginning_inventory'])){
-					$history['debit'] = $history['total'];
-					$history['total_balance'] = $history['total'] + $total_balance;
+					$history['debit'] = $history['net'];
+					$history['total_balance'] = $history['net'] + $total_balance;
 					
-					$total_debit = $total_debit + $history['total'];
+					$total_debit = $total_debit + $history['net'];
 					
 					if ($history['discount'] > 0){
 						$history['discount_data'] = [
@@ -549,10 +549,10 @@
 					$history['expenses_data'] = $all_expense;
 					
 				}elseif ($history['invoice_type'] == 'r_sale'){
-					$history['debit'] = $history['qty'] * $history['cost'];
-					$history['total_balance'] = $history['qty'] * $history['cost'] + $total_balance;
+					$history['debit'] = $history['net'];
+					$history['total_balance'] = $history['net'] + $total_balance;
 					
-					$total_debit = $total_debit + $history['qty'] * $history['cost'];
+					$total_debit = $total_debit + $history['net'];
 					if ($history['discount'] > 0){
 						$history['discount_data'] = [
 							'credit' => $history['discount'],
@@ -571,11 +571,11 @@
 				}elseif ($history['invoice_type'] == 'r_purchase'){
 					
 					
-					$history['credit'] = $history['total'];
+					$history['credit'] = $history['net'];
 					
-					$history['total_balance'] = $total_balance - $history['total'];
+					$history['total_balance'] = $total_balance - $history['net'];
 					
-					$total_credit = $total_credit + $history['total'];
+					$total_credit = $total_credit + $history['net'];
 					
 					
 					if ($history['discount'] > 0){
@@ -593,7 +593,7 @@
 					
 				}elseif ($history['invoice_type'] == 'sale'){
 					
-					$history['credit'] = $history['qty'] * $history['cost'];
+					$history['credit'] = $history['net'];
 					$history['total_balance'] = $total_balance - $history['credit'];
 					
 					$total_credit = $total_credit + $history['credit'];

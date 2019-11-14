@@ -4,7 +4,6 @@
 	namespace App\Http\Controllers\ControllersHelper;
 	
 	
-	use App\Item;
 	use App\User;
 	
 	trait ChartControllerClientsHelper
@@ -24,16 +23,21 @@
 			])->whereIn('client_chart_id',$result_ids)->get();
 			
 			
+			
 			$clients = [];
+
+			
+			
+//
 			foreach ($all_clients as $client){
-				$data = $this->get_client_debit_data($client);
-				$client['total_debit'] = $data['total_debit'];
-				$client['total_credit'] = $data['total_credit'];
+				$client['histories'] = $client->to_client_invoices_history();
 				
 				
 				$clients[] = $client;
 			}
 			
+			
+//			return $clients[0]->histories['total_credit'];
 			
 			return view('accounting.clients_histories',compact('clients','chart'));
 			
@@ -55,11 +59,4 @@
 			return $ids;
 		}
 		
-		private function get_client_debit_data($client)
-		{
-			$history = $client->client_history;
-			
-			return Item::get_client_history($history);
-			
-		}
 	}

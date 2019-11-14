@@ -7,6 +7,16 @@
 	trait InvoiceAttributes
 	{
 		
+		public function getUserIdAttribute()
+		{
+			if (in_array($this->invoice_type,['sale','r_sale'])){
+				return $this->sale->client_id;
+			}
+			
+			
+			return $this->purchase->vendor_id;
+		}
+		
 		public function getNameAttribute()
 		{
 			return $this->purchase()->prefix;

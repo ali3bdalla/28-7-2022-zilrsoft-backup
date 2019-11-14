@@ -21,6 +21,7 @@ class CreateInvoicePaymentsTable extends Migration
             $table->integer('invoice_id');
             $table->decimal('amount',20,2);
             $table->boolean('is_paid');
+//            $table->enum('is_paid');
 
             $table->timestamps();
         });

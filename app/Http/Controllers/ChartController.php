@@ -133,9 +133,12 @@
 		
 		public function client(User $client,Chart $chart)
 		{
-			$activities = $this->get_client_debit_data($client);
+			$activities = $client->to_client_invoices_history();//['data']
 			
-			return view('accounting.single_item_histories',compact('client','activities','chart'));
+			return $activities;
+			
+			$activities = $activities['data'];
+			return view('accounting.client_history',compact('client','activities','chart'));
 			
 		}
 	}

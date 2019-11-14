@@ -40,21 +40,23 @@
 			 <?php
 			 $total_amount = 0;
 			 ?>
-                <?php $__currentLoopData = $clients; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $history): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php $__currentLoopData = $clients; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $client): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
 
 
-                     <tr>
-                         <th class="text-center "><?php echo e($history->created_at); ?></th>
-                         <th class="text-center "><?php echo e($history->id); ?></th>
-                         <th class="text-center ">-</th>
-                         <th class="text-center "><a href="<?php echo e(route('management.charts.client',[
-                             $history->id,$chart->id])); ?>"><?php echo e($history->name); ?></a> </th>
-                         <th class="text-center "><?php echo e(money_format("%i",$history->total_debit )); ?></th>
-                         <th class="text-center "><?php echo e(money_format("%i",$history->total_credit)); ?></th>
-                         <th class="text-center "><?php echo e(money_format("%i",$history->total_debit - $history->total_credit)); ?></th>
+                    <tr>
+                        <th class="text-center "><?php echo e($client->created_at); ?></th>
+                        <th class="text-center "><?php echo e($client->id); ?></th>
 
-                     </tr>
+                        <th class="text-center "><a href="<?php echo e(route('management.charts.client',[
+                             $client->id,$chart->id])); ?>"><?php echo e($client->name); ?></a></th>
+                        <th class="text-center ">-</th>
+                        <th class="text-center "><?php echo e(money_format("%i",$client->histories['total_debit'])); ?></th>
+                        <th class="text-center "><?php echo e(money_format("%i",$client->histories['total_credit'])); ?></th>
+                        <th class="text-center "><?php echo e(money_format("%i",$client->histories['total_debit'] -
+                         $client->histories['total_credit'])); ?></th>
+
+                    </tr>
 
 
 

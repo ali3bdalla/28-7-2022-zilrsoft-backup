@@ -63,7 +63,7 @@
 						$data['organization_id'] = auth()->user()->id;
 						$data['expense_id'] = $expense['id'];
 						$data['amount'] = $expense['amount'];
-						$data['is_paid'] =  $expense['is_apended_to_net'] == true ? true : false;
+						$data['is_paid'] = $expense['is_apended_to_net'] == true ? true : false;
 						$this->expenses()->create($data);
 					}
 					
@@ -191,4 +191,17 @@
 			return $result;
 		}
 		
+		public function create_invoice_entry($sub_invoice,$description='paid_amount')
+		{
+			return $this->entries()->create([
+				'organization_id' => $this->organization_id,
+				'creator_id' => $this->creator_id,
+				'amount' => $this->net,
+				'user_id' => $this->user_id,
+				'chart_id' => $this->chart_id,
+				'description' => $description
+			]);
+			
+			
+		}
 	}

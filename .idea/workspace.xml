@@ -2,24 +2,37 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/accounting/clients_histories.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/5Uwp0dhEkWWrIMzikR3G5s34MBA1QZ3FNbAtZ2hG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/jqBv3lZhvUmTkGxn0tEp09g273ojKvSopWoIPIqi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/439e806beec46559d57adfba270205f334ca564e.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-11-13.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Attributes/EntryAttributes.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DatabaseHelpers/EntryHelper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DatabaseHelpers/UserHelper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Entry.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Relationships/EntryRelationships.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_14_142416_create_entries_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/accounting/client_history.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/FnqjuBsfw7aZUwQYqPRk2aom84yuRtAe7zmaf9zP" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/MlRT3V5t7PGFTSNk2lZw3OGncdN0xMiGAKHQDWrl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/6b23679ad0d82104fa9035860e4aaa1511dc3b47.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-11-14.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/CreatesApplication.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Feature/EntryTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/TestCase.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/InvoiceItemHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/InvoiceItemHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/ItemHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/ItemHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attributes/InvoiceAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/InvoiceAttributes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/InvoiceInterfaceHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/InvoiceInterfaceHelper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChartController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ControllersHelper/ChartControllerClientsHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ControllersHelper/ChartControllerClientsHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/CreateBeginningInventoryRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/CreateBeginningInventoryRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Processers/ItemProcesser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Processers/ItemProcesser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/items/accountingCostHistory.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/items/accountingCostHistory.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/single_item_histories.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/single_item_histories.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/management.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/management.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/WHPkHhPsne5Ry78CnpKaSlmZnu1HttdSXdQWM97E" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/WHPkHhPsne5Ry78CnpKaSlmZnu1HttdSXdQWM97E" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/82e0737ebd66c260f28ffee37b1bbd2f1d6e1b24.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/82e0737ebd66c260f28ffee37b1bbd2f1d6e1b24.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-11-12.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-11-12.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Relationships/InvoiceRelationship.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Relationships/InvoiceRelationship.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Relationships/UserRelationships.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Relationships/UserRelationships.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_07_134707_create_payments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_07_134707_create_payments_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_07_134833_create_invoice_payments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_07_134833_create_invoice_payments_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/clients_histories.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/clients_histories.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/5Uwp0dhEkWWrIMzikR3G5s34MBA1QZ3FNbAtZ2hG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/GxQdEALvTy8qcf6pHfkcpFVXqwIq7DBlXXN9EWSy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/439e806beec46559d57adfba270205f334ca564e.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/439e806beec46559d57adfba270205f334ca564e.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-11-13.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-11-13.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -372,7 +385,9 @@
       <workItem from="1573558269589" duration="7075000" />
       <workItem from="1573571887965" duration="1791000" />
       <workItem from="1573608760339" duration="1134000" />
-      <workItem from="1573651152070" duration="1509000" />
+      <workItem from="1573651152070" duration="7726000" />
+      <workItem from="1573720937390" duration="2000" />
+      <workItem from="1573727079553" duration="7542000" />
     </task>
     <servers />
   </component>
