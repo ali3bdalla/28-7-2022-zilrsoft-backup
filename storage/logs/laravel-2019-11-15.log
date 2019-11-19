@@ -1,0 +1,4 @@
+[2019-11-15 06:13:12] testing.ERROR: Cannot redeclare App\Http\Controllers\Auth\RegisterController::register() {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Cannot redeclare App\\Http\\Controllers\\Auth\\RegisterController::register() at /usr/local/var/www/app/Http/Controllers/Auth/RegisterController.php:195)
+[stacktrace]
+#0 {main}
+"} 
