@@ -15,6 +15,9 @@ class CreateManagerGatewaysTable extends Migration
     {
         Schema::create('manager_gateways', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('gateway_id');
+            $table->integer('manager_id');
+            $table->integer('organization_id');
             $table->timestamps();
         });
     }

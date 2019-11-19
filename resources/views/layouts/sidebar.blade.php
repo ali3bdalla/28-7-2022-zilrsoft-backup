@@ -154,10 +154,10 @@
 
 
 
-            <li class="header">{{ __('sidebar.accounting') }}</li>
+            <li class="header">{{ __('accounts') }}</li>
             <!-- starting of users header-->
             <sidebar-item-component
-                    url='{{route('management.charts.index')}}'
+                    url='{{route('management.accounts.index')}}'
                     title='{{ __('sidebar.chart_of_accounts') }}'
                     icon='fa fa-bars'
             >

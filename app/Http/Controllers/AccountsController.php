@@ -2,16 +2,18 @@
 	
 	namespace App\Http\Controllers;
 	
-	use App\Chart;
+	use App\Account;
 	use App\Http\Controllers\ControllersHelper\ChartControllerClientsHelper;
 	use App\Http\Controllers\ControllersHelper\ChartControllerGatewayHelper;
 	use App\Http\Controllers\ControllersHelper\ChartControllerStockHelper;
+	use App\Http\Requests\CreateAccountRequest;
+	use App\Http\Requests\UpdateAccountRequest;
 	use App\Item;
 	use App\User;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
 	
-	class ChartController extends Controller
+	class AccountsController extends Controller
 	{
 		
 		use ChartControllerGatewayHelper,ChartControllerStockHelper,ChartControllerClientsHelper;
@@ -24,12 +26,12 @@
 		public function index()
 		{
 			
-			$charts = Chart::mainOnly()->with(
+			$accounts = Account::where('parent_id',0)->with(
 				'children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children'
 			)->get();
 			
 			
-			return view('charts.index',compact('charts'));
+			return view('accounts.index',compact('accounts'));
 			//
 		}
 		
@@ -40,6 +42,13 @@
 		 */
 		public function create()
 		{
+			
+			
+			$accounts = Account::get();
+			
+			
+			$isClone = false;
+			return view('accounts.create',compact('accounts','isClone'));
 			//
 		}
 		
@@ -50,10 +59,24 @@
 		 *
 		 * @return Response
 		 */
-		public function store(Request $request)
+		public function store(CreateAccountRequest $request)
 		{
+			$account = Account::find($request->parent_id);
 			
-			//
+			$data = $request->only('parent_id','name','ar_name');
+			$data['organization_id'] = auth()->user()->organization_id;
+			$data['serial'] = auth()->user()->organization_id;
+			$data['slug'] = $account->slug;
+			
+			if($request->has('is_gateway') && $request->filled('is_gateway'))
+				$data['is_gateway'] = true;
+			else
+				$data['is_gateway'] = false;
+			
+			
+			
+			auth()->user()->accounts()->create($data);
+			return redirect(route('management.accounts.index'));
 		}
 		
 		/**
@@ -63,21 +86,21 @@
 		 *
 		 * @return Response
 		 */
-		public function show(Chart $chart)
+		public function show(Account $account)
 		{
 			$view = [];
 			
 			
-			if ($chart->slug == 'gateway')
-				$view = $this->chart_gateway_view($chart);
+			if ($account->slug == 'gateway')
+				$view = $this->chart_gateway_view($account);
 			
 			
-			if ($chart->slug == 'stock')
-				$view = $this->chart_stock_view($chart);
+			if ($account->slug == 'stock')
+				$view = $this->chart_stock_view($account);
 			
 			
-			if ($chart->slug == 'clients')
-				$view = $this->chart_clients_view($chart);
+			if ($account->slug == 'clients')
+				$view = $this->chart_clients_view($account);
 			
 			
 			return $view;
@@ -91,8 +114,15 @@
 		 *
 		 * @return Response
 		 */
-		public function edit(Chart $chart)
+		public function edit(Account $account)
 		{
+			
+			$ids = $account->children()->pluck('id')->toArray();
+			$ids[] = $account->id;
+			
+//			return $ids;
+			$accounts = Account::WhereNotIn('id',$ids)->get();
+			return view('accounts.edit',compact('account','accounts'));
 			//
 		}
 		
@@ -104,9 +134,18 @@
 		 *
 		 * @return Response
 		 */
-		public function update(Request $request,Chart $chart)
+		public function update(UpdateAccountRequest $request,Account $account)
 		{
-			//
+			
+			$data = $request->only('parent_id','name','ar_name');
+			if($request->has('is_gateway') && $request->filled('is_gateway'))
+				$data['is_gateway'] = true;
+			else
+				$data['is_gateway'] = false;
+			
+			$account->update($data);
+			
+			return redirect(route('management.accounts.index'));
 		}
 		
 		/**
@@ -116,8 +155,11 @@
 		 *
 		 * @return Response
 		 */
-		public function destroy(Chart $chart)
+		public function delete(Account $account)
 		{
+			
+			$account->delete();
+			return redirect(route('management.accounts.index'));
 			//
 		}
 		
@@ -127,7 +169,7 @@
 			
 			$activities = $this->get_single_item_history_depend_on_current_chart($item,$chart);
 			
-			return view('accounting.single_item_histories',compact('item','activities','chart'));
+			return view('accounts.single_item_histories',compact('item','activities','chart'));
 			//
 		}
 		
@@ -138,7 +180,7 @@
 			return $activities;
 			
 			$activities = $activities['data'];
-			return view('accounting.client_history',compact('client','activities','chart'));
+			return view('accounts.client_history',compact('client','activities','chart'));
 			
 		}
 	}

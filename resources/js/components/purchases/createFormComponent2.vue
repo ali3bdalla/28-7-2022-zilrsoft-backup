@@ -687,7 +687,7 @@
 
                     item.widget = widget;
 
-                    this.items.splice(this.items.indexOf(item), 1,item);
+                    this.items.splice(this.items.indexOf(item), 1, item);
 
                 }
             },
@@ -847,8 +847,8 @@
 
             updateVariationForOneItem(item) {
                 var vig = parseFloat(item.purchase_price) - parseFloat(item.temp_p_price);
-                console.log(item.temp_p_price);
-                console.log(vig);
+                // console.log(item.temp_p_price);
+                // console.log(vig);
 
 
                 return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(vig);
@@ -873,7 +873,7 @@
                 this.subtotal = helpers.getColumnSumationFromArrayOfObjects(this.items, 'subtotal');
                 this.tax = helpers.getColumnSumationFromArrayOfObjects(this.items, 'tax');
                 this.net = helpers.getColumnSumationFromArrayOfObjects(this.items, 'net');
-            //    this.remaining = this.net;
+                //    this.remaining = this.net;
             },
 
 
@@ -976,7 +976,7 @@
                     vendor_id: this.vendor,
                     receiver_id: this.receiver,
                     items: this.items,
-                    expenses:this.updated_expenses,
+                    expenses: this.updated_expenses,
                     total: this.total,
                     subtotal: this.subtotal,
                     net: this.net,
@@ -994,18 +994,20 @@
                     vendor_inc_number: this.vendor_inc_number,
                 };
                 var vm = this;
+
+                console.log(this.methods);
                 axios.post('/management/purchases', data_to)
                     .then(function (response) {
-                       vm.showFinishTableMessage(event, response.data.invoice_id);
-
-
-
+                        vm.showFinishTableMessage(event, response.data.invoice_id);
                         console.log(response.data)
                     })
                     .catch(function (error) {
+                        console.log(error);
+                        console.log(error.response);
+                        console.log(error.response.data);
                         console.log(error.response.data.errors);
                         vm.errors = error.response.data.errors;
-                        vm.showerror();
+                        // vm.showerror();
                         // console.log(vm.errors);
                     });
 
@@ -1061,10 +1063,9 @@
                 }
 
 
-
                 setTimeout(function () {
                     location.reload();
-                },3000);
+                }, 3000);
                 // this.$ref.printFrameRef.el.print();
             },
             billingsUpdate(e) {
@@ -1082,9 +1083,17 @@
                     this.status = 'paid';
                 }
 
+                this.methods = [];
+                for (var i = 0; i < e.methods.length; i++) {
+                    var method = e.methods[i];
 
-                this.methods = e.methods;
-                // alert('hellow')
+                    if (parseFloat(method.amount) > 0) {
+                        this.methods.push(method);
+                    }
+                }
+
+
+                // console.log(this.methods)
             }
         },
 

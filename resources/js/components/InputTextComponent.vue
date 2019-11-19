@@ -1,7 +1,7 @@
 <template>
 	<div class="field">
 		<div class="control">
-			<input :value="value" type='text' class="input" :placeholder="placeholder" @focus="applyAttrubite" :class="{'rtl':mode=='ar','ltr':mode=='en','is-danger':error}" :name="name" @keyup="startTyping" :readonly="isReadonly">
+			<input :value="value" type='text' class="input" :placeholder="placeholder" :class="{'rtl':mode=='ar','ltr':mode=='en','is-danger':error}" :name="name"  :readonly="isReadonly">
 		</div>
 		<p v-show="error" class="help is-danger is-center" v-text="errorMessage"></p>
 	</div>
@@ -12,7 +12,7 @@
 		props:['name','mode','placeholder',"hasError",'errorMessage','value','isReadonly'],
 		created:function(){
 			this.initMode();
-			this.setAttrubites();	
+			// this.setAttrubites();
 		},
 		data:function(){
 			return {
@@ -23,17 +23,17 @@
 			initMode(){
 			},
 			setAttrubites(){
-				this.error = this.hasError;
+				//this.error = this.hasError;
 			},
 			applyAttrubite(){
-				if(this.mode=='en'){
-
-				}else{
-
-				}
+				// if(this.mode=='en'){
+				//
+				// }else{
+				//
+				// }
 			},
 			startTyping(){
-				this.error = false;
+			//	this.error = false;
 			}
 		}
 

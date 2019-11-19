@@ -154,10 +154,10 @@
 
 
 
-            <li class="header"><?php echo e(__('sidebar.accounting')); ?></li>
+            <li class="header"><?php echo e(__('accounts')); ?></li>
             <!-- starting of users header-->
             <sidebar-item-component
-                    url='<?php echo e(route('management.charts.index')); ?>'
+                    url='<?php echo e(route('management.accounts.index')); ?>'
                     title='<?php echo e(__('sidebar.chart_of_accounts')); ?>'
                     icon='fa fa-bars'
             >

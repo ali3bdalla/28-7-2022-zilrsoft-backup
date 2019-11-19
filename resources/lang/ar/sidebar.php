@@ -24,7 +24,7 @@
 		'settings' => 'الاعدادات',
 		'serial_history' => 'متابعة السيريال',
 		'barcode' => 'الباركود ',
-		'accounting' => 'محاسبة',
+		'accounts' => 'محاسبة',
 		'chart_of_accounts' => 'دليل الحسابات',
 		'journal_entry' => ' قيود اليومية',
 		'financial_statements' => '  القوائم المالية',

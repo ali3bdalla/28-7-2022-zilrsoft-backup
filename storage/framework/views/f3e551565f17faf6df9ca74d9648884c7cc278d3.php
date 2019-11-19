@@ -5,9 +5,9 @@
 <?php $__env->stopSection(); ?>
 
 
-<?php $__env->startSection('title', __('sidebar.categories')); ?>
+<?php $__env->startSection('title', __('sidebar.chart_of_accounts')); ?>
 <?php $__env->startSection('desctipion',__('sidebar.categories')); ?>
-<?php $__env->startSection('route',route('management.categories.index')); ?>
+<?php $__env->startSection('route',route('management.accounts.index')); ?>
 
 
 <?php $__env->startSection('content'); ?>
@@ -20,8 +20,7 @@
 
         </div>
         <div class="panel-body">
-            <accounting-chart-accounts-list-component :categories='<?php echo json_encode($accounts, 15, 512) ?>' base-url="<?php echo e(route
-            ('management.accounts.index')); ?>"></accounting-chart-accounts-list-component>
+            <chart-of-accounts-component :accounts='<?php echo json_encode($accounts, 15, 512) ?>' base-url="<?php echo e(route('management.accounts.index')); ?>"></chart-of-accounts-component>
 
         </div>
     </div>

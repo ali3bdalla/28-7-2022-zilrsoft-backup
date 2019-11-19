@@ -8,26 +8,11 @@
                                         <span :id="method.id" class="input-group-addon" style="min-width:  130px
                                         !important;  font-weight: bolder;"
                                               v-if="method.is_default"
-                                              v-text="method.name"></span>
+                                              v-text="method.locale_name"></span>
                         <span :id="method.id" class="input-group-addon" style="min-width:  130px
-                                        !important;  font-weight: bolder;" v-else v-text="method.name"
+                                        !important;  font-weight: bolder;" v-else v-text="method.locale_name"
                         ></span>
 
-                        <input
-
-                                :aria-describedby="method.id"
-                                :disabled="total_amount<=0"
-                                :readonly="isCloseSTCPay"
-                                :ref="'billing_filed_' + method.id"
-                                @dblclick="openSTCPay"
-                                @focus="$event.target.select()"
-                                @keyup="handelPaidAmount(method,index)"
-                                @keyup.enter="pushSaveInvoice('receipt')"
-                                class="form-control onlyhidden"
-                                style="font-weight:bolder"
-                                type="text"
-                                v-if="index==2"
-                                v-model="method.amount"/>
 
                         <input
                                 :aria-describedby="method.id"
@@ -39,7 +24,6 @@
                                 class="form-control"
                                 style="font-weight:bolder"
                                 type="text"
-                                v-else
                                 v-model="method.amount"/>
                     </div>
                 </div>
@@ -345,8 +329,7 @@
                     var method = this.methods[i];
 
 
-
-                   if (i != 0) {
+                    if (i != 0) {
 
                         // console.log(parseFloat(method.amount));
 
@@ -359,7 +342,7 @@
                         }
 
 
-                   }
+                    }
 
 
                     if (parseFloat(method.amount) < parseFloat(0))
@@ -396,6 +379,11 @@
                 this.error_paid = any_error;
 
 
+                this.$emit("billingsUpdate", {
+                    methods: this.methods,
+                    remaining: this.total_remining,
+                });
+
 
                 return !any_error;
 
@@ -416,7 +404,7 @@
 
 
                 // console.log(this.total_remining);
-                    this.validatePayment();
+                this.validatePayment();
 
             }
         },
@@ -437,6 +425,9 @@
                 }
 
                 this.calcUpaid();
+
+//
+
             },
 
 
@@ -467,26 +458,29 @@
 
             netAmount: function (value) {
 
-                this.methods[0].amount = 0;
-                this.methods[1].amount = 0;
-                this.methods[2].amount = 0;
-                this.total_amount = value;
-                if (this.is_credit_mode) {
-                    if (this.total_remining < 0) {
-                        this.error_in_remaing = true;
-                        this.methods[0].amount = this.total_paid;
-                    }
-                }
-                var method = this.methods[0];
-                method.amount = value;
-                this.handelPaidAmount(method, 0);
+                //
+                // if (this.is_credit_mode) {
+                //
+                //     }
+                this.methods[0].amount = value;
 
-                var real_net = parseFloat(helpers.roundTheFloatValueTo2DigitOnlyAfterComma(value));
-                if (real_net <= this.current_items_net) {
-                    this.error_in_remaing = false;
-                } else {
-                    this.error_in_remaing = true;
-                }
+                this.total_amount = value;
+                // if (this.is_credit_mode) {
+                //     if (this.total_remining < 0) {
+                //         this.error_in_remaing = true;
+                //         this.methods[0].amount = this.total_paid;
+                //     }
+                // }
+                // var method = this.methods[0];
+                // method.amount = value;
+                // this.handelPaidAmount(method, 0);
+                //
+                // var real_net = parseFloat(helpers.roundTheFloatValueTo2DigitOnlyAfterComma(value));
+                // if (real_net <= this.current_items_net) {
+                //     this.error_in_remaing = false;
+                // } else {
+                //     this.error_in_remaing = true;
+                // }
 
 
                 this.calcUpaid();

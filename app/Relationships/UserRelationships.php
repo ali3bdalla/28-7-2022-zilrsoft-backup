@@ -9,6 +9,7 @@
 	use App\Manager;
 	use App\Organization;
 	use App\SaleInvoice;
+	use App\Transaction;
 	use App\UserDetails;
 	use Illuminate\Database\Eloquent\Builder;
 	
@@ -46,22 +47,25 @@
 			return $this->hasOne(Manager::class,'user_id');
 		}
 
-
-//
-//    public function billings()
-//    {
-//        return $this->morphMany('App\Payment', 'billingable');
-//    }
-		
 		
 		public function accounts()
 		{
 			return $this->morphMany(GatewayAccounts::class,'accountable');
 		}
-//
-//	public function banks()
-//	{
-//		return $this->hasManyThrough(CountryBank::class,GatewayAccounts::class,'bank_id','')
-//    }
-	
+		
+		
+		
+		public function credit_transaction()
+		{
+			return $this->morphMany(Transaction::class,'creditable');
+		}
+		
+		
+		
+		public function debit_transaction()
+		{
+			return $this->morphMany(Transaction::class,'debitable');
+		}
+		
+		
 	}

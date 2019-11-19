@@ -43,164 +43,167 @@
                 &nbsp;
 
             </span>
-            <ul class="list-unstyled">
-                <li v-for="(scategory, index1) in category.children">
-                    <span class="subcategory_one">
-                        {{ scategory.locale_name }}
-                         &nbsp;
-                &nbsp;
-                        <button :title="translator.delete" class=" has-text-danger "
-                                v-on:click="deleteCategory(scategory,index1)">
-                            <i class="fa fa-trash-alt"></i>
-                        </button>
-     &nbsp;
-                &nbsp;
-                        <a :href="baseLink + '/create/' + scategory.id" :title="translator.create_subcategory"
-                           class="  has-text-info ">
-                            <i class="fa fa-plus-circle"></i>
-                        </a>
-                         &nbsp;
-                &nbsp;
-                        <a :href="baseLink + '/clone/' + scategory.id" :title="translator.copy"
-                           class=" has-text-dark ">
-                            <i class="fa fa-clone"></i>
-                        </a>
- &nbsp;
-                &nbsp;
-                        <a :href="baseLink + '/' + scategory.id + '/edit'" :title="translator.edit"
-                           class=" has-text-primary ">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                         &nbsp;
-                &nbsp;
-                        <a :href="baseLink + '/' + scategory.id + '/filters'" :title="translator.filters"
-                           class=" has-text-link ">
-                            <i class="fa fa-asterisk"></i>
-                        </a>
-                         &nbsp;
-                &nbsp;
-                    </span>
+            <categories-list-component :categories='category.children'
+                                       :baseUrl="baseUrl"></categories-list-component>
 
-                    <ul class="list-unstyled">
-                        <li v-for="(s2category, index2) in scategory.children">
-                            <span class="subcategory_two">
-                                {{ s2category.locale_name }}
-                                 &nbsp;
-                &nbsp;
-                                <button class=" has-text-danger " v-on:click="deleteCategory(s2category,index1)">
-                                    <i class="fa fa-trash-alt"></i>
-                                </button>
- &nbsp;
-                &nbsp;
-                                <a :href="baseLink + '/create/' + s2category.id" class="  has-text-info ">
-                                    <i class="fa fa-plus-circle"></i>
-                                </a>
-                                 &nbsp;
-                &nbsp;
-                                <a :href="baseLink + '/clone/' + s2category.id" class=" has-text-dark ">
-                                    <i class="fa fa-clone"></i>
-                                </a>
+            <!--            <ul class="list-unstyled">-->
+            <!--                <li v-for="(scategory, index1) in category.children">-->
+            <!--                    <span class="subcategory_one">-->
+            <!--                        {{ scategory.locale_name }}-->
+            <!--                         &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                        <button :title="translator.delete" class=" has-text-danger "-->
+            <!--                                v-on:click="deleteCategory(scategory,index1)">-->
+            <!--                            <i class="fa fa-trash-alt"></i>-->
+            <!--                        </button>-->
+            <!--     &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                        <a :href="baseLink + '/create/' + scategory.id" :title="translator.create_subcategory"-->
+            <!--                           class="  has-text-info ">-->
+            <!--                            <i class="fa fa-plus-circle"></i>-->
+            <!--                        </a>-->
+            <!--                         &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                        <a :href="baseLink + '/clone/' + scategory.id" :title="translator.copy"-->
+            <!--                           class=" has-text-dark ">-->
+            <!--                            <i class="fa fa-clone"></i>-->
+            <!--                        </a>-->
+            <!-- &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                        <a :href="baseLink + '/' + scategory.id + '/edit'" :title="translator.edit"-->
+            <!--                           class=" has-text-primary ">-->
+            <!--                            <i class="fa fa-edit"></i>-->
+            <!--                        </a>-->
+            <!--                         &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                        <a :href="baseLink + '/' + scategory.id + '/filters'" :title="translator.filters"-->
+            <!--                           class=" has-text-link ">-->
+            <!--                            <i class="fa fa-asterisk"></i>-->
+            <!--                        </a>-->
+            <!--                         &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                    </span>-->
 
-                                 &nbsp;
-                &nbsp;
-                                <a :href="baseLink + '/' + s2category.id + '/edit'" class=" has-text-primary ">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                 &nbsp;
-                &nbsp;
-                                <a :href="baseLink + '/' + s2category.id + '/filters'" class=" has-text-link ">
-                                    <i class="fa fa-asterisk"></i>
-                                </a>
-                                 &nbsp;
-                &nbsp;
-                            </span>
+            <!--                    <ul class="list-unstyled">-->
+            <!--                        <li v-for="(s2category, index2) in scategory.children">-->
+            <!--                            <span class="subcategory_two">-->
+            <!--                                {{ s2category.locale_name }}-->
+            <!--                                 &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                <button class=" has-text-danger " v-on:click="deleteCategory(s2category,index1)">-->
+            <!--                                    <i class="fa fa-trash-alt"></i>-->
+            <!--                                </button>-->
+            <!-- &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                <a :href="baseLink + '/create/' + s2category.id" class="  has-text-info ">-->
+            <!--                                    <i class="fa fa-plus-circle"></i>-->
+            <!--                                </a>-->
+            <!--                                 &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                <a :href="baseLink + '/clone/' + s2category.id" class=" has-text-dark ">-->
+            <!--                                    <i class="fa fa-clone"></i>-->
+            <!--                                </a>-->
 
-                            <ul class="list-unstyled">
-                                <li v-for="(s3category, index3) in s2category.children">
-                                    <span class="subcategory_three">
-                                        {{ s3category.locale_name }}
+            <!--                                 &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                <a :href="baseLink + '/' + s2category.id + '/edit'" class=" has-text-primary ">-->
+            <!--                                    <i class="fa fa-edit"></i>-->
+            <!--                                </a>-->
+            <!--                                 &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                <a :href="baseLink + '/' + s2category.id + '/filters'" class=" has-text-link ">-->
+            <!--                                    <i class="fa fa-asterisk"></i>-->
+            <!--                                </a>-->
+            <!--                                 &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                            </span>-->
 
-                                         &nbsp;
-                &nbsp;
-                                        <button class=" has-text-danger "
-                                                v-on:click="deleteCategory(s3category,index1)">
-                                            <i class="fa fa-trash-alt"></i>
-                                        </button>
-                                         &nbsp;
-                &nbsp;
+            <!--                            <ul class="list-unstyled">-->
+            <!--                                <li v-for="(s3category, index3) in s2category.children">-->
+            <!--                                    <span class="subcategory_three">-->
+            <!--                                        {{ s3category.locale_name }}-->
 
-                                        <a :href="baseLink + '/create/' + s3category.id" class="  has-text-info ">
-                                            <i class="fa fa-plus-circle"></i>
-                                        </a>
-                                         &nbsp;
-                &nbsp;
-                                        <a :href="baseLink + '/clone/' + s3category.id" class=" has-text-dark ">
-                                            <i class="fa fa-clone"></i>
-                                        </a>
-                                         &nbsp;
-                &nbsp;
+            <!--                                         &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                        <button class=" has-text-danger "-->
+            <!--                                                v-on:click="deleteCategory(s3category,index1)">-->
+            <!--                                            <i class="fa fa-trash-alt"></i>-->
+            <!--                                        </button>-->
+            <!--                                         &nbsp;-->
+            <!--                &nbsp;-->
 
-                                        <a :href="baseLink + '/' + s3category.id + '/edit'" class=" has-text-primary ">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                         &nbsp;
-                &nbsp;
-                                        <a :href="baseLink + '/' + s3category.id + '/filters'" class=" has-text-link ">
-                                            <i class="fa fa-asterisk"></i>
-                                        </a>
-                                         &nbsp;
-                &nbsp;
-                                    </span>
+            <!--                                        <a :href="baseLink + '/create/' + s3category.id" class="  has-text-info ">-->
+            <!--                                            <i class="fa fa-plus-circle"></i>-->
+            <!--                                        </a>-->
+            <!--                                         &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                        <a :href="baseLink + '/clone/' + s3category.id" class=" has-text-dark ">-->
+            <!--                                            <i class="fa fa-clone"></i>-->
+            <!--                                        </a>-->
+            <!--                                         &nbsp;-->
+            <!--                &nbsp;-->
 
-                                    <ul class="list-unstyled">
-                                        <li v-for="(s4category, index4)  in s3category.children">
-                                            <span class="subcategory_four">
-                                                {{ s4category.locale_name }}
-                                                 &nbsp;
-                &nbsp;
-                                                <button class=" has-text-danger "
-                                                        v-on:click="deleteCategory(s4category,index1)">
-                                                    <i class="fa fa-trash-alt"></i>
-                                                </button>
+            <!--                                        <a :href="baseLink + '/' + s3category.id + '/edit'" class=" has-text-primary ">-->
+            <!--                                            <i class="fa fa-edit"></i>-->
+            <!--                                        </a>-->
+            <!--                                         &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                        <a :href="baseLink + '/' + s3category.id + '/filters'" class=" has-text-link ">-->
+            <!--                                            <i class="fa fa-asterisk"></i>-->
+            <!--                                        </a>-->
+            <!--                                         &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                    </span>-->
 
-                                                 &nbsp;
-                &nbsp;
-                                                <a :href="baseLink + '/create/' + s4category.id"
-                                                   class="  has-text-info ">
-                                                    <i class="fa fa-plus-circle"></i>
-                                                </a>
-                                                 &nbsp;
-                &nbsp;
-                                                <a :href="baseLink + '/clone/' + s4category.id" class=" has-text-dark ">
-                                                    <i class="fa fa-clone"></i>
-                                                </a>
+            <!--                                    <ul class="list-unstyled">-->
+            <!--                                        <li v-for="(s4category, index4)  in s3category.children">-->
+            <!--                                            <span class="subcategory_four">-->
+            <!--                                                {{ s4category.locale_name }}-->
+            <!--                                                 &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                                <button class=" has-text-danger "-->
+            <!--                                                        v-on:click="deleteCategory(s4category,index1)">-->
+            <!--                                                    <i class="fa fa-trash-alt"></i>-->
+            <!--                                                </button>-->
 
-                                                 &nbsp;
-                &nbsp;
-                                                <a :href="baseLink + '/' + s4category.id + '/edit'"
-                                                   class=" has-text-primary ">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                 &nbsp;
-                &nbsp;
-                                                <a :href="baseLink + '/' + s4category.id + '/filters'"
-                                                   class=" has-text-link ">
-                                                    <i class="fa fa-asterisk"></i>
-                                                </a>
-                                                 &nbsp;
-                &nbsp;
-                                            </span>
-                                        </li>
+            <!--                                                 &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                                <a :href="baseLink + '/create/' + s4category.id"-->
+            <!--                                                   class="  has-text-info ">-->
+            <!--                                                    <i class="fa fa-plus-circle"></i>-->
+            <!--                                                </a>-->
+            <!--                                                 &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                                <a :href="baseLink + '/clone/' + s4category.id" class=" has-text-dark ">-->
+            <!--                                                    <i class="fa fa-clone"></i>-->
+            <!--                                                </a>-->
 
-                                    </ul>
+            <!--                                                 &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                                <a :href="baseLink + '/' + s4category.id + '/edit'"-->
+            <!--                                                   class=" has-text-primary ">-->
+            <!--                                                    <i class="fa fa-edit"></i>-->
+            <!--                                                </a>-->
+            <!--                                                 &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                                <a :href="baseLink + '/' + s4category.id + '/filters'"-->
+            <!--                                                   class=" has-text-link ">-->
+            <!--                                                    <i class="fa fa-asterisk"></i>-->
+            <!--                                                </a>-->
+            <!--                                                 &nbsp;-->
+            <!--                &nbsp;-->
+            <!--                                            </span>-->
+            <!--                                        </li>-->
 
-                                </li>
+            <!--                                    </ul>-->
 
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <!--                                </li>-->
+
+            <!--                            </ul>-->
+            <!--                        </li>-->
+            <!--                    </ul>-->
+            <!--                </li>-->
+            <!--            </ul>-->
         </li>
 
     </ul>
@@ -330,12 +333,7 @@
 
 
 <style scoped>
-    li {
-        margin-top: 15px;
-    }
 
-    li, :before, :after {
-    }
 
     span {
         padding: 6px;
@@ -346,11 +344,12 @@
         font-size: 20px;
         margin-bottom: 30px;
         background: #ecf0f1;
-        cursor: pointer
+        cursor: pointer;
+        /*margin-bottom:*/
     }
 
     span:hover {
-        background: #bdc3c7;
+        /*background: #bdc3c7;*/
         box-shadow: 0px 3px 7px black;
     }
 
@@ -359,42 +358,25 @@
         margin-left: 60px;
     }
 
-    ul:first-child {
-        margin-left: 10px;
-    }
 
-    .subcategory_one {
-    }
 
-    .subcategory_two {
-    }
-
-    .subcategory_three {
-    }
-
-    .subcategory_four {
-    }
 
     a, button {
         color: black;
         font-size: 15px
     }
 
-    button {
-        margin-left: 10PX
-    }
 
 
     span {
 
-        border-raduis: 5px;
+        /*border-raduis: 5px;*/
         box-shadow: 0px 1px 1px black
     }
 
     ul ul {
         margin-top: 2em;
-        margin-right: 41px;
-
+        margin-right: 20px;
     }
 
 </style>

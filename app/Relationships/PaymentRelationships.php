@@ -3,6 +3,7 @@
 	namespace App\Relationships;
 	
 	
+	use App\Account;
 	use App\CountryBank;
 	use App\Gateway;
 	use App\GatewayAccounts;
@@ -61,11 +62,11 @@
 			return $this->belongsTo(GatewayAccounts::class,'organization_account_id');
 		}
 		
-//		public function organization_method()
-//		{
-//			return $this->belongsTo(Gateway::class,'organization_method_id');
-//		}
-//
+		public function account()
+		{
+			return $this->belongsTo(Account::class,'chart_id');
+		}
+
 		public function user_account()
 		{
 			return $this->belongsTo(GatewayAccounts::class,'user_account_id');

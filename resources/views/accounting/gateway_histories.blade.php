@@ -74,7 +74,7 @@
                              <th class="text-center ">{{$history['created_at']}}</th>
                              <th class="text-center ">{{$history['id']}}</th>
                              <th class="text-center ">{{$history['user']['name']}}</th>
-                             <th class="text-center "><a href="{{route('management.charts.show',$history->gateway->chart->id) }}">{{ $history->gateway->chart->name }}</a> </th>
+                             <th class="text-center "><a href="{{route('accounts',$history->gateway->chart->id) }}">{{ $history->gateway->chart->name }}</a> </th>
                              <th class="text-center ">{{ $history->gateway_debit_value }}</th>
                              <th class="text-center ">{{ $history->gateway_credit_value }}</th>
                              <th class="text-center ">{{ $total_amount  }}</th>

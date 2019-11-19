@@ -15,6 +15,7 @@
         <div class="row">
             <div class="col-md-12">
             <edit-purchase-form-component
+                :gateways='<?php echo json_encode($gateways, 15, 512) ?>'
                 :user='<?php echo json_encode($purchase->vendor, 15, 512) ?>'
                 :creator='<?php echo json_encode($invoice->creator, 15, 512) ?>'
                 :pitems='<?php echo json_encode($items, 15, 512) ?>'

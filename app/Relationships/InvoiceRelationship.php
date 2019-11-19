@@ -3,7 +3,6 @@
 	
 	namespace App\Relationships;
 	
-	
 	use App\Branch;
 	use App\Chart;
 	use App\Deprtmanet;
@@ -13,12 +12,21 @@
 	use App\InvoicePayments;
 	use App\Manager;
 	use App\Organization;
+	use App\Payment;
 	use App\PurchaseInvoice;
 	use App\SaleInvoice;
 	use App\SerialHistory;
+	use App\Transaction;
+	use App\User;
 	
 	trait InvoiceRelationship
 	{
+		
+		public function user()
+		{
+			return User::find($this->user_id);
+			
+		}
 		
 		public function chart()
 		{
@@ -69,22 +77,17 @@
 		{
 			return $this->belongsTo(Invoice::class,'parent_invoice_id');
 		}
-
-
-//    public function billings()
-//    {
-//        return $this->morphMany('App\Payment', 'billingable');
-//    }
 		
+		public function transactions()
+		{
+			return $this->hasMany(Transaction::class,'invoice_id');
+		}
 		
 		public function payments()
 		{
-			return $this->hasMany(InvoicePayments::class,'invoice_id');
+			return $this->morphMany(Payment::class,'paymentable');
 		}
 		
-		public function entries()
-		{
-			return $this->morphMany(Entry::class,'parent');
-		}
+		
 		
 	}

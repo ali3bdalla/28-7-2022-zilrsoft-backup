@@ -154,7 +154,7 @@
 
 
 
-            <li class="header"><?php echo e(__('sidebar.accounting')); ?></li>
+            <li class="header"><?php echo e(__('sidebar.accounts')); ?></li>
             <!-- starting of users header-->
             <sidebar-item-component
                     url='<?php echo e(route('management.charts.index')); ?>'

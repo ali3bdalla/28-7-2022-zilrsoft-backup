@@ -21,11 +21,11 @@
         </div>
         <div class="panel-body">
             <accounting-chart-accounts-list-component :categories='<?php echo json_encode($chart_acccounts, 15, 512) ?>' base-url="<?php echo e(route
-            ('management.accounting.chart_accounts.index')); ?>"></accounting-chart-accounts-list-component>
+            ('management.accounts.chart_accounts.index')); ?>"></accounting-chart-accounts-list-component>
 
         </div>
     </div>
 
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.master2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /usr/local/var/www/resources/views/accounting/chartaccounts//index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.master2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /usr/local/var/www/resources/views/accounts/chartaccounts//index.blade.php ENDPATH**/ ?>

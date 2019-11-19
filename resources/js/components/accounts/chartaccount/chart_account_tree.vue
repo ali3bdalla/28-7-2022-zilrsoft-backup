@@ -46,7 +46,7 @@
                 location.href = '/management/accounts/' + account.id;
                 // if(account.accountable_type=="App\\Gateway")
                 // {
-                //    location.href = '/management/accounting/gateways/' + account.accountable_id + '/' + account.id;
+                //    location.href = '/management/accounts/gateways/' + account.accountable_id + '/' + account.id;
                 // }
 
             },

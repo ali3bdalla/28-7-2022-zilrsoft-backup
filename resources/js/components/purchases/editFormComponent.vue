@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="column pull-right text-left">
-                    <button @click="saveInvoiceButtonClicked"  class="button is-primary "><i
+                    <button @click="saveInvoiceButtonClicked" class="button is-primary "><i
                             class="fa fa-save"></i>&nbsp; {{ translator.save }}
                     </button>
                 </div>
@@ -39,7 +39,8 @@
                         <!-- <label>date</label> -->
                         <div class="input-group">
                             <span class="input-group-addon" id="time-field">{{ translator.date}}</span>
-                            <input :value="invoice.created_at" aria-describedby="time-field" class="form-control" name=""
+                            <input :value="invoice.created_at" aria-describedby="time-field" class="form-control"
+                                   name=""
                                    type="text">
 
                         </div>
@@ -89,7 +90,7 @@
                         <th class="has-text-white">{{ translator.discount}}</th>
                         <th class="has-text-white">{{ translator.subtotal}}</th>
                         <th class="has-text-white">{{ translator.tax}}</th>
-<!--                        <th class="has-text-white">Tax.</th>-->
+                        <!--                        <th class="has-text-white">Tax.</th>-->
                         <th class="has-text-white">{{ translator.net}}</th>
                     </tr>
                     </thead>
@@ -110,7 +111,7 @@
 
                         </th>
                         <th class="text-align:left !important" v-text="item.item.barcode"></th>
-                        <th  class="text-align: right !important;"  v-text="item.item.locale_name"></th>
+                        <th class="text-align: right !important;" v-text="item.item.locale_name"></th>
                         <th width="6%">
                             <input class="input" disabled readonly type="text"
                                    v-model="item.qty">
@@ -123,9 +124,10 @@
                         </th>
 
                         <th width="10px">
-                            <input :class="{'is-danger':item.error=='error'}" :max="item.a_qty" @keyup="onReturnQtyChanged(item)"
+                            <input :class="{'is-danger':item.error=='error'}" :disabled="item.a_qty==0"
+                                   :max="item.a_qty"
+                                   @keyup="onReturnQtyChanged(item)"
                                    class="input"
-                                   :disabled="item.a_qty==0"
                                    min='0' style="width:70px" type="number" v-if="!item.item.is_need_serial"
                                    v-model="item.returned_qty">
                             <p v-else>{{item.returned_qty}}</p>
@@ -147,10 +149,10 @@
                             <input class="input" disabled placeholder="subtotal" readonly=""
                                    type="text" v-model="item.subtotal">
                         </th>
-<!--                        <th class="has-text-white">-->
-<!--                            <input class="input" disabled placeholder="vat sale" readonly="" type="text"-->
-<!--                                   v-model="item.item.vtp + '%'">-->
-<!--                        </th>-->
+                        <!--                        <th class="has-text-white">-->
+                        <!--                            <input class="input" disabled placeholder="vat sale" readonly="" type="text"-->
+                        <!--                                   v-model="item.item.vtp + '%'">-->
+                        <!--                        </th>-->
                         <th class="has-text-white">
                             <input class="input" disabled placeholder="tax" readonly="" type="text" v-model="item.tax">
 
@@ -165,16 +167,84 @@
                     </tbody>
                 </table>
             </div>
+<!--            <div class="form-group">-->
+<!--                <div class="columns">-->
+<!--                    <div class="column is-three-quarters"></div>-->
+<!--                    <div class="column">-->
+<!--                        <div class="card">-->
+
+<!--                            <div class="message-body text-center">-->
+<!--                                <div class="list-group-item">-->
+<!--                                    <div class="columns">-->
+<!--                                        <div class="column">{{ translator.total}}</div>-->
+<!--                                        <div class="column">-->
+<!--                                            <input class="input" disabled type="text" v-model="total">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="list-group-item">-->
+<!--                                    <div class="columns">-->
+<!--                                        <div class="column">{{ translator.discount}}</div>-->
+<!--                                        <div class="column">-->
+<!--                                            <input class="input" disabled type="text" v-model="discount">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="list-group-item">-->
+<!--                                    <div class="columns">-->
+<!--                                        <div class="column">{{ translator.subtotal}}</div>-->
+<!--                                        <div class="column">-->
+<!--                                            <input class="input" disabled readonly="" type="text" v-model="subtotal">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="list-group-item">-->
+<!--                                    <div class="columns">-->
+<!--                                        <div class="column">{{ translator.tax}}</div>-->
+<!--                                        <div class="column">-->
+<!--                                            <input class="input" disabled type="text" v-model="tax">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="list-group-item">-->
+<!--                                    <div class="columns">-->
+<!--                                        <div class="column">{{ translator.net}}</div>-->
+<!--                                        <div class="column">-->
+<!--                                            <input class="input" disabled type="text" v-model="net">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+
             <div class="form-group">
                 <div class="columns">
-                    <div class="column is-three-quarters"></div>
+                    <div class="column is-three-quarters">
+                        <pop-billing-component
+                                :button_counter="button_counter"
+                                :current_items_net="current_items_net"
+                                :disable_button_counter="disable_button_counter2"
+                                :gateways="gateways"
+                                :net-amount="net"
+                                :user="user"
+                                @billingsUpdate="billingsUpdate"
+                                @errorInPayment="errorInPayment"
+                                @saveInvoice="saveInvoiceButtonClicked"></pop-billing-component>
+                    </div>
                     <div class="column">
                         <div class="card">
 
                             <div class="message-body text-center">
                                 <div class="list-group-item">
                                     <div class="columns">
-                                        <div class="column">{{ translator.total}}</div>
+                                        <div class="column"><b>{{ translator.total }}</b></div>
                                         <div class="column">
                                             <input class="input" disabled type="text" v-model="total">
                                         </div>
@@ -182,24 +252,26 @@
                                 </div>
                                 <div class="list-group-item">
                                     <div class="columns">
-                                        <div class="column">{{ translator.discount}}</div>
+                                        <div class="column"><b>{{ translator.discount }}</b></div>
                                         <div class="column">
-                                            <input class="input" disabled type="text" v-model="discount">
+                                            <input @focus="$event.target.select()" @keyup="onInvoiceDiscountUpdated"
+                                                   class="input" type="text"
+                                                   v-model="discount">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="list-group-item">
                                     <div class="columns">
-                                        <div class="column">{{ translator.subtotal}}</div>
+                                        <div class="column"><b>{{ translator.subtotal }}</b></div>
                                         <div class="column">
-                                            <input class="input" disabled readonly="" type="text" v-model="subtotal">
+                                            <input class="input" disabled="" disabled type="text" v-model="subtotal">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="list-group-item">
                                     <div class="columns">
-                                        <div class="column">{{ translator.tax}}</div>
+                                        <div class="column"><b>{{ translator.tax }}</b></div>
                                         <div class="column">
                                             <input class="input" disabled type="text" v-model="tax">
                                         </div>
@@ -207,31 +279,38 @@
                                 </div>
                                 <div class="list-group-item">
                                     <div class="columns">
-                                        <div class="column">{{ translator.net}}</div>
+                                        <div class="column"><b>{{ translator.net }}</b></div>
                                         <div class="column">
-                                            <input class="input" disabled type="text" v-model="net">
+                                            <input @focus="$event.target.select()" class="input"
+
+                                                   disabled
+                                                   type="text"
+                                                   v-model="net">
                                         </div>
                                     </div>
                                 </div>
 
 
-
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
 
-<!--            <div class="form-group">-->
-<!--                <div class="columns">-->
-<!--                    <div class="column">-->
-<!--                        <button @click="saveInvoiceButtonClicked" class="button is-primary is-medium is-fullwidth"><i-->
-<!--                                class="fa fa-print"></i>&nbsp; save and print-->
-<!--                        </button>-->
-<!--                    </div>-->
 
-<!--                </div>-->
-<!--            </div>-->
+
+
+            <!--            <div class="form-group">-->
+            <!--                <div class="columns">-->
+            <!--                    <div class="column">-->
+            <!--                        <button @click="saveInvoiceButtonClicked" class="button is-primary is-medium is-fullwidth"><i-->
+            <!--                                class="fa fa-print"></i>&nbsp; save and print-->
+            <!--                        </button>-->
+            <!--                    </div>-->
+
+            <!--                </div>-->
+            <!--            </div>-->
 
         </div>
 
@@ -249,15 +328,15 @@
             printJS
         },
 
-        props: ['creator', 'user', 'pitems', 'invoice', 'purchase', 'department'],
+        props: ['creator', 'user', 'pitems', 'invoice', 'purchase', 'department', 'gateways'],
         data: function () {
             return {
                 errorMessage: "",
                 error: "",
 
-                messages:[],
-                translator:[],
-                reusable_translator:[],
+                messages: [],
+                translator: [],
+                reusable_translator: [],
                 status: 'credit',
                 search_field: "",
                 items: [],
@@ -307,7 +386,6 @@
                 }
 
 
-
             },
 
 
@@ -316,7 +394,6 @@
                 if (item.error == 'error') {
                     item.error = '';
                 }
-
 
 
                 if (!validate.isInteger(parseInt(item.returned_qty))) {
@@ -340,7 +417,7 @@
                 var index = this.items.indexOf(item);
 
 
-                item.total = this.updateTotalForOneItem(item)
+                item.total = this.updateTotalForOneItem(item);
                 item.discount = parseFloat(item.init_discount / item.qty * item.returned_qty).toFixed(2);
                 item.subtotal = this.updateSubtotalForOneItem(item);
 
@@ -390,19 +467,17 @@
             },
 
 
-
-            getSum(arr = [], column)
-            {
+            getSum(arr = [], column) {
                 var sum = 0;
                 for (var i = arr.length - 1; i >= 0; i--) {
-                    if(parseInt(arr[i].returned_qty)>0)
-                       sum = parseFloat(sum) + parseFloat(arr[i][column]);
+                    if (parseInt(arr[i].returned_qty) > 0)
+                        sum = parseFloat(sum) + parseFloat(arr[i][column]);
                 }
 
                 // if(column=="net")
                 //     return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(sum);
 
-                return  helpers.showOnlyTwoAfterComma(sum);
+                return helpers.showOnlyTwoAfterComma(sum);
             },
 
 

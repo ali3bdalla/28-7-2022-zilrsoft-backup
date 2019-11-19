@@ -4,11 +4,8 @@
 	
 	trait FilterAttributes
 	{
-		use  FilterLocale;
-	}
-	
-	trait  FilterLocale
-	{
+		
+		
 		public function getLocaleNameAttribute()
 		{
 			if (app()->isLocale('ar')){
@@ -18,5 +15,5 @@
 			
 			return $this->name;
 		}
-		
 	}
+	

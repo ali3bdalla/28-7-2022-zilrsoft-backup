@@ -24,7 +24,7 @@
 			}
 			
 			
-			return view('accounting.gateway_histories',compact('payments','chart'));
+			return view('accounts.gateway_histories',compact('payments','chart'));
 		}
 		
 		public function loop_in_main_children($chart)

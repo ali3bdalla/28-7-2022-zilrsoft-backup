@@ -178,60 +178,105 @@
                                 <div class="panel-body">
                                     <?php if(!empty($purchase->invoice->payments)): ?>
                                         <?php $__currentLoopData = $purchase->invoice->payments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <div class="form-group">
-                                        <div class="input-group"><span id="1" class="input-group-addon"
-                                                                       style="min-width: 130px; font-weight: bolder;
-"><?php echo e($payment->payment->gateway->name); ?> &nbsp;&nbsp; ( <a  target="_blank" href="<?php echo e(route('management.payments.show',$payment->payment_id)); ?>">عرض السند</a> )</span>
-                                            <input aria-describedby="1" disabled="disabled" type="text"
-                                                   class="form-control"value="<?php echo e($payment->amount); ?>" style="font-weight:
+                                            <div class="form-group">
+                                                <div class="input-group"><span id="1" class="input-group-addon"
+                                                                               style="min-width: 130px; font-weight: bolder;
+"><?php echo e($payment->account->locale_name); ?> &nbsp;&nbsp; ( <a target="_blank" href="<?php echo e(route('management.payments.show',
+$payment->id)); ?>">عرض السند</a> )</span>
+                                                    <input aria-describedby="1" disabled="disabled" type="text"
+                                                           class="form-control" value="<?php echo e($payment->amount); ?>" style="font-weight:
                                                    bolder;">
-                                        </div>
-                                    </div>
+                                                </div>
+                                            </div>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        <?php endif; ?>
+                                    <?php endif; ?>
 
-                            </div>
+                                </div>
 
 
-
-                            <div class="padding:30px">
-                                <div class="columns text-center ">
-                                    <div class="column">
-                                        <div class="card">
-                                            <div class="card-content"><span
-                                                        style="font-weight: bolder; font-size: 27px;">الاجمالي</span>
-                                                <h1 class="title text-center"><?php echo e($purchase->invoice->net); ?></h1></div>
-                                        </div>
-                                    </div>
-                                    <div class="column">
-                                        <div class="card">
-                                            <div class="card-content"><span
-                                                        style="font-weight: bolder; font-size: 27px;">المدفوع</span>
-                                                <h1 class="title text-center"><?php echo e(money_format("%i",
-                                                $purchase->invoice->net
-                                                                                      - $purchase->invoice->remaining)); ?></h1>
+                                <div class="padding:30px">
+                                    <div class="columns text-center ">
+                                        <div class="column">
+                                            <div class="card">
+                                                <div class="card-content"><span
+                                                            style="font-weight: bolder; font-size: 27px;">الاجمالي</span>
+                                                    <h1 class="title text-center"><?php echo e($purchase->invoice->net); ?></h1></div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="column">
-                                        <div class="card">
-                                            <div class="card-content"><span
-                                                        style="font-weight: bolder; font-size: 27px;">المتبقي / آجل</span>
-                                                <h1 class="title text-center"><input disabled="disabled"
-                                                                                     value="<?php echo e($purchase->invoice->remaining); ?>"
-                                                                                     readonly="readonly" type="text"
-                                                                                     class="form-control is-danger has-error onlyhidden"
-                                                                                     style="font-size: 32px; height: 36px;">
-                                                    <input readonly="readonly" disabled="disabled" type="text"
-                                                           class="form-control is-danger has-error onlyhidden"
-                                                           style="font-size: 32px; height: 36px; display: none;"></h1>
+                                        <div class="column">
+                                            <div class="card">
+                                                <div class="card-content"><span
+                                                            style="font-weight: bolder; font-size: 27px;">المدفوع</span>
+                                                    <h1 class="title text-center"><?php echo e(money_format("%i",
+                                                $purchase->invoice->net
+                                                                                      - $purchase->invoice->remaining)); ?></h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="column">
+                                            <div class="card">
+                                                <div class="card-content"><span
+                                                            style="font-weight: bolder; font-size: 27px;">المتبقي / آجل</span>
+                                                    <h1 class="title text-center"><input disabled="disabled"
+                                                                                         value="<?php echo e($purchase->invoice->remaining); ?>"
+                                                                                         readonly="readonly" type="text"
+                                                                                         class="form-control is-danger has-error onlyhidden"
+                                                                                         style="font-size: 32px; height: 36px;">
+                                                        <input readonly="readonly" disabled="disabled" type="text"
+                                                               class="form-control is-danger has-error onlyhidden"
+                                                               style="font-size: 32px; height: 36px; display: none;">
+                                                    </h1>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="panel-footer">
+                                    <table class="table table-bordered table-hover text-center">
+                                        <thead>
+                                        <th>التاريخ</th>
+                                        <th>اسم الحساب</th>
+                                        <th>مدين</th>
+                                        <th>دائن</th>
+                                        </thead>
+                                        <tbody class="text-center">
+                                        <?php $total_debit = 0; $total_credit = 0 ;?>
+                                        <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php if($transaction['description']=='to_item' ||
+                                            $transaction['description']=='to_tax'): ?>
+                                                <?php $total_debit =  $total_debit + $transaction['amount']?>
+                                                <tr>
+                                                    <td class="datedirection"><?php echo e($transaction->created_at); ?></td>
+                                                    <td><?php echo e($transaction->creditable->locale_name); ?></td>
+                                                    <td><?php echo e(money_format("%i", $transaction->amount)); ?></td>
+                                                    <td></td>
+                                                </tr>
+                                            <?php else: ?>
+
+	                                            <?php $total_credit =  $total_credit + $transaction['amount']?>
+                                                <tr>
+                                                    <td class="datedirection"><?php echo e($transaction->created_at); ?></td>
+                                                    <td><?php echo e($transaction->creditable->locale_name); ?></td>
+                                                    <td></td>
+                                                    <td><?php echo e(money_format("%i", $transaction->amount)); ?></td>
+                                                </tr>
+                                            <?php endif; ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </tbody>
+                                        <thead>
+                                        <th>المجموع</th>
+                                        <th> </th>
+                                        <th><?php echo e(money_format("%i",$total_debit)); ?></th>
+                                        <th><?php echo e(money_format("%i",$total_credit)); ?></th>
+                                        </thead>
+                                    </table>
+                                </div>
+
+
                             </div>
+
                         </div>
-                    </div>
 
                     </div>
                     <div class="column">

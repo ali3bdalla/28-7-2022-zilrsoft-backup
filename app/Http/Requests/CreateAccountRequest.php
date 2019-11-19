@@ -13,7 +13,7 @@ class CreateAccountRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,10 @@ class CreateAccountRequest extends FormRequest
     {
         return [
             //
+	        
+	        'name' => 'required|string|unique:accounts',
+	        'ar_name' => 'required|string|unique:accounts',
+	        'parent_id' => 'required|integer|exists:accounts,id'
         ];
     }
 }

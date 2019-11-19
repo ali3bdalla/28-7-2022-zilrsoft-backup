@@ -5,6 +5,7 @@
 	
 	
 	use AliAbdalla\Tafqeet\Core\Tafqeet;
+	use App\Account;
 	use App\Invoice;
 	use App\InvoiceItems;
 	use App\Item;
@@ -39,6 +40,9 @@
 			
 		}
 		
+		
+		
+		
 		public function createChildrenItems($items,$user_id,$sub_invoice,$invoice_type,$expenses = [])
 		{
 			$result = [];
@@ -50,6 +54,36 @@
 				}
 				return $result;
 			}
+		}
+		
+		public function add_items_to_beginning_inventory($items,$user_id,$sub_invoice,$invoice_type,$expenses = [])
+		{
+			$result = [];
+			if (!empty($this->items)){
+				foreach ($items as $invoice_item){
+					$fresh_item = Item::find($invoice_item['id']);
+					$fresh_item->init_create_invoice_item($invoice_item,$invoice_type,$user_id,$sub_invoice,$expenses);
+					$result[] = $fresh_item;
+				}
+				return $result;
+			}
+		}
+		
+		
+		public function add_items_to_invoice($items = [],$sub_invoice,$expenses,$invoice_type,$user_id)
+		{
+			
+			
+			$result = [];
+			if (!empty($this->items)){
+				foreach ($items as $invoice_item){
+					$fresh_item = Item::find($invoice_item['id']);
+					$fresh_item->init_create_invoice_item($invoice_item,$invoice_type,$user_id,$sub_invoice,$expenses);
+					$result[] = $fresh_item;
+				}
+				return $result;
+			}
+			
 		}
 		
 		public function add_expenses_to_invoice($expenses = [])
@@ -191,17 +225,134 @@
 			return $result;
 		}
 		
-		public function create_invoice_entry($sub_invoice,$description='paid_amount')
+		public function update_invoice_creation_status($status)
 		{
-			return $this->entries()->create([
+			$this->update([
+				'issued_status' => $status,
+				'current_status' => $status,
+			]);
+		}
+		
+		public function handle_invoice_transactions($methods = [],$user_id,$net,$items,$expenses)
+		{
+			
+			
+			$creator_stock = auth()->user()->manager_current_stock();
+			$paid_amount = 0;
+			
+			foreach ($methods as $method){
+				
+				if ($method['amount'] > 0){
+					
+					$gateway = Account::find($method['id']);
+					
+					$gateway->credit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'debitable_id' => $creator_stock->id,
+						'debitable_type' => get_class($creator_stock),
+						'amount' => $method['amount'],
+						'user_id' => $user_id,
+						'invoice_id' => $this->id,
+						'description' => 'to_stock',
+					]);
+					
+					
+					$this->handle_invoice_payments($method);
+					$paid_amount = $paid_amount + $method['amount'];
+				}
+				
+				
+			}
+			
+			
+			$this->create_tax_transaction($creator_stock,$user_id,$items,$expenses);
+			
+			
+			if ($paid_amount < $net){
+				
+				
+				$this->user()->credit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'debitable_id' => $creator_stock->id,
+					'debitable_type' => get_class($creator_stock),
+					'amount' => floatval($net) - floatval($paid_amount),
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_stock',
+				]);
+				
+				
+				return 'credit';
+			}
+			
+			
+			return 'paid';
+			
+			
+		}
+		
+		public function handle_invoice_payments($method,$payment_type = 'payment')
+		{
+			
+			
+			$this->payments()->create([
 				'organization_id' => $this->organization_id,
 				'creator_id' => $this->creator_id,
-				'amount' => $this->net,
 				'user_id' => $this->user_id,
-				'chart_id' => $this->chart_id,
-				'description' => $description
+				'chart_id' => $method['id'],
+				'amount_ar_words' => Tafqeet::arablic($method['amount']),
+				'amount_en_words' => Tafqeet::arablic($method['amount']),
+				'amount' => $method['amount'],
+				'payment_type' => $payment_type
 			]);
+		}
+		
+		public function create_tax_transaction($creator_stock,$user_id,$items = [],$expenses = [])
+		{
+			$tax_account = Account::where('slug','vat')->first();
 			
 			
+			$tax = $this->to_extract_tax_from_expenses($items,$expenses) + $this->tax;
+			
+			
+			if($tax>0)
+			{
+				$tax_account->credit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'debitable_id' => $creator_stock->id,
+					'debitable_type' => get_class($creator_stock),
+					'amount' => $tax,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_tax',
+				]);
+			}
+			
+		}
+		
+		public function to_extract_tax_from_expenses($items = [],$expenses = [])
+		{
+			
+			
+			$total_taxes = 0;
+			foreach ($expenses as $expense){
+				
+				foreach ($items as $item){
+					$new_item = Item::find($item['id']);
+					$amount = $expense['amount'] * $item['widget'] / $new_item->get_item_purchase_tax_as_value(); //
+					
+					$tax = $expense['amount'] - $amount;
+//					var_dump($tax);
+//					exit();
+					$total_taxes = $total_taxes + $tax;
+					
+				}
+				
+				
+			}
+			return $total_taxes;
 		}
 	}

@@ -4,7 +4,6 @@ namespace App\Attributes;
 
 trait CategoryAttributes {
 
-    use CategoryLocale;
 	public function scopeMainOnly($query)
     {
         return $query->where('parent_id', 0);
@@ -25,20 +24,8 @@ trait CategoryAttributes {
             ]
         );
     }
-}
-
-trait  CategoryLocale
-{
-
-//    public function  getNameAttribute($value){
-//        if(app()->isLocale('ar')){
-//            return $this->ar_name;
-//        }
-//
-//        return $value;
-//    }
-//
-//
+	
+	
 	
 	public function  getLocaleNameAttribute(){
 		
@@ -48,11 +35,6 @@ trait  CategoryLocale
 		
 		return $this->name;
 	}
-
-	
-	
-	
-	
 	
 	
 }

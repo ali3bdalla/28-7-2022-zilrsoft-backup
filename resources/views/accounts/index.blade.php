@@ -10,23 +10,23 @@
 @stop
 
 
-@section('title', __('sidebar.categories'))
+@section('title', __('sidebar.chart_of_accounts'))
 @section('desctipion',__('sidebar.categories'))
-@section('route',route('management.categories.index'))
+@section('route',route('management.accounts.index'))
 
 
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a href="{{route('management.charts.create')}}" class="button is-primary  pull-right"><i
+            <a href="{{route('management.accounts.create')}}" class="button is-primary  pull-right"><i
                         class='fa fa-plus-circle'></i> اضافة حساب</a>
             <p></p>
             <br>
 
         </div>
         <div class="panel-body">
-            <accounting-chart-accounts-list-component :categories='@json($charts)' base-url="{{route
-            ('management.charts.index')}}"></accounting-chart-accounts-list-component>
+            <chart-of-accounts-component :accounts='@json($accounts)' base-url="{{route('management.accounts.index')
+            }}"></chart-of-accounts-component>
 
         </div>
     </div>

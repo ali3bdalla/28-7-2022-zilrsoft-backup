@@ -4,8 +4,32 @@
 	namespace App\DatabaseHelpers;
 	
 	
+	use App\PurchaseInvoice;
+	
 	trait InvoiceItemHelper
 	{
+		
+		public function make_invoice_transaction($sub_invoice,$expenses)
+		{
+			
+			$creator_stock = auth()->user()->manager_current_stock();
+			
+			if ($sub_invoice instanceof PurchaseInvoice){
+				$this->item->debit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'creditable_id' => $creator_stock->id,
+					'creditable_type' => get_class($creator_stock),
+					'amount' => $this->subtotal + $expenses,
+					'user_id' => $this->user_id,
+					'invoice_id' => $this->invoice_id,
+					'description' => 'to_item',
+				]);
+			}
+			
+		}
+		
+		
 		
 		public function update_item_cost_value_after_new_invoice_created()
 		{
@@ -35,8 +59,14 @@
 		{
 			$result = [];
 			
+			$total_of_expenses = 0;
 			foreach ($expenses as $expense){
-				$amount = $expense['amount'] * $widget;
+				
+				
+				// 21 / 1.05 ;
+				$amount = $expense['amount'] * $widget / $this->item->get_item_purchase_tax_as_value(); //
+				
+				$total_of_expenses =$total_of_expenses +  $amount;
 				
 				$data = [
 					'amount' => $amount,
@@ -49,7 +79,7 @@
 //
 				$result[] = $this->item->expenses()->create($data);
 			}
-			return $result;
+			return $total_of_expenses;
 		}
 		
 	}

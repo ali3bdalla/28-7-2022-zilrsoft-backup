@@ -6,7 +6,7 @@
 	
 	use App\AccountingChartAccounts;
 	
-	trait ChartAttributes
+	trait AccountAttributes
 	{
 	
 //

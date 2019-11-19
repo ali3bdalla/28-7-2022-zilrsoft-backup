@@ -18,7 +18,7 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a href="{{route('management.accounting.chart_accounts.create')}}" class="button is-primary  pull-right"><i
+            <a href="{{route('accounts')}}" class="button is-primary  pull-right"><i
                         class='fa fa-plus-circle'></i> اضافة حساب</a>
             <p></p>
             <br>
@@ -26,7 +26,7 @@
         </div>
         <div class="panel-body">
             <accounting-chart-accounts-list-component :categories='@json($chart_accounts)' base-url="{{route
-            ('management.accounting.chart_accounts.index')}}"></accounting-chart-accounts-list-component>
+            ('accounts')}}"></accounting-chart-accounts-list-component>
 
         </div>
     </div>

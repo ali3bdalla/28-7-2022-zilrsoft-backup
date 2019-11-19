@@ -39,7 +39,7 @@
 			
 //			return $clients[0]->histories['total_credit'];
 			
-			return view('accounting.clients_histories',compact('clients','chart'));
+			return view('accounts.clients_histories',compact('clients','chart'));
 			
 		}
 		

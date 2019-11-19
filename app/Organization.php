@@ -9,6 +9,7 @@
 	
 	class Organization extends Model
 	{
+		
 		//
 		use OrganizationRelationships,OrganizationCreationHelper;
 		

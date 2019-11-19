@@ -44,17 +44,18 @@ class ExpenseController extends Controller
 	public function store(CreateFilterRequest $request)
 	{
 //		return $request->all();
+//
 		$data =  $request->only('name','ar_name');
 		$data['creator_id'] = auth()->user()->id;
 		$data['appear_in_sale'] = $request->has('appear_in_sale') && $request->filled("appear_in_sale") ? true :
 			false;
-		
+
 		$data['appear_in_purchase'] = $request->has('appear_in_purchase') && $request->filled("appear_in_purchase")
 			? true :
 			false;
-		
+
 		auth()->user()->organization->expenses()->create($data);
-		
+
 		return  redirect(route('management.expenses.index'));
 		//
 	}

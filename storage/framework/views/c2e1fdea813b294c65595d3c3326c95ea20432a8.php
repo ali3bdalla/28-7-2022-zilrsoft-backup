@@ -1,6 +1,6 @@
 <?php $__env->startSection('title',__('pages/categories.create')); ?>
 <?php $__env->startSection('desctipion',''); ?>
-<?php $__env->startSection('route',route('management.accounting.chart_accounts.index')); ?>
+<?php $__env->startSection('route',route('management.accounts.chart_accounts.index')); ?>
 
 
 <?php $__env->startSection('content'); ?>
@@ -13,7 +13,7 @@
 
                     </div>
 
-                    <form method="post" action="<?php echo e(route('management.accounting.chart_accounts.store')); ?>">
+                    <form method="post" action="<?php echo e(route('management.accounts.chart_accounts.store')); ?>">
                         <?php echo csrf_field(); ?>
                         <div class="message-body">
                             <div class="form-group">
@@ -169,7 +169,7 @@ unset($__errorArgs, $__bag); ?>
 								('reusable.create')); ?></button>
                                     &nbsp;
                                     <input type="hidden" name="isClone" value="<?php echo e($isClone); ?>"/>
-                                    <a href="<?php echo e(route('management.accounting.chart_accounts.index')); ?>"
+                                    <a href="<?php echo e(route('management.accounts.chart_accounts.index')); ?>"
                                        class="button is-right"><i
                                                 class="fa fa-undo-alt"></i>&nbsp; <?php echo e(__('reusable.cancel')); ?></a>
                                 </div>
@@ -184,4 +184,4 @@ unset($__errorArgs, $__bag); ?>
 
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.master2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /usr/local/var/www/resources/views/accounting/chartaccounts/create.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.master2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /usr/local/var/www/resources/views/accounts/chartaccounts/create.blade.php ENDPATH**/ ?>

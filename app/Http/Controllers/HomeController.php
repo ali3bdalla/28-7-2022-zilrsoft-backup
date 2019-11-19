@@ -20,6 +20,7 @@
 		{
 		
 		
+		
 //			$this->middleware('auth');
 		}
 		

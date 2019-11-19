@@ -13,7 +13,7 @@
 <?php $__env->startSection('content'); ?>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a href="<?php echo e(route('management.charts.create')); ?>" class="button is-primary  pull-right"><i
+            <a href="<?php echo e(route('management.accounts.create')); ?>" class="button is-primary  pull-right"><i
                         class='fa fa-plus-circle'></i> اضافة حساب</a>
             <p></p>
             <br>
@@ -21,11 +21,11 @@
         </div>
         <div class="panel-body">
             <accounting-chart-accounts-list-component :categories='<?php echo json_encode($charts, 15, 512) ?>' base-url="<?php echo e(route
-            ('management.charts.index')); ?>"></accounting-chart-accounts-list-component>
+            ('management.accounts.index')); ?>"></accounting-chart-accounts-list-component>
 
         </div>
     </div>
 
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.master2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\man-v\OneDrive\Desktop\server\htdocs\resources\views/charts/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.master2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\man-v\OneDrive\Desktop\server\htdocs\resources\views/accounts/index.blade.php ENDPATH**/ ?>

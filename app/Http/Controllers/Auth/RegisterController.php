@@ -8,7 +8,6 @@
 	use App\Organization;
 	use App\Type;
 	use App\User;
-	use App\UserDetails;
 	use Exception;
 	use Illuminate\Auth\Events\Registered;
 	use Illuminate\Foundation\Auth\RegistersUsers;
@@ -74,8 +73,13 @@
 			DB::beginTransaction();
 			try{
 				$user = $this->create($request->all());
+				DB::commit();
 			}catch (ValidationException $e){
 				DB::rollback();
+				
+				if ($request->expectsJson())
+					return $e->getMessage();
+				
 				return Redirect::to(route('management.register'))
 					->withErrors($e->getErrors())
 					->withInput();
@@ -83,10 +87,19 @@
 			}catch (Exception $e){
 				// dd($e->getMessage());
 				DB::rollback();
+				
+				if ($request->expectsJson())
+					return $e->getMessage();
+				
 				return Redirect::to(route('management.register'))
 					->withInput();
 			}
-			DB::commit();
+
+//
+//			if($request->expectsJson())
+//				return $user;
+			
+			
 			// $user = null;
 			event(new Registered($user));
 			$this->guard()->login($user);
@@ -122,7 +135,8 @@
 				'org_country_id' => 'required|integer|exists:countries,id',
 				'org_business_type' => 'required|integer|exists:types,id',
 				'org_type' => 'required|string|max:255',
-				
+				'org_description' => 'required',
+				'org_description_ar' => 'required',
 				
 				'name' => 'required|string|max:255',
 				'name_ar' => 'required|string|max:255',
@@ -182,8 +196,10 @@
 				'password' => Hash::make($data['password']),
 				'user_id' => $user->id
 			]);
-			// dd($manager);
+			
+			
 			$organization->fill(['supervisor_id' => $user->id]);
+			
 			$organization->save();
 			
 			$organization->fresh()->initData($manager);

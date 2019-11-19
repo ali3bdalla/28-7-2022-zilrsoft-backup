@@ -4,7 +4,7 @@
 	namespace App\DatabaseHelpers;
 	
 	
-	class TransactionHelper
+	trait TransactionHelper
 	{
 		
 	}

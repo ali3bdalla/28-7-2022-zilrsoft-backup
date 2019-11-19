@@ -51,7 +51,7 @@
                             <th class="text-center "><?php echo e($history->created_at); ?></th>
                             <th class="text-center "><?php echo e($history->id); ?></th>
                             <th class="text-center ">-</th>
-                            <th class="text-center "><a href="<?php echo e(route('management.charts.item',[
+                            <th class="text-center "><a href="<?php echo e(route('management.accounts.item',[
                              $history->id,$chart->id])); ?>"><?php echo e($history->name); ?></a> </th>
                             <th class="text-center "><?php echo e(money_format("%i",$history->receipt_total )); ?></th>
                             <th class="text-center "><?php echo e(money_format("%i",$history->payment_total)); ?></th>
@@ -72,4 +72,4 @@
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('layouts.master2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /usr/local/var/www/resources/views/accounting/stock_histories.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.master2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /usr/local/var/www/resources/views/accounts/stock_histories.blade.php ENDPATH**/ ?>

@@ -1,6 +1,8 @@
 <?php
 	
 	namespace App\Attributes;
+	use App\Account;
+	
 	trait ManagerAttributes
 	{
 		
@@ -26,6 +28,13 @@
 			return $this->user->is_supervisor ||
 				($this->user->is_manager && $this->roles->pluck('slug')->contains($task));
 		}
+		
+		public function manager_current_stock()
+		{
+			return Account::where("slug",'stock')->first();
+		}
+		
+		
 		
 	}
 	

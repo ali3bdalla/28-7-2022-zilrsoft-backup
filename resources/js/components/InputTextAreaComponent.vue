@@ -2,7 +2,7 @@
 	<div class="field">
 		<div class="control">
 			<textarea type='text' 
-			class="textarea" :placeholder="placeholder" @focus="applyAttrubite"   :class="{'rtl':mode=='ar','ltr':mode=='en','is-danger':error}" :name="name" @keyup="startTyping">{{value}}</textarea>
+			class="textarea" :placeholder="placeholder" :class="{'rtl':mode=='ar','ltr':mode=='en','is-danger':error}" :name="name" >{{value}}</textarea>
 		</div>
 		<p v-show="error" class="help is-danger is-center" v-text="errorMessage"></p>
 	</div>
@@ -13,7 +13,7 @@
 		props:['name','mode','placeholder','hasError','errorMessage','value'],
 		created:function(){
 			this.initMode();
-			this.setAttrubites();	
+			this.setAttrubites();
 		},
 		data:function(){
 			return {
@@ -26,16 +26,16 @@
 			setAttrubites(){
 				this.error = this.hasError;
 			},
-			applyAttrubite(){
-				if(this.mode=='en'){
-
-				}else{
-
-				}
-			},
-			startTyping(){
-				this.error = false;
-			}
+			// applyAttrubite(){
+			// 	if(this.mode=='en'){
+			//
+			// 	}else{
+			//
+			// 	}
+			// },
+			// startTyping(){
+			// 	this.error = false;
+			// }
 		}
 
 	}

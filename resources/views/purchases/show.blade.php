@@ -188,60 +188,106 @@
                                 <div class="panel-body">
                                     @if(!empty($purchase->invoice->payments))
                                         @foreach($purchase->invoice->payments as $payment)
-                                    <div class="form-group">
-                                        <div class="input-group"><span id="1" class="input-group-addon"
-                                                                       style="min-width: 130px; font-weight: bolder;
-">{{$payment->payment->gateway->name}} &nbsp;&nbsp; ( <a  target="_blank" href="{{ route('management.payments.show',$payment->payment_id) }}">عرض السند</a> )</span>
-                                            <input aria-describedby="1" disabled="disabled" type="text"
-                                                   class="form-control"value="{{$payment->amount}}" style="font-weight:
+                                            <div class="form-group">
+                                                <div class="input-group"><span id="1" class="input-group-addon"
+                                                                               style="min-width: 130px; font-weight: bolder;
+">{{$payment->account->locale_name}} &nbsp;&nbsp; ( <a target="_blank" href="{{ route('management.payments.show',
+$payment->id)
+}}">عرض السند</a> )</span>
+                                                    <input aria-describedby="1" disabled="disabled" type="text"
+                                                           class="form-control" value="{{$payment->amount}}" style="font-weight:
                                                    bolder;">
-                                        </div>
-                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
-                                        @endif
+                                    @endif
 
-                            </div>
+                                </div>
 
 
-
-                            <div class="padding:30px">
-                                <div class="columns text-center ">
-                                    <div class="column">
-                                        <div class="card">
-                                            <div class="card-content"><span
-                                                        style="font-weight: bolder; font-size: 27px;">الاجمالي</span>
-                                                <h1 class="title text-center">{{$purchase->invoice->net}}</h1></div>
-                                        </div>
-                                    </div>
-                                    <div class="column">
-                                        <div class="card">
-                                            <div class="card-content"><span
-                                                        style="font-weight: bolder; font-size: 27px;">المدفوع</span>
-                                                <h1 class="title text-center">{{money_format("%i",
-                                                $purchase->invoice->net
-                                                                                      - $purchase->invoice->remaining)}}</h1>
+                                <div class="padding:30px">
+                                    <div class="columns text-center ">
+                                        <div class="column">
+                                            <div class="card">
+                                                <div class="card-content"><span
+                                                            style="font-weight: bolder; font-size: 27px;">الاجمالي</span>
+                                                    <h1 class="title text-center">{{$purchase->invoice->net}}</h1></div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="column">
-                                        <div class="card">
-                                            <div class="card-content"><span
-                                                        style="font-weight: bolder; font-size: 27px;">المتبقي / آجل</span>
-                                                <h1 class="title text-center"><input disabled="disabled"
-                                                                                     value="{{ $purchase->invoice->remaining}}"
-                                                                                     readonly="readonly" type="text"
-                                                                                     class="form-control is-danger has-error onlyhidden"
-                                                                                     style="font-size: 32px; height: 36px;">
-                                                    <input readonly="readonly" disabled="disabled" type="text"
-                                                           class="form-control is-danger has-error onlyhidden"
-                                                           style="font-size: 32px; height: 36px; display: none;"></h1>
+                                        <div class="column">
+                                            <div class="card">
+                                                <div class="card-content"><span
+                                                            style="font-weight: bolder; font-size: 27px;">المدفوع</span>
+                                                    <h1 class="title text-center">{{money_format("%i",
+                                                $purchase->invoice->net
+                                                                                      - $purchase->invoice->remaining)}}</h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="column">
+                                            <div class="card">
+                                                <div class="card-content"><span
+                                                            style="font-weight: bolder; font-size: 27px;">المتبقي / آجل</span>
+                                                    <h1 class="title text-center"><input disabled="disabled"
+                                                                                         value="{{ $purchase->invoice->remaining}}"
+                                                                                         readonly="readonly" type="text"
+                                                                                         class="form-control is-danger has-error onlyhidden"
+                                                                                         style="font-size: 32px; height: 36px;">
+                                                        <input readonly="readonly" disabled="disabled" type="text"
+                                                               class="form-control is-danger has-error onlyhidden"
+                                                               style="font-size: 32px; height: 36px; display: none;">
+                                                    </h1>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="panel-footer">
+                                    <table class="table table-bordered table-hover text-center">
+                                        <thead>
+                                        <th>التاريخ</th>
+                                        <th>اسم الحساب</th>
+                                        <th>مدين</th>
+                                        <th>دائن</th>
+                                        </thead>
+                                        <tbody class="text-center">
+                                        <?php $total_debit = 0; $total_credit = 0 ;?>
+                                        @foreach($transactions as $transaction)
+                                            @if($transaction['description']=='to_item' ||
+                                            $transaction['description']=='to_tax')
+                                                <?php $total_debit =  $total_debit + $transaction['amount']?>
+                                                <tr>
+                                                    <td class="datedirection">{{ $transaction->created_at }}</td>
+                                                    <td>{{ $transaction->creditable->locale_name }}</td>
+                                                    <td>{{money_format("%i", $transaction->amount) }}</td>
+                                                    <td></td>
+                                                </tr>
+                                            @else
+
+	                                            <?php $total_credit =  $total_credit + $transaction['amount']?>
+                                                <tr>
+                                                    <td class="datedirection">{{ $transaction->created_at }}</td>
+                                                    <td>{{ $transaction->creditable->locale_name }}</td>
+                                                    <td></td>
+                                                    <td>{{money_format("%i", $transaction->amount) }}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                        </tbody>
+                                        <thead>
+                                        <th>المجموع</th>
+                                        <th> </th>
+                                        <th>{{ money_format("%i",$total_debit) }}</th>
+                                        <th>{{ money_format("%i",$total_credit) }}</th>
+                                        </thead>
+                                    </table>
+                                </div>
+
+
                             </div>
+
                         </div>
-                    </div>
 
                     </div>
                     <div class="column">

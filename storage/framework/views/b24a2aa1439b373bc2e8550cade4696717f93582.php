@@ -6,7 +6,7 @@
 
 
 <div class="box">
-    <create-user-form-component :branchs='<?php echo json_encode($branchs, 15, 512) ?>'></create-user-form-component>
+    <create-user-form-component :branchs='<?php echo json_encode($branchs, 15, 512) ?>' :gateways='<?php echo json_encode($gateways, 15, 512) ?>'></create-user-form-component>
 </div>
 
 

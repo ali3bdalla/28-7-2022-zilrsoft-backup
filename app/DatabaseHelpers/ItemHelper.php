@@ -47,7 +47,10 @@
 			
 			
 			if (!empty($expenses))
-				$new_invoice_item->add_expenses_to_invoice_item($expenses,$invoice_item['widget']);
+				$total_of_expenses = $new_invoice_item->add_expenses_to_invoice_item($expenses,
+					$invoice_item['widget']);
+			else
+				$total_of_expenses = 0;
 			
 			//update serial if item need contain serials array
 			if ($this->is_need_serial)
@@ -85,6 +88,8 @@
 				}
 			}
 			
+			
+			$new_invoice_item->make_invoice_transaction($sub_invoice,$total_of_expenses);
 			
 			return $this;
 		}
@@ -209,6 +214,21 @@
 		public function get_item_tax_as_value()
 		{
 			return 1 + $this->vts / 100;
+		}
+		
+		public function get_item_purchase_tax_as_value()
+		{
+			return 1 + $this->vtp / 100;
+		}
+		
+		public function get_item_expenses_total($expenses,$invoice_widget)
+		{
+			$total_expenses = 0;
+			foreach ($expenses as $expens){
+			
+			}
+			
+			return $total_expenses;
 		}
 		
 		public function get_invoice_item_expenses($invoice_id)

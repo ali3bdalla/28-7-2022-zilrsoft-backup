@@ -25,8 +25,8 @@ class CreateFilterRequest extends FormRequest
     {
         return [
             //
-	        'name'=>'required|string|unique:expenses',
-	        'ar_name'=>'required|string|unique:expenses'
+	        'name'=>'required|string',
+	        'ar_name'=>'required|string'
         ];
     }
 }

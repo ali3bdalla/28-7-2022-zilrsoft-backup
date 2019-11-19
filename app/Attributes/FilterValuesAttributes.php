@@ -5,20 +5,6 @@
 	trait FilterValuesAttributes
 	{
 		
-		use FilterValuesLocale;
-		
-		public function setAsLastUsedValue()
-		{
-			$this->update([
-				'updated_at' => now()
-			]);
-			# code...
-		}
-	}
-	
-	trait  FilterValuesLocale
-	{
-		
 		public function getLocaleNameAttribute()
 		{
 			
@@ -29,4 +15,12 @@
 			return $this->name;
 		}
 		
+		public function setAsLastUsedValue()
+		{
+			$this->update([
+				'updated_at' => now()
+			]);
+			# code...
+		}
 	}
+	

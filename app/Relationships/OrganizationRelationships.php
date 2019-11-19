@@ -1,5 +1,6 @@
 <?php
 namespace App\Relationships;
+use App\Account;
 use App\Branch;
 use App\Category;
 use App\Department;
@@ -54,28 +55,13 @@ trait OrganizationRelationships {
 	}
 
 
-	
-	public function gateways()
-	{
-		return $this->belongsToMany(Gateway::class,
-			'organization_gateway')->withTimestamps();
-	}
-	
-	
-	
 
 	
     public function kits(){
         return $this->hasMany(Item::class,'organization_id');
     }
 
-
-    public function accounts()
-    {
-        return $this->morphMany(GatewayAccounts::class, 'accountable');
-    }
-
-
+    
     public function sales(){
 		return $this->hasMany(SaleInvoice::class,'organization_id');
 	}
@@ -99,7 +85,16 @@ trait OrganizationRelationships {
 	public function supervisor(){
 		return $this->belongsTo(User::class,'supervisor_id');
 	}
-
-
-
+	
+	
+	
+	
+	public function accounts()
+	{
+		return $this->hasMany(Account::class, 'organization_id');
+	}
+	
+	
+	
+	
 }

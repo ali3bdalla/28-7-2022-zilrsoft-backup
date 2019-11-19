@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Controllers;
 	
+	use App\Account;
 	use App\Branch;
 	use App\CountryBank;
 	use App\Gateway;
@@ -35,8 +36,10 @@
 		public function create()
 		{
 			//
+			
 			$branchs = Branch::with('departments')->get();
-			return view('users.create',compact('branchs'));
+			$gateways = Account::where('is_gateway',true)->get();
+			return view('users.create',compact('branchs','gateways'));
 		}
 		
 		/**

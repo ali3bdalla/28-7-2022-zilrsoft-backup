@@ -71,4 +71,4 @@
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('layouts.master2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /usr/local/var/www/resources/views/accounting/clients_histories.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.master2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /usr/local/var/www/resources/views/accounts/clients_histories.blade.php ENDPATH**/ ?>

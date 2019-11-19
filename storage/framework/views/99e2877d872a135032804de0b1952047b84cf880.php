@@ -9,11 +9,11 @@
             <div class="col-md-6 col-md-offset-3">
                 <article class="message  is-success">
                     <div class="message-header">
-                        <?php echo e(__('pages/accounts.creation')); ?>
+                        <?php echo e(__('pages/accounts.edit')); ?>
 
                     </div>
 
-                    <form method="post" action="<?php echo e(route('management.categories.update',$category->id)); ?>">
+                    <form method="post" action="<?php echo e(route('management.accounts.update',$account->id)); ?>">
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('PATCH'); ?>
                         <div class="message-body">
@@ -22,7 +22,7 @@
                                     <div class="column">
                                         <input-text-component name='name'
                                                               <?php if(empty(old('name'))): ?>
-                                                              value="<?php echo e($category->name); ?>"
+                                                              value="<?php echo e($account->name); ?>"
 
                                                               <?php else: ?>
                                                               value="<?php echo e(old('name')); ?>"
@@ -46,7 +46,7 @@ unset($__errorArgs, $__bag); ?>
                                     <div class="column">
                                         <input-text-component
                                                 <?php if(empty(old('ar_name'))): ?>
-                                                value="<?php echo e($category->ar_name); ?>"
+                                                value="<?php echo e($account->ar_name); ?>"
                                                 <?php else: ?>
                                                 value="<?php echo e(old('ar_name')); ?>"
                                                 <?php endif; ?>
@@ -69,66 +69,13 @@ unset($__errorArgs, $__bag); ?>
 
                                 <div class="columns">
                                     <div class="column">
-
-                                        <input-textarea-component
-                                                <?php if(empty(old('description'))): ?>
-                                                value="<?php echo e($category->description); ?>"
-
-                                                <?php else: ?>
-                                                value="<?php echo e(old('description')); ?>"
-                                                <?php endif; ?>
-
-
-                                                <?php $__errorArgs = ['description'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                                :has-error="true"
-                                                :error-message='<?php echo json_encode($message, 15, 512) ?>'
-                                                <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                                name='description'
-                                                placeholder='<?php echo e(__('pages/categories.description')); ?>'
-                                                mode='en'></input-textarea-component>
-
-                                    </div>
-                                    <div class="column">
-                                        <input-textarea-component
-                                                <?php if(empty(old('ar_description'))): ?>
-                                                value="<?php echo e($category->ar_description); ?>"
-
-                                                <?php else: ?>
-                                                value="<?php echo e(old('ar_description')); ?>"
-                                                <?php endif; ?>
-                                                <?php $__errorArgs = ['ar_description'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                                :has-error="true"
-                                                :error-message='<?php echo json_encode($message, 15, 512) ?>'
-                                                <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                                placeholder='<?php echo e(__('pages/categories.ar_description')); ?>'
-                                                mode='ar'
-                                                name='ar_description'></input-textarea-component>
-                                    </div>
-                                </div>
-
-                                <div class="columns">
-                                    <div class="column">
                                         <select-list-component
-                                                :items='<?php echo json_encode($categories, 15, 512) ?>'
+                                                :items='<?php echo json_encode($accounts, 15, 512) ?>'
                                                 capture-text='locale_name'
 
-                                                <?php if(empty(old("parent_id")) && !empty($category)): ?>
+                                                <?php if(empty(old("parent_id")) && !empty($account)): ?>
 
-                                                selected="<?php echo e($category->parent_id); ?>"
+                                                selected="<?php echo e($account->parent_id); ?>"
 
 
                                                 <?php else: ?>
@@ -136,8 +83,8 @@ unset($__errorArgs, $__bag); ?>
                                                 <?php endif; ?>
 
                                                 :has-default="true"
-                                                default-capture="<?php echo e(__('pages/categories.main_category')); ?>"
-                                                default-value='0'
+                                                default-capture="<?php echo e(__('pages/categories.main_account')); ?>"
+                                                default-value='1'
 
                                                 <?php $__errorArgs = ['parent_id'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -156,13 +103,35 @@ unset($__errorArgs, $__bag); ?>
 
 
                                 <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            هل هذه بوابة دفع ؟
+                                        </div>
+                                        <div class="col-md-3">
+                                            <?php if($account->is_gateway): ?>
+                                                <toggle-button name="is_gateway" :font-size="19" :height='30'
+                                                               :width='70'
+                                                               :labels="{checked: 'نعم', unchecked: 'لا'}"
+                                                               :value="true"
+                                                />
+                                            <?php else: ?>
+                                                <toggle-button name="is_gateway" :font-size="19" :height='30'
+                                                               :width='70'
+                                                               :labels="{checked: 'نعم', unchecked: 'لا'}"
+                                                               :value="false"
+                                                />
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <button class="button is-success"><i class="fa fa-check-circle"></i>&nbsp; <?php echo e(__
                                     ('pages/categories.update')); ?>
 
                                     </button>
                                     &nbsp;
 
-                                    <a href="<?php echo e(route('management.categories.index')); ?>" class="button is-right"><i
+                                    <a href="<?php echo e(route('management.accounts.index')); ?>" class="button is-right"><i
                                                 class="fa fa-undo-alt"></i>&nbsp; <?php echo e(__('reusable.cancel')); ?></a>
                                 </div>
                             </div>

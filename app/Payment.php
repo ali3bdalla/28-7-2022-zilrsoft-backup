@@ -24,4 +24,8 @@
 			}
 		}
 		
+		public function paymentable()
+		{
+			return $this->morphTo();
+		}
 	}

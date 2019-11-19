@@ -35,7 +35,7 @@
 			return [
 				// //
 				'name' => 'required|string',
-				'phone_number' => 'required|numeric',
+				'phone_number' => 'required|string',
 				'user_type' => 'required',Rule::in(['individual','company']),
 				'user_title' => 'required',Rule::in(['mis','mr','company']),
 				'is_manager' => 'required|boolean',
@@ -45,17 +45,16 @@
 				'can_make_credit' => 'required|boolean',
 				
 				
-				'user_detail_vat'=>'nullable',
-				'user_detail_email'=>'nullable',
-				'user_detail_cr'=>'nullable',
-				'user_detail_address'=>'nullable',
-				'user_detail_responser'=>'nullable',
-				'user_detail_responser_phone'=>'nullable'
-        
-	    
-	    
-        ];
-    }
+				'user_detail_vat' => 'nullable',
+				'user_detail_email' => 'nullable',
+				'user_detail_cr' => 'nullable',
+				'user_detail_address' => 'nullable',
+				'user_detail_responser' => 'nullable',
+				'user_detail_responser_phone' => 'nullable'
+			
+			
+			];
+		}
 		
 		public function save()
 		{
@@ -90,9 +89,26 @@
 					$manager_data['user_id'] = $current->id;
 					$manager_data['organization_id'] = $current->organization_id;
 					$manager_data['name'] = $this->name;
-					$user['manager'] = Manager::create($manager_data);
+					$manager = Manager::create($manager_data);
+					
+					
+					if (!empty($this->gateways)){
+						foreach ($this->gateways as $gateway){
+							$manager->gateways()->create([
+								'organization_id' => $current->organization_id,
+								'gateway_id' => $gateway['id'],
+							]);
+						}
+						
+					}
+					
+					$user['manager'] = $manager;
+					
 				}
+				
+				
 				$this->createUserDetails($user);
+				
 				event(new  UserCreatedEvent($user));
 				DB::commit();
 			}catch (Exception $e){
@@ -116,7 +132,7 @@
 			$data['responsible_name'] = $this->user_detail_responser;
 			$data['responsible_phone_number'] = $this->user_detail_responser_phone;
 			$user->details()->create($data);
-			
+
 //
 //
 //			'user_detail_vat'=>'nullable',
@@ -127,12 +143,12 @@
 //				'user_detail_responser_phone'=>'nullable'
 		
 		
-		
 		}
 		
 		public function validateManger()
 		{
 			$this->validate([
+				'gateways.*.id' => 'required|integer|exists:accounts,id',
 				'email' => 'required|email|unique:managers,email',
 				'password' => 'required|confirmed|min:7',
 				'pin_code' => 'required|numeric',

@@ -48,7 +48,7 @@ Vue.use(ToggleButton);
 
 // components including
 import categoriesList from './components/categories/ListComponent';
-import accountingChartAccountsList from './components/accounting/chartaccount/chart_account_tree';
+import chartOfAccountsComponent from './components/accounts/chartOfAccountsComponent';
 
 import ItemAccountingCostHistoryComponent from './components/items/accountingCostHistory';
 
@@ -117,6 +117,7 @@ import barcodePrinterComponent from "./components/print/barcodePrinterComponent"
 
 
 import saleDataTable from './components/datatables/saleTable';
+import ManagerGatewaysComponent from "./components/billing/ManagerGatewaysComponent";
 
 
 
@@ -172,7 +173,8 @@ Vue.component('custom-date-field-component', customDateFieldComponent);
 Vue.component('kit-items-and-data-component', kitItemAndDataComponent);
 
 
-Vue.component('accounting-chart-accounts-list-component',accountingChartAccountsList);
+Vue.component('chart-of-accounts-component',chartOfAccountsComponent);
+Vue.component('manager-gateways-component',ManagerGatewaysComponent);
 
 
 

@@ -9,7 +9,7 @@
 
 
 <div class="box">
-    <create-user-form-component :branchs='@json($branchs)'></create-user-form-component>
+    <create-user-form-component :branchs='@json($branchs)' :gateways='@json($gateways)'></create-user-form-component>
 </div>
 
 

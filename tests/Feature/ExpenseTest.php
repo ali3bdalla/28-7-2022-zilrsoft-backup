@@ -24,10 +24,10 @@
 				'appear_in_purchase' => true,
 				'appear_in_sale' => true
 			]);
+
+//			$response->dump();
 			
-			$response->dump();
-			
-			$response->assertStatus(200);
+			$response->assertStatus(302);
 		}
 		
 		protected function setUp():void

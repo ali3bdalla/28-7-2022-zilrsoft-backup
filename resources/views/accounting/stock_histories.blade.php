@@ -54,7 +54,7 @@
                             <th class="text-center ">{{$history->created_at}}</th>
                             <th class="text-center ">{{$history->id}}</th>
                             <th class="text-center ">-</th>
-                            <th class="text-center "><a href="{{route('management.charts.item',[
+                            <th class="text-center "><a href="{{route('accounts',[
                              $history->id,$chart->id]) }}">{{ $history->name }}</a> </th>
                             <th class="text-center ">{{ money_format("%i",$history->receipt_total )}}</th>
                             <th class="text-center ">{{money_format("%i",$history->payment_total)  }}</th>

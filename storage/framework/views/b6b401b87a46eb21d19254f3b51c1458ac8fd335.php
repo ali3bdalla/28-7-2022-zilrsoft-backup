@@ -53,7 +53,7 @@
                              <th class="text-center ">-</th>
                              <th class="text-center ">-</th>
                              <th class="text-center "><?php echo e($history['user']['name']); ?></th>
-                             <th class="text-center "><a href="<?php echo e(route('management.charts.show',
+                             <th class="text-center "><a href="<?php echo e(route('management.accounts.show',
                              $history->id)); ?>"><?php echo e($history->gateway->name); ?></a> </th>
                              <th class="text-center "><?php echo e($history->receipt_total); ?></th>
                              <th class="text-center "><?php echo e($history->payment_total); ?></th>
@@ -71,7 +71,7 @@
                              <th class="text-center "><?php echo e($history['created_at']); ?></th>
                              <th class="text-center "><?php echo e($history['id']); ?></th>
                              <th class="text-center "><?php echo e($history['user']['name']); ?></th>
-                             <th class="text-center "><a href="<?php echo e(route('management.charts.show',$history->gateway->chart->id)); ?>"><?php echo e($history->gateway->chart->name); ?></a> </th>
+                             <th class="text-center "><a href="<?php echo e(route('management.accounts.show',$history->gateway->chart->id)); ?>"><?php echo e($history->gateway->chart->name); ?></a> </th>
                              <th class="text-center "><?php echo e($history->gateway_debit_value); ?></th>
                              <th class="text-center "><?php echo e($history->gateway_credit_value); ?></th>
                              <th class="text-center "><?php echo e($total_amount); ?></th>
@@ -92,4 +92,4 @@
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('layouts.master2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\man-v\OneDrive\Desktop\server\htdocs\resources\views/accounting/gateway_histories.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.master2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\man-v\OneDrive\Desktop\server\htdocs\resources\views/accounts/gateway_histories.blade.php ENDPATH**/ ?>

@@ -5,7 +5,6 @@
 	Auth::routes(['verify' => true]);
 	
 	
-	
 	Route::prefix('printer')->name('printers.')->group(function (){
 		Route::get('sale_receipt/{invoice}','PrinterController@sale_receipt');
 		Route::get('barcode/{item}','PrinterController@barcode');
@@ -39,15 +38,16 @@
 			'gateways' => 'OrganizationGatewayController',
 			'inventories' => 'InventoryController',
 			'expenses' => 'ExpenseController',
-			'charts' => 'ChartController',
+			'accounts' => 'AccountsController',
 		
 		]);
-
-
-		Route::prefix('chart')->name('charts.')->group(function(){
-		   Route::get('item/{item}/{chart}',"ChartController@item")->name('item');
-		   Route::get('client/{client}/{chart}',"ChartController@client")->name('client');
-        });
+		
+		
+		Route::prefix('accounts')->name('accounts.')->group(function (){
+			Route::get('item/{item}/{account}',"AccountsController@item")->name('item');
+			Route::get('client/{client}/{account}',"AccountsController@client")->name('client');
+			Route::get('{account}/delete',"AccountsController@delete");
+		});
 		
 		Route::prefix('sales')->name('sales.')->group(function (){
 			Route::get('/list/unpaid/{user}/list',"SaleController@unpaid")->name('unpaid');
@@ -93,7 +93,7 @@
 			Route::get('/filters/{category}',"CategoryController@filters");
 			Route::get('/categories/list/update',"CategoryController@categories");
 			Route::get('/{category}/filters',"CategoryController@update_filters")->name('filters');
-			Route::patch('/{category}/filters',"CategoryController@store_filters");
+			Route::patch('/{category}/filters',"CategoryController@store_filters")->name('store_filters');
 		});
 		
 		
@@ -133,7 +133,7 @@
 		
 		// items pluings routes
 		Route::prefix('filters')->name('filters.')->group(function (){
-			Route::post('/values/create',"FilterController@create_value");
+			Route::post('/values/create',"FilterController@create_value")->name('create_value');
 			Route::patch('/values/update',"FilterController@upate_value");
 			Route::delete('/values/delete/{value}',"FilterController@delete_value");
 			
@@ -182,14 +182,12 @@
 		});
 		
 		
-		
-		
-		Route::name('accounting.')->namespace("Accounting")->group(function (){
+		Route::name('accounts.')->namespace("Accounting")->group(function (){
 			Route::resources([
 				'chart_accounts' => 'ChartAccountsController'
 			]);
 			
-			Route::prefix('accounting')->group(function (){
+			Route::prefix('accounts')->group(function (){
 				Route::get('/gateways/{gateway}/{account}',"ChartAccountsController@gateway");
 			});
 			

@@ -19,6 +19,7 @@
         <div class="row">
             <div class="col-md-12">
             <edit-purchase-form-component
+                :gateways='@json($gateways)'
                 :user='@json($purchase->vendor)'
                 :creator='@json($invoice->creator)'
                 :pitems='@json($items)'

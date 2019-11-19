@@ -51,7 +51,7 @@
                         <th class="text-center ">{{$client->created_at}}</th>
                         <th class="text-center ">{{$client->id}}</th>
 
-                        <th class="text-center "><a href="{{route('management.charts.client',[
+                        <th class="text-center "><a href="{{route('accounts',[
                              $client->id,$chart->id]) }}">{{ $client->name }}</a></th>
                         <th class="text-center ">-</th>
                         <th class="text-center ">{{ money_format("%i",$client->histories['total_debit'])}}</th>

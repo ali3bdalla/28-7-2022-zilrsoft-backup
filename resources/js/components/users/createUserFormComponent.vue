@@ -289,6 +289,8 @@
 
                 </div>
 
+
+                <manager-gateways-component :gateways="gateways" @gatewaysUpdated="gatewaysUpdated"></manager-gateways-component>
             </div>
 
 
@@ -314,7 +316,7 @@
 
 <script type="text/javascript">
     export default {
-        props: ['branchs'],
+        props: ['branchs','gateways'],
         data: function () {
             return {
 
@@ -325,6 +327,7 @@
                 user_detail_responser: "",
                 user_detail_responser_phone: "",
 
+                manager_gateways:[],
 
                 can_make_credit: false,
                 has_credit_invoice: false,
@@ -365,6 +368,10 @@
             updateDepartmentsList() {
             },
 
+            gatewaysUpdated(e)
+            {
+              this.manager_gateways = e.gateways;
+            },
 
             validateData() {
                 if (this.user_name == "") {
@@ -473,6 +480,7 @@
 
 
                 var data_to = {
+                    gateways:this.manager_gateways,
                     user_title: user_title,
                     is_manager: this.is_manager,
                     is_client: this.is_client,

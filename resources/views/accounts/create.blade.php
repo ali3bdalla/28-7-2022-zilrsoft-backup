@@ -1,9 +1,8 @@
 @extends('layouts.master2')
 
 
-@section('title',__('pages/categories.create'))
-@section('desctipion','')
-@section('route',route('management.charts.index'))
+@section('title',__('pages/accounts.creation'))
+@section('route',route('management.accounts.index'))
 
 
 @section('content')
@@ -12,21 +11,21 @@
             <div class="col-md-6 col-md-offset-3">
                 <article class="message  is-success">
                     <div class="message-header">
-                        {{ __('pages/categories.category_details') }}
+                        {{ __('pages/accounts.creation') }}
                     </div>
 
-                    <form method="post" action="{{ route('management.charts.store')}}">
+                    <form method="post" action="{{ route('management.accounts.store')}}">
                         @csrf
                         <div class="message-body">
                             <div class="form-group">
                                 <div class="columns">
                                     @if($isClone)
-                                        <input type="hidden" name='cloned_category' value="{{$category->id}}">
+                                        <input type="hidden" name='cloned_account' value="{{$account->id}}">
                                     @endif
                                     <div class="column">
                                         <input-text-component name='name'
                                                               @if(empty(old('name')) && $isClone)
-                                                              value="{{ $category->name }}"
+                                                              value="{{ $account->name }}"
 
                                                               @else
                                                               value="{{ old('name') }}"
@@ -43,13 +42,10 @@
                                     <div class="column">
                                         <input-text-component
                                                 @if(empty(old('ar_name')) && $isClone)
-                                                value="{{ $category->ar_name }}"
-
+                                                value="{{ $account->ar_name }}"
                                                 @else
                                                 value="{{ old('ar_name') }}"
                                                 @endif
-
-
                                                 @error('ar_name')
                                                 :has-error="true"
                                                 :error-message='@json($message)'
@@ -62,88 +58,45 @@
                                 <div class="columns">
                                     <div class="column">
 
-                                        <input-textarea-component
-                                                @if(empty(old('description')) && $isClone)
-                                                value="{{ $category->description }}"
-
-                                                @else
-                                                value="{{ old('description') }}"
-                                                @endif
-
-
-                                                @error('description')
-                                                :has-error="true"
-                                                :error-message='@json($message)'
-                                                @enderror
-                                                name='description'
-                                                placeholder='{{ __('pages/categories.description') }}'
-                                                mode='en'></input-textarea-component>
-
-                                    </div>
-                                    <div class="column">
-                                        <input-textarea-component
-                                                @if(empty(old('ar_description')) && $isClone)
-                                                value="{{ $category->ar_description }}"
-
-                                                @else
-                                                value="{{ old('ar_description') }}"
-                                                @endif
-                                                @error('ar_description')
-                                                :has-error="true"
-                                                :error-message='@json($message)'
-                                                @enderror
-                                                placeholder='{{ __('pages/categories.ar_description') }}' mode='ar'
-                                                name='ar_description'></input-textarea-component>
-                                    </div>
-                                </div>
-
-                                <div class="columns">
-                                    <div class="column">
-
                                         <div class="select is-fullwidth">
-											<select name="parent_id">
+                                            <select name="parent_id">
+                                                @foreach($accounts as $account)
+                                                    <option value="{{$account['id']}}"
+                                                    @if(\Illuminate\Support\Facades\Request::input("parent_id")
+                                                    ==$account['id'])
+                                                        selected
+                                                        @endif
+                                                    >{{$account['ar_name']}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
-
-												@foreach($categories as $category)
-
-													<option value="{{$category['id']}}">{{$category['ar_name']}}</option>
-												@endforeach
-											</select>
-										</div>
-                                        {{--									<select-list-component--}}
-                                        {{--									:items='@json($categories)'--}}
-                                        {{--									capture-text='locale_name'--}}
-                                        {{--									--}}
-                                        {{--									@if(empty(old("parent_id")) && !empty($category)) --}}
-                                        {{--										@if($isClone)--}}
-                                        {{--											selected="{{$category->parent_id}}"--}}
-                                        {{--										@else--}}
-                                        {{--											selected="{{$category->id}}"--}}
-                                        {{--										@endif--}}
-                                        {{--										--}}
-                                        {{--									@else --}}
-                                        {{--										selected=value="{{ old('parent_id') }}"--}}
-                                        {{--									@endif--}}
-                                        {{--									--}}
-                                        {{--									:has-default="true"--}}
-                                        {{--									default-capture="{{ __('pages/categories.main_category') }}"--}}
-                                        {{--									default-value='1'--}}
-
-                                        {{--									@error('parent_id')--}}
-                                        {{--									:has-error="true"--}}
-                                        {{--									 :error-message='@json($message)'--}}
-                                        {{--									 @enderror--}}
-                                        {{--									  name='parent_id'></select-list-component>	--}}
                                     </div>
                                 </div>
+
 
 
                                 <div class="form-group">
-                                    <button class="button is-success"><i class="fa fa-check-circle"></i>&nbsp; {{ __
-								('reusable.create') }}</button>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            هل هذه بوابة دفع ؟
+                                        </div>
+                                        <div class="col-md-3">
+                                            <toggle-button name="is_gateway" font-size="19" height='30' width='70'
+                                                           :labels="{checked: 'نعم', unchecked: 'لا'}"
+
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="button is-success"><i
+                                                class="fa fa-check-circle"></i>&nbsp; {{ __('reusable.create') }}
+                                    </button>
                                     &nbsp;
                                     <input type="hidden" name="isClone" value="{{$isClone}}"/>
-                                    <a href="{{ route('management.charts.index') }}"
+                                    <a href="{{ route('management.accounts.index') }}"
                                        class="button is-right"><i
                                                 class="fa fa-undo-alt"></i>&nbsp; {{ __('reusable.cancel') }}</a>
                                 </div>

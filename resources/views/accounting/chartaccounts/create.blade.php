@@ -3,7 +3,7 @@
 
 @section('title',__('pages/categories.create'))
 @section('desctipion','')
-@section('route',route('management.accounting.chart_accounts.index'))
+@section('route',route('accounts'))
 
 
 @section('content')
@@ -15,7 +15,7 @@
                         {{ __('pages/categories.category_details') }}
                     </div>
 
-                    <form method="post" action="{{ route('management.accounting.chart_accounts.store')}}">
+                    <form method="post" action="{{ route('accounts')}}">
                         @csrf
                         <div class="message-body">
                             <div class="form-group">
@@ -143,7 +143,7 @@
 								('reusable.create') }}</button>
                                     &nbsp;
                                     <input type="hidden" name="isClone" value="{{$isClone}}"/>
-                                    <a href="{{ route('management.accounting.chart_accounts.index') }}"
+                                    <a href="{{ route('accounts') }}"
                                        class="button is-right"><i
                                                 class="fa fa-undo-alt"></i>&nbsp; {{ __('reusable.cancel') }}</a>
                                 </div>

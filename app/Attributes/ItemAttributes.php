@@ -9,8 +9,6 @@
 	trait ItemAttributes
 	{
 		
-		use ItemLocale;
-		
 		public function getDataForReturn($qty,$fresh_invoice_item)
 		{
 			
@@ -53,10 +51,6 @@
 			
 			return $serials;
 		}
-		
-		
-		
-		
 		
 		public function updateItemAvailableQty($option,$qty)
 		{
@@ -137,8 +131,6 @@
 			
 		}
 		
-	
-		
 		public function checkIfItHasEnoughQtyForReturn($qty,$fresh_invoice_item,$sub_invoice)
 		{
 			$total_returned = $qty + $fresh_invoice_item['r_qty'];
@@ -172,10 +164,6 @@
 			return $result;
 		}
 		
-	}
-	
-	trait  ItemLocale
-	{
 		public function getLocaleNameAttribute()
 		{
 			if (app()->isLocale('ar')){
@@ -222,5 +210,7 @@
 		}
 		
 	}
+	
+	
 
 

@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Requests;
 	
+	use App\Account;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
@@ -62,25 +63,22 @@
 			
 			DB::beginTransaction();
 			try{
-				$user = $this->user();
-				$data = $this->except('items','receiver_id','vendor_id','methods','vendor_inc_number','document');
-				$data['invoice_type'] = 'beginning_inventory';
-				$invoice = auth()->user()->organization->invoices()->create($data);
-				$inventory = $invoice->purchase()->create([
-					'organization_id' => $user->organization_id,
-					'receiver_id' => $this->receiver_id,
-					'vendor_id' => $this->vendor_id,
-					'is_full_returned' => 0,
-					'invoice_type' => 'beginning_inventory',
-					'is_returned' => 0,
-					'vendor_inc_number' => $this->vendor_inc_number,
-					'prefix' => 'BGN-',
-					'parent_id' => 0
-				]);
 				
-				$invoice->createChildrenItems($this->items,$this->vendor_id,$inventory,'beginning_inventory');
+				
+				$invoice = $this->create_invoice();
+				$sub_invoice = $this->create_subinvoice($invoice);
+				$invoice->add_items_to_beginning_inventory($this->items,$this->vendor_id,$sub_invoice,'beginning_inventory');
+				
+				$expenses = [];
+				$account = Account::where('slug','equity')->latest()->first();
+				$account->amount = $this->net;
+				$methods = [
+					$account
+				];
+				$invoice_status = $invoice->handle_invoice_transactions($methods,$this->vendor_id,$this->net,$this->items,$expenses);
+				
 				$invoice->setCreationStatusAs('paid')->setTypeAs('beginning_inventory');
-				$invoice->create_invoice_entry($inventory);
+//				$invoice->create_invoice_entry($inventory);
 				DB::commit();
 			}catch (Exception $e){
 				DB::rollBack();
@@ -88,6 +86,44 @@
 			}
 			
 			
+		}
+		
+		/**
+		 *
+		 *
+		 * @toCreate Invoice
+		 */
+		public function create_invoice()
+		{
+			$data = $this->only('total','subtotal','remaining','net','tax','discount_value',
+				'discount_percent');
+			$data['creator_id'] = $this->user()->id;
+			$data['department_id'] = $this->user()->department_id;
+			$data['branch_id'] = $this->user()->branch_id;
+			$data['invoice_type'] = 'beginning_inventory';
+			$invoice = $this->user()->organization->invoices()->create($data);
+			return $invoice;
+		}
+		
+		/**
+		 *
+		 *
+		 * @toCreate Sub Invoice
+		 */
+		public function create_subinvoice($invoice)
+		{
+			return $invoice->purchase()->create([
+				'organization_id' => $this->user()->organization_id,
+				'receiver_id' => $this->receiver_id,
+				'vendor_id' => $this->vendor_id,
+				'is_full_returned' => 0,
+				'invoice_type' => 'beginning_inventory',
+				'is_returned' => 0,
+				'vendor_inc_number' => $this->vendor_inc_number,
+				'prefix' => 'BGN-',
+				'parent_id' => 0
+			
+			]);
 		}
 		
 	}

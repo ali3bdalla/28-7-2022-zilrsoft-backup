@@ -7,6 +7,10 @@
 	trait UserAttributes
 	{
 		
+		public function getLocaleNameAttribute()
+		{
+			return $this->name;
+		}
 		public function scopeVendors($query)
 		{
 			return $query->where([

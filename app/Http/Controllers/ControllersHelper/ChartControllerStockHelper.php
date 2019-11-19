@@ -41,7 +41,7 @@
 			}
 			
 			
-			return view('accounting.stock_histories',compact('items','chart'));
+			return view('accounts.stock_histories',compact('items','chart'));
 		}
 		
 		public function get_child_infinity_stock_children_ids($child)
