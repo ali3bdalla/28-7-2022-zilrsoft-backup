@@ -6,55 +6,11 @@
 	
 	use AliAbdalla\Tafqeet\Core\Tafqeet;
 	use App\Account;
-	use App\Invoice;
 	use App\InvoiceItems;
 	use App\Item;
-	use App\PurchaseInvoice;
-	use App\SaleInvoice;
-	use Exception;
 	
 	trait InvoiceInterfaceHelper
 	{
-		
-		public static function updateInvoiceStatusAsPaid($ids = [],$payment)
-		{
-			$invoices = Invoice::find($ids);
-			if (!empty($invoices)){
-				foreach ($invoices as $invoice){
-					$invoice->update([
-						'current_status' => 'paid',
-						'remaining' => 0,
-					]);
-					
-					$invoice->payments()->create(
-						[
-							'organization_id' => auth()->user()->organization_id,
-							'creator_id' => auth()->user()->id,
-							'payment_id' => $payment->id,
-							'amount' => $invoice->remaining,
-							'is_paid' => 1
-						]
-					);
-				}
-			}
-			
-		}
-		
-		
-		
-		
-		public function createChildrenItems($items,$user_id,$sub_invoice,$invoice_type,$expenses = [])
-		{
-			$result = [];
-			if (!empty($this->items)){
-				foreach ($items as $invoice_item){
-					$fresh_item = Item::find($invoice_item['id']);
-					$fresh_item->init_create_invoice_item($invoice_item,$invoice_type,$user_id,$sub_invoice,$expenses);
-					$result[] = $fresh_item;
-				}
-				return $result;
-			}
-		}
 		
 		public function add_items_to_beginning_inventory($items,$user_id,$sub_invoice,$invoice_type,$expenses = [])
 		{
@@ -69,18 +25,24 @@
 			}
 		}
 		
-		
 		public function add_items_to_invoice($items = [],$sub_invoice,$expenses,$invoice_type,$user_id)
 		{
 			
 			
 			$result = [];
-			if (!empty($this->items)){
+			
+			
+			if (!empty($items)){
+//				dd($items);
 				foreach ($items as $invoice_item){
+//					dd($items);
 					$fresh_item = Item::find($invoice_item['id']);
+//					dd($fresh_item);
 					$fresh_item->init_create_invoice_item($invoice_item,$invoice_type,$user_id,$sub_invoice,$expenses);
 					$result[] = $fresh_item;
 				}
+
+//				dd();
 				return $result;
 			}
 			
@@ -105,41 +67,15 @@
 			}
 		}
 		
-		public function createPayments($user_id,$methods,$invoice,$type = 'receipt')
+		public function make_instance_child_invoice($invoice_type)
 		{
-			$total = 0;
-			
-			foreach ($methods as $method){
-				if ($method['amount'] > 0){
-					$data['creator_id'] = auth()->user()->id;
-					$data['user_id'] = $user_id;
-					$data['gateway_id'] = $method['id'];
-					$data['amount'] = $method['amount'];
-					$data['amount_ar_words'] = Tafqeet::arablic($method['amount']);
-					$data['amount_en_words'] = Tafqeet::arablic($method['amount']);
-					$data['payment_type'] = $type;
-					$data['creator_id'] = auth()->user()->id;
-					$payment = auth()->user()->organization->payments()->create($data);
-					
-					$invoice->payments()->create([
-						'organization_id' => auth()->user()->organization_id,
-						'creator_id' => auth()->user()->id,
-						'amount' => $method['amount'],
-						'payment_id' => $payment->id,
-						'is_paid' => 1
-					]);
-					
-					$total = $total + $method['amount'];
-					
-				}
-			}
-			
-			
-			return $total;
-		}
-		
-		public function createChildInvoice($child_invoice_data,$invoice_type)
-		{
+			$child_invoice_data['total'] = 0;
+			$child_invoice_data['remaining'] = 0;
+			$child_invoice_data['net'] = 0;
+			$child_invoice_data['subtotal'] = 0;
+			$child_invoice_data['discount_value'] = 0;
+			$child_invoice_data['discount_percent'] = 0;
+			$child_invoice_data['organization_id'] = auth()->user()->organization_id;
 			$child_invoice_data['department_id'] = $this->department_id;
 			$child_invoice_data['branch_id'] = $this->branch_id;
 			$child_invoice_data['organization_id'] = $this->organization_id;
@@ -150,7 +86,54 @@
 			return $this->child()->create($child_invoice_data);
 		}
 		
-		public function createReturnItems($items,$sub_invoice)
+		public function create_return_invoice_items($items = [],$sub_invoice)
+		{
+			
+			if (!empty($items)){
+				foreach ($items as $key => $invoice_item){
+					if ($invoice_item['returned_qty'] >= 1){
+						$fresh_invoice_item = InvoiceItems::find($invoice_item['id']);
+						$fresh_invoice_item->init_return_item($invoice_item,$sub_invoice);
+						
+					}
+				}
+			}
+			
+		}
+		
+		public function update_return_invoice_data()
+		{
+			
+			$result['total'] = 0;
+			$result['subtotal'] = 0;
+			$result['tax'] = 0;
+			$result['discount_value'] = 0;
+			$result['net'] = 0;
+			
+			$result['is_updated'] = true;
+			$result['is_deleted'] = true;
+			
+			
+			$items = $this->items;
+			foreach ($items as $item){
+				$result['total'] = $result['total'] + $item['total'];
+				$result['subtotal'] = $result['subtotal'] + $item['subtotal'];
+				$result['tax'] = $result['tax'] + $item['tax'];
+				$result['discount_value'] = $result['discount_value'] + $item['discount'];
+				$result['net'] = $result['net'] + $item['net'];
+				if ($item['qty'] != $item['r_qty']){
+					$result['is_deleted'] = false;
+				}
+			}
+			
+			
+			$this->update($result);
+			
+			$this->update_invoice_totals_data();
+			return $result;
+		}
+		
+		public function update_invoice_totals_data()
 		{
 			$result['total'] = 0;
 			$result['subtotal'] = 0;
@@ -158,71 +141,20 @@
 			$result['discount_value'] = 0;
 			$result['net'] = 0;
 			
-			if (!empty($items)){
-				foreach ($items as $key => $invoice_item){
-					$item = Item::find($invoice_item['item_id']);
-					if ($invoice_item['returned_qty'] >= 1){
-						// returned_qty more than one
-						
-						$fresh_invoice_item = InvoiceItems::find($invoice_item['id']);
-						$return_invoice_type = $sub_invoice instanceof SaleInvoice ? 'r_sale' : 'r_purchase';
-						$item_new_returned_serial_list = [];
-						if ($item->is_need_serial){
-							$item_new_returned_serial_list = $item->getListOfReturnedSerial($invoice_item['serials'],$return_invoice_type);
-							$qty = count($item_new_returned_serial_list);
-						}else{
-							$qty = $invoice_item['returned_qty'];
-						}
-						
-						
-						if (!$item->checkIfItHasEnoughQtyForReturn($qty,$fresh_invoice_item,$sub_invoice))
-							throw  new Exception($invoice_item['id'].' item has qty to returned');
-						
-						
-						if ($qty >= 1){
-							
-							$inc_item_data = $item->getDataForReturn($qty,$fresh_invoice_item);
-							$inc_item_data['qty'] = $qty;
-							$inc_item_data['r_qty'] = $qty;
-							$inc_item_data['type'] = 'return';
-							if ($sub_invoice instanceof SaleInvoice){
-								$inc_item_data['invoice_type'] = 'r_sale';
-							}else{
-								$inc_item_data['invoice_type'] = 'r_purchase';
-								
-							}
-							$new_invoice_item = $this->items()->create($inc_item_data);
-							$fresh_invoice_item->addToReturnedQty($qty);
-							if ($sub_invoice instanceof PurchaseInvoice){
-								$item->updateItemAvailableQty('sub',$qty);
-							}else{
-								$item->updateItemAvailableQty('add',$qty);
-							}
-							
-							
-							$new_invoice_item->update_item_cost_value_after_new_invoice_created();
-							
-							
-							if ($item->is_need_serial)
-								$item->setSerialAs($return_invoice_type,$item_new_returned_serial_list,$this);
-							
-							
-							$result['total'] += $inc_item_data['total'];
-							$result['subtotal'] += $inc_item_data['subtotal'];
-							$result['tax'] += $inc_item_data['tax'];
-							$result['discount_value'] += $inc_item_data['discount'];
-							$result['net'] += $inc_item_data['net'];
-							
-						}
-						
-						
-						// end of returned qty is more than one
-					}
-				}
+			
+			$items = $this->items;
+			foreach ($items as $item){
+				$result['total'] = $result['total'] + $item['total'];
+				$result['subtotal'] = $result['subtotal'] + $item['subtotal'];
+				$result['tax'] = $result['tax'] + $item['tax'];
+				$result['discount_value'] = $result['discount_value'] + $item['discount'];
+				$result['net'] = $result['net'] + $item['net'];
+				
 			}
 			
 			
-			return $result;
+			$this->update($result);
+			
 		}
 		
 		public function update_invoice_creation_status($status)
@@ -233,10 +165,25 @@
 			]);
 		}
 		
-		public function handle_invoice_transactions($methods = [],$user_id,$net,$items,$expenses)
+		public function handle_invoice_transactions($methods = [],$user_id,$net,$items,$expenses,$invoice_type = 'purchase')
 		{
 			
+			if ($invoice_type == 'purchase'){
+				return $this->handle_purchase_transactions($methods,$user_id,$net,$items,$expenses);
+			}elseif ($invoice_type == 'r_purchase'){
+				return $this->handle_return_purchase_transactions($methods,$user_id,$net,$items,$expenses);
+			}elseif ($invoice_type == 'sale'){
+				return $this->handle_sale_transactions($methods,$user_id,$net,$items,$expenses);
+			}elseif ($invoice_type == 'r_sale'){
+				return $this->handle_return_sale_transactions($methods,$user_id,$net,$items,$expenses);
+			}
 			
+			
+			return 'paid';
+		}
+		
+		public function handle_purchase_transactions($methods = [],$user_id,$net,$items,$expenses)
+		{
 			$creator_stock = auth()->user()->manager_current_stock();
 			$paid_amount = 0;
 			
@@ -271,26 +218,26 @@
 			
 			if ($paid_amount < $net){
 				
+				$amount = floatval($net) - floatval($paid_amount);
 				
 				$this->user()->credit_transaction()->create([
 					'creator_id' => auth()->user()->id,
 					'organization_id' => auth()->user()->organization_id,
 					'debitable_id' => $creator_stock->id,
 					'debitable_type' => get_class($creator_stock),
-					'amount' => floatval($net) - floatval($paid_amount),
+					'amount' => $amount,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
 					'description' => 'to_stock',
 				]);
 				
 				
+				$this->user()->update_vendor_balance('add',$amount);
 				return 'credit';
 			}
 			
 			
 			return 'paid';
-			
-			
 		}
 		
 		public function handle_invoice_payments($method,$payment_type = 'payment')
@@ -311,19 +258,66 @@
 		
 		public function create_tax_transaction($creator_stock,$user_id,$items = [],$expenses = [])
 		{
+			
+			
 			$tax_account = Account::where('slug','vat')->first();
+			$this->make_invoice_expenses($items,$expenses);
+			
+			$expenses_tax = $this->expenses()->sum('tax');
 			
 			
-			$tax = $this->to_extract_tax_from_expenses($items,$expenses) + $this->tax;
+			$tax = $expenses_tax + $this->tax;
 			
 			
-			if($tax>0)
-			{
-				$tax_account->credit_transaction()->create([
+			if (in_array($this->invoice_type,['sale','r_purchase'])){
+				
+				
+				if ($tax > 0){
+					$tax_account->credit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'debitable_id' => $creator_stock->id,
+						'debitable_type' => get_class($creator_stock),
+						'amount' => $tax,
+						'user_id' => $user_id,
+						'invoice_id' => $this->id,
+						'description' => 'to_tax',
+					]);
+				}
+				
+				
+				$sum = $this->expenses()->where('with_net',0)->sum('amount');
+				
+				
+				if ($sum > 0){
+					$manager_cash_account = auth()->user()->manager_gateway('cash');
+					
+					$tax_account->debit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'creditable_id' => $manager_cash_account->id,
+						'creditable_type' => get_class($manager_cash_account),
+						'amount' => $sum,
+						'user_id' => $user_id,
+						'invoice_id' => $this->id,
+						'description' => 'to_gateway',
+					]);
+				}
+				
+				
+				return;
+			}
+
+
+//			dd($this->tax);
+			
+			
+			if ($tax > 0){
+				$tax_account->debit_transaction()->create([
 					'creator_id' => auth()->user()->id,
 					'organization_id' => auth()->user()->organization_id,
-					'debitable_id' => $creator_stock->id,
-					'debitable_type' => get_class($creator_stock),
+					'creditable_id' => $creator_stock->id,
+					'creditable_type' => get_class($creator_stock),
 					'amount' => $tax,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
@@ -331,28 +325,525 @@
 				]);
 			}
 			
+			
+			$sum = $this->expenses()->where('with_net',0)->sum('amount');
+			
+			
+			if ($sum > 0){
+				$manager_cash_account = auth()->user()->manager_gateway('cash');
+				
+				$tax_account->debit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'creditable_id' => $manager_cash_account->id,
+					'creditable_type' => get_class($manager_cash_account),
+					'amount' => $sum,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_gateway',
+				]);
+			}
+			
 		}
 		
-		public function to_extract_tax_from_expenses($items = [],$expenses = [])
+		public function make_invoice_expenses($items = [],$expenses = [])
 		{
 			
 			
 			$total_taxes = 0;
 			foreach ($expenses as $expense){
-				
+
+//				$expense_total = 0;
 				foreach ($items as $item){
 					$new_item = Item::find($item['id']);
 					$amount = $expense['amount'] * $item['widget'] / $new_item->get_item_purchase_tax_as_value(); //
 					
 					$tax = $expense['amount'] - $amount;
-//					var_dump($tax);
-//					exit();
-					$total_taxes = $total_taxes + $tax;
 					
+					$total_taxes = $total_taxes + $tax;
+
+//					$expense_total
+				
 				}
+				
+				$org_vat = auth()->user()->organization->organization_vat;
+				$expense_tax = $expense['amount'] * $org_vat / (100 + $org_vat);
+				
+				$this->expenses()->create(
+					[
+						'expense_id' => $expense['id'],
+						'amount' => $expense['amount'],
+						'tax' => $expense_tax,
+						'with_net' => $expense['is_apended_to_net'],
+					]
+				);
 				
 				
 			}
 			return $total_taxes;
 		}
+		
+		public function handle_return_purchase_transactions($methods = [],$user_id,$net,$items,$expenses)
+		{
+			$creator_stock = auth()->user()->manager_current_stock();
+			$paid_amount = 0;
+			
+			foreach ($methods as $method){
+				
+				if ($method['amount'] > 0){
+					
+					$gateway = Account::find($method['id']);
+					
+					$gateway->debit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'creditable_id' => $creator_stock->id,
+						'creditable_type' => get_class($creator_stock),
+						'amount' => $method['amount'],
+						'user_id' => $user_id,
+						'invoice_id' => $this->id,
+						'description' => 'to_gateway',
+					]);
+					
+					
+					$this->handle_invoice_payments($method,'payment');
+					$paid_amount = $paid_amount + $method['amount'];
+				}
+				
+				
+			}
+			
+			
+			$this->create_tax_transaction($creator_stock,$user_id,$items,$expenses);
+			
+			
+			if ($paid_amount < $net){
+				
+				
+				$amount = floatval($net) - floatval($paid_amount);
+				$this->user()->debit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'creditable_id' => $creator_stock->id,
+					'creditable_type' => get_class($creator_stock),
+					'amount' => $amount,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_stock',
+				]);
+				
+				$this->user()->update_vendor_balance('sub',$amount);
+				
+				return 'credit';
+			}
+			
+			
+			return 'paid';
+		}
+		
+		public function handle_sale_transactions($methods = [],$user_id,$net,$items,$expenses)
+		{
+			$creator_stock = auth()->user()->manager_current_stock();
+			$paid_amount = 0;
+			
+			foreach ($methods as $method){
+				
+				if ($method['amount'] > 0){
+					
+					$gateway = Account::find($method['id']);
+					
+					$gateway->debit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'creditable_id' => $creator_stock->id,
+						'creditable_type' => get_class($creator_stock),
+						'amount' => $method['amount'],
+						'user_id' => $user_id,
+						'invoice_id' => $this->id,
+						'description' => 'to_gateway',
+					]);
+					
+					
+					$this->handle_invoice_payments($method,'payment');
+					$paid_amount = $paid_amount + $method['amount'];
+				}
+				
+				
+			}
+			
+			
+			$this->create_tax_transaction($creator_stock,$user_id,$items,$expenses);
+			
+			
+			$is_credit = false;
+			if ($paid_amount < $net){
+				
+				
+				$amount = floatval($net) - floatval($paid_amount);
+				$this->user()->debit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'creditable_id' => $creator_stock->id,
+					'creditable_type' => get_class($creator_stock),
+					'amount' => $amount,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_stock',
+				]);
+				
+				$this->user()->update_client_balance('add',$amount);
+				
+				$is_credit = true;
+			}
+			
+			
+			/*
+			 * to transaction for cost of goods
+			 *
+			 * */
+
+//
+			$manager_cogs_account = auth()->user()->get_active_manager_account_for('cogs');
+			$manager_products_sales_account = auth()->user()->get_active_manager_account_for('products_sales');
+			$manager_services_sales_account = auth()->user()->get_active_manager_account_for('services_sales');
+			$manager_other_services_sales_account = auth()->user()->get_active_manager_account_for('other_services_sales');
+			
+			
+			$manager_products_sales_discount_account = auth()->user()->get_active_manager_account_for('products_sales_discount');
+			$manager_services_sales_discount_account = auth()->user()->get_active_manager_account_for('services_sales_discount');
+			$manager_other_services_sales_discount_account = auth()->user()->get_active_manager_account_for('other_services_sales_discount');
+			
+			
+			$manager_stock_account = auth()->user()->get_active_manager_account_for('stock');
+//			$invoice_items = $this->items;
+			$total_cost = $this->transactions()->where('description','to_item')->sum('amount');
+			// to make cost of goods transaction
+			$manager_cogs_account->debit_transaction()->create([
+				'creator_id' => auth()->user()->id,
+				'organization_id' => auth()->user()->organization_id,
+				'creditable_id' => $manager_stock_account->id,
+				'creditable_type' => get_class($manager_stock_account),
+				'amount' => $total_cost,
+				'user_id' => $user_id,
+				'invoice_id' => $this->id,
+				'description' => 'to_cogs',
+			]);
+			
+			
+			// to make sales transactions
+			$products_sales_total = 0;
+			$services_sales_total = 0;
+			$other_services_sales_total = 0;
+			
+			$products_sales_total_discount = 0;
+			$services_sales_total_discount = 0;
+			$other_services_sales_total_discount = 0;
+			
+			
+			foreach ($items as $item){
+				if ($item['is_expense']){
+					$other_services_sales_total = $other_services_sales_total + $item['total'];
+					$other_services_sales_total_discount = $other_services_sales_total_discount + $item['discount'];
+				}else if ($item['is_service']){
+					$services_sales_total = $services_sales_total + $item['total'];
+					$services_sales_total_discount = $services_sales_total_discount + $item['discount'];
+				}else{
+					$products_sales_total = $products_sales_total + $item['total'];
+					$products_sales_total_discount = $products_sales_total_discount + $item['discount'];
+				}
+			}
+			
+			
+			if ($products_sales_total > 0){
+				$manager_products_sales_account->credit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'debitable_id' => $manager_stock_account->id,
+					'debitable_type' => get_class($manager_stock_account),
+					'amount' => $products_sales_total,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_products_sales',
+				]);
+			}
+			
+			if ($services_sales_total > 0){
+				$manager_services_sales_account->credit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'debitable_id' => $manager_stock_account->id,
+					'debitable_type' => get_class($manager_stock_account),
+					'amount' => $services_sales_total,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_services_sales',
+				]);
+			}
+			
+			if ($other_services_sales_total > 0){
+				$manager_other_services_sales_account->credit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'debitable_id' => $manager_stock_account->id,
+					'debitable_type' => get_class($manager_stock_account),
+					'amount' => $other_services_sales_total,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_other_services_sales',
+				]);
+			}
+			
+			
+			/// discounts
+			if ($products_sales_total_discount > 0){
+				$manager_products_sales_discount_account->debit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'creditable_id' => $manager_stock_account->id,
+					'creditable_type' => get_class($manager_stock_account),
+					'amount' => $products_sales_total_discount,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_products_sales_discount',
+				]);
+			}
+			
+			if ($services_sales_total_discount > 0){
+				$manager_services_sales_discount_account->debit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'creditable_id' => $manager_stock_account->id,
+					'creditable_type' => get_class($manager_stock_account),
+					'amount' => $services_sales_total_discount,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_services_sales_discount',
+				]);
+			}
+			
+			if ($other_services_sales_total_discount > 0){
+				$manager_other_services_sales_discount_account->debit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'creditable_id' => $manager_stock_account->id,
+					'creditable_type' => get_class($manager_stock_account),
+					'amount' => $other_services_sales_total_discount,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_other_services_sales_discount',
+				]);
+			}
+
+//
+			
+			
+			if ($is_credit)
+				return 'credit';
+			
+			return 'paid';
+		}
+		
+		public function handle_return_sale_transactions($methods = [],$user_id,$net,$items,$expenses)
+		{
+			$creator_stock = auth()->user()->manager_current_stock();
+			$paid_amount = 0;
+			
+			foreach ($methods as $method){
+				
+				if ($method['amount'] > 0){
+					
+					$gateway = Account::find($method['id']);
+					
+					$gateway->credit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'debitable_id' => $creator_stock->id,
+						'debitable_type' => get_class($creator_stock),
+						'amount' => $method['amount'],
+						'user_id' => $user_id,
+						'invoice_id' => $this->id,
+						'description' => 'to_gateway',
+					]);
+					
+					
+					$this->handle_invoice_payments($method,'receipt');
+					$paid_amount = $paid_amount + $method['amount'];
+				}
+				
+				
+			}
+			
+			
+			$this->create_tax_transaction($creator_stock,$user_id,$items,$expenses);
+			
+			
+			$is_credit = false;
+			if ($paid_amount < $net){
+				
+				
+				$amount = floatval($net) - floatval($paid_amount);
+				$this->user()->credit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'debitable_id' => $creator_stock->id,
+					'debitable_type' => get_class($creator_stock),
+					'amount' => $amount,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_stock',
+				]);
+				
+				$this->user()->update_client_balance('sub',$amount);
+				
+				$is_credit = true;
+			}
+			
+			
+			/*
+			 * to transaction for cost of goods
+			 *
+			 * */
+
+//
+			$manager_cogs_account = auth()->user()->get_active_manager_account_for('cogs');
+			$manager_products_sales_return_account = auth()->user()->get_active_manager_account_for('products_return_sales');
+			$manager_services_sales_return_account = auth()->user()->get_active_manager_account_for('services_return_sales');
+			//$manager_other_services_sales_return_account = auth()->user()->get_active_manager_account_for
+			//('other_services_return_sales');
+			
+			
+			$manager_products_sales_discount_account = auth()->user()->get_active_manager_account_for('products_sales_discount');
+			$manager_services_sales_discount_account = auth()->user()->get_active_manager_account_for('services_sales_discount');
+			$manager_other_services_sales_discount_account = auth()->user()->get_active_manager_account_for('other_services_sales_discount');
+			
+			
+			$manager_stock_account = auth()->user()->get_active_manager_account_for('stock');
+//			$invoice_items = $this->items;
+			$total_cost = $this->transactions()->where('description','to_item')->sum('amount');
+			// to make cost of goods transaction
+			$manager_cogs_account->credit_transaction()->create([
+				'creator_id' => auth()->user()->id,
+				'organization_id' => auth()->user()->organization_id,
+				'debitable_id' => $manager_stock_account->id,
+				'debitable_type' => get_class($manager_stock_account),
+				'amount' => $total_cost,
+				'user_id' => $user_id,
+				'invoice_id' => $this->id,
+				'description' => 'to_cogs',
+			]);
+			
+			
+			// to make sales transactions
+			$products_sales_total = 0;
+			$services_sales_total = 0;
+			$other_services_sales_total = 0;
+			
+			$products_sales_total_discount = 0;
+			$services_sales_total_discount = 0;
+			$other_services_sales_total_discount = 0;
+			
+			
+			foreach ($items as $item){
+				if ($item['item']['is_expense']){
+					$other_services_sales_total = $other_services_sales_total + $item['total'];
+					$other_services_sales_total_discount = $other_services_sales_total_discount + $item['discount'];
+				}else if ($item['item']['is_service']){
+					$services_sales_total = $services_sales_total + $item['total'];
+					$services_sales_total_discount = $services_sales_total_discount + $item['discount'];
+				}else{
+					$products_sales_total = $products_sales_total + $item['total'];
+					$products_sales_total_discount = $products_sales_total_discount + $item['discount'];
+				}
+			}
+			
+			
+			if ($products_sales_total > 0){
+				$manager_products_sales_return_account->debit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'creditable_id' => $manager_stock_account->id,
+					'creditable_type' => get_class($manager_stock_account),
+					'amount' => $products_sales_total,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_products_sales',
+				]);
+			}
+			
+			if ($services_sales_total > 0){
+				$manager_services_sales_return_account->credit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'debitable_id' => $manager_stock_account->id,
+					'debitable_type' => get_class($manager_stock_account),
+					'amount' => $services_sales_total,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_services_sales',
+				]);
+			}
+
+//			if ($other_services_sales_total > 0){
+//				$manager_other_services_sales_return_account->debit_transaction()->create([
+//					'creator_id' => auth()->user()->id,
+//					'organization_id' => auth()->user()->organization_id,
+//					'creditable_id' => $manager_stock_account->id,
+//					'creditable_type' => get_class($manager_stock_account),
+//					'amount' => $other_services_sales_total,
+//					'user_id' => $user_id,
+//					'invoice_id' => $this->id,
+//					'description' => 'to_other_services_sales',
+//				]);
+//			}
+			
+			
+			/// discounts
+			if ($products_sales_total_discount > 0){
+				$manager_products_sales_discount_account->credit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'debitable_id' => $manager_stock_account->id,
+					'debitable_type' => get_class($manager_stock_account),
+					'amount' => $products_sales_total_discount,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_products_sales_discount',
+				]);
+			}
+			
+			if ($services_sales_total_discount > 0){
+				$manager_services_sales_discount_account->credit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'debitable_id' => $manager_stock_account->id,
+					'debitable_type' => get_class($manager_stock_account),
+					'amount' => $services_sales_total_discount,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_services_sales_discount',
+				]);
+			}
+			
+			if ($other_services_sales_total_discount > 0){
+				$manager_other_services_sales_discount_account->credit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'debitable_id' => $manager_stock_account->id,
+					'debitable_type' => get_class($manager_stock_account),
+					'amount' => $other_services_sales_total_discount,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'description' => 'to_other_services_sales_discount',
+				]);
+			}
+
+//
+			
+			
+			if ($is_credit)
+				return 'credit';
+			
+			return 'paid';
+		}
+		
 	}

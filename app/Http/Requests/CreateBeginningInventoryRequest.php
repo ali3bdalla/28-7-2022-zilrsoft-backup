@@ -70,7 +70,7 @@
 				$invoice->add_items_to_beginning_inventory($this->items,$this->vendor_id,$sub_invoice,'beginning_inventory');
 				
 				$expenses = [];
-				$account = Account::where('slug','equity')->latest()->first();
+				$account = auth()->user()->get_active_manager_account_for("withdrawals");
 				$account->amount = $this->net;
 				$methods = [
 					$account

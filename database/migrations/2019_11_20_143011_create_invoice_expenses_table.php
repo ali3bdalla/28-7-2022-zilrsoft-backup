@@ -15,6 +15,11 @@ class CreateInvoiceExpensesTable extends Migration
     {
         Schema::create('invoice_expenses', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('invoice_id');
+            $table->integer('expense_id');
+            $table->boolean('with_net')->default(false);
+            $table->float('tax');
+            $table->float('amount');
             $table->timestamps();
         });
     }

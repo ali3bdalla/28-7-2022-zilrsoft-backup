@@ -62,7 +62,9 @@
 				'net' => 'required|numeric',
 				'vendor_inc_number' => 'required|string',
 				'remaining' => 'required|numeric',
-//				'status' => 'required'
+				'expenses.*.id' => 'integer|required|exists:expenses',
+				'expenses.*.is_open' => 'boolean|required',
+				'expenses.*.is_apended_to_net' => 'boolean|required',
 			];
 		}
 		
@@ -72,8 +74,11 @@
 			DB::beginTransaction();
 			try{
 				
-				$invoice = $this->create_invoice();
-				$sub_invoice = $this->create_subinvoice($invoice);
+				$data = $this->only('total','subtotal','remaining','net','tax','discount_value',
+					'discount_percent');
+				$invoice = $this->create_invoice($data,auth()->user());
+				$sub_invoice = $this->create_subinvoice($invoice,auth()->user(),$this->receiver_id,$this->vendor_id,
+				$this->vendor_inc_number);
 				$expenses = $this->get_expense_array();
 				$invoice->add_items_to_invoice($this->items,$sub_invoice,$expenses,'purchase',$this->vendor_id);
 				
@@ -81,7 +86,6 @@
 				$invoice_status = $invoice->handle_invoice_transactions($this->methods,$this->vendor_id,
 					$this->net,$this->items,$expenses);
 				
-//				return $expenses;
 				$invoice->update_invoice_creation_status($invoice_status);
 				DB::commit();
 				return [
@@ -101,15 +105,14 @@
 		 *
 		 * @toCreate Invoice
 		 */
-		public function create_invoice()
+		public function create_invoice($data,$user)
 		{
-			$data = $this->only('total','subtotal','remaining','net','tax','discount_value',
-				'discount_percent');
-			$data['creator_id'] = $this->user()->id;
-			$data['department_id'] = $this->user()->department_id;
-			$data['branch_id'] = $this->user()->branch_id;
+			
+			$data['creator_id'] = $user->id;
+			$data['department_id'] = $user->department_id;
+			$data['branch_id'] = $user->branch_id;
 			$data['invoice_type'] = 'purchase';
-			$invoice = $this->user()->organization->invoices()->create($data);
+			$invoice = $user->organization->invoices()->create($data);
 			return $invoice;
 		}
 		
@@ -118,16 +121,16 @@
 		 *
 		 * @toCreate Sub Invoice
 		 */
-		public function create_subinvoice($invoice)
+		public function create_subinvoice($invoice,$user,$receiver_id,$vendor_id,$vendor_inc_number)
 		{
 			return $invoice->purchase()->create([
-				'organization_id' => $this->user()->organization_id,
-				'receiver_id' => $this->receiver_id,
-				'vendor_id' => $this->vendor_id,
+				'organization_id' => $user->organization_id,
+				'receiver_id' => $receiver_id,
+				'vendor_id' => $vendor_id,
 				'is_full_returned' => false,
 				'invoice_type' => 'purchase',
 				'is_returned' => false,
-				'vendor_inc_number' => $this->vendor_inc_number,
+				'vendor_inc_number' => $vendor_inc_number,
 				'prefix' => 'PUI-',
 				'parent_id' => 0
 			

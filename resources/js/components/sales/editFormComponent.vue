@@ -1,228 +1,4 @@
 <template>
-    <!-- startup box -->
-    <!--    <div class="message">-->
-
-
-    <!--        <div class="message-header has-background-dark">-->
-    <!--            &lt;!&ndash; <h4 class="title has-text-white ">New invoice </h4> &ndash;&gt;-->
-    <!--        </div>-->
-    <!--        <div class="message-body">-->
-    <!--            <div class="has-background-light">-->
-    <!--                <div class="columns">-->
-    <!--                    <div class="column">-->
-    <!--                        &lt;!&ndash; <label>client name</label> &ndash;&gt;-->
-    <!--                        <div class="">-->
-    <!--                            <div class="input-group">-->
-    <!--                                <span class="input-group-addon" id="vendors-list">client</span>-->
-    <!--                                <input type="text" readonly class="form-control" :value="user.name">-->
-    <!--                            </div>-->
-
-
-    <!--                        </div>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="column">-->
-    <!--                        &lt;!&ndash; <label>date</label> &ndash;&gt;-->
-    <!--                        <div class="input-group">-->
-    <!--                            <span class="input-group-addon" id="time-field">created at</span>-->
-    <!--                            <input type="text" name=""aria-describedby="time-field" class="form-control"-->
-    <!--                                   :value="invoice.created_at">-->
-
-    <!--                        </div>-->
-
-
-    <!--                    </div>-->
-
-    <!--                </div>-->
-
-
-    <!--                <div>-->
-    <!--                    <div class="columns">-->
-    <!--                        <div class="column">-->
-    <!--                            &lt;!&ndash; <label>client name</label> &ndash;&gt;-->
-    <!--                            <div class="input-group">-->
-    <!--                                <span class="input-group-addon" id="creator">created by</span>-->
-    <!--                                <input type="text" readonly class="form-control" :value="creator.name">-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-
-    <!--                        <div class="column">-->
-    <!--                            <div class="input-group">-->
-    <!--                                <span class="input-group-addon" id="department">department</span>-->
-    <!--                                <input type="text" readonly class="form-control" :value="department">-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-
-
-    <!--            <hr>-->
-    <!--            <div class="table-container">-->
-    <!--                <table class="table is-bordered text-center is-fullwidth is-narrow is-hoverable is-striped">-->
-    <!--                    <thead class="has-background-dark ">-->
-    <!--                    <tr>-->
-    <!--                        <th class="has-text-white"></th>-->
-    <!--                        &lt;!&ndash; <th class="has-text-white"></th> &ndash;&gt;-->
-    <!--                        <th class="has-text-white">barcode</th>-->
-    <!--                        <th class="has-text-white"width="20%">item name</th>-->
-    <!--                        <th class="has-text-white" width="3%">qty</th>-->
-    <!--                        <th class="has-text-white" width="3%">a qty</th>-->
-    <!--                        <th class="has-text-white" width="3%">r qty</th>-->
-    <!--                        <th class="has-text-white">price</th>-->
-    <!--                        <th class="has-text-white">total</th>-->
-    <!--                        <th class="has-text-white">discount</th>-->
-    <!--                        <th class="has-text-white">Sub total</th>-->
-    <!--                        <th class="has-text-white">vat</th>-->
-    <!--                        <th class="has-text-white">Tax.</th>-->
-    <!--                        <th class="has-text-white">NET.</th>-->
-    <!--                    </tr>-->
-    <!--                    </thead>-->
-
-    <!--                    <tbody>-->
-
-
-    <!--                    <tr v-for="(item,itemindex) in items" :key="item.id">-->
-    <!--                        <th class="has-text-white">-->
-    <!--                            <item-serial-for-sale-return-component-->
-    <!--                                :item="item.item"-->
-    <!--                                :itemindex="itemindex"-->
-    <!--                                :seriallist="item.serials"-->
-    <!--                                @changed="updatedItemSerials"-->
-    <!--                                :key="item.id"-->
-    <!--                            >-->
-    <!--                            </item-serial-for-sale-return-component>-->
-
-    <!--                        </th>-->
-    <!--                        &lt;!&ndash; <th class="has-text-white"></th> &ndash;&gt;-->
-    <!--                        <th  v-text="item.item.barcode"></th>-->
-    <!--                        <th  v-text="item.item.name">item name</th>-->
-    <!--                        <th width="6%">-->
-    <!--                            <input type="text" class="input"  disabled v-model="item.qty"-->
-    <!--                                   readonly>-->
-
-    <!--                        </th>-->
-    <!--                        <th width="6%">-->
-    <!--                            <input type="text" class="input" disabled v-model="item.a_qty"-->
-    <!--                                  readonly>-->
-
-    <!--                        </th>-->
-
-    <!--                        <th width="10px">-->
-    <!--                            <input type="number" class="input" :class="{'is-danger':item.error=='error'}"-->
-    <!--                                   v-model="item.returned_qty"-->
-    <!--                                   v-if="!item.item.is_need_serial" style="width:70px" min='0' :max="item.a_qty"-->
-    <!--                                   @keyup="onReturnQtyChanged(item)">-->
-    <!--                            <p v-else>{{item.returned_qty}}</p>-->
-    <!--                        </th>-->
-
-
-    <!--                        <th class="has-text-white">-->
-    <!--                            <input type="text" class="input"  v-model="item.price"-->
-    <!--                                    disabled>-->
-
-    <!--                        </th>-->
-    <!--                        <th class="has-text-white">-->
-    <!--                            <input type="text" class="input" disabled v-model="item.total">-->
-    <!--                        </th>-->
-    <!--                        <th class="has-text-white">-->
-    <!--                            <input type="text" class="input" placeholder="discount" v-model="item.discount"  disabled>-->
-    <!--                        </th>-->
-    <!--                        <th class="has-text-white">-->
-    <!--                            <input type="text" class="input" placeholder="subtotal" readonly=""-->
-    <!--                                   v-model="item.subtotal" disabled>-->
-    <!--                        </th>-->
-    <!--                        <th class="has-text-white">-->
-    <!--                            <input type="text" class="input" disabled placeholder="vat sale" readonly=""-->
-    <!--                                   v-model="item.item.vts + '%'">-->
-    <!--                        </th>-->
-    <!--                        <th class="has-text-white">-->
-    <!--                            <input type="text" class="input" disabled placeholder="tax" readonly="" v-model="item.tax">-->
-
-    <!--                        </th>-->
-    <!--                        <th class="has-text-white">-->
-    <!--                            <input type="text" class="input"  disabled placeholder="net" readonly="" v-model="item.net">-->
-    <!--                        </th>-->
-
-    <!--                    </tr>-->
-
-
-    <!--                    </tbody>-->
-    <!--                </table>-->
-    <!--            </div>-->
-    <!--            <div class="form-group">-->
-    <!--                <div class="columns">-->
-    <!--                    <div class="column is-three-quarters"></div>-->
-    <!--                    <div class="column">-->
-    <!--                        <div class="card">-->
-    <!--                            <div class="message-header">-->
-    <!--                                invoice data-->
-    <!--                            </div>-->
-    <!--                            <div class="message-body text-center">-->
-    <!--                                <div class="list-group-item">-->
-    <!--                                    <div class="columns">-->
-    <!--                                        <div class="column">total</div>-->
-    <!--                                        <div class="column">-->
-    <!--                                            <input type="text" class="input" v-model="total" disabled>-->
-    <!--                                        </div>-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                                <div class="list-group-item">-->
-    <!--                                    <div class="columns">-->
-    <!--                                        <div class="column">discount</div>-->
-    <!--                                        <div class="column">-->
-    <!--                                            <input type="text" class="input" v-model="discount" disabled>-->
-    <!--                                        </div>-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-
-    <!--                                <div class="list-group-item">-->
-    <!--                                    <div class="columns">-->
-    <!--                                        <div class="column">subtotal</div>-->
-    <!--                                        <div class="column">-->
-    <!--                                            <input type="text" class="input" v-model="subtotal" readonly="" disabled>-->
-    <!--                                        </div>-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                                <div class="list-group-item">-->
-    <!--                                    <div class="columns">-->
-    <!--                                        <div class="column">tax</div>-->
-    <!--                                        <div class="column">-->
-    <!--                                            <input type="text" class="input" v-model="tax" disabled>-->
-    <!--                                        </div>-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                                <div class="list-group-item">-->
-    <!--                                    <div class="columns">-->
-    <!--                                        <div class="column">net</div>-->
-    <!--                                        <div class="column">-->
-    <!--                                            <input type="text" class="input" v-model="net" disabled>-->
-    <!--                                        </div>-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-
-
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-
-    <!--            <div class="form-group">-->
-    <!--                <div class="columns">-->
-    <!--                    <div class="column">-->
-    <!--                        <button class="button is-primary is-medium is-fullwidth" @click="saveInvoiceButtonClicked"><i-->
-    <!--                            class="fa fa-print"></i>&nbsp; save and print </button>-->
-    <!--                    </div>-->
-
-    <!--                </div>-->
-    <!--            </div>-->
-
-    <!--        </div>-->
-
-    <!--    </div>-->
-    <!-- end box -->
 
 
     <!-- startup box -->
@@ -290,7 +66,7 @@
                         <div class="column">
                             <div class="input-group">
                                 <span class="input-group-addon" id="department">{{ translator.department}}</span>
-                                <input :value="department" class="form-control" readonly type="text">
+                                <input :value="creator.department" class="form-control" readonly type="text">
                             </div>
                         </div>
 
@@ -324,7 +100,7 @@
                     <tbody>
 
 
-                    <tr :key="item.id" v-for="(item,itemindex) in items">
+                    <tr :key="item.id" v-for="(item,itemindex) in items" v-if="!item.is_expense">
                         <th class="has-text-white">
                             <item-serial-for-purchase-return-component
                                     :item="item.item"
@@ -395,72 +171,162 @@
             </div>
             <div class="form-group">
                 <div class="columns">
-                    <div class="column is-three-quarters"></div>
-                    <div class="column">
-                        <div class="card">
+                    <div class="column is-three-quarters">
+                        <div class="panel panel-primary">
 
-                            <div class="message-body text-center">
-                                <div class="list-group-item">
-                                    <div class="columns">
-                                        <div class="column">{{ translator.total}}</div>
-                                        <div class="column">
-                                            <input class="input" disabled type="text" v-model="total">
-                                        </div>
-                                    </div>
+                            <div class="panel-body">
+                                <div class="panel-heading">
+                                    تكاليف اضافية
                                 </div>
-                                <div class="list-group-item">
-                                    <div class="columns">
-                                        <div class="column">{{ translator.discount}}</div>
-                                        <div class="column">
-                                            <input class="input" disabled type="text" v-model="discount">
-                                        </div>
-                                    </div>
-                                </div>
+                                <table class="table table-bordered">
+                                    <tr :key="item.id" v-for="(item,itemindex) in items" v-if="item.is_expense &&
+                                    item.item != null">
 
-                                <div class="list-group-item">
-                                    <div class="columns">
-                                        <div class="column">{{ translator.subtotal}}</div>
-                                        <div class="column">
-                                            <input class="input" disabled readonly="" type="text" v-model="subtotal">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list-group-item">
-                                    <div class="columns">
-                                        <div class="column">{{ translator.tax}}</div>
-                                        <div class="column">
-                                            <input class="input" disabled type="text" v-model="tax">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list-group-item">
-                                    <div class="columns">
-                                        <div class="column">{{ translator.net}}</div>
-                                        <div class="column">
-                                            <input class="input" disabled type="text" v-model="net">
-                                        </div>
-                                    </div>
-                                </div>
+                                        <!-- <th class="has-text-white"></th> -->
 
+                                        <th style="text-align: right !important;"
+                                            text="item.name">{{ item.item.locale_name}}
+                                        </th>
 
+                                        <th class="has-text-white">
+                                            <input :value="item.old_price" class="input" disabled="" type="text">
+
+                                        </th>
+
+                                        <th class="has-text-white">
+                                            <input :value="item.old_tax" class="input" disabled="" placeholder="tax"
+                                                   readonly="" type="text">
+                                        </th>
+                                        <th class="has-text-white">
+                                            <input :value="item.old_net" class="input" disabled="" placeholder="net"
+                                                   readonly="" type="text">
+                                        </th>
+
+                                    </tr>
+                                </table>
                             </div>
                         </div>
+
+
+                        <pop-billing-component
+                                :button_counter="button_counter"
+                                :current_items_net="current_items_net"
+                                :disable_button_counter="disable_button_counter2"
+                                :gateways="gateways"
+                                :net-amount="net"
+                                :user="user"
+                                @billingsUpdate="billingsUpdate"
+                                @errorInPayment="errorInPayment"
+                                @saveInvoice="saveInvoiceButtonClicked"></pop-billing-component>
                     </div>
+                    <!--                    <div class="column">-->
+                    <!--                        <div class="card">-->
+
+                    <!--                            <div class="message-body text-center">-->
+                    <!--                                <div class="list-group-item">-->
+                    <!--                                    <div class="columns">-->
+                    <!--                                        <div class="column">{{ translator.total}}</div>-->
+                    <!--                                        <div class="column">-->
+                    <!--                                            <input class="input" disabled type="text" v-model="total">-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                                <div class="list-group-item">-->
+                    <!--                                    <div class="columns">-->
+                    <!--                                        <div class="column">{{ translator.discount}}</div>-->
+                    <!--                                        <div class="column">-->
+                    <!--                                            <input class="input" disabled type="text" v-model="discount">-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+
+                    <!--                                <div class="list-group-item">-->
+                    <!--                                    <div class="columns">-->
+                    <!--                                        <div class="column">{{ translator.subtotal}}</div>-->
+                    <!--                                        <div class="column">-->
+                    <!--                                            <input class="input" disabled readonly="" type="text" v-model="subtotal">-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                                <div class="list-group-item">-->
+                    <!--                                    <div class="columns">-->
+                    <!--                                        <div class="column">{{ translator.tax}}</div>-->
+                    <!--                                        <div class="column">-->
+                    <!--                                            <input class="input" disabled type="text" v-model="tax">-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                                <div class="list-group-item">-->
+                    <!--                                    <div class="columns">-->
+                    <!--                                        <div class="column">{{ translator.net}}</div>-->
+                    <!--                                        <div class="column">-->
+                    <!--                                            <input class="input" disabled type="text" v-model="net">-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+
+
+                    <!--                            </div>-->
+
+                    <!--                            <div class="box">-->
+                    <!--                                <div class="columns">-->
+                    <!--                                    <div class="column is-two-thirds">-->
+                    <!--                                        <div class="select is-fullwidth">-->
+                    <!--                                            <select v-model="active_expense">-->
+                    <!--                                                <option :value="expense" v-for="expense in expenses">{{-->
+                    <!--                                                    expense.locale_name }}-->
+                    <!--                                                </option>-->
+                    <!--                                            </select>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="column">-->
+                    <!--                                        <button @click="addNewExpenseOption"-->
+                    <!--                                                class="button is-primary"><i class="fa fa-plus-circle"></i></button>-->
+                    <!--                                    </div>-->
+
+
+                    <!--                                </div>-->
+                    <!--                                <div class="" v-show="expenses_list.length>=1">-->
+                    <!--                                    <div class="panel" v-for="expense in expenses_list">-->
+                    <!--                                        <p>{{ expense.locale_name}}</p>-->
+                    <!--                                        <div class="columns">-->
+                    <!--                                            <div class="column is-one-third">-->
+                    <!--                                                <input @focus="$event.target.select()"-->
+                    <!--                                                       @keyup="onChangePriceField(expense)"-->
+                    <!--                                                       class="input" placeholder="القيمة"-->
+                    <!--                                                       type="text" v-model="expense.price"/>-->
+                    <!--                                            </div>-->
+                    <!--                                            <div class="column">-->
+                    <!--                                                <input class="input" placeholder="التكلفة" type="text"-->
+                    <!--                                                       v-model="expense.purchase_price"/>-->
+                    <!--                                            </div>-->
+                    <!--                                            <div class="column">-->
+                    <!--                                                <toggle-button :font-size="19" :height='32'-->
+                    <!--                                                               :labels="{checked: 'عميل', unchecked: 'منشأة'}"-->
+                    <!--                                                               :sync="true"-->
+                    <!--                                                               :width='70'-->
+                    <!--                                                               v-model="expense.user_should_pay"/>-->
+
+                    <!--                                            </div>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+
+
+                    <!--                    </div>-->
+                    <!--                </div>-->
+
                 </div>
+
+
             </div>
 
-            <!--            <div class="form-group">-->
-            <!--                <div class="columns">-->
-            <!--                    <div class="column">-->
-            <!--                        <button @click="saveInvoiceButtonClicked" class="button is-primary is-medium is-fullwidth"><i-->
-            <!--                                class="fa fa-print"></i>&nbsp; save and print-->
-            <!--                        </button>-->
-            <!--                    </div>-->
-
-            <!--                </div>-->
-            <!--            </div>-->
 
         </div>
+
 
     </div>
 
@@ -476,19 +342,30 @@
             printJS
         },
 
-        props: ['creator', 'user', 'pitems', 'invoice', 'sale', 'department'],
+        props: ['creator', 'user', 'pitems', 'invoice', 'sale', 'department', 'gateways', 'expenses'],
         data: function () {
             return {
+                active_expense: null,
+
                 errorMessage: "",
                 error: "",
                 status: 'credit',
                 search_field: "",
                 items: [],
 
+                show_submit_btn: false,
+
+                disable_button_counter2: 0,
+                current_items_net: 0,
+                button_counter: 1,
+
+
                 messages: [],
                 translator: [],
                 reusable_translator: [],
 
+
+                expenses_list: [],
 
                 total: 0,
                 discount: 0,
@@ -496,6 +373,7 @@
                 net: 0,
                 subtotal: 0,
                 remaining: 0,
+                methods: []
             };
         },
         created: function () {
@@ -523,6 +401,14 @@
                 for (var i = 0; i < len; i++) {
                     var item = this.pitems[i];
                     item.a_qty = parseInt(item.qty) - parseInt(item.r_qty);
+
+
+                    item.old_net = item.net;
+                    item.old_price = item.price;
+                    item.old_tax = item.tax;
+
+
+                    item.is_expense = item.item.is_expense;
                     item.init_discount = item.discount;
                     item.returned_qty = 0;
                     item.error = '';
@@ -530,10 +416,77 @@
                     item.subtotal = 0;
                     item.net = 0;
                     item.tax = 0;
+
+
                     this.items.push(item);
                 }
             },
 
+            addNewExpenseOption() {
+
+                if (this.active_expense != null) {
+                    var new_expense = this.active_expense;
+                    new_expense.available_qty = 1;
+                    new_expense.qty = 1;
+                    new_expense.r_qty = 0;
+                    new_expense.a_qty = 1;
+                    new_expense.returned_qty = 1;
+                    new_expense.user_should_pay = true;
+                    new_expense.price = 0;
+                    new_expense.init_discount = 0;
+                    new_expense.purchase_price = 0;
+                    this.expenses_list.push(new_expense);
+                    this.items.push(new_expense);
+
+
+                }
+
+            },
+
+
+            errorInPayment(e) {
+                // this.disableSaveButton = e.error;
+                //   console.log(e);
+            },
+
+            billingsUpdate(e) {
+
+                // console.log('inside validatePayment2232');
+                // alert('good');
+
+                // this.remaining = e.remaining;
+
+
+                this.remaining = e.remaining;
+                if (parseFloat(e.remaining) > 0) {
+
+                    this.status = 'credit';
+                } else {
+                    // this.remaining = 0;
+                    this.status = 'paid';
+                }
+
+                this.methods = [];
+                for (var i = 0; i < e.methods.length; i++) {
+                    var method = e.methods[i];
+
+                    if (parseFloat(method.amount) > 0) {
+                        this.methods.push(method);
+                    }
+                }
+
+
+                this.validateInvoiceData();
+                // console.log(this.methods)
+            },
+
+            onChangePriceField(item) {
+                item.total = item.price;
+                item.subtotal = item.subtotal;
+                item.tax = parseFloat(item.subtotal) * parseFloat(item.vts) / 100;
+                item.net = parseFloat(item.subtotal) + parseFloat(item.tax);
+                this.runUpdater(item);
+            },
 
             /// events
             onReturnQtyChanged(item) {
@@ -591,7 +544,12 @@
                 return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.total - item.discount);
             },
             updateTaxForOneItem(item) {
-                return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.item.vts * item.subtotal / 100);
+                if (item.is_expense) {
+                    var vts = item.vts;
+                } else {
+                    var vts = item.item.vts;
+                }
+                return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(vts * item.subtotal / 100);
             },
             updateNetForOneItem(item) {
                 var net = parseFloat(item.tax) + parseFloat(item.subtotal);

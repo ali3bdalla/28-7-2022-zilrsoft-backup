@@ -1,4 +1,4 @@
-<?php $__env->startSection('title',$account->name); ?>
+<?php $__env->startSection('title',$account->locale_name); ?>
 
 
 
@@ -13,11 +13,6 @@
 <?php $__env->startSection('content'); ?>
 
 
-    <div class="box">
-        <div class="card-body">
-
-        </div>
-    </div>
 
     <div class="card">
 
@@ -40,26 +35,101 @@
 			 <?php
 			 $total_credit = 0;
 			 $total_debit = 0;
+
+			 $total_balance = 0;
 			 ?>
                 <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                     <?php if($transaction['is_transaction']): ?>
 
 
-                        <tr>
-                            <th class="text-center "><?php echo e($transaction->created_at); ?></th>
-                            <th class="text-center "><?php echo e($transaction->id); ?></th>
-                            <th class="text-center ">-</th>
-                            <th class="text-center "><<?php echo e($transaction); ?></th>
-                            <th class="text-center "><?php echo e(money_format("%i",$transaction->amount )); ?></th>
-                            <th class="text-center "><?php echo e(money_format("%i",$transaction->amount)); ?></th>
+                        <?php if($transaction['type']=='credit'): ?>
+
+					    <?php $total_balance = $total_balance - $transaction['amount'];?>
+                             <tr>
+                                 <th class="text-center "><?php echo e($transaction->created_at); ?></th>
+                                 <th class="text-center "><?php echo e($transaction->id); ?></th>
+                                 <th class="text-center ">
+                                     <?php if(!empty($transaction->user)): ?>
+                                         <a href="<?php echo e(route('management.users.show',$transaction->user->id)); ?>"><?php echo e($transaction->user->name); ?></a>
+                                     <?php else: ?>
+                                         -
+                                     <?php endif; ?>
+                                 </th>
+                                 <th class="text-center ">
+                                     <?php if($transaction->invoice_id>=1): ?>
+                                         <?php if(in_array($transaction->invoice->invoice_type,['sale','r_sale'])): ?>
+                                             <a href="<?php echo e(route('management.sales.show',$transaction->invoice->id )); ?>"><?php echo e($transaction->invoice->title); ?></a>
+                                         <?php else: ?>
+                                             <a href="<?php echo e(route('management.purchases.show',$transaction->invoice->id)); ?>"> <?php echo e($transaction->invoice->title); ?></a>
+                                         <?php endif; ?>
 
 
-                        </tr>
+                                     <?php else: ?>
+                                         <a href="<?php echo e(route('management.accounts.show', $transaction->debitable->id)); ?>"><?php echo e($transaction->debitable->locale_name); ?></a>
 
+                                     <?php endif; ?>
+                                 </th>
+                                 <th class="text-center ">0</th>
+                                 <th class="text-center "><?php echo e(money_format("%i",$transaction->amount)); ?></th>
+                                 <th class="text-center "><?php echo e(money_format("%i",$total_balance)); ?></th>
+
+                             </tr>
+                        <?php else: ?>
+					    <?php $total_balance = $total_balance + $transaction['amount'];?>
+                             <tr>
+                                 <th class="text-center "><?php echo e($transaction->created_at); ?></th>
+                                 <th class="text-center "><?php echo e($transaction->id); ?></th>
+                                 <th class="text-center ">
+                                     <?php if(!empty($transaction->user)): ?>
+                                         <a href="<?php echo e(route('management.users.show',$transaction->user->id)); ?>"><?php echo e($transaction->user->name); ?></a>
+                                     <?php else: ?>
+                                         -
+                                     <?php endif; ?>
+                                 </th>
+                                 <th class="text-center ">
+                                     <?php if($transaction->invoice_id>=1): ?>
+                                         <?php if(in_array($transaction->invoice->invoice_type,['sale','r_sale'])): ?>
+                                             <a href="<?php echo e(route('management.sales.show',$transaction->invoice->id )); ?>"><?php echo e($transaction->invoice->title); ?></a>
+                                         <?php else: ?>
+                                             <a href="<?php echo e(route('management.purchases.show',$transaction->invoice->id)); ?>"> <?php echo e($transaction->invoice->title); ?></a>
+                                         <?php endif; ?>
+
+
+                                     <?php else: ?>
+                                         <a href="<?php echo e(route('management.accounts.show', $transaction->creditable->id)); ?>"><?php echo e($transaction->creditable->locale_name); ?></a>
+
+                                     <?php endif; ?>
+                                 </th>
+                                 <th class="text-center "><?php echo e(money_format("%i",$transaction->amount )); ?></th>
+                                 <th class="text-center ">0</th>
+                                 <th class="text-center "><?php echo e(money_format("%i",$total_balance)); ?></th>
+
+                             </tr>
+                        <?php endif; ?>
+
+
+
+
+
+                    <?php else: ?>
+
+					<?php $total_balance = $total_balance + +$transaction['debit'] - $transaction['credit'];?>
+                         <tr>
+                             <th class="text-center "><?php echo e($transaction->created_at); ?></th>
+                             <th class="text-center "><?php echo e($transaction->id); ?></th>
+                             <th class="text-center ">
+                                 -
+                             </th>
+                             <th class="text-center "><a href="<?php echo e(route('management.accounts.show',
+                                $transaction->id)); ?>"><?php echo e($transaction->locale_name); ?></a></th>
+                             <th class="text-center "><?php echo e(money_format("%i",$transaction->debit )); ?></th>
+                             <th class="text-center "><?php echo e(money_format("%i",$transaction->credit )); ?></th>
+                             <th class="text-center "><?php echo e(money_format("%i",$total_balance)); ?></th>
+
+                         </tr>
 
                     <?php endif; ?>
-
 
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>

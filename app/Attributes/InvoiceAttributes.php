@@ -54,6 +54,11 @@
 			]);
 		}
 		
+		public function getTotalTaxAttribute()
+		{
+			return $this->tax + $this->expenses()->sum('tax');
+		}
+		
 		public function makeInvoiceUpdatedOrDeleted()
 		{
 			$data['is_updated'] = true;

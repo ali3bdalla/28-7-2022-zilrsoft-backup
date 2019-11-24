@@ -25,15 +25,15 @@
                 </div>
                 <div class="column">
 
-{{--                    @if(isset($_GET['ask']) && $_GET['ask']=='a4')--}}
-{{--                        <print-invoice-component :invoice_id="{{$sale->invoice_id}}"--}}
-{{--                                                 :print="true"--}}
-{{--                                                 :title='@json( __('pages/invoice.price_invoice'))'></print-invoice-component>--}}
-{{--                    @else--}}
-                        <print-invoice-component :invoice_id="{{$sale->invoice_id}}"
-                                                 :print="false"
-                                                 :title='@json( __('pages/invoice.price_invoice'))'></print-invoice-component>
-{{--                    @endif--}}
+                    {{--                    @if(isset($_GET['ask']) && $_GET['ask']=='a4')--}}
+                    {{--                        <print-invoice-component :invoice_id="{{$sale->invoice_id}}"--}}
+                    {{--                                                 :print="true"--}}
+                    {{--                                                 :title='@json( __('pages/invoice.price_invoice'))'></print-invoice-component>--}}
+                    {{--                    @else--}}
+                    <print-invoice-component :invoice_id="{{$sale->invoice_id}}"
+                                             :print="false"
+                                             :title='@json( __('pages/invoice.price_invoice'))'></print-invoice-component>
+                    {{--                    @endif--}}
 
 
                 </div>
@@ -143,50 +143,54 @@
                     <tbody>
 
 
-                    <?php $index = 1;?>
+				<?php $index = 1;?>
                     @foreach($sale->invoice->items as $item)
-                        <tr @if($item->belong_to_kit==true) style="background-color: #48dbfb;color: white !important;" @endif>
-                            <th class="has-text-dark">
-                                @if($item->belong_to_kit!=true)  {{ $index}}
-                                <?php $index++;?>
-                                @endif
-                            </th>
-                            <!-- <th class="has-text-white"></th> -->
-                            <th text="item.barcode" style="text-align: left !important;">{{ $item->item->barcode }}</th>
-                            <th text="item.name"
-                                style="text-align: right !important;">{{ $item->item->locale_name }}</th>
-                            <th width="6%">
-                                <input type="text" class="input" value="{{ $item->qty }}" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" value="{{ $item->price }}" disabled="">
+                        @if(!$item->item->is_expense)
+                            <tr @if($item->belong_to_kit==true) style="background-color: #48dbfb;color: white !important;" @endif>
+                                <th class="has-text-dark">
+                                    @if($item->belong_to_kit!=true)  {{ $index}}
+							  <?php $index++;?>
+                                    @endif
+                                </th>
+                                <!-- <th class="has-text-white"></th> -->
+                                <th text="item.barcode"
+                                    style="text-align: left !important;">{{ $item->item->barcode }}</th>
+                                <th text="item.name"
+                                    style="text-align: right !important;">{{ $item->item->locale_name }}</th>
+                                <th width="6%">
+                                    <input type="text" class="input" value="{{ $item->qty }}" disabled="">
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" value="{{ $item->price }}" disabled="">
 
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" value="{{ $item->total }}" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="discount" value="{{ $item->discount }}"
-                                       disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="subtotal" readonly="" value="{{
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" value="{{ $item->total }}" disabled="">
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="discount"
+                                           value="{{ $item->discount }}"
+                                           disabled="">
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="subtotal" readonly="" value="{{
                                 $item->subtotal }}" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="vat sale" readonly="" value="{{
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="vat sale" readonly="" value="{{
                                 $item->item->vts }}%" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="tax" readonly="" value="{{ $item->tax
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="tax" readonly="" value="{{ $item->tax
                                 }}" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="net" readonly="" value="{{ $item->net
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="net" readonly="" value="{{ $item->net
                                 }}" disabled="">
-                            </th>
+                                </th>
 
-                        </tr>
+                            </tr>
+                        @endif
                     @endforeach
 
 
@@ -197,25 +201,66 @@
                 <div class="columns">
 
 
-
-
                     <div data-v-73cd913d="" class="column is-three-quarters">
                         <div data-v-73cd913d="">
+
                             <div class="panel panel-primary">
+
+                                <div class="panel-body">
+                                    <div class="panel-heading">
+                                        تكاليف اضافية
+                                    </div>
+                                    <table class="table table-bordered">
+                                        @foreach($sale->invoice->items as $item)
+                                            @if($item->item->is_expense)
+                                                <tr @if($item->belong_to_kit==true) style="background-color: #48dbfb;color: white !important;" @endif>
+
+                                                    <!-- <th class="has-text-white"></th> -->
+
+                                                    <th text="item.name"
+                                                        style="text-align: right !important;">{{ $item->item->locale_name }}</th>
+
+                                                    <th class="has-text-white">
+                                                        <input type="text" class="input" value="{{ $item->price }}"
+                                                               disabled="">
+
+                                                    </th>
+
+                                                    <th class="has-text-white">
+                                                        <input type="text" class="input" placeholder="tax" readonly=""
+                                                               value="{{ $item->tax
+                                }}" disabled="">
+                                                    </th>
+                                                    <th class="has-text-white">
+                                                        <input type="text" class="input" placeholder="net" readonly=""
+                                                               value="{{ $item->net
+                                }}" disabled="">
+                                                    </th>
+
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary">
+
+
                                 <div class="panel-body">
                                     @if(!empty($sale->invoice->payments))
                                         @foreach($sale->invoice->payments as $payment)
+
                                             <div class="form-group">
 
                                                 <div class="input-group">
                                                     <span id="1" class="input-group-addon" style="min-width: 250px;
                                                     font-weight: bolder;">
-                                                        {{$payment->payment->gateway->name}}
+                                                        {{$payment->name}}
                                                         &nbsp;&nbsp; ( <a target="_blank" href="{{ route('management.payments.show',
-                                                        $payment->payment_id) }}">عرض السند</a> )
+                                                        $payment->id) }}">عرض السند</a> )
                                                     </span>
                                                     <input aria-describedby="1" disabled="disabled" type="text"
-                                                           class="form-control"value="{{$payment->amount}}" style="font-weight:
+                                                           class="form-control" value="{{$payment->amount}}" style="font-weight:
                                                    bolder;">
 
                                                 </div>
@@ -224,7 +269,6 @@
                                     @endif
 
                                 </div>
-
 
 
                                 <div class="padding:30px">
@@ -257,18 +301,122 @@
                                                                                          style="font-size: 32px; height: 36px;">
                                                         <input readonly="readonly" disabled="disabled" type="text"
                                                                class="form-control is-danger has-error onlyhidden"
-                                                               style="font-size: 32px; height: 36px; display: none;"></h1>
+                                                               style="font-size: 32px; height: 36px; display: none;">
+                                                    </h1>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="panel-footer">
+                                    <table class="table table-bordered table-hover text-center">
+                                        <thead>
+                                        <th>التاريخ</th>
+                                        <th>اسم الحساب</th>
+                                        <th>مدين</th>
+                                        <th>دائن</th>
+                                        </thead>
+                                        <tbody class="text-center">
+								<?php $total_debit = 0; $total_credit = 0;?>
+
+
+                                        @if($sale->invoice_type=='sale')
+
+                                            @foreach($transactions as $transaction)
+
+
+
+                                                {{--                                            @if($transaction['description']=='to_item' || $transaction['description']=='to_tax')--}}
+                                                @if(!in_array($transaction['description'],['to_cogs','to_gateway',
+                                                'to_products_sales_discount','to_services_sales_discount',
+                                                'to_other_services_sales_discount','to_stock']))
+
+										   <?php $total_credit = $total_credit + $transaction['amount']?>
+
+                                                     <tr>
+                                                         <td class="datedirection">{{ $transaction->created_at }}</td>
+                                                         <td>{{ $transaction->creditable->locale_name }}</td>
+                                                         <td></td>
+                                                         <td>{{money_format("%i", $transaction->amount) }}</td>
+                                                     </tr>
+
+
+                                                @else
+
+										   <?php $total_debit = $total_debit + $transaction['amount']?>
+                                                     <tr>
+                                                         <td class="datedirection">{{ $transaction->created_at }}</td>
+                                                         <td>{{ $transaction->debitable->locale_name }}</td>
+                                                         <td>{{money_format("%i", $transaction->amount) }}</td>
+                                                         <td></td>
+                                                     </tr>
+
+                                                @endif
+
+                                            @endforeach
+                                        @else
+
+
+
+                                            @foreach($transactions as $transaction)
+
+
+
+                                                {{--                                            @if($transaction['description']=='to_item' || $transaction['description']=='to_tax')--}}
+                                                @if(in_array($transaction['description'],['to_cogs','to_gateway',
+                                                'to_products_sales_discount','to_services_sales_discount',
+                                                'to_other_services_sales_discount']))
+
+										   <?php $total_credit = $total_credit + $transaction['amount']?>
+                                                     {{--                                                    <tr>--}}
+                                                     {{--                                                        <td class="datedirection">{{ $transaction->created_at }}</td>--}}
+                                                     {{--                                                        <td>{{ $transaction->debitable->locale_name }}</td>--}}
+                                                     {{--                                                        <td>{{money_format("%i", $transaction->amount) }}</td>--}}
+                                                     {{--                                                        <td></td>--}}
+                                                     {{--                                                    </tr>--}}
+                                                     <tr>
+                                                         <td class="datedirection">{{ $transaction->created_at }}</td>
+                                                         <td>{{ $transaction->creditable->locale_name }}</td>
+                                                         <td></td>
+                                                         <td>{{money_format("%i", $transaction->amount) }}</td>
+                                                     </tr>
+
+
+                                                @else
+
+										   <?php $total_debit = $total_debit + $transaction['amount']?>
+                                                     <tr>
+                                                         <td class="datedirection">{{ $transaction->created_at }}</td>
+                                                         <td> {{
+                                                         $transaction->debitable->locale_name }}</td>
+                                                         <td>{{money_format("%i", $transaction->amount) }}</td>
+                                                         <td></td>
+                                                     </tr>
+
+                                                @endif
+
+                                            @endforeach
+                                        @endif
+                                        </tbody>
+
+
+                                        <thead>
+                                        <th>المجموع</th>
+                                        <th></th>
+                                        <th>{{ money_format("%i",$total_debit) }}</th>
+                                        <th>{{ money_format("%i",$total_credit) }}</th>
+                                        </thead>
+                                    </table>
+                                </div>
+
+
                             </div>
                         </div>
 
                     </div>
-                    
-                    
+
+
                     <div class="column">
                         <div class="card">
                             {{--                            <div class="message-header">--}}
@@ -326,6 +474,18 @@
                                 </div>
 
 
+                                {{--                                @foreach($sale->invoice->expenses as $expense)--}}
+                                {{--                                    <div class="list-group-item">--}}
+                                {{--                                        <div class="columns">--}}
+                                {{--                                            <div class="column">{{ $expense->expense->locale_name  }}</div>--}}
+                                {{--                                            <div class="column">--}}
+                                {{--                                                <input type="text" class="input" value="{{ $expense->amount }}"--}}
+                                {{--                                                       disabled="">--}}
+                                {{--                                            </div>--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+
+                                {{--                                @endforeach--}}
                             </div>
                         </div>
                     </div>

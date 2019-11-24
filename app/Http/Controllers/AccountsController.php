@@ -3,8 +3,8 @@
 	namespace App\Http\Controllers;
 	
 	use App\Account;
+	use App\Http\Controllers\ControllersHelper\AccountGeneralHelper;
 	use App\Http\Controllers\ControllersHelper\ChartControllerClientsHelper;
-	use App\Http\Controllers\ControllersHelper\ChartControllerGatewayHelper;
 	use App\Http\Controllers\ControllersHelper\ChartControllerStockHelper;
 	use App\Http\Requests\CreateAccountRequest;
 	use App\Http\Requests\UpdateAccountRequest;
@@ -16,7 +16,7 @@
 	class AccountsController extends Controller
 	{
 		
-		use ChartControllerGatewayHelper,ChartControllerStockHelper,ChartControllerClientsHelper;
+		use AccountGeneralHelper,ChartControllerStockHelper,ChartControllerClientsHelper;
 		
 		/**
 		 * Display a listing of the resource.
@@ -68,11 +68,10 @@
 			$data['serial'] = auth()->user()->organization_id;
 			$data['slug'] = $account->slug;
 			
-			if($request->has('is_gateway') && $request->filled('is_gateway'))
+			if ($request->has('is_gateway') && $request->filled('is_gateway'))
 				$data['is_gateway'] = true;
 			else
 				$data['is_gateway'] = false;
-			
 			
 			
 			auth()->user()->accounts()->create($data);
@@ -88,22 +87,26 @@
 		 */
 		public function show(Account $account)
 		{
-			$view = [];
+
+//			$view = [];
+//
+//
+//			if ($account->slug == 'gateway')
+			$transactions = $this->load_account_transactions($account);
 			
 			
-			if ($account->slug == 'gateway')
-				$view = $this->chart_gateway_view($account);
-			
-			
-			if ($account->slug == 'stock')
-				$view = $this->chart_stock_view($account);
-			
-			
-			if ($account->slug == 'clients')
-				$view = $this->chart_clients_view($account);
-			
-			
-			return $view;
+			return view('accounts.transactions',compact('account','transactions'));
+//
+//
+//			if ($account->slug == 'stock')
+//				$view = $this->chart_stock_view($account);
+//
+//
+//			if ($account->slug == 'clients')
+//				$view = $this->chart_clients_view($account);
+//
+
+//			return $view;
 			//
 		}
 		
@@ -119,7 +122,7 @@
 			
 			$ids = $account->children()->pluck('id')->toArray();
 			$ids[] = $account->id;
-			
+
 //			return $ids;
 			$accounts = Account::WhereNotIn('id',$ids)->get();
 			return view('accounts.edit',compact('account','accounts'));
@@ -138,7 +141,7 @@
 		{
 			
 			$data = $request->only('parent_id','name','ar_name');
-			if($request->has('is_gateway') && $request->filled('is_gateway'))
+			if ($request->has('is_gateway') && $request->filled('is_gateway'))
 				$data['is_gateway'] = true;
 			else
 				$data['is_gateway'] = false;

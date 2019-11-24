@@ -2,10 +2,10 @@
 	
 	namespace App\Http\Controllers;
 	
-	use App\Expense;
-	use App\Gateway;
+	use App\Account;
 	use App\Http\Requests\CreateReturnSaleRequest;
 	use App\Http\Requests\CreateSalesInvoiceRequest;
+	use App\Item;
 	use App\SaleInvoice;
 	use App\User;
 	use Carbon\Carbon;
@@ -56,30 +56,6 @@
 				$query = $query->where('issued_status',$request->loadType);
 				
 			}
-
-
-//		if ($request->has('id') && $request->filled('id')){
-//			$query = $query->where('id',$request->id);
-//		}
-//
-//
-//		if ($request->has('qty') && $request->filled('qty')){
-//			$query = $query->where('available_qty',$request->qty);
-//		}
-//
-//		if ($request->has('date') && $request->filled('date')){
-//			$query = $query->where('date','LIKE','%'.$request->date.'%');
-//		}
-//
-//
-//		if ($request->has('price') && $request->filled('price')){
-//			$query = $query->where('price',$request->price);
-//		}
-//
-//
-//		if ($request->has('price_with_tax') && $request->filled('price_with_tax')){
-//			$query = $query->where('price_with_tax',$request->price_with_tax);
-//		}
 			
 			
 			return $query->orderBy('id','desc')->paginate(20);
@@ -94,11 +70,11 @@
 			$salesmen = User::where('is_manager',true)->get()->toArray();
 			$clients = User::where('is_client',true)->get()->toArray();
 			
-			$expenses = Expense::where('appear_in_sale',true)->get();
+			$expenses = Item::where('is_expense',true)->get();
 			
-			// return ;
-			$gateways = Gateway::whereIn('id',[1,3,4])->whereIn('id',auth()->user()->organization->gateways->pluck
-			('pivot.gateway_id'))->get();
+			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())->get();
+			
+			
 			return view('sales.create',compact('clients','salesmen','gateways','expenses'));
 		}
 		
@@ -115,7 +91,10 @@
 		public function show(SaleInvoice $sale)
 		{
 			
-			return view('sales.show',compact('sale'));
+			$transactions = $sale->invoice->transactions;
+			
+			
+			return view('sales.show',compact('sale','transactions'));
 			//
 		}
 		
@@ -132,8 +111,10 @@
 				$items [] = $item;
 			}
 			
+			$expenses = Item::where('is_expense',true)->get();
 			
-			return view('sales.edit',compact('sale','invoice','items'));
+			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())->get();
+			return view('sales.edit',compact('sale','invoice','items','gateways','expenses'));
 		}
 		
 		public function clone(SaleInvoice $invoice)
@@ -148,7 +129,7 @@
 		
 		public function update(CreateReturnSaleRequest $request,SaleInvoice $sale)
 		{
-			$request->save($sale);
+			return $request->save($sale);
 			
 		}
 		

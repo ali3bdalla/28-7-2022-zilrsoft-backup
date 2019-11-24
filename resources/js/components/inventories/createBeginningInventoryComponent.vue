@@ -42,8 +42,8 @@
                         <!-- <label>date</label> -->
                         <div class="input-group">
                             <span class="input-group-addon" id="time-field">{{ translator.date }}</span>
-                            <input aria-describedby="time-field" style=" direction: ltr
-                            !important;" class="form-control" disabled name="" readonly
+                            <input aria-describedby="time-field" class="form-control" disabled name="" readonly style=" direction: ltr
+                            !important;"
                                    type="text" v-model="time">
 
                         </div>
@@ -93,8 +93,8 @@
                     <div class="product_search" id="seach_area">
                         <div class="">
                             <input :placeholder="translator.search_barcode"
-                                   @keyup.enter="findItems"
                                    @keyup="clearError"
+                                   @keyup.enter="findItems"
                                    class="input  " ref="search_input_ref" type="text"
                                    v-bind:class="{'is-danger':error=='items'}" v-model="search_field"/>
                             <p class="help is-danger is-center" v-show="error=='items'" v-text="errorMessage"></p>
@@ -112,7 +112,8 @@
 
 
                 <div class="column">
-                    <a class="button is-info" href="/management/items?selectable=true&&is_purchase=true" target="_blank">{{ translator.view_products
+                    <a class="button is-info" href="/management/items?selectable=true&&is_purchase=true"
+                       target="_blank">{{ translator.view_products
                         }}</a>
 
                 </div>
@@ -155,8 +156,8 @@
                             </button>
 
                             <item-serials-list-component
-                                    :isOpen="item.isOpen"
                                     :init_item_serial_list="item.serials"
+                                    :isOpen="item.isOpen"
                                     :item="item" :item_index="itemindex"
                                     :key="item.id"
                                     @changed="updatedItemSerials"
@@ -168,21 +169,22 @@
                         <th width="6%">
                             <input
                                     @focus="$event.target.select()"
-                                    @keyup="onChangeQtyField(item)" class="input" type="text" v-if="!item.is_need_serial"
-                                   v-model="item.qty">
+                                    @keyup="onChangeQtyField(item)" class="input" type="text"
+                                    v-if="!item.is_need_serial"
+                                    v-model="item.qty">
                             <p v-else>{{item.qty}}</p>
                         </th>
                         <th class="has-text-white">
                             <input
                                     @focus="$event.target.select()"
                                     @keyup="onChangePriceField(item)" class="input" type="text"
-                                   v-model="item.purchase_price">
+                                    v-model="item.purchase_price">
 
                         </th>
                         <th class="has-text-white">
-                            <input class="input" type="text"
+                            <input @focus.native="$event.target.select()" class="input"
                                    disabled
-                                   @focus.native="$event.target.select()"
+                                   type="text"
                                    v-model="item.total">
                         </th>
 
@@ -278,8 +280,7 @@
             this.translator = JSON.parse(window.translator);
 
         },
-        mounted:function()
-        {
+        mounted: function () {
             this.watchCopiedItems();
 
             this.$refs.search_input_ref.focus();
@@ -288,15 +289,11 @@
         methods: {
 
 
-
-
-            watchCopiedItems()
-            {
+            watchCopiedItems() {
 
                 var vm = this;
                 this.bc.onmessage = function (ev) {
-                    if(ev.isTrusted)
-                    {
+                    if (ev.isTrusted) {
                         var item = JSON.parse(ev.data);
                         vm.addItemToList(item);
                     }
@@ -305,24 +302,22 @@
             },
 
 
-
-
-            clearError(){
-              this.error = '';
+            clearError() {
+                this.error = '';
             },
             setDocFile(e) {
                 this.document = e.file;
                 // console.log(e);
             },
 
-            show(index,item) {
+            show(index, item) {
                 //
                 item.isOpen = !item.isOpen;
                 //
                 this.$modal.show('serialList_' + index);
 
                 //
-                this.items.splice(this.items.indexOf(item), 1,item);
+                this.items.splice(this.items.indexOf(item), 1, item);
 
                 // console.log('hello');
             },
@@ -344,8 +339,7 @@
                 }, 1000);
             },
             findItems() {
-                if(this.error=='items')
-                {
+                if (this.error == 'items') {
                     this.error = '';
                 }
                 var vm = this;
@@ -362,7 +356,7 @@
                                 vm.addItemToList(item);
                                 vm.itemsSearchList = null;
                                 // console.log('full barcode');
-                            }else if(response.data.length == 0){
+                            } else if (response.data.length == 0) {
                                 vm.error = 'items';
                                 vm.$refs.search_input_ref.select();
                                 vm.itemsSearchList = [];

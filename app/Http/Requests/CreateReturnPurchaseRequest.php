@@ -27,6 +27,7 @@
 		public function rules()
 		{
 			return [
+				'methods.*.id' => 'required|integer|exists:accounts,id',
 				'items' => 'required|array',
 				'items.*.id' => 'required|integer|exists:invoice_items,id',
 				'items.*.price' => 'required|numeric|min:0',
@@ -45,43 +46,32 @@
 		public function save($purchase)
 		{
 			
-			$all_qty = 0;
-			foreach ($this->items as $item){
-				$all_qty += $item['returned_qty'];
-			}
-			
-			
 			$invoice = null;
 			DB::beginTransaction();
 			try{
 				
 				
-				if ($all_qty <= 0){
-					return;
-					//throw new \Exception('please add some return qty');
-				}
+				$this->validate_request_has_returned_items();
 				
-				$data['total'] = 0;
-				$data['remaining'] = 0;
-				$data['net'] = 0;
-				$data['subtotal'] = 0;
-				$data['discount_value'] = 0;
-				$data['discount_percent'] = 0;
-				$data['organization_id'] = $this->user()->organization_id;
-				$invoice = $purchase->invoice->createChildInvoice($data,'r_purchase');
-				
+				$invoice = $purchase->invoice->make_instance_child_invoice('r_purchase');
 				$return_invoice_data = $purchase->only('vendor_id','receiver_id');
 				$return_invoice_data['prefix'] = 'RPU-';
 				$return_invoice_data['invoice_type'] = 'r_purchase';
 				$return_invoice_data['organization_id'] = auth()->user()->organization_id;
 				$return_invoice_data['parent_id'] = $purchase->id;
-				$return_purchase = $invoice->purchase()->create($return_invoice_data);
+				$invoice->purchase()->create($return_invoice_data);
+				$invoice->create_return_invoice_items($this->items,$invoice);
+				$data = $invoice->update_return_invoice_data();
+
+//				dd(($this->methods));
+				$expenses = [];
+				$invoice_status = $invoice->handle_invoice_transactions($this->methods,$invoice->vendor_id,$data['net'],
+					$this->items,$expenses,$invoice_type = 'r_purchase');
+
+//				return $expenses;
+				$invoice->update_invoice_creation_status($invoice_status);
 				
-				$result = $invoice->createReturnItems($this->items,$return_purchase);
-				$result['discount_percent'] = $result['discount_value'];
-				$invoice->update($result);
 				
-				$purchase->invoice->makeInvoiceUpdatedOrDeleted();
 				DB::commit();
 			}catch (Exception $e){
 				DB::rollBack();
@@ -89,5 +79,25 @@
 			}
 			
 			
+		}
+		
+//		public function ()
+//		{
+//
+//		}
+		
+		
+		private function validate_request_has_returned_items()
+		{
+			
+			$has_returned_qty = false;
+			foreach ($this->items as $item){
+				if ($item['returned_qty'] >= 0){
+					$has_returned_qty = true;
+				}
+			}
+//
+			if ($has_returned_qty == false)
+				throw  Exception();
 		}
 	}

@@ -22,15 +22,15 @@
                 </div>
                 <div class="column">
 
-
-
-
-
-
-                        <print-invoice-component :invoice_id="<?php echo e($sale->invoice_id); ?>"
-                                                 :print="false"
-                                                 :title='<?php echo json_encode( __('pages/invoice.price_invoice'), 15, 512) ?>'></print-invoice-component>
-
+                    
+                    
+                    
+                    
+                    
+                    <print-invoice-component :invoice_id="<?php echo e($sale->invoice_id); ?>"
+                                             :print="false"
+                                             :title='<?php echo json_encode( __('pages/invoice.price_invoice'), 15, 512) ?>'></print-invoice-component>
+                    
 
 
                 </div>
@@ -135,47 +135,51 @@
                     <tbody>
 
 
-                    <?php $index = 1;?>
+				<?php $index = 1;?>
                     <?php $__currentLoopData = $sale->invoice->items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <tr <?php if($item->belong_to_kit==true): ?> style="background-color: #48dbfb;color: white !important;" <?php endif; ?>>
-                            <th class="has-text-dark">
-                                <?php if($item->belong_to_kit!=true): ?>  <?php echo e($index); ?>
+                        <?php if(!$item->item->is_expense): ?>
+                            <tr <?php if($item->belong_to_kit==true): ?> style="background-color: #48dbfb;color: white !important;" <?php endif; ?>>
+                                <th class="has-text-dark">
+                                    <?php if($item->belong_to_kit!=true): ?>  <?php echo e($index); ?>
 
-                                <?php $index++;?>
-                                <?php endif; ?>
-                            </th>
-                            <!-- <th class="has-text-white"></th> -->
-                            <th text="item.barcode" style="text-align: left !important;"><?php echo e($item->item->barcode); ?></th>
-                            <th text="item.name"
-                                style="text-align: right !important;"><?php echo e($item->item->locale_name); ?></th>
-                            <th width="6%">
-                                <input type="text" class="input" value="<?php echo e($item->qty); ?>" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" value="<?php echo e($item->price); ?>" disabled="">
+							  <?php $index++;?>
+                                    <?php endif; ?>
+                                </th>
+                                <!-- <th class="has-text-white"></th> -->
+                                <th text="item.barcode"
+                                    style="text-align: left !important;"><?php echo e($item->item->barcode); ?></th>
+                                <th text="item.name"
+                                    style="text-align: right !important;"><?php echo e($item->item->locale_name); ?></th>
+                                <th width="6%">
+                                    <input type="text" class="input" value="<?php echo e($item->qty); ?>" disabled="">
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" value="<?php echo e($item->price); ?>" disabled="">
 
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" value="<?php echo e($item->total); ?>" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="discount" value="<?php echo e($item->discount); ?>"
-                                       disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="subtotal" readonly="" value="<?php echo e($item->subtotal); ?>" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="vat sale" readonly="" value="<?php echo e($item->item->vts); ?>%" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="tax" readonly="" value="<?php echo e($item->tax); ?>" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="net" readonly="" value="<?php echo e($item->net); ?>" disabled="">
-                            </th>
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" value="<?php echo e($item->total); ?>" disabled="">
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="discount"
+                                           value="<?php echo e($item->discount); ?>"
+                                           disabled="">
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="subtotal" readonly="" value="<?php echo e($item->subtotal); ?>" disabled="">
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="vat sale" readonly="" value="<?php echo e($item->item->vts); ?>%" disabled="">
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="tax" readonly="" value="<?php echo e($item->tax); ?>" disabled="">
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="net" readonly="" value="<?php echo e($item->net); ?>" disabled="">
+                                </th>
 
-                        </tr>
+                            </tr>
+                        <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 
@@ -186,26 +190,65 @@
                 <div class="columns">
 
 
-
-
                     <div data-v-73cd913d="" class="column is-three-quarters">
                         <div data-v-73cd913d="">
+
                             <div class="panel panel-primary">
+
+                                <div class="panel-body">
+                                    <div class="panel-heading">
+                                        تكاليف اضافية
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <?php $__currentLoopData = $sale->invoice->items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php if($item->item->is_expense): ?>
+                                                <tr <?php if($item->belong_to_kit==true): ?> style="background-color: #48dbfb;color: white !important;" <?php endif; ?>>
+
+                                                    <!-- <th class="has-text-white"></th> -->
+
+                                                    <th text="item.name"
+                                                        style="text-align: right !important;"><?php echo e($item->item->locale_name); ?></th>
+
+                                                    <th class="has-text-white">
+                                                        <input type="text" class="input" value="<?php echo e($item->price); ?>"
+                                                               disabled="">
+
+                                                    </th>
+
+                                                    <th class="has-text-white">
+                                                        <input type="text" class="input" placeholder="tax" readonly=""
+                                                               value="<?php echo e($item->tax); ?>" disabled="">
+                                                    </th>
+                                                    <th class="has-text-white">
+                                                        <input type="text" class="input" placeholder="net" readonly=""
+                                                               value="<?php echo e($item->net); ?>" disabled="">
+                                                    </th>
+
+                                                </tr>
+                                            <?php endif; ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary">
+
+
                                 <div class="panel-body">
                                     <?php if(!empty($sale->invoice->payments)): ?>
                                         <?php $__currentLoopData = $sale->invoice->payments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
                                             <div class="form-group">
 
                                                 <div class="input-group">
                                                     <span id="1" class="input-group-addon" style="min-width: 250px;
                                                     font-weight: bolder;">
-                                                        <?php echo e($payment->payment->gateway->name); ?>
+                                                        <?php echo e($payment->name); ?>
 
                                                         &nbsp;&nbsp; ( <a target="_blank" href="<?php echo e(route('management.payments.show',
-                                                        $payment->payment_id)); ?>">عرض السند</a> )
+                                                        $payment->id)); ?>">عرض السند</a> )
                                                     </span>
                                                     <input aria-describedby="1" disabled="disabled" type="text"
-                                                           class="form-control"value="<?php echo e($payment->amount); ?>" style="font-weight:
+                                                           class="form-control" value="<?php echo e($payment->amount); ?>" style="font-weight:
                                                    bolder;">
 
                                                 </div>
@@ -214,7 +257,6 @@
                                     <?php endif; ?>
 
                                 </div>
-
 
 
                                 <div class="padding:30px">
@@ -247,18 +289,121 @@
                                                                                          style="font-size: 32px; height: 36px;">
                                                         <input readonly="readonly" disabled="disabled" type="text"
                                                                class="form-control is-danger has-error onlyhidden"
-                                                               style="font-size: 32px; height: 36px; display: none;"></h1>
+                                                               style="font-size: 32px; height: 36px; display: none;">
+                                                    </h1>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="panel-footer">
+                                    <table class="table table-bordered table-hover text-center">
+                                        <thead>
+                                        <th>التاريخ</th>
+                                        <th>اسم الحساب</th>
+                                        <th>مدين</th>
+                                        <th>دائن</th>
+                                        </thead>
+                                        <tbody class="text-center">
+								<?php $total_debit = 0; $total_credit = 0;?>
+
+
+                                        <?php if($sale->invoice_type=='sale'): ?>
+
+                                            <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+
+
+                                                
+                                                <?php if(!in_array($transaction['description'],['to_cogs','to_gateway',
+                                                'to_products_sales_discount','to_services_sales_discount',
+                                                'to_other_services_sales_discount','to_stock'])): ?>
+
+										   <?php $total_credit = $total_credit + $transaction['amount']?>
+
+                                                     <tr>
+                                                         <td class="datedirection"><?php echo e($transaction->created_at); ?></td>
+                                                         <td><?php echo e($transaction->creditable->locale_name); ?></td>
+                                                         <td></td>
+                                                         <td><?php echo e(money_format("%i", $transaction->amount)); ?></td>
+                                                     </tr>
+
+
+                                                <?php else: ?>
+
+										   <?php $total_debit = $total_debit + $transaction['amount']?>
+                                                     <tr>
+                                                         <td class="datedirection"><?php echo e($transaction->created_at); ?></td>
+                                                         <td><?php echo e($transaction->debitable->locale_name); ?></td>
+                                                         <td><?php echo e(money_format("%i", $transaction->amount)); ?></td>
+                                                         <td></td>
+                                                     </tr>
+
+                                                <?php endif; ?>
+
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php else: ?>
+
+
+
+                                            <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+
+
+                                                
+                                                <?php if(in_array($transaction['description'],['to_cogs','to_gateway',
+                                                'to_products_sales_discount','to_services_sales_discount',
+                                                'to_other_services_sales_discount'])): ?>
+
+										   <?php $total_credit = $total_credit + $transaction['amount']?>
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     <tr>
+                                                         <td class="datedirection"><?php echo e($transaction->created_at); ?></td>
+                                                         <td><?php echo e($transaction->creditable->locale_name); ?></td>
+                                                         <td></td>
+                                                         <td><?php echo e(money_format("%i", $transaction->amount)); ?></td>
+                                                     </tr>
+
+
+                                                <?php else: ?>
+
+										   <?php $total_debit = $total_debit + $transaction['amount']?>
+                                                     <tr>
+                                                         <td class="datedirection"><?php echo e($transaction->created_at); ?></td>
+                                                         <td> <?php echo e($transaction->debitable->locale_name); ?></td>
+                                                         <td><?php echo e(money_format("%i", $transaction->amount)); ?></td>
+                                                         <td></td>
+                                                     </tr>
+
+                                                <?php endif; ?>
+
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php endif; ?>
+                                        </tbody>
+
+
+                                        <thead>
+                                        <th>المجموع</th>
+                                        <th></th>
+                                        <th><?php echo e(money_format("%i",$total_debit)); ?></th>
+                                        <th><?php echo e(money_format("%i",$total_credit)); ?></th>
+                                        </thead>
+                                    </table>
+                                </div>
+
+
                             </div>
                         </div>
 
                     </div>
-                    
-                    
+
+
                     <div class="column">
                         <div class="card">
                             
@@ -313,6 +458,18 @@
                                 </div>
 
 
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+
+                                
                             </div>
                         </div>
                     </div>

@@ -113,6 +113,15 @@
                                    :width='70' @change="isServiceChanged" v-model="is_service"/>
                     <label>{{ translator.is_service }}</label>
                 </div>
+
+                <div class="column">
+                    <toggle-button :font-size="14" :height='30' :labels="{checked: reusable_translator.radio_checked,
+                                   unchecked: reusable_translator.unchecked}" :sync="true"
+                                   :width='70' @change="isServiceChanged" v-model="is_expense"/>
+                    <label>{{ translator.is_expense }}</label>
+                </div>
+
+
             </div>
 
             <div class="columns">
@@ -138,8 +147,25 @@
                         <p class="help is-danger is-center" v-show="error=='vat_purchase'" v-text="errorMessage"></p>
                     </div>
                 </div>
-                <div class="column is-three-fifths">
+                <div class="column">
+
                 </div>
+                <div class="column">
+
+                </div>
+                <div class="column">
+
+                    <div class="select is-fullwidth" v-show="is_expense">
+                        <select v-model="expense_vendor_id">
+                            <option :key="vendor.id" :value="vendor.id" v-for="vendor in vendors"
+                                    v-text="vendor.name"></option>
+
+                        </select>
+                    </div>
+
+
+                </div>
+
             </div>
 
 
@@ -241,10 +267,12 @@
         components: {
             Treeselect
         },
-        props: ["categories", "isCloned", "item", "itemFilters", 'itemCategory', 'isEdited'],
+        props: ["categories", "isCloned", "item", "itemFilters", 'itemCategory', 'isEdited', 'vendors'],
         data: function () {
             return {
 
+                expense_vendor_id:0,
+                is_expense: false,
                 rtl: true,
                 messages: null,
                 translator: null,
@@ -688,6 +716,8 @@
                 var filters_values = this.extractAllSelectedFiltersAsKeyValueArray();
 
                 var data = {
+                    expense_vendor_id:this.expense_vendor_id,
+                    is_expense: this.is_expense,
                     name: this.item_en_name,
                     ar_name: this.item_ar_name,
                     barcode: this.item_barcode,
@@ -721,7 +751,7 @@
                                 //.vm.showPopSuccessMessage();
                             } else {
 
-                               location.href = '/management/items';
+                                location.href = '/management/items';
                             }
 
                             // console.log(response.data);
@@ -818,6 +848,14 @@
         },
 
         watch: {
+
+
+            is_expense: function (value) {
+                if (value) {
+                    this.has_serial_number = false;
+                    this.has_fixed_price = false;
+                }
+            },
             vat_sale: function (val, oldVal) {
                 if (this.error == 'sales_price' || this.error == 'sales_inc_price')
                     this.error = '';

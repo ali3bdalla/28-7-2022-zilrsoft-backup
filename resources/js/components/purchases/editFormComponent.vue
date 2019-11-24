@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="column pull-right text-left">
-                    <button @click="saveInvoiceButtonClicked" class="button is-primary "><i
+                    <button @click="saveInvoiceButtonClicked" class="button is-primary " :disabled="!show_submit_btn"><i
                             class="fa fa-save"></i>&nbsp; {{ translator.save }}
                     </button>
                 </div>
@@ -167,62 +167,6 @@
                     </tbody>
                 </table>
             </div>
-<!--            <div class="form-group">-->
-<!--                <div class="columns">-->
-<!--                    <div class="column is-three-quarters"></div>-->
-<!--                    <div class="column">-->
-<!--                        <div class="card">-->
-
-<!--                            <div class="message-body text-center">-->
-<!--                                <div class="list-group-item">-->
-<!--                                    <div class="columns">-->
-<!--                                        <div class="column">{{ translator.total}}</div>-->
-<!--                                        <div class="column">-->
-<!--                                            <input class="input" disabled type="text" v-model="total">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="list-group-item">-->
-<!--                                    <div class="columns">-->
-<!--                                        <div class="column">{{ translator.discount}}</div>-->
-<!--                                        <div class="column">-->
-<!--                                            <input class="input" disabled type="text" v-model="discount">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-<!--                                <div class="list-group-item">-->
-<!--                                    <div class="columns">-->
-<!--                                        <div class="column">{{ translator.subtotal}}</div>-->
-<!--                                        <div class="column">-->
-<!--                                            <input class="input" disabled readonly="" type="text" v-model="subtotal">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="list-group-item">-->
-<!--                                    <div class="columns">-->
-<!--                                        <div class="column">{{ translator.tax}}</div>-->
-<!--                                        <div class="column">-->
-<!--                                            <input class="input" disabled type="text" v-model="tax">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="list-group-item">-->
-<!--                                    <div class="columns">-->
-<!--                                        <div class="column">{{ translator.net}}</div>-->
-<!--                                        <div class="column">-->
-<!--                                            <input class="input" disabled type="text" v-model="net">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-
 
             <div class="form-group">
                 <div class="columns">
@@ -299,8 +243,6 @@
             </div>
 
 
-
-
             <!--            <div class="form-group">-->
             <!--                <div class="columns">-->
             <!--                    <div class="column">-->
@@ -334,6 +276,10 @@
                 errorMessage: "",
                 error: "",
 
+                show_submit_btn:false,
+                disable_button_counter2: 0,
+                current_items_net: 0,
+                button_counter: 1,
                 messages: [],
                 translator: [],
                 reusable_translator: [],
@@ -346,6 +292,7 @@
                 net: 0,
                 subtotal: 0,
                 remaining: 0,
+                methods:[]
             };
         },
         created: function () {
@@ -386,6 +333,78 @@
                 }
 
 
+            },
+
+
+
+
+            billingsUpdate(e) {
+
+                // console.log('inside validatePayment2232');
+                // alert('good');
+
+                // this.remaining = e.remaining;
+
+
+                this.remaining = e.remaining;
+                if (parseFloat(e.remaining) > 0) {
+
+                    this.status = 'credit';
+                } else {
+                    // this.remaining = 0;
+                    this.status = 'paid';
+                }
+
+                this.methods = [];
+                for (var i = 0; i < e.methods.length; i++) {
+                    var method = e.methods[i];
+
+                    if (parseFloat(method.amount) > 0) {
+                        this.methods.push(method);
+                    }
+                }
+
+
+
+                this.validateInvoiceData();
+                // console.log(this.methods)
+            },
+
+            errorInPayment(e) {
+                // this.disableSaveButton = e.error;
+                //   console.log(e);
+            },
+
+            onInvoiceDiscountUpdated() {
+
+                //
+                // if (parseFloat(this.discount) > parseFloat(this.total) || this.discount == ' ') {
+                //     this.discount = 0;
+                // }
+                //
+                // var len = this.items.length;
+                //
+                //
+                // for (var i = 0; i < len; i++) {
+                //     var item = this.items[i];
+                //     var index = this.items.indexOf(item);
+                //     var item_widget = item.total / this.total; //
+                //     item.discount = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(Math.round(item_widget *
+                //         (this.discount)));
+                //     item.subtotal = this.updateSubtotalForOneItem(item);
+                //     item.tax = this.updateTaxForOneItem(item);
+                //     item.net = this.updateNetForOneItem(item);
+                //     item.variation = this.updateVariationForOneItem(item);
+                //     this.updateItemInListBYindex(index, item);
+                //
+                // }
+                //
+                //
+                // this.tax = helpers.getColumnSumationFromArrayOfObjects(this.items, 'tax');
+                // this.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(Math.round(parseFloat(this.tax) +
+                //     parseFloat(this.subtotal)));
+                //
+                // this.checkData();
             },
 
 
@@ -482,6 +501,15 @@
 
 
             validateInvoiceData() {
+
+                if(parseFloat(helpers.getColumnSumationFromArrayOfObjects(this.methods,'amount') )== parseFloat(this.net))
+                {
+                    this.show_submit_btn = true;
+                    // alert('good');
+                }else
+                {
+                    this.show_submit_btn =  false;
+                }
                 return true;
             },
             saveInvoiceButtonClicked(e) {
@@ -508,7 +536,9 @@
                 };
 
 
-                var vm = this;
+                console.log(this.methods);
+                //
+                // var vm = this;
                 axios.put('/management/purchases/' + this.purchase.id, data_to)
                     .then(function (response) {
 
@@ -524,18 +554,7 @@
 
             },
 
-            billingsUpdate(e) {
 
-                if (parseFloat(this.remaining) > 0) {
-                    this.status = 'credit';
-                } else {
-                    this.status = 'paid';
-                }
-
-                this.methods = e.methods;
-                this.remaining = e.remaining;
-
-            }
         },
 
         watch: {

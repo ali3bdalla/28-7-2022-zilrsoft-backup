@@ -28,6 +28,7 @@
 			'is_kit' => 'boolean',
 			'is_service' => 'boolean',
 			'is_need_serial' => 'boolean',
+			'available_qty' => 'integer',
 			'price' => 'float',
 			'price_with_tax' => 'float'
 		];

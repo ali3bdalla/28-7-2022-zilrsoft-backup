@@ -8,8 +8,8 @@
 	use App\Deprtmanet;
 	use App\Entry;
 	use App\Invoice;
+	use App\InvoiceExpenses;
 	use App\InvoiceItems;
-	use App\InvoicePayments;
 	use App\Manager;
 	use App\Organization;
 	use App\Payment;
@@ -26,6 +26,11 @@
 		{
 			return User::find($this->user_id);
 			
+		}
+		
+		public function expenses()
+		{
+			return $this->hasMany(InvoiceExpenses::class,'invoice_id');
 		}
 		
 		public function chart()
@@ -87,7 +92,5 @@
 		{
 			return $this->morphMany(Payment::class,'paymentable');
 		}
-		
-		
 		
 	}

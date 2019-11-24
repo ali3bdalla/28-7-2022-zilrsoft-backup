@@ -18,6 +18,8 @@
             <div class="col-md-12">
                 <edit-sale-form-component
                     :user='<?php echo json_encode($sale->client, 15, 512) ?>'
+                    :gateways='<?php echo json_encode($gateways, 15, 512) ?>'
+                    :expenses='<?php echo json_encode($expenses, 15, 512) ?>'
                     :creator='<?php echo json_encode($invoice->creator, 15, 512) ?>'
                     :pitems='<?php echo json_encode($items, 15, 512) ?>'
                     :invoice='<?php echo json_encode($invoice, 15, 512) ?>'

@@ -2,6 +2,7 @@
 	
 	namespace Tests\Feature;
 	
+	use App\User;
 	use Illuminate\Foundation\Testing\WithFaker;
 	use Tests\TestCase;
 	
@@ -18,31 +19,37 @@
 		 */
 		public function toCreate()
 		{
-			$category_id = auth()->user()->organization->categories()->inRandomOrder()->first()->id;
-			
-			
-			
-			$data = [
-				'name' => $this->faker->name,
-				'ar_name' => $this->faker->name,
-				'barcode' => $this->faker->numerify(),
-				'is_fixed_price' => $this->faker->boolean,
-				'is_has_vtp' => true,
-				'is_has_vts' => true,
-				'is_need_serial' => false,
-				'is_service' => $this->faker->boolean,
-				'vtp' => 5,
-				'vts' => 5,
-				'price' => 95.24,
-				'price_with_tax' => 100,
-				'category_id' => $category_id
-			];
-			$response = $this->json('post',
-				route('management.items.store'),$data);
-			
-			//$response->dump();
-			
-			$response->assertStatus(201);
+			for ($i = 0;$i < 50;$i++){
+				$category_id = auth()->user()->organization->categories()->inRandomOrder()->first()->id;
+				
+				$is_expense = false;
+//				if ($i % 1 != 0){
+					$is_expense = $this->faker->boolean;
+//				}
+				$data = [
+					'name' => $this->faker->name,
+					'ar_name' => $this->faker->name,
+					'barcode' => $this->faker->iban(),
+					'is_fixed_price' => $this->faker->boolean,
+					'is_has_vtp' => true,
+					'is_has_vts' => true,
+					'is_need_serial' => false,
+					'is_service' => $this->faker->boolean,
+					'is_expense' => $is_expense,
+					'expense_vendor_id' => User::where('is_vendor',true)->first()->id,
+					'vtp' => 5,
+					'vts' => 5,
+					'price' => 100,
+					'price_with_tax' => 105,
+					'category_id' => $category_id
+				];
+				$response = $this->json('post',
+					route('management.items.store'),$data);
+				
+				//$response->dump();
+				
+				$response->assertStatus(201);
+			}
 			
 		}
 		

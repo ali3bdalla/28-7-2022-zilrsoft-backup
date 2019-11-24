@@ -354,6 +354,135 @@
 	trait  AccountingStock
 	{
 		
+		public static function get_client_history($histories)
+		{
+			
+			$total_balance = 0;
+			
+			$total_debit = 0;
+			$total_credit = 0;
+			
+			$movement = [];
+			foreach ($histories as $history){
+				
+				$history['total_balance'] = 0;
+				$history['debit'] = 0;
+				$history['credit'] = 0;
+//
+				$history['expenses_data'] = [];
+				$history['discount_data'] = null;
+				$history['invoice_url'] = $history['urls']['invoice_url'];
+				$history['invoice_title'] = $history['urls']['invoice_title'];
+				
+				
+				if (in_array($history['invoice_type'],['purchase','beginning_inventory'])){
+					$history['debit'] = $history['net'];
+					$history['total_balance'] = $history['net'] + $total_balance;
+					
+					$total_debit = $total_debit + $history['net'];
+					
+					if ($history['discount'] > 0){
+						$history['discount_data'] = [
+							'credit' => $history['discount'],
+							'debit' => 0,
+							'total_balance' => $history['total_balance'] - $history['discount']
+						];
+						
+						$total_credit = $total_credit + $history['discount'];
+					}
+					
+					$expenses = $history->item->get_invoice_item_expenses($history['invoice_id']);
+					
+					$total_balance = $history['total_balance'] - $history['discount'];
+					
+					$all_expense = [];
+					foreach ($expenses as $expens){
+						$expens['debit'] = $expens['amount'];
+						$expens['credit'] = 0;
+						$expens['total_balance'] = $total_balance + $expens['amount'];
+						$total_balance = $expens['total_balance'];
+						$all_expense[] = $expens;
+						$total_debit = $total_debit + $expens['amount'];
+						
+					}
+					
+					$history['expenses_data'] = $all_expense;
+					
+				}elseif ($history['invoice_type'] == 'r_sale'){
+					$history['debit'] = $history['net'];
+					$history['total_balance'] = $history['net'] + $total_balance;
+					
+					$total_debit = $total_debit + $history['net'];
+					if ($history['discount'] > 0){
+						$history['discount_data'] = [
+							'credit' => $history['discount'],
+							'debit' => 0,
+							'total_balance' => $history['total_balance'] - $history['discount']
+						];
+						
+						$total_credit = $total_credit + $history['discount'];
+						
+					}
+					
+					
+					$total_balance = $history['total_balance'] - $history['discount'];
+					
+					
+				}elseif ($history['invoice_type'] == 'r_purchase'){
+					
+					
+					$history['credit'] = $history['net'];
+					
+					$history['total_balance'] = $total_balance - $history['net'];
+					
+					$total_credit = $total_credit + $history['net'];
+					
+					
+					if ($history['discount'] > 0){
+						$history['discount_data'] = [
+							'credit' => 0,
+							'debit' => $history['discount'],
+							'total_balance' => $history['total_balance'] + $history['discount']
+						];
+						$total_debit = $total_credit + $history['discount'];
+					}
+					
+					
+					$total_balance = $history['total_balance'] + $history['discount'];
+					
+					
+				}elseif ($history['invoice_type'] == 'sale'){
+					
+					$history['credit'] = $history['net'];
+					$history['total_balance'] = $total_balance - $history['credit'];
+					
+					$total_credit = $total_credit + $history['credit'];
+					
+					if ($history['discount'] > 0){
+						$history['discount_data'] = [
+							'debit' => $history['discount'],
+							'credit' => 0,
+							'total_balance' => $history['total_balance'] + $history['discount']
+						];
+						$total_debit = $total_debit + $history['discount'];
+					}
+					
+					
+					$total_balance = $history['total_balance'] + $history['discount'];
+					
+				}
+				
+				
+				$movement['data'][] = $history;
+				
+			}
+			
+			$movement['total_debit'] = $total_debit;
+			$movement['total_credit'] = $total_credit;
+			
+			return $movement;
+		}
+		
 		public function get_accounting_stock($charts_ids = [])
 		{
 			$query = $this->history()->with('invoice.chart','user','creator')
@@ -488,143 +617,5 @@
 			
 			return $movement;
 		}
-		
-		
-		
-		
-		
-		
-		public static function get_client_history($histories)
-		{
-			
-			$total_balance = 0;
-			
-			$total_debit = 0;
-			$total_credit = 0;
-			
-			$movement = [];
-			foreach ($histories as $history){
-				
-				$history['total_balance'] = 0;
-				$history['debit'] = 0;
-				$history['credit'] = 0;
-//
-				$history['expenses_data'] = [];
-				$history['discount_data'] = null;
-				$history['invoice_url'] = $history['urls']['invoice_url'];
-				$history['invoice_title'] = $history['urls']['invoice_title'];
-				
-				
-				if (in_array($history['invoice_type'],['purchase','beginning_inventory'])){
-					$history['debit'] = $history['net'];
-					$history['total_balance'] = $history['net'] + $total_balance;
-					
-					$total_debit = $total_debit + $history['net'];
-					
-					if ($history['discount'] > 0){
-						$history['discount_data'] = [
-							'credit' => $history['discount'],
-							'debit' => 0,
-							'total_balance' => $history['total_balance'] - $history['discount']
-						];
-						
-						$total_credit = $total_credit + $history['discount'];
-					}
-					
-					$expenses = $history->item->get_invoice_item_expenses($history['invoice_id']);
-					
-					$total_balance = $history['total_balance'] - $history['discount'];
-					
-					$all_expense = [];
-					foreach ($expenses as $expens){
-						$expens['debit'] = $expens['amount'];
-						$expens['credit'] = 0;
-						$expens['total_balance'] = $total_balance + $expens['amount'];
-						$total_balance = $expens['total_balance'];
-						$all_expense[] = $expens;
-						$total_debit = $total_debit + $expens['amount'];
-						
-					}
-					
-					$history['expenses_data'] = $all_expense;
-					
-				}elseif ($history['invoice_type'] == 'r_sale'){
-					$history['debit'] = $history['net'];
-					$history['total_balance'] = $history['net'] + $total_balance;
-					
-					$total_debit = $total_debit + $history['net'];
-					if ($history['discount'] > 0){
-						$history['discount_data'] = [
-							'credit' => $history['discount'],
-							'debit' => 0,
-							'total_balance' => $history['total_balance'] - $history['discount']
-						];
-						
-						$total_credit = $total_credit + $history['discount'];
-						
-					}
-					
-					
-					$total_balance = $history['total_balance'] - $history['discount'];
-					
-					
-				}elseif ($history['invoice_type'] == 'r_purchase'){
-					
-					
-					$history['credit'] = $history['net'];
-					
-					$history['total_balance'] = $total_balance - $history['net'];
-					
-					$total_credit = $total_credit + $history['net'];
-					
-					
-					if ($history['discount'] > 0){
-						$history['discount_data'] = [
-							'credit' => 0,
-							'debit' => $history['discount'],
-							'total_balance' => $history['total_balance'] + $history['discount']
-						];
-						$total_debit = $total_credit + $history['discount'];
-					}
-					
-					
-					$total_balance = $history['total_balance'] + $history['discount'];
-					
-					
-				}elseif ($history['invoice_type'] == 'sale'){
-					
-					$history['credit'] = $history['net'];
-					$history['total_balance'] = $total_balance - $history['credit'];
-					
-					$total_credit = $total_credit + $history['credit'];
-					
-					if ($history['discount'] > 0){
-						$history['discount_data'] = [
-							'debit' => $history['discount'],
-							'credit' => 0,
-							'total_balance' => $history['total_balance'] + $history['discount']
-						];
-						$total_debit = $total_debit + $history['discount'];
-					}
-					
-					
-					$total_balance = $history['total_balance'] + $history['discount'];
-					
-				}
-				
-				
-				$movement['data'][] = $history;
-				
-			}
-			
-			$movement['total_debit'] = $total_debit;
-			$movement['total_credit'] = $total_credit;
-			
-			return $movement;
-		}
-		
-		
-		
-		
 		
 	}

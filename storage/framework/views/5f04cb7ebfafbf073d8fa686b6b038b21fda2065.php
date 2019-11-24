@@ -9,29 +9,39 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-<div class="">
-	<div class="row">
-		<div class="col-md-12">
-			<article class="message  is-info">
-				<?php if(isset($isEdited)): ?>
-					<new-item-form-component :categories='<?php echo json_encode($categories, 15, 512) ?>' :is-edited="true"
-											 :is-cloned="true"
-											 :item="<?php echo e($item); ?>"
-											 :item-filters='<?php echo json_encode($item->filters, 15, 512) ?>' :item-category='<?php echo json_encode($item->category, 15, 512) ?>'></new-item-form-component>
-				<?php elseif($isClone): ?>
-					<new-item-form-component :categories='<?php echo json_encode($categories, 15, 512) ?>' :is-edited="false"
-                                             :is-cloned="true"
-                                             :item="<?php echo e($item); ?>"
-                                             :item-filters='<?php echo json_encode($item->filters, 15, 512) ?>' :item-category='<?php echo json_encode($item->category, 15, 512) ?>'></new-item-form-component>
-				<?php else: ?>
-					<new-item-form-component :categories='<?php echo json_encode($categories, 15, 512) ?>' :is-cloned="false"></new-item-form-component>
-				<?php endif; ?>
+    <div class="">
+        <div class="row">
+            <div class="col-md-12">
+                <article class="message  is-info">
+                    <?php if(isset($isEdited)): ?>
+                        <new-item-form-component
+                                :vendors='<?php echo json_encode($vendors, 15, 512) ?>'
+                                :categories='<?php echo json_encode($categories, 15, 512) ?>' :is-edited="true"
+                                :is-cloned="true"
+                                :item="<?php echo e($item); ?>"
+                                :item-filters='<?php echo json_encode($item->filters, 15, 512) ?>'
+                                :item-category='<?php echo json_encode($item->category, 15, 512) ?>'></new-item-form-component>
+                    <?php elseif($isClone): ?>
+                        <new-item-form-component
+                                :vendors='<?php echo json_encode($vendors, 15, 512) ?>'
+
+                                :categories='<?php echo json_encode($categories, 15, 512) ?>' :is-edited="false"
+                                :is-cloned="true"
+                                :item="<?php echo e($item); ?>"
+                                :item-filters='<?php echo json_encode($item->filters, 15, 512) ?>'
+                                :item-category='<?php echo json_encode($item->category, 15, 512) ?>'></new-item-form-component>
+                    <?php else: ?>
+                        <new-item-form-component
+								:vendors='<?php echo json_encode($vendors, 15, 512) ?>'
+								:categories='<?php echo json_encode($categories, 15, 512) ?>'
+                                                 :is-cloned="false"></new-item-form-component>
+                    <?php endif; ?>
 
 
-			</article>
-		</div>
-	</div>
-</div>
+                </article>
+            </div>
+        </div>
+    </div>
 
 <?php $__env->stopSection(); ?>
 

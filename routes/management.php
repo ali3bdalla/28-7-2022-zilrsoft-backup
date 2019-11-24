@@ -1,6 +1,8 @@
 <?php
 	
 	app()->setLocale('ar');
+
+//	app()->setLocale('ar');
 	
 	Auth::routes(['verify' => true]);
 	

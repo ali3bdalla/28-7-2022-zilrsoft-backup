@@ -5,7 +5,7 @@
         <print-invoice-component :invoice_id="invoice_id" :print="false"
                                  :print_counter="print_a4_counter" title='hidden'></print-invoice-component>
 
-        <receipt-printer-component :invoice_id='invoice_id' :print_counter="print_counter"></receipt-printer-component>
+
         <div class="panel-heading has-background-dark">
             <div class="columns">
                 <div class="column">
@@ -14,6 +14,9 @@
                 </div>
 
                 <div class="column pull-right text-left">
+                    <receipt-printer-component v-show="false" :invoice_id='invoice_id'
+                                               :print_counter="print_counter"></receipt-printer-component>
+
                     <button :disabled="disableSaveButton" @click="saveInvoiceButtonClickedOnly"
                             class="button is-primary "><i
                             class="fa fa-save"></i>&nbsp; {{ translator.save }}
@@ -180,7 +183,7 @@
                     <tbody>
 
 
-                    <tr :key="item.id" v-for="(item,itemindex) in items">
+                    <tr :key="item.id" v-for="(item,itemindex) in items" v-show="!item.is_expense">
                         <th class="has-text-white">
 
                             <button @click="deleteItemFromList(item)" class="button is-danger is-small"><i
@@ -337,12 +340,46 @@
                             </div>
                         </div>
 
-                        <expenses-list-component
-                                type="sale"
-                                @expensesUpdated="expensesUpdated"
-                                @expenseIncludeInNet="expenseIncludeInNet"
-                                @expenseDeIncludeInNet="expenseDeIncludeInNet":expenses="updated_expenses">
-                        </expenses-list-component>
+
+                        <div class="box">
+                            <div class="columns">
+                                <div class="column is-two-thirds">
+                                    <div class="select is-fullwidth">
+                                        <select v-model="active_expense">
+                                            <option :value="expense" v-for="expense in expenses">{{
+                                                expense.locale_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <button @click="addNewExpenseOption"
+                                            class="button is-primary"><i class="fa fa-plus-circle"></i></button>
+                                </div>
+                            </div>
+
+
+                            <div class="" v-show="items.length>=1">
+                                <div class="panel" v-for="expense in items" v-show="expense.is_expense">
+                                    <p>{{ expense.locale_name}}</p>
+                                    <div class="columns">
+                                        <div class="column is-two-thirds">
+                                            <input @focus="$event.target.select()" @keyup="onChangePriceField(expense)"
+                                                   class="input" placeholder="القيمة"
+                                                   type="text" v-model="expense.price"/>
+                                        </div>
+                                        <div class="column">
+                                            <input class="input" placeholder="التكلفة" type="text"
+                                                   v-model="expense.purchase_price"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -367,9 +404,9 @@
         props: ['creator', 'clients', 'salesmen', 'gateways', 'expenses'],
         data: function () {
             return {
-                expenses_value:0,
-                new_net:0,
-                updated_expenses:[],
+                active_expense: null,
+                new_net: 0,
+                expenses_list: [],
                 user: null,
                 disable_button_counter: 0,
                 disable_button_counter2: true,
@@ -415,12 +452,12 @@
             this.salesman = this.creator.id;
             //  console.log(this.client);
 
-            this.initExpenses();
             this.translator = JSON.parse(window.translator);
             this.messages = JSON.parse(window.messages);
             this.reusable_translator = JSON.parse(window.reusable_translator);
             this.department = this.creator.department.title;
             this.timerLoop();
+
 
             // this.checkData();
             // console.log(this.$refs.)
@@ -436,6 +473,22 @@
 
         methods: {
 
+
+            addNewExpenseOption() {
+
+                if (this.active_expense != null) {
+                    var new_expense = this.active_expense;
+                    new_expense.available_qty = 1;
+                    new_expense.qty = 1;
+                    new_expense.price = 0;
+                    new_expense.purchase_price = 0;
+                    // this.expenses_list.push(new_expense);
+                    this.addItemToList(new_expense);
+
+
+                }
+
+            },
             handleWidgets() {
 
                 for (var i = 0; i < this.items.length; i++) {
@@ -446,92 +499,16 @@
                     item.widget = widget;
 
 
-                    this.items.splice(this.items.indexOf(item), 1,item);
+                    this.items.splice(this.items.indexOf(item), 1, item);
 
                 }
 
-                this.expenses_value =  parseFloat(helpers.getColumnSumationFromArrayOfObjects(this.updated_expenses,
-                    'amount'));
+                // this.expenses_value = parseFloat(helpers.getColumnSumationFromArrayOfObjects(this.updated_expenses,
+                //     'amount'));
 
             },
 
 
-
-            initExpenses(){
-
-                for (var i = 0; i< this.expenses.length; i++)
-                {
-
-                    var expense = this.expenses[i];
-
-                    expense.is_open = true;
-                    expense.is_apended_to_net = true;
-                    expense.amount = 0;
-                    this.updated_expenses.push(expense);
-
-                }
-            },
-
-
-            openExpenses()
-            {
-                for (var i = 0; i< this.expenses.length; i++)
-                {
-
-                    var expense = this.expenses[i];
-                    expense.is_open = false;
-                    this.updated_expenses.push(expense);
-
-                }
-            },
-
-            expensesUpdated(e)
-            {
-                if(parseFloat(e.expense.amount) > 0) {
-
-                    this.updated_expenses.splice(e.index, 1, e.expense);
-                    this.updateNetAfterExpenses();
-                }
-
-                this.handleWidgets();
-              // console.log(e.index);
-            },
-
-            updateNetAfterExpenses()
-            {
-
-                var total = 0;
-              for (var i=0;i<this.updated_expenses.length;i++)
-              {
-                  var expense = this.updated_expenses[i];
-
-                  if( helpers.isNumber(expense.amount) && expense.is_apended_to_net &&
-                      parseFloat(expense.amount) != 'NaN')
-                  {
-
-                      total = parseFloat(total) + parseFloat(expense.amount);
-                  }
-
-
-
-
-                 // this.onInvoiceNetUpdated();
-
-              }
-
-
-                if(parseFloat(total)>0)
-                {
-
-                    this.net = parseFloat(total) +
-                        parseFloat(helpers.getColumnSumationFromArrayOfObjects(this.items, 'net'));
-                }else
-                {
-                    this.net = parseFloat(helpers.getColumnSumationFromArrayOfObjects(this.items, 'net'));
-                }
-
-
-            },
             kitHasBeenUpdated(e) {
 
                 var kit = e.kit;
@@ -979,7 +956,6 @@
             },
 
 
-
             // helpers
             updateTotalForOneItem(item) {
                 return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.price * item.qty);
@@ -1014,7 +990,7 @@
                 this.subtotal = helpers.getColumnSumationFromArrayOfObjects(this.items, 'subtotal');
                 this.tax = helpers.getColumnSumationFromArrayOfObjects(this.items, 'tax');
                 this.net = helpers.getColumnSumationFromArrayOfObjects(this.items, 'net');
-          //      this.remaining = this.net;
+                //      this.remaining = this.net;
                 this.checkData();
             },
 
@@ -1057,7 +1033,7 @@
                     salesman_id: this.salesman,
                     items: this.items,
                     total: this.total,
-                    expenses:this.updated_expenses,
+                    expenses: this.expenses_list,
                     subtotal: this.subtotal,
                     net: this.net,
                     creator_id: this.creator.id,
@@ -1073,6 +1049,7 @@
                     methods: this.pay_ways,
                 };
                 var vm = this;
+                console.log(data_to);
                 axios.post('/management/sales', data_to)
                     .then(function (response) {
                         vm.showFinishTableMessage(event, response.data.invoice_id);
@@ -1123,7 +1100,7 @@
                 //
                 setTimeout(function () {
                     location.reload();
-                },4000);
+                }, 4000);
                 // this.$ref.printFrameRef.el.print();
             },
             billingsUpdate(e) {

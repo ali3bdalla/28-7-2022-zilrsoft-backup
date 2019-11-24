@@ -22,6 +22,8 @@
             <div class="col-md-12">
                 <edit-sale-form-component
                     :user='@json($sale->client)'
+                    :gateways='@json($gateways)'
+                    :expenses='@json($expenses)'
                     :creator='@json($invoice->creator)'
                     :pitems='@json($items)'
                     :invoice='@json($invoice)'

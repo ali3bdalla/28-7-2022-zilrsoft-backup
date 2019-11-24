@@ -6,7 +6,6 @@
 	use App\Item;
 	use App\PurchaseInvoice;
 	use App\SaleInvoice;
-	use Illuminate\Support\Facades\DB;
 	
 	trait ItemHelper
 	{
@@ -15,14 +14,23 @@
 		{
 			
 			$qty = $this->get_item_qty($invoice_item); //  detect qty of the item should be created
+			
+			
 			$accounting_data = $this->get_item_accounting_data_except_price($qty,$invoice_item);
 			
-			if ($sub_invoice instanceof SaleInvoice)
-				$accounting_data['cost'] = $this->cost;
-			else
+			if ($sub_invoice instanceof SaleInvoice){
+				if ($this->is_expense)
+					$accounting_data['cost'] = $invoice_item['purchase_price'];
+				else
+					$accounting_data['cost'] = $this->cost;
+				
+			}else
 				$accounting_data['cost'] = $accounting_data['total'] / $qty;
 			
+			
 			$accounting_data['price'] = $this->get_item_price($invoice_type,$invoice_item);
+			
+			
 			$accounting_data['invoice_type'] = $invoice_type;
 			
 			if (collect($invoice_item)->has('belong_to_kit')){
@@ -43,6 +51,8 @@
 			
 			
 			$new_invoice_item = $sub_invoice->invoice->items()->create(collect($accounting_data)->toArray());
+			
+			
 			$new_invoice_item->update_item_cost_value_after_new_invoice_created();
 			
 			
@@ -51,6 +61,7 @@
 					$invoice_item['widget']);
 			else
 				$total_of_expenses = 0;
+			
 			
 			//update serial if item need contain serials array
 			if ($this->is_need_serial)
@@ -81,7 +92,7 @@
 			
 			
 			if (!$this->is_kit){
-				if ($sub_invoice instanceof PurchaseInvoice){
+				if ($sub_invoice instanceof PurchaseInvoice && !$invoice_item['is_expense']){
 					$this->update_item_last_purchase_price($accounting_data['price']);
 					$this->update_item_sales_price($invoice_item['price_with_tax']);
 					
@@ -90,6 +101,7 @@
 			
 			
 			$new_invoice_item->make_invoice_transaction($sub_invoice,$total_of_expenses);
+			
 			
 			return $this;
 		}
@@ -163,11 +175,12 @@
 		
 		public function update_item_qty_after_new_invoice_created($qty,$invoice_type)
 		{
-			if (!in_array($invoice_type,['purchase','beginning_inventory'])){
-				$this->update_qty_with_option('sub',$qty);
+			
+			if (in_array($invoice_type,['purchase','beginning_inventory'])){
+				$this->update_qty_with_option('add',$qty);
 			}else{
 				
-				$this->update_qty_with_option('add',$qty);
+				$this->update_qty_with_option('sub',$qty);
 				
 				
 			}
@@ -178,15 +191,17 @@
 		public function update_qty_with_option($option,$qty)
 		{
 			
+			$qty = intval($qty);
+			$old_available_qty = $this->available_qty;
 			if ($option == 'add'){
 				$this->update([
-					'available_qty' => DB::raw("available_qty + $qty ")
+					'available_qty' => $old_available_qty + $qty
 				]);
 				return true;
 			}else{
 				
 				$this->update([
-					'available_qty' => DB::raw("available_qty - $qty ")
+					'available_qty' => $old_available_qty - $qty
 				]);
 				return true;
 			}
@@ -234,6 +249,49 @@
 		public function get_invoice_item_expenses($invoice_id)
 		{
 			return $this->expenses()->where('invoice_id',$invoice_id)->with('expense')->get();
+		}
+		
+		/*
+		 * to check if item has good qty now avaiable to handle return proccess
+		 *
+		 * */
+		public function check_if_has_available_qty_can_handle_purchase_return_process($returned_qty)
+		{
+			return $this->available_qty > $returned_qty;
+		}
+		
+		public function check_if_has_available_qty_can_handle_sale_return_process($returned_qty)
+		{
+			return true;
+		}
+		
+		public function change_serials_array_status($status,$serials = [],$invoice = null)
+		{
+			if ($status == 'r_sale'){
+				$data = [
+					'current_status' => $status,
+					'r_sale_invoice_id' => $invoice->id,
+				];
+				$user_id = $invoice->sale->client_id;
+			}else{
+				$data = [
+					'current_status' => $status,
+					'r_purchase_invoice_id' => $invoice->id,
+				];
+				$user_id = $invoice->purchase->vendor_id;
+			}
+			$this->serials()->whereIn('id',collect($serials)->pluck('id')->toArray())->update($data);
+			foreach ($serials as $serial){
+				$invoice->serial_history()->create([
+					'event' => $status,
+					'organization_id' => auth()->user()->organization_id,
+					'creator_id' => auth()->user()->id,
+					'serial_id' => $serial['id'],
+					'user_id' => $user_id
+				]);
+			}
+			
+			
 		}
 		
 	}

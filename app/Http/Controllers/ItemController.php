@@ -10,6 +10,7 @@
 	use App\Item;
 	use App\ItemSerials;
 	use App\Manager;
+	use App\User;
 	use Illuminate\Http\Request;
 	
 	use Carbon\Carbon;
@@ -170,7 +171,12 @@
 			});
 			
 			
-			return view('items.create2',compact('categories','isClone'));
+			$vendors = User::where('is_vendor',true)->get();
+			
+			
+//			return $vendors;
+			
+			return view('items.create2',compact('categories','isClone','vendors'));
 		}
 		
 		public function clone(Item $item)
@@ -195,9 +201,11 @@
 			});
 			
 			
+			
+			$vendors = User::where('is_vendor',true)->get();
 			// return $item;
 			// return  $item->filters;
-			return view('items.create2',compact('categories','isClone','item'));
+			return view('items.create2',compact('categories','isClone','item','vendors'));
 		}
 		
 		public function store(CreateItemRequest $request)
@@ -235,9 +243,10 @@
 			});
 			
 			
+			$vendors = User::where('is_vendor',true)->get();
 			// return $item;
 			// return  $item->filters;
-			return view('items.create2',compact('categories','isClone','item','isEdited'));
+			return view('items.create2',compact('categories','isClone','item','isEdited','vendors'));
 			
 			
 			//

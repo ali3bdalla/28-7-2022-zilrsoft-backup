@@ -1,10 +1,31 @@
 <?php
 	
 	namespace App\Attributes;
+	
 	use App\Account;
 	
 	trait ManagerAttributes
 	{
+		
+		public function get_active_manager_account_for($kind)
+		
+		{
+			
+			$account = Account::where('slug',$kind)->first();
+//			if ($kind == 'cogs')
+//				$account = Account::where('slug','cogs')->first();
+//
+//			if ($kind == 'stock')
+//				$account = Account::where('slug','stock')->first();
+//
+			
+			return $account;
+		}
+		
+		public function manager_gateway($type)
+		{
+			return Account::find(3);
+		}
 		
 		public function memebership()
 		{
@@ -33,8 +54,6 @@
 		{
 			return Account::where("slug",'stock')->first();
 		}
-		
-		
 		
 	}
 	

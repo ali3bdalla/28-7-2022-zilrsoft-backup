@@ -68,7 +68,7 @@
 
 
                             <td>{{$purchase->invoice->creator->name}}</td>
-                            <td>{{$purchase->invoice->tax}}</td>
+                            <td>{{$purchase->invoice->total_tax}}</td>
 
                             <td width="8%">
 

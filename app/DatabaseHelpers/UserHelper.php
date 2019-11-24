@@ -25,7 +25,7 @@
 				
 				if ($invoice['invoice']['current_status'] == 'paid'){
 					$new_invoice = $invoice->replicate();;
-
+					
 					if ($new_invoice['invoice_type'] == 'sale')
 						$new_invoice['invoice_type'] = 'r_sale';
 					else
@@ -62,4 +62,43 @@
 			
 			$this->clients_histories[] = $invoice;
 		}
+		
+		public function update_vendor_balance($option,$amount)
+		{
+			$amount = floatval($amount);
+			
+			$old_balance = $this->vendor_balance;
+			if ($option == 'add'){
+				$this->update([
+					'vendor_balance' => $old_balance + $amount
+				]);
+				return true;
+			}else{
+				
+				$this->update([
+					'vendor_balance' => $old_balance - $amount
+				]);
+				return true;
+			}
+		}
+		
+		public function update_client_balance($option,$amount)
+		{
+			$amount = floatval($amount);
+			
+			$old_balance = $this->vendor_balance;
+			if ($option == 'add'){
+				$this->update([
+					'balance' => $old_balance + $amount
+				]);
+				return true;
+			}else{
+				
+				$this->update([
+					'balance' => $old_balance - $amount
+				]);
+				return true;
+			}
+		}
+		
 	}

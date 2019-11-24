@@ -3,7 +3,7 @@
 
 @section('title',__('pages/invoice.purchase'))
 @section('desctipion',__('pages/invoice.view_purchase'))
-@section('route',route('management.sales.index'))
+@section('route',route('management.purchases.index'))
 
 
 @section('content')
@@ -133,45 +133,48 @@
 
 
                     @foreach($purchase->invoice->items as $item)
-                        <tr>
-                            <th class="has-text-white">
-                                <button class="button is-info is-small">{{$loop->index + 1}}</button>
-                            </th>
-                            <!-- <th class="has-text-white"></th> -->
-                            <th text="item.barcode">{{ $item->item->barcode }}</th>
-                            <th text="item.name">{{ $item->item->locale_name }}</th>
-                            <th width="6%">
-                                <input type="text" class="input" value="{{ $item->qty }}" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" value="{{ $item->price }}" disabled="">
+                        @if($item->item->is_expense || $purchase->invoice->parent_invoice_id<=0)
+                            <tr>
+                                <th class="has-text-white">
+                                    <button class="button is-info is-small">{{$loop->index + 1}}</button>
+                                </th>
+                                <!-- <th class="has-text-white"></th> -->
+                                <th text="item.barcode">{{ $item->item->barcode }}</th>
+                                <th text="item.name">{{ $item->item->locale_name }}</th>
+                                <th width="6%">
+                                    <input type="text" class="input" value="{{ $item->qty }}" disabled="">
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" value="{{ $item->price }}" disabled="">
 
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" value="{{ $item->total }}" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="discount" value="{{ $item->discount }}"
-                                       disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="subtotal" readonly="" value="{{
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" value="{{ $item->total }}" disabled="">
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="discount"
+                                           value="{{ $item->discount }}"
+                                           disabled="">
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="subtotal" readonly="" value="{{
                                 $item->subtotal }}" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="vat sale" readonly="" value="{{
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="vat purchase" readonly="" value="{{
                                 $item->item->vtp }}%" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="tax" readonly="" value="{{ $item->tax
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="tax" readonly="" value="{{ $item->tax
                                 }}" disabled="">
-                            </th>
-                            <th class="has-text-white">
-                                <input type="text" class="input" placeholder="net" readonly="" value="{{ $item->net
+                                </th>
+                                <th class="has-text-white">
+                                    <input type="text" class="input" placeholder="net" readonly="" value="{{ $item->net
                                 }}" disabled="">
-                            </th>
+                                </th>
 
-                        </tr>
+                            </tr>
+                        @endif
                     @endforeach
 
 
@@ -184,6 +187,38 @@
 
                     <div data-v-73cd913d="" class="column is-three-quarters">
                         <div data-v-73cd913d="">
+
+
+                            <div class="panel panel-primary">
+
+                                <div class="panel-body">
+                                    <div class="panel-heading">
+                                        تكاليف اضافية
+                                    </div>
+                                    <table class="table table-bordered">
+                                        @foreach($purchase->invoice->expenses as $expense)
+                                            <tr>
+
+                                                <!-- <th class="has-text-white"></th> -->
+
+                                                <th text="item.name"
+                                                    style="text-align: right !important;">{{
+                                                    $expense->expense->locale_name }}</th>
+
+                                                <th class="has-text-white">
+                                                    <input type="text" class="input" value="{{ $expense->amount }}"
+                                                           disabled="">
+
+                                                </th>
+
+
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                </div>
+                            </div>
+
+
                             <div class="panel panel-primary">
                                 <div class="panel-body">
                                     @if(!empty($purchase->invoice->payments))
@@ -252,32 +287,67 @@ $payment->id)
                                         <th>دائن</th>
                                         </thead>
                                         <tbody class="text-center">
-                                        <?php $total_debit = 0; $total_credit = 0 ;?>
+								<?php $total_debit = 0; $total_credit = 0;?>
                                         @foreach($transactions as $transaction)
-                                            @if($transaction['description']=='to_item' ||
+                                            @if($purchase->invoice_type=='r_purchase')
+                                                @if($transaction['description']=='to_item' ||
                                             $transaction['description']=='to_tax')
-                                                <?php $total_debit =  $total_debit + $transaction['amount']?>
-                                                <tr>
-                                                    <td class="datedirection">{{ $transaction->created_at }}</td>
-                                                    <td>{{ $transaction->creditable->locale_name }}</td>
-                                                    <td>{{money_format("%i", $transaction->amount) }}</td>
-                                                    <td></td>
-                                                </tr>
+										   <?php $total_credit = $total_credit + $transaction['amount']?>
+
+                                                     <tr>
+                                                         <td class="datedirection">{{ $transaction->created_at }}</td>
+                                                         <td>{{ $transaction->creditable->locale_name }}</td>
+                                                         <td></td>
+                                                         <td>{{money_format("%i", $transaction->amount) }}</td>
+                                                     </tr>
+                                                @else
+
+										   <?php $total_debit = $total_debit + $transaction['amount']?>
+                                                     <tr>
+                                                         <td class="datedirection">{{ $transaction->created_at }}</td>
+                                                         <td>{{ $transaction->debitable->locale_name }}</td>
+                                                         <td>{{money_format("%i", $transaction->amount) }}</td>
+                                                         <td></td>
+                                                     </tr>
+                                                @endif
+
+
+
+
                                             @else
 
-	                                            <?php $total_credit =  $total_credit + $transaction['amount']?>
-                                                <tr>
-                                                    <td class="datedirection">{{ $transaction->created_at }}</td>
-                                                    <td>{{ $transaction->creditable->locale_name }}</td>
-                                                    <td></td>
-                                                    <td>{{money_format("%i", $transaction->amount) }}</td>
-                                                </tr>
+
+
+
+
+                                                @if($transaction['description']=='to_item' || $transaction['description']=='to_tax')
+
+										   <?php $total_debit = $total_debit + $transaction['amount']?>
+                                                     <tr>
+                                                         <td class="datedirection">{{ $transaction->created_at }}</td>
+                                                         <td>{{ $transaction->debitable->locale_name }}</td>
+                                                         <td>{{money_format("%i", $transaction->amount) }}</td>
+                                                         <td></td>
+                                                     </tr>
+
+                                                @else
+
+
+										   <?php $total_credit = $total_credit + $transaction['amount']?>
+                                                     <tr>
+                                                         <td class="datedirection">{{ $transaction->created_at }}</td>
+                                                         <td>{{ $transaction->creditable->locale_name }}</td>
+                                                         <td></td>
+                                                         <td>{{money_format("%i", $transaction->amount) }}</td>
+                                                     </tr>
+                                                @endif
+
                                             @endif
                                         @endforeach
                                         </tbody>
                                         <thead>
                                         <th>المجموع</th>
-                                        <th> </th>
+                                        <th></th>
                                         <th>{{ money_format("%i",$total_debit) }}</th>
                                         <th>{{ money_format("%i",$total_credit) }}</th>
                                         </thead>
@@ -347,6 +417,18 @@ $payment->id)
                                 </div>
 
 
+                                {{--                                @foreach($purchase->invoice->expenses as $expense)--}}
+                                {{--                                    <div class="list-group-item">--}}
+                                {{--                                        <div class="columns">--}}
+                                {{--                                            <div class="column">{{ $expense->expense->locale_name  }}</div>--}}
+                                {{--                                            <div class="column">--}}
+                                {{--                                                <input type="text" class="input" value="{{ $expense->amount }}"--}}
+                                {{--                                                       disabled="">--}}
+                                {{--                                            </div>--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+
+                                {{--                                @endforeach--}}
                             </div>
                         </div>
                     </div>

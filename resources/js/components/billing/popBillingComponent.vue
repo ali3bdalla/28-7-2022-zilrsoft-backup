@@ -320,6 +320,7 @@
 
             validatePayment() {
 
+
                 var any_error = false;
                 var total = this.total_amount;
                 var paid = 0;
@@ -378,12 +379,14 @@
 
                 this.error_paid = any_error;
 
-
-                this.$emit("billingsUpdate", {
-                    methods: this.methods,
-                    remaining: this.total_remining,
-                });
-
+                if(!any_error)
+                {
+                    // alert('googd job');
+                    this.$emit("billingsUpdate", {
+                        methods: this.methods,
+                        remaining: this.total_remining,
+                    });
+                }
 
                 return !any_error;
 
@@ -457,6 +460,7 @@
 
 
             netAmount: function (value) {
+
 
                 //
                 // if (this.is_credit_mode) {

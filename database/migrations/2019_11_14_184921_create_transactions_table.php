@@ -28,7 +28,16 @@
 					'to_stock',
 					'to_item',
 					'to_gateway',
-					'to_tax'
+					'to_tax',
+					'to_cogs',
+					'to_products_sales',
+					'to_services_sales',
+					'to_other_services_sales',
+					
+					'to_products_sales_discount',
+					'to_services_sales_discount',
+					'to_other_services_sales_discount',
+					
 				])->nullable();
 				$table->timestamps();
 			});

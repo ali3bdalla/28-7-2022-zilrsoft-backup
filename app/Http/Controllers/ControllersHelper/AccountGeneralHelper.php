@@ -4,45 +4,70 @@
 	namespace App\Http\Controllers\ControllersHelper;
 	
 	
-	trait ChartControllerGatewayHelper
+	trait AccountGeneralHelper
 	{
 		
-		public function chart_gateway_view($chart)
+		public function load_account_transactions($account)
 		{
 			
-			$payments = [];
-			$fake_payments = $chart->gateway->payments;
-			$main_children_report = $this->loop_in_main_children($chart);
 			
-			foreach ($main_children_report as $child){
-				$payments[] = $child;
+			$data = $this->get_all_account_transaction($account);
+			$transactions = $data['transaction'];
+			$children = $this->loop_in_main_children($account);
+			
+			foreach ($children as $child){
+				$transactions[] = $child;
 			}
+			return $transactions;
 			
-			
-			foreach ($fake_payments as $child){
-				$payments[] = $child;
-			}
-			
-			
-			return view('accounts.gateway_histories',compact('payments','chart'));
 		}
 		
-		public function loop_in_main_children($chart)
+		public function get_all_account_transaction($account)
+		{
+			$debit_transactions = $account->debit_transaction;
+			$credit_transactions = $account->credit_transaction;
+			
+			$total_credit = 0;
+			$total_debit = 0;
+			
+			$transactions = [];
+			foreach ($debit_transactions as $transaction){
+				
+				$total_debit = $total_debit + $transaction['amount'];
+				$transaction['type'] = 'debit';
+				$transaction['is_transaction'] = true;
+				$transactions[] = $transaction;
+			}
+			
+			
+			foreach ($credit_transactions as $transaction){
+				
+				$total_credit = $total_credit + $transaction['amount'];
+				$transaction['type'] = 'credit';
+				$transaction['is_transaction'] = true;
+				$transactions[] = $transaction;
+			}
+			
+			
+			return [
+				'transaction' => $transactions,
+				'total_debit' => $total_debit,
+				'total_credit' => $total_credit,
+			];
+			
+		}
+		
+		public function loop_in_main_children($account)
 		{
 			$data = [];
 			
-			foreach ($chart->children as $child){
+			foreach ($account->children as $child){
 				
-				
-				$child['is_main_child'] = true;
+				$child['is_transaction'] = false;
 				$single_main_child = $child;
-				
-				
-				$calc = $this->get_child_infinity_children_data($child);
-				
-				
-				$single_main_child['receipt_total'] = $calc['receipt'];
-				$single_main_child['payment_total'] = $calc['payment'];
+				$calc = $this->get_all_child_data($child);
+				$single_main_child['credit'] = $calc['credit'];
+				$single_main_child['debit'] = $calc['debit'];
 				$data[] = $single_main_child;
 				
 			}
@@ -50,20 +75,21 @@
 			return $data;
 		}
 		
-		public function get_child_infinity_children_data($child)
+		public function get_all_child_data($child)
 		{
 			
-			$payment = $child->gateway->payments()->where('payment_type','payment')->sum("amount");
-			$receipt = $child->gateway->payments()->where('payment_type','receipt')->sum("amount");
+			$response = $this->get_all_account_transaction($child);
 			
+			$credit = $response['total_credit'];
+			$debit = $response['total_debit'];
 			
 			foreach ($child->children as $child){
-				$calc = $this->get_child_infinity_children_data($child);
-				$payment = $payment + $calc['payment'];
-				$receipt = $receipt + $calc['receipt'];
+				$sub_child_request = $this->get_all_child_data($child);
+				$credit = $credit + $sub_child_request['credit'];
+				$debit = $debit + $sub_child_request['debit'];
 			}
 			
-			return ['payment' => $payment,'receipt' => $receipt];
+			return ['credit' => $credit,'debit' => $debit];
 		}
 		
 	}

@@ -36,7 +36,7 @@
                     </td>
                     <td></td>
                 </tr>
-                <tr :key="item.id" v-for="(item,index) in items">
+                <tr :key="item.id" v-for="(item,index) in items" :class="{'danger':item.is_expense}">
                     <th v-text="index+1" width="4%"></th>
 
                     <th class="barcode" style="text-align:left !important"

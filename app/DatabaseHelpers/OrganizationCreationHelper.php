@@ -350,6 +350,18 @@
 				'creator_id' => $this->accounts_creator_id
 			]);
 			
+			$capital = Account::create([
+				'is_system_account' => true,
+				"ar_name" => "جاري الشركاء",
+				"name" => "withdrawals",
+				"slug" => "withdrawals",
+				"parent_id" => $equity_account->id,
+				"serial" => "100000000000000000000",
+				'organization_id' => $this->accounts_organization_id,
+				'creator_id' => $this->accounts_creator_id
+			]);
+			
+			
 			
 		}
 		
@@ -403,6 +415,16 @@
 				'creator_id' => $this->accounts_creator_id
 			]);
 			
+			Account::create([
+				'is_system_account' => true,
+				"ar_name" => " خصم  السلع",
+				"name" => "sales discount ",
+				"slug" => "products_sales_discount",
+				"parent_id" => $net_sales_account->id,
+				"serial" => "112000000000000000000",
+				'organization_id' => $this->accounts_organization_id,
+				'creator_id' => $this->accounts_creator_id
+			]);
 			
 			Account::create([
 				'is_system_account' => true,
@@ -429,14 +451,51 @@
 			
 			Account::create([
 				'is_system_account' => true,
-				"ar_name" => " خصم على المبيعات",
-				"name" => "sales discount ",
-				"slug" => "product_sales_discount",
+				"ar_name" => " خصم  الخدمات",
+				"name" => "services  discount ",
+				"slug" => "services_sales_discount",
 				"parent_id" => $net_sales_account->id,
 				"serial" => "112000000000000000000",
 				'organization_id' => $this->accounts_organization_id,
 				'creator_id' => $this->accounts_creator_id
 			]);
+			
+			Account::create([
+				'is_system_account' => true,
+				"ar_name" =>  "مبيعات الخدمات اخرى",
+				"name" => "other services ",
+				"slug" => "other_services_sales",
+				"parent_id" => $net_sales_account->id,
+				"serial" => "112000000000000000000",
+				'organization_id' => $this->accounts_organization_id,
+				'creator_id' => $this->accounts_creator_id
+			]);
+			
+			
+			Account::create([
+				'is_system_account' => true,
+				"ar_name" => "مرتجع الخدمات الاخرى ",
+				"name" => "other services return ",
+				"slug" => "other_services_return_sales",
+				"parent_id" => $net_sales_account->id,
+				"serial" => "112000000000000000000",
+				'organization_id' => $this->accounts_organization_id,
+				'creator_id' => $this->accounts_creator_id
+			]);
+			
+			
+			Account::create([
+				'is_system_account' => true,
+				"ar_name" => " خصم  الخدمات الاخرى",
+				"name" => "other services  discount ",
+				"slug" => "other_services_sales_discount",
+				"parent_id" => $net_sales_account->id,
+				"serial" => "112000000000000000000",
+				'organization_id' => $this->accounts_organization_id,
+				'creator_id' => $this->accounts_creator_id
+			]);
+			
+			
 			
 		}
 		
@@ -459,7 +518,7 @@
 				'is_system_account' => true,
 				"ar_name" => "تكلفة البضاعة المباعة",
 				"name" => "cost of goods sold",
-				"slug" => "cost_of_goods_sale",
+				"slug" => "cogs",
 				"parent_id" => $expense_account->id,
 				"serial" => "110000000000000000000",
 				'organization_id' => $this->accounts_organization_id,

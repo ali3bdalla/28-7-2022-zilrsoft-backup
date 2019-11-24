@@ -75,6 +75,7 @@
 			$transactions = $purchase->invoice->transactions;
 			
 			
+//			return  $transactions;
 			return view('purchases.show',compact('purchase','transactions'));
 			//
 		}

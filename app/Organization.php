@@ -21,4 +21,14 @@
 		 */
 		protected $guarded = [];
 		
+		public function getOrganizationTaxAttribute()
+		{
+			return 1.05;
+		}
+		
+		
+		public function getOrganizationVatAttribute()
+		{
+			return 5;
+		}
 	}

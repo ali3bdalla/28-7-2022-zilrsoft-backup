@@ -66,7 +66,7 @@
 
 
                             <td><?php echo e($purchase->invoice->creator->name); ?></td>
-                            <td><?php echo e($purchase->invoice->tax); ?></td>
+                            <td><?php echo e($purchase->invoice->total_tax); ?></td>
 
                             <td width="8%">
 
