@@ -24,6 +24,11 @@
 			}
 		}
 		
+//		public function invoices()
+//		{
+//
+//		}
+//
 		public function paymentable()
 		{
 			return $this->morphTo();

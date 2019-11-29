@@ -21,6 +21,8 @@
 		Route::get('/dashboard',"HomeController@index")->name('dashboard')->middleware('role:view-dashboard');
 		Route::get('/dashboard',"HomeController@index")->name('dashboard')->middleware('role:view-dashboard');
 		
+		Route::get('/dashboard',"HomeController@index")->name('dashboard')->middleware('role:view-dashboard');
+		
 		
 		Route::resources([
 			'managers' => 'ManagerController',
@@ -41,6 +43,7 @@
 			'inventories' => 'InventoryController',
 			'expenses' => 'ExpenseController',
 			'accounts' => 'AccountsController',
+			'transactions' => 'TransactionsController',
 		
 		]);
 		
@@ -49,6 +52,13 @@
 			Route::get('item/{item}/{account}',"AccountsController@item")->name('item');
 			Route::get('client/{client}/{account}',"AccountsController@client")->name('client');
 			Route::get('{account}/delete',"AccountsController@delete");
+		});
+		
+		
+		Route::prefix('financial_statements')->name('financial_statements.')->group(function (){
+			Route::get('/',"FinancialStatementsController@index")->name('index');
+			Route::get('trail_balance',"FinancialStatementsController@trail_balance")->name('trail_balance');
+			
 		});
 		
 		Route::prefix('sales')->name('sales.')->group(function (){

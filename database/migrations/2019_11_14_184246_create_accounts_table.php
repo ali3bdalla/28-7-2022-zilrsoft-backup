@@ -39,6 +39,7 @@
 						'current_liabilities',
 						'cogs',
 						'expenses',
+						'fixed_assets',
 						'products_sales_discount',
 						'services_sales_discount',
 						'other_services_sales_discount',

@@ -64,10 +64,11 @@
                                  <th class="text-center ">
                                      @if($transaction->invoice_id>=1)
                                          @if(in_array($transaction->invoice->invoice_type,['sale','r_sale']))
-                                             <a href="{{ route('management.sales.show',$transaction->invoice->id ) }}">{{
+                                             <a href="{{ route('management.sales.show',$transaction->invoice->sale->id ) }}">{{
                                $transaction->invoice->title  }}</a>
                                          @else
-                                             <a href="{{ route('management.purchases.show',$transaction->invoice->id)
+                                             <a href="{{ route('management.purchases.show',
+                                             $transaction->invoice->purchase->id)
                                                }}"> {{ $transaction->invoice->title }}</a>
                                          @endif
 
@@ -98,10 +99,13 @@
                                  <th class="text-center ">
                                      @if($transaction->invoice_id>=1)
                                          @if(in_array($transaction->invoice->invoice_type,['sale','r_sale']))
-                                             <a href="{{ route('management.sales.show',$transaction->invoice->id ) }}">{{
+                                             <a href="{{ route('management.sales.show',
+                                             $transaction->invoice->sale->id )
+                                             }}">{{
                                $transaction->invoice->title  }}</a>
                                          @else
-                                             <a href="{{ route('management.purchases.show',$transaction->invoice->id)
+                                             <a href="{{ route('management.purchases.show',
+                                             $transaction->invoice->purchase->id)
                                                }}"> {{ $transaction->invoice->title }}</a>
                                          @endif
 

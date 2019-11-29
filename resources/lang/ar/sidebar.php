@@ -1,6 +1,7 @@
 <?php
 	
 	return [
+		'transactions' => 'القيود',
 		'dashboard' => 'لوحة التحكم',
 		'items' => 'المنتجات',
 		'pending_items' => 'المنتجات المعلقة',
@@ -29,5 +30,5 @@
 		'journal_entry' => ' قيود اليومية',
 		'financial_statements' => '  القوائم المالية',
 		'general_ledger' => ' الاستاذ العام',
-		
+	
 	];

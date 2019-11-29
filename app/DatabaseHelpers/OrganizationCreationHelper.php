@@ -145,6 +145,55 @@
 				'organization_id' => $this->accounts_organization_id,
 				'creator_id' => $this->accounts_creator_id
 			]);
+			
+			
+			$fixed_assets_account = Account::create([
+				'is_system_account' => true,
+				"ar_name" => "الاصول الثابتة",
+				"name" => "fixed assets",
+				"slug" => "fixed_assets",
+				"parent_id" => $assets_account->id,
+				"serial" => "110000000000000000000",
+				'organization_id' => $this->accounts_organization_id,
+				'creator_id' => $this->accounts_creator_id
+			]);
+			
+			$current_assets_account = Account::create([
+				'is_system_account' => true,
+				
+				"ar_name" => " سيارات",
+				"name" => "cars",
+				"slug" => "fixed_assets",
+				"parent_id" => $fixed_assets_account->id,
+				"serial" => "110000000000000000000",
+				'organization_id' => $this->accounts_organization_id,
+				'creator_id' => $this->accounts_creator_id
+			]);
+			
+			$cars_accounts = Account::create([
+				'is_system_account' => false,
+				"ar_name" => " سيارات",
+				"name" => "cars",
+				"slug" => "fixed_assets",
+				"parent_id" => $fixed_assets_account->id,
+				"serial" => "110000000000000000000",
+				'organization_id' => $this->accounts_organization_id,
+				'creator_id' => $this->accounts_creator_id
+			]);
+			
+			
+			$current_assets_account = Account::create([
+				'is_system_account' => false,
+				"ar_name" => " سيارة أ",
+				"name" => "car A",
+				"slug" => "fixed_assets",
+				"parent_id" => $cars_accounts->id,
+				"serial" => "110000000000000000000",
+				'organization_id' => $this->accounts_organization_id,
+				'creator_id' => $this->accounts_creator_id
+			]);
+			
+			
 		}
 		
 		public function create_gateway_accounts($current_assets_account)
@@ -362,7 +411,6 @@
 			]);
 			
 			
-			
 		}
 		
 		public function create_income_accounting_accounts()
@@ -462,7 +510,7 @@
 			
 			Account::create([
 				'is_system_account' => true,
-				"ar_name" =>  "مبيعات الخدمات اخرى",
+				"ar_name" => "مبيعات الخدمات اخرى",
 				"name" => "other services ",
 				"slug" => "other_services_sales",
 				"parent_id" => $net_sales_account->id,
@@ -494,7 +542,6 @@
 				'organization_id' => $this->accounts_organization_id,
 				'creator_id' => $this->accounts_creator_id
 			]);
-			
 			
 			
 		}

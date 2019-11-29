@@ -44,7 +44,9 @@
                                 <span class="input-group-addon has-background-primary has-text-white">{{__('pages/payments.type')}}
                                 </span>
                             <input placeholder="{{__('pages/payments.type')}}" disabled
-                                   value="@if($payment->is_belongs_to_invoice==1){{__('pages/payments.invoices_payment')}}@else{{__('pages/payments.advance_payment')}}@endif"
+                                   value="@if($payment->paymentable_type=="App\Invoice"){{__('pages/payments.invoices_payment')
+                                   }}@else{{__
+                                   ('pages/payments.advance_payment')}}@endif"
                                    type="text" class="form-control">
                         </div>
 
@@ -77,7 +79,7 @@
                                 ('pages/payments.gateway')}}
                                 </span>
                             <input placeholder="{{__('pages/payments.gateway')}}" disabled
-                                   value="{{ $payment->gateway->name }}"
+                                   value="{{ $payment->account->locale_name }}"
                                    type="text" class="form-control">
                         </div>
 

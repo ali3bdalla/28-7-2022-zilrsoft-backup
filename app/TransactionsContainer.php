@@ -1,10 +1,16 @@
 <?php
-
-namespace App;
-
-use Illuminate\Database\Eloquent\Model;
-
-class TransactionsContainer extends Model
-{
-    //
-}
+	
+	namespace App;
+	
+	use Illuminate\Database\Eloquent\Model;
+	
+	class TransactionsContainer extends Model
+	{
+		protected $guarded = [];
+		
+		public function transactions()
+		{
+			return $this->hasMany(Transaction::class,'container_id');
+		}
+		//
+	}

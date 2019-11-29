@@ -175,7 +175,7 @@
 
 
             <sidebar-item-component
-                    url='{{route('management.users.index')}}'
+                    url='{{route('management.transactions.index')}}'
                     title='{{ __('sidebar.journal_entry') }}'
                     icon='fa fa-bars'
             >
@@ -184,12 +184,13 @@
 
 
             <sidebar-item-component
-                    url='{{route('management.users.index')}}'
+                    url='{{route('management.financial_statements.index')}}'
                     title='{{ __('sidebar.financial_statements') }}'
                     icon='fa fa-bars'
             >
 
             </sidebar-item-component>
+
 
 
 

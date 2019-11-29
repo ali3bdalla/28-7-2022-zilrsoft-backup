@@ -23,11 +23,18 @@
 		
 		
 		
-		public function payment_invoices()
+//		public function invoices()
+//		{
+//
+////			dd($this->paymentable->payments);
+//			return $this->paymentable->payments;
+////			return $this->hasMany(InvoicePayments::class,'payment_id');
+//		}
+//
+		public function is_paid_for_all_invoice()
 		{
-			return $this->hasMany(InvoicePayments::class,'payment_id');
-		}
 		
+		}
 		public function user()
 		{
 			return $this->belongsTo(User::class,'user_id');

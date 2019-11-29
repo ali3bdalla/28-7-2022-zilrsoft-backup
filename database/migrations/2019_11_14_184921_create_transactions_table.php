@@ -17,13 +17,15 @@
 				$table->bigIncrements('id');
 				$table->integer('creator_id');
 				$table->integer('organization_id');
-				$table->string('debitable_id');
-				$table->string('debitable_type');
-				$table->integer('creditable_id');
-				$table->string('creditable_type');
+				$table->string('debitable_id')->nullable();
+				$table->string('debitable_type')->nullable();
+				$table->integer('creditable_id')->nullable();
+				$table->string('creditable_type')->nullable();
 				$table->float('amount',20,8);
 				$table->integer('user_id')->nullable();
+				$table->boolean("is_manual")->default(false);
 				$table->integer('invoice_id')->nullable();
+				$table->integer('container_id')->nullable();
 				$table->enum('description',[
 					'to_stock',
 					'to_item',
@@ -33,11 +35,11 @@
 					'to_products_sales',
 					'to_services_sales',
 					'to_other_services_sales',
-					
 					'to_products_sales_discount',
 					'to_services_sales_discount',
 					'to_other_services_sales_discount',
 					
+				
 				])->nullable();
 				$table->timestamps();
 			});

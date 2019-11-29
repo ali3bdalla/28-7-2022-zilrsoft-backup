@@ -7,50 +7,23 @@
 	trait AccountGeneralHelper
 	{
 		
-		public function load_account_transactions($account)
+		public function get_account_transactions_types_amount($account)
 		{
-			
-			
-			$data = $this->get_all_account_transaction($account);
-			$transactions = $data['transaction'];
-			$children = $this->loop_in_main_children($account);
-			
-			foreach ($children as $child){
-				$transactions[] = $child;
-			}
-			return $transactions;
-			
-		}
-		
-		public function get_all_account_transaction($account)
-		{
-			$debit_transactions = $account->debit_transaction;
-			$credit_transactions = $account->credit_transaction;
-			
 			$total_credit = 0;
 			$total_debit = 0;
 			
-			$transactions = [];
-			foreach ($debit_transactions as $transaction){
-				
-				$total_debit = $total_debit + $transaction['amount'];
-				$transaction['type'] = 'debit';
-				$transaction['is_transaction'] = true;
-				$transactions[] = $transaction;
+			$children = $this->loop_in_main_children($account);
+			
+			$response = $this->get_all_account_transaction($account);
+			foreach ($children as $child){
+				$total_credit = $total_credit + $child['credit'];
+				$total_debit = $total_debit + $child['debit'];
 			}
 			
-			
-			foreach ($credit_transactions as $transaction){
-				
-				$total_credit = $total_credit + $transaction['amount'];
-				$transaction['type'] = 'credit';
-				$transaction['is_transaction'] = true;
-				$transactions[] = $transaction;
-			}
-			
+			$total_credit = $total_credit + $response['total_credit'];
+			$total_debit = $total_debit + $response['total_debit'];
 			
 			return [
-				'transaction' => $transactions,
 				'total_debit' => $total_debit,
 				'total_credit' => $total_credit,
 			];
@@ -90,6 +63,56 @@
 			}
 			
 			return ['credit' => $credit,'debit' => $debit];
+		}
+		
+		public function get_all_account_transaction($account)
+		{
+			$debit_transactions = $account->debit_transaction;
+			$credit_transactions = $account->credit_transaction;
+			
+			$total_credit = 0;
+			$total_debit = 0;
+			
+			$transactions = [];
+			foreach ($debit_transactions as $transaction){
+				
+				$total_debit = $total_debit + $transaction['amount'];
+				$transaction['type'] = 'debit';
+				$transaction['is_transaction'] = true;
+				$transactions[] = $transaction;
+			}
+			
+			
+			foreach ($credit_transactions as $transaction){
+				
+				$total_credit = $total_credit + $transaction['amount'];
+				$transaction['type'] = 'credit';
+				$transaction['is_transaction'] = true;
+				$transactions[] = $transaction;
+			}
+			
+			
+			return [
+				'transaction' => $transactions,
+				'total_debit' => $total_debit,
+				'total_credit' => $total_credit,
+			];
+			
+		}
+		
+		public function load_account_transactions($account)
+		{
+			
+			
+			$data = $this->get_all_account_transaction($account);
+			$transactions = $data['transaction'];
+			$children = $this->loop_in_main_children($account);
+			
+			foreach ($children as $child){
+				$transactions[] = $child;
+			}
+			return $transactions;
+			
 		}
 		
 	}

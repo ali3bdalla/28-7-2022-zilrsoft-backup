@@ -65,23 +65,24 @@
         .total_numbers .label {
             text-align: right !important;
         }
+
         .row {
-            margin-top:15px !important;
+            margin-top: 15px !important;
         }
 
 
         .directionfordate {
             direction: rtl !important;
         }
-      /*.col-md-6 {*/
-      /*      float: rig !important;*/
-      /*  }*/
+
+        /*.col-md-6 {*/
+        /*      float: rig !important;*/
+        /*  }*/
 
 
         .columns {
             font-size: 22px !important;
         }
-
 
 
     </style>
@@ -112,7 +113,7 @@
 
             <div class="col-md-6" style="float: left">
                 <h3 style="color: white">@if($payment->payment_type=='receipt'){{ __('pages/payments.receipt')}}@else{{ __('pages/payments.payment') }}@endif
-                     {{ __('pages/invoice.number') }}
+                    {{ __('pages/invoice.number') }}
                     {{$payment->id }}
                 </h3>
             </div>
@@ -163,7 +164,6 @@
     </div>
 
 
-
     <div class="content" style="padding: 22px;font-size: 22px">
         <div class="row">
 
@@ -174,7 +174,7 @@
                 <h5>{{__('pages/payments.payment_start_title_' . $payment->payment_type)}}{{__('pages/payments.voucher_user_' . $payment->user->user_title)}}
 
                     {{ $payment->user->name }}
-                    </h5>
+                </h5>
             </div>
         </div>
 
@@ -199,130 +199,127 @@
         </div>
 
 
-
         <div class="row">
 
             <div class="col-md-6"></div>
             <div class="col-md-6">
 
 
-                @if($payment->is_belongs_to_invoice==1)
-                    @if( $payment->payment_invoices->count()>=2)
-                        <h5>{{__('pages/payments.payment_reason')}}  {{__('pages/payments.payment_reason_2')}}
-                            ({{$payment->description }})
-                        </h5>
+{{--                @if($payment->paymentable_type=='App\Invoice')--}}
+{{--                    @if( count($payment->paymentable->payments) >=2)--}}
+{{--                        <h5>{{__('pages/payments.payment_reason') }}  {{ __('pages/payments.payment_reason_2') }}--}}
+{{--                            ({{$payment->description }})--}}
+{{--                        </h5>--}}
 
 
-                    @else
+{{--                    @else--}}
 
-                        <h5>{{__('pages/payments.payment_reason')}}  {{__('pages/payments.payment_reason_' .
-                    $payment->is_belongs_to_invoice)}}
-                            ({{$payment->description }})
-                        </h5>
-                    @endif
-                @else
-                    {{__('pages/payments.payment_reason')}}  {{__('pages/payments.payment_reason_' .
-                    $payment->is_belongs_to_invoice)}}
-                @endif
+{{--                        <h5>{{__('pages/payments.payment_reason')}}  {{__('pages/payments.payment_reason_' .$payment->is_belongs_to_invoice)}}--}}
+{{--                            ({{$payment->description }})--}}
+{{--                        </h5>--}}
+{{--                    @endif--}}
+{{--                @else--}}
+{{--                    {{__('pages/payments.payment_reason')}}  {{__('pages/payments.payment_reason_' .--}}
+{{--                    $payment->paymentable_type=='App\Invoice')}}--}}
+{{--                @endif--}}
             </div>
         </div>
-{{--        @if($payment->is_belongs_to_invoice==1)--}}
+        {{--        @if($payment->is_belongs_to_invoice==1)--}}
 
-{{--        <div class="row">--}}
-{{--            <div class="col-md-6"></div>--}}
-{{--            <div class="col-md-6">--}}
+        {{--        <div class="row">--}}
+        {{--            <div class="col-md-6"></div>--}}
+        {{--            <div class="col-md-6">--}}
 
-{{--                    {{__('pages/payments.invoices_numbers')}} ({{$payment->description }})--}}
+        {{--                    {{__('pages/payments.invoices_numbers')}} ({{$payment->description }})--}}
 
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        @endif--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
+        {{--        @endif--}}
         <hr>
-
 
 
         <div class="row">
             <div class="col-md-6">
             </div>
             <div class="col-md-6">
-                <h5>{{__('pages/payments.paid_by_' . $payment->payment_type)}} : {{ $payment->gateway->name }}</h5>
+                <h5>{{__('pages/payments.paid_by_' . $payment->payment_type)}} : {{ $payment->account->locale_name
+                }}</h5>
             </div>
         </div>
-
 
 
         <br>
 
 
         @if(in_array($payment->gateway_id,[2]))
-    @if($payment->payment_type=='receipt')
-        <div class="columns">
-            <div class="column">
-                <div class="filter_area">
-                    <div class="input-group">
+            @if($payment->payment_type=='receipt')
+                <div class="columns">
+                    <div class="column">
+                        <div class="filter_area">
+                            <div class="input-group">
                                             <span class="input-group-addon has-background-primary has-text-white">{{__
                                             ('pages/payments.user_bank'). ' '.__('pages/payments.transfer_from')}}
                                             </span>
-                        <input placeholder="{{__
+                                <input placeholder="{{__
                                             ('pages/payments.user_bank'). ' '.__('pages/payments.transfer_from')}}"
-                               disabled
-                               value="{{ $payment->user_account->bank->name }}"
-                               type="text" class="form-control">
-                    </div>
+                                       disabled
+                                       value="{{ $payment->user_account->bank->name }}"
+                                       type="text" class="form-control">
+                            </div>
 
-                </div>
-            </div>
-            <div class="column">
-                <div class="filter_area">
-                    <div class="input-group">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="filter_area">
+                            <div class="input-group">
                                             <span class="input-group-addon has-background-primary has-text-white">{{__
                                             ('pages/payments.account_number')}}
                                             </span>
-                        <input placeholder="{{__('pages/payments.account_number')}}" disabled
-                               value="{{ $payment->user_account->account }}"
-                               type="text" class="form-control">
+                                <input placeholder="{{__('pages/payments.account_number')}}" disabled
+                                       value="{{ $payment->user_account->account }}"
+                                       type="text" class="form-control">
+                            </div>
+
+                        </div>
                     </div>
-
                 </div>
-            </div>
-        </div>
 
-            <br>
+                <br>
 
 
-        <div class="columns">
-            <div class="column">
-                <div class="filter_area">
-                    <div class="input-group">
+                <div class="columns">
+                    <div class="column">
+                        <div class="filter_area">
+                            <div class="input-group">
                                             <span class="input-group-addon has-background-primary has-text-white">{{__
                                             ('pages/payments.organization_bank'). ' '.__('pages/payments.transfer_to')}}
                                             </span>
-                        <input placeholder="{{__
+                                <input placeholder="{{__
                                             ('pages/payments.organization_bank'). ' '.__('pages/payments.transfer_to')}}"
-                               disabled
-                               value="{{ $payment->organization_account->bank->name }}"
-                               type="text" class="form-control">
-                    </div>
+                                       disabled
+                                       value="{{ $payment->organization_account->bank->name }}"
+                                       type="text" class="form-control">
+                            </div>
 
-                </div>
-            </div>
-            <div class="column">
-                <div class="filter_area">
-                    <div class="input-group">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="filter_area">
+                            <div class="input-group">
                                             <span class="input-group-addon has-background-primary has-text-white">{{__
                                             ('pages/payments.account_number')}}
                                             </span>
-                        <input placeholder="{{__('pages/payments.account_number')}}" disabled
-                               value="{{ $payment->organization_account->account}}"
-                               type="text" class="form-control">
+                                <input placeholder="{{__('pages/payments.account_number')}}" disabled
+                                       value="{{ $payment->organization_account->account}}"
+                                       type="text" class="form-control">
+                            </div>
+
+                        </div>
                     </div>
-
                 </div>
-            </div>
-        </div>
 
 
-    @else
+            @else
 
 
                 <div class="columns">
@@ -356,7 +353,7 @@
                     </div>
                 </div>
 
-            <br>
+                <br>
 
 
 
@@ -401,7 +398,7 @@
 
 
 
-    @endif
+            @endif
 
         @endif
 
@@ -474,23 +471,17 @@
     @endif
 
 
-
-
-
-
-
-
 </div>
 
-    <footer>
-        <div class="">
+<footer>
+    <div class="">
 
-            <div class="row">
-            </div>
-            <div class="end"> {{ auth()->user()->organization->title }}</div>
-            <div class="text-center"> {{ auth()->user()->organization->vat }}</div>
+        <div class="row">
         </div>
-    </footer>
+        <div class="end"> {{ auth()->user()->organization->title }}</div>
+        <div class="text-center"> {{ auth()->user()->organization->vat }}</div>
+    </div>
+</footer>
 
 </div>
 </body>

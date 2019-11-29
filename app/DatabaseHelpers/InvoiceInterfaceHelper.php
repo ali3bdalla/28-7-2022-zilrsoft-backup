@@ -244,7 +244,7 @@
 		{
 			
 			
-			$this->payments()->create([
+			$payment = $this->payments()->create([
 				'organization_id' => $this->organization_id,
 				'creator_id' => $this->creator_id,
 				'user_id' => $this->user_id,
@@ -254,6 +254,16 @@
 				'amount' => $method['amount'],
 				'payment_type' => $payment_type
 			]);
+			
+			
+			$this->invoice_payments()->create([
+				'organization_id' => $this->organization_id,
+				'creator_id' => $this->creator_id,
+				'payment_id' => $payment->id,
+				'amount' => $method['amount'],
+			]);
+			
+			
 		}
 		
 		public function create_tax_transaction($creator_stock,$user_id,$items = [],$expenses = [])

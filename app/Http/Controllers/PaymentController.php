@@ -14,27 +14,28 @@
 		public function index()
 		{
 			$type = 'all';
-			$payments = Payment::where('is_created_from_invoice',false)->orderBy('id','desc')->paginate(15);
+			$payments = Payment::orderBy('id','desc')->paginate(15);
 			return view('payments.index',compact('payments','type'));
 		}
 		
 		public function show(Payment $payment)
 		{
 			
+//			return $payment;
 			return view('payments.show',compact('payment'));
 		}
 		
 		public function payments()
 		{
 			$type = 'payment';
-			$payments = Payment::where([['payment_type','payment'],['is_created_from_invoice',false]])->paginate(15);
+			$payments = Payment::where('payment_type','payment')->paginate(15);
 			return view('payments.index',compact('payments','type'));
 		}
 		
 		public function receipts()
 		{
 			$type = 'receipt';
-			$payments = Payment::where([['payment_type','receipt'],['is_created_from_invoice',false]])->paginate(15);
+			$payments = Payment::where('payment_type','receipt')->paginate(15);
 			return view('payments.index',compact('payments','type'));
 		}
 		
@@ -77,7 +78,6 @@
 		
 		public function create_payment()
 		{
-			
 			
 			
 			$organization_accounts = [];

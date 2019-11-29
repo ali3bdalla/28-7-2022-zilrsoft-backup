@@ -1,10 +1,13 @@
 <?php
-
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-
-class TrailBalanceController extends Controller
-{
-    //
-}
+	
+	namespace App\Http\Controllers;
+	
+	class TrailBalanceController extends Controller
+	{
+		public function __invoke()
+		{
+			dd("hello");
+			// TODO: Implement __invoke() method.
+		}
+		//
+	}

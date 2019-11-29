@@ -59,9 +59,10 @@
                                  <th class="text-center ">
                                      <?php if($transaction->invoice_id>=1): ?>
                                          <?php if(in_array($transaction->invoice->invoice_type,['sale','r_sale'])): ?>
-                                             <a href="<?php echo e(route('management.sales.show',$transaction->invoice->id )); ?>"><?php echo e($transaction->invoice->title); ?></a>
+                                             <a href="<?php echo e(route('management.sales.show',$transaction->invoice->sale->id )); ?>"><?php echo e($transaction->invoice->title); ?></a>
                                          <?php else: ?>
-                                             <a href="<?php echo e(route('management.purchases.show',$transaction->invoice->id)); ?>"> <?php echo e($transaction->invoice->title); ?></a>
+                                             <a href="<?php echo e(route('management.purchases.show',
+                                             $transaction->invoice->purchase->id)); ?>"> <?php echo e($transaction->invoice->title); ?></a>
                                          <?php endif; ?>
 
 
@@ -90,9 +91,11 @@
                                  <th class="text-center ">
                                      <?php if($transaction->invoice_id>=1): ?>
                                          <?php if(in_array($transaction->invoice->invoice_type,['sale','r_sale'])): ?>
-                                             <a href="<?php echo e(route('management.sales.show',$transaction->invoice->id )); ?>"><?php echo e($transaction->invoice->title); ?></a>
+                                             <a href="<?php echo e(route('management.sales.show',
+                                             $transaction->invoice->sale->id )); ?>"><?php echo e($transaction->invoice->title); ?></a>
                                          <?php else: ?>
-                                             <a href="<?php echo e(route('management.purchases.show',$transaction->invoice->id)); ?>"> <?php echo e($transaction->invoice->title); ?></a>
+                                             <a href="<?php echo e(route('management.purchases.show',
+                                             $transaction->invoice->purchase->id)); ?>"> <?php echo e($transaction->invoice->title); ?></a>
                                          <?php endif; ?>
 
 

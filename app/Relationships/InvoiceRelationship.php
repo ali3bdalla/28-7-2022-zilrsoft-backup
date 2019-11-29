@@ -10,6 +10,7 @@
 	use App\Invoice;
 	use App\InvoiceExpenses;
 	use App\InvoiceItems;
+	use App\InvoicePayments;
 	use App\Manager;
 	use App\Organization;
 	use App\Payment;
@@ -53,7 +54,7 @@
 			return $this->belongsTo(Manager::class,'creator_id');
 		}
 		
-		public function deprtmanet()
+		public function department()
 		{
 			return $this->belongsTo(Deprtmanet::class,'deprtmanet_id');
 		}
@@ -91,6 +92,11 @@
 		public function payments()
 		{
 			return $this->morphMany(Payment::class,'paymentable');
+		}
+		
+		public function invoice_payments()
+		{
+			return $this->morphMany(InvoicePayments::class,'invoice_id');
 		}
 		
 	}

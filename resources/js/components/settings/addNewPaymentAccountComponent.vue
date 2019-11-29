@@ -15,12 +15,14 @@
         </div>
         <div class="columns">
             <div class="column" v-for="field in fields">
-                <input :disabled="disableGatewayFields" :placeholder="field.placeholder" :readonly="disableGatewayFields"
+                <input :disabled="disableGatewayFields" :placeholder="field.placeholder"
+                       :readonly="disableGatewayFields"
                        class="input"
                        v-if="field.bind_vue_name=='account'" v-model='account'>
 
 
-                <input :disabled="disableGatewayFields" :placeholder="field.placeholder" :readonly="disableGatewayFields"
+                <input :disabled="disableGatewayFields" :placeholder="field.placeholder"
+                       :readonly="disableGatewayFields"
                        class="input"
                        v-if="field.bind_vue_name=='account_name'" v-model='account_name'>
 

@@ -119,6 +119,7 @@ import barcodePrinterComponent from "./components/print/barcodePrinterComponent"
 import saleDataTable from './components/datatables/saleTable';
 import ManagerGatewaysComponent from "./components/billing/ManagerGatewaysComponent";
 
+import createTransactionFromComponent from './components/transactions/createTransaction';
 
 
 
@@ -129,6 +130,7 @@ Vue.component('expenses-list-component', ExpensesListComponent);
 
 
 Vue.component('item-accounting-cost-history-component', ItemAccountingCostHistoryComponent);
+Vue.component('create-transaction-form-component', createTransactionFromComponent);
 
 Vue.component('input-text-component', InputText);
 Vue.component('print-invoice-component', printInvoiceComponent);

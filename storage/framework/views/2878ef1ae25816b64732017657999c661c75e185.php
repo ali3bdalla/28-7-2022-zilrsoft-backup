@@ -175,7 +175,7 @@
 
 
             <sidebar-item-component
-                    url='<?php echo e(route('management.users.index')); ?>'
+                    url='<?php echo e(route('management.transactions.index')); ?>'
                     title='<?php echo e(__('sidebar.journal_entry')); ?>'
                     icon='fa fa-bars'
             >
@@ -184,12 +184,13 @@
 
 
             <sidebar-item-component
-                    url='<?php echo e(route('management.users.index')); ?>'
+                    url='<?php echo e(route('management.financial_statements.index')); ?>'
                     title='<?php echo e(__('sidebar.financial_statements')); ?>'
                     icon='fa fa-bars'
             >
 
             </sidebar-item-component>
+
 
 
 
