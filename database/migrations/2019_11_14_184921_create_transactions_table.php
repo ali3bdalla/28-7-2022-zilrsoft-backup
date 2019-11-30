@@ -38,7 +38,8 @@
 					'to_products_sales_discount',
 					'to_services_sales_discount',
 					'to_other_services_sales_discount',
-					
+					'client_balance',
+					'vendor_balance',
 				
 				])->nullable();
 				$table->timestamps();

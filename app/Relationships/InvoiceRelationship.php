@@ -96,7 +96,7 @@
 		
 		public function invoice_payments()
 		{
-			return $this->morphMany(InvoicePayments::class,'invoice_id');
+			return $this->hasMany(InvoicePayments::class,'invoice_id');
 		}
 		
 	}

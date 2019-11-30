@@ -51,6 +51,7 @@
 		Route::prefix('accounts')->name('accounts.')->group(function (){
 			Route::get('item/{item}/{account}',"AccountsController@item")->name('item');
 			Route::get('client/{client}/{account}',"AccountsController@client")->name('client');
+			Route::get('vendor/{vendor}/{account}',"AccountsController@vendor")->name('vendor');
 			Route::get('{account}/delete',"AccountsController@delete");
 		});
 		

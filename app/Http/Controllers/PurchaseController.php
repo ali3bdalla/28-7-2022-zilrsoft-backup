@@ -72,9 +72,9 @@
 		public function show(PurchaseInvoice $purchase)
 		{
 			
-			$transactions = $purchase->invoice->transactions;
-			
-			
+			$transactions = $purchase->invoice->transactions()->where('description','!=','vendor_balance')->get();
+
+
 //			return  $transactions;
 			return view('purchases.show',compact('purchase','transactions'));
 			//

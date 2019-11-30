@@ -217,6 +217,7 @@
 
             </div>
 
+
             <div v-show="is_manager">
                 <div class="columns">
 
@@ -290,9 +291,19 @@
                 </div>
 
 
-                <manager-gateways-component :gateways="gateways" @gatewaysUpdated="gatewaysUpdated"></manager-gateways-component>
+                <manager-gateways-component :gateways="gateways"
+                                            @gatewaysUpdated="gatewaysUpdated"></manager-gateways-component>
             </div>
 
+
+            <hr>
+            <div class="" v-show="is_vendor">
+                <user-accounts-component :accounts="gateways"
+                                         @publishUpdate="updateUserGateways"></user-accounts-component>
+            </div>
+
+
+            <hr>
 
             <div class="columns">
                 <div class="column">
@@ -316,7 +327,7 @@
 
 <script type="text/javascript">
     export default {
-        props: ['branchs','gateways'],
+        props: ['branchs', 'gateways'],
         data: function () {
             return {
 
@@ -327,8 +338,9 @@
                 user_detail_responser: "",
                 user_detail_responser_phone: "",
 
-                manager_gateways:[],
+                manager_gateways: [],
 
+                user_gateways: [],
                 can_make_credit: false,
                 has_credit_invoice: false,
                 has_no_credit_invoice: true,
@@ -359,6 +371,9 @@
         },
         methods: {
 
+            updateUserGateways(e) {
+                this.user_gateways = e.gateways;
+            },
             updateBrachsList() {
                 this.department = null;
                 this.departments = this.branch.departments;
@@ -368,9 +383,8 @@
             updateDepartmentsList() {
             },
 
-            gatewaysUpdated(e)
-            {
-              this.manager_gateways = e.gateways;
+            gatewaysUpdated(e) {
+                this.manager_gateways = e.gateways;
             },
 
             validateData() {
@@ -480,7 +494,8 @@
 
 
                 var data_to = {
-                    gateways:this.manager_gateways,
+                    gateways: this.manager_gateways,
+                    user_gateways: this.user_gateways,
                     user_title: user_title,
                     is_manager: this.is_manager,
                     is_client: this.is_client,

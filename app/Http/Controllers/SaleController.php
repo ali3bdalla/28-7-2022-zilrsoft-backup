@@ -91,7 +91,7 @@
 		public function show(SaleInvoice $sale)
 		{
 			
-			$transactions = $sale->invoice->transactions;
+			$transactions = $sale->invoice->transactions()->where('description','!=','client_balance')->get();
 			
 			
 			return view('sales.show',compact('sale','transactions'));

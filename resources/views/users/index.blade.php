@@ -8,33 +8,33 @@
 @section('content')
     <div class="box">
 
-        <div class="ibox-head">
-            <div class="ibox-title">{{ trans('users.table_list',['users'=>'All Users']) }}</div>
+        <div class="panel-heading">
             <a href="{{ route('management.users.create') }}"
-               class="float-right button is-primary btn-outline-primary  create-new-button"><i
-                        class="fa fa-plus-circle"></i> {{ trans('users.create_new_user') }}</a>
+               class="button is-primary btn-outline-primary"><i
+                        class="fa fa-plus-circle"></i> {{ trans('pages/users.create') }}</a>
         </div>
-        <div class="ibox-body">
+        <div class="">
             @empty(!$users)
                 <div class="table-responsive text-center">
                     <table class="table table-bordered text-center table-hover table-striped">
                         <thead>
                         <tr>
                             <th width="50px">#</th>
-                            <th>username</th>
-                            <th>Phone Number</th>
-                            <th>membership type</th>
-                            <th>Created At</th>
-                            <th>Created By</th>
-                            <th>Actions</th>
+                            <th>الاسم</th>
+                            <th>رقم الهاتف</th>
+                            <th>الصلاحيات</th>
+                            <th>التاريخ</th>
+                            <th>المستخدم</th>
+                            <th>خيارات</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($users as $user)
                             <tr>
-                                <td>{{ $user->id }}</td>
+                                <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ $user->phone_number }}</td>
+
+                                <td>@if(!$user->is_system_user){{ $user->phone_number }}@endif</td>
                                 <td>
                                     @foreach($user->membership_type() as $membership)
                                         {!! $membership !!}
@@ -44,31 +44,33 @@
                                 <td>{{ $user->creator_user() }}</td>
 
                                 <td>
+                                    <a href="{{ route('management.users.edit',$user->id) }}" class="button is-primary
+                                    btn-sm"><i
+                                                class="fa fa-edit"></i>
+                                        &nbsp;
+                                        &nbsp;
+                                        تعديل
+                                    </a>
+
+                                    <a href="{{ route('management.users.show',$user->id) }}" class="button is-info
+                                    btn-sm"><i class="fa fa-eye"></i> &nbsp; &nbsp; عرض
+                                    </a>
+
                                     @if(!$user->is_system_user)
+                                        <form class="" action="{{ route('management.users.destroy',
+                                        $user->id) }}" method="post">
+                                            @method("DELETE")
+                                            @csrf
 
-                                        {{--                                  <a href='{{route('management.users.show',$user->id)}}' class="btn btn-primary btn-xs m-r-5" data-toggle="tooltip" data-original-title="view"><i class="fa fa-user font-14"></i></a>--}}
+                                            <div class="form-inline" style="margin-top: 5px">
+                                                <button class="button is-danger btn-sm"><i class="fa fa-trash"></i>
+                                                    &nbsp; &nbsp; حذف
+                                                </button>
+                                            </div>
+                                        </form>
 
-
-                                        <a href='{{route('management.users.update_payments_accounts',$user->id)}}'
-                                           class="btn
-                                    btn-primary btn-xs m-r-5" data-toggle="tooltip" data-original-title="Edit"><i
-                                                    class="fa fa-info-circle font-14"></i></a>
-
-
-                                    <!-- <a href='{{route('management.users.show',$user->id)}}' class="btn btn-warning btn-xs m-r-5" data-toggle="tooltip" data-original-title="view"><i class="fa fa-credit-card font-14"></i></a> -->
-
-
-
-                                    <!-- @if($user->is_manager && !$user->is_supervisor )
-                                        <a class="btn btn-primary btn-xs m-r-5" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil font-14"></i></a>
-                                    @endif -->
-
-                                    <!-- <form class='form-inline delete-table-form' method="post" action="{{ route('management.users.destroy',$user->id) }}">
-                                    @method('DELETE')
-                                        @csrf
-                                            <button class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash font-14"></i></button>
-                                            </form> -->
                                     @endif
+
                                 </td>
                             </tr>
                         @endforeach

@@ -9,6 +9,7 @@
 	use App\Http\Requests\CreateAccountRequest;
 	use App\Http\Requests\UpdateAccountRequest;
 	use App\Item;
+	use App\Transaction;
 	use App\User;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
@@ -87,27 +88,20 @@
 		 */
 		public function show(Account $account)
 		{
-
-//			$view = [];
-//
-//
-//			if ($account->slug == 'gateway')
+			
+			if ($account->slug == 'clients'){
+				$users = User::where('is_client',true)->get();
+				return view('accounts.users',compact('users','account'));
+			}else if ($account->slug == 'vendors'){
+				$users = User::where('is_vendor',true)->get();
+				return view('accounts.users',compact('users','account'));
+			}
+			
+			
 			$transactions = $this->load_account_transactions($account);
 			
 			
 			return view('accounts.transactions',compact('account','transactions'));
-//
-//
-//			if ($account->slug == 'stock')
-//				$view = $this->chart_stock_view($account);
-//
-//
-//			if ($account->slug == 'clients')
-//				$view = $this->chart_clients_view($account);
-//
-
-//			return $view;
-			//
 		}
 		
 		/**
@@ -176,14 +170,32 @@
 			//
 		}
 		
-		public function client(User $client,Chart $chart)
+		public function client(User $client,Account $account)
 		{
-			$activities = $client->to_client_invoices_history();//['data']
 			
-			return $activities;
+			$transactions = $this->load_client_transactions($account,$client->id);
+
+//			return $transactions;
+
+//			$transactions =
+//			return $transactions;
+//			$activities = $activities['data'];
+			return view('accounts.client',compact('client','transactions','account'));
 			
-			$activities = $activities['data'];
-			return view('accounts.client_history',compact('client','activities','chart'));
+		}
+		
+		public function vendor(User $vendor,Account $account)
+		{
+			
+			$transactions = $this->load_vendor_transactions($account,$vendor->id);
+
+
+//			return $transactions;
+
+//			$transactions =
+//			return $transactions;
+//			$activities = $activities['data'];
+			return view('accounts.vendor',compact('vendor','transactions','account'));
 			
 		}
 	}

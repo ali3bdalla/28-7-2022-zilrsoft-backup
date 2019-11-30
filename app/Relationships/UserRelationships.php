@@ -2,16 +2,13 @@
 	
 	namespace App\Relationships;
 	
-	use App\GatewayAccounts;
-	use App\Invoice;
-	use App\InvoiceItems;
 	use App\InvoicePayments;
 	use App\Manager;
 	use App\Organization;
 	use App\SaleInvoice;
 	use App\Transaction;
 	use App\UserDetails;
-	use Illuminate\Database\Eloquent\Builder;
+	use App\UserGateways;
 	
 	trait UserRelationships
 	{
@@ -31,7 +28,6 @@
 			return $this->hasMany(SaleInvoice::class,'client_id');
 		}
 		
-		
 		public function client_payments_invoice($invoice_ids = [])
 		{
 			return InvoicePayments::whereIn('invoice_id',$invoice_ids)->with('invoice')->get();
@@ -46,26 +42,20 @@
 		{
 			return $this->hasOne(Manager::class,'user_id');
 		}
-
 		
-		public function accounts()
+		public function gateways()
 		{
-			return $this->morphMany(GatewayAccounts::class,'accountable');
+			return $this->hasMany(UserGateways::class,'user_id');
 		}
-		
-		
 		
 		public function credit_transaction()
 		{
 			return $this->morphMany(Transaction::class,'creditable');
 		}
 		
-		
-		
 		public function debit_transaction()
 		{
 			return $this->morphMany(Transaction::class,'debitable');
 		}
-		
 		
 	}

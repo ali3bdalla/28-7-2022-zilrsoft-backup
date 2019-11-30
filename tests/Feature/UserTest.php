@@ -49,8 +49,6 @@
 			$response->assertStatus(201);
 		}
 		
-		
-		
 		/**
 		 * A basic feature test example.
 		 *
@@ -60,7 +58,14 @@
 		public function toCreateVendor()
 		{
 			
-		
+			$accounts = Account::where('slug','gateway')->get();
+			$user_gateways = [];
+			foreach ($accounts as $account){
+				$account['account_name'] = $this->faker->address;
+				$user_gateways[] = $account;
+				
+			}
+			
 			$data = [
 				'user_type' => 'individual',
 				'user_title' => 'mr',
@@ -73,11 +78,12 @@
 				'is_vendor' => true,
 				'email' => $this->faker->email,
 				'pin_code' => $this->faker->buildingNumber,
+				'user_gateways' => $user_gateways
 			];
 			
 			$response = $this->json('post',route('management.users.store'),$data);
 
-//			$response->dump();
+			$response->dump();
 			$response->assertStatus(201);
 		}
 		

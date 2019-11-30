@@ -51,13 +51,16 @@
                         <th class="text-center "><a href="<?php echo e(route('management.sales.show',
                         $transaction->invoice->purchase->id)); ?>"><?php echo e($transaction->invoice->title); ?></a></th>
                         <?php if($transaction['creditable_type']==""): ?>
-						<?php $balance = $balance + $transaction['amount'];?>
-                            <th class="text-center "><?php echo e($transaction->amount); ?></th>
-                            <th class="text-center ">0</th>
-                        <?php else: ?>
+
 						<?php $balance = $balance - $transaction['amount'];?>
                             <th class="text-center ">0</th>
                             <th class="text-center "><?php echo e($transaction->amount); ?></th>
+                        <?php else: ?>
+						<?php $balance = $balance + $transaction['amount'];?>
+                            <th class="text-center "><?php echo e($transaction->amount); ?></th>
+                            <th class="text-center ">0</th>
+
+
                         <?php endif; ?>
                         <th class="text-center ">
                             <?php if($balance>0): ?>

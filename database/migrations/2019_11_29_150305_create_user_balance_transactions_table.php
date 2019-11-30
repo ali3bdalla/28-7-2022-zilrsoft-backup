@@ -15,6 +15,11 @@ class CreateUserBalanceTransactionsTable extends Migration
     {
         Schema::create('user_balance_transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
+	        $table->integer('organization_id');
+	        $table->integer('user_id');
+	        $table->float('amount',20,2);
+	        $table->string('transaction_type');
+	        $table->integer('transaction_id');
             $table->timestamps();
         });
     }

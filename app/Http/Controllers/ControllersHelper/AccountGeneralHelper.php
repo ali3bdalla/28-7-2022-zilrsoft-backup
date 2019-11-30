@@ -4,6 +4,8 @@
 	namespace App\Http\Controllers\ControllersHelper;
 	
 	
+	use App\Transaction;
+	
 	trait AccountGeneralHelper
 	{
 		
@@ -65,10 +67,23 @@
 			return ['credit' => $credit,'debit' => $debit];
 		}
 		
-		public function get_all_account_transaction($account)
+		public function get_all_account_transaction($account,$user_id = 0,$description = "")
 		{
-			$debit_transactions = $account->debit_transaction;
-			$credit_transactions = $account->credit_transaction;
+			if ($user_id != 0){
+				$debit_transactions = $account->debit_transaction()->where([
+					['user_id',$user_id],
+					['description',$description]
+				])->get();
+				$credit_transactions = $account->credit_transaction()->where([
+					['user_id',$user_id],
+					['description',$description]
+				])->get();
+			}else{
+				$debit_transactions = $account->debit_transaction;
+				$credit_transactions = $account->credit_transaction;
+			}
+//			dd();
+			
 			
 			$total_credit = 0;
 			$total_debit = 0;
@@ -115,4 +130,49 @@
 			
 		}
 		
+		public function load_vendor_transactions($account,$vendor_id)
+		{
+			
+			return Transaction::where(
+				[
+					['creditable_id',$account->id],
+					['creditable_type',get_class($account)],
+					['user_id',$vendor_id],
+					['description','vendor_balance']
+				]
+			)->orWhere(
+				[
+					['debitable_id',$account->id],
+					['debitable_type',get_class($account)],
+					['user_id',$vendor_id],
+					['description','vendor_balance']
+				]
+			)->get();
+			
+			
+			return $this->get_all_account_transaction($account,$client_id,'client_balance');
+		}
+		
+		public function load_client_transactions($account,$client_id)
+		{
+			
+			return Transaction::where(
+				[
+					['creditable_id',$account->id],
+					['creditable_type',get_class($account)],
+					['user_id',$client_id],
+					['description','client_balance']
+				]
+			)->orWhere(
+				[
+					['debitable_id',$account->id],
+					['debitable_type',get_class($account)],
+					['user_id',$client_id],
+					['description','client_balance']
+				]
+			)->get();
+
+
+//			return $this->get_all_account_transaction($account,$client_id,'client_balance');
+		}
 	}

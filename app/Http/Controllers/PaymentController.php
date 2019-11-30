@@ -20,7 +20,7 @@
 		
 		public function show(Payment $payment)
 		{
-			
+
 //			return $payment;
 			return view('payments.show',compact('payment'));
 		}

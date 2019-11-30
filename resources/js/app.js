@@ -85,7 +85,7 @@ import customDateFieldComponent from './components/customDateFieldComponent';
 import showBarcodeComponent from './components/showBarcodeComponent';
 import ExpensesListComponent from './components/billing/expensesListComponent';
 import liveServerDateAndTime from './components/liveServerDateAndTime.vue';
-
+import UserGatewaysComponent from './components/users/userGatewaysComponent'
 
 
 
@@ -127,6 +127,7 @@ import createTransactionFromComponent from './components/transactions/createTran
 Vue.component('item-serials-list-component', ItemSerialComponent);
 Vue.component('live-server-date-and-time', liveServerDateAndTime);
 Vue.component('expenses-list-component', ExpensesListComponent);
+Vue.component('user-accounts-component', UserGatewaysComponent);
 
 
 Vue.component('item-accounting-cost-history-component', ItemAccountingCostHistoryComponent);

@@ -187,6 +187,19 @@
 			$creator_stock = auth()->user()->manager_current_stock();
 			$paid_amount = 0;
 			
+			
+			$vendor_account = auth()->user()->get_active_manager_account_for('vendors');
+			
+			$vendor_account->credit_transaction()->create([
+				'creator_id' => auth()->user()->id,
+				'organization_id' => auth()->user()->organization_id,
+				'amount' => $net,
+				'user_id' => $user_id,
+				'invoice_id' => $this->id,
+				'description' => 'vendor_balance'
+			]);
+			
+			
 			foreach ($methods as $method){
 				
 				if ($method['amount'] > 0){
@@ -204,6 +217,16 @@
 						'description' => 'to_stock',
 					]);
 					
+					
+					$vendor_account->debit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'amount' => $method['amount'],
+						'user_id' => $user_id,
+						'invoice_id' => $this->id,
+						'description' => 'vendor_balance'
+					]);
+//
 					
 					$this->handle_invoice_payments($method);
 					$paid_amount = $paid_amount + $method['amount'];
@@ -254,8 +277,8 @@
 				'amount' => $method['amount'],
 				'payment_type' => $payment_type
 			]);
-			
-			
+
+
 			$this->invoice_payments()->create([
 				'organization_id' => $this->organization_id,
 				'creator_id' => $this->creator_id,
@@ -398,6 +421,19 @@
 			$creator_stock = auth()->user()->manager_current_stock();
 			$paid_amount = 0;
 			
+			
+			$vendor_account = auth()->user()->get_active_manager_account_for('vendors');
+			
+			$vendor_account->debit_transaction()->create([
+				'creator_id' => auth()->user()->id,
+				'organization_id' => auth()->user()->organization_id,
+				'amount' => $net,
+				'user_id' => $user_id,
+				'invoice_id' => $this->id,
+				'description' => 'vendor_balance'
+			]);
+			
+			
 			foreach ($methods as $method){
 				
 				if ($method['amount'] > 0){
@@ -413,6 +449,16 @@
 						'user_id' => $user_id,
 						'invoice_id' => $this->id,
 						'description' => 'to_gateway',
+					]);
+					
+					
+					$vendor_account->credit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'amount' => $method['amount'],
+						'user_id' => $user_id,
+						'invoice_id' => $this->id,
+						'description' => 'vendor_balance'
 					]);
 					
 					
@@ -456,6 +502,19 @@
 			$creator_stock = auth()->user()->manager_current_stock();
 			$paid_amount = 0;
 			
+			
+			$client_account = auth()->user()->get_active_manager_account_for('clients');
+			
+			$client_account->debit_transaction()->create([
+				'creator_id' => auth()->user()->id,
+				'organization_id' => auth()->user()->organization_id,
+				'amount' => $net,
+				'user_id' => $user_id,
+				'invoice_id' => $this->id,
+				'description' => 'client_balance'
+			]);
+			
+			
 			foreach ($methods as $method){
 				
 				if ($method['amount'] > 0){
@@ -471,6 +530,16 @@
 						'user_id' => $user_id,
 						'invoice_id' => $this->id,
 						'description' => 'to_gateway',
+					]);
+					
+					
+					$client_account->credit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'amount' => $method['amount'],
+						'user_id' => $user_id,
+						'invoice_id' => $this->id,
+						'description' => 'client_balance'
 					]);
 					
 					
@@ -500,6 +569,7 @@
 					'invoice_id' => $this->id,
 					'description' => 'to_stock',
 				]);
+				
 				
 				$this->user()->update_client_balance('add',$amount);
 				
@@ -658,6 +728,18 @@
 			$creator_stock = auth()->user()->manager_current_stock();
 			$paid_amount = 0;
 			
+			$client_account = auth()->user()->get_active_manager_account_for('clients');
+			
+			$client_account->credit_transaction()->create([
+				'creator_id' => auth()->user()->id,
+				'organization_id' => auth()->user()->organization_id,
+				'amount' => $net,
+				'user_id' => $user_id,
+				'invoice_id' => $this->id,
+				'description' => 'client_balance'
+			]);
+			
+			
 			foreach ($methods as $method){
 				
 				if ($method['amount'] > 0){
@@ -673,6 +755,15 @@
 						'user_id' => $user_id,
 						'invoice_id' => $this->id,
 						'description' => 'to_gateway',
+					]);
+					
+					$client_account->debit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'amount' => $method['amount'],
+						'user_id' => $user_id,
+						'invoice_id' => $this->id,
+						'description' => 'client_balance'
 					]);
 					
 					

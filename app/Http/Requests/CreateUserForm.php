@@ -43,8 +43,7 @@
 				'is_client' => 'required|boolean',
 				'is_vendor' => 'required|boolean',
 				'can_make_credit' => 'required|boolean',
-				
-				
+				'user_gateways.*.id' => 'required|integer|exists:accounts,id',
 				'user_detail_vat' => 'nullable',
 				'user_detail_email' => 'nullable',
 				'user_detail_cr' => 'nullable',
@@ -101,8 +100,25 @@
 						}
 						
 					}
+
+//					dd($this->user_gateways);
+					
 					
 					$user['manager'] = $manager;
+					
+				}
+				
+				
+				if ($this->is_vendor){
+					if ($this->user_gateways != null){
+						foreach ($this->user_gateways as $gateway){
+							$user->gateways()->create([
+								'organization_id' => $current->organization_id,
+								'account_id' => $gateway['id'],
+								'account_name' => $gateway['account_name'],
+							]);
+						}
+					}
 					
 				}
 				

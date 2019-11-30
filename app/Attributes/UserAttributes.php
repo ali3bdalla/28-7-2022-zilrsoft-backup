@@ -11,6 +11,7 @@
 		{
 			return $this->name;
 		}
+		
 		public function scopeVendors($query)
 		{
 			return $query->where([
@@ -52,25 +53,25 @@
 			$memeberships = [];
 			
 			if ($this->is_supervisor){
-				$memeberships[] = '<span class="badge badge-dark badge-type">supervisor</span>';
+				$memeberships[] = '<span class="tag ">مدير النظام</span>';
 				return $memeberships;
 			}
 			
 			if ($this->is_manager){
-				$memeberships[] = '<span class="badge badge-info badge-type">manger</span>';
+				$memeberships[] = '<span class="tag tag-primary">مستخدم</span>';
 			}
 			
 			
 			if ($this->is_client)
-				$memeberships[] = '<span class="badge badge-primary  badge-type">client</span>';
+				$memeberships[] = '<span class="tag is-primary ">عميل</span>';
 			
 			
 			if ($this->is_vendor)
-				$memeberships[] = '<span class="badge badge-success  badge-type">vendor</span>';
+				$memeberships[] = '<span class="tag is-success ">مورد</span>';
 			
 			
 			if ($this->is_supplier)
-				$memeberships[] = '<span class="badge badge-warning  badge-type">supplier</span>';
+				$memeberships[] = '<span class="tag is-dark ">مزود خدمات</span>';
 			
 			
 			return $memeberships;
@@ -79,9 +80,9 @@
 		public function creator_user()
 		{
 			if ($this->is_supervisor){
-				return 'him self';
+				return 'مدير النظام';
 			}
-			return '';
+			return $this->creator->name;
 		}
 		
 	}

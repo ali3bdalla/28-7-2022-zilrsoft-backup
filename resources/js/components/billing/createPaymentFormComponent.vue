@@ -5,23 +5,17 @@
         <div class="box">
             <h5>{{translator.amount}} : {{ total_paid_amount}}</h5>
         </div>
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--        <div class="columns">-->
-        <!--            <div class="column">-->
-        <!--                &lt;!&ndash;                <div class="text-center " v-show="error!=''">{{ error }}</div>&ndash;&gt;-->
-        <!--            </div>-->
-        <!--        </div>-->
+
         <div class="box">
 
             <div class="columns">
                 <custom-select-component
                         :options="voucherTypes"
+                        :placeholder="translator.type"
+                        :title="translator.type"
                         @valueUpdated="voucherTypesListUpdated"
                         default="1"
                         identity="2"
-                        :placeholder="translator.type"
-                        :title="translator.type"
                 >
 
                 </custom-select-component>
@@ -29,11 +23,11 @@
                 <custom-select-component
                         :default="user_id"
                         :options="vendors"
-                        @valueUpdated="userListUpdated"
-                        identity="1"
                         :placeholder="translator.select_vendor"
                         :title="translator.vendor"
-                        >
+                        @valueUpdated="userListUpdated"
+                        identity="1"
+                >
                 </custom-select-component>
 
 
@@ -238,11 +232,9 @@
             // console.log(this.user_id)
 
 
-
             this.translator = JSON.parse(window.translator);
             this.messages = JSON.parse(window.messages);
             this.reusable_translator = JSON.parse(window.reusable_translator);
-
 
 
             this.voucherTypes = [{
@@ -252,7 +244,7 @@
             }, {
                 id: 1,
                 type: 'balance',
-                name:this.translator.advance_payment
+                name: this.translator.advance_payment
             }];
         },
         methods: {
@@ -467,7 +459,6 @@
                     account_name: this.AccountNumber,
                     user_id: this.user.id,
                 };
-
 
 
                 var vm = this;

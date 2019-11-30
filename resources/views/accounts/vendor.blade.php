@@ -52,16 +52,19 @@
                         <th class="text-center ">{{$transaction->created_at}}</th>
                         <th class="text-center ">{{$transaction->id}}</th>
                         <th class="text-center "><a href="{{  route('management.sales.show',
-                        $transaction->invoice->sale->id)}}">{{
+                        $transaction->invoice->purchase->id)}}">{{
                         $transaction->invoice->title }}</a></th>
                         @if($transaction['creditable_type']=="")
-						<?php $balance = $balance + $transaction['amount'];?>
-                            <th class="text-center ">{{$transaction->amount}}</th>
-                            <th class="text-center ">0</th>
-                        @else
+
 						<?php $balance = $balance - $transaction['amount'];?>
                             <th class="text-center ">0</th>
                             <th class="text-center ">{{$transaction->amount}}</th>
+                        @else
+						<?php $balance = $balance + $transaction['amount'];?>
+                            <th class="text-center ">{{$transaction->amount}}</th>
+                            <th class="text-center ">0</th>
+
+
                         @endif
                         <th class="text-center ">
                             @if($balance>0)

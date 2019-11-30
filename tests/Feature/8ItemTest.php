@@ -19,7 +19,7 @@
 		 */
 		public function toCreate()
 		{
-			for ($i = 0;$i < 50;$i++){
+			for ($i = 0;$i < 10;$i++){
 				$category_id = auth()->user()->organization->categories()->inRandomOrder()->first()->id;
 				
 				$is_expense = false;

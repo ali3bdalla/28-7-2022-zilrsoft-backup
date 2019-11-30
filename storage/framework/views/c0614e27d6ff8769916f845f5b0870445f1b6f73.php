@@ -6,33 +6,33 @@
 <?php $__env->startSection('content'); ?>
     <div class="box">
 
-        <div class="ibox-head">
-            <div class="ibox-title"><?php echo e(trans('users.table_list',['users'=>'All Users'])); ?></div>
+        <div class="panel-heading">
             <a href="<?php echo e(route('management.users.create')); ?>"
-               class="float-right button is-primary btn-outline-primary  create-new-button"><i
-                        class="fa fa-plus-circle"></i> <?php echo e(trans('users.create_new_user')); ?></a>
+               class="button is-primary btn-outline-primary"><i
+                        class="fa fa-plus-circle"></i> <?php echo e(trans('pages/users.create')); ?></a>
         </div>
-        <div class="ibox-body">
+        <div class="">
             <?php if(empty(!$users)): ?>
                 <div class="table-responsive text-center">
                     <table class="table table-bordered text-center table-hover table-striped">
                         <thead>
                         <tr>
                             <th width="50px">#</th>
-                            <th>username</th>
-                            <th>Phone Number</th>
-                            <th>membership type</th>
-                            <th>Created At</th>
-                            <th>Created By</th>
-                            <th>Actions</th>
+                            <th>الاسم</th>
+                            <th>رقم الهاتف</th>
+                            <th>الصلاحيات</th>
+                            <th>التاريخ</th>
+                            <th>المستخدم</th>
+                            <th>خيارات</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td><?php echo e($user->id); ?></td>
+                                <td><?php echo e($loop->index + 1); ?></td>
                                 <td><?php echo e($user->name); ?></td>
-                                <td><?php echo e($user->phone_number); ?></td>
+
+                                <td><?php if(!$user->is_system_user): ?><?php echo e($user->phone_number); ?><?php endif; ?></td>
                                 <td>
                                     <?php $__currentLoopData = $user->membership_type(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $membership): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <?php echo $membership; ?>
@@ -43,31 +43,33 @@
                                 <td><?php echo e($user->creator_user()); ?></td>
 
                                 <td>
+                                    <a href="<?php echo e(route('management.users.edit',$user->id)); ?>" class="button is-primary
+                                    btn-sm"><i
+                                                class="fa fa-edit"></i>
+                                        &nbsp;
+                                        &nbsp;
+                                        تعديل
+                                    </a>
+
+                                    <a href="<?php echo e(route('management.users.show',$user->id)); ?>" class="button is-info
+                                    btn-sm"><i class="fa fa-eye"></i> &nbsp; &nbsp; عرض
+                                    </a>
+
                                     <?php if(!$user->is_system_user): ?>
+                                        <form class="" action="<?php echo e(route('management.users.destroy',
+                                        $user->id)); ?>" method="post">
+                                            <?php echo method_field("DELETE"); ?>
+                                            <?php echo csrf_field(); ?>
 
-                                        
+                                            <div class="form-inline" style="margin-top: 5px">
+                                                <button class="button is-danger btn-sm"><i class="fa fa-trash"></i>
+                                                    &nbsp; &nbsp; حذف
+                                                </button>
+                                            </div>
+                                        </form>
 
-
-                                        <a href='<?php echo e(route('management.users.update_payments_accounts',$user->id)); ?>'
-                                           class="btn
-                                    btn-primary btn-xs m-r-5" data-toggle="tooltip" data-original-title="Edit"><i
-                                                    class="fa fa-info-circle font-14"></i></a>
-
-
-                                    <!-- <a href='<?php echo e(route('management.users.show',$user->id)); ?>' class="btn btn-warning btn-xs m-r-5" data-toggle="tooltip" data-original-title="view"><i class="fa fa-credit-card font-14"></i></a> -->
-
-
-
-                                    <!-- <?php if($user->is_manager && !$user->is_supervisor ): ?>
-                                        <a class="btn btn-primary btn-xs m-r-5" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil font-14"></i></a>
-                                    <?php endif; ?> -->
-
-                                    <!-- <form class='form-inline delete-table-form' method="post" action="<?php echo e(route('management.users.destroy',$user->id)); ?>">
-                                    <?php echo method_field('DELETE'); ?>
-                                        <?php echo csrf_field(); ?>
-                                            <button class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash font-14"></i></button>
-                                            </form> -->
                                     <?php endif; ?>
+
                                 </td>
                             </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
