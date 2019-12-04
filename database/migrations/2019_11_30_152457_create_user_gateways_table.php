@@ -16,9 +16,10 @@
 			Schema::create('user_gateways',function (Blueprint $table){
 				$table->bigIncrements('id');
 				$table->integer('organization_id');
+				$table->integer('creator_id');
 				$table->integer('user_id');
-				$table->integer('account_id');
-				$table->string('account_name');
+				$table->integer('bank_id');
+				$table->string('detail');
 				$table->timestamps();
 			});
 		}

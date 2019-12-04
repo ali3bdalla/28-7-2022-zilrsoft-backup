@@ -210,23 +210,23 @@
             <div class="col-md-6">
 
 
+                
+                
+                
+                
+                
 
 
+                
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                
+                
+                
+                
+                
+                
+                
+                
             </div>
         </div>
         
@@ -244,257 +244,55 @@
 
 
         <div class="row">
-            <div class="col-md-6">
-            </div>
-            <div class="col-md-6">
-                <h5><?php echo e(__('pages/payments.paid_by_' . $payment->payment_type)); ?> : <?php echo e($payment->account->locale_name); ?></h5>
+
+            <div class="col-md-12">
+                <h5><?php echo e(__('pages/payments.paid_by_' . $payment->payment_type)); ?>
+
+                    : <?php if($payment->paymentable->parent_id>=1): ?><?php echo e($payment->paymentable->parent->locale_name); ?> - <?php endif; ?> <?php echo e($payment->paymentable->locale_name); ?></h5>
             </div>
         </div>
 
 
-        <br>
+        <?php if($payment->slug=='transfer' && $payment->payment_type=='payment'): ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><?php echo e(__('pages/payments.user_account')); ?>
 
-
-        <?php if(in_array($payment->gateway_id,[2])): ?>
-            <?php if($payment->payment_type=='receipt'): ?>
-                <div class="columns">
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white"><?php echo e(__
-                                            ('pages/payments.user_bank'). ' '.__('pages/payments.transfer_from')); ?>
-
-                                            </span>
-                                <input placeholder="<?php echo e(__
-                                            ('pages/payments.user_bank'). ' '.__('pages/payments.transfer_from')); ?>"
-                                       disabled
-                                       value="<?php echo e($payment->user_account->bank->name); ?>"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white"><?php echo e(__
-                                            ('pages/payments.account_number')); ?>
-
-                                            </span>
-                                <input placeholder="<?php echo e(__('pages/payments.account_number')); ?>" disabled
-                                       value="<?php echo e($payment->user_account->account); ?>"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
+                        : <?php echo e($payment->user_gateway->locale_name); ?></h5>
                 </div>
+            </div>
 
-                <br>
-
-
-                <div class="columns">
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white"><?php echo e(__
-                                            ('pages/payments.organization_bank'). ' '.__('pages/payments.transfer_to')); ?>
-
-                                            </span>
-                                <input placeholder="<?php echo e(__
-                                            ('pages/payments.organization_bank'). ' '.__('pages/payments.transfer_to')); ?>"
-                                       disabled
-                                       value="<?php echo e($payment->organization_account->bank->name); ?>"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white"><?php echo e(__
-                                            ('pages/payments.account_number')); ?>
-
-                                            </span>
-                                <input placeholder="<?php echo e(__('pages/payments.account_number')); ?>" disabled
-                                       value="<?php echo e($payment->organization_account->account); ?>"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-            <?php else: ?>
-
-
-                <div class="columns">
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white"><?php echo e(__
-                                            ('pages/payments.organization_bank'). ' '.__('pages/payments.transfer_from')); ?>
-
-                                            </span>
-                                <input placeholder="<?php echo e(__
-                                            ('pages/payments.organization_bank'). ' '.__('pages/payments.transfer_from')); ?>"
-                                       disabled
-                                       value="<?php echo e($payment->organization_account->bank->name); ?>"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white"><?php echo e(__
-                                            ('pages/payments.account_number')); ?>
-
-                                            </span>
-                                <input placeholder="<?php echo e(__('pages/payments.account_number')); ?>" disabled
-                                       value="<?php echo e($payment->organization_account->account); ?>"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-
-
-
-                <div class="columns">
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white"><?php echo e(__
-                                            ('pages/payments.user_bank'). ' '.__('pages/payments.transfer_to')); ?>
-
-                                            </span>
-                                <input placeholder="<?php echo e(__
-                                            ('pages/payments.user_bank'). ' '.__('pages/payments.transfer_to')); ?>"
-                                       disabled
-                                       value="<?php echo e($payment->user_account->bank->name); ?>"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white"><?php echo e(__
-                                            ('pages/payments.account_number')); ?>
-
-                                            </span>
-                                <input placeholder="<?php echo e(__('pages/payments.account_number')); ?>" disabled
-                                       value="<?php echo e($payment->user_account->account); ?>"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-
-
-
-
-
-
-
-
-
-            <?php endif; ?>
 
         <?php endif; ?>
 
-        <?php if(in_array($payment->gateway_id,[5])): ?>
-            <div class="column">
-                <div class="filter_area">
-                    <div class="input-group">
-                                    <span class="input-group-addon has-background-primary has-text-white"><?php echo e(__('pages/payments.bank')); ?>
+        <?php if($payment->description!=''): ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><?php echo e(__('pages/payments.payment_description')); ?>
 
-                                    </span>
-                        <input placeholder="<?php echo e(__('pages/payments.bank')); ?>" disabled
-                               value="<?php echo e($payment->bank->name); ?>"
-                               type="text" class="form-control">
-                    </div>
-
+                        : <?php echo e($payment->description); ?></h5>
                 </div>
             </div>
-    </div>
-    <div class="columns">
-        <?php endif; ?>
 
-        <?php if(in_array($payment->gateway_id,[4,5])): ?>
-            <div class="column">
-                <div class="filter_area">
-                    <div class="input-group">
-                                <span class="input-group-addon has-background-primary has-text-white"><?php echo e(__('pages/payments.reference_number')); ?>
-
-                                </span>
-                        <input placeholder="<?php echo e(__('pages/payments.reference_number')); ?>" disabled
-                               value="<?php echo e($payment->account); ?>"
-                               type="text" class="form-control">
-                    </div>
-
-                </div>
-            </div>
 
         <?php endif; ?>
 
     </div>
-
-    <?php if(in_array($payment->gateway_id,[6])): ?>
-        <div class="columns">
-            <div class="column">
-                <div class="filter_area">
-                    <div class="input-group">
-                                    <span class="input-group-addon has-background-primary has-text-white"><?php echo e(__
-                                    ('pages/payments.email')); ?>
-
-                                    </span>
-                        <input placeholder="<?php echo e(__('pages/payments.email')); ?>" disabled
-                               value="<?php echo e($payment->account); ?>"
-                               type="text" class="form-control">
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="column">
-                <div class="filter_area">
-                    <div class="input-group">
-                                    <span class="input-group-addon has-background-primary has-text-white"><?php echo e(__
-                                    ('pages/payments.reference_number')); ?>
-
-                                    </span>
-                        <input placeholder="<?php echo e(__('pages/payments.reference_number')); ?>" disabled
-                               value="<?php echo e($payment->account_name); ?>"
-                               type="text" class="form-control">
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    <?php endif; ?>
 
 
 </div>
 
 <footer>
     <div class="">
-
-        <div class="row">
-        </div>
         <div class="end"> <?php echo e(auth()->user()->organization->title); ?></div>
+        <div class="text-center">
+            <div class="col-xs-12">
+                <div class="text-center">
+                <span class="header_title total_header"><?php echo e(auth()->user()->organization->city_ar); ?> - <?php echo e(auth()->user()->organization->address_ar); ?></span>
+                </div>
+            </div>
+        </div>
+
         <div class="text-center"> <?php echo e(auth()->user()->organization->vat); ?></div>
     </div>
 </footer>
@@ -506,5 +304,5 @@
 
 
 <script>
-    // print();
+    print();
 </script><?php /**PATH /home/vagrant/code/zilrsoft/resources/views/template/a4/voucher.blade.php ENDPATH**/ ?>

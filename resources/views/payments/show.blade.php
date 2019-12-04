@@ -45,8 +45,7 @@
                                 </span>
                             <input placeholder="{{__('pages/payments.type')}}" disabled
                                    value="@if($payment->paymentable_type=="App\Invoice"){{__('pages/payments.invoices_payment')
-                                   }}@else{{__
-                                   ('pages/payments.advance_payment')}}@endif"
+                                   }}@else{{__('pages/payments.advance_payment')}}@endif"
                                    type="text" class="form-control">
                         </div>
 
@@ -79,215 +78,34 @@
                                 ('pages/payments.gateway')}}
                                 </span>
                             <input placeholder="{{__('pages/payments.gateway')}}" disabled
-                                   value="{{ $payment->account->locale_name }}"
+                                   value="@if($payment->paymentable->parent_id>=1){{
+                                   $payment->paymentable->parent->locale_name
+                                   }} - @endif{{
+                                   $payment->paymentable->locale_name
+                                    }}"
                                    type="text" class="form-control">
                         </div>
 
                     </div>
                 </div>
 
-
-                @if(in_array($payment->gateway_id,[2]))
-            </div>
-            @if($payment->payment_type=='receipt')
-                <div class="columns">
+                @if($payment->slug=='transfer' && $payment->payment_type=='payment')
                     <div class="column">
                         <div class="filter_area">
                             <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white">{{__
-                                            ('pages/payments.user_bank'). ' '.__('pages/payments.transfer_from')}}
-                                            </span>
-                                <input placeholder="{{__
-                                            ('pages/payments.user_bank'). ' '.__('pages/payments.transfer_from')}}"
-                                       disabled
-                                       value="{{ $payment->user_account->bank->name }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white">{{__
-                                            ('pages/payments.account')}}
-                                            </span>
-                                <input placeholder="{{__('pages/payments.account')}}" disabled
-                                       value="{{ $payment->user_account->account }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="columns">
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white">{{__
-                                            ('pages/payments.organization_bank'). ' '.__('pages/payments.transfer_to')}}
-                                            </span>
-                                <input placeholder="{{__
-                                            ('pages/payments.organization_bank'). ' '.__('pages/payments.transfer_to')}}"
-                                       disabled
-                                       value="{{ $payment->organization_account->bank->name }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white">{{__
-                                            ('pages/payments.account')}}
-                                            </span>
-                                <input placeholder="{{__('pages/payments.account')}}" disabled
-                                       value="{{ $payment->organization_account->account}}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-            @else
-
-
-                <div class="columns">
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                        <span class="input-group-addon has-background-primary has-text-white">{{__
-                                        ('pages/payments.gateway')}}
-                                        </span>
-                                <input placeholder="{{__('pages/payments.gateway')}}" disabled
-                                       value="{{ $payment->gateway->name }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                        <span class="input-group-addon has-background-primary has-text-white">{{__
-                                        ('pages/payments.gateway')}}
-                                        </span>
-                                <input placeholder="{{__('pages/payments.gateway')}}" disabled
-                                       value="{{ $payment->gateway->name }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="columns">
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                        <span class="input-group-addon has-background-primary has-text-white">{{__
-                                        ('pages/payments.gateway')}}
-                                        </span>
-                                <input placeholder="{{__('pages/payments.gateway')}}" disabled
-                                       value="{{ $payment->gateway->name }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                        <span class="input-group-addon has-background-primary has-text-white">{{__
-                                        ('pages/payments.gateway')}}
-                                        </span>
-                                <input placeholder="{{__('pages/payments.gateway')}}" disabled
-                                       value="{{ $payment->gateway->name }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            @endif
-
-            <div class="columns">
-                @endif
-
-                @if(in_array($payment->gateway_id,[5]))
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                    <span class="input-group-addon has-background-primary has-text-white">{{__('pages/payments.bank')}}
-                                    </span>
-                                <input placeholder="{{__('pages/payments.bank')}}" disabled
-                                       value="{{ $payment->bank->name }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-            </div>
-            <div class="columns">
-                @endif
-
-                @if(in_array($payment->gateway_id,[4,5]))
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                <span class="input-group-addon has-background-primary has-text-white">{{__('pages/payments.reference_number')}}
+                                <span class="input-group-addon has-background-primary has-text-white">{{__
+                                ('pages/payments.user_account')}}
                                 </span>
-                                <input placeholder="{{__('pages/payments.reference_number')}}" disabled
-                                       value="{{ $payment->account }}"
+                                <input placeholder="{{__('pages/payments.gateway')}}" disabled
+                                       value="{{ $payment->user_gateway->locale_name }}"
                                        type="text" class="form-control">
                             </div>
 
                         </div>
                     </div>
-
                 @endif
 
             </div>
-
-            @if(in_array($payment->gateway_id,[6]))
-                <div class="columns">
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                    <span class="input-group-addon has-background-primary has-text-white">{{__
-                                    ('pages/payments.email')}}
-                                    </span>
-                                <input placeholder="{{__('pages/payments.email')}}" disabled
-                                       value="{{ $payment->account }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                    <span class="input-group-addon has-background-primary has-text-white">{{__
-                                    ('pages/payments.reference_number')}}
-                                    </span>
-                                <input placeholder="{{__('pages/payments.reference_number')}}" disabled
-                                       value="{{ $payment->account_name }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            @endif
 
 
             <div class="columns">
@@ -318,6 +136,25 @@
                     </div>
                 </div>
             </div>
+
+            @if($payment->description!='')
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5>{{__('pages/payments.payment_description')}}
+                            : </h5>
+
+                    </div>
+                </div>
+
+
+                <div class="columns">
+                    <div class="column">
+                        <textarea class="form-control" disabled>{{ $payment->description }}</textarea>
+                    </div>
+                </div>
+
+
+            @endif
 
 
         </div>

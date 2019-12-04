@@ -84,7 +84,7 @@
                         <td><?php echo e($payment->creator->name); ?> </td>
 
                         <td><?php echo e($payment->amount); ?></td>
-                        <td><?php echo e($payment->account->locale_name); ?></td>
+                        <td><?php echo e($payment->paymentable->locale_name); ?></td>
                         <td>
 
 

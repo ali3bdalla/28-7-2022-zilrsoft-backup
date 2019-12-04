@@ -2,551 +2,167 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/TransactionsController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/UserBalanceTransactions.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/UserGateways.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_29_150305_create_user_balance_transactions_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_30_152457_create_user_gateways_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/users/userGatewaysComponent.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/accounts/client.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/accounts/users.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/accounts/vendor.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/0a/54/0a54d7e6edfbfff7dc3e2eee3ca57f7966d24344" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/dc/0a/dc0a2449366b74c951b78030be71080842d017ca" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/CWF0ohvYjx13mCFCIDYK3vhqo9JrNRtMILhf53xV" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/00c95142c86fc73e2964e72618d42f4efea464a7.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/05eb1df266f22ac5b39b02b748b1a37c2a306640.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/088acdc420707bdbac5d85d166981a5a8a6511cb.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/11a42f2f02b7f31b769de7a03b67b9470a4270c7.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/11cb92118aa3863a7985849b98518fae80a8cc6b.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/130acf6bf2ade9cf4c06de9efde60f4f3ab544a0.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/221643e5aa8be4dd9473c51c6808236724b14b29.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/36857e96efe2cb7031b7c4df08da8e2d94da0f4c.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/3869499d82cf851a45efc626f99dc4676a9d9c40.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/3af5fb4b1f1872a5f95330b94fc3058b5b62e53b.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/3b4b09e12c041ce3034f01ab30dea762e16303fb.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/3ba51bf6be866d5ce452fe8334911533461ccb06.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/3d23acd23fa1705d6781528cd9e7d584d7f8d31b.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/4c47f1c1da7b8e1ba5d618015348ec9075721077.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/4eff4e3efaa36c840fa6c1a317e920ae26ff6768.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/50541d5cfb05b7d9f51bf10d724bae53139b99e2.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/72009c876e61cc8239b9fab27a3b75f06887e637.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/7a04a828db645b9c160eef0c16272c1403395404.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/8696ca838ed47562136008be3ca776756643c6f0.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/9b15e320395d4d8ed9c20b5f20ac6a23ea5c4cf1.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/a27450bf50b60fa68b28b189ce220d0f4f76a7b1.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/a4f0484aa22ddd031bbe347750794c1ba8c23fff.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/aed6a062dc52c83b415098e935d5e2b91d3a85fc.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/bb2633db60f99dbb7b095afe7d14628f9e781629.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c0614e27d6ff8769916f845f5b0870445f1b6f73.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c0813bfcd6531aa9f0734425322b7e5086668c2b.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c6867166853187e37835eb2a9df76ea13dc28b42.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c87d83ae1c34cddd7376626b383ffc2669ac96c3.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c9ece82c8ee69a6df12168094d901be49acbd942.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/d005a44c7f6dcb699e4ee6f19da7cb10bc3196e0.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/d0652ab256caca4c8d8d4df90f90eb2cf0ba1f4e.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/d3f5445aa79fdbd350ae47c3ccfb91d9acf3d8cd.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/d9251502feb307ec0df8078861e08c052acf3f98.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/df7ad8ca692e20fc3701391389a27dd3cc5e3f9f.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/eed9e767bce5f2540264e415381cf523421bfdfc.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/fb1fbd4a0d1ca39e6175c72c658c79ac21c1be42.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-11-30.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.testing" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Bank.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/CreateQuotationRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/CreateVoucherRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Scopes/QuotationScope.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/global.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_12_01_134717_create_banks_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/sales/createQuotationFormComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/vouchers/createFormComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/accounts/item.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/accounts/items.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/payments/show_old" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/sales/create_quotation.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/sales/quotation_create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/sales/quotation_show.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/sales/quotations.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/template/a4/voucher_old" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/transactions/purchase_invoice.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/transactions/sale_invoice.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/6e/5e/6e5eed202ebe8e4cd3017daaf16b861fb78a39d4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/9c/5d/9c5d1c760331f7db8887fa4e1bf9a9349e7848ee" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/dKxobqz78ylVfpkNf5BpB1iW6Lr6pIPwHz9zsaxD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/p7wJZQUhhW9GE2O1giNzTuVOsun8H4zyYQMNs80B" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/01ab0ce4b229cc2c9698bd6b8be548c57cea34c9.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/032fda8530e4cd6842c71667b21c26313f3325f7.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/099953c57edc80fd1a34c06b33293cbecfc41e0e.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/0a2ec358e0813bda08bfa7cdffe9660fce4234bd.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/0f0560bf2107456468c126cd3b5a51467d5da5c6.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/10247a3df2e1cb84991acbb288de08ff1ef750c1.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/115016bc8b9ef80e168c91a4c3ba93a1c7815f19.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/11de9810137838b708995976e7fe90c5c5510c49.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/12a5d5d1405312ab4515f4096d603e1ac2d9f0dd.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/185ed0a37662d16118ec0300b0f29767f637e80d.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/1a015b112ac921f2e5245a1eaff98e2ca80eafea.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/1cacdbcb2d3c0aa4904acb37de7f84fa511fec0a.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/243d050d6a05be764f5547b2cb697b356e821e6f.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/29684616f1973ce4f49e337a3a4dbc715f07b865.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/2ca9ca1627ba0441fa60c858e2acf90ef17faa9d.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/36a7d9634615ea17e5707b54ea4572d5b07a43c5.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/3755f54344dfd069496b0404ee2d50faee0ccbfb.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/38142feb39169810bf98bbd541a3f5c0c0c5d428.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/408bacd600a1f8fd794a9f6bce048311360bf88b.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/4946f137e7e186f7ee4fcfe667fce7318119d845.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/4cd9338a340572650d4a5cabccf9d663715256bf.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/50a5a3a3262666450a9fe884a05960a41759e219.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/589673035a296b3d0ee2231c1fa3bdf5ed57f189.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/5a61a089657702992cbff16204ca0fe5fa70043c.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/5df57195a0ecf07e830d4634e711c473db6f5884.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/658d196dfb338aa20566473c9f2b081f9c8316de.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/6751812f271f242d273f58bdf5a8179959ce3170.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/75fd80e669b6e0c69978c1d4214f3ab105794298.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/79bf1604a17e0ffcd7f6fa1dfdf1d32c86c6d336.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/7fa612fc107f3b2fff5a9e6b77b8be11ba011d66.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/82f7e9606bd7d652ea80e01bb3e16f71f4aacf95.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/86d98adb543dfd55aec23ddaa124874466dd6cbc.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/91ff7609c8cd086fb83c473159af60b639e8aeaf.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/94dcc6303dc3c2e219376fda543a39d3f8b4f457.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/9d1bfa8f4cb163a1635f56fb2637838b0dfe8285.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/a14053fbd9245ec3f87fae57542e9cef07f1f3bc.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/a64673ebde1b1b53459ecab32b64ac6f77f8d832.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/a853e41e7309b0fefdcba829d19206ca019bc02e.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/aa77836e9750b309c5965da94e3557a3ae1e8e54.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/aab9575e937d317e8a9d4eb86112f4a31009c8a0.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/ad848f68bdb63def31b7084b3e13efcb95fd509b.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/b11bfd8347d2c85ffbe2b04a2150187cf7d9fd4d.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/b257c6e2d74bd4b579fc5cde6a978578aad3532c.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/b7a45cc6199bb3797ee062af7aaf7af7c24ee683.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/ba4344c9a3e570db049f56cd25f60093a42cae1c.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/bdf79d91a598051a70c75575a684fad67b291655.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/c07bed9d9f5a59b1a28d4120a0e68ca7ad89a41e.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/c6ab1cc7d058b7125ee9ab7c0153aded143a73d3.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/c78f5c377c07b016905cb942b594cfc9f0aff3c6.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/cc2b85a438584a1f4d11e191ddebcdeb220e7525.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/d59baebfd03069a0725e11c6011c7cf519363c95.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/dcef55c48b2a1d356122e94c3951f6cb7676d930.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/dfc1b5b3d3a6f67125b2ef5779b78c5f069e7926.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/e1a02ca9d789ab3364e7f55efa1d7937a25d5b57.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/eb2ddbf0ff2f05a48edcf1633a83f93258e65e5d.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/ef21f2b7b5762c40632920a351356b29cc275c4a.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/f5dac1bbcd850d158bdc03747a14abe13bfdb39d.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/f60c30e8d535377fb96f6adb97f7cb644b68fc5b.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/fb3356cf8e8ca883b1991f1c8352c1e26d5b3b92.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-01.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-02.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-03.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-04.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Feature/10PaymentTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Attributes/UserAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/UserAttributes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Account.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Account.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attributes/AccountAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/AccountAttributes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CountryBank.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/ChartPaymentHelper.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/InvoiceInterfaceHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/InvoiceInterfaceHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DynamicFields.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/ItemHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/ItemHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/OrganizationCreationHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/OrganizationCreationHelper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AccountsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AccountsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ControllersHelper/AccountGeneralHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ControllersHelper/AccountGeneralHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ControllersHelper/ChartControllerClientsHelper.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ControllersHelper/ChartControllerStockHelper.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FinancialStatementsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FinancialStatementsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PaymentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PaymentController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TrailBalanceController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TransactionsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TransactionsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Requests/CreateUserForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/CreateUserForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Relationships/InvoiceRelationship.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Relationships/InvoiceRelationship.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Payment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Payment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/PurchaseInvoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/PurchaseInvoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Relationships/AccountRelationships.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Relationships/AccountRelationships.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Relationships/PaymentRelationships.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Relationships/PaymentRelationships.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Relationships/UserRelationships.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Relationships/UserRelationships.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_08_135932_create_dynamic_fields_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_14_184921_create_transactions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_14_184921_create_transactions_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.editorconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.env.example" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.htaccess" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.htrouter.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.idea/composerJson.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.idea/forum.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.idea/php-test-framework.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.idea/php.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.phalcon/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/CHANGELOG-2.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/CHANGELOG-3.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/CHANGELOG.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/controller/CategoriesController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/controller/ControllerBase.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/controller/DiscussionsController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/controller/ErrorController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/controller/HelpController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/controller/HooksController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/controller/IndexController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/controller/PollsController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/controller/RepliesController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/controller/SearchController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/controller/SessionController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/controller/UsersController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/controller/UtilsController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Assets/AssetsManagerExtended.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Assets/Filters/NoneFilter.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/AssetsHash/AssetsHashAware.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/AssetsHash/AssetsHashInterface.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/AssetsHash/HashManager/AssetsHashMd.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/AssetsHash/HashManager/AssetsHashTime.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/AssetsHash/HashManager/AssetsHashVersion.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Commentator.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Critic.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Enlightened.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Expert.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/FamousQuestion.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/GoodQuestion.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/GoodReply.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Guru.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Illuminator.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Maven.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Moderator.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/NotableQuestion.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/PopularQuestion.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Populist.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Pundit.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Scholar.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/SelfLearner.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Supporter.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Teacher.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Veteran.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Badge/Virtuoso.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/BadgeBase.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/BadgeInterface.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Badges/Manager.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Bootstrap.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Console/AbstractTask.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Console/Application.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Console/OptionParser.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Console/TaskFinder.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Console/TaskInterface.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Discord/DiscordComponent.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/EmailComponent.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Exception/Length.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Exception/RequiredTokens.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Validator/AppValidator.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Validator/CorpValidator.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Validator/LengthValidator.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Validator/RequiredTokensValidator.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Validator/RoleValidator.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/AbstractVendor.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/Aol.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/Apple.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/Comcast.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/Facebook.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/GitHub.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/Google.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/MailCom.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/MailRu.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/Msn.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/Rambler.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/Rediff.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/SbcGlobal.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/Ukrainian.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/Uol.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/VendorInterface.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/Yahoo.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/Yandex.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Vendor/Zoho.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Warning/AppPart.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Warning/CorpPart.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Email/Warning/RolePart.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Exception/Handler/ErrorPageHandler.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Exception/Handler/LoggerHandler.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Exception/HttpException.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Exception/InvalidParameterException.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Exception/PhosphorumException.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Exception/RuntimeException.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Github/OAuth.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Github/Users.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Http/Filter/Ajax.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Http/FilterInterface.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Mail/Digest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Mail/SendNotifications.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Markdown/Markdown.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Mvc/Traits/TokenTrait.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Search/Indexer.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/System/Platform.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Utils/Backup.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/library/Version.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/listener/AbstractListener.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/listener/CliInputListener.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/listener/Database.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/listener/DispatcherListener.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/listener/PostListener.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/listener/PostRepliesListener.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/listener/UsersListener.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/listener/ViewListener.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/Activities.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/ActivityNotifications.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/CacheableModel.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/Categories.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/IrcLog.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/Karma.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/Notifications.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/NotificationsBounces.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/Posts.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/PostsBounties.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/PostsHistory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/PostsNotifications.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/PostsPollOptions.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/PostsPollVotes.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/PostsReplies.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/PostsRepliesHistory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/PostsRepliesVotes.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/PostsSubscribers.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/PostsViews.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/PostsVotes.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/Services/AbstractService.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/Services/Exception/EntityException.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/Services/Exception/ServiceExceptionInterface.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/Services/Service/Activities.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/Services/Service/Notifications.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/Services/Service/Posts.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/Services/Service/Users.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/TopicTracking.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/Users.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/model/UsersBadges.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/AbstractServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Annotations/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Assets/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Avatar/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Breadcrumbs/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Captcha/Adapters/ReCaptcha.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Captcha/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Config/Factory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Config/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Database/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Discord/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Dispatcher/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Email/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Environment/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/ErrorHandler/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/EventsManager/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/FileSystem/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Flash/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Logger/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Mailer/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Markdown/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/ModelsCache/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/ModelsManager/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/ModelsMetadata/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Notifications/Checker.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Notifications/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Queue/Fake.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Queue/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Registry/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Routing/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/SearchEngine/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Security/Security.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Security/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/ServiceProviderInterface.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Session/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/Timezone/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/UrlResolver/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/UrlResolver/Slug.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/View/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/ViewCache/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/VoltTemplate/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/VoltTemplate/VoltFunctions.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/provider/consoleOutput/ServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/services/Controller/AssetsService.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/services/QueueService.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/task/Cache.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/task/Commands.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/task/Discord.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/task/Help.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/task/Install.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/task/Notifications.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/task/Robots.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/task/Searchengine.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/task/Seeder.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/task/Sitemap.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/task/Version.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/categories/create.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/categories/reloadCategories.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/categories/view.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/discussions/activity.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/discussions/create.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/discussions/edit.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/discussions/history.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/discussions/index.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/discussions/irc.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/discussions/notifications.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/discussions/view.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/error/route400.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/error/route401.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/error/route403.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/error/route404.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/error/route500.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/error/route503.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/help/about.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/help/badges.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/help/create.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/help/index.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/help/karma.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/help/markdown.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/help/moderators.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/help/stats.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/help/voting.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/include/analytics.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/include/icons.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/include/meta.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/include/noindex-meta.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/index.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/layouts/categories.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/layouts/discussions.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/layouts/error.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/layouts/help.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/layouts/search.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/layouts/users.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/mail/digest.phtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/mail/notification.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/breadcrumbs.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/buttons.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/error/header.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/flash-banner.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/footer.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/list-posts-short.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/list-posts.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/mail/body.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/mail/footer.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/mail/head.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/paginate.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/poll-form.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/poll-options.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/poll-votes.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/post/accepted.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/post/bounty.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/post/breadcrumbs.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/post/comment-form.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/post/error-modal.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/post/history-modal.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/post/negative.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/post/post-buttons.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/post/post-date.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/post/post-title.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/post/reply-popup.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/post/reply.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/statistics.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/partials/top-menu.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/replies/history.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/search/index.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/search/showRelated.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/users/settings.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/app/views/users/view.volt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/bootstrap/autoloader.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/bootstrap/helpers.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/codeception.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/composer.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/composer.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/annotations.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/cache.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/cli-routes.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/config.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/database.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/devtools.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/discord.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/email.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/logger.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/mailer.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/metadata.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/providers.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/queue.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/routes.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/services.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/session.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/config/timezones.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/forum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/phpcs.xml.dist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/.htaccess" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/500.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/503.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/assets/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/css/diff.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/css/editor.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/css/fonts.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/css/octicons.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/css/prism.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/css/static.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/css/theme-white.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/css/theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/OpenSans-Bold.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/OpenSans-BoldItalic.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/OpenSans-Extrabold.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/OpenSans-ExtraboldItalic.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/OpenSans-Italic.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/OpenSans-Light.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/OpenSans-Semibold.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/OpenSans-SemiboldItalic.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/OpenSans.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/OpenSansLight-Italic.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/glyphicons-halflings-regular.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/glyphicons-halflings-regular.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/glyphicons-halflings-regular.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/glyphicons-halflings-regular.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/icomoon.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/icomoon.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/icomoon.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/octicons.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/octicons.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/octicons.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/fonts/octicons.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/icon/badges.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/icon/new_none.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/icon/new_some.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/apple-touch-icon-114x114.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/apple-touch-icon-120x120.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/apple-touch-icon-144x144.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/apple-touch-icon-152x152.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/apple-touch-icon-57x57.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/apple-touch-icon-60x60.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/apple-touch-icon-72x72.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/apple-touch-icon-76x76.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/apple-touch-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/favicon-128x128.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/favicon-16x16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/favicon-196x196.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/favicon-32x32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/favicon-96x96.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/mstile-144x144.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/mstile-150x150.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/mstile-310x150.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/mstile-310x310.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/icons/mstile-70x70.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/wmd-buttons.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/img/wmd-buttons.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/js/forum.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/js/jquery-3.2.1.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/public/js/prism.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/schemas/forum.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/schemas/upgrade-to-2.0.0.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/schemas/upgrade-to-2.0.1.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/schemas/upgrade-to-3.3.0.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/scripts/cli-bootstrap.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/scripts/gen-backup.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/scripts/process-badges.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/scripts/send-digest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/storage/cache/annotations/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/storage/cache/config/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/storage/cache/data/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/storage/cache/metaData/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/storage/cache/views/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/storage/cache/volt/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/storage/logs/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/storage/pids/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/.env.travis" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_bootstrap.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_config/bootstrap.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_data/assets/script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_data/assets/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_data/dump.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_data/mails/post_notification.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_data/mails/reply_notification.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_envs/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_fixtures/console/notification/data_to_check_post.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_fixtures/console/notification/data_to_check_reply.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_output/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_support/AcceptanceTester.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_support/ConsoleTester.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_support/FunctionalTester.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_support/Helper/Acceptance.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_support/Helper/Category.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_support/Helper/Console.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_support/Helper/Functional.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_support/Helper/Mail.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_support/Helper/Notification.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_support/Helper/Post.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_support/Helper/Unit.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_support/Helper/User.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_support/UnitTester.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/_support/_generated/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance.suite.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance/AssetsManagerCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance/BlockQuoteCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance/CategoryPaginationCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance/DelTagCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance/InjectionCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance/InsTagCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance/PostAndReplyCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance/PostHistoryCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance/PostLinkCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance/PostListenerCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance/RepliesCounterCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance/SpecialSymbolCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance/TitleCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/acceptance/_bootstrap.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/ci/install_phalcon.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/console.suite.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/console/ClearCacheCept.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/console/HelpCept.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/console/NotificationCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/console/RobotsGeneratorCept.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/console/SitemapGeneratorCept.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/console/VersionCept.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/console/_bootstrap.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/functional.suite.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/functional/CorrectConvertUriCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/functional/CorrectSlugCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/functional/DeletePostsCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/functional/ErrorPagesCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/functional/LinkToMentionCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/functional/NotFoundCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/functional/ReplyInDiscussionCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/functional/SeeLatestPostCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/functional/SeeNegativeBannerCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/functional/ShadowLoginCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/functional/StartDiscussionCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/functional/StatisticsPageCest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/functional/_bootstrap.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/unit.suite.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/unit/HelpersTest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/unit/SecurityTest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/unit/SlugTest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/other/forum/tests/unit/_bootstrap.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/SaleInvoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/SaleInvoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Scopes/OrganizationScope.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Scopes/OrganizationScope.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/TransactionsContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/TransactionsContainer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/UserGateways.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/UserGateways.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_07_134707_create_payments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_07_134707_create_payments_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_07_134824_create_invoice_items_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_07_134824_create_invoice_items_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_07_141035_create_sale_invoices_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_07_141035_create_sale_invoices_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_14_184246_create_accounts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_14_184246_create_accounts_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_26_141332_create_transactions_containers_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_26_141332_create_transactions_containers_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_30_152457_create_user_gateways_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_30_152457_create_user_gateways_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/saudi_arabia.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/saudi_arabia.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/billing/createPaymentFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/billing/createPaymentFormComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/customSelectComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/customSelectComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/items/newItemFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/items/newItemFormComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/users/createUserFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/users/createUserFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/ar/pages/users.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/pages/users.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/pages/payments.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/pages/payments.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounts/client.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounts/client.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounts/transactions.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounts/transactions.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounts/users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounts/users.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounts/vendor.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounts/vendor.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/financial_statements/trail_balance.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/financial_statements/trail_balance.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/payments/create_payment.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/payments/create_payment.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/payments/create_receipt.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/payments/create_receipt.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/payments/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/payments/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/payments/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/payments/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/purchases/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchases/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/template/a4/voucher.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/template/a4/voucher.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/transactions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/transactions/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/users/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/management.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/management.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/lIziSWhiOk4qjJTiD1dbQE8ObcbrUFWEGJVuYUcv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/84ee6f81cc927d8e73486750b0a6a30353e4fb53.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/f3e551565f17faf6df9ca74d9648884c7cc278d3.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-11-29.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-11-29.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/CWF0ohvYjx13mCFCIDYK3vhqo9JrNRtMILhf53xV" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/05eb1df266f22ac5b39b02b748b1a37c2a306640.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/05eb1df266f22ac5b39b02b748b1a37c2a306640.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/221643e5aa8be4dd9473c51c6808236724b14b29.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/221643e5aa8be4dd9473c51c6808236724b14b29.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/3ba51bf6be866d5ce452fe8334911533461ccb06.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/3ba51bf6be866d5ce452fe8334911533461ccb06.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/4c47f1c1da7b8e1ba5d618015348ec9075721077.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/4c47f1c1da7b8e1ba5d618015348ec9075721077.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/72009c876e61cc8239b9fab27a3b75f06887e637.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/72009c876e61cc8239b9fab27a3b75f06887e637.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/a4f0484aa22ddd031bbe347750794c1ba8c23fff.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/a4f0484aa22ddd031bbe347750794c1ba8c23fff.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/bb2633db60f99dbb7b095afe7d14628f9e781629.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/bb2633db60f99dbb7b095afe7d14628f9e781629.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/c0813bfcd6531aa9f0734425322b7e5086668c2b.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/c0813bfcd6531aa9f0734425322b7e5086668c2b.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/fb1fbd4a0d1ca39e6175c72c658c79ac21c1be42.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/fb1fbd4a0d1ca39e6175c72c658c79ac21c1be42.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-11-30.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-11-30.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/5CategoryTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/5CategoryTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/6FilterTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/6FilterTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/Feature/8ItemTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/8ItemTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/Feature/9BillTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/9BillTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/Feature/TransactionTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/TransactionTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/UserTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/UserTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/UserTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/5UserTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -710,7 +326,7 @@
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Vue" />
     <property name="com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary" value="PHPUnit" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/accounts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -721,19 +337,19 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public" />
-      <recent name="$PROJECT_DIR$/resources/lang/ar" />
-      <recent name="$PROJECT_DIR$/resources/views/template/a4" />
-      <recent name="$PROJECT_DIR$/tests/Feature" />
-      <recent name="$PROJECT_DIR$/resources/js/components/filters" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/accounts" />
       <recent name="$PROJECT_DIR$/resources/views/chart" />
       <recent name="$PROJECT_DIR$/resources/views/accounting/chartaccounts" />
       <recent name="$PROJECT_DIR$/resources/lang" />
       <recent name="$PROJECT_DIR$/resources/views/expenses" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/resources/lang/ar" />
+      <recent name="$PROJECT_DIR$/resources/views/template/a4" />
+      <recent name="$PROJECT_DIR$/tests/Feature" />
+      <recent name="$PROJECT_DIR$/resources/js/components/filters" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -937,7 +553,13 @@
       <workItem from="1574955596446" duration="45000" />
       <workItem from="1575034341518" duration="1778000" />
       <workItem from="1575037241990" duration="7588000" />
-      <workItem from="1575120130731" duration="8094000" />
+      <workItem from="1575120130731" duration="13458000" />
+      <workItem from="1575197268273" duration="3179000" />
+      <workItem from="1575206826990" duration="3487000" />
+      <workItem from="1575292930867" duration="6061000" />
+      <workItem from="1575364570884" duration="3156000" />
+      <workItem from="1575371048926" duration="14729000" />
+      <workItem from="1575465740716" duration="8461000" />
     </task>
     <servers />
   </component>

@@ -13,6 +13,7 @@
 	trait UserRelationships
 	{
 		
+		
 		public function details()
 		{
 			return $this->hasOne(UserDetails::class,'user_id');

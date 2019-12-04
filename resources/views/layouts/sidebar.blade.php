@@ -101,6 +101,14 @@
             </sidebar-item-component>
 
 
+            <sidebar-item-component
+                    url='{{route('management.sales.quotations')}}'
+                    title='{{ __('sidebar.quotations') }}'
+                    icon='fa fa-eye'
+            >
+            </sidebar-item-component>
+
+
 
             <!-- ending of invoices header-->
             <li class="header">{{ __('sidebar.inventory') }}</li>

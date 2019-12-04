@@ -298,7 +298,7 @@
 
             <hr>
             <div class="" v-show="is_vendor">
-                <user-accounts-component :accounts="gateways"
+                <user-accounts-component :accounts="banks"
                                          @publishUpdate="updateUserGateways"></user-accounts-component>
             </div>
 
@@ -327,7 +327,7 @@
 
 <script type="text/javascript">
     export default {
-        props: ['branchs', 'gateways'],
+        props: ['branchs', 'gateways','banks'],
         data: function () {
             return {
 

@@ -49,9 +49,10 @@
 		
 		
 		Route::prefix('accounts')->name('accounts.')->group(function (){
-			Route::get('item/{item}/{account}',"AccountsController@item")->name('item');
+//			Route::get('item/{item}/{account}',"AccountsController@item")->name('item');
 			Route::get('client/{client}/{account}',"AccountsController@client")->name('client');
 			Route::get('vendor/{vendor}/{account}',"AccountsController@vendor")->name('vendor');
+			Route::get('item/{item}/{account}',"AccountsController@item")->name('item');
 			Route::get('{account}/delete',"AccountsController@delete");
 		});
 		
@@ -70,6 +71,10 @@
 			
 			
 			Route::get('/list/unpaid/all',"SaleController@unpaid_all")->name('unpaid_all');
+			Route::get('quotations/index',"SaleController@quotations")->name('quotations');
+			Route::post('quotations/index',"SaleController@quotation_store")->name('quotation_store');
+			Route::get('quotations/show/{quotation_id}',"SaleController@view_quotation")->name('view_quotation');
+			Route::get('quotations/create',"SaleController@quotation_create")->name('quotation_create');
 			
 		});
 		
@@ -170,8 +175,8 @@
 			Route::get('/receipts/index',"PaymentController@receipts")->name('receipts');
 			Route::get('/create/create_receipt',"PaymentController@create_receipt")->name('create_receipt');
 			Route::get('/create/create_payment',"PaymentController@create_payment")->name('create_payment');
-			Route::post('/create/store_receipt',"PaymentController@store_receipt")->name('store_receipt');
-			Route::post('/create/store_payment',"PaymentController@store_payment")->name('store_payment');
+//			Route::post('/create/store_receipt',"PaymentController@store_receipt")->name('store_receipt');
+//			Route::post('/create/store_payment',"PaymentController@store_payment")->name('store_payment');
 			
 		});
 		
@@ -193,18 +198,6 @@
 			Route::get('/{payWay}/accounts',"OrganizationController@get_ways_with_accounts_that_organization_has_account_on_them");
 			
 		});
-		
-		
-		Route::name('accounts.')->namespace("Accounting")->group(function (){
-			Route::resources([
-				'chart_accounts' => 'ChartAccountsController'
-			]);
-			
-			Route::prefix('accounts')->group(function (){
-				Route::get('/gateways/{gateway}/{account}',"ChartAccountsController@gateway");
-			});
-			
-			
-		});
+	
 		
 	});

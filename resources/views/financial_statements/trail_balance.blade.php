@@ -30,8 +30,9 @@
                         <td width="20%">{{ $account['locale_name'] }}</td>
                         <td>{{ money_format("%i", $account['total_debit'])  }}</td>
                         <td>{{money_format("%i", $account['total_credit']) }}</td>
-                        <td></td>
-                        <td></td>
+                        <td>{{money_format("%i", $account['balance_debit']) }}</td>
+                        <td>{{money_format("%i", $account['balance_credit']) }}</td>
+
                     </tr>
                 @endforeach
                 </tbody>

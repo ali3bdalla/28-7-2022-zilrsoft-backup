@@ -45,46 +45,72 @@
 
                 <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tbody>
-                    <?php $__currentLoopData = $transaction->transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $real_transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <tr style="border:none">
-                            <?php if($real_transaction['debitable_type']!=""): ?>
-                                <th></th>
-                                <th><?php echo e($real_transaction['amount']); ?></th>
-                                <th><?php echo e($real_transaction->debitable->locale_name); ?> </th>
 
-                            <?php else: ?>
-                                <th><?php echo e($real_transaction['amount']); ?></th>
-                                <th></th>
-                                <th><?php echo e($real_transaction->creditable->locale_name); ?> </th>
-                            <?php endif; ?>
+                    <?php if($transaction['invoice_id']>=1 && !empty($transaction->invoice)): ?>
+
+                        <?php if(!empty($transaction->invoice->sale)): ?>
+
+                            <?php if ($__env->exists('transactions.sale_invoice',$transaction->invoice->sale)) echo $__env->make('transactions.sale_invoice',$transaction->invoice->sale, \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        <?php elseif(!empty($transaction->invoice->purchase)): ?>
 
 
-                            <?php if($index==0): ?>
+                            <?php if ($__env->exists('transactions.purchase_invoice',$transaction->invoice->purchase)) echo $__env->make('transactions.purchase_invoice',$transaction->invoice->purchase, \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-                                <th width="20%" style="vertical-align: inherit;" rowspan="<?php echo e(count
+
+                        <?php endif; ?>
+
+                    <?php else: ?>
+
+                        <?php $__currentLoopData = $transaction->transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $real_transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <tr style="border:none">
+
+
+                                <?php if($real_transaction['debitable_type']!=""): ?>
+                                    <th></th>
+                                    <th><?php echo e($real_transaction['amount']); ?></th>
+                                    <th><?php echo e($real_transaction->debitable->locale_name); ?> </th>
+
+                                <?php else: ?>
+                                    <th><?php echo e($real_transaction['amount']); ?></th>
+                                    <th></th>
+                                    <th><?php echo e($real_transaction->creditable->locale_name); ?> </th>
+                                <?php endif; ?>
+
+
+                                <?php if($index==0): ?>
+
+                                    <th width="20%" style="vertical-align: inherit;" rowspan="<?php echo e(count
                                 ($transaction->transactions)); ?>"> <?php echo e($transaction['description']); ?></th>
-                                <th width="10%" style="vertical-align: inherit;"
-                                    rowspan="<?php echo e(count($transaction->transactions)); ?>"><?php echo e($transaction['id']); ?></th>
-                                <th width="15%" style="vertical-align: inherit;"  class="datedirection" rowspan="<?php echo e(count
+                                    <th width="10%" style="vertical-align: inherit;"
+                                        rowspan="<?php echo e(count($transaction->transactions)); ?>"><a href="<?php echo e(route('management.transactions.show',$transaction->id)); ?>"><?php echo e($transaction['id']); ?></a></th>
+                                    <th width="15%" style="vertical-align: inherit;" class="datedirection" rowspan="<?php echo e(count
                                 ($transaction->transactions)); ?>"><?php echo e($transaction['created_at']); ?></th>
-                            <?php endif; ?>
+                                <?php endif; ?>
+                            </tr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+
+                        <tr>
+                            <th><?php echo e($transaction['amount']); ?></th>
+                            <th><?php echo e($transaction['amount']); ?></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+
                         </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-
-                    <tr>
-                        <th><?php echo e($transaction['amount']); ?></th>
-                        <th><?php echo e($transaction['amount']); ?></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-
-                    </tr>
                     </tbody>
+
+                    <?php endif; ?>
+
+
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 
             </table>
+
+
+            <?php echo e($transactions->links()); ?>
+
         <?php endif; ?>
     </div>
 

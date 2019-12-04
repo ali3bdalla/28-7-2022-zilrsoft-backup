@@ -24,13 +24,22 @@
             <table class="table table-bordered text-center">
                 <thead>
                 <tr>
-                    <th class="text-center ">التاريخ والوقت</th>
-                    <th class="text-center ">الرقم</th>
-                    <th class="text-center ">الهوية</th>
-                    <th class="text-center ">بيان</th>
+                    <th class="text-center "></th>
+                    <th class="text-center "></th>
+                    <th class="text-center "></th>
+                    <th class="text-center "></th>
+                    <th class="text-center " colspan="2">المجاميع</th>
+                    <th class="text-center " colspan="2">الارصدة</th>
+                </tr>
+                <tr>
+                    <th class="text-center "> التاريخ</th>
+                    <th class="text-center "> رقم القيد</th>
+                    <th class="text-center "> الهوية</th>
+                    <th class="text-center ">البيان</th>
                     <th class="text-center ">مدين</th>
                     <th class="text-center ">دائن</th>
-                    <th class="text-center ">رصيد</th>
+                    <th class="text-center ">مدين</th>
+                    <th class="text-center ">دائن</th>
                 </tr>
                 </thead>
 
@@ -51,7 +60,7 @@
 					    <?php $total_balance = $total_balance - $transaction['amount'];?>
                              <tr>
                                  <th class="text-center ">{{$transaction->created_at}}</th>
-                                 <th class="text-center ">{{$transaction->id}}</th>
+                                 <th class="text-center ">{{$transaction->container_id}}</th>
                                  <th class="text-center ">
                                      @if(!empty($transaction->user))
                                          <a href="{{ route('management.users.show',$transaction->user->id) }}">{{
@@ -74,14 +83,37 @@
 
 
                                      @else
-                                         <a href="{{ route('management.accounts.show', $transaction->debitable->id) }}">{{
-                                                                         $transaction->debitable->locale_name }}</a>
+                                         {{--                                         <a href="{{ route('management.accounts.show', $transaction->debitable->id) }}">{{--}}
+                                         {{--                                                                         $transaction->debitable->locale_name }}</a>--}}
 
+
+                                         <a href="{{ route('management.transactions.show', $transaction->container_id)
+                                         }}">{{
+                                                                         $transaction->container_id }}</a>
                                      @endif
                                  </th>
                                  <th class="text-center ">0</th>
                                  <th class="text-center ">{{money_format("%i",$transaction->amount)  }}</th>
-                                 <th class="text-center ">{{ money_format("%i",$total_balance)  }}</th>
+                                 @if($account->type=='debit')
+                                     @if($total_balance<0)
+                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                     @else
+                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                     @endif
+                                 @else
+
+                                     @if($total_balance<0)
+                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                     @else
+                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+
+                                     @endif
+
+                                 @endif
 
                              </tr>
                         @else
@@ -111,14 +143,34 @@
 
 
                                      @else
-                                         <a href="{{ route('management.accounts.show', $transaction->creditable->id) }}">{{
-                                                                         $transaction->creditable->locale_name }}</a>
+                                         <a href="{{ route('management.transactions.show', $transaction->container_id)
+                                         }}">{{
+                                                                         $transaction->container_id }}</a>
 
                                      @endif
                                  </th>
                                  <th class="text-center ">{{ money_format("%i",$transaction->amount )}}</th>
                                  <th class="text-center ">0</th>
-                                 <th class="text-center ">{{ money_format("%i",$total_balance)  }}</th>
+                                 @if($account->type=='debit')
+                                     @if($total_balance<0)
+                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                     @else
+                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                     @endif
+                                 @else
+
+                                     @if($total_balance<0)
+                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                     @else
+                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+
+                                     @endif
+
+                                 @endif
 
                              </tr>
                         @endif
@@ -141,7 +193,26 @@
                                 $transaction->locale_name }}</a></th>
                              <th class="text-center ">{{ money_format("%i",$transaction->debit )}}</th>
                              <th class="text-center ">{{ money_format("%i",$transaction->credit )}}</th>
-                             <th class="text-center ">{{ money_format("%i",$total_balance)  }}</th>
+                             @if($account->type=='debit')
+                                 @if($total_balance<0)
+                                     <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                     <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                 @else
+                                     <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                     <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                 @endif
+                             @else
+
+                                 @if($total_balance<0)
+                                     <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                     <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                 @else
+                                     <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                     <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+
+                                 @endif
+
+                             @endif
 
                          </tr>
 

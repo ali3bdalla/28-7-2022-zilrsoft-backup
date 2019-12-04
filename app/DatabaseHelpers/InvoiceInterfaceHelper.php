@@ -8,6 +8,7 @@
 	use App\Account;
 	use App\InvoiceItems;
 	use App\Item;
+	use App\TransactionsContainer;
 	
 	trait InvoiceInterfaceHelper
 	{
@@ -32,19 +33,34 @@
 			$result = [];
 			
 			
-			if (!empty($items)){
-//				dd($items);
-				foreach ($items as $invoice_item){
-//					dd($items);
-					$fresh_item = Item::find($invoice_item['id']);
-//					dd($fresh_item);
-					$fresh_item->init_create_invoice_item($invoice_item,$invoice_type,$user_id,$sub_invoice,$expenses);
-					$result[] = $fresh_item;
+			if ($invoice_type == 'quotation'){
+				if (!empty($items)){
+					foreach ($items as $invoice_item){
+						$fresh_item = Item::find($invoice_item['id']);
+						$fresh_item->init_quotation_create_invoice_item($invoice_item,$invoice_type,$user_id,
+							$sub_invoice,$expenses);
+						$result[] = $fresh_item;
+					}
+					
+					return $result;
 				}
+				
+			}else{
+				if (!empty($items)){
+//				dd($items);
+					foreach ($items as $invoice_item){
+//					dd($items);
+						$fresh_item = Item::find($invoice_item['id']);
+//					dd($fresh_item);
+						$fresh_item->init_create_invoice_item($invoice_item,$invoice_type,$user_id,$sub_invoice,$expenses);
+						$result[] = $fresh_item;
+					}
 
 //				dd();
-				return $result;
+					return $result;
+				}
 			}
+			
 			
 		}
 		
@@ -168,21 +184,32 @@
 		public function handle_invoice_transactions($methods = [],$user_id,$net,$items,$expenses,$invoice_type = 'purchase')
 		{
 			
+			
+			$container = new  TransactionsContainer();
+			$container->creator_id = auth()->user()->id;
+			$container->organization_id = auth()->user()->organization_id;
+			$container->amount = 0;
+			$container->description = 'invoice';
+			$container->invoice_id = $this->id;
+			$container->save();
+			
+			$container_id = $container->id;
 			if ($invoice_type == 'purchase'){
-				return $this->handle_purchase_transactions($methods,$user_id,$net,$items,$expenses);
+				return $this->handle_purchase_transactions($methods,$user_id,$net,$items,$expenses,$container_id);
 			}elseif ($invoice_type == 'r_purchase'){
-				return $this->handle_return_purchase_transactions($methods,$user_id,$net,$items,$expenses);
+				return $this->handle_return_purchase_transactions($methods,$user_id,$net,$items,$expenses,$container_id);
 			}elseif ($invoice_type == 'sale'){
-				return $this->handle_sale_transactions($methods,$user_id,$net,$items,$expenses);
+				return $this->handle_sale_transactions($methods,$user_id,$net,$items,$expenses,$container_id);
 			}elseif ($invoice_type == 'r_sale'){
-				return $this->handle_return_sale_transactions($methods,$user_id,$net,$items,$expenses);
+				return $this->handle_return_sale_transactions($methods,$user_id,$net,$items,$expenses,$container_id);
 			}
 			
+			$container->update_amount();
 			
 			return 'paid';
 		}
 		
-		public function handle_purchase_transactions($methods = [],$user_id,$net,$items,$expenses)
+		public function handle_purchase_transactions($methods = [],$user_id,$net,$items,$expenses,$container_id)
 		{
 			$creator_stock = auth()->user()->manager_current_stock();
 			$paid_amount = 0;
@@ -196,6 +223,7 @@
 				'amount' => $net,
 				'user_id' => $user_id,
 				'invoice_id' => $this->id,
+				'container_id' => $container_id,
 				'description' => 'vendor_balance'
 			]);
 			
@@ -214,6 +242,7 @@
 						'amount' => $method['amount'],
 						'user_id' => $user_id,
 						'invoice_id' => $this->id,
+						'container_id' => $container_id,
 						'description' => 'to_stock',
 					]);
 					
@@ -224,6 +253,7 @@
 						'amount' => $method['amount'],
 						'user_id' => $user_id,
 						'invoice_id' => $this->id,
+						'container_id' => $container_id,
 						'description' => 'vendor_balance'
 					]);
 //
@@ -233,10 +263,12 @@
 				}
 				
 				
-			}
+			} // 50
+			
+			// 450 //  500 - 50
 			
 			
-			$this->create_tax_transaction($creator_stock,$user_id,$items,$expenses);
+			$this->create_tax_transaction($creator_stock,$user_id,$items,$expenses,$container_id);
 			
 			
 			if ($paid_amount < $net){
@@ -251,10 +283,11 @@
 					'amount' => $amount,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_stock',
 				]);
-				
-				
+
+//
 				$this->user()->update_vendor_balance('add',$amount);
 				return 'credit';
 			}
@@ -271,14 +304,13 @@
 				'organization_id' => $this->organization_id,
 				'creator_id' => $this->creator_id,
 				'user_id' => $this->user_id,
-				'chart_id' => $method['id'],
 				'amount_ar_words' => Tafqeet::arablic($method['amount']),
 				'amount_en_words' => Tafqeet::arablic($method['amount']),
 				'amount' => $method['amount'],
 				'payment_type' => $payment_type
 			]);
-
-
+			
+			
 			$this->invoice_payments()->create([
 				'organization_id' => $this->organization_id,
 				'creator_id' => $this->creator_id,
@@ -289,7 +321,7 @@
 			
 		}
 		
-		public function create_tax_transaction($creator_stock,$user_id,$items = [],$expenses = [])
+		public function create_tax_transaction($creator_stock,$user_id,$items = [],$expenses = [],$container_id)
 		{
 			
 			
@@ -314,6 +346,7 @@
 						'amount' => $tax,
 						'user_id' => $user_id,
 						'invoice_id' => $this->id,
+						'container_id' => $container_id,
 						'description' => 'to_tax',
 					]);
 				}
@@ -333,6 +366,7 @@
 						'amount' => $sum,
 						'user_id' => $user_id,
 						'invoice_id' => $this->id,
+						'container_id' => $container_id,
 						'description' => 'to_gateway',
 					]);
 				}
@@ -354,6 +388,7 @@
 					'amount' => $tax,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_tax',
 				]);
 			}
@@ -373,6 +408,7 @@
 					'amount' => $sum,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_gateway',
 				]);
 			}
@@ -416,7 +452,9 @@
 			return $total_taxes;
 		}
 		
-		public function handle_return_purchase_transactions($methods = [],$user_id,$net,$items,$expenses)
+		public function handle_return_purchase_transactions(
+			$methods = [],$user_id,$net,$items,$expenses,
+			$container_id)
 		{
 			$creator_stock = auth()->user()->manager_current_stock();
 			$paid_amount = 0;
@@ -430,6 +468,7 @@
 				'amount' => $net,
 				'user_id' => $user_id,
 				'invoice_id' => $this->id,
+				'container_id' => $container_id,
 				'description' => 'vendor_balance'
 			]);
 			
@@ -448,6 +487,7 @@
 						'amount' => $method['amount'],
 						'user_id' => $user_id,
 						'invoice_id' => $this->id,
+						'container_id' => $container_id,
 						'description' => 'to_gateway',
 					]);
 					
@@ -458,6 +498,7 @@
 						'amount' => $method['amount'],
 						'user_id' => $user_id,
 						'invoice_id' => $this->id,
+						'container_id' => $container_id,
 						'description' => 'vendor_balance'
 					]);
 					
@@ -470,7 +511,7 @@
 			}
 			
 			
-			$this->create_tax_transaction($creator_stock,$user_id,$items,$expenses);
+			$this->create_tax_transaction($creator_stock,$user_id,$items,$expenses,$container_id);
 			
 			
 			if ($paid_amount < $net){
@@ -485,6 +526,7 @@
 					'amount' => $amount,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_stock',
 				]);
 				
@@ -497,7 +539,7 @@
 			return 'paid';
 		}
 		
-		public function handle_sale_transactions($methods = [],$user_id,$net,$items,$expenses)
+		public function handle_sale_transactions($methods = [],$user_id,$net,$items,$expenses,$container_id)
 		{
 			$creator_stock = auth()->user()->manager_current_stock();
 			$paid_amount = 0;
@@ -511,6 +553,7 @@
 				'amount' => $net,
 				'user_id' => $user_id,
 				'invoice_id' => $this->id,
+				'container_id' => $container_id,
 				'description' => 'client_balance'
 			]);
 			
@@ -529,6 +572,7 @@
 						'amount' => $method['amount'],
 						'user_id' => $user_id,
 						'invoice_id' => $this->id,
+						'container_id' => $container_id,
 						'description' => 'to_gateway',
 					]);
 					
@@ -539,6 +583,7 @@
 						'amount' => $method['amount'],
 						'user_id' => $user_id,
 						'invoice_id' => $this->id,
+						'container_id' => $container_id,
 						'description' => 'client_balance'
 					]);
 					
@@ -551,7 +596,7 @@
 			}
 			
 			
-			$this->create_tax_transaction($creator_stock,$user_id,$items,$expenses);
+			$this->create_tax_transaction($creator_stock,$user_id,$items,$expenses,$container_id);
 			
 			
 			$is_credit = false;
@@ -567,6 +612,7 @@
 					'amount' => $amount,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_stock',
 				]);
 				
@@ -606,6 +652,7 @@
 				'amount' => $total_cost,
 				'user_id' => $user_id,
 				'invoice_id' => $this->id,
+				'container_id' => $container_id,
 				'description' => 'to_cogs',
 			]);
 			
@@ -643,6 +690,7 @@
 					'amount' => $products_sales_total,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_products_sales',
 				]);
 			}
@@ -656,6 +704,7 @@
 					'amount' => $services_sales_total,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_services_sales',
 				]);
 			}
@@ -669,6 +718,7 @@
 					'amount' => $other_services_sales_total,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_other_services_sales',
 				]);
 			}
@@ -684,6 +734,7 @@
 					'amount' => $products_sales_total_discount,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_products_sales_discount',
 				]);
 			}
@@ -697,6 +748,7 @@
 					'amount' => $services_sales_total_discount,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_services_sales_discount',
 				]);
 			}
@@ -710,6 +762,7 @@
 					'amount' => $other_services_sales_total_discount,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_other_services_sales_discount',
 				]);
 			}
@@ -723,7 +776,7 @@
 			return 'paid';
 		}
 		
-		public function handle_return_sale_transactions($methods = [],$user_id,$net,$items,$expenses)
+		public function handle_return_sale_transactions($methods = [],$user_id,$net,$items,$expenses,$container_id)
 		{
 			$creator_stock = auth()->user()->manager_current_stock();
 			$paid_amount = 0;
@@ -736,6 +789,7 @@
 				'amount' => $net,
 				'user_id' => $user_id,
 				'invoice_id' => $this->id,
+				'container_id' => $container_id,
 				'description' => 'client_balance'
 			]);
 			
@@ -754,6 +808,7 @@
 						'amount' => $method['amount'],
 						'user_id' => $user_id,
 						'invoice_id' => $this->id,
+						'container_id' => $container_id,
 						'description' => 'to_gateway',
 					]);
 					
@@ -763,6 +818,7 @@
 						'amount' => $method['amount'],
 						'user_id' => $user_id,
 						'invoice_id' => $this->id,
+						'container_id' => $container_id,
 						'description' => 'client_balance'
 					]);
 					
@@ -775,7 +831,7 @@
 			}
 			
 			
-			$this->create_tax_transaction($creator_stock,$user_id,$items,$expenses);
+			$this->create_tax_transaction($creator_stock,$user_id,$items,$expenses,$container_id);
 			
 			
 			$is_credit = false;
@@ -791,6 +847,7 @@
 					'amount' => $amount,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_stock',
 				]);
 				
@@ -830,6 +887,7 @@
 				'amount' => $total_cost,
 				'user_id' => $user_id,
 				'invoice_id' => $this->id,
+				'container_id' => $container_id,
 				'description' => 'to_cogs',
 			]);
 			
@@ -867,6 +925,7 @@
 					'amount' => $products_sales_total,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_products_sales',
 				]);
 			}
@@ -880,6 +939,7 @@
 					'amount' => $services_sales_total,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_services_sales',
 				]);
 			}
@@ -908,6 +968,7 @@
 					'amount' => $products_sales_total_discount,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_products_sales_discount',
 				]);
 			}
@@ -921,6 +982,7 @@
 					'amount' => $services_sales_total_discount,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_services_sales_discount',
 				]);
 			}
@@ -934,6 +996,7 @@
 					'amount' => $other_services_sales_total_discount,
 					'user_id' => $user_id,
 					'invoice_id' => $this->id,
+					'container_id' => $container_id,
 					'description' => 'to_other_services_sales_discount',
 				]);
 			}

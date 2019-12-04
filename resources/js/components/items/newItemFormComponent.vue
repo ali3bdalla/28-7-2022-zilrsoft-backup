@@ -271,7 +271,7 @@
         data: function () {
             return {
 
-                expense_vendor_id:0,
+                expense_vendor_id: 0,
                 is_expense: false,
                 rtl: true,
                 messages: null,
@@ -716,7 +716,7 @@
                 var filters_values = this.extractAllSelectedFiltersAsKeyValueArray();
 
                 var data = {
-                    expense_vendor_id:this.expense_vendor_id,
+                    expense_vendor_id: this.expense_vendor_id,
                     is_expense: this.is_expense,
                     name: this.item_en_name,
                     ar_name: this.item_ar_name,

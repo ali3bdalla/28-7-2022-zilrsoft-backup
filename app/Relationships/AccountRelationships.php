@@ -5,10 +5,16 @@
 	
 	
 	use App\Account;
+	use App\Payment;
 	use App\Transaction;
 	
 	trait AccountRelationships
 	{
+		
+		public function paymentable()
+		{
+			return $this->morphMany(Payment::class,'paymentable');
+		}
 		public function parent()
 		{
 			return $this->belongsTo($this,'parent_id');

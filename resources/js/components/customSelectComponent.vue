@@ -31,7 +31,7 @@
 
 <script>
     export default {
-        props: ["options", "default", 'index', 'placeholder', 'identity', 'title', 'label_text', 'title_class','defaultIndex'],
+        props: ["options", "default", 'index', 'placeholder', 'identity', 'title', 'label_text', 'title_class', 'defaultIndex'],
         data: function () {
             return {
                 isListOpened: false,
@@ -77,17 +77,14 @@
 
             },
 
-            someoneUpdateId(id)
-            {
-                var item = helpers.getDataFromArrayById(this.items,id);
+            someoneUpdateId(id) {
+                var item = helpers.getDataFromArrayById(this.items, id);
                 console.log(item);
-                if(item!=null)
-                {
+                if (item != null) {
                     this.valueUpdated(item);
                 }
 
             },
-
 
 
             valueUpdated(item) {
@@ -129,11 +126,10 @@
 
         },
 
-        watch:{
-            default:function (value) {
+        watch: {
+            default: function (value) {
                 console.log(value);
-                if(value!=null && value)
-                {
+                if (value != null && value) {
                     this.selected = this.value;
                     console.log('custom select user_id ' + value);
                     this.someoneUpdateId(value);

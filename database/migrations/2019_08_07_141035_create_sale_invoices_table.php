@@ -23,7 +23,7 @@ class CreateSaleInvoicesTable extends Migration
             $table->boolean("is_returned")->default(0);
             $table->string('prefix',30)->nullable();
             $table->integer("parent_id")->default(0);
-            $table->enum("invoice_type",['sale','r_sale'])->nullable();
+            $table->enum("invoice_type",['sale','r_sale','quotation'])->nullable();
 
             $table->timestamps();
         });

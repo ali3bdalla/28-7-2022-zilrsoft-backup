@@ -46,8 +46,10 @@ return [
 	'select_vendor'=>'اختر المستفيد',
 	'vendor'=>'اختر المستفيد',
 	'gateway'=>'وسيلة الدفع',
+	'user_account'=>'حساب المستفيد',
 	'select_gateway'=>'اختر وسيلة الدفع',
 	
+	'payment_description' => 'تفاصيل',
 	'transfer_to' => '(المحول اليه)',
 	'transfer_from' =>'(المحول منه)' ,
 	

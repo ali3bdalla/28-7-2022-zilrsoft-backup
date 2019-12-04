@@ -3,8 +3,6 @@
 	namespace App;
 	
 	use App\Attributes\PaymentAttributes;
-	
-	use App\DatabaseHelpers\ChartPaymentHelper;
 	use App\Relationships\PaymentRelationships;
 	use App\Scopes\OrganizationScope;
 	use Illuminate\Database\Eloquent\Model;
@@ -14,7 +12,7 @@
 		
 		protected $guarded = [];
 		
-		use PaymentRelationships,PaymentAttributes,ChartPaymentHelper;
+		use PaymentRelationships,PaymentAttributes;
 		
 		protected static function boot()
 		{
@@ -23,7 +21,7 @@
 				static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
 			}
 		}
-		
+
 //		public function invoices()
 //		{
 //

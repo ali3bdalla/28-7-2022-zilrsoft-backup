@@ -28,9 +28,41 @@
 				
 				$row['total_debit'] = $amounts['total_debit'];
 				$row['total_credit'] = $amounts['total_credit'];
+				
+				
+				if ($account['type'] == 'credit'){
+					$balance = $amounts['total_credit'] - $amounts['total_debit'];
+					
+					if ($balance < 0){
+						
+						$row['balance_credit'] = 0;
+						$row['balance_debit'] = abs($balance);
+					}else{
+						$row['balance_debit'] = 0;
+						$row['balance_credit'] = abs($balance);
+						
+						
+					}
+					
+					
+				}else{
+					$balance = $amounts['total_debit'] - $amounts['total_credit'];
+					
+					if ($balance < 0){
+						$row['balance_debit'] = 0;
+						$row['balance_credit'] = abs($balance);
+					}else{
+						$row['balance_credit'] = 0;
+						$row['balance_debit'] = abs($balance);
+						
+						
+					}
+				}
+				
 				$accounts[] = $row;
 				
 			}
+//			return $accounts;
 			
 			return view('financial_statements.trail_balance',compact('accounts'));
 			

@@ -113,9 +113,10 @@
 					if ($this->user_gateways != null){
 						foreach ($this->user_gateways as $gateway){
 							$user->gateways()->create([
+								'creator_id' => auth()->user()->id,
 								'organization_id' => $current->organization_id,
-								'account_id' => $gateway['id'],
-								'account_name' => $gateway['account_name'],
+								'bank_id' => $gateway['id'],
+								'detail' => $gateway['account_name'],
 							]);
 						}
 					}

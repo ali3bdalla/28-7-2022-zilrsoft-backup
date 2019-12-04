@@ -22,6 +22,7 @@
 				$table->integer('parent_id')->default(0);
 				$table->string('serial')->nullable();
 				$table->boolean('is_gateway')->default(false);
+				$table->enum('type',['credit','debit'])->default('credit');
 				$table->boolean('is_system_account')->default(false);
 				$table->enum('slug',
 					[

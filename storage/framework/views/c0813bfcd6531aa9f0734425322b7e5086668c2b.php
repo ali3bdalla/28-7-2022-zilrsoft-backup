@@ -48,16 +48,26 @@
                     <tr>
                         <th class="text-center "><?php echo e($transaction->created_at); ?></th>
                         <th class="text-center "><?php echo e($transaction->id); ?></th>
-                        <th class="text-center "><a href="<?php echo e(route('management.sales.show',
-                        $transaction->invoice->sale->id)); ?>"><?php echo e($transaction->invoice->title); ?></a></th>
+                        <th class="text-center ">
+                            <?php if($transaction->invoice_id>=1): ?>
+                                <a href="<?php echo e(route('management.sales.show',
+                        $transaction->invoice->sale->id)); ?>"><?php echo e($transaction->invoice->title); ?></a>
+
+                            <?php else: ?>
+
+                                <a href="<?php echo e(route('management.transactions.show',
+                        $transaction->container_id)); ?>"><?php echo e($transaction->container_id); ?></a>
+
+                            <?php endif; ?>
+                        </th>
                         <?php if($transaction['creditable_type']==""): ?>
 						<?php $balance = $balance + $transaction['amount'];?>
-                            <th class="text-center "><?php echo e($transaction->amount); ?></th>
+                            <th class="text-center "><?php echo e(money_format("%i",$transaction->amount)); ?></th>
                             <th class="text-center ">0</th>
                         <?php else: ?>
 						<?php $balance = $balance - $transaction['amount'];?>
                             <th class="text-center ">0</th>
-                            <th class="text-center "><?php echo e($transaction->amount); ?></th>
+                            <th class="text-center "><?php echo e(money_format("%i",$transaction->amount)); ?></th>
                         <?php endif; ?>
                         <th class="text-center ">
                             <?php if($balance>0): ?>

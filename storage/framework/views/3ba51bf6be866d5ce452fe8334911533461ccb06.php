@@ -21,13 +21,22 @@
             <table class="table table-bordered text-center">
                 <thead>
                 <tr>
-                    <th class="text-center ">التاريخ والوقت</th>
-                    <th class="text-center ">الرقم</th>
-                    <th class="text-center ">الهوية</th>
-                    <th class="text-center ">بيان</th>
+                    <th class="text-center "></th>
+                    <th class="text-center "></th>
+                    <th class="text-center "></th>
+                    <th class="text-center "></th>
+                    <th class="text-center " colspan="2">المجاميع</th>
+                    <th class="text-center " colspan="2">الارصدة</th>
+                </tr>
+                <tr>
+                    <th class="text-center "> التاريخ</th>
+                    <th class="text-center "> رقم القيد</th>
+                    <th class="text-center "> الهوية</th>
+                    <th class="text-center ">البيان</th>
                     <th class="text-center ">مدين</th>
                     <th class="text-center ">دائن</th>
-                    <th class="text-center ">رصيد</th>
+                    <th class="text-center ">مدين</th>
+                    <th class="text-center ">دائن</th>
                 </tr>
                 </thead>
 
@@ -48,7 +57,7 @@
 					    <?php $total_balance = $total_balance - $transaction['amount'];?>
                              <tr>
                                  <th class="text-center "><?php echo e($transaction->created_at); ?></th>
-                                 <th class="text-center "><?php echo e($transaction->id); ?></th>
+                                 <th class="text-center "><?php echo e($transaction->container_id); ?></th>
                                  <th class="text-center ">
                                      <?php if(!empty($transaction->user)): ?>
                                          <a href="<?php echo e(route('management.users.show',$transaction->user->id)); ?>"><?php echo e($transaction->user->name); ?></a>
@@ -67,13 +76,35 @@
 
 
                                      <?php else: ?>
-                                         <a href="<?php echo e(route('management.accounts.show', $transaction->debitable->id)); ?>"><?php echo e($transaction->debitable->locale_name); ?></a>
+                                         
+                                         
 
+
+                                         <a href="<?php echo e(route('management.transactions.show', $transaction->container_id)); ?>"><?php echo e($transaction->container_id); ?></a>
                                      <?php endif; ?>
                                  </th>
                                  <th class="text-center ">0</th>
                                  <th class="text-center "><?php echo e(money_format("%i",$transaction->amount)); ?></th>
-                                 <th class="text-center "><?php echo e(money_format("%i",$total_balance)); ?></th>
+                                 <?php if($account->type=='debit'): ?>
+                                     <?php if($total_balance<0): ?>
+                                         <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
+                                         <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
+                                     <?php else: ?>
+                                         <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
+                                         <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
+                                     <?php endif; ?>
+                                 <?php else: ?>
+
+                                     <?php if($total_balance<0): ?>
+                                         <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
+                                         <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
+                                     <?php else: ?>
+                                         <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
+                                         <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
+
+                                     <?php endif; ?>
+
+                                 <?php endif; ?>
 
                              </tr>
                         <?php else: ?>
@@ -100,13 +131,32 @@
 
 
                                      <?php else: ?>
-                                         <a href="<?php echo e(route('management.accounts.show', $transaction->creditable->id)); ?>"><?php echo e($transaction->creditable->locale_name); ?></a>
+                                         <a href="<?php echo e(route('management.transactions.show', $transaction->container_id)); ?>"><?php echo e($transaction->container_id); ?></a>
 
                                      <?php endif; ?>
                                  </th>
                                  <th class="text-center "><?php echo e(money_format("%i",$transaction->amount )); ?></th>
                                  <th class="text-center ">0</th>
-                                 <th class="text-center "><?php echo e(money_format("%i",$total_balance)); ?></th>
+                                 <?php if($account->type=='debit'): ?>
+                                     <?php if($total_balance<0): ?>
+                                         <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
+                                         <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
+                                     <?php else: ?>
+                                         <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
+                                         <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
+                                     <?php endif; ?>
+                                 <?php else: ?>
+
+                                     <?php if($total_balance<0): ?>
+                                         <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
+                                         <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
+                                     <?php else: ?>
+                                         <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
+                                         <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
+
+                                     <?php endif; ?>
+
+                                 <?php endif; ?>
 
                              </tr>
                         <?php endif; ?>
@@ -128,7 +178,26 @@
                                 $transaction->id)); ?>"><?php echo e($transaction->locale_name); ?></a></th>
                              <th class="text-center "><?php echo e(money_format("%i",$transaction->debit )); ?></th>
                              <th class="text-center "><?php echo e(money_format("%i",$transaction->credit )); ?></th>
-                             <th class="text-center "><?php echo e(money_format("%i",$total_balance)); ?></th>
+                             <?php if($account->type=='debit'): ?>
+                                 <?php if($total_balance<0): ?>
+                                     <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
+                                     <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
+                                 <?php else: ?>
+                                     <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
+                                     <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
+                                 <?php endif; ?>
+                             <?php else: ?>
+
+                                 <?php if($total_balance<0): ?>
+                                     <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
+                                     <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
+                                 <?php else: ?>
+                                     <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
+                                     <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
+
+                                 <?php endif; ?>
+
+                             <?php endif; ?>
 
                          </tr>
 

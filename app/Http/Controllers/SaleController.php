@@ -3,10 +3,12 @@
 	namespace App\Http\Controllers;
 	
 	use App\Account;
+	use App\Http\Requests\CreateQuotationRequest;
 	use App\Http\Requests\CreateReturnSaleRequest;
 	use App\Http\Requests\CreateSalesInvoiceRequest;
 	use App\Item;
 	use App\SaleInvoice;
+	use App\Scopes\QuotationScope;
 	use App\User;
 	use Carbon\Carbon;
 	use Illuminate\Http\Request;
@@ -117,25 +119,34 @@
 			return view('sales.edit',compact('sale','invoice','items','gateways','expenses'));
 		}
 		
-		public function clone(SaleInvoice $invoice)
+		public function clone($invoice_id)
 		{
+			$invoice = SaleInvoice::withoutGlobalScope(QuotationScope::class)->findOrFail($invoice_id);
+			
 			
 			$data['subinvoice'] = $invoice;
 			$data['invoice'] = $invoice->invoice;
-//			$data['items'] = $invoice->invoice()->items;
+			$items = $invoice->invoice->items;
 			
-			return $data;
+			$salesmen = User::where('is_manager',true)->get()->toArray();
+			$clients = User::where('is_client',true)->get()->toArray();
+			
+			$expenses = Item::where('is_expense',true)->get();
+			
+			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())->get();
+			
+			
+			
+			return view('sales.create',compact('clients','salesmen','gateways','expenses','items'));
+			
+			
+//			return view('sales.create',compact('items'));
 		}
 		
 		public function update(CreateReturnSaleRequest $request,SaleInvoice $sale)
 		{
 			return $request->save($sale);
 			
-		}
-		
-		public function destroy(SaleInvoice $sale)
-		{
-		
 		}
 		
 		public function unpaid(User $user)
@@ -153,6 +164,48 @@
 			return SaleInvoice::with('invoice.creator','client')->whereHas('invoice',function ($query){
 				return $query->whereIn('current_status',['credit']);
 			})->get();
+		}
+		
+		public function quotations()
+		{
+			$sales = SaleInvoice::withoutGlobalScope(QuotationScope::class)->where('invoice_type','quotation')->with
+			('invoice')->orderBy
+			('id','desc')
+				->paginate(20);
+//			return $sales;
+			return view('sales.quotations',compact('sales'));
+			
+		}
+		
+		public function quotation_create()
+		{
+			$salesmen = User::where('is_manager',true)->get()->toArray();
+			$clients = User::where('is_client',true)->get()->toArray();
+			
+			
+			return view('sales.quotation_create',compact('salesmen','clients'));
+			
+		}
+		
+		public function view_quotation($quotation_id)
+		{
+			$sale = SaleInvoice::withoutGlobalScope(QuotationScope::class)->findOrFail($quotation_id);
+//			return $sale;
+			$transactions = $sale->invoice->transactions()->where('description','!=','client_balance')->get();
+			
+			
+			return view('sales.quotation_show',compact('sale','transactions'));
+			
+		}
+		
+		public function quotation_store(CreateQuotationRequest $request)
+		{
+			
+			
+			return $request->save();
+			
+			
+			//
 		}
 		
 	}

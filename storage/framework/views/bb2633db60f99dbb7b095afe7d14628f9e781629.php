@@ -15,11 +15,18 @@
             <table class="table table-bordered text-center">
                 <thead>
                 <tr>
-                    <th class="text-center "> #</th>
-                    <th class="text-center ">الرقم</th>
-                    <th class="text-center ">المدين</th>
+                    <th class="text-center "></th>
+                    <th class="text-center "></th>
+                    <th class="text-center " colspan="2">المجاميع</th>
+                    <th class="text-center " colspan="2">الرصيد</th>
+                </tr>
+                <tr>
+                    <th class="text-center ">التاريخ والوقت</th>
+                    <th class="text-center ">رقم</th>
+                    <th class="text-center ">مدين</th>
                     <th class="text-center ">دائن</th>
-                    <th class="text-center ">الرصيد</th>
+                    <th class="text-center ">مدين</th>
+                    <th class="text-center ">دائن</th>
                 </tr>
                 </thead>
 
@@ -39,9 +46,10 @@
                             <th class="text-center "><a
                                         href="<?php echo e(route('management.accounts.vendor',[ $user['id'],$account->id] )); ?>"><?php echo e($user['name']); ?></a></th>
                         <?php endif; ?>
-                        <th class="text-center "><?php echo e($user['id']); ?></th>
-                        <th class="text-center "><?php echo e($user['id']); ?></th>
-                        <th class="text-center "><?php echo e($user['id']); ?></th>
+                        <th class="text-center "><?php echo e(money_format("%i",$user['total_debit'])); ?></th>
+                        <th class="text-center "><?php echo e(money_format("%i",$user['total_credit'])); ?></th>
+                        <th class="text-center "><?php echo e(money_format("%i",$user['balance_debit'])); ?></th>
+                        <th class="text-center "><?php echo e(money_format("%i",$user['balance_credit'])); ?></th>
                     </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>

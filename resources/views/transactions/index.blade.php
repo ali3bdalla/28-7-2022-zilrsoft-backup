@@ -48,51 +48,75 @@
 
                 @foreach($transactions as $transaction)
                     <tbody>
-                    @foreach($transaction->transactions as $index => $real_transaction)
-                        <tr style="border:none">
-                            @if($real_transaction['debitable_type']!="")
-                                <th></th>
-                                <th>{{ $real_transaction['amount'] }}</th>
-                                <th>{{ $real_transaction->debitable->locale_name }} </th>
 
-                            @else
-                                <th>{{ $real_transaction['amount'] }}</th>
-                                <th></th>
-                                <th>{{ $real_transaction->creditable->locale_name }} </th>
-                            @endif
+                    @if($transaction['invoice_id']>=1 && !empty($transaction->invoice))
+
+                        @if(!empty($transaction->invoice->sale))
+
+                        @elseif(!empty($transaction->invoice->purchase))
 
 
-                            @if($index==0)
 
-                                <th width="20%" style="vertical-align: inherit;" rowspan="{{ count
+
+                        @endif
+
+                    @else
+
+                        @foreach($transaction->transactions as $index => $real_transaction)
+                            <tr style="border:none">
+
+
+                                @if($real_transaction['debitable_type']!="")
+                                    <th></th>
+                                    <th>{{ $real_transaction['amount'] }}</th>
+                                    <th>{{ $real_transaction->debitable->locale_name }} </th>
+
+                                @else
+                                    <th>{{ $real_transaction['amount'] }}</th>
+                                    <th></th>
+                                    <th>{{ $real_transaction->creditable->locale_name }} </th>
+                                @endif
+
+
+                                @if($index==0)
+
+                                    <th width="20%" style="vertical-align: inherit;" rowspan="{{ count
                                 ($transaction->transactions) }}"> {{
                                 $transaction['description']
                             }}</th>
-                                <th width="10%" style="vertical-align: inherit;"
-                                    rowspan="{{ count($transaction->transactions) }}">{{
-                                $transaction['id'] }}</th>
-                                <th width="15%" style="vertical-align: inherit;"  class="datedirection" rowspan="{{
+                                    <th width="10%" style="vertical-align: inherit;"
+                                        rowspan="{{ count($transaction->transactions) }}"><a href="{{ route('management.transactions.show',$transaction->id)
+                                    }}">{{
+                                $transaction['id'] }}</a></th>
+                                    <th width="15%" style="vertical-align: inherit;" class="datedirection" rowspan="{{
                                 count
                                 ($transaction->transactions) }}">{{
                                 $transaction['created_at'] }}</th>
-                            @endif
+                                @endif
+                            </tr>
+                        @endforeach
+
+
+                        <tr>
+                            <th>{{ $transaction['amount'] }}</th>
+                            <th>{{ $transaction['amount'] }}</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+
                         </tr>
-                    @endforeach
-
-
-                    <tr>
-                        <th>{{ $transaction['amount'] }}</th>
-                        <th>{{ $transaction['amount'] }}</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-
-                    </tr>
                     </tbody>
+
+                    @endif
+
+
                 @endforeach
 
 
             </table>
+
+
+            {{$transactions->links()}}
         @endif
     </div>
 

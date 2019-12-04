@@ -1,5 +1,5 @@
 
-INSERT INTO `country_banks` (`id`, `name`, `ar_name`,`country_id`) VALUES
+INSERT INTO `banks` (`id`, `name`, `ar_name`,`country_id`) VALUES
 (NULL , 'Al Rajhi Bank', 'مصرف الراجحي',1),
 (NULL, 'alinma bank', 'مصرف الإنماء',1),
 (NULL, 'Samba Financial Group (Samba)', 'مجموعة سامبا المالية (سامبا)',1),

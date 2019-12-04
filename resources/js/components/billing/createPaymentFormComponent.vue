@@ -5,7 +5,13 @@
         <div class="box">
             <h5>{{translator.amount}} : {{ total_paid_amount}}</h5>
         </div>
-
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div class="columns">-->
+        <!--            <div class="column">-->
+        <!--                &lt;!&ndash;                <div class="text-center " v-show="error!=''">{{ error }}</div>&ndash;&gt;-->
+        <!--            </div>-->
+        <!--        </div>-->
         <div class="box">
 
             <div class="columns">

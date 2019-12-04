@@ -48,24 +48,25 @@
                     <tr>
                         <th class="text-center "><?php echo e($transaction->created_at); ?></th>
                         <th class="text-center "><?php echo e($transaction->id); ?></th>
-                        <th class="text-center "><a href="<?php echo e(route('management.sales.show',
+                        <th class="text-center "><a href="<?php echo e(route('management.purchases.show',
                         $transaction->invoice->purchase->id)); ?>"><?php echo e($transaction->invoice->title); ?></a></th>
                         <?php if($transaction['creditable_type']==""): ?>
 
-						<?php $balance = $balance - $transaction['amount'];?>
+		                    <?php $balance = $balance +  $transaction['amount'];?>
+                            <th class="text-center "><?php echo e(money_format("%i",$transaction->amount)); ?></th>
                             <th class="text-center ">0</th>
-                            <th class="text-center "><?php echo e($transaction->amount); ?></th>
+
                         <?php else: ?>
-						<?php $balance = $balance + $transaction['amount'];?>
-                            <th class="text-center "><?php echo e($transaction->amount); ?></th>
+		                    <?php $balance = $balance - $transaction['amount'];?>
                             <th class="text-center ">0</th>
+                            <th class="text-center "><?php echo e(money_format("%i",$transaction->amount)); ?></th>
 
 
                         <?php endif; ?>
                         <th class="text-center ">
                             <?php if($balance>0): ?>
 
-                                <?php echo e(money_format("%i",$balance)); ?>
+                                <?php echo e(money_format("%i",abs($balance))); ?>
 
                             <?php else: ?>
                                 0

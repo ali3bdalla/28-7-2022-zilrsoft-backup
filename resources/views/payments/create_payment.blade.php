@@ -18,20 +18,19 @@
 @section('content')
 
 
-    {{--    {{ $clients }}--}}
+    <create-voucher-form-component
+            payment_type="payment"
+            :accounts='@json($accounts)'
+            :voucher_types='@json($voucher_types)'
+            :users='@json($users)'
+    >
 
-{{--    <div class="box">--}}
-{{--        <div class="card-body">--}}
-            <create-payment-form-component
-                    :organization_gateways='@json($organization_gateways)'
-                    :organization-banks='@json($organization_accounts)'
-                    :country-banks='@json($all_banks)'
-                    :clients='@json($clients)'
-                    :vendors='@json($vendors)'
+    </create-voucher-form-component>
+    {{--    <create-payment-form-component--}}
+    {{--            :accounts='@json($accounts)'--}}
+    {{--            :users='@json($users)'--}}
 
-            ></create-payment-form-component>
-{{--        </div>--}}
-{{--    </div>--}}
+    {{--    ></create-payment-form-component>--}}
 
 
 @stop

@@ -31,9 +31,9 @@ class CreateInvoiceItemsTable extends Migration
             $table->float('total',20,8)->default(0);
             $table->float('subtotal',20,8)->default(0);
 
-            $table->enum("invoice_type",['purchase','sale','r_sale','r_purchase','beginning_inventory'])->nullable();
+            $table->enum("invoice_type",['purchase','sale','r_sale','r_purchase','beginning_inventory','quotation'])->nullable();
 
-            $table->enum('type',['new',"return"]);
+            $table->enum('type',['new',"return",'quotation']);
             $table->boolean('belong_to_kit')->default(false);
             $table->integer('parent_kit_id')->default(0);
             $table->boolean('is_kit')->default(false);

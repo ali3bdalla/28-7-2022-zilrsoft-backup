@@ -8,12 +8,19 @@
 	
 	trait AccountAttributes
 	{
-	
+
 //
+		
+		public function getLabelAttribute()
+		{
+			return $this->locale_name;
+		}
+		
 		public function getTotalAttribute()
 		{
 			return 0;//money_format("%i",rand(1,100) * 100)
 		}
+		
 		public function scopeMainOnly($query)
 		{
 			return $query->where('parent_id',0);
@@ -24,7 +31,6 @@
 			return $this->ar_name;
 		}
 		
-		
 		public function getLocaleNameAttribute()
 		{
 			
@@ -34,8 +40,5 @@
 			
 			return $this->name;
 		}
-		
-	
-		
 		
 	}

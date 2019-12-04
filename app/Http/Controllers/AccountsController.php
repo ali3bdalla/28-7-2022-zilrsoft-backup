@@ -4,12 +4,9 @@
 	
 	use App\Account;
 	use App\Http\Controllers\ControllersHelper\AccountGeneralHelper;
-	use App\Http\Controllers\ControllersHelper\ChartControllerClientsHelper;
-	use App\Http\Controllers\ControllersHelper\ChartControllerStockHelper;
 	use App\Http\Requests\CreateAccountRequest;
 	use App\Http\Requests\UpdateAccountRequest;
 	use App\Item;
-	use App\Transaction;
 	use App\User;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
@@ -17,7 +14,7 @@
 	class AccountsController extends Controller
 	{
 		
-		use AccountGeneralHelper,ChartControllerStockHelper,ChartControllerClientsHelper;
+		use AccountGeneralHelper;
 		
 		/**
 		 * Display a listing of the resource.
@@ -90,11 +87,20 @@
 		{
 			
 			if ($account->slug == 'clients'){
-				$users = User::where('is_client',true)->get();
+//				$users = User::where('is_client',true)->get();
+				$users = $this->get_users_transactions('client_balance');
+//				return  $users;
 				return view('accounts.users',compact('users','account'));
 			}else if ($account->slug == 'vendors'){
-				$users = User::where('is_vendor',true)->get();
+//				$users = User::where('is_vendor',true)->get();
+				$users = $this->get_users_transactions('vendor_balance');
+//				return  $users;
 				return view('accounts.users',compact('users','account'));
+			}else if ($account->slug == 'stock'){
+				$items = $this->get_account_stock_item_transactions();
+				$items = $items['items'];
+				return view('accounts.items',compact('items','account'));
+				
 			}
 			
 			
@@ -160,13 +166,14 @@
 			//
 		}
 		
-		public function item(Item $item,Chart $chart)
+		public function item(Item $item,Account $account)
 		{
 			
+//			return $account;
+
+			 $transactions = $this->load_item_transactions($item,$account);
 			
-			$activities = $this->get_single_item_history_depend_on_current_chart($item,$chart);
-			
-			return view('accounts.single_item_histories',compact('item','activities','chart'));
+			return view('accounts.item',compact('item','transactions','account'));
 			//
 		}
 		
@@ -198,5 +205,6 @@
 			return view('accounts.vendor',compact('vendor','transactions','account'));
 			
 		}
+		
 	}
 	

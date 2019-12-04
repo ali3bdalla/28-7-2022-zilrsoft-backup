@@ -17,10 +17,11 @@
 				$table->bigIncrements('id');
 				$table->integer('organization_id');
 				$table->integer('creator_id');
-				$table->integer('chart_id');
-				$table->integer('user_id')->nullable();
+				$table->integer('user_id');
+				$table->integer('user_account_id')->nullable();
 				$table->integer('paymentable_id')->nullable();
 				$table->string('paymentable_type')->nullable();
+				$table->string('slug')->nullable();
 				
 				$table->float("amount",20,8)->default(0);
 				$table->string('amount_ar_words')->nullable();

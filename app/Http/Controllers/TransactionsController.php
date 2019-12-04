@@ -5,15 +5,15 @@
 	use App\Account;
 	use App\Http\Requests\CreateTransactionRequest;
 	use App\TransactionsContainer;
-	use Illuminate\Http\Request;
 	
 	class TransactionsController extends Controller
 	{
 		
 		public function index()
 		{
-			$transactions = TransactionsContainer::all();
+			$transactions = TransactionsContainer::paginate(20);
 			
+//			return $transactions[0]->transactions()->with('creditable','debitable')->get();
 			return view('transactions.index',compact('transactions'));
 		}
 		
@@ -27,6 +27,12 @@
 		{
 			return $request->save();
 			
+		}
+		
+		public function show(TransactionsContainer $transaction)
+		{
+			$transactions = TransactionsContainer::where('id',$transaction->id)->paginate(10);
+			return view('transactions.index',compact('transactions'));
 		}
 		//
 	}

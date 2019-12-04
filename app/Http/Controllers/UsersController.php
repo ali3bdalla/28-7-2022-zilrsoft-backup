@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers;
 	
 	use App\Account;
+	use App\Bank;
 	use App\Branch;
 	use App\CountryBank;
 	use App\Gateway;
@@ -39,7 +40,8 @@
 			
 			$branchs = Branch::with('departments')->get();
 			$gateways = Account::where('is_gateway',true)->get();
-			return view('users.create',compact('branchs','gateways'));
+			$banks = Bank::all();
+			return view('users.create',compact('branchs','gateways','banks'));
 		}
 		
 		/**

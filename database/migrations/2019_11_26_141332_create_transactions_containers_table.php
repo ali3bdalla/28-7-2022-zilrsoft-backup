@@ -16,6 +16,7 @@
 			Schema::create('transactions_containers',function (Blueprint $table){
 				$table->bigIncrements('id');
 				$table->integer('creator_id');
+				$table->integer('invoice_id')->default(0);
 				$table->integer('organization_id');
 				$table->float('amount',20,8);
 				$table->string('description')->nullable();

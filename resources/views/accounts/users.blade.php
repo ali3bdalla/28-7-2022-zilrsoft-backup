@@ -18,11 +18,18 @@
             <table class="table table-bordered text-center">
                 <thead>
                 <tr>
-                    <th class="text-center "> #</th>
-                    <th class="text-center ">الرقم</th>
-                    <th class="text-center ">المدين</th>
+                    <th class="text-center "></th>
+                    <th class="text-center "></th>
+                    <th class="text-center " colspan="2">المجاميع</th>
+                    <th class="text-center " colspan="2">الرصيد</th>
+                </tr>
+                <tr>
+                    <th class="text-center ">التاريخ والوقت</th>
+                    <th class="text-center ">رقم</th>
+                    <th class="text-center ">مدين</th>
                     <th class="text-center ">دائن</th>
-                    <th class="text-center ">الرصيد</th>
+                    <th class="text-center ">مدين</th>
+                    <th class="text-center ">دائن</th>
                 </tr>
                 </thead>
 
@@ -44,9 +51,10 @@
                                         href="{{ route('management.accounts.vendor',[ $user['id'],$account->id] ) }}">{{
                         $user['name'] }}</a></th>
                         @endif
-                        <th class="text-center ">{{ $user['id'] }}</th>
-                        <th class="text-center ">{{ $user['id'] }}</th>
-                        <th class="text-center ">{{ $user['id'] }}</th>
+                        <th class="text-center ">{{ money_format("%i",$user['total_debit']) }}</th>
+                        <th class="text-center ">{{ money_format("%i",$user['total_credit']) }}</th>
+                        <th class="text-center ">{{ money_format("%i",$user['balance_debit']) }}</th>
+                        <th class="text-center ">{{ money_format("%i",$user['balance_credit']) }}</th>
                     </tr>
                 @endforeach
                 </tbody>

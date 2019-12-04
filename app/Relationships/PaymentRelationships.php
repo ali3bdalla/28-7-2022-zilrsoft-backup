@@ -3,14 +3,13 @@
 	namespace App\Relationships;
 	
 	
-	use App\Account;
 	use App\CountryBank;
 	use App\Gateway;
 	use App\GatewayAccounts;
 	use App\Invoice;
-	use App\InvoicePayments;
 	use App\Manager;
 	use App\User;
+	use App\UserGateways;
 	
 	/**
 	 * Trait PaymentRelationships
@@ -19,27 +18,17 @@
 	 */
 	trait PaymentRelationships
 	{
-		
-		
-		
-		
-//		public function invoices()
-//		{
-//
-////			dd($this->paymentable->payments);
-//			return $this->paymentable->payments;
-////			return $this->hasMany(InvoicePayments::class,'payment_id');
-//		}
+
 //
 		public function is_paid_for_all_invoice()
 		{
 		
 		}
+		
 		public function user()
 		{
 			return $this->belongsTo(User::class,'user_id');
 		}
-		
 		
 		public function invoice()
 		{
@@ -56,32 +45,9 @@
 			return $this->belongsTo(Gateway::class,'gateway_id');
 		}
 		
-		
-		public function bank()
+		public function user_gateway()
 		{
-			return $this->belongsTo(CountryBank::class,'bank_id');
+			return $this->belongsTo(UserGateways::class,'user_account_id');
 		}
-		
-		
-		
-		public function organization_account()
-		{
-			return $this->belongsTo(GatewayAccounts::class,'organization_account_id');
-		}
-		
-		public function account()
-		{
-			return $this->belongsTo(Account::class,'chart_id');
-		}
-
-		public function user_account()
-		{
-			return $this->belongsTo(GatewayAccounts::class,'user_account_id');
-		}
-		
-//		public function user_method()
-//		{
-//			return $this->belongsTo(Gateway::class,'user_method_id');
-//		}
 		
 	}

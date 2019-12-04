@@ -226,7 +226,7 @@
                                             <div class="form-group">
                                                 <div class="input-group"><span id="1" class="input-group-addon"
                                                                                style="min-width: 130px; font-weight: bolder;
-">{{$payment->account->locale_name}} &nbsp;&nbsp; ( <a target="_blank" href="{{ route('management.payments.show',
+">{{$payment->paymentable->locale_name}} &nbsp;&nbsp; ( <a target="_blank" href="{{ route('management.payments.show',
 $payment->id)
 }}">عرض السند</a> )</span>
                                                     <input aria-describedby="1" disabled="disabled" type="text"

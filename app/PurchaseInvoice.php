@@ -10,11 +10,9 @@
 	class PurchaseInvoice extends Model
 	{
 		
-		
 		use PurchaseInvoiceRelationships,PurchaseInvoiceHelper;
 		
 		protected $guarded = [];
-		
 		
 		protected static function boot()
 		{

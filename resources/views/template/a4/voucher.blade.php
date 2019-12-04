@@ -205,23 +205,23 @@
             <div class="col-md-6">
 
 
-{{--                @if($payment->paymentable_type=='App\Invoice')--}}
-{{--                    @if( count($payment->paymentable->payments) >=2)--}}
-{{--                        <h5>{{__('pages/payments.payment_reason') }}  {{ __('pages/payments.payment_reason_2') }}--}}
-{{--                            ({{$payment->description }})--}}
-{{--                        </h5>--}}
+                {{--                @if($payment->paymentable_type=='App\Invoice')--}}
+                {{--                    @if( count($payment->paymentable->payments) >=2)--}}
+                {{--                        <h5>{{__('pages/payments.payment_reason') }}  {{ __('pages/payments.payment_reason_2') }}--}}
+                {{--                            ({{$payment->description }})--}}
+                {{--                        </h5>--}}
 
 
-{{--                    @else--}}
+                {{--                    @else--}}
 
-{{--                        <h5>{{__('pages/payments.payment_reason')}}  {{__('pages/payments.payment_reason_' .$payment->is_belongs_to_invoice)}}--}}
-{{--                            ({{$payment->description }})--}}
-{{--                        </h5>--}}
-{{--                    @endif--}}
-{{--                @else--}}
-{{--                    {{__('pages/payments.payment_reason')}}  {{__('pages/payments.payment_reason_' .--}}
-{{--                    $payment->paymentable_type=='App\Invoice')}}--}}
-{{--                @endif--}}
+                {{--                        <h5>{{__('pages/payments.payment_reason')}}  {{__('pages/payments.payment_reason_' .$payment->is_belongs_to_invoice)}}--}}
+                {{--                            ({{$payment->description }})--}}
+                {{--                        </h5>--}}
+                {{--                    @endif--}}
+                {{--                @else--}}
+                {{--                    {{__('pages/payments.payment_reason')}}  {{__('pages/payments.payment_reason_' .--}}
+                {{--                    $payment->paymentable_type=='App\Invoice')}}--}}
+                {{--                @endif--}}
             </div>
         </div>
         {{--        @if($payment->is_belongs_to_invoice==1)--}}
@@ -239,246 +239,56 @@
 
 
         <div class="row">
-            <div class="col-md-6">
-            </div>
-            <div class="col-md-6">
-                <h5>{{__('pages/payments.paid_by_' . $payment->payment_type)}} : {{ $payment->account->locale_name
+
+            <div class="col-md-12">
+                <h5>{{__('pages/payments.paid_by_' . $payment->payment_type)}}
+                    : @if($payment->paymentable->parent_id>=1){{
+                                   $payment->paymentable->parent->locale_name
+                                   }} - @endif {{ $payment->paymentable->locale_name
                 }}</h5>
             </div>
         </div>
 
 
-        <br>
-
-
-        @if(in_array($payment->gateway_id,[2]))
-            @if($payment->payment_type=='receipt')
-                <div class="columns">
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white">{{__
-                                            ('pages/payments.user_bank'). ' '.__('pages/payments.transfer_from')}}
-                                            </span>
-                                <input placeholder="{{__
-                                            ('pages/payments.user_bank'). ' '.__('pages/payments.transfer_from')}}"
-                                       disabled
-                                       value="{{ $payment->user_account->bank->name }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white">{{__
-                                            ('pages/payments.account_number')}}
-                                            </span>
-                                <input placeholder="{{__('pages/payments.account_number')}}" disabled
-                                       value="{{ $payment->user_account->account }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
+        @if($payment->slug=='transfer' && $payment->payment_type=='payment')
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>{{__('pages/payments.user_account')}}
+                        : {{ $payment->user_gateway->locale_name }}</h5>
                 </div>
+            </div>
 
-                <br>
-
-
-                <div class="columns">
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white">{{__
-                                            ('pages/payments.organization_bank'). ' '.__('pages/payments.transfer_to')}}
-                                            </span>
-                                <input placeholder="{{__
-                                            ('pages/payments.organization_bank'). ' '.__('pages/payments.transfer_to')}}"
-                                       disabled
-                                       value="{{ $payment->organization_account->bank->name }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white">{{__
-                                            ('pages/payments.account_number')}}
-                                            </span>
-                                <input placeholder="{{__('pages/payments.account_number')}}" disabled
-                                       value="{{ $payment->organization_account->account}}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-            @else
-
-
-                <div class="columns">
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white">{{__
-                                            ('pages/payments.organization_bank'). ' '.__('pages/payments.transfer_from')}}
-                                            </span>
-                                <input placeholder="{{__
-                                            ('pages/payments.organization_bank'). ' '.__('pages/payments.transfer_from')}}"
-                                       disabled
-                                       value="{{ $payment->organization_account->bank->name }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white">{{__
-                                            ('pages/payments.account_number')}}
-                                            </span>
-                                <input placeholder="{{__('pages/payments.account_number')}}" disabled
-                                       value="{{ $payment->organization_account->account}}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-
-
-
-                <div class="columns">
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white">{{__
-                                            ('pages/payments.user_bank'). ' '.__('pages/payments.transfer_to')}}
-                                            </span>
-                                <input placeholder="{{__
-                                            ('pages/payments.user_bank'). ' '.__('pages/payments.transfer_to')}}"
-                                       disabled
-                                       value="{{ $payment->user_account->bank->name }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="filter_area">
-                            <div class="input-group">
-                                            <span class="input-group-addon has-background-primary has-text-white">{{__
-                                            ('pages/payments.account_number')}}
-                                            </span>
-                                <input placeholder="{{__('pages/payments.account_number')}}" disabled
-                                       value="{{ $payment->user_account->account }}"
-                                       type="text" class="form-control">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-
-
-
-
-
-
-
-
-
-            @endif
 
         @endif
 
-        @if(in_array($payment->gateway_id,[5]))
-            <div class="column">
-                <div class="filter_area">
-                    <div class="input-group">
-                                    <span class="input-group-addon has-background-primary has-text-white">{{__('pages/payments.bank')}}
-                                    </span>
-                        <input placeholder="{{__('pages/payments.bank')}}" disabled
-                               value="{{ $payment->bank->name }}"
-                               type="text" class="form-control">
-                    </div>
-
+        @if($payment->description!='')
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>{{__('pages/payments.payment_description')}}
+                        : {{ $payment->description }}</h5>
                 </div>
             </div>
-    </div>
-    <div class="columns">
-        @endif
 
-        @if(in_array($payment->gateway_id,[4,5]))
-            <div class="column">
-                <div class="filter_area">
-                    <div class="input-group">
-                                <span class="input-group-addon has-background-primary has-text-white">{{__('pages/payments.reference_number')}}
-                                </span>
-                        <input placeholder="{{__('pages/payments.reference_number')}}" disabled
-                               value="{{ $payment->account }}"
-                               type="text" class="form-control">
-                    </div>
-
-                </div>
-            </div>
 
         @endif
 
     </div>
-
-    @if(in_array($payment->gateway_id,[6]))
-        <div class="columns">
-            <div class="column">
-                <div class="filter_area">
-                    <div class="input-group">
-                                    <span class="input-group-addon has-background-primary has-text-white">{{__
-                                    ('pages/payments.email')}}
-                                    </span>
-                        <input placeholder="{{__('pages/payments.email')}}" disabled
-                               value="{{ $payment->account }}"
-                               type="text" class="form-control">
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="column">
-                <div class="filter_area">
-                    <div class="input-group">
-                                    <span class="input-group-addon has-background-primary has-text-white">{{__
-                                    ('pages/payments.reference_number')}}
-                                    </span>
-                        <input placeholder="{{__('pages/payments.reference_number')}}" disabled
-                               value="{{ $payment->account_name }}"
-                               type="text" class="form-control">
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    @endif
 
 
 </div>
 
 <footer>
     <div class="">
-
-        <div class="row">
-        </div>
         <div class="end"> {{ auth()->user()->organization->title }}</div>
+        <div class="text-center">
+            <div class="col-xs-12">
+                <div class="text-center">
+                <span class="header_title total_header">{{ auth()->user()->organization->city_ar  }} - {{
+                auth()->user()->organization->address_ar }}</span>
+                </div>
+            </div>
+        </div>
+
         <div class="text-center"> {{ auth()->user()->organization->vat }}</div>
     </div>
 </footer>
@@ -490,5 +300,5 @@
 
 
 <script>
-    // print();
+    print();
 </script>

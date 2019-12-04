@@ -1,9 +1,7 @@
-import bootstrap from './bootstrap';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import VuejsDialog from 'vuejs-dialog';
-import VuejsDialogMixin from 'vuejs-dialog/dist/vuejs-dialog-mixin.min.js'; // only needed in custom components
 import ToggleButton from 'vue-js-toggle-button'
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -12,40 +10,6 @@ import draggable from 'vuedraggable'
 import VModal from 'vue-js-modal'
 import CxltToastr from 'cxlt-vue2-toastr'
 import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css'
-
-
-
-
-
-var config = require('../js/config');
-
-window.Vue = Vue;
-
-
-
-
-// import VueTable from './components/enso/vuedatatable/VueTable.vue';
-
-
-
-
-
-Vue.use(Vuetify);
-Vue.use(VModal);
-Vue.use(CxltToastr,
-    {
-        position: 'top right',
-        showDuration: 2000
-    });
-Vue.use(draggable);
-Vue.use(VuejsDialog);
-// Vue.use(AgGridVue);
-Vue.use(Loading);
-Vue.use(ToggleButton);
-
-
-
-
 // components including
 import categoriesList from './components/categories/ListComponent';
 import chartOfAccountsComponent from './components/accounts/chartOfAccountsComponent';
@@ -61,6 +25,7 @@ import viewItemComponent from './components/items/viewItemComponent';
 import newItemFormComponent from './components/items/newItemFormComponent';
 import itemTableListComponent from './components/items/itemTableListComponent.vue';
 import createSaleFormComponent from './components/sales/createFormComponent';
+import createQuotationFormComponent from './components/sales/createQuotationFormComponent';
 import createPurchaseFormComponent from './components/purchases/createFormComponent';
 import createPurchaseFormComponent2 from './components/purchases/createFormComponent2';
 import editPurchaseFormComponent from './components/purchases/editFormComponent';
@@ -88,32 +53,27 @@ import liveServerDateAndTime from './components/liveServerDateAndTime.vue';
 import UserGatewaysComponent from './components/users/userGatewaysComponent'
 
 
-
-import ItemSerialComponent from  './components/invoice/itemSerialListComponent';
-import invoicePrintPageComponent from  './components/invoice/printTemplateComponent';
-import createBeginningInventoryComponent from  './components/inventories/createBeginningInventoryComponent';
-import updateBeginningInventoryComponent from  './components/inventories/updateBeginningInventoryComponent';
-import itemMovementHistoryComponent from  './components/items/itemMovementHistoryComponent';
-import mulitSelectComponent from  './components/mulitSelectComponent.vue';
-import addNewPaymentAccountComponent from  './components/settings/addNewPaymentAccountComponent';
-import customSelectComponent from  './components/customSelectComponent';
-import customBillingInvoicesComponent from  './components/billing/customBillingInvoicesComponent.vue';
-
+import ItemSerialComponent from './components/invoice/itemSerialListComponent';
+import invoicePrintPageComponent from './components/invoice/printTemplateComponent';
+import createBeginningInventoryComponent from './components/inventories/createBeginningInventoryComponent';
+import updateBeginningInventoryComponent from './components/inventories/updateBeginningInventoryComponent';
+import itemMovementHistoryComponent from './components/items/itemMovementHistoryComponent';
+import mulitSelectComponent from './components/mulitSelectComponent.vue';
+import addNewPaymentAccountComponent from './components/settings/addNewPaymentAccountComponent';
+import customSelectComponent from './components/customSelectComponent';
+import customBillingInvoicesComponent from './components/billing/customBillingInvoicesComponent.vue';
 
 
-
-import saleTableComponent from  './components/sales/tableComponent';
-import inventoryTableComponent from  './components/inventories/tableComponent';
-import purchaseTableComponent from  './components/purchases/tableComponent';
-
+import saleTableComponent from './components/sales/tableComponent';
+import inventoryTableComponent from './components/inventories/tableComponent';
+import purchaseTableComponent from './components/purchases/tableComponent';
 
 
-import invoiceA4Component from  './components/print/invoiceA4Component.vue';
+import invoiceA4Component from './components/print/invoiceA4Component.vue';
 import localPrintersComponent from "./components/print/localPrintersComponent.vue";
 import receiptPrinterComponent from "./components/print/receiptPrinterComponent";
 import barcodePrinterComponent from "./components/print/barcodePrinterComponent";
-
-
+import createVoucherFormComponent from "./components/vouchers/createFormComponent.vue";
 
 
 import saleDataTable from './components/datatables/saleTable';
@@ -122,12 +82,37 @@ import ManagerGatewaysComponent from "./components/billing/ManagerGatewaysCompon
 import createTransactionFromComponent from './components/transactions/createTransaction';
 
 
+require('./bootstrap');
+
+
+var config = require('../js/config');
+
+window.Vue = Vue;
+
+
+// import VueTable from './components/enso/vuedatatable/VueTable.vue';
+
+
+Vue.use(Vuetify);
+Vue.use(VModal);
+Vue.use(CxltToastr,
+    {
+        position: 'top right',
+        showDuration: 2000
+    });
+Vue.use(draggable);
+Vue.use(VuejsDialog);
+// Vue.use(AgGridVue);
+Vue.use(Loading);
+Vue.use(ToggleButton);
+
 
 // component
 Vue.component('item-serials-list-component', ItemSerialComponent);
 Vue.component('live-server-date-and-time', liveServerDateAndTime);
 Vue.component('expenses-list-component', ExpensesListComponent);
 Vue.component('user-accounts-component', UserGatewaysComponent);
+Vue.component('create-voucher-form-component', createVoucherFormComponent);
 
 
 Vue.component('item-accounting-cost-history-component', ItemAccountingCostHistoryComponent);
@@ -145,6 +130,7 @@ Vue.component('new-item-form-component', newItemFormComponent);
 Vue.component('view-item-component', viewItemComponent);
 // Vue.component('items-table-component', itemTableCompoent);
 Vue.component('create-sale-form-component', createSaleFormComponent);
+Vue.component('create-quotation-form-component', createQuotationFormComponent);
 Vue.component('create-purchase-form-component', createPurchaseFormComponent);
 Vue.component('create-purchase-form-component2', createPurchaseFormComponent2);
 Vue.component('edit-purchase-form-component', editPurchaseFormComponent);
@@ -176,16 +162,13 @@ Vue.component('custom-date-field-component', customDateFieldComponent);
 Vue.component('kit-items-and-data-component', kitItemAndDataComponent);
 
 
-Vue.component('chart-of-accounts-component',chartOfAccountsComponent);
-Vue.component('manager-gateways-component',ManagerGatewaysComponent);
-
+Vue.component('chart-of-accounts-component', chartOfAccountsComponent);
+Vue.component('manager-gateways-component', ManagerGatewaysComponent);
 
 
 Vue.component('purchase-table-component', purchaseTableComponent);
 Vue.component('sale-table-component', saleTableComponent);
 Vue.component('inventory-table-component', inventoryTableComponent);
-
-
 
 
 Vue.component('invoice-a4-component', invoiceA4Component);

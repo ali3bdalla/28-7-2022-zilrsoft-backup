@@ -231,6 +231,26 @@
 			return 1 + $this->vts / 100;
 		}
 		
+		public function init_quotation_create_invoice_item($invoice_item,$invoice_type,$user_id,$sub_invoice,$expenses)
+		{
+			
+			$qty = $invoice_item['qty']; //  detect qty of the item should be created
+			
+			
+			$accounting_data = $this->get_item_accounting_data_except_price($qty,$invoice_item);
+			$accounting_data['type'] = 'quotation';
+			$accounting_data['cost'] = 0;
+			$accounting_data['price'] = $invoice_item['price'];
+			$accounting_data['invoice_type'] = 'quotation';
+			$accounting_data['user_id'] = $user_id;
+			
+			$new_invoice_item = $sub_invoice->invoice->items()->create(collect($accounting_data)->toArray());
+			
+			return $this;
+		}
+		
+		
+		
 		public function get_item_purchase_tax_as_value()
 		{
 			return 1 + $this->vtp / 100;

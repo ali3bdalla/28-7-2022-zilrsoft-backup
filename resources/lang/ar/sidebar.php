@@ -7,6 +7,7 @@
 		'pending_items' => 'المنتجات المعلقة',
 		'kits' => 'صنف تجميعي',
 		'categories' => 'الفئات',
+		'quotations' =>'عرض السعر',
 		'filters' => 'الفلاتر',
 		'invoices' => 'الفواتير',
 		'purchases' => 'المشتريات',

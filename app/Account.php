@@ -15,7 +15,8 @@
 		
 		protected $appends = [
 			'locale_name',
-			'total'
+			'total',
+			'label'
 		];
 		
 		protected $casts = [

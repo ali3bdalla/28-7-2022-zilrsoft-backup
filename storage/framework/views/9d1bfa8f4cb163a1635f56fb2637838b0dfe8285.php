@@ -15,20 +15,19 @@
 <?php $__env->startSection('content'); ?>
 
 
+    <create-voucher-form-component
+            payment_type="payment"
+            :accounts='<?php echo json_encode($accounts, 15, 512) ?>'
+            :voucher_types='<?php echo json_encode($voucher_types, 15, 512) ?>'
+            :users='<?php echo json_encode($users, 15, 512) ?>'
+    >
+
+    </create-voucher-form-component>
+    
+    
     
 
-
-
-            <create-payment-form-component
-                    :organization_gateways='<?php echo json_encode($organization_gateways, 15, 512) ?>'
-                    :organization-banks='<?php echo json_encode($organization_accounts, 15, 512) ?>'
-                    :country-banks='<?php echo json_encode($all_banks, 15, 512) ?>'
-                    :clients='<?php echo json_encode($clients, 15, 512) ?>'
-                    :vendors='<?php echo json_encode($vendors, 15, 512) ?>'
-
-            ></create-payment-form-component>
-
-
+    
 
 
 <?php $__env->stopSection(); ?>

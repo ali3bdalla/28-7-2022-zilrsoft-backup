@@ -84,7 +84,7 @@
                         <td>{{$payment->creator->name}} </td>
 
                         <td>{{$payment->amount}}</td>
-                        <td>{{$payment->account->locale_name}}</td>
+                        <td>{{$payment->paymentable->locale_name}}</td>
                         <td>
 
 

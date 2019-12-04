@@ -2,11 +2,12 @@
 	
 	namespace App\Http\Controllers;
 	
-	use App\CountryBank;
-	use App\Http\Requests\CreatePaymentRequest;
+	use App\Account;
 	use App\Http\Requests\CreateReceiptRequest;
+	use App\Http\Requests\CreateVoucherRequest;
 	use App\Payment;
 	use App\User;
+	use Illuminate\Http\Request;
 	
 	class PaymentController extends Controller
 	{
@@ -41,78 +42,60 @@
 		
 		public function create_receipt()
 		{
-			$organization_accounts = [];
-			$organization_gateways = auth()->user()->organization->gateways()->where('gateways.id','!=',7)->with('fields')->get();
-			$source_organization_accounts = auth()->user()->organization->accounts()->where('gateway_id',2)->get()->groupBy('bank_id');
-			if (!empty($source_organization_accounts)){
-				foreach ($source_organization_accounts as $index => $accounts){
-					$bank = CountryBank::find($index);
-					$bank->organization_accounts = $accounts;
-					$organization_accounts[] = $bank;
-					
-				}
-				
-			}
-			$all_banks = CountryBank::all();
-//			return $banks;
-			$clients = [];
-			$vendors = [];
-			$source_client = User::clients()->get();//clients()->
-			if (!empty($source_client)){
-				foreach ($source_client as $client){
-					$banks = [];
-					foreach ($client->accounts()->where('gateway_id',2)->get()->groupBy('bank_id') as $bank_id =>
-					         $accounts){
-						$bank = CountryBank::find($bank_id);
-						$bank->user_accounts = $accounts;
-						$banks[] = $bank;
-					}
-					$client['banks'] = $banks;
-					$clients[] = $client;
-				}
-			}
+			$current_assets_account = auth()->user()->get_active_manager_account_for('current_assets');
 			
-			return view('payments.create_receipt',compact('organization_gateways','all_banks','vendors','clients','organization_accounts'));
+			
+			$accounts = Account::where(
+				[
+					['slug','gateway'],
+					['parent_id',$current_assets_account->id]
+				]
+			)
+				->with(
+					'children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children'
+				)->get();
+			
+			$users = User::where('is_client',true)->with('gateways.bank')->get();
+			
+			
+			$voucher_types = config('global.voucher_types');
+//
+//			return $users
+			return view('payments.create_receipt',compact('accounts','users','voucher_types'));
 			//
+			
 		}
 		
 		public function create_payment()
 		{
 			
-			
-			$organization_accounts = [];
-			$organization_gateways = auth()->user()->organization->gateways()->where('gateways.id','!=',7)->with('fields')->get();
-			$source_organization_accounts = auth()->user()->organization->accounts()->where('gateway_id',2)->get()->groupBy('bank_id');
-			if (!empty($source_organization_accounts)){
-				foreach ($source_organization_accounts as $index => $accounts){
-					$bank = CountryBank::find($index);
-					$bank->organization_accounts = $accounts;
-					$organization_accounts[] = $bank;
-					
-				}
-				
-			}
-			$all_banks = CountryBank::all();
-			$clients = [];
-			$vendors = [];
-			$source_vendors = User::vendors()->get();//clients()->
-			if (!empty($source_vendors)){
-				foreach ($source_vendors as $vendor){
-					$banks = [];
-					foreach ($vendor->accounts()->where('gateway_id',2)->get()->groupBy('bank_id') as $bank_id =>
-					         $accounts){
-						$bank = CountryBank::find($bank_id);
-						$bank->user_accounts = $accounts;
-						$banks[] = $bank;
-					}
-					$vendor['banks'] = $banks;
-					$vendors[] = $vendor;
-				}
-			}
+			$current_assets_account = auth()->user()->get_active_manager_account_for('current_assets');
 			
 			
-			return view('payments.create_payment',compact('organization_gateways','all_banks','vendors','clients','organization_accounts'));
+			$accounts = Account::where(
+				[
+					['slug','gateway'],
+					['parent_id',$current_assets_account->id]
+				]
+			)
+				->with(
+					'children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children'
+				)->get();
+			
+			$users = User::where('is_vendor',true)->with('gateways.bank')->get();
+			
+			
+			$voucher_types = config('global.voucher_types');
+//
+//			return $users
+			return view('payments.create_payment',compact('accounts','users','voucher_types'));
 			//
+		}
+		
+		public function store(CreateVoucherRequest $request)
+		{
+			
+			return $request->save();
 		}
 		
 		public function store_receipt(CreateReceiptRequest $request)
@@ -120,9 +103,9 @@
 			return $request->save();
 		}
 		
-		public function store_payment(CreatePaymentRequest $request)
-		{
-			return $request->save();
-		}
+//		public function store_payment(CreatePaymentRequest $request)
+//		{
+//			return $request->save();
+//		}
 		
 	}

@@ -2,8 +2,8 @@
 
 
 @section('title',__('pages/payments.create_receipt'))
-@section('desctipion',__('pages/payments.create'))
 @section('route',route('management.payments.index'))
+
 
 
 @section('translator')
@@ -12,22 +12,24 @@
     </script>
 @stop
 
+
+
 @section('content')
 
 
-    {{--    {{ $clients }}--}}
+    <create-voucher-form-component
+            payment_type="receipt"
+            :accounts='@json($accounts)'
+            :voucher_types='@json($voucher_types)'
+            :users='@json($users)'
+    >
 
-{{--    <div class="box">--}}
-{{--        <div class="card-body">--}}
-            <create-receipt-form-component1
-                    :organization_gateways='@json($organization_gateways)'
-                    :organization-banks='@json($organization_accounts)'
-                    :country-banks='@json($all_banks)'
-                    :clients='@json($clients)'
-                    :vendors='@json($vendors)
-                '></create-receipt-form-component1>
-{{--        </div>--}}
-{{--    </div>--}}
+    </create-voucher-form-component>
+    {{--    <create-payment-form-component--}}
+    {{--            :accounts='@json($accounts)'--}}
+    {{--            :users='@json($users)'--}}
+
+    {{--    ></create-payment-form-component>--}}
 
 
 @stop
