@@ -1,0 +1,1 @@
+<?php /**PATH /home/vagrant/code/zilrsoft/resources/views/transactions/sale_invoice.blade.php ENDPATH**/ ?>

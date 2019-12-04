@@ -1,0 +1,10 @@
+[2019-12-01 13:27:36] development.ERROR: There are no commands defined in the "test" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"test\" namespace. at /Users/learning/Desktop/code/zilrsoft/vendor/symfony/console/Application.php:583)
+[stacktrace]
+#0 /Users/learning/Desktop/code/zilrsoft/vendor/symfony/console/Application.php(632): Symfony\\Component\\Console\\Application->findNamespace('test')
+#1 /Users/learning/Desktop/code/zilrsoft/vendor/symfony/console/Application.php(236): Symfony\\Component\\Console\\Application->find('test:PaymentTes...')
+#2 /Users/learning/Desktop/code/zilrsoft/vendor/symfony/console/Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Users/learning/Desktop/code/zilrsoft/vendor/laravel/framework/src/Illuminate/Console/Application.php(90): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Users/learning/Desktop/code/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(131): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 /Users/learning/Desktop/code/zilrsoft/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#6 {main}
+"} 

@@ -83,7 +83,7 @@
 			
 			$response = $this->json('post',route('management.users.store'),$data);
 
-			$response->dump();
+//			$response->dump();
 			$response->assertStatus(201);
 		}
 		
