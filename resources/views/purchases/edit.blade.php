@@ -24,7 +24,7 @@
                 :creator='@json($invoice->creator)'
                 :pitems='@json($items)'
                 :invoice='@json($invoice)'
-                :department='@json($invoice->department)'
+                :department='@json($invoice->department->title)'
                 :purchase='@json($purchase)'>
 
             </edit-purchase-form-component>

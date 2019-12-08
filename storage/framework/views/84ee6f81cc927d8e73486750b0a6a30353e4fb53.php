@@ -96,11 +96,13 @@
                                  <?php else: ?>
 
                                      <?php if($total_balance<0): ?>
-                                         <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
                                          <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
+                                         <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
+
                                      <?php else: ?>
-                                         <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
                                          <th class="text-center "><?php echo e(money_format("%i",abs($total_balance))); ?></th>
+                                         <th class="text-center "><?php echo e(money_format("%i",0)); ?></th>
+
 
                                      <?php endif; ?>
 

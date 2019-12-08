@@ -65,11 +65,14 @@
 
 //				dd(($this->methods));
 				$expenses = [];
-				$invoice_status = $invoice->handle_invoice_transactions($this->methods,$invoice->vendor_id,$data['net'],
+				$invoice_status = $invoice->handle_invoice_transactions($this->methods,
+					$invoice->purchase->vendor_id,
+					$data['net'],
 					$this->items,$expenses,$invoice_type = 'r_purchase');
 
 //				return $expenses;
 				$invoice->update_invoice_creation_status($invoice_status);
+				$invoice->update_invoice_totals_data();
 				
 				
 				DB::commit();
@@ -80,7 +83,7 @@
 			
 			
 		}
-		
+
 //		public function ()
 //		{
 //

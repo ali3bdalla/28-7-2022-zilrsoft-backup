@@ -77,6 +77,7 @@
 			
 		}
 		
+		// create expenses in item
 		public function add_expenses_to_invoice_item($expenses,$widget = 1)
 		{
 			$result = [];
@@ -107,11 +108,18 @@
 		{
 			
 			$target_invoice_type = $this->detect_target_invoice_type();
-			$is_item_need_serial_number = $this->item->is_need_serail;
-			$get_serials_if_need_serails = $is_item_need_serial_number ? $this->detect_returned_serials_list($invoice_data_invoice_item['serials'],$target_invoice_type) : [];
+			$is_item_need_serial_number = $this->item->is_need_serial;
+			
+			$get_serials_if_need_serails = $is_item_need_serial_number ? $this->detect_returned_serials_list
+			($invoice_data_invoice_item['serials'],$target_invoice_type) : [];
+			
+			
+			
 			$get_returned_item_qty = $is_item_need_serial_number ? count($get_serials_if_need_serails) :
 				$invoice_data_invoice_item['returned_qty'];
-			$has_avalilable_qty = $target_invoice_type == 'r_pruchase' ? $this->item->check_if_has_available_qty_can_handle_purchase_return_process($get_returned_item_qty) :
+			$has_avalilable_qty = $target_invoice_type == 'r_purchase' ?
+				$this->item->check_if_has_available_qty_can_handle_purchase_return_process
+				($get_returned_item_qty) :
 				$this->item->check_if_has_available_qty_can_handle_sale_return_process($get_returned_item_qty);
 			if ($has_avalilable_qty){
 				$return_item_data = $this->get_item_return_data($get_returned_item_qty,$target_invoice_type);
@@ -128,12 +136,12 @@
 				
 				$this->update_item_cost_value_after_new_invoice_created();
 //
+				
 				if ($is_item_need_serial_number)
 					$this->item->change_serials_array_status($target_invoice_type,$get_serials_if_need_serails,
 						$sub_invoice);
 
 
-//				dd($new_item->item);
 				
 				$this->update_returned_qty($get_returned_item_qty,$invoice_data_invoice_item['id']);
 				$new_item->make_invoice_transaction($sub_invoice,0);
@@ -151,15 +159,16 @@
 		{
 			$result = [];
 			
+			
 			foreach ($serials as $serial){
 				if ($serial['current_status'] == $target_invoice_type){
-					$fresh_serial = $this->serials()->where('id',$serial['id'])->first();
+					$fresh_serial = $this->item->serials()->where('id',$serial['id'])->first();
 					if ($fresh_serial['current_status'] != $target_invoice_type){
 						$result[] = $serial;
 					}
 				}
 			}
-			
+		
 			
 			return $result;
 			

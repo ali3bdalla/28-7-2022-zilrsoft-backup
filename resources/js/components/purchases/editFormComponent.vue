@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="column pull-right text-left">
-                    <button @click="saveInvoiceButtonClicked" class="button is-primary " :disabled="!show_submit_btn"><i
+                    <button :disabled="!show_submit_btn" @click="saveInvoiceButtonClicked" class="button is-primary "><i
                             class="fa fa-save"></i>&nbsp; {{ translator.save }}
                     </button>
                 </div>
@@ -128,7 +128,7 @@
                                    :max="item.a_qty"
                                    @keyup="onReturnQtyChanged(item)"
                                    class="input"
-                                   min='0' style="width:70px" type="number" v-if="!item.item.is_need_serial"
+                                   min='0' style="width:70px" type="text" v-if="!item.item.is_need_serial"
                                    v-model="item.returned_qty">
                             <p v-else>{{item.returned_qty}}</p>
                         </th>
@@ -199,7 +199,7 @@
                                         <div class="column"><b>{{ translator.discount }}</b></div>
                                         <div class="column">
                                             <input @focus="$event.target.select()" @keyup="onInvoiceDiscountUpdated"
-                                                   class="input" type="text"
+                                                   class="input" disabled type="text"
                                                    v-model="discount">
                                         </div>
                                     </div>
@@ -276,7 +276,7 @@
                 errorMessage: "",
                 error: "",
 
-                show_submit_btn:false,
+                show_submit_btn: false,
                 disable_button_counter2: 0,
                 current_items_net: 0,
                 button_counter: 1,
@@ -292,7 +292,7 @@
                 net: 0,
                 subtotal: 0,
                 remaining: 0,
-                methods:[]
+                methods: []
             };
         },
         created: function () {
@@ -313,6 +313,7 @@
                 item.serials = e.serials;
                 item.returned_qty = e.returned_qty;
                 this.onReturnQtyChanged(item);
+                this.validateInvoiceData();
             },
 
 
@@ -334,8 +335,6 @@
 
 
             },
-
-
 
 
             billingsUpdate(e) {
@@ -363,7 +362,6 @@
                         this.methods.push(method);
                     }
                 }
-
 
 
                 this.validateInvoiceData();
@@ -502,13 +500,12 @@
 
             validateInvoiceData() {
 
-                if(parseFloat(helpers.getColumnSumationFromArrayOfObjects(this.methods,'amount') )== parseFloat(this.net))
-                {
+                // if (parseFloat(helpers.getColumnSumationFromArrayOfObjects(this.methods, 'amount')) == parseFloat(this.net)) {
+                if (0 < parseFloat(this.net)) {
                     this.show_submit_btn = true;
                     // alert('good');
-                }else
-                {
-                    this.show_submit_btn =  false;
+                } else {
+                    this.show_submit_btn = false;
                 }
                 return true;
             },
@@ -541,13 +538,16 @@
                 // var vm = this;
                 axios.put('/management/purchases/' + this.purchase.id, data_to)
                     .then(function (response) {
+                        //
+                        // console.log(response.data);
+                        // console.log(response);
 
-
+                        // vm.displayComplete();
                         window.location.reload();
                     })
                     .catch(function (error) {
 
-                        alert(error.response.data.message);
+                        console.log(error.response.data.message);
                         console.log(error.response.data);
 
                     });
@@ -555,6 +555,20 @@
             },
 
 
+            displayComplete() {
+                this.$toast.success({
+                    type: 'success',
+                    showMethod: 'lightSpeedIn',
+                    closeButton: false,
+                    timeOut: 2000,
+                    icon: '',
+                    title: 'اكتمل',
+                    message: 'تمت عملية المرجع بنجاح',
+                    progressBar: true,
+                    hideDuration: 1000
+                })
+
+            }
         },
 
         watch: {

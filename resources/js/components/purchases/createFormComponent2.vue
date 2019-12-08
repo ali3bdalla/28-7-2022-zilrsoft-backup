@@ -227,10 +227,10 @@
 
                         <th class="has-text-white">
                             <input
+                                    :disabled="item.is_fixed_price"
                                     @dblclick="updateItemSalePriceVisisbility(item)"
                                     @focus="$event.target.select()"
                                     class="form-control onlyhidden"
-                                    disabled
                                     type="text"
                                     v-if="!item.openSalePrice" v-model="item.price_with_tax">
 
@@ -490,7 +490,7 @@
             },
 
 
-            expenseIncludeInNet(e) {
+             expenseIncludeInNet(e) {
                 if (parseFloat(e.expense.amount) > 0) {
 
                     this.net = parseFloat(this.net) + parseFloat(e.expense.amount);
@@ -751,8 +751,8 @@
                     var item = this.items[i];
                     var index = this.items.indexOf(item);
                     var item_widget = item.total / this.total; //
-                    item.discount = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(Math.round(item_widget *
-                        (this.discount)));
+                    item.discount = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item_widget *
+                        (this.discount));
                     item.subtotal = this.updateSubtotalForOneItem(item);
                     item.tax = this.updateTaxForOneItem(item);
                     item.net = this.updateNetForOneItem(item);
@@ -763,8 +763,8 @@
 
 
                 this.tax = helpers.getColumnSumationFromArrayOfObjects(this.items, 'tax');
-                this.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(Math.round(parseFloat(this.tax) +
-                    parseFloat(this.subtotal)));
+                this.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(this.tax) +
+                    parseFloat(this.subtotal));
 
                 this.checkData();
             },

@@ -42,7 +42,6 @@
 			
 			
 			$accounting_data['user_id'] = $user_id;
-			// create and update item data
 			
 			if ($this->is_kit){
 				$accounting_data['is_kit'] = true;
@@ -81,7 +80,7 @@
 					$item['belong_to_kit'] = true;
 					$item['parent_kit_id'] = $this->id;
 					$item['qty'] = $item['qty'] * $invoice_item['qty'];
-					$fresh_item->init_create_invoice_item($item,$invoice_type,$user_id,$sub_invoice);
+					$fresh_item->init_create_invoice_item($item,$invoice_type,$user_id,$sub_invoice,$expenses);
 					
 				}
 			}
@@ -99,8 +98,8 @@
 				}
 			}
 			
-			
-			$new_invoice_item->make_invoice_transaction($sub_invoice,$total_of_expenses);
+			if (!$this->is_kit)
+				$new_invoice_item->make_invoice_transaction($sub_invoice,$total_of_expenses);
 			
 			
 			return $this;
@@ -135,12 +134,19 @@
 				$price = $source_request_item_data['purchase_price'];
 			}else{
 				
-				$accounting_data['invoice_type'] = 'sale';
-				if ($this->is_fixed_price){
-					$price = $this->price;
-				}else{
+				if ($source_request_item_data['is_expense']){
 					$price = $source_request_item_data['price'];
+				}else{
+					if ($this->is_fixed_price){
+						$price = $this->price;
+					}else{
+						$price = $source_request_item_data['price'];
+					}
+					
 				}
+				
+				
+				$accounting_data['invoice_type'] = 'sale';
 				
 			}
 			
@@ -249,8 +255,6 @@
 			return $this;
 		}
 		
-		
-		
 		public function get_item_purchase_tax_as_value()
 		{
 			return 1 + $this->vtp / 100;
@@ -277,7 +281,7 @@
 		 * */
 		public function check_if_has_available_qty_can_handle_purchase_return_process($returned_qty)
 		{
-			return $this->available_qty > $returned_qty;
+			return $this->available_qty >= $returned_qty;
 		}
 		
 		public function check_if_has_available_qty_can_handle_sale_return_process($returned_qty)
@@ -287,6 +291,7 @@
 		
 		public function change_serials_array_status($status,$serials = [],$invoice = null)
 		{
+			
 			if ($status == 'r_sale'){
 				$data = [
 					'current_status' => $status,

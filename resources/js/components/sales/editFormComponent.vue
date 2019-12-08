@@ -208,6 +208,9 @@
                         </div>
 
 
+
+                    </div>
+                    <div class="column">
                         <pop-billing-component
                                 :button_counter="button_counter"
                                 :current_items_net="current_items_net"

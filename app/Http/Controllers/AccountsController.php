@@ -99,6 +99,7 @@
 			}else if ($account->slug == 'stock'){
 				$items = $this->get_account_stock_item_transactions();
 				$items = $items['items'];
+//				$items = collect($items)->sortByDesc('total_debit');
 				return view('accounts.items',compact('items','account'));
 				
 			}
@@ -168,10 +169,10 @@
 		
 		public function item(Item $item,Account $account)
 		{
-			
-//			return $account;
 
-			 $transactions = $this->load_item_transactions($item,$account);
+//			return $account;
+			
+			$transactions = $this->load_item_transactions($item,$account);
 			
 			return view('accounts.item',compact('item','transactions','account'));
 			//

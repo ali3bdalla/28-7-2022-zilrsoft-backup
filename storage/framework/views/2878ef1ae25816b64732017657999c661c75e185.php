@@ -101,6 +101,14 @@
             </sidebar-item-component>
 
 
+            <sidebar-item-component
+                    url='<?php echo e(route('management.sales.quotations')); ?>'
+                    title='<?php echo e(__('sidebar.quotations')); ?>'
+                    icon='fa fa-eye'
+            >
+            </sidebar-item-component>
+
+
 
             <!-- ending of invoices header-->
             <li class="header"><?php echo e(__('sidebar.inventory')); ?></li>

@@ -78,7 +78,7 @@
 					'discount_percent');
 				$invoice = $this->create_invoice($data,auth()->user());
 				$sub_invoice = $this->create_subinvoice($invoice,auth()->user(),$this->receiver_id,$this->vendor_id,
-				$this->vendor_inc_number);
+					$this->vendor_inc_number);
 				$expenses = $this->get_expense_array();
 				$invoice->add_items_to_invoice($this->items,$sub_invoice,$expenses,'purchase',$this->vendor_id);
 				
@@ -142,7 +142,7 @@
 			$expenses_data = [];
 			if (!empty($this->expenses)){
 				foreach ($this->expenses as $expens){
-					if ($expens['is_open'] && $expens['amount'] > 0){
+					if ($expens['amount'] > 0){
 						$expenses_data[] = $expens;
 					}
 				}

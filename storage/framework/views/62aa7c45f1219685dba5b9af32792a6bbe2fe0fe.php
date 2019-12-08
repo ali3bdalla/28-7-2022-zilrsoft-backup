@@ -192,7 +192,14 @@
                                                 <!-- <th class="has-text-white"></th> -->
 
                                                 <th text="item.name"
-                                                    style="text-align: right !important;"><?php echo e($expense->expense->locale_name); ?></th>
+                                                    style="text-align: right !important;"><?php echo e($expense->expense->locale_name); ?> - <?php if($expense->with_net): ?>
+                                                        <span class="badge badge-primary">مضمنة</span>
+
+
+                                                    <?php else: ?>
+                                                        <span class="badge badge-info">مستقلة</span>
+                                                    <?php endif; ?>
+                                                </th>
 
                                                 <th class="has-text-white">
                                                     <input type="text" class="input" value="<?php echo e($expense->amount); ?>"
@@ -306,8 +313,6 @@ $payment->id)); ?>">عرض السند</a> )</span>
 
 
 
-
-
                                                 <?php if($transaction['description']=='to_item' || $transaction['description']=='to_tax'): ?>
 
 										   <?php $total_debit = $total_debit + $transaction['amount']?>
@@ -322,6 +327,7 @@ $payment->id)); ?>">عرض السند</a> )</span>
 
 
 										   <?php $total_credit = $total_credit + $transaction['amount']?>
+
                                                      <tr>
                                                          <td class="datedirection"><?php echo e($transaction->created_at); ?></td>
                                                          <td><?php echo e($transaction->creditable->locale_name); ?></td>

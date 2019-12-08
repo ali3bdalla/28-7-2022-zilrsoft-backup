@@ -20,7 +20,7 @@
                 :creator='<?php echo json_encode($invoice->creator, 15, 512) ?>'
                 :pitems='<?php echo json_encode($items, 15, 512) ?>'
                 :invoice='<?php echo json_encode($invoice, 15, 512) ?>'
-                :department='<?php echo json_encode($invoice->department, 15, 512) ?>'
+                :department='<?php echo json_encode($invoice->department->title, 15, 512) ?>'
                 :purchase='<?php echo json_encode($purchase, 15, 512) ?>'>
 
             </edit-purchase-form-component>

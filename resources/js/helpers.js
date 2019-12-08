@@ -76,6 +76,7 @@ var helpers = {
         if(column=="net")
             return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(sum);
 
+        return  sum;
         return  helpers.showOnlyTwoAfterComma(sum);
 
 

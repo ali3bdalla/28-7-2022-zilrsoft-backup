@@ -4,9 +4,7 @@
 	namespace App\Relationships;
 	
 	use App\Branch;
-	use App\Chart;
-	use App\Deprtmanet;
-	use App\Entry;
+	use App\Department;
 	use App\Invoice;
 	use App\InvoiceExpenses;
 	use App\InvoiceItems;
@@ -56,7 +54,7 @@
 		
 		public function department()
 		{
-			return $this->belongsTo(Deprtmanet::class,'deprtmanet_id');
+			return $this->belongsTo(Department::class,'department_id');
 		}
 		
 		public function branch()

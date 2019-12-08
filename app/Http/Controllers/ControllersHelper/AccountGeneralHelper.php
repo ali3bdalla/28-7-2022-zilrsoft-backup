@@ -13,14 +13,11 @@
 		public function get_users_transactions($type)
 		{
 			
-			if($type=='vendor_balance')
-			{
+			if ($type == 'vendor_balance'){
 				$users_source = User::where('is_vendor',true)->get();
-			}else
-			{
+			}else{
 				$users_source = User::where('is_client',true)->get();
 			}
-			
 			
 			
 			$total_credit = 0;
@@ -38,7 +35,6 @@
 				$total_credit = $user['total_credit'] + $total_credit;
 				$total_debit = $user['total_debit'] + $total_debit;
 
-				
 
 ////
 //
@@ -59,7 +55,6 @@
 					
 					
 				}
-				
 				
 				
 				$users[] = $user;
@@ -121,7 +116,10 @@
 		
 		public function get_account_stock_item_transactions()
 		{
-			$source_items = Item::all();
+			$source_items = Item::with('debit_transaction')->get()->sortByDesc(function ($query){
+				return $query->debit_transaction->sum('amount');
+			});;
+//			$source_items = collect($source_items)->sortByDesc('total_debit');
 			$items = [];
 			$total_credit = 0;
 			$total_debit = 0;
@@ -317,7 +315,7 @@
 		public function load_item_transactions($item)
 		{
 			
-			return  $this->get_all_account_transaction($item)['transaction'];
+			return $this->get_all_account_transaction($item)['transaction'];
 //
 //			$item['total_debit'] = $item['transactions']['total_debit'];
 //			$item['total_credit'] = $item['transactions']['total_credit'];
@@ -348,7 +346,6 @@
 //			}
 //
 //
-
 
 
 //			return $this->get_all_account_transaction($account,$client_id,'client_balance');

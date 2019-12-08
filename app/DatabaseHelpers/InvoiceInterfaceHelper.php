@@ -358,6 +358,7 @@
 				if ($sum > 0){
 					$manager_cash_account = auth()->user()->manager_gateway('cash');
 					
+					
 					$tax_account->debit_transaction()->create([
 						'creator_id' => auth()->user()->id,
 						'organization_id' => auth()->user()->organization_id,
@@ -397,20 +398,32 @@
 			$sum = $this->expenses()->where('with_net',0)->sum('amount');
 			
 			
+			// create transaction or update cash transaction amount where there is any unincluded expenses
 			if ($sum > 0){
 				$manager_cash_account = auth()->user()->manager_gateway('cash');
+				$cash_paid_before = $this->transactions()->where([['creditable_type','App\Account'],['creditable_id',
+					$manager_cash_account->id]])->first();
 				
-				$tax_account->debit_transaction()->create([
-					'creator_id' => auth()->user()->id,
-					'organization_id' => auth()->user()->organization_id,
-					'creditable_id' => $manager_cash_account->id,
-					'creditable_type' => get_class($manager_cash_account),
-					'amount' => $sum,
-					'user_id' => $user_id,
-					'invoice_id' => $this->id,
-					'container_id' => $container_id,
-					'description' => 'to_gateway',
-				]);
+				
+				if (!empty($cash_paid_before)){
+					$new_amount = $cash_paid_before->amount + $sum;
+					$cash_paid_before->update([
+						'amount' => $new_amount
+					]);
+				}else{
+					$tax_account->debit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'creditable_id' => $manager_cash_account->id,
+						'creditable_type' => get_class($manager_cash_account),
+						'amount' => $sum,
+						'user_id' => $user_id,
+						'invoice_id' => $this->id,
+						'container_id' => $container_id,
+						'description' => 'to_gateway',
+					]);
+				}
+				
 			}
 			
 		}
@@ -421,8 +434,7 @@
 			
 			$total_taxes = 0;
 			foreach ($expenses as $expense){
-
-//				$expense_total = 0;
+				
 				foreach ($items as $item){
 					$new_item = Item::find($item['id']);
 					$amount = $expense['amount'] * $item['widget'] / $new_item->get_item_purchase_tax_as_value(); //
@@ -430,10 +442,10 @@
 					$tax = $expense['amount'] - $amount;
 					
 					$total_taxes = $total_taxes + $tax;
-
-//					$expense_total
-				
+					
+					
 				}
+				
 				
 				$org_vat = auth()->user()->organization->organization_vat;
 				$expense_tax = $expense['amount'] * $org_vat / (100 + $org_vat);
@@ -1008,6 +1020,15 @@
 				return 'credit';
 			
 			return 'paid';
+		}
+		
+		public function get_total_expenses($expense)
+		{
+			$total = 0;
+			foreach ($expense as $expen){
+				$total = $total + $expen['amount'];
+			}
+			return $total;
 		}
 		
 	}

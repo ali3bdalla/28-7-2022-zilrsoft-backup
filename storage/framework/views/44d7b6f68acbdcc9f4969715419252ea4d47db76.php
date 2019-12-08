@@ -49,12 +49,16 @@
                     <?php if($transaction['invoice_id']>=1 && !empty($transaction->invoice)): ?>
 
                         <?php if(!empty($transaction->invoice->sale)): ?>
+					    <?php $sale = $transaction->invoice->sale;$invoice_transactions =
+						    $transaction->invoice->transactions()->where('description','!=','client_balance')->get
+						    ();?>
+                             <?php if ($__env->exists('transactions.sale')) echo $__env->make('transactions.sale', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
                         <?php elseif(!empty($transaction->invoice->purchase)): ?>
-
-
-
-
+					    <?php $purchase = $transaction->invoice->purchase;$invoice_transactions =
+						    $transaction->invoice->transactions()->where('description','!=','vendor_balance')->get
+						    ();?>
+                             <?php if ($__env->exists('transactions.purchase')) echo $__env->make('transactions.purchase', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         <?php endif; ?>
 
                     <?php else: ?>
@@ -66,12 +70,12 @@
                                 <?php if($real_transaction['debitable_type']!=""): ?>
                                     <th></th>
                                     <th><?php echo e($real_transaction['amount']); ?></th>
-                                    <th><?php echo e($real_transaction->debitable->locale_name); ?> </th>
+                                    <th><?php if(!empty($real_transaction->debitable)): ?> <?php echo e($real_transaction->debitable->locale_name); ?> <?php endif; ?> </th>
 
                                 <?php else: ?>
                                     <th><?php echo e($real_transaction['amount']); ?></th>
                                     <th></th>
-                                    <th><?php echo e($real_transaction->creditable->locale_name); ?> </th>
+                                    <th><?php if(!empty($real_transaction->creditable)): ?> <?php echo e($real_transaction->creditable->locale_name); ?> <?php endif; ?> </th>
                                 <?php endif; ?>
 
 

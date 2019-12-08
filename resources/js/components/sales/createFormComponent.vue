@@ -14,8 +14,8 @@
                 </div>
 
                 <div class="column pull-right text-left">
-                    <receipt-printer-component v-show="false" :invoice_id='invoice_id'
-                                               :print_counter="print_counter"></receipt-printer-component>
+                    <receipt-printer-component :invoice_id='invoice_id' :print_counter="print_counter"
+                                               v-show="false"></receipt-printer-component>
 
                     <button :disabled="disableSaveButton" @click="saveInvoiceButtonClickedOnly"
                             class="button is-primary "><i
@@ -738,6 +738,7 @@
 
             onInvoiceNetUpdated() {
 
+
                 var new_vat = counting.convertVatToValue(config.vtp); //  5 = fixed vts
                 this.subtotal = helpers.roundTheFloatValueTo2DigitOnlyAfterComma((this.net / new_vat));
                 this.discount = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(this.total - this.subtotal);
@@ -774,17 +775,22 @@
 
                         // console.log(parseFloat(total_for_editable));
 
-                        var new_item_net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(Math.round(item_widget * (this.net - none_editable_net)));
+                        var new_item_net = parseFloat(item_widget) * (parseFloat(this.net) - parseFloat(none_editable_net));// Math.round(helpers.roundTheFloatValueTo2DigitOnlyAfterComma(
 
 
+
+                        // Math.round(helpers.roundTheFloatValueTo2DigitOnlyAfterComma(
                         var new_vat = counting.convertVatToValue(item.vts); //  1.05
-                        item.subtotal = helpers.roundTheFloatValueTo2DigitOnlyAfterComma((parseFloat(new_item_net) /
-                            parseFloat(new_vat)));
-                        item.discount = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(item.total) -
-                            parseFloat(item.subtotal));
 
-                        item.tax = helpers.showOnlyTwoAfterComma(item.subtotal * (item.vts / 100));
-                        item.net = new_item_net;
+
+                        // var new_tax_value = new_item_net
+                        item.subtotal = (parseFloat(new_item_net) /
+                            parseFloat(new_vat));// helpers.roundTheFloatValueTo2DigitOnlyAfterComma( //helpers.showOnlyTwoAfterComma(
+                        item.discount = parseFloat(item.total) -
+                            parseFloat(item.subtotal);//helpers.showOnlyTwoAfterComma(
+                        console.log(item.discount);
+                        item.tax =item.subtotal * (item.vts / 100);// helpers.showOnlyTwoAfterComma(
+                        item.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(new_item_net);
                         this.items.splice(this.items.indexOf(item), 1, item);
 
 
@@ -942,6 +948,8 @@
                 // console.log(item);
                 var index = this.items.indexOf(item);
                 // validate the value
+                // item.
+                item.discount = helpers.showOnlyTwoAfterComma(item.discount);
                 item.total = this.updateTotalForOneItem(item);
                 item.subtotal = this.updateSubtotalForOneItem(item);
                 item.tax = this.updateTaxForOneItem(item);

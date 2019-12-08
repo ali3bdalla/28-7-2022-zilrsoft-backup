@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <th class="text-center ">التاريخ والوقت</th>
-                    <th class="text-center ">رقم</th>
+                    <th class="text-center ">رقم القيد</th>
                     <th class="text-center ">السند</th>
                     <th class="text-center ">مدين</th>
                     <th class="text-center ">دائن</th>
@@ -47,17 +47,18 @@
 
                     <tr>
                         <th class="text-center "><?php echo e($transaction->created_at); ?></th>
-                        <th class="text-center "><?php echo e($transaction->id); ?></th>
-                        <th class="text-center "><a href="<?php echo e(route('management.purchases.show',
-                        $transaction->invoice->purchase->id)); ?>"><?php echo e($transaction->invoice->title); ?></a></th>
+                        <th class="text-center "><a href="<?php echo e(route('management.transactions.show',
+                        $transaction->container_id)); ?>"><?php echo e($transaction->container_id); ?></a></th>
+                        <th class="text-center "><?php if(!empty($transaction->invoice)): ?><a href="<?php echo e(route('management.purchases.show',
+                        $transaction->invoice->purchase->id)); ?>"><?php echo e($transaction->invoice->title); ?></a><?php endif; ?></th>
                         <?php if($transaction['creditable_type']==""): ?>
 
-		                    <?php $balance = $balance +  $transaction['amount'];?>
+						<?php $balance = $balance + $transaction['amount'];?>
                             <th class="text-center "><?php echo e(money_format("%i",$transaction->amount)); ?></th>
                             <th class="text-center ">0</th>
 
                         <?php else: ?>
-		                    <?php $balance = $balance - $transaction['amount'];?>
+						<?php $balance = $balance - $transaction['amount'];?>
                             <th class="text-center ">0</th>
                             <th class="text-center "><?php echo e(money_format("%i",$transaction->amount)); ?></th>
 

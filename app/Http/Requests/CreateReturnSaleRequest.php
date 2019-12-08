@@ -63,7 +63,8 @@
 				$invoice->create_return_invoice_items($items,$invoice);
 				$data = $invoice->update_return_invoice_data();
 				$expenses = [];
-				$invoice_status = $invoice->handle_invoice_transactions($this->methods,$invoice->client_id,$data['net'],
+				$invoice_status = $invoice->handle_invoice_transactions($this->methods,$invoice->sale->client_id,
+					$data['net'],
 					$items,$expenses,$invoice_type = 'r_sale');
 				
 				$invoice->update_invoice_creation_status($invoice_status);

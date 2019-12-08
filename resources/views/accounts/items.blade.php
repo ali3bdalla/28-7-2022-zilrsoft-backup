@@ -39,7 +39,7 @@
 
 
                     <tr>
-                        <th class="text-center ">{{ $item['id'] }}</th>
+                        <th class="text-center ">{{ $item['barcode'] }}</th>
                         @if($account->slug=='clients')
                             <th class="text-center "><a
                                         href="{{ route('management.accounts.client',[ $item['id'],$account->id] ) }}">{{

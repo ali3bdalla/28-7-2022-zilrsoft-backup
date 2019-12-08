@@ -36,7 +36,7 @@
 
 
                     <tr>
-                        <th class="text-center "><?php echo e($item['id']); ?></th>
+                        <th class="text-center "><?php echo e($item['barcode']); ?></th>
                         <?php if($account->slug=='clients'): ?>
                             <th class="text-center "><a
                                         href="<?php echo e(route('management.accounts.client',[ $item['id'],$account->id] )); ?>"><?php echo e($item['locale_name']); ?></a></th>

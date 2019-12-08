@@ -109,8 +109,8 @@
     <?php echo $__env->yieldContent('page_css'); ?>
 
 </head>
+<body class="sidebar-mini skin-green sidebar-collapse" @keydown.esc="console.log('23')">
 
-<body class="sidebar-mini skin-green">
 <div class="wrapper" id="app">
 
     <header class="main-header ">

@@ -52,12 +52,16 @@
                     @if($transaction['invoice_id']>=1 && !empty($transaction->invoice))
 
                         @if(!empty($transaction->invoice->sale))
+					    <?php $sale = $transaction->invoice->sale;$invoice_transactions =
+						    $transaction->invoice->transactions()->where('description','!=','client_balance')->get
+						    ();?>
+                             @includeIf('transactions.sale')
 
                         @elseif(!empty($transaction->invoice->purchase))
-
-
-
-
+					    <?php $purchase = $transaction->invoice->purchase;$invoice_transactions =
+						    $transaction->invoice->transactions()->where('description','!=','vendor_balance')->get
+						    ();?>
+                             @includeIf('transactions.purchase')
                         @endif
 
                     @else
@@ -69,12 +73,12 @@
                                 @if($real_transaction['debitable_type']!="")
                                     <th></th>
                                     <th>{{ $real_transaction['amount'] }}</th>
-                                    <th>{{ $real_transaction->debitable->locale_name }} </th>
+                                    <th>@if(!empty($real_transaction->debitable)) {{ $real_transaction->debitable->locale_name }} @endif </th>
 
                                 @else
                                     <th>{{ $real_transaction['amount'] }}</th>
                                     <th></th>
-                                    <th>{{ $real_transaction->creditable->locale_name }} </th>
+                                    <th>@if(!empty($real_transaction->creditable)) {{ $real_transaction->creditable->locale_name }} @endif </th>
                                 @endif
 
 

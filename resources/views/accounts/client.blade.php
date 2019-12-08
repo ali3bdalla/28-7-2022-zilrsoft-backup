@@ -33,7 +33,7 @@
                 </tr>
                 <tr>
                     <th class="text-center ">التاريخ والوقت</th>
-                    <th class="text-center ">رقم</th>
+                    <th class="text-center ">رقم القيد</th>
                     <th class="text-center ">السند</th>
                     <th class="text-center ">مدين</th>
                     <th class="text-center ">دائن</th>
@@ -50,7 +50,9 @@
 
                     <tr>
                         <th class="text-center ">{{$transaction->created_at}}</th>
-                        <th class="text-center ">{{$transaction->id}}</th>
+                        <th class="text-center "><a href="{{ route('management.transactions.show',
+                        $transaction->container_id)
+                        }}">{{$transaction->container_id}}</a> </th>
                         <th class="text-center ">
                             @if($transaction->invoice_id>=1)
                                 <a href="{{  route('management.sales.show',

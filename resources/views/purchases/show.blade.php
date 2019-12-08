@@ -203,7 +203,14 @@
 
                                                 <th text="item.name"
                                                     style="text-align: right !important;">{{
-                                                    $expense->expense->locale_name }}</th>
+                                                    $expense->expense->locale_name }} - @if($expense->with_net)
+                                                        <span class="badge badge-primary">مضمنة</span>
+
+
+                                                    @else
+                                                        <span class="badge badge-info">مستقلة</span>
+                                                    @endif
+                                                </th>
 
                                                 <th class="has-text-white">
                                                     <input type="text" class="input" value="{{ $expense->amount }}"
@@ -318,8 +325,6 @@ $payment->id)
 
 
 
-
-
                                                 @if($transaction['description']=='to_item' || $transaction['description']=='to_tax')
 
 										   <?php $total_debit = $total_debit + $transaction['amount']?>
@@ -334,6 +339,7 @@ $payment->id)
 
 
 										   <?php $total_credit = $total_credit + $transaction['amount']?>
+
                                                      <tr>
                                                          <td class="datedirection">{{ $transaction->created_at }}</td>
                                                          <td>{{ $transaction->creditable->locale_name }}</td>
