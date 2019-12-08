@@ -1,0 +1,89 @@
+<tbody class="text-center">
+<?php $total_debit = 0; $total_credit = 0;?>
+
+
+<?php if($sale->invoice_type=='sale'): ?>
+
+    <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+
+
+        
+        <?php if(!in_array($transaction['description'],['to_cogs','to_gateway',
+        'to_products_sales_discount','to_services_sales_discount',
+        'to_other_services_sales_discount','to_stock'])): ?>
+
+		   <?php $total_credit = $total_credit + $transaction['amount']?>
+
+             <tr>
+                 <td class="datedirection"><?php echo e($transaction->created_at); ?></td>
+                 <td><?php echo e($transaction->creditable->locale_name); ?></td>
+                 <td></td>
+                 <td><?php echo e(money_format("%i", $transaction->amount)); ?></td>
+             </tr>
+
+
+        <?php else: ?>
+
+		   <?php $total_debit = $total_debit + $transaction['amount']?>
+             <tr>
+                 <td class="datedirection"><?php echo e($transaction->created_at); ?></td>
+                 <td><?php echo e($transaction->debitable->locale_name); ?></td>
+                 <td><?php echo e(money_format("%i", $transaction->amount)); ?></td>
+                 <td></td>
+             </tr>
+
+        <?php endif; ?>
+
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php else: ?>
+
+
+
+    <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+
+
+        
+        <?php if(in_array($transaction['description'],['to_cogs','to_gateway',
+        'to_products_sales_discount','to_services_sales_discount',
+        'to_other_services_sales_discount'])): ?>
+
+		   <?php $total_credit = $total_credit + $transaction['amount']?>
+             
+             
+             
+             
+             
+             
+             <tr>
+                 <td class="datedirection"><?php echo e($transaction->created_at); ?></td>
+                 <td><?php echo e($transaction->creditable->locale_name); ?></td>
+                 <td></td>
+                 <td><?php echo e(money_format("%i", $transaction->amount)); ?></td>
+             </tr>
+
+
+        <?php else: ?>
+
+		   <?php $total_debit = $total_debit + $transaction['amount']?>
+             <tr>
+                 <td class="datedirection"><?php echo e($transaction->created_at); ?></td>
+                 <td> <?php echo e($transaction->debitable->locale_name); ?></td>
+                 <td><?php echo e(money_format("%i", $transaction->amount)); ?></td>
+                 <td></td>
+             </tr>
+
+        <?php endif; ?>
+
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php endif; ?>
+</tbody>
+
+
+<thead>
+<th>المجموع</th>
+<th></th>
+<th><?php echo e(money_format("%i",$total_debit)); ?></th>
+<th><?php echo e(money_format("%i",$total_credit)); ?></th>
+</thead><?php /**PATH /usr/local/var/www/resources/views/transactions/sale.blade.php ENDPATH**/ ?>

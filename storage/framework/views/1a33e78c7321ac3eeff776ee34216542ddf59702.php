@@ -1,0 +1,1 @@
+<?php /**PATH /usr/local/var/www/resources/views/transactions/purchase.blade.php ENDPATH**/ ?>
