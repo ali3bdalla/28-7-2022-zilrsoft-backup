@@ -23,13 +23,13 @@
 				$table->string('ar_name');
 				$table->string('barcode',255);
 				
-				$table->boolean('is_kit')->default(0);
-				$table->boolean('is_fixed_price')->default(0);
-				$table->boolean('is_has_vts')->default(0);
-				$table->boolean('is_has_vtp')->default(0);
-				$table->boolean('is_need_serial')->default(0);
-				$table->boolean('is_service')->default(0);
-				$table->boolean('is_expense')->default(0);
+				$table->tinyInteger('is_kit')->default(0);
+				$table->tinyInteger('is_fixed_price')->default(0);
+				$table->tinyInteger('is_has_vts')->default(0);
+				$table->tinyInteger('is_has_vtp')->default(0);
+				$table->tinyInteger('is_need_serial')->default(0);
+				$table->tinyInteger('is_service')->default(0);
+				$table->tinyInteger('is_expense')->default(0);
 				
 				$table->integer('expense_vendor_id')->default(0);
 				
