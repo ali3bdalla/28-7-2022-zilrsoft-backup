@@ -118,7 +118,8 @@
 		{
 			$source_items = Item::with('debit_transaction')->get()->sortByDesc(function ($query){
 				return $query->debit_transaction->sum('amount');
-			});;
+			});
+			dd($source_items);
 //			$source_items = collect($source_items)->sortByDesc('total_debit');
 			$items = [];
 			$total_credit = 0;
@@ -180,8 +181,8 @@
 					['description',$description]
 				])->get();
 			}else{
-				$debit_transactions = $account->debit_transaction()->get();
-				$credit_transactions = $account->credit_transaction()->get();
+				$debit_transactions = $account->debit_transaction;
+				$credit_transactions = $account->credit_transaction;
 			}
 //			dd();
 			

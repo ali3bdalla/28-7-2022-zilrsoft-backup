@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ControllersHelper/AccountGeneralHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ControllersHelper/AccountGeneralHelper.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -411,7 +412,7 @@
       <workItem from="1575897930451" duration="3147000" />
       <workItem from="1575929053541" duration="8000" />
       <workItem from="1575985695717" duration="5315000" />
-      <workItem from="1575996927353" duration="570000" />
+      <workItem from="1575996927353" duration="770000" />
     </task>
     <servers />
   </component>
