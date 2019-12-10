@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/2f99043c261b1bbabf99f9718dd1ed2ea1dd8950.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/59c5af59c44047eeb6ca80d0d27b04ef829ac63a.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/dzPyUFcuqic5xFI3f40ZueIf9zshARO2zN3qXYrY" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/dzPyUFcuqic5xFI3f40ZueIf9zshARO2zN3qXYrY" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -413,7 +410,7 @@
       <workItem from="1575822790391" duration="5281000" />
       <workItem from="1575897930451" duration="3147000" />
       <workItem from="1575929053541" duration="8000" />
-      <workItem from="1575985695717" duration="4265000" />
+      <workItem from="1575985695717" duration="4693000" />
     </task>
     <servers />
   </component>
