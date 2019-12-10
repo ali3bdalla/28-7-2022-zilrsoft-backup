@@ -16,12 +16,11 @@ LOG_CHANNEL=stack
 ##
 
 DB_CONNECTION=pgsql
-DB_HOST=ec2-174-129-253-53.compute-1.amazonaws.com
+DB_HOST=ec2-174-129-254-223.compute-1.amazonaws.com
 DB_PORT=5432
-DB_DATABASE=dbes74an01l00j
-DB_USERNAME=zpdbtrrfvdrwqv
-DB_PASSWORD=084489a1fdbdb41c8e77deb4aff62cb6191ff3cc10a9aa4d6e66d9663d9096a7
-
+DB_DATABASE=d5u83u56mkiinn
+DB_USERNAME=vozdokfgvmefnj
+DB_PASSWORD=066dc2771ee7b179ae49ef74c12c715ce4052612042564dba4da53078eb6f969
 
 
 
