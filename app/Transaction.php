@@ -11,6 +11,13 @@
 		
 		protected $guarded = [];
 		
+		protected $casts = [
+			'debitable_type' => 'string',
+			'debitable_id' => 'integer',
+			'creditable_type' => 'string',
+			'creditable_id' => 'integer',
+		];
+		
 		public function creditable()
 		{
 			return $this->morphTo();
