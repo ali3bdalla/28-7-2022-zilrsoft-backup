@@ -206,11 +206,6 @@
                                 </table>
                             </div>
                         </div>
-
-
-
-                    </div>
-                    <div class="column">
                         <pop-billing-component
                                 :button_counter="button_counter"
                                 :current_items_net="current_items_net"
@@ -221,106 +216,112 @@
                                 @billingsUpdate="billingsUpdate"
                                 @errorInPayment="errorInPayment"
                                 @saveInvoice="saveInvoiceButtonClicked"></pop-billing-component>
+
+
                     </div>
-                    <!--                    <div class="column">-->
-                    <!--                        <div class="card">-->
 
-                    <!--                            <div class="message-body text-center">-->
-                    <!--                                <div class="list-group-item">-->
-                    <!--                                    <div class="columns">-->
-                    <!--                                        <div class="column">{{ translator.total}}</div>-->
-                    <!--                                        <div class="column">-->
-                    <!--                                            <input class="input" disabled type="text" v-model="total">-->
-                    <!--                                        </div>-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
-                    <!--                                <div class="list-group-item">-->
-                    <!--                                    <div class="columns">-->
-                    <!--                                        <div class="column">{{ translator.discount}}</div>-->
-                    <!--                                        <div class="column">-->
-                    <!--                                            <input class="input" disabled type="text" v-model="discount">-->
-                    <!--                                        </div>-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
+<!--                    <div class="column">-->
 
-                    <!--                                <div class="list-group-item">-->
-                    <!--                                    <div class="columns">-->
-                    <!--                                        <div class="column">{{ translator.subtotal}}</div>-->
-                    <!--                                        <div class="column">-->
-                    <!--                                            <input class="input" disabled readonly="" type="text" v-model="subtotal">-->
-                    <!--                                        </div>-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
-                    <!--                                <div class="list-group-item">-->
-                    <!--                                    <div class="columns">-->
-                    <!--                                        <div class="column">{{ translator.tax}}</div>-->
-                    <!--                                        <div class="column">-->
-                    <!--                                            <input class="input" disabled type="text" v-model="tax">-->
-                    <!--                                        </div>-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
-                    <!--                                <div class="list-group-item">-->
-                    <!--                                    <div class="columns">-->
-                    <!--                                        <div class="column">{{ translator.net}}</div>-->
-                    <!--                                        <div class="column">-->
-                    <!--                                            <input class="input" disabled type="text" v-model="net">-->
-                    <!--                                        </div>-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
+<!--                    </div>-->
+                                        <div class="column">
+                                            <div class="card" >
 
+                                                <div class="message-body text-center">
+                                                    <div class="list-group-item">
+                                                        <div class="columns">
+                                                            <div class="column">{{ translator.total}}</div>
+                                                            <div class="column">
+                                                                <input class="input" disabled type="text" v-model="total">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-group-item">
+                                                        <div class="columns">
+                                                            <div class="column">{{ translator.discount}}</div>
+                                                            <div class="column">
+                                                                <input class="input" disabled type="text" v-model="discount">
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                    <!--                            </div>-->
-
-                    <!--                            <div class="box">-->
-                    <!--                                <div class="columns">-->
-                    <!--                                    <div class="column is-two-thirds">-->
-                    <!--                                        <div class="select is-fullwidth">-->
-                    <!--                                            <select v-model="active_expense">-->
-                    <!--                                                <option :value="expense" v-for="expense in expenses">{{-->
-                    <!--                                                    expense.locale_name }}-->
-                    <!--                                                </option>-->
-                    <!--                                            </select>-->
-                    <!--                                        </div>-->
-                    <!--                                    </div>-->
-                    <!--                                    <div class="column">-->
-                    <!--                                        <button @click="addNewExpenseOption"-->
-                    <!--                                                class="button is-primary"><i class="fa fa-plus-circle"></i></button>-->
-                    <!--                                    </div>-->
+                                                    <div class="list-group-item">
+                                                        <div class="columns">
+                                                            <div class="column">{{ translator.subtotal}}</div>
+                                                            <div class="column">
+                                                                <input class="input" disabled readonly="" type="text" v-model="subtotal">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-group-item">
+                                                        <div class="columns">
+                                                            <div class="column">{{ translator.tax}}</div>
+                                                            <div class="column">
+                                                                <input class="input" disabled type="text" v-model="tax">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-group-item">
+                                                        <div class="columns">
+                                                            <div class="column">{{ translator.net}}</div>
+                                                            <div class="column">
+                                                                <input class="input" disabled type="text" v-model="net">
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
 
-                    <!--                                </div>-->
-                    <!--                                <div class="" v-show="expenses_list.length>=1">-->
-                    <!--                                    <div class="panel" v-for="expense in expenses_list">-->
-                    <!--                                        <p>{{ expense.locale_name}}</p>-->
-                    <!--                                        <div class="columns">-->
-                    <!--                                            <div class="column is-one-third">-->
-                    <!--                                                <input @focus="$event.target.select()"-->
-                    <!--                                                       @keyup="onChangePriceField(expense)"-->
-                    <!--                                                       class="input" placeholder="القيمة"-->
-                    <!--                                                       type="text" v-model="expense.price"/>-->
-                    <!--                                            </div>-->
-                    <!--                                            <div class="column">-->
-                    <!--                                                <input class="input" placeholder="التكلفة" type="text"-->
-                    <!--                                                       v-model="expense.purchase_price"/>-->
-                    <!--                                            </div>-->
-                    <!--                                            <div class="column">-->
-                    <!--                                                <toggle-button :font-size="19" :height='32'-->
-                    <!--                                                               :labels="{checked: 'عميل', unchecked: 'منشأة'}"-->
-                    <!--                                                               :sync="true"-->
-                    <!--                                                               :width='70'-->
-                    <!--                                                               v-model="expense.user_should_pay"/>-->
+                                                </div>
 
-                    <!--                                            </div>-->
-                    <!--                                        </div>-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
-
-                    <!--                            </div>-->
-                    <!--                        </div>-->
+                                                <div class="box">
+                                                    <div class="columns">
+                                                        <div class="column is-two-thirds">
+                                                            <div class="select is-fullwidth">
+                                                                <select v-model="active_expense">
+                                                                    <option :value="expense" v-for="expense in expenses">{{
+                                                                        expense.locale_name }}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="column">
+                                                            <button @click="addNewExpenseOption"
+                                                                    class="button is-primary"><i class="fa fa-plus-circle"></i></button>
+                                                        </div>
 
 
-                    <!--                    </div>-->
-                    <!--                </div>-->
+                                                    </div>
+                                                    <div class="" v-show="expenses_list.length>=1">
+                                                        <div class="panel" v-for="expense in expenses_list">
+                                                            <p>{{ expense.locale_name}}</p>
+                                                            <div class="columns">
+                                                                <div class="column is-one-third">
+                                                                    <input @focus="$event.target.select()"
+                                                                           @keyup="onChangePriceField(expense)"
+                                                                           class="input" placeholder="القيمة"
+                                                                           type="text" v-model="expense.price"/>
+                                                                </div>
+                                                                <div class="column">
+                                                                    <input class="input" placeholder="التكلفة" type="text"
+                                                                           v-model="expense.purchase_price"/>
+                                                                </div>
+                                                                <div class="column">
+                                                                    <toggle-button :font-size="19" :height='30'
+                                                                                   :labels="{checked: 'عميل', unchecked: 'منشأة'}"
+                                                                                   :sync="true"
+                                                                                   :width='90'
+                                                                                   v-model="expense.user_should_pay"/>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
 
                 </div>
 

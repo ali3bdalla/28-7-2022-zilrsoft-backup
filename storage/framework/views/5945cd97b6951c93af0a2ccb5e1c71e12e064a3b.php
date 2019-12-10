@@ -126,7 +126,7 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="<?php echo e(route('management.dashboard')); ?>">لوحة التحكم</a></li>
-
+                
             </ol>
         </section>
         <div class="content">
@@ -134,7 +134,7 @@
         </div>
     </div>
 
-    <aside class="main-sidebar" style="z-index:108;">
+    <aside class="main-sidebar" style="z-index:108;padding-top: 0px !important;">
         <?php if ($__env->exists('layouts.sidebar')) echo $__env->make('layouts.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </aside>
     <footer class="main-footer">

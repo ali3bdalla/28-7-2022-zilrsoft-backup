@@ -101,8 +101,8 @@
 
 
                 <div class="column">
-                    <toggle-button :font-size="14" :height='30' :labels="{checked: reusable_translator.radio_checked,
-                                   unchecked: reusable_translator.unchecked}" :sync="true"
+                    <toggle-button :font-size="14" :height='30' :labels="{checked: reusable_translator.unchecked,
+                                   unchecked: reusable_translator.radio_checked}" :sync="true"
                                    :width='70' @change="hasFixedPriceChanged" v-model="has_fixed_price"/>
                     <label>{{ translator.is_fixed_price }}</label>
                 </div>
@@ -879,7 +879,6 @@
 
             isCategoryNameEmbededOnItemName: function () {
 
-                //// console.log(this.isCategoryNameEmbededOnItemName);
             }
         }
     }
@@ -888,6 +887,11 @@
 
 <style scoped>
     .vue-treeselect {
-        text-align: right !important;
+        text-align: center !important;
     }
+    .vue-treeselect__control
+    {
+        text-align: center !important;
+    }
+
 </style>

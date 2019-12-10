@@ -126,7 +126,7 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ route('management.dashboard')}}">لوحة التحكم</a></li>
-{{--                <li><a href="@yield('route')">  @yield('title')</a></li>--}}
+                {{--                <li><a href="@yield('route')">  @yield('title')</a></li>--}}
             </ol>
         </section>
         <div class="content">
@@ -134,7 +134,7 @@
         </div>
     </div>
 
-    <aside class="main-sidebar" style="z-index:108;">
+    <aside class="main-sidebar" style="z-index:108;padding-top: 0px !important;">
         @includeIf('layouts.sidebar')
     </aside>
     <footer class="main-footer">

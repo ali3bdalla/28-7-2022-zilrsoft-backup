@@ -2,14 +2,10 @@
 <section class="sidebar">
     <!-- Sidebar user panel -->
     <div class="user-panel">
-        <div class="pull-left image">
-            <img src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle"
-                 alt="User Image">
-        </div>
-        <div class="pull-left info">
-            <p>{{Auth::user()->name}}</p>
-            <p>{{Auth::user()->memebership()}}</p>
-        </div>
+{{--        <div class="text-center image">--}}
+            <img src="{{ auth()->user()->organization->logo }}" class="img-thumbnail center-block"
+                 alt="User Image" width="150px" style="padding-top: 0px !important;">
+{{--        </div>--}}
     </div>
 
     <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -162,7 +158,7 @@
 
 
 
-            <li class="header">{{ __('accounts') }}</li>
+            <li class="header">{{ __('sidebar.accounts') }}</li>
             <!-- starting of users header-->
             <sidebar-item-component
                     url='{{route('management.accounts.index')}}'

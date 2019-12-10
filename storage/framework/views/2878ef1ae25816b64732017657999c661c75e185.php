@@ -2,14 +2,10 @@
 <section class="sidebar">
     <!-- Sidebar user panel -->
     <div class="user-panel">
-        <div class="pull-left image">
-            <img src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle"
-                 alt="User Image">
-        </div>
-        <div class="pull-left info">
-            <p><?php echo e(Auth::user()->name); ?></p>
-            <p><?php echo e(Auth::user()->memebership()); ?></p>
-        </div>
+
+            <img src="<?php echo e(auth()->user()->organization->logo); ?>" class="img-thumbnail center-block"
+                 alt="User Image" width="150px" style="padding-top: 0px !important;">
+
     </div>
 
     <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -162,7 +158,7 @@
 
 
 
-            <li class="header"><?php echo e(__('accounts')); ?></li>
+            <li class="header"><?php echo e(__('sidebar.accounts')); ?></li>
             <!-- starting of users header-->
             <sidebar-item-component
                     url='<?php echo e(route('management.accounts.index')); ?>'

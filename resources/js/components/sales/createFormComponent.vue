@@ -790,7 +790,7 @@
                             parseFloat(item.subtotal);//helpers.showOnlyTwoAfterComma(
                         console.log(item.discount);
                         item.tax =item.subtotal * (item.vts / 100);// helpers.showOnlyTwoAfterComma(
-                        item.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(new_item_net);
+                        item.net =new_item_net;// helpers.roundTheFloatValueTo2DigitOnlyAfterComma(
                         this.items.splice(this.items.indexOf(item), 1, item);
 
 

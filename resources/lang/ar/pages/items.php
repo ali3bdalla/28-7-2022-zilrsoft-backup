@@ -35,7 +35,7 @@
 		'has_vat_sale' => 'ضريبة بيع',
 		'has_vat_purchase' => 'ضريبة شراء',
 		'has_serial_number' => 'سيريال نمبر',
-		'is_fixed_price' => ' غير  قابل للخصم',
+		'is_fixed_price' => '  قابل للخصم',
 		'is_service' => 'صنف خدمي',
 		
 		'vat_sale' => 'ضريبة البيع',
