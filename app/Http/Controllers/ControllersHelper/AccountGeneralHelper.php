@@ -180,8 +180,8 @@
 					['description',$description]
 				])->get();
 			}else{
-				$debit_transactions = $account->debit_transaction;
-				$credit_transactions = $account->credit_transaction;
+				$debit_transactions = $account->debit_transaction()->get();
+				$credit_transactions = $account->credit_transaction()->get();
 			}
 //			dd();
 			
