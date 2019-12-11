@@ -198,6 +198,6 @@
 			Route::get('/{payWay}/accounts',"OrganizationController@get_ways_with_accounts_that_organization_has_account_on_them");
 			
 		});
-	
+		
 		
 	});

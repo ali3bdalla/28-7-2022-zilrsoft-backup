@@ -2,8 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/BWCFX7qZOBSdO4FxDx7LIeToQzwmcRGJSFgWh6Rg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/1b5e8e784b3d16a2f896036d0f1ddb45e146e74a.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/1c50fa0e01da2f6630ecc340c05ec2dbf73ffde8.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/2878ef1ae25816b64732017657999c661c75e185.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/33282b211fd13602e625761c6778e18d17027a99.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/3bca3f302ad9d56bb2ad5e6d66c3b7083cd9a55d.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/49f0bee46d12b08063510ce179ce4cbd021c7063.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/5945cd97b6951c93af0a2ccb5e1c71e12e064a3b.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/5f04cb7ebfafbf073d8fa686b6b038b21fda2065.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/b546f59ba3df228ddc98e94ffe8ec556573cf40f.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/e0e0894fa750c5eb36a54d4cc0889a1f183dddd5.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-11.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ControllersHelper/AccountGeneralHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ControllersHelper/AccountGeneralHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/initDatabaseCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/initDatabaseCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/management.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/management.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/f3/0b/f30b318576bbd02a75e9c92ae633fa794e8c7b6d" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/f3/0b/f30b318576bbd02a75e9c92ae633fa794e8c7b6d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/f8/b5/f8b575df18d0e2872e38324634f9a5b72ac4d47e" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/f8/b5/f8b575df18d0e2872e38324634f9a5b72ac4d47e" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/2f99043c261b1bbabf99f9718dd1ed2ea1dd8950.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/2f99043c261b1bbabf99f9718dd1ed2ea1dd8950.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -412,7 +430,8 @@
       <workItem from="1575897930451" duration="3147000" />
       <workItem from="1575929053541" duration="8000" />
       <workItem from="1575985695717" duration="5315000" />
-      <workItem from="1575996927353" duration="904000" />
+      <workItem from="1575996927353" duration="1048000" />
+      <workItem from="1576033707554" duration="828000" />
     </task>
     <servers />
   </component>

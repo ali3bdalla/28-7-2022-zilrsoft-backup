@@ -41,18 +41,16 @@
 		{
 			DB::beginTransaction();
 			try{
-
+				
 				DB::unprepared(file_get_contents(base_path('database/types.sql')));
-//				DB::unprepared(file_get_contents(base_path('database/gateways.sql')));
 				DB::unprepared(file_get_contents(base_path('database/countries.sql')));
-//				DB::unprepared(file_get_contents(base_path('database/roles.sql')));
 				DB::unprepared(file_get_contents(base_path('database/saudi_arabia.sql')));
 				DB::unprepared(file_get_contents(base_path('database/old_data/categories.sql')));
 				DB::unprepared(file_get_contents(base_path('database/old_data/filters.sql')));
 				DB::unprepared(file_get_contents(base_path('database/old_data/filters_values.sql')));
 				DB::unprepared(file_get_contents(base_path('database/old_data/categories_filters.sql')));
-				DB::unprepared(file_get_contents(base_path('database/old_data/item.sql')));
-				DB::unprepared(file_get_contents(base_path('database/old_data/item_filters.sql')));
+//				DB::unprepared(file_get_contents(base_path('database/old_data/item.sql')));
+//				DB::unprepared(file_get_contents(base_path('database/old_data/item_filters.sql')));
 				DB::commit();
 			}catch (Exception $exception){
 				

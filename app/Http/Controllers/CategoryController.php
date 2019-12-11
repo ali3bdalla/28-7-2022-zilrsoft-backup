@@ -123,6 +123,7 @@
 		public function edit(Category $category)
 		{
 			//
+			dd($category);
 			$categories = Category::all();
 			$filters = Filter::all();
 			$category_filters = $category->filters;
@@ -168,11 +169,12 @@
 			$cat_filters = [];
 			$cilfters = $category->filters;
 			
+//			dd($cilfters);
 			foreach ($cilfters as $key => $value){
 				$cat_filters[] = collect($value)->forget('pivot');
 			}
 			
-			$all_filters = Filter::whereNotIn("id",$cat_filters)->get();
+			$all_filters = Filter::whereNotIn("id",collect($cat_filters)->pluck('id')->toArray())->get();
 			return view('categories.update_filters',compact('cat_filters','all_filters','category'));
 		}
 		
@@ -196,6 +198,7 @@
 		/* category filters */
 		public function filters(Category $category)
 		{
+			
 			return $category->filters->each(function ($filter){
 				$filter['isChecked'] = true;
 				$data = [];
