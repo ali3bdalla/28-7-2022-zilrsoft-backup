@@ -35,8 +35,8 @@
                     </div>
 
                     <div class="column">
-                        <input  :disabled="is_update_mode" :placeholder="translator.ar_name" class="input" type="text"
-                        v-model="ar_name">
+                        <input :disabled="is_update_mode" :placeholder="translator.ar_name" class="input" type="text"
+                               v-model="ar_name">
                         <p class="help is-danger is-center" v-show="error=='client_id'" v-text="errorMessage"></p>
                     </div>
 
@@ -51,8 +51,8 @@
                     <div class="column">
                         <div class="field">
                             <div class="control">
-                                <input :class="{'is-danger':error=='barcode'}" :placeholder="translator.barcode"
-                                       :disabled="is_update_mode"
+                                <input :class="{'is-danger':error=='barcode'}" :disabled="is_update_mode"
+                                       :placeholder="translator.barcode"
                                        @blur="checkBarcodeIfItAlreadyUsed" class="input" type='text'
                                        v-model="barcode" v-on:keyup.13="barcodeItemInterClicked">
                             </div>
@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="column text-center">
-                    <a class="button is-info" href="/management/items?selectable=true" tabindex="100"
+                    <a class="button is-info" href="/management/items?selectable=true&&is_purchase=true" tabindex="100"
                        target="_blank">{{
                         translator.view_products }}
                     </a>
@@ -135,22 +135,22 @@
 
                         </th>
                         <!-- <th class="has-text-white"></th> -->
-                        <th v-text="item.barcode" v-if="!is_update_mode"></th>
-                        <th v-text="item.item.barcode" v-else></th>
-                        <th style="text-align: right !important;" v-text="item.locale_name" v-if="!is_update_mode"></th>
-                        <th style="text-align: right !important;" v-text="item.item.locale_name" v-else></th>
+                        <th v-if="!is_update_mode" v-text="item.barcode"></th>
+                        <th v-else v-text="item.item.barcode"></th>
+                        <th style="text-align: right !important;" v-if="!is_update_mode" v-text="item.locale_name"></th>
+                        <th style="text-align: right !important;" v-else v-text="item.item.locale_name"></th>
                         <th>
                             <input :value="item.available_qty" class="input" disabled v-if="!is_update_mode"/>
                             <input :value="item.item.available_qty" class="input" disabled v-else/>
                         </th>
                         <th width="6%">
-                            <input :tabindex="{1:itemindex==0}" @focus="$event.target.select()"
+                            <input :disabled="is_update_mode" :tabindex="{1:itemindex==0}"
+                                   @focus="$event.target.select()"
                                    @keyup="onChangeQtyField(item)"
                                    class="input"
-                                   :disabled="is_update_mode"
                                    type="text"
                                    v-model="item.qty">
-<!--                            <p v-else>{{item.qty}}</p>-->
+                            <!--                            <p v-else>{{item.qty}}</p>-->
                         </th>
                         <th class="has-text-white">
                             <input @focus="$event.target.select()" @keyup="onChangePriceField(item)"
@@ -173,14 +173,14 @@
                                    type="text" v-model="item.subtotal">
                         </th>
                         <th class="has-text-white">
-                            <input v-if="!is_update_mode" @focus="$event.target.select()" class="input" disabled=""
-                                   placeholder="vat sale"
+                            <input @focus="$event.target.select()" class="input" disabled="" placeholder="vat sale"
                                    type="text"
+                                   v-if="!is_update_mode"
                                    v-model="item.vts + '%'">
-                            <input v-else  @focus="$event.target.select()" class="input" disabled=""
+                            <input @focus="$event.target.select()" class="input" disabled="" disabled
                                    placeholder="vat sale"
-                                   disabled
                                    type="text"
+                                   v-else
                                    v-model="item.item.vts + '%'">
                         </th>
                         <th class="has-text-white">
@@ -247,9 +247,11 @@
                                     <div class="columns">
                                         <div class="column"><b>{{ translator.net }}</b></div>
                                         <div class="column">
-                                            <input :disabled="items.length==0 || is_update_mode" @focus="$event.target.select()"
+                                            <input :disabled="items.length==0 || is_update_mode"
+                                                   @focus="$event.target.select()"
                                                    @keyup="onInvoiceNetUpdated"
                                                    class="input"
+                                                   disabled
                                                    type="text"
                                                    v-model="net">
                                         </div>
@@ -316,15 +318,14 @@
             //
             // this.translator = JSON.parse(window.translator);
             if (this.is_update_mode) {
-             this.loadInitData();
+                this.loadInitData();
             }
 
         },
         mounted: function () {
 
 
-            if(this.is_update_mode!=true)
-            {
+            if (this.is_update_mode != true) {
                 this.$refs.search_input_ref.focus();
                 this.watchCopiedItems();
             }
@@ -391,17 +392,19 @@
                 }
             },
 
-            loadInitData()
-            {
-              this.barcode = this.kit.barcode;
-              this.name = this.kit.name;
-              this.ar_name = this.kit.ar_name;
-              this.items = this.kit.items;
-              this.total = this.kit.data.total;
-              // this.discount = this.kit.data.discount;
-              this.subtotal = this.kit.data.subtotal;
-              this.tax = this.kit.data.tax;
-              this.net = this.kit.data.net;
+            loadInitData() {
+                // console.log('hello')
+                this.barcode = this.kit.barcode;
+                this.name = this.kit.name;
+                this.ar_name = this.kit.ar_name;
+                this.items = this.kit.items;
+                this.total = this.kit.data.total;
+                this.discount = this.kit.data.discount;
+                this.subtotal = this.kit.data.subtotal;
+                this.tax = this.kit.data.tax;
+                this.net = this.kit.data.net;
+
+                console.log(this.kit.data)
             },
 
             /**
@@ -423,9 +426,6 @@
                 }
 
             },
-
-
-
 
 
             findItems() {
@@ -468,23 +468,23 @@
 
             addItemToList(item) {
 
-                console.log(item);
-                if (item.available_qty == 0) {
-
-                    this.itemsSearchList = []; // clear the search items list
-                    this.search_field = ""; /// clear the text on the search field
-                    this.$refs.search_input_ref.focus();
-                    return;
-                }else  if (helpers.checkIfObjectExistsOnArrayBYIdentifer(this.items, item.id)) {
+                // console.log('this is item');
+                // if (item.available_qty == 0) {
+                //
+                //     this.itemsSearchList = []; // clear the search items list
+                //     this.search_field = ""; /// clear the text on the search field
+                //     this.$refs.search_input_ref.focus();
+                //     return;
+                // } else
+                if (helpers.checkIfObjectExistsOnArrayBYIdentifer(this.items, item.id)) {
 
                     var old_item = helpers.getDataFromArrayById(this.items, item.id);
 
 
-                    alert(old_item.id);
                     var new_qty = parseInt(old_item.qty) + 1;
-                    if (old_item.available_qty >= new_qty) {
-                        old_item.qty = new_qty;
-                    }
+                    // if (old_item.available_qty >= new_qty) {
+                    old_item.qty = new_qty;
+                    // }
 
                     this.onChangeQtyField(old_item);
 
@@ -503,7 +503,7 @@
                 this.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(Math.round(this.net));
                 // alert( this.net);
 
-               this.onInvoiceNetUpdated();
+                this.onInvoiceNetUpdated();
 
                 this.checkData();
             },
@@ -519,7 +519,6 @@
                 item.tax = this.updateTaxForOneItem(item);
                 item.net = this.updateNetForOneItem(item);
 
-                //alert(item.discount);
 
                 return item;
             },
@@ -701,22 +700,21 @@
             /// events
             onChangeQtyField(item) {
                 // if(item.qty > item)
-                if (item.available_qty >= item.qty) {
-                    this.runUpdater(item);
-                }else
-                {
-                    this.$toast.error({
-                        type: 'error',
-                        showMethod: 'lightSpeedIn',
-                        closeButton: false,
-                        timeOut: 4000,
-                        icon: '',
-                        title: 'خطأ',
-                        message: 'الكمية المطلوبة غير متوفرة',
-                        progressBar: true,
-                        hideDuration: 1000
-                    })
-                }
+                // if (item.available_qty >= item.qty) {
+                this.runUpdater(item);
+                // } else {
+                //     this.$toast.error({
+                //         type: 'error',
+                //         showMethod: 'lightSpeedIn',
+                //         closeButton: false,
+                //         timeOut: 4000,
+                //         icon: '',
+                //         title: 'خطأ',
+                //         message: 'الكمية المطلوبة غير متوفرة',
+                //         progressBar: true,
+                //         hideDuration: 1000
+                //     })
+                // }
 
 
             },
@@ -830,7 +828,6 @@
             },
 
 
-
             // vm.showFinishTableMessage(event, response.data.invoice_id);
 
             showFinishTableMessage(event, id) {
@@ -853,8 +850,6 @@
                 });
 
 
-
-                // this.$ref.printFrameRef.el.print();
             },
 
 
@@ -868,78 +863,40 @@
             },
             sendDataToServer() {
 
-                // if (this.update == 'edit') {
-                //     // console.log(this.creator);
-                //     var data_to = {
-                //         name: this.name,
-                //         ar_name: this.ar_name,
-                //         barcode: this.barcode,
-                //         items: this.items,
-                //         total: this.total,
-                //         subtotal: this.subtotal,
-                //         net: this.net,
-                //         creator_id: this.creator.id,
-                //         branch_id: this.creator.branch_id,
-                //         department_id: this.creator.department_id,
-                //         tax: this.tax,
-                //         invoice_type: 'sale',
-                //         discount_value: this.discount,
-                //         discount_percent: this.discount,
-                //         remaining: 0,
-                //         current_status: 'paid',
-                //         issued_status: 'paid',
-                //     };
-                //
-                //     var vm = this;
-                //
-                //     axios.patch('/management/kits/update/' + this.kit.id, data_to)
-                //         .then(function (response) {
-                //             location.href = '/management/kits';
-                //             console.log(response.data);
-                //         })
-                //         .catch(function (error) {
-                //
-                //
-                //         });
-                //
-                //
-                // } else {
-                    // console.log(this.creator);
-                    var data_to = {
-                        name: this.name,
-                        ar_name: this.ar_name,
-                        barcode: this.barcode,
-                        items: this.items,
-                        total: this.total,
-                        subtotal: this.subtotal,
-                        net: this.net,
-                        creator_id: this.creator.id,
-                        branch_id: this.creator.branch_id,
-                        department_id: this.creator.department_id,
-                        tax: this.tax,
-                        invoice_type: 'sale',
-                        discount_value: this.discount,
-                        discount_percent: this.discount,
-                        remaining: 0,
-                        current_status: 'paid',
-                        issued_status: 'paid',
-                    };
+                var data_to = {
+                    name: this.name,
+                    ar_name: this.ar_name,
+                    barcode: this.barcode,
+                    items: this.items,
+                    total: this.total,
+                    subtotal: this.subtotal,
+                    net: this.net,
+                    creator_id: this.creator.id,
+                    branch_id: this.creator.branch_id,
+                    department_id: this.creator.department_id,
+                    tax: this.tax,
+                    invoice_type: 'sale',
+                    discount_value: this.discount,
+                    discount_percent: this.discount,
+                    remaining: 0,
+                    current_status: 'paid',
+                    issued_status: 'paid',
+                };
 
 
-                    axios.post('/management/kits', data_to)
-                        .then(function (response) {
-                            location.href = '/management/kits';
-                        })
-                        .catch(function (error) {
-                            console.log(error.response.data);
+                axios.post('/management/kits', data_to)
+                    .then(function (response) {
+
+                        console.log(response.data);
+                        console.log(response);
+                        location.href = '/management/kits';
+                    })
+                    .catch(function (error) {
+                        console.log(error.response.data);
 
 
-                        });
-                }
-
-
-            // }
-
+                    });
+            }
 
 
         },

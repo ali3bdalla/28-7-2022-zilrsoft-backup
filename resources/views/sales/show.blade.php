@@ -165,11 +165,16 @@
 
                                 </th>
                                 <th class="has-text-white">
-                                    <input type="text" class="input" value="{{ $item->total }}" disabled="">
+                                    @if($item->item->is_kit)
+                                        <input type="text" class="input" value="{{ money_format("%i",0) }}" disabled="">
+                                    @else
+                                        <input type="text" class="input" value="{{ $item->total }}" disabled="">
+
+                                    @endif
                                 </th>
                                 <th class="has-text-white">
                                     <input type="text" class="input" placeholder="discount"
-                                           value="{{ $item->discount }}"
+                                           value="@if(!$item->item->is_kit){{ $item->discount }}@else {{ money_format("%i",0) }} @endif"
                                            disabled="">
                                 </th>
                                 <th class="has-text-white">
@@ -366,7 +371,7 @@
                                                 {{--                                            @if($transaction['description']=='to_item' || $transaction['description']=='to_tax')--}}
                                                 @if(in_array($transaction['description'],['to_cogs','to_gateway',
                                                 'to_products_sales_discount','to_services_sales_discount',
-                                                'to_other_services_sales_discount']))
+                                                'to_other_services_sales_discount','to_stock']))
 
 										   <?php $total_credit = $total_credit + $transaction['amount']?>
                                                      {{--                                                    <tr>--}}
@@ -419,9 +424,7 @@
 
                     <div class="column">
                         <div class="card">
-                            {{--                            <div class="message-header">--}}
-                            {{--                                invoice data--}}
-                            {{--                            </div>--}}
+
                             <div class="message-body text-center">
                                 <div class="list-group-item">
                                     <div class="columns">
@@ -473,19 +476,6 @@
                                     </div>
                                 </div>
 
-
-                                {{--                                @foreach($sale->invoice->expenses as $expense)--}}
-                                {{--                                    <div class="list-group-item">--}}
-                                {{--                                        <div class="columns">--}}
-                                {{--                                            <div class="column">{{ $expense->expense->locale_name  }}</div>--}}
-                                {{--                                            <div class="column">--}}
-                                {{--                                                <input type="text" class="input" value="{{ $expense->amount }}"--}}
-                                {{--                                                       disabled="">--}}
-                                {{--                                            </div>--}}
-                                {{--                                        </div>--}}
-                                {{--                                    </div>--}}
-
-                                {{--                                @endforeach--}}
                             </div>
                         </div>
                     </div>

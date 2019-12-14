@@ -2,12 +2,12 @@
     ZilrSoft
 </a>
 <nav class="navbar" style="margin-left:0px !important;">
-    <a href="#" class="sidebar-toggle"  data-toggle="push-menu" role="button">
+    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <i class="fa fa-bars"></i>
-
-
-
-
+        
+        
+        
+        
     </a>
 
     <div class="right" style="">
@@ -15,12 +15,14 @@
 
             <li class="dropdown user user-menu  dropdown-menu-right pull-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                    <img src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg" class="user-image"
+                         alt="User Image">
                     <span class="hidden-xs"><?php echo e(Auth::user()->name); ?></span>
                 </a>
                 <ul class="dropdown-menu">
                     <li class="user-header">
-                        <img src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle"
+                             alt="User Image">
 
                         <p>
                             <?php echo e(Auth::user()->email); ?>

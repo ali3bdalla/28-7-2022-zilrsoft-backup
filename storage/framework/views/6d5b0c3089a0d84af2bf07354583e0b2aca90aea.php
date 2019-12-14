@@ -158,11 +158,16 @@
 
                                 </th>
                                 <th class="has-text-white">
-                                    <input type="text" class="input" value="<?php echo e($item->total); ?>" disabled="">
+                                    <?php if($item->item->is_kit): ?>
+                                        <input type="text" class="input" value="<?php echo e(money_format("%i",0)); ?>" disabled="">
+                                    <?php else: ?>
+                                        <input type="text" class="input" value="<?php echo e($item->total); ?>" disabled="">
+
+                                    <?php endif; ?>
                                 </th>
                                 <th class="has-text-white">
                                     <input type="text" class="input" placeholder="discount"
-                                           value="<?php echo e($item->discount); ?>"
+                                           value="<?php if(!$item->item->is_kit): ?><?php echo e($item->discount); ?><?php else: ?> <?php echo e(money_format("%i",0)); ?> <?php endif; ?>"
                                            disabled="">
                                 </th>
                                 <th class="has-text-white">
@@ -354,7 +359,7 @@
                                                 
                                                 <?php if(in_array($transaction['description'],['to_cogs','to_gateway',
                                                 'to_products_sales_discount','to_services_sales_discount',
-                                                'to_other_services_sales_discount'])): ?>
+                                                'to_other_services_sales_discount','to_stock'])): ?>
 
 										   <?php $total_credit = $total_credit + $transaction['amount']?>
                                                      
@@ -406,9 +411,7 @@
 
                     <div class="column">
                         <div class="card">
-                            
-                            
-                            
+
                             <div class="message-body text-center">
                                 <div class="list-group-item">
                                     <div class="columns">
@@ -457,19 +460,6 @@
                                     </div>
                                 </div>
 
-
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-
-                                
                             </div>
                         </div>
                     </div>

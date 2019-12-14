@@ -4,6 +4,7 @@
 	
 	use App\Attributes\InvoiceItemAttributes;
 	use App\DatabaseHelpers\InvoiceItemHelper;
+	use App\DatabaseHelpers\KitHelper;
 	use App\Relationships\InvoiceItemRelationships;
 	use App\Scopes\OrganizationScope;
 	use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@
 	
 	class InvoiceItems extends Model
 	{
-		use InvoiceItemRelationships,InvoiceItemAttributes,InvoiceItemHelper;
+		use InvoiceItemRelationships,InvoiceItemAttributes,InvoiceItemHelper,KitHelper;
 		
 		//
 		protected $guarded = [

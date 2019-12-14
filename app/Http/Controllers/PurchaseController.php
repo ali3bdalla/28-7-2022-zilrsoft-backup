@@ -36,7 +36,7 @@
 		{
 			
 			$receivers = User::where('is_manager',true)->get()->toArray();
-			$vendors = User::where([['is_vendor',true],['is_system_user',false]])->get()->toArray();
+			$vendors = User::where([['is_vendor',true]])->get()->toArray();//,['is_system_user',false]
 			
 			$expenses = Expense::where('appear_in_purchase',true)->get();
 			

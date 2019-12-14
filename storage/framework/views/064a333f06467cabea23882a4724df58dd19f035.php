@@ -4,9 +4,9 @@
 
 
 <?php $__env->startSection('translator'); ?>
-<script defer>
-    window.translator = '<?php echo json_encode(trans('pages/invoice'), 15, 512) ?>'
-</script>
+    <script defer>
+        window.translator = '<?php echo json_encode(trans('pages/invoice'), 15, 512) ?>'
+    </script>
 <?php $__env->stopSection(); ?>
 
 
@@ -17,14 +17,14 @@
         <div class="row">
             <div class="col-md-12">
                 <edit-sale-form-component
-                    :user='<?php echo json_encode($sale->client, 15, 512) ?>'
-                    :gateways='<?php echo json_encode($gateways, 15, 512) ?>'
-                    :expenses='<?php echo json_encode($expenses, 15, 512) ?>'
-                    :creator='<?php echo json_encode($invoice->creator, 15, 512) ?>'
-                    :pitems='<?php echo json_encode($items, 15, 512) ?>'
-                    :invoice='<?php echo json_encode($invoice, 15, 512) ?>'
-                    :department='<?php echo json_encode($invoice->department, 15, 512) ?>'
-                    :sale='<?php echo json_encode($sale, 15, 512) ?>'>
+                        :user='<?php echo json_encode($sale->client, 15, 512) ?>'
+                        :gateways='<?php echo json_encode($gateways, 15, 512) ?>'
+                        :expenses='<?php echo json_encode($expenses, 15, 512) ?>'
+                        :creator='<?php echo json_encode($invoice->creator, 15, 512) ?>'
+                        :pitems='<?php echo json_encode($items, 15, 512) ?>'
+                        :invoice='<?php echo json_encode($invoice, 15, 512) ?>'
+                        :department='<?php echo json_encode($invoice->department, 15, 512) ?>'
+                        :sale='<?php echo json_encode($sale, 15, 512) ?>'>
 
                 </edit-sale-form-component>
             </div>

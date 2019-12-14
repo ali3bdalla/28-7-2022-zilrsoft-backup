@@ -47,16 +47,12 @@
 				
 			}else{
 				if (!empty($items)){
-//				dd($items);
 					foreach ($items as $invoice_item){
-//					dd($items);
 						$fresh_item = Item::find($invoice_item['id']);
-//					dd($fresh_item);
 						$fresh_item->init_create_invoice_item($invoice_item,$invoice_type,$user_id,$sub_invoice,$expenses);
 						$result[] = $fresh_item;
 					}
-
-//				dd();
+					
 					return $result;
 				}
 			}
@@ -107,9 +103,14 @@
 			
 			if (!empty($items)){
 				foreach ($items as $key => $invoice_item){
-					if ($invoice_item['returned_qty'] >= 1){
+					if ($invoice_item['returned_qty'] >= 1 && !$invoice_item['belong_to_kit']){
 						$fresh_invoice_item = InvoiceItems::find($invoice_item['id']);
-						$fresh_invoice_item->init_return_item($invoice_item,$sub_invoice);
+						if ($invoice_item['item']['is_kit']){
+							$fresh_invoice_item->init_return_kit($invoice_item['returned_qty'],$sub_invoice);
+						}else{
+							$fresh_invoice_item->init_return_item($invoice_item,$sub_invoice);
+						}
+						
 						
 					}
 				}
@@ -160,11 +161,46 @@
 			
 			$items = $this->items;
 			foreach ($items as $item){
-				$result['total'] = $result['total'] + $item['total'];
-				$result['subtotal'] = $result['subtotal'] + $item['subtotal'];
-				$result['tax'] = $result['tax'] + $item['tax'];
-				$result['discount_value'] = $result['discount_value'] + $item['discount'];
-				$result['net'] = $result['net'] + $item['net'];
+				if (!$item->item->is_kit){
+					$result['total'] = $result['total'] + $item['total'];
+					$result['subtotal'] = $result['subtotal'] + $item['subtotal'];
+					$result['tax'] = $result['tax'] + $item['tax'];
+					$result['discount_value'] = $result['discount_value'] + $item['discount'];
+					$result['net'] = $result['net'] + $item['net'];
+				}
+				
+				
+			}
+			
+			
+			$this->update($result);
+			
+		}
+		
+		public function update_invoice_sale_totals_data()
+		{
+			$result['total'] = 0;
+			$result['subtotal'] = 0;
+			$result['tax'] = 0;
+			$result['discount_value'] = 0;
+			$result['net'] = 0;
+			
+			
+			$items = $this->items;
+			foreach ($items as $item){
+				if (!$item->item->is_kit){
+					if (!$item['belong_to_kit']){
+						$result['total'] = $result['total'] + $item['total'];
+						$result['discount_value'] = $result['discount_value'] + $item['discount'];
+					}
+					
+					
+					$result['subtotal'] = $result['subtotal'] + $item['subtotal'];
+					$result['tax'] = $result['tax'] + $item['tax'];
+					
+					$result['net'] = $result['net'] + $item['net'];
+				}
+				
 				
 			}
 			
@@ -258,7 +294,7 @@
 					]);
 //
 					
-					$this->handle_invoice_payments($method);
+					$this->handle_invoice_payments($method,'payment',$gateway);
 					$paid_amount = $paid_amount + $method['amount'];
 				}
 				
@@ -296,19 +332,33 @@
 			return 'paid';
 		}
 		
-		public function handle_invoice_payments($method,$payment_type = 'payment')
+		public function handle_invoice_payments($method,$payment_type = 'payment',$gateway = null)
 		{
-			
-			
-			$payment = $this->payments()->create([
-				'organization_id' => $this->organization_id,
-				'creator_id' => $this->creator_id,
-				'user_id' => $this->user_id,
-				'amount_ar_words' => Tafqeet::arablic($method['amount']),
-				'amount_en_words' => Tafqeet::arablic($method['amount']),
-				'amount' => $method['amount'],
-				'payment_type' => $payment_type
-			]);
+
+			if ($gateway != null){
+				
+				$payment = $gateway->paymentable()->create([
+					'organization_id' => $this->organization_id,
+					'creator_id' => $this->creator_id,
+					'user_id' => $this->user_id,
+					'invoice_id' => $this->id,
+					'amount_ar_words' => Tafqeet::arablic(money_format("%i",$method['amount'])),
+					'amount_en_words' => Tafqeet::arablic(money_format("%i",$method['amount'])),
+					'amount' => $method['amount'],
+					'payment_type' => $payment_type
+				]);
+			}else{
+				$payment = $this->payments()->create([
+					'organization_id' => $this->organization_id,
+					'creator_id' => $this->creator_id,
+					'user_id' => $this->user_id,
+					'invoice_id' => $this->id,
+					'amount_ar_words' => Tafqeet::arablic(money_format("%i",$method['amount'])),
+					'amount_en_words' => Tafqeet::arablic(money_format("%i",$method['amount'])),
+					'amount' => $method['amount'],
+					'payment_type' => $payment_type
+				]);
+			}
 			
 			
 			$this->invoice_payments()->create([
@@ -317,6 +367,7 @@
 				'payment_id' => $payment->id,
 				'amount' => $method['amount'],
 			]);
+//			}
 			
 			
 		}
@@ -515,7 +566,7 @@
 					]);
 					
 					
-					$this->handle_invoice_payments($method,'payment');
+					$this->handle_invoice_payments($method,'receipt',$gateway);
 					$paid_amount = $paid_amount + $method['amount'];
 				}
 				
@@ -600,7 +651,7 @@
 					]);
 					
 					
-					$this->handle_invoice_payments($method,'payment');
+					$this->handle_invoice_payments($method,'receipt',$gateway);
 					$paid_amount = $paid_amount + $method['amount'];
 				}
 				
@@ -835,7 +886,7 @@
 					]);
 					
 					
-					$this->handle_invoice_payments($method,'receipt');
+					$this->handle_invoice_payments($method,'payment',$gateway);
 					$paid_amount = $paid_amount + $method['amount'];
 				}
 				
@@ -916,14 +967,14 @@
 			
 			foreach ($items as $item){
 				if ($item['item']['is_expense']){
-					$other_services_sales_total = $other_services_sales_total + $item['total'];
-					$other_services_sales_total_discount = $other_services_sales_total_discount + $item['discount'];
+					$other_services_sales_total = $other_services_sales_total + $item['total'] * $item['qty'];
+					$other_services_sales_total_discount = $other_services_sales_total_discount + $item['discount'] * $item['qty'];
 				}else if ($item['item']['is_service']){
 					$services_sales_total = $services_sales_total + $item['total'];
-					$services_sales_total_discount = $services_sales_total_discount + $item['discount'];
+					$services_sales_total_discount = $services_sales_total_discount + $item['discount'] * $item['qty'];
 				}else{
 					$products_sales_total = $products_sales_total + $item['total'];
-					$products_sales_total_discount = $products_sales_total_discount + $item['discount'];
+					$products_sales_total_discount = $products_sales_total_discount + $item['discount'] * $item['qty'];
 				}
 			}
 			

@@ -11,8 +11,9 @@
                 </div>
 
                 <div class="column pull-right text-left">
-                    <button :disabled="!show_submit_btn" @click="saveInvoiceButtonClicked" class="button is-primary "><i
+                    <button @click="saveInvoiceButtonClicked" class="button is-primary "><i
                             class="fa fa-save"></i>&nbsp; {{ translator.save }}
+<!--                        :disabled="!show_submit_btn"-->
                     </button>
                 </div>
 

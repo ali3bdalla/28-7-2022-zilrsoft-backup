@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
 
-
+    
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
@@ -14,11 +14,12 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <input id="email" type="email" class="form-control <?php $__errorArgs = ['email'];
+                        <input id="email" type="email" style="direction: ltr" class="form-control <?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+$message = $__bag->first($__errorArgs[0]); ?>
+                                is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
@@ -42,7 +43,7 @@ unset($__errorArgs, $__bag); ?>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
-                        <input id="password" type="password"
+                        <input id="password" type="password" style="direction: ltr"
                                class="form-control <?php $__errorArgs = ['password'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :

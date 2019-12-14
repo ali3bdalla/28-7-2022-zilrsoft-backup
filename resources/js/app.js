@@ -80,6 +80,7 @@ import saleDataTable from './components/datatables/saleTable';
 import ManagerGatewaysComponent from "./components/billing/ManagerGatewaysComponent";
 
 import createTransactionFromComponent from './components/transactions/createTransaction';
+import Toasted from 'vue-toasted';
 
 
 require('./bootstrap');
@@ -92,7 +93,7 @@ window.Vue = Vue;
 
 // import VueTable from './components/enso/vuedatatable/VueTable.vue';
 
-
+Vue.use(Toasted);
 Vue.use(Vuetify);
 Vue.use(VModal);
 Vue.use(CxltToastr,

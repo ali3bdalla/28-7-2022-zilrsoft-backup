@@ -2,7 +2,112 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/DatabaseHelpers/KitHelper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/test.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/autoload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/helper/kithelper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/76/e7/76e7c0fdd0cc0d46502f9d381b947cdf6aa69891" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/9c/1c/9c1c01dc3ac1445a500251fc34a15d3e75a849df" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/0ePp1KyJg5LAB18934vdVqbRWYOaI1moZ1xe3Ynl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/MgmnghMmkwBPTr5DRgsbIyU6IsveQEqyxRJMyOhw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/04525d561a1c01f5cf8e411ce9b367a425005581.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/064a333f06467cabea23882a4724df58dd19f035.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/1b5e8e784b3d16a2f896036d0f1ddb45e146e74a.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/1c50fa0e01da2f6630ecc340c05ec2dbf73ffde8.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/2878ef1ae25816b64732017657999c661c75e185.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/33282b211fd13602e625761c6778e18d17027a99.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/37f5d18b58413283dd4d78bc8a11dfc0e665f50c.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/3b483df2fc34fb5242afd68963634b34bcc35be2.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/3bca3f302ad9d56bb2ad5e6d66c3b7083cd9a55d.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/49f0bee46d12b08063510ce179ce4cbd021c7063.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/5945cd97b6951c93af0a2ccb5e1c71e12e064a3b.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/62aa7c45f1219685dba5b9af32792a6bbe2fe0fe.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/6b8bb7e0782fde1c4c4b0dcb51092b02dbd10908.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/6d5b0c3089a0d84af2bf07354583e0b2aca90aea.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/8ba0d92ecf713c0eb885a84cac21a68354ff6e49.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/a9306818d779f0200e74c9d01f334f7e730a0155.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/b24a2aa1439b373bc2e8550cade4696717f93582.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/b546f59ba3df228ddc98e94ffe8ec556573cf40f.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/c4e297412f3e86603d85b63574a275c41260086c.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/ce9ed5c8ad02f352fc8e87a8c7416c6495d67e3a.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/e0e0894fa750c5eb36a54d4cc0889a1f183dddd5.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/f9383141bb1cb6ed57f4743206b0ea08057a0959.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/fb568a871c441f8c066bdf0e43b6522cb3ba0141.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/fcb9b82379999f7d87c38eb66fe16bdde5f5e22c.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-12.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-13.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-14.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/zilrsoft_v2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/zilrsoft_v2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attributes/KitAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/KitAttributes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/initDatabaseCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/initDatabaseCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/InvoiceInterfaceHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/InvoiceInterfaceHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/InvoiceItemHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/InvoiceItemHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/ItemHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/ItemHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/CreateReturnSaleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/CreateReturnSaleRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/CreateSalesInvoiceRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/CreateSalesInvoiceRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/InvoiceItems.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/InvoiceItems.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Item.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Processers/ItemProcesser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Processers/ItemProcesser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/ViewServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/ViewServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Relationships/InvoiceRelationship.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Relationships/InvoiceRelationship.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_07_134707_create_payments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_07_134707_create_payments_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_09_08_150944_create_kit_data_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_09_08_150944_create_kit_data_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old_data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old_data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old_data/item.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old_data/item.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/enviroment" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Kits/CreateKitComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Kits/CreateKitComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/billing/popBillingComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/billing/popBillingComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/filters/FilterValueSelectWithSearchComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/filters/FilterValueSelectWithSearchComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/items/itemTableListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/items/itemTableListComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/items/kitItemAndDataComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/items/kitItemAndDataComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/items/newItemFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/items/newItemFormComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/purchases/createFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/purchases/createFormComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/purchases/createFormComponent2.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/purchases/createFormComponent2.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/purchases/editFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/purchases/editFormComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/sales/createFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/sales/createFormComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/sales/createQuotationFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/sales/createQuotationFormComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/sales/editFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/sales/editFormComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/users/createUserFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/users/createUserFormComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/pages/invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/pages/invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/reusable.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/reusable.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/items/create2.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/items/create2.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app_login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app_login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/payments/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/payments/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/sales/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/sales/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/template/a4/voucher.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/template/a4/voucher.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/management.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/management.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/5f/f5/5ff53a106b6fd6f8a50029b057bb813ec13acae0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/e8/5f/e85f5e341be70b05bd47fa81628fe39fc9d441d7" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/f3/0b/f30b318576bbd02a75e9c92ae633fa794e8c7b6d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/f8/b5/f8b575df18d0e2872e38324634f9a5b72ac4d47e" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/9zN2Kvs9zX83dLe0ji4YUqWfGR3hR9F529JryqLq" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/BWCFX7qZOBSdO4FxDx7LIeToQzwmcRGJSFgWh6Rg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/0c8db5f298f1170b669306c2c4876c8b1af9a5e0.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/2f99043c261b1bbabf99f9718dd1ed2ea1dd8950.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/2f99043c261b1bbabf99f9718dd1ed2ea1dd8950.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/59c5af59c44047eeb6ca80d0d27b04ef829ac63a.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/5cc78cffd9f43e1c66811366042a3bfd5146dc69.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/93442969fff0461ac4dfa1aa064f0a12b9b3d431.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-11-29.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-12-11.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-11.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/1CountryTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/1CountryTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/2BusinessTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/2BusinessTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/3OrganizationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/3OrganizationTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/5UserTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/5UserTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/8ExpenseTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/8ExpenseTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -153,6 +258,7 @@
       <path value="$PROJECT_DIR$/vendor/psy/psysh" />
       <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
       <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
     </include_path>
   </component>
   <component name="ProjectId" id="1P2fXPHfa0XxGE0C1OZZ0v98qP5" />
@@ -166,7 +272,7 @@
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Vue" />
     <property name="com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary" value="PHPUnit" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -412,7 +518,16 @@
       <workItem from="1575929053541" duration="8000" />
       <workItem from="1575985695717" duration="5315000" />
       <workItem from="1575996927353" duration="1048000" />
-      <workItem from="1576033707554" duration="2471000" />
+      <workItem from="1576033707554" duration="3048000" />
+      <workItem from="1576073526119" duration="1652000" />
+      <workItem from="1576099580480" duration="1551000" />
+      <workItem from="1576135763269" duration="9438000" />
+      <workItem from="1576169499595" duration="6543000" />
+      <workItem from="1576242200948" duration="14147000" />
+      <workItem from="1576286412887" duration="138000" />
+      <workItem from="1576287877188" duration="547000" />
+      <workItem from="1576297460960" duration="104000" />
+      <workItem from="1576329406991" duration="9026000" />
     </task>
     <servers />
   </component>

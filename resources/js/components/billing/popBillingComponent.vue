@@ -379,8 +379,7 @@
 
                 this.error_paid = any_error;
 
-                if(!any_error)
-                {
+                if (!any_error) {
                     // alert('googd job');
                     this.$emit("billingsUpdate", {
                         methods: this.methods,
@@ -461,30 +460,9 @@
 
             netAmount: function (value) {
 
-
-                //
-                // if (this.is_credit_mode) {
-                //
-                //     }
                 this.methods[0].amount = value;
 
                 this.total_amount = value;
-                // if (this.is_credit_mode) {
-                //     if (this.total_remining < 0) {
-                //         this.error_in_remaing = true;
-                //         this.methods[0].amount = this.total_paid;
-                //     }
-                // }
-                // var method = this.methods[0];
-                // method.amount = value;
-                // this.handelPaidAmount(method, 0);
-                //
-                // var real_net = parseFloat(helpers.roundTheFloatValueTo2DigitOnlyAfterComma(value));
-                // if (real_net <= this.current_items_net) {
-                //     this.error_in_remaing = false;
-                // } else {
-                //     this.error_in_remaing = true;
-                // }
 
 
                 this.calcUpaid();

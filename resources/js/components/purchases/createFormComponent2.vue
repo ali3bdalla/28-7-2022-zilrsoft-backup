@@ -490,7 +490,7 @@
             },
 
 
-             expenseIncludeInNet(e) {
+            expenseIncludeInNet(e) {
                 if (parseFloat(e.expense.amount) > 0) {
 
                     this.net = parseFloat(this.net) + parseFloat(e.expense.amount);
@@ -641,6 +641,26 @@
 
             addItemToList(item) {
                 item.isOpen = false;
+
+
+                if (item.is_kit) {
+
+                    // this.$toast.danger({
+                    //     type: 'danger',
+                    //     showMethod: 'lightSpeedIn',
+                    //     closeButton: false,
+                    //     timeOut: 2000,
+                    //     icon: '',
+                    //     title: 'خطأ',
+                    //     message: 'لا يمكن شراء هذا المنتج',
+                    //     progressBar: true,
+                    //     hideDuration: 1000
+                    // });
+
+
+                    this.$toasted.error('لا يمكن شراء هذا المنتج').goAway(1500);
+                    return;
+                }
 
 
                 if (helpers.checkIfObjectExistsOnArrayBYIdentifer(this.items, item.id)) {

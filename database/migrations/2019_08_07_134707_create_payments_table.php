@@ -18,6 +18,7 @@
 				$table->integer('organization_id');
 				$table->integer('creator_id');
 				$table->integer('user_id');
+				$table->integer('invoice_id')->default(0);
 				$table->integer('user_account_id')->nullable();
 				$table->integer('paymentable_id')->nullable();
 				$table->string('paymentable_type')->nullable();

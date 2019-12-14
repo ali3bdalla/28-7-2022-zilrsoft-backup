@@ -73,15 +73,18 @@
 				$sub_invoice = $this->create_subinvoice($invoice);
 				$children_purchases = $this->make_purchase_invoices_for_expenses_items();
 				$invoice->add_items_to_invoice($this->items,$sub_invoice,[],'sale',$this->client_id);
+				$invoice->update_invoice_totals_data();
+				
 				$invoice_status = $invoice->handle_invoice_transactions($this->methods,$this->client_id,
-					$this->net,$this->items,[],'sale');
+					$invoice->net,$invoice->items()->where('belong_to_kit',false)->get(),[],'sale');
 				$invoice->update_invoice_creation_status($invoice_status);
-//				$invoice->update_invoice_totals_data();
 				foreach ($children_purchases as $child){
 					$child->update([
 						'parent_invoice_id' => $invoice->id
 					]);
 				}
+				$invoice->update_invoice_sale_totals_data();
+				
 				DB::commit();
 				return [
 					'invoice' => $invoice,
@@ -91,9 +94,7 @@
 				DB::rollBack();
 				throw new Exception($e->getMessage());
 			}
-
-
-//			return true;
+			
 			
 		}
 		

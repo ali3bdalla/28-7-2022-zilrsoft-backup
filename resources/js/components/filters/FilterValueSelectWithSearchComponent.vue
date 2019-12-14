@@ -1,7 +1,7 @@
 <template>
     <div class="columns">
         <div class="column is-one-fifth">
-            <div class="label has-text-dark" style="font-size: 16px !important;"  v-text="filter.locale_name">
+            <div class="label has-text-dark" style="font-size: 16px !important;" v-text="filter.locale_name">
             </div>
 
         </div>
@@ -14,13 +14,14 @@
 
                     <input
                             :disabled="viewOnly"
-                            style="font-size: 16px;font-widget:bold"
-                            @blur="blurFromField" @focus="focusOnField" @keyup="searchOnList" autocomplete=""
-                           class="form-control" type="text" v-model="search"/>
+                            @blur="blurFromField"
+                            @focus="focusOnField" @keyup="searchOnList" autocomplete="" class="form-control"
+                            style="font-size: 16px;font-widget:bold" type="text" v-model="search"/>
                 </div>
                 <div :id="'filter_result_' + filter.id" class="result_list">
                     <ul class="list-group">
-                        <li :class="{'active':selected==item.id}" :key="item.id" :value="item.id" @click="setFilterValue(item.id)"
+                        <li :class="{'active':selected==item.id}" :key="item.id" :value="item.id"
+                            @click="setFilterValue(item.id)"
                             class="list-group-item" v-for="item in items"
                             v-text="item.locale_name"></li>
 
@@ -35,10 +36,10 @@
 
         <div class="column" v-if="!viewOnly">
             <div class="lable">
-                <toggle-button :labels="{checked: reusable_translator.radio_checked,
-                                   unchecked: reusable_translator.unchecked}"   :filter-index="index" :font-size="14"
-                               :height='30' :sync="true" :width='70' @change="filterNameAppearOnItemNameUpdated"
-                                v-model="filter.isChecked">
+                <toggle-button :filter-index="index" :font-size="14" :height='30'
+                               :labels="{checked: reusable_translator.radio_checked,
+                                   unchecked: reusable_translator.unchecked}" :sync="true" :width='70' @change="filterNameAppearOnItemNameUpdated"
+                               v-model="filter.isChecked">
                 </toggle-button>
             </div>
         </div>
@@ -49,7 +50,6 @@
                 <button @click="createNewFilterValue" class="button is-info"><i class="fa fa-plus-circle"></i></button>
             </div>
         </div>
-
 
 
         <!-- dialog -->
@@ -77,19 +77,19 @@
                         <div class='columns'>
                             <div class="column">
                                 <div class="field is-fullwidth">
-                                    <input @keyup.13="createNewFilterValueRequest"
+                                    <input :placeholder='reusable_translator.name'
+                                           @keyup.13="createNewFilterValueRequest"
                                            class="input is-fullwidth"
-                                           style="direction:ltr"
 
-                                          :placeholder='reusable_translator.name' v-model="valueEnName"/>
+                                           style="direction:ltr" v-model="valueEnName"/>
                                 </div>
                             </div>
                             <div class="column">
                                 <div class="field is-fullwidth">
                                     <input
 
-                                            @keyup.13="createNewFilterValueRequest"
-                                            class="input is-fullwidth" :placeholder='reusable_translator.ar_name'
+                                            :placeholder='reusable_translator.ar_name'
+                                            @keyup.13="createNewFilterValueRequest" class="input is-fullwidth"
                                             style="direction:rtl"
                                             v-model="valueArName"/>
                                 </div>
@@ -128,10 +128,10 @@
 
 <script>
     export default {
-        props: ["options", "default", 'index', 'filter', 'translator','messages','reusable_translator','disabled'],
+        props: ["options", "default", 'index', 'filter', 'translator', 'messages', 'reusable_translator', 'disabled'],
         data: function () {
             return {
-                viewOnly:false,
+                viewOnly: false,
                 isListOpened: false,
                 isActive: true,
                 search: '',
@@ -148,9 +148,8 @@
 
         },
         created: function () {
-            if(this.disabled)
-            {
-                this.viewOnly= true;
+            if (this.disabled) {
+                this.viewOnly = true;
             }
             this.selected = this.default;
             this.items = this.options;
@@ -161,9 +160,8 @@
                 this.search = this.defaultValueObj.locale_name;
             }
 
-            if(this.options.length==1)
-            {
-               this.setFilterValue(this.options[0].id);
+            if (this.options.length == 1) {
+                this.setFilterValue(this.options[0].id);
                 // this.selected = this.options[0].id;
                 // this.search = this.options[0].locale_name;
             }

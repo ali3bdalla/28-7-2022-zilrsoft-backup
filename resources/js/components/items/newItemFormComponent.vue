@@ -154,14 +154,24 @@
 
                 </div>
                 <div class="column">
+                    <div class="input-group" v-show="is_expense">
+                        <span class="input-group-addon" id="basic-addon2">المورد</span>
+                        <select aria-describedby="basic-addon2" class="form-control"
+                                placeholder="Recipient's username" v-model="expense_vendor_id">
 
-                    <div class="select is-fullwidth" v-show="is_expense">
-                        <select v-model="expense_vendor_id">
                             <option :key="vendor.id" :value="vendor.id" v-for="vendor in vendors"
                                     v-text="vendor.name"></option>
-
                         </select>
+                        <!--                        -->
+                        <!--                        <input aria-describedby="basic-addon2" class="form-control" placeholder="Recipient's username"-->
+                        <!--                               type="text">-->
+
                     </div>
+
+
+                    <!--                    <div class="select is-fullwidth" v-show="is_expense">-->
+
+                    <!--                    </div>-->
 
 
                 </div>
@@ -171,7 +181,7 @@
 
             <!---->
 
-            <div class="columns">
+            <div class="columns" style="margin-bottom: 3px;">
                 <div class="column is-one-fifth">
                     <div class="label has-text-dark" style="font-size: 16px !important;">
                         {{ translator.categories}}
@@ -209,10 +219,17 @@
 
                 <div class="column">
                     <div class="lable">
-                        <a class="button is-info" href="/management/categories/create" target="_blank"><i
-                                class="fa fa-plus-circle"></i></a>
-
+                        <a href="/management/categories/create" target="_blank">
+                            <button class="button is-info"><i
+                                    class="fa fa-plus-circle"></i></button>
+                        </a>
                     </div>
+
+                    <!--                    <div class="lable">-->
+                    <!--                        <a class="button is-info" href="/management/categories/create" target="_blank"><i-->
+                    <!--                                class="fa fa-plus-circle"></i></a>-->
+
+                    <!--                    </div>-->
                 </div>
 
             </div>
@@ -275,6 +292,7 @@
                 is_expense: false,
                 rtl: true,
                 messages: null,
+                local_config: null,
                 translator: null,
                 reusable_translator: null,
                 item_id: 0,
@@ -293,10 +311,10 @@
                 has_serial_number: false,
                 has_fixed_price: false,
                 is_service: false,
-                main_vat_sale: config.vts,
-                main_vat_purchase: config.vts,
-                vat_sale: config.vts,
-                vat_purchase: config.vts,
+                main_vat_sale: 5,
+                main_vat_purchase: 5,
+                vat_sale: 5,
+                vat_purchase: 5,
                 categoriesList: [],
                 category: null,
                 filterList: [],
@@ -314,6 +332,12 @@
             // alert(this.item.price_with_tax)
             this.translator = JSON.parse(window.translator);
             this.reusable_translator = JSON.parse(window.reusable_translator);
+            this.local_config = JSON.parse(window.config);
+
+            this.main_vat_purchase = this.local_config.vtp;
+            this.main_vat_sale = this.local_config.vts;
+            this.vat_sale = this.local_config.vts;
+            this.vat_purchase = this.local_config.vtp;
             this.messages = JSON.parse(window.messages);
             if (this.isEdited) {
                 this.isEdit = true;
@@ -889,8 +913,8 @@
     .vue-treeselect {
         text-align: center !important;
     }
-    .vue-treeselect__control
-    {
+
+    .vue-treeselect__control {
         text-align: center !important;
     }
 

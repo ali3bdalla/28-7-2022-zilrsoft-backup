@@ -17,10 +17,11 @@
                     <receipt-printer-component :invoice_id='invoice_id' :print_counter="print_counter"
                                                v-show="false"></receipt-printer-component>
 
-                    <button :disabled="disableSaveButton" @click="saveInvoiceButtonClickedOnly"
+                    <button @click="saveInvoiceButtonClickedOnly"
                             class="button is-primary "><i
                             class="fa fa-save"></i>&nbsp; {{ translator.save }}
                     </button>
+                    <!--                    :disabled="disableSaveButton"-->
                 </div>
 
             </div>
@@ -217,9 +218,10 @@
                                 target="_blank">{{item
                             .locale_name}}</a></th>
                         <th style="text-align: right !important;" v-else v-text="item.locale_name">item name</th>
-                        <th><input :value="item.available_qty" class="input" disabled/></th>
+                        <th v-if="!item.is_kit"><input :value="item.available_qty" class="input" disabled/></th>
+                        <th v-else><input class="input" disabled value="-"/></th>
                         <th width="6%">
-                            <input :disabled="item.is_kit" :tabindex="{1:itemindex==0}"
+                            <input :tabindex="{1:itemindex==0}"
                                    @focus="$event.target.select()"
                                    @keyup="onChangeQtyField(item)"
                                    class="input"
@@ -234,14 +236,22 @@
 
                         </th>
                         <th class="has-text-white">
-                            <input @focus="$event.target.select()" class="input" disabled type="text"
+                            <input v-if="!item.is_kit" @focus="$event.target.select()" class="input" disabled
+                                   type="text"
                                    v-model="item.total">
+                            <input v-else class="input" disabled
+                                   type="text"
+                                   :value="parseFloat(0)">
                         </th>
                         <th class="has-text-white">
-                            <input :disabled="item.is_fixed_price || item.is_kit" @focus="$event.target.select()"
+                            <input v-if="!item.is_kit" :disabled="item.is_fixed_price || item.is_kit"
+                                   @focus="$event.target.select()"
                                    @keyup="onChangeDiscountField(item)"
                                    class="input" placeholder="discount" type="text"
                                    v-model="item.discount">
+                            <input v-else class="input" disabled
+                                   type="text"
+                                   :value="parseFloat(0)">
                         </th>
                         <th class="has-text-white">
                             <input @focus="$event.target.select()" class="input" disabled="" placeholder="subtotal"
@@ -327,7 +337,8 @@
                                     <div class="columns">
                                         <div class="column"><b>{{ translator.net }}</b></div>
                                         <div class="column">
-                                            <input :disabled="items.length==0" @focus="$event.target.select()"
+                                            <input :disabled="items.length==0 || disabled_net_field"
+                                                   @focus="$event.target.select()"
                                                    @keyup="onInvoiceNetUpdated"
                                                    class="input"
                                                    type="text"
@@ -380,6 +391,10 @@
                         </div>
 
 
+                        <div class="box">
+                            <textarea class="form-control" v-model="test_request_textarea"></textarea>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -408,6 +423,7 @@
                 new_net: 0,
                 expenses_list: [],
                 user: null,
+                test_request_textarea: '',
                 disable_button_counter: 0,
                 disable_button_counter2: true,
                 current_items_net: 0,
@@ -425,6 +441,7 @@
                 client_inc_number: '',
                 pdfLink: '',
                 department: '',
+                disabled_net_field: true,
                 errorMessage: "",
                 error: "",
                 client: "",
@@ -474,6 +491,20 @@
         methods: {
 
 
+            disable_field_or_not() {
+
+                var is_open = true;
+                for (var i = 0; i < this.items.length; i++) {
+                    var item = this.items[i];
+
+                    if (!item.is_kit && !item.is_fixed_price)
+                        is_open = false;
+                }
+
+
+                this.disabled_net_field = is_open;
+            },
+
             addNewExpenseOption() {
 
                 if (this.active_expense != null) {
@@ -503,8 +534,6 @@
 
                 }
 
-                // this.expenses_value = parseFloat(helpers.getColumnSumationFromArrayOfObjects(this.updated_expenses,
-                //     'amount'));
 
             },
 
@@ -515,7 +544,6 @@
                 console.log(kit.items);
                 this.items.splice(e.index, 1, kit);
 
-                // this.validateKitsData();//
 
             },
 
@@ -655,18 +683,22 @@
                 this.search_field = ""; /// clear the text on the search field
                 // focus on the search field after make nice search
 
-                this.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(Math.round(this.net));
+                if (!item.is_kit)
+                    this.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(Math.round(this.net));
                 // alert( this.net);
 
 
                 if (!item.is_kit) {
                     this.$refs.search_input_ref.focus();
                 }
-                this.onInvoiceNetUpdated();
+                if (!item.is_kit)
+                    this.onInvoiceNetUpdated();
 
                 this.checkData();
 
                 this.handleWidgets();
+
+                this.disable_field_or_not();
             },
 
 
@@ -695,17 +727,26 @@
 
 
                 if (item.is_kit) {
-                    item.available_qty = 10000;
+                    item.available_qty = 100;
                     item.is_fixed_price = true;
                     item.price = item.data.total;
-                    item.total = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.qty * item.price);
-                    item.discount = 0;
-                    item.subtotal = item.total;
-                    item.price_with_tax = item.data.net;
-                    item.tax = this.updateTaxForOneItem(item);
-                    // item.price_with_tax = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.tax + item.price);
-                    item.net = this.updateNetForOneItem(item);
-                    // item.is_fixed_price= true;
+                    item.total = item.data.total;
+                    item.subtotal = item.data.subtotal;
+                    item.discount = item.data.discount;
+                    item.price_with_tax = counting.calcPriceWithTaxFromPrice(item.price, item.vts);
+                    item.net = item.data.net;
+                    item.tax = item.data.tax;
+
+
+                    item.base_total = item.data.total;
+                    item.base_subtotal = item.data.subtotal;
+                    item.base_discount = item.data.discount;
+                    item.base_price_with_tax = counting.calcPriceWithTaxFromPrice(item.price, item.vts);
+                    item.base_net = item.data.net;
+                    item.base_tax = item.data.tax;
+
+
+                    item.is_fixed_price = true;
                 } else {
                     item.total = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.qty * item.price);
                     item.discount = 0;
@@ -714,8 +755,6 @@
                     item.net = this.updateNetForOneItem(item);
                 }
 
-
-                //alert(item.discount);
 
                 return item;
             },
@@ -778,7 +817,6 @@
                         var new_item_net = parseFloat(item_widget) * (parseFloat(this.net) - parseFloat(none_editable_net));// Math.round(helpers.roundTheFloatValueTo2DigitOnlyAfterComma(
 
 
-
                         // Math.round(helpers.roundTheFloatValueTo2DigitOnlyAfterComma(
                         var new_vat = counting.convertVatToValue(item.vts); //  1.05
 
@@ -789,8 +827,8 @@
                         item.discount = parseFloat(item.total) -
                             parseFloat(item.subtotal);//helpers.showOnlyTwoAfterComma(
                         console.log(item.discount);
-                        item.tax =item.subtotal * (item.vts / 100);// helpers.showOnlyTwoAfterComma(
-                        item.net =new_item_net;// helpers.roundTheFloatValueTo2DigitOnlyAfterComma(
+                        item.tax = item.subtotal * (item.vts / 100);// helpers.showOnlyTwoAfterComma(
+                        item.net = new_item_net;// helpers.roundTheFloatValueTo2DigitOnlyAfterComma(
                         this.items.splice(this.items.indexOf(item), 1, item);
 
 
@@ -903,8 +941,25 @@
 
             /// events
             onChangeQtyField(item) {
+                console.log(item);
                 // if(item.qty > item)
-                if (item.available_qty >= item.qty) {
+                if (item.is_kit) {
+                    item.total = parseFloat(item.base_total) * parseFloat(item.qty);
+                    item.subtotal = parseFloat(item.base_subtotal) * parseFloat(item.qty);
+                    item.tax = parseFloat(item.base_tax) * parseFloat(item.qty);
+                    item.net = parseFloat(item.base_net) * parseFloat(item.qty);
+                    item.total = parseFloat(item.base_total) * parseFloat(item.qty);
+
+                    var index = this.items.indexOf(item);
+
+                    this.updateItemInListBYindex(index, item);
+                    this.updateInvoiceDetails();
+
+                    this.checkData();
+                    this.handleWidgets();
+
+
+                } else if (item.available_qty >= item.qty) {
                     this.runUpdater(item);
                 } else {
                     this.$toast.error({
@@ -945,16 +1000,17 @@
                 this.checkData();
             },
             runUpdater(item) {
-                // console.log(item);
                 var index = this.items.indexOf(item);
-                // validate the value
-                // item.
+
+
                 item.discount = helpers.showOnlyTwoAfterComma(item.discount);
                 item.total = this.updateTotalForOneItem(item);
                 item.subtotal = this.updateSubtotalForOneItem(item);
                 item.tax = this.updateTaxForOneItem(item);
                 item.net = this.updateNetForOneItem(item);
                 item.variation = this.updateVariationForOneItem(item);
+
+
                 this.updateItemInListBYindex(index, item);
                 this.updateInvoiceDetails();
 
@@ -1000,6 +1056,7 @@
                 this.net = helpers.getColumnSumationFromArrayOfObjects(this.items, 'net');
                 //      this.remaining = this.net;
                 this.checkData();
+                this.disable_field_or_not();
             },
 
 
@@ -1035,7 +1092,6 @@
                 // window.print();
             },
             sendDataToServer(event) {
-                // console.log(this.creator);
                 var data_to = {
                     client_id: this.client,
                     salesman_id: this.salesman,
@@ -1057,9 +1113,12 @@
                     methods: this.pay_ways,
                 };
                 var vm = this;
-                console.log(data_to);
+                // console.log(data_to);
+                this.test_request_textarea = JSON.stringify(data_to);
                 axios.post('/management/sales', data_to)
                     .then(function (response) {
+                        console.log(response);
+                        console.log(response.data);
                         vm.showFinishTableMessage(event, response.data.invoice_id);
 
                     })

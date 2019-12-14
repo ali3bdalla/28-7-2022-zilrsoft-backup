@@ -2,7 +2,7 @@
 
 @section('content')
 
-{{--    {{ \App\User::all() }}--}}
+    {{--    {{ \App\User::all() }}--}}
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
@@ -16,7 +16,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                        <input id="email" type="email" style="direction: ltr" class="form-control @error('email')
+                                is-invalid @enderror"
                                name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                         @error('email')
@@ -30,7 +31,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
-                        <input id="password" type="password"
+                        <input id="password" type="password" style="direction: ltr"
                                class="form-control @error('password') is-invalid @enderror" name="password" required
                                autocomplete="current-password">
 

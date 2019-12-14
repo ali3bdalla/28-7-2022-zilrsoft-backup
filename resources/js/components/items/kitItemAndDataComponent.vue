@@ -29,21 +29,26 @@
                     <table class="table table-dark">
                         <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">السيريال</th>
+                            <th scope="col">الباركود</th>
+                            <th scope="col">اسم المنتج</th>
+                            <th scope="col">يحتاج سيريال</th>
                         </tr>
                         </thead>
                         <tbody v-for="(item,index) in items">
                         <tr>
+                            <td>{{ item.barcode }}</td>
                             <td>{{ item.locale_name }}</td>
-                            <td>{{ item.is_need_serial }}</td>
+                            <td v-if="item.is_need_serial">نعم</td>
+                            <td v-else>لا</td>
 
                         </tr>
 
 
                         <tr v-for="x in kit_qty" v-if="item.is_need_serial">
-                            <!--                            -->
-                            <td colspan="2">
+                            <!--
+                                                 -->
+
+                            <td colspan="3">
                                 <input :rel="'serial_'+ index" @keyup="clearField"
                                        @keyup.enter="checkSerial($event,'serial_'+ index +'_'+ x,item)"
                                        class="input"
@@ -62,12 +67,12 @@
                 <v-card-actions v-show="showButtons">
                     <v-spacer></v-spacer>
                     <v-btn
-                            class="button is-primary"
                             @click="dialog = false"
+                            class="button is-primary btn-block"
                             color="primary"
                             text
                     >
-                        Close
+                        اغلاق
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -82,12 +87,12 @@
         props: ["kit", "index", "qty"],
         data: function () {
             return {
-                dialog: true,
+                dialog: false,
                 items: [],
                 is_required_to_add_data: false,
                 has_serials_error: true,
                 kit_qty: 0,
-                showButtons:false
+                showButtons: false
             };
         },
         created: function () {
@@ -132,8 +137,7 @@
 
 
                     this.items.push(item.item);
-                    if(i+1==len)
-                    {
+                    if (i + 1 == len) {
                         this.checkItemsData();
                     }
                 }
@@ -154,19 +158,17 @@
                     var item = this.items[i];
                     // console.log(item);
                     if (item.is_need_serial) {
-                        if (item.serials.length < parseInt( this.kit_qty)) {
+                        if (item.serials.length < parseInt(this.kit_qty)) {
                             this.has_serials_error = true;
                         }
                     }
                 }
 
 
-                if(!this.has_serials_error)
-                {
+                if (!this.has_serials_error) {
                     this.pushEvent();
                     this.showButtons = true;
-                }else
-                {
+                } else {
                     this.showButtons = false;
                 }
 
@@ -201,7 +203,7 @@
                             $(event.target).attr("disabled", "disabled");
 
                             vm.checkItemsData();
-                           vm.clearField(event);
+                            vm.clearField(event);
 
                         })
                         .catch(function (error) {
@@ -216,7 +218,6 @@
                 }
 
 
-
             },
 
         },
@@ -226,7 +227,7 @@
 
 
                 this.kit_qty = value;
-                var subitems=  [];
+                var subitems = [];
                 var len = this.items.length;
                 for (var i = 0; i < len; i++) {
 
@@ -236,8 +237,8 @@
                 }
 
                 this.items = subitems;
-                this.dialog = true;
-               // console.log(value);
+                // this.dialog = true;
+                // console.log(value);
 
             }
         }

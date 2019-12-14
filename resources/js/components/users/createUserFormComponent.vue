@@ -14,14 +14,16 @@
 
                 <div class="column">
                     <toggle-button :font-size="19" :height='30' :sync="true" :width='70' labels=""
-                                   v-model="is_individual"/>
+                                   v-model="is_individual" :labels="{checked: reusable_translator.radio_checked,
+                                   unchecked: reusable_translator.unchecked}"/>
                     &nbsp;
                     <label>فرد</label>
                 </div>
 
                 <div class="column">
                     <toggle-button :font-size="19" :height='30' :sync="true" :width='70' labels=""
-                                   v-model="is_company"/>
+                                   v-model="is_company" :labels="{checked: reusable_translator.radio_checked,
+                                   unchecked: reusable_translator.unchecked}"/>
                     &nbsp;
                     <label>منشأة</label>
                 </div>
@@ -42,21 +44,24 @@
 
                 <div class="column">
                     <toggle-button :font-size="19" :height='30' :sync="true" :width='70' labels=""
-                                   v-model="is_title_mr"/>
+                                   v-model="is_title_mr" :labels="{checked: reusable_translator.radio_checked,
+                                   unchecked: reusable_translator.unchecked}"/>
                     &nbsp;
                     <label>السيد</label>
                 </div>
 
                 <div class="column">
                     <toggle-button :font-size="19" :height='30' :sync="true" :width='70' labels=""
-                                   v-model="is_title_mis"/>
+                                   v-model="is_title_mis" :labels="{checked: reusable_translator.radio_checked,
+                                   unchecked: reusable_translator.unchecked}"/>
                     &nbsp;
                     <label>السيدة</label>
                 </div>
 
                 <div class="column">
                     <toggle-button :font-size="19" :height='30' :sync="true" :width='70' labels=""
-                                   v-model="is_title_company"/>
+                                   v-model="is_title_company" :labels="{checked: reusable_translator.radio_checked,
+                                   unchecked: reusable_translator.unchecked}"/>
                     &nbsp;
                     <label>السادة</label>
                 </div>
@@ -76,20 +81,25 @@
 
 
                 <div class="column">
-                    <toggle-button :font-size="19" :height='30' :sync="true" :width='70' labels="" v-model="is_client"/>
+                    <toggle-button :font-size="19" :height='30' :sync="true" :width='70' labels=""
+                                   v-model="is_client" :labels="{checked: reusable_translator.radio_checked,
+                                   unchecked: reusable_translator.unchecked}"/>
                     &nbsp;
                     <label>عميل</label>
                 </div>
 
                 <div class="column">
-                    <toggle-button :font-size="19" :height='30' :sync="true" :width='70' labels="" v-model="is_vendor"/>
+                    <toggle-button :font-size="19" :height='30' :sync="true" :width='70' labels=""
+                                   v-model="is_vendor" :labels="{checked: reusable_translator.radio_checked,
+                                   unchecked: reusable_translator.unchecked}"/>
                     &nbsp;
                     <label>مورد</label>
                 </div>
 
                 <div class="column">
                     <toggle-button :font-size="19" :height='30' :sync="true" :width='70' labels=""
-                                   v-model="is_manager"/>
+                                   v-model="is_manager" :labels="{checked: reusable_translator.radio_checked,
+                                   unchecked: reusable_translator.unchecked}"/>
                     &nbsp;
                     <label>مستخدم</label>
                 </div>
@@ -97,7 +107,8 @@
 
                 <div class="column">
                     <toggle-button :font-size="19" :height='30' :sync="true" :width='70' labels=""
-                                   v-model="is_supplier"/>
+                                   v-model="is_supplier" :labels="{checked: reusable_translator.radio_checked,
+                                   unchecked: reusable_translator.unchecked}"/>
                     &nbsp;
                     <label>مزود خدمات</label>
                 </div>
@@ -118,17 +129,18 @@
 
                 <div class="column">
                     <toggle-button :font-size="19" :height='30' :sync="true" :width='70' labels=""
-                                   v-model="has_credit_invoice"/>
+                                   v-model="has_credit_invoice" :labels="{checked: reusable_translator.radio_checked,
+                                   unchecked: reusable_translator.unchecked}"/>
                     &nbsp;
                     <!--					<label>نعم</label>-->
                 </div>
 
-                <div class="column">
-                    <toggle-button :font-size="19" :height='30' :sync="true" :width='70' labels=""
-                                   v-model="has_no_credit_invoice"/>
-                    &nbsp;
-                    <!--					<label>لا</label>-->
-                </div>
+<!--                <div class="column">-->
+<!--                    <toggle-button :font-size="19" :height='30' :sync="true" :width='70' labels=""-->
+<!--                                   v-model="has_no_credit_invoice"/>-->
+<!--                    &nbsp;-->
+<!--                    &lt;!&ndash;					<label>لا</label>&ndash;&gt;-->
+<!--                </div>-->
 
 
             </div>
@@ -327,7 +339,7 @@
 
 <script type="text/javascript">
     export default {
-        props: ['branchs', 'gateways','banks'],
+        props: ['branchs', 'gateways', 'banks'],
         data: function () {
             return {
 
@@ -338,6 +350,7 @@
                 user_detail_responser: "",
                 user_detail_responser_phone: "",
 
+                reusable_translator:null,
                 manager_gateways: [],
 
                 user_gateways: [],
@@ -368,6 +381,10 @@
                 user_password_confirmation: '',
 
             };
+        },
+        created:function()
+        {
+            this.reusable_translator = JSON.parse(window.reusable_translator);
         },
         methods: {
 
@@ -508,7 +525,7 @@
                     pin_code: this.user_pin_code,
                     branch_id: this.branch_id,
                     department_id: this.department_id,
-                    can_make_credit: this.can_make_credit,
+                    can_make_credit: this.has_credit_invoice,
                     password: this.user_password,
                     password_confirmation: this.user_password_confirmation,
                     user_detail_vat: this.user_detail_vat,

@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Requests;
 	
+	use Dotenv\Exception\ValidationException;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
@@ -43,34 +44,26 @@
 		
 		public function save($sale)
 		{
-
-//
-//			return "it's works";
+			
 			$invoice = null;
 			DB::beginTransaction();
 			try{
 				
 				$this->validate_request_has_returned_items();
 				$invoice = $sale->invoice->make_instance_child_invoice('r_sale');
-				$return_invoice_data = $sale->only('salesman_id','client_id');
-				$return_invoice_data['prefix'] = 'RSA-';
-				$return_invoice_data['invoice_type'] = 'r_sale';
-				$return_invoice_data['organization_id'] = auth()->user()->organization_id;
-				$return_invoice_data['parent_id'] = $sale->id;
-				$invoice->sale()->create($return_invoice_data);
-				
-				$items = $this->get_only_old_returned_items();
+				$this->create_sale_subinvoice($invoice,$sale);
+				$items = $this->items;
 				$invoice->create_return_invoice_items($items,$invoice);
-				$data = $invoice->update_return_invoice_data();
-				$expenses = [];
-				$invoice_status = $invoice->handle_invoice_transactions($this->methods,$invoice->sale->client_id,
-					$data['net'],
-					$items,$expenses,$invoice_type = 'r_sale');
-				
-				$invoice->update_invoice_creation_status($invoice_status);
-				
+
+//				$sale->invoice->update_return_invoice_data();
+//				$invoice->update_invoice_totals_data();
+//				$expenses = [];
+//				$invoice_status = $invoice->handle_invoice_transactions($this->methods,$invoice->sale->client_id,
+//					$invoice->net,
+//					$invoice->items()->where('belong_to_kit',false)->get(),$expenses,$invoice_type = 'r_sale');
+//
+//				$invoice->update_invoice_creation_status($invoice_status);
 				DB::commit();
-				
 				return $invoice;
 			}catch (Exception $e){
 				DB::rollBack();
@@ -90,19 +83,19 @@
 			}
 //
 			if ($has_returned_qty == false)
-				throw  Exception();
+				throw  new ValidationException([
+					'items.0.returned_qty' => 'put some data'
+				]);
 		}
 		
-		public function get_only_old_returned_items()
+		public function create_sale_subinvoice($invoice,$sale)
 		{
-			$items = [];
-			foreach ($this->items as $item){
-				//if (!$item['is_expense']){
-				$items[] = $item;
-				//}
-			}
-			
-			return $items;
+			$return_invoice_data = $sale->only('salesman_id','client_id');
+			$return_invoice_data['prefix'] = 'RSA-';
+			$return_invoice_data['invoice_type'] = 'r_sale';
+			$return_invoice_data['organization_id'] = auth()->user()->organization_id;
+			$return_invoice_data['parent_id'] = $sale->id;
+			return $invoice->sale()->create($return_invoice_data);
 		}
 		
 	}

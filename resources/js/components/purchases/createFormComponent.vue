@@ -63,8 +63,8 @@
                         <!-- <label>date</label> -->
                         <div class="input-group">
                             <span class="input-group-addon" id="time-field">{{translator.date}}</span>
-                            <input aria-describedby="time-field" style="    direction: ltr
-                            !important;" class="form-control" name="" type="text"
+                            <input aria-describedby="time-field" class="form-control" name="" style="    direction: ltr
+                            !important;" type="text"
                                    v-model="time">
 
                         </div>
@@ -119,8 +119,8 @@
                 <div class="column is-two-thirds">
                     <div class="product_search" id="seach_area">
                         <div class="">
-                            <input @keyup.enter="findItems" class="input"
-                                   :placeholder="translator.search_barcode" ref="search_input_ref" type="text"
+                            <input :placeholder="translator.search_barcode" @keyup.enter="findItems"
+                                   class="input" ref="search_input_ref" type="text"
                                    v-bind:class="{'is-danger':error=='items'}" v-model="search_field"/>
                             <p class="help is-danger is-center" v-show="error=='items'" v-text="errorMessage"></p>
                         </div>
@@ -183,13 +183,14 @@
 
                             <button @click="deleteItemFromList(item)" class="button is-danger is-small"><i
                                     class="fa fa-trash"></i></button>
-                            <button @click="show(itemindex,item)" class="button is-primary is-small" style="margin:10px">
+                            <button @click="show(itemindex,item)" class="button is-primary is-small"
+                                    style="margin:10px">
                                 <i class="fa fa-plus"></i> &nbsp;
                             </button>
                             <item-serials-list-component
                                     :init_item_serial_list="item.serials"
-                                    :item="item"
                                     :isOpen="item.isOpen"
+                                    :item="item"
                                     :item_index="itemindex" :key="item.id"
                                     :updatehock="updatehock"
                                     @changed="updatedItemSerials"></item-serials-list-component>
@@ -198,50 +199,51 @@
                         <th v-text="item.barcode"></th>
                         <th v-text="item.locale_name">item name</th>
                         <th width="6%">
-                            <input @focus="$event.target.select()"  @keyup="onChangeQtyField(item)" class="input"
+                            <input @focus="$event.target.select()" @keyup="onChangeQtyField(item)" class="input"
                                    type="text" v-if="!item.is_need_serial"
                                    v-model="item.qty">
                             <p v-else>{{item.qty}}</p>
                         </th>
                         <th class="has-text-white">
-                            <input @focus="$event.target.select()"  class="input" type="text"
+                            <input @focus="$event.target.select()" class="input" type="text"
                                    v-model="item.price_with_tax">
 
                         </th>
                         <th class="has-text-white">
-                            <input @focus="$event.target.select()"  @keyup="onChangePriceField(item)" class="input"
+                            <input @focus="$event.target.select()" @keyup="onChangePriceField(item)" class="input"
                                    type="text"
                                    v-model="item.purchase_price">
 
                         </th>
                         <th class="has-text-white">
-                            <input @focus="$event.target.select()"  class="input" disabled type="text"
+                            <input @focus="$event.target.select()" class="input" disabled type="text"
                                    v-model="item.total">
                         </th>
                         <th class="has-text-white">
-                            <input @focus="$event.target.select()"  @keyup="onChangeDiscountField(item)"
+                            <input @focus="$event.target.select()" @keyup="onChangeDiscountField(item)"
                                    class="input" placeholder="discount" type="text"
                                    v-model="item.discount">
                         </th>
                         <th class="has-text-white">
-                            <input class="input" @focus="$event.target.select()"  placeholder="subtotal" readonly=""
+                            <input @focus="$event.target.select()" class="input" placeholder="subtotal" readonly=""
                                    type="text" v-model="item.subtotal">
                         </th>
                         <!--                        <th class="has-text-white">-->
                         <!--                            <input type="text" class="input" placeholder="vat sale" readonly="" v-model="item.vtp + '%'">-->
                         <!--                        </th>-->
                         <th class="has-text-white">
-                            <input class="input"  @focus="$event.target.select()" placeholder="tax" readonly=""
+                            <input @focus="$event.target.select()" class="input" placeholder="tax" readonly=""
                                    type="text" v-model="item.tax">
                         </th>
                         <th class="has-text-white">
-                            <input class="input"  @focus="$event.target.select()" placeholder="net" readonly=""
+                            <input @focus="$event.target.select()" class="input" placeholder="net" readonly=""
                                    type="text" v-model="item.net">
                         </th>
                         <th class="has-text-white">
-                            <input :class="{'is-danger':item.variation>0,'is-primary':item.variation<=0}" class="input"
-                                   placeholder="net"
+                            <input :class="{'is-danger':item.variation>0,'is-primary':item.variation<=0}"
                                    @focus="$event.target.select()"
+                                   class="input"
+                                   placeholder="net"
                                    readonly=""
                                    type="text"
                                    v-model="item.variation">
@@ -257,9 +259,9 @@
                     <div class="column is-three-quarters"></div>
                     <div class="column">
                         <div class="card">
-<!--                            <div class="message-header">-->
-<!--                                invoice data-->
-<!--                            </div>-->
+                            <!--                            <div class="message-header">-->
+                            <!--                                invoice data-->
+                            <!--                            </div>-->
                             <div class="message-body text-center">
                                 <div class="list-group-item">
                                     <div class="columns">
@@ -311,9 +313,9 @@
 
 
                                 <expenses-list-component
-                                        @expensesUpdated="expensesUpdated"
-                                        @expenseIncludeInNet="expenseIncludeInNet"
-                                        @expenseDeIncludeInNet="expenseDeIncludeInNet":expenses="updated_expenses">
+                                        :expenses="updated_expenses"
+                                        @expenseDeIncludeInNet="expenseDeIncludeInNet"
+                                        @expenseIncludeInNet="expenseIncludeInNet" @expensesUpdated="expensesUpdated">
                                 </expenses-list-component>
                             </div>
                         </div>
@@ -383,8 +385,7 @@
             this.department = this.creator.department.title;
             this.timerLoop();
         },
-        mounted:function()
-        {
+        mounted: function () {
             this.watchCopiedItems();
 
             this.$refs.search_input_ref.focus();
@@ -398,13 +399,11 @@
             },
 
 
-            watchCopiedItems()
-            {
+            watchCopiedItems() {
 
                 var vm = this;
                 this.bc.onmessage = function (ev) {
-                    if(ev.isTrusted)
-                    {
+                    if (ev.isTrusted) {
                         var item = JSON.parse(ev.data);
                         vm.addItemToList(item);
                     }
@@ -412,7 +411,7 @@
 
             },
 
-            show(index,item) {
+            show(index, item) {
                 this.updatehock = this.updatehock + 1;
                 //
                 item.isOpen = !item.isOpen;
@@ -420,7 +419,7 @@
                 this.$modal.show('serialList_' + index);
 
                 //
-                this.items.splice(this.items.indexOf(item), 1,item);
+                this.items.splice(this.items.indexOf(item), 1, item);
 
 
             },
@@ -456,12 +455,11 @@
                                 vm.search_field = '';
                                 vm.addItemToList(item);
                                 // console.log('full barcode');
-                            } else if(response.data.length == 0){
+                            } else if (response.data.length == 0) {
                                 vm.$refs.search_input_ref.select();
                                 vm.itemsSearchList = [];
 
-                            }
-                            else {
+                            } else {
                                 vm.itemsSearchList = response.data;
                             }
                         })
@@ -479,7 +477,9 @@
 
             addItemToList(item) {
 
-                item.isOpen =  false;
+
+
+                item.isOpen = false;
                 if (helpers.checkIfObjectExistsOnArrayBYIdentifer(this.items, item.id)) {
 
                     var old_item = helpers.getDataFromArrayById(this.items, item.id);

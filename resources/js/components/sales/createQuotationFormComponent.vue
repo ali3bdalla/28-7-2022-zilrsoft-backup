@@ -192,7 +192,7 @@
                         <!-- <th class="has-text-white"></th> -->
                         <th v-text="item.barcode"></th>
 
-                        <th style="text-align: right !important;"  v-text="item.locale_name"></th>
+                        <th style="text-align: right !important;" v-text="item.locale_name"></th>
                         <th width="6%">
                             <input :disabled="item.is_kit" :tabindex="{1:itemindex==0}"
                                    @focus="$event.target.select()"
@@ -914,7 +914,7 @@
                 console.log(data_to);
                 axios.post('/management/sales/quotations/index', data_to)
                     .then(function (response) {
-                        // vm.showFinishTableMessage(event, response.data.invoice_id);
+                        vm.showFinishTableMessage(event, response.data.invoice_id);
 
                     })
                     .catch(function (error) {

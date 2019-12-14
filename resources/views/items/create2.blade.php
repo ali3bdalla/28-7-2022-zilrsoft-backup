@@ -35,9 +35,9 @@
                                 :item-category='@json($item->category)'></new-item-form-component>
                     @else
                         <new-item-form-component
-								:vendors='@json($vendors)'
-								:categories='@json($categories)'
-                                                 :is-cloned="false"></new-item-form-component>
+                                :vendors='@json($vendors)'
+                                :categories='@json($categories)'
+                                :is-cloned="false"></new-item-form-component>
                     @endif
 
 

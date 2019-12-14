@@ -5,12 +5,15 @@
 	
 	
 	use App\InvoiceItems;
+	use App\Item;
+	use App\ItemSerials;
 	
 	trait InvoiceItemHelper
 	{
 		
 		public function make_invoice_transaction($sub_invoice,$expenses)
 		{
+			
 			
 			$creator_stock = auth()->user()->manager_current_stock();
 			
@@ -28,8 +31,7 @@
 				
 				
 			}elseif ($sub_invoice->invoice_type == 'r_purchase'){
-
-//				dd($sub_invoice);
+				
 				$this->item->credit_transaction()->create([
 					'creator_id' => auth()->user()->id,
 					'organization_id' => auth()->user()->organization_id,
@@ -45,6 +47,7 @@
 				
 				$amount = $this->item->cost * $this->qty;
 				
+				
 				$this->item->credit_transaction()->create([
 					'creator_id' => auth()->user()->id,
 					'organization_id' => auth()->user()->organization_id,
@@ -57,9 +60,12 @@
 				]);
 				
 			}else if ($sub_invoice->invoice_type == 'r_sale'){
-				
+
+//
 				
 				$amount = $this->item->cost * $this->qty;
+//				var_dump($this->item);
+//				exit();
 				
 				$this->item->debit_transaction()->create([
 					'creator_id' => auth()->user()->id,
@@ -104,6 +110,133 @@
 			return $total_of_expenses;
 		}
 		
+		public function init_return_kit($qty,$invoice)
+		{
+			
+			$accounting_data = [];
+			
+			$main_kit_aty = $this->qty;
+			$accounting_data['discount'] = $this->discount / $this->qty * $qty;
+			$accounting_data['total'] = $this->total / $this->qty * $qty;
+			$accounting_data['subtotal'] = $this->subtotal / $this->qty * $qty;
+			$accounting_data['tax'] = $this->tax / $this->qty * $qty;
+			$accounting_data['net'] = $this->net / $this->qty * $qty;
+//			$accounting_data['qty'] = $qty;
+			$accounting_data['organization_id'] = auth()->user()->organization_id;
+			$accounting_data['creator_id'] = auth()->user()->id;
+			$accounting_data['item_id'] = $this->id;
+			$accounting_data['type'] = 'new';
+			$accounting_data['qty'] = $qty;
+			$accounting_data['cost'] = $this->item->cost;
+			$accounting_data['price'] = $this->price / $this->qty * $qty;
+			$accounting_data['invoice_type'] = 'r_sale';
+			$accounting_data['user_id'] = $this->invoice->user_id;
+			$accounting_data['is_kit'] = true;
+			$kit = $invoice->items()->create(collect($accounting_data)->toArray());
+			$this->update_returned_qty($qty,$this->id);
+			$items = $this->invoice->items()->where([
+				['belong_to_kit',true],
+				['parent_kit_id',$this->item_id]
+			])->get();
+			
+			
+			foreach ($items as $item){
+				$item->init_return_kit_item($kit,$qty,$invoice,$main_kit_aty,$this);
+			}
+			
+		}
+		
+		public function update_returned_qty($qty,$id)
+		{
+			
+			$new_r_qty = $this->r_qty + $qty;
+			
+			$item = InvoiceItems::find($id);
+			$item->update([
+				'r_qty' => $new_r_qty
+			]);
+			
+			
+		}
+		
+		/**
+		 * @param $kit
+		 * @param $qty
+		 * @param $invoice
+		 * @param $main_kit_aty
+		 * @param $parent_item
+		 */
+		public function init_return_kit_item($kit,$qty,$invoice,$main_kit_aty,$parent_item)
+		{
+			
+//			$qty = $this->qty / $main_kit_aty * $qty;
+//			$accounting_data['discount'] = $this->discount / $this->qty * $qty;
+//			$accounting_data['total'] = $this->total / $this->qty * $qty;
+//			$accounting_data['subtotal'] = $this->subtotal / $this->qty * $qty;
+//			$accounting_data['tax'] = $this->tax / $this->qty * $qty;
+//			$accounting_data['net'] = $this->net / $this->qty * $qty;
+//			$accounting_data['organization_id'] = auth()->user()->organization_id;
+//			$accounting_data['creator_id'] = auth()->user()->id;
+//			$accounting_data['item_id'] = $this->item_id;
+//			$accounting_data['type'] = 'new';
+//			$accounting_data['qty'] = $qty;
+//			$accounting_data['r_qty'] = $qty;
+//			$accounting_data['cost'] = $this->item->cost;
+//			$accounting_data['price'] = $this->price;
+//			$accounting_data['invoice_type'] = 'r_sale';
+//			$accounting_data['user_id'] = $this->invoice->user_id;
+//			$accounting_data['is_kit'] = false;
+//			$accounting_data['belong_to_kit'] = true;
+//			$accounting_data['parent_kit_id'] = $kit->id;
+//			$new_item = $invoice->items()->create(collect($accounting_data)->toArray());
+//
+//			$this->item->update_qty_with_option('add',$qty);
+//
+//
+//			$this->update_item_cost_value_after_new_invoice_created();
+//
+//			$serials = ItemSerials::where([
+//				['sale_invoice_id',$parent_item->invoice->id],
+//				['item_id',$parent_item->item_id],
+//			])->get();
+//			if ($this->item->is_need_serial)
+//				$this->item->change_serials_array_status('r_sale',$serials,$invoice);
+//
+//
+//			$this->update_returned_qty($qty,$this->id);
+//
+//			$new_item->make_invoice_transaction($invoice,0);
+//
+//
+		}
+		
+		/**
+		 *
+		 */
+		public function update_item_cost_value_after_new_invoice_created()
+		{
+			$cost = $this->item->cost;
+			$current_stock = $cost * $this->item->available_qty;
+			$result = [];
+			$result['cost'] = $cost;
+			if (in_array($this->invoice->invoice_type,['purchase','beginning_inventory'])){
+				$result = $this->item->handlePurchaseHistory($this,$current_stock,$this->item->available_qty);
+			}else if ($this->invoice->invoice_type == 'sale'){
+				$result = $this->item->handleSaleHistory($this,$cost,$current_stock,$this->item->available_qty);
+			}else if ($this->invoice->invoice_type == 'r_sale'){
+				$result = $this->item->handleReturnSaleHistory($this,$current_stock,$cost,$this->item->available_qty);
+			}else if ($this->invoice->invoice_type == 'r_purchase'){
+				$result = $this->item->handleReturnPurchaseHistory($this,$cost,$current_stock,$this->item->available_qty);
+			}
+			
+			
+			$this->item->update([
+				'cost' => $result['cost']
+			]);
+//
+		
+		}
+		
 		public function init_return_item($invoice_data_invoice_item = [],$sub_invoice)
 		{
 			
@@ -112,7 +245,6 @@
 			
 			$get_serials_if_need_serails = $is_item_need_serial_number ? $this->detect_returned_serials_list
 			($invoice_data_invoice_item['serials'],$target_invoice_type) : [];
-			
 			
 			
 			$get_returned_item_qty = $is_item_need_serial_number ? count($get_serials_if_need_serails) :
@@ -140,8 +272,7 @@
 				if ($is_item_need_serial_number)
 					$this->item->change_serials_array_status($target_invoice_type,$get_serials_if_need_serails,
 						$sub_invoice);
-
-
+				
 				
 				$this->update_returned_qty($get_returned_item_qty,$invoice_data_invoice_item['id']);
 				$new_item->make_invoice_transaction($sub_invoice,0);
@@ -150,11 +281,20 @@
 			
 		}
 		
+		/**
+		 * @return string
+		 */
 		public function detect_target_invoice_type()
 		{
 			return $this->invoice_type == 'sale' ? 'r_sale' : 'r_purchase';
 		}
 		
+		/**
+		 * @param $serials
+		 * @param $target_invoice_type
+		 *
+		 * @return array
+		 */
 		private function detect_returned_serials_list($serials,$target_invoice_type)
 		{
 			$result = [];
@@ -168,7 +308,7 @@
 					}
 				}
 			}
-		
+			
 			
 			return $result;
 			
@@ -197,43 +337,6 @@
 				$data['cost'] = $this->cost;
 			
 			return $data;
-			
-		}
-		
-		public function update_item_cost_value_after_new_invoice_created()
-		{
-			$cost = $this->item->cost;
-			$current_stock = $cost * $this->item->available_qty;
-			$result = [];
-			$result['cost'] = $cost;
-			if (in_array($this->invoice->invoice_type,['purchase','beginning_inventory'])){
-				$result = $this->item->handlePurchaseHistory($this,$current_stock,$this->item->available_qty);
-			}else if ($this->invoice->invoice_type == 'sale'){
-				$result = $this->item->handleSaleHistory($this,$cost,$current_stock,$this->item->available_qty);
-			}else if ($this->invoice->invoice_type == 'r_sale'){
-				$result = $this->item->handleReturnSaleHistory($this,$current_stock,$cost,$this->item->available_qty);
-			}else if ($this->invoice->invoice_type == 'r_purchase'){
-				$result = $this->item->handleReturnPurchaseHistory($this,$cost,$current_stock,$this->item->available_qty);
-			}
-			
-			
-			$this->item->update([
-				'cost' => $result['cost']
-			]);
-//
-		
-		}
-		
-		public function update_returned_qty($qty,$id)
-		{
-			
-			$new_r_qty = $this->r_qty + $qty;
-			
-			$item = InvoiceItems::find($id);
-			$item->update([
-				'r_qty' => $new_r_qty
-			]);
-			
 			
 		}
 		

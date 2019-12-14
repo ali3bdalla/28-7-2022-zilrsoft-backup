@@ -16,7 +16,7 @@
 		
 		public function stockMovement($dates = [])
 		{
-			$histories = $this->history()->with('invoice','user','creator')->get();
+			$histories = $this->history()->where('invoice_type','!=','quotation')->with('invoice','user','creator')->get();
 			
 			
 			$cost = 0;

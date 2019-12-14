@@ -238,17 +238,20 @@
         <hr>
 
 
-        <div class="row">
+        @if(!empty($payment->paymentable->locale_name))
+            <div class="row">
 
-            <div class="col-md-12">
-                <h5>{{__('pages/payments.paid_by_' . $payment->payment_type)}}
-                    : @if($payment->paymentable->parent_id>=1){{
-                                   $payment->paymentable->parent->locale_name
-                                   }} - @endif {{ $payment->paymentable->locale_name
-                }}</h5>
+                <div class="col-md-12">
+                    <h5>{{__('pages/payments.paid_by_' . $payment->payment_type)}}
+                        : {{ $payment->paymentable->locale_name}}
+                        {{--                    @if($payment->paymentable->parent_id>=1){{--}}
+                        {{--                                   $payment->paymentable->parent->locale_name--}}
+                        {{--                                   }} - @endif--}}
+                    </h5>
+                </div>
             </div>
-        </div>
 
+        @endif
 
         @if($payment->slug=='transfer' && $payment->payment_type=='payment')
             <div class="row">
@@ -300,5 +303,5 @@
 
 
 <script>
-    print();
+    // print();
 </script>

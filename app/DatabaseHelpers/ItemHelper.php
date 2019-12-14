@@ -6,6 +6,7 @@
 	use App\Item;
 	use App\PurchaseInvoice;
 	use App\SaleInvoice;
+	use Dotenv\Exception\ValidationException;
 	
 	trait ItemHelper
 	{
@@ -13,93 +14,88 @@
 		public function init_create_invoice_item($invoice_item,$invoice_type,$user_id,$sub_invoice,$expenses)
 		{
 			
-			$qty = $this->get_item_qty($invoice_item); //  detect qty of the item should be created
 			
-			
-			$accounting_data = $this->get_item_accounting_data_except_price($qty,$invoice_item);
-			
-			if ($sub_invoice instanceof SaleInvoice){
-				if ($this->is_expense)
-					$accounting_data['cost'] = $invoice_item['purchase_price'];
+			if ($this->is_kit){
+				
+				$this->init_create_invoice_kit($invoice_item,$invoice_type,$user_id,$sub_invoice,$expenses);
+				
+			}else{
+				if ($sub_invoice instanceof SaleInvoice){
+					if ($this->available_qty < $invoice_item['qty']){
+						throw  ValidationException([
+							'qty' => 'not available_qty'
+						]);
+					}
+				}
+				
+				
+				$qty = $this->get_item_qty($invoice_item); //  detect qty of the item should be created
+				
+				$accounting_data = $this->get_item_accounting_data_except_price($qty,$invoice_item);
+				
+				if ($sub_invoice instanceof SaleInvoice){
+					if ($this->is_expense)
+						$accounting_data['cost'] = $invoice_item['purchase_price'];
+					else
+						$accounting_data['cost'] = $this->cost;
+					
+				}else
+					$accounting_data['cost'] = $accounting_data['total'] / $qty;
+				
+				
+				$accounting_data['price'] = $this->get_item_price($invoice_type,$invoice_item);
+				
+				
+				$accounting_data['invoice_type'] = $invoice_type;
+				
+				if (collect($invoice_item)->has('belong_to_kit')){
+					
+					if ($invoice_item['belong_to_kit']){
+						$accounting_data['belong_to_kit'] = true;
+						$accounting_data['parent_kit_id'] = $invoice_item['parent_kit_id'];
+					}
+				}
+				
+				
+				$accounting_data['user_id'] = $user_id;
+				
+				
+				$new_invoice_item = $sub_invoice->invoice->items()->create(collect($accounting_data)->toArray());
+				
+				$new_invoice_item->update_item_cost_value_after_new_invoice_created();
+				
+				
+				if (!empty($expenses))
+					$total_of_expenses = $new_invoice_item->add_expenses_to_invoice_item($expenses,
+						$invoice_item['widget']);
 				else
-					$accounting_data['cost'] = $this->cost;
+					$total_of_expenses = 0;
 				
-			}else
-				$accounting_data['cost'] = $accounting_data['total'] / $qty;
-			
-			
-			$accounting_data['price'] = $this->get_item_price($invoice_type,$invoice_item);
-			
-			
-			$accounting_data['invoice_type'] = $invoice_type;
-			
-			if (collect($invoice_item)->has('belong_to_kit')){
-				if ($invoice_item['belong_to_kit']){
-					$accounting_data['belong_to_kit'] = true;
-					$accounting_data['parent_kit_id'] = $invoice_item['parent_kit_id'];
-				}
-			}
-			
-			
-			$accounting_data['user_id'] = $user_id;
-			
-			if ($this->is_kit){
-				$accounting_data['is_kit'] = true;
 				
-			}
-			
-			
-			$new_invoice_item = $sub_invoice->invoice->items()->create(collect($accounting_data)->toArray());
-			
-			
-			$new_invoice_item->update_item_cost_value_after_new_invoice_created();
-			
-			
-			if (!empty($expenses))
-				$total_of_expenses = $new_invoice_item->add_expenses_to_invoice_item($expenses,
-					$invoice_item['widget']);
-			else
-				$total_of_expenses = 0;
-			
-			
-			//update serial if item need contain serials array
-			if ($this->is_need_serial)
-				$this->
-				update_serials_list_for_the_item_after_new_invoice_created(
-					$invoice_type
-					,$sub_invoice,
-					$invoice_item,
-					$user_id
-				);
-			
-			if ($this->is_kit){
-				foreach ($invoice_item['items'] as $item){
-					
-					/// create new item with the , that item is belong to kit
-					$fresh_item = Item::find($item['id']);
-					$item['belong_to_kit'] = true;
-					$item['parent_kit_id'] = $this->id;
-					$item['qty'] = $item['qty'] * $invoice_item['qty'];
-					$fresh_item->init_create_invoice_item($item,$invoice_type,$user_id,$sub_invoice,$expenses);
-					
-				}
-			}
-			
-			
-			if (!$this->is_kit)
+				//update serial if item need contain serials array
+				if ($this->is_need_serial)
+					$this->
+					update_serials_list_for_the_item_after_new_invoice_created(
+						$invoice_type
+						,$sub_invoice,
+						$invoice_item,
+						$user_id
+					);
+				
+				
 				$this->update_item_qty_after_new_invoice_created($qty,$invoice_type);
-			
-			
-			if (!$this->is_kit){
+				
 				if ($sub_invoice instanceof PurchaseInvoice && !$invoice_item['is_expense']){
 					$this->update_item_last_purchase_price($accounting_data['price']);
 					$this->update_item_sales_price($invoice_item['price_with_tax']);
 					
 				}
-			}
-			
-			if (!$this->is_kit)
+				
+				
 				$new_invoice_item->make_invoice_transaction($sub_invoice,$total_of_expenses);
+				
+				
+			}
 			
 			
 			return $this;

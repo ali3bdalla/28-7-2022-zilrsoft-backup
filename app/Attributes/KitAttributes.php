@@ -17,10 +17,13 @@
 		
 		public function fillKitData($data)
 		{
+//			var_dump($data);
+//			exit();
 			$kit_data = [
 				'total' => $data['total'],
 				'subtotal' => $data['subtotal'],
 				'tax' => $data['tax'],
+				'discount' => $data['discount_value'],
 				'net' => $data['net']
 			];
 			
@@ -30,14 +33,14 @@
 		
 		public function fetchKitData($qty,$kit_data)
 		{
+
+//			$source_data = $this->data()->first();
 			
-			$source_data = $this->data()->first();
-			
-			$data['total'] = $source_data['total'] * $qty;
-			$data['subtotal'] = $source_data['subtotal'] * $qty;
-			$data['tax'] = $source_data['tax'] * $qty;
-			$data['net'] = $source_data['net'] * $qty;
-			$data['price'] = $data['total'] / $qty;
+			$data['total'] = $kit_data['total'];
+			$data['subtotal'] = $kit_data['subtotal'];
+			$data['tax'] = $kit_data['tax'];
+			$data['net'] = $kit_data['net'];
+			$data['price'] = $kit_data['price'];
 			
 			
 			return $data;

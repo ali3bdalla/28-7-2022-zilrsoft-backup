@@ -5,6 +5,7 @@
 	use App\Attributes\ItemAttributes;
 	use App\Attributes\KitAttributes;
 	use App\DatabaseHelpers\ItemHelper;
+	use App\DatabaseHelpers\KitHelper;
 	use App\Processers\ItemProcesser;
 	use App\Relationships\ItemRelationships;
 	use App\Relationships\KitRelationships;
@@ -14,7 +15,8 @@
 	
 	class Item extends Model
 	{
-		use ItemRelationships,ItemAttributes,KitAttributes,KitRelationships,ItemProcesser,ItemHelper;
+		use ItemRelationships,ItemAttributes,KitAttributes,KitRelationships,ItemProcesser,ItemHelper,KitHelper;
+		
 		//
 		
 		protected $appends = [

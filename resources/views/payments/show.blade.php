@@ -78,12 +78,14 @@
                                 ('pages/payments.gateway')}}
                                 </span>
                             <input placeholder="{{__('pages/payments.gateway')}}" disabled
-                                   value="@if($payment->paymentable->parent_id>=1){{
-                                   $payment->paymentable->parent->locale_name
-                                   }} - @endif{{
+                                   value="{{
                                    $payment->paymentable->locale_name
                                     }}"
                                    type="text" class="form-control">
+
+{{--                            @if($payment->paymentable->parent_id>=1){{--}}
+{{--                                   $payment->paymentable->parent->locale_name--}}
+{{--                                   }} - @endif--}}
                         </div>
 
                     </div>

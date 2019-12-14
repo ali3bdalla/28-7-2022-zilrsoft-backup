@@ -36,16 +36,17 @@
                     </td>
                     <td></td>
                 </tr>
-                <tr :key="item.id" v-for="(item,index) in items" :class="{'danger':item.is_expense}">
+                <tr :class="{'danger':item.is_expense}" :key="item.id" v-for="(item,index) in items">
                     <th v-text="index+1" width="4%"></th>
 
                     <th class="barcode" style="text-align:left !important"
                         v-if="selectable"
                         width="13%">
                         <span :class="{'has-text-primary':item.is_need_serial}"
-                              v-if="item.available_qty<=0 && is_ask_for_purchase==0">{{item
+                              v-if="item.available_qty<=0 && is_ask_for_purchase==0 && !item.is_kit">{{item
 							.barcode}}</span>
-                        <span :class="{'has-text-primary':item.is_need_serial}" @click="copyBarCodeToInvoice(item)" href=""
+                        <span :class="{'has-text-primary':item.is_need_serial}" @click="copyBarCodeToInvoice(item)"
+                              href=""
                               style="    cursor: pointer;"
                               v-else>{{item
 							.barcode}}</span>
@@ -60,7 +61,8 @@
 
 
                     <th
-                            :class="{'item_name_class':translator.locale=='ar','item_name_class_en':translator.locale!='ar'}" style="text-align: right !important;">
+                            :class="{'item_name_class':translator.locale=='ar','item_name_class_en':translator.locale!='ar'}"
+                            style="text-align: right !important;">
                         {{ item.locale_name }}
                     </th>
                     <th v-text='item.price' width="6%"></th>
@@ -130,7 +132,7 @@
                 roundNumber: null,
 
 
-                creator_ids:[],
+                creator_ids: [],
                 selectable: false,
                 messages: null,
                 translator: null,
@@ -164,7 +166,6 @@
         },
 
 
-
         methods: {
 
             // this is used to used all text in the field
@@ -174,17 +175,15 @@
             },
 
 
-
-            dateHasBeenUpdated(e)
-            {
-                this.by_date =e;
+            dateHasBeenUpdated(e) {
+                this.by_date = e;
 
                 this.loadData();
             },
             creatorsSelected(e) {
                 ///
-               this.creator_ids = e.ids;
-               this.loadData();
+                this.creator_ids = e.ids;
+                this.loadData();
             },
 
 
@@ -233,8 +232,7 @@
                 }
 
 
-                if(this.creator_ids.length >= 1)
-                {
+                if (this.creator_ids.length >= 1) {
                     data.creators = this.creator_ids;
                 }
 

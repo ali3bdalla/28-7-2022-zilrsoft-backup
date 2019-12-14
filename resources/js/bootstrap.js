@@ -1,7 +1,6 @@
 window._ = require('lodash');
 
 
-
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -13,7 +12,8 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
-} catch (e) {}
+} catch (e) {
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -62,23 +62,25 @@ if (token) {
  * allows your team to easily build robust real-time web applications.
  */
 var validate = require("validate.js");
+var autoload = require("./autoload");
 var counting = require("./counting").counting;
 var helpers = require("./helpers").helpers;
 var config = JSON.parse(window.config);
 
 
-
 window.validate = validate;
+window.autoload = autoload;
 window.counting = counting;
 window.helpers = helpers;
 
 import Echo from 'laravel-echo'
+
 window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: '9500151a91a413d395d7',
-    cluster:'ap2',
-    encrypted:true
+    cluster: 'ap2',
+    encrypted: true
 });
 
