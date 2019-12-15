@@ -60,7 +60,6 @@
 			}
 			
 			
-			
 			if ($request->has('startDate') && $request->filled('startDate') && $request->has('endDate') &&
 				$request->filled
 				('endDate')){
@@ -77,7 +76,6 @@
 			if ($request->has('name') && $request->filled('name')){
 				$query = $query->where('name','LIKE','%'.$request->name.'%')->orWhere('ar_name','LIKE','%'.$request->name.'%');
 			}
-
 			
 			
 			if ($request->has('id') && $request->filled('id')){
@@ -114,7 +112,6 @@
 			}
 			
 			
-			
 			return $query->orderBy('id','desc')->paginate(20);
 			
 			# code...
@@ -129,8 +126,8 @@
 		
 		public function finditems($search,Request $request)
 		{
-
-
+			
+			
 			if ($request->has('search_for') && $request->search_for == 'sale'){
 				
 				$items = Item::lastFiveSearch($search)->get();
@@ -172,8 +169,8 @@
 			
 			
 			$vendors = User::where('is_vendor',true)->get();
-			
-			
+
+
 //			return $vendors;
 			
 			return view('items.create2',compact('categories','isClone','vendors'));
@@ -199,7 +196,6 @@
 					});
 				});
 			});
-			
 			
 			
 			$vendors = User::where('is_vendor',true)->get();
@@ -254,8 +250,8 @@
 		
 		public function update(UpdateItemRequest $request,Item $item)
 		{
-			
-			
+
+
 //			return $request->all();
 			return $request->save($item);
 			//
@@ -319,13 +315,11 @@
 			
 			$request->validate(['serial' => ['required','string','exists:item_serials',
 				function ($attr,$value,$fail){
-				
+					
 					$serial = ItemSerials::where('serial',$value)->first();
-					if(empty($serial))
-					{
+					if (empty($serial)){
 						$fail('no serial like this');
-					}else
-					{
+					}else{
 						if (in_array($serial->current_status,['saled','r_purchase'])){
 							$fail('this serial is already used');
 						}
@@ -335,7 +329,7 @@
 			]
 			]);
 			
-			return ;
+			return;
 			
 		}
 		
@@ -368,5 +362,14 @@
 //			$generator::TYPE_CODE_128,2,50));
 //
 			return view('items.barcode.show',compact('item'));
+		}
+		
+		public function view_serials(Item $item)
+		{
+			
+			$serials = $item->serials()->paginate(15);
+			
+			return view('items.serials',compact('serials'));
+			
 		}
 	}

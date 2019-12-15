@@ -3,6 +3,7 @@
 	namespace App;
 	
 	use App\Attributes\InvoiceAttributes;
+	use App\DatabaseHelpers\Invoice\FreshHelper;
 	use App\DatabaseHelpers\InvoiceInterfaceHelper;
 	use App\Relationships\InvoiceRelationship;
 	use App\Scopes\OrganizationScope;
@@ -11,12 +12,14 @@
 	class Invoice extends Model
 	{
 		
-		use InvoiceRelationship,InvoiceAttributes,InvoiceInterfaceHelper;
+		use InvoiceRelationship,InvoiceAttributes,InvoiceInterfaceHelper,FreshHelper;
 		
 		protected $appends = [
 			'description'
 		];
 		protected $guarded = [];
+		
+		
 		
 		protected static function boot()
 		{

@@ -223,7 +223,7 @@
 		public function getTaxAttribute($value)
 		{
 //			return $value;
-			return money_format('%.3n',$value);
+			return money_format('%.2n',$value);
 		}
 		
 		public function getDiscountValueAttribute($value)

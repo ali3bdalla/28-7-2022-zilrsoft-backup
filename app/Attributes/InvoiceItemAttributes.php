@@ -116,7 +116,7 @@
 		
 //			return truncate_number($value,2);
 //			return sprintf("%01.2f", $value);;
-			return money_format('%.3n',$value);
+			return money_format('%.2n',$value);
 		}
 		
 		public function getNetAttribute($value)

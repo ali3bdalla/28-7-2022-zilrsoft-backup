@@ -95,7 +95,6 @@
             this.serials = this.seriallist;
             this.index = this.itemindex;
 
-            console.log(this.serials);
         },
         methods: {
             show (index) {

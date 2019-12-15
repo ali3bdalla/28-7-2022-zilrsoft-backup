@@ -125,6 +125,7 @@
 		
 		Route::prefix('items')->name('items.')->group(function (){
 			Route::get('{item}/movement','ItemController@movement');
+			Route::get('{item}/view/serials','ItemController@view_serials');
 			Route::post('check_barcode_if_exists',"ItemController@checkBarcodeIfItAlreadyUsed");
 			Route::patch('/store/save',"ItemController@store");
 			Route::put('{item}/store/update',"ItemController@update");

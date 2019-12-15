@@ -334,7 +334,7 @@
 		
 		public function handle_invoice_payments($method,$payment_type = 'payment',$gateway = null)
 		{
-
+			
 			if ($gateway != null){
 				
 				$payment = $gateway->paymentable()->create([
@@ -967,14 +967,14 @@
 			
 			foreach ($items as $item){
 				if ($item['item']['is_expense']){
-					$other_services_sales_total = $other_services_sales_total + $item['total'] * $item['qty'];
-					$other_services_sales_total_discount = $other_services_sales_total_discount + $item['discount'] * $item['qty'];
+					$other_services_sales_total = $other_services_sales_total + $item['total'];
+					$other_services_sales_total_discount = $other_services_sales_total_discount + $item['discount'];
 				}else if ($item['item']['is_service']){
 					$services_sales_total = $services_sales_total + $item['total'];
-					$services_sales_total_discount = $services_sales_total_discount + $item['discount'] * $item['qty'];
+					$services_sales_total_discount = $services_sales_total_discount + $item['discount'];
 				}else{
 					$products_sales_total = $products_sales_total + $item['total'];
-					$products_sales_total_discount = $products_sales_total_discount + $item['discount'] * $item['qty'];
+					$products_sales_total_discount = $products_sales_total_discount + $item['discount'];
 				}
 			}
 			

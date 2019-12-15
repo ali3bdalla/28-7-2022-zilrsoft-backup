@@ -11,6 +11,35 @@
 	trait InvoiceItemHelper
 	{
 		
+		/**
+		 *
+		 */
+		public function updateKitAccountingDataDependOnItChildrenInformation()
+		{
+			$children = $this->invoice->items()->where([['belong_to_kit',true],['parent_kit_id',$this->id]])->get();
+			
+			
+			$result['total'] = 0;
+			$result['subtotal'] = 0;
+			$result['tax'] = 0;
+			$result['discount'] = 0;
+			$result['net'] = 0;
+			
+			
+			$items = $children;
+			foreach ($items as $item){
+				$result['total'] = $result['total'] + $item['total'];
+				$result['subtotal'] = $result['subtotal'] + $item['subtotal'];
+				$result['tax'] = $result['tax'] + $item['tax'];
+				$result['discount'] = $result['discount'] + $item['discount'];
+				$result['net'] = $result['net'] + $item['net'];
+				
+				
+			}
+			
+			$this->update($result);
+		}
+		
 		public function make_invoice_transaction($sub_invoice,$expenses)
 		{
 			
@@ -169,43 +198,43 @@
 		public function init_return_kit_item($kit,$qty,$invoice,$main_kit_aty,$parent_item)
 		{
 			
-//			$qty = $this->qty / $main_kit_aty * $qty;
-//			$accounting_data['discount'] = $this->discount / $this->qty * $qty;
-//			$accounting_data['total'] = $this->total / $this->qty * $qty;
-//			$accounting_data['subtotal'] = $this->subtotal / $this->qty * $qty;
-//			$accounting_data['tax'] = $this->tax / $this->qty * $qty;
-//			$accounting_data['net'] = $this->net / $this->qty * $qty;
-//			$accounting_data['organization_id'] = auth()->user()->organization_id;
-//			$accounting_data['creator_id'] = auth()->user()->id;
-//			$accounting_data['item_id'] = $this->item_id;
-//			$accounting_data['type'] = 'new';
-//			$accounting_data['qty'] = $qty;
-//			$accounting_data['r_qty'] = $qty;
-//			$accounting_data['cost'] = $this->item->cost;
-//			$accounting_data['price'] = $this->price;
-//			$accounting_data['invoice_type'] = 'r_sale';
-//			$accounting_data['user_id'] = $this->invoice->user_id;
-//			$accounting_data['is_kit'] = false;
-//			$accounting_data['belong_to_kit'] = true;
-//			$accounting_data['parent_kit_id'] = $kit->id;
-//			$new_item = $invoice->items()->create(collect($accounting_data)->toArray());
-//
-//			$this->item->update_qty_with_option('add',$qty);
-//
-//
-//			$this->update_item_cost_value_after_new_invoice_created();
-//
-//			$serials = ItemSerials::where([
-//				['sale_invoice_id',$parent_item->invoice->id],
-//				['item_id',$parent_item->item_id],
-//			])->get();
-//			if ($this->item->is_need_serial)
-//				$this->item->change_serials_array_status('r_sale',$serials,$invoice);
-//
-//
-//			$this->update_returned_qty($qty,$this->id);
-//
-//			$new_item->make_invoice_transaction($invoice,0);
+			$qty = $this->qty / $main_kit_aty * $qty;
+			$accounting_data['discount'] = $this->discount / $this->qty * $qty;
+			$accounting_data['total'] = $this->total / $this->qty * $qty;
+			$accounting_data['subtotal'] = $this->subtotal / $this->qty * $qty;
+			$accounting_data['tax'] = $this->tax / $this->qty * $qty;
+			$accounting_data['net'] = $this->net / $this->qty * $qty;
+			$accounting_data['organization_id'] = auth()->user()->organization_id;
+			$accounting_data['creator_id'] = auth()->user()->id;
+			$accounting_data['item_id'] = $this->item_id;
+			$accounting_data['type'] = 'new';
+			$accounting_data['qty'] = $qty;
+			$accounting_data['r_qty'] = $qty;
+			$accounting_data['cost'] = $this->item->cost;
+			$accounting_data['price'] = $this->price;
+			$accounting_data['invoice_type'] = 'r_sale';
+			$accounting_data['user_id'] = $this->invoice->user_id;
+			$accounting_data['is_kit'] = false;
+			$accounting_data['belong_to_kit'] = true;
+			$accounting_data['parent_kit_id'] = $kit->id;
+			$new_item = $invoice->items()->create(collect($accounting_data)->toArray());
+			
+			$this->item->update_qty_with_option('add',$qty);
+			
+			
+			$this->update_item_cost_value_after_new_invoice_created();
+			
+			$serials = ItemSerials::where([
+				['sale_invoice_id',$parent_item->invoice->id],
+				['item_id',$parent_item->item_id],
+			])->get();
+			if ($this->item->is_need_serial)
+				$this->item->change_serials_array_status('r_sale',$serials,$invoice);
+			
+			
+			$this->update_returned_qty($qty,$this->id);
+			
+			$new_item->make_invoice_transaction($invoice,0);
 //
 //
 		}

@@ -236,22 +236,22 @@
 
                         </th>
                         <th class="has-text-white">
-                            <input v-if="!item.is_kit" @focus="$event.target.select()" class="input" disabled
-                                   type="text"
+                            <input @focus="$event.target.select()" class="input" disabled type="text"
+                                   v-if="!item.is_kit"
                                    v-model="item.total">
-                            <input v-else class="input" disabled
+                            <input :value="parseFloat(0)" class="input" disabled
                                    type="text"
-                                   :value="parseFloat(0)">
+                                   v-else>
                         </th>
                         <th class="has-text-white">
-                            <input v-if="!item.is_kit" :disabled="item.is_fixed_price || item.is_kit"
-                                   @focus="$event.target.select()"
+                            <input :disabled="item.is_fixed_price || item.is_kit" @focus="$event.target.select()"
                                    @keyup="onChangeDiscountField(item)"
-                                   class="input" placeholder="discount" type="text"
+                                   class="input"
+                                   placeholder="discount" type="text" v-if="!item.is_kit"
                                    v-model="item.discount">
-                            <input v-else class="input" disabled
+                            <input :value="parseFloat(0)" class="input" disabled
                                    type="text"
-                                   :value="parseFloat(0)">
+                                   v-else>
                         </th>
                         <th class="has-text-white">
                             <input @focus="$event.target.select()" class="input" disabled="" placeholder="subtotal"
@@ -391,9 +391,9 @@
                         </div>
 
 
-                        <div class="box">
-                            <textarea class="form-control" v-model="test_request_textarea"></textarea>
-                        </div>
+                                                <div class="box">
+                                                    <textarea class="form-control" v-model="test_request_textarea"></textarea>
+                                                </div>
 
                     </div>
                 </div>
@@ -1119,7 +1119,7 @@
                     .then(function (response) {
                         console.log(response);
                         console.log(response.data);
-                        vm.showFinishTableMessage(event, response.data.invoice_id);
+                        vm.showFinishTableMessage(event, response.data.id);
 
                     })
                     .catch(function (error) {
@@ -1138,6 +1138,7 @@
 
                 this.invoice_id = id;
 
+                // alert(id);
                 this.items = [];
                 this.updateInvoiceDetails();
 
@@ -1160,6 +1161,8 @@
                     this.print_counter = id;
 
                 } else if (event == "a4") {
+
+                    window.open('/management/printer/a4/' + id, '_blank');
 
                     this.print_a4_counter = id;
                 }

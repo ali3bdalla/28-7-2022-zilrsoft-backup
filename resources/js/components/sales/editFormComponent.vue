@@ -102,14 +102,14 @@
 
                     <tr :key="item.id" v-for="(item,itemindex) in items" v-if="!item.is_expense && !item.belong_to_kit">
                         <th class="has-text-white">
-                            <item-serial-for-purchase-return-component
+                            <item-serial-for-sale-return-component
                                     :item="item.item"
                                     :itemindex="itemindex"
                                     :key="item.id"
                                     :seriallist="item.serials"
                                     @changed="updatedItemSerials"
                             >
-                            </item-serial-for-purchase-return-component>
+                            </item-serial-for-sale-return-component>
 
                         </th>
                         <th class="text-align:left !important" v-text="item.item.barcode"></th>
@@ -621,17 +621,17 @@
 
                 var vm = this;
                 this.test_request_textarea = JSON.stringify(data_to);
-                // axios.put('/management/sales/' + this.sale.id, data_to)
-                //     .then(function (response) {
-                //
-                //         console.log(response.data);
-                //
-                //         window.location.reload();
-                //     })
-                //     .catch(function (error) {
-                //         console.log(error.response.data);
-                //
-                //     });
+                axios.put('/management/sales/' + this.sale.id, data_to)
+                    .then(function (response) {
+
+                        console.log(response.data);
+
+                        window.location.reload();
+                    })
+                    .catch(function (error) {
+                        console.log(error.response.data);
+
+                    });
 
             },
 

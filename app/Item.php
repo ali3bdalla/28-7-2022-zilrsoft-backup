@@ -4,6 +4,7 @@
 	
 	use App\Attributes\ItemAttributes;
 	use App\Attributes\KitAttributes;
+	use App\DatabaseHelpers\Invoice\ItemFreshHelper;
 	use App\DatabaseHelpers\ItemHelper;
 	use App\DatabaseHelpers\KitHelper;
 	use App\Processers\ItemProcesser;
@@ -15,7 +16,7 @@
 	
 	class Item extends Model
 	{
-		use ItemRelationships,ItemAttributes,KitAttributes,KitRelationships,ItemProcesser,ItemHelper,KitHelper;
+		use ItemFreshHelper,ItemRelationships,ItemAttributes,KitAttributes,KitRelationships,ItemProcesser,ItemHelper,KitHelper;
 		
 		//
 		

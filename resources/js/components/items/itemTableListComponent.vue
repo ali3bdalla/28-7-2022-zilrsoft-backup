@@ -89,6 +89,10 @@
                                     &nbsp; {{ translator.flow }}</a>
                                 <a :href="'/management/items/' + item.id + '/edit'" class="dropdown-item"><i
                                         class="fa fa-edit"></i> &nbsp; {{ translator.edit }}</a>
+
+                                <a v-if="item.is_need_serial" :href="'/management/items/' + item.id + '/view/serials'"
+                                   class="dropdown-item"><i
+                                        class="fa fa-edit"></i> &nbsp; عرض السيريالات</a>
                                 <!--                            <delete-button-component class=" dropdown-item"-->
                                 <!--                                :href="'/management/items/' + item.id + '/delete'"><i-->
                                 <!--                                class="fa fa-trash"></i> &nbsp; delete</delete-button-component>-->

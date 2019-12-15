@@ -278,8 +278,7 @@
                                                 <div class="card-content"><span
                                                             style="font-weight: bolder; font-size: 27px;">المدفوع</span>
                                                     <h1 class="title text-center"><?php echo e(money_format("%i",
-                                                $sale->invoice->net
-                                                                                      - $sale->invoice->remaining)); ?></h1>
+                                                $sale->invoice->net - $sale->invoice->remaining)); ?></h1>
                                                 </div>
                                             </div>
                                         </div>
