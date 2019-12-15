@@ -1,49 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/DatabaseHelpers/Invoice/FreshHelper.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/DatabaseHelpers/Invoice/ItemFreshHelper.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Math/Math.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/items/serials.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/066r5kqm4jJiowdwBdsRUhP5fthFTXj3ui8fd7bh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/46nixjpiGYALqWQb0iNvhLVgBuSxUL3ZzLm8uibW" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/7hAKKR3XZmBH4wLcU24Ahaxqma71fdZWRNT6Cu7i" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/005e0b65f8d0fe7fe429e88c737386080332cfec.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/23b1adf2ee5b2b15e30bf3c59a2bd26e28d83f53.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/486ef12ef1e9be0ca38d522622fdf41b5bf49c38.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/5f04cb7ebfafbf073d8fa686b6b038b21fda2065.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/a4af4293909c587ea9eb48c9df6be2fcda4987d6.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/e937912c5b4eb3c6c1bd26dec312f50e271ced44.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/ead157d33070998ee403e2fbf79a10e5901a5ba9.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/f1e35fb1c61a9e830eef9f14c14f24f89c6998fb.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-15.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Attributes/InvoiceAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/InvoiceAttributes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Attributes/InvoiceItemAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/InvoiceItemAttributes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/InvoiceInterfaceHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/InvoiceInterfaceHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/InvoiceItemHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/InvoiceItemHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/ItemHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/ItemHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/SaleInvoiceHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/SaleInvoiceHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/CreateReturnSaleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/CreateReturnSaleRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/CreateSalesInvoiceRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/CreateSalesInvoiceRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Invoice.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Item.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/ValidatorServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/ValidatorServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/invoice/itemSerialPurchaseReturnListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/invoice/itemSerialPurchaseReturnListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/items/itemTableListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/items/itemTableListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/sales/createFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/sales/createFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/sales/editFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/sales/editFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sales/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/management.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/management.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/0ePp1KyJg5LAB18934vdVqbRWYOaI1moZ1xe3Ynl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/MgmnghMmkwBPTr5DRgsbIyU6IsveQEqyxRJMyOhw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/6d5b0c3089a0d84af2bf07354583e0b2aca90aea.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/6d5b0c3089a0d84af2bf07354583e0b2aca90aea.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-11-30.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-12-14.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-14.log" afterDir="false" />
-    </list>
+    <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -462,7 +420,7 @@
       <workItem from="1576286412887" duration="138000" />
       <workItem from="1576287877188" duration="547000" />
       <workItem from="1576297460960" duration="104000" />
-      <workItem from="1576329406991" duration="31968000" />
+      <workItem from="1576329406991" duration="32215000" />
     </task>
     <servers />
   </component>
