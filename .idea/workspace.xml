@@ -2,15 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/5SeJbwR0UnQdJNcoSf4b5AkZadshmURnJmewLsXL" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/27c3f5c564a679a5f9020bcf2ccb1bb5b59e37bf.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/66ff572454a5efb9a1da8cf6be70eb1c256e0437.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/6ddb7049a94f55d43abd442f8368904b34e82fca.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/76cc5d491e26e0771f38cea02483f133a9f40be9.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/9388b297f94ff5512b34a60f846e92678aa84bd2.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/d7d9d8612e9b906fefddc5d93e92f73d047e3476.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/7hAKKR3XZmBH4wLcU24Ahaxqma71fdZWRNT6Cu7i" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/7hAKKR3XZmBH4wLcU24Ahaxqma71fdZWRNT6Cu7i" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attributes/ManagerAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/ManagerAttributes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/items/itemTableListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/items/itemTableListComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/066r5kqm4jJiowdwBdsRUhP5fthFTXj3ui8fd7bh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/46nixjpiGYALqWQb0iNvhLVgBuSxUL3ZzLm8uibW" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/5SeJbwR0UnQdJNcoSf4b5AkZadshmURnJmewLsXL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/7hAKKR3XZmBH4wLcU24Ahaxqma71fdZWRNT6Cu7i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/ytKzOdPQMICHcl5gWvZyCcmXpfr1uYcgYAeyeFjB" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/ytKzOdPQMICHcl5gWvZyCcmXpfr1uYcgYAeyeFjB" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -432,6 +432,7 @@
       <workItem from="1576297460960" duration="104000" />
       <workItem from="1576329406991" duration="32450000" />
       <workItem from="1576428268351" duration="662000" />
+      <workItem from="1576504215424" duration="1015000" />
     </task>
     <servers />
   </component>

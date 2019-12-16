@@ -36,7 +36,7 @@
                     </td>
                     <td></td>
                 </tr>
-                <tr :class="{'danger':item.is_expense}" :key="item.id" v-for="(item,index) in items">
+                <tr :class="{'danger':item.is_expense==1}" :key="item.id" v-for="(item,index) in items">
                     <th v-text="index+1" width="4%"></th>
 
                     <th class="barcode" style="text-align:left !important"
@@ -379,6 +379,3 @@
         padding-left: 5px !important;
     }
 </style>
-
-
-
