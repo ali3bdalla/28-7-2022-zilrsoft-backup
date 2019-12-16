@@ -1,20 +1,14 @@
 <template>
     <ul class="list-group" style="border-right: 1px solid #999;padding-right: 14px;list-style: none;margin-top: 3px;">
-
-
-        <!--        <b class="chart_number"> {{ account.serial  }}</b>-->
         <li class="" item="account" v-for="(account, index)  in accountslist">
             <span :class="{'bold_class':account.children.length>=1}" @click="openChartAccount(account)">
                    {{ account.locale_name
             }}&nbsp;&nbsp; &nbsp;{{account.total}} ريال
                 </span>
-
-
             <a :href="baseLink +'/create?parent_id=' + account.id" class="btn btn-outline-primary"><i
                     class="fa fa-plus-circle"></i> </a>
             <a :href="baseLink +'/' + account.id + '/edit'" class="btn btn-outline-primary"><i
                     class="fa fa-edit"></i> </a>
-
             <a @click="confirmDelete(account)"
                class="btn btn-outline-primary"><i
                     class="fa fa-trash"></i> </a>
@@ -250,6 +244,3 @@
         font-weight: normal !important;
     }
 </style>
-
-
-<!--style="padding-right: 10px;position: relative;padding-right: 280px"-->

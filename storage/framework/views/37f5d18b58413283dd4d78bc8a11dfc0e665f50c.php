@@ -13,10 +13,21 @@
     <div class="">
         <div class="row">
             <div class="col-md-12">
+              <?php if(isset($is_clone)): ?>
                 <create-sale-form-component :salesmen='<?php echo json_encode($salesmen, 15, 512) ?>' :gateways='<?php echo json_encode($gateways, 15, 512) ?>'
                                             :expenses='<?php echo json_encode($expenses, 15, 512) ?>'
                                             :creator='<?php echo json_encode(auth()->user()->with
                 ('department', 'branch')->first(), 512) ?>' :clients='<?php echo json_encode($clients, 15, 512) ?>'></create-sale-form-component>
+
+                <?php else: ?>
+                <create-sale-form-component :salesmen='<?php echo json_encode($salesmen, 15, 512) ?>' :gateways='<?php echo json_encode($gateways, 15, 512) ?>'
+                                            :expenses='<?php echo json_encode($expenses, 15, 512) ?>'
+                                            :creator='<?php echo json_encode(auth()->user()->with
+                ('department', 'branch')->first(), 512) ?>' :clients='<?php echo json_encode($clients, 15, 512) ?>'></create-sale-form-component>
+
+                <?php endif; ?>
+
+
             </div>
         </div>
     </div>

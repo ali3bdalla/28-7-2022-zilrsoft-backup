@@ -17,10 +17,21 @@
     <div class="">
         <div class="row">
             <div class="col-md-12">
+              @if(isset($is_clone))
                 <create-sale-form-component :salesmen='@json($salesmen)' :gateways='@json($gateways)'
                                             :expenses='@json($expenses)'
                                             :creator='@json(auth()->user()->with
                 ('department','branch')->first())' :clients='@json($clients)'></create-sale-form-component>
+
+                @else
+                <create-sale-form-component :salesmen='@json($salesmen)' :gateways='@json($gateways)'
+                                            :expenses='@json($expenses)'
+                                            :creator='@json(auth()->user()->with
+                ('department','branch')->first())' :clients='@json($clients)'></create-sale-form-component>
+
+                @endif
+
+
             </div>
         </div>
     </div>
