@@ -1,8 +1,8 @@
 <?php
-
+	
 	app()->setLocale('ar');
 
-	// auth()->loginUsingId(1);
+//	 auth()->loginUsingId(1);
 
 //	if(!auth()->check())
 //	{
@@ -11,10 +11,10 @@
 //	}
 
 //	app()->setLocale('ar');
-
+	
 	Auth::routes(['verify' => true]);
-
-
+	
+	
 	Route::prefix('printer')->name('printers.')->group(function (){
 		Route::get('sale_receipt/{invoice}','PrinterController@sale_receipt');
 		Route::get('barcode/{item}','PrinterController@barcode');
@@ -22,16 +22,16 @@
 		Route::get('sign','PrinterController@sign');
 		Route::get('a4/voucher/{voucher}','PrinterController@voucher')->name('voucher');
 	});
-
-
+	
+	
 	Route::middleware(['auth','verified'])->group(function (){
-
+		
 		Route::get('/dashboard',"HomeController@index")->name('dashboard')->middleware('role:view-dashboard');
 		Route::get('/dashboard',"HomeController@index")->name('dashboard')->middleware('role:view-dashboard');
-
+		
 		Route::get('/dashboard',"HomeController@index")->name('dashboard')->middleware('role:view-dashboard');
-
-
+		
+		
 		Route::resources([
 			'managers' => 'ManagerController',
 			'users' => 'UsersController',
@@ -52,10 +52,10 @@
 			'expenses' => 'ExpenseController',
 			'accounts' => 'AccountsController',
 			'transactions' => 'TransactionsController',
-
+		
 		]);
-
-
+		
+		
 		Route::prefix('accounts')->name('accounts.')->group(function (){
 //			Route::get('item/{item}/{account}',"AccountsController@item")->name('item');
 			Route::get('client/{client}/{account}',"AccountsController@client")->name('client');
@@ -63,37 +63,37 @@
 			Route::get('item/{item}/{account}',"AccountsController@item")->name('item');
 			Route::get('{account}/delete',"AccountsController@delete");
 		});
-
-
+		
+		
 		Route::prefix('financial_statements')->name('financial_statements.')->group(function (){
 			Route::get('/',"FinancialStatementsController@index")->name('index');
 			Route::get('trail_balance',"FinancialStatementsController@trail_balance")->name('trail_balance');
-
+			
 		});
-
+		
 		Route::prefix('sales')->name('sales.')->group(function (){
 			Route::get('/list/unpaid/{user}/list',"SaleController@unpaid")->name('unpaid');
 			Route::get('{invoice}/clone',"SaleController@clone")->name('clone');
-
+			
 			Route::post('/table/fetch',"SaleController@table")->name('table');
-
-
+			
+			
 			Route::get('/list/unpaid/all',"SaleController@unpaid_all")->name('unpaid_all');
 			Route::get('quotations/index',"SaleController@quotations")->name('quotations');
 			Route::post('quotations/index',"SaleController@quotation_store")->name('quotation_store');
 			Route::get('quotations/show/{quotation_id}',"SaleController@view_quotation")->name('view_quotation');
 			Route::get('quotations/create',"SaleController@quotation_create")->name('quotation_create');
-
+			
 		});
-
+		
 		Route::prefix('purchases')->name('purchases.')->group(function (){
 			Route::get('{invoice}/clone',"PurchaseController@clone")->name('clone');
 			Route::get('/list/unpaid/{user}/list',"PurchaseController@unpaid")->name('unpaid');
 			Route::get('/list/unpaid/all',"PurchaseController@unpaid_all")->name('unpaid_all');
-
+			
 		});
-
-
+		
+		
 		Route::prefix('inventories')->name('inventories.beginning.')->group(function (){
 			Route::get('/beginning/index',"InventoryController@beginning")->name('index');
 			Route::post('/beginning',"InventoryController@beginning_store")->name('store');
@@ -101,7 +101,7 @@
 			Route::get('/beginning/{inventory}/edit',"InventoryController@beginng_edit")->name('edit');
 			Route::patch('/beginning/{inventory}/update',"InventoryController@beginng_update")->name('update');
 		});
-
+		
 		Route::prefix('users')->name('users.')->group(function (){
 			//signout
 			Route::get('/auth/signout',"UsersController@signout")->name('signout');
@@ -110,8 +110,8 @@
 			Route::get('{user}/create_payments_accounts',"UsersController@create_payments_accounts")->name('create_payments_accounts');
 			Route::post('{user}/store_payments_accounts',"UsersController@store_payments_accounts");
 		});
-
-
+		
+		
 		// categories pluings routes
 		Route::prefix('categories')->name('categories.')->group(function (){
 			Route::get('/create/{category}',"CategoryController@create_child");
@@ -121,8 +121,8 @@
 			Route::get('/{category}/filters',"CategoryController@update_filters")->name('filters');
 			Route::patch('/{category}/filters',"CategoryController@store_filters")->name('store_filters');
 		});
-
-
+		
+		
 		Route::prefix('items')->name('items.')->group(function (){
 			Route::get('{item}/movement','ItemController@movement');
 			Route::get('{item}/view/serials','ItemController@view_serials');
@@ -144,40 +144,40 @@
 				Route::get('/index',"ItemController@barcode")->name('index');
 				Route::get('/show',"ItemController@barcode_show")->name('show');
 			});
-
-
+			
+			
 		});
-
-
+		
+		
 		// items pluings routes
 		Route::prefix('serial_history')->name('serial_history.')->group(function (){
 			Route::get('/',"SerialHistoryController@index")->name('index');
 			Route::get('/show',"SerialHistoryController@show")->name('show');
-
-
+			
+			
 		});
-
-
+		
+		
 		// items pluings routes
 		Route::prefix('filters')->name('filters.')->group(function (){
 			Route::post('/values/create',"FilterController@create_value")->name('create_value');
 			Route::patch('/values/update',"FilterController@upate_value");
 			Route::delete('/values/delete/{value}',"FilterController@delete_value");
-
+			
 		});
-
+		
 		// items pluings routes
 		Route::prefix('gateways')->name('gateways.')->group(function (){
 			Route::get('/{payWay}/remove',"OrganizationGatewayController@destroy")->name('remove');
-
+			
 			Route::get('/{payWay}/children',"OrganizationGatewayController@children")->name('children');
 			Route::get('/{payWay}/load_children',"OrganizationGatewayController@loadChildren")->name('load_children');
 			Route::get('/{payWay}/create',"OrganizationGatewayController@create_child")->name('create_child');
 			Route::get('fetch/all',"OrganizationGatewayController@fetch");
-
+			
 		});
-
-
+		
+		
 		Route::prefix('payments')->name('payments.')->group(function (){
 			Route::get('/payments/index',"PaymentController@payments")->name('payments');
 			Route::get('/print/{payment}',"PaymentController@print")->name('print');
@@ -186,10 +186,10 @@
 			Route::get('/create/create_payment',"PaymentController@create_payment")->name('create_payment');
 //			Route::post('/create/store_receipt',"PaymentController@store_receipt")->name('store_receipt');
 //			Route::post('/create/store_payment',"PaymentController@store_payment")->name('store_payment');
-
+		
 		});
-
-
+		
+		
 		Route::prefix('settings')->name('settings.')->group(function (){
 			Route::get('/index',"SettingsController@index")->name('index');
 			Route::get('/payment_accounts',"SettingsController@payment_accounts")->name('payment_accounts');
@@ -197,16 +197,16 @@
 			Route::post('/payments_account_store',"SettingsController@payments_account_store")->name('payments_account_store');
 			Route::prefix('global')->name('global.')->group(function (){
 				Route::get('/local_printers',"SettingsController@local_printers")->name('printers');
-
+				
 			});
-
+			
 		});
-
-
+		
+		
 		Route::prefix('organizations')->name('organizations.')->group(function (){
 			Route::get('/{payWay}/accounts',"OrganizationController@get_ways_with_accounts_that_organization_has_account_on_them");
-
+			
 		});
-
-
+		
+		
 	});

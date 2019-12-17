@@ -10,6 +10,8 @@ import draggable from 'vuedraggable'
 import VModal from 'vue-js-modal'
 import CxltToastr from 'cxlt-vue2-toastr'
 import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css'
+
+// imp
 // components including
 import categoriesList from './components/categories/ListComponent';
 import chartOfAccountsComponent from './components/accounts/chartOfAccountsComponent';
@@ -89,7 +91,7 @@ require('./bootstrap');
 var config = require('../js/config');
 
 window.Vue = Vue;
-
+require('./accounting/load');
 
 // import VueTable from './components/enso/vuedatatable/VueTable.vue';
 
@@ -193,6 +195,8 @@ Vue.component('sale-datatable', saleDataTable);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
+
 
 const app = new Vue({
     el: '#app',

@@ -19,12 +19,6 @@
 		public function index()
 		{
 			
-			// $value_obj = FilterValues::find(1017);
-			//  $value_obj->setAsLastUsedValue();
-			// return Filter::find(17)->values;
-			
-			// return   $value_obj ;
-			
 			
 			$categories = Category::mainOnly()->with(
 				'children.children.children.children.children.children.children.children.children.children.children.children'
@@ -123,7 +117,7 @@
 		public function edit(Category $category)
 		{
 			//
-			dd($category);
+//			dd($category);
 			$categories = Category::all();
 			$filters = Filter::all();
 			$category_filters = $category->filters;
@@ -144,7 +138,7 @@
 		 */
 		public function update(Request $request,Category $category)
 		{
-			
+//			dd($category);
 			$category->update($request->except('_token'));
 			return redirect(route('management.categories.index'));
 			//
@@ -161,6 +155,7 @@
 		{
 			
 			$category->delete();
+			
 			return redirect(route('management.categories.index'));
 		}
 		
@@ -168,7 +163,7 @@
 		{
 			$cat_filters = [];
 			$cilfters = $category->filters;
-			
+
 //			dd($cilfters);
 			foreach ($cilfters as $key => $value){
 				$cat_filters[] = collect($value)->forget('pivot');

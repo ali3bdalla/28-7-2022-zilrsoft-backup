@@ -43,167 +43,10 @@
                 &nbsp;
 
             </span>
-            <categories-list-component :categories='category.children'
-                                       :baseUrl="baseUrl"></categories-list-component>
+            <categories-list-component :baseUrl="baseUrl"
+                                       :categories='category.children'></categories-list-component>
 
-            <!--            <ul class="list-unstyled">-->
-            <!--                <li v-for="(scategory, index1) in category.children">-->
-            <!--                    <span class="subcategory_one">-->
-            <!--                        {{ scategory.locale_name }}-->
-            <!--                         &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                        <button :title="translator.delete" class=" has-text-danger "-->
-            <!--                                v-on:click="deleteCategory(scategory,index1)">-->
-            <!--                            <i class="fa fa-trash-alt"></i>-->
-            <!--                        </button>-->
-            <!--     &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                        <a :href="baseLink + '/create/' + scategory.id" :title="translator.create_subcategory"-->
-            <!--                           class="  has-text-info ">-->
-            <!--                            <i class="fa fa-plus-circle"></i>-->
-            <!--                        </a>-->
-            <!--                         &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                        <a :href="baseLink + '/clone/' + scategory.id" :title="translator.copy"-->
-            <!--                           class=" has-text-dark ">-->
-            <!--                            <i class="fa fa-clone"></i>-->
-            <!--                        </a>-->
-            <!-- &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                        <a :href="baseLink + '/' + scategory.id + '/edit'" :title="translator.edit"-->
-            <!--                           class=" has-text-primary ">-->
-            <!--                            <i class="fa fa-edit"></i>-->
-            <!--                        </a>-->
-            <!--                         &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                        <a :href="baseLink + '/' + scategory.id + '/filters'" :title="translator.filters"-->
-            <!--                           class=" has-text-link ">-->
-            <!--                            <i class="fa fa-asterisk"></i>-->
-            <!--                        </a>-->
-            <!--                         &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                    </span>-->
 
-            <!--                    <ul class="list-unstyled">-->
-            <!--                        <li v-for="(s2category, index2) in scategory.children">-->
-            <!--                            <span class="subcategory_two">-->
-            <!--                                {{ s2category.locale_name }}-->
-            <!--                                 &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                <button class=" has-text-danger " v-on:click="deleteCategory(s2category,index1)">-->
-            <!--                                    <i class="fa fa-trash-alt"></i>-->
-            <!--                                </button>-->
-            <!-- &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                <a :href="baseLink + '/create/' + s2category.id" class="  has-text-info ">-->
-            <!--                                    <i class="fa fa-plus-circle"></i>-->
-            <!--                                </a>-->
-            <!--                                 &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                <a :href="baseLink + '/clone/' + s2category.id" class=" has-text-dark ">-->
-            <!--                                    <i class="fa fa-clone"></i>-->
-            <!--                                </a>-->
-
-            <!--                                 &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                <a :href="baseLink + '/' + s2category.id + '/edit'" class=" has-text-primary ">-->
-            <!--                                    <i class="fa fa-edit"></i>-->
-            <!--                                </a>-->
-            <!--                                 &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                <a :href="baseLink + '/' + s2category.id + '/filters'" class=" has-text-link ">-->
-            <!--                                    <i class="fa fa-asterisk"></i>-->
-            <!--                                </a>-->
-            <!--                                 &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                            </span>-->
-
-            <!--                            <ul class="list-unstyled">-->
-            <!--                                <li v-for="(s3category, index3) in s2category.children">-->
-            <!--                                    <span class="subcategory_three">-->
-            <!--                                        {{ s3category.locale_name }}-->
-
-            <!--                                         &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                        <button class=" has-text-danger "-->
-            <!--                                                v-on:click="deleteCategory(s3category,index1)">-->
-            <!--                                            <i class="fa fa-trash-alt"></i>-->
-            <!--                                        </button>-->
-            <!--                                         &nbsp;-->
-            <!--                &nbsp;-->
-
-            <!--                                        <a :href="baseLink + '/create/' + s3category.id" class="  has-text-info ">-->
-            <!--                                            <i class="fa fa-plus-circle"></i>-->
-            <!--                                        </a>-->
-            <!--                                         &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                        <a :href="baseLink + '/clone/' + s3category.id" class=" has-text-dark ">-->
-            <!--                                            <i class="fa fa-clone"></i>-->
-            <!--                                        </a>-->
-            <!--                                         &nbsp;-->
-            <!--                &nbsp;-->
-
-            <!--                                        <a :href="baseLink + '/' + s3category.id + '/edit'" class=" has-text-primary ">-->
-            <!--                                            <i class="fa fa-edit"></i>-->
-            <!--                                        </a>-->
-            <!--                                         &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                        <a :href="baseLink + '/' + s3category.id + '/filters'" class=" has-text-link ">-->
-            <!--                                            <i class="fa fa-asterisk"></i>-->
-            <!--                                        </a>-->
-            <!--                                         &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                    </span>-->
-
-            <!--                                    <ul class="list-unstyled">-->
-            <!--                                        <li v-for="(s4category, index4)  in s3category.children">-->
-            <!--                                            <span class="subcategory_four">-->
-            <!--                                                {{ s4category.locale_name }}-->
-            <!--                                                 &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                                <button class=" has-text-danger "-->
-            <!--                                                        v-on:click="deleteCategory(s4category,index1)">-->
-            <!--                                                    <i class="fa fa-trash-alt"></i>-->
-            <!--                                                </button>-->
-
-            <!--                                                 &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                                <a :href="baseLink + '/create/' + s4category.id"-->
-            <!--                                                   class="  has-text-info ">-->
-            <!--                                                    <i class="fa fa-plus-circle"></i>-->
-            <!--                                                </a>-->
-            <!--                                                 &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                                <a :href="baseLink + '/clone/' + s4category.id" class=" has-text-dark ">-->
-            <!--                                                    <i class="fa fa-clone"></i>-->
-            <!--                                                </a>-->
-
-            <!--                                                 &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                                <a :href="baseLink + '/' + s4category.id + '/edit'"-->
-            <!--                                                   class=" has-text-primary ">-->
-            <!--                                                    <i class="fa fa-edit"></i>-->
-            <!--                                                </a>-->
-            <!--                                                 &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                                <a :href="baseLink + '/' + s4category.id + '/filters'"-->
-            <!--                                                   class=" has-text-link ">-->
-            <!--                                                    <i class="fa fa-asterisk"></i>-->
-            <!--                                                </a>-->
-            <!--                                                 &nbsp;-->
-            <!--                &nbsp;-->
-            <!--                                            </span>-->
-            <!--                                        </li>-->
-
-            <!--                                    </ul>-->
-
-            <!--                                </li>-->
-
-            <!--                            </ul>-->
-            <!--                        </li>-->
-            <!--                    </ul>-->
-            <!--                </li>-->
-            <!--            </ul>-->
         </li>
 
     </ul>
@@ -272,7 +115,7 @@
                 var vm = this;
 
                 this.$dialog
-                    .confirm("are you sure you want to delete this category ? ", {
+                    .confirm("هل انت متاكد من هذه العملية؟ ", {
                         loader: true // default: false - when set to true, the proceed button shows a loader when clicked.
                         // And a dialog object will be passed to the then() callback
                     })
@@ -281,7 +124,7 @@
                             axios.delete('/localajax/category/' + category.id)
                                 .then(function (response) {
                                     vm.categoriesList.splice(index, 1);
-                                    vm.showMessage('category has been successfuly', true);
+                                    vm.showMessage('تم حذف الفئة', true);
 
                                 })
                                 .catch(function (error) {
@@ -359,13 +202,10 @@
     }
 
 
-
-
     a, button {
         color: black;
         font-size: 15px
     }
-
 
 
     span {

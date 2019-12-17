@@ -43,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapManagerRoutes();
 
-        $this->mapLocalAjaxRoutes();
+        $this->mapAccountingRoutes();
 
 
         $this->mapStartupRoutes();
@@ -53,8 +53,17 @@ class RouteServiceProvider extends ServiceProvider
 
         //
     }
-
-    /**
+	
+	
+	protected function mapAccountingRoutes()
+	{
+		Route::middleware('web')
+			->namespace("App\Http\Controllers\Accounting")
+			->prefix("accounting")
+			->group(base_path('routes/accounting.php'));
+	}
+	
+	/**
      * Define the "web" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.

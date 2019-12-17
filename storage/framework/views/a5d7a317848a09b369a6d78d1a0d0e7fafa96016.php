@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="https://adminlte.io/themes/AdminLTE/dist/css/skins/_all-skins.min.css">
 
 
-    
-    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
     
     <link rel="stylesheet" href="<?php echo e(asset('css/main.css')); ?>">
@@ -81,10 +79,7 @@
         <link rel="stylesheet" href="<?php echo e(asset('css/rlt/custom.css')); ?>">
 
         <?php endif; ?>
-        
 
-
-        
 
         <?php echo $__env->yieldContent('page_css'); ?>
 
