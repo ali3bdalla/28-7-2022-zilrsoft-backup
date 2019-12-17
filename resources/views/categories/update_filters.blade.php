@@ -1,7 +1,7 @@
 @extends('layouts.master2',['vuejs'=>true])
 
 
-@section('title',$category->name  . ' - ' .__('pages/categories.filters'))
+@section('title',$category->locale_name  . ' - ' .__('pages/categories.filters'))
 @section('desctipion','')
 @section('route',route('management.categories.filters',$category->id))
 

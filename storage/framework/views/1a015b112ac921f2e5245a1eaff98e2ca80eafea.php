@@ -1,4 +1,4 @@
-<?php $__env->startSection('title',$category->name  . ' - ' .__('pages/categories.filters')); ?>
+<?php $__env->startSection('title',$category->locale_name  . ' - ' .__('pages/categories.filters')); ?>
 <?php $__env->startSection('desctipion',''); ?>
 <?php $__env->startSection('route',route('management.categories.filters',$category->id)); ?>
 
