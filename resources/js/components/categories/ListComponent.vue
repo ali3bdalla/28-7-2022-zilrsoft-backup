@@ -116,26 +116,31 @@
 
                 this.$dialog
                     .confirm("هل انت متاكد من هذه العملية؟ ", {
+
                         loader: true // default: false - when set to true, the proceed button shows a loader when clicked.
                         // And a dialog object will be passed to the then() callback
                     })
                     .then(dialog => {
                         setTimeout(() => {
-                            axios.delete('/localajax/category/' + category.id)
-                                .then(function (response) {
-                                    vm.categoriesList.splice(index, 1);
-                                    vm.showMessage('تم حذف الفئة', true);
+                                // console.log();
+                                var link = '/management/categories/' + category.id;
 
-                                })
-                                .catch(function (error) {
-                                    // handle error
-                                    console.log(error);
-                                })
-                                .finally(function () {
-                                    // always executed
-                                });
-                            dialog.close();
-                        }, 1500);
+                                axios.delete(link).then(function (response) {
+                                        // vm.categoriesList.splice(index, 1);
+                                        // vm.showMessage('تم حذف الفئة', true);
+                                        window.location.reload();
+                                    })
+                                    .catch(function (error) {
+                                        // handle error
+                                        window.location.reload();
+                                        // console.log(error);
+                                    })
+                                    .finally(function () {
+                                        // always executed
+                                    });
+                                dialog.close();
+                            }
+                            , 1500);
 
 
                     })
