@@ -51,9 +51,6 @@
 		 */
 		public function store(CreateCategoryForm $request)
 		{
-			//
-			
-			// return $request->all();
 			$request->save();
 			return redirect(route('management.categories.index'));
 		}

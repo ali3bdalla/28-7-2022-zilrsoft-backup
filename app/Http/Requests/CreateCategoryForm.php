@@ -28,8 +28,8 @@
 		{
 			return [
 				//
-				'name' => "required|unique:categories,name|min:3|string",
-				'ar_name' => "required|unique:categories,ar_name|min:3|string",
+				'name' => "required|min:3|string",
+				'ar_name' => "required|min:3|string",
 				'description' => "required|min:3|string",
 				'ar_description' => "required|min:3|string",
 				'parent_id' => "required|integer",
