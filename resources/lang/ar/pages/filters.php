@@ -9,12 +9,18 @@ return [
 	
 	'id' => '#',
 	'date' => '#',
-	'creator' => __('reusable.creator'),
-	'date' => __('reusable.date'),
+	'created_by' => __('reusable.creator'),
+	'created_at' => __('reusable.date'),
 	'name' => __('reusable.name'),
 	'ar_name' => __('reusable.ar_name'),
 	'update' => __('reusable.update'),
-	'delete' => __('reusable.delete'),
+	'cancel' => __('reusable.cancel'),
 	'copy' => __('reusable.copy'),
+	"baseUrl" => route('accounting.filters.index'),
+	'global_name' => 'الاسم',
+	'options' => 'خيارات',
+	'view' => 'عرض',
+	'edit' => 'تعديل',
+	'delete' => 'حذف',
 	
 ];

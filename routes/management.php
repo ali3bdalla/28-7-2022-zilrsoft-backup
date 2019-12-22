@@ -2,17 +2,8 @@
 	
 	app()->setLocale('ar');
 
-//	 auth()->loginUsingId(1);
 
-//	if(!auth()->check())
-//	{
-//		auth()->loginUsingId(1);
-//
-//	}
-
-//	app()->setLocale('ar');
-	
-	Auth::routes(['verify' => true]);
+	Auth::routes();
 	
 	
 	Route::prefix('printer')->name('printers.')->group(function (){
@@ -34,7 +25,7 @@
 		
 		Route::resources([
 			'managers' => 'ManagerController',
-			'users' => 'UsersController',
+			'users' => 'IdentitiesController',
 			'roles' => 'RoleController',
 			'vendors' => 'VendorController',
 			'clients' => 'ClientController',
@@ -104,11 +95,11 @@
 		
 		Route::prefix('users')->name('users.')->group(function (){
 			//signout
-			Route::get('/auth/signout',"UsersController@signout")->name('signout');
-			Route::get('{user}/{payWay}/accounts',"UsersController@get_ways_with_accounts_that_user_has_account_on_them");
-			Route::get('{user}/update_payments_accounts',"UsersController@update_payments_accounts")->name('update_payments_accounts');
-			Route::get('{user}/create_payments_accounts',"UsersController@create_payments_accounts")->name('create_payments_accounts');
-			Route::post('{user}/store_payments_accounts',"UsersController@store_payments_accounts");
+			Route::get('/auth/signout',"IdentitiesController@signout")->name('signout');
+			Route::get('{user}/{payWay}/accounts',"IdentitiesController@get_ways_with_accounts_that_user_has_account_on_them");
+			Route::get('{user}/update_payments_accounts',"IdentitiesController@update_payments_accounts")->name('update_payments_accounts');
+			Route::get('{user}/create_payments_accounts',"IdentitiesController@create_payments_accounts")->name('create_payments_accounts');
+			Route::post('{user}/store_payments_accounts',"IdentitiesController@store_payments_accounts");
 		});
 		
 		

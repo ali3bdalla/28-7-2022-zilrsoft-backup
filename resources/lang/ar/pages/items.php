@@ -13,11 +13,8 @@
 		'creator' => 'الموظف',
 		'generate_barcode' => 'انشاء  باركود',
 		'view_item' => ' عرض الصنف',
-		
 		'is_expense' => 'خدمات اضافية',
 		'locale' => app()->getLocale(),
-		
-		
 		'save_kit' => 'حفظ ',
 		'view_products' => 'عرض المنتجات',
 		
@@ -81,4 +78,24 @@
 		'categories' => __('sidebar.categories'),
 	
 	
+		
+		
+		
+		'price_tax_placeholder'=>' بالضريبة 0-0',
+		'price_placeholder'=>'السعر 0-0',
+		'category'=>'الفئة',
+		
+		
+		'all' => 'الكل',
+		"id" => "#",
+		'created_by' => 'المحرر',
+		'created_at' => 'التاريخ',
+		'options' => 'خيارات',
+		"search_by_filters" => 'ابحث..',
+		"baseUrl" => route('accounting.items.index'),
+		"transactions" => 'حركة المنتج',
+		"view_serials" => 'حالة السيريلات',
+		'status'=>'الحالة',
+		'pending'=>'معلق',
+		'active'=>'نشط',
 	];

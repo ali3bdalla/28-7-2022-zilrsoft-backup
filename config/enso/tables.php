@@ -190,7 +190,7 @@ return [
     |--------------------------------------------------------------------------
     | Export Settings
     |--------------------------------------------------------------------------
-    | Path where the temporary files are stored within storage/app folder; timeout
+    | Path where the temporary files are stored within storage/head folder; timeout
     | limit for jobs; entry limit for each sheet; push notification channels.
     | Note: while using Enso the users will receive a download link by email,
     | while in non Enso environments the whole export file will be emailed.

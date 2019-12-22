@@ -90,11 +90,11 @@ require('./bootstrap');
 
 var config = require('../js/config');
 
+
 window.Vue = Vue;
 require('./accounting/load');
 
 // import VueTable from './components/enso/vuedatatable/VueTable.vue';
-
 Vue.use(Toasted);
 Vue.use(Vuetify);
 Vue.use(VModal);

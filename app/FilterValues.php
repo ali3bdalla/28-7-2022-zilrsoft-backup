@@ -10,11 +10,18 @@
 	
 	class FilterValues extends Model
 	{
-		//
+		
+		
 		use FilterValuesRelationships,FilterValuesAttributes;
 		protected $guarded = [
 		
 		];
+		
+		protected $appends = [
+			'locale_name'
+		];
+		//
+		
 		
 		protected static function boot()
 		{

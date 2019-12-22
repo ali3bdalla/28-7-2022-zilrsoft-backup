@@ -1,71 +1,37 @@
-<?php $__env->startSection('title', __('sidebar.items')); ?>
-<?php $__env->startSection('desctipion',__('pages/items.description')); ?>
-<?php $__env->startSection('route',route('management.items.index')); ?>
+<?php $__env->startSection('title',__('sidebar.items')); ?>
+<?php $__env->startSection('buttons'); ?>
+    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check("create item")): ?>
+        <a href="<?php echo e(route('accounting.items.create')); ?>" class="btn btn-custom-primary">
+            <i class="fa fa-plus-circle"></i> <?php echo e(__('pages/items.create')); ?>
 
-<?php $__env->startSection('translator'); ?>
-    <script defer>
-        window.translator = `<?php echo json_encode(trans('pages/items'), 15, 512) ?>`
-    </script>
-<?php $__env->stopSection(); ?>
-<?php $__env->startSection('page_css'); ?>
-    <style type="text/css">
-        th {
-            text-align: center !important;
-        }
-    </style>
+        </a>
+    <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
-<?php $__env->startSection('content'); ?>
-    
-
-    <div class="box">
-
-
-        <div class="card-body">
-            <a href="<?php echo e(route('management.items.create')); ?>" class="button is-info pull-right">
-                <i class='fa  fa-plus-circle'></i>&nbsp; <?php echo e(__('pages/items.create')); ?></a>
-            <span class="subtitle"></span>
-
-            <br>
-        </div>
-    </div>
-    <div class="card">
-        <?php if(isset($_GET['selectable'])): ?>
-
-
-            <?php if(isset($_GET['is_purchase'])): ?>
-                <item-list-table-component
-                        :linkable="1"
-                        :is_ask_for_purchase="1"
-                        load-type="<?php echo e($loadType); ?>"
-                        :creators="<?php echo e($creators); ?>"></item-list-table-component>
-
-            <?php else: ?>
-                <item-list-table-component
-                        :linkable="1"
-                        :is_ask_for_purchase="0"
-                        load-type="<?php echo e($loadType); ?>"
-                        :creators="<?php echo e($creators); ?>"></item-list-table-component>
-
-            <?php endif; ?>
-
-        <?php else: ?>
-            <item-list-table-component
-                    :linkable="0"
-                    load-type="<?php echo e($loadType); ?>"
-                    :creators="<?php echo e($creators); ?>"></item-list-table-component>
-        <?php endif; ?>
-
-    </div>
-    
-
-
+<?php $__env->startSection("before_content"); ?>
 
 <?php $__env->stopSection(); ?>
 
 
-<?php $__env->startSection('page_js'); ?>
 
+<?php $__env->startSection("content"); ?>
+
+
+    <accounting-items-datatable-component
+            :can-edit="<?php echo e(auth()->user()->canDo('edit item')); ?>"
+            :can-create="<?php echo e(auth()->user()->canDo('create item')); ?>"
+            :categories='<?php echo json_encode($categories, 15, 512) ?>'
+            :can-view-accounting="<?php echo e(auth()->user()->canDo('view item transactions')); ?>"
+            :can-delete="<?php echo e(auth()->user()->canDo('delete item')); ?>">
+
+
+    </accounting-items-datatable-component>
 <?php $__env->stopSection(); ?>
 
+
+
+
+
+<?php $__env->startSection("after_content"); ?>
+<?php $__env->stopSection(); ?>
 <?php echo $__env->make('accounting.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/vagrant/code/zilrsoft/resources/views/accounting/items/index.blade.php ENDPATH**/ ?>

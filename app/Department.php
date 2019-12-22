@@ -15,6 +15,10 @@
 		
 		protected $guarded = [];
 		
+		protected $appends = [
+			'locale_title'
+		];
+		
 		protected static function boot()
 		{
 			parent::boot();

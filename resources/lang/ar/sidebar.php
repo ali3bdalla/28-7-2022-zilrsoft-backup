@@ -1,6 +1,7 @@
 <?php
 	
 	return [
+		'statistics'=>'الاحصائيات',
 		'transactions' => 'القيود',
 		'dashboard' => 'لوحة التحكم',
 		'items' => 'المنتجات',
@@ -25,11 +26,12 @@
 		'payments_methods' => 'وسائل الدفع',
 		'settings' => 'الاعدادات',
 		'serial_history' => 'متابعة السيريال',
-		'barcode' => 'الباركود ',
+		'barcode' => 'طباعة الباركود ',
 		'accounts' => 'المحاسبة',
 		'chart_of_accounts' => 'دليل الحسابات',
 		'journal_entry' => ' قيود اليومية',
 		'financial_statements' => '  القوائم المالية',
 		'general_ledger' => ' الاستاذ العام',
 	
+		'management' => 'ادارة'
 	];

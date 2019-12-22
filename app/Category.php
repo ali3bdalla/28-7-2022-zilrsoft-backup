@@ -14,14 +14,33 @@
 		use CategoryRelationships,SoftDeletes,CategoryAttributes;
 		
 		protected $appends = [
-			'locale_name'
+			'locale_name',
+			'label',
 		];
 		protected $fillable = [
 			'name','ar_name','description','ar_description',
 			'parent_id',
 			'organization_id',
-			'creator_id'
+			'creator_id',
+		
 		];
+		
+		public static function getAllParentNestedChildren(Category $category)
+		{
+			$children = [];
+			foreach ($category->children()->get() as $child){
+				$child_children = self::getAllParentNestedChildren($child);
+				if ($child_children != null)
+					$child['children'] = $child_children;
+				
+				$children[] = $child;
+			}
+			
+			if ($children == [])
+				return null;
+			
+			return $children;
+		}
 		
 		protected static function boot()
 		{

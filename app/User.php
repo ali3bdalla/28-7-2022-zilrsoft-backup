@@ -25,6 +25,14 @@
 			}
 		}
 
+		protected $casts =[
+			'is_vendor' => 'boolean',
+			'is_client' => 'boolean',
+			'is_supplier' => 'boolean',
+			'can_make_credit' => 'boolean',
+			'is_supervisor' => 'boolean',
+			'is_manager' => 'boolean',
+		];
 		public function getCreatedDateAttribute()
 		{
 			return $this->created_at->diffForHumans();

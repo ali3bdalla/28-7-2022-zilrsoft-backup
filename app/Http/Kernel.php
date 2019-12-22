@@ -6,7 +6,6 @@
 	use App\Http\Middleware\CheckForMaintenanceMode;
 	use App\Http\Middleware\EncryptCookies;
 	use App\Http\Middleware\RedirectIfAuthenticated;
-	use App\Http\Middleware\RoleMiddleware;
 	use App\Http\Middleware\TrimStrings;
 	use App\Http\Middleware\TrustProxies;
 	use App\Http\Middleware\VerifyCsrfToken;
@@ -24,6 +23,9 @@
 	use Illuminate\Session\Middleware\AuthenticateSession;
 	use Illuminate\Session\Middleware\StartSession;
 	use Illuminate\View\Middleware\ShareErrorsFromSession;
+	use Spatie\Permission\Middlewares\PermissionMiddleware;
+	use Spatie\Permission\Middlewares\RoleMiddleware;
+	use Spatie\Permission\Middlewares\RoleOrPermissionMiddleware;
 	
 	class Kernel extends HttpKernel
 	{
@@ -52,9 +54,9 @@
 				EncryptCookies::class,
 				AddQueuedCookiesToResponse::class,
 				StartSession::class,
-				// \Illuminate\Session\Middleware\AuthenticateSession::class,
+				AuthenticateSession::class,
 				ShareErrorsFromSession::class,
-//				VerifyCsrfToken::class,
+				VerifyCsrfToken::class,
 				SubstituteBindings::class,
 			
 			],
@@ -84,6 +86,8 @@
 			'throttle' => ThrottleRequests::class,
 			'verified' => EnsureEmailIsVerified::class,
 			'role' => RoleMiddleware::class,
+			'permission' => PermissionMiddleware::class,
+			'role_or_permission' => RoleOrPermissionMiddleware::class,
 		];
 		
 		/**

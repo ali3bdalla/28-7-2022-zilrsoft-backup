@@ -20,7 +20,7 @@
 
     <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-<!-- <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet"> -->
+<!-- <link href="<?php echo e(asset('head')); ?>" rel="stylesheet"> -->
 
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">

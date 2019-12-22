@@ -8,10 +8,12 @@
 	use Illuminate\Foundation\Auth\User as Authenticatable;
 	use Illuminate\Notifications\Notifiable;
 	use Illuminate\Support\Facades\Auth;
+	use Spatie\Permission\Traits\HasPermissions;
+	use Spatie\Permission\Traits\HasRoles;
 	
 	class Manager extends Authenticatable
 	{
-		use Notifiable,ManagerRelationships,ManagerAttributes;
+		use Notifiable,ManagerRelationships,ManagerAttributes,HasRoles,HasPermissions;
 		
 		/**
 		 * The attributes that are mass assignable.

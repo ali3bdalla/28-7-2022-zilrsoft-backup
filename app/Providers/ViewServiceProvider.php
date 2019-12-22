@@ -15,20 +15,17 @@
 		 */
 		public function register()
 		{
+			
+			$config = [
+				'vts' => 5,
+				'vtp' => 5
+			];
+			
+			
+			View::share('organization_config',$config);
+//
+			
 		
-			
-//			dd(auth()->user());
-//			if (auth()->user()){
-				$config = [
-					'vts' => 5,
-					'vtp' => 5
-				];
-				
-				
-				View::share('organization_config',$config);
-//			}
-			
-			//
 		}
 		
 		/**

@@ -40,16 +40,7 @@
 			// return 1;
 			return $this->belongsTo(Branch::class,'branch_id');
 		}
-		
-//		public function organization()
-//		{
-//			return $this->belongsTo(Organization::class,'organization_id');
-//		}
-		
-		public function roles()
-		{
-			return $this->belongsToMany(Role::class,'manager_role','manager_id','role_id');
-		}
+	
 		
 		public function categories()
 		{

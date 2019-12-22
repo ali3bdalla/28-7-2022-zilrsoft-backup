@@ -13,9 +13,10 @@
 		 */
 		public function run()
 		{
-			;
+//			;
 			
-			Artisan::all('database:first-init');
+			$this->call(RoleAndPermissionSeeder::class);
+//			Artisan::all('database:first-init');
 //    	factory(App\Country::class, 10)->create();
 //    	factory(App\Type::class, 10)->create();
 //        factory(App\Role::class, 10)->create();

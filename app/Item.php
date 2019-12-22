@@ -33,7 +33,8 @@
 			'is_need_serial' => 'boolean',
 			'available_qty' => 'integer',
 			'price' => 'float',
-			'price_with_tax' => 'float'
+			'price_with_tax' => 'float',
+			'is_expense' => 'boolean',
 		];
 		protected $guarded = [];
 		

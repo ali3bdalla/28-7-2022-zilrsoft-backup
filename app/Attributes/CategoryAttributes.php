@@ -36,5 +36,12 @@ trait CategoryAttributes {
 		return $this->name;
 	}
 	
+	public function  getLabelAttribute(){
+		
+		
+		
+		return $this->locale_name;
+	}
+	
 	
 }

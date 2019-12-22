@@ -4,10 +4,16 @@
 	
 	use App\ItemSerials;
 	use App\PurchaseInvoice;
+	use Carbon\Carbon;
 	use Illuminate\Support\Facades\DB;
 	
 	trait ItemAttributes
 	{
+		
+		public function getCreatedAtAttribute($value)
+		{
+			return Carbon::parse($value)->toDateString();
+		}
 		
 		public function getDataForReturn($qty,$fresh_invoice_item)
 		{

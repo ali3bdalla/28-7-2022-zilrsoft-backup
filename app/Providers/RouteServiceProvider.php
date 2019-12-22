@@ -60,6 +60,7 @@ class RouteServiceProvider extends ServiceProvider
 		Route::middleware('web')
 			->namespace("App\Http\Controllers\Accounting")
 			->prefix("accounting")
+			->name('accounting.')
 			->group(base_path('routes/accounting.php'));
 	}
 	

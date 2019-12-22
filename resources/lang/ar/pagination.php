@@ -14,4 +14,6 @@ return [
 
     'previous' => '&laquo; السابق',
     'next'     => 'التالي &raquo;',
+    'last'     => 'الاخيرة &raquo;',
+    'first'     => 'الاولى &raquo;',
 ];

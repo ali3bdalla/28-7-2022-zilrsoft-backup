@@ -2,8 +2,8 @@
 
 return [
     'description'=>'قائمة سندات عمليات الدفع',
-    'create_payment'=> 'سند صرف',
-    'create_receipt'=>'سند قبض',
+    'create_payment'=> 'اضافة سند صرف',
+    'create_receipt'=>'اضافة سند قبض',
     'create'=>'تحرير سند',
 
     'payments' =>'سندات الصرف',

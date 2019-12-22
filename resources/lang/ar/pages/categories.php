@@ -14,6 +14,7 @@
 		'copy' => 'نسخ ',
 		'edit' => 'تعديل  ',
 		'filters' => ' الفلاتر ',
+		'edit_filters' => 'تعديل الفلاتر',
 		'update' => 'حفظ ',
 		'create_filter' => 'اضافة ',
 		'search_on_it_filters'=>'البحث في فلاتر الفئة',

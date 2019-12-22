@@ -7,7 +7,7 @@
     <div class="container">
         <div class="organization">
             <div class="logo"><img src="{{asset(auth()->user()->organization->logo)}}"/> </div>
-            <div class="organization_title">{{ config('app.name') }} </div>
+            <div class="organization_title">{{ config('head') }} </div>
         </div>
 
         <div class="header">{{ __('pages/payments.create_receipt') }}</div>

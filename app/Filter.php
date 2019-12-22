@@ -13,7 +13,7 @@
 		use FilterRelationships,FilterAttributes;
 		
 		protected $appends = [
-			'locale_name'
+			'locale_name',
 		];
 		protected $guarded = [
 		];
