@@ -111,7 +111,7 @@
                         <td><input @change="rowSelectCheckBoxUpdated(row)" type="checkbox"
                                    v-model="row.tb_row_selected"/>
                         </td>
-                        <td v-text="index+1"></td>
+                        <td v-text="getRowColumnIndex(index + 1)"></td>
                         <td @click="sendItemToOpenInvoice(row)" style="text-align:left;cursor: pointer">
                             &nbsp;<span :style="{'color' :primaryColor}" v-if="row.is_need_serial">{{ row.barcode }}
                             </span>
@@ -233,6 +233,7 @@
                     filters: [],
                     id: null
                 },
+
                 paginationResponseData: null,
                 tableSelectionActiveMode: false
 
@@ -392,6 +393,13 @@
 
             exportsPdf() {
 
+            },
+            getRowColumnIndex(index) {
+                if (this.paginationResponseData != null) {
+                    return index + ((this.paginationResponseData.current_page - 1) *
+                        this.paginationResponseData.per_page);
+                }
+                return index;
             }
 
         },
