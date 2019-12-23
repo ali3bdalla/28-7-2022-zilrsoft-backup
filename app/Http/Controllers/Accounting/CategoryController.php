@@ -37,7 +37,6 @@
 				$category['children'] = Category::getAllParentNestedChildren($category);
 				$categories[] = $category;
 			}
-			
 			return view('accounting.categories.index',compact('categories'));
 		}
 		

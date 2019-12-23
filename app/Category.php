@@ -42,6 +42,30 @@
 			return $children;
 		}
 		
+		
+		public static function infinityChildrenIds(Category $category)
+		{
+			$children = [];
+			foreach ($category->children()->get() as $child){
+				$child_children = self::infinityChildrenIds($child);
+				if ($child_children != null)
+				{
+					foreach ($child_children as $secound)
+					{
+						$children[] = $secound;
+					}
+				}
+				
+//
+				$children[] = $child['id'];
+			}
+			
+			if ($children == [])
+				return null;
+			
+			return $children;
+		}
+		
 		protected static function boot()
 		{
 			parent::boot();

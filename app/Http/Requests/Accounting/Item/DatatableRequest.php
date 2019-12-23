@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Item;
 	
-	use App\Filter;
+	use App\Category;
 	use App\Item;
 	use App\ItemFilters;
 	use Carbon\Carbon;
@@ -66,8 +66,17 @@
 			}
 			
 			
-			if ($this->has('category_id') && $this->filled('category_id') && $this->input("category_id") >= 1){
-				$query = $query->where('category_id',$this->input("category_id"));
+			if ($this->has('categoryIds') && $this->filled('categoryIds')){
+				$ids = $this->input("categoryIds");
+				foreach ($ids as $id){
+					$category = Category::Find($id);
+					$child_ids = Category::infinityChildrenIds($category);
+				
+					$new_collect = collect([collect($ids)->toArray(),collect($child_ids)->toArray()]);
+					$ids = $new_collect->collapse();
+				
+				}
+				$query = $query->whereIn('category_id',collect($ids)->toArray());
 			}
 			
 			

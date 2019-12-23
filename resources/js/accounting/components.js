@@ -1,4 +1,4 @@
-import AccountingLoginViewComponent from './components/auth/loginView';
+// import AccountingLoginViewComponent from './components/auth/loginView';
 // layouts
 import AccountingTableFiltersSearchComponent from './components/layout/tableFiltersSearch';
 import AccountingTreeViewRawLayoutComponent from './components/layout/treeViewRawLayoutComponent';
@@ -27,7 +27,7 @@ import AccountingManagerPermissionAndRoleComponent from './components/users/mana
 // dashboards
 import AccountingDashboardItemsChartComponent from './components/dashboard/dashboardItemsChartComponent';
 
-Vue.component('accounting-login-view-component', AccountingLoginViewComponent);
+// Vue.component('accounting-login-view-component', AccountingLoginViewComponent);
 
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
 

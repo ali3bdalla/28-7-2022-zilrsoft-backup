@@ -206,10 +206,7 @@
                 orderType: "desc",
                 yourValue: null,
                 table_rows: [],
-                columns: [
-                    'selected',
-                    'sku',
-                ],
+
                 isLoading: true,
                 primaryColor: metaHelper.getContent('primary-color'),
                 secondColor: metaHelper.getContent('second-color'),
@@ -232,7 +229,7 @@
                     available_qty: null,
                     name: null,
                     current_status: "all",
-                    category_id: 0,
+                    categoryIds: [],
                     filters: [],
                     id: null
                 },
@@ -339,8 +336,12 @@
             },
 
             advancedSearchUpdated(event) {
-                this.filters.category_id = event.categoryId;
+                this.filters.categoryIds = event.categoryIds;
                 this.filters.filters = event.searchFilters;
+                if (event.categoryIds == []) {
+                    this.filters.filters = [];
+                }
+
                 this.pushServerRequest();
             },
             checkAndUncheckAllRowsCheckBoxChanged() {
