@@ -196,7 +196,7 @@
 			
 			$role = Role::create(['name' => 'super admin','guard_name' => 'manager']);
 			$manager = Manager::find(1);
-			$manager->assignRole('Super Admin');
+			$manager->assignRole('super admin');
 			
 		}
 	}

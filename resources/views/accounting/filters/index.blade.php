@@ -19,9 +19,9 @@
 
 
     <accounting-filters-datatable-component
-            :can-edit="{{ auth()->user()->canDo('view filter')}}"
+            :can-edit="{{ auth()->user()->canDo('edit filter')}}"
             :can-create="{{ auth()->user()->canDo('create filter')}}"
-            :can-delete="{{ auth()->user()->canDo('view filter')}}">
+            :can-delete="{{ auth()->user()->canDo('delete filter')}}">
 
 
     </accounting-filters-datatable-component>

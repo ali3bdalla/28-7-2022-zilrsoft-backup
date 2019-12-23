@@ -2,9 +2,9 @@
 	
 	namespace App\Http\Controllers\Accounting\Auth;
 	
-	use App\AccountingChartAccounts;
 	use App\Http\Controllers\Controller;
 	use Illuminate\Foundation\Auth\AuthenticatesUsers;
+	use Illuminate\Http\Response;
 	
 	class LoginController extends Controller
 	{
@@ -38,5 +38,15 @@
 			
 			
 			$this->middleware('guest')->except('logout');
+		}
+		
+		/**
+		 * Show the application's login form.
+		 *
+		 * @return Response
+		 */
+		public function showLoginForm()
+		{
+			return view('accounting.auth.login');
 		}
 	}

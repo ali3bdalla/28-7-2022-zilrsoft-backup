@@ -6,6 +6,13 @@
 	
 	trait  ManagerAttributes
 	{
+		public function getLocaleNameAttribute()
+		{
+			
+			if(app()->isLocale('ar'))
+				return $this->name_ar;
+			return $this->name;
+		}
 		
 		public function canDo($option)
 		{
@@ -38,13 +45,7 @@
 			return $this->user->is_supervisor ? 'Admin' : 'Employer';
 		}
 		
-		public function isAuthorizedTo($task = 'create-user')
-		{
-			//$this->user->is_supervisor ||
-			// return true;
-			return $this->user->is_supervisor;
-		}
-		
+	
 		public function manager_current_stock()
 		{
 			return Account::where("slug",'stock')->first();
@@ -61,6 +62,3 @@
 	}
 	
 	
-	// all type of roles
-	
-	// items

@@ -37,7 +37,7 @@
 		public function index()
 		{
 			
-			$this->middleware(['permission:view filter']);
+			
 			return view('accounting.filters.index');
 			//
 		}
@@ -49,6 +49,7 @@
 		 */
 		public function datatable(DatatableRequest $request)
 		{
+			$this->middleware(['permission:view filter']);
 			return $request->data();
 		}
 		
@@ -73,7 +74,10 @@
 			$data['creator_id'] = auth()->user()->id;
 			$filter = auth()->user()->organization->filters()->create($data);
 			
-			return redirect(route('management.filters.edit',$filter->id));
+			if(auth()->user()->can('edit filter'))
+				return redirect(route('accounting.filters.edit',$filter->id));
+			
+			return redirect(route('accounting.filters.index'));
 			//
 		}
 		
@@ -99,6 +103,7 @@
 		{
 
 //
+			
 			$this->middleware(['permission:edit filter']);
 			return view('accounting.filters.edit',compact('filter'));
 			//

@@ -20,6 +20,7 @@
 <meta name="lang-items-page" content="<?php echo e(json_encode(trans('pages/items'))); ?>">
 <meta name="lang-users-page" content="<?php echo e(json_encode(trans('pages/users'))); ?>">
 <meta name="lang-filters-page" content="<?php echo e(json_encode(trans('pages/filters'))); ?>">
+<meta name="lang-branches-page" content="<?php echo e(json_encode(trans('pages/branches'))); ?>">
 <meta name="lang-categories-page" content="<?php echo e(json_encode(trans('pages/categories'))); ?>">
 <meta name="datatableBaseUrl" content="/accounting/datatable/">
 <meta name="BaseApiUrl" content="/accounting/">

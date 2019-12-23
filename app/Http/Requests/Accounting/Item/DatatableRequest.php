@@ -2,11 +2,11 @@
 	
 	namespace App\Http\Requests\Accounting\Item;
 	
+	use App\Filter;
 	use App\Item;
 	use App\ItemFilters;
 	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
-	use phpDocumentor\Reflection\Types\Integer;
 	
 	class DatatableRequest extends FormRequest
 	{
@@ -72,19 +72,24 @@
 			
 			
 			if ($this->has('filters') && $this->filled('filters')){
-
-//				$items_ids_array = collect();
 				
-				foreach ($this->filters as $index => $filter){
-					$filterData = json_decode($filter,true);
-					$value_id = $filterData['value_id'];
-					$filter_id = $filterData['filter_id'];
-					$items_ids = ItemFilters::where([
-						['filter_id',$filter_id],
-						['filter_value',$value_id]
-					])->pluck('item_id');
-
-//					$items_ids_array = $items_ids;
+				$filter_final_array = [];
+				foreach ($this->input('filters') as $index => $filter){
+					
+					if (!empty($filter)){
+						$collect = json_decode($filter,true);
+						$filter_final_array[$collect['filter_id']][] = $collect['value_id'];
+					}
+//
+				}
+				
+				
+				foreach ($filter_final_array as $filter_id => $values){
+					$items_ids = ItemFilters::where('filter_id',$filter_id)->whereIn('filter_value',collect
+					($values)
+						->toArray())
+						->pluck('item_id');
+					
 					$query = $query->whereIn('id',$items_ids->toArray());
 				}
 				

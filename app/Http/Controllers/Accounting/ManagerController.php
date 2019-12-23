@@ -7,6 +7,7 @@
 	use App\Http\Requests\Accounting\Manager\CreateManagerRequest;
 	use App\Http\Requests\Accounting\Manager\DatatableRequest;
 	use App\Manager;
+	use Exception;
 	use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
@@ -53,11 +54,10 @@
 		}
 		
 		/**
-		 * Store a newly created resource in storage.
+		 * @param CreateManagerRequest $request
 		 *
-		 * @param Request $request
-		 *
-		 * @return Response
+		 * @return |null |null |null
+		 * @throws Exception
 		 */
 		public function store(CreateManagerRequest $request)
 		{
@@ -70,7 +70,7 @@
 		 *
 		 * @param Manager $manager
 		 *
-		 * @return Response
+		 * @return void
 		 */
 		public function show(Manager $manager)
 		{
@@ -82,10 +82,12 @@
 		 *
 		 * @param Manager $manager
 		 *
-		 * @return Response
+		 * @return void
 		 */
 		public function edit(Manager $manager)
 		{
+			$branches = Branch::with('departments')->get();
+			return view('accounting.managers.edit',compact('branches','manager'));
 			//
 		}
 		
@@ -95,10 +97,11 @@
 		 * @param Request $request
 		 * @param Manager $manager
 		 *
-		 * @return Response
+		 * @return void
 		 */
 		public function update(Request $request,Manager $manager)
 		{
+			
 			//
 		}
 		
@@ -107,10 +110,11 @@
 		 *
 		 * @param Manager $manager
 		 *
-		 * @return Response
+		 * @return void
 		 */
 		public function destroy(Manager $manager)
 		{
+			$manager->delete();
 			//
 		}
 	}

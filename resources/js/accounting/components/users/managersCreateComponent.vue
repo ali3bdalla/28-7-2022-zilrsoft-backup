@@ -162,7 +162,8 @@
 <script>
 
     export default {
-        props: ["branches"],
+        props: ["branches", 'editingManager', 'manager', 'managerBranch', 'managerDepartment',
+            'managerPermissions', 'managerUser'],
         data: function () {
             return {
                 errorFieldName: "",
@@ -197,6 +198,11 @@
             };
         },
 
+        created: function () {
+            if (this.editingManager != null && this.editingManager == true) {
+
+            }
+        },
         methods: {
             branchHasBeenUpdated(event) {
                 this.managerData.branchId = event.value.id;
@@ -226,11 +232,10 @@
                 var appVm = this;
                 axios.post(this.app.BaseApiUrl + 'managers', data)
                     .then(function (response) {
-                        console.log(response.data)
-                        // location.href = appVm.app.BaseApiUrl + 'managers';
+                        location.href = appVm.app.BaseApiUrl + 'managers';
                     })
                     .catch(function (error) {
-                        alert(error.data.errors);
+                        alert(error);
 
 
                     });

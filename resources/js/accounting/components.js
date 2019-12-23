@@ -6,7 +6,10 @@ import AccountingHeaderLayoutComponent from './components/layout/headerLayoutCom
 import accountingAppendGatewaysLayoutComponent from './components/layout/appendGatewaysLayoutComponent';
 import AccountingTablePaginationHelperLayoutComponent from './components/layout/tablePaginationHelperLayoutComponent';
 import AccountingSelectWithSearchComponent from './components/layout/selectWithSearchComponent';
+import AccountingMultiSelectWithSearchComponent from './components/layout/multiSelectWithSearchLayoutComponent';
 import accountingFilterSelectWithSearchComponent from './components/layout/filterSelectWithSearchComponent';
+import AccountingBranchesDatatableComponent from './components/branches/branchesDatatableComponent';
+import AccountingDepartmentsDatatableComponent from './components/branches/departmentsDatatableComponent';
 // items
 import AccountingItemsDatatableComponent from './components/items/itemsDatatableComponent';
 import AccountingItemsCreateComponent from './components/items/itemsCreateComponent';
@@ -35,6 +38,7 @@ Vue.component('accounting-treeview-raw-layout-component', AccountingTreeViewRawL
 Vue.component('accounting-table-pagination-helper-layout-component', AccountingTablePaginationHelperLayoutComponent);
 
 Vue.component('accounting-select-with-search-layout-component', AccountingSelectWithSearchComponent);
+Vue.component('accounting-multi-select-with-search-layout-component', AccountingMultiSelectWithSearchComponent);
 Vue.component('accounting-filter-select-with-search-component', accountingFilterSelectWithSearchComponent);
 
 Vue.component('accounting-items-datatable-component', AccountingItemsDatatableComponent);
@@ -54,4 +58,6 @@ Vue.component('accounting-managers-create-component', AccountingManagersCreateCo
 Vue.component('accounting-managers-permissions-and-roles-component', AccountingManagerPermissionAndRoleComponent);
 
 
-Vue.component('accounting-dashboard-items-chart-component',AccountingDashboardItemsChartComponent);
+Vue.component('accounting-dashboard-items-chart-component', AccountingDashboardItemsChartComponent);
+Vue.component('accounting-branches-datatable-component', AccountingBranchesDatatableComponent);
+Vue.component('accounting-departments-datatable-component', AccountingDepartmentsDatatableComponent);

@@ -8,33 +8,33 @@
             <div class="row">
 
                 <div class="col-md-3">
-                    <accounting-select-with-search-layout-component
-                            :identity="10023749872394"
+                    <accounting-multi-select-with-search-layout-component
                             :options="categories"
                             :placeholder="trans.category"
                             :title="trans.category"
                             @valueUpdated="categoryValueUpdated"
                             default="0"
+                            identity="000000000"
                             label_text="locale_name"
                     >
-                    </accounting-select-with-search-layout-component>
+                    </accounting-multi-select-with-search-layout-component>
 
                 </div>
 
                 <div :key="filter.id" class="col-md-3" v-for="filter in filters">
 
 
-                    <accounting-select-with-search-layout-component
+                    <accounting-multi-select-with-search-layout-component
                             :helper-value="filter.id"
                             :identity="filter.id"
                             :options="filter.values"
                             :placeholder="filter.locale_name"
                             :title="filter.locale_name"
-                            @valueUpdated="filterValueUpdated"
+                            @valueUpdated="filterMultiValueUpdated"
                             default="0"
                             label_text="locale_name"
                     >
-                    </accounting-select-with-search-layout-component>
+                    </accounting-multi-select-with-search-layout-component>
 
                 </div>
 
@@ -50,9 +50,10 @@
         data: function () {
             return {
                 filtersListLen: 0,
-                isOpened: false,
+                isOpened: true,
+                filtersIds: [],
                 filters: [],
-                categoryId: 0,
+                categoryIds: [],
                 BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
             };
         },
@@ -62,7 +63,7 @@
             },
             sendServerRequest() {
 
-                if (this.categoryId == 0) {
+                if (this.categoryIds == []) {
                     this.filters = [];
                     this.notifyTableWithValuesUpdate();
                     return;
@@ -70,7 +71,7 @@
                 var appVm = this;
                 appVm.filters = [];
                 axios.post(this.BaseApiUrl + 'categories/view/filters', {
-                    categories_ids: [this.categoryId]
+                    categories_ids: this.categoryIds
                 })
                     .then(function (response) {
                         var filters = response.data;
@@ -89,49 +90,35 @@
             },
 
             notifyTableWithValuesUpdate() {
-                var searchFilters = [];
-                for (var i = 0; i < this.filtersListLen; i++) {
-                    var filterRow = this.filters[i];
-                    if (filterRow.value_id >= 1) {
-                        var search_filter = {
-                            filter_id: filterRow.id,
-                            value_id: filterRow.value_id,
-                        };
-                        searchFilters.push(search_filter);
-
-                    }
-                }
-
 
                 this.$emit("filterValuesUpdated", {
-                    searchFilters: searchFilters,
-                    categoryId: this.categoryId
+                    searchFilters: this.filtersIds,
+                    categoryIds: this.categoryIds
                 });
             },
-            filterValueUpdated(e) {
-                var new_filters = [];
-
-                if (e.value.id == 0) {
-                    var filter_id = e.helperValue;
-                } else {
-                    var filter_id = e.value.filter_id;
-                }
-                for (var i = 0; i < this.filtersListLen; i++) {
-                    var filterRow = this.filters[i];
-                    if (filterRow.id == filter_id) {
-                        filterRow.value_id = e.value.id;
-                    }
-
-                    new_filters.push(filterRow);
+            filterMultiValueUpdated(e) {
+                var fresh_data = [];
+                for (var i = 0; i < e.items.length; i++) {
+                    var filterRow = e.items[i];
+                    fresh_data.push({
+                        filter_id: filterRow.filter_id,
+                        value_id: filterRow.id,
+                    });
                 }
 
-                this.filters = new_filters;
+                this.filtersIds = fresh_data;
                 this.notifyTableWithValuesUpdate();
-
             },
+
             categoryValueUpdated(e) {
-                this.categoryId = e.value.id;
+                var items = [];
+                for (var i = 0; i < e.items.length; i++) {
+                    items.push(e.items[i].id);
+
+                }
+                this.categoryIds = items;
                 this.sendServerRequest();
+
             }
 
         }

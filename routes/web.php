@@ -1,9 +1,9 @@
 <?php
 	
 	
-	
+//	auth()->loginUsingId(1);
 	Route::get('/',function (){
-		return redirect('/management/login');
+		return redirect(route('accounting.dashboard.index'));
 	});
 	
 	

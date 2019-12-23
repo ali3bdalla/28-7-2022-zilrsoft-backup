@@ -10,6 +10,7 @@
 	use App\User;
 	use Exception;
 	use Illuminate\Auth\Events\Registered;
+	use Illuminate\Contracts\View\Factory;
 	use Illuminate\Foundation\Auth\RegistersUsers;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
@@ -17,6 +18,7 @@
 	use Illuminate\Support\Facades\Hash;
 	use Illuminate\Support\Facades\Redirect;
 	use Illuminate\Support\Facades\Validator;
+	use Illuminate\View\View;
 	
 	class RegisterController extends Controller
 	{
@@ -50,12 +52,15 @@
 			$this->middleware('guest');
 		}
 		
+		/**
+		 * @return Factory|View
+		 */
 		public function showRegistrationForm()
 		{
+			
 			$countries = Country::all();
 			$types = Type::all();
-			
-			return view('auth.register',compact('types','countries'));
+			return view('accounting.auth.register',compact('types','countries'));
 		}
 		
 		/**

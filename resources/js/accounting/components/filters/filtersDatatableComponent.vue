@@ -70,9 +70,9 @@
                         </td>
                         <td v-text="index+1"></td>
 
-                        <td class="text-right-with-padding" v-text="row.ar_name"></td>
-                        <td class="text-right-with-padding" v-text="row.name"></td>
-                        <td class="text-right-with-padding" v-text="row.creator.name"></td>
+                        <td class="text-center" v-text="row.ar_name"></td>
+                        <td class="text-center" v-text="row.name"></td>
+                        <td class="text-center" v-text="row.creator.name"></td>
                         <td v-text="row.created_at"></td>
                         <td>
 

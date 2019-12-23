@@ -53,6 +53,10 @@
 			$data['creator_id'] = $this->user()->id;
 			$data['is_kit'] = false;
 			
+			if(!$this->user()->can('edit item'))
+			{
+				$data['status'] = 'pending';
+			}
 			$item = Item::create($data);
 			if (!empty($this->filters)){
 				foreach ($this->filters as $filter => $value){

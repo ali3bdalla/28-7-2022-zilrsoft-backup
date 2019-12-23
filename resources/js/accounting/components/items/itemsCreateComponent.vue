@@ -362,6 +362,12 @@
                 this.itemData.expenseVendorId = this.editedItemData.expense_vendor_id;
                 this.itemData.categoryId = this.editedItemData.category_id;
 
+                    if (!this.editedItemData.name.includes(this.editedItemCategory.name))
+                    {
+                        this.categoryNameShouldBeInItemName = false;
+                    }
+                    //editedItemCategory
+
                 if (this.cloningItem != null && this.cloningItem == 1) {
                     this.itemData.barcode = "";
                     this.itemData.salesPrice = 0;

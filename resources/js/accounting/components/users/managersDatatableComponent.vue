@@ -405,7 +405,7 @@
                     .confirm(this.messages.confirm_msg, options)
                     .then(dialog => {
 
-                        axios.delete(appVm.BaseApiUrl + "identities/" + identity.id)
+                        axios.delete(appVm.BaseApiUrl + "managers/" + identity.id)
                             .then(function (response) {
                                 window.location.reload();
                             })

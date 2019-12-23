@@ -18,9 +18,9 @@
 
 
     <accounting-filters-datatable-component
-            :can-edit="<?php echo e(auth()->user()->canDo('view filter')); ?>"
+            :can-edit="<?php echo e(auth()->user()->canDo('edit filter')); ?>"
             :can-create="<?php echo e(auth()->user()->canDo('create filter')); ?>"
-            :can-delete="<?php echo e(auth()->user()->canDo('view filter')); ?>">
+            :can-delete="<?php echo e(auth()->user()->canDo('delete filter')); ?>">
 
 
     </accounting-filters-datatable-component>
