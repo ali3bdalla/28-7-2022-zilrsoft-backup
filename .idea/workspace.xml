@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/items/itemsDatatableComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/items/itemsDatatableComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/EvjMXgNHASGZTbojlmp8Zp7dQzyXMRZrYcegQmPv" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/EvjMXgNHASGZTbojlmp8Zp7dQzyXMRZrYcegQmPv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -426,7 +423,7 @@
       <workItem from="1576510067810" duration="5163000" />
       <workItem from="1576517151992" duration="253000" />
       <workItem from="1576577078221" duration="67212000" />
-      <workItem from="1576847436326" duration="99079000" />
+      <workItem from="1576847436326" duration="99361000" />
     </task>
     <servers />
   </component>
