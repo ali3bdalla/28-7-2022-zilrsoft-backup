@@ -30,7 +30,7 @@
 				//
 				'name' => 'required|string',
 				'ar_name' => 'required|string',
-				'barcode' => 'required|unique:items,barcode',
+				'barcode' => 'required',
 				'category_id' => 'required|integer|exists:categories,id',
 				'is_fixed_price' => 'required',
 				'is_has_vtp' => 'required',
