@@ -190,10 +190,9 @@
                     <div :dir="app.appLocate=='ar' ? 'rtl' : 'ltr'">
                         <treeselect
                                 :disable-branch-nodes="true"
-                                :disabled="disableCategorySelection"
                                 :load-options="loadCategoriesList"
                                 :options="categories"
-
+                                :disabled="cloningItem==true"
                                 :placeholder="app.trans.category"
                                 :show-count="true"
                                 :value="itemData.categoryId"
