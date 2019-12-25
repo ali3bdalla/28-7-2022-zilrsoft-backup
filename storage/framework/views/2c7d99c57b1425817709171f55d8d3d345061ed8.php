@@ -143,7 +143,7 @@
 
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('manage inventory')): ?>
                         <li>
-                            <a href="<?php echo e(route('accounting.inventories.index')); ?>"><i class="fa fa-sun"></i>
+                            <a href="<?php echo e(route('accounting.inventories.beginning.index')); ?>"><i class="fa fa-sun"></i>
                                 <?php echo e(__('sidebar.beginning_inventory')); ?>
 
                             </a></li>

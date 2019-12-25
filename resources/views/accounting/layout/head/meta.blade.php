@@ -18,6 +18,7 @@
 <meta name="lang-reusable-translator" content="{{ json_encode(trans('reusable')) }}">
 <meta name="lang-validation" content="{{ json_encode(trans('validation')) }}">
 <meta name="lang-items-page" content="{{ json_encode(trans('pages/items')) }}">
+<meta name="lang-invoices-page" content="{{ json_encode(trans('pages/invoice')) }}">
 <meta name="lang-users-page" content="{{ json_encode(trans('pages/users')) }}">
 <meta name="lang-filters-page" content="{{ json_encode(trans('pages/filters')) }}">
 <meta name="lang-branches-page" content="{{ json_encode(trans('pages/branches')) }}">

@@ -4,7 +4,6 @@
 	namespace App\DatabaseHelpers\Invoice;
 	
 	
-	use App\Http\Requests\Invoice\PurchaseCreationRequest;
 	use App\InvoiceItems;
 	use App\Item;
 	use App\Math\Math;
@@ -42,14 +41,33 @@
 		 */
 		public function addChildInvoice($user_id,$base_invoice_type,$parentInvoice = null)
 		{
-			$creator = auth()->user();
-			$this->sale()->create([
-				'salesman_id' => $creator->id,
-				'client_id' => $user_id,
-				'organization_id' => $creator->organization_id,
-				'invoice_type' => $base_invoice_type,
-				"prefix" => $base_invoice_type == "sale" ? "SAI-" : "RSA-"
-			]);
+			if (in_array($base_invoice_type,['sale','r_sale'])){
+				$creator = auth()->user();
+				$this->sale()->create([
+					'salesman_id' => $creator->id,
+					'client_id' => $user_id,
+					'organization_id' => $creator->organization_id,
+					'invoice_type' => $base_invoice_type,
+					"prefix" => $base_invoice_type == "sale" ? "SAI-" : "RSA-"
+				]);
+			}else{
+				if ($base_invoice_type == 'purchase'){
+					$prefix = 'PUI-';
+				}elseif ($base_invoice_type == 'r_purchase'){
+					$prefix = 'RUI-';
+				}else{
+					$prefix = 'BEG-';
+				}
+				$creator = auth()->user();
+				$this->purchase()->create([
+					'receiver_id' => $creator->id,
+					'vendor_id' => $user_id,
+					'organization_id' => $creator->organization_id,
+					'invoice_type' => $base_invoice_type,
+					"prefix" => $prefix
+				]);
+			}
+			
 			return $this;
 		}
 		
@@ -58,6 +76,7 @@
 		 */
 		public function addItemsToBaseInvoice($items)
 		{
+			
 			foreach ($items as $item){
 				$db_item = Item::findOrFail($item['id']);
 				if ($db_item->is_kit)

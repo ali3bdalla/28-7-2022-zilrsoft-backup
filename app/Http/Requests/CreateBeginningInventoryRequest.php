@@ -78,7 +78,6 @@
 				$invoice_status = $invoice->handle_invoice_transactions($methods,$this->vendor_id,$this->net,$this->items,$expenses);
 				
 				$invoice->setCreationStatusAs('paid')->setTypeAs('beginning_inventory');
-//				$invoice->create_invoice_entry($inventory);
 				DB::commit();
 			}catch (Exception $e){
 				DB::rollBack();

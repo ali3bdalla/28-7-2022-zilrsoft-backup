@@ -8,7 +8,10 @@ use \App\Scopes\OrganizationScopeForRelationships;
 
 class CategoryFilters extends Model
 {
-
+	public function filter()
+	{
+		return $this->belongsTo(Filter::class,'filter_id');
+	}
 	protected static function boot()
     {
         parent::boot();

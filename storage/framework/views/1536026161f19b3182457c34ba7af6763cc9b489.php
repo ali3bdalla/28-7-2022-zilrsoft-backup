@@ -65,4 +65,4 @@
 
 <?php $__env->startSection("after_content"); ?>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('accounting.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/vagrant/code/zilrsoft/resources/views/accounting/dashboard/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('accounting.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/vagrant/code/zilrsoft/resources/views/accounting/dashboard/show.blade.php ENDPATH**/ ?>

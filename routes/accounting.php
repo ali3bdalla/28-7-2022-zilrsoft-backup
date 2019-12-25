@@ -1,7 +1,7 @@
 <?php
 	
-//	auth()->loginUsingId(1);
-	
+	auth()->loginUsingId(1);
+//
 	app()->setLocale('ar');
 	Auth::routes(["verify" => true]);
 	Route::get('/','HomeController@index');
@@ -20,7 +20,6 @@
 			'reports' => 'ReportController',
 			'branches' => 'BranchController',
 			'gateways' => 'OrganizationGatewayController',
-			'inventories' => 'InventoryController',
 			'expenses' => 'ExpenseController',
 			'accounts' => 'AccountsController',
 			'transactions' => 'TransactionsController',
@@ -33,6 +32,18 @@
 			Route::get('{item}/transactions','ItemController@transactions')->name('transactions');
 			Route::name('helper.')->name('helper.')->prefix('helper')->group(function (){
 				Route::get('validate_barcode','ItemController@validate_barcode')->name('validate_barcode');
+				Route::match(['get','post'],'query_find_items','ProviderController@query_find_items')->name
+				('query_find_items');
+				
+				Route::match(['get','post'],'query_validate_purchase_serial','ProviderController@query_validate_purchase_serial')->name
+				('query_validate_purchase_serial');
+				Route::match(['get','post'],'query_validate_sale_serial','ProviderController@query_validate_sale_serial')->name
+				('query_validate_purchase_serial');
+				Route::match(['get','post'],'query_validate_return_sale_serial','ProviderController@query_validate_return_sale_serial')->name
+				('query_validate_purchase_serial');
+				Route::match(['get','post'],'query_validate_return_purchase_serial','ProviderController@query_validate_return_purchase_serial')->name
+				('query_validate_purchase_serial');
+				
 			});
 		});
 		Route::name('sales.')->prefix('sales')->group(function (){
@@ -46,6 +57,8 @@
 			Route::get('managers','ManagerController@datatable')->name('managers.datatable');
 			Route::get('branches','BranchController@datatable')->name('branches.datatable');
 			Route::get('branches/{branch}/departments','BranchController@departments_datatable')->name('branches.datatable');
+			Route::get('beginning_inventories','InventoryController@beginning_datatable')->name('beginning.datatable');
+			Route::get('purchases','PurchaseController@datatable')->name('purchases.datatable');
 			
 		});
 		Route::prefix('categories')->name('categories.')->group(function (){
@@ -68,6 +81,16 @@
 		Route::prefix('dashboard')->name('dashboard.')->group(function (){
 			
 			Route::get('/','HomeController@index')->name('index');
+		});
+		
+		Route::prefix('inventories')->name('inventories.')->group(function (){
+			Route::get('/','InventoryController@index')->name('index');
+			Route::prefix('beginning')->name('beginning.')->group(function (){
+				Route::get('/','InventoryController@beginning_index')->name('index');
+				Route::get('/create','InventoryController@beginning_create')->name('create');
+				Route::post('/store','InventoryController@beginning_store')->name('store');
+			});
+			
 		});
 		
 	});

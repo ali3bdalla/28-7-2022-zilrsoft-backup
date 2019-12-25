@@ -21,5 +21,6 @@
 		protected $except = [
 			//
 		
+			'accounting/categories/view/filters'
 		];
 	}

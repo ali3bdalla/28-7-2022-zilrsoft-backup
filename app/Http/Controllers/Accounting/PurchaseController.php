@@ -1,9 +1,11 @@
 <?php
 	
-	namespace App\Http\Controllers;
+	namespace App\Http\Controllers\Accounting;
 	
 	use App\Account;
 	use App\Expense;
+	use App\Http\Controllers\Controller;
+	use App\Http\Requests\Accounting\Purchase\DatatableRequest;
 	use App\Http\Requests\CreateReturnPurchaseRequest;
 	use App\Http\Requests\Invoice\PurchaseCreationRequest;
 	use App\PurchaseInvoice;
@@ -20,11 +22,16 @@
 		 */
 		public function index()
 		{
-			$purchases = PurchaseInvoice::whereIn('invoice_type',['purchase','r_purchase'])->with('invoice')
-				->orderBy('id','desc')->paginate(20);
+//			$purchases = PurchaseInvoice::whereIn('invoice_type',['purchase','r_purchase'])->with('invoice')
+//				->orderBy('id','desc')->paginate(20);
 			
-			return view('purchases.index',compact('purchases'));
+			return view('accounting.purchases.index');
 			//
+		}
+		
+		public function datatable(DatatableRequest $request)
+		{
+			return $request->data();
 		}
 		
 		/**
@@ -76,7 +83,7 @@
 
 
 //			return  $transactions;
-			return view('purchases.show',compact('purchase','transactions'));
+			return view('accounting.purchases.show',compact('purchase','transactions'));
 			//
 		}
 		

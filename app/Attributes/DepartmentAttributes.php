@@ -9,9 +9,11 @@
 		public function getLocaleTitleAttribute()
 		{
 			if (app()->isLocale('ar'))
-				return $this->title;
+				return $this->ar_title;
 			
-			return $this->ar_title;
+			return $this->title;
 			
 		}
 	}
+	
+	// comment create new identity

@@ -15,11 +15,11 @@
 		use InvoiceRelationship,InvoiceAttributes,InvoiceInterfaceHelper,FreshHelper;
 		
 		protected $appends = [
-			'description'
+			'description',
+			'title',
+			'user_id'
 		];
 		protected $guarded = [];
-		
-		
 		
 		protected static function boot()
 		{

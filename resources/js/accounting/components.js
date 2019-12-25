@@ -19,6 +19,10 @@ import AccountingIdentitiesCreateComponent from './components/users/identitiesCr
 import AccountingManagersCreateComponent from './components/users/managersCreateComponent';
 import AccountingManagerPermissionAndRoleComponent from './components/users/managerPermissionAndRoleComponent';
 import AccountingDashboardItemsChartComponent from './components/dashboard/dashboardItemsChartComponent';
+import AccountingBeginningDatatableComponent from './components/inventories/beginningDatatableComponent';
+import AccountingBeginningCreateComponent from './components/inventories/beginningCreateComponent';
+import AccountingInvoiceItemSerialsListLayoutComponent from './components/layout/invoiceItemserialsListLayoutComponent';
+import AccountingPurchasesDatatableComponent from './components/purchases/purchasesDatatableComponent';
 
 
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
@@ -42,3 +46,7 @@ Vue.component('accounting-managers-permissions-and-roles-component', AccountingM
 Vue.component('accounting-dashboard-items-chart-component', AccountingDashboardItemsChartComponent);
 Vue.component('accounting-branches-datatable-component', AccountingBranchesDatatableComponent);
 Vue.component('accounting-departments-datatable-component', AccountingDepartmentsDatatableComponent);
+Vue.component('accounting-beginning-datatable-component', AccountingBeginningDatatableComponent);
+Vue.component('accounting-beginning-create-component', AccountingBeginningCreateComponent);
+Vue.component('accounting-invoice-item-serials-list-layout-component', AccountingInvoiceItemSerialsListLayoutComponent);
+Vue.component('accounting-purchases-datatable-component', AccountingPurchasesDatatableComponent);

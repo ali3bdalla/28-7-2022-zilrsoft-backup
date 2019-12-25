@@ -19,5 +19,52 @@ exports.route = function (route = "") {
 };
 
 
+exports.inputHelper = {
+    validateQty: function (qty = 0, el, max = null, min = null) {
+        el.classList.remove("inputErrorClass");
+        if (!TextValidator.isInt(qty + "")) {
+            this.showErrorOnInput(el, 'الكمية يجب ان تكون قيمة صحيحة');
+            el.value = 0;
+            return false;
+        }
 
+        if (min != null) {
+            if (qty > min) {
+                this.showErrorOnInput(el, 'الكمية يجب ان تكون اقل من او تساوي ' + min);
+                el.value = 0;
+                return false;
+            }
+        }
+
+
+        if (max != null) {
+            if (qty < max) {
+                this.showErrorOnInput(el, 'الكمية يجب ان تكون اكبر  من او تساوي ' + max);
+                el.value = 0;
+                return false;
+            }
+        }
+
+
+        return true;
+    },
+
+
+    validatePrice: function (price = 0, el) {
+        el.classList.remove("inputErrorClass");
+        if (!TextValidator.isDecimal(price + "")) {
+            this.showErrorOnInput(el, 'السعر غير صحيح');
+            el.value = 0;
+            return false;
+        }
+        return true;
+    },
+
+
+    showErrorOnInput: function (el, message = "") {
+        el.classList.add("inputErrorClass");
+
+    }
+
+};
 

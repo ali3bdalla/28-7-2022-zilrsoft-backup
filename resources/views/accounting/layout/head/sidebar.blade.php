@@ -131,7 +131,7 @@
 
                     @can('manage inventory')
                         <li>
-                            <a href="{{route('accounting.inventories.index')}}"><i class="fa fa-sun"></i>
+                            <a href="{{route('accounting.inventories.beginning.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.beginning_inventory') }}
                             </a></li>
 

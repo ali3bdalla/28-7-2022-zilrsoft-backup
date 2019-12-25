@@ -3,7 +3,9 @@ exports.transfer = {
         const instance = new BroadcastChannel('item_barcode_copy_to_invoice');
         instance.postMessage(JSON.stringify(item));
         return true;
-    }
+    },
+
+
 };
 
 
@@ -29,5 +31,29 @@ exports.validator = {
 
     validatePriceValue: function (price) {
         return isNaN(parseFloat(price)) ? false : true;
+    }
+};
+
+
+exports.query = {
+    sendQueryRequestToFindItems: function (query = {}) {
+        var link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_find_items';
+        return axios.post(link, query);
+    },
+    sendValidatePurchaseSerialRequest: function (query = {}) {
+        var link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_validate_purchase_serial';
+        return axios.post(link, query);
+    },
+    sendValidateSaleSerialRequest: function (query = {}) {
+        var link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_validate_sale_serial';
+        return axios.post(link, query);
+    },
+    sendValidateReturnPurchaseSerialRequest: function (query = {}) {
+        var link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_validate_return_purchase_serial';
+        return axios.post(link, query);
+    },
+    sendValidateReturnSaleSerialRequest: function (query = {}) {
+        var link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_validate_return_sale_serial';
+        return axios.post(link, query);
     }
 };

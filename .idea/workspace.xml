@@ -2,86 +2,97 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/CreateBeginningRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/DatatableBeginningRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/FindItemsRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/ValidatePurchaseSerialsRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Purchase/DatatableRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/accounting/components/inventories/beginningCreateComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/accounting/components/inventories/beginningDatatableComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/invoiceItemserialsListLayoutComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchasesDatatableComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/accounting/db.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/accounting/inventories/beginning/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/accounting/inventories/beginning/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/accounting/purchases/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/accounting/purchases/show.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/DRzVtTjQQu1ipjl9XJhoVeg8hUdZSZzmQjYN4WPw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/grqJNEKdPpTQgJ5Moz6Db09rhnaitPujK2lhxMwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/5937d0a5b6d37c28490749955d0e4ee4fab96f72.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/6272b1dc0b70e8814a16f46364ac873ecdb60b15.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/b8e7660e9584009361adcbe6bf3f60abbf7e13c0.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/cc99ad923ac0ce4f02b63cde9b5b87b890a498b7.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/fb70bfa6e50742cd68a888cf5c9af70994a7468c.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-24.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-25.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attributes/DepartmentAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/DepartmentAttributes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CategoryFilters.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CategoryFilters.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/EntryHelper.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/Invoice/FreshHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/Invoice/FreshHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/Invoice/ItemFreshHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/Invoice/ItemFreshHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/InventoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/InventoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ProviderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ProviderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/PurchaseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/CreateFilterValueRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/CreateFilterValueRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/CreateBeginningInventoryRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/CreateBeginningInventoryRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Invoice.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/accounting/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/accounting/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/components/invoice/itemSerialListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/invoice/itemSerialListComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/items/itemsCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/items/itemsCreateComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/filterSelectWithSearchComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/filterSelectWithSearchComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/users/identitiesCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/users/identitiesCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/helpers.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/helpers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/item.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/item.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/load.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/load.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/CategoryViewCompent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/CategoryViewCompent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/ExampleComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/InputTextAreaComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/InputTextAreaComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/InputTextComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/InputTextComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Kits/CreateKitComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/Kits/CreateKitComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/SelectListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/SelectListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/SideBarItemComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/SideBarItemComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/UserRowComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/UserRowComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/accounts/chartOfAccountsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/accounts/chartOfAccountsComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/accounts/chartaccount/chart_account_tree.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/accounts/chartaccount/chart_account_tree.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/app-auth/LoginPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/app-auth/LoginPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/billing/ManagerGatewaysComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/billing/ManagerGatewaysComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/billing/createPaymentFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/billing/createPaymentFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/billing/createReceiptFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/billing/createReceiptFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/billing/createReceiptFormComponent1.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/billing/createReceiptFormComponent1.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/billing/customBillingInvoicesComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/billing/customBillingInvoicesComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/billing/expensesListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/billing/expensesListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/billing/popBillingComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/billing/popBillingComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/categories/ListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/categories/ListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/categories/filterListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/categories/filterListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/customDateFieldComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/customDateFieldComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/customSelectComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/customSelectComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/datatables/saleTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/datatables/saleTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/deleteButtonComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/deleteButtonComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/filters/FilterValueSelectWithSearchComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/filters/FilterValueSelectWithSearchComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/filters/ListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/filters/ListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/filters/filtesValuesListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/filters/filtesValuesListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/forms/UserCreateFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/forms/UserCreateFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/inventories/createBeginningInventoryComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/inventories/createBeginningInventoryComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/inventories/tableComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/inventories/tableComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/inventories/updateBeginningInventoryComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/inventories/updateBeginningInventoryComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/invoice/itemSerialListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/invoice/itemSerialListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/invoice/itemSerialPurchaseReturnListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/invoice/itemSerialPurchaseReturnListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/invoice/itemSerialSaleReturnListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/invoice/itemSerialSaleReturnListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/invoice/printTemplateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/invoice/printTemplateComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/items/accountingCostHistory.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/items/accountingCostHistory.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/items/itemMovementHistoryComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/items/itemMovementHistoryComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/items/itemTableComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/items/itemTableComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/items/itemTableListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/items/itemTableListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/items/kitItemAndDataComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/items/kitItemAndDataComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/items/newItemFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/items/newItemFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/items/oldItemKit.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/items/oldItemKit.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/items/viewItemComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/items/viewItemComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/liveServerDateAndTime.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/liveServerDateAndTime.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/mulitSelectComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/mulitSelectComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/print/barcodePrinterComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/print/barcodePrinterComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/print/invoiceA4Component.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/print/invoiceA4Component.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/print/localPrintersComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/print/localPrintersComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/print/receiptPrinterComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/print/receiptPrinterComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/printInvoiceComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/printInvoiceComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/purchases/createFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/purchases/createFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/purchases/createFormComponent2.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/purchases/createFormComponent2.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/purchases/editFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/purchases/editFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/purchases/tableComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/purchases/tableComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/sales/createFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/sales/createFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/sales/createQuotationFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/sales/createQuotationFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/sales/editFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/sales/editFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/sales/tableComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/sales/tableComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/settings/addNewPaymentAccountComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/settings/addNewPaymentAccountComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/settings/createPayWayFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/settings/createPayWayFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/showBarcodeComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/showBarcodeComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/sidebar/ItemComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/sidebar/ItemComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/tables/UsersTableComponet.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/tables/UsersTableComponet.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/transactions/createTransaction.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/transactions/createTransaction.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/uploadDocComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/uploadDocComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/users/createUserFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/users/createUserFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/users/userGatewaysComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/users/userGatewaysComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/vouchers/createFormComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/vouchers/createFormComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/EvjMXgNHASGZTbojlmp8Zp7dQzyXMRZrYcegQmPv" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/EvjMXgNHASGZTbojlmp8Zp7dQzyXMRZrYcegQmPv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/pages/invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/pages/invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/pages/users.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/pages/users.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/meta.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/meta.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/accounting.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/accounting.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/03/d2/03d227a5f76558d2aa517b1c4894c024cfb01ef1" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/03/d2/03d227a5f76558d2aa517b1c4894c024cfb01ef1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/1c/6e/1c6ea8378a1030f85a05f4cb2262de1e2164efa6" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/1c/6e/1c6ea8378a1030f85a05f4cb2262de1e2164efa6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/76/e7/76e7c0fdd0cc0d46502f9d381b947cdf6aa69891" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/76/e7/76e7c0fdd0cc0d46502f9d381b947cdf6aa69891" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/9c/1c/9c1c01dc3ac1445a500251fc34a15d3e75a849df" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/9c/1c/9c1c01dc3ac1445a500251fc34a15d3e75a849df" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/EvjMXgNHASGZTbojlmp8Zp7dQzyXMRZrYcegQmPv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/0988f7888aa83e0b046cdee65bb206abb009a2af.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/0988f7888aa83e0b046cdee65bb206abb009a2af.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/0a550fcea5f2f53d0b79974379f43adc7471eba3.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/0a550fcea5f2f53d0b79974379f43adc7471eba3.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/0e779f9aba29586f4b9709cbf7cf6de8620515f8.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/0e779f9aba29586f4b9709cbf7cf6de8620515f8.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/1536026161f19b3182457c34ba7af6763cc9b489.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/1536026161f19b3182457c34ba7af6763cc9b489.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/1b5e8e784b3d16a2f896036d0f1ddb45e146e74a.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/1b5e8e784b3d16a2f896036d0f1ddb45e146e74a.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/221643e5aa8be4dd9473c51c6808236724b14b29.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/221643e5aa8be4dd9473c51c6808236724b14b29.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/29684616f1973ce4f49e337a3a4dbc715f07b865.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/29684616f1973ce4f49e337a3a4dbc715f07b865.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/2c7d99c57b1425817709171f55d8d3d345061ed8.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/2c7d99c57b1425817709171f55d8d3d345061ed8.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/3b483df2fc34fb5242afd68963634b34bcc35be2.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/3b483df2fc34fb5242afd68963634b34bcc35be2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/422d2838e8ab2c0e363edf8165597ffb84cf884c.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/422d2838e8ab2c0e363edf8165597ffb84cf884c.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/4eff4e3efaa36c840fa6c1a317e920ae26ff6768.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/4eff4e3efaa36c840fa6c1a317e920ae26ff6768.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/50541d5cfb05b7d9f51bf10d724bae53139b99e2.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/50541d5cfb05b7d9f51bf10d724bae53139b99e2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/66ff572454a5efb9a1da8cf6be70eb1c256e0437.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/66ff572454a5efb9a1da8cf6be70eb1c256e0437.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/75c8a2f86d57391d584d513cff5871ee0d50e818.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/75c8a2f86d57391d584d513cff5871ee0d50e818.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/75fd80e669b6e0c69978c1d4214f3ab105794298.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/75fd80e669b6e0c69978c1d4214f3ab105794298.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/7d02eb55aed262c020bf4711dd14f96476917ac9.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/7d02eb55aed262c020bf4711dd14f96476917ac9.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/8696ca838ed47562136008be3ca776756643c6f0.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/8696ca838ed47562136008be3ca776756643c6f0.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/a9306818d779f0200e74c9d01f334f7e730a0155.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/a9306818d779f0200e74c9d01f334f7e730a0155.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/b546f59ba3df228ddc98e94ffe8ec556573cf40f.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/b546f59ba3df228ddc98e94ffe8ec556573cf40f.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/ba20dfcd7751ab30a849f9eb20022a6a8b59fab2.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/ba20dfcd7751ab30a849f9eb20022a6a8b59fab2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/c4e297412f3e86603d85b63574a275c41260086c.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/c4e297412f3e86603d85b63574a275c41260086c.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/c6867166853187e37835eb2a9df76ea13dc28b42.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/c6867166853187e37835eb2a9df76ea13dc28b42.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/c6ab1cc7d058b7125ee9ab7c0153aded143a73d3.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/c6ab1cc7d058b7125ee9ab7c0153aded143a73d3.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/ce9ed5c8ad02f352fc8e87a8c7416c6495d67e3a.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/ce9ed5c8ad02f352fc8e87a8c7416c6495d67e3a.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/d4b824f547ea674d97950f14bbe8373edc1e4b7a.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/d4b824f547ea674d97950f14bbe8373edc1e4b7a.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/d7d9d8612e9b906fefddc5d93e92f73d047e3476.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/d7d9d8612e9b906fefddc5d93e92f73d047e3476.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/df7ad8ca692e20fc3701391389a27dd3cc5e3f9f.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/df7ad8ca692e20fc3701391389a27dd3cc5e3f9f.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/f9383141bb1cb6ed57f4743206b0ea08057a0959.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/f9383141bb1cb6ed57f4743206b0ea08057a0959.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/fcb9b82379999f7d87c38eb66fe16bdde5f5e22c.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/fcb9b82379999f7d87c38eb66fe16bdde5f5e22c.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-12-10.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-12-11.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-12-23.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-23.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -251,19 +262,19 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public" />
-      <recent name="$PROJECT_DIR$/resources" />
-      <recent name="$PROJECT_DIR$/resources/views/accounting/managers" />
-      <recent name="$PROJECT_DIR$/resources/views/old" />
-      <recent name="$PROJECT_DIR$/app/Http/Controllers/Accounting" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/accounting/branches/departments" />
       <recent name="$PROJECT_DIR$/resources/views/accounting" />
       <recent name="$PROJECT_DIR$/app/Http/Controllers/Accounting" />
       <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/resources/views/accounts" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js/accounting" />
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/resources" />
+      <recent name="$PROJECT_DIR$/resources/views/accounting/managers" />
+      <recent name="$PROJECT_DIR$/resources/views/old" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -502,7 +513,8 @@
       <workItem from="1576510067810" duration="5163000" />
       <workItem from="1576517151992" duration="253000" />
       <workItem from="1576577078221" duration="67212000" />
-      <workItem from="1576847436326" duration="103750000" />
+      <workItem from="1576847436326" duration="105082000" />
+      <workItem from="1577181612244" duration="30337000" />
     </task>
     <servers />
   </component>

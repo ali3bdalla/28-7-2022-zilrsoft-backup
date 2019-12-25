@@ -5,12 +5,10 @@
 	
 	
 	use App\Http\Requests\Invoice\PurchaseCreationRequest;
-	use App\InvoiceItems;
 	use App\Item;
 	use App\ItemSerials;
 	use App\Math\Math;
 	use Dotenv\Exception\ValidationException;
-	use Illuminate\Support\Facades\Validator;
 	
 	trait ItemFreshHelper
 	{
@@ -80,7 +78,12 @@
 			$data['belong_to_kit'] = isset($request_data['belong_to_kit']) && $request_data['belong_to_kit'] ? true : false;
 			$data['parent_kit_id'] = $data['belong_to_kit'] ? $request_data['kit_id'] : 0;
 			$data['discount'] = $request_data['discount'];
-			$data['price'] = $this->is_fixed_price ? $this->price : $request_data['price'];
+			if (in_array($baseInvoice->invoice_type,['sale','r_sale'])){
+				$data['price'] = $this->is_fixed_price ? $this->price : $request_data['price'];
+			}else{
+				$data['price'] = $request_data['purchase_price'];
+			}
+			
 			$data['qty'] = $request_data['qty'];
 			$data['total'] = $this->getTotalAmount($data['price'],$data['qty']);
 			$data['subtotal'] = $this->getSubTotalAmount($data['total'],$data['discount']);
@@ -100,12 +103,19 @@
 			$baseItem = $baseInvoice->items()->create($data);
 			$baseItem->update_item_cost_value_after_new_invoice_created();
 			$this->update_item_qty_after_new_invoice_created($data['qty'],$baseInvoice->invoice_type);
-			$baseItem->make_invoice_transaction($baseInvoice->sale,0);
+			if (in_array($baseInvoice->invoice_type,['sale','r_sale'])){
+				$baseItem->make_invoice_transaction($baseInvoice->sale,0);
+			}
 			
 			
-			if ($this->is_need_serial)
-				$baseInvoice->sale->
-				set_item_serials_status_as_paid_for_this_sale_invoice($request_data['serials']);
+//			if ($this->is_need_serial){
+//				if (in_array($baseInvoice->invoice_type,['sale','r_sale']))
+//					$baseInvoice->sale->
+//					set_item_serials_status_as_paid_for_this_sale_invoice($request_data['serials']);
+//				else
+//					$baseInvoice->purchase->
+//					set_item_serials_status_as_paid_for_this_sale_invoice($request_data['serials']);
+//			}
 			
 			
 			return $baseItem;
@@ -125,16 +135,21 @@
 			if (!empty($data['serials'])){
 				foreach (collect($data["serials"])->pluck("serial")->toArray() as $serial){
 					$db_serial = $this->serials()->where('serial',$serial)->first();
+					
+					
 					if (empty($db_serial))
 						throw new ValidationException('serial is not validate');
 					else{
+						if (in_array($type,['purchase','beginning_inventory'])){
+							throw new ValidationException('serial is already exists');
+						}
 						if ($type == "sale"){
 							if (in_array($db_serial['current_status'],["r_purchase","saled"])){
 								throw new ValidationException('serial is already paid');
 							}
 							
-						}else{
-							if (in_array($db_serial['current_status'],["r_sale","purchase"])){
+						}else if ($type == 'r_sale'){
+							if (in_array($db_serial['current_status'],["r_sale","purchase",'available'])){
 								throw new ValidationException('serial is already returned');
 							}
 						}

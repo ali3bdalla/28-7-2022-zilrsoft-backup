@@ -81,6 +81,7 @@
 </template>
 
 <script>
+
     export default  {
 
 
@@ -302,9 +303,7 @@
             },
             isOpen:function(value)
             {
-                console.log($("#serial_field_" + this.item_index));
 
-                // console.log($(this).find("#serial_field_" + this.item_index).focus());
 
                 $("#pop_" + this.item_index).hide();
                 $("#pop_"+ this.item_index).fadeIn('fast', function() {

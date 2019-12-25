@@ -103,7 +103,7 @@
             </div>
 
 
-            <div class="row">
+            <div class="row" v-show="identityData.isClient">
 
                 <div class="col-md-2 col-md-offset-1 label-txt">
                     <!-- <div class="label has-text-dark"> -->
@@ -202,7 +202,17 @@
                 <div class="row">
 
 
-                    <div class="col-md-4">
+                    <div class="col-md-2">
+                        <div :class="{'has-error':errorFieldName=='address'}" class="form-group">
+                            <input :placeholder="app.trans.city" class="form-control"
+                                   ref="identityenName"
+                                   type="text" v-model="identityData.address">
+                            <small class="text-danger" v-show="errorFieldName=='address'">
+                                {{ errorFieldMessage}}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
                         <div :class="{'has-error':errorFieldName=='address'}" class="form-group">
                             <input :placeholder="app.trans.address" class="form-control"
                                    ref="identityenName"
@@ -212,6 +222,7 @@
                             </small>
                         </div>
                     </div>
+
 
 
                     <div class="col-md-4" v-show="identityData.isVendor">

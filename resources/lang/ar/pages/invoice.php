@@ -3,6 +3,7 @@
 
 return [
     'create'=>'اضافة فاتورة',
+    'created_by'=>'المحرر ',
     'save'=>'حفظ الفاتورة',
 	'inventories' => 'فواتير اول المدة',
 	'id'=>'#',
@@ -28,6 +29,7 @@ return [
 	'view_products' => 'عرض المنتجات',
 	'cancel' => ' للخلف',
 	'date' => 'التاريخ والوقت',
+	'created_at' => 'التاريخ والوقت',
 	'search_barcode' => 'البحث عن منتج عبر الاسم او الباركود ',
 	'search_barcode_sale' => 'البحث عن منتج عبر الاسم او الباركود  او السيريال نمبر',
 	'item_name'=>'اسم المنتج',
@@ -58,6 +60,12 @@ return [
 	'is_paid' => 'مسددة',
 	'yes' => 'نعم',
 	'no' => 'لا',
+	'invoice_title' =>'الفاتورة',
+	'options' => 'خيارات',
+	'view' => 'عرض',
+	'edit' => 'تعديل',
+	'delete' => 'حذف',
+	'PurchaseBaseUrl' => route('accounting.purchases.index'),
 	
 
 ];
