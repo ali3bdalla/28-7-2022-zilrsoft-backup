@@ -13,7 +13,7 @@
                                 :disabled="totalAmount<=0"
                                 :ref="'billing_filed_' + method.id"
                                 @focus="$event.target.select()"
-                                @keyup="gatewayAmountUpdated(methods)"
+                                @keyup="gatewayAmountUpdated(method)"
                                 class="form-control"
                                 v-model="method.amount"/>
                     </div>
