@@ -8,11 +8,10 @@
 	use App\Http\Requests\Accounting\Purchase\CreatePurchaseRequest;
 	use App\Http\Requests\Accounting\Purchase\DatatableRequest;
 	use App\Http\Requests\CreateReturnPurchaseRequest;
-	use App\Http\Requests\Invoice\PurchaseCreationRequest;
 	use App\Invoice;
 	use App\PurchaseInvoice;
 	use App\User;
-	use Illuminate\Http\Request;
+	use Exception;
 	use Illuminate\Http\Response;
 	
 	class PurchaseController extends Controller
@@ -48,16 +47,17 @@
 			$receivers = User::where('is_manager',true)->get()->toArray();
 			$vendors = User::where([['is_vendor',true]])->get()->toArray();//,['is_system_user',false]
 			$expenses = Expense::where('appear_in_purchase',true)->get();
-			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())->get();
+			//auth()->user()->gateways()->pluck('gateway_id')->toArray()
+			$gateways = Account::where('slug','gateway')->take(2)->get();
 			return view('accounting.purchases.create',compact('vendors','receivers','gateways','expenses'));
 			//
 		}
 		
 		/**
-		 * @param PurchaseCreationRequest $request
+		 * @param CreatePurchaseRequest $request
 		 *
 		 * @return array
-		 * @throws \Exception
+		 * @throws Exception
 		 */
 		public function store(CreatePurchaseRequest $request)
 		{
@@ -76,7 +76,6 @@
 		{
 			
 			$transactions = $purchase->transactions()->where('description','!=','vendor_balance')->get();
-			
 			$invoice = $purchase;
 			return view('accounting.purchases.show',compact('invoice','transactions'));
 			//
@@ -109,33 +108,15 @@
 		}
 		
 		/**
-		 * Update the specified resource in storage.
+		 * @param CreateReturnPurchaseRequest $request
+		 * @param PurchaseInvoice $purchase
 		 *
-		 * @param Request $request
-		 * @param PurchaseInvoice $purchaseInvoice
-		 *
-		 * @return Response
+		 * @throws Exception
 		 */
 		public function update(CreateReturnPurchaseRequest $request,PurchaseInvoice $purchase)
 		{
 			return $request->save($purchase);
 			//
-		}
-		
-		public function unpaid(User $user)
-		{
-			return PurchaseInvoice::where([
-				['vendor_id',$user->id]
-			])->with('invoice.creator','vendor')->whereHas('invoice',function ($query){
-				return $query->where('current_status','credit');
-			})->get();
-		}
-		
-		public function unpaid_all(User $user)
-		{
-			return PurchaseInvoice::with('invoice.creator','vendor')->whereHas('invoice',function ($query){
-				return $query->whereIn('current_status',['credit']);
-			})->get();
 		}
 		
 	}

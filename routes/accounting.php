@@ -72,6 +72,7 @@
 			Route::post('view/filters',"ProviderController@categories_filters");
 			Route::get('{category}/filters',"CategoryController@filters");
 			Route::patch('{category}/filters',"CategoryController@update_filters");
+			Route::get('{category}/clone',"CategoryController@clone");
 			
 		});
 		Route::prefix('branches')->name('branches.')->group(function (){

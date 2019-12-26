@@ -20,6 +20,10 @@
                        v-if="canEdit" v-show="!hasChildren"><i class="fa fa-bars"></i> {{
                         app.trans.edit_filters}}
                     </a>
+                    <a :href="app.BaseApiUrl + 'categories/' + itemData.id + '/clone'" class="btn btn-sm btn-default"
+                       v-if="canCreate"><i class="fa fa-copy"></i> {{
+                        app.trans.copy}}
+                    </a>
 
                     <a :href="app.BaseApiUrl + 'categories/'+ itemData.id + '/edit'" class="btn btn-sm btn-default"
                        v-if="canEdit"><i class="fa fa-edit"></i> {{ app.trans.edit}}</a>

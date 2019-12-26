@@ -21,6 +21,7 @@ exports.db = {
             return null;
         },
 
+
         findByIndex: function (arr, index) {
             var len = arr.length;
             for (var i = 0; i < len; i++) {
@@ -81,6 +82,22 @@ exports.db = {
                 }
             }
             return resutl;
+        },
+        addColumn: function (arr, col, default_value) {
+            let len = arr.length;
+            let result = [];
+            for (let i = 0; i < len; i++) {
+                let item = arr[i];
+                item[col] = default_value;
+                result.push(item);
+            }
+            return result;
+        },
+
+        update: function (arr, index, col, value) {
+            arr[i][col] = value;
+            return arr;
+
         }
 
     },

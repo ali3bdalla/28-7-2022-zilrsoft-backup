@@ -18,7 +18,7 @@
                 </div>
                 <div :id="'filter_result_' + filter.id" class="result_list">
                     <ul class="list-group">
-                        <li :class="{'active':selected==0}" @click="setFilterValue(0,0)" class="list-group-item"
+                        <li :class="{'active':selected==0}" @click="setFilterValue(0,-1)" class="list-group-item"
                             value="0">
                             {{ noThing}}
                         </li>
@@ -60,12 +60,12 @@
             </div>
 
         </div>
-        <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal" role="dialog" tabindex="-1">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -73,8 +73,8 @@
                         <p>Modal body text goes here.</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="button">Save changes</button>
+                        <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
                     </div>
                 </div>
             </div>
@@ -171,7 +171,7 @@
                     defaultVatSaleValue: 5,
                     defaultVatPurchaseValue: 5,
                 },
-                activeIndex: 0,
+                activeIndex: -1,
                 noThing: "الغاء الاختيار",
                 viewOnly: false,
                 isListOpened: false,
@@ -203,7 +203,7 @@
                 this.search = this.defaultValueObj.locale_name;
             }
 
-            if (this.options.length == 1) {
+            if (this.options.length === 1) {
                 this.setFilterValue(this.options[0].id);
 
             }
@@ -215,11 +215,12 @@
 
             },
             setFilterValue(id, index) {
+
                 this.isListOpened = false;
                 this.selected = id;
-                this.activeIndex = index;
+                this.activeIndex = index !== -1 ? db.model.index(this.allItems, id) : index;
 
-                if (id == 0) {
+                if (index === -1) {
                     this.$emit('valueUpdated', {
                         value: id,
                         index: this.index
@@ -247,12 +248,15 @@
             createNewFilterValue() {
                 this.filterValueUpdateMode = 'create';
                 this.showCreateValueDialog = true;
+                this.valueArName = "";
+                this.valueEnName = "";
                 this.filterDataToCreateValueFor = this.filter;
+
 
             },
 
             editFilterValue() {
-                var value = this.items[this.activeIndex];
+                let value = db.model.find(this.allItems,this.selected);
                 this.valueArName = value.ar_name;
                 this.valueEnName = value.name;
                 this.filterValueUpdateMode = 'edit';

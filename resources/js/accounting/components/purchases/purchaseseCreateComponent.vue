@@ -307,12 +307,9 @@
                 </div>
                 <div class="col-md-9">
                     <accounting-invoice-embedded-payments-gateway-layout
-                            :current_items_net="invoiceData.net"
                             :gateways="gateways"
-                            :net-amount="net"
-                            :user="user"
-                            @billingsUpdate="InvoicePaymentsUpdated"
-                            @saveInvoice="saveInvoiceButtonClicked"
+                            @updateGatewaysAmounts="updateGatewaysAmounts"
+                            :net-amount="invoiceData.net"
                     >
                     </accounting-invoice-embedded-payments-gateway-layout>
                 </div>
@@ -415,11 +412,11 @@
             sendQueryRequestToFindItems() {
                 var appVm = this;
                 ItemQuery.sendQueryRequestToFindItems(this.barcodeNameAndSerialField).then(response => {
-                    if (response.data.length == 1) {
+                    if (response.data.length === 1) {
                         appVm.validateAndPrepareItem(response.data[0]);
                         appVm.barcodeNameAndSerialField = "";
                         appVm.searchResultList = [];
-                    } else if (response.data.length == 0) {
+                    } else if (response.data.length === 0) {
                         appVm.$refs.barcodeNameAndSerialField.select();
                         appVm.searchResultList = [];
                     } else {
@@ -567,7 +564,7 @@
             },
 
 
-            InvoicePaymentsUpdated(e) {
+            updateGatewaysAmounts(e) {
                 this.remaining = e.remaining;
                 if (parseFloat(e.remaining) > 0) {
                     this.invoiceData.status = 'credit';
