@@ -21,6 +21,7 @@
             :can-edit="<?php echo e(auth()->user()->canDo('edit item')); ?>"
             :can-create="<?php echo e(auth()->user()->canDo('create item')); ?>"
             :categories='<?php echo json_encode($categories, 15, 512) ?>'
+            :creators='<?php echo json_encode($creators, 15, 512) ?>'
             :can-view-accounting="<?php echo e(auth()->user()->canDo('view item transactions')); ?>"
             :can-delete="<?php echo e(auth()->user()->canDo('delete item')); ?>">
 
@@ -34,4 +35,4 @@
 
 <?php $__env->startSection("after_content"); ?>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('accounting.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/vagrant/code/zilrsoft/resources/views/accounting/items/show.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('accounting.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/vagrant/code/zilrsoft/resources/views/accounting/items/index.blade.php ENDPATH**/ ?>

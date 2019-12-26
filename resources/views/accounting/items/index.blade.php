@@ -22,6 +22,7 @@
             :can-edit="{{ auth()->user()->canDo('edit item')}}"
             :can-create="{{ auth()->user()->canDo('create item')}}"
             :categories='@json($categories)'
+            :creators='@json($creators)'
             :can-view-accounting="{{ auth()->user()->canDo('view item transactions') }}"
             :can-delete="{{ auth()->user()->canDo('delete item')}}">
 

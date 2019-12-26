@@ -79,6 +79,9 @@ exports.db = {
                     if (item[condition_col] == condition_value) {
                         resutl.push(item[col]);
                     }
+                }else
+                {
+                    resutl.push(item[col]);
                 }
             }
             return resutl;

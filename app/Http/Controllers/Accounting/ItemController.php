@@ -9,6 +9,7 @@
 	use App\Http\Requests\Accounting\Item\DatatableRequest;
 	use App\Http\Requests\Accounting\Item\UpdateItemRequest;
 	use App\Item;
+	use App\Manager;
 	use App\User;
 	use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 	use Illuminate\Contracts\View\Factory;
@@ -34,8 +35,9 @@
 			$this->middleware("permission:view item");
 			
 			$categories = Category::all();
+			$creators = Manager::all();
 			
-			return view('accounting.items.index',compact('categories'));
+			return view('accounting.items.index',compact('categories','creators'));
 		}
 		
 		/**

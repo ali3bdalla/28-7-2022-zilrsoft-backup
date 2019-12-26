@@ -44,8 +44,19 @@
                                    type="text" v-model="filters.available_qty">
                         </div>
                         <div class="col-md-3">
-                            <input :placeholder="trans.id" @keyup="pushServerRequest" class="form-control"
-                                   type="text" v-model="filters.id">
+                            <accounting-multi-select-with-search-layout-component
+                                    :options="creators"
+                                    :placeholder="trans.creator"
+                                    :title="trans.creator"
+                                    @valueUpdated="creatorListUpdated"
+                                    default="0"
+                                    identity="000000000"
+                                    label_text="name"
+
+                            >
+
+                            </accounting-multi-select-with-search-layout-component>
+
                         </div>
                         <div class="col-md-3">
                             <input :placeholder="trans.name" @keyup="pushServerRequest" class="form-control"
@@ -179,7 +190,7 @@
     import Treeselect from '@riophae/vue-treeselect'
     import '@riophae/vue-treeselect/dist/vue-treeselect.css'
     import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
-    import {accounting as ItemAccounting, query as ItemQuery,transfer} from '../../item';
+    import {query as ItemQuery, transfer} from '../../item';
 
     import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 
@@ -194,6 +205,7 @@
             "canDelete",
             "canCreate",
             "canViewAccounting",
+            "creators"
         ],
         data: function () {
             return {
@@ -231,7 +243,7 @@
                     current_status: "all",
                     categoryIds: [],
                     filters: [],
-                    id: null
+                    creators: []
                 },
 
                 paginationResponseData: null,
@@ -331,6 +343,12 @@
                 this.pushServerRequest();
             },
 
+            creatorListUpdated(e) {
+
+                 this.filters.creators =db.model.pluck(e.items,'id');
+                this.pushServerRequest();
+            },
+
 
             openOrCloseSearchPanel() {
                 this.isOpenSearchPanel = !this.isOpenSearchPanel;
@@ -403,11 +421,11 @@
             },
             activateListItems() {
 
+                var appVm = this;
                 var ids = db.model.pluck(this.table_rows, 'id', 'tb_row_selected', true);
-                if(ids!==[])
-                {
+                if (ids !== []) {
                     ItemQuery.sendQueryRequestToActivateItems(ids).then(response => {
-                        window.location.reload();
+                        appVm.pushServerRequest();
 
                     }).catch(error => {
                         alert(error);

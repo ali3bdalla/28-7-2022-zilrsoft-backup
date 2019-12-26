@@ -42,7 +42,7 @@
 			}
 			
 			if ($this->has('creators') && $this->filled('creators')){
-				$query = $query->whereIn('creator_id',$this->creators);
+				$query = $query->whereIn('creator_id',$this->input("creators"));
 			}
 			
 			
