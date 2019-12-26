@@ -1,6 +1,6 @@
 <?php if(!empty($invoice->payments)): ?>
-    <div class="panel panel-primary">
-        <div class="panel-heading"><label><?php echo e(trans('sidebar.vouchers')); ?></label></lable></div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><label><?php echo e(trans('pages/invoice.payments_methods')); ?></label></lable></div>
         <div class="panel-body">
             <?php $__currentLoopData = $invoice->payments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="form-group">

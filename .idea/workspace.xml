@@ -3,8 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Category/CreateCategoryRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Category/CreateCategoryRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/CreateFilterValueRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/CreateFilterValueRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/pages/invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/pages/invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_payments.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_payments.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/purchases/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/purchases/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/O6S8XQ8WtgTkuFEK3erHCwQ1ldQrpYcpxrt3OGpN" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/O6S8XQ8WtgTkuFEK3erHCwQ1ldQrpYcpxrt3OGpN" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/2f15150d7dffa7bee6549db43f2d4d480b721de1.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/2f15150d7dffa7bee6549db43f2d4d480b721de1.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/fb70bfa6e50742cd68a888cf5c9af70994a7468c.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/fb70bfa6e50742cd68a888cf5c9af70994a7468c.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -426,7 +431,7 @@
       <workItem from="1576517151992" duration="253000" />
       <workItem from="1576577078221" duration="67212000" />
       <workItem from="1576847436326" duration="105082000" />
-      <workItem from="1577181612244" duration="56352000" />
+      <workItem from="1577181612244" duration="57205000" />
     </task>
     <servers />
   </component>

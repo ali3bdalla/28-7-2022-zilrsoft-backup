@@ -23,7 +23,7 @@
 
 <?php $__env->startSection('content'); ?>
 
-    <div class="panel">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row">
                 <div class="col-md-4">
@@ -82,10 +82,10 @@
                 </div>
                 <div class="col-md-9">
                     <div class="row">
-                        <div class="col-md-6">
-                            <?php if ($__env->exists('accounting.include.invoice.view_expenses')) echo $__env->make('accounting.include.invoice.view_expenses', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                        </div>
-                        <div class="col-md-6">
+
+
+
+                        <div class="col-md-12">
                             <?php if ($__env->exists('accounting.include.invoice.view_payments')) echo $__env->make('accounting.include.invoice.view_payments', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         </div>
                     </div>
