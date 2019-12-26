@@ -26,8 +26,8 @@
 		{
 			return [
 				//
-				'name' => "required|min:3|string",
-				'ar_name' => "required|min:3|string",
+				'name' => "required|min:3|string|unique:categories,name",
+				'ar_name' => "required|min:3|string|unique:categories,ar_name",
 				'description' => "required|min:3|string",
 				'ar_description' => "required|min:3|string",
 				'parent_id' => "required|integer",
