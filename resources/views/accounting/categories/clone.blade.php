@@ -100,6 +100,8 @@
 
                     </div>
                 </div>
+                <input type="hidden" name="isCloned" value="true"/>
+                <input type="hidden" name="cloned_category" value="{{ $category->id }}"/>
                 <div class="row">
                     <div class="col-md-5 col-md-offset-1">
                         <button type="submit" class="btn btn-custom-primary">{{ trans('pages/categories.create')

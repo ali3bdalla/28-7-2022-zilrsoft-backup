@@ -63,7 +63,7 @@
 		
 		public function store(CreateCategoryRequest $request)
 		{
-			$request->save();
+			  $request->save();
 			return redirect(route('accounting.categories.index'));
 		}
 		

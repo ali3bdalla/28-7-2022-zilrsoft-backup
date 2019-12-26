@@ -167,6 +167,8 @@ unset($__errorArgs, $__bag); ?>
 
                     </div>
                 </div>
+                <input type="hidden" name="isCloned" value="true"/>
+                <input type="hidden" name="cloned_category" value="<?php echo e($category->id); ?>"/>
                 <div class="row">
                     <div class="col-md-5 col-md-offset-1">
                         <button type="submit" class="btn btn-custom-primary"><?php echo e(trans('pages/categories.create')); ?></button>

@@ -9,21 +9,7 @@ trait CategoryAttributes {
         return $query->where('parent_id', 0);
     }
 
-    public function cloneFiltersFromAnotherCategory($pcategory){
-
-	    if(empty($pcategory))
-	        return;// if category not exists return
-
-
-        $filters = $pcategory->filters()->pluck('filter_id');
-        $this->filters()->attach($filters,
-            [
-                'organization_id'=>auth()->user()->organization_id,
-                'creator_id'=>auth()->user()->id,
-                'sorting'=>0
-            ]
-        );
-    }
+   
 	
 	
 	
