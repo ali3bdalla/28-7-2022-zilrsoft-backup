@@ -26,7 +26,7 @@
 			return [
 				//
 				'name' => 'required|string|unique:filter_values,name',
-				'ar_name' => 'required|string|unique:filter_values,name',
+				'ar_name' => 'required|string|unique:filter_values,ar_name',
 				'filter_id' => 'required|integer|exists:filters,id',
 			];
 		}

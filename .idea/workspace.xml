@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/CreateFilterValueRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/CreateFilterValueRequest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -425,7 +424,7 @@
       <workItem from="1576517151992" duration="253000" />
       <workItem from="1576577078221" duration="67212000" />
       <workItem from="1576847436326" duration="105082000" />
-      <workItem from="1577181612244" duration="54428000" />
+      <workItem from="1577181612244" duration="54501000" />
     </task>
     <servers />
   </component>
