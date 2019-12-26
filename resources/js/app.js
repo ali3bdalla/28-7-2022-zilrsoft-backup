@@ -7,6 +7,10 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import CxltToastr from 'cxlt-vue2-toastr'
 import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css'
 window.TextValidator =  require('validator');
+import VuejsDialog from 'vuejs-dialog';
+import 'vuejs-dialog/dist/vuejs-dialog.min.css';
+
+
 // import 'bulma/css/bulma.css'
 // require('bootstrap');
 require('./bootstrap');
@@ -17,6 +21,8 @@ window.Vue = Vue;
 require('./accounting/load');
 Vue.use(Vuetify);
 Vue.use(VModal);
+Vue.use(VuejsDialog);
+
 const opts = {};
 export default new Vuetify({
     icons: {
