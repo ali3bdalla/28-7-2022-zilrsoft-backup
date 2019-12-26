@@ -25,8 +25,8 @@
 		{
 			return [
 				//
-				'name' => 'required|string|unique:filter_values,name,deleted_at,NULL',
-				'ar_name' => 'required|string|unique:filter_values,ar_name,deleted_at,NULL',
+				'name' => 'required|string|unique:filter_values,name,NULL,id,deleted_at,NULL',
+				'ar_name' => 'required|string|unique:filter_values,ar_name,NULL,id,deleted_at,NULL',
 				'filter_id' => 'required|integer|exists:filters,id',
 			];
 		}
