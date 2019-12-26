@@ -53,7 +53,7 @@ exports.db = {
             return array;
         },
         replace: function (arr, index, value) {
-            arr.splice(arr, index, value);
+            arr.splice(index , 1, value);
             return arr;
         },
         deleteByIndex: function (array, index) {
@@ -98,7 +98,7 @@ exports.db = {
         },
 
         update: function (arr, index, col, value) {
-            arr[i][col] = value;
+            arr[index][col] = value;
             return arr;
 
         }

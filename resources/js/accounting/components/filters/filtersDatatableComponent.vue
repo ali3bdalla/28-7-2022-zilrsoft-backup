@@ -24,8 +24,8 @@
                                    type="text" v-model="filters.id">
                         </div>
                         <div class="col-md-4">
-                            <input :placeholder="app.trans.name" @keyup="pushServerRequest" class="form-control"
-                                   type="text" v-model="filters.global_name">
+                            <input :placeholder="app.trans.global_name" @keyup="pushServerRequest" class="form-control"
+                                   type="text" v-model="filters.name">
                         </div>
 
                     </div>

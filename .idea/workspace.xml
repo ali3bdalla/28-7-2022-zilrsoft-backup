@@ -2,10 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Expense/CreateExpenseRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/accounting/expenses/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/accounting/expenses/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/accounting/expenses/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/957d20a31c0979d7e19dbc81dc4e991236e814a4.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/d574b70ad9d500ba644fcb0ab21b33a813f5713d.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/CreateFilterRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/CreateFilterRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ExpenseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ExpenseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Purchase/CreatePurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Purchase/CreatePurchaseRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/filters/filtersDatatableComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/filters/filtersDatatableComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/invoiceEmbeddedPaymentsGatewayLayout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/invoiceEmbeddedPaymentsGatewayLayout.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/invoiceEmbeddedPurchaseExpensesLayout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/invoiceEmbeddedPurchaseExpensesLayout.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/sidebar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/sessions/O6S8XQ8WtgTkuFEK3erHCwQ1ldQrpYcpxrt3OGpN" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/O6S8XQ8WtgTkuFEK3erHCwQ1ldQrpYcpxrt3OGpN" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-12-26.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-26.log" afterDir="false" />
     </list>
@@ -429,7 +441,7 @@
       <workItem from="1576517151992" duration="253000" />
       <workItem from="1576577078221" duration="67212000" />
       <workItem from="1576847436326" duration="105082000" />
-      <workItem from="1577181612244" duration="58464000" />
+      <workItem from="1577181612244" duration="62158000" />
     </task>
     <servers />
   </component>

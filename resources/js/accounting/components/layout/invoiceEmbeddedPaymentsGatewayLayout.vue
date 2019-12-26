@@ -60,7 +60,7 @@
     import {math as ItemMath} from '../../item';
 
     export default {
-        props: ['gateways', 'netAmount'],
+        props: ['gateways', 'netAmount','invoiceType'],
         data: function () {
             return {
                 totalAmount: 0,
@@ -81,25 +81,26 @@
                 if (this.methods.length >= 1) {
                     this.methods[0].is_default = true;
                     this.methods[0].amount = this.totalAmount;
-                    this.gatewayAmountUpdated(this.methods[0]);
+                    var method = this.methods[0];
+                    this.gatewayAmountUpdated(method);
                 }
 
             },
             subFromGatewayAmount(gateway, value) {
                 let index = db.model.index(this.methods, gateway.id);
-                this.methods = db.model.update(this.methods, index, 'amount', ItemMath.sub(gateway.amount, value));
+                this.methods[index].amount = ItemMath.sum(gateway.amount, value);
                 this.gatewayAmountUpdated(db.model.findByIndex(this.methods, index));
 
             },
-            gatewayAmountUpdated(gateway) {
+            gatewayAmountUpdated(method) {
                 this.paidAmount = db.model.sum(this.methods, 'amount');
-                let variation = ItemMath.sub(this.paidAmount, this.remainingAmount);
-                if (variation >= 1) {
-                    this.subFromGatewayAmount(gateway, variation);
+                let variation = ItemMath.sub(this.totalAmount, this.paidAmount);
+                if (parseFloat(variation) < 0) {
+                    this.subFromGatewayAmount(method, variation);
                 } else {
                     this.$emit('updateGatewaysAmounts', {
                         methods: this.methods,
-                        status: variation === 0 ? 'paid' : 'credit'
+                        status: parseFloat(variation) === 0 ? 'paid' : 'credit'
                     });
                 }
 

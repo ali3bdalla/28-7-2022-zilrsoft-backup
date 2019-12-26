@@ -42,10 +42,7 @@
                                 {{ __('sidebar.barcode') }}
                             </a></li>
 
-                        <li>
-                            <a href="{{route('accounting.items.index')}}"><i class="fab fa-product-hunt"></i>
-                                {{ __('sidebar.items') }}
-                            </a></li>
+
 
                         <li>
                             <a href="{{route('accounting.items.serial_activities')}}"><i

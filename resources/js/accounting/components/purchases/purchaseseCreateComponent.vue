@@ -298,18 +298,14 @@
                     >
 
                     </accounting-invoice-embedded-purchase-expenses-layout>
-                    <!--                    <expenses-list-component&ndash;&gt;-->
-                    <!--                                    :expenses="expensesList"-->
-                    <!--                                    @expenseDeIncludeInNet="expenseDeIncludeInNet"-->
-                    <!--                                    @expenseIncludeInNet="expenseIncludeInNet" @expensesUpdated="expensesUpdated">-->
-                    <!--                            </expenses-list-component>-->
 
                 </div>
                 <div class="col-md-9">
                     <accounting-invoice-embedded-payments-gateway-layout
                             :gateways="gateways"
-                            @updateGatewaysAmounts="updateGatewaysAmounts"
                             :net-amount="invoiceData.net"
+                            @updateGatewaysAmounts="updateGatewaysAmounts"
+                            invoice-type="purchase"
                     >
                     </accounting-invoice-embedded-payments-gateway-layout>
                 </div>
@@ -335,7 +331,7 @@
 
 <script>
 
-    import {accounting as ItemAccounting, query as ItemQuery} from '../../item';
+    import {accounting as ItemAccounting, math as ItemMath, query as ItemQuery} from '../../item';
 
     export default {
         props: ['creator', 'vendors', 'receivers', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
@@ -545,9 +541,9 @@
 
 
             updateListItemsWidgets() {
-                for (var i = 0; i < this.invoiceData.items.length; i++) {
-                    var item = this.invoiceData.items[i];
-                    var itemWidget = parseFloat(item.subtotal) / parseFloat(this.subtotal);
+                for (let i = 0; i < this.invoiceData.items.length; i++) {
+                    let item = this.invoiceData.items[i];
+                    let itemWidget = ItemMath.dev(item.total, this.invoiceData.total);
                     item.widget = itemWidget;
                     this.invoiceData.items = db.model.replace(this.invoiceData.items, i, item);
                 }
@@ -565,15 +561,11 @@
 
 
             updateGatewaysAmounts(e) {
-                this.remaining = e.remaining;
-                if (parseFloat(e.remaining) > 0) {
-                    this.invoiceData.status = 'credit';
-                } else {
-                    this.invoiceData.status = 'paid';
-                }
+                console.log(e);
+                this.invoiceData.status = e.status;
                 this.invoiceData.methods = [];
-                for (var i = 0; i < e.methods.length; i++) {
-                    var method = e.methods[i];
+                for (let i = 0; i < e.methods.length; i++) {
+                    let method = e.methods[i];
 
                     if (parseFloat(method.amount) > 0) {
                         this.invoiceData.methods.push(method);
@@ -593,7 +585,6 @@
 
             expenseIncludeInNet(e) {
                 if (parseFloat(e.expense.amount) > 0) {
-
                     this.net = parseFloat(this.net) + parseFloat(e.expense.amount);
                     this.expensesList.splice(e.index, 1, e.expense);
                 }
@@ -604,37 +595,30 @@
 
 
             expenseDeIncludeInNet(e) {
-                this.net = parseFloat(this.net) - parseFloat(e.expense.amount);
+                this.invoiceData.net = ItemMath.sub(this.invoiceData.net, e.expense.amount);
                 this.expensesList.splice(e.index, 1, e.expense);
                 this.updateListItemsWidgets();
             },
 
             updateNetAfterExpenses() {
 
-                var total = 0;
+                let total = 0;
                 for (var i = 0; i < this.expensesList.length; i++) {
-                    var expense = this.expensesList[i];
-
+                    let expense = this.expensesList[i];
                     if (expense.is_open && helpers.isNumber(expense.amount) && expense.is_apended_to_net &&
                         parseFloat(expense.amount) !== 'NaN') {
-
-                        total = parseFloat(total) + parseFloat(expense.amount);
+                        total = ItemMath.sub(total, expense.amount);
                     }
 
-
                     this.updateListItemsWidgets();
-
                 }
 
 
                 if (parseFloat(total) > 0) {
-
-                    this.net = parseFloat(total) +
-                        parseFloat(helpers.getColumnSumationFromArrayOfObjects(this.items, 'net'));
+                    this.invoiceData.net = ItemMath.sum(total, db.model.sum(this.invoiceData.items, 'net'));
                 } else {
-                    this.net = parseFloat(helpers.getColumnSumationFromArrayOfObjects(this.items, 'net'));
+                    this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net');
                 }
-
 
             },
 
@@ -664,118 +648,14 @@
                 var appVm = this;
                 axios.post(this.app.BaseApiUrl + 'purchases', data)
                     .then(function (response) {
-                        console.log(response.data);
-                        // window.location.reload();
+
+                        window.location.reload();
                     })
                     .catch(function (error) {
-                        console.log(error.response)
+                        alert(error.response)
                     });
 
             },
-
-
-            //
-            // sendDataToServer(event) {
-            //     // console.log(this.creator);
-            //     var data_to = {
-            //         document: this.document,
-            //         vendorId: this.vendor,
-            //         receiverId: this.receiver,
-            //         items: this.items,
-            //         expenses: this.expensesList,
-            //         total: this.total,
-            //         subtotal: this.subtotal,
-            //         net: this.net,
-            //         creator_id: this.creator.id,
-            //         branch_id: this.creator.branch_id,
-            //         department_id: this.creator.department_id,
-            //         tax: this.tax,
-            //         invoice_type: 'purchase',
-            //         discount_value: this.discount,
-            //         discount_percent: this.discount,
-            //         remaining: this.remaining,
-            //         current_status: this.status,
-            //         issued_status: this.status,
-            //         methods: this.methods,
-            //         vendorIncCumber: this.vendorIncCumber,
-            //     };
-            //     var vm = this;
-            //
-            //     console.log(this.methods);
-            //     axios.post('/management/purchases', data_to)
-            //         .then(function (response) {
-            //             vm.showFinishTableMessage(event, response.data.invoice_id);
-            //             console.log(response.data)
-            //         })
-            //         .catch(function (error) {
-            //             console.log(error);
-            //             console.log(error.response);
-            //             console.log(error.response.data);
-            //             console.log(error.response.data.errors);
-            //             vm.errors = error.response.data.errors;
-            //             // vm.showerror();
-            //             // console.log(vm.errors);
-            //         });
-            //
-            // },
-            //
-
-
-            //
-            // showerror() {
-            //
-            //     this.$toast.error({
-            //         type: 'error',
-            //         showMethod: 'lightSpeedIn',
-            //         closeButton: false,
-            //         timeOut: 2000,
-            //         icon: '',
-            //         title: this.messages.process_title,
-            //         message: this.messages.process_error,
-            //         progressBar: true,
-            //         hideDuration: 1000
-            //     });
-            //
-            //
-            //     $('body,html').scrollTop(0);
-            //
-            // },
-            // showFinishTableMessage(event, id) {
-            //
-            //     this.invoice_id = id;
-            //
-            //     this.items = [];
-            //     this.updateInvoiceDetails();
-            //
-            //     this.$toast.success({
-            //         type: 'success',
-            //         showMethod: 'lightSpeedIn',
-            //         closeButton: false,
-            //         timeOut: 2000,
-            //         icon: '',
-            //         title: this.messages.process_title,
-            //         message: this.messages.process_done,
-            //         progressBar: true,
-            //         hideDuration: 1000
-            //     });
-            //
-            //
-            //     if (event == "receipt") {
-            //
-            //
-            //         this.print_counter++;
-            //
-            //     } else if (event == "a4") {
-            //
-            //         this.print_a4_counter++;
-            //     }
-            //
-            //
-            //     setTimeout(function () {
-            //         location.reload();
-            //     }, 3000);
-            //     this.$ref.printFrameRef.el.print();
-            // },
 
         },
 
