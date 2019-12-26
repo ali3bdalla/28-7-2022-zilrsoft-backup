@@ -82,6 +82,21 @@
 			return view('accounting.categories.edit',compact('categories','parent_id','category'));
 		}
 		
+		/**
+		 * Show the form for creating a new resource.
+		 *
+		 * @return Response
+		 */
+		public function clone(Category $category)
+		{
+			$this->middleware(['permission:create category']);
+			
+			$categories = Category::all();
+			
+			$parent_id = $category->parent_id;
+			return view('accounting.categories.clone',compact('categories','parent_id','category'));
+		}
+		
 		public function update(UpdateCategoryRequest $request,Category $category)
 		{
 			$this->middleware(['permission:edit category']);
