@@ -1,7 +1,10 @@
 @extends('accounting.layout.master')
 
-@section('title',__('pages/items.edit') . ' | ' .  $item->locale_name)
-
+@if(!$isClone)
+    @section('title',__('pages/items.edit') . ' | ' .  $item->locale_name)
+@else
+    @section('title',__('pages/items.clone') . ' | ' .  $item->locale_name)
+@endif
 
 
 @section("before_content")

@@ -1,5 +1,8 @@
-<?php $__env->startSection('title',__('pages/items.edit') . ' | ' .  $item->locale_name); ?>
-
+<?php if(!$isClone): ?>
+    <?php $__env->startSection('title',__('pages/items.edit') . ' | ' .  $item->locale_name); ?>
+<?php else: ?>
+    <?php $__env->startSection('title',__('pages/items.clone') . ' | ' .  $item->locale_name); ?>
+<?php endif; ?>
 
 
 <?php $__env->startSection("before_content"); ?>
