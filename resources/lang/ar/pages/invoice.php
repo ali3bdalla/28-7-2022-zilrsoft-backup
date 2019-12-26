@@ -42,11 +42,13 @@ return [
 	'vendor_inc_number' => 'رقم فاتورة المورد',
 	'price_invoice' => 'طباعة الفاتورة',
 	'price_receipt' => 'طباعة الايصال',
-	'purchase' => 'فاتورة مشتريات',
+	'purchase' => ' مشتريات',
+	'return_purchase' => 'مرتج مشتريات',
 	'view_purchase' => 'عرض فاتورة مشتريات',
 	'view_sale' => 'عرض فاتورة مبيعات',
 	'invoice' => 'فاتورة',
 	'number' => 'رقم',
+	'price_a4'=>'طباعة الفاتورة',
 	'phone_number' => 'رقم الهاتف',
 	'return' => 'اضافة مرتجع ',
 	'current_status'=>'الحالة',
@@ -64,7 +66,7 @@ return [
 	'options' => 'خيارات',
 	'view' => 'عرض',
 	'edit' => 'تعديل',
-	'delete' => 'حذف',
+	'delete' => 'استرجاع كامل الفاتورة',
 	'PurchaseBaseUrl' => route('accounting.purchases.index'),
 	
 

@@ -5,9 +5,11 @@
 	use App\Account;
 	use App\Expense;
 	use App\Http\Controllers\Controller;
+	use App\Http\Requests\Accounting\Purchase\CreatePurchaseRequest;
 	use App\Http\Requests\Accounting\Purchase\DatatableRequest;
 	use App\Http\Requests\CreateReturnPurchaseRequest;
 	use App\Http\Requests\Invoice\PurchaseCreationRequest;
+	use App\Invoice;
 	use App\PurchaseInvoice;
 	use App\User;
 	use Illuminate\Http\Request;
@@ -22,13 +24,15 @@
 		 */
 		public function index()
 		{
-//			$purchases = PurchaseInvoice::whereIn('invoice_type',['purchase','r_purchase'])->with('invoice')
-//				->orderBy('id','desc')->paginate(20);
-			
 			return view('accounting.purchases.index');
 			//
 		}
 		
+		/**
+		 * @param DatatableRequest $request
+		 *
+		 * @return mixed
+		 */
 		public function datatable(DatatableRequest $request)
 		{
 			return $request->data();
@@ -41,30 +45,22 @@
 		 */
 		public function create()
 		{
-			
 			$receivers = User::where('is_manager',true)->get()->toArray();
 			$vendors = User::where([['is_vendor',true]])->get()->toArray();//,['is_system_user',false]
-			
 			$expenses = Expense::where('appear_in_purchase',true)->get();
-			
 			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())->get();
-			
-			return view('purchases.create',compact('vendors','receivers','gateways','expenses'));
+			return view('accounting.purchases.create',compact('vendors','receivers','gateways','expenses'));
 			//
 		}
 		
 		/**
-		 * Store a newly created resource in storage.
+		 * @param PurchaseCreationRequest $request
 		 *
-		 * @param Request $request
-		 *
-		 * @return Response
+		 * @return array
+		 * @throws \Exception
 		 */
-		public function store(PurchaseCreationRequest $request)
+		public function store(CreatePurchaseRequest $request)
 		{
-
-
-//        return  $request->all();
 			return $request->save();
 			//
 		}
@@ -72,18 +68,17 @@
 		/**
 		 * Display the specified resource.
 		 *
-		 * @param PurchaseInvoice $purchaseInvoice
+		 * @param Invoice $purchase
 		 *
 		 * @return Response
 		 */
-		public function show(PurchaseInvoice $purchase)
+		public function show(Invoice $purchase)
 		{
 			
-			$transactions = $purchase->invoice->transactions()->where('description','!=','vendor_balance')->get();
-
-
-//			return  $transactions;
-			return view('accounting.purchases.show',compact('purchase','transactions'));
+			$transactions = $purchase->transactions()->where('description','!=','vendor_balance')->get();
+			
+			$invoice = $purchase;
+			return view('accounting.purchases.show',compact('invoice','transactions'));
 			//
 		}
 		
@@ -94,7 +89,7 @@
 		 *
 		 * @return Response
 		 */
-		public function edit(PurchaseInvoice $purchase)
+		public function edit(Invoice $purchase)
 		{
 			
 			$invoice = $purchase->invoice;

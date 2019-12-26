@@ -79,14 +79,14 @@
                                type="text"
                                v-model="barcodeNameAndSerialField"/>
                     </div>
-                    <div class="live-vue-search">
-                        <a :key="item.id" @click="validateAndPrepareItem(item)"
-                           class="message-header" href="#" v-for="item in searchResultList">
-                            <h3 class="title has-text-white">{{ item.locale_name }}
-                                <small class="has-text-white">{{ item.barcode}}</small>
-                            </h3>
-                            {{ item.price }}
-                        </a>
+                    <div class="live-vue-search panel">
+                        <div :key="item.id" @click="validateAndPrepareItem(item)"
+                           class="panel-footer" href="#" v-for="item in searchResultList">
+                            <h4 class="title has-text-white">{{ item.locale_name }}
+                                <small class="has-text-white">{{ item.barcode}} - {{ item.price }}</small>
+                            </h4>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
 
 
         <div class="panel">
-            <table class="table table-bordered text-center table-narrow table-hoverable table-striped">
+            <table class="table table-bordered text-center  table-striped">
                 <thead class="panel-heading">
                 <tr>
                     <th class="">#</th>
@@ -124,23 +124,12 @@
                 <tr :key="item.id" v-for="(item,index) in invoiceData.items">
                     <th class="has-text-white">
                         <button @click="deleteItemFromList(item)"
-                                class="button is-danger is-small"><i
+                                class="btn btn-danger btn-sm"><i
                                 class="fa fa-trash"></i></button>
 
-                        <button @click="openItemSerialsModal(index,item)" class="button is-primary is-small"
-                                style="margin-left:10px"
-                                v-if="item.is_need_serial">
-                            <i class="fa fa-plus"></i> &nbsp;
-                        </button>
-                        <!--                        <item-serials-list-component-->
-                        <!--                                :init_item_serial_list="item.serials"-->
-                        <!--                                :isOpen="item.isOpen"-->
-                        <!--                                :item="item" :item_index="index"-->
-                        <!--                                :key="item.id"-->
-                        <!--                                @changed="updatedItemSerials"-->
-                        <!--                                v-if="item.is_need_serial"></item-serials-list-component>-->
-                        <!--&lt;!&ndash;                        &ndash;&gt;-->
-
+                        <a @click="openItemSerialsModal(index,item)" class="btn btn-success btn-sm"
+                                v-if="item.is_need_serial">السيريال &nbsp;
+                        </a>
 
                     </th>
                     <th v-text="item.barcode"></th>
@@ -151,7 +140,7 @@
                                 :ref="'itemQty_' + item.id + 'Ref'"
                                 @focus="$event.target.select()"
                                 @keyup="itemQtyUpdated(item)"
-                                class="input"
+                                class="form-control"
                                 type="text"
                                 v-if="!item.is_need_serial"
                                 v-model="item.qty"
@@ -163,13 +152,13 @@
                         <input
                                 :ref="'itemPrice_' + item.id + 'Ref'"
                                 @focus="$event.target.select()" @keyup="itemPriceUpdated(item)"
-                                class="input"
+                                class="form-control"
                                 type="text"
                                 v-model="item.purchase_price">
 
                     </th>
                     <th class="has-text-white">
-                        <input @focus="$event.target.select()" class="input"
+                        <input @focus="$event.target.select()" class="form-control"
                                disabled
                                type="text" v-model="item.total">
                     </th>
@@ -195,7 +184,7 @@
                                 <div class="col-md-6"><label>{{ app.trans.total }}</label></div>
                                 <div class="col-md-6">
                                     <input :placeholder="app.trans.total"
-                                           class="form-control"
+                                           class="form-control  input-xs amount-input"
                                            disabled type="text"
                                            v-model="invoiceData.total">
                                 </div>
@@ -228,7 +217,7 @@
 
 
     import {query as ItemQuery} from '../../item';
-    import 'bulma/css/bulma.css'
+    // import 'bulma/css/bulma.css'
 
     export default {
         props: [
@@ -292,14 +281,12 @@
             },
             sendQueryRequestToFindItems() {
                 var appVm = this;
-                ItemQuery.sendQueryRequestToFindItems({
-                    barcode_or_name_serial: this.barcodeNameAndSerialField
-                }).then(response => {
-                    if (response.data.length == 1) {
+                ItemQuery.sendQueryRequestToFindItems(this.barcodeNameAndSerialField).then(response => {
+                    if (response.data.length === 1) {
                         appVm.validateAndPrepareItem(response.data[0]);
                         appVm.barcodeNameAndSerialField = "";
                         appVm.searchResultList = [];
-                    } else if (response.data.length == 0) {
+                    } else if (response.data.length === 0) {
                         appVm.$refs.barcodeNameAndSerialField.select();
                         appVm.searchResultList = [];
 
@@ -476,23 +463,22 @@
         text-decoration: none !important;
     }
 
-    .live-vue-search .message-header {
+    .live-vue-search div {
+        background-color:black;
+        border-radius: 0px;
+        border-bottom: 1px solid #eeeeee;
+        color:#eee;
+        cursor: pointer;
+    }
+
+    live-vue-search div:hover {
 
         border-radius: 0px;
+
         border-bottom: 1px solid #eeeeee;
         cursor: pointer;
     }
 
-    live-vue-search .message-header:hover {
-
-        border-radius: 0px;
-        border-bottom: 1px solid #eeeeee;
-        cursor: pointer;
-    }
-
-    th {
-        text-align: center !important
-    }
 
 
 </style>

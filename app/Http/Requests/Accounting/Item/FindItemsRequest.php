@@ -28,6 +28,7 @@
 		{
 			return [
 				//
+				'barcode_or_name_or_serial' => 'nullable'
 			];
 		}
 		
@@ -37,9 +38,9 @@
 			$query = Item::where('id','!=',0);
 			
 			if ($this->has('barcode_or_name_or_serial') && $this->filled('barcode_or_name_or_serial')){
-				$query = $query->where('barcode','LIKE','%'.$this->barcode_or_name_or_serial.'%')
-					->orWhere('name','LIKE','%'.$this->barcode_or_name_or_serial.'%')
-					->orWhere('ar_name','LIKE','%'.$this->barcode_or_name_or_serial.'%');
+				$query = $query->where('barcode','LIKE','%'.$this->input('barcode_or_name_or_serial').'%')
+					->orWhere('name','LIKE','%'.$this->input('barcode_or_name_or_serial').'%')
+					->orWhere('ar_name','LIKE','%'.$this->input('barcode_or_name_or_serial').'%');
 			}
 			
 			return $query->take(5)->get();

@@ -6,7 +6,7 @@
             <div class="table-filters">
                 <div @click="openOrCloseSearchPanel" class="text-right search-text" style="cursor: pointer;"><i
                         class="fa fa-search-plus"></i>
-                    {{app.trans.search_by_filters }}
+                    {{app.trans.search }}
                 </div>
 
                 <div v-show="isOpenSearchPanel">
@@ -36,19 +36,18 @@
             <div class="table-multi-task-buttons" v-show="showMultiTaskButtons">
 
             </div>
-            <div class="table-content " v-show="!isLoading">
+            <div class="table-content" v-show="!isLoading">
                 <table class="table table-striped table-bordered" width="100%">
                     <thead>
                         <tr>
-                            <th width="2%"><input @click="checkAndUncheckAllRowsCheckBoxChanged" type="checkbox"/></th>
-                            <th :class="{'orderBy':orderBy=='id'}" @click="setOrderByColumn('id')" width="4%">
+                            <th @click="setOrderByColumn('id')" width="4%">
                                 {{ app.trans.id }}
                             </th>
 
-                            <th :class="{'orderBy':orderBy=='ar_name'}" @click="setOrderByColumn('id')">
+                            <th :class="{'orderBy':orderBy=='id'}" @click="setOrderByColumn('id')">
                                 {{ app.trans.invoice_number }}
                             </th>
-                            <th :class="{'orderBy':orderBy=='name'}" @click="setOrderByColumn('total')">
+                            <th>
                                 {{ app.trans.vendor }}
                             </th>
 
@@ -58,17 +57,17 @@
                             </th>
 
 
-                            <th :class="{'orderBy':orderBy=='created_at'}" @click="setOrderByColumn('created_at')"
+                            <th :class="{'orderBy':orderBy=='net'}" @click="setOrderByColumn('net')"
                                 width="">
                                 {{ app.trans.net }}
                             </th>
 
-                            <th :class="{'orderBy':orderBy=='created_at'}" @click="setOrderByColumn('created_at')"
+                            <th :class="{'orderBy':orderBy=='current_status'}" @click="setOrderByColumn('current_status')"
                                 width="">
                                 {{ app.trans.current_status }}
                             </th>
 
-                            <th :class="{'orderBy':orderBy=='created_at'}" @click="setOrderByColumn('created_at')"
+                            <th :class="{'orderBy':orderBy=='invoice_type'}" @click="setOrderByColumn('invoice_type')"
                                 width="">
                                 {{ app.trans.invoice_type }}
                             </th>
@@ -80,7 +79,7 @@
                             </th>
 
 
-                            <th :class="{'orderBy':orderBy=='creator_id'}" @click="setOrderByColumn('creator_id')"
+                            <th :class="{'orderBy':orderBy=='tax'}" @click="setOrderByColumn('tax')"
                                 width="">
                                 {{ app.trans.tax }}
                             </th>
@@ -91,23 +90,22 @@
                     <tbody>
 
                     <tr :key="row.id" v-for="(row,index) in table_rows">
-                        <td><input @change="rowSelectCheckBoxUpdated(row)" type="checkbox"
-                                   v-model="row.tb_row_selected"/>
-                        </td>
                         <td v-text="index+1"></td>
-
                         <td class="text-center" v-text="row.title"></td>
-
                         <td class="text-center" v-text="row.purchase.vendor.name"></td>
                         <td v-text="row.created_at"></td>
                         <td class="text-center" v-text="row.net"></td>
-
-                        <td class="text-center" v-text="row.current_status"></td>
-                        <td class="text-center" v-text="row.invoice_type"></td>
+                        <td class="text-center">
+                            <span v-if="row.current_status">{{ app.trans.paid }}</span>
+                            <span v-else>{{ app.trans.credit }}</span>
+                        </td>
+                        <td class="text-center">
+                            <span v-if="row.invoice_type=='purchase'">{{ app.trans.purchase }}</span>
+                            <span v-else>{{ app.trans.return_purchase }}</span>
+                        </td>
                         <td class="text-center" v-text="row.creator.name"></td>
                         <td class="text-center" v-text="row.tax"></td>
                         <td>
-
                             <div class="dropdown">
                                 <button :id="'dropDownOptions'
                                 + row.id" aria-expanded="false" aria-haspopup="true"
@@ -121,10 +119,11 @@
                                     <li><a :href="baseUrl + row.id "
                                            v-text="app.trans.view"></a></li>
 
+                                    <li v-if="canEdit==1"><a :href="baseUrl + row.id + '/edit' "
+                                           v-text="app.trans.view"></a></li>
 
                                 </ul>
                             </div>
-
                         </td>
                     </tr>
                     </tbody>
@@ -134,10 +133,10 @@
             </div>
 
             <div class="table-paginations">
-                <accounting-table-pagination-helper-layout-component :data="paginationResponseData"
-
-                                                                     @pagePerItemsUpdated="pagePerItemsUpdated"
-                                                                     @paginateUpdatePage="paginateUpdatePage"
+                <accounting-table-pagination-helper-layout-component
+                        :data="paginationResponseData"
+                        @pagePerItemsUpdated="pagePerItemsUpdated"
+                        @paginateUpdatePage="paginateUpdatePage"
                 ></accounting-table-pagination-helper-layout-component>
             </div>
 
@@ -354,6 +353,9 @@
 </script>
 <style scoped>
 
+    .orderBy {
+        background-color:#eee
+    }
 
     .table-content {
         background: #f8f8f8;
@@ -389,21 +391,6 @@
         height: 42px;
     }
 
-    .form-control, .field-input {
-        /*text-align: right !important;*/
-
-    }
-
-    .orderBy {
-        background-color: cornsilk;
-    }
-
-    .sort-icon {
-        color: #999;
-        float: right;
-        margin-right: 1px;
-        font-size: 17px;
-    }
 
 
     .dropdown-menu li a {
@@ -412,17 +399,9 @@
         border-bottom: 1px solid #eee;
     }
 
-    .vue-treeselect__control {
-        padding: 7px !important;
-        border-radius: 0px !important;
-    }
-
     .table-multi-task-buttons {
         padding: 5px;
     }
 
-    th, td {
-        text-align: center !important;
-    }
 
 </style>

@@ -25,6 +25,22 @@ exports.accounting = {
     getSalesPriceFromSalesPriceWithTaxAndVat: function (price, vat) {
         return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(price / this.convertVatPercentValueIntoFloatValue(vat));
     },
+    getTotal:function (qty, price) {
+        return parseInt(qty) * parseFloat(price);
+    },
+    getSubtotal:function (total,discount) {
+        return parseFloat(total) - parseFloat(discount);
+    },
+    getTax:function (subtotal,vat) {
+        return parseFloat(subtotal) * parseFloat(this.convertVatPercentValueIntoFloatValue(vat));
+    },
+    getNet:function (subtotal,tax) {
+        return parseFloat(subtotal) + parseFloat(tax);
+    },
+    getVariation(current, old)
+    {
+        return parseFloat(current) - parseFloat(old);
+    }
 };
 
 exports.validator = {
@@ -36,9 +52,13 @@ exports.validator = {
 
 
 exports.query = {
-    sendQueryRequestToFindItems: function (query = {}) {
-        var link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_find_items';
-        return axios.post(link, query);
+    sendQueryRequestToFindItems: function (query = null) {
+        let link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_find_items';
+        return axios.post(link, {barcode_or_name_or_serial:query});
+    },
+    sendQueryRequestToActivateItems: function (id_array = []) {
+        let link = metaHelper.getContent("BaseApiUrl") + 'items/helper/activate_items';
+        return axios.post(link, {id_array:id_array});
     },
     sendValidatePurchaseSerialRequest: function (query = {}) {
         var link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_validate_purchase_serial';
@@ -57,3 +77,5 @@ exports.query = {
         return axios.post(link, query);
     }
 };
+
+

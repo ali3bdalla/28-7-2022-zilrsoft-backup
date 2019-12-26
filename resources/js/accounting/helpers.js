@@ -60,6 +60,15 @@ exports.inputHelper = {
         return true;
     },
 
+    validateDiscount:function (discount = 0, el) {
+        el.classList.remove("inputErrorClass");
+        if (!TextValidator.isDecimal(discount + "")) {
+            this.showErrorOnInput(el, 'الخصم غير صحيح');
+            el.value = 0;
+            return false;
+        }
+        return true;
+    },
 
     showErrorOnInput: function (el, message = "") {
         el.classList.add("inputErrorClass");

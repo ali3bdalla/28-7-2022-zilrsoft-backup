@@ -1,6 +1,6 @@
 exports.db = {
     model: {
-        exists:function(arr,value){
+        exists: function (arr, value) {
             return arr.includes(value);
         },
         contain: function (arr, id) {
@@ -51,25 +51,36 @@ exports.db = {
             array.splice(this.index(id));
             return array;
         },
-        replace:function(arr,index,value)
-        {
-            arr.splice(arr,index,value);
+        replace: function (arr, index, value) {
+            arr.splice(arr, index, value);
             return arr;
         },
         deleteByIndex: function (array, index) {
             array.splice(index, 1);
             return array;
         },
-        createUnique:function (arr,value) {
-            if(!this.exists(arr,value))
-            {
+        createUnique: function (arr, value) {
+            if (!this.exists(arr, value)) {
                 arr.push(value);
             }
 
             return arr;
         },
-        count:function (arr) {
+        count: function (arr) {
             return arr.length();
+        },
+        pluck: function (arr, col, condition_col = null, condition_value = null) {
+            var len = arr.length;
+            var resutl = [];
+            for (var i = 0; i < len; i++) {
+                var item = arr[i];
+                if (condition_col != null) {
+                    if (item[condition_col] == condition_value) {
+                        resutl.push(item[col]);
+                    }
+                }
+            }
+            return resutl;
         }
 
     },

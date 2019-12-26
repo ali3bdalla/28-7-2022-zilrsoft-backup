@@ -6,8 +6,6 @@ var helpers = {
       return parseFloat(number)  != "NaN" && parseFloat(number) != NaN;
     },
     convertEnToArabicNumber(en) {
-
-
         var response = [];
         var en_arr = en.split('');
         for (var i = 0; i < en_arr.length; i++) {

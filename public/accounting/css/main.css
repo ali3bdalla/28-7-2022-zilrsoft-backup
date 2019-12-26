@@ -34,3 +34,18 @@
 .inputErrorClass {
     border: 2px solid red !important;
 }
+
+.date_field {
+    direction: ltr !important;
+    text-align: right !important;
+}
+.date_field_center {
+    direction: ltr !important;
+    text-align: center !important;
+}
+.amount-input {
+    height: 32px !important;
+    text-align: center !important;
+    font-weight: bold;
+    vertical-align: middle;
+}

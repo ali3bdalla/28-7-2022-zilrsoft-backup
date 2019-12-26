@@ -4,7 +4,7 @@
 
 <?php $__env->startSection("content"); ?>
     <accounting-managers-create-component
-
+            :editing-manager="false"
             :branches='<?php echo json_encode($branches, 15, 512) ?>'>
 
     </accounting-managers-create-component>

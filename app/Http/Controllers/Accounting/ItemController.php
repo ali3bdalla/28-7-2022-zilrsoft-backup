@@ -4,6 +4,7 @@
 	
 	use App\Category;
 	use App\Http\Controllers\Controller;
+	use App\Http\Requests\Accounting\Item\ActivateItemsRequest;
 	use App\Http\Requests\Accounting\Item\CreateItemRequest;
 	use App\Http\Requests\Accounting\Item\DatatableRequest;
 	use App\Http\Requests\Accounting\Item\UpdateItemRequest;
@@ -151,6 +152,11 @@
 		{
 			$this->middleware(['permission:view item transactions']);
 			
+		}
+		
+		public function activate_items(ActivateItemsRequest $request)
+		{
+			return $request->activate();
 		}
 		
 	}

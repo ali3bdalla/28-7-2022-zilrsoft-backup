@@ -16,7 +16,9 @@
 
 <?php $__env->startSection("content"); ?>
 
-    <accounting-purchases-datatable-component>
+    <accounting-purchases-datatable-component
+        :can-edit="<?php echo e(auth()->user()->canDo('edit purchase')); ?>"
+    >
 
 
     </accounting-purchases-datatable-component>

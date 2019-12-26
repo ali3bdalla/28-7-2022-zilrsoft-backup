@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="table-multi-task-buttons" v-show="showMultiTaskButtons">
-
+                <button @click="activateListItems" class="btn btn-default">{{ trans.activate }}</button>
             </div>
             <div class="table-content " v-show="!isLoading">
                 <table class="table table-striped table-bordered" width="100%">
@@ -121,7 +121,7 @@
                                style="margin-top: 3px;" v-show="row.status=='active'"></i>
                         </td>
 
-                        <td class="text-right-with-padding">{{row.locale_name}}</td>
+                        <td class="text-right-with-padding">{{row.ar_name}}<p align="left">{{row.name}}</p></td>
                         <td v-text="row.price"></td>
                         <td v-text="row.price_with_tax"></td>
                         <td v-text="row.available_qty"></td>
@@ -179,7 +179,7 @@
     import Treeselect from '@riophae/vue-treeselect'
     import '@riophae/vue-treeselect/dist/vue-treeselect.css'
     import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
-    import {transfer} from '../../item';
+    import {accounting as ItemAccounting, query as ItemQuery,transfer} from '../../item';
 
     import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 
@@ -400,6 +400,20 @@
                         this.paginationResponseData.per_page);
                 }
                 return index;
+            },
+            activateListItems() {
+
+                var ids = db.model.pluck(this.table_rows, 'id', 'tb_row_selected', true);
+                if(ids!==[])
+                {
+                    ItemQuery.sendQueryRequestToActivateItems(ids).then(response => {
+                        window.location.reload();
+
+                    }).catch(error => {
+                        alert(error);
+                    })
+                }
+
             }
 
         },

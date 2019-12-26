@@ -8,6 +8,7 @@
 	trait UserAttributes
 	{
 		
+		
 		public function getCreatedAtAttribute($value)
 		{
 			return Carbon::parse($value)->toDateString();
@@ -15,7 +16,7 @@
 		
 		public function getLocaleNameAttribute()
 		{
-			if (app()->isLocate('ar'))
+			if (app()->isLocale('ar') && $this->name_ar != "")
 				return $this->name_ar;
 			
 			return $this->name;

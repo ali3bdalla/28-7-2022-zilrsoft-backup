@@ -17,7 +17,9 @@
 
 @section("content")
 
-    <accounting-purchases-datatable-component>
+    <accounting-purchases-datatable-component
+        :can-edit="{{ auth()->user()->canDo('edit purchase') }}"
+    >
 
 
     </accounting-purchases-datatable-component>

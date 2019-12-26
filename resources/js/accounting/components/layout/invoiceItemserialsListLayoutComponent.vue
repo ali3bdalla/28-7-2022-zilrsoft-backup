@@ -26,6 +26,7 @@
 <!--                                            <input class="form-control" name="" type="text">-->
 <!--                                        </div>-->
                                     </div>
+                                    <div class="table-response">
                                     <table class="table table-bordered text-center">
                                         <thead>
                                         <th>#</th>
@@ -47,6 +48,7 @@
                                         </tbody>
 
                                     </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +61,7 @@
 
 <script>
     import {query as ItemQuery} from '../../item';
-    import 'bulma/css/bulma.css'
+    //
 
     export default {
 
@@ -147,6 +149,7 @@
             },
             deleteSerialFromList(index) {
                 this.serials = db.model.deleteByIndex(this.serials, index);
+                this.publishUpdated();
             },
             publishUpdated() {
                 this.$emit('publishUpdated', {
@@ -190,7 +193,7 @@
     /*}*/
     .modal-mask {
         position: fixed;
-        z-index: 9998;
+        z-index: 932849080;
         top: 0;
         left: 0;
         width: 100%;

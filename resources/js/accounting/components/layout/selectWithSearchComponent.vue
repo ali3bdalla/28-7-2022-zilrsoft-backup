@@ -56,7 +56,8 @@
 
         },
         mounted: function () {
-            // this.selected = this.default;
+            if(this.defaultIndex!=null)
+                this.someoneUpdateId(this.defaultIndex);
         },
         created: function () {
 

@@ -23,6 +23,9 @@ import AccountingBeginningDatatableComponent from './components/inventories/begi
 import AccountingBeginningCreateComponent from './components/inventories/beginningCreateComponent';
 import AccountingInvoiceItemSerialsListLayoutComponent from './components/layout/invoiceItemserialsListLayoutComponent';
 import AccountingPurchasesDatatableComponent from './components/purchases/purchasesDatatableComponent';
+import AccountingPurchasesCreateComponent from './components/purchases/purchaseseCreateComponent';
+import AccountingInvoiceEmbeddedPaymentsGatewayLayout from './components/layout/invoiceEmbeddedPaymentsGatewayLayout';
+import AccountingInvoiceEmbeddedPurchaseExpensesLayout from './components/layout/invoiceEmbeddedPurchaseExpensesLayout';
 
 
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
@@ -50,3 +53,6 @@ Vue.component('accounting-beginning-datatable-component', AccountingBeginningDat
 Vue.component('accounting-beginning-create-component', AccountingBeginningCreateComponent);
 Vue.component('accounting-invoice-item-serials-list-layout-component', AccountingInvoiceItemSerialsListLayoutComponent);
 Vue.component('accounting-purchases-datatable-component', AccountingPurchasesDatatableComponent);
+Vue.component('accounting-purchases-create-component', AccountingPurchasesCreateComponent);
+Vue.component('accounting-invoice-embedded-payments-gateway-layout', AccountingInvoiceEmbeddedPaymentsGatewayLayout);
+Vue.component('accounting-invoice-embedded-purchase-expenses-layout', AccountingInvoiceEmbeddedPurchaseExpensesLayout);

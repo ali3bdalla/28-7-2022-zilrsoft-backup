@@ -24,7 +24,8 @@
                         :vendors='@json($vendors)'
                         :gateways='@json($gateways)'
                         :receivers='@json($receivers)'
-                        :creator='@json(auth()->user()->with('department','branch')->first())'>
+                        :creator='@json(auth()->user()->with('department','branch')->first())'
+                >
                 </create-purchase-form-component2>
 
                 {{--                <create-purchase-form-component--}}

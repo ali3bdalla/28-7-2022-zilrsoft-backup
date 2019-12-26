@@ -1,6 +1,6 @@
 <?php
 	
-	auth()->loginUsingId(1);
+//	auth()->loginUsingId(1);
 //
 	app()->setLocale('ar');
 	Auth::routes(["verify" => true]);
@@ -32,6 +32,7 @@
 			Route::get('{item}/transactions','ItemController@transactions')->name('transactions');
 			Route::name('helper.')->name('helper.')->prefix('helper')->group(function (){
 				Route::get('validate_barcode','ItemController@validate_barcode')->name('validate_barcode');
+				Route::post('activate_items','ItemController@activate_items')->name('activate_items');
 				Route::match(['get','post'],'query_find_items','ProviderController@query_find_items')->name
 				('query_find_items');
 				
@@ -49,6 +50,12 @@
 		Route::name('sales.')->prefix('sales')->group(function (){
 			Route::get('view/quotations',"SaleController@quotations")->name('quotations');
 		});
+		
+		
+		Route::name('purchases.')->prefix('purchases')->group(function (){
+			Route::get('{purchase}/print',"PurchaseController@print")->name('print');
+		});
+		
 		Route::prefix('datatable')->group(function (){
 			Route::get('items','ItemController@datatable')->name('items.datatable');
 			Route::get('filters','FilterController@datatable')->name('filters.datatable');
