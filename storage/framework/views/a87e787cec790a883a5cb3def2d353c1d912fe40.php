@@ -1,0 +1,1 @@
+<?php /**PATH /home/vagrant/code/zilrsoft/resources/views/accounting/sales/index.blade.php ENDPATH**/ ?>
