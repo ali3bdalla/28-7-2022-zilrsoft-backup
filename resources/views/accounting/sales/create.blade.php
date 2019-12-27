@@ -11,6 +11,6 @@
             :clients='@json($clients)'
             :gateways='@json($gateways)'
             :salesmen='@json($salesmen)'
-            :creator='@json(auth()->user()->with('department','branch','user')->first())'
+            :creator='@json(auth()->user()->load('department','branch','user'))'
     ></accounting-sales-create-component>
 @endsection

@@ -19,6 +19,7 @@
                             <img alt="User Image" class="user-image"
                                  src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg">
                             <span class="hidden-xs"></span>
+                            {{ username }}
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
@@ -57,7 +58,7 @@
 </template>
 <script>
     export default {
-        props: ["csrf"],
+        props: ["csrf","username"],
         data: function () {
             return {
                 appName: metaHelper.getContent('app-name'),

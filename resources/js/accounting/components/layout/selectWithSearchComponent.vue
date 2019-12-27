@@ -39,7 +39,7 @@
     export default {
         props: ["options", "default", 'index', 'placeholder', 'identity', 'title', 'label_text',
             'title_class', 'no_all_option',
-            'defaultIndex', 'helperValue'],
+            'defaultIndex', 'helperValue','default_id'],
         data: function () {
             return {
                 emptyObject: {
@@ -90,7 +90,7 @@
             },
 
             someoneUpdateId(id) {
-                var item = helpers.getDataFromArrayById(this.items, id);
+                var item =db.model.find(this.items, id);
                 if (item != null) {
                     this.valueUpdated(item);
                 }
