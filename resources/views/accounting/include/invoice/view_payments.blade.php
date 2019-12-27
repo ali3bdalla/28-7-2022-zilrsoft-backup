@@ -1,6 +1,6 @@
 @if(!empty($invoice->payments))
-    <div class="panel panel-default">
-        <div class="panel-heading"><label>{{ trans('pages/invoice.payments_methods') }}</label></lable></div>
+    <div class="panel panel-primary">
+        <div class="panel-heading  bg-custom-primary"><label>{{ trans('pages/invoice.payments_methods') }}</label></lable></div>
         <div class="panel-body">
             @foreach($invoice->payments as $payment)
                 <div class="form-group">

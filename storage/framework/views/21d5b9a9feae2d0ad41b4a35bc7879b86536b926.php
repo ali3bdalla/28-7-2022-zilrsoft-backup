@@ -65,4 +65,7 @@
         </div>
 
     </div>
+    <div class="col-md-12">
+        <?php if ($__env->exists('accounting.include.invoice.view_expenses')) echo $__env->make('accounting.include.invoice.view_expenses', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    </div>
 </div><?php /**PATH /home/vagrant/code/zilrsoft/resources/views/accounting/include/invoice/view_amounts.blade.php ENDPATH**/ ?>

@@ -64,4 +64,7 @@
         </div>
 
     </div>
+    <div class="col-md-12">
+        @includeIf('accounting.include.invoice.view_expenses')
+    </div>
 </div>

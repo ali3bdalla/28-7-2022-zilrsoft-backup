@@ -50,12 +50,12 @@
         <div class="row">
             <div class="col-md-6">
                 <accounting-select-with-search-layout-component
+                        :default-index="creator.id"
                         :no_all_option="true"
                         :options="receivers"
                         :placeholder="app.trans.receiver"
                         :title="app.trans.receiver"
                         @valueUpdated="receiverListChanged"
-                        :default-index="creator.id"
                         identity="002"
                         index="002"
                         label_text="name"
@@ -659,7 +659,7 @@
                     net: this.invoiceData.net,
                     subtotal: this.invoiceData.subtotal,
                     methods: this.invoiceData.methods,
-                    expenses: this.invoiceData.expenses,
+                    expenses: this.expensesList,
                     current_status: this.invoiceData.status,
                     issued_status: this.invoiceData.status,
                     remaining: this.invoiceData.remaining,
@@ -667,6 +667,7 @@
                     invoice_type: 'purchase',
                     branch_id: this.creator.branch_id,
                     creator_id: this.creator.id,
+
                 };
                 var appVm = this;
                 axios.post(this.app.BaseApiUrl + 'purchases', data)

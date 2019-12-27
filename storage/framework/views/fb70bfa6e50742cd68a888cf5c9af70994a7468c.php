@@ -83,8 +83,6 @@
                 <div class="col-md-9">
                     <div class="row">
 
-
-
                         <div class="col-md-12">
                             <?php if ($__env->exists('accounting.include.invoice.view_payments')) echo $__env->make('accounting.include.invoice.view_payments', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         </div>

@@ -1,6 +1,6 @@
 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view transactions')): ?>
     <div class="panel panel-info">
-        <div class="panel-heading">
+        <div class="panel-heading  bg-custom-primary">
             <label><?php echo e(trans('sidebar.transactions')); ?></label>
         </div>
         <table class="table table-bordered table-hover text-center">
