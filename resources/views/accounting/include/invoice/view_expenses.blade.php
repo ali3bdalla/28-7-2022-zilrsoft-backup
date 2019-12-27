@@ -9,7 +9,6 @@
         <div class="panel-body">
 
             <table class="table table-bordered">
-                {{$invoice->expenses}}
                 @foreach($invoice->expenses as $expense)
                     <tr>
                         <th text="item.name"

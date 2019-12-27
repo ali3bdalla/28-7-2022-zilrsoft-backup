@@ -9,8 +9,6 @@
         <div class="panel-body">
 
             <table class="table table-bordered">
-                <?php echo e($invoice->expenses); ?>
-
                 <?php $__currentLoopData = $invoice->expenses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $expense): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
                         <th text="item.name"

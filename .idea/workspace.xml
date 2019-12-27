@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_amounts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_amounts.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_expenses.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_expenses.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_payments.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_payments.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_transactions.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_transactions.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/purchases/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/purchases/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/PCJ406GAfHLQEel6BkNDgU0zPijQjiecINdrYkcQ" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/PCJ406GAfHLQEel6BkNDgU0zPijQjiecINdrYkcQ" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/21d5b9a9feae2d0ad41b4a35bc7879b86536b926.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/21d5b9a9feae2d0ad41b4a35bc7879b86536b926.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/2f15150d7dffa7bee6549db43f2d4d480b721de1.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/2f15150d7dffa7bee6549db43f2d4d480b721de1.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/58cb652892ba018ab1d055b65082fad867571a20.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/58cb652892ba018ab1d055b65082fad867571a20.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/c9917b224610a1d713d2871b93f2a79c498b09d7.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/c9917b224610a1d713d2871b93f2a79c498b09d7.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/fb70bfa6e50742cd68a888cf5c9af70994a7468c.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/fb70bfa6e50742cd68a888cf5c9af70994a7468c.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -436,7 +424,7 @@
       <workItem from="1576517151992" duration="253000" />
       <workItem from="1576577078221" duration="67212000" />
       <workItem from="1576847436326" duration="105082000" />
-      <workItem from="1577181612244" duration="80137000" />
+      <workItem from="1577181612244" duration="80248000" />
     </task>
     <servers />
   </component>
