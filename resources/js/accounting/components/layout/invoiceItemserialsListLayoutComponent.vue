@@ -187,6 +187,10 @@
 </script>
 
 
+<style scoped src='bulma/css/bulma.css'>
+
+</style>
+
 <style>
     /*.modal {*/
     /*z-index: 923890423 !important;*/

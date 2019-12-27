@@ -93,6 +93,7 @@
 		'options' => 'خيارات',
 		"search_by_filters" => 'ابحث..',
 		"baseUrl" => route('accounting.items.index'),
+		"KitBaseUrl" => route('accounting.kits.index'),
 		"transactions" => 'حركة المنتج',
 		"view_serials" => 'حالة السيريلات',
 		'status'=>'الحالة',

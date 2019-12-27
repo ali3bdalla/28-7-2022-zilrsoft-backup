@@ -70,6 +70,7 @@ return [
 	'edit' => 'تعديل',
 	'delete' => 'استرجاع كامل الفاتورة',
 	'PurchaseBaseUrl' => route('accounting.purchases.index'),
+	'SaleBaseUrl' => route('accounting.sales.index'),
 	'creator'=>'الموظف',
 	
 

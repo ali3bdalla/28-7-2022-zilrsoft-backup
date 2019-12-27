@@ -2,18 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/PCJ406GAfHLQEel6BkNDgU0zPijQjiecINdrYkcQ" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Kit/CreateKitRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Kit/DatatableRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/accounting/components/items/kitsCreateComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/accounting/components/items/kitsDatatableComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/accounting/kits/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/accounting/kits/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/26a0191be485d1b115abdac3bdf4e5da804ef326.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/c70a877044d933fe9cac9a8cf94c3395c486c2e9.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/KitController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/KitController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ProviderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ProviderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/DatatableRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/DatatableRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/components/invoice/itemSerialSaleReturnListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/public/components/invoice/itemSerialSaleReturnListComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/headerLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/headerLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/selectWithSearchComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/selectWithSearchComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/purchases/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/purchases/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/sales/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/sales/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/a3P1i9T9LlDyouoiJWXOCUb2wtLln9zBR0GbhB81" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/2405defe0f21f0ed9ed004fe8167862c7fa525ee.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/2405defe0f21f0ed9ed004fe8167862c7fa525ee.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/2fb3ea4cf54f8238ed09e1139b52e3420bbeb2f3.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/2fb3ea4cf54f8238ed09e1139b52e3420bbeb2f3.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/invoiceItemserialsListLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/invoiceItemserialsListLayoutComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/pages/invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/pages/invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/pages/items.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/pages/items.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/PCJ406GAfHLQEel6BkNDgU0zPijQjiecINdrYkcQ" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/PCJ406GAfHLQEel6BkNDgU0zPijQjiecINdrYkcQ" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-12-27.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-27.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -435,7 +446,7 @@
       <workItem from="1576517151992" duration="253000" />
       <workItem from="1576577078221" duration="67212000" />
       <workItem from="1576847436326" duration="105082000" />
-      <workItem from="1577181612244" duration="75516000" />
+      <workItem from="1577181612244" duration="78528000" />
     </task>
     <servers />
   </component>

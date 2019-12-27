@@ -35,7 +35,7 @@
 		public function data()
 		{
 			
-			$query = Item::with('creator');
+			$query = Item::with('creator','data');
 			
 			if ($this->has('barcode') && $this->filled('barcode')){
 				$query = $query->where('barcode','LIKE','%'.$this->barcode.'%');
@@ -152,8 +152,6 @@
 					$query = $query->where('status',$this->input("current_status"));
 				}else if ($this->input("current_status") == 'kits'){
 					$query = $query->where('is_kit',true);
-				}else{
-					$query = $query->whereIn('status',['active','pending']);
 				}
 				
 			}

@@ -64,22 +64,22 @@
 		
 		public function query_validate_purchase_serial(ValidatePurchaseSerialsRequest $request)
 		{
-			return $request->good();
+//			return $request->good();
 		}
 		
 		public function query_validate_sale_serial(ValidatePurchaseSerialsRequest $request)
 		{
-			return $request->good();
+//			return $request->good();
 		}
 		
 		public function query_validate_return_sale_serial(ValidatePurchaseSerialsRequest $request)
 		{
-			return $request->good();
+//			return $request->good();
 		}
 		
 		public function query_validate_return_purchase_serial(ValidatePurchaseSerialsRequest $request)
 		{
-			return $request->good();
+//			return $request->good();
 		}
 		
 		//
