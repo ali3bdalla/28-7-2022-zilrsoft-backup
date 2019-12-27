@@ -4,6 +4,8 @@
 //
 	app()->setLocale('ar');
 	Auth::routes(["verify" => true]);
+	
+	
 	Route::get('/','HomeController@index');
 	Route::middleware(['auth','verified'])->group(function (){
 		Route::resources([
@@ -66,6 +68,7 @@
 			Route::get('branches/{branch}/departments','BranchController@departments_datatable')->name('branches.datatable');
 			Route::get('beginning_inventories','InventoryController@beginning_datatable')->name('beginning.datatable');
 			Route::get('purchases','PurchaseController@datatable')->name('purchases.datatable');
+			Route::get('sales','SaleController@datatable')->name('sales.datatable');
 			
 		});
 		Route::prefix('categories')->name('categories.')->group(function (){

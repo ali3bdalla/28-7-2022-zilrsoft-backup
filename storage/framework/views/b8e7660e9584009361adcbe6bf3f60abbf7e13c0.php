@@ -17,6 +17,8 @@
 <?php $__env->startSection("content"); ?>
 
     <accounting-purchases-datatable-component
+            :creators='<?php echo json_encode($creators, 15, 512) ?>'
+            :vendors='<?php echo json_encode($vendors, 15, 512) ?>'
         :can-edit="<?php echo e(auth()->user()->canDo('edit purchase')); ?>"
     >
 

@@ -25,21 +25,34 @@ exports.accounting = {
     getSalesPriceFromSalesPriceWithTaxAndVat: function (price, vat) {
         return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(price / this.convertVatPercentValueIntoFloatValue(vat));
     },
-    getTotal: function (qty, price) {
+    getTotal: function (price, qty) {
         return parseInt(qty) * parseFloat(price);
     },
     getSubtotal: function (total, discount) {
         return parseFloat(total) - parseFloat(discount);
     },
-    getTax: function (subtotal, vat) {
-        return parseFloat(subtotal) * parseFloat(this.convertVatPercentValueIntoFloatValue(vat));
+    getTax: function (subtotal, vat, fixed = false) {
+        let result = parseFloat(subtotal) * parseFloat(this.convertVatPercentValueIntoFloatValue(vat)) - parseFloat(subtotal);
+        if (fixed)
+            return this.toFixedWithoutRound(result);
+
+        return result;
     },
-    getNet: function (subtotal, tax) {
-        return parseFloat(subtotal) + parseFloat(tax);
+    getNet: function (subtotal, tax, fixed = false) {
+        let result = parseFloat(parseFloat(subtotal) + parseFloat(tax)).toFixed(2);
+        if (fixed)
+            return parseFloat(result).toFixed(2);
+
+        return result;
     },
     getVariation(current, old) {
         return parseFloat(current) - parseFloat(old);
-    }
+    },
+
+    toFixedWithoutRound(value) {
+        return value.toString().match(/^-?\d+(?:\.\d{0,3})?/)[0];
+
+    },
 };
 
 exports.math = {
@@ -60,17 +73,31 @@ exports.math = {
 };
 
 exports.validator = {
+    validateQty: function (qty, availableQty = null) {
+        let result = true;
+        if (isNaN(parseInt(qty)))
+            result = false;
 
+
+        if (availableQty !== null && parseInt(qty) > parseInt(availableQty))
+            result = false;
+
+
+        return result;
+    },
     validatePriceValue: function (price) {
-        return isNaN(parseFloat(price)) ? false : true;
+        return !isNaN(parseFloat(price));
+    },
+    validateAmount: function (amount) {
+        return this.validatePriceValue(amount) && parseFloat(amount) >= 0;
     }
 };
 
 
 exports.query = {
-    sendQueryRequestToFindItems: function (query = null) {
+    sendQueryRequestToFindItems: function (query = null, invoice_type = null) {
         let link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_find_items';
-        return axios.post(link, {barcode_or_name_or_serial: query});
+        return axios.post(link, {barcode_or_name_or_serial: query, invoice_type: invoice_type});
     },
     sendQueryRequestToActivateItems: function (id_array = []) {
         let link = metaHelper.getContent("BaseApiUrl") + 'items/helper/activate_items';

@@ -44,11 +44,7 @@
 
                             </a></li>
 
-                        <li>
-                            <a href="<?php echo e(route('accounting.items.index')); ?>"><i class="fab fa-product-hunt"></i>
-                                <?php echo e(__('sidebar.items')); ?>
 
-                            </a></li>
 
                         <li>
                             <a href="<?php echo e(route('accounting.items.serial_activities')); ?>"><i

@@ -4,8 +4,12 @@
 
         <div class="row">
             <div class="col-md-6">
-                <button @click="pushDataToServer" class="btn btn-custom-primary"><i
+                <button :disabled="!everythingFineToSave" @click="pushDataToServer" class="btn btn-custom-primary"><i
                         class="fa fa-save"></i> {{ app.trans.save }}
+                </button>
+
+                <button :disabled="!everythingFineToSave" @click="pushDataToServer" class="btn btn-custom-primary"><i
+                        class="fa fa-save"></i> {{ app.trans.save_and_print4 }}
                 </button>
             </div>
             <div class="col-md-6">
@@ -51,7 +55,7 @@
                         :placeholder="app.trans.receiver"
                         :title="app.trans.receiver"
                         @valueUpdated="receiverListChanged"
-                        default-index="1"
+                        :default-index="creator.id"
                         identity="002"
                         index="002"
                         label_text="name"
@@ -331,12 +335,18 @@
 
 <script>
 
-    import {accounting as ItemAccounting, math as ItemMath, query as ItemQuery} from '../../item';
+    import {
+        accounting as ItemAccounting,
+        math as ItemMath,
+        query as ItemQuery,
+        validator as ItemValidator
+    } from '../../item';
 
     export default {
         props: ['creator', 'vendors', 'receivers', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
         data: function () {
             return {
+                everythingFineToSave: false,
                 selectedItem: null,
                 selectedItemIndex: null,
                 invoiceData: {
@@ -374,8 +384,7 @@
             };
         },
         created: function () {
-            this.receiver = this.creator.id;
-            this.receiver = this.creator.id;
+            this.InvoiceData.receiverId = this.creator.id;
             this.initExpensesList();
 
         },
@@ -437,7 +446,7 @@
 
                 this.clearAndFocusOnBarcodeField();
             },
-            prepareDataInFirstUse(item,) {
+            prepareDataInFirstUse(item) {
                 item.isOpen = false;
                 item.qty = 1;
                 if (item.is_need_serial) {
@@ -469,6 +478,27 @@
                 this.invoiceData.subtotal = db.model.sum(this.invoiceData.items, 'subtotal');
                 this.invoiceData.tax = db.model.sum(this.invoiceData.items, 'tax');
                 this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net');
+                this.validateInvoiceData();
+            },
+
+            validateInvoiceData() {
+                let everythingFineToSave = true;
+
+
+                var validating = db.model.validateAmounts(this.invoiceData.items, [
+                    'purchase',
+                    'tax',
+                    'total',
+                    'discount',
+                    'net',
+                ]);
+
+                validating = validating && ItemValidator.validateAmount(this.invoiceData.total);
+                validating = validating && ItemValidator.validateAmount(this.invoiceData.subtotal);
+                validating = validating && ItemValidator.validateAmount(this.invoiceData.discount);
+                validating = validating && ItemValidator.validateAmount(this.invoiceData.net);
+
+                this.everythingFineToSave = validating;
             },
             clearAndFocusOnBarcodeField() {
                 this.barcodeNameAndSerialField = "";
@@ -561,7 +591,6 @@
 
 
             updateGatewaysAmounts(e) {
-                console.log(e);
                 this.invoiceData.status = e.status;
                 this.invoiceData.methods = [];
                 for (let i = 0; i < e.methods.length; i++) {
@@ -579,17 +608,13 @@
                     this.expensesList.splice(e.index, 1, e.expense);
                     this.updateNetAfterExpenses();
                 }
-                this.updateListItemsWidgets();
+
             },
 
 
             expenseIncludeInNet(e) {
-                if (parseFloat(e.expense.amount) > 0) {
-                    this.net = parseFloat(this.net) + parseFloat(e.expense.amount);
-                    this.expensesList.splice(e.index, 1, e.expense);
-                }
-
-
+                this.invoiceData.net = ItemMath.sum(this.invoiceData.net, e.expense.amount);
+                this.expensesList.splice(e.index, 1, e.expense);
                 this.updateListItemsWidgets();
             },
 
@@ -603,18 +628,16 @@
             updateNetAfterExpenses() {
 
                 let total = 0;
-                for (var i = 0; i < this.expensesList.length; i++) {
+                for (let i = 0; i < this.expensesList.length; i++) {
                     let expense = this.expensesList[i];
-                    if (expense.is_open && helpers.isNumber(expense.amount) && expense.is_apended_to_net &&
-                        parseFloat(expense.amount) !== 'NaN') {
-                        total = ItemMath.sub(total, expense.amount);
+                    if (expense.is_apended_to_net && parseFloat(expense.amount) > 0) {
+                        total = ItemMath.sum(total, expense.amount);
                     }
-
                     this.updateListItemsWidgets();
                 }
 
 
-                if (parseFloat(total) > 0) {
+                if (total > 0) {
                     this.invoiceData.net = ItemMath.sum(total, db.model.sum(this.invoiceData.items, 'net'));
                 } else {
                     this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net');

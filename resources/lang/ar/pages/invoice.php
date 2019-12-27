@@ -58,6 +58,7 @@ return [
 	'invoice_type' => 'نوع الفاتورة',
 	'sales_price' => 'سعر البيع',
 	'item_available_qty' => 'المتوفر',
+	'save_and_print4' => 'حفظ وطباعة',
 	'paid' => 'مدفوعة',
 	'credit' => 'آجلة',
 	'is_paid' => 'مسددة',
@@ -69,6 +70,7 @@ return [
 	'edit' => 'تعديل',
 	'delete' => 'استرجاع كامل الفاتورة',
 	'PurchaseBaseUrl' => route('accounting.purchases.index'),
+	'creator'=>'الموظف',
 	
 
 ];

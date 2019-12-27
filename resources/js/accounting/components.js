@@ -26,6 +26,8 @@ import AccountingPurchasesDatatableComponent from './components/purchases/purcha
 import AccountingPurchasesCreateComponent from './components/purchases/purchaseseCreateComponent';
 import AccountingInvoiceEmbeddedPaymentsGatewayLayout from './components/layout/invoiceEmbeddedPaymentsGatewayLayout';
 import AccountingInvoiceEmbeddedPurchaseExpensesLayout from './components/layout/invoiceEmbeddedPurchaseExpensesLayout';
+import AccountingSalesDatatableComponent from './components/sales/salesDatatableComponent';
+import AccountingSalesCreateComponent from './components/sales/salesCreateComponent';
 
 
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
@@ -56,3 +58,5 @@ Vue.component('accounting-purchases-datatable-component', AccountingPurchasesDat
 Vue.component('accounting-purchases-create-component', AccountingPurchasesCreateComponent);
 Vue.component('accounting-invoice-embedded-payments-gateway-layout', AccountingInvoiceEmbeddedPaymentsGatewayLayout);
 Vue.component('accounting-invoice-embedded-purchase-expenses-layout', AccountingInvoiceEmbeddedPurchaseExpensesLayout);
+Vue.component('accounting-sales-datatable-component', AccountingSalesDatatableComponent);
+Vue.component('accounting-sales-create-component', AccountingSalesCreateComponent);

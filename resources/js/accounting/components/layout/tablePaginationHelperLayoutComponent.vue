@@ -86,8 +86,8 @@
                 this.shownPages = [];
                 if (this.prev_page_url != null) {
                     var counter = 1;
-                    for (var i = this.current_page - 1; i > 0 && counter <= 5; i-- && counter++) {
-                        this.shownPages.push(i);
+                    for (var i = 0; i < this.current_page - 1 && counter <= 5; i++ && counter++) {
+                        this.shownPages.push(i + 1);
                     }
                 }
 

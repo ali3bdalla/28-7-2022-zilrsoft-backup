@@ -256,7 +256,6 @@
                     defaultVatSaleValue: 5,
                     defaultVatPurchaseValue: 5,
                 },
-
                 time: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' ' + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
             };
         },
@@ -382,7 +381,7 @@
 
 
             showActiveDateTime() {
-                var vm = this;
+                let vm = this;
                 setInterval(function () {
 
                     vm.time = helpers.getFullDateAndTime();

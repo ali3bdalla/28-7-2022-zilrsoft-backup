@@ -3,6 +3,8 @@
 	namespace App\Http\Requests\Accounting\Purchase;
 	
 	use App\Invoice;
+	use App\PurchaseInvoice;
+	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class DatatableRequest extends FormRequest
@@ -14,7 +16,7 @@
 		 */
 		public function authorize()
 		{
-			return $this->user()->can('manage inventory');
+			return $this->user()->can('view purchase');
 		}
 		
 		/**
@@ -33,90 +35,104 @@
 		{
 			
 			$query = Invoice::whereIn('invoice_type',['r_purchase','purchase'])->with('creator','items','purchase.vendor');
+
 //
-//			if ($this->has('barcode') && $this->filled('barcode')){
-//				$query = $query->where('barcode','LIKE','%'.$this->barcode.'%');
-//			}
-//
-//			if ($this->has('creators') && $this->filled('creators')){
-//				$query = $query->whereIn('creator_id',$this->creators);
-//			}
-//
-//
-//			if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
-//				$this->filled
-//				('endDate')){
-//
-//				$_startDate = Carbon::parse($this->startDate);
-//				$_endDate = Carbon::parse($this->endDate);
-//
-//				$query = $query->whereBetween('created_at',[
-//					$_startDate->toDateString(),
-//					$_endDate->toDateString()
-//				]);
-//			}
-//
-//
-//			if ($this->has('name') && $this->filled('name')){
-//				$query = $query->where('name','LIKE','%'.$this->name.'%')->orWhere('ar_name','LIKE','%'.$this->name
-//					.'%');
-//			}
-//
-//
-//
+			
+			if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
+				$this->filled
+				('endDate')){
+				
+				$_startDate = Carbon::parse($this->startDate);
+				$_endDate = Carbon::parse($this->endDate);
+				
+				$query = $query->whereBetween('created_at',[
+					$_startDate->toDateString(),
+					$_endDate->toDateString()
+				]);
+			}
+			
+			
+			if ($this->has('creators') && $this->filled('creators')){
+				$query = $query->whereIn('creator_id',$this->input("creators"));
+			}
+			
+			
+			if ($this->has('vendors') && $this->filled('vendors')){
+				$ids = PurchaseInvoice::whereIn('vendor_id',$this->input("vendors"))->get()->pluck('invoice_id');
+//				return $ids;
+				$query = $query->whereIn('id',$ids);
+			}
+			
 			
 			if ($this->has('id') && $this->filled('id')){
 				$query = $query->where('id',$this->id);
 			}
+
 //
 //
-//			if ($this->has('available_qty') && $this->filled('available_qty')){
-//				$query = $query->where('available_qty',$this->available_qty);
-//			}
-//
-//			if ($this->has('date') && $this->filled('date')){
-//				$query = $query->where('date','LIKE','%'.$this->date.'%');
-//			}
-//
-//
-//			if ($this->has('price') && $this->filled('price')){
-//				$price = explode("-",$this->price);
-//				if (count($price) >= 2){
-//					$startPrice = $price[0];
-//					$endPrice = $price[1];
-//				}else{
-//					$startPrice = $this->price;
-//					$endPrice = $this->price;
-//				}
-//				$query = $query->whereBetween('price',[$startPrice,$endPrice]);
-//			}
-//
-//
-//			if ($this->has('price_with_tax') && $this->filled('price_with_tax')){
-//				$price_with_tax = explode("-",$this->price_with_tax);
-//				if (count($price_with_tax) >= 2){
-//					$startPriceWithTax = $price_with_tax[0];
-//					$endPriceWithTax = $price_with_tax[1];
-//				}else{
-//					$startPriceWithTax = $this->price_with_tax;
-//					$endPriceWithTax = $this->price_with_tax;
-//				}
-//				$query = $query->whereBetween('price_with_tax',[$startPriceWithTax,$endPriceWithTax]);
-////				$query = $query->where('price_with_tax',$this->price_with_tax);
-//			}
-////
-//
-//
-//			if ($this->has('current_status') && $this->filled('current_status')){
-//				if (in_array($this->input("current_status"),['active','pending'])){
-//					$query = $query->where('status',$this->input("current_status"));
-//				}else if ($this->input("current_status") == 'kits'){
-//					$query = $query->where('is_kit',true);
-//				}else{
-//					$query = $query->whereIn('status',['active','pending']);
-//				}
-//
-//			}
+			if ($this->has('net') && $this->filled('net')){
+				$amount = explode("-",$this->net);
+				if (count($amount) >= 2){
+					$startAmount = $amount[0];
+					$endAmount = $amount[1];
+				}else{
+					$startAmount = $this->net;
+					$endAmount = $this->net;
+				}
+				$query = $query->whereBetween('net',[$startAmount,$endAmount]);
+			}
+			if ($this->has('tax') && $this->filled('tax')){
+				$amount = explode("-",$this->tax);
+				if (count($amount) >= 2){
+					$startAmount = $amount[0];
+					$endAmount = $amount[1];
+				}else{
+					$startAmount = $this->tax;
+					$endAmount = $this->tax;
+				}
+				$query = $query->whereBetween('tax',[$startAmount,$endAmount]);
+			}
+			if ($this->has('total') && $this->filled('total')){
+				$amount = explode("-",$this->total);
+				if (count($amount) >= 2){
+					$startAmount = $amount[0];
+					$endAmount = $amount[1];
+				}else{
+					$startAmount = $this->total;
+					$endAmount = $this->total;
+				}
+				$query = $query->whereBetween('total',[$startAmount,$endAmount]);
+			}
+			if ($this->has('discount') && $this->filled('discount')){
+				$amount = explode("-",$this->discount);
+				if (count($amount) >= 2){
+					$startAmount = $amount[0];
+					$endAmount = $amount[1];
+				}else{
+					$startAmount = $this->discount;
+					$endAmount = $this->discount;
+				}
+				$query = $query->whereBetween('discount',[$startAmount,$endAmount]);
+			}
+			if ($this->has('subtotal') && $this->filled('subtotal')){
+				$amount = explode("-",$this->subtotal);
+				if (count($amount) >= 2){
+					$startAmount = $amount[0];
+					$endAmount = $amount[1];
+				}else{
+					$startAmount = $this->subtotal;
+					$endAmount = $this->subtotal;
+				}
+				$query = $query->whereBetween('subtotal',[$startAmount,$endAmount]);
+			}
+			
+			
+			if ($this->has('current_status') && $this->filled('current_status')){
+				if (in_array($this->input("current_status"),['credit','paid'])){
+					$query = $query->where('current_status',$this->input("current_status"));
+				}
+				
+			}
 //
 //
 			if ($this->has('orderBy') && $this->filled('orderBy') && $this->has('orderType') && $this->filled('orderType')){

@@ -3,6 +3,7 @@
 	namespace App\Http\Requests\Accounting\Item;
 	
 	use App\Item;
+	use App\ItemSerials;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class FindItemsRequest extends FormRequest
@@ -15,7 +16,9 @@
 		public function authorize()
 		{
 			return $this->user()->can([
-				'manage inventory'
+				'manage inventory',
+				'create purchase',
+				'create sale',
 			]);
 		}
 		
@@ -35,14 +38,33 @@
 		public function results()
 		{
 			
-			$query = Item::where('id','!=',0);
 			
+			$query = Item::where('is_expense',false);
 			if ($this->has('barcode_or_name_or_serial') && $this->filled('barcode_or_name_or_serial')){
 				$query = $query->where('barcode','LIKE','%'.$this->input('barcode_or_name_or_serial').'%')
 					->orWhere('name','LIKE','%'.$this->input('barcode_or_name_or_serial').'%')
 					->orWhere('ar_name','LIKE','%'.$this->input('barcode_or_name_or_serial').'%');
 			}
+			$result = $query->take(5)->get();
 			
-			return $query->take(5)->get();
+			if ($this->has('invoice_type') && $this->input("invoice_type") == 'sale'){
+				
+				if (count($result) == 0){
+					$serail_data = ItemSerials::
+					where('serial',$this->input('barcode_or_name_or_serial'))
+						->whereIn('current_status',['available','r_sale','purchase'])
+						->first();
+					if (!empty($serail_data)){
+						$item = $serail_data->item;
+						$item->has_init_serial = true;
+						$item->init_serial = $serail_data->fresh();
+						$result[] = $item;
+					}
+				}
+//
+			}
+			
+			
+			return $result;
 		}
 	}

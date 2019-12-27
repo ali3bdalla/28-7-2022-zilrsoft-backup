@@ -50,7 +50,7 @@
                                     :title="trans.creator"
                                     @valueUpdated="creatorListUpdated"
                                     default="0"
-                                    identity="000000000"
+                                    identity="000000001"
                                     label_text="name"
 
                             >

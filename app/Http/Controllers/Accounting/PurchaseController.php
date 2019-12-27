@@ -9,6 +9,7 @@
 	use App\Http\Requests\Accounting\Purchase\DatatableRequest;
 	use App\Http\Requests\CreateReturnPurchaseRequest;
 	use App\Invoice;
+	use App\Manager;
 	use App\PurchaseInvoice;
 	use App\User;
 	use Exception;
@@ -23,7 +24,9 @@
 		 */
 		public function index()
 		{
-			return view('accounting.purchases.index');
+			$vendors = User::where('is_vendor',true)->get();
+			$creators = Manager::all();
+			return view('accounting.purchases.index',compact('vendors','creators'));
 			//
 		}
 		
@@ -46,7 +49,7 @@
 		{
 			$receivers = User::where('is_manager',true)->get()->toArray();
 			$vendors = User::where([['is_vendor',true]])->get()->toArray();//,['is_system_user',false]
-			$expenses = Expense::where('appear_in_purchase',true)->get();
+			$expenses = Expense::all();
 			//auth()->user()->gateways()->pluck('gateway_id')->toArray()
 			$gateways = Account::where('slug','gateway')->take(2)->get();
 			return view('accounting.purchases.create',compact('vendors','receivers','gateways','expenses'));

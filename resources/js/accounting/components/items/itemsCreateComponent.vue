@@ -190,9 +190,9 @@
                     <div :dir="app.appLocate=='ar' ? 'rtl' : 'ltr'">
                         <treeselect
                                 :disable-branch-nodes="true"
+                                :disabled="cloningItem==true"
                                 :load-options="loadCategoriesList"
                                 :options="categories"
-                                :disabled="cloningItem==true"
                                 :placeholder="app.trans.category"
                                 :show-count="true"
                                 :value="itemData.categoryId"
@@ -361,11 +361,9 @@
                 this.itemData.expenseVendorId = this.editedItemData.expense_vendor_id;
                 this.itemData.categoryId = this.editedItemData.category_id;
 
-                    if (!this.editedItemData.name.includes(this.editedItemCategory.name))
-                    {
-                        this.categoryNameShouldBeInItemName = false;
-                    }
-                    //editedItemCategory
+                if (!this.editedItemData.name.includes(this.editedItemCategory.name)) {
+                    this.categoryNameShouldBeInItemName = false;
+                }
 
                 if (this.cloningItem != null && this.cloningItem == 1) {
                     this.itemData.barcode = "";

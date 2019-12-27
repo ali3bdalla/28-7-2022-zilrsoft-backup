@@ -11,6 +11,6 @@
             :vendors='@json($vendors)'
             :gateways='@json($gateways)'
             :receivers='@json($receivers)'
-            :creator='@json(auth()->user()->with('department','branch')->first())'
+            :creator='@json(auth()->user()->with('department','branch','user')->first())'
     ></accounting-purchases-create-component>
 @endsection

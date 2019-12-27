@@ -28,18 +28,18 @@ exports.inputHelper = {
             return false;
         }
 
-        if (min != null) {
-            if (qty > min) {
-                this.showErrorOnInput(el, 'الكمية يجب ان تكون اقل من او تساوي ' + min);
+        if (max != null) {
+            if (qty > max) {
+                this.showErrorOnInput(el, 'الكمية يجب ان تكون اقل من او تساوي ' + max);
                 el.value = 0;
                 return false;
             }
         }
 
 
-        if (max != null) {
-            if (qty < max) {
-                this.showErrorOnInput(el, 'الكمية يجب ان تكون اكبر  من او تساوي ' + max);
+        if (min != null) {
+            if (qty < min) {
+                this.showErrorOnInput(el, 'الكمية يجب ان تكون اكبر  من او تساوي ' + min);
                 el.value = 0;
                 return false;
             }
@@ -60,7 +60,7 @@ exports.inputHelper = {
         return true;
     },
 
-    validateDiscount:function (discount = 0, el) {
+    validateDiscount: function (discount = 0, el) {
         el.classList.remove("inputErrorClass");
         if (!TextValidator.isDecimal(discount + "")) {
             this.showErrorOnInput(el, 'الخصم غير صحيح');
@@ -72,6 +72,9 @@ exports.inputHelper = {
 
     showErrorOnInput: function (el, message = "") {
         el.classList.add("inputErrorClass");
+
+        // el.focus();
+        // el.select();
 
     }
 

@@ -1,3 +1,5 @@
+const itemWork = require('./item');
+
 exports.db = {
     model: {
         exists: function (arr, value) {
@@ -53,7 +55,7 @@ exports.db = {
             return array;
         },
         replace: function (arr, index, value) {
-            arr.splice(index , 1, value);
+            arr.splice(index, 1, value);
             return arr;
         },
         deleteByIndex: function (array, index) {
@@ -79,8 +81,7 @@ exports.db = {
                     if (item[condition_col] == condition_value) {
                         resutl.push(item[col]);
                     }
-                }else
-                {
+                } else {
                     resutl.push(item[col]);
                 }
             }
@@ -101,10 +102,22 @@ exports.db = {
             arr[index][col] = value;
             return arr;
 
+        },
+        validateAmounts(arr, cols = []) {
+            let len = arr.length;
+            let colLen = cols.length;
+            let result = true;
+            for (let i = 0; i < len; i++) {
+                let item = arr[i];
+                for (let x = 0; x < colLen; x++) {
+                    result = itemWork.validator.validateAmount(item[cols[x]]);
+                }
+            }
+
+            return result;
         }
 
     },
-    validator: {}
 
 };
 
