@@ -384,8 +384,8 @@
             };
         },
         created: function () {
-            this.InvoiceData.receiverId = this.creator.id;
             this.initExpensesList();
+
 
         },
 

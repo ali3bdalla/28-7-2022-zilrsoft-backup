@@ -53,6 +53,18 @@ exports.accounting = {
         return value.toString().match(/^-?\d+(?:\.\d{0,3})?/)[0];
 
     },
+
+    getKitInformation: function (item) {
+        item.available_qty = 100;
+        item.is_fixed_price = true;
+        item.total = item.data.total;
+        item.subtotal = item.data.subtotal;
+        item.discount = item.data.discount;
+        item.price_with_tax = this.getSalesPriceWithTaxFromSalesPriceAndVat(item.price, item.vts);
+        item.net = item.data.net;
+        item.tax = item.data.tax;
+        item.is_fixed_price = true;
+    }
 };
 
 exports.math = {

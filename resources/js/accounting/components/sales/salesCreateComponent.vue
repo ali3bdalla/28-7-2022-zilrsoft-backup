@@ -453,9 +453,9 @@
             itemWithSerialProccess(item, parent = null) {
                 let serial = item.init_serial.serial;
                 if (parent == null) {
-
                     item.serials = [serial];
                     item.qty = 1;
+
                     item.discount = 0;
                     this.invoiceData.items.push(item);
                     var newItem = db.model.find(this.invoiceData.items, item.id);
@@ -486,7 +486,14 @@
                     item.serials = [];
                 }
 
-                item.discount = 0;
+
+                if (item.is_kit) {
+
+                    item = ItemAccounting.getKitInformation(item);
+                } else {
+                    item.discount = 0;
+                }
+
                 let newItem = this.itemUpdater(item);
                 return newItem;
 

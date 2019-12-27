@@ -6,7 +6,6 @@
                                :sync="true"
                                :width='90'
                                @change="expenseDeIncludeInNet(expense,index)" class="pull-right"
-                               v-if="type!='sale'"
                                v-model="expense.is_apended_to_net"/>
                 &nbsp;
                 &nbsp;

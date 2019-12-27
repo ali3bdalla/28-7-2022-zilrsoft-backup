@@ -50,6 +50,7 @@
 			$receivers = User::where('is_manager',true)->get()->toArray();
 			$vendors = User::where([['is_vendor',true]])->get()->toArray();//,['is_system_user',false]
 			$expenses = Expense::all();
+//			return $expenses;
 			//auth()->user()->gateways()->pluck('gateway_id')->toArray()
 			$gateways = Account::where('slug','gateway')->take(2)->get();
 			return view('accounting.purchases.create',compact('vendors','receivers','gateways','expenses'));
