@@ -18,46 +18,55 @@
 
         <tbody>
         @foreach($items as $item)
-            <tr>
-                <td>
-                    <button class="btn btn-custom-primary btn-xs">{{$loop->index + 1}}</button>
-                </td>
-                <td>{{ $item->item->barcode }}</td>
-                <td>{{ $item->item->locale_name }}</td>
-                <td>
-                    <input type="text" class="form-control input-sm amount-input" value="{{ $item->qty }}" disabled="">
-                </td>
-                <td>
-                    <input type="text" class="form-control input-sm amount-input" value="{{ $item->price }}" disabled="">
+            @if(!(in_array($invoice->invoice_type,['sale','r_sale']) && $item->is_expense))
+                <tr @if($item->belong_to_kit==true) class="bg-custom-primary" @endif>
+                    <td>
+                        <button class="btn btn-custom-primary btn-xs">{{$loop->index + 1}}</button>
+                    </td>
+                    <td>{{ $item->item->barcode }}</td>
+                    <td>{{ $item->item->locale_name }}</td>
+                    <td>
+                        <input type="text" class="form-control input-sm amount-input" value="{{ $item->qty }}"
+                               disabled="">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control input-sm amount-input" value="{{ $item->price }}"
+                               disabled="">
 
-                </td>
-                <td class="">
-                    <input type="text" class="form-control input-sm amount-input" value="{{ $item->total }}" disabled="">
-                </td>
-                <td class="">
-                    <input type="text" class="form-control input-sm amount-input" placeholder="discount"
-                           value="{{ $item->discount }}"
-                           disabled="">
-                </td>
-                <td class="">
-                    <input type="text" class="form-control input-sm amount-input" placeholder="subtotal" readonly="" value="{{
+                    </td>
+                    <td class="">
+                        <input type="text" class="form-control input-sm amount-input" value="{{ $item->total }}"
+                               disabled="">
+                    </td>
+                    <td class="">
+                        <input type="text" class="form-control input-sm amount-input" placeholder="discount"
+                               value="{{ $item->discount }}"
+                               disabled="">
+                    </td>
+                    <td class="">
+                        <input type="text" class="form-control input-sm amount-input" placeholder="subtotal" readonly=""
+                               value="{{
                                 $item->subtotal }}" disabled="">
-                </td>
-                <td class="">
-                    <input type="text" class="form-control input-sm amount-input" placeholder="vat purchase" readonly="" value="{{
+                    </td>
+                    <td class="">
+                        <input type="text" class="form-control input-sm amount-input" placeholder="vat purchase"
+                               readonly=""
+                               value="{{
                                 $item->item->vtp }}%" disabled="">
-                </td>
-                <td class="text-center">
-                    <input type="text" class="form-control input-sm amount-input" placeholder="tax" readonly=""
-                           value="{{ $item->tax
+                    </td>
+                    <td class="text-center">
+                        <input type="text" class="form-control input-sm amount-input" placeholder="tax" readonly=""
+                               value="{{ $item->tax
                                 }}" disabled="">
-                </td>
-                <td class="">
-                    <input type="text" class="form-control input-sm amount-input" placeholder="net" readonly="" value="{{ $item->net
+                    </td>
+                    <td class="">
+                        <input type="text" class="form-control input-sm amount-input" placeholder="net" readonly=""
+                               value="{{ $item->net
                                 }}" disabled="">
-                </td>
+                    </td>
 
-            </tr>
+                </tr>
+            @endif
         @endforeach
 
 

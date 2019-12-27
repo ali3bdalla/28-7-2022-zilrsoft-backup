@@ -8,6 +8,7 @@
 	use App\Http\Requests\CreateQuotationRequest;
 	use App\Http\Requests\CreateReturnSaleRequest;
 	use App\Http\Requests\CreateSalesInvoiceRequest;
+	use App\Invoice;
 	use App\Item;
 	use App\Manager;
 	use App\SaleInvoice;
@@ -49,17 +50,15 @@
 			
 		}
 		
-		public function show(SaleInvoice $sale)
+		public function show(Invoice $sale)
 		{
-			
-			$transactions = $sale->invoice->transactions()->where('description','!=','client_balance')->get();
-			
-			
-			return view('sales.show',compact('sale','transactions'));
+			$transactions = $sale->transactions()->where('description','!=','client_balance')->get();
+			$invoice = $sale;
+			return view('accounting.sales.show',compact('invoice','transactions'));
 			//
 		}
 		
-		public function edit(SaleInvoice $sale)
+		public function edit(Invoice $sale)
 		{
 			$invoice = $sale->invoice;
 			// items

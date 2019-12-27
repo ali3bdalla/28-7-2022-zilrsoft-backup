@@ -36,8 +36,11 @@ exports.db = {
         sum: function (arr, col) {
             var sum = 0;
             for (var i = arr.length - 1; i >= 0; i--) {
+
                 sum = parseFloat(sum) + parseFloat(arr[i][col]);
             }
+
+
             return sum;
 
         },

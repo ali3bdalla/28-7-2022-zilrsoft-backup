@@ -1,11 +1,42 @@
-@if(in_array($invoice->invoice_type,['sale','r_sale']))
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        تكاليف اضافية
+    </div>
 
-@else
+    @if(in_array($invoice->invoice_type,['sale','r_sale']))
+        @foreach($invoice->items as $item)
+            @if($item->item->is_expense)
+                <tr>
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            تكاليف اضافية
-        </div>
+                    <!-- <th class="has-text-white"></th> -->
+
+                    <th text="item.name"
+                        style="text-align: right !important;">{{ $item->item->locale_name }}</th>
+
+                    <th class="has-text-white">
+                        <input type="text" class="input" value="{{ $item->price }}"
+                               disabled="">
+
+                    </th>
+
+                    <th class="has-text-white">
+                        <input type="text" class="input" placeholder="tax" readonly=""
+                               value="{{ $item->tax
+                                }}" disabled="">
+                    </th>
+                    <th class="has-text-white">
+                        <input type="text" class="input" placeholder="net" readonly=""
+                               value="{{ $item->net
+                                }}" disabled="">
+                    </th>
+
+                </tr>
+            @endif
+        @endforeach
+
+    @else
+
+
         <div class="panel-body">
 
             <table class="table table-bordered">
@@ -32,6 +63,6 @@
                 @endforeach
             </table>
         </div>
-    </div>
+    @endif
 
-@endif
+</div>

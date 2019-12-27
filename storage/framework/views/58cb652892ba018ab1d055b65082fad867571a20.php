@@ -1,11 +1,40 @@
-<?php if(in_array($invoice->invoice_type,['sale','r_sale'])): ?>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        تكاليف اضافية
+    </div>
 
-<?php else: ?>
+    <?php if(in_array($invoice->invoice_type,['sale','r_sale'])): ?>
+        <?php $__currentLoopData = $invoice->items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php if($item->item->is_expense): ?>
+                <tr>
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            تكاليف اضافية
-        </div>
+                    <!-- <th class="has-text-white"></th> -->
+
+                    <th text="item.name"
+                        style="text-align: right !important;"><?php echo e($item->item->locale_name); ?></th>
+
+                    <th class="has-text-white">
+                        <input type="text" class="input" value="<?php echo e($item->price); ?>"
+                               disabled="">
+
+                    </th>
+
+                    <th class="has-text-white">
+                        <input type="text" class="input" placeholder="tax" readonly=""
+                               value="<?php echo e($item->tax); ?>" disabled="">
+                    </th>
+                    <th class="has-text-white">
+                        <input type="text" class="input" placeholder="net" readonly=""
+                               value="<?php echo e($item->net); ?>" disabled="">
+                    </th>
+
+                </tr>
+            <?php endif; ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+    <?php else: ?>
+
+
         <div class="panel-body">
 
             <table class="table table-bordered">
@@ -31,6 +60,7 @@
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </table>
         </div>
-    </div>
+    <?php endif; ?>
 
-<?php endif; ?><?php /**PATH /home/vagrant/code/zilrsoft/resources/views/accounting/include/invoice/view_expenses.blade.php ENDPATH**/ ?>
+</div>
+<?php /**PATH /home/vagrant/code/zilrsoft/resources/views/accounting/include/invoice/view_expenses.blade.php ENDPATH**/ ?>

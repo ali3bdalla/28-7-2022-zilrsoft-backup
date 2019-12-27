@@ -47,7 +47,7 @@
                         <span id="vendors-list" class="input-group-addon">{{ trans('pages/invoice.created_at') }}</span>
                         <input type="text" name="" disabled="disabled"
                                value="{{ $invoice->created_at }}"
-                               class="form-control date_field">
+                               class="form-control date_field_center">
                     </div>
                 </div>
             </div>

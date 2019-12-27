@@ -18,42 +18,51 @@
 
         <tbody>
         <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <tr>
-                <td>
-                    <button class="btn btn-custom-primary btn-xs"><?php echo e($loop->index + 1); ?></button>
-                </td>
-                <td><?php echo e($item->item->barcode); ?></td>
-                <td><?php echo e($item->item->locale_name); ?></td>
-                <td>
-                    <input type="text" class="form-control input-sm amount-input" value="<?php echo e($item->qty); ?>" disabled="">
-                </td>
-                <td>
-                    <input type="text" class="form-control input-sm amount-input" value="<?php echo e($item->price); ?>" disabled="">
+            <?php if(!(in_array($invoice->invoice_type,['sale','r_sale']) && $item->is_expense)): ?>
+                <tr <?php if($item->belong_to_kit==true): ?> class="bg-custom-primary" <?php endif; ?>>
+                    <td>
+                        <button class="btn btn-custom-primary btn-xs"><?php echo e($loop->index + 1); ?></button>
+                    </td>
+                    <td><?php echo e($item->item->barcode); ?></td>
+                    <td><?php echo e($item->item->locale_name); ?></td>
+                    <td>
+                        <input type="text" class="form-control input-sm amount-input" value="<?php echo e($item->qty); ?>"
+                               disabled="">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control input-sm amount-input" value="<?php echo e($item->price); ?>"
+                               disabled="">
 
-                </td>
-                <td class="">
-                    <input type="text" class="form-control input-sm amount-input" value="<?php echo e($item->total); ?>" disabled="">
-                </td>
-                <td class="">
-                    <input type="text" class="form-control input-sm amount-input" placeholder="discount"
-                           value="<?php echo e($item->discount); ?>"
-                           disabled="">
-                </td>
-                <td class="">
-                    <input type="text" class="form-control input-sm amount-input" placeholder="subtotal" readonly="" value="<?php echo e($item->subtotal); ?>" disabled="">
-                </td>
-                <td class="">
-                    <input type="text" class="form-control input-sm amount-input" placeholder="vat purchase" readonly="" value="<?php echo e($item->item->vtp); ?>%" disabled="">
-                </td>
-                <td class="text-center">
-                    <input type="text" class="form-control input-sm amount-input" placeholder="tax" readonly=""
-                           value="<?php echo e($item->tax); ?>" disabled="">
-                </td>
-                <td class="">
-                    <input type="text" class="form-control input-sm amount-input" placeholder="net" readonly="" value="<?php echo e($item->net); ?>" disabled="">
-                </td>
+                    </td>
+                    <td class="">
+                        <input type="text" class="form-control input-sm amount-input" value="<?php echo e($item->total); ?>"
+                               disabled="">
+                    </td>
+                    <td class="">
+                        <input type="text" class="form-control input-sm amount-input" placeholder="discount"
+                               value="<?php echo e($item->discount); ?>"
+                               disabled="">
+                    </td>
+                    <td class="">
+                        <input type="text" class="form-control input-sm amount-input" placeholder="subtotal" readonly=""
+                               value="<?php echo e($item->subtotal); ?>" disabled="">
+                    </td>
+                    <td class="">
+                        <input type="text" class="form-control input-sm amount-input" placeholder="vat purchase"
+                               readonly=""
+                               value="<?php echo e($item->item->vtp); ?>%" disabled="">
+                    </td>
+                    <td class="text-center">
+                        <input type="text" class="form-control input-sm amount-input" placeholder="tax" readonly=""
+                               value="<?php echo e($item->tax); ?>" disabled="">
+                    </td>
+                    <td class="">
+                        <input type="text" class="form-control input-sm amount-input" placeholder="net" readonly=""
+                               value="<?php echo e($item->net); ?>" disabled="">
+                    </td>
 
-            </tr>
+                </tr>
+            <?php endif; ?>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 

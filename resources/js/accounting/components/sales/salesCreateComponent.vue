@@ -254,7 +254,7 @@
                                     <input :placeholder="app.trans.subtotal"
                                            class="form-control  input-xs amount-input"
                                            disabled type="text"
-                                           v-model="invoiceData.total">
+                                           v-model="invoiceData.subtotal">
                                 </div>
                             </div>
 

@@ -269,7 +269,7 @@
                                     <input :placeholder="app.trans.subtotal"
                                            class="form-control  input-xs amount-input"
                                            disabled type="text"
-                                           v-model="invoiceData.total">
+                                           v-model="invoiceData.subtotal">
                                 </div>
                             </div>
 
@@ -474,8 +474,10 @@
             },
             updateInvoiceData() {
                 this.invoiceData.total = db.model.sum(this.invoiceData.items, 'total');
+
                 this.invoiceData.discount = db.model.sum(this.invoiceData.items, 'discount');
                 this.invoiceData.subtotal = db.model.sum(this.invoiceData.items, 'subtotal');
+                console.log( this.invoiceData.subtotal);
                 this.invoiceData.tax = db.model.sum(this.invoiceData.items, 'tax');
                 this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net');
                 this.validateInvoiceData();
@@ -606,7 +608,7 @@
             expensesListUpdated(e) {
                 this.expensesList.splice(e.index, 1, e.expense);
                 this.updateNetAfterExpenses();
-                
+
 
             },
 
