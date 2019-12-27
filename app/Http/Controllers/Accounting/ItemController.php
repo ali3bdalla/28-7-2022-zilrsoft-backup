@@ -8,6 +8,7 @@
 	use App\Http\Requests\Accounting\Item\CreateItemRequest;
 	use App\Http\Requests\Accounting\Item\DatatableRequest;
 	use App\Http\Requests\Accounting\Item\UpdateItemRequest;
+	use App\Invoice;
 	use App\Item;
 	use App\Manager;
 	use App\User;
@@ -48,6 +49,14 @@
 		public function datatable(DatatableRequest $request)
 		{
 			return $request->data();
+		}
+		
+		/**
+		 * @param Invoice $saleInvoice
+		 */
+		public function show(Invoice $saleInvoice)
+		{
+		
 		}
 		
 		/**
@@ -150,15 +159,28 @@
 			//
 		}
 		
+		/**
+		 *
+		 */
 		public function transactions()
 		{
 			$this->middleware(['permission:view item transactions']);
 			
 		}
 		
+		/**
+		 * @param ActivateItemsRequest $request
+		 */
 		public function activate_items(ActivateItemsRequest $request)
 		{
 			return $request->activate();
+		}
+		
+		public function view_serials(Item $item)
+		{
+			
+			$serials = $item->serials()->paginate(20);
+			return view('accounting.items.view_serials',compact('item','serials'));
 		}
 		
 	}

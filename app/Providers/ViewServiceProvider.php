@@ -39,7 +39,7 @@
 			//
 			
 			
-			Paginator::defaultView('vendor.pagination.custom.table');
+//			Paginator::defaultView('vendor.pagination.custom.table');
 			
 		}
 	}

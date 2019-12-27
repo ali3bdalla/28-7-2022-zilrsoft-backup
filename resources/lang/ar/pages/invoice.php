@@ -44,6 +44,8 @@ return [
 	'price_receipt' => 'طباعة الايصال',
 	'purchase' => ' مشتريات',
 	'return_purchase' => 'مرتجع مشتريات',
+	'sale' => ' مبيعات',
+	'return_sale' => 'مرتجع مبيعات',
 	'view_purchase' => 'عرض فاتورة مشتريات',
 	'view_sale' => 'عرض فاتورة مبيعات',
 	'invoice' => 'فاتورة',

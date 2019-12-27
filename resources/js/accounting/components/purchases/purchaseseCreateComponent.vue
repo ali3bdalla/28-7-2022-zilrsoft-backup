@@ -604,10 +604,9 @@
 
 
             expensesListUpdated(e) {
-                if (parseFloat(e.expense.amount) > 0) {
-                    this.expensesList.splice(e.index, 1, e.expense);
-                    this.updateNetAfterExpenses();
-                }
+                this.expensesList.splice(e.index, 1, e.expense);
+                this.updateNetAfterExpenses();
+                
 
             },
 

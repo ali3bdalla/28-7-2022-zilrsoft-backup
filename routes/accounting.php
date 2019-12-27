@@ -5,7 +5,6 @@
 	app()->setLocale('ar');
 	Auth::routes(["verify" => true]);
 	
-	
 	Route::get('/','HomeController@index');
 	Route::middleware(['auth','verified'])->group(function (){
 		Route::resources([
@@ -32,6 +31,7 @@
 			Route::get('view/serial_activities','ItemController@serial_activities')->name('serial_activities');
 			Route::get('{item}/clone','ItemController@clone')->name('clone');
 			Route::get('{item}/transactions','ItemController@transactions')->name('transactions');
+			Route::get('{item}/view_serials','ItemController@view_serials')->name('view_serials');
 			Route::name('helper.')->name('helper.')->prefix('helper')->group(function (){
 				Route::get('validate_barcode','ItemController@validate_barcode')->name('validate_barcode');
 				Route::post('activate_items','ItemController@activate_items')->name('activate_items');
