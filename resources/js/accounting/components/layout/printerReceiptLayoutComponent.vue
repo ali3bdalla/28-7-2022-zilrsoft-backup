@@ -130,7 +130,7 @@
                 let data = [{
                     type: 'html',
                     format: 'file',
-                    data: this.app.trans.SaleBaseUrl + id + '/print_receipt'
+                    data: this.app.BaseApiUrl + 'printer/printer_receipt/' + id
                 }];
 
                 qz.print(config, data).then(function () {

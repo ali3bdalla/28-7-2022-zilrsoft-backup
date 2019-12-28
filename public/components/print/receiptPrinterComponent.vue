@@ -156,7 +156,7 @@
                 var data = [{
                     type: 'html',
                     format: 'file',
-                    data: '/management/printer/sale_receipt/' + this.id
+                    data: '/accounting/printer/print_receipt/' + this.id
                 }];
 
                 qz.print(config, data).then(function () {

@@ -47,7 +47,7 @@
                         <span id="vendors-list" class="input-group-addon"><?php echo e(trans('pages/invoice.created_at')); ?></span>
                         <input type="text" name="" disabled="disabled"
                                value="<?php echo e($invoice->created_at); ?>"
-                               class="form-control date_field">
+                               class="form-control date_field_center">
                     </div>
                 </div>
             </div>

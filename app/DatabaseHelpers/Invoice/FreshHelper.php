@@ -39,12 +39,12 @@
 		 *
 		 * @return $this
 		 */
-		public function addChildInvoice($user_id,$base_invoice_type,$parentInvoice = null)
+		public function addChildInvoice($user_id,$base_invoice_type,$salesman_id = null,$parentInvoice = null)
 		{
 			if (in_array($base_invoice_type,['sale','r_sale'])){
 				$creator = auth()->user();
 				$this->sale()->create([
-					'salesman_id' => $creator->id,
+					'salesman_id' => $salesman_id == null ? $creator->id : $salesman_id,
 					'client_id' => $user_id,
 					'organization_id' => $creator->organization_id,
 					'invoice_type' => $base_invoice_type,

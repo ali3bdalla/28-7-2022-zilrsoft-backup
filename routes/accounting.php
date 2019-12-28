@@ -30,6 +30,7 @@
 		Route::name('printer')->prefix('printer')->group(function (){
 			Route::get('sign_receipt_printer','PrinterController@sign_receipt_printer');
 			Route::get('printers','PrinterController@printers');
+			Route::get('print_receipt/{sale}','PrinterController@print_receipt');
 		});
 		
 		Route::name('items.')->prefix('items')->group(function (){

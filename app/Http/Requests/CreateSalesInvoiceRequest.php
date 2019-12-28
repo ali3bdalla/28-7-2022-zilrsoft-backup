@@ -42,6 +42,7 @@
 				"items.*.serials.*" => 'required|validate_item_serials',
 				"items.*.serials" => "validate_serials_array|array",
 				"client_id" => "required|integer|exists:users,id",
+				"salesman_id" => "required|integer|exists:managers,id",
 				'methods.*.id' => 'required|integer|exists:accounts,id',
 			
 			];
@@ -55,7 +56,7 @@
 				$items = $this->items;
 				$base_invoice =
 					Invoice::initEmptyInvoice('sale')
-						->addChildInvoice($this->client_id,"sale")
+						->addChildInvoice($this->client_id,"sale",$this->salesman_id)
 						->createExpensesPurchases($items)
 						->addItemsToBaseInvoice($items)
 						->updateBaseInvoiceAccountingInformation()

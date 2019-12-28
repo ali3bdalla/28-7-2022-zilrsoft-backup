@@ -716,7 +716,7 @@
                         window.location.reload();
                     })
                     .catch(function (error) {
-                        alert(error.response)
+                        console.log(error.response)
                     });
 
             },

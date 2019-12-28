@@ -48,6 +48,12 @@
 		{
 			return view('accounting.printer.printers');
 		}
+		
+		public function print_receipt(Invoice $sale)
+		{
+			$invoice =  $sale;
+			return view('accounting.printer.receipt',compact('invoice'));
+		}
 
 //
 //		public function barcode(Item $item)

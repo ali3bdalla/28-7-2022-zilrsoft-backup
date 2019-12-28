@@ -108,14 +108,11 @@
 			}
 			
 			
-//			if ($this->is_need_serial){
-//				if (in_array($baseInvoice->invoice_type,['sale','r_sale']))
-//					$baseInvoice->sale->
-//					set_item_serials_status_as_paid_for_this_sale_invoice($request_data['serials']);
-//				else
-//					$baseInvoice->purchase->
-//					set_item_serials_status_as_paid_for_this_sale_invoice($request_data['serials']);
-//			}
+			if ($this->is_need_serial){
+				$baseInvoice->sale->
+				set_item_serials_status_as_paid_for_this_sale_invoice($request_data['serials']);
+				
+			}
 			
 			
 			return $baseItem;
@@ -133,8 +130,8 @@
 				throw new ValidationException('item in package need to pass serials array');
 			
 			if (!empty($data['serials'])){
-				foreach (collect($data["serials"])->pluck("serial")->toArray() as $serial){
-					$db_serial = $this->serials()->where('serial',$serial)->first();
+				foreach ($data['serials'] as $serial){//collect($data["serials"])->pluck("serial")->toArray()
+					$db_serial = ItemSerials::where('serial',$serial)->first();
 					
 					
 					if (empty($db_serial))
