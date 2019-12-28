@@ -710,14 +710,17 @@
                     creator_id: this.creator.id,
                 };
                 let appVm = this;
-                axios.post(this.app.BaseApiUrl + 'sales', data)
-                    .then(function (response) {
 
-                        window.location.reload();
-                    })
-                    .catch(function (error) {
-                        console.log(error.response)
-                    });
+                console.log(data);
+                //
+                // axios.post(this.app.BaseApiUrl + 'sales', data)
+                //     .then(function (response) {
+                //
+                //         window.location.reload();
+                //     })
+                //     .catch(function (error) {
+                //         console.log(error.response)
+                //     });
 
             },
 

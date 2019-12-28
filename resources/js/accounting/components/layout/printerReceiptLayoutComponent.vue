@@ -132,10 +132,9 @@
                 let data = [{
                     type: 'html',
                     format: 'file',
-                    data: this.app.BaseApiUrl + '/printer/print_receipt/' + id
+                    data: this.app.BaseApiUrl + 'printer/print_receipt/' + id
                 }];
 
-                // console.log(this.app.BaseApiUrl + 'printer/print_receipt/' + id);
                 qz.print(config, data).then(function () {
                 });
             },
