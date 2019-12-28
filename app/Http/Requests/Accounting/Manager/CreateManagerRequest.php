@@ -35,6 +35,7 @@
 				'department_id' => 'required|integer|exists:departments,id',
 				'permissions' => 'array|nullable',
 				'permissions.*' => 'string|exists:permissions,name',
+				'gateways.*.id' => 'integer|exists:accounts,id',
 			];
 		}
 		
@@ -71,6 +72,19 @@
 				]);
 				
 				
+				if (!empty($this->gateways)){
+					
+					if (!empty($this->gateways)){
+						foreach ($this->gateways as $gateway){
+							$manager->gateways()->create([
+								'organization_id' => $current->organization_id,
+								'gateway_id' => $gateway['id'],
+							]);
+						}
+						
+					}
+					
+				}
 				if (!empty($this->permissions)){
 					$manager->givePermissionTo($this->permissions);
 				}

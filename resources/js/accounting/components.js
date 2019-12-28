@@ -17,6 +17,7 @@ import AccountingIdentitiesDatatableComponent from './components/users/identitie
 import AccountingManagersDatatableComponent from './components/users/managersDatatableComponent';
 import AccountingIdentitiesCreateComponent from './components/users/identitiesCreateComponent';
 import AccountingManagersCreateComponent from './components/users/managersCreateComponent';
+import AccountingManagersGatewaysComponent from './components/users/managersGatewaysComponent';
 import AccountingManagerPermissionAndRoleComponent from './components/users/managerPermissionAndRoleComponent';
 import AccountingDashboardItemsChartComponent from './components/dashboard/dashboardItemsChartComponent';
 import AccountingBeginningDatatableComponent from './components/inventories/beginningDatatableComponent';
@@ -50,6 +51,7 @@ Vue.component('accounting-filters-datatable-component', AccountingFiltersDatatab
 Vue.component('accounting-edit-filter-and-values-component', AccountingEditFilterAndValuesComponent);
 Vue.component('accounting-identities-datatable-component', AccountingIdentitiesDatatableComponent);
 Vue.component('accounting-managers-datatable-component', AccountingManagersDatatableComponent);
+Vue.component('accounting-managers-gateways-component', AccountingManagersGatewaysComponent);
 Vue.component('accounting-identities-create-component', AccountingIdentitiesCreateComponent);
 Vue.component('accounting-managers-create-component', AccountingManagersCreateComponent);
 Vue.component('accounting-managers-permissions-and-roles-component', AccountingManagerPermissionAndRoleComponent);

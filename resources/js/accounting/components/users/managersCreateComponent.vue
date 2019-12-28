@@ -140,6 +140,13 @@
         >
         </accounting-managers-permissions-and-roles-component>
 
+
+        <accounting-managers-gateways-component
+                :gateways='gateways'
+                @gatewaysUpdated="gatewaysUpdated"
+        >
+
+        </accounting-managers-gateways-component>
         <div class="row">
             <div class="col-md-2 col-md-offset-3">
                 <button @click="validateData" class="btn btn-custom-primary" type="submit"><i
@@ -163,7 +170,7 @@
 
     export default {
         props: ["branches", 'editingManager', 'manager', 'managerBranch', 'managerDepartment',
-            'managerPermissions', 'managerUser'],
+            'managerPermissions', 'managerUser', 'gateways'],
         data: function () {
             return {
                 errorFieldName: "",
@@ -204,6 +211,10 @@
             }
         },
         methods: {
+            gatewaysUpdated(e) {
+                this.managerData.gateways = e.gateways;
+            },
+
             branchHasBeenUpdated(event) {
                 this.managerData.branchId = event.value.id;
                 this.departments = event.value.departments;
@@ -226,7 +237,9 @@
                     name_ar: this.managerData.arName,
                     name: this.managerData.enName,
                     permissions: this.managerData.permissions,
+                    gateways: this.managerData.gateways,
                 };
+
 
 
                 var appVm = this;
@@ -235,7 +248,7 @@
                         location.href = appVm.app.BaseApiUrl + 'managers';
                     })
                     .catch(function (error) {
-                        alert(error);
+                        console.log(error);
 
 
                     });

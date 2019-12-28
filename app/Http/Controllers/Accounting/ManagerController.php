@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
+	use App\Account;
 	use App\Branch;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Manager\CreateManagerRequest;
@@ -49,7 +50,8 @@
 		public function create()
 		{
 			$branches = Branch::with('departments')->get();
-			return view('accounting.managers.create',compact('branches'));
+			$gateways = Account::where('slug','gateway')->get();
+			return view('accounting.managers.create',compact('branches','gateways'));
 			//
 		}
 		
@@ -86,8 +88,11 @@
 		 */
 		public function edit(Manager $manager)
 		{
+			$manager_gateways = $manager->gateways()->pluck('id');
+			$gateways = Account::where('slug','gateway')->get();
+			$manager_permissions = $manager->permissions()->pluck('name');
 			$branches = Branch::with('departments')->get();
-			return view('accounting.managers.edit',compact('branches','manager'));
+			return view('accounting.managers.edit',compact('branches','manager','gateways','manager_gateways','manager_permissions'));
 			//
 		}
 		

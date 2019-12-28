@@ -7,7 +7,9 @@
 @section("content")
     <accounting-managers-create-component
             :editing-manager="false"
-            :branches='@json($branches)'>
+            :branches='@json($branches)'
+            :gateways='@json($gateways)'
+    >
 
     </accounting-managers-create-component>
 @endsection
