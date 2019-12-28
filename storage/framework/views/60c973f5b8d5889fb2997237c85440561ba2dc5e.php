@@ -8,8 +8,10 @@
             :manager='<?php echo json_encode($manager, 15, 512) ?>'
             :manager-user='<?php echo json_encode($manager->user, 15, 512) ?>'
             :manager-department='<?php echo json_encode($manager->department, 15, 512) ?>'
-            :manager-branch='<?php echo json_encode($manager->branch, 15, 512) ?>'
-            :manager-permissions='<?php echo json_encode($manager->permissions, 15, 512) ?>'
+            :manager-branch='<?php echo json_encode($manager->branch->load('departments'), 15, 512) ?>'
+            :manager-permissions='<?php echo json_encode($manager_permissions, 15, 512) ?>'
+            :manager-gateways='<?php echo json_encode($manager_gateways, 15, 512) ?>'
+            :gateways='<?php echo json_encode($gateways, 15, 512) ?>'
             :branches='<?php echo json_encode($branches, 15, 512) ?>'>
 
     </accounting-managers-create-component>

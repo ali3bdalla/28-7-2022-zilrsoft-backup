@@ -39,7 +39,8 @@
 			$salesmen = Manager::all();
 			$clients = User::where('is_client',true)->get()->toArray();
 			$expenses = Item::where('is_expense',true)->get();
-			$gateways = Account::where('slug','gateway')->take(5)->get();//'id',auth()->user()->gateways()->pluck('gateway_id')->toArray()
+			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())
+				->get();//'id',auth()->user()->gateways()->pluck('gateway_id')->toArray()
 			return view('accounting.sales.create',compact('clients','salesmen','gateways','expenses'));
 		}
 		

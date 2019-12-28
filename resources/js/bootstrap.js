@@ -75,12 +75,12 @@ window.helpers = helpers;
 
 import Echo from 'laravel-echo'
 
-window.Pusher = require('pusher-js');
-
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: '9500151a91a413d395d7',
-    cluster: 'ap2',
-    encrypted: true
-});
-
+// window.Pusher = require('pusher-js');
+//
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: '9500151a91a413d395d7',
+//     cluster: 'ap2',
+//     encrypted: true
+// });
+//

@@ -12,11 +12,21 @@ exports.db = {
                 return false;
             }
         },
+        in_array: function (arr, value) {
+            let len = arr.length;
+            for (var i = 0; i < len; i++) {
+                if (arr[i] === value) {
+                    return true;
+                }
+            }
+
+            return false;
+        },
 
         find: function (arr, id) {
             var len = arr.length;
             for (var i = 0; i < len; i++) {
-                if (arr[i].id == id) {
+                if (arr[i].id === id) {
                     return arr[i];
                 }
             }

@@ -7,6 +7,7 @@
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Manager\CreateManagerRequest;
 	use App\Http\Requests\Accounting\Manager\DatatableRequest;
+	use App\Http\Requests\Accounting\Mananger\UpdateManagerRequest;
 	use App\Manager;
 	use Exception;
 	use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -88,7 +89,7 @@
 		 */
 		public function edit(Manager $manager)
 		{
-			$manager_gateways = $manager->gateways()->pluck('id');
+			$manager_gateways = $manager->gateways()->pluck('gateway_id')->toArray();
 			$gateways = Account::where('slug','gateway')->get();
 			$manager_permissions = $manager->permissions()->pluck('name');
 			$branches = Branch::with('departments')->get();
@@ -97,25 +98,23 @@
 		}
 		
 		/**
-		 * Update the specified resource in storage.
-		 *
-		 * @param Request $request
+		 * @param UpdateManagerRequest $request
 		 * @param Manager $manager
 		 *
-		 * @return void
+		 * @return |null
+		 * @throws Exception
 		 */
-		public function update(Request $request,Manager $manager)
+		public function update(UpdateManagerRequest $request,Manager $manager)
 		{
 			
+			return $request->save($manager);
 			//
 		}
 		
 		/**
-		 * Remove the specified resource from storage.
-		 *
 		 * @param Manager $manager
 		 *
-		 * @return void
+		 * @throws Exception
 		 */
 		public function destroy(Manager $manager)
 		{

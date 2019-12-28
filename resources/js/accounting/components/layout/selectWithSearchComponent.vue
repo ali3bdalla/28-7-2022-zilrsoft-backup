@@ -90,7 +90,7 @@
             },
 
             someoneUpdateId(id) {
-                var item =db.model.find(this.items, id);
+                let item =db.model.find(this.items, id);
                 if (item != null) {
                     this.valueUpdated(item);
                 }

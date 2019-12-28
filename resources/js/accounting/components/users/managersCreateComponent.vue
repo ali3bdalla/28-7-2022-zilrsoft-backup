@@ -5,11 +5,11 @@
                 <div :class="{'has-error':errorFieldName=='branchId'}" class="form-group">
                     <accounting-select-with-search-layout-component
                             :default="managerData.branchId"
+                            :default-index="managerData.branchId"
                             :identity="1"
                             :index="1"
                             :no_all_option="true"
                             :options="branches"
-
                             :placeholder="app.trans.branch"
                             :title="app.trans.branch"
                             @valueUpdated="branchHasBeenUpdated"
@@ -25,6 +25,7 @@
                 <div :class="{'has-error':errorFieldName=='departmentId'}" class="form-group">
                     <accounting-select-with-search-layout-component
                             :default="managerData.departmentId"
+                            :default-index="managerData.departmentId"
                             :identity="2"
                             :index="2"
                             :no_all_option="true"
@@ -136,13 +137,16 @@
 
 
         <accounting-managers-permissions-and-roles-component
+                :init-permissions="managerPermissions"
                 @pushPermissionsUpdated="pushPermissionsUpdated"
+                v-if="editingManager!==true || managerUser.is_system_user!==true && managerUser.is_supervisor!==true"
         >
         </accounting-managers-permissions-and-roles-component>
 
 
         <accounting-managers-gateways-component
                 :gateways='gateways'
+                :init-gateways="managerGateways"
                 @gatewaysUpdated="gatewaysUpdated"
         >
 
@@ -151,7 +155,8 @@
             <div class="col-md-2 col-md-offset-3">
                 <button @click="validateData" class="btn btn-custom-primary" type="submit"><i
                         class="fa fa-save"></i>
-                    <span> {{ app.trans.create }}</span>
+                    <span v-if="editingManager==null"> {{ app.trans.create }}</span>
+                    <span v-else> {{ app.trans.edit }}</span>
                 </button>
             </div>
             <div class="col-md-3 col-md-offset-3">
@@ -170,7 +175,7 @@
 
     export default {
         props: ["branches", 'editingManager', 'manager', 'managerBranch', 'managerDepartment',
-            'managerPermissions', 'managerUser', 'gateways'],
+            'managerPermissions', 'managerUser', 'gateways', 'managerGateways'],
         data: function () {
             return {
                 errorFieldName: "",
@@ -207,10 +212,21 @@
 
         created: function () {
             if (this.editingManager != null && this.editingManager == true) {
-
+                this.initEditManager();
             }
         },
         methods: {
+
+            initEditManager() {
+                this.managerData.branchId = this.manager.branch_id;
+                this.departments = this.managerBranch.departments;
+                this.managerData.departmentId = this.manager.department_id;
+                this.managerData.permissions = this.managerPermissions;
+                this.managerData.enName = this.manager.name;
+                this.managerData.arName = this.manager.name_ar;
+                this.managerData.email = this.manager.email;
+                this.managerData.phoneNumber = this.managerUser.phone_number;
+            },
             gatewaysUpdated(e) {
                 this.managerData.gateways = e.gateways;
             },
@@ -224,7 +240,6 @@
             },
             pushPermissionsUpdated(e) {
                 this.managerData.permissions = e.permissions;
-                console.log(this.managerData.permissions);
             },
             pushCreationRequest() {
                 var data = {
@@ -241,19 +256,47 @@
                 };
 
 
-
                 var appVm = this;
                 axios.post(this.app.BaseApiUrl + 'managers', data)
                     .then(function (response) {
                         location.href = appVm.app.BaseApiUrl + 'managers';
                     })
                     .catch(function (error) {
-                        console.log(error);
+                        alert(error.response);
 
 
                     });
 
             },
+            pushUpdateRequest() {
+                var data = {
+                    email: this.managerData.email,
+                    id: this.manager.id,
+                    password: this.managerData.password,
+                    password_confirmation: this.managerData.confirmPassword,
+                    branch_id: this.managerData.branchId,
+                    department_id: this.managerData.departmentId,
+                    phone_number: this.managerData.phoneNumber,
+                    name_ar: this.managerData.arName,
+                    name: this.managerData.enName,
+                    permissions: this.managerData.permissions,
+                    gateways: this.managerData.gateways,
+                };
+
+
+                var appVm = this;
+                axios.patch(this.app.BaseApiUrl + 'managers/' + this.manager.id, data)
+                    .then(function (response) {
+                        location.href = appVm.app.BaseApiUrl + 'managers';
+                    })
+                    .catch(function (error) {
+                        alert(error.response);
+
+
+                    });
+
+            },
+
             validateData() {
                 if (this.managerData.branchId <= 0) {
                     this.errorFieldName = 'branchId';
@@ -306,18 +349,21 @@
                 }
 
 
-                if (this.managerData.password == "") {
-                    this.errorFieldName = 'password';
-                    this.errorFieldMessage = this.app.validation.required;
-                    return false;
-                }
+                if (this.editingManager === null) {
+                    if (this.managerData.password == "") {
+                        this.errorFieldName = 'password';
+                        this.errorFieldMessage = this.app.validation.required;
+                        return false;
+                    }
 
-                if (this.managerData.password.length <= 6) {
-                    this.errorFieldName = 'password';
-                    this.errorFieldMessage = 'يجب ان لا تقل كل المرور عن ستة احرف ';
-                    return false;
-                }
+                    if (this.managerData.password.length <= 6) {
+                        this.errorFieldName = 'password';
+                        this.errorFieldMessage = 'يجب ان لا تقل كل المرور عن ستة احرف ';
+                        return false;
+                    }
 
+
+                }
 
                 if (this.managerData.password != this.managerData.confirmPassword) {
                     this.errorFieldName = 'confirmPassword';
@@ -326,7 +372,12 @@
                 }
 
 
-                this.pushCreationRequest();
+                if (this.editingManager !== null && this.editingManager === true) {
+                    this.pushUpdateRequest();
+                } else {
+                    this.pushCreationRequest();
+
+                }
 
             }
         }
@@ -336,6 +387,7 @@
     input[type=text],
     input[type=email],
     input[type=password] {
+        text-align: center !important;
         height: 43px !important;
     }
 </style>

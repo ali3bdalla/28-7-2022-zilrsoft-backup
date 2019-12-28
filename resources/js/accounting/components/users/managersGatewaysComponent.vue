@@ -25,20 +25,30 @@
 
 <script>
     export default {
-        props: ['gateways'],
+        props: ['gateways', 'initGateways'],
         name: "ManagerGatewaysComponent.vue",
         data: function () {
             return {
+                is_selected: true,
                 gateways_list: []
             };
         },
         created: function () {
-            var len = this.gateways.length;
-
-            for (var i = 0; i < len; i++) {
+            let len = this.gateways.length;
+            for (let i = 0; i < len; i++) {
                 var gateway = this.gateways[i];
-                gateway.is_seleted = false;
+                if (this.initGateways != null) {
+                    gateway['is_selected'] = db.model.in_array(this.initGateways, gateway['id']);
+                } else {
+                    gateway['is_selected'] = false;
+                }
+
+
                 this.gateways_list.push(gateway);
+            }
+
+            if (this.initGateways != null) {
+                this.updatedList();
             }
         },
         methods: {

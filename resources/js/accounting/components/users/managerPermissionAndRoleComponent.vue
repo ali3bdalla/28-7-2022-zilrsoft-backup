@@ -32,6 +32,7 @@
 </template>
 <script>
     export default {
+        props: ['initPermissions'],
         data: function () {
             return {
                 trans: trans('users-page'),
@@ -42,6 +43,10 @@
         },
         created() {
             this.sendRequestToLoadRolesAndPermissions();
+            if (null != this.initPermissions) {
+                this.user_permissions = this.initPermissions;
+
+            }
         },
         methods: {
 
@@ -56,7 +61,28 @@
             },
             handleRoleAndPermissions(data) {
 
-                this.roles = data;
+                var roles = data;
+                var result = [];
+                if (this.initPermissions != null) {
+                    for (let i = 0; i < roles.length; i++) {
+                        var role = roles[i];
+                        let permissions = [];
+                        for (let i = 0; i < role.permissions.length; i++) {
+                            var permission = role.permissions[i];
+                            permission.is_checked = db.model.in_array(this.user_permissions, role.permissions[i]['name']);
+                            permissions.push(permission);
+                        }
+                        role.permissions = permissions;
+
+                        result.push(role);
+                    }
+
+                    this.roles = result;
+
+                } else {
+                    this.roles = roles;
+                }
+
 
             },
             checkUnCheckRole(role, index) {
