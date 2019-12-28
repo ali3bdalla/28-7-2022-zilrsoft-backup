@@ -38,7 +38,7 @@
 <script>
 
 
-    import qzPrinty from 'qzprinty';
+    let qz = require("qz-tray");
 
 
     export default {
