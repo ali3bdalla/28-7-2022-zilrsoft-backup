@@ -13,12 +13,12 @@
                         <p v-if="default_barcode_printer==printer">الطابعة الافتراضية للباركود</p>
 
                         <div v-if="default_receipt_printer!=printer && default_barcode_printer!=printer">
-                            <button @click="setAsDefaultBarcode(printer)" class="button is-info">اجعلها
+                            <button @click="setAsDefaultBarcode(printer)" class="btn  btn-info btn-sm">اجعلها
                                 الافتراضية
                                 للباركود
                             </button>
 
-                            <button @click="setAsDefaultReceipt(printer)" class="button is-primary">اجعلها
+                            <button @click="setAsDefaultReceipt(printer)" class="btn btn-primary btn-sm">اجعلها
                                 الافتراضية
                                 للايصال
                             </button>
