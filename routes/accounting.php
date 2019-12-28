@@ -37,6 +37,7 @@
 			Route::get('view/serial_activities','ItemController@serial_activities')->name('serial_activities');
 			Route::get('{item}/clone','ItemController@clone')->name('clone');
 			Route::get('{item}/transactions','ItemController@transactions')->name('transactions');
+			Route::get('{item}/transactions_datatable','ItemController@transactions_datatable')->name('transactions_datatable');
 			Route::get('{item}/view_serials','ItemController@view_serials')->name('view_serials');
 			Route::name('helper.')->name('helper.')->prefix('helper')->group(function (){
 				Route::get('validate_barcode','ItemController@validate_barcode')->name('validate_barcode');

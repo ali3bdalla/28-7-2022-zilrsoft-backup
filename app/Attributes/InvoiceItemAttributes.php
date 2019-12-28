@@ -84,9 +84,9 @@
 		{
 			$urls = [];
 			if (in_array($this->invoice_type,['sale','r_sale']))
-				$url['invoice_url'] = route('management.sales.show',$this->invoice->sale->id);
+				$url['invoice_url'] = route('accounting.sales.show',$this->invoice->sale->id);
 			else
-				$url['invoice_url'] = route('management.purchases.show',$this->invoice->purchase->id);
+				$url['invoice_url'] = route('accounting.purchases.show',$this->invoice->purchase->id);
 			
 			$url['invoice_title'] = $this->invoice->title;
 			
@@ -112,8 +112,8 @@
 		
 		public function getTaxAttribute($value)
 		{
-			
-		
+
+
 //			return truncate_number($value,2);
 //			return sprintf("%01.2f", $value);;
 			return money_format('%.2n',$value);
@@ -133,22 +133,20 @@
 		
 		public function getAccountingDepetAttribute()
 		{
-			if(!in_array($this->invoice_type,['sale','r_purchase']))
+			if (!in_array($this->invoice_type,['sale','r_purchase']))
 				return $this->cost * $this->qty;
 			
 			
 			return 0;
 		}
-		
 		
 		public function getAccountingCreditAttribute()
 		{
-			if(in_array($this->invoice_type,['sale','r_purchase']))
+			if (in_array($this->invoice_type,['sale','r_purchase']))
 				return $this->cost * $this->qty;
 			
 			
 			return 0;
 		}
-		
 		
 	}

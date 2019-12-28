@@ -2,9 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/js/accounting/components/items/itemTransactionsComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/accounting/items/transactions.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/f7826a9b8c36d96079c1b6d3d5f891f60b896b04.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/defer_js.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/defer_js.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attributes/InvoiceAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/InvoiceAttributes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attributes/InvoiceItemAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/InvoiceItemAttributes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ItemController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Processers/ItemProcesser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Processers/ItemProcesser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/accounting.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/accounting.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/wOkjXlrh7J8VI1ZryDokGT4fTESMnRgCllj329Jr" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/wOkjXlrh7J8VI1ZryDokGT4fTESMnRgCllj329Jr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-12-28.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-28.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -163,7 +174,7 @@
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Vue" />
     <property name="com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary" value="PHPUnit" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/accounting/key" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/accounting/items" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -175,11 +186,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/accounting/items" />
       <recent name="$PROJECT_DIR$/public/accounting/key" />
       <recent name="$PROJECT_DIR$/resources/views/accounting/branches/departments" />
       <recent name="$PROJECT_DIR$/resources/views/accounting" />
       <recent name="$PROJECT_DIR$/app/Http/Controllers/Accounting" />
-      <recent name="$PROJECT_DIR$/public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/accounting/printer" />
@@ -426,7 +437,7 @@
       <workItem from="1576517151992" duration="253000" />
       <workItem from="1576577078221" duration="67212000" />
       <workItem from="1576847436326" duration="105082000" />
-      <workItem from="1577181612244" duration="88742000" />
+      <workItem from="1577181612244" duration="89953000" />
     </task>
     <servers />
   </component>

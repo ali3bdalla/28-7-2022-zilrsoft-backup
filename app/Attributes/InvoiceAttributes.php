@@ -137,10 +137,7 @@
 			return $this->created_at->diffForHumans();
 		}
 		
-		public function getPdfPathAttribute()
-		{
-			return Storage::url($this->pdf_invoice);
-		}
+		
 		
 		public function getSteakholderNameAttribute()
 		{

@@ -18,6 +18,7 @@
 		{
 			$histories = $this->history()->where('invoice_type','!=','quotation')->with('invoice','user','creator')->get();
 			
+//			return $histories;
 			
 			$cost = 0;
 			$stock_value = 0;
@@ -33,38 +34,32 @@
 					'stock_qty' => $stock_qty,
 				];
 				
+				
 				$history['description'] = "";
 				$history['invoice_url'] = $history['urls']['invoice_url'];
 				$history['invoice_title'] = $history['urls']['invoice_title'];
 				
 				
+//				return 1;
+//				return $history;
 				if ($history['qty'] > 0){
 					$history['price'] = $history['total'] / $history['qty'];
 				}
 				
 				
 				if (in_array($history['invoice_type'],['purchase','beginning_inventory'])){
-					
-					
 					$result = $this->handlePurchaseHistory($history,$stock_value,$stock_qty);
 				}elseif ($history['invoice_type'] == 'r_sale'){
 					$profit -= $history['price'] - $history['cost'] - $history['discount'];
 					$result = $this->handleReturnSaleHistory($history,$cost,$stock_value,$stock_qty);
-					//	dd($result['final_stock_qty']);
 				}elseif ($history['invoice_type'] == 'r_purchase'){
 					$result = $this->handleReturnPurchaseHistory($history,$cost,$stock_value,$stock_qty);
-//
-				
 				}elseif ($history['invoice_type'] == 'sale'){
 
-//					if($stock_qty!=7)
-//						dd($stock_qty);
-					
 					$profit += $history['price'] - $history['cost'] - $history['discount'];
 					$result = $this->handleSaleHistory($history,$cost,$stock_value,$stock_qty);
 				}
 
-//				dd($result['final_stock_cost']);
 				
 				$cost = $result['final_stock_cost'];
 				$stock_value = $result['final_stock_total'];
@@ -85,6 +80,13 @@
 			return $movement;
 		}
 		
+		/**
+		 * @param $history
+		 * @param $stock_value
+		 * @param $stock_qty
+		 *
+		 * @return mixed
+		 */
 		public function handlePurchaseHistory($history,$stock_value,$stock_qty)
 		{
 			$result = $history;
@@ -111,6 +113,11 @@
 			return $result;
 		}
 		
+		/**
+		 * @param $history
+		 *
+		 * @return mixed
+		 */
 		public function handlePurchaseDiscountHistory($history)
 		{
 			
@@ -139,6 +146,11 @@
 			return $history;
 		}
 		
+		/**
+		 * @param $history
+		 *
+		 * @return mixed
+		 */
 		public function handlePurchaseExpensesHistroy($history)
 		{
 			
@@ -181,6 +193,14 @@
 			return $history;
 		}
 		
+		/**
+		 * @param $history
+		 * @param $cost
+		 * @param $stock_value
+		 * @param $stock_qty
+		 *
+		 * @return mixed
+		 */
 		public function handleReturnSaleHistory($history,$cost,$stock_value,$stock_qty)
 		{
 			$history['current_move_stock_qty'] = $stock_qty + $history['qty'];
@@ -204,16 +224,14 @@
 			return $history;
 		}
 		
+		/**
+		 * @param $history
+		 *
+		 * @return mixed
+		 */
 		public function handleReturnSaleDiscountHistory($history)
 		{
 
-//			$new_current_move_stock_total = $history['current_move_stock_total'] + $history['discount'];
-//
-////			if ($history['current_move_stock_qty'] > 0){
-////				$cost = $new_current_move_stock_total / $history['current_move_stock_qty'];
-////			}else{
-////				$cost = 0;
-////			}
 			$history['has_return_sale_discount'] = true;
 			$history['discount_data'] = [
 				'discount_profits' => $history['discount'],
@@ -221,16 +239,17 @@
 				'discount_stock_cost' => $history['current_move_stock_cost']
 			];
 
-
-//			$history['final_stock_total'] = $new_current_move_stock_total;
-//			$history['final_stock_cost'] = $cost;
-//			$history['final_stock_qty'] = $history['current_move_stock_qty'];
-
-
-//	    $history['total_cost'] = $cost * $history['qty'];
 			return $history;
 		}
 		
+		/**
+		 * @param $history
+		 * @param $cost
+		 * @param $stock_value
+		 * @param $stock_qty
+		 *
+		 * @return mixed
+		 */
 		public function handleReturnPurchaseHistory($history,$cost,$stock_value,$stock_qty)
 		{
 			
@@ -258,6 +277,11 @@
 			return $history;
 		}
 		
+		/**
+		 * @param $history
+		 *
+		 * @return mixed
+		 */
 		public function handleReturnPurchaseDiscountHistory($history)
 		{
 			
@@ -280,10 +304,17 @@
 			$history['final_stock_qty'] = $history['current_move_stock_qty'];
 
 
-//	    $history['total_cost'] = $cost * $history['qty'];
 			return $history;
 		}
 		
+		/**
+		 * @param $history
+		 * @param $cost
+		 * @param $stock_value
+		 * @param $stock_qty
+		 *
+		 * @return mixed
+		 */
 		public function handleSaleHistory($history,$cost,$stock_value,$stock_qty)
 		{
 			$history['current_move_stock_qty'] = $stock_qty - $history['qty'];
@@ -319,27 +350,27 @@
 			
 		}
 		
+		/**
+		 * @param $history
+		 *
+		 * @return mixed
+		 */
 		public function handleSaleDiscountHistory($history)
 		{
 
-//        $stock_value = $history['stock_value'] + $history['discount'];
 			$history['has_sale_discount'] = true;
 			$history['discount_data'] = [
 				'discount_stock_total' => $history['current_move_stock_total'],
 				'discount_stock_cost' => $history['current_move_stock_cost'],
 				'discount_profits' => $history['discount'] * -1
 			];
-//	    $stock_value = $history['stock_value'] + $history['discount'];
 
-//
-//			$history['final_stock_total'] = $history['current_move_stock_total'];
-//			$history['final_stock_cost'] = $history['current_move_stock_cost'];
-//			$history['final_stock_qty'] = $history['current_move_stock_qty'];
-//
-			
 			return $history;
 		}
 		
+		/**
+		 * @param $cost
+		 */
 		public function update_item_cost($cost)
 		{
 			$this->update(

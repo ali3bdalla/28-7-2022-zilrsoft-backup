@@ -14,6 +14,7 @@
 	use App\User;
 	use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 	use Illuminate\Contracts\View\Factory;
+	use Illuminate\Support\Collection;
 	use Illuminate\View\View;
 	use Symfony\Component\HttpFoundation\Request;
 	
@@ -162,9 +163,28 @@
 		/**
 		 *
 		 */
-		public function transactions()
+		public function transactions(Item $item)
 		{
-			$this->middleware(['permission:view item transactions']);
+			return view('accounting.items.transactions',compact('item'));
+			
+		}
+		
+		/**
+		 * @param Item $item
+		 * @param Request $request
+		 *
+		 * @return array|Collection
+		 */
+		public function transactions_datatable(Item $item,Request $request)
+		{
+//			return  1;
+			
+			if ($request->has('startDate') && $request->filled('startDate') && $request->has('endDate') &&
+				$request->filled('endDate')){
+				return $item->stockMovement(['startDate' => $request->startDate,'endDate' => $request->endDate]);
+			}
+//			return  $item;
+			return collect($item->stockMovement());
 			
 		}
 		
