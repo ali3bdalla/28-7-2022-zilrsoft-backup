@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/L83KATSH9PFo9b1jXJvi9xyxDqZlDoc9IkSu1Kus" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/Qb8V7pAhW6vQ0q5Wz9w6EWR3IYEOqsUWwTeL4CgD" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/printersSettingsLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/printersSettingsLayoutComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/defer_js.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/defer_js.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -427,7 +426,7 @@
       <workItem from="1576517151992" duration="253000" />
       <workItem from="1576577078221" duration="67212000" />
       <workItem from="1576847436326" duration="105082000" />
-      <workItem from="1577181612244" duration="88579000" />
+      <workItem from="1577181612244" duration="88742000" />
     </task>
     <servers />
   </component>

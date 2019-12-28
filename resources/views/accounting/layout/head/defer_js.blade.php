@@ -3,6 +3,8 @@
 
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/rsvp@4/dist/rsvp.min.js" defer></script>
+
 <script defer>
     window.reusable_translator = `@json(trans('reusable'))`;
     window.messages = `@json(trans('messages'))`

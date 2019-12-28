@@ -3,6 +3,8 @@
 
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/rsvp@4/dist/rsvp.min.js" defer></script>
+
 <script defer>
     window.reusable_translator = `<?php echo json_encode(trans('reusable'), 15, 512) ?>`;
     window.messages = `<?php echo json_encode(trans('messages'), 15, 512) ?>`
