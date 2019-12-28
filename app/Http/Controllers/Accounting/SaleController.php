@@ -4,6 +4,7 @@
 	
 	use App\Account;
 	use App\Http\Controllers\Controller;
+	use App\Http\Requests\Accounting\Sale\CreateSaleRequest;
 	use App\Http\Requests\Accounting\Sale\DatatableRequest;
 	use App\Http\Requests\CreateQuotationRequest;
 	use App\Http\Requests\CreateReturnSaleRequest;
@@ -42,7 +43,7 @@
 			return view('accounting.sales.create',compact('clients','salesmen','gateways','expenses'));
 		}
 		
-		public function store(CreateSalesInvoiceRequest $request)
+		public function store(CreateSaleRequest $request)
 		{
 			
 			

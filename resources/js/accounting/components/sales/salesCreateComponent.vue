@@ -4,12 +4,14 @@
 
         <div class="row">
             <div class="col-md-6">
-                <button :disabled="!everythingFineToSave" @click="pushDataToServer" class="btn btn-custom-primary"><i
+                <button :disabled="!everythingFineToSave" @click="pushDataToServer"
+                        class="btn btn-custom-primary"><i
                         class="fa fa-save"></i> {{ app.trans.save }}
                 </button>
 
-                <button :disabled="!everythingFineToSave" @click="pushDataToServer" class="btn btn-custom-primary"><i
-                        class="fa fa-save"></i> {{ app.trans.save_and_print4 }}
+                <button :disabled="!everythingFineToSave" @click="pushDataToServer('open')"
+                        class="btn btn-custom-primary"><i
+                        class="fa fa-save"></i> {{ app.trans.save_and_open }}
                 </button>
             </div>
             <div class="col-md-6">
@@ -688,7 +690,7 @@
             },
 
 
-            pushDataToServer() {
+            pushDataToServer(doWork = null) {
                 let data = {
                     items: this.invoiceData.items,
                     salesman_id: this.invoiceData.salesmanId,
@@ -711,16 +713,21 @@
                 };
                 let appVm = this;
 
-                console.log(data);
                 //
-                // axios.post(this.app.BaseApiUrl + 'sales', data)
-                //     .then(function (response) {
-                //
-                //         window.location.reload();
-                //     })
-                //     .catch(function (error) {
-                //         console.log(error.response)
-                //     });
+                axios.post(this.app.BaseApiUrl + 'sales', data)
+                    .then(function (response) {
+                        console.log(response.data);
+                        //
+                        if (doWork == 'open') {
+                            window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                        } else {
+                            window.location.reload();
+                        }
+                        //
+                    })
+                    .catch(function (error) {
+                        alert(error.response)
+                    });
 
             },
 

@@ -27,7 +27,7 @@
 		public function rules()
 		{
 			return [
-				'receiver_id' => 'required|integer|exists:users,id',
+				'receiver_id' => 'required|integer|exists:managers,id',
 				'vendor_id' => 'required|integer|exists:users,id',
 				'department_id' => 'required|integer|exists:departments,id',
 				'branch_id' => 'required|integer|exists:branches,id',

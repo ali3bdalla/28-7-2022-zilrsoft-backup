@@ -47,8 +47,8 @@
 		 */
 		public function create()
 		{
-			$receivers = User::where('is_manager',true)->get()->toArray();
-			$vendors = User::where([['is_vendor',true]])->get()->toArray();//,['is_system_user',false]
+			$receivers = Manager::all();
+			$vendors = User::where([['is_vendor',true],['is_system_user',false]])->get()->toArray();//,['is_system_user',false]
 			$expenses = Expense::all();
 //			return $expenses;
 			//auth()->user()->gateways()->pluck('gateway_id')->toArray()
