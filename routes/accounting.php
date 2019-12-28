@@ -1,5 +1,5 @@
 <?php
-	
+
 //	auth()->loginUsingId(1);
 //
 	app()->setLocale('ar');
@@ -24,8 +24,14 @@
 			'expenses' => 'ExpenseController',
 			'accounts' => 'AccountsController',
 			'transactions' => 'TransactionsController',
-			'settings' => 'SettingsController',
+			'settings' => 'SettingController',
 		]);
+		
+		Route::name('printer')->prefix('printer')->group(function (){
+			Route::get('sign_receipt_printer','PrinterController@sign_receipt_printer');
+			Route::get('printers','PrinterController@printers');
+		});
+		
 		Route::name('items.')->prefix('items')->group(function (){
 			Route::get('view/barcode','ItemController@barcode')->name('barcode');
 			Route::get('view/serial_activities','ItemController@serial_activities')->name('serial_activities');

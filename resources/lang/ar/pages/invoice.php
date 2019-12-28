@@ -51,6 +51,7 @@ return [
 	'invoice' => 'فاتورة',
 	'number' => 'رقم',
 	'price_a4'=>'طباعة الفاتورة',
+	'print_receipt'=>'طباعة الايصال',
 	'phone_number' => 'رقم الهاتف',
 	'return' => 'اضافة مرتجع ',
 	'current_status'=>'الحالة',

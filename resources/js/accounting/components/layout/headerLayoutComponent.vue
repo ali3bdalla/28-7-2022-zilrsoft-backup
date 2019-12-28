@@ -37,8 +37,8 @@
                                 </div>
                                 <div class="pull-right">
                                     <form :action="BaseApiUrl + 'logout'" method="post">
-                                        <input type="hidden" name="_token" :value="csrf">
-                                        <button type="submit" class="btn btn-default btn-flat">تسجيل
+                                        <input :value="csrf" name="_token" type="hidden">
+                                        <button class="btn btn-default btn-flat" type="submit">تسجيل
                                             خروج
                                         </button>
                                     </form>
@@ -48,6 +48,7 @@
                         </ul>
                     </li>
                     <li><a href="/accounting/settings" v-text="trans.settings"></a></li>
+                    <li><a href="/accounting/printer/printers" v-text="trans.printers"></a></li>
                     <li><a href="/accounting/statistics" v-text="trans.statistics"></a></li>
 
 
@@ -58,7 +59,7 @@
 </template>
 <script>
     export default {
-        props: ["csrf","username"],
+        props: ["csrf", "username"],
         data: function () {
             return {
                 appName: metaHelper.getContent('app-name'),

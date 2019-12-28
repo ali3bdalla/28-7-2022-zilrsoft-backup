@@ -8,8 +8,9 @@
 @if(app()->isLocale('ar'))
     <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.css">
-    <link rel="stylesheet"href="https://raw.githubusercontent.com/mmdsharifi/AdminLTE-RTL/master/dist/css/bootstrap-rtl.min.css">
-    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.1.0-alpha-1/css/AdminLTE-rtl.min.css">
+    <link rel="stylesheet" href="{{ asset('accounting/css/bootstrap-rt.css') }}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.1.0-alpha-1/css/AdminLTE-rtl.min.css">
 
     <link rel="stylesheet" href="{{asset('accounting/css/rtl.css')}}">
 @endif

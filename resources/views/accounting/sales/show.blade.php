@@ -5,6 +5,9 @@
     <a href="{{route('accounting.sales.print',$invoice->id)}}" class="btn btn-default">
         <i class="fa fa-print"></i> {{ __('pages/invoice.price_a4') }}
     </a>
+    <accounting-print-receipt-layout-component
+            :invoice-id="{{$invoice->id}}"></accounting-print-receipt-layout-component>
+
     @can("edit sale")
         @if($invoice->is_deleted==1)
             <a href="{{route('accounting.sales.edit',$invoice->id)}}" class="btn btn-primary">

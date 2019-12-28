@@ -4,6 +4,9 @@
         <i class="fa fa-print"></i> <?php echo e(__('pages/invoice.price_a4')); ?>
 
     </a>
+    <accounting-print-receipt-layout-component
+            :invoice-id="<?php echo e($invoice->id); ?>"></accounting-print-receipt-layout-component>
+
     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check("edit sale")): ?>
         <?php if($invoice->is_deleted==1): ?>
             <a href="<?php echo e(route('accounting.sales.edit',$invoice->id)); ?>" class="btn btn-primary">

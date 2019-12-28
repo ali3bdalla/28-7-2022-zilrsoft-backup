@@ -33,5 +33,6 @@
 		'financial_statements' => '  القوائم المالية',
 		'general_ledger' => ' الاستاذ العام',
 	
-		'management' => 'ادارة'
+		'management' => 'ادارة',
+		'printers' => 'الطابعات'
 	];

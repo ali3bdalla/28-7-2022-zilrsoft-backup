@@ -1,33 +1,26 @@
 <template>
-    <button @click="printFile" :class="{'dis':disable_button}"  class="button is-primary"> <i class="fa fa-print"></i> طباعة
-        الايصال</button>
+    <button @click="printFile" class="btn "><i class="fa fa-print"></i>
+        طباعة
+        الايصال
+    </button>
 </template>
 
 <script>
-
-
-    var qz = require("qz-tray");
+    let qz = require("qz-tray");
 
 
     export default {
-        props: ['invoice_id','print','print_counter'],
-        data:function(){
-          return {
-              id:0,
-              disable_button:false
-          }  ;
+        props: ['invoiceId', 'print'],
+        data: function () {
+            return {
+                id: 0,
+                disable_button: false
+            };
         },
         created: function () {
             this.id = this.invoice_id;
             this.connectQZ();
 
-
-
-            // if(this.print_counter>=1)
-            // {
-            //     this.disable_button = true;
-            // }
-            // console.log(this.print);
         },
 
         methods: {
@@ -35,10 +28,8 @@
 
             connectQZ() {
 
-                    var vm = this;
+                var vm = this;
                 qz.security.setCertificatePromise(function (resolve, reject) {
-
-                    //Alternate method 2 - direct
                     resolve("-----BEGIN CERTIFICATE-----\n" +
                         "MIIEvTCCAqegAwIBAgIENzI3OTALBgkqhkiG9w0BAQUwgZgxCzAJBgNVBAYTAlVT\n" +
                         "MQswCQYDVQQIDAJOWTEbMBkGA1UECgwSUVogSW5kdXN0cmllcywgTExDMRswGQYD\n" +
@@ -102,9 +93,9 @@
 
                 });
 
-                qz.security.setSignaturePromise(function(toSign) {
+                qz.security.setSignaturePromise(function (toSign) {
                     console.log(toSign);
-                    return function(resolve, reject) {
+                    return function (resolve, reject) {
                         $.get("/management/printer/sign", {request: toSign}).then(resolve, reject);
                     };
                 });
@@ -149,11 +140,10 @@
                     });
 
 
-                    if(vm.print)
-                    {
+                    if (vm.print) {
 
-                    //    console.log('print the invoice')
-                      //  vm.printFile();
+                        //    console.log('print the invoice')
+                        //  vm.printFile();
                     }
                     return qz.printers.find();
                 });
@@ -189,23 +179,23 @@
 
             sha256(str) {
                 // We transform the string into an arraybuffer.
-                var buffer = new TextEncoder('utf-8').encode(str)
+                var buffer = new TextEncoder('utf-8').encode(str);
                 return crypto.subtle.digest('SHA-256', buffer).then(function (hash) {
                     return this.hex(hash)
                 })
             },
 
             hex(buffer) {
-                var hexCodes = []
-                var view = new DataView(buffer)
+                var hexCodes = [];
+                var view = new DataView(buffer);
                 for (var i = 0; i < view.byteLength; i += 4) {
                     // Using getUint32 reduces the number of iterations needed (we process 4 bytes each time)
-                    var value = view.getUint32(i)
+                    var value = view.getUint32(i);
                     // toString(16) will give the hex representation of the number without padding
-                    var stringValue = value.toString(16)
+                    var stringValue = value.toString(16);
                     // We use concatenation and slice for padding
-                    var padding = '00000000'
-                    var paddedValue = (padding + stringValue).slice(-padding.length)
+                    var padding = '00000000';
+                    var paddedValue = (padding + stringValue).slice(-padding.length);
                     hexCodes.push(paddedValue)
                 }
 
@@ -215,16 +205,16 @@
         },
 
 
-        watch:{
-            print_counter:function (value) {
+        watch: {
+            print_counter: function (value) {
 
                 // alert(value);
-               // console.log(this.id);
-                   this.printFileWithId(value);
+                // console.log(this.id);
+                this.printFileWithId(value);
 
             },
 
-            invoice_id:function (value) {
+            invoice_id: function (value) {
                 this.id = value;
 
             }
@@ -239,4 +229,4 @@
     .dis {
         display: none;
     }
-    </style>
+</style>

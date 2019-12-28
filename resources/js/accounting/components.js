@@ -30,6 +30,8 @@ import AccountingSalesDatatableComponent from './components/sales/salesDatatable
 import AccountingSalesCreateComponent from './components/sales/salesCreateComponent';
 import AccountingKitsDatatableComponent from './components/items/kitsDatatableComponent';
 import AccountingKitsCreateComponent from './components/items/kitsCreateComponent';
+import AccountingPrintReceiptLayoutComponent from './components/layout/printerReceiptLayoutComponent';
+import AccountingPrintersSettingLayoutComponent from './components/layout/printersSettingsLayoutComponent';
 
 
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
@@ -64,3 +66,5 @@ Vue.component('accounting-sales-datatable-component', AccountingSalesDatatableCo
 Vue.component('accounting-sales-create-component', AccountingSalesCreateComponent);
 Vue.component('accounting-kits-datatable-component', AccountingKitsDatatableComponent);
 Vue.component('accounting-kits-create-component', AccountingKitsCreateComponent);
+Vue.component('accounting-print-receipt-layout-component', AccountingPrintReceiptLayoutComponent);
+Vue.component('accounting-printers-setting-layout-component', AccountingPrintersSettingLayoutComponent);
