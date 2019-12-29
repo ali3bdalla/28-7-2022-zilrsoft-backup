@@ -15,14 +15,13 @@ exports.db = {
         in_array: function (arr, value, type = null) {
             let len = arr.length;
             for (var i = 0; i < len; i++) {
-                if (type == 'int') {
-                    let item = parseInt(arr[i]);
-                } else {
-                    let item = arr[i];
-                }
-                if (item == value) {
+                let checker = arr[i];
+                if (type === 'int')
+                    checker = parseInt(arr[i]);
+
+                if (checker == value)
                     return true;
-                }
+
             }
 
             return false;

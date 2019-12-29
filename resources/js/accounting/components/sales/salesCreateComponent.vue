@@ -211,9 +211,11 @@
                                type="text" v-model="item.tax">
                     </td>
                     <td>
-                        <input @focus="$event.target.select()"
+                        <input :disabled="item.is_fixed_price"
+                               @focus="$event.target.select()"
+
+                               @keyup="itemNetUpdated(item)"
                                class="form-control input-xs amount-input"
-                               disabled
                                placeholder="net" type="text" v-model="item.net">
                     </td>
 
@@ -643,8 +645,6 @@
                     this.expensesList.push(expense);
                 }
             },
-
-
 
 
             updateGatewaysAmounts(e) {

@@ -35,8 +35,6 @@
         },
         created: function () {
             let len = this.gateways.length;
-            console.log('works');
-            console.log(this.initGateways);
             for (let i = 0; i < len; i++) {
                 let gateway = this.gateways[i];
                 if (this.initGateways != null) {
