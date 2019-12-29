@@ -310,7 +310,7 @@
                 } else {
                     var preparedItem = this.prepareDataInFirstUse(item);
                     var index = this.appendItemToInvoiceItemsList(preparedItem);
-                    this.invoiceData.items.reverse();
+                    // this.invoiceData.items.reverse();
                     this.clearAndFocusOnBarcodeField();
                     this.focusOnQtyField(index);
 
@@ -328,7 +328,7 @@
 
                 // console.log(inputHelper.getReference(ref));
                 // if (item.is_need_serial) {
-               console.log(this.$refs['itemQty_52Ref']);
+                // console.log(this.$refs['itemQty_52Ref']);
                 // } else {
                 //     this.$refs['itemQty_' + item.id + 'Ref'].focus();
                 // }
