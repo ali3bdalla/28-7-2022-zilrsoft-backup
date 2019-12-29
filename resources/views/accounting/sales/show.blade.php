@@ -9,6 +9,12 @@
     <accounting-print-receipt-layout-component
             :invoice-id="{{$invoice->id}}"></accounting-print-receipt-layout-component>
 
+    @can('create sale')
+        <a href="{{route('accounting.sales.create')}}" class="btn btn-default"><i class="fa fa-plus-square"></i> {{
+        trans
+        ('pages/invoice.create')
+        }}</a>
+    @endcan
     @can("edit sale")
         @if($invoice->is_deleted==1)
             <a href="{{route('accounting.sales.edit',$invoice->id)}}" class="btn btn-primary">
