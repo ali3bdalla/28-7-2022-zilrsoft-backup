@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/71/96/71967cf51a1655b421bf53ddc7bac90b34b3c016" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/fb/cf/fbcf861c63db3983d1850b4a2d0cc82e33be6cb9" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/dFVZADwnOJkUCUG3uQQAkHRDPNLC2BqCOSQhjyNt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/CreateBeginningRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/CreateBeginningRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attributes/ManagerAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/ManagerAttributes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Manager/CreateManagerRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Manager/CreateManagerRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/users/managersCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/users/managersCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/users/managersGatewaysComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/users/managersGatewaysComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/PSu2zjvTSTwnJIH8fB36MZ7NAkWEJMcCApgCfhjQ" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/dFVZADwnOJkUCUG3uQQAkHRDPNLC2BqCOSQhjyNt" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/dFVZADwnOJkUCUG3uQQAkHRDPNLC2BqCOSQhjyNt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/yoQekxZKDrEGqVEuuIEPkBRtI2vaItqnppelhpmW" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -431,7 +436,7 @@
       <workItem from="1576847436326" duration="105082000" />
       <workItem from="1577181612244" duration="98359000" />
       <workItem from="1577561097672" duration="759000" />
-      <workItem from="1577567765490" duration="3976000" />
+      <workItem from="1577567765490" duration="5762000" />
     </task>
     <servers />
   </component>

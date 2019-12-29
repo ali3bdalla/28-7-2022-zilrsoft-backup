@@ -262,7 +262,7 @@
                         location.href = appVm.app.BaseApiUrl + 'managers';
                     })
                     .catch(function (error) {
-                        alert(error.response);
+                        alert(error.response.data[0]);
 
 
                     });

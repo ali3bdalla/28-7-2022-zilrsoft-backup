@@ -51,6 +51,7 @@
 				$data['is_vendor'] = false;
 				$data['is_supplier'] = false;
 				$data['is_client'] = false;
+				$data['is_supervisor'] = false;
 				$data['can_make_credit'] = false;
 				$data['user_type'] = 'individual';
 				$data['phone_number'] = $this->phone_number;
@@ -58,7 +59,6 @@
 				$data['name'] = $this->name;
 				$data['user_title'] = 'mr';
 				$data['creator_id'] = $current->id;
-				
 				$user = $current->organization->users()->create($data);
 				
 				$manager = $user->manager()->create([

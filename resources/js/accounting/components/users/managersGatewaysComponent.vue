@@ -36,9 +36,9 @@
         created: function () {
             let len = this.gateways.length;
             for (let i = 0; i < len; i++) {
-                var gateway = this.gateways[i];
+                let gateway = this.gateways[i];
                 if (this.initGateways != null) {
-                    gateway['is_selected'] = db.model.in_array(this.initGateways, gateway['id']);
+                    gateway['is_selected'] = db.model.in_array(this.initGateways, gateway['id']) === true;
                 } else {
                     gateway['is_selected'] = false;
                 }

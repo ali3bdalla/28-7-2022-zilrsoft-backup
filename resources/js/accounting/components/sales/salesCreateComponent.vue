@@ -574,6 +574,17 @@
             },
 
 
+            itemNetUpdated(item) {
+                let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts); //  1.05
+
+                item.subtotal = helpers.roundTheFloatValueTo2DigitOnlyAfterComma((item.net / new_vat));
+                item.discount = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.total - item.subtotal);
+                item.tax = helpers.showOnlyTwoAfterComma(item.subtotal * (item.vts / 100));
+                this.items.splice(this.items.indexOf(item), 1, item);
+                this.updateInvoiceDetails()
+
+            },
+
             itemUpdater(item) {
                 if (!item.is_kit) {
                     if (!ItemValidator.validateQty(item.qty, item.available_qty)) {
@@ -632,6 +643,8 @@
                     this.expensesList.push(expense);
                 }
             },
+
+
 
 
             updateGatewaysAmounts(e) {

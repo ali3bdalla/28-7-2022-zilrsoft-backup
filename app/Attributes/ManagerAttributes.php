@@ -9,8 +9,9 @@
 		public function getLocaleNameAttribute()
 		{
 			
-			if(app()->isLocale('ar'))
+			if (app()->isLocale('ar'))
 				return $this->name_ar;
+			
 			return $this->name;
 		}
 		
@@ -20,6 +21,7 @@
 			return $this->can($option) == true ? 1 : 0;
 			
 		}
+		
 		public function get_active_manager_account_for($kind)
 		
 		{
@@ -45,20 +47,11 @@
 			return $this->user->is_supervisor ? 'Admin' : 'Employer';
 		}
 		
-	
 		public function manager_current_stock()
 		{
 			return Account::where("slug",'stock')->first();
 		}
 		
-		public function getNameAttribute($value)
-		{
-			if (app()->isLocale('ar') && !empty($this->name_ar))
-				return $this->name_ar;
-			
-			
-			return $value;
-		}
 	}
 	
 	
