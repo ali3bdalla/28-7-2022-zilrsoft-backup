@@ -36,12 +36,12 @@
 		{
 			$role_item_manager = Role::create(['name' => 'item Manager','guard_name' => 'manager']);
 			$permission_create_item = Permission::create(['name' => 'create item','guard_name' => 'manager']);
-			$permission_update_item = Permission::create(['name' => 'update item','guard_name' => 'manager']);
+			$permission_edit_item = Permission::create(['name' => 'edit item','guard_name' => 'manager']);
 			$permission_delete_item = Permission::create(['name' => 'delete item','guard_name' => 'manager']);
 			$permission_view_item = Permission::create(['name' => 'view item','guard_name' => 'manager']);
 			$permission_mange_kit_item = Permission::create(['name' => 'manage kit','guard_name' => 'manager']);
 			$role_item_manager->givePermissionTo($permission_create_item);
-			$role_item_manager->givePermissionTo($permission_update_item);
+			$role_item_manager->givePermissionTo($permission_edit_item);
 			$role_item_manager->givePermissionTo($permission_delete_item);
 			$role_item_manager->givePermissionTo($permission_view_item);
 			$role_item_manager->givePermissionTo($permission_mange_kit_item);
@@ -52,11 +52,11 @@
 		{
 			$role = Role::create(['name' => 'category manager','guard_name' => 'manager']);
 			$permission_create = Permission::create(['name' => 'create category','guard_name' => 'manager']);
-			$permission_update = Permission::create(['name' => 'update category','guard_name' => 'manager']);
+			$permission_edit = Permission::create(['name' => 'edit category','guard_name' => 'manager']);
 			$permission_delete = Permission::create(['name' => 'delete category','guard_name' => 'manager']);
 			$permission_view = Permission::create(['name' => 'view category','guard_name' => 'manager']);
 			$role->givePermissionTo($permission_create);
-			$role->givePermissionTo($permission_update);
+			$role->givePermissionTo($permission_edit);
 			$role->givePermissionTo($permission_delete);
 			$role->givePermissionTo($permission_view);
 			
@@ -66,11 +66,11 @@
 		{
 			$role = Role::create(['name' => 'filter manager','guard_name' => 'manager']);
 			$permission_create = Permission::create(['name' => 'create filter','guard_name' => 'manager']);
-			$permission_update = Permission::create(['name' => 'update filter','guard_name' => 'manager']);
+			$permission_edit = Permission::create(['name' => 'edit filter','guard_name' => 'manager']);
 			$permission_delete = Permission::create(['name' => 'delete filter','guard_name' => 'manager']);
 			$permission_view = Permission::create(['name' => 'view filter','guard_name' => 'manager']);
 			$role->givePermissionTo($permission_create);
-			$role->givePermissionTo($permission_update);
+			$role->givePermissionTo($permission_edit);
 			$role->givePermissionTo($permission_delete);
 			$role->givePermissionTo($permission_view);
 			
@@ -80,16 +80,16 @@
 		{
 			$role = Role::create(['name' => 'identities manager','guard_name' => 'manager']);
 			$permission_create = Permission::create(['name' => 'create identity','guard_name' => 'manager']);
-			$permission_update = Permission::create(['name' => 'update identity','guard_name' => 'manager']);
+			$permission_edit = Permission::create(['name' => 'edit identity','guard_name' => 'manager']);
 			$permission_delete = Permission::create(['name' => 'delete identity','guard_name' => 'manager']);
 			$permission_view = Permission::create(['name' => 'view identity','guard_name' => 'manager']);
-			$permission_update_manage_managers = Permission::create(['name' => 'manage managers','guard_name' =>
+			$permission_edit_manage_managers = Permission::create(['name' => 'manage managers','guard_name' =>
 				'manager']);
 			$role->givePermissionTo($permission_create);
-			$role->givePermissionTo($permission_update);
+			$role->givePermissionTo($permission_edit);
 			$role->givePermissionTo($permission_delete);
 			$role->givePermissionTo($permission_view);
-			$role->givePermissionTo($permission_update_manage_managers);
+			$role->givePermissionTo($permission_edit_manage_managers);
 			
 		}
 		
@@ -97,13 +97,13 @@
 		{
 			$role = Role::create(['name' => 'sales manager','guard_name' => 'manager']);
 			$permission_create = Permission::create(['name' => 'create sale','guard_name' => 'manager']);
-			$permission_update = Permission::create(['name' => 'update sale','guard_name' => 'manager']);
+			$permission_edit = Permission::create(['name' => 'edit sale','guard_name' => 'manager']);
 			$permission_delete = Permission::create(['name' => 'delete sale','guard_name' => 'manager']);
 			$permission_view = Permission::create(['name' => 'view sale','guard_name' => 'manager']);
 			$permission_mange_quotation_item = Permission::create(['name' => 'manage quotation','guard_name' => 'manager']);
 			
 			$role->givePermissionTo($permission_create);
-			$role->givePermissionTo($permission_update);
+			$role->givePermissionTo($permission_edit);
 			$role->givePermissionTo($permission_delete);
 			$role->givePermissionTo($permission_view);
 			$role->givePermissionTo($permission_mange_quotation_item);
@@ -114,11 +114,11 @@
 		{
 			$role = Role::create(['name' => 'vouchers manager','guard_name' => 'manager']);
 			$permission_create = Permission::create(['name' => 'create voucher','guard_name' => 'manager']);
-			$permission_update = Permission::create(['name' => 'update voucher','guard_name' => 'manager']);
+			$permission_edit = Permission::create(['name' => 'edit voucher','guard_name' => 'manager']);
 			$permission_delete = Permission::create(['name' => 'delete voucher','guard_name' => 'manager']);
 			$permission_view = Permission::create(['name' => 'view voucher','guard_name' => 'manager']);
 			$role->givePermissionTo($permission_create);
-			$role->givePermissionTo($permission_update);
+			$role->givePermissionTo($permission_edit);
 			$role->givePermissionTo($permission_delete);
 			$role->givePermissionTo($permission_view);
 		}
@@ -127,12 +127,12 @@
 		{
 			$role = Role::create(['name' => 'purchases manager','guard_name' => 'manager']);
 			$permission_create = Permission::create(['name' => 'create purchase','guard_name' => 'manager']);
-			$permission_update = Permission::create(['name' => 'update purchase','guard_name' => 'manager']);
+			$permission_edit = Permission::create(['name' => 'edit purchase','guard_name' => 'manager']);
 			$permission_delete = Permission::create(['name' => 'delete purchase','guard_name' => 'manager']);
 			$permission_view = Permission::create(['name' => 'view purchase','guard_name' => 'manager']);
 			$permission_manage_inventory = Permission::create(['name' => 'manage inventory','guard_name' => 'manager']);
 			$role->givePermissionTo($permission_create);
-			$role->givePermissionTo($permission_update);
+			$role->givePermissionTo($permission_edit);
 			$role->givePermissionTo($permission_delete);
 			$role->givePermissionTo($permission_view);
 			$role->givePermissionTo($permission_manage_inventory);

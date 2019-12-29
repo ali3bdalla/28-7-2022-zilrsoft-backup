@@ -15,7 +15,7 @@
 		 */
 		public function authorize()
 		{
-			return $this->user()->can('create item');
+			return $this->user()->can('edit item');
 		}
 		
 		/**

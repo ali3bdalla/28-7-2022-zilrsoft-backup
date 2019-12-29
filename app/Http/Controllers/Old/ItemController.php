@@ -358,11 +358,6 @@
 			]);
 			$item = Item::where('barcode',$request->barcode)->first();
 
-//		$generator = new BarcodeGeneratorPNG();
-//
-//		$barcode =  'data:image/png;base64,' .  base64_encode($generator->getBarcode('93724923794',
-//			$generator::TYPE_CODE_128,2,50));
-//
 			return view('items.barcode.show',compact('item'));
 		}
 		

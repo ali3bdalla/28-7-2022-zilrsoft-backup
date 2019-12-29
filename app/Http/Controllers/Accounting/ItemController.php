@@ -10,6 +10,7 @@
 	use App\Http\Requests\Accounting\Item\UpdateItemRequest;
 	use App\Invoice;
 	use App\Item;
+	use App\ItemSerials;
 	use App\Manager;
 	use App\User;
 	use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -196,11 +197,56 @@
 			return $request->activate();
 		}
 		
+		/**
+		 * @param Item $item
+		 *
+		 * @return Factory|View
+		 */
 		public function view_serials(Item $item)
 		{
 			
 			$serials = $item->serials()->paginate(20);
 			return view('accounting.items.view_serials',compact('item','serials'));
+		}
+		
+		/**
+		 * @return Factory|View
+		 */
+		public function serial_activities()
+		{
+			return view('accounting.items.serial.index');
+		}
+		
+		/**
+		 * @param Request $request
+		 *
+		 * @return Factory|View
+		 */
+		public function show_serial_activities(Request $request)
+		{
+			$request->validate([
+				'serial' => 'required|exists:item_serials,serial'
+			]);
+			
+			$serial = ItemSerials::where('serial',$request->serial)->first();
+			return view('accounting.items.serial.show',compact('serial'));
+		}
+		
+		public function barcode()
+		{
+			return view('accounting.items.barcode.index');
+		}
+		
+		public function show_item_barcode(Request $request)
+		{
+			
+			
+			$request->validate([
+				'barcode' => 'required|exists:items,barcode'
+			]);
+			
+			$items = Item::where('barcode',$request->barcode)->first();
+			return view('accounting.items.barcode.show',compact('items'));
 		}
 		
 	}

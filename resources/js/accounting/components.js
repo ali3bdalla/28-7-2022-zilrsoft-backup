@@ -34,6 +34,7 @@ import AccountingKitsCreateComponent from './components/items/kitsCreateComponen
 import AccountingPrintReceiptLayoutComponent from './components/layout/printerReceiptLayoutComponent';
 import AccountingPrintersSettingLayoutComponent from './components/layout/printersSettingsLayoutComponent';
 import AccountingItemTransactionsComponent from './components/items/itemTransactionsComponent';
+import AccountingBarcodePrinterLayoutComponent from './components/layout/barcodePrinterLayoutComponent';
 
 
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
@@ -72,3 +73,4 @@ Vue.component('accounting-kits-create-component', AccountingKitsCreateComponent)
 Vue.component('accounting-print-receipt-layout-component', AccountingPrintReceiptLayoutComponent);
 Vue.component('accounting-printers-setting-layout-component', AccountingPrintersSettingLayoutComponent);
 Vue.component('accounting-item-transactions-component', AccountingItemTransactionsComponent);
+Vue.component('accounting-barcode-printer-layout-component', AccountingBarcodePrinterLayoutComponent);

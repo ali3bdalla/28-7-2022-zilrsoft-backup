@@ -16,7 +16,7 @@
     <accounting-items-create-component
             :can-create-category="{{ auth()->user()->canDo('create category') }}"
             :can-create-filter="{{ auth()->user()->canDo('create filter') }}"
-            :can-edit-filter="{{ auth()->user()->canDo('edit filter') }}"
+            :can-edit-filter="{{ auth()->user()->canDo('update filter') }}"
             :vendors='@json($vendors)'
             :categories='@json($categories)'
             :is-cloned="false"
