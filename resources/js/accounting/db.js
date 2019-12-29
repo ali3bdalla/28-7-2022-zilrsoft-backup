@@ -28,7 +28,7 @@ exports.db = {
         },
 
         find: function (arr, id) {
-            var len = arr.length;
+            let len = arr.length;
             for (var i = 0; i < len; i++) {
                 if (arr[i].id === id) {
                     return arr[i];
@@ -61,7 +61,7 @@ exports.db = {
         index: function (arr, id) {
             var len = arr.length;
             for (var i = 0; i < len; i++) {
-                if (arr[i].id == id) {
+                if (arr[i].id === id) {
                     return i;
                 }
             }

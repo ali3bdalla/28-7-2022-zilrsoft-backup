@@ -560,8 +560,8 @@
             },
 
             handleItemSerialsUpdated(e) {
-                var index = e.index;
-                var item = db.model.findByIndex(this.invoiceData.items, index);
+                let index = e.index;
+                let item = db.model.findByIndex(this.invoiceData.items, index);
                 item.serials = e.serials;
                 item.qty = e.serials.length;
                 this.itemQtyUpdated(item, true);

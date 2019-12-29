@@ -37,4 +37,9 @@
 			return $this->user->phone_number;
 		}
 		
+		public function getAmountAttribute($value)
+		{
+			return money_format("%i",$value);
+		}
+		
 	}

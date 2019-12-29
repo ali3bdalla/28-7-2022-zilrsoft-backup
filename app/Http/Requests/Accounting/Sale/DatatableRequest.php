@@ -34,7 +34,7 @@
 		public function data()
 		{
 			
-			$query = Invoice::whereIn('invoice_type',['sale','r_sale'])->with('creator','items','sale.client');
+			$query = Invoice::whereIn('invoice_type',['sale','r_sale'])->with('creator','items','sale.client','sale.salesman');
 
 //
 			
@@ -60,6 +60,12 @@
 			if ($this->has('clients') && $this->filled('clients')){
 				$ids = SaleInvoice::whereIn('client_id',$this->input("clients"))->get()->pluck('invoice_id');
 //				return $ids;
+				$query = $query->whereIn('id',$ids);
+			}
+			
+			
+			if ($this->has('salesmen') && $this->filled('salesmen')){
+				$ids = SaleInvoice::whereIn('salesman_id',$this->input("salesmen"))->get()->pluck('invoice_id');
 				$query = $query->whereIn('id',$ids);
 			}
 			
@@ -130,6 +136,13 @@
 			if ($this->has('current_status') && $this->filled('current_status')){
 				if (in_array($this->input("current_status"),['credit','paid'])){
 					$query = $query->where('current_status',$this->input("current_status"));
+				}
+				
+			}
+			
+			if ($this->has('invoice_type') && $this->filled('invoice_type')){
+				if (in_array($this->input("invoice_type"),['sale','r_sale'])){
+					$query = $query->where('invoice_type',$this->input("invoice_type"));
 				}
 				
 			}

@@ -34,12 +34,35 @@
                             </accounting-multi-select-with-search-layout-component>
 
                         </div>
+                        <div class="col-md-3">
+                            <accounting-multi-select-with-search-layout-component
+                                    v-if="canViewAccounting==1"
+                                    :options="creators"
+                                    :placeholder="app.trans.salesman"
+                                    :title="app.trans.salesman"
+                                    @valueUpdated="salesmanListUpdated"
+                                    default="0"
+                                    identity="000000003"
+                                    label_text="name"
+
+                            >
+
+                            </accounting-multi-select-with-search-layout-component>
+
+                        </div>
 
                         <div class="col-md-3">
                             <select @change="pushServerRequest" class="form-control" v-model="filters.current_status">
                                 <option value="null">{{ app.trans.current_status }}</option>
                                 <option value="paid">{{ app.trans.paid }}</option>
                                 <option value="credit">{{ app.trans.credit }}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3" v-if="canViewAccounting==1">
+                            <select @change="pushServerRequest" class="form-control" v-model="filters.invoice_type">
+                                <option value="null">{{ app.trans.invoice_type }}</option>
+                                <option value="sale">{{ app.trans.sale }}</option>
+                                <option value="r_sale">{{ app.trans.return_sale }}</option>
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -130,6 +153,11 @@
                             {{ app.trans.created_by }}
                         </th>
 
+                        <th
+                            width="">
+                            {{ app.trans.salesman }}
+                        </th>
+
 
                         <th :class="{'orderBy':orderBy=='tax'}" @click="setOrderByColumn('tax')"
                             width="">
@@ -156,6 +184,7 @@
                             <span v-else>{{ app.trans.return_sale }}</span>
                         </td>
                         <td class="text-center" v-text="row.creator.name"></td>
+                        <td class="text-center" v-text="row.sale.salesman.name"></td>
                         <td class="text-center" v-text="row.tax"></td>
                         <td>
                             <div class="dropdown">
@@ -174,13 +203,55 @@
                                     <li v-if="canEdit==1 && row.invoice_type=='sale' && row.is_deleted==0"><a
                                             :href="baseUrl + row.id +
                                     '/edit' "
-                                                             v-text="app.trans.return"></a></li>
+                                            v-text="app.trans.return"></a></li>
 
                                 </ul>
                             </div>
                         </td>
                     </tr>
                     </tbody>
+                    <thead v-if="canViewAccounting==1">
+                    <tr>
+                        <th>
+
+                        </th>
+
+                        <th>
+
+                        </th>
+                        <th>
+
+                        </th>
+
+                        <th>
+
+                        </th>
+
+
+                        <th>
+                            {{parseFloat( totals.net).toFixed(2) }}
+                        </th>
+
+                        <th>
+
+                        </th>
+
+                        <th>
+                        </th>
+
+
+                        <th>
+
+                        </th>
+
+
+                        <th>
+                            {{parseFloat( totals.tax).toFixed(2) }}
+                        </th>
+
+                        <th></th>
+                    </tr>
+                    </thead>
                 </table>
 
 
@@ -204,6 +275,7 @@
     import Treeselect from '@riophae/vue-treeselect'
     import '@riophae/vue-treeselect/dist/vue-treeselect.css'
     import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
+    import {accounting as ItemAccounting, validator as ItemValidator, math as ItemMath} from '../../item';
 
     import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 
@@ -213,6 +285,7 @@
             VueCtkDateTimePicker, Treeselect
         },
         props: [
+            'canViewAccounting',
             "canEdit",
             "canDelete",
             "canCreate",
@@ -222,6 +295,13 @@
         data: function () {
             return {
 
+                totals: {
+                    net: 0,
+                    tax: 0,
+                    total: 0,
+                    subtotal: 0,
+                    discount_value: 0,
+                },
                 itemsPerPage: 20,
                 isOpenSearchPanel: false,
                 category: null,
@@ -256,7 +336,9 @@
                     net: null,
                     total: null,
                     tax: null,
-                    current_status: null
+                    current_status: null,
+                    salesmen: [],
+                    invoice_type:null,
                 },
                 paginationResponseData: null,
                 tableSelectionActiveMode: false
@@ -301,6 +383,7 @@
                     appVm.table_rows = response.data.data;
                     appVm.isLoading = false;
                     appVm.paginationResponseData = response.data;
+                    appVm.updateTotalsAmount();
                 }).catch(function (error) {
                     alert(error)
                 }).finally(function () {
@@ -308,7 +391,34 @@
                 });
             },
 
+            updateTotalsAmount() {
 
+                let items = this.table_rows;
+                let len = items.length;
+                this.totals.net = 0;
+                this.totals.tax = 0;
+                this.totals.total = 0;
+                this.totals.subtotal = 0;
+                this.totals.discount_value = 0;
+                for (let i = 0; i < len; i++) {
+                    let row = items[i];
+                    if (row.invoice_type == 'sale') {
+                        this.totals.net = ItemMath.sum(this.totals.net, row.net);
+                        this.totals.tax = ItemMath.sum(this.totals.tax, row.tax);
+                        this.totals.total = ItemMath.sum(this.totals.total, row.total);
+                        this.totals.subtotal = ItemMath.sum(this.totals.subtotal, row.subtotal);
+                        this.totals.discount_value = ItemMath.sum(this.totals.discount_value, row.discount_value);
+                    } else {
+                        this.totals.net = ItemMath.sub(this.totals.net, row.net);
+                        this.totals.tax = ItemMath.sub(this.totals.tax, row.tax);
+                        this.totals.total = ItemMath.sub(this.totals.total, row.total);
+                        this.totals.subtotal = ItemMath.sub(this.totals.subtotal, row.subtotal);
+                        this.totals.discount_value = ItemMath.sub(this.totals.discount_value, row.discount_value);
+                    }
+                }
+
+
+            },
             setOrderByColumn(column_name) {
                 if (this.orderBy == column_name) {
                     // alert('hello')
@@ -393,6 +503,12 @@
             creatorListUpdated(e) {
 
                 this.filters.creators = db.model.pluck(e.items, 'id');
+                this.pushServerRequest();
+            },
+
+            salesmanListUpdated(e) {
+
+                this.filters.salesmen = db.model.pluck(e.items, 'id');
                 this.pushServerRequest();
             },
 

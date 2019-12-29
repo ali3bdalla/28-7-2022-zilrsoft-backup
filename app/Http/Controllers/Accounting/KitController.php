@@ -8,8 +8,12 @@
 	use App\Item;
 	use App\Manager;
 	use App\User;
+	use Exception;
+	use Illuminate\Contracts\View\Factory;
+	use Illuminate\Http\RedirectResponse;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
+	use Illuminate\View\View;
 	
 	class KitController extends Controller
 	{
@@ -42,18 +46,27 @@
 			//
 		}
 		
-		
+		/**
+		 * @param CreateKitRequest $request
+		 *
+		 * @throws Exception
+		 */
 		public function store(CreateKitRequest $request)
 		{
 			return $request->save();
 		}
 		
+		public function show(Item $kit)
+		{
+			$items =  $kit->items;
+			$invoice = $kit->data;
+			return view('accounting.kits.show',compact('kit','items','invoice'));
+		}
+		
 		/**
-		 * Show the form for editing the specified resource. and edit
+		 * @param Item $kit
 		 *
-		 * @param Item $item
-		 *
-		 * @return Response
+		 * @return Factory|View
 		 */
 		public function edit(Item $kit)
 		{
@@ -61,16 +74,10 @@
 			$items = $kit->items()->with('item')->get();
 			$creator = $kit->creator;
 			$data = $kit->data;
-			
-			
 			$clients = User::where('is_client',true)->get()->toArray();
-			
 			$kit['items'] = $items;
 			$kit['creator'] = $creator;
 			$kit['data'] = $data;
-
-
-//        return  $kit;
 			
 			
 			return view('kits.edit',compact('clients','kit'));
@@ -78,12 +85,8 @@
 		}
 		
 		/**
-		 * Update the specified resource in storage.
-		 *
 		 * @param Request $request
-		 * @param Item $item
-		 *
-		 * @return Response
+		 * @param Item $kit
 		 */
 		public function update(Request $request,Item $kit)
 		{
@@ -91,11 +94,10 @@
 		}
 		
 		/**
-		 * Remove the specified resource from storage.
+		 * @param Item $kit
 		 *
-		 * @param Item $item
-		 *
-		 * @return Response
+		 * @return RedirectResponse
+		 * @throws Exception
 		 */
 		public function destroy(Item $kit)
 		{

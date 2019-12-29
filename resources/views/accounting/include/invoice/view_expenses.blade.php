@@ -34,7 +34,7 @@
             @endif
         @endforeach
 
-    @else
+    @elseif(in_array($invoice->invoice_type,['purchase','beginning_inventory','r_purchase']))
 
 
         <div class="panel-body">
