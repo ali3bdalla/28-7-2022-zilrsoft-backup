@@ -324,11 +324,11 @@
             focusOnQtyField: function (index) {
                 var item = db.model.findByIndex(this.invoiceData.items, index);
 
-                // let ref = 'itemQty_' + item.id + 'Ref';
+                let ref = 'itemQty_' + item.id + 'Ref';
 
                 // console.log(inputHelper.getReference(ref));
                 // if (item.is_need_serial) {
-                // this.$refs['itemQty_' + item.id + 'Ref'][0];
+               console.log(this.$refs['itemQty_52Ref']);
                 // } else {
                 //     this.$refs['itemQty_' + item.id + 'Ref'].focus();
                 // }

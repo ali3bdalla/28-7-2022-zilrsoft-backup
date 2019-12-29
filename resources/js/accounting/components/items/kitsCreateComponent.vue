@@ -53,7 +53,8 @@
                         </div>
                     </div>
                     <div class="column is-one-fifth" v-if="!is_update_mode">
-                        <button @click="generateBarcode" class="button is-info is-fullwidth">{{translator .generate_barcode}}
+                        <button @click="generateBarcode" class="button is-info is-fullwidth">{{translator
+                            .generate_barcode}}
                         </button>
                     </div>
 
@@ -76,7 +77,7 @@
                         <div class="live-vue-search">
                             <a :key="item.id" @click="addItemToList(item)" class="message-header has-background-primary"
                                href="#" v-for="item in itemsSearchList">
-                                <h3 class="title">{{ item.name }} <small class="has-text-white">{{ item.barcode
+                                <h3 class="title">{{ item.locale_name }} <small class="has-text-white">{{ item.barcode
                                     }}</small></h3>
                                 ,{{ item.price }},
                             </a>
@@ -146,7 +147,7 @@
                         </th>
                         <th class="has-text-white">
                             <input @focus="$event.target.select()" @keyup="onChangePriceField(item)"
-                                   class="input" disabled
+                                   class="input"
                                    type="text" v-model="item.price">
 
                         </th>
@@ -266,7 +267,13 @@
 </template>
 
 <script>
-    import {query as ItemQuery} from '../../item';
+
+    import {
+        accounting as ItemAccounting,
+        math as ItemMath,
+        query as ItemQuery,
+        validator as ItemValidator
+    } from '../../item';
 
     export default {
         props: ['creator', 'is_update_mode', 'kit'],
@@ -389,7 +396,6 @@
                             vm.generateBarcode();
                         }
                         //
-                        // // console.log(error.response.data.message);
                     });
 
                 vm.barcode = barcode;
@@ -399,7 +405,6 @@
             },
 
             loadInitData() {
-                // console.log('hello')
                 this.barcode = this.kit.barcode;
                 this.name = this.kit.name;
                 this.ar_name = this.kit.ar_name;
@@ -410,7 +415,6 @@
                 this.tax = this.kit.data.tax;
                 this.net = this.kit.data.net;
 
-                console.log(this.kit.data)
             },
 
             /**
@@ -474,14 +478,7 @@
 
             addItemToList(item) {
 
-                // console.log('this is item');
-                // if (item.available_qty == 0) {
-                //
-                //     this.itemsSearchList = []; // clear the search items list
-                //     this.search_field = ""; /// clear the text on the search field
-                //     this.$refs.search_input_ref.focus();
-                //     return;
-                // } else
+
                 if (helpers.checkIfObjectExistsOnArrayBYIdentifer(this.items, item.id)) {
 
                     var old_item = helpers.getDataFromArrayById(this.items, item.id);
@@ -615,9 +612,17 @@
             },
 
             onChangeNetField(item) {
+                var appitem = item;
                 var new_vat = counting.convertVatToValue(item.vts); //  1.05
                 item.subtotal = helpers.roundTheFloatValueTo2DigitOnlyAfterComma((item.net / new_vat));
                 item.discount = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.total - item.subtotal);
+
+                if (parseFloat(item.discount) < 0) {
+                    appitem.discount = 0;
+                    return this.onChangeDiscountField(appitem);
+                }
+
+
                 item.tax = helpers.showOnlyTwoAfterComma(item.subtotal * (item.vts / 100));
                 this.items.splice(this.items.indexOf(item), 1, item);
                 this.updateInvoiceDetails()
