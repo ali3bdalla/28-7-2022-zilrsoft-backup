@@ -34,10 +34,10 @@
 			'settings' => 'SettingController',
 		]);
 		
-		Route::name('printer')->prefix('printer')->group(function (){
+		Route::name('printer.')->prefix('printer')->group(function (){
 			Route::get('sign_receipt_printer','PrinterController@sign_receipt_printer');
 			Route::get('printers','PrinterController@printers');
-//			Route::get('print_receipt/{sale}','PrinterController@print_receipt');
+			Route::get('print_a4/{invoice}','PrinterController@print_a4')->name('a4');
 		});
 		
 		Route::name('items.')->prefix('items')->group(function (){

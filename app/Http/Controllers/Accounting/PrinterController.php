@@ -15,10 +15,11 @@
 	
 	class PrinterController extends Controller
 	{
+	
 		
-		public function sale_receipt(Invoice $invoice)
+		public function print_a4(Invoice $invoice)
 		{
-			return view('template.receipt.pos2',compact('invoice'));
+			return view('accounting.printer.a4',compact('invoice'));
 		}
 		
 		/**
@@ -51,7 +52,7 @@
 		
 		public function print_receipt(Invoice $sale)
 		{
-			$invoice =  $sale;
+			$invoice = $sale;
 			return view('accounting.printer.receipt',compact('invoice'));
 		}
 

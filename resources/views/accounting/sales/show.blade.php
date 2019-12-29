@@ -2,9 +2,10 @@
 
 @section('title',__('pages/invoice.view') . ' | '. $invoice->title )
 @section('buttons')
-    <a href="{{route('accounting.sales.print',$invoice->id)}}" class="btn btn-default">
+    <a href="{{route('accounting.printer.a4',$invoice->id)}}"  target="_blank" class="btn btn-default">
         <i class="fa fa-print"></i> {{ __('pages/invoice.price_a4') }}
     </a>
+
     <accounting-print-receipt-layout-component
             :invoice-id="{{$invoice->id}}"></accounting-print-receipt-layout-component>
 
