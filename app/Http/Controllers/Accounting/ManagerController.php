@@ -30,9 +30,9 @@
 		public function index()
 		{
 			
-			Permission::findById(2)->update([
-				'name' => 'edit item'
-			]);
+//			Permission::findById(2)->update([
+//				'name' => 'edit item'
+//			]);
 			$branches = Branch::with('departments')->get();
 			return view('accounting.managers.index',compact('branches'));
 			//
