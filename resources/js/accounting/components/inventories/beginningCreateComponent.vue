@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <button  @click="pushDataToServer" class="btn btn-custom-primary"><i
+                <button @click="pushDataToServer" class="btn btn-custom-primary"><i
                         class="fa fa-save"></i> {{ app.trans.save }}
                 </button>
             </div>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="live-vue-search panel">
                         <div :key="item.id" @click="validateAndPrepareItem(item)"
-                           class="panel-footer" href="#" v-for="item in searchResultList">
+                             class="panel-footer" href="#" v-for="item in searchResultList">
                             <h4 class="title has-text-white">{{ item.locale_name }}
                                 <small class="has-text-white">{{ item.barcode}} - {{ item.price }}</small>
                             </h4>
@@ -128,7 +128,7 @@
                                 class="fa fa-trash"></i></button>
 
                         <a @click="openItemSerialsModal(index,item)" class="btn btn-success btn-sm"
-                                v-if="item.is_need_serial">السيريال &nbsp;
+                           v-if="item.is_need_serial">السيريال &nbsp;
                         </a>
 
                     </th>
@@ -304,13 +304,34 @@
                     if (!parent.is_need_serial) {
                         parent.qty = parseInt(parent.qty) + 1;
                         this.itemQtyUpdated(parent);
+
                     }
+                    this.clearAndFocusOnBarcodeField();
                 } else {
                     var preparedItem = this.prepareDataInFirstUse(item);
-                    this.appendItemToInvoiceItemsList(preparedItem);
+                    var index = this.appendItemToInvoiceItemsList(preparedItem);
+                    this.invoiceData.items.reverse();
+                    this.clearAndFocusOnBarcodeField();
+                    this.focusOnQtyField(index);
+
+
                 }
 
-                this.clearAndFocusOnBarcodeField();
+
+            },
+
+
+            focusOnQtyField: function (index) {
+                var item = db.model.findByIndex(this.invoiceData.items, index);
+
+                // let ref = 'itemQty_' + item.id + 'Ref';
+
+                // console.log(inputHelper.getReference(ref));
+                // if (item.is_need_serial) {
+                // this.$refs['itemQty_' + item.id + 'Ref'][0];
+                // } else {
+                //     this.$refs['itemQty_' + item.id + 'Ref'].focus();
+                // }
             },
             prepareDataInFirstUse(item,) {
                 item.isOpen = false;
@@ -336,6 +357,7 @@
                 }
 
                 this.updateInvoiceData();
+                return db.model.index(this.invoiceData.items, item.id);
             },
             updateInvoiceData() {
                 this.invoiceData.total = db.model.sum(this.invoiceData.items, 'total');
@@ -349,9 +371,8 @@
                 this.searchResultList = [];
                 this.$refs.barcodeNameAndSerialField.focus();
             },
-            itemQtyUpdated(item,bySerial = false) {
-                if(bySerial==false)
-                {
+            itemQtyUpdated(item, bySerial = false) {
+                if (bySerial == false) {
                     var el = this.$refs['itemQty_' + item.id + 'Ref'][0];
                     if (!inputHelper.validateQty(item.qty, el)) {
                         return false;
@@ -401,16 +422,15 @@
 
             handleItemSerialsUpdated(e) {
                 var index = e.index;
-                var item = db.model.findByIndex(this.invoiceData.items,index);
+                var item = db.model.findByIndex(this.invoiceData.items, index);
                 item.serials = e.serials;
                 item.qty = e.serials.length;
-                this.itemQtyUpdated(item,true);
+                this.itemQtyUpdated(item, true);
             },
             handleItemSerialsClosed(e) {
                 this.selectedItem = null;
                 this.selectedItemIndex = null;
             },
-
 
 
             pushDataToServer() {
@@ -463,10 +483,10 @@
     }
 
     .live-vue-search div {
-        background-color:black;
+        background-color: black;
         border-radius: 0px;
         border-bottom: 1px solid #eeeeee;
-        color:#eee;
+        color: #eee;
         cursor: pointer;
     }
 
@@ -477,7 +497,6 @@
         border-bottom: 1px solid #eeeeee;
         cursor: pointer;
     }
-
 
 
 </style>

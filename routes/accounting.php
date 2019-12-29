@@ -2,6 +2,7 @@
 
 //	auth()->loginUsingId(1);
 //
+	
 	app()->setLocale('ar');
 	Auth::routes(["verify" => true]);
 	

@@ -81,7 +81,8 @@ exports.math = {
     },
     mult: function (first, second) {
         return parseFloat(first) * parseFloat(second);
-    }
+    },
+
 };
 
 exports.validator = {

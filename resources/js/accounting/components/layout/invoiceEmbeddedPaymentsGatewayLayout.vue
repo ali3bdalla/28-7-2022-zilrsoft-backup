@@ -60,7 +60,7 @@
     import {math as ItemMath} from '../../item';
 
     export default {
-        props: ['gateways', 'netAmount','invoiceType'],
+        props: ['gateways', 'netAmount', 'invoiceType'],
         data: function () {
             return {
                 totalAmount: 0,
@@ -74,8 +74,8 @@
         },
 
         methods: {
-            initGateways() {
-                this.totalAmount = this.netAmount;
+            initGateways: function (value = null) {
+                this.totalAmount = value != null ? parseFloat(value) : this.netAmount;
                 this.methods = db.model.addColumn(this.gateways, 'amount', 0);
                 this.methods = db.model.addColumn(this.gateways, 'is_default', false);
                 if (this.methods.length >= 1) {
@@ -108,7 +108,7 @@
         },
         watch: {
             netAmount: function (value) {
-                this.initGateways();
+                this.initGateways(value);
             },
             paidAmount: function (value) {
                 this.remainingAmount = ItemMath.sub(this.totalAmount, value);

@@ -283,14 +283,6 @@
 
                         </div>
                     </div>
-                    <!--                    <accounting-invoice-embedded-purchase-expenses-layout-->
-                    <!--                            :expenses="expensesList"-->
-                    <!--                            @expenseDeIncludeInNet="expenseDeIncludeInNet"-->
-                    <!--                            @expenseIncludeInNet="expenseIncludeInNet"-->
-                    <!--                            @expensesUpdated="expensesListUpdated"-->
-                    <!--                    >-->
-
-                    <!--                    </accounting-invoice-embedded-purchase-expenses-layout>-->
 
                 </div>
                 <div class="col-md-9">
@@ -377,8 +369,7 @@
             };
         },
         created: function () {
-            // this.InvoiceData.salesmanId = this.creator.id;
-            // this.InvoiceData.clientId = this.clients[0].id;
+
             this.initExpensesList();
             this.initLiveTimer();
 
@@ -578,12 +569,12 @@
 
             itemNetUpdated(item) {
                 let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts); //  1.05
-
-                item.subtotal = helpers.roundTheFloatValueTo2DigitOnlyAfterComma((item.net / new_vat));
-                item.discount = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.total - item.subtotal);
-                item.tax = helpers.showOnlyTwoAfterComma(item.subtotal * (item.vts / 100));
-                this.items.splice(this.items.indexOf(item), 1, item);
-                this.updateInvoiceDetails()
+                item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
+                item.tax =  parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vts), 100)).toFixed(3);
+                item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
+                // item.tax = ItemMath.sub(ItemMath.mult(item.subtotal, tax / 100), item.subtotal);
+                // this.items.splice(db.model.index(this.invoiceData.items), 1, item);
+                this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
 
             },
 
