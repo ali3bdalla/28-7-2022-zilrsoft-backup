@@ -12,10 +12,15 @@ exports.db = {
                 return false;
             }
         },
-        in_array: function (arr, value) {
+        in_array: function (arr, value, type = null) {
             let len = arr.length;
             for (var i = 0; i < len; i++) {
-                if (arr[i] === value) {
+                if (type == 'int') {
+                    let item = parseInt(arr[i]);
+                } else {
+                    let item = arr[i];
+                }
+                if (item == value) {
                     return true;
                 }
             }

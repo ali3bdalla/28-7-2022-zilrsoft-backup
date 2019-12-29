@@ -1,1 +1,0 @@
-<?php /**PATH /home/vagrant/code/zilrsoft/resources/views/layouts/header.blade.php ENDPATH**/ ?>

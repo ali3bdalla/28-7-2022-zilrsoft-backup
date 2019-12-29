@@ -1,2 +1,0 @@
-
-<meta name="routes" content="<?php echo e(json_encode(collect(Route::getRoutes())->toArray())); ?>"><?php /**PATH /home/vagrant/code/zilrsoft/resources/views/accounting/layout/head/routes.blade.php ENDPATH**/ ?>

@@ -40,7 +40,7 @@
             for (let i = 0; i < len; i++) {
                 let gateway = this.gateways[i];
                 if (this.initGateways != null) {
-                    gateway['is_selected'] = db.model.in_array(this.initGateways, gateway['id']) === true;
+                    gateway['is_selected'] = db.model.in_array(this.initGateways, gateway['id'], 'int') === true;
                     console.log(gateway['is_selected']);
                 } else {
                     gateway['is_selected'] = false;
