@@ -263,7 +263,7 @@
                     })
                     .catch(function (error) {
                         alert(error.response.data[0]);
-
+                        console.log(error.response);
 
                     });
 
@@ -291,6 +291,7 @@
                     })
                     .catch(function (error) {
                         alert(error.response.data[0]);
+                        console.log(error.response);
 
 
                     });

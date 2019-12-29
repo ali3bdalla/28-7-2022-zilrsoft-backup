@@ -16,6 +16,8 @@
 		 */
 		public function authorize()
 		{
+			
+			
 			return $this->user()->can('manage managers');
 		}
 		
@@ -26,6 +28,7 @@
 		 */
 		public function rules()
 		{
+			
 			return [
 				//
 				'id' => 'required|integer|exists:managers,id',

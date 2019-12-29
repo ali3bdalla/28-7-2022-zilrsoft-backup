@@ -13,6 +13,7 @@
 	use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
+	use Spatie\Permission\Models\Permission;
 	
 	class ManagerController extends Controller
 	{
@@ -28,6 +29,10 @@
 		 */
 		public function index()
 		{
+			
+			Permission::findById(2)->update([
+				'name' => 'edit item'
+			]);
 			$branches = Branch::with('departments')->get();
 			return view('accounting.managers.index',compact('branches'));
 			//
