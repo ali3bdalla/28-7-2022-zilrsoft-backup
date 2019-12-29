@@ -477,7 +477,7 @@
 
                 this.invoiceData.discount = db.model.sum(this.invoiceData.items, 'discount');
                 this.invoiceData.subtotal = db.model.sum(this.invoiceData.items, 'subtotal');
-                console.log( this.invoiceData.subtotal);
+                console.log(this.invoiceData.subtotal);
                 this.invoiceData.tax = db.model.sum(this.invoiceData.items, 'tax');
                 this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net');
                 this.validateInvoiceData();
@@ -550,7 +550,7 @@
 
 
             deleteItemFromList(item) {
-                this.invoiceData.items.items = db.model.delete(this.invoiceData.items, item.id);
+                this.invoiceData.items = db.model.delete(this.invoiceData.items, item.id);
                 this.updateInvoiceData();
             },
 

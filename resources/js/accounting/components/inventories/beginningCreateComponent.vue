@@ -411,7 +411,7 @@
 
 
             deleteItemFromList(item) {
-                this.invoiceData.items.items = db.model.delete(this.invoiceData.items, item.id);
+                this.invoiceData.items = db.model.delete(this.invoiceData.items, item.id);
                 this.updateInvoiceData();
             },
 

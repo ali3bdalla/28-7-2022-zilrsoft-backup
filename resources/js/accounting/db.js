@@ -68,7 +68,7 @@ exports.db = {
             return -1;
         },
         delete: function (array, id) {
-            array.splice(this.index(id));
+            array.splice(this.index(array, id), 1);
             return array;
         },
         replace: function (arr, index, value) {
