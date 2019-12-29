@@ -35,10 +35,13 @@
         },
         created: function () {
             let len = this.gateways.length;
+            console.log('works');
+            console.log(this.initGateways);
             for (let i = 0; i < len; i++) {
                 let gateway = this.gateways[i];
                 if (this.initGateways != null) {
                     gateway['is_selected'] = db.model.in_array(this.initGateways, gateway['id']) === true;
+                    console.log(gateway['is_selected']);
                 } else {
                     gateway['is_selected'] = false;
                 }
