@@ -139,7 +139,7 @@
         <accounting-managers-permissions-and-roles-component
                 :init-permissions="managerPermissions"
                 @pushPermissionsUpdated="pushPermissionsUpdated"
-                v-if="editingManager!==true || managerUser.is_system_user!==true && managerUser.is_supervisor!==true"
+                v-if="editingManager!==true || managerUser.is_system_user!==1 && managerUser.is_supervisor!==1"
         >
         </accounting-managers-permissions-and-roles-component>
 
@@ -290,7 +290,7 @@
                         location.href = appVm.app.BaseApiUrl + 'managers';
                     })
                     .catch(function (error) {
-                        alert(error.response);
+                        alert(error.response.data[0]);
 
 
                     });

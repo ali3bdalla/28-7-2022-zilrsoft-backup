@@ -114,7 +114,7 @@
 			
 			return $invoice->purchase()->create([
 				'organization_id' => $this->user()->organization_id,
-				'receiver_id' => $user->id,
+				'receiver_id' => $this->user()->id,
 				'vendor_id' => $user->id,
 				'is_full_returned' => 0,
 				'invoice_type' => 'beginning_inventory',
