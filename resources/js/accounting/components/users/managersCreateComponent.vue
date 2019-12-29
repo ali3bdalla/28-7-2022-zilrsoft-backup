@@ -218,9 +218,9 @@
         methods: {
 
             initEditManager() {
-                this.managerData.branchId = this.manager.branch_id;
+                this.managerData.branchId = parseInt(this.manager.branch_id);
                 this.departments = this.managerBranch.departments;
-                this.managerData.departmentId = this.manager.department_id;
+                this.managerData.departmentId = parseInt(this.manager.department_id);
                 this.managerData.permissions = this.managerPermissions;
                 this.managerData.enName = this.manager.name;
                 this.managerData.arName = this.manager.name_ar;
