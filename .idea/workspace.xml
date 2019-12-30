@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/a87e787cec790a883a5cb3def2d353c1d912fe40.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Sale/DatatableRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Sale/DatatableRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/G268fis9trbUaUjnriyY1RoGJD9pVmRq3zFNhmmF" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/G268fis9trbUaUjnriyY1RoGJD9pVmRq3zFNhmmF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-12-30.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-30.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -431,7 +427,7 @@
       <workItem from="1576847436326" duration="105082000" />
       <workItem from="1577181612244" duration="98359000" />
       <workItem from="1577561097672" duration="759000" />
-      <workItem from="1577567765490" duration="29032000" />
+      <workItem from="1577567765490" duration="29174000" />
     </task>
     <servers />
   </component>

@@ -72,8 +72,17 @@
 			}
 			
 			
-			if ($this->has('id') && $this->filled('id')){
-				$query = $query->where('id',$this->id);
+			if ($this->has('title') && $this->filled('title')){
+				
+				$arr = explode("-",$this->input('title'));
+				if (count($arr) >= 2){
+					$number = $arr[1];
+				}else{
+					$number = $this->input('title');
+				}
+				
+				
+				$query = $query->where('id',$number);
 			}
 
 //
