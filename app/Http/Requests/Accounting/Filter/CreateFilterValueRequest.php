@@ -25,9 +25,10 @@
 		{
 			return [
 				//
-				'name' => 'required|string|unique:filter_values,name',
-				'ar_name' => 'required|string|unique:filter_values,ar_name',
 				'filter_id' => 'required|integer|exists:filters,id',
+				'name' => 'required|string|unique:filter_values,name,NULL,id,filter_id,'. request('filter_id'),
+				'ar_name' => 'required|string|unique:filter_values,ar_name,NULL,id,filter_id,' . request('filter_id'),
+			
 			];
 		}
 		
