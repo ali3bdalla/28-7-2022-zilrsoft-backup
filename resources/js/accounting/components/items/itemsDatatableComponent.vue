@@ -19,7 +19,9 @@
                                     :range="true" locale="en" v-model="date_range"/>
                         </div>
                         <div class="col-md-3">
-                            <input :placeholder="trans.barcode" @keyup.enter="pushServerRequest" class="form-control"
+                            <input :placeholder="trans.barcode" @keyup.enter="pushServerRequest('barcodeFieldRef')"
+                                   ref="barcodeFieldRef"
+                                   class="form-control"
                                    type="text" v-model="filters.barcode">
                         </div>
                         <div class="col-md-3">
@@ -273,7 +275,8 @@
                     {key: 'lastYear', label: this.datetimetrans.lastYear, value: '-year'}
                 ];
             },
-            pushServerRequest: function () {
+            pushServerRequest: function (ref = null) {
+
 
                 this.isLoading = true;
                 var appVm = this;
@@ -294,6 +297,15 @@
                 }).finally(function () {
                     appVm.isLoading = false;
                 });
+
+                if(ref !== null)
+                {
+                    this.$refs[ref].focus();
+                    this.$refs[ref].select();
+
+                    // this.$refs[ref][0].focus();
+                }
+
             },
 
 
