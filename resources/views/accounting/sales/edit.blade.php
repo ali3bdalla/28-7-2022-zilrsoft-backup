@@ -1,15 +1,13 @@
 @extends('accounting.layout.master')
 
-
 @section('title',__('pages/invoice.return'))
 
 
-@section('translator')
+@section('page_css')
     <script defer>
         window.translator = '@json(trans('pages/invoice'))'
     </script>
 @stop
-
 
 
 

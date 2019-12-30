@@ -100,7 +100,7 @@
                     <tbody>
 
 
-                    <tr :key="item.id" v-for="(item,itemindex) in items" v-if="!item.is_expense && !item.belong_to_kit">
+                    <tr :key="item.id" v-for="(item,index) in items" v-if="!item.is_expense && !item.belong_to_kit">
                         <th class="has-text-white">
                             <button @click="openItemSerialsModal(index,item)"
                                     class="btn btn-success btn-xs"
@@ -416,11 +416,10 @@
             },
 
 
-
             initData() {
-                var len = this.pitems.length;
-                for (var i = 0; i < len; i++) {
-                    var item = this.pitems[i];
+                let len = this.pitems.length;
+                for (let i = 0; i < len; i++) {
+                    let item = this.pitems[i];
                     item.a_qty = parseInt(item.qty) - parseInt(item.r_qty);
 
                     item.old_net = item.net;
@@ -445,7 +444,7 @@
             addNewExpenseOption() {
 
                 if (this.active_expense != null) {
-                    var new_expense = this.active_expense;
+                    let new_expense = this.active_expense;
                     new_expense.available_qty = 1;
                     new_expense.qty = 1;
                     new_expense.r_qty = 0;
@@ -482,8 +481,8 @@
                 }
 
                 this.methods = [];
-                for (var i = 0; i < e.methods.length; i++) {
-                    var method = e.methods[i];
+                for (let i = 0; i < e.methods.length; i++) {
+                    let method = e.methods[i];
 
                     if (parseFloat(method.amount) > 0) {
                         this.methods.push(method);
@@ -518,7 +517,7 @@
                 if (item.returned_qty > parseInt(item.qty)) {
                     item.error = 'error';
                     item.returned_qty = 0;
-                    // this.runUpdater(item);
+                    this.onReturnQtyChanged(item);
                     return;
                 }
 
@@ -528,7 +527,7 @@
 
 
             runUpdater(item) {
-                var index = this.items.indexOf(item);
+                let index = this.items.indexOf(item);
 
 
                 item.total = this.updateTotalForOneItem(item);
@@ -560,14 +559,14 @@
             },
             updateTaxForOneItem(item) {
                 if (item.is_expense) {
-                    var vts = item.vts;
+                    let vts = item.vts;
                 } else {
-                    var vts = item.item.vts;
+                    let vts = item.item.vts;
                 }
                 return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(vts * item.subtotal / 100);
             },
             updateNetForOneItem(item) {
-                var net = parseFloat(item.tax) + parseFloat(item.subtotal);
+                let net = parseFloat(item.tax) + parseFloat(item.subtotal);
                 return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(net);
             },
             updateItemInListBYindex(index, newItem) {
@@ -581,19 +580,15 @@
                 this.tax = this.getSum(this.items, 'tax');
                 this.net = this.getSum(this.items, 'net');
                 this.remaining = this.net;
-                // console.log(this.items);
             },
 
 
             getSum(arr = [], column) {
-                var sum = 0;
-                for (var i = arr.length - 1; i >= 0; i--) {
+                let sum = 0;
+                for (let i = arr.length - 1; i >= 0; i--) {
                     if (parseInt(arr[i].returned_qty) > 0)
                         sum = parseFloat(sum) + parseFloat(arr[i][column]);
                 }
-
-                // if(column=="net")
-                //     return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(sum);
 
                 return helpers.showOnlyTwoAfterComma(sum);
             },
@@ -610,7 +605,7 @@
 
 
             sendDataToServer() {
-                var data_to = {
+                let data_to = {
                     items: this.items,
                     total: this.total,
                     subtotal: this.subtotal,
@@ -625,16 +620,9 @@
                     methods: this.methods
                 };
 
-
-                console.log(this.sale);
-
-                var vm = this;
                 this.test_request_textarea = JSON.stringify(data_to);
-                axios.put('/accounting/sales/' + this.invoice.id, data_to)
+                axios.patch('/accounting/sales/' + this.invoice.id, data_to)
                     .then(function (response) {
-
-                        console.log(response.data);
-
                         window.location.reload();
                     })
                     .catch(function (error) {
@@ -652,8 +640,6 @@
                 this.subtotal = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(newTotal) - parseFloat(this.discount));
             },
             subtotal: function (newSubtotal) {
-                // this.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(this.tax) + parseFloat(newSubtotal));
-                // this.discount = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(this.total) - parseFloat(newSubtotal));
             },
             tax: function (newTax) {
                 this.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(this.subtotal) + parseFloat(newTax));
