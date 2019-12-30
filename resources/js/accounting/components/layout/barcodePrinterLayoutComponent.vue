@@ -87,6 +87,7 @@
 
                 var vm = this;
 
+                var appVm = this;
                 qz.security.setCertificatePromise(function (resolve, reject) {
 
                     //Alternate method 2 - direct
@@ -154,7 +155,7 @@
                 });
 
                 qz.security.setSignaturePromise(function (toSign) {
-                    var appVm = this;
+
                     return function (resolve, reject) {
                         $.get(appVm.app.BaseApiUrl + 'printer/sign_receipt_printer', {request: toSign}).then(resolve, reject);
                     };
