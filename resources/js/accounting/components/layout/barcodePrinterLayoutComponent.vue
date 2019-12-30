@@ -9,18 +9,21 @@
                 <i class="fa fa-print"></i></button>
         </div>
 
-        <div id="barcode_area" style="font-size: 17px;font-weight: bold; width: 300px;font-style: normal;font-family: monospace !important;">
+        <div id="barcode_area"
+             style="font-size: 17px;font-weight: bold; width: 300px;font-style: normal;font-family: monospace !important;">
             <barcode v-bind:value="item.barcode">
             </barcode>
             <div class="columns">
                 <div class="column is-three-quarters" style="font-size: 17px;
     font-weight: bold;
     font-style: normal;
-    font-family: 'Arial Unicode MS' !important;">{{ item.locale_name }}</div>
+    font-family: 'Arial Unicode MS' !important;">{{ item.locale_name }}
+                </div>
                 <div class="column" style="font-size: 17px;
     font-weight: bold;
     font-style: normal;
-    font-family: monospace !important;"> {{ item.price }}</div>
+    font-family: monospace !important;"> {{ item.price }}
+                </div>
             </div>
         </div>
 
@@ -43,7 +46,14 @@
             return {
                 image: null,
                 cropper: null,
-                number_of_barcode: 1
+                number_of_barcode: 1,
+                app: {
+                    primaryColor: metaHelper.getContent('primary-color'),
+                    secondColor: metaHelper.getContent('second-color'),
+                    appLocate: metaHelper.getContent('app-locate'),
+                    trans: trans('invoices-page'),
+                    BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
+                },
             };
 
         },
@@ -144,9 +154,9 @@
                 });
 
                 qz.security.setSignaturePromise(function (toSign) {
-                    console.log(toSign);
+                    var appVm = this;
                     return function (resolve, reject) {
-                        $.get("/management/printer/sign", {request: toSign}).then(resolve, reject);
+                        $.get(appVm.app.BaseApiUrl + 'printer/sign_receipt_printer', {request: toSign}).then(resolve, reject);
                     };
                 });
 
