@@ -12,7 +12,18 @@
         <div id="barcode_area" style="font-size: 17px;font-weight: bold; width: 300px;font-style: normal;font-family: monospace !important;">
             <barcode v-bind:value="item.barcode">
             </barcode>
+            <div class="columns">
+                <div class="column is-three-quarters" style="font-size: 17px;
+    font-weight: bold;
+    font-style: normal;
+    font-family: 'Arial Unicode MS' !important;">{{ item.locale_name }}</div>
+                <div class="column" style="font-size: 17px;
+    font-weight: bold;
+    font-style: normal;
+    font-family: monospace !important;"> {{ item.price }}</div>
+            </div>
         </div>
+
 
     </div>
 </template>
@@ -50,11 +61,11 @@
                     var img = new Image();
                     img.src = dataUrl;
                     vm.image = dataUrl;
-                    console.log(dataUrl);
+                    // console.log(dataUrl);
                     //  document.body.appendChild(img);
                 })
                 .catch(function (error) {
-                    console.error('oops, something went wrong!', error);
+                    // console.error('oops, something went wrong!', error);
                 });
         },
 

@@ -162,7 +162,9 @@
 		}
 		
 		/**
+		 * @param Item $item
 		 *
+		 * @return Factory|View
 		 */
 		public function transactions(Item $item)
 		{
@@ -178,13 +180,11 @@
 		 */
 		public function transactions_datatable(Item $item,Request $request)
 		{
-//			return  1;
 			
 			if ($request->has('startDate') && $request->filled('startDate') && $request->has('endDate') &&
 				$request->filled('endDate')){
 				return $item->stockMovement(['startDate' => $request->startDate,'endDate' => $request->endDate]);
 			}
-//			return  $item;
 			return collect($item->stockMovement());
 			
 		}
@@ -240,12 +240,12 @@
 		public function show_item_barcode(Request $request)
 		{
 			
-			
 			$request->validate([
 				'barcode' => 'required|exists:items,barcode'
 			]);
 			
-			$items = Item::where('barcode',$request->barcode)->first();
+			$items = Item::where('barcode',$request->barcode)->get();
+//			return $items;
 			return view('accounting.items.barcode.show',compact('items'));
 		}
 		
