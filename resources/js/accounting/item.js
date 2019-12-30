@@ -85,6 +85,10 @@ exports.math = {
         return parseFloat(first) * parseFloat(second);
     },
 
+    isBiggerThan: function (first, second) {
+        return parseFloat(first) > parseFloat(second);
+    }
+
 };
 
 exports.validator = {

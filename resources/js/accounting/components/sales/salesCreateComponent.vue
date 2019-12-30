@@ -187,8 +187,8 @@
                         <input
                                 :disabled="item.is_fixed_price"
                                 :ref="'itemPrice_' + item.id + 'Ref'"
+                                @change="itemPriceUpdated(item)"
                                 @focus="$event.target.select()"
-                                @keyup="itemPriceUpdated(item)"
                                 class="form-control input-xs amount-input"
                                 type="text"
                                 v-model="item.price">
@@ -204,8 +204,8 @@
                     <td>
                         <input :disabled="item.is_kit"
                                :ref="'itemDiscount_' + item.id + 'Ref'"
+                               @change="itemDiscountUpdated(item)"
                                @focus="$event.target.select()"
-                               @keyup="itemDiscountUpdated(item)"
                                class="form-control input-xs amount-input" placeholder="discount" type="text"
                                v-model="item.discount">
                     </td>
@@ -223,9 +223,9 @@
                     </td>
                     <td>
                         <input :disabled="item.is_fixed_price"
-                               @focus="$event.target.select()"
+                               @change="itemNetUpdated(item)"
 
-                               @keyup="itemNetUpdated(item)"
+                               @focus="$event.target.select()"
                                class="form-control input-xs amount-input"
                                placeholder="net" type="text" v-model="item.net">
                     </td>
@@ -476,12 +476,15 @@
                         };
                         this.handleItemSerialsUpdated(element);
                     }
+
+
                 }
 
 
                 this.$refs.barcodeNameAndSerialField.focus();
                 this.$refs.barcodeNameAndSerialField.select();
 
+                this.updateInvoiceData();
 
             },
             prepareDataInFirstUse(item) {
@@ -710,6 +713,18 @@
 
 
             pushDataToServer(doWork = null) {
+                let client = db.model.find(this.clients, this.invoiceData.clientId);
+                if (client.can_make_credit === false) {
+                    let amount = db.model.sum(this.invoiceData.methods, 'amount');
+
+                    if (ItemMath.isBiggerThan(this.invoiceData.net, amount)) {
+                        this.everythingFineToSave = false;
+                        alert('هذا العميل لا يمكنه القيام بفواتير آجله الرجاء التحقق من وسائل الدفع واكمال المبلغ ');
+
+                        return;
+                    }
+                }
+
                 let data = {
                     items: this.invoiceData.items,
                     salesman_id: this.invoiceData.salesmanId,

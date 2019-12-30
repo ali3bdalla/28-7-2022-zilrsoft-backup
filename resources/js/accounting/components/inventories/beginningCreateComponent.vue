@@ -151,14 +151,16 @@
                     <th class="has-text-white">
                         <input
                                 :ref="'itemPrice_' + item.id + 'Ref'"
-                                @focus="$event.target.select()" @keyup="itemPriceUpdated(item)"
+                                @focus="$event.target.select()"
+                                @change="itemPriceUpdated(item)"
                                 class="form-control"
                                 type="text"
                                 v-model="item.purchase_price">
 
                     </th>
                     <th class="has-text-white">
-                        <input @focus="$event.target.select()" class="form-control"
+                        <input @focus="$event.target.select()"
+                               class="form-control"
                                disabled
                                type="text" v-model="item.total">
                     </th>
