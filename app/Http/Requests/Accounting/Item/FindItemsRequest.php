@@ -39,7 +39,7 @@
 		{
 			
 			
-			$query = Item::where('is_expense',false);
+			$query = Item::where('is_expense',false)->with('data','items');
 			if ($this->has('barcode_or_name_or_serial') && $this->filled('barcode_or_name_or_serial')){
 				$query = $query->where('barcode','LIKE','%'.$this->input('barcode_or_name_or_serial').'%')
 					->orWhere('name','LIKE','%'.$this->input('barcode_or_name_or_serial').'%')

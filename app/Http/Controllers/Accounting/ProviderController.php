@@ -8,6 +8,7 @@
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Item\FindItemsRequest;
 	use App\Http\Requests\Accounting\Item\ValidatePurchaseSerialsRequest;
+	use App\Http\Requests\Accounting\Item\ValidateSerialRequest;
 	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Database\Eloquent\Collection;
 	use Illuminate\Http\Request;
@@ -28,13 +29,11 @@
 				return [];
 			
 			
-			
 			$filters = CategoryFilters::whereIn('category_id',$categories_ids)
 				->with('filter.values')->orderBy('id','asc')->get();
 			
 			$result = [];
-			foreach ($filters as $filter)
-			{
+			foreach ($filters as $filter){
 				$result[] = $filter['filter'];
 			}
 			
@@ -62,22 +61,24 @@
 			return $request->results();
 		}
 		
-		public function query_validate_purchase_serial(ValidatePurchaseSerialsRequest $request)
+		public function query_validate_purchase_serial(ValidateSerialRequest $request)
+		{
+			
+			return $request->purchase();
+		}
+		
+		public function query_validate_sale_serial(ValidateSerialRequest $request)
+		{
+//
+			return $request->sale();
+		}
+		
+		public function query_validate_return_sale_serial(ValidateSerialRequest $request)
 		{
 //			return $request->good();
 		}
 		
-		public function query_validate_sale_serial(ValidatePurchaseSerialsRequest $request)
-		{
-//			return $request->good();
-		}
-		
-		public function query_validate_return_sale_serial(ValidatePurchaseSerialsRequest $request)
-		{
-//			return $request->good();
-		}
-		
-		public function query_validate_return_purchase_serial(ValidatePurchaseSerialsRequest $request)
+		public function query_validate_return_purchase_serial(ValidateSerialRequest $request)
 		{
 //			return $request->good();
 		}

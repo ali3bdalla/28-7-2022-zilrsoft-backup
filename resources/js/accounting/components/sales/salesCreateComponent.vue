@@ -123,6 +123,7 @@
                 <thead class="panel-heading">
                 <tr>
                     <th></th>
+                    <th></th>
                     <!-- <th class="has-text-white"></th> -->
                     <th>{{ app.trans.barcode }}</th>
                     <th>{{ app.trans.item_name }}</th>
@@ -145,13 +146,23 @@
 
                 <tr :key="item.id" v-for="(item,index) in invoiceData.items">
                     <td>
-
                         <button @click="deleteItemFromList(item)" class="btn btn-danger btn-xs"><i
                                 class="fa fa-trash"></i></button>
+                    </td>
+                    <td>
                         <button @click="openItemSerialsModal(index,item)"
                                 class="btn btn-success btn-xs"
-                                v-if="item.is_need_serial"><i class="fa fa-pen"></i> &nbsp;
+                                v-if="item.is_need_serial"><i class="fa fa-bars"></i> &nbsp;
                         </button>
+                        <accounting-kit-items-layout-component
+                                :index="index"
+                                :kit="item"
+                                :qty="item.qty"
+                                @kitUpdated="kitItemsDataUpdated"
+                                v-if="item.is_kit==true">
+
+                        </accounting-kit-items-layout-component>
+
 
                     </td>
                     <td v-text="item.barcode"></td>
@@ -502,6 +513,11 @@
 
                 this.updateInvoiceData();
             },
+
+            kitItemsDataUpdated(e) {
+                let kit = e.kit;
+                this.invoiceData.items.splice(e.index, 1, kit);
+            },
             updateInvoiceData() {
                 this.invoiceData.total = db.model.sum(this.invoiceData.items, 'total');
                 this.invoiceData.discount = db.model.sum(this.invoiceData.items, 'discount');
@@ -513,7 +529,6 @@
 
             validateInvoiceData() {
                 let everythingFineToSave = true;
-
 
                 let validating = db.model.validateAmounts(this.invoiceData.items, [
                     'purchase',
@@ -570,7 +585,7 @@
             itemNetUpdated(item) {
                 let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts); //  1.05
                 item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
-                item.tax =  parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vts), 100)).toFixed(3);
+                item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vts), 100)).toFixed(3);
                 item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
                 // item.tax = ItemMath.sub(ItemMath.mult(item.subtotal, tax / 100), item.subtotal);
                 // this.items.splice(db.model.index(this.invoiceData.items), 1, item);
@@ -730,7 +745,8 @@
                         //
                     })
                     .catch(function (error) {
-                        alert(error.response)
+                        alert(error.response.data.message);
+                        console.log(error.response.data.message)
                     });
 
             },

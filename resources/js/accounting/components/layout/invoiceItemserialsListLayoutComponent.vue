@@ -20,34 +20,35 @@
                                                    placeholder="السيريال"
                                                    ref="serialInput"
                                                    type="text"
-                                                   v-model="serialInput">
+                                                   v-model="serialInput"
+                                            >
                                         </div>
-<!--                                        <div class="col-md-6">-->
-<!--                                            <input class="form-control" name="" type="text">-->
-<!--                                        </div>-->
+                                        <!--                                        <div class="col-md-6">-->
+                                        <!--                                            <input class="form-control" name="" type="text">-->
+                                        <!--                                        </div>-->
                                     </div>
                                     <div class="table-response">
-                                    <table class="table table-bordered text-center">
-                                        <thead>
-                                        <th>#</th>
-                                        <th></th>
-                                        <th></th>
-                                        </thead>
-                                        <tbody>
-                                        <tr :key="index" v-for="(serial,index) in serials">
-                                            <td class="text-center" v-text="index + 1"></td>
-                                            <td class="text-center" v-text="serial"></td>
-                                            <td class="text-center">
-                                                <button @click="deleteSerialFromList(index)"
-                                                        class="btn btn-danger btn-sm">حذف
-                                                </button>
-                                            </td>
-                                        </tr>
+                                        <table class="table table-bordered text-center">
+                                            <thead>
+                                            <th>#</th>
+                                            <th></th>
+                                            <th></th>
+                                            </thead>
+                                            <tbody>
+                                            <tr :key="index" v-for="(serial,index) in serials">
+                                                <td class="text-center" v-text="index + 1"></td>
+                                                <td class="text-center" v-text="serial"></td>
+                                                <td class="text-center">
+                                                    <button @click="deleteSerialFromList(index)"
+                                                            class="btn btn-danger btn-sm">حذف
+                                                    </button>
+                                                </td>
+                                            </tr>
 
 
-                                        </tbody>
+                                            </tbody>
 
-                                    </table>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +72,7 @@
             return {
                 serialInput: "",
                 itemData: null,
-                index:-1,
+                index: -1,
                 serials: [],
             };
 
@@ -82,11 +83,9 @@
             validateSerial() {
                 if (this.invoiceType == 'purchase') {
                     var appVm = this;
-                    ItemQuery.sendValidatePurchaseSerialRequest({
-                        serials: [
-                            this.serialInput
-                        ]
-                    }).then(response => {
+                    ItemQuery.sendValidatePurchaseSerialRequest(
+                        [this.serialInput]
+                    ).then(response => {
                         appVm.serials = db.model.createUnique(appVm.serials, appVm.serialInput);
                         appVm.serialInput = "";
                         appVm.publishUpdated();
@@ -95,49 +94,59 @@
 
                     });
 
-                }
-                else if (this.invoiceType == 'sale') {
+                } else if (this.invoiceType == 'sale') {
                     var appVm = this;
-                    ItemQuery.sendValidateSaleSerialRequest({
-                        serials: [
-                            this.serialInput
-                        ]
-                    }).then(response => {
-                        appVm.serials = db.model.createUnique(appVm.serials, appVm.serialInput);
-                        appVm.serialInput = "";
-                        appVm.publishUpdated();
+                    ItemQuery.sendValidateSaleSerialRequest(this.item.id, [
+                        this.serialInput
+                    ]).then(response => {
+                        if (response.data.length <= 0) {
+                            alert('هذا السيريال غير متوفر');
+                            appVm.$refs.serialInput.focus();
+                            appVm.$refs.serialInput.select();
+                        } else {
+                            appVm.serials = db.model.createUnique(appVm.serials, appVm.serialInput);
+                            appVm.serialInput = "";
+                            appVm.publishUpdated();
+                        }
                     }).catch(error => {
                         alert(error);
 
                     });
 
-                }
-                else if (this.invoiceType == 'r_sale') {
+                } else if (this.invoiceType == 'r_sale') {
                     var appVm = this;
-                    ItemQuery.sendValidateReturnSaleSerialRequest({
-                        serials: [
-                            this.serialInput
-                        ]
-                    }).then(response => {
-                        appVm.serials = db.model.createUnique(appVm.serials, appVm.serialInput);
-                        appVm.serialInput = "";
-                        appVm.publishUpdated();
+                    ItemQuery.sendValidateReturnSaleSerialRequest(this.item.id, [
+                        this.serialInput
+                    ]).then(response => {
+                        if (response.data.length <= 0) {
+                            alert('هذا السيريال غير متوفر');
+                            appVm.$refs.serialInput.focus();
+                            appVm.$refs.serialInput.select();
+                        } else {
+                            appVm.serials = db.model.createUnique(appVm.serials, appVm.serialInput);
+                            appVm.serialInput = "";
+                            appVm.publishUpdated();
+                        }
                     }).catch(error => {
                         alert(error);
 
                     });
 
-                }
-                else if (this.invoiceType == 'r_purchase') {
+                } else if (this.invoiceType == 'r_purchase') {
                     var appVm = this;
-                    ItemQuery.sendValidateReturnPurchaseSerialRequest({
-                        serials: [
+                    ItemQuery.sendValidateReturnPurchaseSerialRequest(this.item.id, [
                             this.serialInput
                         ]
-                    }).then(response => {
-                        appVm.serials = db.model.createUnique(appVm.serials, appVm.serialInput);
-                        appVm.serialInput = "";
-                        appVm.publishUpdated();
+                    ).then(response => {
+                        if (response.data.length <= 0) {
+                            alert('هذا السيريال غير متوفر');
+                            appVm.$refs.serialInput.focus();
+                            appVm.$refs.serialInput.select();
+                        } else {
+                            appVm.serials = db.model.createUnique(appVm.serials, appVm.serialInput);
+                            appVm.serialInput = "";
+                            appVm.publishUpdated();
+                        }
                     }).catch(error => {
                         alert(error);
 
@@ -159,16 +168,14 @@
             },
 
             panelClosed() {
-                this.$emit('panelClosed',{});
+                this.$emit('panelClosed', {});
             },
             handleOpen(value) {
-                if(value!=null)
-                {
+                if (value != null) {
                     this.itemData = value;
                     this.index = this.itemIndex;
                     this.serials = value.serials;
-                }else
-                {
+                } else {
                     this.itemData = null;
                     this.index = -1;
 

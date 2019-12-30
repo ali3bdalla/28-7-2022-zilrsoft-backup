@@ -57,6 +57,7 @@ exports.accounting = {
     getKitInformation: function (item) {
         item.available_qty = 100;
         item.is_fixed_price = true;
+        item.price = item.data.total;
         item.total = item.data.total;
         item.subtotal = item.data.subtotal;
         item.discount = item.data.discount;
@@ -64,6 +65,7 @@ exports.accounting = {
         item.net = item.data.net;
         item.tax = item.data.tax;
         item.is_fixed_price = true;
+        return item;
     }
 };
 
@@ -116,14 +118,19 @@ exports.query = {
         let link = metaHelper.getContent("BaseApiUrl") + 'items/helper/activate_items';
         return axios.post(link, {id_array: id_array});
     },
-    sendValidatePurchaseSerialRequest: function (query = {}) {
+    sendValidatePurchaseSerialRequest: function (serials = []) {
         var link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_validate_purchase_serial';
-        return axios.post(link, query);
+        return axios.post(link, {
+            serials: serials
+        });
     },
 
-    sendValidateSaleSerialRequest: function (query = {}) {
+    sendValidateSaleSerialRequest: function (item_id = 0, serials = []) {
         var link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_validate_sale_serial';
-        return axios.post(link, query);
+        return axios.post(link, {
+            item_id: item_id,
+            serials: serials
+        });
     },
     sendValidateReturnPurchaseSerialRequest: function (query = {}) {
         var link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_validate_return_purchase_serial';
