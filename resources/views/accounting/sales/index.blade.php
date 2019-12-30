@@ -24,6 +24,7 @@
             :can-edit="{{ auth()->user()->canDo('edit sale') }}"
     >
 
+{{--        {{ auth()->user()->canDo('view item transactions') }}--}}
 
     </accounting-sales-datatable-component>
 @endsection

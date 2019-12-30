@@ -19,24 +19,10 @@
                                     :range="true" locale="en" v-model="date_range"/>
                         </div>
 
+
                         <div class="col-md-3">
                             <accounting-multi-select-with-search-layout-component
-                                    :options="creators"
-                                    :placeholder="app.trans.creator"
-                                    :title="app.trans.creator"
-                                    @valueUpdated="creatorListUpdated"
-                                    default="0"
-                                    identity="000000000"
-                                    label_text="name"
 
-                            >
-
-                            </accounting-multi-select-with-search-layout-component>
-
-                        </div>
-                        <div class="col-md-3">
-                            <accounting-multi-select-with-search-layout-component
-                                    v-if="canViewAccounting==1"
                                     :options="creators"
                                     :placeholder="app.trans.salesman"
                                     :title="app.trans.salesman"
@@ -58,20 +44,15 @@
                                 <option value="credit">{{ app.trans.credit }}</option>
                             </select>
                         </div>
-                        <div class="col-md-3" v-if="canViewAccounting==1">
+                        <div class="col-md-3">
                             <select @change="pushServerRequest" class="form-control" v-model="filters.invoice_type">
                                 <option value="null">{{ app.trans.invoice_type }}</option>
                                 <option value="sale">{{ app.trans.sale }}</option>
                                 <option value="r_sale">{{ app.trans.return_sale }}</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
-                            <input :placeholder="app.trans.invoice_number" @keyup="pushServerRequest"
-                                   class="form-control"
-                                   type="text" v-model="filters.title">
-                        </div>
-
                     </div>
+
 
                     <div class="row">
                         <div class="col-md-3">
@@ -100,10 +81,39 @@
                                    type="text" v-model="filters.net">
                         </div>
                         <div class="col-md-3">
+                            <input :placeholder="app.trans.invoice_number" @keyup="pushServerRequest"
+                                   class="form-control"
+                                   type="text" v-model="filters.title">
+                        </div>
+
+                    </div>
+
+                    <div class="row" v-if="canViewAccounting==1">
+                        <div class="col-md-3">
+                            <accounting-multi-select-with-search-layout-component
+                                    :options="creators"
+                                    :placeholder="app.trans.creator"
+                                    :title="app.trans.creator"
+                                    @valueUpdated="creatorListUpdated"
+                                    default="0"
+                                    identity="000000000"
+                                    label_text="name"
+
+
+                            >
+
+                            </accounting-multi-select-with-search-layout-component>
+
+
+                        </div>
+
+                        <div class="col-md-3">
                             <input :placeholder="app.trans.tax" @keyup="pushServerRequest"
                                    class="form-control"
                                    type="text" v-model="filters.tax">
                         </div>
+
+
                     </div>
 
                 </div>
@@ -149,12 +159,12 @@
 
 
                         <th :class="{'orderBy':orderBy=='creator_id'}" @click="setOrderByColumn('creator_id')"
-                            width="">
+                            v-if="canViewAccounting==1" width="">
                             {{ app.trans.created_by }}
                         </th>
 
                         <th
-                            width="">
+                                width="">
                             {{ app.trans.salesman }}
                         </th>
 
@@ -183,7 +193,7 @@
                             <span v-if="row.invoice_type=='sale'">{{ app.trans.sale }}</span>
                             <span v-else>{{ app.trans.return_sale }}</span>
                         </td>
-                        <td class="text-center" v-text="row.creator.name"></td>
+                        <td class="text-center" v-if="canViewAccounting==1" v-text="row.creator.name"></td>
                         <td class="text-center" v-text="row.sale.salesman.name"></td>
                         <td class="text-center" v-text="row.tax"></td>
                         <td>
@@ -242,7 +252,8 @@
 
                         <th>
 
-                        </th><th>
+                        </th>
+                        <th>
 
                         </th>
 
@@ -340,7 +351,7 @@
                     tax: null,
                     current_status: null,
                     salesmen: [],
-                    invoice_type:null,
+                    invoice_type: null,
                 },
                 paginationResponseData: null,
                 tableSelectionActiveMode: false
