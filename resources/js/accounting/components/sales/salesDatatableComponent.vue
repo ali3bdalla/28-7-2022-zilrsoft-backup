@@ -211,9 +211,7 @@
                                            v-text="app.trans.view"></a></li>
 
                                     <li v-if="canEdit==1 && row.invoice_type=='sale' && row.is_deleted==0"><a
-                                            :href="baseUrl + row.id +
-                                    '/edit' "
-                                            v-text="app.trans.return"></a></li>
+                                            :href="baseUrl + row.id + '/edit'"  v-text="app.trans.return"></a></li>
 
                                 </ul>
                             </div>

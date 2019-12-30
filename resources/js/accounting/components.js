@@ -29,6 +29,7 @@ import AccountingInvoiceEmbeddedPaymentsGatewayLayout from './components/layout/
 import AccountingInvoiceEmbeddedPurchaseExpensesLayout from './components/layout/invoiceEmbeddedPurchaseExpensesLayout';
 import AccountingSalesDatatableComponent from './components/sales/salesDatatableComponent';
 import AccountingSalesCreateComponent from './components/sales/salesCreateComponent';
+import AccountingSalesReturnComponent from './components/sales/salesReturnComponent';
 import AccountingKitsDatatableComponent from './components/items/kitsDatatableComponent';
 import AccountingKitsCreateComponent from './components/items/kitsCreateComponent';
 import AccountingPrintReceiptLayoutComponent from './components/layout/printerReceiptLayoutComponent';
@@ -69,6 +70,7 @@ Vue.component('accounting-invoice-embedded-payments-gateway-layout', AccountingI
 Vue.component('accounting-invoice-embedded-purchase-expenses-layout', AccountingInvoiceEmbeddedPurchaseExpensesLayout);
 Vue.component('accounting-sales-datatable-component', AccountingSalesDatatableComponent);
 Vue.component('accounting-sales-create-component', AccountingSalesCreateComponent);
+Vue.component('accounting-sales-return-component', AccountingSalesReturnComponent);
 Vue.component('accounting-kits-datatable-component', AccountingKitsDatatableComponent);
 Vue.component('accounting-kits-create-component', AccountingKitsCreateComponent);
 Vue.component('accounting-print-receipt-layout-component', AccountingPrintReceiptLayoutComponent);

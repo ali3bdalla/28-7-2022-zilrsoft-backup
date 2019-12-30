@@ -18,7 +18,6 @@
 		public function authorize()
 		{
 			return true;
-			return $this->user()->isAuthorizedTo('return-purchase');
 		}
 		
 		/**
@@ -36,26 +35,23 @@
 			];
 		}
 		
-		public function save($sale)
+		public function save($invoice)
 		{
 			
 			DB::beginTransaction();
 			try{
-				$items = $this->items;
+				$items = $this->input("items");
 				$base_invoice =
-					Invoice::initEmptyInvoice('r_sale',$sale->invoice)
-						->addChildInvoice($sale->client_id,"r_sale",$sale->invoice)
+					Invoice::initEmptyInvoice('r_sale',$invoice)
+						->addChildInvoice($invoice->sale->client_id,
+							"r_sale",$invoice->sale->salesman_id)
 						->addReturnedItemsToBaseInvoice($items)
 						->updateBaseInvoiceAccountingInformation()
-						->createInvoiceTransactions($this->methods,'r_sale');
-				
+						->createInvoiceTransactions($this->input("methods"),'r_sale');
 				DB::commit();
-				
 				return $base_invoice;
 			}catch (Exception $exception){
-				
 				DB::rollBack();
-				
 				return response(json_encode([
 					'message' => $exception->getMessage()
 				]),400);

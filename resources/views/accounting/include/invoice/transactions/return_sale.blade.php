@@ -1,3 +1,4 @@
+<?php $total_debit = 0; $total_credit = 0;?>
 @foreach($transactions as $transaction)
 
     @if(in_array($transaction['description'],['to_cogs','to_gateway',

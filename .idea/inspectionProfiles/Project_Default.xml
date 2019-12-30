@@ -5,7 +5,7 @@
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="40">
+          <list size="41">
             <item index="0" class="java.lang.String" itemvalue="nobr" />
             <item index="1" class="java.lang.String" itemvalue="noembed" />
             <item index="2" class="java.lang.String" itemvalue="comment" />
@@ -46,6 +46,7 @@
             <item index="37" class="java.lang.String" itemvalue="accounting-item-transactions-component" />
             <item index="38" class="java.lang.String" itemvalue="accounting-barcode-printer-layout-component" />
             <item index="39" class="java.lang.String" itemvalue="accounting-sales-datatable-component" />
+            <item index="40" class="java.lang.String" itemvalue="accounting-sales-return-component" />
           </list>
         </value>
       </option>
