@@ -188,7 +188,6 @@
 		public function view_quotation($quotation_id)
 		{
 			$sale = SaleInvoice::withoutGlobalScope(QuotationScope::class)->findOrFail($quotation_id);
-//			return $sale;
 			$transactions = $sale->invoice->transactions()->where('description','!=','client_balance')->get();
 			
 			

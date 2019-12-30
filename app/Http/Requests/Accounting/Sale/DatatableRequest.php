@@ -36,11 +36,7 @@
 			
 			$query = Invoice::whereIn('invoice_type',['sale','r_sale'])->with('creator','items','sale.client','sale.salesman');
 
-//
-//
-//			if (!$this->user()->can('manage branches')){
-//				$query = $query->where('creator_id',$this->user()->id);
-//			}
+
 //
 			if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
 				$this->filled
@@ -53,6 +49,8 @@
 					$_startDate->toDateString(),
 					$_endDate->toDateString()
 				]);
+			}else{
+				$query = $query->whereDate('created_at',Carbon::today());
 			}
 			
 			
