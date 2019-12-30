@@ -16,7 +16,7 @@
 		
 		public function getLocaleNameAttribute()
 		{
-			if (app()->isLocale('ar') && $this->name_ar != "")
+			if (app()->isLocale('ar'))
 				return $this->name_ar;
 			
 			return $this->name;

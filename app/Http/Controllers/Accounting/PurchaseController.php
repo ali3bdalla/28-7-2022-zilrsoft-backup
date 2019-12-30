@@ -52,7 +52,12 @@
 			$expenses = Expense::all();
 //			return $expenses;
 			//auth()->user()->gateways()->pluck('gateway_id')->toArray()
-			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())->get();
+			
+			$gateways = [];
+			foreach (auth()->user()->gateways->load('gateway') as $gateway)
+			{
+				$gateways[] = $gateway['gateway'];
+			}
 			return view('accounting.purchases.create',compact('vendors','receivers','gateways','expenses'));
 			//
 		}
