@@ -15,14 +15,14 @@
             <div class="col-md-6 text-center">
 
                 <div    id="barcode_area" style="    width: 266px;">
-                    <barcode :value="item.barcode"  height="100" font-size="11" >
+                    <barcode :value="item.barcode"  height="100" >
                     </barcode>
 
                     <div class="row">
-                        <div class="col-md-9 text-right div-col" style="margin-right: 3px; margin-left: -3px">
-                            {{ item.ar_name}}
+                        <div class="col-md-10 text-right div-col" style="margin-right: 3px; margin-left: -3px">
+                            {{  item.ar_name.toString().substr(0,30) }}
                         </div>
-                        <div class="col-md-3 text-left div-col"  style="font-weight: bold;">
+                        <div class="col-md-2 text-left div-col"  style="font-weight: bold;">
                             {{ item.price_with_tax}}
                         </div>
                     </div>
@@ -257,7 +257,7 @@
 
 <style>
     #barcode_area svg {
-        height: 100px !important;
+        /*height: 100px !important;*/
         margin-bottom: -16px;
     }
 
