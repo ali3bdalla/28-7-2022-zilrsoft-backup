@@ -13,6 +13,8 @@ exports.trans = function (file) {
 };
 
 
+
+
 exports.route = function (route = "") {
     var lang = metaHelper.getContent('routes');
     return JSON.parse(lang);

@@ -17,6 +17,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodePrinterLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodePrinterLayoutComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/helpers.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/helpers.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -440,7 +442,7 @@
       <workItem from="1576847436326" duration="105082000" />
       <workItem from="1577181612244" duration="98359000" />
       <workItem from="1577561097672" duration="759000" />
-      <workItem from="1577567765490" duration="37001000" />
+      <workItem from="1577567765490" duration="37229000" />
     </task>
     <servers />
   </component>
