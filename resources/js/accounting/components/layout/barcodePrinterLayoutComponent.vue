@@ -64,7 +64,10 @@
 
             var vm = this;
             domtoimage.toPng(document.getElementById('barcode_area'), {
-                quality: 1, style: {}
+                quality: 1, style: {
+                    width:'38mm',
+                    height:'25mm',
+                }
             })
                 .then(function (dataUrl) {
                     var img = new Image();
