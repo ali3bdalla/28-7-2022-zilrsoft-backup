@@ -10,8 +10,9 @@
                     <i class="fa fa-print"></i></button>
             </div>
         </div>
+
         <div class="row text-center align-content-center">
-            <div class="col-md-12 text-center">
+            <div class="col-md-6 text-center">
 
                 <div
                         id="barcode_area"
@@ -19,13 +20,19 @@
                             height: 25mm !important;
                             background-color: chocolate"
                 >
-<!--                    -->
-<!--                    <barcode height="10mm" v-bind:value="item.barcode" width="2mm">-->
+<!--                    <barcode :value="item.barcode" height="94.488188976px" width="143.62204724px">-->
 <!--                    </barcode>-->
 
                 </div>
             </div>
+
+            <div class="col-md-6 text-center">
+                <div id="showGeneratedBarcodeImageId">
+
+                </div>
+            </div>
         </div>
+
 
     </div>
 </template>
@@ -39,7 +46,7 @@
 
 
     export default {
-        components: {'barcode': VueBarcode, domtoimage},
+        components: {'barcode': VueBarcode, domtoimage, VueBarcode},
         props: ['invoice_id', 'item'],
         data: function () {
             return {
@@ -65,8 +72,11 @@
             var vm = this;
             domtoimage.toPng(document.getElementById('barcode_area'), {
                 quality: 1, style: {
-                    width:'38mm',
-                    height:'25mm',
+                    width: '143.62204724px',
+                    height: '94.488188976px',
+                    backgroundColor: "red",
+                    padding: '0px',
+                    margin: "0px"
                 }
             })
                 .then(function (dataUrl) {
@@ -74,7 +84,7 @@
                     img.src = dataUrl;
                     vm.image = dataUrl;
                     // console.log(dataUrl);
-                    //  document.body.appendChild(img);
+                    document.getElementById('showGeneratedBarcodeImageId').appendChild(img);
                 })
                 .catch(function (error) {
                     // console.error('oops, something went wrong!', error);
@@ -253,7 +263,7 @@
                         //'Q232,26\n',
                         {
                             type: 'raw', format: 'image', data: this.image,
-                            options: {language: 'EPL', x: 155, y: 30}
+                            options: {language: 'EPL', x: 143.62204724, y: 94.488188976}
                         },
                         '\nP1,1\n'
                     );
