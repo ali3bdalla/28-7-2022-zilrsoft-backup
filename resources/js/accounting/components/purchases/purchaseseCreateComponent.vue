@@ -328,11 +328,15 @@
 
         </accounting-invoice-item-serials-list-layout-component>
 
-        <accounting-barcode-printer-layout-component
-                :inside-invoice="true"
-                :invoice-id="invoiceTitle"
-                :items="invoiceData.items"
-                :print="printBarcodes"></accounting-barcode-printer-layout-component>
+        <accounting-purchase-barcode-button-layout-component
+                :items='invoiceData.items'
+                 :invoice-id='invoiceTitle'
+                :printer-watcher="printBarcodes"
+        >
+
+        </accounting-purchase-barcode-button-layout-component>
+
+
     </div>
 
 

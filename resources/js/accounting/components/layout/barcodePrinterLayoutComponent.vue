@@ -313,6 +313,7 @@
             },
 
             bulkPrintListener() {
+                this.itemsData = this.items;
                 for (let i = 0; i < this.itemsData.length; i++) {
                     this.itemData = this.itemsData[i];
                     this.number_of_barcode = this.itemsData[i].qty;
@@ -320,9 +321,12 @@
                     this.generatedData(this.itemsData[i].qty);
 
                     while (this.watcher !== true) {
-                        console.log(i);
                     }
                 }
+
+                this.$emit('bulkPrintComplete',{
+
+                });
             }
 
         },
