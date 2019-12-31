@@ -20,7 +20,7 @@
 
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 3px;
-                        margin-left: -3px;margin-top: -8px;">
+                        margin-left: -3px;margin-top: -5px;">
                             {{ item.ar_name.toString().substr(0,40) }}
                         </div>
                         <!--                        <div class="col-md-3 text-left div-col" style="font-weight: bold;">-->
@@ -28,8 +28,8 @@
                         <!--                        </div>-->
                     </div>
                     <div class="row">
-                        <div align="left" class="col-md-12  div-col" style="margin-top: -26px;">
-                            {{ item.price_with_tax}}
+                        <div align="left" class="col-md-12  div-col" style="margin-top: -18px; font-weight: bold;">
+                            {{ item.price_with_tax}} ر.س
                         </div>
 
                     </div>
