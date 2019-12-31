@@ -19,19 +19,20 @@
                     </barcode>
 
                     <div class="row">
-                        <div class="col-md-9 text-right div-col" style="margin-right: 3px; margin-left: -3px">
-                            {{ item.ar_name.toString().substr(0,28) }}
+                        <div class="col-md-12 text-right div-col" style="margin-right: 3px;
+                        margin-left: -3px;margin-top: -8px;">
+                            {{ item.ar_name.toString().substr(0,40) }}
                         </div>
-                        <div class="col-md-3 text-left div-col" style="font-weight: bold;">
+                        <!--                        <div class="col-md-3 text-left div-col" style="font-weight: bold;">-->
+                        <!--                            {{ item.price_with_tax}}-->
+                        <!--                        </div>-->
+                    </div>
+                    <div class="row">
+                        <div align="left" class="col-md-12  div-col" style="margin-top: -26px;">
                             {{ item.price_with_tax}}
                         </div>
+
                     </div>
-                    <!--                    <div class="row">-->
-                    <!--                        <div class="col-md-12 text-right div-col" style="margin-right: 3px; margin-left: -3px">-->
-                    <!--                            {{  item.ar_name.toString().substr(0,30) }}-->
-                    <!--                        </div>-->
-                    <!--                        -->
-                    <!--                    </div>-->
                 </div>
 
             </div>
@@ -272,6 +273,13 @@
         font-size: 18px;
         overflow: hidden;
         /*margin: 0px;*/
+    }
+
+    #barcode_area .row {
+        padding-top: 0px !important;
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+        padding-bottom: 0px !important;
     }
 
 </style>
