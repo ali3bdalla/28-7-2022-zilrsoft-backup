@@ -222,23 +222,29 @@
 
 
                 var config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
-                // var name = this.item.name;
-                // var barcode = this.item.barcode;
-                // var price = this.item.price;
+
                 var data = [];
 
 
-                for (var i = 0; i < this.number_of_barcode; i++) {
-                    //
-                    //     data.push(
-                    //         '\nN\n' +
-                    //         'A180,20,0,2,1,1,N,"' + name + '"\n' +
-                    //         'A200,50,0,4,1,1,N,"' + helpers.convertEnToArabicNumber(''+price+'') + '"\n' +
-                    //         'B200,100,0,1A,1,2,30,B,"' + barcode + '"\n' +
-                    //         '\nP1\n'
-                    //     );
-                    //
-                    // }
+                data.push(
+                    '\nN\n' +
+                    'A180,20,0,2,1,1,N, \n' +
+                    'A200,50,0,4,1,1,N, \n' +
+                    'B200,100,0,1A,1,2,30,B, \n' +
+                    '\nP1\n'
+                );
+
+                for (let i = 0; i < this.number_of_barcode; i++) {
+
+                        // data.push(
+                        //     '\nN\n' +
+                        //     'A180,20,0,2,1,1,N,"' + name + '"\n' +
+                        //     'A200,50,0,4,1,1,N,"' + helpers.convertEnToArabicNumber(''+price+'') + '"\n' +
+                        //     'B200,100,0,1A,1,2,30,B,"' + barcode + '"\n' +
+                        //     '\nP1\n'
+                        // );
+                        //
+
 
                     data.push(
                         '\nN\n',
@@ -251,54 +257,35 @@
                     );
 
                 }
-                // console.log(localStorage.getItem('default_barcode_printer'),);
-                // //
-                // var printData = [
-                //     '\nN\n',
-                //
-                //     // 'q609\n',
-                //     // 'Q203,26\n',
-                //     // 'B180,40,0,1A,3,400,50,B,"123468"\n',
-                //     //'A180,130,0,3,1,1,N,"اهلا وسهلا"\n',
-                //     // 'A180,176,0,3,1,1,N,"QZ.IO"\n',
-                //     {
-                //         type: 'raw', format: 'image', data: this.image,
-                //         options: {language: 'EPL', x: 180, y: 22}
-                //     },
-                //     '\nP1,1\n'
-                // ];
-
-
-                // console.log(printData);
 
                 qz.print(config, data);
             },
 
 
-            sha256(str) {
-                var buffer = new TextEncoder('utf-8').encode(str);
-                return crypto.subtle.digest('SHA-256', buffer).then(function (hash) {
-                    return this.hex(hash)
-                })
-            },
-
-
-            hex(buffer) {
-                var hexCodes = [];
-                var view = new DataView(buffer);
-                for (var i = 0; i < view.byteLength; i += 4) {
-                    // Using getUint32 reduces the number of iterations needed (we process 4 bytes each time)
-                    var value = view.getUint32(i);
-                    // toString(16) will give the hex representation of the number without padding
-                    var stringValue = value.toString(16);
-                    // We use concatenation and slice for padding
-                    var padding = '00000000';
-                    var paddedValue = (padding + stringValue).slice(-padding.length);
-                    hexCodes.push(paddedValue)
-                }
-
-                return hexCodes.join('')
-            }
+            // sha256(str) {
+            //     var buffer = new TextEncoder('utf-8').encode(str);
+            //     return crypto.subtle.digest('SHA-256', buffer).then(function (hash) {
+            //         return this.hex(hash)
+            //     })
+            // },
+            //
+            //
+            // hex(buffer) {
+            //     var hexCodes = [];
+            //     var view = new DataView(buffer);
+            //     for (var i = 0; i < view.byteLength; i += 4) {
+            //         // Using getUint32 reduces the number of iterations needed (we process 4 bytes each time)
+            //         var value = view.getUint32(i);
+            //         // toString(16) will give the hex representation of the number without padding
+            //         var stringValue = value.toString(16);
+            //         // We use concatenation and slice for padding
+            //         var padding = '00000000';
+            //         var paddedValue = (padding + stringValue).slice(-padding.length);
+            //         hexCodes.push(paddedValue)
+            //     }
+            //
+            //     return hexCodes.join('')
+            // }
 
         }
     }
