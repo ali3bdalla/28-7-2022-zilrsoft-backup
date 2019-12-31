@@ -182,7 +182,7 @@
                     <td>
                         <input :ref="'itemPrice_' + item.id + 'Ref'"
                                @focus="$event.target.select()"
-                               @keyup="itemPriceUpdated(item)"
+                               @change="itemPriceUpdated(item)"
                                class="form-control input-xs amount-input"
                                type="text" v-model="item.purchase_price">
 

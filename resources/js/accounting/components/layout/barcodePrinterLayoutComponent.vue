@@ -1,32 +1,39 @@
 <template>
-    <div class="row">
-        <div class="col-xs-4">
-            <input class="form-control" min="0" type="number" v-model.number="number_of_barcode">
-        </div>
+    <div>
+        <div class="row">
+            <div class="col-xs-4">
+                <input class="form-control" min="0" type="number" v-model.number="number_of_barcode">
+            </div>
 
-        <div class="col-xs-4" id="barcodeId3">
-            <button @click="printFile" class="btn btn-primary">طباعة الباركود
-                <i class="fa fa-print"></i></button>
+            <div class="col-xs-4" id="barcodeId3">
+                <button @click="printFile" class="btn btn-primary">طباعة الباركود
+                    <i class="fa fa-print"></i></button>
+            </div>
         </div>
+        <div class="row text-center align-content-center">
+            <div class="col-md-12 text-center">
 
-        <div id="barcode_area"
-             style="font-size: 17px;font-weight: bold; width: 300px;font-style: normal;font-family: monospace !important;">
-            <barcode v-bind:value="item.barcode">
-            </barcode>
-            <div class="columns">
-                <div class="column is-three-quarters" style="font-size: 17px;
+                <div id="barcode_area"
+                     style="font-size: 17px;font-weight: bold;
+                     width: 38mm !important;height:25mm;font-style: normal;font-family: monospace
+             !important;background-color:red;text-align: center">
+                    <barcode v-bind:value="item.barcode">
+                    </barcode>
+                    <div class="columns">
+                        <div class="column is-three-quarters" style="font-size: 5mm;
     font-weight: bold;
     font-style: normal;
-    font-family: 'Arial Unicode MS' !important;">{{ item.locale_name }}
-                </div>
-                <div class="column" style="font-size: 17px;
+    font-family: Arial;">{{ item.locale_name }}
+                        </div>
+                        <div class="column" style="font-size: 5mm;
     font-weight: bold;
     font-style: normal;
     font-family: monospace !important;"> {{ item.price }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
 
     </div>
 </template>
@@ -236,14 +243,14 @@
 
                 for (let i = 0; i < this.number_of_barcode; i++) {
 
-                        // data.push(
-                        //     '\nN\n' +
-                        //     'A180,20,0,2,1,1,N,"' + name + '"\n' +
-                        //     'A200,50,0,4,1,1,N,"' + helpers.convertEnToArabicNumber(''+price+'') + '"\n' +
-                        //     'B200,100,0,1A,1,2,30,B,"' + barcode + '"\n' +
-                        //     '\nP1\n'
-                        // );
-                        //
+                    // data.push(
+                    //     '\nN\n' +
+                    //     'A180,20,0,2,1,1,N,"' + name + '"\n' +
+                    //     'A200,50,0,4,1,1,N,"' + helpers.convertEnToArabicNumber(''+price+'') + '"\n' +
+                    //     'B200,100,0,1A,1,2,30,B,"' + barcode + '"\n' +
+                    //     '\nP1\n'
+                    // );
+                    //
 
 
                     data.push(
