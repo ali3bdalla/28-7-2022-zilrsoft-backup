@@ -16,12 +16,19 @@
 
                 <div
                         id="barcode_area"
-                        style="width: 38mm !important;
-                            height: 25mm !important;"
+                       
                 >
                     <barcode :value="item.barcode">
                     </barcode>
 
+                    <div class="row">
+                        <div class="col-md-10">
+                            {{ item.ar_name}}
+                        </div>
+                        <div class="col-md-2">
+                            {{ item.price_with_tax}} ر.س
+                        </div>
+                    </div>
                 </div>
             </div>
 
