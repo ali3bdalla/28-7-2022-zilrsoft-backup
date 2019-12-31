@@ -15,25 +15,25 @@
             <div class="col-md-6 text-center">
 
                 <div id="barcode_area" style="    width: 266px;">
-                    <barcode :value="itemData==null ? '' : itemData.barcode" height="100">
+                    <barcode :value="barcode" height="100">
                     </barcode>
 
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 3px;
-                        margin-left: -3px;margin-top: -3px;">
-                            {{ itemData==null ? "" : itemData.ar_name}}
+                        margin-left: -3px;margin-top: -3px;" v-text="name">
+
                         </div>
 
                     </div>
                     <div class="row">
                         <div align="right" class="col-md-6 " style="margin-top: -18px;
                         font-weight: bold;margin-right: 3px !important;
-                        margin-left: -3px;">
-                            {{ itemData==null && insideInvoice=="" ? "" : purchaseInvoiceId}}
+                        margin-left: -3px;" v-text="purchaseInvoiceId">
+
                         </div>
                         <div align="left" class="col-md-6  div-col" style="margin-top: -18px; font-weight: bold;
-                        margin-left: -3px;">
-                            {{ itemData==null ? "" : convertEnToArabicNumber( itemData.price_with_tax.toString() )}} ر.س
+                        margin-left: -3px;" v-text="convertEnToArabicNumber(price.toString() ) + ' ر.س'">
+
                         </div>
 
 
@@ -66,11 +66,18 @@
         props: ['items', 'print', 'insideInvoice', 'item', 'invoice-id'],
         data: function () {
             return {
+                blukData: [],
                 purchaseInvoiceId: "",
                 image: null,
                 cropper: null,
                 number_of_barcode: 1,
-                itemData: null,
+                itemData: {
+                    ar_name: "",
+                    barcode: "",
+                    price_with_tax: "",
+                },
+                barcode:0,
+                price:0,
                 watcher: false,
                 itemsData: [],
                 app: {
@@ -130,6 +137,35 @@
                         console.log(error)
                     });
             },
+
+            generatedBulkData(barcode_count = null,item = null) {
+
+                let appVm = this;
+
+                this.itemData.barcode = item.barcode;
+                this.itemData.price_with_tax = item.price_with_tax;
+                this.itemData.ar_anme = item.ar_anme;
+                //
+                // domtoimage.toPng(document.getElementById('barcode_area'), {
+                //     quality: 1, style: {
+                //         width: '100%',
+                //         height: '100%',
+                //         padding: '0px',
+                //         margin: "0px"
+                //     }
+                // }).then(function (dataUrl) {
+                //     appVm.src = dataUrl;
+                //     appVm.image = dataUrl;
+                //
+                //     if (appVm.insideInvoice == true && appVm.print == true) {
+                //         appVm.printBulkFile(dataUrl, barcode_count);
+                //     }
+                // })
+                //     .catch(function (error) {
+                //         console.log(error)
+                //     });
+            },
+
             connectQZ() {
                 var appVm = this;
                 qz.security.setCertificatePromise(function (resolve, reject) {
@@ -327,49 +363,62 @@
 
             printBulkFile(embededImage = null, Qty = null) {
 
-                let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
-
-                let barcode_count = Qty == null ? 0 : Qty;
-
-                let data = [];
-                data.push(
-                    '\nN\n' +
-                    'A180,20,0,2,1,1,N, \n' +
-                    'A200,50,0,4,1,1,N, \n' +
-                    'B200,100,0,1A,1,2,30,B, \n' +
-                    '\nP1\n'
-                );
-
-
-                for (let i = 0; i < barcode_count; i++) {
-                    data.push(
-                        '\nN\n',
-                        {
-                            type: 'raw', format: 'image', data: embededImage,
-                            options: {language: 'EPL', y: 0, x: 170}
-                        },
-                        '\nP1,1\n'
-                    );
-                }
-
-
-                qz.print(config, data);
+                // let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
+                //
+                // let barcode_count = Qty == null ? 0 : Qty;
+                //
+                // let data = [];
+                // data.push(
+                //     '\nN\n' +
+                //     'A180,20,0,2,1,1,N, \n' +
+                //     'A200,50,0,4,1,1,N, \n' +
+                //     'B200,100,0,1A,1,2,30,B, \n' +
+                //     '\nP1\n'
+                // );
+                //
+                //
+                // for (let i = 0; i < barcode_count; i++) {
+                //     data.push(
+                //         '\nN\n',
+                //         {
+                //             type: 'raw', format: 'image', data: embededImage,
+                //             options: {language: 'EPL', y: 0, x: 170}
+                //         },
+                //         '\nP1,1\n'
+                //     );
+                // }
+                //
+                //
+                // qz.print(config, data);
                 this.watcher = false;
             },
 
             bulkPrintListener() {
-                this.itemsData = this.items;
-                for (let i = 0; i < this.itemsData.length; i++) {
-                    this.itemData = this.itemsData[i];
-                    this.watcher = true;
-                    this.generatedData(this.itemsData[i].qty);
-                    while (this.watcher !== true) ;
-                    setTimeout(function () {
 
-                    }, 500)
-                }
 
-                this.$emit('bulkPrintComplete', {});
+                // var indexer = 0;
+                // for (let i = 0; i < this.itemsData.length; i++) {
+                //     // this.itemData = this.itemsData[indexer];
+                //     // this.watcher = true;
+                //     // this.generatedBulkData(this.itemsData[0].qty,this.itemsData[0]);
+                //
+                //
+                //     let index = 0;
+                //     while (index<1000000) {
+                //         index++;
+                //     }
+                //     indexer++;
+                //     //
+                //     //
+                //     // while (goNext != true) {
+                //     //     if (this.watcher) {
+                //     //         goNext = true;
+                //     //     }
+                //     // }
+                //     // goNext = false;
+                // }
+                //
+                // this.$emit('bulkPrintComplete', {});
             }
 
         },
