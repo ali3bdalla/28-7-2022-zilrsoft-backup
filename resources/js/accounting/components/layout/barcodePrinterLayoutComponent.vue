@@ -20,13 +20,13 @@
 
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 3px;
-                        margin-left: -3px;margin-top: -5px;">
+                        margin-left: -3px;margin-top: -3px;">
                             {{ itemData==null ? "" : itemData.ar_name}}
                         </div>
 
                     </div>
                     <div class="row">
-                        <div align="right" class="col-md-6  div-col" style="margin-top: -18px;
+                        <div align="right" class="col-md-6 " style="margin-top: -18px;
                         font-weight: bold;margin-right: 3px !important;
                         margin-left: -3px;">
                             {{ itemData==null && insideInvoice=="" ? "" : purchaseInvoiceId}}
@@ -299,8 +299,6 @@
 
                 let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
 
-           ;
-
                 let data = [];
                 data.push(
                     '\nN\n' +
@@ -365,9 +363,10 @@
                     this.itemData = this.itemsData[i];
                     this.watcher = true;
                     this.generatedData(this.itemsData[i].qty);
+                    while (this.watcher !== true) ;
+                    setTimeout(function () {
 
-                    while (this.watcher !== true) {
-                    }
+                    }, 500)
                 }
 
                 this.$emit('bulkPrintComplete', {});
@@ -399,7 +398,7 @@
 
     #barcode_area .div-col {
         /*padding: 4px !important;*/
-        font-size: 18px;
+        font-size: 20px;
         overflow: hidden;
         /*margin: 0px;*/
     }
