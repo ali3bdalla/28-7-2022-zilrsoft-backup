@@ -25,6 +25,9 @@
 			}
 		}
 
+		protected $appends = [
+			'locale_name'
+		];
 		protected $casts =[
 			'is_vendor' => 'boolean',
 			'is_client' => 'boolean',
