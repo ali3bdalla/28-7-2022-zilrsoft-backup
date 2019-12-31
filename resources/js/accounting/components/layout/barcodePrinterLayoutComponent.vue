@@ -14,24 +14,24 @@
         <div class="row text-center align-content-center">
             <div class="col-md-6 text-center">
 
-                <div    id="barcode_area" style="    width: 266px;">
-                    <barcode :value="item.barcode"  height="100" >
+                <div id="barcode_area" style="    width: 266px;">
+                    <barcode :value="item.barcode" height="100">
                     </barcode>
 
                     <div class="row">
                         <div class="col-md-9 text-right div-col" style="margin-right: 3px; margin-left: -3px">
-                            {{  item.ar_name.toString().substr(0,30) }}
+                            {{ item.ar_name.toString().substr(0,28) }}
                         </div>
-                        <div class="col-md-3 text-center div-col"  style="font-weight: bold;">
+                        <div class="col-md-3 text-left div-col" style="font-weight: bold;">
                             {{ item.price_with_tax}}
                         </div>
                     </div>
-<!--                    <div class="row">-->
-<!--                        <div class="col-md-12 text-right div-col" style="margin-right: 3px; margin-left: -3px">-->
-<!--                            {{  item.ar_name.toString().substr(0,30) }}-->
-<!--                        </div>-->
-<!--                        -->
-<!--                    </div>-->
+                    <!--                    <div class="row">-->
+                    <!--                        <div class="col-md-12 text-right div-col" style="margin-right: 3px; margin-left: -3px">-->
+                    <!--                            {{  item.ar_name.toString().substr(0,30) }}-->
+                    <!--                        </div>-->
+                    <!--                        -->
+                    <!--                    </div>-->
                 </div>
 
             </div>
@@ -245,7 +245,7 @@
                         '\nN\n',
                         {
                             type: 'raw', format: 'image', data: this.image,
-                            options: {language: 'EPL',y:0,x:170}
+                            options: {language: 'EPL', y: 0, x: 170}
                         },
                         '\nP1,1\n'
                     );
@@ -261,15 +261,13 @@
 </script>
 
 
-
 <style>
     #barcode_area svg {
         /*height: 100px !important;*/
         margin-bottom: -16px;
     }
 
-    #barcode_area .div-col
-    {
+    #barcode_area .div-col {
         /*padding: 4px !important;*/
         font-size: 18px;
         overflow: hidden;
