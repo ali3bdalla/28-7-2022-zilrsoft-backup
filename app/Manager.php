@@ -37,6 +37,9 @@
 		protected $casts = [
 			'email_verified_at' => 'datetime',
 		];
+		protected $appends = [
+			'locale_name'
+		];
 		
 		protected static function boot()
 		{

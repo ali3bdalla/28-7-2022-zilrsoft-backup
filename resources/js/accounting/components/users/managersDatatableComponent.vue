@@ -23,7 +23,7 @@
                             <select @change="branchListUpdated" class="form-control" v-model="branch">
                                 <option value="0">{{ trans.all }}</option>
                                 <option :key="branch.id" :value="branch" v-for="branch in  branches">
-                                    {{ branch.name }}
+                                    {{ branch.locale_name }}
                                 </option>
 
                             </select>
@@ -101,7 +101,7 @@
                         </td>
                         <td v-text="index+1"></td>
 
-                        <td class="text-right-with-padding">{{row.name}}</td>
+                        <td class="text-right-with-padding">{{row.locale_name}}</td>
                         <td class="text-center">
                             {{ row.email}}
                         </td>
@@ -114,7 +114,7 @@
                         </td>
 
                         <td class="">
-                            <span v-if="row.user.creator!=null">{{ row.user.creator.name}}</span>
+                            <span v-if="row.user.creator!=null">{{ row.user.creator.locale_name}}</span>
                             <span v-else>-</span>
                         </td>
                         <td v-text="row.created_at"></td>

@@ -39,7 +39,7 @@
 				'can_make_credit' => 'required|boolean',
 				'user_gateways.*.id' => 'required|integer|exists:accounts,id',
 				'user_detail_vat' => 'nullable',
-				'user_detail_email' => 'nullable',
+				'email' => 'nullable',
 				'user_detail_cr' => 'nullable',
 				'user_detail_address' => 'nullable',
 				'user_detail_responser' => 'nullable',
@@ -94,9 +94,12 @@
 			
 		}
 		
+		/**
+		 * @param $user
+		 */
 		public function createUserDetails($user)
 		{
-			$data['email_address'] = $this->user_detail_email;
+			$data['email_address'] = $this->email;
 			$data['address'] = $this->user_detail_address;
 			$data['cr'] = $this->user_detail_cr;
 			$data['vat'] = $this->user_detail_vat;
