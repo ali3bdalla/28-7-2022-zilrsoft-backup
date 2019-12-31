@@ -6,7 +6,7 @@
             </div>
 
             <div class="col-xs-4" id="barcodeId3">
-                <button @click="printFile" class="btn btn-primary">طباعة الباركود
+                <button @click="printSingleFile" class="btn btn-primary">طباعة الباركود
                     <i class="fa fa-print"></i></button>
             </div>
         </div>
@@ -29,7 +29,7 @@
                         <div align="right" class="col-md-6  div-col" style="margin-top: -18px;
                         font-weight: bold;margin-right: 3px !important;
                         margin-left: -3px;">
-                            {{ itemData==null ? "" : purchaseInvoiceId}}
+                            {{ itemData==null && insideInvoice=="" ? "" : purchaseInvoiceId}}
                         </div>
                         <div align="left" class="col-md-6  div-col" style="margin-top: -18px; font-weight: bold;
                         margin-left: -3px;">
@@ -87,9 +87,21 @@
             this.itemsData = this.items;
             this.purchaseInvoiceId = this.invoiceId;
             this.connectQZ();
+            if (this.item != null) {
+
+                this.itemData = this.item;
+
+            }
 
         },
 
+        mounted: function () {
+            if (this.item != null) {
+
+                this.generatedData();
+                console.log(this.image);
+            }
+        },
 
         methods: {
 
@@ -98,6 +110,7 @@
 
                 let appVm = this;
 
+                //
                 domtoimage.toPng(document.getElementById('barcode_area'), {
                     quality: 1, style: {
                         width: '100%',
@@ -106,16 +119,15 @@
                         margin: "0px"
                     }
                 }).then(function (dataUrl) {
-                    // let img = new Image();
                     appVm.src = dataUrl;
                     appVm.image = dataUrl;
 
                     if (appVm.insideInvoice == true && appVm.print == true) {
-                        appVm.printFile(dataUrl, barcode_count);
+                        appVm.printBulkFile(dataUrl, barcode_count);
                     }
-                    // document.getElementById('showGeneratedBarcodeImageId').appendChild(img);
                 })
                     .catch(function (error) {
+                        console.log(error)
                     });
             },
             connectQZ() {
@@ -283,12 +295,12 @@
             },
 
 
-            printFile(image = null, Qty = null) {
+            printSingleFile() {
 
                 let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
 
-                let file = image == null ? this.image : image;
-                let barcode_count = Qty == null ? this.number_of_barcode : Qty;
+           ;
+
                 let data = [];
                 data.push(
                     '\nN\n' +
@@ -298,16 +310,51 @@
                     '\nP1\n'
                 );
 
-                for (let i = 0; i < barcode_count; i++) {
+
+                for (let i = 0; i < this.number_of_barcode; i++) {
                     data.push(
                         '\nN\n',
                         {
-                            type: 'raw', format: 'image', data: file,
+                            type: 'raw', format: 'image', data: this.image,
                             options: {language: 'EPL', y: 0, x: 170}
                         },
                         '\nP1,1\n'
                     );
                 }
+
+
+                qz.print(config, data);
+            },
+
+
+            printBulkFile(embededImage = null, Qty = null) {
+
+                let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
+
+                let barcode_count = Qty == null ? 0 : Qty;
+
+                let data = [];
+                data.push(
+                    '\nN\n' +
+                    'A180,20,0,2,1,1,N, \n' +
+                    'A200,50,0,4,1,1,N, \n' +
+                    'B200,100,0,1A,1,2,30,B, \n' +
+                    '\nP1\n'
+                );
+
+
+                for (let i = 0; i < barcode_count; i++) {
+                    data.push(
+                        '\nN\n',
+                        {
+                            type: 'raw', format: 'image', data: embededImage,
+                            options: {language: 'EPL', y: 0, x: 170}
+                        },
+                        '\nP1,1\n'
+                    );
+                }
+
+
                 qz.print(config, data);
                 this.watcher = false;
             },
@@ -324,9 +371,7 @@
                     }
                 }
 
-                this.$emit('bulkPrintComplete',{
-
-                });
+                this.$emit('bulkPrintComplete', {});
             }
 
         },
