@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/layoutBarcodePrinterBackup.vue" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/storage/framework/views/2c7d99c57b1425817709171f55d8d3d345061ed8.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/storage/framework/views/2fb3ea4cf54f8238ed09e1139b52e3420bbeb2f3.php" afterDir="false" />
@@ -441,7 +440,7 @@
       <workItem from="1576847436326" duration="105082000" />
       <workItem from="1577181612244" duration="98359000" />
       <workItem from="1577561097672" duration="759000" />
-      <workItem from="1577567765490" duration="36898000" />
+      <workItem from="1577567765490" duration="37001000" />
     </task>
     <servers />
   </component>
