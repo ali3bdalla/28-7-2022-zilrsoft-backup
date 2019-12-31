@@ -30,7 +30,7 @@
                     <div class="input-group">
                         <span id="vendors-list" class="input-group-addon">{{ trans('pages/invoice.vendor') }}</span>
                         <input type="text" name="" disabled="disabled"
-                               class="form-control" value="{{ $invoice->purchase->vendor->name }}">
+                               class="form-control" value="{{ $invoice->purchase->vendor->locale_name }}">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -56,7 +56,7 @@
                     <div class="input-group">
                         <span id="vendors-list" class="input-group-addon">{{ trans('pages/invoice.receiver') }}</span>
                         <input type="text" name="" disabled="disabled"
-                               class="form-control" value="{{ $invoice->purchase->receiver->name }}">
+                               class="form-control" value="{{ $invoice->purchase->receiver->locale_name }}">
                     </div>
                 </div>
                 <div class="col-md-6">

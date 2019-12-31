@@ -30,7 +30,7 @@
                         @valueUpdated="vendorListChanged"
                         identity="001"
                         index="001"
-                        label_text="name"
+                        label_text="locale_name"
                 >
 
                 </accounting-select-with-search-layout-component>

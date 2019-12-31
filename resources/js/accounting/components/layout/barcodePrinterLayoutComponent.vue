@@ -13,24 +13,16 @@
         <div class="row text-center align-content-center">
             <div class="col-md-12 text-center">
 
-                <div id="barcode_area"
-                     style="font-size: 17px;font-weight: bold;
-                     width: 38mm !important;height:25mm;font-style: normal;font-family: monospace
-             !important;background-color:red;text-align: center">
-                    <barcode v-bind:value="item.barcode">
-                    </barcode>
-                    <div class="columns">
-                        <div class="column is-three-quarters" style="font-size: 5mm;
-    font-weight: bold;
-    font-style: normal;
-    font-family: Arial;">{{ item.locale_name }}
-                        </div>
-                        <div class="column" style="font-size: 5mm;
-    font-weight: bold;
-    font-style: normal;
-    font-family: monospace !important;"> {{ item.price }}
-                        </div>
-                    </div>
+                <div
+                        id="barcode_area"
+                        style="width: 38mm !important;
+                            height: 25mm !important;
+                            background-color: chocolate"
+                >
+<!--                    -->
+<!--                    <barcode height="10mm" v-bind:value="item.barcode" width="2mm">-->
+<!--                    </barcode>-->
+
                 </div>
             </div>
         </div>
