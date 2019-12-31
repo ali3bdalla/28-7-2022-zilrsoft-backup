@@ -6,9 +6,9 @@
                     <div class="modal-wrapper">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <button @click="panelClosed" class="close" type="button">
-                                        <span aria-hidden="true">&times;</span>
+                                <div class="modal-header ">
+                                    <button @click="panelClosed" class="pull-left btn btn-custom-primary" type="button">
+                                        اغلاق
                                     </button>
                                     <h4 class="modal-title">{{ itemData.locale_name }}</h4>
                                 </div>
@@ -16,9 +16,8 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <input @keyup.enter="validateSerial" class="form-control"
-                                                   name=""
                                                    placeholder="السيريال"
-                                                   ref="serialInput"
+                                                   ref="mainFieldId"
                                                    type="text"
                                                    v-model="serialInput"
                                             >
@@ -81,6 +80,12 @@
 
         methods: {
             validateSerial() {
+                if (this.serialInput == "") {
+                    this.itemData = null;
+                    this.index = -1;
+
+                    return;
+                }
                 if (this.invoiceType == 'purchase') {
                     var appVm = this;
                     ItemQuery.sendValidatePurchaseSerialRequest(
@@ -175,15 +180,23 @@
                     this.itemData = value;
                     this.index = this.itemIndex;
                     this.serials = value.serials;
+                    let appVm = this;
+                    setTimeout(function () {
+                        appVm.$refs.mainFieldId.focus();
+                    }, 500);
+
                 } else {
                     this.itemData = null;
                     this.index = -1;
 
                 }
+
+
             }
         },
         watch: {
             item: function (value) {
+
 
                 this.handleOpen(value);
 

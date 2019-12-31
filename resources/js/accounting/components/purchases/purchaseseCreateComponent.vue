@@ -181,8 +181,8 @@
 
                     <td>
                         <input :ref="'itemPrice_' + item.id + 'Ref'"
-                               @focus="$event.target.select()"
                                @change="itemPriceUpdated(item)"
+                               @focus="$event.target.select()"
                                class="form-control input-xs amount-input"
                                type="text" v-model="item.purchase_price">
 
@@ -328,6 +328,11 @@
 
         </accounting-invoice-item-serials-list-layout-component>
 
+        <accounting-barcode-printer-layout-component
+                :inside-invoice="true"
+                :invoice-id="invoiceTitle"
+                :items="invoiceData.items"
+                :print="printBarcodes"></accounting-barcode-printer-layout-component>
     </div>
 
 
@@ -346,6 +351,8 @@
         props: ['creator', 'vendors', 'receivers', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
         data: function () {
             return {
+                invoiceTitle:"",
+                printBarcodes: false,
                 everythingFineToSave: false,
                 selectedItem: null,
                 selectedItemIndex: null,
@@ -648,6 +655,8 @@
 
 
             pushDataToServer() {
+
+
                 let data = {
                     items: this.invoiceData.items,
                     vendor_id: this.invoiceData.vendorId,
@@ -673,8 +682,9 @@
                 var appVm = this;
                 axios.post(this.app.BaseApiUrl + 'purchases', data)
                     .then(function (response) {
+                        appVm.invoiceTitle = response.data.invoice.title;
+                        appVm.askUserToHandleInvoice(response.data);
 
-                        window.location.reload();
                     })
                     .catch(function (error) {
                         alert(error.response)
@@ -682,6 +692,41 @@
 
             },
 
+
+            askUserToHandleInvoice(invoice) {
+                let options = {
+                    html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+                    loader: false, // set to true if you want the dailog to show a loader after click on "proceed"
+                    reverse: false, // switch the button positions (left to right, and vise versa)
+                    okText: 'طباعة',
+                    cancelText: 'اغلاق',
+                    animation: 'zoom', // Available: "zoom", "bounce", "fade"
+                    type: 'soft', // coming soon: 'soft', 'hard'
+                    verification: 'delete',
+                    // for hard confirm, user will be prompted to type this to enable the proceed button
+                    verificationHelp: 'اكتب "[+:verification]" لتأكيد عملية الحذف ',
+                    // Verification help text. [+:verification] will be matched with 'options.verification' (i.e 'Type "continue" below to confirm')
+                    clicksCount: 1,
+                    // for soft confirm, user will be asked to click on "proceed" btn 3 times before actually proceeding
+                    backdropClose: false, // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+                    // Custom class to be injected into the parent node for the current dialog instance
+                };
+
+                var appVm = this;
+
+                this.$dialog
+                    .confirm('هل تريد طباعة الباركود للمنتجات في هذه الفاتورة ؟', options)
+                    .then(dialog => {
+
+                        appVm.printBarcodes = true;
+                    })
+                    .catch(() => {
+                        window.location.reload();
+                    });
+
+                //
+                //
+            }
         },
 
     }

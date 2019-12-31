@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row">
+        <div class="row" v-if="insideInvoice!==true">
             <div class="col-xs-4">
                 <input class="form-control" min="0" type="number" v-model.number="number_of_barcode">
             </div>
@@ -11,31 +11,29 @@
             </div>
         </div>
 
-        <div class="row text-center align-content-center">
+        <div class="row text-center align-content-center" v-if="itemData!=null">
             <div class="col-md-6 text-center">
 
                 <div id="barcode_area" style="    width: 266px;">
-                    <barcode :value="item.barcode" height="100">
+                    <barcode :value="itemData.barcode" height="100">
                     </barcode>
 
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 3px;
                         margin-left: -3px;margin-top: -5px;">
-                            {{ item.ar_name.toString().substr(0,30) }}
+                            {{ itemData.ar_name.toString().substr(0,30) }}
                         </div>
-                        <!--                        <div class="col-md-3 text-left div-col" style="font-weight: bold;">-->
-                        <!--                            {{ item.price_with_tax}}-->
-                        <!--                        </div>-->
+
                     </div>
                     <div class="row">
                         <div align="right" class="col-md-6  div-col" style="margin-top: -18px;
                         font-weight: bold;margin-right: 3px !important;
                         margin-left: -3px;">
-                            PU-133223
+                            {{ purchaseInvoiceId}}
                         </div>
                         <div align="left" class="col-md-6  div-col" style="margin-top: -18px; font-weight: bold;
                         margin-left: -3px;">
-                            {{convertEnToArabicNumber( item.price_with_tax.toString() )}} ر.س
+                            {{convertEnToArabicNumber( itemData.price_with_tax.toString() )}} ر.س
                         </div>
 
 
@@ -65,12 +63,16 @@
 
     export default {
         components: {'barcode': VueBarcode, domtoimage, VueBarcode},
-        props: ['invoice_id', 'item'],
+        props: ['items', 'print', 'insideInvoice', 'item','invoice-id'],
         data: function () {
             return {
+                purchaseInvoiceId: "",
                 image: null,
                 cropper: null,
                 number_of_barcode: 1,
+                itemData: null,
+                watcher: false,
+                itemsData: [],
                 app: {
                     primaryColor: metaHelper.getContent('primary-color'),
                     secondColor: metaHelper.getContent('second-color'),
@@ -83,33 +85,37 @@
         },
         created: function () {
             this.connectQZ();
+
         },
 
         mounted() {
 
-            var vm = this;
-            domtoimage.toPng(document.getElementById('barcode_area'), {
-                quality: 1, style: {
-                    width: '100%',
-                    height: '100%',
-                    padding: '0px',
-                    margin: "0px"
-                }
-            })
-                .then(function (dataUrl) {
-                    let img = new Image();
-                    img.src = dataUrl;
-                    vm.image = dataUrl;
-                    document.getElementById('showGeneratedBarcodeImageId').appendChild(img);
-                })
-                .catch(function (error) {
-                });
+
         },
 
 
         methods: {
 
 
+            generatedData() {
+                var vm = this;
+                domtoimage.toPng(document.getElementById('barcode_area'), {
+                    quality: 1, style: {
+                        width: '100%',
+                        height: '100%',
+                        padding: '0px',
+                        margin: "0px"
+                    }
+                })
+                    .then(function (dataUrl) {
+                        let img = new Image();
+                        img.src = dataUrl;
+                        vm.image = dataUrl;
+                        // document.getElementById('showGeneratedBarcodeImageId').appendChild(img);
+                    })
+                    .catch(function (error) {
+                    });
+            },
             connectQZ() {
                 var appVm = this;
                 qz.security.setCertificatePromise(function (resolve, reject) {
@@ -296,9 +302,35 @@
                     );
                 }
                 qz.print(config, data);
+                this.watcher = false;
             },
 
+            nowPrintAll() {
+                for (let i = 0; i < this.itemsData.length; i++) {
+                    this.itemData = this.itemsData[i];
+                    this.number_of_barcode = this.itemsData[i].qty;
+                    this.generatedData();
+                    let appVm = this;
+                    setTimeout(function () {
+                        appVm.printFile();
+                    }, 100);
+                    this.watcher = true;
+                    while (this.watcher !== true) {
+                    }
+                }
+            }
 
+        },
+        watch: {
+            print: function (value) {
+                this.nowPrintAll();
+            },
+            items: function (value) {
+                this.itemsData = value;
+            },
+            invoiceId: function (value) {
+                this.purchaseInvoiceId = value;
+            }
         }
     }
 

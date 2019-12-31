@@ -49,3 +49,21 @@
     font-weight: bold;
     vertical-align: middle;
 }
+
+
+
+
+
+/*pop message */
+.dg-btn--cancel {
+    float: left !important;
+    color: #0096D9 !important;
+    background-color:#fefefe !important;
+    border-color: #0096D9;
+}
+
+.dg-btn--ok {
+    color: #fefefe !important;
+    background-color: #0096D9 !important;
+
+}
