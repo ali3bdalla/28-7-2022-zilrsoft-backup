@@ -11,17 +11,17 @@
             </div>
         </div>
 
-        <div class="row text-center align-content-center" v-if="itemData!=null">
+        <div class="row text-center align-content-center">
             <div class="col-md-6 text-center">
 
                 <div id="barcode_area" style="    width: 266px;">
-                    <barcode :value="itemData.barcode" height="100">
+                    <barcode :value="itemData==null ? '' : itemData.barcode" height="100">
                     </barcode>
 
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 3px;
                         margin-left: -3px;margin-top: -5px;">
-                            {{ itemData.ar_name.toString().substr(0,30) }}
+                            {{ itemData==null ? "" : itemData.ar_name}}
                         </div>
 
                     </div>
@@ -29,11 +29,11 @@
                         <div align="right" class="col-md-6  div-col" style="margin-top: -18px;
                         font-weight: bold;margin-right: 3px !important;
                         margin-left: -3px;">
-                            {{ purchaseInvoiceId}}
+                            {{ itemData==null ? "" : purchaseInvoiceId}}
                         </div>
                         <div align="left" class="col-md-6  div-col" style="margin-top: -18px; font-weight: bold;
                         margin-left: -3px;">
-                            {{convertEnToArabicNumber( itemData.price_with_tax.toString() )}} ر.س
+                            {{ itemData==null ? "" : convertEnToArabicNumber( itemData.price_with_tax.toString() )}} ر.س
                         </div>
 
 
@@ -63,7 +63,7 @@
 
     export default {
         components: {'barcode': VueBarcode, domtoimage, VueBarcode},
-        props: ['items', 'print', 'insideInvoice', 'item','invoice-id'],
+        props: ['items', 'print', 'insideInvoice', 'item', 'invoice-id'],
         data: function () {
             return {
                 purchaseInvoiceId: "",
@@ -84,12 +84,9 @@
 
         },
         created: function () {
+            this.itemsData = this.items;
+            this.purchaseInvoiceId = this.invoiceId;
             this.connectQZ();
-
-        },
-
-        mounted() {
-
 
         },
 
@@ -97,8 +94,10 @@
         methods: {
 
 
-            generatedData() {
-                var vm = this;
+            generatedData(barcode_count = null) {
+
+                let appVm = this;
+
                 domtoimage.toPng(document.getElementById('barcode_area'), {
                     quality: 1, style: {
                         width: '100%',
@@ -106,13 +105,16 @@
                         padding: '0px',
                         margin: "0px"
                     }
+                }).then(function (dataUrl) {
+                    // let img = new Image();
+                    appVm.src = dataUrl;
+                    appVm.image = dataUrl;
+
+                    if (appVm.insideInvoice == true && appVm.print == true) {
+                        appVm.printFile(dataUrl, barcode_count);
+                    }
+                    // document.getElementById('showGeneratedBarcodeImageId').appendChild(img);
                 })
-                    .then(function (dataUrl) {
-                        let img = new Image();
-                        img.src = dataUrl;
-                        vm.image = dataUrl;
-                        // document.getElementById('showGeneratedBarcodeImageId').appendChild(img);
-                    })
                     .catch(function (error) {
                     });
             },
@@ -281,8 +283,12 @@
             },
 
 
-            printFile() {
+            printFile(image = null, Qty = null) {
+
                 let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
+
+                let file = image == null ? this.image : image;
+                let barcode_count = Qty == null ? this.number_of_barcode : Qty;
                 let data = [];
                 data.push(
                     '\nN\n' +
@@ -291,11 +297,12 @@
                     'B200,100,0,1A,1,2,30,B, \n' +
                     '\nP1\n'
                 );
-                for (let i = 0; i < this.number_of_barcode; i++) {
+
+                for (let i = 0; i < barcode_count; i++) {
                     data.push(
                         '\nN\n',
                         {
-                            type: 'raw', format: 'image', data: this.image,
+                            type: 'raw', format: 'image', data: file,
                             options: {language: 'EPL', y: 0, x: 170}
                         },
                         '\nP1,1\n'
@@ -305,17 +312,15 @@
                 this.watcher = false;
             },
 
-            nowPrintAll() {
+            bulkPrintListener() {
                 for (let i = 0; i < this.itemsData.length; i++) {
                     this.itemData = this.itemsData[i];
                     this.number_of_barcode = this.itemsData[i].qty;
-                    this.generatedData();
-                    let appVm = this;
-                    setTimeout(function () {
-                        appVm.printFile();
-                    }, 100);
                     this.watcher = true;
+                    this.generatedData(this.itemsData[i].qty);
+
                     while (this.watcher !== true) {
+                        console.log(i);
                     }
                 }
             }
@@ -323,7 +328,7 @@
         },
         watch: {
             print: function (value) {
-                this.nowPrintAll();
+                this.bulkPrintListener();
             },
             items: function (value) {
                 this.itemsData = value;
