@@ -234,7 +234,7 @@
                         '\nN\n',
                         {
                             type: 'raw', format: 'image', data: this.image,
-                            options: {language: 'EPL',y:0,x:150}
+                            options: {language: 'EPL',y:0,x:170}
                         },
                         '\nP1,1\n'
                     );
