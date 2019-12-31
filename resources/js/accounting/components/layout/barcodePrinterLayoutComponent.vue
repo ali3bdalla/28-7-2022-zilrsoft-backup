@@ -17,11 +17,10 @@
                 <div
                         id="barcode_area"
                         style="width: 38mm !important;
-                            height: 25mm !important;
-                            background-color: chocolate"
+                            height: 25mm !important;"
                 >
-<!--                    <barcode :value="item.barcode" height="94.488188976px" width="143.62204724px">-->
-<!--                    </barcode>-->
+                    <barcode :value="item.barcode" >
+                    </barcode>
 
                 </div>
             </div>
@@ -72,9 +71,8 @@
             var vm = this;
             domtoimage.toPng(document.getElementById('barcode_area'), {
                 quality: 1, style: {
-                    width: '143.62204724px',
-                    height: '94.488188976px',
-                    backgroundColor: "red",
+                    width: '100%',
+                    height: '100%',
                     padding: '0px',
                     margin: "0px"
                 }
@@ -263,7 +261,7 @@
                         //'Q232,26\n',
                         {
                             type: 'raw', format: 'image', data: this.image,
-                            options: {language: 'EPL', x: 143.62204724, y: 94.488188976}
+                            options: {language: 'EPL'}
                         },
                         '\nP1,1\n'
                     );
