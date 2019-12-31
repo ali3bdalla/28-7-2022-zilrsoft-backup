@@ -1,14 +1,14 @@
 <template>
     <div :class="{'hide-dom':showButton==false,'inline-dom':showButton!=false}">
         <button @click="printAll" class="btn btn-primary" v-if="showButton!=false">طباعة الباركود</button>
-       <div style="display:none">
-        <accounting-barcode-printer-layout-component
-                :inside-invoice="true"
-                :invoice-id="invoiceId"
-                :items="invoiceItems"
-                :print="print"
-                @bulkPrintComplete="bulkPrintComplete"></accounting-barcode-printer-layout-component>
-       </div>
+        <div>
+            <accounting-barcode-printer-layout-component
+                    :inside-invoice="true"
+                    :invoice-id="invoiceId"
+                    :items="invoiceItems"
+                    :print="print"
+                    @bulkPrintComplete="bulkPrintComplete"></accounting-barcode-printer-layout-component>
+        </div>
 
     </div>
 </template>
@@ -43,7 +43,7 @@
                 this.$emit('bulkPrintComplete', {});
             },
             printAll() {
-                this.print = true;
+                this.print = this.print == true ? false : true;
             }
         },
 
@@ -64,6 +64,7 @@
     .hide-dom {
         display: none;
     }
+
     .inline-dom {
         display: inline;
     }
