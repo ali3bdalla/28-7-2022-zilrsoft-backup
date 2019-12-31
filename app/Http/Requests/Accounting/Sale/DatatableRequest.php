@@ -45,7 +45,7 @@
 				$_startDate = Carbon::parse($this->startDate);
 				$_endDate = Carbon::parse($this->endDate);
 				
-				$query = $query->whereBetween('created_at',[
+				$query = $query->whereDateBetween('created_at',[
 					$_startDate->toDateString(),
 					$_endDate->toDateString()
 				]);

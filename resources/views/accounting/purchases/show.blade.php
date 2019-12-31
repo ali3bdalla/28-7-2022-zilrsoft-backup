@@ -6,7 +6,12 @@
     <a href="{{route('accounting.purchases.print',$invoice->id)}}" class="btn btn-default">
         <i class="fa fa-print"></i> {{ __('pages/invoice.price_a4') }}
     </a>
+    <accounting-purchase-barcode-button-layout-component
+            :items='@json($invoice->items->load('item'))'
+            :invoice-id='@json($invoice->title)'
+    >
 
+    </accounting-purchase-barcode-button-layout-component>
     @can("edit purchase")
         @if($invoice->is_deleted==1)
             <a href="{{route('accounting.purchases.edit',$invoice->id)}}" class="btn btn-primary">

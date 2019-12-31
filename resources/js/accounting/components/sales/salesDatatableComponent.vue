@@ -391,10 +391,11 @@
                 axios.get(this.requestUrl, {
                     params: params
                 }).then(function (response) {
-                    appVm.table_rows = response.data.data;
-                    appVm.isLoading = false;
-                    appVm.paginationResponseData = response.data;
-                    appVm.updateTotalsAmount();
+                    console.log(response.data);
+                    // appVm.table_rows = response.data.data;
+                    // appVm.isLoading = false;
+                    // appVm.paginationResponseData = response.data;
+                    // appVm.updateTotalsAmount();
                 }).catch(function (error) {
                     alert(error)
                 }).finally(function () {

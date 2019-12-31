@@ -331,6 +331,7 @@
         <accounting-purchase-barcode-button-layout-component
                 :invoice-id='invoiceTitle'
                 :items='invoiceData.items'
+                :showButton="false"
                 :printer-watcher="printBarcodes"
                 @bulkPrintComplete="bulkPrintComplete"
         >
