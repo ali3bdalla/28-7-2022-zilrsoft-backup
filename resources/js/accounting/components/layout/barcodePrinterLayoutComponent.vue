@@ -14,19 +14,16 @@
         <div class="row text-center align-content-center">
             <div class="col-md-6 text-center">
 
-                <div
-                        id="barcode_area"
-                       
-                >
-                    <barcode :value="item.barcode">
+                <div    id="barcode_area" style="    width: 266px;">
+                    <barcode :value="item.barcode"  height="100">
                     </barcode>
 
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-10 text-right">
                             {{ item.ar_name}}
                         </div>
-                        <div class="col-md-2">
-                            {{ item.price_with_tax}} ر.س
+                        <div class="col-md-2 text-left">
+                            {{ item.price_with_tax}}
                         </div>
                     </div>
                 </div>
@@ -257,3 +254,10 @@
 </script>
 
 
+
+<style>
+    #barcode_area svg {
+        height: 110px !important;
+        margin-bottom: -16px;
+    }
+</style>
