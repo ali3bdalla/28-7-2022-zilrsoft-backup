@@ -21,7 +21,7 @@
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 3px;
                         margin-left: -3px;margin-top: -5px;">
-                            {{ item.ar_name.toString().substr(0,40) }}
+                            {{ item.ar_name.toString().substr(0,30) }}
                         </div>
                         <!--                        <div class="col-md-3 text-left div-col" style="font-weight: bold;">-->
                         <!--                            {{ item.price_with_tax}}-->
