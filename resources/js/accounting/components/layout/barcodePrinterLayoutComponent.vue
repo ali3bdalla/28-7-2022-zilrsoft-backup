@@ -19,7 +19,7 @@
                         style="width: 38mm !important;
                             height: 25mm !important;"
                 >
-                    <barcode :value="item.barcode" >
+                    <barcode :value="item.barcode">
                     </barcode>
 
                 </div>
@@ -78,14 +78,12 @@
                 }
             })
                 .then(function (dataUrl) {
-                    var img = new Image();
+                    let img = new Image();
                     img.src = dataUrl;
                     vm.image = dataUrl;
-                    // console.log(dataUrl);
                     document.getElementById('showGeneratedBarcodeImageId').appendChild(img);
                 })
                 .catch(function (error) {
-                    // console.error('oops, something went wrong!', error);
                 });
         },
 
@@ -94,9 +92,6 @@
 
 
             connectQZ() {
-
-                var vm = this;
-
                 var appVm = this;
                 qz.security.setCertificatePromise(function (resolve, reject) {
 
@@ -163,15 +158,12 @@
 
 
                 });
-
                 qz.security.setSignaturePromise(function (toSign) {
 
                     return function (resolve, reject) {
                         $.get(appVm.app.BaseApiUrl + 'printer/sign_receipt_printer', {request: toSign}).then(resolve, reject);
                     };
                 });
-
-
                 qz.websocket.connect().then(function () {
 
 
@@ -219,7 +211,6 @@
 
                     return qz.printers.find();
                 });
-                // });
             },
 
 
@@ -229,13 +220,8 @@
 
 
             printFile() {
-
-
-                var config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
-
-                var data = [];
-
-
+                let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
+                let data = [];
                 data.push(
                     '\nN\n' +
                     'A180,20,0,2,1,1,N, \n' +
@@ -243,59 +229,19 @@
                     'B200,100,0,1A,1,2,30,B, \n' +
                     '\nP1\n'
                 );
-
                 for (let i = 0; i < this.number_of_barcode; i++) {
-
-                    // data.push(
-                    //     '\nN\n' +
-                    //     'A180,20,0,2,1,1,N,"' + name + '"\n' +
-                    //     'A200,50,0,4,1,1,N,"' + helpers.convertEnToArabicNumber(''+price+'') + '"\n' +
-                    //     'B200,100,0,1A,1,2,30,B,"' + barcode + '"\n' +
-                    //     '\nP1\n'
-                    // );
-                    //
-
-
                     data.push(
                         '\nN\n',
-                        //'Q232,26\n',
                         {
                             type: 'raw', format: 'image', data: this.image,
-                            options: {language: 'EPL'}
+                            options: {language: 'EPL',y:100,x:100}
                         },
                         '\nP1,1\n'
                     );
-
                 }
-
                 qz.print(config, data);
             },
 
-
-            // sha256(str) {
-            //     var buffer = new TextEncoder('utf-8').encode(str);
-            //     return crypto.subtle.digest('SHA-256', buffer).then(function (hash) {
-            //         return this.hex(hash)
-            //     })
-            // },
-            //
-            //
-            // hex(buffer) {
-            //     var hexCodes = [];
-            //     var view = new DataView(buffer);
-            //     for (var i = 0; i < view.byteLength; i += 4) {
-            //         // Using getUint32 reduces the number of iterations needed (we process 4 bytes each time)
-            //         var value = view.getUint32(i);
-            //         // toString(16) will give the hex representation of the number without padding
-            //         var stringValue = value.toString(16);
-            //         // We use concatenation and slice for padding
-            //         var padding = '00000000';
-            //         var paddedValue = (padding + stringValue).slice(-padding.length);
-            //         hexCodes.push(paddedValue)
-            //     }
-            //
-            //     return hexCodes.join('')
-            // }
 
         }
     }
@@ -304,14 +250,3 @@
 </script>
 
 
-<style scoped src='bulma/css/bulma.css'>
-
-</style>
-
-<style>
-    #barcode_area svg {
-        transform: translate(0, 0) !important;
-        height: 120px !important;
-        margin-bottom: 0px !important;
-    }
-</style>
