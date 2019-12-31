@@ -19,10 +19,10 @@
                     </barcode>
 
                     <div class="row">
-                        <div class="col-md-10 text-right">
+                        <div class="col-md-10 text-right div-col">
                             {{ item.ar_name}}
                         </div>
-                        <div class="col-md-2 text-left">
+                        <div class="col-md-2 text-left div-col">
                             {{ item.price_with_tax}}
                         </div>
                     </div>
@@ -257,7 +257,15 @@
 
 <style>
     #barcode_area svg {
-        height: 110px !important;
+        /*height: 140px !important;*/
         margin-bottom: -16px;
     }
+
+    #barcode_area .div-col
+    {
+        /*padding: 4px !important;*/
+        font-size: 18px;
+        /*margin: 0px;*/
+    }
+
 </style>
