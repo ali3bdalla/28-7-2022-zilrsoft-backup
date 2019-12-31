@@ -28,13 +28,9 @@
                         <!--                        </div>-->
                     </div>
                     <div class="row">
-                        <div align="right" class="col-md-6  div-col" style="margin-top: -18px; font-weight: bold;">
-                            PU-13
-                        </div>
-                        <div align="left" class="col-md-6  div-col" style="margin-top: -18px; font-weight: bold;">
+                        <div align="left" class="col-md-12  div-col" style="margin-top: -18px; font-weight: bold;">
                             {{ item.price_with_tax}} ر.س
                         </div>
-
 
                     </div>
                 </div>
