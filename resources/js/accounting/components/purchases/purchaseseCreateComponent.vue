@@ -329,9 +329,10 @@
         </accounting-invoice-item-serials-list-layout-component>
 
         <accounting-purchase-barcode-button-layout-component
+                :invoice-id='invoiceTitle'
                 :items='invoiceData.items'
-                 :invoice-id='invoiceTitle'
                 :printer-watcher="printBarcodes"
+                @bulkPrintComplete="bulkPrintComplete"
         >
 
         </accounting-purchase-barcode-button-layout-component>
@@ -355,7 +356,7 @@
         props: ['creator', 'vendors', 'receivers', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
         data: function () {
             return {
-                invoiceTitle:"",
+                invoiceTitle: "",
                 printBarcodes: false,
                 everythingFineToSave: false,
                 selectedItem: null,
@@ -696,6 +697,9 @@
 
             },
 
+            bulkPrintComplete() {
+                window.location.reload();
+            },
 
             askUserToHandleInvoice(invoice) {
                 let options = {
