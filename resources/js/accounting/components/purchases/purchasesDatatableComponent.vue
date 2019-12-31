@@ -144,7 +144,7 @@
                     <tr :key="row.id" v-for="(row,index) in table_rows">
                         <td v-text="index+1"></td>
                         <td class="text-center" v-text="row.title"></td>
-                        <td class="text-center" v-text="row.purchase.vendor.name"></td>
+                        <td class="text-center" v-text="row.purchase.vendor.locale_name"></td>
                         <td v-text="row.created_at"></td>
                         <td class="text-center" v-text="row.net"></td>
                         <td class="text-center">
@@ -155,7 +155,7 @@
                             <span v-if="row.invoice_type=='purchase'">{{ app.trans.purchase }}</span>
                             <span v-else>{{ app.trans.return_purchase }}</span>
                         </td>
-                        <td class="text-center" v-text="row.creator.name"></td>
+                        <td class="text-center" v-text="row.creator.locale_name"></td>
                         <td class="text-center" v-text="row.tax"></td>
                         <td>
                             <div class="dropdown">
