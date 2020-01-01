@@ -33,7 +33,7 @@
                         @valueUpdated="clientListChanged"
                         identity="001"
                         index="001"
-                        label_text="name"
+                        label_text="locale_name"
                 >
 
                 </accounting-select-with-search-layout-component>
@@ -62,7 +62,7 @@
                         @valueUpdated="salesmanListChanged"
                         identity="002"
                         index="002"
-                        label_text="name"
+                        label_text="locale_name"
                 >
 
                 </accounting-select-with-search-layout-component>

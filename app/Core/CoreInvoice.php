@@ -4,6 +4,7 @@
 	
 	
 	use App\InvoiceItems;
+	use Dotenv\Exception\ValidationException;
 	
 	trait CoreInvoice
 	{
@@ -81,14 +82,12 @@
 			$result_items = [];
 			foreach ($itemsList as $item){
 				$incItem = InvoiceItems::findOrFail($item['id']);
+				
 				if (!$incItem['belong_to_kit']){
 					if ($incItem['is_kit']){
 					
 					}else{
-						$serials = [];
-						if ($incItem->item->is_need_serial)
-							$serials = $item['serials'];
-						$result_items[] = $incItem->addQtyReturn($item,$this->fresh(),$serials);
+						$result_items[] = $incItem->addQtyReturn($item,$this->fresh());
 					}
 					
 				}

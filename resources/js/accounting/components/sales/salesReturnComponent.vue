@@ -347,6 +347,7 @@
                     item.subtotal = 0;
                     item.net = 0;
                     item.tax = 0;
+                    console.log(item.id)
                     this.invoiceData.items.push(item);
                 }
             },

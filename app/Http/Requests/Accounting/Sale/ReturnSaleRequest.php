@@ -42,6 +42,7 @@
 			try{
 				$invoice = Invoice::publish([
 					'invoice_type' => 'r_sale',
+					'prefix' => 'RSI-',
 					'parent_id' => $baseInvoice->id
 				]);
 				$return_sale = $invoice->publishSubInvoice('sale',[
@@ -54,7 +55,7 @@
 				$invoice->pushTransactions($this->input("methods"),'r_sale');
 				$baseInvoice->updateReturnStatus();
 				
-				DB::commit();
+//				DB::commit();
 				
 				return $invoice;
 			}catch (Exception $exception){

@@ -39,6 +39,7 @@
 				'creator','items','sale.client','sale.salesman'
 			]);
 			
+			
 			if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
 				$this->filled('endDate')){
 				$_startDate = Carbon::parse($this->input("startDate"));
@@ -49,6 +50,8 @@
 					$_startDate->toDateString(),
 					$_endDate->toDateString()
 				]);
+			}elseif ($this->has('startDate') && $this->filled('startDate')){
+				$query = $query->whereDate('created_at',Carbon::parse($this->input("startDate")));
 			}else{
 				if (!$this->user()->can('manage branches'))
 					$query = $query->whereDate('created_at',Carbon::today());
@@ -168,9 +171,8 @@
 			}
 			
 			
-			
 			$query = $query->withCount([
-				'items AS invoice_cost' => function ($query) {
+				'items AS invoice_cost' => function ($query){
 					$query->select(DB::raw("SUM(cost * qty) as invoice_cost "));
 				}
 			]);

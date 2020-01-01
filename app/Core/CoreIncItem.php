@@ -11,18 +11,18 @@
 	{
 		
 		/**
-		 * @param array $fornet_info
+		 * @param array $userData
 		 * @param $inc
 		 *
 		 * @return mixed
 		 */
-		public function addQtyReturn($fronet_info = [],$inc)
+		public function addQtyReturn($userData = [],$inc)
 		{
 			// this mean the old invoice item
-			$qty = $fronet_info['returned_qty'];
+			$qty = $userData['returned_qty'];
 			$this->checkReturnQty($qty,$inc->invoice_type);
 			if ($this->is_need_serial)
-				$this->checkReturnSerialList($fronet_info,$qty,$inc->invoice_type);
+				$this->checkReturnSerialList($userData,$qty,$inc->invoice_type);
 			$data['belong_to_kit'] = $this->belong_to_kit;
 			$data['parent_kit_id'] = $this->parent_kit_id;
 			$data['discount'] = $this->discount;
@@ -37,11 +37,12 @@
 			}
 			$data['organization_id'] = $inc->organization_id;
 			$data['creator_id'] = $inc->creator_id;
-			$data['item_id'] = $this->id;
+			$data['item_id'] = $this->item->id;
 			$data['user_id'] = $inc->user_id;
 			$data['invoice_type'] = $inc->invoice_type;
 			$data['cost'] = $this->cost;
 			$baseItem = $inc->items()->create($data);
+			print_r($baseItem);
 			$this->item->runCostUpdater($baseItem);
 			$this->item->runAvailableQtyUpdater($inc,$qty);
 			
@@ -55,7 +56,7 @@
 			
 			if ($this->item->is_need_serial){
 				ItemSerials::markReturnAs(
-					collect($fronet_info['serials'])
+					collect($userData['serials'])
 						->pluck('serial')
 						->toArray(),$inc);
 			}

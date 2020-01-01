@@ -16,16 +16,16 @@
         }}</a>
     @endcan
     @can("edit sale")
-        @if($invoice->is_deleted==1)
+        @if(!$invoice->is_deleted)
             <a href="{{route('accounting.sales.edit',$invoice->id)}}" class="btn btn-primary">
                 <i class="fa fa-plus-circle"></i> {{ __('pages/invoice.return') }}
             </a>
         @endif
-        @if($invoice->is_updated==1)
-            <a href="{{route('accounting.sales.destroy',$invoice->id)}}" class="btn btn-danger">
-                <i class="fa fa-trash"></i> {{ __('pages/invoice.delete') }}
-            </a>
-        @endif
+{{--        @if(!$invoice->is_updated)--}}
+{{--            <a href="{{route('accounting.sales.destroy',$invoice->id)}}" class="btn btn-danger">--}}
+{{--                <i class="fa fa-trash"></i> {{ __('pages/invoice.delete') }}--}}
+{{--            </a>--}}
+{{--        @endif--}}
     @endcan
 @stop
 
