@@ -146,6 +146,12 @@
                             width="">
                             {{ app.trans.net }}
                         </th>
+
+                        <th :class="{'orderBy':orderBy=='subtotal'}" @click="setOrderByColumn('subtotal')"
+                            width="">
+                            {{ app.trans.subtotal }}
+                        </th>
+
                         <th v-if="canViewAccounting"
                             width="">
                             {{ app.trans.cost }}
@@ -193,15 +199,16 @@
                         <td class="text-center" v-text="row.sale.client.locale_name"></td>
                         <td v-text="row.created_at"></td>
                         <td class="text-center" v-text="row.net"></td>
+                        <td class="text-center" v-text="row.subtotal"></td>
                         <td class="text-center" v-if="canViewAccounting && row.invoice_type=='sale'"
                             v-text="parseFloat(row.invoice_cost).toFixed(2)"></td>
                         <td class="text-center" v-if="canViewAccounting && row.invoice_type=='r_sale'"
                             v-text="parseFloat(-row.invoice_cost).toFixed(2)"></td>
 
                         <td class="text-center" v-if="canViewAccounting && row.invoice_type=='sale'"
-                            v-text="parseFloat(row.net - row.invoice_cost).toFixed(2)"></td>
+                            v-text="parseFloat(row.subtotal - row.invoice_cost).toFixed(2)"></td>
                         <td class="text-center" v-if="canViewAccounting && row.invoice_type=='r_sale'"
-                            v-text="-parseFloat(row.net - row.invoice_cost).toFixed(2)"></td>
+                            v-text="-parseFloat(row.subtotal - row.invoice_cost).toFixed(2)"></td>
 
 
                         <td class="text-center">
@@ -449,7 +456,7 @@
                         this.totals.total = ItemMath.sum(this.totals.total, row.total);
                         this.totals.subtotal = ItemMath.sum(this.totals.subtotal, row.subtotal);
                         this.totals.discount_value = ItemMath.sum(this.totals.discount_value, row.discount_value);
-                        this.totals.profit = ItemMath.sum(this.totals.profit, row.net - row.invoice_cost);
+                        this.totals.profit = ItemMath.sum(this.totals.profit, row.subtotal - row.invoice_cost);
                         this.totals.cost = ItemMath.sum(this.totals.cost, row.invoice_cost);
                     } else {
                         this.totals.net = ItemMath.sub(this.totals.net, row.net);
@@ -457,7 +464,7 @@
                         this.totals.total = ItemMath.sub(this.totals.total, row.total);
                         this.totals.subtotal = ItemMath.sub(this.totals.subtotal, row.subtotal);
                         this.totals.discount_value = ItemMath.sub(this.totals.discount_value, row.discount_value);
-                        this.totals.profit = ItemMath.sub(this.totals.profit, row.net - row.invoice_cost);
+                        this.totals.profit = ItemMath.sub(this.totals.profit, row.subtotal - row.invoice_cost);
                         this.totals.cost = ItemMath.sub(this.totals.cost, row.invoice_cost);
                     }
                 }
