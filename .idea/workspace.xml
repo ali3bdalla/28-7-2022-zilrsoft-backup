@@ -2,42 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/5swBGzOQDXS8leABQcHuRVYjtGU7jFb5KVbKoTrW" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/1536026161f19b3182457c34ba7af6763cc9b489.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/19e7e4e68f6663007d920d8530fa5afa71c6bf51.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/1ec3d70dcd44b1742cb3d0d8be00fa95ce3680e2.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/1f95a42766565376a1241eb6a59c724ada4d399d.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/21d5b9a9feae2d0ad41b4a35bc7879b86536b926.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/22820124f0ae241c6569b0f57f935153c645fa53.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/2f15150d7dffa7bee6549db43f2d4d480b721de1.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/33e578f73d30ef16ebaad4f614971c63dde37c35.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/58cb652892ba018ab1d055b65082fad867571a20.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/5937d0a5b6d37c28490749955d0e4ee4fab96f72.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/7a04a828db645b9c160eef0c16272c1403395404.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/8670d8881d652ff9caeeacdd053e09db797b7879.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/9b15e320395d4d8ed9c20b5f20ac6a23ea5c4cf1.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/9f11219cf30bd841b38db0c4434938ceb1853dae.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/ab38e2bba681f70fa0553fc5bda60d013e65c05c.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c9917b224610a1d713d2871b93f2a79c498b09d7.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/e47d4287f1c12aa43e47198b519694b379d49ded.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/fb70bfa6e50742cd68a888cf5c9af70994a7468c.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-01-01.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Core/Invoice.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Sale/ReturnSaleRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/x8jy7CRgcbyk1I4JtcgkHq7Giqyaclc4lPNs9sDn" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/Invoice/FreshHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/Invoice/FreshHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/Invoice/ItemFreshHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/Invoice/ItemFreshHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Sale/DatatableRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Sale/DatatableRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodePrinterLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodePrinterLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesDatatableComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesDatatableComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesReturnComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesReturnComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/ar/pages/invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/pages/invoice.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_items.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_items.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/purchases/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/purchases/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/SaleInvoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/SaleInvoice.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/accounting.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/accounting.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/cpOnxJ2qEtOyrJP0uLtRyGr7Bg69DlBk60Big9bR" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-12-18.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2019-12-31.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2019-12-31.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-01-01.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-01-01.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -461,7 +434,7 @@
       <workItem from="1576847436326" duration="105082000" />
       <workItem from="1577181612244" duration="98359000" />
       <workItem from="1577561097672" duration="759000" />
-      <workItem from="1577567765490" duration="56879000" />
+      <workItem from="1577567765490" duration="57625000" />
     </task>
     <servers />
   </component>

@@ -12,7 +12,7 @@
 	class SaleInvoice extends Model
 	{
 		//
-		use SaleInvoiceRelationships,SaleInvoiceAttributes,SaleInvoiceHelper;
+		use SaleInvoiceRelationships,SaleInvoiceAttributes,SaleInvoiceHelper,\App\Core\Invoice;
 		
 		protected $guarded = [];
 		

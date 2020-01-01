@@ -6,6 +6,7 @@
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Sale\CreateSaleRequest;
 	use App\Http\Requests\Accounting\Sale\DatatableRequest;
+	use App\Http\Requests\Accounting\Sale\ReturnSaleRequest;
 	use App\Http\Requests\CreateQuotationRequest;
 	use App\Http\Requests\CreateReturnSaleRequest;
 	use App\Http\Requests\CreateSalesInvoiceRequest;
@@ -146,11 +147,9 @@
 		 *
 		 * @return ResponseFactory|Response
 		 */
-		public function update(Invoice $sale,CreateReturnSaleRequest $request)
+		public function update(Invoice $sale,ReturnSaleRequest $request)
 		{
-			
-//			return $sale;
-			return $request->save($sale);
+			return $request->makeReturn($sale);
 			
 		}
 		
