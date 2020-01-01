@@ -439,6 +439,8 @@
                 this.totals.total = 0;
                 this.totals.subtotal = 0;
                 this.totals.discount_value = 0;
+                this.totals.cost = 0;
+                this.totals.profit = 0;
                 for (let i = 0; i < len; i++) {
                     let row = items[i];
                     if (row.invoice_type == 'sale') {
