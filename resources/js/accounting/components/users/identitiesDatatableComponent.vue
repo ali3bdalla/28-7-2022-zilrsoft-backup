@@ -83,7 +83,7 @@
                         </td>
                         <td v-text="index+1"></td>
 
-                        <td class="text-right-with-padding">{{row.name}}</td>
+                        <td class="text-right-with-padding">{{row.locale_name}}</td>
                         <td class="text-center">
                             <span class="label label-primary" v-if="row.is_client">{{ trans.client}}</span>
                             <span class="label label-success" v-if="row.is_vendor">{{ trans.vendor}}</span>
@@ -91,7 +91,7 @@
                         </td>
                         <td class="text-center">{{row.phone_number}}</td>
 
-                        <td class="" v-text="row.creator.name"></td>
+                        <td class="" v-text="row.creator.locale_name"></td>
                         <td v-text="row.created_at"></td>
                         <td>
 

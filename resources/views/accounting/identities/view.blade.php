@@ -1,6 +1,6 @@
 @extends('accounting.layout.master')
 
-@section('title',__('pages/users.view') . " | ". $identity->name)
+@section('title',__('pages/users.view') . " | ". $identity->locale_name)
 
 
 
@@ -100,7 +100,7 @@
                 <div class="well profile">
                     <div class="col-sm-12">
                         <div class="col-xs-12 col-sm-6">
-                            <h2>{{  $identity->name }}</h2>
+                            <h2>{{  $identity->locale_name }}</h2>
                             <p><strong>{{ trans('pages/users.identityType') }}</strong> :
                                 {{ trans("pages/users.$identity->user_type")}} </p>
                             <p><strong>{{ trans('pages/users.title') }}</strong> :
