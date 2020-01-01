@@ -194,9 +194,9 @@
                         <td v-text="row.created_at"></td>
                         <td class="text-center" v-text="row.net"></td>
                         <td class="text-center" v-if="canViewAccounting && row.invoice_type=='sale'"
-                            v-text="row.invoice_cost"></td>
+                            v-text="parseFloat(row.invoice_cost).toFixed(2)"></td>
                         <td class="text-center" v-if="canViewAccounting && row.invoice_type=='r_sale'"
-                            v-text="-row.invoice_cost"></td>
+                            v-text="parseFloat(-row.invoice_cost).toFixed(2)"></td>
 
                         <td class="text-center" v-if="canViewAccounting && row.invoice_type=='sale'"
                             v-text="parseFloat(row.net - row.invoice_cost).toFixed(2)"></td>
