@@ -106,14 +106,7 @@
 </head>
 
 <body lang="ar" style="">
-{{--<div style="position: absolute;width: 100%;height: 100%;">--}}
-{{--    --}}{{--    background: url({{ $invoice->background_asset }}) no-repeat--}}
-{{--    --}}{{--    no-repeat center center;z-index: 100--}}
-
-{{--</div>--}}
 <div class="" style="margin:10px">
-
-    {{--    <div class="header">--}}
     <div class="row">
 
         <div class="col-md-6" style="float: left;padding-top: 10px;color: black !important;">
@@ -193,57 +186,10 @@
 
         </div>
     </div>
-    {{--    </div>--}}
-
-    {{--    <header class="detials clearfix">--}}
-    {{--        <div class="">--}}
-    {{--            <div>--}}
-    {{--                <div style="margin-bottom: 20px">--}}
-    {{--                    <img class="logo" src="{{ asset('template/images/logo-color.png')}}" alt="">--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-
-    {{--            <div class="company-info">--}}
-    {{--                <span>{{auth()->user()->organization->title}}</span>--}}
-    {{--                <span class="line"> | </span>--}}
-    {{--                <span>{{auth()->user()->organization->vat}}</span>--}}
-    {{--                <span class="line"> | </span>--}}
-    {{--                <span>{{auth()->user()->organization->title}}</span><br>--}}
-    {{--                <h3 class=>{{auth()->user()->organization->description}}</h3>--}}
-
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </header>--}}
 
 
     <section>
-        {{--        <div class="details clearfix">--}}
-        {{--            <div style="height: 100px"></div>--}}
-        {{--    --}}
-        {{--            <div class="client left" style="color: #fff;padding-top: 20px">--}}
 
-        {{--                --}}{{--                <p>{{$invoice->steakholder_name}}</p>--}}
-        {{--                --}}{{--                <h3 class="name"><strong> {{$invoice->steakholder_name}} </strong></h3>--}}
-        {{--                --}}{{--                <p>{{$invoice->steakholder_name}}</p>--}}
-        {{--                --}}{{--                <p>--}}
-        {{--                {{$invoice->steakholder_type}}--}}
-        {{--                --}}{{----}}{{--                </p>--}}
-        {{--                <p class="customer-phone">{{$invoice->steakholder_phone_number}}</p>--}}
-        {{--            </div>--}}
-        {{--            <div class="data right" style="float:right;width:auto;display:block;color: white">--}}
-        {{--                <div class="title">{{$invoice->title}}</div>--}}
-
-
-        {{--                <div class="date">--}}
-        {{--                    <div class="Quotationtype">--}}
-        {{--                        <p>{{ $invoice->created_at }}</p>--}}
-        {{--                    </div>--}}
-        {{--                    {{ $invoice->created_date }}--}}
-        {{--                    <br>--}}
-        {{--                    {{ $invoice->branch->name }}--}}
-        {{--                </div>--}}
-        {{--            </div>--}}
-        {{--        </div>--}}
         <div class="">
             <div class="table-wrapper">
                 <table>
@@ -263,7 +209,8 @@
                         <th class="unit"
                             style="width: 70px !important;background-color: #777777 !important;">{{__('pages/invoice.tax')}} </th>
                         <th class="unit"
-                            style="width: 70px !important;background-color: #777777 !important;">الاجمالي </th>
+                            style="width: 70px !important;background-color: #777777 !important;">الاجمالي
+                        </th>
                     </tr>
                     </tbody>
                     <tbody class="body">
@@ -375,9 +322,11 @@
                 <div class="clear"></div>
             </div>
             <div class="number">
-                <div class="label">الاجمالي :</div>
-                <h3 class="value"><b>
+                <div style="text-align: center;">الاجمالي</div>
+                <div style="margin: 10px;text-align: center;font-size: 25px">
+                <h3 class=><b>
                         {{ $invoice->net }}</b></h3>
+                </div>
                 <div class="clear"></div>
             </div>
 
@@ -403,27 +352,6 @@
             <div class="clear"></div>
         </div>
 
-        {{--        <div class="number">--}}
-        {{--            <div class="label">{{ __('pages/invoice.subtotal') }} :</div>--}}
-        {{--            <div class="value">{{ $invoice->subtotal}}</div>--}}
-        {{--            <div--}}
-        {{--                    class="clear"></div>--}}
-        {{--        </div>--}}
-
-        {{--        <div class="number">--}}
-        {{--            <div class="label">{{ __('pages/invoice.vat') }} :--}}
-        {{--            </div>--}}
-        {{--            <div class="value"> {{ $invoice->tax--}}
-        {{--        }}</div>--}}
-        {{--            --}}{{--                ({{ $invoice->getVat('purchase') }}%)--}}
-        {{--            <div class="clear"></div>--}}
-        {{--        </div>--}}
-        {{--        <div class="number">--}}
-        {{--            <div class="label">{{ __('pages/invoice.net') }} :</div>--}}
-        {{--            <h3 class="value"><b>--}}
-        {{--                    {{ $invoice->net }}</b></h3>--}}
-        {{--            <div class="clear"></div>--}}
-        {{--        </div>--}}
 
     </div>
 
@@ -435,38 +363,20 @@
     <div class="">
 
 
-        {{--            @if(!empty($invoice->payments))--}}
-        {{--                <div class="bank_details" style="margin-bottom: 14px">--}}
-        {{--                    <h3>{{__('pages/invoice.payments')}}</h3>--}}
-        {{--                </div>--}}
-
-        {{--                @foreach($invoice->payments as $payment)--}}
-
-        {{--                    <div class="bank_details" style="direction: rtl;margin-bottom: 10px" >--}}
-        {{--                        <h3><b>{{ $payment->payment->gateway->name }}</b> (<span style="color: black;font-weight:--}}
-        {{--                        bolder">{{$payment->amount}}</span> ريال)</h3>--}}
-        {{--                    </div>--}}
-
-
-        {{--                @endforeach--}}
-        {{--            @endif--}}
-
         <div class="row" style="color: black !important;">
             <div class="stamp">
-                {{--                    <h3>{{__('pages/invoice.current_status')}}</h3>--}}
-                {{--                    <img style="width:100px;margin:5px auto 0;" src="{{ $invoice->background_asset }}">--}}
+
             </div>
             <div class="issued_by">
                 <h3 style="margin-bottom: 9px">{{__('reusable.issued_by')}}</h3>
                 <p style="margin-bottom: 2px">{{ $invoice->creator->locale_name }}</p>
-{{--                <p style="margin-bottom: 2px">{{ $invoice->creator->user->phone_number }}</p>--}}
-{{--                <p>{{ $invoice->creator->email }} </p>--}}
+
             </div>
             <div class="clear"></div>
         </div>
-        <div class="end" style="padding-top: 10px"> {{ auth()->user()->organization->city_ar }} - {{ auth()->user()
-        ->organization->address_ar }}</div>
-        {{--        <div class="text-center"> {{ auth()->user()->organization->vat }}</div>--}}
+        <div class="end" style="padding-top: 10px"> {{ auth()->user()->organization->city_ar }}
+            - {{ auth()->user()->organization->address_ar }}</div>
+        <div  style="padding-top: 10px;text-align: center"> سعدنا بخدمتك</div>
     </div>
 </footer>
 
@@ -477,5 +387,5 @@
 
 
 <script>
-    print();
+    // print();
 </script>
