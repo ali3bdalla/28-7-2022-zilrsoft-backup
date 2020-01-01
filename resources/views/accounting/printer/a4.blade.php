@@ -263,7 +263,7 @@
                         <th class="unit"
                             style="width: 70px !important;background-color: #777777 !important;">{{__('pages/invoice.tax')}} </th>
                         <th class="unit"
-                            style="width: 70px !important;background-color: #777777 !important;">{{__('pages/invoice.net')}} </th>
+                            style="width: 70px !important;background-color: #777777 !important;">الاجمالي </th>
                     </tr>
                     </tbody>
                     <tbody class="body">
@@ -375,7 +375,7 @@
                 <div class="clear"></div>
             </div>
             <div class="number">
-                <div class="label">{{ __('pages/invoice.net') }} :</div>
+                <div class="label">الاجمالي :</div>
                 <h3 class="value"><b>
                         {{ $invoice->net }}</b></h3>
                 <div class="clear"></div>

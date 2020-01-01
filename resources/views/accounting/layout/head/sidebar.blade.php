@@ -1,7 +1,7 @@
 <section class="sidebar" style=" margin-top: 50px;">
     <div class="user-panel">
-        <img src="{{ auth()->user()->organization->logo }}" class="center-block img-responsive"
-             alt="{{ auth()->user()->organization->title }}" width="100px" style="">
+        <img src="{{ asset(auth()->user()->organization->logo) }}" class="center-block img-responsive"
+             alt="{{ auth()->user()->organization->title_ar }}" width="100px" style="">
     </div>
 
     <ul class="sidebar-menu" data-widget="tree">
