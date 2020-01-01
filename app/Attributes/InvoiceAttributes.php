@@ -141,10 +141,10 @@
 		public function getSteakholderNameAttribute()
 		{
 			if (in_array($this->invoice_type,['sale','r_sale'])){
-				return $this->sale->client->name;
+				return $this->sale->client->locale_name;
 			}
 			
-			return $this->purchase->vendor->name;
+			return $this->purchase->vendor->locale_name;
 		}
 		
 		public function getSteakholderTypeAttribute()
@@ -178,10 +178,10 @@
 		public function getServedByAttribute()
 		{
 			if (in_array($this->invoice_type,['sale','r_sale'])){
-				return $this->sale->salesman->name;
+				return $this->sale->salesman->locale_name;
 			}
 			
-			return $this->purchase->receiver->name;
+			return $this->purchase->receiver->locale_name;
 		}
 		
 		public function getBackgroundAssetAttribute()

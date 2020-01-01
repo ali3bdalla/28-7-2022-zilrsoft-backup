@@ -118,7 +118,7 @@
 
         <div class="col-md-6" style="float: left;padding-top: 10px;color: black !important;">
             <h5>{{ __('pages/invoice.branch') }} :
-                {{$invoice->creator->branch->name }}
+                {{$invoice->creator->branch->locale_name }}
             </h5>
             <h5 style="margin: 10px 0px !important;">الرقم الضريبي : {{auth()->user()->organization->vat}}</h5>
 
@@ -140,7 +140,7 @@
                 <div class="company-info" style="color: black !important; margin-top: -30px;">
                     <span style="padding-right: 13px;font-size: 25px">{{auth()->user()->organization->title_ar}}</span>
                     <p style="padding-right: 13px;font-size: 20px;margin-top:10px">{{auth()->user()
-                    ->organization->description}}</p>
+                    ->organization->description_ar}}</p>
 
                 </div>
             </div>
@@ -458,9 +458,9 @@
             </div>
             <div class="issued_by">
                 <h3 style="margin-bottom: 9px">{{__('reusable.issued_by')}}</h3>
-                <p style="margin-bottom: 2px">{{ $invoice->creator->name }}</p>
-                <p style="margin-bottom: 2px">{{ $invoice->creator->user->phone_number }}</p>
-                <p>{{ $invoice->creator->email }} </p>
+                <p style="margin-bottom: 2px">{{ $invoice->creator->locale_name }}</p>
+{{--                <p style="margin-bottom: 2px">{{ $invoice->creator->user->phone_number }}</p>--}}
+{{--                <p>{{ $invoice->creator->email }} </p>--}}
             </div>
             <div class="clear"></div>
         </div>

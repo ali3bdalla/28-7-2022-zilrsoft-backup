@@ -16,7 +16,7 @@
         }}</a>
     @endcan
     @can("edit sale")
-        @if(!$invoice->is_deleted)
+        @if($invoice->is_deleted==0)
             <a href="{{route('accounting.sales.edit',$invoice->id)}}" class="btn btn-primary">
                 <i class="fa fa-plus-circle"></i> {{ __('pages/invoice.return') }}
             </a>
