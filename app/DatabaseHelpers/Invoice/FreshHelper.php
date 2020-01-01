@@ -7,6 +7,7 @@
 	use App\InvoiceItems;
 	use App\Item;
 	use App\Math\Math;
+	use Dotenv\Exception\ValidationException;
 	
 	trait FreshHelper
 	{
@@ -98,11 +99,10 @@
 				if ($item['returned_qty'] >= 1){
 					$db_item = Item::findOrFail($item['item_id']);
 					$parent_item = InvoiceItems::findOrFail($item['id']);
-					
 					if ($db_item->is_kit)
-						$created_item = $db_item->addReturnedKitToBaseInvoice($this,$item,$parent_item);
+						$db_item->addReturnedKitToBaseInvoice($this->fresh(),$item,$parent_item);
 					else
-						$created_item = $db_item->addReturnedItemToBaseInvoice($this,$item,$parent_item);
+						$db_item->addReturnedItemToBaseInvoice($this->fresh(),$item,$parent_item);
 				}
 				
 				

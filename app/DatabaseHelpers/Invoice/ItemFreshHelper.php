@@ -257,6 +257,9 @@
 		public function addReturnedItemToBaseInvoice($baseInvoice,$request_data,$parent_item)
 		{
 //
+			throw  new ValidationException(
+				$request_data['name']
+			);
 			
 			if ($this->is_need_serial)
 				$this->validateItemNeedSerials($request_data,"r_sale");
@@ -265,6 +268,7 @@
 			$data['parent_kit_id'] = $data['belong_to_kit'] ? $request_data['kit_id'] : 0;
 			$data['discount'] = $request_data['discount'];
 			$data['price'] = $parent_item['price'];
+			
 			$data['qty'] = $request_data['returned_qty'];
 			$data['r_qty'] = $request_data['returned_qty'];
 			$data['total'] = $this->getTotalAmount($data['price'],$data['qty']);

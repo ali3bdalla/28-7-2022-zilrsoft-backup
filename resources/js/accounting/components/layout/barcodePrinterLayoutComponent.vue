@@ -363,6 +363,8 @@
 
             printBulkFile(embededImage = null, Qty = null) {
 
+
+
                 // let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
                 //
                 // let barcode_count = Qty == null ? 0 : Qty;

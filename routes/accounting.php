@@ -1,6 +1,6 @@
 <?php
 
-//	auth()->loginUsingId(1);
+	auth()->loginUsingId(1);
 //
 	
 	app()->setLocale('ar');

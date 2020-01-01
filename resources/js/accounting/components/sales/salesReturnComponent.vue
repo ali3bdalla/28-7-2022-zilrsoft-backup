@@ -421,12 +421,9 @@
                 for (let i = 0; i < len; i++) {
                     let item = this.pitems[i];
                     item.a_qty = parseInt(item.qty) - parseInt(item.r_qty);
-
                     item.old_net = item.net;
                     item.old_price = item.price;
                     item.old_tax = item.tax;
-
-
                     item.is_expense = item.item.is_expense;
                     item.init_discount = item.discount;
                     item.returned_qty = 0;
@@ -435,14 +432,14 @@
                     item.subtotal = 0;
                     item.net = 0;
                     item.tax = 0;
-
+                    item.vtp = item.item.vtp;
+                    item.vts = item.item.vts;
 
                     this.items.push(item);
                 }
             },
 
             addNewExpenseOption() {
-
                 if (this.active_expense != null) {
                     let new_expense = this.active_expense;
                     new_expense.available_qty = 1;
@@ -456,16 +453,12 @@
                     new_expense.purchase_price = 0;
                     this.expenses_list.push(new_expense);
                     this.items.push(new_expense);
-
-
                 }
 
             },
 
 
             errorInPayment(e) {
-                // this.disableSaveButton = e.error;
-                //   console.log(e);
             },
 
             billingsUpdate(e) {
@@ -476,7 +469,6 @@
 
                     this.status = 'credit';
                 } else {
-                    // this.remaining = 0;
                     this.status = 'paid';
                 }
 
@@ -491,7 +483,6 @@
 
 
                 this.validateInvoiceData();
-                // console.log(this.methods)
             },
 
             onChangePriceField(item) {
@@ -529,17 +520,14 @@
             runUpdater(item) {
                 let index = this.items.indexOf(item);
 
-
                 item.total = this.updateTotalForOneItem(item);
                 item.discount = parseFloat(item.init_discount / item.qty * item.returned_qty).toFixed(2);
                 item.subtotal = this.updateSubtotalForOneItem(item);
                 item.tax = this.updateTaxForOneItem(item);
                 item.net = this.updateNetForOneItem(item);
                 item.r_qty = this.updateReturnQty(item);
-
                 this.updateItemInListBYindex(index, item);
                 this.updateInvoiceDetails();
-                // console.log('item updated + ' + this);
 
             },
             updateTotalForOneItem(item) {
@@ -558,12 +546,8 @@
                 return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.total - item.discount);
             },
             updateTaxForOneItem(item) {
-                if (item.is_expense) {
-                    let vts = item.vts;
-                } else {
-                    let vts = item.item.vts;
-                }
-                return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(vts * item.subtotal / 100);
+
+                return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.vts * item.subtotal / 100);
             },
             updateNetForOneItem(item) {
                 let net = parseFloat(item.tax) + parseFloat(item.subtotal);
@@ -621,14 +605,14 @@
                 };
 
                 this.test_request_textarea = JSON.stringify(data_to);
-                axios.patch('/accounting/sales/' + this.invoice.id, data_to)
-                    .then(function (response) {
-                        window.location.reload();
-                    })
-                    .catch(function (error) {
-                        console.log(error.response.data);
-
-                    });
+                // axios.patch('/accounting/sales/' + this.invoice.id, data_to)
+                //     .then(function (response) {
+                //         window.location.reload();
+                //     })
+                //     .catch(function (error) {
+                //         console.log(error.response.data);
+                //
+                //     });
 
             },
 

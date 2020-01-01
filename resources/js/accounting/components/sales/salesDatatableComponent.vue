@@ -29,7 +29,7 @@
                                     @valueUpdated="salesmanListUpdated"
                                     default="0"
                                     identity="000000003"
-                                    label_text="name"
+                                    label_text="locale_name"
 
                             >
 
@@ -63,7 +63,7 @@
                                     @valueUpdated="clientListUpdated"
                                     default="0"
                                     identity="000000001"
-                                    label_text="name"
+                                    label_text="locale_name"
 
                             >
 
@@ -97,7 +97,7 @@
                                     @valueUpdated="creatorListUpdated"
                                     default="0"
                                     identity="000000000"
-                                    label_text="name"
+                                    label_text="locale_name"
 
 
                             >
@@ -146,6 +146,14 @@
                             width="">
                             {{ app.trans.net }}
                         </th>
+                        <th v-if="canViewAccounting"
+                            width="">
+                            {{ app.trans.cost }}
+                        </th>
+                        <th v-if="canViewAccounting"
+                            width="">
+                            {{ app.trans.profit }}
+                        </th>
 
                         <th :class="{'orderBy':orderBy=='current_status'}" @click="setOrderByColumn('current_status')"
                             width="">
@@ -182,9 +190,20 @@
                     <tr :key="row.id" v-for="(row,index) in table_rows">
                         <td v-text="index+1"></td>
                         <td class="text-center" v-text="row.title"></td>
-                        <td class="text-center" v-text="row.sale.client.name"></td>
+                        <td class="text-center" v-text="row.sale.client.locale_name"></td>
                         <td v-text="row.created_at"></td>
                         <td class="text-center" v-text="row.net"></td>
+                        <td class="text-center" v-if="canViewAccounting && row.invoice_type=='sale'"
+                            v-text="row.invoice_cost"></td>
+                        <td class="text-center" v-if="canViewAccounting && row.invoice_type=='r_sale'"
+                            v-text="-row.invoice_cost"></td>
+
+                        <td class="text-center" v-if="canViewAccounting && row.invoice_type=='sale'"
+                            v-text="parseFloat(row.net - row.invoice_cost).toFixed(2)"></td>
+                        <td class="text-center" v-if="canViewAccounting && row.invoice_type=='r_sale'"
+                            v-text="-parseFloat(row.net - row.invoice_cost).toFixed(2)"></td>
+
+
                         <td class="text-center">
                             <span v-if="row.current_status=='paid'">{{ app.trans.paid }}</span>
                             <span v-else>{{ app.trans.credit }}</span>
@@ -193,8 +212,8 @@
                             <span v-if="row.invoice_type=='sale'">{{ app.trans.sale }}</span>
                             <span v-else>{{ app.trans.return_sale }}</span>
                         </td>
-                        <td class="text-center" v-if="canViewAccounting==1" v-text="row.creator.name"></td>
-                        <td class="text-center" v-text="row.sale.salesman.name"></td>
+                        <td class="text-center" v-if="canViewAccounting==1" v-text="row.creator.locale_name"></td>
+                        <td class="text-center" v-text="row.sale.salesman.locale_name"></td>
                         <td class="text-center" v-text="row.tax"></td>
                         <td>
                             <div class="dropdown">
@@ -211,7 +230,7 @@
                                            v-text="app.trans.view"></a></li>
 
                                     <li v-if="canEdit==1 && row.invoice_type=='sale' && row.is_deleted==0"><a
-                                            :href="baseUrl + row.id + '/edit'"  v-text="app.trans.return"></a></li>
+                                            :href="baseUrl + row.id + '/edit'" v-text="app.trans.return"></a></li>
 
                                 </ul>
                             </div>
@@ -238,6 +257,12 @@
 
                         <th>
                             {{parseFloat( totals.net).toFixed(2) }}
+                        </th>
+                        <th>
+                            {{parseFloat( totals.cost).toFixed(2) }}
+                        </th>
+                        <th>
+                            {{parseFloat( totals.profit).toFixed(2) }}
                         </th>
 
                         <th>
@@ -312,6 +337,8 @@
                     total: 0,
                     subtotal: 0,
                     discount_value: 0,
+                    profit: 0,
+                    cost: 0,
                 },
                 itemsPerPage: 20,
                 isOpenSearchPanel: false,
@@ -420,12 +447,16 @@
                         this.totals.total = ItemMath.sum(this.totals.total, row.total);
                         this.totals.subtotal = ItemMath.sum(this.totals.subtotal, row.subtotal);
                         this.totals.discount_value = ItemMath.sum(this.totals.discount_value, row.discount_value);
+                        this.totals.profit = ItemMath.sum(this.totals.profit, row.net - row.invoice_cost);
+                        this.totals.cost = ItemMath.sum(this.totals.cost, row.invoice_cost);
                     } else {
                         this.totals.net = ItemMath.sub(this.totals.net, row.net);
                         this.totals.tax = ItemMath.sub(this.totals.tax, row.tax);
                         this.totals.total = ItemMath.sub(this.totals.total, row.total);
                         this.totals.subtotal = ItemMath.sub(this.totals.subtotal, row.subtotal);
                         this.totals.discount_value = ItemMath.sub(this.totals.discount_value, row.discount_value);
+                        this.totals.profit = ItemMath.sub(this.totals.profit, row.net - row.invoice_cost);
+                        this.totals.cost = ItemMath.sub(this.totals.cost, row.invoice_cost);
                     }
                 }
 

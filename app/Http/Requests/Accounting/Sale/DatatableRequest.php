@@ -6,6 +6,7 @@
 	use App\SaleInvoice;
 	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
+	use Illuminate\Support\Facades\DB;
 	
 	class DatatableRequest extends FormRequest
 	{
@@ -34,22 +35,23 @@
 		public function data()
 		{
 			
-			$query = Invoice::whereIn('invoice_type',['sale','r_sale'])->with('creator','items','sale.client','sale.salesman');
-
-
-//
+			$query = Invoice::whereIn('invoice_type',['sale','r_sale'])->with([
+				'creator','items','sale.client','sale.salesman'
+			]);
+			
 			if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
 				$this->filled('endDate')){
 				$_startDate = Carbon::parse($this->input("startDate"));
 				$_endDate = Carbon::parse($this->input("endDate"));
 				
-			
+				
 				$query = $query->whereBetween('created_at',[
 					$_startDate->toDateString(),
 					$_endDate->toDateString()
 				]);
 			}else{
-				$query = $query->whereDate('created_at',Carbon::today());
+				if (!$this->user()->can('manage branches'))
+					$query = $query->whereDate('created_at',Carbon::today());
 			}
 			
 			
@@ -60,7 +62,6 @@
 			
 			if ($this->has('clients') && $this->filled('clients')){
 				$ids = SaleInvoice::whereIn('client_id',$this->input("clients"))->get()->pluck('invoice_id');
-//				return $ids;
 				$query = $query->whereIn('id',$ids);
 			}
 			
@@ -158,6 +159,8 @@
 			}
 //
 //
+			
+			
 			if ($this->has('orderBy') && $this->filled('orderBy') && $this->has('orderType') && $this->filled('orderType')){
 				$query = $query->orderBy($this->orderBy,$this->orderType);
 			}else{
@@ -165,13 +168,23 @@
 			}
 			
 			
+			
+			$query = $query->withCount([
+				'items AS invoice_cost' => function ($query) {
+					$query->select(DB::raw("SUM(cost * qty) as invoice_cost "));
+				}
+			]);
+			
+			
 			if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval($this->input("itemsPerPage")
 				) >= 1 && intval($this->input('itemsPerPage')) <= 100){
-				return $query->paginate(intval($this->input('itemsPerPage')));
+				$result = $query->paginate(intval($this->input('itemsPerPage')));
 			}else{
-				return $query->paginate(20);
+				$result = $query->paginate(20);
 				
 			}
+			
+			return $result;
 			
 			
 		}
