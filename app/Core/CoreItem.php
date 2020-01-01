@@ -29,7 +29,7 @@
 			
 			$final_cost = $result['cost'];
 			$this->update([
-				'cost' =>$final_cost
+				'cost' => $final_cost
 			]);
 			return $result['cost'];
 		}
@@ -40,9 +40,9 @@
 		 *
 		 * @return mixed
 		 */
-		public function runAvailableQtyUpdater($inc_type,$qty)
+		public function runAvailableQtyUpdater($inc,$qty)
 		{
-			if (in_array($inc_type,['purchase','beginning_inventory','r_sale'])){
+			if (in_array($inc->invoice_type,['purchase','beginning_inventory','r_sale'])){
 				$current_qty = $this->available_qty + $qty;
 			}else{
 				$current_qty = $this->available_qty - $qty;
