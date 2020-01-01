@@ -200,14 +200,14 @@
                         <td v-text="row.created_at"></td>
                         <td class="text-center" v-text="row.net"></td>
                         <td class="text-center" v-text="row.subtotal"></td>
-                        <td class="text-center" v-if="canViewAccounting && row.invoice_type=='sale'"
+                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='sale'"
                             v-text="parseFloat(row.invoice_cost).toFixed(2)"></td>
-                        <td class="text-center" v-if="canViewAccounting && row.invoice_type=='r_sale'"
+                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='r_sale'"
                             v-text="parseFloat(-row.invoice_cost).toFixed(2)"></td>
 
-                        <td class="text-center" v-if="canViewAccounting && row.invoice_type=='sale'"
+                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='sale'"
                             v-text="parseFloat(row.subtotal - row.invoice_cost).toFixed(2)"></td>
-                        <td class="text-center" v-if="canViewAccounting && row.invoice_type=='r_sale'"
+                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='r_sale'"
                             v-text="-parseFloat(row.subtotal - row.invoice_cost).toFixed(2)"></td>
 
 
