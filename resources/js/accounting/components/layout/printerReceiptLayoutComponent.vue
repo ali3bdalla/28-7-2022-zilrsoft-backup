@@ -1,5 +1,5 @@
 <template>
-    <a @click="pushPrintRequest(targetId)" class="btn btn-default">
+    <a @click="pushPrintRequest(targetId)" class="btn btn-default" v-if="direct!==true">
         <i class="fa fa-print"></i> {{ app.trans.print_receipt}}
     </a>
 </template>
@@ -7,7 +7,7 @@
 <script>
     let qz = require("qz-tray");
     export default {
-        props: ['invoiceId', 'printId'],
+        props: ['invoiceId', 'printId', 'direct'],
         data: function () {
             return {
                 targetId: 0,

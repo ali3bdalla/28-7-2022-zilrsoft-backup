@@ -8,6 +8,14 @@
                         class="btn btn-custom-primary"><i
                         class="fa fa-save"></i> {{ app.trans.save }}
                 </button>
+                <button :disabled="!everythingFineToSave" @click="pushDataToServer('print')"
+                        class="btn btn-custom-primary"><i
+                        class="fa fa-print"></i> {{ app.trans.save_and_print_receipt }}
+                </button>
+
+                <accounting-print-receipt-layout-component
+                        :direct="true"
+                        :invoice-id="createdInvoiceId"></accounting-print-receipt-layout-component>
 
                 <button :disabled="!everythingFineToSave" @click="pushDataToServer('open')"
                         class="btn btn-custom-primary"><i
@@ -338,6 +346,7 @@
         props: ['creator', 'clients', 'salesmen', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
         data: function () {
             return {
+                createdInvoiceId: 0,
                 everythingFineToSave: false,
                 selectedItem: null,
                 selectedItemIndex: null,
@@ -754,6 +763,11 @@
                         //
                         if (doWork == 'open') {
                             window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                        } else if (doWork == 'print') {
+                            appVm.createdInvoiceId = response.data.id;
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 1000);
                         } else {
                             window.location.reload();
                         }

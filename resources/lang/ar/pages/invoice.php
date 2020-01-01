@@ -2,6 +2,7 @@
 	
 	
 	return [
+		'save_and_print_receipt' => 'حفظ وطباعة الايصال',
 		'create' => 'اضافة فاتورة',
 		'created_by' => 'المحرر ',
 		'save' => 'حفظ الفاتورة',
