@@ -266,6 +266,9 @@
                             {{parseFloat( totals.net).toFixed(2) }}
                         </th>
                         <th>
+                            {{parseFloat( totals.subtotal).toFixed(2) }}
+                        </th>
+                        <th>
                             {{parseFloat( totals.cost).toFixed(2) }}
                         </th>
                         <th>
