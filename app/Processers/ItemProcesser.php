@@ -69,13 +69,13 @@
 			}
 			
 			
-			$movement['stock_value'] = $stock_value;
+			$movement['stock_value'] = $cost * $stock_qty;
 			$movement['cost'] = $cost;
 			$movement['stock_qty'] = $stock_qty;
 			$movement['profits'] = $profit;
 			
 			
-			$this->update_item_cost($cost);
+			$this->update_item_cost($cost,$stock_qty);
 			
 			return $movement;
 		}
@@ -371,11 +371,12 @@
 		/**
 		 * @param $cost
 		 */
-		public function update_item_cost($cost)
+		public function update_item_cost($cost,$stock_qty)
 		{
 			$this->update(
 				[
-					'cost' => $cost
+					'cost' => $cost,
+					'available_qty' => $stock_qty,
 				]
 			);
 		}
