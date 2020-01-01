@@ -14,14 +14,11 @@
 @section('content')
 
     <accounting-sales-return-component
-            :user='@json($sale->client)'
             :gateways='@json($gateways)'
-            :expenses='@json($expenses)'
             :creator='@json($invoice->creator)'
-            :pitems='@json($items)'
-            :invoice='@json($invoice)'
-            :department='@json($invoice->department)'
-            :sale='@json($sale)'>
+            :items='@json($items)'
+            :invoice='@json($invoice->load('department','branch'))'
+            :sale='@json($sale->load('client','salesman'))'>
 
     </accounting-sales-return-component>
 

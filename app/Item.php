@@ -4,6 +4,7 @@
 	
 	use App\Attributes\ItemAttributes;
 	use App\Attributes\KitAttributes;
+	use App\Core\CoreItem;
 	use App\DatabaseHelpers\Invoice\ItemFreshHelper;
 	use App\DatabaseHelpers\ItemHelper;
 	use App\DatabaseHelpers\KitHelper;
@@ -17,7 +18,7 @@
 	class Item extends Model
 	{
 		use ItemFreshHelper,ItemRelationships,ItemAttributes,KitAttributes,KitRelationships,ItemProcesser,ItemHelper,KitHelper;
-		
+		use CoreItem;
 		//
 		
 		protected $appends = [

@@ -69,7 +69,7 @@
 //			return view('template.a4.voucher',compact('voucher','payment'));
 //		}
 //
-//		public function a4(Invoice $invoice)
+//		public function a4(CoreInvoice $invoice)
 //		{
 ////		return $invoice;
 //

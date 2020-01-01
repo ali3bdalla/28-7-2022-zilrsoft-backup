@@ -2,13 +2,20 @@
 	
 	namespace App;
 	
+	use App\Core\CoreItemSerials;
 	use App\Scopes\OrganizationScope;
 	use Illuminate\Database\Eloquent\Model;
 	
 	class ItemSerials extends Model
 	{
 		
+		use CoreItemSerials;
 		protected $guarded = [];
+		protected $appends = [
+			'status_description'
+		];
+		
+		//
 		
 		protected static function boot()
 		{
@@ -18,8 +25,11 @@
 			}
 		}
 		
-		//
-
+		public function getStatusDescriptionAttribute()
+		{
+			return trans('pages/items.'.$this->current_status);
+		}
+		
 		public function scopePurchase($query,$invoice_id)
 		{
 			return $query->where('purchase_invoice_id',$invoice_id);

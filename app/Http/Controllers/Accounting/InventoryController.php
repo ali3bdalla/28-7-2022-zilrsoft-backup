@@ -24,7 +24,7 @@
 		 */
 		public function beginning_index()
 		{
-//			$inventories = Invoice::where('invoice_type','beginning_inventory')->orderBy('id','desc')->paginate(20);
+//			$inventories = CoreInvoice::where('invoice_type','beginning_inventory')->orderBy('id','desc')->paginate(20);
 			
 			return view('accounting.inventories.beginning.index');
 			

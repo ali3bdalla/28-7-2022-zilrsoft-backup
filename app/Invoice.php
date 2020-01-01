@@ -3,6 +3,7 @@
 	namespace App;
 	
 	use App\Attributes\InvoiceAttributes;
+	use App\Core\CoreInvoice;
 	use App\DatabaseHelpers\Invoice\FreshHelper;
 	use App\DatabaseHelpers\InvoiceInterfaceHelper;
 	use App\OrmScope\InvoiceScope;
@@ -15,7 +16,7 @@
 	{
 		
 		use InvoiceRelationship,InvoiceAttributes,InvoiceInterfaceHelper,FreshHelper;
-		use InvoiceScope;
+		use InvoiceScope,CoreInvoice;
 		protected $appends = [
 			'description',
 			'title',

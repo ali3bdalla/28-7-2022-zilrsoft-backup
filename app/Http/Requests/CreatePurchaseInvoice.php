@@ -99,7 +99,7 @@
 		/**
 		 *
 		 *
-		 * @toCreate Invoice
+		 * @toCreate CoreInvoice
 		 */
 		public function create_invoice()
 		{
@@ -116,7 +116,7 @@
 		/**
 		 *
 		 *
-		 * @toCreate Sub Invoice
+		 * @toCreate Sub CoreInvoice
 		 */
 		public function create_subinvoice($invoice)
 		{

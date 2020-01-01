@@ -105,7 +105,7 @@
 		/**
 		 *
 		 *
-		 * @toCreate Invoice
+		 * @toCreate CoreInvoice
 		 */
 		public function create_invoice($data,$user)
 		{
@@ -121,7 +121,7 @@
 		/**
 		 *
 		 *
-		 * @toCreate Sub Invoice
+		 * @toCreate Sub CoreInvoice
 		 */
 		public function create_subinvoice($invoice,$user,$receiver_id,$vendor_id,$vendor_inc_number)
 		{

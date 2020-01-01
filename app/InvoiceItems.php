@@ -3,6 +3,7 @@
 	namespace App;
 	
 	use App\Attributes\InvoiceItemAttributes;
+	use App\Core\CoreIncItem;
 	use App\DatabaseHelpers\InvoiceItemHelper;
 	use App\DatabaseHelpers\KitHelper;
 	use App\Relationships\InvoiceItemRelationships;
@@ -13,7 +14,7 @@
 	class InvoiceItems extends Model
 	{
 		use InvoiceItemRelationships,InvoiceItemAttributes,InvoiceItemHelper,KitHelper;
-		
+		use CoreIncItem;
 		//
 		protected $guarded = [
 		

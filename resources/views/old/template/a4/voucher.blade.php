@@ -205,7 +205,7 @@
             <div class="col-md-6">
 
 
-                {{--                @if($payment->paymentable_type=='App\Invoice')--}}
+                {{--                @if($payment->paymentable_type=='App\CoreInvoice')--}}
                 {{--                    @if( count($payment->paymentable->payments) >=2)--}}
                 {{--                        <h5>{{__('pages/payments.payment_reason') }}  {{ __('pages/payments.payment_reason_2') }}--}}
                 {{--                            ({{$payment->description }})--}}
@@ -220,7 +220,7 @@
                 {{--                    @endif--}}
                 {{--                @else--}}
                 {{--                    {{__('pages/payments.payment_reason')}}  {{__('pages/payments.payment_reason_' .--}}
-                {{--                    $payment->paymentable_type=='App\Invoice')}}--}}
+                {{--                    $payment->paymentable_type=='App\CoreInvoice')}}--}}
                 {{--                @endif--}}
             </div>
         </div>

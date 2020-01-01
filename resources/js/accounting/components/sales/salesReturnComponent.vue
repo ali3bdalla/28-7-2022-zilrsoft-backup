@@ -1,339 +1,262 @@
 <template>
-
-
     <!-- startup box -->
     <div class="message">
 
+        <div class="row">
+            <div class="col-md-6">
+                <button :disabled="!everythingFineToSave" @click="pushDataToServer"
+                        class="btn btn-custom-primary"><i
+                        class="fa fa-save"></i> {{ app.trans.save }}
+                </button>
 
-        <div class="panel-heading has-background-dark">
-            <div class="columns">
-                <div class="column">
-                    <a class="button" href="/accounting/sales"><i
-                            class="fa fa-redo"></i>&nbsp;{{ translator.cancel }}</a>
-                </div>
-
-                <div class="column pull-right text-left">
-                    <button @click="saveInvoiceButtonClicked" class="button is-primary "><i
-                            class="fa fa-save"></i>&nbsp; {{ translator.save }}
-                    </button>
-                </div>
-
+                <button :disabled="!everythingFineToSave" @click="pushDataToServer('open')"
+                        class="btn btn-custom-primary"><i
+                        class="fa fa-save"></i> {{ app.trans.save_and_open }}
+                </button>
             </div>
-
-
-        </div>
-        <div class="message-body">
-            <div class="has-background-light">
-                <div class="columns">
-                    <div class="column">
-                        <!-- <label>client name</label> -->
-                        <div class="">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="vendors-list">{{ translator.vendor}}</span>
-                                <input :value="user.name" class="form-control" readonly type="text">
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                    <div class="column">
-                        <!-- <label>date</label> -->
-                        <div class="input-group">
-                            <span class="input-group-addon" id="time-field">{{ translator.date}}</span>
-                            <input :value="invoice.created_at" aria-describedby="time-field" class="form-control"
-                                   name=""
-                                   type="text">
-
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-
-                <div>
-                    <div class="columns">
-                        <div class="column">
-                            <!-- <label>client name</label> -->
-                            <div class="input-group">
-                                <span class="input-group-addon" id="creator">{{ reusable_translator.creator}}</span>
-                                <input :value="creator.name" class="form-control" readonly type="text">
-                            </div>
-                        </div>
-
-                        <div class="column">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="department">{{ translator.department}}</span>
-                                <input :value="creator.department" class="form-control" readonly type="text">
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+            <div class="col-md-6">
+                <a :href="app.BaseApiUrl + 'purchases'" class="btn btn-default "><i
+                        class="fa fa-redo"></i> {{ app.trans.cancel }}</a>
             </div>
-
-
-            <hr>
-            <div class="table-container">
-                <table class="table is-bordered text-center is-fullwidth is-narrow is-hoverable is-striped">
-                    <thead class="has-background-dark ">
-                    <tr>
-                        <th class="has-text-white"></th>
-                        <!-- <th class="has-text-white"></th> -->
-                        <th class="has-text-white">{{ translator.barcode}}</th>
-                        <th class="has-text-white" width="20%">{{ translator.item_name}}</th>
-                        <th class="has-text-white" width="3%">{{ translator.qty}}</th>
-                        <th class="has-text-white" width="3%">{{ translator.a_qty}}</th>
-                        <th class="has-text-white" width="3%">{{ translator.r_qty}}</th>
-                        <th class="has-text-white">{{ translator.price}}</th>
-                        <th class="has-text-white">{{ translator.total}}</th>
-                        <th class="has-text-white">{{ translator.discount}}</th>
-                        <th class="has-text-white">{{ translator.subtotal}}</th>
-                        <th class="has-text-white">{{ translator.tax}}</th>
-                        <!--                        <th class="has-text-white">Tax.</th>-->
-                        <th class="has-text-white">{{ translator.net}}</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-
-
-                    <tr :key="item.id" v-for="(item,index) in items" v-if="!item.is_expense && !item.belong_to_kit">
-                        <th class="has-text-white">
-                            <button @click="openItemSerialsModal(index,item)"
-                                    class="btn btn-success btn-xs"
-                                    v-if="item.is_need_serial"><i class="fa fa-bars"></i> &nbsp;
-                            </button>
-
-
-                        </th>
-                        <th class="text-align:left !important" v-text="item.item.barcode"></th>
-                        <th class="text-align: right !important;" v-text="item.item.locale_name"></th>
-                        <th width="6%">
-                            <input class="input" disabled readonly type="text"
-                                   v-model="item.qty">
-
-                        </th>
-                        <th width="6%">
-                            <input class="input" disabled readonly type="text"
-                                   v-model="item.a_qty">
-
-                        </th>
-
-                        <th width="10px">
-                            <input :class="{'is-danger':item.error=='error'}" :disabled="item.a_qty==0"
-                                   :max="item.a_qty"
-                                   @keyup="onReturnQtyChanged(item)"
-                                   class="input"
-                                   min='0' style="width:70px" type="number" v-if="!item.item.is_need_serial"
-                                   v-model="item.returned_qty">
-                            <p v-else>{{item.returned_qty}}</p>
-                        </th>
-
-
-                        <th class="has-text-white">
-                            <input class="input" disabled type="text"
-                                   v-model="item.price">
-
-                        </th>
-                        <th class="has-text-white">
-                            <input class="input" disabled type="text" v-model="item.total">
-                        </th>
-                        <th class="has-text-white">
-                            <input class="input" disabled placeholder="discount" type="text" v-model="item.discount">
-                        </th>
-                        <th class="has-text-white">
-                            <input class="input" disabled placeholder="subtotal" readonly=""
-                                   type="text" v-model="item.subtotal">
-                        </th>
-
-                        <th class="has-text-white">
-                            <input class="input" disabled placeholder="tax" readonly="" type="text" v-model="item.tax">
-
-                        </th>
-                        <th class="has-text-white">
-                            <input class="input" disabled placeholder="net" readonly="" type="text" v-model="item.net">
-                        </th>
-
-                    </tr>
-
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="form-group">
-                <div class="columns">
-                    <div class="column is-three-quarters">
-                        <div class="panel panel-primary">
-
-                            <div class="panel-body">
-                                <div class="panel-heading">
-                                    تكاليف اضافية
-                                </div>
-                                <table class="table table-bordered">
-                                    <tr :key="item.id" v-for="(item,itemindex) in items" v-if="item.is_expense &&
-                                    item.item != null">
-
-                                        <!-- <th class="has-text-white"></th> -->
-
-                                        <th style="text-align: right !important;"
-                                            text="item.name">{{ item.item.locale_name}}
-                                        </th>
-
-                                        <th class="has-text-white">
-                                            <input :value="item.old_price" class="input" disabled="" type="text">
-
-                                        </th>
-
-                                        <th class="has-text-white">
-                                            <input :value="item.old_tax" class="input" disabled="" placeholder="tax"
-                                                   readonly="" type="text">
-                                        </th>
-                                        <th class="has-text-white">
-                                            <input :value="item.old_net" class="input" disabled="" placeholder="net"
-                                                   readonly="" type="text">
-                                        </th>
-
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <accounting-invoice-embedded-payments-gateway-layout
-                                :button_counter="button_counter"
-                                :current_items_net="current_items_net"
-                                :disable_button_counter="disable_button_counter2"
-                                :gateways="gateways"
-                                :net-amount="net"
-                                :user="user"
-                                @billingsUpdate="billingsUpdate"
-                                @errorInPayment="errorInPayment"
-                                @saveInvoice="saveInvoiceButtonClicked">
-
-                        </accounting-invoice-embedded-payments-gateway-layout>
-
-
-                    </div>
-
-                    <div class="column">
-                        <div class="card">
-
-                            <div class="message-body text-center">
-                                <div class="list-group-item">
-                                    <div class="columns">
-                                        <div class="column">{{ translator.total}}</div>
-                                        <div class="column">
-                                            <input class="input" disabled type="text" v-model="total">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list-group-item">
-                                    <div class="columns">
-                                        <div class="column">{{ translator.discount}}</div>
-                                        <div class="column">
-                                            <input class="input" disabled type="text" v-model="discount">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="list-group-item">
-                                    <div class="columns">
-                                        <div class="column">{{ translator.subtotal}}</div>
-                                        <div class="column">
-                                            <input class="input" disabled readonly="" type="text" v-model="subtotal">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list-group-item">
-                                    <div class="columns">
-                                        <div class="column">{{ translator.tax}}</div>
-                                        <div class="column">
-                                            <input class="input" disabled type="text" v-model="tax">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list-group-item">
-                                    <div class="columns">
-                                        <div class="column">{{ translator.net}}</div>
-                                        <div class="column">
-                                            <input class="input" disabled type="text" v-model="net">
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                            <div class="box">
-                                <div class="columns">
-                                    <div class="column is-two-thirds">
-                                        <div class="select is-fullwidth">
-                                            <select v-model="active_expense">
-                                                <option :value="expense" v-for="expense in expenses">{{
-                                                    expense.locale_name }}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="column">
-                                        <button @click="addNewExpenseOption"
-                                                class="button is-primary"><i class="fa fa-plus-circle"></i></button>
-                                    </div>
-
-
-                                </div>
-                                <div class="" v-show="expenses_list.length>=1">
-                                    <div class="panel" v-for="expense in expenses_list">
-                                        <p>{{ expense.locale_name}}</p>
-                                        <div class="columns">
-                                            <div class="column is-one-third">
-                                                <input @focus="$event.target.select()"
-                                                       @keyup="onChangePriceField(expense)"
-                                                       class="input" placeholder="القيمة"
-                                                       type="text" v-model="expense.price"/>
-                                            </div>
-                                            <div class="column">
-                                                <input class="input" placeholder="التكلفة" type="text"
-                                                       v-model="expense.purchase_price"/>
-                                            </div>
-                                            <div class="column">
-                                                <toggle-button :font-size="19" :height='30'
-                                                               :labels="{checked: 'عميل', unchecked: 'منشأة'}"
-                                                               :sync="true"
-                                                               :width='90'
-                                                               v-model="expense.user_should_pay"/>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="box">
-                                    <textarea class="form-control" v-model="test_request_textarea"></textarea>
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-
-            </div>
-
 
         </div>
 
-        <accounting-invoice-item-serials-list-layout-component
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">{{ app.trans.client }}</span>
+                    <input aria-describedby="time-field" class="form-control" disabled
+                           type="text" v-model="sale.client.locale_name">
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">{{ app.trans.date }}</span>
+                    <input aria-describedby="time-field" class="form-control" disabled
+                           type="text" v-model="invoice.created_at">
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">{{ app.trans.salesman }}</span>
+                    <input aria-describedby="time-field" class="form-control" disabled
+                           type="text" v-model="sale.salesman.locale_name">
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">{{ app.trans.department }}</span>
+                    <input aria-describedby="time-field" class="form-control" disabled
+                           type="text" v-model="invoice.department.locale_title">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <table class="table table-bordered text-center  table-striped">
+                <thead class="panel-heading">
+                <tr>
+                    <th></th>
+                    <th>{{ app.trans.barcode }}</th>
+                    <th>{{ app.trans.item_name }}</th>
+                    <th>{{ app.trans.item_available_qty }}</th>
+                    <th>{{ app.trans.qty }}</th>
+                    <th>{{app.trans.sales_price}}</th>
+                    <th>{{ app.trans.total }}</th>
+                    <th>{{ app.trans.discount }}</th>
+                    <th>{{ app.trans.subtotal }}</th>
+                    <th>{{ app.trans.tax }}</th>
+                    <th>{{ app.trans.net }}</th>
+
+                </tr>
+
+
+                </thead>
+
+                <tbody>
+
+                <tr :key="item.id" v-for="(item,index) in invoiceData.items">
+
+                    <td>
+                        <button @click="openItemSerialsModal(index,item)"
+                                class="btn btn-success btn-xs"
+                                v-if="item.is_need_serial"><i class="fa fa-bars"></i> &nbsp;
+                        </button>
+                        <!--                        <accounting-kit-items-layout-component-->
+                        <!--                                :index="index"-->
+                        <!--                                :kit="item"-->
+                        <!--                                :qty="item.qty"-->
+                        <!--                                @kitUpdated="kitItemsDataUpdated"-->
+                        <!--                                v-if="item.is_kit==true">-->
+
+                        <!--                        </accounting-kit-items-layout-component>-->
+
+
+                    </td>
+                    <td v-text="item.barcode"></td>
+                    <td v-text="item.locale_name"></td>
+                    <td v-text="item.available_qty"></td>
+                    <td>
+                        <input
+                                :placeholder="app.trans.qty"
+                                :ref="'itemQty_' + item.id + 'Ref'"
+                                @focus="$event.target.select()"
+                                @keyup="itemQtyUpdated(item)"
+                                class="form-control input-xs amount-input"
+                                type="text"
+                                v-if="!item.is_need_serial"
+                                v-model="item.returned_qty"
+                        >
+                        <p v-else>{{item.returned_qty}}</p>
+                    </td>
+
+
+                    <td>
+                        <input
+                                :ref="'itemPrice_' + item.id + 'Ref'"
+                                @focus="$event.target.select()"
+                                class="form-control input-xs amount-input"
+
+                                disabled
+                                readonly
+                                type="text"
+                                v-model="item.price">
+
+                    </td>
+
+
+                    <td>
+                        <input @focus="$event.target.select()" class="form-control input-xs amount-input" disabled
+                               type="text"
+                               v-model="item.total">
+                    </td>
+                    <td>
+                        <input :disabled="item.is_kit"
+                               :ref="'itemDiscount_' + item.id + 'Ref'"
+
+                               @focus="$event.target.select()"
+                               class="form-control input-xs amount-input" placeholder="discount" type="text"
+                               v-model="item.discount">
+                    </td>
+                    <td>
+                        <input @focus="$event.target.select()" class="form-control input-xs amount-input" disabled=""
+                               placeholder="subtotal"
+
+                               type="text" v-model="item.subtotal">
+                    </td>
+
+                    <td>
+                        <input @focus="$event.target.select()" class="form-control input-xs amount-input" disabled=""
+                               placeholder="tax"
+                               type="text" v-model="item.tax">
+                    </td>
+                    <td>
+                        <input @focus="$event.target.select()"
+
+
+                               class="form-control input-xs amount-input"
+                               disabled
+                               placeholder="net" type="text" v-model="item.net">
+                    </td>
+
+
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            {{ app.trans.invoice_data }}
+                        </div>
+                        <div class="panel-body text-center">
+                            <div class="row">
+                                <div class="col-md-6"><label>{{ app.trans.total }}</label></div>
+                                <div class="col-md-6">
+                                    <input :placeholder="app.trans.total"
+                                           class="form-control  input-xs amount-input"
+                                           disabled type="text"
+                                           v-model="invoiceData.total">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><label>{{ app.trans.discount }}</label></div>
+                                <div class="col-md-6">
+                                    <input :placeholder="app.trans.discount"
+                                           class="form-control  input-xs amount-input"
+                                           disabled type="text"
+                                           v-model="invoiceData.discount">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6"><label>{{ app.trans.subtotal }}</label></div>
+                                <div class="col-md-6">
+                                    <input :placeholder="app.trans.subtotal"
+                                           class="form-control  input-xs amount-input"
+                                           disabled type="text"
+                                           v-model="invoiceData.subtotal">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6"><label>{{ app.trans.tax }}</label></div>
+                                <div class="col-md-6">
+                                    <input :placeholder="app.trans.tax"
+                                           class="form-control  input-xs amount-input"
+                                           disabled type="text"
+                                           v-model="invoiceData.tax">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><label>{{ app.trans.net }}</label></div>
+                                <div class="col-md-6">
+                                    <input :placeholder="app.trans.net"
+                                           class="form-control  input-xs amount-input"
+                                           disabled type="text"
+                                           v-model="invoiceData.net">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-9">
+                    <accounting-invoice-embedded-payments-gateway-layout
+                            :gateways="gateways"
+                            :net-amount="invoiceData.net"
+                            @updateGatewaysAmounts="updateGatewaysAmounts"
+                            invoice-type="purchase"
+                    >
+                    </accounting-invoice-embedded-payments-gateway-layout>
+                </div>
+
+            </div>
+        </div>
+
+
+        <accounting-return-item-serials-list-layout-component
                 :item="selectedItem"
                 :item-index="selectedItemIndex"
                 @panelClosed="handleItemSerialsClosed"
                 @publishUpdated="handleItemSerialsUpdated"
-                invoice-type="sale"
+                invoice-type="r_sale"
         >
 
-        </accounting-invoice-item-serials-list-layout-component>
+        </accounting-return-item-serials-list-layout-component>
 
     </div>
 
@@ -341,90 +264,82 @@
 </template>
 
 <script>
-    import printJS from 'print-js'
 
+    import {
+        accounting as ItemAccounting,
+        math as ItemMath,
+        query as ItemQuery,
+        validator as ItemValidator
+    } from '../../item';
 
     export default {
-        components: {
-            printJS
-        },
-
-        props: ['creator', 'user', 'pitems', 'invoice', 'sale', 'department', 'gateways', 'expenses'],
+        props: ['creator', 'client', 'salesman', 'items', 'invoice', 'sale', 'gateways', 'expenses'],
         data: function () {
             return {
+                everythingFineToSave: false,
                 selectedItem: null,
                 selectedItemIndex: null,
-                active_expense: null,
+                invoiceData: {
+                    remaining: 0,
+                    vendorIncCumber: "",
+                    clientId: 0,
+                    salesmanId: 0,
+                    methods: [],
+                    items: [],
+                    total: 0,
+                    net: 0,
+                    tax: 0,
+                    discount: 0,
+                    subtotal: 0,
+                    status: "credit"
+                },
+                searchResultList: [],
+                expensesList: [],
+                barcodeNameAndSerialField: "",
+                bc: new BroadcastChannel('item_barcode_copy_to_invoice'),
+                app: {
+                    primaryColor: metaHelper.getContent('primary-color'),
+                    secondColor: metaHelper.getContent('second-color'),
+                    appLocate: metaHelper.getContent('app-locate'),
+                    trans: trans('invoices-page'),
+                    messages: trans('messages'),
+                    dateTimeTrans: trans('datetime'),
+                    validation: trans('validation'),
+                    datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
+                    BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
+                    defaultVatSaleValue: 5,
+                    defaultVatPurchaseValue: 5,
+                },
+                LiveTimer: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() +
+                    ' ' +
+                    new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
 
-                errorMessage: "",
-                error: "",
-                status: 'credit',
-                search_field: "",
-                items: [],
 
-                test_request_textarea: '',
-                show_submit_btn: false,
-
-                disable_button_counter2: 0,
-                current_items_net: 0,
-                button_counter: 1,
-
-
-                messages: [],
-                translator: [],
-                reusable_translator: [],
-
-
-                expenses_list: [],
-
-                total: 0,
-                discount: 0,
-                tax: 0,
-                net: 0,
-                subtotal: 0,
-                remaining: 0,
-                methods: []
             };
         },
         created: function () {
-            this.translator = JSON.parse(window.translator);
-            this.messages = JSON.parse(window.messages);
-            this.reusable_translator = JSON.parse(window.reusable_translator);
+            //
 
-            this.initData();
+
         },
+
+        mounted: function () {
+            this.initItems();
+        },
+
 
         methods: {
 
-
-            openItemSerialsModal(index, item) {
-                this.selectedItem = item;
-                this.selectedItemIndex = index;
-            },
-
-
-            handleItemSerialsUpdated(e) {
-                let index = e.index;
-                let item = db.model.findByIndex(this.items, index);
-                item.serials = e.serials;
-                item.returned_qty = e.serials.length;
-                this.onReturnQtyChanged(item, true);
-            },
-            handleItemSerialsClosed(e) {
-                this.selectedItem = null;
-                this.selectedItemIndex = null;
-            },
-
-
-            initData() {
-                let len = this.pitems.length;
+            initItems() {
+                let len = this.items.length;
                 for (let i = 0; i < len; i++) {
-                    let item = this.pitems[i];
-                    item.a_qty = parseInt(item.qty) - parseInt(item.r_qty);
-                    item.old_net = item.net;
-                    item.old_price = item.price;
-                    item.old_tax = item.tax;
+                    let item = this.items[i];
                     item.is_expense = item.item.is_expense;
+                    item.is_need_serial = item.item.is_need_serial;
+                    item.locale_name = item.item.locale_name;
+                    item.barcode = item.item.barcode;
+                    item.vts = item.item.vts;
+                    item.available_qty = item.qty - item.r_qty;
                     item.init_discount = item.discount;
                     item.returned_qty = 0;
                     item.error = '';
@@ -432,213 +347,288 @@
                     item.subtotal = 0;
                     item.net = 0;
                     item.tax = 0;
-                    item.vtp = item.item.vtp;
-                    item.vts = item.item.vts;
-
-                    this.items.push(item);
+                    this.invoiceData.items.push(item);
                 }
             },
 
-            addNewExpenseOption() {
-                if (this.active_expense != null) {
-                    let new_expense = this.active_expense;
-                    new_expense.available_qty = 1;
-                    new_expense.qty = 1;
-                    new_expense.r_qty = 0;
-                    new_expense.a_qty = 1;
-                    new_expense.returned_qty = 1;
-                    new_expense.user_should_pay = true;
-                    new_expense.price = 0;
-                    new_expense.init_discount = 0;
-                    new_expense.purchase_price = 0;
-                    this.expenses_list.push(new_expense);
-                    this.items.push(new_expense);
-                }
-
+            clientListChanged(event) {
+                this.invoiceData.clientId = event.value.id;
+            },
+            salesmanListChanged(event) {
+                this.invoiceData.salesmanId = event.value.id;
             },
 
 
-            errorInPayment(e) {
+            sendQueryRequestToFindItems() {
+                let appVm = this;
+                ItemQuery.sendQueryRequestToFindItems(this.barcodeNameAndSerialField, 'sale').then(response => {
+                    if (response.data.length === 1) {
+                        appVm.validateAndPrepareItem(response.data[0]);
+                        appVm.barcodeNameAndSerialField = "";
+                        appVm.searchResultList = [];
+                    } else if (response.data.length === 0) {
+                        appVm.$refs.barcodeNameAndSerialField.select();
+                        appVm.searchResultList = [];
+                    } else {
+                        appVm.searchResultList = response.data;
+                    }
+
+                }).catch(error => {
+                    console.log(error);
+                })
             },
+            validateAndPrepareItem(item) {
+                if (db.model.contain(this.invoiceData.items, item.id)) {
+                    let parent = db.model.find(this.invoiceData.items, item.id);
+                    if (!parent.is_need_serial) {
+                        parent.qty = parseInt(parent.qty) + 1;
+                        this.itemQtyUpdated(parent);
+                    } else if (item.has_init_serial) {
+                        this.itemWithSerialProccess(item, parent);
+                    }
 
-            billingsUpdate(e) {
-
-
-                this.remaining = e.remaining;
-                if (parseFloat(e.remaining) > 0) {
-
-                    this.status = 'credit';
+                } else if (item.has_init_serial) {
+                    this.itemWithSerialProccess(item);
                 } else {
-                    this.status = 'paid';
+                    let preparedItem = this.prepareDataInFirstUse(item);
+                    this.appendItemToInvoiceItemsList(preparedItem);
                 }
 
-                this.methods = [];
-                for (let i = 0; i < e.methods.length; i++) {
-                    let method = e.methods[i];
+                this.clearAndFocusOnBarcodeField();
+            },
 
-                    if (parseFloat(method.amount) > 0) {
-                        this.methods.push(method);
+            itemWithSerialProccess(item, parent = null) {
+                let serial = item.init_serial.serial;
+                if (parent == null) {
+                    item.serials = [serial];
+                    item.qty = 1;
+
+                    item.discount = 0;
+                    this.invoiceData.items.push(item);
+                    let newItem = db.model.find(this.invoiceData.items, item.id);
+                    this.itemUpdater(newItem);
+                } else {
+                    if (!db.model.contain(parent.serials, serial)) {
+                        parent.serials = db.model.createUnique(parent.serials, serial);
+                        parent.qty = parseInt(parent.qty) + 1;
+                        let element = {
+                            index: db.model.index(this.invoiceData.items, parent.id),
+                            serials: parent.serials
+                        };
+                        this.handleItemSerialsUpdated(element);
+                    }
+
+
+                }
+
+
+                this.$refs.barcodeNameAndSerialField.focus();
+                this.$refs.barcodeNameAndSerialField.select();
+
+                this.updateInvoiceData();
+
+            },
+            prepareDataInFirstUse(item) {
+                item.isOpen = false;
+                item.qty = 1;
+                if (item.is_need_serial) {
+                    item.qty = 0;
+                    item.serials = [];
+                }
+
+
+                if (item.is_kit) {
+
+                    item = ItemAccounting.getKitInformation(item);
+                } else {
+                    item.discount = 0;
+                }
+
+                let newItem = this.itemUpdater(item);
+                return newItem;
+
+            },
+            appendItemToInvoiceItemsList(item, index = null) {
+                if (index != null) {
+                    this.invoiceData.items.splice(index, 1, item);
+                } else {
+                    this.invoiceData.items.push(item);
+                }
+
+                this.updateInvoiceData();
+            },
+
+            kitItemsDataUpdated(e) {
+                let kit = e.kit;
+                this.invoiceData.items.splice(e.index, 1, kit);
+            },
+            updateInvoiceData() {
+                this.invoiceData.total = db.model.sum(this.invoiceData.items, 'total');
+                this.invoiceData.discount = db.model.sum(this.invoiceData.items, 'discount');
+                this.invoiceData.subtotal = db.model.sum(this.invoiceData.items, 'subtotal');
+                this.invoiceData.tax = db.model.sum(this.invoiceData.items, 'tax');
+                this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net');
+                this.validateInvoiceData();
+            },
+
+            validateInvoiceData() {
+                let everythingFineToSave = true;
+
+                let validating = db.model.validateAmounts(this.invoiceData.items, [
+                    'purchase',
+                    'tax',
+                    'total',
+                    'discount',
+                    'net',
+                ]);
+
+                validating = validating && ItemValidator.validateAmount(this.invoiceData.total);
+                validating = validating && ItemValidator.validateAmount(this.invoiceData.subtotal);
+                validating = validating && ItemValidator.validateAmount(this.invoiceData.discount);
+                validating = validating && ItemValidator.validateAmount(this.invoiceData.net);
+
+                this.everythingFineToSave = validating;
+            },
+            clearAndFocusOnBarcodeField() {
+                this.barcodeNameAndSerialField = "";
+                this.searchResultList = [];
+                this.$refs.barcodeNameAndSerialField.focus();
+            },
+            itemQtyUpdated(item, bySerial = false) {
+                if (bySerial === false) {
+                    let el = this.$refs['itemQty_' + item.id + 'Ref'][0];
+                    if (!inputHelper.validateQty(item.returned_qty, el, item.qty, 0)) {
+                        item.returned_qty = 0;
+                        return this.itemUpdater(item);
+                    }
+
+                    if (!inputHelper.validateQty(item.returned_qty, el, item.available_qty, 0)) {
+                        item.returned_qty = 0;
+                        return this.itemUpdater(item);
+                    }
+                }
+
+                item = this.itemUpdater(item);
+                this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
+            },
+
+            itemNetUpdated(item) {
+                let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts); //  1.05
+                item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
+                item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vts), 100)).toFixed(3);
+                item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
+                // item.tax = ItemMath.sub(ItemMath.mult(item.subtotal, tax / 100), item.subtotal);
+                // this.items.splice(db.model.index(this.invoiceData.items), 1, item);
+                this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
+
+            },
+
+            itemUpdater(item) {
+                if (!item.is_kit) {
+                    if (!ItemValidator.validateQty(item.returned_qty, item.available_qty)) {
+                        item.returned_qty = ItemMath.sub(item.returned_qty, 1);
+                        return this.itemUpdater(item);
                     }
                 }
 
 
-                this.validateInvoiceData();
-            },
-
-            onChangePriceField(item) {
-                item.total = item.price;
-                item.subtotal = item.subtotal;
-                item.tax = parseFloat(item.subtotal) * parseFloat(item.vts) / 100;
-                item.net = parseFloat(item.subtotal) + parseFloat(item.tax);
-                this.runUpdater(item);
-            },
-
-            /// events
-            onReturnQtyChanged(item) {
-                if (item.error == 'error') {
-                    item.error = '';
-                }
-
-
-                if (!validate.isInteger(parseInt(item.returned_qty))) {
-                    item.error = 'error';
-                    return;
-                }
-
-                if (item.returned_qty > parseInt(item.qty)) {
-                    item.error = 'error';
-                    item.returned_qty = 0;
-                    this.onReturnQtyChanged(item);
-                    return;
-                }
-
-
-                this.runUpdater(item);
+                item.total = ItemAccounting.getTotal(item.price, item.returned_qty);
+                item.subtotal = ItemAccounting.getSubtotal(item.total, item.discount);
+                item.tax = ItemAccounting.getTax(item.subtotal, item.vts, true);// this for vat purchase => vtp
+                item.net = ItemAccounting.getNet(item.subtotal, item.tax, true);
+                return item;
             },
 
 
-            runUpdater(item) {
-                let index = this.items.indexOf(item);
-
-                item.total = this.updateTotalForOneItem(item);
-                item.discount = parseFloat(item.init_discount / item.qty * item.returned_qty).toFixed(2);
-                item.subtotal = this.updateSubtotalForOneItem(item);
-                item.tax = this.updateTaxForOneItem(item);
-                item.net = this.updateNetForOneItem(item);
-                item.r_qty = this.updateReturnQty(item);
-                this.updateItemInListBYindex(index, item);
-                this.updateInvoiceDetails();
-
+            openItemSerialsModal(index, item) {
+                this.selectedItem = item;
+                this.selectedItemIndex = index;
             },
-            updateTotalForOneItem(item) {
-                return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.price * item.returned_qty);
-            },
-            updateReturnQty(item) {
-                if (item.returned_qty >= 1) {
-                    return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.returned_qty + item.r_qty);
-                }
 
-                return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.qty - item.r_qty);
+            handleItemSerialsUpdated(e) {
+                let index = e.index;
+                let item = db.model.findByIndex(this.invoiceData.items, index);
+                item.serials = e.serials;
+                item.returned_qty = e.serials.length;
+                this.itemQtyUpdated(item, true);
+            },
+            handleItemSerialsClosed(e) {
+                this.selectedItem = null;
+                this.selectedItemIndex = null;
             },
 
 
-            updateSubtotalForOneItem(item) {
-                return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.total - item.discount);
-            },
-            updateTaxForOneItem(item) {
-
-                return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.vts * item.subtotal / 100);
-            },
-            updateNetForOneItem(item) {
-                let net = parseFloat(item.tax) + parseFloat(item.subtotal);
-                return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(net);
-            },
-            updateItemInListBYindex(index, newItem) {
-                this.items.splice(index, 1, newItem);
-            },
-
-            updateInvoiceDetails() {
-                this.total = this.getSum(this.items, 'total');
-                this.discount = this.getSum(this.items, 'discount');
-                this.subtotal = this.getSum(this.items, 'subtotal');
-                this.tax = this.getSum(this.items, 'tax');
-                this.net = this.getSum(this.items, 'net');
-                this.remaining = this.net;
-            },
-
-
-            getSum(arr = [], column) {
-                let sum = 0;
-                for (let i = arr.length - 1; i >= 0; i--) {
-                    if (parseInt(arr[i].returned_qty) > 0)
-                        sum = parseFloat(sum) + parseFloat(arr[i][column]);
-                }
-
-                return helpers.showOnlyTwoAfterComma(sum);
-            },
-
-
-            validateInvoiceData() {
-                return true;
-            },
-            saveInvoiceButtonClicked(e) {
-                if (this.validateInvoiceData()) {
-                    this.sendDataToServer();
+            initExpensesList() {
+                for (let i = 0; i < this.expenses.length; i++) {
+                    let expense = this.expenses[i];
+                    expense.is_open = false;
+                    expense.is_apended_to_net = false;
+                    expense.amount = 0;
+                    this.expensesList.push(expense);
                 }
             },
 
 
-            sendDataToServer() {
-                let data_to = {
-                    items: this.items,
-                    total: this.total,
-                    subtotal: this.subtotal,
-                    net: this.net,
-                    tax: this.tax,
-                    invoice_type: 'r_sale',
-                    discount_value: this.discount,
-                    discount_percent: this.discount,
-                    remaining: this.remaining,
-                    current_status: this.status,
-                    issued_status: this.status,
-                    methods: this.methods
+            updateGatewaysAmounts(e) {
+                this.invoiceData.status = e.status;
+                this.invoiceData.methods = [];
+                for (let i = 0; i < e.methods.length; i++) {
+                    let method = e.methods[i];
+
+                    if (parseFloat(method.amount) > 0) {
+                        this.invoiceData.methods.push(method);
+                    }
+                }
+            },
+
+
+            pushDataToServer(doWork = null) {
+                let client = this.sale.client;
+                if (client.can_make_credit === false) {
+                    let amount = db.model.sum(this.invoiceData.methods, 'amount');
+                    if (ItemMath.isBiggerThan(this.invoiceData.net, amount)) {
+                        this.everythingFineToSave = false;
+                        alert('هذا العميل لا يمكنه القيام بفواتير آجله الرجاء التحقق من وسائل الدفع واكمال المبلغ ');
+
+                        return;
+                    }
+                }
+
+                let data = {
+                    items: this.invoiceData.items,
+                    methods: this.invoiceData.methods,
+                    expenses: this.invoiceData.expenses,
                 };
+                let appVm = this;
 
-                this.test_request_textarea = JSON.stringify(data_to);
-                // axios.patch('/accounting/sales/' + this.invoice.id, data_to)
-                //     .then(function (response) {
-                //         window.location.reload();
-                //     })
-                //     .catch(function (error) {
-                //         console.log(error.response.data);
+                let invoice = this.invoice;
                 //
-                //     });
+
+                console.log(data)
+                axios.put(this.app.BaseApiUrl + 'sales/' + invoice.id, data)
+                    .then(function (response) {
+                        console.log(response.data);
+                        //
+                        if (doWork == 'open') {
+                            window.location.href = appVm.app.BaseApiUrl + 'sales/' + invoice.id;
+                        } else {
+                            window.location.reload();
+                        }
+
+                    })
+                    .catch(function (error) {
+                        console.log(error.response.data)
+                    });
 
             },
-
 
         },
-
-        watch: {
-            total: function (newTotal) {
-                this.subtotal = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(newTotal) - parseFloat(this.discount));
-            },
-            subtotal: function (newSubtotal) {
-            },
-            tax: function (newTax) {
-                this.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(this.subtotal) + parseFloat(newTax));
-            },
-            discount: function (newDiscount) {
-                this.subtotal = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(this.total) - parseFloat(newDiscount));
-            }
-        }
-
 
     }
 </script>
 
 
-<style scoped src="bulma/css/bulma.css">
+<style scoped>
     input {
         text-align: center
     }
@@ -658,23 +648,21 @@
         text-decoration: none !important;
     }
 
-    .live-vue-search .message-header {
+    .live-vue-search div {
+        background-color: black;
+        border-radius: 0px;
+        border-bottom: 1px solid #eeeeee;
+        color: #eee;
+        cursor: pointer;
+    }
+
+    live-vue-search div:hover {
 
         border-radius: 0px;
+
         border-bottom: 1px solid #eeeeee;
         cursor: pointer;
     }
 
-    live-vue-search .message-header:hover {
 
-        border-radius: 0px;
-        border-bottom: 1px solid #eeeeee;
-        cursor: pointer;
-    }
-
-    th {
-        text-align: center !important
-    }
 </style>
-
-

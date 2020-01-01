@@ -10,11 +10,11 @@
 		public function getUserIdAttribute()
 		{
 			if (in_array($this->invoice_type,['sale','r_sale'])){
-				return $this->sale->client_id;
+				return !empty($this->sale) ?  $this->sale->client_id : 0;
 			}
 			
 			
-			return $this->purchase->vendor_id;
+			return !empty($this->purchase) ?  $this->purchase->vendor_id : 0 ;
 		}
 		
 		public function getNameAttribute()
@@ -126,9 +126,9 @@
 		{
 			
 			if (in_array($this->invoice_type,['sale','r_sale']))
-				return $this->sale->prefix.$this->id;
+				return  !empty($this->sale) ? $this->sale->prefix.$this->id : "";
 			else
-				return $this->purchase->prefix.$this->id;
+				return  !empty($this->purchase) ? $this->purchase->prefix.$this->id : "";
 			
 		}
 		

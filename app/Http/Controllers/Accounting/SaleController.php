@@ -106,6 +106,8 @@
 				}
 				$items [] = $item;
 			}
+			
+//			return $items;
 			$expenses = Item::where('is_expense',true)->get();
 			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())->get();
 			return view('accounting.sales.edit',compact('sale','invoice','items','gateways','expenses'));
@@ -149,6 +151,7 @@
 		 */
 		public function update(Invoice $sale,ReturnSaleRequest $request)
 		{
+//			return  $sale;
 			return $request->makeReturn($sale);
 			
 		}

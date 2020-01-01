@@ -58,7 +58,6 @@
 						->createInvoiceTransactions($this->methods);
 //
 				DB::commit();
-				
 				return $base_invoice;
 			}catch (Exception $exception){
 				
