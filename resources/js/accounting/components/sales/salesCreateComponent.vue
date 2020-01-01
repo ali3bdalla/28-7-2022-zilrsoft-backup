@@ -9,7 +9,8 @@
                         class="fa fa-save"></i> {{ app.trans.save }}
                 </button>
                 <button :disabled="!everythingFineToSave" @click="pushDataToServer('print')"
-                        class="btn btn-custom-primary"><i
+                        class="btn btn-custom-primary"
+                        ref="saveAndPrintReceiptBarcode"><i
                         class="fa fa-print"></i> {{ app.trans.save_and_print_receipt }}
                 </button>
 
@@ -92,11 +93,13 @@
             <div class="col-md-8">
                 <div class="product_search" id="seach_area">
                     <div class="">
-                        <input :placeholder="app.trans.search_barcode"
-                               @keyup.enter="sendQueryRequestToFindItems"
-                               class="form-control" ref="barcodeNameAndSerialField"
-                               type="text"
-                               v-model="barcodeNameAndSerialField"/>
+                        <input
+                                :placeholder="app.trans.search_barcode"
+                                @keyup.enter="sendQueryRequestToFindItems"
+                                class="form-control"
+                                ref="barcodeNameAndSerialField" tabindex="1"
+                                type="text"
+                                v-model="barcodeNameAndSerialField"/>
                     </div>
                     <div class="live-vue-search panel" v-show="searchResultList.length >=1">
                         <div :key="item.id" @click="validateAndPrepareItem(item)"
@@ -158,11 +161,14 @@
                                 class="fa fa-trash"></i></button>
                     </td>
                     <td>
-                        <button @click="openItemSerialsModal(index,item)"
+                        <button
+
+                                @click="openItemSerialsModal(index,item)"
                                 class="btn btn-success btn-xs"
                                 v-if="item.is_need_serial"><i class="fa fa-bars"></i> &nbsp;
                         </button>
                         <accounting-kit-items-layout-component
+
                                 :index="index"
                                 :kit="item"
                                 :qty="item.qty"
@@ -178,6 +184,7 @@
                     <td v-text="item.available_qty"></td>
                     <td>
                         <input
+
                                 :placeholder="app.trans.qty"
                                 :ref="'itemQty_' + item.id + 'Ref'"
                                 @focus="$event.target.select()"
@@ -428,6 +435,13 @@
                 }
             },
             sendQueryRequestToFindItems() {
+
+                if (this.barcodeNameAndSerialField == "") {
+                    if (this.invoiceData.items.length >= 1) {
+                        this.$refs.saveAndPrintReceiptBarcode.focus();
+                        return;
+                    }
+                }
                 let appVm = this;
                 ItemQuery.sendQueryRequestToFindItems(this.barcodeNameAndSerialField, 'sale').then(response => {
                     if (response.data.length === 1) {
@@ -765,9 +779,23 @@
                             window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
                         } else if (doWork == 'print') {
                             appVm.createdInvoiceId = response.data.id;
-                            setTimeout(function () {
-                                window.location.reload();
-                            }, 1000);
+                            appVm.invoiceData = {
+                                remaining: 0,
+                                vendorIncCumber: "",
+                                clientId: 0,
+                                salesmanId: 0,
+                                methods: [],
+                                items: [],
+                                total: 0,
+                                net: 0,
+                                tax: 0,
+                                discount: 0,
+                                subtotal: 0,
+                                status: "credit"
+                            };
+                            // setTimeout(function () {
+                            //     window.location.reload();
+                            // }, 1000);
                         } else {
                             window.location.reload();
                         }
