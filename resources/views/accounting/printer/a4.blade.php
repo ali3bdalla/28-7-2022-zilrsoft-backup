@@ -387,5 +387,5 @@
 
 
 <script>
-    // print();
+    print();
 </script>
