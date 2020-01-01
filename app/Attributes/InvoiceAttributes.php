@@ -121,7 +121,6 @@
 			return $description;
 		}
 		
-		// get attributes
 		public function getTitleAttribute()
 		{
 			

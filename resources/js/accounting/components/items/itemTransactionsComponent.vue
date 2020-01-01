@@ -58,8 +58,8 @@
                 <tr :class="{'has-background-light':true}">
                     <td class="datedirection">{{history.created_at}}</td>
                     <td><a :href="history.invoice_url">{{ history.invoice_title }}</a></td>
-                    <td>{{ history.user.name }}</td>
-                    <td>{{ history.creator.name }}</td>
+                    <td>{{ history.user.locale_name }}</td>
+                    <td>{{ history.creator.locale_name }}</td>
                     <td>
                     <span
                             v-if="history.invoice_type=='beginning_inventory'
@@ -240,7 +240,7 @@
         <div class="form-group">
             &nbsp;
 
-            <a class="button is-right pull-right" href="/management/items"><i class="fa fa-undo-alt"></i>
+            <a class="button is-right pull-right" href="/accounting/items"><i class="fa fa-undo-alt"></i>
                 &nbsp;&nbsp;{{ reusable_translator.back }}</a>
         </div>
 
@@ -279,7 +279,6 @@
                 var vm = this;
                 axios.get('/accounting/items/' + this.item.id + '/transactions_datatable?startDate=' + startDate + '&&endDate=' +
                     endDate).then((response) => {
-                    console.log(response.data);
                     vm.histories = response.data.data;
                     vm.stock_value = response.data.stock_value;
                     vm.stock_qty = response.data.stock_qty;
@@ -290,9 +289,7 @@
             datePickerUpdated(e) {
                 var startDate = e.startDate.getFullYear() + '-' + e.startDate.getMonth() + '-' + e.startDate.getDate();
                 var endDate = e.endDate.getFullYear() + '-' + e.endDate.getMonth() + '-' + e.endDate.getDate();
-                // var endDate = e.endDate;
 
-                // console.log(startDate);
                 this.loadData(startDate, endDate);
             }
 
