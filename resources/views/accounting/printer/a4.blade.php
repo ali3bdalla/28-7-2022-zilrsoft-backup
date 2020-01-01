@@ -62,7 +62,7 @@
 
         }
 
-        section table tbody.body .no,.total_numbers .number {
+        section table tbody.body .no, .total_numbers .number {
             background-color: #777777;
         }
 
@@ -96,10 +96,9 @@
         }
 
 
-
         .total {
             background-color: white !important;
-            color:black !important;
+            color: black !important;
         }
     </style>
 
@@ -297,7 +296,42 @@
                                      <td class="total" style="background-color:
 							  <?php echo $background_color;?> !important;"> {{ $item->net }}</td>
                                  </tr>
+                                 @if($item->item->is_need_serial)
+                                     @foreach($item->item->serials()
+                                    ->where([
+                                    ["sale_invoice_id",$invoice->id],
+                                    ["item_id",$item->item->id],
+                                    ])
+                                    ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->get() as $index => $serial
+                                    )
+                                         <tr style="background-color: #8888">
 
+                                             <td class="" style="width:30px !important;">S/N</td>
+                                             <td class="desc"
+                                                 style="width: 10%  !important;text-align: right !important;
+                                                         font-weight: bold;font-size: 10px !important;color: black;
+                                                         background-color:
+									    <?php echo $background_color;?> !important;padding-right: 20px !important;">{{
+                                $serial->serial }}</td>
+                                             <td class="total" style="background-color:
+									<?php echo $background_color;?> !important;"></td>
+                                             <td class="total" style="background-color:
+									<?php echo $background_color;?> !important;"></td>
+                                             <td class="total" style="background-color:
+									<?php echo $background_color;?> !important;"></td>
+                                             <td class="total" style="background-color:
+									<?php echo $background_color;?> !important;"></td>
+                                             <td class="total" style="background-color:
+									<?php echo $background_color;?> !important;"></td>
+                                             <td class="total" style="background-color:
+									<?php echo $background_color;?> !important;"></td>
+                                         </tr>
+
+                                     @endforeach
+                                 @endif
                                  @endforeach
                              @endif
 
@@ -430,7 +464,7 @@
             </div>
             <div class="clear"></div>
         </div>
-        <div class="end" style="padding-top: 10px"> {{ auth()->user()->organization->city_ar }} -  {{ auth()->user()
+        <div class="end" style="padding-top: 10px"> {{ auth()->user()->organization->city_ar }} - {{ auth()->user()
         ->organization->address_ar }}</div>
         {{--        <div class="text-center"> {{ auth()->user()->organization->vat }}</div>--}}
     </div>
