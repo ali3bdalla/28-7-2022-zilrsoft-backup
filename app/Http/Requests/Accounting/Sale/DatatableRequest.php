@@ -53,7 +53,7 @@
 			}elseif ($this->has('startDate') && $this->filled('startDate')){
 				$query = $query->whereDate('created_at',Carbon::parse($this->input("startDate")));
 			}else{
-				if (!$this->user()->can('manage branches'))
+				if (!$this->user()->can('manage branches') && !$this->filled('id'))
 					$query = $query->whereDate('created_at',Carbon::today());
 			}
 			
