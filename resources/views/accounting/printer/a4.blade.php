@@ -168,7 +168,7 @@
                 <div class="company-info" style="margin-bottom: 10px">
                     <span>{{ __('pages/invoice.invoice') }}
                         {{$invoice->description }} {{ __('pages/invoice.number') }} :
-                        {{$invoice->locale_title }}</span>
+                        {{$invoice->title }}</span>
                 </div>
                 <div class="company-info" style="margin-bottom: 10px">
                     <span>{{$invoice->served_title }} : {{ $invoice->served_by
@@ -178,7 +178,7 @@
                 {{--                    <span>{{  __('pages/invoice.phone_number')  }} : {{  $invoice->creator->user->phone_number  }}</span>--}}
                 {{--                </div>--}}
                 <div class="company-info">
-                    <span>{{ __('pages/invoice.department') }} :  {{ $invoice->creator->department->title  }}</span>
+                    <span>{{ __('pages/invoice.department') }} :  {{ $invoice->creator->department->locale_title  }}</span>
                 </div>
 
 
