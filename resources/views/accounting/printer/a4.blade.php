@@ -196,18 +196,21 @@
                     <tbody class="head" style="background-color: black !important;">
                     <tr>
                         <th class="no">#</th>
-                        <th class="desc" style="width: 300px !important;background-color: #777777 !important;">{{__
+                        <th class="desc" style="width: 180px !important;background-color: #777777 !important;">{{__
                         ('pages/invoice.item_name')}}</th>
                         <th class="unit"
-                            style="width: 50px !important;background-color: #777777 !important;">{{__('pages/invoice.qty')}}</th>
+                            style="width: 30px !important;background-color: #777777 !important;">
+                            {{__('pages/invoice.qty')}}</th>
                         <th class="unit"
                             style="width: 50px !important;background-color: #777777 !important;">{{__('pages/invoice.price')}}</th>
                         <th class="unit"
                             style="width: 70px !important;background-color: #777777 !important;">{{__('pages/invoice.total')}} </th>
                         <th class="unit"
-                            style="width: 70px !important;background-color: #777777 !important;">{{__('pages/invoice.discount')}} </th>
+                            style="width: 40px !important;background-color: #777777 !important;">
+                            {{__('pages/invoice.discount')}} </th>
                         <th class="unit"
-                            style="width: 70px !important;background-color: #777777 !important;">{{__('pages/invoice.tax')}} </th>
+                            style="width: 40px !important;background-color: #777777 !important;">
+                            {{__('pages/invoice.tax')}} </th>
                         <th class="unit"
                             style="width: 70px !important;background-color: #777777 !important;">الاجمالي
                         </th>

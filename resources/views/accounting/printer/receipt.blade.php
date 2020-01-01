@@ -73,7 +73,7 @@
 
     <div class="row">
         <div class="col-xs-6"> اسم العميل</div>
-        <div class="col-xs-6 text-left"> {{$invoice->sale->client->name }}</div>
+        <div class="col-xs-6 text-left"> {{$invoice->sale->client->locale_name }}</div>
     </div>
 
 
@@ -85,19 +85,19 @@
 
     <div class="row ">
         <div class="col-xs-6"> الفرع</div>
-        <div class="col-xs-6 text-left " style="direction: ltr"> {{$invoice->creator->branch->name }}</div>
+        <div class="col-xs-6 text-left " style="direction: ltr"> {{$invoice->creator->branch->locale_name }}</div>
     </div>
 
 
     <div class="row ">
         <div class="col-xs-6"> القسم</div>
-        <div class="col-xs-6 text-left " style="direction: ltr"> {{$invoice->creator->department->title }}</div>
+        <div class="col-xs-6 text-left " style="direction: ltr"> {{$invoice->creator->department->locale_title }}</div>
     </div>
 
 
     <div class="row">
         <div class="col-xs-6"> البائع</div>
-        <div class="col-xs-6 text-left " style="direction: ltr"> {{$invoice->sale->salesman->name }}</div>
+        <div class="col-xs-6 text-left " style="direction: ltr"> {{$invoice->sale->salesman->locale_name }}</div>
     </div>
 
     <br>
@@ -145,8 +145,7 @@
 
                         <td colspan="6">
                             {{--                            <br>--}}
-                            <span>{{$item->item
-                        ->locale_name}}</span><br><span>{{$item->item->barcode}}</span></td>
+                            <span>{{$item->item->locale_name}}</span><br><span>{{$item->item->barcode}}</span></td>
                     </tr>
                     <tr>
                         <td style="margin-right: -2px;"><span>الكمية</span></td>
@@ -205,7 +204,7 @@
 
         <div class="col-xs-12">
             <div class="header_title">
-                <span class="pull-right"> الضريبة </span>
+                <span class="pull-right"> الضريبة (5%) </span>
                 <span class="pull-left"> {{money_format('%i ريال',$invoice->tax) }}</span>
             </div>
         </div>
