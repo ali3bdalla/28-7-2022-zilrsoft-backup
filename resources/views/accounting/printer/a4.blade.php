@@ -334,10 +334,9 @@
             </div>
 
             <div class="number">
-                <div class="label">{{ __('pages/invoice.vat') }} :
+                <div class="label">{{ __('pages/invoice.vat') }} (5%):
                 </div>
-                <div class="value"> {{ $invoice->tax
-        }}</div>
+                <div class="value"> {{ $invoice->tax}}</div>
                 {{--                ({{ $invoice->getVat('purchase') }}%)--}}
                 <div class="clear"></div>
             </div>

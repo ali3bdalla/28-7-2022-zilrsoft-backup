@@ -154,7 +154,7 @@
                         <td><span>المجموع</span></td>
                         <td><span>الخصم</span></td>
                         {{--                        <td><span>الصافي</span></td>--}}
-                        <td><span>الضريبة</span></td>
+                        <td><span>الضريبة (5%)</span></td>
                         <td><span>النهائي</span></td>
                     </tr>
                     <tr>

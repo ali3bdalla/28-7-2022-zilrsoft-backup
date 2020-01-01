@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/users/identitiesDatatableComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/users/identitiesDatatableComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/identities/view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/identities/view.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/jZspoLt0GtxqzYscxYaNXCe2a783yQvmLeD1x5CI" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/jZspoLt0GtxqzYscxYaNXCe2a783yQvmLeD1x5CI" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/receipt.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/receipt.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -430,7 +428,7 @@
       <workItem from="1576847436326" duration="105082000" />
       <workItem from="1577181612244" duration="98359000" />
       <workItem from="1577561097672" duration="759000" />
-      <workItem from="1577567765490" duration="73800000" />
+      <workItem from="1577567765490" duration="74004000" />
     </task>
     <servers />
   </component>
