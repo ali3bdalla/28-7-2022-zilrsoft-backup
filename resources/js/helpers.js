@@ -83,7 +83,7 @@ var helpers = {
     // after the comma
     roundTheFloatValueTo2DigitOnlyAfterComma: function (val) {
 
-        return parseFloat(val).toFixed(2);
+        return parseFloat(val).toFixed(4);
     },
 
 

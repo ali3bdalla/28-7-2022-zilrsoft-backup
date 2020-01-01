@@ -503,7 +503,7 @@
                 this.search_field = ""; /// clear the text on the search field
                 this.$refs.search_input_ref.focus();// focus on the search field after make nice search
 
-                this.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(Math.round(this.net));
+                // this.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(Math.round(this.net));
                 // alert( this.net);
 
                 this.onInvoiceNetUpdated();
