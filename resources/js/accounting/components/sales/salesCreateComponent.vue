@@ -793,9 +793,11 @@
                                 subtotal: 0,
                                 status: "credit"
                             };
-                            // setTimeout(function () {
-                            //     window.location.reload();
-                            // }, 1000);
+
+
+                            setInterval(function () {
+                                window.location.reload();
+                            }, 1500);
                         } else {
                             window.location.reload();
                         }
