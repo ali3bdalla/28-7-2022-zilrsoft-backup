@@ -74,6 +74,8 @@
 		
 		/**
 		 * @param $items
+		 *
+		 * @return $this
 		 */
 		public function addItemsToBaseInvoice($items)
 		{
@@ -92,6 +94,8 @@
 		
 		/**
 		 * @param $items
+		 *
+		 * @return FreshHelper
 		 */
 		public function addReturnedItemsToBaseInvoice($items)
 		{

@@ -521,7 +521,6 @@
 
 
                 if (item.is_kit) {
-
                     item = ItemAccounting.getKitInformation(item);
                 } else {
                     item.discount = 0;
@@ -774,7 +773,6 @@
                 //
                 axios.post(this.app.BaseApiUrl + 'sales', data)
                     .then(function (response) {
-                        console.log(response.data);
                         //
                         if (doWork == 'open') {
                             window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
@@ -810,7 +808,7 @@
                     })
                     .catch(function (error) {
                         alert(error.response.data.message);
-                        console.log(error.response.data.message)
+                        console.log(error.response.data)
                     });
 
             },

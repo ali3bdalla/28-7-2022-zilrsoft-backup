@@ -33,7 +33,8 @@
 				return true;
 			});
 			Validator::extendImplicit('price',function ($attribute,$value,$args){
-				return preg_match('/^\d{0,8}(\.\d{1,2})?$/',$value);
+				
+				return preg_match('/^\d{0,8}(\.\d{1,8})?$/',$value);
 			});
 			
 			Validator::extendImplicit('item_has_available_qty',function ($attribute,$value,$args){
@@ -54,15 +55,11 @@
 				$end = $str_attr[2];
 				$id = request()->input("{$first}.{$index}.id");
 				$item = Item::findOrFail($id);
-
 				
 				if ($end == "price")
 					return $item->is_kit ? true : is_numeric($value);
-				else
-				{
-					
-					return !$item->is_kit && !$item->is_expense ?  is_numeric($value) : true;
-					
+				else{
+					return !$item->is_kit && !$item->is_expense ? is_numeric($value) : true;
 				}
 				
 			});
@@ -74,7 +71,6 @@
 				$end = $str_attr[2];
 				$id = request()->input("{$first}.{$index}.id");
 				$item = Item::findOrFail($id);
-//				return true;
 				return $item->is_expense ? is_numeric($value) && !empty($value) : true;
 			});
 			
@@ -110,7 +106,6 @@
 				$item = Item::findOrFail($id);
 				if ($item->is_need_serial){
 					$db_serial = $item->serials()->where('serial',$value)->first();
-//					var_dump($db_serial);
 					if (empty($db_serial))
 						return false;
 					else{
