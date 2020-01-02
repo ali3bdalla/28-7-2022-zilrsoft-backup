@@ -133,33 +133,6 @@
         </div>
 
 
-        <!--invoice Note Modal-->
-        <div v-if="modalsInfo.showNoteModal===true">
-            <transition name="modal">
-                <div class="modal-mask">
-                    <div class="modal-wrapper">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header ">
-                                    <button @click="modalsInfo.showNoteModal = false"
-                                            class="pull-left btn btn-custom-primary"
-                                            type="button">
-                                        اغلاق
-                                    </button>
-                                    <h4 class="modal-title">{{app.trans.make_note}}</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <textarea :placeholder="app.trans.type_here" class="form-control"
-                                              v-model="invoiceData.notes"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </transition>
-        </div>
-        <!--invoice Note Modal-->
-
         <div class="panel panel-primary">
             <table class="table table-bordered text-center  table-striped">
                 <thead class="panel-heading">
@@ -216,6 +189,7 @@
                     <td>
                         <input
 
+                                :disabled="item.is_service"
                                 :placeholder="app.trans.qty"
                                 :ref="'itemQty_' + item.id + 'Ref'"
                                 @focus="$event.target.select()"
@@ -365,6 +339,61 @@
         >
 
         </accounting-invoice-item-serials-list-layout-component>
+
+
+        <!--invoice Note Modal-->
+        <div v-if="modalsInfo.showNoteModal===true">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header ">
+                                    <button @click="modalsInfo.showNoteModal = false"
+                                            class="pull-left btn btn-custom-primary"
+                                            type="button">
+                                        اغلاق
+                                    </button>
+                                    <h4 class="modal-title">{{app.trans.make_note}}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea :placeholder="app.trans.type_here" class="form-control"
+                                              v-model="invoiceData.notes"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </div>
+        <!--invoice Note Modal-->
+
+        <!--invoice other client name  Modal-->
+        <!--        <div v-if="modalsInfo.showClientModal===true">-->
+        <!--            <transition name="modal">-->
+        <!--                <div class="modal-mask">-->
+        <!--                    <div class="modal-wrapper">-->
+        <!--                        <div class="modal-dialog">-->
+        <!--                            <div class="modal-content">-->
+        <!--                                <div class="modal-header ">-->
+        <!--                                    <button @click="modalsInfo.showNoteModal = false"-->
+        <!--                                            class="pull-left btn btn-custom-primary"-->
+        <!--                                            type="button">-->
+        <!--                                        اغلاق-->
+        <!--                                    </button>-->
+        <!--                                    <h4 class="modal-title">{{app.trans.make_note}}</h4>-->
+        <!--                                </div>-->
+        <!--                                <div class="modal-body">-->
+        <!--                                    <textarea :placeholder="app.trans.type_here" class="form-control"-->
+        <!--                                              v-model="invoiceData.notes"></textarea>-->
+        <!--                                </div>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </transition>-->
+        <!--        </div>-->
+        <!--invoice other client name  Modal-->
 
     </div>
 
@@ -612,7 +641,7 @@
                 this.$refs.barcodeNameAndSerialField.focus();
             },
             itemQtyUpdated(item, bySerial = false) {
-                if (bySerial === false) {
+                if (bySerial === false && !item.is_service) {
                     let el = this.$refs['itemQty_' + item.id + 'Ref'][0];
                     if (!inputHelper.validateQty(item.qty, el, item.available_qty, 0)) {
                         item.qty = item.available_qty
@@ -655,7 +684,7 @@
             },
 
             itemUpdater(item) {
-                if (!item.is_kit) {
+                if (!item.is_kit && !item.is_service) {
                     if (!ItemValidator.validateQty(item.qty, item.available_qty)) {
                         item.qty = ItemMath.sub(item.qty, 1);
                         return this.itemUpdater(item);

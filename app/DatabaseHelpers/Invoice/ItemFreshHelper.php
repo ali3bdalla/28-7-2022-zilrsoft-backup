@@ -70,7 +70,7 @@
 		 */
 		public function addToBaseInvoice($baseInvoice,$request_data)
 		{
-//
+			
 			
 			if ($this->is_need_serial)
 				$this->validateItemNeedSerials($request_data);
@@ -101,18 +101,21 @@
 			
 			
 			$baseItem = $baseInvoice->items()->create($data);
-			$baseItem->update_item_cost_value_after_new_invoice_created();
-			$this->update_item_qty_after_new_invoice_created($data['qty'],$baseInvoice->invoice_type);
-			if (in_array($baseInvoice->invoice_type,['sale','r_sale'])){
-				$baseItem->make_invoice_transaction($baseInvoice->sale,0);
-			}
-			
-			
-			if ($this->is_need_serial){
-				$baseInvoice->sale->
-				set_item_serials_status_as_paid_for_this_sale_invoice($request_data['serials']);
+			if (!$this->is_service){
+				$baseItem->update_item_cost_value_after_new_invoice_created();
+				$this->update_item_qty_after_new_invoice_created($data['qty'],$baseInvoice->invoice_type);
+				if (in_array($baseInvoice->invoice_type,['sale','r_sale'])){
+					$baseItem->make_invoice_transaction($baseInvoice->sale,0);
+				}
 				
+				if ($this->is_need_serial){
+					$baseInvoice->sale->
+					set_item_serials_status_as_paid_for_this_sale_invoice($request_data['serials']);
+					
+				}
 			}
+			
+		
 			
 			
 			return $baseItem;

@@ -331,8 +331,8 @@
         <accounting-purchase-barcode-button-layout-component
                 :invoice-id='invoiceTitle'
                 :items='invoiceData.items'
-                :showButton="false"
                 :printer-watcher="printBarcodes"
+                :showButton="false"
                 @bulkPrintComplete="bulkPrintComplete"
         >
 
@@ -446,6 +446,9 @@
                 })
             },
             validateAndPrepareItem(item) {
+                if (item.is_service) {
+                    return;
+                }
                 if (db.model.contain(this.invoiceData.items, item.id)) {
                     let parent = db.model.find(this.invoiceData.items, item.id);
                     if (!parent.is_need_serial) {
@@ -460,6 +463,9 @@
                 this.clearAndFocusOnBarcodeField();
             },
             prepareDataInFirstUse(item) {
+                if (item.is_service) {
+                    return;
+                }
                 item.isOpen = false;
                 item.qty = 1;
                 if (item.is_need_serial) {
@@ -477,6 +483,9 @@
 
             },
             appendItemToInvoiceItemsList(item, index = null) {
+                if (item.is_service) {
+                    return;
+                }
                 if (index != null) {
                     this.invoiceData.items.splice(index, 1, item);
                 } else {

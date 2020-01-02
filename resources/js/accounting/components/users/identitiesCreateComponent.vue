@@ -202,7 +202,7 @@
                 <div class="row">
 
 
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <div :class="{'has-error':errorFieldName=='address'}" class="form-group">
                             <input :placeholder="app.trans.city" class="form-control"
                                    ref="identityenName"
@@ -212,17 +212,17 @@
                             </small>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div :class="{'has-error':errorFieldName=='address'}" class="form-group">
-                            <input :placeholder="app.trans.address" class="form-control"
-                                   ref="identityenName"
-                                   type="text" v-model="identityData.address">
-                            <small class="text-danger" v-show="errorFieldName=='address'">
-                                {{ errorFieldMessage}}
-                            </small>
-                        </div>
-                    </div>
-
+                    <!--     <div class="col-md-2">
+                             <div :class="{'has-error':errorFieldName=='address'}" class="form-group">
+                                 <input :placeholder="app.trans.address" class="form-control"
+                                        ref="identityenName"
+                                        type="text" v-model="identityData.address">
+                                 <small class="text-danger" v-show="errorFieldName=='address'">
+                                     {{ errorFieldMessage}}
+                                 </small>
+                             </div>
+                         </div>
+     -->
 
 
                     <div class="col-md-4" v-show="identityData.isVendor">
@@ -346,7 +346,6 @@
                 this.identityData.isIndividual = this.identity.user_type == 'individual' ? true : false;
                 this.identityData.isCompany = this.identity.user_type == 'individual' ? false : true;
                 this.identityData.isMr = this.identity.user_title == 'mr' ? true : false;
-                this.identityData.isMis = this.identity.user_title == 'mis' ? true : false;
                 this.identityData.isMis = this.identity.user_title == 'mis' ? true : false;
                 this.identityData.workManagerName = this.identityDetails.responsible_name;
                 this.identityData.crNumber = this.identityDetails.cr;
@@ -493,9 +492,9 @@
 
                 var user_title;
 
-                if (this.is_title_mr) {
+                if (this.identityData.isMr) {
                     user_title = 'mr';
-                } else if (this.is_title_mis) {
+                } else if (this.identityData.isMis) {
                     user_title = 'mis';
                 } else {
                     user_title = 'company';

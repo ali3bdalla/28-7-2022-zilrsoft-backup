@@ -707,17 +707,21 @@
 //			$invoice_items = $this->items;
 			$total_cost = $this->transactions()->where('description','to_item')->sum('amount');
 			// to make cost of goods transaction
-			$manager_cogs_account->debit_transaction()->create([
-				'creator_id' => auth()->user()->id,
-				'organization_id' => auth()->user()->organization_id,
-				'creditable_id' => $manager_stock_account->id,
-				'creditable_type' => get_class($manager_stock_account),
-				'amount' => $total_cost,
-				'user_id' => $user_id,
-				'invoice_id' => $this->id,
-				'container_id' => $container_id,
-				'description' => 'to_cogs',
-			]);
+			if($total_cost>0)
+			{
+				$manager_cogs_account->debit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'creditable_id' => $manager_stock_account->id,
+					'creditable_type' => get_class($manager_stock_account),
+					'amount' => $total_cost,
+					'user_id' => $user_id,
+					'invoice_id' => $this->id,
+					'container_id' => $container_id,
+					'description' => 'to_cogs',
+				]);
+			}
+			
 			
 			
 			// to make sales transactions
@@ -731,10 +735,10 @@
 			
 			
 			foreach ($items as $item){
-				if ($item['is_expense']){
+				if ($item['item']['is_expense']){
 					$other_services_sales_total = $other_services_sales_total + $item['total'];
 					$other_services_sales_total_discount = $other_services_sales_total_discount + $item['discount'];
-				}else if ($item['is_service']){
+				}else if ($item['item']["is_service"]){
 					$services_sales_total = $services_sales_total + $item['total'];
 					$services_sales_total_discount = $services_sales_total_discount + $item['discount'];
 				}else{

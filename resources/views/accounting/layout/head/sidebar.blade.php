@@ -247,7 +247,7 @@
                 </a>
 
                 <ul class="treeview-menu">
-                    @can('view identities')
+                    @can('view identity')
                         <li>
                             <a href="{{route('accounting.identities.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.users') }}
