@@ -436,12 +436,13 @@
             },
             sendQueryRequestToFindItems() {
 
-                if (this.barcodeNameAndSerialField == "") {
-                    if (this.invoiceData.items.length >= 1) {
-                        this.$refs.saveAndPrintReceiptBarcode.focus();
-                        return;
-                    }
-                }
+                // when we activate this code one press will make multi invoice
+                // if (this.barcodeNameAndSerialField == "") {
+                //     if (this.invoiceData.items.length >= 1) {
+                //         this.$refs.saveAndPrintReceiptBarcode.focus();
+                //         return;
+                //     }
+                // }
                 let appVm = this;
                 ItemQuery.sendQueryRequestToFindItems(this.barcodeNameAndSerialField, 'sale').then(response => {
                     if (response.data.length === 1) {
@@ -778,6 +779,7 @@
                         if (doWork == 'open') {
                             window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
                         } else if (doWork == 'print') {
+                            appVm.everythingFineToSave = false;
                             appVm.createdInvoiceId = response.data.id;
                             appVm.invoiceData = {
                                 remaining: 0,
@@ -794,10 +796,9 @@
                                 status: "credit"
                             };
 
-                            //
-                            // setInterval(function () {
-                            //     window.location.reload();
-                            // }, 1500);
+                            setInterval(function () {
+                                window.location.reload();
+                            }, 3000);
                         } else {
                             window.location.reload();
                         }
