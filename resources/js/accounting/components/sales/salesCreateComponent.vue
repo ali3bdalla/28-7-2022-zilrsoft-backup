@@ -794,10 +794,10 @@
                                 status: "credit"
                             };
 
-
-                            setInterval(function () {
-                                window.location.reload();
-                            }, 1500);
+                            //
+                            // setInterval(function () {
+                            //     window.location.reload();
+                            // }, 1500);
                         } else {
                             window.location.reload();
                         }
