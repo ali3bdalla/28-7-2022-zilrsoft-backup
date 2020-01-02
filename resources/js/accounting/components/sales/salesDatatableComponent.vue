@@ -397,6 +397,11 @@
             this.initUi();
             this.pushServerRequest();
 
+
+            let appVm = this;
+            setInterval(function () {
+                appVm.pushServerRequest();
+            },15000)
         },
         methods: {
 
