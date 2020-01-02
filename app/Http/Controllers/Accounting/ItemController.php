@@ -89,7 +89,7 @@
 		{
 			$this->middleware("permission:create item");
 			$request->validate([
-				'barcode' => 'required|string|min:4'
+				'barcode' => 'required|string|min:4|unique:items,barcode'
 			]);
 			
 			$result = Item::where('barcode',$request->barcode)->get();
