@@ -165,7 +165,7 @@
 
 
         watch: {
-            printId: function (value) {
+            invoiceId: function (value) {
                 this.pushPrintRequest(value);
             },
 
