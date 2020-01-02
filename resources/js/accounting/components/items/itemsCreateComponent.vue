@@ -132,7 +132,8 @@
         </div>
         <div class="row">
             <div class="col-md-2">
-                <input :placeholder="app.trans.vat_sale"
+                <input :disabled="!itemData.hasVatSale"
+                       :placeholder="app.trans.vat_sale"
                        @keydown="vatSaleFieldUpdated"
                        class="form-control"
                        type='text'
@@ -141,7 +142,8 @@
             </div>
             <div class="col-md-2">
 
-                <input :placeholder="app.trans.vat_purchase" @keydown="vatPurchaseFieldUpdated"
+                <input :disabled="!itemData.hasVatPurchase" :placeholder="app.trans.vat_purchase"
+                       @keydown="vatPurchaseFieldUpdated"
                        class="form-control"
                        type='text'
                        v-model="itemData.vtp">
@@ -422,7 +424,7 @@
             salesPriceWithTaxFieldUpdated(e) {
                 if (this.errorFieldName == 'salesPrice' || this.errorFieldName == 'salesPriceWithTax')
                     this.errorFieldName = '';
-                var val = e.target.value;
+                let val = this.itemData.salesPriceWithTax;
                 if (ItemValidator.validatePriceValue(val))
                     this.itemData.salesPrice = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(val, this.itemData.vts);
                 else
@@ -460,7 +462,14 @@
             isServiceToggleButtonChanged(e) {
                 if (this.itemData.isService == true) {
                     this.itemData.isNeedSerial = false;
+                    this.itemData.hasVatPurchase = false;
+                    this.itemData.salesPriceWithTax = 40;
+
+                } else {
+                    this.itemData.hasVatPurchase = true;
+                    this.itemData.salesPriceWithTax = 0;
                 }
+                this.salesPriceWithTaxFieldUpdated({});
             },
             isExpenseToggleButtonChanged(e) {
                 if (this.itemData.isExpense == true) {
