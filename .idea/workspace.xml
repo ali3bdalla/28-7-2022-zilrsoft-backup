@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/qDvSa4NZmE95mm22FfQX5TETE4uwAy8c1KCj98BQ" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/1ec3d70dcd44b1742cb3d0d8be00fa95ce3680e2.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/ab38e2bba681f70fa0553fc5bda60d013e65c05c.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesDatatableComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesDatatableComponent.vue" afterDir="false" />
     </list>
@@ -430,7 +427,7 @@
       <workItem from="1576847436326" duration="105082000" />
       <workItem from="1577181612244" duration="98359000" />
       <workItem from="1577561097672" duration="759000" />
-      <workItem from="1577567765490" duration="82319000" />
+      <workItem from="1577567765490" duration="82492000" />
     </task>
     <servers />
   </component>
