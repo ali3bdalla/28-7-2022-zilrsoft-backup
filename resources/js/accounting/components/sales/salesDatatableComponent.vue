@@ -401,7 +401,7 @@
             let appVm = this;
             setInterval(function () {
                 appVm.pushServerRequest();
-            },15000)
+            },40000)
         },
         methods: {
 
