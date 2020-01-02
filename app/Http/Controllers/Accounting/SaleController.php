@@ -56,10 +56,12 @@
 			$clients = User::where('is_client',true)->get()->toArray();
 			$expenses = Item::where('is_expense',true)->get();
 			$gateways = [];
-			
-			foreach (auth()->user()->gateways->load('gateway') as $gateway){
-				$gateways[] = $gateway['gateway'];
+			foreach (auth()->user()->gateways()->orderBy('id','desc')->get() as $gateway){
+				$gateways[] = $gateway;
 			}
+			
+//			return $gateways;
+//			return  auth()->user()->gateways()->orderBy('id','desc')->get();
 			return view('accounting.sales.create',compact('clients','salesmen','gateways','expenses'));
 		}
 		
@@ -106,10 +108,16 @@
 				}
 				$items [] = $item;
 			}
-			
+
 //			return $items;
 			$expenses = Item::where('is_expense',true)->get();
-			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())->get();
+//			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())->get();
+//
+			$gateways = [];
+			foreach (auth()->user()->gateways()->orderBy('id','desc')->get() as $gateway){
+				$gateways[] = $gateway;
+			}
+			
 			return view('accounting.sales.edit',compact('sale','invoice','items','gateways','expenses'));
 		}
 		

@@ -39,10 +39,13 @@
                 let gateway = this.gateways[i];
                 if (this.initGateways != null) {
                     gateway['is_selected'] = db.model.in_array(this.initGateways, gateway['id'], 'int') === true;
-                    console.log(gateway['is_selected']);
+                    // console.log(gateway['is_selected']);
                 } else {
                     gateway['is_selected'] = false;
                 }
+
+                // 2020-01-01 18:54:47 WARNING: Unable to connect to database (zilrsoft) Error 1045: Access denied for user 'zilrsoft'@'35.236.248.91' (using password: YES)
+
 
 
                 this.gateways_list.push(gateway);

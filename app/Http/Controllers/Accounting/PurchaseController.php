@@ -54,9 +54,8 @@
 			//auth()->user()->gateways()->pluck('gateway_id')->toArray()
 			
 			$gateways = [];
-			foreach (auth()->user()->gateways->load('gateway') as $gateway)
-			{
-				$gateways[] = $gateway['gateway'];
+			foreach (auth()->user()->gateways()->orderBy('id','desc')->get() as $gateway){
+				$gateways[] = $gateway;
 			}
 			return view('accounting.purchases.create',compact('vendors','receivers','gateways','expenses'));
 			//
@@ -109,9 +108,13 @@
 				}
 				$items [] = $item;
 			}
+			$gateways = [];
+			foreach (auth()->user()->gateways()->orderBy('id','desc')->get() as $gateway){
+				$gateways[] = $gateway;
+			}
 			
 			
-			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())->get();
+//			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())->get();
 			return view('purchases.edit',compact('purchase','invoice','items','gateways'));
 			//
 		}

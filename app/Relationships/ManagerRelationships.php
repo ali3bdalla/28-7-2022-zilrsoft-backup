@@ -40,7 +40,6 @@
 			// return 1;
 			return $this->belongsTo(Branch::class,'branch_id');
 		}
-	
 		
 		public function categories()
 		{
@@ -62,13 +61,10 @@
 			return $this->hasMany(Account::class,'creator_id');
 		}
 		
-		
 		public function gateways()
 		{
-			return $this->hasMany(ManagerGateways::class,'manager_id');
+			return $this->belongsToMany(Account::class,'manager_gateways','manager_id','gateway_id')
+				->withTimestamps();
 		}
-		
-		
-		
 		
 	}

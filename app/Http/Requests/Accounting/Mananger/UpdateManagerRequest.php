@@ -60,17 +60,20 @@
 					'name_ar' => $this->name_ar,
 					'name' => $this->name
 				]);
-				$manager->gateways()->delete();
+				$manager->gateways()->detach();
 				
 				if (!empty($this->gateways)){
 					
 					if (!empty($this->gateways)){
-						foreach ($this->gateways as $gateway){
-							$manager->gateways()->create([
+//						foreach ($this->gateways as $gateway){
+							
+							$manager->gateways()->attach(
+								collect($this->gateways)->pluck('id')->toArray()
+								,[
 								'organization_id' => auth()->user()->organization_id,
-								'gateway_id' => $gateway['id'],
 							]);
-						}
+//							sleep(0.5);
+//						}
 						
 					}
 					
