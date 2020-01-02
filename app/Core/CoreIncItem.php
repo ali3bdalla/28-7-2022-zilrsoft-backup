@@ -72,7 +72,7 @@
 		public function checkReturnQty($qty,$type = 'r_sale')
 		{
 			if ($type == 'r_sale'){
-				if ($qty > $this->qty || $qty > $this->item->available_qty){
+				if ($qty > $this->qty){
 					
 					throw new ValidationException(
 						'item.'.$this->id.'.qty'

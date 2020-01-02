@@ -90,7 +90,7 @@
 
         <!-- start search field -->
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="product_search" id="seach_area">
                     <div class="">
                         <input
@@ -114,20 +114,51 @@
             </div>
 
 
-            <div class="col-md-2" v-if="canViewItems==1">
+            <div class="col-md-2  text-center" v-if="canViewItems==1">
                 <a :href="app.BaseApiUrl +
-                    'items?selectable=true'" class="btn btn-custom-primary btn-lg"
+                    'items?selectable=true'" class="btn btn-custom-primary"
                    target="_blank">{{ app.trans.view_products}}</a>
 
             </div>
-            <div class="col-md-2" v-if="canCreateItem==1">
-                <a :href="app.BaseApiUrl + 'items/create'" class="btn btn-custom-primary btn-lg"
+            <div class="col-md-2  text-center" v-if="canCreateItem==1">
+                <a :href="app.BaseApiUrl + 'items/create'" class="btn btn-custom-primary"
                    target="_blank">{{app.trans.create_product}}</a>
+            </div>
+
+            <div class="col-md-2 text-center">
+                <a @click="modalsInfo.showNoteModal=true" class="btn btn-custom-primary">{{app.trans.make_note}}</a>
             </div>
 
 
         </div>
 
+
+        <!--invoice Note Modal-->
+        <div v-if="modalsInfo.showNoteModal===true">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header ">
+                                    <button @click="modalsInfo.showNoteModal = false"
+                                            class="pull-left btn btn-custom-primary"
+                                            type="button">
+                                        اغلاق
+                                    </button>
+                                    <h4 class="modal-title">{{app.trans.make_note}}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea :placeholder="app.trans.type_here" class="form-control"
+                                              v-model="invoiceData.notes"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </div>
+        <!--invoice Note Modal-->
 
         <div class="panel panel-primary">
             <table class="table table-bordered text-center  table-striped">
@@ -353,12 +384,16 @@
         props: ['creator', 'clients', 'salesmen', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
         data: function () {
             return {
+                modalsInfo: {
+                    showNoteModal: false
+                },
                 createdInvoiceId: 0,
                 everythingFineToSave: false,
                 selectedItem: null,
                 selectedItemIndex: null,
                 invoiceData: {
                     remaining: 0,
+                    notes: "",
                     vendorIncCumber: "",
                     clientId: 0,
                     salesmanId: 0,
@@ -752,6 +787,7 @@
                     items: this.invoiceData.items,
                     salesman_id: this.invoiceData.salesmanId,
                     client_id: this.invoiceData.clientId,
+                    notes: this.invoiceData.notes,
                     total: this.invoiceData.total,
                     tax: this.invoiceData.tax,
                     discount_value: this.invoiceData.discount,

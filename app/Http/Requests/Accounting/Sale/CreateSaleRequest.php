@@ -27,6 +27,7 @@
 		public function rules()
 		{
 			return [
+				"notes" => "nullable|string",
 				"items" => "required|array",
 				"items.*.id" => "required|integer|exists:items,id",
 				"items.*.price" => "validate_item_price_or_discount|price",
@@ -50,7 +51,7 @@
 			try{
 				$items = $this->items;
 				$base_invoice =
-					Invoice::initEmptyInvoice('sale')
+					Invoice::initEmptyInvoice('sale',null,$this->input('notes'))
 						->addChildInvoice($this->client_id,"sale",$this->salesman_id)
 						->createExpensesPurchases($items)
 						->addItemsToBaseInvoice($items)

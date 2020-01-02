@@ -18,7 +18,7 @@
 		 *
 		 * @return mixed
 		 */
-		public static function initEmptyInvoice($type,$parentInvoice = null)
+		public static function initEmptyInvoice($type,$parentInvoice = null,$notes = "")
 		{
 			
 			$creator = auth()->user();
@@ -26,6 +26,7 @@
 			
 			return $object->create([
 				'invoice_type' => $type,
+				'notes' => $notes,
 				'creator_id' => $creator->id,
 				'organization_id' => $creator->organization_id,
 				'branch_id' => $creator->branch_id,
