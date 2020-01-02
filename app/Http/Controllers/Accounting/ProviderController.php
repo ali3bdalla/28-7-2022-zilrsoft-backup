@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
+	use App\Account;
 	use App\Category;
 	use App\CategoryFilters;
 	use App\Filter;
@@ -48,6 +49,26 @@
 			$this->middleware(['permissions:manage managers']);
 			
 			return Role::with('permissions')->get();
+			
+		}
+		
+		/**
+		 * @param Request $request
+		 *
+		 * @return mixed
+		 */
+		public function get_gateways_like_to_manager_name(Request $request)
+		{
+			$query = Account::where('slug','gateway');
+			
+			if ($request->has('name') && $request->filled('name')){
+				$query = $query->where('name','LIKE','%'.$request->input('name').'%');
+			}
+			
+			if ($request->has('ar_name') && $request->filled('ar_name')){
+				$query = $query->where('ar_name','LIKE','%'.$request->input('ar_name').'%');
+			}
+			return $query->get();
 			
 		}
 		

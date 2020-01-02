@@ -27,7 +27,6 @@
 			'payments' => 'PaymentController',
 			'reports' => 'ReportController',
 			'branches' => 'BranchController',
-			'gateways' => 'OrganizationGatewayController',
 			'expenses' => 'ExpenseController',
 			'accounts' => 'AccountsController',
 			'transactions' => 'TransactionsController',
@@ -121,6 +120,14 @@
 				Route::get('/create','InventoryController@beginning_create')->name('create');
 				Route::post('/store','InventoryController@beginning_store')->name('store');
 			});
+			
+		});
+		
+		
+		Route::prefix('gateways')->name('gateways.')->group(function (){
+			Route::get('get_gateways_like_to_manager_name','ProviderController@get_gateways_like_to_manager_name')
+				->name('load_manager_gateway');
+			
 			
 		});
 		

@@ -2,7 +2,6 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Account;
 	use App\Expense;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Purchase\CreatePurchaseRequest;
@@ -13,7 +12,9 @@
 	use App\PurchaseInvoice;
 	use App\User;
 	use Exception;
+	use Illuminate\Contracts\View\Factory;
 	use Illuminate\Http\Response;
+	use Illuminate\View\View;
 	
 	class PurchaseController extends Controller
 	{
@@ -50,13 +51,7 @@
 			$receivers = Manager::all();
 			$vendors = User::where([['is_vendor',true],['is_system_user',false]])->get()->toArray();//,['is_system_user',false]
 			$expenses = Expense::all();
-//			return $expenses;
-			//auth()->user()->gateways()->pluck('gateway_id')->toArray()
-			
-			$gateways = [];
-			foreach (auth()->user()->gateways()->orderBy('id','desc')->get() as $gateway){
-				$gateways[] = $gateway;
-			}
+			$gateways = auth()->user()->gateways()->get();
 			return view('accounting.purchases.create',compact('vendors','receivers','gateways','expenses'));
 			//
 		}
@@ -70,7 +65,6 @@
 		public function store(CreatePurchaseRequest $request)
 		{
 			return $request->save();
-			//
 		}
 		
 		/**
@@ -90,11 +84,9 @@
 		}
 		
 		/**
-		 * Show the form for editing the specified resource.
+		 * @param Invoice $purchase
 		 *
-		 * @param PurchaseInvoice $purchaseInvoice
-		 *
-		 * @return Response
+		 * @return Factory|View
 		 */
 		public function edit(Invoice $purchase)
 		{
@@ -108,13 +100,8 @@
 				}
 				$items [] = $item;
 			}
-			$gateways = [];
-			foreach (auth()->user()->gateways()->orderBy('id','desc')->get() as $gateway){
-				$gateways[] = $gateway;
-			}
 			
-			
-//			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())->get();
+			$gateways = auth()->user()->gateways()->get();
 			return view('purchases.edit',compact('purchase','invoice','items','gateways'));
 			//
 		}
@@ -128,7 +115,6 @@
 		public function update(CreateReturnPurchaseRequest $request,PurchaseInvoice $purchase)
 		{
 			return $request->save($purchase);
-			//
 		}
 		
 	}

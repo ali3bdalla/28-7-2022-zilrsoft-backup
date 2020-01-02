@@ -26,12 +26,13 @@
 
 
                 <v-card style="margin:10px">
-                    <table class="table table-dark">
+                    <table class="table table-dark text-center">
                         <thead>
                         <tr>
-                            <th scope="col">الباركود</th>
-                            <th scope="col">اسم المنتج</th>
-                            <th scope="col">يحتاج سيريال</th>
+                            <th scope="col  text-center">الباركود</th>
+                            <th scope="col  text-center">اسم المنتج</th>
+                            <th scope="col  text-center">يحتاج سيريال</th>
+                            <th scope="col  text-center">الكمية</th>
                         </tr>
                         </thead>
                         <tbody v-for="(item,index) in items">

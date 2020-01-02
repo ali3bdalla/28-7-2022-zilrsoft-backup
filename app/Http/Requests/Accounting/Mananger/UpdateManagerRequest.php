@@ -65,15 +65,16 @@
 				if (!empty($this->gateways)){
 					
 					if (!empty($this->gateways)){
-//						foreach ($this->gateways as $gateway){
+						foreach ($this->gateways as $gateway){
 							
+							echo  $gateway['name'];
 							$manager->gateways()->attach(
-								collect($this->gateways)->pluck('id')->toArray()
+								$gateway['id']
 								,[
 								'organization_id' => auth()->user()->organization_id,
 							]);
-//							sleep(0.5);
-//						}
+							sleep(1);
+						}
 						
 					}
 					

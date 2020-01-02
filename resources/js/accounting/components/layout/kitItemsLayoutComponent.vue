@@ -26,9 +26,9 @@
                     <table class="table table-dark">
                         <thead>
                         <tr>
-                            <th scope="col">الباركود</th>
-                            <th scope="col">اسم المنتج</th>
-                            <th scope="col">يحتاج سيريال</th>
+                            <th scope="col  text-center">الباركود</th>
+                            <th scope="col  text-center">اسم المنتج</th>
+                            <th scope="col  text-center">يحتاج سيريال</th>
                         </tr>
                         </thead>
                         <tbody v-for="(item,index) in items">
@@ -42,9 +42,6 @@
 
 
                         <tr v-for="x in kit_qty" v-if="item.is_need_serial">
-                            <!--
-                                                 -->
-
                             <td colspan="3">
                                 <input :rel="'serial_'+ index" @keyup="clearField"
                                        @keyup.enter="checkSerial($event,'serial_'+ index +'_'+ x,item)"
@@ -234,9 +231,7 @@
                 var subitems = [];
                 var len = this.items.length;
                 for (var i = 0; i < len; i++) {
-
                     var item = this.items[i];
-
                     subitems.push(item);
                 }
 

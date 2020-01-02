@@ -55,13 +55,9 @@
 			$salesmen = Manager::all();
 			$clients = User::where('is_client',true)->get()->toArray();
 			$expenses = Item::where('is_expense',true)->get();
-			$gateways = [];
-			foreach (auth()->user()->gateways()->orderBy('id','desc')->get() as $gateway){
-				$gateways[] = $gateway;
-			}
-			
-//			return $gateways;
-//			return  auth()->user()->gateways()->orderBy('id','desc')->get();
+			$gateways =  auth()->user()->gateways()->get();
+
+
 			return view('accounting.sales.create',compact('clients','salesmen','gateways','expenses'));
 		}
 		
@@ -109,110 +105,20 @@
 				$items [] = $item;
 			}
 
-//			return $items;
 			$expenses = Item::where('is_expense',true)->get();
-//			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())->get();
-//
-			$gateways = [];
-			foreach (auth()->user()->gateways()->orderBy('id','desc')->get() as $gateway){
-				$gateways[] = $gateway;
-			}
-			
+			$gateways =  auth()->user()->gateways()->get();
 			return view('accounting.sales.edit',compact('sale','invoice','items','gateways','expenses'));
 		}
 		
 		/**
-		 * @param $invoice_id
+		 * @param Invoice $sale
+		 * @param ReturnSaleRequest $request
 		 *
-		 * @return Factory|View
-		 */
-		public function clone($invoice_id)
-		{
-			
-			// return 1;
-			$invoice = SaleInvoice::withoutGlobalScope(QuotationScope::class)->findOrFail($invoice_id);
-			
-			// return $invoice;
-			
-			$data['subinvoice'] = $invoice;
-			$data['invoice'] = $invoice->invoice;
-			$items = $invoice->invoice->items;
-			// $items =
-			
-			$salesmen = User::where('is_manager',true)->get()->toArray();
-			$clients = User::where('is_client',true)->get()->toArray();
-			
-			$expenses = Item::where('is_expense',true)->get();
-			
-			$gateways = Account::whereIn('id',auth()->user()->gateways()->pluck('gateway_id')->toArray())->get();
-			
-			
-			$is_clone = true;
-			return view('sales.create',compact('clients','salesmen','gateways','expenses','items','is_clone'));
-		}
-		
-		/**
-		 * @param CreateReturnSaleRequest $request
-		 * @param SaleInvoice $sale
-		 *
-		 * @return ResponseFactory|Response
+		 * @return ResponseFactory|Response|mixed
 		 */
 		public function update(Invoice $sale,ReturnSaleRequest $request)
 		{
-//			return  $sale;
 			return $request->makeReturn($sale);
-			
-		}
-		
-		/**
-		 * @return Factory|View
-		 */
-		public function quotations()
-		{
-			$sales = SaleInvoice::withoutGlobalScope(QuotationScope::class)->where('invoice_type','quotation')->with
-			('invoice')->orderBy
-			('id','desc')
-				->paginate(20);
-			return view('sales.quotations',compact('sales'));
-			
-		}
-		
-		/**
-		 * @return Factory|View
-		 */
-		public function quotation_create()
-		{
-			$salesmen = User::where('is_manager',true)->get()->toArray();
-			$clients = User::where('is_client',true)->get()->toArray();
-			
-			
-			return view('sales.quotation_create',compact('salesmen','clients'));
-			
-		}
-		
-		/**
-		 * @param $quotation_id
-		 *
-		 * @return Factory|View
-		 */
-		public function view_quotation($quotation_id)
-		{
-			$sale = SaleInvoice::withoutGlobalScope(QuotationScope::class)->findOrFail($quotation_id);
-			$transactions = $sale->invoice->transactions()->where('description','!=','client_balance')->get();
-			
-			
-			return view('sales.quotation_show',compact('sale','transactions'));
-			
-		}
-		
-		/**
-		 * @param CreateQuotationRequest $request
-		 *
-		 * @return array
-		 */
-		public function quotation_store(CreateQuotationRequest $request)
-		{
-			return $request->save();
 		}
 		
 	}

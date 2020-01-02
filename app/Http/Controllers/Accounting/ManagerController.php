@@ -29,10 +29,7 @@
 		 */
 		public function index()
 		{
-			
-//			Permission::findById(2)->update([
-//				'name' => 'edit item'
-//			]);
+
 			$branches = Branch::with('departments')->get();
 			return view('accounting.managers.index',compact('branches'));
 			//
@@ -95,10 +92,9 @@
 		public function edit(Manager $manager)
 		{
 			$manager_gateways = $manager->gateways()->pluck('gateway_id')->toArray();
-			$gateways = Account::where('slug','gateway')->get();
 			$manager_permissions = $manager->permissions()->pluck('name');
 			$branches = Branch::with('departments')->get();
-			return view('accounting.managers.edit',compact('branches','manager','gateways','manager_gateways','manager_permissions'));
+			return view('accounting.managers.edit',compact('branches','manager','manager_gateways','manager_permissions'));
 			//
 		}
 		
@@ -111,6 +107,7 @@
 		 */
 		public function update(UpdateManagerRequest $request,Manager $manager)
 		{
+			
 			
 			return $request->save($manager);
 			//

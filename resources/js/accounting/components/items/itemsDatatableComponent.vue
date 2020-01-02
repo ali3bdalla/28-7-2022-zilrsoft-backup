@@ -20,8 +20,8 @@
                         </div>
                         <div class="col-md-3">
                             <input :placeholder="trans.barcode" @keyup.enter="pushServerRequest('barcodeFieldRef')"
-                                   ref="barcodeFieldRef"
                                    class="form-control"
+                                   ref="barcodeFieldRef"
                                    type="text" v-model="filters.barcode">
                         </div>
                         <div class="col-md-3">
@@ -152,15 +152,19 @@
                                 </button>
                                 <ul :aria-labelledby="'dropDownOptions'
                                 + row.id" class="dropdown-menu CustomDropDownOptions">
-                                    <!--                                    <li><a :href="baseUrl + row.id" v-text="trans.show"></a></li>-->
-                                    <li v-if="canCreate==1"><a :href="baseUrl + row.id + '/clone'"
-                                                               v-text="trans.clone"></a></li>
-                                    <li v-if="canViewAccounting==1"><a :href="baseUrl + row.id + '/transactions'"
-                                                                       v-text="trans.transactions"></a></li>
-                                    <li v-if="canEdit==1"><a :href="baseUrl + row.id + '/edit'"
-                                                             v-text="trans.edit"></a></li>
-                                    <li v-if="row.is_need_serial==1"><a :href="baseUrl + row.id + '/view_serials'"
-                                                                        v-text="trans.view_serials"></a></li>
+                                    <li v-if="row.is_kit"><a :href="BaseApiUrl + 'kits/' + row.id"
+                                                             v-text="trans.show"></a></li>
+                                    <li v-if="canCreate==1  && !row.is_kit"><a :href="baseUrl + row.id + '/clone'"
+                                                                               v-text="trans.clone"></a></li>
+                                    <li v-if="canViewAccounting==1 && !row.is_kit"><a :href="baseUrl + row.id +
+                                    '/transactions'"
+                                                                                      v-text="trans.transactions"></a>
+                                    </li>
+                                    <li v-if="canEdit==1  && !row.is_kit"><a :href="baseUrl + row.id + '/edit'"
+                                                                             v-text="trans.edit"></a></li>
+                                    <li v-if="row.is_need_serial==1  && !row.is_kit"><a
+                                            :href="baseUrl + row.id + '/view_serials'"
+                                            v-text="trans.view_serials"></a></li>
                                     <li v-if="row.status=='pending' && canEdit==1"><a :href="baseUrl + row.id +
                                     '/activate'" v-text="trans.activate"></a></li>
                                 </ul>
@@ -228,6 +232,7 @@
                 trans: trans('items-page'),
                 messages: trans('messages'),
                 table_trans: trans('table'),
+                BaseApiUrl: metaHelper.getContent('BaseApiUrl'),
                 datetimetrans: trans('datetime'),
                 datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
                 customDateShortcuts: [],
@@ -298,8 +303,7 @@
                     appVm.isLoading = false;
                 });
 
-                if(ref !== null)
-                {
+                if (ref !== null) {
                     this.$refs[ref].focus();
                     this.$refs[ref].select();
 
@@ -357,7 +361,7 @@
 
             creatorListUpdated(e) {
 
-                 this.filters.creators =db.model.pluck(e.items,'id');
+                this.filters.creators = db.model.pluck(e.items, 'id');
                 this.pushServerRequest();
             },
 

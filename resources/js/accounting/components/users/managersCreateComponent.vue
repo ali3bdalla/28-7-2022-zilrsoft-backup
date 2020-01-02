@@ -48,6 +48,7 @@
             <div class="col-md-6">
                 <div :class="{'has-error':errorFieldName=='arName'}" class="form-group">
                     <input :placeholder="app.trans.name_ar"
+                           @change="updateManagerName"
                            class="form-control arabic-input"
                            type="text"
                            v-model="managerData.arName"
@@ -61,6 +62,7 @@
             <div class="col-md-6">
                 <div :class="{'has-error':errorFieldName=='enName'}" class="form-group">
                     <input :placeholder="app.trans.name"
+                           @change="updateManagerName"
                            class="form-control "
                            type="text"
                            v-model="managerData.enName"
@@ -145,8 +147,9 @@
 
 
         <accounting-managers-gateways-component
-                :gateways='gateways'
+                :ar-name='watcherArName'
                 :init-gateways="managerGateways"
+                :name='watcherName'
                 @gatewaysUpdated="gatewaysUpdated"
         >
 
@@ -178,6 +181,8 @@
             'managerPermissions', 'managerUser', 'gateways', 'managerGateways'],
         data: function () {
             return {
+                watcherArName: "",
+                watcherName: "",
                 errorFieldName: "",
                 errorFieldMessage: "",
                 departments: [],
@@ -215,8 +220,17 @@
                 this.initEditManager();
             }
         },
+        mounted: function () {
+            this.updateManagerName();
+
+        },
         methods: {
 
+            updateManagerName() {
+                console.log('hello');
+                this.watcherName = this.managerData.enName;
+                this.watcherArName = this.managerData.arName;
+            },
             initEditManager() {
                 this.managerData.branchId = parseInt(this.manager.branch_id);
                 this.departments = this.managerBranch.departments;
@@ -228,6 +242,7 @@
                 this.managerData.phoneNumber = this.managerUser.phone_number;
             },
             gatewaysUpdated(e) {
+                console.log(e.gateways);
                 this.managerData.gateways = e.gateways;
             },
 

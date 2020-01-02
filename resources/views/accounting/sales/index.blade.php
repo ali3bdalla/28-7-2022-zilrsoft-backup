@@ -20,6 +20,7 @@
     <accounting-sales-datatable-component
             :creators='@json($creators)'
             :vendors='@json($clients)'
+            :creator='@json(auth()->user())'
             :can-view-accounting="{{ auth()->user()->canDo('view item transactions') }}"
             :can-edit="{{ auth()->user()->canDo('edit sale') }}"
     >

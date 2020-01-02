@@ -781,11 +781,14 @@
                         } else if (doWork == 'print') {
                             appVm.everythingFineToSave = false;
                             appVm.createdInvoiceId = response.data.id;
+                            let salesman = appVm.invoiceData.salesmanId,
+                                clientId = appVm.invoiceData.clientId;
+
                             appVm.invoiceData = {
                                 remaining: 0,
                                 vendorIncCumber: "",
-                                clientId: 0,
-                                salesmanId: 0,
+                                clientId: clientId,
+                                salesmanId: salesman,
                                 methods: [],
                                 items: [],
                                 total: 0,
@@ -796,9 +799,10 @@
                                 status: "credit"
                             };
 
-                            setInterval(function () {
-                                window.location.reload();
-                            }, 3000);
+                            // setInterval(function () {
+                            // window.location.reload();
+                            // }, 1000);
+
                         } else {
                             window.location.reload();
                         }

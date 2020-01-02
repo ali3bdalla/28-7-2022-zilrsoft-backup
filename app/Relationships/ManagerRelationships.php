@@ -63,8 +63,13 @@
 		
 		public function gateways()
 		{
-			return $this->belongsToMany(Account::class,'manager_gateways','manager_id','gateway_id')
-				->withTimestamps();
+//			->withPivot('created_at as relationship_created_at')
+			return
+				$this->belongsToMany(Account::class,
+					'manager_gateways',
+					'manager_id',
+					'gateway_id')
+					->withTimestamps();
 		}
 		
 	}

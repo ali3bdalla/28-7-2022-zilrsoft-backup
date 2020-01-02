@@ -331,6 +331,7 @@
             VueCtkDateTimePicker, Treeselect
         },
         props: [
+            'creator',
             'canViewAccounting',
             "canEdit",
             "canDelete",
@@ -398,12 +399,18 @@
             this.pushServerRequest();
 
 
+
+        },
+        mounted:function()
+        {
             let appVm = this;
-            if (this.creator.id == 7) {
+            if(this.creator.id==7)
+            {
                 setInterval(function () {
                     appVm.pushServerRequest();
-                }, 40000)
+                },40000)
             }
+
 
         },
         methods: {
