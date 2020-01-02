@@ -9,6 +9,7 @@
 	use App\Http\Requests\Accounting\Item\DatatableRequest;
 	use App\Http\Requests\Accounting\Item\UpdateItemRequest;
 	use App\Invoice;
+	use App\InvoiceItems;
 	use App\Item;
 	use App\ItemSerials;
 	use App\Manager;
@@ -126,6 +127,19 @@
 			return view('accounting.items.edit',compact('categories','isClone','vendors','item'));
 			
 			
+		}
+		
+		public function destroy(Item $item)
+		{
+			
+			$old = InvoiceItems::where('item_id',$item->id)->count();
+			if ($old === 0){
+				$item->filters()->delete();
+				$item->forceDelete();
+				
+			}else{
+				$item->delete();
+			}
 		}
 		
 		/**

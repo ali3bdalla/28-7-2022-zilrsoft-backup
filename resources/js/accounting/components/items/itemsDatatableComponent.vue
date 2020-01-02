@@ -167,6 +167,9 @@
                                             v-text="trans.view_serials"></a></li>
                                     <li v-if="row.status=='pending' && canEdit==1"><a :href="baseUrl + row.id +
                                     '/activate'" v-text="trans.activate"></a></li>
+
+                                    <li v-if="canDelete==1 && canViewAccounting==1"><a @click="deleteItemClicked(row)"
+                                                                                       v-text="trans.delete"></a></li>
                                 </ul>
                             </div>
 
@@ -447,8 +450,51 @@
                         alert(error);
                     })
                 }
+            },
 
-            }
+
+            deleteItemClicked(itemData) {
+
+
+                let options = {
+                    html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+                    loader: false, // set to true if you want the dailog to show a loader after click on "proceed"
+                    reverse: false, // switch the button positions (left to right, and vise versa)
+                    okText: this.messages.ok_button_txt,
+                    cancelText: this.messages.close_pop_txt,
+                    animation: 'zoom', // Available: "zoom", "bounce", "fade"
+                    type: 'hard', // coming soon: 'soft', 'hard'
+                    verification: 'delete',
+                    // for hard confirm, user will be prompted to type this to enable the proceed button
+                    verificationHelp: 'اكتب "[+:verification]" لتأكيد عملية الحذف ',
+                    // Verification help text. [+:verification] will be matched with 'options.verification' (i.e 'Type "continue" below to confirm')
+                    clicksCount: 3, // for soft confirm, user will be asked to click on "proceed" btn 3 times before actually proceeding
+                    backdropClose: false, // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+                    customClass: 'danger'
+                    // Custom class to be injected into the parent node for the current dialog instance
+                };
+
+                var appVm = this;
+
+                this.$dialog
+                    .confirm(this.messages.confirm_msg, options)
+                    .then(dialog => {
+
+                        axios.delete(appVm.baseUrl + itemData.id)
+                            .then(function (response) {
+                                // console.log(response.data);
+                                window.location.reload();
+                            })
+                            .catch(function (error) {
+
+                            });
+
+                    })
+                    .catch(() => {
+
+                    });
+            },
+
 
         },
 
