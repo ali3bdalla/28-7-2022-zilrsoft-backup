@@ -19,8 +19,8 @@
                     </barcode>
 
                     <div class="row">
-                        <div class="col-md-12 text-right div-col" style="margin-right: 3px;
-                        margin-left: -3px;margin-top: -3px;" v-text="itemData.ar_name.substr(0,20)">
+                        <div class="col-md-12 text-right div-col" style="margin-right: 5px;
+                        margin-left: -3px;margin-top: -5px;" v-text="itemData.ar_name.substr(0,20)">
 
                         </div>
 
@@ -31,8 +31,9 @@
                         margin-left: -3px;" v-text="purchaseInvoiceId">
 
                         </div>
-                        <div align="left" class="col-md-6  div-col" style="margin-top: -28px; font-weight: bold;
-                        margin-left: -3px;" v-text="convertEnToArabicNumber(itemData.price_with_tax.toString() ) + ' ر.س'">
+                        <div align="left" class="col-md-6  div-col" style="margin-top: -28px; font-weight: bolder;
+                        margin-left: -5px;" v-text="convertEnToArabicNumber(itemData.price_with_tax.toString() ) +
+                        ' ر.س'">
 
                         </div>
 
