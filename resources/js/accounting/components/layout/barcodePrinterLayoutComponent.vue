@@ -15,12 +15,12 @@
             <div class="col-md-6 text-center">
 
                 <div id="barcode_area" style="    width: 266px;">
-                    <barcode :value="barcode" height="100">
+                    <barcode :value="itemData.barcode" height="100">
                     </barcode>
 
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 3px;
-                        margin-left: -3px;margin-top: -3px;" v-text="name">
+                        margin-left: -3px;margin-top: -3px;" v-text="itemData.ar_name">
 
                         </div>
 
@@ -32,7 +32,7 @@
 
                         </div>
                         <div align="left" class="col-md-6  div-col" style="margin-top: -18px; font-weight: bold;
-                        margin-left: -3px;" v-text="convertEnToArabicNumber(price.toString() ) + ' ر.س'">
+                        margin-left: -3px;" v-text="convertEnToArabicNumber(itemData.price_with_tax.toString() ) + ' ر.س'">
 
                         </div>
 
