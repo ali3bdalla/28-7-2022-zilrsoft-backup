@@ -179,7 +179,7 @@
                 qz.websocket.connect().then(function () {
 
 
-                    var sha256 = function (str) {
+                    let sha256 = function (str) {
                         // We transform the string into an arraybuffer.
                         var buffer = new TextEncoder('utf-8').encode(str);
                         return crypto.subtle.digest('SHA-256', buffer).then(function (hash) {
