@@ -20,7 +20,7 @@
 
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 3px;
-                        margin-left: -3px;margin-top: -3px;" v-text="itemData.ar_name.substr(0,30)">
+                        margin-left: -3px;margin-top: -3px;" v-text="itemData.ar_name.substr(0,20)">
 
                         </div>
 
