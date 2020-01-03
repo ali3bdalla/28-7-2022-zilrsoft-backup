@@ -9,10 +9,10 @@
         @foreach($items as $item)
 
             <div class="panel-body">
-                <accounting-barcode-printer-layout-component
+                <accounting-print-single-barcode-layout-component
                         :item='@json($item)'
                 >
-                </accounting-barcode-printer-layout-component>
+                </accounting-print-single-barcode-layout-component>
             </div>
         @endforeach
     </div>
