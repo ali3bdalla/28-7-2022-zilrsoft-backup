@@ -26,12 +26,12 @@
 
                     </div>
                     <div class="row">
-                        <div align="right" class="col-md-6 " style="margin-top: -32px;
+                        <div align="right" class="col-md-6 " style="margin-top: -28px;
                         font-weight: bold;margin-right: 3px !important;
                         margin-left: -3px;" v-text="purchaseInvoiceId">
 
                         </div>
-                        <div align="left" class="col-md-6  div-col" style="margin-top: -32px; font-weight: bold;
+                        <div align="left" class="col-md-6  div-col" style="margin-top: -28px; font-weight: bold;
                         margin-left: -3px;" v-text="convertEnToArabicNumber(itemData.price_with_tax.toString() ) + ' ر.س'">
 
                         </div>
