@@ -29,7 +29,7 @@
                     </div>
                     <div class="row">
                         <div align="left" class="col-md-12  div-col" style="margin-top: -18px; font-weight: bold;">
-                            {{ item.price_with_tax}} ر.س
+                            {{ convertEnToArabicNumber(price.toString() ) + ' ر.س' }}
                         </div>
 
                     </div>
@@ -101,6 +101,43 @@
 
 
         methods: {
+            convertEnToArabicNumber(en) {
+                var response = [];
+                var en_arr = en.split('');
+                for (var i = 0; i < en_arr.length; i++) {
+                    var num = en_arr[i];
+
+                    if (num == 0) {
+                        response.push('٠');
+                    } else if (num == 1) {
+                        response.push('١');
+                    } else if (num == 2) {
+                        response.push('٢');
+                    } else if (num == 3) {
+                        response.push('٣');
+                    } else if (num == 4) {
+                        response.push('٤');
+                    } else if (num == 5) {
+                        response.push('٥');
+                    } else if (num == 6) {
+                        response.push('٦');
+                    } else if (num == 7) {
+                        response.push('٧');
+                    } else if (num == 8) {
+                        response.push('٨');
+                    } else if (num == 9) {
+                        response.push('٩');
+                    } else {
+                        response.push(num);
+                    }
+
+
+                }
+
+
+                return response.join('');
+            }
+            ,
 
 
             connectQZ() {
