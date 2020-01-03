@@ -54,6 +54,7 @@
 					where('serial',$this->input('barcode_or_name_or_serial'))
 						->whereIn('current_status',['available','r_sale','purchase'])
 						->first();
+					
 					if (!empty($serail_data)){
 						$item = $serail_data->item;
 						$item->has_init_serial = true;

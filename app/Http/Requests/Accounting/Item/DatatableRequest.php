@@ -5,6 +5,7 @@
 	use App\Category;
 	use App\Item;
 	use App\ItemFilters;
+	use App\ItemSerials;
 	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
 	
@@ -37,6 +38,7 @@
 			
 			$query = Item::with('creator','data','items');
 			
+			$initQuery = $query;
 			if ($this->has('barcode') && $this->filled('barcode')){
 				$query = $query->where('barcode','LIKE','%'.$this->barcode.'%');
 			}
@@ -71,10 +73,10 @@
 				foreach ($ids as $id){
 					$category = Category::Find($id);
 					$child_ids = Category::infinityChildrenIds($category);
-				
+					
 					$new_collect = collect([collect($ids)->toArray(),collect($child_ids)->toArray()]);
 					$ids = $new_collect->collapse();
-				
+					
 				}
 				$query = $query->whereIn('category_id',collect($ids)->toArray());
 			}
@@ -157,11 +159,35 @@
 			}
 			
 			
+			
+			
+			if ($this->has('barcodeNameAndSerial') && $this->filled('barcodeNameAndSerial')){
+				$query = $query->where('barcode','LIKE','%'.$this->input('barcodeNameAndSerial').'%')
+					->orWhere('name','LIKE','%'.$this->input('barcodeNameAndSerial').'%')
+					->orWhere('ar_name','LIKE','%'.$this->input('barcodeNameAndSerial').'%');
+				if ($query->count() == 0){
+					$serials_items_ids = ItemSerials::
+					where('serial','LIKE','%'.$this->input('barcodeNameAndSerial').'%')
+						->pluck('item_id');
+				
+					if (!empty($serials_items_ids)){
+						$query = Item::with('creator','data','items')->whereIn('id',$serials_items_ids);
+//						print_r($query->count());
+//						$query = $initQuery;
+					}
+					
+				}
+			}
+			
+			
+			
 			if ($this->has('orderBy') && $this->filled('orderBy') && $this->has('orderType') && $this->filled('orderType')){
 				$query = $query->orderBy($this->orderBy,$this->orderType);
 			}else{
 				$query = $query->orderByDesc("id");
 			}
+			
+			
 			
 			
 			if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval($this->input("itemsPerPage")

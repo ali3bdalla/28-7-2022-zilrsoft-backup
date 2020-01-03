@@ -1,8 +1,15 @@
 <template>
     <div class="table">
-        <tile :color="primaryColor" :loading="isLoading" v-show="isLoading"></tile>
+
         <div class="table-posistion">
 
+            <div>
+                <input class="form-control" type="text" autofocus="autofocus"
+                       v-model="filters.barcodeNameAndSerial"
+                       @focus="$event.target.select()"
+                       :placeholder="trans.search_barcode_sale"
+                       @keyup.enter="pushServerRequest">
+            </div>
             <div class="table-filters">
                 <div @click="openOrCloseSearchPanel" class="text-right search-text" style="cursor: pointer;"><i
                         class="fa fa-search-plus"></i>
@@ -181,6 +188,7 @@
 
             </div>
 
+            <tile :color="primaryColor" :loading="isLoading" v-show="isLoading"></tile>
             <div class="table-paginations">
                 <accounting-table-pagination-helper-layout-component :data="paginationResponseData"
 
@@ -245,6 +253,7 @@
                 filters: {
                     endDate: null,
                     startDate: null,
+                    barcodeNameAndSerial: "",
                     barcode: null,
                     price: null,
                     price_with_tax: null,
@@ -297,6 +306,7 @@
                 axios.get(this.requestUrl, {
                     params: params
                 }).then(function (response) {
+                    // console.log(response.data);
                     appVm.table_rows = response.data.data;
                     appVm.isLoading = false;
                     appVm.paginationResponseData = response.data;

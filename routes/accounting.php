@@ -119,6 +119,7 @@
 				Route::get('/','InventoryController@beginning_index')->name('index');
 				Route::get('/create','InventoryController@beginning_create')->name('create');
 				Route::post('/store','InventoryController@beginning_store')->name('store');
+				Route::delete('{beginning}','InventoryController@beginning_destroy')->name('destroy');
 			});
 			
 		});

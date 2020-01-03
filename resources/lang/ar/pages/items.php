@@ -17,7 +17,7 @@
 		'locale' => app()->getLocale(),
 		'save_kit' => 'حفظ ',
 		'view_products' => 'عرض المنتجات',
-		
+		'search_barcode_sale' => __('pages/invoice.search_barcode_sale'),
 		'clone' => 'نسخ',
 		'show' => 'عرض ',
 		'delete' => 'حذف ',
