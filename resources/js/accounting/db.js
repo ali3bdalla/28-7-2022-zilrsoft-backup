@@ -2,6 +2,22 @@ const itemWork = require('./item');
 
 exports.db = {
     model: {
+        between: function (start, end, includingStart = false, includingEnd = false, collectWith = '') {
+            let result = [];
+            if (parseInt(end) > parseInt(start)) {
+                let range = parseInt(end) - parseInt(start);
+                let startPoint = includingStart ? 0 : 1;
+                let endPoint = includingEnd ? range + 1 : range;
+
+                for (let i = startPoint; i < endPoint; i++) {
+                    let number = parseInt(start) + i;
+                    result.push(number);
+                }
+
+            }
+
+            return result;
+        },
         exists: function (arr, value) {
             return arr.includes(value);
         },
@@ -136,7 +152,7 @@ exports.db = {
 
     },
 
-    convert:{
+    convert: {
         enNumberToArabic(en) {
             var response = [];
             var en_arr = en.split('');

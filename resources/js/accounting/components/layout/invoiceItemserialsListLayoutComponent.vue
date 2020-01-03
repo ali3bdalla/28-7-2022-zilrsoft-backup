@@ -23,14 +23,13 @@
                                             >
                                         </div>
                                         <div class="col-md-6">
-                                            <input @keyup.enter="validateSerial" class="form-control"
+                                            <input @keyup.enter="validateMulitSerials" class="form-control"
                                                    placeholder="اخر سيريال"
-                                                   ref="mainFieldId"
                                                    type="text"
-                                                   v-model="serialInput"
+                                                   v-model="lastSerialInput"
                                             >
                                         </div>
-                                       
+
                                     </div>
                                     <div class="table-response">
                                         <table class="table table-bordered text-center">
@@ -75,7 +74,9 @@
         props: ['item', 'itemIndex', 'invoiceType'],
         data: function () {
             return {
+                firstSerialInput: "",
                 serialInput: "",
+                lastSerialInput: "",
                 itemData: null,
                 index: -1,
                 serials: [],
@@ -85,7 +86,22 @@
 
 
         methods: {
+            validateMulitSerials() {
+                let splitCounter = 3;
+                let firstPoint = this.firstSerialInput.substr(this.firstSerialInput.length - splitCounter);
+                let lastPoint = this.lastSerialInput.substr(this.lastSerialInput.length - splitCounter);
+                let resetPoint = this.firstSerialInput.substr(0, this.firstSerialInput.length - splitCounter);
+                let data = db.model.between(firstPoint, lastPoint, false, true);
+                for (let i = 0; i < data.length; i++) {
+                    let serial = resetPoint.concat(("00" + data[i]).slice(-3));
+                    this.serials = db.model.createUnique(this.serials, serial);
+                }
+                this.lastSerialInput = "";
+                this.publishUpdated();
+            },
+
             validateSerial() {
+                this.firstSerialInput = this.serialInput;
                 if (this.serialInput == "") {
                     this.itemData = null;
                     this.index = -1;
