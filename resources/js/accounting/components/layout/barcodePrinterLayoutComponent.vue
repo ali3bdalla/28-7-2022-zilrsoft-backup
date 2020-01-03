@@ -14,13 +14,13 @@
         <div class="row text-center align-content-center">
             <div class="col-md-6 text-center">
 
-                <div id="barcode_area" style="    width: 266px;">
-                    <barcode :value="barcode" height="100">
+                <div id="barcode_area" style="width: 266px;">
+                    <barcode :value="itemData.barcode" height="100">
                     </barcode>
 
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 3px;
-                        margin-left: -3px;margin-top: -3px;" v-text="name">
+                        margin-left: -3px;margin-top: -3px;" v-text="itemData.ar_name">
 
                         </div>
 
@@ -32,7 +32,8 @@
 
                         </div>
                         <div align="left" class="col-md-6  div-col" style="margin-top: -18px; font-weight: bold;
-                        margin-left: -3px;" v-text="convertEnToArabicNumber(price.toString() ) + ' ر.س'">
+                        margin-left: -3px;"
+                             v-text="convertEnToArabicNumber(itemData.price_with_tax.toString() ) + ' ر.س'">
 
                         </div>
 
@@ -76,8 +77,8 @@
                     barcode: "",
                     price_with_tax: "",
                 },
-                barcode:0,
-                price:0,
+                barcode: 0,
+                price: 0,
                 watcher: false,
                 itemsData: [],
                 app: {
@@ -91,33 +92,24 @@
 
         },
         created: function () {
-            this.itemsData = this.items;
-            this.purchaseInvoiceId = this.invoiceId;
+            // this.itemsData = this.items;
+            // this.purchaseInvoiceId = this.invoiceId;
             this.connectQZ();
             if (this.item != null) {
-
                 this.itemData = this.item;
-
             }
 
         },
 
         mounted: function () {
             if (this.item != null) {
-
                 this.generatedData();
-                console.log(this.image);
             }
         },
 
         methods: {
-
-
-            generatedData(barcode_count = null) {
-
+            generatedData() {
                 let appVm = this;
-
-                //
                 domtoimage.toPng(document.getElementById('barcode_area'), {
                     quality: 1, style: {
                         width: '100%',
@@ -128,43 +120,39 @@
                 }).then(function (dataUrl) {
                     appVm.src = dataUrl;
                     appVm.image = dataUrl;
-
-                    if (appVm.insideInvoice == true && appVm.print == true) {
-                        appVm.printBulkFile(dataUrl, barcode_count);
-                    }
                 })
                     .catch(function (error) {
                         console.log(error)
                     });
             },
 
-            generatedBulkData(barcode_count = null,item = null) {
-
-                let appVm = this;
-
-                this.itemData.barcode = item.barcode;
-                this.itemData.price_with_tax = item.price_with_tax;
-                this.itemData.ar_anme = item.ar_anme;
-                //
-                // domtoimage.toPng(document.getElementById('barcode_area'), {
-                //     quality: 1, style: {
-                //         width: '100%',
-                //         height: '100%',
-                //         padding: '0px',
-                //         margin: "0px"
-                //     }
-                // }).then(function (dataUrl) {
-                //     appVm.src = dataUrl;
-                //     appVm.image = dataUrl;
-                //
-                //     if (appVm.insideInvoice == true && appVm.print == true) {
-                //         appVm.printBulkFile(dataUrl, barcode_count);
-                //     }
-                // })
-                //     .catch(function (error) {
-                //         console.log(error)
-                //     });
-            },
+            // generatedBulkData(barcode_count = null,item = null) {
+            //
+            //     let appVm = this;
+            //
+            //     this.itemData.barcode = item.barcode;
+            //     this.itemData.price_with_tax = item.price_with_tax;
+            //     this.itemData.ar_anme = item.ar_anme;
+            //     //
+            //     // domtoimage.toPng(document.getElementById('barcode_area'), {
+            //     //     quality: 1, style: {
+            //     //         width: '100%',
+            //     //         height: '100%',
+            //     //         padding: '0px',
+            //     //         margin: "0px"
+            //     //     }
+            //     // }).then(function (dataUrl) {
+            //     //     appVm.src = dataUrl;
+            //     //     appVm.image = dataUrl;
+            //     //
+            //     //     if (appVm.insideInvoice == true && appVm.print == true) {
+            //     //         appVm.printBulkFile(dataUrl, barcode_count);
+            //     //     }
+            //     // })
+            //     //     .catch(function (error) {
+            //     //         console.log(error)
+            //     //     });
+            // },
 
             connectQZ() {
                 var appVm = this;
@@ -236,6 +224,7 @@
                 qz.security.setSignaturePromise(function (toSign) {
 
                     return function (resolve, reject) {
+
                         $.get(appVm.app.BaseApiUrl + 'printer/sign_receipt_printer', {request: toSign}).then(resolve, reject);
                     };
                 });
@@ -362,7 +351,6 @@
 
 
             printBulkFile(embededImage = null, Qty = null) {
-
 
 
                 // let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
