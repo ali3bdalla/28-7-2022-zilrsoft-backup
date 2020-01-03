@@ -14,7 +14,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <input @keyup.enter="validateSerial" class="form-control"
                                                    placeholder="السيريال"
                                                    ref="mainFieldId"
@@ -22,9 +22,15 @@
                                                    v-model="serialInput"
                                             >
                                         </div>
-                                        <!--                                        <div class="col-md-6">-->
-                                        <!--                                            <input class="form-control" name="" type="text">-->
-                                        <!--                                        </div>-->
+                                        <div class="col-md-6">
+                                            <input @keyup.enter="validateSerial" class="form-control"
+                                                   placeholder="اخر سيريال"
+                                                   ref="mainFieldId"
+                                                   type="text"
+                                                   v-model="serialInput"
+                                            >
+                                        </div>
+                                       
                                     </div>
                                     <div class="table-response">
                                         <table class="table table-bordered text-center">

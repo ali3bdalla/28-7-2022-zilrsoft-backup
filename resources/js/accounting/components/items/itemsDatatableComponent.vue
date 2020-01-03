@@ -6,9 +6,10 @@
             <div>
                 <input class="form-control" type="text" autofocus="autofocus"
                        v-model="filters.barcodeNameAndSerial"
+                       ref="barcodeAndNameUpdated"
                        @focus="$event.target.select()"
                        :placeholder="trans.search_barcode_sale"
-                       @keyup.enter="pushServerRequest">
+                       @keyup.enter="barcodeAndNameUpdated">
             </div>
             <div class="table-filters">
                 <div @click="openOrCloseSearchPanel" class="text-right search-text" style="cursor: pointer;"><i
@@ -276,6 +277,12 @@
 
         },
         methods: {
+
+            barcodeAndNameUpdated()
+            {
+              this.pushServerRequest();
+              this.$refs.barcodeAndNameUpdated.select()
+            },
 
 
             initUi() {
