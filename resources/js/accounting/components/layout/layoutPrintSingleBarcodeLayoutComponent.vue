@@ -6,7 +6,7 @@
             </div>
 
             <div class="col-xs-4" id="barcodeId3">
-                <button @click="printSingleFile" class="btn btn-primary">طباعة الباركود
+                <button @click="printFile" class="btn btn-primary">طباعة الباركود
                     <i class="fa fa-print"></i></button>
             </div>
         </div>
