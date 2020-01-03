@@ -68,6 +68,7 @@
         props: ['invoice_id', 'item'],
         data: function () {
             return {
+                purchaseInvoiceId: "",
                 image: null,
                 cropper: null,
                 number_of_barcode: 1,
