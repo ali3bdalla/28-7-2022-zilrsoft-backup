@@ -6,7 +6,7 @@
             </div>
 
             <div class="col-xs-4" id="barcodeId3">
-                <button @click="printFile" class="btn btn-primary">طباعة الباركود
+                <button @click="printSingleFile" class="btn btn-primary">طباعة الباركود
                     <i class="fa fa-print"></i></button>
             </div>
         </div>
@@ -20,17 +20,23 @@
 
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 3px;
-                        margin-left: -3px;margin-top: -5px;">
-                            {{ item.ar_name.toString().substr(0,40) }}
+                        margin-left: -3px;margin-top: -3px;" v-text="item.locale_name">
+
                         </div>
-                        <!--                        <div class="col-md-3 text-left div-col" style="font-weight: bold;">-->
-                        <!--                            {{ item.price_with_tax}}-->
-                        <!--                        </div>-->
+
                     </div>
                     <div class="row">
-                        <div align="left" class="col-md-12  div-col" style="margin-top: -18px; font-weight: bold;">
-                            {{ convertEnToArabicNumber( item.price_with_tax.toString() ) + ' ر.س' }}
+                        <div align="right" class="col-md-6 " style="margin-top: -18px;
+                        font-weight: bold;margin-right: 3px !important;
+                        margin-left: -3px;" v-text="purchaseInvoiceId">
+
                         </div>
+                        <div align="left" class="col-md-6  div-col" style="margin-top: -18px; font-weight: bold;
+                        margin-left: -3px;" v-text="convertEnToArabicNumber(item.price_with_tax.toString() ) +
+                        ' ر.س'">
+
+                        </div>
+
 
                     </div>
                 </div>
@@ -47,6 +53,7 @@
 
     </div>
 </template>
+
 
 <script>
 
@@ -307,7 +314,7 @@
 
     #barcode_area .div-col {
         /*padding: 4px !important;*/
-        font-size: 18px;
+        font-size: 20px;
         overflow: hidden;
         /*margin: 0px;*/
     }
