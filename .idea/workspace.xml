@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/1536026161f19b3182457c34ba7af6763cc9b489.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/8f21c74690ac61b80bf287e7bf2eaa296feaa570.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c389a98a2e7b7d04d8c6a26cf5623e65e8a67906.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodePrinterLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodePrinterLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/7dmCu6L3mhfT4EpKIdInbZVf0NiUvCZ2UnMr0tVb" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/7dmCu6L3mhfT4EpKIdInbZVf0NiUvCZ2UnMr0tVb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -432,7 +427,7 @@
       <workItem from="1577181612244" duration="98359000" />
       <workItem from="1577561097672" duration="759000" />
       <workItem from="1577567765490" duration="100630000" />
-      <workItem from="1578067206769" duration="3000" />
+      <workItem from="1578067206769" duration="102000" />
     </task>
     <servers />
   </component>
