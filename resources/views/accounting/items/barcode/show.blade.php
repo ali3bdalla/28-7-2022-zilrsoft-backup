@@ -1,7 +1,7 @@
 @extends('accounting.layout.master')
 
 
-@section('title','طباعة الباركود')
+@section('title','')
 
 
 @section('content')
@@ -9,10 +9,10 @@
         @foreach($items as $item)
 
             <div class="panel-body">
-                <accounting-print-single-barcode-layout-component
+                <accounting-barcode-printer-layout-component
                         :item='@json($item)'
                 >
-                </accounting-print-single-barcode-layout-component>
+                </accounting-barcode-printer-layout-component>
             </div>
         @endforeach
     </div>
