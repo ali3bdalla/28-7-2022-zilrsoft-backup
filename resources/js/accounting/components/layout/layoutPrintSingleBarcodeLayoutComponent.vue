@@ -29,7 +29,7 @@
                     </div>
                     <div class="row">
                         <div align="left" class="col-md-12  div-col" style="margin-top: -18px; font-weight: bold;">
-                            {{ convertEnToArabicNumber(price.toString() ) + ' ر.س' }}
+                            {{ convertEnToArabicNumber( item.price_with_tax.toString() ) + ' ر.س' }}
                         </div>
 
                     </div>

@@ -1,7 +1,7 @@
 @extends('accounting.layout.master')
 
 
-@section('title','')
+@section('title','طباعة الباركود')
 
 
 @section('content')
