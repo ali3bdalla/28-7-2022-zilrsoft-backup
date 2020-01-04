@@ -510,12 +510,12 @@
             sendQueryRequestToFindItems() {
 
                 // when we activate this code one press will make multi invoice
-                // if (this.barcodeNameAndSerialField == "") {
-                //     if (this.invoiceData.items.length >= 1) {
-                //         this.$refs.saveAndPrintReceiptBarcode.focus();
-                //         return;
-                //     }
-                // }
+                if (this.barcodeNameAndSerialField == "") {
+                    if (this.invoiceData.items.length >= 1) {
+                        this.$refs.saveAndPrintReceiptBarcode.focus();
+                        return;
+                    }
+                }
                 let appVm = this;
                 ItemQuery.sendQueryRequestToFindItems(this.barcodeNameAndSerialField, 'sale').then(response => {
                     if (response.data.length === 1) {
