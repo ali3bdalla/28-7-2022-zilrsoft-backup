@@ -271,6 +271,7 @@
         query as ItemQuery,
         validator as ItemValidator
     } from '../../item';
+    import {sendGetKitAmountsRequest} from '../../api/kits';
 
     export default {
         props: ['creator', 'client', 'salesman', 'items', 'invoice', 'sale', 'gateways', 'expenses'],
@@ -495,7 +496,27 @@
                 this.searchResultList = [];
                 this.$refs.barcodeNameAndSerialField.focus();
             },
+            kitQtyUpdated(kit) {
+
+                let appVm = this;
+                sendGetKitAmountsRequest(kit.item.id, kit.returned_qty).then(response => {
+                    kit.total = response.data.total;
+                    kit.discount = response.data.discount;
+                    kit.subtotal = response.data.subtotal;
+                    kit.net = response.data.net;
+                    appVm.invoiceData.items.splice(db.model.index(appVm.invoiceData.items, kit.id), 1, kit);
+                    appVm.updateInvoiceData();
+                }).catch(error => {
+                    console.log(error.response);
+                })
+
+            },
+
+
             itemQtyUpdated(item, bySerial = false) {
+                if (item.item.is_kit) {
+                    return this.kitQtyUpdated(item);
+                }
                 if (bySerial === false) {
                     let el = this.$refs['itemQty_' + item.id + 'Ref'][0];
                     if (!inputHelper.validateQty(item.returned_qty, el, item.qty, 0)) {
@@ -605,13 +626,13 @@
                 let invoice = this.invoice;
                 //
 
-                console.log(data)
+                console.log(data);
                 axios.put(this.app.BaseApiUrl + 'sales/' + invoice.id, data)
                     .then(function (response) {
                         console.log(response.data);
                         //
                         if (doWork == 'open') {
-                            window.location.href = appVm.app.BaseApiUrl + 'sales/' + invoice.id;
+                            window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
                         } else {
                             window.location.reload();
                         }

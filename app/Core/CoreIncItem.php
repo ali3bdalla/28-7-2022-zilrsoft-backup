@@ -4,6 +4,8 @@
 	namespace App\Core;
 	
 	
+	use App\Accounting\ItemAccounting;
+	use App\Accounting\KitAccounting;
 	use App\Item;
 	use App\ItemSerials;
 	use Dotenv\Exception\ValidationException;
@@ -15,51 +17,20 @@
 		 * @param $baseInvoice
 		 * @param $request_data
 		 */
-		public function addKitReturn($userData,$dbKit,$baseInvoice)
+		public function addKitReturn($userData,$baseInc)
 		{
-			$children = $this->invoice->items()->where([
-				['belong_to_kit',true],
-				['parent_kit_id',$this->id ]
-			])->get();
-			$qty = $userData['returned_qty'];
-			
-			$mathCore = new MathCore();
-			
-			$data['belong_to_kit'] = false;
-			$data['parent_kit_id'] = 0;
-			$data['discount'] = $this->item->data->discount * $qty;
-			$data['price'] = $this->item->data->total;
-			$data['qty'] = $qty;
-			$data['total'] = $mathCore->getTotalAmount($data['price'],$data['qty']);
-			$data['subtotal'] = $mathCore->getSubTotalAmount($data['total'],$data['discount']);
-			$data['tax'] = $mathCore->getTaxAmount($data['subtotal'],$this->vts);
-			$data['net'] = $mathCore->getNetAmount($data['subtotal'],$data['tax']);
-			$data['organization_id'] = $baseInvoice->organization_id;
-			$data['creator_id'] = $baseInvoice->creator_id;
-			$data['item_id'] = $this->item_id;
-			$data['user_id'] = $baseInvoice->user_id;
-			$data['invoice_type'] = $baseInvoice->invoice_type;
-			$data['is_kit'] = true;
-			$baseItem = $baseInvoice->items()->create($data);
-			foreach ($children as $child){
-				
-//				$item = Item::findOrFail($child->item_id);
-//				$sendData['serials'] = ItemSerials::where([
-//					['sale_invoice_id',$this->invoice->id],
-//					['item_id',$child['item_id']],
-//					['current_status',"saled"],
-//				])->get();
 //
-//
-//				$sendData['returned_qty'] = $child['qty'] * $qty;
-//				$sendData['discount'] = $child['discount'] / $child['qty'] * $sendData['returned_qty'];
-//				$sendData['price'] = $child['price'];
-//				$sendData['belong_to_kit'] = true;
-//				$sendData['kit_id'] = $baseItem->id;
-//				$child->addQtyReturn($sendData,$baseInvoice);
-			}
+			$kitAccounting = new KitAccounting();
+			$createdKit = $kitAccounting->makeReturnKit($this,$userData['returned_qty'],$baseInc);
+//			foreach ($this->invoice->items()->where([
+//				['belong_to_kit',true],
+//				['parent_kit_id',$this->id]
+//			])->get() as $child){
+////				$itemAccounting = new ItemAccounting();
+//			}
 			
-			$baseItem->updateKitAccountingDataDependOnItChildrenInformation();
+			$kitAccounting->updateAmounts($createdKit);
+//			$baseItem->updateKitAccountingDataDependOnItChildrenInformation();
 		}
 		
 		/**
@@ -75,16 +46,23 @@
 			if ($this->is_need_serial)
 				$this->checkReturnSerialList($userData,$qty,$inc->invoice_type);
 			$data['belong_to_kit'] = $this->belong_to_kit;
-			$data['parent_kit_id'] = $this->parent_kit_id;
+			$data['parent_kit_id'] = $userData['kit_id'] != null ? $userData['kit_id'] : $this->parent_kit_id;
 			$data['discount'] = $this->discount;
 			$data['price'] = $this->price;
 			$data['qty'] = $qty;
 			$data['r_qty'] = $qty;
 			$vat = $inc->invoice_type == 'r_sale' ? $this->item->vts : $this->item->vtp;
 			$mathCore = new MathCore();
-			$accountingAmounts = $mathCore->accountingAmount($qty,$data['price'],$data['discount'],$vat);
-			foreach ($accountingAmounts as $key => $value){
-				$data[$key] = $value;
+			if (!$this->belong_to_kit){
+				$accountingAmounts = $mathCore->accountingAmount($qty,$data['price'],$data['discount'],$vat);
+				foreach ($accountingAmounts as $key => $value){
+					$data[$key] = $value;
+				}
+			}else{
+				$data['total'] = $userData['total'];
+				$data['subtotal'] = $userData['subtotal'];
+				$data['net'] = $userData['net'];
+				$data['tax'] = $userData['tax'];
 			}
 			$data['organization_id'] = $inc->organization_id;
 			$data['creator_id'] = $inc->creator_id;

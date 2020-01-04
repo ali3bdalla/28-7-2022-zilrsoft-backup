@@ -85,7 +85,7 @@
 				
 				if (!$incItem['belong_to_kit']){
 					if ($incItem['is_kit']){
-						$result_items[] = $incItem->addKitReturn($item,$this->fresh(),$this);
+						$result_items[] = $incItem->addKitReturn($item,$this->fresh());
 					}else{
 						$result_items[] = $incItem->addQtyReturn($item,$this->fresh());
 					}

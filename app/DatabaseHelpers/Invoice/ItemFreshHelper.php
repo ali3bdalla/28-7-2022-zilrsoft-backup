@@ -258,6 +258,8 @@
 		/**
 		 * @param $baseInvoice
 		 * @param $data
+		 *
+		 * @return mixed
 		 */
 		public function addReturnedItemToBaseInvoice($baseInvoice,$request_data,$parent_item)
 		{

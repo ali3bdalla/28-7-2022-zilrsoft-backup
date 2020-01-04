@@ -28,6 +28,13 @@
                         <tr>
                             <th scope="col  text-center">الباركود</th>
                             <th scope="col  text-center">اسم المنتج</th>
+                            <th scope="col  text-center">الكمية</th>
+                            <th scope="col  text-center"> السعر</th>
+                            <th scope="col  text-center">المجموع</th>
+                            <th scope="col  text-center"> الخصم</th>
+                            <th scope="col  text-center">الصافي</th>
+                            <th scope="col  text-center">الضريبة</th>
+                            <th scope="col  text-center">النهائي</th>
                             <th scope="col  text-center">يحتاج سيريال</th>
                         </tr>
                         </thead>
@@ -35,6 +42,15 @@
                         <tr>
                             <td>{{ item.barcode }}</td>
                             <td>{{ item.locale_name }}</td>
+                            <td>{{ item.qty }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.total }}</td>
+                            <td>{{ item.discount }}</td>
+                            <td>{{ item.subtotal }}</td>
+                            <td>{{ item.tax }}</td>
+                            <td>{{ item.net }}</td>
+
+
                             <td v-if="item.is_need_serial">نعم</td>
                             <td v-else>لا</td>
 
@@ -116,9 +132,9 @@
 
             checkItem() {
                 var len = this.kit.items.length;
-                for (var i = 0; i < len; i++) {
+                for (let i = 0; i < len; i++) {
 
-                    var item = this.kit.items[i];
+                    let item = this.kit.items[i];
 
                     if (item.item.is_need_serial) {
                         this.is_required_to_add_data = true;
@@ -135,8 +151,6 @@
                     item.item.price = item.price;
                     item.item.net = item.net;
                     item.item.tax = item.tax;
-
-
                     this.items.push(item.item);
                     if (i + 1 == len) {
                         this.checkItemsData();

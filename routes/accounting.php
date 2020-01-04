@@ -66,6 +66,15 @@
 				
 			});
 		});
+		
+		Route::name('kits.')->prefix('kits')->group(function (){
+			Route::name('helper.')->name('helper.')->prefix('helper')->group(function (){
+				Route::get('get_kit_amounts/{kit}','ProviderController@get_kit_amounts')->name('get_kit_amounts');
+				
+			});
+		});
+		
+		
 		Route::name('sales.')->prefix('sales')->group(function (){
 			Route::get('view/quotations',"SaleController@quotations")->name('quotations');
 			Route::get('{sale}/print',"SaleController@print")->name('print');

@@ -462,6 +462,7 @@
         query as ItemQuery,
         validator as ItemValidator
     } from '../../item';
+    import {sendGetKitAmountsRequest} from '../../api/kits';
 
     export default {
         props: ['creator', 'clients', 'salesmen', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
@@ -723,6 +724,10 @@
                 this.$refs.barcodeNameAndSerialField.focus();
             },
             itemQtyUpdated(item, bySerial = false) {
+
+                if (item.is_kit) {
+                    return this.kitQtyUpdated(item);
+                }
                 if (bySerial === false && !item.is_service) {
                     let el = this.$refs['itemQty_' + item.id + 'Ref'][0];
                     if (!inputHelper.validateQty(item.qty, el, item.available_qty, 0)) {
@@ -732,6 +737,22 @@
 
                 item = this.itemUpdater(item);
                 this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
+            },
+
+            kitQtyUpdated(kit) {
+
+                let appVm = this;
+                sendGetKitAmountsRequest(kit.id, kit.qty).then(response => {
+                    kit.total = response.data.total;
+                    kit.discount = response.data.discount;
+                    kit.subtotal = response.data.subtotal;
+                    kit.net = response.data.net;
+                    appVm.invoiceData.items.splice(db.model.index(appVm.invoiceData.items, kit.id), 1, kit);
+                    appVm.updateInvoiceData();
+                }).catch(error => {
+                    alert(error);
+                })
+
             },
 
             itemPriceUpdated(item) {

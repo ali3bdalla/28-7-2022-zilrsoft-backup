@@ -137,7 +137,7 @@ exports.query = {
         });
     },
     sendValidateReturnPurchaseSerialRequest: function (query = {}) {
-        var link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_validate_return_purchase_serial';
+        let link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_validate_return_purchase_serial';
         return axios.post(link, query);
     },
     sendValidateReturnSaleSerialRequest: function (query = {}) {

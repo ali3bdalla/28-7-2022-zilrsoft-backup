@@ -2,6 +2,7 @@
 	
 	namespace App\Providers;
 	
+	use App\Item;
 	use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 	use Illuminate\Support\Facades\Route;
 	
@@ -27,6 +28,12 @@
 			//
 			
 			parent::boot();
+			Route::bind('kit',function ($value){
+				return Item::where([
+					['is_kit',true],
+					['id',$value],
+				])->firstOrFail();
+			});
 		}
 		
 		/**
