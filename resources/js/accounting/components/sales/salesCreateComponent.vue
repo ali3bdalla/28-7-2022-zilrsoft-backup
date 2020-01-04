@@ -689,7 +689,7 @@
                     // item.price = item.subtotal;
                     item.total = item.price;
                     item.subtotal = item.price;
-                    item.tax = ItemAccounting.getTax(item.subtotal,item.vts,true);
+                    item.tax = ItemAccounting.getTax(item.subtotal, item.vts, true);
                     item.discount = 0;
                 } else {
                     let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts); //  1.05
@@ -700,7 +700,7 @@
 
                 // item.tax = ItemMath.sub(ItemMath.mult(item.subtotal, tax / 100), item.subtotal);
                 // this.items.splice(db.model.index(this.invoiceData.items), 1, item);
-                // this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
+                this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
 
             },
 
