@@ -10,7 +10,7 @@
 	class KitAccounting extends MathCore
 	{
 		
-		use QtyAccounting;
+//		use QtyAccounting;
 		/**
 		 * @param InvoiceItems $kit
 		 * @param $returnQty

@@ -91,6 +91,9 @@
                         <th :class="{'orderBy':orderBy=='name'}" @click="setOrderByColumn('name')">
                             {{ trans.name }}
                         </th>
+                        <th :class="{'orderBy':orderBy=='net'}" @click="setOrderByColumn('net')">
+                            {{ trans.net }}
+                        </th>
 
 
                         <th :class="{'orderBy':orderBy=='creator_id'}" @click="setOrderByColumn('creator_id')"
@@ -121,8 +124,9 @@
                         </td>
 
                         <td class="text-right-with-padding">{{row.ar_name}}<p align="left">{{row.name}}</p></td>
+                        <td class="text-center">{{ parseFloat(row.data.net).toFixed(2)}}</td>
 
-                        <td class="text-right-with-padding" v-text="row.creator.name"></td>
+                        <td class="text-right-with-padding" v-text="row.creator.locale_name"></td>
                         <td v-text="row.created_at"></td>
                         <td>
 
