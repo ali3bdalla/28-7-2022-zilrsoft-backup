@@ -164,7 +164,7 @@
                 <tbody>
 
 
-                <tr :key="item.id" v-for="(item,index) in invoiceData.items" v-if="!item.is_expense">
+                <tr :key="item.id" v-for="(item,index) in invoiceData.items" v-if="item.is_expense!=1">
                     <td>
                         <button @click="deleteItemFromList(item)" class="btn btn-danger btn-xs"><i
                                 class="fa fa-trash"></i></button>
