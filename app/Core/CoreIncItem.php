@@ -14,30 +14,27 @@
 	{
 		
 		/**
-		 * @param $baseInvoice
-		 * @param $request_data
+		 * @param $userData
+		 * @param $baseInc
 		 */
 		public function addKitReturn($userData,$baseInc)
 		{
-//
 			$kitAccounting = new KitAccounting();
 			$createdKit = $kitAccounting->makeReturnKit($this,$userData['returned_qty'],$baseInc);
-			
 			$itemAccounting = new ItemAccounting();
 			foreach ($this->invoice->items()->where([
 				['belong_to_kit',true],
 				['parent_kit_id',$this->id]
 			])->get() as $child){
-				$result = $itemAccounting->toGetKitChildItemReturnAccountingData($child,$userData['returned_qty']);
-				
+				$result = $itemAccounting->toGetKitChildItemReturnAccountingData($child,$createdKit);
 				foreach ($result as $key => $value){
 					$child[$key] = $value;
 				}
-				$child->item()->addQtyReturn($child);
+				$child->addQtyReturn(collect($child),$baseInc);
 				
 			}
 			
-			$kitAccounting->updateAmounts($createdKit);
+			$kitAccounting->updateKitAmounts($createdKit);
 		}
 		
 		/**
@@ -48,12 +45,15 @@
 		 */
 		public function addQtyReturn($userData = [],$inc)
 		{
+			$itemAccounting = new ItemAccounting();
+			$userData = collect($userData);
 			$qty = $userData['returned_qty'];
 			$this->checkReturnQty($qty,$inc->invoice_type);
 			if ($this->is_need_serial)
 				$this->checkReturnSerialList($userData,$qty,$inc->invoice_type);
 			$data['belong_to_kit'] = $this->belong_to_kit;
-			$data['parent_kit_id'] = $userData['kit_id'] != null ? $userData['kit_id'] : $this->parent_kit_id;
+			$data['parent_kit_id'] = $userData->has('kit_id') && $userData['kit_id'] != null ? $userData['kit_id'] :
+				$this->parent_kit_id;
 			$data['discount'] = $this->discount;
 			$data['price'] = $this->price;
 			$data['qty'] = $qty;
@@ -97,9 +97,8 @@
 				}
 				
 			}
-			
-			$this->updateReturnedQty($qty);
-			
+			// update item returned qty
+			$itemAccounting->toUpdatedItemReturnedQty($this,$qty);
 			return $baseItem;
 		}
 		

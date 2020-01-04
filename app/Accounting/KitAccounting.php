@@ -10,15 +10,18 @@
 	class KitAccounting extends MathCore
 	{
 		
-//		use QtyAccounting;
+		use QtyTransactionAccounting,AmountsAccounting;
+		
 		/**
 		 * @param InvoiceItems $kit
 		 * @param $returnQty
 		 * @param $baseInc
+		 *  to Create Kit as Invoice Item And Updated The Base Invoice Item Kit Returned Qty
+		 *  to return createdKit as Invoice Items Object
 		 *
 		 * @return mixed
 		 */
-		public function makeReturnKit(InvoiceItems $kit,$returnQty,$baseInc)
+		public function makeReturnKit(InvoiceItems $kit,$returnQty,$baseInc):InvoiceItems
 		{
 			$data['belong_to_kit'] = false;
 			$data['parent_kit_id'] = 0;
@@ -36,9 +39,7 @@
 			$data['invoice_type'] = $baseInc->invoice_type;
 			$data['is_kit'] = true;
 			$createdKit = $baseInc->items()->create($data);
-			$qtyTransactionAccounting = new QtyTransactionAccounting();
-			
-			$kit->updateReturnedQty($returnQty);
+			$this->updateInvoiceItemReturnedQty($createdKit,$returnQty);
 			return $createdKit;
 		}
 		
@@ -47,27 +48,7 @@
 		 */
 		public function updateKitAmounts($kit)
 		{
-			$children = $kit
-				->invoice
-				->items()
-				->where([['belong_to_kit',true],['parent_kit_id',$kit->id]])
-				->get();
-			
-			$result['total'] = 0;
-			$result['subtotal'] = 0;
-			$result['tax'] = 0;
-			$result['discount'] = 0;
-			$result['net'] = 0;
-			$items = $children;
-			foreach ($items as $item){
-				$result['total'] = $result['total'] + $item['total'];
-				$result['subtotal'] = $result['subtotal'] + $item['subtotal'];
-				$result['tax'] = $result['tax'] + $item['tax'];
-				$result['discount'] = $result['discount'] + $item['discount'];
-				$result['net'] = $result['net'] + $item['net'];
-			}
-			
-			$kit->update($result);
+			$this->toGetAndUpdatedAmounts($kit);
 		}
 		
 	}

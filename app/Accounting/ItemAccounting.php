@@ -5,14 +5,30 @@
 	
 	
 	use App\Core\MathCore;
-	use App\Item;
-	use App\ItemSerials;
-	use App\KitItems;
+	use App\InvoiceItems;
+	
 	
 	class ItemAccounting extends MathCore
 	{
 		
-		public function toGetKitChildItemReturnAccountingData(KitItems $kitItem,$createdKit)
+		use QtyTransactionAccounting;
+		
+		/**
+		 * @param $invoiceItem
+		 * @param $returnQty
+		 */
+		public function toUpdatedItemReturnedQty($invoiceItem,$returnQty)
+		{
+			$this->updateInvoiceItemReturnedQty($invoiceItem,$returnQty);
+		}
+		
+		/**
+		 * @param InvoiceItems $kitItem
+		 * @param $createdKit
+		 *
+		 * @return array
+		 */
+		public function toGetKitChildItemReturnAccountingData(InvoiceItems $kitItem,$createdKit)
 		{
 			$kitReturnedQty = $createdKit->qty;
 			$childReturnedQty = $kitItem->qty * $kitReturnedQty;
