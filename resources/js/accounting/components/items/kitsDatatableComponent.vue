@@ -91,7 +91,7 @@
                         <th :class="{'orderBy':orderBy=='name'}" @click="setOrderByColumn('name')">
                             {{ trans.name }}
                         </th>
-                        <th :class="{'orderBy':orderBy=='net'}" @click="setOrderByColumn('net')">
+                        <th  width="13%" :class="{'orderBy':orderBy=='net'}" @click="setOrderByColumn('net')">
                             {{ trans.net }}
                         </th>
 
