@@ -44,7 +44,8 @@
 				$end = $str_attr[2];
 				$id = request()->input("{$first}.{$index}.id");
 				$item = Item::findOrFail($id);
-				return $item->is_kit || $item->is_service ? true : $item->available_qty >= $value;
+				return $item->is_kit || $item->is_service || $item->is_expense ? true : $item->available_qty >=
+					$value;
 			});
 			
 			

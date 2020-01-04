@@ -84,7 +84,7 @@
 
                 <tbody>
 
-                <tr :key="item.id" v-for="(item,index) in invoiceData.items" v-if="!item.belong_to_kit">
+                <tr :key="item.id" v-for="(item,index) in invoiceData.items" v-if="item.belong_to_kit!=1">
 
                     <td>
                         <button @click="openItemSerialsModal(index,item)"
@@ -347,7 +347,7 @@
                     item.subtotal = 0;
                     item.net = 0;
                     item.tax = 0;
-                    console.log(item.id)
+                    // console.log(item.id)
                     this.invoiceData.items.push(item);
                 }
             },

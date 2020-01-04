@@ -164,7 +164,7 @@
                 <tbody>
 
 
-                <tr :key="item.id" v-for="(item,index) in invoiceData.items">
+                <tr :key="item.id" v-for="(item,index) in invoiceData.items" v-if="!item.is_expense">
                     <td>
                         <button @click="deleteItemFromList(item)" class="btn btn-danger btn-xs"><i
                                 class="fa fa-trash"></i></button>
@@ -318,7 +318,54 @@
                             </div>
 
                         </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-md-8">
+
+                                    <select class="form-control" v-model="selectedExpense">
+                                        <option :value="expense" v-for="expense in expenses">{{ expense.locale_name
+                                            }}
+                                        </option>
+                                    </select>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button @click="addExpenseToInvoice"
+                                            class="btn btn-custom-primary"><i class="fa fa-plus-circle"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <div class="panel" v-for="expense in invoiceData.items" v-show="expense.is_expense">
+                                    <p>{{ expense.locale_name}}</p>
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <input
+                                                    :ref="'itemPrice_' + expense.id+ 'Ref'"
+                                                    @focus="$event.target.select()"
+                                                    @keyup="itemNetUpdated(expense)" class="form-control"
+                                                    placeholder="القيمة"
+                                                    type="text" v-model="expense.net"/>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input class="form-control" placeholder="التكلفة" type="text"
+                                                   v-model="expense.purchase_price"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--                            <accounting-invoice-embedded-sale-expenses-layout-->
+                            <!--                                    :expensesList="expenses"-->
+                            <!--                                    :items="invoiceData.items"-->
+                            <!--                                    @pushUpdatePrice="expenseUpdatePrice"-->
+                            <!--                                    @updatedItemsList="updatedItemsList"-->
+                            <!--                            >-->
+
+                            <!--                            </accounting-invoice-embedded-sale-expenses-layout>-->
+                        </div>
                     </div>
+
 
                 </div>
                 <div class="col-md-9">
@@ -420,6 +467,7 @@
         props: ['creator', 'clients', 'salesmen', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
         data: function () {
             return {
+                selectedExpense: null,
                 modalsInfo: {
                     showNoteModal: false,
                     showAliceNameModal: false,
@@ -482,6 +530,31 @@
 
 
         methods: {
+            addExpenseToInvoice() {
+                if (this.selectedExpense != null) {
+                    let new_expense = this.selectedExpense;
+                    new_expense.available_qty = 1;
+                    new_expense.qty = 1;
+                    new_expense.price = 0;
+                    new_expense.purchase_price = 0;
+                    new_expense.total = 0;
+                    new_expense.net = 0;
+                    new_expense.tax = 0;
+                    new_expense.subtotal = 0;
+                    new_expense.discount = 0;
+                    this.invoiceData.items.push(new_expense);
+                    this.updateInvoiceData();
+                }
+            },
+            expenseUpdatePrice(event) {
+                let item = event.item;
+                console.log(this.$refs['itemPrice_' + item.id + 'Ref'][0]);
+                // console.log();
+                // this.itemPriceUpdated(event.item.item);
+            },
+            updatedItemsList(event) {
+                this.invoiceData.items = event.items;
+            },
             initLiveTimer() {
                 let appVm = this;
                 setInterval(function () {
@@ -682,7 +755,7 @@
 
 
             itemNetUpdated(item) {
-                if (item.is_service) {
+                if (item.is_service || item.is_expense) {
                     // let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts); //  1.05
                     item.price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vts);
                     // item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
