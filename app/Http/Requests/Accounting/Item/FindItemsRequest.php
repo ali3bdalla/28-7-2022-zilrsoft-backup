@@ -45,7 +45,7 @@
 					->orWhere('name','LIKE','%'.$this->input('barcode_or_name_or_serial').'%')
 					->orWhere('ar_name','LIKE','%'.$this->input('barcode_or_name_or_serial').'%');
 			}
-			$result = $query->take(5)->get();
+			$result = $query->take(6)->get();
 			
 			if ($this->has('invoice_type') && $this->input("invoice_type") == 'sale'){
 				
