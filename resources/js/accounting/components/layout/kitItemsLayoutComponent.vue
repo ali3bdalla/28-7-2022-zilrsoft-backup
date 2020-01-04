@@ -58,7 +58,7 @@
 
 
                         <tr v-for="x in kit_qty" v-if="item.is_need_serial">
-                            <td colspan="3">
+                            <td colspan="10">
                                 <input :rel="'serial_'+ index" @keyup="clearField"
                                        @keyup.enter="checkSerial($event,'serial_'+ index +'_'+ x,item)"
                                        class="input"
