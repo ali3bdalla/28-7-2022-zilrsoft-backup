@@ -110,7 +110,7 @@
                         <div :key="item.id" @click="validateAndPrepareItem(item)"
                              class="panel-footer" href="#" v-for="item in searchResultList">
                             <h4 class="title has-text-white">{{ item.locale_name }}
-                                <small class="has-text-white">{{ item.barcode}} - {{ item.price }}</small>
+                                <small class="has-text-white">{{ item.barcode}} - {{ item.price_with_tax }}</small>
                             </h4>
 
                         </div>

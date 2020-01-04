@@ -36,6 +36,8 @@
 			$data['invoice_type'] = $baseInc->invoice_type;
 			$data['is_kit'] = true;
 			$createdKit = $baseInc->items()->create($data);
+			$qtyTransactionAccounting = new QtyTransactionAccounting();
+			
 			$kit->updateReturnedQty($returnQty);
 			return $createdKit;
 		}
@@ -43,7 +45,7 @@
 		/**
 		 * @param $kit
 		 */
-		public function updateAmounts($kit)
+		public function updateKitAmounts($kit)
 		{
 			$children = $kit
 				->invoice

@@ -12,26 +12,19 @@
 	class ItemAccounting extends MathCore
 	{
 		
-		public function toGetKitChildItemReturnAccountingData(KitItems $kitItem,$kitReturnedQty)
+		public function toGetKitChildItemReturnAccountingData(KitItems $kitItem,$createdKit)
 		{
-			
+			$kitReturnedQty = $createdKit->qty;
 			$childReturnedQty = $kitItem->qty * $kitReturnedQty;
 			$childReturnedDiscount = $kitItem->discount / $kitItem->qty * $childReturnedQty;
 			$childReturnedTotal = $kitItem->total / $kitItem->qty * $childReturnedQty;
 			$childReturnedSubTotal = $kitItem->subtotal / $kitItem->qty * $childReturnedQty;
 			$childReturnedTax = $kitItem->tax / $kitItem->qty * $childReturnedQty;
 			$childReturnedNet = $kitItem->net / $kitItem->qty * $childReturnedQty;
-
-//			$sendData['discount'] = $child['discount'] / $sendData['returned_qty'];
-//			$sendData['total'] = $child['total'] / $sendData['returned_qty'];
-//			$sendData['subtotal'] = $child['subtotal'] / $sendData['returned_qty'];
-//			$sendData['tax'] = $child['tax'] / $sendData['returned_qty'];
-//			$sendData['net'] = $child['net'] / $sendData['returned_qty'];
-//			$sendData['price'] = $child['price'];
-//			$sendData['belong_to_kit'] = true;
-//			$sendData['kit_id'] = $baseItem->id;
 			
 			$ItemReturnAccountingData = [
+				'belong_to_kit' => true,
+				'kit_id' => $createdKit->id,
 				'returned_qty' => $childReturnedQty,
 				'total' => $childReturnedTotal,
 				'subtotal' => $childReturnedSubTotal,

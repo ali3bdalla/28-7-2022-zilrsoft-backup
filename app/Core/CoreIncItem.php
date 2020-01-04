@@ -22,15 +22,22 @@
 //
 			$kitAccounting = new KitAccounting();
 			$createdKit = $kitAccounting->makeReturnKit($this,$userData['returned_qty'],$baseInc);
-//			foreach ($this->invoice->items()->where([
-//				['belong_to_kit',true],
-//				['parent_kit_id',$this->id]
-//			])->get() as $child){
-////				$itemAccounting = new ItemAccounting();
-//			}
+			
+			$itemAccounting = new ItemAccounting();
+			foreach ($this->invoice->items()->where([
+				['belong_to_kit',true],
+				['parent_kit_id',$this->id]
+			])->get() as $child){
+				$result = $itemAccounting->toGetKitChildItemReturnAccountingData($child,$userData['returned_qty']);
+				
+				foreach ($result as $key => $value){
+					$child[$key] = $value;
+				}
+				$child->item()->addQtyReturn($child);
+				
+			}
 			
 			$kitAccounting->updateAmounts($createdKit);
-//			$baseItem->updateKitAccountingDataDependOnItChildrenInformation();
 		}
 		
 		/**
