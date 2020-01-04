@@ -14,8 +14,10 @@
 	use App\Transaction;
 	use App\TransactionsContainer;
 	use App\User;
+	use Dotenv\Exception\ValidationException;
 	use Exception;
 	use Illuminate\Contracts\View\Factory;
+	use Illuminate\Support\Facades\DB;
 	use Illuminate\View\View;
 	
 	class InventoryController extends Controller
@@ -77,23 +79,37 @@
 		 */
 		public function beginning_destroy(Invoice $beginning)
 		{
-			TransactionsContainer::where('invoice_id',$beginning->id)->forceDelete();
-			Transaction::where('invoice_id',$beginning->id)->forceDelete();
-			Payment::where('invoice_id',$beginning->id)->forceDelete();
-			InvoicePayments::where('invoice_id',$beginning->id)->forceDelete();
-			foreach ($beginning->items as $item){
-				$current_qty = $item->item->available_qty - $item['qty'];
-				$item->item->update([
-					'available_qty' => $current_qty,
-				]);
-				if ($item->item->is_need_serial){
-					$item->item->serials()->where('purchase_invoice_id',$beginning->id)->forceDelete();
+			DB::beginTransaction();
+			try{
+				TransactionsContainer::where('invoice_id',$beginning->id)->forceDelete();
+				Transaction::where('invoice_id',$beginning->id)->forceDelete();
+				Payment::where('invoice_id',$beginning->id)->forceDelete();
+				InvoicePayments::where('invoice_id',$beginning->id)->forceDelete();
+				foreach ($beginning->items as $item){
+					$current_qty = $item->item->available_qty - $item['qty'];
+					if ($current_qty < 0){
+						throw new ValidationException([
+							'qty'
+						]);
+					}
+					$item->item->update([
+						'available_qty' => $current_qty,
+					]);
+					if ($item->item->is_need_serial){
+						$item->item->serials()->where('purchase_invoice_id',$beginning->id)->forceDelete();
+					}
+					
+					$item->item->stockMovement();
 				}
 				
+				$beginning->items()->forceDelete();
+				$beginning->forceDelete();
+				
+				DB::commit();
+			}catch (Exception $exception){
+				DB::rollBack();
 			}
 			
-			$beginning->items()->forceDelete();
-			$beginning->forceDelete();
 		}
 		
 	}

@@ -3,10 +3,8 @@
 	namespace App\DatabaseHelpers;
 	
 	
-	use App\Item;
 	use App\PurchaseInvoice;
 	use App\SaleInvoice;
-	use Dotenv\Exception\ValidationException;
 	
 	trait ItemHelper
 	{
