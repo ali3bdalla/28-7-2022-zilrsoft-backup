@@ -22,7 +22,7 @@
                 <div class="input-group">
                     <span class="input-group-addon" id="vendors-list">{{ app.trans.vendor }}</span>
                     <input aria-describedby="time-field" class="form-control " disabled name="" readonly
-                           type="text" v-model="user.name">
+                           type="text" v-model="user.locale_name">
 
                 </div>
             </div>
@@ -48,7 +48,7 @@
                     <div class="input-group">
                         <span class="input-group-addon" id="receivers-list">{{ app.trans.receiver }}</span>
                         <input aria-describedby="time-field" class="form-control" disabled name=""
-                               type="text" v-model="creator.name">
+                               type="text" v-model="creator.locale_name">
 
                     </div>
 
