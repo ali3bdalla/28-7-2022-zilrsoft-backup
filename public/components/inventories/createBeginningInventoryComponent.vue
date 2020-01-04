@@ -27,7 +27,7 @@
                             <div :class="{'has-error':errors.hasOwnProperty('vendor_id') }" class="input-group">
                                 <span class="input-group-addon" id="vendors-list">{{ translator.vendor }}</span>
                                 <input aria-describedby="time-field" class="form-control" disabled name="" readonly
-                                       type="text" v-model="user.name">
+                                       type="text" v-model="user.locale_name">
 
 
                             </div>
@@ -63,7 +63,7 @@
                                 <div :class="{'has-error':errors.hasOwnProperty('receiver_id') }" class="input-group">
                                     <span class="input-group-addon" id="receivers-list">{{ translator.receiver }}</span>
                                     <input aria-describedby="time-field" class="form-control" disabled name=""
-                                           type="text" v-model="creator.name">
+                                           type="text" v-model="creator.locale_name">
 
                                 </div>
                                 <p class="help is-danger is-center"
@@ -102,7 +102,7 @@
                         <div class="live-vue-search">
                             <a :key="item.id" @click="addItemToList(item)" class="message-header has-background-primary"
                                href="#" v-for="item in itemsSearchList">
-                                <h3 class="title">{{ item.name }} <small class="has-text-white">{{ item.barcode
+                                <h3 class="title">{{ item.locale_name }} <small class="has-text-white">{{ item.barcode
                                     }}</small></h3>
                                 {{ item.price }}
                             </a>
@@ -165,7 +165,7 @@
                         </th>
                         <!-- <th class="has-text-white"></th> -->
                         <th v-text="item.barcode"></th>
-                        <th v-text="item.name">item name</th>
+                        <th v-text="item.locale_name">item name</th>
                         <th width="6%">
                             <input
                                     @focus="$event.target.select()"

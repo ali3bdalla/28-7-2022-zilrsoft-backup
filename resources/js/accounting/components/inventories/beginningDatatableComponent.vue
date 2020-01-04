@@ -71,7 +71,7 @@
 
                         <td class="text-center" v-text="row.title"></td>
                         <td class="text-center" v-text="row.total"></td>
-                        <td class="text-center" v-text="row.creator.name"></td>
+                        <td class="text-center" v-text="row.creator.locale_name"></td>
                         <td v-text="row.created_at"></td>
                         <td>
 

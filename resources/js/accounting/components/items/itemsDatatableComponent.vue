@@ -62,7 +62,7 @@
                                     @valueUpdated="creatorListUpdated"
                                     default="0"
                                     identity="000000001"
-                                    label_text="name"
+                                    label_text="locale_name"
 
                             >
 
@@ -148,7 +148,7 @@
                         <td v-text="row.price"></td>
                         <td v-text="row.price_with_tax"></td>
                         <td v-text="row.available_qty"></td>
-                        <td class="text-right-with-padding" v-text="row.creator.name"></td>
+                        <td class="text-right-with-padding" v-text="row.creator.locale_name"></td>
                         <td v-text="row.created_at"></td>
                         <td>
 
