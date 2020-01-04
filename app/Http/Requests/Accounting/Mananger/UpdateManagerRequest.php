@@ -70,6 +70,7 @@
 								$gateway['id']
 								,[
 								'organization_id' => auth()->user()->organization_id,
+								'order_number' => $gateway['order_number'],
 							]);
 						}
 						

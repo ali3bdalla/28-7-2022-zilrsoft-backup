@@ -57,7 +57,7 @@
 			$expenses = Item::where('is_expense',true)->get();
 //			return $expenses;
 			$gateways =  auth()->user()->gateways()->get();
-
+//			return $gateways;
 
 			return view('accounting.sales.create',compact('clients','salesmen','gateways','expenses'));
 		}
@@ -108,6 +108,7 @@
 
 			$expenses = Item::where('is_expense',true)->get();
 			$gateways =  auth()->user()->gateways()->get();
+			
 			return view('accounting.sales.edit',compact('sale','invoice','items','gateways','expenses'));
 		}
 		

@@ -69,6 +69,8 @@
 					'manager_gateways',
 					'manager_id',
 					'gateway_id')
+					->withPivot('order_number as order_number')
+					->orderBy('order_number','asc')
 					->withTimestamps();
 		}
 		
