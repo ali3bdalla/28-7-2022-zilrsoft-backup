@@ -84,7 +84,7 @@
 
                 <tbody>
 
-                <tr :key="item.id" v-for="(item,index) in invoiceData.items">
+                <tr :key="item.id" v-for="(item,index) in invoiceData.items" v-if="!item.belong_to_kit">
 
                     <td>
                         <button @click="openItemSerialsModal(index,item)"

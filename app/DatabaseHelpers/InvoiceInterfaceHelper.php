@@ -143,6 +143,14 @@
 				}
 			}
 			
+			$paid = 0;
+			foreach ($this->payments as $payment)
+			{
+				$paid+=$payment['amount'];
+			}
+			
+			$result['remaining'] = $result['net'] - $paid;
+			
 			
 			$this->update($result);
 			
@@ -171,6 +179,14 @@
 				
 				
 			}
+			
+			$paid = 0;
+			foreach ($this->payments as $payment)
+			{
+				$paid+=$payment['amount'];
+			}
+			
+			$result['remaining'] = $result['net'] - $paid;
 			
 			
 			$this->update($result);
@@ -203,6 +219,15 @@
 				
 				
 			}
+			
+			$paid = 0;
+			foreach ($this->payments as $payment)
+			{
+				$paid+=$payment['amount'];
+			}
+			
+			$result['remaining'] = $result['net'] - $paid;
+			
 			
 			
 			$this->update($result);

@@ -39,6 +39,7 @@
 				"items.*.serials" => "validate_serials_array|array",
 				"client_id" => "required|integer|exists:users,id",
 				"salesman_id" => "required|integer|exists:managers,id",
+				"alice_name" => "nullable|string",
 				'methods.*.id' => 'required|integer|exists:accounts,id',
 			
 			];
@@ -52,7 +53,7 @@
 				$items = $this->items;
 				$base_invoice =
 					Invoice::initEmptyInvoice('sale',null,$this->input('notes'))
-						->addChildInvoice($this->client_id,"sale",$this->salesman_id)
+						->addChildInvoice($this->input("client_id"),"sale",$this->salesman_id,null,$this->input("alice_name"))
 						->createExpensesPurchases($items)
 						->addItemsToBaseInvoice($items)
 						->updateBaseInvoiceAccountingInformation()

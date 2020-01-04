@@ -37,6 +37,7 @@
 		'search_barcode' => 'البحث عن منتج عبر الاسم او الباركود ',
 		'search_barcode_sale' => 'البحث عن منتج عبر الاسم او الباركود  او السيريال نمبر',
 		'item_name' => 'اسم المنتج',
+		'make_alice_name' => 'اسم مستعار',
 		'invoice_data' => ' ',
 		'branch' => 'الفرع',
 		'items_qty_count' => 'عدد الوحدات',

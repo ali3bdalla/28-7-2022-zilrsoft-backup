@@ -85,7 +85,7 @@
 				
 				if (!$incItem['belong_to_kit']){
 					if ($incItem['is_kit']){
-					
+						$result_items[] = $incItem->addKitReturn($item,$this->fresh(),$this);
 					}else{
 						$result_items[] = $incItem->addQtyReturn($item,$this->fresh());
 					}
@@ -120,6 +120,12 @@
 				}
 			}
 			
+			$paid = 0;
+			foreach ($this->payments as $payment){
+				$paid += $payment['amount'];
+			}
+			
+			$result['remaining'] = $result['net'] - $paid;
 			
 			$this->update($result);
 			return $this;

@@ -41,7 +41,8 @@
 		 *
 		 * @return $this
 		 */
-		public function addChildInvoice($user_id,$base_invoice_type,$salesman_id = null,$parentInvoice = null)
+		public function addChildInvoice($user_id,$base_invoice_type,$salesman_id = null,$parentInvoice = null,
+		                                $alice_name = "")
 		{
 			if (in_array($base_invoice_type,['sale','r_sale'])){
 				$creator = auth()->user();
@@ -50,6 +51,7 @@
 					'client_id' => $user_id,
 					'organization_id' => $creator->organization_id,
 					'invoice_type' => $base_invoice_type,
+					'alice_name' => $alice_name,
 					"prefix" => $base_invoice_type == "sale" ? "SAI-" : "RSA-"
 				]);
 			}else{
@@ -138,6 +140,13 @@
 				}
 			}
 			
+			$paid = 0;
+			foreach ($this->payments as $payment)
+			{
+				$paid+=$payment['amount'];
+			}
+			
+			$result['remaining'] = $result['net'] - $paid;
 			
 			$this->update($result);
 			

@@ -19,6 +19,7 @@ class CreateSaleInvoicesTable extends Migration
             $table->integer('salesman_id');
             $table->integer('client_id');
             $table->integer('invoice_id');
+            $table->string('alice_name')->nullable();
             $table->boolean("is_full_returned")->default(0);
             $table->boolean("is_returned")->default(0);
             $table->string('prefix',30)->nullable();

@@ -73,7 +73,14 @@
 
     <div class="row">
         <div class="col-xs-6"> اسم العميل</div>
-        <div class="col-xs-6 text-left"> {{$invoice->sale->client->locale_name }}</div>
+        <div class="col-xs-6 text-left">
+            {{ $invoice->sale->alice_name == "" ? $invoice->sale->client->locale_name :$invoice->sale->alice_name   }}</div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">  الحالة</div>
+        <div class="col-xs-6 text-left">
+            {{ $invoice->current_status=='paid' ? trans('pages/invoice.paid') :  trans('pages/invoice.credit') }}
+        </div>
     </div>
 
 

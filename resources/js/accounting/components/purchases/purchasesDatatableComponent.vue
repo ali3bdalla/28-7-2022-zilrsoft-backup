@@ -1,6 +1,5 @@
 <template>
     <div class="table">
-        <tile :color="app.primaryColor" :loading="isLoading" v-show="isLoading"></tile>
         <div class="table-posistion">
 
             <div class="table-filters">
@@ -184,6 +183,8 @@
 
 
             </div>
+
+            <tile :color="app.primaryColor" :loading="isLoading" v-show="isLoading"></tile>
 
             <div class="table-paginations">
                 <accounting-table-pagination-helper-layout-component

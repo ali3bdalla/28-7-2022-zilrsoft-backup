@@ -32,7 +32,7 @@
 
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <accounting-select-with-search-layout-component
                         :default-index="clients[0].id"
                         :no_all_option="true"
@@ -46,6 +46,11 @@
                 >
 
                 </accounting-select-with-search-layout-component>
+
+            </div>
+            <div class="col-md-2">
+                <a @click="modalsInfo.showAliceNameModal=true" class="btn btn-custom-primary btn-lg btn-block">{{app.trans
+                    .make_alice_name}}</a>
 
             </div>
             <div class="col-md-6">
@@ -205,7 +210,7 @@
 
                     <td>
                         <input
-                                :disabled="item.is_fixed_price"
+                                :disabled="item.is_fixed_price || item.is_service"
                                 :ref="'itemPrice_' + item.id + 'Ref'"
                                 @change="itemPriceUpdated(item)"
                                 @focus="$event.target.select()"
@@ -222,7 +227,7 @@
                                v-model="item.total">
                     </td>
                     <td>
-                        <input :disabled="item.is_kit"
+                        <input :disabled="item.is_kit || item.is_service"
                                :ref="'itemDiscount_' + item.id + 'Ref'"
                                @change="itemDiscountUpdated(item)"
                                @focus="$event.target.select()"
@@ -368,32 +373,34 @@
         </div>
         <!--invoice Note Modal-->
 
-        <!--invoice other client name  Modal-->
-        <!--        <div v-if="modalsInfo.showClientModal===true">-->
-        <!--            <transition name="modal">-->
-        <!--                <div class="modal-mask">-->
-        <!--                    <div class="modal-wrapper">-->
-        <!--                        <div class="modal-dialog">-->
-        <!--                            <div class="modal-content">-->
-        <!--                                <div class="modal-header ">-->
-        <!--                                    <button @click="modalsInfo.showNoteModal = false"-->
-        <!--                                            class="pull-left btn btn-custom-primary"-->
-        <!--                                            type="button">-->
-        <!--                                        اغلاق-->
-        <!--                                    </button>-->
-        <!--                                    <h4 class="modal-title">{{app.trans.make_note}}</h4>-->
-        <!--                                </div>-->
-        <!--                                <div class="modal-body">-->
-        <!--                                    <textarea :placeholder="app.trans.type_here" class="form-control"-->
-        <!--                                              v-model="invoiceData.notes"></textarea>-->
-        <!--                                </div>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </transition>-->
-        <!--        </div>-->
-        <!--invoice other client name  Modal-->
+        <!--        invoice other client name  Modal-->
+        <div v-if="modalsInfo.showAliceNameModal===true">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header ">
+                                    <button @click="modalsInfo.showAliceNameModal = false"
+                                            class="pull-left btn btn-custom-primary"
+                                            type="button">
+                                        اغلاق
+                                    </button>
+                                    <h4 class="modal-title">{{app.trans.make_alice_name}}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input :placeholder="app.trans.type_here"
+                                           class="form-control"
+                                           type="text"
+                                           v-model="invoiceData.aliceName"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </div>
+        <!--        invoice other client name  Modal-->
 
     </div>
 
@@ -414,13 +421,15 @@
         data: function () {
             return {
                 modalsInfo: {
-                    showNoteModal: false
+                    showNoteModal: false,
+                    showAliceNameModal: false,
                 },
                 createdInvoiceId: 0,
                 everythingFineToSave: false,
                 selectedItem: null,
                 selectedItemIndex: null,
                 invoiceData: {
+                    aliceName: "",
                     remaining: 0,
                     notes: "",
                     vendorIncCumber: "",
@@ -673,13 +682,25 @@
 
 
             itemNetUpdated(item) {
-                let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts); //  1.05
-                item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
-                item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vts), 100)).toFixed(3);
-                item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
+                if (item.is_service) {
+                    // let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts); //  1.05
+                    item.price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vts);
+                    // item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
+                    // item.price = item.subtotal;
+                    item.total = item.price;
+                    item.subtotal = item.price;
+                    item.tax = ItemAccounting.getTax(item.subtotal,item.vts,true);
+                    item.discount = 0;
+                } else {
+                    let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts); //  1.05
+                    item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
+                    item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vts), 100)).toFixed(3);
+                    item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
+                }
+
                 // item.tax = ItemMath.sub(ItemMath.mult(item.subtotal, tax / 100), item.subtotal);
                 // this.items.splice(db.model.index(this.invoiceData.items), 1, item);
-                this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
+                // this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
 
             },
 
@@ -815,6 +836,7 @@
                 let data = {
                     items: this.invoiceData.items,
                     salesman_id: this.invoiceData.salesmanId,
+                    alice_name: this.invoiceData.aliceName,
                     client_id: this.invoiceData.clientId,
                     notes: this.invoiceData.notes,
                     total: this.invoiceData.total,

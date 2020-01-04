@@ -18,7 +18,6 @@
 		{
 			$children = $this->invoice->items()->where([['belong_to_kit',true],['parent_kit_id',$this->id]])->get();
 			
-			
 			$result['total'] = 0;
 			$result['subtotal'] = 0;
 			$result['tax'] = 0;
