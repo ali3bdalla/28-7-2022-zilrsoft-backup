@@ -52,13 +52,17 @@
 			try{
 				$items = $this->items;
 				$base_invoice =
-					Invoice::initEmptyInvoice('sale',null,$this->input('notes'))
-						->addChildInvoice($this->input("client_id"),"sale",$this->salesman_id,null,$this->input("alice_name"))
+					Invoice::
+						initEmptyInvoice('sale',null,$this->input('notes'))
+						->addChildInvoice($this->input("client_id"),
+							"sale",$this->salesman_id,
+							null,
+							$this->input("alice_name"))
+						
 						->createExpensesPurchases($items)
 						->addItemsToBaseInvoice($items)
 						->updateBaseInvoiceAccountingInformation()
 						->createInvoiceTransactions($this->methods);
-//
 				DB::commit();
 				return $base_invoice;
 			}catch (Exception $exception){

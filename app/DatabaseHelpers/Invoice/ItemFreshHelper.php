@@ -67,6 +67,8 @@
 		/**
 		 * @param $baseInvoice
 		 * @param $data
+		 *
+		 * @return mixed
 		 */
 		public function addToBaseInvoice($baseInvoice,$request_data)
 		{

@@ -89,11 +89,9 @@ var helpers = {
 
     showOnlyTwoAfterComma(val) {
         var num = val;
-        var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+        var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,4})?/)[0];
 
 
-        // alert(val);
-        // alert(with2Decimals);
         return with2Decimals;
 
     },

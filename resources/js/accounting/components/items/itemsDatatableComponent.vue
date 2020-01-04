@@ -4,12 +4,13 @@
         <div class="table-posistion">
 
             <div>
-                <input class="form-control" type="text" autofocus="autofocus"
-                       v-model="filters.barcodeNameAndSerial"
+                <input :placeholder="trans.search_barcode_sale" @focus="$event.target.select()"
+                       @keyup.enter="barcodeAndNameUpdated"
+                       autofocus="autofocus"
+                       class="form-control"
                        ref="barcodeAndNameUpdated"
-                       @focus="$event.target.select()"
-                       :placeholder="trans.search_barcode_sale"
-                       @keyup.enter="barcodeAndNameUpdated">
+                       type="text"
+                       v-model="filters.barcodeNameAndSerial">
             </div>
             <div class="table-filters">
                 <div @click="openOrCloseSearchPanel" class="text-right search-text" style="cursor: pointer;"><i
@@ -137,6 +138,7 @@
                             &nbsp;<span :style="{'color' :primaryColor}" v-if="row.is_need_serial">{{ row.barcode }}
                             </span>
 
+                            <span style="color:green" v-else-if="row.is_kit">{{ row.barcode}}</span>
                             <span v-else>{{ row.barcode}}</span> &nbsp;
                             <i :style="{'color':primaryColor}" class="fa fa-check-circle pull-left"
                                style="margin-top: 3px;" v-show="row.status=='active'"></i>
@@ -278,10 +280,9 @@
         },
         methods: {
 
-            barcodeAndNameUpdated()
-            {
-              this.pushServerRequest();
-              this.$refs.barcodeAndNameUpdated.select()
+            barcodeAndNameUpdated() {
+                this.pushServerRequest();
+                this.$refs.barcodeAndNameUpdated.select()
             },
 
 

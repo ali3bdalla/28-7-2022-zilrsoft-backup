@@ -50,7 +50,7 @@ exports.accounting = {
     },
 
     toFixedWithoutRound(value) {
-        return value.toString().match(/^-?\d+(?:\.\d{0,3})?/)[0];
+        return value.toString().match(/^-?\d+(?:\.\d{0,4})?/)[0];
 
     },
 

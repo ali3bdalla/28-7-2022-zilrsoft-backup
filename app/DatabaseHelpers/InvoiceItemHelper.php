@@ -89,12 +89,9 @@
 				
 			}else if ($sub_invoice->invoice_type == 'r_sale'){
 
-//
-				
+
 				$amount = $this->item->cost * $this->qty;
-//				var_dump($this->item);
-//				exit();
-				
+
 				$this->item->debit_transaction()->create([
 					'creator_id' => auth()->user()->id,
 					'organization_id' => auth()->user()->organization_id,
