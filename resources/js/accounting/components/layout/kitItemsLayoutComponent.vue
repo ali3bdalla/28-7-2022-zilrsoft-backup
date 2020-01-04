@@ -16,7 +16,7 @@
                         class="headline grey lighten-2"
                         primary-title
                 >
-                    {{ kit.name }}
+                    {{ kit.locale_name }}
                 </v-card-title>
 
                 <!--                </v-card>-->
