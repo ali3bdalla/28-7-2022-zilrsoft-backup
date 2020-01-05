@@ -695,8 +695,8 @@
                 var appVm = this;
                 axios.post(this.app.BaseApiUrl + 'purchases', data)
                     .then(function (response) {
-                        appVm.invoiceTitle = response.data.title;
-                        appVm.askUserToHandleInvoice(response.data);
+                        // appVm.invoiceTitle = response.data.title;
+                        // appVm.askUserToHandleInvoice(response.data);
 
                     })
                     .catch(function (error) {

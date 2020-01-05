@@ -117,7 +117,7 @@
 		 */
 		public function update(ReturnPurchaseRequest $request,Invoice $purchase)
 		{
-			return $request->save($purchase);
+			return $request->makeReturn($purchase);
 		}
 		
 	}

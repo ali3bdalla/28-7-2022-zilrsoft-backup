@@ -51,10 +51,10 @@
 					'invoice_type' => 'r_purchase',
 					'parent_id' => $baseInvoice->id
 				]);
-				$return_sale = $invoice->publishSubInvoice('sale',[
-					'invoice_type' => 'r_sale',
+				$return_sale = $invoice->publishSubInvoice('purchase',[
+					'invoice_type' => 'r_purchase',
 					'prefix' => 'RPU-',
-					'salesman_id' => $baseInvoice->purchase->salesman_id,
+					'receiver_id' => $baseInvoice->purchase->receiver_id,
 					'vendor_id' => $baseInvoice->purchase->vendor_id
 				]);
 				$this->toCreatePurchaseInvoiceForExpensesItems($invoice,$this->input('items'));
