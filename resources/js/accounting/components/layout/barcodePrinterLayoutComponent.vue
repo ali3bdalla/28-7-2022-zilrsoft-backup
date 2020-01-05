@@ -14,7 +14,7 @@
         <div class="row text-center align-content-center">
             <div class="col-md-6 text-center">
 
-                <div id="barcode_area" style="width: 264px;">
+                <div id="barcode_area" style="width: 260px;">
                     <barcode :value="itemData.barcode" font-size="18" height="100">
                     </barcode>
 
