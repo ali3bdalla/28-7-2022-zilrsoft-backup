@@ -15,7 +15,7 @@
             <div class="col-md-6 text-center">
 
                 <div id="barcode_area" style="width: 264px;">
-                    <barcode :value="itemData.barcode" height="100" font-size="18">
+                    <barcode :value="itemData.barcode" font-size="18" height="100">
                     </barcode>
 
                     <div class="row">
@@ -31,8 +31,8 @@
                         margin-left: -3px;" v-text="purchaseInvoiceId">
 
                         </div>
-                        <div align="left" class="col-md-6  div-col" style="margin-top: -28px; font-weight: bolder;
-                        margin-left: -5px;" v-text="convertEnToArabicNumber(itemData.price_with_tax.toString() ) +
+                        <div align="left" class="col-md-6  div-col" style="margin-top: -28px; font-weight: bolder;margin-left: -35px;
+    margin-right: 35px;" v-text="convertEnToArabicNumber(itemData.price_with_tax.toString() ) +
                         ' ر.س'">
 
                         </div>
@@ -77,8 +77,8 @@
                     barcode: "",
                     price_with_tax: "",
                 },
-                barcode:0,
-                price:0,
+                barcode: 0,
+                price: 0,
                 watcher: false,
                 itemsData: [],
                 app: {
@@ -139,7 +139,7 @@
                     });
             },
 
-            generatedBulkData(barcode_count = null,item = null) {
+            generatedBulkData(barcode_count = null, item = null) {
 
                 let appVm = this;
 
@@ -363,7 +363,6 @@
 
 
             printBulkFile(embededImage = null, Qty = null) {
-
 
 
                 // let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));

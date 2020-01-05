@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/2c7d99c57b1425817709171f55d8d3d345061ed8.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/2fb3ea4cf54f8238ed09e1139b52e3420bbeb2f3.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/3f586c07c2d7ab9e2a8a44fb714be71355af1c60.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/3fb1a9262ce1bf40295adf5be15c2099249f1f43.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/422d2838e8ab2c0e363edf8165597ffb84cf884c.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/5a04dbed8452a9f21c1e91ff2c478e5d19a527b5.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/61d8f66d89d22175aae6fd22907f41bbbf9d4e28.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/7a04a828db645b9c160eef0c16272c1403395404.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/9b15e320395d4d8ed9c20b5f20ac6a23ea5c4cf1.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/a5d7a317848a09b369a6d78d1a0d0e7fafa96016.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/b17f29b93e32d60ee0f52148ccda17238b85ec38.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodePrinterLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodePrinterLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/20huvex4n5jKJ8WW3iqA5nKv2kWGf3Nf85MXDx2S" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/h9oup0jTz18dOmm6lc3rjCEPKoVoI71jSkQ2yK7P" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/h9oup0jTz18dOmm6lc3rjCEPKoVoI71jSkQ2yK7P" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -441,7 +427,7 @@
       <workItem from="1577181612244" duration="98359000" />
       <workItem from="1577561097672" duration="759000" />
       <workItem from="1577567765490" duration="100630000" />
-      <workItem from="1578067206769" duration="51067000" />
+      <workItem from="1578067206769" duration="51197000" />
     </task>
     <servers />
   </component>
