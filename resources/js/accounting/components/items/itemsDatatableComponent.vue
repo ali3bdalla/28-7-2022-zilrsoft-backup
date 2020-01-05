@@ -166,7 +166,7 @@
                                                              v-text="trans.show"></a></li>
                                     <li v-if="canCreate==1  && !row.is_kit"><a :href="baseUrl + row.id + '/clone'"
                                                                                v-text="trans.clone"></a></li>
-                                    <li v-if="canViewAccounting==1 && !row.is_kit"><a :href="baseUrl + row.id +
+                                    <li v-if="!row.is_kit"><a :href="baseUrl + row.id +
                                     '/transactions'"
                                                                                       v-text="trans.transactions"></a>
                                     </li>
