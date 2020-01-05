@@ -29,8 +29,6 @@ import AccountingPurchasesCreateComponent from './components/purchases/purchases
 import AccountingInvoiceEmbeddedPaymentsGatewayLayout from './components/layout/invoiceEmbeddedPaymentsGatewayLayout';
 import AccountingInvoiceEmbeddedPurchaseExpensesLayoutComponent
     from './components/layout/invoiceEmbeddedPurchaseExpensesLayoutComponent';
-import AccountingInvoiceEmbeddedSaleExpensesLayoutComponent
-    from './components/layout/AccountingInvoiceEmbeddedSaleExpensesLayoutComponent';
 import AccountingSalesDatatableComponent from './components/sales/salesDatatableComponent';
 import AccountingSalesCreateComponent from './components/sales/salesCreateComponent';
 import AccountingSalesReturnComponent from './components/sales/salesReturnComponent';
@@ -42,6 +40,7 @@ import AccountingItemTransactionsComponent from './components/items/itemTransact
 import AccountingBarcodePrinterLayoutComponent from './components/layout/barcodePrinterLayoutComponent';
 import layoutPrintSingleBarcodeLayoutComponent from './components/layout/layoutPrintSingleBarcodeLayoutComponent';
 import AccountingKitItemsLayoutComponent from './components/layout/kitItemsLayoutComponent';
+import AccountingKitReturnItemsLayoutComponent from './components/layout/kitReturnItemsLayoutComponent';
 import AccountingPurchaseBarcodeButtonLayoutComponent from './components/layout/purchaseBarcodeButtonLayoutComponent';
 
 
@@ -75,7 +74,6 @@ Vue.component('accounting-purchases-datatable-component', AccountingPurchasesDat
 Vue.component('accounting-purchases-create-component', AccountingPurchasesCreateComponent);
 Vue.component('accounting-invoice-embedded-payments-gateway-layout', AccountingInvoiceEmbeddedPaymentsGatewayLayout);
 Vue.component('accounting-invoice-embedded-purchase-expenses-layout', AccountingInvoiceEmbeddedPurchaseExpensesLayoutComponent);
-Vue.component('accounting-invoice-embedded-sale-expenses-layout', AccountingInvoiceEmbeddedSaleExpensesLayoutComponent);
 Vue.component('accounting-sales-datatable-component', AccountingSalesDatatableComponent);
 Vue.component('accounting-sales-create-component', AccountingSalesCreateComponent);
 Vue.component('accounting-sales-return-component', AccountingSalesReturnComponent);
@@ -87,4 +85,5 @@ Vue.component('accounting-item-transactions-component', AccountingItemTransactio
 Vue.component('accounting-barcode-printer-layout-component', AccountingBarcodePrinterLayoutComponent);
 Vue.component('accounting-print-single-barcode-layout-component', layoutPrintSingleBarcodeLayoutComponent);
 Vue.component('accounting-kit-items-layout-component', AccountingKitItemsLayoutComponent);
+Vue.component('accounting-kit-return-items-layout-component', AccountingKitReturnItemsLayoutComponent);
 Vue.component('accounting-purchase-barcode-button-layout-component', AccountingPurchaseBarcodeButtonLayoutComponent);

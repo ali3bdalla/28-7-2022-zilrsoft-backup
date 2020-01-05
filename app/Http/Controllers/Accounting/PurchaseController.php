@@ -90,20 +90,18 @@
 		 */
 		public function edit(Invoice $purchase)
 		{
-			
-			$invoice = $purchase->invoice;
-			// items
+			$invoice = $purchase;
+			$purchase = $invoice->purchase;
 			$items = [];
-			foreach ($purchase->invoice->items()->with('item')->get() as $item){
+			foreach ($invoice->items()->with('item')->get() as $item){
 				if ($item->item->is_need_serial){
 					$item['serials'] = $item->item->serials()->purchase($invoice->id)->get();
 				}
 				$items [] = $item;
 			}
-			
 			$gateways = auth()->user()->gateways()->get();
-			return view('purchases.edit',compact('purchase','invoice','items','gateways'));
-			//
+			
+			return view('accounting.purchases.edit',compact('purchase','invoice','items','gateways'));
 		}
 		
 		/**

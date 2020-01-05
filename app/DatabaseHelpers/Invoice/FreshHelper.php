@@ -175,11 +175,9 @@
 		
 		public function createExpensesPurchases($expenses)
 		{
-			
 			$invoices = [];
 			foreach ($expenses as $request_item){
 				$item = Item::findOrFail($request_item['id']);
-				
 				if ($item->is_expense){
 					$invoices[] = $item->addPurchaseToExpense($request_item);
 				}

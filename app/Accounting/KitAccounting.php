@@ -39,7 +39,9 @@
 			$data['invoice_type'] = $baseInc->invoice_type;
 			$data['is_kit'] = true;
 			$createdKit = $baseInc->items()->create($data);
-			$this->updateInvoiceItemReturnedQty($createdKit,$returnQty);
+//			print_r($createdKit->net);
+//			exit();
+			$this->toUpdateInvoiceItemReturnedQty($kit,$returnQty);
 			return $createdKit;
 		}
 		

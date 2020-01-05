@@ -670,8 +670,6 @@
 
 
             pushDataToServer() {
-
-
                 let data = {
                     items: this.invoiceData.items,
                     vendor_id: this.invoiceData.vendorId,
@@ -697,12 +695,14 @@
                 var appVm = this;
                 axios.post(this.app.BaseApiUrl + 'purchases', data)
                     .then(function (response) {
-                        appVm.invoiceTitle = response.data.invoice.title;
+                        appVm.invoiceTitle = response.data.title;
                         appVm.askUserToHandleInvoice(response.data);
 
                     })
                     .catch(function (error) {
-                        alert(error.response)
+                        alert(error.response);
+                        console.log(error);
+                        console.log(error.response)
                     });
 
             },

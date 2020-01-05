@@ -91,15 +91,13 @@
                                 class="btn btn-success btn-xs"
                                 v-if="item.is_need_serial"><i class="fa fa-bars"></i> &nbsp;
                         </button>
-                        <!--                        <accounting-kit-items-layout-component-->
-                        <!--                                :index="index"-->
-                        <!--                                :kit="item"-->
-                        <!--                                :qty="item.qty"-->
-                        <!--                                @kitUpdated="kitItemsDataUpdated"-->
-                        <!--                                v-if="item.is_kit==true">-->
-
-                        <!--                        </accounting-kit-items-layout-component>-->
-
+<!--                        <accounting-kit-return-items-layout-component-->
+<!--                                :index="index"-->
+<!--                                :kit="item"-->
+<!--                                :qty="item.qty"-->
+<!--                                @kitUpdated="kitItemsDataUpdated"-->
+<!--                                v-if="item.is_kit==true">-->
+<!--                        </accounting-kit-return-items-layout-component>-->
 
                     </td>
                     <td v-text="item.barcode"></td>
@@ -630,7 +628,7 @@
                 axios.put(this.app.BaseApiUrl + 'sales/' + invoice.id, data)
                     .then(function (response) {
                         console.log(response.data);
-                        //
+
                         if (doWork == 'open') {
                             window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
                         } else {

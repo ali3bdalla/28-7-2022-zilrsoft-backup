@@ -2,13 +2,22 @@
 	
 	namespace App\Http\Requests\Accounting\Sale;
 	
+	use App\Accounting\AmountsAccounting;
+	use App\Accounting\ExpensesAccounting;
+	use App\Accounting\IdentityAccounting;
+	use App\Accounting\PaymentAccounting;
+	use App\Accounting\TransactionAccounting;
 	use App\Invoice;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
+	use Illuminate\Http\Response;
 	use Illuminate\Support\Facades\DB;
 	
 	class CreateSaleRequest extends FormRequest
 	{
+		
+		use TransactionAccounting,PaymentAccounting,IdentityAccounting,ExpensesAccounting,AmountsAccounting;
+		
 		/**
 		 * Determine if the user is authorized to make this request.
 		 *
@@ -50,25 +59,22 @@
 			
 			DB::beginTransaction();
 			try{
-				$items = $this->items;
-				$base_invoice =
-					Invoice::
-						initEmptyInvoice('sale',null,$this->input('notes'))
-						->addChildInvoice($this->input("client_id"),
-							"sale",$this->salesman_id,
-							null,
-							$this->input("alice_name"))
-						
-						->createExpensesPurchases($items)
-						->addItemsToBaseInvoice($items)
-						->updateBaseInvoiceAccountingInformation()
-						->createInvoiceTransactions($this->methods);
-				DB::commit();
-				return $base_invoice;
+				
+				$invoice = Invoice::publish(['invoice_type' => 'sale','notes' => $this->input('notes'),'parent_id' => 0]);
+				$sale = $invoice->publishSubInvoice('sale',[
+					'invoice_type' => 'sale',
+					'prefix' => 'SAI-',
+					'client_id' => $this->input("client_id"),
+					'salesman_id' => $this->input("salesman_id")]);
+				$this->toCreatePurchaseInvoiceForExpensesItems($invoice,$this->input('items'));
+				$invoice->addItemsToBaseInvoice($this->input('items'));
+				$this->toGetAndUpdatedAmounts($invoice);
+				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),$this->input("methods"),[]);
+
+				return $invoice->fresh();
 			}catch (Exception $exception){
 				
 				DB::rollBack();
-				
 				return response(json_encode([
 					'message' => $exception->getMessage()
 				]),400);
@@ -77,3 +83,17 @@
 			
 		}
 	}
+	
+	
+	
+	//				Invoice::
+	//				initEmptyInvoice('sale',null,$this->input('notes'))
+	//					->addChildInvoice($this->input("client_id"),
+	//						"sale",$this->salesman_id,
+	//						null,
+	//						$this->input("alice_name"))
+	//					->createExpensesPurchases($items)
+	//					->addItemsToBaseInvoice($items)
+	//					->updateBaseInvoiceAccountingInformation()
+	//					->createInvoiceTransactions($this->methods);
+	//				DB::commit();

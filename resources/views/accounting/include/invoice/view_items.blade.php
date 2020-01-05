@@ -23,7 +23,7 @@
                 <tr @if($item->belong_to_kit==true) class="bg-custom-primary" @endif>
                     <td>
                         <button class="btn btn-custom-primary btn-xs">{{$loop->index + 1}}</button>
-                        {{ $item->id }}
+
                     </td>
                     <td>
                         @if($item->item->is_need_serial)

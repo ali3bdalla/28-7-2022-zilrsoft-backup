@@ -4,10 +4,10 @@
 	
 	
 	use App\InvoiceItems;
-	use Dotenv\Exception\ValidationException;
 	
 	trait CoreInvoice
 	{
+		
 		
 		/**
 		 * @param array $user_data
@@ -32,20 +32,20 @@
 		
 		/**
 		 * @param string $table
-		 * @param array $info
-		 *  push subinvoice
+		 * @param array $info *
 		 *
-		 * @return mixed
+		 * @return
 		 */
 		public function publishSubInvoice($table = 'sale',$info = [])
 		{
 			
 			$info['organization_id'] = auth()->user()->organization_id;
 			if ($table === 'sale'){
-				return $this->sale()->create($info);
+				$invoice = $this->sale()->create($info);
 			}else{
-			
+				$invoice = $this->purchase()->create($info);
 			}
+			return $invoice;
 		}
 		
 		/**
@@ -65,7 +65,7 @@
 				}
 				$result_items = $this->pushReturnItems($itemsList);
 			}else{
-//				
+				$result_items = $this->pushFreshInvoiceItems($items);
 			}
 			
 			
@@ -79,17 +79,16 @@
 		 */
 		public function pushReturnItems($itemsList = [])
 		{
+
 			$result_items = [];
 			foreach ($itemsList as $item){
 				$incItem = InvoiceItems::findOrFail($item['id']);
-				
 				if (!$incItem['belong_to_kit']){
 					if ($incItem['is_kit']){
-						$result_items[] = $incItem->addKitReturn($item,$this->fresh());
+						$result_items[] = $incItem->preformKitReturn($item,$this->fresh());
 					}else{
-						$result_items[] = $incItem->addQtyReturn($item,$this->fresh());
+						$result_items[] = $incItem->preformItemReturn($item,$this->fresh());
 					}
-					
 				}
 				
 			}
@@ -98,37 +97,15 @@
 		}
 		
 		/**
-		 * @return $this
+		 * @param array $items
 		 */
-		public function runAccountingAmountUpdater()
+		public function pushFreshInvoiceItems($items = [])
 		{
-			$result['total'] = 0;
-			$result['subtotal'] = 0;
-			$result['tax'] = 0;
-			$result['discount_value'] = 0;
-			$result['net'] = 0;
+			if ($this->invoice_type == 'sale'){
 			
-			foreach ($this->items as $item){
-				if (!$item->item->is_kit){
-					if (!$item['belong_to_kit']){
-						$result['total'] = $result['total'] + $item['total'];
-						$result['discount_value'] = $result['discount_value'] + $item['discount'];
-					}
-					$result['subtotal'] = $result['subtotal'] + $item['subtotal'];
-					$result['tax'] = $result['tax'] + $item['tax'];
-					$result['net'] = $result['net'] + $item['net'];
-				}
+			}else{
+			
 			}
-			
-			$paid = 0;
-			foreach ($this->payments as $payment){
-				$paid += $payment['amount'];
-			}
-			
-			$result['remaining'] = $result['net'] - $paid;
-			
-			$this->update($result);
-			return $this;
 		}
 		
 		/**

@@ -55,10 +55,8 @@
 			$salesmen = Manager::all();
 			$clients = User::where('is_client',true)->get()->toArray();
 			$expenses = Item::where('is_expense',true)->get();
-//			return $expenses;
-			$gateways =  auth()->user()->gateways()->get();
-//			return $gateways;
-
+			$gateways = auth()->user()->gateways()->get();
+			
 			return view('accounting.sales.create',compact('clients','salesmen','gateways','expenses'));
 		}
 		
@@ -105,9 +103,9 @@
 				}
 				$items [] = $item;
 			}
-
+			
 			$expenses = Item::where('is_expense',true)->get();
-			$gateways =  auth()->user()->gateways()->get();
+			$gateways = auth()->user()->gateways()->get();
 			
 			return view('accounting.sales.edit',compact('sale','invoice','items','gateways','expenses'));
 		}

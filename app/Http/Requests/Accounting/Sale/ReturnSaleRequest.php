@@ -2,6 +2,11 @@
 	
 	namespace App\Http\Requests\Accounting\Sale;
 	
+	use App\Accounting\AmountsAccounting;
+	use App\Accounting\ExpensesAccounting;
+	use App\Accounting\IdentityAccounting;
+	use App\Accounting\PaymentAccounting;
+	use App\Accounting\TransactionAccounting;
 	use App\Invoice;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
@@ -9,6 +14,8 @@
 	
 	class ReturnSaleRequest extends FormRequest
 	{
+		use TransactionAccounting,PaymentAccounting,IdentityAccounting,ExpensesAccounting,AmountsAccounting;
+		
 		/**
 		 * Determine if the user is authorized to make this request.
 		 *
@@ -50,11 +57,12 @@
 					'client_id' => $baseInvoice->sale->client_id,
 					'salesman_id' => $baseInvoice->sale->salesman_id
 				]);
-				$items = $invoice->pushItems($this->items);
-				$invoice = $invoice->runAccountingAmountUpdater();
-				$invoice->pushTransactions($this->input("methods"),'r_sale');
-				$baseInvoice->updateReturnStatus();
 				
+				$this->toCreatePurchaseInvoiceForExpensesItems($invoice,$this->input('items'));
+				$invoice->pushItems($this->input('items'));
+				$this->toGetAndUpdatedAmounts($invoice);
+				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),$this->input("methods"),[]);
+				$this->toUpdateIsDeletedAndIsUpdated($baseInvoice);
 				DB::commit();
 				
 				return $invoice;

@@ -265,7 +265,7 @@
 				return $this->handle_return_sale_transactions($methods,$user_id,$net,$items,$expenses,$container_id);
 			}
 			
-			$container->update_amount();
+//			$container->update_amount();
 			
 			return 'paid';
 		}

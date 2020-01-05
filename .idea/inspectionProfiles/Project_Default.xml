@@ -3,14 +3,14 @@
     <option name="myName" value="Project Default" />
     <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <Languages>
-        <language minSize="306" name="PHP" />
+        <language minSize="385" name="PHP" />
       </Languages>
     </inspection_tool>
     <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="41">
+          <list size="43">
             <item index="0" class="java.lang.String" itemvalue="nobr" />
             <item index="1" class="java.lang.String" itemvalue="noembed" />
             <item index="2" class="java.lang.String" itemvalue="comment" />
@@ -52,10 +52,13 @@
             <item index="38" class="java.lang.String" itemvalue="accounting-barcode-printer-layout-component" />
             <item index="39" class="java.lang.String" itemvalue="accounting-sales-datatable-component" />
             <item index="40" class="java.lang.String" itemvalue="accounting-sales-return-component" />
+            <item index="41" class="java.lang.String" itemvalue="accounting-kit-.-items-layout-component" />
+            <item index="42" class="java.lang.String" itemvalue="accounting-kit-return-items-layout-component-items-layout-component" />
           </list>
         </value>
       </option>
       <option name="myCustomValuesEnabled" value="true" />
     </inspection_tool>
+    <inspection_tool class="MethodShouldBeFinalInspection" enabled="false" level="WARNING" enabled_by_default="false" />
   </profile>
 </component>

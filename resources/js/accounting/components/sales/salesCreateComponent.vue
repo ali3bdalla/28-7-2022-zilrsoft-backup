@@ -355,14 +355,6 @@
                                 </div>
                             </div>
 
-                            <!--                            <accounting-invoice-embedded-sale-expenses-layout-->
-                            <!--                                    :expensesList="expenses"-->
-                            <!--                                    :items="invoiceData.items"-->
-                            <!--                                    @pushUpdatePrice="expenseUpdatePrice"-->
-                            <!--                                    @updatedItemsList="updatedItemsList"-->
-                            <!--                            >-->
-
-                            <!--                            </accounting-invoice-embedded-sale-expenses-layout>-->
                         </div>
                     </div>
 
@@ -951,10 +943,8 @@
                 };
                 let appVm = this;
 
-                //
                 axios.post(this.app.BaseApiUrl + 'sales', data)
                     .then(function (response) {
-                        //
                         if (doWork == 'open') {
                             window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
                         } else if (doWork == 'print') {
@@ -978,14 +968,14 @@
                                 status: "credit"
                             };
 
-                            // setInterval(function () {
-                            // window.location.reload();
-                            // }, 1000);
+                            setInterval(function () {
+                                window.location.reload();
+                            }, 1000);
 
                         } else {
                             window.location.reload();
                         }
-                        //
+
                     })
                     .catch(function (error) {
                         alert(error.response.data.message);

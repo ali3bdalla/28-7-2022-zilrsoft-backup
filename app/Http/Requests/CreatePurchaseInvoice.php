@@ -76,7 +76,6 @@
 				$sub_invoice = $this->create_subinvoice($invoice);
 				$expenses = $this->get_expense_array();
 				$invoice->add_items_to_invoice($this->items,$sub_invoice,$expenses,'purchase',$this->vendor_id);
-				
 				$expenses = $this->get_expense_array();
 				$invoice_status = $invoice->handle_invoice_transactions($this->methods,$this->vendor_id,
 					$this->net,$this->items,$expenses);
