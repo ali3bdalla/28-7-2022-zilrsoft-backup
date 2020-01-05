@@ -80,45 +80,48 @@
 		 */
 		public function show(Invoice $sale)
 		{
+			
 			$transactions = $sale->transactions()->where('description','!=','client_balance')->get();
 			$invoice = $sale;
 			return view('accounting.sales.show',compact('invoice','transactions'));
 			//
 		}
-		
-		/**
-		 * @param Invoice $sale
-		 *
-		 * @return Factory|View
-		 */
-		public function edit(Invoice $sale)
-		{
-			$invoice = $sale;
-			$sale = $invoice->sale;
-			$items = [];
-			$data_source_items = $invoice->items()->with('item')->get();
-			foreach ($data_source_items as $item){
-				if ($item->item->is_need_serial){
-					$item['serials'] = $item->item->serials()->sale($invoice->id)->get();
-				}
-				$items [] = $item;
+	
+	/**
+	 * @param Invoice $sale
+	 *
+	 * @return Factory|View
+	 */
+	public
+	function edit(Invoice $sale)
+	{
+		$invoice = $sale;
+		$sale = $invoice->sale;
+		$items = [];
+		$data_source_items = $invoice->items()->with('item')->get();
+		foreach ($data_source_items as $item){
+			if ($item->item->is_need_serial){
+				$item['serials'] = $item->item->serials()->sale($invoice->id)->get();
 			}
-			
-			$expenses = Item::where('is_expense',true)->get();
-			$gateways = auth()->user()->gateways()->get();
-			
-			return view('accounting.sales.edit',compact('sale','invoice','items','gateways','expenses'));
+			$items [] = $item;
 		}
 		
-		/**
-		 * @param Invoice $sale
-		 * @param ReturnSaleRequest $request
-		 *
-		 * @return ResponseFactory|Response|mixed
-		 */
-		public function update(Invoice $sale,ReturnSaleRequest $request)
-		{
-			return $request->makeReturn($sale);
-		}
+		$expenses = Item::where('is_expense',true)->get();
+		$gateways = auth()->user()->gateways()->get();
+		
+		return view('accounting.sales.edit',compact('sale','invoice','items','gateways','expenses'));
+	}
+	
+	/**
+	 * @param Invoice $sale
+	 * @param ReturnSaleRequest $request
+	 *
+	 * @return ResponseFactory|Response|mixed
+	 */
+	public
+	function update(Invoice $sale,ReturnSaleRequest $request)
+	{
+		return $request->makeReturn($sale);
+	}
 		
 	}

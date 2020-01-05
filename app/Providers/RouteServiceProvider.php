@@ -2,6 +2,7 @@
 	
 	namespace App\Providers;
 	
+	use App\Invoice;
 	use App\Item;
 	use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 	use Illuminate\Support\Facades\Route;
@@ -33,6 +34,10 @@
 					['is_kit',true],
 					['id',$value],
 				])->firstOrFail();
+			});
+			
+			Route::bind('sale',function ($value){
+				return Invoice::where('id',$value)->withoutGlobalScope('currentManagerInvoicesOnly')->first();
 			});
 		}
 		
