@@ -31,8 +31,12 @@
                         margin-left: -3px;" v-text="purchaseInvoiceId">
 
                         </div>
-                        <div align="left" class="col-md-6  div-col" style="margin-top: -28px; font-weight: bolder;margin-left: -35px;
-    margin-right: 35px;" v-text="convertEnToArabicNumber(itemData.price_with_tax.toString() ) +
+                        <div align="left" class="col-md-6  div-col" style="
+                            margin-left: 10px;
+                            margin-right: -10px;
+                            margin-top: -28px;
+                            font-weight: bolder;"
+                             v-text="convertEnToArabicNumber(itemData.price_with_tax.toString() ) +
                         ' ر.س'">
 
                         </div>
@@ -129,7 +133,10 @@
                 }).then(function (dataUrl) {
                     appVm.src = dataUrl;
                     appVm.image = dataUrl;
+                    var DOM_img = document.createElement("img");
+                    DOM_img.src = dataUrl;
 
+                    document.getElementById("showGeneratedBarcodeImageId").appendChild(DOM_img);
                     if (appVm.insideInvoice == true && appVm.print == true) {
                         appVm.printBulkFile(dataUrl, barcode_count);
                     }
