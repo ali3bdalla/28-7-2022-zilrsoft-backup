@@ -14,9 +14,10 @@
 @section("content")
     <div class="row">
         <div class="col-md-4">
-            <accounting-dashboard-must-saled-items-component>
+            <accounting-dashboard-active-items-layout-component>
 
-            </accounting-dashboard-must-saled-items-component>
+            </accounting-dashboard-active-items-layout-component>
+
         </div>
         <div class="col-md-4">
             <accounting-dashboard-items-chart-component
@@ -33,29 +34,29 @@
             </accounting-dashboard-items-chart-component>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <accounting-dashboard-items-chart-component
-                    type="polarArea"
-                    title="عمليات">
+{{--    <div class="row">--}}
+{{--        <div class="col-md-4">--}}
+{{--            <accounting-dashboard-items-chart-component--}}
+{{--                    type="polarArea"--}}
+{{--                    title="عمليات">--}}
 
-            </accounting-dashboard-items-chart-component>
-        </div>
-        <div class="col-md-4">
-            <accounting-dashboard-items-chart-component
-                    type="doughnut"
-                    title="منتجات">
+{{--            </accounting-dashboard-items-chart-component>--}}
+{{--        </div>--}}
+{{--        <div class="col-md-4">--}}
+{{--            <accounting-dashboard-items-chart-component--}}
+{{--                    type="doughnut"--}}
+{{--                    title="منتجات">--}}
 
-            </accounting-dashboard-items-chart-component>
-        </div>
-        <div class="col-md-4">
-            <accounting-dashboard-items-chart-component
-                    type="pie"
-                    title="فلاتر">
+{{--            </accounting-dashboard-items-chart-component>--}}
+{{--        </div>--}}
+{{--        <div class="col-md-4">--}}
+{{--            <accounting-dashboard-items-chart-component--}}
+{{--                    type="pie"--}}
+{{--                    title="فلاتر">--}}
 
-            </accounting-dashboard-items-chart-component>
-        </div>
-    </div>
+{{--            </accounting-dashboard-items-chart-component>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 @endsection
 
 

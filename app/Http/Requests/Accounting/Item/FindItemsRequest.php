@@ -40,9 +40,14 @@
 		{
 			
 			
+			$limit = 6;
+			
+			if ($this->has('invoice_type') && $this->filled('invoice_type') && $this->input('invoice_type') == 'dashbaord'){
+				$limit = 10;
+			}
 			$query = Item::where('is_expense',false)->with('data','items')->withCount(['history' => function (Builder $query){
 				$query->where('invoice_type','sale');
-			}])->orderBy('history_count','desc')->limit(6);
+			}])->orderBy('history_count','desc')->limit($limit);
 			
 			
 			if ($this->has('barcode_or_name_or_serial') && $this->filled('barcode_or_name_or_serial')){
@@ -50,7 +55,7 @@
 					->orWhere('name','LIKE','%'.$this->input('barcode_or_name_or_serial').'%')
 					->orWhere('ar_name','LIKE','%'.$this->input('barcode_or_name_or_serial').'%');
 			}
-			$result = $query->take(6)->get();
+			$result = $query->take($limit)->get();
 			
 			if ($this->has('invoice_type') && $this->input("invoice_type") == 'sale'){
 				
