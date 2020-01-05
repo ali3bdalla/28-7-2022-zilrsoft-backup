@@ -74,14 +74,5 @@
 				'serials' => $childReturnedSerials
 			];
 			return $ItemReturnAccountingData;
-
-
-//			$kitItem->item;
-//			$item = Item::findOrFail($child->item_id);
-//			if()
-//
-
-
-//			$child->addQtyReturn($sendData,$baseInvoice);
 		}
 	}

@@ -42,6 +42,7 @@ import layoutPrintSingleBarcodeLayoutComponent from './components/layout/layoutP
 import AccountingKitItemsLayoutComponent from './components/layout/kitItemsLayoutComponent';
 import AccountingKitReturnItemsLayoutComponent from './components/layout/kitReturnItemsLayoutComponent';
 import AccountingPurchaseBarcodeButtonLayoutComponent from './components/layout/purchaseBarcodeButtonLayoutComponent';
+import AccountingPurchasesReturnComponent from './components/purchases/purchasesReturnComponent';
 
 
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
@@ -87,3 +88,4 @@ Vue.component('accounting-print-single-barcode-layout-component', layoutPrintSin
 Vue.component('accounting-kit-items-layout-component', AccountingKitItemsLayoutComponent);
 Vue.component('accounting-kit-return-items-layout-component', AccountingKitReturnItemsLayoutComponent);
 Vue.component('accounting-purchase-barcode-button-layout-component', AccountingPurchaseBarcodeButtonLayoutComponent);
+Vue.component('accounting-purchases-return-component', AccountingPurchasesReturnComponent);

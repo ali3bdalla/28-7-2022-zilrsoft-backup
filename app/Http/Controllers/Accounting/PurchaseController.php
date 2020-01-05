@@ -6,8 +6,10 @@
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Purchase\CreatePurchaseRequest;
 	use App\Http\Requests\Accounting\Purchase\DatatableRequest;
+	use App\Http\Requests\Accounting\Purchase\ReturnPurchaseRequest;
 	use App\Http\Requests\CreateReturnPurchaseRequest;
 	use App\Invoice;
+	use App\Item;
 	use App\Manager;
 	use App\PurchaseInvoice;
 	use App\User;
@@ -90,16 +92,19 @@
 		 */
 		public function edit(Invoice $purchase)
 		{
+			
 			$invoice = $purchase;
 			$purchase = $invoice->purchase;
 			$items = [];
-			foreach ($invoice->items()->with('item')->get() as $item){
+			$data_source_items = $invoice->items()->with('item')->get();
+			foreach ($data_source_items as $item){
 				if ($item->item->is_need_serial){
 					$item['serials'] = $item->item->serials()->purchase($invoice->id)->get();
 				}
 				$items [] = $item;
 			}
 			$gateways = auth()->user()->gateways()->get();
+			
 			
 			return view('accounting.purchases.edit',compact('purchase','invoice','items','gateways'));
 		}
@@ -110,7 +115,7 @@
 		 *
 		 * @throws Exception
 		 */
-		public function update(CreateReturnPurchaseRequest $request,PurchaseInvoice $purchase)
+		public function update(ReturnPurchaseRequest $request,Invoice $purchase)
 		{
 			return $request->save($purchase);
 		}
