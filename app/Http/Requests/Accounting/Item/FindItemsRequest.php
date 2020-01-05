@@ -4,6 +4,7 @@
 	
 	use App\Item;
 	use App\ItemSerials;
+	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class FindItemsRequest extends FormRequest
@@ -39,7 +40,11 @@
 		{
 			
 			
-			$query = Item::where('is_expense',false)->with('data','items');
+			$query = Item::where('is_expense',false)->with('data','items')->withCount(['history' => function (Builder $query){
+				$query->where('invoice_type','sale');
+			}])->orderBy('history_count','desc')->limit(6);
+			
+			
 			if ($this->has('barcode_or_name_or_serial') && $this->filled('barcode_or_name_or_serial')){
 				$query = $query->where('barcode','LIKE','%'.$this->input('barcode_or_name_or_serial').'%')
 					->orWhere('name','LIKE','%'.$this->input('barcode_or_name_or_serial').'%')

@@ -14,12 +14,9 @@
 @section("content")
     <div class="row">
         <div class="col-md-4">
-{{--            line', 'bar', 'radar', 'polarArea', 'pie', 'doughnut', 'bubble'.--}}
-            <accounting-dashboard-items-chart-component
-                    type="line"
-                    title="عمليات">
+            <accounting-dashboard-must-saled-items-component>
 
-            </accounting-dashboard-items-chart-component>
+            </accounting-dashboard-must-saled-items-component>
         </div>
         <div class="col-md-4">
             <accounting-dashboard-items-chart-component
