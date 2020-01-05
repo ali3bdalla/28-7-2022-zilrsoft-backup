@@ -20,7 +20,7 @@
 
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 5px;
-                        margin-left: -3px;margin-top: -5px;font-family: Arial !important;"
+                        margin-left: -3px;margin-top: -5px;font-family: 'Cairo', sans-serif !important;"
                              v-text="itemData.ar_name.substr(0,20)">
 
                         </div>
@@ -450,6 +450,7 @@
 
 
 <style>
+    @import "https://fonts.googleapis.com/css?family=Cairo&display=swap";
 
     #barcode_area svg {
         /*height: 100px !important;*/
