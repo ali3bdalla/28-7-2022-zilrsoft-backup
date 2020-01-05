@@ -85,7 +85,7 @@
 				}
 				
 				
-				$query = $query->where('id',$number);
+				$query = $query->where('id',$number)->withoutGlobalScope('currentManagerInvoicesOnly');
 			}
 
 //
