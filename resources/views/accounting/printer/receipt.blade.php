@@ -77,7 +77,7 @@
             {{ $invoice->sale->alice_name == "" ? $invoice->sale->client->locale_name :$invoice->sale->alice_name   }}</div>
     </div>
     <div class="row">
-        <div class="col-xs-6">  الحالة</div>
+        <div class="col-xs-6"> الحالة</div>
         <div class="col-xs-6 text-left">
             {{ $invoice->current_status=='paid' ? trans('pages/invoice.paid') :  trans('pages/invoice.credit') }}
         </div>
@@ -173,6 +173,24 @@
                         <td><span>{{ $item->net }}</span></td>
                     </tr>
 
+                    @if($item->item->is_need_serial)
+                        @foreach($item->item->serials()
+                                   ->where([
+                                   ["sale_invoice_id",$invoice->id],
+                                   ["item_id",$item->item->id],
+                                   ])
+                                   ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                   ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                   ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                   ->get() as $index => $serial
+                                   )
+                            <tr>
+                                <td style="padding-right:10px;text-align: right" colspan="6"><span>{{ $serial->$serial
+                                }}</span></td>
+
+                            </tr>
+                        @endforeach
+                    @endif
                     {{--                    <tr>--}}
                     {{--                        <td colspan="6">--}}
                     {{--                            <span></span></td>--}}
