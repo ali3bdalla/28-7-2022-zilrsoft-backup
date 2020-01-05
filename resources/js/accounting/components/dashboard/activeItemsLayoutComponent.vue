@@ -10,7 +10,7 @@
                     <a :href="'/accounting/items/' + item.id + '/transactions'">
                         {{ item.locale_name}}
                     </a>
-                    {{ item.updated_at}} -  <span class="text-success">({{ item.cost}})</span>
+                    {{ item.updated_at}} -  <span class="text-success">({{ parseFloat(item.cost).toFixed(2)}})</span>
 
                 </li>
 
