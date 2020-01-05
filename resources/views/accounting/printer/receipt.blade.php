@@ -185,8 +185,7 @@
                                    ->get() as $index => $serial
                                    )
                             <tr>
-                                <td style="padding-right:10px;text-align: right" colspan="6"><span>{{ $serial->$serial
-                                }}</span></td>
+                                <td style="padding-right:10px;text-align: right" colspan="6"><span>{{ $serial->serial }}</span></td>
 
                             </tr>
                         @endforeach
