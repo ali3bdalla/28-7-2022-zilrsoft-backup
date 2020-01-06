@@ -39,12 +39,10 @@
 			$data = $this->only('parent_id','name','ar_name');
 			$data['organization_id'] = auth()->user()->organization_id;
 			$data['serial'] = auth()->user()->organization_id;
+			$data['type'] = $parent->type;
 			$data['slug'] = $parent->slug;
 			
-//			if ($request->has('is_gateway') && $request->filled('is_gateway'))
-//				$data['is_gateway'] = true;
-//			else
-				$data['is_gateway'] = false;
+			$data['is_gateway'] = false;
 			
 			
 			auth()->user()->accounts()->create($data);

@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Account;
 	
+	use App\Account;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class UpdateAccountRequest extends FormRequest
@@ -32,12 +33,18 @@
 		}
 		
 		public function update($account)
+		
 		{
+			$parent = Account::find($this->parent_id);
+			
 			$data = $this->only('parent_id','name','ar_name');
 			if ($this->has('is_gateway') && $this->filled('is_gateway'))
 				$data['is_gateway'] = true;
 			else
 				$data['is_gateway'] = false;
+			
+			$data['type'] = $parent->type;
+			$data['slug'] = $parent->slug;
 			
 			$account->update($data);
 		}
