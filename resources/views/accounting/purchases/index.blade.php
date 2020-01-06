@@ -14,13 +14,19 @@
 @endsection
 
 
-
+@section('page_css')
+    <style>
+        .navbar {
+            background-color: green !important;
+        }
+    </style>
+@endsection
 @section("content")
 
     <accounting-purchases-datatable-component
             :creators='@json($creators)'
             :vendors='@json($vendors)'
-        :can-edit="{{ auth()->user()->canDo('edit purchase') }}"
+            :can-edit="{{ auth()->user()->canDo('edit purchase') }}"
     >
 
 

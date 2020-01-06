@@ -3,13 +3,20 @@
 @section('title',__('pages/invoice.return'))
 
 
+{{--@section('page_css')--}}
+{{--    <script defer>--}}
+{{--        window.translator = '@json(trans('pages/invoice'))'--}}
+{{--    </script>--}}
+{{--@stop--}}
+
+
 @section('page_css')
-    <script defer>
-        window.translator = '@json(trans('pages/invoice'))'
-    </script>
-@stop
-
-
+    <style>
+        .navbar {
+            background-color: green !important;
+        }
+    </style>
+@endsection
 
 @section('content')
 

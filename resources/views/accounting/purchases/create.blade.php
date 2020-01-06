@@ -3,6 +3,13 @@
 
 
 
+@section('page_css')
+    <style>
+        .navbar {
+            background-color: green !important;
+        }
+    </style>
+@endsection
 @section('content')
     <accounting-purchases-create-component
             :can-create-item="{{ auth()->user()->canDo('create item') }}"

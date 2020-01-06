@@ -1,6 +1,13 @@
 @extends('accounting.layout.master')
 
 
+@section('page_css')
+    <style>
+        .navbar {
+            background-color: green !important;
+        }
+    </style>
+@endsection
 @section('title',__('pages/invoice.view') . ' | '. $invoice->title )
 @section('buttons')
 
