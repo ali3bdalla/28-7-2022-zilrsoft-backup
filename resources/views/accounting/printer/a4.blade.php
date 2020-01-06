@@ -246,43 +246,46 @@
                                      <td class="total" style="background-color:
 							  <?php echo $background_color;?> !important;"> {{ $item->net }}</td>
                                  </tr>
-                                 @if($item->item->is_need_serial)
-                                     @foreach($item->item->serials()
-                                    ->where([
-                                    ["sale_invoice_id",$invoice->id],
-                                    ["item_id",$item->item->id],
-                                    ])
-                                    ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                    ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                    ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                    ->get() as $index => $serial
-                                    )
-                                         <tr style="background-color: #8888">
+                                 @if(!in_array($item->invoice_type,['purchase']))
+                                     @if($item->item->is_need_serial)
+                                         @foreach($item->item->serials()
+                                        ->where([
+                                        ["sale_invoice_id",$invoice->id],
+                                        ["item_id",$item->item->id],
+                                        ])
+                                        ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                        ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                        ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                        ->get() as $index => $serial
+                                        )
+                                             <tr style="background-color: #8888">
 
-                                             <td class="" style="width:30px !important;">S/N</td>
-                                             <td class="desc"
-                                                 style="width: 10%  !important;text-align: right !important;
-                                                         font-weight: bold;font-size: 10px !important;color: black;
-                                                         background-color:
-									    <?php echo $background_color;?> !important;padding-right: 20px !important;">{{
+                                                 <td class="" style="width:30px !important;">S/N</td>
+                                                 <td class="desc"
+                                                     style="width: 10%  !important;text-align: right !important;
+                                                             font-weight: bold;font-size: 10px !important;color: black;
+                                                             background-color:
+									        <?php echo $background_color;?> !important;padding-right: 20px !important;">{{
                                 $serial->serial }}</td>
-                                             <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"></td>
-                                             <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"></td>
-                                             <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"></td>
-                                             <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"></td>
-                                             <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"></td>
-                                             <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"></td>
-                                         </tr>
+                                                 <td class="total" style="background-color:
+									    <?php echo $background_color;?> !important;"></td>
+                                                 <td class="total" style="background-color:
+									    <?php echo $background_color;?> !important;"></td>
+                                                 <td class="total" style="background-color:
+									    <?php echo $background_color;?> !important;"></td>
+                                                 <td class="total" style="background-color:
+									    <?php echo $background_color;?> !important;"></td>
+                                                 <td class="total" style="background-color:
+									    <?php echo $background_color;?> !important;"></td>
+                                                 <td class="total" style="background-color:
+									    <?php echo $background_color;?> !important;"></td>
+                                             </tr>
 
-                                     @endforeach
+                                         @endforeach
+                                     @endif
                                  @endif
                                  @endforeach
+
                              @endif
 
                     </tbody>
@@ -327,8 +330,8 @@
             <div class="number">
                 <div style="text-align: center;">الاجمالي</div>
                 <div style="margin: 10px;text-align: center;font-size: 25px">
-                <h3 class=><b>
-                        {{ $invoice->net }}</b></h3>
+                    <h3 class=><b>
+                            {{ $invoice->net }}</b></h3>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -379,7 +382,7 @@
         </div>
         <div class="end" style="padding-top: 10px"> {{ auth()->user()->organization->city_ar }}
             - {{ auth()->user()->organization->address_ar }}</div>
-        <div  style="padding-top: 10px;text-align: center"> سعدنا بخدمتك</div>
+        <div style="padding-top: 10px;text-align: center"> سعدنا بخدمتك</div>
     </div>
 </footer>
 

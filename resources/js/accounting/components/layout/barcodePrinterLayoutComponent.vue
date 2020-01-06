@@ -29,7 +29,7 @@
                     <div class="row">
                         <div align="right" class="col-md-6 " style="margin-top: -28px;
                         font-weight: bold;margin-right: 3px !important;
-                        margin-left: -3px;" v-text="purchaseInvoiceId">
+                        margin-left: -3px;">
 
                         </div>
                         <div align="left" class="col-md-6  div-col" style="
@@ -69,11 +69,9 @@
 
     export default {
         components: {'barcode': VueBarcode, domtoimage, VueBarcode},
-        props: ['items', 'print', 'insideInvoice', 'item', 'invoice-id'],
+        props: ['print', 'insideInvoice', 'item', 'invoice-id'],
         data: function () {
             return {
-                blukData: [],
-                purchaseInvoiceId: "",
                 image: null,
                 cropper: null,
                 number_of_barcode: 1,
@@ -82,10 +80,6 @@
                     barcode: "",
                     price_with_tax: "",
                 },
-                barcode: 0,
-                price: 0,
-                watcher: false,
-                itemsData: [],
                 app: {
                     primaryColor: metaHelper.getContent('primary-color'),
                     secondColor: metaHelper.getContent('second-color'),
@@ -97,33 +91,18 @@
 
         },
         created: function () {
-            this.itemsData = this.items;
-            this.purchaseInvoiceId = this.invoiceId;
             this.connectQZ();
-            if (this.item != null) {
-
-                this.itemData = this.item;
-
-            }
-
         },
 
         mounted: function () {
             if (this.item != null) {
-
                 this.generatedData();
-                console.log(this.image);
             }
         },
-
         methods: {
-
-
             generatedData(barcode_count = null) {
 
                 let appVm = this;
-
-                //
                 domtoimage.toPng(document.getElementById('barcode_area'), {
                     quality: 1, style: {
                         width: '100%',
@@ -146,35 +125,6 @@
                         console.log(error)
                     });
             },
-
-            generatedBulkData(barcode_count = null, item = null) {
-
-                let appVm = this;
-
-                this.itemData.barcode = item.barcode;
-                this.itemData.price_with_tax = item.price_with_tax;
-                this.itemData.ar_anme = item.ar_anme;
-                //
-                // domtoimage.toPng(document.getElementById('barcode_area'), {
-                //     quality: 1, style: {
-                //         width: '100%',
-                //         height: '100%',
-                //         padding: '0px',
-                //         margin: "0px"
-                //     }
-                // }).then(function (dataUrl) {
-                //     appVm.src = dataUrl;
-                //     appVm.image = dataUrl;
-                //
-                //     if (appVm.insideInvoice == true && appVm.print == true) {
-                //         appVm.printBulkFile(dataUrl, barcode_count);
-                //     }
-                // })
-                //     .catch(function (error) {
-                //         console.log(error)
-                //     });
-            },
-
             connectQZ() {
                 var appVm = this;
                 qz.security.setCertificatePromise(function (resolve, reject) {
@@ -296,7 +246,6 @@
                     return qz.printers.find();
                 });
             },
-
             convertEnToArabicNumber(en) {
                 var response = [];
                 var en_arr = en.split('');
@@ -332,14 +281,10 @@
 
 
                 return response.join('');
-            }
-            ,
-
+            },
             chr(n) {
                 return String.fromCharCode(n);
             },
-
-
             printSingleFile() {
 
                 let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
@@ -369,80 +314,8 @@
                 qz.print(config, data);
             },
 
-
-            printBulkFile(embededImage = null, Qty = null) {
-
-
-                // let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
-                //
-                // let barcode_count = Qty == null ? 0 : Qty;
-                //
-                // let data = [];
-                // data.push(
-                //     '\nN\n' +
-                //     'A180,20,0,2,1,1,N, \n' +
-                //     'A200,50,0,4,1,1,N, \n' +
-                //     'B200,100,0,1A,1,2,30,B, \n' +
-                //     '\nP1\n'
-                // );
-                //
-                //
-                // for (let i = 0; i < barcode_count; i++) {
-                //     data.push(
-                //         '\nN\n',
-                //         {
-                //             type: 'raw', format: 'image', data: embededImage,
-                //             options: {language: 'EPL', y: 0, x: 170}
-                //         },
-                //         '\nP1,1\n'
-                //     );
-                // }
-                //
-                //
-                // qz.print(config, data);
-                this.watcher = false;
-            },
-
-            bulkPrintListener() {
-
-
-                // var indexer = 0;
-                // for (let i = 0; i < this.itemsData.length; i++) {
-                //     // this.itemData = this.itemsData[indexer];
-                //     // this.watcher = true;
-                //     // this.generatedBulkData(this.itemsData[0].qty,this.itemsData[0]);
-                //
-                //
-                //     let index = 0;
-                //     while (index<1000000) {
-                //         index++;
-                //     }
-                //     indexer++;
-                //     //
-                //     //
-                //     // while (goNext != true) {
-                //     //     if (this.watcher) {
-                //     //         goNext = true;
-                //     //     }
-                //     // }
-                //     // goNext = false;
-                // }
-                //
-                // this.$emit('bulkPrintComplete', {});
-            }
-
         },
-        watch: {
-            print: function (value) {
-                this.bulkPrintListener();
-            },
-            items: function (value) {
-                this.itemsData = value;
-            },
-            invoiceId: function (value) {
-                this.purchaseInvoiceId = value;
-            }
-        }
+
     }
 
 

@@ -38,6 +38,7 @@ import AccountingPrintReceiptLayoutComponent from './components/layout/printerRe
 import AccountingPrintersSettingLayoutComponent from './components/layout/printersSettingsLayoutComponent';
 import AccountingItemTransactionsComponent from './components/items/itemTransactionsComponent';
 import AccountingBarcodePrinterLayoutComponent from './components/layout/barcodePrinterLayoutComponent';
+import AccountingBarcodeBulkPrinterLayoutComponent from './components/layout/barcodeBulkPrinterLayoutComponent';
 import layoutPrintSingleBarcodeLayoutComponent from './components/layout/layoutPrintSingleBarcodeLayoutComponent';
 import AccountingKitItemsLayoutComponent from './components/layout/kitItemsLayoutComponent';
 import AccountingKitReturnItemsLayoutComponent from './components/layout/kitReturnItemsLayoutComponent';
@@ -89,6 +90,7 @@ Vue.component('accounting-print-receipt-layout-component', AccountingPrintReceip
 Vue.component('accounting-printers-setting-layout-component', AccountingPrintersSettingLayoutComponent);
 Vue.component('accounting-item-transactions-component', AccountingItemTransactionsComponent);
 Vue.component('accounting-barcode-printer-layout-component', AccountingBarcodePrinterLayoutComponent);
+Vue.component('accounting-barcode-bulk-printer-layout-component', AccountingBarcodeBulkPrinterLayoutComponent);
 Vue.component('accounting-print-single-barcode-layout-component', layoutPrintSingleBarcodeLayoutComponent);
 Vue.component('accounting-kit-items-layout-component', AccountingKitItemsLayoutComponent);
 Vue.component('accounting-kit-return-items-layout-component', AccountingKitReturnItemsLayoutComponent);
