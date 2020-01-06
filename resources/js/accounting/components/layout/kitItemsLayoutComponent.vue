@@ -23,11 +23,13 @@
 
 
                 <v-card style="margin:10px">
-                    <table class="table table-dark">
+                    <table class="table table-dark table-bordered ">
                         <thead>
                         <tr>
                             <th scope="col  text-center">الباركود</th>
                             <th scope="col  text-center">اسم المنتج</th>
+
+                            <th scope="col  text-center">المتوفر</th>
                             <th scope="col  text-center">الكمية</th>
                             <th scope="col  text-center"> السعر</th>
                             <th scope="col  text-center">المجموع</th>
@@ -42,6 +44,7 @@
                         <tr>
                             <td>{{ item.barcode }}</td>
                             <td>{{ item.locale_name }}</td>
+                            <td>{{ item.available_qty }}</td>
                             <td>{{ item.qty }}</td>
                             <td>{{ item.price }}</td>
                             <td>{{ item.total }}</td>
@@ -263,6 +266,9 @@
 </style>
 
 <style>
+    th,td {
+        text-align: center !important;
+    }
     .v-dialog__content {
         z-index: 37498732942 !important;
     }
