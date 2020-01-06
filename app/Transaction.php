@@ -18,6 +18,10 @@
 			'creditable_id' => 'integer',
 		];
 		
+		public function getAmountAttribute($value)
+		{
+			return money_format("%i",$value);
+		}
 		public function creditable()
 		{
 			return $this->morphTo();

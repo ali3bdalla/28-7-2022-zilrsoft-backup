@@ -104,9 +104,10 @@
                             @endforeach
 
 
-                            <tr>
-                                <th>{{ $transaction['amount'] }}</th>
-                                <th>{{ $transaction['amount'] }}</th>
+                            <tr style="background-color: #eeeeee">
+                                <th>{{ money_format("%i",$transaction['amount']) }}</th>
+                                <th>{{ money_format("%i",$transaction['amount']) }}</th>
+                                <th>المجموع</th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
