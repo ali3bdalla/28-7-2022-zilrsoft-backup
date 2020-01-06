@@ -1,6 +1,14 @@
 <template>
     <!-- startup box -->
-    <div class="message">
+    <div class="">
+
+
+        <accounting-barcode-bulk-printer-layout-component
+                :hide-btn="true"
+                :invoice-id="invoiceId"
+                :items='invoiceData.items'
+        >
+        </accounting-barcode-bulk-printer-layout-component>
 
         <div class="row">
             <div class="col-md-6">
@@ -8,10 +16,11 @@
                         class="fa fa-save"></i> {{ app.trans.save }}
                 </button>
 
-<!--                <button :disabled="!everythingFineToSave" @click="pushDataToServer('a4')"-->
-<!--                        class="btn btn-custom-primary"><i-->
-<!--                        class="fa fa-save"></i> {{ app.trans.save_and_print4 }}-->
-<!--                </button>-->
+
+                <!--                <button :disabled="!everythingFineToSave" @click="pushDataToServer('a4')"-->
+                <!--                        class="btn btn-custom-primary"><i-->
+                <!--                        class="fa fa-save"></i> {{ app.trans.save_and_print4 }}-->
+                <!--                </button>-->
             </div>
             <div class="col-md-6">
                 <a :href="app.BaseApiUrl + 'purchases'" class="btn btn-default "><i
@@ -329,15 +338,7 @@
 
         </accounting-invoice-item-serials-list-layout-component>
 
-        <accounting-purchase-barcode-button-layout-component
-                :invoice-id='invoiceTitle'
-                :items='invoiceData.items'
-                :printer-watcher="printBarcodes"
-                :showButton="false"
-                @bulkPrintComplete="bulkPrintComplete"
-        >
 
-        </accounting-purchase-barcode-button-layout-component>
 
 
     </div>
@@ -358,8 +359,8 @@
         props: ['creator', 'vendors', 'receivers', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
         data: function () {
             return {
-                invoiceTitle: "",
-                printBarcodes: false,
+
+                invoiceId: "",
                 everythingFineToSave: false,
                 selectedItem: null,
                 selectedItemIndex: null,
@@ -697,10 +698,10 @@
                 axios.post(this.app.BaseApiUrl + 'purchases', data)
                     .then(function (response) {
                         // if (event == 'a4') {
-                            window.open('/accounting/printer/print_a4/' + response.data.id, '_blank');
+                        // window.open('/accounting/printer/print_a4/' + response.data.id, '_blank');
                         // }
                         // appVm.invoiceTitle = response.data.title;
-                        // appVm.askUserToHandleInvoice(response.data);
+                        appVm.askUserToHandleInvoice(response.data);
                         window.location.reload();
                     })
                     .catch(function (error) {
@@ -739,8 +740,7 @@
                 this.$dialog
                     .confirm('هل تريد طباعة الباركود للمنتجات في هذه الفاتورة ؟', options)
                     .then(dialog => {
-
-                        appVm.printBarcodes = true;
+                        appVm.invoiceId = invoice.title;
                     })
                     .catch(() => {
                         window.location.reload();

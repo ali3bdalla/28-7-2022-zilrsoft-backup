@@ -2,20 +2,20 @@
     <div style="display: inline">
 
 
-        <button @click="printBulkBarcode" class="btn btn-primary">طباعة الباركود
+        <button @click="printBulkBarcode" class="btn btn-primary" v-if="hideBtn!=true">طباعة الباركود
             <i class="fa fa-print"></i></button>
 
         <div class="row text-center align-content-center">
             <div class="col-md-6 text-center">
 
-                <div :id="'barcode_area_' + item.id" :key="item.id" style="width: 260px;" v-for="item in items">
-                    <barcode :value="item.item.barcode" font-size="18" height="100">
+                <div :id="'barcode_area_' + item.id" :key="item.id" style="width: 260px;" v-for="item in itemsList">
+                    <barcode :value="item.barcode" font-size="18" height="100">
                     </barcode>
 
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 5px;
                         margin-left: -3px;margin-top: -5px;font-family: 'Cairo', sans-serif !important;"
-                             v-text="item.item.ar_name.substr(0,20)">
+                             v-text="item.ar_name.substr(0,20)">
 
                         </div>
 
@@ -23,7 +23,7 @@
                     <div class="row">
                         <div align="right" class="col-md-6 " style="margin-top: -28px;
                         font-weight: bold;margin-right: 3px !important;
-                        margin-left: -3px;">
+                        margin-left: -3px;" v-text="invoiceTitle">
 
                         </div>
                         <div align="left" class="col-md-6  div-col" style="
@@ -31,7 +31,7 @@
                             margin-right: 10px;
                             margin-top: -28px;
                             font-weight: bolder;"
-                             v-text="convertEnToArabicNumber(item.item.price_with_tax.toString() ) +
+                             v-text="convertEnToArabicNumber(item.price_with_tax.toString() ) +
                         ' ر.س'">
 
                         </div>
@@ -63,9 +63,11 @@
 
     export default {
         components: {'barcode': VueBarcode, domtoimage, VueBarcode},
-        props: ['items', 'invoice-id'],
+        props: ['items', 'invoiceId', 'hideBtn'],
         data: function () {
             return {
+                invoiceTitle: "",
+                itemsList: [],
                 image: null,
                 cropper: null,
                 number_of_barcode: 1,
@@ -81,7 +83,8 @@
 
         },
         created: function () {
-
+            this.invoiceTitle = this.invoiceId;
+            this.initItems();
             this.connectQZ();
 
         },
@@ -90,9 +93,23 @@
             this.generatedData();
         },
         methods: {
-            generatedData() {
+            initItems() {
+                for (let i = 0; i < this.items.length; i++) {
+                    let item = this.items[i];
+                    if (item.item != null) {
+                        item.price_with_tax = item.item.price_with_tax;
+                        item.ar_name = item.item.ar_name;
+                        item.barcode = item.item.barcode;
+                    }
+                    this.itemsList.push(item);
+                }
+            },
+            generatedData(items = null) {
 
+                items = items == null ? this.itemsList : items;
                 let appVm = this;
+                document.getElementById("showGeneratedBarcodeImageId").innerHTML = "";
+                this.itemsGeneratedImage = [];
                 for (let i = 0; i < this.items.length; i++) {
                     let item = this.items[i];
                     domtoimage.toPng(document.getElementById('barcode_area_' + item.id), {
@@ -281,9 +298,9 @@
                 let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
 
                 let data = [];
-                for (let i = 0; i < this.items.length; i++) {
+                for (let i = 0; i < this.itemsList.length; i++) {
                     let generatedItem = this.itemsGeneratedImage[i];
-                    let actItem = this.items[i];
+                    let actItem = this.itemsList[i];
 
                     if (i > 0) {
                         data.push(
@@ -310,9 +327,27 @@
                 }
 
                 qz.print(config, data);
+                this.$emit("CompletePrintProcess", {});
             },
 
         },
+        watch: {
+            items: function (value) {
+                this.itemsList = value;
+
+                let appVm = this;
+                let interval = setInterval(function () {
+                    appVm.generatedData();
+                    clearInterval(interval);
+                }, 100)
+                //
+            },
+
+            invoiceId: function (value) {
+                this.invoiceTitle = value;
+                this.printBulkBarcode();
+            }
+        }
 
     }
 

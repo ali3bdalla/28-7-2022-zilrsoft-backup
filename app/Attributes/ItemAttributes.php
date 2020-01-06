@@ -184,7 +184,7 @@
 		{
 			
 			
-			return money_format('%i',$value);
+			return $value; // money_format('%i',$value)
 		}
 		
 		public function getTotalAttribute($value)
