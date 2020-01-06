@@ -1,27 +1,21 @@
 <template>
-    <div>
-        <div class="row" v-if="insideInvoice!==true">
-            <div class="col-xs-4">
-                <input class="form-control" min="0" type="number" v-model.number="number_of_barcode">
-            </div>
+    <div style="display: inline">
 
-            <div class="col-xs-4" id="barcodeId3">
-                <button @click="printSingleFile" class="btn btn-primary">طباعة الباركود
-                    <i class="fa fa-print"></i></button>
-            </div>
-        </div>
+
+        <button @click="printSingleFile" class="btn btn-primary">طباعة الباركود
+            <i class="fa fa-print"></i></button>
 
         <div class="row text-center align-content-center">
             <div class="col-md-6 text-center">
 
-                <div id="barcode_area" style="width: 260px;">
-                    <barcode :value="itemData.barcode" font-size="18" height="100">
+                <div :id="'barcode_area_' + item.id" style="width: 260px;" v-for="item in items" :key="item.id">
+                    <barcode :value="item.item.barcode" font-size="18" height="100">
                     </barcode>
 
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 5px;
                         margin-left: -3px;margin-top: -5px;font-family: 'Cairo', sans-serif !important;"
-                             v-text="itemData.ar_name.substr(0,20)">
+                             v-text="item.item.ar_name.substr(0,20)">
 
                         </div>
 
@@ -37,7 +31,7 @@
                             margin-right: 10px;
                             margin-top: -28px;
                             font-weight: bolder;"
-                             v-text="convertEnToArabicNumber(itemData.price_with_tax.toString() ) +
+                             v-text="convertEnToArabicNumber(item.item.price_with_tax.toString() ) +
                         ' ر.س'">
 
                         </div>
@@ -69,7 +63,7 @@
 
     export default {
         components: {'barcode': VueBarcode, domtoimage, VueBarcode},
-        props: ['print', 'insideInvoice', 'item', 'invoice-id'],
+        props: ['items', 'invoice-id'],
         data: function () {
             return {
                 image: null,
@@ -91,7 +85,8 @@
 
         },
         created: function () {
-            this.connectQZ();
+
+            // this.connectQZ();
         },
 
         mounted: function () {
@@ -100,30 +95,35 @@
             }
         },
         methods: {
-            generatedData(barcode_count = null) {
+            generatedData() {
 
                 let appVm = this;
-                domtoimage.toPng(document.getElementById('barcode_area'), {
-                    quality: 1, style: {
-                        width: '100%',
-                        height: '100%',
-                        padding: '0px',
-                        margin: "0px"
-                    }
-                }).then(function (dataUrl) {
-                    appVm.src = dataUrl;
-                    appVm.image = dataUrl;
-                    var DOM_img = document.createElement("img");
-                    DOM_img.src = dataUrl;
+                for (var i = 0;i<1;i++)
+                {
+                    var item = this.items[0];
+                    domtoimage.toPng(document.getElementById('barcode_area_'+ item.id), {
+                        quality: 1, style: {
+                            width: '100%',
+                            height: '100%',
+                            padding: '0px',
+                            margin: "0px"
+                        }
+                    }).then(function (dataUrl) {
+                        appVm.src = dataUrl;
+                        appVm.image = dataUrl;
+                        var DOM_img = document.createElement("img");
+                        DOM_img.src = dataUrl;
 
-                    document.getElementById("showGeneratedBarcodeImageId").appendChild(DOM_img);
-                    if (appVm.insideInvoice == true && appVm.print == true) {
-                        appVm.printBulkFile(dataUrl, barcode_count);
-                    }
-                })
-                    .catch(function (error) {
-                        console.log(error)
-                    });
+                        document.getElementById("showGeneratedBarcodeImageId").appendChild(DOM_img);
+                        // if (appVm.insideInvoice == true && appVm.print == true) {
+                        //     appVm.printBulkFile(dataUrl, barcode_count);
+                        // }
+                    })
+                        .catch(function (error) {
+                            console.log(error)
+                        });
+                }
+
             },
             connectQZ() {
                 var appVm = this;

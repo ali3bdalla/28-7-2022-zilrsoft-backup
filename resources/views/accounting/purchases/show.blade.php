@@ -3,9 +3,7 @@
 
 @section('title',__('pages/invoice.view') . ' | '. $invoice->title )
 @section('buttons')
-    <a href="{{route('accounting.purchases.print',$invoice->id)}}" class="btn btn-default">
-        <i class="fa fa-print"></i> {{ __('pages/invoice.price_a4') }}
-    </a>
+
     <a href="{{route('accounting.printer.a4',$invoice->id)}}" target="_blank" class="btn btn-default">
         <i class="fa fa-print"></i> {{ __('pages/invoice.price_a4') }}
     </a>
@@ -15,12 +13,10 @@
         ('pages/invoice.create')
         }}</a>
     @endcan
-    {{--    <accounting-purchase-barcode-button-layout-component--}}
-    {{--            :items='@json($invoice->items->load('item'))'--}}
-    {{--            :invoice-id='@json($invoice->title)'--}}
-    {{--    >--}}
-
-    {{--    </accounting-purchase-barcode-button-layout-component>--}}
+    <accounting-barcode-bulk-printer-layout-component
+            :items='@json($invoice->items->load('item'))'
+    >
+    </accounting-barcode-bulk-printer-layout-component>
     @can("edit purchase")
         @if($invoice->is_deleted==1)
             <a href="{{route('accounting.purchases.edit',$invoice->id)}}" class="btn btn-primary">
