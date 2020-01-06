@@ -22,9 +22,7 @@
 		
 		public function children()
 		{
-			return $this->hasMany($this,'parent_id')->with(
-				'children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children'
-			);
+			return $this->hasMany($this,'parent_id');
 		}
 		
 		/*

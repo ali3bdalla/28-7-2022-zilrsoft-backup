@@ -6,12 +6,21 @@
     <a href="{{route('accounting.purchases.print',$invoice->id)}}" class="btn btn-default">
         <i class="fa fa-print"></i> {{ __('pages/invoice.price_a4') }}
     </a>
-{{--    <accounting-purchase-barcode-button-layout-component--}}
-{{--            :items='@json($invoice->items->load('item'))'--}}
-{{--            :invoice-id='@json($invoice->title)'--}}
-{{--    >--}}
+    <a href="{{route('accounting.printer.a4',$invoice->id)}}" target="_blank" class="btn btn-default">
+        <i class="fa fa-print"></i> {{ __('pages/invoice.price_a4') }}
+    </a>
+    @can('create purchase')
+        <a href="{{route('accounting.purchases.create')}}" class="btn btn-default"><i class="fa fa-plus-square"></i> {{
+        trans
+        ('pages/invoice.create')
+        }}</a>
+    @endcan
+    {{--    <accounting-purchase-barcode-button-layout-component--}}
+    {{--            :items='@json($invoice->items->load('item'))'--}}
+    {{--            :invoice-id='@json($invoice->title)'--}}
+    {{--    >--}}
 
-{{--    </accounting-purchase-barcode-button-layout-component>--}}
+    {{--    </accounting-purchase-barcode-button-layout-component>--}}
     @can("edit purchase")
         @if($invoice->is_deleted==1)
             <a href="{{route('accounting.purchases.edit',$invoice->id)}}" class="btn btn-primary">

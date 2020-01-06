@@ -41,18 +41,18 @@
 			'gateways' => 'OrganizationGatewayController',
 			'inventories' => 'InventoryController',
 			'expenses' => 'ExpenseController',
-			'accounts' => 'AccountsController',
+			'accounts' => 'ChartsController',
 			'transactions' => 'TransactionsController',
 		
 		]);
 		
 		
 		Route::prefix('accounts')->name('accounts.')->group(function (){
-//			Route::get('item/{item}/{account}',"AccountsController@item")->name('item');
-			Route::get('client/{client}/{account}',"AccountsController@client")->name('client');
-			Route::get('vendor/{vendor}/{account}',"AccountsController@vendor")->name('vendor');
-			Route::get('item/{item}/{account}',"AccountsController@item")->name('item');
-			Route::get('{account}/delete',"AccountsController@delete");
+//			Route::get('item/{item}/{account}',"ChartsController@item")->name('item');
+			Route::get('client/{client}/{account}',"ChartsController@client")->name('client');
+			Route::get('vendor/{vendor}/{account}',"ChartsController@vendor")->name('vendor');
+			Route::get('item/{item}/{account}',"ChartsController@item")->name('item');
+			Route::get('{account}/delete',"ChartsController@delete");
 		});
 		
 		

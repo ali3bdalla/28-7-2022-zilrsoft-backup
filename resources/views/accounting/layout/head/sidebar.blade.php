@@ -188,13 +188,13 @@
                 <ul class="treeview-menu">
                     @can('view charts')
                         <li>
-                            <a href="{{route('accounting.filters.index')}}"><i class="fa fa-sun"></i>
+                            <a href="{{route('accounting.accounts.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.chart_of_accounts') }}
                             </a></li>
                     @endcan
                     @can('view transactions')
                         <li>
-                            <a href="{{route('accounting.filters.index')}}"><i class="fa fa-sun"></i>
+                            <a href="{{route('accounting.transactions.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.transactions') }}
                             </a></li>
                     @endcan

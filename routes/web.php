@@ -7,4 +7,4 @@
 	});
 	
 	
-	Route::get('/locale','LocaleController');
+//	Route::get('/locale','LocaleController');

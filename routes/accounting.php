@@ -27,10 +27,19 @@
 			'reports' => 'ReportController',
 			'branches' => 'BranchController',
 			'expenses' => 'ExpenseController',
-			'accounts' => 'AccountsController',
+			'accounts' => 'ChartsController',
 			'transactions' => 'TransactionsController',
 			'settings' => 'SettingController',
 		]);
+		
+		
+		Route::prefix('accounts')->name('accounts.')->group(function (){
+			Route::get('client/{client}/{account}',"ChartsController@client")->name('client');
+			Route::get('vendor/{vendor}/{account}',"ChartsController@vendor")->name('vendor');
+			Route::get('item/{item}/{account}',"ChartsController@item")->name('item');
+			Route::get('{account}/delete',"ChartsController@delete");
+		});
+		
 		
 		Route::name('printer.')->prefix('printer')->group(function (){
 			Route::get('sign_receipt_printer','PrinterController@sign_receipt_printer');

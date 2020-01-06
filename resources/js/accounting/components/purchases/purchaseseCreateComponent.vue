@@ -8,9 +8,10 @@
                         class="fa fa-save"></i> {{ app.trans.save }}
                 </button>
 
-                <button :disabled="!everythingFineToSave" @click="pushDataToServer" class="btn btn-custom-primary"><i
-                        class="fa fa-save"></i> {{ app.trans.save_and_print4 }}
-                </button>
+<!--                <button :disabled="!everythingFineToSave" @click="pushDataToServer('a4')"-->
+<!--                        class="btn btn-custom-primary"><i-->
+<!--                        class="fa fa-save"></i> {{ app.trans.save_and_print4 }}-->
+<!--                </button>-->
             </div>
             <div class="col-md-6">
                 <a :href="app.BaseApiUrl + 'purchases'" class="btn btn-default "><i
@@ -669,7 +670,7 @@
             },
 
 
-            pushDataToServer() {
+            pushDataToServer(event = "") {
                 let data = {
                     items: this.invoiceData.items,
                     vendor_id: this.invoiceData.vendorId,
@@ -695,9 +696,12 @@
                 var appVm = this;
                 axios.post(this.app.BaseApiUrl + 'purchases', data)
                     .then(function (response) {
+                        // if (event == 'a4') {
+                            window.open('/accounting/printer/print_a4/' + response.data.id, '_blank');
+                        // }
                         // appVm.invoiceTitle = response.data.title;
                         // appVm.askUserToHandleInvoice(response.data);
-
+                        window.location.reload();
                     })
                     .catch(function (error) {
                         alert(error.response);

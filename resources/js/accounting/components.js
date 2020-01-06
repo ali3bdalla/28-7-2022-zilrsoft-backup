@@ -45,6 +45,9 @@ import AccountingPurchaseBarcodeButtonLayoutComponent from './components/layout/
 import AccountingPurchasesReturnComponent from './components/purchases/purchasesReturnComponent';
 import AccountingDashbaordActiveItemsLayoutComponet from './components/dashboard/activeItemsLayoutComponent';
 import AccountingShowBarcodeLayoutComponent from './components/layout/showBarcodeLayoutComponent';
+import AccountingAccountsChartComponent from './components/charts/accountsChartComponent';
+import AccountingDeleteButtonLayoutComponent from './components/layout/deleteButtonLayoutComponent';
+import AccountingTransactionsCreateComponent from './components/transactions/transactionsCreateComponent';
 
 
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
@@ -93,3 +96,6 @@ Vue.component('accounting-purchase-barcode-button-layout-component', AccountingP
 Vue.component('accounting-purchases-return-component', AccountingPurchasesReturnComponent);
 Vue.component('accounting-dashboard-active-items-layout-component', AccountingDashbaordActiveItemsLayoutComponet);
 Vue.component('accounting-show-barcode-layout-component', AccountingShowBarcodeLayoutComponent);
+Vue.component('accounting-accounts-chart-component', AccountingAccountsChartComponent);
+Vue.component('accounting-delete-button-layout-component', AccountingDeleteButtonLayoutComponent);
+Vue.component('accounting-transactions-create-component', AccountingTransactionsCreateComponent);
