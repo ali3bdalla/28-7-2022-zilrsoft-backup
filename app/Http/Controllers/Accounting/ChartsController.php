@@ -95,8 +95,8 @@
 			
 			
 			$transactions = $this->load_account_transactions($account);
-			
-			return $account;
+
+//			return $account;
 //			return  $transactions;
 			return view('accounting.charts.transactions.list',compact('account','transactions'));
 		}

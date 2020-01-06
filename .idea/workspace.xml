@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Account/CreateAccountRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Account/CreateAccountRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Account/UpdateAccountRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Account/UpdateAccountRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/rs2nN8AcmdNVEwCu6aty78zAyehmIzt7p6Q6gZ6s" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/rs2nN8AcmdNVEwCu6aty78zAyehmIzt7p6Q6gZ6s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ChartsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ChartsController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -430,7 +427,7 @@
       <workItem from="1577181612244" duration="98359000" />
       <workItem from="1577561097672" duration="759000" />
       <workItem from="1577567765490" duration="100630000" />
-      <workItem from="1578067206769" duration="78749000" />
+      <workItem from="1578067206769" duration="78818000" />
     </task>
     <servers />
   </component>
