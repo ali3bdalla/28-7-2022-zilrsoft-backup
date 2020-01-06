@@ -17,7 +17,9 @@
                 <td width="5%">
                     <button @click="remove_transaction(index)"><i class="fa fa-trash"></i></button>
                 </td>
-                <td width="25%">{{ transaction.locale_name}}</td>
+                <td width="25%">{{ transaction.locale_name}} <span style="font-weight: bold"> {{ transaction.current_amount
+                    }}</span>
+                </td>
                 <td width="25%"><input @keyup="update_debit_amount(transaction,index)" class="form-control" type="text"
                                        v-model="transaction.debit_amount"/></td>
                 <td width="25%"><input @keyup="update_credit_amount(transaction,index)" class="form-control" type="text"
