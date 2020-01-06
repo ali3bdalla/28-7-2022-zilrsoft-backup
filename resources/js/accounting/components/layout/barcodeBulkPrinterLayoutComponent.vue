@@ -2,13 +2,13 @@
     <div style="display: inline">
 
 
-        <button @click="printSingleFile" class="btn btn-primary">طباعة الباركود
+        <button @click="printBulkBarcode" class="btn btn-primary">طباعة الباركود
             <i class="fa fa-print"></i></button>
 
         <div class="row text-center align-content-center">
             <div class="col-md-6 text-center">
 
-                <div :id="'barcode_area_' + item.id" style="width: 260px;" v-for="item in items" :key="item.id">
+                <div :id="'barcode_area_' + item.id" :key="item.id" style="width: 260px;" v-for="item in items">
                     <barcode :value="item.item.barcode" font-size="18" height="100">
                     </barcode>
 
@@ -69,11 +69,7 @@
                 image: null,
                 cropper: null,
                 number_of_barcode: 1,
-                itemData: {
-                    ar_name: "",
-                    barcode: "",
-                    price_with_tax: "",
-                },
+                itemsGeneratedImage: [],
                 app: {
                     primaryColor: metaHelper.getContent('primary-color'),
                     secondColor: metaHelper.getContent('second-color'),
@@ -86,22 +82,20 @@
         },
         created: function () {
 
-            // this.connectQZ();
+            this.connectQZ();
+
         },
 
         mounted: function () {
-            if (this.item != null) {
-                this.generatedData();
-            }
+            this.generatedData();
         },
         methods: {
             generatedData() {
 
                 let appVm = this;
-                for (var i = 0;i<1;i++)
-                {
-                    var item = this.items[0];
-                    domtoimage.toPng(document.getElementById('barcode_area_'+ item.id), {
+                for (let i = 0; i < this.items.length; i++) {
+                    let item = this.items[i];
+                    domtoimage.toPng(document.getElementById('barcode_area_' + item.id), {
                         quality: 1, style: {
                             width: '100%',
                             height: '100%',
@@ -111,13 +105,10 @@
                     }).then(function (dataUrl) {
                         appVm.src = dataUrl;
                         appVm.image = dataUrl;
+                        appVm.itemsGeneratedImage.push(dataUrl);
                         var DOM_img = document.createElement("img");
                         DOM_img.src = dataUrl;
-
                         document.getElementById("showGeneratedBarcodeImageId").appendChild(DOM_img);
-                        // if (appVm.insideInvoice == true && appVm.print == true) {
-                        //     appVm.printBulkFile(dataUrl, barcode_count);
-                        // }
                     })
                         .catch(function (error) {
                             console.log(error)
@@ -285,31 +276,38 @@
             chr(n) {
                 return String.fromCharCode(n);
             },
-            printSingleFile() {
+            printBulkBarcode() {
 
                 let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
 
                 let data = [];
-                data.push(
-                    '\nN\n' +
-                    'A180,20,0,2,1,1,N, \n' +
-                    'A200,50,0,4,1,1,N, \n' +
-                    'B200,100,0,1A,1,2,30,B, \n' +
-                    '\nP1\n'
-                );
+                for (let i = 0; i < this.items.length; i++) {
+                    let generatedItem = this.itemsGeneratedImage[i];
+                    let actItem = this.items[i];
+
+                    if (i > 0) {
+                        data.push(
+                            '\nN\n' +
+                            'A180,20,0,2,1,1,N, \n' +
+                            'A200,50,0,4,1,1,N, \n' +
+                            'B200,100,0,1A,1,2,30,B, \n' +
+                            '\nP1\n'
+                        );
+                    }
 
 
-                for (let i = 0; i < this.number_of_barcode; i++) {
-                    data.push(
-                        '\nN\n',
-                        {
-                            type: 'raw', format: 'image', data: this.image,
-                            options: {language: 'EPL', y: 0, x: 170}
-                        },
-                        '\nP1,1\n'
-                    );
+                    for (let i = 0; i < actItem.qty; i++) {
+                        data.push(
+                            '\nN\n',
+                            {
+                                type: 'raw', format: 'image', data: generatedItem,
+                                options: {language: 'EPL', y: 0, x: 170}
+                            },
+                            '\nP1,1\n'
+                        );
+                    }
+
                 }
-
 
                 qz.print(config, data);
             },
