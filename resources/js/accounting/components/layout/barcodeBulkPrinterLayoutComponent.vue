@@ -5,7 +5,7 @@
         <button @click="printBulkBarcode" class="btn btn-primary" v-if="hideBtn!=true">طباعة الباركود
             <i class="fa fa-print"></i></button>
 
-        <div class="row text-center align-content-center">
+        <div class="row text-center align-content-center" style="visibility: hidden">
             <div class="col-md-6 text-center">
 
                 <div :id="'barcode_area_' + item.id" :key="item.id" style="width: 260px;" v-for="item in itemsList">
@@ -123,9 +123,11 @@
                         appVm.src = dataUrl;
                         appVm.image = dataUrl;
                         appVm.itemsGeneratedImage.push(dataUrl);
-                        var DOM_img = document.createElement("img");
-                        DOM_img.src = dataUrl;
-                        document.getElementById("showGeneratedBarcodeImageId").appendChild(DOM_img);
+                        // console.log(appVm.itemsGeneratedImage);
+                        // var DOM_img = document.createElement("img");
+                        // DOM_img.src = dataUrl;
+
+                        // document.getElementById("showGeneratedBarcodeImageId").appendChild(DOM_img);
                     })
                         .catch(function (error) {
                             console.log(error)
@@ -236,12 +238,6 @@
                     };
 
 
-                    //  //   var createHash = require('sha.js');
-                    // qz.api.setSha256Type(function (data) {
-                    //     return createHash('sha256').update(data).digest('hex');
-                    // });
-                    //     //
-
                     qz.api.setPromiseType(function promise(resolver) {
                         return new Promise(resolver);
                     });
@@ -327,7 +323,7 @@
                 }
 
                 qz.print(config, data);
-                this.$emit("CompletePrintProcess", {});
+
             },
 
         },
@@ -343,9 +339,10 @@
                 //
             },
 
-            invoiceId: function (value) {
+            invoiceId: async function (value) {
                 this.invoiceTitle = value;
-                this.printBulkBarcode();
+                await this.printBulkBarcode();
+                this.$emit("CompletePrintProcess", {});
             }
         }
 
@@ -376,5 +373,6 @@
         margin-bottom: 0px !important;
         padding-bottom: 0px !important;
     }
+
 
 </style>

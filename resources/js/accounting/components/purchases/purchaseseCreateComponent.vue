@@ -3,13 +3,6 @@
     <div class="">
 
 
-        <accounting-barcode-bulk-printer-layout-component
-                :hide-btn="true"
-                :invoice-id="invoiceId"
-                :items='invoiceData.items'
-        >
-        </accounting-barcode-bulk-printer-layout-component>
-
         <div class="row">
             <div class="col-md-6">
                 <button :disabled="!everythingFineToSave" @click="pushDataToServer" class="btn btn-custom-primary"><i
@@ -339,7 +332,13 @@
         </accounting-invoice-item-serials-list-layout-component>
 
 
-
+        <accounting-barcode-bulk-printer-layout-component
+                :hide-btn="true"
+                :invoice-id="invoiceId"
+                :items='invoiceData.items'
+                @CompletePrintProcess="reloadPageAfterPrintBarcode"
+        >
+        </accounting-barcode-bulk-printer-layout-component>
 
     </div>
 
@@ -698,11 +697,11 @@
                 axios.post(this.app.BaseApiUrl + 'purchases', data)
                     .then(function (response) {
                         // if (event == 'a4') {
-                        // window.open('/accounting/printer/print_a4/' + response.data.id, '_blank');
+                        window.open('/accounting/printer/print_a4/' + response.data.id, '_blank');
                         // }
                         // appVm.invoiceTitle = response.data.title;
                         appVm.askUserToHandleInvoice(response.data);
-                        window.location.reload();
+
                     })
                     .catch(function (error) {
                         alert(error.response);
@@ -716,6 +715,9 @@
                 window.location.reload();
             },
 
+            reloadPageAfterPrintBarcode() {
+                window.location.reload();
+            },
             askUserToHandleInvoice(invoice) {
                 let options = {
                     html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
