@@ -120,5 +120,8 @@
 <div class="container">
     @yield('content')
 </div>
+<span id="siteseal"><script async type="text/javascript"
+                            src="https://seal.godaddy.com/getSeal?sealID=VGW4EB0vH1mdkOke7GWCC4SnXg0eG9NZoqnwFa1Qlp2G9OAjj0c1Sjh4Wgxj"></script></span>
+
 </body>
 </html>
