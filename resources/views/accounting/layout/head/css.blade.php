@@ -16,6 +16,6 @@
 @endif
 <style>
     /*.navbar {*/
-    /*background-color: chocolate !important;*/
+    /*    background-color: chocolate !important;*/
     /*}*/
 </style>

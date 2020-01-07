@@ -254,7 +254,7 @@
 
     </div>
 
-    <hr style="border:1px solid #777">
+    <div style="border:1px solid #777"></div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="text-center">

@@ -358,6 +358,7 @@
         </div>
 
 
+
         <div class="">
             @if($invoice->notes!="")
                 <div class="">
@@ -405,5 +406,5 @@
 
 
 <script>
-    // print();
+    print();
 </script>
