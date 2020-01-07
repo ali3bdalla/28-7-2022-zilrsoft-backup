@@ -8,7 +8,7 @@
         <div class="row text-center align-content-center">
             <div class="col-md-6 text-center">
 
-                <div :id="'barcode_area_' + item.id" :key="item.id" style="width: 260px;" v-for="item in itemsList">
+                <div :id="'barcode_area_' + item.id" :key="item.id" style="width: 255px;" v-for="item in itemsList">
                     <barcode :value="item.barcode" font-size="18" height="100">
                     </barcode>
 
@@ -21,20 +21,16 @@
 
                     </div>
                     <div class="row">
-                        <div align="right" class="col-md-6 " style="margin-top: -28px;
+                        <div align="right" class="col-md-4 " style="margin-top: -28px;
                         font-weight: bold;margin-right: 3px !important;
                         margin-left: -3px;" v-text="invoiceTitle">
-
                         </div>
-                        <div align="left" class="col-md-6  div-col" style="
-                                margin-left: -10px;
-    margin-right: 10px;
-    margin-top: -28px;
-    font-weight: bolder;
-    font-size: 29px;"
-                             v-text="convertEnToArabicNumber(item.price_with_tax.toString() ) +
-                        ' ر.س'">
-
+                        <div align="left" class="col-md-8  div-col" style="
+                                margin-left: -10px; margin-right: 10px;margin-top: -28px;font-weight: bolder;">
+                                <span style="font-size: 27px !important;">
+                                   {{ convertEnToArabicNumber(itemData.price_with_tax.toString() ) }}
+                               </span>
+                                <span> ر.س</span>
                         </div>
 
 
