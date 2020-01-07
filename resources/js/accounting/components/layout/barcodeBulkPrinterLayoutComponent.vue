@@ -5,7 +5,7 @@
         <button @click="printBulkBarcode" class="btn btn-primary" v-if="hideBtn!=true">طباعة الباركود
             <i class="fa fa-print"></i></button>
 
-        <div class="row text-center align-content-center" style="visibility: hidden">
+        <div class="row text-center align-content-center">
             <div class="col-md-6 text-center">
 
                 <div :id="'barcode_area_' + item.id" :key="item.id" style="width: 260px;" v-for="item in itemsList">

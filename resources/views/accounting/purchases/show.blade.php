@@ -20,10 +20,10 @@
         ('pages/invoice.create')
         }}</a>
     @endcan
-    <accounting-barcode-bulk-printer-layout-component
-            :items='@json($invoice->items->load('item'))'
-    >
-    </accounting-barcode-bulk-printer-layout-component>
+    {{--    <accounting-barcode-bulk-printer-layout-component--}}
+    {{--            :items='@json($invoice->items->load('item'))'--}}
+    {{--    >--}}
+    {{--    </accounting-barcode-bulk-printer-layout-component>--}}
     @can("edit purchase")
         @if($invoice->is_deleted==1)
             <a href="{{route('accounting.purchases.edit',$invoice->id)}}" class="btn btn-primary">
