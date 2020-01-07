@@ -27,10 +27,11 @@
 
                         </div>
                         <div align="left" class="col-md-6  div-col" style="
-                            margin-left: -10px;
-                            margin-right: 10px;
-                            margin-top: -28px;
-                            font-weight: bolder;"
+                                margin-left: -10px;
+    margin-right: 10px;
+    margin-top: -28px;
+    font-weight: bolder;
+    font-size: 29px;"
                              v-text="convertEnToArabicNumber(item.price_with_tax.toString() ) +
                         ' ر.س'">
 
