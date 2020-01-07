@@ -152,7 +152,8 @@
 
                         <td colspan="6">
                             {{--                            <br>--}}
-                            <span>{{mb_substr($item->item->locale_name, 0,55) }}</span><br><span>{{$item->item->barcode}}</span></td>
+                            <span>{{mb_substr($item->item->locale_name, 0,55) }}</span><br><span>{{$item->item->barcode}}</span>
+                        </td>
                     </tr>
                     <tr>
                         <td style="margin-right: -2px;"><span>الكمية</span></td>
@@ -185,7 +186,8 @@
                                    ->get() as $index => $serial
                                    )
                             <tr>
-                                <td style="padding-right:10px;text-align: right" colspan="6"><span>{{ $serial->serial }}</span></td>
+                                <td style="padding-right:10px;text-align: right" colspan="6">
+                                    <span>{{ $serial->serial }}</span></td>
 
                             </tr>
                         @endforeach
@@ -251,6 +253,15 @@
 
 
     </div>
+
+    <hr style="border:1px solid #777">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="text-center">
+                    <span class="header_title total_header">{{ mb_substr($invoice->notes,0,255) }}</span>
+                </div>
+            </div>
+        </div>
 
     <hr style="border:1px solid #777">
     <div class="row">
