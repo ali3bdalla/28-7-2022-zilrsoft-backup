@@ -1,9 +1,7 @@
 @extends('accounting.layout.master')
 
 
-@section('title','')
-
-
+@section('title',__('sidebar.barcode'))
 @section('content')
     <div class="panel">
         @foreach($items as $item)
