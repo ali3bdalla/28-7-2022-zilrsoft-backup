@@ -348,11 +348,15 @@
                 let interval = setInterval(function () {
                     appVm.shouldPrint = true;
                     clearInterval(interval);
-                }, 500);
+                }, 1000);
             },
             shouldPrint: function (val) {
                 this.printBulkBarcode();
-                this.$emit("CompletePrintProcess", {});
+                let interval = setInterval(function () {
+                    appVm.$emit("CompletePrintProcess", {});
+                    clearInterval(interval);
+                }, 1000);
+
             }
 
         }
