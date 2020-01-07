@@ -347,15 +347,18 @@
                 this.invoiceTitle = value;
 
                 // let appVm = this;
-                // let interval = setInterval(function () {
-                //     appVm.printBulkBarcode();
-                //     clearInterval(interval);
-                //     appVm.$emit("CompletePrintProcess", {});
-                // }, 1000);
+
 
                 //
             },
-            
+            invoiceTitle:function (val) {
+                let interval = setInterval(function () {
+                    appVm.printBulkBarcode();
+                    clearInterval(interval);
+                    appVm.$emit("CompletePrintProcess", {});
+                }, 1000);
+            }
+
         }
 
     }
