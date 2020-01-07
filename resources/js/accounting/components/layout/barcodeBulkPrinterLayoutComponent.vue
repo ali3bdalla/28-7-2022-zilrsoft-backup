@@ -292,7 +292,6 @@
             printBulkBarcode() {
 
                 let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
-
                 let data = [];
                 for (let i = 0; i < this.itemsList.length; i++) {
                     let generatedItem = this.itemsGeneratedImage[i];
@@ -344,9 +343,10 @@
                 //
             },
 
-            invoiceId: async function (value) {
+            invoiceId: function (value) {
                 this.invoiceTitle = value;
-                await this.printBulkBarcode();
+
+                this.printBulkBarcode();
                 this.$emit("CompletePrintProcess", {});
             }
         }
