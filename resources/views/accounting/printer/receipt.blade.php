@@ -152,7 +152,7 @@
 
                         <td colspan="6">
                             {{--                            <br>--}}
-                            <span>{{$item->item->locale_name}}</span><br><span>{{$item->item->barcode}}</span></td>
+                            <span>{{mb_substr($item->item->locale_name, 0,55) }}</span><br><span>{{$item->item->barcode}}</span></td>
                     </tr>
                     <tr>
                         <td style="margin-right: -2px;"><span>الكمية</span></td>

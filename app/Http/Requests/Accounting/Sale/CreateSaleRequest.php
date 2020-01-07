@@ -10,7 +10,6 @@
 	use App\Invoice;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
-	use Illuminate\Http\Response;
 	use Illuminate\Support\Facades\DB;
 	
 	class CreateSaleRequest extends FormRequest
@@ -60,17 +59,18 @@
 			DB::beginTransaction();
 			try{
 				
-				$invoice = Invoice::publish(['invoice_type' => 'sale','notes' => $this->input('notes'),'parent_id' => 0]);
+				$invoice = Invoice::publish(['invoice_type' => 'sale','notes' => $this->input("notes"),'parent_id' => 0]);
 				$sale = $invoice->publishSubInvoice('sale',[
 					'invoice_type' => 'sale',
 					'prefix' => 'SAI-',
 					'client_id' => $this->input("client_id"),
+					
 					'salesman_id' => $this->input("salesman_id")]);
 				$this->toCreatePurchaseInvoiceForExpensesItems($invoice,$this->input('items'));
 				$invoice->addItemsToBaseInvoice($this->input('items'));
 				$this->toGetAndUpdatedAmounts($invoice);
 				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),$this->input("methods"),[]);
-
+				
 				return $invoice->fresh();
 			}catch (Exception $exception){
 				

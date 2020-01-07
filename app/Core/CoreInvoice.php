@@ -8,7 +8,6 @@
 	trait CoreInvoice
 	{
 		
-		
 		/**
 		 * @param array $user_data
 		 * create new base invoice
@@ -21,6 +20,7 @@
 			
 			return $object->create([
 				'invoice_type' => $user_data['invoice_type'],
+				'notes' => collect($user_data)->has('notes') ? $user_data['notes'] : "",
 				'creator_id' => auth()->user()->id,
 				'organization_id' => auth()->user()->organization_id,
 				'branch_id' => auth()->user()->branch_id,
@@ -79,7 +79,7 @@
 		 */
 		public function pushReturnItems($itemsList = [])
 		{
-
+			
 			$result_items = [];
 			foreach ($itemsList as $item){
 				$incItem = InvoiceItems::findOrFail($item['id']);

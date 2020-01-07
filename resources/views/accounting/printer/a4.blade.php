@@ -358,10 +358,23 @@
         </div>
 
 
+        <div class="">
+            @if($invoice->notes!="")
+                <div class="">
+                    <h2 style="font-size: 23px;
+    margin-top: 19px;
+    margin-bottom: 5px;">ملاحظات:</h2>
+                    {{ mb_substr($invoice->notes,0,255) }}
+                </div>
+            @endif
+        </div>
+
     </div>
 
 
 </div>
+
+
 
 
 <footer style="">
@@ -392,5 +405,5 @@
 
 
 <script>
-    print();
+    // print();
 </script>
