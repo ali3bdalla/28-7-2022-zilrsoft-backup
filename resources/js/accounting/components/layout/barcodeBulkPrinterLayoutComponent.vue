@@ -345,9 +345,12 @@
 
             invoiceId: function (value) {
                 this.invoiceTitle = value;
+                let appVm = this;
+                setInterval(function () {
+                    appVm.printBulkBarcode();
+                }, 1000);
 
-                this.printBulkBarcode();
-                this.$emit("CompletePrintProcess", {});
+                appVm.$emit("CompletePrintProcess", {});
             }
         }
 
