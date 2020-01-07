@@ -353,7 +353,7 @@
                     appVm.printBulkBarcode();
                     clearInterval(interval);
                     appVm.$emit("CompletePrintProcess", {});
-                }, 1000);
+                }, 100);
             }
 
         }
