@@ -346,12 +346,9 @@
             invoiceId: function (value) {
                 this.invoiceTitle = value;
 
-                // let appVm = this;
-
-
-                //
             },
-            invoiceTitle:function (val) {
+            invoiceTitle: function (val) {
+                let appVm = this;
                 let interval = setInterval(function () {
                     appVm.printBulkBarcode();
                     clearInterval(interval);
