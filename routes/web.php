@@ -7,4 +7,19 @@
 	});
 	
 	
-//	Route::get('/locale','LocaleController');
+
+
+
+	Route::match(
+		['post','get','delete','put','patch'],
+		'check_method',
+		function(\Symfony\Component\HttpFoundation\Request $request){
+		return $request->getMethod();
+	});
+	
+	
+	
+	
+	Route::resource('users','UsersController');
+	Route::post('users/profile/view',"UsersController@view_profile");
+	

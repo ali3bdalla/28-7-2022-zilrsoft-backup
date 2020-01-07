@@ -5,6 +5,7 @@
 	use App\Category;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Kit\CreateKitRequest;
+	use App\Http\Requests\Accounting\Kit\UpdateKitRequest;
 	use App\Item;
 	use App\Manager;
 	use App\User;
@@ -58,7 +59,7 @@
 		
 		public function show(Item $kit)
 		{
-			$items =  $kit->items;
+			$items = $kit->items;
 			$invoice = $kit->data;
 			return view('accounting.kits.show',compact('kit','items','invoice'));
 		}
@@ -74,23 +75,19 @@
 			$items = $kit->items()->with('item')->get();
 			$creator = $kit->creator;
 			$data = $kit->data;
-			$clients = User::where('is_client',true)->get()->toArray();
-			$kit['items'] = $items;
-			$kit['creator'] = $creator;
-			$kit['data'] = $data;
 			
-			
-			return view('kits.edit',compact('clients','kit'));
+			return view('accounting.kits.edit',compact('kit','items','creator','data'));
 			//
 		}
 		
 		/**
-		 * @param Request $request
+		 * @param UpdateKitRequest $request
 		 * @param Item $kit
 		 */
-		public function update(Request $request,Item $kit)
+		public function update(UpdateKitRequest $request,Item $kit)
 		{
 			//
+			return $request->save($kit);
 		}
 		
 		/**

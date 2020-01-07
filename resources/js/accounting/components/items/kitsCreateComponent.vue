@@ -2,7 +2,7 @@
     <!-- startup box -->
     <div class="">
 
-        <div class="row" v-if="!is_update_mode">
+        <div class="row">
             <div class="col-md-6">
                 <button @click="saveInvoiceButtonClicked" class="btn btn-custom-primary"><i
                         class="fa fa-save"></i> {{ app.trans.save_kit }}
@@ -22,14 +22,14 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <input :disabled="is_update_mode" :placeholder="translator.ar_name" class="form-control" type="text"
+                    <input  :placeholder="translator.ar_name" class="form-control" type="text"
                            v-model="ar_name">
                     <p class="help is-danger is-center" v-show="error=='client_id'" v-text="errorMessage"></p>
                 </div>
 
                 <div class="col-md-6">
                     <div v-bind:class="{'is-danger':error=='client_id'}">
-                        <input :disabled="is_update_mode" :placeholder="translator.name" class="form-control"
+                        <input  :placeholder="translator.name" class="form-control"
                                type="text"
                                v-model="name">
                         <p class="help is-danger is-center" v-show="error=='client_id'" v-text="errorMessage"></p>
@@ -44,7 +44,7 @@
                     <div class="column">
                         <div class="field">
                             <div class="control">
-                                <input :class="{'is-danger':error=='barcode'}" :disabled="is_update_mode"
+                                <input :class="{'is-danger':error=='barcode'}" :disabled="editingKit"
                                        :placeholder="translator.barcode"
                                        @blur="checkBarcodeIfItAlreadyUsed" class="form-control" type='text'
                                        v-model="barcode" v-on:keyup.13="barcodeItemInterClicked">
@@ -52,7 +52,7 @@
                             <p class="help is-danger is-center" v-show="error=='barcode'" v-text="errorMessage"></p>
                         </div>
                     </div>
-                    <div class="column is-one-fifth" v-if="!is_update_mode">
+                    <div class="column is-one-fifth" v-if="!editingKit">
                         <button @click="generateBarcode" class="button is-info is-fullwidth">{{translator
                             .generate_barcode}}
                         </button>
@@ -64,7 +64,7 @@
 
 
             <!-- start search field -->
-            <div class="columns" v-if="!is_update_mode">
+            <div class="columns">
                 <div class="column is-four-fifths">
                     <div class="product_search" id="seach_area">
                         <div class="">
@@ -101,7 +101,7 @@
                 <table class="table is-bordered text-center is-fullwidth is-narrow is-hoverable is-striped">
                     <thead class="has-background-dark ">
                     <tr>
-                        <th class="has-text-white" v-if="!is_update_mode"></th>
+                        <th class="has-text-white"></th>
                         <!-- <th class="has-text-white"></th> -->
                         <th class="has-text-white">{{ translator.barcode }}</th>
                         <th class="has-text-white" width="20%">{{ translator.name }}</th>
@@ -121,29 +121,25 @@
 
 
                     <tr :key="item.id" v-for="(item,itemindex) in items">
-                        <th class="has-text-white" v-if="!is_update_mode">
+                        <th class="has-text-white">
 
                             <button @click="deleteItemFromList(item)" class="button is-danger is-small"><i
                                     class="fa fa-trash"></i></button>
 
                         </th>
                         <!-- <th class="has-text-white"></th> -->
-                        <th v-if="!is_update_mode" v-text="item.barcode"></th>
-                        <th v-else v-text="item.item.barcode"></th>
-                        <th style="text-align: right !important;" v-if="!is_update_mode" v-text="item.locale_name"></th>
-                        <th style="text-align: right !important;" v-else v-text="item.item.locale_name"></th>
+                        <th v-text="item.barcode"></th>
+                        <th style="text-align: right !important;" v-text="item.locale_name"></th>
                         <th>
-                            <input :value="item.available_qty" class="input" disabled v-if="!is_update_mode"/>
-                            <input :value="item.item.available_qty" class="input" disabled v-else/>
+                            <input :value="item.available_qty" class="input" disabled/>
                         </th>
                         <th width="6%">
-                            <input :disabled="is_update_mode" :tabindex="{1:itemindex==0}"
+                            <input :tabindex="{1:itemindex==0}"
                                    @focus="$event.target.select()"
                                    @keyup="onChangeQtyField(item)"
                                    class="input"
                                    type="text"
                                    v-model="item.qty">
-                            <!--                            <p v-else>{{item.qty}}</p>-->
                         </th>
                         <th class="has-text-white">
                             <input @focus="$event.target.select()" @keyup="onChangePriceField(item)"
@@ -156,7 +152,7 @@
                                    v-model="item.total">
                         </th>
                         <th class="has-text-white">
-                            <input :disabled="item.is_fixed_price || is_update_mode" @focus="$event.target.select()"
+                            <input :disabled="item.is_fixed_price" @focus="$event.target.select()"
                                    @keyup="onChangeDiscountField(item)"
                                    class="input" placeholder="discount" type="text"
                                    v-model="item.discount">
@@ -168,21 +164,17 @@
                         <th class="has-text-white">
                             <input @focus="$event.target.select()" class="input" disabled="" placeholder="vat sale"
                                    type="text"
-                                   v-if="!is_update_mode"
+
                                    v-model="item.vts + '%'">
-                            <input @focus="$event.target.select()" class="input" disabled="" disabled
-                                   placeholder="vat sale"
-                                   type="text"
-                                   v-else
-                                   v-model="item.item.vts + '%'">
+
                         </th>
                         <th class="has-text-white">
                             <input @focus="$event.target.select()" class="input" disabled="" placeholder="tax"
                                    type="text" v-model="item.tax">
                         </th>
                         <th class="has-text-white">
-                            <input :disabled="item.is_fixed_price || is_update_mode" @focus="$event.target.select()"
-                                   @keyup="onChangeNetField(item)"
+                            <input :disabled="item.is_fixed_price" @focus="$event.target.select()"
+
                                    class="input"
 
                                    placeholder="net" type="text" v-model="item.net">
@@ -240,7 +232,7 @@
                                     <div class="columns">
                                         <div class="column"><b>{{ translator.net }}</b></div>
                                         <div class="column">
-                                            <input :disabled="items.length==0 || is_update_mode"
+                                            <input :disabled="items.length==0"
                                                    @focus="$event.target.select()"
                                                    @keyup="onInvoiceNetUpdated"
                                                    class="input"
@@ -276,7 +268,7 @@
     } from '../../item';
 
     export default {
-        props: ['creator', 'is_update_mode', 'kit'],
+        props: ['creator', 'kit', 'data', 'initItems', 'editingKit'],
         data: function () {
             return {
                 app: {
@@ -329,10 +321,7 @@
             this.translator = JSON.parse(window.translator);
             this.messages = JSON.parse(window.messages);
             this.reusable_translator = JSON.parse(window.reusable_translator);
-
-            //
-            // this.translator = JSON.parse(window.translator);
-            if (this.is_update_mode) {
+            if (this.editingKit) {
                 this.loadInitData();
             }
 
@@ -340,10 +329,8 @@
         mounted: function () {
 
 
-            if (this.is_update_mode != true) {
-                this.$refs.search_input_ref.focus();
-                this.watchCopiedItems();
-            }
+            this.$refs.search_input_ref.focus();
+            this.watchCopiedItems();
 
 
         },
@@ -408,12 +395,24 @@
                 this.barcode = this.kit.barcode;
                 this.name = this.kit.name;
                 this.ar_name = this.kit.ar_name;
-                this.items = this.kit.items;
-                this.total = this.kit.data.total;
-                this.discount = this.kit.data.discount;
-                this.subtotal = this.kit.data.subtotal;
-                this.tax = this.kit.data.tax;
-                this.net = this.kit.data.net;
+
+                this.total = this.data.total;
+                this.discount = this.data.discount;
+                this.subtotal = this.data.subtotal;
+                this.tax = this.data.tax;
+                this.net = this.data.net;
+
+                for (let index = 0; index < this.initItems.length; index++) {
+                    let item = this.initItems[index];
+                    item.barcode = item.item.barcode;
+                    item.ar_name = item.item.ar_name;
+                    item.name = item.item.name;
+                    item.locale_name = item.item.locale_name;
+                    item.id = item.item.id;
+                    item.available_qty = item.item.available_qty;
+                    item.vts = item.item.vts;
+                    this.items.push(item);
+                }
 
             },
 
@@ -502,9 +501,6 @@
                 this.itemsSearchList = []; // clear the search items list
                 this.search_field = ""; /// clear the text on the search field
                 this.$refs.search_input_ref.focus();// focus on the search field after make nice search
-
-                // this.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(Math.round(this.net));
-                // alert( this.net);
 
                 this.onInvoiceNetUpdated();
 
@@ -611,24 +607,6 @@
 
             },
 
-            onChangeNetField(item) {
-                var appitem = item;
-                var new_vat = counting.convertVatToValue(item.vts); //  1.05
-                item.subtotal = helpers.roundTheFloatValueTo2DigitOnlyAfterComma((item.net / new_vat));
-                item.discount = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.total - item.subtotal);
-
-                if (parseFloat(item.discount) < 0) {
-                    appitem.discount = 0;
-                    return this.onChangeDiscountField(appitem);
-                }
-
-
-                item.tax = helpers.showOnlyTwoAfterComma(item.subtotal * (item.vts / 100));
-                this.items.splice(this.items.indexOf(item), 1, item);
-                this.updateInvoiceDetails()
-
-            },
-
 
             checkData() {
                 var len = this.items.length;
@@ -695,39 +673,9 @@
             },
 
 
-            onChangeNetField2(item) {
-
-                item.discount = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.total - item.subtotal);
-                item.tax = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(this.subtotal * (item.vts / 100));
-
-
-                this.items.splice(this.items.indexOf(item), 1, item);
-
-                this.checkData();
-
-            },
-
-
             /// events
             onChangeQtyField(item) {
-                // if(item.qty > item)
-                // if (item.available_qty >= item.qty) {
                 this.runUpdater(item);
-                // } else {
-                //     this.$toast.error({
-                //         type: 'error',
-                //         showMethod: 'lightSpeedIn',
-                //         closeButton: false,
-                //         timeOut: 4000,
-                //         icon: '',
-                //         title: 'خطأ',
-                //         message: 'الكمية المطلوبة غير متوفرة',
-                //         progressBar: true,
-                //         hideDuration: 1000
-                //     })
-                // }
-
-
             },
             onChangePriceField(item) {
 
@@ -737,19 +685,6 @@
             onChangeDiscountField(item) {
 
                 this.runUpdater(item);
-            },
-
-
-            runUpdaderWithoutUpdateInvoice(item) {
-                var index = this.items.indexOf(item);
-                // validate the value
-                item.total = this.updateTotalForOneItem(item);
-                item.subtotal = this.updateSubtotalForOneItem(item);
-                item.tax = this.updateTaxForOneItem(item);
-                item.net = this.updateNetForOneItem(item);
-                item.variation = this.updateVariationForOneItem(item);
-                this.updateItemInListBYindex(index, item);
-                this.checkData();
             },
             runUpdater(item) {
                 // console.log(item);
@@ -766,12 +701,9 @@
                 this.checkData();
 
             },
-
-            // helpers
             updateTotalForOneItem(item) {
                 return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.price * item.qty);
             },
-
             updateVariationForOneItem(item) {
                 var vig = parseFloat(item.price) - parseFloat(item.temp_p_price);
                 // console.log(item.temp_p_price);
@@ -806,40 +738,15 @@
             },
 
 
-            saveAndPrintInvoiceButtonClicked(e) {
-
-            },
-
-            validateInvoiceData() {
-                return true;
-            },
-
             saveInvoiceButtonClicked(e) {
-
-                // console.log(e);
-                if (this.validateInvoiceData()) {
+                if (this.editingKit) {
+                    this.sendUpdateRequest();
+                } else {
                     this.sendDataToServer(e.event);
                 }
 
-                // console.log('clicked..');
             },
 
-            saveInvoiceButtonClickedOnly() {
-
-                // console.log(e);
-                if (this.validateInvoiceData()) {
-                    this.sendDataToServer('only');
-                }
-
-                // console.log('clicked..');
-            },
-
-            cancelInvoiceButtonClicked(e) {
-                // window.print();
-            },
-
-
-            // vm.showFinishTableMessage(event, response.data.invoice_id);
 
             showFinishTableMessage(event, id) {
 
@@ -864,15 +771,7 @@
             },
 
 
-            saveInvoiceButtonClicked(e) {
-                this.sendDataToServer();
-                // console.log('clicked..');
-            },
-
-            cancelInvoiceButtonClicked(e) {
-
-            },
-            sendDataToServer() {
+            sendCreationRequest() {
 
                 var data_to = {
                     name: this.name,
@@ -907,9 +806,39 @@
 
 
                     });
+            },
+
+            sendUpdateRequest() {
+
+                var data_to = {
+                    name: this.name,
+                    ar_name: this.ar_name,
+                    barcode: this.barcode,
+                    items: this.items,
+                    total: this.total,
+                    subtotal: this.subtotal,
+                    net: this.net,
+                    creator_id: this.creator.id,
+                    branch_id: this.creator.branch_id,
+                    department_id: this.creator.department_id,
+                    tax: this.tax,
+                    invoice_type: 'sale',
+                    discount_value: this.discount,
+                    discount_percent: this.discount,
+                    remaining: 0,
+                    current_status: 'paid',
+                    issued_status: 'paid',
+                };
+
+
+                axios.patch('/accounting/kits/' + this.kit.id, data_to)
+                    .then(function (response) {
+                        location.href = '/accounting/kits';
+                    })
+                    .catch(function (error) {
+                        console.log(error.response.data);
+                    });
             }
-
-
         },
 
         watch: {

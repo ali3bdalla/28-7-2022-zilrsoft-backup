@@ -91,7 +91,7 @@
                         <th :class="{'orderBy':orderBy=='name'}" @click="setOrderByColumn('name')">
                             {{ trans.name }}
                         </th>
-                        <th  width="13%" :class="{'orderBy':orderBy=='net'}" @click="setOrderByColumn('net')">
+                        <th :class="{'orderBy':orderBy=='net'}" @click="setOrderByColumn('net')" width="13%">
                             {{ trans.net }}
                         </th>
 
@@ -141,6 +141,7 @@
                                 <ul :aria-labelledby="'dropDownOptions'
                                 + row.id" class="dropdown-menu CustomDropDownOptions">
                                     <li><a :href="baseUrl + row.id" v-text="trans.show"></a></li>
+                                    <li><a :href="baseUrl + row.id + '/edit'" v-text="trans.edit"></a></li>
                                     <li @click="deleteKitClicked(row)" v-if="canDelete==1"><a
                                             v-text="trans.delete"></a></li>
 

@@ -79,6 +79,18 @@
 		}
 		
 		/**
+		 * @param Request $request
+		 *
+		 * @return mixed
+		 */
+		public function view_profile(Request $request)
+		{
+			$user_id = $request->input('user_id');
+			
+			return User::find($user_id);
+		}
+		
+		/**
 		 * Show the form for editing the specified resource.
 		 *
 		 * @param User $user
