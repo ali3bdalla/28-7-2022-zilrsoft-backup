@@ -28,7 +28,7 @@
                         <div align="left" class="col-md-8  div-col" style="
                                 margin-left: -10px; margin-right: 10px;margin-top: -28px;font-weight: bolder;">
                                 <span style="font-size: 27px !important;">
-                                   {{ convertEnToArabicNumber(itemData.price_with_tax.toString() ) }}
+                                   {{ convertEnToArabicNumber(item.price_with_tax.toString() ) }}
                                </span>
                                 <span> ر.س</span>
                         </div>
