@@ -66,6 +66,7 @@
         props: ['items', 'invoiceId', 'hideBtn'],
         data: function () {
             return {
+                shouldPrint: false,
                 invoiceTitle: "",
                 itemsList: [],
                 image: null,
@@ -345,15 +346,19 @@
 
             invoiceId: function (value) {
                 this.invoiceTitle = value;
-
-            },
-            invoiceTitle: function (val) {
                 let appVm = this;
+                appVm.generatedData();
                 let interval = setInterval(function () {
-                    appVm.printBulkBarcode();
+                    appVm.shouldPrint = true;
                     clearInterval(interval);
-                    appVm.$emit("CompletePrintProcess", {});
-                }, 100);
+                }, 1000);
+            },
+            shouldPrint: function (val) {
+                let appVm = this;
+                appVm.printBulkBarcode();
+                clearInterval(interval);
+                appVm.$emit("CompletePrintProcess", {});
+
             }
 
         }
