@@ -352,6 +352,7 @@
             },
             shouldPrint: function (val) {
                 this.printBulkBarcode();
+                let appVm = this;
                 let interval = setInterval(function () {
                     appVm.$emit("CompletePrintProcess", {});
                     clearInterval(interval);
