@@ -122,6 +122,7 @@
                 <thead class="panel-heading">
                 <tr>
                     <th></th>
+                    <th></th>
                     <!-- <th class="has-text-white"></th> -->
                     <th>{{ app.trans.barcode }}</th>
                     <th>{{ app.trans.item_name }}</th>
@@ -144,6 +145,7 @@
 
 
                 <tr :key="item.id" v-for="(item,index) in invoiceData.items">
+                    <td><input type="checkbox" v-model="item.is_printable"></td>
                     <td>
 
                         <button @click="deleteItemFromList(item)" class="btn btn-danger btn-xs"><i
@@ -464,6 +466,7 @@
                 this.clearAndFocusOnBarcodeField();
             },
             prepareDataInFirstUse(item) {
+                item.is_printable = true;
                 if (item.is_service) {
                     return;
                 }

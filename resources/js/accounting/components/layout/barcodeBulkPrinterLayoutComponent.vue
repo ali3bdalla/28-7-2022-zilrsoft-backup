@@ -329,7 +329,12 @@
         },
         watch: {
             items: function (value) {
-                this.itemsList = value;
+                this.itemsList = [];
+                for (let i = 0; i < value.length; i++) {
+                    let item = value[i];
+                    this.itemsList.push(item);
+                }
+
 
                 let appVm = this;
                 let interval = setInterval(function () {
