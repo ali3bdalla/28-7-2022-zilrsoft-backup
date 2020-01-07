@@ -350,7 +350,7 @@
                     appVm.printBulkBarcode();
                 }, 1000);
 
-                appVm.$emit("CompletePrintProcess", {});
+                // appVm.$emit("CompletePrintProcess", {});
             }
         }
 
