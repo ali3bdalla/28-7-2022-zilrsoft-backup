@@ -111,7 +111,7 @@
 
         <div class="col-md-6" style="float: left;padding-top: 10px;color: black !important;">
             <h5>{{ __('pages/invoice.branch') }} :
-                {{substr($invoice->creator->branch->locale_name,0,55) }}
+                {{$invoice->creator->branch->locale_name }}
             </h5>
             <h5 style="margin: 10px 0px !important;">الرقم الضريبي : {{auth()->user()->organization->vat}}</h5>
 
@@ -231,8 +231,8 @@
                                      <td class="no" style="width:30px !important;">{{$loop->index + 1}}</td>
                                      <td class="desc" style="width: 10%  !important;text-align: right !important;
                                              font-weight: bold;font-size: 13px !important;color: black;background-color:
-							  <?php echo $background_color;?> !important;">{{
-                                $item->item->locale_name }}</td>
+							  <?php echo $background_color;?> !important;">{{substr($item->item->locale_name,
+							  0,55) }}</td>
                                      <td class="total" style="background-color:
 							  <?php echo $background_color;?> !important;">{{ $item->qty }}</td>
                                      <td class="total" style="background-color:
