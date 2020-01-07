@@ -700,7 +700,7 @@
                 axios.post(this.app.BaseApiUrl + 'purchases', data)
                     .then(function (response) {
                         // if (event == 'a4') {
-                        // window.open('/accounting/printer/print_a4/' + response.data.id, '_blank');
+                        window.open('/accounting/printer/print_a4/' + response.data.id, '_blank');
                         // }
                         // appVm.invoiceTitle = response.data.title;
                         appVm.askUserToHandleInvoice(response.data);
@@ -748,7 +748,7 @@
                         appVm.invoiceId = invoice.title;
                     })
                     .catch(() => {
-                        // window.location.reload();
+                        window.location.reload();
                     });
 
                 //
