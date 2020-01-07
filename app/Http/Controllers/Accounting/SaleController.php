@@ -26,6 +26,14 @@
 	{
 		
 		/**
+		 * SaleController constructor.
+		 */
+		public function __construct()
+		{
+			$this->middleware(['permission:create sale|edit sale|view sale|delete sale']);
+		}
+		
+		/**
 		 * @return Factory|View
 		 */
 		public function index()

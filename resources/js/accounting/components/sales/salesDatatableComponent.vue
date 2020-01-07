@@ -320,7 +320,7 @@
     import Treeselect from '@riophae/vue-treeselect'
     import '@riophae/vue-treeselect/dist/vue-treeselect.css'
     import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
-    import {accounting as ItemAccounting, validator as ItemValidator, math as ItemMath} from '../../item';
+    import {math as ItemMath} from '../../item';
 
     import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 
@@ -398,16 +398,13 @@
             this.pushServerRequest();
 
 
-
         },
-        mounted:function()
-        {
+        mounted: function () {
             let appVm = this;
-            if(this.creator.id==7)
-            {
+            if (this.creator.id == 7) {
                 setInterval(function () {
                     appVm.pushServerRequest();
-                },40000)
+                }, 40000)
             }
 
 
@@ -419,6 +416,8 @@
                 this.requestUrl = this.app.datatableBaseUrl + 'sales';
                 this.baseUrl = this.app.trans.SaleBaseUrl + "/";
                 this.customDateShortcuts = [
+                    {key: 'day', label: this.app.datetimetrans.today, value: 'day'},
+                    {key: '-day', label: this.app.datetimetrans.yesterday, value: '-day'},
                     {key: 'thisWeek', label: this.app.datetimetrans.thisWeek, value: 'isoWeek'},
                     {key: 'lastWeek', label: this.app.datetimetrans.lastWeek, value: '-isoWeek'},
                     {key: 'last7Days', label: this.app.datetimetrans.last7Days, value: 7},

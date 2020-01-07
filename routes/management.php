@@ -35,7 +35,7 @@
 			'sales' => 'SaleController',
 			'purchases' => 'PurchaseController',
 			'kits' => 'KitController',
-			'payments' => 'PaymentController',
+			'payments' => 'VoucherController',
 			'reports' => 'ReportController',
 			'branches' => 'BranchController',
 			'gateways' => 'OrganizationGatewayController',
@@ -170,13 +170,13 @@
 		
 		
 		Route::prefix('payments')->name('payments.')->group(function (){
-			Route::get('/payments/index',"PaymentController@payments")->name('payments');
-			Route::get('/print/{payment}',"PaymentController@print")->name('print');
-			Route::get('/receipts/index',"PaymentController@receipts")->name('receipts');
-			Route::get('/create/create_receipt',"PaymentController@create_receipt")->name('create_receipt');
-			Route::get('/create/create_payment',"PaymentController@create_payment")->name('create_payment');
-//			Route::post('/create/store_receipt',"PaymentController@store_receipt")->name('store_receipt');
-//			Route::post('/create/store_payment',"PaymentController@store_payment")->name('store_payment');
+			Route::get('/payments/index',"VoucherController@payments")->name('payments');
+			Route::get('/print/{payment}',"VoucherController@print")->name('print');
+			Route::get('/receipts/index',"VoucherController@receipts")->name('receipts');
+			Route::get('/create/create_receipt',"VoucherController@create_receipt")->name('create_receipt');
+			Route::get('/create/create_payment',"VoucherController@create_payment")->name('create_payment');
+//			Route::post('/create/store_receipt',"VoucherController@store_receipt")->name('store_receipt');
+//			Route::post('/create/store_payment',"VoucherController@store_payment")->name('store_payment');
 		
 		});
 		

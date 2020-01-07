@@ -277,6 +277,8 @@
                 this.requestUrl = this.app.datatableBaseUrl + 'purchases';
                 this.baseUrl = this.app.trans.PurchaseBaseUrl + "/";
                 this.customDateShortcuts = [
+                    {key: 'day', label: this.app.datetimetrans.today, value: 'day'},
+                    {key: '-day', label: this.app.datetimetrans.yesterday, value: '-day'},
                     {key: 'thisWeek', label: this.app.datetimetrans.thisWeek, value: 'isoWeek'},
                     {key: 'lastWeek', label: this.app.datetimetrans.lastWeek, value: '-isoWeek'},
                     {key: 'last7Days', label: this.app.datetimetrans.last7Days, value: 7},

@@ -132,10 +132,10 @@
                                 {{ __('sidebar.beginning_inventory') }}
                             </a></li>
 
-                        <li>
-                            <a href="{{route('accounting.inventories.index')}}"><i class="fa fa-sun"></i>
-                                {{ __('sidebar.adjust_stock') }}
-                            </a></li>
+{{--                        <li>--}}
+{{--                            <a href="{{route('accounting.inventories.index')}}"><i class="fa fa-sun"></i>--}}
+{{--                                {{ __('sidebar.adjust_stock') }}--}}
+{{--                            </a></li>--}}
 
                     @endcan
 
@@ -155,7 +155,7 @@
 
                     @can('view voucher')
                         <li>
-                            <a href="{{route('accounting.payments.index')}}"><i class="fab fa-product-hunt"></i>
+                            <a href="{{route('accounting.vouchers.index')}}"><i class="fab fa-product-hunt"></i>
                                 {{ __('sidebar.vouchers') }}
                             </a></li>
 
@@ -164,12 +164,12 @@
                     @can('create voucher')
                         <li>
                             <a href="{{route('accounting.filters.index')}}"><i class="fa fa-sun"></i>
-                                {{ __('pages/payments.create_payment') }}
+                                {{ __('pages/vouchers.create_payment') }}
                             </a></li>
 
                         <li>
                             <a href="{{route('accounting.filters.index')}}"><i class="fa fa-sun"></i>
-                                {{ __('pages/payments.create_receipt') }}
+                                {{ __('pages/vouchers.create_receipt') }}
                             </a></li>
                     @endcan
 

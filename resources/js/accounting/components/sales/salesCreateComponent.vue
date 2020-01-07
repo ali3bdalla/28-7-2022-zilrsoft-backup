@@ -249,7 +249,6 @@
                     <td>
                         <input :disabled="item.is_fixed_price"
                                @change="itemNetUpdated(item)"
-
                                @focus="$event.target.select()"
                                class="form-control input-xs amount-input"
                                placeholder="net" type="text" v-model="item.net">

@@ -23,7 +23,7 @@
 			'sales' => 'SaleController',
 			'purchases' => 'PurchaseController',
 			'kits' => 'KitController',
-			'payments' => 'PaymentController',
+			'vouchers' => 'VoucherController',
 			'reports' => 'ReportController',
 			'branches' => 'BranchController',
 			'expenses' => 'ExpenseController',
@@ -105,6 +105,7 @@
 			Route::get('beginning_inventories','InventoryController@beginning_datatable')->name('beginning.datatable');
 			Route::get('purchases','PurchaseController@datatable')->name('purchases.datatable');
 			Route::get('sales','SaleController@datatable')->name('sales.datatable');
+			Route::get('vouchers','VoucherController@datatable')->name('vouchers.datatable');
 			
 		});
 		Route::prefix('categories')->name('categories.')->group(function (){
