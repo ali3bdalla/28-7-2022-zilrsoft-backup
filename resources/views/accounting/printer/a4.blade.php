@@ -231,8 +231,7 @@
                                      <td class="no" style="width:30px !important;">{{$loop->index + 1}}</td>
                                      <td class="desc" style="width: 10%  !important;text-align: right !important;
                                              font-weight: bold;font-size: 13px !important;color: black;background-color:
-							  <?php echo $background_color;?> !important;">{{substr($item->item->locale_name,
-							  0,55) }}</td>
+							  <?php echo $background_color;?> !important;">{{mb_substr($item->item->locale_name, 0,55) }}</td>
                                      <td class="total" style="background-color:
 							  <?php echo $background_color;?> !important;">{{ $item->qty }}</td>
                                      <td class="total" style="background-color:
