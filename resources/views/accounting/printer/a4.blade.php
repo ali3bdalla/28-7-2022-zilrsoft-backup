@@ -111,7 +111,7 @@
 
         <div class="col-md-6" style="float: left;padding-top: 10px;color: black !important;">
             <h5>{{ __('pages/invoice.branch') }} :
-                {{$invoice->creator->branch->locale_name }}
+                {{substr($invoice->creator->branch->locale_name,0,55) }}
             </h5>
             <h5 style="margin: 10px 0px !important;">الرقم الضريبي : {{auth()->user()->organization->vat}}</h5>
 

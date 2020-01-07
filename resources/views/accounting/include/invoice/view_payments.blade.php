@@ -8,7 +8,7 @@
                                                    style="min-width: 130px; font-weight: bolder;
 ">
                     {{$payment->paymentable->locale_name}} &nbsp;
-                    &nbsp; ( <a target="_blank" href="{{ route('accounting.payments.show',$payment->id)}}">عرض
+                    &nbsp; ( <a target="_blank" href="{{ route('accounting.vouchers.show',$payment->id)}}">عرض
                         السند</a> )</span>
                         <input aria-describedby="1" disabled="disabled" type="text"
                                class="form-control" value="{{$payment->amount}}" style="font-weight:
