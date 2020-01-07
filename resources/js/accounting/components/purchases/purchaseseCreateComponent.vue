@@ -719,7 +719,7 @@
             },
 
             reloadPageAfterPrintBarcode() {
-                // window.location.reload();
+                window.location.reload();
             },
             askUserToHandleInvoice(invoice) {
                 let options = {

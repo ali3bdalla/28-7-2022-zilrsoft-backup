@@ -346,11 +346,14 @@
             invoiceId: function (value) {
                 this.invoiceTitle = value;
                 let appVm = this;
-                setInterval(function () {
+                let interval = setInterval(function () {
                     appVm.printBulkBarcode();
+                    clearInterval(interval);
+                    appVm.$emit("CompletePrintProcess", {});
+
                 }, 1000);
 
-                // appVm.$emit("CompletePrintProcess", {});
+                //
             }
         }
 

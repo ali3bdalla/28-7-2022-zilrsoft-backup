@@ -81,7 +81,7 @@
 				$this->toGetAndUpdatedAmounts($invoice);
 				$this->toCreateInvoiceTransactions($invoice,$this->items,$this->methods,$expenses);
 				DB::commit();
-				return $invoice;
+				return $invoice->fresh();
 			}catch (Exception $e){
 				DB::rollBack();
 				throw new Exception($e->getMessage());
