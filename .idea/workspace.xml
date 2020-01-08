@@ -2,7 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/deaef1e7d6b3ab7de3953d339b0c4555a975dc6e.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/535881e622976e0551bfeb80b5e69b8f71bb54cc.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/73d9039e5aecddc1bf5447f0ff265ce74e25f723.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/7d02eb55aed262c020bf4711dd14f96476917ac9.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/846a23b907bd4e9d37600acf5a60fd01e4938334.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/8cd1f9ba92aa6aa453fd98b1947d27d9c8fbcf9f.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/ac645a399c5ddb18a47bd44e678799a5fb1574eb.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/VoucherController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/VoucherController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/headerLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/headerLayoutComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/sidebar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/sessions/QImsqzq59Q1OY0fePv75Mq45bSfhsgIT2TtB4u3W" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/QImsqzq59Q1OY0fePv75Mq45bSfhsgIT2TtB4u3W" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -430,7 +440,7 @@
       <workItem from="1577567765490" duration="100630000" />
       <workItem from="1578067206769" duration="104731000" />
       <workItem from="1578489855987" duration="76000" />
-      <workItem from="1578489944915" duration="7732000" />
+      <workItem from="1578489944915" duration="8947000" />
     </task>
     <servers />
   </component>

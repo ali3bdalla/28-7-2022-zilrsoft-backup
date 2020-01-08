@@ -1,6 +1,6 @@
 <template>
 
-    <header class="main-header ">
+    <header class="main-header " style="    margin-bottom: 50px;">
         <a :href="baseUrl" :style="{'background-color':primaryColor}" class="logo">
             <span class="logo-lg"><b>{{ appName }}</b></span>
         </a>
@@ -9,7 +9,8 @@
             <i class="fa fa-bars"></i>
 
         </a>
-        <nav :style="{'backgroundColor':primaryColor}" class="navbar">
+        <nav :style="{'backgroundColor':primaryColor}" class="navbar navbar-fixed-top" style="margin-bottom: 50px
+        !important;">
             <div class="right" style="">
                 <ul class="nav navbar-nav">
 

@@ -163,12 +163,14 @@
                     @endcan
                     @can('create voucher')
                         <li>
-                            <a href="{{route('accounting.filters.index')}}"><i class="fa fa-sun"></i>
+                            <a href="{{route('accounting.vouchers.create')}}?voucher_type=payment"><i class="fa
+                            fa-sun"></i>
                                 {{ __('pages/vouchers.create_payment') }}
                             </a></li>
 
                         <li>
-                            <a href="{{route('accounting.filters.index')}}"><i class="fa fa-sun"></i>
+                            <a href="{{route('accounting.vouchers.create')}}?voucher_type=receipt"><i class="fa
+                            fa-sun"></i>
                                 {{ __('pages/vouchers.create_receipt') }}
                             </a></li>
                     @endcan

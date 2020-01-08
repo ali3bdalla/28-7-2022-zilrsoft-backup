@@ -1,6 +1,7 @@
 <?php
 	
 	namespace App\Http\Controllers\Accounting;
+	
 	use App\Account;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Voucher\CreateVoucherRequest;
@@ -67,10 +68,16 @@
 			$voucher_types = config('global.voucher_types');
 			if ($request->input('voucher_type') == 'receipt'){
 				$voucher_type = 'receipt';
-				$users = User::where('is_client',true)->with('gateways.bank')->get();
+				$users = User::where([
+					['is_client',true],
+					['is_system_user',false],
+				])->with('gateways.bank')->get();
 			}else{
 				$voucher_type = 'payment';
-				$users = User::where('is_vendor',true)->with('gateways.bank')->get();
+				$users = User::where([
+					['is_vendor',true],
+					['is_system_user',false],
+				])->with('gateways.bank')->get();
 			}
 			return view('accounting.vouchers.create',compact('accounts','users','voucher_types','voucher_type'));
 		}
