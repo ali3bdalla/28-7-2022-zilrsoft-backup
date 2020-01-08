@@ -4,17 +4,20 @@
 		'voucher_types' => [
 			[
 				'locale_name' => 'تحويل',
-				'slug' => 'transfer'
+				'slug' => 'transfer',
+				'id' => 'transfer'
 			
 			],
 			[
 				'locale_name' => 'نقداً',
-				'slug' => 'cash'
+				'slug' => 'cash',
+				'id' => 'cash'
 			
 			],
 			[
 				'locale_name' => 'شيك',
-				'slug' => 'check'
+				'slug' => 'check',
+				'id' => 'check'
 			
 			]
 		],

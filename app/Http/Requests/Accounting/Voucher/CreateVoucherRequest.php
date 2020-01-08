@@ -32,7 +32,7 @@
 		{
 			return [
 				//
-				'description' => 'required|string',
+				'description' => 'nullable|string',
 				'user_id' => 'required|integer|exists:users,id',
 				'amount' => 'required|numeric',
 				'voucher_type' => ['required',Rule::in(['transfer','cash','check'])],
