@@ -6,7 +6,6 @@
 	use App\FilterValues;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Filter\CreateFilterValueRequest;
-	use App\Http\Requests\Accounting\Filter\DatatableRequest;
 	use App\Http\Requests\Accounting\Filter\UpdateFilterValueRequest;
 	use App\Http\Requests\Accounting\Filter\ValuesDataTableRequest;
 	use Illuminate\Http\Request;
@@ -24,7 +23,9 @@
 		}
 		
 		/**
-		 * @param DatatableRequest $request
+		 * @param ValuesDataTableRequest $request
+		 *
+		 * @param Filter $filter
 		 *
 		 * @return LengthAwarePaginator
 		 */
@@ -58,8 +59,6 @@
 			return $request->save();
 			//
 		}
-		
-		
 		
 		/**
 		 * Update the specified resource in storage.

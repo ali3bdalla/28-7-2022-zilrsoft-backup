@@ -9,11 +9,6 @@
                         class="fa fa-save"></i> {{ app.trans.save }}
                 </button>
 
-
-                <!--                <button :disabled="!everythingFineToSave" @click="pushDataToServer('a4')"-->
-                <!--                        class="btn btn-custom-primary"><i-->
-                <!--                        class="fa fa-save"></i> {{ app.trans.save_and_print4 }}-->
-                <!--                </button>-->
             </div>
             <div class="col-md-6">
                 <a :href="app.BaseApiUrl + 'purchases'" class="btn btn-default "><i
@@ -24,10 +19,10 @@
 
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <accounting-select-with-search-layout-component
                         :no_all_option="true"
-                        :options="vendors"
+                        :options="vendorsList"
                         :placeholder="app.trans.vendor"
                         :title="app.trans.vendor"
                         @valueUpdated="vendorListChanged"
@@ -37,6 +32,11 @@
                 >
 
                 </accounting-select-with-search-layout-component>
+
+            </div>
+            <div class="col-md-2">
+                <a @click="modalsInfo.showCreateVendorModal=true" class="btn btn-custom-primary btn-lg btn-block">{{app.trans
+                    .create_identity}}</a>
 
             </div>
             <div class="col-md-6">
@@ -342,6 +342,70 @@
         >
         </accounting-barcode-bulk-printer-layout-component>
 
+
+        <!--invoice Note Modal-->
+        <div v-if="modalsInfo.showCreateVendorModal===true">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header ">
+                                    <button @click="modalsInfo.showCreateVendorModal = false"
+                                            class="pull-left btn btn-custom-primary"
+                                            type="button">
+                                        اغلاق
+                                    </button>
+                                    <h4 class="modal-title">انشاء هوية</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <toggle-button :font-size="19" :height='30' :labels="{checked:'فرد',
+                                   unchecked: 'منشأة'}" :sync="true" :width='150'
+                                                           v-model="vendorModal.isIndividual"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <toggle-button :font-size="19" :height='30'
+                                                           :labels="{checked:'السيد',
+                                   unchecked: 'السيد'}"
+                                                           :sync="true" :width='150' v-model="vendorModal.isMsr"
+                                                           v-show="vendorModal.isIndividual"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input class="form-control" placeholder="اسم المورد"
+                                                   v-model="vendorModal.vendorArName"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input class="form-control" placeholder="اسم المورد (انجليزي)"
+                                                   v-model="vendorModal.vendorName"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input class="form-control" placeholder="السجل الضريبي "
+                                                   v-model="vendorModal.vendorCr"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div @click="pushVendorData" class="btn btn-custom-primary">
+                                                حفظ
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </div>
+        <!--invoice create Modal-->
+
+
     </div>
 
 
@@ -360,7 +424,16 @@
         props: ['creator', 'vendors', 'receivers', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
         data: function () {
             return {
-
+                vendorModal: {
+                    vendorName: "",
+                    vendorArName: "",
+                    vendorCr: "",
+                    isIndividual: true,
+                    isMsr: true
+                },
+                modalsInfo: {
+                    showCreateVendorModal: false,
+                },
                 invoiceId: "",
                 everythingFineToSave: false,
                 selectedItem: null,
@@ -379,6 +452,7 @@
                     subtotal: 0,
                     status: "credit"
                 },
+                vendorsList: [],
                 searchResultList: [],
                 expensesList: [],
                 barcodeNameAndSerialField: "",
@@ -400,12 +474,14 @@
             };
         },
         created: function () {
+            this.vendorsList = this.vendors;
             this.initExpensesList();
 
 
         },
 
         mounted: function () {
+            this.vendorsList = this.vendors;
             this.itemsTabsPusherHandler();
             this.$refs.barcodeNameAndSerialField.focus();
         },
@@ -413,6 +489,68 @@
 
         methods: {
 
+
+            pushVendorData() {
+
+                let user_type;
+                if (this.vendorModal.isIndividual) {
+                    user_type = 'individual';
+
+                } else {
+                    user_type = 'company';
+                }
+
+                let user_title;
+
+                if (this.vendorModal.isMr) {
+                    user_title = 'mr';
+                } else {
+                    user_title = 'mis';
+                }
+
+                if (user_type == 'company') {
+                    user_title = 'company';
+                }
+
+
+                var data = {
+                    user_gateways: [],
+                    user_title: user_title,
+                    is_client: false,
+                    is_supplier: false,
+                    is_vendor: true,
+                    user_type: user_type,
+                    ar_name: this.vendorModal.vendorArName,
+                    name: this.vendorModal.vendorName,
+                    phone_number: "00000000",
+                    email: "",
+                    can_make_credit: false,
+                    user_detail_vat: "",
+                    user_detail_email: "",
+                    user_detail_cr: this.vendorModal.vendorCr,
+                    user_detail_address: "",
+                    user_detail_responser: "",
+                    user_detail_responser_phone: "000000"
+
+
+                };
+                let appVm = this;
+                axios.post('/accounting/identities', data).then(response => {
+                    appVm.vendorsList.push(response.data);
+                    console.log(response.data);
+                    appVm.modalsInfo.showCreateVendorModal = false;
+                    appVm.invoiceData.vendorId = response.data.id;
+                    appVm.vendorListChanged({
+                        value: {
+                            id: response.data.id
+                        }
+                    })
+                }).catch(error => {
+                    console.log(error.response);
+                    console.log(error.response.messages);
+                    console.log(error.message);
+                });
+            },
             vendorListChanged(event) {
                 this.invoiceData.vendorId = event.value.id;
             },

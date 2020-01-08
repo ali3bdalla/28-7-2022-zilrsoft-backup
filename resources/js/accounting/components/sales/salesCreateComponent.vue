@@ -34,9 +34,9 @@
         <div class="row">
             <div class="col-md-4">
                 <accounting-select-with-search-layout-component
-                        :default-index="clients[0].id"
+                        :default-index="clientList[0].id"
                         :no_all_option="true"
-                        :options="clients"
+                        :options="clientList"
                         :placeholder="app.trans.client"
                         :title="app.trans.client"
                         @valueUpdated="clientListChanged"
@@ -49,8 +49,11 @@
 
             </div>
             <div class="col-md-2">
-                <a @click="modalsInfo.showAliceNameModal=true" class="btn btn-custom-primary btn-lg btn-block">{{app.trans
+                <a @click="modalsInfo.showAliceNameModal=true" class="btn btn-custom-primary btn-sm">{{app.trans
                     .make_alice_name}}</a>
+
+                <a @click="modalsInfo.showCreateClientModal=true" class="btn btn-custom-primary btn-sm">{{app.trans
+                    .create_identity}}</a>
 
             </div>
             <div class="col-md-6">
@@ -440,6 +443,73 @@
         </div>
         <!--        invoice other client name  Modal-->
 
+
+        <!--invoice Note Modal-->
+        <div v-if="modalsInfo.showCreateClientModal===true">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header ">
+                                    <button @click="modalsInfo.showCreateClientModal = false"
+                                            class="pull-left btn btn-custom-primary"
+                                            type="button">
+                                        اغلاق
+                                    </button>
+                                    <h4 class="modal-title">انشاء هوية</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <toggle-button :font-size="19" :height='30' :labels="{checked:'فرد',
+                                   unchecked: 'منشأة'}" :sync="true" :width='150'
+                                                           v-model="clientModal.isIndividual"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <toggle-button :font-size="19" :height='30'
+                                                           :labels="{checked:'السيد',
+                                   unchecked: 'السيد'}"
+                                                           :sync="true" :width='150' v-model="clientModal.isMsr"
+                                                           v-show="clientModal.isIndividual"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <toggle-button :font-size="19" :height='30'
+                                                           :labels="{checked:'فواتير اجله',
+                                   unchecked: 'سداد فقط'}"
+                                                           :sync="true" :width='150'
+                                                           v-model="clientModal.canMakeCredit"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input class="form-control" placeholder="اسم المورد"
+                                                   v-model="clientModal.clientArName"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input class="form-control" placeholder="اسم المورد (انجليزي)"
+                                                   v-model="clientModal.clientName"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div @click="pushClientData" class="btn btn-custom-primary">
+                                                حفظ
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </div>
+        <!--invoice create Modal-->
+
+
     </div>
 
 
@@ -459,11 +529,23 @@
         props: ['creator', 'clients', 'salesmen', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
         data: function () {
             return {
+                clientModal: {
+                    clientName: "",
+                    clientArName: "",
+                    isIndividual: true,
+                    isMsr: true,
+                    canMakeCredit: true,
+                },
+                modalsInfo: {
+                    showCreateClientModal: false,
+                },
+
                 selectedExpense: null,
                 modalsInfo: {
                     showNoteModal: false,
                     showAliceNameModal: false,
                 },
+                clientList:[],
                 createdInvoiceId: 0,
                 everythingFineToSave: false,
                 selectedItem: null,
@@ -510,18 +592,82 @@
         },
         created: function () {
 
+            this.clientList = this.clients;
             this.initExpensesList();
             this.initLiveTimer();
 
         },
 
         mounted: function () {
+            this.clientList = this.clients;
             this.itemsTabsPusherHandler();
             this.$refs.barcodeNameAndSerialField.focus();
         },
 
 
         methods: {
+
+            pushClientData() {
+                let user_type;
+                if (this.clientModal.isIndividual) {
+                    user_type = 'individual';
+
+                } else {
+                    user_type = 'company';
+                }
+
+                let user_title;
+
+                if (this.clientModal.isMr) {
+                    user_title = 'mr';
+                } else {
+                    user_title = 'mis';
+                }
+
+                if (user_type == 'company') {
+                    user_title = 'company';
+                }
+
+
+                var data = {
+                    user_gateways: [],
+                    user_title: user_title,
+                    is_client: true,
+                    is_supplier: false,
+                    is_vendor: false,
+                    user_type: user_type,
+                    ar_name: this.clientModal.clientArName,
+                    name: this.clientModal.clientName,
+                    phone_number: "00000000",
+                    email: "",
+                    can_make_credit: this.clientModal.canMakeCredit,
+                    user_detail_vat: "",
+                    user_detail_email: "",
+                    user_detail_cr: "",
+                    user_detail_address: "",
+                    user_detail_responser: "",
+                    user_detail_responser_phone: "000000"
+
+
+                };
+                let appVm = this;
+                axios.post('/accounting/identities', data).then(response => {
+                    appVm.clientList.push(response.data);
+                    appVm.modalsInfo.showCreateclientModal = false;
+                    // appVm.invoiceData.clientId = response.data.id;
+                    // appVm.clientListChanged({
+                        // value: {
+                            // id: response.data.id
+                        // }
+                    // })
+                }).catch(error => {
+                    console.log(error.response);
+                    console.log(error.response.messages);
+                    console.log(error.message);
+                });
+            },
+
+
             addExpenseToInvoice() {
                 if (this.selectedExpense != null) {
                     let new_expense = this.selectedExpense;
@@ -906,7 +1052,7 @@
 
 
             pushDataToServer(doWork = null) {
-                let client = db.model.find(this.clients, this.invoiceData.clientId);
+                let client = db.model.find(this.clientList, this.invoiceData.clientId);
                 if (client.can_make_credit === false) {
                     let amount = db.model.sum(this.invoiceData.methods, 'amount');
 

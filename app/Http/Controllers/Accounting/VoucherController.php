@@ -1,14 +1,16 @@
 <?php
 	
 	namespace App\Http\Controllers\Accounting;
-	
 	use App\Account;
 	use App\Http\Controllers\Controller;
+	use App\Http\Requests\Accounting\Voucher\CreateVoucherRequest;
 	use App\Http\Requests\Accounting\Voucher\DatatableRequest;
-	use App\Http\Requests\CreateReceiptRequest;
-	use App\Http\Requests\CreateVoucherRequest;
+	use App\Manager;
 	use App\Payment;
 	use App\User;
+	use Illuminate\Contracts\View\Factory;
+	use Illuminate\View\View;
+	use Symfony\Component\HttpFoundation\Request;
 	
 	class VoucherController extends Controller
 	{
@@ -21,105 +23,67 @@
 			$this->middleware(['permission:create voucher|edit voucher|view voucher|delete voucher']);
 		}
 		
+		/**
+		 * @return Factory|View
+		 */
 		public function index()
 		{
-//			$type = 'all';
-//			$payments = Payment::orderBy('id','desc')->paginate(15);
-			return view('accounting.vouchers.index');
+			$identities = User::all();
+			$creators = Manager::all();
+			return view('accounting.vouchers.index',compact('creators','identities'));
 		}
 		
+		/**
+		 * @param DatatableRequest $request
+		 *
+		 * @return mixed
+		 */
 		public function datatable(DatatableRequest $request)
 		{
 			return $request->data();
 		}
 		
-		public function show(Payment $payment)
+		/**
+		 * @param Payment $payment
+		 *
+		 * @return Factory|View
+		 */
+		public function show(Payment $voucher)
 		{
-
-//			return $payment;
-			return view('payments.show',compact('payment'));
+			$payment = $voucher;
+			return view('accounting.vouchers.show',compact('payment'));
 		}
 		
-		public function payments()
+		public function create(Request $request)
 		{
-			$type = 'payment';
-			$payments = Payment::where('payment_type','payment')->paginate(15);
-			return view('payments.index',compact('payments','type'));
-		}
-		
-		public function receipts()
-		{
-			$type = 'receipt';
-			$payments = Payment::where('payment_type','receipt')->paginate(15);
-			return view('payments.index',compact('payments','type'));
-		}
-		
-		public function create_receipt()
-		{
-			$current_assets_account = auth()->user()->get_active_manager_account_for('current_assets');
-			
-			
-			$accounts = Account::where(
-				[
-					['slug','gateway'],
-					['parent_id',$current_assets_account->id]
-				]
-			)
-				->with(
-					'children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children'
-				)->get();
-			
-			$users = User::where('is_client',true)->with('gateways.bank')->get();
-			
+			$current_assets_account = auth()->user()->toGetManagerAccount('current_assets');
+			$accots = Account::where([['slug','gateway'],['parent_id',$current_assets_account->id]])->get();
+			$accounts = [];
+			foreach ($accots as $account){
+				$account['children'] = Account::getAllParentNestedChildren($account);
+				$accounts[] = $account;
+			}
 			
 			$voucher_types = config('global.voucher_types');
-//
-//			return $users
-			return view('payments.create_receipt',compact('accounts','users','voucher_types'));
-			//
-			
+			if ($request->input('voucher_type') == 'receipt'){
+				$voucher_type = 'receipt';
+				$users = User::where('is_client',true)->with('gateways.bank')->get();
+			}else{
+				$voucher_type = 'payment';
+				$users = User::where('is_vendor',true)->with('gateways.bank')->get();
+			}
+			return view('accounting.vouchers.create',compact('accounts','users','voucher_types','voucher_type'));
 		}
 		
-		public function create_payment()
-		{
-			
-			$current_assets_account = auth()->user()->get_active_manager_account_for('current_assets');
-			
-			
-			$accounts = Account::where(
-				[
-					['slug','gateway'],
-					['parent_id',$current_assets_account->id]
-				]
-			)
-				->with(
-					'children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children.children'
-				)->get();
-			
-			$users = User::where('is_vendor',true)->with('gateways.bank')->get();
-			
-			
-			$voucher_types = config('global.voucher_types');
-//
-//			return $users
-			return view('payments.create_payment',compact('accounts','users','voucher_types'));
-			//
-		}
-		
+		/**
+		 * @param CreateVoucherRequest $request
+		 *
+		 * @return string
+		 */
 		public function store(CreateVoucherRequest $request)
 		{
 			
 			return $request->save();
 		}
-		
-		public function store_receipt(CreateReceiptRequest $request)
-		{
-			return $request->save();
-		}
-
-//		public function store_payment(CreatePaymentRequest $request)
-//		{
-//			return $request->save();
-//		}
 		
 	}

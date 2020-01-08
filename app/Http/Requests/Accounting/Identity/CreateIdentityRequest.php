@@ -30,7 +30,7 @@
 				//
 				'name' => 'required|string',
 				'ar_name' => 'required|string',
-				'phone_number' => 'required|string',
+				'phone_number' => 'nullable|string',
 				'user_type' => 'required',Rule::in(['individual','company']),
 				'user_title' => 'required',Rule::in(['mis','mr','company']),
 				'is_supplier' => 'required|boolean',
@@ -84,6 +84,7 @@
 				
 				$this->createUserDetails($user);
 				DB::commit();
+				return $user->fresh();
 			}catch (Exception $e){
 				DB::rollBack();
 				throw new Exception($e->getMessage());

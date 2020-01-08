@@ -25,6 +25,7 @@
 		'qty' => 'الكمية',
 		'net' => 'النهائي',
 		'cost' => 'التكلفة',
+		'create_identity' => 'انشاء هوية',
 		'profit' => 'الربح',
 		'discount' => 'الخصم',
 		'save_and_open' => 'حفظ وفتح',

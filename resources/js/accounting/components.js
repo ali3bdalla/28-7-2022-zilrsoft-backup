@@ -50,6 +50,7 @@ import AccountingAccountsChartComponent from './components/charts/accountsChartC
 import AccountingDeleteButtonLayoutComponent from './components/layout/deleteButtonLayoutComponent';
 import AccountingTransactionsCreateComponent from './components/transactions/transactionsCreateComponent';
 import AccountingVouchersDatatableComponent from './components/vouchers/vouchersDatatableComponet';
+import AccountingVouchersCreateComponent from './components/vouchers/vouchersCreateComponet';
 
 
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
@@ -103,3 +104,4 @@ Vue.component('accounting-accounts-chart-component', AccountingAccountsChartComp
 Vue.component('accounting-delete-button-layout-component', AccountingDeleteButtonLayoutComponent);
 Vue.component('accounting-transactions-create-component', AccountingTransactionsCreateComponent);
 Vue.component('accounting-vouchers-datatable-component', AccountingVouchersDatatableComponent);
+Vue.component('accounting-vouchers-create-component', AccountingVouchersCreateComponent);

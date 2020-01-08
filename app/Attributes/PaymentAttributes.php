@@ -20,16 +20,16 @@
 		
 		public function getSteakholderNameAttribute()
 		{
-			return $this->user->name;
+			return $this->user->locale_name;
 		}
 		
 		public function getSteakholderTypeAttribute()
 		{
 			if (in_array($this->payment_type,['receipt'])){
-				return __('pages/payments.client');
+				return __('pages/vouchers.client');
 			}
 			
-			return __('pages/payments.vendor');
+			return __('pages/vouchers.vendor');
 		}
 		
 		public function getSteakholderPhoneNumberAttribute()

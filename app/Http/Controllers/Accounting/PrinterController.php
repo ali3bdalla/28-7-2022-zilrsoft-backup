@@ -56,50 +56,12 @@
 			return view('accounting.printer.receipt',compact('invoice'));
 		}
 
-//
-//		public function barcode(Item $item)
-//		{
-//
-//		}
-//
-//		public function voucher(Payment $voucher)
-//		{
-//
-//			$payment = $voucher;
-//			return view('template.a4.voucher',compact('voucher','payment'));
-//		}
-//
-//		public function a4(CoreInvoice $invoice)
-//		{
-////		return $invoice;
-//
-////		$mpdf = new Mpdf();
-////
-////		$mpdf->SetHeader('hello');
-////		$view = view('template.a4.invoice',compact('invoice'));
-////		$mpdf->WriteHTML($view);
-////		return  $mpdf->Output();
-//
-//			return view('template.a4.invoice',compact('invoice'));
-//		}
-//
-//		public function sign()
-//		{
-//			$KEY = storage_path("private-key.pem");
-////		return $KEY;
-//
-//			$req = $_REQUEST['request']; //GET method
-//
-//			$privateKey = openssl_get_privatekey(file_get_contents($KEY));
-//
-//			$signature = null;
-//			openssl_sign($req,$signature,$privateKey);
-//
-//			if ($signature){
-//				header("Content-type: text/plain");
-//				return base64_encode($signature);
-////			exit(0);
-//			}
-//		}
-		
+
+		public function voucher(Payment $voucher)
+		{
+
+			$payment = $voucher;
+			return view('accounting.printer.voucher',compact('voucher','payment'));
+		}
+
 	}

@@ -19,80 +19,11 @@
                         </div>
 
 
-                        <div class="col-md-3">
-                            <accounting-multi-select-with-search-layout-component
-
-                                    :options="creators"
-                                    :placeholder="app.trans.salesman"
-                                    :title="app.trans.salesman"
-                                    @valueUpdated="salesmanListUpdated"
-                                    default="0"
-                                    identity="000000003"
-                                    label_text="locale_name"
-
-                            >
-
-                            </accounting-multi-select-with-search-layout-component>
-
-                        </div>
-
-                        <div class="col-md-3">
-                            <select @change="pushServerRequest" class="form-control" v-model="filters.current_status">
-                                <option value="null">{{ app.trans.current_status }}</option>
-                                <option value="paid">{{ app.trans.paid }}</option>
-                                <option value="credit">{{ app.trans.credit }}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <select @change="pushServerRequest" class="form-control" v-model="filters.invoice_type">
-                                <option value="null">{{ app.trans.invoice_type }}</option>
-                                <option value="sale">{{ app.trans.sale }}</option>
-                                <option value="r_sale">{{ app.trans.return_sale }}</option>
-                            </select>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <accounting-multi-select-with-search-layout-component
-                                    :options="clients"
-                                    :placeholder="app.trans.client"
-                                    :title="app.trans.client"
-                                    @valueUpdated="clientListUpdated"
-                                    default="0"
-                                    identity="000000001"
-                                    label_text="locale_name"
-
-                            >
-
-                            </accounting-multi-select-with-search-layout-component>
-
-                        </div>
-                        <div class="col-md-3">
-                            <input :placeholder="app.trans.total" @keyup="pushServerRequest"
-                                   class="form-control"
-                                   type="text" v-model="filters.total">
-                        </div>
-                        <div class="col-md-3">
-                            <input :placeholder="app.trans.net" @keyup="pushServerRequest"
-                                   class="form-control"
-                                   type="text" v-model="filters.net">
-                        </div>
-                        <div class="col-md-3">
-                            <input :placeholder="app.trans.invoice_number" @keyup="pushServerRequest"
-                                   class="form-control"
-                                   type="text" v-model="filters.title">
-                        </div>
-
-                    </div>
-
-                    <div class="row" v-if="canViewAccounting==1">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <accounting-multi-select-with-search-layout-component
                                     :options="creators"
-                                    :placeholder="app.trans.creator"
-                                    :title="app.trans.creator"
+                                    :placeholder="app.trans.created_by"
+                                    :title="app.trans.created_by"
                                     @valueUpdated="creatorListUpdated"
                                     default="0"
                                     identity="000000000"
@@ -102,16 +33,44 @@
                             >
 
                             </accounting-multi-select-with-search-layout-component>
+                        </div>
 
+
+                        <div class="col-md-1">
+                            <select @change="pushServerRequest" class="form-control" v-model="filters.payment_type">
+                                <option value="null">{{ app.trans.payment_type }}</option>
+                                <option value="receipt">{{ app.trans.receipt }}</option>
+                                <option value="payment">{{ app.trans.payment }}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <accounting-multi-select-with-search-layout-component
+                                    :options="identities"
+                                    :placeholder="app.trans.client"
+                                    :title="app.trans.client"
+                                    @valueUpdated="userListUpdated"
+                                    default="0"
+                                    identity="000000001"
+                                    label_text="locale_name"
+
+                            >
+
+                            </accounting-multi-select-with-search-layout-component>
 
                         </div>
 
-                        <div class="col-md-3">
-                            <input :placeholder="app.trans.tax" @keyup="pushServerRequest"
+
+                        <div class="col-md-2">
+                            <input :placeholder="app.trans.amount" @keyup="pushServerRequest"
                                    class="form-control"
-                                   type="text" v-model="filters.tax">
+                                   type="text" v-model="filters.amount">
                         </div>
-
+                        <div class="col-md-2">
+                            <input :placeholder="app.trans.number" @keyup="pushServerRequest"
+                                   class="form-control"
+                                   type="text" v-model="filters.id">
+                        </div>
 
                     </div>
 
@@ -129,9 +88,22 @@
                         </th>
 
                         <th :class="{'orderBy':orderBy=='id'}" @click="setOrderByColumn('id')">
-                            {{ app.trans.invoice_number }}
+                            {{ app.trans.number }}
                         </th>
-                        <th>
+                        <th :class="{'orderBy':orderBy=='paymentable_id'}" @click="setOrderByColumn('paymentable_id')">
+                            {{ app.trans.gateway }}
+                        </th>
+
+                        <th :class="{'orderBy':orderBy=='payment_type'}" @click="setOrderByColumn('payment_type')">
+                            {{ app.trans.payment_type }}
+                        </th>
+
+                        <th :class="{'orderBy':orderBy=='creator_id'}" @click="setOrderByColumn('creator_id')">
+                            {{ app.trans.created_by }}
+                        </th>
+
+                        <th :class="{'orderBy':orderBy=='user_id'}" @click="setOrderByColumn('user_id')"
+                            width="">
                             {{ app.trans.client }}
                         </th>
 
@@ -139,52 +111,9 @@
                             width="">
                             {{ app.trans.created_at }}
                         </th>
-
-
-                        <th :class="{'orderBy':orderBy=='net'}" @click="setOrderByColumn('net')"
+                        <th :class="{'orderBy':orderBy=='amount'}" @click="setOrderByColumn('amount')"
                             width="">
-                            {{ app.trans.net }}
-                        </th>
-
-                        <th :class="{'orderBy':orderBy=='subtotal'}" @click="setOrderByColumn('subtotal')"
-                            width="">
-                            {{ app.trans.subtotal }}
-                        </th>
-
-                        <th v-if="canViewAccounting"
-                            width="">
-                            {{ app.trans.cost }}
-                        </th>
-                        <th v-if="canViewAccounting"
-                            width="">
-                            {{ app.trans.profit }}
-                        </th>
-
-                        <th :class="{'orderBy':orderBy=='current_status'}" @click="setOrderByColumn('current_status')"
-                            width="">
-                            {{ app.trans.current_status }}
-                        </th>
-
-                        <th :class="{'orderBy':orderBy=='invoice_type'}" @click="setOrderByColumn('invoice_type')"
-                            width="">
-                            {{ app.trans.invoice_type }}
-                        </th>
-
-
-                        <th :class="{'orderBy':orderBy=='creator_id'}" @click="setOrderByColumn('creator_id')"
-                            v-if="canViewAccounting==1" width="">
-                            {{ app.trans.created_by }}
-                        </th>
-
-                        <th
-                                width="">
-                            {{ app.trans.salesman }}
-                        </th>
-
-
-                        <th :class="{'orderBy':orderBy=='tax'}" @click="setOrderByColumn('tax')"
-                            width="">
-                            {{ app.trans.tax }}
+                            {{ app.trans.amount }}
                         </th>
 
                         <th v-text="app.trans.options" width="8%"></th>
@@ -194,33 +123,14 @@
 
                     <tr :key="row.id" v-for="(row,index) in table_rows">
                         <td v-text="index+1"></td>
-                        <td class="text-center" v-text="row.title"></td>
-                        <td class="text-center" v-text="row.sale.client.locale_name"></td>
+                        <td v-text="row.id"></td>
+                        <td class="text-center" v-text="row.paymentable.locale_name"></td>
+                        <td class="text-center" v-if="row.payment_type==='receipt'" v-text="app.trans.receipt"></td>
+                        <td class="text-center" v-else v-text="app.trans.payment"></td>
+                        <td class="text-center" v-text="row.creator.locale_name"></td>
+                        <td class="text-center" v-text="row.user.locale_name"></td>
                         <td v-text="row.created_at"></td>
-                        <td class="text-center" v-text="row.net"></td>
-                        <td class="text-center" v-text="row.subtotal"></td>
-                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='sale'"
-                            v-text="parseFloat(row.invoice_cost).toFixed(2)"></td>
-                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='r_sale'"
-                            v-text="parseFloat(-row.invoice_cost).toFixed(2)"></td>
-
-                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='sale'"
-                            v-text="parseFloat(row.subtotal - row.invoice_cost).toFixed(2)"></td>
-                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='r_sale'"
-                            v-text="-parseFloat(row.subtotal - row.invoice_cost).toFixed(2)"></td>
-
-
-                        <td class="text-center">
-                            <span v-if="row.current_status=='paid'">{{ app.trans.paid }}</span>
-                            <span v-else>{{ app.trans.credit }}</span>
-                        </td>
-                        <td class="text-center">
-                            <span v-if="row.invoice_type=='sale'">{{ app.trans.sale }}</span>
-                            <span v-else>{{ app.trans.return_sale }}</span>
-                        </td>
-                        <td class="text-center" v-if="canViewAccounting==1" v-text="row.creator.locale_name"></td>
-                        <td class="text-center" v-text="row.sale.salesman.locale_name"></td>
-                        <td class="text-center" v-text="row.tax"></td>
+                        <td class="text-center" v-text="row.amount"></td>
                         <td>
                             <div class="dropdown">
                                 <button :id="'dropDownOptions'
@@ -235,15 +145,12 @@
                                     <li><a :href="baseUrl + row.id "
                                            v-text="app.trans.view"></a></li>
 
-                                    <li v-if="canEdit==1 && row.invoice_type=='sale' && row.is_deleted==0"><a
-                                            :href="baseUrl + row.id + '/edit'" v-text="app.trans.return"></a></li>
-
                                 </ul>
                             </div>
                         </td>
                     </tr>
                     </tbody>
-                    <thead v-if="canViewAccounting==1">
+                    <thead>
                     <tr>
                         <th>
 
@@ -259,29 +166,9 @@
                         <th>
 
                         </th>
-
-
-                        <th>
-                            {{parseFloat( totals.net).toFixed(2) }}
-                        </th>
-                        <th>
-                            {{parseFloat( totals.subtotal).toFixed(2) }}
-                        </th>
-                        <th>
-                            {{parseFloat( totals.cost).toFixed(2) }}
-                        </th>
-                        <th>
-                            {{parseFloat( totals.profit).toFixed(2) }}
-                        </th>
-
                         <th>
 
                         </th>
-
-                        <th>
-                        </th>
-
-
                         <th>
 
                         </th>
@@ -291,8 +178,9 @@
 
 
                         <th>
-                            {{parseFloat( totals.tax).toFixed(2) }}
+                            {{parseFloat( totals.amount).toFixed(2) }}
                         </th>
+
 
                         <th></th>
                     </tr>
@@ -320,7 +208,7 @@
     import Treeselect from '@riophae/vue-treeselect'
     import '@riophae/vue-treeselect/dist/vue-treeselect.css'
     import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
-    import {accounting as ItemAccounting, validator as ItemValidator, math as ItemMath} from '../../item';
+    import {math as ItemMath} from '../../item';
 
     import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 
@@ -336,19 +224,14 @@
             "canDelete",
             "canCreate",
             "creators",
-            "clients",
+            "identities",
         ],
         data: function () {
             return {
 
                 totals: {
-                    net: 0,
-                    tax: 0,
-                    total: 0,
-                    subtotal: 0,
-                    discount_value: 0,
-                    profit: 0,
-                    cost: 0,
+                    amount: 0,
+
                 },
                 itemsPerPage: 20,
                 isOpenSearchPanel: false,
@@ -377,16 +260,12 @@
                 filters: {
                     endDate: null,
                     startDate: null,
-                    title: null,
-                    clients: null,
+                    id: null,
                     creators: null,
-                    creator_id: null,
-                    net: null,
-                    total: null,
-                    tax: null,
+                    amount: null,
                     current_status: null,
-                    salesmen: [],
-                    invoice_type: null,
+                    identities: [],
+                    payment_type: null,
                 },
                 paginationResponseData: null,
                 tableSelectionActiveMode: false
@@ -398,26 +277,17 @@
             this.pushServerRequest();
 
 
-
         },
-        mounted:function()
-        {
+        mounted: function () {
             let appVm = this;
-            if(this.creator.id==7)
-            {
-                setInterval(function () {
-                    appVm.pushServerRequest();
-                },40000)
-            }
-
 
         },
         methods: {
 
 
             initUi() {
-                this.requestUrl = this.app.datatableBaseUrl + 'sales';
-                this.baseUrl = this.app.trans.SaleBaseUrl + "/";
+                this.requestUrl = this.app.datatableBaseUrl + 'vouchers';
+                this.baseUrl = this.app.trans.BaseUrl + "/";
                 this.customDateShortcuts = [
                     {key: 'thisWeek', label: this.app.datetimetrans.thisWeek, value: 'isoWeek'},
                     {key: 'lastWeek', label: this.app.datetimetrans.lastWeek, value: '-isoWeek'},
@@ -442,7 +312,6 @@
                 axios.get(this.requestUrl, {
                     params: params
                 }).then(function (response) {
-                    // console.log(response.data);
                     appVm.table_rows = response.data.data;
                     appVm.isLoading = false;
                     appVm.paginationResponseData = response.data;
@@ -458,31 +327,15 @@
 
                 let items = this.table_rows;
                 let len = items.length;
-                this.totals.net = 0;
-                this.totals.tax = 0;
-                this.totals.total = 0;
-                this.totals.subtotal = 0;
-                this.totals.discount_value = 0;
-                this.totals.cost = 0;
-                this.totals.profit = 0;
+                this.totals.amount = 0;
+
                 for (let i = 0; i < len; i++) {
                     let row = items[i];
-                    if (row.invoice_type == 'sale') {
-                        this.totals.net = ItemMath.sum(this.totals.net, row.net);
-                        this.totals.tax = ItemMath.sum(this.totals.tax, row.tax);
-                        this.totals.total = ItemMath.sum(this.totals.total, row.total);
-                        this.totals.subtotal = ItemMath.sum(this.totals.subtotal, row.subtotal);
-                        this.totals.discount_value = ItemMath.sum(this.totals.discount_value, row.discount_value);
-                        this.totals.profit = ItemMath.sum(this.totals.profit, row.subtotal - row.invoice_cost);
-                        this.totals.cost = ItemMath.sum(this.totals.cost, row.invoice_cost);
+                    if (row.payment_type == 'receipt') {
+                        this.totals.amount = ItemMath.sum(this.totals.amount, row.amount);
                     } else {
-                        this.totals.net = ItemMath.sub(this.totals.net, row.net);
-                        this.totals.tax = ItemMath.sub(this.totals.tax, row.tax);
-                        this.totals.total = ItemMath.sub(this.totals.total, row.total);
-                        this.totals.subtotal = ItemMath.sub(this.totals.subtotal, row.subtotal);
-                        this.totals.discount_value = ItemMath.sub(this.totals.discount_value, row.discount_value);
-                        this.totals.profit = ItemMath.sub(this.totals.profit, row.subtotal - row.invoice_cost);
-                        this.totals.cost = ItemMath.sub(this.totals.cost, row.invoice_cost);
+
+                        this.totals.amount = ItemMath.sub(this.totals.amount, row.amount);
                     }
                 }
 
@@ -575,15 +428,11 @@
                 this.pushServerRequest();
             },
 
-            salesmanListUpdated(e) {
 
-                this.filters.salesmen = db.model.pluck(e.items, 'id');
-                this.pushServerRequest();
-            },
 
-            clientListUpdated(e) {
+            userListUpdated(e) {
 
-                this.filters.clients = db.model.pluck(e.items, 'id');
+                this.filters.identities = db.model.pluck(e.items, 'id');
                 this.pushServerRequest();
             },
 

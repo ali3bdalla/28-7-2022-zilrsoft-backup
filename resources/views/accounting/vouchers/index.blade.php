@@ -7,7 +7,8 @@
 
 @section('buttons')
     @can('create voucher')
-        <a href="{{ route("accounting.vouchers.create") }}?voucher_type=payment" class="btn btn-custom-primary"><i class='fa
+        <a href="{{ route("accounting.vouchers.create") }}?voucher_type=payment" class="btn btn-custom-primary"><i
+                    class='fa
                     fa-plus-circle'></i>&nbsp; {{ __('pages/vouchers.create_payment') }}</a>
         <a href="{{ route("accounting.vouchers.create") }}?voucher_type=receipt" class="btn  btn-custom-default"><i
                     class='fa
@@ -16,7 +17,10 @@
 @endsection
 @section('content')
 
-    <accounting-vouchers-datatable-component>
+    <accounting-vouchers-datatable-component
+            :identities='@json($identities)'
+            :creators='@json($creators)'
+    >
 
     </accounting-vouchers-datatable-component>
 
