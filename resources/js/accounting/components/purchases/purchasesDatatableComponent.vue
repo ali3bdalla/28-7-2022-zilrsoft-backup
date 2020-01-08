@@ -26,7 +26,7 @@
                                     @valueUpdated="creatorListUpdated"
                                     default="0"
                                     identity="000000000"
-                                    label_text="name"
+                                    label_text="locale_name"
 
                             >
 
@@ -58,7 +58,7 @@
                                     @valueUpdated="vendorListUpdated"
                                     default="0"
                                     identity="000000001"
-                                    label_text="name"
+                                    label_text="locale_name"
 
                             >
 
