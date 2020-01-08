@@ -54,7 +54,8 @@
 						'equity',
 						'capital',
 						'other_services_return_sales',
-						'other_services_sales'
+						'other_services_sales',
+						'temp_reseller_account',
 					])->nullable();
 				$table->softDeletes();
 				$table->timestamps();

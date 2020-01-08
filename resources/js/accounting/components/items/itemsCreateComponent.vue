@@ -167,7 +167,7 @@
                             :options="vendors"
                             @valueUpdated="vendorListHasBeenUpdated"
                             default="0"
-                            label_text="name"
+                            label_text="locale_name"
                             placeholder="المورد"
                             title="المورد"
                     >
