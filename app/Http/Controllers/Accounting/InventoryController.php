@@ -83,19 +83,19 @@
 				Payment::where('invoice_id',$beginning->id)->forceDelete();
 				InvoicePayments::where('invoice_id',$beginning->id)->forceDelete();
 				foreach ($beginning->items as $item){
-					$current_qty = $item->item->available_qty - $item['qty'];
-					if ($current_qty < 0){
-						throw new ValidationException([
-							'qty'
-						]);
-					}
+					$current_qty = $item->item->available_qty + $item['qty'];
+//					if ($current_qty < 0){
+//						throw new ValidationException([
+//							'qty'
+//						]);
+//					}
 					if (!$item->is_kit){
 						$item->item->update([
 							'available_qty' => $current_qty,
 						]);
-						if ($item->item->is_need_serial){
-							$item->item->serials()->where('purchase_invoice_id',$beginning->id)->forceDelete();
-						}
+//						if ($item->item->is_need_serial){
+//							$item->item->serials()->where('purchase_invoice_id',$beginning->id)->forceDelete();
+//						}
 						$item->item->stockMovement();
 					}
 					
