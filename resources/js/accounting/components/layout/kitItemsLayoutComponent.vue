@@ -61,8 +61,9 @@
 
 
                         <tr v-for="x in kit_qty" v-if="item.is_need_serial">
-                            <td colspan="10">
-                                <input :rel="'serial_'+ index" @keyup="clearField"
+                            <td colspan="11">
+                                <input :ref="'itemSerials_' +item.id+'_'+ x"
+                                       @keyup="clearField"
                                        @keyup.enter="checkSerial($event,'serial_'+ index +'_'+ x,item)"
                                        class="form-control"
                                        placeholder="ادخل السيريال "
@@ -118,8 +119,20 @@
 
         },
 
+        mounted: function () {
+            for (var i = 0; i < this.items.length; i++) {
+                let item = this.items[i];
+
+                if (item.is_need_serial) {
+                    // console.log(this.$refs["itemSerials_" + item.id + "_" + 1][0]);
+                    this.$refs["itemSerials_" + item.id + "_" + 1][0].focus();
+                    // break;
+                }
+            }
+        },
 
         methods: {
+
 
 
             doCloseWithESC() {
@@ -182,6 +195,7 @@
                 if (!this.has_serials_error) {
                     this.pushEvent();
                     this.showButtons = true;
+                    this.dialog = false;
                 } else {
                     this.showButtons = false;
                 }

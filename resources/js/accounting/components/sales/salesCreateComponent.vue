@@ -617,7 +617,6 @@
 
 
         methods: {
-
             pushClientData() {
                 this.modalsInfo.showCreateclientModal = false;
                 //
@@ -680,8 +679,6 @@
                     console.log(error.message);
                 });
             },
-
-
             addExpenseToInvoice() {
                 if (this.selectedExpense != null) {
                     let new_expense = this.selectedExpense;
@@ -700,7 +697,6 @@
             },
             expenseUpdatePrice(event) {
                 let item = event.item;
-                console.log(this.$refs['itemPrice_' + item.id + 'Ref'][0]);
                 // console.log();
                 // this.itemPriceUpdated(event.item.item);
             },
@@ -714,15 +710,12 @@
                     appVm.LiveTimer = helpers.getFullDateAndTime();
                 }, 1000);
             },
-
             clientListChanged(event) {
                 this.invoiceData.clientId = event.value.id;
             },
             salesmanListChanged(event) {
                 this.invoiceData.salesmanId = event.value.id;
             },
-
-
             itemsTabsPusherHandler() {
                 let appVm = this;
                 this.bc.onmessage = function (ev) {
@@ -733,7 +726,6 @@
                 }
             },
             sendQueryRequestToFindItems() {
-
                 // when we activate this code one press will make multi invoice
                 if (this.barcodeNameAndSerialField == "") {
                     if (this.invoiceData.items.length >= 1) {
@@ -773,11 +765,12 @@
                 } else {
                     let preparedItem = this.prepareDataInFirstUse(item);
                     this.appendItemToInvoiceItemsList(preparedItem);
+                    if(preparedItem.is_kit)
+                        return 0;
                 }
 
                 this.clearAndFocusOnBarcodeField();
             },
-
             itemWithSerialProccess(item, parent = null) {
                 let serial = item.init_serial.serial;
                 if (parent == null) {
@@ -835,6 +828,7 @@
                     this.invoiceData.items.push(item);
                 }
 
+
                 this.updateInvoiceData();
             },
 
@@ -848,7 +842,7 @@
                 this.invoiceData.subtotal = db.model.sum(this.invoiceData.items, 'subtotal');
                 this.invoiceData.tax = db.model.sum(this.invoiceData.items, 'tax');
                 this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net');
-                this.validateInvoiceData();
+                this.validateInvoiceData(focus);
             },
 
             validateInvoiceData() {
