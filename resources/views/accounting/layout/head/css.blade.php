@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{asset('accounting/css/rtl.css')}}">
 @endif
 <style>
-    .navbar {
-        background-color: chocolate !important;
-    }
+    /*.navbar {*/
+        /*background-color: chocolate !important;*/
+    /*}*/
 </style>

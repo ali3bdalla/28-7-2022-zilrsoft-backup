@@ -2,33 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/21d5b9a9feae2d0ad41b4a35bc7879b86536b926.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/2c7d99c57b1425817709171f55d8d3d345061ed8.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/2fb3ea4cf54f8238ed09e1139b52e3420bbeb2f3.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/33e578f73d30ef16ebaad4f614971c63dde37c35.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/3fb1a9262ce1bf40295adf5be15c2099249f1f43.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/422d2838e8ab2c0e363edf8165597ffb84cf884c.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/58cb652892ba018ab1d055b65082fad867571a20.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/5a04dbed8452a9f21c1e91ff2c478e5d19a527b5.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/61d8f66d89d22175aae6fd22907f41bbbf9d4e28.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/6becb90c23558023e4c762c281643b5df5837af6.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/7a04a828db645b9c160eef0c16272c1403395404.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/8f21c74690ac61b80bf287e7bf2eaa296feaa570.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/9b15e320395d4d8ed9c20b5f20ac6a23ea5c4cf1.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/a5d7a317848a09b369a6d78d1a0d0e7fafa96016.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/afa3205641edc044aae2f4b9d00e55a49bdb1c04.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/b17f29b93e32d60ee0f52148ccda17238b85ec38.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/ba20dfcd7751ab30a849f9eb20022a6a8b59fab2.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c389a98a2e7b7d04d8c6a26cf5623e65e8a67906.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c70a877044d933fe9cac9a8cf94c3395c486c2e9.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/e49827797fb57770f56475999631eac1e9c8610f.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/f7826a9b8c36d96079c1b6d3d5f891f60b896b04.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/kitItemsLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/kitItemsLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/QImsqzq59Q1OY0fePv75Mq45bSfhsgIT2TtB4u3W" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/QImsqzq59Q1OY0fePv75Mq45bSfhsgIT2TtB4u3W" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/css.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/css.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -455,7 +429,7 @@
       <workItem from="1577567765490" duration="100630000" />
       <workItem from="1578067206769" duration="104731000" />
       <workItem from="1578489855987" duration="76000" />
-      <workItem from="1578489944915" duration="5476000" />
+      <workItem from="1578489944915" duration="5581000" />
     </task>
     <servers />
   </component>
