@@ -64,8 +64,9 @@
                             <td colspan="10">
                                 <input :rel="'serial_'+ index" @keyup="clearField"
                                        @keyup.enter="checkSerial($event,'serial_'+ index +'_'+ x,item)"
-                                       class="input"
+                                       class="form-control"
                                        placeholder="ادخل السيريال "
+                                       style="background-color: #eeeeee"
                                        type="text">
                             </td>
                         </tr>
@@ -94,12 +95,7 @@
     </div>
 </template>
 <script>
-    import {
-        accounting as ItemAccounting,
-        math as ItemMath,
-        query as ItemQuery,
-        validator as ItemValidator
-    } from '../../item';
+    import {query as ItemQuery} from '../../item';
 
 
     export default {
@@ -107,7 +103,7 @@
         props: ["kit", "index", "qty"],
         data: function () {
             return {
-                dialog: false,
+                dialog: true,
                 items: [],
                 is_required_to_add_data: false,
                 has_serials_error: true,
@@ -266,9 +262,10 @@
 </style>
 
 <style>
-    th,td {
+    th, td {
         text-align: center !important;
     }
+
     .v-dialog__content {
         z-index: 37498732942 !important;
     }
