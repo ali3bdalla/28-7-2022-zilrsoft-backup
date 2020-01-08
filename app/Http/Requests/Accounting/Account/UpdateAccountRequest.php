@@ -44,7 +44,6 @@
 				$data['is_gateway'] = false;
 			
 			$data['type'] = $parent->type;
-			$data['slug'] = $parent->slug;
 			
 			$account->update($data);
 		}

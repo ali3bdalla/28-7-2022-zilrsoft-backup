@@ -5,12 +5,9 @@
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Inventory\CreateBeginningRequest;
 	use App\Http\Requests\Accounting\Inventory\DatatableBeginningRequest;
-	use App\Http\Requests\CreateBeginningInventoryRequest;
-	use App\Http\Requests\UpdateBeginningInventoryRequest;
 	use App\Invoice;
 	use App\InvoicePayments;
 	use App\Payment;
-	use App\PurchaseInvoice;
 	use App\Transaction;
 	use App\TransactionsContainer;
 	use App\User;
@@ -92,14 +89,17 @@
 							'qty'
 						]);
 					}
-					$item->item->update([
-						'available_qty' => $current_qty,
-					]);
-					if ($item->item->is_need_serial){
-						$item->item->serials()->where('purchase_invoice_id',$beginning->id)->forceDelete();
+					if (!$item->is_kit){
+						$item->item->update([
+							'available_qty' => $current_qty,
+						]);
+						if ($item->item->is_need_serial){
+							$item->item->serials()->where('purchase_invoice_id',$beginning->id)->forceDelete();
+						}
+						$item->item->stockMovement();
 					}
 					
-					$item->item->stockMovement();
+					
 				}
 				
 				$beginning->items()->forceDelete();
