@@ -87,7 +87,7 @@
 		Route::name('sales.')->prefix('sales')->group(function (){
 			Route::get('view/quotations',"SaleController@quotations")->name('quotations');
 			Route::get('{sale}/print',"SaleController@print")->name('print');
-			Route::get('{beginning}/force_delete',"InventoryController@beginning_destroy")->name('delete');
+//			Route::get('{beginning}/force_delete',"InventoryController@beginning_destroy")->name('delete');
 			
 		});
 		
