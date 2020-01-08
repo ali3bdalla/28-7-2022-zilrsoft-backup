@@ -80,7 +80,6 @@
 				$invoice_status = $invoice->handle_invoice_transactions($this->methods,$this->vendor_id,
 					$this->net,$this->items,$expenses);
 
-//				return $expenses;
 				$invoice->update_invoice_creation_status($invoice_status);
 				DB::commit();
 				return [
