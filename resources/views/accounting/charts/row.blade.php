@@ -1,7 +1,7 @@
 <div class="group">
     <div class="">
         <div class="title"><a href="{{ route('accounting.accounts.show',$account->id) }}">{{ $account->locale_name}}</a>
-            <span class="amount"> {{ money_format("%i",$account->current_amount) }}</span>
+
             <a href="{{route('accounting.accounts.create')}}?parent_id={{$account->id}}" class="butn"><i class="fa
             fa-plus-circle"></i></a>
             @can("edit chart")
@@ -16,6 +16,9 @@
                 </accounting-delete-button-layout-component>
             @endcan
 
+
+            <span class="amount">  &nbsp;
+            &nbsp;{{ money_format("%i",$account->current_amount) }}</span>
 
         </div>
         @foreach($account->children as $account)

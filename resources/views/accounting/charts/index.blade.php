@@ -19,10 +19,12 @@
             border: 1px solid #faf9f9;
             padding: 7px;
             background: #eee;
-            width: 400px;
+            width: 650px;
         }
 
         .amount {
+            padding-left: 20px;
+            float: left;
             font-size: 19px;
             font-weight: bold;
         }
@@ -30,6 +32,7 @@
         .butn {
             float: left;
             margin-left: 15px;
+
 
         }
     </style>
