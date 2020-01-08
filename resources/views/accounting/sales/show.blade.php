@@ -41,7 +41,9 @@
                     <div class="input-group">
                         <span id="vendors-list" class="input-group-addon">{{ trans('pages/invoice.client') }}</span>
                         <input type="text" name="" disabled="disabled"
-                               class="form-control" value="{{ $invoice->sale->client->locale_name }}">
+                               class="form-control" value="{{
+                               $invoice->sale->alice_name=="" ?$invoice->sale->client->locale_name:
+                               $invoice->sale->alice_name}}">
                     </div>
                 </div>
 

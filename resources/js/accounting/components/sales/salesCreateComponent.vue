@@ -191,10 +191,19 @@
 
 
                     </td>
-                    <td v-text="item.barcode"></td>
+                    <td  >
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on }">
+                                <span v-on="on">{{ item.barcode}}</span>
+
+                            </template>
+                            <span>{{ parseFloat(item.cost).toFixed(2)}}</span>
+                        </v-tooltip>
+                    </td>
                     <td v-text="item.locale_name"></td>
                     <td v-text="item.available_qty"></td>
                     <td>
+
                         <input
 
                                 :disabled="item.is_service"
@@ -217,6 +226,7 @@
                                 :ref="'itemPrice_' + item.id + 'Ref'"
                                 @change="itemPriceUpdated(item)"
                                 @focus="$event.target.select()"
+                                @keyup.enter="clearAndFocusOnBarcodeField"
                                 class="form-control input-xs amount-input"
                                 type="text"
                                 v-model="item.price">
@@ -343,7 +353,8 @@
                                     <div class="row">
                                         <div class="col-md-7">
                                             <input
-                                                    :ref="'itemPrice_' + expense.id+ 'Ref'"
+
+                                                    :ref="'itemNet_' + expense.id+ 'Ref'"
                                                     @focus="$event.target.select()"
                                                     @keyup="itemNetUpdated(expense)" class="form-control"
                                                     placeholder="القيمة"
@@ -445,7 +456,7 @@
 
 
         <!--invoice Note Modal-->
-        <div v-if="modalsInfo.showCreateClientModal===true">
+        <div v-show="modalsInfo.showCreateClientModal===true">
             <transition name="modal">
                 <div class="modal-mask">
                     <div class="modal-wrapper">
@@ -526,6 +537,8 @@
     import {sendGetKitAmountsRequest} from '../../api/kits';
 
     export default {
+        components: {
+        },
         props: ['creator', 'clients', 'salesmen', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
         data: function () {
             return {
@@ -536,16 +549,13 @@
                     isMsr: true,
                     canMakeCredit: true,
                 },
-                modalsInfo: {
-                    showCreateClientModal: false,
-                },
-
                 selectedExpense: null,
                 modalsInfo: {
+                    showCreateClientModal: false,
                     showNoteModal: false,
                     showAliceNameModal: false,
                 },
-                clientList:[],
+                clientList: [],
                 createdInvoiceId: 0,
                 everythingFineToSave: false,
                 selectedItem: null,
@@ -592,6 +602,7 @@
         },
         created: function () {
 
+
             this.clientList = this.clients;
             this.initExpensesList();
             this.initLiveTimer();
@@ -608,10 +619,11 @@
         methods: {
 
             pushClientData() {
+                this.modalsInfo.showCreateclientModal = false;
+                //
                 let user_type;
                 if (this.clientModal.isIndividual) {
                     user_type = 'individual';
-
                 } else {
                     user_type = 'company';
                 }
@@ -624,9 +636,8 @@
                     user_title = 'mis';
                 }
 
-                if (user_type == 'company') {
+                if (user_type === 'company')
                     user_title = 'company';
-                }
 
 
                 var data = {
@@ -652,14 +663,17 @@
                 };
                 let appVm = this;
                 axios.post('/accounting/identities', data).then(response => {
+                    alert('تم التسجيل بنجاح');
                     appVm.clientList.push(response.data);
                     appVm.modalsInfo.showCreateclientModal = false;
-                    // appVm.invoiceData.clientId = response.data.id;
-                    // appVm.clientListChanged({
-                        // value: {
-                            // id: response.data.id
-                        // }
-                    // })
+                    appVm.invoiceData.clientId = response.data.id;
+                    appVm.clientModal.clientArName = "";
+                    appVm.clientModal.clientName = "";
+                    appVm.clientListChanged({
+                        value: {
+                            id: response.data.id
+                        }
+                    })
                 }).catch(error => {
                     console.log(error.response);
                     console.log(error.response.messages);

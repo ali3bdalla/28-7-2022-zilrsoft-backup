@@ -187,6 +187,7 @@
                     <td>
                         <input :ref="'itemPrice_' + item.id + 'Ref'"
                                @change="itemPriceUpdated(item)"
+                               @keyup.enter="clearAndFocusOnBarcodeField"
                                @focus="$event.target.select()"
                                class="form-control input-xs amount-input"
                                type="text" v-model="item.purchase_price">
@@ -344,7 +345,7 @@
 
 
         <!--invoice Note Modal-->
-        <div v-if="modalsInfo.showCreateVendorModal===true">
+        <div v-show="modalsInfo.showCreateVendorModal===true">
             <transition name="modal">
                 <div class="modal-mask">
                     <div class="modal-wrapper">

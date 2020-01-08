@@ -195,7 +195,8 @@
                     <tr :key="row.id" v-for="(row,index) in table_rows">
                         <td v-text="index+1"></td>
                         <td class="text-center" v-text="row.title"></td>
-                        <td class="text-center" v-text="row.sale.client.locale_name"></td>
+                        <td class="text-center"
+                            v-text="row.sale.alice_name==null ? row.sale.client.locale_name : row.sale.alice_name"></td>
                         <td v-text="row.created_at"></td>
                         <td class="text-center" v-text="row.net"></td>
                         <td class="text-center" v-text="row.subtotal"></td>
