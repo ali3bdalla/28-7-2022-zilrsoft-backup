@@ -64,7 +64,7 @@
 					'invoice_type' => 'sale',
 					'prefix' => 'SAI-',
 					'client_id' => $this->input("client_id"),
-					
+					'alice_name' => $this->input("alice_name"),
 					'salesman_id' => $this->input("salesman_id")]);
 				$this->toCreatePurchaseInvoiceForExpensesItems($invoice,$this->input('items'));
 				$invoice->addItemsToBaseInvoice($this->input('items'));
