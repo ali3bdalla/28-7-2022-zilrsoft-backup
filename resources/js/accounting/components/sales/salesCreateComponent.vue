@@ -191,7 +191,7 @@
 
 
                     </td>
-                    <td  >
+                    <td>
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
                                 <span v-on="on">{{ item.barcode}}</span>
@@ -537,8 +537,7 @@
     import {sendGetKitAmountsRequest} from '../../api/kits';
 
     export default {
-        components: {
-        },
+        components: {},
         props: ['creator', 'clients', 'salesmen', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
         data: function () {
             return {
@@ -751,6 +750,7 @@
                 })
             },
             validateAndPrepareItem(item) {
+                this.searchResultList = [];
                 if (db.model.contain(this.invoiceData.items, item.id)) {
                     let parent = db.model.find(this.invoiceData.items, item.id);
                     if (!parent.is_need_serial) {
@@ -765,7 +765,7 @@
                 } else {
                     let preparedItem = this.prepareDataInFirstUse(item);
                     this.appendItemToInvoiceItemsList(preparedItem);
-                    if(preparedItem.is_kit)
+                    if (preparedItem.is_kit)
                         return 0;
                 }
 
