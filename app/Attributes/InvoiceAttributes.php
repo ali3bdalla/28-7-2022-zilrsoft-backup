@@ -141,7 +141,7 @@
 		public function getSteakholderNameAttribute()
 		{
 			if (in_array($this->invoice_type,['sale','r_sale'])){
-				return $this->sale->client->locale_name;
+				return $this->sale->alice_name == null ? $this->sale->client->locale_name : $this->sale->alice_name;
 			}
 			
 			return $this->purchase->vendor->locale_name;
