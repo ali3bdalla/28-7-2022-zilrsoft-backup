@@ -41,11 +41,12 @@
 			
 			if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
 				$this->filled('endDate')){
-				$_startDate = Carbon::parse($this->input("startDate"));
-				$_endDate = Carbon::parse($this->input("endDate"));
+				$_startDate = Carbon::parse($this->input("startDate"))->toDateString();
+				$_endDate = Carbon::parse($this->input("endDate"))->toDateString();
 				
 				
 				if ($_endDate === $_startDate){
+//					return 1;
 					$query = $query->whereDate('created_at',$_startDate);
 				}else{
 					$query = $query->whereBetween('created_at',[
