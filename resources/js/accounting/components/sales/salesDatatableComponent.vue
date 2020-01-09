@@ -36,14 +36,14 @@
 
                         </div>
 
-                        <div class="col-md-1">
+                        <div class="col-md-1" v-if="onlyQuotations!==true">
                             <select @change="pushServerRequest" class="form-control" v-model="filters.current_status">
                                 <option value="null">{{ app.trans.current_status }}</option>
                                 <option value="paid">{{ app.trans.paid }}</option>
                                 <option value="credit">{{ app.trans.credit }}</option>
                             </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2" v-if="onlyQuotations!==true">
                             <select @change="pushServerRequest" class="form-control" v-model="filters.invoice_type">
                                 <option value="null">{{ app.trans.invoice_type }}</option>
                                 <option value="sale">{{ app.trans.sale }}</option>
@@ -374,6 +374,7 @@
             VueCtkDateTimePicker, Treeselect
         },
         props: [
+            "onlyQuotations",
             'creator',
             'canViewAccounting',
             "canEdit",
@@ -480,6 +481,13 @@
                 params.orderBy = this.orderBy;
                 params.itemsPerPage = this.itemsPerPage;
                 params.orderType = this.orderType;
+                if(this.onlyQuotations)
+                {
+                    params.invoice_type = "quotation";
+                }
+
+
+
 
 
                 axios.get(this.requestUrl, {

@@ -35,7 +35,12 @@
 		public function data()
 		{
 			
-			$query = Invoice::whereIn('invoice_type',['sale','r_sale'])->with([
+			if ($this->has('invoice_type') && $this->filled('invoice_type') && $this->input('invoice_type') === 'quotation')
+				$getOnly = ['quotation'];
+			else
+				$getOnly = ['sale','r_sale'];
+			
+			$query = Invoice::whereIn('invoice_type',$getOnly)->with([
 				'creator','items','sale.client','sale.salesman'
 			]);
 			

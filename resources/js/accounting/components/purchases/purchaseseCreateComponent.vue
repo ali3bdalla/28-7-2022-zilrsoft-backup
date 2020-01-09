@@ -187,8 +187,8 @@
                     <td>
                         <input :ref="'itemPrice_' + item.id + 'Ref'"
                                @change="itemPriceUpdated(item)"
-                               @keyup.enter="clearAndFocusOnBarcodeField"
                                @focus="$event.target.select()"
+                               @keyup.enter="clearAndFocusOnBarcodeField"
                                class="form-control input-xs amount-input"
                                type="text" v-model="item.purchase_price">
 
@@ -336,11 +336,11 @@
 
 
         <accounting-barcode-bulk-printer-layout-component
-                style="visibility: hidden"
                 :hide-btn="true"
                 :invoice-id="invoiceId"
                 :items='invoiceData.items'
                 @CompletePrintProcess="reloadPageAfterPrintBarcode"
+                style="visibility: hidden"
         >
         </accounting-barcode-bulk-printer-layout-component>
 
@@ -814,6 +814,7 @@
 
 
             pushDataToServer(event = "") {
+                this.everythingFineToSave = false;
                 let data = {
                     items: this.invoiceData.items,
                     vendor_id: this.invoiceData.vendorId,

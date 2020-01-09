@@ -1060,12 +1060,12 @@
 
 
             pushDataToServer(doWork = null) {
+                this.everythingFineToSave = false;
                 let client = db.model.find(this.clientList, this.invoiceData.clientId);
                 if (client.can_make_credit === false) {
                     let amount = db.model.sum(this.invoiceData.methods, 'amount');
 
                     if (ItemMath.isBiggerThan(this.invoiceData.net, amount)) {
-                        this.everythingFineToSave = false;
                         alert('هذا العميل لا يمكنه القيام بفواتير آجله الرجاء التحقق من وسائل الدفع واكمال المبلغ ');
 
                         return;

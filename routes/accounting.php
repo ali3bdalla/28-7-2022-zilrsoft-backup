@@ -3,7 +3,6 @@
 //
 	
 	
-	
 	app()->setLocale('ar');
 	Auth::routes(["verify" => true]);
 	
@@ -23,6 +22,7 @@
 			'filter_values' => 'FilterValuesController',
 			'items' => 'ItemController',
 			'sales' => 'SaleController',
+			'quotations' => 'QuotationController',
 			'purchases' => 'PurchaseController',
 			'kits' => 'KitController',
 			'vouchers' => 'VoucherController',
@@ -91,7 +91,11 @@
 			Route::get('view/quotations',"SaleController@quotations")->name('quotations');
 			Route::get('{sale}/print',"SaleController@print")->name('print');
 //			Route::get('{beginning}/force_delete',"InventoryController@beginning_destroy")->name('delete');
-		
+
+//
+//			Route::name('quotations.')->prefix('quotations')->group(function (){
+//
+//			});
 		});
 		
 		

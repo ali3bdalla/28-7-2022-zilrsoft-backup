@@ -120,7 +120,7 @@
                     @endcan
                     @can('manage quotation')
                         <li>
-                            <a href="{{route('accounting.sales.quotations')}}"><i class="fa fa-sun"></i>
+                            <a href="{{route('accounting.quotations.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.quotations') }}
                             </a></li>
 
