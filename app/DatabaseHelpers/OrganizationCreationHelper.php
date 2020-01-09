@@ -226,8 +226,8 @@
 			
 			Account::create([
 				'is_system_account' => true,
-				"ar_name" => "الوسيط",
-				"name" => "Amount ",
+				"ar_name" => "الحساب الوسيط",
+				"name" => "central tendency ",
 				'type' => 'debit',
 				"slug" => "temp_reseller_account",
 				"parent_id" => $current_assets_account->id,

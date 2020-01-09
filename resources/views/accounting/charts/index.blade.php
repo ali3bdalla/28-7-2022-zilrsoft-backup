@@ -28,6 +28,9 @@
             font-size: 19px;
             font-weight: bold;
         }
+        .rgRed {
+            background-color: #fed5c5;
+        }
 
         .butn {
             float: left;

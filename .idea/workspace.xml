@@ -2,11 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/QLVwnlZbRFWmTcMDpaNcEnM4bphmwnUzGU2RYbOX" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/2c795580ae3d40377e7bfcb006e9853f3f273527.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/535881e622976e0551bfeb80b5e69b8f71bb54cc.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/7a04a828db645b9c160eef0c16272c1403395404.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/846a23b907bd4e9d37600acf5a60fd01e4938334.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/9b15e320395d4d8ed9c20b5f20ac6a23ea5c4cf1.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/OrganizationCreationHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/OrganizationCreationHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/PurchaseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/charts/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/charts/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/charts/row.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/charts/row.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/QLVwnlZbRFWmTcMDpaNcEnM4bphmwnUzGU2RYbOX" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/QLVwnlZbRFWmTcMDpaNcEnM4bphmwnUzGU2RYbOX" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -433,7 +438,7 @@
       <workItem from="1577567765490" duration="100630000" />
       <workItem from="1578067206769" duration="104731000" />
       <workItem from="1578489855987" duration="76000" />
-      <workItem from="1578489944915" duration="10325000" />
+      <workItem from="1578489944915" duration="10687000" />
     </task>
     <servers />
   </component>
