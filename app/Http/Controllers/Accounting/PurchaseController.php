@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
+	use App\Account;
 	use App\Expense;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Purchase\CreatePurchaseRequest;
@@ -9,11 +10,11 @@
 	use App\Http\Requests\Accounting\Purchase\ReturnPurchaseRequest;
 	use App\Http\Requests\CreateReturnPurchaseRequest;
 	use App\Invoice;
-	use App\Item;
 	use App\Manager;
 	use App\PurchaseInvoice;
 	use App\User;
 	use Exception;
+	use Illuminate\Contracts\Routing\ResponseFactory;
 	use Illuminate\Contracts\View\Factory;
 	use Illuminate\Http\Response;
 	use Illuminate\View\View;
@@ -53,7 +54,8 @@
 			$receivers = Manager::all();
 			$vendors = User::where([['is_vendor',true],['is_system_user',false]])->get()->toArray();//,['is_system_user',false]
 			$expenses = Expense::all();
-			$gateways = auth()->user()->gateways()->get();
+//			$gateways = auth()->user()->gateways()->get();
+			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
 			return view('accounting.purchases.create',compact('vendors','receivers','gateways','expenses'));
 			//
 		}
@@ -103,8 +105,8 @@
 				}
 				$items [] = $item;
 			}
-			$gateways = auth()->user()->gateways()->get();
-			
+//			$gateways = auth()->user()->gateways()->get();
+			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
 			
 			return view('accounting.purchases.edit',compact('purchase','invoice','items','gateways'));
 		}
@@ -113,6 +115,7 @@
 		 * @param CreateReturnPurchaseRequest $request
 		 * @param PurchaseInvoice $purchase
 		 *
+		 * @return ResponseFactory|Response|mixed
 		 * @throws Exception
 		 */
 		public function update(ReturnPurchaseRequest $request,Invoice $purchase)

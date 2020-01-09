@@ -7,14 +7,9 @@
 	use App\Http\Requests\Accounting\Sale\CreateSaleRequest;
 	use App\Http\Requests\Accounting\Sale\DatatableRequest;
 	use App\Http\Requests\Accounting\Sale\ReturnSaleRequest;
-	use App\Http\Requests\CreateQuotationRequest;
-	use App\Http\Requests\CreateReturnSaleRequest;
-	use App\Http\Requests\CreateSalesInvoiceRequest;
 	use App\Invoice;
 	use App\Item;
 	use App\Manager;
-	use App\SaleInvoice;
-	use App\Scopes\QuotationScope;
 	use App\User;
 	use Illuminate\Contracts\Routing\ResponseFactory;
 	use Illuminate\Contracts\View\Factory;
@@ -63,8 +58,8 @@
 			$salesmen = Manager::all();
 			$clients = User::where('is_client',true)->get()->toArray();
 			$expenses = Item::where('is_expense',true)->get();
-			$gateways = auth()->user()->gateways()->get();
-			
+//			$gateways = auth()->user()->gateways()->get();
+			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
 			return view('accounting.sales.create',compact('clients','salesmen','gateways','expenses'));
 		}
 		
@@ -94,42 +89,45 @@
 			return view('accounting.sales.show',compact('invoice','transactions'));
 			//
 		}
-	
-	/**
-	 * @param Invoice $sale
-	 *
-	 * @return Factory|View
-	 */
-	public
-	function edit(Invoice $sale)
-	{
-		$invoice = $sale;
-		$sale = $invoice->sale;
-		$items = [];
-		$data_source_items = $invoice->items()->with('item')->get();
-		foreach ($data_source_items as $item){
-			if ($item->item->is_need_serial){
-				$item['serials'] = $item->item->serials()->sale($invoice->id)->get();
+		
+		/**
+		 * @param Invoice $sale
+		 *
+		 * @return Factory|View
+		 */
+		public
+		function edit(
+			Invoice $sale)
+		{
+			$invoice = $sale;
+			$sale = $invoice->sale;
+			$items = [];
+			$data_source_items = $invoice->items()->with('item')->get();
+			foreach ($data_source_items as $item){
+				if ($item->item->is_need_serial){
+					$item['serials'] = $item->item->serials()->sale($invoice->id)->get();
+				}
+				$items [] = $item;
 			}
-			$items [] = $item;
+			
+			$expenses = Item::where('is_expense',true)->get();
+//			$gateways = auth()->user()->gateways()->get();
+			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
+			
+			return view('accounting.sales.edit',compact('sale','invoice','items','gateways','expenses'));
 		}
 		
-		$expenses = Item::where('is_expense',true)->get();
-		$gateways = auth()->user()->gateways()->get();
-		
-		return view('accounting.sales.edit',compact('sale','invoice','items','gateways','expenses'));
-	}
-	
-	/**
-	 * @param Invoice $sale
-	 * @param ReturnSaleRequest $request
-	 *
-	 * @return ResponseFactory|Response|mixed
-	 */
-	public
-	function update(Invoice $sale,ReturnSaleRequest $request)
-	{
-		return $request->makeReturn($sale);
-	}
+		/**
+		 * @param Invoice $sale
+		 * @param ReturnSaleRequest $request
+		 *
+		 * @return ResponseFactory|Response|mixed
+		 */
+		public
+		function update(
+			Invoice $sale,ReturnSaleRequest $request)
+		{
+			return $request->makeReturn($sale);
+		}
 		
 	}

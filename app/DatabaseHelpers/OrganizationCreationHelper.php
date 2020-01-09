@@ -222,6 +222,23 @@
 		
 		public function create_gateway_accounts($current_assets_account)
 		{
+			//
+			
+			Account::create([
+				'is_system_account' => true,
+				"ar_name" => "الوسيط",
+				"name" => "Amount ",
+				'type' => 'debit',
+				"slug" => "temp_reseller_account",
+				"parent_id" => $current_assets_account->id,
+				"serial" => "112000000000000000000",
+				'organization_id' => $this->accounts_organization_id,
+				'creator_id' => $this->accounts_creator_id,
+				'is_gateway' => true
+			]);
+			
+			
+			
 			Account::create([
 				'is_system_account' => true,
 				"ar_name" => "نقداً",

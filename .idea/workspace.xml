@@ -2,24 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/GYd8Fy1y4n0I1mShlKFihFpOcsBfrqhjr7gId3Vh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/1536026161f19b3182457c34ba7af6763cc9b489.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/19e7e4e68f6663007d920d8530fa5afa71c6bf51.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/21d5b9a9feae2d0ad41b4a35bc7879b86536b926.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/2f15150d7dffa7bee6549db43f2d4d480b721de1.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/33e578f73d30ef16ebaad4f614971c63dde37c35.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/58cb652892ba018ab1d055b65082fad867571a20.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/8670d8881d652ff9caeeacdd053e09db797b7879.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/a87e787cec790a883a5cb3def2d353c1d912fe40.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/afa3205641edc044aae2f4b9d00e55a49bdb1c04.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/b8e7660e9584009361adcbe6bf3f60abbf7e13c0.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/ba20dfcd7751ab30a849f9eb20022a6a8b59fab2.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c9917b224610a1d713d2871b93f2a79c498b09d7.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/e47d4287f1c12aa43e47198b519694b379d49ded.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/e6a7e9bf4f4e077a08945234ac43b73f361691d3.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/fb70bfa6e50742cd68a888cf5c9af70994a7468c.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Attributes/InvoiceAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/InvoiceAttributes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/LpYlHjQ7nR4hGEUgJk7NFxhlBgn1Knkrc2oSyqYK" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/QLVwnlZbRFWmTcMDpaNcEnM4bphmwnUzGU2RYbOX" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/OrganizationCreationHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/OrganizationCreationHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/PurchaseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -446,7 +433,7 @@
       <workItem from="1577567765490" duration="100630000" />
       <workItem from="1578067206769" duration="104731000" />
       <workItem from="1578489855987" duration="76000" />
-      <workItem from="1578489944915" duration="9672000" />
+      <workItem from="1578489944915" duration="10325000" />
     </task>
     <servers />
   </component>
