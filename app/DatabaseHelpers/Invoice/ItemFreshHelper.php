@@ -175,7 +175,7 @@
 			
 			$data['belong_to_kit'] = false;
 			$data['parent_kit_id'] = 0;
-			$data['discount'] = 0;
+			$data['discount'] = $request_data['discount'];
 			
 			$data['price'] = $this->is_fixed_price ? $this->price : $request_data['price'];
 			
