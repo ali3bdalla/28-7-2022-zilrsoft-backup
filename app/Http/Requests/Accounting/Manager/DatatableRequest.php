@@ -3,6 +3,7 @@
 	namespace App\Http\Requests\Accounting\Manager;
 	
 	use App\Manager;
+	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class DatatableRequest extends FormRequest
@@ -36,16 +37,21 @@
 			
 			
 			if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
-				$this->filled
-				('endDate')){
+				$this->filled('endDate')){
+				$_startDate = Carbon::parse($this->input("startDate"))->toDateString();
+				$_endDate = Carbon::parse($this->input("endDate"))->toDateString();
 				
-				$_startDate = Carbon::parse($this->startDate);
-				$_endDate = Carbon::parse($this->endDate);
 				
-				$query = $query->whereBetween('created_at',[
-					$_startDate->toDateString(),
-					$_endDate->toDateString()
-				]);
+				if ($_endDate === $_startDate){
+					$query = $query->whereDate('created_at',$_startDate);
+				}else{
+					$query = $query->whereBetween('created_at',[
+						$_startDate->toDateString(),
+						$_endDate->toDateString()
+					]);
+				}
+				
+				
 			}
 
 //

@@ -27,7 +27,8 @@
         data: function () {
             return {
                 isLoading: true,
-                items: []
+                items: [],
+                primaryColor: metaHelper.getContent('primary-color'),
             };
         },
         created: function () {

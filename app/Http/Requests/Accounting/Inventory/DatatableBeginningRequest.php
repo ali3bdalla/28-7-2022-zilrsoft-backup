@@ -16,6 +16,7 @@
 		{
 			return $this->user()->can('manage inventory');
 		}
+		
 		/**
 		 * Get the validation rules that apply to the request.
 		 *
@@ -41,18 +42,22 @@
 //				$query = $query->whereIn('creator_id',$this->creators);
 //			}
 //
+//if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
+//				$this->filled('endDate')){
+//				$_startDate = Carbon::parse($this->input("startDate"))->toDateString();
+//				$_endDate = Carbon::parse($this->input("endDate"))->toDateString();
 //
-//			if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
-//				$this->filled
-//				('endDate')){
 //
-//				$_startDate = Carbon::parse($this->startDate);
-//				$_endDate = Carbon::parse($this->endDate);
+//				if ($_endDate === $_startDate){
+//					$query = $query->whereDate('created_at',$_startDate);
+//				}else{
+//					$query = $query->whereBetween('created_at',[
+//						$_startDate->toDateString(),
+//						$_endDate->toDateString()
+//					]);
+//				}
 //
-//				$query = $query->whereBetween('created_at',[
-//					$_startDate->toDateString(),
-//					$_endDate->toDateString()
-//				]);
+//
 //			}
 //
 //
@@ -123,7 +128,7 @@
 			}else{
 				$query = $query->orderByDesc("id");
 			}
-
+			
 			
 			if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval($this->input("itemsPerPage")
 				) >= 1 && intval($this->input('itemsPerPage')) <= 100){

@@ -485,7 +485,7 @@
                 axios.get(this.requestUrl, {
                     params: params
                 }).then(function (response) {
-                    console.log(response.data);
+                    // console.log(response.data);
                     appVm.table_rows = response.data.data;
                     appVm.isLoading = false;
                     appVm.paginationResponseData = response.data;

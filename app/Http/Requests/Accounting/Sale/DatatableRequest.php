@@ -46,7 +46,6 @@
 				
 				
 				if ($_endDate === $_startDate){
-//					return 1;
 					$query = $query->whereDate('created_at',$_startDate);
 				}else{
 					$query = $query->whereBetween('created_at',[
