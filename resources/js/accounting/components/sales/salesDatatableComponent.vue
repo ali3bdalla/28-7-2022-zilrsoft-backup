@@ -111,10 +111,7 @@
                         </div>
 
 
-
-
                     </div>
-
 
 
                 </div>
@@ -148,7 +145,8 @@
                             {{ app.trans.net }}
                         </th>
 
-                        <th :class="{'orderBy':orderBy=='subtotal'}" @click="setOrderByColumn('subtotal')" v-if="canViewAccounting==1"
+                        <th :class="{'orderBy':orderBy=='subtotal'}" @click="setOrderByColumn('subtotal')"
+                            v-if="canViewAccounting==1"
                             width="">
                             {{ app.trans.subtotal }}
                         </th>
@@ -184,7 +182,8 @@
                         </th>
 
 
-                        <th :class="{'orderBy':orderBy=='tax'}" @click="setOrderByColumn('tax')"  v-if="canViewAccounting==1"
+                        <th :class="{'orderBy':orderBy=='tax'}" @click="setOrderByColumn('tax')"
+                            v-if="canViewAccounting==1"
                             width="">
                             {{ app.trans.tax }}
                         </th>
@@ -201,7 +200,7 @@
                             v-text="row.sale.alice_name==null ? row.sale.client.locale_name : row.sale.alice_name"></td>
                         <td v-text="row.created_at"></td>
                         <td class="text-center" v-text="row.net"></td>
-                        <td class="text-center" v-text="row.subtotal"  v-if="canViewAccounting==1"></td>
+                        <td class="text-center" v-if="canViewAccounting==1" v-text="row.subtotal"></td>
                         <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='sale'"
                             v-text="parseFloat(row.invoice_cost).toFixed(2)"></td>
                         <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='r_sale'"
@@ -223,7 +222,7 @@
                         </td>
                         <td class="text-center" v-if="canViewAccounting==1" v-text="row.creator.locale_name"></td>
                         <td class="text-center" v-text="row.sale.salesman.locale_name"></td>
-                        <td class="text-center" v-text="row.tax"  v-if="canViewAccounting==1"> </td>
+                        <td class="text-center" v-if="canViewAccounting==1" v-text="row.tax"></td>
                         <td>
                             <div class="dropdown">
                                 <button :id="'dropDownOptions'
@@ -241,12 +240,16 @@
                                     <li v-if="canEdit==1 && row.invoice_type=='sale' && row.is_deleted==0"><a
                                             :href="baseUrl + row.id + '/edit'" v-text="app.trans.return"></a></li>
 
+                                    <li v-if="onlyQuotations==true"><a
+                                            :href="'quotations/' + row.id + '/edit'" >تحويل الى فاتورة</a></li>
+
+
                                 </ul>
                             </div>
                         </td>
                     </tr>
                     </tbody>
-                    <thead v-if="canViewAccounting==1">
+                    <thead v-if="canViewAccounting==1 && onlyQuotations!=true">
                     <tr>
                         <th>
 
@@ -300,7 +303,7 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <thead v-else>
+                    <thead v-if="canViewAccounting==0 && onlyQuotations!=true">
                     <tr>
                         <th>
 
@@ -334,8 +337,6 @@
                         <th>
 
                         </th>
-
-
 
 
                         <th></th>
@@ -481,13 +482,9 @@
                 params.orderBy = this.orderBy;
                 params.itemsPerPage = this.itemsPerPage;
                 params.orderType = this.orderType;
-                if(this.onlyQuotations)
-                {
+                if (this.onlyQuotations) {
                     params.invoice_type = "quotation";
                 }
-
-
-
 
 
                 axios.get(this.requestUrl, {

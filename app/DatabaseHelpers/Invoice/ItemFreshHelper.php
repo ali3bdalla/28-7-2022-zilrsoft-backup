@@ -179,6 +179,9 @@
 			
 			$data['price'] = $this->is_fixed_price ? $this->price : $request_data['price'];
 			
+			if ($this->is_kit){
+				$data['price'] = $this->data->total;
+			}
 			
 			$data['qty'] = $request_data['qty'];
 			$data['total'] = $this->getTotalAmount($data['price'],$data['qty']);
