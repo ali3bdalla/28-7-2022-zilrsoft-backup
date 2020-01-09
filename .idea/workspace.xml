@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c70a877044d933fe9cac9a8cf94c3395c486c2e9.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/cf6f352ab930c22e85e7489983e3422ef18d733c.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DatabaseHelpers/Invoice/ItemFreshHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DatabaseHelpers/Invoice/ItemFreshHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesDatatableComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesDatatableComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/3Ls2ajimnodQPmaf24ifMHQgZrgwZ2Jn0aNynJpR" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/3Ls2ajimnodQPmaf24ifMHQgZrgwZ2Jn0aNynJpR" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/css.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/css.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -437,7 +432,7 @@
       <workItem from="1578489944915" duration="12735000" />
       <workItem from="1578559777694" duration="482000" />
       <workItem from="1578560854533" duration="237000" />
-      <workItem from="1578562410497" duration="13931000" />
+      <workItem from="1578562410497" duration="14022000" />
     </task>
     <servers />
   </component>
