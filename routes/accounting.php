@@ -38,6 +38,7 @@
 			Route::get('vendor/{vendor}/{account}',"ChartsController@vendor")->name('vendor');
 			Route::get('item/{item}/{account}',"ChartsController@item")->name('item');
 			Route::get('{account}/delete',"ChartsController@delete");
+			Route::get('reseller/daily/account_close',"ChartsController@account_close")->name('account_close');
 		});
 		
 		

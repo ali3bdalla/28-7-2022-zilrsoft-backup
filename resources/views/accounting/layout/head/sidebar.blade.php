@@ -132,12 +132,16 @@
                                 {{ __('sidebar.beginning_inventory') }}
                             </a></li>
 
-{{--                        <li>--}}
-{{--                            <a href="{{route('accounting.inventories.index')}}"><i class="fa fa-sun"></i>--}}
-{{--                                {{ __('sidebar.adjust_stock') }}--}}
-{{--                            </a></li>--}}
+                        {{--                        <li>--}}
+                        {{--                            <a href="{{route('accounting.inventories.index')}}"><i class="fa fa-sun"></i>--}}
+                        {{--                                {{ __('sidebar.adjust_stock') }}--}}
+                        {{--                            </a></li>--}}
 
                     @endcan
+                    <li>
+                        <a href="{{route('accounting.accounts.account_close')}}"><i class="fa fa-sun"></i>
+                            {{ __('sidebar.account_close') }}
+                        </a></li>
 
                 </ul>
             </li>

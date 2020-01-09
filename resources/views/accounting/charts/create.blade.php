@@ -1,6 +1,6 @@
 @extends('accounting.layout.master')
 
-@section('title',__('pages/categories.create'))
+@section('title',__('pages/accounts.creation'))
 
 
 

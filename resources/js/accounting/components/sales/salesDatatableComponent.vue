@@ -36,24 +36,20 @@
 
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-1">
                             <select @change="pushServerRequest" class="form-control" v-model="filters.current_status">
                                 <option value="null">{{ app.trans.current_status }}</option>
                                 <option value="paid">{{ app.trans.paid }}</option>
                                 <option value="credit">{{ app.trans.credit }}</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <select @change="pushServerRequest" class="form-control" v-model="filters.invoice_type">
                                 <option value="null">{{ app.trans.invoice_type }}</option>
                                 <option value="sale">{{ app.trans.sale }}</option>
                                 <option value="r_sale">{{ app.trans.return_sale }}</option>
                             </select>
                         </div>
-                    </div>
-
-
-                    <div class="row">
                         <div class="col-md-3">
                             <accounting-multi-select-with-search-layout-component
                                     :options="clients"
@@ -69,26 +65,28 @@
                             </accounting-multi-select-with-search-layout-component>
 
                         </div>
-                        <div class="col-md-3">
-                            <input :placeholder="app.trans.total" @keyup="pushServerRequest"
-                                   class="form-control"
-                                   type="text" v-model="filters.total">
-                        </div>
-                        <div class="col-md-3">
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-2">
                             <input :placeholder="app.trans.net" @keyup="pushServerRequest"
                                    class="form-control"
                                    type="text" v-model="filters.net">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <input :placeholder="app.trans.invoice_number" @keyup="pushServerRequest"
                                    class="form-control"
                                    type="text" v-model="filters.title">
                         </div>
 
-                    </div>
 
-                    <div class="row" v-if="canViewAccounting==1">
-                        <div class="col-md-3">
+                        <div class="col-md-2" v-if="canViewAccounting==1">
+                            <input :placeholder="app.trans.total" @keyup="pushServerRequest"
+                                   class="form-control"
+                                   type="text" v-model="filters.total">
+                        </div>
+                        <div class="col-md-3" v-if="canViewAccounting==1">
                             <accounting-multi-select-with-search-layout-component
                                     :options="creators"
                                     :placeholder="app.trans.creator"
@@ -106,14 +104,18 @@
 
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-3" v-if="canViewAccounting==1">
                             <input :placeholder="app.trans.tax" @keyup="pushServerRequest"
                                    class="form-control"
                                    type="text" v-model="filters.tax">
                         </div>
 
 
+
+
                     </div>
+
+
 
                 </div>
             </div>
@@ -146,7 +148,7 @@
                             {{ app.trans.net }}
                         </th>
 
-                        <th :class="{'orderBy':orderBy=='subtotal'}" @click="setOrderByColumn('subtotal')"
+                        <th :class="{'orderBy':orderBy=='subtotal'}" @click="setOrderByColumn('subtotal')" v-if="canViewAccounting==1"
                             width="">
                             {{ app.trans.subtotal }}
                         </th>
@@ -182,7 +184,7 @@
                         </th>
 
 
-                        <th :class="{'orderBy':orderBy=='tax'}" @click="setOrderByColumn('tax')"
+                        <th :class="{'orderBy':orderBy=='tax'}" @click="setOrderByColumn('tax')"  v-if="canViewAccounting==1"
                             width="">
                             {{ app.trans.tax }}
                         </th>
@@ -199,7 +201,7 @@
                             v-text="row.sale.alice_name==null ? row.sale.client.locale_name : row.sale.alice_name"></td>
                         <td v-text="row.created_at"></td>
                         <td class="text-center" v-text="row.net"></td>
-                        <td class="text-center" v-text="row.subtotal"></td>
+                        <td class="text-center" v-text="row.subtotal"  v-if="canViewAccounting==1"></td>
                         <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='sale'"
                             v-text="parseFloat(row.invoice_cost).toFixed(2)"></td>
                         <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='r_sale'"
@@ -221,7 +223,7 @@
                         </td>
                         <td class="text-center" v-if="canViewAccounting==1" v-text="row.creator.locale_name"></td>
                         <td class="text-center" v-text="row.sale.salesman.locale_name"></td>
-                        <td class="text-center" v-text="row.tax"></td>
+                        <td class="text-center" v-text="row.tax"  v-if="canViewAccounting==1"> </td>
                         <td>
                             <div class="dropdown">
                                 <button :id="'dropDownOptions'
@@ -294,6 +296,47 @@
                         <th>
                             {{parseFloat( totals.tax).toFixed(2) }}
                         </th>
+
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <thead v-else>
+                    <tr>
+                        <th>
+
+                        </th>
+
+                        <th>
+
+                        </th>
+                        <th>
+
+                        </th>
+
+                        <th>
+
+                        </th>
+
+
+                        <th>
+                            {{parseFloat( totals.net).toFixed(2) }}
+                        </th>
+
+
+                        <th>
+
+                        </th>
+
+                        <th>
+                        </th>
+
+
+                        <th>
+
+                        </th>
+
+
+
 
                         <th></th>
                     </tr>

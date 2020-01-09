@@ -201,5 +201,11 @@
 			
 		}
 		
+		public function account_close(Request $request)
+		{
+//			return $request->all();
+			return view('accounting.charts.daily.account_close');
+		}
+		
 	}
 	

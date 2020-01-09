@@ -11,6 +11,7 @@
 		'quotations' => 'عرض السعر',
 		'filters' => 'الفلاتر',
 		'invoices' => 'الفواتير',
+		'account_close' => 'اقفال اليومية',
 		'purchases' => 'المشتريات',
 		'sales' => 'المبيعات',
 		'inventory' => 'المخزون',

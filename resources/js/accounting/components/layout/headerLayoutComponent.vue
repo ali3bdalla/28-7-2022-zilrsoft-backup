@@ -51,9 +51,10 @@
                     <li><a href="/accounting/settings" v-text="trans.settings"></a></li>
                     <li><a href="/accounting/printer/printers" v-text="trans.printers"></a></li>
                     <li><a href="/accounting/statistics" v-text="trans.statistics"></a></li>
-                    <li><a href="/accounting/items" > المنتجات</a></li>
-                    <li><a href="/accounting/sales/create" >فاتورة مبيعات</a></li>
-                    <li><a href="/accounting/purchases/create" >فاتورة مشتريات</a></li>
+                    <li><a href="/accounting/items"> المنتجات</a></li>
+                    <li><a href="/accounting/sales/create">فاتورة مبيعات</a></li>
+                    <li><a href="/accounting/purchases/create">فاتورة مشتريات</a></li>
+                    <li><a href="/accounting/accounts/reseller/daily/account_close">اقفال اليومية</a></li>
 
 
                 </ul>

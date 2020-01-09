@@ -336,6 +336,7 @@
 
 
         <accounting-barcode-bulk-printer-layout-component
+                style="visibility: hidden"
                 :hide-btn="true"
                 :invoice-id="invoiceId"
                 :items='invoiceData.items'
