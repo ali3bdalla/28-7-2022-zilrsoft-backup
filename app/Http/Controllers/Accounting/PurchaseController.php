@@ -2,16 +2,13 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Account;
 	use App\Expense;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Purchase\CreatePurchaseRequest;
 	use App\Http\Requests\Accounting\Purchase\DatatableRequest;
 	use App\Http\Requests\Accounting\Purchase\ReturnPurchaseRequest;
-	use App\Http\Requests\CreateReturnPurchaseRequest;
 	use App\Invoice;
 	use App\Manager;
-	use App\PurchaseInvoice;
 	use App\User;
 	use Exception;
 	use Illuminate\Contracts\Routing\ResponseFactory;
@@ -112,11 +109,10 @@
 		}
 		
 		/**
-		 * @param CreateReturnPurchaseRequest $request
-		 * @param PurchaseInvoice $purchase
+		 * @param ReturnPurchaseRequest $request
+		 * @param Invoice $purchase
 		 *
 		 * @return ResponseFactory|Response|mixed
-		 * @throws Exception
 		 */
 		public function update(ReturnPurchaseRequest $request,Invoice $purchase)
 		{

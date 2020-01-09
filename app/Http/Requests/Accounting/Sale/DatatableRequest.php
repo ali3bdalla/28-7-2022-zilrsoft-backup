@@ -39,19 +39,22 @@
 				'creator','items','sale.client','sale.salesman'
 			]);
 			
-			
 			if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
 				$this->filled('endDate')){
 				$_startDate = Carbon::parse($this->input("startDate"));
 				$_endDate = Carbon::parse($this->input("endDate"));
 				
 				
-				$query = $query->whereBetween('created_at',[
-					$_startDate->toDateString(),
-					$_endDate->toDateString()
-				]);
-			}elseif ($this->has('startDate') && $this->filled('startDate')){
-				$query = $query->whereDate('created_at',Carbon::parse($this->input("startDate")));
+				if ($_endDate === $_startDate){
+					$query = $query->whereDate('created_at',$_startDate);
+				}else{
+					$query = $query->whereBetween('created_at',[
+						$_startDate->toDateString(),
+						$_endDate->toDateString()
+					]);
+				}
+				
+				
 			}else{
 				if (!$this->user()->can('manage branches') && !$this->filled('title'))
 					$query = $query->whereDate('created_at',Carbon::today());
