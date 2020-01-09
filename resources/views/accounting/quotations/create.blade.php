@@ -2,6 +2,13 @@
 @section('title',__('pages/invoice.create'))
 
 
+@section('page_css')
+    <style>
+        .navbar {
+            background-color: #b8b83a !important;
+        }
+    </style>
+@endsection
 
 @section('content')
     <accounting-quotations-create-component
