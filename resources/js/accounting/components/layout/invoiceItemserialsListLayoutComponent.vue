@@ -87,13 +87,13 @@
 
         methods: {
             validateMulitSerials() {
-                let splitCounter = 3;
+                let splitCounter = 5;
                 let firstPoint = this.firstSerialInput.substr(this.firstSerialInput.length - splitCounter);
                 let lastPoint = this.lastSerialInput.substr(this.lastSerialInput.length - splitCounter);
                 let resetPoint = this.firstSerialInput.substr(0, this.firstSerialInput.length - splitCounter);
                 let data = db.model.between(firstPoint, lastPoint, false, true);
                 for (let i = 0; i < data.length; i++) {
-                    let serial = resetPoint.concat(("00" + data[i]).slice(-3));
+                    let serial = resetPoint.concat(("00000" + data[i]).slice(-5));
                     this.serials = db.model.createUnique(this.serials, serial);
                 }
                 this.lastSerialInput = "";
