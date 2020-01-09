@@ -39,6 +39,13 @@
 			Route::bind('sale',function ($value){
 				return Invoice::where('id',$value)->withoutGlobalScope('currentManagerInvoicesOnly')->first();
 			});
+			
+			Route::bind('quotation',function ($value){
+				return Invoice::where([
+					['id',$value],
+					['invoice_type','quotation'],
+				])->first();
+			});
 		}
 		
 		/**

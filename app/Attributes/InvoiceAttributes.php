@@ -2,19 +2,17 @@
 	
 	namespace App\Attributes;
 	
-	use Illuminate\Support\Facades\Storage;
-	
 	trait InvoiceAttributes
 	{
 		
 		public function getUserIdAttribute()
 		{
-			if (in_array($this->invoice_type,['sale','r_sale'])){
-				return !empty($this->sale) ?  $this->sale->client_id : 0;
+			if (in_array($this->invoice_type,['sale','r_sale','quotation'])){
+				return !empty($this->sale) ? $this->sale->client_id : 0;
 			}
 			
 			
-			return !empty($this->purchase) ?  $this->purchase->vendor_id : 0 ;
+			return !empty($this->purchase) ? $this->purchase->vendor_id : 0;
 		}
 		
 		public function getNameAttribute()
@@ -86,6 +84,9 @@
 				if ($this->invoice_type == 'purchase')
 					$description = ' مشتريات';
 				
+				if ($this->invoice_type == 'quotation')
+					$description = ' عرض سعر';
+				
 				if ($this->invoice_type == 'sale')
 					$description = 'مبيعات';
 				
@@ -101,6 +102,10 @@
 			}else{
 				if ($this->invoice_type == 'sale')
 					$description = 'sale';
+				
+				if ($this->invoice_type == 'quotation')
+					$description = 'quotation';
+				
 				
 				if ($this->invoice_type == 'purchase')
 					$description = 'purchase';
@@ -124,10 +129,10 @@
 		public function getTitleAttribute()
 		{
 			
-			if (in_array($this->invoice_type,['sale','r_sale']))
-				return  !empty($this->sale) ? $this->sale->prefix.$this->id : "";
+			if (in_array($this->invoice_type,['sale','r_sale','quotation']))
+				return !empty($this->sale) ? $this->sale->prefix.$this->id : "";
 			else
-				return  !empty($this->purchase) ? $this->purchase->prefix.$this->id : "";
+				return !empty($this->purchase) ? $this->purchase->prefix.$this->id : "";
 			
 		}
 		
@@ -136,11 +141,9 @@
 			return $this->created_at->diffForHumans();
 		}
 		
-		
-		
 		public function getSteakholderNameAttribute()
 		{
-			if (in_array($this->invoice_type,['sale','r_sale'])){
+			if (in_array($this->invoice_type,['sale','r_sale','quotation'])){
 				return $this->sale->alice_name == null ? $this->sale->client->locale_name : $this->sale->alice_name;
 			}
 			
@@ -149,7 +152,7 @@
 		
 		public function getSteakholderTypeAttribute()
 		{
-			if (in_array($this->invoice_type,['sale','r_sale'])){
+			if (in_array($this->invoice_type,['sale','r_sale','quotation'])){
 				return __('pages/invoice.client');
 			}
 			
@@ -159,7 +162,7 @@
 		//served_title
 		public function getServedTitleAttribute()
 		{
-			if (in_array($this->invoice_type,['sale','r_sale'])){
+			if (in_array($this->invoice_type,['sale','r_sale','quotation'])){
 				return __('pages/invoice.salesman');
 			}
 			
@@ -168,7 +171,7 @@
 		
 		public function getSteakholderPhoneNumberAttribute()
 		{
-			if (in_array($this->invoice_type,['sale','r_sale'])){
+			if (in_array($this->invoice_type,['sale','r_sale','quotation'])){
 				return $this->sale->client->phone_number;
 			}
 			
@@ -177,7 +180,7 @@
 		
 		public function getServedByAttribute()
 		{
-			if (in_array($this->invoice_type,['sale','r_sale'])){
+			if (in_array($this->invoice_type,['sale','r_sale','quotation'])){
 				return $this->sale->salesman->locale_name;
 			}
 			

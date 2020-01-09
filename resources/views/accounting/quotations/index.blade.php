@@ -2,38 +2,29 @@
 
 @section('title',__('sidebar.quotations'))
 @section('buttons')
-    @can("create sale")
-        <a href="{{route('accounting.sales.create')}}" class="btn btn-custom-primary">
-            <i class="fa fa-plus-circle"></i> {{ __('pages/invoice.create') }}
-        </a>
-    @endcan
+    <a href="{{route('accounting.quotations.create')}}" class="btn btn-custom-primary">
+        <i class="fa fa-plus-circle"></i> {{ __('pages/invoice.create') }}
+    </a>
+
 @stop
 
-@section("before_content")
-
+@section('page_css')
+    <style>
+        .navbar {
+            background-color: #b8b83a !important;
+        }
+    </style>
 @endsection
-
-
 
 @section("content")
 
     <accounting-sales-datatable-component
-            :only-qoutations="true"
+            :only-quotations="true"
             :creators='@json($creators)'
             :vendors='@json($clients)'
             :creator='@json(auth()->user())'
-            :can-view-accounting="{{ auth()->user()->canDo('view item transactions') }}"
-            :can-edit="{{ auth()->user()->canDo('edit sale') }}"
     >
 
-        {{--        {{ auth()->user()->canDo('view item transactions') }}--}}
 
     </accounting-sales-datatable-component>
-@endsection
-
-
-
-
-
-@section("after_content")
 @endsection

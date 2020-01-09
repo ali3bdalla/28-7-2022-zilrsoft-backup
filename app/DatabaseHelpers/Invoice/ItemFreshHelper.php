@@ -117,8 +117,6 @@
 				}
 			}
 			
-		
-			
 			
 			return $baseItem;
 		}
@@ -161,8 +159,47 @@
 				}
 			}
 //			ex
+		
+		
+		}
+		
+		/**
+		 * @param $baseInvoice
+		 * @param $data
+		 *
+		 * @return mixed
+		 */
+		public function addQuotationItem($baseInvoice,$request_data)
+		{
 			
 			
+			$data['belong_to_kit'] = false;
+			$data['parent_kit_id'] = 0;
+			$data['discount'] = 0;
+			
+			$data['price'] = $this->is_fixed_price ? $this->price : $request_data['price'];
+			
+			
+			$data['qty'] = $request_data['qty'];
+			$data['total'] = $this->getTotalAmount($data['price'],$data['qty']);
+			$data['subtotal'] = $this->getSubTotalAmount($data['total'],$data['discount']);
+			$data['tax'] = $this->getTaxAmount($data['subtotal'],$this->vts);
+			$data['net'] = $this->getNetAmount($data['subtotal'],$data['tax']);
+			$data['organization_id'] = $baseInvoice->organization_id;
+			$data['creator_id'] = $baseInvoice->creator_id;
+			$data['item_id'] = $this->id;
+			$data['user_id'] = $baseInvoice->user_id;
+			$data['invoice_type'] = $baseInvoice->invoice_type;
+			if ($this->is_expense)
+				$data['cost'] = $request_data['purchase_price'];
+			else
+				$data['cost'] = $this->cost;
+			
+			
+			$baseItem = $baseInvoice->items()->create($data);
+			
+			
+			return $baseItem;
 		}
 		
 		/**

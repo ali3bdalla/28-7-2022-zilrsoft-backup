@@ -348,21 +348,34 @@
                             </div>
 
                             <div class="">
-                                <div class="panel" v-for="expense in invoiceData.items" v-show="expense.is_expense">
-                                    <p>{{ expense.locale_name}}</p>
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            <input
+                                <div class="panel panel-primary" v-for="expense in invoiceData.items"
+                                     v-show="expense.is_expense">
+                                    <div class="panel-heading">{{ expense.locale_name}}</div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">السعر الضريبة</span>
+                                                    <input :ref="'itemNet_' + expense.id+ 'Ref'"
+                                                           @focus="$event.target.select()"
+                                                           @keyup="itemNetUpdated(expense)" class="form-control"
+                                                           name=""
+                                                           placeholder="القيمة بالضريبة"
+                                                           style=" direction: ltr!important;"
+                                                           type="text" v-model="expense.net"
+                                                    />
 
-                                                    :ref="'itemNet_' + expense.id+ 'Ref'"
-                                                    @focus="$event.target.select()"
-                                                    @keyup="itemNetUpdated(expense)" class="form-control"
-                                                    placeholder="القيمة"
-                                                    type="text" v-model="expense.net"/>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input class="form-control" placeholder="التكلفة" type="text"
-                                                   v-model="expense.purchase_price"/>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">التكلفة</span>
+                                                    <input class="form-control" placeholder="التكلفة" type="text"
+                                                           v-model="expense.purchase_price"
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -538,7 +551,8 @@
 
     export default {
         components: {},
-        props: ['creator', 'clients', 'salesmen', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
+        props: ['creator', 'clients', 'cloning', 'quotation', 'salesmen', 'gateways', 'expenses', 'canViewItems',
+            'canCreateItem'],
         data: function () {
             return {
                 clientModal: {
@@ -605,6 +619,9 @@
             this.clientList = this.clients;
             this.initExpensesList();
             this.initLiveTimer();
+            if (this.cloning == true) {
+                this.handleCloningEvent();
+            }
 
         },
 
@@ -616,6 +633,37 @@
 
 
         methods: {
+
+
+            handleCloningEvent() {
+                let items = this.quotation.items;
+
+                let appVm = this;
+                items.forEach((item) => {
+
+                    item.barcode = item.item.barcode;
+                    item.available_qty = item.item.available_qty;
+                    item.vts = item.item.vts;
+                    item.is_service = item.item.is_service;
+                    item.is_fixed_price = item.item.is_fixed_price;
+                    item.is_expense = item.item.is_expense;
+                    item.is_need_serial = item.item.is_need_serial;
+                    item.is_kit = item.item.is_kit;
+                    item.items = item.item.items;
+                    item.data = item.item.data;
+                    item.vts = item.item.vts;
+                    item.id = item.item.id;
+                    item.locale_name = item.item.locale_name;
+                    if (item.is_need_serial) {
+                        item.qty = 0;
+                    }
+                    appVm.invoiceData.items.push(item);
+                });
+
+                this.invoiceData.salesmanId = this.quotation.sale.salesman_id;
+                this.invoiceData.clientId = this.quotation.sale.client_id;
+                this.updateInvoiceData();
+            },
             pushClientData() {
                 this.modalsInfo.showCreateclientModal = false;
                 //
@@ -694,11 +742,7 @@
                     this.updateInvoiceData();
                 }
             },
-            expenseUpdatePrice(event) {
-                let item = event.item;
-                // console.log();
-                // this.itemPriceUpdated(event.item.item);
-            },
+
             updatedItemsList(event) {
                 this.invoiceData.items = event.items;
             },
@@ -922,10 +966,7 @@
 
             itemNetUpdated(item) {
                 if (item.is_service || item.is_expense) {
-                    // let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts); //  1.05
                     item.price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vts);
-                    // item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
-                    // item.price = item.subtotal;
                     item.total = item.price;
                     item.subtotal = item.price;
                     item.tax = ItemAccounting.getTax(item.subtotal, item.vts, true);
@@ -936,9 +977,6 @@
                     item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vts), 100)).toFixed(3);
                     item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
                 }
-
-                // item.tax = ItemMath.sub(ItemMath.mult(item.subtotal, tax / 100), item.subtotal);
-                // this.items.splice(db.model.index(this.invoiceData.items), 1, item);
                 this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
 
             },

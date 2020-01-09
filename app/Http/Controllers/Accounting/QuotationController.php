@@ -3,7 +3,9 @@
 	namespace App\Http\Controllers\Accounting;
 	
 	use App\Http\Controllers\Controller;
+	use App\Http\Requests\Accounting\Quotation\CreateQuotationRequest;
 	use App\Invoice;
+	use App\Item;
 	use App\Manager;
 	use App\User;
 	use Illuminate\Http\Request;
@@ -31,6 +33,12 @@
 		 */
 		public function create()
 		{
+			$salesmen = Manager::all();
+			$clients = User::where('is_client',true)->get()->toArray();
+			$expenses = Item::where('is_expense',true)->get();
+			$gateways = auth()->user()->gateways()->get();
+//			Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get()
+			return view('accounting.quotations.create',compact('clients','salesmen','gateways','expenses'));
 			//
 		}
 		
@@ -41,20 +49,10 @@
 		 *
 		 * @return Response
 		 */
-		public function store(Request $request)
+		public function store(CreateQuotationRequest $request)
 		{
-			//
-		}
-		
-		/**
-		 * Display the specified resource.
-		 *
-		 * @param Invoice $invoice
-		 *
-		 * @return Response
-		 */
-		public function show(Invoice $invoice)
-		{
+			
+			return $request->save();
 			//
 		}
 		
@@ -65,33 +63,21 @@
 		 *
 		 * @return Response
 		 */
-		public function edit(Invoice $invoice)
+		public function edit(Invoice $quotation)
 		{
+			
+			
+			$salesmen = Manager::all();
+			$clients = User::where('is_client',true)->get()->toArray();
+			$expenses = Item::where('is_expense',true)->get();
+			$gateways = auth()->user()->gateways()->get();
+			
+
+			$quotation = $quotation->load('items.item.items.item','items.item.data','sale.client','sale.salesman');
+//			Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get()
+			return view('accounting.quotations.to_sale',compact('clients','salesmen','gateways','expenses','quotation'));
+			
 			//
 		}
 		
-		/**
-		 * Update the specified resource in storage.
-		 *
-		 * @param Request $request
-		 * @param Invoice $invoice
-		 *
-		 * @return Response
-		 */
-		public function update(Request $request,Invoice $invoice)
-		{
-			//
-		}
-		
-		/**
-		 * Remove the specified resource from storage.
-		 *
-		 * @param Invoice $invoice
-		 *
-		 * @return Response
-		 */
-		public function destroy(Invoice $invoice)
-		{
-			//
-		}
 	}

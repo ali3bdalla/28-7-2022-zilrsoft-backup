@@ -7,7 +7,6 @@
 	use App\InvoiceItems;
 	use App\Item;
 	use App\Math\Math;
-	use Dotenv\Exception\ValidationException;
 	
 	trait FreshHelper
 	{
@@ -41,8 +40,9 @@
 		 *
 		 * @return $this
 		 */
-		public function addChildInvoice($user_id,$base_invoice_type,$salesman_id = null,$parentInvoice = null,
-		                                $alice_name = "")
+		public function addChildInvoice(
+			$user_id,$base_invoice_type,$salesman_id = null,$parentInvoice = null,
+			$alice_name = "")
 		{
 			if (in_array($base_invoice_type,['sale','r_sale'])){
 				$creator = auth()->user();
@@ -85,10 +85,15 @@
 			
 			foreach ($items as $item){
 				$db_item = Item::findOrFail($item['id']);
-				if ($db_item->is_kit)
-					$created_item = $db_item->addKitToBaseInvoice($this,$item);
-				else
-					$created_item = $db_item->addToBaseInvoice($this,$item);
+				if ($this->invoice_type == 'quotation')
+					$created_item = $db_item->addQuotationItem($this,$item);
+				else{
+					if ($db_item->is_kit)
+						$created_item = $db_item->addKitToBaseInvoice($this,$item);
+					else
+						$created_item = $db_item->addToBaseInvoice($this,$item);
+					
+				}
 				
 				
 			}
@@ -141,9 +146,8 @@
 			}
 			
 			$paid = 0;
-			foreach ($this->payments as $payment)
-			{
-				$paid+=$payment['amount'];
+			foreach ($this->payments as $payment){
+				$paid += $payment['amount'];
 			}
 			
 			$result['remaining'] = $result['net'] - $paid;

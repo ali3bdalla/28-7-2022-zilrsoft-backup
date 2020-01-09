@@ -39,9 +39,10 @@
 		public function publishSubInvoice($table = 'sale',$info = [])
 		{
 			
+//			return $info;
 			$info['organization_id'] = auth()->user()->organization_id;
 			if ($table === 'sale'){
-				$invoice = $this->sale()->create($info);
+				return $invoice = $this->sale()->create($info);
 			}else{
 				$invoice = $this->purchase()->create($info);
 			}

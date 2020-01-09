@@ -56,6 +56,7 @@
 		'view_sale' => 'عرض فاتورة مبيعات',
 		'invoice' => 'فاتورة',
 		'number' => 'رقم',
+		'quotation_to_sale' => 'تحويل الى فاتورة مبيعات',
 		'price_a4' => 'طباعة الفاتورة A4',
 		'print_receipt' => 'طباعة الايصال',
 		'phone_number' => 'رقم الهاتف',

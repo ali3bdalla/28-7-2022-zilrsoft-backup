@@ -22,7 +22,7 @@
 			if (auth()->check()){
 				static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
 				
-				static::addGlobalScope(new QuotationScope());
+//				static::addGlobalScope(new QuotationScope());
 			}
 			
 			

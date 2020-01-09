@@ -4,7 +4,7 @@
 
 
 @section('content')
-    <accounting-sales-create-component
+    <accounting-quotations-create-component
             :can-create-item="{{ auth()->user()->canDo('create item') }}"
             :can-view-items="{{ auth()->user()->canDo('view item')  }}"
             :expenses='@json($expenses)'
@@ -12,5 +12,5 @@
             :gateways='@json($gateways)'
             :salesmen='@json($salesmen)'
             :creator='@json(auth()->user()->load('department','branch','user'))'
-    ></accounting-sales-create-component>
+    ></accounting-quotations-create-component>
 @endsection

@@ -103,6 +103,7 @@
 			Route::get('{purchase}/print',"PurchaseController@print")->name('print');
 		});
 		
+		
 		Route::prefix('datatable')->group(function (){
 			Route::get('items','ItemController@datatable')->name('items.datatable');
 			Route::get('filters','FilterController@datatable')->name('filters.datatable');
