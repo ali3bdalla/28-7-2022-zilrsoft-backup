@@ -15,10 +15,10 @@
 					$builder->where('organization_id',auth()->user()->organization_id);
 				});
 			}
-//			if (auth()->check() && !auth()->user()->can('manage branches')){
-//				static::addGlobalScope('currentManagerInvoicesOnly',function (Builder $builder){
-//					$builder->where('creator_id',auth()->user()->id);
-//				});
-//			}
+			if (auth()->check() && !auth()->user()->can('manage branches')){
+				static::addGlobalScope('currentManagerInvoicesOnly',function (Builder $builder){
+					$builder->where('creator_id',auth()->user()->id);
+				});
+			}
 		}
 	}
