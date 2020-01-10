@@ -145,8 +145,8 @@
                         </td>
 
                         <td class="text-right-with-padding">{{row.ar_name}}<p align="left">{{row.name}}</p></td>
-                        <td v-text="row.price"></td>
-                        <td v-text="row.price_with_tax"></td>
+                        <td v-text="parseFloat(row.price).toFixed(2)"></td>
+                        <td v-text="parseFloat(row.price_with_tax).toFixed(2)"></td>
                         <td v-text="row.available_qty"></td>
                         <td class="text-right-with-padding" v-text="row.creator.locale_name"></td>
                         <td v-text="row.created_at"></td>
