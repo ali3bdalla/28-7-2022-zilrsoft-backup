@@ -41,6 +41,7 @@
 					'to_other_services_sales_discount',
 					'client_balance',
 					'vendor_balance',
+					'close_account',
 				
 				])->nullable();
 				$table->timestamps();

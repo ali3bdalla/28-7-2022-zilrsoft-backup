@@ -7,6 +7,7 @@
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Account\CreateAccountRequest;
 	use App\Http\Requests\Accounting\Account\UpdateAccountRequest;
+	use App\Http\Requests\Accounting\Charts\PeriodCloseAccoundRequest;
 	use App\Item;
 	use App\User;
 	use Exception;
@@ -207,6 +208,11 @@
 			$periodSalesAmount = $request->user()->dailyTransactionsAmount("2019-12-28 21:42:07");
 			$gateways = $request->user()->gateways()->get();
 			return view('accounting.charts.daily.account_close',compact('periodSalesAmount','gateways'));
+		}
+		
+		public function account_close_store(PeriodCloseAccoundRequest $request)
+		{
+			return $request->save();
 		}
 		
 	}
