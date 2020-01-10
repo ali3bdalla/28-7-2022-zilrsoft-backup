@@ -2,7 +2,6 @@
 	
 	namespace App\Http\Requests\Accounting\Mananger;
 	
-	use App\Manager;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
@@ -69,8 +68,7 @@
 							$manager->gateways()->attach(
 								$gateway['id']
 								,[
-								'organization_id' => auth()->user()->organization_id,
-								'order_number' => $gateway['order_number'],
+								'organization_id' => auth()->user()->organization_id
 							]);
 						}
 						

@@ -24,6 +24,7 @@
 				$table->float('amount',20,8);
 				$table->integer('user_id')->nullable();
 				$table->boolean("is_manual")->default(false);
+				$table->boolean("is_pending")->default(false);
 				$table->integer('invoice_id')->nullable();
 				$table->integer('container_id')->nullable();
 				$table->enum('description',[

@@ -3,6 +3,7 @@
 	namespace App;
 	
 	use App\DatabaseHelpers\TransactionHelper;
+	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Database\Eloquent\Model;
 	
 	class Transaction extends Model
@@ -18,10 +19,22 @@
 			'creditable_id' => 'integer',
 		];
 		
+		protected static function boot()
+		{
+			parent::boot();
+			if (auth()->check()){
+				static::addGlobalScope('pendingTransactionScope',function (Builder $builder){
+					$builder->where('is_pending',false);
+				});
+			}
+			
+		}
+		
 		public function getAmountAttribute($value)
 		{
 			return money_format("%i",$value);
 		}
+		
 		public function creditable()
 		{
 			return $this->morphTo();

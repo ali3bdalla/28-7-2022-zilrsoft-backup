@@ -508,11 +508,11 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input class="form-control" placeholder="اسم المورد"
+                                            <input class="form-control" placeholder="اسم العميل"
                                                    v-model="clientModal.clientArName"/>
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control" placeholder="اسم المورد (انجليزي)"
+                                            <input class="form-control" placeholder="اسم العميل (انجليزي)"
                                                    v-model="clientModal.clientName"/>
                                         </div>
                                     </div>

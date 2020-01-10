@@ -54,6 +54,7 @@
 				$sale = $invoice->publishSubInvoice('sale',[
 					'invoice_type' => 'quotation',
 					'prefix' => 'QUI-',
+					'alice_name' => $this->input("alice_name"),
 					'client_id' => $this->input("client_id"),
 					'salesman_id' => $this->input("salesman_id")]);
 				$invoice->addItemsToBaseInvoice($this->input('items'));

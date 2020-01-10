@@ -5,12 +5,6 @@
             <div class="col-md-3" v-for="gateway in gateways_list">
                 <div class="card" style="padding:5px;padding-top: 8px">
                     <div class="columns">
-
-                        <div class="column">
-                            <input
-                                   class="form-control"
-                                   v-model.number="gateway.order_number">
-                        </div>
                         <div class="column">{{gateway.locale_name}}</div>
                         <div class="column text-left">
                             <toggle-button

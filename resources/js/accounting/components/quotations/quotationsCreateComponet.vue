@@ -20,7 +20,7 @@
 
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <accounting-select-with-search-layout-component
                         :default-index="clientList[0].id"
                         :no_all_option="true"
@@ -35,6 +35,10 @@
 
                 </accounting-select-with-search-layout-component>
 
+            </div>
+            <div class="col-md-1">
+                <a @click="modalsInfo.showAliceNameModal=true" class="btn btn-custom-primary btn-sm">{{app.trans
+                    .make_alice_name}}</a>
             </div>
 
             <div class="col-md-6">
@@ -348,6 +352,37 @@
 
             </div>
         </div>
+
+
+        <!--        invoice other client name  Modal-->
+        <div v-if="modalsInfo.showAliceNameModal===true">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header ">
+                                    <button @click="modalsInfo.showAliceNameModal = false"
+                                            class="pull-left btn btn-custom-primary"
+                                            type="button">
+                                        اغلاق
+                                    </button>
+                                    <h4 class="modal-title">{{app.trans.make_alice_name}}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input :placeholder="app.trans.type_here"
+                                           class="form-control"
+                                           type="text"
+                                           v-model="invoiceData.aliceName"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </div>
+        <!--        invoice other client name  Modal-->
+
 
     </div>
 

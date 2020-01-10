@@ -5,8 +5,14 @@
         }}">{{
         $account->locale_name}}</a>
 
+            @if($account->type=='credit')
+                <span class="butn">Cr</span>
+            @else
+                <span class="butn">Dr</span>
+            @endif
             <a href="{{route('accounting.accounts.create')}}?parent_id={{$account->id}}" class="butn"><i class="fa
             fa-plus-circle"></i></a>
+
             @can("edit chart")
                 <a href="{{route('accounting.accounts.edit',$account->id)}}" class="butn"><i class="fa fa-edit"></i></a>
             @endcan

@@ -52,6 +52,7 @@ import AccountingTransactionsCreateComponent from './components/transactions/tra
 import AccountingVouchersDatatableComponent from './components/vouchers/vouchersDatatableComponet';
 import AccountingVouchersCreateComponent from './components/vouchers/vouchersCreateComponet';
 import AccountingQuotationsCreateComponent from './components/quotations/quotationsCreateComponet';
+import AccountingPeriodAccountCloseComponent from './components/charts/periodAccountCloseComponent';
 
 
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
@@ -107,3 +108,4 @@ Vue.component('accounting-transactions-create-component', AccountingTransactions
 Vue.component('accounting-vouchers-datatable-component', AccountingVouchersDatatableComponent);
 Vue.component('accounting-vouchers-create-component', AccountingVouchersCreateComponent);
 Vue.component('accounting-quotations-create-component', AccountingQuotationsCreateComponent);
+Vue.component('accounting-period-account-close-component', AccountingPeriodAccountCloseComponent);

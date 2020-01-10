@@ -683,11 +683,11 @@
 			}
 			
 			if ($services_sales_total > 0){
-				$manager_services_sales_return_account->credit_transaction()->create([
+				$manager_services_sales_return_account->debit_transaction()->create([
 					'creator_id' => auth()->user()->id,
 					'organization_id' => auth()->user()->organization_id,
-					'debitable_id' => $manager_stock_account->id,
-					'debitable_type' => get_class($manager_stock_account),
+					'creditable_id' => $manager_stock_account->id,
+					'creditable_type' => get_class($manager_stock_account),
 					'amount' => $services_sales_total,
 					'user_id' => $inc->user_id,
 					'invoice_id' => $inc->id,

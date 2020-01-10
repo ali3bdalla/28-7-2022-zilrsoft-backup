@@ -9,13 +9,38 @@
 	use App\Filter;
 	use App\FilterValues;
 	use App\Gateway;
-	use App\ManagerGateways;
 	use App\Organization;
 	use App\Role;
 	use App\User;
+	use Carbon\Carbon;
 	
 	trait ManagerRelationships
 	{
+		
+		public function dailyTransactionsAmount($period = null)
+		{
+			
+			
+			$dailyAccount = Account::where([
+				['slug','temp_reseller_account'],
+				['is_system_account',true],
+			])->first();
+			if ($period == null){
+				return $dailyAccount->debit_transaction()->whereDate('created_at',Carbon::today())->sum('amount') -
+					$dailyAccount->credit_transaction()->whereDate('created_at',Carbon::today())->sum('amount');
+			}
+			
+			
+			return $dailyAccount->debit_transaction()->whereBetween('created_at',[
+					Carbon::parse($period),
+					Carbon::now()
+				])->sum('amount') -
+				$dailyAccount->credit_transaction()->whereBetween('created_at',[
+					Carbon::parse($period),
+					Carbon::now()
+				])->sum('amount');
+
+		}
 		
 		public function organization()
 		{
