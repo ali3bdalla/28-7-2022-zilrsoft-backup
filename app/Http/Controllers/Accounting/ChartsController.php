@@ -205,7 +205,7 @@
 		public function account_close(Request $request)
 		{
 			
-			$periodSalesAmount = $request->user()->dailyTransactionsAmount("2019-12-28 21:42:07");
+			$periodSalesAmount = $request->user()->dailyTransactionsAmount();
 			$gateways = $request->user()->gateways()->get();
 			return view('accounting.charts.daily.account_close',compact('periodSalesAmount','gateways'));
 		}

@@ -21,8 +21,8 @@
                     <div class="col-md-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">عجز الفترة</div>
-                            <div class="panel-body"><strong>{{ parseFloat(periodSalesAmount -
-                                totalGatewaysAmount).toFixed(2)}}</strong></div>
+                            <div class="panel-body"><strong>{{ parseFloat(totalGatewaysAmount -
+                                periodSalesAmount).toFixed(2)}}</strong></div>
                         </div>
                     </div>
 
@@ -41,6 +41,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="panel-body">
                 <button :disabled="!showButton" @click="sendSubmitRequest" class="btn btn-custom-primary">اكمال عملية
                     الاقفال
@@ -80,13 +81,13 @@
                 this.showButton = false;
                 axios.post('/accounting/accounts/reseller/daily/account_close', {
                     gateways: this.gatewaysList,
-                    period_sales_Amount: this.periodSalesAmount
+                    period_sales_amount: this.periodSalesAmount
                 }).then(response => {
-                    console.log(response)
+                    window.location.reload();
                 }).catch(error => {
-                    console.log(error)
-                    console.log(error.response)
-                    console.log(error.response.data)
+                    console.log(error);
+                    alert(error.response);
+                    console.log(error.response.data);
                     console.log(error.data)
                 })
             }

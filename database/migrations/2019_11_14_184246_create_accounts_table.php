@@ -56,6 +56,7 @@
 						'other_services_return_sales',
 						'other_services_sales',
 						'temp_reseller_account',
+						'shifts_shortage',
 					])->nullable();
 				$table->softDeletes();
 				$table->timestamps();

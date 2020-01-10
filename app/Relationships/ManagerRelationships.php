@@ -26,16 +26,17 @@
 				['is_system_account',true],
 			])->first();
 			if ($period == null){
-				return $dailyAccount->debit_transaction()->whereDate('created_at',Carbon::today())->sum('amount') -
-					$dailyAccount->credit_transaction()->whereDate('created_at',Carbon::today())->sum('amount');
+				return $dailyAccount->debit_transaction()->where('creator_id',$this->id)->whereDate('created_at',
+					Carbon::today())->sum('amount')  -
+					$dailyAccount->credit_transaction()->where('creator_id',$this->id)->whereDate('created_at',Carbon::today())->sum('amount');
 			}
 			
 			
-			return $dailyAccount->debit_transaction()->whereBetween('created_at',[
+			return $dailyAccount->debit_transaction()->where('creator_id',$this->id)->whereBetween('created_at',[
 					Carbon::parse($period),
 					Carbon::now()
 				])->sum('amount') -
-				$dailyAccount->credit_transaction()->whereBetween('created_at',[
+				$dailyAccount->credit_transaction()->where('creator_id',$this->id)->whereBetween('created_at',[
 					Carbon::parse($period),
 					Carbon::now()
 				])->sum('amount');

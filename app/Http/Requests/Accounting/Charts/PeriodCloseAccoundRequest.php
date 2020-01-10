@@ -28,7 +28,7 @@
 				'gateways' => 'required|array',
 				'gateways.*.id' => 'required|integer|exists:accounts,id',
 				'gateways.*.amount' => 'required|price',
-				'period_sales_Amount' => 'required|price',
+				'period_sales_amount' => 'required|price',
 			];
 		}
 		
@@ -39,6 +39,12 @@
 				['slug','temp_reseller_account'],
 			])->first();
 			
+			$shifts_shortage_account = Account::where([
+				['is_system_account',true],
+				['slug','shifts_shortage'],
+			])->first();
+			
+			
 			$container = auth()->user()->organization->transactions_containers()->create(
 				[
 					'creator_id' => auth()->user()->id,
@@ -48,26 +54,70 @@
 			);
 			$short_shortage_amount = $this->getShortageAmount();
 			
+			$debit_total = 0;
+			$gateways_amount = 0;
+			foreach ($this->input("gateways") as $gateway){
+				if ($gateway['amount'] > 0){
+					$data = [];
+					$data['creator_id'] = auth()->user()->id;
+					$data['organization_id'] = auth()->user()->organization_id;
+					$data['debitable_id'] = $gateway['id'];
+					$data['debitable_type'] = Account::class;
+					$data['amount'] = $gateway['amount'];
+					$data['description'] = "close_account";
+					$container->transactions()->create($data);
+					$gateways_amount = $gateways_amount + $gateway['amount'];
+				}
+				
+			}
+			$debit_total = $gateways_amount;
 
 
-//
-//
-//			$gatewaysAmount = 0;
-//			foreach ($this->input("gateways") as $gateway){
-//				$gatewaysAmount = $gatewaysAmount + $gateway['amount'];
-//
-//				$data = [];
-//				$data['creator_id'] = auth()->user()->id;
-//				$data['organization_id'] = auth()->user()->organization_id;
-//				$data['creditable_id'] = $temp_reseller_account->id;
-//				$data['creditable_type'] = Account::class;
-//				$data['amount'] = $gateway['amount'];
-//				$data['debitable_id'] = $gateway['id'];
-//				$data['debitable_type'] = Account::class;
-//				$data['amount'] = $gateway['amount'];
-//				$data['description'] = "close_account";
-//				$container->transactions()->create($data);
+			
+			if ($short_shortage_amount < 0){
+				$short_shortage_amount = $short_shortage_amount * -1;
+				$debit_total = $debit_total + $short_shortage_amount;
+				$data = [];
+				$data['creator_id'] = auth()->user()->id;
+				$data['organization_id'] = auth()->user()->organization_id;
+				$data['debitable_id'] = $shifts_shortage_account->id;
+				$data['debitable_type'] = Account::class;
+				$data['amount'] = $short_shortage_amount;
+				$data['description'] = "close_account";
+				$container->transactions()->create($data);
+			}else{
+				$data = [];
+				$data['creator_id'] = auth()->user()->id;
+				$data['organization_id'] = auth()->user()->organization_id;
+				$data['creditable_id'] = $shifts_shortage_account->id;
+				$data['creditable_type'] = Account::class;
+				$data['amount'] = $short_shortage_amount;
+				$data['description'] = "close_account";
+				$container->transactions()->create($data);
+				
+			}
+			
+			
+			// /////// *********
+			$data = [];
+			$data['creator_id'] = auth()->user()->id;
+			$data['organization_id'] = auth()->user()->organization_id;
+			$data['creditable_id'] = $temp_reseller_account->id;
+			$data['creditable_type'] = Account::class;
+			$data['amount'] = $this->input("period_sales_amount");
+			$data['description'] = "close_account";
+			$container->transactions()->create($data);
+			//  //  ******
+			
+			
+			$container->update([
+				'amount' => $debit_total
+			]);
+
+
 //			}
+			
+			
 		}
 		
 		public function getShortageAmount()
@@ -76,6 +126,6 @@
 			foreach ($this->input("gateways") as $gateway){
 				$gatewaysAmount = $gatewaysAmount + $gateway['amount'];
 			}
-			return $this->input("period_sales_Amount") - $gatewaysAmount;
+			return $gatewaysAmount - $this->input("period_sales_amount");
 		}
 	}
