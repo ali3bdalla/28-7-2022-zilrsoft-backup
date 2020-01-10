@@ -185,9 +185,9 @@
 				}
 			]);
 			
-			
+			//&& intval($this->input('itemsPerPage')) <= 100
 			if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval($this->input("itemsPerPage")
-				) >= 1 && intval($this->input('itemsPerPage')) <= 100){
+				) >= 1 ){
 				$result = $query->paginate(intval($this->input('itemsPerPage')));
 			}else{
 				$result = $query->paginate(20);
