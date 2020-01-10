@@ -515,7 +515,11 @@
                 this.totals.profit = 0;
                 for (let i = 0; i < len; i++) {
                     let row = items[i];
-                    if (row.invoice_type == 'sale') {
+                    if (row.invoice_type === 'sale') {
+                        if(parseFloat(row.invoice_cost)==NaN)
+                        {
+                            console.log(row);
+                        }
                         this.totals.net = ItemMath.sum(this.totals.net, row.net);
                         this.totals.tax = ItemMath.sum(this.totals.tax, row.tax);
                         this.totals.total = ItemMath.sum(this.totals.total, row.total);

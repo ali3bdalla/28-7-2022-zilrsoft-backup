@@ -42,8 +42,8 @@
 				$data['is_gateway'] = true;
 			else
 				$data['is_gateway'] = false;
-			
-			$data['type'] = $parent->type;
+
+//			$data['type'] = $parent->type;
 			
 			$account->update($data);
 		}

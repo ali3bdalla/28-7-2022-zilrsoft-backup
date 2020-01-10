@@ -28,7 +28,8 @@
 				//
 				'name' => 'required|string|unique:accounts',
 				'ar_name' => 'required|string|unique:accounts',
-				'parent_id' => 'required|integer|exists:accounts,id'
+				'parent_id' => 'required|integer|exists:accounts,id',
+				'account_type' => 'required|in:credit,debit'
 			];
 		}
 		
@@ -39,7 +40,7 @@
 			$data = $this->only('parent_id','name','ar_name');
 			$data['organization_id'] = auth()->user()->organization_id;
 			$data['serial'] = auth()->user()->organization_id;
-			$data['type'] = $parent->type;
+			$data['type'] = $this->account_type;
 			$data['slug'] = $parent->slug;
 			
 			$data['is_gateway'] = false;

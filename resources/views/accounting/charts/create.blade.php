@@ -43,7 +43,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group @error('parent_id')has-error @enderror">
                         <select class="form-control" name="parent_id" placeholder="{{trans('pages/categories.parent_id')
                         }}">
@@ -70,20 +70,50 @@
 
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-5 col-md-offset-1">
-                        <button type="submit" class="btn btn-custom-primary">{{ trans('buttons.create')
-                        }}</button>
-                    </div>
-                    <div class="col-md-2 col-md-offset-3">
+                <div class="col-md-6">
+                    <div class="form-group @error('account_type')has-error @enderror">
+                        <select class="form-control" name="account_type" placeholder="{{trans('pages/accounts.account_type')
+                        }}">
+                            <option
+                                    @if(!empty(old('account_type')) && old('account_type')=='debit')
+                                    selected
 
-                        <a href="{{ route('accounting.accounts.index') }}" class="btn btn-custom-default">{{ trans
-                        ('reusable.back')
-                        }}</a>
+                                    @endif
+                                    class="form-control" value="debit">مدين
+                            </option>
+
+                            <option
+                                    @if(!empty(old('account_type')) && old('account_type')=='credit')
+                                    selected
+                                    @endif
+                                    class="form-control" value="credit">دائن
+                            </option>
+
+                        </select>
+                        @error('account_type')
+                        <small class="text-danger">
+                            {{ $message}}
+                        </small>
+                        @enderror
 
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-5 col-md-offset-1">
+                    <button type="submit" class="btn btn-custom-primary">{{ trans('buttons.create')
+                        }}</button>
+                </div>
+                <div class="col-md-2 col-md-offset-3">
+
+                    <a href="{{ route('accounting.accounts.index') }}" class="btn btn-custom-default">{{ trans
+                        ('reusable.back')
+                        }}</a>
+
+                </div>
+            </div>
+
         </form>
     </div>
 @endsection

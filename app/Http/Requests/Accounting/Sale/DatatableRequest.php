@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Sale;
 	
+	use App\Account;
 	use App\Invoice;
 	use App\SaleInvoice;
 	use Carbon\Carbon;
@@ -34,6 +35,40 @@
 		
 		public function data()
 		{
+			
+			
+//			$invoices = Invoice::get();
+//
+//			$data = [];
+//			foreach ($invoices as $invoice){
+//				if($invoice->invoice_type=='sale')
+//				{
+//					$items = $invoice->items;
+//					$cost = 0;
+//					foreach ($items as $item){
+//						$cost = $cost + $item->cost * $item->qty;
+//					}
+//					$cost_amount = (Account::where('slug','cogs')->first())->debit_transaction()->where('invoice_id',
+//						$invoice->id)->sum('amount');
+//					if($cost!=$cost_amount)
+//					{
+//						$data[] = [
+//							$cost,
+//							$cost_amount,
+//							$invoice->id,
+//						];
+//					}
+//
+//
+//				}else
+//				{
+//
+//				}
+//
+//			}
+//			return $data;
+			
+			
 			
 			if ($this->has('invoice_type') && $this->filled('invoice_type') && $this->input('invoice_type') === 'quotation')
 				$getOnly = ['quotation'];
@@ -181,16 +216,17 @@
 			
 			$query = $query->withCount([
 				'items AS invoice_cost' => function ($query){
-					$query->select(DB::raw("SUM(cost * qty) as invoice_cost "));
+					$query->select(DB::raw("SUM(cost * qty) as invoice_cost"));
 				}
 			]);
-			
+
+//			http://zilrsoft.com/accounting/sales/442/force_delete
 			//&& intval($this->input('itemsPerPage')) <= 100
 			if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval($this->input("itemsPerPage")
-				) >= 1 ){
+				) >= 1){
 				$result = $query->paginate(intval($this->input('itemsPerPage')));
 			}else{
-				$result = $query->paginate(20);
+				$result = $query->paginate(10000);
 				
 			}
 			
