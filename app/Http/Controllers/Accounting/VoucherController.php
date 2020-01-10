@@ -58,7 +58,7 @@
 		public function create(Request $request)
 		{
 			$current_assets_account = auth()->user()->toGetManagerAccount('current_assets');
-			$accots = Account::where([['slug','gateway'],['parent_id',$current_assets_account->id]])->get();
+			$accots = Account::where([['parent_id',$current_assets_account->id]])->get();
 			$accounts = [];
 			foreach ($accots as $account){
 				$account['children'] = Account::getAllParentNestedChildren($account);
