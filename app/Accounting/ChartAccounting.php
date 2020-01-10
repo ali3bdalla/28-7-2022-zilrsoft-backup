@@ -117,7 +117,7 @@
 		public function get_account_stock_item_transactions()
 		{
 //			$source_items = Item::all();
-			$source_items = Item::with('debit_transaction')->sortByDesc(function ($query){
+			$source_items = Item::with('debit_transaction')->paginate(1000)->sortByDesc(function ($query){
 				return $query->debit_transaction->sum('amount');
 			});
 			$items = [];
