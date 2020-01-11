@@ -44,6 +44,10 @@
 			Route::post('reseller/daily/account_close',"ChartsController@account_close_store")->name('account_close_store');
 		});
 		
+		Route::prefix('transactions')->name('transactions.')->group(function (){
+			Route::get('add/create',"TransactionsController@create")->name('add.create');
+		});
+		
 		
 		Route::name('printer.')->prefix('printer')->group(function (){
 			Route::get('sign_receipt_printer','PrinterController@sign_receipt_printer');
