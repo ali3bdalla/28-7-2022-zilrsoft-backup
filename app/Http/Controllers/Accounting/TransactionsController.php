@@ -38,6 +38,7 @@
 				['is_vendor',true],
 				['is_system_user',false],
 			])->get();
+			return  $accounts;
 			return view('accounting.transactions.create',compact('accounts','items','vendors','clients'));
 		}
 		
