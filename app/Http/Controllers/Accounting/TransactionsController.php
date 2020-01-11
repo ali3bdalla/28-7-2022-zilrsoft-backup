@@ -23,6 +23,9 @@
 			return view('accounting.transactions.index',compact('transactions'));
 		}
 		
+		/**
+		 * @return Factory|View
+		 */
 		public function create()
 		{
 			$accounts = Account::where('slug','!=','stock')->get();
@@ -40,6 +43,8 @@
 		
 		/**
 		 * @param CreateTransactionRequest $request
+		 *
+		 * @return int
 		 */
 		public function store(CreateTransactionRequest $request)
 		{
