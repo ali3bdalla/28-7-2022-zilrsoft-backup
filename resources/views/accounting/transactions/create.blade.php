@@ -20,6 +20,9 @@
 @section('content')
     <accounting-transactions-create-component
             :accounts='@json($accounts)'
+            :vendors='@json($vendors)'
+            :clients='@json($clients)'
+            :items='@json($items)'
     >
 
     </accounting-transactions-create-component>

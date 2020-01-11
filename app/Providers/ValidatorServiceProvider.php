@@ -2,10 +2,10 @@
 	
 	namespace App\Providers;
 	
+	use App\Account;
 	use App\Item;
-	use Illuminate\Support\ServiceProvider;
 	use Illuminate\Support\Facades\Validator;
-	use Illuminate\Validation\Rule;
+	use Illuminate\Support\ServiceProvider;
 	
 	class ValidatorServiceProvider extends ServiceProvider
 	{
@@ -65,6 +65,7 @@
 				
 			});
 			
+			
 			Validator::extendImplicit('validate_item_purchase_price',function ($attribute,$value,$args){
 				$str_attr = explode('.',$attribute);
 				$index = $str_attr[1];
@@ -118,6 +119,7 @@
 				}
 				return true;
 			});
+			
 			
 			
 			//

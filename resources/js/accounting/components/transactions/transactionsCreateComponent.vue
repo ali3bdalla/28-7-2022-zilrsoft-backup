@@ -1,74 +1,113 @@
 <template>
-    <div class="box">
-        <table class="table table-bordered is-bordered text-center" width="100%">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>الحساب</th>
-                <th>مدين</th>
-                <th>دائن</th>
-                <th>الوصف</th>
-            </tr>
-            </thead>
+    <div class="panel">
+        <div class="panel-body">
+            <div>
+                <table class="table table-bordered is-bordered text-center" width="100%">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>الحساب</th>
+                        <th>مدين</th>
+                        <th>دائن</th>
+                        <th>الوصف</th>
+                    </tr>
+                    </thead>
 
-            <tbody>
-            <tr v-for="(transaction,index) in transactions">
+                    <tbody>
+                    <tr :key="index" v-for="(transaction,index) in transactions">
 
-                <td width="5%">
-                    <button @click="remove_transaction(index)"><i class="fa fa-trash"></i></button>
-                </td>
-                <td width="25%">{{ transaction.locale_name}} <span style="font-weight: bold"> {{ transaction.current_amount
+                        <td width="5%">
+                            <button @click="remove_transaction(index)"><i class="fa fa-trash"></i></button>
+                        </td>
+                        <td width="25%">
+                            <select class="form-control" v-if="transaction.slug=='clients'"
+                                    v-model="transaction.client_id">
+                                <option :key="client.id" :value="client.id" v-for="client in clients">{{
+                                    client.locale_name
+                                    }} - {{ client.balance}}
+                                </option>
+                            </select>
+
+                            <select class="form-control" v-else-if="transaction.slug=='vendors'"
+                                    v-model="transaction.vendor_id">
+                                <option :key="vendor.id" :value="vendor.id" v-for="vendor in vendors">{{
+                                    vendor.locale_name}} - {{ vendor.vendor_balance}}
+                                </option>
+                            </select>
+
+                            <select class="form-control" v-else-if="transaction.slug=='stock'"
+                                    v-model="transaction.item_id">
+                                <option :key="item.id" :value="item.id" v-for="item in items">{{ item.locale_name }}
+                                </option>
+                            </select>
+
+                            <span v-else>
+                        {{ transaction.locale_name}}
+                         <span style="font-weight: bold"> {{ transaction.current_amount
                     }}</span>
-                </td>
-                <td width="25%"><input @keyup="update_debit_amount(transaction,index)" class="form-control" type="text"
-                                       v-model="transaction.debit_amount"/></td>
-                <td width="25%"><input @keyup="update_credit_amount(transaction,index)" class="form-control" type="text"
-                                       v-model="transaction.credit_amount"/></td>
-                <td width="20%"><input class="form-control" placeholder="وصف العملية" type="text"
-                                       v-model="transaction.description"/></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td width="25%">
+                    </span>
 
 
-                    <accounting-select-with-search-layout-component
-                            :options="accounts"
-                            @valueUpdated="add_new_transaction_row"
-                            identity="1"
-                            label_text="locale_name"
-                            placeholder=" اختر الحساب"
-                            v-show="true">
+                        </td>
+                        <td width="25%"><input @keyup="update_debit_amount(transaction,index)" class="form-control"
+                                               type="text"
+                                               v-model="transaction.debit_amount"/></td>
+                        <td width="25%"><input @keyup="update_credit_amount(transaction,index)" class="form-control"
+                                               type="text"
+                                               v-model="transaction.credit_amount"/></td>
+                        <td width="20%"><input class="form-control" placeholder="وصف العملية" type="text"
+                                               v-model="transaction.description"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td width="25%">
 
-                    </accounting-select-with-search-layout-component>
 
-                </td>
+                            <accounting-select-with-search-layout-component
+                                    :options="accounts"
+                                    @valueUpdated="add_new_transaction_row"
+                                    identity="1"
+                                    label_text="locale_name"
+                                    placeholder=" اختر الحساب"
+                                    v-show="true">
 
-            </tr>
+                            </accounting-select-with-search-layout-component>
+
+                        </td>
+
+                    </tr>
 
 
-            </tbody>
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>المجموع</th>
-                <th>{{ total_debit }}</th>
-                <th>{{ total_credit}}</th>
-                <th></th>
-            </tr>
-            </thead>
+                    </tbody>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>المجموع</th>
+                        <th>{{ total_debit }}</th>
+                        <th>{{ total_credit}}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
 
-        </table>
-
-        <div class="row">
-            <div class="col-md-4">
-                <button @click="push_to_server" class="btn btn-custom-primary" v-show="can_submit_entry">حفظ</button>
+                </table>
             </div>
-            <div class="col-md-8">
-                    <textarea @keyup="update_all_entry_whole_page" class="form-control" placeholder="وصف القيد"
-                              v-model="description">
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <button @click="push_to_server" class="btn btn-custom-primary" v-show="can_submit_entry">
+                        حفظ القيد
+                    </button>
+                </div>
+                <div class="col-md-6">
+                    <label>
+<textarea @keyup="update_all_entry_whole_page" class="form-control" placeholder="وصف القيد"
+          v-model="description">
 
-                    </textarea>
+</textarea>
+                    </label>
+                </div>
+
             </div>
         </div>
 
@@ -78,7 +117,7 @@
 
 <script>
     export default {
-        props: ['accounts'],
+        props: ['accounts', 'clients', 'items', 'vendors'],
         data: function () {
             return {
                 description: "",

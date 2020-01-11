@@ -5,7 +5,9 @@
 	use App\Account;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Transaction\CreateTransactionRequest;
+	use App\Item;
 	use App\TransactionsContainer;
+	use App\User;
 	use Illuminate\Contracts\View\Factory;
 	use Illuminate\View\View;
 	
@@ -23,8 +25,17 @@
 		
 		public function create()
 		{
-			$accounts = Account::all();
-			return view('accounting.transactions.create',compact('accounts'));
+			$accounts = Account::where('slug','!=','stock')->get();
+			$items = Item::all();
+			$clients = User::where([
+				['is_client',true],
+				['is_system_user',false],
+			])->get();
+			$vendors = User::where([
+				['is_vendor',true],
+				['is_system_user',false],
+			])->get();
+			return view('accounting.transactions.create',compact('accounts','items','vendors','clients'));
 		}
 		
 		/**
