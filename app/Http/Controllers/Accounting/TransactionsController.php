@@ -28,7 +28,7 @@
 		 */
 		public function create()
 		{
-			$accounts = Account::where('slug','!=','stock')->get();
+			$accounts = Account::all();
 			$items = Item::all();
 			$clients = User::where([
 				['is_client',true],
@@ -38,7 +38,6 @@
 				['is_vendor',true],
 				['is_system_user',false],
 			])->get();
-			return  $accounts;
 			return view('accounting.transactions.create',compact('accounts','items','vendors','clients'));
 		}
 		
