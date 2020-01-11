@@ -30,7 +30,7 @@
 					Carbon::today())->sum('amount')  -
 					$dailyAccount->credit_transaction()->where('creator_id',$this->id)->whereDate('created_at',Carbon::today())->sum('amount');
 			}
-			
+//
 			
 			return $dailyAccount->debit_transaction()->where('creator_id',$this->id)->whereBetween('created_at',[
 					Carbon::parse($period),
