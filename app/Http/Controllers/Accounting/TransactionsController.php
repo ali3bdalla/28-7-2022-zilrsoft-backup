@@ -26,21 +26,21 @@
 		/**
 		 * @return Factory|View
 		 */
-		public function create()
-		{
-			$accounts = Account::all();
-			$items = Item::all();
-			$clients = User::where([
-				['is_client',true],
-				['is_system_user',false],
-			])->get();
-			$vendors = User::where([
-				['is_vendor',true],
-				['is_system_user',false],
-			])->get();
-			return view('accounting.transactions.create',compact('accounts','items','vendors','clients'));
-		}
-		
+//		public function create()
+//		{
+//			$accounts = Account::all();
+//			$items = Item::all();
+//			$clients = User::where([
+//				['is_client',true],
+//				['is_system_user',false],
+//			])->get();
+//			$vendors = User::where([
+//				['is_vendor',true],
+//				['is_system_user',false],
+//			])->get();
+//			return view('accounting.transactions.create',compact('accounts','items','vendors','clients'));
+//		}
+//
 		/**
 		 * @param CreateTransactionRequest $request
 		 *
