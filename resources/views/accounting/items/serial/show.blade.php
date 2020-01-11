@@ -29,13 +29,21 @@
                             <td>{{$history->user->name}}</td>
                             <td>{{$history->creator->name}}</td>
                             @if(in_array($history->event,['sale','r_sale']))
-                                <td><a href="{{route('accounting.sales.show',$history->invoice->id)}}">
-                                        {{ $history->invoice->title }}
-                                    </a></td>
+                                <td>
+                                    @if($history->invoice!=null)
+                                        <a href="{{route('accounting.sales.show',$history->invoice->id)}}">
+                                            {{ $history->invoice->title }}
+                                        </a>
+                                    @endif
+                                </td>
                             @else
-                                <td><a href="{{route('accounting.purchases.show',$history->invoice->id)}}">
-                                        {{ $history->invoice->title }}
-                                    </a></td>
+                                <td>
+                                    @if($history->invoice!=null)
+                                        <a href="{{route('accounting.purchases.show',$history->invoice->id)}}">
+                                            {{ $history->invoice->title }}
+                                        </a>
+                                    @endif
+                                </td>
                             @endif
 
 

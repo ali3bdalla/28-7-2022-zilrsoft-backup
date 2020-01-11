@@ -8,11 +8,12 @@
 	use App\Department;
 	use App\Filter;
 	use App\FilterValues;
-	use App\Gateway;
 	use App\Organization;
-	use App\Role;
 	use App\User;
 	use Carbon\Carbon;
+	
+	//	use App\Gateway;
+	//	use App\Role;
 	
 	trait ManagerRelationships
 	{
@@ -27,10 +28,10 @@
 			])->first();
 			if ($period == null){
 				return $dailyAccount->debit_transaction()->where('creator_id',$this->id)->whereDate('created_at',
-					Carbon::today())->sum('amount')  -
+						Carbon::today())->sum('amount') -
 					$dailyAccount->credit_transaction()->where('creator_id',$this->id)->whereDate('created_at',Carbon::today())->sum('amount');
 			}
-//
+			
 			
 			return $dailyAccount->debit_transaction()->where('creator_id',$this->id)->whereBetween('created_at',[
 					Carbon::parse($period),
@@ -40,7 +41,7 @@
 					Carbon::parse($period),
 					Carbon::now()
 				])->sum('amount');
-
+			
 		}
 		
 		public function organization()
