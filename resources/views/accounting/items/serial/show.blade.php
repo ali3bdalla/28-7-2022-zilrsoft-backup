@@ -3,7 +3,6 @@
 
 @section('title',$serial->serial . " | " . $serial->item->locale_name . ' (' .$serial->item->barcode . ')')
 
-
 @section('content')
 
     <div class="box">

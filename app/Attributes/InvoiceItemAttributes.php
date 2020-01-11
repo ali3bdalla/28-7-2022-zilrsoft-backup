@@ -84,9 +84,9 @@
 		{
 			$urls = [];
 			if (in_array($this->invoice_type,['sale','r_sale']))
-				$url['invoice_url'] = route('accounting.sales.show',$this->invoice->sale->id);
+				$url['invoice_url'] = route('accounting.sales.show',$this->invoice->id);
 			else
-				$url['invoice_url'] = route('accounting.purchases.show',$this->invoice->purchase->id);
+				$url['invoice_url'] = route('accounting.purchases.show',$this->invoice->id);
 			
 			$url['invoice_title'] = $this->invoice->title;
 			
