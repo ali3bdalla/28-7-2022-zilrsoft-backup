@@ -24,14 +24,14 @@
                                     v-model="transaction.client_id">
                                 <option :key="client.id" :value="client.id" v-for="client in clients">{{
                                     client.locale_name
-                                    }} - {{ client.balance}}
+                                    }}    {{ client.balance}}
                                 </option>
                             </select>
 
                             <select class="form-control" v-else-if="transaction.slug=='vendors'"
                                     v-model="transaction.vendor_id">
                                 <option :key="vendor.id" :value="vendor.id" v-for="vendor in vendors">{{
-                                    vendor.locale_name}} - {{ vendor.vendor_balance}}
+                                    vendor.locale_name}}   {{ vendor.vendor_balance}}
                                 </option>
                             </select>
 
