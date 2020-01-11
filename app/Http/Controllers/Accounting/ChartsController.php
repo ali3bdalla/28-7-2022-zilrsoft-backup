@@ -9,6 +9,7 @@
 	use App\Http\Requests\Accounting\Account\UpdateAccountRequest;
 	use App\Http\Requests\Accounting\Charts\PeriodCloseAccoundRequest;
 	use App\Item;
+	use App\TransactionsContainer;
 	use App\User;
 	use Exception;
 	use Illuminate\Contracts\View\Factory;
@@ -201,6 +202,23 @@
 			return view('accounting.charts.transactions.vendor',compact('vendor','transactions','account'));
 			
 		}
+		
+		
+		
+		public function account_close_list()
+		{
+			$transactionContainer = TransactionsContainer::where([
+				['description','account_close'],
+				['creator_id',auth()->user()->id],
+			])->paginate(20);
+			$shifts_shortage_account = Account::where([
+				['is_system_account',true],
+				['slug','shifts_shortage'],
+			])->first();
+			
+			return view('accounting.charts.daily.account_close_list',compact('transactionContainer','shifts_shortage_account'));
+		}
+		
 		
 		public function account_close(Request $request)
 		{

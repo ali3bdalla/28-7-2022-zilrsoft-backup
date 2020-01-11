@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <button @click="pushDataToServer" class="btn btn-custom-primary"><i
+                <button :disabled="disabledButton" @click="pushDataToServer" class="btn btn-custom-primary"><i
                         class="fa fa-save"></i> {{ app.trans.save }}
                 </button>
             </div>
@@ -151,8 +151,8 @@
                     <th class="has-text-white">
                         <input
                                 :ref="'itemPrice_' + item.id + 'Ref'"
-                                @focus="$event.target.select()"
                                 @change="itemPriceUpdated(item)"
+                                @focus="$event.target.select()"
                                 class="form-control"
                                 type="text"
                                 v-model="item.purchase_price">
@@ -230,6 +230,7 @@
         ],
         data: function () {
             return {
+                disabledButton: false,
                 selectedItemIndex: null,
                 selectedItem: null,
                 codeTest: "",
@@ -362,6 +363,7 @@
                 return db.model.index(this.invoiceData.items, item.id);
             },
             updateInvoiceData() {
+                this.disabledButton = false;
                 this.invoiceData.total = db.model.sum(this.invoiceData.items, 'total');
                 this.invoiceData.discount = db.model.sum(this.invoiceData.items, 'discount');
                 this.invoiceData.subtotal = db.model.sum(this.invoiceData.items, 'subtotal');
@@ -436,6 +438,7 @@
 
 
             pushDataToServer() {
+                this.disabledButton = true;
                 var data = {
                     items: this.invoiceData.items,
                     total: this.invoiceData.total,

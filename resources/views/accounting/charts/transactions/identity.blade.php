@@ -39,8 +39,6 @@
                 <tbody>
 
                 @foreach($users as $user)
-
-
                     <tr>
                         <th class="text-center ">{{ $user['id'] }}</th>
                         @if($account->slug=='clients')

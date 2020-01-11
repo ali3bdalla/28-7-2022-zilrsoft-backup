@@ -42,6 +42,7 @@
 			Route::get('{account}/delete',"ChartsController@delete");
 			Route::get('reseller/daily/account_close',"ChartsController@account_close")->name('account_close');
 			Route::post('reseller/daily/account_close',"ChartsController@account_close_store")->name('account_close_store');
+			Route::get('reseller/daily/account_close_list',"ChartsController@account_close_list")->name('account_close_list');
 		});
 		
 		Route::prefix('transactions')->name('transactions.')->group(function (){

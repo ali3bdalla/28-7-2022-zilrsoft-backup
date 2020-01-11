@@ -34,12 +34,8 @@
 				
 				$total_credit = $user['total_credit'] + $total_credit;
 				$total_debit = $user['total_debit'] + $total_debit;
-
-
-////
-//
-//
-//
+				
+				
 				$balance = $total_debit - $total_credit; //  current transaction
 //
 				if ($balance < 0){
