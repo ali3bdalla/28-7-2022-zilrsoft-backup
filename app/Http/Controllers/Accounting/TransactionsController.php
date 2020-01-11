@@ -29,18 +29,18 @@
 		public function create()
 		{
 			$accounts = Account::all();
-			$items = Item::all();
+			$items = [];
 			
-			return  $items;
-//			$clients = User::where([
-//				['is_client',true],
-//				['is_system_user',false],
-//			])->get();
-//			$vendors = User::where([
-//				['is_vendor',true],
-//				['is_system_user',false],
-//			])->get();
-//			return view('accounting.transactions.create',compact('accounts','items','vendors','clients'));
+//			return  $items;
+			$clients = User::where([
+				['is_client',true],
+				['is_system_user',false],
+			])->get();
+			$vendors = User::where([
+				['is_vendor',true],
+				['is_system_user',false],
+			])->get();
+			return view('accounting.transactions.create',compact('accounts','items','vendors','clients'));
 		}
 		
 		/**
