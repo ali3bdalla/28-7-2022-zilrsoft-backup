@@ -57,8 +57,8 @@
 					'client_id' => $baseInvoice->sale->client_id,
 					'salesman_id' => $baseInvoice->sale->salesman_id
 				]);
-				
-				$this->toCreatePurchaseInvoiceForExpensesItems($invoice,$this->input('items'));
+
+//				$this->toCreatePurchaseInvoiceForExpensesItems($invoice,$this->input('items'));
 				$invoice->pushItems($this->input('items'));
 				$this->toGetAndUpdatedAmounts($invoice);
 				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),$this->input("methods"),[]);
