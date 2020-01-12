@@ -159,7 +159,7 @@
 				Route::get('/create','InventoryController@beginning_create')->name('create');
 				Route::post('/store','InventoryController@beginning_store')->name('store');
 				Route::delete('{beginning}','InventoryController@beginning_destroy')->name('destroy');
-				Route::get('{beginning}/foce_delete','InventoryController@beginning_destroy')->name('delete');
+				Route::get('{beginning}/force_delete','InventoryController@beginning_destroy')->name('delete');
 			});
 			
 		});
