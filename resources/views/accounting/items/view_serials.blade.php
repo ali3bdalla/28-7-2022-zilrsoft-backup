@@ -17,7 +17,7 @@
                 <tr>
                     <th>#</th>
                     <th>السيريال</th>
-                    <th>الباكود</th>
+{{--                    <th>الباكود</th>--}}
                     <th>الحالة</th>
 
                 </tr>
@@ -27,10 +27,10 @@
                     <tr>
                         <td>{{$loop->index + 1}}</td>
                         <td>{{$serial->serial}}</td>
-                        <td>
-                            <accounting-show-barcode-layout-component :barcode="{{$serial->serial}}">
-                            </accounting-show-barcode-layout-component>
-                        </td>
+{{--                        <td>--}}
+{{--                            <accounting-show-barcode-layout-component :barcode="{{$serial->serial}}">--}}
+{{--                            </accounting-show-barcode-layout-component>--}}
+{{--                        </td>--}}
                         <td>{{trans('pages/items.' . $serial->current_status)}} </td>
 
                     </tr>
