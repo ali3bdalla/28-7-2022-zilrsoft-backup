@@ -40,6 +40,39 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-body"><label>المتبقي</label></div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <select class="form-control" v-model="remainingAmountAccountId"
+                                                @change="disabledRemainingAmount = false"
+                                        >
+                                            <option
+                                                    :key="gateway.id"
+                                                    :value="gateway.id"
+
+                                                    v-for="(gateway, index) in gatewaysList">{{gateway.locale_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input
+
+                                                :disabled="disabledRemainingAmount"
+                                                class="form-control" placeholder="المبلغ"
+                                                v-model.number="remainingAmount"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
 
             <div class="panel-body">
@@ -59,6 +92,9 @@
         props: ["periodSalesAmount", 'gateways'],
         data: function () {
             return {
+                disabledRemainingAmount: true,
+                remainingAmount: 0,
+                remainingAmountAccountId: 0,
                 showButton: false,
                 totalGatewaysAmount: 0,
                 gatewaysList: []
@@ -81,12 +117,14 @@
                 this.showButton = false;
                 axios.post('/accounting/accounts/reseller/daily/account_close', {
                     gateways: this.gatewaysList,
-                    period_sales_amount: this.periodSalesAmount
+                    period_sales_amount: this.periodSalesAmount,
+                    remaining_amount: this.remainingAmount,
+                    remaining_amount_account_id: this.remainingAmountAccountId
                 }).then(response => {
                     window.location.reload();
                 }).catch(error => {
                     console.log(error);
-                    alert(error.response);
+                    alert(error.response.data);
                     console.log(error.response.data);
                     console.log(error.data)
                 })

@@ -83,10 +83,14 @@
 		{
 			
 			if ($account->slug == 'clients'){
-				$users = $this->get_users_transactions('client_balance');
+				$users = User::where('is_client',true)->paginate(50);//$this->get_users_transactions
+				//('client_balance')
+			
 				return view('accounting.charts.transactions.identity',compact('users','account'));
 			}else if ($account->slug == 'vendors'){
-				$users = $this->get_users_transactions('vendor_balance');
+			
+				$users = User::where('is_vendor',true)->paginate(50);
+//				$users = $this->get_users_transactions('vendor_balance');
 				return view('accounting.charts.transactions.identity',compact('users','account'));
 			}else if ($account->slug == 'stock'){
 				$items = $this->get_account_stock_item_transactions();
@@ -203,8 +207,6 @@
 			
 		}
 		
-		
-		
 		public function account_close_list()
 		{
 			$transactionContainer = TransactionsContainer::where([
@@ -219,15 +221,23 @@
 			return view('accounting.charts.daily.account_close_list',compact('transactionContainer','shifts_shortage_account'));
 		}
 		
-		
+		/**
+		 * @param Request $request
+		 *
+		 * @return Factory|View
+		 */
 		public function account_close(Request $request)
 		{
 			
 			$periodSalesAmount = $request->user()->dailyTransactionsAmount();
 			$gateways = $request->user()->gateways()->get();
+//			return  $gateways;
 			return view('accounting.charts.daily.account_close',compact('periodSalesAmount','gateways'));
 		}
 		
+		/**
+		 * @param PeriodCloseAccoundRequest $request
+		 */
 		public function account_close_store(PeriodCloseAccoundRequest $request)
 		{
 			return $request->save();

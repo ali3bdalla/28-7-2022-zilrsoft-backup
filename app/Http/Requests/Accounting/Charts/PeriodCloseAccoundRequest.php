@@ -27,8 +27,10 @@
 			return [
 				'gateways' => 'required|array',
 				'gateways.*.id' => 'required|integer|exists:accounts,id',
+//				'remaining_amount_account_id' => 'required|integer|exists:accounts,id',
 				'gateways.*.amount' => 'required|price',
 				'period_sales_amount' => 'required|price',
+				'remaining_amount' => 'nullable|price',
 			];
 		}
 		
@@ -71,8 +73,7 @@
 				
 			}
 			$debit_total = $gateways_amount;
-
-
+			
 			
 			if ($short_shortage_amount < 0){
 				$short_shortage_amount = $short_shortage_amount * -1;
@@ -113,13 +114,20 @@
 			$container->update([
 				'amount' => $debit_total
 			]);
-
-
+			
+			
+			if ($this->filled('remaining_amount') && $this->has('remaining_amount') && $this->input("remaining_amount") > 0 && $this->filled('remaining_amount_account_id')
+			&& $this->input('remaining_amount_account_id') >= 0){
+				$this->makeReminingCashAmountTransactions($temp_reseller_account);
+			}
 //			}
 			
 			
 		}
 		
+		/**
+		 * @return int|mixed
+		 */
 		public function getShortageAmount()
 		{
 			$gatewaysAmount = 0;
@@ -127,5 +135,42 @@
 				$gatewaysAmount = $gatewaysAmount + $gateway['amount'];
 			}
 			return $gatewaysAmount - $this->input("period_sales_amount");
+		}
+		
+		public function makeReminingCashAmountTransactions($temp_reseller_account)
+		{
+			$remaining = floatval($this->input("remaining_amount"));
+			
+			if ($remaining >= 0){
+				$container = auth()->user()->organization->transactions_containers()->create(
+					[
+						'creator_id' => auth()->user()->id,
+						'description' => 'remaining_in_wallet_amount',
+						'amount' => $remaining,
+					]
+				);
+				
+				
+				$data = [];
+				$data['creator_id'] = auth()->user()->id;
+				$data['organization_id'] = auth()->user()->organization_id;
+				$data['debitable_id'] = $temp_reseller_account->id;
+				$data['debitable_type'] = Account::class;
+				$data['amount'] = $remaining;
+				$data['description'] = "to_gateway";
+				$container->transactions()->create($data);
+				
+				
+				$data = [];
+				$data['creator_id'] = auth()->user()->id;
+				$data['organization_id'] = auth()->user()->organization_id;
+				$data['creditable_id'] = $this->input("remaining_amount_account_id");
+				$data['creditable_type'] = Account::class;
+				$data['amount'] = $this->input("period_sales_amount");
+				$data['description'] = "to_gateway";
+				$container->transactions()->create($data);
+				
+				
+			}
 		}
 	}

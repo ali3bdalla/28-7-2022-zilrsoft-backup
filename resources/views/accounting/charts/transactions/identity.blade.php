@@ -42,21 +42,40 @@
                     <tr>
                         <th class="text-center ">{{ $user['id'] }}</th>
                         @if($account->slug=='clients')
+		                    <?php $client_transactions_amount = $user->cleintTransactionsAmount($account);?>
                             <th class="text-center "><a
                                         href="{{ route('accounting.accounts.client',[ $user['id'],$account->id] )
                                         }}">{{
                         $user['locale_name'] }}</a></th>
 
+
+                            <th class="text-center ">{{ money_format("%i",$account->debit_transaction()->where('user_id',$user['id'])->sum('amount')) }}</th>
+                            <th class="text-center ">{{ money_format("%i",$account->credit_transaction()->where('user_id', $user['id'])->sum('amount')) }}</th>
+                            {{--                            <th class="text-center ">{{ money_format("%i",$user->credit_transaction()->sum('amount')) }}</th>--}}
+                            <th class="text-center ">{{ $client_transactions_amount > 0  ? money_format("%i",
+                            $client_transactions_amount) : 0 }}</th>
+
+                            <th class="text-center ">{{ $client_transactions_amount < 0  ? money_format("%i",
+                            abs($client_transactions_amount)) : 0 }}</th>
+
                         @else
 
+						<?php $vendor_transactions_amount = $user->vendorTransactionsAmount($account);?>
                             <th class="text-center "><a
                                         href="{{ route('accounting.accounts.vendor',[ $user['id'],$account->id] ) }}">{{
                         $user['locale_name'] }}</a></th>
+                            <th class="text-center ">{{ money_format("%i",$account->debit_transaction()->where('user_id',$user['id'])->sum('amount')) }}</th>
+                            <th class="text-center ">{{ money_format("%i",$account->credit_transaction()->where('user_id', $user['id'])->sum('amount')) }}</th>
+                            {{--                            <th class="text-center ">{{ money_format("%i",$user->credit_transaction()->sum('amount')) }}</th>--}}
+                            <th class="text-center ">{{ $vendor_transactions_amount < 0  ? money_format("%i",
+                            abs($vendor_transactions_amount)) : 0 }}</th>
+
+                            <th class="text-center ">{{ $vendor_transactions_amount > 0  ? money_format("%i",
+                            $vendor_transactions_amount) : 0 }}</th>
+
                         @endif
-                        <th class="text-center ">{{ money_format("%i",$user['total_debit']) }}</th>
-                        <th class="text-center ">{{ money_format("%i",$user['total_credit']) }}</th>
-                        <th class="text-center ">{{ money_format("%i",$user['balance_debit']) }}</th>
-                        <th class="text-center ">{{ money_format("%i",$user['balance_credit']) }}</th>
+
+
                     </tr>
                 @endforeach
                 </tbody>
