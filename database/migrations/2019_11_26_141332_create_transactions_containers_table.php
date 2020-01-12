@@ -20,6 +20,7 @@
 				$table->integer('organization_id');
 				$table->float('amount',20,8);
 				$table->string('description')->nullable();
+				$table->boolean('is_pending')->default(false);
 				$table->timestamps();
 			});
 		}

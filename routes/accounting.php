@@ -168,7 +168,6 @@
 			Route::get('get_gateways_like_to_manager_name','ProviderController@get_gateways_like_to_manager_name')
 				->name('load_manager_gateway');
 			
-			
 		});
 		
 	});
