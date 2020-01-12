@@ -40,38 +40,38 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-body"><label>المتبقي</label></div>
-                            <div class="panel-footer">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <select class="form-control" v-model="remainingAmountAccountId"
-                                                @change="disabledRemainingAmount = false"
-                                        >
-                                            <option
-                                                    :key="gateway.id"
-                                                    :value="gateway.id"
+<!--                <div class="row">-->
+                <!--                    <div class="col-md-6">-->
+                <!--                        <div class="panel panel-primary">-->
+                <!--                            <div class="panel-body"><label>المتبقي</label></div>-->
+                <!--                            <div class="panel-footer">-->
+                <!--                                <div class="row">-->
+                <!--                                    <div class="col-md-6">-->
+                <!--                                        <select class="form-control" v-model="remainingAmountAccountId"-->
+                <!--                                                @change="disabledRemainingAmount = false"-->
+                <!--                                        >-->
+                <!--                                            <option-->
+                <!--                                                    :key="gateway.id"-->
+                <!--                                                    :value="gateway.id"-->
 
-                                                    v-for="(gateway, index) in gatewaysList">{{gateway.locale_name }}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input
+                <!--                                                    v-for="(gateway, index) in gatewaysList">{{gateway.locale_name }}-->
+                <!--                                            </option>-->
+                <!--                                        </select>-->
+                <!--                                    </div>-->
+                <!--                                    <div class="col-md-6">-->
+                <!--                                        <input-->
 
-                                                :disabled="disabledRemainingAmount"
-                                                class="form-control" placeholder="المبلغ"
-                                                v-model.number="remainingAmount"/>
-                                    </div>
-                                </div>
+                <!--                                                :disabled="disabledRemainingAmount"-->
+                <!--                                                class="form-control" placeholder="المبلغ"-->
+                <!--                                                v-model.number="remainingAmount"/>-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
 
-                            </div>
-                        </div>
-                    </div>
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
 
-                </div>
+                <!--                </div>-->
 
             </div>
 
