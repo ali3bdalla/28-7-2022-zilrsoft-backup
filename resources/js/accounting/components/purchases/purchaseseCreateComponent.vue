@@ -492,10 +492,23 @@
 
             itemNetUpdated(item) {
 
-                let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vtp); //  1.05
-                item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
-                item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vtp), 100)).toFixed(3);
-                item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
+                // if (item.is_service || item.is_expense) {
+                item.purchase_price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vtp);
+                item.total = item.purchase_price;
+                item.subtotal = item.purchase_price;
+                item.tax = ItemAccounting.getTax(item.subtotal, item.vtp, true);
+                item.discount = 0;
+                // } else {
+                //     let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vtp); //  1.05
+                //     item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
+                //     item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vtp), 100)).toFixed(3);
+                //     item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
+                // }
+                //
+                // let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vtp); //  1.05
+                // item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
+                // item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vtp), 100)).toFixed(3);
+                // item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
                 this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
 
             },
