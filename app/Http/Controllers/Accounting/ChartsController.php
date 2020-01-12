@@ -7,9 +7,7 @@
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Account\CreateAccountRequest;
 	use App\Http\Requests\Accounting\Account\UpdateAccountRequest;
-	use App\Http\Requests\Accounting\Charts\PeriodCloseAccoundRequest;
 	use App\Item;
-	use App\TransactionsContainer;
 	use App\User;
 	use Exception;
 	use Illuminate\Contracts\View\Factory;
@@ -85,10 +83,10 @@
 			if ($account->slug == 'clients'){
 				$users = User::where('is_client',true)->paginate(50);//$this->get_users_transactions
 				//('client_balance')
-			
+				
 				return view('accounting.charts.transactions.identity',compact('users','account'));
 			}else if ($account->slug == 'vendors'){
-			
+				
 				$users = User::where('is_vendor',true)->paginate(50);
 //				$users = $this->get_users_transactions('vendor_balance');
 				return view('accounting.charts.transactions.identity',compact('users','account'));
@@ -176,12 +174,6 @@
 		{
 			
 			$transactions = $this->load_client_transactions($account,$client->id);
-//return  $transactions;
-//			return $transactions;
-
-//			$transactions =
-//			return $transactions;
-//			$activities = $activities['data'];
 			return view('accounting.charts.transactions.client',compact('client','transactions','account'));
 			
 		}
@@ -196,51 +188,8 @@
 		{
 			
 			$transactions = $this->load_vendor_transactions($account,$vendor->id);
-
-
-//			return $transactions;
-
-//			$transactions =
-//			return $transactions;
-//			$activities = $activities['data'];
 			return view('accounting.charts.transactions.vendor',compact('vendor','transactions','account'));
 			
-		}
-		
-		public function account_close_list()
-		{
-			$transactionContainer = TransactionsContainer::where([
-				['description','account_close'],
-				['creator_id',auth()->user()->id],
-			])->paginate(20);
-			$shifts_shortage_account = Account::where([
-				['is_system_account',true],
-				['slug','shifts_shortage'],
-			])->first();
-			
-			return view('accounting.charts.daily.account_close_list',compact('transactionContainer','shifts_shortage_account'));
-		}
-		
-		/**
-		 * @param Request $request
-		 *
-		 * @return Factory|View
-		 */
-		public function account_close(Request $request)
-		{
-			
-			$periodSalesAmount = $request->user()->dailyTransactionsAmount();
-			$gateways = $request->user()->gateways()->get();
-//			return  $gateways;
-			return view('accounting.charts.daily.account_close',compact('periodSalesAmount','gateways'));
-		}
-		
-		/**
-		 * @param PeriodCloseAccoundRequest $request
-		 */
-		public function account_close_store(PeriodCloseAccoundRequest $request)
-		{
-			return $request->save();
 		}
 		
 	}

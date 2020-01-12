@@ -3,10 +3,13 @@
 	namespace App\Http\Requests\Accounting\Charts;
 	
 	use App\Account;
+	use App\Accounting\TransactionAccounting;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class PeriodCloseAccoundRequest extends FormRequest
 	{
+		
+		use TransactionAccounting;
 		/**
 		 * Determine if the user is authorized to make this request.
 		 *
@@ -116,14 +119,16 @@
 			]);
 			
 			
-			if ($this->filled('remaining_amount') && $this->has('remaining_amount') && $this->input("remaining_amount") > 0 && $this->filled('remaining_amount_account_id')
-			&& $this->input('remaining_amount_account_id') >= 0){
-				$this->makeReminingCashAmountTransactions($temp_reseller_account);
-			}
+			$this->toCreateManagerCloseAccountTransaction($debit_total,$container->id,$short_shortage_amount);
+//			if ($this->filled('remaining_amount') && $this->has('remaining_amount') && $this->input("remaining_amount") > 0 && $this->filled('remaining_amount_account_id')
+//			&& $this->input('remaining_amount_account_id') >= 0){
+//				$this->makeReminingCashAmountTransactions($temp_reseller_account);
+//			}
 //			}
 			
 			
 		}
+		
 		
 		/**
 		 * @return int|mixed
@@ -137,40 +142,43 @@
 			return $gatewaysAmount - $this->input("period_sales_amount");
 		}
 		
-		public function makeReminingCashAmountTransactions($temp_reseller_account)
-		{
-			$remaining = floatval($this->input("remaining_amount"));
-			
-			if ($remaining >= 0){
-				$container = auth()->user()->organization->transactions_containers()->create(
-					[
-						'creator_id' => auth()->user()->id,
-						'description' => 'remaining_in_wallet_amount',
-						'amount' => $remaining,
-					]
-				);
-				
-				
-				$data = [];
-				$data['creator_id'] = auth()->user()->id;
-				$data['organization_id'] = auth()->user()->organization_id;
-				$data['debitable_id'] = $temp_reseller_account->id;
-				$data['debitable_type'] = Account::class;
-				$data['amount'] = $remaining;
-				$data['description'] = "to_gateway";
-				$container->transactions()->create($data);
-				
-				
-				$data = [];
-				$data['creator_id'] = auth()->user()->id;
-				$data['organization_id'] = auth()->user()->organization_id;
-				$data['creditable_id'] = $this->input("remaining_amount_account_id");
-				$data['creditable_type'] = Account::class;
-				$data['amount'] = $this->input("period_sales_amount");
-				$data['description'] = "to_gateway";
-				$container->transactions()->create($data);
-				
-				
-			}
-		}
+		/**
+		 * @param $temp_reseller_account
+		 */
+//		public function makeReminingCashAmountTransactions($temp_reseller_account)
+//		{
+//			$remaining = floatval($this->input("remaining_amount"));
+//
+//			if ($remaining >= 0){
+//				$container = auth()->user()->organization->transactions_containers()->create(
+//					[
+//						'creator_id' => auth()->user()->id,
+//						'description' => 'remaining_in_wallet_amount',
+//						'amount' => $remaining,
+//					]
+//				);
+//
+//
+//				$data = [];
+//				$data['creator_id'] = auth()->user()->id;
+//				$data['organization_id'] = auth()->user()->organization_id;
+//				$data['debitable_id'] = $temp_reseller_account->id;
+//				$data['debitable_type'] = Account::class;
+//				$data['amount'] = $remaining;
+//				$data['description'] = "to_gateway";
+//				$container->transactions()->create($data);
+//
+//
+//				$data = [];
+//				$data['creator_id'] = auth()->user()->id;
+//				$data['organization_id'] = auth()->user()->organization_id;
+//				$data['creditable_id'] = $this->input("remaining_amount_account_id");
+//				$data['creditable_type'] = Account::class;
+//				$data['amount'] = $this->input("period_sales_amount");
+//				$data['description'] = "to_gateway";
+//				$container->transactions()->create($data);
+//
+//
+//			}
+//		}
 	}

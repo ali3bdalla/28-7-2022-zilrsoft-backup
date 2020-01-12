@@ -8,6 +8,7 @@
 	use App\Department;
 	use App\Filter;
 	use App\FilterValues;
+	use App\ManagerPrivateTransactions;
 	use App\Organization;
 	use App\User;
 	use Carbon\Carbon;
@@ -18,35 +19,41 @@
 	trait ManagerRelationships
 	{
 		
-		public function dailyTransactionsAmount($period = null)
+		/**
+		 * @return mixed
+		 */
+		public function private_transactoins()
+		{
+			return $this->hasMany(ManagerPrivateTransactions::class,'creator_id');
+		}
+		
+		public function dailyTransactionsAmount($period)
 		{
 			
-			
-			/*google*/
-			
-			
+			$startAt = Carbon::parse($period)->toDateTimeString();
 			$dailyAccount = Account::where([
 				['slug','temp_reseller_account'],
 				['is_system_account',true],
 			])->first();
-//			if ($period == null){
+			return $dailyAccount->debit_transaction()->where('creator_id',$this->id)->whereBetween('created_at',[
+					$startAt,
+					Carbon::now()
+				])->sum('amount') -
+				$dailyAccount->credit_transaction()->where('creator_id',$this->id)->whereBetween('created_at',[
+					$startAt,
+					Carbon::now()
+				])->sum('amount');
+
+
+//if ($period == null){
 			//->whereDate('created_at',
 			//						Carbon::today())
 			//->whereDate('created_at',Carbon::today())
-				return $dailyAccount->debit_transaction()->where('creator_id',$this->id)->sum('amount') -
-					$dailyAccount->credit_transaction()->where('creator_id',$this->id)->sum('amount');
+//				return $dailyAccount->debit_transaction()->where('creator_id',$this->id)->sum('amount') -
+//					$dailyAccount->credit_transaction()->where('creator_id',$this->id)->sum('amount');
 //			}
 			
 			//F[Az!9ve-]_7bL7%
-//
-//			return $dailyAccount->debit_transaction()->where('creator_id',$this->id)->whereBetween('created_at',[
-//					Carbon::parse($period),
-//					Carbon::now()
-//				])->sum('amount') -
-//				$dailyAccount->credit_transaction()->where('creator_id',$this->id)->whereBetween('created_at',[
-//					Carbon::parse($period),
-//					Carbon::now()
-//				])->sum('amount');
 //
 		}
 		

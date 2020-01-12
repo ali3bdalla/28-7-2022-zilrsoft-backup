@@ -40,9 +40,14 @@
 			Route::get('vendor/{vendor}/{account}',"ChartsController@vendor")->name('vendor');
 			Route::get('item/{item}/{account}',"ChartsController@item")->name('item');
 			Route::get('{account}/delete',"ChartsController@delete");
-			Route::get('reseller/daily/account_close',"ChartsController@account_close")->name('account_close');
-			Route::post('reseller/daily/account_close',"ChartsController@account_close_store")->name('account_close_store');
-			Route::get('reseller/daily/account_close_list',"ChartsController@account_close_list")->name('account_close_list');
+			
+		});
+		Route::prefix('reseller_daily')->name('reseller_daily.')->group(function (){
+			Route::get('account_close',"ResellerDailyTransactions@account_close")->name('account_close');
+			Route::post('account_close',"ResellerDailyTransactions@account_close_store")->name('account_close_store');
+			Route::get('account_close_list',"ResellerDailyTransactions@account_close_list")->name('account_close_list');
+			Route::get('transfer_amounts',"ResellerDailyTransactions@transfer_amounts")->name('transfer_amounts');
+			Route::post('transfer_amounts',"ResellerDailyTransactions@transfer_amounts_store")->name('transfer_amounts_store');
 		});
 		
 		Route::prefix('transactions')->name('transactions.')->group(function (){

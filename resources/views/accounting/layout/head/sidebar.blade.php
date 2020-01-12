@@ -139,7 +139,7 @@
 
                     @endcan
                     <li>
-                        <a href="{{route('accounting.accounts.account_close_list')}}"><i class="fa fa-sun"></i>
+                        <a href="{{route('accounting.reseller_daily.account_close_list')}}"><i class="fa fa-sun"></i>
                             {{ __('sidebar.account_close') }}
                         </a></li>
 

@@ -53,6 +53,7 @@ import AccountingVouchersDatatableComponent from './components/vouchers/vouchers
 import AccountingVouchersCreateComponent from './components/vouchers/vouchersCreateComponet';
 import AccountingQuotationsCreateComponent from './components/quotations/quotationsCreateComponet';
 import AccountingPeriodAccountCloseComponent from './components/charts/periodAccountCloseComponent';
+import AccountingResellerDailyTransferAmountsComponent from './components/reseller_daily/transferAmountsComponent';
 
 
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
@@ -109,3 +110,4 @@ Vue.component('accounting-vouchers-datatable-component', AccountingVouchersDatat
 Vue.component('accounting-vouchers-create-component', AccountingVouchersCreateComponent);
 Vue.component('accounting-quotations-create-component', AccountingQuotationsCreateComponent);
 Vue.component('accounting-period-account-close-component', AccountingPeriodAccountCloseComponent);
+Vue.component('accounting-reseller-daily-transfer-amounts-component', AccountingResellerDailyTransferAmountsComponent);

@@ -8,9 +8,63 @@
 	use App\Invoice;
 	use App\InvoiceItems;
 	use App\TransactionsContainer;
+	use Illuminate\Support\Carbon;
 	
 	trait TransactionAccounting
 	{
+		
+		/**
+		 * @param $amount
+		 * @param $transaction_container_id
+		 * @param int $shortage
+		 */
+		public function toCreateManagerCloseAccountTransaction($amount,$transaction_container_id,$shortage = 0)
+		{
+			$manager = auth()->user();
+			
+			$lastDate = $this->toGetFirstSaleInvoiceDateAfterLastAccountClose();
+			
+			$manager->private_transactoins()->create([
+				'organization_id' => auth()->user()->organization_id,
+				'transaction_type' => "close_account",
+				'transaction_container_id' => $transaction_container_id,
+				'close_account_start_date' => $lastDate,
+				'close_account_end_date' => now(),
+				'amount' => $amount,
+				'shortage_amount' => $shortage,
+			]);
+		}
+		
+		/**
+		 * @return string
+		 */
+		public function toGetFirstSaleInvoiceDateAfterLastAccountClose()
+		{
+			$manager = auth()->user();
+			
+			$lastAccountCloseTransaction = $manager->private_transactoins()->where([
+				['creator_id',$manager->id],
+				['transaction_type',"close_account"],
+			])->orderBy('id','desc')->first();
+			
+			
+			$startTransactionDate = now();
+			
+			if (!empty($lastAccountCloseTransaction)){
+				$startTransactionDate = $lastAccountCloseTransaction->close_account_end_date;
+			}
+			
+			
+			$lastInvoice = Invoice::where([
+				['invoice_type','sale'],
+				['creator_id',$manager->id],
+				['created_at',">",$startTransactionDate],
+			])->first();
+			
+			
+			return empty($lastInvoice) ? Carbon::today()->subMonths(12)->toDateTimeString() : $lastInvoice->created_at;
+		}
+		
 		/**
 		 * @param Invoice $inc
 		 * @param array $items
