@@ -218,6 +218,7 @@
                         </td>
                         <td class="text-center">
                             <span v-if="row.invoice_type=='sale'">{{ app.trans.sale }}</span>
+                            <span v-if="row.invoice_type=='quotation'">{{ app.trans.quotation }}</span>
                             <span v-else>{{ app.trans.return_sale }}</span>
                         </td>
                         <td class="text-center" v-if="canViewAccounting==1" v-text="row.creator.locale_name"></td>
