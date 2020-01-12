@@ -94,7 +94,7 @@
 			foreach ($expenses as $expense){
 				foreach ($items as $item){
 					$new_item = Item::find($item['id']);
-					$amount = $expense['amount'] * $item['widget'] / $new_item->get_item_purchase_tax_as_value(); //
+					$amount = $expense['amount'] * $item['widget'] / (1 + $item['vtp'] / 100); //
 					$tax = $expense['amount'] - $amount;
 					$total_taxes = $total_taxes + $tax;
 				}

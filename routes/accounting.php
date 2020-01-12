@@ -148,7 +148,6 @@
 		});
 		Route::get('roles_permissions','ProviderController@roles_permissions');
 		Route::prefix('dashboard')->name('dashboard.')->group(function (){
-			
 			Route::get('/','HomeController@index')->name('index');
 		});
 		
