@@ -339,7 +339,6 @@
                 :invoice-id="invoiceId"
                 :items='invoiceData.items'
                 @CompletePrintProcess="reloadPageAfterPrintBarcode"
-                style="visibility: hidden"
         >
         </accounting-barcode-bulk-printer-layout-component>
 
