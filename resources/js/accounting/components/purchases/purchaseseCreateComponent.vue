@@ -220,19 +220,18 @@
                                type="text" v-model="item.tax">
                     </td>
                     <td>
-                        <input @focus="$event.target.select()"
+                        <input @change="itemNetUpdated(item)"
+                               @focus="$event.target.select()"
                                class="form-control input-xs amount-input"
-                               disabled
+
                                placeholder="net" type="text" v-model="item.net">
                     </td>
 
                     <td>
                         <input :class="{'is-danger':item.variation>0,'is-primary':item.variation<=0}"
-                               @focus="$event.target.select()"
                                class="form-control input-xs amount-input"
                                disabled
-                               placeholder="net"
-                               readonly=""
+                               placeholder="variation"
                                type="text"
                                v-model="item.variation">
                     </td>
@@ -490,6 +489,16 @@
 
 
         methods: {
+
+            itemNetUpdated(item) {
+
+                let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vtp); //  1.05
+                item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
+                item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vtp), 100)).toFixed(3);
+                item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
+                this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
+
+            },
 
 
             pushVendorData() {
