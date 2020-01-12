@@ -163,9 +163,11 @@
 						$item->item->update([
 							'available_qty' => $current_qty,
 						]);
-//						if ($item->item->is_need_serial){
-//							$item->item->serials()->where('purchase_invoice_id',$beginning->id)->forceDelete();
-//						}
+						if ($item->item->is_need_serial){
+							$item->item->serials()->where('sale_invoice_id',$beginning->id)->update([
+								'current_status' => "available"
+							]);
+						}
 						$item->item->stockMovement();
 					}
 					

@@ -58,7 +58,6 @@
 			
 			DB::beginTransaction();
 			try{
-				
 				$invoice = Invoice::publish(['invoice_type' => 'sale','notes' => $this->input("notes"),'parent_id' => 0]);
 				$sale = $invoice->publishSubInvoice('sale',[
 					'invoice_type' => 'sale',
@@ -70,10 +69,12 @@
 				$invoice->addItemsToBaseInvoice($this->input('items'));
 				$this->toGetAndUpdatedAmounts($invoice);
 				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),$this->input("methods"),[]);
+				
+				
+				
 				DB::commit();
 				return $invoice->fresh();
 			}catch (Exception $exception){
-				
 				DB::rollBack();
 				return response(json_encode([
 					'message' => $exception->getMessage()

@@ -1160,11 +1160,20 @@
                             };
 
                             setInterval(function () {
-                                window.location.reload();
+                                if (appVm.cloning) {
+                                    window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                                } else {
+                                    window.location.reload();
+                                }
+
                             }, 1000);
 
                         } else {
-                            window.location.reload();
+                            if (appVm.cloning) {
+                                window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                            } else {
+                                window.location.reload();
+                            }
                         }
 
                     })
