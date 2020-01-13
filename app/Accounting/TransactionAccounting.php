@@ -858,6 +858,7 @@
 				$amount = $incItem->item->cost * $incItem->qty;
 				
 				
+				
 				$incItem->item->credit_transaction()->create([
 					'creator_id' => auth()->user()->id,
 					'organization_id' => auth()->user()->organization_id,

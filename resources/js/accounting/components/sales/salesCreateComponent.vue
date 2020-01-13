@@ -197,7 +197,7 @@
                                 <span v-on="on">{{ item.barcode}}</span>
 
                             </template>
-                            <span>{{ parseFloat(item.cost).toFixed(2)}}</span>
+                            <span>{{ parseFloat(item.cost * (1+ (item.vtp/100))).toFixed(2) }}</span>
                         </v-tooltip>
                     </td>
                     <td v-text="item.locale_name"></td>
