@@ -237,7 +237,7 @@
                             :gateways="gateways"
                             :net-amount="invoiceData.net"
                             @updateGatewaysAmounts="updateGatewaysAmounts"
-                            invoice-type="purchase"
+                            invoice-type="sale"
                     >
                     </accounting-invoice-embedded-payments-gateway-layout>
                 </div>

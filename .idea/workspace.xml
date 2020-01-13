@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/invoiceEmbeddedPaymentsGatewayLayout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/invoiceEmbeddedPaymentsGatewayLayout.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchasesReturnComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchasesReturnComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesReturnComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesReturnComponent.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -435,7 +435,7 @@
       <workItem from="1578559777694" duration="482000" />
       <workItem from="1578560854533" duration="237000" />
       <workItem from="1578562410497" duration="58011000" />
-      <workItem from="1578856980468" duration="12405000" />
+      <workItem from="1578856980468" duration="12469000" />
     </task>
     <servers />
   </component>
