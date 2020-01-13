@@ -97,13 +97,14 @@
 			$data['user_id'] = $baseInvoice->user_id;
 			$data['invoice_type'] = $baseInvoice->invoice_type;
 			if ($this->is_expense)
-				$data['cost'] = $request_data['purchase_price'];
+				$data['cost'] = $request_data['purchase_price'] / (1 + ($this->vts / 100));
 			else
 				$data['cost'] = $this->cost;
 			
 			
 			$baseItem = $baseInvoice->items()->create($data);
 			if (!$this->is_service){
+				
 				$baseItem->update_item_cost_value_after_new_invoice_created();
 				$this->update_item_qty_after_new_invoice_created($data['qty'],$baseInvoice->invoice_type);
 				if (in_array($baseInvoice->invoice_type,['sale','r_sale'])){

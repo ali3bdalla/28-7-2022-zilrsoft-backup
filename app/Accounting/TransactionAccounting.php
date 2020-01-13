@@ -856,12 +856,14 @@
 			}else if ($inc->invoice_type == 'sale'){
 				
 				$amount = $incItem->item->cost * $incItem->qty;
-				
-				if($incItem->item->is_expense)
-				{
-					$old_amount = $amount;
-					$amount = $old_amount / (1+($incItem->item->vts / 100));
-				}
+//
+//				if($incItem->item->is_expense)
+//				{
+//
+//					$old_amount = $amount;
+//					$amount = $old_amount / (1+($incItem->item->vts / 100));
+//					$amount = 1;
+//				}
 				
 				
 				$incItem->item->credit_transaction()->create([
