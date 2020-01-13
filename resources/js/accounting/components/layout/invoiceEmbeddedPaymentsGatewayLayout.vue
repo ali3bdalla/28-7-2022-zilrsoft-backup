@@ -10,7 +10,7 @@
                                v-text="method.locale_name"></label>
                         <input
                                 :aria-describedby="method.id"
-                                :disabled="totalAmount<=0"
+                                :disabled="totalAmount<=0 && invoiceType!='purchase'"
                                 :ref="'billing_filed_' + method.id"
                                 @focus="$event.target.select()"
                                 @keyup="gatewayAmountUpdated(method)"
@@ -108,7 +108,10 @@
         },
         watch: {
             netAmount: function (value) {
-                this.initGateways(value);
+                if (this.invoiceType != 'purchase') {
+                    this.initGateways(value);
+                }
+
             },
             paidAmount: function (value) {
                 this.remainingAmount = ItemMath.sub(this.totalAmount, value);
