@@ -108,7 +108,7 @@
         },
         watch: {
             netAmount: function (value) {
-                if (this.invoiceType != 'purchase') {
+                if (this.invoiceType !== 'purchase') {
                     this.initGateways(value);
                 }else {
                     this.totalAmount = value;
