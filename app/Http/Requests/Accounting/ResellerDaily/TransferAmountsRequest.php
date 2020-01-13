@@ -74,7 +74,7 @@
 			$data['organization_id'] = auth()->user()->organization_id;
 			$data['debitable_id'] = $this->input('receiver_gateway_id');
 			$data['debitable_type'] = Account::class;
-			$data['amount'] = $this->input('amount');
+			$data['amount'] = $gateway->current_amount;
 			$data['description'] = "close_account";
 			$data['is_pending'] = true;
 			$container->transactions()->create($data);

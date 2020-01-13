@@ -48,13 +48,11 @@
 			])->orderBy('id','desc')->first();
 			
 			
-			
 			$startTransactionDate = now();
 			
-			if (!empty($lastAccountCloseTransaction) && $lastAccountCloseTransaction->close_account_end_date!=null){
+			if (!empty($lastAccountCloseTransaction) && $lastAccountCloseTransaction->close_account_end_date != null){
 				$startTransactionDate = $lastAccountCloseTransaction->close_account_end_date;
 			}
-			
 			
 			
 			$lastInvoice = Invoice::where([
@@ -213,7 +211,10 @@
 				}
 				$sum = $inc->expenses()->where('with_net',0)->sum('amount');
 				if ($sum > 0){
-					$manager_cash_account = auth()->user()->manager_gateway('cash');
+					$manager_cash_account = $temp_reseller_account = Account::where([
+						['is_system_account',true],
+						['slug','temp_reseller_account'],
+					])->first();
 					$tax_account->debit_transaction()->create([
 						'creator_id' => auth()->user()->id,
 						'organization_id' => auth()->user()->organization_id,
@@ -245,7 +246,10 @@
 			}
 			$sum = $inc->expenses()->where('with_net',0)->sum('amount');
 			if ($sum > 0){
-				$manager_cash_account = auth()->user()->manager_gateway('cash');
+				$manager_cash_account = $temp_reseller_account = Account::where([
+					['is_system_account',true],
+					['slug','temp_reseller_account'],
+				])->first();
 				$cash_paid_before = $inc->transactions()->where([['creditable_type','App\Account'],['creditable_id',
 					$manager_cash_account->id]])->first();
 				if (!empty($cash_paid_before)){
