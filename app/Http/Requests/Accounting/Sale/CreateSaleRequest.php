@@ -70,8 +70,6 @@
 				$this->toGetAndUpdatedAmounts($invoice);
 				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),$this->input("methods"),[]);
 				
-				
-				
 				DB::commit();
 				return $invoice->fresh();
 			}catch (Exception $exception){

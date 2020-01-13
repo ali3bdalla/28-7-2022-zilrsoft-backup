@@ -31,22 +31,30 @@
 		 * @param Invoice $inc
 		 * @param Item $item
 		 * @param array $ItemData
+		 *
+		 * @return mixed
 		 */
 		private function toCreateSingleExpenseItemPurchaseInvoice(Invoice $inc,Item $item,$ItemData = [])
 		{
 			$itemAccounting = new ItemAccounting();
+			
+			
 			$dbData = collect($item)->toArray();
+			$dbData['net'] = $ItemData['purchase_price'];
+			$dbData['subtotal'] = $dbData['net'] / (1 + ($item->vtp / 100)); // 0.05 + 1 = 1.05
 			$dbData['qty'] = 1;
-			$dbData['total'] = $ItemData['purchase_price'];
-			$dbData['subtotal'] = $ItemData['total'];
-			$dbData['tax'] = $itemAccounting->getTotalAmount($dbData['total'],$item->vtp);
-			$dbData['net'] = $itemAccounting->getNetAmount($dbData['subtotal'],$dbData['tax']);
-			$dbData['cost'] = $ItemData['purchase_price'];
-			$dbData['purchase_price'] = $ItemData['purchase_price'];
+			$dbData['tax'] = $dbData['net'] - $dbData['subtotal'];
 			$dbData['discount'] = 0;
-			$cashGateway = auth()->user()->toGetManagerAccount('gateway');
-			$cashGateway->amount = $dbData['net'];
-			$cashGateway->is_paid = true;
+			$dbData['total'] = $dbData['subtotal'];
+
+//			$dbData['tax'] = $itemAccounting->getTaxAmount($dbData['total'],$item->vtp);
+//
+//			$dbData['net'] = $itemAccounting->getNetAmount($dbData['subtotal'],$dbData['tax']);
+			$dbData['cost'] = $ItemData['purchase_price'];
+			$dbData['purchase_price'] = $dbData['total'];
+//			$cashGateway = auth()->user()->toGetManagerAccount('gateway');
+//			$cashGateway->amount = $dbData['net'];
+//			$cashGateway->is_paid = true;
 			$invoice = Invoice::publish(
 				[
 					'invoice_type' => 'purchase',
@@ -60,8 +68,10 @@
 				'vendor_id' => $item->expense_vendor_id,
 				'receiver_id' => $inc->sale->salesman_id
 			]);
+			
+			
 			$itemsList = [$dbData];
-			$gatewaysList = [$cashGateway];
+			$gatewaysList = [];
 			$invoice->add_items_to_invoice($itemsList,$purchase,[],'purchase',$dbData['expense_vendor_id']);
 			$this->toGetAndUpdatedAmounts($invoice);
 			$this->toCreateInvoiceTransactions($invoice,$itemsList,$gatewaysList,[]);
