@@ -191,6 +191,15 @@
 		{
 			
 			
+			if($this->invoice_type=='quotation')
+			{
+				if (app()->isLocale('ar'))
+					return asset('template/images/quotation-ar.png');
+				else
+					return asset('template/images/quotation.png');
+				
+			}
+			
 			if ($this->current_status == 'paid'){
 				if (app()->isLocale('ar'))
 					return asset('template/images/paid-ar.png');
@@ -199,11 +208,12 @@
 				
 			}else{
 				
-				if (app()->isLocale('ar'))
-					return asset('template/images/paid.png');
-				else
-					return asset('template/images/paid.png');
-				
+				return ":";
+//				if (app()->isLocale('ar'))
+//					return asset('template/images/paid.png');
+//				else
+//					return asset('template/images/paid.png');
+//
 			}
 			
 		}

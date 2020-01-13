@@ -377,6 +377,7 @@
 
 
 
+<img src="{{ $invoice->getBackgroundAssetAttribute() }}">
 
 <footer style="">
     <div class="">
