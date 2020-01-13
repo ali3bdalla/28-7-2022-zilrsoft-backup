@@ -4,6 +4,7 @@
 	
 	use AliAbdalla\Tafqeet\Core\Tafqeet;
 	use App\Account;
+	use App\Accounting\IdentityAccounting;
 	use App\User;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
@@ -13,6 +14,9 @@
 	
 	class CreateVoucherRequest extends FormRequest
 	{
+		
+		use IdentityAccounting;
+		
 		/**
 		 * Determine if the user is authorized to make this request.
 		 *
@@ -68,7 +72,7 @@
 				
 				$user = User::findOrFail($this->user_id);
 				if ($this->payment_type == 'payment'){
-					$user->update_vendor_balance('sub',$this->amount);
+					$this->toUpdateVendorBalance($user,'sub',$this->input("amount"));
 					$organization_account->credit_transaction()->create([
 						'creator_id' => auth()->user()->id,
 						'organization_id' => auth()->user()->organization_id,
@@ -77,10 +81,7 @@
 						'description' => 'vendor_balance',
 						'container_id' => $container->id
 					]);
-					
-					$vendor_account = auth()->user()->get_active_manager_account_for('vendors');
-					
-					
+					$vendor_account = auth()->user()->toGetManagerAccount('vendors');
 					$vendor_account->debit_transaction()->create([
 						'creator_id' => auth()->user()->id,
 						'organization_id' => auth()->user()->organization_id,
@@ -93,6 +94,7 @@
 					
 				}else{
 					
+					$this->toUpdateClientBalance($user,'sub',$this->input("amount"));
 					$organization_account->debit_transaction()->create([
 						'creator_id' => auth()->user()->id,
 						'organization_id' => auth()->user()->organization_id,
@@ -102,9 +104,7 @@
 						'container_id' => $container->id
 					]);
 					
-					$client_account = auth()->user()->get_active_manager_account_for('clients');
-					
-					
+					$client_account = auth()->user()->toGetManagerAccount('clients');
 					$client_account->credit_transaction()->create([
 						'creator_id' => auth()->user()->id,
 						'organization_id' => auth()->user()->organization_id,
@@ -115,7 +115,6 @@
 					]);
 					
 					
-					$user->update_client_balance('add',$this->amount);
 				}
 				
 				

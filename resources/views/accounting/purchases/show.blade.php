@@ -20,10 +20,7 @@
         ('pages/invoice.create')
         }}</a>
     @endcan
-    {{--    <accounting-barcode-bulk-printer-layout-component--}}
-    {{--            :items='@json($invoice->items->load('item'))'--}}
-    {{--    >--}}
-    {{--    </accounting-barcode-bulk-printer-layout-component>--}}
+
     @can("edit purchase")
         @if($invoice->is_deleted==1)
             <a href="{{route('accounting.purchases.edit',$invoice->id)}}" class="btn btn-primary">
@@ -90,6 +87,7 @@
             @includeIf('accounting.include.invoice.view_items',[
                  'items' => $invoice->items
             ])
+
         </div>
         <div class="panel-footer">
             <div class="row">
@@ -107,6 +105,11 @@
                     <div class="row">
                         <div class="col-md-12">
                             @includeIf('accounting.include.invoice.view_transactions')
+                            <accounting-barcode-bulk-printer-layout-component
+                                    :invoiceId='@json($invoice->title)'
+                                    :items='@json($invoice->items->load('item'))'
+                            >
+                            </accounting-barcode-bulk-printer-layout-component>
                         </div>
                     </div>
 

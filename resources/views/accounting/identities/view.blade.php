@@ -145,13 +145,20 @@
                                 <h2><strong>{{ money_format("%i",$identity->balance) }} </strong></h2>
                                 <p><small>{{ trans('pages/users.client_balance') }}</small></p>
 
+                                <a href="{{ route('accounting.accounts.client',[$identity->id,auth()->user()
+                                ->toGetManagerAccount('clients')->id])
+                                }}">كشف
+                                    حساب</a>
                             </div>
                         @endif
                         @if($identity->is_vendor)
                             <div class="col-xs-12 col-sm-6 emphasis">
                                 <h2><strong>{{ money_format("%i",$identity->vendor_balance) }} </strong></h2>
                                 <p><small>{{ trans('pages/users.vendor_balance') }}</small></p>
-
+                                <a href="{{ route('accounting.accounts.vendor',[$identity->id,auth()->user()
+                                ->toGetManagerAccount('vendors')->id])
+                                }}">كشف
+                                    حساب</a>
                             </div>
                         @endif
 
