@@ -370,8 +370,8 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="input-group">
-                                                    <span class="input-group-addon">التكلفة</span>
-                                                    <input class="form-control" placeholder="التكلفة" type="text"
+                                                    <span class="input-group-addon">سعر الشراء</span>
+                                                    <input class="form-control" placeholder="سعر الشراء" type="text"
                                                            v-model="expense.purchase_price"
                                                     />
                                                 </div>
