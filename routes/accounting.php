@@ -48,6 +48,11 @@
 			Route::get('account_close_list',"ResellerDailyTransactions@account_close_list")->name('account_close_list');
 			Route::get('transfer_amounts',"ResellerDailyTransactions@transfer_amounts")->name('transfer_amounts');
 			Route::post('transfer_amounts',"ResellerDailyTransactions@transfer_amounts_store")->name('transfer_amounts_store');
+			Route::get('{transaction}/confirm_transaction',"ResellerDailyTransactions@confirm_transaction")->name
+			('confirm_transaction');
+			
+			Route::get('{transaction}/delete_transaction',"ResellerDailyTransactions@delete_transaction")->name
+			('delete_transaction');
 		});
 		
 		Route::prefix('transactions')->name('transactions.')->group(function (){

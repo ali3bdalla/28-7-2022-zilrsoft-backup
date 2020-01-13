@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-<!--                <div class="row">-->
+                <!--                <div class="row">-->
                 <!--                    <div class="col-md-6">-->
                 <!--                        <div class="panel panel-primary">-->
                 <!--                            <div class="panel-body"><label>المتبقي</label></div>-->
@@ -115,13 +115,13 @@
             },
             sendSubmitRequest() {
                 this.showButton = false;
-                axios.post('/accounting/accounts/reseller/daily/account_close', {
+                axios.post('/accounting/reseller_daily/account_close', {
                     gateways: this.gatewaysList,
                     period_sales_amount: this.periodSalesAmount,
                     remaining_amount: this.remainingAmount,
                     remaining_amount_account_id: this.remainingAmountAccountId
                 }).then(response => {
-                    window.location.reload();
+                    window.location = '/accounting/reseller_daily/transfer_amounts';
                 }).catch(error => {
                     console.log(error);
                     alert(error.response.data);

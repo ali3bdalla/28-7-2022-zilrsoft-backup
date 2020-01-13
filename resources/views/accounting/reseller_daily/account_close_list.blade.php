@@ -5,7 +5,8 @@
 @section('buttons')
 
     <a class="btn btn-custom-primary" href="{{ route('accounting.reseller_daily.account_close') }}">انشاء اقفال</a>
-    <a class="btn btn-custom-primary" href="{{ route('accounting.reseller_daily.transfer_amounts') }}">تحويل الاموال </a>
+    <a class="btn btn-custom-primary" href="{{ route('accounting.reseller_daily.transfer_amounts') }}">تحويل
+        الاموال </a>
 
 @endsection
 @section('content')
@@ -15,20 +16,39 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
+                    <th>نوع المعاملة</th>
                     <th>من</th>
                     <th>الى</th>
                     <th>القيمة</th>
-                    <th>العجز</th>
+                    <th>العجز/الحالة</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($managerCloseAccountList as $transaction)
-                    <tr>
-                        <td>{{ $transaction->created_at }}</td>
-                        <td>{{ $transaction->created_at }}</td>
-                        <td>{{ money_format("%i",$transaction->amount) }}</td>
-                        <td>{{ money_format("%i",$transaction->shortage_amount) }}</td>
-                    </tr>
+                    @if($transaction['transaction_type']=='close_account')
+                        <tr>
+                            <td>تقفيل الحساب</td>
+                            <td>{{ $transaction->close_account_start_date }}</td>
+                            <td>{{ $transaction->close_account_end_date }}</td>
+                            <td>{{ money_format("%i",$transaction->amount) }}</td>
+                            <td>{{ money_format("%i",$transaction->shortage_amount) }}</td>
+                        </tr>
+                    @else
+                        {{----}}
+                        <tr>
+                            <td>تحويل</td>
+                            <td>{{ $transaction->creator->locale_name }}</td>
+                            <td>{{ $transaction->receiver->locale_name }}</td>
+                            <td>{{ money_format("%i",$transaction->amount) }}</td>
+                            <td>
+                                @if($transaction->is_pending)
+                                    منتظرة
+                                @else
+                                    مقبولة
+                                @endif
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
                 </tbody>
                 {{ $managerCloseAccountList->links() }}

@@ -86,7 +86,9 @@
                     receiver_id: this.receiver_id,
                 }).then(response => {
                     console.log(response.data);
+                    window.location = '/accounting/reseller_daily/account_close_list';
                 }).catch(error => {
+                    alert(error.response.data);
                     console.log(error.response.data);
                 })
             }

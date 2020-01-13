@@ -2,6 +2,7 @@
 	
 	namespace App\Providers;
 	
+	use App\ManagerPrivateTransactions;
 	use Illuminate\Support\Facades\View;
 	use Illuminate\Support\ServiceProvider;
 	use Illuminate\Pagination\Paginator;
@@ -22,10 +23,12 @@
 			];
 			
 			
-			View::share('organization_config',$config);
+			
 //
 			
-		
+			
+			View::share('organization_config',$config);
+			
 		}
 		
 		/**
@@ -37,8 +40,8 @@
 		function boot()
 		{
 			//
-			
-			
+
+
 //			Paginator::defaultView('vendor.pagination.custom.table');
 			
 		}

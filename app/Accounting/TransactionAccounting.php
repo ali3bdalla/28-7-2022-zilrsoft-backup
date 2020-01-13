@@ -48,11 +48,13 @@
 			])->orderBy('id','desc')->first();
 			
 			
+			
 			$startTransactionDate = now();
 			
-			if (!empty($lastAccountCloseTransaction)){
+			if (!empty($lastAccountCloseTransaction) && $lastAccountCloseTransaction->close_account_end_date!=null){
 				$startTransactionDate = $lastAccountCloseTransaction->close_account_end_date;
 			}
+			
 			
 			
 			$lastInvoice = Invoice::where([
