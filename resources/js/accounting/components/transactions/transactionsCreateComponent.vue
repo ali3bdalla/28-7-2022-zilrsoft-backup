@@ -201,7 +201,9 @@
                 };
 
                 axios.post("/accounting/transactions", data).then((response) => {
-                    window.location = '/accounting/transactions';
+                    console.log(response.data);
+ 
+                    // window.location = '/accounting/transactions';
                 }).catch((error) => {
                     console.log(error.response.data)
                 })
