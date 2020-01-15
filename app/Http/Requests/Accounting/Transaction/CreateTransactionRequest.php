@@ -36,8 +36,8 @@
 				//
 				'transactions' => 'required|array',
 				"transactions.*.id" => "required|integer|exists:accounts,id",
-				"transactions.*.credit_amount" => "required|numeric",
-				"transactions.*.debit_amount" => "required|numeric",
+				"transactions.*.credit_amount" => "required|price",
+				"transactions.*.debit_amount" => "required|price",
 				"transactions.*.is_credit" => "required|boolean",
 				"transactions.*.vendor_id" => "nullable|integer|exists:users,id",
 				"transactions.*.client_id" => "nullable|integer|exists:users,id",
@@ -109,17 +109,18 @@
 			foreach ($this->transactions as $transaction){
 //				dd($transaction);
 				if ($transaction['is_credit'])
-					$total_credit = $total_credit + $transaction['credit_amount'];
+					$total_credit = $total_credit + floatval($transaction['credit_amount']);
 				else
-					$total_debit = $total_debit + $transaction['debit_amount'];
+					$total_debit = $total_debit + floatval($transaction['debit_amount']);
 			}
 			
+			
 			if ($total_debit !== $total_credit){
-				
-				$error = ValidationException::withMessages([
-					'debit_and_credit' => ['debit does\'t equal credit amount'],
-				]);
-				throw $error;
+				throw new ValidationException('debit does\'t equal credit amount');
+//				$error = ValidationException::withMessages([
+//					'debit_and_credit' => ['debit does\'t equal credit amount'],
+//				]);
+//				throw $error;
 				
 			}
 		}
