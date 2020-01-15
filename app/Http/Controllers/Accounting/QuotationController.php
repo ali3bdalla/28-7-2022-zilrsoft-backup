@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
+	use App\Account;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Quotation\CreateQuotationRequest;
 	use App\Invoice;
@@ -36,7 +37,8 @@
 			$salesmen = Manager::all();
 			$clients = User::where('is_client',true)->get()->toArray();
 			$expenses = Item::where('is_expense',true)->get();
-			$gateways = auth()->user()->gateways()->get();
+//			$gateways = auth()->user()->gateways()->get();
+			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
 //			Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get()
 			return view('accounting.quotations.create',compact('clients','salesmen','gateways','expenses'));
 			//
@@ -70,9 +72,10 @@
 			$salesmen = Manager::all();
 			$clients = User::where('is_client',true)->get()->toArray();
 			$expenses = Item::where('is_expense',true)->get();
-			$gateways = auth()->user()->gateways()->get();
+//			$gateways = auth()->user()->gateways()->get();
+			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
 			
-
+			
 			$quotation = $quotation->load('items.item.items.item','items.item.data','sale.client','sale.salesman');
 //			Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get()
 			return view('accounting.quotations.to_sale',compact('clients','salesmen','gateways','expenses','quotation'));
