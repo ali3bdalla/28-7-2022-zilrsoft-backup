@@ -30,17 +30,18 @@
 		public function dailyTransactionsAmount($period)
 		{
 			
+//			dd(Carbon::now()->subDays(10));
 			$startAt = Carbon::parse($period)->toDateTimeString();
 			$dailyAccount = Account::where([
 				['slug','temp_reseller_account'],
 				['is_system_account',true],
 			])->first();
 			return $dailyAccount->debit_transaction()->where('creator_id',$this->id)->whereBetween('created_at',[
-					$startAt,
+					Carbon::now()->subDays(10),
 					Carbon::now()
 				])->sum('amount') -
 				$dailyAccount->credit_transaction()->where('creator_id',$this->id)->whereBetween('created_at',[
-					$startAt,
+					Carbon::now()->subDays(10),
 					Carbon::now()
 				])->sum('amount');
 
