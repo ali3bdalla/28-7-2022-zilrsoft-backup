@@ -57,13 +57,12 @@
 					'receiver_id' => $baseInvoice->purchase->receiver_id,
 					'vendor_id' => $baseInvoice->purchase->vendor_id
 				]);
-				$this->toCreatePurchaseInvoiceForExpensesItems($invoice,$this->input('items'));
+//				$this->toCreatePurchaseInvoiceForExpensesItems($invoice,$this->input('items'));
 				$invoice->pushItems($this->input('items'));
 				$this->toGetAndUpdatedAmounts($invoice);
 				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),$this->input("methods"),[]);
 				$this->toUpdateIsDeletedAndIsUpdated($baseInvoice);
 				DB::commit();
-				
 				return $invoice;
 			}catch (Exception $exception){
 				

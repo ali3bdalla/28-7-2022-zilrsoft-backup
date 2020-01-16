@@ -54,7 +54,9 @@
 			
 			$itemAccounting = new ItemAccounting();
 			$qty = $userData['returned_qty'];
+			
 			$this->toValidateItemHasEnoughQtyToMakeReturn($this->fresh(),$qty,$inc->invoice_type);
+			
 			if ($this->is_need_serial)
 				$this->toValidateSerialArrayCurrentStatus($userData,$qty,$inc->invoice_type,$this->fresh());
 			$data['belong_to_kit'] = $createdKit == null ? $this->belong_to_kit : true;

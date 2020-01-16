@@ -340,7 +340,6 @@
             },
 
 
-
             sendQueryRequestToFindItems() {
                 let appVm = this;
                 ItemQuery.sendQueryRequestToFindItems(this.barcodeNameAndSerialField, 'purchase').then(response => {
@@ -596,10 +595,14 @@
                 let invoice = this.invoice;
                 //
 
+
+                // console.log(this.invoiceData.items);
+
                 console.log(data);
                 axios.put(this.app.BaseApiUrl + 'purchases/' + invoice.id, data)
                     .then(function (response) {
                         console.log(response.data);
+
 
                         if (doWork == 'open') {
                             window.location.href = appVm.app.BaseApiUrl + 'purchases/' + response.data.id;

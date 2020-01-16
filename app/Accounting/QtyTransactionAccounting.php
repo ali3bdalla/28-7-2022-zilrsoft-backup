@@ -17,17 +17,20 @@
 		{
 			if ($type == 'r_sale'){
 				if ($qty > $incItem->qty){
-					
 					throw new ValidationException(
 						'item.'.$incItem->id.'.qty'
 					);
 				}
 			}else{
-				if ($qty > $incItem->qty || $qty > $incItem->item->available_qty){
-					throw new ValidationException(
-						'item.'.$incItem->id.'.qty'
-					);
+				if(!$incItem->item->is_expense)
+				{
+					if ($qty > $incItem->qty || $qty > $incItem->item->available_qty){
+						throw new ValidationException(
+							'item.'.$incItem->id.'.qty'
+						);
+					}
 				}
+				
 			}
 		}
 		

@@ -66,7 +66,7 @@
 				}
 				$result_items = $this->pushReturnItems($itemsList);
 			}else{
-				$result_items = $this->p2ushFreshInvoiceItems($items);
+//				$result_items = $this->p2ushFreshInvoiceItems($items);
 			}
 			
 			
