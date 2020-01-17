@@ -96,7 +96,7 @@
 		public function getPriceAttribute($value)
 		{
 			
-			return money_format('%.2n',$value);
+			return money_format('%.4n',$value);
 		}
 		
 		public function getTotalAttribute($value)

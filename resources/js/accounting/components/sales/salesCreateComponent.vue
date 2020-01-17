@@ -794,6 +794,8 @@
                 })
             },
             validateAndPrepareItem(item) {
+                // alert(item.is_expense);
+                // item.is_expense = false;
                 this.searchResultList = [];
                 if (db.model.contain(this.invoiceData.items, item.id)) {
                     let parent = db.model.find(this.invoiceData.items, item.id);

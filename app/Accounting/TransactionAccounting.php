@@ -682,8 +682,8 @@
 			$manager_cogs_account = auth()->user()->toGetManagerAccount('cogs');
 			$manager_products_sales_return_account = auth()->user()->toGetManagerAccount('products_return_sales');
 			$manager_services_sales_return_account = auth()->user()->toGetManagerAccount('services_return_sales');
-			//$manager_other_services_sales_return_account = auth()->user()->get_active_manager_account_for
-			//('other_services_return_sales');
+			$manager_other_services_sales_return_account = auth()->user()->toGetManagerAccount
+			('other_services_return_sales');
 			$manager_products_sales_discount_account = auth()->user()->toGetManagerAccount('products_sales_discount');
 			$manager_services_sales_discount_account = auth()->user()->toGetManagerAccount('services_sales_discount');
 			$manager_other_services_sales_discount_account = auth()->user()->toGetManagerAccount('other_services_sales_discount');
@@ -741,7 +741,7 @@
 					'description' => 'to_products_sales',
 				]);
 			}
-			
+//			$manager_other_services_sales_return_account
 			if ($services_sales_total > 0){
 				$manager_services_sales_return_account->debit_transaction()->create([
 					'creator_id' => auth()->user()->id,
@@ -756,18 +756,18 @@
 				]);
 			}
 
-//			if ($other_services_sales_total > 0){
-//				$manager_other_services_sales_return_account->debit_transaction()->create([
-//					'creator_id' => auth()->user()->id,
-//					'organization_id' => auth()->user()->organization_id,
-//					'creditable_id' => $manager_stock_account->id,
-//					'creditable_type' => get_class($manager_stock_account),
-//					'amount' => $other_services_sales_total,
-//					'user_id' => $user_id,
-//					'invoice_id' => $this->id,
-//					'description' => 'to_other_services_sales',
-//				]);
-//			}
+			if ($other_services_sales_total > 0){
+				$manager_other_services_sales_return_account->debit_transaction()->create([
+					'creator_id' => auth()->user()->id,
+					'organization_id' => auth()->user()->organization_id,
+					'creditable_id' => $manager_stock_account->id,
+					'creditable_type' => get_class($manager_stock_account),
+					'amount' => $other_services_sales_total,
+					'user_id' => $inc->user_id,
+					'invoice_id' => $inc->id,
+					'description' => 'to_other_services_sales',
+				]);
+			}
 			
 			
 			/// discounts

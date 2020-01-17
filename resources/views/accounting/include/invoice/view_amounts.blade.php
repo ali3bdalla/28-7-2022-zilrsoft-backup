@@ -64,7 +64,8 @@
             <div class="row">
                 <div class="col-md-5"><label>{{ __('pages/invoice.current_status') }}</label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="{{ $invoice->current_status=='paid' ? trans('pages/invoice.paid') :  trans('pages/invoice.credit') }}"
+                    <input type="text" class="form-control input-xs amount-input"
+                           value="{{ $invoice->current_status=='paid' ? trans('pages/invoice.paid') :  trans('pages/invoice.credit') }}"
                            disabled="">
                 </div>
             </div>
@@ -72,6 +73,8 @@
 
     </div>
     <div class="col-md-12">
-        @includeIf('accounting.include.invoice.view_expenses')
+        @if(!in_array($invoice->invoice_type,['sale','r_sale']))
+            @includeIf('accounting.include.invoice.view_expenses')
+        @endif
     </div>
 </div>

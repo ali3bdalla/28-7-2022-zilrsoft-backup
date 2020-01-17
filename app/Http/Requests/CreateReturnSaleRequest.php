@@ -2,6 +2,11 @@
 	
 	namespace App\Http\Requests;
 	
+	use App\Accounting\AmountsAccounting;
+	use App\Accounting\ExpensesAccounting;
+	use App\Accounting\IdentityAccounting;
+	use App\Accounting\PaymentAccounting;
+	use App\Accounting\TransactionAccounting;
 	use App\Invoice;
 	use Dotenv\Exception\ValidationException;
 	use Exception;
@@ -10,6 +15,7 @@
 	
 	class CreateReturnSaleRequest extends FormRequest
 	{
+		use TransactionAccounting,PaymentAccounting,IdentityAccounting,ExpensesAccounting,AmountsAccounting;
 		/**
 		 * Determine if the user is authorized to make this request.
 		 *
@@ -40,16 +46,33 @@
 			
 			DB::beginTransaction();
 			try{
-				$items = $this->input("items");
-				$base_invoice =
-					Invoice::initEmptyInvoice('r_sale',$invoice)
-						->addChildInvoice($invoice->sale->client_id,
-							"r_sale",$invoice->sale->salesman_id)
-						->addReturnedItemsToBaseInvoice($items)
-						->updateBaseInvoiceAccountingInformation()
-						->createInvoiceTransactions($this->input("methods"),'r_sale');
+//				$items = $this->input("items");
+//				$base_invoice =
+//					Invoice::initEmptyInvoice('r_sale',$invoice)
+//						->addChildInvoice($invoice->sale->client_id,
+//							"r_sale",$invoice->sale->salesman_id)
+//						->addReturnedItemsToBaseInvoice($items)
+//						->updateBaseInvoiceAccountingInformation()
+//						->createInvoiceTransactions($this->input("methods"),'r_sale');
+//				DB::commit();
+//
+				$createdInvoice = Invoice::publish(['invoice_type' => 'r_sale','notes' => "",'parent_id' =>
+					$invoice->id]);
+				$sale = $createdInvoice->publishSubInvoice('sale',[
+					'invoice_type' => 'r_sale',
+					'prefix' => 'RSI-',
+					'client_id' => $invoice->sale->client_id,
+					'alice_name' => $invoice->sale->alice_name,
+					'salesman_id' => $invoice->sale->salesman_id]);
+//				$this->toCreatePurchaseInvoiceForExpensesItems($invoice,$this->input('items'));
+				$createdInvoice->addReturnedItemsToBaseInvoice($this->input('items'));
+				$this->toGetAndUpdatedAmounts($createdInvoice);
+				$this->toCreateInvoiceTransactions($createdInvoice,$this->input('items'),$this->input("methods"),[]);
+				
+				
 				DB::commit();
-				return $base_invoice;
+				
+				return $createdInvoice->fresh();
 			}catch (Exception $exception){
 				DB::rollBack();
 				return response(json_encode([
