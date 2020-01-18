@@ -234,7 +234,7 @@
                 isOpenSearchPanel: false,
                 category: null,
                 baseUrl: "",
-                orderBy: "id",
+                orderBy: "updated_at",
                 orderType: "desc",
                 yourValue: null,
                 table_rows: [],

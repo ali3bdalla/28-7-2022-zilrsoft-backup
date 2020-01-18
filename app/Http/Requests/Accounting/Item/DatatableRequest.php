@@ -188,7 +188,7 @@
 			if ($this->has('orderBy') && $this->filled('orderBy') && $this->has('orderType') && $this->filled('orderType')){
 				$query = $query->orderBy($this->orderBy,$this->orderType);
 			}else{
-				$query = $query->orderByDesc("id");
+				$query = $query->orderByDesc("updated_at");
 			}
 			
 			

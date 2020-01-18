@@ -1,6 +1,15 @@
 <template>
     <div class="table">
         <div class="table-posistion">
+            <div v-if="onlyQuotations==true">
+                <input placeholder=" رقم الفاتورة" @focus="$event.target.select()"
+                       @keyup="pushServerRequest"
+                       autofocus="autofocus"
+                       class="form-control"
+                       ref="barcodeAndNameUpdated"
+                       type="text"
+                       v-model="filters.title">
+            </div>
 
             <div class="table-filters">
                 <div @click="openOrCloseSearchPanel" class="text-right search-text" style="cursor: pointer;"><i
