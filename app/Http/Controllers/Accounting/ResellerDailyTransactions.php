@@ -62,15 +62,19 @@
 		 */
 		public function transfer_amounts(Request $request)
 		{
-			$manager_gateways = $request->user()->gateways()->get();
+			$manager_gateways = $request->user()->gateways()->where('is_gateway',true)->first();
 			$managers = Manager::where('id','!=',$request->user()->id)->with('gateways')->get();
 //
 			
 			$gateways = [];
 			foreach ($managers as $manager){
 				foreach ($manager->gateways as $gateway){
-					$gateway['receiver_id'] = $manager['id'];
-					$gateways[] = $gateway;
+					if ($gateway->is_gateway){
+						$gateway['receiver_id'] = $manager['id'];
+						$gateways[] = $gateway;
+						
+					}
+					
 				}
 			}
 			

@@ -100,6 +100,16 @@
                 </div>
             </div>
 
+            <div class="col-md-6">
+                <toggle-button
+                        
+                        name="is_gateway"
+                        :async="true"
+                        :font-size="19" :height='30' :labels="{checked: 'خزينة', unchecked: 'حساب عادي '}"
+                        :width='140'
+                ></toggle-button>
+            </div>
+
             <div class="row">
                 <div class="col-md-5 col-md-offset-1">
                     <button type="submit" class="btn btn-custom-primary">{{ trans('buttons.create')

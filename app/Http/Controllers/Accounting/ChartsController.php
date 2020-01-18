@@ -66,6 +66,7 @@
 		 */
 		public function store(CreateAccountRequest $request)
 		{
+			
 			$request->save();
 			return redirect(route('accounting.accounts.index'));
 		}
@@ -134,7 +135,7 @@
 		 */
 		public function update(UpdateAccountRequest $request,Account $account)
 		{
-			
+//			return $request->all();
 			$request->update($account);
 			
 			return redirect(route('accounting.accounts.index'));

@@ -73,20 +73,31 @@
 
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-5 col-md-offset-1">
-                        <button type="submit" class="btn btn-custom-primary">{{ trans('buttons.update')
+
+                <div class="col-md-6">
+                    <toggle-button
+                            :value="@json($account->is_gateway)"
+                            name="is_gateway"
+                            :async="true"
+                            :font-size="19" :height='30' :labels="{checked: 'خزينة', unchecked: 'حساب عادي '}"
+                            :width='140'
+                    ></toggle-button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-md-offset-1">
+                    <button type="submit" class="btn btn-custom-primary">{{ trans('buttons.update')
                         }}</button>
-                    </div>
-                    <div class="col-md-2 col-md-offset-3">
-                        <a href="{{ route('accounting.accounts.index') }}" class="btn btn-custom-default">{{ trans
+                </div>
+                <div class="col-md-2 col-md-offset-3">
+                    <a href="{{ route('accounting.accounts.index') }}" class="btn btn-custom-default">{{ trans
                         ('buttons.back')
                         }}</a>
 
-                    </div>
                 </div>
             </div>
-        </form>
+    </div>
+    </form>
     </div>
 @endsection
 

@@ -43,7 +43,10 @@
 			$data['type'] = $this->account_type;
 			$data['slug'] = $parent->slug;
 			
-			$data['is_gateway'] = false;
+			if ($this->has('is_gateway') && $this->filled('is_gateway'))
+				$data['is_gateway'] = true;
+			else
+				$data['is_gateway'] = false;
 			
 			
 			auth()->user()->accounts()->create($data);
