@@ -102,7 +102,7 @@
 
             <div class="col-md-6">
                 <toggle-button
-                        
+
                         name="is_gateway"
                         :async="true"
                         :font-size="19" :height='30' :labels="{checked: 'خزينة', unchecked: 'حساب عادي '}"

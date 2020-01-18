@@ -24,6 +24,7 @@
 		{
 			$managerCloseAccountList = ManagerPrivateTransactions::where([
 				['creator_id',auth()->user()->id],
+				['transaction_type',"close_account"],
 			
 			])->orWhere([
 				['receiver_id',auth()->user()->id]
@@ -32,6 +33,21 @@
 			return view('accounting.reseller_daily.account_close_list',compact('managerCloseAccountList'));
 		}
 		
+		/**
+		 * @return Factory|View
+		 */
+		public function transfer_list()
+		{
+//			return
+			$managerCloseAccountList = ManagerPrivateTransactions::where([
+				['creator_id',auth()->user()->id],
+				['transaction_type',"transfer"],
+			])->orWhere([
+				['receiver_id',auth()->user()->id]
+			])->orderBy('id','desc')->paginate(15);
+			
+			return view('accounting.reseller_daily.tranfers_list',compact('managerCloseAccountList'));
+		}
 		/**
 		 * @param Request $request
 		 *

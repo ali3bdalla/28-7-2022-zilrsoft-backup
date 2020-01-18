@@ -46,6 +46,7 @@
 			Route::get('account_close',"ResellerDailyTransactions@account_close")->name('account_close');
 			Route::post('account_close',"ResellerDailyTransactions@account_close_store")->name('account_close_store');
 			Route::get('account_close_list',"ResellerDailyTransactions@account_close_list")->name('account_close_list');
+			Route::get('transfer_list',"ResellerDailyTransactions@transfer_list")->name('transfer_list');
 			Route::get('transfer_amounts',"ResellerDailyTransactions@transfer_amounts")->name('transfer_amounts');
 			Route::post('transfer_amounts',"ResellerDailyTransactions@transfer_amounts_store")->name('transfer_amounts_store');
 			Route::get('{transaction}/confirm_transaction',"ResellerDailyTransactions@confirm_transaction")->name

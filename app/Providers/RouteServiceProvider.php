@@ -39,6 +39,15 @@
 			Route::bind('sale',function ($value){
 				return Invoice::where('id',$value)->withoutGlobalScope('currentManagerInvoicesOnly')->first();
 			});
+			
+			Route::bind('purchase',function ($value){
+				return Invoice::where('id',$value)->withoutGlobalScope('currentManagerInvoicesOnly')->first();
+			});
+			
+			
+			Route::bind('inventory',function ($value){
+				return Invoice::where('id',$value)->withoutGlobalScope('currentManagerInvoicesOnly')->first();
+			});
 //
 			
 //			Route::bind('sale',function ($value){
