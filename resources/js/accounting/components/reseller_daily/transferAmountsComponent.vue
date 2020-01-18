@@ -50,10 +50,14 @@
         props: ["gateways", 'toGateways'],
         data: function () {
             return {
-                activeGateway: null,
-                receiveGateway: null,
-
-
+                activeGateway: {
+                    id:0,
+                    locale_name:""
+                },
+                receiveGateway:  {
+                    id:0,
+                    locale_name:""
+                },
                 amount: 0,
                 remaining: 0,
                 gateway_id: 0,
@@ -86,7 +90,7 @@
                     receiver_id: this.receiver_id,
                 }).then(response => {
                     console.log(response.data);
-                    window.location = '/accounting/reseller_daily/account_close_list';
+                    window.location = '/accounting/reseller_daily/transfer_list';
                 }).catch(error => {
                     alert(error.response.data);
                     console.log(error.response.data);

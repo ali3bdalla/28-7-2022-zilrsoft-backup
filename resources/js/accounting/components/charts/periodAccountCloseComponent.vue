@@ -121,7 +121,7 @@
                     remaining_amount: this.remainingAmount,
                     remaining_amount_account_id: this.remainingAmountAccountId
                 }).then(response => {
-                    window.location = '/accounting/reseller_daily/transfer_amounts';
+                    window.location = '/accounting/reseller_daily/account_close_list';
                 }).catch(error => {
                     console.log(error);
                     alert(error.response.data);

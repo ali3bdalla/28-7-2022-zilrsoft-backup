@@ -78,9 +78,13 @@
 		 */
 		public function transfer_amounts(Request $request)
 		{
-			$manager_gateways = $request->user()->gateways()->where('is_gateway',true)->first();
+			$manager_gateways = $request->user()->gateways()->where('is_gateway',true)->get();
 			$managers = Manager::where('id','!=',$request->user()->id)->with('gateways')->get();
 //
+
+			
+//			return $manager_gateways;
+ 
 			
 			$gateways = [];
 			foreach ($managers as $manager){
@@ -94,6 +98,7 @@
 				}
 			}
 			
+//			re
 			
 			return view('accounting.reseller_daily.transfer_amounts',compact('gateways','manager_gateways'));
 		}
