@@ -31,7 +31,16 @@
                                     data-target="#serialModal{{ $item->id }}"><i class="fa fa-bars"></i></button>
                         @endif
                     </td>
-                    <td>{{ $item->item->barcode }}</td>
+                    <td>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on }">
+                                <span v-on="on"> {{ $item->item->barcode }}</span>
+
+                            </template>
+                            <span>{{ $item->cost }}</span>
+                        </v-tooltip>
+
+                       </td>
                     <td>{{ $item->item->locale_name }}</td>
                     <td>
                         <input type="text" class="form-control input-sm amount-input" value="{{ $item->qty }}"

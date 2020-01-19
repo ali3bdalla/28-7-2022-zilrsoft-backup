@@ -132,7 +132,15 @@
                         </a>
 
                     </th>
-                    <th v-text="item.barcode"></th>
+                    <th>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on }">
+                                <span v-on="on">{{ item.barcode}}</span>
+
+                            </template>
+                            <span>{{ parseFloat(item.cost).toFixed(2) }}</span>
+                        </v-tooltip>
+                    </th>
                     <th v-text="item.locale_name"></th>
                     <th width="8%">
                         <input
