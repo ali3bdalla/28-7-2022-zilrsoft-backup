@@ -106,7 +106,7 @@
 </head>
 
 <body lang="ar" style="">
-<div class="" style="margin:10px">
+<div class="" style="margin:10px" id="app">
     <div class="row">
 
         <div class="col-md-6" style="float: left;padding-top: 10px;color: black !important;">
@@ -358,7 +358,6 @@
         </div>
 
 
-
         <div class="">
             @if($invoice->notes!="")
                 <div class="">
@@ -376,7 +375,6 @@
 </div>
 
 
-
 <img src="{{ $invoice->getBackgroundAssetAttribute() }}">
 
 <footer style="">
@@ -386,10 +384,14 @@
         <div class="row" style="color: black !important;">
             <div class="stamp">
 
+                <div id="barcode_demo"></div>
+
+
             </div>
             <div class="issued_by">
                 <h3 style="margin-bottom: 9px">{{__('reusable.issued_by')}}</h3>
                 <p style="margin-bottom: 2px">{{ $invoice->creator->locale_name }}</p>
+
 
             </div>
             <div class="clear"></div>
@@ -403,8 +405,15 @@
 </body>
 
 </html>
-
-
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="{{asset('accounting/js/jquery-barcode.min.js')}}"></script>
 <script>
+    $("#barcode_demo").barcode(
+        "{{ $invoice->title }}",// Value barcode (dependent on the type of barcode)
+
+        "code39" // type (string)
+
+    );
+
     print();
 </script>

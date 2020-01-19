@@ -265,6 +265,11 @@
 
     <hr style="border:1px solid #777">
     <div class="row">
+        <div class="col-md-12 text-center">
+            <div id="barcode_demo" style="margin: auto;"></div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-xs-12">
             <div class="text-center">
                 <span class="header_title total_header">{{ $invoice->organization->city_ar  }} - {{
@@ -300,3 +305,18 @@
         </div>
     </div>
 </div>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="{{asset('accounting/js/jquery-barcode.min.js')}}"></script>
+
+<script>
+    $("#barcode_demo").barcode(
+        "{{ $invoice->title }}",// Value barcode (dependent on the type of barcode)
+
+        "code39" // type (string)
+
+    );
+
+    print();
+</script>
+

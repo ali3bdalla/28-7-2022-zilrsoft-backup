@@ -70,6 +70,8 @@
 				$this->toGetAndUpdatedAmounts($invoice);
 				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),$this->input("methods"),[]);
 				
+				
+				$this->deleteQuotationAfterCloneIt();
 				DB::commit();
 				return $invoice->fresh();
 			}catch (Exception $exception){
@@ -81,7 +83,26 @@
 			
 			
 		}
+		
+		/**
+		 *
+		 */
+		public function deleteQuotationAfterCloneIt()
+		{
+			if ($this->filled('quotation_id') && $this->has("quotation_id")){
+				if ($this->input("quotation_id") > 0){
+					$quotation = Invoice::find($this->input("quotation_id"));
+					if (!empty($quotation)){
+						$quotation->delete();
+					}
+				}
+			}
+			
+		}
 	}
+	
+	
+	
 	
 	
 	

@@ -55,6 +55,7 @@ import AccountingQuotationsCreateComponent from './components/quotations/quotati
 import AccountingPeriodAccountCloseComponent from './components/charts/periodAccountCloseComponent';
 import AccountingResellerDailyTransferAmountsComponent from './components/reseller_daily/transferAmountsComponent';
 import AccountingHeaderNotificationsLayoutComponent from './components/layout/headerLayoutComponent';
+import AccountingSingleBarcodeLayoutComponent from './components/layout/singleBarcodeComponent';
 
 
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
@@ -113,3 +114,4 @@ Vue.component('accounting-quotations-create-component', AccountingQuotationsCrea
 Vue.component('accounting-period-account-close-component', AccountingPeriodAccountCloseComponent);
 Vue.component('accounting-reseller-daily-transfer-amounts-component', AccountingResellerDailyTransferAmountsComponent);
 Vue.component('accounting-header-notifications-layout-component', AccountingHeaderNotificationsLayoutComponent);
+Vue.component('accounting-single-barcode-layout-component', AccountingSingleBarcodeLayoutComponent);

@@ -4,7 +4,8 @@
         <div class="table-posistion">
 
             <div>
-                <input :placeholder="trans.search_barcode_sale" @focus="$event.target.select()"
+                <input :placeholder="trans.search_barcode_sale"
+                       @focus="$event.target.select()"
                        @keyup.enter="barcodeAndNameUpdated"
                        autofocus="autofocus"
                        class="form-control"
@@ -168,7 +169,7 @@
                                                                                v-text="trans.clone"></a></li>
                                     <li v-if="!row.is_kit"><a :href="baseUrl + row.id +
                                     '/transactions'"
-                                                                                      v-text="trans.transactions"></a>
+                                                              v-text="trans.transactions"></a>
                                     </li>
                                     <li v-if="canEdit==1  && !row.is_kit"><a :href="baseUrl + row.id + '/edit'"
                                                                              v-text="trans.edit"></a></li>
@@ -280,7 +281,8 @@
         },
         methods: {
 
-            barcodeAndNameUpdated() {
+            barcodeAndNameUpdated(event) {
+                event.target.select();
                 this.pushServerRequest();
                 this.$refs.barcodeAndNameUpdated.select()
             },

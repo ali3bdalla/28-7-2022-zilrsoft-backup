@@ -24,7 +24,7 @@
                 </button>
             </div>
             <div class="col-md-6">
-                <a :href="app.BaseApiUrl + 'purchases'" class="btn btn-default "><i
+                <a :href="app.BaseApiUrl + 'sales'" class="btn btn-default "><i
                         class="fa fa-redo"></i> {{ app.trans.cancel }}</a>
             </div>
 
@@ -576,6 +576,7 @@
                 invoiceData: {
                     aliceName: "",
                     remaining: 0,
+                    quotationId: 0,
                     notes: "",
                     vendorIncCumber: "",
                     clientId: 0,
@@ -638,6 +639,7 @@
             handleCloningEvent() {
                 let items = this.quotation.items;
 
+                this.quotationId = this.quotation.id;
                 let appVm = this;
                 items.forEach((item) => {
 
@@ -701,6 +703,7 @@
                     user_detail_vat: "",
                     user_detail_email: "",
                     user_detail_cr: "",
+
                     user_detail_address: "",
                     user_detail_responser: "",
                     user_detail_responser_phone: "000000"
@@ -1113,6 +1116,7 @@
                 }
 
                 let data = {
+                    quotation_id: this.quotationId,
                     items: this.invoiceData.items,
                     salesman_id: this.invoiceData.salesmanId,
                     alice_name: this.invoiceData.aliceName,

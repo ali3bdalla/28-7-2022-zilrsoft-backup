@@ -73,6 +73,22 @@
 			}
 
 //
+			
+			
+			if ($this->has('title') && $this->filled('title')){
+				
+				$arr = explode("-",$this->input('title'));
+				if (count($arr) >= 2){
+					$number = $arr[1];
+				}else{
+					$number = $this->input('title');
+				}
+				
+				
+				$query = $query->where('id',$number)->withoutGlobalScope('currentManagerInvoicesOnly');
+			}
+
+
 //
 			if ($this->has('net') && $this->filled('net')){
 				$amount = explode("-",$this->net);
