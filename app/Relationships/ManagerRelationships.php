@@ -37,11 +37,11 @@
 				['is_system_account',true],
 			])->first();
 			return $dailyAccount->debit_transaction()->where('creator_id',$this->id)->whereBetween('created_at',[
-					Carbon::now()->subDays(10),
+					Carbon::now()->subDays(1000),
 					Carbon::now()
 				])->sum('amount') -
 				$dailyAccount->credit_transaction()->where('creator_id',$this->id)->whereBetween('created_at',[
-					Carbon::now()->subDays(10),
+					Carbon::now()->subDays(1000),
 					Carbon::now()
 				])->sum('amount');
 
