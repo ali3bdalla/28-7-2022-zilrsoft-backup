@@ -3,7 +3,7 @@
 //
 	
 	
-	app()->setLocale('ar');
+	app()->setLocale('en');
 	Auth::routes(["verify" => true]);
 	
 	

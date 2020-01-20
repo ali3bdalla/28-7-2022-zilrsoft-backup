@@ -106,7 +106,7 @@
                         <div class="col-md-12">
                             @includeIf('accounting.include.invoice.view_transactions')
                             <accounting-barcode-bulk-printer-layout-component
-                                    :invoiceId='@json($invoice->title)'
+                                    :invoice-id='@json($invoice->title)'
                                     :items='@json($invoice->items->load('item'))'
                             >
                             </accounting-barcode-bulk-printer-layout-component>

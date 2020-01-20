@@ -136,6 +136,8 @@
                         </td>
                         <td v-text="getRowColumnIndex(index + 1)"></td>
                         <td @click="sendItemToOpenInvoice(row)" style="text-align:left;cursor: pointer">
+
+
                             &nbsp;<span :style="{'color' :primaryColor}" v-if="row.is_need_serial">{{ row.barcode }}
                             </span>
 
@@ -148,7 +150,21 @@
                         <td class="text-right-with-padding">{{row.ar_name}}<p align="left">{{row.name}}</p></td>
                         <td v-text="parseFloat(row.price).toFixed(2)"></td>
                         <td v-text="parseFloat(row.price_with_tax).toFixed(2)"></td>
-                        <td v-text="row.available_qty"></td>
+                        <td>
+                            <v-tooltip bottom>
+                                <template v-slot:activator="{ on }">
+                                    <span v-on="on">{{ row.available_qty}}</span>
+
+                                </template>
+                                <span>{{ parseFloat(row.cost).toFixed(2) }}</span>
+                            </v-tooltip>
+
+                            <!--                            <v-tooltip bottom>-->
+                            <!--                                <template v-slot:activator="{ on }">-->
+                            <!--                                </template>-->
+                            <!--                                <span>{{ row.available_qty }}</span>-->
+                            <!--                            </v-tooltip>-->
+                        </td>
                         <td class="text-right-with-padding" v-text="row.creator.locale_name"></td>
                         <td v-text="row.created_at"></td>
                         <td>

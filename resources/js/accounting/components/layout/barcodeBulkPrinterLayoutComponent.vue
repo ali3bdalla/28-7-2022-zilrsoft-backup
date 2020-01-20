@@ -8,7 +8,8 @@
         <div class="row text-center align-content-center">
             <div class="col-md-6 text-center">
 
-                <div :id="'barcode_area_' + item.id" :key="item.id" style="width: 255px;" v-for="item in itemsList">
+                <div :id="'barcode_area_' + index" :key="index" style="width: 255px;" v-for="(item,index) in
+                itemsList">
                     <barcode :value="item.barcode" font-size="18" height="100">
                     </barcode>
 
@@ -40,7 +41,9 @@
             </div>
 
             <div class="col-md-6 text-center">
-                <div id="showGeneratedBarcodeImageId">
+                <div :id="'showGeneratedBarcodeImageId_' + index" :key="index" style="width: 255px;"
+                     v-for="(item,index) in
+                itemsList">
 
                 </div>
             </div>
@@ -81,6 +84,8 @@
 
         },
         created: function () {
+            // this.itemsList = this.items;
+            console.log(this.invoiceId);
             this.invoiceTitle = this.invoiceId;
             this.initItems();
             this.connectQZ();
@@ -94,23 +99,28 @@
             initItems() {
                 for (let i = 0; i < this.items.length; i++) {
                     let item = this.items[i];
-                    if (item.item != null) {
+                    // if (item.item != null) {
                         item.price_with_tax = item.item.price_with_tax;
                         item.ar_name = item.item.ar_name;
                         item.barcode = item.item.barcode;
-                    }
+                    // }else
+                    //
+                    // {
+                    //
+                    // }
                     this.itemsList.push(item);
+
                 }
             },
             generatedData(items = null) {
-
-                items = items == null ? this.itemsList : items;
+                let LocaleItems = items == null ? this.itemsList : items;
                 let appVm = this;
-                document.getElementById("showGeneratedBarcodeImageId").innerHTML = "";
+                // document.getElementById("showGeneratedBarcodeImageId_").innerHTML = "";
                 this.itemsGeneratedImage = [];
-                for (let i = 0; i < this.items.length; i++) {
-                    let item = this.items[i];
-                    domtoimage.toPng(document.getElementById('barcode_area_' + item.id), {
+                let len = LocaleItems.length;
+                for (let i = 0; i < len; i++) {
+                    let item = LocaleItems[i];
+                    domtoimage.toPng(document.getElementById('barcode_area_' + i), {
                         quality: 1, style: {
                             width: '100%',
                             height: '100%',
@@ -121,11 +131,9 @@
                         appVm.src = dataUrl;
                         appVm.image = dataUrl;
                         appVm.itemsGeneratedImage.push(dataUrl);
-                        // console.log(appVm.itemsGeneratedImage);
-                        // var DOM_img = document.createElement("img");
-                        // DOM_img.src = dataUrl;
-
-                        // document.getElementById("showGeneratedBarcodeImageId").appendChild(DOM_img);
+                        let DOM_img = document.createElement("img");
+                        DOM_img.src = dataUrl;
+                        document.getElementById("showGeneratedBarcodeImageId_" + i).appendChild(DOM_img);
                     })
                         .catch(function (error) {
                             console.log(error)
@@ -295,17 +303,18 @@
                     let generatedItem = this.itemsGeneratedImage[i];
                     let actItem = this.itemsList[i];
 
-                    // if (i > 0) {
-                    //     data.push(
-                    //         '\nN\n' +
-                    //         'A180,20,0,2,1,1,N, \n' +
-                    //         'A200,50,0,4,1,1,N, \n' +
-                    //         'B200,100,0,1A,1,2,30,B, \n' +
-                    //         '\nP1\n'
-                    //     );
-                    // }
+                    if (i > 0) {
+                        data.push(
+                            '\nN\n' +
+                            'A180,20,0,2,1,1,N, \n' +
+                            'A200,50,0,4,1,1,N, \n' +
+                            'B200,100,0,1A,1,2,30,B, \n' +
+                            '\nP1\n'
+                        );
+                    }
 
                     for (let i = 0; i < actItem.qty; i++) {
+
                         data.push(
                             '\nN\n',
                             {
@@ -314,10 +323,13 @@
                             },
                             '\nP1,1\n'
                         );
+
+                        // console.log(actItem.barcode);
                     }
 
                 }
 
+                // console.log(data);
                 qz.print(config, data);
 
             },

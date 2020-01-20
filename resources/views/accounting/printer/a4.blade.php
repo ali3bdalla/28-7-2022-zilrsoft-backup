@@ -220,72 +220,75 @@
 				<?php $items_qty_count = 0; ?>
                     @if(!empty($invoice->items))
                         @foreach($invoice->items as $item)
-					    <?php $items_qty_count = $items_qty_count + $item->qty ?>
-                             @if($loop->index%2==0)
-						    <?php $background_color = "#ffffff"; ?>
-                                  <tr>
-                             @else
-                                 <tr style="background-color: #8888">
-							   <?php $background_color = "#eee"; ?>
-                                     @endif
-                                     <td class="no" style="width:30px !important;">{{$loop->index + 1}}</td>
-                                     <td class="desc" style="width: 10%  !important;text-align: right !important;
-                                             font-weight: bold;font-size: 13px !important;color: black;background-color:
-							  <?php echo $background_color;?> !important;">{{mb_substr($item->item->locale_name, 0,55) }}</td>
-                                     <td class="total" style="background-color:
-							  <?php echo $background_color;?> !important;">{{ $item->qty }}</td>
-                                     <td class="total" style="background-color:
-							  <?php echo $background_color;?> !important;">{{ $item->price }}</td>
-                                     <td class="total" style="background-color:
-							  <?php echo $background_color;?> !important;"> {{ $item->total }}</td>
-                                     <td class="total" style="background-color:
-							  <?php echo $background_color;?> !important;"> {{ $item->discount }}</td>
-                                     <td class="total" style="background-color:
-							  <?php echo $background_color;?> !important;"> {{ $item->tax }}</td>
-                                     <td class="total" style="background-color:
-							  <?php echo $background_color;?> !important;"> {{ $item->net }}</td>
-                                 </tr>
-                                 @if(!in_array($item->invoice_type,['purchase']))
-                                     @if($item->item->is_need_serial)
-                                         @foreach($item->item->serials()
-                                        ->where([
-                                        ["sale_invoice_id",$invoice->id],
-                                        ["item_id",$item->item->id],
-                                        ])
-                                        ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                        ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                        ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                        ->get() as $index => $serial
-                                        )
-                                             <tr style="background-color: #8888">
+                            @if($item->belong_to_kit==false)
+						   <?php $items_qty_count = $items_qty_count + $item->qty ?>
+                                 @if($loop->index%2==0)
+							   <?php $background_color = "#ffffff"; ?>
+                                      <tr>
+                                 @else
+                                     <tr style="background-color: #8888">
+								  <?php $background_color = "#eee"; ?>
+                                         @endif
+                                         <td class="no" style="width:30px !important;">{{$loop->index + 1}}</td>
+                                         <td class="desc" style="width: 10%  !important;text-align: right !important;
+                                                 font-weight: bold;font-size: 13px !important;color: black;background-color:
+								 <?php echo $background_color;?> !important;">{{mb_substr($item->item->locale_name, 0,55) }}</td>
+                                         <td class="total" style="background-color:
+								 <?php echo $background_color;?> !important;">{{ $item->qty }}</td>
+                                         <td class="total" style="background-color:
+								 <?php echo $background_color;?> !important;">{{ $item->price }}</td>
+                                         <td class="total" style="background-color:
+								 <?php echo $background_color;?> !important;"> {{ $item->total }}</td>
+                                         <td class="total" style="background-color:
+								 <?php echo $background_color;?> !important;"> {{ $item->discount }}</td>
+                                         <td class="total" style="background-color:
+								 <?php echo $background_color;?> !important;"> {{ $item->tax }}</td>
+                                         <td class="total" style="background-color:
+								 <?php echo $background_color;?> !important;"> {{ $item->net }}</td>
+                                     </tr>
+                                     @if(!in_array($item->invoice_type,['purchase']))
+                                         @if($item->item->is_need_serial)
+                                             @foreach($item->item->serials()
+                                            ->where([
+                                            ["sale_invoice_id",$invoice->id],
+                                            ["item_id",$item->item->id],
+                                            ])
+                                            ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->get() as $index => $serial
+                                            )
+                                                 <tr style="background-color: #8888">
 
-                                                 <td class="" style="width:30px !important;">S/N</td>
-                                                 <td class="desc"
-                                                     style="width: 10%  !important;text-align: right !important;
-                                                             font-weight: bold;font-size: 10px !important;color: black;
-                                                             background-color:
-									        <?php echo $background_color;?> !important;padding-right: 20px !important;">{{
+                                                     <td class="" style="width:30px !important;">S/N</td>
+                                                     <td class="desc"
+                                                         style="width: 10%  !important;text-align: right !important;
+                                                                 font-weight: bold;font-size: 10px !important;color: black;
+                                                                 background-color:
+										       <?php echo $background_color;?> !important;padding-right: 20px !important;">{{
                                 $serial->serial }}</td>
-                                                 <td class="total" style="background-color:
-									    <?php echo $background_color;?> !important;"></td>
-                                                 <td class="total" style="background-color:
-									    <?php echo $background_color;?> !important;"></td>
-                                                 <td class="total" style="background-color:
-									    <?php echo $background_color;?> !important;"></td>
-                                                 <td class="total" style="background-color:
-									    <?php echo $background_color;?> !important;"></td>
-                                                 <td class="total" style="background-color:
-									    <?php echo $background_color;?> !important;"></td>
-                                                 <td class="total" style="background-color:
-									    <?php echo $background_color;?> !important;"></td>
-                                             </tr>
+                                                     <td class="total" style="background-color:
+										   <?php echo $background_color;?> !important;"></td>
+                                                     <td class="total" style="background-color:
+										   <?php echo $background_color;?> !important;"></td>
+                                                     <td class="total" style="background-color:
+										   <?php echo $background_color;?> !important;"></td>
+                                                     <td class="total" style="background-color:
+										   <?php echo $background_color;?> !important;"></td>
+                                                     <td class="total" style="background-color:
+										   <?php echo $background_color;?> !important;"></td>
+                                                     <td class="total" style="background-color:
+										   <?php echo $background_color;?> !important;"></td>
+                                                 </tr>
 
-                                         @endforeach
+                                             @endforeach
+                                         @endif
                                      @endif
                                  @endif
                                  @endforeach
 
-                             @endif
+
+                            @endif
 
                     </tbody>
                 </table>
