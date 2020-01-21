@@ -69,8 +69,6 @@
 				$invoice->addItemsToBaseInvoice($this->input('items'));
 				$this->toGetAndUpdatedAmounts($invoice);
 				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),$this->input("methods"),[]);
-				
-				
 				$this->deleteQuotationAfterCloneIt();
 				DB::commit();
 				return $invoice->fresh();

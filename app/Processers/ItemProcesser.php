@@ -52,6 +52,7 @@
 				}elseif ($history['invoice_type'] == 'r_sale'){
 					$profit -= $history['price'] - $history['cost'] - $history['discount'];
 					$result = $this->handleReturnSaleHistory($history,$cost,$stock_value,$stock_qty);
+					
 				}elseif ($history['invoice_type'] == 'r_purchase'){
 					$result = $this->handleReturnPurchaseHistory($history,$cost,$stock_value,$stock_qty);
 				}elseif ($history['invoice_type'] == 'sale'){
@@ -93,6 +94,7 @@
 			
 			$result['current_move_stock_qty'] = $stock_qty + $history['qty'];
 			$result['current_move_stock_total'] = $stock_value + $history['total'];
+			
 			if ($result['current_move_stock_qty'] > 0)
 				$result['current_move_stock_cost'] = $result['current_move_stock_total'] / $result['current_move_stock_qty'];
 			
@@ -100,7 +102,8 @@
 				$result['current_move_stock_cost'] = 0;
 			
 			
-			$result['final_stock_total'] = $result['current_move_stock_total'];
+			
+			$result['final_stock_total'] = $result['current_move_stock_total'] ;
 			$result['final_stock_cost'] = $result['current_move_stock_cost'];
 			$result['final_stock_qty'] = $result['current_move_stock_qty'];
 			
@@ -219,6 +222,7 @@
 			
 			
 			$history['final_stock_cost'] = $history['current_move_stock_cost'];
+			$history['final_stock_total'] = $history['current_move_stock_total'];
 			$history['final_stock_qty'] = $history['current_move_stock_qty'];
 			
 			return $history;

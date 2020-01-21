@@ -6,11 +6,77 @@
 	
 	use App\Core\MathCore;
 	use App\Invoice;
+	use App\Item;
 	
 	trait CostAccounting
 	{
 		
 		use ExpensesAccounting;
+		
+		/**
+		 * @param Item $item
+		 */
+		public function toGetItemCostTransactionHistoryList(Item $item)
+		{
+//			$histories = $item->history()->where('invoice_type','!=','quotation')->with('invoice','user','creator')->get();
+//			$cost = 0;
+//			$stock_value = 0;
+//			$stock_qty = 0;
+//			$profit = 0;
+//			$movement = [];
+//			foreach ($histories as $history){
+//
+//				$result = [
+//					'cost' => $cost,
+//					'stock_value' => $stock_value,
+//					'stock_qty' => $stock_qty,
+//				];
+//
+//
+//				$history['description'] = "";
+//				$history['invoice_url'] = $history['urls']['invoice_url'];
+//				$history['invoice_title'] = $history['urls']['invoice_title'];
+//
+//
+////				return 1;
+////				return $history;
+//				if ($history['qty'] > 0){
+//					$history['price'] = $history['total'] / $history['qty'];
+//				}
+//
+//
+//				if (in_array($history['invoice_type'],['purchase','beginning_inventory'])){
+//					$result = $this->handlePurchaseHistory($history,$stock_value,$stock_qty);
+//				}elseif ($history['invoice_type'] == 'r_sale'){
+//					$profit -= $history['price'] - $history['cost'] - $history['discount'];
+//					$result = $this->handleReturnSaleHistory($history,$cost,$stock_value,$stock_qty);
+//				}elseif ($history['invoice_type'] == 'r_purchase'){
+//					$result = $this->handleReturnPurchaseHistory($history,$cost,$stock_value,$stock_qty);
+//				}elseif ($history['invoice_type'] == 'sale'){
+//
+//					$profit += $history['price'] - $history['cost'] - $history['discount'];
+//					$result = $this->handleSaleHistory($history,$cost,$stock_value,$stock_qty);
+//				}
+//
+//
+//				$cost = $result['final_stock_cost'];
+//				$stock_value = $result['final_stock_total'];
+//				$stock_qty = $result['final_stock_qty'];
+//				$movement['data'][] = $result;
+//
+//			}
+//
+//
+//			$movement['stock_value'] = $cost * $stock_qty;
+//			$movement['cost'] = $cost;
+//			$movement['stock_qty'] = $stock_qty;
+//			$movement['profits'] = $profit;
+//
+//
+//			$this->update_item_cost($cost,$stock_qty);
+//
+//			return $movement;
+		}
 		
 		/**
 		 * @param $incItem
@@ -261,7 +327,7 @@
 			$incItemTransaction['total_cost'] = $cost * $incItemTransaction['qty'];
 			
 			if ($incItemTransaction['discount'] > 0){
-				$incItemTransaction = $this->toGetSalesReturnDiscountCost($incItemTransaction);
+				$incItemTransaction = $this->toGetPurchasesReturnDiscountCost($incItemTransaction);
 			}
 			
 			

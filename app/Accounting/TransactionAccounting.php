@@ -826,6 +826,8 @@
 		{
 			if ($incItem->item->is_service && $incItem->item->is_kit)
 				return;
+			
+			
 			$creator_stock = auth()->user()->toGetManagerAccount('stock');
 			if (in_array($inc->invoice_type,['purchase','beginning_inventory'])){
 				$incItem->item->debit_transaction()->create([

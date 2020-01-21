@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
+	use App\Accounting\CostAccounting;
 	use App\Category;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Item\ActivateItemsRequest;
@@ -23,6 +24,7 @@
 	class ItemController extends Controller
 	{
 		
+		use CostAccounting;
 		/**
 		 * ItemController constructor.
 		 */
