@@ -42,7 +42,6 @@ exports.db = {
 
             return false;
         },
-
         find: function (arr, id) {
             let len = arr.length;
             for (var i = 0; i < len; i++) {
@@ -52,8 +51,6 @@ exports.db = {
             }
             return null;
         },
-
-
         findByIndex: function (arr, index) {
             var len = arr.length;
             for (var i = 0; i < len; i++) {
@@ -130,7 +127,6 @@ exports.db = {
             }
             return result;
         },
-
         update: function (arr, index, col, value) {
             arr[index][col] = value;
             return arr;
@@ -144,6 +140,17 @@ exports.db = {
                 let item = arr[i];
                 for (let x = 0; x < colLen; x++) {
                     result = itemWork.validator.validateAmount(item[cols[x]]);
+                }
+            }
+
+            return result;
+        },
+        search: function (arr, userValue) {
+            let result = [];
+            let len = arr.length;
+            for (let i = 0; i < len; i++) {
+                if (String(arr[i].name_en).search(userValue)!==-1 || String(arr[i].name).search(userValue)!==-1 || String(arr[i].ar_name).search(userValue)!==-1 || String(arr[i].name_ar).search(userValue)!==-1) {
+                    result.push(arr[i]);
                 }
             }
 

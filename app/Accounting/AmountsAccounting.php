@@ -6,9 +6,27 @@
 	
 	use App\Invoice;
 	use App\InvoiceItems;
+	use App\Item;
 	
 	trait AmountsAccounting
 	{
+		
+		/**
+		 * @param InvoiceItems $item
+		 * @param $returnedQty
+		 *
+		 * @return mixed
+		 */
+		public function toGetAmountsForReturnedQty(InvoiceItems $item,$returnedQty)
+		{
+			$result['price'] = $item->getOriginal('price');
+			$result['discount'] = $item->getOriginal('discount') * $returnedQty / $item->qty;
+			$result['total'] = $item->getOriginal('total') * $returnedQty / $item->qty;
+			$result['subtotal'] = $item->getOriginal('subtotal') * $returnedQty / $item->qty;
+			$result['net'] = $item->getOriginal('net') * $returnedQty / $item->qty;
+			$result['tax'] = $item->getOriginal('tax') * $returnedQty / $item->qty;
+			return $result;
+		}
 		
 		/**
 		 * @param Invoice $inc

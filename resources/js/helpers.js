@@ -1,15 +1,14 @@
-var helpers = {
+let helpers = {
 
 
-    isNumber(number)
-    {
-      return parseFloat(number)  != "NaN" && parseFloat(number) != NaN;
+    isNumber(number) {
+        return parseFloat(number) != "NaN" && parseFloat(number) != NaN;
     },
     convertEnToArabicNumber(en) {
-        var response = [];
-        var en_arr = en.split('');
-        for (var i = 0; i < en_arr.length; i++) {
-            var num = en_arr[i];
+        let response = [];
+        let en_arr = en.split('');
+        for (let i = 0; i < en_arr.length; i++) {
+            let num = en_arr[i];
 
             if (num == 0) {
                 response.push('٠');
@@ -43,39 +42,41 @@ var helpers = {
     }
     ,
     searchInArrayByArOrEnName(name, arr) {
-        var result = [];
+        let result = [];
 
 
-        var len = arr.length, str = name.toLowerCase();
-        for (var i = 0; i < len; i++) {
-            // console.log(arr[i].name.toLowerCase());
-            // console.log(name.toLowerCase());
-            if (arr[i].name.toLowerCase().match(str) || arr[i].ar_name.toLowerCase().match(str)) {
+
+
+        let len = arr.length, str = String(name).toLowerCase();
+        let myReg = new RegExp(str);
+        for (let i = 0; i < len; i++) {
+
+            if (String(arr[i].name).toLowerCase().match(myReg) || String(arr[i].ar_name).toLowerCase().match(myReg)) {
                 result.push(arr[i]);
+                console.log(arr[i].ar_name)
             }
         }
 
-        console.log(result);
         return result;
     }
     ,
     getFullDateAndTime() {
-        var today = new Date();
-        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let today = new Date();
+        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         return date.toString();
     },
 
     getColumnSumationFromArrayOfObjects(arr = [], column) {
-        var sum = 0;
-        for (var i = arr.length - 1; i >= 0; i--) {
+        let sum = 0;
+        for (let i = arr.length - 1; i >= 0; i--) {
             sum = parseFloat(sum) + parseFloat(arr[i][column]);
         }
 
-        if(column=="net")
+        if (column == "net")
             return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(sum);
 
-        return  sum;
-        return  helpers.showOnlyTwoAfterComma(sum);
+        return sum;
+        return helpers.showOnlyTwoAfterComma(sum);
 
 
     },
@@ -88,14 +89,13 @@ var helpers = {
 
 
     showOnlyTwoAfterComma(val) {
-        var num = val;
-        var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,4})?/)[0];
+        let num = val;
+        let with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,4})?/)[0];
 
 
         return with2Decimals;
 
     },
-
 
 
     generateRandomNumberWithSize: function () {
@@ -107,16 +107,16 @@ var helpers = {
 
 
     getDataFromArrayById(arr = [], id) {
-        var len = arr.length;
-        for (var i = 0; i < len; i++) {
+        let len = arr.length;
+        for (let i = 0; i < len; i++) {
             if (parseInt(arr[i].id) == parseInt(id)) {
                 return arr[i];
             }
         }
     },
     getItemIndex(arr = [], item) {
-        var len = arr.length;
-        for (var i = 0; i < len; i++) {
+        let len = arr.length;
+        for (let i = 0; i < len; i++) {
             if (arr[i] == item) {
                 return i;
             }

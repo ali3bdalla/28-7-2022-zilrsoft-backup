@@ -4,6 +4,7 @@
 	namespace App\Core;
 	
 	
+	use App\Accounting\AmountsAccounting;
 	use App\Accounting\CostAccounting;
 	use App\Accounting\ItemAccounting;
 	use App\Accounting\KitAccounting;
@@ -13,7 +14,7 @@
 	
 	trait CoreIncItem
 	{
-		use QtyTransactionAccounting,SerialTransactionAccounting,CostAccounting,TransactionAccounting;
+		use QtyTransactionAccounting,SerialTransactionAccounting,CostAccounting,TransactionAccounting,AmountsAccounting;
 		
 		/**
 		 * @param $userData
@@ -68,11 +69,13 @@
 			$vat = $inc->invoice_type == 'r_sale' ? $this->item->vts : $this->item->vtp;
 			$mathCore = new MathCore();
 			if (!$this->belong_to_kit){
-				$accountingAmounts = $mathCore->accountingAmount($qty,$data['price'],$data['discount'],$vat);
+				$accountingAmounts = $this->toGetAmountsForReturnedQty($this->fresh(),$qty);
+//				$accountingAmounts = $mathCore->accountingAmount($qty,$data['price'],$data['discount'],$vat);
 				foreach ($accountingAmounts as $key => $value){
 					$data[$key] = $value;
 				}
 			}else{
+				
 				$data['total'] = $userData['total'];
 				$data['subtotal'] = $userData['subtotal'];
 				$data['net'] = $userData['net'];
@@ -98,5 +101,8 @@
 			$this->toUpdateInvoiceItemReturnedQty($this->fresh(),$qty);
 			return $baseItem;
 		}
+		
+		
+		
 		
 	}

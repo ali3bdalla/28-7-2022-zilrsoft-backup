@@ -222,7 +222,7 @@
 			
 			
 			$history['final_stock_cost'] = $history['current_move_stock_cost'];
-			$history['final_stock_total'] = $history['current_move_stock_total'];
+			$history['final_stock_total'] = $history['final_stock_cost'] * $history['current_move_stock_qty'];
 			$history['final_stock_qty'] = $history['current_move_stock_qty'];
 			
 			return $history;

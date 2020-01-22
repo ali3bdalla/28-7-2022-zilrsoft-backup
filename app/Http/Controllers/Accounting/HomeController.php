@@ -19,25 +19,15 @@
 		 */
 		public function index()
 		{
-//			$items = Item::all();
-//			$prices = [];
+			
+//			$items = Item::take(10)->get();
+//			$list = [];
 //			foreach ($items as $item)
 //			{
-//				if($item->price_with_tax!=null && $item->price_with_tax>0)
-//				{
-//
-//					$price = $item->price_with_tax / (1 + ($item->vts/100));
-//					$item->update([
-//						'price' => $price
-//					]);
-//					$prices[] =[
-//						$item->price_with_tax,
-//						$item->price,
-//					];
-//				}
-//
+////
+//				$list[] = $item->getOriginal('price');
 //			}
-//			return  $prices;
+//			return  $list;
 			return view('accounting.dashboard.index');
 		}
 		

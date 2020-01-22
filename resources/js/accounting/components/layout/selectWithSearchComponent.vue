@@ -39,7 +39,7 @@
     export default {
         props: ["options", "default", 'index', 'placeholder', 'identity', 'title', 'label_text',
             'title_class', 'no_all_option',
-            'defaultIndex', 'helperValue','default_id'],
+            'defaultIndex', 'helperValue', 'default_id'],
         data: function () {
             return {
                 emptyObject: {
@@ -56,7 +56,7 @@
 
         },
         mounted: function () {
-            if(this.defaultIndex!=null)
+            if (this.defaultIndex != null)
                 this.someoneUpdateId(this.defaultIndex);
         },
         created: function () {
@@ -90,7 +90,7 @@
             },
 
             someoneUpdateId(id) {
-                let item =db.model.find(this.items, id);
+                let item = db.model.find(this.items, id);
                 if (item != null) {
                     this.valueUpdated(item);
                 }
@@ -111,14 +111,12 @@
                 this.hideList();
             },
             //
-            //
 
-
-            searchOnList() {
-                if (this.search == '') {
+            searchOnList: function (e) {
+                if (e.target.value === "" || e.target.value == null) {
                     this.items = this.options;
                 } else {
-                    this.items = helpers.searchInArrayByArOrEnName(this.search, this.options);
+                    this.items = db.model.search(this.options,e.target.value);
                 }
             },
 
