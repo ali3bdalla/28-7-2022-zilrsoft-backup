@@ -104,6 +104,10 @@
 				$query = $query->whereIn('creator_id',$this->input("creators"));
 			}
 			
+			if ($this->has('departments') && $this->filled('departments')){
+				$query = $query->whereIn('department_id',$this->input("departments"));
+			}
+			
 			
 			if ($this->has('clients') && $this->filled('clients')){
 				$ids = SaleInvoice::whereIn('client_id',$this->input("clients"))->get()->pluck('invoice_id');

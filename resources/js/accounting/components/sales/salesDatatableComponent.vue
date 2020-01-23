@@ -119,6 +119,21 @@
                                    type="text" v-model="filters.tax">
                         </div>
 
+                        <div class="col-md-3" v-if="canViewAccounting==1">
+                            <accounting-multi-select-with-search-layout-component
+                                    :options="departments"
+                                    :placeholder="app.trans.department"
+                                    :title="app.trans.department"
+                                    @valueUpdated="departmentListUpdated"
+                                    default="0"
+                                    identity="000000005"
+                                    label_text="locale_title"
+
+                            >
+
+                            </accounting-multi-select-with-search-layout-component>
+
+                        </div>
 
                     </div>
 
@@ -393,6 +408,7 @@
             "canCreate",
             "creators",
             "clients",
+            "departments"
         ],
         data: function () {
             return {
@@ -437,6 +453,7 @@
                     clients: null,
                     creators: null,
                     creator_id: null,
+                    departments: [],
                     net: null,
                     total: null,
                     tax: null,
@@ -646,6 +663,13 @@
             clientListUpdated(e) {
 
                 this.filters.clients = db.model.pluck(e.items, 'id');
+                this.pushServerRequest();
+            },
+
+
+            departmentListUpdated(e) {
+
+                this.filters.departments = db.model.pluck(e.items, 'id');
                 this.pushServerRequest();
             },
 
