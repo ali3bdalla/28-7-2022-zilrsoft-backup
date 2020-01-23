@@ -742,11 +742,11 @@
                 if (this.editingKit) {
                     this.sendUpdateRequest();
                 } else {
-                    this.sendDataToServer(e.event);
+                    this.sendCreationRequest(e.event);
                 }
 
             },
-
+ 
 
             showFinishTableMessage(event, id) {
 
