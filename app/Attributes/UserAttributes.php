@@ -9,6 +9,16 @@
 	{
 		
 		
+		// start 2 am , 10 pm
+		public function timeTable($start,$end,$duration)
+		{
+			$parsedAm = Carbon::parse($start);
+			
+			
+		}
+		
+		
+		
 		public function getCreatedAtAttribute($value)
 		{
 			return Carbon::parse($value)->toDateString();

@@ -228,6 +228,7 @@
                 <div class="col-md-9">
                     <accounting-invoice-embedded-payments-gateway-layout
                             :gateways="gateways"
+                            v-if="invoice.invoice_type!=='beginning_inventory'"
                             :net-amount="invoiceData.net"
                             @updateGatewaysAmounts="updateGatewaysAmounts"
                             invoice-type="return_sale"
@@ -240,6 +241,7 @@
 
 
         <accounting-return-item-serials-list-layout-component
+                v-if="invoice.invoice_type!=='beginning_inventory'"
                 :item="selectedItem"
                 :item-index="selectedItemIndex"
                 @panelClosed="handleItemSerialsClosed"
@@ -322,6 +324,7 @@
                 let len = this.items.length;
                 for (let i = 0; i < len; i++) {
                     let item = this.items[i];
+
                     item.is_expense = item.item.is_expense;
                     item.is_need_serial = item.item.is_need_serial;
                     item.locale_name = item.item.locale_name;
@@ -335,6 +338,11 @@
                     item.subtotal = 0;
                     item.net = 0;
                     item.tax = 0;
+                    if(this.invoice.invoice_type==='beginning_inventory')
+                    {
+                        item.vtp = 0;
+                        item.vts = 0;
+                    }
                     this.invoiceData.items.push(item);
                 }
             },
@@ -598,11 +606,14 @@
 
                 // console.log(this.invoiceData.items);
 
-                console.log(data);
-                axios.put(this.app.BaseApiUrl + 'purchases/' + invoice.id, data)
+                let request_url = this.app.BaseApiUrl + 'purchases/' + invoice.id;
+                if(this.invoice.invoice_type==='beginning_inventory')
+                {
+                    request_url = this.app.BaseApiUrl + 'inventories/beginning/' + invoice.id;
+                }
+                axios.put(request_url, data)
                     .then(function (response) {
                         console.log(response.data);
-
 
                         if (doWork == 'open') {
                             window.location.href = appVm.app.BaseApiUrl + 'purchases/' + response.data.id;

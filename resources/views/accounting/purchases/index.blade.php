@@ -26,6 +26,7 @@
     <accounting-purchases-datatable-component
             :creators='@json($creators)'
             :vendors='@json($vendors)'
+            :departments='@json(\App\Department::all())'
             :can-edit="{{ auth()->user()->canDo('edit purchase') }}"
     >
 

@@ -162,9 +162,11 @@
 			Route::prefix('beginning')->name('beginning.')->group(function (){
 				Route::get('/','InventoryController@beginning_index')->name('index');
 				Route::get('/create','InventoryController@beginning_create')->name('create');
+//				Route::get('{beginning}/edit','InventoryController@beginning_edit')->name('edit');
 				Route::post('/store','InventoryController@beginning_store')->name('store');
 				Route::delete('{beginning}','InventoryController@beginning_destroy')->name('destroy');
 				Route::get('{beginning}/force_delete','InventoryController@beginning_destroy')->name('delete');
+				Route::put('{beginning}','InventoryController@beginning_return')->name('return');
 			});
 			
 		});

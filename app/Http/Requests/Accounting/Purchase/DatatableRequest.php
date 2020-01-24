@@ -61,6 +61,10 @@
 			}
 			
 			
+			if ($this->has('departments') && $this->filled('departments')){
+				$query = $query->whereIn('department_id',$this->input("departments"));
+			}
+			
 			if ($this->has('vendors') && $this->filled('vendors')){
 				$ids = PurchaseInvoice::whereIn('vendor_id',$this->input("vendors"))->get()->pluck('invoice_id');
 //				return $ids;

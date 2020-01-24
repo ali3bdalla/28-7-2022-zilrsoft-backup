@@ -5,6 +5,7 @@
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Inventory\CreateBeginningRequest;
 	use App\Http\Requests\Accounting\Inventory\DatatableBeginningRequest;
+	use App\Http\Requests\Accounting\Inventory\ReturnBeginningRequest;
 	use App\Invoice;
 	use App\InvoicePayments;
 	use App\Payment;
@@ -61,6 +62,23 @@
 			
 		}
 		
+//
+//		/**
+//		 * @return Factory|View
+//		 */
+//		public function beginning_edit(Invoice $beginning)
+//		{
+//			return $beginning;
+////			$user = User::where([
+////				['user_slug','beginning-inventory'],
+////				['is_system_user',true]
+////			])->first();
+////
+////			$creator = auth()->user()->with('department','branch')->first();
+////			return view('accounting.inventories.beginning.create',compact('user','creator'));
+//
+//		}
+//
 		/**
 		 * @param CreateBeginningRequest $request
 		 *
@@ -181,6 +199,16 @@
 			}catch (Exception $exception){
 				DB::rollBack();
 			}
+		}
+		
+		/**
+		 * @param ReturnBeginningRequest $request
+		 *
+		 * @return array
+		 */
+		public function beginning_return(ReturnBeginningRequest $request,Invoice $beginning)
+		{
+			return $request->makeReturn($beginning);
 		}
 		
 	}

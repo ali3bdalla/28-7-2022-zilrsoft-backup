@@ -80,6 +80,22 @@
                                    class="form-control"
                                    type="text" v-model="filters.tax">
                         </div>
+
+                        <div class="col-md-3">
+                            <accounting-multi-select-with-search-layout-component
+                                    :options="departments"
+                                    :placeholder="app.trans.department"
+                                    :title="app.trans.department"
+                                    @valueUpdated="departmentListUpdated"
+                                    default="0"
+                                    identity="000000005"
+                                    label_text="locale_title"
+
+                            >
+
+                            </accounting-multi-select-with-search-layout-component>
+
+                        </div>
                     </div>
 
                 </div>
@@ -219,6 +235,7 @@
             "canCreate",
             "creators",
             "vendors",
+            "departments"
         ],
         data: function () {
             return {
@@ -252,6 +269,7 @@
                     startDate: null,
                     title: null,
                     vendors: null,
+                    departments: null,
                     creators: null,
                     creator_id: null,
                     received_by: null,
@@ -387,6 +405,11 @@
                 this.showMultiTaskButtons = showButtons;
             },
 
+            departmentListUpdated(e) {
+
+                this.filters.departments = db.model.pluck(e.items, 'id');
+                this.pushServerRequest();
+            },
             openOrCloseSearchPanel() {
                 this.isOpenSearchPanel = !this.isOpenSearchPanel;
             },
