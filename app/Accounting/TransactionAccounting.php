@@ -65,6 +65,36 @@
 			return empty($lastInvoice) ? Carbon::today()->subMonths(12)->toDateTimeString() : $lastInvoice->created_at;
 		}
 		
+		public function toGetLastManagerTransferRemainingAmount()
+		{
+			$dailyAccount = Account::where([
+				['slug','temp_reseller_account'],
+				['is_system_account',true],
+			])->first();
+			
+			$lastTransferRemainingAmount = 0;
+			
+			$lastAccountCloseTransaction = auth()->user()->private_transactoins()->where([
+				['creator_id',auth()->user()->id],
+			
+			])->orderBy('id','desc')->first();
+
+
+//			return $dailyAccount->debit_transaction;
+			
+			if (!empty($lastAccountCloseTransaction) && $lastAccountCloseTransaction->transaction_type == "transfer"){
+				$lastDebit = $dailyAccount->debit_transaction()->where([
+					['container_id',$lastAccountCloseTransaction->transaction_container_id]
+				])->first();
+				if (!empty($lastDebit)){
+					$lastTransferRemainingAmount = $lastDebit->amount;
+				}
+			}
+			
+			
+			return $lastTransferRemainingAmount;
+		}
+		
 		/**
 		 * @param Invoice $inc
 		 * @param array $items
@@ -755,7 +785,7 @@
 					'description' => 'to_services_sales',
 				]);
 			}
-
+			
 			if ($other_services_sales_total > 0){
 				$manager_other_services_sales_return_account->debit_transaction()->create([
 					'creator_id' => auth()->user()->id,

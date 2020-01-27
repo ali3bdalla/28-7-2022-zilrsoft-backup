@@ -10,7 +10,7 @@
 	{
 		/**
 		 * @param $inc
-		 * @param $method
+		 * @param $amount
 		 * @param $payment_type
 		 * @param $gateway
 		 */

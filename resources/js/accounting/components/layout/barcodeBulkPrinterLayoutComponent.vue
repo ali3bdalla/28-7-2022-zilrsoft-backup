@@ -91,7 +91,6 @@
             this.connectQZ();
 
         },
-
         mounted: function () {
             this.generatedData();
         },
@@ -302,21 +301,22 @@
                 for (let i = 0; i < this.itemsList.length; i++) {
                     let generatedItem = this.itemsGeneratedImage[i];
                     let actItem = this.itemsList[i];
+                    //
+                    // if (i > 0) {
+                    //     data.push(
+                    //         '\nN\n' +
+                    //         'A180,20,0,2,1,1,N, \n' +
+                    //         'A200,50,0,4,1,1,N, \n' +
+                    //         'B200,100,0,1A,1,2,30,B, \n' +
+                    //         '\nP1\n'
+                    //     );
+                    // }
 
-                    if (i > 0) {
-                        data.push(
-                            '\nN\n' +
-                            'A180,20,0,2,1,1,N, \n' +
-                            'A200,50,0,4,1,1,N, \n' +
-                            'B200,100,0,1A,1,2,30,B, \n' +
-                            '\nP1\n'
-                        );
-                    }
 
                     for (let i = 0; i < actItem.qty; i++) {
 
                         data.push(
-                            '\nN\n',
+                            '\n',
                             {
                                 type: 'raw', format: 'image', data: generatedItem,
                                 options: {language: 'EPL', y: 0, x: 170}
@@ -324,7 +324,7 @@
                             '\nP1,1\n'
                         );
 
-                        // console.log(actItem.barcode);
+                        console.log(data);
                     }
 
                 }

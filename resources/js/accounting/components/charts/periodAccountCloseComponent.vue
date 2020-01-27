@@ -4,21 +4,37 @@
 
             <div class="panel-body">
                 <div class="row  text-center">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="panel panel-default">
-                            <div class="panel-heading">اجمالي المبيعات</div>
-                            <div class="panel-body"><strong>{{ periodSalesAmount}}</strong></div>
+                            <div class="panel-heading">رصيد سابق</div>
+                            <div class="panel-body"><strong>{{ lastRemainingTransfer}}</strong></div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+
+                    <div class="col-md-3">
                         <div class="panel panel-default">
-                            <div class="panel-heading">مجموع المبلغ</div>
+                            <div class="panel-heading"> اجمالي الفواتير</div>
+                            <div class="panel-body"><strong>{{ parseFloat(periodSalesAmount).toFixed(2)-
+                                parseFloat(lastRemainingTransfer).toFixed(2)}}</strong></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">المجموع </div>
+                            <div
+                                    class="panel-body"><strong>{{ parseFloat(periodSalesAmount).toFixed(2)}}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">المدفوع </div>
                             <div
                                     class="panel-body"><strong>{{ parseFloat(totalGatewaysAmount).toFixed(2)}}</strong>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="panel panel-default">
                             <div class="panel-heading">عجز الفترة</div>
                             <div class="panel-body"><strong>{{ parseFloat(totalGatewaysAmount -
@@ -89,7 +105,7 @@
 </template>
 <script>
     export default {
-        props: ["periodSalesAmount", 'gateways'],
+        props: ["periodSalesAmount", 'gateways',"lastRemainingTransfer"],
         data: function () {
             return {
                 disabledRemainingAmount: true,

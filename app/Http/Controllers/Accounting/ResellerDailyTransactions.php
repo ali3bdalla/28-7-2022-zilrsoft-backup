@@ -2,12 +2,14 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
+	use App\Account;
 	use App\Accounting\TransactionAccounting;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Charts\PeriodCloseAccoundRequest;
 	use App\Http\Requests\Accounting\ResellerDaily\TransferAmountsRequest;
 	use App\Manager;
 	use App\ManagerPrivateTransactions;
+	use App\Transaction;
 	use Illuminate\Contracts\View\Factory;
 	use Illuminate\Http\Request;
 	use Illuminate\View\View;
@@ -48,6 +50,7 @@
 			
 			return view('accounting.reseller_daily.tranfers_list',compact('managerCloseAccountList'));
 		}
+		
 		/**
 		 * @param Request $request
 		 *
@@ -55,12 +58,11 @@
 		 */
 		public function account_close(Request $request)
 		{
-			
-			$startAt = $this->toGetFirstSaleInvoiceDateAfterLastAccountClose();
-			$periodSalesAmount = $request->user()->dailyTransactionsAmount($startAt);
-			
+			$lastRemainingTransferAmount = $this->toGetLastManagerTransferRemainingAmount();
+			$periodSalesAmount = $request->user()->dailyTransactionsAmount();
+//			return $lastRemainingTransferAmount;
 			$gateways = $request->user()->gateways()->get();
-			return view('accounting.reseller_daily.account_close',compact('periodSalesAmount','gateways'));
+			return view('accounting.reseller_daily.account_close',compact('periodSalesAmount','gateways','lastRemainingTransferAmount'));
 		}
 		
 		/**
@@ -82,9 +84,9 @@
 			$managers = Manager::where('id','!=',$request->user()->id)->with('gateways')->get();
 //
 
-			
+
 //			return $manager_gateways;
- 
+			
 			
 			$gateways = [];
 			foreach ($managers as $manager){
@@ -97,7 +99,7 @@
 					
 				}
 			}
-			
+
 //			re
 			
 			return view('accounting.reseller_daily.transfer_amounts',compact('gateways','manager_gateways'));
