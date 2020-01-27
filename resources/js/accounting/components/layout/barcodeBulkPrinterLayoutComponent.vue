@@ -324,7 +324,7 @@
                             '\nP1,1\n'
                         );
 
-                        console.log(data);
+                        // console.log(data);
                     }
 
                 }
