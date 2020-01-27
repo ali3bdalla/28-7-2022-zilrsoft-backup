@@ -316,7 +316,7 @@
                     for (let i = 0; i < actItem.qty; i++) {
 
                         data.push(
-                            '\n',
+                            '\nN\n',
                             {
                                 type: 'raw', format: 'image', data: generatedItem,
                                 options: {language: 'EPL', y: 0, x: 170}
@@ -324,7 +324,7 @@
                             '\nP1,1\n'
                         );
 
-                        // console.log(data);
+                        // console.log();
                     }
 
                 }
