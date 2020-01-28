@@ -60,8 +60,8 @@
 				['creator_id',$manager->id],
 				['created_at',">",$startTransactionDate],
 			])->first();
-			
-			
+
+
 //			dd($lastInvoice);
 			return empty($lastInvoice) ? !empty($lastAccountCloseTransaction) ?
 				$lastAccountCloseTransaction->created_at : Carbon::now()->subMonths(12) : $lastInvoice->created_at;
@@ -243,10 +243,17 @@
 				}
 				$sum = $inc->expenses()->where('with_net',0)->sum('amount');
 				if ($sum > 0){
-					$manager_cash_account = $temp_reseller_account = Account::where([
-						['is_system_account',true],
-						['slug','temp_reseller_account'],
+					$manager_cash_account = auth()->user()->gateways()->where([
+						'is_gateway' => true
 					])->first();
+					
+					if (empty($manager_cash_account)){
+						$manager_cash_account = $temp_reseller_account = Account::where([
+							['is_system_account',true],
+							['slug','temp_reseller_account'],
+						])->first();
+					}
+					
 					$tax_account->debit_transaction()->create([
 						'creator_id' => auth()->user()->id,
 						'organization_id' => auth()->user()->organization_id,
