@@ -10,6 +10,7 @@
 	{
 		
 		use TransactionAccounting;
+		
 		/**
 		 * Determine if the user is authorized to make this request.
 		 *
@@ -79,14 +80,13 @@
 			
 			
 			if ($short_shortage_amount < 0){
-				$short_shortage_amount = $short_shortage_amount * -1;
-				$debit_total = $debit_total + $short_shortage_amount;
+				$debit_total = $debit_total + ($short_shortage_amount * -1);
 				$data = [];
 				$data['creator_id'] = auth()->user()->id;
 				$data['organization_id'] = auth()->user()->organization_id;
 				$data['debitable_id'] = $shifts_shortage_account->id;
 				$data['debitable_type'] = Account::class;
-				$data['amount'] = $short_shortage_amount;
+				$data['amount'] = $short_shortage_amount * -1;
 				$data['description'] = "close_account";
 				$container->transactions()->create($data);
 			}else{
@@ -128,7 +128,6 @@
 			
 			
 		}
-		
 		
 		/**
 		 * @return int|mixed

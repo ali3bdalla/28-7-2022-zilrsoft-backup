@@ -16,23 +16,41 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>نوع المعاملة</th>
+                    <th>رقم العملية</th>
                     <th>من</th>
                     <th>الى</th>
-                    <th>القيمة</th>
-                    <th>العجز</th>
+                    <th>المبلغ المفترض</th>
+                    <th>المبلغ الفعلي</th>
+                    <th>الفرق</th>
                 </tr>
                 </thead>
 
                 @foreach($managerCloseAccountList as $transaction)
                     <tbody>
                     {{--                    @if($transaction['transaction_type']=='close_account')--}}
-                    <tr class="warning">
-                        <td>تقفيل الحساب</td>
+                    <tr class="">
+                        <td>CSH-{{ $transaction->id }}</td>
                         <td>{{ $transaction->close_account_start_date }}</td>
                         <td>{{ $transaction->close_account_end_date }}</td>
                         <td>{{ money_format("%i",$transaction->amount) }}</td>
-                        <td>{{ money_format("%i",$transaction->shortage_amount) }}</td>
+                        @if($transaction->shortage_amount<0)
+                            <td>{{ money_format("%i",($transaction->amount - abs( $transaction->shortage_amount ))) }}</td>
+
+                        @else
+                            <td>{{ money_format("%i",($transaction->amount + abs( $transaction->shortage_amount )))
+                            }}</td>
+
+                        @endif
+                        <td>
+                            @if($transaction->shortage_amount>0)
+                                <span class="text-green">{{ money_format("%i",$transaction->shortage_amount) }}</span>
+                            @elseif($transaction->shortage_amount<0)
+                                <span class="text-danger">{{ money_format("%i",$transaction->shortage_amount) }}</span>
+                            @else
+                                {{ money_format("%i",$transaction->shortage_amount) }}
+
+                            @endif
+                        </td>
                     </tr>
 
                     {{--                    @else--}}
@@ -51,30 +69,30 @@
                     {{--                            </td>--}}
                     {{--                        </tr>--}}
                     {{--                    @endif--}}
-                    @foreach($transaction->container->transactions as $transaction)
+                    {{--                    @foreach($transaction->container->transactions as $transaction)--}}
 
-                        @if($transaction->amount>0)
-                            @if($transaction->debitable_type=="")
-                                <tr>
-                                    <td>{{ $transaction->creditable->locale_name }} </td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-{{ $transaction->amount }}</td>
-                                    <td></td>
-                                </tr>
-                            @else
-                                <tr>
-                                    <td>{{ $transaction->debitable->locale_name }} </td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>+{{ $transaction->amount }}</td>
-                                    <td></td>
-                                </tr>
-                            @endif
+                    {{--                        @if($transaction->amount>0)--}}
+                    {{--                            @if($transaction->debitable_type=="")--}}
+                    {{--                                <tr>--}}
+                    {{--                                    <td>{{ $transaction->creditable->locale_name }} </td>--}}
+                    {{--                                    <td>-</td>--}}
+                    {{--                                    <td>-</td>--}}
+                    {{--                                    <td>-{{ $transaction->amount }}</td>--}}
+                    {{--                                    <td></td>--}}
+                    {{--                                </tr>--}}
+                    {{--                            @else--}}
+                    {{--                                <tr>--}}
+                    {{--                                    <td>{{ $transaction->debitable->locale_name }} </td>--}}
+                    {{--                                    <td>-</td>--}}
+                    {{--                                    <td>-</td>--}}
+                    {{--                                    <td>+{{ $transaction->amount }}</td>--}}
+                    {{--                                    <td></td>--}}
+                    {{--                                </tr>--}}
+                    {{--                            @endif--}}
 
-                        @endif
+                    {{--                        @endif--}}
 
-                    @endforeach
+                    {{--                    @endforeach--}}
 
                     {{--                    --}}
                     {{--                    @if($transaction['transaction_type']=='close_account')--}}

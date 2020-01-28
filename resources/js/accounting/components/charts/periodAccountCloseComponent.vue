@@ -4,23 +4,23 @@
 
             <div class="panel-body">
                 <div class="row  text-center">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="panel panel-default">
-                            <div class="panel-heading">رصيد سابق</div>
+                            <div class="panel-heading">رصيد افتتاحي</div>
                             <div class="panel-body"><strong>{{ lastRemainingTransfer}}</strong></div>
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="panel panel-default">
-                            <div class="panel-heading"> اجمالي الفواتير</div>
+                            <div class="panel-heading"> مبلغ العمليات</div>
                             <div class="panel-body"><strong>{{ parseFloat(periodSalesAmount).toFixed(2)-
                                 parseFloat(lastRemainingTransfer).toFixed(2)}}</strong></div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="panel panel-default">
-                            <div class="panel-heading">المجموع </div>
+                            <div class="panel-heading">المبلغ المفترض</div>
                             <div
                                     class="panel-body"><strong>{{ parseFloat(periodSalesAmount).toFixed(2)}}</strong>
                             </div>
@@ -28,16 +28,19 @@
                     </div>
                     <div class="col-md-3">
                         <div class="panel panel-default">
-                            <div class="panel-heading">المدفوع </div>
+                            <div class="panel-heading">المبلغ الغعلي</div>
                             <div
                                     class="panel-body"><strong>{{ parseFloat(totalGatewaysAmount).toFixed(2)}}</strong>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="panel panel-default">
-                            <div class="panel-heading">عجز الفترة</div>
-                            <div class="panel-body"><strong>{{ parseFloat(totalGatewaysAmount -
+                            <div class="panel-heading">الفرق</div>
+                            <div class="panel-body"><strong :class="{'redValue':parseFloat(totalGatewaysAmount -
+                                periodSalesAmount).toFixed(2)<0,'greenValue':parseFloat(totalGatewaysAmount -
+                                periodSalesAmount).toFixed(2)>0}">{{
+                                parseFloat(totalGatewaysAmount -
                                 periodSalesAmount).toFixed(2)}}</strong></div>
                         </div>
                     </div>
@@ -105,7 +108,7 @@
 </template>
 <script>
     export default {
-        props: ["periodSalesAmount", 'gateways',"lastRemainingTransfer"],
+        props: ["periodSalesAmount", 'gateways', "lastRemainingTransfer"],
         data: function () {
             return {
                 disabledRemainingAmount: true,
@@ -137,6 +140,7 @@
                     remaining_amount: this.remainingAmount,
                     remaining_amount_account_id: this.remainingAmountAccountId
                 }).then(response => {
+                    // cmo
                     window.location = '/accounting/reseller_daily/account_close_list';
                 }).catch(error => {
                     console.log(error);
@@ -148,3 +152,13 @@
         }
     }
 </script>
+
+<style>
+    .redValue {
+        color: red !important;
+    }
+
+    .greenValue {
+        color: green !important;
+    }
+</style>
