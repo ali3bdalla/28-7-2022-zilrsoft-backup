@@ -99,9 +99,9 @@
                 for (let i = 0; i < this.items.length; i++) {
                     let item = this.items[i];
                     // if (item.item != null) {
-                        item.price_with_tax = item.item.price_with_tax;
-                        item.ar_name = item.item.ar_name;
-                        item.barcode = item.item.barcode;
+                    item.price_with_tax = item.item.price_with_tax;
+                    item.ar_name = item.item.ar_name;
+                    item.barcode = item.item.barcode;
                     // }else
                     //
                     // {
@@ -298,7 +298,8 @@
 
                 let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
                 let data = [];
-                for (let i = 0; i < this.itemsList.length; i++) {
+                let itemsLen = this.itemsList.length;
+                for (let i = 0; i < itemsLen; i++) {
                     let generatedItem = this.itemsGeneratedImage[i];
                     let actItem = this.itemsList[i];
                     //
@@ -311,9 +312,7 @@
                     //         '\nP1\n'
                     //     );
                     // }
-
-
-                    for (let i = 0; i < actItem.qty; i++) {
+                    for (let j = 0; j < actItem.qty; j++) {
 
                         data.push(
                             '\nN\n',
@@ -324,12 +323,10 @@
                             '\nP1,1\n'
                         );
 
-                        // console.log();
                     }
 
                 }
 
-                // console.log(data);
                 qz.print(config, data);
 
             },

@@ -135,11 +135,10 @@
                     appVm.image = dataUrl;
                     var DOM_img = document.createElement("img");
                     DOM_img.src = dataUrl;
-
                     document.getElementById("showGeneratedBarcodeImageId").appendChild(DOM_img);
-                    if (appVm.insideInvoice == true && appVm.print == true) {
-                        appVm.printBulkFile(dataUrl, barcode_count);
-                    }
+                    // if (appVm.insideInvoice == true && appVm.print == true) {
+                    //     appVm.printBulkFile(dataUrl, barcode_count);
+                    // }
                 })
                     .catch(function (error) {
                         console.log(error)
@@ -331,8 +330,7 @@
 
 
                 return response.join('');
-            }
-            ,
+            },
 
             chr(n) {
                 return String.fromCharCode(n);
@@ -344,13 +342,13 @@
                 let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
 
                 let data = [];
-                data.push(
-                    '\nN\n' +
-                    'A180,20,0,2,1,1,N, \n' +
-                    'A200,50,0,4,1,1,N, \n' +
-                    'B200,100,0,1A,1,2,30,B, \n' +
-                    '\nP1\n'
-                );
+                // data.push(
+                //     '\nN\n' +
+                //     'A180,20,0,2,1,1,N, \n' +
+                //     'A200,50,0,4,1,1,N, \n' +
+                //     'B200,100,0,1A,1,2,30,B, \n' +
+                //     '\nP1\n'
+                // );
 
 
                 for (let i = 0; i < this.number_of_barcode; i++) {
@@ -368,39 +366,39 @@
                 qz.print(config, data);
             },
 
-
-            printBulkFile(embededImage = null, Qty = null) {
-
-
-                // let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
-                //
-                // let barcode_count = Qty == null ? 0 : Qty;
-                //
-                // let data = [];
-                // data.push(
-                //     '\nN\n' +
-                //     'A180,20,0,2,1,1,N, \n' +
-                //     'A200,50,0,4,1,1,N, \n' +
-                //     'B200,100,0,1A,1,2,30,B, \n' +
-                //     '\nP1\n'
-                // );
-                //
-                //
-                // for (let i = 0; i < barcode_count; i++) {
-                //     data.push(
-                //         '\nN\n',
-                //         {
-                //             type: 'raw', format: 'image', data: embededImage,
-                //             options: {language: 'EPL', y: 0, x: 170}
-                //         },
-                //         '\nP1,1\n'
-                //     );
-                // }
-                //
-                //
-                // qz.print(config, data);
-                this.watcher = false;
-            },
+            //
+            // printBulkFile(embededImage = null, Qty = null) {
+            //
+            //
+            //     // let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
+            //     //
+            //     // let barcode_count = Qty == null ? 0 : Qty;
+            //     //
+            //     // let data = [];
+            //     // data.push(
+            //     //     '\nN\n' +
+            //     //     'A180,20,0,2,1,1,N, \n' +
+            //     //     'A200,50,0,4,1,1,N, \n' +
+            //     //     'B200,100,0,1A,1,2,30,B, \n' +
+            //     //     '\nP1\n'
+            //     // );
+            //     //
+            //     //
+            //     // for (let i = 0; i < barcode_count; i++) {
+            //     //     data.push(
+            //     //         '\nN\n',
+            //     //         {
+            //     //             type: 'raw', format: 'image', data: embededImage,
+            //     //             options: {language: 'EPL', y: 0, x: 170}
+            //     //         },
+            //     //         '\nP1,1\n'
+            //     //     );
+            //     // }
+            //     //
+            //     //
+            //     // qz.print(config, data);
+            //     this.watcher = false;
+            // },
 
             bulkPrintListener() {
 
