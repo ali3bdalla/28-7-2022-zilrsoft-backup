@@ -3,27 +3,22 @@
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/bmcmIgdtc0jlIOhabaFdQ6t1FcGd4qp6e25uDqbx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/storage/framework/views/1536026161f19b3182457c34ba7af6763cc9b489.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/1ec3d70dcd44b1742cb3d0d8be00fa95ce3680e2.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/storage/framework/views/2c7d99c57b1425817709171f55d8d3d345061ed8.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/storage/framework/views/2fb3ea4cf54f8238ed09e1139b52e3420bbeb2f3.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/storage/framework/views/3fb1a9262ce1bf40295adf5be15c2099249f1f43.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/storage/framework/views/422d2838e8ab2c0e363edf8165597ffb84cf884c.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/storage/framework/views/5a04dbed8452a9f21c1e91ff2c478e5d19a527b5.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/storage/framework/views/61d8f66d89d22175aae6fd22907f41bbbf9d4e28.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/7a04a828db645b9c160eef0c16272c1403395404.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/9b15e320395d4d8ed9c20b5f20ac6a23ea5c4cf1.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/9980a53dfea5e89dad59a668c4837c9814aea054.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/storage/framework/views/a5d7a317848a09b369a6d78d1a0d0e7fafa96016.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/ab38e2bba681f70fa0553fc5bda60d013e65c05c.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/afa3205641edc044aae2f4b9d00e55a49bdb1c04.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/storage/framework/views/b17f29b93e32d60ee0f52148ccda17238b85ec38.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-01-29.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/bd23c66aed668b51c954f520296817cff0ba0ca8.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/c389a98a2e7b7d04d8c6a26cf5623e65e8a67906.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Accounting/TransactionAccounting.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Accounting/TransactionAccounting.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/YAk9yrUKnTnRFkcLWEfJkYrQK4HkFm7y0PMGxPAx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-01-08.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-01-28.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-01-28.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/reseller_daily/tranfers_list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/reseller_daily/tranfers_list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/bmcmIgdtc0jlIOhabaFdQ6t1FcGd4qp6e25uDqbx" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/bmcmIgdtc0jlIOhabaFdQ6t1FcGd4qp6e25uDqbx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -466,7 +461,7 @@
       <workItem from="1579882679445" duration="72000" />
       <workItem from="1580064646636" duration="3520000" />
       <workItem from="1580117030075" duration="5446000" />
-      <workItem from="1580242591355" duration="1275000" />
+      <workItem from="1580242591355" duration="1510000" />
     </task>
     <servers />
   </component>

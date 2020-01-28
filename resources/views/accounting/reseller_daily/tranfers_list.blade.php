@@ -17,7 +17,8 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>نوع المعاملة</th>
+                    <th>رقم العملية </th>
+                    <th>التاريخ</th>
                     <th>من</th>
                     <th>الى</th>
                     <th>القيمة</th>
@@ -39,8 +40,8 @@
                     {{--                    @else--}}
 
                     <tr class="warning">
-                        <td>تحويل</td>
-                        <td>{{ $transaction->creator->locale_name }}</td>
+                        <td>TRANS-{{ $transaction->creator->id }}</td>
+                        <td>{{ $transaction->created_at }}</td>
                         <td>{{ $transaction->receiver->locale_name }}</td>
                         <td>{{ money_format("%i",$transaction->amount) }}</td>
                         <td>
