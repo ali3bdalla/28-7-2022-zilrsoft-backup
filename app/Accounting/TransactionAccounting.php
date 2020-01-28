@@ -63,7 +63,8 @@
 			
 			
 //			dd($lastInvoice);
-			return empty($lastInvoice) ? $lastAccountCloseTransaction->created_at : $lastInvoice->created_at;
+			return empty($lastInvoice) ? !empty($lastAccountCloseTransaction) ?
+				$lastAccountCloseTransaction->created_at : Carbon::now()->subMonths(12) : $lastInvoice->created_at;
 		}
 		
 		public function toGetLastManagerTransferRemainingAmount()
