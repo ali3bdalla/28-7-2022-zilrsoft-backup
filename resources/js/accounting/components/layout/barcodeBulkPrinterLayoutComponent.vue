@@ -10,7 +10,7 @@
 
                 <div :id="'barcode_area_' + index" :key="index" style="width: 255px;" v-for="(item,index) in
                 itemsList">
-                    <barcode :value="item.barcode" font-size="18" height="100">
+                    <barcode :value="item.barcode" font-size="18" height="100" style="margin-bottom: -10px !important;">
                     </barcode>
 
                     <div class="row">
@@ -22,12 +22,12 @@
 
                     </div>
                     <div class="row">
-                        <div align="right" class="col-md-4 " style="margin-top: -28px;
+                        <div align="right" class="col-md-4 " style="
                         font-weight: bold;margin-right: 3px !important;
-                        margin-left: -3px;" v-text="invoiceTitle">
+                        margin-left: -3px;margin-top: -12px;" v-text="invoiceTitle">
                         </div>
                         <div align="left" class="col-md-8  div-col" style="
-                                margin-left: -10px; margin-right: 10px;margin-top: -28px;font-weight: bolder;">
+                                margin-left: -10px; margin-right: 10px;margin-top: -18px;font-weight: bolder;">
                                 <span style="font-size: 27px !important;">
                                    {{ convertEnToArabicNumber(item.price_with_tax.toString() ) }}
                                </span>
@@ -295,23 +295,13 @@
                 return String.fromCharCode(n);
             },
             printBulkBarcode() {
-
                 let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
                 let data = [];
                 let itemsLen = this.itemsList.length;
                 for (let i = 0; i < itemsLen; i++) {
                     let generatedItem = this.itemsGeneratedImage[i];
                     let actItem = this.itemsList[i];
-                    //
-                    // if (i > 0) {
-                    //     data.push(
-                    //         '\nN\n' +
-                    //         'A180,20,0,2,1,1,N, \n' +
-                    //         'A200,50,0,4,1,1,N, \n' +
-                    //         'B200,100,0,1A,1,2,30,B, \n' +
-                    //         '\nP1\n'
-                    //     );
-                    // }
+
                     for (let j = 0; j < actItem.qty; j++) {
 
                         data.push(
