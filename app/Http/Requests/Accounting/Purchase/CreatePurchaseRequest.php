@@ -78,7 +78,8 @@
 					'receiver_id' => $this->input("receiver_id")]);
 				$expenses = $this->toExtractExpenses();
 				$invoice->add_items_to_invoice($this->items,$purchase,$expenses,'purchase',$this->input("vendor_id"));
-				$this->toGetAndUpdatedAmounts($invoice);
+				$expense_amount = floatval(collect($expenses)->sum('amount'));
+				$this->toGetAndUpdatedAmounts($invoice,$expense_amount);
 				$this->toCreateInvoiceTransactions($invoice,$this->items,$this->methods,$expenses);
 				DB::commit();
 				return $invoice->fresh();

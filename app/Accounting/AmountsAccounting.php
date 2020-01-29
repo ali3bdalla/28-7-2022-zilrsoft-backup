@@ -66,14 +66,12 @@
 		}
 		
 		/**
-		 * to updated amounts for parent
-		 * parent can be invoice or kit as invoiceItems and other
-		 *
 		 * @param $parent
+		 * @param int $expense_amount
 		 */
-		public function toGetAndUpdatedAmounts($parent)
+		public function toGetAndUpdatedAmounts($parent,$expense_amount = 0)
 		{
-			$children = [];
+			
 			if ($parent instanceof Invoice){
 				$children = $parent
 					->items()
@@ -96,7 +94,7 @@
 					$result[$discount_field] = $result[$discount_field] + $item['discount'];
 					$result['net'] = $result['net'] + $item['net'];
 				}
-				
+				$result['net'] = $result['net'] + money_format("%i",$expense_amount);
 				$parent->update($result);
 				
 				
@@ -120,6 +118,9 @@
 					$result[$discount_field] = $result[$discount_field] + $item['discount'];
 					$result['net'] = $result['net'] + $item['net'];
 				}
+
+//
+				
 				$parent->update($result);
 			}
 			

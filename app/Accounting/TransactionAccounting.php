@@ -150,7 +150,7 @@
 		 * @param $expenses
 		 * @param $container_id
 		 */
-		private function toCreatePurchasesTransactions(Invoice $inc,$items,$methods = [],$expenses,$container_id)
+		private function toCreatePurchasesTransactions(Invoice $inc,$items,$methods = [],$expenses = [],$container_id)
 		{
 			$gateways_paid_amounts = 0;
 			$creator_stock = auth()->user()->toGetManagerAccount('stock');
