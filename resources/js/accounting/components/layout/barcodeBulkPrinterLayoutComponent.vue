@@ -8,29 +8,32 @@
         <div class="row text-center align-content-center">
             <div class="col-md-6 text-center">
 
-                <div :id="'barcode_area_' + index" :key="index" style="width: 255px;" v-for="(item,index) in
+
+                <div :id="'barcode_area_' + index" :key="index" style="width: 255px;"  v-for="(item,index) in
                 itemsList">
-                    <barcode :value="item.barcode" font-size="18" height="100" style="margin-bottom: -10px !important;">
+                    <barcode :value="item.barcode" font-size="18" height="100">
                     </barcode>
 
                     <div class="row">
-                        <div class="col-md-12 text-right div-col"
-                             style="font-size: 17px;font-weight: bold;font-style: normal;font-family: 'Arial Unicode MS' !important;"
+                        <div class="col-md-12 text-right div-col" style="margin-right: 5px;
+                        margin-left: -3px;margin-top: -5px;font-family: 'Cairo', sans-serif !important;"
                              v-text="item.ar_name.substr(0,20)">
 
                         </div>
 
                     </div>
                     <div class="row">
-                        <div align="right" class="col-md-4 " style="
+                        <div align="right" class="col-md-4 " style="margin-top: -28px;
                         font-weight: bold;margin-right: 3px !important;
-                        margin-left: -3px;margin-top: -12px;" v-text="invoiceTitle">
+                        margin-left: -3px;" v-text="purchaseInvoiceId">
+
                         </div>
-                        <div align="left" class="col-md-8  div-col" style="
-                                margin-left: -10px; margin-right: 10px;margin-top: -18px;font-weight: bolder;">
-                                <span style="font-size: 27px !important;">
-                                   {{ convertEnToArabicNumber(item.price_with_tax.toString() ) }}
-                               </span>
+                        <div align="left" class="col-md-8  div-col" style="margin-left: -10px;margin-right: 10px;
+                        margin-top: -28px;font-weight: bolder;">
+
+                           <span style="font-size: 27px !important;">
+                               {{ convertEnToArabicNumber(item.price_with_tax.toString() ) }}
+                           </span>
                             <span> ر.س</span>
                         </div>
 
@@ -40,15 +43,48 @@
 
             </div>
 
-            <div class="col-md-6 text-center">
-                <div class="showGeneratedBarcodeImageClass" :id="'showGeneratedBarcodeImageId_' + index" :key="index"
-                     style="width: 255px;"
-                     v-for="(item,index) in
+
+            <div :id="'barcode_area_' + index" :key="index" style="width: 255px;" v-for="(item,index) in
                 itemsList">
+                <barcode :value="item.barcode" font-size="18" height="100" style="margin-bottom: -10px !important;">
+                </barcode>
+
+                <div class="row">
+                    <div class="col-md-12 text-right div-col"
+                         style="font-size: 17px;font-weight: bold;font-style: normal;font-family: 'Arial Unicode MS' !important;"
+                         v-text="item.ar_name.substr(0,20)">
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div align="right" class="col-md-4 " style="
+                        font-weight: bold;margin-right: 3px !important;
+                        margin-left: -3px;margin-top: -12px;" v-text="invoiceTitle">
+                    </div>
+                    <div align="left" class="col-md-8  div-col" style="
+                                margin-left: -10px; margin-right: 10px;margin-top: -18px;font-weight: bolder;">
+                                <span style="font-size: 27px !important;">
+                                   {{ convertEnToArabicNumber(item.price_with_tax.toString() ) }}
+                               </span>
+                        <span> ر.س</span>
+                    </div>
+
 
                 </div>
             </div>
+
         </div>
+
+        <!--            <div class="col-md-6 text-center">-->
+        <!--                <div class="showGeneratedBarcodeImageClass" :id="'showGeneratedBarcodeImageId_' + index" :key="index"-->
+        <!--                     style="width: 255px;"-->
+        <!--                     v-for="(item,index) in-->
+        <!--                itemsList">-->
+
+        <!--                </div>-->
+        <!--            </div>-->
+    </div>
 
 
     </div>
@@ -113,8 +149,8 @@
             generatedData(items = null) {
                 let LocaleItems = items == null ? this.itemsList : items;
                 let appVm = this;
-               $(".showGeneratedBarcodeImageClass").html(' ');
-                this.itemsGeneratedImage = [];
+                // $(".showGeneratedBarcodeImageClass").html(' ');
+                let myGeneratedBarcode = [];
                 let len = LocaleItems.length;
                 for (let i = 0; i < len; i++) {
                     // let item = LocaleItems[i];
@@ -128,7 +164,8 @@
                     }).then(function (dataUrl) {
                         appVm.src = dataUrl;
                         appVm.image = dataUrl;
-                        appVm.itemsGeneratedImage.push(dataUrl);
+                        myGeneratedBarcode.push(dataUrl);
+                        appVm.itemsGeneratedImage = myGeneratedBarcode;
                         let DOM_img = document.createElement("img");
                         DOM_img.src = dataUrl;
                         document.getElementById("showGeneratedBarcodeImageId_" + i).appendChild(DOM_img);
@@ -387,6 +424,5 @@
         margin-bottom: 0px !important;
         padding-bottom: 0px !important;
     }
-
 
 </style>

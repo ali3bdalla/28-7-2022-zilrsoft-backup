@@ -43,7 +43,6 @@ import AccountingBarcodeBulkPrinterLayoutComponent from './components/layout/bar
 import layoutPrintSingleBarcodeLayoutComponent from './components/layout/layoutPrintSingleBarcodeLayoutComponent';
 import AccountingKitItemsLayoutComponent from './components/layout/kitItemsLayoutComponent';
 import AccountingKitReturnItemsLayoutComponent from './components/layout/kitReturnItemsLayoutComponent';
-import AccountingPurchaseBarcodeButtonLayoutComponent from './components/layout/purchaseBarcodeButtonLayoutComponent';
 import AccountingPurchasesReturnComponent from './components/purchases/purchasesReturnComponent';
 import AccountingDashbaordActiveItemsLayoutComponet from './components/dashboard/activeItemsLayoutComponent';
 import AccountingShowBarcodeLayoutComponent from './components/layout/showBarcodeLayoutComponent';
@@ -103,7 +102,6 @@ Vue.component('accounting-barcode-bulk-printer-layout-component', AccountingBarc
 Vue.component('accounting-print-single-barcode-layout-component', layoutPrintSingleBarcodeLayoutComponent);
 Vue.component('accounting-kit-items-layout-component', AccountingKitItemsLayoutComponent);
 Vue.component('accounting-kit-return-items-layout-component', AccountingKitReturnItemsLayoutComponent);
-Vue.component('accounting-purchase-barcode-button-layout-component', AccountingPurchaseBarcodeButtonLayoutComponent);
 Vue.component('accounting-purchases-return-component', AccountingPurchasesReturnComponent);
 Vue.component('accounting-dashboard-active-items-layout-component', AccountingDashbaordActiveItemsLayoutComponet);
 Vue.component('accounting-show-barcode-layout-component', AccountingShowBarcodeLayoutComponent);
