@@ -24,7 +24,7 @@
 
                     <li :class="{'active':selected==item.id}" :key="item.id" :value="item.id"
                         @click="valueUpdated(item)" class="list-group-item" v-for="item in items">
-                        {{ item[label] }}
+                        {{ item[label] }}   <span v-if="helperLabel!==null"> {{ item[helperLabel] }}</span>
                     </li>
                 </ul>
 
@@ -39,7 +39,7 @@
     export default {
         props: ["options", "default", 'index', 'placeholder', 'identity', 'title', 'label_text',
             'title_class', 'no_all_option',
-            'defaultIndex', 'helperValue', 'default_id'],
+            'defaultIndex', 'helperValue', 'default_id', 'helperLabel'],
         data: function () {
             return {
                 emptyObject: {
@@ -116,7 +116,7 @@
                 if (e.target.value === "" || e.target.value == null) {
                     this.items = this.options;
                 } else {
-                    this.items = db.model.search(this.options,e.target.value);
+                    this.items = db.model.search(this.options, e.target.value);
                 }
             },
 

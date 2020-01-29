@@ -41,6 +41,7 @@
                                 :options="users"
                                 @valueUpdated="user_has_been_selected"
                                 identity="1"
+                                helper-label="vendor_balance"
                                 label_text="locale_name"
                                 title=" اختر المورد"
                                 placeholder=" اختر المورد"
@@ -53,6 +54,7 @@
                                 :options="user_accounts"
                                 @valueUpdated="user_account_has_been_selected"
                                 identity="2"
+
                                 label_text="locale_name"
                                 title=" اختر حساب المورد"
                                 placeholder=" اختر حساب المورد"
@@ -74,6 +76,7 @@
                                 @valueUpdated="user_has_been_selected"
                                 identity="1"
                                 label_text="locale_name"
+                                helper-label="balance"
                                 title=" اختر العميل"
                                 placeholder=" اختر العميل"
                                 v-show="true"></accounting-select-with-search-layout-component>
