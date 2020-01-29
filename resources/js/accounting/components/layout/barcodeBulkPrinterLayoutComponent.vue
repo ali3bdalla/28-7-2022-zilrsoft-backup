@@ -41,7 +41,8 @@
             </div>
 
             <div class="col-md-6 text-center">
-                <div :id="'showGeneratedBarcodeImageId_' + index" :key="index" style="width: 255px;"
+                <div class="showGeneratedBarcodeImageClass" :id="'showGeneratedBarcodeImageId_' + index" :key="index"
+                     style="width: 255px;"
                      v-for="(item,index) in
                 itemsList">
 
@@ -84,7 +85,7 @@
 
         },
         created: function () {
-            // this.itemsList = this.items;
+            this.itemsList = this.items;
             console.log(this.invoiceId);
             this.invoiceTitle = this.invoiceId;
             this.initItems();
@@ -92,22 +93,18 @@
 
         },
         mounted: function () {
-            this.generatedData();
+            this.generatedData(this.itemsList);
         },
         methods: {
             initItems() {
                 let tempItems = [];
                 for (let i = 0; i < this.items.length; i++) {
                     let item = this.items[i];
-                    // if (item.item != null) {
+
                     item.price_with_tax = item.item.price_with_tax;
                     item.ar_name = item.item.ar_name;
                     item.barcode = item.item.barcode;
-                    // }else
-                    //
-                    // {
-                    //
-                    // }
+
                     tempItems.push(item);
 
                 }
@@ -116,11 +113,11 @@
             generatedData(items = null) {
                 let LocaleItems = items == null ? this.itemsList : items;
                 let appVm = this;
-                // document.getElementById("showGeneratedBarcodeImageId_").innerHTML = "";
+               $(".showGeneratedBarcodeImageClass").html(' ');
                 this.itemsGeneratedImage = [];
                 let len = LocaleItems.length;
                 for (let i = 0; i < len; i++) {
-                    let item = LocaleItems[i];
+                    // let item = LocaleItems[i];
                     domtoimage.toPng(document.getElementById('barcode_area_' + i), {
                         quality: 1, style: {
                             width: '100%',
@@ -336,7 +333,7 @@
 
                 let appVm = this;
                 let interval = setInterval(function () {
-                    appVm.generatedData();
+                    appVm.generatedData(value);
                     clearInterval(interval);
                 }, 100)
                 //
