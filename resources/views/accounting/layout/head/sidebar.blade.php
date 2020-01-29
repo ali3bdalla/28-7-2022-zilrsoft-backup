@@ -143,6 +143,12 @@
                             {{ __('sidebar.account_close') }}
                         </a></li>
 
+
+                    <li>
+                        <a href="{{route('accounting.inventories.adjust_stock.index')}}"><i class="fa fa-sun"></i>
+                            {{ __('sidebar.account_close') }}
+                        </a></li>
+
                 </ul>
             </li>
         @endcanany

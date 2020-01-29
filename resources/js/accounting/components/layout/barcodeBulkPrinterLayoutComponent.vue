@@ -403,7 +403,7 @@
 </script>
 
 
-<style>
+<style scoped>
     @import "https://fonts.googleapis.com/css?family=Cairo&display=swap";
 
     #barcode_area svg {

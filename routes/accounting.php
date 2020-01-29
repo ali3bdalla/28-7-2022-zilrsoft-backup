@@ -158,6 +158,9 @@
 		});
 		
 		Route::prefix('inventories')->name('inventories.')->group(function (){
+			Route::resources([
+				'adjust_stock' => 'AdjustStockController',
+			]);
 			Route::get('/','InventoryController@index')->name('index');
 			Route::prefix('beginning')->name('beginning.')->group(function (){
 				Route::get('/','InventoryController@beginning_index')->name('index');

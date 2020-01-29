@@ -47,11 +47,11 @@
 
             </div>
 
-<!--            <div class="col-md-6 text-center">-->
-<!--                <div id="showGeneratedBarcodeImageId">-->
+            <!--            <div class="col-md-6 text-center">-->
+            <!--                <div id="showGeneratedBarcodeImageId">-->
 
-<!--                </div>-->
-<!--            </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
         </div>
 
 
@@ -446,7 +446,7 @@
 </script>
 
 
-<style>
+<style scoped>
     @import "https://fonts.googleapis.com/css?family=Cairo&display=swap";
 
     #barcode_area svg {
