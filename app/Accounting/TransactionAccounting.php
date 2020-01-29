@@ -222,6 +222,25 @@
 		private function toCreateInvoiceTaxTransactions(Invoice $inc,$creator_stock,$items,$expenses,$container_id)
 		{
 			
+			
+			$manager_cash_account_arr = auth()->user()->gateways()->where(
+				'is_gateway',true
+			)->get();
+			
+			if (count($manager_cash_account_arr) == 0){
+				$manager_cash_account = $temp_reseller_account = Account::where([
+					['is_system_account',true],
+					['slug','temp_reseller_account'],
+				])->first();
+				$manager_cash_account_id = $manager_cash_account->id;
+			}else{
+				$manager_cash_account = $manager_cash_account_arr[0];
+				$manager_cash_account_id = $manager_cash_account->id;
+			}
+			
+			
+			
+			
 			$tax_account = Account::where('slug','vat')->first();
 			$this->toCreateInvoiceExpenseAndGetTotal($inc,$items,$expenses);
 			$expenses_tax = $inc->expenses()->sum('tax');
@@ -243,21 +262,14 @@
 				}
 				$sum = $inc->expenses()->where('with_net',0)->sum('amount');
 				if ($sum > 0){
-					$manager_cash_account = auth()->user()->gateways()->where([
-						'is_gateway' => true
-					])->first();
 					
-					if (empty($manager_cash_account)){
-						$manager_cash_account = $temp_reseller_account = Account::where([
-							['is_system_account',true],
-							['slug','temp_reseller_account'],
-						])->first();
-					}
+				
 					
+//					return $manager_cash_account_id;
 					$tax_account->debit_transaction()->create([
 						'creator_id' => auth()->user()->id,
 						'organization_id' => auth()->user()->organization_id,
-						'creditable_id' => $manager_cash_account->id,
+						'creditable_id' => $manager_cash_account_id,
 						'creditable_type' => get_class($manager_cash_account),
 						'amount' => $sum,
 						'user_id' => $inc->user_id,
@@ -285,10 +297,10 @@
 			}
 			$sum = $inc->expenses()->where('with_net',0)->sum('amount');
 			if ($sum > 0){
-				$manager_cash_account = $temp_reseller_account = Account::where([
-					['is_system_account',true],
-					['slug','temp_reseller_account'],
-				])->first();
+//				$manager_cash_account = $temp_reseller_account = Account::where([
+//					['is_system_account',true],
+//					['slug','temp_reseller_account'],
+//				])->first();
 				$cash_paid_before = $inc->transactions()->where([['creditable_type','App\Account'],['creditable_id',
 					$manager_cash_account->id]])->first();
 				if (!empty($cash_paid_before)){

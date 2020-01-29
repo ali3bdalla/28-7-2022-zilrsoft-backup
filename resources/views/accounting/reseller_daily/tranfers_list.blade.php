@@ -19,15 +19,19 @@
                 <tr>
                     <th>رقم العملية </th>
                     <th>التاريخ</th>
-                    <th>من</th>
                     <th>الى</th>
-                    <th>القيمة</th>
+                    <th>المبلغ المفترض</th>
+                    <th>المبلغ الفعلي</th>
+                    <th>رصيد</th>
                     <th>الحالة</th>
                 </tr>
                 </thead>
 
                 @foreach($managerCloseAccountList as $transaction)
-                    <tbody>
+                    <?php $total_amount = $transaction->container->transactions()->where("debitable_type","!=","")
+			            ->withoutGlobalScope
+			            ('pendingTransactionScope')->sum('amount'); ?>
+		            <tbody>
                     {{--                    @if($transaction['transaction_type']=='close_account')--}}
                     {{--                    <tr class="warning">--}}
                     {{--                        <td>تقفيل الحساب</td>--}}
@@ -39,11 +43,14 @@
 
                     {{--                    @else--}}
 
-                    <tr class="warning">
+                    <tr class="">
                         <td>TRANS-{{ $transaction->creator->id }}</td>
                         <td>{{ $transaction->created_at }}</td>
                         <td>{{ $transaction->receiver->locale_name }}</td>
-                        <td>{{ money_format("%i",$transaction->amount) }}</td>
+                        <td>{{ money_format("%i",$total_amount)}}</td>
+
+                        <td>{{  money_format("%i",$transaction->amount) }}</td>
+                        <td>{{ money_format("%i",$total_amount - $transaction->amount) }}</td>
                         <td>
                             @if($transaction->is_pending)
                                 منتظرة
@@ -53,30 +60,30 @@
                         </td>
                     </tr>
                     {{--                    @endif--}}
-                    @foreach($transaction->container->transactions as $transaction)
+{{--                    @foreach($transaction->container->transactions as $transaction)--}}
 
-                        @if($transaction->amount>0)
-                            @if($transaction->debitable_type=="")
-                                <tr>
-                                    <td>{{ $transaction->creditable->locale_name }} </td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-{{ $transaction->amount }}</td>
-                                    <td></td>
-                                </tr>
-                            @else
-                                <tr>
-                                    <td>{{ $transaction->debitable->locale_name }} </td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>+{{ $transaction->amount }}</td>
-                                    <td></td>
-                                </tr>
-                            @endif
+{{--                        @if($transaction->amount>0)--}}
+{{--                            @if($transaction->debitable_type=="")--}}
+{{--                                <tr>--}}
+{{--                                    <td>{{ $transaction->creditable->locale_name }} </td>--}}
+{{--                                    <td>-</td>--}}
+{{--                                    <td>-</td>--}}
+{{--                                    <td>{{ $transaction->amount }}</td>--}}
+{{--                                    <td></td>--}}
+{{--                                </tr>--}}
+{{--                            @else--}}
+{{--                                <tr>--}}
+{{--                                    <td>{{ $transaction->debitable->locale_name }} </td>--}}
+{{--                                    <td>-</td>--}}
+{{--                                    <td>-</td>--}}
+{{--                                    <td>{{ $transaction->amount }}</td>--}}
+{{--                                    <td></td>--}}
+{{--                                </tr>--}}
+{{--                            @endif--}}
 
-                        @endif
+{{--                        @endif--}}
 
-                    @endforeach
+{{--                    @endforeach--}}
 
                     {{--                    --}}
                     {{--                    @if($transaction['transaction_type']=='close_account')--}}

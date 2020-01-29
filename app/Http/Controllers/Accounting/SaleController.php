@@ -56,6 +56,7 @@
 		{
 			
 			
+			
 			$salesmen = Manager::all();
 			$clients = User::where('is_client',true)->get()->toArray();
 			$expenses = Item::where('is_expense',true)->get();
