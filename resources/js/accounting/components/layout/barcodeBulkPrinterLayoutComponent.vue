@@ -96,6 +96,7 @@
         },
         methods: {
             initItems() {
+                let tempItems = [];
                 for (let i = 0; i < this.items.length; i++) {
                     let item = this.items[i];
                     // if (item.item != null) {
@@ -107,9 +108,10 @@
                     // {
                     //
                     // }
-                    this.itemsList.push(item);
+                    tempItems.push(item);
 
                 }
+                this.itemsList = tempItems;
             },
             generatedData(items = null) {
                 let LocaleItems = items == null ? this.itemsList : items;
@@ -324,11 +326,12 @@
         },
         watch: {
             items: function (value) {
-                this.itemsList = [];
+                let tempItems = [];
                 for (let i = 0; i < value.length; i++) {
                     let item = value[i];
-                    this.itemsList.push(item);
+                    tempItems.push(item);
                 }
+                this.itemsList = tempItems;
 
 
                 let appVm = this;
