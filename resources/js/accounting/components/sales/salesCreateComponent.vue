@@ -48,7 +48,7 @@
                 </accounting-select-with-search-layout-component>
 
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <a @click="modalsInfo.showAliceNameModal=true" class="btn btn-custom-primary btn-sm">{{app.trans
                     .make_alice_name}}</a>
 
@@ -56,7 +56,7 @@
                     .create_identity}}</a>
 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-addon" id="time-field">{{ app.trans.date }}</span>
                     <input aria-describedby="time-field" class="form-control" disabled name="" readonly style=" direction: ltr

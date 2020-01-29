@@ -148,12 +148,15 @@
                         </td>
 
                         <td class="text-right-with-padding">{{row.ar_name}}<p align="left">{{row.name}}</p></td>
-                        <td v-text="parseFloat(row.price).toFixed(2)"></td>
-                        <td v-text="parseFloat(row.price_with_tax).toFixed(2)"></td>
+                        <td v-if="!row.is_kit" v-text="parseFloat(row.price).toFixed(2)"></td>
+                        <td v-else   v-text="parseFloat(row.data.net).toFixed(2)"></td>
+                        <td v-if="!row.is_kit" v-text="parseFloat(row.price_with_tax).toFixed(2)"></td>
+                        <td v-else v-text="parseFloat(row.data.total).toFixed(2)"></td>
                         <td>
                             <v-tooltip bottom>
                                 <template v-slot:activator="{ on }">
-                                    <span v-on="on">{{ row.available_qty}}</span>
+                                    <span v-on="on" v-if="row.is_service">0</span>
+                                    <span v-on="on" v-else>{{ row.available_qty}}</span>
 
                                 </template>
                                 <span>{{ parseFloat(row.cost).toFixed(2) }}</span>
