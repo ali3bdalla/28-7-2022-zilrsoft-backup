@@ -146,7 +146,7 @@
 
                     <li>
                         <a href="{{route('accounting.inventories.adjust_stock.index')}}"><i class="fa fa-sun"></i>
-                            {{ __('sidebar.account_close') }}
+                           التسوية
                         </a></li>
 
                 </ul>

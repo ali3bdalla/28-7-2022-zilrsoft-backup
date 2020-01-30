@@ -17,12 +17,12 @@
 
 @section("content")
 
-    <accounting-beginning-datatable-component
+    <accounting-adjust-stock-datatable-component
             :can-delete="{{auth()->user()->canDo("manage inventory")}}"
     >
 
 
-    </accounting-beginning-datatable-component>
+    </accounting-adjust-stock-datatable-component>
 @endsection
 
 

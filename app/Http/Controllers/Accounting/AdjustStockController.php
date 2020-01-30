@@ -28,7 +28,6 @@
 		public function create()
 		{
 			return view('accounting.inventories.adjust_stock.create');
-			//
 		}
 		
 		/**

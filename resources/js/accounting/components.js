@@ -56,6 +56,7 @@ import AccountingPeriodAccountCloseComponent from './components/charts/periodAcc
 import AccountingResellerDailyTransferAmountsComponent from './components/reseller_daily/transferAmountsComponent';
 import AccountingHeaderNotificationsLayoutComponent from './components/layout/headerLayoutComponent';
 import AccountingSingleBarcodeLayoutComponent from './components/layout/singleBarcodeComponent';
+import AccountingAdjustStockDatatableComponent from './components/inventories/adjustStockDatatableComponent';
 
 
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
@@ -81,6 +82,7 @@ Vue.component('accounting-dashboard-items-chart-component', AccountingDashboardI
 Vue.component('accounting-branches-datatable-component', AccountingBranchesDatatableComponent);
 Vue.component('accounting-departments-datatable-component', AccountingDepartmentsDatatableComponent);
 Vue.component('accounting-beginning-datatable-component', AccountingBeginningDatatableComponent);
+Vue.component('accounting-adjust-stock-datatable-component', AccountingAdjustStockDatatableComponent);
 Vue.component('accounting-beginning-create-component', AccountingBeginningCreateComponent);
 Vue.component('accounting-beginning-edit-component', AccountingBeginningEditComponent);
 Vue.component('accounting-invoice-item-serials-list-layout-component', AccountingInvoiceItemSerialsListLayoutComponent);
