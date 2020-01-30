@@ -14,9 +14,9 @@
                     </barcode>
 
                     <div class="row">
-                        <div class="col-md-12 text-right div-col"
-                             style="font-size: 17px;font-weight: bold;font-style: normal;font-family: 'Arial Unicode MS' !important;"
-                             v-text="item.ar_name.substr(0,20)">
+                        <div class="col-md-12 text-right div-col" style="margin-right: 5px;
+                        margin-left: -3px;margin-top: -5px;font-family: 'Cairo', sans-serif !important;"
+                             v-text="item.ar_name.substr(0,28)">
 
                         </div>
 
@@ -25,12 +25,14 @@
                         <div align="right" class="col-md-4 " style="margin-top: -28px;
                         font-weight: bold;margin-right: 3px !important;
                         margin-left: -3px;" v-text="invoiceTitle">
+
                         </div>
-                        <div align="left" class="col-md-8  div-col" style="
-                                margin-left: -10px; margin-right: 10px;margin-top: -28px;font-weight: bolder;">
-                                <span style="font-size: 27px !important;">
-                                   {{ convertEnToArabicNumber(item.price_with_tax.toString() ) }}
-                               </span>
+                        <div align="left" class="col-md-8  div-col" style="margin-left: -10px;margin-right: 10px;
+                        margin-top: -28px;font-weight: bolder;">
+
+                           <span style="font-size: 27px !important;">
+                               {{ convertEnToArabicNumber(item.price_with_tax.toString() ) }}
+                           </span>
                             <span> ر.س</span>
                         </div>
 
@@ -358,7 +360,6 @@
         padding-bottom: 0px !important;
     }
 </style>
-
 
 <!--<template>-->
 <!--    <div style="display: inline">-->
