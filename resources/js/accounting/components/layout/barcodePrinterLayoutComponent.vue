@@ -1,5 +1,6 @@
 <template>
     <div>
+        new
         <div class="row" v-if="insideInvoice!==true">
             <div class="col-xs-4">
                 <input class="form-control" min="0" type="number" v-model.number="number_of_barcode">
@@ -61,7 +62,6 @@
     var qz = require("qz-tray");
     import domtoimage from 'dom-to-image';
     import VueBarcode from 'vue-barcode';
-
     export default {
         components: {'barcode': VueBarcode, domtoimage, VueBarcode},
         props: ['items', 'print', 'insideInvoice', 'item', 'invoice-id'],
@@ -391,27 +391,20 @@
 
 <style scoped>
     @import "https://fonts.googleapis.com/css?family=Cairo&display=swap";
-
     #barcode_area svg {
         /*height: 100px !important;*/
         margin-bottom: -16px;
     }
-
     #barcode_area .div-col {
         /*padding: 4px !important;*/
         font-size: 20px;
         overflow: hidden;
         /*margin: 0px;*/
     }
-
     #barcode_area .row {
         padding-top: 0px !important;
         margin-top: 0px !important;
         margin-bottom: 0px !important;
         padding-bottom: 0px !important;
-    }
-
-    #barcode_area div:first-child {
-        margin-top: -12px !important;
     }
 </style>
