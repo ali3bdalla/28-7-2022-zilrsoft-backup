@@ -1,6 +1,5 @@
 <template>
     <div>
-        new
         <div class="row" v-if="insideInvoice!==true">
             <div class="col-xs-4">
                 <input class="form-control" min="0" type="number" v-model.number="number_of_barcode">

@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodeBulkPrinterLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodeBulkPrinterLayoutComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodePrinterLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodePrinterLayoutComponent.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -447,7 +446,7 @@
       <workItem from="1580064646636" duration="3520000" />
       <workItem from="1580117030075" duration="5446000" />
       <workItem from="1580242591355" duration="8841000" />
-      <workItem from="1580328769261" duration="3814000" />
+      <workItem from="1580328769261" duration="3866000" />
     </task>
     <servers />
   </component>
