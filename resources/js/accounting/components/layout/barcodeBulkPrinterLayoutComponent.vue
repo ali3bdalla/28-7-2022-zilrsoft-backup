@@ -15,14 +15,15 @@
 
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 5px;
-                        margin-left: -3px;margin-top: -5px;font-family: 'Cairo', sans-serif !important;"
+                        margin-left: -3px;margin-top: -15px;font-family: 'Cairo', sans-serif !important;
+                         font-size: 18px !important;"
                              v-text="item.ar_name.substr(0,25)">
 
                         </div>
 
                     </div>
                     <div class="row">
-                        <div align="right" class="col-md-4 " style="margin-top: -28px;
+                        <div align="right" class="col-md-4 " style="margin-top: -15px;
                         font-weight: bold;margin-right: 3px !important;
                         margin-left: -3px;" v-text="invoiceTitle">
 
@@ -277,6 +278,9 @@
                 for (let i = 0; i < this.itemsList.length; i++) {
                     let generatedItem = this.itemsGeneratedImage[i];
                     let actItem = this.itemsList[i];
+
+
+
                     if (i > 0) {
                         data.push(
                             '\nN\n' +
@@ -286,6 +290,7 @@
                             '\nP1\n'
                         );
                     }
+
                     for (let i = 0; i < actItem.qty; i++) {
                         data.push(
                             '\nN\n',
