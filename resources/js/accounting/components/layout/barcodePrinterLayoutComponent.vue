@@ -21,7 +21,7 @@
                     <div class="row">
                         <div class="col-md-12 text-right div-col" style="margin-right: 5px;
                         margin-left: -3px;margin-top: -5px;font-family: 'Cairo', sans-serif !important;"
-                             v-text="itemData.ar_name.substr(0,20)">
+                             v-text="itemData.ar_name.substr(0,28)">
 
                         </div>
 
