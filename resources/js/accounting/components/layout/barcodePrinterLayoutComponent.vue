@@ -47,11 +47,11 @@
 
             </div>
 
-<!--            <div class="col-md-6 text-center">-->
-<!--                <div id="showGeneratedBarcodeImageId">-->
+            <div class="col-md-6 text-center">
+                <div id="showGeneratedBarcodeImageId">
 
-<!--                </div>-->
-<!--            </div>-->
+                </div>
+            </div>
         </div>
 
 
@@ -59,13 +59,9 @@
 </template>
 
 <script>
-
-
     var qz = require("qz-tray");
     import domtoimage from 'dom-to-image';
     import VueBarcode from 'vue-barcode';
-
-
     export default {
         components: {'barcode': VueBarcode, domtoimage, VueBarcode},
         props: ['items', 'print', 'insideInvoice', 'item', 'invoice-id'],
@@ -93,35 +89,24 @@
                     BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
                 },
             };
-
         },
         created: function () {
             this.itemsData = this.items;
             this.purchaseInvoiceId = this.invoiceId;
             this.connectQZ();
             if (this.item != null) {
-
                 this.itemData = this.item;
-
             }
-
         },
-
         mounted: function () {
             if (this.item != null) {
-
                 this.generatedData();
                 console.log(this.image);
             }
         },
-
         methods: {
-
-
             generatedData(barcode_count = null) {
-
                 let appVm = this;
-
                 //
                 domtoimage.toPng(document.getElementById('barcode_area'), {
                     quality: 1, style: {
@@ -136,19 +121,16 @@
                     var DOM_img = document.createElement("img");
                     DOM_img.src = dataUrl;
                     document.getElementById("showGeneratedBarcodeImageId").appendChild(DOM_img);
-                    // if (appVm.insideInvoice == true && appVm.print == true) {
-                    //     appVm.printBulkFile(dataUrl, barcode_count);
-                    // }
+                    if (appVm.insideInvoice == true && appVm.print == true) {
+                        appVm.printBulkFile(dataUrl, barcode_count);
+                    }
                 })
                     .catch(function (error) {
                         console.log(error)
                     });
             },
-
             generatedBulkData(barcode_count = null, item = null) {
-
                 let appVm = this;
-
                 this.itemData.barcode = item.barcode;
                 this.itemData.price_with_tax = item.price_with_tax;
                 this.itemData.ar_anme = item.ar_anme;
@@ -172,11 +154,9 @@
                 //         console.log(error)
                 //     });
             },
-
             connectQZ() {
                 var appVm = this;
                 qz.security.setCertificatePromise(function (resolve, reject) {
-
                     //Alternate method 2 - direct
                     resolve("-----BEGIN CERTIFICATE-----\n" +
                         "MIIEvTCCAqegAwIBAgIENzI3OTALBgkqhkiG9w0BAQUwgZgxCzAJBgNVBAYTAlVT\n" +
@@ -237,18 +217,13 @@
                         "2ur4rDErnHsiphBgZB71C5FD4cdfSONTsYxmPmyUb5T+KLUouxZ9B0Wh28ucc1Lp\n" +
                         "rbO7BnjW\n" +
                         "-----END CERTIFICATE-----");
-
-
                 });
                 qz.security.setSignaturePromise(function (toSign) {
-
                     return function (resolve, reject) {
                         $.get(appVm.app.BaseApiUrl + 'printer/sign_receipt_printer', {request: toSign}).then(resolve, reject);
                     };
                 });
                 qz.websocket.connect().then(function () {
-
-
                     var sha256 = function (str) {
                         // We transform the string into an arraybuffer.
                         var buffer = new TextEncoder('utf-8').encode(str);
@@ -256,7 +231,6 @@
                             return hex(hash)
                         })
                     };
-
                     var hex = function (buffer) {
                         var hexCodes = [];
                         var view = new DataView(buffer);
@@ -270,37 +244,28 @@
                             var paddedValue = (padding + stringValue).slice(-padding.length);
                             hexCodes.push(paddedValue)
                         }
-
                         // Join all the hex strings into one
                         return hexCodes.join('')
                     };
-
-
                     //  //   var createHash = require('sha.js');
                     // qz.api.setSha256Type(function (data) {
                     //     return createHash('sha256').update(data).digest('hex');
                     // });
                     //     //
-
                     qz.api.setPromiseType(function promise(resolver) {
                         return new Promise(resolver);
                     });
-
                     qz.api.setSha256Type(function (data) {
                         return sha256(data)
                     });
-
-
                     return qz.printers.find();
                 });
             },
-
             convertEnToArabicNumber(en) {
                 var response = [];
                 var en_arr = en.split('');
                 for (var i = 0; i < en_arr.length; i++) {
                     var num = en_arr[i];
-
                     if (num == 0) {
                         response.push('٠');
                     } else if (num == 1) {
@@ -324,33 +289,23 @@
                     } else {
                         response.push(num);
                     }
-
-
                 }
-
-
                 return response.join('');
-            },
-
+            }
+            ,
             chr(n) {
                 return String.fromCharCode(n);
             },
-
-
             printSingleFile() {
-
                 let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
-
                 let data = [];
-                // data.push(
-                //     '\nN\n' +
-                //     'A180,20,0,2,1,1,N, \n' +
-                //     'A200,50,0,4,1,1,N, \n' +
-                //     'B200,100,0,1A,1,2,30,B, \n' +
-                //     '\nP1\n'
-                // );
-
-
+                data.push(
+                    '\nN\n' +
+                    'A180,20,0,2,1,1,N, \n' +
+                    'A200,50,0,4,1,1,N, \n' +
+                    'B200,100,0,1A,1,2,30,B, \n' +
+                    '\nP1\n'
+                );
                 for (let i = 0; i < this.number_of_barcode; i++) {
                     data.push(
                         '\nN\n',
@@ -361,48 +316,39 @@
                         '\nP1,1\n'
                     );
                 }
-
-
                 qz.print(config, data);
             },
-
-            //
-            // printBulkFile(embededImage = null, Qty = null) {
-            //
-            //
-            //     // let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
-            //     //
-            //     // let barcode_count = Qty == null ? 0 : Qty;
-            //     //
-            //     // let data = [];
-            //     // data.push(
-            //     //     '\nN\n' +
-            //     //     'A180,20,0,2,1,1,N, \n' +
-            //     //     'A200,50,0,4,1,1,N, \n' +
-            //     //     'B200,100,0,1A,1,2,30,B, \n' +
-            //     //     '\nP1\n'
-            //     // );
-            //     //
-            //     //
-            //     // for (let i = 0; i < barcode_count; i++) {
-            //     //     data.push(
-            //     //         '\nN\n',
-            //     //         {
-            //     //             type: 'raw', format: 'image', data: embededImage,
-            //     //             options: {language: 'EPL', y: 0, x: 170}
-            //     //         },
-            //     //         '\nP1,1\n'
-            //     //     );
-            //     // }
-            //     //
-            //     //
-            //     // qz.print(config, data);
-            //     this.watcher = false;
-            // },
-
+            printBulkFile(embededImage = null, Qty = null) {
+                // let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
+                //
+                // let barcode_count = Qty == null ? 0 : Qty;
+                //
+                // let data = [];
+                // data.push(
+                //     '\nN\n' +
+                //     'A180,20,0,2,1,1,N, \n' +
+                //     'A200,50,0,4,1,1,N, \n' +
+                //     'B200,100,0,1A,1,2,30,B, \n' +
+                //     '\nP1\n'
+                // );
+                //
+                //
+                // for (let i = 0; i < barcode_count; i++) {
+                //     data.push(
+                //         '\nN\n',
+                //         {
+                //             type: 'raw', format: 'image', data: embededImage,
+                //             options: {language: 'EPL', y: 0, x: 170}
+                //         },
+                //         '\nP1,1\n'
+                //     );
+                // }
+                //
+                //
+                // qz.print(config, data);
+                this.watcher = false;
+            },
             bulkPrintListener() {
-
-
                 // var indexer = 0;
                 // for (let i = 0; i < this.itemsData.length; i++) {
                 //     // this.itemData = this.itemsData[indexer];
@@ -427,7 +373,6 @@
                 //
                 // this.$emit('bulkPrintComplete', {});
             }
-
         },
         watch: {
             print: function (value) {
@@ -441,31 +386,25 @@
             }
         }
     }
-
-
 </script>
 
 
 <style>
     @import "https://fonts.googleapis.com/css?family=Cairo&display=swap";
-
     #barcode_area svg {
         /*height: 100px !important;*/
         margin-bottom: -16px;
     }
-
     #barcode_area .div-col {
         /*padding: 4px !important;*/
         font-size: 20px;
         overflow: hidden;
         /*margin: 0px;*/
     }
-
     #barcode_area .row {
         padding-top: 0px !important;
         margin-top: 0px !important;
         margin-bottom: 0px !important;
         padding-bottom: 0px !important;
     }
-
 </style>
