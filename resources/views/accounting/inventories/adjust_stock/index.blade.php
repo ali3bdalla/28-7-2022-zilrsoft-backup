@@ -1,9 +1,9 @@
 @extends('accounting.layout.master')
 
-@section('title',__('sidebar.beginning_inventory'))
+@section('title',__('sidebar.adjust_stock'))
 @section('buttons')
     @can("manage inventory")
-        <a href="{{route('accounting.inventories.beginning.create')}}" class="btn btn-custom-primary">
+        <a href="{{route('accounting.inventories.adjust_stock.create')}}" class="btn btn-custom-primary">
             <i class="fa fa-plus-circle"></i> {{ __('pages/invoice.create') }}
         </a>
     @endcan

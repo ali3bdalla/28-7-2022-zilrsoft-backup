@@ -12,7 +12,7 @@
                     <thead>
                     <tr>
                         <th class="text-center">{{ trans('pages/items.date') }}</th>
-                        <th class="text-center">{{ trans('pages/payments.type') }}</th>
+                        <th class="text-center">{{ trans('pages/invoice.invoice_type') }}</th>
                         <th class="text-center">{{ trans('pages/items.movement.user') }}</th>
                         <th class="text-center">{{ trans('reusable.creator') }}</th>
                         <th class="text-center">{{ trans('pages/invoice.invoice_number') }}</th>
@@ -24,9 +24,9 @@
                     @foreach($serial->histories as $history)
                         <tr>
                             <td>{{$history->created_at}}</td>
-                            <td>{{$history->event}}</td>
-                            <td>{{$history->user->name}}</td>
-                            <td>{{$history->creator->name}}</td>
+                            <td>{{ trans('pages/invoice.' . $history->event) }}</td>
+                            <td>{{$history->user->locale_name}}</td>
+                            <td>{{$history->creator->locale_name}}</td>
                             @if(in_array($history->event,['sale','r_sale']))
                                 <td>
                                     @if($history->invoice!=null)

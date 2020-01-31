@@ -3,7 +3,9 @@
 	namespace App\Http\Controllers\Accounting;
 	
 	use App\Http\Controllers\Controller;
+	use App\Http\Requests\Accounting\Inventory\AdjustStockDatatableRequest;
 	use App\Invoice;
+	use App\User;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
 	
@@ -20,6 +22,10 @@
 			//
 		}
 		
+		public function datatable(AdjustStockDatatableRequest $request)
+		{
+			return $request->data();
+		}
 		/**
 		 * Show the form for creating a new resource.
 		 *
@@ -27,7 +33,13 @@
 		 */
 		public function create()
 		{
-			return view('accounting.inventories.adjust_stock.create');
+			$user = User::where([
+				['user_slug','beginning-inventory'],
+				['is_system_user',true]
+			])->first();
+			
+			$creator = auth()->user()->with('department','branch')->first();
+			return view('accounting.inventories.beginning.create',compact('user','creator'));
 		}
 		
 		/**

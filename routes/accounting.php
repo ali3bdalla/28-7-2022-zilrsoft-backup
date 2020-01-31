@@ -130,6 +130,7 @@
 			Route::get('branches','BranchController@datatable')->name('branches.datatable');
 			Route::get('branches/{branch}/departments','BranchController@departments_datatable')->name('branches.datatable');
 			Route::get('beginning_inventories','InventoryController@beginning_datatable')->name('beginning.datatable');
+			Route::get('adjust_stock_inventories','AdjustStockController@datatable')->name('adjust_stock.datatable');
 			Route::get('purchases','PurchaseController@datatable')->name('purchases.datatable');
 			Route::get('sales','SaleController@datatable')->name('sales.datatable');
 			Route::get('vouchers','VoucherController@datatable')->name('vouchers.datatable');

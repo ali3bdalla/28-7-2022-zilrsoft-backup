@@ -26,6 +26,7 @@
 		'net' => 'النهائي',
 		'cost' => 'التكلفة',
 		'create_identity' => 'انشاء هوية',
+		'beginning_inventory' => 'اول مدة',
 		'profit' => 'الربح',
 		'discount' => 'الخصم',
 		'save_and_open' => 'حفظ وفتح',
