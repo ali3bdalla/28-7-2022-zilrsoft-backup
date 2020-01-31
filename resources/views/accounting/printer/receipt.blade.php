@@ -287,6 +287,11 @@
         {{--            </div>--}}
         {{--        </div>--}}
     </div>
+    <div class="row" style="margin-top: 10px">
+        <div class="col-md-12">* البضاعة المباعة لاترد ولا تستبدل بعد فتحها .</div>
+        <div class="col-md-12">* الارجاع خلال ثلاثة أيام .</div>
+        <div class="col-md-12">* التبديل خلال سبعة أيام .</div>
+    </div>
     <div class="row">
 
 
@@ -317,6 +322,6 @@
 
     );
 
-    print();
+    // print();
 </script>
 
