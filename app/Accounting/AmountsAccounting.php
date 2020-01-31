@@ -88,11 +88,11 @@
 				$items = $children;
 				
 				foreach ($items as $item){
-					$result['total'] = $result['total'] + $item['total'];
-					$result['subtotal'] = $result['subtotal'] + $item['subtotal'];
-					$result['tax'] = $result['tax'] + $item['tax'];
-					$result[$discount_field] = $result[$discount_field] + $item['discount'];
-					$result['net'] = $result['net'] + $item['net'];
+					$result['total'] = $result['total'] + $item->getOriginal('total');
+					$result['subtotal'] = $result['subtotal'] +  $item->getOriginal('subtotal');
+					$result['tax'] = $result['tax'] + $item->getOriginal('tax');
+					$result[$discount_field] = $result[$discount_field] +  $item->getOriginal('discount');
+					$result['net'] = $result['net'] +  $item->getOriginal('net');
 				}
 				$result['net'] = $result['net'] + money_format("%i",$expense_amount);
 				$parent->update($result);
