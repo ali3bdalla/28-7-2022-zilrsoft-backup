@@ -255,13 +255,13 @@
     </div>
 
     <div style="border:1px solid #777"></div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="text-center">
-                    <span class="header_title total_header">{{ mb_substr($invoice->notes,0,255) }}</span>
-                </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="text-center">
+                <span class="header_title total_header">{{ mb_substr($invoice->notes,0,255) }}</span>
             </div>
         </div>
+    </div>
 
     <hr style="border:1px solid #777">
     <div class="row">
@@ -269,6 +269,12 @@
             <div id="barcode_demo" style="margin: auto;"></div>
         </div>
     </div>
+    <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+        <div class="col-md-12">* البضاعة المباعة لاترد ولا تستبدل بعد فتحها .</div>
+        <div class="col-md-12">* الارجاع خلال ثلاثة أيام .</div>
+        <div class="col-md-12">* التبديل خلال سبعة أيام .</div>
+    </div>
+
     <div class="row">
         <div class="col-xs-12">
             <div class="text-center">
@@ -287,11 +293,7 @@
         {{--            </div>--}}
         {{--        </div>--}}
     </div>
-    <div class="row" style="margin-top: 10px">
-        <div class="col-md-12">* البضاعة المباعة لاترد ولا تستبدل بعد فتحها .</div>
-        <div class="col-md-12">* الارجاع خلال ثلاثة أيام .</div>
-        <div class="col-md-12">* التبديل خلال سبعة أيام .</div>
-    </div>
+
     <div class="row">
 
 

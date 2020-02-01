@@ -8,7 +8,7 @@
 
 @section("content")
 
-    <accounting-beginning-create-component
+    <accounting-adjust-stock-create-component
     :user='@json($user)'
     :creator='@json($creator)'
     :can-create-item="{{ auth()->user()->canDo('create item') }}"
@@ -16,7 +16,7 @@
     >
 
 
-    </accounting-beginning-create-component>
+    </accounting-adjust-stock-create-component>
 @endsection
 
 

@@ -4,6 +4,7 @@
 	
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Inventory\AdjustStockDatatableRequest;
+	use App\Http\Requests\Accounting\Inventory\CreateAdjustStockRequest;
 	use App\Invoice;
 	use App\User;
 	use Illuminate\Http\Request;
@@ -39,7 +40,7 @@
 			])->first();
 			
 			$creator = auth()->user()->with('department','branch')->first();
-			return view('accounting.inventories.beginning.create',compact('user','creator'));
+			return view('accounting.inventories.adjust_stock.create',compact('user','creator'));
 		}
 		
 		/**
@@ -49,7 +50,7 @@
 		 *
 		 * @return Response
 		 */
-		public function store(Request $request)
+		public function store(CreateAdjustStockRequest $request)
 		{
 			//
 		}
