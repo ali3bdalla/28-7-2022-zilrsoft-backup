@@ -280,7 +280,6 @@
                     let actItem = this.itemsList[i];
 
 
-
                     if (i > 0) {
                         data.push(
                             '\nN\n' +
@@ -291,7 +290,7 @@
                         );
                     }
 
-                    for (let i = 0; i < actItem.qty; i++) {
+                    for (let y = 0; y < actItem.qty; y++) {
                         data.push(
                             '\nN\n',
                             {
