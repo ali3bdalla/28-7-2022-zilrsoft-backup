@@ -129,10 +129,6 @@
                 </tr>
 
 
-
-
-
-
                 <!--DICOUNT-->
                 <tr v-if="history.discount>0">
                     <td></td>
@@ -240,6 +236,47 @@
 
 
                 </tbody>
+                <thead>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+
+                    </td>
+                    <!--out-->
+                    <td>
+
+                    </td>
+
+                    <td>
+
+                    </td>
+
+                    <td>
+
+                    </td>
+                    <td></td>
+
+                    <td></td>
+                    <td>
+
+
+                    </td>
+                    <td>
+
+
+                    </td>
+
+                    <td></td>
+                    <td>{{ parseFloat(profits).toFixed(2) }}</td>
+                </tr>
+                </thead>
             </table>
 
 
@@ -269,7 +306,8 @@
                 stock_value: 0,
                 cost: 0,
                 stock_qty: 0,
-                histories: []
+                histories: [],
+                total_profit: 0,
             };
         },
         created: function () {
@@ -277,6 +315,7 @@
             this.reusable_translator = JSON.parse(window.reusable_translator);
             this.roundNumber = helpers.roundTheFloatValueTo2DigitOnlyAfterComma;
             this.loadData();
+
 
         },
 
@@ -289,7 +328,9 @@
                     vm.histories = response.data.data;
                     vm.stock_value = response.data.stock_value;
                     vm.stock_qty = response.data.stock_qty;
+
                     vm.profits = response.data.profits;
+                    // console.log(vm.profits)
                     vm.cost = response.data.cost;
                 })
             },
