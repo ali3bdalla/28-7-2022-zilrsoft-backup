@@ -628,6 +628,7 @@
 			]);
 			
 			
+			
 			Account::create([
 				'is_system_account' => true,
 				"ar_name" => "تكلفة البضاعة المباعة",
@@ -638,6 +639,20 @@
 				'organization_id' => $this->accounts_organization_id,
 				'creator_id' => $this->accounts_creator_id
 			]);
+			
+			
+			Account::create([
+				'is_system_account' => true,
+				"ar_name" => "تسويات جرد المخزون",
+				'type' => 'debit',
+				"name" => "inventory adjustment",
+				"slug" => "inventory_adjustment",
+				"parent_id" => $expense_account->id,
+				"serial" => "100000000000000000000",
+				'organization_id' => $this->accounts_organization_id,
+				'creator_id' => $this->accounts_creator_id
+			]);
+			
 			
 			
 		}

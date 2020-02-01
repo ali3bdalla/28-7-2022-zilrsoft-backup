@@ -18,7 +18,10 @@
                 @includeIf('accounting.include.invoice.transactions.return_sale')
             @elseif($invoice->invoice_type=='r_purchase')
                 @includeIf('accounting.include.invoice.transactions.return_purchase')
+            @elseif($invoice->invoice_type=='stock_adjust')
+                @includeIf('accounting.include.invoice.transactions.stock_adjust')
             @else
+
                 @includeIf('accounting.include.invoice.transactions.purchase')
             @endif
 

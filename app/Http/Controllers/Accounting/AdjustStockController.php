@@ -52,6 +52,7 @@
 		 */
 		public function store(CreateAdjustStockRequest $request)
 		{
+			return  $request->save();
 			//
 		}
 		
@@ -62,8 +63,12 @@
 		 *
 		 * @return Response
 		 */
-		public function show(Invoice $invoice)
+		public function show(Invoice $adjust_stock)
 		{
+			$invoice = $adjust_stock;
+			$transactions = $adjust_stock->transactions()->get();
+//			return  $transactions;
+			return view('accounting.inventories.adjust_stock.show',compact('invoice','transactions'));
 			//
 		}
 		

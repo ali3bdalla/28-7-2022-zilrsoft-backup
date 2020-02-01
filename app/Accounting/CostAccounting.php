@@ -96,6 +96,8 @@
 				$result = $this->toUpdateSalesReturnCost($incItem,$item->cost,$item->available_qty);
 			}else if ($incItem->invoice->invoice_type == 'r_purchase'){
 				$result = $this->toUpdatePurchasesReturnCost($incItem,$item->cost,$totalCost,$item->available_qty);
+			}else if ($incItem->invoice->invoice_type == 'stock_adjust'){
+				$result = $this->toUpdateAdjustStockCost($incItem,$item->cost,$totalCost,$item->available_qty);
 			}
 			
 			$final_cost = $result['cost'];
@@ -131,6 +133,31 @@
 			
 			return $initItemTransaction;
 		}
+		
+		/**
+		 * @param $incItemTransaction
+		 * @param $currentStockAmount
+		 * @param $currentStockQty
+		 *
+		 * @return mixed
+		 */
+		public function toUpdateAdjustStockCost($incItemTransaction,$currentStockAmount,$currentStockQty)
+		{
+//			$isLess = $currentStockQty > $incItemTransaction['qty'];
+			$initItemTransaction = $incItemTransaction;
+			$initItemTransaction['current_move_stock_qty'] = $incItemTransaction['qty'];
+			$initItemTransaction['current_move_stock_total'] = $currentStockAmount + $incItemTransaction['total'];
+			if ($initItemTransaction['current_move_stock_qty'] > 0)
+				$initItemTransaction['current_move_stock_cost'] = $initItemTransaction['current_move_stock_total'] / $initItemTransaction['current_move_stock_qty'];
+			if ($incItemTransaction['item']['is_service'])
+				$initItemTransaction['current_move_stock_cost'] = 0;
+			$initItemTransaction['final_stock_total'] = $initItemTransaction['current_move_stock_total'];
+			$initItemTransaction['final_stock_cost'] = $initItemTransaction['current_move_stock_cost'];
+			$initItemTransaction['final_stock_qty'] = $initItemTransaction['current_move_stock_qty'];
+		
+			return $initItemTransaction;
+		}
+		
 		
 		/**
 		 * @param $purchaseItemTransaction

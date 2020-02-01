@@ -99,6 +99,9 @@
 				if ($this->invoice_type == 'r_purchase')
 					$description = 'مرتجع مشتريات';
 				
+				if ($this->invoice_type == 'stock_adjust')
+					$description = 'جرد المخزون';
+				
 			}else{
 				if ($this->invoice_type == 'sale')
 					$description = 'sale';
@@ -106,6 +109,8 @@
 				if ($this->invoice_type == 'quotation')
 					$description = 'quotation';
 				
+				if ($this->invoice_type == 'stock_adjust')
+					$description = 'stock adjustment ';
 				
 				if ($this->invoice_type == 'purchase')
 					$description = 'purchase';
@@ -131,8 +136,11 @@
 			
 			if (in_array($this->invoice_type,['sale','r_sale','quotation']))
 				return !empty($this->sale) ? $this->sale->prefix.$this->id : "";
-			else
-				return !empty($this->purchase) ? $this->purchase->prefix.$this->id : "";
+			elseif(!empty($this->purchase))
+				return  $this->purchase->prefix.$this->id ;
+			elseif($this->invoice_type=='stock_adjust')
+				return "ADS-".$this->id;
+			
 			
 		}
 		

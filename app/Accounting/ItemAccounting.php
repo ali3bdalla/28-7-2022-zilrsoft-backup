@@ -5,6 +5,9 @@
 	
 	
 	use App\Core\MathCore;
+	use App\Invoice;
+	use App\InvoiceItems;
+	use App\Item;
 	use App\ItemSerials;
 	use App\KitItems;
 	
@@ -13,6 +16,8 @@
 	{
 		
 		use QtyTransactionAccounting;
+		
+		
 		
 		/**
 		 * @param $item

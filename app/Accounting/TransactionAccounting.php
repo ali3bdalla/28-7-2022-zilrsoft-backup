@@ -239,8 +239,6 @@
 			}
 			
 			
-			
-			
 			$tax_account = Account::where('slug','vat')->first();
 			$this->toCreateInvoiceExpenseAndGetTotal($inc,$items,$expenses);
 			$expenses_tax = $inc->expenses()->sum('tax');
@@ -262,9 +260,8 @@
 				}
 				$sum = $inc->expenses()->where('with_net',0)->sum('amount');
 				if ($sum > 0){
-					
-				
-					
+
+
 //					return $manager_cash_account_id;
 					$tax_account->debit_transaction()->create([
 						'creator_id' => auth()->user()->id,
@@ -873,7 +870,7 @@
 		 * @param $inc
 		 * @param $expenses
 		 */
-		public function toCreateIncItemTransaction(InvoiceItems $incItem,Invoice $inc,$expenses = 0)
+		public function toCreateIncItemTransaction(InvoiceItems $incItem,Invoice $inc,$expenses = 0,$qtyData = [])
 		{
 			if ($incItem->item->is_service && $incItem->item->is_kit)
 				return;
@@ -909,15 +906,6 @@
 			}else if ($inc->invoice_type == 'sale'){
 				
 				$amount = $incItem->item->cost * $incItem->qty;
-//
-//				if($incItem->item->is_expense)
-//				{
-//
-//					$old_amount = $amount;
-//					$amount = $old_amount / (1+($incItem->item->vts / 100));
-//					$amount = 1;
-//				}
-				
 				
 				$incItem->item->credit_transaction()->create([
 					'creator_id' => auth()->user()->id,
@@ -943,6 +931,52 @@
 					'description' => 'to_item',
 				]);
 				
+			}else if ($inc->invoice_type == 'stock_adjust'){
+				$creator_stock_adjustment = auth()->user()->toGetManagerAccount('inventory_adjustment');
+				$amount = $incItem->cost * $qtyData['qty'];
+				if ($qtyData['variation'] == 'less'){
+					
+					
+					$incItem->item->credit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'amount' => $amount,
+						'user_id' => $inc->user_id,
+						'invoice_id' => $incItem->invoice_id,
+						'description' => 'to_item',
+					]);
+					
+					$creator_stock_adjustment->debit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'amount' => $amount,
+						'user_id' => $inc->user_id,
+						'invoice_id' => $incItem->invoice_id,
+						'description' => 'to_item',
+					]);
+					
+					
+					
+					
+				}else{
+					
+					$incItem->item->debit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'amount' => $amount,
+						'user_id' => $inc->user_id,
+						'invoice_id' => $incItem->invoice_id,
+						'description' => 'to_item',
+					]);
+					$creator_stock_adjustment->credit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'amount' => $amount,
+						'user_id' => $inc->user_id,
+						'invoice_id' => $incItem->invoice_id,
+						'description' => 'to_item',
+					]);
+				}
 			}
 			
 		}

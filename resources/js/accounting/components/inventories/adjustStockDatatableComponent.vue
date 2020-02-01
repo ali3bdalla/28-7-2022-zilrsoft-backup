@@ -186,7 +186,7 @@
 
             initUi() {
                 this.requestUrl = this.app.datatableBaseUrl + 'adjust_stock_inventories';
-                this.baseUrl = this.app.trans.PurchaseBaseUrl + "/";
+                this.baseUrl = "/accounting/inventories/adjust_stock/";
                 this.customDateShortcuts = [
                     {key: 'thisWeek', label: this.app.datetimetrans.thisWeek, value: 'isoWeek'},
                     {key: 'lastWeek', label: this.app.datetimetrans.lastWeek, value: '-isoWeek'},

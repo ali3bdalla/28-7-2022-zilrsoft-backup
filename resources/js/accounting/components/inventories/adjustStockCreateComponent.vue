@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="col-md-6">
-                <a :href="app.BaseApiUrl + 'inventories/beginning'" class="btn btn-default "><i
+                <a :href="app.BaseApiUrl + 'inventories/adjust_stock'" class="btn btn-default "><i
                         class="fa fa-redo"></i> {{ app.trans.cancel }}</a>
             </div>
 
@@ -99,8 +99,8 @@
 
             </div>
             <div class="col-md-2" v-if="canCreateItem==1">
-                <a :href="app.BaseApiUrl + 'items/create'" class="btn btn-custom-primary btn-lg"
-                   target="_blank">{{app.trans.create_product}}</a>
+<!--                <a :href="app.BaseApiUrl + 'items/create'" class="btn btn-custom-primary btn-lg"-->
+<!--                   target="_blank">{{app.trans.create_product}}</a>-->
             </div>
 
 
@@ -181,30 +181,30 @@
 
         </div>
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-8"></div>
-                <div class="col-md-4">
-                    <div class="panel">
-                        <div class="panel-heading">
-                            {{ app.trans.invoice_data }}
-                        </div>
-                        <div class="panel-body text-center">
-                            <div class="row">
-                                <div class="col-md-6"><label>{{ app.trans.total }}</label></div>
-                                <div class="col-md-6">
-                                    <input :placeholder="app.trans.total"
-                                           class="form-control  input-xs amount-input"
-                                           disabled type="text"
-                                           v-model="invoiceData.total">
-                                </div>
-                            </div>
+        <!--        <div class="form-group">-->
+        <!--            <div class="row">-->
+        <!--                <div class="col-md-8"></div>-->
+        <!--                <div class="col-md-4">-->
+        <!--                    <div class="panel">-->
+        <!--                        <div class="panel-heading">-->
+        <!--                            {{ app.trans.invoice_data }}-->
+        <!--                        </div>-->
+        <!--                        <div class="panel-body text-center">-->
+        <!--                            <div class="row">-->
+        <!--                                <div class="col-md-6"><label>{{ app.trans.total }}</label></div>-->
+        <!--                                <div class="col-md-6">-->
+        <!--                                    <input :placeholder="app.trans.total"-->
+        <!--                                           class="form-control  input-xs amount-input"-->
+        <!--                                           disabled type="text"-->
+        <!--                                           v-model="invoiceData.total">-->
+        <!--                                </div>-->
+        <!--                            </div>-->
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
 
 
         <accounting-invoice-item-serials-list-layout-component
@@ -460,10 +460,12 @@
                 axios.post(this.app.BaseApiUrl + 'inventories/adjust_stock', data)
                     .then(function (response) {
 
+                        // console.log(response);
                         window.location.reload();
                     })
                     .catch(function (error) {
-                        alert(error)
+                        console.log(error)
+                        console.log(error.response)
                     });
 
             },

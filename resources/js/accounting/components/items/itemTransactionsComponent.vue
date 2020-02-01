@@ -58,7 +58,10 @@
                 <tr :class="{'has-background-light':true}">
                     <td class="datedirection">{{history.created_at}}</td>
                     <td><a :href="history.invoice_url">{{ history.invoice_title }}</a></td>
-                    <td>{{ history.user.locale_name }}</td>
+                    <td>
+                        <span v-if="history.user!=null">{{ history.user.locale_name }}</span>
+                        <span v-else></span>
+                    </td>
                     <td>{{ history.creator.locale_name }}</td>
                     <td>
                     <span
@@ -124,6 +127,10 @@
                     <td><span v-if="history.invoice_type=='sale' || history.invoice_type=='r_sale'">{{parseFloat(history.profits).toFixed(2)}}</span>
                     </td>
                 </tr>
+
+
+
+
 
 
                 <!--DICOUNT-->

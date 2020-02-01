@@ -59,6 +59,8 @@
 
 					$profit += $history['price'] - $history['cost'] - $history['discount'];
 					$result = $this->handleSaleHistory($history,$cost,$stock_value,$stock_qty);
+				}elseif ($history['invoice_type'] == 'stock_adjust'){
+					$result = $this->handleAdjustStockHistory($history,$cost,$stock_value,$stock_qty);
 				}
 
 				
@@ -115,6 +117,31 @@
 			
 			return $result;
 		}
+		
+		
+		public function handleAdjustStockHistory($history,$stock_value,$stock_qty)
+		{
+			$result = $history;
+			
+			$result['current_move_stock_qty'] =  $history['qty'];
+			$result['current_move_stock_total'] = $stock_value + $history['total'];
+			
+			if ($result['current_move_stock_qty'] > 0)
+				$result['current_move_stock_cost'] = $result['current_move_stock_total'] / $result['current_move_stock_qty'];
+			
+			if ($history['is_service'])
+				$result['current_move_stock_cost'] = 0;
+			
+			
+			
+			$result['final_stock_total'] = $result['current_move_stock_total'] ;
+			$result['final_stock_cost'] = $result['current_move_stock_cost'];
+			$result['final_stock_qty'] = $result['current_move_stock_qty'];
+			
+			$result['description'] = 'جرد المخزون';
+			return $result;
+		}
+		
 		
 		/**
 		 * @param $history

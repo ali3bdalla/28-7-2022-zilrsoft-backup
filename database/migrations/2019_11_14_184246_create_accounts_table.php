@@ -57,6 +57,7 @@
 						'other_services_sales',
 						'temp_reseller_account',
 						'shifts_shortage',
+						'inventory_adjustment',
 					])->nullable();
 				$table->softDeletes();
 				$table->timestamps();

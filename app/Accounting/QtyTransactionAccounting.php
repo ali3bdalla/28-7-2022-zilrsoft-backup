@@ -22,8 +22,7 @@
 					);
 				}
 			}else{
-				if(!$incItem->item->is_expense)
-				{
+				if (!$incItem->item->is_expense){
 					if ($qty > $incItem->qty || $qty > $incItem->item->available_qty){
 						throw new ValidationException(
 							'item.'.$incItem->id.'.qty'
@@ -55,7 +54,14 @@
 		 */
 		public function toUpdateItemAvailableQty($item,$qty,$mode = "plus")
 		{
-			$availableQty = $mode == 'plus' ? $item->available_qty + $qty : $item->available_qty - $qty;
+			if ($mode == 'plus'){
+				$availableQty = $item->available_qty + $qty;
+			}elseif ($mode == 'set'){
+				$availableQty = $qty;
+			}else{
+				$availableQty = $item->available_qty - $qty;
+			}
+			
 			
 			$item->update([
 				'available_qty' => $availableQty

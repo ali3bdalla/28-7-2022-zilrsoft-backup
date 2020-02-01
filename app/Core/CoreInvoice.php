@@ -4,9 +4,11 @@
 	
 	
 	use App\InvoiceItems;
+	use App\Item;
 	
 	trait CoreInvoice
 	{
+		
 		
 		/**
 		 * @param array $user_data
@@ -38,7 +40,7 @@
 		 */
 		public function publishSubInvoice($table = 'sale',$info = [])
 		{
-			
+
 //			return $info;
 			$info['organization_id'] = auth()->user()->organization_id;
 			if ($table === 'sale'){
@@ -65,6 +67,8 @@
 					}
 				}
 				$result_items = $this->pushReturnItems($itemsList);
+			}else if ($this->invoice_type == 'stock_adjust'){
+				$result_items = $this->pushAdjustStockItems($items);
 			}else{
 //				$result_items = $this->p2ushFreshInvoiceItems($items);
 			}
@@ -91,6 +95,18 @@
 						$result_items[] = $incItem->preformItemReturn($item,$this->fresh());
 					}
 				}
+				
+			}
+			
+			return $result_items;
+		}
+		
+		public function pushAdjustStockItems($itemsList = [])
+		{
+			$result_items = [];
+			foreach ($itemsList as $item){
+				$freshItem = Item::findOrFail($item['id']);
+				$result_items[] = $freshItem->performAdjustStockItem($item,$this->fresh());
 				
 			}
 			
