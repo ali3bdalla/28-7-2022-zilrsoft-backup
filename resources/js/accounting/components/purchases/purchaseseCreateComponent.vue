@@ -642,8 +642,8 @@
                 item.variation = item.purchase_price * item.last_p_price;
                 item.discount = 0;
                 item.subtotal = item.total;
-                item.tax = 0;
-                item.net = item.total;
+                item.tax =  ItemAccounting.getTax(item.subtotal, item.vtp);
+                item.net = ItemAccounting.getNet(item.subtotal, item.tax);
                 return item;
 
             },
@@ -672,9 +672,7 @@
 
             validateInvoiceData() {
                 let everythingFineToSave = true;
-
-
-                var validating = db.model.validateAmounts(this.invoiceData.items, [
+                let validating = db.model.validateAmounts(this.invoiceData.items, [
                     'purchase',
                     'tax',
                     'total',
@@ -686,7 +684,6 @@
                 validating = validating && ItemValidator.validateAmount(this.invoiceData.subtotal);
                 validating = validating && ItemValidator.validateAmount(this.invoiceData.discount);
                 validating = validating && ItemValidator.validateAmount(this.invoiceData.net);
-
                 this.everythingFineToSave = validating;
             },
             clearAndFocusOnBarcodeField() {
@@ -702,6 +699,7 @@
                     }
                 }
 
+                console.log('work')
                 item = this.itemUpdater(item);
                 this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
             },
