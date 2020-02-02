@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers\Accounting;
 	
 	use App\Http\Controllers\Controller;
+	use App\Http\Requests\Accounting\Inventory\ActivateAdjustStockRequest;
 	use App\Http\Requests\Accounting\Inventory\AdjustStockDatatableRequest;
 	use App\Http\Requests\Accounting\Inventory\CreateAdjustStockRequest;
 	use App\Invoice;
@@ -65,6 +66,8 @@
 		 */
 		public function show(Invoice $adjust_stock)
 		{
+//			return $invoice->items;
+			
 			$invoice = $adjust_stock;
 			$transactions = $adjust_stock->transactions()->get();
 //			return  $transactions;
@@ -75,12 +78,14 @@
 		/**
 		 * Show the form for editing the specified resource.
 		 *
-		 * @param Invoice $invoice
+		 * @param Invoice $adjust_stock
+		 * @param ActivateAdjustStockRequest $request
 		 *
-		 * @return Response
+		 * @return \Illuminate\Http\RedirectResponse
 		 */
-		public function edit(Invoice $invoice)
+		public function edit(Invoice $adjust_stock,ActivateAdjustStockRequest $request)
 		{
+			return  $request->activate($adjust_stock);
 			//
 		}
 		

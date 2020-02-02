@@ -8,6 +8,7 @@
 	use App\DatabaseHelpers\KitHelper;
 	use App\Relationships\InvoiceItemRelationships;
 	use App\Scopes\OrganizationScope;
+	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Database\Eloquent\Model;
 	
 	
@@ -26,7 +27,15 @@
 		
 		protected static function boot()
 		{
+			
 			parent::boot();
+			if (auth()->check()){
+				static::addGlobalScope('pendingItemsScope',function (Builder $builder){
+					$builder->where('is_pending',false);
+				});
+			}
+			
+			
 			if (auth()->check()){
 				static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
 			}

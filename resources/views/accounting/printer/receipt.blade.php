@@ -145,60 +145,62 @@
                 </thead>
 
                 @foreach($invoice->items as $item)
-                    <tbody>
+                    @if($item->belong_to_kit==false)
+                        <tbody>
 
 
-                    <tr style="">
+                        <tr style="">
 
-                        <td colspan="6">
-                            {{--                            <br>--}}
-                            <span>{{mb_substr($item->item->locale_name, 0,55) }}</span><br><span>{{$item->item->barcode}}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="margin-right: -2px;"><span>الكمية</span></td>
-                        <td><span>السعر</span></td>
-                        <td><span>المجموع</span></td>
-                        <td><span>الخصم</span></td>
-                        {{--                        <td><span>الصافي</span></td>--}}
-                        <td><span>الضريبة (5%)</span></td>
-                        <td><span>النهائي</span></td>
-                    </tr>
-                    <tr>
-                        <td style="padding-right:10px;"><span>{{ $item->qty }}</span></td>
-                        <td><span>{{ $item->price }}</span></td>
-                        <td><span>{{ $item->total }}</span></td>
-                        <td><span>{{ $item->discount }}</span></td>
-                        {{--                            <td><span>{{ $item->subtotal }}</span></td>--}}
-                        <td><span>{{ $item->tax }}</span></td>
-                        <td><span>{{ $item->net }}</span></td>
-                    </tr>
+                            <td colspan="6">
+                                {{--                            <br>--}}
+                                <span>{{mb_substr($item->item->locale_name, 0,55) }}</span><br><span>{{$item->item->barcode}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="margin-right: -2px;"><span>الكمية</span></td>
+                            <td><span>السعر</span></td>
+                            <td><span>المجموع</span></td>
+                            <td><span>الخصم</span></td>
+                            {{--                        <td><span>الصافي</span></td>--}}
+                            <td><span>الضريبة (5%)</span></td>
+                            <td><span>النهائي</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-right:10px;"><span>{{ $item->qty }}</span></td>
+                            <td><span>{{ $item->price }}</span></td>
+                            <td><span>{{ $item->total }}</span></td>
+                            <td><span>{{ $item->discount }}</span></td>
+                            {{--                            <td><span>{{ $item->subtotal }}</span></td>--}}
+                            <td><span>{{ $item->tax }}</span></td>
+                            <td><span>{{ $item->net }}</span></td>
+                        </tr>
 
-                    @if($item->item->is_need_serial)
-                        @foreach($item->item->serials()
-                                   ->where([
-                                   ["sale_invoice_id",$invoice->id],
-                                   ["item_id",$item->item->id],
-                                   ])
-                                   ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                   ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                   ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                   ->get() as $index => $serial
-                                   )
-                            <tr>
-                                <td style="padding-right:10px;text-align: right" colspan="6">
-                                    <span>{{ $serial->serial }}</span></td>
+                        @if($item->item->is_need_serial)
+                            @foreach($item->item->serials()
+                                       ->where([
+                                       ["sale_invoice_id",$invoice->id],
+                                       ["item_id",$item->item->id],
+                                       ])
+                                       ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                       ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                       ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                       ->get() as $index => $serial
+                                       )
+                                <tr>
+                                    <td style="padding-right:10px;text-align: right" colspan="6">
+                                        <span>{{ $serial->serial }}</span></td>
 
-                            </tr>
-                        @endforeach
+                                </tr>
+                            @endforeach
+                        @endif
+                        {{--                    <tr>--}}
+                        {{--                        <td colspan="6">--}}
+                        {{--                            <span></span></td>--}}
+                        {{--                    </tr>--}}
+                        </tbody>
+
+
                     @endif
-                    {{--                    <tr>--}}
-                    {{--                        <td colspan="6">--}}
-                    {{--                            <span></span></td>--}}
-                    {{--                    </tr>--}}
-                    </tbody>
-
-
                 @endforeach
 
             </table>

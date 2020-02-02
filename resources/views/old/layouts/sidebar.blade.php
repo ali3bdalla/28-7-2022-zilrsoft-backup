@@ -2,10 +2,10 @@
 <section class="sidebar">
     <!-- Sidebar user panel -->
     <div class="user-panel">
-{{--        <div class="text-center image">--}}
-            <img src="{{ auth()->user()->organization->logo }}" class="img-thumbnail center-block"
-                 alt="User Image" width="150px" style="padding-top: 0px !important;">
-{{--        </div>--}}
+        {{--        <div class="text-center image">--}}
+        <img src="{{ auth()->user()->organization->logo }}" class="img-thumbnail center-block"
+             alt="User Image" width="150px" style="padding-top: 0px !important;">
+        {{--        </div>--}}
     </div>
 
     <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -130,6 +130,12 @@
             >
             </sidebar-item-component>
 
+            <sidebar-item-component
+                    url='{{route('management.inventories.index')}}'
+                    title='{{ __('sidebar.adjust_stock') }}'
+                    icon='fa fa-layer-group'
+            >
+            </sidebar-item-component>
             <!-- ending of evenoty counter header-->
 
 
@@ -230,20 +236,6 @@
                     icon='fa fa-code-branch'
             >
             </sidebar-item-component>
-            {{--        <sidebar-item-component--}}
-            {{--            url='{{route('management.expenses.index')}}'--}}
-            {{--            title='{{ __('sidebar.expenses') }}'--}}
-            {{--            icon='fa fa-sync'--}}
-            {{--        >--}}
-            {{--        </sidebar-item-component>--}}
-
-            {{--        <sidebar-item-component--}}
-            {{--            url='{{route('management.gateways.index')}}'--}}
-            {{--            title='{{ __('sidebar.payments_methods') }}'--}}
-            {{--            icon='fa fa-gem'--}}
-            {{--        >--}}
-            {{--        </sidebar-item-component>--}}
-
 
             <sidebar-item-component
                     url='{{ route('management.settings.index')}}'

@@ -37,6 +37,7 @@ class CreateInvoiceItemsTable extends Migration
             $table->boolean('belong_to_kit')->default(false);
             $table->integer('parent_kit_id')->default(0);
             $table->boolean('is_kit')->default(false);
+            $table->boolean('is_pending')->default(false);
             $table->timestamps();
         });
     }

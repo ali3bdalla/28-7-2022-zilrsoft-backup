@@ -142,11 +142,14 @@
                         <a href="{{route('accounting.reseller_daily.account_close_list')}}"><i class="fa fa-sun"></i>
                             {{ __('sidebar.account_close') }}
                         </a></li>
-
+                        <li>
+                            <a href="{{route('accounting.inventories.adjust_stock.index')}}"><i class="fa fa-sun"></i>
+                                جرد المخزون
+                            </a></li>
 
                     <li>
                         <a href="{{route('accounting.inventories.adjust_stock.index')}}"><i class="fa fa-sun"></i>
-                           التسوية
+                           تسوية المخزون
                         </a></li>
 
                 </ul>

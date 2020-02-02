@@ -89,10 +89,9 @@
                                            v-text="app.trans.view"></a></li>
 
                                     <li><a :href="baseUrl + row.id + '/edit'"
-                                           v-text="app.trans.return"></a></li>
+                                           > تسوية</a></li>
 
-                                    <li><a @click="deleteItemClicked(row)"
-                                           v-text="app.trans.delete"></a></li>
+
 
 
 

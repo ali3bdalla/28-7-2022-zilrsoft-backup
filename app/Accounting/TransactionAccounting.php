@@ -936,12 +936,12 @@
 				$amount = $incItem->cost * $qtyData['qty'];
 				if ($qtyData['variation'] == 'less'){
 					
-					
 					$incItem->item->credit_transaction()->create([
 						'creator_id' => auth()->user()->id,
 						'organization_id' => auth()->user()->organization_id,
 						'amount' => $amount,
 						'user_id' => $inc->user_id,
+						'is_pending' => true,
 						'invoice_id' => $incItem->invoice_id,
 						'description' => 'to_item',
 					]);
@@ -950,12 +950,11 @@
 						'creator_id' => auth()->user()->id,
 						'organization_id' => auth()->user()->organization_id,
 						'amount' => $amount,
+						'is_pending' => true,
 						'user_id' => $inc->user_id,
 						'invoice_id' => $incItem->invoice_id,
 						'description' => 'to_item',
 					]);
-					
-					
 					
 					
 				}else{
@@ -964,6 +963,7 @@
 						'creator_id' => auth()->user()->id,
 						'organization_id' => auth()->user()->organization_id,
 						'amount' => $amount,
+						'is_pending' => true,
 						'user_id' => $inc->user_id,
 						'invoice_id' => $incItem->invoice_id,
 						'description' => 'to_item',
@@ -972,6 +972,7 @@
 						'creator_id' => auth()->user()->id,
 						'organization_id' => auth()->user()->organization_id,
 						'amount' => $amount,
+						'is_pending' => true,
 						'user_id' => $inc->user_id,
 						'invoice_id' => $incItem->invoice_id,
 						'description' => 'to_item',

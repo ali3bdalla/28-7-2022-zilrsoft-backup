@@ -62,7 +62,7 @@
 				}
 				
 				$this->toGetAndUpdatedAmounts($invoice);
-				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),[],[]);
+//				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),[],[]);
 				$invoice->update([
 					'current_status' => 'paid'
 				]);
@@ -83,11 +83,14 @@
 		 * @param Item $item
 		 * @param $userData
 		 * @param Invoice $inc
+		 *
+		 * @return
 		 */
 		public function toCreateAdjustStockIncItemAndTransaction(Item $item,$userData,Invoice $inc)
 		{
 			$mathCore = new MathCore();
 			$data['belong_to_kit'] = false;
+			$data['is_pending'] = true;
 			$data['parent_kit_id'] = false;
 			$data['discount'] = 0;
 			$data['price'] = $item->cost;
@@ -107,10 +110,10 @@
 				$qtyData['qty'] = $userData['qty'] - $item->qty;
 				$qtyData['variation'] = $qtyData['qty'] < 0 ? "less" : "greater";
 				$qtyData['qty'] = abs($qtyData['qty']);
-				
-				$this->toUpdateItemAvailableQty($item,$userData['qty'],"set");
+
+//				$this->toUpdateItemAvailableQty($item,$userData['qty'],"set");
 				$this->toCreateIncItemTransaction($baseItem->fresh(),$inc,$expenses = 0,$qtyData);
-				$this->toUpdateCostAfterInvoiceCreated($item,$baseItem);
+//				$this->toUpdateCostAfterInvoiceCreated($item,$baseItem);
 //
 			}
 			
