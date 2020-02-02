@@ -94,7 +94,7 @@
 					$result[$discount_field] = $result[$discount_field] +  $item->getOriginal('discount');
 					$result['net'] = $result['net'] +  $item->getOriginal('net');
 				}
-				$result['net'] = $result['net'] + money_format("%i",$expense_amount);
+				$result['net'] = $result['net'] + $expense_amount;
 				$parent->update($result);
 				
 				

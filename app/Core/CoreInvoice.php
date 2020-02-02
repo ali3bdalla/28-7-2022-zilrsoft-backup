@@ -9,7 +9,6 @@
 	trait CoreInvoice
 	{
 		
-		
 		/**
 		 * @param array $user_data
 		 * create new base invoice
@@ -20,6 +19,7 @@
 		{
 			$object = new self();
 			
+			$data = collect($user_data);
 			return $object->create([
 				'invoice_type' => $user_data['invoice_type'],
 				'notes' => collect($user_data)->has('notes') ? $user_data['notes'] : "",
@@ -28,7 +28,7 @@
 				'branch_id' => auth()->user()->branch_id,
 				'department_id' => auth()->user()->department_id,
 				'parent_invoice_id' => $user_data['parent_id'] == null ? 0 : $user_data['parent_id'],
-				'is_deleted' => $user_data['is_deleted'] == null ? 0 : $user_data['is_deleted']
+				'is_deleted' => $data->has('is_deleted') ? $user_data['is_deleted'] : 0
 			]);
 			
 		}
