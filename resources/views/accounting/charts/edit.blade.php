@@ -75,6 +75,37 @@
                 </div>
 
                 <div class="col-md-6">
+                    <div class="form-group @error('account_type')has-error @enderror">
+                        <select class="form-control" name="account_type" placeholder="{{trans('pages/accounts.account_type')
+                        }}">
+                            <option
+                                    @if($account->type=='debit')
+                                    selected
+
+                                    @endif
+                                    class="form-control" value="debit">مدين
+                            </option>
+
+                            <option
+                                    @if($account->type=='credit')
+                                    selected
+
+                                    @endif
+                                    class="form-control" value="credit">دائن
+                            </option>
+
+                        </select>
+                        @error('account_type')
+                        <small class="text-danger">
+                            {{ $message}}
+                        </small>
+                        @enderror
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
                     <toggle-button
                             :value="@json($account->is_gateway)"
                             name="is_gateway"

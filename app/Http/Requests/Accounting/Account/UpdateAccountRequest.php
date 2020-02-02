@@ -38,6 +38,7 @@
 			$parent = Account::find($this->parent_id);
 			
 			$data = $this->only('parent_id','name','ar_name');
+			$data['type'] = $this->input("account_type");
 			if ($this->has('is_gateway') && $this->filled('is_gateway'))
 				$data['is_gateway'] = true;
 			else
