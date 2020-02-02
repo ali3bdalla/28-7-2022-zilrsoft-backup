@@ -18,7 +18,9 @@
 @section("content")
 
     <accounting-adjust-stock-datatable-component
+            :is-deleted="1"
             :can-delete="{{auth()->user()->canDo("manage inventory")}}"
+            :can-manage="{{auth()->user()->canDo("manage managers")}}"
     >
 
 

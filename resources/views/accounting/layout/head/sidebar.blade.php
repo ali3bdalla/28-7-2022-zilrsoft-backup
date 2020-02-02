@@ -148,7 +148,7 @@
                             </a></li>
 
                     <li>
-                        <a href="{{route('accounting.inventories.adjust_stock.index')}}"><i class="fa fa-sun"></i>
+                        <a href="{{route('accounting.inventories.inventory_reconciliation')}}"><i class="fa fa-sun"></i>
                            تسوية المخزون
                         </a></li>
 

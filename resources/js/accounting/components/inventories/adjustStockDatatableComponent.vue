@@ -88,11 +88,8 @@
                                     <li><a :href="baseUrl + row.id "
                                            v-text="app.trans.view"></a></li>
 
-                                    <li><a :href="baseUrl + row.id + '/edit'"
-                                           > تسوية</a></li>
-
-
-
+                                    <li v-if="isDeleted==true && canManage"><a :href="baseUrl + row.id + '/edit'"
+                                    > تسوية</a></li>
 
 
                                 </ul>
@@ -135,7 +132,9 @@
         props: [
             "canEdit",
             "canDelete",
+            "isDeleted",
             "canCreate",
+            "canManage",
         ],
         data: function () {
             return {
@@ -179,6 +178,7 @@
             this.initUi();
             this.pushServerRequest();
 
+            // console.log(this.isDeleted)
         },
         methods: {
 
@@ -205,8 +205,9 @@
                 params.orderBy = this.orderBy;
                 params.itemsPerPage = this.itemsPerPage;
                 params.orderType = this.orderType;
+                params.isDeleted = this.isDeleted;
 
-
+                console.log(params);
                 axios.get(this.requestUrl, {
                     params: params
                 }).then(function (response) {
@@ -434,7 +435,7 @@
         padding: 5px;
     }
 
-    th,td {
+    th, td {
         text-align: center !important;
     }
 

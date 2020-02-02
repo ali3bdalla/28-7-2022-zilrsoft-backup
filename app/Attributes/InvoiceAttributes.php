@@ -138,8 +138,10 @@
 				return !empty($this->sale) ? $this->sale->prefix.$this->id : "";
 			elseif(!empty($this->purchase))
 				return  $this->purchase->prefix.$this->id ;
-			elseif($this->invoice_type=='stock_adjust')
-				return "ADS-".$this->id;
+			elseif($this->invoice_type=='stock_adjust' && $this->is_deleted==true)
+				return "INC-".$this->id;
+			elseif($this->invoice_type=='stock_adjust' && $this->is_deleted==false)
+				return "STR-".$this->id;
 			
 			
 		}

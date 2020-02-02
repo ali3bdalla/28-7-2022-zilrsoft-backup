@@ -37,6 +37,10 @@
 			if ($this->has('id') && $this->filled('id')){
 				$query = $query->where('id',$this->id);
 			}
+			
+			if ($this->has('isDeleted') && $this->filled('isDeleted')){
+				$query = $query->where('is_deleted',$this->input("isDeleted"));
+			}
 
 //
 			if ($this->has('orderBy') && $this->filled('orderBy') && $this->has('orderType') && $this->filled('orderType')){

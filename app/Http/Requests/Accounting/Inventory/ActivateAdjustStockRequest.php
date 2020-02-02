@@ -9,6 +9,7 @@
 	use App\Accounting\TransactionAccounting;
 	use App\Transaction;
 	use Illuminate\Foundation\Http\FormRequest;
+	use Illuminate\Http\RedirectResponse;
 	
 	class ActivateAdjustStockRequest extends FormRequest
 	{
@@ -40,13 +41,17 @@
 		/**
 		 * @param $adjust_stock
 		 *
-		 * @return \Illuminate\Http\RedirectResponse
+		 * @return RedirectResponse
 		 */
 		public function activate($adjust_stock)
 		{
+			$adjust_stock->update([
+				'is_deleted' => false
+			]);
 			
 			$adjust_stock->items()->withoutGlobalScope("pendingItemsScope")->update([
-				'is_pending' => false
+				'is_pending' => false,
+				
 			]);
 			
 			

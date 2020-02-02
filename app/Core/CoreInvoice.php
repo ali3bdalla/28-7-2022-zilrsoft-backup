@@ -27,7 +27,8 @@
 				'organization_id' => auth()->user()->organization_id,
 				'branch_id' => auth()->user()->branch_id,
 				'department_id' => auth()->user()->department_id,
-				'parent_invoice_id' => $user_data['parent_id'] == null ? 0 : $user_data['parent_id']
+				'parent_invoice_id' => $user_data['parent_id'] == null ? 0 : $user_data['parent_id'],
+				'is_deleted' => $user_data['is_deleted'] == null ? 0 : $user_data['is_deleted']
 			]);
 			
 		}

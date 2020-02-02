@@ -8,6 +8,7 @@
 	use App\Http\Requests\Accounting\Inventory\CreateAdjustStockRequest;
 	use App\Invoice;
 	use App\User;
+	use Illuminate\Http\RedirectResponse;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
 	
@@ -24,10 +25,16 @@
 			//
 		}
 		
+		public function inventory_reconciliation()
+		{
+			return view('accounting.inventories.adjust_stock.inventory_reconciliation');
+		}
+		
 		public function datatable(AdjustStockDatatableRequest $request)
 		{
 			return $request->data();
 		}
+		
 		/**
 		 * Show the form for creating a new resource.
 		 *
@@ -53,7 +60,7 @@
 		 */
 		public function store(CreateAdjustStockRequest $request)
 		{
-			return  $request->save();
+			return $request->save();
 			//
 		}
 		
@@ -81,11 +88,11 @@
 		 * @param Invoice $adjust_stock
 		 * @param ActivateAdjustStockRequest $request
 		 *
-		 * @return \Illuminate\Http\RedirectResponse
+		 * @return RedirectResponse
 		 */
 		public function edit(Invoice $adjust_stock,ActivateAdjustStockRequest $request)
 		{
-			return  $request->activate($adjust_stock);
+			return $request->activate($adjust_stock);
 			//
 		}
 		

@@ -52,7 +52,8 @@
 				
 				$invoice = Invoice::publish([
 					'invoice_type' => 'stock_adjust',
-					'parent_id' => 0
+					'parent_id' => 0,
+					'is_deleted' => 1,
 				]);
 				foreach ($this->input('items') as $item){
 					$freshItem = Item::findOrFail($item['id']);
@@ -92,6 +93,7 @@
 			$data['belong_to_kit'] = false;
 			$data['is_pending'] = true;
 			$data['parent_kit_id'] = false;
+			
 			$data['discount'] = 0;
 			$data['price'] = $item->cost;
 			$data['cost'] = $item->cost;

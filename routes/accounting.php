@@ -162,6 +162,7 @@
 			Route::resources([
 				'adjust_stock' => 'AdjustStockController',
 			]);
+			Route::get('inventory_reconciliation/index','AdjustStockController@inventory_reconciliation')->name('inventory_reconciliation');
 			Route::get('/','InventoryController@index')->name('index');
 			Route::prefix('beginning')->name('beginning.')->group(function (){
 				Route::get('/','InventoryController@beginning_index')->name('index');
