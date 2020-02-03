@@ -4,6 +4,7 @@
 	
 	use App\Core\CoreItemSerials;
 	use App\Scopes\OrganizationScope;
+	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Database\Eloquent\Model;
 	
 	class ItemSerials extends Model
@@ -20,7 +21,12 @@
 		protected static function boot()
 		{
 			parent::boot();
+			static::addGlobalScope('pendingSerialsScope',function (Builder $builder){
+				$builder->where('is_pending',false);
+			});
 			if (auth()->check()){
+				
+				
 				static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
 			}
 		}

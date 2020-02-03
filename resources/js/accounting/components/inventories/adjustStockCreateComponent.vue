@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-6">
                 <button :disabled="disabledButton" @click="pushDataToServer" class="btn btn-custom-primary"><i
-                        class="fa fa-save"></i> {{ app.trans.save }}
+                        class="fa fa-save"></i> حفظ البيان
                 </button>
             </div>
             <div class="col-md-6">
@@ -16,58 +16,32 @@
         </div>
 
 
-        <div class="row">
-            <div class="col-md-6">
-                <!-- <label>client name</label> -->
-                <div class="input-group">
-                    <span class="input-group-addon" id="vendors-list">{{ app.trans.vendor }}</span>
-                    <input aria-describedby="time-field" class="form-control " disabled name="" readonly
-                           type="text" v-model="user.locale_name">
+<!--        <div class="row">-->
+<!--            <div class="col-md-6">-->
+<!--                &lt;!&ndash; <label>client name</label> &ndash;&gt;-->
+<!--                <div class="input-group">-->
+<!--                    <span class="input-group-addon" id="vendors-list">{{ app.trans.vendor }}</span>-->
+<!--                    <input aria-describedby="time-field" class="form-control " disabled name="" readonly-->
+<!--                           type="text" v-model="user.locale_name">-->
 
-                </div>
-            </div>
-            <div class="col-md-6">
-                <!-- <label>date</label> -->
-                <div class="input-group">
-                    <span class="input-group-addon" id="time-field">{{ app.trans.date }}</span>
-                    <input aria-describedby="time-field" class="form-control" disabled name="" readonly style=" direction: ltr
-                            !important;"
-                           type="text" v-model="time">
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-6">-->
+<!--                &lt;!&ndash; <label>date</label> &ndash;&gt;-->
+<!--                <div class="input-group">-->
+<!--                    <span class="input-group-addon" id="time-field">{{ app.trans.date }}</span>-->
+<!--                    <input aria-describedby="time-field" class="form-control" disabled name="" readonly style=" direction: ltr-->
+<!--                            !important;"-->
+<!--                           type="text" v-model="time">-->
 
-                </div>
-
-
-            </div>
-        </div>
+<!--                </div>-->
 
 
-        <div class="row">
-            <div class="col-md-6">
-                <!-- <label>client name</label> -->
-                <div class="">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="receivers-list">{{ app.trans.receiver }}</span>
-                        <input aria-describedby="time-field" class="form-control" disabled name=""
-                               type="text" v-model="creator.locale_name">
+<!--            </div>-->
+<!--        </div>-->
 
-                    </div>
 
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="input-group">
-                    <span class="input-group-addon" id="department-field">{{ app.trans.department }}</span>
-                    <input aria-describedby="department-field" class="form-control" disabled name=""
-                           readonly
-                           type="text"
-                           v-model="creator.department.locale_title">
-
-                </div>
-            </div>
-
-        </div>
-
+<!--     -->
         <!-- start search field -->
         <div class="row">
             <div class="col-md-8">

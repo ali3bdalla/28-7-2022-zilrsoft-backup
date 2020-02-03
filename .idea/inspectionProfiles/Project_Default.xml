@@ -11,7 +11,7 @@
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="58">
+          <list size="59">
             <item index="0" class="java.lang.String" itemvalue="nobr" />
             <item index="1" class="java.lang.String" itemvalue="noembed" />
             <item index="2" class="java.lang.String" itemvalue="comment" />
@@ -70,6 +70,7 @@
             <item index="55" class="java.lang.String" itemvalue="barcode" />
             <item index="56" class="java.lang.String" itemvalue="accounting-single-barcode-layout-component" />
             <item index="57" class="java.lang.String" itemvalue="accounting-adjust-stock-datatable-component" />
+            <item index="58" class="java.lang.String" itemvalue="accounting-adjust-stock-create-component" />
           </list>
         </value>
       </option>

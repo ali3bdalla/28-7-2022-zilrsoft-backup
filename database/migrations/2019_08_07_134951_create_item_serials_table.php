@@ -33,6 +33,7 @@ class CreateItemSerialsTable extends Migration
 
 
             $table->enum('current_status',['saled','available','r_sale','r_purchase'])->default("available");
+            $table->boolean('is_pending')->default(false);
 
             $table->timestamps();
 

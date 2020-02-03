@@ -49,11 +49,36 @@
 				'is_deleted' => false
 			]);
 			
-			$adjust_stock->items()->withoutGlobalScope("pendingItemsScope")->update([
-				'is_pending' => false,
+			foreach ($adjust_stock->items()->withoutGlobalScope("pendingItemsScope")->get() as $item){
+				$item->update([
+					'is_pending' => false,
+				]);
 				
-			]);
-			
+				$item->item->serials()->whereIn('current_status',[
+					'available','r_sale'
+				])->update([
+					'is_pending' => true
+				]);
+				
+				if ($item->item->is_need_serial){
+					foreach ($item->item->serials()->withoutGlobalScope("pendingSerialsScope")
+						         ->where([["purchase_invoice_id",$adjust_stock->id],["item_id",
+							         $item->item->id],["is_pending",true]])
+						         ->get() as $serial
+					){
+//
+//						echo  $serial;
+						$serial->update([
+							'is_pending' => false
+						]);
+					}
+				}
+			}
+//			$adjust_stock->items()->withoutGlobalScope("pendingItemsScope")->update([
+//				'is_pending' => false,
+//
+//			]);
+//
 			
 			foreach ($adjust_stock->items as $incItem){
 				$this->toUpdateItemAvailableQty($incItem->item,$incItem->qty,"set");

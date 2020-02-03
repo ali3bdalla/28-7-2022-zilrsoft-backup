@@ -29,14 +29,16 @@
 		{
 			
 			parent::boot();
+		
+			
+			
+			
 			if (auth()->check()){
+				
 				static::addGlobalScope('pendingItemsScope',function (Builder $builder){
 					$builder->where('is_pending',false);
 				});
-			}
-			
-			
-			if (auth()->check()){
+				
 				static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
 			}
 		}

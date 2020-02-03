@@ -1,6 +1,6 @@
 @extends('accounting.layout.master')
 
-@section('title',__('pages/invoice.create'))
+@section('title',__('sidebar.adjust_stock'))
 
 
 

@@ -4,7 +4,7 @@
 @section('buttons')
     @can("manage inventory")
         <a href="{{route('accounting.inventories.adjust_stock.create')}}" class="btn btn-custom-primary">
-            <i class="fa fa-plus-circle"></i> {{ __('pages/invoice.create') }}
+            <i class="fa fa-plus-circle"></i> اضافة بيان
         </a>
     @endcan
 @stop

@@ -63,10 +63,16 @@
 				}
 				
 				$this->toGetAndUpdatedAmounts($invoice);
+
+
 //				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),[],[]);
+				
+				
 				$invoice->update([
 					'current_status' => 'paid'
 				]);
+				
+				
 				DB::commit();
 				
 				return $invoice;
@@ -116,7 +122,35 @@
 //				$this->toUpdateItemAvailableQty($item,$userData['qty'],"set");
 				$this->toCreateIncItemTransaction($baseItem->fresh(),$inc,$expenses = 0,$qtyData);
 //				$this->toUpdateCostAfterInvoiceCreated($item,$baseItem);
+				
+				if ($item->is_need_serial){
+					if (count($userData['serials']) > 0){
+						foreach ($userData['serials'] as $serial){
+							$new_serial = $item->serials()->create([
+								'organization_id' => auth()->user()->organization_id,
+								'creator_id' => auth()->user()->id,
+								'purchase_invoice_id' => $inc->id,
+								'item_id' => $userData['id'],
+								'serial' => $serial,
+								'current_status' => 'available',
+								'is_pending' => true
+							]);
+							
+							
+							$inc->serial_history()->create([
+								'event' => 'purchase',
+								'organization_id' => auth()->user()->organization_id,
+								'creator_id' => auth()->user()->id,
+								'serial_id' => $new_serial->id,
+								'user_id' => $inc->user_id
+							]);
+
 //
+						}
+					}
+				}
+				
+				
 			}
 			
 			

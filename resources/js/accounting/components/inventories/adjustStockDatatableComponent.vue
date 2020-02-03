@@ -44,22 +44,22 @@
                             {{ app.trans.id }}
                         </th>
                         <th :class="{'orderBy':orderBy=='ar_name'}" @click="setOrderByColumn('id')">
-                            {{ app.trans.invoice_title }}
+                           بيان الجرد
                         </th>
-                        <th :class="{'orderBy':orderBy=='name'}" @click="setOrderByColumn('total')">
-                            {{ app.trans.total }}
-                        </th>
+<!--                        <th :class="{'orderBy':orderBy=='name'}" @click="setOrderByColumn('total')">-->
+<!--                            {{ app.trans.total }}-->
+<!--                        </th>-->
 
                         <th :class="{'orderBy':orderBy=='creator_id'}" @click="setOrderByColumn('creator_id')"
-                            width="13%">
+                            width="20%">
                             {{ app.trans.created_by }}
                         </th>
                         <th :class="{'orderBy':orderBy=='created_at'}" @click="setOrderByColumn('created_at')"
-                            width="10%">
+                            width="20%">
                             {{ app.trans.created_at }}
                         </th>
 
-                        <th v-text="app.trans.options" width="8%"></th>
+                        <th v-text="app.trans.options" width="20%"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -70,7 +70,7 @@
                         <td v-text="index+1"></td>
 
                         <td class="text-center" v-text="row.title"></td>
-                        <td class="text-center" v-text="row.total"></td>
+<!--                        <td class="text-center" v-text="row.total"></td>-->
                         <td class="text-center" v-text="row.creator.locale_name"></td>
                         <td v-text="row.created_at"></td>
                         <td>
@@ -89,7 +89,7 @@
                                            v-text="app.trans.view"></a></li>
 
                                     <li v-if="isDeleted==true && canManage"><a :href="baseUrl + row.id + '/edit'"
-                                    > تسوية</a></li>
+                                    > تسوية المخزون</a></li>
 
 
                                 </ul>
