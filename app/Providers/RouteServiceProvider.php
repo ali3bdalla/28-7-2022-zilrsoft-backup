@@ -111,7 +111,7 @@
 		
 		protected function mapAccountingRoutes()
 		{
-			Route::middleware('api')
+			Route::middleware('web')
 				->namespace("App\Http\Controllers\Accounting")
 				->prefix("accounting")
 				->name('accounting.')
