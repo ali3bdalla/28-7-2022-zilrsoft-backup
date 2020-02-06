@@ -47,7 +47,14 @@
 				
 			}else{
 				if (!empty($items)){
+					
 					foreach ($items as $invoice_item){
+						
+						
+						if($invoice_item["is_expense"])
+						{
+							exit();
+						}
 						$fresh_item = Item::find($invoice_item['id']);
 						$fresh_item->init_create_invoice_item($invoice_item,$invoice_type,$user_id,$sub_invoice,$expenses);
 						$result[] = $fresh_item;

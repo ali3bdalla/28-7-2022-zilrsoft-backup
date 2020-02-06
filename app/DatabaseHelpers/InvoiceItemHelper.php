@@ -46,6 +46,7 @@
 			$creator_stock = auth()->user()->manager_current_stock();
 			
 			if (in_array($sub_invoice->invoice_type,['purchase','beginning_inventory'])){
+				
 				$this->item->debit_transaction()->create([
 					'creator_id' => auth()->user()->id,
 					'organization_id' => auth()->user()->organization_id,

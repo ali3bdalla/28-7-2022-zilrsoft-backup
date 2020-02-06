@@ -195,7 +195,8 @@
 			$this->toCreateInvoiceTaxTransactions($inc,$creator_stock,$items,$expenses,$container_id);
 			
 			if ($gateways_paid_amounts < $inc->net){
-				$amount = floatval($inc->net) - floatval($gateways_paid_amounts);
+				$expenses_amount = $this->toGetAmountOfNonEmbdedExpense($expenses);
+				$amount = floatval($inc->net) - (floatval($gateways_paid_amounts) + $expenses_amount);
 				$inc->user()->credit_transaction()->create([
 					'creator_id' => auth()->user()->id,
 					'organization_id' => auth()->user()->organization_id,

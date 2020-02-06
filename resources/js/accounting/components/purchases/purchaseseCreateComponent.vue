@@ -299,6 +299,7 @@
 
                         </div>
                     </div>
+                    <!--                    <textarea v-model="code_tester"></textarea>-->
                     <accounting-invoice-embedded-purchase-expenses-layout
                             :expenses="expensesList"
                             @expenseDeIncludeInNet="expenseDeIncludeInNet"
@@ -424,6 +425,7 @@
         props: ['creator', 'vendors', 'receivers', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
         data: function () {
             return {
+                code_tester: "",
                 vendorModal: {
                     vendorName: "",
                     vendorArName: "",
@@ -536,7 +538,7 @@
                 }
 
 
-                var data = {
+                let data = {
                     user_gateways: [],
                     user_title: user_title,
                     is_client: false,
@@ -557,6 +559,8 @@
 
 
                 };
+                console.log(data);
+
                 let appVm = this;
                 axios.post('/accounting/identities', data).then(response => {
                     appVm.vendorsList.push(response.data);
@@ -586,13 +590,13 @@
                 let appVm = this;
                 this.bc.onmessage = function (ev) {
                     if (ev.isTrusted) {
-                        var item = JSON.parse(ev.data);
+                        let item = JSON.parse(ev.data);
                         appVm.validateAndPrepareItem(item);
                     }
                 }
             },
             sendQueryRequestToFindItems() {
-                var appVm = this;
+                let appVm = this;
                 ItemQuery.sendQueryRequestToFindItems(this.barcodeNameAndSerialField).then(response => {
                     if (response.data.length === 1) {
                         appVm.validateAndPrepareItem(response.data[0]);
@@ -620,7 +624,7 @@
                         this.itemQtyUpdated(parent);
                     }
                 } else {
-                    var preparedItem = this.prepareDataInFirstUse(item);
+                    let preparedItem = this.prepareDataInFirstUse(item);
                     this.appendItemToInvoiceItemsList(preparedItem);
                 }
 
@@ -642,7 +646,7 @@
                 item.variation = item.purchase_price * item.last_p_price;
                 item.discount = 0;
                 item.subtotal = item.total;
-                item.tax =  ItemAccounting.getTax(item.subtotal, item.vtp);
+                item.tax = ItemAccounting.getTax(item.subtotal, item.vtp);
                 item.net = ItemAccounting.getNet(item.subtotal, item.tax);
                 return item;
 
@@ -699,7 +703,7 @@
                     }
                 }
 
-                console.log('work')
+                console.log('work');
                 item = this.itemUpdater(item);
                 this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
             },
@@ -767,8 +771,8 @@
             },
 
             initExpensesList() {
-                for (var i = 0; i < this.expenses.length; i++) {
-                    var expense = this.expenses[i];
+                for (let i = 0; i < this.expenses.length; i++) {
+                    let expense = this.expenses[i];
                     expense.is_open = false;
                     expense.is_apended_to_net = false;
                     expense.amount = 0;
@@ -856,7 +860,8 @@
                     creator_id: this.creator.id,
 
                 };
-                var appVm = this;
+                this.code_tester = JSON.stringify(data);
+                let appVm = this;
                 axios.post(this.app.BaseApiUrl + 'purchases', data)
                     .then(function (response) {
                         // if (event == 'a4') {
@@ -900,7 +905,7 @@
                     // Custom class to be injected into the parent node for the current dialog instance
                 };
 
-                var appVm = this;
+                let appVm = this;
 
                 this.$dialog
                     .confirm('هل تريد طباعة الباركود للمنتجات في هذه الفاتورة ؟', options)

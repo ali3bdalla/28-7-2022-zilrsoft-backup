@@ -80,6 +80,7 @@
 			
 			$transactions = $purchase->transactions()->where('description','!=','vendor_balance')->get();
 			$invoice = $purchase;
+//			return $transactions;
 			return view('accounting.purchases.show',compact('invoice','transactions'));
 			//
 		}

@@ -84,7 +84,6 @@
 				
 			}
 			
-			
 			$new_invoice_item->make_invoice_transaction($sub_invoice,$total_of_expenses);
 			
 			

@@ -12,6 +12,23 @@
 	{
 		
 		/**
+		 * @param $expenses
+		 *
+		 * @return int
+		 */
+		public function toGetAmountOfNonEmbdedExpense($expenses)
+		{
+			$total_amount = 0;
+			foreach (collect($expenses) as $expense){
+				if (!$expense["is_apended_to_net"]){
+					$total_amount += $expense["amount"];
+				}
+			}
+			
+			return $total_amount;
+		}
+		
+		/**
 		 * @param InvoiceItems $item
 		 * @param $returnedQty
 		 *
@@ -89,10 +106,10 @@
 				
 				foreach ($items as $item){
 					$result['total'] = $result['total'] + $item->getOriginal('total');
-					$result['subtotal'] = $result['subtotal'] +  $item->getOriginal('subtotal');
+					$result['subtotal'] = $result['subtotal'] + $item->getOriginal('subtotal');
 					$result['tax'] = $result['tax'] + $item->getOriginal('tax');
-					$result[$discount_field] = $result[$discount_field] +  $item->getOriginal('discount');
-					$result['net'] = $result['net'] +  $item->getOriginal('net');
+					$result[$discount_field] = $result[$discount_field] + $item->getOriginal('discount');
+					$result['net'] = $result['net'] + $item->getOriginal('net');
 				}
 				$result['net'] = $result['net'] + $expense_amount;
 				$parent->update($result);
