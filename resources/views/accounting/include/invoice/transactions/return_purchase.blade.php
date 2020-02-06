@@ -28,3 +28,9 @@
 <th>{{ money_format("%i",$total_debit) }}</th>
 <th>{{ money_format("%i",$total_credit) }}</th>
 </thead>
+
+@if(money_format("%i",$total_debit)!=money_format("%i",$total_credit))
+    <script>
+        alert('توجد مشكلة بالعمليات المحاسبية لهذه الفاتورة')
+    </script>
+@endif

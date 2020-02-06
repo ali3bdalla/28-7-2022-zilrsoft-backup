@@ -2,10 +2,10 @@
     <div class="table">
         <div class="table-posistion">
             <div v-if="onlyQuotations==true">
-                <input placeholder=" رقم الفاتورة" @focus="$event.target.select()"
-                       @keyup="pushServerRequest"
+                <input @focus="$event.target.select()" @keyup="pushServerRequest"
                        autofocus="autofocus"
                        class="form-control"
+                       placeholder=" رقم الفاتورة"
                        ref="barcodeAndNameUpdated"
                        type="text"
                        v-model="filters.title">
@@ -21,12 +21,20 @@
                     <div class="row">
                         <div class="col-md-3">
                             <VueCtkDateTimePicker
+                                    :auto-close="true"
+
                                     :behaviour="{time: {nearestIfDisabled: true}}"
-                                    :custom-shortcuts="customDateShortcuts" :label="app.trans.created_at"
-                                    :only-date="true"
-                                    :range="true" locale="en" v-model="date_range"/>
+                                    :custom-shortcuts="customDateShortcuts"
+                                    :label="app.trans.created_at"
+                                    :only-date="false"
+                                    :range="true"
+                                    locale="en"
+                                    v-model="date_range"/>
                         </div>
 
+<!--                        <div class="col-md-2">-->
+
+<!--                        </div>-->
 
                         <div class="col-md-3">
                             <accounting-multi-select-with-search-layout-component
@@ -266,7 +274,7 @@
                                             :href="baseUrl + row.id + '/edit'" v-text="app.trans.return"></a></li>
 
                                     <li v-if="onlyQuotations==true"><a
-                                            :href="'quotations/' + row.id + '/edit'" >تحويل الى فاتورة</a></li>
+                                            :href="'quotations/' + row.id + '/edit'">تحويل الى فاتورة</a></li>
 
 
                                 </ul>
@@ -398,6 +406,7 @@
     export default {
         components: {
             VueCtkDateTimePicker, Treeselect
+
         },
         props: [
             "onlyQuotations",
@@ -543,8 +552,7 @@
                 for (let i = 0; i < len; i++) {
                     let row = items[i];
                     if (row.invoice_type === 'sale') {
-                        if(parseFloat(row.invoice_cost)==NaN)
-                        {
+                        if (parseFloat(row.invoice_cost) == NaN) {
                             console.log(row);
                         }
                         this.totals.net = ItemMath.sum(this.totals.net, row.net);

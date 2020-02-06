@@ -36,3 +36,9 @@
 </thead>
 </table>
 </div>
+
+@if(money_format("%i",$total_debit)!=money_format("%i",$total_credit))
+    <script>
+        alert('توجد مشكلة بالعمليات المحاسبية لهذه الفاتورة')
+    </script>
+@endif

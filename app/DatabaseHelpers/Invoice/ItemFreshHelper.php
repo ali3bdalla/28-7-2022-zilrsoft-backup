@@ -9,6 +9,7 @@
 	use App\ItemSerials;
 	use App\Math\Math;
 	use Dotenv\Exception\ValidationException;
+	use Illuminate\Support\Facades\DB;
 	
 	trait ItemFreshHelper
 	{
@@ -130,28 +131,30 @@
 			$data = collect($request_data);
 			
 			
-			if (!$data->has('serials') || empty($data['serials']))
-				throw new ValidationException('item in package need to pass serials array');
+			if (!$data->has('serials') || empty($data['serials'])){
+				throw new ValidationException('kit item need to pass serial');
+			}
+			
 			
 			if (!empty($data['serials'])){
-				foreach ($data['serials'] as $serial){//collect($data["serials"])->pluck("serial")->toArray()
+				foreach ($data['serials'] as $serial){
 					$db_serial = ItemSerials::where('serial',$serial)->first();
 					
 					
 					if (empty($db_serial))
-						throw new ValidationException('serial is not validate');
+						new ValidationException('serial is not validate');
 					else{
 						if (in_array($type,['purchase','beginning_inventory'])){
-							throw new ValidationException('serial is already exists');
+							new ValidationException('serial is already exists');
 						}
 						if ($type == "sale"){
 							if (in_array($db_serial['current_status'],["r_purchase","saled"])){
-								throw new ValidationException('serial is already paid');
+								new ValidationException('serial is already paid');
 							}
 							
 						}else if ($type == 'r_sale'){
 							if (in_array($db_serial['current_status'],["r_sale","purchase",'available'])){
-								throw new ValidationException('serial is already returned');
+								new  ValidationException('serial is already returned');
 							}
 						}
 						

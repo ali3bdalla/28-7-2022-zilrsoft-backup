@@ -21,9 +21,9 @@
             @elseif($invoice->invoice_type=='stock_adjust')
                 @includeIf('accounting.include.invoice.transactions.stock_adjust')
             @else
-
                 @includeIf('accounting.include.invoice.transactions.purchase')
             @endif
+
 
         </table>
     </div>

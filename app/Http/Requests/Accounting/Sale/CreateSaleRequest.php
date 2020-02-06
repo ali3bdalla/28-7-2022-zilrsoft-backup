@@ -11,6 +11,7 @@
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
+	use Illuminate\Validation\ValidationException;
 	
 	class CreateSaleRequest extends FormRequest
 	{
@@ -56,6 +57,8 @@
 		public function save()
 		{
 			
+			$result = null;
+			$error = false;
 			DB::beginTransaction();
 			try{
 				$invoice = Invoice::publish(['invoice_type' => 'sale','notes' => $this->input("notes"),'parent_id' => 0]);
@@ -71,12 +74,25 @@
 				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),$this->input("methods"),[]);
 				$this->deleteQuotationAfterCloneIt();
 				DB::commit();
-				return $invoice->fresh();
-			}catch (Exception $exception){
+				$result = $invoice->fresh();
+			}catch (ValidationException $exception){
 				DB::rollBack();
-				return response(json_encode([
+				$error = true;
+				$result = response(json_encode([
 					'message' => $exception->getMessage()
 				]),400);
+			}catch (Exception $exception){
+				DB::rollBack();
+				$error = true;
+				$result = response(json_encode([
+					'message' => $exception->getMessage()
+				]),400);
+			}finally{
+				
+				if ($error)
+					DB::rollBack();
+				
+				return $result;
 			}
 			
 			

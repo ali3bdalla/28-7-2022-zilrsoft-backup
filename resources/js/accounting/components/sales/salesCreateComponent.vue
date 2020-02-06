@@ -980,7 +980,7 @@
                     let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts); //  1.05
                     item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
                     item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vts), 100)).toFixed(3);
-                    item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
+                    item.discount = ItemMath.sub(item.total, item.subtotal);
                 }
                 this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
 
@@ -1138,6 +1138,8 @@
                     branch_id: this.creator.branch_id,
                     creator_id: this.creator.id,
                 };
+
+                // $("")
                 let appVm = this;
 
                 axios.post(this.app.BaseApiUrl + 'sales', data)
