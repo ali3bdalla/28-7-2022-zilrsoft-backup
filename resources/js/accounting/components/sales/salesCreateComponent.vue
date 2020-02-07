@@ -982,8 +982,23 @@
                     item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vts), 100)).toFixed(3);
                     item.discount = ItemMath.sub(item.total, item.subtotal);
                 }
+
+
+                if (parseFloat(item.discount) < 0) {
+                    item = this.itemNetToUpdatePriceWithoutTax(item);
+                }
                 this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
 
+            },
+
+            itemNetToUpdatePriceWithoutTax(item) {
+                item.price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vtp);
+                item.total = parseFloat(item.price) * parseInt(item.qty);
+                item.subtotal = item.total;
+                item.tax = ItemAccounting.getTax(item.subtotal, item.vtp, true);
+                item.discount = 0;
+
+                return item;
             },
 
             itemUpdater(item) {

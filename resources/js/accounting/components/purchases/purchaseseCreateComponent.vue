@@ -495,8 +495,8 @@
 
                 // if (item.is_service || item.is_expense) {
                 item.purchase_price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vtp);
-                item.total = item.purchase_price;
-                item.subtotal = item.purchase_price;
+                item.total = parseFloat(item.purchase_price) * parseInt(item.qty);
+                item.subtotal = item.total;
                 item.tax = ItemAccounting.getTax(item.subtotal, item.vtp, true);
                 item.discount = 0;
                 // } else {

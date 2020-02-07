@@ -3,6 +3,7 @@
 	namespace App\Http\Requests\Accounting\Sale;
 	
 	use App\Account;
+	use App\Accounting\DateAccounting;
 	use App\Invoice;
 	use App\SaleInvoice;
 	use Carbon\Carbon;
@@ -11,6 +12,9 @@
 	
 	class DatatableRequest extends FormRequest
 	{
+		
+		use DateAccounting;
+		
 		/**
 		 * Determine if the user is authorized to make this request.
 		 *
@@ -35,8 +39,8 @@
 		
 		public function data()
 		{
-			
-			
+
+
 //			$invoices = Invoice::get();
 //
 //			$data = [];
@@ -69,7 +73,6 @@
 //			return $data;
 			
 			
-			
 			if ($this->has('invoice_type') && $this->filled('invoice_type') && $this->input('invoice_type') === 'quotation')
 				$getOnly = ['quotation'];
 			else
@@ -96,7 +99,7 @@
 				
 			}else{
 				if (!$this->user()->can('manage branches') && !$this->filled('title'))
-					$query = $query->whereDate('created_at',Carbon::today());
+					$query = $query->whereDate('created_at','>=',$this->toGetLastCloseAmountDate());
 			}
 			
 			
@@ -237,4 +240,5 @@
 			
 			
 		}
+		
 	}
