@@ -603,7 +603,7 @@
                 this.invoiceData.subtotal = db.model.sum(this.invoiceData.items, 'subtotal');
                 this.invoiceData.tax = db.model.sum(this.invoiceData.items, 'tax');
                 this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net');
-                this.validateInvoiceData(focus);
+                this.validateInvoiceData();
             },
 
             validateInvoiceData() {

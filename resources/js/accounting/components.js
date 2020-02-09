@@ -52,6 +52,7 @@ import AccountingTransactionsCreateComponent from './components/transactions/tra
 import AccountingVouchersDatatableComponent from './components/vouchers/vouchersDatatableComponet';
 import AccountingVouchersCreateComponent from './components/vouchers/vouchersCreateComponet';
 import AccountingQuotationsCreateComponent from './components/quotations/quotationsCreateComponet';
+import AccountingQuotationsServicesCreateComponent from './components/quotations/quotationsSerivcesCreateComponent';
 import AccountingPeriodAccountCloseComponent from './components/charts/periodAccountCloseComponent';
 import AccountingResellerDailyTransferAmountsComponent from './components/reseller_daily/transferAmountsComponent';
 import AccountingHeaderNotificationsLayoutComponent from './components/layout/headerLayoutComponent';
@@ -114,6 +115,7 @@ Vue.component('accounting-transactions-create-component', AccountingTransactions
 Vue.component('accounting-vouchers-datatable-component', AccountingVouchersDatatableComponent);
 Vue.component('accounting-vouchers-create-component', AccountingVouchersCreateComponent);
 Vue.component('accounting-quotations-create-component', AccountingQuotationsCreateComponent);
+Vue.component('accounting-quotations-services-create-component', AccountingQuotationsServicesCreateComponent);
 Vue.component('accounting-period-account-close-component', AccountingPeriodAccountCloseComponent);
 Vue.component('accounting-reseller-daily-transfer-amounts-component', AccountingResellerDailyTransferAmountsComponent);
 Vue.component('accounting-header-notifications-layout-component', AccountingHeaderNotificationsLayoutComponent);

@@ -29,7 +29,13 @@
 		
 		public function services_quotations()
 		{
-			return view('accounting.quotations.services');
+			$salesmen = Manager::all();
+			$clients = User::where('is_client',true)->get()->toArray();
+			$services = Item::where('is_service',true)->get();
+//			$gateways = auth()->user()->gateways()->get();
+			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
+//			Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get()
+			return view('accounting.quotations.services',compact('clients','salesmen','gateways','services'));
 		}
 		
 		/**
