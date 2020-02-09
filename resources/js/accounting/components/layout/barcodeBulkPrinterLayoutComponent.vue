@@ -1,6 +1,9 @@
 <template>
     <div style="display: inline">
 
+        <div class="panel">
+            <div class="panel-heading" v-for="bar in barcodesLoaders">{{ bar }}</div>
+        </div>
 
         <button @click="printBulkBarcode" class="btn btn-primary" v-if="hideBtn!=true">طباعة الباركود
             <i class="fa fa-print"></i></button>
@@ -66,6 +69,7 @@
         props: ['items', 'invoiceId', 'hideBtn'],
         data: function () {
             return {
+                barcodesLoaders: [],
                 shouldPrint: false,
                 invoiceTitle: "",
                 itemsList: [],
@@ -108,15 +112,16 @@
                     this.itemsList.push(item);
                 }
             },
-            generatedData(items = null) {
+            async generatedData(items = null) {
                 let LocaleItems = items == null ? this.itemsList : items;
                 let appVm = this;
                 // document.getElementById("showGeneratedBarcodeImageId_").innerHTML = "";
                 this.itemsGeneratedImage = [];
                 let len = LocaleItems.length;
                 for (let i = 0; i < len; i++) {
-                    let item = LocaleItems[i];
-                    domtoimage.toPng(document.getElementById('barcode_area_' + i), {
+                    // appVm.barcodesLoaders.push(i);
+                    // let item = LocaleItems[i];
+                    await domtoimage.toPng(document.getElementById('barcode_area_' + i), {
                         quality: 1, style: {
                             width: '100%',
                             height: '100%',
@@ -126,10 +131,13 @@
                     }).then(function (dataUrl) {
                         appVm.src = dataUrl;
                         appVm.image = dataUrl;
+
+                        console.log(dataUrl);
                         appVm.itemsGeneratedImage.push(dataUrl);
-                        let DOM_img = document.createElement("img");
-                        DOM_img.src = dataUrl;
-                        document.getElementById("showGeneratedBarcodeImageId_" + i).appendChild(DOM_img);
+                        // appVm.barcodesLoaders.push(i);
+                        // let DOM_img = document.createElement("img");
+                        // DOM_img.src = dataUrl;
+                        // document.getElementById("showGeneratedBarcodeImageId_" + i).appendChild(DOM_img);
                     })
                         .catch(function (error) {
                             console.log(error)
@@ -275,6 +283,7 @@
             printBulkBarcode() {
                 let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
                 let data = [];
+                // this.barcodesLoaders = [];
                 for (let i = 0; i < this.itemsList.length; i++) {
                     let generatedItem = this.itemsGeneratedImage[i];
                     let actItem = this.itemsList[i];
@@ -290,7 +299,9 @@
                         );
                     }
 
+                    // this.barcodesLoaders.push(generatedItem);
                     for (let y = 0; y < actItem.qty; y++) {
+
                         data.push(
                             '\nN\n',
                             {

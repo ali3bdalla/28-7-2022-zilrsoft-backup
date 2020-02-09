@@ -1,7 +1,7 @@
 <?php
 
 //
-	
+
 //	auth()->loginUsingId(8);
 	app()->setLocale('ar');
 	Auth::routes(["verify" => true]);
@@ -108,12 +108,15 @@
 			Route::get('view/quotations',"SaleController@quotations")->name('quotations');
 			Route::get('{sale}/print',"SaleController@print")->name('print');
 			Route::get('{beginning}/force_delete',"InventoryController@delete_sale")->name('delete');
-
-//
-//			Route::name('quotations.')->prefix('quotations')->group(function (){
-//
-//			});
 		});
+		
+		
+		Route::name('quotations.')->prefix('quotations')->group(function (){
+			Route::get('create/service',"QuotationController@quotations")->name('services');
+			Route::get('services_quotations/index',"QuotationController@services_quotations")->name('services_quotations');
+		});
+		
+		
 		
 		
 		Route::name('purchases.')->prefix('purchases')->group(function (){

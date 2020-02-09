@@ -122,8 +122,14 @@
                         <li>
                             <a href="{{route('accounting.quotations.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.quotations') }}
-                            </a></li>
+                            </a>
+                        </li>
 
+                        <li>
+                            <a href="{{route('accounting.quotations.services_quotations')}}"><i class="fa fa-sun"></i>
+                                {{ __('sidebar.services_quotations') }}
+                            </a>
+                        </li>
                     @endcan
 
                     @can('manage inventory')
@@ -142,14 +148,14 @@
                         <a href="{{route('accounting.reseller_daily.account_close_list')}}"><i class="fa fa-sun"></i>
                             {{ __('sidebar.account_close') }}
                         </a></li>
-                        <li>
-                            <a href="{{route('accounting.inventories.adjust_stock.index')}}"><i class="fa fa-sun"></i>
-                                جرد المخزون
-                            </a></li>
+                    <li>
+                        <a href="{{route('accounting.inventories.adjust_stock.index')}}"><i class="fa fa-sun"></i>
+                            جرد المخزون
+                        </a></li>
 
                     <li>
                         <a href="{{route('accounting.inventories.inventory_reconciliation')}}"><i class="fa fa-sun"></i>
-                           تسوية المخزون
+                            تسوية المخزون
                         </a></li>
 
                 </ul>

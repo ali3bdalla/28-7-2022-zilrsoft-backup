@@ -5,6 +5,7 @@
 		'transactions' => 'Entities',
 		'dashboard' => 'Dashboard',
 		'items' => 'Items',
+		'services_quotations' => 'فوايتر الصيانة',
 		'pending_items' => 'Pending Items',
 		'kits' => 'Kits',
 		'categories' => 'Categories',

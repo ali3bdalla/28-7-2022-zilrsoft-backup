@@ -27,6 +27,11 @@
 			return view('accounting.quotations.index',compact('clients','creators'));
 		}
 		
+		public function services_quotations()
+		{
+			return view('accounting.quotations.services');
+		}
+		
 		/**
 		 * Show the form for creating a new resource.
 		 *

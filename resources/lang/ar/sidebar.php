@@ -5,6 +5,7 @@
 		'transactions' => 'القيود',
 		'dashboard' => 'لوحة التحكم',
 		'items' => 'المنتجات',
+		'services_quotations' => 'فوايتر الصيانة',
 		'pending_items' => 'المنتجات المعلقة',
 		'kits' => 'صنف تجميعي',
 		'categories' => 'الفئات',

@@ -4,6 +4,7 @@
 	return [
 		'save_and_print_receipt' => 'حفظ وطباعة الايصال',
 		'create' => 'اضافة فاتورة',
+//		'service_invoice' => 'فاتورة صيانة ',
 		'created_by' => 'المحرر ',
 		'save' => 'حفظ الفاتورة',
 		'inventories' => 'فواتير اول المدة',
