@@ -67,8 +67,6 @@
 				$lastAccountCloseTransaction->created_at : Carbon::now()->subMonths(12) : $lastInvoice->created_at;
 		}
 		
-	
-		
 		public function toGetLastManagerTransferRemainingAmount()
 		{
 			$dailyAccount = Account::where([
@@ -442,6 +440,36 @@
 			
 			foreach ($methods as $method){
 				if ($method['amount'] > 0){
+					$gateways_total_paid = $gateways_total_paid + $method['amount'];
+				}
+			}
+			
+			
+			$this->toCreateInvoiceTaxTransactions($inc,$creator_stock,$items,$expenses,$container_id);
+			if ($gateways_total_paid < $net){
+				$amount = floatval($net) - floatval($gateways_total_paid);
+				if (!$inc->user()->is_system_user){
+					$inc->user()->debit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'creditable_id' => $creator_stock->id,
+						'creditable_type' => get_class($creator_stock),
+						'amount' => $amount,
+						'user_id' => $user_id,
+						'invoice_id' => $inc->id,
+						'container_id' => $container_id,
+						'description' => 'to_stock',
+					]);
+					$this->toUpdateClientBalance($inc->user(),'plus',$amount);
+				}else{
+					
+					$methods[0]['amount'] = $methods[0]['amount'] + $amount;
+				}
+			}
+			
+			
+			foreach ($methods as $method){
+				if ($method['amount'] > 0){
 					$gateway = Account::find($method['id']);
 					$gateway->debit_transaction()->create([
 						'creator_id' => auth()->user()->id,
@@ -470,25 +498,6 @@
 				
 			}
 			
-			
-			$this->toCreateInvoiceTaxTransactions($inc,$creator_stock,$items,$expenses,$container_id);
-			if ($gateways_total_paid < $net){
-				$amount = floatval($net) - floatval($gateways_total_paid);
-				$inc->user()->debit_transaction()->create([
-					'creator_id' => auth()->user()->id,
-					'organization_id' => auth()->user()->organization_id,
-					'creditable_id' => $creator_stock->id,
-					'creditable_type' => get_class($creator_stock),
-					'amount' => $amount,
-					'user_id' => $user_id,
-					'invoice_id' => $inc->id,
-					'container_id' => $container_id,
-					'description' => 'to_stock',
-				]);
-				
-				
-				$this->toUpdateClientBalance($inc->user(),'plus',$amount);
-			}
 			
 			$this->toCreateSalesCostTransacations($inc,$items,$container_id);
 		}
@@ -669,6 +678,42 @@
 			foreach ($methods as $method){
 				
 				if ($method['amount'] > 0){
+					$paid_amount = $paid_amount + $method['amount'];
+				}
+				
+				
+			}
+			
+			$this->toCreateInvoiceTaxTransactions($inc,$creator_stock,$items,$expenses,$container_id);
+			if ($paid_amount < $net){
+				
+				$amount = floatval($net) - floatval($paid_amount);
+				if (!$inc->user()->is_system_user){
+					$inc->user()->credit_transaction()->create([
+						'creator_id' => auth()->user()->id,
+						'organization_id' => auth()->user()->organization_id,
+						'debitable_id' => $creator_stock->id,
+						'debitable_type' => get_class($creator_stock),
+						'amount' => $amount,
+						'user_id' => $user_id,
+						'invoice_id' => $inc->id,
+						'container_id' => $container_id,
+						'description' => 'to_stock',
+					]);
+					
+					$this->toUpdateClientBalance($inc->user(),'sub',$amount);
+				}else{
+					
+					$methods[0]["amount"] = $methods[0]["amount"] + $amount;
+					
+				}
+				
+				
+			}
+			
+			foreach ($methods as $method){
+				
+				if ($method['amount'] > 0){
 					$gateway = Account::find($method['id']);
 					$gateway->credit_transaction()->create([
 						'creator_id' => auth()->user()->id,
@@ -699,26 +744,6 @@
 				
 			}
 			
-			$this->toCreateInvoiceTaxTransactions($inc,$creator_stock,$items,$expenses,$container_id);
-			
-			if ($paid_amount < $net){
-				
-				$amount = floatval($net) - floatval($paid_amount);
-				$inc->user()->credit_transaction()->create([
-					'creator_id' => auth()->user()->id,
-					'organization_id' => auth()->user()->organization_id,
-					'debitable_id' => $creator_stock->id,
-					'debitable_type' => get_class($creator_stock),
-					'amount' => $amount,
-					'user_id' => $user_id,
-					'invoice_id' => $inc->id,
-					'container_id' => $container_id,
-					'description' => 'to_stock',
-				]);
-				
-				$this->toUpdateClientBalance($inc->user(),'sub',$amount);
-				
-			}
 			
 			$this->toCreateSalesReturnCostTransacations($inc,$items,$container_id);
 		}

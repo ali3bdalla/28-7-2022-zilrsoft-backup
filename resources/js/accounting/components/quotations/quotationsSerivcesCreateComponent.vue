@@ -3,7 +3,7 @@
     <div class="message">
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6">
 
 
                 <button :disabled="!everythingFineToSave" @click="pushDataToServer('open')"
@@ -11,7 +11,7 @@
                         class="fa fa-save"></i> {{ app.trans.save_and_open }}
                 </button>
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <a :href="app.BaseApiUrl + 'purchases'" class="btn btn-default "><i
                         class="fa fa-redo"></i> {{ app.trans.cancel }}</a>
             </div>
@@ -19,134 +19,9 @@
         </div>
 
 
-        <!--        <div class="row">-->
-        <!--            <div class="col-md-5">-->
-        <!--                <accounting-select-with-search-layout-component-->
-        <!--                        :default-index="clientList[0].id"-->
-        <!--                        :no_all_option="true"-->
-        <!--                        :options="clientList"-->
-        <!--                        :placeholder="app.trans.client"-->
-        <!--                        :title="app.trans.client"-->
-        <!--                        @valueUpdated="clientListChanged"-->
-        <!--                        identity="001"-->
-        <!--                        index="001"-->
-        <!--                        label_text="locale_name"-->
-        <!--                >-->
-
-        <!--                </accounting-select-with-search-layout-component>-->
-
-        <!--            </div>-->
-        <!--            <div class="col-md-1">-->
-        <!--                <a @click="modalsInfo.showAliceNameModal=true" class="btn btn-custom-primary btn-sm">{{app.trans-->
-        <!--                    .make_alice_name}}</a>-->
-        <!--            </div>-->
-
-        <!--            <div class="col-md-6">-->
-        <!--                <div class="input-group">-->
-        <!--                    <span class="input-group-addon" id="time-field">{{ app.trans.date }}</span>-->
-        <!--                    <input aria-describedby="time-field" class="form-control" disabled name="" readonly style=" direction: ltr-->
-        <!--                            !important;"-->
-        <!--                           type="text" v-model="LiveTimer">-->
-
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
-
-
-        <!--        <div class="row">-->
-        <!--            <div class="col-md-6">-->
-        <!--                <accounting-select-with-search-layout-component-->
-        <!--                        :default-index="creator.id"-->
-        <!--                        :no_all_option="true"-->
-        <!--                        :options="salesmen"-->
-        <!--                        :placeholder="app.trans.salesman"-->
-        <!--                        :title="app.trans.salesman"-->
-        <!--                        @valueUpdated="salesmanListChanged"-->
-        <!--                        identity="002"-->
-        <!--                        index="002"-->
-        <!--                        label_text="locale_name"-->
-        <!--                >-->
-
-        <!--                </accounting-select-with-search-layout-component>-->
-
-        <!--            </div>-->
-        <!--            <div class="col-md-6">-->
-        <!--                <div class="input-group">-->
-        <!--                    <span class="input-group-addon">{{ app.trans.department }}</span>-->
-        <!--                    <input aria-describedby="time-field" class="form-control" disabled-->
-        <!--                           type="text" v-model="creator.department.locale_title">-->
-
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
-
-
-        <!--        &lt;!&ndash; start search field &ndash;&gt;-->
-        <!--        <div class="row">-->
-        <!--            <div class="col-md-6">-->
-        <!--                <div class="product_search" id="seach_area">-->
-        <!--                    <div class="">-->
-        <!--                        <input-->
-        <!--                                :placeholder="app.trans.search_barcode"-->
-        <!--                                @keyup.enter="sendQueryRequestToFindItems"-->
-        <!--                                class="form-control"-->
-        <!--                                ref="barcodeNameAndSerialField" tabindex="1"-->
-        <!--                                type="text"-->
-        <!--                                v-model="barcodeNameAndSerialField"/>-->
-        <!--                    </div>-->
-        <!--                    <div class="live-vue-search panel" v-show="searchResultList.length >=1">-->
-        <!--                        <div :key="item.id" @click="validateAndPrepareItem(item)"-->
-        <!--                             class="panel-footer" href="#" v-for="item in searchResultList">-->
-        <!--                            <h4 class="title has-text-white">{{ item.locale_name }}-->
-        <!--                                <small class="has-text-white">{{ item.barcode}} - {{ item.price_with_tax }}</small>-->
-        <!--                            </h4>-->
-
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </div>-->
-
-
-        <!--            <div class="col-md-3  text-center" v-if="canViewItems==1">-->
-        <!--                <a :href="app.BaseApiUrl +-->
-        <!--                    'items?selectable=true'" class="btn btn-custom-primary"-->
-        <!--                   target="_blank">{{ app.trans.view_products}}</a>-->
-
-        <!--            </div>-->
-        <!--            <div class="col-md-3  text-center" v-if="canCreateItem==1">-->
-        <!--                <a :href="app.BaseApiUrl + 'items/create'" class="btn btn-custom-primary"-->
-        <!--                   target="_blank">{{app.trans.create_product}}</a>-->
-        <!--            </div>-->
-
-
-        <!--        </div>-->
-
-
         <div class="row">
-            <div class="col-md-3">
-                <div class="">
-                    <div class="row">
-                        <div class="col-md-12" v-for="ser in services">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    {{ ser.locale_name}}
-                                    <span class="pull-left">{{ parseFloat(ser.price_with_tax).toFixed(2)}}</span>
-                                </div>
-                                <div class="panel-footer">
-                                    <button @click="validateAndPrepareItem(ser)" class="btn btn-primary">
-                                        اضافة للفاتورة
-                                    </button>
 
-                                    <button class="btn btn-default">
-                                        تعديل
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-9 ">
+            <div class="col-sm-6 ">
                 <div class="panel panel-primary">
                     <table class="table table-bordered text-center  table-striped">
                         <thead class="panel-heading">
@@ -217,8 +92,8 @@
                                 </div>
                                 <div class="panel-body text-center">
                                     <!--                            <div class="row">-->
-                                    <!--                                <div class="col-md-6"><label>{{ app.trans.total }}</label></div>-->
-                                    <!--                                <div class="col-md-6">-->
+                                    <!--                                <div class="col-sm-6"><label>{{ app.trans.total }}</label></div>-->
+                                    <!--                                <div class="col-sm-6">-->
                                     <!--                                    <input :placeholder="app.trans.total"-->
                                     <!--                                           class="form-control  input-xs amount-input"-->
                                     <!--                                           disabled type="text"-->
@@ -226,8 +101,8 @@
                                     <!--                                </div>-->
                                     <!--                            </div>-->
                                     <!--                            <div class="row">-->
-                                    <!--                                <div class="col-md-6"><label>{{ app.trans.discount }}</label></div>-->
-                                    <!--                                <div class="col-md-6">-->
+                                    <!--                                <div class="col-sm-6"><label>{{ app.trans.discount }}</label></div>-->
+                                    <!--                                <div class="col-sm-6">-->
                                     <!--                                    <input :placeholder="app.trans.discount"-->
                                     <!--                                           class="form-control  input-xs amount-input"-->
                                     <!--                                           disabled type="text"-->
@@ -236,8 +111,8 @@
                                     <!--                            </div>-->
 
                                     <div class="row">
-                                        <div class="col-md-6"><label>{{ app.trans.subtotal }}</label></div>
-                                        <div class="col-md-6">
+                                        <div class="col-sm-6"><label>{{ app.trans.subtotal }}</label></div>
+                                        <div class="col-sm-6">
                                             <input :placeholder="app.trans.subtotal"
                                                    class="form-control  input-xs amount-input"
                                                    disabled type="text"
@@ -246,8 +121,8 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-6"><label>{{ app.trans.tax }}</label></div>
-                                        <div class="col-md-6">
+                                        <div class="col-sm-6"><label>{{ app.trans.tax }}</label></div>
+                                        <div class="col-sm-6">
                                             <input :placeholder="app.trans.tax"
                                                    class="form-control  input-xs amount-input"
                                                    disabled type="text"
@@ -255,8 +130,8 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6"><label>{{ app.trans.net }}</label></div>
-                                        <div class="col-md-6">
+                                        <div class="col-sm-6"><label>{{ app.trans.net }}</label></div>
+                                        <div class="col-sm-6">
                                             <input :placeholder="app.trans.net"
                                                    class="form-control  input-xs amount-input"
                                                    disabled type="text"
@@ -269,6 +144,27 @@
                             </div>
 
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="">
+                    <div class="row">
+                        <div class="col-sm-4" v-for="ser in services">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    {{ ser.locale_name}}
+                                    <span class="pull-left">{{ parseFloat(ser.price_with_tax).toFixed(2)}}</span>
+                                </div>
+                                <div class="panel-footer">
+                                    <button @click="validateAndPrepareItem(ser)" class="btn btn-primary">
+                                        اضافة للفاتورة
+                                    </button>
+
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
