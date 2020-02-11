@@ -559,12 +559,12 @@
 
 
                 };
-                console.log(data);
+                // console.log(data);
 
                 let appVm = this;
                 axios.post('/accounting/identities', data).then(response => {
                     appVm.vendorsList.push(response.data);
-                    console.log(response.data);
+                    // console.log(response.data);
                     appVm.modalsInfo.showCreateVendorModal = false;
                     appVm.invoiceData.vendorId = response.data.id;
                     appVm.vendorListChanged({
@@ -864,15 +864,16 @@
                 let appVm = this;
                 axios.post(this.app.BaseApiUrl + 'purchases', data)
                     .then(function (response) {
+                        console.log(response.data);
                         // if (event == 'a4') {
                         window.open('/accounting/printer/print_a4/' + response.data.id, '_blank');
                         // }
-                        // appVm.invoiceTitle = response.data.title;
+                        appVm.invoiceTitle = response.data.title;
                         appVm.askUserToHandleInvoice(response.data);
 
                     })
                     .catch(function (error) {
-                        alert(error.response);
+                        // alert(error.response);
                         console.log(error);
                         console.log(error.response)
                     });

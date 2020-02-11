@@ -152,13 +152,15 @@
 		 */
 		private function toCreatePurchasesTransactions(Invoice $inc,$items,$methods = [],$expenses = [],$container_id)
 		{
+			$expenses_amount = $this->toGetAmountOfNonEmbdedExpense($expenses);
+			
 			$gateways_paid_amounts = 0;
 			$creator_stock = auth()->user()->toGetManagerAccount('stock');
 			$vendor_account = auth()->user()->toGetManagerAccount('vendors');
 			$vendor_account->credit_transaction()->create([
 				'creator_id' => auth()->user()->id,
 				'organization_id' => auth()->user()->organization_id,
-				'amount' => $inc->net,
+				'amount' => $inc->net - $expenses_amount,
 				'user_id' => $inc->user_id,
 				'invoice_id' => $inc->id,
 				'container_id' => $container_id,
@@ -191,12 +193,10 @@
 					$gateways_paid_amounts = $gateways_paid_amounts + $method['amount'];
 				}
 			}
-			
 			$this->toCreateInvoiceTaxTransactions($inc,$creator_stock,$items,$expenses,$container_id);
-			
 			if ($gateways_paid_amounts < $inc->net){
-				$expenses_amount = $this->toGetAmountOfNonEmbdedExpense($expenses);
-				$amount = floatval($inc->net) - (floatval($gateways_paid_amounts) + $expenses_amount);
+				
+				$amount = floatval($inc->net) - (floatval($gateways_paid_amounts) + floatval($expenses_amount));
 				$inc->user()->credit_transaction()->create([
 					'creator_id' => auth()->user()->id,
 					'organization_id' => auth()->user()->organization_id,
@@ -334,6 +334,7 @@
 		 */
 		private function toCreatePurchasesReturnTransactions(Invoice $inc,$items,$methods,$expenses,$container_id)
 		{
+			$expenses_amount = $this->toGetAmountOfNonEmbdedExpense($expenses);
 			$creator_stock = auth()->user()->toGetManagerAccount('stock');
 			$vendor_account = auth()->user()->toGetManagerAccount('vendors');
 			$paid_amount = 0;
@@ -341,7 +342,7 @@
 			$vendor_account->debit_transaction()->create([
 				'creator_id' => auth()->user()->id,
 				'organization_id' => auth()->user()->organization_id,
-				'amount' => $inc->net,
+				'amount' => $inc->net - $expenses_amount,
 				'user_id' => $inc->user_id,
 				'invoice_id' => $inc->id,
 				'container_id' => $container_id,
@@ -389,7 +390,7 @@
 			if ($paid_amount < $inc->net){
 				
 				
-				$amount = floatval($inc->net) - floatval($paid_amount);
+				$amount = floatval($inc->net) - floatval($paid_amount + $expenses_amount);
 				$inc->user()->debit_transaction()->create([
 					'creator_id' => auth()->user()->id,
 					'organization_id' => auth()->user()->organization_id,

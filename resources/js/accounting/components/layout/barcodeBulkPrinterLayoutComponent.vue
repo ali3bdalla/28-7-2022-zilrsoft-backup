@@ -88,7 +88,7 @@
         },
         created: function () {
             // this.itemsList = this.items;
-            console.log(this.invoiceId);
+            // console.log(this.invoiceId);
             this.invoiceTitle = this.invoiceId;
             this.initItems();
             this.connectQZ();
@@ -132,7 +132,7 @@
                         appVm.src = dataUrl;
                         appVm.image = dataUrl;
 
-                        console.log(dataUrl);
+                        // console.log(dataUrl);
                         appVm.itemsGeneratedImage.push(dataUrl);
                         // appVm.barcodesLoaders.push(i);
                         // let DOM_img = document.createElement("img");
