@@ -49,12 +49,6 @@
 				if (!empty($items)){
 					
 					foreach ($items as $invoice_item){
-						
-						
-						if($invoice_item["is_expense"])
-						{
-							exit();
-						}
 						$fresh_item = Item::find($invoice_item['id']);
 						$fresh_item->init_create_invoice_item($invoice_item,$invoice_type,$user_id,$sub_invoice,$expenses);
 						$result[] = $fresh_item;
@@ -151,9 +145,8 @@
 			}
 			
 			$paid = 0;
-			foreach ($this->payments as $payment)
-			{
-				$paid+=$payment['amount'];
+			foreach ($this->payments as $payment){
+				$paid += $payment['amount'];
 			}
 			
 			$result['remaining'] = $result['net'] - $paid;
@@ -188,9 +181,8 @@
 			}
 			
 			$paid = 0;
-			foreach ($this->payments as $payment)
-			{
-				$paid+=$payment['amount'];
+			foreach ($this->payments as $payment){
+				$paid += $payment['amount'];
 			}
 			
 			$result['remaining'] = $result['net'] - $paid;
@@ -228,13 +220,11 @@
 			}
 			
 			$paid = 0;
-			foreach ($this->payments as $payment)
-			{
-				$paid+=$payment['amount'];
+			foreach ($this->payments as $payment){
+				$paid += $payment['amount'];
 			}
 			
 			$result['remaining'] = $result['net'] - $paid;
-			
 			
 			
 			$this->update($result);
@@ -271,7 +261,7 @@
 			}elseif ($invoice_type == 'r_sale'){
 				return $this->handle_return_sale_transactions($methods,$user_id,$net,$items,$expenses,$container_id);
 			}
-			
+
 //			$container->update_amount();
 			
 			return 'paid';
@@ -739,8 +729,7 @@
 //			$invoice_items = $this->items;
 			$total_cost = $this->transactions()->where('description','to_item')->sum('amount');
 			// to make cost of goods transaction
-			if($total_cost>0)
-			{
+			if ($total_cost > 0){
 				$manager_cogs_account->debit_transaction()->create([
 					'creator_id' => auth()->user()->id,
 					'organization_id' => auth()->user()->organization_id,
@@ -753,7 +742,6 @@
 					'description' => 'to_cogs',
 				]);
 			}
-			
 			
 			
 			// to make sales transactions

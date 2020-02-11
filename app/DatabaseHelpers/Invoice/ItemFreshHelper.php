@@ -101,7 +101,8 @@
 				$data['cost'] = $request_data['purchase_price'] / (1 + ($this->vts / 100));
 			else
 				$data['cost'] = $this->cost;
-			
+
+//			echo  json_encode($data);
 			
 			$baseItem = $baseInvoice->items()->create($data);
 			if (!$this->is_service){

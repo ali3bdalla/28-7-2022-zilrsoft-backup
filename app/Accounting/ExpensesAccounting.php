@@ -61,6 +61,7 @@
 					'parent_id' => $inc->id,
 				]
 			);
+			
 			$purchase = $invoice->publishSubInvoice('purchase',[
 				'invoice_type' => 'purchase',
 				'prefix' => 'PUI-',
@@ -68,11 +69,12 @@
 				'vendor_id' => $item->expense_vendor_id,
 				'receiver_id' => $inc->sale->salesman_id
 			]);
+//			echo $dbData['expense_vendor_id'];
 			
-			
-			$itemsList = [$dbData];
+			$itemsList = [collect($dbData)->toArray()];
 			$gatewaysList = [];
 			$invoice->add_items_to_invoice($itemsList,$purchase,[],'purchase',$dbData['expense_vendor_id']);
+//
 			$this->toGetAndUpdatedAmounts($invoice);
 			$this->toCreateInvoiceTransactions($invoice,$itemsList,$gatewaysList,[]);
 			return $invoice;

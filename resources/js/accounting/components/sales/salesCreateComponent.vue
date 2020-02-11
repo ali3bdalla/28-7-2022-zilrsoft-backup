@@ -1159,45 +1159,46 @@
 
                 axios.post(this.app.BaseApiUrl + 'sales', data)
                     .then(function (response) {
-                        if (doWork == 'open') {
-                            window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
-                        } else if (doWork == 'print') {
-                            appVm.everythingFineToSave = false;
-                            appVm.createdInvoiceId = response.data.id;
-                            let salesman = appVm.invoiceData.salesmanId,
-                                clientId = appVm.invoiceData.clientId;
-
-                            appVm.invoiceData = {
-                                remaining: 0,
-                                vendorIncCumber: "",
-                                clientId: clientId,
-                                salesmanId: salesman,
-                                methods: [],
-                                items: [],
-                                total: 0,
-                                net: 0,
-                                tax: 0,
-                                discount: 0,
-                                subtotal: 0,
-                                status: "credit"
-                            };
-
-                            setInterval(function () {
-                                if (appVm.cloning) {
-                                    window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
-                                } else {
-                                    window.location.reload();
-                                }
-
-                            }, 1000);
-
-                        } else {
-                            if (appVm.cloning) {
-                                window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
-                            } else {
-                                window.location.reload();
-                            }
-                        }
+                        console.log(response.data);
+                        // if (doWork == 'open') {
+                        //     window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                        // } else if (doWork == 'print') {
+                        //     appVm.everythingFineToSave = false;
+                        //     appVm.createdInvoiceId = response.data.id;
+                        //     let salesman = appVm.invoiceData.salesmanId,
+                        //         clientId = appVm.invoiceData.clientId;
+                        //
+                        //     appVm.invoiceData = {
+                        //         remaining: 0,
+                        //         vendorIncCumber: "",
+                        //         clientId: clientId,
+                        //         salesmanId: salesman,
+                        //         methods: [],
+                        //         items: [],
+                        //         total: 0,
+                        //         net: 0,
+                        //         tax: 0,
+                        //         discount: 0,
+                        //         subtotal: 0,
+                        //         status: "credit"
+                        //     };
+                        //
+                        //     setInterval(function () {
+                        //         if (appVm.cloning) {
+                        //             window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                        //         } else {
+                        //             window.location.reload();
+                        //         }
+                        //
+                        //     }, 1000);
+                        //
+                        // } else {
+                        //     if (appVm.cloning) {
+                        //         window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                        //     } else {
+                        //         window.location.reload();
+                        //     }
+                        // }
 
                     })
                     .catch(function (error) {
