@@ -96,6 +96,7 @@
 		{
 			DB::beginTransaction();
 			try{
+				
 				TransactionsContainer::where('invoice_id',$beginning->id)->forceDelete();
 				Transaction::where('invoice_id',$beginning->id)->forceDelete();
 				Payment::where('invoice_id',$beginning->id)->forceDelete();

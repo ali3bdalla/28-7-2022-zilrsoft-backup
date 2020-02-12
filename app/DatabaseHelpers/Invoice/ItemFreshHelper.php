@@ -85,7 +85,7 @@
 			
 			if ($data['printable']){
 				$baseInvoice->update([
-					'printable_prince' => false
+					'printable_price' => false
 				]);
 			}
 			
