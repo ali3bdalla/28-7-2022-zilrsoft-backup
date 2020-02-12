@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/aVijCRj94XS1XJdF9N9dLq7KRqrfZkPGQkAJJXAm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/1536026161f19b3182457c34ba7af6763cc9b489.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/1ec3d70dcd44b1742cb3d0d8be00fa95ce3680e2.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/1f95a42766565376a1241eb6a59c724ada4d399d.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/3f586c07c2d7ab9e2a8a44fb714be71355af1c60.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/9c9fdf0227042943cb2865fecf3268bdbc7caf32.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/9f11219cf30bd841b38db0c4434938ceb1853dae.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/ab38e2bba681f70fa0553fc5bda60d013e65c05c.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/LgNVVCNKFExj0PC8PrZGDqLzZY6i6F17IySnz7FY" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/LgNVVCNKFExj0PC8PrZGDqLzZY6i6F17IySnz7FY" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodeBulkPrinterLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodeBulkPrinterLayoutComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -468,7 +460,7 @@
       <workItem from="1580970639026" duration="4882000" />
       <workItem from="1581234850246" duration="7938000" />
       <workItem from="1581409087214" duration="3993000" />
-      <workItem from="1581445845208" duration="4796000" />
+      <workItem from="1581445845208" duration="5082000" />
     </task>
     <servers />
   </component>

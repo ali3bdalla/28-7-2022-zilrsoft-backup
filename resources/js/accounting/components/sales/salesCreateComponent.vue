@@ -819,6 +819,7 @@
                 })
             },
             validateAndPrepareItem(item) {
+                item.printable = true;
                 // alert(item.is_expense);
                 // item.is_expense = false;
                 this.searchResultList = [];
