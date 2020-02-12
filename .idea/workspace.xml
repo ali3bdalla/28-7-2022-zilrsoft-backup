@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodeBulkPrinterLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodeBulkPrinterLayoutComponent.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -460,7 +459,7 @@
       <workItem from="1580970639026" duration="4882000" />
       <workItem from="1581234850246" duration="7938000" />
       <workItem from="1581409087214" duration="3993000" />
-      <workItem from="1581445845208" duration="2842000" />
+      <workItem from="1581445845208" duration="3001000" />
     </task>
     <servers />
   </component>
