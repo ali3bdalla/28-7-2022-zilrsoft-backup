@@ -871,6 +871,9 @@
                         appVm.invoiceTitle = response.data.title;
                         appVm.askUserToHandleInvoice(response.data);
 
+                        // this is user profile to handle the new quotation mode for this user profile
+                        // and to handle the new app with out last fake news
+                        // user will take every think to handle the user google account
                     })
                     .catch(function (error) {
                         // alert(error.response);

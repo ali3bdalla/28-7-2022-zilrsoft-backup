@@ -147,6 +147,7 @@
                 <tr>
                     <th></th>
                     <th></th>
+                    <th></th>
                     <!-- <th class="has-text-white"></th> -->
                     <th>{{ app.trans.barcode }}</th>
                     <th>{{ app.trans.item_name }}</th>
@@ -190,6 +191,20 @@
                         </accounting-kit-items-layout-component>
 
 
+                    </td>
+                    <td>
+                        <button
+
+                                @click="updateItemPrintable(true,item)"
+                                class="btn btn-warning btn-xs"
+                                v-show="!item.printable"><i class="fa fa-eye"></i> &nbsp;
+                        </button>
+                        <button
+
+                                @click="updateItemPrintable(false,item)"
+                                class="btn btn-danger btn-xs"
+                                v-show="item.printable"><i class="fa fa-eye-slash"></i> &nbsp;
+                        </button>
                     </td>
                     <td>
                         <v-tooltip bottom>
@@ -635,7 +650,14 @@
 
         methods: {
 
-
+            updateItemPrintable(printable, item) {
+                // console.log(printable);
+                item.printable = printable;
+                this.invoiceData.items = db.model.replace(this.invoiceData.items,
+                    db.model.index(this.invoiceData.items, item.id), item);
+                console.log(item);
+                // this.updateInvoiceData();
+            },
             handleCloningEvent() {
                 let items = this.quotation.items;
 
@@ -853,6 +875,7 @@
             },
             prepareDataInFirstUse(item) {
                 item.isOpen = false;
+                item.printable = true;
                 item.qty = 1;
                 if (item.is_need_serial) {
                     item.qty = 0;
@@ -1188,7 +1211,6 @@
                                 } else {
                                     window.location.reload();
                                 }
-
                             }, 1000);
 
                         } else {

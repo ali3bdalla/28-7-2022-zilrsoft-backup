@@ -154,27 +154,35 @@
                             <td colspan="6">
                                 {{--                            <br>--}}
                                 <span>{{mb_substr($item->item->locale_name, 0,55) }}</span><br><span>{{$item->item->barcode}}</span>
+                                <span class="pull-left">الكمية : {{ $item->qty }}</span>
                             </td>
                         </tr>
                         <tr>
                             <td style="margin-right: -2px;"><span>الكمية</span></td>
-                            <td><span>السعر</span></td>
-                            <td><span>المجموع</span></td>
-                            <td><span>الخصم</span></td>
-                            {{--                        <td><span>الصافي</span></td>--}}
-                            <td><span>الضريبة (5%)</span></td>
-                            <td><span>النهائي</span></td>
+                            @if($invoice->printable_price)
+                                <td><span>السعر</span></td>
+                                <td><span>المجموع</span></td>
+                                <td><span>الخصم</span></td>
+                                {{--                        <td><span>الصافي</span></td>--}}
+                                <td><span>الضريبة (5%)</span></td>
+                                <td><span>النهائي</span></td>
+                            @endif
                         </tr>
-                        <tr>
-                            <td style="padding-right:10px;"><span>{{ $item->qty }}</span></td>
-                            <td><span>{{ $item->price }}</span></td>
-                            <td><span>{{ $item->total }}</span></td>
-                            <td><span>{{ $item->discount }}</span></td>
-                            {{--                            <td><span>{{ $item->subtotal }}</span></td>--}}
-                            <td><span>{{ $item->tax }}</span></td>
-                            <td><span>{{ $item->net }}</span></td>
-                        </tr>
+                        @if($invoice->printable_price)
+                            <tr>
+                                <td style="padding-right:10px;"><span>{{ $item->qty }}</span></td>
 
+                                <td><span>{{ $item->price }}</span></td>
+                                <td><span>{{ $item->total }}</span></td>
+                                <td><span>{{ $item->discount }}</span></td>
+                                {{--                            <td><span>{{ $item->subtotal }}</span></td>--}}
+                                <td><span>{{ $item->tax }}</span></td>
+                                <td><span>{{ $item->net }}</span></td>
+
+                            </tr>
+
+
+                        @endif
                         @if($item->item->is_need_serial)
                             @foreach($item->item->serials()
                                        ->where([
@@ -187,7 +195,8 @@
                                        ->get() as $index => $serial
                                        )
                                 <tr>
-                                    <td style="padding-right:10px;text-align: right" colspan="6">
+                                    <td style="padding-right:10px;text-align: right"
+                                        colspan="@if($invoice->printable_price) 6 @else 2 @endif">
                                         <span>{{ $serial->serial }}</span></td>
 
                                 </tr>

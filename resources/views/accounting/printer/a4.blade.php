@@ -201,19 +201,21 @@
                         <th class="unit"
                             style="width: 30px !important;background-color: #777777 !important;">
                             {{__('pages/invoice.qty')}}</th>
-                        <th class="unit"
-                            style="width: 50px !important;background-color: #777777 !important;">{{__('pages/invoice.price')}}</th>
-                        <th class="unit"
-                            style="width: 70px !important;background-color: #777777 !important;">{{__('pages/invoice.total')}} </th>
-                        <th class="unit"
-                            style="width: 40px !important;background-color: #777777 !important;">
-                            {{__('pages/invoice.discount')}} </th>
-                        <th class="unit"
-                            style="width: 40px !important;background-color: #777777 !important;">
-                            {{__('pages/invoice.tax')}} </th>
-                        <th class="unit"
-                            style="width: 70px !important;background-color: #777777 !important;">الاجمالي
-                        </th>
+                        @if($invoice->printable_price)
+                            <th class="unit"
+                                style="width: 50px !important;background-color: #777777 !important;">{{__('pages/invoice.price')}}</th>
+                            <th class="unit"
+                                style="width: 70px !important;background-color: #777777 !important;">{{__('pages/invoice.total')}} </th>
+                            <th class="unit"
+                                style="width: 40px !important;background-color: #777777 !important;">
+                                {{__('pages/invoice.discount')}} </th>
+                            <th class="unit"
+                                style="width: 40px !important;background-color: #777777 !important;">
+                                {{__('pages/invoice.tax')}} </th>
+                            <th class="unit"
+                                style="width: 70px !important;background-color: #777777 !important;">الاجمالي
+                            </th>
+                        @endif
                     </tr>
                     </tbody>
                     <tbody class="body">
@@ -235,16 +237,18 @@
 								 <?php echo $background_color;?> !important;">{{mb_substr($item->item->locale_name, 0,55) }}</td>
                                          <td class="total" style="background-color:
 								 <?php echo $background_color;?> !important;">{{ $item->qty }}</td>
-                                         <td class="total" style="background-color:
-								 <?php echo $background_color;?> !important;">{{ $item->price }}</td>
-                                         <td class="total" style="background-color:
-								 <?php echo $background_color;?> !important;"> {{ $item->total }}</td>
-                                         <td class="total" style="background-color:
-								 <?php echo $background_color;?> !important;"> {{ $item->discount }}</td>
-                                         <td class="total" style="background-color:
-								 <?php echo $background_color;?> !important;"> {{ $item->tax }}</td>
-                                         <td class="total" style="background-color:
-								 <?php echo $background_color;?> !important;"> {{ $item->net }}</td>
+                                         @if($invoice->printable_price)
+                                             <td class="total" style="background-color:
+									<?php echo $background_color;?> !important;">{{ $item->price }}</td>
+                                             <td class="total" style="background-color:
+									<?php echo $background_color;?> !important;"> {{ $item->total }}</td>
+                                             <td class="total" style="background-color:
+									<?php echo $background_color;?> !important;"> {{ $item->discount }}</td>
+                                             <td class="total" style="background-color:
+									<?php echo $background_color;?> !important;"> {{ $item->tax }}</td>
+                                             <td class="total" style="background-color:
+									<?php echo $background_color;?> !important;"> {{ $item->net }}</td>
+                                         @endif
                                      </tr>
                                      @if(!in_array($item->invoice_type,['purchase']))
                                          @if($item->item->is_need_serial)
@@ -423,5 +427,5 @@
 
     );
 
-    print();
+    // print();
 </script>

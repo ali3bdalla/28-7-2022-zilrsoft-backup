@@ -42,6 +42,7 @@
 				
 				$table->boolean('is_deleted')->default(false);
 				$table->boolean('is_updated')->default(false);
+				$table->boolean('printable_prince')->default(true);
 				
 				$table->text('notes')->nullable();
 				

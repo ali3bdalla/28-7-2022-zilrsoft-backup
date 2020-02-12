@@ -78,7 +78,18 @@
 			if ($this->is_need_serial)
 				$this->validateItemNeedSerials($request_data);
 			
+			
 			$data['belong_to_kit'] = isset($request_data['belong_to_kit']) && $request_data['belong_to_kit'] ? true : false;
+			$data['printable'] = isset($request_data['belong_to_kit']) && $request_data['belong_to_kit'] ? false :
+				$request_data['printable'];
+			
+			if ($data['printable']){
+				$baseInvoice->update([
+					'printable_prince' => false
+				]);
+			}
+			
+			
 			$data['parent_kit_id'] = $data['belong_to_kit'] ? $request_data['kit_id'] : 0;
 			$data['discount'] = $request_data['discount'];
 			if (in_array($baseInvoice->invoice_type,['sale','r_sale'])){

@@ -41,6 +41,7 @@
 				"items.*.id" => "required|integer|exists:items,id",
 				"items.*.price" => "validate_item_price_or_discount|price",
 				"items.*.purchase_price" => "validate_item_purchase_price|price",
+				"items.*.printable" => "required|boolean",
 				"items.*.discount" => "validate_item_price_or_discount",
 				"items.*.qty" => "required|integer|item_has_available_qty:items.*.id",
 				"items.*.expense_vendor_id" => "validate_expense_vendor",
