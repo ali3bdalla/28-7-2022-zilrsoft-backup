@@ -2,39 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/05fb7ea63e1dba3886a25d4be2f2f37884d59563.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/0988f7888aa83e0b046cdee65bb206abb009a2af.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/0a550fcea5f2f53d0b79974379f43adc7471eba3.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/0e33f9b6fa04b51c0038e25304dbb3bcf7c8d52c.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/2d9be4acaae97ae6171fedec21ac86e4d24a8319.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/33189983d0a3bb3ddab48023f6c51874724236f3.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/362e26ecb7b8e49e0713321926173e17ee892254.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/535881e622976e0551bfeb80b5e69b8f71bb54cc.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/58cb652892ba018ab1d055b65082fad867571a20.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/75c8a2f86d57391d584d513cff5871ee0d50e818.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/7a04a828db645b9c160eef0c16272c1403395404.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/7d02eb55aed262c020bf4711dd14f96476917ac9.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/7e8e7cba2962b052e47ca22cba3fabc637f41111.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/846a23b907bd4e9d37600acf5a60fd01e4938334.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/8cd1f9ba92aa6aa453fd98b1947d27d9c8fbcf9f.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/8f21c74690ac61b80bf287e7bf2eaa296feaa570.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/9b15e320395d4d8ed9c20b5f20ac6a23ea5c4cf1.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/a87e787cec790a883a5cb3def2d353c1d912fe40.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/afa3205641edc044aae2f4b9d00e55a49bdb1c04.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/ba20dfcd7751ab30a849f9eb20022a6a8b59fab2.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/ba6104edf1db6dbedea5b257b288749afbc64f7d.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c389a98a2e7b7d04d8c6a26cf5623e65e8a67906.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c414d47453ebcae52a820c38e91491ceffbc64c9.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c70a877044d933fe9cac9a8cf94c3395c486c2e9.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/deaef1e7d6b3ab7de3953d339b0c4555a975dc6e.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/e1ab66c9b54630a5961688c2e4d8bdb235401646.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/e47d4287f1c12aa43e47198b519694b379d49ded.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/e49827797fb57770f56475999631eac1e9c8610f.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/e6a7e9bf4f4e077a08945234ac43b73f361691d3.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/f6b1ebff38414e3164a861c2fea9211d4dec2506.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/f7826a9b8c36d96079c1b6d3d5f891f60b896b04.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/fb70bfa6e50742cd68a888cf5c9af70994a7468c.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/aVijCRj94XS1XJdF9N9dLq7KRqrfZkPGQkAJJXAm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/1536026161f19b3182457c34ba7af6763cc9b489.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/1ec3d70dcd44b1742cb3d0d8be00fa95ce3680e2.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/1f95a42766565376a1241eb6a59c724ada4d399d.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/3f586c07c2d7ab9e2a8a44fb714be71355af1c60.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/9c9fdf0227042943cb2865fecf3268bdbc7caf32.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/9f11219cf30bd841b38db0c4434938ceb1853dae.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/ab38e2bba681f70fa0553fc5bda60d013e65c05c.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/sessions/LgNVVCNKFExj0PC8PrZGDqLzZY6i6F17IySnz7FY" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/LgNVVCNKFExj0PC8PrZGDqLzZY6i6F17IySnz7FY" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -491,7 +468,7 @@
       <workItem from="1580970639026" duration="4882000" />
       <workItem from="1581234850246" duration="7938000" />
       <workItem from="1581409087214" duration="3993000" />
-      <workItem from="1581445845208" duration="4468000" />
+      <workItem from="1581445845208" duration="4796000" />
     </task>
     <servers />
   </component>

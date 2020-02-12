@@ -222,7 +222,7 @@
 				<?php $items_qty_count = 0; ?>
                     @if(!empty($invoice->items))
                         @foreach($invoice->items as $item)
-                            @if($item->belong_to_kit==false)
+                            @if($item->belong_to_kit==false && $item->printable)
 						   <?php $items_qty_count = $items_qty_count + $item->qty ?>
                                  @if($loop->index%2==0)
 							   <?php $background_color = "#ffffff"; ?>

@@ -145,68 +145,68 @@
                 </thead>
 
                 @foreach($invoice->items as $item)
-                    @if($item->belong_to_kit==false)
-                        <tbody>
+                    @if($item->belong_to_kit==false  && $item->printable))
+                    <tbody>
 
 
-                        <tr style="">
+                    <tr style="">
 
-                            <td colspan="6">
-                                {{--                            <br>--}}
-                                <span>{{mb_substr($item->item->locale_name, 0,55) }}</span><br><span>{{$item->item->barcode}}</span>
-                                <span class="pull-left">الكمية : {{ $item->qty }}</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="margin-right: -2px;"><span>الكمية</span></td>
-                            @if($invoice->printable_price)
-                                <td><span>السعر</span></td>
-                                <td><span>المجموع</span></td>
-                                <td><span>الخصم</span></td>
-                                {{--                        <td><span>الصافي</span></td>--}}
-                                <td><span>الضريبة (5%)</span></td>
-                                <td><span>النهائي</span></td>
-                            @endif
-                        </tr>
+                        <td colspan="6">
+                            {{--                            <br>--}}
+                            <span>{{mb_substr($item->item->locale_name, 0,55) }}</span><br><span>{{$item->item->barcode}}</span>
+                            <span class="pull-left">الكمية : {{ $item->qty }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="margin-right: -2px;"><span>الكمية</span></td>
                         @if($invoice->printable_price)
-                            <tr>
-                                <td style="padding-right:10px;"><span>{{ $item->qty }}</span></td>
+                            <td><span>السعر</span></td>
+                            <td><span>المجموع</span></td>
+                            <td><span>الخصم</span></td>
+                            {{--                        <td><span>الصافي</span></td>--}}
+                            <td><span>الضريبة (5%)</span></td>
+                            <td><span>النهائي</span></td>
+                        @endif
+                    </tr>
+                    @if($invoice->printable_price)
+                        <tr>
+                            <td style="padding-right:10px;"><span>{{ $item->qty }}</span></td>
 
-                                <td><span>{{ $item->price }}</span></td>
-                                <td><span>{{ $item->total }}</span></td>
-                                <td><span>{{ $item->discount }}</span></td>
-                                {{--                            <td><span>{{ $item->subtotal }}</span></td>--}}
-                                <td><span>{{ $item->tax }}</span></td>
-                                <td><span>{{ $item->net }}</span></td>
+                            <td><span>{{ $item->price }}</span></td>
+                            <td><span>{{ $item->total }}</span></td>
+                            <td><span>{{ $item->discount }}</span></td>
+                            {{--                            <td><span>{{ $item->subtotal }}</span></td>--}}
+                            <td><span>{{ $item->tax }}</span></td>
+                            <td><span>{{ $item->net }}</span></td>
+
+                        </tr>
+
+
+                    @endif
+                    @if($item->item->is_need_serial)
+                        @foreach($item->item->serials()
+                                   ->where([
+                                   ["sale_invoice_id",$invoice->id],
+                                   ["item_id",$item->item->id],
+                                   ])
+                                   ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                   ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                   ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                   ->get() as $index => $serial
+                                   )
+                            <tr>
+                                <td style="padding-right:10px;text-align: right"
+                                    colspan="@if($invoice->printable_price) 6 @else 2 @endif">
+                                    <span>{{ $serial->serial }}</span></td>
 
                             </tr>
-
-
-                        @endif
-                        @if($item->item->is_need_serial)
-                            @foreach($item->item->serials()
-                                       ->where([
-                                       ["sale_invoice_id",$invoice->id],
-                                       ["item_id",$item->item->id],
-                                       ])
-                                       ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                       ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                       ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                       ->get() as $index => $serial
-                                       )
-                                <tr>
-                                    <td style="padding-right:10px;text-align: right"
-                                        colspan="@if($invoice->printable_price) 6 @else 2 @endif">
-                                        <span>{{ $serial->serial }}</span></td>
-
-                                </tr>
-                            @endforeach
-                        @endif
-                        {{--                    <tr>--}}
-                        {{--                        <td colspan="6">--}}
-                        {{--                            <span></span></td>--}}
-                        {{--                    </tr>--}}
-                        </tbody>
+                        @endforeach
+                    @endif
+                    {{--                    <tr>--}}
+                    {{--                        <td colspan="6">--}}
+                    {{--                            <span></span></td>--}}
+                    {{--                    </tr>--}}
+                    </tbody>
 
 
                     @endif
