@@ -81,7 +81,7 @@
 			
 			$data['belong_to_kit'] = isset($request_data['belong_to_kit']) && $request_data['belong_to_kit'] ? true : false;
 			$data['printable'] = isset($request_data['belong_to_kit']) && $request_data['belong_to_kit'] ? false :
-				$request_data['printable'];
+				collect($request_data)->has("printable") ? $request_data['printable'] : true;
 			
 			if ($data['printable']){
 				$baseInvoice->update([
