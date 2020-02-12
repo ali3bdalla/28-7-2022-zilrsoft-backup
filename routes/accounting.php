@@ -117,10 +117,9 @@
 		});
 		
 		
-		
-		
 		Route::name('purchases.')->prefix('purchases')->group(function (){
 			Route::get('{purchase}/print',"PurchaseController@print")->name('print');
+			Route::get('{beginning}/force_delete',"InventoryController@delete_purchase")->name('delete');
 		});
 		
 		
