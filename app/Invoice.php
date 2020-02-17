@@ -24,6 +24,8 @@
 		];
 		protected $guarded = [];
 		
-		
+		protected $casts = [
+			'printable_price' => 'boolean'
+		];
 		
 	}

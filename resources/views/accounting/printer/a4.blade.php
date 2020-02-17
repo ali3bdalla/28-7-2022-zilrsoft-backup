@@ -422,10 +422,7 @@
 <script>
     $("#barcode_demo").barcode(
         "{{ $invoice->title }}",// Value barcode (dependent on the type of barcode)
-
         "code39" // type (string)
-
     );
-
     print();
 </script>

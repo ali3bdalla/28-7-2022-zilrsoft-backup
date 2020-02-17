@@ -415,6 +415,9 @@
         </div>
 
 
+
+
+
         <accounting-invoice-item-serials-list-layout-component
                 :item="selectedItem"
                 :item-index="selectedItemIndex"
@@ -1063,6 +1066,9 @@
                 this.selectedItem = null;
                 this.selectedItemIndex = null;
             },
+
+
+
 
 
             updateListItemsWidgets() {

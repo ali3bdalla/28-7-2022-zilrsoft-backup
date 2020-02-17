@@ -35,6 +35,8 @@
 		{
 			$clients = User::where('is_client',true)->get();
 			$creators = Manager::all();
+			
+//			return  1
 			return view('accounting.sales.index',compact('clients','creators'));
 			
 		}

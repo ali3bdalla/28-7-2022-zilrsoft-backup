@@ -20,7 +20,7 @@
                         <div class="col-md-12 text-right div-col" style="margin-right: 5px;
                         margin-left: -3px;margin-top: -15px;font-family: 'Cairo', sans-serif !important;
                          font-size: 18px !important;"
-                             v-text="item.ar_name.substr(0,25)">
+                             v-text="item.ar_name.substr(0,24)">
 
                         </div>
 

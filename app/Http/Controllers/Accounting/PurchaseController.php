@@ -51,7 +51,8 @@
 			$receivers = Manager::all();
 			$vendors = User::where([['is_vendor',true],['is_system_user',false]])->get()->toArray();//,['is_system_user',false]
 			$expenses = Expense::all();
-			$gateways = auth()->user()->gateways()->get();
+			$gateways = [];
+			// auth()->user()->gateways()->get()
 //			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
 			return view('accounting.purchases.create',compact('vendors','receivers','gateways','expenses'));
 			//
@@ -103,7 +104,9 @@
 				}
 				$items [] = $item;
 			}
-			$gateways = auth()->user()->gateways()->get();
+			$gateways = [];
+			// auth()->user()->gateways()->get()
+//			$gateways = auth()->user()->gateways()->get();
 //			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
 			
 			return view('accounting.purchases.edit',compact('purchase','invoice','items','gateways'));

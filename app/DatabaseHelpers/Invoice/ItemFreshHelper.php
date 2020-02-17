@@ -80,14 +80,21 @@
 			
 			
 			$data['belong_to_kit'] = isset($request_data['belong_to_kit']) && $request_data['belong_to_kit'] ? true : false;
-			$data['printable'] = collect($request_data)->has("printable") ? $request_data['printable'] : true;
 			
-			if ($data['printable']){
+			if (collect($request_data)->has("printable")){
+				$printable = $request_data['printable'] == true ? true : false;
+			}else{
+				$printable = false;
+			}
+			
+			if (!$printable){
 				$baseInvoice->update([
 					'printable_price' => false
 				]);
 			}
 			
+			
+			$data['printable'] = $printable;
 			
 			$data['parent_kit_id'] = $data['belong_to_kit'] ? $request_data['kit_id'] : 0;
 			$data['discount'] = $request_data['discount'];
