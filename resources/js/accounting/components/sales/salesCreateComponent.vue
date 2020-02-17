@@ -195,15 +195,15 @@
                     <td>
                         <button
 
-                                @click="updateItemPrintable(true,item)"
-                                class="btn btn-warning btn-xs"
-                                v-show="!item.printable"><i class="fa fa-eye"></i> &nbsp;
+                                @click="updateItemPrintable(false,item)"
+                                class="btn btn-success btn-xs"
+                                v-show="item.printable"><i class="fa fa-eye"></i> &nbsp;
                         </button>
                         <button
 
-                                @click="updateItemPrintable(false,item)"
+                                @click="updateItemPrintable(true,item)"
                                 class="btn btn-danger btn-xs"
-                                v-show="item.printable"><i class="fa fa-eye-slash"></i> &nbsp;
+                                v-show="!item.printable"><i class="fa fa-eye-slash"></i> &nbsp;
                         </button>
                     </td>
                     <td>
@@ -413,9 +413,6 @@
 
             </div>
         </div>
-
-
-
 
 
         <accounting-invoice-item-serials-list-layout-component
@@ -653,13 +650,38 @@
 
         methods: {
 
+            toCheckMakePrintableOption(item) {
+                let canMakeItPrintable = false;
+                let len = this.invoiceData.items.length;
+
+                let itemIndex = db.model.index(this.invoiceData.items, item.id);
+                if (len >= 2) {
+                    for (let i = 0; i < len; i++) {
+                        let checkerItem = db.model.findByIndex(this.invoiceData.items, i);
+                        if (checkerItem.printable && itemIndex != i) {
+                            canMakeItPrintable = true;
+                        }
+                    }
+                }
+
+                return canMakeItPrintable;
+
+            },
             updateItemPrintable(printable, item) {
-                // console.log(printable);
+
+                if (!printable) {
+                    if (this.toCheckMakePrintableOption(item))
+                        this.toRealChangePrintableStatus(printable, item);
+                } else {
+                    this.toRealChangePrintableStatus(printable, item);
+                }
+
+
+            },
+            toRealChangePrintableStatus(printable, item) {
                 item.printable = printable;
                 this.invoiceData.items = db.model.replace(this.invoiceData.items,
                     db.model.index(this.invoiceData.items, item.id), item);
-                console.log(item);
-                // this.updateInvoiceData();
             },
             handleCloningEvent() {
                 let items = this.quotation.items;
@@ -823,8 +845,6 @@
             },
             validateAndPrepareItem(item) {
                 item.printable = true;
-                // alert(item.is_expense);
-                // item.is_expense = false;
                 this.searchResultList = [];
                 if (db.model.contain(this.invoiceData.items, item.id)) {
                     let parent = db.model.find(this.invoiceData.items, item.id);
@@ -879,7 +899,6 @@
             },
             prepareDataInFirstUse(item) {
                 item.isOpen = false;
-                item.printable = true;
                 item.qty = 1;
                 if (item.is_need_serial) {
                     item.qty = 0;
@@ -1066,9 +1085,6 @@
                 this.selectedItem = null;
                 this.selectedItemIndex = null;
             },
-
-
-
 
 
             updateListItemsWidgets() {

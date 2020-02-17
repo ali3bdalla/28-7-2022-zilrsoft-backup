@@ -273,16 +273,18 @@
                                 $serial->serial }}</td>
                                                      <td class="total" style="background-color:
 										   <?php echo $background_color;?> !important;"></td>
-                                                     <td class="total" style="background-color:
-										   <?php echo $background_color;?> !important;"></td>
-                                                     <td class="total" style="background-color:
-										   <?php echo $background_color;?> !important;"></td>
-                                                     <td class="total" style="background-color:
-										   <?php echo $background_color;?> !important;"></td>
-                                                     <td class="total" style="background-color:
-										   <?php echo $background_color;?> !important;"></td>
-                                                     <td class="total" style="background-color:
-										   <?php echo $background_color;?> !important;"></td>
+                                                     @if($invoice->printable_price)
+                                                         <td class="total" style="background-color:
+											  <?php echo $background_color;?> !important;"></td>
+                                                         <td class="total" style="background-color:
+											  <?php echo $background_color;?> !important;"></td>
+                                                         <td class="total" style="background-color:
+											  <?php echo $background_color;?> !important;"></td>
+                                                         <td class="total" style="background-color:
+											  <?php echo $background_color;?> !important;"></td>
+                                                         <td class="total" style="background-color:
+											  <?php echo $background_color;?> !important;"></td>
+                                                     @endif
                                                  </tr>
 
                                              @endforeach

@@ -25,7 +25,16 @@
 			$children = $this->items;
 			$qty = $request_data['qty'];
 			
+			
+			if (collect($request_data)->has("printable")){
+				$printable = $request_data['printable'] == true ? true : false;
+			}else{
+				$printable = false;
+			}
+			
+			
 			$data['belong_to_kit'] = false;
+			$data['printable'] = $printable;
 			$data['parent_kit_id'] = 0;
 			$data['discount'] = $this->data->discount * $qty;
 			$data['price'] = $this->data->total;
