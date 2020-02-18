@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/ENoUzR3JPBJARnEqoeMu6rHpVxGtBcyYU03r2XyB" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/1ec3d70dcd44b1742cb3d0d8be00fa95ce3680e2.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/ab38e2bba681f70fa0553fc5bda60d013e65c05c.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/layoutPrintSingleBarcodeLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/layoutPrintSingleBarcodeLayoutComponent.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -464,6 +462,7 @@
       <workItem from="1581445845208" duration="6365000" />
       <workItem from="1581931705822" duration="1510000" />
       <workItem from="1581963545116" duration="3571000" />
+      <workItem from="1582036494339" duration="64000" />
     </task>
     <servers />
   </component>
