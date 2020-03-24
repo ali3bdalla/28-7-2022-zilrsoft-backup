@@ -28,6 +28,7 @@
 		{
 			
 			$accounts = Account::where('parent_id',0)->get();
+//			return
 			return view('accounting.charts.index',compact('accounts'));
 			//
 		}

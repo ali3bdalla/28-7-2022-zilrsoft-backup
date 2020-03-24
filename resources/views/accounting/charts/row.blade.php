@@ -30,7 +30,7 @@
             &nbsp;{{ $amount  }}</span>
 
         </div>
-        @foreach($account->children as $account)
+        @foreach($account->children()->orderBy('id','asc')->get() as $account)
             @includeIf('accounting.charts.row',['account' => $account])
         @endforeach
     </div>
