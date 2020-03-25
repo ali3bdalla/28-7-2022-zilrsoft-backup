@@ -6,22 +6,36 @@
 	
 	use App\Invoice;
 	use App\Item;
+	use phpDocumentor\Reflection\Types\Null_;
 	
 	trait ExpensesAccounting
 	{
 		
+		public function toUpdateAutoPurchasesInvoiceInfo($children_purchases_invoices = [], Invoice $invoice,$receiver_id)
+		{
+			foreach ($children_purchases_invoices as $inc)
+			{
+				$inc->update([
+					'parent_id' => $invoice->id
+				]);
+				
+				$inc->purchase()->update([
+					'receiver_id' =>  $receiver_id
+				]);
+			}
+		}
 		/**
 		 * @param array $expenses
 		 *
 		 * @return array
 		 */
-		public function toCreatePurchaseInvoiceForExpensesItems(Invoice $inc,$expenses = [])
+		public function toCreatePurchaseInvoiceForExpensesItems($inc = null,$expenses = [])
 		{
 			$invoices = [];
 			foreach ($expenses as $itemData){
 				$item = Item::findOrFail($itemData['id']);
 				if ($item->is_expense){
-					$invoices[] = $this->toCreateSingleExpenseItemPurchaseInvoice($inc,$item,$itemData);
+					$invoices[] = $this->toCreateSingleExpenseItemPurchaseInvoice($inc = null,$item,$itemData);
 				}
 			}
 			return $invoices;
@@ -34,7 +48,7 @@
 		 *
 		 * @return mixed
 		 */
-		private function toCreateSingleExpenseItemPurchaseInvoice(Invoice $inc,Item $item,$ItemData = [])
+		private function toCreateSingleExpenseItemPurchaseInvoice($inc = null,Item $item,$ItemData = [])
 		{
 			$itemAccounting = new ItemAccounting();
 			
@@ -58,7 +72,7 @@
 			$invoice = Invoice::publish(
 				[
 					'invoice_type' => 'purchase',
-					'parent_id' => $inc->id,
+					'parent_id' => $inc!==null ? $inc->id : 0,
 				]
 			);
 			
@@ -67,7 +81,7 @@
 				'prefix' => 'PUI-',
 				'vendor_inc_number' => '000000000',
 				'vendor_id' => $item->expense_vendor_id,
-				'receiver_id' => $inc->sale->salesman_id
+				'receiver_id' =>0
 			]);
 //			echo $dbData['expense_vendor_id'];
 			

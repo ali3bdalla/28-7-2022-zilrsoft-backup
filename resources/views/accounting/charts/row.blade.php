@@ -1,6 +1,7 @@
+
 <?php $amount = money_format("%i",$account->current_amount) ?>
-<div class="group">
-    <div class="">
+<ul class="group list-group">
+    <li class="list-group-item">
         <div class="title @if($amount<0) rgRed @endif"><a href="{{ route('accounting.accounts.show',$account->id)
         }}">{{
         $account->locale_name}}</a>
@@ -33,5 +34,5 @@
         @foreach($account->children()->orderBy('id','asc')->get() as $account)
             @includeIf('accounting.charts.row',['account' => $account])
         @endforeach
-    </div>
-</div>
+    </li>
+</ul>

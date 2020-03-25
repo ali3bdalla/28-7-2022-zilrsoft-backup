@@ -41,7 +41,7 @@
 				"items.*.id" => "required|integer|exists:items,id",
 				"items.*.price" => "validate_item_price_or_discount|price",
 				"items.*.purchase_price" => "validate_item_purchase_price|price",
-				"items.*.printable" => "required|boolean",
+//				"items.*.printable" => "required|boolean",
 				"items.*.discount" => "validate_item_price_or_discount",
 				"items.*.qty" => "required|integer|item_has_available_qty:items.*.id",
 				"items.*.expense_vendor_id" => "validate_expense_vendor",
@@ -62,14 +62,17 @@
 			$error = false;
 			DB::beginTransaction();
 			try{
+				$children_purchases_invoices = $this->toCreatePurchaseInvoiceForExpensesItems(null,$this->input('items'));
 				$invoice = Invoice::publish(['invoice_type' => 'sale','notes' => $this->input("notes"),'parent_id' => 0]);
+				$this->toUpdateAutoPurchasesInvoiceInfo($children_purchases_invoices,$invoice,$this->input("salesman_id"));
+				
 				$sale = $invoice->publishSubInvoice('sale',[
 					'invoice_type' => 'sale',
 					'prefix' => 'SAI-',
 					'client_id' => $this->input("client_id"),
 					'alice_name' => $this->input("alice_name"),
 					'salesman_id' => $this->input("salesman_id")]);
-				$this->toCreatePurchaseInvoiceForExpensesItems($invoice,$this->input('items'));
+				
 				$invoice->addItemsToBaseInvoice($this->input('items'));
 				$this->toGetAndUpdatedAmounts($invoice);
 				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),$this->input("methods"),[]);

@@ -38,6 +38,11 @@
 
 
         }
+
+        .list-group-item {
+            border:none !important;
+            padding:0px
+        }
     </style>
 @endsection
 
