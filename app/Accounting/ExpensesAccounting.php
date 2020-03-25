@@ -15,12 +15,11 @@
 		{
 			foreach ($children_purchases_invoices as $inc)
 			{
-				$inc->update([
-					'parent_id' => $invoice->id
-				]);
+				
 				
 				$inc->purchase()->update([
-					'receiver_id' =>  $receiver_id
+					'receiver_id' =>  $receiver_id,
+					'parent_id' => $invoice->id
 				]);
 			}
 		}
