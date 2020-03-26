@@ -1,4 +1,3 @@
-
 <?php $amount = money_format("%i",$account->current_amount) ?>
 <ul class="group list-group">
     <li class="list-group-item">
@@ -31,7 +30,7 @@
             &nbsp;{{ $amount  }}</span>
 
         </div>
-        @foreach($account->children()->orderBy('id','asc')->get() as $account)
+        @foreach($account->children()->orderBy('sorting_number','desc')->orderBy('id', 'ASC')->get() as $account)
             @includeIf('accounting.charts.row',['account' => $account])
         @endforeach
     </li>

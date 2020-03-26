@@ -20,6 +20,7 @@
 				$table->string('name')->nullable();
 				$table->string('ar_name')->nullable();
 				$table->integer('parent_id')->default(0);
+				$table->integer('sorting_number')->default(0);
 				$table->string('serial')->nullable();
 				$table->boolean('is_gateway')->default(false);
 				$table->enum('type',['credit','debit'])->default('credit');

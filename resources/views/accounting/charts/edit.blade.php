@@ -76,8 +76,8 @@
 
                 <div class="col-md-6">
                     <div class="form-group @error('account_type')has-error @enderror">
-                        <select class="form-control" name="account_type" placeholder="{{trans('pages/accounts.account_type')
-                        }}">
+                        <select class="form-control" name="account_type"
+                                placeholder="{{trans('pages/accounts.account_type')}}">
                             <option
                                     @if($account->type=='debit')
                                     selected
@@ -105,6 +105,21 @@
                 </div>
 
 
+                {{--                {{ $account->sorting_number }}--}}
+                <div class="col-md-6">
+                    <select class="form-control" name="sorting_number"
+                            placeholder="{{trans('pages/accounts.sorting')}}">
+                        <option value="0">{{trans('pages/accounts.sorting')}}</option>
+                        <?php $increment = 1; ?>
+                        @for($i=$account->parent->children()->count();$i>=1;$i--)
+
+                            <option value="{{$i}}" @if($account->sorting_number==$i) selected @endif>{{ $increment }}</option>
+		                    <?php $increment++; ?>
+                        @endfor
+                    </select>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <toggle-button
                             :value="@json($account->is_gateway)"
