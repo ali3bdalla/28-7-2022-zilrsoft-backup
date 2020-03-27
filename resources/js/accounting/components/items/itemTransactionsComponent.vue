@@ -1,6 +1,20 @@
 <template>
-    <div class="">
+    <div class="table">
         <div class="box">
+
+
+            <div class="panel-heading">
+                <VueCtkDateTimePicker
+                        :auto-close="true"
+
+                        :behaviour="{time: {nearestIfDisabled: true}}"
+                        :custom-shortcuts="customDateShortcuts"
+                        :only-date="false"
+                        :range="true"
+                        label="تحديد التاريخ"
+                        locale="en"
+                        v-model="date_range"/>
+            </div>
             <div class="">
                 <div class="panel-heading has-background-dark has-text-white">
                     <div class="columns is-center">
@@ -292,14 +306,17 @@
     </div>
 </template>
 <script>
-
+    import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
     export default {
 
         props: ['item'],
+        components: {
+            VueCtkDateTimePicker
 
+        },
         data: function () {
             return {
-
+                date_range: null,
                 reusable_translator: null,
                 translator: null,
                 profits: 0,
@@ -308,38 +325,104 @@
                 stock_qty: 0,
                 histories: [],
                 total_profit: 0,
+
+                customDateShortcuts:[],
+                showMultiTaskButtons: false,
+                requestUrl: "",
+                app: {
+                    primaryColor: metaHelper.getContent('primary-color'),
+                    secondColor: metaHelper.getContent('second-color'),
+                    appLocate: metaHelper.getContent('app-locate'),
+                    trans: trans('invoices-page'),
+                    messages: trans('messages'),
+                    table_trans: trans('table'),
+                    datetimetrans: trans('datetime'),
+                    datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
+                    BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
+                },
+                filters: {
+                    endDate: null,
+                    startDate: null,
+                    title: null,
+                    clients: null,
+                    creators: null,
+                    creator_id: null,
+                    departments: [],
+                    net: null,
+                    total: null,
+                    tax: null,
+                    current_status: null,
+                    salesmen: [],
+                    invoice_type: null,
+                },
+                paginationResponseData: null,
+
+
             };
         },
         created: function () {
             this.translator = JSON.parse(window.translator);
             this.reusable_translator = JSON.parse(window.reusable_translator);
             this.roundNumber = helpers.roundTheFloatValueTo2DigitOnlyAfterComma;
+            this.customDateShortcuts = [
+                {key: 'day', label: this.app.datetimetrans.today, value: 'day'},
+                {key: '-day', label: this.app.datetimetrans.yesterday, value: '-day'},
+                {key: 'thisWeek', label: this.app.datetimetrans.thisWeek, value: 'isoWeek'},
+                {key: 'lastWeek', label: this.app.datetimetrans.lastWeek, value: '-isoWeek'},
+                {key: 'last7Days', label: this.app.datetimetrans.last7Days, value: 7},
+                {key: 'last30Days', label: this.app.datetimetrans.last30Days, value: 30},
+                {key: 'thisMonth', label: this.app.datetimetrans.thisMonth, value: 'month'},
+                {key: 'lastMonth', label: this.app.datetimetrans.lastMonth, value: '-month'},
+                {key: 'thisYear', label: this.app.datetimetrans.thisYear, value: 'year'},
+                {key: 'lastYear', label: this.app.datetimetrans.lastYear, value: '-year'}
+            ];
             this.loadData();
 
 
         },
 
+        watch: {
+            date_range: function (value) {
+                // console.log('hello')
+                let startDate = null;
+                let endDate = null;
+                if (value != null) {
+                    startDate = value.start;
+                    endDate = value.end;
+                }
+                this.loadData(startDate, endDate);
+
+            },
+
+        },
 
         methods: {
-            loadData(startDate = '', endDate = '') {
+            loadData(startDate = null, endDate = null) {
+                    // ?startDate=' + startDate + '&&endDate=' +
+                    // endDate
                 var vm = this;
-                axios.get('/accounting/items/' + this.item.id + '/transactions_datatable?startDate=' + startDate + '&&endDate=' +
-                    endDate).then((response) => {
+                // console.log('/accounting/items/' + this.item.id + '/transactions_datatable?startDate=' + startDate +
+                //     '&&endDate=' + endDate);
+                axios.get('/accounting/items/' + this.item.id + '/transactions_datatable',{
+                    params:{
+                        'startDate' : startDate,
+                        'endDate' : endDate,
+                    }
+                }).then((response) => {
+                        console.log(response.data)
                     vm.histories = response.data.data;
                     vm.stock_value = response.data.stock_value;
                     vm.stock_qty = response.data.stock_qty;
-
                     vm.profits = response.data.profits;
-                    // console.log(vm.profits)
                     vm.cost = response.data.cost;
                 })
             },
-            datePickerUpdated(e) {
-                var startDate = e.startDate.getFullYear() + '-' + e.startDate.getMonth() + '-' + e.startDate.getDate();
-                var endDate = e.endDate.getFullYear() + '-' + e.endDate.getMonth() + '-' + e.endDate.getDate();
-
-                this.loadData(startDate, endDate);
-            }
+            // datePickerUpdated(e) {
+            //     var startDate = e.startDate.getFullYear() + '-' + e.startDate.getMonth() + '-' + e.startDate.getDate();
+            //     var endDate = e.endDate.getFullYear() + '-' + e.endDate.getMonth() + '-' + e.endDate.getDate();
+            //
+            //     this.loadData(startDate, endDate);
+            // }
 
         }
     }

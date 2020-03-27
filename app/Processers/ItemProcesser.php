@@ -3,7 +3,9 @@
 	namespace App\Processers;
 	
 	
+	use Carbon\Carbon;
 	use Illuminate\Database\Eloquent\Builder;
+	use Illuminate\Support\Facades\Request;
 	
 	trait  ItemProcesser
 	{
@@ -14,10 +16,29 @@
 	trait  ItemMovement
 	{
 		
-		public function stockMovement($dates = [])
+		public function stockMovement()
 		{
-			$histories = $this->history()->where('invoice_type','!=','quotation')->with('invoice','user','creator')->get();
+			$query = $this->history()->where('invoice_type','!=','quotation')->with('invoice','user','creator');
 			
+//			return $query;
+			if (Request::has('startDate') && Request::filled('startDate') && Request::has('endDate') &&
+				Request::filled('endDate')){
+				$_startDate = Carbon::parse(Request::input("startDate"))->toDateString();
+				$_endDate = Carbon::parse(Request::input("endDate"))->toDateString();
+				
+				if ($_endDate === $_startDate){
+					$query = $query->whereDate('created_at',$_startDate);
+				}else{
+					$query = $query->whereBetween('created_at',[
+						$_startDate,
+						$_endDate
+					]);
+				}
+			}
+			
+			$histories = $query->get();
+
+
 //			return $histories;
 			
 			$cost = 0;
@@ -38,8 +59,8 @@
 				$history['description'] = "";
 				$history['invoice_url'] = $history['urls']['invoice_url'];
 				$history['invoice_title'] = $history['urls']['invoice_title'];
-				
-				
+
+
 //				return 1;
 //				return $history;
 				if ($history['qty'] > 0){
@@ -56,13 +77,13 @@
 				}elseif ($history['invoice_type'] == 'r_purchase'){
 					$result = $this->handleReturnPurchaseHistory($history,$cost,$stock_value,$stock_qty);
 				}elseif ($history['invoice_type'] == 'sale'){
-
+					
 					$profit += $history['price'] - $history['cost'] - $history['discount'];
 					$result = $this->handleSaleHistory($history,$cost,$stock_value,$stock_qty);
 				}elseif ($history['invoice_type'] == 'stock_adjust'){
 					$result = $this->handleAdjustStockHistory($history,$cost,$stock_value,$stock_qty);
 				}
-
+				
 				
 				$cost = $result['final_stock_cost'];
 				$stock_value = $result['final_stock_total'];
@@ -104,8 +125,7 @@
 				$result['current_move_stock_cost'] = 0;
 			
 			
-			
-			$result['final_stock_total'] = $result['current_move_stock_total'] ;
+			$result['final_stock_total'] = $result['current_move_stock_total'];
 			$result['final_stock_cost'] = $result['current_move_stock_cost'];
 			$result['final_stock_qty'] = $result['current_move_stock_qty'];
 			
@@ -117,31 +137,6 @@
 			
 			return $result;
 		}
-		
-		
-		public function handleAdjustStockHistory($history,$stock_value,$stock_qty)
-		{
-			$result = $history;
-			
-			$result['current_move_stock_qty'] =  $history['qty'];
-			$result['current_move_stock_total'] = $stock_value + $history['total'];
-			
-			if ($result['current_move_stock_qty'] > 0)
-				$result['current_move_stock_cost'] = $result['current_move_stock_total'] / $result['current_move_stock_qty'];
-			
-			if ($history['is_service'])
-				$result['current_move_stock_cost'] = 0;
-			
-			
-			
-			$result['final_stock_total'] = $result['current_move_stock_total'] ;
-			$result['final_stock_cost'] = $result['current_move_stock_cost'];
-			$result['final_stock_qty'] = $result['current_move_stock_qty'];
-			
-			$result['description'] = 'جرد المخزون';
-			return $result;
-		}
-		
 		
 		/**
 		 * @param $history
@@ -262,14 +257,14 @@
 		 */
 		public function handleReturnSaleDiscountHistory($history)
 		{
-
+			
 			$history['has_return_sale_discount'] = true;
 			$history['discount_data'] = [
 				'discount_profits' => $history['discount'],
 				'discount_stock_total' => $history['current_move_stock_total'],
 				'discount_stock_cost' => $history['current_move_stock_cost']
 			];
-
+			
 			return $history;
 		}
 		
@@ -333,8 +328,8 @@
 			$history['final_stock_total'] = $new_current_move_stock_total;
 			$history['final_stock_cost'] = $cost;
 			$history['final_stock_qty'] = $history['current_move_stock_qty'];
-
-
+			
+			
 			return $history;
 		}
 		
@@ -388,15 +383,37 @@
 		 */
 		public function handleSaleDiscountHistory($history)
 		{
-
+			
 			$history['has_sale_discount'] = true;
 			$history['discount_data'] = [
 				'discount_stock_total' => $history['current_move_stock_total'],
 				'discount_stock_cost' => $history['current_move_stock_cost'],
 				'discount_profits' => $history['discount'] * -1
 			];
-
+			
 			return $history;
+		}
+		
+		public function handleAdjustStockHistory($history,$stock_value,$stock_qty)
+		{
+			$result = $history;
+			
+			$result['current_move_stock_qty'] = $history['qty'];
+			$result['current_move_stock_total'] = $stock_value + $history['total'];
+			
+			if ($result['current_move_stock_qty'] > 0)
+				$result['current_move_stock_cost'] = $result['current_move_stock_total'] / $result['current_move_stock_qty'];
+			
+			if ($history['is_service'])
+				$result['current_move_stock_cost'] = 0;
+			
+			
+			$result['final_stock_total'] = $result['current_move_stock_total'];
+			$result['final_stock_cost'] = $result['current_move_stock_cost'];
+			$result['final_stock_qty'] = $result['current_move_stock_qty'];
+			
+			$result['description'] = 'جرد المخزون';
+			return $result;
 		}
 		
 		/**

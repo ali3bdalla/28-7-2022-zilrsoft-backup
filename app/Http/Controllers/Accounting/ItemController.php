@@ -201,6 +201,8 @@
 				$request->filled('endDate')){
 				return $item->stockMovement(['startDate' => $request->startDate,'endDate' => $request->endDate]);
 			}
+			
+			
 			return collect($item->stockMovement());
 			
 		}

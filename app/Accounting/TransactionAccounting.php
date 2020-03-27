@@ -13,6 +13,8 @@
 	trait TransactionAccounting
 	{
 		
+		
+		
 		/**
 		 * @param $amount
 		 * @param $transaction_container_id
@@ -67,6 +69,9 @@
 				$lastAccountCloseTransaction->created_at : Carbon::now()->subMonths(12) : $lastInvoice->created_at;
 		}
 		
+		/**
+		 * @return int
+		 */
 		public function toGetLastManagerTransferRemainingAmount()
 		{
 			$dailyAccount = Account::where([

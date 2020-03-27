@@ -2,6 +2,7 @@
 	
 	namespace App;
 	
+	use App\Accounting\ItemTransactionAccounting;
 	use App\Attributes\ItemAttributes;
 	use App\Attributes\KitAttributes;
 	use App\Core\CoreItem;
@@ -18,7 +19,7 @@
 	class Item extends Model
 	{
 		use ItemFreshHelper,ItemRelationships,ItemAttributes,KitAttributes,KitRelationships,ItemProcesser,ItemHelper,KitHelper;
-		use CoreItem;
+		use CoreItem,ItemTransactionAccounting;
 		//
 		
 		protected $appends = [
