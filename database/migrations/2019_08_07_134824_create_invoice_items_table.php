@@ -22,12 +22,15 @@
 				$table->integer('user_id');
 				
 				$table->integer("qty")->default(0);
+				$table->integer("item_available_qty")->default(0);
+				
 				$table->integer("r_qty")->default(0);
 				$table->float('discount',20,8)->default(0);
 				$table->float("tax",20,8)->default(0);
 				$table->float('price',20,8)->default(0);
 				$table->float('net',20,8)->default(0);
 				$table->float('cost',20,8)->default(0)->nullable();
+				$table->float("profit",20,8)->default(0);
 				$table->float('total',20,8)->default(0);
 				$table->float('subtotal',20,8)->default(0);
 				

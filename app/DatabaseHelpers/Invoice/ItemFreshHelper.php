@@ -127,17 +127,25 @@
 				$data['cost'] = $request_data['purchase_price'] / (1 + ($this->vts / 100));
 			else
 				$data['cost'] = $this->cost;
-
-//			echo  json_encode($data);
+			
 			
 			$baseItem = $baseInvoice->items()->create($data);
+			$transaction_profit = 0;
 			if (!$this->is_service){
 				
 				$baseItem->update_item_cost_value_after_new_invoice_created();
 				$this->update_item_qty_after_new_invoice_created($data['qty'],$baseInvoice->invoice_type);
+				
 				if (in_array($baseInvoice->invoice_type,['sale','r_sale'])){
 					$baseItem->make_invoice_transaction($baseInvoice->sale,0);
+					if ($baseInvoice->invoice_type == 'sale'){
+						$transaction_profit = $baseItem->price - $baseItem->cost - $baseItem->discount;
+					}else{
+						$transaction_profit = ($baseItem->price - $baseItem->cost - $baseItem->discount) * -1;
+					}
+					
 				}
+				
 				
 				if ($this->is_need_serial){
 					$baseInvoice->sale->
@@ -146,6 +154,11 @@
 				}
 			}
 			
+			
+			$baseItem->fresh()->update([
+				'profit' => $transaction_profit,
+				'item_available_qty' => $this->fresh()->available_qty,
+			]);
 			
 			return $baseItem;
 		}

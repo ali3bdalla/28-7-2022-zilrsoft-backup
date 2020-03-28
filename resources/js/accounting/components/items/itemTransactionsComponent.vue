@@ -200,7 +200,7 @@
                     <td>{{ translator.movement.discount }}</td>
                     <td>
                          <span v-if="history.has_sale_discount || history.has_return_sale_discount">
-                        {{roundNumber(history.discount_data.discount_profits) }}
+<!--                        {{roundNumber(history.discount_data.discount_profits) }}-->
                     </span>
 
                     </td>

@@ -20,9 +20,16 @@
 		{
 			$query = $this->history()->where('invoice_type','!=','quotation')->with('invoice','user','creator');
 			
-//			return $query;
+			$cost = 0;
+			$stock_value = 0;
+			$stock_qty = 0;
+			
+			$profit = 0;
+			
 			if (Request::has('startDate') && Request::filled('startDate') && Request::has('endDate') &&
 				Request::filled('endDate')){
+				
+				
 				$_startDate = Carbon::parse(Request::input("startDate"))->toDateString();
 				$_endDate = Carbon::parse(Request::input("endDate"))->toDateString();
 				
@@ -34,6 +41,15 @@
 						$_endDate
 					]);
 				}
+				
+				$first_history_before_list = $this->history()->where([['invoice_type','!=','quotation']])->whereDate('created_at','<',$_startDate)
+					->orderBy('id','desc')->first();
+				
+				if (!empty($first_history_before_list)){
+					$cost = $first_history_before_list->cost;
+					$stock_qty = $first_history_before_list->item_available_qty;
+					$stock_value = $stock_qty * $cost;
+				}
 			}
 			
 			$histories = $query->get();
@@ -41,14 +57,11 @@
 
 //			return $histories;
 			
-			$cost = 0;
-			$stock_value = 0;
-			$stock_qty = 0;
 			
-			$profit = 0;
 			$movement = [];
 			foreach ($histories as $history){
 				
+				$current_profit = 0;
 				$result = [
 					'cost' => $cost,
 					'stock_value' => $stock_value,
@@ -71,14 +84,14 @@
 				if (in_array($history['invoice_type'],['purchase','beginning_inventory'])){
 					$result = $this->handlePurchaseHistory($history,$stock_value,$stock_qty);
 				}elseif ($history['invoice_type'] == 'r_sale'){
-					$profit -= $history['price'] - $history['cost'] - $history['discount'];
+					$current_profit = abs($history['price'] - $history['cost'] - $history['discount']) * -1;
 					$result = $this->handleReturnSaleHistory($history,$cost,$stock_value,$stock_qty);
 					
 				}elseif ($history['invoice_type'] == 'r_purchase'){
 					$result = $this->handleReturnPurchaseHistory($history,$cost,$stock_value,$stock_qty);
 				}elseif ($history['invoice_type'] == 'sale'){
 					
-					$profit += $history['price'] - $history['cost'] - $history['discount'];
+					$current_profit = abs($history['price'] - $history['cost'] - $history['discount']);
 					$result = $this->handleSaleHistory($history,$cost,$stock_value,$stock_qty);
 				}elseif ($history['invoice_type'] == 'stock_adjust'){
 					$result = $this->handleAdjustStockHistory($history,$cost,$stock_value,$stock_qty);
@@ -90,6 +103,19 @@
 				$stock_qty = $result['final_stock_qty'];
 				$movement['data'][] = $result;
 				
+				$profit += $current_profit;
+				if (Request::has('startDate') && Request::filled('startDate') && Request::has('endDate') &&
+					Request::filled('endDate')){
+					
+				}else{
+					$history->fresh()->update([
+						'profit' => $current_profit,
+						'item_available_qty' => $result['final_stock_qty'],
+					]);
+					
+				}
+				
+				
 			}
 			
 			
@@ -99,7 +125,14 @@
 			$movement['profits'] = $profit;
 			
 			
-			$this->update_item_cost($cost,$stock_qty);
+			if (Request::has('startDate') && Request::filled('startDate') && Request::has('endDate') &&
+				Request::filled('endDate')){
+				
+			}else{
+				$this->update_item_cost($cost,$stock_qty);
+				
+			}
+			
 			
 			return $movement;
 		}
