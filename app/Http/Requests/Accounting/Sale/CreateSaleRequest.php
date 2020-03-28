@@ -111,7 +111,9 @@
 				if ($this->input("quotation_id") > 0){
 					$quotation = Invoice::find($this->input("quotation_id"));
 					if (!empty($quotation)){
-						$quotation->delete();
+						$quotation->update([
+							'is_deleted' => true
+						]);
 					}
 				}
 			}

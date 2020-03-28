@@ -8,8 +8,6 @@
 	use App\DatabaseHelpers\InvoiceInterfaceHelper;
 	use App\OrmScope\InvoiceScope;
 	use App\Relationships\InvoiceRelationship;
-	use App\Scopes\OrganizationScope;
-	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Database\Eloquent\Model;
 	
 	class Invoice extends Model

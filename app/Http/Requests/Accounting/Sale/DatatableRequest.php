@@ -78,7 +78,8 @@
 			else
 				$getOnly = ['sale','r_sale'];
 			
-			$query = Invoice::whereIn('invoice_type',$getOnly)->with([
+			
+			$query = Invoice::whereIn('invoice_type',$getOnly)->where('is_deleted',false)->with([
 				'creator','items','sale.client','sale.salesman'
 			]);
 			
