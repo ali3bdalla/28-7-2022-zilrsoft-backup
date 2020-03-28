@@ -88,7 +88,6 @@
 				
 				return view('accounting.charts.transactions.identity',compact('users','account'));
 			}else if ($account->slug == 'vendors'){
-				
 				$users = User::where('is_vendor',true)->paginate(50);
 //				$users = $this->get_users_transactions('vendor_balance');
 				return view('accounting.charts.transactions.identity',compact('users','account'));
