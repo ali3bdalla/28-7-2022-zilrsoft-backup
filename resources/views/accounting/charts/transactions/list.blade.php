@@ -160,11 +160,13 @@
                                  @else
 
                                      @if($total_balance<0)
-                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+
                                          <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
                                      @else
-                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
                                          <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
+
 
                                      @endif
 
