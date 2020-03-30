@@ -6,7 +6,6 @@
 	
 	use App\InvoiceItems;
 	use Carbon\Carbon;
-	use function foo\func;
 	
 	trait DBHelper
 	{
