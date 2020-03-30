@@ -20,19 +20,22 @@
 		protected $guarded = [
 		
 		];
+		
+		protected $appends = [
+			'description'
+		];
 		protected $casts = [
 			'tax' => 'float',
 			'total' => 'float',
+			'discount' => 'float',
+			'tax' => 'float',
+			'net' => 'float',
+			'price' => 'float',
 		];
 		
 		protected static function boot()
 		{
-			
 			parent::boot();
-		
-			
-			
-			
 			if (auth()->check()){
 				
 				static::addGlobalScope('pendingItemsScope',function (Builder $builder){

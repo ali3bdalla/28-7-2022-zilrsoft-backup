@@ -76,7 +76,7 @@
                         <span v-if="history.user!=null">{{ history.user.locale_name }}</span>
                         <span v-else></span>
                     </td>
-                    <td>{{ history.creator.locale_name }}</td>
+                    <td>{{ history.creator?history.creator.locale_name : "" }}</td>
                     <td>
                     <span
                             v-if="history.invoice_type=='beginning_inventory'
@@ -130,21 +130,22 @@
                     </span>
                     </td>
 
-                    <td><span v-if="history.invoice_type=='sale' || history.invoice_type=='r_sale'">{{roundNumber(history.total_cost)}}</span>
+                    <td><span
+                            v-if="history.invoice_type=='sale' || history.invoice_type=='r_sale'">{{roundNumber(parseFloat(history.current_stock_item_cost) * parseInt(history.qty))}}</span>
                     </td>
 
-                    <td>{{history.current_move_stock_qty}}</td>
-                    <td>{{roundNumber(history.current_move_stock_cost)}}</td>
+                    <td>{{history.current_stock_qty}}</td>
+                    <td>{{roundNumber(history.current_stock_item_cost)}}</td>
 
-                    <td>{{roundNumber(history.current_move_stock_total)}}</td>
+                    <td>{{roundNumber(history.current_stock_amount)}}</td>
                     <td>{{ history.description }}</td>
-                    <td><span v-if="history.invoice_type=='sale' || history.invoice_type=='r_sale'">{{parseFloat(history.profits).toFixed(2)}}</span>
+                    <td><span v-if="history.invoice_type=='sale' || history.invoice_type=='r_sale'">{{parseFloat(history.current_profits).toFixed(2)}}</span>
                     </td>
                 </tr>
 
 
                 <!--DICOUNT-->
-                <tr v-if="history.discount>0">
+                <tr v-if="parseFloat(history.discount)>0">
                     <td></td>
                     <td></td>
                     <td></td>
@@ -154,7 +155,7 @@
                     <td>
                     </td>
                     <td>
-                    <span v-if="history.has_purchase_discount || history.has_return_sale_discount">
+                    <span v-if="history.discount_data.purchase_discount || history.discount_data.return_sales_discount">
                         {{history.discount}}
                     </span>
                     </td>
@@ -168,38 +169,40 @@
                     </td>
 
                     <td>
-                   <span v-if="history.has_sale_discount || history.has_return_purchase_discount ">
+                   <span v-if="history.discount_data.sales_discount || history.discount_data.return_purchase_discount ">
                         {{history.discount}}
                     </span>
                     </td>
                     <td></td>
 
-                    <td>{{ history.current_move_stock_qty}}</td>
+                    <td>{{ history.current_stock_qty}}</td>
                     <td>
-                    <span v-if="history.has_purchase_discount || history.has_return_purchase_discount">
+                    <span v-if="history.discount_data.purchase_discount ||
+                    history.discount_data.return_purchase_discount">
                         {{roundNumber(history.discount_data.discount_stock_cost) }}
                     </span>
 
-                        <span v-if="history.has_sale_discount || history.has_return_sale_discount">
+                        <span v-if="history.discount_data.sales_discount ||
+                        history.discount_data.return_sales_discount">
                         {{roundNumber(history.discount_data.discount_stock_cost) }}
                     </span>
 
 
                     </td>
                     <td>
-                     <span v-if="history.has_purchase_discount || history.has_return_purchase_discount ">
+                     <span v-if="history.discount_data.purchase_discount || history.discount_data.return_purchase_discount ">
 
                         {{roundNumber(history.discount_data.discount_stock_total) }}
                     </span>
 
-                        <span v-if="history.has_sale_discount || history.has_return_sale_discount">
+                        <span v-if="history.discount_data.sales_discount || history.discount_data.return_sales_discount">
                         {{roundNumber(history.discount_data.discount_stock_total) }}
                     </span>
                     </td>
 
                     <td>{{ translator.movement.discount }}</td>
                     <td>
-                         <span v-if="history.has_sale_discount || history.has_return_sale_discount">
+                         <span v-if="history.discount_data.sales_discount || history.discount_data.return_sales_discount">
 <!--                        {{roundNumber(history.discount_data.discount_profits) }}-->
                     </span>
 
@@ -208,7 +211,7 @@
 
 
                 <!--expenses-->
-                <tr v-for="expense in history.expenses_data" v-if="history.has_expenses==true">
+                <tr v-for="expense in history.expenses_data" v-if=" history.expenses_data != null">
                     <td></td>
                     <td></td>
                     <td></td>
@@ -234,7 +237,7 @@
                     </td>
                     <td></td>
 
-                    <td>{{ history.current_move_stock_qty}}</td>
+                    <td>{{ history.current_stock_qty}}</td>
                     <td>
 
                         {{ roundNumber(expense.expense_stock_cost)}}
@@ -293,8 +296,16 @@
                 </thead>
             </table>
 
+            <div>
+                <accounting-table-pagination-helper-layout-component
+                        :data="paginationResponseData"
+                        @pagePerItemsUpdated="pagePerItemsUpdated"
+                        @paginateUpdatePage="paginateUpdatePage"
+                ></accounting-table-pagination-helper-layout-component>
+            </div>
 
         </div>
+
         <div class="form-group">
             &nbsp;
 
@@ -307,6 +318,7 @@
 </template>
 <script>
     import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
+
     export default {
 
         props: ['item'],
@@ -325,8 +337,9 @@
                 stock_qty: 0,
                 histories: [],
                 total_profit: 0,
+                itemsPerPage: 20,
 
-                customDateShortcuts:[],
+                customDateShortcuts: [],
                 showMultiTaskButtons: false,
                 requestUrl: "",
                 app: {
@@ -361,6 +374,7 @@
             };
         },
         created: function () {
+            this.requestUrl = '/accounting/items/' + this.item.id + '/transactions_datatable';
             this.translator = JSON.parse(window.translator);
             this.reusable_translator = JSON.parse(window.reusable_translator);
             this.roundNumber = helpers.roundTheFloatValueTo2DigitOnlyAfterComma;
@@ -383,7 +397,6 @@
 
         watch: {
             date_range: function (value) {
-                // console.log('hello')
                 let startDate = null;
                 let endDate = null;
                 if (value != null) {
@@ -398,31 +411,39 @@
 
         methods: {
             loadData(startDate = null, endDate = null) {
-                    // ?startDate=' + startDate + '&&endDate=' +
-                    // endDate
-                var vm = this;
-                // console.log('/accounting/items/' + this.item.id + '/transactions_datatable?startDate=' + startDate +
-                //     '&&endDate=' + endDate);
-                axios.get('/accounting/items/' + this.item.id + '/transactions_datatable',{
-                    params:{
-                        'startDate' : startDate,
-                        'endDate' : endDate,
+                let vm = this;
+
+                axios.get(this.requestUrl, {
+                    params: {
+                        'start_at': startDate,
+                        'end_at': endDate,
+                        'perPage': vm.itemsPerPage,
                     }
                 }).then((response) => {
-                        console.log(response.data)
+                    // console.log(response.data);
+                    vm.paginationResponseData = response.data;
                     vm.histories = response.data.data;
-                    vm.stock_value = response.data.stock_value;
-                    vm.stock_qty = response.data.stock_qty;
-                    vm.profits = response.data.profits;
-                    vm.cost = response.data.cost;
+                    vm.stock_value = response.data.totals.total_stock_amount;
+                    vm.stock_qty = response.data.totals.total_stock_qty;
+                    vm.cost = response.data.totals.current_stock_item_cost;
+                     vm.profits = response.data.totals.total_sales_profits;
+                    // vm.cost = response.data.cost;
                 })
             },
-            // datePickerUpdated(e) {
-            //     var startDate = e.startDate.getFullYear() + '-' + e.startDate.getMonth() + '-' + e.startDate.getDate();
-            //     var endDate = e.endDate.getFullYear() + '-' + e.endDate.getMonth() + '-' + e.endDate.getDate();
-            //
-            //     this.loadData(startDate, endDate);
-            // }
+
+            paginateUpdatePage(event) {
+                this.requestUrl = event.link;
+                this.loadData();
+
+            },
+
+            pagePerItemsUpdated(event) {
+
+                this.itemsPerPage = event.items;
+                this.loadData();
+
+            },
+
 
         }
     }

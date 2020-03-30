@@ -36,6 +36,9 @@
 			return $this->hasMany(InvoiceItems::class,'item_id');
 		}
 		
+		
+		
+		
 		public function category()
 		{
 			return $this->belongsTo(Category::class,'category_id');
@@ -51,14 +54,10 @@
 			return $this->belongsTo(Manager::class,'creator_id');
 		}
 		
-		
-		
 		public function credit_transaction()
 		{
 			return $this->morphMany(Transaction::class,'creditable');
 		}
-		
-		
 		
 		public function debit_transaction()
 		{

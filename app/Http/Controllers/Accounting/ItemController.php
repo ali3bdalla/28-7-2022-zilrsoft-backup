@@ -4,6 +4,7 @@
 	
 	use App\Accounting\CostAccounting;
 	use App\Category;
+	use App\Components\Loader\Item\Transactions\ItemTransactionsLoader;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Item\ActivateItemsRequest;
 	use App\Http\Requests\Accounting\Item\CreateItemRequest;
@@ -25,6 +26,7 @@
 	{
 		
 		use CostAccounting;
+		
 		/**
 		 * ItemController constructor.
 		 */
@@ -196,6 +198,8 @@
 		 */
 		public function transactions_datatable(Item $item,Request $request)
 		{
+			$transaction = new ItemTransactionsLoader($item,$request);
+			return $transaction->run();
 			
 			if ($request->has('startDate') && $request->filled('startDate') && $request->has('endDate') &&
 				$request->filled('endDate')){
