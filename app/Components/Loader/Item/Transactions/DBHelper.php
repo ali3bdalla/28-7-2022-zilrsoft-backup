@@ -9,12 +9,6 @@
 	
 	trait DBHelper
 	{
-		private function getPerPage()
-		{
-			return
-				$this->request->has('perPage') &&
-				$this->request->filled("perPage") ? $this->request->input('perPage') : 20;
-		}
 		private function updateItemStockData()
 		{
 //			$this->item->fresh()->update([
@@ -65,11 +59,27 @@
 		{
 			
 			$this->db_rows = $this->db_query->with('invoice','user','creator')->paginate($this->getPerPage());
+
+//
+//			if($this->start_at_date==null)
+//				$this->db_rows = $this->db_query->with('invoice','user','creator')->paginate($this->getPerPage());
+//			else
+//				$this->db_rows = $this->db_query->with('invoice','user','creator')->paginate
+//				($this->db_query->count());
+			
+			
 			$this->result_pagination = $this->db_rows;
 //			$this->db_query->chunk(10000,function ($rows){
 //				foreach ($rows as $row)
 //					$this->db_rows[] = $row;
 //			});
+		}
+		
+		private function getPerPage()
+		{
+			return
+				$this->request->has('perPage') &&
+				$this->request->filled("perPage") ? $this->request->input('perPage') : 20;
 		}
 		
 		private function fetchTransactionsResults()

@@ -354,8 +354,8 @@
                     BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
                 },
                 filters: {
-                    endDate: null,
-                    startDate: null,
+                    start_at: null,
+                    end_at: null,
                     title: null,
                     clients: null,
                     creators: null,
@@ -397,26 +397,31 @@
 
         watch: {
             date_range: function (value) {
-                let startDate = null;
-                let endDate = null;
+                this.filters.start_at = null;
+                this.filters.end_at = null;
                 if (value != null) {
-                    startDate = value.start;
-                    endDate = value.end;
+                    this.filters.start_at = value.start;
+                    this.filters.end_at = value.end;
                 }
-                this.loadData(startDate, endDate);
+                this.loadData();
 
             },
 
         },
 
         methods: {
-            loadData(startDate = null, endDate = null) {
+            loadData() {
                 let vm = this;
 
+                console.log( {
+                    'start_at': vm.filters.start_at,
+                    'end_at': vm.filters.end_at,
+                    'perPage': vm.itemsPerPage,
+                });
                 axios.get(this.requestUrl, {
                     params: {
-                        'start_at': startDate,
-                        'end_at': endDate,
+                        'start_at': vm.filters.start_at,
+                        'end_at': vm.filters.end_at,
                         'perPage': vm.itemsPerPage,
                     }
                 }).then((response) => {
