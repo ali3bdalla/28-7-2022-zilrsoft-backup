@@ -413,11 +413,7 @@
             loadData() {
                 let vm = this;
 
-                console.log( {
-                    'start_at': vm.filters.start_at,
-                    'end_at': vm.filters.end_at,
-                    'perPage': vm.itemsPerPage,
-                });
+              
                 axios.get(this.requestUrl, {
                     params: {
                         'start_at': vm.filters.start_at,

@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Components/Loader/Item/Transactions/DBHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Components/Loader/Item/Transactions/DBHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/items/itemTransactionsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/items/itemTransactionsComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/sC20I7ivo9lrad8uqnscP8mEJImKnWIycusDd5yi" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/sC20I7ivo9lrad8uqnscP8mEJImKnWIycusDd5yi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-03-31.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-03-31.log" afterDir="false" />
-    </list>
+    <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -481,7 +473,7 @@
       <workItem from="1585381311619" duration="26629000" />
       <workItem from="1585501769730" duration="9408000" />
       <workItem from="1585564131706" duration="12000" />
-      <workItem from="1585641214510" duration="658000" />
+      <workItem from="1585641214510" duration="744000" />
     </task>
     <servers />
   </component>
