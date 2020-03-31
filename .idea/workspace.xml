@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="" />
+    <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/accounting/css/AdminLTE-rtl.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/accounting/css/AdminLTE.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/accounting/css/_all-skins.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/accounting/css/bootstrap-rtl.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/accounting/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/accounting/css/css.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/accounting/css/select2.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/accounting/js/adminlte.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/accounting/js/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/accounting/js/jquery.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/accounting/js/select2.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/items/itemTransactionsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/items/itemTransactionsComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/css.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/css.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/js.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/js.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-03-31.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-03-31.log" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -473,7 +490,7 @@
       <workItem from="1585381311619" duration="26629000" />
       <workItem from="1585501769730" duration="9408000" />
       <workItem from="1585564131706" duration="12000" />
-      <workItem from="1585641214510" duration="744000" />
+      <workItem from="1585641214510" duration="1284000" />
     </task>
     <servers />
   </component>
