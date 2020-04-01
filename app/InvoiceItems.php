@@ -16,7 +16,7 @@
 	{
 		use InvoiceItemRelationships,InvoiceItemAttributes,InvoiceItemHelper,KitHelper;
 		use CoreIncItem;
-		//
+		
 		protected $guarded = [
 		
 		];

@@ -36,6 +36,7 @@
 		
 		
 		Route::prefix('accounts')->name('accounts.')->group(function (){
+			Route::get('load_children/{account}/list',"ChartsController@load_children")->name('load_children');
 			Route::get('client/{client}/{account}',"ChartsController@client")->name('client');
 			Route::get('vendor/{vendor}/{account}',"ChartsController@vendor")->name('vendor');
 			Route::get('item/{item}/{account}',"ChartsController@item")->name('item');

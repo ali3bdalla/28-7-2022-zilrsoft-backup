@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ asset('accounting/css/buttons.css') }}">
 <link rel="stylesheet" href="{{asset('accounting/css/main.css')}}">
 @if(app()->isLocale('ar'))
-    <link href="{{ asset('accounting/css/css.css'}}" rel="stylesheet">
+    <link href="{{ asset('accounting/css/css.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('accounting/css/bootstrap-rtl.css')}}">
     <link rel="stylesheet" href="{{ asset('accounting/css/bootstrap-rt.css') }}">
     <link rel="stylesheet"

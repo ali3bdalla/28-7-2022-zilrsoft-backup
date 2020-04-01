@@ -152,13 +152,7 @@
 			return redirect(route('management.accounts.index'));
 		}
 		
-		/**
-		 * Remove the specified resource from storage.
-		 *
-		 * @param Chart $chart
-		 *
-		 * @return Response
-		 */
+	
 		public function delete(Account $account)
 		{
 			

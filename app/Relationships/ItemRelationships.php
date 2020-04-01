@@ -9,12 +9,18 @@
 	use App\ItemExpenses;
 	use App\ItemFilters;
 	use App\ItemSerials;
+	use App\ItemStatistic;
 	use App\Manager;
 	use App\Organization;
 	use App\Transaction;
 	
 	trait ItemRelationships
 	{
+		
+		public function statistics()
+		{
+			return $this->hasOne(ItemStatistic::class,'item_id');
+		}
 		
 		public function expenses()
 		{
@@ -35,9 +41,6 @@
 		{
 			return $this->hasMany(InvoiceItems::class,'item_id');
 		}
-		
-		
-		
 		
 		public function category()
 		{

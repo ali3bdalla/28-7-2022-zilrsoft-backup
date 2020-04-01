@@ -8,6 +8,7 @@
 	use App\Http\Requests\Accounting\Account\CreateAccountRequest;
 	use App\Http\Requests\Accounting\Account\UpdateAccountRequest;
 	use App\Item;
+	use App\Transaction;
 	use App\User;
 	use Exception;
 	use Illuminate\Contracts\View\Factory;
@@ -27,10 +28,65 @@
 		public function index()
 		{
 			
-			$accounts = Account::where('parent_id',0)->get();
-//			return
+			
+//			return [
+//				'direct_debit' => Transaction::where('debitable_type','App\Item')->sum('amount'),
+//				'direct_credit' => Transaction::where('creditable_type','App\Item')->sum('amount'),
+//				'direct' => money_format("%i",Transaction::where('debitable_type','App\Item')->sum('amount') -
+//					Transaction::where('creditable_type','App\Item')->sum('amount')),
+//				'statistics' =>money_format("%i", Account::toGetAccountWithSlug('stock')
+//						->statistics->debit_transactions_total_amount - Account::toGetAccountWithSlug('stock')
+//						->statistics->credit_transactions_total_amount)
+//			];
+			$accounts = Account::where('parent_id',0)->withCount('children')->get();
+//			$accounts = Account::where('parent_id',0)->get();
+////
+//			$results = [];
+//			foreach ($accounts as $account){
+//				$results[] = $this->updateAccontsStats($account);
+//			}
+//////
+////			return $results;
 			return view('accounting.charts.index',compact('accounts'));
 			//
+		}
+		
+		private function updateAccontsStats(Account $account)
+		{
+			if ($account->slug == 'stock'){
+				$debit_amount = Transaction::where('debitable_type','App\Item')->sum('amount');
+				$credit_amount = Transaction::where('creditable_type','App\Item')->sum('amount');
+			}else{
+				$debit_amount = $account->debit_transaction()->sum('amount');
+				$credit_amount = $account->credit_transaction()->sum('amount');
+			}
+			
+			
+			foreach ($account->children as $account2){
+				$result = $this->updateAccontsStats($account2);
+				$debit_amount += $result['debit_amount'];
+				$credit_amount += $result['credit_amount'];
+			}
+			
+			$static = $account->statistics;
+			if (!$static)
+				$static = $account->statistics()->create();
+			
+			$static->update([
+				'debit_transactions_total_amount' => $debit_amount,
+				'credit_transactions_total_amount' => $credit_amount,
+			]);
+			
+			
+			return [
+				'debit_amount' => $debit_amount,
+				'credit_amount' => $credit_amount,
+			];
+		}
+		
+		public function load_children(Account $account)
+		{
+			return $account->children()->withCount('children')->orderBy('sorting_number','desc')->orderBy('id','ASC')->get();
 		}
 		
 		/**

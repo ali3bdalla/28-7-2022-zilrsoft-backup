@@ -3,7 +3,7 @@
 
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/rsvp@4/dist/rsvp.min.js" defer></script>
+<script src="{{ asset('accounting/js/rsvp.min.js')}}" defer></script>
 
 <script defer>
     window.reusable_translator = `@json(trans('reusable'))`;
@@ -12,4 +12,4 @@
 
 
 <script src="{{ asset('js/app.js') }}" defer></script>
-<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+<script defer src="{{ asset('accounting/js/font_awesome.js')}}"></script>
