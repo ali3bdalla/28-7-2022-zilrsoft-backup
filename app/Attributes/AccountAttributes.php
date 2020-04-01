@@ -23,7 +23,8 @@
 		
 		public function getCurrentAmountAttribute()
 		{
-			return money_format("%i",$this->getCurrentAmount($this));
+			return 0;
+//			return money_format("%i",$this->getCurrentAmount($this));
 		}
 		
 		public function getCurrentAmount(Account $account)
