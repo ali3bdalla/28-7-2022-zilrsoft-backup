@@ -3,13 +3,14 @@
 	namespace App;
 	
 	use App\Attributes\AccountAttributes;
+	use App\Components\Model\Helper\NestedModelHelper;
 	use App\Relationships\AccountRelationships;
 	use Illuminate\Database\Eloquent\Model;
 	
 	class Account extends Model
 	{
 		
-		use AccountAttributes,AccountRelationships;
+		use AccountAttributes,AccountRelationships,NestedModelHelper;
 		
 		protected $guarded = [];
 		
@@ -39,6 +40,28 @@
 			
 			return $children;
 		}
+		
+		public static function infinityChildrenIds(Account $category)
+		{
+			$children = [];
+			foreach ($category->children as $child){
+				$child_children = self::infinityChildrenIds($child);
+				if ($child_children != null)
+				{
+					foreach ($child_children as $secound)
+					{
+						$children[] = $secound;
+					}
+				}
+				$children[] = $child['id'];
+			}
+			
+			if ($children == [])
+				return null;
+			
+			return $children;
+		}
+		
 		
 		
 		//

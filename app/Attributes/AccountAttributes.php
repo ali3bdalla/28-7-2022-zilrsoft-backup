@@ -23,10 +23,34 @@
 		
 		public function getCurrentAmountAttribute()
 		{
-			return 0;
-//			return money_format("%i",$this->getCurrentAmount($this));
+			return money_format("%i",$this->getCurrentAmount($this));
 		}
 		
+	
+		
+		/**
+		 * @param Account $account
+		 *
+		 * @return mixed
+		 */
+//		public function calcCurrentAmount(Account $account)
+//		{
+//			if ($account->type == 'debit'){
+//				$amount = $account->statistics->debit_transactions_total_amount -
+//					$account->statistics->credit_transactions_total_amount;
+//			}else{
+//				$amount = $account->statistics->credit_transactions_total_amount -
+//					$account->statistics->debit_transactions_total_amount;
+//			}
+//
+//
+//			foreach ($account->children()->get() as $child){
+//				$amount += self::calcCurrentAmount($child);
+//			}
+//
+//			return $amount;
+//		}
+//
 		public function getCurrentAmount(Account $account)
 		{
 			
@@ -66,6 +90,41 @@
 			
 			
 			return $currentAmount;
+		}
+		
+		
+		public function loadAndUpdateCurrentAmountRecord()
+		{
+			
+			if ($this->slug == 'stock'){
+				$debit_amount = Transaction::where('debitable_type','App\Item')->sum('amount');
+				$credit_amount = Transaction::where('creditable_type','App\Item')->sum('amount');
+				$currentAmount = $debit_amount - $credit_amount;
+//				return
+			}elseif ($this->type == 'debit'){
+				$debit_amount = $this->debit_transaction()->sum('amount');
+				$credit_amount = $this->credit_transaction()->sum('amount');
+				$currentAmount = $debit_amount - $credit_amount;
+			}elseif ($this->type == 'credit'){
+				$debit_amount = $this->debit_transaction()->sum('amount');
+				$credit_amount = $this->credit_transaction()->sum('amount');
+				$currentAmount = $credit_amount - $debit_amount;
+			}
+			
+			
+////			$static = $this->statistics;
+////			if (!$static)
+////				$static = $this->statistics()->create();
+//
+//			$static->forceFill([
+//				'debit_transactions_total_amount' => $debit_amount,
+//				'credit_transactions_total_amount' => $credit_amount,
+//			]);
+			
+			return [
+				'debit_amount' => $debit_amount,
+				'credit_amount' => $debit_amount,
+			];
 		}
 		
 		public function getTitleAttribute()
