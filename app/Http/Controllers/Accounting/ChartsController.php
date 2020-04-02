@@ -30,7 +30,7 @@
 		{
 			
 			
-			$accounts = Account::where('parent_id',0)->withCount('children')->paginate(1);
+			$accounts = Account::where('parent_id',0)->withCount('children')->get();
 
 			return view('accounting.charts.index',compact('accounts'));
 			//

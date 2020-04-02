@@ -24,10 +24,10 @@
 		
 		public function getCurrentAmountAttribute()
 		{
-//			return money_format("%i",AccountStatistic::whereIn("account_id",$this->nestedChildrenIdentifers($this)
-//			)->sum('total_amount'));
+			return money_format("%i",AccountStatistic::whereIn("account_id",$this->nestedChildrenIdentifers($this)
+			)->sum('total_amount'));
 //
-			return money_format("%i",$this->getCurrentAmount($this));
+//			return money_format("%i",$this->getCurrentAmount($this));
 		}
 		
 		public function getCurrentAmount(Account $account)
