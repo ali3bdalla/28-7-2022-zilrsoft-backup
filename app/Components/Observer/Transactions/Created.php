@@ -15,10 +15,6 @@
 		 * @var Transaction
 		 */
 		private $transaction;
-		private $debit_account = null;
-		private $credit_account = null;
-		private $debit_account_stats = null;
-		private $credit_account_stats = null;
 		
 		public function __construct(Transaction $transaction)
 		{
@@ -33,54 +29,57 @@
 			$stock_account = Account::toGetAccountWithSlug('stock');
 			
 			if ($this->transaction->debitable instanceof Account && $this->transaction->debitable != $stock_account){
-				$this->debit_account = $this->transaction->debitable;
-				$this->debit_account_stats = $this->debit_account->statistics;
-				if (!$this->debit_account_stats)
-					$this->debit_account_stats = $this->debit_account->statistics()->create();
-				$this->debit_account_stats->update([
-					'debit_transactions_count' => DB::raw("debit_transactions_count + 1"),
-					'debit_transactions_total_amount' => DB::raw("debit_transactions_total_amount + {$this->transaction->amount}"),
+				
+				$stats = $this->transaction->debitable->statistics;
+				if (!$stats)
+					$stats = $this->transaction->debitable->statistics()->create();
+				$stats->update([
+					'transactions_count' => DB::raw("transactions_count + 1"),
+					'total_amount' => $this->getAccountCurrentAmount($this->transaction->debitable),
 				]);
 				
 			}
 			
 			
 			if ($this->transaction->creditable instanceof Account && $this->transaction->creditable != $stock_account){
-				$this->credit_account = $this->transaction->creditable;
-				$this->credit_account_stats = $this->credit_account->statistics;
-				if (!$this->credit_account_stats)
-					$this->credit_account_stats = $this->credit_account->statistics()->create();
+				$stats = $this->transaction->creditable->statistics;
+				if (!$stats)
+					$stats = $this->transaction->creditable->statistics()->create();
+				$stats->update([
+					'transactions_count' => DB::raw("transactions_count + 1"),
+					'total_amount' => $this->getAccountCurrentAmount($this->transaction->creditable),
+				]);
+			}
+			
+			
+			if ($this->transaction->debitable instanceof Item && $this->transaction->creditable instanceof Item){
+				$stats = $stock_account->statistics;
+				if (!$stats)
+					$stats = $stock_account->statistics()->create();
 				
-				$this->credit_account_stats->update([
-					'credit_transactions_count' => DB::raw("credit_transactions_count + 1"),
-					'credit_transactions_total_amount' => DB::raw("credit_transactions_total_amount + {$this->transaction->amount}"),
+				$stats->update([
+					'transactions_count' => DB::raw("transactions_count + 1"),
+					'total_amount' => $this->getStockCurrentAmount(),
 				]);
 			}
 
-
-//			// stock work
-			if ($this->transaction->debitable instanceof Item){
-				$this->debit_account = $stock_account;
-				$this->debit_account_stats = $this->debit_account->statistics;
-				if (!$this->debit_account_stats)
-					$this->debit_account_stats = $this->debit_account->statistics()->create();
-				$this->debit_account_stats->update([
-					'debit_transactions_count' => DB::raw("debit_transactions_count + 1"),
-					'debit_transactions_total_amount' => DB::raw("debit_transactions_total_amount + {$this->transaction->amount}"),
-				]);
-			}elseif ($this->transaction->creditable instanceof Item){
-				$this->credit_account =$stock_account;
-				$this->credit_account_stats = $this->credit_account->statistics;
-				if (!$this->credit_account_stats)
-					$this->credit_account_stats = $this->credit_account->statistics()->create();
-
-				$this->credit_account_stats->update([
-					'credit_transactions_count' => DB::raw("credit_transactions_count + 1"),
-					'credit_transactions_total_amount' => DB::raw("credit_transactions_total_amount + {$this->transaction->amount}"),
-				]);
-			}
 			
+		}
+		
+		private function getAccountCurrentAmount(Account $account)
+		{
+			if ($account->type == 'credit')
+				return $account->credit_transaction()->sum('amount') -
+					$account->debit_transaction()->sum('amount');
 			
+			return $account->debit_transaction()->sum('amount') -
+				$account->credit_transaction()->sum('amount');
+		}
+		
+		private function getStockCurrentAmount()
+		{
+			return Transaction::where('debitable_type','App\Item')->sum('amount') -
+				Transaction::where('creditable_type','App\Item')->sum('amount');
 		}
 		
 	}

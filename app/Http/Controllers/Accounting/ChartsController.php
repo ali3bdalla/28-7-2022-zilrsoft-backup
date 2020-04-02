@@ -30,22 +30,8 @@
 		{
 			
 			
-			$accounts = Account::where('parent_id',0)->withCount('children')->get();
-//
-//			$arr = [];
-//			foreach ($accounts as $account){
-//				$ids = $account->nestedChildrenIdentifers($account);
-//				$query = AccountStatistic::whereIn('account_id',$ids);
-//				if ($account->type == 'debit'){
-//					$amount = $query->sum('debit_transactions_total_amount') - $query->sum('credit_transactions_total_amount');
-//				}else{
-//					$amount = $query->sum('credit_transactions_total_amount') - $query->sum('debit_transactions_total_amount');
-//				}
-//				$account->current_amt = $amount;
-//				$arr[] = $account;
-//			}
-//
-//			return $arr;
+			$accounts = Account::where('parent_id',0)->withCount('children')->paginate(1);
+
 			return view('accounting.charts.index',compact('accounts'));
 			//
 		}

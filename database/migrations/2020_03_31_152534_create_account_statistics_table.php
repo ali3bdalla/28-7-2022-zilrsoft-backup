@@ -16,10 +16,8 @@ class CreateAccountStatisticsTable extends Migration
         Schema::create('account_statistics', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('account_id');
-	        $table->integer('debit_transactions_count')->default(0);
-	        $table->integer('credit_transactions_count')->default(0);
-	        $table->float('debit_transactions_total_amount',50,8)->default(0);
-	        $table->float('credit_transactions_total_amount',50,8)->default(0);
+	        $table->integer('transactions_count')->default(0);
+	        $table->float("total_amount",50,8)->default(0);
             $table->timestamps();
         });
     }

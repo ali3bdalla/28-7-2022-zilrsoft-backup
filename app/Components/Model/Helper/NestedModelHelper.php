@@ -20,7 +20,6 @@
 					$ids_list[] = $id;
 			}
 			
-			
 			return $ids_list;
 		}
 	}
