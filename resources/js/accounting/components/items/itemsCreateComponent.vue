@@ -150,7 +150,19 @@
 
             </div>
             <div class="col-md-2">
-
+                <select class="form-control " v-model="itemData.warranty_subscription_id">
+                    <option value="0">من غير ضمان</option>
+                    <option  v-for="warranty in warranty_subscriptions" :value="warranty.id">
+                        {{ warranty.locale_name }}
+                    </option>
+                </select>
+<!--                <accounting-select-with-search-layout-component-->
+<!--                        :options="warranty_subscriptions"-->
+<!--                        placeholder="الضمان" :no_all_option="true"-->
+<!--                        :default_id="itemData.warranty_subscription_id"-->
+<!--                        title="الضمان"-->
+<!--                        label_text="locale_name"-->
+<!--                ></accounting-select-with-search-layout-component>-->
             </div>
             <div class="col-md-2">
 
@@ -295,6 +307,7 @@
                 openForEditing: false,
                 errorFieldName: "",
                 errorFieldMessage: "",
+                warranty_subscriptions: [],
                 app: {
                     primaryColor: metaHelper.getContent('primary-color'),
                     secondColor: metaHelper.getContent('second-color'),
@@ -309,6 +322,7 @@
                     defaultVatPurchaseValue: 5,
                 },
                 itemData: {
+                    warranty_subscription_id:0,
                     arName: "",
                     enName: "",
                     barcode: "",
@@ -344,9 +358,11 @@
             };
         },
         created: function () {
+
             this.reusable_translator = JSON.parse(window.reusable_translator);
             this.local_config = JSON.parse(window.config);
             if (this.editingItem != null && this.editingItem) {
+                this.itemData.warranty_subscription_id = this.editedItemData.warranty_subscription_id;
                 this.itemData.arName = this.editedItemData.ar_name;
                 this.itemData.enName = this.editedItemData.name;
                 this.itemData.barcode = this.editedItemData.barcode;
@@ -375,8 +391,19 @@
                 this.categoryListUpdated(this.editedItemCategory, null);
             }
             this.messages = JSON.parse(window.messages);
+            this.loadWarrantySubscriptions();
         },
         methods: {
+            loadWarrantySubscriptions() {
+                let appVm = this;
+                //warranty_subscriptions
+                axios.get('/accounting/warranty_subscriptions').then(response => {
+                    appVm.warranty_subscriptions = response.data;
+                    console.log(appVm.warranty_subscriptions)
+                }).catch(error => {
+                    alert(error);
+                })
+            },
             // barcode events
             barcodeFieldChanged(e) {
 
@@ -636,6 +663,7 @@
                 var filters_values = this.extractAllSelectedFiltersAsKeyValueArray();
                 var data = {
                     expense_vendor_id: this.itemData.expenseVendorId,
+                    warranty_subscription_id: this.itemData.warranty_subscription_id,
                     is_expense: this.itemData.isExpense,
                     name: this.itemData.enName,
                     ar_name: this.itemData.arName,

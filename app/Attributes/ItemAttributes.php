@@ -10,6 +10,19 @@
 	trait ItemAttributes
 	{
 		
+		public function getLocaleWarranyAttribute()
+		{
+			if($this->warranty)
+			{
+				if(app()->isLocate('ar'))
+					return $this->warranty->ar_name;
+				else
+					return $this->warranty->name;
+			}
+			
+			return null;
+		}
+		
 		public function getCreatedAtAttribute($value)
 		{
 			return Carbon::parse($value)->toDateString();

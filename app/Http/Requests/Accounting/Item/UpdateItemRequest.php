@@ -39,6 +39,7 @@
 				'vts' => 'required|numeric',
 				'price' => 'required|numeric',
 				'price_with_tax' => 'required|numeric',
+				'warranty_subscription_id' => 'required|integer',
 			];
 		}
 		
@@ -53,6 +54,7 @@
 				'vtp',
 				'vts',
 				'price',
+				'warranty_subscription_id',
 				'price_with_tax');
 			
 			$item->update($data);

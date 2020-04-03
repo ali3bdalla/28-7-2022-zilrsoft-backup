@@ -43,6 +43,7 @@
 				'price' => 'required|numeric',
 				'price_with_tax' => 'required|numeric',
 				'vendor_expense_id' => 'nullable|integer',
+				'warranty_subscription_id' => 'required|integer',
 			];
 		}
 		
@@ -52,6 +53,7 @@
 			$data['organization_id'] = $this->user()->organization_id;
 			$data['creator_id'] = $this->user()->id;
 			$data['is_kit'] = false;
+			$data['warranty_subscription_id'] = $this->warranty_subscription_id;
 			
 			if(!$this->user()->can('edit item'))
 			{

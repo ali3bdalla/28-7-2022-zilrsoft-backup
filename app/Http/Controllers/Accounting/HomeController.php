@@ -4,6 +4,7 @@
 	
 	use App\Http\Controllers\Controller;
 	use App\Item;
+	use App\WarrantySubscription;
 	use Illuminate\Contracts\View\Factory;
 	use Illuminate\View\View;
 	
@@ -19,6 +20,7 @@
 		 */
 		public function index()
 		{
+//			WarrantySubscription::createInit();
 			
 //			$items = Item::take(10)->get();
 //			$list = [];

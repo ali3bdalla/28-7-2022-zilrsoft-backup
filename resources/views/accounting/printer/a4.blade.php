@@ -380,6 +380,14 @@
                 <p>* البضاعة المباعة لاترد ولا تستبدل بعد فتحها .</p>
                 <p>* الارجاع خلال ثلاثة أيام .</p>
                 <p>* التبديل خلال سبعة أيام .</p>
+
+                @foreach($invoice->items as $item)
+                    @if($item->belong_to_kit==false && $item->printable && $item->item->warranty)
+                        <p>* {{ $item->item->warranty->locale_name }} .</p>
+                    @endif
+                @endforeach
+
+
             </div>
         </div>
 

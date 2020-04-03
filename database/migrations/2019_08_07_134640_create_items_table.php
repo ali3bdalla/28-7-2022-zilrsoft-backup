@@ -19,6 +19,8 @@
 				$table->integer('creator_id');
 				$table->integer('category_id');
 				
+				$table->integer('warranty_subscription_id')->default(0);
+				
 				$table->string('name');
 				$table->string('ar_name');
 				$table->string('barcode',255);

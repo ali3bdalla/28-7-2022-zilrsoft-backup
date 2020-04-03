@@ -13,9 +13,18 @@
 	use App\Manager;
 	use App\Organization;
 	use App\Transaction;
+	use App\WarrantySubscription;
 	
 	trait ItemRelationships
 	{
+		
+		
+		
+		
+		public function warranty()
+		{
+			return $this->belongsTo(WarrantySubscription::class,'warranty_subscription_id');
+		}
 		
 		public function statistics()
 		{

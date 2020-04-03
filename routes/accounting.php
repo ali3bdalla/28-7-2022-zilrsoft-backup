@@ -32,6 +32,7 @@
 			'accounts' => 'ChartsController',
 			'transactions' => 'TransactionsController',
 			'settings' => 'SettingController',
+			'warranty_subscriptions' => 'WarrantySubscriptionsController',
 		]);
 		
 		
