@@ -17,7 +17,8 @@
 		protected $appends = [
 			'locale_name',
 			'current_amount',
-			'label'
+			'label',
+			'is_expanded',
 		];
 		
 		protected $casts = [

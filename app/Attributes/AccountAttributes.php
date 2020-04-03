@@ -10,8 +10,12 @@
 	
 	trait AccountAttributes
 	{
-
-//
+		
+		public function getIsExpandedAttribute()
+		{
+			return false;
+		}
+		
 		public static function toGetAccountWithSlug($slug,$is_system_account = true)
 		{
 			return Account::where([['slug',$slug],['is_system_account',$is_system_account]])->first();

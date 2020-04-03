@@ -29,7 +29,8 @@
                     <accounting-chart-of-accounts-list-component
                             :accounts="account.children"
                             :key="account.id"
-                            v-if="account.children!=null"></accounting-chart-of-accounts-list-component>
+                            v-if="account.children!=null"
+                            v-show="account.is_expanded"></accounting-chart-of-accounts-list-component>
                 </div>
             </div>
         </div>
@@ -57,14 +58,23 @@
         methods: {
             loadChildren(account, index) {
                 let appVm = this;
-                axios.get('/accounting/accounts/load_children/' + account.id + '/list').then(response => {
-                    let item = appVm.accounts_list[index];
-                    item.children = response.data;
-                    appVm.accounts_list =
-                        db.model.replace(appVm.accounts_list, db.model.index(appVm.accounts_list, account.id), item);
-                    // appVm.accounts_list = appVm.temp_accounts_list;
-                    // console.log(appVm.accounts_list)
-                })
+                if (account.is_expanded) {
+                    account.is_expanded = false;
+                    appVm.accounts_list =  db.model.replace(appVm.accounts_list, db.model.index(appVm.accounts_list,
+                        account.id), item);
+                } else {
+
+                    axios.get('/accounting/accounts/load_children/' + account.id + '/list').then(response => {
+                        let item = appVm.accounts_list[index];
+                        item.children = response.data;
+                        item.is_expanded = true;
+                        appVm.accounts_list =
+                            db.model.replace(appVm.accounts_list, db.model.index(appVm.accounts_list, account.id), item);
+                        // appVm.accounts_list = appVm.temp_accounts_list;
+                        // console.log(appVm.accounts_list)
+                    })
+                }
+
 
             }
         },

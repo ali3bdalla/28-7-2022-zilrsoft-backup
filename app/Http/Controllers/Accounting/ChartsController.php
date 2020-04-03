@@ -4,12 +4,11 @@
 	
 	use App\Account;
 	use App\Accounting\ChartAccounting;
-	use App\AccountStatistic;
+	use App\Components\Loader\Chart\Transaction\AccountTransactionsLoader;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Account\CreateAccountRequest;
 	use App\Http\Requests\Accounting\Account\UpdateAccountRequest;
 	use App\Item;
-	use App\Transaction;
 	use App\User;
 	use Exception;
 	use Illuminate\Contracts\View\Factory;
@@ -31,9 +30,8 @@
 			
 			
 			$accounts = Account::where('parent_id',0)->withCount('children')->get();
-
+			
 			return view('accounting.charts.index',compact('accounts'));
-			//
 		}
 		
 		public function load_children(Account $account)
@@ -63,7 +61,7 @@
 			$accounts = Account::get();
 			
 			return view('accounting.charts.create',compact('accounts','parent_id'));
-			//
+			
 		}
 		
 		/**
@@ -87,13 +85,14 @@
 		 *
 		 * @return Response
 		 */
-		public function show(Account $account)
+		public function show(Account $account,Request $request)
 		{
 			
+		
 			if ($account->slug == 'clients'){
 				$users = User::where('is_client',true)->paginate(50);//$this->get_users_transactions
 				//('client_balance')
-				
+
 				return view('accounting.charts.transactions.identity',compact('users','account'));
 			}else if ($account->slug == 'vendors'){
 				$users = User::where('is_vendor',true)->paginate(50);
@@ -103,16 +102,16 @@
 				$items = $this->get_account_stock_item_transactions();
 				$items = $items['items'];
 				return view('accounting.charts.transactions.items',compact('items','account'));
-				
-			}
-			
-			
-			$transactions = $this->load_account_transactions($account);
 
-//			return $account;
-//			return  $transactions;
-			return view('accounting.charts.transactions.list',compact('account','transactions'));
+			}
+			$obj = new AccountTransactionsLoader($account,$request);
+			$transactions = $obj->response();
+//			return $transactions;
+//			$transactions = $this->load_account_transactions($account);
+			
+			return view('accounting.charts.transactions.v2.index',compact('account','transactions'));
 		}
+		
 		
 		/**
 		 * Show the form for editing the specified resource.
@@ -199,39 +198,6 @@
 			$transactions = $this->load_vendor_transactions($account,$vendor->id);
 			return view('accounting.charts.transactions.vendor',compact('vendor','transactions','account'));
 			
-		}
-		
-		private function updateAccontsStats(Account $account)
-		{
-			if ($account->slug == 'stock'){
-				$debit_amount = Transaction::where('debitable_type','App\Item')->sum('amount');
-				$credit_amount = Transaction::where('creditable_type','App\Item')->sum('amount');
-			}else{
-				$debit_amount = $account->debit_transaction()->sum('amount');
-				$credit_amount = $account->credit_transaction()->sum('amount');
-			}
-			
-			
-			foreach ($account->children as $account2){
-				$result = $this->updateAccontsStats($account2);
-				$debit_amount += $result['debit_amount'];
-				$credit_amount += $result['credit_amount'];
-			}
-			
-			$static = $account->statistics;
-			if (!$static)
-				$static = $account->statistics()->create();
-			
-			$static->update([
-				'debit_transactions_total_amount' => $debit_amount,
-				'credit_transactions_total_amount' => $credit_amount,
-			]);
-			
-			
-			return [
-				'debit_amount' => $debit_amount,
-				'credit_amount' => $credit_amount,
-			];
 		}
 		
 	}
