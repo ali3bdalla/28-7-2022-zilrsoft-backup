@@ -284,6 +284,11 @@
         <div class="col-md-12">* البضاعة المباعة لاترد ولا تستبدل بعد فتحها .</div>
         <div class="col-md-12">* الارجاع خلال ثلاثة أيام .</div>
         <div class="col-md-12">* التبديل خلال سبعة أيام .</div>
+        @foreach($invoice->items as $item)
+            @if($item->belong_to_kit==false && $item->printable && $item->item->warranty)
+                <div class="col-md-12"> * {{ $item->item->warranty->locale_name }} .</div>
+            @endif
+        @endforeach
     </div>
 
     <div class="row">
