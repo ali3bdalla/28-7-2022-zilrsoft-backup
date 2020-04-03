@@ -52,7 +52,7 @@
 			}
 			
 			
-			if ($this->transaction->debitable instanceof Item && $this->transaction->creditable instanceof Item){
+			if ($this->transaction->debitable instanceof Item || $this->transaction->creditable instanceof Item){
 				$stats = $stock_account->statistics;
 				if (!$stats)
 					$stats = $stock_account->statistics()->create();
