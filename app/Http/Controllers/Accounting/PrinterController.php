@@ -19,6 +19,9 @@
 		
 		public function print_a4(Invoice $invoice)
 		{
+//			return $invoice->items()->groupBy('qty')->selectRaw('warranty_subscription_id')->get();
+			
+			
 			return view('accounting.printer.a4',compact('invoice'));
 		}
 		

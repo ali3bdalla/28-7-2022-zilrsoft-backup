@@ -377,13 +377,14 @@
                 </div>
             @endif
             <div class="" style="margin-top: 10px">
+                <h3 style="font-weight: bolder;margin-top: 5px;margin-bottom: 5px">الشروط والاحكام</h3>
                 <p>* البضاعة المباعة لاترد ولا تستبدل بعد فتحها .</p>
                 <p>* الارجاع خلال ثلاثة أيام .</p>
                 <p>* التبديل خلال سبعة أيام .</p>
 
                 @foreach($invoice->items as $item)
                     @if($item->belong_to_kit==false && $item->printable && $item->item->warranty)
-                        <p>* {{ $item->item->warranty->locale_name }} .</p>
+                        <p>* المنتج {{$loop->index + 1 }} {{ $item->item->warranty->locale_name }} .</p>
                     @endif
                 @endforeach
 
