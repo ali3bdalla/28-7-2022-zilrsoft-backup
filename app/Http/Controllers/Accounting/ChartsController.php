@@ -28,9 +28,11 @@
 		public function index()
 		{
 			
-			
 			$accounts = Account::where('parent_id',0)->withCount('children')->get();
-			
+//			foreach ($accounts as $account)
+//			{
+//				$account->getCurrentAmount($account);
+//			}
 			return view('accounting.charts.index',compact('accounts'));
 		}
 		
