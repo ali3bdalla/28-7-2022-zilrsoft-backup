@@ -99,8 +99,7 @@
 		 *
 		 * @return Factory|View
 		 */
-		public
-		function edit(
+		public function edit(
 			Invoice $sale)
 		{
 			$invoice = $sale;
@@ -127,9 +126,7 @@
 		 *
 		 * @return ResponseFactory|Response|mixed
 		 */
-		public
-		function update(
-			Invoice $sale,ReturnSaleRequest $request)
+		public function update(Invoice $sale,ReturnSaleRequest $request)
 		{
 			return $request->makeReturn($sale);
 		}

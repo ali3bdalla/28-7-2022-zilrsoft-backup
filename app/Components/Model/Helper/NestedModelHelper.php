@@ -14,7 +14,7 @@
 		
 			$ids_list[] = $builder->id;
 			
-			foreach ($builder->children as $builder_child)
+			foreach ($builder->children()->get() as $builder_child)
 			{
 				foreach ($this->nestedChildrenIdentifers($builder_child) as $id)
 					$ids_list[] = $id;

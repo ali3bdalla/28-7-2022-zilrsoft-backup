@@ -109,7 +109,7 @@
 			
 			$baseItem->fresh()->update([
 				'profit' => $transaction_profit,
-				'item_available_qty' => $this->fresh()->available_qty,
+				'item_available_qty' => $this->item->fresh()->available_qty,
 			]);
 			
 			
