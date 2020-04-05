@@ -281,15 +281,15 @@
         </div>
     </div>
     <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
-        <div class="col-md-12"><h3>الشروط والاحكام</h3></div>
+{{--        <div class="col-md-12"><h3>الشروط والاحكام</h3></div>--}}
         <div class="col-md-12">* البضاعة المباعة لاترد ولا تستبدل بعد فتحها .</div>
         <div class="col-md-12">* الارجاع خلال ثلاثة أيام .</div>
         <div class="col-md-12">* التبديل خلال سبعة أيام .</div>
-        @foreach($invoice->items as $item)
-            @if($item->belong_to_kit==false && $item->printable && $item->item->warranty)
-                <div class="col-md-12"> *المنتج  {{ $item->item->warranty->locale_name }} .</div>
-            @endif
-        @endforeach
+{{--        @foreach($invoice->items as $item)--}}
+        {{--            @if($item->belong_to_kit==false && $item->printable && $item->item->warranty)--}}
+        {{--                <div class="col-md-12"> *المنتج  {{ $item->item->warranty->locale_name }} .</div>--}}
+        {{--            @endif--}}
+        {{--        @endforeach--}}
     </div>
 
     <div class="row">
