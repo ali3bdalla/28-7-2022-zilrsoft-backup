@@ -10,6 +10,15 @@
 	trait ItemAttributes
 	{
 		
+		public function getSalesCountAttribute()
+		{
+			
+			if($this->statistics)
+				return $this->statistics->sales_count;
+			
+			return 0;
+		}
+		
 		public function getLocaleWarranyAttribute()
 		{
 			if($this->warranty)

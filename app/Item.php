@@ -23,7 +23,8 @@
 		//
 		
 		protected $appends = [
-			'locale_name'
+			'locale_name',
+//			'sales_count',
 		];
 		protected $casts = [
 			'id' => 'integer',

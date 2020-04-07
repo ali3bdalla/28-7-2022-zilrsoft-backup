@@ -200,14 +200,14 @@
 		{
 			$transaction = new ItemTransactionsLoader($item,$request);
 			return $transaction->run();
-			
-			if ($request->has('startDate') && $request->filled('startDate') && $request->has('endDate') &&
-				$request->filled('endDate')){
-				return $item->stockMovement(['startDate' => $request->startDate,'endDate' => $request->endDate]);
-			}
-			
-			
-			return collect($item->stockMovement());
+//
+//			if ($request->has('startDate') && $request->filled('startDate') && $request->has('endDate') &&
+//				$request->filled('endDate')){
+//				return $item->stockMovement(['startDate' => $request->startDate,'endDate' => $request->endDate]);
+//			}
+//
+//
+//			return collect($item->stockMovement());
 			
 		}
 		

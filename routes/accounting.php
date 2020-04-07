@@ -110,6 +110,7 @@
 			Route::get('view/quotations',"SaleController@quotations")->name('quotations');
 			Route::get('{sale}/print',"SaleController@print")->name('print');
 			Route::get('{beginning}/force_delete',"InventoryController@delete_sale")->name('delete');
+			Route::get('{beginning}/return_force_delete',"InventoryController@delete_return_sale")->name('delete_return');
 		});
 		
 		
