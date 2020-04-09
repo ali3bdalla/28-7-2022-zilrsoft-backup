@@ -6,7 +6,6 @@
 	
 	use App\Invoice;
 	use App\InvoiceItems;
-	use App\Item;
 	
 	trait AmountsAccounting
 	{

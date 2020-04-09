@@ -30,7 +30,7 @@ export default new Vuetify({
     icons: {
         iconfont: "md"
     },
-    theme: {dark: true}
+    theme: {dark: true}  
 })
 
 Vue.use(CxltToastr, {
