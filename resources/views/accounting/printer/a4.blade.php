@@ -384,7 +384,7 @@
 
                 @foreach($invoice->items as $item)
                     @if($item->belong_to_kit==false && $item->printable && $item->item->warranty)
-                        <p>* المنتج {{$loop->index + 1 }} {{ $item->item->warranty->locale_name }} .</p>
+                        <p>* الصنف {{$loop->index + 1 }} {{ $item->item->warranty_title }} .</p>
                     @endif
                 @endforeach
 

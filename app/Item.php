@@ -24,7 +24,9 @@
 		
 		protected $appends = [
 			'locale_name',
+			'warranty_title'
 //			'sales_count',
+		
 		];
 		protected $casts = [
 			'id' => 'integer',

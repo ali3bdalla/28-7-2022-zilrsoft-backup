@@ -215,7 +215,15 @@
                             <span>{{ parseFloat(item.cost * (1+ (item.vtp/100))).toFixed(2) }}</span>
                         </v-tooltip>
                     </td>
-                    <td v-text="item.locale_name"></td>
+                    <td>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on }">
+                                <span v-on="on">{{ item.locale_name}}</span>
+
+                            </template>
+                            <span>{{ item.warranty_title }}</span>
+                        </v-tooltip>
+                    </td>
                     <td v-text="item.available_qty"></td>
                     <td>
 

@@ -9,11 +9,18 @@
 	
 	trait ItemAttributes
 	{
+		public function getWarrantyTitleAttribute()
+		{
+			if (!empty($this->warranty))
+				return $this->warranty->locale_name;
+			
+			return "";
+		}
 		
 		public function getSalesCountAttribute()
 		{
 			
-			if($this->statistics)
+			if ($this->statistics)
 				return $this->statistics->sales_count;
 			
 			return 0;
@@ -21,9 +28,8 @@
 		
 		public function getLocaleWarranyAttribute()
 		{
-			if($this->warranty)
-			{
-				if(app()->isLocate('ar'))
+			if ($this->warranty){
+				if (app()->isLocate('ar'))
 					return $this->warranty->ar_name;
 				else
 					return $this->warranty->name;

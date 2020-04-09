@@ -49,7 +49,7 @@
 		public function create()
 		{
 			$receivers = Manager::all();
-			$vendors = User::where([['is_vendor',true],['is_system_user',false]])->get()->toArray();//,['is_system_user',false]
+			$vendors = User::where([['is_vendor',true],['is_system_user',false]])->get()->toArray();
 			$expenses = Expense::all();
 			$gateways = [];
 			// auth()->user()->gateways()->get()

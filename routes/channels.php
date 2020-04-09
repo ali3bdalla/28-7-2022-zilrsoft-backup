@@ -19,3 +19,7 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 Broadcast::channel('category.{categoryId}', function ($user, $categoryId) {
     return $user->organization_id === Category::findOrNew($categoryId)->organization_id;
 });
+
+//Broadcast::channel('test_broadcast',function ($user){
+//
+//});

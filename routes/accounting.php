@@ -1,6 +1,11 @@
 <?php
 
 //
+	
+	
+	use App\Events\TestBroadcastEvent;
+	
+	event(new TestBroadcastEvent());
 
 //	auth()->loginUsingId(8);
 	app()->setLocale('ar');

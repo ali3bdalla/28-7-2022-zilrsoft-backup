@@ -67,6 +67,17 @@
 		
 		public function save()
 		{
+//			if(false)
+//			{
+				return  $this->createActivatedPurchase();
+//			}else
+//			{
+//				$this->createUnActivatedPurchase();
+//			}
+		}
+		
+		public function createUnActivatedPurchase()
+		{
 			DB::beginTransaction();
 			try{
 				$invoice = Invoice::publish(['invoice_type' => 'purchase','parent_id' => 0]);
@@ -87,8 +98,30 @@
 				DB::rollBack();
 				throw new Exception($e->getMessage());
 			}
-			
-			
+		}
+		
+		public function createActivatedPurchase()
+		{
+			DB::beginTransaction();
+			try{
+				$invoice = Invoice::publish(['invoice_type' => 'purchase','parent_id' => 0]);
+				$purchase = $invoice->publishSubInvoice('purchase',[
+					'invoice_type' => 'purchase',
+					'prefix' => 'PUI-',
+					'vendor_id' => $this->input("vendor_id"),
+					'vendor_inc_number' => $this->input("vendor_inc_number"),
+					'receiver_id' => $this->input("receiver_id")]);
+				$expenses = $this->toExtractExpenses();
+				$expense_amount = floatval(collect($expenses)->sum('amount'));
+				$invoice->add_items_to_invoice($this->items,$purchase,$expenses,'purchase',$this->input("vendor_id"));
+				$this->toGetAndUpdatedAmounts($invoice,$expense_amount);
+				$this->toCreateInvoiceTransactions($invoice,$this->items,$this->methods,$expenses);
+				DB::commit();
+				return $invoice->fresh();
+			}catch (Exception $e){
+				DB::rollBack();
+				throw new Exception($e->getMessage());
+			}
 		}
 		
 		public function toExtractExpenses()

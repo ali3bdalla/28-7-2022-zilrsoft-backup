@@ -41,7 +41,14 @@
                         </v-tooltip>
 
                        </td>
-                    <td>{{ $item->item->locale_name }}</td>
+                    <td>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on }">
+                                <span v-on="on"> {{ $item->item->locale_name }}</span>
+
+                            </template>
+                            <span>{{ $item->item->warranty_title }}</span>
+                        </v-tooltip>
                     <td>
                         <input type="text" class="form-control input-sm amount-input" value="{{ $item->qty }}"
                                disabled="">
