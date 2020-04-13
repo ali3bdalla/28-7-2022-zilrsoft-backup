@@ -92,7 +92,8 @@
             </li>
         @endcanany
 
-        @canany(['view sale','create sale','edit sale','view purchase','create purchase','edit purchase'])
+        @canany(['view sale','create sale','edit sale','view purchase','create purchase','edit purchase','confirm
+        purchase'])
             <li class="treeview">
                 <a href="#">
                     <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}
@@ -104,6 +105,14 @@
                         <li>
                             <a href="{{route('accounting.purchases.index')}}"><i class="fab fa-product-hunt"></i>
                                 {{ __('sidebar.purchases') }}
+                            </a></li>
+
+
+                    @endcan
+                    @can('confirm purchase')
+                        <li>
+                            <a href="{{route('accounting.purchases.pending')}}"><i class="fab fa-product-hunt"></i>
+                                مشتريات منتظرة
                             </a></li>
 
 

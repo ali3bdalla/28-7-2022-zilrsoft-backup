@@ -22,7 +22,7 @@
 				$table->integer('creator_id');
 				$table->enum('issued_status',["credit","paid"])->default("paid");
 				$table->enum('current_status',["credit","paid"])->default("paid");
-				$table->enum('invoice_type',['purchase',"r_purchase","sale","r_sale","quotation","beginning_inventory","inventory_count","stock_adjust"]);
+				$table->enum('invoice_type',['purchase',"r_purchase","sale","r_sale","quotation","beginning_inventory","inventory_count","stock_adjust",'pending_purchase']);
 				
 				
 				$table->float("discount_value",20,8)->nullable();
@@ -47,6 +47,7 @@
 				$table->text('notes')->nullable();
 				
 				
+				$table->softDeletes();
 				$table->timestamps();
 			});
 		}

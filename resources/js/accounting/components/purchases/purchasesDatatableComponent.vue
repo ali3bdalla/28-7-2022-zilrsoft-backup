@@ -169,6 +169,7 @@
                         </td>
                         <td class="text-center">
                             <span v-if="row.invoice_type=='purchase'">{{ app.trans.purchase }}</span>
+                            <span v-else-if="row.invoice_type=='pending_purchase'">متشريات منتظرة</span>
                             <span v-else>{{ app.trans.return_purchase }}</span>
                         </td>
                         <td class="text-center" v-text="row.creator.locale_name"></td>
@@ -230,6 +231,7 @@
             VueCtkDateTimePicker, Treeselect
         },
         props: [
+            'isPending',
             "canEdit",
             "canDelete",
             "canCreate",
@@ -315,8 +317,10 @@
                 params.orderBy = this.orderBy;
                 params.itemsPerPage = this.itemsPerPage;
                 params.orderType = this.orderType;
+                params.isPending = this.isPending;
 
 
+                console.log(params);
                 axios.get(this.requestUrl, {
                     params: params
                 }).then(function (response) {

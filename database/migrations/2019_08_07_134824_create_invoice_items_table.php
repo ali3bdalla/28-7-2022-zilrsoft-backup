@@ -34,7 +34,7 @@
 				$table->float('total',20,8)->default(0);
 				$table->float('subtotal',20,8)->default(0);
 				
-				$table->enum("invoice_type",['purchase','sale','r_sale','r_purchase','beginning_inventory','quotation'])->nullable();
+				$table->enum("invoice_type",['purchase','sale','r_sale','r_purchase','beginning_inventory','quotation','pending_purchase'])->nullable();
 				
 				$table->enum('type',['new',"return",'quotation']);
 				$table->boolean('belong_to_kit')->default(false);

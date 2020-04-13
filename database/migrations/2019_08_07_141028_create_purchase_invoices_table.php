@@ -24,7 +24,7 @@ class CreatePurchaseInvoicesTable extends Migration
             $table->string('prefix',30)->nullable();
             $table->integer("parent_id")->default(0);
             $table->string("vendor_inc_number")->nullable();
-            $table->enum("invoice_type",['purchase','r_purchase','beginning_inventory','pend_'])->nullable();
+            $table->enum("invoice_type",['purchase','r_purchase','beginning_inventory','pending_purchase'])->nullable();
             $table->timestamps();
         });
     }

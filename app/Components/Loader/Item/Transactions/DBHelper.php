@@ -34,7 +34,10 @@
 		
 		private function addParams()
 		{
-			$this->db_query = $this->db_query->where('invoice_type','!=','quotation');
+			$this->db_query = $this->db_query->where([
+				['invoice_type','!=','quotation'],
+				['invoice_type','!=','pending_purchase']
+			]);
 			if ($this->request->has('start_at')
 				&& $this->request->filled('start_at')
 				&& $this->request->has('end_at')

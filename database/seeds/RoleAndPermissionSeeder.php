@@ -131,11 +131,13 @@
 			$permission_delete = Permission::create(['name' => 'delete purchase','guard_name' => 'manager']);
 			$permission_view = Permission::create(['name' => 'view purchase','guard_name' => 'manager']);
 			$permission_manage_inventory = Permission::create(['name' => 'manage inventory','guard_name' => 'manager']);
+			$permission_confirmed_invoice = Permission::create(['name' => 'confirm purchase','guard_name' => 'manager']);
 			$role->givePermissionTo($permission_create);
 			$role->givePermissionTo($permission_edit);
 			$role->givePermissionTo($permission_delete);
 			$role->givePermissionTo($permission_view);
 			$role->givePermissionTo($permission_manage_inventory);
+			$role->givePermissionTo($permission_confirmed_invoice);
 			
 		}
 		

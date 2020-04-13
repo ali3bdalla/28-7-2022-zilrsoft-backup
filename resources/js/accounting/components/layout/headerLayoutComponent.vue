@@ -14,8 +14,15 @@
             <div class="right" style="">
                 <ul class="nav navbar-nav">
 
+                    <li v-if="canConfirmPendingPurchases">
+                        <a class="dropdown-toggle" href="/accounting/purchases/pending/list">
+                            <i class="fa fa-bars" style="font-size: 19px;
+margin-bottom: -10px;"></i>
+                            <span class="label label-danger">{{ pendingPurchases}}</span>
+                        </a>
+                    </li>
                     <li class="dropdown notifications-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        <a aria-expanded="true" class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <i class="fa fa-bell" style="font-size: 19px;
 margin-bottom: -10px;"></i>
                             <span class="label label-danger">{{ pendingTransactions.length}}</span>
@@ -26,11 +33,12 @@ margin-bottom: -10px;"></i>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu" style="    background: #eee;    max-height: 500px;">
 
-                                    <li v-for="transaction in pendingTransactions" >
+                                    <li v-for="transaction in pendingTransactions">
                                         <div class="">
                                             <div class="panel-body">
-                                            <i class="fa fa-warning text-yellow"></i> تحويل من {{ transaction.creator.locale_name }} ،
-                                            بمبلغ
+                                                <i class="fa fa-warning text-yellow"></i> تحويل من {{
+                                                transaction.creator.locale_name }} ،
+                                                بمبلغ
                                                 <span class="text-primary" style="    font-weight: bold;">{{
                                                     parseFloat(transaction.amount).toFixed(2)
                                                     }}</span>
@@ -38,27 +46,27 @@ margin-bottom: -10px;"></i>
                                             <div class="panel-footer">
                                                 <a
                                                         :href="'/accounting/reseller_daily/'+transaction.id+'/confirm_transaction'"
-                                                   class="btn btn-custom-primary pull-left">موافق</a>
-                                                <a class="btn btn-custom-default"
-                                                   :href="'/accounting/reseller_daily/'+transaction.id+
-                                                   '/delete_transaction'">الغاء </a>
+                                                        class="btn btn-custom-primary pull-left">موافق</a>
+                                                <a :href="'/accounting/reseller_daily/'+transaction.id+
+                                                   '/delete_transaction'"
+                                                   class="btn btn-custom-default">الغاء </a>
                                             </div>
                                         </div>
                                     </li>
 
                                 </ul>
                             </li>
-<!--                            <li class="footer"><a href="#">View all</a></li>-->
+                            <!--                            <li class="footer"><a href="#">View all</a></li>-->
                         </ul>
                     </li>
 
-<!--                    -->
-<!--                    -->
-<!--                   <accounting-header-notifications-layout-component-->
-<!--                   :pending-transactions="pendingTransactions"-->
-<!--                   >-->
+                    <!--                    -->
+                    <!--                    -->
+                    <!--                   <accounting-header-notifications-layout-component-->
+                    <!--                   :pending-transactions="pendingTransactions"-->
+                    <!--                   >-->
 
-<!--                   </accounting-header-notifications-layout-component>-->
+                    <!--                   </accounting-header-notifications-layout-component>-->
 
 
                     <li class="dropdown user user-menu  dropdown-menu-right pull-right">
@@ -110,7 +118,7 @@ margin-bottom: -10px;"></i>
 </template>
 <script>
     export default {
-        props: ["csrf", "username",'pendingTransactions'],
+        props: ["csrf", "username", 'pendingTransactions', 'pendingPurchases', 'canConfirmPendingPurchases'],
         data: function () {
             return {
                 appName: metaHelper.getContent('app-name'),

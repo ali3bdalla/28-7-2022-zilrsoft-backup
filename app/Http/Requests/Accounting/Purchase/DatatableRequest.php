@@ -34,8 +34,13 @@
 		public function data()
 		{
 			
-			$query = Invoice::whereIn('invoice_type',['r_purchase','purchase'])->with('creator','items','purchase.vendor');
-
+			
+			if ($this->has('isPending') && $this->filled('isPending') && $this->input("isPending") == 1){
+				$query = Invoice::whereIn('invoice_type',['pending_purchase'])->with('creator',
+					'items','purchase.vendor');
+			}else{
+				$query = Invoice::whereIn('invoice_type',['r_purchase','purchase'])->with('creator','items','purchase.vendor');
+			}
 //
 			
 			if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
@@ -55,6 +60,7 @@
 				
 				
 			}
+			
 			
 			if ($this->has('creators') && $this->filled('creators')){
 				$query = $query->whereIn('creator_id',$this->input("creators"));

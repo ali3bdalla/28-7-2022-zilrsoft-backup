@@ -27,10 +27,18 @@
 		{
 			$vendors = User::where('is_vendor',true)->get();
 			$creators = Manager::all();
-			return view('accounting.purchases.index',compact('vendors','creators'));
+			$is_pending = false;
+			return view('accounting.purchases.index',compact('vendors','creators','is_pending'));
 			//
 		}
 		
+		public function pending_list()
+		{
+			$vendors = User::where('is_vendor',true)->get();
+			$creators = Manager::all();
+			$is_pending = true;
+			return view('accounting.purchases.index',compact('vendors','creators','is_pending'));
+		}
 		/**
 		 * @param DatatableRequest $request
 		 *
@@ -55,6 +63,34 @@
 			// auth()->user()->gateways()->get()
 //			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
 			return view('accounting.purchases.create',compact('vendors','receivers','gateways','expenses'));
+			//
+		}
+		
+		public function clone(Invoice $purchase)
+		{
+			$receivers = Manager::all();
+			$vendors = User::where([['is_vendor',true],['is_system_user',false]])->get()->toArray();
+			$expenses = Expense::all();
+			$gateways = [];
+			
+			$cloned_items = [];
+			foreach ($purchase->items()->with('item')->get() as $item)
+			{
+				if ($item->item->is_need_serial){
+					$item->serials = $item->item->serials()->withoutGlobalScope("pendingSerialsScope")
+						->where([["purchase_invoice_id",$purchase->id]])
+						->pluck('serial');
+				}else
+				{
+					$item->serials = [];
+				}
+				$cloned_items[] = $item;
+			}
+//			return $cloned_items;
+//			return $purchase->items->load('item');
+			// auth()->user()->gateways()->get()
+//			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
+			return view('accounting.purchases.clone',compact('vendors','receivers','gateways','expenses','purchase','cloned_items'));
 			//
 		}
 		

@@ -21,6 +21,16 @@
         }}</a>
     @endcan
 
+
+    @if($invoice->invoice_type=='pending_purchase')
+        @can('confirm purchase')
+            <a href="{{route('accounting.purchases.clone',$invoice->id)}}" class="btn btn-default"><i class="fa
+            fa-plus-square"></i>تاكيد الفاتورة</a>
+        @endcan
+
+    @endif
+
+
     @can("edit purchase")
         @if($invoice->is_deleted==1)
             <a href="{{route('accounting.purchases.edit',$invoice->id)}}" class="btn btn-primary">

@@ -11,7 +11,7 @@ window.TextValidator = require('validator');
 import VuejsDialog from 'vuejs-dialog';
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
 
-require('./realtime/server');
+// require('./realtime/server');
 
 // import 'bulma/css/bulma.css'
 // require('bootstrap');

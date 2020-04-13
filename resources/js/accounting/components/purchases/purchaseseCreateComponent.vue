@@ -21,6 +21,7 @@
         <div class="row">
             <div class="col-md-4">
                 <accounting-select-with-search-layout-component
+                        :default-index="invoiceData.vendorId"
                         :no_all_option="true"
                         :options="vendorsList"
                         :placeholder="app.trans.vendor"
@@ -53,7 +54,7 @@
         <div class="row">
             <div class="col-md-6">
                 <accounting-select-with-search-layout-component
-                        :default-index="creator.id"
+                        :default-index="creator_id"
                         :no_all_option="true"
                         :options="receivers"
                         :placeholder="app.trans.receiver"
@@ -187,6 +188,7 @@
                     <td>
                         <input :ref="'itemPrice_' + item.id + 'Ref'"
                                @change="itemPriceUpdated(item)"
+
                                @focus="$event.target.select()"
                                @keyup.enter="clearAndFocusOnBarcodeField"
                                class="form-control input-xs amount-input"
@@ -422,10 +424,12 @@
     } from '../../item';
 
     export default {
-        props: ['creator', 'vendors', 'receivers', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
+        props: ['creator', 'vendors', 'receivers', 'gateways', 'expenses', 'canViewItems',
+            'canCreateItem', 'initPurchase', 'initInvoice', 'initItems'],
         data: function () {
             return {
                 code_tester: "",
+                pending_purchase_id: 0,
                 vendorModal: {
                     vendorName: "",
                     vendorArName: "",
@@ -454,6 +458,7 @@
                     subtotal: 0,
                     status: "credit"
                 },
+                creator_id: 0,
                 vendorsList: [],
                 searchResultList: [],
                 expensesList: [],
@@ -478,7 +483,10 @@
         created: function () {
             this.vendorsList = this.vendors;
             this.initExpensesList();
-
+            this.creator_id = this.creator.id;
+            if (this.initPurchase != null) {
+                this.cloneExistsInvoice();
+            }
 
         },
 
@@ -491,6 +499,30 @@
 
         methods: {
 
+            cloneExistsInvoice() {
+                this.invoiceData.vendorIncCumber = this.initPurchase.vendor_inc_number;
+                this.invoiceData.vendorId = this.initPurchase.vendor_id;
+                this.creator_id = this.initInvoice.creator_id;
+
+                this.pending_purchase_id = this.initInvoice.id;
+                for (let i = 0; i < this.initItems.length; i++) {
+                    let item = this.initItems[i];
+
+                    item.id = item.item_id;
+                    item.vtp = item.item.vtp;
+                    item.locale_name = item.item.locale_name;
+                    item.barcode = item.item.barcode;
+                    item.purchase_price = item.price;
+                    item.last_p_price = item.price;
+                    item.is_fixed_price = item.item.is_fixed_price;
+                    item.is_expense = item.item.is_expense;
+                    item.is_need_serial = item.item.is_need_serial;
+                    item.price_with_tax = item.item.price_with_tax;
+                    item.variation = 0;
+                    item.is_printable = item.printable;
+                    this.appendItemToInvoiceItemsList(item);
+                }
+            },
             itemNetUpdated(item) {
 
                 // if (item.is_service || item.is_expense) {
@@ -839,6 +871,7 @@
             pushDataToServer(event = "") {
                 this.everythingFineToSave = false;
                 let data = {
+                    pending_purchase_id: this.pending_purchase_id,
                     items: this.invoiceData.items,
                     vendor_id: this.invoiceData.vendorId,
                     vendor_inc_number: this.invoiceData.vendorIncCumber,
@@ -917,7 +950,10 @@
                         appVm.invoiceId = invoice.title;
                     })
                     .catch(() => {
-                        window.location.reload();
+                        if (appVm.pending_purchase_id == 0)
+                            window.location.reload();
+                        else
+                            window.location = '/accounting/purchases/create';
                     });
 
                 //

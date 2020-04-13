@@ -9,6 +9,7 @@
 	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
+	use Illuminate\Support\Facades\Storage;
 	
 	class DatatableRequest extends FormRequest
 	{
@@ -78,11 +79,12 @@
 			else
 				$getOnly = ['sale','r_sale'];
 			
-			
-			$query = Invoice::whereIn('invoice_type',$getOnly)->where('is_deleted',false)->with([
+			//->where('is_deleted',false)
+			$query = Invoice::whereIn('invoice_type',$getOnly)->with([
 				'creator','items','sale.client','sale.salesman'
 			]);
 			
+//			Storage::
 			if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
 				$this->filled('endDate')){
 				$_startDate = Carbon::parse($this->input("startDate"))->toDateString();

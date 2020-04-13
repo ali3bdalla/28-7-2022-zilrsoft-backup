@@ -9,11 +9,12 @@
 	use App\OrmScope\InvoiceScope;
 	use App\Relationships\InvoiceRelationship;
 	use Illuminate\Database\Eloquent\Model;
+	use Illuminate\Database\Eloquent\SoftDeletes;
 	
 	class Invoice extends Model
 	{
 		
-		use InvoiceRelationship,InvoiceAttributes,InvoiceInterfaceHelper,FreshHelper;
+		use InvoiceRelationship,InvoiceAttributes,InvoiceInterfaceHelper,FreshHelper,SoftDeletes;
 		use InvoiceScope,CoreInvoice;
 		protected $appends = [
 			'description',
@@ -25,5 +26,7 @@
 		protected $casts = [
 			'printable_price' => 'boolean'
 		];
+		
+		
 		
 	}

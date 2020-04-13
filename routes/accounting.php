@@ -128,6 +128,8 @@
 		Route::name('purchases.')->prefix('purchases')->group(function (){
 			Route::get('{purchase}/print',"PurchaseController@print")->name('print');
 			Route::get('{beginning}/force_delete',"InventoryController@delete_purchase")->name('delete');
+			Route::get('{purchase}/clone',"PurchaseController@clone")->name('clone');
+			Route::get('pending/list',"PurchaseController@pending_list")->name('pending');
 		});
 		
 		

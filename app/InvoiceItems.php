@@ -24,6 +24,7 @@
 		protected $appends = [
 			'description'
 		];
+		
 		protected $casts = [
 			'tax' => 'float',
 			'total' => 'float',

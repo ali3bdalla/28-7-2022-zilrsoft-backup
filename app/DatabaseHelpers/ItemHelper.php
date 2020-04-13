@@ -78,7 +78,8 @@
 			
 			$this->update_item_qty_after_new_invoice_created($qty,$invoice_type);
 			
-			if ($sub_invoice instanceof PurchaseInvoice && !$invoice_item['is_expense']){
+			if ($sub_invoice instanceof PurchaseInvoice && !$invoice_item['is_expense'] &&
+				$sub_invoice->invoice->invoice_type!='pending_purchase'){
 				$this->update_item_last_purchase_price($accounting_data['price']);
 				$this->update_item_sales_price($invoice_item['price_with_tax']);
 				
@@ -167,14 +168,18 @@
 		public function update_item_qty_after_new_invoice_created($qty,$invoice_type)
 		{
 			
-			if (in_array($invoice_type,['purchase','beginning_inventory','r_sale'])){
-				$this->update_qty_with_option('add',$qty);
-			}else{
-				
-				$this->update_qty_with_option('sub',$qty);
-				
-				
+			if($invoice_type!='pending_purchase')
+			{
+				if (in_array($invoice_type,['purchase','beginning_inventory','r_sale'])){
+					$this->update_qty_with_option('add',$qty);
+				}else{
+					
+					$this->update_qty_with_option('sub',$qty);
+					
+					
+				}
 			}
+			
 			
 			
 		}

@@ -11,6 +11,8 @@
 	{
 		
 		use CoreItemSerials;
+		
+		
 		protected $guarded = [];
 		protected $appends = [
 			'status_description'
@@ -24,9 +26,9 @@
 			static::addGlobalScope('pendingSerialsScope',function (Builder $builder){
 				$builder->where('is_pending',false);
 			});
+			
+		
 			if (auth()->check()){
-				
-				
 				static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
 			}
 		}
