@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
+	use App\Events\Accounting\Invoice\PendingPurchaseInvoiceCreatedEvent;
 	use App\Expense;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Purchase\CreatePurchaseRequest;

@@ -6,16 +6,17 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import CxltToastr from 'cxlt-vue2-toastr'
 import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css'
-
+require('./bootstrap');
 window.TextValidator = require('validator');
 import VuejsDialog from 'vuejs-dialog';
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
 
-// require('./realtime/server');
+
 
 // import 'bulma/css/bulma.css'
 // require('bootstrap');
-require('./bootstrap');
+
+require('./realtime/server');
 import VModal from 'vue-js-modal'
 
 window.Vue = Vue;

@@ -137,7 +137,7 @@
         },
 
         watch: {
-            default: function (value) {
+            defaultIndex: function (value) {
                 if (value != null && value) {
                     this.selected = this.value;
                     this.someoneUpdateId(value);

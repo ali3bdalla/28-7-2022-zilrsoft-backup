@@ -23,6 +23,7 @@
                 <accounting-select-with-search-layout-component
                         :default-index="invoiceData.vendorId"
                         :no_all_option="true"
+                        :default_id="invoiceData.vendorId"
                         :options="vendorsList"
                         :placeholder="app.trans.vendor"
                         :title="app.trans.vendor"
@@ -55,6 +56,7 @@
             <div class="col-md-6">
                 <accounting-select-with-search-layout-component
                         :default-index="creator_id"
+                        :default_id="creator_id"
                         :no_all_option="true"
                         :options="receivers"
                         :placeholder="app.trans.receiver"
@@ -483,10 +485,11 @@
         created: function () {
             this.vendorsList = this.vendors;
             this.initExpensesList();
-            this.creator_id = this.creator.id;
             if (this.initPurchase != null) {
                 this.cloneExistsInvoice();
-            }
+            }else
+                this.creator_id = this.creator.id;
+
 
         },
 
@@ -591,12 +594,10 @@
 
 
                 };
-                // console.log(data);
 
                 let appVm = this;
                 axios.post('/accounting/identities', data).then(response => {
                     appVm.vendorsList.push(response.data);
-                    // console.log(response.data);
                     appVm.modalsInfo.showCreateVendorModal = false;
                     appVm.invoiceData.vendorId = response.data.id;
                     appVm.vendorListChanged({

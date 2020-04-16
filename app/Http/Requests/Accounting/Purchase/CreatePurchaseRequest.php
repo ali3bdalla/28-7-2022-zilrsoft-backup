@@ -7,6 +7,7 @@
 	use App\Accounting\IdentityAccounting;
 	use App\Accounting\PaymentAccounting;
 	use App\Accounting\TransactionAccounting;
+	use App\Events\Accounting\Invoice\PendingPurchaseInvoiceCreatedEvent;
 	use App\Invoice;
 	use App\ItemSerials;
 	use Exception;
@@ -138,7 +139,9 @@
 				$invoice->add_items_to_invoice($this->items,$purchase,$expenses,'pending_purchase',$this->input("vendor_id"));
 				$this->toGetAndUpdatedAmounts($invoice,$expense_amount);
 //				$this->toCreateInvoiceTransactions($invoice,$this->items,$this->methods,$expenses);
+				
 				DB::commit();
+				event(new PendingPurchaseInvoiceCreatedEvent($invoice->fresh()));
 				return $invoice->fresh();
 			}catch (Exception $e){
 				DB::rollBack();

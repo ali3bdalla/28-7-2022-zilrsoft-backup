@@ -1,8 +1,14 @@
 <?php
 	
 	
-	use Carbon\Carbon;
-	use Symfony\Component\HttpFoundation\Request;
+//	use Carbon\Carbon;
+//	use Symfony\Component\HttpFoundation\Request;
+//
+	
+	use App\Events\Accounting\Invoice\PendingPurchaseInvoiceCreatedEvent;
+	
+	event(new PendingPurchaseInvoiceCreatedEvent("hello message"));
+	
 	
 	Route::get('test_time',function (){
 		$start = Carbon::parse("10 Am");
