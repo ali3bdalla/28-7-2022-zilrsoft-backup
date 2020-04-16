@@ -58,6 +58,10 @@
         mounted: function () {
             if (this.defaultIndex != null)
                 this.someoneUpdateId(this.defaultIndex);
+
+            if (this.default != null)
+                this.someoneUpdateId(this.default);
+
         },
         created: function () {
 
@@ -137,7 +141,7 @@
         },
 
         watch: {
-            defaultIndex: function (value) {
+            default: function (value) {
                 if (value != null && value) {
                     this.selected = this.value;
                     this.someoneUpdateId(value);

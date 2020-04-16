@@ -23,7 +23,7 @@
                 <accounting-select-with-search-layout-component
                         :default-index="invoiceData.vendorId"
                         :no_all_option="true"
-                        :default_id="invoiceData.vendorId"
+                        :default="invoiceData.vendorId"
                         :options="vendorsList"
                         :placeholder="app.trans.vendor"
                         :title="app.trans.vendor"
@@ -56,7 +56,7 @@
             <div class="col-md-6">
                 <accounting-select-with-search-layout-component
                         :default-index="creator_id"
-                        :default_id="creator_id"
+                        :default="creator_id"
                         :no_all_option="true"
                         :options="receivers"
                         :placeholder="app.trans.receiver"
