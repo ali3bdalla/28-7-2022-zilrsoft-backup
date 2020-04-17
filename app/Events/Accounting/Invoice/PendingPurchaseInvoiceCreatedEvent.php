@@ -29,37 +29,12 @@
 			$this->message = $message;
 		}
 		
-//		public function broadcastOn()
-//		{
-//			return new Channel("broadcastingChannel");
-//		}
 		
 		public function broadcastOn()
 		{
-			return ['my-channel'];
-		}
-		
-		public function broadcastAs()
-		{
-			return 'my-event';
+			
+			return new Channel("my-channel");
 		}
 		
 		
-//
-//		/**
-//		 * Get the channels the event should broadcast on.
-//		 *
-//		 * @return Channel|array
-//		 */
-//		public function broadcastOn()
-//		{//pending-purchase-invoice-broadcasting-channel-' . $this->invoice->id . '-' .$this->invoice->organization_id
-//			return new Channel('pending');
-//		}
-//
-//		public function broadcastAs()
-//		{
-//			return 'my-event';
-//		}
-		
-	
 	}

@@ -1,5 +1,7 @@
 import Echo from "laravel-echo"
 
+Pusher.logToConsole = true;
+
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
@@ -8,10 +10,9 @@ window.Echo = new Echo({
     forceTLS: true
 });
 
-
-var channel = window.Echo.channel('my-channel');
-channel.listen('.my-event', function(data) {
-    alert(JSON.stringify(data));
+console.log('starting.. channels');
+window.Echo.channel('my-channel').listen('PendingPurchaseInvoiceCreatedEvent', function (data) {
+    console.log("PendingPurchaseInvoiceCreatedEvent" + JSON.stringify(data));
 });
 
 //

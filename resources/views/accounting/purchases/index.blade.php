@@ -29,6 +29,7 @@
             :is-pending='{{$is_pending ? 1 : 0}}'
             :departments='@json(\App\Department::all())'
             :can-edit="{{ auth()->user()->canDo('edit purchase') }}"
+            :can-confirm="{{ auth()->user()->canDo('confirm purchase') }}"
     >
 
 

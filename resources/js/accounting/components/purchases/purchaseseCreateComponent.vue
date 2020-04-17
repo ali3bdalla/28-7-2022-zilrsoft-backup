@@ -56,7 +56,6 @@
             <div class="col-md-6">
                 <accounting-select-with-search-layout-component
                         :default-index="creator_id"
-                        :default="creator_id"
                         :no_all_option="true"
                         :options="receivers"
                         :placeholder="app.trans.receiver"
@@ -488,8 +487,9 @@
             if (this.initPurchase != null) {
                 this.cloneExistsInvoice();
             }else
+            {
                 this.creator_id = this.creator.id;
-
+            }
 
         },
 
@@ -701,7 +701,7 @@
 
                 this.invoiceData.discount = db.model.sum(this.invoiceData.items, 'discount');
                 this.invoiceData.subtotal = db.model.sum(this.invoiceData.items, 'subtotal');
-                console.log(this.invoiceData.subtotal);
+                // console.log(this.invoiceData.subtotal);
                 this.invoiceData.tax = db.model.sum(this.invoiceData.items, 'tax');
                 this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net');
                 this.validateInvoiceData();

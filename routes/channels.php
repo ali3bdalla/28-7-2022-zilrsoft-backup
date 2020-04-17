@@ -17,10 +17,10 @@
 		return (int)$user->id === (int)$id;
 	});
 	
-//	Broadcast::channel("broadcastingChannel",function (){
-//		return true;
-//	});
-//
+	Broadcast::channel("presence-my_channel",function (){
+		return true;
+	});
+	
 	Broadcast::channel('category.{categoryId}',function ($user,$categoryId){
 		return $user->organization_id === Category::findOrNew($categoryId)->organization_id;
 	});

@@ -188,10 +188,13 @@
                                     <li><a :href="baseUrl + row.id "
                                            v-text="app.trans.view"></a></li>
 
-                                    <li v-if="canEdit==1 && row.invoice_type=='purchase' && row.is_deleted==0"><a
+                                    <li v-if="canEdit===1 && row.invoice_type==='purchase' && row.is_deleted==0"><a
                                             :href="baseUrl + row.id + '/edit' "
                                                              v-text="app.trans.return"></a></li>
 
+                                    <li v-if="canConfirm===1 && row.invoice_type==='pending_purchase'"><a
+                                            :href="baseUrl + row.id + '/clone' "
+                                            >تاكيد الفاتورة</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -233,6 +236,7 @@
         props: [
             'isPending',
             "canEdit",
+            "canConfirm",
             "canDelete",
             "canCreate",
             "creators",
@@ -320,7 +324,7 @@
                 params.isPending = this.isPending;
 
 
-                console.log(params);
+                // console.log(params);
                 axios.get(this.requestUrl, {
                     params: params
                 }).then(function (response) {

@@ -24,7 +24,7 @@
 
                     <li :class="{'active':selected==item.id}" :key="item.id" :value="item.id"
                         @click="valueUpdated(item)" class="list-group-item" v-for="item in items">
-                        {{ item[label] }}   <span v-if="helperLabel!==null"> {{ item[helperLabel] }}</span>
+                        {{ item[label] }} <span v-if="helperLabel!==null"> {{ item[helperLabel] }}</span>
                     </li>
                 </ul>
 
@@ -59,8 +59,6 @@
             if (this.defaultIndex != null)
                 this.someoneUpdateId(this.defaultIndex);
 
-            if (this.default != null)
-                this.someoneUpdateId(this.default);
 
         },
         created: function () {
@@ -84,6 +82,7 @@
 
         },
         methods: {
+
 
             hideTheList() {
                 this.isListOpened = false;
@@ -143,10 +142,16 @@
         watch: {
             default: function (value) {
                 if (value != null && value) {
-                    this.selected = this.value;
+
                     this.someoneUpdateId(value);
                 }
 
+            },
+            default_id: function (value) {
+                if (value != null && value) {
+
+                    this.someoneUpdateId(value);
+                }
             }
         }
     }
