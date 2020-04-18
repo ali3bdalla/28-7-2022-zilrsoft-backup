@@ -43,7 +43,7 @@
 				
 				$transaction['is_transaction'] = true;
 				
-					$this->db_result_rows[] = $transaction;
+				$this->db_result_rows[] = $transaction;
 				
 			}
 			

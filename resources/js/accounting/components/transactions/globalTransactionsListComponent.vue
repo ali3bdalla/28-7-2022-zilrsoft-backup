@@ -80,6 +80,18 @@
                 </tr>
 
                 </tbody>
+                <tfoot>
+                <tr class="success">
+                    <th class="text-center "></th>
+                    <th class="text-center "></th>
+                    <th class="text-center "></th>
+                    <th class="text-center "></a></th>
+                    <th class="text-center " v-text="parseFloat(totalDebitAmount).toFixed(2)"></th>
+                    <th class="text-center " v-text="parseFloat(totalCreditAmount).toFixed(2)"></th>
+                    <th class="text-center "></th>
+                    <th class="text-center "></th>
+                </tr>
+                </tfoot>
             </table>
 
             <div class="table-paginations">
@@ -112,6 +124,8 @@
                 requestUrl: "",
                 paginationResponseData: null,
                 transactions: [],
+                totalCreditAmount:0,
+                totalDebitAmount:0,
                 app: {
                     primaryColor: metaHelper.getContent('primary-color'),
                     secondColor: metaHelper.getContent('second-color'),
@@ -156,12 +170,21 @@
                 params.itemsPerPage = this.itemsPerPage;
                 params.startDate = this.filters.startDate;
                 params.endDate = this.filters.endDate;
-
-                console.log(params);
+                this.transactions = [];
+                this.totalCreditAmount = 0;
+                this.totalDebitAmount = 0;
                 axios.get(this.requestUrl, {
                     params: params
                 }).then(response => {
-                    appVm.transactions = response.data.data;
+
+                    let len = response.data.data.length;
+                    for (let index = 0;index < len; index ++)
+                    {
+                        let transaction = response.data.data[index];
+                        appVm.totalCreditAmount=appVm.totalCreditAmount + parseFloat(transaction.credit_amount);
+                        appVm.totalDebitAmount =appVm.totalDebitAmount + parseFloat(transaction.debit_amount);
+                        appVm.transactions.push(transaction);
+                    }
                     appVm.paginationResponseData = response.data;
                 }).catch(error => {
                     alert(error);

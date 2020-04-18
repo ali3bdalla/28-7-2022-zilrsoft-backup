@@ -34,8 +34,6 @@
 		
 		private function dispatchParams(Builder $query):Builder
 		{
-			
-			
 			if ($this->request->has('id')){
 				$query = $query->where('id',$this->request->input('id'));
 			}
