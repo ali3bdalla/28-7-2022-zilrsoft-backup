@@ -90,11 +90,11 @@
 		public function show(Account $account,Request $request)
 		{
 			
-		
+			
 			if ($account->slug == 'clients'){
 				$users = User::where('is_client',true)->paginate(50);//$this->get_users_transactions
 				//('client_balance')
-
+				
 				return view('accounting.charts.transactions.identity',compact('users','account'));
 			}else if ($account->slug == 'vendors'){
 				$users = User::where('is_vendor',true)->paginate(50);
@@ -104,16 +104,22 @@
 				$items = $this->get_account_stock_item_transactions();
 				$items = $items['items'];
 				return view('accounting.charts.transactions.items',compact('items','account'));
-
+				
 			}
-			$obj = new AccountTransactionsLoader($account,$request);
-			$transactions = $obj->response();
+//			$obj = new AccountTransactionsLoader($account,$request);
+//			$transactions = $obj->response();
 //			return $transactions;
 //			$transactions = $this->load_account_transactions($account);
 			
-			return view('accounting.charts.transactions.v2.index',compact('account','transactions'));
+			return view('accounting.charts.transactions.v2.index',compact('account'));
 		}
 		
+		public function transactions_datatable(Account $account,Request $request)
+		{
+			$obj = new AccountTransactionsLoader($account,$request);
+			$transactions = $obj->response();
+			return $transactions;
+		}
 		
 		/**
 		 * Show the form for editing the specified resource.

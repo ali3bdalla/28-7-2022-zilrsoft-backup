@@ -47,7 +47,7 @@
 			Route::get('vendor/{vendor}/{account}',"ChartsController@vendor")->name('vendor');
 			Route::get('item/{item}/{account}',"ChartsController@item")->name('item');
 			Route::get('{account}/delete',"ChartsController@delete");
-			
+			Route::get('{account}/transactions_datatable',"ChartsController@transactions_datatable")->name('transactions_datatable');
 		});
 		Route::prefix('reseller_daily')->name('reseller_daily.')->group(function (){
 			Route::get('account_close',"ResellerDailyTransactions@account_close")->name('account_close');
@@ -65,6 +65,7 @@
 		
 		Route::prefix('transactions')->name('transactions.')->group(function (){
 			Route::get('add/create',"TransactionsController@create")->name('add.create');
+			
 		});
 		
 		

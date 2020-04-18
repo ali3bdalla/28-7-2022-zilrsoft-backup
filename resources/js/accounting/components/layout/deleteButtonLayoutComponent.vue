@@ -1,5 +1,5 @@
 <template>
-    <a class="butn" @click="pushDeleteRequest">
+    <a @click="pushDeleteRequest">
         <slot></slot>
     </a>
 </template>

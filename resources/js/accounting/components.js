@@ -60,6 +60,7 @@ import AccountingSingleBarcodeLayoutComponent from './components/layout/singleBa
 import AccountingAdjustStockDatatableComponent from './components/inventories/adjustStockDatatableComponent';
 import AccountingAdjustStockCreateComponent from './components/inventories/adjustStockCreateComponent';
 import AccountingChartOfAccountsListComponent from './components/charts/chartOfAccountsListComponent';
+import AccountingGlobalTransactionsListComponent from './components/transactions/globalTransactionsListComponent';
 
 
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
@@ -123,3 +124,4 @@ Vue.component('accounting-header-notifications-layout-component', AccountingHead
 Vue.component('accounting-single-barcode-layout-component', AccountingSingleBarcodeLayoutComponent);
 Vue.component('accounting-adjust-stock-create-component', AccountingAdjustStockCreateComponent);
 Vue.component('accounting-chart-of-accounts-list-component', AccountingChartOfAccountsListComponent);
+Vue.component('accounting-global-transactions-list-component', AccountingGlobalTransactionsListComponent);

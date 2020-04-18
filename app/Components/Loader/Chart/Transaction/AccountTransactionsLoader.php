@@ -65,28 +65,28 @@
 		private function updateInitData()
 		{
 			if ($this->isNotFirstPage()){
-//				dd(1);
 				$this->accountChildrenAccounts();
 				$row = $this->db_rows[0];
 				
 				if ($row){
-					
-					$this->total_debit_amount += Transaction::where([
+					$debit_transactions_query = Transaction::where([
 						['id','<',$row->id],
 						['debitable_type',get_class($this->account)],
 						['debitable_id',$this->account->id]
-					])->sum('amount');
+					]);
+					$this->total_debit_amount += $this->dispatchParams($debit_transactions_query)->sum("amount");
 					
-					$this->total_credit_amount += Transaction::where([
+					$this->total_credit_amount += ($this->dispatchParams(Transaction::where([
 							['id','<',$row->id],
 							['creditable_type',get_class($this->account)],
 							['creditable_id',$this->account->id]]
-					)->sum('amount');
-//					dd($this->total_credit_amount);
+					)))->sum("amount");
 				}
 				
 				
 			}
+			
+			
 		}
 		
 		private function isNotFirstPage()
@@ -122,11 +122,16 @@
 					]
 				]
 			);
-
+			
 		}
 		
 		private function getPerPage()
 		{
-			return 50;
+			if ($this->request->has('itemsPerPage') && $this->request->filled('itemsPerPage'))
+				$perPage = $this->request->input('itemsPerPage');
+			else
+				$perPage = 20;
+			
+			return $perPage;
 		}
 	}

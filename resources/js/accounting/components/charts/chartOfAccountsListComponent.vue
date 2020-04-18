@@ -16,6 +16,14 @@
                      &nbsp;
                     <a :href="'/accounting/accounts/' + account.id + '/edit'" v-if="account.parent_id!=0">
                         <label class="label label-success label-sm">تعديل</label></a>
+
+                    <accounting-delete-button-layout-component :url="'/accounting/accounts/' + account.id" class=''
+                                                               v-if="account.children_count<=0"><label
+                            class="label label-danger label-sm">حذف</label>
+                    </accounting-delete-button-layout-component>
+
+                    <a :href="'/accounting/accounts/create?parent_id=' + account.id">
+                        <label class="label label-success label-sm">اضافة</label></a>
                 </span>
                     <span class="lead"><button
                             @click="loadChildren(account,index)"
@@ -60,7 +68,7 @@
                 let appVm = this;
                 if (account.is_expanded) {
                     account.is_expanded = false;
-                    appVm.accounts_list =  db.model.replace(appVm.accounts_list, db.model.index(appVm.accounts_list,
+                    appVm.accounts_list = db.model.replace(appVm.accounts_list, db.model.index(appVm.accounts_list,
                         account.id), item);
                 } else {
 

@@ -11,10 +11,12 @@
             <a @click="confirmDelete(account)"
                class="btn btn-outline-primary"><i
                     class="fa fa-trash"></i> </a>
+            
+
             <accounting-accounts-chart-component
-                    v-if="account.children!=null"
                     :accounts='account.children'
-                    :base-url="baseUrl"></accounting-accounts-chart-component>
+                    :base-url="baseUrl"
+                    v-if="account.children!=null"></accounting-accounts-chart-component>
         </li>
 
     </ul>

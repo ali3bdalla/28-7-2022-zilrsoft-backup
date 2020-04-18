@@ -64,8 +64,8 @@
 					
 				}
 				
-				$this->total_credit_amount += $child['credit_amount'];
-				$this->total_debit_amount += $child['debit_amount'];
+				$this->total_credit_amount += floatval($child['credit_amount']);
+				$this->total_debit_amount += floatval($child['debit_amount']);
 				
 				if ($child->type == 'credit'){
 					$amount = $this->total_credit_amount - $this->total_debit_amount;
