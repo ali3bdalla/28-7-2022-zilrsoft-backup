@@ -2,6 +2,8 @@
     <div class="panel">
 
         <div class="panel-heading">
+            <!--            <div class="row">-->
+            <!--                <div class="col-md-9">-->
             <VueCtkDateTimePicker
                     :auto-close="true"
                     :behaviour="{time: {nearestIfDisabled: true}}"
@@ -11,10 +13,17 @@
                     label="التاريخ"
                     locale="en"
                     v-model="createdAtRange"/>
+            <!--                </div>-->
+            <!--                <div class="col-md-3">-->
+            <!--                    <button class="btn btn-primary" @click="exportTableToCSV('datatable')">استخراج الجدول CSV</button>-->
+            <!--                </div>-->
+            <!--            </div>-->
+
         </div>
 
+
         <div class="panel-body">
-            <table class="table table-bordered text-center">
+            <table @scroll="scrollToUpdate" class="table table-bordered text-center">
                 <thead>
                 <tr>
                     <th class="text-center "></th>
@@ -93,17 +102,24 @@
                 </tr>
                 </tfoot>
             </table>
-
+            <tile :color="app.primaryColor" :loading="isLoading" v-show="isLoading"></tile>
+            <!--            <div>-->
+            <!--                <button @click="csvExport(transactions)">export csv</button>-->
+            <!--            </div>-->
+            <!--            <div class="btn"-->
             <div class="table-paginations">
                 <accounting-table-pagination-helper-layout-component
                         :data="paginationResponseData"
+                        :view-only="true"
                         @pagePerItemsUpdated="pagePerItemsUpdated"
                         @paginateUpdatePage="paginateUpdatePage"
+
                 ></accounting-table-pagination-helper-layout-component>
             </div>
 
 
         </div>
+
     </div>
 </template>
 
@@ -118,14 +134,17 @@
         },
         data: function () {
             return {
+                clearOldData: false,
+                isLoading: false,
                 createdAtRange: null,
                 customDateShortcuts: [],
                 itemsPerPage: 25,
                 requestUrl: "",
                 paginationResponseData: null,
                 transactions: [],
-                totalCreditAmount:0,
-                totalDebitAmount:0,
+                totalCreditAmount: 0,
+                totalDebitAmount: 0,
+                IntervalValue: null,
                 app: {
                     primaryColor: metaHelper.getContent('primary-color'),
                     secondColor: metaHelper.getContent('second-color'),
@@ -149,7 +168,96 @@
             this.loadData();
 
         },
+        destroyed() {
+            window.removeEventListener('scroll', this.handleScroll);
+        },
+        mounted: function () {
+            window.addEventListener('scroll', this.handleScroll);
+            // let appVm = this;
+            // this.IntervalValue = setInterval(function () {
+            //     if (!appVm.isLoading)
+            //         // appVm.scrollToUpdate();
+            // }, 1000);
+
+
+        },
         methods: {
+            downloadCSV(csv, filename) {
+                let csvFile;
+                let downloadLink;
+
+                // CSV file
+                csvFile = new Blob([csv], {type: "text/csv"});
+
+                // Download link
+                downloadLink = document.createElement("a");
+
+                // File name
+                downloadLink.download = filename;
+
+                // Create a link to the file
+                downloadLink.href = window.URL.createObjectURL(csvFile);
+
+                // Hide download link
+                downloadLink.style.display = "none";
+
+                // Add the link to DOM
+                document.body.appendChild(downloadLink);
+
+                // Click download link
+                downloadLink.click();
+            },
+            exportTableToCSV(filename) {
+                let csv = [];
+                let rows = document.querySelectorAll("table tr");
+
+                for (let i = 0; i < rows.length; i++) {
+                    let row = [], cols = rows[i].querySelectorAll("td, th");
+
+                    for (let j = 0; j < cols.length; j++)
+                        row.push(cols[j].innerText);
+
+                    csv.push(row.join(","));
+                }
+                this.downloadCSV(csv.join("\n"), filename);
+            },
+            handleScroll(e) {
+                let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
+
+                if (bottomOfWindow) {
+                    if (this.paginationResponseData != null) {
+                        if (this.paginationResponseData.next_page_url != null) {
+                            this.requestUrl = this.paginationResponseData.next_page_url;
+                            this.clearOldData = false;
+                            this.loadData();
+                        }
+
+                    }
+                }
+            },
+            scrollToUpdate(event) {
+                // console.log(event)
+                // window.onscroll = () => {
+                //     let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
+                //
+                //     if (bottomOfWindow) {
+                //         if (this.paginationResponseData != null) {
+                //             console.log(this.paginationResponseData.next_page_url );
+                //             if (this.paginationResponseData.next_page_url === "" &&
+                //                 this.paginationResponseData.next_page_url==null) {
+                //                 // clearInterval(this.IntervalValue);
+                //                 // alert('hell')
+                //             }else
+                //             {
+                //                 this.requestUrl = this.paginationResponseData.next_page_url;
+                //                 this.clearOldData = false;
+                //                 this.loadData();
+                //             }
+                //
+                //         }
+                //     }
+                // }
+            },
             initJob() {
                 this.requestUrl = "/accounting/accounts/" + this.account.id + "/transactions_datatable";
                 this.customDateShortcuts = [
@@ -166,23 +274,27 @@
                 ];
             },
             loadData: function () {
+                this.isLoading = true;
                 let params = {}, appVm = this;
                 params.itemsPerPage = this.itemsPerPage;
                 params.startDate = this.filters.startDate;
                 params.endDate = this.filters.endDate;
-                this.transactions = [];
-                this.totalCreditAmount = 0;
-                this.totalDebitAmount = 0;
+                if (this.clearOldData) {
+                    this.transactions = [];
+                    this.totalCreditAmount = 0;
+                    this.totalDebitAmount = 0;
+                }
+
+                // console.log(params);
                 axios.get(this.requestUrl, {
                     params: params
                 }).then(response => {
-
+                    appVm.isLoading = false;
                     let len = response.data.data.length;
-                    for (let index = 0;index < len; index ++)
-                    {
+                    for (let index = 0; index < len; index++) {
                         let transaction = response.data.data[index];
-                        appVm.totalCreditAmount=appVm.totalCreditAmount + parseFloat(transaction.credit_amount);
-                        appVm.totalDebitAmount =appVm.totalDebitAmount + parseFloat(transaction.debit_amount);
+                        appVm.totalCreditAmount = appVm.totalCreditAmount + parseFloat(transaction.credit_amount);
+                        appVm.totalDebitAmount = appVm.totalDebitAmount + parseFloat(transaction.debit_amount);
                         appVm.transactions.push(transaction);
                     }
                     appVm.paginationResponseData = response.data;
@@ -199,8 +311,8 @@
             },
 
             pagePerItemsUpdated(event) {
-                this.itemsPerPage = event.items;
-                this.loadData();
+                // this.itemsPerPage = event.items;
+                // this.loadData();
             },
 
 
@@ -215,6 +327,9 @@
                     this.filters.startDate = value.start;
                     this.filters.endDate = value.end;
                 }
+
+                this.clearOldData = true;
+                this.requestUrl = this.paginationResponseData.path;
                 this.loadData();
 
             },

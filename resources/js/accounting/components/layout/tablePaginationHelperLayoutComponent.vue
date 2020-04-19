@@ -2,18 +2,25 @@
     <div class="">
         <div class="row">
             <div class="col-md-2">
-                <div class="pager">
-                    <input @keyup="updateItemsPerPageValue" class="form-control" placeholder="عدد العناصر في الصفحة"
-                           type="text"
-                           v-model="itemsPerPage">
+                <div class="pager" v-show="viewOnly!=true">
+                    <select @change="updateItemsPerPageValue" class="form-control" v-model="itemsPerPage">
+                        <option value="20">عدد العناصر في الصفحة (20)</option>
+                        <option value="30">30</option>
+                        <option value="50">50</option>
+                        <option value="80">80</option>
+                        <option value="100">100</option>
+                    </select>
+                    <!--                    <input @keyup="updateItemsPerPageValue" class="form-control" placeholder="عدد العناصر في الصفحة"-->
+                    <!--                           type="text"-->
+                    <!--                           v-model="itemsPerPage">-->
                 </div>
             </div>
             <div class="col-md-10">
                 <nav>
                     <ul class="pager">
-                        <li class="previous" v-if="current_page!=1"><a
+                        <li class="previous" v-if="current_page!=1" v-show="viewOnly!=true"> <a
                                 @click="pageSelected(first_page_url)" v-html="pagination_trans.first"></a></li>
-                        <li v-if="prev_page_url!=null && prev_page_url!=current_page_url"><a
+                        <li v-if="prev_page_url!=null && prev_page_url!=current_page_url" v-show="viewOnly!=true"><a
                                 @click="pageSelected(prev_page_url)" v-html="pagination_trans.previous"></a></li>
                         <li v-for="n in shownPages"><a
                                 :class="{'bg-custom-primary':current_page==n}"
@@ -21,9 +28,10 @@
                                 class="active">{{
                             (n)}}</a></li>
 
-                        <li v-if="next_page_url!=null &&  next_page_url!=current_page_url"><a
+                        <li v-if="next_page_url!=null &&  next_page_url!=current_page_url" v-show="viewOnly!=true"><a
                                 @click="pageSelected(next_page_url)" v-html="pagination_trans.next"></a></li>
-                        <li class="next" v-if="current_page!=last_page"><a @click="pageSelected(last_page_url)"
+                        <li class="next" v-if="current_page!=last_page" v-show="viewOnly!=true"><a
+                                @click="pageSelected(last_page_url)"
                                                                            v-html="pagination_trans.last"></a>
                         </li>
                     </ul>
@@ -36,7 +44,7 @@
 
 <script>
     export default {
-        props: ["data"],
+        props: ["data",'viewOnly'],
         data: function () {
             return {
                 itemsPerPage: 20,
@@ -110,7 +118,9 @@
                     link: link
                 });
             },
-            updateItemsPerPageValue() {
+            updateItemsPerPageValue(e) {
+
+                this.itemsPerPage = e.target.value;
 
                 if (parseInt(this.itemsPerPage)) {
                     this.$emit('pagePerItemsUpdated', {

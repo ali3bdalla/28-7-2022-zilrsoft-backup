@@ -6,6 +6,7 @@
 	
 	use App\Account;
 	use App\Transaction;
+	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Http\Request;
 	use Illuminate\Pagination\LengthAwarePaginator;
 	
@@ -20,6 +21,7 @@
 		private $account;
 		private $db_rows;
 		private $db_result_rows = [];
+		
 		private $total_debit_amount = 0;
 		private $total_credit_amount = 0;
 		private $is_credit_account = false;
@@ -111,6 +113,7 @@
 		
 		public function response()
 		{
+//			return
 			return new LengthAwarePaginator(
 				$this->db_result_rows,
 				$this->db_rows->total(),
@@ -125,8 +128,14 @@
 			
 		}
 		
-		private function getPerPage()
+		private function getPerPage()//(Builder $query
 		{
+			
+//			if($this->request->has('startDate') && $this->request->filled('startDate'))
+//			{
+//				return $query->count();
+//			}
+//
 			if ($this->request->has('itemsPerPage') && $this->request->filled('itemsPerPage'))
 				$perPage = $this->request->input('itemsPerPage');
 			else
