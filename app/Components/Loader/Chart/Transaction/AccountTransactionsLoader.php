@@ -22,6 +22,8 @@
 		private $db_rows;
 		private $db_result_rows = [];
 		
+		private $report_response = false;
+		
 		private $total_debit_amount = 0;
 		private $total_credit_amount = 0;
 		private $is_credit_account = false;
@@ -30,37 +32,38 @@
 		 */
 		private $request;
 		
-		public function __construct(Account $account,Request $request)
+		public function __construct(Account $account,Request $request,$report_response = false)
 		{
+			$this->report_response = $report_response;
 			$this->account = $account;
 			$this->request = $request;
 			
 			$this->is_credit_account = $account->type == 'credit';
 			$this->detectAccountType();
-			$this->updateInitData();
-			$this->createDBResultRows();
+			if(!$this->report_response)
+			{
+				$this->updateInitData();
+				$this->createDBResultRows();
+			}
+			
+			
 			
 		}
 		
+		public function report()
+		{
+			return [
+				'total_debit' => $this->total_debit_amount,
+				'total_credit' => $this->total_credit_amount,
+				'amount' => $this->account->type=='credit' ? $this->total_credit_amount -
+					$this->total_debit_amount : $this->total_debit_amount - $this->total_credit_amount,
+			];
+		}
 		private function detectAccountType()
 		{
-			if ($this->account->slug == 'clients'){
-				$this->loadClientsTransactions();
-//				$users = User::where('is_client',true)->paginate(50);//$this->get_users_transactions
-//				return view('accounting.charts.transactions.identity',compact('users','account'));
-			}else if ($this->account->slug == 'vendors'){
-				$this->loadVendorsTransactions();
-//				$users = User::where('is_vendor',true)->paginate(50);
-//				$users = $this->get_users_transactions('vendor_balance');
-//				return view('accounting.charts.transactions.identity',compact('users','account'));
-			}else if ($this->account->slug == 'stock'){
-				$this->loadStockTransactions();
-//				$items = $this->get_account_stock_item_transactions();
-//				$items = $items['items'];
-//				return view('accounting.charts.transactions.items',compact('items','account'));
-			}else{
-				$this->loadGlobalTransactions();
-			}
+			
+			$this->loadGlobalTransactions();
+			
 			
 		}
 		
@@ -130,7 +133,7 @@
 		
 		private function getPerPage()//(Builder $query
 		{
-			
+
 //			if($this->request->has('startDate') && $this->request->filled('startDate'))
 //			{
 //				return $query->count();

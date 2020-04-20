@@ -14,6 +14,7 @@
 	use Illuminate\Contracts\View\Factory;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
+	use Illuminate\Support\Facades\DB;
 	use Illuminate\View\View;
 	
 	class ChartsController extends Controller
@@ -29,16 +30,22 @@
 		{
 			
 			$accounts = Account::where('parent_id',0)->withCount('children')->get();
-//			foreach ($accounts as $account)
-//			{
-//				$account->getCurrentAmount($account);
-//			}
+//			$accounts->append("current_amount");
+			
+			foreach ($accounts as $account){
+				$account->append("current_amount");
+			}
 			return view('accounting.charts.index',compact('accounts'));
 		}
 		
 		public function load_children(Account $account)
 		{
-			return $account->children()->withCount('children')->orderBy('sorting_number','desc')->orderBy('id','ASC')->get();
+			$children = $account->children()->withCount('children')->orderBy('sorting_number','desc')->orderBy('id','ASC')->get();
+			foreach ($children as $child)
+			{
+				$child->append('current_amount');
+			}
+			return $children;
 		}
 		
 		/**
@@ -208,5 +215,19 @@
 			
 		}
 		
+		public function reports()
+		{
+//			return Account::all();
+			
+			return view('accounting.charts.reports.index',[
+				'accounts' => Account::all()
+			]);
+		}
+		
+		public function reports_result(Account $account,Request $request)
+		{
+			$obj = new AccountTransactionsLoader($account,$request,true);
+			return $obj->report();
+		}
 	}
 	

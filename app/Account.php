@@ -16,7 +16,7 @@
 		
 		protected $appends = [
 			'locale_name',
-			'current_amount',
+//			'current_amount',
 			'label',
 			'is_expanded',
 		];

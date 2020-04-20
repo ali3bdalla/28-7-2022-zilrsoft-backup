@@ -236,6 +236,15 @@
                             </a></li>
                     @endcan
 
+
+                    @can('view charts')
+                        <li>
+                            <a href="{{route('accounting.accounts.reports.index')}}"><i class="fa fa-sun"></i>
+                                تقارير
+                            </a></li>
+                    @endcan
+
+
                 </ul>
             </li>
         @endcanany

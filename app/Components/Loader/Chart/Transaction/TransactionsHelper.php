@@ -12,22 +12,41 @@
 	{
 		private function loadGlobalTransactions()
 		{
-			$query = Transaction::where([
-				['creditable_type',get_class($this->account)],
-				['creditable_id',$this->account->id]
-			]);
-			$query = $this->dispatchParams($query);
 			
-			$query = $query->OrWhere([
-				['debitable_type',get_class($this->account)],
-				['debitable_id',$this->account->id]
-			]);
-			$query = $this->dispatchParams($query);
 			
-			$query = $query->with('user','invoice');
-//			dd($query->dd());
+			if(!$this->report_response)
+			{
+				$query = Transaction::where([
+					['creditable_type',get_class($this->account)],
+					['creditable_id',$this->account->id]
+				]);
+				$query = $this->dispatchParams($query);
+				
+				$query = $query->OrWhere([
+					['debitable_type',get_class($this->account)],
+					['debitable_id',$this->account->id]
+				]);
+				$query = $this->dispatchParams($query);
+				$query = $query->with('user','invoice');
+				$this->db_rows = $query->orderBy('id','asc')->paginate($this->getPerPage());
+			}else
+			{
+				$query = Transaction::where([
+					['creditable_type',get_class($this->account)],
+					['creditable_id',$this->account->id]
+				]);
+				$query = $this->dispatchParams($query);
+				
+				$this->total_credit_amount = $query->sum('amount');
+				
+				$query2 = Transaction::where([
+					['debitable_type',get_class($this->account)],
+					['debitable_id',$this->account->id]
+				]);
+				$query2 = $this->dispatchParams($query2);
+				$this->total_debit_amount = $query2->sum('amount');
+			}
 			
-			$this->db_rows = $query->orderBy('id','asc')->paginate($this->getPerPage());
 			
 			
 		}
@@ -55,25 +74,8 @@
 //
 			}
 
-
-//			dd($query->distinct()->dd());
-//			$result[] = $query->count();
-//			dd($result);
 			return $query;
 		}
 		
-		private function loadStockTransactions()
-		{
-		
-		}
-		
-		private function loadClientsTransactions()
-		{
-		
-		}
-		
-		private function loadVendorsTransactions()
-		{
-		
-		}
+	
 	}
