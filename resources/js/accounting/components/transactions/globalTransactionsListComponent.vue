@@ -180,10 +180,11 @@
 
             handleScroll(e) {
                 console.log("scroll down" + window.pageYOffset);
-                console.log("scroll isLoading" + this.isLoading);
-                console.log("scroll paginationResponseData" + this.paginationResponseData);
-                let bottomOfWindow = Math.max(window.pageYOffset - 50, document.documentElement.scrollTop,
-                    document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
+                console.log("scroll isLoading" + document.documentElement.scrollTop);
+                let bottomOfWindow = window.pageYOffset === document.documentElement.scrollTop;
+
+                // Math.max(window.pageYOffset, document.documentElement.scrollTop,
+                // document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
 
                 if (bottomOfWindow) {
                     if (this.paginationResponseData != null && !this.isLoading) {
@@ -287,8 +288,7 @@
                     this.filters.endDate = value.end;
                 }
 
-                if(this.filters.startDate!=null && this.filters.endDate!=null)
-                {
+                if (this.filters.startDate != null && this.filters.endDate != null) {
                     this.clearOldData = true;
                     this.requestUrl = this.paginationResponseData.path;
                     this.loadData();
