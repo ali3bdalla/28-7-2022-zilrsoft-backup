@@ -305,8 +305,8 @@
 
 
             paginateUpdatePage(event) {
-                this.requestUrl = event.link;
-                this.loadData();
+                // this.requestUrl = event.link;
+                // this.loadData();
 
             },
 
