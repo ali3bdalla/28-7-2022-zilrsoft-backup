@@ -179,8 +179,8 @@
         methods: {
 
             handleScroll(e) {
-                console.log("scroll down" + window.pageYOffset);
-                console.log("scroll isLoading" + document.documentElement.scrollTop);
+                // console.log("scroll down" + window.pageYOffset);
+                // console.log("scroll isLoading" + document.documentElement.scrollTop);
                 let bottomOfWindow = window.pageYOffset === document.documentElement.scrollTop;
 
                 // Math.max(window.pageYOffset, document.documentElement.scrollTop,
