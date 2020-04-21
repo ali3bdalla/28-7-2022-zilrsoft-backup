@@ -14,8 +14,7 @@
 		{
 			
 			
-			if(!$this->report_response)
-			{
+			if (!$this->report_response){
 				$query = Transaction::where([
 					['creditable_type',get_class($this->account)],
 					['creditable_id',$this->account->id]
@@ -29,8 +28,7 @@
 				$query = $this->dispatchParams($query);
 				$query = $query->with('user','invoice');
 				$this->db_rows = $query->orderBy('id','asc')->paginate($this->getPerPage());
-			}else
-			{
+			}else{
 				$query = Transaction::where([
 					['creditable_type',get_class($this->account)],
 					['creditable_id',$this->account->id]
@@ -48,7 +46,6 @@
 			}
 			
 			
-			
 		}
 		
 		private function dispatchParams(Builder $query):Builder
@@ -63,19 +60,18 @@
 				
 				$_startDate = Carbon::parse($this->request->input("startDate"))->toDateString();
 				$_endDate = Carbon::parse($this->request->input("endDate"))->toDateString();
-				
-				if ($_endDate === $_startDate){
-					$query = $query->whereDate('created_at',$_startDate);
-					
-				}else{
-					$query = $query->whereBetween('created_at',[$_startDate,$_endDate]);
-					
-				}
+
+//				if ($_endDate === $_startDate){
+//					$query = $query->whereDate('created_at',$_startDate);
+//
+//				}else{
+				$query = $query->whereBetween('created_at',[$_startDate,$_endDate]);
+
+//				}
 //
 			}
-
+			
 			return $query;
 		}
 		
-	
 	}
