@@ -173,56 +173,15 @@
         },
         mounted: function () {
             window.addEventListener('scroll', this.handleScroll);
-            // let appVm = this;
-            // this.IntervalValue = setInterval(function () {
-            //     if (!appVm.isLoading)
-            //         // appVm.scrollToUpdate();
-            // }, 1000);
 
 
         },
         methods: {
-            downloadCSV(csv, filename) {
-                let csvFile;
-                let downloadLink;
 
-                // CSV file
-                csvFile = new Blob([csv], {type: "text/csv"});
-
-                // Download link
-                downloadLink = document.createElement("a");
-
-                // File name
-                downloadLink.download = filename;
-
-                // Create a link to the file
-                downloadLink.href = window.URL.createObjectURL(csvFile);
-
-                // Hide download link
-                downloadLink.style.display = "none";
-
-                // Add the link to DOM
-                document.body.appendChild(downloadLink);
-
-                // Click download link
-                downloadLink.click();
-            },
-            exportTableToCSV(filename) {
-                let csv = [];
-                let rows = document.querySelectorAll("table tr");
-
-                for (let i = 0; i < rows.length; i++) {
-                    let row = [], cols = rows[i].querySelectorAll("td, th");
-
-                    for (let j = 0; j < cols.length; j++)
-                        row.push(cols[j].innerText);
-
-                    csv.push(row.join(","));
-                }
-                this.downloadCSV(csv.join("\n"), filename);
-            },
             handleScroll(e) {
                 console.log("scroll down" + window.pageYOffset);
+                console.log("scroll isLoading" + this.isLoading);
+                console.log("scroll paginationResponseData" + this.paginationResponseData);
                 let bottomOfWindow = Math.max(window.pageYOffset - 50, document.documentElement.scrollTop,
                     document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
 
@@ -286,8 +245,6 @@
                     this.totalCreditAmount = 0;
                     this.totalDebitAmount = 0;
                 }
-
-                // console.log(params);
                 axios.get(this.requestUrl, {
                     params: params
                 }).then(response => {
