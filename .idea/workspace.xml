@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/3JmchZZ2muCF6yhFiYRZdZCBdv02XFc872FW7NrR" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/4d2f8e08b4cab6eac6c4d4b1c545fea78f5f5bf2.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c1c2f1838b605f8cd1ba894bc53cd3e7bb40c390.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/df38c791579e548c6ca913a4bcc8761ffce12898.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/transactions/globalTransactionsListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/transactions/globalTransactionsListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/ehGb4PaSq6HX0WZrNln4yR83EQvuSG9Q8X8Qm5lZ" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -524,7 +519,7 @@
       <workItem from="1587363787960" duration="20000" />
       <workItem from="1587395549521" duration="885000" />
       <workItem from="1587400966474" duration="5325000" />
-      <workItem from="1587461903811" duration="79000" />
+      <workItem from="1587461903811" duration="604000" />
     </task>
     <servers />
   </component>
