@@ -222,7 +222,9 @@
                 this.downloadCSV(csv.join("\n"), filename);
             },
             handleScroll(e) {
-                let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
+                console.log("scroll down" + window.pageYOffset);
+                let bottomOfWindow = Math.max(window.pageYOffset - 50, document.documentElement.scrollTop,
+                    document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
 
                 if (bottomOfWindow) {
                     if (this.paginationResponseData != null && !this.isLoading) {
