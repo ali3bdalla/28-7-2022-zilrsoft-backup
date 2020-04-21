@@ -328,9 +328,13 @@
                     this.filters.endDate = value.end;
                 }
 
-                this.clearOldData = true;
-                this.requestUrl = this.paginationResponseData.path;
-                this.loadData();
+                if(this.filters.startDate!=null && this.filters.endDate!=null)
+                {
+                    this.clearOldData = true;
+                    this.requestUrl = this.paginationResponseData.path;
+                    this.loadData();
+                }
+
 
             },
 
