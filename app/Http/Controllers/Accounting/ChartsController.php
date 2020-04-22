@@ -32,19 +32,19 @@
 			$accounts = Account::where('parent_id',0)->withCount('children')->get();
 //			$accounts->append("current_amount");
 			
-			foreach ($accounts as $account){
-				$account->append("current_amount");
-			}
+//			foreach ($accounts as $account){
+//				$account->append("current_amount");
+//			}
 			return view('accounting.charts.index',compact('accounts'));
 		}
 		
 		public function load_children(Account $account)
 		{
 			$children = $account->children()->withCount('children')->orderBy('sorting_number','desc')->orderBy('id','ASC')->get();
-			foreach ($children as $child)
-			{
-				$child->append('current_amount');
-			}
+//			foreach ($children as $child)
+//			{
+//				$child->append('current_amount');
+//			}
 			return $children;
 		}
 		

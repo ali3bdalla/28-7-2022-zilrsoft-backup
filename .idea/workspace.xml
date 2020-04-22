@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/IdriFCIHdzpp4k8rpKyjkJ8IzuMasALVJtbtzpBs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/5a5dacb72407577073febba190f1fbce9ea1c9a9.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/fd66b2da8605583e3e4621b5cd018521c13db52a.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Components/Loader/Chart/Transaction/AccountTransactionsLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Components/Loader/Chart/Transaction/AccountTransactionsLoader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Components/Loader/Chart/Transaction/TransactionsHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Components/Loader/Chart/Transaction/TransactionsHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Account.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Account.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ChartsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ChartsController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -521,7 +524,8 @@
       <workItem from="1587395549521" duration="885000" />
       <workItem from="1587400966474" duration="5325000" />
       <workItem from="1587461903811" duration="2195000" />
-      <workItem from="1587541754865" duration="53000" />
+      <workItem from="1587541754865" duration="275000" />
+      <workItem from="1587546062163" duration="59000" />
     </task>
     <servers />
   </component>
