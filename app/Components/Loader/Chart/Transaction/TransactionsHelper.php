@@ -62,12 +62,13 @@
 				&& $this->request->filled('endDate')){
 				
 				$_startDate = Carbon::parse($this->request->input("startDate"))->toDateString();
-				$_endDate = Carbon::parse($this->request->input("endDate"))->toDateString();
+				$_endDate = Carbon::parse($this->request->input("endDate"));
 				
-				if ($_endDate === $_startDate){
+				if ($_endDate->toDateString() === $_startDate){
 					$query = $query->whereDate('created_at',$_startDate);
 					
 				}else{
+					$_endDate = $_endDate->addDays()->toDateString();
 					$query = $query->whereBetween('created_at',[$_startDate,$_endDate]);
 					
 				}

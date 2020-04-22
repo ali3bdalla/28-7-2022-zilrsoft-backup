@@ -70,7 +70,7 @@
 		private function updateInitData()
 		{
 			if ($this->isNotFirstPage()){
-				$this->accountChildrenAccounts();
+				
 				$row = $this->db_rows[0];
 				
 				if ($row){
