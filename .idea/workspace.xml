@@ -2,12 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/IdriFCIHdzpp4k8rpKyjkJ8IzuMasALVJtbtzpBs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/5a5dacb72407577073febba190f1fbce9ea1c9a9.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/fd66b2da8605583e3e4621b5cd018521c13db52a.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/10TURspRgOmUnoYHSysKKOiPjAzRX6qZjzKVoIYP" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/33f60c458d0a48e6e2bb8a0683ffec1805b9e645.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/459e01cef7374baab838885bc73f895a79befd38.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/4d2f8e08b4cab6eac6c4d4b1c545fea78f5f5bf2.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/65e9814e571a47e33136305b855eb75c33244dcc.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/6952e83e0718b5f77b99f00a489247347405f92d.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/8c5fa040d77a49c9208635f4a196c0dd407b498f.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/8d6fb2b625e32ed70426cc8e0718320d0809b2d8.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/9b3a74b39d97b8d7f76617be6d46141530e91617.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/9cdd6765809ba5c13273a63ea17bf02f6fea2816.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/c5f72fb5b6ebbe4838c47d0d80f6268ea49520c2.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/c9a7a9ff82ebe23590d20c29cdd31a63dd0cfe54.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/ca4dfb02616cdac8618a6d337bc68cd8645e32b2.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/da300272024e33fba02f852f160a59ab11e8e480.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/e70038967fbe34d606f859ba8188d3b0387be0c0.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/f01a427a4d0f7713dff7bb719f9cb62851377632.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Account.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Account.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ChartsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ChartsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -525,7 +543,8 @@
       <workItem from="1587400966474" duration="5325000" />
       <workItem from="1587461903811" duration="2195000" />
       <workItem from="1587541754865" duration="275000" />
-      <workItem from="1587546062163" duration="59000" />
+      <workItem from="1587546062163" duration="305000" />
+      <workItem from="1587635142695" duration="1005000" />
     </task>
     <servers />
   </component>

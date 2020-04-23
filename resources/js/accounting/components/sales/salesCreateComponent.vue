@@ -181,12 +181,11 @@
                                 v-if="item.is_need_serial"><i class="fa fa-bars"></i> &nbsp;
                         </button>
                         <accounting-kit-items-layout-component
-
                                 :index="index"
                                 :kit="item"
                                 :qty="item.qty"
                                 @kitUpdated="kitItemsDataUpdated"
-                                v-if="item.is_kit==true">
+                                v-if="item.is_kit===true">
 
                         </accounting-kit-items-layout-component>
 
