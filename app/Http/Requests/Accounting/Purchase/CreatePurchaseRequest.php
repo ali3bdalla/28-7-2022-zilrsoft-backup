@@ -71,11 +71,11 @@ class CreatePurchaseRequest extends FormRequest
 
     public function save()
     {
-//			if ($this->user()->can('confirm purchase')){
-        $result = $this->createActivatedPurchase();
-//			}else{
-//				$result = $this->createUnActivatedPurchase();
-//			}
+        if ($this->user()->can('confirm purchase')) {
+            $result = $this->createActivatedPurchase();
+        } else {
+            $result = $this->createUnActivatedPurchase();
+        }
 
         if ($this->pending_purchase_id > 0) {
             $invoice = Invoice::find($this->pending_purchase_id);
@@ -149,24 +149,5 @@ class CreatePurchaseRequest extends FormRequest
         }
     }
 
-    private function storeInvoice()
-    {
-
-    }
-
-    private function storeInvoiceItems()
-    {
-
-    }
-
-    private function updateInvoiceTotals()
-    {
-
-    }
-
-    private function storeInvoiceTransactions()
-    {
-
-    }
 
 }
