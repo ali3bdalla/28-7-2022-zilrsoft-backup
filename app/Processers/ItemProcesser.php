@@ -1,85 +1,82 @@
 <?php
-	
+
 	namespace App\Processers;
-	
-	
+
+
 	use App\Components\Loader\Item\Transactions\ItemTransactionsLoader;
 	use Carbon\Carbon;
 	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Support\Facades\Request;
-	
+
 	trait  ItemProcesser
 	{
 		use AccountingStock,ItemMovement;
-		
+
 	}
-	
+
 	trait  ItemMovement
 	{
-		
+
 		public function stockMovement()
 		{
-			
-			
-			
-			
-			
+
+
+
+
+
 			$query = $this->history()->where('invoice_type','!=','quotation')->with('invoice','user','creator');
-			
 			$cost = 0;
 			$stock_value = 0;
 			$stock_qty = 0;
 			$profit = 0;
-			
-			if (Request::has('startDate') && Request::filled('startDate') && Request::has('endDate') &&
-				Request::filled('endDate')){
-				
-				
-				$_startDate = Carbon::parse(Request::input("startDate"))->toDateString();
-				$_endDate = Carbon::parse(Request::input("endDate"))->toDateString();
-				
-				if ($_endDate === $_startDate){
-					$query = $query->whereDate('created_at',$_startDate);
-				}else{
-					$query = $query->whereBetween('created_at',[
-						$_startDate,
-						$_endDate
-					]);
-				}
-				
-				$first_history_before_list = $this->history()->where([['invoice_type','!=','quotation']])->whereDate('created_at','<',$_startDate)
-					->orderBy('id','desc')->first();
-				
-				if (!empty($first_history_before_list)){
-					$cost = $first_history_before_list->cost;
-					$stock_qty = $first_history_before_list->item_available_qty;
-					$stock_value = $stock_qty * $cost;
-				}
-			}
-			
+//
+//			if (Request::has('startDate') && Request::filled('startDate') && Request::has('endDate') &&
+//				Request::filled('endDate')){
+//				$_startDate = Carbon::parse(Request::input("startDate"))->toDateString();
+//				$_endDate = Carbon::parse(Request::input("endDate"))->toDateString();
+//
+//				if ($_endDate === $_startDate){
+//					$query = $query->whereDate('created_at',$_startDate);
+//				}else{
+//					$query = $query->whereBetween('created_at',[
+//						$_startDate,
+//						$_endDate
+//					]);
+//				}
+//
+//				$first_history_before_list = $this->history()->where([['invoice_type','!=','quotation']])->whereDate('created_at','<',$_startDate)
+//					->orderBy('id','desc')->first();
+//
+//				if (!empty($first_history_before_list)){
+//					$cost = $first_history_before_list->cost;
+//					$stock_qty = $first_history_before_list->item_available_qty;
+//					$stock_value = $stock_qty * $cost;
+//				}
+//			}
+
 			$histories = $query->get();
-			
-			
+
+
 			$movement = [];
 			foreach ($histories as $history){
-				
+
 				$current_profit = $history['profit'];
 				$result = [
 					'cost' => $cost,
 					'stock_value' => $stock_value,
 					'stock_qty' => $stock_qty,
 				];
-				
-				
+
+
 				$history['description'] = "";
 				$history['invoice_url'] = $history['urls']['invoice_url'];
 				$history['invoice_title'] = $history['urls']['invoice_title'];
-				
+
 				if ($history['qty'] > 0){
 					$history['price'] = $history['total'] / $history['qty'];
 				}
-				
-				
+
+
 				if (in_array($history['invoice_type'],['purchase','beginning_inventory'])){
 					$result = $this->handlePurchaseHistory($history,$stock_value,$stock_qty);
 				}elseif ($history['invoice_type'] == 'r_sale'){
@@ -88,7 +85,7 @@
 //					$profit-= $current_profit;
 //
 					$result = $this->handleReturnSaleHistory($history,$cost,$stock_value,$stock_qty);
-					
+
 				}elseif ($history['invoice_type'] == 'r_purchase'){
 					$result = $this->handleReturnPurchaseHistory($history,$cost,$stock_value,$stock_qty);
 				}elseif ($history['invoice_type'] == 'sale'){
@@ -100,8 +97,8 @@
 				}elseif ($history['invoice_type'] == 'stock_adjust'){
 					$result = $this->handleAdjustStockHistory($history,$cost,$stock_value,$stock_qty);
 				}
-				
-				
+
+
 				$cost = $result['final_stock_cost'];
 				$stock_value = $result['final_stock_total'];
 				$stock_qty = $result['final_stock_qty'];
@@ -119,29 +116,29 @@
 //					]);
 //
 //				}
-				
-				
+
+
 			}
-			
-			
+
+
 			$movement['stock_value'] = $cost * $stock_qty;
 			$movement['cost'] = $cost;
 			$movement['stock_qty'] = $stock_qty;
 			$movement['profits'] = $profit;
-			
-			
-			if (Request::has('startDate') && Request::filled('startDate') && Request::has('endDate') &&
-				Request::filled('endDate')){
-				
-			}else{
+
+
+//			if (Request::has('startDate') && Request::filled('startDate') && Request::has('endDate') &&
+//				Request::filled('endDate')){
+//
+//			}else{
 				$this->update_item_cost($cost,$stock_qty);
-				
-			}
-			
-			
+
+//			}
+
+
 			return $movement;
 		}
-		
+
 		/**
 		 * @param $history
 		 * @param $stock_value
@@ -152,30 +149,30 @@
 		public function handlePurchaseHistory($history,$stock_value,$stock_qty)
 		{
 			$result = $history;
-			
+
 			$result['current_move_stock_qty'] = $stock_qty + $history['qty'];
 			$result['current_move_stock_total'] = $stock_value + $history['total'];
-			
+
 			if ($result['current_move_stock_qty'] > 0)
 				$result['current_move_stock_cost'] = $result['current_move_stock_total'] / $result['current_move_stock_qty'];
-			
+
 			if ($history['is_service'])
 				$result['current_move_stock_cost'] = 0;
-			
-			
+
+
 			$result['final_stock_total'] = $result['current_move_stock_total'];
 			$result['final_stock_cost'] = $result['current_move_stock_cost'];
 			$result['final_stock_qty'] = $result['current_move_stock_qty'];
-			
+
 			if ($history['discount'] > 0){
 				$result = $this->handlePurchaseDiscountHistory($result);
 			}
-			
+
 			$result = $this->handlePurchaseExpensesHistroy($result);
-			
+
 			return $result;
 		}
-		
+
 		/**
 		 * @param $history
 		 *
@@ -183,32 +180,32 @@
 		 */
 		public function handlePurchaseDiscountHistory($history)
 		{
-			
+
 			$after_discount_stock_total = $history['current_move_stock_total'] - $history['discount'];
-			
+
 			if ($history['current_move_stock_qty'] > 0){
 				$cost = $after_discount_stock_total / $history['current_move_stock_qty'];
 			}else{
 				$cost = $history['current_move_stock_qty'];
 			}
-			
-			
+
+
 			$history['has_purchase_discount'] = true;
 			$history['discount_data'] = [
 				'discount_stock_total' => $after_discount_stock_total,
 				'discount_stock_cost' => $cost
 			];
 			$history['total_cost'] = $cost * $history['qty'];
-			
-			
+
+
 			$history['final_stock_total'] = $after_discount_stock_total;
 			$history['final_stock_cost'] = $cost;
 			$history['final_stock_qty'] = $history['current_move_stock_qty'];
-			
-			
+
+
 			return $history;
 		}
-		
+
 		/**
 		 * @param $history
 		 *
@@ -216,25 +213,25 @@
 		 */
 		public function handlePurchaseExpensesHistroy($history)
 		{
-			
+
 			$expenses = $this->get_invoice_item_expenses($history['invoice_id']);
-			
-			
+
+
 			if (empty($expenses)){
 				return $history;
 			}
-			
-			
+
+
 			$expenses_data = [];
 			foreach ($expenses as $expense){
-				
-				
+
+
 				$history['final_stock_total'] = $history['final_stock_total'] + $expense['amount'];// -
 				// $history['discount']
 				$expense['expense_stock_total'] = $history['final_stock_total'];
 				if ($history['final_stock_qty'] > 0){
 					$expense['expense_stock_cost'] = $history['final_stock_total'] / $history['final_stock_qty'];
-					
+
 				}else{
 					$expense['expense_stock_cost'] = 0;
 				}
@@ -242,8 +239,8 @@
 //				$expense['expense_stock_cost'] = 0;
 				$expenses_data[] = $expense;
 			}
-			
-			
+
+
 			if ($history['final_stock_qty'] > 0){
 				$cost = $history['final_stock_total'] / $history['final_stock_qty'];
 			}else{
@@ -255,7 +252,7 @@
 			$history['total_cost'] = $cost * $history['qty'];
 			return $history;
 		}
-		
+
 		/**
 		 * @param $history
 		 * @param $cost
@@ -276,18 +273,18 @@
 				// $history['total_cost'] = $cost * $history['qty'] + $history['discount'];
 				//$history['profits'] = $history['profits'] - $history['discount'];
 			}
-			
-			
+
+
 			$history['profits'] = $history['profits'] * -1;
-			
-			
+
+
 			$history['final_stock_cost'] = $history['current_move_stock_cost'];
 			$history['final_stock_total'] = $history['final_stock_cost'] * $history['current_move_stock_qty'];
 			$history['final_stock_qty'] = $history['current_move_stock_qty'];
-			
+
 			return $history;
 		}
-		
+
 		/**
 		 * @param $history
 		 *
@@ -295,17 +292,17 @@
 		 */
 		public function handleReturnSaleDiscountHistory($history)
 		{
-			
+
 			$history['has_return_sale_discount'] = true;
 			$history['discount_data'] = [
 				'discount_profits' => $history['discount'],
 				'discount_stock_total' => $history['current_move_stock_total'],
 				'discount_stock_cost' => $history['current_move_stock_cost']
 			];
-			
+
 			return $history;
 		}
-		
+
 		/**
 		 * @param $history
 		 * @param $cost
@@ -316,31 +313,31 @@
 		 */
 		public function handleReturnPurchaseHistory($history,$cost,$stock_value,$stock_qty)
 		{
-			
+
 			$history['current_move_stock_qty'] = $stock_qty - $history['qty'];
 			$history['current_move_stock_total'] = $stock_value - $history['total'];
-			
+
 			if ($history['current_move_stock_qty'] > 0){
 				$history['current_move_stock_cost'] = $history['current_move_stock_total'] / $history['current_move_stock_qty'];
 			}else{
 				$history['current_move_stock_cost'] = $cost;
 			}
-			
-			
+
+
 			$history['final_stock_total'] = $history['current_move_stock_total'];
 			$history['final_stock_cost'] = $history['current_move_stock_cost'];
 			$history['final_stock_qty'] = $history['current_move_stock_qty'];
-			
+
 			$history['total_cost'] = $cost * $history['qty'];
-			
+
 			if ($history['discount'] > 0){
 				$history = $this->handleReturnPurchaseDiscountHistory($history);
 			}
-			
-			
+
+
 			return $history;
 		}
-		
+
 		/**
 		 * @param $history
 		 *
@@ -348,9 +345,9 @@
 		 */
 		public function handleReturnPurchaseDiscountHistory($history)
 		{
-			
+
 			$new_current_move_stock_total = $history['current_move_stock_total'] + $history['discount'];
-			
+
 			if ($history['current_move_stock_qty'] > 0){
 				$cost = $new_current_move_stock_total / $history['current_move_stock_qty'];
 			}else{
@@ -361,16 +358,16 @@
 				'discount_stock_total' => $new_current_move_stock_total,
 				'discount_stock_cost' => $cost
 			];
-			
-			
+
+
 			$history['final_stock_total'] = $new_current_move_stock_total;
 			$history['final_stock_cost'] = $cost;
 			$history['final_stock_qty'] = $history['current_move_stock_qty'];
-			
-			
+
+
 			return $history;
 		}
-		
+
 		/**
 		 * @param $history
 		 * @param $cost
@@ -383,37 +380,37 @@
 		{
 			$history['current_move_stock_qty'] = $stock_qty - $history['qty'];
 			$new_final_stock_total = $history['current_move_stock_qty'] * $cost;
-			
+
 			// $stock_value - $paid_qty_value
 			$history['current_move_stock_total'] = $new_final_stock_total;
-			
+
 			if ($history['current_move_stock_qty'] > 0){
 				$history['current_move_stock_cost'] = $history['current_move_stock_total'] / $history['current_move_stock_qty'];
 			}else{
 				$history['current_move_stock_cost'] = 0;
-				
+
 			}
-			
+
 			$history['total_cost'] = $cost * $history['qty'];
 			$history['profits'] = $history['total'] - $history['total_cost'];
-			
-			
+
+
 			$history['final_stock_total'] = $history['current_move_stock_total'];
 			$history['final_stock_cost'] = $history['current_move_stock_cost'];
 			$history['final_stock_qty'] = $history['current_move_stock_qty'];
-			
-			
+
+
 			if ($history['discount'] > 0){
 				$history = $this->handleSaleDiscountHistory($history);
 				$history['profits'] = $history['profits'] - $history['discount'];
 			}
-			
-			
+
+
 			return $history;
-			
-			
+
+
 		}
-		
+
 		/**
 		 * @param $history
 		 *
@@ -421,39 +418,39 @@
 		 */
 		public function handleSaleDiscountHistory($history)
 		{
-			
+
 			$history['has_sale_discount'] = true;
 			$history['discount_data'] = [
 				'discount_stock_total' => $history['current_move_stock_total'],
 				'discount_stock_cost' => $history['current_move_stock_cost'],
 				'discount_profits' => $history['discount'] * -1
 			];
-			
+
 			return $history;
 		}
-		
+
 		public function handleAdjustStockHistory($history,$stock_value,$stock_qty)
 		{
 			$result = $history;
-			
+
 			$result['current_move_stock_qty'] = $history['qty'];
 			$result['current_move_stock_total'] = $stock_value + $history['total'];
-			
+
 			if ($result['current_move_stock_qty'] > 0)
 				$result['current_move_stock_cost'] = $result['current_move_stock_total'] / $result['current_move_stock_qty'];
-			
+
 			if ($history['is_service'])
 				$result['current_move_stock_cost'] = 0;
-			
-			
+
+
 			$result['final_stock_total'] = $result['current_move_stock_total'];
 			$result['final_stock_cost'] = $result['current_move_stock_cost'];
 			$result['final_stock_qty'] = $result['current_move_stock_qty'];
-			
+
 			$result['description'] = 'جرد المخزون';
 			return $result;
 		}
-		
+
 		/**
 		 * @param $cost
 		 */
@@ -466,23 +463,23 @@
 				]
 			);
 		}
-		
+
 	}
-	
+
 	trait  AccountingStock
 	{
-		
+
 		public static function get_client_history($histories)
 		{
-			
+
 			$total_balance = 0;
-			
+
 			$total_debit = 0;
 			$total_credit = 0;
-			
+
 			$movement = [];
 			foreach ($histories as $history){
-				
+
 				$history['total_balance'] = 0;
 				$history['debit'] = 0;
 				$history['credit'] = 0;
@@ -491,28 +488,28 @@
 				$history['discount_data'] = null;
 				$history['invoice_url'] = $history['urls']['invoice_url'];
 				$history['invoice_title'] = $history['urls']['invoice_title'];
-				
-				
+
+
 				if (in_array($history['invoice_type'],['purchase','beginning_inventory'])){
 					$history['debit'] = $history['net'];
 					$history['total_balance'] = $history['net'] + $total_balance;
-					
+
 					$total_debit = $total_debit + $history['net'];
-					
+
 					if ($history['discount'] > 0){
 						$history['discount_data'] = [
 							'credit' => $history['discount'],
 							'debit' => 0,
 							'total_balance' => $history['total_balance'] - $history['discount']
 						];
-						
+
 						$total_credit = $total_credit + $history['discount'];
 					}
-					
+
 					$expenses = $history->item->get_invoice_item_expenses($history['invoice_id']);
-					
+
 					$total_balance = $history['total_balance'] - $history['discount'];
-					
+
 					$all_expense = [];
 					foreach ($expenses as $expens){
 						$expens['debit'] = $expens['amount'];
@@ -521,15 +518,15 @@
 						$total_balance = $expens['total_balance'];
 						$all_expense[] = $expens;
 						$total_debit = $total_debit + $expens['amount'];
-						
+
 					}
-					
+
 					$history['expenses_data'] = $all_expense;
-					
+
 				}elseif ($history['invoice_type'] == 'r_sale'){
 					$history['debit'] = $history['net'];
 					$history['total_balance'] = $history['net'] + $total_balance;
-					
+
 					$total_debit = $total_debit + $history['net'];
 					if ($history['discount'] > 0){
 						$history['discount_data'] = [
@@ -537,25 +534,25 @@
 							'debit' => 0,
 							'total_balance' => $history['total_balance'] - $history['discount']
 						];
-						
+
 						$total_credit = $total_credit + $history['discount'];
-						
+
 					}
-					
-					
+
+
 					$total_balance = $history['total_balance'] - $history['discount'];
-					
-					
+
+
 				}elseif ($history['invoice_type'] == 'r_purchase'){
-					
-					
+
+
 					$history['credit'] = $history['net'];
-					
+
 					$history['total_balance'] = $total_balance - $history['net'];
-					
+
 					$total_credit = $total_credit + $history['net'];
-					
-					
+
+
 					if ($history['discount'] > 0){
 						$history['discount_data'] = [
 							'credit' => 0,
@@ -564,18 +561,18 @@
 						];
 						$total_debit = $total_credit + $history['discount'];
 					}
-					
-					
+
+
 					$total_balance = $history['total_balance'] + $history['discount'];
-					
-					
+
+
 				}elseif ($history['invoice_type'] == 'sale'){
-					
+
 					$history['credit'] = $history['net'];
 					$history['total_balance'] = $total_balance - $history['credit'];
-					
+
 					$total_credit = $total_credit + $history['credit'];
-					
+
 					if ($history['discount'] > 0){
 						$history['discount_data'] = [
 							'debit' => $history['discount'],
@@ -584,40 +581,40 @@
 						];
 						$total_debit = $total_debit + $history['discount'];
 					}
-					
-					
+
+
 					$total_balance = $history['total_balance'] + $history['discount'];
-					
+
 				}
-				
-				
+
+
 				$movement['data'][] = $history;
-				
+
 			}
-			
+
 			$movement['total_debit'] = $total_debit;
 			$movement['total_credit'] = $total_credit;
-			
+
 			return $movement;
 		}
-		
+
 		public function get_accounting_stock($charts_ids = [])
 		{
 			$query = $this->history()->with('invoice.chart','user','creator')
 				->whereHas('invoice',function (Builder $query) use ($charts_ids){
 					$query->whereIn('chart_id',$charts_ids);
 				});
-			
-			
+
+
 			$histories = $query->get();
 			$total_balance = 0;
-			
+
 			$total_debit = 0;
 			$total_credit = 0;
-			
+
 			$movement = [];
 			foreach ($histories as $history){
-				
+
 				$history['total_balance'] = 0;
 				$history['debit'] = 0;
 				$history['credit'] = 0;
@@ -626,28 +623,28 @@
 				$history['discount_data'] = null;
 				$history['invoice_url'] = $history['urls']['invoice_url'];
 				$history['invoice_title'] = $history['urls']['invoice_title'];
-				
-				
+
+
 				if (in_array($history['invoice_type'],['purchase','beginning_inventory'])){
 					$history['debit'] = $history['total'];
 					$history['total_balance'] = $history['total'] + $total_balance;
-					
+
 					$total_debit = $total_debit + $history['total'];
-					
+
 					if ($history['discount'] > 0){
 						$history['discount_data'] = [
 							'credit' => $history['discount'],
 							'debit' => 0,
 							'total_balance' => $history['total_balance'] - $history['discount']
 						];
-						
+
 						$total_credit = $total_credit + $history['discount'];
 					}
-					
+
 					$expenses = $this->get_invoice_item_expenses($history['invoice_id']);
-					
+
 					$total_balance = $history['total_balance'] - $history['discount'];
-					
+
 					$all_expense = [];
 					foreach ($expenses as $expens){
 						$expens['debit'] = $expens['amount'];
@@ -656,15 +653,15 @@
 						$total_balance = $expens['total_balance'];
 						$all_expense[] = $expens;
 						$total_debit = $total_debit + $expens['amount'];
-						
+
 					}
-					
+
 					$history['expenses_data'] = $all_expense;
-					
+
 				}elseif ($history['invoice_type'] == 'r_sale'){
 					$history['debit'] = $history['qty'] * $history['cost'];
 					$history['total_balance'] = $history['qty'] * $history['cost'] + $total_balance;
-					
+
 					$total_debit = $total_debit + $history['qty'] * $history['cost'];
 					if ($history['discount'] > 0){
 						$history['discount_data'] = [
@@ -672,25 +669,25 @@
 							'debit' => 0,
 							'total_balance' => $history['total_balance'] - $history['discount']
 						];
-						
+
 						$total_credit = $total_credit + $history['discount'];
-						
+
 					}
-					
-					
+
+
 					$total_balance = $history['total_balance'] - $history['discount'];
-					
-					
+
+
 				}elseif ($history['invoice_type'] == 'r_purchase'){
-					
-					
+
+
 					$history['credit'] = $history['total'];
-					
+
 					$history['total_balance'] = $total_balance - $history['total'];
-					
+
 					$total_credit = $total_credit + $history['total'];
-					
-					
+
+
 					if ($history['discount'] > 0){
 						$history['discount_data'] = [
 							'credit' => 0,
@@ -699,18 +696,18 @@
 						];
 						$total_debit = $total_credit + $history['discount'];
 					}
-					
-					
+
+
 					$total_balance = $history['total_balance'] + $history['discount'];
-					
-					
+
+
 				}elseif ($history['invoice_type'] == 'sale'){
-					
+
 					$history['credit'] = $history['qty'] * $history['cost'];
 					$history['total_balance'] = $total_balance - $history['credit'];
-					
+
 					$total_credit = $total_credit + $history['credit'];
-					
+
 					if ($history['discount'] > 0){
 						$history['discount_data'] = [
 							'debit' => $history['discount'],
@@ -719,21 +716,21 @@
 						];
 						$total_debit = $total_debit + $history['discount'];
 					}
-					
-					
+
+
 					$total_balance = $history['total_balance'] + $history['discount'];
-					
+
 				}
-				
-				
+
+
 				$movement['data'][] = $history;
-				
+
 			}
-			
+
 			$movement['total_debit'] = $total_debit;
 			$movement['total_credit'] = $total_credit;
-			
+
 			return $movement;
 		}
-		
+
 	}

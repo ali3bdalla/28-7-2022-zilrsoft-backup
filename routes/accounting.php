@@ -1,22 +1,22 @@
 <?php
 
 //
-	
-	
+
+
 	use App\Events\TestBroadcastEvent;
-	
+
 	event(new TestBroadcastEvent());
 
 //	auth()->loginUsingId(8);
 	app()->setLocale('ar');
 	Auth::routes(["verify" => true]);
-	
-	
+
+
 	Route::name('printer')->prefix('printer')->group(function (){
 		Route::get('print_receipt/{sale}','PrinterController@print_receipt');
 	});
-	
-	
+
+
 	Route::get('/','HomeController@index');
 	Route::middleware(['auth','verified'])->group(function (){
 		Route::resources([
@@ -39,8 +39,8 @@
 			'settings' => 'SettingController',
 			'warranty_subscriptions' => 'WarrantySubscriptionsController',
 		]);
-		
-		
+
+
 		Route::prefix('accounts')->name('accounts.')->group(function (){
 			Route::get('load_children/{account}/list',"ChartsController@load_children")->name('load_children');
 			Route::get('client/{client}/{account}',"ChartsController@client")->name('client');
@@ -62,24 +62,24 @@
 			Route::post('transfer_amounts',"ResellerDailyTransactions@transfer_amounts_store")->name('transfer_amounts_store');
 			Route::get('{transaction}/confirm_transaction',"ResellerDailyTransactions@confirm_transaction")->name
 			('confirm_transaction');
-			
+
 			Route::get('{transaction}/delete_transaction',"ResellerDailyTransactions@delete_transaction")->name
 			('delete_transaction');
 		});
-		
+
 		Route::prefix('transactions')->name('transactions.')->group(function (){
 			Route::get('add/create',"TransactionsController@create")->name('add.create');
-			
+
 		});
-		
-		
+
+
 		Route::name('printer.')->prefix('printer')->group(function (){
 			Route::get('sign_receipt_printer','PrinterController@sign_receipt_printer');
 			Route::get('printers','PrinterController@printers');
 			Route::get('print_a4/{invoice}','PrinterController@print_a4')->name('a4');
 			Route::get('voucher/{voucher}','PrinterController@voucher')->name('voucher');
 		});
-		
+
 		Route::name('items.')->prefix('items')->group(function (){
 			Route::get('view/barcode','ItemController@barcode')->name('barcode');
 			Route::get('view/show_item_barcode','ItemController@show_item_barcode')->name('show_item_barcode');
@@ -95,7 +95,7 @@
 				Route::post('activate_items','ItemController@activate_items')->name('activate_items');
 				Route::match(['get','post'],'query_find_items','ProviderController@query_find_items')->name
 				('query_find_items');
-				
+
 				Route::match(['get','post'],'query_validate_purchase_serial','ProviderController@query_validate_purchase_serial')->name
 				('query_validate_purchase_serial');
 				Route::match(['get','post'],'query_validate_sale_serial','ProviderController@query_validate_sale_serial')->name
@@ -104,40 +104,41 @@
 				('query_validate_purchase_serial');
 				Route::match(['get','post'],'query_validate_return_purchase_serial','ProviderController@query_validate_return_purchase_serial')->name
 				('query_validate_purchase_serial');
-				
+
 			});
 		});
-		
+
 		Route::name('kits.')->prefix('kits')->group(function (){
 			Route::name('helper.')->name('helper.')->prefix('helper')->group(function (){
 				Route::get('get_kit_amounts/{kit}','ProviderController@get_kit_amounts')->name('get_kit_amounts');
-				
+
 			});
 		});
-		
-		
+
+
 		Route::name('sales.')->prefix('sales')->group(function (){
 			Route::get('view/quotations',"SaleController@quotations")->name('quotations');
 			Route::get('{sale}/print',"SaleController@print")->name('print');
 			Route::get('{beginning}/force_delete',"InventoryController@delete_sale")->name('delete');
 			Route::get('{beginning}/return_force_delete',"InventoryController@delete_return_sale")->name('delete_return');
 		});
-		
-		
+
+
 		Route::name('quotations.')->prefix('quotations')->group(function (){
 			Route::get('create/service',"QuotationController@quotations")->name('services');
 			Route::get('services_quotations/index',"QuotationController@services_quotations")->name('services_quotations');
 		});
-		
-		
+
+
 		Route::name('purchases.')->prefix('purchases')->group(function (){
 			Route::get('{purchase}/print',"PurchaseController@print")->name('print');
 			Route::get('{beginning}/force_delete',"InventoryController@delete_purchase")->name('delete');
 			Route::get('{purchase}/clone',"PurchaseController@clone")->name('clone');
+			Route::get('{item}/fix_issues',"PurchaseController@fixIssues")->name('fix_issues');
 			Route::get('pending/list',"PurchaseController@pending_list")->name('pending');
 		});
-		
-		
+
+
 		Route::prefix('datatable')->group(function (){
 			Route::get('items','ItemController@datatable')->name('items.datatable');
 			Route::get('filters','FilterController@datatable')->name('filters.datatable');
@@ -151,14 +152,14 @@
 			Route::get('purchases','PurchaseController@datatable')->name('purchases.datatable');
 			Route::get('sales','SaleController@datatable')->name('sales.datatable');
 			Route::get('vouchers','VoucherController@datatable')->name('vouchers.datatable');
-			
+
 		});
 		Route::prefix('categories')->name('categories.')->group(function (){
 			Route::post('view/filters',"ProviderController@categories_filters");
 			Route::get('{category}/filters',"CategoryController@filters");
 			Route::patch('{category}/filters',"CategoryController@update_filters");
 			Route::get('{category}/clone',"CategoryController@clone");
-			
+
 		});
 		Route::prefix('branches')->name('branches.')->group(function (){
 			Route::get('{branch}/departments',"BranchController@departments")->name('departments.index');
@@ -167,14 +168,14 @@
 			Route::delete('{branch}/departments/{department}',"BranchController@destroy_department")->name('departments.delete');
 			Route::get('{branch}/departments/{department}/edit',"BranchController@edit_department")->name('departments.edit');
 			Route::patch('{branch}/departments/{department}',"BranchController@update_department")->name('departments.update');
-			
-			
+
+
 		});
 		Route::get('roles_permissions','ProviderController@roles_permissions');
 		Route::prefix('dashboard')->name('dashboard.')->group(function (){
 			Route::get('/','HomeController@index')->name('index');
 		});
-		
+
 		Route::prefix('inventories')->name('inventories.')->group(function (){
 			Route::resources([
 				'adjust_stock' => 'AdjustStockController',
@@ -190,14 +191,14 @@
 				Route::get('{beginning}/force_delete','InventoryController@beginning_destroy')->name('delete');
 				Route::put('{beginning}','InventoryController@beginning_return')->name('return');
 			});
-			
+
 		});
-		
-		
+
+
 		Route::prefix('gateways')->name('gateways.')->group(function (){
 			Route::get('get_gateways_like_to_manager_name','ProviderController@get_gateways_like_to_manager_name')
 				->name('load_manager_gateway');
-			
+
 		});
-		
+
 	});
