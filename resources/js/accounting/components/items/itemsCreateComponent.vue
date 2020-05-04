@@ -152,17 +152,17 @@
             <div class="col-md-2">
                 <select class="form-control " v-model="itemData.warranty_subscription_id">
                     <option value="0">من غير ضمان</option>
-                    <option  v-for="warranty in warranty_subscriptions" :value="warranty.id">
+                    <option v-for="warranty in warranty_subscriptions" :value="warranty.id">
                         {{ warranty.locale_name }}
                     </option>
                 </select>
-<!--                <accounting-select-with-search-layout-component-->
-<!--                        :options="warranty_subscriptions"-->
-<!--                        placeholder="الضمان" :no_all_option="true"-->
-<!--                        :default_id="itemData.warranty_subscription_id"-->
-<!--                        title="الضمان"-->
-<!--                        label_text="locale_name"-->
-<!--                ></accounting-select-with-search-layout-component>-->
+                <!--                <accounting-select-with-search-layout-component-->
+                <!--                        :options="warranty_subscriptions"-->
+                <!--                        placeholder="الضمان" :no_all_option="true"-->
+                <!--                        :default_id="itemData.warranty_subscription_id"-->
+                <!--                        title="الضمان"-->
+                <!--                        label_text="locale_name"-->
+                <!--                ></accounting-select-with-search-layout-component>-->
             </div>
             <div class="col-md-2">
 
@@ -174,14 +174,14 @@
                 <div :class="{'has-error':errorFieldName=='expenseVendorId'}" class="form-group"
                      v-show="itemData.isExpense">
                     <accounting-select-with-search-layout-component
-                            :identity="10023749872394"
-                            :no_all_option="true"
-                            :options="vendors"
-                            @valueUpdated="vendorListHasBeenUpdated"
-                            default="0"
-                            label_text="locale_name"
-                            placeholder="المورد"
-                            title="المورد"
+                        :identity="10023749872394"
+                        :no_all_option="true"
+                        :options="vendors"
+                        @valueUpdated="vendorListHasBeenUpdated"
+                        default="0"
+                        label_text="locale_name"
+                        placeholder="المورد"
+                        title="المورد"
                     >
                     </accounting-select-with-search-layout-component>
                     <small class="text-danger" v-show="errorFieldName=='expenseVendorId'">-->
@@ -203,15 +203,15 @@
                 <div>
                     <div :dir="app.appLocate=='ar' ? 'rtl' : 'ltr'">
                         <treeselect
-                                :disable-branch-nodes="true"
-                                :disabled="cloningItem==true"
-                                :load-options="loadCategoriesList"
-                                :options="categories"
-                                :placeholder="app.trans.category"
-                                :show-count="true"
-                                :value="itemData.categoryId"
-                                @select="categoryListUpdated"
-                                v-model="itemData.categoryId"
+                            :disable-branch-nodes="true"
+                            :disabled="cloningItem==true"
+                            :load-options="loadCategoriesList"
+                            :options="categories"
+                            :placeholder="app.trans.category"
+                            :show-count="true"
+                            :value="itemData.categoryId"
+                            @select="categoryListUpdated"
+                            v-model="itemData.categoryId"
                         ></treeselect>
                     </div>
                 </div>
@@ -239,21 +239,25 @@
 
         <div v-bind:key="index" v-for='(filter,index) in filterList'>
             <accounting-filter-select-with-search-component
-                    :app.trans="app.trans"
-                    :can-create="canCreateFilter"
-                    :can-edit="canEditFilter"
-                    :default="selectedFilterValue.get(filter.id)"
-                    :filter="filter"
-                    :index="index"
-                    :messages="messages"
-                    :options="filter.values"
-                    :reusable_translator="reusable_translator"
-                    @updateItemName="rebuildItemName"
-                    v-on:valueUpdated="filterValueListChanged">
+                :app.trans="app.trans"
+                :can-create="canCreateFilter"
+                :can-edit="canEditFilter"
+                :default="selectedFilterValue.get(filter.id)"
+                :filter="filter"
+                :index="index"
+                :messages="messages"
+                :options="filter.values"
+                :reusable_translator="reusable_translator"
+                @updateItemName="rebuildItemName"
+                v-on:valueUpdated="filterValueListChanged">
             </accounting-filter-select-with-search-component>
         </div>
 
-
+        <div class="row">
+            <attachments-preview-component :attachments="itemData.attachments"
+                                           :new_attachment_link="new_attachment_link"></attachments-preview-component>
+        </div>
+        <br>
         <br>
         <br>
         <div class="form-group text-center">
@@ -261,7 +265,7 @@
 
             <button @click="sendDataToServer('clone')" class="btn btn-custom-primary" v-if="editingItem!=true ||
             cloningItem==1"><i
-                    class="fa fa-check-circle"></i> &nbsp;&nbsp;{{ app.trans.save_clone}}
+                class="fa fa-check-circle"></i> &nbsp;&nbsp;{{ app.trans.save_clone}}
             </button>
             &nbsp;&nbsp;
             &nbsp;
@@ -291,19 +295,22 @@
 
     import Treeselect from '@riophae/vue-treeselect'
     import '@riophae/vue-treeselect/dist/vue-treeselect.css'
-
-
+    import PreviewComponent from "../attachments/previewComponent"
     import {accounting as ItemAccounting, validator as ItemValidator} from '../../item';
 
 
     export default {
+
         components: {
-            Treeselect
+            Treeselect,
+            'attachments-preview-component': PreviewComponent,
+
         },
         props: ["categories", "cloningItem", "editingItem", "editedItemFilters", 'editedItemCategory', 'editedItemData',
             'vendors', 'canCreateCategory', 'canEditFilter', 'canCreateFilter'],
         data: function () {
             return {
+                new_attachment_link: null,
                 openForEditing: false,
                 errorFieldName: "",
                 errorFieldMessage: "",
@@ -322,7 +329,8 @@
                     defaultVatPurchaseValue: 5,
                 },
                 itemData: {
-                    warranty_subscription_id:0,
+                    attachments: [],
+                    warranty_subscription_id: 0,
                     arName: "",
                     enName: "",
                     barcode: "",
@@ -362,6 +370,7 @@
             this.reusable_translator = JSON.parse(window.reusable_translator);
             this.local_config = JSON.parse(window.config);
             if (this.editingItem != null && this.editingItem) {
+
                 this.itemData.warranty_subscription_id = this.editedItemData.warranty_subscription_id;
                 this.itemData.arName = this.editedItemData.ar_name;
                 this.itemData.enName = this.editedItemData.name;
@@ -378,7 +387,8 @@
                 this.itemData.vts = this.editedItemData.vts;
                 this.itemData.expenseVendorId = this.editedItemData.expense_vendor_id;
                 this.itemData.categoryId = this.editedItemData.category_id;
-
+                this.itemData.attachments = this.editedItemData.attachments;
+                this.new_attachment_link = '/accounting/items/' + this.editedItemData.id + '/attachments';
                 if (!this.editedItemData.name.includes(this.editedItemCategory.name)) {
                     this.categoryNameShouldBeInItemName = false;
                 }

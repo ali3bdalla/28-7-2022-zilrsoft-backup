@@ -62,8 +62,10 @@ import AccountingAdjustStockCreateComponent from './components/inventories/adjus
 import AccountingChartOfAccountsListComponent from './components/charts/chartOfAccountsListComponent';
 import AccountingAccountReportComponent from './components/charts/accountReportComponent';
 import AccountingGlobalTransactionsListComponent from './components/transactions/globalTransactionsListComponent';
+import AccountingAttachmentsPreviewComponent from './components/attachments/previewComponent';
 
 
+Vue.component('accounting-attachments-preview-component', AccountingAttachmentsPreviewComponent);
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
 Vue.component('accounting-header-layout-component', AccountingHeaderLayoutComponent);
 Vue.component('accounting-append-gateways-layout-component', accountingAppendGatewaysLayoutComponent);

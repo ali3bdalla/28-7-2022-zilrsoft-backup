@@ -1,31 +1,33 @@
 <?php
-	
+
 	namespace App\Attributes;
-	
+
 	use App\ItemSerials;
 	use App\PurchaseInvoice;
 	use Carbon\Carbon;
 	use Illuminate\Support\Facades\DB;
-	
+
 	trait ItemAttributes
 	{
+
+
 		public function getWarrantyTitleAttribute()
 		{
 			if (!empty($this->warranty))
 				return $this->warranty->locale_name;
-			
+
 			return "";
 		}
-		
+
 		public function getSalesCountAttribute()
 		{
-			
+
 			if ($this->statistics)
 				return $this->statistics->sales_count;
-			
+
 			return 0;
 		}
-		
+
 		public function getLocaleWarranyAttribute()
 		{
 			if ($this->warranty){
@@ -34,22 +36,22 @@
 				else
 					return $this->warranty->name;
 			}
-			
+
 			return null;
 		}
-		
+
 		public function getCreatedAtAttribute($value)
 		{
 			return Carbon::parse($value)->toDateString();
 		}
-		
+
 		public function getDataForReturn($qty,$fresh_invoice_item)
 		{
-			
+
 			$data['total'] = $fresh_invoice_item->price * $qty;
 			$data['discount'] = $fresh_invoice_item->discount / $fresh_invoice_item->qty * $qty;
 			$data['tax'] = $fresh_invoice_item->tax / $fresh_invoice_item->qty * $qty;
-			
+
 			$data['subtotal'] = $data['total'] - $data['discount'];
 			$data['net'] = $data['subtotal'] + $data['tax'];
 			$data['organization_id'] = $fresh_invoice_item->organization_id;
@@ -59,7 +61,7 @@
 			$data['creator_id'] = auth()->user()->id;
 			return $data;
 		}
-		
+
 		public function scopeLastFiveSearch($query,$search)
 		{
 			return $query
@@ -69,7 +71,7 @@
 				->with('items','data')
 				->take(5);
 		}
-		
+
 		public function scopeItemBySerialSearch($query,$search)
 		{
 			$pserials = ItemSerials::where('serial',$search)->whereIn('current_status',['available','r_sale'])->get();
@@ -82,10 +84,10 @@
 					$serials[] = $item;
 				}
 			}
-			
+
 			return $serials;
 		}
-		
+
 		public function updateItemAvailableQty($option,$qty)
 		{
 			if ($option == 'add'){
@@ -94,14 +96,14 @@
 				]);
 				return true;
 			}else{
-				
+
 				$this->update([
 					'available_qty' => DB::raw("available_qty - $qty ")
 				]);
 				return true;
 			}
 		}
-		
+
 		public function updateSalesPrice($price_with_tax)
 		{
 			if (is_numeric($price_with_tax)){
@@ -112,19 +114,19 @@
 				]);
 			}
 		}
-		
+
 		public function getItemVatSaleAsValue()
 		{
 			return 1 + $this->vts / 100;
 		}
-		
+
 		public function updateLastPurchasePrice($last_price)
 		{
 			$this->update([
 				'last_p_price' => $last_price
 			]);
 		}
-		
+
 		public function setSerialAs($status,$serials = [],$invoice = null)
 		{
 			if ($status == 'r_sale'){
@@ -144,7 +146,7 @@
 //
 //        print_r($invoice);
 //        exit();
-			
+
 			foreach ($serials as $serial){
 				$invoice->serial_history()->create([
 					'event' => $status,
@@ -154,17 +156,17 @@
 					'user_id' => $user_id
 				]);
 			}
-			
-			
+
+
 		}
-		
+
 		public function validatePurchaseData($data)
 		{
-			
+
 			return true;
-			
+
 		}
-		
+
 		public function checkIfItHasEnoughQtyForReturn($qty,$fresh_invoice_item,$sub_invoice)
 		{
 			$total_returned = $qty + $fresh_invoice_item['r_qty'];
@@ -172,19 +174,19 @@
 				if ($qty > $this->available_qty)
 					return false;
 			}
-			
+
 			if ($total_returned > $fresh_invoice_item['qty'])
 				return false;
-			
-			
+
+
 			return true;
 		}
-		
+
 		public function getListOfReturnedSerial($serials,$return_invoice)
 		{
-			
+
 			$result = [];
-			
+
 			foreach ($serials as $serial){
 				if ($serial['current_status'] == $return_invoice){
 					$fresh_serial = $this->serials()->where('id',$serial['id'])->first();
@@ -193,58 +195,58 @@
 					}
 				}
 			}
-			
-			
+
+
 			return $result;
 		}
-		
+
 		public function getLocaleNameAttribute()
 		{
 			if (app()->isLocale('ar')){
 				return $this->ar_name;
 			}
-			
-			
+
+
 			return $this->name;
 		}
-		
+
 		public function getPriceAttribute($value)
 		{
-			
-			
+
+
 			return $value; // money_format('%i',$value)
 		}
-		
+
 		public function getTotalAttribute($value)
 		{
-			
-			
+
+
 			return money_format('%i',$value);
 		}
-		
+
 		public function getSubtotalAttribute($value)
 		{
-			
-			
+
+
 			return money_format('%i',$value);
 		}
-		
+
 		public function getPriceWithTaxAttribute($value)
 		{
-			
-			
+
+
 			return money_format('%i',$value);
 		}
-		
+
 		public function getLastPriceAttribute($value)
 		{
-			
-			
+
+
 			return money_format('%i',$value);
 		}
-		
+
 	}
-	
-	
+
+
 
 

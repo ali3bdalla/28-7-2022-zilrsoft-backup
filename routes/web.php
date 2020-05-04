@@ -4,7 +4,7 @@
 //	use Carbon\Carbon;
 //	use Symfony\Component\HttpFoundation\Request;
 //
-	
+
 //	use App\Events\Accounting\Invoice\PendingPurchaseInvoiceCreatedEvent;
 //
 //	event(new PendingPurchaseInvoiceCreatedEvent("hello message"));
@@ -23,6 +23,12 @@
 ////		dd($range);
 //	});
 //
+Route::get('limit/items','Limit\ItemController@index');
+Route::get('limit/items/{item}','Limit\ItemController@edit');
+Route::post('limit/items/{item}','Limit\ItemController@update');
+Route::delete('limit/items/{item}/{attachment}','Limit\ItemController@delete_attachment');
+
+
 //
 ////	auth()->loginUsingId(1);
 	Route::get('/',function (){
