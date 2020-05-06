@@ -36,11 +36,14 @@
 
                 for (let i = 0; i <= imageFiles.length; i++) {
                     let imageFile = imageFiles[i];
-                    // if (imageFile.type.indexOf("image") === -1) {
-                    //     alert("This is not an image file");
-                    // } else {
-                    this.startUploading(imageFile);
-                    // }
+                    if (imageFile != null) {
+                        if (imageFile.type.indexOf("image") === -1) {
+                            alert("This is not an image file");
+                        } else {
+                            this.startUploading(imageFile);
+                        }
+                    }
+
                 }
 
 

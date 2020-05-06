@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/attachments/uploaderComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/attachments/uploaderComponent.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -558,7 +557,7 @@
       <workItem from="1588586591500" duration="952000" />
       <workItem from="1588721820100" duration="3231000" />
       <workItem from="1588759409955" duration="1132000" />
-      <workItem from="1588766342051" duration="1195000" />
+      <workItem from="1588766342051" duration="1305000" />
     </task>
     <servers />
   </component>
