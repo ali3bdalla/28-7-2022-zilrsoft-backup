@@ -68,7 +68,7 @@ return [
             'driver' => 'dropbox',
             'app_secret' => env('DROPBOX_SECRET'),
             'token' => env('DROPBOX_TOKEN'),
-            'base_folder' => 'DROPBOX_FOLDER',
+            'base_folder' => env('DROPBOX_BASE_FOLDER','zilrsoft'),
         ],
 
     ],

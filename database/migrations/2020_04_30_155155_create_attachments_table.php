@@ -17,6 +17,7 @@ class CreateAttachmentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('attachable_type');
             $table->integer('attachable_id');
+            $table->text('details')->nullable();
             $table->text('url')->nullable();
             $table->text('actual_path')->nullable();
             $table->string('size')->nullable();

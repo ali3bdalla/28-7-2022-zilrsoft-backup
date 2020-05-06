@@ -1,11 +1,12 @@
 <?php
-	
+
 	namespace App\Http;
-	
+
 	use App\Http\Middleware\Authenticate;
 	use App\Http\Middleware\CheckForMaintenanceMode;
 	use App\Http\Middleware\EncryptCookies;
-	use App\Http\Middleware\RedirectIfAuthenticated;
+    use App\Http\Middleware\ProtectLimitMiddleware;
+    use App\Http\Middleware\RedirectIfAuthenticated;
 	use App\Http\Middleware\TrimStrings;
 	use App\Http\Middleware\TrustProxies;
 	use App\Http\Middleware\VerifyCsrfToken;
@@ -26,7 +27,7 @@
 	use Spatie\Permission\Middlewares\PermissionMiddleware;
 	use Spatie\Permission\Middlewares\RoleMiddleware;
 	use Spatie\Permission\Middlewares\RoleOrPermissionMiddleware;
-	
+
 	class Kernel extends HttpKernel
 	{
 		/**
@@ -43,7 +44,7 @@
 			TrimStrings::class,
 			ConvertEmptyStringsToNull::class,
 		];
-		
+
 		/**
 		 * The application's route middleware groups.
 		 *
@@ -58,16 +59,16 @@
 				ShareErrorsFromSession::class,
 				VerifyCsrfToken::class,
 				SubstituteBindings::class,
-			
+
 			],
-			
+
 			'api' => [
 				'throttle:60,1',
 				'bindings',
-			
+
 			],
 		];
-		
+
 		/**
 		 * The application's route middleware.
 		 *
@@ -88,8 +89,9 @@
 			'role' => RoleMiddleware::class,
 			'permission' => PermissionMiddleware::class,
 			'role_or_permission' => RoleOrPermissionMiddleware::class,
+			'ProtectLimitMiddleware' => ProtectLimitMiddleware::class,
 		];
-		
+
 		/**
 		 * The priority-sorted list of middleware.
 		 *

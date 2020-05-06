@@ -14,6 +14,8 @@ class Attachment extends Model
 //    protected $appends = [
 //      'thumbnail'
 //    ];
+
+
     protected $guarded = [];
 
     public function attachable()

@@ -5,7 +5,7 @@
 @endsection
 @section("content")
     <div class="text-center">
-        <table class="table table-dark text-center table-bordered">
+        <table class="table table-light text-center table-bordered">
             <thead>
             <tr>
                 <th scope="col" class="text-center">#</th>

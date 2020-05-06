@@ -4,6 +4,7 @@
 namespace App\Http\Requests\Helper;
 
 
+use App\Attachment;
 use Carbon\Carbon;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +26,7 @@ trait AttachmentsUploaderHelper
     }
 
 
-    public function upload_attachment($parent, $file, $path = 'products')
+    public function upload_attachment($parent, $file, $path = 'products'): Attachment
     {
         $this->create_destination_dir($path, $parent);
         $result = $this->upload_one_file($file);
@@ -104,7 +105,7 @@ trait AttachmentsUploaderHelper
 
         $path = $file->store($this->destination_upload_folder_path);
         $size = $file->getClientSize();
-        $url = Storage::url( $path );
+        $url = Storage::url($path);
 
         return [
             'path' => $path,

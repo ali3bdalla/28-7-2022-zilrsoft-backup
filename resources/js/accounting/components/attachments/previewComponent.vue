@@ -4,8 +4,9 @@
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <div class="content-preview ">
-                        <img class="img-fluid rounded float-left" :src="attachment.url"/>
                         <button class="btn btn-danger delete" @click="deleteAttachment(attachment.id,index)">حذف</button>
+                        <img class="img-fluid rounded float-left img-responsive" :src="attachment.url"/>
+
                     </div>
 
                 </div>
@@ -73,5 +74,7 @@
 
     .delete {
         position: absolute;
+        right: 29px;
+        top: 21px;
     }
 </style>

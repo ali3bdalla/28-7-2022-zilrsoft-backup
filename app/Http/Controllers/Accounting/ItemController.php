@@ -115,6 +115,8 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
+
+//        return UploadAttachmentRequest::getThumbnailBitmap('/zilrsoft/items/2020-05-06/1281/uSwmWoEPDRxVwGBTB8m5YC1g2XVf4OvSJaId9ljC.png');
         $item = $item->load('attachments');
 //        return $item;
         $this->middleware("permission:edit item");
