@@ -39,6 +39,7 @@ trait AttachmentsUploaderHelper
 //        }
 
         Storage::makeDirectory($this->destination_upload_folder_path);
+
         return $this->destination_upload_folder_path;
     }
 
