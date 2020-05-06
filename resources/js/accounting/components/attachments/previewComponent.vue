@@ -5,7 +5,7 @@
                 <div class="panel-body">
                     <div class="content-preview ">
                         <button class="btn btn-danger delete" @click="deleteAttachment(attachment.id,index)">حذف</button>
-                        <img class="img-fluid rounded float-left img-responsive" :src="attachment.url"/>
+                        <img class="img-fluid rounded float-left img-responsive imagePreview" :src="attachment.url" />
 
                     </div>
 
@@ -66,9 +66,13 @@
     }
 
     .content-preview {
+        margin: -10px 0px 0px -180px;
         vertical-align: middle;
         height: 100%;
         text-align: center;
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
     }
 
 
@@ -76,5 +80,14 @@
         position: absolute;
         right: 29px;
         top: 21px;
+    }
+
+    .imagePreview
+    {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        object-fit: cover;
+        object-position: 20% 10px;
     }
 </style>

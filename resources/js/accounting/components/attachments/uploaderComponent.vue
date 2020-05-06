@@ -10,7 +10,7 @@
                     <p v-show="!isLoading" class="lead">رفع المرفقات</p>
                 </div>
             </div>
-            <input type="file" style="display: none" accept='image/*' @change="handleFiles" ref="file">
+            <input type="file" style="display: none" accept='image/*' multiple @change="handleFiles" ref="file">
 
         </div>
 
@@ -31,13 +31,19 @@
         },
         methods: {
             handleFiles(event) {
-                let imageFile = this.$refs.file.files[0];
-                if (imageFile.type.indexOf("image") === -1) {
-                    alert("This is not an image file")
-                    return null;
+
+                let imageFiles = this.$refs.file.files;
+                for (let i = 0; i <= imageFiles.length; i++) {
+                    let imageFile = imageFiles[i];
+                    if (imageFile.type.indexOf("image") === -1) {
+                        alert("This is not an image file");
+                    } else {
+                        this.startUploading(imageFile);
+                    }
                 }
 
-                this.startUploading(imageFile);
+
+
             },
             startUploading: function (file) {
                 this.isLoading = true;
