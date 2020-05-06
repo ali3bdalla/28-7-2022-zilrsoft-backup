@@ -70,14 +70,13 @@ trait AttachmentsUploaderHelper
     private function create_destination_dir($path, $parent = null)
     {
         $dt = Carbon::now();
-
+        $dropbox_base_folder = config('filesystems.disks.dropbox.base_folder', '');
         if ($parent != null) {
-            $dropbox_base_folder = config('filesystems.disks.dropbox.base_folder', '');
+
             $this->destination_upload_folder_path = $dropbox_base_folder . '/' . $path . '/' . $dt->toDateString()
-                . '/' . $parent->id;
+                . '_' . $parent->id;
         } else {
-            $dropbox_base_folder = config('filesystems.disks.dropbox.base_folder', '');
-            $this->destination_upload_folder_path = $dropbox_base_folder . '/' . $path . '/' . $dt->toDateString();
+            $this->destination_upload_folder_path = $dropbox_base_folder . '/' . $path . '_' . $dt->toDateString();
         }
 
         Storage::makeDirectory($this->destination_upload_folder_path);
