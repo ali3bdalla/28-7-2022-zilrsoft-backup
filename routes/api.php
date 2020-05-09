@@ -15,12 +15,15 @@ Route::middleware('auth:api')->group(function () {
 
 Route::prefix('items')->group(function () {
 
-    Route::get('latest', "itemController@latest");
-    Route::get('best', "itemController@best");
-    Route::get('offer', "itemController@offer");
-    Route::get('trending', "itemController@trending");
-    Route::get('top', "itemController@top");
-    Route::get('panner', "itemController@panner");
+    Route::prefix('component')->group(function () {
+        Route::get('latest', "itemController@latest");
+        Route::get('best', "itemController@best");
+        Route::get('offer', "itemController@offer");
+        Route::get('trending', "itemController@trending");
+        Route::get('top', "itemController@top");
+        Route::get('banner', "itemController@banner");
+    });
+
 
 });
 

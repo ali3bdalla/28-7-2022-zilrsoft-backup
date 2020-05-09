@@ -1,25 +1,25 @@
 <?php
-	
+
 	namespace App\Http\Controllers\Accounting;
-	
+
 	use App\Account;
-	use App\Http\Controllers\Controller;
-	use App\Http\Requests\Accounting\Sale\CreateSaleRequest;
-	use App\Http\Requests\Accounting\Sale\DatatableRequest;
-	use App\Http\Requests\Accounting\Sale\ReturnSaleRequest;
-	use App\Invoice;
-	use App\Item;
-	use App\Manager;
-	use App\User;
-	use Illuminate\Contracts\Routing\ResponseFactory;
-	use Illuminate\Contracts\View\Factory;
-	use Illuminate\Http\Response;
-	use Illuminate\View\View;
-	
-	
-	class SaleController extends Controller
+    use App\Http\Controllers\Controller;
+    use App\Http\Requests\Accounting\Sale\CreateSaleRequest;
+    use App\Http\Requests\Accounting\Sale\DatatableRequest;
+    use App\Http\Requests\Accounting\Sale\ReturnSaleRequest;
+    use App\Invoice;
+    use App\Item;
+    use App\Manager;
+    use App\User;
+    use Illuminate\Contracts\Routing\ResponseFactory;
+    use Illuminate\Contracts\View\Factory;
+    use Illuminate\Http\Response;
+    use Illuminate\View\View;
+
+
+    class SaleController extends Controller
 	{
-		
+
 		/**
 		 * SaleController constructor.
 		 */
@@ -27,7 +27,7 @@
 		{
 			$this->middleware(['permission:create sale|edit sale|view sale|delete sale']);
 		}
-		
+
 		/**
 		 * @return Factory|View
 		 */
@@ -35,12 +35,12 @@
 		{
 			$clients = User::where('is_client',true)->get();
 			$creators = Manager::all();
-			
+
 //			return  1
 			return view('accounting.sales.index',compact('clients','creators'));
-			
+
 		}
-		
+
 		/**
 		 * @param DatatableRequest $request
 		 *
@@ -50,15 +50,15 @@
 		{
 			return $request->data();
 		}
-		
+
 		/**
 		 * @return Factory|View
 		 */
 		public function create()
 		{
-			
-			
-			
+
+
+
 			$salesmen = Manager::all();
 			$clients = User::where('is_client',true)->get()->toArray();
 			$expenses = Item::where('is_expense',true)->get();
@@ -66,7 +66,7 @@
 			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
 			return view('accounting.sales.create',compact('clients','salesmen','gateways','expenses'));
 		}
-		
+
 		/**
 		 * @param CreateSaleRequest $request
 		 *
@@ -74,12 +74,12 @@
 		 */
 		public function store(CreateSaleRequest $request)
 		{
-			
-			
+
+
 			return $request->save();
-			
+
 		}
-		
+
 		/**
 		 * @param Invoice $sale
 		 *
@@ -87,13 +87,13 @@
 		 */
 		public function show(Invoice $sale)
 		{
-			
+
 			$transactions = $sale->transactions()->where('description','!=','client_balance')->get();
 			$invoice = $sale;
 			return view('accounting.sales.show',compact('invoice','transactions'));
 			//
 		}
-		
+
 		/**
 		 * @param Invoice $sale
 		 *
@@ -112,14 +112,14 @@
 				}
 				$items [] = $item;
 			}
-			
+
 			$expenses = Item::where('is_expense',true)->get();
 //			$gateways = auth()->user()->gateways()->get();
 			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
-			
+
 			return view('accounting.sales.edit',compact('sale','invoice','items','gateways','expenses'));
 		}
-		
+
 		/**
 		 * @param Invoice $sale
 		 * @param ReturnSaleRequest $request
@@ -130,5 +130,5 @@
 		{
 			return $request->makeReturn($sale);
 		}
-		
+
 	}

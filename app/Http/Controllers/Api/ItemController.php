@@ -13,4 +13,9 @@ class ItemController extends Controller
     {
         return Item::orderByDesc('id')->paginate(20);
     }
+
+    public function banner()
+    {
+        return Item::inRandomOrder()->take(3)->get();
+    }
 }
