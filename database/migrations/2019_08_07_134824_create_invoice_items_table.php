@@ -1,9 +1,9 @@
 <?php
-	
+
 	use Illuminate\Support\Facades\Schema;
 	use Illuminate\Database\Schema\Blueprint;
 	use Illuminate\Database\Migrations\Migration;
-	
+
 	class CreateInvoiceItemsTable extends Migration
 	{
 		/**
@@ -20,10 +20,10 @@
 				$table->integer('creator_id');
 				$table->integer('item_id');
 				$table->integer('user_id');
-				
+
 				$table->integer("qty")->default(0);
 				$table->integer("item_available_qty")->default(0);
-				
+
 				$table->integer("r_qty")->default(0);
 				$table->float('discount',20,8)->default(0);
 				$table->float("tax",20,8)->default(0);
@@ -33,9 +33,9 @@
 				$table->float("profit",20,8)->default(0);
 				$table->float('total',20,8)->default(0);
 				$table->float('subtotal',20,8)->default(0);
-				
-				$table->enum("invoice_type",['purchase','sale','r_sale','r_purchase','beginning_inventory','quotation','pending_purchase'])->nullable();
-				
+
+				$table->enum("invoice_type",['purchase','sale','r_sale','r_purchase','beginning_inventory','quotation','pending_purchase','stock_adjust'])->nullable();
+
 				$table->enum('type',['new',"return",'quotation']);
 				$table->boolean('belong_to_kit')->default(false);
 				$table->integer('parent_kit_id')->default(0);
@@ -45,7 +45,7 @@
 				$table->timestamps();
 			});
 		}
-		
+
 		/**
 		 * Reverse the migrations.
 		 *

@@ -7,7 +7,6 @@ use App\Attributes\UserAttributes;
 use App\DatabaseHelpers\UserHelper;
 use App\Relationships\UserRelationships;
 use App\Scopes\OrganizationScope;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;

@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('name_ar')->nullable();
             $table->string('phone_number');
             $table->string('user_slug')->nullable();
+            $table->string('country_code')->nullable();
             $table->float('balance', 20, 8)->default(0);
             $table->float('vendor_balance', 20, 8)->default(0);
             $table->boolean('is_supervisor')->default(false);

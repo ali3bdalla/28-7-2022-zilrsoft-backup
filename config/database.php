@@ -62,8 +62,8 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-	
-	
+
+
 	    'mysql_testing' => [
 		    'driver' => 'mysql',
 		    'url' => env('DATABASE_URL'),
@@ -85,8 +85,8 @@ return [
 	    ],
 
 
-	    
-	
+
+
 	    'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
