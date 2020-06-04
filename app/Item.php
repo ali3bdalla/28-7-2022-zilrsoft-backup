@@ -15,6 +15,7 @@ use App\Relationships\ItemRelationships;
 use App\Relationships\KitRelationships;
 use App\Scopes\OrganizationScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Testing\WithFaker;
 
 
@@ -24,7 +25,8 @@ class Item extends Model
     use CoreItem, ItemTransactionAccounting, ItemFormattedQuery;
     //
 
-    use WithFaker;
+    use WithFaker,SoftDeletes;
+
 
     protected $appends = [
         'locale_name',

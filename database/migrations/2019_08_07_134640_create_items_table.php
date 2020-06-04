@@ -51,6 +51,7 @@
 				$table->enum('status',['active','pending'])->default('active');
 
 
+				$table->softDeletes();
 				$table->timestamps();
 			});
 		}

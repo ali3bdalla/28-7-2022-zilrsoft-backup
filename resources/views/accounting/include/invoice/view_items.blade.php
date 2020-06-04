@@ -19,7 +19,7 @@
 
         <tbody>
         @foreach($items as $item)
-            @if(!(in_array($invoice->invoice_type,['sale','r_sale']) && $item->is_expense))
+            @if(!(in_array($invoice->invoice_type,['sale','r_sale']) && $item->is_expense) && $item->item != null)
                 <tr @if($item->belong_to_kit==true) class="bg-custom-primary" @endif>
                     <td>
                         <button class="btn btn-custom-primary btn-xs">{{$loop->index + 1}}</button>

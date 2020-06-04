@@ -145,7 +145,7 @@
                 </thead>
 
                 @foreach($invoice->items as $item)
-                    @if($item->belong_to_kit==false  && $item->printable))
+                    @if($item->belong_to_kit==false  && $item->printable  && $item->item != null)
                     <tbody>
 
 

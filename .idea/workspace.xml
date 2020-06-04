@@ -20,8 +20,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a299f279-e431-40cc-9ab9-a4dcb06eaca0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/Rj5PZC5HzUfr0s0XYXXDSEXmKdQiQG0Y2wwKxN1O" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/018804813c79c613528c571763439b2ed5f168a9.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/33f60c458d0a48e6e2bb8a0683ffec1805b9e645.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/459e01cef7374baab838885bc73f895a79befd38.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/4d2f8e08b4cab6eac6c4d4b1c545fea78f5f5bf2.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/5a5dacb72407577073febba190f1fbce9ea1c9a9.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/5deeafd2c5709308290d274d706e7405773f6dad.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/6486d07922737cebf23525b0a543ab83774e32f2.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/6952e83e0718b5f77b99f00a489247347405f92d.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/8c5fa040d77a49c9208635f4a196c0dd407b498f.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/8d6fb2b625e32ed70426cc8e0718320d0809b2d8.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/97d1c7ef86efd6f8a6d4405e29370dbca888b14b.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/9b3a74b39d97b8d7f76617be6d46141530e91617.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/9cdd6765809ba5c13273a63ea17bf02f6fea2816.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/c5f72fb5b6ebbe4838c47d0d80f6268ea49520c2.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/c8db1941e32cda4af42681c00236e1c3a896ba04.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/ca4dfb02616cdac8618a6d337bc68cd8645e32b2.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/cc899dd9ba6f6ddf46ef348bb6c7d31d50d69c5d.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/cfbd688f2b164cb0c23acf55de5485466a40c46e.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/da300272024e33fba02f852f160a59ab11e8e480.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/e70038967fbe34d606f859ba8188d3b0387be0c0.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/fd66b2da8605583e3e4621b5cd018521c13db52a.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Item.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_07_134640_create_items_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_07_134640_create_items_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/include/invoice/transactions/sale.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/include/invoice/transactions/sale.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_items.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_items.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/receipt.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/receipt.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/8wN2E21CodFn3NnB3SVvxMRldIMZQuNNvyoXXHNK" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/N4zx71O4nuyTBbzMwQBifKBNWvP6vonDpHFJDM3N" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/OrCKgeBocIl1Ol3q8UVChvq9XYwK7ChUoNXDKSJO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/mbUzYjDNsAPkNlXGj2cf5iIvp8PxFedmr1XZzJHP" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/oTgXsrKxZ3UPurasq0KubFZGSuAjQwTw7dAlwAHU" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-06-04.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-06-04.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -604,7 +637,8 @@
       <workItem from="1590520247813" duration="436000" />
       <workItem from="1590589346757" duration="517000" />
       <workItem from="1590601543151" duration="26000" />
-      <workItem from="1591271777135" duration="475000" />
+      <workItem from="1591271777135" duration="1349000" />
+      <workItem from="1591277944650" duration="493000" />
     </task>
     <servers />
   </component>

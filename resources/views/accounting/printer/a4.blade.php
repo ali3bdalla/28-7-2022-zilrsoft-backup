@@ -222,7 +222,7 @@
 				<?php $items_qty_count = 0; ?>
                     @if(!empty($invoice->items))
                         @foreach($invoice->items as $item)
-                            @if($item->belong_to_kit==false && $item->printable)
+                            @if($item->belong_to_kit==false && $item->printable && $item->item != null)
 						   <?php $items_qty_count = $items_qty_count + $item->qty ?>
                                  @if($loop->index%2==0)
 							   <?php $background_color = "#ffffff"; ?>
@@ -383,7 +383,7 @@
                 <p>* التبديل خلال سبعة أيام .</p>
 
                 @foreach($invoice->items as $item)
-                    @if($item->belong_to_kit==false && $item->printable && $item->item->warranty)
+                    @if($item->belong_to_kit==false &&  $item->item != null && $item->printable && $item->item->warranty)
                         <p>* الصنف {{$loop->index + 1 }} {{ $item->item->warranty_title }} .</p>
                     @endif
                 @endforeach
