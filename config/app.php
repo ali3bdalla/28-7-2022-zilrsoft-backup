@@ -1,7 +1,7 @@
 <?php
-	
+
 	return [
-		
+
 		/*
 		|--------------------------------------------------------------------------
 		| Application Name
@@ -12,10 +12,10 @@
 		| any other location as required by the application or its packages.
 		|
 		*/
-		
+
 		'name' => env('APP_NAME','Laravel'),
 		'version' => env('APP_VERSION','1.0'),
-		
+
 		/*
 		|--------------------------------------------------------------------------
 		| Application Environment
@@ -26,9 +26,9 @@
 		| services the application utilizes. Set this in your ".env" file.
 		|
 		*/
-		
+
 		'env' => env('APP_ENV','production'),
-		
+
 		/*
 		|--------------------------------------------------------------------------
 		| Application Debug Mode
@@ -39,9 +39,9 @@
 		| application. If disabled, a simple generic error page is shown.
 		|
 		*/
-		
+
 		'debug' => env('APP_DEBUG',false),
-		
+
 		/*
 		|--------------------------------------------------------------------------
 		| Application URL
@@ -52,11 +52,11 @@
 		| your application so that it is used when running Artisan tasks.
 		|
 		*/
-		
+
 		'url' => env('APP_URL','http://localhost'),
-		
+
 		'asset_url' => env('ASSET_URL',null),
-		
+
 		/*
 		|--------------------------------------------------------------------------
 		| Application Timezone
@@ -67,9 +67,9 @@
 		| ahead and set this to a sensible default for you out of the box.
 		|
 		*/
-		
+
 		'timezone' => 'Asia/Riyadh',
-		
+
 		/*
 		|--------------------------------------------------------------------------
 		| Application Locale Configuration
@@ -80,9 +80,9 @@
 		| to any of the locales which will be supported by the application.
 		|
 		*/
-		
-		'locale' => 'en',
-		
+
+		'locale' => 'ar',
+
 		/*
 		|--------------------------------------------------------------------------
 		| Application Fallback Locale
@@ -93,9 +93,9 @@
 		| the language folders that are provided through your application.
 		|
 		*/
-		
-		'fallback_locale' => 'en',
-		
+
+		'fallback_locale' => 'ar',
+
 		/*
 		|--------------------------------------------------------------------------
 		| Faker Locale
@@ -106,9 +106,9 @@
 		| localized telephone numbers, street address information and more.
 		|
 		*/
-		
+
 		'faker_locale' => 'en_US',
-		
+
 		/*
 		|--------------------------------------------------------------------------
 		| Encryption Key
@@ -119,11 +119,11 @@
 		| will not be safe. Please do this before deploying an application!
 		|
 		*/
-		
+
 		'key' => env('APP_KEY'),
-		
+
 		'cipher' => 'AES-256-CBC',
-		
+
 		/*
 		|--------------------------------------------------------------------------
 		| Autoloaded Service Providers
@@ -134,9 +134,9 @@
 		| this array to grant expanded functionality to your applications.
 		|
 		*/
-		
+
 		'providers' => [
-			
+
 			/*
 			 * Laravel Framework Service Providers...
 			 */
@@ -162,15 +162,15 @@
 			Illuminate\Translation\TranslationServiceProvider::class,
 			Illuminate\Validation\ValidationServiceProvider::class,
 			Illuminate\View\ViewServiceProvider::class,
-			
-			
+
+
 //			Barryvdh\Debugbar\ServiceProvider::class,
-			
-			
+
+
 			/*
 			 * Package Service Providers...
 			 */
-			
+
 			/*
 			 * Application Service Providers...
 			 */
@@ -181,8 +181,8 @@
 			App\Providers\RouteServiceProvider::class,
 			App\Providers\ViewServiceProvider::class,
 			App\Providers\ValidatorServiceProvider::class,
-			
-			
+
+
 			/*
 			 *
 			 * custom providers
@@ -190,10 +190,10 @@
 			 *
 			 * */
 			Spatie\Permission\PermissionServiceProvider::class,
-		
-		
+
+
 		],
-		
+
 		/*
 		|--------------------------------------------------------------------------
 		| Class Aliases
@@ -204,9 +204,9 @@
 		| the aliases are "lazy" loaded so they don't hinder performance.
 		|
 		*/
-		
+
 		'aliases' => [
-			
+
 			'App' => Illuminate\Support\Facades\App::class,
 			'Arr' => Illuminate\Support\Arr::class,
 			'Artisan' => Illuminate\Support\Facades\Artisan::class,
@@ -242,8 +242,8 @@
 			'URL' => Illuminate\Support\Facades\URL::class,
 			'Validator' => Illuminate\Support\Facades\Validator::class,
 			'View' => Illuminate\Support\Facades\View::class,
-		
-		
+
+
 		],
-	
+
 	];

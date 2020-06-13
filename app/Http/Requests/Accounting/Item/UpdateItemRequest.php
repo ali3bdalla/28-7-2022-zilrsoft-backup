@@ -1,11 +1,11 @@
 <?php
-	
+
 	namespace App\Http\Requests\Accounting\Item;
-	
+
 	use App\FilterValues;
 	use App\ItemFilters;
 	use Illuminate\Foundation\Http\FormRequest;
-	
+
 	class UpdateItemRequest extends FormRequest
 	{
 		/**
@@ -17,7 +17,7 @@
 		{
 			return $this->user()->can('edit item');
 		}
-		
+
 		/**
 		 * Get the validation rules that apply to the request.
 		 *
@@ -37,15 +37,19 @@
 				'is_service' => 'required',
 				'vtp' => 'required|numeric',
 				'vts' => 'required|numeric',
+                'vts_for_print' => 'required|numeric',
+                'vtp_for_print' => 'required|numeric',
 				'price' => 'required|numeric',
 				'price_with_tax' => 'required|numeric',
 				'warranty_subscription_id' => 'required|integer',
 			];
 		}
-		
+
 		public function save($item)
 		{
 			$data = $this->only(
+			    'vtp_for_print',
+			    'vts_for_print',
 				'name',
 				'ar_name','barcode',
 				'category_id','is_fixed_price',
@@ -56,11 +60,11 @@
 				'price',
 				'warranty_subscription_id',
 				'price_with_tax');
-			
+
 			$item->update($data);
-			
+
 			$item->filters()->delete();
-			
+
 			if (!empty($this->filters)){
 				foreach ($this->filters as $filter => $value){
 					if ($value != null){
@@ -71,15 +75,15 @@
 							'filter_value' => $value,
 							'item_id' => $item->id
 						]);
-						
+
 						$value_obj = FilterValues::find($value);
 						if (!empty($value_obj))
 							$value_obj->setAsLastUsedValue();
 					}
 				}
 			}
-			
+
 			return $item;
-			
+
 		}
 	}

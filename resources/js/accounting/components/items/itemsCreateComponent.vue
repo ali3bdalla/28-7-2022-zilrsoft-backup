@@ -130,6 +130,8 @@
 
 
         </div>
+
+
         <div class="row">
             <div class="col-md-2">
                 <input :disabled="!itemData.hasVatSale"
@@ -195,7 +197,39 @@
         </div>
 
 
+
+
+
+        <div class="row" v-show="!itemData.hasVatSale || !itemData.hasVatPurchase">
+            <div class="col-md-12">
+               <label>ضريبة في الطباعة</label>
+            </div>
+            <div class="col-md-2">
+                <input v-show="!itemData.hasVatSale"
+                       :placeholder="app.trans.vat_sale"
+                       v-model="itemData.vts_for_print"
+                       class="form-control"
+                       type='text'>
+
+            </div>
+            <div class="col-md-2">
+
+                <input
+                        v-model="itemData.vtp_for_print"
+                        v-show="!itemData.hasVatPurchase" :placeholder="app.trans.vat_purchase"
+                       class="form-control"
+                       type='text'>
+
+            </div>
+
+
+        </div>
+
+
+
+
         <div class="row">
+
             <div class="col-md-2 label-txt  col-md-offset-1">
                 <b>{{ app.trans.categories}}</b>
             </div>
@@ -344,6 +378,8 @@
                     isExpense: false,
                     vts: 5,
                     vtp: 5,
+                    vts_for_print: 0,
+                    vtp_for_print: 0,
                     expenseVendorId: 0,
                     categoryId: null
                 },
@@ -385,6 +421,8 @@
                 this.itemData.isExpense = this.editedItemData.is_expense;
                 this.itemData.vtp = this.editedItemData.vtp;
                 this.itemData.vts = this.editedItemData.vts;
+                this.itemData.vts_for_print = this.editedItemData.vts_for_print;
+                this.itemData.vtp_for_print = this.editedItemData.vtp_for_print;
                 this.itemData.expenseVendorId = this.editedItemData.expense_vendor_id;
                 this.itemData.categoryId = this.editedItemData.category_id;
                 this.itemData.attachments = this.editedItemData.attachments;
@@ -688,6 +726,8 @@
                     category_id: this.itemData.categoryId,
                     vts: this.itemData.vts,
                     vtp: this.itemData.vtp,
+                    vtp_for_print: this.itemData.vtp_for_print,
+                    vts_for_print: this.itemData.vts_for_print,
                     filters: filters_values
                 };
                 let loader = this.$loading.show({

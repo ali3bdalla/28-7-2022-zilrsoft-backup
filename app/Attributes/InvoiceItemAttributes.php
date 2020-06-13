@@ -8,6 +8,54 @@
 	trait  InvoiceItemAttributes
 	{
 
+
+        public function getPrintableTaxAttribute()
+        {
+
+            if(in_array($this->invoice_type,['sale','r_sale','quotation']))
+            {
+
+                if(!$this->item->is_has_vts)
+                {
+                    if($this->item->vts_for_print>0)
+                    {
+                        return ($this->subtotal * $this->item->vts_for_print) / 100;
+                    }else
+                    {
+                        return $this->tax;
+                    }
+                }else
+                {
+                    return $this->tax;
+                }
+            }else
+            {
+                if(!$this->item->is_has_vtp)
+                {
+                    if($this->item->vtp_for_print>0)
+                    {
+                        return ($this->subtotal * $this->item->vtp_for_print) / 100;
+                    }else
+                    {
+                        return $this->tax;
+                    }
+                }else
+                {
+                    return $this->tax;
+                }
+            }
+        }
+
+
+
+
+        public function getPrintableNetAttribute()
+        {
+
+            return $this->subtotal + $this->printable_tax;
+    }
+
+
 		public function addToReturnedQty($new_returned_qty)
 		{
 			return $this->update([

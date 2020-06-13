@@ -246,7 +246,7 @@
                                              <td class="total" style="background-color:
 									<?php echo $background_color;?> !important;"> <?php echo e($item->printable_tax); ?></td>
                                              <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> <?php echo e($item->net); ?></td>
+									<?php echo $background_color;?> !important;"> <?php echo e($item->printable_net); ?></td>
                                          <?php endif; ?>
                                      </tr>
                                      <?php if(!in_array($item->invoice_type,['purchase'])): ?>
@@ -300,6 +300,7 @@
         </div>
     </section>
     <div class="">
+        <?php $printable_tax_net = $invoice->printable_tax_and_net;?>
         <div class="total_numbers text-right">
             <div class="">
                 <h4 style="color: white;font-size: 22px;padding: 4px"><?php echo e(__('pages/invoice.invoice_data')); ?></h4>
@@ -326,7 +327,7 @@
             <div class="number">
                 <div class="label"><?php echo e(__('pages/invoice.vat')); ?> (5%):
                 </div>
-                <div class="value"> <?php echo e($invoice->tax); ?></div>
+                <div class="value"> <?php echo e($printable_tax_net['tax']); ?></div>
                 
                 <div class="clear"></div>
             </div>
@@ -334,7 +335,7 @@
                 <div style="text-align: center;">الاجمالي</div>
                 <div style="margin: 10px;text-align: center;font-size: 25px">
                     <h3 class=><b>
-                            <?php echo e($invoice->net); ?></b></h3>
+                            <?php echo e($printable_tax_net['net']); ?></b></h3>
                 </div>
                 <div class="clear"></div>
             </div>

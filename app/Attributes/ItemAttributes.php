@@ -11,6 +11,8 @@ trait ItemAttributes
 {
 
 
+
+
     public function getFormattedTitleAttribute()
     {
         return $this->name;

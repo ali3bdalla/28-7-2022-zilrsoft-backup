@@ -1,8 +1,8 @@
 <?php
 
 
-use Illuminate\Support\Facades\DB;
-
+//use Illuminate\Support\Facades\DB;
+//app()->setLocale('ar');
 //DB::unprepared(file_get_contents(base_path('database/database.sql')));
 //
 //Route::prefix('limit')->middleware('ProtectLimitMiddleware')->group(function () {

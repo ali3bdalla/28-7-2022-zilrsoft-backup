@@ -245,9 +245,9 @@
                                              <td class="total" style="background-color:
 									<?php echo $background_color;?> !important;"> {{ $item->discount }}</td>
                                              <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> {{ $item->tax }}</td>
+									<?php echo $background_color;?> !important;"> {{ $item->printable_tax }}</td>
                                              <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> {{ $item->net }}</td>
+									<?php echo $background_color;?> !important;"> {{ $item->printable_net }}</td>
                                          @endif
                                      </tr>
                                      @if(!in_array($item->invoice_type,['purchase']))
@@ -303,6 +303,7 @@
         </div>
     </section>
     <div class="">
+        <?php $printable_tax_net = $invoice->printable_tax_and_net;?>
         <div class="total_numbers text-right">
             <div class="">
                 <h4 style="color: white;font-size: 22px;padding: 4px">{{ __('pages/invoice.invoice_data') }}</h4>
@@ -331,7 +332,7 @@
             <div class="number">
                 <div class="label">{{ __('pages/invoice.vat') }} (5%):
                 </div>
-                <div class="value"> {{ $invoice->tax}}</div>
+                <div class="value"> {{ $printable_tax_net['tax']}}</div>
                 {{--                ({{ $invoice->getVat('purchase') }}%)--}}
                 <div class="clear"></div>
             </div>
@@ -339,7 +340,7 @@
                 <div style="text-align: center;">الاجمالي</div>
                 <div style="margin: 10px;text-align: center;font-size: 25px">
                     <h3 class=><b>
-                            {{ $invoice->net }}</b></h3>
+                            {{ $printable_tax_net['net'] }}</b></h3>
                 </div>
                 <div class="clear"></div>
             </div>

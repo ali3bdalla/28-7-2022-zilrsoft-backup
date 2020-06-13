@@ -45,6 +45,8 @@ class CreateItemRequest extends FormRequest
             'is_service' => 'required',
             'vtp' => 'required|numeric',
             'vts' => 'required|numeric',
+            'vts_for_print' => 'required|numeric',
+            'vtp_for_print' => 'required|numeric',
             'price' => 'required|numeric',
             'price_with_tax' => 'required|numeric',
             "attachments.*" => 'required|image'

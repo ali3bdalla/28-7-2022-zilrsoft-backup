@@ -1,8 +1,8 @@
 <?php
 
 app()->setLocale('ar');
-Auth::routes(["verify" => true]);
 
+Auth::routes(["verify" => true]);
 
 Route::name('printer')->prefix('printer')->group(function () {
     Route::get('print_receipt/{sale}', 'PrinterController@print_receipt');
