@@ -20,3 +20,6 @@
 //});
 
 
+Route::get('/',function (){
+    return redirect(route('accounting.login'));
+});
