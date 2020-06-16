@@ -1,7 +1,7 @@
 <?php
-	
+
 	use \App\Category;
-	
+
 	/*
 	|--------------------------------------------------------------------------
 	| Broadcast Channels
@@ -12,19 +12,19 @@
 	| used to check if an authenticated user can listen to the channel.
 	|
 	*/
-	
-	Broadcast::channel('App.User.{id}',function ($user,$id){
-		return (int)$user->id === (int)$id;
-	});
-	
-	Broadcast::channel("presence-my_channel",function (){
-		return true;
-	});
-	
-	Broadcast::channel('category.{categoryId}',function ($user,$categoryId){
-		return $user->organization_id === Category::findOrNew($categoryId)->organization_id;
-	});
-	
+
+	// Broadcast::channel('App.User.{id}',function ($user,$id){
+	// 	return (int)$user->id === (int)$id;
+	// });
+
+	// Broadcast::channel("presence-my_channel",function (){
+	// 	return true;
+	// });
+
+	// Broadcast::channel('category.{categoryId}',function ($user,$categoryId){
+	// 	return $user->organization_id === Category::findOrNew($categoryId)->organization_id;
+	// });
+
 	//Broadcast::channel('test_broadcast',function ($user){
 	//
 	//});

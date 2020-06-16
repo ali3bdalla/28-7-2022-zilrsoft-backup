@@ -1,4 +1,0 @@
-[05-Sep-2019 00:29:58 UTC] PHP Warning:  require(/home/almesbar/zilrsoft.com/vendor/autoload.php): failed to open stream: No such file or directory in /home/almesbar/zilrsoft.com/artisan on line 18
-[05-Sep-2019 00:29:58 UTC] PHP Fatal error:  require(): Failed opening required '/home/almesbar/zilrsoft.com/vendor/autoload.php' (include_path='.:/opt/alt/php73/usr/share/pear') in /home/almesbar/zilrsoft.com/artisan on line 18
-[05-Sep-2019 00:30:22 UTC] PHP Warning:  require(/home/almesbar/zilrsoft.com/vendor/autoload.php): failed to open stream: No such file or directory in /home/almesbar/zilrsoft.com/artisan on line 18
-[05-Sep-2019 00:30:22 UTC] PHP Fatal error:  require(): Failed opening required '/home/almesbar/zilrsoft.com/vendor/autoload.php' (include_path='.:/opt/alt/php73/usr/share/pear') in /home/almesbar/zilrsoft.com/artisan on line 18

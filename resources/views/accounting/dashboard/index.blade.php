@@ -12,8 +12,8 @@
 
 
 @section("content")
-    @can(' view charts')
-        <div class="row">
+    {{-- @can(' view charts') --}}
+        {{-- <div class="row">
             <div class="col-md-4">
                 <accounting-dashboard-active-items-layout-component>
 
@@ -34,7 +34,7 @@
 
                 </accounting-dashboard-items-chart-component>
             </div>
-        </div>
+        </div> --}}
         {{--    <div class="row">--}}
         {{--        <div class="col-md-4">--}}
         {{--            <accounting-dashboard-items-chart-component--}}
@@ -58,7 +58,7 @@
         {{--            </accounting-dashboard-items-chart-component>--}}
         {{--        </div>--}}
         {{--    </div>--}}
-    @endcan
+    {{-- @endcan --}}
 @endsection
 
 

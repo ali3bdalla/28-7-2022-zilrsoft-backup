@@ -81,7 +81,6 @@ class RouteServiceProvider extends ServiceProvider
     {
 
         $this->mapWebRoutes();
-        $this->mapApiRoutes();
         $this->mapAccountingRoutes();
 
 
@@ -102,20 +101,7 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/web.php'));
     }
 
-    /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
-    protected function mapApiRoutes()
-    {
-        Route::prefix('api')
-            ->middleware(['api','cors'])
-            ->namespace("App\Http\Controllers\Api")
-            ->group(base_path('routes/api.php'));
-    }
+
 
     protected function mapAccountingRoutes()
     {

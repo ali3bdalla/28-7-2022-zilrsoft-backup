@@ -8,7 +8,8 @@
     @includeIf("accounting.layout.head.css")
     @yield('page_css')
 </head>
-<body class="sidebar-mini skin-blue sidebar-collapse">
+ {{-- sidebar-collapse --}}
+<body class="sidebar-mini skin-blue">
 @includeIf("accounting.layout.layout")
 @includeIf("accounting.layout.head.js")
 @yield('page_js')
