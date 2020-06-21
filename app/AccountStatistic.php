@@ -4,7 +4,7 @@
 	
 	use Illuminate\Database\Eloquent\Model;
 	
-	class AccountStatistic extends Model
+	class AccountStatistic extends BaseModel
 	{
 		protected $guarded = [];
 		

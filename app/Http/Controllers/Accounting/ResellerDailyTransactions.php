@@ -18,11 +18,9 @@
 	{
 		
 		use TransactionAccounting;
+
 		
-		/**
-		 * @return Factory|View
-		 */
-		public function account_close_list()
+		public function dailyShutdownList()
 		{
 			$managerCloseAccountList = ManagerPrivateTransactions::where([
 				['creator_id',auth()->user()->id],
@@ -34,13 +32,10 @@
 			
 			return view('accounting.reseller_daily.account_close_list',compact('managerCloseAccountList'));
 		}
-		
-		/**
-		 * @return Factory|View
-		 */
-		public function transfer_list()
+
+
+		public function transferList()
 		{
-//			return
 			$managerCloseAccountList = ManagerPrivateTransactions::where([
 				['creator_id',auth()->user()->id],
 				['transaction_type',"transfer"],
@@ -56,38 +51,25 @@
 		 *
 		 * @return Factory|View
 		 */
-		public function account_close(Request $request)
+		public function dailyShutdownShowForm(Request $request)
 		{
 			$lastRemainingTransferAmount = $this->toGetLastManagerTransferRemainingAmount();
 			$periodSalesAmount = $request->user()->dailyTransactionsAmount();
-//			return $lastRemainingTransferAmount;
 			$gateways = $request->user()->gateways()->get();
 			return view('accounting.reseller_daily.account_close',compact('periodSalesAmount','gateways','lastRemainingTransferAmount'));
 		}
 		
-		/**
-		 * @param PeriodCloseAccoundRequest $request
-		 */
-		public function account_close_store(PeriodCloseAccoundRequest $request)
+
+		public function dailyShutdownSubmitForm(PeriodCloseAccoundRequest $request)
 		{
 			return $request->save();
 		}
 		
-		/**
-		 * @param Request $request
-		 *
-		 * @return Factory|View
-		 */
-		public function transfer_amounts(Request $request)
+
+		public function transferShowForm(Request $request)
 		{
 			$manager_gateways = $request->user()->gateways()->where('is_gateway',true)->get();
 			$managers = Manager::where('id','!=',$request->user()->id)->with('gateways')->get();
-//
-
-
-//			return $manager_gateways;
-			
-			
 			$gateways = [];
 			foreach ($managers as $manager){
 				foreach ($manager->gateways as $gateway){
@@ -99,22 +81,17 @@
 					
 				}
 			}
-
-//			re
-			
 			return view('accounting.reseller_daily.transfer_amounts',compact('gateways','manager_gateways'));
 		}
-		//
-		
-		/**
-		 * @param TransferAmountsRequest $request
-		 */
-		public function transfer_amounts_store(TransferAmountsRequest $request)
+
+
+		public function transferSubmitForm(TransferAmountsRequest $request)
 		{
 			return $request->save();
 		}
-		
-		public function delete_transaction(ManagerPrivateTransactions $transaction)
+
+
+		public function deleteTransferTransactions(ManagerPrivateTransactions $transaction)
 		{
 			if ($transaction->receiver_id == auth()->user()->id && $transaction->transaction_type == 'transfer'){
 				$container = $transaction->container;
@@ -126,11 +103,10 @@
 			return back();
 		}
 		
-		public function confirm_transaction(ManagerPrivateTransactions $transaction)
+		public function confirmTransferTransactions(ManagerPrivateTransactions $transaction)
 		{
 			if ($transaction->receiver_id == auth()->user()->id && $transaction->transaction_type == 'transfer'){
 				$container = $transaction->container;
-				
 				$container->transactions()->withoutGlobalScope('pendingTransactionScope')->update([
 					'is_pending' => false
 				]);

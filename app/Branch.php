@@ -5,9 +5,8 @@
 	use App\Attributes\BranchAttributes;
 	use App\Relationships\BranchRelationships;
 	use App\Scopes\OrganizationScope;
-	use Illuminate\Database\Eloquent\Model;
-	
-	class Branch extends Model
+
+	class Branch extends BaseModel
 	{
 		//
 		

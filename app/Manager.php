@@ -4,16 +4,11 @@
 	
 	use App\Attributes\ManagerAttributes;
 	use App\Relationships\ManagerRelationships;
-	use App\Scopes\OrganizationScope;
-	use Illuminate\Foundation\Auth\User as Authenticatable;
-	use Illuminate\Notifications\Notifiable;
-	use Illuminate\Support\Facades\Auth;
-	use Spatie\Permission\Traits\HasPermissions;
-	use Spatie\Permission\Traits\HasRoles;
+
 	
-	class Manager extends Authenticatable
+	class Manager extends BaseAuthModel
 	{
-		use Notifiable,ManagerRelationships,ManagerAttributes,HasRoles,HasPermissions;
+		use ManagerRelationships,ManagerAttributes;
 		
 		/**
 		 * The attributes that are mass assignable.
@@ -41,13 +36,6 @@
 			'locale_name'
 		];
 		
-		protected static function boot()
-		{
-			parent::boot();
-			if (Auth::check()){
-				static::addGlobalScope(new OrganizationScope(Auth::user()->organization_id));
-				
-			}
-		}
+
 		
 	}

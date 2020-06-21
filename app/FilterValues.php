@@ -5,10 +5,9 @@
 	use App\Attributes\FilterValuesAttributes;
 	use App\Relationships\FilterValuesRelationships;
 	use App\Scopes\OrganizationScopeForRelationships;
-	use Illuminate\Database\Eloquent\Model;
+
 	
-	
-	class FilterValues extends Model
+	class FilterValues extends BaseModel
 	{
 		
 		

@@ -3,12 +3,12 @@
 	namespace App;
 	
 	use Illuminate\Database\Eloquent\Builder;
-	use Illuminate\Database\Eloquent\Model;
-	
-	class TransactionsContainer extends Model
+    use Illuminate\Database\Eloquent\SoftDeletes;
+
+    class TransactionsContainer extends BaseModel
 	{
 		protected $guarded = [];
-		
+		use SoftDeletes;
 		protected static function boot()
 		{
 			parent::boot();
@@ -19,8 +19,7 @@
 			}
 			
 		}
-		
-		
+
 		public function transactions()
 		{
 			return $this->hasMany(Transaction::class,'container_id');
@@ -30,9 +29,4 @@
 		{
 			return $this->belongsTo(Invoice::class,'invoice_id');
 		}
-//		public function update_amount()
-//		{
-//			$this->
-//		}
-//		//
 	}

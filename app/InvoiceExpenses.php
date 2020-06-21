@@ -4,7 +4,7 @@
 	
 	use Illuminate\Database\Eloquent\Model;
 	
-	class InvoiceExpenses extends Model
+	class InvoiceExpenses extends BaseModel
 	{
 		
 		protected $guarded = [];

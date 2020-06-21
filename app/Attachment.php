@@ -2,11 +2,10 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Symfony\Component\HttpClient\HttpClient;
 
-class Attachment extends Model
+class Attachment extends BaseModel
 {
 
     use SoftDeletes;

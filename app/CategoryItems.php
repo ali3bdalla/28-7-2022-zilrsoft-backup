@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class CategoryItems extends Model
+class CategoryItems extends BaseModel
 {
     protected $guarded = [];
     //

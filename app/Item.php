@@ -14,25 +14,22 @@ use App\Processers\ItemProcesser;
 use App\Relationships\ItemRelationships;
 use App\Relationships\KitRelationships;
 use App\Scopes\OrganizationScope;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Testing\WithFaker;
 
 
-class Item extends Model
+
+class Item extends BaseModel
 {
     use ItemFreshHelper, ItemRelationships, ItemAttributes, KitAttributes, KitRelationships, ItemProcesser, ItemHelper, KitHelper;
     use CoreItem, ItemTransactionAccounting, ItemFormattedQuery;
     //
 
-    use WithFaker,SoftDeletes;
+    use SoftDeletes;
 
 
     protected $appends = [
         'locale_name',
         'warranty_title'
-//			'sales_count',
-
     ];
     protected $casts = [
         'id' => 'integer',
@@ -49,12 +46,5 @@ class Item extends Model
     ];
     protected $guarded = [];
 
-    protected static function boot()
-    {
 
-        parent::boot();
-        if (auth()->check()) {
-            static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
-        }
-    }
 }

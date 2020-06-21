@@ -9,24 +9,13 @@ use App\Relationships\UserRelationships;
 use App\Scopes\OrganizationScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
-
-class User extends Authenticatable
+class User extends BaseAuthModel
 {
 
-    use SoftDeletes, UserRelationships, UserAttributes, UserHelper, Notifiable,HasApiTokens,OnlineUserAttribute;
+    use SoftDeletes, UserRelationships, UserAttributes, UserHelper;
 
     protected $guarded = [];
 
-    protected static function boot()
-    {
-        parent::boot();
-        if (auth()->check()) {
-            static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
-        }
-    }
 
 
     protected $appends = [

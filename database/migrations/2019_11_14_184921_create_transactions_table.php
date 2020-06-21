@@ -44,6 +44,7 @@
 					'close_account',
 				
 				])->nullable();
+				$table->softDeletes();
 				$table->timestamps();
 			});
 		}

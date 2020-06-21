@@ -3,10 +3,9 @@
 	namespace App;
 	
 	use App\Scopes\OrganizationScope;
-	use Illuminate\Database\Eloquent\Model;
 	use Illuminate\Database\Eloquent\SoftDeletes;
 	
-	class Expense extends Model
+	class Expense extends BaseModel
 	{
 		use SoftDeletes;
 		protected $guarded = [];
@@ -15,14 +14,7 @@
 			'locale_name'
 		];
 		
-		protected static function boot()
-		{
-			parent::boot();
-			if (auth()->check()){
-				static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
-			}
-			
-		}
+
 		
 		public function getLocaleNameAttribute()
 		{

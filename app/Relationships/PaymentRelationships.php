@@ -19,12 +19,6 @@
 	trait PaymentRelationships
 	{
 
-//
-		public function is_paid_for_all_invoice()
-		{
-		
-		}
-		
 		public function user()
 		{
 			return $this->belongsTo(User::class,'user_id');

@@ -2,13 +2,14 @@
 	
 	namespace App;
 	
-	use App\DatabaseHelpers\TransactionHelper;
+	use App\Attributes\TransactionAttributes;
+    use App\DatabaseHelpers\TransactionHelper;
 	use Illuminate\Database\Eloquent\Builder;
-	use Illuminate\Database\Eloquent\Model;
-	
-	class Transaction extends Model
+    use Illuminate\Database\Eloquent\SoftDeletes;
+
+    class Transaction extends BaseModel
 	{
-		use TransactionHelper;
+		use TransactionAttributes,SoftDeletes;
 		
 		protected $guarded = [];
 		

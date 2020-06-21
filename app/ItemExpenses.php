@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class ItemExpenses extends Model
+class ItemExpenses extends BaseModel
 {
 	
 	

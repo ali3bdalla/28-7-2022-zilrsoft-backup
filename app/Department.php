@@ -5,9 +5,8 @@
 	use App\Attributes\DepartmentAttributes;
 	use App\Relationships\DepartmentRelationships;
 	use App\Scopes\OrganizationScope;
-	use Illuminate\Database\Eloquent\Model;
-	
-	class Department extends Model
+
+	class Department extends BaseModel
 	{
 		//
 		
@@ -18,12 +17,5 @@
 		protected $appends = [
 			'locale_title'
 		];
-		
-		protected static function boot()
-		{
-			parent::boot();
-			if (auth()->check()){
-				static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
-			}
-		}
+
 	}

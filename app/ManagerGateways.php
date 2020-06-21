@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class ManagerGateways extends Model
+class ManagerGateways extends BaseModel
 {
     //
 	protected $guarded = [];

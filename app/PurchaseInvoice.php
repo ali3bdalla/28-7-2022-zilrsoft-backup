@@ -4,24 +4,16 @@
 	
 	use App\DatabaseHelpers\PurchaseInvoiceHelper;
 	use App\Relationships\PurchaseInvoiceRelationships;
-	use App\Scopes\OrganizationScope;
-	use Illuminate\Database\Eloquent\Model;
+
 	
-	class PurchaseInvoice extends Model
+	class PurchaseInvoice extends BaseModel
 	{
 		
 		use PurchaseInvoiceRelationships,PurchaseInvoiceHelper;
 		
 		protected $guarded = [];
 		
-		protected static function boot()
-		{
-			parent::boot();
-			if (auth()->check()){
-				static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
-			}
-		}
-		
+
 		public function addSerialsToItemOfSubInvoice($data,$invoice_type = 'purchase',$user_id = 0)
 		{
 			foreach ($data['serials'] as $serial){

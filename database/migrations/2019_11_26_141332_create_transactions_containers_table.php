@@ -21,6 +21,7 @@
 				$table->float('amount',20,8);
 				$table->string('description')->nullable();
 				$table->boolean('is_pending')->default(false);
+                $table->softDeletes();
 				$table->timestamps();
 			});
 		}

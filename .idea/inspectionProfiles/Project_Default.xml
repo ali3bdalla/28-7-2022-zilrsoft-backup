@@ -3,85 +3,8 @@
     <option name="myName" value="Project Default" />
     <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <Languages>
-        <language minSize="71" name="JavaScript" />
-        <language minSize="385" name="PHP" />
+        <language minSize="163" name="PHP" />
       </Languages>
     </inspection_tool>
-    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
-      <option name="myValues">
-        <value>
-          <list size="65">
-            <item index="0" class="java.lang.String" itemvalue="nobr" />
-            <item index="1" class="java.lang.String" itemvalue="noembed" />
-            <item index="2" class="java.lang.String" itemvalue="comment" />
-            <item index="3" class="java.lang.String" itemvalue="noscript" />
-            <item index="4" class="java.lang.String" itemvalue="embed" />
-            <item index="5" class="java.lang.String" itemvalue="script" />
-            <item index="6" class="java.lang.String" itemvalue="show-barcode-component" />
-            <item index="7" class="java.lang.String" itemvalue="modalfullscreen" />
-            <item index="8" class="java.lang.String" itemvalue="accounting-login-view-component" />
-            <item index="9" class="java.lang.String" itemvalue="acccounting-table-pagination-helper-layout-component" />
-            <item index="10" class="java.lang.String" itemvalue="accounting-header-layout-component" />
-            <item index="11" class="java.lang.String" itemvalue="accounting-select-with-nested-children-plugin-component" />
-            <item index="12" class="java.lang.String" itemvalue="accounting-filter-select-with-search-component" />
-            <item index="13" class="java.lang.String" itemvalue="accounting-category-datatable-component" />
-            <item index="14" class="java.lang.String" itemvalue="accounting-categories-datatable-component" />
-            <item index="15" class="java.lang.String" itemvalue="accounting-treeview-raw-layout-component" />
-            <item index="16" class="java.lang.String" itemvalue="accounting-items-create-component" />
-            <item index="17" class="java.lang.String" itemvalue="accounting-category-filters-list-component" />
-            <item index="18" class="java.lang.String" itemvalue="accounting-items-datatable-component" />
-            <item index="19" class="java.lang.String" itemvalue="accounting-filters-datatable-component" />
-            <item index="20" class="java.lang.String" itemvalue="accounting-edit-filter-and-values-component" />
-            <item index="21" class="java.lang.String" itemvalue="accounting-identities-datatable-component" />
-            <item index="22" class="java.lang.String" itemvalue="accounting-identities-create-component" />
-            <item index="23" class="java.lang.String" itemvalue="accounting-managers-datatable-component" />
-            <item index="24" class="java.lang.String" itemvalue="accounting-managers-create-component" />
-            <item index="25" class="java.lang.String" itemvalue="accounting-dashboard-items-chart-component" />
-            <item index="26" class="java.lang.String" itemvalue="accounting-branches-datatable-component" />
-            <item index="27" class="java.lang.String" itemvalue="accounting-departments-datatable-component" />
-            <item index="28" class="java.lang.String" itemvalue="accounting-beginning-datatable-component" />
-            <item index="29" class="java.lang.String" itemvalue="accounting-purchases-datatable-component" />
-            <item index="30" class="java.lang.String" itemvalue="accounting-purchases-create-component" />
-            <item index="31" class="java.lang.String" itemvalue="accounting-sales-create-component" />
-            <item index="32" class="java.lang.String" itemvalue="accounting-kits-create-component" />
-            <item index="33" class="java.lang.String" itemvalue="accounting-kits-datatable-component" />
-            <item index="34" class="java.lang.String" itemvalue="accounting-print-receipt-layout-component" />
-            <item index="35" class="java.lang.String" itemvalue="accounting-printers-setting-layout-componet" />
-            <item index="36" class="java.lang.String" itemvalue="accounting-printers-setting-layout-component" />
-            <item index="37" class="java.lang.String" itemvalue="accounting-item-transactions-component" />
-            <item index="38" class="java.lang.String" itemvalue="accounting-barcode-printer-layout-component" />
-            <item index="39" class="java.lang.String" itemvalue="accounting-sales-datatable-component" />
-            <item index="40" class="java.lang.String" itemvalue="accounting-sales-return-component" />
-            <item index="41" class="java.lang.String" itemvalue="accounting-kit-.-items-layout-component" />
-            <item index="42" class="java.lang.String" itemvalue="accounting-kit-return-items-layout-component-items-layout-component" />
-            <item index="43" class="java.lang.String" itemvalue="accounting-purchases-return-component" />
-            <item index="44" class="java.lang.String" itemvalue="accounting-show-barcode-layout-component" />
-            <item index="45" class="java.lang.String" itemvalue="accounting-dashboard-active-items-layout-component" />
-            <item index="46" class="java.lang.String" itemvalue="acounting-accounts-chart-component" />
-            <item index="47" class="java.lang.String" itemvalue="accounting-barcode-bulk-printer-layout-component" />
-            <item index="48" class="java.lang.String" itemvalue="accounting-vouchers-datatable-component" />
-            <item index="49" class="java.lang.String" itemvalue="accounting-vouchers-create-component" />
-            <item index="50" class="java.lang.String" itemvalue="accounting-quotations-create-component" />
-            <item index="51" class="java.lang.String" itemvalue="accounting-period-account-close-component" />
-            <item index="52" class="java.lang.String" itemvalue="accounting-transactions-create-component" />
-            <item index="53" class="java.lang.String" itemvalue="accounting-reseller-daily-transfer-amounts-component" />
-            <item index="54" class="java.lang.String" itemvalue="toggle-button" />
-            <item index="55" class="java.lang.String" itemvalue="barcode" />
-            <item index="56" class="java.lang.String" itemvalue="accounting-single-barcode-layout-component" />
-            <item index="57" class="java.lang.String" itemvalue="accounting-adjust-stock-datatable-component" />
-            <item index="58" class="java.lang.String" itemvalue="accounting-adjust-stock-create-component" />
-            <item index="59" class="java.lang.String" itemvalue="accounting-quotations-services-create-component" />
-            <item index="60" class="java.lang.String" itemvalue="accounting-chart-of-accounts-list-component" />
-            <item index="61" class="java.lang.String" itemvalue="accounting-global-transactions-list-component" />
-            <item index="62" class="java.lang.String" itemvalue="accounting-account-report-component" />
-            <item index="63" class="java.lang.String" itemvalue="modal" />
-            <item index="64" class="java.lang.String" itemvalue="accounting-attachments-preview-component" />
-          </list>
-        </value>
-      </option>
-      <option name="myCustomValuesEnabled" value="true" />
-    </inspection_tool>
-    <inspection_tool class="MethodShouldBeFinalInspection" enabled="false" level="WARNING" enabled_by_default="false" />
   </profile>
 </component>

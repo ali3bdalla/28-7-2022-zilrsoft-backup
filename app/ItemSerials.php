@@ -3,11 +3,10 @@
 	namespace App;
 	
 	use App\Core\CoreItemSerials;
-	use App\Scopes\OrganizationScope;
+
 	use Illuminate\Database\Eloquent\Builder;
-	use Illuminate\Database\Eloquent\Model;
-	
-	class ItemSerials extends Model
+
+	class ItemSerials extends BaseModel
 	{
 		
 		use CoreItemSerials;
@@ -26,11 +25,6 @@
 			static::addGlobalScope('pendingSerialsScope',function (Builder $builder){
 				$builder->where('is_pending',false);
 			});
-			
-		
-			if (auth()->check()){
-				static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
-			}
 		}
 		
 		public function getStatusDescriptionAttribute()

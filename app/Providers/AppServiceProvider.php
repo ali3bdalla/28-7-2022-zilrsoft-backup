@@ -3,7 +3,7 @@
 	namespace App\Providers;
 	
 	use App\Components\Observer\InvoiceItems\InvoiceItemsObserver;
-	use App\Components\Observer\Transactions\TransactionsObserver;
+	use App\Observers\TransactionObserver;
 	use App\InvoiceItems;
 	use App\Transaction;
 	use Illuminate\Support\ServiceProvider;
@@ -36,7 +36,7 @@
 		private function registerObservers()
 		{
 			InvoiceItems::observe(InvoiceItemsObserver::class);
-			Transaction::observe(TransactionsObserver::class);
+			Transaction::observe(TransactionObserver::class);
 			
 		}
 	}

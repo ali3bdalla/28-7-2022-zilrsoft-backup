@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class UserDetails extends Model
+class UserDetails extends BaseModel
 {
 	protected $guarded = [];
 	
@@ -12,5 +11,4 @@ class UserDetails extends Model
 	{
 		return $this->hasOne(User::class,'user_id');
 	}
-    //
 }

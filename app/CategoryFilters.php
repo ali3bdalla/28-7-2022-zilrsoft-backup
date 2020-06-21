@@ -6,19 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use \App\Scopes\OrganizationScopeForRelationships;
 
 
-class CategoryFilters extends Model
+class CategoryFilters extends BaseModel
 {
 	public function filter()
 	{
 		return $this->belongsTo(Filter::class,'filter_id');
 	}
-	protected static function boot()
-    {
-        parent::boot();
-         if(auth()->check()){
-            static::addGlobalScope(new OrganizationScopeForRelationships(auth()->user()->organization_id));
-         }
-    }
+
 
     //
 }

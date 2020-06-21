@@ -3,8 +3,9 @@
 	namespace App\Http\Requests\Accounting\Transaction;
 	
 	use App\Account;
-	use App\Accounting\IdentityAccounting;
-	use App\User;
+    use App\Events\User\ShouldUpdateUserBalanceEvent;
+    use App\TransactionsContainer;
+    use App\User;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
@@ -13,7 +14,7 @@
 	class CreateTransactionRequest extends FormRequest
 	{
 		
-		use  IdentityAccounting;
+
 		
 		/**
 		 * Determine if the user is authorized to make this request.
@@ -33,156 +34,157 @@
 		public function rules()
 		{
 			return [
-				//
 				'transactions' => 'required|array',
 				"transactions.*.id" => "required|integer|exists:accounts,id",
 				"transactions.*.credit_amount" => "required|price",
 				"transactions.*.debit_amount" => "required|price",
 				"transactions.*.is_credit" => "required|boolean",
-				"transactions.*.vendor_id" => "nullable|integer|exists:users,id",
-				"transactions.*.client_id" => "nullable|integer|exists:users,id",
-				"transactions.*.item_id" => "nullable|integer|exists:items,id",
+				"transactions.*.vendor_id" => ["integer","exists:users,id"],
+				"transactions.*.client_id" => ["integer","exists:users,id"],
+				"transactions.*.item_id" =>["integer","exists:items,id"],
 				'description' => "required|string",
-				'amount' => "required",
+				'amount' => "required|numeric",
 			];
 		}
-		
+
+        private function _validateMissingRules($validator = 'item_id',$index)
+        {
+            if(!collect($this->input('transactions')[$index])->has($validator))
+                 throw  new ValidationException($validator,'is required');
+		}
+
+
+        private function validateTransactionEntities()
+        {
+            $total_credit = 0;
+            $total_debit = 0;
+            foreach ($this->input("transactions") as $transaction){
+                if ($transaction['is_credit'])
+                    $total_credit = $total_credit + floatval($transaction['credit_amount']);
+                else
+                    $total_debit = $total_debit + floatval($transaction['debit_amount']);
+            }
+
+            return $total_credit == $total_debit || $total_credit != $this->input('amount');
+        }
+
+
+
 		public function save()
 		{
-			DB::beginTransaction();
-			
-			
-			try{
-				
-				$this->validateAmounts();
-				$container = auth()->user()->organization->transactions_containers()->create(
-					[
-						'creator_id' => auth()->user()->id,
-						'description' => $this->description,
-						'amount' => $this->amount,
-					]
-				);
-				
-				
-				foreach ($this->transactions as $transaction){
-					
-					if ($transaction['slug'] == 'stock'){
-						$this->toCreateStockTransaction($transaction,$container);
-					}elseif ($transaction['slug'] == 'clients'){
-						$this->toCreateClientTransaction($transaction,$container);
-					}elseif ($transaction['slug'] == 'vendors'){
-						$this->toCreateVendorTransaction($transaction,$container);
-					}else{
-						$data = [];
-						$data['creator_id'] = auth()->user()->id;
-						$data['organization_id'] = auth()->user()->organization_id;
-						if ($transaction['is_credit']){
-							$data['creditable_id'] = $transaction['id'];
-							$data['creditable_type'] = Account::class;
-							$data['amount'] = $transaction['credit_amount'];
-						}else{
-							
-							$data['debitable_id'] = $transaction['id'];
-							$data['debitable_type'] = Account::class;
-							$data['amount'] = $transaction['debit_amount'];
-						}
-						
-						$container->transactions()->create($data);
-					}
-					
-					
-				}
-				
-				DB::commit();
-			}catch (Exception $exception){
-				DB::rollBack();
-				return response($exception->getTrace())->status(400);
-			}
-			
-			
+
+			if($this->validateTransactionEntities())
+            {
+                DB::beginTransaction();
+                try{
+
+                    $container = auth()->user()->organization->transactions_containers()->create(
+                        [
+                            'creator_id' => auth()->user()->id,'description' => $this->input("description"),'amount' => $this->input("amount"),
+                        ]
+                    );
+                    foreach ($this->input("transactions") as $index => $account_json ){
+                        $account = Account::find($account_json['id']);
+                        if ($account->_isStock()){
+                            $this->_validateMissingRules('item_id',$index);
+                            $this->toCreateStockTransaction($account_json,$account,$container);
+                        }elseif ($account->_isClients()){
+                            $this->_validateMissingRules('client_id',$index);
+                            $this->toCreateClientTransaction($account_json,$account,$container);
+                        }elseif ($account->_isVendors()){
+                            $this->_validateMissingRules('vendor_id',$index);
+                            $this->toCreateVendorTransaction($account_json,$account,$container);
+                        }else{
+                            $this->toCreateAccountTransaction($account_json,$account,$container);
+                        }
+                    }
+                    DB::commit();
+                    return  response($container->fresh()->load('transactions'),200);
+                }
+                catch (ValidationException $exception){
+                    DB::rollBack();
+                    return response($exception->errors(),422);
+                }
+                catch (Exception $exception){
+                    DB::rollBack();
+                    return response($exception->getMessage(),500);
+                }
+            }else
+            {
+                return response(["message" => "Credit Amount Should Equal Debit Amount"],400);
+            }
 		}
-		
-		public function validateAmounts()
-		{
-			$total_credit = 0;
-			$total_debit = 0;
-			foreach ($this->transactions as $transaction){
-//				dd($transaction);
-				if ($transaction['is_credit'])
-					$total_credit = $total_credit + floatval($transaction['credit_amount']);
-				else
-					$total_debit = $total_debit + floatval($transaction['debit_amount']);
-			}
-			
-			
-			if ($total_debit !== $total_credit){
-				throw new ValidationException('debit does\'t equal credit amount');
-//				$error = ValidationException::withMessages([
-//					'debit_and_credit' => ['debit does\'t equal credit amount'],
-//				]);
-//				throw $error;
-				
-			}
+
+
+
+        private function toCreateAccountTransaction($requestData,Account $account,TransactionsContainer $container)
+        {
+            $data = [];
+            $data['creator_id'] =$this->user()->id;
+            $data['organization_id'] = $this->user()->organization_id;
+            if ($account->_isCredit()){
+                $data['creditable_id'] = $account->id;
+                $data['creditable_type'] = Account::class;
+                $data['amount'] = $requestData['credit_amount'];
+            }else{
+                $data['debitable_id'] = $account->id;
+                $data['debitable_type'] = Account::class;
+                $data['amount'] = $requestData['debit_amount'];
+            }
+            $container->transactions()->create($data);
+
 		}
-		
-		public function toCreateStockTransaction($transaction,$container)
+        private function toCreateStockTransaction($requestData,Account $account,TransactionsContainer $container)
 		{
 		
 		}
-		
-		public function toCreateClientTransaction($transaction,$container)
+        private function toCreateClientTransaction($requestData,Account $account,TransactionsContainer $container)
 		{
-			$client = User::findOrFail($transaction['client_id']);
-			
+			$client = User::find($requestData['client_id']);
 			$data = [];
 			$data['creator_id'] = auth()->user()->id;
 			$data['organization_id'] = auth()->user()->organization_id;
-			if ($transaction['is_credit']){
-				$data['creditable_id'] = $transaction['id'];
+			if ($requestData['is_credit']){
+				$data['creditable_id'] = $account->id;
 				$data['creditable_type'] = Account::class;
-				$data['amount'] = $transaction['credit_amount'];
-				$this->toUpdateClientBalance($client,'sub',$transaction['credit_amount']);
-				
+				$data['amount'] = $requestData['credit_amount'];
+                $operator = 'sub';
 			}else{
 				
-				$data['debitable_id'] = $transaction['id'];
+				$data['debitable_id'] = $account->id;
 				$data['debitable_type'] = Account::class;
-				$data['amount'] = $transaction['debit_amount'];
-				$this->toUpdateClientBalance($client,'plus',$transaction['debit_amount']);
+				$data['amount'] = $requestData['debit_amount'];
+                $operator = 'add';
 			}
-			$data['user_id'] = $transaction['client_id'];
+			$data['user_id'] = $requestData['client_id'];
 			$data['description'] = "client_balance";
 			$container->transactions()->create($data);
-			
-			
+			event(new ShouldUpdateUserBalanceEvent($client,$data['amount'],'client_balance',$operator));
 		}
-		
-		public function toCreateVendorTransaction($transaction,$container)
+        private function toCreateVendorTransaction($requestData,Account $account,TransactionsContainer $container)
 		{
 			
-			$vendor = User::findOrFail($transaction['vendor_id']);
+			$vendor = User::find($requestData['vendor_id']);
 			$data = [];
 			$data['creator_id'] = auth()->user()->id;
 			$data['organization_id'] = auth()->user()->organization_id;
-			if ($transaction['is_credit']){
-				$data['creditable_id'] = $transaction['id'];
+			if ($requestData['is_credit']){
+				$data['creditable_id'] = $account->id;
 				$data['creditable_type'] = Account::class;
-				$data['amount'] = $transaction['credit_amount'];
-				
-				$this->toUpdateVendorBalance($vendor,'plus',$transaction['credit_amount']);
+				$data['amount'] = $requestData['credit_amount'];
+                $operator = 'add';
 			}else{
 				
-				$data['debitable_id'] = $transaction['id'];
+				$data['debitable_id'] = $account->id;
 				$data['debitable_type'] = Account::class;
-				$data['amount'] = $transaction['debit_amount'];
-				$this->toUpdateVendorBalance($vendor,'sub',$transaction['debit_amount']);
+				$data['amount'] = $requestData['debit_amount'];
+                $operator = 'sub';
 			}
 			
-			$data['user_id'] = $transaction['vendor_id'];
+			$data['user_id'] = $requestData['vendor_id'];
 			$data['description'] = "vendor_balance";
 			$container->transactions()->create($data);
-			
-			
+            event(new ShouldUpdateUserBalanceEvent($vendor,$data['amount'],'vendor_balance',$operator));
 		}
 		
 	}

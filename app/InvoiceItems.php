@@ -7,12 +7,10 @@ use App\Core\CoreIncItem;
 use App\DatabaseHelpers\InvoiceItemHelper;
 use App\DatabaseHelpers\KitHelper;
 use App\Relationships\InvoiceItemRelationships;
-use App\Scopes\OrganizationScope;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 
-class InvoiceItems extends Model
+class InvoiceItems extends BaseModel
 {
     use InvoiceItemRelationships, InvoiceItemAttributes, InvoiceItemHelper, KitHelper;
     use CoreIncItem;
@@ -42,8 +40,6 @@ class InvoiceItems extends Model
             static::addGlobalScope('pendingItemsScope', function (Builder $builder) {
                 $builder->where('is_pending', false);
             });
-
-            static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
         }
     }
 

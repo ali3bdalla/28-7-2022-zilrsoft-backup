@@ -4,16 +4,12 @@
 	
 	use App\DatabaseHelpers\OrganizationCreationHelper;
 	use App\Relationships\OrganizationRelationships;
-	use Illuminate\Database\Eloquent\Model;
-	use Illuminate\Foundation\Testing\WithFaker;
-	
-	class Organization extends Model
+
+	class Organization extends BaseModel
 	{
-		
-		//
+
 		use OrganizationRelationships,OrganizationCreationHelper;
-		
-		use WithFaker;
+
 		/**
 		 * The attributes that are mass assignable.
 		 *

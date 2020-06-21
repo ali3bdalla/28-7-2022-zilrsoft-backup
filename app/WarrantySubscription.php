@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class WarrantySubscription extends Model
+class WarrantySubscription extends BaseModel
 {
 	
 	protected $guarded = [];

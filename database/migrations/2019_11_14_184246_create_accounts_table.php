@@ -24,6 +24,7 @@
 				$table->string('serial')->nullable();
 				$table->boolean('is_gateway')->default(false);
 				$table->enum('type',['credit','debit'])->default('credit');
+				
 				$table->boolean('is_system_account')->default(false);
 				$table->enum('slug',
 					[
@@ -58,8 +59,12 @@
 						'other_services_sales',
 						'temp_reseller_account',
 						'shifts_shortage',
-						'inventory_adjustment',
+						'inventory_adjustment'
 					])->nullable();
+
+				$table->float('total_amount',20,8)->default(0);
+				$table->integer('transactions_count')->default(0);
+
 				$table->softDeletes();
 				$table->timestamps();
 			});

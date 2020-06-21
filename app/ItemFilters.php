@@ -2,10 +2,8 @@
 	
 	namespace App;
 	
-	use App\Scopes\OrganizationScope;
-	use Illuminate\Database\Eloquent\Model;
-	
-	class ItemFilters extends Model
+
+	class ItemFilters extends BaseModel
 	{
 		
 		protected $fillable = [
@@ -25,12 +23,6 @@
 		
 		];
 
-		protected static function boot()
-		{
-			parent::boot();
-			if (auth()->check()){
-				static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
-			}
-		}
+
 		
 	}

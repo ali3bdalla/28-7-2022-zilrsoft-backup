@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class ItemStatistic extends Model
+class ItemStatistic extends BaseModel
 {
 	protected $guarded = [];
 	

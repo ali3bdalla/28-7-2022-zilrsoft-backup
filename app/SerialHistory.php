@@ -1,21 +1,12 @@
 <?php
 	
 	namespace App;
-	
-	use App\Scopes\OrganizationScope;
-	use Illuminate\Database\Eloquent\Model;
-	
-	class SerialHistory extends Model
+
+	class SerialHistory extends BaseModel
 	{
 		protected $guarded = [];
 		
-		protected static function boot()
-		{
-			parent::boot();
-			if (auth()->check()){
-				static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
-			}
-		}
+
 		
 		public function serial()
 		{

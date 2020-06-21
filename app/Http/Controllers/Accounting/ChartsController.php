@@ -14,7 +14,6 @@
 	use Illuminate\Contracts\View\Factory;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
-	use Illuminate\Support\Facades\DB;
 	use Illuminate\View\View;
 	
 	class ChartsController extends Controller
@@ -28,23 +27,15 @@
 		 */
 		public function index()
 		{
-			
 			$accounts = Account::where('parent_id',0)->withCount('children')->get();
-//			$accounts->append("current_amount");
-			
-//			foreach ($accounts as $account){
-//				$account->append("current_amount");
-//			}
 			return view('accounting.charts.index',compact('accounts'));
 		}
-		
+
+
+
 		public function load_children(Account $account)
 		{
 			$children = $account->children()->withCount('children')->orderBy('sorting_number','desc')->orderBy('id','ASC')->get();
-//			foreach ($children as $child)
-//			{
-//				$child->append('current_amount');
-//			}
 			return $children;
 		}
 		
@@ -55,8 +46,6 @@
 		 */
 		public function create(Request $request)
 		{
-			
-			
 			$this->middleware(['permission:create category']);
 			$request->validate([
 				'parent_id' => 'nullable|exists:accounts,id|integer'
@@ -141,7 +130,6 @@
 			
 			$ids = $account->children()->pluck('id')->toArray();
 			$ids[] = $account->id;
-//			return $ids;
 			$accounts = Account::WhereNotIn('id',$ids)->get();
 			return view('accounting.charts.edit',compact('account','accounts'));
 			//
@@ -157,9 +145,7 @@
 		 */
 		public function update(UpdateAccountRequest $request,Account $account)
 		{
-//			return $request->all();
 			$request->update($account);
-			
 			return redirect(route('accounting.accounts.index'));
 		}
 		
@@ -217,8 +203,7 @@
 		
 		public function reports()
 		{
-//			return Account::all();
-			
+
 			return view('accounting.charts.reports.index',[
 				'accounts' => Account::all()
 			]);

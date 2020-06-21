@@ -11,10 +11,10 @@
 	{
 		private function updateItemStockData()
 		{
-//			$this->item->fresh()->update([
-//				'available_qty' => $this->item_current_stock_qty,
-//				'cost' => $this->item_current_cost
-//			]);
+			$this->item->fresh()->update([
+				'available_qty' => $this->item_current_stock_qty,
+				'cost' => $this->item_current_cost
+			]);
 		}
 		
 		/**
