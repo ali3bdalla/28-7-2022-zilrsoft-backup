@@ -79,6 +79,8 @@
 					['is_system_user',false],
 				])->with('gateways.bank')->get();
 			}
+
+//			return  $accounts;
 			return view('accounting.vouchers.create',compact('accounts','users','voucher_types','voucher_type'));
 		}
 		

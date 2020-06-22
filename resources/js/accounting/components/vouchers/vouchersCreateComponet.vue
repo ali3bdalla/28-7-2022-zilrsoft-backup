@@ -9,7 +9,7 @@
 
                         <div dir="rtl" style="padding: 12px">
                             <treeselect
-                                    :disable-branch-nodes="true"
+                                    :disable-branch-nodes="false"
                                     :options="accounts"
                                     :value="init_org_account"
                                     @select="organization_account_selected"
