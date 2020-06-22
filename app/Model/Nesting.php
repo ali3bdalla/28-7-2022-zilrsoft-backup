@@ -4,12 +4,16 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 
 trait Nesting {
-    public function returnNestedTreeIds(Model $builder)
+    public function returnNestedTreeIds(Model $model)
     {
-        $result[] = $builder->id;
-        foreach ($builder->children as $builder_child)
-            foreach ($this->returnNestedTreeIds($builder_child) as $id)
-                $result[] = $id;
+        $result[] = $model->id;
+        $children = $model->children;
+
+        if($children != null) {
+            foreach ($children as $builder_child)
+                foreach ($this->returnNestedTreeIds($builder_child) as $id)
+                    $result[] = $id;
+        }
         return $result;
     }
 
@@ -20,14 +24,19 @@ trait Nesting {
     public static function getAllParentNestedChildren(Model $model)
     {
         $children = [];
-        foreach ($model->children  as $child)
-        {
-            $child_children = self::getAllParentNestedChildren($child);
-            if ($child_children != null)
-                $child['children'] = $child_children;
+        $children_list = $model->children;
+       if($children_list != null)
+       {
+//           dd(1);
+           foreach ($children_list  as $child)
+           {
+               $child_children = self::getAllParentNestedChildren($child);
+               if ($child_children != null)
+                   $child['children'] = $child_children;
 
-            $children[] = $child;
-        }
+               $children[] = $child;
+           }
+       }
 
         if ($children == [])
             return null;

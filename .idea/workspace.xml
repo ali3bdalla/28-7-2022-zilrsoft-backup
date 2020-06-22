@@ -21,12 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/InventoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/InventoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Relationships/AccountRelationships.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Relationships/AccountRelationships.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/cRwwd8qFUgOKn2uyJfDMSstGhBMn7j6T574kQZ0S" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-06-21.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-06-21.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Model/Nesting.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/Nesting.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/ph10S5nSVRqGW3HhBZ0xQyBRMjwxfosAuEziXGAe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-06-22.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-06-22.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +195,7 @@
       <workItem from="1592683075643" duration="4112000" />
       <workItem from="1592741079032" duration="936000" />
       <workItem from="1592766671684" duration="1367000" />
-      <workItem from="1592837316936" duration="622000" />
+      <workItem from="1592837316936" duration="1084000" />
     </task>
     <servers />
   </component>
@@ -260,10 +257,10 @@
     <state x="625" y="270" width="670" height="690" key="search.everywhere.popup" timestamp="1592472042175">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state x="0" y="203" width="1440" height="518" key="search.everywhere.popup.inPresentationMode" timestamp="1592837910544">
+    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode" timestamp="1592839377477">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="203" width="1440" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1592837910544" />
+    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1592839377477" />
     <state x="625" y="270" width="1508" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1592478446937" />
     <state x="625" y="270" width="670" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1592472042175" />
     <state x="625" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1592389494916" />
