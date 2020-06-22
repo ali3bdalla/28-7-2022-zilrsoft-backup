@@ -5,7 +5,8 @@
 	
 	
 	use App\AccountStatistic;
-	use App\Transaction;
+    use App\Payment;
+    use App\Transaction;
 	
 	trait AccountRelationships
 	{
@@ -14,8 +15,12 @@
 		 {
 		 	return $this->hasOne(AccountStatistic::class,'account_id');
 		 }
-		
 
+
+        public function paymentable()
+        {
+            return $this->morphMany(Payment::class,'paymentable');
+		 }
 		public function parent()
 		{
 			return $this->belongsTo($this,'parent_id');

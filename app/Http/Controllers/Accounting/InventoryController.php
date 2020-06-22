@@ -246,7 +246,6 @@ class InventoryController extends Controller
 
     public function delete_purchase(Invoice $beginning)
     {
-//        return $beginning;
         DB::beginTransaction();
         try {
             TransactionsContainer::where('invoice_id', $beginning->id)->forceDelete();
