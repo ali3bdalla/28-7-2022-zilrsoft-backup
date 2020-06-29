@@ -122,7 +122,7 @@
             $data = [];
             $data['creator_id'] =$this->user()->id;
             $data['organization_id'] = $this->user()->organization_id;
-            if ($account->_isCredit()){
+            if ($requestData['is_credit']){
                 $data['creditable_id'] = $account->id;
                 $data['creditable_type'] = Account::class;
                 $data['amount'] = $requestData['credit_amount'];

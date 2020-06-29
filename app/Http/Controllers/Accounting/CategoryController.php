@@ -63,8 +63,8 @@
 		
 		public function store(CreateCategoryRequest $request)
 		{
-			  $request->save();
-			return redirect(route('accounting.categories.index'));
+            return $request->save();
+
 		}
 		
 		/**
@@ -77,7 +77,7 @@
 			$this->middleware(['permission:edit category']);
 			
 			$categories = Category::all();
-			
+
 			$parent_id = 0;
 			return view('accounting.categories.edit',compact('categories','parent_id','category'));
 		}
@@ -100,10 +100,8 @@
 		public function update(UpdateCategoryRequest $request,Category $category)
 		{
 			$this->middleware(['permission:edit category']);
-			
-			$category->update($request->only('name','ar_name','description','ar_description','parent_id'));
-			
-			return redirect(route('accounting.categories.index'));
+
+			return $request->update($category);
 			//
 		}
 		

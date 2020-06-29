@@ -16,13 +16,7 @@
 			'locale_name',
 			'label',
 		];
-		protected $fillable = [
-			'name','ar_name','description','ar_description',
-			'parent_id',
-			'organization_id',
-			'creator_id',
-		
-		];
+		protected $guarded = [];
 		
 
 		

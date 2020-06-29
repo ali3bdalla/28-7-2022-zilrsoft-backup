@@ -31,18 +31,17 @@
 				'description' => "required|min:2|string",
 				'ar_description' => "required|min:2|string",
 				'parent_id' => "required|integer",
-				'cloned_category' => 'nullable|integer|exists:categories,id'
-			
+				'cloned_category' => 'nullable|integer|exists:categories,id',
+				'is_available_online' => 'nullable',
+
 			];
 		}
 		
 		public function save()
 		{
-			
-			
-			
-			// for testing use when there is no any
-			$data = $this->except('_token');
+
+			$data = $this->only('name','ar_name','description','ar_description','parent_id');
+			$data['is_available_online'] =  $this->input('is_available_online') == 'on';
 			$data['organization_id'] = $this->user()->organization_id;
 			$category = $this->user()->categories()->create($data);
 			if ($this->has('isCloned') && $this->has('cloned_category')){
@@ -64,7 +63,8 @@
 			}
 			
 			
-			
+
+			return  redirect(route('accounting.categories.index'));
 		}
 		
 	}

@@ -70,7 +70,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group @error('parent_id')has-error @enderror">
                         <select class="form-control" name="parent_id" placeholder="{{trans('pages/categories.parent_id')
                         }}">
@@ -97,7 +97,28 @@
                         @enderror
 
                     </div>
+
                 </div>
+
+                <div class="col-md-6">
+                    <div class="form-group @error('is_available_online')has-error @enderror">
+                        <toggle-button
+                                :value="true"
+                                name="is_available_online"
+                                :async="true"
+                                :font-size="19" :height='35' :labels="{checked: 'متاح في الاونلاين', unchecked: 'غير متاح  '}"
+                                :width='200'
+                        ></toggle-button>
+                        @error('is_available_online')
+                        <small class="text-danger">
+                            {{ $message}}
+                        </small>
+                        @enderror
+
+                    </div>
+                </div>
+            </div>
+
                 <div class="row">
                     <div class="col-md-5 col-md-offset-1">
                         <button type="submit" class="btn btn-custom-primary">{{ trans('pages/categories.create')
@@ -111,7 +132,6 @@
 
                     </div>
                 </div>
-            </div>
         </form>
     </div>
 @endsection

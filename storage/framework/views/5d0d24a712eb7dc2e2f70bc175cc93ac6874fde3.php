@@ -1,0 +1,1 @@
+<?php /**PATH /usr/local/var/www/vhosts/zilrsoft/resources/views/accounting/transactions/sale.blade.php ENDPATH**/ ?>
