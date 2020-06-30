@@ -21,18 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Category.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/CategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Category/CreateCategoryRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Category/CreateCategoryRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Category/UpdateCategoryRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Category/UpdateCategoryRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Transaction/CreateTransactionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Transaction/CreateTransactionRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_07_134453_create_categories_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_07_134453_create_categories_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_07_134640_create_items_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_07_134640_create_items_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/categories/clone.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/categories/clone.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/categories/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/categories/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/categories/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/categories/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/TransactionsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/TransactionsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Listeners/Account/UpdateAccountStatisticListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Listeners/Account/UpdateAccountStatisticListener.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/LCKwyfo0eETJk07zmzzvXf0EuC1MQkYHXQOuC3Vq" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/6AeEJ8IFoAZJyMl3GGRodHLCyA8pFZRzhjSekz3H" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +198,8 @@
       <workItem from="1592766671684" duration="1367000" />
       <workItem from="1592837316936" duration="3217000" />
       <workItem from="1593333430248" duration="283000" />
-      <workItem from="1593433507593" duration="2049000" />
+      <workItem from="1593433507593" duration="3542000" />
+      <workItem from="1593527090900" duration="1096000" />
     </task>
     <servers />
   </component>
@@ -251,6 +244,10 @@
     <state x="461" y="239" key="SettingsEditor" timestamp="1592424602847">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
+    <state x="0" y="0" key="SettingsEditor.inPresentationMode" timestamp="1593527854139">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="0" y="0" key="SettingsEditor.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593527854139" />
     <state x="461" y="239" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1592424602847" />
     <state x="60" y="28" key="Vcs.Push.Dialog.v2.inPresentationMode" timestamp="1592427198764">
       <screen x="0" y="0" width="1920" height="1200" />
@@ -268,11 +265,11 @@
     <state x="469" y="203" width="670" height="518" key="search.everywhere.popup" timestamp="1592842582231">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode" timestamp="1593444690744">
-      <screen x="0" y="0" width="1920" height="1200" />
+    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode" timestamp="1593527906498">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593333650385" />
-    <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593444690744" />
+    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593527906498" />
+    <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593445709701" />
     <state x="469" y="203" width="670" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1592842582231" />
     <state x="625" y="270" width="670" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1592472042175" />
     <state x="625" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1592389494916" />

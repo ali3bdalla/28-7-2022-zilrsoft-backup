@@ -57,7 +57,6 @@ class UpdateAccountStatisticListener
         }
 
         if ($this->event->transaction->_isCreditAbleAccount()) {
-
             $statisticInstance = $this->event->transaction->_getCreditAbleAccount()->_getStatisticsInstance();
             if ($this->event->transaction->_getCreditAbleAccount()->_isCredit()) {
                 $balance = $statisticInstance->total_amount + $this->event->transaction->amount;

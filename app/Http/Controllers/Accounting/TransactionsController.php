@@ -68,7 +68,6 @@ class TransactionsController extends Controller
 
     public function destroy(Transaction $transaction,DeleteTransactionsRequest $request)
     {
-
         return $request->erase($transaction->container);
     }
 
