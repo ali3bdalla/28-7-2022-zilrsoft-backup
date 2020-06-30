@@ -41,12 +41,12 @@ class ChangeItemsVatCommand extends Command
         $newSaleVat = 15;
         $newPurchaseVat = 15;
         $this->changePureItemsVat($newSaleVat,$newPurchaseVat);
-        $this->changeKitItemsVat($newSaleVat,$newPurchaseVat);
+        $this->changeKitItemsVat();
     }
 
 
 
-    public function changeKitItemsVat($newSaleVat,$newPurchaseVat)
+    public function changeKitItemsVat()
     {
         $items = Item::where([
             ['is_kit',true],
