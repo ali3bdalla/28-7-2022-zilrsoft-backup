@@ -41,7 +41,7 @@ class ChangeItemsVatCommand extends Command
         $newSaleVat = 15;
         $newPurchaseVat = 15;
         $this->changePureItemsVat($newSaleVat,$newPurchaseVat);
-//        $this->changeKitItemsVat($newSaleVat,$newPurchaseVat);
+        $this->changeKitItemsVat($newSaleVat,$newPurchaseVat);
     }
 
 
@@ -52,14 +52,29 @@ class ChangeItemsVatCommand extends Command
             ['is_kit',true],
         ])->get();
 
+
         foreach ($items  as $item)
         {
+            $tax = 0;
             foreach ($item->items as $kitItem)
             {
-                $newKitItemTax = $kitItem->item->vts * $kitItem->qty;
+                $newKitItemTax = ($kitItem->subtotal * $kitItem->item->vts) / 100;
+                $newSubtotal = $newKitItemTax + $kitItem->subtotal;
+                $kitItem->update([
+                    'tax' => $newKitItemTax,
+                    'net' => $newSubtotal,
+                ]);
 
-                dd($newKitItemTax,$kitItem->tax);
+                $tax+=$newKitItemTax;
             }
+
+
+            $net = $item->data->subtotal + $tax;
+            $item->data()->update([
+                'tax' => $tax,
+                'net' => $net,
+            ]);
+
         }
     }
 
