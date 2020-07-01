@@ -330,7 +330,7 @@
             </div>
 
             <div class="number">
-                <div class="label">{{ __('pages/invoice.vat') }} (5%):
+                <div class="label">{{ __('pages/invoice.vat') }} :
                 </div>
                 <div class="value"> {{ $printable_tax_net['tax']}}</div>
                 {{--                ({{ $invoice->getVat('purchase') }}%)--}}

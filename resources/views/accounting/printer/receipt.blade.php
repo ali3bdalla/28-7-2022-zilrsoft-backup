@@ -164,7 +164,7 @@
                             <td><span>المجموع</span></td>
                             <td><span>الخصم</span></td>
                             {{--                        <td><span>الصافي</span></td>--}}
-                            <td><span>الضريبة (5%)</span></td>
+                            <td><span>الضريبة </span></td>
                             <td><span>النهائي</span></td>
                         @endif
                     </tr>
@@ -241,7 +241,7 @@
 
         <div class="col-xs-12">
             <div class="header_title">
-                <span class="pull-right"> الضريبة (5%) </span>
+                <span class="pull-right"> الضريبة  </span>
                 <span class="pull-left"> {{money_format('%i ريال',$invoice->tax) }}</span>
             </div>
         </div>

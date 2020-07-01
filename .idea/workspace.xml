@@ -20,7 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/ChangeItemsVatCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/ChangeItemsVatCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/receipt.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/receipt.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +197,9 @@
       <workItem from="1592837316936" duration="3217000" />
       <workItem from="1593333430248" duration="283000" />
       <workItem from="1593433507593" duration="3542000" />
-      <workItem from="1593527090900" duration="1972000" />
+      <workItem from="1593527090900" duration="2075000" />
+      <workItem from="1593542582330" duration="106000" />
+      <workItem from="1593588972511" duration="100000" />
     </task>
     <servers />
   </component>
@@ -261,13 +265,17 @@
     <state x="469" y="203" width="670" height="518" key="search.everywhere.popup" timestamp="1592842582231">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode" timestamp="1593537061873">
+    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode" timestamp="1593589046578">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593537061873" />
+    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593589046578" />
     <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593445709701" />
     <state x="469" y="203" width="670" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1592842582231" />
     <state x="625" y="270" width="670" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1592472042175" />
     <state x="625" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1592389494916" />
+    <state x="231" y="293" key="vcs.readOnlyHandler.ReadOnlyStatusDialog.inPresentationMode" timestamp="1593589037711">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="231" y="293" key="vcs.readOnlyHandler.ReadOnlyStatusDialog.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593589037711" />
   </component>
 </project>
