@@ -21,8 +21,49 @@
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/receipt.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/receipt.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ProviderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ProviderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/helper/kithelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/helper/kithelper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/3sMOyF1KdeIzxF0GR4vRtGyj66rk20JpzuRSQd3u" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/08f28d456161d4535fe297340c62cc48248678c3.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/0cc05771bf4df9c08aec0b3a8691f66bcd5317f8.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/1a470150c5b7cab26ee28c69b762ab40080f3f7f.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/215667a86ae825cfb0874ee0501c2b318b4f6686.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/237df3976bdc6eb97ac8c671d0b4f10443f5442e.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/24d76d0e0d95d637279422ad59be9190ce427af2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/32058aaba4f6188e13a9dbeda8ac2906259cb40f.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/3f7fe70066523fd2f89786ba4ada10486458c6c1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/4031b3a49875a7c51247153185cb80f3af132cb6.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/4cd8175ced54e8efa5f09239eacec634fbb19ae4.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/5d0d24a712eb7dc2e2f70bc175cc93ac6874fde3.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/5e90d7a358cae4815ed44e0a646bce2356fd1588.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/640a9270fee3bd3fc799ff937aee0e452ec37a33.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/6486d07922737cebf23525b0a543ab83774e32f2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/65f6bea89740fe0a4f9d3465ee39a57533636790.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/6c5ab94014a77c39be122979b820c802fba7f23e.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/863c22c2a7e365d3390051a7777c76030aa61c6b.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/97d1c7ef86efd6f8a6d4405e29370dbca888b14b.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/9b5e40574ed52d138c1a033667f8488cd7af4d14.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/9b8cb155a42fe5d8ba23a21fbcc9887440cf98ba.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/a5ca5de683c5579b5f63022fc3eb903fbdbf8a0d.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/afe67329d7fa5a07e27779bc41ccb5bb854e2506.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/bca65c5045536b31c32fc1ae3aaa2ad81e1fe86c.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/c1c2f1838b605f8cd1ba894bc53cd3e7bb40c390.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/c8db1941e32cda4af42681c00236e1c3a896ba04.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/cc7da64ba13abc34075d2c8076d35bb4cada248f.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/cc899dd9ba6f6ddf46ef348bb6c7d31d50d69c5d.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/cfbd688f2b164cb0c23acf55de5485466a40c46e.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/d263cea9432d98b8fe878e02fdd5d4260ccd3952.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/df38c791579e548c6ca913a4bcc8761ffce12898.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/e99600b9a5f1bf5f903d3c0d8bfe15f162445888.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/ebb2693707eebd698ff09e3cb4379ac93fb157a8.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/ee8e2c88b1392d128198f8171a3dd8c3fae1c525.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/f01a427a4d0f7713dff7bb719f9cb62851377632.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/f4fad30b7f05b66011d7300c85e71fedca36c92b.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/f7e1231e25975fe5704e5fc7e173eb4d0e2f6bae.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/fce19bdd1855c5807158ac11b5a2cbd94050bd3e.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +240,8 @@
       <workItem from="1593433507593" duration="3542000" />
       <workItem from="1593527090900" duration="2075000" />
       <workItem from="1593542582330" duration="106000" />
-      <workItem from="1593588972511" duration="100000" />
+      <workItem from="1593588972511" duration="259000" />
+      <workItem from="1593594844178" duration="970000" />
     </task>
     <servers />
   </component>
@@ -249,9 +291,10 @@
     </state>
     <state x="0" y="0" key="SettingsEditor.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593527854139" />
     <state x="461" y="239" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1592424602847" />
-    <state x="60" y="28" key="Vcs.Push.Dialog.v2.inPresentationMode" timestamp="1592427198764">
-      <screen x="0" y="0" width="1920" height="1200" />
+    <state x="0" y="0" key="Vcs.Push.Dialog.v2.inPresentationMode" timestamp="1593595040259">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
+    <state x="0" y="0" key="Vcs.Push.Dialog.v2.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593595040259" />
     <state x="60" y="28" key="Vcs.Push.Dialog.v2.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1592427198764" />
     <state x="748" y="519" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592406328356">
       <screen x="0" y="0" width="1920" height="1200" />
@@ -265,10 +308,10 @@
     <state x="469" y="203" width="670" height="518" key="search.everywhere.popup" timestamp="1592842582231">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode" timestamp="1593589046578">
+    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode" timestamp="1593595373835">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593589046578" />
+    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593595373835" />
     <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593445709701" />
     <state x="469" y="203" width="670" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1592842582231" />
     <state x="625" y="270" width="670" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1592472042175" />

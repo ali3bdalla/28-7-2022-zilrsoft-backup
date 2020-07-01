@@ -475,8 +475,8 @@
                     validation: trans('validation'),
                     datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
                     BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
-                    defaultVatSaleValue: 5,
-                    defaultVatPurchaseValue: 5,
+                    defaultVatSaleValue: 15,
+                    defaultVatPurchaseValue: 15,
                 },
 
             };

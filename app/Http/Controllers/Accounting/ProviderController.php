@@ -134,7 +134,7 @@
 			$result['net'] = 0;
 			
 			
-			$mathCore = new MathCore();
+//			$mathCore = new MathCore();
 			
 			foreach ($children as $item){
 				

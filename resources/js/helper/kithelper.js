@@ -1,4 +1,4 @@
-const kithelper = {
+exports.kithelper = {
     update_kit_data_depend_on_qty: function (kit) {
         kit.total = kit.total * kit.qty;
         kit.subtotal = kit.subtotal * kit.qty;
@@ -9,5 +9,3 @@ const kithelper = {
         return kit;
     }
 };
-
-exports.kithelper;

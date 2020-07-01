@@ -211,7 +211,7 @@
                                 <span v-on="on">{{ item.barcode}}</span>
 
                             </template>
-                            <span>{{ parseFloat(item.cost * (1+ (item.vtp/100))).toFixed(2) }}</span>
+                            <span>{{ parseFloat(item.cost * (1 + (item.vtp/100))).toFixed(2) }}</span>
                         </v-tooltip>
                     </td>
                     <td>
@@ -626,8 +626,8 @@
                     validation: trans('validation'),
                     datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
                     BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
-                    defaultVatSaleValue: 5,
-                    defaultVatPurchaseValue: 5,
+                    defaultVatSaleValue: 15,
+                    defaultVatPurchaseValue: 15,
                 },
                 LiveTimer: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() +
                     ' ' +
@@ -993,6 +993,7 @@
                     kit.total = response.data.total;
                     kit.discount = response.data.discount;
                     kit.subtotal = response.data.subtotal;
+                    kit.tax = response.data.tax;
                     kit.net = response.data.net;
                     appVm.invoiceData.items.splice(db.model.index(appVm.invoiceData.items, kit.id), 1, kit);
                     appVm.updateInvoiceData();
@@ -1065,7 +1066,8 @@
 
                 item.total = ItemAccounting.getTotal(item.price, item.qty);
                 item.subtotal = ItemAccounting.getSubtotal(item.total, item.discount);
-                item.tax = ItemAccounting.getTax(item.subtotal, item.vts, true);// this for vat purchase => vtp
+                //
+                item.tax = item.is_kit ? item.data.tax : ItemAccounting.getTax(item.subtotal, item.vts, true) ;// this for vat purchase => vtp
                 item.net = ItemAccounting.getNet(item.subtotal, item.tax, true);
                 return item;
             },
