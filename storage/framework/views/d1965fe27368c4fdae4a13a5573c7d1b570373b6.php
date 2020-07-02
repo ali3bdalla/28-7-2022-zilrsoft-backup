@@ -1,0 +1,1 @@
+<?php /**PATH /usr/local/var/www/vhosts/zilrsoft/Modules/Web/Resources/views/categories/layout/gridCollection.blade.php ENDPATH**/ ?>

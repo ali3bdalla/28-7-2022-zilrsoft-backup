@@ -8,5 +8,7 @@
 
 
 @section('content')
-
+    <div class="col-md-12">
+        hello world
+    </div>
 @endsection
