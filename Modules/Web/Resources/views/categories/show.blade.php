@@ -8,9 +8,7 @@
             @include('web::items.layout.verticalScrollableCollection')
         @else
             <grid-items-collection-component :category-id="{{ $category->id }}">
-
             </grid-items-collection-component>
-{{--            @include('web::items.layout.gridCollection')--}}
         @endif
 
 @endsection

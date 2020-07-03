@@ -6,9 +6,7 @@
             <?php echo $__env->make('web::items.layout.verticalScrollableCollection', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <?php else: ?>
             <grid-items-collection-component :category-id="<?php echo e($category->id); ?>">
-
             </grid-items-collection-component>
-
         <?php endif; ?>
 
 <?php $__env->stopSection(); ?>

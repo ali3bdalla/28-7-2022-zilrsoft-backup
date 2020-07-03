@@ -3,7 +3,7 @@
         <div class="row">
             @foreach($categories as $category)
 
-                    <a href="{{ route('web.categories.show',$category->id) }}" class="col-lg-4 col-xs-6">
+                    <a href="{{ route('web.categories.show',$category->id) }}" class="col-lg-4 col-6 col-xs-6 ">
                         <div class="single-banner">
 {{--                            <div class="row">--}}
 {{--                                <div class="col-md-6">--}}

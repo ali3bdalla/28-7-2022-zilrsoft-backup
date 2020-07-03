@@ -20,7 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Web/Resources/views/categories/layout/subCategoriesCollection.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/Resources/views/categories/layout/subCategoriesCollection.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Web/Resources/views/categories/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/Resources/views/categories/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/RrHSDx5UZUujyTjoHt5Is3jOWciWG4dkAg1NHBwQ" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/RrHSDx5UZUujyTjoHt5Is3jOWciWG4dkAg1NHBwQ" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/16c626e578ba967da4e15ff2363f216aa1f37485.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/16c626e578ba967da4e15ff2363f216aa1f37485.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/4ed811734f411ce40d2b4daefc2e51c6554e042c.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/4ed811734f411ce40d2b4daefc2e51c6554e042c.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/7461088e6343a5e7d9b96eb87bd5dfa15c265316.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/a47d7a755a642b208b69a9815ff2db468e1880c6.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/d1965fe27368c4fdae4a13a5573c7d1b570373b6.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -238,7 +246,7 @@
       <workItem from="1593711669031" duration="5817000" />
       <workItem from="1593765363358" duration="14000" />
       <workItem from="1593765838261" duration="935000" />
-      <workItem from="1593778912619" duration="20172000" />
+      <workItem from="1593778912619" duration="20438000" />
     </task>
     <servers />
   </component>
@@ -318,11 +326,11 @@
     <state x="469" y="203" width="670" height="518" key="search.everywhere.popup" timestamp="1593789451993">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode" timestamp="1593814006805">
+    <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode" timestamp="1593814251831">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593812459193" />
-    <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593814006805" />
+    <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593814251831" />
     <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />
     <state x="469" y="203" width="670" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1593789451993" />
     <state x="625" y="270" width="670" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1592472042175" />
