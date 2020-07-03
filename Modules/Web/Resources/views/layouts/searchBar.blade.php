@@ -4,7 +4,7 @@
             <div class="col-lg-2 col-md-2">
                 <div class="logo">
                     <a href="./index.html">
-                        <img src="img/logo.png" alt="">
+                        <img src="{{ asset('Web/template/img/logo.png') }}" alt="">
                     </a>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                                 <table>
                                     <tbody>
                                     <tr>
-                                        <td class="si-pic"><img src="img/select-product-1.jpg" alt=""></td>
+                                        <td class="si-pic"><img src="{{ asset('Web/template/img/select-product-1.jpg') }}" alt=""></td>
                                         <td class="si-text">
                                             <div class="product-selected">
                                                 <p>$60.00 x 1</p>
@@ -47,7 +47,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="si-pic"><img src="img/select-product-2.jpg" alt=""></td>
+                                        <td class="si-pic"><img src="{{ asset('Web/template/img/select-product-2.jpg')}}" alt=""></td>
                                         <td class="si-text">
                                             <div class="product-selected">
                                                 <p>$60.00 x 1</p>

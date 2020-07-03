@@ -3,6 +3,7 @@
 namespace Modules\Web\Http\Controllers;
 
 use App\Category;
+use App\Item;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -15,11 +16,18 @@ class WebController extends Controller
      */
     public function index()
     {
+//        dd(app()->getLocale());
         $categories = Category::where([
             ['parent_id' , 0 ],
             [ 'is_available_online' ,true]
             ])->get();
-        return view('web::index',compact('categories'));
+        $items = Item::where([
+            ['is_available_online',false],
+            ['available_qty',">",1],
+        ])->inRandomOrder()->take(10)->get();
+
+//        return  $items;
+        return view('web::index',compact('categories','items'));
     }
 
     /**

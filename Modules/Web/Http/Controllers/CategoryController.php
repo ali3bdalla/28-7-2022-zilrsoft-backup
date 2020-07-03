@@ -3,6 +3,7 @@
 namespace Modules\Web\Http\Controllers;
 
 use App\Category;
+use App\Item;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -44,8 +45,10 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $items = Item::whereIn('category_id',$category->returnNestedTreeIds($category))->paginate(20);
+        $categories = $category->children;
 //        return  $category;
-        return view('web::categories.show',compact('category'));
+        return view('web::categories.show',compact('category','items','categories'));
     }
 
     /**

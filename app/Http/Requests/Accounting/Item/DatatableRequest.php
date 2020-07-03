@@ -38,7 +38,6 @@
 			
 			$query = Item::with('creator','data','items');
 			
-			$initQuery = $query;
 			if ($this->has('barcode') && $this->filled('barcode')){
 				$query = $query->where('barcode','LIKE','%'.$this->barcode.'%');
 			}

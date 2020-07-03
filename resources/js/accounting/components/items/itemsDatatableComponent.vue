@@ -415,7 +415,7 @@
             advancedSearchUpdated(event) {
                 this.filters.categoryIds = event.categoryIds;
                 this.filters.filters = event.searchFilters;
-                if (event.categoryIds == []) {
+                if (event.categoryIds === []) {
                     this.filters.filters = [];
                 }
 

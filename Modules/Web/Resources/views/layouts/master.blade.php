@@ -10,13 +10,14 @@
     </head>
     <body>
 
-
-        @includeIf('web::layouts.header')
-
-        <div class="container-fluid">
-            @yield('content')
+        <div id="app">
+            @includeIf('web::layouts.header')
+            <div class="container-fluid">
+                @yield('content')
+            </div>
         </div>
         @includeIf("web::layouts.footer")
+
 
     </body>
 </html>

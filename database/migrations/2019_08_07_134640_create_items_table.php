@@ -42,6 +42,10 @@
                 $table->float('vtp_for_print')->default(15);
 				$table->integer('available_qty')->default(0);
 				$table->enum('status',['active','pending'])->default('active');
+
+
+
+
 				$table->softDeletes();
 				$table->timestamps();
 			});

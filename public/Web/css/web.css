@@ -1,3 +1,23 @@
 .grid-image {
     height: 250px;
 }
+.grid-image-50 {
+    height: 124px;
+    margin-bottom: 1px;
+}
+.loading-more .loading
+{
+    font-size: 22px;
+    color: #663333;
+    margin-right: 6px;
+    position: relative;
+    top: 7px;
+}
+
+.sk-fading-circle {
+    margin: 10px auto !important;
+}
+
+.hand-mouse {
+    cursor: pointer;
+}

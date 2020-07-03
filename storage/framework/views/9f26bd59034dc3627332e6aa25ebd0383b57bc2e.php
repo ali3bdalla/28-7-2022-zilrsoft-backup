@@ -10,13 +10,14 @@
     </head>
     <body>
 
-
-        <?php if ($__env->exists('web::layouts.header')) echo $__env->make('web::layouts.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
-        <div class="container-fluid">
-            <?php echo $__env->yieldContent('content'); ?>
+        <div id="app">
+            <?php if ($__env->exists('web::layouts.header')) echo $__env->make('web::layouts.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            <div class="container-fluid">
+                <?php echo $__env->yieldContent('content'); ?>
+            </div>
         </div>
         <?php if ($__env->exists("web::layouts.footer")) echo $__env->make("web::layouts.footer", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
 
     </body>
 </html>

@@ -13,16 +13,16 @@ use App\DatabaseHelpers\KitHelper;
 use App\Processers\ItemProcesser;
 use App\Relationships\ItemRelationships;
 use App\Relationships\KitRelationships;
-use App\Scopes\OrganizationScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
+use \Modules\Web\Models\Item as WebItem;
 
 class Item extends BaseModel
 {
     use ItemFreshHelper, ItemRelationships, ItemAttributes, KitAttributes, KitRelationships, ItemProcesser, ItemHelper, KitHelper;
     use CoreItem, ItemTransactionAccounting, ItemFormattedQuery;
-    //
+    use WebItem;
+
 
     use SoftDeletes;
 
