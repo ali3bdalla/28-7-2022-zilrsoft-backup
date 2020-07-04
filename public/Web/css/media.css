@@ -1,9 +1,23 @@
 
 @media all {
+
+
     .grid-image {
         height: 150px;
         max-height: 150px;
+        padding: 3px;
     }
+
+    .main-categories .grid-image {
+        height: 250px;
+        max-height: 250px;
+        padding: 3px;
+    }
+    /*.grid-image-250 {*/
+    /*    height: 250px;*/
+    /*    max-height: 250px;*/
+    /*    padding: 3px;*/
+    /*}*/
 }
 
 /* Small devices (landscape phones, 576px and up) */

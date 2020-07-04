@@ -1,14 +1,16 @@
-
-
-<div class="banner-section spad">
+<div class="banner-section spad  main-categories">
     <div class="container-fluid">
         <div class="row">
             @foreach($categories as $category)
-                <a href="{{ route('web.categories.show',$category->id) }}" class="col-lg-4">
-                    <div class="single-banner">
-                        <img src="{{$category->web_cover_url }}" alt=""  class="grid-image">
-                        <div class="inner-text">
-                            <h4 class="grid-title">{{ $category->locale_name }}</h4>
+
+                <a href="{{ route('web.categories.show',$category->id) }}" class="col-lg-4  col-cell">
+                    <div class="card sub-category-cell">
+                        <div class="grid-image">
+                            <img src="{{$category->web_cover_url }}" alt=""  class="grid-image card-img">
+
+                        </div>
+                        <div class="card-body">
+                            <span> {{ $category->locale_name }}</span>
                         </div>
                     </div>
                 </a>

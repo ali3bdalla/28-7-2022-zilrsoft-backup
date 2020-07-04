@@ -2,7 +2,9 @@
 
 @section('content')
 
+        @include('web::categories.layout.sliderCollection')
         @include('web::layouts.breacrumb',['page' => 'show-category'])
+
         @if($category->children()->count() >= 1)
             @include('web::categories.layout.subCategoriesCollection')
             @include('web::items.layout.verticalScrollableCollection')

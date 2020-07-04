@@ -7,7 +7,7 @@
                  style="transform: translate3d(-2880px, 0px, 0px); transition: all 0s ease 0s; width: 8640px;">
                 
                 <div class="owl-item cloned" style="width: 1440px;">
-                    <div class="single-hero-items set-bg" data-setbg="<?php echo e(asset('Web/template/img/side/1.jpeg')); ?>"
+                    <div class="single-hero-items set-bg" data-setbg="<?php echo e(asset('Web/template/img/side/3.jpeg')); ?>"
                          style="background-size: cover;background-image: url('<?php echo e(asset('Web/template/img/side/1.jpeg')); ?>');">
                         <div class="container">
                             <div class="row">
@@ -27,7 +27,7 @@
 
 
                 <div class="owl-item cloned" style="width: 1440px;">
-                    <div class="single-hero-items set-bg" data-setbg="<?php echo e(asset('Web/template/img/side/2.jpeg')); ?>"
+                    <div class="single-hero-items set-bg" data-setbg="<?php echo e(asset('Web/template/img/side/4.jpeg')); ?>"
                          style="background-size: cover;background-image: url('<?php echo e(asset('Web/template/img/side/2.jpeg')); ?>');">
                         <div class="container">
                             <div class="row">
@@ -50,11 +50,11 @@
             
         </div>
     </div>
+    
+    
+    
+    
+    
 
 
-
-
-
-
-
-</section><?php /**PATH /usr/local/var/www/vhosts/zilrsoft/Modules/Web/Resources/views/items/layout/sliderCollections.blade.php ENDPATH**/ ?>
+</section><?php /**PATH /usr/local/var/www/vhosts/zilrsoft/Modules/Web/Resources/views/categories/layout/sliderCollection.blade.php ENDPATH**/ ?>

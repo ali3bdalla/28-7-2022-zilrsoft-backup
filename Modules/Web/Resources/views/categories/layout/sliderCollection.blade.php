@@ -7,7 +7,7 @@
                  style="transform: translate3d(-2880px, 0px, 0px); transition: all 0s ease 0s; width: 8640px;">
                 {{--                @foreach($items as $item)--}}
                 <div class="owl-item cloned" style="width: 1440px;">
-                    <div class="single-hero-items set-bg" data-setbg="{{ asset('Web/template/img/side/1.jpeg') }}"
+                    <div class="single-hero-items set-bg" data-setbg="{{ asset('Web/template/img/side/3.jpeg') }}"
                          style="background-size: cover;background-image: url('{{ asset('Web/template/img/side/1.jpeg') }}');">
                         <div class="container">
                             <div class="row">
@@ -27,7 +27,7 @@
 
 
                 <div class="owl-item cloned" style="width: 1440px;">
-                    <div class="single-hero-items set-bg" data-setbg="{{ asset('Web/template/img/side/2.jpeg') }}"
+                    <div class="single-hero-items set-bg" data-setbg="{{ asset('Web/template/img/side/4.jpeg') }}"
                          style="background-size: cover;background-image: url('{{ asset('Web/template/img/side/2.jpeg') }}');">
                         <div class="container">
                             <div class="row">
@@ -50,11 +50,11 @@
             {{--                @endforeach--}}
         </div>
     </div>
-{{--    <div class="owl-nav">--}}
-{{--        <button type="button" role="presentation" class="owl-prev"><i class="ti-angle-left"></i></button>--}}
-{{--        <button type="button" role="presentation" class="owl-next"><i class="ti-angle-right"></i></button>--}}
-{{--    </div>--}}
-{{--    <div class="owl-dots disabled"></div>--}}
+    {{--    <div class="owl-nav">--}}
+    {{--        <button type="button" role="presentation" class="owl-prev"><i class="ti-angle-left"></i></button>--}}
+    {{--        <button type="button" role="presentation" class="owl-next"><i class="ti-angle-right"></i></button>--}}
+    {{--    </div>--}}
+    {{--    <div class="owl-dots disabled"></div>--}}
 
 
 </section>
