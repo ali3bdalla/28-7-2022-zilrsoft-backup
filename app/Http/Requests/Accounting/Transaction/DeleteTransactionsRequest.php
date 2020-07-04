@@ -6,7 +6,6 @@ use App\TransactionsContainer;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
-use MongoDB\Driver\Exception\LogicException;
 
 class DeleteTransactionsRequest extends FormRequest
 {

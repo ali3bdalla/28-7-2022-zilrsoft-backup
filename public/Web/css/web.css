@@ -1,5 +1,35 @@
-.grid-image {
-    height: 250px;
+
+
+
+.sub-category-cell {
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 2px #cccbcb;
+}
+
+.sub-category-cell img {
+    border-radius: 0px;
+}
+
+
+.sub-category-cell .card-body {
+    border-top: 2px solid #ddd;
+    padding:10px 20px;
+    height: 48px !important;
+    min-height: 48px !important;
+    max-height: 48px !important;
+    overflow: hidden !important;
+}
+
+
+.sub-category-cell .card-body span {
+   font-size: 19px;
+    color: #e7ab3c;
+
+}
+
+.margin-btn-10 {
+    margin-bottom: 10px;
 }
 .grid-image-50 {
     height: 124px;

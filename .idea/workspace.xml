@@ -20,15 +20,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/Web/css/media.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Web/Resources/views/categories/layout/subCategoriesCollection.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/Resources/views/categories/layout/subCategoriesCollection.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Web/Resources/views/categories/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/Resources/views/categories/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/RrHSDx5UZUujyTjoHt5Is3jOWciWG4dkAg1NHBwQ" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/RrHSDx5UZUujyTjoHt5Is3jOWciWG4dkAg1NHBwQ" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Web/Resources/views/layouts/styles.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/Resources/views/layouts/styles.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Transaction/DeleteTransactionsRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Transaction/DeleteTransactionsRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Web/css/web.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/Web/css/web.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/44/d1/44d142505dd1a3b497197e2f459d2aec779e9ed6" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/44/d1/44d142505dd1a3b497197e2f459d2aec779e9ed6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/c2/4f/c24f92750673b2169c8cb7bfbc999cfa8457dc7c" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/c2/4f/c24f92750673b2169c8cb7bfbc999cfa8457dc7c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/RrHSDx5UZUujyTjoHt5Is3jOWciWG4dkAg1NHBwQ" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/mkBIHBK7yxJ74DgmzJWDaiQjBeSmhLfkCBAVn1Pf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/16c626e578ba967da4e15ff2363f216aa1f37485.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/16c626e578ba967da4e15ff2363f216aa1f37485.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/4ed811734f411ce40d2b4daefc2e51c6554e042c.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/4ed811734f411ce40d2b4daefc2e51c6554e042c.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/7461088e6343a5e7d9b96eb87bd5dfa15c265316.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/a47d7a755a642b208b69a9815ff2db468e1880c6.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/d1965fe27368c4fdae4a13a5573c7d1b570373b6.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/25977a0ce7d9cc8d0673a5cb2175d89dba2186b7.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/25977a0ce7d9cc8d0673a5cb2175d89dba2186b7.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +249,9 @@
       <workItem from="1593711669031" duration="5817000" />
       <workItem from="1593765363358" duration="14000" />
       <workItem from="1593765838261" duration="935000" />
-      <workItem from="1593778912619" duration="20438000" />
+      <workItem from="1593778912619" duration="20901000" />
+      <workItem from="1593854462503" duration="9000" />
+      <workItem from="1593869621358" duration="2914000" />
     </task>
     <servers />
   </component>
@@ -326,11 +331,11 @@
     <state x="469" y="203" width="670" height="518" key="search.everywhere.popup" timestamp="1593789451993">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode" timestamp="1593814251831">
+    <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode" timestamp="1593874549627">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593812459193" />
-    <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593814251831" />
+    <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593874549627" />
     <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />
     <state x="469" y="203" width="670" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1593789451993" />
     <state x="625" y="270" width="670" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1592472042175" />
@@ -344,5 +349,16 @@
     </state>
     <state x="231" y="293" key="vcs.readOnlyHandler.ReadOnlyStatusDialog.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593589037711" />
     <state x="450" y="369" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.1440.900@0.0.1440.900" timestamp="1593784355162" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/Modules/Web/Resources/views/categories/layout/subCategoriesCollection.blade.php</url>
+          <line>17</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

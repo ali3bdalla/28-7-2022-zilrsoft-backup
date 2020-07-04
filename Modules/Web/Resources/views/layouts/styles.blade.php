@@ -14,4 +14,5 @@
 <link rel="stylesheet" href="{{ asset('Web/template/css/slicknav.min.css')}}" type="text/css">
 <link rel="stylesheet" href="{{ asset('Web/template/css/style.css')}}" type="text/css">
 <link rel="stylesheet" href="{{ asset('css/web.css') }}">
+<link rel="stylesheet" href="{{ asset('Web/css/media.css') }}">
 <link rel="stylesheet" href="{{ asset('Web/css/web.css') }}">

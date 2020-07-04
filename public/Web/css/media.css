@@ -1,0 +1,40 @@
+
+@media all {
+    .grid-image {
+        height: 200px;
+        max-height: 200px;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    .grid-image {
+        height: 250px;
+        max-height: 250px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {
+    .grid-image {
+        height: 350px;
+        max-height: 350px;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .grid-image {
+        height: 250px;
+        max-height: 250px;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .grid-image {
+        height: 350px;
+        max-height: 350px;
+
+    }
+}

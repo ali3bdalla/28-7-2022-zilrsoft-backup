@@ -14,4 +14,5 @@
 <link rel="stylesheet" href="<?php echo e(asset('Web/template/css/slicknav.min.css')); ?>" type="text/css">
 <link rel="stylesheet" href="<?php echo e(asset('Web/template/css/style.css')); ?>" type="text/css">
 <link rel="stylesheet" href="<?php echo e(asset('css/web.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('Web/css/media.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('Web/css/web.css')); ?>"><?php /**PATH /usr/local/var/www/vhosts/zilrsoft/Modules/Web/Resources/views/layouts/styles.blade.php ENDPATH**/ ?>
