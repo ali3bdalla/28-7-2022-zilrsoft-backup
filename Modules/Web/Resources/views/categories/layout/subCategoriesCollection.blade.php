@@ -1,9 +1,9 @@
-<div class="banner-section spad">
+<div class="banner-section spad subcategories">
     <div class="container-fluid">
         <div class="row">
             @foreach($categories as $category)
 
-                    <a href="{{ route('web.categories.show',$category->id) }}" class="col-lg-4 col-6 col-xs-6 ">
+                    <a href="{{ route('web.categories.show',$category->id) }}" class="col-lg-4 col-6 col-xs-6 col-cell">
                         <div class="card sub-category-cell">
                             <div class="grid-image">
                                 <img src="{{$category->web_cover_url }}" alt=""  class="grid-image card-img">
