@@ -14533,7 +14533,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.product-item[data-v-7a035b9c] {\n    background-color: #fff;\n    border-bottom: 1px solid #eee;\n    padding: 5px;\n}\n.pi-pic img[data-v-7a035b9c] {\n    background-color: white;\n}\n.product-buttons[data-v-7a035b9c] {\n    padding-top: 10px;\n}\n.product-buttons ul[data-v-7a035b9c] {\n    list-style: none;\n    display: inline-flex;\n    align-items: center;\n    justify-items: legacy;\n}\n.product-buttons ul li[data-v-7a035b9c]\n{\n    margin: 13px;\n}\n.product-buttons ul li a[data-v-7a035b9c]\n{\n    color: #777777;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.product-item[data-v-7a035b9c] {\n    margin-bottom: 5px;\n    background-color: #fff;\n    border-bottom: 1px solid #eee;\n    padding: 5px;\n}\n.pi-pic img[data-v-7a035b9c] {\n    background-color: white;\n}\n.product-buttons[data-v-7a035b9c] {\n    padding-top: 10px;\n}\n.product-buttons ul[data-v-7a035b9c] {\n    list-style: none;\n    display: inline-flex;\n    align-items: center;\n    justify-items: legacy;\n}\n.product-buttons ul li[data-v-7a035b9c]\n{\n\n    margin: 5px 20px;\n}\n.product-buttons ul li a[data-v-7a035b9c]\n{\n    color: #777777;\n}\n.product-buttons ul li a i[data-v-7a035b9c] {\n    font-size: 30px;\n}\n\n", ""]);
 
 // exports
 
@@ -16668,7 +16668,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-5" }, [
       _c("div", { staticClass: "pi-pic" }, [
         _c("img", {
-          attrs: { src: "/Web/template/img/products/product-1.jpg", alt: "" }
+          attrs: { src: "/Web/template/img/products/product-2.jpg", alt: "" }
         })
       ])
     ])

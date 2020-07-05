@@ -23,7 +23,7 @@
 
            <div class="col-5">
                <div class="pi-pic">
-                   <img src="/Web/template/img/products/product-1.jpg" alt="">
+                   <img src="/Web/template/img/products/product-2.jpg" alt="">
                </div>
            </div>
 
@@ -51,6 +51,7 @@
 
 <style scoped>
     .product-item {
+        margin-bottom: 5px;
         background-color: #fff;
         border-bottom: 1px solid #eee;
         padding: 5px;
@@ -72,7 +73,8 @@
     }
     .product-buttons ul li
     {
-        margin: 13px;
+
+        margin: 5px 20px;
     }
 
 
@@ -81,5 +83,9 @@
         color: #777777;
     }
 
+
+    .product-buttons ul li a i {
+        font-size: 30px;
+    }
 
 </style>
