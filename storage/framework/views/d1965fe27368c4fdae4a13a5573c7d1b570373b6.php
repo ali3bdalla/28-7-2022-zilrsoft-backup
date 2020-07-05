@@ -17,4 +17,5 @@
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
     </div>
-</div><?php /**PATH /usr/local/var/www/vhosts/zilrsoft/Modules/Web/Resources/views/categories/layout/gridCollection.blade.php ENDPATH**/ ?>
+</div>
+<?php /**PATH /usr/local/var/www/vhosts/zilrsoft/Modules/Web/Resources/views/categories/layout/gridCollection.blade.php ENDPATH**/ ?>

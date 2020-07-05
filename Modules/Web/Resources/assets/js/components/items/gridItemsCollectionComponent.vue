@@ -1,10 +1,8 @@
 <template>
     <section class="product-shop spad">
-        <div class="container">
+        <div class="">
+<!--            container-fl-->
             <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
-                    <search-filters-component :category-id="categoryId" @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated" @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"></search-filters-component>
-                </div>
                 <div class="col-lg-9 order-1 order-lg-2">
                     <div class="product-show-option">
                         <div class="row">
@@ -25,7 +23,9 @@
                     </div>
                     <div class="product-list">
                         <div class="row">
-                            <cell-item-component v-for="item in items" :key="item.id" :item="item"></cell-item-component>
+                            <div class="col-md-6 col-sm-12 col-12 col-xs-12" v-for="item in items" :key="item.id" >
+                                <cell-item-component :item="item"></cell-item-component>
+                            </div>
                         </div>
                     </div>
                     <div class="loading-more" v-show="showLoading">
@@ -35,6 +35,13 @@
 <!--                        </a>-->
                     </div>
                 </div>
+
+
+                <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+                    <search-filters-component :category-id="categoryId" @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated" @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"></search-filters-component>
+                </div>
+
+
             </div>
         </div>
     </section>

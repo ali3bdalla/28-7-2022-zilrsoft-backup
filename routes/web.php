@@ -21,6 +21,6 @@
 
 
 Route::get('/',function (){
-    //route('accounting.login')
-    return redirect("/web-app");
+    return  route('accounting.login');
+//    return redirect("/web-app");
 });
