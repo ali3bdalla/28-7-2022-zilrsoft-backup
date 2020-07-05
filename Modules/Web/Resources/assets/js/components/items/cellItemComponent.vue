@@ -88,4 +88,8 @@
         font-size: 30px;
     }
 
+
+    .product-item .pi-text {
+       padding-top: 10px;
+    }
 </style>
