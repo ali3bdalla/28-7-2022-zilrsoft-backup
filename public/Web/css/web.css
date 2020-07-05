@@ -75,3 +75,7 @@ body {
     background: #ffffff54;
     color: white;
 }
+
+.vm--modal {
+    overflow: scroll !important;
+}

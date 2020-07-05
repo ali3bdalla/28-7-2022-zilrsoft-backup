@@ -1,29 +1,28 @@
 <template>
     <section class="product-shop spad">
         <div class="">
-<!--            container-fl-->
             <div class="row">
-                <div class="col-lg-9 order-1 order-lg-2">
+
+<!--                <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">-->
+<!--                    <search-filters-component  @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated" :category-id="categoryId" @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated" @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"></search-filters-component>-->
+<!--                </div>-->
+
+<!--                -->
+                <!--                order-1 order-lg-2-->
+                <div class="col-lg-12">
                     <div class="product-show-option">
                         <div class="row">
-                            <div class="col-lg-7 col-md-7">
-                                <div class="select-option">
-                                    <select class="sorting" style="display: none;">
-                                        <option value="">Default Sorting</option>
-                                    </select><div class="nice-select sorting" tabindex="0"><span class="current">Default Sorting</span><ul class="list"><li data-value="" class="option selected">Default Sorting</li></ul></div>
-                                    <select class="p-show" style="display: none;">
-                                        <option value="">Show:</option>
-                                    </select><div class="nice-select p-show" tabindex="0"><span class="current">Show:</span><ul class="list"><li data-value="" class="option selected">Show:</li></ul></div>
-                                </div>
+                            <div class="col-4 text-left">
+                                <search-filters-component  @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated" :category-id="categoryId" @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated" @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"></search-filters-component>
                             </div>
-                            <div class="col-lg-5 col-md-5 text-right">
+                            <div class="col-8 text-right">
                                 <p>Show 01- 09 Of 36 Product</p>
                             </div>
                         </div>
                     </div>
                     <div class="product-list">
                         <div class="row">
-                            <div class="col-md-6 col-sm-12 col-12 col-xs-12" v-for="item in items" :key="item.id" >
+                            <div class="col-md-4 col-sm-12 col-12 col-xs-12" v-for="item in items" :key="item.id" >
                                 <cell-item-component :item="item"></cell-item-component>
                             </div>
                         </div>
@@ -36,10 +35,6 @@
                     </div>
                 </div>
 
-
-                <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
-                    <search-filters-component  @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated" :category-id="categoryId" @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated" @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"></search-filters-component>
-                </div>
 
 
             </div>
@@ -131,5 +126,7 @@
 </script>
 
 <style scoped>
-
+    .product-shop {
+        padding-top: 10px;
+    }
 </style>

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 window.axios = require('axios');
 import VueSpinners from 'vue-spinners'
+import VModal from 'vue-js-modal'
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.axios.defaults.headers.common['Accept'] = 'application/json';
@@ -37,6 +38,7 @@ window.inArray = function(needle, haystack) {
 
 
 Vue.use(VueSpinners);
+Vue.use(VModal);
 const app = new Vue({
     el: '#app',
 });
