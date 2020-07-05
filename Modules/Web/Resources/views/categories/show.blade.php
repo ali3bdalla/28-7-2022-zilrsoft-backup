@@ -5,7 +5,8 @@
         @include('web::categories.layout.sliderCollection')
         @include('web::layouts.breacrumb',['page' => 'show-category'])
 
-        @if($category->children()->count() >= 1)
+
+        @if($category->parent_id == 0)
             @include('web::categories.layout.subCategoriesCollection')
             @include('web::items.layout.verticalScrollableCollection')
         @else

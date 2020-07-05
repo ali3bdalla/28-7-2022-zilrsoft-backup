@@ -2,6 +2,7 @@
 
 namespace Modules\Web\Http\Requests\Item;
 
+use App\Category;
 use App\Item;
 use App\ItemFilters;
 use Illuminate\Foundation\Http\FormRequest;
@@ -36,7 +37,6 @@ class ApiGetItemsRequest extends FormRequest
         $query = new Item;
 
 
-//        return $this->input('attributes');
         if ($this->has('attributes') && $this->filled('attributes')){
             $filterFinalCollection = [];
             foreach ($this->input('attributes') as  $filter){
@@ -60,9 +60,18 @@ class ApiGetItemsRequest extends FormRequest
 
 
         if($this->has('category_id') && $this->filled('category_id'))
-            $query->where('category_id',$this->input('category_id'));
+        {
+            $category = Category::find($this->input('category_id'));
+            if(!empty($category))
+            {
+                $categoryIds = $category->returnNestedTreeIds($category);
+                $query = $query->whereIn('category_id',$categoryIds);
+            }
+
+        }
+
         if($this->has('categories_id_array') && $this->filled('categories_id_array'))
-            $query->whereIn('category_id',$this->input('categories_id_array'));
+            $query = $query->whereIn('category_id',$this->input('categories_id_array'));
 
         return  $query->with('category')->paginate(18);
     }

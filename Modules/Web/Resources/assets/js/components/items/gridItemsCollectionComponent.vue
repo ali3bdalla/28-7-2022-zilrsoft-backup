@@ -38,7 +38,7 @@
 
 
                 <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
-                    <search-filters-component :category-id="categoryId" @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated" @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"></search-filters-component>
+                    <search-filters-component  @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated" :category-id="categoryId" @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated" @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"></search-filters-component>
                 </div>
 
 
@@ -55,6 +55,7 @@
         name: "gridItemsCollectionComponent",
         data:function() {
           return {
+                selectedSubCategoryId:0,
                 priceRange:{},
                 currentPage:1,
                 lastPage:1,
@@ -80,12 +81,13 @@
             {
                 if(!this.showLoading)
                 {
+                    let categoryId = this.selectedSubCategoryId === 0 ? this.categoryId : this.selectedSubCategoryId;
                     this.showLoading = true;
                     let appVm = this;
 
                     axios.post(getRequestUrl('items'),{
                         page:this.currentPage,
-                        category_id: this.categoryId,
+                        category_id: categoryId,
                         attributes: this.attributes,
                     }).then(function(response){
                         let data = response.data.data;
@@ -116,6 +118,13 @@
                 this.getItems();
             },
 
+
+            subCategoryHasBeenUpdated(event)
+            {
+                this.selectedSubCategoryId = event.selectedSubCategoryId;
+                this.items = [];
+                this.getItems();
+            }
 
         }
     }

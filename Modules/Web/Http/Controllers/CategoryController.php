@@ -7,6 +7,7 @@ use App\Item;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Web\Http\Requests\Category\ApiGetSubCategoriesRequest;
 
 class CategoryController extends Controller
 {
@@ -80,5 +81,11 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function apiGetSubCategories(ApiGetSubCategoriesRequest $request,Category $category)
+    {
+        return $request->getData($category);
     }
 }

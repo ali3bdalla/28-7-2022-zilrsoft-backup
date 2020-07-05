@@ -18,6 +18,14 @@
             <a href="#" class="filter-btn">Filter</a>
         </div>
 
+        <div class="filter-widget" v-if="subcategories.length >= 1">
+            <h4 class="fw-title">SubCategories</h4>
+            <div class="fw-tags">
+                <a @click="toggleSubCategory(subCategory)" class="hand-mouse"  v-for="subCategory in subcategories" :class="{'bg-primary text-white':selectedSubCategoryId === subCategory.id}" :key="subCategory.id"> {{ subCategory.locale_name }}</a>
+            </div>
+        </div>
+
+
         <div class="filter-widget" v-for="attr in attributes" v-if="isLoaded">
             <h4 class="fw-title">{{ attr.locale_name }}</h4>
             <div class="fw-tags">
@@ -34,6 +42,8 @@
         name: "searchFiltersComponent",
         data:function(){
           return {
+              selectedSubCategoryId:0,
+              subcategories:[],
               isLoaded:true,
               selectedAttributes:[],
               attributes:[]
@@ -41,9 +51,33 @@
         },
         created() {
             this.getFilters();
+            this.getSubCategories();
         },
         methods:{
 
+            toggleSubCategory(subCategory)
+            {
+                if(subCategory.id === this.selectedSubCategoryId)
+                    this.selectedSubCategoryId = 0;
+                else
+                    this.selectedSubCategoryId = subCategory.id;
+
+
+                this.$emit('subCategoryHasBeenUpdated',{
+                    selectedSubCategoryId:this.selectedSubCategoryId
+                });
+                this.getFilters(this.selectedSubCategoryId);
+            },
+            getSubCategories()
+            {
+                let appVm = this;
+                axios.get(getRequestUrl(`subcategories/${this.categoryId}`)).then(function(response){
+                    appVm.subcategories = response.data;
+                }).catch(function(error) {
+                    alert(`server error : ${error}`);
+                }).finally(function () {
+                });
+            },
             getJsonObj(value,attr)
             {
                 return  {
@@ -55,12 +89,12 @@
             {
                 return window.inArray(obj,this.selectedAttributes);
             },
-            getFilters()
+            getFilters(categoryId = 0)
             {
+                categoryId = categoryId === 0 ? this.categoryId : categoryId;
                 let appVm = this;
-                axios.get(getRequestUrl(`filters?category_id=${this.categoryId}`)).then(function(response){
+                axios.get(getRequestUrl(`filters?category_id=${categoryId}`)).then(function(response){
                     appVm.attributes = response.data;
-
                 }).catch(function(error) {
                     alert(`server error : ${error}`);
                 }).finally(function () {

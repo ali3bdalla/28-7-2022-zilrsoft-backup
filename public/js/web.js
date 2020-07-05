@@ -14269,11 +14269,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['categoryId'],
   name: "searchFiltersComponent",
   data: function data() {
     return {
+      selectedSubCategoryId: 0,
+      subcategories: [],
       isLoaded: true,
       selectedAttributes: [],
       attributes: []
@@ -14281,8 +14291,24 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.getFilters();
+    this.getSubCategories();
   },
   methods: {
+    toggleSubCategory: function toggleSubCategory(subCategory) {
+      if (subCategory.id === this.selectedSubCategoryId) this.selectedSubCategoryId = 0;else this.selectedSubCategoryId = subCategory.id;
+      this.$emit('subCategoryHasBeenUpdated', {
+        selectedSubCategoryId: this.selectedSubCategoryId
+      });
+      this.getFilters(this.selectedSubCategoryId);
+    },
+    getSubCategories: function getSubCategories() {
+      var appVm = this;
+      axios.get(getRequestUrl("subcategories/".concat(this.categoryId))).then(function (response) {
+        appVm.subcategories = response.data;
+      })["catch"](function (error) {
+        alert("server error : ".concat(error));
+      })["finally"](function () {});
+    },
     getJsonObj: function getJsonObj(value, attr) {
       return {
         filter_id: attr.id,
@@ -14293,8 +14319,10 @@ __webpack_require__.r(__webpack_exports__);
       return window.inArray(obj, this.selectedAttributes);
     },
     getFilters: function getFilters() {
+      var categoryId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      categoryId = categoryId === 0 ? this.categoryId : categoryId;
       var appVm = this;
-      axios.get(getRequestUrl("filters?category_id=".concat(this.categoryId))).then(function (response) {
+      axios.get(getRequestUrl("filters?category_id=".concat(categoryId))).then(function (response) {
         appVm.attributes = response.data;
       })["catch"](function (error) {
         alert("server error : ".concat(error));
@@ -14447,6 +14475,7 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
   name: "gridItemsCollectionComponent",
   data: function data() {
     return {
+      selectedSubCategoryId: 0,
       priceRange: {},
       currentPage: 1,
       lastPage: 1,
@@ -14467,11 +14496,12 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
     },
     getItems: function getItems() {
       if (!this.showLoading) {
+        var categoryId = this.selectedSubCategoryId === 0 ? this.categoryId : this.selectedSubCategoryId;
         this.showLoading = true;
         var appVm = this;
         axios.post(getRequestUrl('items'), {
           page: this.currentPage,
-          category_id: this.categoryId,
+          category_id: categoryId,
           attributes: this.attributes
         }).then(function (response) {
           var data = response.data.data;
@@ -14495,6 +14525,11 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
     priceFilterRangeHasBeenUpdated: function priceFilterRangeHasBeenUpdated(event) {
       this.items = [];
       this.priceRange = event.priceRange;
+      this.getItems();
+    },
+    subCategoryHasBeenUpdated: function subCategoryHasBeenUpdated(event) {
+      this.selectedSubCategoryId = event.selectedSubCategoryId;
+      this.items = [];
       this.getItems();
     }
   }
@@ -16484,6 +16519,37 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
+      _vm.subcategories.length >= 1
+        ? _c("div", { staticClass: "filter-widget" }, [
+            _c("h4", { staticClass: "fw-title" }, [_vm._v("SubCategories")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "fw-tags" },
+              _vm._l(_vm.subcategories, function(subCategory) {
+                return _c(
+                  "a",
+                  {
+                    key: subCategory.id,
+                    staticClass: "hand-mouse",
+                    class: {
+                      "bg-primary text-white":
+                        _vm.selectedSubCategoryId === subCategory.id
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.toggleSubCategory(subCategory)
+                      }
+                    }
+                  },
+                  [_vm._v(" " + _vm._s(subCategory.locale_name))]
+                )
+              }),
+              0
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _vm._l(_vm.attributes, function(attr) {
         return _vm.isLoaded
           ? _c("div", { staticClass: "filter-widget" }, [
@@ -16748,6 +16814,7 @@ var render = function() {
             _c("search-filters-component", {
               attrs: { "category-id": _vm.categoryId },
               on: {
+                subCategoryHasBeenUpdated: _vm.subCategoryHasBeenUpdated,
                 selectedAttributesHasBeenUpdated:
                   _vm.selectedAttributesHasBeenUpdated,
                 priceFilterRangeHasBeenUpdated:

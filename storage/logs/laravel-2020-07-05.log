@@ -390,3 +390,98 @@
 #31 /usr/local/var/www/vhosts/zilrsoft/server.php(21): require_once('/usr/local/var/...')
 #32 {main}
 "} 
+[2020-07-05 16:14:07] producation.ERROR: Command "module:make-requrest" is not defined.
+
+Did you mean one of these?
+    module:delete
+    module:disable
+    module:dump
+    module:enable
+    module:install
+    module:list
+    module:make
+    module:make-command
+    module:make-controller
+    module:make-event
+    module:make-factory
+    module:make-job
+    module:make-listener
+    module:make-mail
+    module:make-middleware
+    module:make-migration
+    module:make-model
+    module:make-notification
+    module:make-policy
+    module:make-provider
+    module:make-request
+    module:make-resource
+    module:make-rule
+    module:make-seed
+    module:make-test
+    module:migrate
+    module:migrate-refresh
+    module:migrate-reset
+    module:migrate-rollback
+    module:migrate-status
+    module:publish
+    module:publish-config
+    module:publish-migration
+    module:publish-translation
+    module:route-provider
+    module:seed
+    module:setup
+    module:unuse
+    module:update
+    module:use
+    module:v6:migrate {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"module:make-requrest\" is not defined.
+
+Did you mean one of these?
+    module:delete
+    module:disable
+    module:dump
+    module:enable
+    module:install
+    module:list
+    module:make
+    module:make-command
+    module:make-controller
+    module:make-event
+    module:make-factory
+    module:make-job
+    module:make-listener
+    module:make-mail
+    module:make-middleware
+    module:make-migration
+    module:make-model
+    module:make-notification
+    module:make-policy
+    module:make-provider
+    module:make-request
+    module:make-resource
+    module:make-rule
+    module:make-seed
+    module:make-test
+    module:migrate
+    module:migrate-refresh
+    module:migrate-reset
+    module:migrate-rollback
+    module:migrate-status
+    module:publish
+    module:publish-config
+    module:publish-migration
+    module:publish-translation
+    module:route-provider
+    module:seed
+    module:setup
+    module:unuse
+    module:update
+    module:use
+    module:v6:migrate at /usr/local/var/www/vhosts/zilrsoft/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /usr/local/var/www/vhosts/zilrsoft/vendor/symfony/console/Application.php(235): Symfony\\Component\\Console\\Application->find('module:make-req...')
+#1 /usr/local/var/www/vhosts/zilrsoft/vendor/symfony/console/Application.php(147): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 /usr/local/var/www/vhosts/zilrsoft/vendor/laravel/framework/src/Illuminate/Console/Application.php(93): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /usr/local/var/www/vhosts/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(131): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /usr/local/var/www/vhosts/zilrsoft/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 

@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 Route::prefix('/web')->middleware('lang:en')->group(function(){
     Route::post('items',"ItemController@apiGetItems");
     Route::get('filters',"FilterController@apiGetFilters");
+    Route::get('subcategories/{category}',"CategoryController@apiGetSubCategories");
 });
 //Route::middleware('auth:api')->get('/web', function (Request $request) {
 //    return $request->user();
