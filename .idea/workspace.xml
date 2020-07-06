@@ -20,28 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/laravel-plugin.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CategoryFilters.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CategoryFilters.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Filter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Filter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/FilterValues.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/FilterValues.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/08b0c84bba8d0469e07f5dfe8ef58ac58d2e7f4e.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/16c626e578ba967da4e15ff2363f216aa1f37485.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/25977a0ce7d9cc8d0673a5cb2175d89dba2186b7.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/377c4aa57cbfa488f01c022ee79b792a7a5ac8a5.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/3f8dd1f68e4ae3f20a71767891727b98d40fc33e.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/4ed811734f411ce40d2b4daefc2e51c6554e042c.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/6cf03c7839b0c824e5014dd294eb66e48be15921.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/7461088e6343a5e7d9b96eb87bd5dfa15c265316.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/7b018dd298dec20f40091757c80e424fc03093d3.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/9f26bd59034dc3627332e6aa25ebd0383b57bc2e.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/a47d7a755a642b208b69a9815ff2db468e1880c6.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/cf27fd0ef0ccc0b5b68e2ec025aea8d0bb30576a.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/d1965fe27368c4fdae4a13a5573c7d1b570373b6.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/d6574f7b0e8f0c5b0dd02a5bf7b0e657acdceec6.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/e6480d80292132df4cc29315c4d8409fdcdf16b9.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-06-16.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/Mc5Bl4nwrvUzv7Vnw20W6OO4477xpgTRtBvQOWho" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/Mc5Bl4nwrvUzv7Vnw20W6OO4477xpgTRtBvQOWho" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -267,7 +248,7 @@
       <workItem from="1593950066862" duration="5019000" />
       <workItem from="1593975737832" duration="2799000" />
       <workItem from="1594019062321" duration="315000" />
-      <workItem from="1594057709349" duration="200000" />
+      <workItem from="1594057709349" duration="387000" />
     </task>
     <servers />
   </component>
