@@ -20,24 +20,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/laravel-plugin.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Web/Resources/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/Resources/assets/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Web/Resources/assets/js/components/filters/searchFiltersComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/Resources/assets/js/components/filters/searchFiltersComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Web/Resources/assets/js/components/items/gridItemsCollectionComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/Resources/assets/js/components/items/gridItemsCollectionComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Web/Resources/views/categories/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/Resources/views/categories/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Web/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Web/css/web.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/Web/css/web.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/web.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/web.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/3e/dd/3edde3f25dff4da47224c7dd4cbbc117580b429b" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/3e/dd/3edde3f25dff4da47224c7dd4cbbc117580b429b" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/44/d1/44d142505dd1a3b497197e2f459d2aec779e9ed6" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/44/d1/44d142505dd1a3b497197e2f459d2aec779e9ed6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/92/ec/92ec5abc0159ae505f8e0b683db2a3bb201b46d0" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/92/ec/92ec5abc0159ae505f8e0b683db2a3bb201b46d0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/c2/4f/c24f92750673b2169c8cb7bfbc999cfa8457dc7c" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/c2/4f/c24f92750673b2169c8cb7bfbc999cfa8457dc7c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/2CeroGCw48GaIJRE3Q3Ub9FH8Eszybd7euwRMiKB" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/QZomXyqlRmh7jqSCd76N42EpBEaZK6ZUT0ya1FN1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/Qc6zFYzTdvPZjXKyc3mWn1mSyZpkvwvXScxRHHVx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/vwpIWJwMTNfARZ05VGaNyOybeKnymB6gaiOLbvuI" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/4ed811734f411ce40d2b4daefc2e51c6554e042c.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/4ed811734f411ce40d2b4daefc2e51c6554e042c.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CategoryFilters.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CategoryFilters.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Filter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Filter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/FilterValues.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/FilterValues.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/08b0c84bba8d0469e07f5dfe8ef58ac58d2e7f4e.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/16c626e578ba967da4e15ff2363f216aa1f37485.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/25977a0ce7d9cc8d0673a5cb2175d89dba2186b7.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/377c4aa57cbfa488f01c022ee79b792a7a5ac8a5.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/3f8dd1f68e4ae3f20a71767891727b98d40fc33e.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/4ed811734f411ce40d2b4daefc2e51c6554e042c.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/6cf03c7839b0c824e5014dd294eb66e48be15921.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/7461088e6343a5e7d9b96eb87bd5dfa15c265316.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/7b018dd298dec20f40091757c80e424fc03093d3.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/9f26bd59034dc3627332e6aa25ebd0383b57bc2e.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/a47d7a755a642b208b69a9815ff2db468e1880c6.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/cf27fd0ef0ccc0b5b68e2ec025aea8d0bb30576a.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/d1965fe27368c4fdae4a13a5573c7d1b570373b6.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/d6574f7b0e8f0c5b0dd02a5bf7b0e657acdceec6.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/e6480d80292132df4cc29315c4d8409fdcdf16b9.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-06-16.log" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +197,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/public/Web/template/img/side" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="Laravel.SettingsForm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -261,7 +265,9 @@
       <workItem from="1593869621358" duration="6080000" />
       <workItem from="1593890857720" duration="698000" />
       <workItem from="1593950066862" duration="5019000" />
-      <workItem from="1593975737832" duration="2765000" />
+      <workItem from="1593975737832" duration="2799000" />
+      <workItem from="1594019062321" duration="315000" />
+      <workItem from="1594057709349" duration="200000" />
     </task>
     <servers />
   </component>
@@ -312,16 +318,16 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="348" y="309" key="NewPhpFileDialog.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593724701066" />
-    <state x="346" y="159" key="SettingsEditor" timestamp="1593778893816">
+    <state x="346" y="159" key="SettingsEditor" timestamp="1594019250161">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="0" key="SettingsEditor.inPresentationMode" timestamp="1593806977159">
-      <screen x="0" y="0" width="1920" height="1200" />
+    <state x="0" y="0" key="SettingsEditor.inPresentationMode" timestamp="1594057724258">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="0" key="SettingsEditor.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593762068918" />
+    <state x="0" y="0" key="SettingsEditor.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1594057724258" />
     <state x="0" y="0" key="SettingsEditor.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593806977159" />
     <state x="0" y="23" key="SettingsEditor.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622018491" />
-    <state x="346" y="159" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1593778893816" />
+    <state x="346" y="159" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1594019250161" />
     <state x="461" y="239" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1592424602847" />
     <state x="346" y="178" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1593621933337" />
     <state x="0" y="0" key="Vcs.Push.Dialog.v2.inPresentationMode" timestamp="1593595040259">
@@ -341,10 +347,10 @@
     <state x="469" y="221" width="670" height="505" key="search.everywhere.popup" timestamp="1593950143500">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="0" y="203" width="1440" height="518" key="search.everywhere.popup.inPresentationMode" timestamp="1593978562753">
+    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode" timestamp="1594057974310">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="203" width="1440" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593978562753" />
+    <state x="0" y="203" width="1508" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1594057974310" />
     <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593882496251" />
     <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />
     <state x="469" y="203" width="670" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1593890944209" />
