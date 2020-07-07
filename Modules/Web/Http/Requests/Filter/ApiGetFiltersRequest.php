@@ -3,6 +3,10 @@
 namespace Modules\Web\Http\Requests\Filter;
 
 use App\Category;
+use App\CategoryFilters;
+use App\Filter;
+use App\Item;
+use App\ItemFilters;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ApiGetFiltersRequest extends FormRequest
@@ -30,15 +34,32 @@ class ApiGetFiltersRequest extends FormRequest
         return true;
     }
 
+
     public function getData()
     {
         $category = Category::find($this->input('category_id'));
-        $result = [];
-        foreach ($category->filters as $filter)
-        {
-            $filter->values = $filter->values()->take(20)->get();
-            $result[] = $filter;
-        }
-        return $result;
+//        foreach ($category->filters as $filter)
+//        {
+////            $values_values = [];
+////            foreach ($filter->values as $value)
+////            {
+////                $itemsIds = ItemFilters::where([
+////                    [ 'filter_id',$filter->id],
+////                    [ 'filter_value',$value->id],
+////                ])->pluck('item_id');
+////                $value->items_count = Item::where('category_id',$category->id)->whereIn('id',$itemsIds)->count();
+////                $values_values[] = $value;
+////            }
+//            $filter->values = $values_values;
+//            $result[] = $filter;
+//        }
+        return $category->filters;
     }
 }
+
+//
+//$category = Category::find($this->input('category_id'));
+////        $ids = $category->returnNestedTreeIds($category);
+//$result = [];
+////        $filters = CategoryFilters::whereIn('category_id',$ids)->get();
+//$filters = ;

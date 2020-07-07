@@ -24,41 +24,41 @@
                 <!--                    <a href="#" class="filter-btn">Filter</a>-->
                 <!--                </div>-->
 
-<!--                <div class="filter-widget" v-if="subcategories.length >= 1">-->
+                <div class="filter-widget" v-if="subcategories.length >= 1">
 <!--                     <h4 class="fw-title">SubCategories</h4>-->
-<!--                    <div class="fw-tags">-->
-<!--                        <a @click="toggleSubCategory(subCategory)" class="hand-mouse"-->
-<!--                           v-for="subCategory in subcategories"-->
-<!--                           :class="{'bg-primary text-white':selectedSubCategoryId === subCategory.id}"-->
-<!--                           :key="subCategory.id"> {{ subCategory.locale_name }}</a>-->
-<!--                    </div>-->
-<!--                </div>-->
+                    <div class="fw-tags">
+                        <a @click="toggleSubCategory(subCategory)" class="hand-mouse"
+                           v-for="subCategory in subcategories"
+                           :class="{'bg-primary text-white':selectedSubCategoryId === subCategory.id}"
+                           :key="subCategory.id"> {{ subCategory.locale_name }}</a>
+                    </div>
+                </div>
 
 
                 <div class="row">
-                    <div class="col-md-6" v-if="subcategories.length >= 1">
-                        <div class="filter-widget">
-                            <h4 class="fw-title">
-                                <input  type="checkbox" @change="toggleSubCategoriesPanel" :checked="isSubCategoriesPanelOpen"> Types</h4>
+<!--                    <div class="col-md-6" v-if="subcategories.length >= 1">-->
+<!--                        <div class="filter-widget">-->
+<!--                            <h4 class="fw-title">-->
+<!--                                <input  type="checkbox" @change="toggleSubCategoriesPanel" :checked="isSubCategoriesPanelOpen"> Types</h4>-->
 
-                            <div class="fw-brand-check" v-show="isSubCategoriesPanelOpen">
-                                <div class="row">
-                                    <div class="col-md-6 col-6" v-for="subCategory in subcategories" :key="subCategory.id">
-                                        <div class="bc-item">
-                                            <label :for="'category_value_' + subCategory.id">
-                                                {{ subCategory.locale_name}}
-                                                <input @click="toggleSubCategory(subCategory)" type="checkbox"
-                                                       :id="'category_value_' + subCategory.id"
-                                                       :checked="selectedSubCategoryId === subCategory.id">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<!--                            <div class="fw-brand-check" v-show="isSubCategoriesPanelOpen">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-md-6 col-6" v-for="subCategory in subcategories" :key="subCategory.id">-->
+<!--                                        <div class="bc-item">-->
+<!--                                            <label :for="'category_value_' + subCategory.id">-->
+<!--                                                {{ subCategory.locale_name}}-->
+<!--                                                <input @click="toggleSubCategory(subCategory)" type="checkbox"-->
+<!--                                                       :id="'category_value_' + subCategory.id"-->
+<!--                                                       :checked="selectedSubCategoryId === subCategory.id">-->
+<!--                                                <span class="checkmark"></span>-->
+<!--                                            </label>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                        </div>
-                    </div>
+<!--                        </div>-->
+<!--                    </div>-->
 
 
                     <div class="col-md-6" v-for="attr in attributes" v-if="isLoaded">
@@ -66,14 +66,15 @@
                             <h4 class="fw-title">
                                 <input @change="toggleFilterChildrenLayoutAvailability(attr)" type="checkbox"
                                        :checked="attr.openChildrenLayout">
-                                {{ attr.locale_name }} ({{attr.values.length}})</h4>
+                                {{ attr.locale_name }}</h4>
 
-                            <div class="fw-brand-check" v-show="attr.openChildrenLayout">
-                                <div class="row">
-                                    <div class="col-md-6 col-6" v-for="val in attr.values" :key="val.id">
+                            <div class="fw-brand-check" v-show="attr.openChildrenLayout ">
+                                <circle-spin class="loading" v-show="isCompleteLoadFilterValues && loadingFilterId==attr.id"></circle-spin>
+                                <div class="row" v-show="!isCompleteLoadFilterValues">
+                                    <div class="col-md-6 col-6" v-for="val in attr.values" :key="val.id" v-show="val.items_count >= 1">
                                         <div class="bc-item">
                                             <label :for="'value_' + val.id">
-                                                {{ val.locale_name}}
+                                                {{ val.locale_name}} ({{ val.items_count}})
                                                 <input @change="toggleSelectedAttributes(val,attr)" type="checkbox"
                                                        :id="'value_' + val.id"
                                                        :checked="isInArray(JSON.stringify(getJsonObj(val,attr)))">
@@ -93,7 +94,7 @@
 
 
                 <div class="form-group">
-                    <button @click="closeModel" class="btn btn-primary btn-block applyBtn">Apple</button>
+                    <button @click="closeModel" class="btn btn-primary btn-block applyBtn">Apply</button>
                 </div>
             </div>
         </modal>
@@ -109,6 +110,8 @@
 
         data: function () {
             return {
+                loadingFilterId:0,
+                isCompleteLoadFilterValues:false,
                 isSubCategoriesPanelOpen: false,
                 isFilterLayoutOpen: false,
                 selectedSubCategoryId: 0,
@@ -133,14 +136,37 @@
                 this.isSubCategoriesPanelOpen = !this.isSubCategoriesPanelOpen;
             },
             toggleFilterChildrenLayoutAvailability(filter) {
+                this.isCompleteLoadFilterValues = !filter.openChildrenLayout;
                 let freshFilter = filter;
+                this.loadingFilterId = filter.id;
                 filter.openChildrenLayout = !filter.openChildrenLayout;
                 this.attributes.splice(window.getIndex(freshFilter, this.attributes), 1, filter)
+                if(filter.openChildrenLayout)
+                  this.getFilterValues(filter);
+            },
+            getFilterValues(filter)
+            {
+                let freshFilter = filter;
+                let appVm = this;
+                axios.get(getRequestUrl(`filters/values/${filter.id}/${this.getCategoryId()}`)).then(function (response) {
+                    filter.values = response.data;
+                    appVm.attributes.splice(window.getIndex(freshFilter, appVm.attributes), 1, filter)
+                    appVm.isCompleteLoadFilterValues = !filter.openChildrenLayout;
+
+                }).catch(function (error) {
+                    alert(`server error : ${error}`);
+                }).finally(function () {
+                });
             },
             showFiltersLayout() {
                 this.$modal.show('filtersLayoutModal');
             },
 
+
+            getCategoryId()
+            {
+               return  this.selectedSubCategoryId === 0 ? this.categoryId : this.selectedSubCategoryId;
+            },
             toggleSubCategory(subCategory) {
                 if (subCategory.id === this.selectedSubCategoryId)
                     this.selectedSubCategoryId = 0;

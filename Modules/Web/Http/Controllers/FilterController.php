@@ -2,10 +2,14 @@
 
 namespace Modules\Web\Http\Controllers;
 
+use App\Filter;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Web\Http\Requests\Filter\ApiGetFiltersRequest;
+use Modules\Web\Http\Requests\Filter\ApiGetFilterValuesRequest;
+
 
 class FilterController extends Controller
 {
@@ -81,5 +85,10 @@ class FilterController extends Controller
     public function apiGetFilters(ApiGetFiltersRequest $request)
     {
         return $request->getData();
+    }
+
+    public function apiGetFilterValues(ApiGetFilterValuesRequest $request,Filter $filter,Category $category)
+    {
+        return $request->getData($filter,$category);
     }
 }

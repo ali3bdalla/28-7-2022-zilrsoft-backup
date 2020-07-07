@@ -20,6 +20,7 @@ Route::prefix('/web')->middleware('lang:en')->group(function(){
     Route::post('items',"ItemController@apiGetItems");
     Route::get('filters',"FilterController@apiGetFilters");
     Route::get('subcategories/{category}',"CategoryController@apiGetSubCategories");
+    Route::get('filters/values/{filter}/{category}',"FilterController@apiGetFilterValues");
 });
 //Route::middleware('auth:api')->get('/web', function (Request $request) {
 //    return $request->user();

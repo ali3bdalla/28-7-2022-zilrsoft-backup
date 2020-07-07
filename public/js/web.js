@@ -14382,11 +14382,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['categoryId'],
   name: "searchFiltersComponent",
   data: function data() {
     return {
+      loadingFilterId: 0,
+      isCompleteLoadFilterValues: false,
       isSubCategoriesPanelOpen: false,
       isFilterLayoutOpen: false,
       selectedSubCategoryId: 0,
@@ -14408,12 +14411,29 @@ __webpack_require__.r(__webpack_exports__);
       this.isSubCategoriesPanelOpen = !this.isSubCategoriesPanelOpen;
     },
     toggleFilterChildrenLayoutAvailability: function toggleFilterChildrenLayoutAvailability(filter) {
+      this.isCompleteLoadFilterValues = !filter.openChildrenLayout;
       var freshFilter = filter;
+      this.loadingFilterId = filter.id;
       filter.openChildrenLayout = !filter.openChildrenLayout;
       this.attributes.splice(window.getIndex(freshFilter, this.attributes), 1, filter);
+      if (filter.openChildrenLayout) this.getFilterValues(filter);
+    },
+    getFilterValues: function getFilterValues(filter) {
+      var freshFilter = filter;
+      var appVm = this;
+      axios.get(getRequestUrl("filters/values/".concat(filter.id, "/").concat(this.getCategoryId()))).then(function (response) {
+        filter.values = response.data;
+        appVm.attributes.splice(window.getIndex(freshFilter, appVm.attributes), 1, filter);
+        appVm.isCompleteLoadFilterValues = !filter.openChildrenLayout;
+      })["catch"](function (error) {
+        alert("server error : ".concat(error));
+      })["finally"](function () {});
     },
     showFiltersLayout: function showFiltersLayout() {
       this.$modal.show('filtersLayoutModal');
+    },
+    getCategoryId: function getCategoryId() {
+      return this.selectedSubCategoryId === 0 ? this.categoryId : this.selectedSubCategoryId;
     },
     toggleSubCategory: function toggleSubCategory(subCategory) {
       if (subCategory.id === this.selectedSubCategoryId) this.selectedSubCategoryId = 0;else this.selectedSubCategoryId = subCategory.id;
@@ -16763,20 +16783,58 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "container-fluid filters-layout-modal" }, [
+            _vm.subcategories.length >= 1
+              ? _c("div", { staticClass: "filter-widget" }, [
+                  _c(
+                    "div",
+                    { staticClass: "fw-tags" },
+                    _vm._l(_vm.subcategories, function(subCategory) {
+                      return _c(
+                        "a",
+                        {
+                          key: subCategory.id,
+                          staticClass: "hand-mouse",
+                          class: {
+                            "bg-primary text-white":
+                              _vm.selectedSubCategoryId === subCategory.id
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.toggleSubCategory(subCategory)
+                            }
+                          }
+                        },
+                        [_vm._v(" " + _vm._s(subCategory.locale_name))]
+                      )
+                    }),
+                    0
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
             _c(
               "div",
               { staticClass: "row" },
-              [
-                _vm.subcategories.length >= 1
+              _vm._l(_vm.attributes, function(attr) {
+                return _vm.isLoaded
                   ? _c("div", { staticClass: "col-md-6" }, [
                       _c("div", { staticClass: "filter-widget" }, [
                         _c("h4", { staticClass: "fw-title" }, [
                           _c("input", {
                             attrs: { type: "checkbox" },
-                            domProps: { checked: _vm.isSubCategoriesPanelOpen },
-                            on: { change: _vm.toggleSubCategoriesPanel }
+                            domProps: { checked: attr.openChildrenLayout },
+                            on: {
+                              change: function($event) {
+                                return _vm.toggleFilterChildrenLayoutAvailability(
+                                  attr
+                                )
+                              }
+                            }
                           }),
-                          _vm._v(" Types")
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(attr.locale_name)
+                          )
                         ]),
                         _vm._v(" "),
                         _c(
@@ -16786,55 +16844,86 @@ var render = function() {
                               {
                                 name: "show",
                                 rawName: "v-show",
-                                value: _vm.isSubCategoriesPanelOpen,
-                                expression: "isSubCategoriesPanelOpen"
+                                value: attr.openChildrenLayout,
+                                expression: "attr.openChildrenLayout "
                               }
                             ],
                             staticClass: "fw-brand-check"
                           },
                           [
+                            _c("circle-spin", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.isCompleteLoadFilterValues &&
+                                    _vm.loadingFilterId == attr.id,
+                                  expression:
+                                    "isCompleteLoadFilterValues && loadingFilterId==attr.id"
+                                }
+                              ],
+                              staticClass: "loading"
+                            }),
+                            _vm._v(" "),
                             _c(
                               "div",
-                              { staticClass: "row" },
-                              _vm._l(_vm.subcategories, function(subCategory) {
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: !_vm.isCompleteLoadFilterValues,
+                                    expression: "!isCompleteLoadFilterValues"
+                                  }
+                                ],
+                                staticClass: "row"
+                              },
+                              _vm._l(attr.values, function(val) {
                                 return _c(
                                   "div",
                                   {
-                                    key: subCategory.id,
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: val.items_count >= 1,
+                                        expression: "val.items_count >= 1"
+                                      }
+                                    ],
+                                    key: val.id,
                                     staticClass: "col-md-6 col-6"
                                   },
                                   [
                                     _c("div", { staticClass: "bc-item" }, [
                                       _c(
                                         "label",
-                                        {
-                                          attrs: {
-                                            for:
-                                              "category_value_" + subCategory.id
-                                          }
-                                        },
+                                        { attrs: { for: "value_" + val.id } },
                                         [
                                           _vm._v(
                                             "\n                                                " +
-                                              _vm._s(subCategory.locale_name) +
-                                              "\n                                                "
+                                              _vm._s(val.locale_name) +
+                                              " (" +
+                                              _vm._s(val.items_count) +
+                                              ")\n                                                "
                                           ),
                                           _c("input", {
                                             attrs: {
                                               type: "checkbox",
-                                              id:
-                                                "category_value_" +
-                                                subCategory.id
+                                              id: "value_" + val.id
                                             },
                                             domProps: {
-                                              checked:
-                                                _vm.selectedSubCategoryId ===
-                                                subCategory.id
+                                              checked: _vm.isInArray(
+                                                JSON.stringify(
+                                                  _vm.getJsonObj(val, attr)
+                                                )
+                                              )
                                             },
                                             on: {
-                                              click: function($event) {
-                                                return _vm.toggleSubCategory(
-                                                  subCategory
+                                              change: function($event) {
+                                                return _vm.toggleSelectedAttributes(
+                                                  val,
+                                                  attr
                                                 )
                                               }
                                             }
@@ -16851,113 +16940,14 @@ var render = function() {
                               }),
                               0
                             )
-                          ]
+                          ],
+                          1
                         )
                       ])
                     ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm._l(_vm.attributes, function(attr) {
-                  return _vm.isLoaded
-                    ? _c("div", { staticClass: "col-md-6" }, [
-                        _c("div", { staticClass: "filter-widget" }, [
-                          _c("h4", { staticClass: "fw-title" }, [
-                            _c("input", {
-                              attrs: { type: "checkbox" },
-                              domProps: { checked: attr.openChildrenLayout },
-                              on: {
-                                change: function($event) {
-                                  return _vm.toggleFilterChildrenLayoutAvailability(
-                                    attr
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(attr.locale_name) +
-                                " (" +
-                                _vm._s(attr.values.length) +
-                                ")"
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: attr.openChildrenLayout,
-                                  expression: "attr.openChildrenLayout"
-                                }
-                              ],
-                              staticClass: "fw-brand-check"
-                            },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "row" },
-                                _vm._l(attr.values, function(val) {
-                                  return _c(
-                                    "div",
-                                    {
-                                      key: val.id,
-                                      staticClass: "col-md-6 col-6"
-                                    },
-                                    [
-                                      _c("div", { staticClass: "bc-item" }, [
-                                        _c(
-                                          "label",
-                                          { attrs: { for: "value_" + val.id } },
-                                          [
-                                            _vm._v(
-                                              "\n                                                " +
-                                                _vm._s(val.locale_name) +
-                                                "\n                                                "
-                                            ),
-                                            _c("input", {
-                                              attrs: {
-                                                type: "checkbox",
-                                                id: "value_" + val.id
-                                              },
-                                              domProps: {
-                                                checked: _vm.isInArray(
-                                                  JSON.stringify(
-                                                    _vm.getJsonObj(val, attr)
-                                                  )
-                                                )
-                                              },
-                                              on: {
-                                                change: function($event) {
-                                                  return _vm.toggleSelectedAttributes(
-                                                    val,
-                                                    attr
-                                                  )
-                                                }
-                                              }
-                                            }),
-                                            _vm._v(" "),
-                                            _c("span", {
-                                              staticClass: "checkmark"
-                                            })
-                                          ]
-                                        )
-                                      ])
-                                    ]
-                                  )
-                                }),
-                                0
-                              )
-                            ]
-                          )
-                        ])
-                      ])
-                    : _vm._e()
-                })
-              ],
-              2
+                  : _vm._e()
+              }),
+              0
             ),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
@@ -16967,7 +16957,7 @@ var render = function() {
                   staticClass: "btn btn-primary btn-block applyBtn",
                   on: { click: _vm.closeModel }
                 },
-                [_vm._v("Apple")]
+                [_vm._v("Apply")]
               )
             ])
           ])
