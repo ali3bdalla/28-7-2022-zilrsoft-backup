@@ -39,7 +39,7 @@ class ApiGetFilterValuesRequest extends FormRequest
                 $itemsIds = ItemFilters::where([
                     [ 'filter_id',$filter->id],
                     [ 'filter_value',$value->id],
-                ])->count();
+                ])->pluck('item_id');
                 $value->items_count = Item::where('category_id',$category->id)->whereIn('id',$itemsIds)->count();
                 $values_values[] = $value;
             }
