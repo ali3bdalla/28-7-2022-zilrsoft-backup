@@ -14401,6 +14401,9 @@ __webpack_require__.r(__webpack_exports__);
     this.getSubCategories();
   },
   methods: {
+    closeModel: function closeModel() {
+      this.$modal.hide('filtersLayoutModal');
+    },
     toggleSubCategoriesPanel: function toggleSubCategoriesPanel() {
       this.isSubCategoriesPanelOpen = !this.isSubCategoriesPanelOpen;
     },
@@ -16960,7 +16963,10 @@ var render = function() {
             _c("div", { staticClass: "form-group" }, [
               _c(
                 "button",
-                { staticClass: "btn btn-primary btn-block applyBtn" },
+                {
+                  staticClass: "btn btn-primary btn-block applyBtn",
+                  on: { click: _vm.closeModel }
+                },
                 [_vm._v("Apple")]
               )
             ])

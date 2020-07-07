@@ -93,7 +93,7 @@
 
 
                 <div class="form-group">
-                    <button class="btn btn-primary btn-block applyBtn">Apple</button>
+                    <button @click="closeModel" class="btn btn-primary btn-block applyBtn">Apple</button>
                 </div>
             </div>
         </modal>
@@ -124,6 +124,10 @@
         },
         methods: {
 
+            closeModel()
+            {
+                this.$modal.hide('filtersLayoutModal');
+            },
             toggleSubCategoriesPanel()
             {
                 this.isSubCategoriesPanelOpen = !this.isSubCategoriesPanelOpen;
