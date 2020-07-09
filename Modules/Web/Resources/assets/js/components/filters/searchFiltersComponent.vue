@@ -5,7 +5,11 @@
 
         <modal :scrollable="true" name="filtersLayoutModal" class="filtersLayoutModal" :adaptive="true" width="95%"
                height="90%">
-            <div class="container-fluid filters-layout-modal">
+            <div class="container-fluid filters-layout-modal loading-progress" v-if="isSendingApiRequest">
+                <circle-spin class="loading" v-show="isSendingApiRequest"></circle-spin>
+            </div>
+            <div class="container-fluid filters-layout-modal" v-else>
+
 
 
                 <div class="filter-widget" v-if="subcategories.length >= 1">
@@ -20,23 +24,27 @@
 
                 <div class="row">
 
-                    <div class="col-md-6" v-for="attr in attributes" v-if="isLoaded">
+                    <div class="col-md-6" v-for="filter in filters">
                         <div class="filter-widget">
                             <h4 class="fw-title">
-                                <input @change="toggleFilterChildrenLayoutAvailability(attr)" type="checkbox"
-                                       :checked="attr.openChildrenLayout">
-                                {{ attr.locale_name }}</h4>
+                                <input @change="toggleFilterChildrenLayoutAvailability(filter)" type="checkbox"
+                                       :checked="selectedFilters.includes(filter.id)">
+                                {{ filter.locale_name }}</h4>
 
-                            <div class="fw-brand-check" v-show="attr.openChildrenLayout ">
-                                <circle-spin class="loading" v-show="isCompleteLoadFilterValues && loadingFilterId==attr.id"></circle-spin>
-                                <div class="row" v-show="!isCompleteLoadFilterValues">
-                                    <div class="col-md-6 col-6" v-for="val in attr.values" :key="val.id" v-show="val.items_count >= 1">
+                            <div class="fw-brand-check" v-show="selectedFilters.includes(filter.id)">
+                                <div class="row">
+                                    <div class="col-md-6 col-6" v-for="val in filter.values" :key="val.id">
                                         <div class="bc-item">
                                             <label :for="'value_' + val.id">
-                                                {{ val.locale_name}} ({{ val.items_count}})
-                                                <input @change="toggleSelectedAttributes(val,attr)" type="checkbox"
+                                                {{ val.locale_name}}
+<!--                                                ({{ val.items_count}})-->
+<!--                                                @change="toggleSelectedAttributes(val,attr)"-->
+                                                <input  type="checkbox"
                                                        :id="'value_' + val.id"
-                                                       :checked="isInArray(JSON.stringify(getJsonObj(val,attr)))">
+                                                        :checked="selectedValues.includes(val.id)"
+                                                        @change="toggleValueAvailability(val)"
+                                                       >
+<!--                                                :checked="isInArray(JSON.stringify(getJsonObj(val,attr)))"-->
                                                 <span class="checkmark"></span>
                                             </label>
                                         </div>
@@ -66,21 +74,19 @@
 
         data: function () {
             return {
-                loadingFilterId:0,
-                isCompleteLoadFilterValues:false,
+                isSendingApiRequest:false,
+                filters: [],
                 isSubCategoriesPanelOpen: false,
-                isFilterLayoutOpen: false,
                 selectedSubCategoryId: 0,
                 subcategories: [],
-                isLoaded: true,
-                selectedAttributes: [],
-                attributes: [],
-                selectedFiltersMap:Map,
+                isFilterLayoutOpen: false,
+                selectedFilters:[],
+                selectedValues:[],
             }
         },
         created() {
-            this.getFilters();
             this.getSubCategories();
+            this.getApiFilters();
         },
         methods: {
 
@@ -92,48 +98,79 @@
             {
                 this.isSubCategoriesPanelOpen = !this.isSubCategoriesPanelOpen;
             },
-            toggleFilterChildrenLayoutAvailability(filter) {
-                this.isCompleteLoadFilterValues = !filter.openChildrenLayout;
-                let freshFilter = filter;
-                this.loadingFilterId = filter.id;
-                filter.openChildrenLayout = !filter.openChildrenLayout;
-                this.attributes.splice(window.getIndex(freshFilter, this.attributes), 1, filter)
-                // if(filter.openChildrenLayout)
-                //   this.getFilterValues(filter);
+            getSelectedCategory()
+            {
+              return  this.selectedSubCategoryId === 0 ? this.categoryId : this.selectedSubCategoryId;
             },
 
-            getSelectedFilters()
+            getSelectedFiltersMap()
             {
-                console.log(this.selectedAttributes);
-                return this.selectedAttributes;
+                return this.selectedFilters;
             },
-            getFilterValues(filter)
+
+
+            getSelectedValues()
             {
-                let freshFilter = filter;
+                return this.selectedValues;
+            },
+
+            getApiFilters()
+            {
+                this.isSendingApiRequest = true;
                 let appVm = this;
-                axios.post(getRequestUrl(`filters/values`), {
-                    'category_id': this.getCategoryId(),
-                    'filters': this.getSelectedFilters()
-                }).then(function (response) {
-                    console.log(response.data);
-                    // filter.values = response.data;
-                    // appVm.attributes.splice(window.getIndex(freshFilter, appVm.attributes), 1, filter)
-                    appVm.isCompleteLoadFilterValues = !filter.openChildrenLayout;
+                console.log({
+                    'filters': this.getSelectedFiltersMap(),
+                    'values': this.getSelectedValues(),
+                    'category_id':this.getSelectedCategory()
+                });
+                axios.post(getRequestUrl(`filters`),{
+                    'filters': this.getSelectedFiltersMap(),
+                    'values': this.getSelectedValues(),
+                    'category_id':this.getSelectedCategory()
+            }).then(function (response) {
+                    appVm.filters = response.data;
 
                 }).catch(function (error) {
                     alert(`server error : ${error}`);
                 }).finally(function () {
+                    appVm.isSendingApiRequest = false;
                 });
             },
+
+            async toggleFilterChildrenLayoutAvailability(filter) {
+                let filterId = filter.id;
+                if(!this.selectedFilters.includes(filterId))
+                {
+                    await this.selectedFilters.push(filterId);
+
+                }else
+                {
+                    await this.selectedFilters.splice(this.selectedFilters.indexOf(filterId),1);
+                }
+
+                // this.getApiFilters();
+            },
+
+
+            async toggleValueAvailability(value) {
+                let valueId = value.id;
+                if(!this.selectedValues.includes(valueId))
+                {
+                    await this.selectedValues.push(valueId);
+
+                }else
+                {
+                    await this.selectedValues.splice(this.selectedFilters.indexOf(valueId),1);
+                }
+
+                this.getApiFilters();
+            },
+
+
             showFiltersLayout() {
                 this.$modal.show('filtersLayoutModal');
             },
 
-
-            getCategoryId()
-            {
-               return  this.selectedSubCategoryId === 0 ? this.categoryId : this.selectedSubCategoryId;
-            },
             toggleSubCategory(subCategory) {
                 if (subCategory.id === this.selectedSubCategoryId)
                     this.selectedSubCategoryId = 0;
@@ -144,7 +181,7 @@
                 this.$emit('subCategoryHasBeenUpdated', {
                     selectedSubCategoryId: this.selectedSubCategoryId
                 });
-                this.getFilters(this.selectedSubCategoryId);
+                this.getApiFilters();
             },
             getSubCategories() {
                 let appVm = this;
@@ -155,45 +192,7 @@
                 }).finally(function () {
                 });
             },
-            getJsonObj(value, attr) {
-                return {
-                    filter_id: attr.id,
-                    value_id: value.id,
-                }
-            },
-            isInArray(obj) {
-                return window.inArray(obj, this.selectedAttributes);
-            },
-            getFilters(categoryId = 0) {
-                categoryId = categoryId === 0 ? this.categoryId : categoryId;
-                let appVm = this;
-                axios.get(getRequestUrl(`filters?category_id=${categoryId}`)).then(function (response) {
-                    appVm.attributes = response.data;
-                }).catch(function (error) {
-                    alert(`server error : ${error}`);
-                }).finally(function () {
-                });
-            },
 
-            toggleSelectedAttributes(value, attr) {
-                let obj = this.getJsonObj(value, attr);
-                this.isLoaded = false;
-
-
-                if (this.isInArray(JSON.stringify(obj))) {
-                    let index = window.getIndex(JSON.stringify(obj), this.selectedAttributes);
-                    this.selectedAttributes.splice(index, 1);
-                } else {
-                    this.selectedAttributes.push(JSON.stringify(obj));
-                }
-
-
-                this.$emit('selectedAttributesHasBeenUpdated', {
-                    selectedAttributes: this.selectedAttributes
-                });
-
-                this.isLoaded = true;
-            }
         }
     }
 </script>
@@ -231,6 +230,10 @@
 
     .container-fluid .filters-layout-modal .filter-widget {
         margin-bottom:10px
+    }
+
+    .loading-progress {
+        padding-top: 10%;
     }
 </style>
 

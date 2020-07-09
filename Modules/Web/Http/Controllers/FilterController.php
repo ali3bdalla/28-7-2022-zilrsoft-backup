@@ -87,8 +87,8 @@ class FilterController extends Controller
         return $request->getData();
     }
 
-    public function apiGetFilterValues(ApiGetFilterValuesRequest $request)
-    {
-        return $request->getData();
-    }
+//    public function apiGetFilterValues(ApiGetFilterValuesRequest $request)
+//    {
+//        return $request->getData();
+//    }
 }
