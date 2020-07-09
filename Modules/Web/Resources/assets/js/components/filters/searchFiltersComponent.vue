@@ -6,26 +6,9 @@
         <modal :scrollable="true" name="filtersLayoutModal" class="filtersLayoutModal" :adaptive="true" width="95%"
                height="90%">
             <div class="container-fluid filters-layout-modal">
-                <!--                <div class="filter-widget">-->
-                <!--                    <h4 class="fw-title">Price</h4>-->
-                <!--                    <div class="filter-range-wrap">-->
-                <!--                        <div class="range-slider">-->
-                <!--                            <div class="price-input">-->
-                <!--                                <input type="text" id="minamount">-->
-                <!--                                <input type="text" id="maxamount">-->
-                <!--                            </div>-->
-                <!--                        </div>-->
-                <!--                        <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="33" data-max="98">-->
-                <!--                            <div class="ui-slider-range ui-corner-all ui-widget-header"></div>-->
-                <!--                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span>-->
-                <!--                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;"></span>-->
-                <!--                            <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div></div>-->
-                <!--                    </div>-->
-                <!--                    <a href="#" class="filter-btn">Filter</a>-->
-                <!--                </div>-->
+
 
                 <div class="filter-widget" v-if="subcategories.length >= 1">
-<!--                     <h4 class="fw-title">SubCategories</h4>-->
                     <div class="fw-tags">
                         <a @click="toggleSubCategory(subCategory)" class="hand-mouse"
                            v-for="subCategory in subcategories"
@@ -36,30 +19,6 @@
 
 
                 <div class="row">
-<!--                    <div class="col-md-6" v-if="subcategories.length >= 1">-->
-<!--                        <div class="filter-widget">-->
-<!--                            <h4 class="fw-title">-->
-<!--                                <input  type="checkbox" @change="toggleSubCategoriesPanel" :checked="isSubCategoriesPanelOpen"> Types</h4>-->
-
-<!--                            <div class="fw-brand-check" v-show="isSubCategoriesPanelOpen">-->
-<!--                                <div class="row">-->
-<!--                                    <div class="col-md-6 col-6" v-for="subCategory in subcategories" :key="subCategory.id">-->
-<!--                                        <div class="bc-item">-->
-<!--                                            <label :for="'category_value_' + subCategory.id">-->
-<!--                                                {{ subCategory.locale_name}}-->
-<!--                                                <input @click="toggleSubCategory(subCategory)" type="checkbox"-->
-<!--                                                       :id="'category_value_' + subCategory.id"-->
-<!--                                                       :checked="selectedSubCategoryId === subCategory.id">-->
-<!--                                                <span class="checkmark"></span>-->
-<!--                                            </label>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-<!--                        </div>-->
-<!--                    </div>-->
-
 
                     <div class="col-md-6" v-for="attr in attributes" v-if="isLoaded">
                         <div class="filter-widget">
@@ -85,9 +44,6 @@
                                 </div>
                             </div>
 
-                            <!--                    <div class="fw-tags">-->
-                            <!--                        <a class="hand-mouse"  v-for="val in attr.values" :class="{'bg-primary text-white':isInArray(JSON.stringify(getJsonObj(val,attr)))}" :key="val.id"> {{ val.locale_name }}</a>-->
-                            <!--                    </div>-->
                         </div>
                     </div>
                 </div>
@@ -118,7 +74,8 @@
                 subcategories: [],
                 isLoaded: true,
                 selectedAttributes: [],
-                attributes: []
+                attributes: [],
+                selectedFiltersMap:Map,
             }
         },
         created() {
@@ -141,16 +98,26 @@
                 this.loadingFilterId = filter.id;
                 filter.openChildrenLayout = !filter.openChildrenLayout;
                 this.attributes.splice(window.getIndex(freshFilter, this.attributes), 1, filter)
-                if(filter.openChildrenLayout)
-                  this.getFilterValues(filter);
+                // if(filter.openChildrenLayout)
+                //   this.getFilterValues(filter);
+            },
+
+            getSelectedFilters()
+            {
+                console.log(this.selectedAttributes);
+                return this.selectedAttributes;
             },
             getFilterValues(filter)
             {
                 let freshFilter = filter;
                 let appVm = this;
-                axios.get(getRequestUrl(`filters/values/${filter.id}/${this.getCategoryId()}`)).then(function (response) {
-                    filter.values = response.data;
-                    appVm.attributes.splice(window.getIndex(freshFilter, appVm.attributes), 1, filter)
+                axios.post(getRequestUrl(`filters/values`), {
+                    'category_id': this.getCategoryId(),
+                    'filters': this.getSelectedFilters()
+                }).then(function (response) {
+                    console.log(response.data);
+                    // filter.values = response.data;
+                    // appVm.attributes.splice(window.getIndex(freshFilter, appVm.attributes), 1, filter)
                     appVm.isCompleteLoadFilterValues = !filter.openChildrenLayout;
 
                 }).catch(function (error) {
@@ -266,3 +233,45 @@
         margin-bottom:10px
     }
 </style>
+
+
+<!--                <div class="filter-widget">-->
+<!--                    <h4 class="fw-title">Price</h4>-->
+<!--                    <div class="filter-range-wrap">-->
+<!--                        <div class="range-slider">-->
+<!--                            <div class="price-input">-->
+<!--                                <input type="text" id="minamount">-->
+<!--                                <input type="text" id="maxamount">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="33" data-max="98">-->
+<!--                            <div class="ui-slider-range ui-corner-all ui-widget-header"></div>-->
+<!--                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span>-->
+<!--                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;"></span>-->
+<!--                            <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div></div>-->
+<!--                    </div>-->
+<!--                    <a href="#" class="filter-btn">Filter</a>-->
+<!--                </div>-->
+<!--                    <div class="col-md-6" v-if="subcategories.length >= 1">-->
+<!--                        <div class="filter-widget">-->
+<!--                            <h4 class="fw-title">-->
+<!--                                <input  type="checkbox" @change="toggleSubCategoriesPanel" :checked="isSubCategoriesPanelOpen"> Types</h4>-->
+
+<!--                            <div class="fw-brand-check" v-show="isSubCategoriesPanelOpen">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-md-6 col-6" v-for="subCategory in subcategories" :key="subCategory.id">-->
+<!--                                        <div class="bc-item">-->
+<!--                                            <label :for="'category_value_' + subCategory.id">-->
+<!--                                                {{ subCategory.locale_name}}-->
+<!--                                                <input @click="toggleSubCategory(subCategory)" type="checkbox"-->
+<!--                                                       :id="'category_value_' + subCategory.id"-->
+<!--                                                       :checked="selectedSubCategoryId === subCategory.id">-->
+<!--                                                <span class="checkmark"></span>-->
+<!--                                            </label>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+<!--                    </div>-->

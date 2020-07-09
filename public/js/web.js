@@ -14339,50 +14339,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['categoryId'],
   name: "searchFiltersComponent",
@@ -14396,7 +14352,8 @@ __webpack_require__.r(__webpack_exports__);
       subcategories: [],
       isLoaded: true,
       selectedAttributes: [],
-      attributes: []
+      attributes: [],
+      selectedFiltersMap: Map
     };
   },
   created: function created() {
@@ -14415,15 +14372,23 @@ __webpack_require__.r(__webpack_exports__);
       var freshFilter = filter;
       this.loadingFilterId = filter.id;
       filter.openChildrenLayout = !filter.openChildrenLayout;
-      this.attributes.splice(window.getIndex(freshFilter, this.attributes), 1, filter);
-      if (filter.openChildrenLayout) this.getFilterValues(filter);
+      this.attributes.splice(window.getIndex(freshFilter, this.attributes), 1, filter); // if(filter.openChildrenLayout)
+      //   this.getFilterValues(filter);
+    },
+    getSelectedFilters: function getSelectedFilters() {
+      console.log(this.selectedAttributes);
+      return this.selectedAttributes;
     },
     getFilterValues: function getFilterValues(filter) {
       var freshFilter = filter;
       var appVm = this;
-      axios.get(getRequestUrl("filters/values/".concat(filter.id, "/").concat(this.getCategoryId()))).then(function (response) {
-        filter.values = response.data;
-        appVm.attributes.splice(window.getIndex(freshFilter, appVm.attributes), 1, filter);
+      axios.post(getRequestUrl("filters/values"), {
+        'category_id': this.getCategoryId(),
+        'filters': this.getSelectedFilters()
+      }).then(function (response) {
+        console.log(response.data); // filter.values = response.data;
+        // appVm.attributes.splice(window.getIndex(freshFilter, appVm.attributes), 1, filter)
+
         appVm.isCompleteLoadFilterValues = !filter.openChildrenLayout;
       })["catch"](function (error) {
         alert("server error : ".concat(error));
@@ -16832,7 +16797,7 @@ var render = function() {
                             }
                           }),
                           _vm._v(
-                            "\n                                " +
+                            "\n                            " +
                               _vm._s(attr.locale_name)
                           )
                         ]),
@@ -16901,11 +16866,11 @@ var render = function() {
                                         { attrs: { for: "value_" + val.id } },
                                         [
                                           _vm._v(
-                                            "\n                                                " +
+                                            "\n                                            " +
                                               _vm._s(val.locale_name) +
                                               " (" +
                                               _vm._s(val.items_count) +
-                                              ")\n                                                "
+                                              ")\n                                            "
                                           ),
                                           _c("input", {
                                             attrs: {

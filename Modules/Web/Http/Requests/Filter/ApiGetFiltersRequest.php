@@ -20,7 +20,8 @@ class ApiGetFiltersRequest extends FormRequest
     {
         return [
             //
-            'category_id' => 'required|integer|exists:categories,id'
+            'category_id' => 'required|integer|exists:categories,id',
+            'filters' => 'nullable|array',
         ];
     }
 
@@ -37,29 +38,7 @@ class ApiGetFiltersRequest extends FormRequest
 
     public function getData()
     {
-        $category = Category::find($this->input('category_id'));
-//        foreach ($category->filters as $filter)
-//        {
-////            $values_values = [];
-////            foreach ($filter->values as $value)
-////            {
-////                $itemsIds = ItemFilters::where([
-////                    [ 'filter_id',$filter->id],
-////                    [ 'filter_value',$value->id],
-////                ])->pluck('item_id');
-////                $value->items_count = Item::where('category_id',$category->id)->whereIn('id',$itemsIds)->count();
-////                $values_values[] = $value;
-////            }
-//            $filter->values = $values_values;
-//            $result[] = $filter;
-//        }
-        return $category->filters;
+//        $category = Category::find($this->input('category_id'));
+//        return $category->filters;
     }
 }
-
-//
-//$category = Category::find($this->input('category_id'));
-////        $ids = $category->returnNestedTreeIds($category);
-//$result = [];
-////        $filters = CategoryFilters::whereIn('category_id',$ids)->get();
-//$filters = ;

@@ -17,6 +17,8 @@ class ApiGetFilterValuesRequest extends FormRequest
     {
         return [
             //
+            'category_id' => 'required|integer|exists:categories,id',
+            'filters' => 'required|integer|exists:categories,id',
         ];
     }
 
@@ -30,20 +32,26 @@ class ApiGetFilterValuesRequest extends FormRequest
         return true;
     }
 
-    public function getData($filter,$category)
+    public function getData($filter, $category)
     {
 
-            $values_values = [];
-            foreach ($filter->values as $value)
-            {
-                $itemsIds = ItemFilters::where([
-                    [ 'filter_id',$filter->id],
-                    [ 'filter_value',$value->id],
-                ])->pluck('item_id');
-                $value->items_count = Item::where('category_id',$category->id)->whereIn('id',$itemsIds)->count();
-                $values_values[] = $value;
-            }
-            return $values_values;
+
+        $itemsIds = ItemFilters::where([
+            ['filter_id', $filter->id],
+        ])->pluck('item_id');
+
+        return $itemsIds;
+
+        $values_values = [];
+        foreach ($filter->values as $value) {
+            $itemsIds = ItemFilters::where([
+                ['filter_id', $filter->id],
+                ['filter_value', $value->id],
+            ])->pluck('item_id');
+            $value->items_count = Item::where('category_id', $category->id)->whereIn('id', $itemsIds)->count();
+            $values_values[] = $value;
+        }
+        return $values_values;
     }
 }
 
