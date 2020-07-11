@@ -92,6 +92,9 @@
 
             closeModel()
             {
+                this.$emit('selectedAttributesHasBeenUpdated',{
+                    selectedValues:this.selectedValues
+                })
                 this.$modal.hide('filtersLayoutModal');
             },
             toggleSubCategoriesPanel()
@@ -128,13 +131,29 @@
                     'values': this.getSelectedValues(),
                     'category_id':this.getSelectedCategory()
             }).then(function (response) {
-                    appVm.filters = response.data;
+                    appVm.handleGetFiltersResponse(response.data);
 
                 }).catch(function (error) {
                     alert(`server error : ${error}`);
                 }).finally(function () {
                     appVm.isSendingApiRequest = false;
                 });
+            },
+            handleGetFiltersResponse(data = []) {
+                let tempSelectedValuesArray =  [];
+                this.filters = data;
+                for (let i = 0; i < data.length; i++)
+                {
+                    let filter = data[i];
+                    for (let j = 0;j<filter.values.length;j++)
+                    {
+                        if(this.selectedValues.includes(filter.values[j].id))
+                            tempSelectedValuesArray.push(filter.values[j].id);
+                    }
+                }
+
+
+                this.selectedValues = tempSelectedValuesArray;
             },
 
             async toggleFilterChildrenLayoutAvailability(filter) {
@@ -148,7 +167,6 @@
                     await this.selectedFilters.splice(this.selectedFilters.indexOf(filterId),1);
                 }
 
-                // this.getApiFilters();
             },
 
 

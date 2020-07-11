@@ -80,6 +80,7 @@
                     this.showLoading = true;
                     let appVm = this;
 
+                    console.log(this.attributes);
                     axios.post(getRequestUrl('items'),{
                         page:this.currentPage,
                         category_id: categoryId,
@@ -102,7 +103,7 @@
             selectedAttributesHasBeenUpdated(event)
             {
                 this.items = [];
-                this.attributes = event.selectedAttributes;
+                this.attributes = event.selectedValues;
                 this.getItems();
             },
 

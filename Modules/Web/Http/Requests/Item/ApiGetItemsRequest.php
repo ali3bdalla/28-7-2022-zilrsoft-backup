@@ -3,8 +3,10 @@
 namespace Modules\Web\Http\Requests\Item;
 
 use App\Category;
+use App\FilterValues;
 use App\Item;
 use App\ItemFilters;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ApiGetItemsRequest extends FormRequest
@@ -18,6 +20,8 @@ class ApiGetItemsRequest extends FormRequest
     {
         return [
             //
+            'attributes' => 'array|nullable',
+            'attributes.*' => 'required|integer|exists:filter_values,id',
         ];
     }
 
@@ -37,26 +41,8 @@ class ApiGetItemsRequest extends FormRequest
         $query = new Item;
 
 
-        if ($this->has('attributes') && $this->filled('attributes')){
-            $filterFinalCollection = [];
-            foreach ($this->input('attributes') as  $filter){
-                if (!empty($filter)){
-                    $collection = json_decode($filter,true);
-                    $filterFinalCollection[$collection['filter_id']][] = $collection['value_id'];
-                }
-            }
 
 
-            foreach ($filterFinalCollection as $filterId => $valueArray){
-                $itemsIds = ItemFilters::
-                where('filter_id',$filterId)
-                    ->whereIn('filter_value',collect($valueArray)
-                    ->toArray())
-                    ->pluck('item_id');
-                $query = $query->whereIn('id',$itemsIds->toArray());
-            }
-
-        }
 
 
         if($this->has('category_id') && $this->filled('category_id'))
@@ -72,6 +58,29 @@ class ApiGetItemsRequest extends FormRequest
 
         if($this->has('categories_id_array') && $this->filled('categories_id_array'))
             $query = $query->whereIn('category_id',$this->input('categories_id_array'));
+
+//
+
+        if ($this->has('attributes') && $this->filled('attributes') && $this->input('attributes') != []){
+            $collectionsItemsFilterResults = ItemFilters::whereIn('filter_value',$this->input('attributes'))->select('item_id','filter_value')->get();
+//            return $collectionsItemsFilterResults;
+            $attributes = $this->input('attributes');
+            $finalCollections = [];
+
+            foreach ($collectionsItemsFilterResults as $result)
+            {
+                $finalCollections[$result['item_id']][] = $result['filter_value'];
+            }
+            $resultCollections = [];
+            foreach ($finalCollections as $key => $finalCollect)
+            {
+                if(count($finalCollect) >= count($attributes))
+                    $resultCollections[] = $key;
+
+            }
+
+            $query = $query->whereIn('id',$resultCollections);
+        }
 
         return  $query->with('category')->paginate(18);
     }

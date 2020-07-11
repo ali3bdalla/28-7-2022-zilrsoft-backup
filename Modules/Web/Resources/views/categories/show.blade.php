@@ -3,9 +3,7 @@
 @section('content')
 
 
-
-
-        @if($category->parent_id == 0)
+        @if($category->children()->count() != 0)
             @include('web::categories.layout.sliderCollection')
             @include('web::layouts.breacrumb',['page' => 'show-category'])
             @include('web::categories.layout.subCategoriesCollection')

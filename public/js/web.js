@@ -14388,6 +14388,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     closeModel: function closeModel() {
+      this.$emit('selectedAttributesHasBeenUpdated', {
+        selectedValues: this.selectedValues
+      });
       this.$modal.hide('filtersLayoutModal');
     },
     toggleSubCategoriesPanel: function toggleSubCategoriesPanel() {
@@ -14415,12 +14418,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'values': this.getSelectedValues(),
         'category_id': this.getSelectedCategory()
       }).then(function (response) {
-        appVm.filters = response.data;
+        appVm.handleGetFiltersResponse(response.data);
       })["catch"](function (error) {
         alert("server error : ".concat(error));
       })["finally"](function () {
         appVm.isSendingApiRequest = false;
       });
+    },
+    handleGetFiltersResponse: function handleGetFiltersResponse() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      var tempSelectedValuesArray = [];
+      this.filters = data;
+
+      for (var i = 0; i < data.length; i++) {
+        var filter = data[i];
+
+        for (var j = 0; j < filter.values.length; j++) {
+          if (this.selectedValues.includes(filter.values[j].id)) tempSelectedValuesArray.push(filter.values[j].id);
+        }
+      }
+
+      this.selectedValues = tempSelectedValuesArray;
     },
     toggleFilterChildrenLayoutAvailability: function toggleFilterChildrenLayoutAvailability(filter) {
       var _this = this;
@@ -14663,6 +14681,7 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
         var categoryId = this.selectedSubCategoryId === 0 ? this.categoryId : this.selectedSubCategoryId;
         this.showLoading = true;
         var appVm = this;
+        console.log(this.attributes);
         axios.post(getRequestUrl('items'), {
           page: this.currentPage,
           category_id: categoryId,
@@ -14683,7 +14702,7 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
     },
     selectedAttributesHasBeenUpdated: function selectedAttributesHasBeenUpdated(event) {
       this.items = [];
-      this.attributes = event.selectedAttributes;
+      this.attributes = event.selectedValues;
       this.getItems();
     },
     priceFilterRangeHasBeenUpdated: function priceFilterRangeHasBeenUpdated(event) {

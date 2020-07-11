@@ -42,35 +42,41 @@ class ApiGetFiltersRequest extends FormRequest
     {
 
         $query = ItemFilters::where('id','>',0);
-//        if($this->has('filters') && $this->filled('filters') && $this->input('filters') != [])
+        $filtersArrayExists = $this->has('filters') && $this->filled('filters') && $this->input('filters') != [];
+        $filtersValuesArrayExists = $this->has('values') && $this->filled('values') && $this->input('values') != [];
+//        if($filtersArrayExists)
 //            $query = $query->whereIn('filter_id',$this->input('filters'));
 ////
-        if($this->has('values') && $this->filled('values') && $this->input('values') != [])
+        if($filtersValuesArrayExists)
             $query = $query->whereIn('filter_value',$this->input('values'));
-
-
-
 
         $queryPluck = $query;
         $itemsIds =  $queryPluck->pluck('item_id');
-
         $itemsIdsInSameCategory =  Item::whereIn('id',$itemsIds)->where('category_id',$this->input('category_id'))->pluck('id');
-
-
-//        return $itemsIdsInSameCategory;
-        //
-//
         $data =  ItemFilters::whereIn('item_id',$itemsIdsInSameCategory)->select('filter_id','filter_value')->distinct()->get();
-//        $data =  $query->whereIn('item_id',$itemsIdsInSameCategory)->select('filter_id','filter_value')->distinct()->get();
-
-//        return $data;
         $filtersWithValues = [];
+
         foreach ($data as $row)
         {
-            $filtersWithValues[$row->filter_id][] = $row->filter_value;
+
+
+            if($filtersArrayExists && in_array($row->filter_id,$this->input('filters')))
+            {
+
+                if($filtersValuesArrayExists && in_array($row->filter_value,$this->input('values')))
+                {
+                    $filtersWithValues[$row->filter_id][] = $row->filter_value;
+                }else {
+                    $filtersWithValues[$row->filter_id][] = $row->filter_value;
+                }
+            }
+           else
+           {
+               $filtersWithValues[$row->filter_id][] = $row->filter_value;
+           }
+
         }
-
-
+//        return  $filtersWithValues;
         $result = [];
         foreach ($filtersWithValues as $key => $val)
         {
@@ -78,8 +84,6 @@ class ApiGetFiltersRequest extends FormRequest
                  $query->whereIn('id',$val);
             }])->first();
         }
-
-
 
         return $result;
 
