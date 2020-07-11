@@ -4,7 +4,7 @@
 namespace Modules\Web\Models;
 
 
-trait Item
+trait WebItem
 {
     public function getWebMasterImageUrlAttribute()
     {

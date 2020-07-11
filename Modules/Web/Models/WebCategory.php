@@ -4,7 +4,7 @@
 namespace Modules\Web\Models;
 
 
-trait Category
+trait WebCategory
 {
     public function getWebCoverUrlAttribute()
     {

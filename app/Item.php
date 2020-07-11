@@ -15,7 +15,7 @@ use App\Relationships\ItemRelationships;
 use App\Relationships\KitRelationships;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use \Modules\Web\Models\Item as WebItem;
+use \Modules\Web\Models\WebItem;
 
 class Item extends BaseModel
 {
