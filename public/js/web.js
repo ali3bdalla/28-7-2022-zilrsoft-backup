@@ -14367,6 +14367,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['categoryId'],
   name: "searchFiltersComponent",
@@ -14383,10 +14392,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   created: function created() {
-    this.getSubCategories();
+    // this.getSubCategories();
     this.getApiFilters();
   },
   methods: {
+    resetFilters: function resetFilters() {
+      this.selectedSubCategoryId = 0;
+      this.selectedValues = [];
+      this.selectedFilters = [];
+      this.getApiFilters();
+    },
     closeModel: function closeModel() {
       this.$emit('selectedAttributesHasBeenUpdated', {
         selectedValues: this.selectedValues
@@ -14650,6 +14665,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -14751,7 +14767,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.filters-layout-modal[data-v-469fc356] {\n    padding-top: 20px;\n}\n.toggleButton[data-v-469fc356] {\n    font-size: 20px;\n    color: #888888;\n    margin-right: 28px;\n    position: relative;\n    background: none;\n    border: none;\n    /*text-decoration: underline;*/\n    display: flex;\n    padding-top: 4px;\n}\n.applyBtn[data-v-469fc356] {\n    height: 55px;\n    border-radius: 17px;\n    box-shadow: 1px 5px 7px #c1baba;\n}\n.fw-title[data-v-469fc356] {\n    color: #777;\n    font-size: 16px;\n    text-transform: lowercase;\n}\n.container-fluid .filters-layout-modal .filter-widget[data-v-469fc356] {\n    margin-bottom:10px\n}\n.loading-progress[data-v-469fc356] {\n    padding-top: 10%;\n}\n", ""]);
+exports.push([module.i, "\n.filters-layout-modal[data-v-469fc356] {\n    padding-top: 20px;\n}\n.toggleButton[data-v-469fc356] {\n    font-size: 20px;\n    color: #888888;\n    margin-right: 28px;\n    position: relative;\n    background: none;\n    border: none;\n    /*text-decoration: underline;*/\n    display: flex;\n    padding-top: 4px;\n}\n.applyBtn[data-v-469fc356] {\n    height: 55px;\n    border-radius: 17px;\n    box-shadow: 1px 5px 7px #c1baba;\n}\n.resetBtn[data-v-469fc356] {\n    height: 55px;\n    border-radius: 17px;\n    box-shadow: 2px 1px 7px #c1baba;\n}\n.fw-title[data-v-469fc356] {\n    /*color: #777;*/\n    color: #252424;\n\n\n    font-size: 16px;\n    text-transform: lowercase;\n    border-bottom: 1px solid #e8e0e0;\n    padding-bottom: 10px;\n    margin-bottom: 10px;\n    margin-top: 20px;\n}\n.fw-brand-check[data-v-469fc356] {\n    padding-left: 20px;\n}\n.container-fluid .filters-layout-modal .filter-widget[data-v-469fc356] {\n    margin-bottom:10px\n}\n.loading-progress[data-v-469fc356] {\n    padding-top: 10%;\n}\n", ""]);
 
 // exports
 
@@ -17595,35 +17611,6 @@ var render = function() {
                 "div",
                 { staticClass: "container-fluid filters-layout-modal" },
                 [
-                  _vm.subcategories.length >= 1
-                    ? _c("div", { staticClass: "filter-widget" }, [
-                        _c(
-                          "div",
-                          { staticClass: "fw-tags" },
-                          _vm._l(_vm.subcategories, function(subCategory) {
-                            return _c(
-                              "a",
-                              {
-                                key: subCategory.id,
-                                staticClass: "hand-mouse",
-                                class: {
-                                  "bg-primary text-white":
-                                    _vm.selectedSubCategoryId === subCategory.id
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.toggleSubCategory(subCategory)
-                                  }
-                                }
-                              },
-                              [_vm._v(" " + _vm._s(subCategory.locale_name))]
-                            )
-                          }),
-                          0
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
                   _c(
                     "div",
                     { staticClass: "row" },
@@ -17631,112 +17618,97 @@ var render = function() {
                       return _c("div", { staticClass: "col-md-6" }, [
                         _c("div", { staticClass: "filter-widget" }, [
                           _c("h4", { staticClass: "fw-title" }, [
-                            _c("input", {
-                              attrs: { type: "checkbox" },
-                              domProps: {
-                                checked: _vm.selectedFilters.includes(filter.id)
-                              },
-                              on: {
-                                change: function($event) {
-                                  return _vm.toggleFilterChildrenLayoutAvailability(
-                                    filter
-                                  )
-                                }
-                              }
-                            }),
                             _vm._v(
                               "\n                                " +
                                 _vm._s(filter.locale_name)
                             )
                           ]),
                           _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.selectedFilters.includes(
-                                    filter.id
-                                  ),
-                                  expression:
-                                    "selectedFilters.includes(filter.id)"
-                                }
-                              ],
-                              staticClass: "fw-brand-check"
-                            },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "row" },
-                                _vm._l(filter.values, function(val) {
-                                  return _c(
-                                    "div",
-                                    {
-                                      key: val.id,
-                                      staticClass: "col-md-6 col-6"
-                                    },
-                                    [
-                                      _c("div", { staticClass: "bc-item" }, [
-                                        _c(
-                                          "label",
-                                          { attrs: { for: "value_" + val.id } },
-                                          [
-                                            _vm._v(
-                                              "\n                                                " +
-                                                _vm._s(val.locale_name) +
-                                                "\n"
-                                            ),
-                                            _vm._v(" "),
-                                            _c("input", {
-                                              attrs: {
-                                                type: "checkbox",
-                                                id: "value_" + val.id
-                                              },
-                                              domProps: {
-                                                checked: _vm.selectedValues.includes(
-                                                  val.id
+                          _c("div", { staticClass: "fw-brand-check" }, [
+                            _c(
+                              "div",
+                              { staticClass: "row" },
+                              _vm._l(filter.values, function(val) {
+                                return _c(
+                                  "div",
+                                  {
+                                    key: val.id,
+                                    staticClass: "col-md-6 col-6"
+                                  },
+                                  [
+                                    _c("div", { staticClass: "bc-item" }, [
+                                      _c(
+                                        "label",
+                                        { attrs: { for: "value_" + val.id } },
+                                        [
+                                          _vm._v(
+                                            "\n                                                " +
+                                              _vm._s(val.locale_name) +
+                                              "\n"
+                                          ),
+                                          _vm._v(" "),
+                                          _c("input", {
+                                            attrs: {
+                                              type: "checkbox",
+                                              id: "value_" + val.id
+                                            },
+                                            domProps: {
+                                              checked: _vm.selectedValues.includes(
+                                                val.id
+                                              )
+                                            },
+                                            on: {
+                                              change: function($event) {
+                                                return _vm.toggleValueAvailability(
+                                                  val
                                                 )
-                                              },
-                                              on: {
-                                                change: function($event) {
-                                                  return _vm.toggleValueAvailability(
-                                                    val
-                                                  )
-                                                }
                                               }
-                                            }),
-                                            _vm._v(" "),
-                                            _c("span", {
-                                              staticClass: "checkmark"
-                                            })
-                                          ]
-                                        )
-                                      ])
-                                    ]
-                                  )
-                                }),
-                                0
-                              )
-                            ]
-                          )
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("span", {
+                                            staticClass: "checkmark"
+                                          })
+                                        ]
+                                      )
+                                    ])
+                                  ]
+                                )
+                              }),
+                              0
+                            )
+                          ])
                         ])
                       ])
                     }),
                     0
                   ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary btn-block applyBtn",
-                        on: { click: _vm.closeModel }
-                      },
-                      [_vm._v("Apply")]
-                    )
-                  ])
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-6 col-6" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary btn-block applyBtn",
+                          on: { click: _vm.closeModel }
+                        },
+                        [_vm._v("Apply")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6  col-6" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-default btn-block resetBtn",
+                          on: { click: _vm.resetFilters }
+                        },
+                        [_vm._v("Reset")]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" })
                 ]
               )
         ]
@@ -17887,7 +17859,7 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _vm._m(0)
+              _c("div", { staticClass: "col-8 text-right" })
             ])
           ]),
           _vm._v(" "),
@@ -17912,18 +17884,26 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.showLoading,
-                  expression: "showLoading"
-                }
-              ],
-              staticClass: "loading-more"
-            },
-            [_c("circle-spin", { staticClass: "loading" })],
+            { staticClass: "loading-more" },
+            [
+              _c("circle-spin", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.showLoading,
+                    expression: "showLoading"
+                  }
+                ],
+                staticClass: "loading"
+              }),
+              _vm._v(" "),
+              _c("a", { on: { click: _vm.getNextPage } }, [
+                _vm._v(
+                  "\n                            Loading More\n                        "
+                )
+              ])
+            ],
             1
           )
         ])
@@ -17931,16 +17911,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-8 text-right" }, [
-      _c("p", [_vm._v("Show 01- 09 Of 36 Product")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

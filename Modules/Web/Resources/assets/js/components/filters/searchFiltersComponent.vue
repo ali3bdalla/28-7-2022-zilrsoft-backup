@@ -9,17 +9,14 @@
                 <circle-spin class="loading" v-show="isSendingApiRequest"></circle-spin>
             </div>
             <div class="container-fluid filters-layout-modal" v-else>
-
-
-
-                <div class="filter-widget" v-if="subcategories.length >= 1">
-                    <div class="fw-tags">
-                        <a @click="toggleSubCategory(subCategory)" class="hand-mouse"
-                           v-for="subCategory in subcategories"
-                           :class="{'bg-primary text-white':selectedSubCategoryId === subCategory.id}"
-                           :key="subCategory.id"> {{ subCategory.locale_name }}</a>
-                    </div>
-                </div>
+<!--                <div class="filter-widget" v-if="subcategories.length >= 1">-->
+<!--                    <div class="fw-tags">-->
+<!--                        <a @click="toggleSubCategory(subCategory)" class="hand-mouse"-->
+<!--                           v-for="subCategory in subcategories"-->
+<!--                           :class="{'bg-primary text-white':selectedSubCategoryId === subCategory.id}"-->
+<!--                           :key="subCategory.id"> {{ subCategory.locale_name }}</a>-->
+<!--                    </div>-->
+<!--                </div>-->
 
 
                 <div class="row">
@@ -27,11 +24,13 @@
                     <div class="col-md-6" v-for="filter in filters">
                         <div class="filter-widget">
                             <h4 class="fw-title">
-                                <input @change="toggleFilterChildrenLayoutAvailability(filter)" type="checkbox"
-                                       :checked="selectedFilters.includes(filter.id)">
+<!--                                <input @change="toggleFilterChildrenLayoutAvailability(filter)" type="checkbox"-->
+<!--                                       :checked="selectedFilters.includes(filter.id)">-->
                                 {{ filter.locale_name }}</h4>
 
-                            <div class="fw-brand-check" v-show="selectedFilters.includes(filter.id)">
+
+<!--                            v-show="selectedFilters.includes(filter.id)"-->
+                            <div class="fw-brand-check" >
                                 <div class="row">
                                     <div class="col-md-6 col-6" v-for="val in filter.values" :key="val.id">
                                         <div class="bc-item">
@@ -57,8 +56,18 @@
                 </div>
 
 
+                <div class="row">
+                    <div class="col-md-6 col-6">
+                        <button @click="closeModel" class="btn btn-primary btn-block applyBtn">Apply</button>
+
+                    </div>
+<!--                    <div class="col-md-1"></div>-->
+                    <div class="col-md-6  col-6">
+                        <button @click="resetFilters" class="btn btn-default btn-block resetBtn">Reset</button>
+
+                    </div>
+                </div>
                 <div class="form-group">
-                    <button @click="closeModel" class="btn btn-primary btn-block applyBtn">Apply</button>
                 </div>
             </div>
         </modal>
@@ -85,11 +94,17 @@
             }
         },
         created() {
-            this.getSubCategories();
+            // this.getSubCategories();
             this.getApiFilters();
         },
         methods: {
 
+            resetFilters(){
+              this.selectedSubCategoryId = 0;
+              this.selectedValues = [];
+              this.selectedFilters = [];
+              this.getApiFilters();
+            },
             closeModel()
             {
                 this.$emit('selectedAttributesHasBeenUpdated',{
@@ -240,10 +255,26 @@
         box-shadow: 1px 5px 7px #c1baba;
     }
 
+    .resetBtn {
+        height: 55px;
+        border-radius: 17px;
+        box-shadow: 2px 1px 7px #c1baba;
+    }
+
     .fw-title {
-        color: #777;
+        /*color: #777;*/
+        color: #252424;
+
+
         font-size: 16px;
         text-transform: lowercase;
+        border-bottom: 1px solid #e8e0e0;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
+    .fw-brand-check {
+        padding-left: 20px;
     }
 
     .container-fluid .filters-layout-modal .filter-widget {

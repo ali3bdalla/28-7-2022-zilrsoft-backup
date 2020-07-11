@@ -16,7 +16,7 @@
                                 <search-filters-component  @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated" :category-id="categoryId" @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated" @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"></search-filters-component>
                             </div>
                             <div class="col-8 text-right">
-                                <p>Show 01- 09 Of 36 Product</p>
+<!--                                <p>Show 01- 09 Of 36 Product</p>-->
                             </div>
                         </div>
                     </div>
@@ -27,11 +27,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="loading-more" v-show="showLoading">
-                        <circle-spin class="loading"></circle-spin>
-<!--                        <a @click="getNextPage">-->
-<!--                            Loading More-->
-<!--                        </a>-->
+<!--                    v-show="showLoading"-->
+                    <div class="loading-more" >
+                        <circle-spin class="loading" v-show="showLoading"></circle-spin>
+                        <a @click="getNextPage">
+                            Loading More
+                        </a>
                     </div>
                 </div>
 
