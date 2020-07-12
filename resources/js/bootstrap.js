@@ -67,9 +67,9 @@ var validate = require("validate.js");
 var autoload = require("./autoload");
 var counting = require("./counting").counting;
 var helpers = require("./helpers").helpers;
-var config = JSON.parse(window.config);
-
-
+// var config = JSON.parse(window.config);
+//
+//
 window.validate = validate;
 window.autoload = autoload;
 window.counting = counting;

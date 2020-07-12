@@ -3,8 +3,11 @@
         <button class="toggleButton" @click="showFiltersLayout">Filters</button>
 
 
-        <modal :scrollable="true" name="filtersLayoutModal" class="filtersLayoutModal" :adaptive="true" width="95%"
-               height="90%">
+        <modal :scrollable="true" name="filtersLayoutModal" class="filtersLayoutModal" :adaptive="true" width="100%"
+               height="100%">
+            <div class="closeBtnClass">
+                <i  @click="quiteModel" class="fa fa-close"></i> Selected Filters ({{selectedValues.length}})
+            </div>
             <div class="container-fluid filters-layout-modal loading-progress" v-if="isSendingApiRequest">
                 <circle-spin class="loading" v-show="isSendingApiRequest"></circle-spin>
             </div>
@@ -58,7 +61,7 @@
 
                 <div class="row">
                     <div class="col-md-6 col-6">
-                        <button @click="closeModel" class="btn btn-primary btn-block applyBtn">Apply</button>
+                        <button @click="applyFilters" class="btn btn-primary btn-block applyBtn">Apply</button>
 
                     </div>
 <!--                    <div class="col-md-1"></div>-->
@@ -99,6 +102,18 @@
         },
         methods: {
 
+           quiteModel()
+           {
+             this.resetFilters();
+             this.closeModel();
+           },
+            applyFilters()
+            {
+                this.$emit('selectedAttributesHasBeenUpdated',{
+                    selectedValues:this.selectedValues
+                })
+                this.closeModel()
+            },
             resetFilters(){
               this.selectedSubCategoryId = 0;
               this.selectedValues = [];
@@ -107,9 +122,6 @@
             },
             closeModel()
             {
-                this.$emit('selectedAttributesHasBeenUpdated',{
-                    selectedValues:this.selectedValues
-                })
                 this.$modal.hide('filtersLayoutModal');
             },
             toggleSubCategoriesPanel()
@@ -283,6 +295,24 @@
 
     .loading-progress {
         padding-top: 10%;
+    }
+
+    .closeBtnClass {
+        padding: 17px;
+        padding-bottom: 0px;
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    .closeBtnClass i {
+        font-size: 22px;
+        color: #777;
+        margin: 6px;
+        border: 1px solid #eee;
+        padding: 8px;
+        border-radius: 50%;
+        box-shadow: 0px 2px 5px #ddd;
+        cursor: pointer;
     }
 </style>
 

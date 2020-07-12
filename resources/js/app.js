@@ -25,7 +25,7 @@ require('./accounting/load');
 Vue.use(Vuetify);
 Vue.use(VModal);
 Vue.use(VuejsDialog);
-
+Vue.component('test-component',require('./TestComponent').default);
 const opts = {};
 export default new Vuetify({
     icons: {

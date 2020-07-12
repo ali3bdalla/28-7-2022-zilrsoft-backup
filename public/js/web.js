@@ -14376,6 +14376,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['categoryId'],
   name: "searchFiltersComponent",
@@ -14396,6 +14399,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getApiFilters();
   },
   methods: {
+    quiteModel: function quiteModel() {
+      this.resetFilters();
+      this.closeModel();
+    },
+    applyFilters: function applyFilters() {
+      this.$emit('selectedAttributesHasBeenUpdated', {
+        selectedValues: this.selectedValues
+      });
+      this.closeModel();
+    },
     resetFilters: function resetFilters() {
       this.selectedSubCategoryId = 0;
       this.selectedValues = [];
@@ -14403,9 +14416,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.getApiFilters();
     },
     closeModel: function closeModel() {
-      this.$emit('selectedAttributesHasBeenUpdated', {
-        selectedValues: this.selectedValues
-      });
       this.$modal.hide('filtersLayoutModal');
     },
     toggleSubCategoriesPanel: function toggleSubCategoriesPanel() {
@@ -14767,7 +14777,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.filters-layout-modal[data-v-469fc356] {\n    padding-top: 20px;\n}\n.toggleButton[data-v-469fc356] {\n    font-size: 20px;\n    color: #888888;\n    margin-right: 28px;\n    position: relative;\n    background: none;\n    border: none;\n    /*text-decoration: underline;*/\n    display: flex;\n    padding-top: 4px;\n}\n.applyBtn[data-v-469fc356] {\n    height: 55px;\n    border-radius: 17px;\n    box-shadow: 1px 5px 7px #c1baba;\n}\n.resetBtn[data-v-469fc356] {\n    height: 55px;\n    border-radius: 17px;\n    box-shadow: 2px 1px 7px #c1baba;\n}\n.fw-title[data-v-469fc356] {\n    /*color: #777;*/\n    color: #252424;\n\n\n    font-size: 16px;\n    text-transform: lowercase;\n    border-bottom: 1px solid #e8e0e0;\n    padding-bottom: 10px;\n    margin-bottom: 10px;\n    margin-top: 20px;\n}\n.fw-brand-check[data-v-469fc356] {\n    padding-left: 20px;\n}\n.container-fluid .filters-layout-modal .filter-widget[data-v-469fc356] {\n    margin-bottom:10px\n}\n.loading-progress[data-v-469fc356] {\n    padding-top: 10%;\n}\n", ""]);
+exports.push([module.i, "\n.filters-layout-modal[data-v-469fc356] {\n    padding-top: 20px;\n}\n.toggleButton[data-v-469fc356] {\n    font-size: 20px;\n    color: #888888;\n    margin-right: 28px;\n    position: relative;\n    background: none;\n    border: none;\n    /*text-decoration: underline;*/\n    display: flex;\n    padding-top: 4px;\n}\n.applyBtn[data-v-469fc356] {\n    height: 55px;\n    border-radius: 17px;\n    box-shadow: 1px 5px 7px #c1baba;\n}\n.resetBtn[data-v-469fc356] {\n    height: 55px;\n    border-radius: 17px;\n    box-shadow: 2px 1px 7px #c1baba;\n}\n.fw-title[data-v-469fc356] {\n    /*color: #777;*/\n    color: #252424;\n\n\n    font-size: 16px;\n    text-transform: lowercase;\n    border-bottom: 1px solid #e8e0e0;\n    padding-bottom: 10px;\n    margin-bottom: 10px;\n    margin-top: 20px;\n}\n.fw-brand-check[data-v-469fc356] {\n    padding-left: 20px;\n}\n.container-fluid .filters-layout-modal .filter-widget[data-v-469fc356] {\n    margin-bottom:10px\n}\n.loading-progress[data-v-469fc356] {\n    padding-top: 10%;\n}\n.closeBtnClass[data-v-469fc356] {\n    padding: 17px;\n    padding-bottom: 0px;\n    font-size: 19px;\n    font-weight: bold;\n}\n.closeBtnClass i[data-v-469fc356] {\n    font-size: 22px;\n    color: #777;\n    margin: 6px;\n    border: 1px solid #eee;\n    padding: 8px;\n    border-radius: 50%;\n    box-shadow: 0px 2px 5px #ddd;\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -17580,11 +17590,23 @@ var render = function() {
             scrollable: true,
             name: "filtersLayoutModal",
             adaptive: true,
-            width: "95%",
-            height: "90%"
+            width: "100%",
+            height: "100%"
           }
         },
         [
+          _c("div", { staticClass: "closeBtnClass" }, [
+            _c("i", {
+              staticClass: "fa fa-close",
+              on: { click: _vm.quiteModel }
+            }),
+            _vm._v(
+              " Selected Filters (" +
+                _vm._s(_vm.selectedValues.length) +
+                ")\n            "
+            )
+          ]),
+          _vm._v(" "),
           _vm.isSendingApiRequest
             ? _c(
                 "div",
@@ -17690,7 +17712,7 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn btn-primary btn-block applyBtn",
-                          on: { click: _vm.closeModel }
+                          on: { click: _vm.applyFilters }
                         },
                         [_vm._v("Apply")]
                       )
