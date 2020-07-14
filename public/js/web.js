@@ -14815,7 +14815,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.product-shop[data-v-87ab18aa] {\n    padding-top: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.product-shop[data-v-87ab18aa] {\n    padding-top: 10px;\n}\n.loading-more a[data-v-87ab18aa] {\n    margin-top:25px;\n    font-size: 18px;\n    border: 1px solid #e8ac2d;\n    font-weight: 700;\n    color: #e8ac2d;\n    padding: 9px;\n    position: relative;\n    display: inline-block;\n    cursor: pointer;\n}\n.loading-more a[data-v-87ab18aa]:before {\n    position: absolute;\n    left: 0;\n    bottom: -4px;\n    width: 100%;\n    height: 2px;\n    background: none;\n    content: \"\";\n}\n", ""]);
 
 // exports
 
@@ -17920,11 +17920,25 @@ var render = function() {
                 staticClass: "loading"
               }),
               _vm._v(" "),
-              _c("a", { on: { click: _vm.getNextPage } }, [
-                _vm._v(
-                  "\n                            Loading More\n                        "
-                )
-              ])
+              _c(
+                "a",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.showLoading,
+                      expression: "!showLoading"
+                    }
+                  ],
+                  on: { click: _vm.getNextPage }
+                },
+                [
+                  _vm._v(
+                    "\n                            Loading More\n                        "
+                  )
+                ]
+              )
             ],
             1
           )

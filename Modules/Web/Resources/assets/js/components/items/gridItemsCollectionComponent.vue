@@ -30,7 +30,7 @@
 <!--                    v-show="showLoading"-->
                     <div class="loading-more" >
                         <circle-spin class="loading" v-show="showLoading"></circle-spin>
-                        <a @click="getNextPage">
+                        <a @click="getNextPage" v-show="!showLoading">
                             Loading More
                         </a>
                     </div>
@@ -130,5 +130,26 @@
 <style scoped>
     .product-shop {
         padding-top: 10px;
+    }
+    .loading-more a {
+        margin-top:25px;
+        font-size: 18px;
+        border: 1px solid #e8ac2d;
+        font-weight: 700;
+        color: #e8ac2d;
+        padding: 9px;
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .loading-more a:before {
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 100%;
+        height: 2px;
+        background: none;
+        content: "";
     }
 </style>
