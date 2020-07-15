@@ -7,7 +7,8 @@
         <div class="card" v-show="isOpened">
             <div class="row">
 
-                <div class="col-md-3">
+
+                <div class="col-md-2">
                     <accounting-multi-select-with-search-layout-component
                             :options="categories"
                             :placeholder="trans.category"
@@ -18,6 +19,12 @@
                             label_text="locale_name"
                     >
                     </accounting-multi-select-with-search-layout-component>
+
+                </div>
+                <div class="col-md-1">
+                    <accounting-search-category-filters-components
+                            @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated"
+                            v-if="categoryIds.length>=1" :category-id="categoryIds[0]"></accounting-search-category-filters-components>
 
                 </div>
 
@@ -58,6 +65,13 @@
             };
         },
         methods: {
+            selectedAttributesHasBeenUpdated(event)
+            {
+                this.$emit('selectedAttributesHasBeenUpdated',{
+                    selectedValues:event.selectedValues
+                })
+            },
+
             openOrClosePanel() {
                 this.isOpened = !this.isOpened;
             },

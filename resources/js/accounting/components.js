@@ -66,6 +66,7 @@ import AccountingAttachmentsPreviewComponent from './components/attachments/prev
 
 
 Vue.component('accounting-attachments-preview-component', AccountingAttachmentsPreviewComponent);
+Vue.component('accounting-search-category-filters-components',require('./components/categories/categorySearchFiltersComponent').default);
 Vue.component('accounting-table-filter-search-component', AccountingTableFiltersSearchComponent);
 Vue.component('accounting-header-layout-component', AccountingHeaderLayoutComponent);
 Vue.component('accounting-append-gateways-layout-component', accountingAppendGatewaysLayoutComponent);

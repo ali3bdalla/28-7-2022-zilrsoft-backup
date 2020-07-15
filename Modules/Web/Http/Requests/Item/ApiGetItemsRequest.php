@@ -82,6 +82,6 @@ class ApiGetItemsRequest extends FormRequest
             $query = $query->whereIn('id',$resultCollections);
         }
 
-        return  $query->with('category')->paginate(18);
+        return  $query->with('creator','data','items','category')->paginate(18);
     }
 }

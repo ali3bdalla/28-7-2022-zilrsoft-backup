@@ -79,6 +79,7 @@
 
                     <div class="table-advanced-search">
                         <accounting-table-filter-search-component
+                                @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated"
                                 :categories="categories"
                                 :trans="trans"
                                 @filterValuesUpdated="advancedSearchUpdated"></accounting-table-filter-search-component>
@@ -299,6 +300,29 @@
 
         },
         methods: {
+
+            selectedAttributesHasBeenUpdated(event)
+            {
+
+                this.isLoading = true;
+                var appVm = this;
+
+                axios.post(getRequestUrl('items'),{
+                    page:1,
+                    category_id: appVm.filters.categoryIds[0],
+                    attributes: event.selectedValues,
+                }).then(function(response){
+                    appVm.table_rows = response.data.data;
+                    appVm.paginationResponseData = response.data;
+                }).catch(function(error) {
+                    alert(`server error : ${error}`);
+                }).finally(function () {
+                    appVm.isLoading = false;
+
+                });
+
+            },
+
 
             barcodeAndNameUpdated(event) {
                 event.target.select();

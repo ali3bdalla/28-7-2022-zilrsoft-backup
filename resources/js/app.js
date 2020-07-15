@@ -20,7 +20,18 @@ require('./realtime/server');
 import VModal from 'vue-js-modal'
 
 window.Vue = Vue;
+window.getRequestUrl = function (path) {
+    return '/api/web/' + path + "?lang=ar";
+}
 
+window.getIndex = function(needle, haystack)
+{
+    let length = haystack.length;
+    for(let i = 0; i < length; i++) {
+        if(haystack[i] === needle) return i;
+    }
+    return  -1;
+}
 require('./accounting/load');
 Vue.use(Vuetify);
 Vue.use(VModal);

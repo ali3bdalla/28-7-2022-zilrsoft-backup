@@ -11,7 +11,10 @@
 |
 */
 
-Route::prefix('web-app')->middleware('lang:en')->name('web.')->group(function() {
+//
+
+Route::prefix('web-app')->middleware('lang:ar')->name('web.')->group(function() {
+    app()->setLocale('ar');
     Route::get('/', 'WebController@index')->name('index');
     Route::prefix('/categories')->name('categories.')->group(function(){
        Route::get('/{category}','CategoryController@show')->name('show');
