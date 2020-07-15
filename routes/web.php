@@ -21,7 +21,17 @@
 
 
 Route::get('/',function (){
+
+
 //    return view('test');
     return  redirect(route('accounting.login'));
     return redirect("/web-app");
 });
+
+//Route::get('time',function (){
+//    return "<input type='time'>";
+//    $startTime =  \Carbon\Carbon::parse('09:20:40')->getTimestamp() ;
+//    $endTime = \Carbon\Carbon::parse('10:58:50')->getTimestamp();
+//    return $endTime - $startTime;
+//
+//});
