@@ -35,3 +35,17 @@ Route::get('/',function (){
 //    return $endTime - $startTime;
 //
 //});
+
+
+
+Route::get('/add_test_ticket',function (){
+
+    $ticket = new \App\Ticket;
+    $ticket->user_id = 1;
+    $ticket->title =  'test ticket';
+    $ticket->description =  'test ticket';
+    $ticket->status =  'open';
+    $ticket->save();
+
+
+});

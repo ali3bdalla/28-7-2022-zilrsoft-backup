@@ -21,9 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Accounting/ChartAccounting.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Accounting/ChartAccounting.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/fWRDBlmHH1ToezTVjoqMdAK11QX0dw4ykEAxOxE3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-07-15.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-07-15.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -267,7 +265,11 @@
       <workItem from="1594755445495" duration="746000" />
       <workItem from="1594798083833" duration="33000" />
       <workItem from="1594800241646" duration="2863000" />
-      <workItem from="1594806087526" duration="1400000" />
+      <workItem from="1594806087526" duration="1783000" />
+      <workItem from="1594818748166" duration="256000" />
+      <workItem from="1594823246899" duration="1119000" />
+      <workItem from="1594842484245" duration="44000" />
+      <workItem from="1594911429260" duration="208000" />
     </task>
     <servers />
   </component>
@@ -344,8 +346,8 @@
     <state x="511" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1592412871091" />
     <state x="748" y="519" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1200@0.0.1920.1200" timestamp="1592406328356" />
     <state x="748" y="532" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.1177@0.23.1920.1177" timestamp="1592387738991" />
-    <state x="469" y="203" width="670" height="518" key="search.everywhere.popup" timestamp="1594807622651">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="625" y="270" width="670" height="690" key="search.everywhere.popup" timestamp="1594911607449">
+      <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="0" y="203" width="1440" height="518" key="search.everywhere.popup.inPresentationMode" timestamp="1594477334349">
       <screen x="0" y="0" width="1440" height="900" />
@@ -353,8 +355,8 @@
     <state x="0" y="203" width="1440" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1594477334349" />
     <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593882496251" />
     <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />
-    <state x="469" y="203" width="670" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1594807622651" />
-    <state x="625" y="270" width="670" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1594709322829" />
+    <state x="469" y="203" width="670" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1594826675036" />
+    <state x="625" y="270" width="670" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1594911607449" />
     <state x="469" y="221" width="670" height="505" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1593950143500" />
     <state x="625" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1592389494916" />
     <state x="450" y="369" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1593784355162">

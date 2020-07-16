@@ -957,3 +957,7 @@
 #53 /usr/local/var/www/vhosts/zilrsoft/index.php(54): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #54 {main}
 "} 
+[2020-07-15 13:24:14] producation.ERROR: Allowed memory size of 134217728 bytes exhausted (tried to allocate 20480 bytes) {"userId":8,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Allowed memory size of 134217728 bytes exhausted (tried to allocate 20480 bytes) at /usr/local/var/www/vhosts/zilrsoft/vendor/barryvdh/laravel-debugbar/src/DataCollector/QueryCollector.php:216)
+[stacktrace]
+#0 {main}
+"} 
