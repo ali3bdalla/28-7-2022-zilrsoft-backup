@@ -19,6 +19,11 @@ window.getRequestUrl = function (path) {
     return '/api/web/' + path;
 }
 
+window.getRightPath = function (path) {
+    return '/web-app/' + path;
+}
+
+
 window.getIndex = function(needle, haystack)
 {
     let length = haystack.length;

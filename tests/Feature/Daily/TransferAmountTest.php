@@ -3,10 +3,7 @@
 namespace Tests\Feature\Daily;
 
 use App\Account;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use Illuminate\Support\Facades\Session;
 use App\Http\Middleware\VerifyCsrfToken;
 use App\Manager;
 

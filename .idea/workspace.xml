@@ -20,9 +20,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Web/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/Http/Controllers/ItemController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Web/Resources/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/Resources/assets/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Web/Resources/assets/js/components/items/cellItemComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/Resources/assets/js/components/items/cellItemComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Web/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/Routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ItemFilters.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ItemFilters.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/web.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/web.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-07-15.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-07-15.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/44/d1/44d142505dd1a3b497197e2f459d2aec779e9ed6" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/44/d1/44d142505dd1a3b497197e2f459d2aec779e9ed6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/c2/4f/c24f92750673b2169c8cb7bfbc999cfa8457dc7c" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/c2/4f/c24f92750673b2169c8cb7bfbc999cfa8457dc7c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/0p6LGmhLt2FvPXQPGNzwzr9rz5Un8I438h5hO4pJ" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/VXEHRqSVzwRT6aT4Q3uhR1b2d21a5ZkGRty3wv38" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/npz51vACrTM3Go7T15zRNGO19ki7ZHw1TsW2tR6T" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-07-01.log" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,10 +190,10 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="full.screen.before.presentation.mode" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/Web/template/img/side" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="Laravel.SettingsForm" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -270,6 +285,10 @@
       <workItem from="1594823246899" duration="1119000" />
       <workItem from="1594842484245" duration="44000" />
       <workItem from="1594911429260" duration="208000" />
+      <workItem from="1595010560839" duration="684000" />
+      <workItem from="1595011291696" duration="214000" />
+      <workItem from="1595011522118" duration="662000" />
+      <workItem from="1595016122784" duration="266000" />
     </task>
     <servers />
   </component>
@@ -320,8 +339,8 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="348" y="309" key="NewPhpFileDialog.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593724701066" />
-    <state x="346" y="159" key="SettingsEditor" timestamp="1594019250161">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="681" y="303" key="SettingsEditor" timestamp="1595011042002">
+      <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="0" y="0" key="SettingsEditor.inPresentationMode" timestamp="1594057724258">
       <screen x="0" y="0" width="1440" height="900" />
@@ -330,23 +349,27 @@
     <state x="0" y="0" key="SettingsEditor.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593806977159" />
     <state x="0" y="23" key="SettingsEditor.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622018491" />
     <state x="346" y="159" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1594019250161" />
-    <state x="461" y="239" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1592424602847" />
+    <state x="681" y="303" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1595011042002" />
     <state x="346" y="178" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1593621933337" />
     <state x="0" y="0" key="Vcs.Push.Dialog.v2.inPresentationMode" timestamp="1593595040259">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="0" y="0" key="Vcs.Push.Dialog.v2.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593595040259" />
     <state x="60" y="28" key="Vcs.Push.Dialog.v2.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1592427198764" />
-    <state x="748" y="519" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592406328356">
+    <state x="748" y="519" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1595012190307">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="511" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2.inPresentationMode" timestamp="1592412871091">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="511" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1592412871091" />
-    <state x="748" y="519" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1200@0.0.1920.1200" timestamp="1592406328356" />
+    <state x="748" y="519" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1200@0.0.1920.1200" timestamp="1595012190307" />
     <state x="748" y="532" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.1177@0.23.1920.1177" timestamp="1592387738991" />
-    <state x="625" y="270" width="670" height="690" key="search.everywhere.popup" timestamp="1594911607449">
+    <state x="716" y="481" width="614" height="269" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1595010883333">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="716" y="481" width="614" height="269" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595010883333" />
+    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup" timestamp="1595011920202">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="0" y="203" width="1440" height="518" key="search.everywhere.popup.inPresentationMode" timestamp="1594477334349">
@@ -356,7 +379,7 @@
     <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593882496251" />
     <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />
     <state x="469" y="203" width="670" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1594826675036" />
-    <state x="625" y="270" width="670" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1594911607449" />
+    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1595011920202" />
     <state x="469" y="221" width="670" height="505" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1593950143500" />
     <state x="625" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1592389494916" />
     <state x="450" y="369" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1593784355162">

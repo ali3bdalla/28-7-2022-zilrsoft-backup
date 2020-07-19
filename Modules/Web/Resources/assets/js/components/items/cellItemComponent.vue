@@ -4,7 +4,7 @@
            <div class="col-7">
                <div class="pi-text">
                    <div class="catagory-name">{{ itemData.category.name }}</div>
-                   <a href="#">
+                   <a :href="url(`items/${itemData.id}`)">
                        <h5>{{ itemData.locale_name }}</h5>
                    </a>
                    <div class="product-price">
@@ -45,6 +45,11 @@
         },
         created() {
             this.itemData = this.item;
+        },
+        methods:{
+            url(path ){
+                return '/web-app/' + path;
+            }
         }
     }
 </script>

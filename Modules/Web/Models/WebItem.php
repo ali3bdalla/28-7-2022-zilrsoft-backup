@@ -19,7 +19,7 @@ trait WebItem
 
     public function getWebOldOnlinePriceAttribute()
     {
-        return money_format("$%i",$this->price_with_tax) + 10;
+        return money_format("$%i",$this->price_with_tax + 10)  ;
     }
 
 

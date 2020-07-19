@@ -3,7 +3,7 @@
 namespace App\Relationships;
 use \App\Category;
 use \App\Filter;
-
+use App\Item;
 
 trait CategoryRelationships {
 	
@@ -15,6 +15,11 @@ trait CategoryRelationships {
 
 	public function filters(){
 		return $this->belongsToMany(Filter::class,'category_filters','category_id','filter_id')->withTimestamps()->orderBy('category_filters.id','asc');
+	}
+
+	public function items()
+	{
+		return $this->hasMany(Item::class,'category_id');
 	}
 
 }

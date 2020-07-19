@@ -6,13 +6,7 @@
 	class ItemFilters extends BaseModel
 	{
 		
-		protected $fillable = [
-			'organization_id',
-			'creator_id',
-			'filter_id',
-			'filter_value',
-			'item_id',
-		];
+		protected $guarded = [];
 		
 		//
 		protected $casts = [
@@ -23,6 +17,21 @@
 		
 		];
 
+
+        public function filter()
+        {
+            return $this->belongsTo(Filter::class,'filter_id');
+		}
+
+        public function value()
+        {
+            return $this->belongsTo(FilterValues::class,'filter_value');
+        }
+
+        public function item()
+        {
+            return $this->belongsTo(Item::class,'item_id');
+        }
 
 		
 	}

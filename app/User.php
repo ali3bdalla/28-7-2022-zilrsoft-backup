@@ -2,11 +2,9 @@
 
 namespace App;
 
-use App\Attributes\OnlineUserAttribute;
 use App\Attributes\UserAttributes;
 use App\DatabaseHelpers\UserHelper;
 use App\Relationships\UserRelationships;
-use App\Scopes\OrganizationScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends BaseAuthModel
@@ -15,7 +13,6 @@ class User extends BaseAuthModel
     use SoftDeletes, UserRelationships, UserAttributes, UserHelper;
 
     protected $guarded = [];
-
 
 
     protected $appends = [

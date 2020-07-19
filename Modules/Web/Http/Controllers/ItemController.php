@@ -11,9 +11,10 @@ use Modules\Web\Http\Requests\Item\ApiGetItemsRequest;
 class ItemController extends Controller
 {
 
-    public function show($id)
+    public function show(Item $item)
     {
-        return view('web::show');
+        $relatedItems = $item->category->items()->inRandomOrder()->take(20)->get();
+        return view('web::items.show',compact('item','relatedItems'));
     }
 
 

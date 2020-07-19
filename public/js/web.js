@@ -13936,6 +13936,10 @@ window.getRequestUrl = function (path) {
   return '/api/web/' + path;
 };
 
+window.getRightPath = function (path) {
+  return '/web-app/' + path;
+};
+
 window.getIndex = function (needle, haystack) {
   var length = haystack.length;
 
@@ -14617,6 +14621,11 @@ var priceF = __webpack_require__(/*! ../../formatter/price */ "./Resources/asset
   },
   created: function created() {
     this.itemData = this.item;
+  },
+  methods: {
+    url: function url(path) {
+      return '/web-app/' + path;
+    }
   }
 });
 
@@ -17769,7 +17778,7 @@ var render = function() {
             _vm._v(_vm._s(_vm.itemData.category.name))
           ]),
           _vm._v(" "),
-          _c("a", { attrs: { href: "#" } }, [
+          _c("a", { attrs: { href: _vm.url("items/" + _vm.itemData.id) } }, [
             _c("h5", [_vm._v(_vm._s(_vm.itemData.locale_name))])
           ]),
           _vm._v(" "),
