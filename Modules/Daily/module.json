@@ -1,0 +1,13 @@
+{
+    "name": "Daily",
+    "alias": "daily",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Daily\\Providers\\DailyServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -22,7 +22,6 @@ exports.route = function (route = "") {
 
 
 exports.inputHelper = {
-
     validateQty: function (qty = 0, el, max = null, min = null) {
         el.classList.remove("inputErrorClass");
         if (!TextValidator.isInt(qty + "")) {

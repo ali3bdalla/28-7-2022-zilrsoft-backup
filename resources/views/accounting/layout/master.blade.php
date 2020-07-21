@@ -3,17 +3,39 @@
 <head>
     @includeIf("accounting.layout.head.meta")
     <title>@yield('title',config("app.name"))</title>
+
+{{--    @includeIf("accounting.layout.head.defer_js")--}}
+
+
+    <script defer>
+        window.reusable_translator = `@json(trans('reusable'))`;
+        window.messages = `@json(trans('messages'))`
+    </script>
+    @defer_js_asset('accounting/js/rsvp.min.js')
+    @defer_js_asset('accounting/js/font_awesome.js')
+    @defer_js_asset('js/app.js')
+
+
+    @yield('sub_defer_javascript')
     @yield('translator')
-    @includeIf("accounting.layout.head.defer_js")
-    @includeIf("accounting.layout.head.css")
+    @css_asset('lib/css/bootstrap.min.css')
+    @css_asset('lib/css/AdminLTE.min.css')
+    @css_asset('lib/css/_all-skins.min.css')
+{{--    @css_asset('lib/css/select2.min.cs.css')--}}
+    @css_asset('lib/css/buttons.css')
+    @css_asset('lib/css/main.css')
+    @css_asset('lib/css/bootstrap-rtl.css')
+    @css_asset('lib/css/AdminLTE-rtl.min.css')
+    @css_asset('css/rtl.css')
+    @yield('sub_styles')
+
+
     @yield('page_css')
 </head>
- {{-- sidebar-collapse --}}
 <body class="sidebar-mini skin-blue">
-@includeIf("accounting.layout.layout")
-@includeIf("accounting.layout.head.js")
-@yield('page_js')
-<span id="siteseal"><script async type="text/javascript"
-                            src="https://seal.godaddy.com/getSeal?sealID=VGW4EB0vH1mdkOke7GWCC4SnXg0eG9NZoqnwFa1Qlp2G9OAjj0c1Sjh4Wgxj"></script></span>
+    @includeIf("accounting.layout.layout")
+    @includeIf("accounting.layout.head.js")
+    @yield('sub_javascript')
+    @yield('page_js')
 </body>
 </html>

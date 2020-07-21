@@ -79,3 +79,7 @@ body {
 .vm--modal {
     overflow: scroll !important;
 }
+
+.product-shop {
+    padding-top: 10px;
+}

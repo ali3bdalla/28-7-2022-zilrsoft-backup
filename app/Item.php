@@ -47,4 +47,10 @@ class Item extends BaseModel
     protected $guarded = [];
 
 
+    public function isExpense()
+    {
+        return $this->is_expense;
+    }
+
+
 }

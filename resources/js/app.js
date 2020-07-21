@@ -10,16 +10,8 @@ require('./bootstrap');
 window.TextValidator = require('validator');
 import VuejsDialog from 'vuejs-dialog';
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
-
-
-
-// import 'bulma/css/bulma.css'
-// require('bootstrap');
-
-require('./realtime/server');
 import VModal from 'vue-js-modal'
 
-window.Vue = Vue;
 window.getRequestUrl = function (path) {
     return '/api/web/' + path + "?lang=ar";
 }
@@ -32,17 +24,17 @@ window.getIndex = function(needle, haystack)
     }
     return  -1;
 }
+window.Vue = Vue;
 require('./accounting/load');
 Vue.use(Vuetify);
 Vue.use(VModal);
 Vue.use(VuejsDialog);
-Vue.component('test-component',require('./TestComponent').default);
-const opts = {};
+
 export default new Vuetify({
     icons: {
         iconfont: "md"
     },
-    theme: {dark: true}  
+    theme: {dark: true}
 })
 
 Vue.use(CxltToastr, {
@@ -52,7 +44,12 @@ Vue.use(CxltToastr, {
 Vue.use(Loading);
 Vue.use(ToggleButton);
 
+Vue.component('layouts-header-component', require('./components/layoutsHeaderComponent').default)
+Vue.component('pending-purchases-counter-component', require('./components/pendingPurchasesCounterComponent').default)
+
+window.routes = require('./routes')
+
 
 const app = new Vue({
-    el: '#app',
+    el: '#app'
 });

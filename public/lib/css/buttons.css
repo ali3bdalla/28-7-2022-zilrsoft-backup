@@ -1,0 +1,60 @@
+
+.btn-custom-primary {
+    background-color: #0984e3;
+    color: white;
+    font-size: 15px;
+    box-shadow: 1px 2px 8px 0px #74b9ff !important;
+    -o-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.7s ease-in-out;
+    -webkit-transition: all 0.7s ease-in-out;
+    transition: all 0.7s ease-in-out;
+}
+
+.btn-custom-primary:hover {
+    background-color: #0859a4;
+    color: white;
+}
+
+
+
+.btn-custom-default {
+    background-color: #eee;
+    color: #0859a4;
+    font-size: 15px;
+    box-shadow: 1px 2px 8px 0px #ddd !important;
+    -o-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.7s ease-in-out;
+    -webkit-transition: all 0.7s ease-in-out;
+    transition: all 0.7s ease-in-out;
+}
+
+.btn-custom-default:hover {
+    background-color: #777;
+    color: white;
+}
+
+
+
+.btn-options {
+    padding: 3px 11px;
+    background-color: #3c8dbc;
+    color: white;
+    font-size: 14px;
+    /* box-shadow: 1px 2px 8px 0px #74b9ff !important; */
+    -o-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.7s ease-in-out;
+    -webkit-transition: all 0.7s ease-in-out;
+    transition: all 0.7s ease-in-out;
+}
+
+.btn-options:hover {
+    background-color: #0859a4;
+    color: white;
+}
+
+
+
+bg-custom-primary {
+    background-color: #3c8dbc;
+}
+

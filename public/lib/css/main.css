@@ -1,0 +1,69 @@
+
+.treeview-menu li > a {
+    font-size: 17px !important;
+    padding: 12px !important;
+    padding-right: 19px !important;
+    border-bottom: 1px solid #192125 !important;
+
+}
+
+
+.treeview {
+    border-bottom: 1px solid !important;
+    font-size: 18px !important;
+    background: #333 !important;
+    margin-bottom: 3px !important;
+}
+
+
+.treeview a span {
+    margin-right: 5px !important;
+}
+
+.bg-custom-primary {
+    background-color: #0984e3  !important;
+    color:white !important;
+}
+
+.panel-custom-form {
+    width: 80%;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.inputErrorClass {
+    border: 2px solid red !important;
+}
+
+.date_field {
+    direction: ltr !important;
+    text-align: right !important;
+}
+.date_field_center {
+    direction: ltr !important;
+    text-align: center !important;
+}
+.amount-input {
+    height: 32px !important;
+    text-align: center !important;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+
+
+
+
+/*pop message */
+.dg-btn--cancel {
+    float: left !important;
+    color: #0096D9 !important;
+    background-color:#fefefe !important;
+    border-color: #0096D9;
+}
+
+.dg-btn--ok {
+    color: #fefefe !important;
+    background-color: #0096D9 !important;
+
+}

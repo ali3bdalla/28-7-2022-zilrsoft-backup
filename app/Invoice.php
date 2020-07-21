@@ -12,7 +12,8 @@
 	use Illuminate\Database\Eloquent\Builder;
 	class Invoice extends Model
 	{
-		
+
+
 		use InvoiceRelationship,InvoiceAttributes,InvoiceInterfaceHelper,FreshHelper,SoftDeletes;
 		use CoreInvoice;
 

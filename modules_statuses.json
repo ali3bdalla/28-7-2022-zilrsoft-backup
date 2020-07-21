@@ -1,3 +1,21 @@
 {
-    "Web": true
+    "Web": true,
+    "Accounting": true,
+    "Item": true,
+    "Sales": true,
+    "Purchases": true,
+    "Inventories": true,
+    "Vouchers": true,
+    "Users": true,
+    "Employees": true,
+    "Configuration": true,
+    "Reports": true,
+    "Items": true,
+    "Categories": true,
+    "Customers": true,
+    "Expenses": true,
+    "Daily": true,
+    "Authentication": true,
+    "Statistics": true,
+    "Dashboard": true
 }

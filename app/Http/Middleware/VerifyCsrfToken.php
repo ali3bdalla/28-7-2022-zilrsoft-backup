@@ -20,7 +20,8 @@
 		 */
 		protected $except = [
 			//
-		
+
+            'sales/'
 //			'accounting/categories/view/filters',
 //			'accounting/sales/{id}/'
 		];

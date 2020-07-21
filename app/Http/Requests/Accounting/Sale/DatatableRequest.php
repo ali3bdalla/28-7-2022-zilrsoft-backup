@@ -78,13 +78,11 @@
 				$getOnly = ['quotation'];
 			else
 				$getOnly = ['sale','r_sale'];
-			
-			//->where('is_deleted',false)
+
 			$query = Invoice::whereIn('invoice_type',$getOnly)->with([
 				'creator','items','sale.client','sale.salesman'
 			]);
-			
-//			Storage::
+
 			if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
 				$this->filled('endDate')){
 				$_startDate = Carbon::parse($this->input("startDate"))->toDateString();
@@ -229,13 +227,11 @@
 				}
 			]);
 
-//			http://zilrsoft.com/accounting/sales/442/force_delete
-			//&& intval($this->input('itemsPerPage')) <= 100
 			if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval($this->input("itemsPerPage")
 				) >= 1){
 				$result = $query->paginate(intval($this->input('itemsPerPage')));
 			}else{
-				$result = $query->paginate(10000);
+				$result = $query->paginate(1000);
 				
 			}
 			

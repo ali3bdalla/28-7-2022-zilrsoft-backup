@@ -9,6 +9,7 @@
 	{
 		protected $guarded = [];
 		use SoftDeletes;
+
 		protected static function boot()
 		{
 			parent::boot();
@@ -20,6 +21,15 @@
 			
 		}
 
+
+		// new relationship
+        public function entities()
+        {
+            return $this->hasMany(Transaction::class,'container_id');
+        }
+
+
+        // old relationship
 		public function transactions()
 		{
 			return $this->hasMany(Transaction::class,'container_id');

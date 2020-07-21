@@ -41,6 +41,11 @@ return [
             'provider' => 'managers',
         ],
 
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'managers',
+        ],
+
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',

@@ -50,12 +50,18 @@
 			$this->other_results['total_stock_qty'] = $this->item_current_stock_qty;
 			$this->other_results['current_stock_item_cost'] = $this->item_current_cost;
 			
-			if ($this->isFreshQueryWithoutFilters())
+			if ($this->isFreshQueryWithoutFilters() && $this->isLastPage())
 				$this->updateItemStockData();
 			
 			return $this->response();
 		}
-		
+
+
+
+		private function isLastPage()
+        {
+            return false;
+        }
 		private function runRowsFetcher()
 		{
 			$this->sendDatabaseQuery();

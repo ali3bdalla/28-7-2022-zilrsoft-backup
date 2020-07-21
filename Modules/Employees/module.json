@@ -1,0 +1,13 @@
+{
+    "name": "Employees",
+    "alias": "employees",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Employees\\Providers\\EmployeesServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

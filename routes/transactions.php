@@ -6,13 +6,10 @@
     'accounts' => 'ChartsController',
     'transactions' => 'TransactionsController'
 ]);
-
 Route::prefix('transactions')->name('transactions.')->group(function () {
     Route::get('add/create', "TransactionsController@create")->name('add.create');
 
 });
-
-
 Route::prefix('accounts')->name('accounts.')->group(function () {
     Route::get('load_children/{account}/list', "ChartsController@load_children")->name('load_children');
     Route::get('client/{client}/{account}', "ChartsController@client")->name('client');
@@ -25,8 +22,6 @@ Route::prefix('accounts')->name('accounts.')->group(function () {
         Route::get('{account}/result', "ChartsController@reports_result")->name('result');
     });
 });
-
-
 
 Route::prefix('reseller_daily')->name('reseller_daily.')->group(function () {
     Route::get('account_close', "ResellerDailyTransactions@dailyShutdownShowForm")->name('account_close');

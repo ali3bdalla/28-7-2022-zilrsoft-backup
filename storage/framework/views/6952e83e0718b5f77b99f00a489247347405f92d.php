@@ -3,18 +3,40 @@
 <head>
     <?php if ($__env->exists("accounting.layout.head.meta")) echo $__env->make("accounting.layout.head.meta", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <title><?php echo $__env->yieldContent('title',config("app.name")); ?></title>
+
+
+
+
+    <script defer>
+        window.reusable_translator = `<?php echo json_encode(trans('reusable'), 15, 512) ?>`;
+        window.messages = `<?php echo json_encode(trans('messages'), 15, 512) ?>`
+    </script>
+    <script src="http://127.0.0.1:8000/accounting/js/rsvp.min.js" defer></script>
+    <script src="http://127.0.0.1:8000/accounting/js/font_awesome.js" defer></script>
+    <script src="http://127.0.0.1:8000/js/app.js" defer></script>
+
+
+    <?php echo $__env->yieldContent('sub_defer_javascript'); ?>
     <?php echo $__env->yieldContent('translator'); ?>
-    <?php if ($__env->exists("accounting.layout.head.defer_js")) echo $__env->make("accounting.layout.head.defer_js", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-    <?php if ($__env->exists("accounting.layout.head.css")) echo $__env->make("accounting.layout.head.css", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <link href="http://127.0.0.1:8000/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://127.0.0.1:8000/lib/css/AdminLTE.min.css" rel="stylesheet" />
+    <link href="http://127.0.0.1:8000/lib/css/_all-skins.min.css" rel="stylesheet" />
+
+    <link href="http://127.0.0.1:8000/lib/css/buttons.css" rel="stylesheet" />
+    <link href="http://127.0.0.1:8000/lib/css/main.css" rel="stylesheet" />
+    <link href="http://127.0.0.1:8000/lib/css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="http://127.0.0.1:8000/lib/css/AdminLTE-rtl.min.css" rel="stylesheet" />
+    <link href="http://127.0.0.1:8000/css/rtl.css" rel="stylesheet" />
+    <?php echo $__env->yieldContent('sub_styles'); ?>
+
+
     <?php echo $__env->yieldContent('page_css'); ?>
 </head>
- 
 <body class="sidebar-mini skin-blue">
-<?php if ($__env->exists("accounting.layout.layout")) echo $__env->make("accounting.layout.layout", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php if ($__env->exists("accounting.layout.head.js")) echo $__env->make("accounting.layout.head.js", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php echo $__env->yieldContent('page_js'); ?>
-<span id="siteseal"><script async type="text/javascript"
-                            src="https://seal.godaddy.com/getSeal?sealID=VGW4EB0vH1mdkOke7GWCC4SnXg0eG9NZoqnwFa1Qlp2G9OAjj0c1Sjh4Wgxj"></script></span>
+    <?php if ($__env->exists("accounting.layout.layout")) echo $__env->make("accounting.layout.layout", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php if ($__env->exists("accounting.layout.head.js")) echo $__env->make("accounting.layout.head.js", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php echo $__env->yieldContent('sub_javascript'); ?>
+    <?php echo $__env->yieldContent('page_js'); ?>
 </body>
 </html>
 <?php /**PATH /usr/local/var/www/vhosts/zilrsoft/resources/views/accounting/layout/master.blade.php ENDPATH**/ ?>
