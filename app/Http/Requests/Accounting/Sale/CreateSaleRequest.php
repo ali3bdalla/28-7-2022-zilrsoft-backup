@@ -78,27 +78,14 @@
 				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),$this->input("methods"),[]);
 				$this->deleteQuotationAfterCloneIt();
 				DB::commit();
-				$result = $invoice->fresh();
+				return $invoice->fresh();
 			}catch (ValidationException $exception){
 				DB::rollBack();
-				$error = true;
-				$result = response(json_encode([
-					'message' => $exception->getMessage()
-				]),400);
+				throw $exception;
 			}catch (Exception $exception){
 				DB::rollBack();
-				$error = true;
-				$result = response(json_encode([
-					'message' => $exception->getMessage()
-				]),400);
-			}finally{
-				
-				if ($error)
-					DB::rollBack();
-				
-				return $result;
+				throw $exception;
 			}
-			
 			
 		}
 		

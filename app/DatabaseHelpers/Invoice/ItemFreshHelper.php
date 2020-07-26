@@ -62,11 +62,19 @@ trait ItemFreshHelper
             } else {
                 $sendData['serials'] = [];
             }
+
+            
             $sendData['qty'] = $child['qty'] * $qty;
+            
             $sendData['discount'] = $child['discount'] * $qty;
             $sendData['price'] = $child['price'];
             $sendData['belong_to_kit'] = true;
             $sendData['kit_id'] = $baseItem->id;
+
+            if( $item->available_qty < $sendData['qty'] )
+            {
+                throw new ValidationException('qty not avaialbe',400);
+            }
             $item->addToBaseInvoice($baseInvoice, $sendData);
         }
 
