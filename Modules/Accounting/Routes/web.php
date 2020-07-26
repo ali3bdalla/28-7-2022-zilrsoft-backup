@@ -1,7 +1,10 @@
 <?php
 use \Illuminate\Support\Facades\Route;
 //
-//Route::name('accounting.')->prefix('accounting')->middleware(['auth', 'verified'])->group(function () {
+Route::name('accounting.')->prefix('accounting')->middleware(['auth', 'verified'])->group(function () {
+    Route::prefix('trial_balance')->name('trial_balance.')->group(function(){
+        Route::get('index', "TrialBalanceController@index")->name('index');
+    });
 //    Route::resources([
 //        'accounts' => 'ChartController',
 //        'entities' => 'EntityController'
@@ -36,4 +39,4 @@ use \Illuminate\Support\Facades\Route;
 //        Route::get('{transaction}/delete_transaction', "ResellerDailyTransactions@deleteTransferTransactions")->name
 //        ('delete_transaction');
 //    });
-//});
+});

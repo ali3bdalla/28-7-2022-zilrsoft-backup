@@ -241,6 +241,12 @@
                                 <?php echo e(__('sidebar.chart_of_accounts')); ?>
 
                             </a></li>
+
+                        <li>
+                            <a href="<?php echo e(route('accounting.financial_statements.index')); ?>"><i class="fa fa-sun"></i>
+                                <?php echo e(__('sidebar.financial_statements')); ?>
+
+                            </a></li>
                     <?php endif; ?>
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view transactions')): ?>
                         <li>

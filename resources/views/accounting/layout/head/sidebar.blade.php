@@ -221,6 +221,11 @@
                             <a href="{{route('accounting.accounts.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.chart_of_accounts') }}
                             </a></li>
+
+                        <li>
+                            <a href="{{route('accounting.trial_balance.index')}}"><i class="fa fa-sun"></i>
+                                {{ __('sidebar.financial_statements') }}
+                            </a></li>
                     @endcan
                     @can('view transactions')
                         <li>

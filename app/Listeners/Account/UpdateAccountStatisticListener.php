@@ -52,7 +52,8 @@ class UpdateAccountStatisticListener
             } else {
                 $balance = $statisticInstance->getOriginal('total_amount') + $this->event->transaction->amount;
             }
-            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,true);
+            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,$this->event->transaction->amount,
+                false,true);
 
         }
 
@@ -63,7 +64,8 @@ class UpdateAccountStatisticListener
             } else {
                 $balance = $statisticInstance->getOriginal('total_amount') - $this->event->transaction->amount;
             }
-            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,true);
+            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,$this->event->transaction->amount,
+                true,true);
         }
 
 
@@ -72,6 +74,8 @@ class UpdateAccountStatisticListener
             $this->_updateAccountBalanceAndTransactionsCount
             ($statisticInstance,
                 ($this->event->transaction->amount + $statisticInstance->total_amount),
+                $this->event->transaction->amount,
+                false,
                 true);
 
         }
@@ -82,6 +86,8 @@ class UpdateAccountStatisticListener
             $this->_updateAccountBalanceAndTransactionsCount
             ($statisticInstance,
                 ($this->event->transaction->amount - $statisticInstance->total_amount),
+                $statisticInstance->total_amount,
+                true,
                 true);
 
         }
@@ -96,7 +102,8 @@ class UpdateAccountStatisticListener
             } else {
                 $balance = $statisticInstance->getOriginal('total_amount') - $this->event->transaction->amount;
             }
-            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,false);
+            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance ,$this->event->transaction->amount,
+                false,false);
         }
 
         if ($this->event->transaction->_isCreditAbleAccount()) {
@@ -106,7 +113,8 @@ class UpdateAccountStatisticListener
             } else {
                 $balance = $statisticInstance->getOriginal('total_amount') + $this->event->transaction->amount;
             }
-            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,false);
+            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,$this->event->transaction->amount,
+                true,false);
 
         }
         if ($this->event->transaction->_isDebitAbleItem()) {
@@ -114,6 +122,8 @@ class UpdateAccountStatisticListener
             $this->_updateAccountBalanceAndTransactionsCount
             ($statisticInstance,
                 ($this->event->transaction->amount - $statisticInstance->total_amount),
+                $this->event->transaction->amount,
+                false,
                 false);
         }
         if ($this->event->transaction->_isCreditAbleItem()) {
@@ -121,17 +131,30 @@ class UpdateAccountStatisticListener
             $this->_updateAccountBalanceAndTransactionsCount
                 ($statisticInstance,
                 ($this->event->transaction->amount + $statisticInstance->total_amount),
+                $this->event->transaction->amount,
+                true,
                 false);
         }
     }
 
 
-    private function _updateAccountBalanceAndTransactionsCount(AccountStatistic $accountStatistic,$balance,$addTransaction = true)
+    private function _updateAccountBalanceAndTransactionsCount(AccountStatistic $accountStatistic,$balance,$amount , $isCredit = true,$addTransaction = true)
     {
-        $accountStatistic->update([
-            'transactions_count' => $addTransaction ?  DB::raw("transactions_count + 1") : DB::raw("transactions_count - 1"),
+
+        $data = [
+            'transactions_count' => $addTransaction ?  $accountStatistic->transactions_count + 1 : $accountStatistic->transactions_count - 1,
             'total_amount' => $balance,
-        ]);
+        ];
+
+        if($isCredit)
+        {
+            $data['credit_amount'] = $addTransaction ? $accountStatistic->credit_amount +  $amount : $accountStatistic->credit_amount -  $amount;
+        }else
+        {
+            $data['debit_amount'] = $addTransaction ? $accountStatistic->debit_amount +  $amount : $accountStatistic->debit_amount -  $amount;
+
+        }
+        $accountStatistic->update($data);
     }
 
     

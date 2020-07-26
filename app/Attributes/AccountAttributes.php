@@ -65,21 +65,63 @@ trait AccountAttributes
     {
         return AccountStatistic::whereIn("account_id",$treeIds)->sum('total_amount');
     }
-    private function _getAccountBalanceUsingTransactions()
+    public function _getAccountBalanceUsingTransactions($creditAmount = null , $debitAmount = null)
     {
-        $whereStatements = $this->_getAdditionalWhereStatement();
-        if ($this->_isCredit()) return $this->credit_transaction()->where($whereStatements)->sum('amount') - $this->debit_transaction()->where($whereStatements)->sum('amount');
-        return $this->debit_transaction()->where($whereStatements)->sum('amount') -  $this->credit_transaction()->where($whereStatements)->sum('amount');
+        if($creditAmount === null && $debitAmount === null)
+        {
+            $whereStatements = $this->_getAdditionalWhereStatement();
+            $creditAmount = $this->_getCreditTransactionsAmount($whereStatements);
+            $debitAmount = $this->_getDebitTransactionsAmount($whereStatements);
+        }
+
+        // update credit and debit amount
+        $this->_updateCreditAndDebitAmountForAccount($creditAmount,$debitAmount);
+
+        if ($this->_isCredit()) return  $creditAmount - $debitAmount ;
+        return $debitAmount - $creditAmount;
     }
+
+
+    public function _updateCreditAndDebitAmountForAccount($creditAmount,$debitAmount)
+    {
+
+        if($this->statistics != null)
+        {
+            $this->statistics()->update([
+                'credit_amount' => floatval($creditAmount) ,
+                'debit_amount' => floatval($debitAmount)
+            ]);
+        }
+
+    }
+
+
+    public function _getCreditTransactionsAmount($whereStatements = [])
+    {
+        if( $whereStatements == [])
+            $whereStatements =  $this->_getAdditionalWhereStatement();
+       return  $this->credit_transaction()->where($whereStatements)->sum('amount');
+    }
+
+
+    public function _getDebitTransactionsAmount($whereStatements = [])
+    {
+
+        if( $whereStatements == [])
+            $whereStatements =  $this->_getAdditionalWhereStatement();
+
+       return  $this->debit_transaction()->where($whereStatements)->sum('amount');
+    }
+
 
     private function _getAdditionalWhereStatement()
     {
         $where = [];
         if($this->_isClients())
-            $where =  [['description','client_balance']];
+            $where =  [];//['description','client_balance']
 
         if($this->_isVendors())
-            $where =  [['description','vendor_balance']];
+            $where =  [];//['description','vendor_balance']
 
 
         if($where == [])
@@ -89,7 +131,22 @@ trait AccountAttributes
     }
     private function _getStockBalanceUsingTransactions()
     {
-        return Transaction::where('debitable_type', 'App\Item')->sum('amount') - Transaction::where('creditable_type', 'App\Item')->sum('amount');
+
+        $creditAmount =  $this->_getStockCreditAmount();
+        $debitAmount = $this->_getStockDebitAmount();
+        $this->_updateCreditAndDebitAmountForAccount($creditAmount,$debitAmount);
+
+        return  $debitAmount -  $creditAmount;
+    }
+
+    public function _getStockCreditAmount()
+    {
+        return Transaction::where('creditable_type', 'App\Item')->sum('amount');
+    }
+
+    public function _getStockDebitAmount()
+    {
+       return Transaction::where('debitable_type', 'App\Item')->sum('amount');
     }
 
     public function _getCurrentBalanceUsingTransaction()

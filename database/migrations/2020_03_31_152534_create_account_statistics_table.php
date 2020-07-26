@@ -18,6 +18,8 @@ class CreateAccountStatisticsTable extends Migration
             $table->integer('account_id');
 	        $table->integer('transactions_count')->default(0);
 	        $table->float("total_amount",50,8)->default(0);
+	        $table->float('credit_amount',50,8)->default(0);
+	        $table->float('debit_amount',50,8)->default(0);
             $table->timestamps();
         });
     }

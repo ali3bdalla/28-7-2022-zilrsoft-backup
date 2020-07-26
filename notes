@@ -1,0 +1,2 @@
+udpdate accounts account_statistics table
+ALTER TABLE `account_statistics` ADD `credit_amount` FLOAT(50,8) NOT NULL DEFAULT '0' AFTER `updated_at`, ADD `debit_amount` FLOAT(50,8) NOT NULL DEFAULT '0' AFTER `credit_amount`;
