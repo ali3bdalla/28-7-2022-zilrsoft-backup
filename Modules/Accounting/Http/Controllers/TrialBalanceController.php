@@ -15,7 +15,8 @@ class TrialBalanceController extends Controller
      */
     public function index()
     {
-        $accountsDB = Account::withCount('children')->having('children_count', '=', 0)->get();
+        //withCount('children')->having('children_count', '=', 0)->
+        $accountsDB = Account::all();
         $totalCreditAmount = 0;
         $totalDebitAmount = 0;
         $totalCreditBalance = 0;
