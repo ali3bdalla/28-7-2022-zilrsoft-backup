@@ -13,20 +13,23 @@ class createExpensesPurchaseJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $items = [];
+    private $invoice;
+    /**
+     * @var array
+     */
+    private $expensesIds;
 
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $invoice
+     * @param array $expensesIds
      */
-    public function __construct($invoice, $items)
+    public function __construct($expensesIds = [],$invoice = null)
     {
-        $itemsIds = collect($items)->pluck('id');
-        $items = Item::find($itemsIds);
-        foreach ($items as $item)
-            if ($item->isExpense())
-                $this->items[] = $item;
+
+        $this->invoice = $invoice;
+        $this->expensesIds = $expensesIds;
     }
 
     /**
@@ -36,7 +39,11 @@ class createExpensesPurchaseJob implements ShouldQueue
      */
     public function handle()
     {
-        //
+
+        foreach ($this->expensesIds as $id)
+        {
+//            $items
+        }
     }
 
 }

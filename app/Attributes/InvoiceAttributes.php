@@ -6,6 +6,37 @@
 	{
 
 
+        public function isPurchase()
+        {
+            return in_array($this->invoice_type,['purchase','beginning_inventory']);
+	    }
+
+        public function isReturnPurchase()
+        {
+            return in_array($this->invoice_type,['r_purchase']);
+        }
+
+
+        public function isSale()
+        {
+            return in_array($this->invoice_type,['sale']);
+        }
+
+
+        public function isReturnSale()
+        {
+            return in_array($this->invoice_type,['r_sale']);
+        }
+
+        public function isPending()
+        {
+            return in_array($this->invoice_type,['pending_purchase','qoutation']);
+        }
+
+        
+
+
+
         public function getPrintableTaxAndNetAttribute()
         {
             $result['tax'] = 0;

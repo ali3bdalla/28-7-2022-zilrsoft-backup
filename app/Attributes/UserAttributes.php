@@ -7,6 +7,11 @@
 	trait UserAttributes
 	{
 
+
+        public function isSystemUser()
+        {
+            return $this->is_system_user;
+	    }
         public function _getClientBalance()
         {
             return $this->balance ;

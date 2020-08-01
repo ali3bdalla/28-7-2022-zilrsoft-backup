@@ -53,12 +53,15 @@ trait AccountAttributes
     {
         if($this->statistics == null)
         {
-            return  $this->statistics()->create([
-                'total_amount' => $this->_getCurrentBalanceUsingTransaction(),
+            $total = $this->_getCurrentBalanceUsingTransaction();
+            $this->statistics()->update([
+                'total_amount' => $total,
                 'transactions_count' => 0
-            ]);
+                ]);
         }
-        return $this->statistics;
+
+
+        return $this->statistics->fresh();
     }
 
     private function _getAccountsTreeBalance($treeIds = [])
@@ -87,6 +90,11 @@ trait AccountAttributes
 
         if($this->statistics != null)
         {
+            $this->statistics()->update([
+                'credit_amount' => floatval($creditAmount) ,
+                'debit_amount' => floatval($debitAmount)
+            ]);
+        }else {
             $this->statistics()->update([
                 'credit_amount' => floatval($creditAmount) ,
                 'debit_amount' => floatval($debitAmount)

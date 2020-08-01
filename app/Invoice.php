@@ -7,17 +7,29 @@
 	use App\DatabaseHelpers\Invoice\FreshHelper;
 	use App\DatabaseHelpers\InvoiceInterfaceHelper;
 	use App\Relationships\InvoiceRelationship;
-	use Illuminate\Database\Eloquent\Model;
+    use App\Traits\OrmNumbersTrait;
+    use Illuminate\Database\Eloquent\Model;
 	use Illuminate\Database\Eloquent\SoftDeletes;
 	use Illuminate\Database\Eloquent\Builder;
-	class Invoice extends Model
+
+    /**
+     * @property mixed organization_id
+     * @property mixed creator_id
+     * @property mixed user_id
+     * @property mixed invoice_type
+     * @property mixed net
+     * @property mixed tax
+     * @property mixed id
+     */
+    class Invoice extends Model
 	{
 
 
 		use InvoiceRelationship,InvoiceAttributes,InvoiceInterfaceHelper,FreshHelper,SoftDeletes;
-		use CoreInvoice;
+		use CoreInvoice,OrmNumbersTrait;
 
-		protected static function boot()
+
+        protected static function boot()
 		{
 			parent::boot();
 			if (auth()->check()){
@@ -42,7 +54,8 @@
 		protected $casts = [
 			'printable_price' => 'boolean'
 		];
-		
+
+
 		
 		
 	}

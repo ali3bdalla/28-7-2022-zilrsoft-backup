@@ -6,6 +6,14 @@
 	
 	trait  ManagerAttributes
 	{
+
+
+        public function _getStockAccount()
+        {
+            return Account::where("slug",'stock')->first();
+	    }
+
+
 		public function getLocaleNameAttribute()
 		{
 			

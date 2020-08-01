@@ -167,6 +167,13 @@ trait ItemFreshHelper
             'item_available_qty' => $this->fresh()->available_qty,
         ]);
 
+
+        if( $$baseItem->fresh()->available_qty < 0 )
+        {
+            throw new ValidationException('qty not avaialbe',400);
+        }
+
+        
         return $baseItem;
     }
 

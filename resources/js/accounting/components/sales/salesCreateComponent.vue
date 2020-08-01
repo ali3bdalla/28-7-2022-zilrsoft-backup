@@ -556,6 +556,10 @@
         <!--invoice create Modal-->
 
 
+
+
+
+<!--        <textarea class="form-control" v-model="stringifyRequestData"></textarea>-->
     </div>
 
 
@@ -577,6 +581,7 @@
             'canCreateItem'],
         data: function () {
             return {
+                stringifyRequestData:"",
                 clientModal: {
                     clientName: "",
                     clientArName: "",
@@ -642,7 +647,7 @@
             this.clientList = this.clients;
             this.initExpensesList();
             this.initLiveTimer();
-            if (this.cloning == true) {
+            if (this.cloning === true) {
                 this.handleCloningEvent();
             }
 
@@ -1212,8 +1217,10 @@
                 // $("")
                 let appVm = this;
 
-                axios.post(this.app.BaseApiUrl + 'sales', data)
+                this.stringifyRequestData = JSON.stringify(data);
+                axios.post('/sales', data)
                     .then(function (response) {
+                        // console.log(response.data)
                         if (doWork == 'open') {
                             window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
                         } else if (doWork == 'print') {

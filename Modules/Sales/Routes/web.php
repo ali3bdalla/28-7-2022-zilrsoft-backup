@@ -13,6 +13,10 @@
 //auth()->loginUsingId(1);
 
 
+use Illuminate\Support\Facades\Route;
+
+
+//auth()->loginUsingId(1);
 Route::prefix('sales')->name('sales.')->middleware('auth')->group(function() {
     Route::get('/', 'SaleController@index')->name('index');
     Route::get('/create', 'CreateController@showCreateForm')->name('create');

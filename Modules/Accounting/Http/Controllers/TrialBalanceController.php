@@ -3,6 +3,8 @@
 namespace Modules\Accounting\Http\Controllers;
 
 use App\Account;
+use App\Invoice;
+use App\TransactionsContainer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -13,10 +15,14 @@ class TrialBalanceController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
+
+        // return Invoice::where('id',$request->input('id'))->with('transactions')->get();
         //withCount('children')->having('children_count', '=', 0)->
-        $accountsDB = Account::all();
+        $accountsDB = Account::withCount('children')->having('children_count', '=', 0)->get();
+        // return 
         $totalCreditAmount = 0;
         $totalDebitAmount = 0;
         $totalCreditBalance = 0;
@@ -32,18 +38,22 @@ class TrialBalanceController extends Controller
                 $creditAmount = $account->statistics->credit_amount;
 
 
-
             }else
             {
                 $debitAmount = $account->_getDebitTransactionsAmount();
                 $creditAmount = $account->_getCreditTransactionsAmount();
-                $diff[] = [
-                    'debit'=>$debitAmount,
-                    'credit'=>$creditAmount,
-                ];
+            
             }
+            
 
+            // if($debitAmount == $creditAmount  && floatval($debitAmount) == 0)
+            // {
+                
+            //     $debitAmount = $account->_getDebitTransactionsAmount();
+            //     $creditAmount = $account->_getCreditTransactionsAmount();
+            //     $account->_getAccountBalanceUsingTransactions(  $creditAmount ,$debitAmount);
 
+            // }
 
             if($debitAmount!=0 || $creditAmount != 0)
             {

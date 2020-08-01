@@ -28,6 +28,8 @@ class ValidatorServiceProvider extends ServiceProvider
     public function boot()
     {
 
+        $this->registerFinialValidations();
+
         Validator::extendImplicit('phone', function ($attribute, $value, $parameters) {
             return true;
         });
@@ -122,5 +124,21 @@ class ValidatorServiceProvider extends ServiceProvider
 
 
         //
+    }
+
+    public function registerFinialValidations()
+    {
+
+        Validator::extendImplicit('salesItemQty', function ($attribute, $value, $args) {
+            $str_attr = explode('.', $attribute);
+            $index = $str_attr[1];
+            $first = $str_attr[0];
+            $end = $str_attr[2];
+            $id = request()->input("{$first}.{$index}.id");
+            $item = Item::findOrFail($id);
+
+            return ($item->is_kit || $item->is_service || $item->is_expense) ? true : $item->available_qty >= (int) $value;
+        });
+
     }
 }

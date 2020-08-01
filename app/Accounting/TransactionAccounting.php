@@ -266,8 +266,6 @@
 				}
 				$sum = $inc->expenses()->where('with_net',0)->sum('amount');
 				if ($sum > 0){
-
-
 //					return $manager_cash_account_id;
 					$tax_account->debit_transaction()->create([
 						'creator_id' => auth()->user()->id,
@@ -428,7 +426,6 @@
 		{
 			$creator_stock = auth()->user()->toGetManagerAccount('stock');
 			$client_account = auth()->user()->toGetManagerAccount('clients');
-			
 			$net = $inc->net;
 			$user_id = $inc->user_id;
 			

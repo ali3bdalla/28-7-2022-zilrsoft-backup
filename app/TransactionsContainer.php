@@ -5,6 +5,9 @@
 	use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\SoftDeletes;
 
+    /**
+     * @property mixed id
+     */
     class TransactionsContainer extends BaseModel
 	{
 		protected $guarded = [];

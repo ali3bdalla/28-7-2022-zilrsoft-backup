@@ -7,6 +7,11 @@ use App\DatabaseHelpers\UserHelper;
 use App\Relationships\UserRelationships;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property mixed id
+ * @property mixed balance
+ * @property mixed vendor_balance
+ */
 class User extends BaseAuthModel
 {
 
