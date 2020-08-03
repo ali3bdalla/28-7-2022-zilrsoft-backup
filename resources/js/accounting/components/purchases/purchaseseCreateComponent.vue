@@ -410,6 +410,7 @@
         <!--invoice create Modal-->
 
 
+        <textarea v-if="activateTestMode" v-model="testRequestData" class="form-control"></textarea>
     </div>
 
 
@@ -429,6 +430,8 @@
             'canCreateItem', 'initPurchase', 'initInvoice', 'initItems'],
         data: function () {
             return {
+                activateTestMode:false,
+                testRequestData:"",
                 code_tester: "",
                 pending_purchase_id: 0,
                 vendorModal: {
@@ -896,24 +899,32 @@
                 };
                 this.code_tester = JSON.stringify(data);
                 let appVm = this;
-                axios.post(this.app.BaseApiUrl + 'purchases', data)
-                    .then(function (response) {
-                        console.log(response.data);
-                        // if (event == 'a4') {
-                        window.open('/accounting/printer/print_a4/' + response.data.id, '_blank');
-                        // }
-                        appVm.invoiceTitle = response.data.title;
-                        appVm.askUserToHandleInvoice(response.data);
+                if(this.activateTestMode)
+                {
+                    this.testRequestData = JSON.stringify(data)
+                }else
 
-                        // this is user profile to handle the new quotation mode for this user profile
-                        // and to handle the new app with out last fake news
-                        // user will take every think to handle the user google account
-                    })
-                    .catch(function (error) {
-                        // alert(error.response);
-                        console.log(error);
-                        console.log(error.response)
-                    });
+                {
+                    axios.post('/purchases', data)//this.app.BaseApiUrl + 
+                        .then(function (response) {
+                            console.log(response.data);
+                            // if (event == 'a4') {
+                            window.open('/accounting/printer/print_a4/' + response.data.id, '_blank');
+                            // }
+                            appVm.invoiceTitle = response.data.title;
+                            appVm.askUserToHandleInvoice(response.data);
+
+                            // this is user profile to handle the new quotation mode for this user profile
+                            // and to handle the new app with out last fake news
+                            // user will take every think to handle the user google account
+                        })
+                        .catch(function (error) {
+                            // alert(error.response);
+                            console.log(error);
+                            console.log(error.response)
+                        });
+                }
+
 
             },
 

@@ -5,6 +5,7 @@ namespace Modules\Purchases\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Purchases\Http\Requests\CreatePurchaseRequest;
 
 class PurchaseController extends Controller
 {
@@ -31,9 +32,10 @@ class PurchaseController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreatePurchaseRequest $request)
     {
         //
+        return $request->store();
     }
 
     /**

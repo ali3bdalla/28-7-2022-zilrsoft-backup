@@ -556,7 +556,7 @@
         <!--invoice create Modal-->
 
 
-        <textarea class="form-control" v-model="stringifyRequestData"></textarea>
+        <textarea class="form-control" v-if="activateTestMode" v-model="testRequestData"></textarea>
     </div>
 
 
@@ -578,7 +578,8 @@
             'canCreateItem'],
         data: function () {
             return {
-                stringifyRequestData: "",
+                activateTestMode:false,
+                testRequestData: "",
                 clientModal: {
                     clientName: "",
                     clientArName: "",
@@ -1213,54 +1214,62 @@
                 // $("")
                 let appVm = this;
 
-                // this.stringifyRequestData = JSON.stringify(data);
-                axios.post('/sales', data)
-                    .then(function (response) {
-                        console.log(response.data);
-                        if (doWork === 'open') {
-                            window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
-                        } else if (doWork === 'print') {
-                            appVm.everythingFineToSave = false;
-                            appVm.createdInvoiceId = response.data.id;
-                            let salesman = appVm.invoiceData.salesmanId,
-                                clientId = appVm.invoiceData.clientId;
+                if(this.activateTestMode)
+                {
+                    this.testRequestData = JSON.stringify(data)
+                }else
 
-                            appVm.invoiceData = {
-                                remaining: 0,
-                                vendorIncCumber: "",
-                                clientId: clientId,
-                                salesmanId: salesman,
-                                methods: [],
-                                items: [],
-                                total: 0,
-                                net: 0,
-                                tax: 0,
-                                discount: 0,
-                                subtotal: 0,
-                                status: "credit"
-                            };
+                {
+                    axios.post('/sales', data)
+                        .then(function (response) {
+                            console.log(response.data);
+                            if (doWork === 'open') {
+                                window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                            } else if (doWork === 'print') {
+                                appVm.everythingFineToSave = false;
+                                appVm.createdInvoiceId = response.data.id;
+                                let salesman = appVm.invoiceData.salesmanId,
+                                    clientId = appVm.invoiceData.clientId;
 
-                            setInterval(function () {
+                                appVm.invoiceData = {
+                                    remaining: 0,
+                                    vendorIncCumber: "",
+                                    clientId: clientId,
+                                    salesmanId: salesman,
+                                    methods: [],
+                                    items: [],
+                                    total: 0,
+                                    net: 0,
+                                    tax: 0,
+                                    discount: 0,
+                                    subtotal: 0,
+                                    status: "credit"
+                                };
+
+                                setInterval(function () {
+                                    if (appVm.cloning) {
+                                        window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                                    } else {
+                                        window.location.reload();
+                                    }
+                                }, 1000);
+
+                            } else {
                                 if (appVm.cloning) {
                                     window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
                                 } else {
                                     window.location.reload();
                                 }
-                            }, 1000);
-
-                        } else {
-                            if (appVm.cloning) {
-                                window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
-                            } else {
-                                window.location.reload();
                             }
-                        }
 
-                    })
-                    .catch(function (error) {
-                        alert(error.response.data.message);
-                        console.log(error.response.data)
-                    });
+                        })
+                        .catch(function (error) {
+                            alert(error.response.data.message);
+                            console.log(error.response.data)
+                        });
+                }
+                // this.stringifyRequestData = JSON.stringify(data);
+
 
             },
 

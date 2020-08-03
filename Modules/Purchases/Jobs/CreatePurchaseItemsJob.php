@@ -45,7 +45,7 @@ class CreatePurchaseItemsJob implements ShouldQueue
      * @param array $expenses
      * @param $paymentsMethods
      */
-    public function __construct(Invoice $invoice,$items = [],$expenses = [],$paymentsMethods = [])
+    public function __construct(Invoice $invoice,$items = [],$paymentsMethods = [],$expenses = [])
     {
         //
         $this->invoice = $invoice;
