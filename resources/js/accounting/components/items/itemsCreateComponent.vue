@@ -2,12 +2,12 @@
     <div>
         <div class="row">
             <div class="col-md-6">
-                <div :class="{'has-error':errorFieldName=='arName'}" class="form-group">
+                <div :class="{'has-error':errorFieldName==='arName'}" class="form-group">
                     <input :placeholder="app.trans.name_ar"
                            class="form-control has-error"
                            readonly="" type='text'
                            v-model="itemData.arName">
-                    <small class="text-danger" v-show="errorFieldName=='arName'">
+                    <small class="text-danger" v-show="errorFieldName==='arName'">
                         {{ errorFieldMessage}}
                     </small>
                 </div>
@@ -16,12 +16,12 @@
             </div>
 
             <div class="col-md-6">
-                <div :class="{'has-error':errorFieldName=='enName'}" class="form-group">
+                <div :class="{'has-error':errorFieldName==='enName'}" class="form-group">
                     <input :placeholder="app.trans.name_en"
                            class="form-control has-error"
                            readonly="" type='text'
                            v-model="itemData.enName">
-                    <small class="text-danger" v-show="errorFieldName=='enName'">
+                    <small class="text-danger" v-show="errorFieldName==='enName'">
                         {{ errorFieldMessage}}
                     </small>
                 </div>
@@ -32,13 +32,13 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <div :class="{'has-error':errorFieldName=='barcode'}" class="form-group">
-                    <input :class="{'is-danger':errorFieldName=='salesPrice'}" :placeholder="app.trans.barcode"
+                <div :class="{'has-error':errorFieldName==='barcode'}" class="form-group">
+                    <input :class="{'is-danger':errorFieldName==='salesPrice'}" :placeholder="app.trans.barcode"
                            @blur="barcodeFieldChanged"
                            @keyup.13="barcodeFieldEnterButtonClicked"
                            class="form-control" type='text'
                            v-model="itemData.barcode">
-                    <small class="text-danger" v-show="errorFieldName=='barcode'">
+                    <small class="text-danger" v-show="errorFieldName==='barcode'">
                         {{ errorFieldMessage}}
                     </small>
 
@@ -51,12 +51,12 @@
 
 
             <div class="col-md-3">
-                <div :class="{'has-error':errorFieldName=='salesPrice'}" class="form-group">
-                    <input :class="{'is-danger':errorFieldName=='salesPrice'}" :placeholder="app.trans.price"
+                <div :class="{'has-error':errorFieldName==='salesPrice'}" class="form-group">
+                    <input :class="{'is-danger':errorFieldName==='salesPrice'}" :placeholder="app.trans.price"
                            @keyup="salesPriceFieldUpdated"
                            class="form-control" type='text'
                            v-model="itemData.salesPrice">
-                    <small class="text-danger" v-show="errorFieldName=='salesPrice'">
+                    <small class="text-danger" v-show="errorFieldName==='salesPrice'">
                         {{ errorFieldMessage}}
                     </small>
 
@@ -66,13 +66,13 @@
 
             <div class="col-md-3">
 
-                <div :class="{'has-error':errorFieldName=='salesPriceWithTax'}" class="form-group">
-                    <input :class="{'is-danger':errorFieldName=='salesPriceWithTax'}" :placeholder="app.trans.price_tax"
+                <div :class="{'has-error':errorFieldName==='salesPriceWithTax'}" class="form-group">
+                    <input :class="{'is-danger':errorFieldName==='salesPriceWithTax'}" :placeholder="app.trans.price_tax"
                            @keyup="salesPriceWithTaxFieldUpdated"
                            class="form-control" ref="salesPriceWithTaxFieldRef"
                            type='text'
                            v-model="itemData.salesPriceWithTax">
-                    <small class="text-danger" v-show="errorFieldName=='salesPriceWithTax'">
+                    <small class="text-danger" v-show="errorFieldName==='salesPriceWithTax'">
                         {{ errorFieldMessage}}
                     </small>
                 </div>
@@ -173,7 +173,7 @@
 
             </div>
             <div class="col-md-2">
-                <div :class="{'has-error':errorFieldName=='expenseVendorId'}" class="form-group"
+                <div :class="{'has-error':errorFieldName==='expenseVendorId'}" class="form-group"
                      v-show="itemData.isExpense">
                     <accounting-select-with-search-layout-component
                         :identity="10023749872394"
@@ -186,7 +186,7 @@
                         title="المورد"
                     >
                     </accounting-select-with-search-layout-component>
-                    <small class="text-danger" v-show="errorFieldName=='expenseVendorId'">-->
+                    <small class="text-danger" v-show="errorFieldName==='expenseVendorId'">-->
                         {{ errorFieldMessage}}
                     </small>
 
@@ -235,10 +235,10 @@
             </div>
             <div class="col-md-6">
                 <div>
-                    <div :dir="app.appLocate=='ar' ? 'rtl' : 'ltr'">
+                    <div :dir="app.appLocate==='ar' ? 'rtl' : 'ltr'">
                         <treeselect
                             :disable-branch-nodes="true"
-                            :disabled="cloningItem==true"
+                            :disabled="cloningItem===true"
                             :load-options="loadCategoriesList"
                             :options="categories"
                             :placeholder="app.trans.category"
@@ -263,7 +263,7 @@
             </div>
 
             <div class="col-md-1  text-center">
-                <a :href="app.BaseApiUrl + 'categories/create'" target="_blank" v-if="canCreateCategory==1">
+                <a :href="app.BaseApiUrl + 'categories/create'" target="_blank" v-if="canCreateCategory===1">
                     <button class="btn btn-custom-primary btn-sm"><i class="fa fa-plus-circle"></i></button>
                 </a>
             </div>
@@ -298,7 +298,7 @@
 
 
             <button @click="sendDataToServer('clone')" class="btn btn-custom-primary" v-if="editingItem!=true ||
-            cloningItem==1"><i
+            cloningItem===1"><i
                 class="fa fa-check-circle"></i> &nbsp;&nbsp;{{ app.trans.save_clone}}
             </button>
             &nbsp;&nbsp;
@@ -403,11 +403,15 @@
         },
         created: function () {
 
+
+            // alert('hello')
             this.reusable_translator = JSON.parse(window.reusable_translator);
             this.local_config = JSON.parse(window.config);
+            // console.log('works');
             if (this.editingItem != null && this.editingItem) {
 
                 this.itemData.warranty_subscription_id = this.editedItemData.warranty_subscription_id;
+
                 this.itemData.arName = this.editedItemData.ar_name;
                 this.itemData.enName = this.editedItemData.name;
                 this.itemData.barcode = this.editedItemData.barcode;
@@ -427,19 +431,24 @@
                 this.itemData.categoryId = this.editedItemData.category_id;
                 this.itemData.attachments = this.editedItemData.attachments;
                 this.new_attachment_link = '/accounting/items/' + this.editedItemData.id + '/attachments';
+
                 if (!this.editedItemData.name.includes(this.editedItemCategory.name)) {
                     this.categoryNameShouldBeInItemName = false;
                 }
 
-                if (this.cloningItem != null && this.cloningItem == 1) {
+                if (this.cloningItem != null && this.cloningItem === 1) {
                     this.itemData.barcode = "";
                     this.itemData.salesPrice = 0;
                     this.itemData.salesPriceWithTax = 0;
                 }
                 this.categoryListUpdated(this.editedItemCategory, null);
             }
-            this.messages = JSON.parse(window.messages);
+            console.log(window.messages);
+
+            this.messages = window.messages;
+
             this.loadWarrantySubscriptions();
+
         },
         methods: {
             loadWarrantySubscriptions() {
@@ -466,7 +475,7 @@
                     }
                 })
                     .then(function (response) {
-                        if (appVm.errorFieldName == 'barcode')
+                        if (appVm.errorFieldName === 'barcode')
                             appVm.errorFieldName = '';
 
 
@@ -487,7 +496,7 @@
             },
             //sales price and sales price with tax fields events
             salesPriceFieldUpdated(e) {
-                if (this.errorFieldName == 'salesPrice' || this.errorFieldName == 'salesPriceWithTax')
+                if (this.errorFieldName === 'salesPrice' || this.errorFieldName === 'salesPriceWithTax')
                     this.errorFieldName = '';
                 var val = e.target.value;
                 if (ItemValidator.validatePriceValue(val))
@@ -497,7 +506,7 @@
 
             },
             salesPriceWithTaxFieldUpdated(e) {
-                if (this.errorFieldName == 'salesPrice' || this.errorFieldName == 'salesPriceWithTax')
+                if (this.errorFieldName === 'salesPrice' || this.errorFieldName === 'salesPriceWithTax')
                     this.errorFieldName = '';
                 let val = this.itemData.salesPriceWithTax;
                 if (ItemValidator.validatePriceValue(val))
@@ -508,34 +517,34 @@
             },
             // toggle buttons events
             vatSaleValueToggleButtonChanged(e) {
-                if (this.itemData.hasVatSale == false) {
+                if (this.itemData.hasVatSale === false) {
                     this.itemData.vts = 0;
                 } else {
 
-                    if (this.itemData.hasVatSale == 0) {
+                    if (this.itemData.hasVatSale === 0) {
                         this.itemData.vts = this.app.defaultVatSaleValue;
                     }
                 }
             },
             vatPurchaseValueToggleButtonChanged(e) {
-                if (this.itemData.hasVatPurchase == false) {
+                if (this.itemData.hasVatPurchase === false) {
                     this.itemData.vtp = 0;
                 } else {
 
-                    if (this.itemData.hasPurchaseSale == 0) {
+                    if (this.itemData.hasPurchaseSale === 0) {
                         this.itemData.vtp = this.app.defaultVatPurchaseValue;
                     }
                 }
             },
             isNeedSerialToggleButtonChanged(e) {
-                if (this.itemData.isNeedSerial == true) {
+                if (this.itemData.isNeedSerial === true) {
                     this.itemData.isService = false;
                     this.itemData.isExpense = false;
                 }
 
             },
             isServiceToggleButtonChanged(e) {
-                if (this.itemData.isService == true) {
+                if (this.itemData.isService === true) {
                     this.itemData.isNeedSerial = false;
                     this.itemData.hasVatPurchase = false;
                     this.itemData.salesPriceWithTax = 40;
@@ -547,7 +556,7 @@
                 this.salesPriceWithTaxFieldUpdated({});
             },
             isExpenseToggleButtonChanged(e) {
-                if (this.itemData.isExpense == true) {
+                if (this.itemData.isExpense === true) {
                     this.itemData.isNeedSerial = false;
                 }
             },
@@ -570,7 +579,7 @@
                 this.itemData.expenseVendorId = e.value.id;
             },
             categoryListUpdated(node, instanceId) {
-                if (this.errorFieldName == 'category') {
+                if (this.errorFieldName === 'category') {
                     this.error = '';
                 }
                 this.selectedFilterValue.clear();
@@ -650,21 +659,21 @@
             },
             validateAllField() {
 
-                if (this.itemData.barcode == "" || this.itemData.barcode.length < 4) {
+                if (this.itemData.barcode === "" || this.itemData.barcode.length < 4) {
                     this.errorFieldName = 'barcode';
                     this.errorFieldMessage = this.validation.item.barcode_required;
                     return false;
                 }
 
 
-                if (this.itemData.enName == "") {
+                if (this.itemData.enName === "") {
                     this.errorFieldName = 'enName';
                     this.errorFieldMessage = this.validation.item.name_required;
                     return false;
                 }
 
 
-                if (this.itemData.arName == "") {
+                if (this.itemData.arName === "") {
                     this.errorFieldName = 'arName';
                     this.errorFieldMessage = this.validation.item.name_required;
                     return false;
@@ -685,7 +694,7 @@
                 }
 
 
-                if (this.itemData.categoryId == null) {
+                if (this.itemData.categoryId === null) {
                     this.errorFieldName = 'categoryId';
                     this.errorFieldMessage = this.validation.item.category_required;
                     return false;
@@ -762,7 +771,7 @@
                             appVm.itemData.salesPrice = 0;
                             appVm.itemData.salesPriceWithTax = 0;
 
-                            if (redirect_to == 'clone') {
+                            if (redirect_to === 'clone') {
                                 appVm.showPopSuccessMessage();
                             } else {
                                 location.href = appVm.app.BaseApiUrl + 'items';

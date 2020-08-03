@@ -556,9 +556,6 @@
         <!--invoice create Modal-->
 
 
-
-
-
         <textarea class="form-control" v-model="stringifyRequestData"></textarea>
     </div>
 
@@ -581,7 +578,7 @@
             'canCreateItem'],
         data: function () {
             return {
-                stringifyRequestData:"",
+                stringifyRequestData: "",
                 clientModal: {
                     clientName: "",
                     clientArName: "",
@@ -1068,11 +1065,10 @@
                 }
 
 
-
                 item.total = ItemAccounting.getTotal(item.price, item.qty);
                 item.subtotal = ItemAccounting.getSubtotal(item.total, item.discount);
                 //
-                item.tax = item.is_kit ? item.data.tax : ItemAccounting.getTax(item.subtotal, item.vts, true) ;// this for vat purchase => vtp
+                item.tax = item.is_kit ? item.data.tax : ItemAccounting.getTax(item.subtotal, item.vts, true);// this for vat purchase => vtp
                 item.net = ItemAccounting.getNet(item.subtotal, item.tax, true);
                 return item;
             },
@@ -1217,54 +1213,54 @@
                 // $("")
                 let appVm = this;
 
-                this.stringifyRequestData = JSON.stringify(data);
-                // axios.post('/sales', data)
-                //     .then(function (response) {
-                //         console.log(response.data)
-                //         if (doWork == 'open') {
-                //             window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
-                //         } else if (doWork == 'print') {
-                //             appVm.everythingFineToSave = false;
-                //             appVm.createdInvoiceId = response.data.id;
-                //             let salesman = appVm.invoiceData.salesmanId,
-                //                 clientId = appVm.invoiceData.clientId;
-                //
-                //             appVm.invoiceData = {
-                //                 remaining: 0,
-                //                 vendorIncCumber: "",
-                //                 clientId: clientId,
-                //                 salesmanId: salesman,
-                //                 methods: [],
-                //                 items: [],
-                //                 total: 0,
-                //                 net: 0,
-                //                 tax: 0,
-                //                 discount: 0,
-                //                 subtotal: 0,
-                //                 status: "credit"
-                //             };
-                //
-                //             setInterval(function () {
-                //                 if (appVm.cloning) {
-                //                     window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
-                //                 } else {
-                //                     window.location.reload();
-                //                 }
-                //             }, 1000);
-                //
-                //         } else {
-                //             if (appVm.cloning) {
-                //                 window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
-                //             } else {
-                //                 window.location.reload();
-                //             }
-                //         }
-                //
-                //     })
-                //     .catch(function (error) {
-                //         alert(error.response.data.message);
-                //         console.log(error.response.data)
-                //     });
+                // this.stringifyRequestData = JSON.stringify(data);
+                axios.post('/sales', data)
+                    .then(function (response) {
+                        console.log(response.data);
+                        if (doWork === 'open') {
+                            window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                        } else if (doWork === 'print') {
+                            appVm.everythingFineToSave = false;
+                            appVm.createdInvoiceId = response.data.id;
+                            let salesman = appVm.invoiceData.salesmanId,
+                                clientId = appVm.invoiceData.clientId;
+
+                            appVm.invoiceData = {
+                                remaining: 0,
+                                vendorIncCumber: "",
+                                clientId: clientId,
+                                salesmanId: salesman,
+                                methods: [],
+                                items: [],
+                                total: 0,
+                                net: 0,
+                                tax: 0,
+                                discount: 0,
+                                subtotal: 0,
+                                status: "credit"
+                            };
+
+                            setInterval(function () {
+                                if (appVm.cloning) {
+                                    window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                                } else {
+                                    window.location.reload();
+                                }
+                            }, 1000);
+
+                        } else {
+                            if (appVm.cloning) {
+                                window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                            } else {
+                                window.location.reload();
+                            }
+                        }
+
+                    })
+                    .catch(function (error) {
+                        alert(error.response.data.message);
+                        console.log(error.response.data)
+                    });
 
             },
 

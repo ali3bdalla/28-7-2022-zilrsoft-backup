@@ -36,3 +36,5 @@ window.autoload = autoload;
 window.counting = counting;
 window.helpers = helpers;
 
+window.config = "{}";
+
