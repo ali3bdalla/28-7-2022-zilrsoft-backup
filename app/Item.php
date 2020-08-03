@@ -98,7 +98,7 @@ class Item extends BaseModel
     }
     public function getSaleTaxAsFloatValue()
     {
-        return (1 + $this->vts) / 100;
+        return (1 + $this->vts / 100);
     }
     public function availableQty()
     {

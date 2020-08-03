@@ -980,7 +980,7 @@
                 if (bySerial === false && !item.is_service) {
                     let el = this.$refs['itemQty_' + item.id + 'Ref'][0];
                     if (!inputHelper.validateQty(item.qty, el, item.available_qty, 0)) {
-                        item.qty = item.available_qty
+                        item.qty = 0
                     }
                 }
 
@@ -1179,7 +1179,6 @@
                 let client = db.model.find(this.clientList, this.invoiceData.clientId);
                 if (client.can_make_credit === false) {
                     let amount = db.model.sum(this.invoiceData.methods, 'amount');
-
                     if (ItemMath.isBiggerThan(this.invoiceData.net, amount)) {
                         alert('هذا العميل لا يمكنه القيام بفواتير آجله الرجاء التحقق من وسائل الدفع واكمال المبلغ ');
 

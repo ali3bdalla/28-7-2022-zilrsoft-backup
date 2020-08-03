@@ -52,7 +52,7 @@
         public function getPrintableNetAttribute()
         {
 
-            return $this->subtotal + $this->printable_tax;
+            return $this->roundOnLessThan1Cent($this->subtotal + $this->printable_tax);
     }
 
 

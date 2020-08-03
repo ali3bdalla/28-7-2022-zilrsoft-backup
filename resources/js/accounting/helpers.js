@@ -47,7 +47,6 @@ exports.inputHelper = {
             }
         }
 
-
         return true;
     },
 

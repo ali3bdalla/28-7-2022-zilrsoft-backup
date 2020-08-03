@@ -26,27 +26,27 @@ exports.accounting = {
         return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(price / this.convertVatPercentValueIntoFloatValue(vat));
     },
     getTotal: function (price, qty) {
-        return parseInt(qty) * parseFloat(price);
+        return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseInt(qty) * parseFloat(price));
     },
     getSubtotal: function (total, discount) {
-        return parseFloat(total) - parseFloat(discount);
+        return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(total) - parseFloat(discount));
     },
     getTax: function (subtotal, vat, fixed = false) {
         let result = parseFloat(subtotal) * parseFloat(this.convertVatPercentValueIntoFloatValue(vat)) - parseFloat(subtotal);
         if (fixed)
-            return this.toFixedWithoutRound(result);
+            return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(this.toFixedWithoutRound(result));
 
-        return result;
+        return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(result);
     },
     getNet: function (subtotal, tax, fixed = false) {
-        let result = parseFloat(parseFloat(subtotal) + parseFloat(tax)).toFixed(2);
+        let result = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(parseFloat(subtotal) + parseFloat(tax)).toFixed(2));
         if (fixed)
             return parseFloat(result).toFixed(2);
 
         return result;
     },
     getVariation(current, old) {
-        return parseFloat(current) - parseFloat(old);
+        return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(current) - parseFloat(old));
     },
 
     toFixedWithoutRound(value) {
@@ -71,18 +71,18 @@ exports.accounting = {
 
 exports.math = {
     sum: function (first, second) {
-        return parseFloat(first) + parseFloat(second);
+        return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(first) + parseFloat(second));
     },
 
     sub: function (first, second) {
-        return parseFloat(first) - parseFloat(second);
+        return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(first) - parseFloat(second));
     },
 
     dev: function (first, second) {
-        return parseFloat(first) / parseFloat(second);
+        return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(first) / parseFloat(second));
     },
     mult: function (first, second) {
-        return parseFloat(first) * parseFloat(second);
+        return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(first) * parseFloat(second));
     },
 
     isBiggerThan: function (first, second) {

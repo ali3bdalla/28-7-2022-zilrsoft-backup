@@ -41,6 +41,7 @@ class UpdateItemSalesPriceJob implements ShouldQueue
      */
     public function handle()
     {
+//        return 1 + $this->vts / 100;
         $priceWithoutTax = $this->priceWithTax / (float)$this->invoiceItem->item->getSaleTaxAsFloatValue();
         $this->invoiceItem->item()->update([
             'price' => $priceWithoutTax,
