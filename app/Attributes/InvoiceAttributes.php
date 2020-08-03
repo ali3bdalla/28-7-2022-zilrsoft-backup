@@ -279,35 +279,35 @@
 		public function getPriceAttribute($value)
 		{
 
-			return money_format('%i',$value);
+			return  $this->moneyFormatter($value);
 		}
 
 		public function getTotalAttribute($value)
 		{
-			return money_format('%i',$value);
+			return  $this->moneyFormatter($value);
 		}
 
 		public function getTaxAttribute($value)
 		{
 //			return $value;
-			return money_format('%.2n',$value);
+			return  $this->moneyFormatter($value);
 		}
 
 		public function getDiscountValueAttribute($value)
 		{
-			return money_format('%i',$value);
+			return  $this->moneyFormatter($value);
 		}
 
 		public function getNetAttribute($value)
 		{
 
-			return money_format('%i',$value);
+			return  $this->moneyFormatter($value);
 		}
 
 		public function getSubtotalAttribute($value)
 		{
 
-			return money_format('%i',$value);
+			return  $this->moneyFormatter($value);
 		}
 
 	}

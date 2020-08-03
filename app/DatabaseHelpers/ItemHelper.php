@@ -13,13 +13,6 @@ trait ItemHelper
     {
 
 
-        if ($sub_invoice instanceof SaleInvoice) {
-            if ($this->available_qty < $invoice_item['qty']) {
-                throw  ValidationException([
-                    'qty' => 'not available_qty'
-                ]);
-            }
-        }
 
 
         $qty = $this->get_item_qty($invoice_item); //  detect qty of the item should be created
@@ -59,8 +52,7 @@ trait ItemHelper
 
 
         if (!empty($expenses))
-            $total_of_expenses = $new_invoice_item->add_expenses_to_invoice_item($expenses,
-                $invoice_item['widget']);
+            $total_of_expenses = $new_invoice_item->add_expenses_to_invoice_item($expenses,$invoice_item['widget']);
         else
             $total_of_expenses = 0;
 

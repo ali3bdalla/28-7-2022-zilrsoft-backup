@@ -59,11 +59,37 @@ class ValidateItemSerialsJob implements ShouldQueue
     {
         if($this->invoiceType == 'sale')
             $this->validateSaleSerials();
-
+        elseif($this->invoiceType == 'purchase')
+            $this->validatePurchaseSerails();
 
     }
 
 
+    public function validatePurchaseSerails()
+    {
+        if(count($this->serials) != $this->qty)
+        {
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                "items.{$this->index}.qty"=> ['item qty should equal serials count '],
+            ]);
+            throw $error;
+        }
+
+
+        foreach ($this->serials as $key => $serial)
+        {
+            $dbSerials = ItemSerials::where([['serial', $serial]])->whereIn('current_status',$this->searchByStatuses)->first();
+            if($dbSerials != null)
+            {
+                $error = \Illuminate\Validation\ValidationException::withMessages([
+                    "items.{$this->index}.serials.{$key}"=> ['serial already available'],
+                ]);
+                throw $error;
+            }
+
+        }
+
+    }
 
     public function validateSaleSerials()
     {

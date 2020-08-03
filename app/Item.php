@@ -28,6 +28,8 @@ use \Modules\Web\Models\WebItem;
  * @property mixed available_qty
  * @property mixed data
  * @property mixed items
+ * @property mixed vtp
+ * @property mixed expense_vendor_id
  * @method static findOrFail($id)
  */
 class Item extends BaseModel
@@ -90,6 +92,14 @@ class Item extends BaseModel
         return (float) $subtotal * $this->vts / 100;
     }
 
+    public function getPurchaseTaxAsFloatValue()
+    {
+        return (1 + $this->vtp) / 100;
+    }
+    public function getSaleTaxAsFloatValue()
+    {
+        return (1 + $this->vts) / 100;
+    }
     public function availableQty()
     {
         return (int)$this->available_qty;
@@ -334,36 +344,36 @@ class Item extends BaseModel
     public function getPriceAttribute($value)
     {
 
-
-        return $value; // money_format('%i',$value)
+//        return 0;
+        return  $this->moneyFormatter($value);
     }
 
     public function getTotalAttribute($value)
     {
 
 
-        return money_format('%i', $value);
+        return  $this->moneyFormatter($value);
     }
 
     public function getSubtotalAttribute($value)
     {
 
 
-        return money_format('%i', $value);
+        return  $this->moneyFormatter($value);
     }
 
     public function getPriceWithTaxAttribute($value)
     {
 
 
-        return money_format('%i', $value);
+        return  $this->moneyFormatter($value);
     }
 
     public function getLastPriceAttribute($value)
     {
 
 
-        return money_format('%i', $value);
+        return  $this->moneyFormatter($value);
     }
 
 

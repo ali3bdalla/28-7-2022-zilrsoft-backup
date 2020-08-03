@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Modules\Accounting\Jobs\CreateSalesEntityTransactionsJob;
-use Modules\Expenses\Jobs\createExpensesPurchaseJob;
+use Modules\Expenses\Jobs\CreateExpensesPrePurchasesJob;
 use Modules\Sales\Jobs\CreateSalesItemsJob;
 use Modules\Sales\Jobs\DeleteQuotationAfterSubSalesCreatedJob;
 use Modules\Sales\Jobs\EnsureSalesDataAreCorrectJob;
@@ -57,7 +57,7 @@ class CreateSalesRequest extends FormRequest
         DB::beginTransaction();
         try {
             $authUser = auth()->user();
-
+            dispatch(new CreateExpensesPrePurchasesJob($this->input('items')));
             $invoice = Invoice::create([
                 'invoice_type' => 'sale',
                 'notes' => $this->has('notes') ? $this->input('notes') : "",
@@ -76,6 +76,8 @@ class CreateSalesRequest extends FormRequest
                 'alice_name' => $this->input('alice_name'),
                 "prefix" => "SAI-"
             ]);
+
+
             $transactionContaniner = new TransactionsContainer(
                 [
                     'creator_id' => $this->user()->id,

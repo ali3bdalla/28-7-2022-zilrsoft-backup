@@ -199,6 +199,7 @@
 				}
 			}
 			$this->toCreateInvoiceTaxTransactions($inc,$creator_stock,$items,$expenses,$container_id);
+
 			if ($gateways_paid_amounts < $inc->net){
 				
 				$amount = floatval($inc->net) - (floatval($gateways_paid_amounts) + floatval($expenses_amount));

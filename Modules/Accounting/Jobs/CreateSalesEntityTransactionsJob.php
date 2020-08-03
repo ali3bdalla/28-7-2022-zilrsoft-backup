@@ -79,7 +79,6 @@ class CreateSalesEntityTransactionsJob implements ShouldQueue
         if ($gatewaysTotalPaidAmount < $this->invoice->net){
             $amount = (float)$this->invoice->net - (float) $gatewaysTotalPaidAmount;
             if (!$this->invoice->user()->is_system_user){
-//                die(1);
                 dispatch(new CreateSalesClientBalanceEntityJob($this->entity,$this->invoice,$this->invoice->user(),$amount));
             }else{
                 $this->paymentsMethods[0]['amount'] = (float)$this->paymentsMethods[0]['amount'] + (float)$amount;

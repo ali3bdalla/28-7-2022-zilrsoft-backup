@@ -50,8 +50,7 @@
 		private function toCreateSingleExpenseItemPurchaseInvoice($inc = null,Item $item,$ItemData = [])
 		{
 			$itemAccounting = new ItemAccounting();
-			
-			
+
 			$dbData = collect($item)->toArray();
 			$dbData['net'] = $ItemData['purchase_price'];
 			$dbData['subtotal'] = $dbData['net'] / (1 + ($item->vtp / 100)); // 0.05 + 1 = 1.05
@@ -123,8 +122,8 @@
 					$tax = $expense['amount'] - $amount;
 					$total_taxes = $total_taxes + $tax;
 				}
-				
-				
+
+
 				$org_vat = auth()->user()->organization->organization_vat;
 				$expense_tax = $expense['amount'] * $org_vat / (100 + $org_vat);
 				$inc->expenses()->create(
