@@ -27,7 +27,6 @@ class CreateExpensesPrePurchasesJob implements ShouldQueue
      */
     public function __construct($itemsArray = [])
     {
-
         $this->itemsArray = $itemsArray;
     }
 
@@ -55,7 +54,9 @@ class CreateExpensesPrePurchasesJob implements ShouldQueue
 
         foreach ($this->itemsArray as $item)
         {
+//            dd($item);
             $dbItem = Item::findOrFail($item['id']);
+//            dd($dbItem);
             if($dbItem->isExpense())
             {
                 $this->expensesItemsArray[] =  $item;

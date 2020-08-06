@@ -91,13 +91,13 @@
                                 class="btn btn-success btn-xs"
                                 v-if="item.is_need_serial"><i class="fa fa-bars"></i> &nbsp;
                         </button>
-<!--                        <accounting-kit-return-items-layout-component-->
-<!--                                :index="index"-->
-<!--                                :kit="item"-->
-<!--                                :qty="item.qty"-->
-<!--                                @kitUpdated="kitItemsDataUpdated"-->
-<!--                                v-if="item.is_kit==true">-->
-<!--                        </accounting-kit-return-items-layout-component>-->
+                        <!--                        <accounting-kit-return-items-layout-component-->
+                        <!--                                :index="index"-->
+                        <!--                                :kit="item"-->
+                        <!--                                :qty="item.qty"-->
+                        <!--                                @kitUpdated="kitItemsDataUpdated"-->
+                        <!--                                v-if="item.is_kit==true">-->
+                        <!--                        </accounting-kit-return-items-layout-component>-->
 
                     </td>
                     <td v-text="item.barcode"></td>
@@ -256,6 +256,10 @@
 
         </accounting-return-item-serials-list-layout-component>
 
+
+        <textarea class="form-control" v-if="activateTestMode" v-model="testRequestData"></textarea>
+
+
     </div>
 
 
@@ -275,6 +279,8 @@
         props: ['creator', 'client', 'salesman', 'items', 'invoice', 'sale', 'gateways', 'expenses'],
         data: function () {
             return {
+                activateTestMode: true,
+                testRequestData: "",
                 everythingFineToSave: false,
                 selectedItem: null,
                 selectedItemIndex: null,
@@ -625,20 +631,26 @@
                 //
 
                 console.log(data);
-                axios.put(this.app.BaseApiUrl + 'sales/' + invoice.id, data)
-                    .then(function (response) {
-                        console.log(response.data);
 
-                        if (doWork == 'open') {
-                            window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
-                        } else {
-                            window.location.reload();
-                        }
+                if (this.activateTestMode) {
+                    this.testRequestData = JSON.stringify(data)
+                } else {
+                    axios.put(this.app.BaseApiUrl + 'sales/' + invoice.id, data)
+                        .then(function (response) {
+                            console.log(response.data);
 
-                    })
-                    .catch(function (error) {
-                        console.log(error.response.data)
-                    });
+                            if (doWork == 'open') {
+                                window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                            } else {
+                                window.location.reload();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log(error.response.data)
+                        });
+                }
+
 
             },
 

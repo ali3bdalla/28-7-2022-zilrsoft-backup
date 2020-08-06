@@ -11,6 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Modules\Accounting\Jobs\CreatePurchasesItemsEntityJob;
 use Modules\Items\Jobs\CreateItemSerialsJob;
+use Modules\Items\Jobs\UpdateAvailableQtyForEachInvoiceItemJob;
 use Modules\Items\Jobs\UpdateItemCostJob;
 use Modules\Items\Jobs\UpdateItemLastPurchasePriceJob;
 use Modules\Items\Jobs\UpdateItemQtyJob;
@@ -87,6 +88,7 @@ class CreatePurchaseItemsJob implements ShouldQueue
                     dispatch(new UpdateItemSalesPriceJob($invoiceItem,$collectionData->get('price_with_tax')));
                 }
                 dispatch(new CreatePurchasesItemsEntityJob($this->invoice,$invoiceItem,$totalItemExpenseAmount));
+                dispatch(new UpdateAvailableQtyForEachInvoiceItemJob($invoiceItem));
             }
 
         }

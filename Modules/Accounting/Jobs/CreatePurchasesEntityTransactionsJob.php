@@ -28,6 +28,10 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
      */
     private $expenses;
     private $entity;
+    /**
+     * @var array
+     */
+    private $itemRequestData;
 
     /**
      * Create a new job instance.
@@ -35,13 +39,15 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
      * @param Invoice $invoice
      * @param array $paymentsMethods
      * @param array $expenses
+     * @param array $itemRequestData
      */
-    public function __construct(Invoice $invoice, $paymentsMethods = [], $expenses = [])
+    public function __construct(Invoice $invoice, $paymentsMethods = [], $expenses = [], $itemRequestData = [])
     {
         //
         $this->invoice = $invoice;
         $this->paymentsMethods = $paymentsMethods;
         $this->expenses = $expenses;
+        $this->itemRequestData = $itemRequestData;
     }
 
     /**
@@ -58,7 +64,6 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
         $creatorStock = Account::where('slug', 'stock')->first();
         $vendorAccount = Account::where('slug', 'vendors')->first();
 
-
         $vendorAccount->credit_transaction()->create([
             'creator_id' => auth()->user()->id,
             'organization_id' => auth()->user()->organization_id,
@@ -71,34 +76,41 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
 
 
         $totalGatewayPaidAmount = 0;
-        foreach ($this->paymentsMethods as $method) {
-            if ((float)$method['amount'] > 0) {
-                $gateway = Account::find($method['id']);
-                $gateway->credit_transaction()->create([
-                    'creator_id' => auth()->user()->id,
-                    'organization_id' => auth()->user()->organization_id,
-                    'debitable_id' => $creatorStock->id,
-                    'debitable_type' => get_class($creatorStock),
-                    'amount' => $method['amount'],
-                    'user_id' => $this->invoice->user_id,
-                    'invoice_id' => $this->invoice->id,
-                    'container_id' => $this->entity->idid,
-                    'description' => 'to_stock',
-                ]);
-                $vendorAccount->debit_transaction()->create([
-                    'creator_id' => auth()->user()->id,
-                    'organization_id' => auth()->user()->organization_id,
-                    'amount' => $this->invoice->moneyFormatter((float)$method['amount']),
-                    'user_id' => $this->invoice->user_id,
-                    'invoice_id' => $this->invoice->id,
-                    'container_id' => $this->entity->id,
-                    'description' => 'vendor_balance'
-                ]);
-                dispatch(new CreatePurchasesPaymentEntityJob($this->invoice, $gateway, (float)$method['amount'], 'payment'));
-                $totalGatewayPaidAmount += (float)$method['amount'];
+        if ($this->paymentsMethods != null) {
+            foreach ($this->paymentsMethods as $method) {
+                if ((float)$method['amount'] > 0) {
+                    $gateway = Account::find($method['id']);
+                    $gateway->credit_transaction()->create([
+                        'creator_id' => auth()->user()->id,
+                        'organization_id' => auth()->user()->organization_id,
+                        'debitable_id' => $creatorStock->id,
+                        'debitable_type' => get_class($creatorStock),
+                        'amount' => $method['amount'],
+                        'user_id' => $this->invoice->user_id,
+                        'invoice_id' => $this->invoice->id,
+                        'container_id' => $this->entity->idid,
+                        'description' => 'to_stock',
+                    ]);
+                    $vendorAccount->debit_transaction()->create([
+                        'creator_id' => auth()->user()->id,
+                        'organization_id' => auth()->user()->organization_id,
+                        'amount' => $this->invoice->moneyFormatter((float)$method['amount']),
+                        'user_id' => $this->invoice->user_id,
+                        'invoice_id' => $this->invoice->id,
+                        'container_id' => $this->entity->id,
+                        'description' => 'vendor_balance'
+                    ]);
+
+                    dispatch(new CreatePurchasesPaymentEntityJob($this->invoice, $gateway, (float)$method['amount'], 'payment'));
+                    $totalGatewayPaidAmount += (float)$method['amount'];
+                }
             }
         }
+
+
         $this->addTaxTransactions();
+
+
         if ($totalGatewayPaidAmount < $this->invoice->net) {
             $amount = (float)$this->invoice->net - (float)$totalGatewayPaidAmount + (float)$expenseTotalAmount;
             dispatch(new CreatePurchasesVendorBalanceJob($this->entity, $this->invoice, $this->invoice->user(), $amount));
@@ -118,7 +130,7 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
                 'amount' => 0,
                 'description' => 'invoice'
 
-        ]);
+            ]);
     }
 
     public function expensesTotal()
@@ -196,50 +208,29 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
 
     public function createInvoiceExpense()
     {
+        $totalTaxesAmount = 0;
+        if ($this->expenses != null) {
+            foreach ($this->expenses as $expense) {
+                foreach ($this->itemRequestData as $item) {
+                    $amount = (float)$expense['amount'] * (float)$item['widget'] / (float)(1 + $item['vtp'] / 100); //
+                    $tax = (float)$expense['amount'] - (float)$amount;
+                    $totalTaxesAmount = (float)$totalTaxesAmount + (float)$tax;
+                }
 
 
-//        foreach ($expenses as $expense){
-//            foreach ($items as $item){
-//                $new_item = Item::find($item['id']);
-//                $amount = $expense['amount'] * $item['widget'] / (1 + $item['vtp'] / 100); //
-//                $tax = $expense['amount'] - $amount;
-//                $total_taxes = $total_taxes + $tax;
-//            }
-//
-//
-//            $org_vat = auth()->user()->organization->organization_vat;
-//            $expense_tax = $expense['amount'] * $org_vat / (100 + $org_vat);
-//            $inc->expenses()->create(
-//                [
-//                    'expense_id' => $expense['id'],
-//                    'amount' => $expense['amount'],
-//                    'tax' => $expense_tax,
-//                    'with_net' => $expense['is_apended_to_net'],
-//                ]
-//            );
-//        }
-//
-//
-//        $totalTaxes = 0;
-//        foreach ($this->expenses as $expense){
-//            foreach ($this->invoice->items as $invoiceItem){
-//                $amount = $expense['amount'] * $item['widget'] / (1 + $item['vtp'] / 100); //
-//                $tax = $expense['amount'] - $amount;
-//                $total_taxes = $total_taxes + $tax;
-//            }
-//
-//
-//            $org_vat = auth()->user()->organization->organization_vat;
-//            $expense_tax = $expense['amount'] * $org_vat / (100 + $org_vat);
-//            $inc->expenses()->create(
-//                [
-//                    'expense_id' => $expense['id'],
-//                    'amount' => $expense['amount'],
-//                    'tax' => $expense_tax,
-//                    'with_net' => $expense['is_apended_to_net'],
-//                ]
-//            );
-//        }
-//        return $total_taxes;
+                $org_vat = auth()->user()->organization->organization_vat;
+                $expenseTax = (float)$expense['amount'] * (float)$org_vat / (float)(100 + $org_vat);
+                $this->invoice->expenses()->create(
+                    [
+                        'expense_id' => $expense['id'],
+                        'amount' => $expense['amount'],
+                        'tax' => $expenseTax,
+                        'with_net' => $expense['is_apended_to_net'],
+                    ]
+                );
+            }
+        }
+
+        return $totalTaxesAmount;
     }
 }

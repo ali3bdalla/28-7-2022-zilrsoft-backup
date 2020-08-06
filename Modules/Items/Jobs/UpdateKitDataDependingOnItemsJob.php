@@ -36,6 +36,9 @@ class UpdateKitDataDependingOnItemsJob implements ShouldQueue
     public function handle()
     {
         $children = $this->invoiceItem->invoice->items()->where([['belong_to_kit',true],['parent_kit_id',$this->invoiceItem->id]])->get();
+
+
+
         $result['total'] = 0;
         $result['subtotal'] = 0;
         $result['tax'] = 0;
@@ -49,6 +52,7 @@ class UpdateKitDataDependingOnItemsJob implements ShouldQueue
             $result['discount'] = $this->invoiceItem->moneyFormatter((float) $result['discount'] + (float)$item['discount']);
             $result['net'] = $this->invoiceItem->moneyFormatter((float) $result['net'] + (float)$item['net']);
         }
+
         $this->invoiceItem->update($result);
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class UpdateSaleInvoiceTotalsJob implements ShouldQueue
+class UpdateInvoiceTotalsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     /**
@@ -31,7 +31,7 @@ class UpdateSaleInvoiceTotalsJob implements ShouldQueue
     {
         //
         $this->invoice = $invoice;
-        $this->expensesAmount = $expensesAmount;
+        $this->expensesAmount = (float)$expensesAmount;
     }
 
     /**
@@ -54,11 +54,11 @@ class UpdateSaleInvoiceTotalsJob implements ShouldQueue
         $result['remaining'] = 0;
         $items = $children;
         foreach ($items as $item) {
-            $result['total'] = (float)$result['total'] + $item->getOriginal('total');
-            $result['subtotal'] = (float)$result['subtotal'] + $item->getOriginal('subtotal');
-            $result['tax'] = (float)$result['tax'] + $item->getOriginal('tax');
-            $result['discount_value'] = $result['discount_value'] + $item->getOriginal('discount');
-            $result['net'] = (float)$result['net'] + $item->getOriginal('net');
+            $result['total'] = (float)$result['total'] + (float)$item->getOriginal('total');
+            $result['subtotal'] = (float)$result['subtotal'] + (float)$item->getOriginal('subtotal');
+            $result['tax'] = (float)$result['tax'] + (float)$item->getOriginal('tax');
+            $result['discount_value'] = $result['discount_value'] + (float)$item->getOriginal('discount');
+            $result['net'] = (float)$result['net'] + (float)$item->getOriginal('net');
         }
         $result['net'] = (float)$result['net'] + (float)$this->expensesAmount;
         $this->invoice->update($result);

@@ -43,7 +43,7 @@ class CreateItemSerialsJob implements ShouldQueue
     {
         foreach ($this->serialsArray as $serial) {
 
-            $dbSerial = $this->serials()->create([
+            $dbSerial = $this->invoiceItem->item->serials()->create([
                 'organization_id' => auth()->user()->organization_id,
                 'creator_id' => auth()->user()->id,
                 'purchase_invoice_id' => $this->invoiceItem->invoice->id,
@@ -54,7 +54,7 @@ class CreateItemSerialsJob implements ShouldQueue
             ]);
 
             if ($this->invoiceItem->invoice->invoice_type != 'pending_purchase') {
-                $this->invoice->serial_history()->create([
+                $this->invoiceItem->invoice->serial_history()->create([
                     'event' => $this->invoiceItem->invoice->invoice_type,
                     'organization_id' => auth()->user()->organization_id,
                     'creator_id' => auth()->user()->id,
@@ -62,6 +62,7 @@ class CreateItemSerialsJob implements ShouldQueue
                     'user_id' => $this->invoiceItem->user_id
                 ]);
             }
+
         }
     }
 }

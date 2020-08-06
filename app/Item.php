@@ -14,9 +14,8 @@ use App\Relationships\KitRelationships;
 use App\Traits\OrmNumbersTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
 use Illuminate\Support\Facades\DB;
-use \Modules\Web\Models\WebItem;
+use Modules\Web\Models\WebItem;
 
 /**
  * @property mixed is_fixed_price
@@ -30,7 +29,9 @@ use \Modules\Web\Models\WebItem;
  * @property mixed items
  * @property mixed vtp
  * @property mixed expense_vendor_id
+ * @property mixed invoice_id
  * @method static findOrFail($id)
+ * @method static InRandomOrder()
  */
 class Item extends BaseModel
 {
@@ -38,9 +39,7 @@ class Item extends BaseModel
     use CoreItem;
 
     // final traits
-    use WebItem,OrmNumbersTrait,ItemRelationships,ItemFormattedQuery;
-
-
+    use WebItem, OrmNumbersTrait, ItemRelationships, ItemFormattedQuery;
 
 
     use SoftDeletes;
@@ -69,45 +68,77 @@ class Item extends BaseModel
     // new
 
 
+    public function scopeExpense($query)
+    {
+        return $query->where('is_expense', true);
+    }
+
+    public function scopeKit($query)
+    {
+        return $query->where('is_kit', true);
+    }
+
+    public function scopeHasSerial($query)
+    {
+        return $query->where('is_need_serial', true);
+    }
+
+
+    public function scopeNotKit($query)
+    {
+        return $query->where('is_kit', false);
+    }
+
+
+    public function scopeNotExpense($query)
+    {
+        return $query->where('is_expense', false);
+    }
+
+
+    public function scopeNotHasSerial($query)
+    {
+        return $query->where('is_need_serial', false);
+    }
+
     public function isQtyable()
     {
         return $this->isCostableItem();
     }
 
+    public function isCostableItem()
+    {
+        return !$this->is_kit && !$this->is_service;
+    }
 
     public function isExpense()
     {
         return $this->is_expense;
     }
 
-
     public function getSalePrice($userPrice = 0)
     {
-        return $this->is_fixed_price ? $this->price : $userPrice;
+        return $this->is_fixed_price ? $this->price : (float)$userPrice;
     }
-
 
     public function getSaleTax($subtotal = 0)
     {
-        return (float) $subtotal * $this->vts / 100;
+        return (float)$subtotal * $this->vts / 100;
     }
 
     public function getPurchaseTaxAsFloatValue()
     {
         return (1 + $this->vtp) / 100;
     }
+
     public function getSaleTaxAsFloatValue()
     {
         return (1 + $this->vts / 100);
     }
+
     public function availableQty()
     {
         return (int)$this->available_qty;
-    }
-
-    public function isCostableItem()
-    {
-        return !$this->is_kit && !$this->is_service;
     }
 
     public function isNeedSerial()
@@ -124,6 +155,7 @@ class Item extends BaseModel
     {
         return $this->is_service;
     }
+
     // old
 
 
@@ -345,37 +377,36 @@ class Item extends BaseModel
     {
 
 //        return 0;
-        return  $this->moneyFormatter($value);
+        return $this->moneyFormatter($value);
     }
 
     public function getTotalAttribute($value)
     {
 
 
-        return  $this->moneyFormatter($value);
+        return $this->moneyFormatter($value);
     }
 
     public function getSubtotalAttribute($value)
     {
 
 
-        return  $this->moneyFormatter($value);
+        return $this->moneyFormatter($value);
     }
 
     public function getPriceWithTaxAttribute($value)
     {
 
 
-        return  $this->moneyFormatter($value);
+        return $this->moneyFormatter($value);
     }
 
     public function getLastPriceAttribute($value)
     {
 
 
-        return  $this->moneyFormatter($value);
+        return $this->moneyFormatter($value);
     }
-
 
 
 }

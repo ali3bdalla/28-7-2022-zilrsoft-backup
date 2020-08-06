@@ -67,16 +67,6 @@ class ValidatorServiceProvider extends ServiceProvider
         });
 
 
-        Validator::extendImplicit('validate_item_purchase_price', function ($attribute, $value, $args) {
-            $str_attr = explode('.', $attribute);
-            $index = $str_attr[1];
-            $first = $str_attr[0];
-            $end = $str_attr[2];
-            $id = request()->input("{$first}.{$index}.id");
-            $item = Item::findOrFail($id);
-            return $item->is_expense ? is_numeric($value) && !empty($value) : true;
-        });
-
         Validator::extendImplicit('validate_expense_vendor', function ($attribute, $value, $args) {
             $str_attr = explode('.', $attribute);
             $index = $str_attr[1];
@@ -110,14 +100,11 @@ class ValidatorServiceProvider extends ServiceProvider
             if ($item->is_need_serial) {
                 $db_serial = $item->serials()->where('serial', $value)->get();
                 foreach ($db_serial as $serial) {
-
                     if (!in_array($serial->current_status, ["r_purchase", "saled"])) {
                         return true;
                     }
                 }
-
                 return false;
-
             }
             return true;
         });
@@ -137,8 +124,25 @@ class ValidatorServiceProvider extends ServiceProvider
             $id = request()->input("{$first}.{$index}.id");
             $item = Item::findOrFail($id);
 
-            return ($item->is_kit || $item->is_service || $item->is_expense) ? true : $item->available_qty >= (int) $value;
+            return ($item->is_kit || $item->is_service || $item->is_expense) ? true : $item->available_qty >= (int)$value;
         });
+
+
+        Validator::extendImplicit('purchaseItemPrice', function ($attribute, $value, $args) {
+            $str_attr = explode('.', $attribute);
+            $index = $str_attr[1];
+            $first = $str_attr[0];
+            $end = $str_attr[2];
+            $id = request()->input("{$first}.{$index}.id");
+            $item = Item::findOrFail($id);
+
+            if ($item->is_expense) {
+                return $value !== null && is_numeric($value);
+            } else {
+                return true;
+            }
+        });
+
 
     }
 }

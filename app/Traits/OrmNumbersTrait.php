@@ -10,8 +10,9 @@ trait OrmNumbersTrait
     {
 
 
+        if($money == 0) return $money;
+//        if($money < 1) return $money;
         return (float) sprintf('%.2f', floor($money*10000*($money>0?1:-1))/10000*($money>0?1:-1));
-        return (float)number_format($money, 2, '.', '.');
 
     }
 

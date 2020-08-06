@@ -45,14 +45,16 @@ class UpdateAccountStatisticListener
     private function _newTransactionUpdate()
     {
 
+
+//        dd($this->event->transaction);
         if ($this->event->transaction->_isDebitAbleAccount()) {
             $statisticInstance = $this->event->transaction->_getDebitAbleAccount()->_getStatisticsInstance();
             if ($this->event->transaction->_getDebitAbleAccount()->_isCredit()) {
-                $balance = $statisticInstance->getOriginal('total_amount') - $this->event->transaction->amount;
+                $balance = (float)$statisticInstance->getOriginal('total_amount') - (float)$this->event->transaction->amount;
             } else {
-                $balance = $statisticInstance->getOriginal('total_amount') + $this->event->transaction->amount;
+                $balance = (float)$statisticInstance->getOriginal('total_amount') + (float)$this->event->transaction->amount;
             }
-            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,$this->event->transaction->amount,
+            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,(float)$this->event->transaction->amount,
                 false,true);
 
         }
@@ -60,11 +62,11 @@ class UpdateAccountStatisticListener
         if ($this->event->transaction->_isCreditAbleAccount()) {
             $statisticInstance = $this->event->transaction->_getCreditAbleAccount()->_getStatisticsInstance();
             if ($this->event->transaction->_getCreditAbleAccount()->_isCredit()) {
-                $balance = $statisticInstance->total_amount + $this->event->transaction->amount;
+                $balance = (float)$statisticInstance->total_amount + (float)$this->event->transaction->amount;
             } else {
-                $balance = $statisticInstance->getOriginal('total_amount') - $this->event->transaction->amount;
+                $balance = (float)$statisticInstance->getOriginal('total_amount') - (float)$this->event->transaction->amount;
             }
-            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,$this->event->transaction->amount,
+            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,(float)$this->event->transaction->amount,
                 true,true);
         }
 
@@ -73,8 +75,8 @@ class UpdateAccountStatisticListener
             $statisticInstance = $this->stockAccount->_getStatisticsInstance();
             $this->_updateAccountBalanceAndTransactionsCount
             ($statisticInstance,
-                ($this->event->transaction->amount + $statisticInstance->total_amount),
-                $this->event->transaction->amount,
+                ((float)$this->event->transaction->amount + (float)$statisticInstance->total_amount),
+                (float)$this->event->transaction->amount,
                 false,
                 true);
 
@@ -85,8 +87,8 @@ class UpdateAccountStatisticListener
             $statisticInstance = $this->stockAccount->_getStatisticsInstance();
             $this->_updateAccountBalanceAndTransactionsCount
             ($statisticInstance,
-                ($this->event->transaction->amount - $statisticInstance->total_amount),
-                $statisticInstance->total_amount,
+                ((float)$this->event->transaction->amount - (float)$statisticInstance->total_amount),
+                (float)$statisticInstance->total_amount,
                 true,
                 true);
 
@@ -98,22 +100,22 @@ class UpdateAccountStatisticListener
         if ($this->event->transaction->_isDebitAbleAccount()) {
             $statisticInstance = $this->event->transaction->_getDebitAbleAccount()->_getStatisticsInstance();
             if ($this->event->transaction->_getDebitAbleAccount()->_isCredit()) {
-                $balance = $statisticInstance->getOriginal('total_amount') + $this->event->transaction->amount;
+                $balance = $statisticInstance->getOriginal('total_amount') + (float)$this->event->transaction->amount;
             } else {
-                $balance = $statisticInstance->getOriginal('total_amount') - $this->event->transaction->amount;
+                $balance = $statisticInstance->getOriginal('total_amount') - (float)$this->event->transaction->amount;
             }
-            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance ,$this->event->transaction->amount,
+            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance ,(float)$this->event->transaction->amount,
                 false,false);
         }
 
         if ($this->event->transaction->_isCreditAbleAccount()) {
             $statisticInstance = $this->event->transaction->_getCreditAbleAccount()->_getStatisticsInstance();
             if ($this->event->transaction->_getCreditAbleAccount()->type == 'credit') {
-                $balance = $statisticInstance->getOriginal('total_amount') - $this->event->transaction->amount;
+                $balance = $statisticInstance->getOriginal('total_amount') - (float)$this->event->transaction->amount;
             } else {
-                $balance = $statisticInstance->getOriginal('total_amount') + $this->event->transaction->amount;
+                $balance = $statisticInstance->getOriginal('total_amount') + (float)$this->event->transaction->amount;
             }
-            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,$this->event->transaction->amount,
+            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,(float)$this->event->transaction->amount,
                 true,false);
 
         }
@@ -121,8 +123,8 @@ class UpdateAccountStatisticListener
             $statisticInstance = $this->stockAccount->_getStatisticsInstance();
             $this->_updateAccountBalanceAndTransactionsCount
             ($statisticInstance,
-                ($this->event->transaction->amount - $statisticInstance->total_amount),
-                $this->event->transaction->amount,
+                ((float)$this->event->transaction->amount - $statisticInstance->total_amount),
+                (float)$this->event->transaction->amount,
                 false,
                 false);
         }
@@ -130,8 +132,8 @@ class UpdateAccountStatisticListener
             $statisticInstance = $this->stockAccount->_getStatisticsInstance();
             $this->_updateAccountBalanceAndTransactionsCount
                 ($statisticInstance,
-                ($this->event->transaction->amount + $statisticInstance->total_amount),
-                $this->event->transaction->amount,
+                ((float)$this->event->transaction->amount + $statisticInstance->total_amount),
+                (float)$this->event->transaction->amount,
                 true,
                 false);
         }

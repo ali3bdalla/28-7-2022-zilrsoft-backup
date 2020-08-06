@@ -17,6 +17,7 @@
 			'debitable_id' => 'integer',
 			'creditable_type' => 'string',
 			'creditable_id' => 'integer',
+            'amount' => 'float'
 		];
 		
 		protected static function boot()

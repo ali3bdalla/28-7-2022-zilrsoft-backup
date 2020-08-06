@@ -52,6 +52,8 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
         $manager_stock_account = auth()->user()->toGetManagerAccount('stock');
         $total_cost =$this->invoice->moneyFormatter($this->invoice->transactions()->where('description','to_item')->sum('amount'));
 
+//        echo($total_cost);
+//        exit();
         if ($total_cost > 0){
             $manager_cogs_account->debit_transaction()->create([
                 'creator_id' => auth()->user()->id,
@@ -76,7 +78,8 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
         $other_services_sales_total_discount = 0;
 
 
-        foreach ($this->invoice->items as $item){
+        $items = $this->getInvoiceItems();
+        foreach ($items as $item){
             if ($item['item']['is_expense']){
                 $other_services_sales_total = $other_services_sales_total + $item['total'];
                 $other_services_sales_total_discount = $other_services_sales_total_discount + $item['discount'];
@@ -175,5 +178,11 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
                 'description' => 'to_other_services_sales_discount',
             ]);
         }
+    }
+
+
+    public function getInvoiceItems()
+    {
+        return $this->invoice->items()->where('is_kit',false)->get();
     }
 }

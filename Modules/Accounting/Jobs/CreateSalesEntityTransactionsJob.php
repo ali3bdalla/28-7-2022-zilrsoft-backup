@@ -10,6 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use phpDocumentor\Reflection\Types\Null_;
 
 class CreateSalesEntityTransactionsJob implements ShouldQueue
 {
@@ -40,17 +41,21 @@ class CreateSalesEntityTransactionsJob implements ShouldQueue
         //
         $this->entity = $entity;
         $this->invoice = $invoice;
-        $this->paymentsMethods = $paymentsMethods;
+        $this->paymentsMethods = (array)$paymentsMethods;
     }
 
     private function getTotalGatewaysPaidAmount()
     {
         $gatewaysTotalPaidAmount = 0;
-        foreach ($this->paymentsMethods as $method){
-            if ($method['amount'] > 0){
-                $gatewaysTotalPaidAmount = $gatewaysTotalPaidAmount + (float) $method['amount'];
+        if($this->paymentsMethods != null)
+        {
+            foreach ($this->paymentsMethods as $method){
+                if ($method['amount'] > 0){
+                    $gatewaysTotalPaidAmount = $gatewaysTotalPaidAmount + (float) $method['amount'];
+                }
             }
         }
+
         return $gatewaysTotalPaidAmount;
     }
     /**
@@ -62,6 +67,7 @@ class CreateSalesEntityTransactionsJob implements ShouldQueue
     {
         $stockAccount = Account::where('slug','stock')->first();
         $clientAccount = Account::where('slug','clients')->first();
+
         $clientAccount->debit_transaction()->create([
             'creator_id' => auth()->user()->id,
             'organization_id' => auth()->user()->organization_id,
@@ -81,14 +87,23 @@ class CreateSalesEntityTransactionsJob implements ShouldQueue
             if (!$this->invoice->user()->is_system_user){
                 dispatch(new CreateSalesClientBalanceEntityJob($this->entity,$this->invoice,$this->invoice->user(),$amount));
             }else{
-                $this->paymentsMethods[0]['amount'] = (float)$this->paymentsMethods[0]['amount'] + (float)$amount;
+                if($this->paymentsMethods != null && count($this->paymentsMethods) == 1)
+                {
+                    $this->paymentsMethods[0]['amount'] = (float)$this->paymentsMethods[0]['amount'] + (float)$amount;
+                }else
+                {
+                    $error = \Illuminate\Validation\ValidationException::withMessages([
+                        "net"=> ['total paid gateways amount can\'t be more than invoice net'],
+                    ]);
+                    throw $error;
+                }
             }
         }
 
 
         if($gatewaysTotalPaidAmount > $this->invoice->net)
         {
-            if(count($this->paymentsMethods) == 1)
+            if($this->paymentsMethods != null && count($this->paymentsMethods) == 1)
             {
                 $this->paymentsMethods[0]['amount'] = $this->paymentsMethods[0]['amount'] - ((float)$gatewaysTotalPaidAmount - (float)$this->invoice->net);
             }else
@@ -101,33 +116,38 @@ class CreateSalesEntityTransactionsJob implements ShouldQueue
         }
 
 
-        foreach ($this->paymentsMethods as $method){
-            if ($method['amount'] > 0){
-                $gateway = Account::find($method['id']);
-                $gateway->debit_transaction()->create([
-                    'creator_id' => auth()->user()->id,
-                    'organization_id' => auth()->user()->organization_id,
-                    'creditable_id' => $stockAccount->id,
-                    'creditable_type' => get_class($stockAccount),
-                    'amount' => $this->invoice->moneyFormatter($method['amount']),
-                    'user_id' => $this->invoice->user_id,
-                    'invoice_id' => $this->invoice->id,
-                    'container_id' => $this->entity->id,
-                    'description' => 'to_gateway',
-                ]);
-                $clientAccount->credit_transaction()->create([
-                    'creator_id' => auth()->user()->id,
-                    'organization_id' => auth()->user()->organization_id,
-                    'amount' => $this->invoice->moneyFormatter($method['amount']),
-                    'user_id' => $this->invoice->user_id,
-                    'invoice_id' => $this->invoice->id,
-                    'container_id' => $this->entity->id,
-                    'description' => 'client_balance'
-                ]);
-                dispatch(new CreateSalesPaymentEntityJob($this->invoice,$gateway,$method['amount'],'receipt'));
-                $gatewaysTotalPaidAmount = $gatewaysTotalPaidAmount + (float)$method['amount'];
+        if($this->paymentsMethods != null)
+        {
+            foreach ($this->paymentsMethods as $method){
+                if ((float)$method['amount'] > 0){
+                    $gateway = Account::find($method['id']);
+                    $gateway->debit_transaction()->create([
+                        'creator_id' => auth()->user()->id,
+                        'organization_id' => auth()->user()->organization_id,
+                        'creditable_id' => $stockAccount->id,
+                        'creditable_type' => get_class($stockAccount),
+                        'amount' => $this->invoice->moneyFormatter($method['amount']),
+                        'user_id' => $this->invoice->user_id,
+                        'invoice_id' => $this->invoice->id,
+                        'container_id' => $this->entity->id,
+                        'description' => 'to_gateway',
+                    ]);
+//                    dd((float)$method['amount']);
+                    $clientAccount->credit_transaction()->create([
+                        'creator_id' => auth()->user()->id,
+                        'organization_id' => auth()->user()->organization_id,
+                        'amount' => $this->invoice->moneyFormatter((float)$method['amount']),
+                        'user_id' => $this->invoice->user_id,
+                        'invoice_id' => $this->invoice->id,
+                        'container_id' => $this->entity->id,
+                        'description' => 'client_balance'
+                    ]);
+                    dispatch(new CreateSalesPaymentEntityJob($this->invoice,$gateway,$method['amount'],'receipt'));
+                    $gatewaysTotalPaidAmount = $gatewaysTotalPaidAmount + (float)$method['amount'];
+                }
             }
         }
+
         dispatch(new CreateSalesItemsCostEntityTransactionsJob($this->invoice,$this->entity));
     }
 

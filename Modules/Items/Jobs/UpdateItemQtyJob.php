@@ -51,6 +51,8 @@ class UpdateItemQtyJob implements ShouldQueue
             else $newAvailableQty = $availableQty - $this->invoiceItem->qty;
         }
 
+
+
         $this->invoiceItem->item()->update([
             'available_qty' => $newAvailableQty
         ]);

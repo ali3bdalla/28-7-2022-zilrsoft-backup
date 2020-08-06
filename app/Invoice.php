@@ -20,6 +20,9 @@
      * @property mixed net
      * @property mixed tax
      * @property mixed id
+     * @property mixed branch_id
+     * @property mixed department_id
+     * @property mixed sale
      */
     class Invoice extends Model
 	{

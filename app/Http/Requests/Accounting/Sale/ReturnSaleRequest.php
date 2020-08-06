@@ -65,7 +65,7 @@
 				$this->toUpdateIsDeletedAndIsUpdated($baseInvoice);
 				DB::commit();
 				
-				return $invoice;
+//				return $invoice;
 			}catch (Exception $exception){
 				
 				DB::rollBack();

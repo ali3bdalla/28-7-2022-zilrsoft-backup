@@ -5,8 +5,11 @@
 	use App\Attributes\ManagerAttributes;
 	use App\Relationships\ManagerRelationships;
 
-	
-	class Manager extends BaseAuthModel
+
+    /**
+     * @method static inRandomOrder()
+     */
+    class Manager extends BaseAuthModel
 	{
 		use ManagerRelationships,ManagerAttributes;
 		

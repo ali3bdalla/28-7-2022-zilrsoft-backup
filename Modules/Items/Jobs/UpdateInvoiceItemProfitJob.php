@@ -40,8 +40,7 @@ class UpdateInvoiceItemProfitJob implements ShouldQueue
             $profits = $profits * -1;
         }
         $this->invoiceItem->update([
-            'profit' => $profits,
-            'item_available_qty' => $this->invoiceItem->item->available_qty,
+            'profit' => $profits
         ]);
 
     }

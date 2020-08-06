@@ -20,5 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('sales')->name('sales.')->middleware('auth')->group(function() {
     Route::get('/', 'SaleController@index')->name('index');
     Route::get('/create', 'CreateController@showCreateForm')->name('create');
+    Route::get('/create', 'CreateController@showCreateForm')->name('create');
     Route::post('/', 'CreateController@store')->name('store');
+    Route::match(['PATCH','PUT'],'/{sale}', 'RetrunController@return')->name('return');
 });

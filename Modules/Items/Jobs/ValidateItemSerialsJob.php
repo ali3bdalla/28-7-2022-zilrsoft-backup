@@ -2,13 +2,15 @@
 
 namespace Modules\Items\Jobs;
 
+use App\Invoice;
 use App\Item;
 use App\ItemSerials;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Validation\ValidationException;
 
 class ValidateItemSerialsJob implements ShouldQueue
 {
@@ -28,6 +30,10 @@ class ValidateItemSerialsJob implements ShouldQueue
      * @var array
      */
     private $searchByStatuses;
+    /**
+     * @var Invoice|null
+     */
+    private $invoice;
 
     /**
      * Create a new job instance.
@@ -38,8 +44,9 @@ class ValidateItemSerialsJob implements ShouldQueue
      * @param $invoiceType
      * @param array $searchByStatuses
      * @param int $index
+     * @param Invoice|null $invoice
      */
-    public function __construct(Item $item,$qty,$serials,$invoiceType,$searchByStatuses = [],$index = 0)
+    public function __construct(Item $item, $qty, $serials, $invoiceType, $searchByStatuses = [], $index = 0, Invoice $invoice = null)
     {
         //
         $this->item = $item;
@@ -48,6 +55,7 @@ class ValidateItemSerialsJob implements ShouldQueue
         $this->invoiceType = $invoiceType;
         $this->index = $index;
         $this->searchByStatuses = $searchByStatuses;
+        $this->invoice = $invoice;
     }
 
     /**
@@ -57,32 +65,54 @@ class ValidateItemSerialsJob implements ShouldQueue
      */
     public function handle()
     {
-        if($this->invoiceType == 'sale')
+        if ($this->invoiceType == 'sale')
             $this->validateSaleSerials();
-        elseif($this->invoiceType == 'purchase')
-            $this->validatePurchaseSerails();
+        elseif ($this->invoiceType == 'purchase')
+            $this->validatePurchaseSerials();
+        elseif ($this->invoiceType == 'return_sale')
+            $this->validateReturnSaleSerials();
 
     }
 
-
-    public function validatePurchaseSerails()
+    public function validateSaleSerials()
     {
-        if(count($this->serials) != $this->qty)
-        {
-            $error = \Illuminate\Validation\ValidationException::withMessages([
-                "items.{$this->index}.qty"=> ['item qty should equal serials count '],
+        if (count($this->serials) != $this->qty) {
+            $error = ValidationException::withMessages([
+                "items.{$this->index}.qty" => ['item qty should equal serials count '],
             ]);
             throw $error;
         }
 
 
-        foreach ($this->serials as $key => $serial)
-        {
-            $dbSerials = ItemSerials::where([['serial', $serial]])->whereIn('current_status',$this->searchByStatuses)->first();
-            if($dbSerials != null)
-            {
-                $error = \Illuminate\Validation\ValidationException::withMessages([
-                    "items.{$this->index}.serials.{$key}"=> ['serial already available'],
+        foreach ($this->serials as $key => $serial) {
+            $dbSerials = ItemSerials::where([['serial', $serial]])->whereIn('current_status', $this->searchByStatuses)->first();
+            if ($dbSerials == null) {
+                $error = ValidationException::withMessages([
+                    "items.{$this->index}.serials.{$key}" => ['serial is not available'],
+                ]);
+                throw $error;
+            }
+
+        }
+
+
+    }
+
+    public function validatePurchaseSerials()
+    {
+        if (count($this->serials) != $this->qty) {
+            $error = ValidationException::withMessages([
+                "items.{$this->index}.qty" => ['item qty should equal serials count '],
+            ]);
+            throw $error;
+        }
+
+
+        foreach ($this->serials as $key => $serial) {
+            $dbSerials = ItemSerials::where([['serial', $serial]])->whereIn('current_status', $this->searchByStatuses)->first();
+            if ($dbSerials != null) {
+                $error = ValidationException::withMessages([
+                    "items.{$this->index}.serials.{$key}" => ['serial already available'],
                 ]);
                 throw $error;
             }
@@ -91,24 +121,26 @@ class ValidateItemSerialsJob implements ShouldQueue
 
     }
 
-    public function validateSaleSerials()
+    public function validateReturnSaleSerials()
     {
-        if(count($this->serials) != $this->qty)
-        {
-            $error = \Illuminate\Validation\ValidationException::withMessages([
-                "items.{$this->index}.qty"=> ['item qty should equal serials count '],
+        if (count($this->serials) != $this->qty) {
+            $error = ValidationException::withMessages([
+                "items.{$this->index}.qty" => ['item qty should equal serials count '],
             ]);
             throw $error;
         }
 
 
-        foreach ($this->serials as $key => $serial)
-        {
-            $dbSerials = ItemSerials::where([['serial', $serial]])->whereIn('current_status',$this->searchByStatuses)->first();
-            if($dbSerials == null)
-            {
-                $error = \Illuminate\Validation\ValidationException::withMessages([
-                    "items.{$this->index}.serials.{$key}"=> ['serial is not available'],
+        foreach ($this->serials as $key => $serial) {
+            $dbSerials = $this->item->serials()->where([
+                ['serial', $serial],
+                ['sale_invoice_id', $this->invoice->id],
+                ['current_status', 'saled']])
+                ->first();
+
+            if ($dbSerials == null) {
+                $error = ValidationException::withMessages([
+                    "items.{$this->index}.serials.{$key}" => ['serial is not available as salled serial yet'],
                 ]);
                 throw $error;
             }

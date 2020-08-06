@@ -6,7 +6,10 @@
     use App\Model\Nesting;
     use App\Relationships\AccountRelationships;
 
-	class Account extends BaseModel
+    /**
+     * @method static where(array $array)
+     */
+    class Account extends BaseModel
 	{
 		
 		use AccountAttributes,AccountRelationships,Nesting;

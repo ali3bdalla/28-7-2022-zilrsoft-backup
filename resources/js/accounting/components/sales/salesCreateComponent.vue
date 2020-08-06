@@ -578,7 +578,7 @@
             'canCreateItem'],
         data: function () {
             return {
-                activateTestMode:false,
+                activateTestMode:true,
                 testRequestData: "",
                 clientModal: {
                     clientName: "",

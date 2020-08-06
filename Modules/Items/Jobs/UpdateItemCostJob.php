@@ -51,7 +51,6 @@ class UpdateItemCostJob implements ShouldQueue
         $availableQty = $dbItem->available_qty;
         $result['cost'] = $costBeforeNewRow;
 
-
         if ($this->invoice->isPurchase()){
             $result = $dbItem->handlePurchaseHistory($this->invoiceItem,$sotckAmountBeforeNewRow,$availableQty);
         }else if ($this->invoice->isSale()){

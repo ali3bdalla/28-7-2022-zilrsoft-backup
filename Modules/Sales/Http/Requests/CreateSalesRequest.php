@@ -14,7 +14,7 @@ use Modules\Expenses\Jobs\CreateExpensesPrePurchasesJob;
 use Modules\Sales\Jobs\CreateSalesItemsJob;
 use Modules\Sales\Jobs\DeleteQuotationAfterSubSalesCreatedJob;
 use Modules\Sales\Jobs\EnsureSalesDataAreCorrectJob;
-use Modules\Sales\Jobs\UpdateSaleInvoiceTotalsJob;
+use Modules\Sales\Jobs\UpdateInvoiceTotalsJob;
 
 class CreateSalesRequest extends FormRequest
 {
@@ -29,7 +29,7 @@ class CreateSalesRequest extends FormRequest
             "items" => "required|array",
             "items.*.id" => "required|integer|exists:items,id",
             "items.*.price" => "validate_item_price_or_discount|price",
-            "items.*.purchase_price" => "validate_item_purchase_price|price",
+            "items.*.purchase_price" => "purchaseItemPrice|price",
             "items.*.discount" => "validate_item_price_or_discount",
             "items.*.qty" => "required|integer|salesItemQty",
             "items.*.expense_vendor_id" => "validate_expense_vendor",
@@ -38,6 +38,7 @@ class CreateSalesRequest extends FormRequest
             "client_id" => "required|integer|exists:users,id",
             "salesman_id" => "required|integer|exists:managers,id",
             'methods.*.id' => 'required|integer|exists:accounts,id',
+            'methods.*.amount' => 'required|numeric',
         ];
     }
 
@@ -50,7 +51,6 @@ class CreateSalesRequest extends FormRequest
     {
         return $this->user()->can('create sale');
     }
-
 
     public function store()
     {
@@ -68,7 +68,7 @@ class CreateSalesRequest extends FormRequest
                 'parent_invoice_id' => $this->input('parent_id') == null ? 0 : $this->input('parent_id'),
                 'is_deleted' => $this->has('is_deleted') ? $this->input('is_deleted') : 0
             ]);
-            $salesInvoice = $invoice->sale()->create([
+            $invoice->sale()->create([
                 'salesman_id' => $authUser->id,
                 'client_id' => $this->input('client_id'),
                 'organization_id' => $authUser->organization_id,
@@ -76,25 +76,23 @@ class CreateSalesRequest extends FormRequest
                 'alice_name' => $this->input('alice_name'),
                 "prefix" => "SAI-"
             ]);
-
-
             $transactionContaniner = new TransactionsContainer(
                 [
                     'creator_id' => $this->user()->id,
                     'organization_id' => $this->user()->organization_id,
                     'invoice_id' => $invoice->id,
-                    'amount'=>0,
+                    'amount' => 0,
                     'description' => 'invoice'
                 ]
             );
             $transactionContaniner->save();
-            dispatch(new CreateSalesItemsJob($transactionContaniner,$invoice,$this->input('items')));
-            dispatch(new UpdateSaleInvoiceTotalsJob($invoice));
-            dispatch(new CreateSalesEntityTransactionsJob($transactionContaniner,$invoice,$this->input("methods")));
+            dispatch(new CreateSalesItemsJob($transactionContaniner, $invoice, $this->input('items')));
+            dispatch(new UpdateInvoiceTotalsJob($invoice));
+            dispatch(new CreateSalesEntityTransactionsJob($transactionContaniner, $invoice, $this->input("methods")));
             dispatch(new DeleteQuotationAfterSubSalesCreatedJob($this->input('quotation_id')));
             dispatch(new EnsureSalesDataAreCorrectJob($invoice));
             DB::commit();
-            return $invoice;
+            return response($invoice, 200);
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw $queryException;

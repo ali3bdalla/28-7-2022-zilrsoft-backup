@@ -44,7 +44,7 @@ class CreatePurchasesPaymentEntityJob implements ShouldQueue
 
         $this->invoice = $invoice;
         $this->method = $method;
-        $this->amount = $amount;
+        $this->amount =(float) $amount;
         $this->paymentType = $paymentType;
     }
 
@@ -55,7 +55,9 @@ class CreatePurchasesPaymentEntityJob implements ShouldQueue
      */
     public function handle()
     {
+
         if ($this->method != null){
+
             $payment = $this->method->paymentable()->create([
                 'organization_id' => $this->invoice->organization_id,
                 'creator_id' => $this->invoice->creator_id,

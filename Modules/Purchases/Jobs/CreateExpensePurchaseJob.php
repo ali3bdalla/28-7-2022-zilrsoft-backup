@@ -72,9 +72,11 @@ class CreateExpensePurchaseJob implements ShouldQueue
             'invoice_type' => 'purchase',
             "prefix" => "PU-"
         ]);
+
         dispatch(new CreatePurchaseItemsJob($invoice,[$dbData]));
         dispatch(new UpdatePurchasesInvoiceTotalsJob($invoice));
         dispatch(new CreatePurchasesEntityTransactionsJob($invoice,[],[]));
+        dispatch(new EnsurePurchaseDataAreCorrectJob($invoice));
         return $invoice;
     }
 }
