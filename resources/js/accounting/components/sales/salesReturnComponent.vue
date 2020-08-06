@@ -279,7 +279,7 @@
         props: ['creator', 'client', 'salesman', 'items', 'invoice', 'sale', 'gateways', 'expenses'],
         data: function () {
             return {
-                activateTestMode: true,
+                activateTestMode: false,
                 testRequestData: "",
                 everythingFineToSave: false,
                 selectedItem: null,
