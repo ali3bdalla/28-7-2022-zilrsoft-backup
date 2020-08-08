@@ -21,10 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateSalesEntityTransactionsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateSalesEntityTransactionsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Sales/Jobs/CreateSalesItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Jobs/CreateSalesItemsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-08-08.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-08-08.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Purchases/Http/Requests/CreatePurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Purchases/Http/Requests/CreatePurchaseRequest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -315,7 +312,7 @@
       <workItem from="1596741157282" duration="428000" />
       <workItem from="1596861697791" duration="23000" />
       <workItem from="1596886871623" duration="30000" />
-      <workItem from="1596897697400" duration="5476000" />
+      <workItem from="1596897697400" duration="5630000" />
     </task>
     <servers />
   </component>

@@ -71,7 +71,7 @@ class ChangeItemSerialsStatusJob implements ShouldQueue
                 $data['sale_invoice_id'] = $this->invoice->id;
                 $data['saled_by'] = $this->invoice->user_id;
             } else if ($this->changeTo == 'r_sale') {
-                $data['sale_invoice_id'] = $this->invoice->id;
+                $data['r_sale_invoice_id'] = $this->invoice->id;
             } else if ($this->changeTo == 'purchase') {
                 $data['purchase_invoice_id'] = $this->invoice->id;
             } else if ($this->changeTo == 'r_purchase') {

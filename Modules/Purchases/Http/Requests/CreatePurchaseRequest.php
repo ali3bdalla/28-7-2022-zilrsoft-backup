@@ -108,7 +108,6 @@ class CreatePurchaseRequest extends FormRequest
             return response($invoice, 200);
         } catch (Exception $e) {
             DB::rollBack();
-//            dd($this->all());
             throw $e;
         }
     }

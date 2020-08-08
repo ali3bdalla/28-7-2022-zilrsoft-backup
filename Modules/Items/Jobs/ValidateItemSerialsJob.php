@@ -135,10 +135,11 @@ class ValidateItemSerialsJob implements ShouldQueue
 
         foreach ($this->serials as $key => $serial) {
             $dbSerials = $this->item->serials()->where([
-                ['serial', $serial],
-                ['sale_invoice_id', $this->invoice->id],
-                ['current_status', 'saled']])
-                ->first();
+                    ['serial', $serial],
+                    ['sale_invoice_id', $this->invoice->id]
+                ]
+            )
+            ->whereIn('current_status',$this->searchByStatuses)->first();
 
             if ($dbSerials == null) {
                 $error = ValidationException::withMessages([

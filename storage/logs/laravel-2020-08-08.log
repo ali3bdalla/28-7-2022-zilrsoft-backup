@@ -1308,3 +1308,7 @@
 #81 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/phpunit(61): PHPUnit\\TextUI\\Command::main()
 #82 {main}
 "} 
+[2020-08-08 19:54:26] producation.ERROR: Cannot declare class App\Http\Controllers\ReportController, because the name is already in use {"userId":1,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Cannot declare class App\\Http\\Controllers\\ReportController, because the name is already in use at /usr/local/var/www/workspace/zilrsoft/app/Http/Controllers/Accounting/ReportController.php:84)
+[stacktrace]
+#0 {main}
+"} 
