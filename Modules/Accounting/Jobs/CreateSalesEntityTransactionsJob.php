@@ -96,7 +96,7 @@ class CreateSalesEntityTransactionsJob implements ShouldQueue
                     'container_id' => $this->entity->id,
                     'description' => 'to_stock',
                 ]);
-                dispatch(new UpdateUserBalanceJob($this->invoice->user(),'client_balance','increase',$this->amount));
+                dispatch(new UpdateUserBalanceJob($this->invoice->user(),'client_balance','increase',$amount));
             }else{
                 if($this->paymentsMethods != null && count($this->paymentsMethods) == 1)
                 {

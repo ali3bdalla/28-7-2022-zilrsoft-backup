@@ -179,8 +179,7 @@ class CreateSalesItemsJob implements ShouldQueue
 
     private function validateItemRequestData(Item $item, $itemPureCollection, $index = 0)
     {
-//        echo $item->availableQty() < (int)$itemPureCollection->get('qty') ? 'yes' : "no";
-//        exit();
+
         if ($item->isQtyable() && ($item->availableQty() == 0 || $item->availableQty() < (int)$itemPureCollection->get('qty'))) {
             $error = \Illuminate\Validation\ValidationException::withMessages([
                 "items.{$index}.qty" => ['item qty is not enough'],
