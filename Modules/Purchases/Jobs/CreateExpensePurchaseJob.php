@@ -74,7 +74,7 @@ class CreateExpensePurchaseJob implements ShouldQueue
         ]);
 
         dispatch(new CreatePurchaseItemsJob($invoice,[$dbData]));
-        dispatch(new UpdatePurchasesInvoiceTotalsJob($invoice));
+        dispatch(new UpdateInvoiceTotalsJob($invoice));
         dispatch(new CreatePurchasesEntityTransactionsJob($invoice,[],[]));
         dispatch(new EnsurePurchaseDataAreCorrectJob($invoice));
         return $invoice;

@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use phpDocumentor\Reflection\Types\Null_;
+use Modules\Users\Jobs\UpdateUserBalanceJob;
 
 class CreateSalesEntityTransactionsJob implements ShouldQueue
 {
@@ -85,7 +85,18 @@ class CreateSalesEntityTransactionsJob implements ShouldQueue
         if ($gatewaysTotalPaidAmount < $this->invoice->net){
             $amount = (float)$this->invoice->net - (float) $gatewaysTotalPaidAmount;
             if (!$this->invoice->user()->is_system_user){
-                dispatch(new CreateSalesClientBalanceEntityJob($this->entity,$this->invoice,$this->invoice->user(),$amount));
+                $this->invoice->user()->debit_transaction()->create([
+                    'creator_id' => auth()->user()->id,
+                    'organization_id' => auth()->user()->organization_id,
+                    'creditable_id' => $stockAccount->id,
+                    'creditable_type' => get_class($stockAccount),
+                    'amount' => $this->invoice->moneyFormatter($amount),
+                    'user_id' => $this->invoice->user_id,
+                    'invoice_id' => $this->invoice->id,
+                    'container_id' => $this->entity->id,
+                    'description' => 'to_stock',
+                ]);
+                dispatch(new UpdateUserBalanceJob($this->invoice->user(),'client_balance','increase',$this->amount));
             }else{
                 if($this->paymentsMethods != null && count($this->paymentsMethods) == 1)
                 {

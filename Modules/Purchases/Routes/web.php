@@ -11,9 +11,12 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::prefix('purchases')->name('purchases.')->group(function() {
     Route::get('/', 'PurchaseController@index')->name('index');
     Route::post('/', 'PurchaseController@store')->name('store');
+    Route::match(['PATCH','PUT'],'/{purchase}', 'ReturnController@return')->name('return');
     Route::get('/create', 'PurchaseController@create')->name('create');
     Route::get('/pending', 'PurchaseController@pending')->name('pending');
     Route::get('statistics/get_pending_counts', 'StatisticsController@getPendingCounts')->name('get_pending_counts');

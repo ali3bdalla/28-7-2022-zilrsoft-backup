@@ -71,7 +71,8 @@ class ValidateItemSerialsJob implements ShouldQueue
             $this->validatePurchaseSerials();
         elseif ($this->invoiceType == 'return_sale')
             $this->validateReturnSaleSerials();
-
+        elseif ($this->invoiceType == 'return_purchase')
+            $this->validateReturnPurchaseSerials();
     }
 
     public function validateSaleSerials()
@@ -123,6 +124,7 @@ class ValidateItemSerialsJob implements ShouldQueue
 
     public function validateReturnSaleSerials()
     {
+
         if (count($this->serials) != $this->qty) {
             $error = ValidationException::withMessages([
                 "items.{$this->index}.qty" => ['item qty should equal serials count '],
@@ -140,7 +142,40 @@ class ValidateItemSerialsJob implements ShouldQueue
 
             if ($dbSerials == null) {
                 $error = ValidationException::withMessages([
-                    "items.{$this->index}.serials.{$key}" => ['serial is not available as salled serial yet'],
+                    "items.{$this->index}.serials.{$key}" => ['serial is not available as saled serial yet'],
+                ]);
+                throw $error;
+            }
+
+        }
+
+
+    }
+
+
+    public function validateReturnPurchaseSerials()
+    {
+//        dd(count($this->serials) ,$this->qty);
+
+        if (count($this->serials) != $this->qty) {
+            $error = ValidationException::withMessages([
+                "items.{$this->index}.qty" => ['item qty should equal serials count '],
+            ]);
+            throw $error;
+        }
+
+
+        foreach ($this->serials as $key => $serial) {
+            $dbSerials = $this->item->serials()->where([
+                ['serial', $serial],
+                ['purchase_invoice_id', $this->invoice->id]
+            ])
+                ->whereIn('current_status', $this->searchByStatuses)
+                ->first();
+
+            if ($dbSerials == null) {
+                $error = ValidationException::withMessages([
+                    "items.{$this->index}.serials.{$key}" => ['serial is not available as purchase serial yet'],
                 ]);
                 throw $error;
             }

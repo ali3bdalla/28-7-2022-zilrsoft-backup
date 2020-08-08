@@ -10968,3 +10968,7 @@ Did you mean one of these?
 #78 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/phpunit(61): PHPUnit\\TextUI\\Command::main()
 #79 {main}
 "} 
+[2020-08-06 22:20:05] producation.ERROR: Cannot declare class App\Http\Controllers\ReportController, because the name is already in use {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Cannot declare class App\\Http\\Controllers\\ReportController, because the name is already in use at /usr/local/var/www/workspace/zilrsoft/app/Http/Controllers/Accounting/ReportController.php:84)
+[stacktrace]
+#0 {main}
+"} 

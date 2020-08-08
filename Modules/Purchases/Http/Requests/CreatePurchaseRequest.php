@@ -12,7 +12,7 @@ use Modules\Accounting\Jobs\CreatePurchasesEntityTransactionsJob;
 use Modules\Purchases\Jobs\CreatePurchaseItemsJob;
 use Modules\Purchases\Jobs\DeletePendingPurchaseJob;
 use Modules\Purchases\Jobs\EnsurePurchaseDataAreCorrectJob;
-use Modules\Purchases\Jobs\UpdatePurchasesInvoiceTotalsJob;
+use Modules\Purchases\Jobs\UpdateInvoiceTotalsJob;
 
 class CreatePurchaseRequest extends FormRequest
 {
@@ -95,7 +95,7 @@ class CreatePurchaseRequest extends FormRequest
             $expenses = $this->getExpenses();
             $expensesAmount = (float)collect($expenses)->sum('amount');
             dispatch(new CreatePurchaseItemsJob($invoice, $this->input('items'), $this->input('methods'), $expenses));
-            dispatch(new UpdatePurchasesInvoiceTotalsJob($invoice, $expensesAmount));
+            dispatch(new UpdateInvoiceTotalsJob($invoice, $expensesAmount));
 
             if (!$this->user()->can('confirm purchase')) {
                 event(new PendingPurchaseInvoiceCreatedEvent($invoice->fresh()));

@@ -79,7 +79,6 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
                 throw $error;
             }
             if (!$this->invoice->user()->is_system_user) {
-//                dd($amount);
                 $this->invoice->user()->credit_transaction()->create([
                     'creator_id' => auth()->user()->id,
                     'organization_id' => auth()->user()->organization_id,
@@ -91,7 +90,7 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
                     'container_id' => $this->entity->id,
                     'description' => 'to_stock',
                 ]);
-                dispatch(new UpdateUserBalanceJob($this->invoice->user(), 'client_balance', 'increase', $amount));
+                dispatch(new UpdateUserBalanceJob($this->invoice->user(), 'client_balance', 'decrease', $amount));
             } else {
                 if ($this->paymentMethods != null && count($this->paymentMethods) >= 1) {
                     $this->paymentMethods[0]["amount"] = $this->paymentMethods[0]["amount"] + $amount;

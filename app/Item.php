@@ -121,6 +121,11 @@ class Item extends BaseModel
         return $this->is_fixed_price ? $this->price : (float)$userPrice;
     }
 
+    public function getPurchaseTax($subtotal = 0)
+    {
+        return (float)$subtotal * $this->vtp / 100;
+    }
+
     public function getSaleTax($subtotal = 0)
     {
         return (float)$subtotal * $this->vts / 100;

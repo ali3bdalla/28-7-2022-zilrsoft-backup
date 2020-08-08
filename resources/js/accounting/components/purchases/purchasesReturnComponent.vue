@@ -228,10 +228,10 @@
                 <div class="col-md-9">
                     <accounting-invoice-embedded-payments-gateway-layout
                             :gateways="gateways"
-                            v-if="invoice.invoice_type!=='beginning_inventory'"
                             :net-amount="invoiceData.net"
                             @updateGatewaysAmounts="updateGatewaysAmounts"
                             invoice-type="return_sale"
+                            v-if="invoice.invoice_type!=='beginning_inventory'"
                     >
                     </accounting-invoice-embedded-payments-gateway-layout>
                 </div>
@@ -241,15 +241,18 @@
 
 
         <accounting-return-item-serials-list-layout-component
-                v-if="invoice.invoice_type!=='beginning_inventory'"
                 :item="selectedItem"
                 :item-index="selectedItemIndex"
                 @panelClosed="handleItemSerialsClosed"
                 @publishUpdated="handleItemSerialsUpdated"
                 invoice-type="r_purchase"
+                v-if="invoice.invoice_type!=='beginning_inventory'"
         >
 
         </accounting-return-item-serials-list-layout-component>
+
+        <textarea class="form-control" v-if="activateTestMode" v-model="testRequestData"></textarea>
+
 
     </div>
 
@@ -270,6 +273,9 @@
         props: ['creator', 'items', 'invoice', 'purchase', 'gateways', 'expenses'],
         data: function () {
             return {
+                activateTestMode: true,
+                testRequestData: "",
+
                 everythingFineToSave: false,
                 selectedItem: null,
                 selectedItemIndex: null,
@@ -338,8 +344,7 @@
                     item.subtotal = 0;
                     item.net = 0;
                     item.tax = 0;
-                    if(this.invoice.invoice_type==='beginning_inventory')
-                    {
+                    if (this.invoice.invoice_type === 'beginning_inventory') {
                         item.vtp = 0;
                         item.vts = 0;
                     }
@@ -607,25 +612,29 @@
                 // console.log(this.invoiceData.items);
 
                 let request_url = this.app.BaseApiUrl + 'purchases/' + invoice.id;
-                if(this.invoice.invoice_type==='beginning_inventory')
-                {
+                if (this.invoice.invoice_type === 'beginning_inventory') {
                     request_url = this.app.BaseApiUrl + 'inventories/beginning/' + invoice.id;
                 }
-                axios.put(request_url, data)
-                    .then(function (response) {
-                        console.log(response.data);
 
-                        if (doWork == 'open') {
-                            window.location.href = appVm.app.BaseApiUrl + 'purchases/' + response.data.id;
-                        } else {
-                            window.location.reload();
-                        }
 
-                    })
-                    .catch(function (error) {
-                        console.log(error.response.data)
-                    });
+                if (this.activateTestMode) {
+                    this.testRequestData = JSON.stringify(data)
+                } else {
+                    axios.put(request_url, data)
+                        .then(function (response) {
+                            console.log(response.data);
 
+                            if (doWork == 'open') {
+                                window.location.href = appVm.app.BaseApiUrl + 'purchases/' + response.data.id;
+                            } else {
+                                window.location.reload();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log(error.response.data)
+                        });
+                }
             },
 
         },

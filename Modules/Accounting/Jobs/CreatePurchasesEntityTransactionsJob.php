@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Modules\Users\Jobs\CreatePurchasesVendorBalanceJob;
+use Modules\Users\Jobs\UpdateUserBalanceJob;
 
 class CreatePurchasesEntityTransactionsJob implements ShouldQueue
 {
@@ -113,7 +113,21 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
 
         if ($totalGatewayPaidAmount < $this->invoice->net) {
             $amount = (float)$this->invoice->net - (float)$totalGatewayPaidAmount + (float)$expenseTotalAmount;
-            dispatch(new CreatePurchasesVendorBalanceJob($this->entity, $this->invoice, $this->invoice->user(), $amount));
+            $stockAccount = Account::where('slug','stock')->first();
+
+            $this->invoice->user()->credit_transaction()->create([
+                'creator_id' => auth()->user()->id,
+                'organization_id' => auth()->user()->organization_id,
+                'debitable_id' => $stockAccount->id,
+                'debitable_type' => get_class($stockAccount),
+                'amount' => $this->invoice->moneyFormatter($amount),
+                'user_id' => $this->invoice->user_id,
+                'invoice_id' => $this->invoice->id,
+                'container_id' => $this->entity->id,
+                'description' => 'to_stock',
+            ]);
+
+            dispatch(new UpdateUserBalanceJob($this->invoice->user(),'vendor_balance','increase',$amount));
         }
 
 

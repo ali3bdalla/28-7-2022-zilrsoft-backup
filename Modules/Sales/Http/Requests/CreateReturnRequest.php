@@ -11,6 +11,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Modules\Accounting\Jobs\CreateReturnSalesEntityTransactionsJob;
+use Modules\Sales\Jobs\ChangeInvoiceUpdatedAndDeletedJob;
 use Modules\Sales\Jobs\CreateReturnSalesItemsJob;
 use Modules\Sales\Jobs\EnsureReturnSalesDataAreCorrectJob;
 use Modules\Sales\Jobs\UpdateInvoiceTotalsJob;
@@ -53,7 +54,7 @@ class CreateReturnRequest extends FormRequest
         DB::beginTransaction();
         try {
             $this->validateInvoiceType($sale);
-            $this->validateItemeBelongsTo($sale);
+            $this->validateItemsBelongsTo($sale);
             $returnedItems = $this->getReturnedItems();
             $authUser = auth()->user();
             $invoice = Invoice::create([
@@ -89,6 +90,7 @@ class CreateReturnRequest extends FormRequest
             dispatch(new UpdateInvoiceTotalsJob($invoice));
             dispatch(new CreateReturnSalesEntityTransactionsJob($transactionContaniner, $invoice, $this->input("methods")));
             dispatch(new EnsureReturnSalesDataAreCorrectJob($invoice));
+            dispatch(new ChangeInvoiceUpdatedAndDeletedJob($invoice));
             DB::commit();
             return response($invoice->transactions, 200);
         } catch (QueryException $queryException) {
@@ -116,7 +118,7 @@ class CreateReturnRequest extends FormRequest
 
     }
 
-    private function validateItemeBelongsTo(Invoice $sale)
+    private function validateItemsBelongsTo(Invoice $sale)
     {
         $items = $sale->items()->pluck('id')->toArray();
         foreach ($this->input('items') as $item) {

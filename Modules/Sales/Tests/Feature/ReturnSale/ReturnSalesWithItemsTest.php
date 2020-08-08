@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Sales\Tests\Feature\Sale;
+namespace Modules\Sales\Tests\Feature\ReturnSale;
 
 use App\Account;
 use App\Invoice;

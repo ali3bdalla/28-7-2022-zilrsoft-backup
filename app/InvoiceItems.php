@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\DB;
  * @property mixed items
  * @property mixed belong_to_kit
  * @property mixed id
+ * @property mixed subtotal
  * @method static findOrFail($id)
  */
 class InvoiceItems extends BaseModel
