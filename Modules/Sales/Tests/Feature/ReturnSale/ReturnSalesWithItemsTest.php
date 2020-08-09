@@ -42,7 +42,6 @@ class ReturnSalesWithItemsTest extends TestCase
         $items = Item::
             where('price','>',10)
             ->notExpense()
-
 //            ->hasSerial()
             ->notKit()
             ->take($this->itemsCount)

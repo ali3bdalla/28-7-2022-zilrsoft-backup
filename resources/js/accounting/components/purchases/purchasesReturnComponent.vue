@@ -243,6 +243,7 @@
         <accounting-return-item-serials-list-layout-component
                 :item="selectedItem"
                 :item-index="selectedItemIndex"
+                @canBeReturnedSerialCount="handleItemWithSerialCanBeReturnedSerialCount"
                 @panelClosed="handleItemSerialsClosed"
                 @publishUpdated="handleItemSerialsUpdated"
                 invoice-type="r_purchase"
@@ -273,7 +274,7 @@
         props: ['creator', 'items', 'invoice', 'purchase', 'gateways', 'expenses'],
         data: function () {
             return {
-                activateTestMode: true,
+                activateTestMode: false,
                 testRequestData: "",
 
                 everythingFineToSave: false,
@@ -326,6 +327,18 @@
 
         methods: {
 
+
+            handleItemWithSerialCanBeReturnedSerialCount(e) {
+                // alert(e);
+                if(e.index != undefined && e.index != null)
+                {
+                    let index = e.index;
+                    let item = db.model.findByIndex(this.invoiceData.items, index);
+                    item.available_qty = e.count;
+                    this.itemUpdater(item);
+                }
+
+            },
             initItems() {
                 let len = this.items.length;
                 for (let i = 0; i < len; i++) {

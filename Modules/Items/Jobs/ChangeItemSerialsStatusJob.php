@@ -62,11 +62,7 @@ class ChangeItemSerialsStatusJob implements ShouldQueue
     {
 
         foreach ($this->serials as $key => $serial) {
-
-            $data = [
-                'current_status' => $this->changeTo
-            ];
-
+            $data ['current_status'] = $this->changeTo;
             if ($this->changeTo == 'saled') {
                 $data['sale_invoice_id'] = $this->invoice->id;
                 $data['saled_by'] = $this->invoice->user_id;
@@ -78,7 +74,6 @@ class ChangeItemSerialsStatusJob implements ShouldQueue
                 $data['r_purchase_invoice_id'] = $this->invoice->id;
             }
             $serialDB = $this->item->serials()->where([['serial', $serial]])->whereIn('current_status', $this->searchByStatuses)->first();
-
             if ($serialDB != null) {
                 $serialDB->update($data);
 

@@ -28,9 +28,12 @@
                                                 <td class="text-center">
                                                     <button @click="validateSerial(index,serial)" class="btn
                                                             btn-custom-primary"
-                                                            v-if="serial.current_status!=invoiceType">ارجاع
+                                                            v-if="allowedType.includes(serial.current_status)">ارجاع
                                                     </button>
-                                                    <span v-else>مسترجع</span>
+                                                    <span v-else-if="serial.current_status == 'saled'">تم بيعه</span>
+                                                    <span v-else-if="serial.current_status == 'r_purchase'"> مرتج مشتريات</span>
+                                                    <span v-else-if="serial.current_status == 'r_sale'"> مرتج مبيعات</span>
+                                                    <span v-else-if="serial.current_status == 'purchase'"> مشتريات</span>
                                                 </td>
                                             </tr>
 
@@ -50,7 +53,6 @@
 </template>
 
 <script>
-    import {query as ItemQuery} from '../../item';
     //
 
     export default {
@@ -64,25 +66,62 @@
                 index: -1,
                 serials: [],
                 publishSerial: [],
+                allowedType: []
             };
 
         },
 
+        created: function () {
+            if (this.invoiceType == 'r_purchase') {
+                this.allowedType = [
+                    'r_sale', 'purchase', 'available'
+                ];
+            } else {
+                this.allowedType = [
+                    'r_sale', 'purchase', 'available'
+                ];
+            }
+        },
+
+        // mounted: function () {
+        //     this.updateReturnedQty();
+        // },
 
         methods: {
 
+
+            updateReturnedQty() {
+                let canBeReturned = 0;
+                for (let i = 0; i < this.serials.length; i++) {
+                    let serial = this.serials[i];
+                    if (this.allowedType.includes(serial.current_status)) {
+                        canBeReturned = canBeReturned + 1;
+                    }
+                }
+
+                this.$emit('canBeReturnedSerialCount', {
+                    index: this.itemIndex,
+                    count: canBeReturned
+                });
+
+                // console.log('works')
+            },
             validateSerial(index, serial) {
-                serial.current_status = this.invoiceType;
-                this.serials.splice(index, 1, serial);
-                this.publishUpdated();
+                if (this.allowedType.includes(serial.current_status)) {
+                    serial.first_return = true;
+                    serial.current_status = this.invoiceType;
+                    this.serials.splice(index, 1, serial);
+                    this.updateReturnSerialList();
+                }
+
             },
 
 
-            publishUpdated() {
+            updateReturnSerialList() {
                 let list = [];
                 for (let i = 0; i < this.serials.length; i++) {
-                    var serial = this.serials[i];
-                    if (serial.current_status == this.invoiceType) {
+                    let serial = this.serials[i];
+                    if (serial.current_status == this.invoiceType && serial.first_return) {
                         list.push(serial);
                     }
                 }
@@ -115,10 +154,8 @@
         },
         watch: {
             item: function (value) {
-
-
                 this.handleOpen(value);
-
+                this.updateReturnedQty();
             }
         }
 
