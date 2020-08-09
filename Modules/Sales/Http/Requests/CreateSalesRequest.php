@@ -92,7 +92,7 @@ class CreateSalesRequest extends FormRequest
             dispatch(new DeleteQuotationAfterSubSalesCreatedJob($this->input('quotation_id')));
             dispatch(new EnsureSalesDataAreCorrectJob($invoice));
             DB::commit();
-            return response($invoice, 200);
+            return response($invoice->load('items'), 200);
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw $queryException;

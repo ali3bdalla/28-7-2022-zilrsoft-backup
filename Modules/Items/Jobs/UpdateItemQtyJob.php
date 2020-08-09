@@ -48,13 +48,17 @@ class UpdateItemQtyJob implements ShouldQueue
 
         if (!$this->invoice->isPending()) {
             if (in_array($this->invoice->invoice_type, ['purchase', 'beginning_inventory', 'r_sale'])) $newAvailableQty = $availableQty + $this->invoiceItem->qty;
-            else $newAvailableQty = $availableQty - $this->invoiceItem->qty;
+            else $newAvailableQty = $availableQty - (int)$this->invoiceItem->qty;
         }
+
 
 
 
         $this->invoiceItem->item()->update([
             'available_qty' => $newAvailableQty
         ]);
+
+//        dd($availableQty,$this->invoiceItem->qty,$newAvailableQty,$this->invoiceItem->item->fresh()->available_qty,$this->invoiceItem->item->barcode,$this->invoiceItem->item->id);
+
     }
 }

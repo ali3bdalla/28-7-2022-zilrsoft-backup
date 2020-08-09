@@ -67,8 +67,10 @@
 		protected function salesTransaction(InvoiceItems $row)
 		{
 			$this->item_current_stock_qty -= $row->qty;
+//			dd( $this->item_current_stock_qty);
 			$this->item_current_stock_amount = $this->item_current_stock_qty * $this->item_current_cost;
 			$this->transaction_stock_amount = $this->item_current_stock_amount;
+
 			$this->transaction_stock_cost = $this->item_current_cost;
 			$this->transaction_profits = ($row->total - ($this->item_current_cost * $row->qty));
 			$this->item_sales_total_profits += $this->transaction_profits;
@@ -82,10 +84,12 @@
 					'discount_stock_cost' => $this->item_current_cost,
 				];
 			}
-			
-			
-			$this->transaction_stock_amount = $row->item_current_stock_amount;
+
+//            dd($this->transaction_stock_amount);
+//			$this->transaction_stock_amount = $row->item_current_stock_amount;
 			$this->transaction_stock_cost = $row->item_current_cost;
+
+
 			
 			return $row;
 			

@@ -8,7 +8,7 @@ use App\Manager;
 use App\User;
 use Tests\TestCase;
 
-class SaleswithSerialOnlyTest extends TestCase
+class SalesWithSerialOnlyTest extends TestCase
 {
 
 
@@ -24,7 +24,7 @@ class SaleswithSerialOnlyTest extends TestCase
         $tempResellerAccount = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->first();
         $tempResellerAccount->amount = 0;
         $items = Item::InRandomOrder()->where('available_qty', '>', 4)->withCount(['serials' => function($query){
-            return $query->whereIn('current_status',['avaialbe','purchase','r_sale']);
+            return $query->whereIn('current_status',['available','purchase','r_sale']);
         }])->having('serials_count',1)->hasSerial()->take(5)->get();
         $this->assertIsIterable($items);
         $queryItems = [];
@@ -34,7 +34,7 @@ class SaleswithSerialOnlyTest extends TestCase
             $item->qty = 1;
             $item->discount = rand(0, 2);
             $item->prinable = rand(0, 1);
-            $item->serials = $item->serials()->whereIn('current_status',['avaialbe','purchase','r_sale'])->take(1)->pluck('serial')->toArray();
+            $item->serials = $item->serials()->whereIn('current_status',['available','purchase','r_sale'])->take(1)->pluck('serial')->toArray();
             $queryItems[] = $item->toArray();
         }
 

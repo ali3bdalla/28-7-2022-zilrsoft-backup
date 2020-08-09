@@ -27,12 +27,13 @@ use Illuminate\Support\Facades\DB;
  * @property mixed belong_to_kit
  * @property mixed id
  * @property mixed subtotal
+ * @property mixed invoice_type
  * @method static findOrFail($id)
  */
 class InvoiceItems extends BaseModel
 {
     use InvoiceItemRelationships, InvoiceItemHelper, KitHelper;
-    use CoreIncItem,OrmNumbersTrait;
+    use CoreIncItem, OrmNumbersTrait;
 
     protected $guarded = [
 
@@ -78,53 +79,67 @@ class InvoiceItems extends BaseModel
     }
 
 
-
-    public function scopeBelongToKit($query ,InvoiceItems $oldDbKit)
+    public function scopeBelongToKit($query, InvoiceItems $oldDbKit)
     {
         return $query->where([
-           ['belong_to_kit',true],
-           ['parent_kit_id',$oldDbKit->id],
+            ['belong_to_kit', true],
+            ['parent_kit_id', $oldDbKit->id],
         ]);
+    }
+
+
+    public function getRQtyAttribute($value)
+    {
+//        if (!$this->item->isNeedSerial())
+            return $value;
+
+
+
+        if ($this->invoice_type == 'sale') {
+            return $this->item->serials()->where([
+                ['sale_invoice_id', $this->invoice_id],
+                ['current_status','saled']
+            ])->count();
+        }
+
+        return $this->item->serials()
+            ->where('purchase_invoice_id', $this->invoice_id)
+            ->whereIn(
+            'current_status',['available',  'purchase','r_sale']
+        )->count();
+
+
+
+
+
     }
 
     public function getPrintableTaxAttribute()
     {
 
-        if(in_array($this->invoice_type,['sale','r_sale','quotation']))
-        {
+        if (in_array($this->invoice_type, ['sale', 'r_sale', 'quotation'])) {
 
-            if(!$this->item->is_has_vts)
-            {
-                if($this->item->vts_for_print>0)
-                {
+            if (!$this->item->is_has_vts) {
+                if ($this->item->vts_for_print > 0) {
                     return ($this->subtotal * $this->item->vts_for_print) / 100;
-                }else
-                {
+                } else {
                     return $this->tax;
                 }
-            }else
-            {
+            } else {
                 return $this->tax;
             }
-        }else
-        {
-            if(!$this->item->is_has_vtp)
-            {
-                if($this->item->vtp_for_print>0)
-                {
+        } else {
+            if (!$this->item->is_has_vtp) {
+                if ($this->item->vtp_for_print > 0) {
                     return ($this->subtotal * $this->item->vtp_for_print) / 100;
-                }else
-                {
+                } else {
                     return $this->tax;
                 }
-            }else
-            {
+            } else {
                 return $this->tax;
             }
         }
     }
-
-
 
 
     public function getPrintableNetAttribute()
@@ -141,6 +156,7 @@ class InvoiceItems extends BaseModel
         ]);
     }
 
+
     public function updateStock()
     {
 
@@ -148,14 +164,14 @@ class InvoiceItems extends BaseModel
         $current_stock = $cost * $this->item->available_qty;
         $result = [];
         $result['final_stock_cost'] = $cost;
-        if (in_array($this->invoice->invoice_type,['purchase','beginning_inventory'])){
-            $result = $this->item->handlePurchaseHistory($this,$current_stock,$this->item->available_qty);
-        }else if ($this->invoice->invoice_type == 'sale'){
-            $result = $this->item->handleSaleHistory($this,$cost,$current_stock,$this->item->available_qty);
-        }else if ($this->invoice->invoice_type == 'r_sale'){
-            $result = $this->item->handleReturnSaleHistory($this,$current_stock,$cost,$this->item->available_qty);
-        }else if ($this->invoice->invoice_type == 'r_purchase'){
-            $result = $this->item->handleReturnPurchaseHistory($this,$cost,$current_stock,$this->item->available_qty);
+        if (in_array($this->invoice->invoice_type, ['purchase', 'beginning_inventory'])) {
+            $result = $this->item->handlePurchaseHistory($this, $current_stock, $this->item->available_qty);
+        } else if ($this->invoice->invoice_type == 'sale') {
+            $result = $this->item->handleSaleHistory($this, $cost, $current_stock, $this->item->available_qty);
+        } else if ($this->invoice->invoice_type == 'r_sale') {
+            $result = $this->item->handleReturnSaleHistory($this, $current_stock, $cost, $this->item->available_qty);
+        } else if ($this->invoice->invoice_type == 'r_purchase') {
+            $result = $this->item->handleReturnPurchaseHistory($this, $cost, $current_stock, $this->item->available_qty);
         }
 
 
@@ -167,7 +183,7 @@ class InvoiceItems extends BaseModel
     public function getDescriptionAttribute()
     {
         $description = '';
-        if (app()->isLocale('ar')){
+        if (app()->isLocale('ar')) {
             if ($this->invoice_type == 'purchase')
                 $description = ' شراء';
 
@@ -183,7 +199,7 @@ class InvoiceItems extends BaseModel
             if ($this->invoice_type == 'r_purchase')
                 $description = 'مرتجع شراء';
 
-        }else{
+        } else {
             if ($this->invoice_type == 'sale')
                 $description = 'sale';
 
@@ -209,10 +225,10 @@ class InvoiceItems extends BaseModel
     public function getUrlsAttribute()
     {
         $urls = [];
-        if (in_array($this->invoice_type,['sale','r_sale']))
-            $url['invoice_url'] = route('accounting.sales.show',$this->invoice->id);
+        if (in_array($this->invoice_type, ['sale', 'r_sale']))
+            $url['invoice_url'] = route('accounting.sales.show', $this->invoice->id);
         else
-            $url['invoice_url'] = route('accounting.purchases.show',$this->invoice->id);
+            $url['invoice_url'] = route('accounting.purchases.show', $this->invoice->id);
 
         $url['invoice_title'] = $this->invoice->title;
 
@@ -227,35 +243,35 @@ class InvoiceItems extends BaseModel
 
     public function getTotalAttribute($value)
     {
-        return  $this->moneyFormatter($value);
+        return $this->moneyFormatter($value);
     }
 
     public function getDiscountAttribute($value)
     {
 
-        return  $this->moneyFormatter($value);
+        return $this->moneyFormatter($value);
     }
 
     public function getTaxAttribute($value)
     {
 
-        return  $this->moneyFormatter($value);
+        return $this->moneyFormatter($value);
     }
 
     public function getNetAttribute($value)
     {
-        return  $this->moneyFormatter($value);
+        return $this->moneyFormatter($value);
     }
 
     public function getSubtotalAttribute($value)
     {
 
-        return  $this->moneyFormatter($value);
+        return $this->moneyFormatter($value);
     }
 
     public function getAccountingDepetAttribute()
     {
-        if (!in_array($this->invoice_type,['sale','r_purchase']))
+        if (!in_array($this->invoice_type, ['sale', 'r_purchase']))
             return $this->cost * $this->qty;
 
 
@@ -264,7 +280,7 @@ class InvoiceItems extends BaseModel
 
     public function getAccountingCreditAttribute()
     {
-        if (in_array($this->invoice_type,['sale','r_purchase']))
+        if (in_array($this->invoice_type, ['sale', 'r_purchase']))
             return $this->cost * $this->qty;
 
 

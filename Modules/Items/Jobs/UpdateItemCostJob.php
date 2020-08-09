@@ -45,21 +45,24 @@ class UpdateItemCostJob implements ShouldQueue
     public function handle()
     {
         $dbItem = $this->invoiceItem->item;
+        $costBeforeNewRow = (float)$dbItem->cost;
+        $stockAmountBeforeNewRow = $dbItem->moneyFormatter($costBeforeNewRow * (int)$dbItem->available_qty);
 
-        $costBeforeNewRow = $dbItem->moneyFormatter((float)$dbItem->cost);
-        $sotckAmountBeforeNewRow = $dbItem->moneyFormatter($costBeforeNewRow * $dbItem->available_qty);
+
         $availableQty = $dbItem->available_qty;
         $result['cost'] = $costBeforeNewRow;
 
         if ($this->invoice->isPurchase()){
-            $result = $dbItem->handlePurchaseHistory($this->invoiceItem,$sotckAmountBeforeNewRow,$availableQty);
+            $result = $dbItem->handlePurchaseHistory($this->invoiceItem,$stockAmountBeforeNewRow,$availableQty);
         }else if ($this->invoice->isSale()){
-            $result = $dbItem->handleSaleHistory($this->invoiceItem,$costBeforeNewRow,$sotckAmountBeforeNewRow,$availableQty);
+            $result = $dbItem->handleSaleHistory($this->invoiceItem,$costBeforeNewRow,$stockAmountBeforeNewRow,$availableQty);
         }else if ($this->invoice->isReturnSale()){
-            $result = $dbItem->handleReturnSaleHistory($this->invoiceItem,$sotckAmountBeforeNewRow,$costBeforeNewRow,$availableQty);
+            $result = $dbItem->handleReturnSaleHistory($this->invoiceItem,$stockAmountBeforeNewRow,$costBeforeNewRow,$availableQty);
         }else if ($this->invoice->isReturnPurchase()){
-            $result = $dbItem->handleReturnPurchaseHistory($this->invoiceItem,$costBeforeNewRow,$sotckAmountBeforeNewRow,$availableQty);
+            $result = $dbItem->handleReturnPurchaseHistory($this->invoiceItem,$costBeforeNewRow,$stockAmountBeforeNewRow,$availableQty);
         }
+
+//        dd($result['cost']);
 
         $dbItem->update([
             'cost' => $result['cost']
