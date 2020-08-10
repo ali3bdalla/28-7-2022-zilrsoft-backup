@@ -19,19 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/UpdateItemCostJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Items/Jobs/UpdateItemCostJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/UpdateItemQtyJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Items/Jobs/UpdateItemQtyJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Sales/Http/Requests/CreateSalesRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Http/Requests/CreateSalesRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Sale/SalesWithoutKitAndExpenseAndSerialTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Sale/ItemsSaleTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Sale/SaleswithSerialOnlyTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Sale/SalesWithSerialOnlyTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Components/Loader/Item/Transactions/TransactionsHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Components/Loader/Item/Transactions/TransactionsHelper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/InvoiceItems.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/InvoiceItems.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/KxukbFHUKVMXFrKQi98DWkRtSfUzPPctRuBJgR8h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-08-09.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-08-09.log" afterDir="false" />
-    </list>
+    <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -323,7 +311,7 @@
       <workItem from="1596886871623" duration="30000" />
       <workItem from="1596897697400" duration="5630000" />
       <workItem from="1596981940332" duration="2158000" />
-      <workItem from="1596991819792" duration="3493000" />
+      <workItem from="1596991819792" duration="3594000" />
     </task>
     <servers />
   </component>
