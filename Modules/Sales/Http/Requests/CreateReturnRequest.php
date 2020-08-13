@@ -92,7 +92,7 @@ class CreateReturnRequest extends FormRequest
             dispatch(new EnsureReturnSalesDataAreCorrectJob($invoice));
             dispatch(new ChangeInvoiceUpdatedAndDeletedJob($invoice));
             DB::commit();
-            return response($invoice->transactions, 200);
+            return response($invoice->load('transactions'), 200);
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw $queryException;

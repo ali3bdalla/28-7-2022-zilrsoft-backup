@@ -359,6 +359,21 @@
                     item.barcode = item.item.barcode;
                     item.vts = item.item.vts;
                     item.available_qty = item.qty - item.r_qty;
+
+                    if(item.item.is_need_serial)
+                    {
+                        let count = 0;
+                        item.serials.forEach(function(serial){
+                            if(['saled'].includes(serial.current_status))
+                            {
+                                count++;
+                            }
+                        });
+
+                        item.available_qty = count;
+                    }
+
+
                     item.init_discount = item.discount;
                     item.returned_qty = 0;
                     item.error = '';

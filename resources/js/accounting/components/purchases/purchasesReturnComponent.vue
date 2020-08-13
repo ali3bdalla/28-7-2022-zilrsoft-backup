@@ -343,13 +343,29 @@
                 let len = this.items.length;
                 for (let i = 0; i < len; i++) {
                     let item = this.items[i];
-
                     item.is_expense = item.item.is_expense;
                     item.is_need_serial = item.item.is_need_serial;
                     item.locale_name = item.item.locale_name;
                     item.barcode = item.item.barcode;
                     item.vts = item.item.vts;
                     item.available_qty = item.qty - item.r_qty;
+
+                    if(item.item.is_need_serial)
+                    {
+                        let count = 0;
+                        item.serials.forEach(function(serial){
+                            if(['r_sale', 'purchase', 'available'].includes(serial.current_status))
+                            {
+                                count++;
+                            }
+                        });
+
+                        item.available_qty = count;
+                    }
+                    if(item.available_qty > item.item.available_qty)
+                    {
+                        item.available_qty  = item.item.available_qty;
+                    }
                     item.init_discount = item.discount;
                     item.returned_qty = 0;
                     item.error = '';
@@ -366,95 +382,95 @@
             },
 
 
-            sendQueryRequestToFindItems() {
-                let appVm = this;
-                ItemQuery.sendQueryRequestToFindItems(this.barcodeNameAndSerialField, 'purchase').then(response => {
-                    if (response.data.length === 1) {
-                        appVm.validateAndPrepareItem(response.data[0]);
-                        appVm.barcodeNameAndSerialField = "";
-                        appVm.searchResultList = [];
-                    } else if (response.data.length === 0) {
-                        appVm.$refs.barcodeNameAndSerialField.select();
-                        appVm.searchResultList = [];
-                    } else {
-                        appVm.searchResultList = response.data;
-                    }
+            // sendQueryRequestToFindItems() {
+            //     let appVm = this;
+            //     ItemQuery.sendQueryRequestToFindItems(this.barcodeNameAndSerialField, 'purchase').then(response => {
+            //         if (response.data.length === 1) {
+            //             appVm.validateAndPrepareItem(response.data[0]);
+            //             appVm.barcodeNameAndSerialField = "";
+            //             appVm.searchResultList = [];
+            //         } else if (response.data.length === 0) {
+            //             appVm.$refs.barcodeNameAndSerialField.select();
+            //             appVm.searchResultList = [];
+            //         } else {
+            //             appVm.searchResultList = response.data;
+            //         }
 
-                }).catch(error => {
-                    console.log(error);
-                })
-            },
-            validateAndPrepareItem(item) {
-                if (db.model.contain(this.invoiceData.items, item.id)) {
-                    let parent = db.model.find(this.invoiceData.items, item.id);
-                    if (!parent.is_need_serial) {
-                        parent.qty = parseInt(parent.qty) + 1;
-                        this.itemQtyUpdated(parent);
-                    } else if (item.has_init_serial) {
-                        this.itemWithSerialProccess(item, parent);
-                    }
+            //     }).catch(error => {
+            //         console.log(error);
+            //     })
+            // },
+            // validateAndPrepareItem(item) {
+            //     if (db.model.contain(this.invoiceData.items, item.id)) {
+            //         let parent = db.model.find(this.invoiceData.items, item.id);
+            //         if (!parent.is_need_serial) {
+            //             parent.qty = parseInt(parent.qty) + 1;
+            //             this.itemQtyUpdated(parent);
+            //         } else if (item.has_init_serial) {
+            //             this.itemWithSerialProccess(item, parent);
+            //         }
 
-                } else if (item.has_init_serial) {
-                    this.itemWithSerialProccess(item);
-                } else {
-                    let preparedItem = this.prepareDataInFirstUse(item);
-                    this.appendItemToInvoiceItemsList(preparedItem);
-                }
+            //     } else if (item.has_init_serial) {
+            //         this.itemWithSerialProccess(item);
+            //     } else {
+            //         let preparedItem = this.prepareDataInFirstUse(item);
+            //         this.appendItemToInvoiceItemsList(preparedItem);
+            //     }
 
-                this.clearAndFocusOnBarcodeField();
-            },
+            //     this.clearAndFocusOnBarcodeField();
+            // },
 
-            itemWithSerialProccess(item, parent = null) {
-                let serial = item.init_serial.serial;
-                if (parent == null) {
-                    item.serials = [serial];
-                    item.qty = 1;
+            // itemWithSerialProccess(item, parent = null) {
+            //     let serial = item.init_serial.serial;
+            //     if (parent == null) {
+            //         item.serials = [serial];
+            //         item.qty = 1;
 
-                    item.discount = 0;
-                    this.invoiceData.items.push(item);
-                    let newItem = db.model.find(this.invoiceData.items, item.id);
-                    this.itemUpdater(newItem);
-                } else {
-                    if (!db.model.contain(parent.serials, serial)) {
-                        parent.serials = db.model.createUnique(parent.serials, serial);
-                        parent.qty = parseInt(parent.qty) + 1;
-                        let element = {
-                            index: db.model.index(this.invoiceData.items, parent.id),
-                            serials: parent.serials
-                        };
-                        this.handleItemSerialsUpdated(element);
-                    }
-
-
-                }
+            //         item.discount = 0;
+            //         this.invoiceData.items.push(item);
+            //         let newItem = db.model.find(this.invoiceData.items, item.id);
+            //         this.itemUpdater(newItem);
+            //     } else {
+            //         if (!db.model.contain(parent.serials, serial)) {
+            //             parent.serials = db.model.createUnique(parent.serials, serial);
+            //             parent.qty = parseInt(parent.qty) + 1;
+            //             let element = {
+            //                 index: db.model.index(this.invoiceData.items, parent.id),
+            //                 serials: parent.serials
+            //             };
+            //             this.handleItemSerialsUpdated(element);
+            //         }
 
 
-                this.$refs.barcodeNameAndSerialField.focus();
-                this.$refs.barcodeNameAndSerialField.select();
-
-                this.updateInvoiceData();
-
-            },
-            prepareDataInFirstUse(item) {
-                item.isOpen = false;
-                item.qty = 1;
-                if (item.is_need_serial) {
-                    item.qty = 0;
-                    item.serials = [];
-                }
+            //     }
 
 
-                if (item.is_kit) {
+            //     this.$refs.barcodeNameAndSerialField.focus();
+            //     this.$refs.barcodeNameAndSerialField.select();
 
-                    item = ItemAccounting.getKitInformation(item);
-                } else {
-                    item.discount = 0;
-                }
+            //     this.updateInvoiceData();
 
-                let newItem = this.itemUpdater(item);
-                return newItem;
+            // },
+            // prepareDataInFirstUse(item) {
+            //     item.isOpen = false;
+            //     item.qty = 1;
+            //     if (item.is_need_serial) {
+            //         item.qty = 0;
+            //         item.serials = [];
+            //     }
 
-            },
+
+            //     if (item.is_kit) {
+
+            //         item = ItemAccounting.getKitInformation(item);
+            //     } else {
+            //         item.discount = 0;
+            //     }
+
+            //     let newItem = this.itemUpdater(item);
+            //     return newItem;
+
+            // },
             appendItemToInvoiceItemsList(item, index = null) {
                 if (index != null) {
                     this.invoiceData.items.splice(index, 1, item);

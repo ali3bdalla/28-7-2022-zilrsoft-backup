@@ -78,7 +78,7 @@
                 ];
             } else {
                 this.allowedType = [
-                    'r_sale', 'purchase', 'available'
+                    'saled'
                 ];
             }
         },
