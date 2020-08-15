@@ -141,7 +141,6 @@
                     <td>
                         <input @focus="$event.target.select()" class="form-control input-xs amount-input" disabled=""
                                placeholder="subtotal"
-
                                type="text" v-model="item.subtotal">
                     </td>
 
@@ -152,8 +151,6 @@
                     </td>
                     <td>
                         <input @focus="$event.target.select()"
-
-
                                class="form-control input-xs amount-input"
                                disabled
                                placeholder="net" type="text" v-model="item.net">
@@ -349,7 +346,6 @@
                     item.barcode = item.item.barcode;
                     item.vts = item.item.vts;
                     item.available_qty = item.qty - item.r_qty;
-
                     if(item.item.is_need_serial)
                     {
                         let count = 0;
@@ -381,96 +377,6 @@
                 }
             },
 
-
-            // sendQueryRequestToFindItems() {
-            //     let appVm = this;
-            //     ItemQuery.sendQueryRequestToFindItems(this.barcodeNameAndSerialField, 'purchase').then(response => {
-            //         if (response.data.length === 1) {
-            //             appVm.validateAndPrepareItem(response.data[0]);
-            //             appVm.barcodeNameAndSerialField = "";
-            //             appVm.searchResultList = [];
-            //         } else if (response.data.length === 0) {
-            //             appVm.$refs.barcodeNameAndSerialField.select();
-            //             appVm.searchResultList = [];
-            //         } else {
-            //             appVm.searchResultList = response.data;
-            //         }
-
-            //     }).catch(error => {
-            //         console.log(error);
-            //     })
-            // },
-            // validateAndPrepareItem(item) {
-            //     if (db.model.contain(this.invoiceData.items, item.id)) {
-            //         let parent = db.model.find(this.invoiceData.items, item.id);
-            //         if (!parent.is_need_serial) {
-            //             parent.qty = parseInt(parent.qty) + 1;
-            //             this.itemQtyUpdated(parent);
-            //         } else if (item.has_init_serial) {
-            //             this.itemWithSerialProccess(item, parent);
-            //         }
-
-            //     } else if (item.has_init_serial) {
-            //         this.itemWithSerialProccess(item);
-            //     } else {
-            //         let preparedItem = this.prepareDataInFirstUse(item);
-            //         this.appendItemToInvoiceItemsList(preparedItem);
-            //     }
-
-            //     this.clearAndFocusOnBarcodeField();
-            // },
-
-            // itemWithSerialProccess(item, parent = null) {
-            //     let serial = item.init_serial.serial;
-            //     if (parent == null) {
-            //         item.serials = [serial];
-            //         item.qty = 1;
-
-            //         item.discount = 0;
-            //         this.invoiceData.items.push(item);
-            //         let newItem = db.model.find(this.invoiceData.items, item.id);
-            //         this.itemUpdater(newItem);
-            //     } else {
-            //         if (!db.model.contain(parent.serials, serial)) {
-            //             parent.serials = db.model.createUnique(parent.serials, serial);
-            //             parent.qty = parseInt(parent.qty) + 1;
-            //             let element = {
-            //                 index: db.model.index(this.invoiceData.items, parent.id),
-            //                 serials: parent.serials
-            //             };
-            //             this.handleItemSerialsUpdated(element);
-            //         }
-
-
-            //     }
-
-
-            //     this.$refs.barcodeNameAndSerialField.focus();
-            //     this.$refs.barcodeNameAndSerialField.select();
-
-            //     this.updateInvoiceData();
-
-            // },
-            // prepareDataInFirstUse(item) {
-            //     item.isOpen = false;
-            //     item.qty = 1;
-            //     if (item.is_need_serial) {
-            //         item.qty = 0;
-            //         item.serials = [];
-            //     }
-
-
-            //     if (item.is_kit) {
-
-            //         item = ItemAccounting.getKitInformation(item);
-            //     } else {
-            //         item.discount = 0;
-            //     }
-
-            //     let newItem = this.itemUpdater(item);
-            //     return newItem;
-
-            // },
             appendItemToInvoiceItemsList(item, index = null) {
                 if (index != null) {
                     this.invoiceData.items.splice(index, 1, item);
@@ -535,7 +441,10 @@
 
 
             itemQtyUpdated(item, bySerial = false) {
-                if (item.item.is_kit) {
+
+
+                if (item.item.is_kit === 1) {
+                    console.log('reeded as kit');
                     return this.kitQtyUpdated(item);
                 }
                 if (bySerial === false) {

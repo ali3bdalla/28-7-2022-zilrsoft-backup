@@ -72,6 +72,7 @@ exports.inputHelper = {
     },
 
     showErrorOnInput: function (el, message = "") {
+        console.log(message)
         el.classList.add("inputErrorClass");
 
         // el.focus();
