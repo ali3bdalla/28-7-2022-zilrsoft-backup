@@ -31,8 +31,8 @@ exports.inputHelper = {
         }
 
         if (max != null) {
-            if (qty > max) {
-                this.showErrorOnInput(el, 'الكمية يجب ان تكون اقل من او تساوي ' + max);
+            if (parseInt(qty) > max) {
+                this.showErrorOnInput(el, 'الكمية '+ qty + ' يجب ان تكون اقل من او تساوي ' + max );
                 el.value = 0;
                 return false;
             }
@@ -40,7 +40,7 @@ exports.inputHelper = {
 
 
         if (min != null) {
-            if (qty < min) {
+            if (parseInt(qty) < min) {
                 this.showErrorOnInput(el, 'الكمية يجب ان تكون اكبر  من او تساوي ' + min);
                 el.value = 0;
                 return false;
