@@ -5,6 +5,7 @@ namespace Modules\Purchases\Http\Requests;
 use App\Events\Accounting\Invoice\PendingPurchaseInvoiceCreatedEvent;
 use App\Invoice;
 use App\ItemSerials;
+use App\TransactionsContainer;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
@@ -31,14 +32,9 @@ class CreatePurchaseRequest extends FormRequest
             'items' => 'required|array',
             'items.*.id' => ['required', 'integer', 'exists:items,id'],
             'items.*.price' => 'required|numeric|min:0|',
-//            'items.*.total' => 'required|numeric',
-//            'items.*.tax' => 'required|numeric',
-//            'items.*.subtotal' => 'required|numeric',
-//            'items.*.net' => 'required|numeric',
             'items.*.discount' => 'required|numeric',
             'items.*.qty' => 'required|integer|min:1',
             'items.*.purchase_price' => 'required|numeric',
-//            'items.*.price_with_tax' => 'required|numeric|min:0',
             'items.*.serials.*' => ['required', function ($attr, $value, $fail) {
                 $serial = ItemSerials::where('serial', $value)->first();
                 if (!empty($serial)) {
@@ -92,15 +88,25 @@ class CreatePurchaseRequest extends FormRequest
                 'invoice_type' => $invoiceType,
                 "prefix" => $invoicePrefix
             ]);
+            $transactionContainer = new TransactionsContainer(
+                [
+                    'creator_id' => $this->user()->id,
+                    'organization_id' => $this->user()->organization_id,
+                    'invoice_id' => $invoice->id,
+                    'amount' => 0,
+                    'description' => 'invoice'
+                ]
+            );
+            $transactionContainer->save();
+
             $expenses = $this->getExpenses();
             $expensesAmount = (float)collect($expenses)->sum('amount');
-            dispatch(new CreatePurchaseItemsJob($invoice, $this->input('items'), $this->input('methods'), $expenses));
+            dispatch(new CreatePurchaseItemsJob($transactionContainer,$invoice, $this->input('items'), $this->input('methods'), $expenses));
             dispatch(new UpdateInvoiceTotalsJob($invoice, $expensesAmount));
-
             if (!$this->user()->can('confirm purchase')) {
                 event(new PendingPurchaseInvoiceCreatedEvent($invoice->fresh()));
             } else {
-                dispatch(new CreatePurchasesEntityTransactionsJob($invoice, $this->input('methods'), $expenses,$this->input('items')));
+                dispatch(new CreatePurchasesEntityTransactionsJob($transactionContainer,$invoice, $this->input('methods'), $expenses,$this->input('items')));
                 dispatch(new EnsurePurchaseDataAreCorrectJob($invoice));
                 dispatch(new DeletePendingPurchaseJob($this->input('pending_purchase_id')));
             }

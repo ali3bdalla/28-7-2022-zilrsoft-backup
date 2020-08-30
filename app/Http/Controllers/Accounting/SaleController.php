@@ -86,6 +86,8 @@
 
 			$transactions = $sale->transactions()->where('description','!=','client_balance')->get();
 			$invoice = $sale;
+
+			// return $transactions;
 			return view('accounting.sales.show',compact('invoice','transactions'));
 			//
 		}

@@ -41,7 +41,7 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
         //
         $this->entity = $entity;
         $this->invoice = $invoice;
-        $this->paymentMethods = $paymentMethods;
+        $this->paymentMethods = (array)$paymentMethods;
     }
 
     /**

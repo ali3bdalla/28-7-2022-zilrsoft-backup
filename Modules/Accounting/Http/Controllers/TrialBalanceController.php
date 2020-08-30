@@ -22,6 +22,8 @@ class TrialBalanceController extends Controller
         // return Invoice::where('id',$request->input('id'))->with('transactions')->get();
         //withCount('children')->having('children_count', '=', 0)->
         $accountsDB = Account::withCount('children')->having('children_count', '=', 0)->get();
+
+        // return $accountsDB;
         // return 
         $totalCreditAmount = 0;
         $totalDebitAmount = 0;
@@ -32,31 +34,24 @@ class TrialBalanceController extends Controller
         $accounts = [];
         foreach($accountsDB as $account)
         {
+            
             if(!is_null($account->statistics))
             {
                 $debitAmount = $account->statistics->debit_amount;
                 $creditAmount = $account->statistics->credit_amount;
-
-
             }else
             {
                 $debitAmount = $account->_getDebitTransactionsAmount();
                 $creditAmount = $account->_getCreditTransactionsAmount();
             
+                // dd( $debitAmount );
             }
-            
+        
 
-            // if($debitAmount == $creditAmount  && floatval($debitAmount) == 0)
-            // {
-                
-            //     $debitAmount = $account->_getDebitTransactionsAmount();
-            //     $creditAmount = $account->_getCreditTransactionsAmount();
-            //     $account->_getAccountBalanceUsingTransactions(  $creditAmount ,$debitAmount);
 
-            // }
-
-            if($debitAmount!=0 || $creditAmount != 0)
+            if($debitAmount>0 || $creditAmount > 0)
             {
+                // dd(1);
                 if($account->_isCredit())
                 {
                     $accountTotalAmount = $creditAmount - $debitAmount;
@@ -68,12 +63,6 @@ class TrialBalanceController extends Controller
                     $accountCreditBalance = $accountTotalAmount < 0 ? $accountTotalAmount * -1  : 0;
                     $accountDebitBalance = $accountTotalAmount < 0 ? 0 : $accountTotalAmount ;
                 }
-
-
-
-
-
-
                 $account->credit_amount = $creditAmount;
                 $account->debit_amount = $debitAmount;
                 $account->total_amount = $accountTotalAmount;
@@ -93,6 +82,7 @@ class TrialBalanceController extends Controller
         }
 
 
+        // return $accounts;
         return view('accounting::trial_balance.index',compact('accounts','totalCreditAmount','totalDebitAmount','totalCreditBalance','totalDebitBalance'));
     }
 

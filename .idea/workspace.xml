@@ -19,7 +19,34 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="" />
+    <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Http/Controllers/TrialBalanceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Http/Controllers/TrialBalanceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreatePurchasesEntityTransactionsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreatePurchasesEntityTransactionsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreatePurchasesItemsEntityJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreatePurchasesItemsEntityJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateReturnSalesEntityTransactionsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateReturnSalesEntityTransactionsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Purchases/Http/Requests/CreatePurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Purchases/Http/Requests/CreatePurchaseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Purchases/Jobs/CreatePurchaseItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Purchases/Jobs/CreatePurchaseItemsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Purchases/Jobs/EnsurePurchaseDataAreCorrectJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Purchases/Jobs/EnsurePurchaseDataAreCorrectJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Purchases/Jobs/UpdateInvoiceTotalsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Purchases/Jobs/UpdateInvoiceTotalsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Sales/Jobs/CreateReturnSalesItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Jobs/CreateReturnSalesItemsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Sales/Jobs/UpdateInvoiceTotalsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Jobs/UpdateInvoiceTotalsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/UpdateAccountsBalanceCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/UpdateAccountsBalanceCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Item.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/NRE1YegxO4hRhucpxOdMiMeFT6DYBY2L59IvOURO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/kAhqV6pWALLiiEXOTjshxRprHYJQLj2tS7QofpQc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-07-21.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-07-22.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-07-23.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-07-26.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-07-27.log" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -312,6 +339,7 @@
       <workItem from="1596897697400" duration="5630000" />
       <workItem from="1596981940332" duration="2158000" />
       <workItem from="1596991819792" duration="3594000" />
+      <workItem from="1598275411018" duration="3903000" />
     </task>
     <servers />
   </component>

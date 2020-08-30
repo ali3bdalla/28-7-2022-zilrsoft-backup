@@ -133,7 +133,7 @@ class Item extends BaseModel
 
     public function getPurchaseTaxAsFloatValue()
     {
-        return (1 + $this->vtp) / 100;
+        return (1 + $this->vtp / 100);
     }
 
     public function getSaleTaxAsFloatValue()

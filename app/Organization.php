@@ -25,6 +25,6 @@
 		
 		public function getOrganizationVatAttribute()
 		{
-			return 5;
+			return 15;
 		}
 	}

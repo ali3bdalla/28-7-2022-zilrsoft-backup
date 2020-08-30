@@ -44,6 +44,17 @@
             <th>{{ money_format('%i',$totalCreditBalance)}}</th>
 
         </tr>
+
+        <tr>
+            <th></th>
+            <th></th>
+            <th colspan="2">{{ money_format('%i',$totalDebitAmount - $totalCreditAmount)}}</th>
+
+
+            <th colspan="2">{{ money_format('%i',$totalDebitBalance - $totalCreditBalance)}}</>
+
+        </tr>
+
         </thead>
     </table>
     </div>

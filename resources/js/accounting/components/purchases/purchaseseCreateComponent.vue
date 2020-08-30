@@ -430,7 +430,7 @@
             'canCreateItem', 'initPurchase', 'initInvoice', 'initItems'],
         data: function () {
             return {
-                activateTestMode:false,
+                activateTestMode:true,
                 testRequestData:"",
                 code_tester: "",
                 pending_purchase_id: 0,

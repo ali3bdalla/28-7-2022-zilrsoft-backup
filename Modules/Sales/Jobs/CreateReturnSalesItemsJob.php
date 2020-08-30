@@ -73,6 +73,7 @@ class CreateReturnSalesItemsJob implements ShouldQueue
         //
         foreach ($this->requestItemsData as $index => $itemRequestData) {
             $invoiceItem = InvoiceItems::findOrFail($itemRequestData['id']);
+            // dd($invoiceItem);
             if ($invoiceItem->item->isKit())
                 $this->createKit($this->invoice, $invoiceItem, $itemRequestData, $index);
             elseif(!$invoiceItem->isBelongToKit())
@@ -184,6 +185,7 @@ class CreateReturnSalesItemsJob implements ShouldQueue
     {
         $returnedQty = (int)$invoiceItem->r_qty + (int)$itemPureCollection->get('returned_qty');
         if ($returnedQty > $invoiceItem->qty) {
+            // dd($returnedQty , $invoiceItem->qty);
             $error = ValidationException::withMessages([
                 "items.{$index}.returned_qty" => ['item qty is not enough'],
             ]);

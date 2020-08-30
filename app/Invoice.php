@@ -24,6 +24,7 @@
      * @property mixed department_id
      * @property mixed sale
      * @property mixed purchase
+     * @property mixed total
      */
     class Invoice extends Model
 	{

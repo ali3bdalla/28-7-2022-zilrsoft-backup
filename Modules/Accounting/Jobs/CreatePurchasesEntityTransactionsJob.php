@@ -4,6 +4,7 @@ namespace Modules\Accounting\Jobs;
 
 use App\Account;
 use App\Invoice;
+use App\Item;
 use App\TransactionsContainer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,22 +33,28 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
      * @var array
      */
     private $itemRequestData;
+    /**
+     * @var TransactionsContainer
+     */
+    private $transactionsContainer;
 
     /**
      * Create a new job instance.
      *
+     * @param TransactionsContainer $transactionsContainer
      * @param Invoice $invoice
      * @param array $paymentsMethods
      * @param array $expenses
      * @param array $itemRequestData
      */
-    public function __construct(Invoice $invoice, $paymentsMethods = [], $expenses = [], $itemRequestData = [])
+    public function __construct(TransactionsContainer $transactionsContainer,Invoice $invoice, $paymentsMethods = [], $expenses = [], $itemRequestData = [])
     {
         //
         $this->invoice = $invoice;
         $this->paymentsMethods = $paymentsMethods;
         $this->expenses = $expenses;
         $this->itemRequestData = $itemRequestData;
+        $this->transactionsContainer = $transactionsContainer;
     }
 
     /**
@@ -58,25 +65,26 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
     public function handle()
     {
 //
-        $this->entity = $this->createEntity();
-        $items = $this->invoice->items()->where('is_Kit', false)->get();
-        $expenseTotalAmount = $this->expensesTotal();
+        $this->entity = $this->transactionsContainer;
+        $nonEmbeddedExpenseAmount = $this->expensesTotal();
         $creatorStock = Account::where('slug', 'stock')->first();
         $vendorAccount = Account::where('slug', 'vendors')->first();
-
         $vendorAccount->credit_transaction()->create([
             'creator_id' => auth()->user()->id,
             'organization_id' => auth()->user()->organization_id,
-            'amount' => $this->invoice->moneyFormatter((float)$this->invoice->net - (float)$expenseTotalAmount),
+            'amount' => $this->invoice->moneyFormatter((float)$this->invoice->net - (float)$nonEmbeddedExpenseAmount),
             'user_id' => $this->invoice->user_id,
             'invoice_id' => $this->invoice->id,
-            'container_id' => $this->entity->idid,
+            'container_id' => $this->entity->id,
             'description' => 'vendor_balance'
         ]);
 
 
         $totalGatewayPaidAmount = 0;
+
+        // dd($this->paymentsMethods);
         if ($this->paymentsMethods != null) {
+
             foreach ($this->paymentsMethods as $method) {
                 if ((float)$method['amount'] > 0) {
                     $gateway = Account::find($method['id']);
@@ -88,7 +96,7 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
                         'amount' => $method['amount'],
                         'user_id' => $this->invoice->user_id,
                         'invoice_id' => $this->invoice->id,
-                        'container_id' => $this->entity->idid,
+                        'container_id' => $this->entity->id,
                         'description' => 'to_stock',
                     ]);
                     $vendorAccount->debit_transaction()->create([
@@ -108,13 +116,13 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
         }
 
 
+
         $this->addTaxTransactions();
 
 
         if ($totalGatewayPaidAmount < $this->invoice->net) {
-            $amount = (float)$this->invoice->net - (float)$totalGatewayPaidAmount + (float)$expenseTotalAmount;
+            $amount = (float)$this->invoice->net - ((float)$totalGatewayPaidAmount + (float)$nonEmbeddedExpenseAmount);
             $stockAccount = Account::where('slug','stock')->first();
-
             $this->invoice->user()->credit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
@@ -134,18 +142,6 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
     }
 
 
-    public function createEntity()
-    {
-        return TransactionsContainer::create(
-            [
-                'creator_id' => auth()->user()->id,
-                'organization_id' => auth()->user()->organization_id,
-                'invoice_id' => $this->invoice->id,
-                'amount' => 0,
-                'description' => 'invoice'
-
-            ]);
-    }
 
     public function expensesTotal()
     {
@@ -162,7 +158,6 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
     {
         $taxAccount = Account::where('slug', 'vat')->first();
         $creatorStock = Account::where('slug', 'stock')->first();
-
         $gatewayAccounts = auth()->user()->gateways()->where(
             'is_gateway', true
         )->get();
@@ -178,6 +173,7 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
         }
         $this->createInvoiceExpense();
         $expensesTax = $this->invoice->expenses()->sum('tax');
+        // die()
         $tax = $expensesTax + $this->invoice->tax;
         if ($tax > 0) {
             $taxAccount->debit_transaction()->create([
@@ -226,13 +222,26 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
         if ($this->expenses != null) {
             foreach ($this->expenses as $expense) {
                 foreach ($this->itemRequestData as $item) {
-                    $amount = (float)$expense['amount'] * (float)$item['widget'] / (float)(1 + $item['vtp'] / 100); //
+                    $dbItem = Item::findOrFail($item['id']);
+                    if( collect($item)->get('widget') == null)
+                    {
+                        $itemWidget = (float)$this->invoice->total / ((float)$item['purchase_price'] * (int)$item['qty']) ;
+                    }else
+                    {
+                        $itemWidget = $item['widget'];
+                    }
+
+                    $amount = (float)$expense['amount'] * (float)$itemWidget  / (float)(1 + $dbItem->vtp / 100); //
+
+                    // die($amount );
                     $tax = (float)$expense['amount'] - (float)$amount;
                     $totalTaxesAmount = (float)$totalTaxesAmount + (float)$tax;
+                    // die($totalTaxesAmount);
                 }
 
 
                 $org_vat = auth()->user()->organization->organization_vat;
+                // die($org_vat);
                 $expenseTax = (float)$expense['amount'] * (float)$org_vat / (float)(100 + $org_vat);
                 $this->invoice->expenses()->create(
                     [

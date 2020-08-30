@@ -4,6 +4,7 @@ namespace Modules\Purchases\Jobs;
 
 use App\Invoice;
 use App\Item;
+use App\TransactionsContainer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -37,22 +38,28 @@ class CreatePurchaseItemsJob implements ShouldQueue
      * @var array
      */
     private $paymentsMethods;
+    /**
+     * @var TransactionsContainer
+     */
+    private $transactioncontainr;
 
     /**
      * Create a new job instance.
      *
+     * @param TransactionsContainer $transactionContainer
      * @param Invoice $invoice
      * @param array $items
+     * @param array $paymentsMethods
      * @param array $expenses
-     * @param $paymentsMethods
      */
-    public function __construct(Invoice $invoice,$items = [],$paymentsMethods = [],$expenses = [])
+    public function __construct(TransactionsContainer $transactionContainer,Invoice $invoice,$items = [],$paymentsMethods = [],$expenses = [])
     {
         //
         $this->invoice = $invoice;
         $this->items = $items;
         $this->expenses = $expenses;
         $this->paymentsMethods = $paymentsMethods;
+        $this->transactioncontainr = $transactionContainer;
     }
 
     /**
@@ -87,7 +94,7 @@ class CreatePurchaseItemsJob implements ShouldQueue
                     dispatch(new UpdateItemLastPurchasePriceJob($invoiceItem));
                     dispatch(new UpdateItemSalesPriceJob($invoiceItem,$collectionData->get('price_with_tax')));
                 }
-                dispatch(new CreatePurchasesItemsEntityJob($this->invoice,$invoiceItem,$totalItemExpenseAmount));
+                dispatch(new CreatePurchasesItemsEntityJob($this->transactioncontainr,$this->invoice,$invoiceItem,$totalItemExpenseAmount));
                 dispatch(new UpdateAvailableQtyForEachInvoiceItemJob($invoiceItem));
             }
 
@@ -103,6 +110,7 @@ class CreatePurchaseItemsJob implements ShouldQueue
             $data['cost'] = $collectionData->get('purchase_price');
         else
             $data['cost'] = $dbItem->cost;
+
         $data['price'] = $collectionData->get('purchase_price');
         $data['invoice_type'] = 'purchase';
         $data['user_id'] = $this->invoice->user_id;

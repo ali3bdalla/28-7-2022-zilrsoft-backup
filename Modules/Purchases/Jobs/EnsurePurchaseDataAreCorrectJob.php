@@ -49,10 +49,13 @@ class EnsurePurchaseDataAreCorrectJob implements ShouldQueue
             }
         }
 
+
+        // dd($creditAmount,$debitAmount,$this->invoice->id);
+
         if($this->invoice->moneyFormatter($creditAmount) !== $this->invoice->moneyFormatter($debitAmount))
         {
             $error = \Illuminate\Validation\ValidationException::withMessages([
-                "invoice"=> ['credit side not match debit side'],
+                "invoice"=> ["credit side not match debit side {$debitAmount}  {$creditAmount}"],
             ]);
             throw $error;
         }

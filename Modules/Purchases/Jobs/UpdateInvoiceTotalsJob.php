@@ -31,7 +31,7 @@ class UpdateInvoiceTotalsJob implements ShouldQueue
     {
         //
         $this->invoice = $invoice;
-        $this->expensesAmount = $expensesAmount;
+        $this->expensesAmount = (float)$expensesAmount;
     }
 
     /**
