@@ -95,6 +95,7 @@ class SalesInvoicesTransactionFixerCommand extends Command
 
                 $def = (float)$creditAmount != (float)$debitAmount;
                 if (abs($def) > 1) {
+                    echo $invoice->id."\n";
                     $items = $this->fetchItems($invoice);
                     if ($items == null) {
                         dispatch(new DeleteSaleInvoiceJob($invoice));
