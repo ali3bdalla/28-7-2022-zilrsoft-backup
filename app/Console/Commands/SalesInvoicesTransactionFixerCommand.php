@@ -68,7 +68,7 @@ class SalesInvoicesTransactionFixerCommand extends Command
             $escapeInvoice = [474,477];
 
             $invoices = Invoice::whereNotIn('id',   $escapeInvoice)->where('invoice_type', 'sale')->get();
-            $invoices = Invoice::find([53]);
+            // $invoices = Invoice::find([]);
             foreach ($invoices as $invoice) {
                 $activeInvoice = $invoice->id;
                 auth()->loginUsingId($invoice->creator_id);
@@ -93,7 +93,7 @@ class SalesInvoicesTransactionFixerCommand extends Command
                 }
 
 
-                $def = (float)$creditAmount != (float)$debitAmount;
+                $def = (float)$creditAmount - (float)$debitAmount;
                 if (abs($def) > 1) {
                     echo $invoice->id."\n";
                     $items = $this->fetchItems($invoice);
