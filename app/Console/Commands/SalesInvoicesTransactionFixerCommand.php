@@ -68,7 +68,7 @@ class SalesInvoicesTransactionFixerCommand extends Command
             $escapeInvoice = [474,477];
 
             $invoices = Invoice::whereNotIn('id',   $escapeInvoice)->where('invoice_type', 'sale')->get();
-            // $invoices = Invoice::find([]);
+            $invoices = Invoice::find([53]);
             foreach ($invoices as $invoice) {
                 $activeInvoice = $invoice->id;
                 auth()->loginUsingId($invoice->creator_id);
