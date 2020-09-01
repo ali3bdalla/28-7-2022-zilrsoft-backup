@@ -21,14 +21,14 @@ use Modules\Sales\Jobs\EnsureReturnSalesDataAreCorrectJob;
 use Modules\Sales\Jobs\EnsureSalesDataAreCorrectJob;
 use Modules\Sales\Jobs\UpdateInvoiceTotalsJob;
 
-class SalesInvoicesTransactionFixerCommand extends Command
+class ReturnSalesInvoicesTransactionFixerCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:sales_invoices_transactions_fixer_command';
+    protected $signature = 'command:return_sales_invoices_transactions_fixer_command';
 
     private $changedItemsVtsIds = [];
     /**
@@ -59,23 +59,25 @@ class SalesInvoicesTransactionFixerCommand extends Command
         $activeInvoice = 0;
         DB::beginTransaction();
         try {
-            // $this->fixSales();
-            // $this->fixReturnSales();
-            // Item::whereIn('id', $this->itemsUpdated)->update([
-            //     'vts' => 15
-            // ]);
+            $escapeInvoice = [14134,14032,14621,14664,15058,15381]; //13036,13037,13038,13039,13063,13074
 
-            $escapeInvoice = [];
-
-            $invoices = Invoice::whereNotIn('id',   $escapeInvoice)->where('invoice_type', 'sale')->get();
-            // $invoices = Invoice::find([]);
+            foreach(Invoice::find($escapeInvoice) as $invoice)
+            {
+                dispatch(new DeleteSaleInvoiceJob($invoice));
+            }
+            $invoices = Invoice::whereNotIn('id',   $escapeInvoice)->where([
+                ['invoice_type', 'r_sale'],
+            ])->get();
+            
+            // $invoices = Invoice::find([14134]);
             foreach ($invoices as $invoice) {
+                $parentInvoice = Invoice::find($invoice->parent_invoice_id);
                 $activeInvoice = $invoice->id;
                 auth()->loginUsingId($invoice->creator_id);
                 $creditAmount = 0;
                 $debitAmount = 0;
                 foreach ($invoice->transactions()->where('description', '!=', 'client_balance')->get()  as $transaction) {
-                    if (!in_array($transaction['description'], [
+                    if (in_array($transaction['description'], [
                         'to_cogs', 'to_gateway',
                         'to_products_sales_discount', 'to_services_sales_discount',
                         'to_other_services_sales_discount', 'to_stock'
@@ -85,18 +87,16 @@ class SalesInvoicesTransactionFixerCommand extends Command
                         $debitAmount = $debitAmount + $transaction['amount'];
                     }
                 }
-                
 
-                if ($creditAmount == 0 || $debitAmount == 0) {
+
+                if ($creditAmount == 0 || $debitAmount == 0 || $parentInvoice == null) {
                     dispatch(new DeleteSaleInvoiceJob($invoice));
                     continue;
                 }
 
-
                 $def = (float)$creditAmount - (float)$debitAmount;
                 if (abs($def) > 1) {
-                    // echo $invoice->id."\n";
-                    $items = $this->fetchItems($invoice);
+                    $items = $this->fetchItems($invoice, $parentInvoice);
                     if ($items == null) {
                         dispatch(new DeleteSaleInvoiceJob($invoice));
                         continue;
@@ -104,35 +104,34 @@ class SalesInvoicesTransactionFixerCommand extends Command
                     $payments = $this->fetchPayments($invoice);
                     $this->deleteMasDetails($invoice);
                     $this->createNewInvoice($invoice, $items, $payments);
-                   
                 }
             }
             $this->resetVatSaleToDefault();
+            // DB::rollBack();
+
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
-            dd($e->getTrace(),$activeInvoice);
+            dd($e->getTrace(), $activeInvoice);
             throw $e;
         }
     }
 
 
-    public function fetchItems(Invoice $invoice)
+    public function fetchItems(Invoice $invoice, Invoice $parentInvoice)
     {
-
         $items = [];
         $itemsAndKitsDB = $invoice->items()->where('belong_to_kit', false)->get();
         foreach ($itemsAndKitsDB as $invoiceItem) {
-            if ($invoiceItem == null || $invoiceItem->item == null) {
+            $parentInvoiceItem = $parentInvoice->items()->where('item_id', $invoiceItem->item_id)->first();
+            if ($invoiceItem == null || $invoiceItem->item == null || $parentInvoiceItem == null) {
                 $items = null;
                 break;
             }
-
             $newInvoiceItem = [];
-            $newInvoiceItem['id'] = $invoiceItem->item_id;
+            $newInvoiceItem['id'] = $parentInvoiceItem->id;
             $newInvoiceItem['price'] = $invoiceItem->price;
-            $newInvoiceItem['qty'] = $invoiceItem->qty;
-            $newInvoiceItem['discount'] = $invoiceItem->discount;
+            $newInvoiceItem['returned_qty'] = $invoiceItem->qty;
 
             if ($invoiceItem->is_kit) {
                 $kitItemsArray = [];
@@ -140,30 +139,34 @@ class SalesInvoicesTransactionFixerCommand extends Command
                     ['belong_to_kit', true],
                     ['parent_kit_id', $invoiceItem->id],
                 ])->get() as $invoiceKitItem) {
-                    $newInvoiceKitItem['id'] = $invoiceKitItem->item_id;
+                    $parentInvoiceKitItem = $parentInvoice->items()->where([
+                        ['item_id', $invoiceItem->item_id],
+                        ['belong_to_kit', true]
+                    ])->first();
+                    $newInvoiceKitItem['id'] = $parentInvoiceKitItem->id;
                     if ($invoiceKitItem->item->is_need_serial) {
                         $newInvoiceKitItem['serials'] = $invoiceKitItem->item->serials()->where([
-                            ['sale_invoice_id', $invoice->id],
-                            ['current_status', 'saled']
+                            ['r_sale_invoice_id', $invoice->id],
+                            ['current_status', 'r_sale']
                         ])->pluck('serial')->toArray();
                     }
                     $kitItemsArray[] = $newInvoiceKitItem;
-                    $this->changetItemQtyAndDetails($invoiceKitItem, $invoice);
+                    $this->changetItemQtyAndDetails($parentInvoiceKitItem, $invoice);
                 }
                 $newInvoiceItem['items'] = $kitItemsArray;
             } else {
                 if ($invoiceItem->item->is_need_serial) {
                     $serials = $invoiceItem->item->serials()->where(
                         [
-                            ['sale_invoice_id', $invoice->id],
-                            ['current_status', 'saled']
+                            ['r_sale_invoice_id', $invoice->id],
+                            ['current_status', 'r_sale']
                         ]
                     )->pluck('serial')->toArray();
                     // dd($serials);
                     $newInvoiceItem['serials'] = $serials;
                 }
 
-                $this->changetItemQtyAndDetails($invoiceItem, $invoice);
+                $this->changetItemQtyAndDetails($parentInvoiceItem, $invoice);
             }
             $items[] = $newInvoiceItem;
         }
@@ -173,41 +176,40 @@ class SalesInvoicesTransactionFixerCommand extends Command
 
 
 
-    private function changetItemQtyAndDetails(InvoiceItems $invoiceItem, Invoice $invoice)
+    private function changetItemQtyAndDetails(InvoiceItems $parentInvoiceItem, Invoice $invoice)
     {
 
-        $currentQty = $invoiceItem->item->available_qty;
-        if ($currentQty < 0) {
+        // $current_qty = $item->item->available_qty - $item->r_qty;
+
+
+        $currentQty = $parentInvoiceItem->item->available_qty - $parentInvoiceItem->r_qty;
+        if ($currentQty <  0) {
             $currentQty = 0;
         }
-
-        $changedQty = $invoiceItem->qty;
-        if ($invoiceItem->belong_to_kit) {
-            $changedQty = (InvoiceItems::find($invoiceItem->parent_kit_id))->item->items()->where('item_id', $invoiceItem->item_id)->first()->qty;
-        }
-
-        $current_qty = $currentQty + $changedQty;
-        if (!$invoiceItem->is_kit) {
-            $invoiceItem->item->update([
-                'available_qty' => $current_qty,
+        if (!$parentInvoiceItem->is_kit) {
+            $parentInvoiceItem->update([
+                'r_qty' => 0,
             ]);
-            if ($invoiceItem->item->is_need_serial) {
-                $invoiceItem->item->serials()->where([
-                    ['sale_invoice_id', $invoice->id],
-                    ['current_status', 'saled']
+            $parentInvoiceItem->item->update([
+                'available_qty' => $currentQty,
+            ]);
+            if ($parentInvoiceItem->item->is_need_serial) {
+                $parentInvoiceItem->item->serials()->where([
+                    ['r_sale_invoice_id', $invoice->id],
+                    ['current_status', 'r_sale']
                 ])->update([
-                    'current_status' => "available",
-                    'sale_invoice_id' => 0
+                    'current_status' => "saled",
+                    'r_sale_invoice_id' => 0
                 ]);
             }
         }
 
         if (Carbon::parse($invoice->created_at)->lte(Carbon::parse('30-07-2020'))) {
-            $invoiceItem->item()->update([
+            $parentInvoiceItem->item()->update([
                 'vts' => 5
             ]);
 
-            $this->changedItemsVtsIds[] = $invoiceItem->item_id;
+            $this->changedItemsVtsIds[] = $parentInvoiceItem->item_id;
         }
     }
 
@@ -225,22 +227,29 @@ class SalesInvoicesTransactionFixerCommand extends Command
             $payments[] = $paymentable->toArray();
         }
 
-        
+
         return $payments;
     }
 
 
 
 
-    public function insureThereIsPaymentsForSystemUser(Invoice $invoice,$payments = []){
-        // $totalPayments = collect()
+    public function insureThereIsPaymentsForSystemUser(Invoice $invoice, $payments = [])
+    {
+        $totalPayments = collect($payments)->sum('amount');
         if ($invoice->user()->is_system_user && $payments === []) {
             $payment = Account::where([
                 ['is_system_account', true],
                 ['slug', 'temp_reseller_account'],
             ])->first();
             $payment->amount = $invoice->net;
+            $totalPayments += $invoice->net;
             $payments[] = $payment->toArray();
+        }
+
+
+        if ($invoice->user()->is_system_user && $totalPayments < $invoice->net) {
+           $payments[0]['amount'] = $invoice->net - $totalPayments;
         }
 
         return $payments;
@@ -259,12 +268,14 @@ class SalesInvoicesTransactionFixerCommand extends Command
 
     public function createNewInvoice(Invoice $invoice, $items, $payments)
     {
+
+        // dd($items,InvoiceItems::whereIn('id',collect($items)->pluck('id'))->with('item')->get()->toArray(),$payments,$invoice->toArray(),$invoice->user()->toArray());
         $entity = $this->createEntity($invoice);
-        dispatch(new CreateSalesItemsJob($entity, $invoice, $items));
+        dispatch(new CreateReturnSalesItemsJob($entity, $invoice, $items));
         dispatch(new UpdateInvoiceTotalsJob($invoice));
-        $payments = $this->insureThereIsPaymentsForSystemUser($invoice,$payments);
-        dispatch(new CreateSalesEntityTransactionsJob($entity, $invoice, $payments));
-        dispatch(new EnsureSalesDataAreCorrectJob($invoice));
+        $payments = $this->insureThereIsPaymentsForSystemUser($invoice, $payments);
+        dispatch(new CreateReturnSalesEntityTransactionsJob($entity, $invoice, $payments));
+        dispatch(new EnsureReturnSalesDataAreCorrectJob($invoice, true));
     }
 
 
@@ -287,151 +298,14 @@ class SalesInvoicesTransactionFixerCommand extends Command
     }
 
 
-
-
-    public function resetVatSaleToDefault(){
-        Item::whereIn('id',$this->changedItemsVtsIds)->update([
+    public function resetVatSaleToDefault()
+    {
+        Item::whereIn('id', $this->changedItemsVtsIds)->update([
             'vts' => 15
         ]);
     }
 
-    // private function fixSales()
-    // {
-    // 9954, 12784, 13033, 13034, 13035, 13040, 13041, 13042, 13043, 13044,13045, 13046, 13047,
-    // 13048, 13049, 13050, 13051, 13052, 13053, 13054, 13058, 13059, 13060,
-    //  13061, 13062, 13064
-    // foreach (Invoice::where('invoice_type', 'sale')->get() as $invoice) {
-    //     // dd($invoice);
-    //     // auth()->loginUsingId($invoice->creator_id);
-    //     $creditAmount = 0;
-    //     $debitAmount = 0;
-    //     foreach ($invoice->transactions()->where('description', '!=', 'client_balance')->get()  as $transaction) {
-    //         if (!in_array($transaction['description'], [
-    //             'to_cogs', 'to_gateway',
-    //             'to_products_sales_discount', 'to_services_sales_discount',
-    //             'to_other_services_sales_discount', 'to_stock'
-    //         ])) {
-    //             $creditAmount = $creditAmount + $transaction['amount'];
-    //         } else {
-    //             $debitAmount = $debitAmount + $transaction['amount'];
-    //         }
-    //     }
-    //     if ($creditAmount == 0 || $debitAmount == 0) {
-    //         dispatch(new DeleteSaleInvoiceJob($invoice));
-    //         continue;
-    //     }
-    //     $diff =  $creditAmount  - $debitAmount;
-    //     if($diff !== 0)
-    //     {
-    //         $this->
-    //     }
 
-    // if ($creditAmount != $debitAmount) {
-    // if ($creditAmount == 0 || $debitAmount == 0) {
-    //     dispatch(new DeleteSaleInvoiceJob($invoice));
-    // } else {
-    // $items = [];
-
-    // $pureItems = $invoice->items()->where('belong_to_kit', false)->get();
-    // foreach ($pureItems as $item) {
-    //     if ($item->item != null) {
-    //         $base['id'] = $item->item_id;
-    //         $base['price'] = $item->price;
-    //         $base['qty'] = $item->qty;
-    //         $base['discount'] = $item->discount;
-
-    //         if ($item->is_kit) {
-
-    //             $childItems = [];
-    //             foreach ($invoice->items()->where([
-    //                 ['belong_to_kit', true],
-    //                 ['parent_kit_id', $item->id],
-    //             ])->get() as $kitItem) {
-    //                 $base2['id'] = $kitItem->item_id;
-    //                 if ($kitItem->item->is_need_serial) {
-    //                     $base2['serials'] = $kitItem->item->serials()->where([
-    //                         ['sale_invoice_id', $invoice->id],
-    //                         ['current_status', 'saled']
-    //                     ])->pluck('serial')->toArray();
-    //                 }
-    //                 $childItems[] = $base2;
-    //                 $this->updateSalesItem($kitItem, $invoice);
-    //             }
-    //             $base['items'] = $childItems;
-    //             // dd($base);
-    //         } else {
-
-
-    //             if ($item->item->is_need_serial) {
-    //                 $serials = $item->item->serials()->where(
-    //                     [
-    //                         ['sale_invoice_id', $invoice->id],
-    //                         ['current_status', 'saled']
-    //                     ]
-    //                 )->pluck('serial')->toArray();
-    //                 // dd($serials);
-    //                 $base['serials'] = $serials;
-    //             }
-
-    //             $this->updateSalesItem($item, $invoice);
-    //         }
-    //         $items[] = $base;
-    //     }
-    // }
-
-
-    // // if($invoice->id == 13040)
-    // // {
-    // //     dd($items);
-    // // }
-
-
-    // // 
-    // $payments = [];
-    // // 
-    // foreach ($invoice->payments as $payment) {
-    //     // dd($payment);
-    //     $paymentable = $payment->paymentable;
-    //     $paymentable->amount = $payment->amount;
-    //     $payments[] = $paymentable->toArray();
-    // }
-
-
-
-
-    // // dd($items);
-    // $invoice->items()->forceDelete();
-    // TransactionsContainer::where('invoice_id', $invoice->id)->forceDelete();
-    // Transaction::where('invoice_id', $invoice->id)->forceDelete();
-    // $invoice->payments()->forceDelete();
-    // // // delete
-    // $transactionContaniner = $this->createTransactionContainer($invoice);
-    // dispatch(new CreateSalesItemsJob($transactionContaniner, $invoice, $items));
-    // dispatch(new UpdateInvoiceTotalsJob($invoice));
-    // if ($invoice->user()->is_system_user && $payments === []) {
-    //     $payment = Account::where([
-    //         ['is_system_account', true],
-    //         ['slug', 'temp_reseller_account'],
-    //     ])->first();
-    //     $payment->amount = $invoice->net;
-
-    //     $payments[] = $payment->toArray();
-    // }
-
-    // dispatch(new CreateSalesEntityTransactionsJob($transactionContaniner, $invoice, $payments));
-    // dispatch(new EnsureSalesDataAreCorrectJob($invoice));
-    // echo $invoice->id . "\n";
-    // dd($transactionContaniner);
-    // }
-    // }
-
-    // $diffenet = $creditAmount + $debitAmount;
-    // echo $creditAmount . "\n";
-    // echo $debitAmount;
-
-    // }
-    // }
-    // 
 
 
 
@@ -439,68 +313,7 @@ class SalesInvoicesTransactionFixerCommand extends Command
     // {
     //     // $account = Account::find(24);
     //     //1090 , 13036, 13037, 13038, 13039, 13063, 13074, 14032, 13334, 14134, 14664, 15058
-    //     foreach (Invoice::where('invoice_type', 'r_sale')->get() as $invoice) {
-    //         $parentInvoice = Invoice::find($invoice->parent_invoice_id);
-    //         auth()->login($invoice->creator);
-    //         $creditAmount = 0;
-    //         $debitAmount = 0;
-
-    //         foreach ($invoice->transactions()->where('description', '!=', 'client_balance')->get()  as $transaction) {
-    //             if (in_array($transaction['description'], [
-    //                 'to_cogs', 'to_gateway',
-    //                 'to_products_sales_discount', 'to_services_sales_discount',
-    //                 'to_other_services_sales_discount', 'to_stock'
-    //             ])) {
-    //                 $creditAmount = $creditAmount + $transaction['amount'];
-    //             } else {
-    //                 $debitAmount = $debitAmount + $transaction['amount'];
-    //             }
-    //         }
-    //         $diff =  $creditAmount  - $debitAmount;
-    //         if ($creditAmount == 0 || $debitAmount == 0 || $parentInvoice  == null) {
-    //             dispatch(new DeleteSaleInvoiceJob($invoice));
-    //             continue;
-    //         }
-    //         if($diff !== 0)
-    //         {
-
-    //         }
-
-    //         // else if ($creditAmount > $debitAmount) {
-    //         //         $variation = $creditAmount - $debitAmount;
-
-    //         //         // if($invoice->id == 13036)
-    //         //         // {
-    //         //         //     dd($creditAmount,$debitAmount,$variation);
-    //         //         // }
-    //         //         $transaction = $account->debit_transaction()->create([
-    //         //             'amount' => $variation,
-    //         //             'creator_id' => $invoice->creator_id,
-    //         //             'invoice_id' => $invoice->id,
-    //         //             'organization_id' => $invoice->organization_id,
-    //         //             'description' => 'to_item',
-    //         //         ]);
-
-    //         //         // if($invoice->id == 13036)
-    //         //         // {
-    //         //         //     dd($transaction->toArray());
-    //         //         // }
-    //         //     } elseif ($creditAmount < $debitAmount) {
-    //         //         $variation = $debitAmount - $creditAmount;
-    //         //         $account->debit_transaction()->create([
-    //         //             'amount' => $variation,
-    //         //             'creator_id' => $invoice->creator_id,
-    //         //             'invoice_id' => $invoice->id,
-    //         //             'organization_id' => $invoice->organization_id,
-    //         //             'description' => 'to_gateway',
-    //         //         ]);
-
-
-    //         //     }
-    //         // }
-
-
-
+    //     
     //         //     $items = [];
     //         //     foreach ($invoice->items as $item) {
     //         //         if ($item->item != null) {
@@ -614,38 +427,6 @@ class SalesInvoicesTransactionFixerCommand extends Command
 
 
 
-    // private function updateSalesItem(InvoiceItems $item, Invoice $invoice)
-    // {
-
-    //     $currentQty = $item->item->available_qty;
-    //     if ($currentQty < 0) {
-    //         $currentQty = 0;
-    //     }
-
-    //     $changedQty = $item->qty;
-    //     if ($item->belong_to_kit) {
-    //         // dd($item->parent_kit_id);
-    //         $changedQty = (InvoiceItems::find($item->parent_kit_id))->item->items()->where('item_id', $item->item_id)->first()->qty;
-    //     }
-
-    //     $current_qty = $currentQty + $changedQty;
-    //     if (!$item->is_kit) {
-    //         $item->item->update([
-    //             'available_qty' => $current_qty,
-    //         ]);
-    //         if ($item->item->is_need_serial) {
-    //             $item->item->serials()->where([
-    //                 ['sale_invoice_id', $invoice->id],
-    //                 ['current_status', 'saled']
-    //             ])->update([
-    //                 'current_status' => "available",
-    //                 'sale_invoice_id' => 0
-    //             ]);
-    //         }
-    //     }
-
-    //     $this->changeVtsTo5($item->item);
-    // }
 
 
     // private function updateReturnSalesItem(InvoiceItems $item, Invoice $invoice)

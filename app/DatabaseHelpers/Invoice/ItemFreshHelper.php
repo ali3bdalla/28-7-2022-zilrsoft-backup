@@ -168,7 +168,7 @@ trait ItemFreshHelper
         ]);
 
 
-        if( $$baseItem->fresh()->available_qty < 0 )
+        if( $baseItem->fresh()->available_qty < 0 )
         {
             throw new ValidationException('qty not avaialbe',400);
         }

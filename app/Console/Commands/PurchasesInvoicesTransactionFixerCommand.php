@@ -83,9 +83,7 @@ class PurchasesInvoicesTransactionFixerCommand extends Command
             // auth()->loginUsingId($invoice->creator_id);
             $creditAmount = 0;
             $debitAmount = 0;
-            if ($creditAmount !== $debitAmount) {
-                echo $creditAmount - $debitAmount . "\n";
-            }
+           
             foreach ($invoice->transactions()->where('description', '!=', 'vendor_balance')->get()  as $transaction) {
 
                 if (in_array($transaction['description'], ['to_tax', 'to_item'])) {
@@ -97,7 +95,9 @@ class PurchasesInvoicesTransactionFixerCommand extends Command
 
 
             $diff =  $creditAmount  - $debitAmount;
-            if ($creditAmount == 0 || $debitAmount == 0 ||  abs($diff) > 100) {
+            if ($creditAmount == 0 || $debitAmount == 0 ||  abs($diff) > 1) {
+                echo $invoice->id. "\n";
+                
                 dispatch(new DeletePurchaseInvoiceJob($invoice));
                 continue;
             }
@@ -217,7 +217,9 @@ class PurchasesInvoicesTransactionFixerCommand extends Command
             //     if ($creditAmount == 0 || $debitAmount == 0 || $parentInvoice == null) {
 
             $diff =  $creditAmount  - $debitAmount;
-            if ($creditAmount == 0 || $debitAmount == 0 || $parentInvoice  == null || abs($diff) > 100) {
+            if ($creditAmount == 0 || $debitAmount == 0 || $parentInvoice  == null || abs($diff) > 1) {
+                echo $invoice->id. "\n";
+
                 dispatch(new DeletePurchaseInvoiceJob($invoice));
                 continue;
             }            // } else {

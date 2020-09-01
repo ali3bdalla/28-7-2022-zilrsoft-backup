@@ -17,15 +17,18 @@ class EnsureReturnSalesDataAreCorrectJob implements ShouldQueue
      */
     private $invoice;
 
+    private $exectLessThanOne;
     /**
      * Create a new job instance.
      *
      * @param Invoice $invoice
      */
-    public function __construct(Invoice $invoice)
+    public function __construct(Invoice $invoice,$exectLessThanOne = false)
     {
         //
         $this->invoice = $invoice;
+        $this->exectLessThanOne = $exectLessThanOne;
+        
     }
 
     /**
@@ -52,9 +55,18 @@ class EnsureReturnSalesDataAreCorrectJob implements ShouldQueue
             }
         }
 
+        $def = 2;
 
-        if($this->invoice->moneyFormatter($creditAmount) !== $this->invoice->moneyFormatter($debitAmount))
+        if($this->exectLessThanOne)
+        {  
+            $def = abs($debitAmount - $creditAmount);
+        }
+
+        // dd($def);
+       
+        if($this->invoice->moneyFormatter($creditAmount) !== $this->invoice->moneyFormatter($debitAmount) && $def > 1)
         {
+            // dd(1);
             $error = \Illuminate\Validation\ValidationException::withMessages([
                 "invoice"=> ['credit side not match debit side'],
             ]);
