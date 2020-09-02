@@ -52,6 +52,7 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
             }
        }
 
+       
 
        $def = abs($this->invoice->moneyFormatter($creditAmount) - $this->invoice->moneyFormatter($debitAmount));
        if( $def > 1 )

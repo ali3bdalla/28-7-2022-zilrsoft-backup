@@ -549,11 +549,12 @@
 
                 // console.log(this.invoiceData.items);
 
-                let request_url = this.app.BaseApiUrl + 'purchases/' + invoice.id;
+                let request_url = '/purchases/' + invoice.id; // this.app.BaseApiUrl +
                 if (this.invoice.invoice_type === 'beginning_inventory') {
                     request_url = this.app.BaseApiUrl + 'inventories/beginning/' + invoice.id;
                 }
 
+                // alert(1);
 
                 if (this.activateTestMode) {
                     this.testRequestData = JSON.stringify(data)

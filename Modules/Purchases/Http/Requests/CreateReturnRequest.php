@@ -82,14 +82,16 @@ class CreateReturnRequest extends FormRequest
                     'description' => 'invoice'
                 ]
             );
+            
             $transactionContainer->save();
+            // dd(1);
             dispatch(new CreateReturnPurchasesItemsJob($transactionContainer, $invoice, $returnedItems, $purchase));
             dispatch(new UpdateInvoiceTotalsJob($invoice));
             dispatch(new CreateReturnPurchasesEntityTransactionsJob($transactionContainer, $invoice, $this->input("methods")));
             dispatch(new EnsureReturnPurchasesDataAreCorrectJob($invoice));
             dispatch(new ChangeInvoiceUpdatedAndDeletedJob($invoice));
             DB::commit();
-            return response($invoice->transactions, 200);
+            return response($invoice, 200);
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw $queryException;

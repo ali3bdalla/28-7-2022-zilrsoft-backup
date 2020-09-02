@@ -664,7 +664,7 @@
                 if (this.activateTestMode) {
                     this.testRequestData = JSON.stringify(data)
                 } else {
-                    axios.put(this.app.BaseApiUrl + 'sales/' + invoice.id, data)
+                    axios.put( '/sales/' + invoice.id, data) //this.app.BaseApiUrl +
                         .then(function (response) {
                             console.log(response.data);
 
