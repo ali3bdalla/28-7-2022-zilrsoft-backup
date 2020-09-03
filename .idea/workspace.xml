@@ -22,7 +22,6 @@
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/ValidateItemSerialsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Items/Jobs/ValidateItemSerialsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Sales/Jobs/CreateReturnSalesItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Jobs/CreateReturnSalesItemsJob.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -300,7 +299,7 @@
       <workItem from="1596991819792" duration="3594000" />
       <workItem from="1598275411018" duration="3903000" />
       <workItem from="1599047831463" duration="1989000" />
-      <workItem from="1599081860206" duration="2275000" />
+      <workItem from="1599081860206" duration="2366000" />
     </task>
     <servers />
   </component>
