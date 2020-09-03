@@ -22,14 +22,14 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <input  :placeholder="translator.ar_name" class="form-control" type="text"
+                    <input :placeholder="translator.ar_name" class="form-control" type="text"
                            v-model="ar_name">
                     <p class="help is-danger is-center" v-show="error=='client_id'" v-text="errorMessage"></p>
                 </div>
 
                 <div class="col-md-6">
                     <div v-bind:class="{'is-danger':error=='client_id'}">
-                        <input  :placeholder="translator.name" class="form-control"
+                        <input :placeholder="translator.name" class="form-control"
                                type="text"
                                v-model="name">
                         <p class="help is-danger is-center" v-show="error=='client_id'" v-text="errorMessage"></p>
@@ -261,10 +261,8 @@
 <script>
 
     import {
-        accounting as ItemAccounting,
-        math as ItemMath,
+
         query as ItemQuery,
-        validator as ItemValidator
     } from '../../item';
 
     export default {
@@ -317,13 +315,20 @@
         },
         created: function () {
 
-            //  console.log(this.client);
+            // console.log(JSON.parse(window.translator));
             this.translator = JSON.parse(window.translator);
-            this.messages = JSON.parse(window.messages);
+            // console.log("Fine");
+
+            // this.messages = JSON.parse(window.messages);
+            console.log("Fine");
+
             this.reusable_translator = JSON.parse(window.reusable_translator);
+            console.log("Fine");
+
             if (this.editingKit) {
                 this.loadInitData();
             }
+
 
         },
         mounted: function () {
@@ -343,12 +348,12 @@
             * */
 
             checkBarcodeIfItAlreadyUsed(e) {
-                var vm = this;
+                let vm = this;
                 axios.post('/accounting/items/helper/validate_barcode', {
                     barcode: e.target.value,
                 })
                     .then(function (response) {
-                        if (vm.error == 'barcode')
+                        if (vm.error === 'barcode')
                             vm.error = '';
                     })
                     .catch(function (error) {
@@ -366,18 +371,18 @@
                 var vm = this;
 
 
-                if (this.error == 'barcode') {
+                if (this.error === 'barcode') {
 
                     this.error = '';
                 }
                 axios.get('/accounting/items/helper/validate_barcode?barcode=' + barcode)
                     .then(function (response) {
-                        if (vm.error == 'barcode') {
+                        if (vm.error === 'barcode') {
                             vm.error = '';
                         }
                     })
                     .catch(function (error) {
-                        if (error.response.status == 403) {
+                        if (error.response.status === 403) {
                             alert('you have no permession to create item');
                         } else {
                             vm.generateBarcode();
@@ -386,12 +391,13 @@
                     });
 
                 vm.barcode = barcode;
-                if (this.error == 'barcode') {
+                if (this.error === 'barcode') {
                     this.error = '';
                 }
             },
 
             loadInitData() {
+
                 this.barcode = this.kit.barcode;
                 this.name = this.kit.name;
                 this.ar_name = this.kit.ar_name;
