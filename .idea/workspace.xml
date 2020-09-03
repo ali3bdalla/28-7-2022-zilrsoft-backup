@@ -21,8 +21,12 @@
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/ar/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/ChangeItemSerialsStatusJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Items/Jobs/ChangeItemSerialsStatusJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Sales/Jobs/DeleteSaleInvoiceJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Jobs/DeleteSaleInvoiceJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/DeleteSalesCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/DeleteSalesCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/GzFXZlKxdsIuqK26szLpDM1yVHnh4HmMXLKZBaT0" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/GzFXZlKxdsIuqK26szLpDM1yVHnh4HmMXLKZBaT0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/c194312262f0d1ea9788c3b7297f59f8e0347b4b.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/c194312262f0d1ea9788c3b7297f59f8e0347b4b.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-09-03.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-09-03.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -300,7 +304,7 @@
       <workItem from="1596991819792" duration="3594000" />
       <workItem from="1598275411018" duration="3903000" />
       <workItem from="1599047831463" duration="1989000" />
-      <workItem from="1599081860206" duration="2794000" />
+      <workItem from="1599081860206" duration="3221000" />
     </task>
     <servers />
   </component>
@@ -399,7 +403,7 @@
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="716" y="481" width="614" height="269" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595010883333" />
-    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup" timestamp="1599123885423">
+    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup" timestamp="1599124246061">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="0" y="237" width="1680" height="605" key="search.everywhere.popup.inPresentationMode" timestamp="1599122977207">
@@ -410,7 +414,7 @@
     <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593882496251" />
     <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />
     <state x="469" y="203" width="838" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1595757616292" />
-    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599123885423" />
+    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599124246061" />
     <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1595356888586" />
     <state x="469" y="221" width="670" height="505" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1593950143500" />
     <state x="625" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1592389494916" />

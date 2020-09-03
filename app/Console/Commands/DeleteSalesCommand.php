@@ -39,10 +39,11 @@ class DeleteSalesCommand extends Command
      */
     public function handle()
     {
-//        $invoices = Invoice::whereIn()
-//        foreach ($invoices as $invoice)
-//        {
-//            dispatch(new DeleteSaleInvoiceJob($invoice));
-//        }
+        $invoices = Invoice::find([18887]);
+//        dd($invoices);
+        foreach ($invoices as $invoice) {
+            dispatch(new DeleteSaleInvoiceJob($invoice));
+//            dd($invoice);
+        }
     }
 }

@@ -20,10 +20,11 @@ class DeleteSaleInvoiceJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $invoice;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param Invoice $invoice
      */
     public function __construct(Invoice $invoice)
     {
@@ -85,7 +86,7 @@ class DeleteSaleInvoiceJob implements ShouldQueue
                                 'current_status' => "saled"
                             ]);
                         }
-                        $item->item->stockMovement();
+//                        $item->item->stockMovement();
                     }
     
     
