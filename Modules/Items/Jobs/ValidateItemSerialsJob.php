@@ -15,7 +15,6 @@ use Illuminate\Validation\ValidationException;
 class ValidateItemSerialsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     /**
      * @var Item
      */
@@ -111,7 +110,7 @@ class ValidateItemSerialsJob implements ShouldQueue
 
 
         foreach ($this->serials as $key => $serial) {
-            $dbSerials = ItemSerials::where('serial', $serial)->whereIn('current_status', $this->searchByStatuses)->first();
+            $dbSerials = ItemSerials::where([['serial', $serial]])->whereIn('current_status', $this->searchByStatuses)->first();
             if ($dbSerials != null) {
                 $error = ValidationException::withMessages([
                     "items.{$this->index}.serials.{$key}" => ['serial already available'],
@@ -135,15 +134,12 @@ class ValidateItemSerialsJob implements ShouldQueue
 
 
         foreach ($this->serials as $key => $serial) {
-            $dbSerials = $this->item->serials()
-//                ->whereIn('current_status',$this->searchByStatuses)
-                ->where([
-                        ['current_status', 'saled'],
-                        ['serial', $serial],
-                        ['sale_invoice_id', $this->invoice->id]
-                    ]
-                )
-                ->first();
+            $dbSerials = $this->item->serials()->where([
+                    ['serial', $serial['serial']],
+                    ['sale_invoice_id', $this->invoice->id]
+                ]
+            )
+            ->whereIn('current_status',$this->searchByStatuses)->first();
             if ($dbSerials == null) {
                 $error = ValidationException::withMessages([
                     "items.{$this->index}.serials.{$key}" => ['serial is not available as saled serial yet'],
@@ -171,7 +167,7 @@ class ValidateItemSerialsJob implements ShouldQueue
 
         foreach ($this->serials as $key => $serial) {
             $dbSerials = $this->item->serials()->where([
-                ['serial', $serial],
+                ['serial', $serial['serial']],
                 ['purchase_invoice_id', $this->invoice->id]
             ])
                 ->whereIn('current_status', $this->searchByStatuses)
