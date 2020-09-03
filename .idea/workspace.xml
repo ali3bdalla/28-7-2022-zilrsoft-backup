@@ -21,7 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Sales/Http/Requests/CreateReturnRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Http/Requests/CreateReturnRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/ValidateItemSerialsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Items/Jobs/ValidateItemSerialsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Sales/Jobs/CreateReturnSalesItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Jobs/CreateReturnSalesItemsJob.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -299,7 +300,7 @@
       <workItem from="1596991819792" duration="3594000" />
       <workItem from="1598275411018" duration="3903000" />
       <workItem from="1599047831463" duration="1989000" />
-      <workItem from="1599081860206" duration="1624000" />
+      <workItem from="1599081860206" duration="2275000" />
     </task>
     <servers />
   </component>
@@ -339,10 +340,11 @@
     <state x="698" y="362" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595351585773">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state x="261" y="0" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog.inPresentationMode" timestamp="1595324953989">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="305" y="0" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog.inPresentationMode" timestamp="1599122811036">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="261" y="0" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1595324953989" />
+    <state x="305" y="0" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog.inPresentationMode/0.0.1680.1050@0.0.1680.1050" timestamp="1599122811036" />
     <state x="370" y="78" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593791183332" />
     <state x="524" y="272" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1440.900@0.0.1440.900" timestamp="1595332777811" />
     <state x="698" y="362" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595351585773" />
@@ -400,11 +402,11 @@
     <state x="547" y="237" width="978" height="605" key="search.everywhere.popup" timestamp="1599051118631">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="0" y="237" width="1680" height="605" key="search.everywhere.popup.inPresentationMode" timestamp="1599122634069">
+    <state x="0" y="237" width="1680" height="605" key="search.everywhere.popup.inPresentationMode" timestamp="1599122977207">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="0" y="203" width="1440" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1595332174196" />
-    <state x="0" y="237" width="1680" height="605" key="search.everywhere.popup.inPresentationMode/0.0.1680.1050@0.0.1680.1050" timestamp="1599122634069" />
+    <state x="0" y="237" width="1680" height="605" key="search.everywhere.popup.inPresentationMode/0.0.1680.1050@0.0.1680.1050" timestamp="1599122977207" />
     <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593882496251" />
     <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />
     <state x="469" y="203" width="838" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1595757616292" />
