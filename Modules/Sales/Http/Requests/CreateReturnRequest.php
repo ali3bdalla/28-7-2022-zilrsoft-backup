@@ -31,7 +31,7 @@ class CreateReturnRequest extends FormRequest
             'items.*.id' => 'integer|required|exists:invoice_items,id',
             'items.*.returned_qty' => 'required',
             'items.*.serials' => 'nullable|array',
-            'items.*.serials.*' => 'required|string|exists:item_serials,serial',
+            'items.*.serials.*' => 'required|exists:item_serials,serial',
             "methods" => 'nullable|array',
             'methods.*.id' => 'integer|required|exists:accounts,id',
         ];

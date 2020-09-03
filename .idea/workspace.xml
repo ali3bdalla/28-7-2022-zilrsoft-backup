@@ -20,18 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/GzFXZlKxdsIuqK26szLpDM1yVHnh4HmMXLKZBaT0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/7458f08c394f8d10120f55e3d818c86596f6a867.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/OrmNumbersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/OrmNumbersTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/items/kitsCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/items/kitsCreateComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/4mBFasNGPijIKee3QV4TCnlsqmRXqmOU148IAw5g" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/E9HJ9Xr4fH0iwOuGZZqbddXz2pilz2DeTSkbGsP9" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/QBmwDiOqbi7wdHbJSgbENBIvkT4kITGISfKbzWOZ" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/RIz83daj9nNC3Nru3yvlFvN3IqNH87OaS2Elr93X" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/wbmNmHLRwaJ0eZxHcdqki8I8tPA6DoZdoMm47VXv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Sales/Http/Requests/CreateReturnRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Http/Requests/CreateReturnRequest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -309,7 +299,7 @@
       <workItem from="1596991819792" duration="3594000" />
       <workItem from="1598275411018" duration="3903000" />
       <workItem from="1599047831463" duration="1989000" />
-      <workItem from="1599081860206" duration="1349000" />
+      <workItem from="1599081860206" duration="1624000" />
     </task>
     <servers />
   </component>
@@ -410,11 +400,11 @@
     <state x="547" y="237" width="978" height="605" key="search.everywhere.popup" timestamp="1599051118631">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="0" y="237" width="1680" height="605" key="search.everywhere.popup.inPresentationMode" timestamp="1599120873594">
+    <state x="0" y="237" width="1680" height="605" key="search.everywhere.popup.inPresentationMode" timestamp="1599122634069">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="0" y="203" width="1440" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1595332174196" />
-    <state x="0" y="237" width="1680" height="605" key="search.everywhere.popup.inPresentationMode/0.0.1680.1050@0.0.1680.1050" timestamp="1599120873594" />
+    <state x="0" y="237" width="1680" height="605" key="search.everywhere.popup.inPresentationMode/0.0.1680.1050@0.0.1680.1050" timestamp="1599122634069" />
     <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593882496251" />
     <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />
     <state x="469" y="203" width="838" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1595757616292" />
