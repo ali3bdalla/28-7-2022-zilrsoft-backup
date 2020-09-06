@@ -12,7 +12,7 @@ class UpdateAccountsBalanceCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'command:update_accounts_balance';
+    protected $signature = 'command:update_accounts_balance_command';
 
     /**
      * The console command description.

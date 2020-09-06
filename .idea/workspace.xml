@@ -20,13 +20,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/index2.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/table_cell.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/1bc71d0f65894a6d2d4d11fc2a2b55b328da8bc0.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/2456413f660b50bbd3145af477655ce57967b647.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/4640c9d5a656cdc59409e9b6f2b3b73c992a912e.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/b66ebc770a92e9a4778b1b9ec1867701a35791cb.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/ea3976e827b7ac6feb4eea3859624ce04fcd17eb.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/ee6c28da8131d8767a163f1b9a1fd6cf3dd0d204.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-09-05.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/ChangeItemSerialsStatusJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Items/Jobs/ChangeItemSerialsStatusJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Sales/Jobs/DeleteSaleInvoiceJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Jobs/DeleteSaleInvoiceJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/DeleteSalesCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/DeleteSalesCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/GzFXZlKxdsIuqK26szLpDM1yVHnh4HmMXLKZBaT0" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/GzFXZlKxdsIuqK26szLpDM1yVHnh4HmMXLKZBaT0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/c194312262f0d1ea9788c3b7297f59f8e0347b4b.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/c194312262f0d1ea9788c3b7297f59f8e0347b4b.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-09-03.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-09-03.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Http/Controllers/TrialBalanceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Http/Controllers/TrialBalanceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Sales/Jobs/EnsureSalesDataAreCorrectJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Jobs/EnsureSalesDataAreCorrectJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attributes/AccountAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/AccountAttributes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/UpdateAccountsBalanceCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/UpdateAccountsBalanceCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Relationships/AccountRelationships.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Relationships/AccountRelationships.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/GzFXZlKxdsIuqK26szLpDM1yVHnh4HmMXLKZBaT0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-08-06.log" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,26 +193,26 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="full.screen.before.presentation.mode" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance" />
+      <recent name="$PROJECT_DIR$/Modules/Purchases/Tests/Feature" />
+      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Full" />
+      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/ReturnSale" />
+      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Sale" />
       <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature" />
       <recent name="$PROJECT_DIR$/app/Traits" />
       <recent name="$PROJECT_DIR$/app/Orm/Traits" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Modules/Purchases/Tests/Feature" />
-      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Full" />
-      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/ReturnSale" />
-      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature" />
-      <recent name="$PROJECT_DIR$/public/accounting" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.WebController.php">
@@ -304,7 +315,12 @@
       <workItem from="1596991819792" duration="3594000" />
       <workItem from="1598275411018" duration="3903000" />
       <workItem from="1599047831463" duration="1989000" />
-      <workItem from="1599081860206" duration="3221000" />
+      <workItem from="1599081860206" duration="4228000" />
+      <workItem from="1599290475456" duration="3184000" />
+      <workItem from="1599297055755" duration="2123000" />
+      <workItem from="1599307369765" duration="422000" />
+      <workItem from="1599312112824" duration="1508000" />
+      <workItem from="1599380166656" duration="3332000" />
     </task>
     <servers />
   </component>
@@ -403,19 +419,19 @@
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="716" y="481" width="614" height="269" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595010883333" />
-    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup" timestamp="1599124246061">
-      <screen x="0" y="0" width="1680" height="1050" />
+    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup" timestamp="1599393709801">
+      <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state x="0" y="237" width="1680" height="605" key="search.everywhere.popup.inPresentationMode" timestamp="1599122977207">
-      <screen x="0" y="0" width="1680" height="1050" />
+    <state x="0" y="221" width="1440" height="505" key="search.everywhere.popup.inPresentationMode" timestamp="1599314828451">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="203" width="1440" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1595332174196" />
+    <state x="0" y="221" width="1440" height="505" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1599314828451" />
     <state x="0" y="237" width="1680" height="605" key="search.everywhere.popup.inPresentationMode/0.0.1680.1050@0.0.1680.1050" timestamp="1599122977207" />
     <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593882496251" />
     <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />
     <state x="469" y="203" width="838" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1595757616292" />
-    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599124246061" />
-    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1595356888586" />
+    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599125760552" />
+    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1599393709801" />
     <state x="469" y="221" width="670" height="505" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1593950143500" />
     <state x="625" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1592389494916" />
     <state x="450" y="369" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1593784355162">

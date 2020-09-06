@@ -4,14 +4,18 @@ namespace Modules\Sales\Jobs;
 
 use App\Invoice;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class EnsureSalesDataAreCorrectJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     /**
      * @var Invoice
      */
@@ -35,32 +39,43 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
      */
     public function handle()
     {
+
+        $this->validateData();
+    }
+
+    private function validateData()
+    {
         $creditAmount = 0;
         $debitAmount = 0;
 
-       $transactions =  $this->invoice->transactions()->where('description','!=','client_balance')->get();
-       foreach ($transactions  as $transaction)
-       {
-            if(!in_array($transaction['description'],['to_cogs','to_gateway',
-                'to_products_sales_discount','to_services_sales_discount',
-                'to_other_services_sales_discount','to_stock']))
-            {
+        $transactions = $this->invoice->transactions()->where('description', '!=', 'client_balance')->get();
+        foreach ($transactions as $transaction) {
+            if (!in_array($transaction['description'], ['to_cogs', 'to_gateway',
+                'to_products_sales_discount', 'to_services_sales_discount',
+                'to_other_services_sales_discount', 'to_stock'])) {
                 $creditAmount = $creditAmount + $transaction['amount'];
-            }else
-            {
+            } else {
                 $debitAmount = $debitAmount + $transaction['amount'];
             }
-       }
+        }
 
-       
+        $def = abs($this->invoice->moneyFormatter($creditAmount) - $this->invoice->moneyFormatter($debitAmount));
+        if ($def != 0) {
+            if ($def < 1 && $def > -1) {
+                $def = $this->invoice->moneyFormatter($creditAmount) - $this->invoice->moneyFormatter($debitAmount);
+                $this->invoice->transactions()->where('description', 'to_cogs')->update([
+                    'amount' => DB::raw("amount + {$def}")
+                ]);
 
-       $def = abs($this->invoice->moneyFormatter($creditAmount) - $this->invoice->moneyFormatter($debitAmount));
-       if( $def > 1 )
-       {
-           $error = \Illuminate\Validation\ValidationException::withMessages([
-               "invoice"=> ['credit side not match debit side'],
-           ]);
-           throw $error;
-       }
+                $this->validateData();
+//                    if($def)
+            } else {
+                Log::error('sales invoice accounting error : ',$this->invoice->load('transactions','items.item')->toArray());
+                $error = ValidationException::withMessages([
+                    "invoice" => ['credit side not match debit side'],
+                ]);
+                throw $error;
+            }
+        }
     }
 }

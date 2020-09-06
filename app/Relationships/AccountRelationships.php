@@ -7,10 +7,15 @@
 	use App\AccountStatistic;
     use App\Payment;
     use App\Transaction;
-	
-	trait AccountRelationships
+    use Illuminate\Database\Eloquent\Model;
+
+    trait AccountRelationships
 	{
-		
+
+
+
+
+
 		 public function statistics()
 		 {
 		 	return $this->hasOne(AccountStatistic::class,'account_id');
