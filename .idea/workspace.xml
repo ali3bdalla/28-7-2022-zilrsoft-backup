@@ -20,24 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/index2.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/table_cell.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/1bc71d0f65894a6d2d4d11fc2a2b55b328da8bc0.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/2456413f660b50bbd3145af477655ce57967b647.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/4640c9d5a656cdc59409e9b6f2b3b73c992a912e.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/b66ebc770a92e9a4778b1b9ec1867701a35791cb.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/ea3976e827b7ac6feb4eea3859624ce04fcd17eb.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/ee6c28da8131d8767a163f1b9a1fd6cf3dd0d204.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-09-05.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Accounting/Http/Controllers/TrialBalanceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Http/Controllers/TrialBalanceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Sales/Jobs/EnsureSalesDataAreCorrectJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Jobs/EnsureSalesDataAreCorrectJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Attributes/AccountAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/AccountAttributes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/UpdateAccountsBalanceCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/UpdateAccountsBalanceCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Relationships/AccountRelationships.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Relationships/AccountRelationships.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateReturnSalesEntityTransactionsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateReturnSalesEntityTransactionsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/index2.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/index2.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/table_cell.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/table_cell.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/GzFXZlKxdsIuqK26szLpDM1yVHnh4HmMXLKZBaT0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-08-06.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/fPwwhrD31yZoQEr6PV8isnjiM7m9h09vV1wCntXe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/1bc71d0f65894a6d2d4d11fc2a2b55b328da8bc0.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/1bc71d0f65894a6d2d4d11fc2a2b55b328da8bc0.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/4640c9d5a656cdc59409e9b6f2b3b73c992a912e.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/4640c9d5a656cdc59409e9b6f2b3b73c992a912e.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-08-08.log" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -320,7 +312,7 @@
       <workItem from="1599297055755" duration="2123000" />
       <workItem from="1599307369765" duration="422000" />
       <workItem from="1599312112824" duration="1508000" />
-      <workItem from="1599380166656" duration="3332000" />
+      <workItem from="1599380166656" duration="7092000" />
     </task>
     <servers />
   </component>
@@ -388,8 +380,8 @@
     </state>
     <state x="348" y="309" key="NewPhpFileDialog.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593724701066" />
     <state x="515" y="365" key="NewPhpFileDialog/0.0.1440.900@0.0.1440.900" timestamp="1595277644624" />
-    <state x="239" y="3" key="SettingsEditor" timestamp="1595749300686">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="681" y="303" key="SettingsEditor" timestamp="1599401644313">
+      <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="0" y="0" key="SettingsEditor.inPresentationMode" timestamp="1594057724258">
       <screen x="0" y="0" width="1440" height="900" />
@@ -398,7 +390,7 @@
     <state x="0" y="0" key="SettingsEditor.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593806977159" />
     <state x="0" y="23" key="SettingsEditor.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622018491" />
     <state x="239" y="3" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1595749300686" />
-    <state x="681" y="303" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1595351324354" />
+    <state x="681" y="303" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1599401644313" />
     <state x="346" y="178" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1593621933337" />
     <state x="0" y="0" key="Vcs.Push.Dialog.v2.inPresentationMode" timestamp="1593595040259">
       <screen x="0" y="0" width="1440" height="900" />
@@ -419,8 +411,8 @@
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="716" y="481" width="614" height="269" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595010883333" />
-    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup" timestamp="1599393709801">
-      <screen x="0" y="0" width="1920" height="1200" />
+    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup" timestamp="1599467155679">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="0" y="221" width="1440" height="505" key="search.everywhere.popup.inPresentationMode" timestamp="1599314828451">
       <screen x="0" y="0" width="1440" height="900" />
@@ -430,8 +422,8 @@
     <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593882496251" />
     <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />
     <state x="469" y="203" width="838" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1595757616292" />
-    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599125760552" />
-    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1599393709801" />
+    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599467155679" />
+    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1599466476654" />
     <state x="469" y="221" width="670" height="505" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1593950143500" />
     <state x="625" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1592389494916" />
     <state x="450" y="369" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1593784355162">

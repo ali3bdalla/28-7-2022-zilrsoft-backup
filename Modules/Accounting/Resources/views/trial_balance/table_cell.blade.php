@@ -16,7 +16,7 @@
     {{--    @if($result['debit_amount'] > 0  || $result['credit_amount'] > 0 )--}}
     {{--        <tbody>--}}
     <tr>
-        <td>{{$account->children()->count() }}   {{ $account->id }}</td>
+{{--        <td>   {{ $account->id }}</td>--}}
         <td><a target="_blank" href="{{ route('accounting.accounts.show',$account->id) }}">{{ $account->locale_name }}</a></td>
         <td>{{ money_format('%i',$result['debit_amount']) }}</td>
         <td>{{ money_format('%i',$result['credit_amount'])}}</td>
@@ -29,7 +29,7 @@
         <tbody style="margin-right: 5px !important;" class="table-body-child">
         @if($account2->children()->count() > 0)
             <tr>
-                <td></td>
+{{--                <td></td>--}}
                 <td colspan="" class="text-bold" style="padding-right:{{ $padding }}px;text-align: right !important;">{{$account2->locale_name}}</td>
                 <td></td>
                 <td></td>

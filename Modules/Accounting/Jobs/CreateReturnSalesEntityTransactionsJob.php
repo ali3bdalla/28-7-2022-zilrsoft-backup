@@ -16,6 +16,7 @@ use Modules\Users\Jobs\UpdateUserBalanceJob;
 class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     /**
      * @var TransactionsContainer
      */
@@ -71,8 +72,7 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
 
         if ($paymentsGatewayPaidAmount < $invoiceNetAmount) {
             $amount = (float)($invoiceNetAmount) - (float)($paymentsGatewayPaidAmount);
-            if($amount < 0)
-            {
+            if ($amount < 0) {
                 $error = ValidationException::withMessages([
                     "net" => ['total paid gateways amount can\'t be more than invoice net'],
                 ]);
@@ -106,7 +106,6 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
 
         if ($this->paymentMethods != null) {
             foreach ($this->paymentMethods as $method) {
-//                dd((float)$method['amount']);
                 if ((float)$method['amount'] > 0) {
                     $gateway = Account::find($method['id']);
                     $gateway->credit_transaction()->create([
@@ -129,8 +128,6 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
                         'container_id' => $this->entity->id,
                         'description' => 'client_balance'
                     ]);
-
-//                    dd(1);
                     dispatch(new CreateSalesPaymentEntityJob($this->invoice, $gateway, $method['amount'], 'payment'));
                 }
             }
