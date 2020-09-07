@@ -5,6 +5,7 @@
 	use App\Attributes\AccountAttributes;
     use App\Model\Nesting;
     use App\Relationships\AccountRelationships;
+    use App\Traits\OrmNumbersTrait;
 
     /**
      * @method static where(array $array)
@@ -12,7 +13,7 @@
     class Account extends BaseModel
 	{
 		
-		use AccountAttributes,AccountRelationships,Nesting;
+		use AccountAttributes,AccountRelationships,Nesting,OrmNumbersTrait;
 
 		protected $guarded = [];
 		

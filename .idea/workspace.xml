@@ -22,14 +22,16 @@
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Accounting/Http/Controllers/TrialBalanceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Http/Controllers/TrialBalanceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateReturnSalesEntityTransactionsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateReturnSalesEntityTransactionsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/index2.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/index2.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/table_cell.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/table_cell.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/fPwwhrD31yZoQEr6PV8isnjiM7m9h09vV1wCntXe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Account.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Account.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attributes/AccountAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/AccountAttributes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/MassTransactionFixCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/MassTransactionFixCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/PurchasesInvoicesTransactionFixerCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/PurchasesInvoicesTransactionFixerCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/UpdateAccountsBalanceCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/UpdateAccountsBalanceCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/D9ONn9uAkEHysTu4NZkk4M5bahlBROs7ZWSwwkeU" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/RwMt0cbXA8ybkBLcjcrdNaFLBvkPCzUvRLj8rQEX" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/VqKjah3NqB3LaLYTT7oGLLaYuffJiWbWQpUhoSiG" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/1bc71d0f65894a6d2d4d11fc2a2b55b328da8bc0.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/1bc71d0f65894a6d2d4d11fc2a2b55b328da8bc0.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/4640c9d5a656cdc59409e9b6f2b3b73c992a912e.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/4640c9d5a656cdc59409e9b6f2b3b73c992a912e.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-08-08.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-09-07.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-09-07.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -312,7 +314,9 @@
       <workItem from="1599297055755" duration="2123000" />
       <workItem from="1599307369765" duration="422000" />
       <workItem from="1599312112824" duration="1508000" />
-      <workItem from="1599380166656" duration="7092000" />
+      <workItem from="1599380166656" duration="7739000" />
+      <workItem from="1599468802467" duration="189000" />
+      <workItem from="1599469642809" duration="1181000" />
     </task>
     <servers />
   </component>
@@ -411,7 +415,7 @@
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="716" y="481" width="614" height="269" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595010883333" />
-    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup" timestamp="1599467155679">
+    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup" timestamp="1599470318592">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="0" y="221" width="1440" height="505" key="search.everywhere.popup.inPresentationMode" timestamp="1599314828451">
@@ -422,7 +426,7 @@
     <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593882496251" />
     <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />
     <state x="469" y="203" width="838" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1595757616292" />
-    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599467155679" />
+    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599470318592" />
     <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1599466476654" />
     <state x="469" y="221" width="670" height="505" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1593950143500" />
     <state x="625" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1592389494916" />

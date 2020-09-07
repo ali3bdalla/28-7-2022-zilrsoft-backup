@@ -51,34 +51,34 @@ class MassTransactionFixCommand extends Command
             $invoices = Invoice::find([9954,12784,13033,13034,13035,13040,13041,13042,13043,13044,13045,13046,13047,
             13048,13049,13050,13051,13052,13053,13054,13058,13059,13060,13061,13062,13064]);
             foreach ($invoices as $beginning) {
-                TransactionsContainer::where('invoice_id', $beginning->id)->forceDelete();
-                Transaction::where('invoice_id', $beginning->id)->forceDelete();
-                Payment::where('invoice_id', $beginning->id)->forceDelete();
-                InvoicePayments::where('invoice_id', $beginning->id)->forceDelete();
-                foreach ($beginning->items as $item) {
-                    $current_qty = $item->item->available_qty + $item['qty'];
-    //					'if ($current_qty < 0){
-    //						throw new ValidationException([
-    //							'qty'
-    //						]);
-    //					}'
-                    if (!$item->is_kit) {
-                        $item->item->update([
-                            'available_qty' => $current_qty,
-                        ]);
-                        if ($item->item->is_need_serial) {
-                            $item->item->serials()->where('sale_invoice_id', $beginning->id)->update([
-                                'current_status' => "available"
-                            ]);
-                        }
-    						// $item->item->stockMovement();
-                    }
-
-
-                }
-
-                $beginning->items()->forceDelete();
-                $beginning->forceDelete();
+//                TransactionsContainer::where('invoice_id', $beginning->id)->forceDelete();
+//                Transaction::where('invoice_id', $beginning->id)->forceDelete();
+//                Payment::where('invoice_id', $beginning->id)->forceDelete();
+//                InvoicePayments::where('invoice_id', $beginning->id)->forceDelete();
+//                foreach ($beginning->items as $item) {
+//                    $current_qty = $item->item->available_qty + $item['qty'];
+//    //					'if ($current_qty < 0){
+//    //						throw new ValidationException([
+//    //							'qty'
+//    //						]);
+//    //					}'
+//                    if (!$item->is_kit) {
+//                        $item->item->update([
+//                            'available_qty' => $current_qty,
+//                        ]);
+//                        if ($item->item->is_need_serial) {
+//                            $item->item->serials()->where('sale_invoice_id', $beginning->id)->update([
+//                                'current_status' => "available"
+//                            ]);
+//                        }
+//    						// $item->item->stockMovement();
+//                    }
+//
+//
+//                }
+//
+//                $beginning->items()->forceDelete();
+//                $beginning->forceDelete();
             }
             
 

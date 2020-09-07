@@ -57,7 +57,7 @@ class PurchasesInvoicesTransactionFixerCommand extends Command
         DB::beginTransaction();
         try {
             $this->fixPurchases();
-            $this->fixReturnPurchases();
+//            $this->fixReturnPurchases();
             // Item::whereIn('id', $this->itemsUpdated)->update([
             //     'vtp' => 15
             // ]);

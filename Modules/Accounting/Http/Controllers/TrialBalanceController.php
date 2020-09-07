@@ -61,10 +61,10 @@ class TrialBalanceController extends Controller
                     $account->credit_balance = $accountCreditBalance;
                     $account->debit_balance = $accountDebitBalance;
 
-                    $totalCreditAmount += $creditAmount;
-                    $totalDebitAmount += $debitAmount;
-                    $totalCreditBalance += $accountCreditBalance;
-                    $totalDebitBalance += $accountDebitBalance;
+                    $totalCreditAmount +=  $account->moneyFormatter($creditAmount);
+                    $totalDebitAmount += $account->moneyFormatter($debitAmount);
+                    $totalCreditBalance += $account->moneyFormatter($accountCreditBalance);
+                    $totalDebitBalance += $account->moneyFormatter($accountDebitBalance);
                     $mainAccountChildren[] = $account;
                 }
             }

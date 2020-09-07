@@ -179,11 +179,9 @@ trait AccountAttributes
 
     private function _getStockBalanceUsingTransactions()
     {
-
         $creditAmount = $this->_getStockCreditAmount();
         $debitAmount = $this->_getStockDebitAmount();
         $this->_updateCreditAndDebitAmountForAccount($creditAmount, $debitAmount);
-
         return $debitAmount - $creditAmount;
     }
 

@@ -57,14 +57,14 @@
                     <th><?php echo e(money_format('%i',$totalCreditBalance)); ?></th>
                 </tr>
 
-                <tr>
-                    <th></th>
-                    <th colspan="2"><?php echo e(money_format('%i',$totalDebitAmount - $totalCreditAmount)); ?></th>
 
 
-                    <th colspan="2"><?php echo e(money_format('%i',$totalDebitBalance - $totalCreditBalance)); ?></th>
 
-                </tr>
+
+
+
+
+
 
                 </thead>
         </table>
