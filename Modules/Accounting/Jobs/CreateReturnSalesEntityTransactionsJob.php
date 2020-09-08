@@ -153,28 +153,28 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
     private function addTaxTransactions(Account $stockAccount)
     {
         $taxAccount = Account::where('slug', 'vat')->first();
-        $gatewayAccounts = auth()->user()->gateways()->where(
-            'is_gateway', true
-        )->get();
-        if (count($gatewayAccounts) === 0) {
+        // $gatewayAccounts = auth()->user()->gateways()->where(
+        //     'is_gateway', true
+        // )->get();
+        // if (count($gatewayAccounts) === 0) {
             $userGatewayAccount = Account::where([
                 ['is_system_account', true],
                 ['slug', 'temp_reseller_account'],
             ])->first();
-        } else {
-            $userGatewayAccount = $gatewayAccounts[0];
-        }
+        // } else {
+        //     $userGatewayAccount = $gatewayAccounts[0];
+        // }
 
         $expensesTax = $this->invoice->expenses()->sum('tax');
         $tax = $expensesTax + $this->invoice->tax;
 
 
         if ($tax > 0) {
-            $userGatewayAccount->debit_transaction()->create([
+            $taxAccount ->debit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                'creditable_id' => $stockAccount->id,
-                'creditable_type' => get_class($stockAccount),
+                // 'creditable_id' => $stockAccount->id,
+                // 'creditable_type' => get_class($stockAccount),
                 'amount' => $tax,
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
