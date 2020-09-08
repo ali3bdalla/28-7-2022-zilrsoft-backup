@@ -59,14 +59,7 @@ class SalesInvoicesTransactionFixerCommand extends Command
         $activeInvoice = 0;
         DB::beginTransaction();
         try {
-            // $this->fixSales();
-            // $this->fixReturnSales();
-            // Item::whereIn('id', $this->itemsUpdated)->update([
-            //     'vts' => 15
-            // ]);
-
             $escapeInvoice = [];
-
             $invoices = Invoice::whereNotIn('id',   $escapeInvoice)->where('invoice_type', 'sale')->get();
             // $invoices = Invoice::find([]);
             foreach ($invoices as $invoice) {
@@ -91,11 +84,8 @@ class SalesInvoicesTransactionFixerCommand extends Command
                     dispatch(new DeleteSaleInvoiceJob($invoice));
                     continue;
                 }
-
-
                 $def = (float)$creditAmount - (float)$debitAmount;
                 if (abs($def) > 1) {
-                    // echo $invoice->id."\n";
                     $items = $this->fetchItems($invoice);
                     if ($items == null) {
                         dispatch(new DeleteSaleInvoiceJob($invoice));

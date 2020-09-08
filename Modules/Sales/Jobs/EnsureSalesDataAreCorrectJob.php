@@ -59,16 +59,15 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
             }
         }
 
-        $def = abs($this->invoice->moneyFormatter($creditAmount) - $this->invoice->moneyFormatter($debitAmount));
+        $def = abs($creditAmount - $debitAmount);
         if ($def != 0) {
-            if ($def < 1 && $def > -1) {
-                $def = $this->invoice->moneyFormatter($creditAmount) - $this->invoice->moneyFormatter($debitAmount);
+            if ($def < 1 ) {
+                $def = $creditAmount - $debitAmount;
                 $this->invoice->transactions()->where('description', 'to_cogs')->update([
-                    'amount' => DB::raw("amount + {$def}")
+                    'amount' => DB::raw("amount + $def")
                 ]);
 
                 $this->validateData();
-//                    if($def)
             } else {
                 Log::error('sales invoice accounting error : ',$this->invoice->load('transactions','items.item')->toArray());
                 $error = ValidationException::withMessages([

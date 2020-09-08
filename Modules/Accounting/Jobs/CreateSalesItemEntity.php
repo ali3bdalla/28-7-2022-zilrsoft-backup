@@ -50,7 +50,7 @@ class CreateSalesItemEntity implements ShouldQueue
      */
     public function handle()
     {
-        $stockAccount = Account::where('slug','stock')->first();
+        // $stockAccount = Account::where('slug','stock')->first();
         $amount = $this->invoiceItem->moneyFormatter((float)$this->invoiceItem->item->cost * $this->invoiceItem->qty);
 //        echo $amount;
 //        exit();
@@ -58,8 +58,8 @@ class CreateSalesItemEntity implements ShouldQueue
             'creator_id' => auth()->user()->id,
             'organization_id' => auth()->user()->organization_id,
             'container_id' => $this->entity->id,
-            'debitable_id' => $stockAccount->id,
-            'debitable_type' => get_class($stockAccount),
+            // 'debitable_id' => $stockAccount->id,
+            // 'debitable_type' => get_class($stockAccount),
             'amount' => $amount,
             'user_id' => $this->invoiceItem->user_id,
             'invoice_id' => $this->invoiceItem->invoice_id,
@@ -67,5 +67,6 @@ class CreateSalesItemEntity implements ShouldQueue
         ]);
 
 
+       
     }
 }

@@ -32,7 +32,7 @@ class TrialBalanceController extends Controller
         foreach ($mainAccounts as $mainAccount) {
             $children = Account::whereIn('id', $mainAccount->returnNestedTreeIds($mainAccount))->where([[
                 'id', '!=', $mainAccount->id
-            ]])->withCount('children')->having('children_count', 0)->get();
+            ]])->withCount('children')->having('children_count', 0)->get(); //
             $mainAccountChildren = [];
             foreach ($children as $account) {
 
@@ -73,6 +73,12 @@ class TrialBalanceController extends Controller
         }
 //
 
+
+
+            $totalCreditAmount = round($totalCreditAmount);
+            $totalDebitAmount = round($totalDebitAmount);
+            $totalCreditBalance =round($totalCreditBalance);
+            $totalDebitBalance = round($totalDebitBalance);
 //        return $accounts;
 //
 

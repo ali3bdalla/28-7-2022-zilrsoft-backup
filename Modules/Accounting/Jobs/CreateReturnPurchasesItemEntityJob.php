@@ -56,8 +56,8 @@ class CreateReturnPurchasesItemEntityJob implements ShouldQueue
         $this->invoiceItem->item->credit_transaction()->create([
             'creator_id' => auth()->user()->id,
             'organization_id' => auth()->user()->organization_id,
-            'debitable_id' => $stockAccount->id,
-            'debitable_type' => get_class($stockAccount),
+            // 'debitable_id' => $stockAccount->id,
+            // 'debitable_type' => get_class($stockAccount),
             'amount' => $this->invoiceItem->moneyFormatter($this->invoiceItem->subtotal),
             'user_id' => $this->invoice->user_id,
             'invoice_id' => $this->invoiceItem->invoice_id,
