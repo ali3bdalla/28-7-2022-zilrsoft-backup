@@ -75,14 +75,14 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
                     ]);
                 } else {
                     $problemAmount = $creditAmount - $debitAmount;
-                    $debitable = $transaction->debitable;
+                    $debitableStatistics = $transaction->debitable()->_getStatisticsInstance();
 
                     if ($problemAmount  > 0) {
                         $newAmount =   (float)$transaction->amount + abs((float)$problemAmount);
-                        $debtetabielNewAmount =  $debitable->debit_amount +  abs((float)$problemAmount);
+                        $debtetabielNewAmount =  $debitableStatistics->debit_amount +  abs((float)$problemAmount);
                     } else {
                         $newAmount =   (float)$transaction->amount - abs((float)$problemAmount);
-                        $debtetabielNewAmount =  $debitable->debit_amount -  abs((float)$problemAmount);
+                        $debtetabielNewAmount =  $debitableStatistics->debit_amount -  abs((float)$problemAmount);
 
                         // $transaction->debitable()->update([
                         //     'amount' => $newAmount
@@ -92,7 +92,7 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
                         'amount' => $newAmount
                     ]);
 
-                    $transaction->debitable()->update([
+                    $debitableStatistics->update([
                         'debit_amount' =>    $debtetabielNewAmount
                     ]);
 
