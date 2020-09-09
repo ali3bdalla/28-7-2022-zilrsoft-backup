@@ -151,15 +151,22 @@ trait AccountAttributes
     public function _getStatisticsInstance()
     {
         if ($this->statistics == null) {
-            $total = $this->_getCurrentBalanceUsingTransaction();
-            $this->statistics()->update([
-                'total_amount' => $total,
+            $whereStatements = $this->_getAdditionalWhereStatement();
+            $creditAmount = $this->_getCreditTransactionsAmount($whereStatements);
+            $debitAmount = $this->_getDebitTransactionsAmount($whereStatements);
+            // $total = $this->_getCurrentBalanceUsingTransaction();
+            $static = $this->statistics()->create([
+                'credit_amount' =>  $creditAmount,
+                // 'debit_amount' => $creditAmount,
+                'debit_amount' => $debitAmount ,
                 'transactions_count' => 0
             ]);
+        }else{
+            $static = $this->statistics->fresh();
         }
 
 
-        return $this->statistics->fresh();
+        return   $static ;
     }
 
     public function _getCurrentBalanceUsingTransaction()
