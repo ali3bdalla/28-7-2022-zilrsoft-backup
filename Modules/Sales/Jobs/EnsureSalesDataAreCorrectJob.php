@@ -75,7 +75,7 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
                     ]);
                 } else {
                     $problemAmount = $creditAmount - $debitAmount;
-                    $debitableStatistics = $transaction->debitable()->_getStatisticsInstance();
+                    $debitableStatistics = $transaction->debitable->_getStatisticsInstance();
 
                     if ($problemAmount  > 0) {
                         $newAmount =   (float)$transaction->amount + abs((float)$problemAmount);
