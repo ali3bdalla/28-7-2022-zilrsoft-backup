@@ -99,7 +99,8 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
 
                     // $this->validateData();
                 }
-            } else {
+            }
+        } else {
             Log::error('sales invoice accounting error : ', $this->invoice->load('transactions', 'items.item')->toArray());
             $error = ValidationException::withMessages([
                 "invoice" => ['credit side not match debit side'],
