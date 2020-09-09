@@ -39,7 +39,6 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
      */
     public function handle()
     {
-
         $this->validateData();
     }
 
@@ -62,12 +61,27 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
         $def = abs($creditAmount - $debitAmount);
         if ($def != 0) {
             if ($def < 1 ) {
-                $def = $creditAmount - $debitAmount;
-                $this->invoice->transactions()->where('description', 'to_cogs')->update([
-                    'amount' => DB::raw("amount + $def")
-                ]);
+                $transaction = $this->invoice->transactions()->where('description', 'to_cogs')->first();
+                if($transaction == null)
+                {
+                    Log::error('sales invoice accounting error : ',$this->invoice->load('transactions','items.item')->toArray());
+                    $error = ValidationException::withMessages([
+                        "invoice" => ['credit side not match debit side'],
+                    ]);
+                }else
+                {
+                    $problemAmount = $creditAmount - $debitAmount;
 
-                $this->validateData();
+                    $newAmount =   (float)$transaction->amount + (float)$problemAmount  ;
+                    $transaction->update([
+                        'amount' => $newAmount 
+                    ]);
+                    $this->validateData();
+                }
+                
+                
+
+                
             } else {
                 Log::error('sales invoice accounting error : ',$this->invoice->load('transactions','items.item')->toArray());
                 $error = ValidationException::withMessages([

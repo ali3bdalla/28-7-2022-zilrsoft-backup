@@ -3,12 +3,9 @@
 namespace App\Listeners\Account;
 
 use App\Account;
-use App\AccountStatistic;
 use App\Events\Transaction\TransactionCreatedEvent;
 use App\Events\Transaction\TransactionErasedEvent;
-use App\Item;
 use App\Transaction;
-use Illuminate\Support\Facades\DB;
 
 class UpdateAccountStatisticListener
 {
@@ -31,11 +28,10 @@ class UpdateAccountStatisticListener
     {
         $this->event = $event;
 
-        if($event instanceof TransactionCreatedEvent)
-             $this->_newTransactionUpdate();
-             
-        if($event instanceof TransactionErasedEvent)
-        {
+        if ($event instanceof TransactionCreatedEvent)
+            $this->_newTransactionUpdate();
+
+        if ($event instanceof TransactionErasedEvent) {
             $this->_eraseTransactionUpdate();
         }
     }
@@ -45,37 +41,33 @@ class UpdateAccountStatisticListener
 
     private function _newTransactionUpdate()
     {
- 
+
         $amount = (float)$this->event->transaction->amount;
-    
+
         if ($this->event->transaction->_isDebitAbleAccount()) {
-            
+
             $statisticInstance = $this->event->transaction->_getDebitAbleAccount()->_getStatisticsInstance();
             $statisticInstance->update([
                 'debit_amount' => $statisticInstance->debit_amount  + $amount
             ]);
-        
-
         }
-        
-        
+
+
         if ($this->event->transaction->_isCreditAbleAccount()) {
             $statisticInstance = $this->event->transaction->_getCreditAbleAccount()->_getStatisticsInstance();
 
-            $statisticInstance ->update([
+            $statisticInstance->update([
                 'credit_amount' => $statisticInstance->credit_amount  + $amount
             ]);
-           
         }
 
 
         if ($this->event->transaction->_isDebitAbleItem()) {
 
             $statisticInstance = $this->stockAccount->_getStatisticsInstance();
-            $statisticInstance ->update([
+            $statisticInstance->update([
                 'debit_amount' => $statisticInstance->debit_amount + $amount
             ]);
-     
         }
 
 
@@ -84,48 +76,41 @@ class UpdateAccountStatisticListener
 
             $statisticInstance = $this->stockAccount->_getStatisticsInstance();
             $statisticInstance->update([
-                'credit_amount' =>$statisticInstance->credit_amount + $amount
+                'credit_amount' => $statisticInstance->credit_amount + $amount
             ]);
-     
-
         }
-
-
     }
 
 
     private function _eraseTransactionUpdate()
     {
-        $amount = (float)$this->event->transaction->amount;
-    
+        $amount = (float)$this->event->transaction->moneyFormatter($this->event->transaction->amount);
+        //
+
         if ($this->event->transaction->_isDebitAbleAccount()) {
-            
+
             $statisticInstance = $this->event->transaction->_getDebitAbleAccount()->_getStatisticsInstance();
             $statisticInstance->update([
                 'debit_amount' => $statisticInstance->debit_amount  - $amount
             ]);
-     
-
         }
-        
-        
+
+
         if ($this->event->transaction->_isCreditAbleAccount()) {
             $statisticInstance = $this->event->transaction->_getCreditAbleAccount()->_getStatisticsInstance();
 
-            $statisticInstance ->update([
+            $statisticInstance->update([
                 'credit_amount' => $statisticInstance->credit_amount  - $amount
             ]);
-         
         }
 
 
         if ($this->event->transaction->_isDebitAbleItem()) {
 
             $statisticInstance = $this->stockAccount->_getStatisticsInstance();
-            $statisticInstance ->update([
+            $statisticInstance->update([
                 'debit_amount' => $statisticInstance->debit_amount - $amount
             ]);
-      
         }
 
 
@@ -134,14 +119,8 @@ class UpdateAccountStatisticListener
 
             $statisticInstance = $this->stockAccount->_getStatisticsInstance();
             $statisticInstance->update([
-                'credit_amount' =>$statisticInstance->credit_amount - $amount
+                'credit_amount' => $statisticInstance->credit_amount - $amount
             ]);
-     
-       
-
         }
     }
-
-
-    
 }
