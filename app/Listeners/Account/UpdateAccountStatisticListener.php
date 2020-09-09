@@ -31,13 +31,13 @@ class UpdateAccountStatisticListener
     {
         $this->event = $event;
 
-        // if($event instanceof TransactionCreatedEvent)
-        //      $this->_newTransactionUpdate();
+        if($event instanceof TransactionCreatedEvent)
+             $this->_newTransactionUpdate();
              
-        // if($event instanceof TransactionErasedEvent)
-        // {
-        //     $this->_eraseTransactionUpdate();
-        // }
+        if($event instanceof TransactionErasedEvent)
+        {
+            $this->_eraseTransactionUpdate();
+        }
     }
 
 
