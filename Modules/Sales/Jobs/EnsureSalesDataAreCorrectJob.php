@@ -3,6 +3,7 @@
 namespace Modules\Sales\Jobs;
 
 use App\Invoice;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -49,9 +50,11 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
 
         $transactions = $this->invoice->transactions()->where('description', '!=', 'client_balance')->get();
         foreach ($transactions as $transaction) {
-            if (!in_array($transaction['description'], ['to_cogs', 'to_gateway',
+            if (!in_array($transaction['description'], [
+                'to_cogs', 'to_gateway',
                 'to_products_sales_discount', 'to_services_sales_discount',
-                'to_other_services_sales_discount', 'to_stock'])) {
+                'to_other_services_sales_discount', 'to_stock'
+            ])) {
                 $creditAmount = $creditAmount + $transaction['amount'];
             } else {
                 $debitAmount = $debitAmount + $transaction['amount'];
@@ -59,36 +62,50 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
         }
 
         $def = abs($creditAmount - $debitAmount);
-        if ($def != 0) {
-            if ($def < 1 ) {
-                $transaction = $this->invoice->transactions()->where('description', 'to_cogs')->first();
-                if($transaction == null)
-                {
-                    Log::error('sales invoice accounting error : ',$this->invoice->load('transactions','items.item')->toArray());
-                    $error = ValidationException::withMessages([
-                        "invoice" => ['credit side not match debit side'],
-                    ]);
-                }else
-                {
-                    $problemAmount = $creditAmount - $debitAmount;
+        // throw new Exception($def);
 
-                    $newAmount =   (float)$transaction->amount + (float)$problemAmount  ;
-                    $transaction->update([
-                        'amount' => $newAmount 
-                    ]);
-                    $this->validateData();
-                }
-                
-                
+        if ($def !== 0) {
 
-                
-            } else {
-                Log::error('sales invoice accounting error : ',$this->invoice->load('transactions','items.item')->toArray());
-                $error = ValidationException::withMessages([
-                    "invoice" => ['credit side not match debit side'],
-                ]);
-                throw $error;
-            }
+            // if ($def < 1) {
+            //     $transaction = $this->invoice->transactions()->where('description', 'to_cogs')->first();
+            //     if ($transaction == null) {
+            //         Log::error('sales invoice accounting error : ', $this->invoice->load('transactions', 'items.item')->toArray());
+            //         $error = ValidationException::withMessages([
+            //             "invoice" => ['credit side not match debit side'],
+            //         ]);
+            //     } else {
+            //         $problemAmount = $creditAmount - $debitAmount;
+            //         $debitable = $transaction->debitable;
+
+            //         if ($problemAmount  > 0) {
+            //             $newAmount =   (float)$transaction->amount + abs((float)$problemAmount);
+            //             $debtetabielNewAmount =  $debitable->debit_amount +  abs((float)$problemAmount);
+            //         } else {
+            //             $newAmount =   (float)$transaction->amount - abs((float)$problemAmount);
+            //             $debtetabielNewAmount =  $debitable->debit_amount -  abs((float)$problemAmount);
+
+            //             $transaction->debitable()->update([
+            //                 'amount' => $newAmount
+            //             ]);
+            //         }
+            //         $transaction->update([
+            //             'amount' => $newAmount
+            //         ]);
+
+            //         $transaction->debitable()->update([
+            //             'debit_amount' =>    $debtetabielNewAmount
+            //         ]);
+
+
+            //         // $this->validateData();
+            //     }
+            // } else {
+            Log::error('sales invoice accounting error : ', $this->invoice->load('transactions', 'items.item')->toArray());
+            $error = ValidationException::withMessages([
+                "invoice" => ['credit side not match debit side'],
+            ]);
+            throw $error;
+            // }
         }
     }
 }
