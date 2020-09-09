@@ -84,9 +84,9 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
                         $newAmount =   (float)$transaction->amount - abs((float)$problemAmount);
                         $debtetabielNewAmount =  $debitable->debit_amount -  abs((float)$problemAmount);
 
-                        $transaction->debitable()->update([
-                            'amount' => $newAmount
-                        ]);
+                        // $transaction->debitable()->update([
+                        //     'amount' => $newAmount
+                        // ]);
                     }
                     $transaction->update([
                         'amount' => $newAmount
