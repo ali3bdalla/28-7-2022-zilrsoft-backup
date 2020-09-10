@@ -70,7 +70,7 @@
 				$account->amount = $this->net;
 				$methods = [
 					$account
-				];
+				]; 
 				$invoice_status = $invoice->handle_invoice_transactions($methods,$user->id,$this->net,
 					$this->items,$expenses);
 				

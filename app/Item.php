@@ -36,7 +36,7 @@ use Modules\Web\Models\WebItem;
 class Item extends BaseModel
 {
     use ItemFreshHelper, KitAttributes, KitRelationships, ItemProcesser, ItemHelper, KitHelper;
-    use CoreItem;
+    use CoreItem; 
 
     // final traits
     use WebItem, OrmNumbersTrait, ItemRelationships, ItemFormattedQuery;

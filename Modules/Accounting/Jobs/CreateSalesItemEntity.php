@@ -51,6 +51,7 @@ class CreateSalesItemEntity implements ShouldQueue
     public function handle()
     {
         // $stockAccount = Account::where('slug','stock')->first();
+
         $amount = $this->invoiceItem->moneyFormatter((float)$this->invoiceItem->item->cost * $this->invoiceItem->qty);
 //        echo $amount;
 //        exit();

@@ -29,19 +29,31 @@ class TrialBalanceController extends Controller
         $totalCreditBalance = 0;
         $totalDebitBalance = 0;
         $accounts = [];
+        // $whereIN = [12, 21, 63, 37, 27]; //12,21,63,37,27
+
         foreach ($mainAccounts as $mainAccount) {
+
+
             $children = Account::whereIn('id', $mainAccount->returnNestedTreeIds($mainAccount))->where([[
                 'id', '!=', $mainAccount->id
-            ]])->withCount('children')->having('children_count', 0)->get(); //
+            ]])
+                // ->whereIn('id', $whereIN)
+                ->withCount('children')->having('children_count', 0)->get(); //
             $mainAccountChildren = [];
             foreach ($children as $account) {
 
+                // $account->statistics->update([
+                //     'debit_amount' => 0,
+                //     'credit_amount' => 0,
+
+                // ]);
+                
                 if (!is_null($account->statistics)) {
-                    $debitAmount = $account->statistics->debit_amount;
-                    $creditAmount = $account->statistics->credit_amount;
+                    $debitAmount = $account->moneyFormatter($account->statistics->debit_amount);
+                    $creditAmount = $account->moneyFormatter($account->statistics->credit_amount);
                 } else {
-                    $debitAmount = $account->_getDebitTransactionsAmount();
-                    $creditAmount = $account->_getCreditTransactionsAmount();
+                    $debitAmount = $account->moneyFormatter($account->_getDebitTransactionsAmount());
+                    $creditAmount = $account->moneyFormatter($account->_getCreditTransactionsAmount());
                 }
 
                 if ($debitAmount > 0 || $creditAmount > 0) {
@@ -61,32 +73,32 @@ class TrialBalanceController extends Controller
                     $account->credit_balance = $accountCreditBalance;
                     $account->debit_balance = $accountDebitBalance;
 
-                    $totalCreditAmount +=  $account->moneyFormatter($creditAmount);
-                    $totalDebitAmount += $account->moneyFormatter($debitAmount);
-                    $totalCreditBalance += $account->moneyFormatter($accountCreditBalance);
-                    $totalDebitBalance += $account->moneyFormatter($accountDebitBalance);
+                    $totalCreditAmount =  $totalCreditAmount  +  $account->moneyFormatter((float)$creditAmount, 2);
+                    $totalDebitAmount = $totalDebitAmount + $account->moneyFormatter((float)$debitAmount, 2);
+                    $totalCreditBalance = $totalCreditBalance + $account->moneyFormatter((float)$accountCreditBalance, 2);
+                    $totalDebitBalance = $totalDebitBalance + $account->moneyFormatter((float)$accountDebitBalance, 2);
                     $mainAccountChildren[] = $account;
                 }
             }
             $mainAccount->mainAccountChildren = $mainAccountChildren;
             $accounts[] = $mainAccount;
         }
-//
+        //
+  
 
 
+        // $totalCreditAmount = round($totalCreditAmount);
+        // $totalDebitAmount = round($totalDebitAmount);
+        // $totalCreditBalance =round($totalCreditBalance);
+        // $totalDebitBalance = round($totalDebitBalance);
+        //        return $accounts;
+        //
 
-            // $totalCreditAmount = round($totalCreditAmount);
-            // $totalDebitAmount = round($totalDebitAmount);
-            // $totalCreditBalance =round($totalCreditBalance);
-            // $totalDebitBalance = round($totalDebitBalance);
-//        return $accounts;
-//
-
-//
-//
-//         return ;
+        //
+        //
+        //         return ;
         return view('accounting::trial_balance.index2', compact('accounts', 'totalCreditAmount', 'totalDebitAmount', 'totalCreditBalance', 'totalDebitBalance'));
-//        return view('accounting::trial_balance.index', compact('accounts', 'totalCreditAmount', 'totalDebitAmount', 'totalCreditBalance', 'totalDebitBalance'));
+        //        return view('accounting::trial_balance.index', compact('accounts', 'totalCreditAmount', 'totalDebitAmount', 'totalCreditBalance', 'totalDebitBalance'));
     }
 
 

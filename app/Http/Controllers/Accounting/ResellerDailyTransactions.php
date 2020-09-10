@@ -53,6 +53,7 @@
 		 */
 		public function dailyShutdownShowForm(Request $request)
 		{
+			// die();
 			$lastRemainingTransferAmount = $this->toGetLastManagerTransferRemainingAmount();
 			$periodSalesAmount = $request->user()->dailyTransactionsAmount();
 			$gateways = $request->user()->gateways()->get();

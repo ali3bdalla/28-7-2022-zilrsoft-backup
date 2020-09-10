@@ -67,7 +67,7 @@ class UpdateAccountStatisticListener
         if ($this->event->transaction->_isDebitAbleItem()) {
 
             $statisticInstance = $this->stockAccount->_getStatisticsInstance();
-            $newAmount = (float)$statisticInstance->debit_amount  - (float)$amount;
+            $newAmount = (float)$statisticInstance->debit_amount  + (float)$amount;
 
             $statisticInstance->update([
                 'debit_amount' => $newAmount
@@ -79,7 +79,9 @@ class UpdateAccountStatisticListener
         if ($this->event->transaction->_isCreditAbleItem()) {
 
             $statisticInstance = $this->stockAccount->_getStatisticsInstance();
-            $newAmount = (float)$statisticInstance->credit_amount  - (float)$amount;
+
+            $newAmount = (float)$statisticInstance->credit_amount  + (float)$amount;
+            // die($statisticInstance->credit_amount);
 
             $statisticInstance->update([
                 'credit_amount' =>$newAmount
@@ -118,7 +120,7 @@ class UpdateAccountStatisticListener
         if ($this->event->transaction->_isDebitAbleItem()) {
 
             $statisticInstance = $this->stockAccount->_getStatisticsInstance();
-            $newAmount = (float)$statisticInstance->debit_amount  + (float)$amount;
+            $newAmount = (float)$statisticInstance->debit_amount  - (float)$amount;
 
             $statisticInstance->update([
                 'debit_amount' => $newAmount
@@ -130,7 +132,7 @@ class UpdateAccountStatisticListener
         if ($this->event->transaction->_isCreditAbleItem()) {
 
             $statisticInstance = $this->stockAccount->_getStatisticsInstance();
-            $newAmount = (float)$statisticInstance->credit_amount  + (float)$amount;
+            $newAmount = (float)$statisticInstance->credit_amount  - (float)$amount;
 
             $statisticInstance->update([
                 'credit_amount' => $newAmount

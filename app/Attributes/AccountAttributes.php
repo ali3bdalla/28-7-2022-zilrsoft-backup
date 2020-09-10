@@ -104,16 +104,6 @@ trait AccountAttributes
             $whereStatements = $this->_getAdditionalWhereStatement();
 
         return $this->credit_transaction()->where($whereStatements)->sum('amount');
-
-//        if($this->statistics == null)
-//        {
-//            $this->statistics()->create([
-//                'credit_amount' => $amount
-//            ]);
-//        }
-//
-
-//        return $amount;
     }
 
     public function _isCredit()
@@ -134,12 +124,20 @@ trait AccountAttributes
     public function getCurrentAmountAttribute()
     {
         $nestedTreeIds = $this->returnNestedTreeIds($this);
-        return money_format("%i", $this->_getAccountsTreeBalance($nestedTreeIds));
+        return $this->_getAccountsTreeBalance($nestedTreeIds);
     }
 
     private function _getAccountsTreeBalance($treeIds = [])
     {
-        return AccountStatistic::whereIn("account_id", $treeIds)->sum('total_amount');
+        $debitAmount = AccountStatistic::whereIn("account_id", $treeIds)->sum('debit_amount');
+        $creditAmount = AccountStatistic::whereIn("account_id", $treeIds)->sum('credit_amount');
+
+        // die($treeIds);
+        // exit();
+
+        // return   $debitAmount;
+        if($this->_isCredit()) { return (float)$creditAmount - (float)$debitAmount;}
+        else {return (float)$debitAmount - (float)$creditAmount; }
     }
 
     public function getLocaleNameAttribute()
@@ -157,7 +155,6 @@ trait AccountAttributes
             // $total = $this->_getCurrentBalanceUsingTransaction();
             $static = $this->statistics()->create([
                 'credit_amount' =>  $creditAmount,
-                // 'debit_amount' => $creditAmount,
                 'debit_amount' => $debitAmount ,
                 'transactions_count' => 0
             ]);
@@ -166,7 +163,7 @@ trait AccountAttributes
         }
 
 
-        return   $static ;
+        return   $static;
     }
 
     public function _getCurrentBalanceUsingTransaction()
@@ -186,8 +183,8 @@ trait AccountAttributes
 
     private function _getStockBalanceUsingTransactions()
     {
-        $creditAmount = $this->_getStockCreditAmount();
-        $debitAmount = $this->_getStockDebitAmount();
+        $creditAmount =  $this->moneyFormatter($this->_getStockCreditAmount());
+        $debitAmount =  $this->moneyFormatter($this->_getStockDebitAmount());
         $this->_updateCreditAndDebitAmountForAccount($creditAmount, $debitAmount);
         return $debitAmount - $creditAmount;
     }
@@ -205,17 +202,20 @@ trait AccountAttributes
     public function _updateCreditAndDebitAmountForAccount($creditAmount, $debitAmount)
     {
 
-        if ($this->statistics != null) {
-            $this->statistics()->update([
-                'credit_amount' => floatval($creditAmount),
-                'debit_amount' => floatval($debitAmount)
+        if ($this->statistics == null) {
+            $credit = $this->statistics()->create([
+                'credit_amount' => (float)$creditAmount,
+                'debit_amount' => (float)($debitAmount)
             ]);
         } else {
-            $this->statistics()->update([
-                'credit_amount' => floatval($creditAmount),
-                'debit_amount' => floatval($debitAmount)
+            $credit = $this->statistics()->update([
+                'credit_amount' => (float)($creditAmount),
+                'debit_amount' => (float)($debitAmount)
             ]);
         }
+        
+
+        return $credit;
 
     }
 
@@ -223,15 +223,15 @@ trait AccountAttributes
     {
         if ($creditAmount === null && $debitAmount === null) {
             $whereStatements = $this->_getAdditionalWhereStatement();
-            $creditAmount = $this->_getCreditTransactionsAmount($whereStatements);
-            $debitAmount = $this->_getDebitTransactionsAmount($whereStatements);
+            $creditAmount = $this->moneyFormatter($this->_getCreditTransactionsAmount($whereStatements));
+            $debitAmount =  $this->moneyFormatter($this->_getDebitTransactionsAmount($whereStatements));
         }
 
         // update credit and debit amount
         $this->_updateCreditAndDebitAmountForAccount($creditAmount, $debitAmount);
 
-        if ($this->_isCredit()) return $creditAmount - $debitAmount;
-        return $debitAmount - $creditAmount;
+        if ($this->_isCredit()) return (float)$creditAmount - (float)$debitAmount;
+        return (float)$debitAmount - (float)$creditAmount;
     }
 
     public function _updateBalanceUsingTransactions()

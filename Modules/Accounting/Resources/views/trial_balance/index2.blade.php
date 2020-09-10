@@ -38,10 +38,10 @@
                     <tr>
                         <td colspan="" class="text-bold"
                             style="padding-right:40px;text-align: right !important;"><a href="{{ route('accounting.accounts.show',$account2->id) }}">{{$account2->locale_name}}</a> </td>
-                        <td>{{ money_format('%i',$account2['debit_amount']) }}</td>
-                        <td>{{ money_format('%i',$account2['credit_amount'])}}</td>
-                        <td>{{ money_format('%i',$account2['debit_balance'])}}</td>
-                        <td>{{ money_format('%i',$account2['credit_balance'])}}</td>
+                        <td>{{ $account2['debit_amount'] }}</td>
+                        <td>{{$account2['credit_amount']}}</td>
+                        <td>{{$account2['debit_balance']}}</td>
+                        <td>{{$account2['credit_balance']}}</td>
 
                     </tr>
                     </tbody>
@@ -53,10 +53,10 @@
                 <thead style="background-color:black;color:white">
                 <tr>
                     <th></th>
-                    <th>{{ money_format('%i',$totalDebitAmount) }}</th>
-                    <th>{{ money_format('%i',$totalCreditAmount)}}</th>
-                    <th>{{ money_format('%i',$totalDebitBalance)}}</th>
-                    <th>{{ money_format('%i',$totalCreditBalance)}}</th>
+                    <th>{{ $totalDebitAmount}}</th>
+                    <th>{{ $totalCreditAmount}}</th>
+                    <th>{{ $totalDebitBalance}}</th>
+                    <th>{{ $totalCreditBalance}}</th>
                 </tr>
 
 {{--                <tr>--}}

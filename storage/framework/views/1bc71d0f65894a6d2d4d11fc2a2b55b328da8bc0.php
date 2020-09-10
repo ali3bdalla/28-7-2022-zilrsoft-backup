@@ -36,10 +36,10 @@
                     <tr>
                         <td colspan="" class="text-bold"
                             style="padding-right:40px;text-align: right !important;"><a href="<?php echo e(route('accounting.accounts.show',$account2->id)); ?>"><?php echo e($account2->locale_name); ?></a> </td>
-                        <td><?php echo e(money_format('%i',$account2['debit_amount'])); ?></td>
-                        <td><?php echo e(money_format('%i',$account2['credit_amount'])); ?></td>
-                        <td><?php echo e(money_format('%i',$account2['debit_balance'])); ?></td>
-                        <td><?php echo e(money_format('%i',$account2['credit_balance'])); ?></td>
+                        <td><?php echo e($account2['debit_amount']); ?></td>
+                        <td><?php echo e($account2['credit_amount']); ?></td>
+                        <td><?php echo e($account2['debit_balance']); ?></td>
+                        <td><?php echo e($account2['credit_balance']); ?></td>
 
                     </tr>
                     </tbody>
@@ -51,10 +51,10 @@
                 <thead style="background-color:black;color:white">
                 <tr>
                     <th></th>
-                    <th><?php echo e(money_format('%i',$totalDebitAmount)); ?></th>
-                    <th><?php echo e(money_format('%i',$totalCreditAmount)); ?></th>
-                    <th><?php echo e(money_format('%i',$totalDebitBalance)); ?></th>
-                    <th><?php echo e(money_format('%i',$totalCreditBalance)); ?></th>
+                    <th><?php echo e($totalDebitAmount); ?></th>
+                    <th><?php echo e($totalCreditAmount); ?></th>
+                    <th><?php echo e($totalDebitBalance); ?></th>
+                    <th><?php echo e($totalCreditBalance); ?></th>
                 </tr>
 
 
