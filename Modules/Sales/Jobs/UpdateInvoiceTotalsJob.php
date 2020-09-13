@@ -61,7 +61,6 @@ class UpdateInvoiceTotalsJob implements ShouldQueue
             $result['net'] = (float)$result['net'] + (float)$item->getOriginal('net');
         }
         $result['net'] = (float)$result['net'] + (float)$this->expensesAmount;
-        // dd($result['net']);
         $this->invoice->update($result);
 
         //

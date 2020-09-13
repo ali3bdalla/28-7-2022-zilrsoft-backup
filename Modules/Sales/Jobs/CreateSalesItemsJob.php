@@ -86,10 +86,10 @@ class CreateSalesItemsJob implements ShouldQueue
         $data['discount'] = (float)($dbItem->data->discount * $qty);
         $data['price'] = (float)$dbItem->data->total;
         $data['qty'] = $qty;
-        $data['total'] = $dbItem->moneyFormatter((float)$data['price'] * (float)$data['qty']);
-        $data['subtotal'] = $dbItem->moneyFormatter((float)$data['total'] - (float)$data['discount']);
-        $data['tax'] = $dbItem->moneyFormatter($dbItem->getSaleTax($data['subtotal']));
-        $data['net'] = $dbItem->moneyFormatter((float)$data['subtotal'] + (float)$data['tax']);
+        $data['total'] = (float)$data['price'] * (float)$data['qty'];
+        $data['subtotal'] = (float)$data['total'] - (float)$data['discount'];
+        $data['tax'] = $dbItem->getSaleTax($data['subtotal']);
+        $data['net'] = (float)$data['subtotal'] + (float)$data['tax'];
         $data['organization_id'] = $invoice->organization_id;
         $data['creator_id'] = $invoice->creator_id;
         $data['item_id'] = $dbItem->id;
@@ -99,7 +99,6 @@ class CreateSalesItemsJob implements ShouldQueue
         $invoiceKitItem = $invoice->items()->create($data);
         $this->createKitItems($itemPureCollection, $dbItem, $invoiceKitItem, $qty, $index);
         dispatch(new UpdateKitDataDependingOnItemsJob($invoiceKitItem));
-
     }
 
     public function createKitItems($itemPureCollection, Item $dbKit, InvoiceItems $baseItem, $qty, $index)
@@ -116,15 +115,14 @@ class CreateSalesItemsJob implements ShouldQueue
                 }
             }
             $sendData['qty'] = (int)$kitItem->qty * (int)$qty;
-            $sendData['discount'] = $dbKit->moneyFormatter($kitItem['discount'] * $qty);
-            $sendData['price'] = $dbKit->moneyFormatter($kitItem['price']);
+            $sendData['discount'] = (float)$kitItem->discount * (int)$qty;
+            $sendData['price'] = $kitItem->price;
             $sendData['belong_to_kit'] = true;
             $sendData['kit_id'] = $baseItem->id;
             $sendData['id'] = $item->id;
 
             $this->createItem($item, $sendData, $index);
         }
-
     }
 
     public function createItem($item, $itemRequestData, $index)
@@ -132,15 +130,13 @@ class CreateSalesItemsJob implements ShouldQueue
         $invoiceItem = $this->addPureItem($this->invoice, $item, $itemRequestData, $index);
         if (!$item->isService()  && !$item->isKit() && !$this->invoice->isPending()) {
             dispatch(new UpdateItemCostJob($this->invoice, $invoiceItem));
-//            exit();
             dispatch(new UpdateItemQtyJob($this->invoice, $invoiceItem));
-            dispatch(new CreateSalesItemEntity($this->entity, $this->invoice, $invoiceItem));
+            // dispatch(new CreateSalesItemEntity($this->entity, $this->invoice, $invoiceItem));
             if ($item->isNeedSerial())
-                dispatch(new ChangeItemSerialsStatusJob($item,$this->invoice, $itemRequestData['serials'], $this->availableSerialsStatus, 'saled'));
+                dispatch(new ChangeItemSerialsStatusJob($item, $this->invoice, $itemRequestData['serials'], $this->availableSerialsStatus, 'saled'));
             dispatch(new UpdateInvoiceItemProfitJob($invoiceItem));
         }
         dispatch(new UpdateAvailableQtyForEachInvoiceItemJob($invoiceItem));
-
     }
 
 
@@ -151,27 +147,26 @@ class CreateSalesItemsJob implements ShouldQueue
         $showInPrint = (bool)$itemPureCollection->get('printable');
         if (!$showInPrint)
             $invoice->update(['printable_price' => false]);
-
         $belongToKit = (bool)$itemPureCollection->get('belong_to_kit');
         $data['printable'] = $showInPrint;
         $data['parent_kit_id'] = $belongToKit ? (int)$itemPureCollection->get('kit_id') : 0;
         $data['belong_to_kit'] = $belongToKit;
-        $data['discount'] = $dbItem->moneyFormatter($itemPureCollection->get('discount'));
-        $data['price'] = $dbItem->moneyFormatter($dbItem->getSalePrice((float)$itemPureCollection->get('price')));
+        $data['discount'] = (float)$itemPureCollection->get('discount');
+        $data['price'] = $belongToKit ? (float)$itemPureCollection->get('price') :  $dbItem->getSalePrice((float)$itemPureCollection->get('price'));
         $data['qty'] = (int)$itemPureCollection->get('qty');
-        $data['total'] = $dbItem->moneyFormatter((float)$data['price'] * (int)$data['qty']);
-        $data['subtotal'] = $dbItem->moneyFormatter((float)$data['total'] - (float)$data['discount']);
-        $data['tax'] = $dbItem->moneyFormatter($dbItem->getSaleTax($data['subtotal']));
-        $data['net'] = $dbItem->moneyFormatter((float)((float)$data['tax'] + (float)$data['subtotal']));
+        $data['total'] = (float)$data['price'] * (int)$data['qty'];
+        $data['subtotal'] = (float)$data['total'] - (float)$data['discount'];
+        $data['tax'] = $dbItem->getSaleTax($data['subtotal']);
+        $data['net'] = ((float)$data['tax'] + (float)$data['subtotal']);
         $data['organization_id'] = $invoice->organization_id;
         $data['creator_id'] = $invoice->creator_id;
         $data['item_id'] = $dbItem->id;
         $data['user_id'] = $invoice->user_id;
         $data['invoice_type'] = $invoice->invoice_type;
         if ($dbItem->is_expense)
-            $data['cost'] = $dbItem->moneyFormatter((float)$itemPureCollection->get('purchase_price') / (1 + (float)($dbItem->vts / 100)));
+            $data['cost'] = (float)$itemPureCollection->get('purchase_price') / (1 + (float)($dbItem->vts / 100));
         else
-            $data['cost'] = $dbItem->moneyFormatter((float)$dbItem->cost);
+            $data['cost'] = (float)$dbItem->cost;
 
         return $invoice->items()->create($data);
     }
@@ -188,6 +183,5 @@ class CreateSalesItemsJob implements ShouldQueue
         }
         if ($item->isNeedSerial())
             dispatch(new ValidateItemSerialsJob($item, (int)$itemPureCollection->get('qty'), (array)$itemPureCollection->get('serials'), 'sale', $this->availableSerialsStatus, $index));
-
     }
 }

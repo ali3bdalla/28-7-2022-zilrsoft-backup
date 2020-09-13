@@ -128,7 +128,7 @@ class Item extends BaseModel
 
     public function getSaleTax($subtotal = 0)
     {
-        return (float)$subtotal * $this->vts / 100;
+        return (float)($subtotal * $this->vts) / 100;
     }
 
     public function getPurchaseTaxAsFloatValue()

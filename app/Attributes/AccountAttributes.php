@@ -61,15 +61,8 @@ trait AccountAttributes
             $whereStatements = $this->_getAdditionalWhereStatement();
 
 
-//        $amount =
         return  $this->debit_transaction()->where($whereStatements)->sum('amount');
-//        if($this->statistics == null)
-//        {
-//            $this->statistics()->create([
-//                'debit_amount' => $amount
-//            ]);
-//        }
-//        return $amount;
+
     }
 
     private function _getAdditionalWhereStatement()

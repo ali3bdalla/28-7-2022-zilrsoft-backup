@@ -6,7 +6,7 @@ namespace App\Traits;
 
 trait OrmNumbersTrait
 {
-    public function moneyFormatter($money = 0,$points = 15)
+    public function moneyFormatter($money = 0,$points = 5)
     {
 
 

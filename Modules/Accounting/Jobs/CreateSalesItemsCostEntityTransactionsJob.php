@@ -49,17 +49,12 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
         $manager_products_sales_discount_account = auth()->user()->toGetManagerAccount('products_sales_discount');
         $manager_services_sales_discount_account = auth()->user()->toGetManagerAccount('services_sales_discount');
         $manager_other_services_sales_discount_account = auth()->user()->toGetManagerAccount('other_services_sales_discount');
-        $manager_stock_account = auth()->user()->toGetManagerAccount('stock');
-        $total_cost =$this->invoice->moneyFormatter($this->invoice->transactions()->where('description','to_item')->sum('amount'));
-
-//        echo($total_cost);
-//        exit();
+        $total_cost =(float)($this->invoice->transactions()->where('description','to_item')->sum('amount'));
+        
         if ($total_cost > 0){
             $manager_cogs_account->debit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                // 'creditable_id' => $manager_stock_account->id,
-                // 'creditable_type' => get_class($manager_stock_account),
                 'amount' => $total_cost,
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
@@ -69,7 +64,6 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
         }
 
 
-        // to make sales transactions
         $products_sales_total = 0;
         $services_sales_total = 0;
         $other_services_sales_total = 0;
@@ -97,9 +91,7 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
             $manager_products_sales_account->credit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                // 'debitable_id' => $manager_stock_account->id,
-                // 'debitable_type' => get_class($manager_stock_account),
-                'amount' => $this->invoice->moneyFormatter($products_sales_total),
+                'amount' => (float)($products_sales_total),
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
                 'container_id' => $this->entity->id,
@@ -111,9 +103,7 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
             $manager_services_sales_account->credit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                // 'debitable_id' => $manager_stock_account->id,
-                // 'debitable_type' => get_class($manager_stock_account),
-                'amount' =>$this->invoice->moneyFormatter( $services_sales_total),
+                'amount' =>(float)( $services_sales_total),
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
                 'container_id' => $this->entity->id,
@@ -125,9 +115,7 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
             $manager_other_services_sales_account->credit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                // 'debitable_id' => $manager_stock_account->id,
-                // 'debitable_type' => get_class($manager_stock_account),
-                'amount' =>$this->invoice->moneyFormatter( $other_services_sales_total),
+                'amount' =>(float)( $other_services_sales_total),
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
                 'container_id' => $this->entity->id,
@@ -141,9 +129,7 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
             $manager_products_sales_discount_account->debit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                // 'creditable_id' => $manager_stock_account->id,
-                // 'creditable_type' => get_class($manager_stock_account),
-                'amount' => $this->invoice->moneyFormatter($products_sales_total_discount),
+                'amount' => (float)($products_sales_total_discount),
                 'user_id' => $this->invoice->uesr_id,
                 'invoice_id' => $this->invoice->id,
                 'container_id' => $this->entity->id,
@@ -155,9 +141,8 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
             $manager_services_sales_discount_account->debit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                // 'creditable_id' => $manager_stock_account->id,
-                // 'creditable_type' => get_class($manager_stock_account),
-                'amount' =>$this->invoice->moneyFormatter( $services_sales_total_discount),
+    
+                'amount' =>(float)( $services_sales_total_discount),
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
                 'container_id' => $this->entity->id,
@@ -169,9 +154,7 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
             $manager_other_services_sales_discount_account->debit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                // 'creditable_id' => $manager_stock_account->id,
-                // 'creditable_type' => get_class($manager_stock_account),
-                'amount' => $this->invoice->moneyFormatter($other_services_sales_total_discount),
+                'amount' => (float)($other_services_sales_total_discount),
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
                 'container_id' => $this->entity->id,
