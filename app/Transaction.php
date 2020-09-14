@@ -32,10 +32,7 @@ use Illuminate\Database\Eloquent\Builder;
 			
 		}
 		
-		public function getAmountAttribute($value)
-		{
-			return money_format("%i",$value);
-		}
+		
 		
 		public function creditable()
 		{

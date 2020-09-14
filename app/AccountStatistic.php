@@ -15,13 +15,13 @@
 
 		
 		
-		public function getDebitAmountAttribute($value)
-		{
-			return (float)round($value);
-		}
+		// public function getDebitAmountAttribute($value)
+		// {
+		// 	return (float)round($value);
+		// }
 
-		public function getCreditAmountAttribute($value)
-		{
-			return (float)round($value);
-		}
+		// public function getCreditAmountAttribute($value)
+		// {
+		// 	return (float)round($value);
+		// }
 	}

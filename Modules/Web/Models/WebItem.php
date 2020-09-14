@@ -14,12 +14,12 @@ trait WebItem
 
     public function getWebOnlinePriceAttribute()
     {
-        return money_format("$%i",$this->price_with_tax);
+        return $this->price_with_tax;
     }
 
     public function getWebOldOnlinePriceAttribute()
     {
-        return money_format("$%i",$this->price_with_tax + 10)  ;
+        return $this->price_with_tax + 10 ;
     }
 
 

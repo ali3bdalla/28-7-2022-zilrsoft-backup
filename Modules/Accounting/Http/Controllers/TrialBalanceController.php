@@ -49,11 +49,11 @@ class TrialBalanceController extends Controller
                 // ]);
                 
                 if (!is_null($account->statistics)) {
-                    $debitAmount = $account->moneyFormatter($account->statistics->debit_amount);
-                    $creditAmount = $account->moneyFormatter($account->statistics->credit_amount);
+                    $debitAmount = ($account->statistics->debit_amount);
+                    $creditAmount = ($account->statistics->credit_amount);
                 } else {
-                    $debitAmount = $account->moneyFormatter($account->_getDebitTransactionsAmount());
-                    $creditAmount = $account->moneyFormatter($account->_getCreditTransactionsAmount());
+                    $debitAmount = ($account->_getDebitTransactionsAmount());
+                    $creditAmount = ($account->_getCreditTransactionsAmount());
                 }
 
                 if ($debitAmount > 0 || $creditAmount > 0) {
@@ -73,10 +73,10 @@ class TrialBalanceController extends Controller
                     $account->credit_balance = $accountCreditBalance;
                     $account->debit_balance = $accountDebitBalance;
 
-                    $totalCreditAmount =  $totalCreditAmount  +  $account->moneyFormatter((float)$creditAmount, 2);
-                    $totalDebitAmount = $totalDebitAmount + $account->moneyFormatter((float)$debitAmount, 2);
-                    $totalCreditBalance = $totalCreditBalance + $account->moneyFormatter((float)$accountCreditBalance, 2);
-                    $totalDebitBalance = $totalDebitBalance + $account->moneyFormatter((float)$accountDebitBalance, 2);
+                    $totalCreditAmount =  $totalCreditAmount  +  ((float)$creditAmount);
+                    $totalDebitAmount = $totalDebitAmount + ((float)$debitAmount);
+                    $totalCreditBalance = $totalCreditBalance + ((float)$accountCreditBalance);
+                    $totalDebitBalance = $totalDebitBalance + ((float)$accountDebitBalance);
                     $mainAccountChildren[] = $account;
                 }
             }
@@ -87,10 +87,10 @@ class TrialBalanceController extends Controller
   
 
 
-        // $totalCreditAmount = round($totalCreditAmount);
-        // $totalDebitAmount = round($totalDebitAmount);
-        // $totalCreditBalance =round($totalCreditBalance);
-        // $totalDebitBalance = round($totalDebitBalance);
+        // $totalCreditAmount = ($totalCreditAmount);
+        // $totalDebitAmount = ($totalDebitAmount);
+        // $totalCreditBalance =($totalCreditBalance);
+        // $totalDebitBalance = ($totalDebitBalance);
         //        return $accounts;
         //
 

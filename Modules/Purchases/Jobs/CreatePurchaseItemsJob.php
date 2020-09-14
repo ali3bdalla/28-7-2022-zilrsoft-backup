@@ -48,7 +48,7 @@ class CreatePurchaseItemsJob implements ShouldQueue
      * Create a new job instance.
      *
      * @param TransactionsContainer $transactionContainer
-     * @param Invoice $invoice
+     * @param Invoice $invoice 
      * @param array $items
      * @param array $paymentsMethods
      * @param array $expenses
@@ -92,7 +92,6 @@ class CreatePurchaseItemsJob implements ShouldQueue
                     dispatch(new UpdateItemSalesPriceJob($invoiceItem, $collectionData->get('price_with_tax')));
                     dispatch(new CreatePurchasesItemsEntityJob($this->transactioncontainr, $this->invoice, $invoiceItem, $totalItemExpenseAmount));
                     dispatch(new UpdateAvailableQtyForEachInvoiceItemJob($invoiceItem));
-
                 }
 
 
@@ -116,10 +115,10 @@ class CreatePurchaseItemsJob implements ShouldQueue
         $data['user_id'] = $this->invoice->user_id;
         $data['qty'] = (int)$collectionData->get('qty');
         $data['discount'] = (float)$collectionData->get('discount');
-        $data['total'] = $dbItem->moneyFormatter((float)$data['price'] * (int)$data['qty']);
-        $data['subtotal'] = $dbItem->moneyFormatter((float)$data['total'] - (float)$data['discount']);
-        $data['tax'] = $dbItem->moneyFormatter($dbItem->getSaleTax($data['subtotal']));
-        $data['net'] = $dbItem->moneyFormatter((float)((float)$data['tax'] + (float)$data['subtotal']));
+        $data['total'] = (float)$data['price'] * (int)$data['qty'];
+        $data['subtotal'] = (float)$data['total'] - (float)$data['discount'];
+        $data['tax'] = $dbItem->getPurchaseTax($data['subtotal']);
+        $data['net'] = (float)((float)$data['tax'] + (float)$data['subtotal']);
         $data['organization_id'] = $authUser->organization_id;
         $data['creator_id'] = $authUser->id;
         $data['item_id'] = $dbItem->id;

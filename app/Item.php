@@ -37,7 +37,7 @@ class Item extends BaseModel
 {
     use ItemFreshHelper, KitAttributes, KitRelationships, ItemProcesser, ItemHelper, KitHelper;
     use CoreItem; 
-
+ 
     // final traits
     use WebItem, OrmNumbersTrait, ItemRelationships, ItemFormattedQuery;
 
@@ -123,7 +123,7 @@ class Item extends BaseModel
 
     public function getPurchaseTax($subtotal = 0)
     {
-        return (float)$subtotal * $this->vtp / 100;
+        return ((float)$subtotal * $this->vtp) / 100;
     }
 
     public function getSaleTax($subtotal = 0)
@@ -175,7 +175,8 @@ class Item extends BaseModel
         if ($this->is_kit)
             $price = $this->data->net;
 
-        return money_format("%i SAR", $price);
+
+        return $price;
     }
 
 

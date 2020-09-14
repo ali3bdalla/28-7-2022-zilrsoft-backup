@@ -67,12 +67,11 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
 //
         $this->entity = $this->transactionsContainer;
         $nonEmbeddedExpenseAmount = $this->expensesTotal();
-        $creatorStock = Account::where('slug', 'stock')->first();
         $vendorAccount = Account::where('slug', 'vendors')->first();
         $vendorAccount->credit_transaction()->create([
             'creator_id' => auth()->user()->id,
             'organization_id' => auth()->user()->organization_id,
-            'amount' => $this->invoice->moneyFormatter((float)$this->invoice->net - (float)$nonEmbeddedExpenseAmount),
+            'amount' =>((float)$this->invoice->net - (float)$nonEmbeddedExpenseAmount),
             'user_id' => $this->invoice->user_id,
             'invoice_id' => $this->invoice->id,
             'container_id' => $this->entity->id,
@@ -102,7 +101,7 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
                     $vendorAccount->debit_transaction()->create([
                         'creator_id' => auth()->user()->id,
                         'organization_id' => auth()->user()->organization_id,
-                        'amount' => $this->invoice->moneyFormatter((float)$method['amount']),
+                        'amount' =>((float)$method['amount']),
                         'user_id' => $this->invoice->user_id,
                         'invoice_id' => $this->invoice->id,
                         'container_id' => $this->entity->id,
@@ -128,7 +127,7 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
                 'organization_id' => auth()->user()->organization_id,
                 // 'debitable_id' => $stockAccount->id,
                 // 'debitable_type' => get_class($stockAccount),
-                'amount' => $this->invoice->moneyFormatter($amount),
+                'amount' =>($amount),
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
                 'container_id' => $this->entity->id,
@@ -181,7 +180,7 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
                 'organization_id' => auth()->user()->organization_id,
                 // 'creditable_id' => $creatorStock->id,
                 // 'creditable_type' => get_class($creatorStock),
-                'amount' => $this->invoice->moneyFormatter($tax),
+                'amount' =>($tax),
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
                 'container_id' => $this->entity->id,
@@ -202,7 +201,7 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
                     'organization_id' => auth()->user()->organization_id,
                     // 'creditable_id' => $userGatewayAccount->id,
                     // 'creditable_type' => get_class($userGatewayAccount),
-                    'amount' => $this->invoice->moneyFormatter($sum),
+                    'amount' =>($sum),
                     'user_id' => $this->invoice->user_id,
                     'invoice_id' => $this->invoice->id,
                     'container_id' => $this->entity->id,

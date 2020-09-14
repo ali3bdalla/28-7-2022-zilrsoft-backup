@@ -62,7 +62,6 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
         }
 
         $def = abs($creditAmount - $debitAmount);
-        // throw new Exception($def);
 
         if ($def !== 0) {
 
@@ -74,7 +73,7 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
                         "invoice" => ['credit side not match debit side'],
                     ]);
                 } else {
-                    $problemAmount = $creditAmount - $debitAmount;
+                    $problemAmount =(float) $creditAmount - (float)$debitAmount;
                     $debitableStatistics = $transaction->debitable->_getStatisticsInstance();
 
                     if ($problemAmount  > 0) {
@@ -83,10 +82,6 @@ class EnsureSalesDataAreCorrectJob implements ShouldQueue
                     } else {
                         $newAmount =   (float)$transaction->amount - abs((float)$problemAmount);
                         $debtetabielNewAmount =  $debitableStatistics->debit_amount -  abs((float)$problemAmount);
-
-                        // $transaction->debitable()->update([
-                        //     'amount' => $newAmount
-                        // ]);
                     }
                     $transaction->update([
                         'amount' => $newAmount

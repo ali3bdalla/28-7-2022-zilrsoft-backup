@@ -364,8 +364,8 @@
 					'creator_id' => $this->creator_id,
 					'user_id' => $this->user_id,
 					'invoice_id' => $this->id,
-					'amount_ar_words' => Tafqeet::arablic(money_format("%i",$method['amount'])),
-					'amount_en_words' => Tafqeet::arablic(money_format("%i",$method['amount'])),
+					'amount_ar_words' => Tafqeet::arablic(($method['amount'])),
+					'amount_en_words' => Tafqeet::arablic(($method['amount'])),
 					'amount' => $method['amount'],
 					'payment_type' => $payment_type
 				]);
@@ -375,8 +375,8 @@
 					'creator_id' => $this->creator_id,
 					'user_id' => $this->user_id,
 					'invoice_id' => $this->id,
-					'amount_ar_words' => Tafqeet::arablic(money_format("%i",$method['amount'])),
-					'amount_en_words' => Tafqeet::arablic(money_format("%i",$method['amount'])),
+					'amount_ar_words' => Tafqeet::arablic(($method['amount'])),
+					'amount_en_words' => Tafqeet::arablic(($method['amount'])),
 					'amount' => $method['amount'],
 					'payment_type' => $payment_type
 				]);
