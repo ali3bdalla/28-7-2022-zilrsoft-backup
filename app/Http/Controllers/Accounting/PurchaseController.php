@@ -146,6 +146,8 @@ class PurchaseController extends Controller
             $items [] = $item;
         }
         $gateways = [];
+
+        // return $items;
         // auth()->user()->gateways()->get()
 //			$gateways = auth()->user()->gateways()->get();
 //			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();

@@ -87,10 +87,10 @@ class TrialBalanceController extends Controller
   
 
 
-        // $totalCreditAmount = ($totalCreditAmount);
-        // $totalDebitAmount = ($totalDebitAmount);
-        // $totalCreditBalance =($totalCreditBalance);
-        // $totalDebitBalance = ($totalDebitBalance);
+        // $totalCreditAmount = round($totalCreditAmount);
+        // $totalDebitAmount = round($totalDebitAmount);
+        // $totalCreditBalance =round($totalCreditBalance);
+        // $totalDebitBalance = round($totalDebitBalance);
         //        return $accounts;
         //
 

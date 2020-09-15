@@ -235,39 +235,39 @@ class InvoiceItems extends BaseModel
         return $url;
     }
 
-    public function getPriceAttribute($value)
-    {
+    // public function getPriceAttribute($value)
+    // {
 
-        return $this->moneyFormatter($value);
-    }
+    //     return $this->moneyFormatter($value);
+    // }
 
-    public function getTotalAttribute($value)
-    {
-        return $this->moneyFormatter($value);
-    }
+    // public function getTotalAttribute($value)
+    // {
+    //     return $this->moneyFormatter($value);
+    // }
 
-    public function getDiscountAttribute($value)
-    {
+    // public function getDiscountAttribute($value)
+    // {
 
-        return $this->moneyFormatter($value);
-    }
+    //     return $this->moneyFormatter($value);
+    // }
 
-    public function getTaxAttribute($value)
-    {
+    // public function getTaxAttribute($value)
+    // {
 
-        return $this->moneyFormatter($value);
-    }
+    //     return $this->moneyFormatter($value);
+    // }
 
-    public function getNetAttribute($value)
-    {
-        return $this->moneyFormatter($value);
-    }
+    // public function getNetAttribute($value)
+    // {
+    //     return $this->moneyFormatter($value);
+    // }
 
-    public function getSubtotalAttribute($value)
-    {
+    // public function getSubtotalAttribute($value)
+    // {
 
-        return $this->moneyFormatter($value);
-    }
+    //     return $this->moneyFormatter($value);
+    // }
 
     public function getAccountingDepetAttribute()
     {
