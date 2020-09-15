@@ -196,8 +196,6 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
                 $taxAccount->debit_transaction()->create([
                     'creator_id' => auth()->user()->id,
                     'organization_id' => auth()->user()->organization_id,
-                    // 'creditable_id' => $userGatewayAccount->id,
-                    // 'creditable_type' => get_class($userGatewayAccount),
                     'amount' => $sum,
                     'user_id' => $this->invoice->user_id,
                     'invoice_id' => $this->invoice->id,

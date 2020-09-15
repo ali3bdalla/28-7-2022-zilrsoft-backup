@@ -59,36 +59,10 @@
                     <th>{{ $totalCreditBalance}}</th>
                 </tr>
 
-{{--                <tr>--}}
-{{--                    <th></th>--}}
-{{--                    <th colspan="2">{{ money_format('%i',$totalDebitAmount - $totalCreditAmount)}}</th>--}}
 
-
-{{--                    <th colspan="2">{{ money_format('%i',$totalDebitBalance - $totalCreditBalance)}}</th>--}}
-
-{{--                </tr>--}}
 
                 </thead>
         </table>
     </div>
 
 @endsection
-
-
-{{--@section('page_css')--}}
-{{--    <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">--}}
-{{--    <script src="https://code.jquery.com/jquery-3.5.1.js" defer></script>--}}
-{{--    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js" defer></script>--}}
-{{--@endsection--}}
-
-
-{{--@section('page_js')--}}
-
-{{--    <script>--}}
-{{--        $(document).ready(function () {--}}
-{{--            $('#myTable').DataTable({--}}
-
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--@endsection--}}

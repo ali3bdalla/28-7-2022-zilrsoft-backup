@@ -23,7 +23,7 @@ class EnsureReturnSalesDataAreCorrectJob implements ShouldQueue
      *
      * @param Invoice $invoice
      */
-    public function __construct(Invoice $invoice,$exectLessThanOne = false)
+    public function __construct(Invoice $invoice,$exectLessThanOne = true)
     {
         //
         $this->invoice = $invoice;
@@ -61,14 +61,12 @@ class EnsureReturnSalesDataAreCorrectJob implements ShouldQueue
         {  
             $def = abs($debitAmount - $creditAmount);
         }
-
-        // dd($def);
        
-        if($this->invoice->moneyFormatter($creditAmount) !== $this->invoice->moneyFormatter($debitAmount) && $def > 1)
+        if($this->invoice->moneyFormatter($creditAmount) !== $this->invoice->moneyFormatter($debitAmount) && abs($def) > 1)
         {
             // dd(1);
             $error = \Illuminate\Validation\ValidationException::withMessages([
-                "invoice"=> ['credit side not match debit side'],
+                "invoice"=> ['credit side not match debit side' . $creditAmount . ' - ' . $debitAmount . ' - ' .  $def ],
             ]);
             throw $error;
         }

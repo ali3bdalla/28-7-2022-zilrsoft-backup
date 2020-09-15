@@ -178,8 +178,6 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
             $taxAccount->debit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                // 'creditable_id' => $creatorStock->id,
-                // 'creditable_type' => get_class($creatorStock),
                 'amount' =>($tax),
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
@@ -199,8 +197,6 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
                 $taxAccount->debit_transaction()->create([
                     'creator_id' => auth()->user()->id,
                     'organization_id' => auth()->user()->organization_id,
-                    // 'creditable_id' => $userGatewayAccount->id,
-                    // 'creditable_type' => get_class($userGatewayAccount),
                     'amount' =>($sum),
                     'user_id' => $this->invoice->user_id,
                     'invoice_id' => $this->invoice->id,
@@ -232,15 +228,12 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
 
                     $amount = (float)$expense['amount'] * (float)$itemWidget  / (float)(1 + $dbItem->vtp / 100); //
 
-                    // die($amount );
                     $tax = (float)$expense['amount'] - (float)$amount;
                     $totalTaxesAmount = (float)$totalTaxesAmount + (float)$tax;
-                    // die($totalTaxesAmount);
                 }
 
 
                 $org_vat = auth()->user()->organization->organization_vat;
-                // die($org_vat);
                 $expenseTax = (float)$expense['amount'] * (float)$org_vat / (float)(100 + $org_vat);
                 $this->invoice->expenses()->create(
                     [

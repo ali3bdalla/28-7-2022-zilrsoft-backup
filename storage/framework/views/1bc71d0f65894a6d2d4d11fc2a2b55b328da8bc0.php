@@ -59,35 +59,10 @@
 
 
 
-
-
-
-
-
-
-
                 </thead>
         </table>
     </div>
 
 <?php $__env->stopSection(); ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <?php echo $__env->make('accounting::layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /usr/local/var/www/workspace/zilrsoft/Modules/Accounting/Resources/views/trial_balance/index2.blade.php ENDPATH**/ ?>

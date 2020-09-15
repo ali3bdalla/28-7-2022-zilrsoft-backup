@@ -5,7 +5,6 @@ namespace Modules\Sales\Jobs;
 use App\Invoice;
 use App\InvoiceItems;
 use App\Item;
-use App\ItemSerials;
 use App\TransactionsContainer;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Bus\Queueable;
@@ -13,7 +12,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Modules\Accounting\Jobs\CreateSalesItemEntity;
 use Modules\Items\Jobs\ChangeItemSerialsStatusJob;
 use Modules\Items\Jobs\EnsureItemQtyIsStillMoreThanZeroJob;
 use Modules\Items\Jobs\UpdateAvailableQtyForEachInvoiceItemJob;
@@ -131,7 +129,6 @@ class CreateSalesItemsJob implements ShouldQueue
         if (!$item->isService()  && !$item->isKit() && !$this->invoice->isPending()) {
             dispatch(new UpdateItemCostJob($this->invoice, $invoiceItem));
             dispatch(new UpdateItemQtyJob($this->invoice, $invoiceItem));
-            // dispatch(new CreateSalesItemEntity($this->entity, $this->invoice, $invoiceItem));
             if ($item->isNeedSerial())
                 dispatch(new ChangeItemSerialsStatusJob($item, $this->invoice, $itemRequestData['serials'], $this->availableSerialsStatus, 'saled'));
             dispatch(new UpdateInvoiceItemProfitJob($invoiceItem));

@@ -51,13 +51,10 @@ class CreateReturnSalesItemEntityJob implements ShouldQueue
      */
     public function handle()
     {
-        // $stockAccount = Account::where('slug', 'stock')->first();
         $amount = $this->invoiceItem->moneyFormatter((float)$this->invoiceItem->item->cost * $this->invoiceItem->qty);
         $this->invoiceItem->item->debit_transaction()->create([
             'creator_id' => auth()->user()->id,
             'organization_id' => auth()->user()->organization_id,
-            // 'creditable_id' => $stockAccount->id,
-            // 'creditable_type' => get_class($stockAccount),
             'amount' => $amount,
             'user_id' => $this->invoice->user_id,
             'invoice_id' => $this->invoiceItem->invoice_id,
