@@ -174,7 +174,7 @@ trait AccountAttributes
         return $this->slug == 'stock';
     }
 
-    private function _getStockBalanceUsingTransactions()
+    public function _getStockBalanceUsingTransactions()
     {
         $creditAmount =  $this->moneyFormatter($this->_getStockCreditAmount());
         $debitAmount =  $this->moneyFormatter($this->_getStockDebitAmount());
