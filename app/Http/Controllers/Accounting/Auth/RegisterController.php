@@ -201,7 +201,7 @@
 				'password' => Hash::make($data['password']),
 				'user_id' => $user->id
 			]);
-			
+			$manager->assignRole('super admin');
 			
 			$organization->fill(['supervisor_id' => $user->id]);
 			
