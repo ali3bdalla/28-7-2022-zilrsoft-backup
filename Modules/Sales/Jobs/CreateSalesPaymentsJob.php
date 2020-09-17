@@ -3,8 +3,8 @@
 namespace Modules\Sales\Jobs;
 
 use AliAbdalla\Tafqeet\Core\Tafqeet;
-use App\Account;
-use App\Invoice;
+use App\Models\Account;
+use App\Models\Invoice;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

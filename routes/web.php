@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('guest')->get('/',
 //     'RedirectController@toAppPortal');
 
+
+
+
 Route::resource('sales', 'SaleController');
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/', 'HomeController@index')->name('index');
