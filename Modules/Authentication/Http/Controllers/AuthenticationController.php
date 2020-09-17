@@ -1,7 +1,8 @@
 <?php
 
 namespace Modules\Authentication\Http\Controllers;
-
+use App\Models\Country;
+use App\Models\Type;
 use Illuminate\Routing\Controller;
 
 class AuthenticationController extends Controller
@@ -19,7 +20,9 @@ class AuthenticationController extends Controller
     
     public function register()
     {
-        return view('authentication::register');
+        $countries = Country::all();
+        $types = Type::all(); 
+        return view('authentication::register',compact('types','countries'));
     }
 
     public function performRegister()
