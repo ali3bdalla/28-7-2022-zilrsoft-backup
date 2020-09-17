@@ -2,13 +2,13 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Account;
+	use App\Models\Account;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Voucher\CreateVoucherRequest;
 	use App\Http\Requests\Accounting\Voucher\DatatableRequest;
-	use App\Manager;
-	use App\Payment;
-	use App\User;
+	use App\Models\Manager;
+	use App\Models\Payment;
+	use App\Models\User;
 	use Illuminate\Contracts\View\Factory;
 	use Illuminate\View\View;
 	use Symfony\Component\HttpFoundation\Request;

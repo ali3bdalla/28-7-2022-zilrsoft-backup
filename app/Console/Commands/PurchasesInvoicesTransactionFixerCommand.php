@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Account;
-use App\Invoice;
-use App\InvoiceItems;
-use App\Item;
-use App\Transaction;
-use App\TransactionsContainer;
+use App\Models\Account;
+use App\Models\Invoice;
+use App\Models\InvoiceItems;
+use App\Models\Item;
+use App\Models\Transaction;
+use App\Models\TransactionsContainer;
 use Illuminate\Console\Command;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;

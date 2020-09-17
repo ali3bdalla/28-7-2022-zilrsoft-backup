@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Filter;
+use App\Models\Filter;
 use App\CategoryFilters;
 use Faker\Generator as Faker;
 

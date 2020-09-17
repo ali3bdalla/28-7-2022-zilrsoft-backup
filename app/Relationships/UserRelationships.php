@@ -2,14 +2,14 @@
 	
 	namespace App\Relationships;
 	
-	use App\Account;
-	use App\InvoicePayments;
-	use App\Manager;
-	use App\Organization;
-	use App\SaleInvoice;
-	use App\Transaction;
-	use App\UserDetails;
-	use App\UserGateways;
+	use App\Models\Account;
+	use App\Models\InvoicePayments;
+	use App\Models\Manager;
+	use App\Models\Organization;
+	use App\Models\SaleInvoice;
+	use App\Models\Transaction;
+	use App\Models\UserDetails;
+	use App\Models\UserGateways;
 	
 	trait UserRelationships
 	{

@@ -511,7 +511,7 @@
 #17 /usr/local/var/www/workspace/zilrsoft/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #18 {main}
 "} 
-[2020-08-08 19:09:32] testing.ERROR: Argument 1 passed to Modules\Users\Jobs\UpdateUserBalanceJob::__construct() must be an instance of App\User, string given, called in /usr/local/var/www/workspace/zilrsoft/Modules/Accounting/Jobs/CreateReturnPurchasesEntityTransactionsJob.php on line 126 {"userId":1,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Argument 1 passed to Modules\\Users\\Jobs\\UpdateUserBalanceJob::__construct() must be an instance of App\\User, string given, called in /usr/local/var/www/workspace/zilrsoft/Modules/Accounting/Jobs/CreateReturnPurchasesEntityTransactionsJob.php on line 126 at /usr/local/var/www/workspace/zilrsoft/Modules/Users/Jobs/UpdateUserBalanceJob.php:40)
+[2020-08-08 19:09:32] testing.ERROR: Argument 1 passed to Modules\Users\Jobs\UpdateUserBalanceJob::__construct() must be an instance of App\Models\User, string given, called in /usr/local/var/www/workspace/zilrsoft/Modules/Accounting/Jobs/CreateReturnPurchasesEntityTransactionsJob.php on line 126 {"userId":1,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Argument 1 passed to Modules\\Users\\Jobs\\UpdateUserBalanceJob::__construct() must be an instance of App\\User, string given, called in /usr/local/var/www/workspace/zilrsoft/Modules/Accounting/Jobs/CreateReturnPurchasesEntityTransactionsJob.php on line 126 at /usr/local/var/www/workspace/zilrsoft/Modules/Users/Jobs/UpdateUserBalanceJob.php:40)
 [stacktrace]
 #0 /usr/local/var/www/workspace/zilrsoft/Modules/Accounting/Jobs/CreateReturnPurchasesEntityTransactionsJob.php(126): Modules\\Users\\Jobs\\UpdateUserBalanceJob->__construct('vendor_balance', 'decrease', 30698.49)
 #1 [internal function]: Modules\\Accounting\\Jobs\\CreateReturnPurchasesEntityTransactionsJob->handle()
@@ -595,7 +595,7 @@
 #79 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/phpunit(61): PHPUnit\\TextUI\\Command::main()
 #80 {main}
 "} 
-[2020-08-08 19:09:57] testing.ERROR: App\Invoice::user must return a relationship instance. {"userId":1,"exception":"[object] (LogicException(code: 0): App\\Invoice::user must return a relationship instance. at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php:424)
+[2020-08-08 19:09:57] testing.ERROR: App\Models\Invoice::user must return a relationship instance. {"userId":1,"exception":"[object] (LogicException(code: 0): App\\Invoice::user must return a relationship instance. at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php:424)
 [stacktrace]
 #0 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php(401): Illuminate\\Database\\Eloquent\\Model->getRelationshipFromMethod('user')
 #1 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php(333): Illuminate\\Database\\Eloquent\\Model->getRelationValue('user')

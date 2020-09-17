@@ -2,22 +2,22 @@
 	
 	namespace App\Relationships;
 	
-	use App\Account;
-	use App\Branch;
+	use App\Models\Account;
+	use App\Models\Branch;
 	use App\Category;
-	use App\Country;
-	use App\Department;
-	use App\Expense;
-	use App\Filter;
+	use App\Models\Country;
+	use App\Models\Department;
+	use App\Models\Expense;
+	use App\Models\Filter;
 	use App\Gateway;
 	use App\GatewayAccounts;
-	use App\Invoice;
-	use App\Item;
-	use App\OrganizationGateway;
-	use App\Payment;
-	use App\SaleInvoice;
-	use App\TransactionsContainer;
-	use App\User;
+	use App\Models\Invoice;
+	use App\Models\Item;
+	use App\Models\OrganizationGateway;
+	use App\Models\Payment;
+	use App\Models\SaleInvoice;
+	use App\Models\TransactionsContainer;
+	use App\Models\User;
 	
 	trait OrganizationRelationships
 	{

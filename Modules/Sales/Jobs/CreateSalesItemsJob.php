@@ -2,11 +2,11 @@
 
 namespace Modules\Sales\Jobs;
 
-use App\Invoice;
-use App\InvoiceItems;
-use App\Item;
-use App\ItemSerials;
-use App\TransactionsContainer;
+use App\Models\Invoice;
+use App\Models\InvoiceItems;
+use App\Models\Item;
+use App\Models\ItemSerials;
+use App\Models\TransactionsContainer;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;

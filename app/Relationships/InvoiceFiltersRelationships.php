@@ -2,7 +2,7 @@
 namespace App\Relationships;
 
 
-use App\Item;
+use App\Models\Item;
 trait InvoiceFiltersRelationships {
 
 	public function item(	)

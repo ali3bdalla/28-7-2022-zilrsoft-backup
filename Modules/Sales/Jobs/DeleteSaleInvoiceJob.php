@@ -2,11 +2,11 @@
 
 namespace Modules\Sales\Jobs;
 
-use App\Invoice;
-use App\InvoicePayments;
-use App\Payment;
-use App\Transaction;
-use App\TransactionsContainer;
+use App\Models\Invoice;
+use App\Models\InvoicePayments;
+use App\Models\Payment;
+use App\Models\Transaction;
+use App\Models\TransactionsContainer;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;

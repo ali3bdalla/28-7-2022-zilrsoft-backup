@@ -2,12 +2,12 @@
 	
 	namespace App\Http\Requests\Accounting\Inventory;
 	
-	use App\Accounting\AmountsAccounting;
-	use App\Accounting\CostAccounting;
-	use App\Accounting\ExpensesAccounting;
-	use App\Accounting\QtyTransactionAccounting;
-	use App\Accounting\TransactionAccounting;
-	use App\Transaction;
+	use App\Models\Accounting\AmountsAccounting;
+	use App\Models\Accounting\CostAccounting;
+	use App\Models\Accounting\ExpensesAccounting;
+	use App\Models\Accounting\QtyTransactionAccounting;
+	use App\Models\Accounting\TransactionAccounting;
+	use App\Models\Transaction;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Http\RedirectResponse;
 	

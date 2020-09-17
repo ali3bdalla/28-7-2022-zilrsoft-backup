@@ -32,7 +32,7 @@
 
                                 </span>
                     <input placeholder="<?php echo e(__('pages/vouchers.type')); ?>" disabled
-                           value="<?php if($payment->paymentable_type=="App\Invoice"): ?><?php echo e(__('pages/vouchers.invoices_payment')); ?><?php else: ?><?php echo e(__('pages/vouchers.advance_payment')); ?><?php endif; ?>"
+                           value="<?php if($payment->paymentable_type=="App\Models\Invoice"): ?><?php echo e(__('pages/vouchers.invoices_payment')); ?><?php else: ?><?php echo e(__('pages/vouchers.advance_payment')); ?><?php endif; ?>"
                            type="text" class="form-control">
                 </div>
 

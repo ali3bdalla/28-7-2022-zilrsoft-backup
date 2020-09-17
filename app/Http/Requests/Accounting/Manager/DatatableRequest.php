@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Manager;
 	
-	use App\Manager;
+	use App\Models\Manager;
 	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
 	

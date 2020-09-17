@@ -2,14 +2,14 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Account;
-	use App\Accounting\TransactionAccounting;
+	use App\Models\Account;
+	use App\Models\Accounting\TransactionAccounting;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Charts\PeriodCloseAccoundRequest;
 	use App\Http\Requests\Accounting\ResellerDaily\TransferAmountsRequest;
-	use App\Manager;
-	use App\ManagerPrivateTransactions;
-	use App\Transaction;
+	use App\Models\Manager;
+	use App\Models\ManagerPrivateTransactions;
+	use App\Models\Transaction;
 	use Illuminate\Contracts\View\Factory;
 	use Illuminate\Http\Request;
 	use Illuminate\View\View;

@@ -4,9 +4,9 @@
 	namespace App\Http\Controllers\ControllersHelper;
 	
 	
-	use App\Item;
-	use App\Transaction;
-	use App\User;
+	use App\Models\Item;
+	use App\Models\Transaction;
+	use App\Models\User;
 	
 	trait AccountGeneralHelper
 	{

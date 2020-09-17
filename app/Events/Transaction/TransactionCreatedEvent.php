@@ -2,7 +2,7 @@
 
 namespace App\Events\Transaction;
 
-use App\Transaction;
+use App\Models\Transaction;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;

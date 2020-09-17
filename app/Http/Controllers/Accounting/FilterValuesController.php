@@ -2,8 +2,8 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Filter;
-	use App\FilterValues;
+	use App\Models\Filter;
+	use App\Models\FilterValues;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Filter\CreateFilterValueRequest;
 	use App\Http\Requests\Accounting\Filter\UpdateFilterValueRequest;

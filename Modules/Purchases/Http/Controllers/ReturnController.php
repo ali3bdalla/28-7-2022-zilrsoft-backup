@@ -2,7 +2,7 @@
 
 namespace Modules\Purchases\Http\Controllers;
 
-use App\Invoice;
+use App\Models\Invoice;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Purchases\Http\Requests\CreateReturnRequest;

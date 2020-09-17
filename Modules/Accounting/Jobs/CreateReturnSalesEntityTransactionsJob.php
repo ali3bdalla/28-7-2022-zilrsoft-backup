@@ -2,9 +2,9 @@
 
 namespace Modules\Accounting\Jobs;
 
-use App\Account;
-use App\Invoice;
-use App\TransactionsContainer;
+use App\Models\Account;
+use App\Models\Invoice;
+use App\Models\TransactionsContainer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -188,7 +188,7 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
         $sum = $this->invoice->expenses()->where('with_net', 0)->sum('amount');
 
         if ($sum > 0) {
-            $cash_paid_before = $this->invoice->transactions()->where([['creditable_type', 'App\Account'], ['creditable_id',
+            $cash_paid_before = $this->invoice->transactions()->where([['creditable_type', 'App\Models\Account'], ['creditable_id',
                 $userGatewayAccount->id]])->first();
             if (!empty($cash_paid_before)) {
                 $new_amount = $cash_paid_before->amount + $sum;

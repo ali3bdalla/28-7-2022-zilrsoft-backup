@@ -2,13 +2,13 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Account;
-	use App\Branch;
+	use App\Models\Account;
+	use App\Models\Branch;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Manager\CreateManagerRequest;
 	use App\Http\Requests\Accounting\Manager\DatatableRequest;
 	use App\Http\Requests\Accounting\Mananger\UpdateManagerRequest;
-	use App\Manager;
+	use App\Models\Manager;
 	use Exception;
 	use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 	use Illuminate\Http\Request;

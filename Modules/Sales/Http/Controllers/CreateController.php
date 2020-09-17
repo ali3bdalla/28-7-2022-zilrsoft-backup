@@ -2,11 +2,11 @@
 
 namespace Modules\Sales\Http\Controllers;
 
-use App\Account;
-use App\Invoice;
-use App\Item;
-use App\Manager;
-use App\User;
+use App\Models\Account;
+use App\Models\Invoice;
+use App\Models\Item;
+use App\Models\Manager;
+use App\Models\User;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Routing\Controller;

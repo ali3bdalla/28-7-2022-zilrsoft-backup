@@ -2,14 +2,14 @@
 
 namespace App\Http\Requests\Accounting\Purchase;
 
-use App\Accounting\AmountsAccounting;
-use App\Accounting\ExpensesAccounting;
-use App\Accounting\IdentityAccounting;
-use App\Accounting\PaymentAccounting;
-use App\Accounting\TransactionAccounting;
+use App\Models\Accounting\AmountsAccounting;
+use App\Models\Accounting\ExpensesAccounting;
+use App\Models\Accounting\IdentityAccounting;
+use App\Models\Accounting\PaymentAccounting;
+use App\Models\Accounting\TransactionAccounting;
 use App\Events\Accounting\Invoice\PendingPurchaseInvoiceCreatedEvent;
-use App\Invoice;
-use App\ItemSerials;
+use App\Models\Invoice;
+use App\Models\ItemSerials;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;

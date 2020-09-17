@@ -61,7 +61,6 @@
 				$sub_invoice = $this->create_subinvoice($invoice);
 				$invoice->add_items_to_invoice($this->items,$sub_invoice,[],'quotation',$this->client_id);
 				
-				
 				DB::commit();
 				return [
 					'invoice' => $invoice,

@@ -59,7 +59,7 @@ Did you mean one of these?
 #4 /usr/local/var/www/workspace/zilrsoft/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #5 {main}
 "} 
-[2020-08-09 20:47:27] producation.ERROR: Call to undefined method App\Item::serails() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) {"userId":8,"exception":"[object] (ErrorException(code: 0): Call to undefined method App\\Item::serails() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php:50)
+[2020-08-09 20:47:27] producation.ERROR: Call to undefined method App\Models\Item::serails() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) {"userId":8,"exception":"[object] (ErrorException(code: 0): Call to undefined method App\\Item::serails() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php:50)
 [stacktrace]
 #0 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(45): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(BadMethodCallException), 1)
 #1 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(59): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/usr/local/var/...', Array)
@@ -184,7 +184,7 @@ Did you mean one of these?
 #63 /Users/ali/.composer/vendor/laravel/valet/server.php(191): require('/usr/local/var/...')
 #64 {main}
 "} 
-[2020-08-09 20:47:28] producation.ERROR: Call to undefined method App\Item::serails() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) {"userId":8,"exception":"[object] (ErrorException(code: 0): Call to undefined method App\\Item::serails() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php:50)
+[2020-08-09 20:47:28] producation.ERROR: Call to undefined method App\Models\Item::serails() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) {"userId":8,"exception":"[object] (ErrorException(code: 0): Call to undefined method App\\Item::serails() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php:50)
 [stacktrace]
 #0 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(45): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(BadMethodCallException), 1)
 #1 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(59): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/usr/local/var/...', Array)
@@ -1221,7 +1221,7 @@ Did you mean one of these?
 #63 /Users/ali/.composer/vendor/laravel/valet/server.php(191): require('/usr/local/var/...')
 #64 {main}
 "} 
-[2020-08-09 20:48:42] producation.ERROR: Call to undefined method App\Invoice::serials() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) {"userId":8,"exception":"[object] (ErrorException(code: 0): Call to undefined method App\\Invoice::serials() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php:50)
+[2020-08-09 20:48:42] producation.ERROR: Call to undefined method App\Models\Invoice::serials() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) {"userId":8,"exception":"[object] (ErrorException(code: 0): Call to undefined method App\\Invoice::serials() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php:50)
 [stacktrace]
 #0 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(45): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(BadMethodCallException), 1)
 #1 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(59): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/usr/local/var/...', Array)
@@ -1346,7 +1346,7 @@ Did you mean one of these?
 #63 /Users/ali/.composer/vendor/laravel/valet/server.php(191): require('/usr/local/var/...')
 #64 {main}
 "} 
-[2020-08-09 20:48:43] producation.ERROR: Call to undefined method App\Invoice::serials() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) {"userId":8,"exception":"[object] (ErrorException(code: 0): Call to undefined method App\\Invoice::serials() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php:50)
+[2020-08-09 20:48:43] producation.ERROR: Call to undefined method App\Models\Invoice::serials() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) {"userId":8,"exception":"[object] (ErrorException(code: 0): Call to undefined method App\\Invoice::serials() (View: /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/purchases/edit.blade.php) at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php:50)
 [stacktrace]
 #0 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(45): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(BadMethodCallException), 1)
 #1 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(59): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/usr/local/var/...', Array)

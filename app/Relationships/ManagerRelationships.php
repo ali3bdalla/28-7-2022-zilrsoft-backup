@@ -2,15 +2,15 @@
 	
 	namespace App\Relationships;
 	
-	use App\Account;
-	use App\Branch;
+	use App\Models\Account;
+	use App\Models\Branch;
 	use App\Category;
-	use App\Department;
-	use App\Filter;
-	use App\FilterValues;
-	use App\ManagerPrivateTransactions;
-	use App\Organization;
-	use App\User;
+	use App\Models\Department;
+	use App\Models\Filter;
+	use App\Models\FilterValues;
+	use App\Models\ManagerPrivateTransactions;
+	use App\Models\Organization;
+	use App\Models\User;
 	use Carbon\Carbon;
 	
 	//	use App\Gateway;

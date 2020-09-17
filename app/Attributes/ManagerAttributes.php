@@ -2,7 +2,7 @@
 	
 	namespace App\Attributes;
 	
-	use App\Account;
+	use App\Models\Account;
 	
 	trait  ManagerAttributes
 	{

@@ -2,8 +2,8 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Expense;
-	use App\Filter;
+	use App\Models\Expense;
+	use App\Models\Filter;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Expense\CreateExpenseRequest;
 	use Illuminate\Http\Request;

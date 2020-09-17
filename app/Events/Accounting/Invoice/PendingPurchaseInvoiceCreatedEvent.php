@@ -2,7 +2,7 @@
 	
 	namespace App\Events\Accounting\Invoice;
 	
-	use App\Invoice;
+	use App\Models\Invoice;
 	use Illuminate\Broadcasting\Channel;
 	use Illuminate\Broadcasting\InteractsWithSockets;
 	use Illuminate\Broadcasting\PresenceChannel;

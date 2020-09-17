@@ -2,9 +2,9 @@
 
 namespace Modules\Accounting\Http\Controllers;
 
-use App\Account;
-use App\Invoice;
-use App\TransactionsContainer;
+use App\Models\Account;
+use App\Models\Invoice;
+use App\Models\TransactionsContainer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;

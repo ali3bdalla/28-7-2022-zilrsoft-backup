@@ -945,7 +945,7 @@
 #15 /usr/local/var/www/workspace/zilrsoft/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #16 {main}
 "} 
-[2020-08-18 22:57:45] producation.ERROR: App\Invoice::user must return a relationship instance. {"userId":2,"exception":"[object] (LogicException(code: 0): App\\Invoice::user must return a relationship instance. at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php:424)
+[2020-08-18 22:57:45] producation.ERROR: App\Models\Invoice::user must return a relationship instance. {"userId":2,"exception":"[object] (LogicException(code: 0): App\\Invoice::user must return a relationship instance. at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php:424)
 [stacktrace]
 #0 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php(401): Illuminate\\Database\\Eloquent\\Model->getRelationshipFromMethod('user')
 #1 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php(333): Illuminate\\Database\\Eloquent\\Model->getRelationValue('user')

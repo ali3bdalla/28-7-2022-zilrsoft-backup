@@ -128,7 +128,7 @@
                     <?php endif; ?>
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view sale')): ?>
                         <li>
-                            <a href="<?php echo e(route('accounting.sales.index')); ?>"><i class="fa fa-sun"></i>
+                            <a href="<?php echo e(route('sales.index')); ?>"><i class="fa fa-sun"></i>
                                 <?php echo e(__('sidebar.sales')); ?>
 
                             </a></li>

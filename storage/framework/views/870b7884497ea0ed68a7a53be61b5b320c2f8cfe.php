@@ -19,7 +19,7 @@
     <accounting-sales-datatable-component
             :creators='<?php echo json_encode($creators, 15, 512) ?>'
             :vendors='<?php echo json_encode($clients, 15, 512) ?>'
-            :departments='<?php echo json_encode(\App\Department::all(), 15, 512) ?>'
+            :departments='<?php echo json_encode(\App\Models\Department::all(), 15, 512) ?>'
             :creator='<?php echo json_encode(auth()->user(), 15, 512) ?>'
             :can-view-accounting="<?php echo e(auth()->user()->canDo('view item transactions')); ?>"
             :can-edit="<?php echo e(auth()->user()->canDo('edit sale')); ?>"

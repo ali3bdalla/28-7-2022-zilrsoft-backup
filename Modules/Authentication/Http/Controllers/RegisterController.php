@@ -34,7 +34,7 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         //
-    }
+    } 
 
     /**
      * Show the specified resource.

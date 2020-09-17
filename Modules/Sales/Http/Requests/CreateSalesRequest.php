@@ -2,8 +2,8 @@
 
 namespace Modules\Sales\Http\Requests;
 
-use App\Invoice;
-use App\TransactionsContainer;
+use App\Models\Invoice;
+use App\Models\TransactionsContainer;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;

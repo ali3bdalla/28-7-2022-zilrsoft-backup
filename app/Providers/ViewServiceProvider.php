@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Invoice;
+use App\Models\Invoice;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;

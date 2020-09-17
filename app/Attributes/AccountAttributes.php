@@ -3,9 +3,9 @@
 
 namespace App\Attributes;
 
-use App\Account;
-use App\AccountStatistic;
-use App\Transaction;
+use App\Models\Account;
+use App\Models\AccountStatistic;
+use App\Models\Transaction;
 
 
 trait AccountAttributes
@@ -23,7 +23,7 @@ trait AccountAttributes
     public function getCurrentAmountAttribute()
     {
         $nestedTreeIds = $this->returnNestedTreeIds($this);
-        return money_format("%i",$this->_getAccountsTreeBalance($nestedTreeIds));
+        return $this->_getAccountsTreeBalance($nestedTreeIds);
     }
 
 
@@ -149,12 +149,12 @@ trait AccountAttributes
 
     public function _getStockCreditAmount()
     {
-        return Transaction::where('creditable_type', 'App\Item')->sum('amount');
+        return Transaction::where('creditable_type', 'App\Models\Item')->sum('amount');
     }
 
     public function _getStockDebitAmount()
     {
-       return Transaction::where('debitable_type', 'App\Item')->sum('amount');
+       return Transaction::where('debitable_type', 'App\Models\Item')->sum('amount');
     }
 
     public function _getCurrentBalanceUsingTransaction()

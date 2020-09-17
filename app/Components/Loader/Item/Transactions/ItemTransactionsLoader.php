@@ -4,7 +4,7 @@
 	namespace App\Components\Loader\Item\Transactions;
 	
 	
-	use App\Item;
+	use App\Models\Item;
 	use Illuminate\Http\Request;
 	
 	class ItemTransactionsLoader

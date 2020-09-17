@@ -3,7 +3,7 @@
 	namespace App\Http\Controllers\Accounting;
 	
 	use App\Category;
-	use App\Filter;
+	use App\Models\Filter;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Category\CreateCategoryRequest;
 	use App\Http\Requests\Accounting\Category\UpdateCategoryRequest;

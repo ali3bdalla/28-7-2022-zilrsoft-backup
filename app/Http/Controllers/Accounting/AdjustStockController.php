@@ -6,8 +6,8 @@
 	use App\Http\Requests\Accounting\Inventory\ActivateAdjustStockRequest;
 	use App\Http\Requests\Accounting\Inventory\AdjustStockDatatableRequest;
 	use App\Http\Requests\Accounting\Inventory\CreateAdjustStockRequest;
-	use App\Invoice;
-	use App\User;
+	use App\Models\Invoice;
+	use App\Models\User;
 	use Illuminate\Http\RedirectResponse;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;

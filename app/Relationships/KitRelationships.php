@@ -1,7 +1,7 @@
 <?php
 namespace App\Relationships;
-use App\KitData;
-use App\KitItems;
+use App\Models\KitData;
+use App\Models\KitItems;
 
 trait KitRelationships {
 

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {{--    {{ \App\User::all() }}--}}
+    {{--    {{ \App\Models\User::all() }}--}}
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">

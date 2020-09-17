@@ -3,7 +3,7 @@
 	namespace App\Http\Controllers\Accounting;
 	
 	use App\Http\Controllers\Controller;
-	use App\WarrantySubscription;
+	use App\Models\WarrantySubscription;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
 	

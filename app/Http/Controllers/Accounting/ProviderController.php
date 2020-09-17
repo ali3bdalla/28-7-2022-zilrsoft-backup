@@ -2,16 +2,16 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Account;
+	use App\Models\Account;
 	use App\Category;
 	use App\CategoryFilters;
 	use App\Core\MathCore;
-	use App\Filter;
+	use App\Models\Filter;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Item\FindItemsRequest;
 	use App\Http\Requests\Accounting\Item\ValidatePurchaseSerialsRequest;
 	use App\Http\Requests\Accounting\Item\ValidateSerialRequest;
-	use App\Item;
+	use App\Models\Item;
 	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Database\Eloquent\Collection;
 	use Illuminate\Http\Request;

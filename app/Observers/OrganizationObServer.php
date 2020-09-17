@@ -2,28 +2,29 @@
 
 namespace App\Observers;
 
-use App\Organization;
+use App\Jobs\Accounting\Chart\CreateAmericanChartOfAccountsJob;
+use App\Models\Organization;
 
 class OrganizationObServer
 {
     /**
      * Handle the organization "created" event.
      *
-     * @param  \App\Organization  $organization
+     * @param  \App\Models\Organization  $organization
      * @return void
      */
     public function created(Organization $organization)
     {
         
         //
-
-        
+        dispatch(new CreateAmericanChartOfAccountsJob($organization));
+    
     }
 
     /**
      * Handle the organization "updated" event.
      *
-     * @param  \App\Organization  $organization
+     * @param  \App\Models\Organization  $organization
      * @return void
      */
     public function updated(Organization $organization)
@@ -34,7 +35,7 @@ class OrganizationObServer
     /**
      * Handle the organization "deleted" event.
      *
-     * @param  \App\Organization  $organization
+     * @param  \App\Models\Organization  $organization
      * @return void
      */
     public function deleted(Organization $organization)
@@ -45,7 +46,7 @@ class OrganizationObServer
     /**
      * Handle the organization "restored" event.
      *
-     * @param  \App\Organization  $organization
+     * @param  \App\Models\Organization  $organization
      * @return void
      */
     public function restored(Organization $organization)
@@ -56,7 +57,7 @@ class OrganizationObServer
     /**
      * Handle the organization "force deleted" event.
      *
-     * @param  \App\Organization  $organization
+     * @param  \App\Models\Organization  $organization
      * @return void
      */
     public function forceDeleted(Organization $organization)

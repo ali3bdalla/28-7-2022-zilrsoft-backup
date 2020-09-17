@@ -2,10 +2,10 @@
 
 namespace Modules\Accounting\Jobs;
 
-use App\Account;
-use App\Invoice;
-use App\Item;
-use App\TransactionsContainer;
+use App\Models\Account;
+use App\Models\Invoice;
+use App\Models\Item;
+use App\Models\TransactionsContainer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -190,7 +190,7 @@ class CreatePurchasesEntityTransactionsJob implements ShouldQueue
         }
         $sum = $this->invoice->expenses()->where('with_net', 0)->sum('amount');
         if ($sum > 0) {
-            $cashAccount = $this->invoice->transactions()->where([['creditable_type', 'App\Account'], ['creditable_id', $userCashAccountId]])->first();
+            $cashAccount = $this->invoice->transactions()->where([['creditable_type', 'App\Models\Account'], ['creditable_id', $userCashAccountId]])->first();
             if (!empty($cashAccount)) {
                 $newAmount = $cashAccount->amount + $sum;
                 $cashAccount->update([

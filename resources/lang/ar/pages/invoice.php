@@ -82,7 +82,7 @@
 		'edit' => 'تعديل',
 		'delete' => 'استرجاع كامل الفاتورة',
 		'PurchaseBaseUrl' => route('accounting.purchases.index'),
-		'SaleBaseUrl' => route('accounting.sales.index'),
+		'SaleBaseUrl' => route('sales.index'),
 		'creator' => 'الموظف',
 		'make_note' => 'اضافة ملاحظة',
 		'type_here' => 'اكتب هنا',

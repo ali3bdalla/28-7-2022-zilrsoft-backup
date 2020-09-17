@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Item;
+use App\Models\Item;
 use Illuminate\Console\Command;
 
 class ChangeItemsVatCommand extends Command

@@ -4,7 +4,7 @@
 	namespace App\Components\Loader\Chart\Transaction;
 	
 	
-	use App\Transaction;
+	use App\Models\Transaction;
 	use Carbon\Carbon;
 	use Illuminate\Database\Eloquent\Builder;
 	

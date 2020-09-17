@@ -3,10 +3,10 @@
 	namespace App\Relationships;
 	
 	
-	use App\Invoice;
-	use App\ItemSerials;
-	use App\Manager;
-	use App\User;
+	use App\Models\Invoice;
+	use App\Models\ItemSerials;
+	use App\Models\Manager;
+	use App\Models\User;
 	
 	trait PurchaseInvoiceRelationships
 	{

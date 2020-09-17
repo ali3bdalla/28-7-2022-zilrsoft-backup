@@ -1587,8 +1587,8 @@
 [2020-08-24 16:54:58] producation.ERROR: Uncaught ErrorException: Array to string conversion in /usr/local/var/www/workspace/zilrsoft/app/Accounting/ExpensesAccounting.php:116
 Stack trace:
 #0 /usr/local/var/www/workspace/zilrsoft/app/Accounting/ExpensesAccounting.php(116): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Array to string...', '/usr/local/var/...', 116, Array)
-#1 /usr/local/var/www/workspace/zilrsoft/app/Accounting/TransactionAccounting.php(250): App\Http\Requests\Accounting\Purchase\CreatePurchaseRequest->toCreateInvoiceExpenseAndGetTotal(Object(App\Invoice), Object(Illuminate\Database\Eloquent\Collection), Array)
-#2 /usr/local/var/www/workspace/zilrsoft/app/Accounting/TransactionAccounting.php(201): App\Http\Requests\Accounting\Purchase\CreatePurchaseRequest->toCreateInvoiceTaxTransactions(Object(App\Invoice), Object(App\Account), Object(Illuminate\Database\Eloquent\Collection), Array, 17858)
+#1 /usr/local/var/www/workspace/zilrsoft/app/Accounting/TransactionAccounting.php(250): App\Http\Requests\Accounting\Purchase\CreatePurchaseRequest->toCreateInvoiceExpenseAndGetTotal(Object(App\Models\Invoice), Object(Illuminate\Database\Eloquent\Collection), Array)
+#2 /usr/local/var/www/workspace/zilrsoft/app/Accounting/TransactionAccounting.php(201): App\Http\Requests\Accounting\Purchase\CreatePurchaseRequest->toCreateInvoiceTaxTransactions(Object(App\Models\Invoice), Object(App\Models\Account), Object(Illuminate\Database\Eloquent\Collection), Array, 17858)
 #3 /usr/local/var/www/workspace/zilrsoft/app/Accounting/TransactionAccounting.php(121): App\Http\Requests\Accounting\Purchase {"userId":1,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught ErrorException: Array to string conversion in /usr/local/var/www/workspace/zilrsoft/app/Accounting/ExpensesAccounting.php:116
 Stack trace:
 #0 /usr/local/var/www/workspace/zilrsoft/app/Accounting/ExpensesAccounting.php(116): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, 'Array to string...', '/usr/local/var/...', 116, Array)

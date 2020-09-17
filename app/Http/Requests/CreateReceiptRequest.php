@@ -3,8 +3,8 @@
 	namespace App\Http\Requests;
 	
 	use AliAbdalla\Tafqeet\Core\Tafqeet;
-	use App\Invoice;
-	use App\User;
+	use App\Models\Invoice;
+	use App\Models\User;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
 	use Illuminate\Validation\Rule;

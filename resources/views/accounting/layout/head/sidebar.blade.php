@@ -119,7 +119,7 @@
                     @endcan
                     @can('view sale')
                         <li>
-                            <a href="{{route('accounting.sales.index')}}"><i class="fa fa-sun"></i>
+                            <a href="{{route('sales.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.sales') }}
                             </a></li>
 

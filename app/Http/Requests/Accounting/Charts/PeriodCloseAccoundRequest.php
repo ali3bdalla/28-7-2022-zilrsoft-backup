@@ -2,8 +2,8 @@
 	
 	namespace App\Http\Requests\Accounting\Charts;
 	
-	use App\Account;
-	use App\Accounting\TransactionAccounting;
+	use App\Models\Account;
+	use App\Models\Accounting\TransactionAccounting;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class PeriodCloseAccoundRequest extends FormRequest

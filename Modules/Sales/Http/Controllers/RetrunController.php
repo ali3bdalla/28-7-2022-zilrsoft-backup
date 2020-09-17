@@ -2,7 +2,7 @@
 
 namespace Modules\Sales\Http\Controllers;
 
-use App\Invoice;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;

@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Daily;
 
-use App\Account;
+use App\Models\Account;
 use Tests\TestCase;
 use App\Http\Middleware\VerifyCsrfToken;
-use App\Manager;
+use App\Models\Manager;
 
 class TransferAmountTest extends TestCase
 {

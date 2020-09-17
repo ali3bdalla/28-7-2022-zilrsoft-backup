@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Account;
 	
-	use App\Account;
+	use App\Models\Account;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class UpdateAccountRequest extends FormRequest

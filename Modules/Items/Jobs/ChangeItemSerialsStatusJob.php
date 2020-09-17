@@ -2,8 +2,8 @@
 
 namespace Modules\Items\Jobs;
 
-use App\Invoice;
-use App\Item;
+use App\Models\Invoice;
+use App\Models\Item;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;

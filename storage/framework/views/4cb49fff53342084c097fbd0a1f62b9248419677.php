@@ -1,5 +1,5 @@
-<?php use App\Invoice;
-	use App\ManagerPrivateTransactions;
+<?php use App\Models\Invoice;
+	use App\Models\ManagerPrivateTransactions;
 
 	$pending_transactions = ManagerPrivateTransactions::where([['is_pending',true],['transaction_type',
 	'transfer'],

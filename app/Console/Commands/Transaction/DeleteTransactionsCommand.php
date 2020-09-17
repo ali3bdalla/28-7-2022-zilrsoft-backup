@@ -3,8 +3,8 @@
 namespace App\Console\Commands\Transaction;
 
 use App\Http\Requests\Accounting\Transaction\DeleteTransactionsRequest;
-use App\Transaction;
-use App\TransactionsContainer;
+use App\Models\Transaction;
+use App\Models\TransactionsContainer;
 use Illuminate\Console\Command;
 use Illuminate\Http\Response;
 

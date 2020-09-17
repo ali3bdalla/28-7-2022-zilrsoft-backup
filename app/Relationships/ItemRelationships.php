@@ -6,15 +6,15 @@
 
 	use App\Attachment;
     use App\Category;
-	use App\InvoiceItems;
-	use App\ItemExpenses;
-	use App\ItemFilters;
-	use App\ItemSerials;
-	use App\ItemStatistic;
-	use App\Manager;
-	use App\Organization;
-	use App\Transaction;
-	use App\WarrantySubscription;
+	use App\Models\InvoiceItems;
+	use App\Models\ItemExpenses;
+	use App\Models\ItemFilters;
+	use App\Models\ItemSerials;
+	use App\Models\ItemStatistic;
+	use App\Models\Manager;
+	use App\Models\Organization;
+	use App\Models\Transaction;
+	use App\Models\WarrantySubscription;
 
 	trait ItemRelationships
 	{

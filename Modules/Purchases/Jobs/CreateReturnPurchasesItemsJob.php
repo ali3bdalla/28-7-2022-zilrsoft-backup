@@ -2,9 +2,9 @@
 
 namespace Modules\Purchases\Jobs;
 
-use App\Invoice;
-use App\InvoiceItems;
-use App\TransactionsContainer;
+use App\Models\Invoice;
+use App\Models\InvoiceItems;
+use App\Models\TransactionsContainer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;

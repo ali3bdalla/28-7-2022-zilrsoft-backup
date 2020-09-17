@@ -2,8 +2,8 @@
 	
 	namespace App\Http\Requests\Accounting\Item;
 	
-	use App\Item;
-	use App\ItemSerials;
+	use App\Models\Item;
+	use App\Models\ItemSerials;
 	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Foundation\Http\FormRequest;
 	

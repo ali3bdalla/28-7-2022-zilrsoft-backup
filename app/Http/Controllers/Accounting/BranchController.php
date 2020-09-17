@@ -2,8 +2,8 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Branch;
-	use App\Department;
+	use App\Models\Branch;
+	use App\Models\Department;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Branch\CreateBranchRequest;
 	use App\Http\Requests\Accounting\Branch\DatatableRequest;

@@ -49,7 +49,7 @@
                         <th class="text-center "><a href="{{ route('accounting.transactions.show',
                         $transaction->container_id==null ? $transaction->invoice_id : $transaction->container_id)
                         }}">{{$transaction->container_id}}</a></th>
-                        @if($transaction['debitable_type']=="App\Item")
+                        @if($transaction['debitable_type']=="App\Models\Item")
                             <th class="text-center ">
                                 @if(!empty($transaction->invoice))
                                     @if(!empty($transaction->invoice->sale))

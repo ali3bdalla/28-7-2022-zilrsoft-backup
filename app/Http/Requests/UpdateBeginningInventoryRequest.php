@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\InvoiceItems;
-use App\Item;
-use App\ItemSerials;
+use App\Models\InvoiceItems;
+use App\Models\Item;
+use App\Models\ItemSerials;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 

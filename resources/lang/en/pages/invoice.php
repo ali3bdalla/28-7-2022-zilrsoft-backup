@@ -80,7 +80,7 @@
 		'edit' => 'Update',
 		'delete' => 'Delete',
 		'PurchaseBaseUrl' => route('accounting.purchases.index'),
-		'SaleBaseUrl' => route('accounting.sales.index'),
+		'SaleBaseUrl' => route('sales.index'),
 		'creator' => 'Creator',
 		'make_note' => 'Note',
 		'type_here' => 'Type...',

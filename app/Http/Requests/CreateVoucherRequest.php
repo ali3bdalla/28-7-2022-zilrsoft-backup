@@ -3,8 +3,8 @@
 	namespace App\Http\Requests;
 	
 	use AliAbdalla\Tafqeet\Core\Tafqeet;
-	use App\Account;
-	use App\User;
+	use App\Models\Account;
+	use App\Models\User;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;

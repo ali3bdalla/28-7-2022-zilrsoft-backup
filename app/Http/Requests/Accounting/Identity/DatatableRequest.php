@@ -2,8 +2,8 @@
 	
 	namespace App\Http\Requests\Accounting\Identity;
 	
-	use App\ItemFilters;
-	use App\User;
+	use App\Models\ItemFilters;
+	use App\Models\User;
 	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
 	

@@ -1,7 +1,7 @@
 <?php
 namespace App\Relationships;
-use App\Filter;
-use App\Manager;
+use App\Models\Filter;
+use App\Models\Manager;
 
 trait FilterValuesRelationships {
 	

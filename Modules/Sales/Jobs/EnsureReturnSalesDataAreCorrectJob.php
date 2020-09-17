@@ -2,7 +2,7 @@
 
 namespace Modules\Sales\Jobs;
 
-use App\Invoice;
+use App\Models\Invoice;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

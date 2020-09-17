@@ -2,10 +2,10 @@
 
 namespace Modules\Sales\Http\Controllers;
 
-use App\Account;
-use App\Item;
-use App\Manager;
-use App\User;
+use App\Models\Account;
+use App\Models\Item;
+use App\Models\Manager;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;

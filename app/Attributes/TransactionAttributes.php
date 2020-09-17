@@ -4,8 +4,8 @@
 namespace App\Attributes;
 
 
-use App\Account;
-use App\Item;
+use App\Models\Account;
+use App\Models\Item;
 
 trait TransactionAttributes
 {
