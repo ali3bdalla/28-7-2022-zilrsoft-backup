@@ -46,26 +46,20 @@ class CreateReturnSalesItemsCostEntityTransactionsJob implements ShouldQueue
         $manager_products_sales_return_account = auth()->user()->toGetManagerAccount('products_return_sales');
         $manager_services_sales_return_account = auth()->user()->toGetManagerAccount('services_return_sales');
         $manager_other_services_sales_return_account = auth()->user()->toGetManagerAccount
-        ('other_services_return_sales');
+            ('other_services_return_sales');
         $manager_products_sales_discount_account = auth()->user()->toGetManagerAccount('products_sales_discount');
         $manager_services_sales_discount_account = auth()->user()->toGetManagerAccount('services_sales_discount');
         $manager_other_services_sales_discount_account = auth()->user()->toGetManagerAccount('other_services_sales_discount');
-        $manager_stock_account = auth()->user()->toGetManagerAccount('stock');
-//			$invoice_items = $this->items;
         $total_cost = $this->invoice->transactions()->where('description', 'to_item')->sum('amount');
-        // to make cost of goods transaction
         $manager_cogs_account->credit_transaction()->create([
             'creator_id' => auth()->user()->id,
             'organization_id' => auth()->user()->organization_id,
-            'debitable_id' => $manager_stock_account->id,
-            'debitable_type' => get_class($manager_stock_account),
             'amount' => $total_cost,
             'user_id' => $this->invoice->user_id,
             'invoice_id' => $this->invoice->id,
             'container_id' => $this->entity->id,
             'description' => 'to_cogs',
         ]);
-
 
         // to make sales transactions
         $products_sales_total = 0;
@@ -91,13 +85,11 @@ class CreateReturnSalesItemsCostEntityTransactionsJob implements ShouldQueue
             }
         }
 
-
         if ($products_sales_total > 0) {
             $manager_products_sales_return_account->debit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                'creditable_id' => $manager_stock_account->id,
-                'creditable_type' => get_class($manager_stock_account),
+              
                 'amount' => $products_sales_total,
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
@@ -105,13 +97,11 @@ class CreateReturnSalesItemsCostEntityTransactionsJob implements ShouldQueue
                 'description' => 'to_products_sales',
             ]);
         }
-//			$manager_other_services_sales_return_account
         if ($services_sales_total > 0) {
             $manager_services_sales_return_account->debit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                'creditable_id' => $manager_stock_account->id,
-                'creditable_type' => get_class($manager_stock_account),
+
                 'amount' => $services_sales_total,
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
@@ -124,8 +114,7 @@ class CreateReturnSalesItemsCostEntityTransactionsJob implements ShouldQueue
             $manager_other_services_sales_return_account->debit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                'creditable_id' => $manager_stock_account->id,
-                'creditable_type' => get_class($manager_stock_account),
+
                 'amount' => $other_services_sales_total,
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
@@ -133,14 +122,11 @@ class CreateReturnSalesItemsCostEntityTransactionsJob implements ShouldQueue
             ]);
         }
 
-
-        /// discounts
         if ($products_sales_total_discount > 0) {
             $manager_products_sales_discount_account->credit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                'debitable_id' => $manager_stock_account->id,
-                'debitable_type' => get_class($manager_stock_account),
+
                 'amount' => $products_sales_total_discount,
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
@@ -153,8 +139,7 @@ class CreateReturnSalesItemsCostEntityTransactionsJob implements ShouldQueue
             $manager_services_sales_discount_account->credit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                'debitable_id' => $manager_stock_account->id,
-                'debitable_type' => get_class($manager_stock_account),
+
                 'amount' => $services_sales_total_discount,
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
@@ -167,8 +152,7 @@ class CreateReturnSalesItemsCostEntityTransactionsJob implements ShouldQueue
             $manager_other_services_sales_discount_account->credit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                'debitable_id' => $manager_stock_account->id,
-                'debitable_type' => get_class($manager_stock_account),
+
                 'amount' => $other_services_sales_total_discount,
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
@@ -180,7 +164,6 @@ class CreateReturnSalesItemsCostEntityTransactionsJob implements ShouldQueue
 //
 
     }
-
 
     public function getInvoiceItems()
     {

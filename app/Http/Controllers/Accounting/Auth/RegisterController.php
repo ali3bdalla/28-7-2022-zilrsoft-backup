@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Accounting\Auth;
 
-use App\Models\Country;
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\Manager;
 use App\Models\Organization;
 use App\Models\Type;

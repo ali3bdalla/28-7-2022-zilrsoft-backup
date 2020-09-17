@@ -114,15 +114,7 @@
 			$response_t= json_decode(json_encode($this->result_pagination),true);
 			$response_t['totals'] = $this->other_results;
 			return $response_t;
-//			$this->results['totals'] =  $this->other_results;
-
-//			$this->result_pagination['totals_amounts'] = $this->results;
-//			$this->result_pagination->total_profits= $this->item_sales_total_profits;
 			return $this->result_pagination;
-//			return $this->other_results;
-//			$paginate = new Pagination($this->results,$this->request);
-//			return view('old.welcome');
-//			return $paginate->paginate();
 		
 		
 		}

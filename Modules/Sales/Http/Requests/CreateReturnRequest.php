@@ -31,7 +31,7 @@ class CreateReturnRequest extends FormRequest
             'items.*.id' => 'integer|required|exists:invoice_items,id',
             'items.*.returned_qty' => 'required',
             'items.*.serials' => 'nullable|array',
-            'items.*.serials.*' => 'required|string|exists:item_serials,serial',
+            'items.*.serials.*.serial' => 'required|exists:item_serials,serial',
             "methods" => 'nullable|array',
             'methods.*.id' => 'integer|required|exists:accounts,id',
         ];
@@ -92,7 +92,7 @@ class CreateReturnRequest extends FormRequest
             dispatch(new EnsureReturnSalesDataAreCorrectJob($invoice));
             dispatch(new ChangeInvoiceUpdatedAndDeletedJob($invoice));
             DB::commit();
-            return response($invoice->load('transactions'), 200);
+            return $invoice;
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw $queryException;

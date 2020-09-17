@@ -3,12 +3,13 @@
 	namespace App\Models;
 	
 	use App\Attributes\TransactionAttributes;
-	use Illuminate\Database\Eloquent\Builder;
+use App\Traits\OrmNumbersTrait;
+use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\SoftDeletes;
 
     class Transaction extends BaseModel
 	{
-		use TransactionAttributes,SoftDeletes;
+		use TransactionAttributes,SoftDeletes,OrmNumbersTrait;
 		
 		protected $guarded = [];
 		
@@ -31,10 +32,7 @@
 			
 		}
 		
-		public function getAmountAttribute($value)
-		{
-			return money_format("%i",$value);
-		}
+		
 		
 		public function creditable()
 		{

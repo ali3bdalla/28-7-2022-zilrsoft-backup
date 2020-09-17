@@ -21,7 +21,7 @@ class AuthenticationController extends Controller
     public function register()
     {
         $countries = Country::all();
-        $types = Type::all(); 
+        $types = Type::all();
         return view('authentication::register',compact('types','countries'));
     }
 

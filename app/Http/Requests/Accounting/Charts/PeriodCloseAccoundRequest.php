@@ -50,7 +50,7 @@
 				['slug','shifts_shortage'],
 			])->first();
 			
-			
+		
 			$container = auth()->user()->organization->transactions_containers()->create(
 				[
 					'creator_id' => auth()->user()->id,
@@ -134,7 +134,7 @@
 		 */
 		public function getShortageAmount()
 		{
-			$gatewaysAmount = 0;
+			$gatewaysAmount = 0; 
 			foreach ($this->input("gateways") as $gateway){
 				$gatewaysAmount = $gatewaysAmount + $gateway['amount'];
 			}

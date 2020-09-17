@@ -84,6 +84,7 @@
 		public function show(Invoice $sale)
 		{
 
+			// return $sale->transactions;
 			$transactions = $sale->transactions()->where('description','!=','client_balance')->get();
 			$invoice = $sale;
 

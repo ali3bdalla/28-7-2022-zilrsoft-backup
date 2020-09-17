@@ -3,12 +3,10 @@
 namespace App\Listeners\Account;
 
 use App\Models\Account;
-use App\Models\AccountStatistic;
 use App\Events\Transaction\TransactionCreatedEvent;
 use App\Events\Transaction\TransactionErasedEvent;
-use App\Models\Item;
 use App\Models\Transaction;
-use Illuminate\Support\Facades\DB;
+
 
 class UpdateAccountStatisticListener
 {
@@ -31,10 +29,10 @@ class UpdateAccountStatisticListener
     {
         $this->event = $event;
 
-        if($event instanceof TransactionCreatedEvent)
-             $this->_newTransactionUpdate();
-        if($event instanceof TransactionErasedEvent)
-        {
+        if ($event instanceof TransactionCreatedEvent)
+            $this->_newTransactionUpdate();
+
+        if ($event instanceof TransactionErasedEvent) {
             $this->_eraseTransactionUpdate();
         }
     }
@@ -45,123 +43,105 @@ class UpdateAccountStatisticListener
     private function _newTransactionUpdate()
     {
 
+        $amount = (float)$this->event->transaction->amount;
 
-//        dd($this->event->transaction);
         if ($this->event->transaction->_isDebitAbleAccount()) {
-            $statisticInstance = $this->event->transaction->_getDebitAbleAccount()->_getStatisticsInstance();
-            if ($this->event->transaction->_getDebitAbleAccount()->_isCredit()) {
-                $balance = (float)$statisticInstance->getOriginal('total_amount') - (float)$this->event->transaction->amount;
-            } else {
-                $balance = (float)$statisticInstance->getOriginal('total_amount') + (float)$this->event->transaction->amount;
-            }
-            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,(float)$this->event->transaction->amount,
-                false,true);
+            $this->event->transaction->_getDebitAbleAccount()->_getAccountBalanceUsingTransactions();
 
+            // $statisticInstance = $this->event->transaction->_getDebitAbleAccount()->_getStatisticsInstance();
+            // $newAmount = (float)$statisticInstance->debit_amount  + (float)$amount;
+            // $statisticInstance->update([
+            //     'debit_amount' => $newAmount
+            // ]);
         }
 
+
         if ($this->event->transaction->_isCreditAbleAccount()) {
-            $statisticInstance = $this->event->transaction->_getCreditAbleAccount()->_getStatisticsInstance();
-            if ($this->event->transaction->_getCreditAbleAccount()->_isCredit()) {
-                $balance = (float)$statisticInstance->total_amount + (float)$this->event->transaction->amount;
-            } else {
-                $balance = (float)$statisticInstance->getOriginal('total_amount') - (float)$this->event->transaction->amount;
-            }
-            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,(float)$this->event->transaction->amount,
-                true,true);
+            $this->event->transaction->_getCreditAbleAccount()->_getAccountBalanceUsingTransactions();
+            // $statisticInstance = $this->event->transaction->_getCreditAbleAccount()->_getStatisticsInstance();
+            // $newAmount = (float)$statisticInstance->credit_amount  + (float)$amount;
+
+            // $statisticInstance->update([
+            //     'credit_amount' => $newAmount
+            // ]);
         }
 
 
         if ($this->event->transaction->_isDebitAbleItem()) {
-            $statisticInstance = $this->stockAccount->_getStatisticsInstance();
-            $this->_updateAccountBalanceAndTransactionsCount
-            ($statisticInstance,
-                ((float)$this->event->transaction->amount + (float)$statisticInstance->total_amount),
-                (float)$this->event->transaction->amount,
-                false,
-                true);
+            $this->stockAccount->_getStockBalanceUsingTransactions();
 
+            // $statisticInstance = $this->stockAccount->_getStatisticsInstance();
+            // $newAmount = (float)$statisticInstance->debit_amount  + (float)$amount;
+
+            // $statisticInstance->update([
+            //     'debit_amount' => $newAmount
+            // ]);
         }
+
+
 
         if ($this->event->transaction->_isCreditAbleItem()) {
+            $this->stockAccount->_getStockBalanceUsingTransactions();
 
-            $statisticInstance = $this->stockAccount->_getStatisticsInstance();
-            $this->_updateAccountBalanceAndTransactionsCount
-            ($statisticInstance,
-                ((float)$this->event->transaction->amount - (float)$statisticInstance->total_amount),
-                (float)$statisticInstance->total_amount,
-                true,
-                true);
+            // $statisticInstance = $this->stockAccount->_getStatisticsInstance();
 
+            // $newAmount = (float)$statisticInstance->credit_amount  + (float)$amount;
+            // // die($statisticInstance->credit_amount);
+
+            // $statisticInstance->update([
+            //     'credit_amount' =>$newAmount
+            // ]);
         }
-
     }
+
+
     private function _eraseTransactionUpdate()
     {
+        $amount = (float)$this->event->transaction->moneyFormatter($this->event->transaction->amount);
+        //
+
         if ($this->event->transaction->_isDebitAbleAccount()) {
+
             $statisticInstance = $this->event->transaction->_getDebitAbleAccount()->_getStatisticsInstance();
-            if ($this->event->transaction->_getDebitAbleAccount()->_isCredit()) {
-                $balance = $statisticInstance->getOriginal('total_amount') + (float)$this->event->transaction->amount;
-            } else {
-                $balance = $statisticInstance->getOriginal('total_amount') - (float)$this->event->transaction->amount;
-            }
-            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance ,(float)$this->event->transaction->amount,
-                false,false);
+            $newAmount = (float)$statisticInstance->debit_amount  - (float)$amount;
+
+            $statisticInstance->update([
+                'debit_amount' => $newAmount
+            ]);
         }
+
 
         if ($this->event->transaction->_isCreditAbleAccount()) {
             $statisticInstance = $this->event->transaction->_getCreditAbleAccount()->_getStatisticsInstance();
-            if ($this->event->transaction->_getCreditAbleAccount()->type == 'credit') {
-                $balance = $statisticInstance->getOriginal('total_amount') - (float)$this->event->transaction->amount;
-            } else {
-                $balance = $statisticInstance->getOriginal('total_amount') + (float)$this->event->transaction->amount;
-            }
-            $this->_updateAccountBalanceAndTransactionsCount($statisticInstance, $balance,(float)$this->event->transaction->amount,
-                true,false);
+            $newAmount = (float)$statisticInstance->credit_amount  - (float)$amount;
 
+
+            $statisticInstance->update([
+                'credit_amount' =>$newAmount
+            ]);
         }
+
+
         if ($this->event->transaction->_isDebitAbleItem()) {
+
             $statisticInstance = $this->stockAccount->_getStatisticsInstance();
-            $this->_updateAccountBalanceAndTransactionsCount
-            ($statisticInstance,
-                ((float)$this->event->transaction->amount - $statisticInstance->total_amount),
-                (float)$this->event->transaction->amount,
-                false,
-                false);
+            $newAmount = (float)$statisticInstance->debit_amount  - (float)$amount;
+
+            $statisticInstance->update([
+                'debit_amount' => $newAmount
+            ]);
         }
+
+
+
         if ($this->event->transaction->_isCreditAbleItem()) {
+
             $statisticInstance = $this->stockAccount->_getStatisticsInstance();
-            $this->_updateAccountBalanceAndTransactionsCount
-                ($statisticInstance,
-                ((float)$this->event->transaction->amount + $statisticInstance->total_amount),
-                (float)$this->event->transaction->amount,
-                true,
-                false);
+            $newAmount = (float)$statisticInstance->credit_amount  - (float)$amount;
+
+            $statisticInstance->update([
+                'credit_amount' => $newAmount
+            ]);
         }
     }
-
-
-    private function _updateAccountBalanceAndTransactionsCount(AccountStatistic $accountStatistic,$balance,$amount , $isCredit = true,$addTransaction = true)
-    {
-
-        $data = [
-            'transactions_count' => $addTransaction ?  $accountStatistic->transactions_count + 1 : $accountStatistic->transactions_count - 1,
-            'total_amount' => $balance,
-        ];
-
-        if($isCredit)
-        {
-            $data['credit_amount'] = $addTransaction ? $accountStatistic->credit_amount +  $amount : $accountStatistic->credit_amount -  $amount;
-        }else
-        {
-            $data['debit_amount'] = $addTransaction ? $accountStatistic->debit_amount +  $amount : $accountStatistic->debit_amount -  $amount;
-
-        }
-        $accountStatistic->update($data);
-    }
-
-    
-
-
-    
-    
 }

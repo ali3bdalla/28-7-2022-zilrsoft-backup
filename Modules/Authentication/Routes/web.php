@@ -15,7 +15,8 @@
 //dd(auth()->user());
 Route::prefix('authentication')->name('authentication.')->group(function() {
     Route::middleware(['guest'])->group(function(){
-        Route::get('/register', 'AuthenticationController@create')->name('register');
+        Route::get('/register', 'RegisterController@showRegistrationForm')->name('show_registration_form');
+        Route::post('/register', 'RegisterController@register')->name('register');
         Route::post('/login', 'LoginController@login')->name('perform_login');
         Route::get('/login', 'LoginController@showLoginForm')->name('login');
     });

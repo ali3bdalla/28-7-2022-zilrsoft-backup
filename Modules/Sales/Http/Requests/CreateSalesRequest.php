@@ -12,6 +12,7 @@ use Illuminate\Validation\ValidationException;
 use Modules\Accounting\Jobs\CreateSalesEntityTransactionsJob;
 use Modules\Expenses\Jobs\CreateExpensesPrePurchasesJob;
 use Modules\Sales\Jobs\CreateSalesItemsJob;
+use Modules\Sales\Jobs\CreateSalesPaymentsJob;
 use Modules\Sales\Jobs\DeleteQuotationAfterSubSalesCreatedJob;
 use Modules\Sales\Jobs\EnsureSalesDataAreCorrectJob;
 use Modules\Sales\Jobs\UpdateInvoiceTotalsJob;
@@ -88,11 +89,17 @@ class CreateSalesRequest extends FormRequest
             $transactionContaniner->save();
             dispatch(new CreateSalesItemsJob($transactionContaniner, $invoice, $this->input('items')));
             dispatch(new UpdateInvoiceTotalsJob($invoice));
-            dispatch(new CreateSalesEntityTransactionsJob($transactionContaniner, $invoice, $this->input("methods")));
+            dispatch(new CreateSalesPaymentsJob($invoice,$this->input('methods')));
+
+            
+            dispatch(new CreateSalesEntityTransactionsJob($transactionContaniner, $invoice));
             dispatch(new DeleteQuotationAfterSubSalesCreatedJob($this->input('quotation_id')));
             dispatch(new EnsureSalesDataAreCorrectJob($invoice));
+            $invoiceData = response($invoice, 200);
+            // DB::rollBack();
+            // 23157
             DB::commit();
-            return response($invoice->load('items'), 200);
+            return $invoiceData;
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw $queryException;

@@ -57,16 +57,11 @@ class CreatePurchasesItemsEntityJob implements ShouldQueue
     public function handle()
     {
 
-//        die($this->transactionContainer);
-//        exit();
-        $stockAccount = Account::where('slug','stock')->first();
         $this->invoiceItem->item->debit_transaction()->create([
             'creator_id' => auth()->user()->id,
             'container_id' => $this->transactionContainer->id,
             'organization_id' => auth()->user()->organization_id,
-            'creditable_id' => $stockAccount->id,
-            'creditable_type' => get_class($stockAccount),
-            'amount' => $this->invoiceItem->moneyFormatter($this->invoiceItem->subtotal + (float)$this->totalItemExpenses),
+            'amount' => $this->invoiceItem->subtotal + (float)$this->totalItemExpenses,
             'user_id' => $this->invoiceItem->user_id,
             'invoice_id' => $this->invoiceItem->invoice_id,
             'description' => 'to_item',

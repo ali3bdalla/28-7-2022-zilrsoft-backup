@@ -180,6 +180,8 @@ class ItemController extends Controller
      */
     public function transactions(Item $item)
     {
+
+        $item->total_stock_amount = $item->cost * $item->available_qty;
         return view('accounting.items.transactions', compact('item'));
 
     }

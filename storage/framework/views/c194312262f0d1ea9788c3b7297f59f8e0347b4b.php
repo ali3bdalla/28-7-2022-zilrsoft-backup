@@ -244,7 +244,7 @@
 
                         <li>
                             <a href="<?php echo e(route('accounting.trial_balance.index')); ?>"><i class="fa fa-sun"></i>
-                                <?php echo e(__('sidebar.financial_statements')); ?>
+                                <?php echo e(__('sidebar.trial_balance')); ?>
 
                             </a></li>
                     <?php endif; ?>

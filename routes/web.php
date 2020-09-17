@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 // auth()->loginUsingId(1);
 // Route::middleware(['auth'])->get('/',
@@ -9,9 +8,7 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('guest')->get('/',
 //     'RedirectController@toAppPortal');
 
-
 Route::resource('sales', 'SaleController');
-Route::prefix('dashboard')->name('dashboard.')->group(function()
-{
-    Route::get('/','HomeController@index')->name('index');
+Route::prefix('dashboard')->name('dashboard.')->group(function () {
+    Route::get('/', 'HomeController@index')->name('index');
 });

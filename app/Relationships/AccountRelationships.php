@@ -9,8 +9,13 @@
     use App\Models\Transaction;
 	
 	trait AccountRelationships
+
 	{
-		
+
+
+
+
+
 		 public function statistics()
 		 {
 		 	return $this->hasOne(AccountStatistic::class,'account_id');

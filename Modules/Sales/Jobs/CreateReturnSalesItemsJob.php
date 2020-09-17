@@ -73,7 +73,6 @@ class CreateReturnSalesItemsJob implements ShouldQueue
         //
         foreach ($this->requestItemsData as $index => $itemRequestData) {
             $invoiceItem = InvoiceItems::findOrFail($itemRequestData['id']);
-            // dd($invoiceItem);
             if ($invoiceItem->item->isKit())
                 $this->createKit($this->invoice, $invoiceItem, $itemRequestData, $index);
             elseif(!$invoiceItem->isBelongToKit())

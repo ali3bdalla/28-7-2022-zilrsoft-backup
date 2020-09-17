@@ -66,7 +66,6 @@ class CreatePurchaseRequest extends FormRequest
     {
         DB::beginTransaction();
         try {
-//            dd($this->all());
             $authUser = auth()->user();
             $invoiceType = $this->user()->can('confirm purchase') ? 'purchase' : 'pending_purchase';
             $invoicePrefix = $invoiceType == 'purchase' ? 'PU-' : 'PPU-';
@@ -104,7 +103,7 @@ class CreatePurchaseRequest extends FormRequest
             dispatch(new CreatePurchaseItemsJob($transactionContainer,$invoice, $this->input('items'), $this->input('methods'), $expenses));
             dispatch(new UpdateInvoiceTotalsJob($invoice, $expensesAmount));
             if (!$this->user()->can('confirm purchase')) {
-                event(new PendingPurchaseInvoiceCreatedEvent($invoice->fresh()));
+//                event(new PendingPurchaseInvoiceCreatedEvent($invoice->fresh()));
             } else {
                 dispatch(new CreatePurchasesEntityTransactionsJob($transactionContainer,$invoice, $this->input('methods'), $expenses,$this->input('items')));
                 dispatch(new EnsurePurchaseDataAreCorrectJob($invoice));

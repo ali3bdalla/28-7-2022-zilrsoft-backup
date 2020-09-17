@@ -24,10 +24,21 @@ class CreateSalesEntityTransactionsJob implements ShouldQueue
      */
     private $invoice;
 
+
+
+
+    private $taxAccount;
+    private $stockAccount;
+    private $clientsAccount;
+    private $loggedUser;
+
+
+
+    private $totalTaxAmount = 0;
     /**
      * @var array
      */
-    private $paymentsMethods;
+    // private $paymentsMethods;
 
     /**
      * Create a new job instance.
@@ -36,21 +47,23 @@ class CreateSalesEntityTransactionsJob implements ShouldQueue
      * @param Invoice $invoice
      * @param array $paymentsMethods
      */
-    public function __construct(TransactionsContainer $entity,Invoice $invoice ,$paymentsMethods =  [])
+    public function __construct(TransactionsContainer $entity, Invoice $invoice)
     {
         //
         $this->entity = $entity;
         $this->invoice = $invoice;
-        $this->paymentsMethods = (array)$paymentsMethods;
+        $this->taxAccount = Account::where('slug', 'vat')->first();
+        $this->stockAccount = Account::where('slug', 'stock')->first();
+        $this->clientsAccount = Account::where('slug', 'clients')->first();
+        $this->loggedUser = auth()->user();
     }
 
     private function getTotalGatewaysPaidAmount()
     {
         $gatewaysTotalPaidAmount = 0;
-        if($this->paymentsMethods != null)
-        {
-            foreach ($this->paymentsMethods as $method){
-                if ($method['amount'] > 0){
+        if ($this->paymentsMethods != null) {
+            foreach ($this->paymentsMethods as $method) {
+                if ($method['amount'] > 0) {
                     $gatewaysTotalPaidAmount = $gatewaysTotalPaidAmount + (float) $method['amount'];
                 }
             }
@@ -65,151 +78,127 @@ class CreateSalesEntityTransactionsJob implements ShouldQueue
      */
     public function handle()
     {
-        $stockAccount = Account::where('slug','stock')->first();
-        $clientAccount = Account::where('slug','clients')->first();
+        $this->createItemsTransactions();
+        $this->createTaxesTransactions();
+        $this->handleUnPaidAmountForSystemClient();
+        $this->createPaymentsTransactions();
+        $this->handleUnPaidAmountForNormalClient();
 
-        $clientAccount->debit_transaction()->create([
-            'creator_id' => auth()->user()->id,
-            'organization_id' => auth()->user()->organization_id,
-            'amount' => $this->invoice->moneyFormatter($this->invoice->net),
-            'user_id' => $this->invoice->user_id,
-            'invoice_id' => $this->invoice->id,
-            'container_id' => $this->entity->id,
-            'description' => 'client_balance'
-        ]);
-
-        $this->addTaxTransactions($stockAccount);
+        dispatch(new CreateSalesItemsCostEntityTransactionsJob($this->invoice, $this->entity));
+    }
 
 
-        $gatewaysTotalPaidAmount = $this->getTotalGatewaysPaidAmount();
-        if ($gatewaysTotalPaidAmount < $this->invoice->net){
-            $amount = (float)$this->invoice->net - (float) $gatewaysTotalPaidAmount;
-            if (!$this->invoice->user()->is_system_user){
-                $this->invoice->user()->debit_transaction()->create([
-                    'creator_id' => auth()->user()->id,
-                    'organization_id' => auth()->user()->organization_id,
-                    'creditable_id' => $stockAccount->id,
-                    'creditable_type' => get_class($stockAccount),
-                    'amount' => $this->invoice->moneyFormatter($amount),
-                    'user_id' => $this->invoice->user_id,
-                    'invoice_id' => $this->invoice->id,
-                    'container_id' => $this->entity->id,
-                    'description' => 'to_stock',
-                ]);
-                dispatch(new UpdateUserBalanceJob($this->invoice->user(),'client_balance','increase',$amount));
-            }else{
-                if($this->paymentsMethods != null && count($this->paymentsMethods) == 1)
-                {
-                    $this->paymentsMethods[0]['amount'] = (float)$this->paymentsMethods[0]['amount'] + (float)$amount;
-                }else
-                {
+    private function handleUnPaidAmountForNormalClient()
+    {
+        if (!$this->invoice->user()->is_system_user) {
+            $paidAmount = $this->invoice->payments()->sum('amount');
+            $unPaidAmout =  $this->invoice->net - $paidAmount;
+            if ($unPaidAmout) {
+                if (!$this->invoice->user()->is_system_user) {
+                    $amount = (float)$this->invoice->net - (float)$paidAmount;
+                    $this->clientsAccount->debit_transaction()->create([
+                        'creator_id' => auth()->user()->id,
+                        'organization_id' => auth()->user()->organization_id,
+                        'amount' => $amount,
+                        'user_id' => $this->invoice->user_id,
+                        'invoice_id' => $this->invoice->id,
+                        'container_id' => $this->entity->id,
+                        'description' => 'to_stock',
+                    ]);
+                    dispatch(new UpdateUserBalanceJob($this->invoice->user(), 'client_balance', 'increase', $amount));
+                }
+            }
+        }
+    }
+    private function handleUnPaidAmountForSystemClient()
+    {
+        if ($this->invoice->user()->is_system_user) {
+            $paidAmount = $this->invoice->payments()->sum('amount');
+            $unPaidAmout =  $this->invoice->net - $paidAmount;
+            if ($unPaidAmout) {
+                $payments  = $this->invoice->payments()->count();
+                if ($payments) {
+                    $firstPaymentMethod =  $this->invoice->payments()->first();
+                    $firstPaymentMethod->update([
+                        'amount' => (float)$unPaidAmout + (float)$firstPaymentMethod->amount
+                    ]);
+                } else {
                     $error = \Illuminate\Validation\ValidationException::withMessages([
-                        "net"=> ['total paid gateways amount can\'t be more than invoice net'],
+                        "user" => ['system user can\'t  make credit invoices ',],
                     ]);
                     throw $error;
                 }
             }
         }
+    }
 
-
-        if($gatewaysTotalPaidAmount > $this->invoice->net)
-        {
-            if($this->paymentsMethods != null && count($this->paymentsMethods) == 1)
-            {
-                $this->paymentsMethods[0]['amount'] = $this->paymentsMethods[0]['amount'] - ((float)$gatewaysTotalPaidAmount - (float)$this->invoice->net);
-            }else
-            {
-                $error = \Illuminate\Validation\ValidationException::withMessages([
-                    "net"=> ['total paid gateways amount can\'t be more than invoice net'],
+    private function createItemsTransactions()
+    {
+        $items = $this->invoice->items()->where([[
+            'is_kit', false
+        ]])->get();
+        foreach ($items as $invoiceItem) {
+            if (!$invoiceItem->item->isService()) {
+                $amount = (float)$invoiceItem->item->cost * (int)$invoiceItem->qty;
+                $invoiceItem->item->credit_transaction()->create([
+                    'creator_id' => $this->loggedUser->id,
+                    'organization_id' => $this->loggedUser->organization_id,
+                    'container_id' => $this->entity->id,
+                    'amount' => $amount,
+                    'user_id' => $invoiceItem->user_id,
+                    'invoice_id' => $this->invoice->id,
+                    'description' => 'to_item',
                 ]);
-                throw $error;
+                $this->totalTaxAmount += $invoiceItem->tax;
             }
         }
-
-
-        if($this->paymentsMethods != null)
-        {
-            foreach ($this->paymentsMethods as $method){
-                if ((float)$method['amount'] > 0){
-                    $gateway = Account::find($method['id']);
-                    $gateway->debit_transaction()->create([
-                        'creator_id' => auth()->user()->id,
-                        'organization_id' => auth()->user()->organization_id,
-                        'creditable_id' => $stockAccount->id,
-                        'creditable_type' => get_class($stockAccount),
-                        'amount' => $this->invoice->moneyFormatter($method['amount']),
-                        'user_id' => $this->invoice->user_id,
-                        'invoice_id' => $this->invoice->id,
-                        'container_id' => $this->entity->id,
-                        'description' => 'to_gateway',
-                    ]);
-//                    dd((float)$method['amount']);
-                    $clientAccount->credit_transaction()->create([
-                        'creator_id' => auth()->user()->id,
-                        'organization_id' => auth()->user()->organization_id,
-                        'amount' => $this->invoice->moneyFormatter((float)$method['amount']),
-                        'user_id' => $this->invoice->user_id,
-                        'invoice_id' => $this->invoice->id,
-                        'container_id' => $this->entity->id,
-                        'description' => 'client_balance'
-                    ]);
-                    dispatch(new CreateSalesPaymentEntityJob($this->invoice,$gateway,$method['amount'],'receipt'));
-                    $gatewaysTotalPaidAmount = $gatewaysTotalPaidAmount + (float)$method['amount'];
-                }
-            }
-        }
-
-        dispatch(new CreateSalesItemsCostEntityTransactionsJob($this->invoice,$this->entity));
     }
 
 
-    private function addTaxTransactions(Account $stockAccount)
+    private function createTaxesTransactions()
     {
-        $taxAccount = Account::where('slug','vat')->first();
-        $gatewayAccounts = auth()->user()->gateways()->where(
-            'is_gateway',true
-        )->get();
-        if (count($gatewayAccounts) === 0){
-            $userGatewayAccount  = Account::where([
-                ['is_system_account',true],
-                ['slug','temp_reseller_account'],
-            ])->first();
-            $userCashAccountId = $userGatewayAccount->id;
-        }else{
-            $userGatewayAccount = $gatewayAccounts[0];
-            $userCashAccountId = $userGatewayAccount->id;
-        }
 
         $expensesTax = $this->invoice->expenses()->sum('tax');
-        $tax = $expensesTax + $this->invoice->tax;
-        if ($tax > 0){
-            $taxAccount->credit_transaction()->create([
-                'creator_id' => auth()->user()->id,
-                'organization_id' => auth()->user()->organization_id,
-                'debitable_id' => $stockAccount->id,
-                'debitable_type' => get_class($stockAccount),
-                'amount' =>$this->invoice->moneyFormatter( $tax),
+        $tax = $expensesTax + $this->totalTaxAmount;
+        if ($tax > 0) {
+            $this->taxAccount->credit_transaction()->create([
+                'creator_id' => $this->loggedUser->id,
+                'organization_id' => $this->loggedUser->organization_id,
+                'amount' => $tax,
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
                 'container_id' => $this->entity->id,
                 'description' => 'to_tax',
             ]);
         }
-        $sum = $this->invoice->expenses()->where('with_net',0)->sum('amount');
-        if ($sum > 0){
-            $taxAccount->debit_transaction()->create([
-                'creator_id' => auth()->user()->id,
-                'organization_id' => auth()->user()->organization_id,
-                'creditable_id' => $userCashAccountId,
-                'creditable_type' => get_class($userCashAccountId),
-                'amount' => $this->invoice->moneyFormatter($sum),
+
+        $sum = $this->invoice->expenses()->where('with_net', 0)->sum('amount');
+        if ($sum > 0) {
+            $this->taxAccount->debit_transaction()->create([
+                'creator_id' => $this->loggedUser->id,
+                'organization_id' => $this->loggedUser->organization_id,
+                'amount' => $sum,
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' =>  $this->invoice->id,
                 'container_id' => $this->entity->id,
                 'description' => 'to_gateway',
             ]);
         }
+    }
 
 
+    public function createPaymentsTransactions()
+    {
+        foreach ($this->invoice->payments as $key => $payment) {
+            $payment->paymentable->debit_transaction()->create([
+                'creator_id' => auth()->user()->id,
+                'organization_id' => auth()->user()->organization_id,
+                'amount' => $payment->amount,
+                'user_id' => $this->invoice->user_id,
+                'invoice_id' => $this->invoice->id,
+                'container_id' => $this->entity->id,
+                'description' => 'to_gateway',
+            ]);
+        }
     }
 }

@@ -12,7 +12,7 @@
 		 * @return void
 		 */
 		public function up()
-		{
+		{ 
 			Schema::create('invoice_items',function (Blueprint $table){
 				$table->bigIncrements('id');
 				$table->integer('organization_id');

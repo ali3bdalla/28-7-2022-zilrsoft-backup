@@ -109,7 +109,7 @@ class Item extends BaseModel
 
     public function getPurchaseTax($subtotal = 0)
     {
-        return (float) $subtotal * $this->vtp / 100;
+        return ((float)$subtotal * $this->vtp) / 100;
     }
 
     public function getSaleTax($subtotal = 0)
@@ -160,7 +160,6 @@ class Item extends BaseModel
         if ($this->is_kit) {
             $price = $this->data->net;
         }
-
         return $price;
     }
 

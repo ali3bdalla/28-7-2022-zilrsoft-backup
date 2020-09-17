@@ -16,6 +16,7 @@ use Modules\Users\Jobs\UpdateUserBalanceJob;
 class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     /**
      * @var TransactionsContainer
      */
@@ -71,8 +72,7 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
 
         if ($paymentsGatewayPaidAmount < $invoiceNetAmount) {
             $amount = (float)($invoiceNetAmount) - (float)($paymentsGatewayPaidAmount);
-            if($amount < 0)
-            {
+            if ($amount < 0) {
                 $error = ValidationException::withMessages([
                     "net" => ['total paid gateways amount can\'t be more than invoice net'],
                 ]);
@@ -82,8 +82,8 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
                 $this->invoice->user()->credit_transaction()->create([
                     'creator_id' => auth()->user()->id,
                     'organization_id' => auth()->user()->organization_id,
-                    'debitable_id' => $creatorStock->id,
-                    'debitable_type' => get_class($creatorStock),
+                    // 'debitable_id' => $creatorStock->id,
+                    // 'debitable_type' => get_class($creatorStock),
                     'amount' => $this->invoice->moneyFormatter($amount),
                     'user_id' => $userId,
                     'invoice_id' => $this->invoice->id,
@@ -106,14 +106,13 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
 
         if ($this->paymentMethods != null) {
             foreach ($this->paymentMethods as $method) {
-//                dd((float)$method['amount']);
                 if ((float)$method['amount'] > 0) {
                     $gateway = Account::find($method['id']);
                     $gateway->credit_transaction()->create([
                         'creator_id' => auth()->user()->id,
                         'organization_id' => auth()->user()->organization_id,
-                        'debitable_id' => $creatorStock->id,
-                        'debitable_type' => get_class($creatorStock),
+                        // 'debitable_id' => $creatorStock->id,
+                        // 'debitable_type' => get_class($creatorStock),
                         'amount' => $this->invoice->moneyFormatter($method['amount']),
                         'user_id' => $userId,
                         'invoice_id' => $this->invoice->id,
@@ -129,8 +128,6 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
                         'container_id' => $this->entity->id,
                         'description' => 'client_balance'
                     ]);
-
-//                    dd(1);
                     dispatch(new CreateSalesPaymentEntityJob($this->invoice, $gateway, $method['amount'], 'payment'));
                 }
             }
@@ -156,28 +153,28 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
     private function addTaxTransactions(Account $stockAccount)
     {
         $taxAccount = Account::where('slug', 'vat')->first();
-        $gatewayAccounts = auth()->user()->gateways()->where(
-            'is_gateway', true
-        )->get();
-        if (count($gatewayAccounts) === 0) {
+        // $gatewayAccounts = auth()->user()->gateways()->where(
+        //     'is_gateway', true
+        // )->get();
+        // if (count($gatewayAccounts) === 0) {
             $userGatewayAccount = Account::where([
                 ['is_system_account', true],
                 ['slug', 'temp_reseller_account'],
             ])->first();
-        } else {
-            $userGatewayAccount = $gatewayAccounts[0];
-        }
+        // } else {
+        //     $userGatewayAccount = $gatewayAccounts[0];
+        // }
 
         $expensesTax = $this->invoice->expenses()->sum('tax');
         $tax = $expensesTax + $this->invoice->tax;
 
 
         if ($tax > 0) {
-            $userGatewayAccount->debit_transaction()->create([
+            $taxAccount ->debit_transaction()->create([
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-                'creditable_id' => $stockAccount->id,
-                'creditable_type' => get_class($stockAccount),
+                // 'creditable_id' => $stockAccount->id,
+                // 'creditable_type' => get_class($stockAccount),
                 'amount' => $tax,
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,
@@ -199,8 +196,6 @@ class CreateReturnSalesEntityTransactionsJob implements ShouldQueue
                 $taxAccount->debit_transaction()->create([
                     'creator_id' => auth()->user()->id,
                     'organization_id' => auth()->user()->organization_id,
-                    'creditable_id' => $userGatewayAccount->id,
-                    'creditable_type' => get_class($userGatewayAccount),
                     'amount' => $sum,
                     'user_id' => $this->invoice->user_id,
                     'invoice_id' => $this->invoice->id,

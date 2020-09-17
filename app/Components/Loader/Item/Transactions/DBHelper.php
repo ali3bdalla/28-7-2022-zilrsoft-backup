@@ -137,10 +137,10 @@
 		{
 			$row->discount_data = $this->transactions_discount_details;
 			$row->expenses_data = $this->transactions_expenses_details;
-			$row->current_stock_amount = floatval(money_format("%i",$this->transaction_stock_amount));
+			$row->current_stock_amount = floatval($this->transaction_stock_amount);
 			$row->current_stock_qty = $this->item_current_stock_qty;
-			$row->current_stock_item_cost = floatval(money_format("%i",$this->item_current_cost));
-			$row->current_profits = floatval(money_format("%i",$this->transaction_profits));
+			$row->current_stock_item_cost = floatval($this->item_current_cost);
+			$row->current_profits = floatval($this->transaction_profits);
 			
 			$row->invoice_url = $row['urls']['invoice_url'];
 			$row->invoice_title = $row['urls']['invoice_title'];

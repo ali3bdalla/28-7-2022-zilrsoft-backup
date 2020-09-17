@@ -6,6 +6,7 @@ use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\View\View;
 
 class TrialBalanceController extends Controller
 {
@@ -83,7 +84,6 @@ class TrialBalanceController extends Controller
         //
   
 
-
         // $totalCreditAmount = round($totalCreditAmount);
         // $totalDebitAmount = round($totalDebitAmount);
         // $totalCreditBalance =round($totalCreditBalance);
@@ -97,6 +97,7 @@ class TrialBalanceController extends Controller
         return view('accounting::trial_balance.index2', compact('accounts', 'totalCreditAmount', 'totalDebitAmount', 'totalCreditBalance', 'totalDebitBalance'));
         //        return view('accounting::trial_balance.index', compact('accounts', 'totalCreditAmount', 'totalDebitAmount', 'totalCreditBalance', 'totalDebitBalance'));
     }
+
 
     /**
      * Show the form for creating a new resource.

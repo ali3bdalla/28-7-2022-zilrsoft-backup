@@ -224,7 +224,7 @@
 
                         <li>
                             <a href="{{route('accounting.trial_balance.index')}}"><i class="fa fa-sun"></i>
-                                {{ __('sidebar.financial_statements') }}
+                                {{ __('sidebar.trial_balance') }}
                             </a></li>
                     @endcan
                     @can('view transactions')
