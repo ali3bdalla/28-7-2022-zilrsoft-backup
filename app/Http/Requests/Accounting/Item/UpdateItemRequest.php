@@ -2,8 +2,8 @@
 
 	namespace App\Http\Requests\Accounting\Item;
 
-	use App\FilterValues;
-	use App\ItemFilters;
+	use App\Models\FilterValues;
+	use App\Models\ItemFilters;
 	use Illuminate\Foundation\Http\FormRequest;
 
 	class UpdateItemRequest extends FormRequest

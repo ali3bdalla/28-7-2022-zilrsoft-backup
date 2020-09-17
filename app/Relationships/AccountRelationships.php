@@ -4,12 +4,12 @@
 	namespace App\Relationships;
 	
 	
-	use App\AccountStatistic;
-    use App\Payment;
-    use App\Transaction;
-    use Illuminate\Database\Eloquent\Model;
+	use App\Models\AccountStatistic;
+    use App\Models\Payment;
+    use App\Models\Transaction;
+	
+	trait AccountRelationships
 
-    trait AccountRelationships
 	{
 
 

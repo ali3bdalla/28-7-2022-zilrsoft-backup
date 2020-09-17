@@ -2,10 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Account;
-use App\Invoice;
+use App\Models\Account;
+use App\Models\Invoice;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class UpdateAccountsBalanceCommand extends Command
 {

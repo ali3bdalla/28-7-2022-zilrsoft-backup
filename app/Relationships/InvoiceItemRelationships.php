@@ -2,10 +2,10 @@
 namespace App\Relationships;
 
 
-use App\Invoice;
-use App\Item;
-use App\Manager;
-use App\User;
+use App\Models\Invoice;
+use App\Models\Item;
+use App\Models\Manager;
+use App\Models\User;
 
 trait InvoiceItemRelationships {
 

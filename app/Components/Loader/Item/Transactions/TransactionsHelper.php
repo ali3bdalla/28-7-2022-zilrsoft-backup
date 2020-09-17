@@ -4,7 +4,7 @@
 	namespace App\Components\Loader\Item\Transactions;
 	
 	
-	use App\InvoiceItems;
+	use App\Models\InvoiceItems;
 	
 	trait TransactionsHelper
 	{

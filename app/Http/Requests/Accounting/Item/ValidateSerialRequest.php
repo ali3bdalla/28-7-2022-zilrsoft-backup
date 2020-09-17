@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Item;
 	
-	use App\Item;
+	use App\Models\Item;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class ValidateSerialRequest extends FormRequest

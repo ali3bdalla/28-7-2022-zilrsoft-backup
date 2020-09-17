@@ -2,8 +2,8 @@
 
 namespace Modules\Web\Http\Requests\Filter;
 
-use App\Item;
-use App\ItemFilters;
+use App\Models\Item;
+use App\Models\ItemFilters;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ApiGetFilterValuesRequest extends FormRequest

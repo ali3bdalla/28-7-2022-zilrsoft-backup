@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\ItemSerials;
+use App\Models\ItemSerials;
 use Illuminate\Http\Request;
 
 class SerialHistoryController extends Controller

@@ -2,13 +2,13 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Account;
+	use App\Models\Account;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Quotation\CreateQuotationRequest;
-	use App\Invoice;
-	use App\Item;
-	use App\Manager;
-	use App\User;
+	use App\Models\Invoice;
+	use App\Models\Item;
+	use App\Models\Manager;
+	use App\Models\User;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
 	

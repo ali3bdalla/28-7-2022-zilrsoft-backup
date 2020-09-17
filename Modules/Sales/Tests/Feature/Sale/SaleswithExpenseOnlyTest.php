@@ -2,10 +2,10 @@
 
 namespace Modules\Sales\Tests\Feature\Sale;
 
-use App\Account;
-use App\Item;
-use App\Manager;
-use App\User;
+use App\Models\Account;
+use App\Models\Item;
+use App\Models\Manager;
+use App\Models\User;
 use Tests\TestCase;
 
 class SaleswithExpenseOnlyTest extends TestCase

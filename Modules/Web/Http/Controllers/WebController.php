@@ -3,7 +3,7 @@
 namespace Modules\Web\Http\Controllers;
 
 use App\Category;
-use App\Item;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;

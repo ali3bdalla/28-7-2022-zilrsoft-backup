@@ -2,10 +2,11 @@
 
 namespace App\Listeners\Account;
 
-use App\Account;
+use App\Models\Account;
 use App\Events\Transaction\TransactionCreatedEvent;
 use App\Events\Transaction\TransactionErasedEvent;
-use App\Transaction;
+use App\Models\Transaction;
+
 
 class UpdateAccountStatisticListener
 {

@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Voucher;
 	
-	use App\Payment;
+	use App\Models\Payment;
 	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
 	

@@ -3,9 +3,9 @@
 	namespace App\Http\Requests\Accounting\Item;
 	
 	use App\Category;
-	use App\Item;
-	use App\ItemFilters;
-	use App\ItemSerials;
+	use App\Models\Item;
+	use App\Models\ItemFilters;
+	use App\Models\ItemSerials;
 	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
 	

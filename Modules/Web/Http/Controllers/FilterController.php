@@ -2,7 +2,7 @@
 
 namespace Modules\Web\Http\Controllers;
 
-use App\Filter;
+use App\Models\Filter;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

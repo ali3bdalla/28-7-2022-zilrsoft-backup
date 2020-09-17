@@ -2,15 +2,15 @@
 
 	namespace App\Http\Controllers\Accounting;
 
-	use App\Account;
+	use App\Models\Account;
     use App\Http\Controllers\Controller;
     use App\Http\Requests\Accounting\Sale\CreateSaleRequest;
     use App\Http\Requests\Accounting\Sale\DatatableRequest;
     use App\Http\Requests\Accounting\Sale\ReturnSaleRequest;
-    use App\Invoice;
-    use App\Item;
-    use App\Manager;
-    use App\User;
+    use App\Models\Invoice;
+    use App\Models\Item;
+    use App\Models\Manager;
+    use App\Models\User;
     use Illuminate\Contracts\Routing\ResponseFactory;
     use Illuminate\Contracts\View\Factory;
     use Illuminate\Http\Response;
@@ -35,7 +35,7 @@
 		{
 			$clients = User::where('is_client',true)->get();
 			$creators = Manager::all();
-			return view('accounting.sales.index',compact('clients','creators'));
+			return view('sales.index',compact('clients','creators'));
 
 		}
 

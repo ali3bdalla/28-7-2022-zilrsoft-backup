@@ -2,8 +2,8 @@
 
 namespace Modules\Purchases\Jobs;
 
-use App\Invoice;
-use App\Item;
+use App\Models\Invoice;
+use App\Models\Item;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

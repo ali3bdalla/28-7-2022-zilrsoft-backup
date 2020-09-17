@@ -1,6 +1,6 @@
 <?php
 namespace App\Relationships;
-use App\Item;
+use App\Models\Item;
 
 trait KitItemsRelationships {
 

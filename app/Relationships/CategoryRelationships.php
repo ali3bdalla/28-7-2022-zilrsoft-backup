@@ -2,8 +2,8 @@
 
 namespace App\Relationships;
 use \App\Category;
-use \App\Filter;
-use App\Item;
+use \App\Models\Filter;
+use App\Models\Item;
 
 trait CategoryRelationships {
 	

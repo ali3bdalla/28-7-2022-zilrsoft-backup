@@ -2,7 +2,7 @@
 
 namespace App\Relationships;
 
-use App\Department;
+use App\Models\Department;
 
 trait BranchRelationships {
 

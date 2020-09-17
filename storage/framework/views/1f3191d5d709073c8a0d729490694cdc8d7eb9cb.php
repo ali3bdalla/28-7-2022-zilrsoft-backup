@@ -26,7 +26,7 @@
             :creators='<?php echo json_encode($creators, 15, 512) ?>'
             :vendors='<?php echo json_encode($vendors, 15, 512) ?>'
             :is-pending='<?php echo e($is_pending ? 1 : 0); ?>'
-            :departments='<?php echo json_encode(\App\Department::all(), 15, 512) ?>'
+            :departments='<?php echo json_encode(\App\Models\Department::all(), 15, 512) ?>'
             :can-edit="<?php echo e(auth()->user()->canDo('edit purchase')); ?>"
             :can-confirm="<?php echo e(auth()->user()->canDo('confirm purchase')); ?>"
     >

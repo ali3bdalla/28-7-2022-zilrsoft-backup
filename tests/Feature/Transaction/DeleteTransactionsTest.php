@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Transaction;
 
-use App\Account;
-use App\AccountStatistic;
+use App\Models\Account;
+use App\Models\AccountStatistic;
 use App\Http\Middleware\VerifyCsrfToken;
-use App\Transaction;
-use App\TransactionsContainer;
-use App\User;
+use App\Models\Transaction;
+use App\Models\TransactionsContainer;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

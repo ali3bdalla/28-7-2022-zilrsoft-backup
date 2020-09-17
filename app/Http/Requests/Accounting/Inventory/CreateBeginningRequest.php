@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Inventory;
 	
-	use App\User;
+	use App\Models\User;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;

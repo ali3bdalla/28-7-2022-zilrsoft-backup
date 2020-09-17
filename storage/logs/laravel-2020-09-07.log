@@ -770,7 +770,11 @@
 #14 /usr/local/var/www/workspace/zilrsoft/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #15 {main}
 "} 
+<<<<<<< HEAD:storage/logs/laravel-2020-08-23.log
+[2020-08-23 17:04:23] producation.ERROR: SQLSTATE[HY000]: General error: 1364 Field 'creator_id' doesn't have a default value (SQL: insert into `transactions` (`amount`, `invoice_id`, `organization_id`, `description`, `debitable_id`, `debitable_type`, `updated_at`, `created_at`) values (3.5527136788005E-15, 89, 1, to_gateway, 24, App\Models\Account, 2020-08-23 17:04:23, 2020-08-23 17:04:23)) {"exception":"[object] (Illuminate\\Database\\QueryException(code: HY000): SQLSTATE[HY000]: General error: 1364 Field 'creator_id' doesn't have a default value (SQL: insert into `transactions` (`amount`, `invoice_id`, `organization_id`, `description`, `debitable_id`, `debitable_type`, `updated_at`, `created_at`) values (3.5527136788005E-15, 89, 1, to_gateway, 24, App\\Account, 2020-08-23 17:04:23, 2020-08-23 17:04:23)) at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php:669)
+=======
 [2020-09-07 12:16:04] producation.ERROR: Object of class Illuminate\Database\Query\Expression could not be converted to float {"exception":"[object] (ErrorException(code: 0): Object of class Illuminate\\Database\\Query\\Expression could not be converted to float at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php:738)
+>>>>>>> development:storage/logs/laravel-2020-09-07.log
 [stacktrace]
 #0 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php(738): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, 'Object of class...', '/usr/local/var/...', 738, Array)
 #1 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php(491): Illuminate\\Database\\Eloquent\\Model->fromFloat(Object(Illuminate\\Database\\Query\\Expression))

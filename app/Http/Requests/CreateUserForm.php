@@ -3,7 +3,7 @@
 	namespace App\Http\Requests;
 	
 	use App\Events\UserCreatedEvent;
-	use App\Manager;
+	use App\Models\Manager;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;

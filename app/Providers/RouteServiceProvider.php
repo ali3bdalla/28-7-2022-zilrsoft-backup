@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Invoice;
-use App\Item;
+use App\Models\Invoice;
+use App\Models\Item;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
-    //protected $namespace = 'App\Http\Controllers\Management';
+    protected $apiNamespace = 'App\Http\Controllers\Api';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -73,6 +73,8 @@ class RouteServiceProvider extends ServiceProvider
     {
 
         $this->mapWebRoutes();
+        $this->mapApiRoutes();
+
         $this->mapAccountingRoutes();
 
 
@@ -88,11 +90,20 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/web.php'));
+        Route::middleware('web','auth')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/web.php'));
     }
 
+
+    protected function mapApiRoutes()
+    {
+        Route::middleware('web','auth')
+        ->prefix('api')
+        ->name('api.')
+        ->namespace($this->apiNamespace)
+        ->group(base_path('routes/api.php'));
+    }
 
 
     protected function mapAccountingRoutes()

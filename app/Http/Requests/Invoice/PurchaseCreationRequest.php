@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Invoice;
 	
-	use App\ItemSerials;
+	use App\Models\ItemSerials;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;

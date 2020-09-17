@@ -3,20 +3,20 @@
 	
 	namespace App\Relationships;
 	
-	use App\Branch;
-	use App\Department;
-	use App\Invoice;
-	use App\InvoiceExpenses;
-	use App\InvoiceItems;
-	use App\InvoicePayments;
-	use App\Manager;
-	use App\Organization;
-	use App\Payment;
-	use App\PurchaseInvoice;
-	use App\SaleInvoice;
-	use App\SerialHistory;
-	use App\Transaction;
-	use App\User;
+	use App\Models\Branch;
+	use App\Models\Department;
+	use App\Models\Invoice;
+	use App\Models\InvoiceExpenses;
+	use App\Models\InvoiceItems;
+	use App\Models\InvoicePayments;
+	use App\Models\Manager;
+	use App\Models\Organization;
+	use App\Models\Payment;
+	use App\Models\PurchaseInvoice;
+	use App\Models\SaleInvoice;
+	use App\Models\SerialHistory;
+	use App\Models\Transaction;
+	use App\Models\User;
 	
 	trait InvoiceRelationship
 	{

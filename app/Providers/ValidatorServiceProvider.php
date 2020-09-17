@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Item;
+use App\Models\Item;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 

@@ -2,8 +2,8 @@
 
 namespace Modules\Items\Jobs;
 
-use App\Invoice;
-use App\InvoiceItems;
+use App\Models\Invoice;
+use App\Models\InvoiceItems;
 use Illuminate\Bus\Queueable;
 use Illuminate\Database\QueryException;
 use Illuminate\Queue\SerializesModels;
@@ -62,7 +62,6 @@ class UpdateItemCostJob implements ShouldQueue
             $result = $dbItem->handleReturnPurchaseHistory($this->invoiceItem,$costBeforeNewRow,$stockAmountBeforeNewRow,$availableQty);
         }
 
-//        dd($result['cost']);
 
         $dbItem->update([
             'cost' => $result['cost']

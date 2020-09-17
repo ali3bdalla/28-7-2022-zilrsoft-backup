@@ -2,10 +2,17 @@
 
 namespace Modules\Sales\Jobs;
 
+<<<<<<< HEAD
+use App\Models\Invoice;
+use App\Models\InvoiceItems;
+use App\Models\Item;
+use App\Models\TransactionsContainer;
+=======
 use App\Invoice;
 use App\InvoiceItems;
 use App\Item;
 use App\TransactionsContainer;
+>>>>>>> development
 use Dotenv\Exception\ValidationException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;

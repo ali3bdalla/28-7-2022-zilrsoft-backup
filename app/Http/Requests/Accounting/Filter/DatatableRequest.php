@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Filter;
 	
-	use App\Filter;
+	use App\Models\Filter;
 	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
 	

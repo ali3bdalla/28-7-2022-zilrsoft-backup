@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\ResellerDaily;
 	
-	use App\Account;
+	use App\Models\Account;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;

@@ -4,7 +4,7 @@
 namespace Modules\Purchases\Http\Controllers;
 
 
-use App\Invoice;
+use App\Models\Invoice;
 
 class StatisticsController
 {

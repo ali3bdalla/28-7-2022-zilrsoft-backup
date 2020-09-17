@@ -4,8 +4,8 @@
 	namespace App\Components\Loader\Chart\Transaction;
 	
 	
-	use App\Account;
-	use App\Transaction;
+	use App\Models\Account;
+	use App\Models\Transaction;
 	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Http\Request;
 	use Illuminate\Pagination\LengthAwarePaginator;

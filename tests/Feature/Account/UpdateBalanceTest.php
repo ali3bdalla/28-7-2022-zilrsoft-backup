@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Account;
 
-use App\Account;
+use App\Models\Account;
 use Tests\TestCase;
 
 class UpdateBalanceTest extends TestCase

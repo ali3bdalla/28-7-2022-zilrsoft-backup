@@ -2,11 +2,19 @@
 
 namespace Modules\Authentication\Http\Controllers;
 
+<<<<<<< HEAD
+use App\Models\Country;
+use App\Models\Manager;
+use App\Models\Organization;
+use App\Models\Type;
+use App\Models\User;
+=======
 use App\Country;
 use App\Manager;
 use App\Organization;
 use App\Type;
 use App\User;
+>>>>>>> development
 use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -202,4 +210,5 @@ class RegisterController extends Controller
 
         return $manager;
     }
+
 }

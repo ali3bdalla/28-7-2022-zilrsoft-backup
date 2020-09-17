@@ -2,9 +2,9 @@
 	
 	namespace App\Http\Requests\Accounting\Item;
 	
-	use App\FilterValues;
-	use App\Item;
-	use App\ItemFilters;
+	use App\Models\FilterValues;
+	use App\Models\Item;
+	use App\Models\ItemFilters;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class CreateItemRequest extends FormRequest

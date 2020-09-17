@@ -3,9 +3,9 @@
 namespace Modules\Purchases\Http\Requests;
 
 use App\Events\Accounting\Invoice\PendingPurchaseInvoiceCreatedEvent;
-use App\Invoice;
-use App\ItemSerials;
-use App\TransactionsContainer;
+use App\Models\Invoice;
+use App\Models\ItemSerials;
+use App\Models\TransactionsContainer;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;

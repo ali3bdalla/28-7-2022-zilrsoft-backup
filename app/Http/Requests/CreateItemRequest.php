@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\FilterValues;
+use App\Models\FilterValues;
 use App\Http\Requests\Helper\AttachmentsUploaderHelper;
-use App\Item;
-use App\ItemFilters;
+use App\Models\Item;
+use App\Models\ItemFilters;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateItemRequest extends FormRequest

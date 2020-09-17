@@ -3,9 +3,9 @@
 
 namespace App\Attributes;
 
-use App\Account;
-use App\AccountStatistic;
-use App\Transaction;
+use App\Models\Account;
+use App\Models\AccountStatistic;
+use App\Models\Transaction;
 
 
 trait AccountAttributes
@@ -16,9 +16,16 @@ trait AccountAttributes
         return (new static())->toGetAccountWithSlug($slug, $is_system_account);
     }
 
+<<<<<<< HEAD
+    public function getCurrentAmountAttribute()
+    {
+        $nestedTreeIds = $this->returnNestedTreeIds($this);
+        return $this->_getAccountsTreeBalance($nestedTreeIds);
+=======
     public static function toGetAccountWithSlug($slug, $is_system_account = true)
     { 
         return Account::where([['slug', $slug], ['is_system_account', $is_system_account]])->first();
+>>>>>>> development
     }
 
     public function getTrialBalanceData()
@@ -184,12 +191,16 @@ trait AccountAttributes
 
     public function _getStockCreditAmount()
     {
-        return Transaction::where('creditable_type', 'App\Item')->sum('amount');
+        return Transaction::where('creditable_type', 'App\Models\Item')->sum('amount');
     }
 
     public function _getStockDebitAmount()
     {
+<<<<<<< HEAD
+       return Transaction::where('debitable_type', 'App\Models\Item')->sum('amount');
+=======
         return Transaction::where('debitable_type', 'App\Item')->sum('amount');
+>>>>>>> development
     }
 
     public function _updateCreditAndDebitAmountForAccount($creditAmount, $debitAmount)

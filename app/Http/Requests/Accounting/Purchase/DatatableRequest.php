@@ -2,8 +2,8 @@
 	
 	namespace App\Http\Requests\Accounting\Purchase;
 	
-	use App\Invoice;
-	use App\PurchaseInvoice;
+	use App\Models\Invoice;
+	use App\Models\PurchaseInvoice;
 	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
 	

@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Events\Transaction\TransactionCreatedEvent;
 use App\Events\Transaction\TransactionErasedEvent;
-use App\Transaction;
+use App\Models\Transaction;
 
 class TransactionObserver
 {

@@ -2,9 +2,7 @@
 
 namespace Modules\Accounting\Http\Controllers;
 
-use App\Account;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
+use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -12,7 +10,7 @@ use Illuminate\View\View;
 
 class TrialBalanceController extends Controller
 {
-    /**
+      /**
      * Display a listing of the resource.
      * @param Request $request
      * @return Application|Factory|View
@@ -85,7 +83,6 @@ class TrialBalanceController extends Controller
         }
         //
   
-
 
         // $totalCreditAmount = round($totalCreditAmount);
         // $totalDebitAmount = round($totalDebitAmount);

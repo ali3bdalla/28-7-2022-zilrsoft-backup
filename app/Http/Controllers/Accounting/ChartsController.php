@@ -2,14 +2,14 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Account;
-	use App\Accounting\ChartAccounting;
+	use App\Models\Account;
+	use App\Models\Accounting\ChartAccounting;
 	use App\Components\Loader\Chart\Transaction\AccountTransactionsLoader;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Account\CreateAccountRequest;
 	use App\Http\Requests\Accounting\Account\UpdateAccountRequest;
-	use App\Item;
-	use App\User;
+	use App\Models\Item;
+	use App\Models\User;
 	use Exception;
 	use Illuminate\Contracts\View\Factory;
 	use Illuminate\Http\Request;

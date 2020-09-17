@@ -34,7 +34,7 @@
                                 <span class="input-group-addon has-background-primary has-text-white">{{__('pages/vouchers.type')}}
                                 </span>
                     <input placeholder="{{__('pages/vouchers.type')}}" disabled
-                           value="@if($payment->paymentable_type=="App\Invoice"){{__('pages/vouchers.invoices_payment')
+                           value="@if($payment->paymentable_type=="App\Models\Invoice"){{__('pages/vouchers.invoices_payment')
                                    }}@else{{__('pages/vouchers.advance_payment')}}@endif"
                            type="text" class="form-control">
                 </div>

@@ -2,24 +2,23 @@
 	
 	namespace App\Http\Requests\Accounting\Inventory;
 	
-	use App\Accounting\AmountsAccounting;
-	use App\Accounting\CostAccounting;
-	use App\Accounting\ExpensesAccounting;
-	use App\Accounting\IdentityAccounting;
-	use App\Accounting\ItemAccounting;
-	use App\Accounting\PaymentAccounting;
-	use App\Accounting\QtyTransactionAccounting;
-	use App\Accounting\TransactionAccounting;
+	use App\Models\Accounting\AmountsAccounting;
+	use App\Models\Accounting\ExpensesAccounting;
+	use App\Models\Accounting\IdentityAccounting;
+	use App\Models\Accounting\ItemAccounting;
+	use App\Models\Accounting\PaymentAccounting;
+	use App\Models\Accounting\QtyTransactionAccounting;
+	use App\Models\Accounting\TransactionAccounting;
 	use App\Core\MathCore;
-	use App\Invoice;
-	use App\Item;
+	use App\Models\Invoice;
+	use App\Models\Item;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
 	
 	class CreateAdjustStockRequest extends FormRequest
 	{
-		use TransactionAccounting,ExpensesAccounting,AmountsAccounting,QtyTransactionAccounting,CostAccounting;
+		use TransactionAccounting,ExpensesAccounting,AmountsAccounting,QtyTransactionAccounting;
 		
 		/**
 		 * Determine if the user is authorized to make this request.
@@ -47,43 +46,43 @@
 		
 		public function save()
 		{
-			DB::beginTransaction();
-			try{
+// 			DB::beginTransaction();
+// 			try{
 				
-				$invoice = Invoice::publish([
-					'invoice_type' => 'stock_adjust',
-					'parent_id' => 0,
-					'is_deleted' => 1,
-				]);
-				foreach ($this->input('items') as $item){
-					$freshItem = Item::findOrFail($item['id']);
-					$result_items[] = $this->toCreateAdjustStockIncItemAndTransaction($freshItem,$item,
-						$invoice->fresh());
+// 				$invoice = Invoice::publish([
+// 					'invoice_type' => 'stock_adjust',
+// 					'parent_id' => 0,
+// 					'is_deleted' => 1,
+// 				]);
+// 				foreach ($this->input('items') as $item){
+// 					$freshItem = Item::findOrFail($item['id']);
+// 					$result_items[] = $this->toCreateAdjustStockIncItemAndTransaction($freshItem,$item,
+// 						$invoice->fresh());
 					
-				}
+// 				}
 				
-				$this->toGetAndUpdatedAmounts($invoice);
+// 				$this->toGetAndUpdatedAmounts($invoice);
 
 
-//				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),[],[]);
+// //				$this->toCreateInvoiceTransactions($invoice,$this->input('items'),[],[]);
 				
 				
-				$invoice->update([
-					'current_status' => 'paid'
-				]);
+// 				$invoice->update([
+// 					'current_status' => 'paid'
+// 				]);
 				
 				
-				DB::commit();
+// 				DB::commit();
 				
-				return $invoice;
-			}catch (Exception $exception){
+// 				return $invoice;
+// 			}catch (Exception $exception){
 				
-				DB::rollBack();
+// 				DB::rollBack();
 				
-				return response(json_encode([
-					'message' => $exception->getMessage()
-				]),400);
-			}
+// 				return response(json_encode([
+// 					'message' => $exception->getMessage()
+// 				]),400);
+// 			}
 		}
 		
 		/**

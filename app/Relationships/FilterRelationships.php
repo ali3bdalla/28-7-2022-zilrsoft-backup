@@ -1,8 +1,8 @@
 <?php
 namespace App\Relationships;
 
-use App\Manager;
-use App\FilterValues;
+use App\Models\Manager;
+use App\Models\FilterValues;
 trait FilterRelationships {
 
 

@@ -1,11 +1,8 @@
 <?php
 
 namespace Modules\Authentication\Http\Controllers;
-
-use App\Country;
-use App\Type;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Models\Country;
+use App\Models\Type;
 use Illuminate\Routing\Controller;
 
 class AuthenticationController extends Controller
@@ -25,7 +22,6 @@ class AuthenticationController extends Controller
     {
         $countries = Country::all();
         $types = Type::all();
-        // return view('accounting.auth.register',compact('types','countries'));
         return view('authentication::register',compact('types','countries'));
     }
 

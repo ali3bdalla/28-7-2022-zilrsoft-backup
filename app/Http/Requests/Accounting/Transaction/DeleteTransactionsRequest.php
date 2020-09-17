@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Accounting\Transaction;
 
-use App\TransactionsContainer;
+use App\Models\TransactionsContainer;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;

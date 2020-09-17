@@ -2,8 +2,8 @@
 	
 	namespace App\Http\Requests\Accounting\Quotation;
 	
-	use App\Accounting\AmountsAccounting;
-	use App\Invoice;
+	use App\Models\Accounting\AmountsAccounting;
+	use App\Models\Invoice;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;

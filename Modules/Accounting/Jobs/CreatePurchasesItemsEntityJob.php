@@ -2,10 +2,10 @@
 
 namespace Modules\Accounting\Jobs;
 
-use App\Account;
-use App\Invoice;
-use App\InvoiceItems;
-use App\TransactionsContainer;
+use App\Models\Account;
+use App\Models\Invoice;
+use App\Models\InvoiceItems;
+use App\Models\TransactionsContainer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

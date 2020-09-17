@@ -3,7 +3,7 @@
 	namespace App\Attributes;
 	
 	
-	use App\ItemSerials;
+	use App\Models\ItemSerials;
 	
 	trait SaleInvoiceAttributes
 	{

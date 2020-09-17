@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Inventory;
 	
-	use App\Invoice;
+	use App\Models\Invoice;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class AdjustStockDatatableRequest extends FormRequest

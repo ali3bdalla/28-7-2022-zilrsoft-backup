@@ -3,9 +3,9 @@
 namespace Modules\Web\Http\Requests\Item;
 
 use App\Category;
-use App\FilterValues;
-use App\Item;
-use App\ItemFilters;
+use App\Models\FilterValues;
+use App\Models\Item;
+use App\Models\ItemFilters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 

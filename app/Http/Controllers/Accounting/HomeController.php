@@ -3,8 +3,8 @@
 	namespace App\Http\Controllers\Accounting;
 	
 	use App\Http\Controllers\Controller;
-	use App\Item;
-	use App\WarrantySubscription;
+	use App\Models\Item;
+	use App\Models\WarrantySubscription;
 	use Illuminate\Contracts\View\Factory;
 	use Illuminate\View\View;
 	

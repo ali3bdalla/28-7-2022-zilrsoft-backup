@@ -3,9 +3,9 @@
 	namespace App\Http\Requests;
 	
 	use App\Http\Requests\Invoice\PurchaseCreationRequest;
-	use App\Invoice;
-	use App\Item;
-	use App\ItemSerials;
+	use App\Models\Invoice;
+	use App\Models\Item;
+	use App\Models\ItemSerials;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;

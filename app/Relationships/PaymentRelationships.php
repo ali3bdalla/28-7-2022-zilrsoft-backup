@@ -3,13 +3,13 @@
 	namespace App\Relationships;
 	
 	
-	use App\CountryBank;
+	use App\Models\CountryBank;
 	use App\Gateway;
 	use App\GatewayAccounts;
-	use App\Invoice;
-	use App\Manager;
-	use App\User;
-	use App\UserGateways;
+	use App\Models\Invoice;
+	use App\Models\Manager;
+	use App\Models\User;
+	use App\Models\UserGateways;
 	
 	/**
 	 * Trait PaymentRelationships
