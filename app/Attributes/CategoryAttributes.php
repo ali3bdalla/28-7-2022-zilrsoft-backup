@@ -11,8 +11,6 @@ trait CategoryAttributes {
 
    
 	
-	
-	
 	public function  getLocaleNameAttribute(){
 		
 		if(app()->isLocale('ar')){

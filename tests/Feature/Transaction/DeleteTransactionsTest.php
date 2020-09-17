@@ -3,12 +3,9 @@
 namespace Tests\Feature\Transaction;
 
 use App\Models\Account;
-use App\Models\AccountStatistic;
 use App\Http\Middleware\VerifyCsrfToken;
 use App\Models\Transaction;
 use App\Models\TransactionsContainer;
-use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 

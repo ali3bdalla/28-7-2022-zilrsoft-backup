@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Attributes\AccountAttributes;
+use App\Models\Traits\NestingTrait;
 use App\Relationships\AccountRelationships;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Account extends BaseModel
 {
 
-    use AccountAttributes, AccountRelationships;
+    use AccountAttributes, AccountRelationships,NestingTrait;
 
     protected $guarded = [];
 
@@ -25,6 +26,33 @@ class Account extends BaseModel
     protected $casts = [
         'is_gateway' => 'boolean',
     ];
+
+
+
+
+    public function getSerialArrayAttribute($value)
+    {
+        return str_split($value);
+    }
+
+
+
+    public function updateUssgl()
+    {
+
+
+        $parentUssgl =  $this->parent->ussgl_array;
+        $ussglArrayIndex = count($this->_getParentsList());
+        $parentChildrenCount = $this->parent->children()->count();
+        $parentUssgl[$ussglArrayIndex] = $parentChildrenCount ;
+        $ussgl = implode('',$parentUssgl);
+        $this->update([
+            'ussgl' => $ussgl
+        ]);
+
+    }
+
+    
 
     public function returnNestedTreeIds(Model $model)
     {
