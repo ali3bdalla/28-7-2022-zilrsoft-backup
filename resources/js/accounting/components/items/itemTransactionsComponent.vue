@@ -94,7 +94,7 @@
                          || history.invoice_type=='purchase'
                          || history.invoice_type=='return_sale'
                     "
-              >{{`${roundNumber(history.subtotal)}/${roundNumber(history.discount)}`}}</span>
+              >{{`${roundNumber(history.subtotal)}`}}</span>
             </td>
             <!--out-->
             <td>

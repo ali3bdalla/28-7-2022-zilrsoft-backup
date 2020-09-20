@@ -31,11 +31,11 @@
 				$table->boolean('is_expense')->default(0);
 				$table->boolean('is_available_online')->default(false);
 				$table->integer('expense_vendor_id')->default(0);
-				$table->float('price',20,8)->default(0)->nullable();
-				$table->float('price_with_tax',20,8)->default(0)->nullable();
-				$table->float('last_p_price',20,8)->default(0);
-				$table->float('online_price',20,8)->default(0);
-				$table->float('cost',20,8)->default(0);
+				$table->float('price',20,2)->default(0)->nullable();
+				$table->float('price_with_tax',20,2)->default(0)->nullable();
+				$table->float('last_p_price',20,2)->default(0);
+				$table->float('online_price',20,2)->default(0);
+				$table->float('cost',20,2)->default(0);
 				$table->float('vts')->default(5);
 				$table->float('vtp')->default(5);
                 $table->float('vts_for_print')->default(15);
@@ -47,8 +47,8 @@
 
 
 
-				$table->float('total_credit_amount',20,8)->default(0);
-				$table->float('total_debit_amount',20,8)->default(0);
+				$table->float('total_credit_amount',20,2)->default(0);
+				$table->float('total_debit_amount',20,2)->default(0);
 
 				$table->softDeletes();
 				$table->timestamps();

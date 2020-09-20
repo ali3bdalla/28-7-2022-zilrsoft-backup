@@ -23,14 +23,14 @@
 				$table->integer('user_id');
 				
 				$table->integer("returned_qty")->default(0);
-				$table->float('discount',20,8)->default(0);
+				$table->float('discount',20,2)->default(0);
 
 				$table->integer("qty")->default(0);
-				$table->float("tax",20,8)->default(0);
-				$table->float('price',20,8)->default(0);
-				$table->float('net',20,8)->default(0);
-				$table->float('total',20,8)->default(0);
-				$table->float('subtotal',20,8)->default(0);
+				$table->float("tax",20,2)->default(0);
+				$table->float('price',20,2)->default(0);
+				$table->float('net',20,2)->default(0);
+				$table->float('total',20,2)->default(0);
+				$table->float('subtotal',20,2)->default(0);
 				$table->enum("invoice_type",['purchase','sale','retrun_sale','return_purchase','beginning_inventory'])->nullable();
 				// ,'quotation','pending_purchase','stock_adjust'
 				// $table->enum('type',['new',"return",'quotation']);
@@ -40,9 +40,9 @@
 				$table->boolean('show_price_in_print_mode')->default(true);
 				$table->boolean('is_draft')->default(false);
 				$table->integer("available_qty")->default(0);
-				$table->float('cost',20,8)->default(0)->nullable();
-				$table->float('total_stock_cost_amount',20,8)->default(0)->nullable();
-				$table->float("profit",20,8)->default(0);
+				$table->float('cost',20,2)->default(0)->nullable();
+				$table->float('total_stock_cost_amount',20,2)->default(0)->nullable();
+				$table->float("profit",20,2)->default(0);
 				$table->softDeletes();
 				$table->timestamps();
 			});

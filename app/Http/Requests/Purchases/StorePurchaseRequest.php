@@ -39,7 +39,7 @@ class StorePurchaseRequest extends FormRequest
             'items' => 'required|array',
             'items.*.id' => ['required', 'integer', 'exists:items,id'],
             'items.*.purchase_price' => 'required|numeric|min:0',
-            'items.*.discount' => 'required|numeric',
+            // 'items.*.discount' => 'required|numeric',
             'items.*.qty' => 'required|integer|min:1',
             'items.*.price' => 'required|numeric',
             'items.*.serials' => 'array',

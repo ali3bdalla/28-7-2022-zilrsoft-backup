@@ -21,10 +21,10 @@
 				$table->dateTime('close_account_start_date')->nullable();
 				$table->dateTime('close_account_end_date')->nullable();
 				$table->boolean('is_pending')->default(false);
-				$table->float('amount',20,8)->default(0);
+				$table->float('amount',20,2)->default(0);
 				$table->integer('creator_id');
 				$table->integer('receiver_id')->default(0);
-				$table->float('shortage_amount',20,8)->nullable();
+				$table->float('shortage_amount',20,2)->nullable();
 				$table->timestamps();
 			});
 		}

@@ -37,8 +37,8 @@ class CreateUsersTable extends Migration
             $table->enum('user_title', ['mis', 'mr', 'company'])->default('mr');
 
 
-            $table->float('total_credit_amount',20,8)->default(0);
-            $table->float('total_debit_amount',20,8)->default(0);
+            $table->float('total_credit_amount',20,2)->default(0);
+            $table->float('total_debit_amount',20,2)->default(0);
 
             
             $table->timestamps();

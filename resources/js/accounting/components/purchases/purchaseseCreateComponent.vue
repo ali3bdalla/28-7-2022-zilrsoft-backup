@@ -131,8 +131,8 @@
                     <th>{{app.trans.sales_price}}</th>
                     <th>{{ app.trans.purchase_price }}</th>
                     <th>{{ app.trans.total }}</th>
-                    <th>{{ app.trans.discount }}</th>
-                    <th>{{ app.trans.subtotal }}</th>
+                    <!--<th>{{ app.trans.discount }}</th>
+                    <th>{{ app.trans.subtotal }}</th>-->
                     <th>{{ app.trans.tax }}</th>
                     <th>{{ app.trans.net }}</th>
                     <th>- / +</th>
@@ -202,7 +202,7 @@
                                type="text"
                                v-model="item.total">
                     </td>
-                    <td>
+                    <!--<td>
                         <input :ref="'itemDiscount_' + item.id + 'Ref'"
                                @focus="$event.target.select()"
                                @keyup="itemDiscountUpdated(item)"
@@ -214,7 +214,7 @@
                                placeholder="subtotal"
 
                                type="text" v-model="item.subtotal">
-                    </td>
+                    </td>-->
 
                     <td>
                         <input @focus="$event.target.select()" class="form-control input-xs amount-input" disabled=""
@@ -260,7 +260,7 @@
                                            v-model="invoiceData.total">
                                 </div>
                             </div>
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-md-6"><label>{{ app.trans.discount }}</label></div>
                                 <div class="col-md-6">
                                     <input :placeholder="app.trans.discount"
@@ -278,7 +278,7 @@
                                            disabled type="text"
                                            v-model="invoiceData.subtotal">
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class="row">
                                 <div class="col-md-6"><label>{{ app.trans.tax }}</label></div>

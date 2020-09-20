@@ -16,11 +16,11 @@
 			Schema::create('kit_data',function (Blueprint $table){
 				$table->bigIncrements('id');
 				$table->integer('kit_id');
-				$table->float('total',20,8);
-				$table->float('tax',20,8);
-				$table->float('net',20,8);
-				$table->float('subtotal',20,8);
-				$table->float('discount',20,8)->default(0);
+				$table->float('total',20,2);
+				$table->float('tax',20,2);
+				$table->float('net',20,2);
+				$table->float('subtotal',20,2);
+				$table->float('discount',20,2)->default(0);
 				$table->timestamps();
 			});
 		}
