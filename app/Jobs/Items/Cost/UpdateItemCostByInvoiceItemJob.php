@@ -34,6 +34,7 @@ class UpdateItemCostByInvoiceItemJob implements ShouldQueue
     public function handle()
     {
 
+        $availableQty = (int) $this->invoiceItem->item->fresh()->available_qty;
         /**
          * ==========================================================
          * update cost for purchase invoice item
@@ -42,10 +43,11 @@ class UpdateItemCostByInvoiceItemJob implements ShouldQueue
          */
         if (in_array($this->invoiceItem->invoice_type, ['purchase'])) {
             $stockAmountBeforeNewInvoiceItem = $this->availableQtyBeforeInvoiceItem * $this->costBeforeInvoiceItem;
-            $newStockAmount = (float) $stockAmountBeforeNewInvoiceItem + (float) $this->invoiceItem->total;
-            $newItemCost = (float) $newStockAmount / (int) $this->invoiceItem->item->fresh()->available_qty;
+            $newStockAmount = (float) $stockAmountBeforeNewInvoiceItem + (float) $this->invoiceItem->subtotal;
+            $newItemCost = (float) $newStockAmount / $availableQty;
             $this->invoiceItem->item->update([
                 'cost' => $newItemCost,
+                'total_cost_amount' => (float) ($newItemCost * $availableQty),
             ]);
         }
     }

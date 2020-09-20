@@ -25,7 +25,7 @@
 				// $table->string('debitable_type')->nullable();
 				// $table->integer('creditable_id')->nullable();
 				// $table->string('creditable_type')->nullable();
-				$table->float('amount',20,2);
+				$table->float('amount',20, 8);
 				$table->boolean("is_manual")->default(false);
 				$table->boolean("is_pending")->default(false);
 				$table->integer('invoice_id')->nullable();

@@ -19,7 +19,7 @@ class Text extends \Faker\Provider\Text
      *
      * Posting Date: June 25, 2008 [EBook #11]
      * Release Date: March, 1994
-     * [Last updated: December 20, 2011]
+     * [Last updated: December 20, 8011]
      *
      * Language: English
      *

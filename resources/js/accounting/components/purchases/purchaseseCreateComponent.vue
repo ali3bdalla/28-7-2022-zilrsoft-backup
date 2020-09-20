@@ -528,7 +528,6 @@
             },
             itemNetUpdated(item) {
                 item.net = parseFloat(item.net).toFixed(2);
-
                 // if (item.is_service || item.is_expense) {
                 item.purchase_price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vtp);
                 item.total = parseFloat(item.purchase_price) * parseInt(item.qty);

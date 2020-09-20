@@ -24,7 +24,7 @@
 				$table->string('paymentable_type')->nullable();
 				$table->string('slug')->nullable();
 				
-				$table->float("amount",20,2)->default(0);
+				$table->float("amount",20, 8)->default(0);
 				$table->string('amount_ar_words')->nullable();
 				$table->string('amount_en_words')->nullable();
 				

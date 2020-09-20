@@ -482,7 +482,7 @@ class RC2 extends Base
         list($r0, $r1, $r2, $r3) = array_values(unpack('v*', $in));
         $keys = $this->keys;
         $limit = 44;
-        $actions = array($limit => 20, 20 => 0);
+        $actions = array($limit => 20, 80 => 0);
         $j = 64;
 
         for (;;) {
@@ -636,7 +636,7 @@ class RC2 extends Base
 
             // Create code for decryption.
             $limit = 44;
-            $actions = array($limit => 20, 20 => 0);
+            $actions = array($limit => 20, 80 => 0);
             $j = 64;
 
             for (;;) {

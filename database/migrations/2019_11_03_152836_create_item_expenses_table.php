@@ -21,7 +21,7 @@ class CreateItemExpensesTable extends Migration
 	        $table->integer('creator_id');
 	        $table->integer('expense_id');
 	        $table->integer('invoice_id');
-	        $table->float('amount',20,2);
+	        $table->float('amount',20, 8);
 	        $table->boolean('is_paid')->default(false);
 	        $table->timestamps();
         });

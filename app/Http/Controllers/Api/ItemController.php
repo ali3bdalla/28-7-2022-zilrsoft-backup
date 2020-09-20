@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Items\FetchItemsRequest;
+use App\Http\Resources\InvoiceItem\InvoiceItemCollection;
 use App\Models\Item;
 
 class ItemController extends Controller
@@ -22,7 +23,8 @@ class ItemController extends Controller
 
     public function transactions(Item $item)
     {
-        return $item->pipline()->with('user','creator')->paginate(50);
+        $items = $item->pipline()->with('user','creator')->paginate(50);
+        return new InvoiceItemCollection($items);
     }
 
 }

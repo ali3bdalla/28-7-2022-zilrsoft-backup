@@ -19,7 +19,7 @@
 				$table->integer('creator_id');
 				$table->integer('payment_id');
 				$table->integer('invoice_id');
-				$table->float('amount',20,2);
+				$table->float('amount',20, 8);
 				$table->timestamps();
 			});
 		}

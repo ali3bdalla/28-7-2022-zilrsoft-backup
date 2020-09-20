@@ -18,7 +18,7 @@
 				$table->integer('creator_id');
 				$table->integer('invoice_id')->default(0);
 				$table->integer('organization_id');
-				$table->float('amount',20,2);
+				$table->float('amount',20, 8);
 				$table->string('description')->nullable();
 				$table->boolean('is_pending')->default(false);
                 $table->softDeletes();

@@ -11989,3 +11989,651 @@ Stack trace:
 #56 /Users/ali/.composer/vendor/laravel/valet/server.php(191): require('/usr/local/var/...')
 #57 {main}
 "} 
+[2020-09-20 22:22:24] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:23:49] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:23:56] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:24:47] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:25:51] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:26:02] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:27:33] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:27:33] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:27:56] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:28:03] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:28:05] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:28:14] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:28:22] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:28:23] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:29:19] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:29:31] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:30:58] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:31:16] producation.ERROR: Uncaught Error: Class 'App\Models\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught Error: Class 'App\\Models\\InvoiceItem' not found in Command line code:2
+Stack trace:
+#0 {main}
+  thrown at Command line code:2)
+[stacktrace]
+#0 {main}
+"} 
+[2020-09-20 22:44:37] testing.ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'total_cost_amount' in 'field list' (SQL: update `items` set `cost` = 145.14988047809, `total_cost_amount` = 36432.62, `items`.`updated_at` = 2020-09-20 22:44:37 where `id` = 1) {"userId":10,"exception":"[object] (Illuminate\\Database\\QueryException(code: 42S22): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'total_cost_amount' in 'field list' (SQL: update `items` set `cost` = 145.14988047809, `total_cost_amount` = 36432.62, `items`.`updated_at` = 2020-09-20 22:44:37 where `id` = 1) at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php:669)
+[stacktrace]
+#0 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(629): Illuminate\\Database\\Connection->runQueryCallback('update `items` ...', Array, Object(Closure))
+#1 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(495): Illuminate\\Database\\Connection->run('update `items` ...', Array, Object(Closure))
+#2 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(428): Illuminate\\Database\\Connection->affectingStatement('update `items` ...', Array)
+#3 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(2726): Illuminate\\Database\\Connection->update('update `items` ...', Array)
+#4 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(790): Illuminate\\Database\\Query\\Builder->update(Array)
+#5 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(746): Illuminate\\Database\\Eloquent\\Builder->update(Array)
+#6 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(661): Illuminate\\Database\\Eloquent\\Model->performUpdate(Object(Illuminate\\Database\\Eloquent\\Builder))
+#7 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(608): Illuminate\\Database\\Eloquent\\Model->save(Array)
+#8 /usr/local/var/www/workspace/zilrsoft/app/Jobs/Items/Cost/UpdateItemCostByInvoiceItemJob.php(50): Illuminate\\Database\\Eloquent\\Model->update(Array)
+#9 [internal function]: App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob->handle()
+#10 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#11 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Util.php(37): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#12 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#13 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#14 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Container.php(590): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#15 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(94): Illuminate\\Container\\Container->call(Array)
+#16 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#17 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#18 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(98): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#19 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(83): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob), false)
+#20 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Queue\\CallQueuedHandler->Illuminate\\Queue\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#21 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#22 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(85): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#23 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(59): Illuminate\\Queue\\CallQueuedHandler->dispatchThroughMiddleware(Object(Illuminate\\Queue\\Jobs\\SyncJob), Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#24 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/Jobs/Job.php(88): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\SyncJob), Array)
+#25 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/SyncQueue.php(45): Illuminate\\Queue\\Jobs\\Job->fire()
+#26 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(182): Illuminate\\Queue\\SyncQueue->push(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#27 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(158): Illuminate\\Bus\\Dispatcher->pushCommandToQueue(Object(Illuminate\\Queue\\SyncQueue), Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#28 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(73): Illuminate\\Bus\\Dispatcher->dispatchToQueue(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#29 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Bus/PendingDispatch.php(112): Illuminate\\Bus\\Dispatcher->dispatch(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#30 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(392): Illuminate\\Foundation\\Bus\\PendingDispatch->__destruct()
+#31 /usr/local/var/www/workspace/zilrsoft/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php(70): dispatch(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#32 [internal function]: App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob->handle()
+#33 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#34 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Util.php(37): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#35 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#36 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#37 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Container.php(590): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#38 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(94): Illuminate\\Container\\Container->call(Array)
+#39 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#40 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#41 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(98): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#42 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(83): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob), false)
+#43 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Queue\\CallQueuedHandler->Illuminate\\Queue\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#44 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#45 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(85): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#46 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(59): Illuminate\\Queue\\CallQueuedHandler->dispatchThroughMiddleware(Object(Illuminate\\Queue\\Jobs\\SyncJob), Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#47 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/Jobs/Job.php(88): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\SyncJob), Array)
+#48 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/SyncQueue.php(45): Illuminate\\Queue\\Jobs\\Job->fire()
+#49 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(182): Illuminate\\Queue\\SyncQueue->push(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#50 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(158): Illuminate\\Bus\\Dispatcher->pushCommandToQueue(Object(Illuminate\\Queue\\SyncQueue), Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#51 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(73): Illuminate\\Bus\\Dispatcher->dispatchToQueue(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#52 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Bus/PendingDispatch.php(112): Illuminate\\Bus\\Dispatcher->dispatch(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#53 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(392): Illuminate\\Foundation\\Bus\\PendingDispatch->__destruct()
+#54 /usr/local/var/www/workspace/zilrsoft/app/Http/Requests/Purchases/StorePurchaseRequest.php(75): dispatch(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#55 /usr/local/var/www/workspace/zilrsoft/app/Http/Controllers/Api/PurchaseController.php(26): App\\Http\\Requests\\Purchases\\StorePurchaseRequest->store()
+#56 [internal function]: App\\Http\\Controllers\\Api\\PurchaseController->store(Object(App\\Http\\Requests\\Purchases\\StorePurchaseRequest))
+#57 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): call_user_func_array(Array, Array)
+#58 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('store', Array)
+#59 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Route.php(219): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\PurchaseController), 'store')
+#60 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Route.php(176): Illuminate\\Routing\\Route->runController()
+#61 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(681): Illuminate\\Routing\\Route->run()
+#62 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#63 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(41): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#64 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#65 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Session/Middleware/AuthenticateSession.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#66 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Session\\Middleware\\AuthenticateSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#67 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(43): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#68 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#69 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#70 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#71 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(56): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#72 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#73 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#74 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#75 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#76 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#77 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#78 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(683): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#79 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(658): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#80 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(624): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#81 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(613): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#82 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(170): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#83 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#84 /usr/local/var/www/workspace/zilrsoft/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#85 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#86 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#87 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#88 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#89 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#90 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#91 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#92 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(63): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#93 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#94 /usr/local/var/www/workspace/zilrsoft/vendor/fideloper/proxy/src/TrustProxies.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#95 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#96 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#97 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(145): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#98 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(110): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#99 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(468): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#100 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(440): Illuminate\\Foundation\\Testing\\TestCase->call('POST', '/api/purchases', Array, Array, Array, Array, '{\"items\":[{\"id\"...')
+#101 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(299): Illuminate\\Foundation\\Testing\\TestCase->json('POST', '/api/purchases', Array, Array)
+#102 /usr/local/var/www/workspace/zilrsoft/tests/Feature/Purchases/CreatePurchaseTest.php(50): Illuminate\\Foundation\\Testing\\TestCase->postJson('/api/purchases', Array)
+#103 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestCase.php(1154): Tests\\Feature\\Purchases\\CreatePurchaseTest->test_create_purchase_for_items_without_serial_and_expense_or_service_or_kit_without_discount()
+#104 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestCase.php(842): PHPUnit\\Framework\\TestCase->runTest()
+#105 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestResult.php(693): PHPUnit\\Framework\\TestCase->runBare()
+#106 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestCase.php(796): PHPUnit\\Framework\\TestResult->run(Object(Tests\\Feature\\Purchases\\CreatePurchaseTest))
+#107 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestSuite.php(746): PHPUnit\\Framework\\TestCase->run(Object(PHPUnit\\Framework\\TestResult))
+#108 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/TextUI/TestRunner.php(652): PHPUnit\\Framework\\TestSuite->run(Object(PHPUnit\\Framework\\TestResult))
+#109 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/TextUI/Command.php(206): PHPUnit\\TextUI\\TestRunner->doRun(Object(PHPUnit\\Framework\\TestSuite), Array, true)
+#110 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/TextUI/Command.php(162): PHPUnit\\TextUI\\Command->run(Array, true)
+#111 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/phpunit(61): PHPUnit\\TextUI\\Command::main()
+#112 {main}
+
+[previous exception] [object] (PDOException(code: 42S22): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'total_cost_amount' in 'field list' at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php:488)
+[stacktrace]
+#0 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(488): PDOStatement->execute()
+#1 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(662): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}('update `items` ...', Array)
+#2 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(629): Illuminate\\Database\\Connection->runQueryCallback('update `items` ...', Array, Object(Closure))
+#3 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(495): Illuminate\\Database\\Connection->run('update `items` ...', Array, Object(Closure))
+#4 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(428): Illuminate\\Database\\Connection->affectingStatement('update `items` ...', Array)
+#5 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(2726): Illuminate\\Database\\Connection->update('update `items` ...', Array)
+#6 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(790): Illuminate\\Database\\Query\\Builder->update(Array)
+#7 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(746): Illuminate\\Database\\Eloquent\\Builder->update(Array)
+#8 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(661): Illuminate\\Database\\Eloquent\\Model->performUpdate(Object(Illuminate\\Database\\Eloquent\\Builder))
+#9 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(608): Illuminate\\Database\\Eloquent\\Model->save(Array)
+#10 /usr/local/var/www/workspace/zilrsoft/app/Jobs/Items/Cost/UpdateItemCostByInvoiceItemJob.php(50): Illuminate\\Database\\Eloquent\\Model->update(Array)
+#11 [internal function]: App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob->handle()
+#12 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#13 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Util.php(37): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#14 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#15 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#16 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Container.php(590): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#17 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(94): Illuminate\\Container\\Container->call(Array)
+#18 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#19 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#20 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(98): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#21 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(83): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob), false)
+#22 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Queue\\CallQueuedHandler->Illuminate\\Queue\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#23 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#24 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(85): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#25 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(59): Illuminate\\Queue\\CallQueuedHandler->dispatchThroughMiddleware(Object(Illuminate\\Queue\\Jobs\\SyncJob), Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#26 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/Jobs/Job.php(88): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\SyncJob), Array)
+#27 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/SyncQueue.php(45): Illuminate\\Queue\\Jobs\\Job->fire()
+#28 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(182): Illuminate\\Queue\\SyncQueue->push(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#29 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(158): Illuminate\\Bus\\Dispatcher->pushCommandToQueue(Object(Illuminate\\Queue\\SyncQueue), Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#30 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(73): Illuminate\\Bus\\Dispatcher->dispatchToQueue(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#31 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Bus/PendingDispatch.php(112): Illuminate\\Bus\\Dispatcher->dispatch(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#32 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(392): Illuminate\\Foundation\\Bus\\PendingDispatch->__destruct()
+#33 /usr/local/var/www/workspace/zilrsoft/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php(70): dispatch(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#34 [internal function]: App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob->handle()
+#35 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#36 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Util.php(37): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#37 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#38 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#39 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Container.php(590): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#40 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(94): Illuminate\\Container\\Container->call(Array)
+#41 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#42 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#43 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(98): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#44 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(83): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob), false)
+#45 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Queue\\CallQueuedHandler->Illuminate\\Queue\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#46 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#47 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(85): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#48 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(59): Illuminate\\Queue\\CallQueuedHandler->dispatchThroughMiddleware(Object(Illuminate\\Queue\\Jobs\\SyncJob), Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#49 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/Jobs/Job.php(88): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\SyncJob), Array)
+#50 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/SyncQueue.php(45): Illuminate\\Queue\\Jobs\\Job->fire()
+#51 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(182): Illuminate\\Queue\\SyncQueue->push(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#52 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(158): Illuminate\\Bus\\Dispatcher->pushCommandToQueue(Object(Illuminate\\Queue\\SyncQueue), Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#53 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(73): Illuminate\\Bus\\Dispatcher->dispatchToQueue(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#54 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Bus/PendingDispatch.php(112): Illuminate\\Bus\\Dispatcher->dispatch(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#55 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(392): Illuminate\\Foundation\\Bus\\PendingDispatch->__destruct()
+#56 /usr/local/var/www/workspace/zilrsoft/app/Http/Requests/Purchases/StorePurchaseRequest.php(75): dispatch(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#57 /usr/local/var/www/workspace/zilrsoft/app/Http/Controllers/Api/PurchaseController.php(26): App\\Http\\Requests\\Purchases\\StorePurchaseRequest->store()
+#58 [internal function]: App\\Http\\Controllers\\Api\\PurchaseController->store(Object(App\\Http\\Requests\\Purchases\\StorePurchaseRequest))
+#59 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): call_user_func_array(Array, Array)
+#60 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('store', Array)
+#61 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Route.php(219): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\PurchaseController), 'store')
+#62 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Route.php(176): Illuminate\\Routing\\Route->runController()
+#63 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(681): Illuminate\\Routing\\Route->run()
+#64 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#65 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(41): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#66 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#67 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Session/Middleware/AuthenticateSession.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#68 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Session\\Middleware\\AuthenticateSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#69 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(43): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#70 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#71 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#72 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#73 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(56): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#74 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#75 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#76 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#77 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#78 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#79 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#80 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(683): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#81 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(658): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#82 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(624): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#83 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(613): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#84 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(170): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#85 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#86 /usr/local/var/www/workspace/zilrsoft/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#87 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#88 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#89 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#90 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#91 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#92 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#93 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#94 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(63): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#95 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#96 /usr/local/var/www/workspace/zilrsoft/vendor/fideloper/proxy/src/TrustProxies.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#97 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#98 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#99 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(145): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#100 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(110): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#101 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(468): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#102 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(440): Illuminate\\Foundation\\Testing\\TestCase->call('POST', '/api/purchases', Array, Array, Array, Array, '{\"items\":[{\"id\"...')
+#103 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(299): Illuminate\\Foundation\\Testing\\TestCase->json('POST', '/api/purchases', Array, Array)
+#104 /usr/local/var/www/workspace/zilrsoft/tests/Feature/Purchases/CreatePurchaseTest.php(50): Illuminate\\Foundation\\Testing\\TestCase->postJson('/api/purchases', Array)
+#105 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestCase.php(1154): Tests\\Feature\\Purchases\\CreatePurchaseTest->test_create_purchase_for_items_without_serial_and_expense_or_service_or_kit_without_discount()
+#106 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestCase.php(842): PHPUnit\\Framework\\TestCase->runTest()
+#107 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestResult.php(693): PHPUnit\\Framework\\TestCase->runBare()
+#108 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestCase.php(796): PHPUnit\\Framework\\TestResult->run(Object(Tests\\Feature\\Purchases\\CreatePurchaseTest))
+#109 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestSuite.php(746): PHPUnit\\Framework\\TestCase->run(Object(PHPUnit\\Framework\\TestResult))
+#110 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/TextUI/TestRunner.php(652): PHPUnit\\Framework\\TestSuite->run(Object(PHPUnit\\Framework\\TestResult))
+#111 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/TextUI/Command.php(206): PHPUnit\\TextUI\\TestRunner->doRun(Object(PHPUnit\\Framework\\TestSuite), Array, true)
+#112 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/TextUI/Command.php(162): PHPUnit\\TextUI\\Command->run(Array, true)
+#113 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/phpunit(61): PHPUnit\\TextUI\\Command::main()
+#114 {main}
+"} 
+[2020-09-20 22:44:37] testing.ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'total_cost_amount' in 'field list' (SQL: update `items` set `cost` = 48.111111111111, `total_cost_amount` = 6062, `items`.`updated_at` = 2020-09-20 22:44:37 where `id` = 11) {"userId":11,"exception":"[object] (Illuminate\\Database\\QueryException(code: 42S22): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'total_cost_amount' in 'field list' (SQL: update `items` set `cost` = 48.111111111111, `total_cost_amount` = 6062, `items`.`updated_at` = 2020-09-20 22:44:37 where `id` = 11) at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php:669)
+[stacktrace]
+#0 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(629): Illuminate\\Database\\Connection->runQueryCallback('update `items` ...', Array, Object(Closure))
+#1 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(495): Illuminate\\Database\\Connection->run('update `items` ...', Array, Object(Closure))
+#2 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(428): Illuminate\\Database\\Connection->affectingStatement('update `items` ...', Array)
+#3 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(2726): Illuminate\\Database\\Connection->update('update `items` ...', Array)
+#4 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(790): Illuminate\\Database\\Query\\Builder->update(Array)
+#5 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(746): Illuminate\\Database\\Eloquent\\Builder->update(Array)
+#6 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(661): Illuminate\\Database\\Eloquent\\Model->performUpdate(Object(Illuminate\\Database\\Eloquent\\Builder))
+#7 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(608): Illuminate\\Database\\Eloquent\\Model->save(Array)
+#8 /usr/local/var/www/workspace/zilrsoft/app/Jobs/Items/Cost/UpdateItemCostByInvoiceItemJob.php(50): Illuminate\\Database\\Eloquent\\Model->update(Array)
+#9 [internal function]: App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob->handle()
+#10 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#11 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Util.php(37): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#12 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#13 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#14 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Container.php(590): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#15 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(94): Illuminate\\Container\\Container->call(Array)
+#16 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#17 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#18 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(98): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#19 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(83): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob), false)
+#20 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Queue\\CallQueuedHandler->Illuminate\\Queue\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#21 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#22 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(85): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#23 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(59): Illuminate\\Queue\\CallQueuedHandler->dispatchThroughMiddleware(Object(Illuminate\\Queue\\Jobs\\SyncJob), Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#24 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/Jobs/Job.php(88): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\SyncJob), Array)
+#25 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/SyncQueue.php(45): Illuminate\\Queue\\Jobs\\Job->fire()
+#26 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(182): Illuminate\\Queue\\SyncQueue->push(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#27 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(158): Illuminate\\Bus\\Dispatcher->pushCommandToQueue(Object(Illuminate\\Queue\\SyncQueue), Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#28 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(73): Illuminate\\Bus\\Dispatcher->dispatchToQueue(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#29 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Bus/PendingDispatch.php(112): Illuminate\\Bus\\Dispatcher->dispatch(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#30 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(392): Illuminate\\Foundation\\Bus\\PendingDispatch->__destruct()
+#31 /usr/local/var/www/workspace/zilrsoft/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php(70): dispatch(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#32 [internal function]: App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob->handle()
+#33 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#34 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Util.php(37): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#35 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#36 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#37 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Container.php(590): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#38 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(94): Illuminate\\Container\\Container->call(Array)
+#39 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#40 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#41 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(98): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#42 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(83): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob), false)
+#43 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Queue\\CallQueuedHandler->Illuminate\\Queue\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#44 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#45 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(85): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#46 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(59): Illuminate\\Queue\\CallQueuedHandler->dispatchThroughMiddleware(Object(Illuminate\\Queue\\Jobs\\SyncJob), Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#47 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/Jobs/Job.php(88): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\SyncJob), Array)
+#48 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/SyncQueue.php(45): Illuminate\\Queue\\Jobs\\Job->fire()
+#49 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(182): Illuminate\\Queue\\SyncQueue->push(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#50 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(158): Illuminate\\Bus\\Dispatcher->pushCommandToQueue(Object(Illuminate\\Queue\\SyncQueue), Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#51 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(73): Illuminate\\Bus\\Dispatcher->dispatchToQueue(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#52 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Bus/PendingDispatch.php(112): Illuminate\\Bus\\Dispatcher->dispatch(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#53 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(392): Illuminate\\Foundation\\Bus\\PendingDispatch->__destruct()
+#54 /usr/local/var/www/workspace/zilrsoft/app/Http/Requests/Purchases/StorePurchaseRequest.php(75): dispatch(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#55 /usr/local/var/www/workspace/zilrsoft/app/Http/Controllers/Api/PurchaseController.php(26): App\\Http\\Requests\\Purchases\\StorePurchaseRequest->store()
+#56 [internal function]: App\\Http\\Controllers\\Api\\PurchaseController->store(Object(App\\Http\\Requests\\Purchases\\StorePurchaseRequest))
+#57 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): call_user_func_array(Array, Array)
+#58 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('store', Array)
+#59 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Route.php(219): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\PurchaseController), 'store')
+#60 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Route.php(176): Illuminate\\Routing\\Route->runController()
+#61 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(681): Illuminate\\Routing\\Route->run()
+#62 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#63 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(41): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#64 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#65 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Session/Middleware/AuthenticateSession.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#66 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Session\\Middleware\\AuthenticateSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#67 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(43): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#68 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#69 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#70 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#71 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(56): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#72 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#73 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#74 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#75 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#76 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#77 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#78 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(683): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#79 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(658): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#80 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(624): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#81 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(613): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#82 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(170): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#83 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#84 /usr/local/var/www/workspace/zilrsoft/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#85 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#86 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#87 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#88 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#89 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#90 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#91 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#92 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(63): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#93 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#94 /usr/local/var/www/workspace/zilrsoft/vendor/fideloper/proxy/src/TrustProxies.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#95 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#96 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#97 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(145): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#98 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(110): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#99 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(468): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#100 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(440): Illuminate\\Foundation\\Testing\\TestCase->call('POST', '/api/purchases', Array, Array, Array, Array, '{\"items\":[{\"id\"...')
+#101 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(299): Illuminate\\Foundation\\Testing\\TestCase->json('POST', '/api/purchases', Array, Array)
+#102 /usr/local/var/www/workspace/zilrsoft/tests/Feature/Purchases/CreatePurchaseTest.php(101): Illuminate\\Foundation\\Testing\\TestCase->postJson('/api/purchases', Array)
+#103 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestCase.php(1154): Tests\\Feature\\Purchases\\CreatePurchaseTest->test_create_purchase_for_items_without_expense_or_service_or_kit_with_discount_and_serial()
+#104 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestCase.php(842): PHPUnit\\Framework\\TestCase->runTest()
+#105 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestResult.php(693): PHPUnit\\Framework\\TestCase->runBare()
+#106 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestCase.php(796): PHPUnit\\Framework\\TestResult->run(Object(Tests\\Feature\\Purchases\\CreatePurchaseTest))
+#107 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestSuite.php(746): PHPUnit\\Framework\\TestCase->run(Object(PHPUnit\\Framework\\TestResult))
+#108 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/TextUI/TestRunner.php(652): PHPUnit\\Framework\\TestSuite->run(Object(PHPUnit\\Framework\\TestResult))
+#109 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/TextUI/Command.php(206): PHPUnit\\TextUI\\TestRunner->doRun(Object(PHPUnit\\Framework\\TestSuite), Array, true)
+#110 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/TextUI/Command.php(162): PHPUnit\\TextUI\\Command->run(Array, true)
+#111 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/phpunit(61): PHPUnit\\TextUI\\Command::main()
+#112 {main}
+
+[previous exception] [object] (PDOException(code: 42S22): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'total_cost_amount' in 'field list' at /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php:488)
+[stacktrace]
+#0 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(488): PDOStatement->execute()
+#1 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(662): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}('update `items` ...', Array)
+#2 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(629): Illuminate\\Database\\Connection->runQueryCallback('update `items` ...', Array, Object(Closure))
+#3 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(495): Illuminate\\Database\\Connection->run('update `items` ...', Array, Object(Closure))
+#4 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Connection.php(428): Illuminate\\Database\\Connection->affectingStatement('update `items` ...', Array)
+#5 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(2726): Illuminate\\Database\\Connection->update('update `items` ...', Array)
+#6 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(790): Illuminate\\Database\\Query\\Builder->update(Array)
+#7 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(746): Illuminate\\Database\\Eloquent\\Builder->update(Array)
+#8 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(661): Illuminate\\Database\\Eloquent\\Model->performUpdate(Object(Illuminate\\Database\\Eloquent\\Builder))
+#9 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(608): Illuminate\\Database\\Eloquent\\Model->save(Array)
+#10 /usr/local/var/www/workspace/zilrsoft/app/Jobs/Items/Cost/UpdateItemCostByInvoiceItemJob.php(50): Illuminate\\Database\\Eloquent\\Model->update(Array)
+#11 [internal function]: App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob->handle()
+#12 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#13 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Util.php(37): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#14 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#15 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#16 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Container.php(590): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#17 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(94): Illuminate\\Container\\Container->call(Array)
+#18 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#19 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#20 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(98): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#21 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(83): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob), false)
+#22 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Queue\\CallQueuedHandler->Illuminate\\Queue\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#23 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#24 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(85): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#25 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(59): Illuminate\\Queue\\CallQueuedHandler->dispatchThroughMiddleware(Object(Illuminate\\Queue\\Jobs\\SyncJob), Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#26 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/Jobs/Job.php(88): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\SyncJob), Array)
+#27 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/SyncQueue.php(45): Illuminate\\Queue\\Jobs\\Job->fire()
+#28 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(182): Illuminate\\Queue\\SyncQueue->push(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#29 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(158): Illuminate\\Bus\\Dispatcher->pushCommandToQueue(Object(Illuminate\\Queue\\SyncQueue), Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#30 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(73): Illuminate\\Bus\\Dispatcher->dispatchToQueue(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#31 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Bus/PendingDispatch.php(112): Illuminate\\Bus\\Dispatcher->dispatch(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#32 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(392): Illuminate\\Foundation\\Bus\\PendingDispatch->__destruct()
+#33 /usr/local/var/www/workspace/zilrsoft/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php(70): dispatch(Object(App\\Jobs\\Items\\Cost\\UpdateItemCostByInvoiceItemJob))
+#34 [internal function]: App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob->handle()
+#35 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#36 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Util.php(37): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#37 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#38 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#39 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Container/Container.php(590): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#40 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(94): Illuminate\\Container\\Container->call(Array)
+#41 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#42 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#43 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(98): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#44 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(83): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob), false)
+#45 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Queue\\CallQueuedHandler->Illuminate\\Queue\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#46 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#47 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(85): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#48 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/CallQueuedHandler.php(59): Illuminate\\Queue\\CallQueuedHandler->dispatchThroughMiddleware(Object(Illuminate\\Queue\\Jobs\\SyncJob), Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#49 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/Jobs/Job.php(88): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\SyncJob), Array)
+#50 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Queue/SyncQueue.php(45): Illuminate\\Queue\\Jobs\\Job->fire()
+#51 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(182): Illuminate\\Queue\\SyncQueue->push(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#52 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(158): Illuminate\\Bus\\Dispatcher->pushCommandToQueue(Object(Illuminate\\Queue\\SyncQueue), Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#53 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Bus/Dispatcher.php(73): Illuminate\\Bus\\Dispatcher->dispatchToQueue(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#54 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Bus/PendingDispatch.php(112): Illuminate\\Bus\\Dispatcher->dispatch(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#55 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(392): Illuminate\\Foundation\\Bus\\PendingDispatch->__destruct()
+#56 /usr/local/var/www/workspace/zilrsoft/app/Http/Requests/Purchases/StorePurchaseRequest.php(75): dispatch(Object(App\\Jobs\\Purchases\\Items\\StorePurchaseItemsJob))
+#57 /usr/local/var/www/workspace/zilrsoft/app/Http/Controllers/Api/PurchaseController.php(26): App\\Http\\Requests\\Purchases\\StorePurchaseRequest->store()
+#58 [internal function]: App\\Http\\Controllers\\Api\\PurchaseController->store(Object(App\\Http\\Requests\\Purchases\\StorePurchaseRequest))
+#59 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): call_user_func_array(Array, Array)
+#60 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('store', Array)
+#61 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Route.php(219): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\PurchaseController), 'store')
+#62 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Route.php(176): Illuminate\\Routing\\Route->runController()
+#63 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(681): Illuminate\\Routing\\Route->run()
+#64 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#65 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(41): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#66 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#67 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Session/Middleware/AuthenticateSession.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#68 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Session\\Middleware\\AuthenticateSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#69 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(43): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#70 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#71 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#72 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#73 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(56): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#74 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#75 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#76 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#77 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#78 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#79 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#80 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(683): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#81 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(658): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#82 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(624): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#83 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Routing/Router.php(613): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#84 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(170): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#85 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(130): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#86 /usr/local/var/www/workspace/zilrsoft/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#87 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#88 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#89 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#90 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#91 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#92 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#93 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#94 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(63): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#95 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#96 /usr/local/var/www/workspace/zilrsoft/vendor/fideloper/proxy/src/TrustProxies.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#97 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(171): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#98 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#99 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(145): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#100 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(110): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#101 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(468): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#102 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(440): Illuminate\\Foundation\\Testing\\TestCase->call('POST', '/api/purchases', Array, Array, Array, Array, '{\"items\":[{\"id\"...')
+#103 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(299): Illuminate\\Foundation\\Testing\\TestCase->json('POST', '/api/purchases', Array, Array)
+#104 /usr/local/var/www/workspace/zilrsoft/tests/Feature/Purchases/CreatePurchaseTest.php(101): Illuminate\\Foundation\\Testing\\TestCase->postJson('/api/purchases', Array)
+#105 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestCase.php(1154): Tests\\Feature\\Purchases\\CreatePurchaseTest->test_create_purchase_for_items_without_expense_or_service_or_kit_with_discount_and_serial()
+#106 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestCase.php(842): PHPUnit\\Framework\\TestCase->runTest()
+#107 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestResult.php(693): PHPUnit\\Framework\\TestCase->runBare()
+#108 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestCase.php(796): PHPUnit\\Framework\\TestResult->run(Object(Tests\\Feature\\Purchases\\CreatePurchaseTest))
+#109 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/Framework/TestSuite.php(746): PHPUnit\\Framework\\TestCase->run(Object(PHPUnit\\Framework\\TestResult))
+#110 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/TextUI/TestRunner.php(652): PHPUnit\\Framework\\TestSuite->run(Object(PHPUnit\\Framework\\TestResult))
+#111 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/TextUI/Command.php(206): PHPUnit\\TextUI\\TestRunner->doRun(Object(PHPUnit\\Framework\\TestSuite), Array, true)
+#112 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/src/TextUI/Command.php(162): PHPUnit\\TextUI\\Command->run(Array, true)
+#113 /usr/local/var/www/workspace/zilrsoft/vendor/phpunit/phpunit/phpunit(61): PHPUnit\\TextUI\\Command::main()
+#114 {main}
+"} 
