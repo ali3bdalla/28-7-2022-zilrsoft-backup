@@ -2,7 +2,7 @@
 <?php $total_debit = 0; $total_credit = 0;?>
 @foreach($invoice_transactions as $index =>  $invoice_transaction)
     <tr style="border:none">
-        @if($purchase->invoice_type=='r_purchase')
+        @if($purchase->invoice_type=='return_purchase')
 
             @if($invoice_transaction['description']=='to_item' || $invoice_transaction['description']=='to_tax')
 			    <?php $total_credit = $total_credit + $invoice_transaction['amount'];?>

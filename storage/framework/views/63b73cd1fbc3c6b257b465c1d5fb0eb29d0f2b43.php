@@ -2,7 +2,7 @@
 <?php $total_debit = 0; $total_credit = 0;?>
 <?php $__currentLoopData = $invoice_transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index =>  $invoice_transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <tr style="border:none">
-        <?php if($purchase->invoice_type=='r_purchase'): ?>
+        <?php if($purchase->invoice_type=='return_purchase'): ?>
 
             <?php if($invoice_transaction['description']=='to_item' || $invoice_transaction['description']=='to_tax'): ?>
 			    <?php $total_credit = $total_credit + $invoice_transaction['amount'];?>

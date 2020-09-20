@@ -1,7 +1,6 @@
 <template>
     <div class="table">
         <div class="table-posistion">
-
             <div class="table-filters">
                 <div @click="openOrCloseSearchPanel" class="text-right search-text" style="cursor: pointer;"><i
                         class="fa fa-search-plus"></i>
@@ -129,10 +128,7 @@
                             {{ app.trans.net }}
                         </th>
 
-                        <th :class="{'orderBy':orderBy=='current_status'}" @click="setOrderByColumn('current_status')"
-                            width="">
-                            {{ app.trans.current_status }}
-                        </th>
+        
 
                         <th :class="{'orderBy':orderBy=='invoice_type'}" @click="setOrderByColumn('invoice_type')"
                             width="">
@@ -158,21 +154,17 @@
 
                     <tr :key="row.id" v-for="(row,index) in table_rows">
                         <td v-text="index+1"></td>
-                        <td class="text-center" v-text="row.title"></td>
+                        <td class="text-center" v-text="row.invoice_number"></td>
                         <td class="text-center"
-                            v-text="row.purchase != null ? row.purchase.vendor.locale_name : '-'"></td>
+                            v-text="row.manager.name"></td>
                         <td v-text="row.created_at"></td>
                         <td class="text-center" v-text="row.net"></td>
                         <td class="text-center">
-                            <span v-if="row.current_status=='paid'">{{ app.trans.paid }}</span>
-                            <span v-else>{{ app.trans.credit }}</span>
-                        </td>
-                        <td class="text-center">
-                            <span v-if="row.invoice_type=='purchase'">{{ app.trans.purchase }}</span>
-                            <span v-else-if="row.invoice_type=='pending_purchase'">متشريات منتظرة</span>
+                            <span v-if="row.invoice_type=='purchase' && row.is_draft == 0">{{ app.trans.purchase }}</span>
+                            <span v-else-if="row.invoice_type=='purchase' && row.is_draft == 1">متشريات منتظرة</span>
                             <span v-else>{{ app.trans.return_purchase }}</span>
                         </td>
-                        <td class="text-center" v-text="row.creator.locale_name"></td>
+                        <td class="text-center" v-text="row.creator.name"></td>
                         <td class="text-center" v-text="row.tax"></td>
                         <td>
                             <div class="dropdown">
@@ -298,8 +290,8 @@
 
 
             initUi() {
-                this.requestUrl = this.app.datatableBaseUrl + 'purchases';
-                this.baseUrl = this.app.trans.PurchaseBaseUrl + "/";
+                this.requestUrl ='/api/purchases';
+                this.baseUrl =  "/purchases/";
                 this.customDateShortcuts = [
                     {key: 'day', label: this.app.datetimetrans.today, value: 'day'},
                     {key: '-day', label: this.app.datetimetrans.yesterday, value: '-day'},

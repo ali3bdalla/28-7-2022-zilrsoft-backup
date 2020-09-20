@@ -45,7 +45,7 @@
 		'clone' => 'Clone',
 		'vat' => 'VAT',
 		'tax' => ' TAX',
-		'vendor_inc_number' => 'Vendor Inc Number',
+		'vendor_invoice_id' => 'Vendor Inc Number',
 		'price_invoice' => 'Print A4',
 		'price_receipt' => 'Print Receipt',
 		'purchase' => ' Purchase',

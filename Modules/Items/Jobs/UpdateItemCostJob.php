@@ -5,11 +5,10 @@ namespace Modules\Items\Jobs;
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
 use Illuminate\Bus\Queueable;
-use Illuminate\Database\QueryException;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class UpdateItemCostJob implements ShouldQueue
 {
@@ -29,7 +28,7 @@ class UpdateItemCostJob implements ShouldQueue
      * @param Invoice $invoice
      * @param InvoiceItems $invoiceItem
      */
-    public function __construct(Invoice $invoice,InvoiceItems $invoiceItem)
+    public function __construct(Invoice $invoice, InvoiceItems $invoiceItem)
     {
         //
 
@@ -45,26 +44,25 @@ class UpdateItemCostJob implements ShouldQueue
     public function handle()
     {
         $dbItem = $this->invoiceItem->item;
-        $costBeforeNewRow = (float)$dbItem->cost;
-        $stockAmountBeforeNewRow = $dbItem->moneyFormatter($costBeforeNewRow * (int)$dbItem->available_qty);
-
-
+        $costBeforeNewRow = (float) $dbItem->cost;
+        $stockAmountBeforeNewRow = $costBeforeNewRow * (int) $dbItem->available_qty;
         $availableQty = $dbItem->available_qty;
         $result['cost'] = $costBeforeNewRow;
 
-        if ($this->invoice->isPurchase()){
-            $result = $dbItem->handlePurchaseHistory($this->invoiceItem,$stockAmountBeforeNewRow,$availableQty);
-        }else if ($this->invoice->isSale()){
-            $result = $dbItem->handleSaleHistory($this->invoiceItem,$costBeforeNewRow,$stockAmountBeforeNewRow,$availableQty);
-        }else if ($this->invoice->isReturnSale()){
-            $result = $dbItem->handleReturnSaleHistory($this->invoiceItem,$stockAmountBeforeNewRow,$costBeforeNewRow,$availableQty);
-        }else if ($this->invoice->isReturnPurchase()){
-            $result = $dbItem->handleReturnPurchaseHistory($this->invoiceItem,$costBeforeNewRow,$stockAmountBeforeNewRow,$availableQty);
+        
+        if ($this->invoice->isPurchase()) {
+            $result = $dbItem->handlePurchaseHistory($this->invoiceItem, $stockAmountBeforeNewRow, $availableQty);
+        } else if ($this->invoice->isSale()) {
+            $result = $dbItem->handleSaleHistory($this->invoiceItem, $costBeforeNewRow, $stockAmountBeforeNewRow, $availableQty);
+        } else if ($this->invoice->isReturnSale()) {
+            $result = $dbItem->handleReturnSaleHistory($this->invoiceItem, $stockAmountBeforeNewRow, $costBeforeNewRow, $availableQty);
+        } else if ($this->invoice->isReturnPurchase()) {
+            $result = $dbItem->handleReturnPurchaseHistory($this->invoiceItem, $costBeforeNewRow, $stockAmountBeforeNewRow, $availableQty);
         }
 
-
+        // dd($result['cost']);
         $dbItem->update([
-            'cost' => $result['cost']
+            'cost' => (float)$result['cost'],
         ]);
     }
 }

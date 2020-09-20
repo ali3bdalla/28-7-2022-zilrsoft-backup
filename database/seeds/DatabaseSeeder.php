@@ -1,7 +1,7 @@
 <?php
 
-use App\Attachment;
-use App\Models\Item;
+use App\Jobs\Accounting\Chart\CreateAmericanChartOfAccountsJob;
+use App\Models\Manager;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,20 +13,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-//			;
 
-        foreach (Item::all() as $item) {
-            $item->attachments()->saveMany(factory(Attachment::class, 3)->make());
+        factory(App\Models\Country::class, 3)->create();
+        factory(App\Models\Type::class, 2)->create();
+        factory(App\Models\Manager::class, 5)->create();
+        factory(App\Models\Category::class, 2)->create();
+        factory(App\Models\User::class, 5)->create();
+        factory(App\Models\Organization::class)->create();
+        // dispatch(new CreateAmericanChartOfAccountsJob($organization, Manager::first()));
+        factory(App\Models\Item::class, 10)->create();
+        factory(App\Models\Item::class, 5)->create([
+            'is_need_serial' => true,
+        ]);
 
+        for ($i = 1; $i < 5; $i++) {
+            $price = 0.5 * $i;
+            $priceWithTax = $price + ($price * 15 / 100);
+            factory(App\Models\Item::class)->create([
+                'is_need_serial' => true,
+                'price' => $price,
+                'price_with_tax' => $priceWithTax,
+            ]);
         }
-//			$this->call(RoleAndPermissionSeeder::class);
-//			Artisan::all('database:first-init');
-//    	factory(App\Models\Country::class, 10)->create();
-//    	factory(App\Models\Type::class, 10)->create();
-//        factory(App\Role::class, 10)->create();
-//        // factory(App\Category::class, 10)->create();
-        // factory(App\Models\Filter::class, 10)->create();
-        // factory(App\CategoryFilters::class, 10)->create();
-        // $this->call(UsersTableSeeder::class);
+
     }
 }

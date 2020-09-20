@@ -75,7 +75,7 @@ class ReturnSalesWithItemsTest extends TestCase
             'items' => $purchaseQueryItems,
             'receiver_id' => $manager->id,
             'vendor_id' => $vendor->id,
-            'vendor_inc_number' => uniqid(),
+            'vendor_invoice_id' => uniqid(),
             'methods' => [$tempResellerAccount->toArray()]
         ];
 

@@ -14,7 +14,6 @@
 
 @section("content")
         <accounting-item-transactions-component :item='@json($item)'></accounting-item-transactions-component>
-
 @endsection
 
 

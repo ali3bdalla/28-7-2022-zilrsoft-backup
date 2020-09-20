@@ -3,8 +3,8 @@
 	namespace App\Http\Controllers\Accounting;
 	
 	use App\Models\Account;
-	use App\Category;
-	use App\CategoryFilters;
+	use App\Models\Category;
+	use App\Models\CategoryFilters;
 	use App\Core\MathCore;
 	use App\Models\Filter;
 	use App\Http\Controllers\Controller;

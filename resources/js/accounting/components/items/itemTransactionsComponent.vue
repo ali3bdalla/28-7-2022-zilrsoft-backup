@@ -65,18 +65,18 @@
           <tr :class="{'has-background-light':true}">
             <td class="datedirection">{{history.created_at}}</td>
             <td>
-              <a :href="history.invoice_url">{{ history.invoice_title }}</a>
+              <a :href="history.invoice_url">{{ history.invoice_number }}</a>
             </td>
             <td>
-              <span v-if="history.user!=null">{{ history.user.locale_name }}</span>
+              <span v-if="history.user!=null">{{ history.user.name }}</span>
               <span v-else></span>
             </td>
-            <td>{{ history.creator?history.creator.locale_name : "" }}</td>
+            <td>{{ history.creator?history.creator.name : "" }}</td>
             <td>
               <span
                 v-if="history.invoice_type=='beginning_inventory'
                          || history.invoice_type=='purchase'
-                         || history.invoice_type=='r_sale'
+                         || history.invoice_type=='return_sale'
                     "
               >{{history.qty}}</span>
             </td>
@@ -84,7 +84,7 @@
               <span
                 v-if="history.invoice_type=='beginning_inventory'
                          || history.invoice_type=='purchase'
-                         || history.invoice_type=='r_sale'
+                         || history.invoice_type=='return_sale'
                     "
               >{{roundNumber(history.price)}}</span>
             </td>
@@ -92,53 +92,53 @@
               <span
                 v-if="history.invoice_type=='beginning_inventory'
                          || history.invoice_type=='purchase'
-                         || history.invoice_type=='r_sale'
+                         || history.invoice_type=='return_sale'
                     "
-              >{{roundNumber(history.total)}}</span>
+              >{{`${roundNumber(history.subtotal)}/${roundNumber(history.discount)}`}}</span>
             </td>
             <!--out-->
             <td>
               <span
                 v-if="history.invoice_type=='sale'
-                         || history.invoice_type=='r_purchase'
+                         || history.invoice_type=='return_purchase'
                     "
               >{{history.qty}}</span>
             </td>
             <td>
               <span
                 v-if="history.invoice_type=='sale'
-                         || history.invoice_type=='r_purchase'
+                         || history.invoice_type=='return_purchase'
                     "
               >{{history.price}}</span>
             </td>
             <td>
               <span
                 v-if="history.invoice_type=='sale'
-                         || history.invoice_type=='r_purchase'
+                         || history.invoice_type=='return_purchase'
                     "
               >{{roundNumber(history.total)}}</span>
             </td>
 
             <td>
               <span
-                v-if="history.invoice_type=='sale' || history.invoice_type=='r_sale'"
-              >{{roundNumber(parseFloat(history.current_stock_item_cost) * parseInt(history.qty))}}</span>
+                v-if="history.invoice_type=='sale' || history.invoice_type=='return_sale'"
+              >{{roundNumber(parseFloat(history.cost) * parseInt(history.qty))}}</span>
             </td>
 
-            <td>{{history.current_stock_qty}}</td>
-            <td>{{roundNumber(history.current_stock_item_cost)}}</td>
+            <td>{{history.available_qty}}</td>
+            <td>{{roundNumber(history.cost)}}</td>
 
-            <td>{{roundNumber(history.current_stock_amount)}}</td>
+            <td>{{roundNumber(history.total_stock_cost_amount)}}</td>
             <td>{{ history.description }}</td>
             <td>
               <span
-                v-if="history.invoice_type=='sale' || history.invoice_type=='r_sale'"
+                v-if="history.invoice_type=='sale' || history.invoice_type=='return_sale'"
               >{{parseFloat(history.current_profits).toFixed(2)}}</span>
             </td>
           </tr>
 
           <!--DICOUNT-->
-          <tr v-if="parseFloat(history.discount)>0">
+          <!--<tr v-if="parseFloat(history.discount)>0">
             <td></td>
             <td></td>
             <td></td>
@@ -150,7 +150,7 @@
                 v-if="history.discount_data.purchase_discount || history.discount_data.return_sales_discount"
               >{{history.discount}}</span>
             </td>
-            <!--out-->
+
             <td></td>
 
             <td></td>
@@ -189,12 +189,10 @@
               <span
                 v-if="history.discount_data.sales_discount || history.discount_data.return_sales_discount"
               >
-                <!--                        {{roundNumber(history.discount_data.discount_profits) }}-->
               </span>
             </td>
           </tr>
 
-          <!--expenses-->
           <tr v-for="expense in history.expenses_data" v-if=" history.expenses_data != null">
             <td></td>
             <td></td>
@@ -203,7 +201,6 @@
             <td></td>
             <td></td>
             <td>{{roundNumber(expense.amount) }}</td>
-            <!--out-->
             <td></td>
 
             <td></td>
@@ -217,7 +214,7 @@
 
             <td>{{ expense.expense.locale_name }}</td>
             <td></td>
-          </tr>
+          </tr>-->
         </tbody>
         <thead>
           <tr>
@@ -257,7 +254,7 @@
 
     <div class="form-group">
       &nbsp;
-      <a class="button is-right pull-right" href="/accounting/items">
+      <a class="button is-right pull-right" href="/items">
         <i class="fa fa-undo-alt"></i>
         &nbsp;&nbsp;{{ reusable_translator.back }}
       </a>
@@ -317,13 +314,14 @@ export default {
       paginationResponseData: null,
 
       roundNumber: (amount) => {
-        return parseFloat(amount).toFixed(5);
+        return amount;
+        // return parseFloat(amount).toFixed(5);
       },
     };
   },
   created: function () {
-    this.requestUrl =
-      "/accounting/items/" + this.item.id + "/transactions_datatable";
+    this.requestUrl =  `/api/items/${this.item.id }/transactions`;
+
     this.translator = JSON.parse(window.translator);
     this.reusable_translator = JSON.parse(window.reusable_translator);
     // this.roundNumber = helpers.roundTheFloatValueTo2DigitOnlyAfterComma;
@@ -398,10 +396,10 @@ export default {
           // console.log(response.data);
           vm.paginationResponseData = response.data;
           vm.histories = response.data.data;
-          vm.stock_value = response.data.totals.total_stock_amount;
-          vm.stock_qty = response.data.totals.total_stock_qty;
-          vm.cost = response.data.totals.current_stock_item_cost;
-          vm.profits = response.data.totals.total_sales_profits;
+          // vm.stock_value = response.data.totals.total_stock_amount;
+          // vm.stock_qty = response.data.totals.total_stock_qty;
+          // vm.cost = response.data.totals.current_stock_item_cost;
+          // vm.profits = response.data.totals.total_sales_profits;
           // vm.cost = response.data.cost;
         });
     },

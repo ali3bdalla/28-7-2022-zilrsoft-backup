@@ -17,7 +17,7 @@ class OrganizationObServer
     {
         
         //
-        dispatch(new CreateAmericanChartOfAccountsJob($organization));
+        // dispatch(new CreateAmericanChartOfAccountsJob($organization));
     
     }
 

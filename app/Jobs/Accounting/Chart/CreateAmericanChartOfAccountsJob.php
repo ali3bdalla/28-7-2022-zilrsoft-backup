@@ -3,6 +3,7 @@
 namespace App\Jobs\Accounting\Chart;
 
 use App\Models\Account;
+use App\Models\Manager;
 use App\Models\Organization;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -14,36 +15,36 @@ class CreateAmericanChartOfAccountsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-
     private $vendors_chart_account_id = 1;
     private $clients_chart_account_id = 1;
 
     private $accounts_creator_id = 0;
     private $accounts_organization_id = 0;
 
-
     private $organization;
+
+    private $supervisor;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Organization $organization)
+    public function __construct(Organization $organization, Manager $supervisor)
     {
         $this->organization = $organization;
+        $this->supervisor = $supervisor;
         //
     }
 
-
-
     public function handle()
     {
-        
-        $supervisor = $this->organization->users()->first();
-        
+
+        $supervisor = $this->supervisor;
+
+        // dd($supervisor);
         $this->organization->accounts_creator_id = $supervisor->id;
         $this->organization->accounts_organization_id = $this->organization->id;
-        $this->organization->create_init_accounting_accounts();
+        $this->create_init_accounting_accounts();
 
         $branch = $this->organization->branches()->create([
             'name' => 'main branch',
@@ -68,7 +69,7 @@ class CreateAmericanChartOfAccountsJob implements ShouldQueue
             [
             [
                 'creator_id' => $supervisor->id,
-                'client_chart_id' => $this->organization->clients_chart_account_id,
+                //'client_chart_id' => $this->organization->clients_chart_account_id,
                 'phone_number' => '0000000000',
                 'balance' => 0,
                 'is_client' => true,
@@ -79,7 +80,7 @@ class CreateAmericanChartOfAccountsJob implements ShouldQueue
             ],
             [
                 'creator_id' => $supervisor->id,
-                'vendor_chart_id' => $this->organization->vendors_chart_account_id,
+                //'vendor_chart_id' => $this->organization->vendors_chart_account_id,
                 'phone_number' => '0000000000',
                 'balance' => 0,
                 'is_vendor' => true,
@@ -96,16 +97,15 @@ class CreateAmericanChartOfAccountsJob implements ShouldQueue
             );
         }
 
-        return true;
     }
 
     public function create_init_accounting_accounts()
     {
-        $this->organization->create_assets_accounting_accounts();
-        $this->organization->create_liabitities_accounting_accounts();
-        $this->organization->create_equity_accounting_accounts();
-        $this->organization->create_income_accounting_accounts();
-        $this->organization->create_expenses_accounting_accounts();
+        $this->create_assets_accounting_accounts();
+        $this->create_liabitities_accounting_accounts();
+        $this->create_equity_accounting_accounts();
+        $this->create_income_accounting_accounts();
+        $this->create_expenses_accounting_accounts();
 //
     }
 
@@ -136,7 +136,7 @@ class CreateAmericanChartOfAccountsJob implements ShouldQueue
             'creator_id' => $this->organization->accounts_creator_id,
         ]);
 
-        $this->organization->create_gateway_accounts($current_assets_account);
+        $this->create_gateway_accounts($current_assets_account);
 
         $clients = Account::create([
             'is_system_account' => true,
@@ -296,7 +296,7 @@ class CreateAmericanChartOfAccountsJob implements ShouldQueue
             'is_gateway' => true,
         ]);
 
-        $this->organization->creat_single_bank_children($alrass);
+        $this->creat_single_bank_children($alrass);
 
     }
 
@@ -625,6 +625,5 @@ class CreateAmericanChartOfAccountsJob implements ShouldQueue
         ]);
 
     }
-
 
 }

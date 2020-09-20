@@ -2,6 +2,7 @@
 
 namespace Modules\Sales\Http\Requests;
 
+use App\Jobs\Sales\Expenses\AddExpensesPurchasesJob;
 use App\Models\Invoice;
 use App\Models\TransactionsContainer;
 use Exception;
@@ -9,8 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
-use Modules\Accounting\Jobs\CreateSalesEntityTransactionsJob;
-use Modules\Expenses\Jobs\CreateExpensesPrePurchasesJob;
+use Modules\Accounting\Jobs\CreateSalesEntityJob;
 use Modules\Sales\Jobs\CreateSalesItemsJob;
 use Modules\Sales\Jobs\CreateSalesPaymentsJob;
 use Modules\Sales\Jobs\DeleteQuotationAfterSubSalesCreatedJob;
@@ -58,7 +58,7 @@ class CreateSalesRequest extends FormRequest
         DB::beginTransaction();
         try {
             $authUser = auth()->user();
-            dispatch(new CreateExpensesPrePurchasesJob($this->input('items')));
+            dispatch(new AddExpensesPurchasesJob($this->input('items')));
             $invoice = Invoice::create([
                 'invoice_type' => 'sale',
                 'notes' => $this->has('notes') ? $this->input('notes') : "",
@@ -90,14 +90,10 @@ class CreateSalesRequest extends FormRequest
             dispatch(new CreateSalesItemsJob($transactionContaniner, $invoice, $this->input('items')));
             dispatch(new UpdateInvoiceTotalsJob($invoice));
             dispatch(new CreateSalesPaymentsJob($invoice,$this->input('methods')));
-
-            
-            dispatch(new CreateSalesEntityTransactionsJob($transactionContaniner, $invoice));
+            dispatch(new CreateSalesEntityJob($transactionContaniner, $invoice));
             dispatch(new DeleteQuotationAfterSubSalesCreatedJob($this->input('quotation_id')));
             dispatch(new EnsureSalesDataAreCorrectJob($invoice));
             $invoiceData = response($invoice, 200);
-            // DB::rollBack();
-            // 23157
             DB::commit();
             return $invoiceData;
         } catch (QueryException $queryException) {

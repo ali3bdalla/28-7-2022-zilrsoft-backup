@@ -2,21 +2,15 @@
 
 namespace App\Http\Requests\Sales;
 
+use App\Jobs\Sales\Expenses\AddExpensesPurchasesJob;
+use App\Models\Invoice;
+use App\Models\TransactionsContainer;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class StoreSaleRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return $this->user()->can('create sale');
-    }
-
-    /**
+     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -40,11 +34,74 @@ class StoreSaleRequest extends FormRequest
         ];
     }
 
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return $this->user()->can('create sale');
+    }
 
     public function store()
     {
-        
-        
+        DB::beginTransaction();
+        try {
+            $authUser = auth()->user();
+            dispatch(new AddExpensesPurchasesJob($this->input('items')));
+            $invoice = Invoice::create([
+                'invoice_type' => 'sale',
+                'notes' => $this->has('notes') ? $this->input('notes') : "",
+                'creator_id' => $authUser->id,
+                'organization_id' => $authUser->organization_id,
+                'branch_id' => $authUser->branch_id,
+                'department_id' => $authUser->department_id,
+                'parent_invoice_id' => $this->input('parent_id') == null ? 0 : $this->input('parent_id'),
+                'is_deleted' => $this->has('is_deleted') ? $this->input('is_deleted') : 0
+            ]);
+            $invoice->sale()->create([
+                'salesman_id' => $authUser->id,
+                'client_id' => $this->input('client_id'),
+                'organization_id' => $authUser->organization_id,
+                'invoice_type' => 'sale',
+                'alice_name' => $this->input('alice_name'),
+                "prefix" => "SAI-"
+            ]);
+            $transactionContaniner = new TransactionsContainer(
+                [
+                    'creator_id' => $this->user()->id,
+                    'organization_id' => $this->user()->organization_id,
+                    'invoice_id' => $invoice->id,
+                    'amount' => 0,
+                    'description' => 'invoice'
+                ]
+            );
+            $transactionContaniner->save();
+            dispatch(new CreateSalesItemsJob($transactionContaniner, $invoice, $this->input('items')));
+            dispatch(new UpdateInvoiceTotalsJob($invoice));
+            dispatch(new CreateSalesPaymentsJob($invoice,$this->input('methods')));
+
+            
+            dispatch(new CreateSalesEntityTransactionsJob($transactionContaniner, $invoice));
+            dispatch(new DeleteQuotationAfterSubSalesCreatedJob($this->input('quotation_id')));
+            dispatch(new EnsureSalesDataAreCorrectJob($invoice));
+            $invoiceData = response($invoice, 200);
+            // DB::rollBack();
+            // 23157
+            DB::commit();
+            return $invoiceData;
+        } catch (QueryException $queryException) {
+            DB::rollBack();
+            throw $queryException;
+        } catch (ValidationException $validationException) {
+            DB::rollBack();
+            throw $validationException;
+        } catch (Exception $exception) {
+            DB::rollBack();
+            throw $exception;
+
+        }
     }
     
 }

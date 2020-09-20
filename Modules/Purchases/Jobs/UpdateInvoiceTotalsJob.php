@@ -48,7 +48,7 @@ class UpdateInvoiceTotalsJob implements ShouldQueue
         $result['total'] = 0;
         $result['subtotal'] = 0;
         $result['tax'] = 0;
-        $result['discount_value'] = 0;
+        $result['discount'] = 0;
         $result['net'] = 0;
         $result['remaining'] = 0;
         $items = $children;
@@ -56,7 +56,7 @@ class UpdateInvoiceTotalsJob implements ShouldQueue
             $result['total'] = (float)$result['total'] + $item->getOriginal('total');
             $result['subtotal'] = (float)$result['subtotal'] + $item->getOriginal('subtotal');
             $result['tax'] = (float)$result['tax'] + $item->getOriginal('tax');
-            $result['discount_value'] = $result['discount_value'] + $item->getOriginal('discount');
+            $result['discount'] = $result['discount'] + $item->getOriginal('discount');
             $result['net'] = (float)$result['net'] + $item->getOriginal('net');
         }
         $result['net'] = (float)$result['net'] + (float)$this->expensesAmount;

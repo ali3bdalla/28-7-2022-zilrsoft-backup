@@ -62,7 +62,7 @@
 				if (count($result) == 0){
 					$serail_data = ItemSerials::
 					where('serial',$this->input('barcode_or_name_or_serial'))
-						->whereIn('current_status',['available','r_sale','purchase'])
+						->whereIn('current_status',['available','return_sale','purchase'])
 						->first();
 					
 					if (!empty($serail_data)){

@@ -6,6 +6,8 @@
     'accounts' => 'ChartsController',
     'transactions' => 'TransactionsController'
 ]);
+
+
 Route::prefix('transactions')->name('transactions.')->group(function () {
     Route::get('add/create', "TransactionsController@create")->name('add.create');
 

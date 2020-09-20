@@ -47,7 +47,7 @@
 		'clone' => 'نسخ الفاتورة',
 		'vat' => 'الضريبة',
 		'tax' => ' الضريبة',
-		'vendor_inc_number' => 'رقم فاتورة المورد',
+		'vendor_invoice_id' => 'رقم فاتورة المورد',
 		'price_invoice' => 'طباعة الفاتورة',
 		'price_receipt' => 'طباعة الايصال',
 		'purchase' => ' مشتريات',

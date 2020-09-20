@@ -87,7 +87,7 @@
                 </div>
 
                 <div class="column text-center">
-                    <a class="button is-info" href="/accounting/items?selectable=true&&is_purchase=true" tabindex="100"
+                    <a class="button is-info" href="/items?selectable=true&&is_purchase=true" tabindex="100"
                        target="_blank">{{
                         translator.view_products }}
                     </a>
@@ -349,7 +349,7 @@
 
             checkBarcodeIfItAlreadyUsed(e) {
                 let vm = this;
-                axios.post('/accounting/items/helper/validate_barcode', {
+                axios.post('/items/helper/validate_barcode', {
                     barcode: e.target.value,
                 })
                     .then(function (response) {
@@ -375,7 +375,7 @@
 
                     this.error = '';
                 }
-                axios.get('/accounting/items/helper/validate_barcode?barcode=' + barcode)
+                axios.get('/items/helper/validate_barcode?barcode=' + barcode)
                     .then(function (response) {
                         if (vm.error === 'barcode') {
                             vm.error = '';
@@ -792,7 +792,7 @@
                     department_id: this.creator.department_id,
                     tax: this.tax,
                     invoice_type: 'sale',
-                    discount_value: this.discount,
+                    discount: this.discount,
                     discount_percent: this.discount,
                     remaining: 0,
                     current_status: 'paid',
@@ -829,7 +829,7 @@
                     department_id: this.creator.department_id,
                     tax: this.tax,
                     invoice_type: 'sale',
-                    discount_value: this.discount,
+                    discount: this.discount,
                     discount_percent: this.discount,
                     remaining: 0,
                     current_status: 'paid',

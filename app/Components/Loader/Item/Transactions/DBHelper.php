@@ -117,9 +117,9 @@
 				$this->purchaseTransaction($row);
 			if ($row->invoice_type == 'sale')
 				$this->salesTransaction($row);
-			if ($row->invoice_type == 'r_sale')
+			if ($row->invoice_type == 'return_sale')
 				$this->returnSalesTransactions($row);
-			if ($row->invoice_type == 'r_purchase')
+			if ($row->invoice_type == 'return_purchase')
 				$this->returnPurchaseTransaction($row);
 			if ($row->invoice_type == 'stock_adjust')
 				$this->adjustStockTransaction($row);

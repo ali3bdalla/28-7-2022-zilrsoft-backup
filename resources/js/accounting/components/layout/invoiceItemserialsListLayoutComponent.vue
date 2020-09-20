@@ -140,7 +140,7 @@
 
                     });
 
-                } else if (this.invoiceType == 'r_sale') {
+                } else if (this.invoiceType == 'return_sale') {
                     var appVm = this;
                     ItemQuery.sendValidateReturnSaleSerialRequest(this.item.id, [
                         this.serialInput
@@ -159,7 +159,7 @@
 
                     });
 
-                } else if (this.invoiceType == 'r_purchase') {
+                } else if (this.invoiceType == 'return_purchase') {
                     var appVm = this;
                     ItemQuery.sendValidateReturnPurchaseSerialRequest(this.item.id, [
                             this.serialInput

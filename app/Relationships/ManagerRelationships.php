@@ -4,7 +4,7 @@
 	
 	use App\Models\Account;
 	use App\Models\Branch;
-	use App\Category;
+	use App\Models\Category;
 	use App\Models\Department;
 	use App\Models\Filter;
 	use App\Models\FilterValues;

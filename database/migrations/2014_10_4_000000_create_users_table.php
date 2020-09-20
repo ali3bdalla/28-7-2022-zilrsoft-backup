@@ -31,14 +31,16 @@ class CreateUsersTable extends Migration
             $table->boolean('is_vendor')->default(false);
             $table->boolean('is_client')->default(false);
             $table->boolean('is_supplier')->default(false);
-            $table->integer('client_chart_id')->default(0);
-            $table->integer('vendor_chart_id')->default(0);
-            $table->integer('manager_chart_id')->default(0);
-            $table->integer('supplier_chart_id')->default(0);
             $table->boolean('is_system_user')->default(false);
             $table->boolean('can_make_credit')->default(false);
             $table->enum('user_type', ['company', 'individual']);
             $table->enum('user_title', ['mis', 'mr', 'company'])->default('mr');
+
+
+            $table->float('total_credit_amount',20,8)->default(0);
+            $table->float('total_debit_amount',20,8)->default(0);
+
+            
             $table->timestamps();
             $table->softDeletes();
 

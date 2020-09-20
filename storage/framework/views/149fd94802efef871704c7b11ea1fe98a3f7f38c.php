@@ -23,105 +23,70 @@
     <?php endif; ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-
-
-
-    <div class="panel">
-
-        <div class="panel-heading">
-
-        </div>
-
-        <div class="panel-body">
-            <?php if(!empty($transactions)): ?>
-                <table class="table table-bordered table-bordered" style="direction: ltr">
-
-                    <thead>
-                    <th>الدائن</th>
-                    <th>المدين</th>
-                    <th>اسم الحساب</th>
-                    <th> شرح</th>
-                    <th>رقم القيد</th>
+<div class="panel">
+    <div class="panel-body">
+            <table class="table table-bordered table-bordered" style="">
+                <thead>
                     <th>التاريخ</th>
-                    </thead>
+                    <th>رقم القيد</th>
+                    <th> شرح</th>
+                    <th>اسم الحساب</th>
+                    <th>المدين</th>
+                <th>الدائن</th>
+               
+             
+           
+                
+              
+                </thead>
+            
+                <body>
+                    <?php $__currentLoopData = $entities; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $entity): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php 
+                        $totalCredit = 0;
+                        $totalDebit = 0;
+                    ?>
+                        <?php $__currentLoopData = $entity->transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr style="border:none">
+                            <th><?php echo e($entity->created_at); ?></th>
+                            <th><?php echo e($entity->id); ?></th>
+                            <th><?php echo e($entity->description); ?></th>
+                            <th><?php echo e($transaction->account_name); ?></th>
 
-
-                    <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <tbody>
-
-                        <?php if($transaction['invoice_id']>=1 && !empty($transaction->invoice)): ?>
-
-                            <?php if(!empty($transaction->invoice->sale)): ?>
-						   <?php $sale = $transaction->invoice->sale;$invoice_transactions =
-							   $transaction->invoice->transactions()->where('description','!=','client_balance')->get
-							   ();?>
-                                 <?php if ($__env->exists('accounting.transactions.sale')) echo $__env->make('accounting.transactions.sale', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
-                            <?php elseif(!empty($transaction->invoice->purchase)): ?>
-						   <?php $purchase = $transaction->invoice->purchase;$invoice_transactions =
-							   $transaction->invoice->transactions()->where('description','!=','vendor_balance')->get
-							   ();?>
-                                 <?php if ($__env->exists('accounting.transactions.purchase')) echo $__env->make('accounting.transactions.purchase', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                            <?php if($transaction->type=="credit"): ?>
+                                <?php 
+                                    $totalCredit+= (float)$transaction['amount'];
+                                ?>
+                                <th></th>
+                                <th><?php echo e($transaction['amount']); ?></th>
+                            <?php else: ?>
+                                <?php 
+                                    $totalDebit+= (float)$transaction['amount'];
+                                ?>
+                                <th><?php echo e($transaction['amount']); ?></th>
+                                <th></th>
                             <?php endif; ?>
 
-                        <?php else: ?>
 
-                            <?php $__currentLoopData = $transaction->transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $real_transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <tr style="border:none">
+                        </tr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <tr style="background-color: #eeeeee">
+                           
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>المجموع</th>
 
-
-                                    <?php if($real_transaction['debitable_type']!=""): ?>
-                                        <th></th>
-                                        <th><?php echo e($real_transaction['amount']); ?></th>
-                                        <th><?php if(!empty($real_transaction->debitable)): ?> <?php echo e($real_transaction->debitable->locale_name); ?> <?php endif; ?> </th>
-
-                                    <?php else: ?>
-                                        <th><?php echo e($real_transaction['amount']); ?></th>
-                                        <th></th>
-                                        <th><?php if(!empty($real_transaction->creditable)): ?> <?php echo e($real_transaction->creditable->locale_name); ?> <?php endif; ?> </th>
-                                    <?php endif; ?>
-
-
-                                    <?php if($index==0): ?>
-
-                                        <th width="20%" style="vertical-align: inherit;" rowspan="<?php echo e(count
-                                ($transaction->transactions)); ?>"> <?php echo e($transaction['description']); ?></th>
-                                        <th width="10%" style="vertical-align: inherit;"
-                                            rowspan="<?php echo e(count($transaction->transactions)); ?>"><a href="<?php echo e(route('accounting.transactions.show',$transaction->id)); ?>"><?php echo e($transaction['id']); ?></a></th>
-                                        <th width="15%" style="vertical-align: inherit;" class="datedirection" rowspan="<?php echo e(count
-                                ($transaction->transactions)); ?>"><?php echo e($transaction['created_at']); ?></th>
-                                    <?php endif; ?>
-                                </tr>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-
-                            <tr style="background-color: #eeeeee">
-                                <th><?php echo e(money_format("%i",$transaction['amount'])); ?></th>
-                                <th><?php echo e(money_format("%i",$transaction['amount'])); ?></th>
-                                <th>المجموع</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-
-                            </tr>
-                        </tbody>
-
-                        <?php endif; ?>
-
-
+                            <th><?php echo e(money_format("%i",$totalDebit)); ?></th>
+                            <th><?php echo e(money_format("%i",$totalCredit)); ?></th>
+                        </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </body>
+            </table>
+            <?php echo e($entities->links()); ?>
 
-
-                </table>
-
-
-                <?php echo e($transactions->links()); ?>
-
-            <?php endif; ?>
-        </div>
     </div>
-
-
+</div>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('accounting.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/transactions/index.blade.php ENDPATH**/ ?>

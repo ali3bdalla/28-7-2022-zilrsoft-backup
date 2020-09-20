@@ -430,7 +430,7 @@
                 this.itemData.expenseVendorId = this.editedItemData.expense_vendor_id;
                 this.itemData.categoryId = this.editedItemData.category_id;
                 this.itemData.attachments = this.editedItemData.attachments;
-                this.new_attachment_link = '/accounting/items/' + this.editedItemData.id + '/attachments';
+                this.new_attachment_link = '/items/' + this.editedItemData.id + '/attachments';
 
                 if (!this.editedItemData.name.includes(this.editedItemCategory.name)) {
                     this.categoryNameShouldBeInItemName = false;

@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Category;
+	use App\Models\Category;
 	use App\Models\Filter;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Category\CreateCategoryRequest;

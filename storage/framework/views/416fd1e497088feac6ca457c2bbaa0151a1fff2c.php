@@ -5,7 +5,7 @@
         }
     </style>
 <?php $__env->stopSection(); ?>
-<?php $__env->startSection('title',__('pages/invoice.view') . ' | '. $invoice->title ); ?>
+<?php $__env->startSection('title',__('pages/invoice.view') . ' | '. $invoice->invoice_number ); ?>
 <?php $__env->startSection('buttons'); ?>
 
     <a href="<?php echo e(route('accounting.printer.a4',$invoice->id)); ?>" target="_blank" class="btn btn-default">
@@ -13,7 +13,7 @@
 
     </a>
     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create purchase')): ?>
-        <a href="<?php echo e(route('accounting.purchases.create')); ?>" class="btn btn-default"><i class="fa fa-plus-square"></i> <?php echo e(trans
+        <a href="<?php echo e(route('purchases.create')); ?>" class="btn btn-default"><i class="fa fa-plus-square"></i> <?php echo e(trans
         ('pages/invoice.create')); ?></a>
     <?php endif; ?>
 
@@ -60,9 +60,9 @@
                 <div class="col-md-4">
                     <div class="input-group">
                         <span id="vendors-list"
-                              class="input-group-addon"><?php echo e(trans('pages/invoice.vendor_inc_number')); ?></span>
+                              class="input-group-addon"><?php echo e(trans('pages/invoice.vendor_invoice_id')); ?></span>
                         <input type="text" disabled="disabled"
-                               value="<?php echo e($invoice->purchase ? $invoice->purchase->vendor_inc_number : ""); ?>"
+                               value="<?php echo e($invoice->purchase ? $invoice->purchase->vendor_invoice_id : ""); ?>"
                                class="form-control">
                     </div>
                 </div>

@@ -451,7 +451,7 @@
                     items: this.invoiceData.items,
                     total: this.invoiceData.total,
                     tax: 0,
-                    discount_value: 0,
+                    discount: 0,
                     discount_percent: 0,
                     net: this.invoiceData.total,
                     subtotal: this.invoiceData.total,

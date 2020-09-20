@@ -183,7 +183,7 @@
                                 </button>
                                 <ul :aria-labelledby="'dropDownOptions'
                                 + row.id" class="dropdown-menu CustomDropDownOptions">
-                                    <li v-if="row.is_kit"><a :href="BaseApiUrl + 'kits/' + row.id"
+                                    <li v-if="row.is_kit"><a :href="'/items/up_selling/kits/' + row.id"
                                                              v-text="trans.show"></a></li>
                                     <li v-if="canCreate==1  && !row.is_kit"><a :href="baseUrl + row.id + '/clone'"
                                                                                v-text="trans.clone"></a></li>
@@ -254,7 +254,7 @@
                 itemsPerPage: 20,
                 isOpenSearchPanel: false,
                 category: null,
-                baseUrl: "",
+                baseUrl: "/items/",
                 orderBy: "updated_at",
                 orderType: "desc",
                 yourValue: null,
@@ -267,9 +267,7 @@
                 trans: trans('items-page'),
                 messages: trans('messages'),
                 table_trans: trans('table'),
-                BaseApiUrl: metaHelper.getContent('BaseApiUrl'),
                 datetimetrans: trans('datetime'),
-                datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
                 customDateShortcuts: [],
                 date_range: null,
                 showMultiTaskButtons: false,
@@ -332,8 +330,7 @@
 
 
             initUi() {
-                this.requestUrl = this.datatableBaseUrl + 'items';
-                this.baseUrl = this.trans.baseUrl + "/";
+                this.requestUrl = '/api/items';
                 this.customDateShortcuts = [
                     {key: 'thisWeek', label: this.datetimetrans.thisWeek, value: 'isoWeek'},
                     {key: 'lastWeek', label: this.datetimetrans.lastWeek, value: '-isoWeek'},

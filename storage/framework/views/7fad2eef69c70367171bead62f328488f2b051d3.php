@@ -1,7 +1,6 @@
 <?php $__env->startSection('title',__('pages/invoice.purchase')); ?>
 
 
-
 <?php $__env->startSection('page_css'); ?>
     <style>
         .navbar {

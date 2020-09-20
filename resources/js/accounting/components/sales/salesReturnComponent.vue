@@ -253,7 +253,7 @@
                 @canBeReturnedSerialCount="handleItemWithSerialCanBeReturnedSerialCount"
                 @panelClosed="handleItemSerialsClosed"
                 @publishUpdated="handleItemSerialsUpdated"
-                invoice-type="r_sale"
+                invoice-type="return_sale"
         >
 
         </accounting-return-item-serials-list-layout-component>

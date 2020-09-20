@@ -64,7 +64,7 @@
                             <select @change="pushServerRequest" class="form-control" v-model="filters.invoice_type">
                                 <option value="null">{{ app.trans.invoice_type }}</option>
                                 <option value="sale">{{ app.trans.sale }}</option>
-                                <option value="r_sale">{{ app.trans.return_sale }}</option>
+                                <option value="return_sale">{{ app.trans.return_sale }}</option>
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -235,12 +235,12 @@
                         <td class="text-center" v-if="canViewAccounting==1" v-text="row.subtotal"></td>
                         <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='sale'"
                             v-text="parseFloat(row.invoice_cost).toFixed(2)"></td>
-                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='r_sale'"
+                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='return_sale'"
                             v-text="parseFloat(-row.invoice_cost).toFixed(2)"></td>
 
                         <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='sale'"
                             v-text="parseFloat(row.subtotal - row.invoice_cost).toFixed(2)"></td>
-                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='r_sale'"
+                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='return_sale'"
                             v-text="-parseFloat(row.subtotal - row.invoice_cost).toFixed(2)"></td>
 
 
@@ -427,7 +427,7 @@
                     tax: 0,
                     total: 0,
                     subtotal: 0,
-                    discount_value: 0,
+                    discount: 0,
                     profit: 0,
                     cost: 0,
                 },
@@ -495,7 +495,7 @@
 
 
             initUi() {
-                this.requestUrl =  '/api/sales';
+                this.requestUrl =  '/accounting/datatable/sales';
                 this.baseUrl = this.app.trans.SaleBaseUrl + "/";
                 this.customDateShortcuts = [
                     {key: 'day', label: this.app.datetimetrans.today, value: 'day'},
@@ -546,7 +546,7 @@
                 this.totals.tax = 0;
                 this.totals.total = 0;
                 this.totals.subtotal = 0;
-                this.totals.discount_value = 0;
+                this.totals.discount = 0;
                 this.totals.cost = 0;
                 this.totals.profit = 0;
                 for (let i = 0; i < len; i++) {
@@ -559,7 +559,7 @@
                         this.totals.tax = ItemMath.sum(this.totals.tax, row.tax);
                         this.totals.total = ItemMath.sum(this.totals.total, row.total);
                         this.totals.subtotal = ItemMath.sum(this.totals.subtotal, row.subtotal);
-                        this.totals.discount_value = ItemMath.sum(this.totals.discount_value, row.discount_value);
+                        this.totals.discount = ItemMath.sum(this.totals.discount, row.discount);
                         this.totals.profit = ItemMath.sum(this.totals.profit, row.subtotal - row.invoice_cost);
                         this.totals.cost = ItemMath.sum(this.totals.cost, row.invoice_cost);
                     } else {
@@ -567,7 +567,7 @@
                         this.totals.tax = ItemMath.sub(this.totals.tax, row.tax);
                         this.totals.total = ItemMath.sub(this.totals.total, row.total);
                         this.totals.subtotal = ItemMath.sub(this.totals.subtotal, row.subtotal);
-                        this.totals.discount_value = ItemMath.sub(this.totals.discount_value, row.discount_value);
+                        this.totals.discount = ItemMath.sub(this.totals.discount, row.discount);
                         this.totals.profit = ItemMath.sub(this.totals.profit, row.subtotal - row.invoice_cost);
                         this.totals.cost = ItemMath.sub(this.totals.cost, row.invoice_cost);
                     }

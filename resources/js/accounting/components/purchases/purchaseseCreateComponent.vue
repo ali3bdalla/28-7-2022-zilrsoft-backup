@@ -11,7 +11,7 @@
 
             </div>
             <div class="col-md-6">
-                <a :href="app.BaseApiUrl + 'purchases'" class="btn btn-default "><i
+                <a href="/purchases" class="btn btn-default "><i
                         class="fa fa-redo"></i> {{ app.trans.cancel }}</a>
             </div>
 
@@ -43,7 +43,7 @@
             </div>
             <div class="col-md-6">
                 <div class="input-group">
-                    <span class="input-group-addon">{{ app.trans.vendor_inc_number }}</span>
+                    <span class="input-group-addon">{{ app.trans.vendor_invoice_id }}</span>
                     <input aria-describedby="time-field" class="form-control"
                            type="text" v-model="invoiceData.vendorIncCumber">
 
@@ -63,7 +63,7 @@
                         @valueUpdated="receiverListChanged"
                         identity="002"
                         index="002"
-                        label_text="name"
+                        label_text="locale_name"
                 >
 
                 </accounting-select-with-search-layout-component>
@@ -105,13 +105,12 @@
 
 
             <div class="col-md-2" v-if="canViewItems==1">
-                <a :href="app.BaseApiUrl +
-                    'items?selectable=true&&is_purchase=true'" class="btn btn-custom-primary btn-lg"
+                <a :href="'/items?selectable=true&&is_purchase=true'" class="btn btn-custom-primary btn-lg"
                    target="_blank">{{ app.trans.view_products}}</a>
 
             </div>
             <div class="col-md-2" v-if="canCreateItem==1">
-                <a :href="app.BaseApiUrl + 'items/create'" class="btn btn-custom-primary btn-lg"
+                <a :href="'/items/create'" class="btn btn-custom-primary btn-lg"
                    target="_blank">{{app.trans.create_product}}</a>
             </div>
 
@@ -476,8 +475,6 @@
                     messages: trans('messages'),
                     dateTimeTrans: trans('datetime'),
                     validation: trans('validation'),
-                    datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
-                    BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
                     defaultVatSaleValue: 15,
                     defaultVatPurchaseValue: 15,
                 },
@@ -506,7 +503,7 @@
         methods: {
 
             cloneExistsInvoice() {
-                this.invoiceData.vendorIncCumber = this.initPurchase.vendor_inc_number;
+                this.invoiceData.vendorIncCumber = this.initPurchase.vendor_invoice_id;
                 this.invoiceData.vendorId = this.initPurchase.vendor_id;
                 this.creator_id = this.initInvoice.creator_id;
 
@@ -878,11 +875,11 @@
                     pending_purchase_id: this.pending_purchase_id,
                     items: this.invoiceData.items,
                     vendor_id: this.invoiceData.vendorId,
-                    vendor_inc_number: this.invoiceData.vendorIncCumber,
+                    vendor_invoice_id: this.invoiceData.vendorIncCumber,
                     receiver_id: this.invoiceData.receiverId,
                     total: this.invoiceData.total,
                     tax: this.invoiceData.tax,
-                    discount_value: this.invoiceData.discount,
+                    discount: this.invoiceData.discount,
                     discount_percent: this.invoiceData.discount,
                     net: this.invoiceData.net,
                     subtotal: this.invoiceData.subtotal,
@@ -905,7 +902,7 @@
                 }else
 
                 {
-                    axios.post('/purchases', data)//this.app.BaseApiUrl + 
+                    axios.post('/api/purchases', data)//this. 
                         .then(function (response) {
                             console.log(response.data);
                             // if (event == 'a4') {
@@ -965,7 +962,7 @@
                         if (appVm.pending_purchase_id == 0)
                             window.location.reload();
                         else
-                            window.location = '/accounting/purchases/create';
+                            window.location = '/purchases/create';
                     });
 
                 //

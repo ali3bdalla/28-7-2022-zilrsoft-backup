@@ -39,7 +39,7 @@
 			
 			$item = Item::find($this->item_id);
 			return $serials = $item->serials()
-				->whereIn('current_status',['available','r_sale'])
+				->whereIn('current_status',['available','return_sale'])
 				->whereIn('serial',$this->serials)
 				->pluck('serial');
 //			return $serials->whereIn('serials',[

@@ -100,7 +100,7 @@ class ValidatorServiceProvider extends ServiceProvider
             if ($item->is_need_serial) {
                 $db_serial = $item->serials()->where('serial', $value)->get();
                 foreach ($db_serial as $serial) {
-                    if (!in_array($serial->current_status, ["r_purchase", "saled"])) {
+                    if (!in_array($serial->current_status, ["return_purchase", "saled"])) {
                         return true;
                     }
                 }

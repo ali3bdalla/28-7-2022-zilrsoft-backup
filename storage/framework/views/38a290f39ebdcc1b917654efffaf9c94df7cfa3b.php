@@ -19,7 +19,7 @@
 
         <tbody>
         <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <?php if(!(in_array($invoice->invoice_type,['sale','r_sale']) && $item->is_expense) && $item->item != null): ?>
+            <?php if(!(in_array($invoice->invoice_type,['sale','return_sale']) && $item->is_expense) && $item->item != null): ?>
                 <tr <?php if($item->belong_to_kit==true): ?> class="bg-custom-primary" <?php endif; ?>>
                     <td>
                         <button class="btn btn-custom-primary btn-xs"><?php echo e($loop->index + 1); ?></button>
@@ -113,12 +113,12 @@
                                     </div>
                                     <?php $__currentLoopData = $item->item->serials()->withoutGlobalScope("pendingSerialsScope")
                                     ->where([
-                                    ["sale_invoice_id",$invoice->id],
+                                    ["sale_id",$invoice->id],
                                     ["item_id",$item->item->id],
                                     ])
-                                    ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                    ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                    ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["return_sale_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["return_purchase_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["purchase_id",$invoice->id],["item_id",$item->item->id]])
                                     ->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $serial): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <div class="row">
                                             <div class="col-md-8  text-center">
@@ -126,7 +126,8 @@
 
                                             </div>
                                             <div class="col-md-4  text-center">
-                                                <?php echo e(trans('pages/items.' . $serial->current_status)); ?>
+                                                
+                                                <?php echo e(trans('pages/items.' . $serial->status)); ?>
 
                                             </div>
                                         </div>

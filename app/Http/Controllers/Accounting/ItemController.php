@@ -9,6 +9,7 @@ use App\Http\Requests\Accounting\Item\CreateItemRequest;
 use App\Http\Requests\Accounting\Item\DatatableRequest;
 use App\Http\Requests\Accounting\Item\UpdateItemRequest;
 use App\Http\Requests\Accounting\Item\UploadAttachmentRequest;
+use App\Http\Resources\InvoiceItem\InvoiceItemActivityCollection;
 use App\Models\Category;
 use App\Models\InvoiceItems;
 use App\Models\Item;
@@ -195,6 +196,7 @@ class ItemController extends Controller
      */
     public function transactions_datatable(Item $item, Request $request)
     {
+        return new InvoiceItemActivityCollection($item->history()->paginate(10000));
         $transaction = new ItemTransactionsLoader($item, $request);
         return $transaction->run();
 //

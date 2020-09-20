@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Category;
 	
-	use App\Category;
+	use App\Models\Category;
     use Illuminate\Foundation\Http\FormRequest;
 	
 	class UpdateCategoryRequest extends FormRequest

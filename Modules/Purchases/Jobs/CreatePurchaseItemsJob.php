@@ -74,7 +74,7 @@ class CreatePurchaseItemsJob implements ShouldQueue
             $dbItem = Item::findOrFail($item['id']);
             $collectionData = collect($item);
             if ($dbItem->isNeedSerial()) {
-                dispatch(new ValidateItemSerialsJob($dbItem, $collectionData->get('qty'), (array)$collectionData->get('serials'), 'purchase', ['purchase', 'r_sale', 'available'], $index));
+                dispatch(new ValidateItemSerialsJob($dbItem, $collectionData->get('qty'), (array)$collectionData->get('serials'), 'purchase', ['purchase', 'return_sale', 'available'], $index));
             }
             if ($dbItem->isCostableItem()) {
                 $invoiceItem = $this->createItem($dbItem, $collectionData);

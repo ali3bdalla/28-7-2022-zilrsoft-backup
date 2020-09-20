@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Accounting\Chart\CreateAmericanChartOfAccountsJob;
 use App\Models\Country;
 use App\Models\Manager;
 use App\Models\Organization;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class RegisterController extends Controller
@@ -85,8 +87,7 @@ class RegisterController extends Controller
             if ($request->expectsJson()) {
                 return $e->getMessage();
             }
-
-            return Redirect::to(route('management.register'))
+            return Redirect::to('/')
                 ->withErrors($e->getErrors())
                 ->withInput();
 
@@ -98,15 +99,9 @@ class RegisterController extends Controller
                 return $e->getMessage();
             }
 
-            return Redirect::to(route('management.register'))
+            return Redirect::to('/')
                 ->withInput();
         }
-
-//
-        //            if($request->expectsJson())
-        //                return $user;
-
-        // $user = null;
         event(new Registered($user));
         $this->guard()->login($user);
 
@@ -124,25 +119,20 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'org_title' => 'required|string|max:255',
-            'org_title_ar' => 'required|string|max:255',
-            'org_city' => 'required|string|max:255',
-            'org_city_ar' => 'required|string|max:255',
-
-            'org_address' => 'required|string|max:255',
-            'org_address_ar' => 'required|string|max:255',
-
-            'org_phone_number' => 'required|string|max:255',
-            'org_description' => 'nullable',
-            'org_description_ar' => 'nullable',
-            'org_vat' => 'required|string|max:255',
-            'org_cr' => 'required|string|max:255',
-            'org_country_id' => 'required|integer|exists:countries,id',
-            'org_business_type' => 'required|integer|exists:types,id',
-            'org_type' => 'required|string|max:255',
-            'org_description' => 'required',
-            'org_description_ar' => 'required',
-
+            'organization_title' => 'required|string|max:255',
+            'organization_title_ar' => 'required|string|max:255',
+            'organization_city' => 'required|string|max:255',
+            'organization_city_ar' => 'required|string|max:255',
+            'organization_address' => 'required|string|max:255',
+            'organization_address_ar' => 'required|string|max:255',
+            'organization_phone_number' => 'required|string|max:255',
+            'organization_vat' => 'required|numeric|max:255',
+            'organization_cr' => 'required|max:255',
+            'organization_country_id' => 'required|integer|exists:countries,id',
+            'organization_business_type' => 'required|integer|exists:types,id',
+            'organization_type' => 'required|string|max:255',
+            'organization_description' => 'required',
+            'organization_description_ar' => 'required',
             'name' => 'required|string|max:255',
             'name_ar' => 'required|string|max:255',
             'phone_number' => 'required|string|max:255',
@@ -162,22 +152,21 @@ class RegisterController extends Controller
     {
 
         $organization = Organization::create([
-            'title' => $data['org_title'],
-            'title_ar' => $data['org_title_ar'],
-            'description' => $data['org_description'],
-            'description_ar' => $data['org_description_ar'],
-            'country_id' => $data['org_country_id'],
-            'type_id' => $data['org_business_type'],
-            'type' => $data['org_type'],
-            'cr' => $data['org_cr'],
-            'vat' => $data['org_vat'],
-            'phone_number' => $data['org_phone_number'],
-            'city' => $data['org_city'],
-            'city_ar' => $data['org_city_ar'],
-            'address' => $data['org_address'],
-            'address_ar' => $data['org_address_ar'],
+            'title' => $data['organization_title'],
+            'title_ar' => $data['organization_title_ar'],
+            'description' => $data['organization_description'],
+            'description_ar' => $data['organization_description_ar'],
+            'country_id' => $data['organization_country_id'],
+            'type_id' => $data['organization_business_type'],
+            'type' => $data['organization_type'],
+            'cr' => $data['organization_cr'],
+            'vat' => $data['organization_vat'],
+            'phone_number' => $data['organization_phone_number'],
+            'city' => $data['organization_city'],
+            'city_ar' => $data['organization_city_ar'],
+            'address' => $data['organization_address'],
+            'address_ar' => $data['organization_address_ar'],
         ]);
-
         $user = User::create([
             'organization_id' => $organization->id,
             'is_supervisor' => true,
@@ -188,7 +177,6 @@ class RegisterController extends Controller
             'phone_number' => $data['phone_number'],
             'user_type' => 'individual',
         ]);
-
         $manager = Manager::create([
             'organization_id' => $organization->id,
             'branch_id' => 0,
@@ -201,9 +189,8 @@ class RegisterController extends Controller
         ]);
 
         $organization->fill(['supervisor_id' => $user->id]);
-
         $organization->save();
-
+        dispatch(new CreateAmericanChartOfAccountsJob($organization,$manager));
         return $manager;
     }
 

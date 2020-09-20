@@ -3,7 +3,7 @@
 namespace Modules\Purchases\Http\Requests;
 
 use App\Models\Invoice;
-use App\Models\PurchaseInvoice;
+use App\Models\Purchase;
 use App\Models\TransactionsContainer;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -56,7 +56,7 @@ class CreateReturnRequest extends FormRequest
             $returnedItems = $this->getReturnedItems();
             $authUser = auth()->user();
             $invoice = Invoice::create([
-                'invoice_type' => 'r_purchase',
+                'invoice_type' => 'return_purchase',
                 'notes' => $this->has('notes') ? $this->input('notes') : "",
                 'creator_id' => $authUser->id,
                 'organization_id' => $purchase->organization_id,
@@ -65,11 +65,11 @@ class CreateReturnRequest extends FormRequest
                 'parent_invoice_id' => $purchase->id,
                 'is_deleted' => false
             ]);
-            $purchaseInvoice = $invoice->purchase()->create([
+            $Purchase = $invoice->purchase()->create([
                 'vendor_id' => $purchase->purchase->vendor_id,
                 'receiver_id' => $purchase->purchase->receiver_id,
                 'organization_id' => $purchase->organization_id,
-                'invoice_type' => 'r_purchase',
+                'invoice_type' => 'return_purchase',
                 "prefix" => "RPU-"
             ]);
 
@@ -108,7 +108,7 @@ class CreateReturnRequest extends FormRequest
 
     private function validateInvoiceType(Invoice $invoice)
     {
-        if ($invoice->purchase == null || !$invoice->purchase instanceof PurchaseInvoice || $invoice->invoice_type != 'purchase' || $invoice->purchase->invoice_type != 'purchase') {
+        if ($invoice->purchase == null || !$invoice->purchase instanceof Purchase || $invoice->invoice_type != 'purchase' || $invoice->purchase->invoice_type != 'purchase') {
             $error = ValidationException::withMessages([
                 "invoice" => ['must be purchase invoice'],
             ]);

@@ -31,8 +31,8 @@
                                                             v-if="allowedType.includes(serial.current_status)">ارجاع
                                                     </button>
                                                     <span v-else-if="serial.current_status == 'saled'">تم بيعه</span>
-                                                    <span v-else-if="serial.current_status == 'r_purchase'"> مرتج مشتريات</span>
-                                                    <span v-else-if="serial.current_status == 'r_sale'"> مرتج مبيعات</span>
+                                                    <span v-else-if="serial.current_status == 'return_purchase'"> مرتج مشتريات</span>
+                                                    <span v-else-if="serial.current_status == 'return_sale'"> مرتج مبيعات</span>
                                                     <span v-else-if="serial.current_status == 'purchase'"> مشتريات</span>
                                                 </td>
                                             </tr>
@@ -72,9 +72,9 @@
         },
 
         created: function () {
-            if (this.invoiceType == 'r_purchase') {
+            if (this.invoiceType == 'return_purchase') {
                 this.allowedType = [
-                    'r_sale', 'purchase', 'available'
+                    'return_sale', 'purchase', 'available'
                 ];
             } else {
                 this.allowedType = [

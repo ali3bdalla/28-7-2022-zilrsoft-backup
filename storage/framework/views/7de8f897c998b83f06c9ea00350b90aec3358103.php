@@ -256,8 +256,8 @@
                                             ["sale_invoice_id",$invoice->id],
                                             ["item_id",$item->item->id],
                                             ])
-                                            ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                            ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["return_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["return_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
                                             ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
                                             ->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $serial): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                  <tr style="background-color: #8888">
@@ -313,7 +313,7 @@
             </div>
             <div class="number">
                 <div class="label"><?php echo e(__('pages/invoice.discount')); ?> :</div>
-                <div class="value"><?php echo e($invoice->discount_value); ?></div>
+                <div class="value"><?php echo e($invoice->discount); ?></div>
                 <div class="clear"></div>
             </div>
 

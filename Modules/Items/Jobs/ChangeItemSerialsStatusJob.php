@@ -67,13 +67,13 @@ class ChangeItemSerialsStatusJob implements ShouldQueue
             if ($this->changeTo == 'saled') {
                 $data['sale_invoice_id'] = $this->invoice->id;
                 $data['saled_by'] = $this->invoice->user_id;
-            } else if ($this->changeTo == 'r_sale') {
-                $data['r_sale_invoice_id'] = $this->invoice->id;
+            } else if ($this->changeTo == 'return_sale') {
+                $data['return_sale_invoice_id'] = $this->invoice->id;
                 $querySerial = $serial['serial'];
             } else if ($this->changeTo == 'purchase') {
                 $data['purchase_invoice_id'] = $this->invoice->id;
-            } else if ($this->changeTo == 'r_purchase') {
-                $data['r_purchase_invoice_id'] = $this->invoice->id;
+            } else if ($this->changeTo == 'return_purchase') {
+                $data['return_purchase_invoice_id'] = $this->invoice->id;
                 $querySerial = $serial['serial'];
             }
             $serialDB = $this->item->serials()->where([['serial', $querySerial]])->whereIn('current_status', $this->searchByStatuses)->first();

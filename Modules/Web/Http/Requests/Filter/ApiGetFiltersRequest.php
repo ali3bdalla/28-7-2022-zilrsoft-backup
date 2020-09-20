@@ -2,8 +2,8 @@
 
 namespace Modules\Web\Http\Requests\Filter;
 
-use App\Category;
-use App\CategoryFilters;
+use App\Models\Category;
+use App\Models\CategoryFilters;
 use App\Models\Filter;
 use App\Models\FilterValues;
 use App\Models\Item;

@@ -2,7 +2,7 @@
 
 namespace Modules\Web\Http\Requests\Item;
 
-use App\Category;
+use App\Models\Category;
 use App\Models\FilterValues;
 use App\Models\Item;
 use App\Models\ItemFilters;

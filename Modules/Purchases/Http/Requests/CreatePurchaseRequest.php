@@ -2,7 +2,7 @@
 
 namespace Modules\Purchases\Http\Requests;
 
-use App\Events\Accounting\Invoice\PendingPurchaseInvoiceCreatedEvent;
+use App\Events\Accounting\Invoice\PendingPurchaseCreatedEvent;
 use App\Models\Invoice;
 use App\Models\ItemSerials;
 use App\Models\TransactionsContainer;
@@ -38,12 +38,12 @@ class CreatePurchaseRequest extends FormRequest
             'items.*.serials.*' => ['required', function ($attr, $value, $fail) {
                 $serial = ItemSerials::where('serial', $value)->first();
                 if (!empty($serial)) {
-                    if (in_array($serial->current_status, ['saled', 'available', 'r_sale'])) {
+                    if (in_array($serial->current_status, ['saled', 'available', 'return_sale'])) {
                         $fail('this serial is already exists');
                     }
                 }
             }],
-            'vendor_inc_number' => 'required|string',
+            'vendor_invoice_id' => 'required|string',
             'remaining' => 'nullable|numeric',
             'expenses' => 'nullable|array',
             'expenses.*.id' => 'integer|required|exists:expenses',
@@ -83,7 +83,7 @@ class CreatePurchaseRequest extends FormRequest
                 'receiver_id' => $authUser->id,
                 'vendor_id' => $this->input('vendor_id'),
                 'organization_id' => $authUser->organization_id,
-                'vendor_inc_number' => $this->input('vendor_inc_number'),
+                'vendor_invoice_id' => $this->input('vendor_invoice_id'),
                 'invoice_type' => $invoiceType,
                 "prefix" => $invoicePrefix
             ]);
@@ -103,7 +103,7 @@ class CreatePurchaseRequest extends FormRequest
             dispatch(new CreatePurchaseItemsJob($transactionContainer,$invoice, $this->input('items'), $this->input('methods'), $expenses));
             dispatch(new UpdateInvoiceTotalsJob($invoice, $expensesAmount));
             if (!$this->user()->can('confirm purchase')) {
-//                event(new PendingPurchaseInvoiceCreatedEvent($invoice->fresh()));
+//                event(new PendingPurchaseCreatedEvent($invoice->fresh()));
             } else {
                 dispatch(new CreatePurchasesEntityTransactionsJob($transactionContainer,$invoice, $this->input('methods'), $expenses,$this->input('items')));
                 dispatch(new EnsurePurchaseDataAreCorrectJob($invoice));

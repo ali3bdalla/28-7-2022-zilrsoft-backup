@@ -68,7 +68,7 @@ class CreateExpensePurchaseJob implements ShouldQueue
             'receiver_id' => $authUser->id,
             'vendor_id' => $this->item->expense_vendor_id,
             'organization_id' => $authUser->organization_id,
-            'vendor_inc_number' => uniqid(),
+            'vendor_invoice_id' => uniqid(),
             'invoice_type' => 'purchase',
             "prefix" => "PU-"
         ]);

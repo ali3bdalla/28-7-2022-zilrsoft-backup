@@ -19,7 +19,7 @@
 
         <tbody>
         @foreach($items as $item)
-            @if(!(in_array($invoice->invoice_type,['sale','r_sale']) && $item->is_expense) && $item->item != null)
+            @if(!(in_array($invoice->invoice_type,['sale','return_sale']) && $item->is_expense) && $item->item != null)
                 <tr @if($item->belong_to_kit==true) class="bg-custom-primary" @endif>
                     <td>
                         <button class="btn btn-custom-primary btn-xs">{{$loop->index + 1}}</button>
@@ -117,12 +117,12 @@
                                     </div>
                                     @foreach($item->item->serials()->withoutGlobalScope("pendingSerialsScope")
                                     ->where([
-                                    ["sale_invoice_id",$invoice->id],
+                                    ["sale_id",$invoice->id],
                                     ["item_id",$item->item->id],
                                     ])
-                                    ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                    ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                    ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["return_sale_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["return_purchase_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["purchase_id",$invoice->id],["item_id",$item->item->id]])
                                     ->get() as $serial
                                     )
                                         <div class="row">
@@ -130,7 +130,8 @@
                                                 {{ $serial->serial }}
                                             </div>
                                             <div class="col-md-4  text-center">
-                                                {{trans('pages/items.' . $serial->current_status)}}
+                                                {{-- {{}} --}}
+                                                {{trans('pages/items.' . $serial->status)}}
                                             </div>
                                         </div>
 

@@ -3,7 +3,7 @@
         تكاليف اضافية
     </div>
 
-    <?php if(in_array($invoice->invoice_type,['sale','r_sale'])): ?>
+    <?php if(in_array($invoice->invoice_type,['sale','return_sale'])): ?>
         <?php $__currentLoopData = $invoice->items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <?php if($item->item->is_expense): ?>
                 <tr>
@@ -32,7 +32,7 @@
             <?php endif; ?>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-    <?php elseif(in_array($invoice->invoice_type,['purchase','beginning_inventory','r_purchase'])): ?>
+    <?php elseif(in_array($invoice->invoice_type,['purchase','beginning_inventory','return_purchase'])): ?>
 
 
         <div class="panel-body">

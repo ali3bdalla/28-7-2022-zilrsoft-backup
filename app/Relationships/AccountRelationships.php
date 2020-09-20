@@ -28,13 +28,13 @@ trait AccountRelationships
         return $this->hasMany(Transaction::class, 'account_id');
     }
 
-    public function credit_transaction()
-    {
-        return $this->hasMany(Transaction::class, 'account_id')->where('type', 'credit');
-    }
+    // public function credit_transaction()
+    // {
+    //     return $this->hasMany(Transaction::class, 'account_id')->where('type', 'credit');
+    // }
 
-    public function debit_transaction()
-    {
-        return $this->hasMany(Transaction::class, 'account_id')->where('type', 'debit');
-    }
+    // public function debit_transaction()
+    // {
+    //     return $this->hasMany(Transaction::class, 'account_id')->where('type', 'debit');
+    // }
 }

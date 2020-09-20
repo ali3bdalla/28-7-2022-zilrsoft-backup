@@ -55,7 +55,7 @@
 				]);
 				
 				$item->item->serials()->whereIn('current_status',[
-					'available','r_sale'
+					'available','return_sale'
 				])->update([
 					'is_pending' => true
 				]);

@@ -9,13 +9,9 @@
 
 @section('content')
 
-
     <div class="panel">
-
-        <div class="panel-heading">
-
-        </div>
-
+        {{-- <div class="panel-heading">
+        </div> --}}
         <div class="panel-body">
             <table class="table table-bordered text-center">
                 <thead>
@@ -38,23 +34,12 @@
                 <tbody>
 
                 @foreach($items as $item)
-
-
                     <tr>
                         <th class="text-center ">{{ $item['barcode'] }}</th>
-                        @if($account->slug=='clients')
-                            <th class="text-center "><a
-                                        href="{{ route('accounting.accounts.client',[ $item['id'],$account->id] ) }}">{{
-                        $item['locale_name'] }}</a></th>
-
-                        @else
-
-                            <th class="text-center "><a
-                                        href="{{ route('accounting.accounts.item',[ $item['id'],$account->id] ) }}">{{
-                        $item['locale_name'] }}</a></th>
-                        @endif
-                        <th class="text-center ">{{money_format("%i", $item['total_debit']) }}</th>
-                        <th class="text-center ">{{money_format("%i", $item['total_credit'])}}</th>
+                       <th class="text-center "><a
+                                        href="{{ route('accounts.show.item',[ $account->id,$item['id']] ) }}">{{$item['locale_name'] }}</a></th>
+                        <th class="text-center ">{{money_format("%i", $item['total_debit_amount']) }}</th>
+                        <th class="text-center ">{{money_format("%i", $item['total_credit_amount'])}}</th>
                         <th class="text-center ">{{ money_format("%i", $item['balance_debit']) }}</th>
                         <th class="text-center ">{{money_format("%i", $item['balance_credit']) }}</th>
                     </tr>

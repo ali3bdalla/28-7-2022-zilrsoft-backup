@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Relationships;
-use \App\Category;
+use \App\Models\Category;
 use \App\Models\Filter;
 use App\Models\Item;
 

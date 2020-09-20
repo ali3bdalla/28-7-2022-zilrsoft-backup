@@ -5,7 +5,7 @@
 
 
 	use App\Attachment;
-    use App\Category;
+    use App\Models\Category;
 	use App\Models\InvoiceItems;
 	use App\Models\ItemExpenses;
 	use App\Models\ItemFilters;
@@ -19,27 +19,27 @@
 	trait ItemRelationships
 	{
 
-        public function attachments()
-        {
-            return $this->morphMany(Attachment::class,'attachable');
-	    }
+        // public function attachments()
+        // {
+        //     return $this->morphMany(Attachment::class,'attachable');
+	    // }
 
 
 
-		public function warranty()
-		{
-			return $this->belongsTo(WarrantySubscription::class,'warranty_subscription_id');
-		}
+		// public function warranty()
+		// {
+		// 	return $this->belongsTo(WarrantySubscription::class,'warranty_subscription_id');
+		// }
 
-		public function statistics()
-		{
-			return $this->hasOne(ItemStatistic::class,'item_id');
-		}
+		// public function statistics()
+		// {
+		// 	return $this->hasOne(ItemStatistic::class,'item_id');
+		// }
 
-		public function expenses()
-		{
-			return $this->hasMany(ItemExpenses::class,'item_id');
-		}
+		// public function expenses()
+		// {
+		// 	return $this->hasMany(ItemExpenses::class,'item_id');
+		// }
 
 		public function organization()
 		{
@@ -51,7 +51,7 @@
 			return $this->hasMany(ItemSerials::class,'item_id');
 		}
 
-		public function history()
+		public function pipline()
 		{
 			return $this->hasMany(InvoiceItems::class,'item_id');
 		}
@@ -71,14 +71,14 @@
 			return $this->belongsTo(Manager::class,'creator_id');
 		}
 
-		public function credit_transaction()
-		{
-			return $this->morphMany(Transaction::class,'creditable');
-		}
+		// public function credit_transaction()
+		// {
+		// 	return $this->morphMany(Transaction::class,'creditable');
+		// }
 
-		public function debit_transaction()
-		{
-			return $this->morphMany(Transaction::class,'debitable');
-		}
+		// public function debit_transaction()
+		// {
+		// 	return $this->morphMany(Transaction::class,'debitable');
+		// }
 
 	}

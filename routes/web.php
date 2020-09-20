@@ -1,17 +1,25 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// auth()->loginUsingId(1);
-// Route::middleware(['auth'])->get('/',
-//     'RedirectController@toAppDashboard');
-
-// Route::middleware('guest')->get('/',
-//     'RedirectController@toAppPortal');
-
-
-
 
 Route::resource('sales', 'SaleController');
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/', 'HomeController@index')->name('index');
 });
+Route::resource('accounts', 'AccountController');
+Route::prefix('accounts/{account}/view')->name('accounts.show.')->group(function(){
+    Route::get('/stock', 'AccountController@showStock')->name('stock');
+    Route::get('/{item}/item', 'AccountController@showItem')->name('item');
+
+});
+Route::resource('entities', 'EntityController');
+Route::prefix('financial_statements')->name('financial_statements.')->group(function(){
+    Route::get('/', 'FinancialStatementController@index')->name('index');
+    Route::get('trial_balance', 'FinancialStatementController@trailBalance')->name('trial_balance');
+});
+Route::resource('items', 'ItemController');
+Route::prefix('items/{item}')->name('items.')->group(function(){
+    Route::get('/transactions', 'ItemController@transactions')->name('transactions');
+});
+Route::resource('purchases', 'PurchaseController');
+Route::resource('entities', 'EntityController');

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Attributes\InvoiceAttributes;
 use App\Relationships\InvoiceRelationship;
-use App\Traits\OrmNumbersTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -29,7 +28,6 @@ class Invoice extends Model
     use InvoiceRelationship;
     use InvoiceAttributes;
     use SoftDeletes;
-    use OrmNumbersTrait;
 
     protected static function boot()
     {
@@ -43,9 +41,9 @@ class Invoice extends Model
     }
 
     protected $appends = [
-        'description',
-        'title',
-        'user_id',
+        // 'description',
+        // 'title',
+        // 'user_id',
     ];
     protected $guarded = [];
 

@@ -52,7 +52,7 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
         $total_cost =(float)($this->invoice->transactions()->where('description','to_item')->sum('amount'));
         
         if ($total_cost > 0){
-            $manager_cogs_account->debit_transaction()->create([
+            $manager_cogs_account->transactions()->create(['type'=>'debit',
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
                 'amount' => $total_cost,
@@ -88,7 +88,7 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
 
 
         if ($products_sales_total > 0){
-            $manager_products_sales_account->credit_transaction()->create([
+            $manager_products_sales_account->transactions()->create(['type'=>'credit',
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
                 'amount' => (float)($products_sales_total),
@@ -100,7 +100,7 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
         }
 
         if ($services_sales_total > 0){
-            $manager_services_sales_account->credit_transaction()->create([
+            $manager_services_sales_account->transactions()->create(['type'=>'credit',
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
                 'amount' =>(float)( $services_sales_total),
@@ -112,7 +112,7 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
         }
 
         if ($other_services_sales_total > 0){
-            $manager_other_services_sales_account->credit_transaction()->create([
+            $manager_other_services_sales_account->transactions()->create(['type'=>'credit',
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
                 'amount' =>(float)( $other_services_sales_total),
@@ -126,7 +126,7 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
 
         /// discounts
         if ($products_sales_total_discount > 0){
-            $manager_products_sales_discount_account->debit_transaction()->create([
+            $manager_products_sales_discount_account->transactions()->create(['type'=>'debit',
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
                 'amount' => (float)($products_sales_total_discount),
@@ -138,7 +138,7 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
         }
 
         if ($services_sales_total_discount > 0){
-            $manager_services_sales_discount_account->debit_transaction()->create([
+            $manager_services_sales_discount_account->transactions()->create(['type'=>'debit',
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
     
@@ -151,7 +151,7 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
         }
 
         if ($other_services_sales_total_discount > 0){
-            $manager_other_services_sales_discount_account->debit_transaction()->create([
+            $manager_other_services_sales_discount_account->transactions()->create(['type'=>'debit',
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
                 'amount' => (float)($other_services_sales_total_discount),

@@ -102,8 +102,10 @@
 		'active'=>'نشط',
 		
 		'available' => 'متوفر',
-		'saled' => 'تم بيعه',
-		'r_sale' => 'مرتجع مبيعات',
+		'sold' => 'تم بيعه',
+		'in_stock' => 'متوفر',
+
+		'return_sale' => 'مرتجع مبيعات',
 		'purchase' => 'متوفر',
-		'r_purchase' => 'مرتجع مشتريات',
+		'return_purchase' => 'مرتجع مشتريات',
 	];

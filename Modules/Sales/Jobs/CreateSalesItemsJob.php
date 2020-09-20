@@ -36,7 +36,7 @@ class CreateSalesItemsJob implements ShouldQueue
     private $entity;
 
 
-    private $availableSerialsStatus = ["r_sale", "purchase", 'available'];
+    private $availableSerialsStatus = ["return_sale", "purchase", 'available'];
 
     /**
      * Create a new job instance.

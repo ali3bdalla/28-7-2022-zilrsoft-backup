@@ -10,7 +10,7 @@ use Illuminate\View\View;
 
 class TrialBalanceController extends Controller
 {
-      /**
+    /**
      * Display a listing of the resource.
      * @param Request $request
      * @return Application|Factory|View
@@ -18,41 +18,26 @@ class TrialBalanceController extends Controller
     public function index(Request $request)
     {
 
-
         $mainAccounts = Account::where('parent_id', 0)->get();
 
 
+        return $account;
         $totalCreditAmount = 0;
         $totalDebitAmount = 0;
         $totalCreditBalance = 0;
         $totalDebitBalance = 0;
         $accounts = [];
-        // $whereIN = [12, 21, 63, 37, 27]; //12,21,63,37,27
 
         foreach ($mainAccounts as $mainAccount) {
 
-
-            $children = Account::whereIn('id', $mainAccount->returnNestedTreeIds($mainAccount))->where([[
-                'id', '!=', $mainAccount->id
-            ]])
-                // ->whereIn('id', $whereIN)
-                ->withCount('children')->having('children_count', 0)->get(); //
+            $children = Account::whereIn('id', $mainAccount->getChildrenHashMap())->where([[
+                'id', '!=', $mainAccount->id,
+            ]])->withCount('children')->having('children_count', 0)->get();
             $mainAccountChildren = [];
             foreach ($children as $account) {
 
-                // $account->statistics->update([
-                //     'debit_amount' => 0,
-                //     'credit_amount' => 0,
-
-                // ]);
-                
-                if (!is_null($account->statistics)) {
-                    $debitAmount = ($account->statistics->debit_amount);
-                    $creditAmount = ($account->statistics->credit_amount);
-                } else {
-                    $debitAmount = ($account->_getDebitTransactionsAmount());
-                    $creditAmount = ($account->_getCreditTransactionsAmount());
-                }
+                $debitAmount = $account->total_debit_amount;
+                $creditAmount = $account->total_credit_amount;
 
                 if ($debitAmount > 0 || $creditAmount > 0) {
                     if ($account->_isCredit()) {
@@ -71,33 +56,19 @@ class TrialBalanceController extends Controller
                     $account->credit_balance = $accountCreditBalance;
                     $account->debit_balance = $accountDebitBalance;
 
-                    $totalCreditAmount =  $totalCreditAmount  +  ((float)$creditAmount);
-                    $totalDebitAmount = $totalDebitAmount + ((float)$debitAmount);
-                    $totalCreditBalance = $totalCreditBalance + ((float)$accountCreditBalance);
-                    $totalDebitBalance = $totalDebitBalance + ((float)$accountDebitBalance);
+                    $totalCreditAmount = $totalCreditAmount + ((float) $creditAmount);
+                    $totalDebitAmount = $totalDebitAmount + ((float) $debitAmount);
+                    $totalCreditBalance = $totalCreditBalance + ((float) $accountCreditBalance);
+                    $totalDebitBalance = $totalDebitBalance + ((float) $accountDebitBalance);
                     $mainAccountChildren[] = $account;
                 }
             }
             $mainAccount->mainAccountChildren = $mainAccountChildren;
             $accounts[] = $mainAccount;
         }
-        //
-  
-
-        // $totalCreditAmount = round($totalCreditAmount);
-        // $totalDebitAmount = round($totalDebitAmount);
-        // $totalCreditBalance =round($totalCreditBalance);
-        // $totalDebitBalance = round($totalDebitBalance);
-        //        return $accounts;
-        //
-
-        //
-        //
-        //         return ;
+       
         return view('accounting::trial_balance.index2', compact('accounts', 'totalCreditAmount', 'totalDebitAmount', 'totalCreditBalance', 'totalDebitBalance'));
-        //        return view('accounting::trial_balance.index', compact('accounts', 'totalCreditAmount', 'totalDebitAmount', 'totalCreditBalance', 'totalDebitBalance'));
     }
-
 
     /**
      * Show the form for creating a new resource.

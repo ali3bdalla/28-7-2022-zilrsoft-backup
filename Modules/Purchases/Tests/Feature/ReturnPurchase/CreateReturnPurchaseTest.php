@@ -13,7 +13,7 @@ use Tests\TestCase;
 class CreateReturnPurchaseTest extends TestCase
 {
 
-    private $purchaseInvoice;
+    private $Purchase;
 
     private $itemsCount = 15;
     /**
@@ -21,7 +21,7 @@ class CreateReturnPurchaseTest extends TestCase
      * @test
      * @return void
      */
-    public function testPreformReturnPurchaseInvoice()
+    public function testPreformReturnPurchase()
     {
         auth()->loginUsingId(1);
         $items = $this->createPurchaseTest();
@@ -75,7 +75,7 @@ class CreateReturnPurchaseTest extends TestCase
             'items' => $purchaseQueryItems,
             'receiver_id' => $manager->id,
             'vendor_id' => $vendor->id,
-            'vendor_inc_number' => uniqid(),
+            'vendor_invoice_id' => uniqid(),
             'methods' => [$tempResellerAccount->toArray()]
         ];
 
@@ -87,7 +87,7 @@ class CreateReturnPurchaseTest extends TestCase
             $response->dump();
         }
         $response->assertOk();
-        $this->purchaseInvoice = Invoice::find(json_decode($response->content(), true)['id']);
+        $this->Purchase = Invoice::find(json_decode($response->content(), true)['id']);
 
         return $purchaseQueryItems;
     }
@@ -103,7 +103,7 @@ class CreateReturnPurchaseTest extends TestCase
         $this->assertIsIterable($returnPurchaseQueryItems);
         $this->assertIsArray($returnPurchaseQueryItems);
         $finalQtyItems = [];
-        foreach ($this->purchaseInvoice->items as $key => $item) {
+        foreach ($this->Purchase->items as $key => $item) {
             $queryItem['id'] = $item['id'];
             $queryItem['serials'] = $returnPurchaseQueryItems[$key]['serials'];
             $queryItem['returned_qty'] = $item['qty'];
@@ -118,7 +118,7 @@ class CreateReturnPurchaseTest extends TestCase
         $headers = [
             'accept' => 'application/json'
         ];
-        $response = $this->put('/purchases/' . $this->purchaseInvoice['id'], $data, $headers);
+        $response = $this->put('/purchases/' . $this->Purchase['id'], $data, $headers);
         if ($response->status() !== 200) {
             $response->dump();
         }

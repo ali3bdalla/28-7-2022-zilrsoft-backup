@@ -68,7 +68,7 @@
                                  </th>
                                  <th class="text-center ">
                                      @if($transaction->invoice_id>=1)
-                                         @if(in_array($transaction->invoice->invoice_type,['sale','r_sale']))
+                                         @if(in_array($transaction->invoice->invoice_type,['sale','return_sale']))
                                              <a href="{{ route('accounting.sales.show',$transaction->invoice->id ) }}">{{
                                $transaction->invoice->title  }}</a>
                                          @else
@@ -128,7 +128,7 @@
                                  </th>
                                  <th class="text-center ">
                                      @if($transaction->invoice_id>=1)
-                                         @if(in_array($transaction->invoice->invoice_type,['sale','r_sale']))
+                                         @if(in_array($transaction->invoice->invoice_type,['sale','return_sale']))
                                              <a href="{{ route('accounting.sales.show',
                                              $transaction->invoice->id )
                                              }}">{{

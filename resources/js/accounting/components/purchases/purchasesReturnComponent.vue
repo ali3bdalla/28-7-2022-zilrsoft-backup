@@ -243,7 +243,7 @@
                 @canBeReturnedSerialCount="handleItemWithSerialCanBeReturnedSerialCount"
                 @panelClosed="handleItemSerialsClosed"
                 @publishUpdated="handleItemSerialsUpdated"
-                invoice-type="r_purchase"
+                invoice-type="return_purchase"
                 v-if="invoice.invoice_type!=='beginning_inventory'"
         >
 
@@ -350,7 +350,7 @@
                     {
                         let count = 0;
                         item.serials.forEach(function(serial){
-                            if(['r_sale', 'purchase', 'available'].includes(serial.current_status))
+                            if(['return_sale', 'purchase', 'available'].includes(serial.current_status))
                             {
                                 count++;
                             }

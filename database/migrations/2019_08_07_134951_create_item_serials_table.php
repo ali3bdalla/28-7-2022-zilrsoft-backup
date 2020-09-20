@@ -18,21 +18,12 @@ class CreateItemSerialsTable extends Migration
             $table->integer('item_id');
             $table->integer('organization_id');
             $table->integer('creator_id');
-
-
-            $table->integer('purchase_invoice_id');
-            $table->integer('sale_invoice_id')->default(0);
-            $table->integer('r_sale_invoice_id')->default(0);
-            $table->integer('r_purchase_invoice_id')->default(0);
-            $table->integer('saled_by')->default(0)->nullable();
-
-
-
+            $table->integer('purchase_id');
+            $table->integer('sale_id')->default(0);
+            $table->integer('return_sale_id')->default(0);
+            $table->integer('return_purchase_id')->default(0);
             $table->string('serial');
-            $table->timestamp('sale_at')->nullable();
-
-
-            $table->enum('current_status',['saled','available','r_sale','r_purchase'])->default("available");
+            $table->enum('status',['in_stock','return_sale','return_purchase','sold'])->default("in_stock");
             $table->boolean('is_pending')->default(false);
 
             $table->timestamps();

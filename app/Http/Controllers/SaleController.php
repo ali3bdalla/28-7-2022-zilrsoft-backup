@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\Department;
 use App\Models\Invoice;
+use App\Models\Item;
 use App\Models\Manager;
 use App\Models\User;
 
@@ -41,7 +43,7 @@ class SaleController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show(Invoice $saleInvoice)
+    public function show(Invoice $Sale)
     {
         return view('sales.show');
     }
@@ -51,7 +53,7 @@ class SaleController extends Controller
      * @param int $id
      * @return Response
      */
-    public function edit(Invoice $saleInvoice)
+    public function edit(Invoice $Sale)
     {
         return view('sales::edit');
     }

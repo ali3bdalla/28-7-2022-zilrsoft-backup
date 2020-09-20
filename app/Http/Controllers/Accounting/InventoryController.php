@@ -224,7 +224,7 @@ class InventoryController extends Controller
                         'available_qty' => $current_qty,
                     ]);
                     if ($item->item->is_need_serial) {
-                        $item->item->serials()->where('r_sale_invoice_id', $beginning->id)->update([
+                        $item->item->serials()->where('return_sale_invoice_id', $beginning->id)->update([
                             'current_status' => "saled"
                         ]);
                     }

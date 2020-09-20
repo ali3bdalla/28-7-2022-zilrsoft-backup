@@ -12,8 +12,8 @@
 	use App\Models\Manager;
 	use App\Models\Organization;
 	use App\Models\Payment;
-	use App\Models\PurchaseInvoice;
-	use App\Models\SaleInvoice;
+	use App\Models\Purchase;
+	use App\Models\Sale;
 	use App\Models\SerialHistory;
 	use App\Models\Transaction;
 	use App\Models\User;
@@ -23,9 +23,17 @@
 		
 		public function user()
 		{
-			return User::find($this->user_id);
+			return $this->belongsTo(User::class,'user_id');
 			
 		}
+
+
+		public function manager()
+		{
+			return $this->belongsTo(Manager::class,'managed_by_id');
+			
+		}
+
 		
 		public function expenses()
 		{
@@ -44,13 +52,15 @@
 		
 		public function sale()
 		{
-			return $this->hasOne(SaleInvoice::class,'invoice_id');
+			return $this->hasOne(Sale::class,'invoice_id');
 		}
 		
 		public function creator()
 		{
 			return $this->belongsTo(Manager::class,'creator_id');
 		}
+		
+
 		
 		public function department()
 		{
@@ -69,7 +79,7 @@
 		
 		public function purchase()
 		{
-			return $this->hasOne(PurchaseInvoice::class,'invoice_id');
+			return $this->hasOne(Purchase::class,'invoice_id');
 		}
 		
 		public function serial_history()

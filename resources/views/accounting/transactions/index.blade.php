@@ -26,108 +26,67 @@
     @endcan
 @endsection
 @section('content')
-
-
-
-    <div class="panel">
-
-        <div class="panel-heading">
-
-        </div>
-
-        <div class="panel-body">
-            @if(!empty($transactions))
-                <table class="table table-bordered table-bordered" style="direction: ltr">
-
-                    <thead>
-                    <th>الدائن</th>
-                    <th>المدين</th>
-                    <th>اسم الحساب</th>
-                    <th> شرح</th>
-                    <th>رقم القيد</th>
+<div class="panel">
+    <div class="panel-body">
+            <table class="table table-bordered table-bordered" style="">
+                <thead>
                     <th>التاريخ</th>
-                    </thead>
+                    <th>رقم القيد</th>
+                    <th> شرح</th>
+                    <th>اسم الحساب</th>
+                    <th>المدين</th>
+                <th>الدائن</th>
+               
+             
+           
+                
+              
+                </thead>
+            
+                <body>
+                    @foreach($entities as $entity)
+                    @php 
+                        $totalCredit = 0;
+                        $totalDebit = 0;
+                    @endphp
+                        @foreach($entity->transactions as $index => $transaction)
+                        <tr style="border:none">
+                            <th>{{  $entity->created_at }}</th>
+                            <th>{{ $entity->id }}</th>
+                            <th>{{  $entity->description }}</th>
+                            <th>{{ $transaction->account_name }}</th>
 
-
-                    @foreach($transactions as $transaction)
-                        <tbody>
-
-                        @if($transaction['invoice_id']>=1 && !empty($transaction->invoice))
-
-                            @if(!empty($transaction->invoice->sale))
-						   <?php $sale = $transaction->invoice->sale;$invoice_transactions =
-							   $transaction->invoice->transactions()->where('description','!=','client_balance')->get
-							   ();?>
-                                 @includeIf('accounting.transactions.sale')
-
-                            @elseif(!empty($transaction->invoice->purchase))
-						   <?php $purchase = $transaction->invoice->purchase;$invoice_transactions =
-							   $transaction->invoice->transactions()->where('description','!=','vendor_balance')->get
-							   ();?>
-                                 @includeIf('accounting.transactions.purchase')
+                            @if($transaction->type=="credit")
+                                @php 
+                                    $totalCredit+= (float)$transaction['amount'];
+                                @endphp
+                                <th></th>
+                                <th>{{ $transaction['amount'] }}</th>
+                            @else
+                                @php 
+                                    $totalDebit+= (float)$transaction['amount'];
+                                @endphp
+                                <th>{{ $transaction['amount'] }}</th>
+                                <th></th>
                             @endif
 
-                        @else
 
-                            @foreach($transaction->transactions as $index => $real_transaction)
-                                <tr style="border:none">
+                        </tr>
+                        @endforeach
+                        <tr style="background-color: #eeeeee">
+                           
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>المجموع</th>
 
-
-                                    @if($real_transaction['debitable_type']!="")
-                                        <th></th>
-                                        <th>{{ $real_transaction['amount'] }}</th>
-                                        <th>@if(!empty($real_transaction->debitable)) {{ $real_transaction->debitable->locale_name }} @endif </th>
-
-                                    @else
-                                        <th>{{ $real_transaction['amount'] }}</th>
-                                        <th></th>
-                                        <th>@if(!empty($real_transaction->creditable)) {{ $real_transaction->creditable->locale_name }} @endif </th>
-                                    @endif
-
-
-                                    @if($index==0)
-
-                                        <th width="20%" style="vertical-align: inherit;" rowspan="{{ count
-                                ($transaction->transactions) }}"> {{
-                                $transaction['description']
-                            }}</th>
-                                        <th width="10%" style="vertical-align: inherit;"
-                                            rowspan="{{ count($transaction->transactions) }}"><a href="{{ route('accounting.transactions.show',$transaction->id)
-                                    }}">{{
-                                $transaction['id'] }}</a></th>
-                                        <th width="15%" style="vertical-align: inherit;" class="datedirection" rowspan="{{
-                                count
-                                ($transaction->transactions) }}">{{
-                                $transaction['created_at'] }}</th>
-                                    @endif
-                                </tr>
-                            @endforeach
-
-
-                            <tr style="background-color: #eeeeee">
-                                <th>{{ money_format("%i",$transaction['amount']) }}</th>
-                                <th>{{ money_format("%i",$transaction['amount']) }}</th>
-                                <th>المجموع</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-
-                            </tr>
-                        </tbody>
-
-                        @endif
-
-
+                            <th>{{ money_format("%i",$totalDebit) }}</th>
+                            <th>{{ money_format("%i",$totalCredit) }}</th>
+                        </tr>
                     @endforeach
-
-
-                </table>
-
-
-                {{$transactions->links()}}
-            @endif
-        </div>
+                </body>
+            </table>
+            {{$entities->links()}}
     </div>
-
-
+</div>
 @stop

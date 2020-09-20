@@ -39,7 +39,7 @@
 				'items.*.discount' => 'required|numeric',
 				'total' => 'required|numeric',
 				'subtotal' => 'required|numeric',
-				'discount_value' => 'required|numeric',
+				'discount' => 'required|numeric',
 				'discount_percent' => 'required|numeric',
 				'tax' => 'required|numeric',
 				'net' => 'required|numeric',

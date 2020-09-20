@@ -257,8 +257,8 @@
                                             ["sale_invoice_id",$invoice->id],
                                             ["item_id",$item->item->id],
                                             ])
-                                            ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                            ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["return_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["return_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
                                             ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
                                             ->get() as $index => $serial
                                             )
@@ -317,7 +317,7 @@
             </div>
             <div class="number">
                 <div class="label">{{ __('pages/invoice.discount') }} :</div>
-                <div class="value">{{ $invoice->discount_value
+                <div class="value">{{ $invoice->discount
         }}</div>
                 <div class="clear"></div>
             </div>

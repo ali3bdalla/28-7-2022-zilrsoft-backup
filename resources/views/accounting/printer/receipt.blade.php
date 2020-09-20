@@ -189,8 +189,8 @@
                                    ["sale_invoice_id",$invoice->id],
                                    ["item_id",$item->item->id],
                                    ])
-                                   ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                   ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                   ->orWhere([["return_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                   ->orWhere([["return_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
                                    ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
                                    ->get() as $index => $serial
                                    )
@@ -227,7 +227,7 @@
         <div class="col-xs-12">
             <div class="header_title">
                 <span class="pull-right"> الخصم</span>
-                <span class="pull-left">{{money_format('%i ريال',$invoice->discount_value) }}</span>
+                <span class="pull-left">{{money_format('%i ريال',$invoice->discount) }}</span>
             </div>
         </div>
 

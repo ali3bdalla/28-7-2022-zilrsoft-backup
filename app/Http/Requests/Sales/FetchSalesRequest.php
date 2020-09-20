@@ -4,7 +4,7 @@ namespace App\Http\Requests\Sales;
 
 use App\Http\Resources\Sales\SaleCollection;
 use App\Models\Invoice;
-use App\Models\SaleInvoice;
+use App\Models\Sale;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
@@ -18,8 +18,8 @@ class FetchSalesRequest extends FormRequest
      */
     public function authorize()
     {
-        // return true
-        return $this->user()->can('view sale');
+        return true;
+        // return $this->user()->can('view sale');
     }
 
     /**
@@ -40,7 +40,7 @@ class FetchSalesRequest extends FormRequest
         if ($this->has('invoice_type') && $this->filled('invoice_type') && $this->input('invoice_type') === 'quotation') {
             $getOnly = ['quotation'];
         } else {
-            $getOnly = ['sale', 'r_sale'];
+            $getOnly = ['sale', 'return_sale'];
         }
 
         $query = Invoice::whereIn('invoice_type', $getOnly)->with([
@@ -77,12 +77,12 @@ class FetchSalesRequest extends FormRequest
         }
 
         if ($this->has('clients') && $this->filled('clients')) {
-            $ids = SaleInvoice::whereIn('client_id', $this->input("clients"))->get()->pluck('invoice_id');
+            $ids = Sale::whereIn('client_id', $this->input("clients"))->get()->pluck('invoice_id');
             $query = $query->whereIn('id', $ids);
         }
 
         if ($this->has('salesmen') && $this->filled('salesmen')) {
-            $ids = SaleInvoice::whereIn('salesman_id', $this->input("salesmen"))->get()->pluck('invoice_id');
+            $ids = Sale::whereIn('salesman_id', $this->input("salesmen"))->get()->pluck('invoice_id');
             $query = $query->whereIn('id', $ids);
         }
 
@@ -161,7 +161,7 @@ class FetchSalesRequest extends FormRequest
         }
 
         if ($this->has('invoice_type') && $this->filled('invoice_type')) {
-            if (in_array($this->input("invoice_type"), ['sale', 'r_sale'])) {
+            if (in_array($this->input("invoice_type"), ['sale', 'return_sale'])) {
                 $query = $query->where('invoice_type', $this->input("invoice_type"));
             }
         }

@@ -12,8 +12,8 @@ $factory->define(Country::class, function (Faker $faker) {
 	    
         'name'=>$country_name,
         'ar_name'=>$country_name,
-        'status'=>'active',
-        'currency'=>$faker->currencyCode,
-        'c_code'=>'0000'
+        // 'status'=>'active',
+        // 'currency'=>$faker->currencyCode,
+        // 'c_code'=>'0000'
     ];
 });
