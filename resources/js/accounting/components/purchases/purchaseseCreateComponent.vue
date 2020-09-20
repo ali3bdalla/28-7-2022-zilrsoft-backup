@@ -527,6 +527,7 @@
                 }
             },
             itemNetUpdated(item) {
+                item.net = parseFloat(item.net).toFixed(2);
 
                 // if (item.is_service || item.is_expense) {
                 item.purchase_price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vtp);
@@ -742,6 +743,7 @@
             },
 
             itemPriceUpdated(item) {
+                item.purchase_price = parseFloat(item.purchase_price).toFixed(2);
                 let el = this.$refs['itemPrice_' + item.id + 'Ref'][0];
                 if (!inputHelper.validatePrice(item.purchase_price, el)) {
                     return false;
