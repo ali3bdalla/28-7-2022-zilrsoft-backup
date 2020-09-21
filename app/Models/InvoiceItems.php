@@ -23,6 +23,10 @@ use Illuminate\Support\Facades\DB;
  * @property mixed id
  * @property mixed subtotal
  * @property mixed invoice_type
+ * @property mixed tax
+ * @property mixed organization_id
+ * @property mixed creator_id
+ * @property mixed returned_qty
  * @method static findOrFail($id)
  */
 class InvoiceItems extends BaseModel

@@ -15,10 +15,11 @@ class UpdateAvailableQtyByInvoiceItemJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $invoiceItem;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param InvoiceItems $invoiceItem
      */
     public function __construct(InvoiceItems $invoiceItem)
     {
@@ -41,6 +42,7 @@ class UpdateAvailableQtyByInvoiceItemJob implements ShouldQueue
         {
             $availableQtyAfterInvoiceItem =(int)$availableQty - (int)$this->invoiceItem->qty;
         }
+
         $this->invoiceItem->item()->update([
             'available_qty' => $availableQtyAfterInvoiceItem
         ]);

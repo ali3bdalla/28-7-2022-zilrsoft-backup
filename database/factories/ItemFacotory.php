@@ -8,9 +8,9 @@ use Faker\Generator as Faker;
 $factory->define(Item::class, function (Faker $faker) {
 
     $vat = 15;
-    $price = $faker->numberBetween(20, 500);
+    $priceWithTax = $faker->numberBetween(20, 500);
 
-    $priceWithTax =$price +  ($price * 15 / 100);
+    $price =$priceWithTax / 1.15;//50
     return [
 
         'organization_id' => 1,

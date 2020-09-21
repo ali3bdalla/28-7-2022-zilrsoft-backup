@@ -53,5 +53,23 @@ class UpdateItemCostByInvoiceItemJob implements ShouldQueue
                 'total_cost_amount' => (float) ($newItemCost * $availableQty),
             ]);
         }
+
+
+        /**
+         * ==========================================================
+         * update cost for return purchase invoice item
+         * stock amount = old stock amount - invoice item subtotal
+         * ==========================================================
+         */
+        if (in_array($this->invoiceItem->invoice_type, ['return_purchase'])) {
+            $stockAmountBeforeNewInvoiceItem = $this->availableQtyBeforeInvoiceItem * $this->costBeforeInvoiceItem;
+            $newStockAmount = (float) $stockAmountBeforeNewInvoiceItem - (float) $this->invoiceItem->subtotal;
+            $newItemCost = (float) $newStockAmount / $availableQty;
+            $this->invoiceItem->item->update([
+                'cost' => $newItemCost,
+                'total_cost_amount' => (float) ($newItemCost * $availableQty),
+            ]);
+        }
+
     }
 }

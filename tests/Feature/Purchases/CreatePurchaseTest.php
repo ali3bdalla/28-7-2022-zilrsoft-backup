@@ -33,7 +33,7 @@ class CreatePurchaseTest extends TestCase
         foreach ($dbItems as $item) {
             $requestItem = [];
             $requestItem['id'] = $item->id;
-            $requestItem['purchase_price'] = $this->faker->numberBetween(0.001, ($item->price));
+            $requestItem['purchase_price'] = $this->faker->numberBetween(1, ($item->price));
             $requestItem['qty'] = $this->faker->numberBetween(1, 100);
             $requestItem['discount'] = 0;
             $requestItem['price'] = $item->price;
@@ -82,7 +82,7 @@ class CreatePurchaseTest extends TestCase
         foreach ($dbItems as $item) {
             $requestItem = [];
             $requestItem['id'] = $item->id;
-            $requestItem['purchase_price'] = $this->faker->numberBetween(0.001, ($item->price));
+            $requestItem['purchase_price'] = $this->faker->numberBetween(1, ($item->price));
             $requestItem['qty'] = $this->faker->numberBetween(1, 100);
             $requestItem['discount'] = 0;
             $requestItem['price'] = $item->price;

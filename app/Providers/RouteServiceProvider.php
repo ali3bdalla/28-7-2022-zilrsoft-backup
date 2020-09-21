@@ -108,18 +108,26 @@ class RouteServiceProvider extends ServiceProvider
                 ['invoice_type','sale']
             ])->withoutGlobalScope('currentManagerInvoicesOnly')->first();
         });
+//
+//        Route::bind('purchase', function ($value) {
+//            return Invoice::where([
+//                ['id', $value],
+//                ['invoice_type','purchase'],
+////                ['is_draft',false],
+//            ])->withoutGlobalScope('currentManagerInvoicesOnly')->first();
+//        });
 
-        Route::bind('purchase', function ($value) {
+        Route::bind('returnPurchase', function ($value) {
             return Invoice::where([
                 ['id', $value],
-                ['invoice_type','purchase']
+                ['invoice_type','return_purchase']
             ])->withoutGlobalScope('currentManagerInvoicesOnly')->first();
         });
 
         Route::bind('quotation', function ($value) {
             return Invoice::where([
                 ['id', $value],
-                ['invoice_type','purchase'],
+                ['invoice_type','sale'],
                 ['is_draft',true]
             ])->withoutGlobalScope('currentManagerInvoicesOnly')->first();
         });

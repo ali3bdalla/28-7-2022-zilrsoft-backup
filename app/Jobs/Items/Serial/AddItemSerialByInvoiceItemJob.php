@@ -46,7 +46,6 @@ class AddItemSerialByInvoiceItemJob implements ShouldQueue
                 'is_draft' => $this->isDraft
             ]);
 
-//            dd($createdSerial)
             if(!$this->isDraft)
             {
                 dispatch(new RegisterSerialHistoryJob($createdSerial, 'in_stock',$this->invoiceItem->invoice));

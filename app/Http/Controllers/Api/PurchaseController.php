@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Purchases\FetchPurchasesRequest;
 use App\Http\Requests\Purchases\StoreDraftPurchaseRequest;
 use App\Http\Requests\Purchases\StorePurchaseRequest;
+use App\Http\Requests\Purchases\StoreReturnPurchaseRequest;
 use App\Models\Invoice;
 
 class PurchaseController extends Controller
@@ -33,11 +34,14 @@ class PurchaseController extends Controller
         return $request->store();
     }
 
-
-
-    public function storeReturnPurchase(StoreDraftPurchaseRequest $request)
+    /**
+     * @param Invoice $returnPurchase
+     * @param StoreReturnPurchaseRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function storeReturnPurchase(Invoice $purchase,StoreReturnPurchaseRequest $request)
     {
-        return $request->store();
+        return $request->store($purchase);
     }
 
     public function show(Invoice $purchase)

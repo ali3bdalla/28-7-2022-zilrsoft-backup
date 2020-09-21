@@ -17,4 +17,5 @@ Route::prefix('items/{item}')->name('items.')->group(function(){
 Route::resource('purchases', 'PurchaseController');
 Route::prefix('purchases')->name('purchases.')->group(function(){
     Route::post('/draft', 'PurchaseController@storeDraft')->name('store.draft');
+    Route::patch('/{purchase}', 'PurchaseController@storeReturnPurchase')->name('store.return');
 });
