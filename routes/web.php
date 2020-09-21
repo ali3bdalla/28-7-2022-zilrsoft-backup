@@ -22,4 +22,8 @@ Route::prefix('items/{item}')->name('items.')->group(function(){
     Route::get('/transactions', 'ItemController@transactions')->name('transactions');
 });
 Route::resource('purchases', 'PurchaseController');
+Route::prefix('purchases')->name('purchases.')->group(function(){
+    Route::get('view/drafts', 'PurchaseController@drafts')->name('drafts');
+});
+
 Route::resource('entities', 'EntityController');

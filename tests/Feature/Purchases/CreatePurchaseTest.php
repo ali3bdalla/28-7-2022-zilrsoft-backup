@@ -50,7 +50,7 @@ class CreatePurchaseTest extends TestCase
             'vendor_invoice_id' => $this->faker->uuid,
         ]);
         $response
-            ->dump()
+//            ->dump()
             ->assertOk();
         foreach ($items as $item) {
             $dbItem = Item::find($item['id']);
@@ -101,7 +101,7 @@ class CreatePurchaseTest extends TestCase
             'vendor_invoice_id' => $this->faker->uuid,
         ]);
         $response
-            ->dump()
+//            ->dump()
             ->assertOk();
         foreach ($items as $item) {
             $dbItem = Item::find($item['id']);

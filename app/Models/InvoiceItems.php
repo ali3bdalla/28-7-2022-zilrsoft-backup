@@ -49,7 +49,7 @@ class InvoiceItems extends BaseModel
     {
         parent::boot();
         if (auth()->check()) {
-            static::addGlobalScope('pendingItemsScope', function (Builder $builder) {
+            static::addGlobalScope('draftScope', function (Builder $builder) {
                 $builder->where('is_draft', false);
             });
         }

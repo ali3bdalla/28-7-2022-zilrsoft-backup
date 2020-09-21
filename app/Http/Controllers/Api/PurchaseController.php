@@ -4,14 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Purchases\FetchPurchasesRequest;
+use App\Http\Requests\Purchases\StoreDraftPurchaseRequest;
 use App\Http\Requests\Purchases\StorePurchaseRequest;
+use App\Models\Invoice;
 
 class PurchaseController extends Controller
 {
-    
 
-       /**
-     * @param DatatableRequest $request
+
+    /**
+     * @param FetchPurchasesRequest $request
      *
      * @return mixed
      */
@@ -24,5 +26,22 @@ class PurchaseController extends Controller
     public function store(StorePurchaseRequest $request)
     {
         return $request->store();
+    }
+
+    public function storeDraft(StoreDraftPurchaseRequest $request)
+    {
+        return $request->store();
+    }
+
+
+
+    public function storeReturnPurchase(StoreDraftPurchaseRequest $request)
+    {
+        return $request->store();
+    }
+
+    public function show(Invoice $purchase)
+    {
+        return $purchase;
     }
 }

@@ -111,7 +111,7 @@
                                             <label>الحالة</label>
                                         </div>
                                     </div>
-                                    <?php $__currentLoopData = $item->item->serials()->withoutGlobalScope("pendingSerialsScope")
+                                    <?php $__currentLoopData = $item->item->serials()->withoutGlobalScope("draftScope")
                                     ->where([
                                     ["sale_id",$invoice->id],
                                     ["item_id",$item->item->id],

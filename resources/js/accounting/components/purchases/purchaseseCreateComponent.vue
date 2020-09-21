@@ -528,23 +528,11 @@
             },
             itemNetUpdated(item) {
                 item.net = parseFloat(item.net).toFixed(2);
-                // if (item.is_service || item.is_expense) {
                 item.purchase_price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vtp);
                 item.total = parseFloat(item.purchase_price) * parseInt(item.qty);
                 item.subtotal = item.total;
                 item.tax = ItemAccounting.getTax(item.subtotal, item.vtp, true);
                 item.discount = 0;
-                // } else {
-                //     let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vtp); //  1.05
-                //     item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
-                //     item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vtp), 100)).toFixed(3);
-                //     item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
-                // }
-                //
-                // let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vtp); //  1.05
-                // item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
-                // item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vtp), 100)).toFixed(3);
-                // item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
                 this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
 
             },
@@ -729,6 +717,7 @@
                 this.$refs.barcodeNameAndSerialField.focus();
             },
             itemQtyUpdated(item, bySerial = false) {
+                // item.qty = parseInt(item.qty);
                 if (bySerial === false) {
                     let el = this.$refs['itemQty_' + item.id + 'Ref'][0];
                     if (!inputHelper.validateQty(item.qty, el)) {

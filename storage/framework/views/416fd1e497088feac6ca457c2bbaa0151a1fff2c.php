@@ -95,9 +95,9 @@
         </div>
         <div class="panel-body">
             <?php if ($__env->exists('accounting.include.invoice.view_items',[
-                 'items' => $invoice->items
+                 'items' => $invoice->items()->withoutGlobalScope('draftScope')->get()
             ])) echo $__env->make('accounting.include.invoice.view_items',[
-                 'items' => $invoice->items
+                 'items' => $invoice->items()->withoutGlobalScope('draftScope')->get()
             ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
         </div>

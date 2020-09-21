@@ -24,7 +24,7 @@ class CreateItemSerialsTable extends Migration
             $table->integer('return_purchase_id')->default(0);
             $table->string('serial');
             $table->enum('status',['in_stock','return_sale','return_purchase','sold'])->default("in_stock");
-            $table->boolean('is_pending')->default(false);
+            $table->boolean('is_draft')->default(false);
 
             $table->timestamps();
 

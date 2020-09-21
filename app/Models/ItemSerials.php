@@ -20,8 +20,8 @@
 		protected static function boot()
 		{
 			parent::boot();
-			static::addGlobalScope('pendingSerialsScope',function (Builder $builder){
-				$builder->where('is_pending',false);
+			static::addGlobalScope('draftScope',function (Builder $builder){
+				$builder->where('is_draft',false);
 			});
 		}
 		

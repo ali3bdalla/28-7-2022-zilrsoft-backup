@@ -21,15 +21,23 @@ class StorePurchaseItemsJob implements ShouldQueue
 
     private $invoice, $items, $loggedUser;
     /**
+     * @var bool
+     */
+    private $isDraft;
+
+    /**
      * Create a new job instance.
      *
-     * @return void
+     * @param Invoice $invoice
+     * @param $items
+     * @param bool $isDraft
      */
-    public function __construct(Invoice $invoice, $items)
+    public function __construct(Invoice $invoice, $items,$isDraft = false)
     {
         $this->items = $items;
         $this->invoice = $invoice;
         $this->loggedUser = auth()->user();
+        $this->isDraft = $isDraft;
     }
 
     /**
@@ -56,39 +64,53 @@ class StorePurchaseItemsJob implements ShouldQueue
              * ==========================================================
              */
             $invoiceItem = $this->createInvoiceItem($item, $requestItemCollection);
-            /**
-             * ==========================================================
-             * update qty should be before update cost
-             * ==========================================================
-             */
-            dispatch(new UpdateAvailableQtyByInvoiceItemJob($invoiceItem));
-            /**
-             * ==========================================================
-             * we neeed for available qty and cost before new invoice item
-             * ==========================================================
-             */
-            dispatch(new UpdateItemCostByInvoiceItemJob($invoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
 
-            /**
-             * ==========================================================
-             * update last pruchase price for this item
-             * ==========================================================
-             */
-            dispatch(new UpdateItemLastPurchasePriceJob($invoiceItem));
+
             /**
              * ==========================================================
              * if it need serial change the serial list status
              * ==========================================================
              */
             if ($item->is_need_serial) {
-                dispatch(new AddItemSerialByInvoiceItemJob($requestItemCollection->get('serials'), $invoiceItem));
+                dispatch(new AddItemSerialByInvoiceItemJob($requestItemCollection->get('serials'), $invoiceItem,$this->isDraft));
             }
+
+
             /**
              * ==========================================================
-             * set cost and available qty to the created invoice item
+             * change actual item data if it's not draft items
              * ==========================================================
              */
-            $this->setCostAndAvailableQty($invoiceItem);
+            if(!$this->isDraft)
+            {
+                /**
+                 * ==========================================================
+                 * update qty should be before update cost
+                 * ==========================================================
+                 */
+                dispatch(new UpdateAvailableQtyByInvoiceItemJob($invoiceItem));
+                /**
+                 * ==========================================================
+                 * we neeed for available qty and cost before new invoice item
+                 * ==========================================================
+                 */
+                dispatch(new UpdateItemCostByInvoiceItemJob($invoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
+
+                /**
+                 * ==========================================================
+                 * update last pruchase price for this item
+                 * ==========================================================
+                 */
+                dispatch(new UpdateItemLastPurchasePriceJob($invoiceItem));
+
+                /**
+                 * ==========================================================
+                 * set cost and available qty to the created invoice item
+                 * ==========================================================
+                 */
+                $this->setCostAndAvailableQty($invoiceItem);
+            }
+
 
         }
     }
@@ -116,6 +138,7 @@ class StorePurchaseItemsJob implements ShouldQueue
         $data['organization_id'] = $this->loggedUser->organization_id;
         $data['creator_id'] = $this->loggedUser->id;
         $data['item_id'] = $item->id;
+        $data['is_draft'] = $this->isDraft;
         return $this->invoice->items()->create($data);
     }
 

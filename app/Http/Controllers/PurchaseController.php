@@ -44,8 +44,8 @@ class PurchaseController extends Controller
         $cloned_items = [];
         foreach ($purchase->items()->with('item')->get() as $item) {
             if ($item->item->is_need_serial) {
-                $item->serials = $item->item->serials()->withoutGlobalScope("pendingSerialsScope")
-                    ->where([["purchase_invoice_id", $purchase->id]])
+                $item->serials = $item->item->serials()->withoutGlobalScope("draftScope")
+                    ->where([["purchase_id", $purchase->id]])
                     ->pluck('serial');
             } else {
                 $item->serials = [];
@@ -73,5 +73,13 @@ class PurchaseController extends Controller
         ]);
     }
 
+
+    public function drafts()
+    {
+        $vendors = User::where('is_vendor', true)->get();
+        $creators = Manager::all();
+        $is_pending = true;
+        return view('accounting.purchases.index', compact('vendors', 'creators', 'is_pending'));
+    }
     
 }

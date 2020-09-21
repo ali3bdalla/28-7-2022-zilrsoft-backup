@@ -14,15 +14,20 @@ class AddItemSerialByInvoiceItemJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $serials, $invoiceItem;
+    private $isDraft;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $serials
+     * @param InvoiceItems $invoiceItem
+     * @param $isDraft
      */
-    public function __construct($serials, InvoiceItems $invoiceItem)
+    public function __construct($serials, InvoiceItems $invoiceItem,$isDraft)
     {
         $this->serials = (array) $serials;
         $this->invoiceItem = $invoiceItem;
+        $this->isDraft = $isDraft;
     }
 
     /**
@@ -38,8 +43,15 @@ class AddItemSerialByInvoiceItemJob implements ShouldQueue
                 'creator_id' => $this->invoiceItem->creator_id,
                 'organization_id' => $this->invoiceItem->organization_id,
                 'serial' => $serial,
+                'is_draft' => $this->isDraft
             ]);
-            dispatch(new RegisterSerialHistoryJob($createdSerial, 'in_stock',$this->invoiceItem->invoice));
+
+//            dd($createdSerial)
+            if(!$this->isDraft)
+            {
+                dispatch(new RegisterSerialHistoryJob($createdSerial, 'in_stock',$this->invoiceItem->invoice));
+
+            }
         }
 
     }
