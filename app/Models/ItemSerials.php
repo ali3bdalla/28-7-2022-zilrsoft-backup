@@ -5,7 +5,11 @@
 
 	use Illuminate\Database\Eloquent\Builder;
 
-	class ItemSerials extends BaseModel
+    /**
+     * @property mixed organization_id
+     * @property mixed current_status
+     */
+    class ItemSerials extends BaseModel
 	{
 		
 		

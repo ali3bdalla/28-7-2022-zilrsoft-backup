@@ -20,34 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Traits/ReturnInvoiceTraits.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Components/Loader/Chart/Transaction/AccountTransactionsLoader.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Components/Loader/Chart/Transaction/ResultsResponseHelper.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Components/Loader/Chart/Transaction/TransactionsHelper.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Components/Loader/Item/Transactions/DBHelper.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Components/Loader/Item/Transactions/ItemTransactionsLoader.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Components/Loader/Item/Transactions/TransactionsHelper.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Exceptions/QtyNotValidException.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/PurchaseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/AvailableQty/UpdateAvailableQtyByInvoiceItemJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/AvailableQty/UpdateAvailableQtyByInvoiceItemJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Cost/UpdateItemCostByInvoiceItemJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Cost/UpdateItemCostByInvoiceItemJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Serial/AddItemSerialByInvoiceItemJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Serial/AddItemSerialByInvoiceItemJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/InvoiceItems.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/InvoiceItems.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Scopes/CountryScope.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Scopes/QuotationScope.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/OrmNumbersTrait.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/ItemFacotory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/ItemFacotory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/42/6f/426f702735d9d33ceb5b85f89053bc05dee0eaf4" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/42/6f/426f702735d9d33ceb5b85f89053bc05dee0eaf4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/fb/11/fb1171968c12a7ead3f7a5a563bd4fa7e5833907" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/fb/11/fb1171968c12a7ead3f7a5a563bd4fa7e5833907" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/1ukutQP14iXV8U1XYg4UrY7oVsHW4z0seZLkVr46" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/EPHGHrF9VR8QjKO3Fo6mMc7nKkuzfuOZjMIL3iIB" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/Qy13deksspg2uW8ZBaEEIlB79XJXTlty6jqWSrsX" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Purchases/CreatePurchaseTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Purchases/CreatePurchaseTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Serial/RegisterSerialHistoryJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Serial/RegisterSerialHistoryJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Serial/UpdateItemSerialStatusByInvoiceItemJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Serial/UpdateItemSerialStatusByInvoiceItemJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/ItemSerials.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ItemSerials.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -368,7 +344,7 @@
       <workItem from="1600631619535" duration="3689000" />
       <workItem from="1600674621381" duration="18000" />
       <workItem from="1600674643170" duration="724000" />
-      <workItem from="1600701743084" duration="8425000" />
+      <workItem from="1600701743084" duration="8832000" />
     </task>
     <servers />
   </component>

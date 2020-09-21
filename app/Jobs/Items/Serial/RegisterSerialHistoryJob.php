@@ -15,10 +15,13 @@ class RegisterSerialHistoryJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private  $itemSerial,$status,$invoice;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param ItemSerials $itemSerial
+     * @param $status
+     * @param Invoice $invoice
      */
     public function __construct(ItemSerials $itemSerial,$status,Invoice $invoice)
     {

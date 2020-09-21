@@ -26,7 +26,6 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
      */
     public function __construct($serials, InvoiceItems $invoiceItem)
     {
-        //
         $this->serials = $serials;
         $this->invoiceItem = $invoiceItem;
     }
@@ -42,42 +41,34 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
             foreach ((array)$this->serials as $serial) {
                 $dbSerial = $this->invoiceItem->item->serials()->where('serial', $serial)->whereIn('status', ['in_stock', 'return_sale'])->first();
                 $dbSerial->update([
+                    'status' => 'return_purchase',
                     'return_purchase_id' => $this->invoiceItem->invoice_id,
                 ]);
 
                 dispatch(new RegisterSerialHistoryJob($dbSerial, 'return_purchase', $this->invoiceItem->invoice));
-
             }
         }
-
-
-
         if ($this->invoiceItem->invoice_type == 'return_sale') {
             foreach ((array)$this->serials as $serial) {
                 $dbSerial = $this->invoiceItem->item->serials()->where('serial', $serial)->whereIn('status', ['sold'])->first();
                 $dbSerial->update([
+                    'status' => 'return_sale',
                     'return_sale_id' => $this->invoiceItem->invoice_id,
                 ]);
 
                 dispatch(new RegisterSerialHistoryJob($dbSerial, 'return_sale', $this->invoiceItem->invoice));
-
             }
         }
-
-
         if ($this->invoiceItem->invoice_type == 'sale') {
             foreach ((array)$this->serials as $serial) {
                 $dbSerial = $this->invoiceItem->item->serials()->where('serial', $serial)->whereIn('status', ['in_stock', 'return_sale'])->first();
                 $dbSerial->update([
+                    'status' => 'sold',
                     'sale_id' => $this->invoiceItem->invoice_id,
                 ]);
 
                 dispatch(new RegisterSerialHistoryJob($dbSerial, 'sale', $this->invoiceItem->invoice));
-
             }
         }
-
-
-
     }
 }
