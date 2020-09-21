@@ -91,7 +91,6 @@ class StorePurchaseRequest extends FormRequest
                 if (count($item['serials']) != $item['qty']) {
                     throw ValidationException::withMessages(['item_serial' => 'serials count don\'t  match qty']);
                 }
-
                 foreach ($item['serials'] as $serial) {
                     dispatch(new ValidateItemSerialJob($dbItem,$serial, ['in_stock', 'return_sale']));
                 }

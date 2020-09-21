@@ -74,8 +74,6 @@ class StorePurchaseItemsJob implements ShouldQueue
             if ($item->is_need_serial) {
                 dispatch(new AddItemSerialByInvoiceItemJob($requestItemCollection->get('serials'), $invoiceItem,$this->isDraft));
             }
-
-
             /**
              * ==========================================================
              * change actual item data if it's not draft items
@@ -98,7 +96,7 @@ class StorePurchaseItemsJob implements ShouldQueue
 
                 /**
                  * ==========================================================
-                 * update last pruchase price for this item
+                 * update last purchase price for this item
                  * ==========================================================
                  */
                 dispatch(new UpdateItemLastPurchasePriceJob($invoiceItem));
@@ -119,14 +117,14 @@ class StorePurchaseItemsJob implements ShouldQueue
     {
 
         $purchasePrice = (float) $requestItemCollection->get('purchase_price');
-        $discount = 0;//(float) $requestItemCollection->get('discount')
+        $discount = (float) $requestItemCollection->get('discount');//
         $qty = (int) $requestItemCollection->get('qty');
         $total = $purchasePrice * $qty;
         $subtotal = $total - $discount;
         $tax = ($subtotal * $item->vtp) / 100;
         $net = $subtotal + $tax;
 
-        $data['price'] = $purchasePrice;
+        $data['price'] =  $purchasePrice;
         $data['invoice_type'] = 'purchase';
         $data['user_id'] = $this->invoice->purchase->vendor_id;
         $data['qty'] = $qty;

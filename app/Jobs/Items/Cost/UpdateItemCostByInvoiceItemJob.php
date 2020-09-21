@@ -14,10 +14,13 @@ class UpdateItemCostByInvoiceItemJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $invoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param InvoiceItems $invoiceItem
+     * @param $availableQtyBeforeInvoiceItem
+     * @param $costBeforeInvoiceItem
      */
     public function __construct(InvoiceItems $invoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem)
     {

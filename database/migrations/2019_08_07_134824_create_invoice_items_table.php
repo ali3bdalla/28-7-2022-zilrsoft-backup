@@ -15,16 +15,13 @@
 		{ 
 			Schema::create('invoice_items',function (Blueprint $table){
 				$table->bigIncrements('id');
-				
 				$table->integer('organization_id');
 				$table->integer('invoice_id');
 				$table->integer('creator_id');
 				$table->integer('item_id');
 				$table->integer('user_id');
-				
 				$table->integer("returned_qty")->default(0);
 				$table->float('discount',20, 8)->default(0);
-
 				$table->integer("qty")->default(0);
 				$table->float("tax",20, 8)->default(0);
 				$table->float('price',20, 8)->default(0);
@@ -32,8 +29,6 @@
 				$table->float('total',20, 8)->default(0);
 				$table->float('subtotal',20, 8)->default(0);
 				$table->enum("invoice_type",['purchase','sale','retrun_sale','return_purchase','beginning_inventory'])->nullable();
-				// ,'quotation','pending_purchase','stock_adjust'
-				// $table->enum('type',['new',"return",'quotation']);
 				$table->boolean('belong_to_kit')->default(false);
 				$table->integer('parent_kit_id')->default(0);
 				$table->boolean('is_kit')->default(false);

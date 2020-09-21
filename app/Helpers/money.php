@@ -14,7 +14,7 @@ if (!function_exists('roundMoney')) {
 if (!function_exists('moneyFormatter')) {
     function moneyFormatter($money)
     {
-        return money_format("%i",$money);
+        return $money;
     }
 }
 

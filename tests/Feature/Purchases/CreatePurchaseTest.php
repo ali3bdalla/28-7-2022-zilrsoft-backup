@@ -35,7 +35,7 @@ class CreatePurchaseTest extends TestCase
             $requestItem['id'] = $item->id;
             $requestItem['purchase_price'] = $this->faker->numberBetween(0.001, ($item->price));
             $requestItem['qty'] = $this->faker->numberBetween(1, 100);
-            $requestItem['discount'] = 0;
+//            $requestItem['discount'] = 0;
             $requestItem['price'] = $item->price;
             $requestItem['testing_available_qty'] = (int) $item->available_qty;
             $requestItem['testing_item_cost'] = $item->cost;
@@ -84,7 +84,7 @@ class CreatePurchaseTest extends TestCase
             $requestItem['id'] = $item->id;
             $requestItem['purchase_price'] = $this->faker->numberBetween(0.001, ($item->price));
             $requestItem['qty'] = $this->faker->numberBetween(1, 100);
-            $requestItem['discount'] = 0;
+//            $requestItem['discount'] = 0;
             $requestItem['price'] = $item->price;
 
             $requestItem['testing_available_qty'] = (int) $item->available_qty;

@@ -20,27 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreDraftPurchaseRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/Feature/Purchases/CreateDraftPurchaseTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/PurchaseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Serial/AddItemSerialByInvoiceItemJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Serial/AddItemSerialByInvoiceItemJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Helpers/money.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/money.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Purchases/StorePurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StorePurchaseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Cost/UpdateItemCostByInvoiceItemJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Cost/UpdateItemCostByInvoiceItemJob.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/InvoiceItems.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/InvoiceItems.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/ItemSerials.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ItemSerials.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_07_134951_create_item_serials_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_07_134951_create_item_serials_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_items.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_items.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/purchases/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/purchases/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/1ukutQP14iXV8U1XYg4UrY7oVsHW4z0seZLkVr46" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/1ukutQP14iXV8U1XYg4UrY7oVsHW4z0seZLkVr46" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/38a290f39ebdcc1b917654efffaf9c94df7cfa3b.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/38a290f39ebdcc1b917654efffaf9c94df7cfa3b.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/416fd1e497088feac6ca457c2bbaa0151a1fff2c.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/416fd1e497088feac6ca457c2bbaa0151a1fff2c.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-09-20.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-09-20.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_07_134824_create_invoice_items_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_07_134824_create_invoice_items_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/42/6f/426f702735d9d33ceb5b85f89053bc05dee0eaf4" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/42/6f/426f702735d9d33ceb5b85f89053bc05dee0eaf4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/fb/11/fb1171968c12a7ead3f7a5a563bd4fa7e5833907" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/fb/11/fb1171968c12a7ead3f7a5a563bd4fa7e5833907" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/Feature/Purchases/CreatePurchaseTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Purchases/CreatePurchaseTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -361,7 +348,8 @@
       <workItem from="1600631539916" duration="58000" />
       <workItem from="1600631619535" duration="3689000" />
       <workItem from="1600674621381" duration="18000" />
-      <workItem from="1600674643170" duration="297000" />
+      <workItem from="1600674643170" duration="724000" />
+      <workItem from="1600701743084" duration="327000" />
     </task>
     <servers />
   </component>
