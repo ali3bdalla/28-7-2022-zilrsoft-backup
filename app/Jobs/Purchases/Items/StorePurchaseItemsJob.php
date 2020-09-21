@@ -117,7 +117,15 @@ class StorePurchaseItemsJob implements ShouldQueue
     {
 
         $purchasePrice = (float) $requestItemCollection->get('purchase_price');
-        $discount = (float) $requestItemCollection->get('discount');//
+        if($requestItemCollection->has('discount'))
+        {
+            $discount = (float) $requestItemCollection->get('discount');//
+
+        }else
+        {
+            $discount = 0;//
+
+        }
         $qty = (int) $requestItemCollection->get('qty');
         $total = $purchasePrice * $qty;
         $subtotal = $total - $discount;
