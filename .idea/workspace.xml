@@ -20,7 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Purchases/CreatePurchaseTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Purchases/CreatePurchaseTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -341,7 +343,7 @@
       <workItem from="1600631619535" duration="3689000" />
       <workItem from="1600674621381" duration="18000" />
       <workItem from="1600674643170" duration="724000" />
-      <workItem from="1600701743084" duration="672000" />
+      <workItem from="1600701743084" duration="785000" />
     </task>
     <servers />
   </component>
