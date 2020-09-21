@@ -22,13 +22,7 @@
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Helpers/money.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/money.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Purchases/StorePurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StorePurchaseRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Cost/UpdateItemCostByInvoiceItemJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Cost/UpdateItemCostByInvoiceItemJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_07_134824_create_invoice_items_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_07_134824_create_invoice_items_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/42/6f/426f702735d9d33ceb5b85f89053bc05dee0eaf4" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/42/6f/426f702735d9d33ceb5b85f89053bc05dee0eaf4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/fb/11/fb1171968c12a7ead3f7a5a563bd4fa7e5833907" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/fb/11/fb1171968c12a7ead3f7a5a563bd4fa7e5833907" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Purchases/CreatePurchaseTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Purchases/CreatePurchaseTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/InvoiceItem/InvoiceItemResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/InvoiceItem/InvoiceItemResource.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -349,7 +343,7 @@
       <workItem from="1600631619535" duration="3689000" />
       <workItem from="1600674621381" duration="18000" />
       <workItem from="1600674643170" duration="724000" />
-      <workItem from="1600701743084" duration="327000" />
+      <workItem from="1600701743084" duration="539000" />
     </task>
     <servers />
   </component>

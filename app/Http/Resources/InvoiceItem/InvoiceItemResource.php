@@ -23,7 +23,7 @@ class InvoiceItemResource extends JsonResource
             'user_id' => $this->user_id,
             'returned_qty' => (int)$this->returned_qty,
             'qty' => (int)$this->qty,
-            'tax' => moneyFormatter($this->tax,2),
+            'tax' => moneyFormatter($this->tax),
             'price' => moneyFormatter($this->price),
             'total' => moneyFormatter($this->total),
             'subtotal' => moneyFormatter($this->subtotal),
