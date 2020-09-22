@@ -144,8 +144,6 @@ class StoreSaleTransactionsJob implements ShouldQueue
         $netAmount = (float)$this->invoice->net;
         if ($paidAmount != $netAmount) {
             $variation = $paidAmount - $netAmount;
-//            dd($variation,$netAmount);
-
             if ($variation > 0) {
                 $data = $this->startupData;
                 $data['amount'] = abs($variation);

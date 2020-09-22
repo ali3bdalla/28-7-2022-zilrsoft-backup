@@ -198,7 +198,7 @@ class StoreSaleRequest extends FormRequest
         $totalPaidAmount = $methodsCollects->sum('amount');
         $user = User::find($this->input('client_id'));
         if ($user->is_system_user) {
-            if ($totalPaidAmount != $invoice && !$paymentsMethodsCount) {
+            if ($totalPaidAmount != $invoice->net && !$paymentsMethodsCount) {
                 throw ValidationException::withMessages(['payments' => "summation of payments methods should match invoice net "]);
             } else {
                 $variationAmount = (float)$totalPaidAmount - (float)$invoice->net;
