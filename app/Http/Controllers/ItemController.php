@@ -70,8 +70,7 @@ class ItemController extends Controller
 
     public function transactions(Item $item)
     {
-        $item->cost = moneyFormatter($item->cost);
-        $item->total_stock_amount = moneyFormatter($item->total_cost_amount);
+        $item->total_stock_amount = $item->total_cost_amount;
         return view('accounting.items.transactions', compact('item'));
     }
 

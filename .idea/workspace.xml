@@ -21,7 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/InvoiceItem/InvoiceItemResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/InvoiceItem/InvoiceItemResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Item.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -334,7 +335,7 @@
       <workItem from="1600674643170" duration="724000" />
       <workItem from="1600701743084" duration="14036000" />
       <workItem from="1600744707904" duration="14291000" />
-      <workItem from="1600765198221" duration="18317000" />
+      <workItem from="1600765198221" duration="18391000" />
     </task>
     <servers />
   </component>

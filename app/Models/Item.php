@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed total_debit_amount
  * @property mixed returned_qty
  * @property mixed is_need_serial
+ * @property mixed total_cost_amount
+ * @property mixed total_stock_amount
  * @method static findOrFail($id)
  * @method static InRandomOrder()
  * @method static find($input)
