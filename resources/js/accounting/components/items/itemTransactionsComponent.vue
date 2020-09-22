@@ -21,11 +21,10 @@
                         >{{ translator.movement.stock_qty }} : ( {{ item.available_qty }} )
                         </div>
                         <div class="column text-center">
-                            {{ translator.movement.stock_value }} : ({{ roundNumber(
-                            item.total_stock_amount) }})
+                            {{ translator.movement.stock_value }} : ({{ item.total_stock_amount }})
                         </div>
                         <div class="column text-center">{{ translator.movement.cost }} : ({{ item.cost }})</div>
-                        <div class="column text-center">{{ translator.movement.profits }} : ({{ parseFloat(item.total_profits_amount).toFixed(2) }})
+                        <div class="column text-center">{{ translator.movement.profits }} : ({{ item.total_profits_amount }})
                         </div>
                     </div>
                 </div>
@@ -135,7 +134,7 @@
                     <td>
               <span
                       v-if="history.invoice_type=='sale' || history.invoice_type=='return_sale'"
-              >{{parseFloat(history.profit).toFixed(2)}}</span>
+              >{{history.profit}}</span>
                     </td>
                 </tr>
 

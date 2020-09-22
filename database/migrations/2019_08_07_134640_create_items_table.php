@@ -42,7 +42,6 @@
 				$table->enum('status',['active','pending'])->default('active');
 				$table->integer('available_qty')->default(0);
 				$table->float('cost',20, 8)->default(0);
-
 				$table->float('total_cost_amount',20, 8)->default(0);
 				$table->float('total_profits_amount',20, 8)->default(0);
 				$table->float('total_credit_amount',20, 8)->default(0);
