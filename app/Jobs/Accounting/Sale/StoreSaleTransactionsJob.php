@@ -4,7 +4,6 @@ namespace App\Jobs\Accounting\Sale;
 
 use App\Jobs\Items\Accounting\UpdateItemAccountingBalanceJob;
 use App\Jobs\User\Balance\UpdateClientBalanceJob;
-use App\Jobs\User\Balance\UpdateVendorBalanceJob;
 use App\Models\Account;
 use App\Models\Invoice;
 use App\Models\TransactionsContainer;
@@ -78,6 +77,7 @@ class StoreSaleTransactionsJob implements ShouldQueue
     {
         $this->createItemsTransactions();
         $this->createTaxTransaction();
+        $this->createPaymentsTransactions();
         $this->createClientBalanceTransaction();
         $this->createCogsTransactions();
         $this->createCostTransactions();
@@ -98,7 +98,6 @@ class StoreSaleTransactionsJob implements ShouldQueue
                 dispatch(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'credit'));
                 $this->itemsTaxAmount += $item->tax;
                 $this->itemsCostAmount += $amount;
-
             }
 
         }
@@ -124,16 +123,46 @@ class StoreSaleTransactionsJob implements ShouldQueue
          *
          */
 
+
+    }
+
+    private function createPaymentsTransactions()
+    {
+        $data = $this->startupData;
+        $data['type'] = 'debit';
+        $data['user_id'] = $this->invoice->user_id;
+
+        foreach ($this->invoice->payments()->get() as $key => $payment) {
+            $data['amount'] = $payment->amount;
+            $payment->account->transactions()->create($data);
+        }
     }
 
     private function createClientBalanceTransaction()
     {
-        $data = $this->startupData;
-        $data['amount'] = $this->invoice->net;
-        $data['user_id'] = $this->invoice->user_id;
-        $data['type'] = 'debit';
-        $this->clientAccount->transactions()->create($data);
-        dispatch(new UpdateClientBalanceJob($this->invoice->sale->client, $this->invoice->net, 'increase'));
+        $paidAmount = $this->invoice->payments()->sum('amount');
+        $netAmount = (float)$this->invoice->net;
+        if ($paidAmount != $netAmount) {
+            $variation = $paidAmount - $netAmount;
+//            dd($variation,$netAmount);
+
+            if ($variation > 0) {
+                $data = $this->startupData;
+                $data['amount'] = abs($variation);
+                $data['user_id'] = $this->invoice->user_id;
+                $data['type'] = 'credit';
+                $this->clientAccount->transactions()->create($data);
+                dispatch(new UpdateClientBalanceJob($this->invoice->sale->client, $this->invoice->net, 'decrease'));
+            } else {
+                $data = $this->startupData;
+                $data['amount'] = abs($variation);
+                $data['user_id'] = $this->invoice->user_id;
+                $data['type'] = 'debit';
+                $this->clientAccount->transactions()->create($data);
+                dispatch(new UpdateClientBalanceJob($this->invoice->sale->client, $this->invoice->net, 'increase'));
+            }
+
+        }
     }
 
 

@@ -18,8 +18,6 @@
 				$table->integer("organization_id");
 				$table->integer('chart_id')->default(0);
 				$table->integer("creator_id");
-				
-				
 				$table->string('name');
 				$table->string('ar_name');
 				$table->boolean('appear_in_purchase')->default(true);

@@ -53,13 +53,13 @@
 
                         </div>
 
-                        <div class="col-md-1" v-if="onlyQuotations!==true">
-                            <select @change="pushServerRequest" class="form-control" v-model="filters.current_status">
-                                <option value="null">{{ app.trans.current_status }}</option>
-                                <option value="paid">{{ app.trans.paid }}</option>
-                                <option value="credit">{{ app.trans.credit }}</option>
-                            </select>
-                        </div>
+<!--                        <div class="col-md-1" v-if="onlyQuotations!==true">-->
+<!--                            <select @change="pushServerRequest" class="form-control" v-model="filters.current_status">-->
+<!--                                <option value="null">{{ app.trans.current_status }}</option>-->
+<!--                                <option value="paid">{{ app.trans.paid }}</option>-->
+<!--                                <option value="credit">{{ app.trans.credit }}</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
                         <div class="col-md-2" v-if="onlyQuotations!==true">
                             <select @change="pushServerRequest" class="form-control" v-model="filters.invoice_type">
                                 <option value="null">{{ app.trans.invoice_type }}</option>
@@ -192,10 +192,10 @@
                             {{ app.trans.profit }}
                         </th>
 
-                        <th :class="{'orderBy':orderBy=='current_status'}" @click="setOrderByColumn('current_status')"
-                            width="">
-                            {{ app.trans.current_status }}
-                        </th>
+<!--                        <th :class="{'orderBy':orderBy=='current_status'}" @click="setOrderByColumn('current_status')"-->
+<!--                            width="">-->
+<!--                            {{ app.trans.current_status }}-->
+<!--                        </th>-->
 
                         <th :class="{'orderBy':orderBy=='invoice_type'}" @click="setOrderByColumn('invoice_type')"
                             width="">
@@ -227,7 +227,7 @@
 
                     <tr :key="row.id" v-for="(row,index) in table_rows">
                         <td v-text="index+1"></td>
-                        <td class="text-center" v-text="row.title"></td>
+                        <td class="text-center" v-text="row.invoice_number"></td>
                         <td class="text-center"
                             v-text="row.sale.alice_name==null ? row.sale.client.locale_name : row.sale.alice_name"></td>
                         <td v-text="row.created_at"></td>
@@ -244,10 +244,10 @@
                             v-text="-parseFloat(row.subtotal - row.invoice_cost).toFixed(2)"></td>
 
 
-                        <td class="text-center">
-                            <span v-if="row.current_status=='paid'">{{ app.trans.paid }}</span>
-                            <span v-else>{{ app.trans.credit }}</span>
-                        </td>
+<!--                        <td class="text-center">-->
+<!--                            <span v-if="row.current_status=='paid'">{{ app.trans.paid }}</span>-->
+<!--                            <span v-else>{{ app.trans.credit }}</span>-->
+<!--                        </td>-->
                         <td class="text-center">
                             <span v-if="row.invoice_type=='sale'">{{ app.trans.sale }}</span>
                             <span v-else-if="row.invoice_type=='quotation'">{{ app.trans.quotation }}</span>
@@ -313,9 +313,9 @@
                             {{parseFloat( totals.profit).toFixed(2) }}
                         </th>
 
-                        <th>
+<!--                        <th>-->
 
-                        </th>
+<!--                        </th>-->
 
                         <th>
                         </th>

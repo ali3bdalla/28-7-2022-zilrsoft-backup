@@ -35,9 +35,14 @@ class User extends BaseAuthModel
         'password'
     ];
 
-    public function getCreatedDateAttribute()
+
+    public function getLocaleNameAttribute()
     {
-        return $this->created_at->diffForHumans();
+        // if (app()->isLocale('ar'))
+        // 	return $this->ar_name;
+
+
+        return $this->name;
     }
 
 

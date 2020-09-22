@@ -60,6 +60,7 @@ class UpdateInvoiceBalancesByInvoiceItemsJob implements ShouldQueue
             $result['net'] = (float) $result['net'] + (float) $item->net;
         }
         $result['net'] = (float) $result['net'] + (float) $this->expensesAmount;
+
         $this->invoice->update($result);
     }
 }

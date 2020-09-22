@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Account;
+use App\Models\Category;
+use App\Observers\CategoryObserver;
 use App\Observers\OrganizationObServer;
 use App\Observers\TransactionObserver;
 use App\Models\Organization;
@@ -36,15 +38,6 @@ class AppServiceProvider extends ServiceProvider
 
     }
 
-    private function registerObservers()
-    {
-        Transaction::observe(TransactionObserver::class);
-        Organization::observe(OrganizationObServer::class);
-        Account::observe(AccountObserver::class);
-
-    }
-
-
     protected function loadHelperFunctions()
     {
         foreach (glob(__DIR__ . '/../Helpers/*.php') as $filename) {
@@ -52,5 +45,14 @@ class AppServiceProvider extends ServiceProvider
             /** @var TYPE_NAME $filename */
             require_once $filename;
         }
+    }
+
+    private function registerObservers()
+    {
+        Transaction::observe(TransactionObserver::class);
+        Organization::observe(OrganizationObServer::class);
+        Account::observe(AccountObserver::class);
+        Category::observe(CategoryObserver::class);
+
     }
 }

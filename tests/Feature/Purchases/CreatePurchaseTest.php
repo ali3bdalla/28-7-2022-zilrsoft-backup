@@ -11,6 +11,7 @@ use Tests\TestCase;
 class CreatePurchaseTest extends TestCase
 {
     use WithFaker;
+
     /**
      * A basic feature test example.
      *
@@ -24,7 +25,7 @@ class CreatePurchaseTest extends TestCase
             ['is_service', false],
             ['is_expense', false],
             ['is_kit', false],
-        ])->get();
+        ])->inRandomOrder()->take(50)->get();
 
         $vendor = factory(User::class)->create([
             'is_vendor' => true,
@@ -37,7 +38,7 @@ class CreatePurchaseTest extends TestCase
             $requestItem['qty'] = $this->faker->numberBetween(1, 100);
             $requestItem['discount'] = 0;
             $requestItem['price'] = $item->price;
-            $requestItem['testing_available_qty'] = (int) $item->available_qty;
+            $requestItem['testing_available_qty'] = (int)$item->available_qty;
             $requestItem['testing_item_cost'] = $item->cost;
             $requestItem['testing_item_total_stock_amount'] = ($item->available_qty * $item->cost);
             $requestItem['testing_subtotal'] = ((float)$requestItem['purchase_price'] * (float)$requestItem['qty']) - (float)$requestItem['discount'];
@@ -60,14 +61,14 @@ class CreatePurchaseTest extends TestCase
             ->assertOk();
         foreach ($items as $item) {
             $dbItem = Item::find($item['id']);
-            $this->assertEquals(roundMoney((float)$item['testing_total_debit_amount'] + (float)$item['testing_subtotal']),roundMoney($dbItem->total_debit_amount));
-            $this->assertEquals(roundMoney($item['testing_total_credit_amount']),roundMoney($dbItem->total_credit_amount));
-            $this->assertEquals((int) $item['testing_available_qty'] + (int) $item['qty'], (int) $dbItem->fresh()->available_qty);
-            $this->assertEquals(roundMoney((float) (((float) $item['testing_item_total_stock_amount'] + ((float) $item['purchase_price'] * (int) $item['qty'])) / $dbItem->available_qty)), roundMoney($dbItem->cost));
+            $this->assertEquals(roundMoney((float)$item['testing_total_debit_amount'] + (float)$item['testing_subtotal']), roundMoney($dbItem->total_debit_amount));
+            $this->assertEquals(roundMoney($item['testing_total_credit_amount']), roundMoney($dbItem->total_credit_amount));
+            $this->assertEquals((int)$item['testing_available_qty'] + (int)$item['qty'], (int)$dbItem->fresh()->available_qty);
+            $this->assertEquals(roundMoney((float)(((float)$item['testing_item_total_stock_amount'] + ((float)$item['purchase_price'] * (int)$item['qty'])) / $dbItem->available_qty)), roundMoney($dbItem->cost));
         }
     }
 
-    
+
     /**
      * A basic feature test example.
      *
@@ -81,7 +82,7 @@ class CreatePurchaseTest extends TestCase
             ['is_service', false],
             ['is_expense', false],
             ['is_kit', false],
-        ])->get();
+        ])->inRandomOrder()->take(50)->get();
 
         $vendor = factory(User::class)->create([
             'is_vendor' => true,
@@ -95,7 +96,7 @@ class CreatePurchaseTest extends TestCase
             $requestItem['discount'] = 0;
             $requestItem['price'] = $item->price;
 
-            $requestItem['testing_available_qty'] = (int) $item->available_qty;
+            $requestItem['testing_available_qty'] = (int)$item->available_qty;
             $requestItem['testing_item_cost'] = $item->cost;
             $requestItem['testing_item_total_stock_amount'] = ($item->available_qty * $item->cost);
             $requestItem['serials'] = $this->generateSerials($requestItem['qty']);
@@ -103,7 +104,6 @@ class CreatePurchaseTest extends TestCase
             $requestItem['testing_subtotal'] = ((float)$requestItem['purchase_price'] * (float)$requestItem['qty']) - (float)$requestItem['discount'];
             $requestItem['testing_total_credit_amount'] = $item->total_credit_amount;
             $requestItem['testing_total_debit_amount'] = $item->total_debit_amount;
-
 
 
             $items[] = $requestItem;
@@ -120,12 +120,12 @@ class CreatePurchaseTest extends TestCase
             ->assertOk();
         foreach ($items as $item) {
             $dbItem = Item::find($item['id']);
-            $this->assertEquals((int) $item['testing_available_qty'] + (int) $item['qty'], (int) $dbItem->fresh()->available_qty);
-            $this->assertEquals(roundMoney((float) (((float) $item['testing_item_total_stock_amount'] + (((float) $item['purchase_price'] * (int) $item['qty']) - (float) $item['discount'])) / $dbItem->available_qty)), roundMoney($dbItem->cost));
+            $this->assertEquals((int)$item['testing_available_qty'] + (int)$item['qty'], (int)$dbItem->fresh()->available_qty);
+            $this->assertEquals(roundMoney((float)(((float)$item['testing_item_total_stock_amount'] + (((float)$item['purchase_price'] * (int)$item['qty']) - (float)$item['discount'])) / $dbItem->available_qty)), roundMoney($dbItem->cost));
 
 
-            $this->assertEquals(roundMoney((float)$item['testing_total_debit_amount'] + (float)$item['testing_subtotal']),roundMoney($dbItem->total_debit_amount));
-            $this->assertEquals(roundMoney($item['testing_total_credit_amount']),roundMoney($dbItem->total_credit_amount));
+            $this->assertEquals(roundMoney((float)$item['testing_total_debit_amount'] + (float)$item['testing_subtotal']), roundMoney($dbItem->total_debit_amount));
+            $this->assertEquals(roundMoney($item['testing_total_credit_amount']), roundMoney($dbItem->total_credit_amount));
             foreach ($item['serials'] as $serial) {
                 $result = $dbItem->serials()->where([
                     ['serial', $serial],

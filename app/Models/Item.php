@@ -2,13 +2,8 @@
 
 namespace App\Models;
 
-use App\Attributes\KitAttributes;
 use App\Relationships\ItemRelationships;
-use App\Relationships\KitRelationships;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
-use Modules\Web\Models\WebItem;
 
 /**
  * @property mixed is_fixed_price
@@ -25,6 +20,8 @@ use Modules\Web\Models\WebItem;
  * @property mixed invoice_id
  * @property mixed total_credit_amount
  * @property mixed total_debit_amount
+ * @property mixed returned_qty
+ * @property mixed is_need_serial
  * @method static findOrFail($id)
  * @method static InRandomOrder()
  */
@@ -33,7 +30,6 @@ class Item extends BaseModel
     // use KitAttributes;
     // use KitRelationships;
     // use WebItem;
-    use ItemRelationships;
     use SoftDeletes;
 
     protected $appends = [
@@ -54,6 +50,54 @@ class Item extends BaseModel
         'is_expense' => 'boolean',
     ];
     protected $guarded = [];
+
+
+    public function items()
+    {
+        return $this->hasMany(KitItems::class, 'kit_id')->with('item');
+    }
+
+
+    public function data()
+    {
+        return $this->hasOne(KitData::class, 'kit_id');
+    }
+
+    public function scopeKits($query)
+    {
+        return $query->where('is_kit', true);
+    }
+
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class, 'organization_id');
+    }
+
+    public function serials()
+    {
+        return $this->hasMany(ItemSerials::class, 'item_id');
+    }
+
+    public function pipline()
+    {
+        return $this->hasMany(InvoiceItems::class, 'item_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function filters()
+    {
+        return $this->hasMany(ItemFilters::class, 'item_id');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(Manager::class, 'creator_id');
+    }
 
     // new
 
@@ -467,9 +511,7 @@ class Item extends BaseModel
     // }
 
 
-
-
-    // /// 
+    // ///
     // /**
     //  * @param $history
     //  *
@@ -528,7 +570,7 @@ class Item extends BaseModel
     //     $history['profits'] = $history['total'] - $history['total_cost'];
     //     if ($history['discount'] > 0) {
     //         $history = $this->handleReturnSaleDiscountHistory($history);
-    
+
     //     }
 
     //     $history['profits'] = $history['profits'] * -1;

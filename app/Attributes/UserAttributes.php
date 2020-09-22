@@ -17,8 +17,6 @@
             return $this->balance ;
 	    }
 
-
-
         public function _getVendorBalance()
         {
             return $this->getOriginal('vendor_balance') ;

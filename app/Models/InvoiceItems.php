@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Relationships\InvoiceItemRelationships;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
 
 /**
  * @property mixed item
@@ -31,15 +29,23 @@ use Illuminate\Support\Facades\DB;
  */
 class InvoiceItems extends BaseModel
 {
-    use InvoiceItemRelationships;
 
     protected $guarded = [];
 
     protected $appends = [
         'description',
-        'invoice_url' ,
-        'invoice_number'
+        'invoice_url',
+        'invoice_number',
+        'r_qty'
+
     ];
+
+
+    public function getRQtyAttribute()
+    {
+        return $this->returned_qty;
+    }
+
 
     protected $casts = [
         'tax' => 'float',
@@ -60,10 +66,26 @@ class InvoiceItems extends BaseModel
     }
 
 
-    // public function actual()
-    // {
-        
-    // }
+    public function item()
+    {
+        return $this->belongsTo(Item::class, 'item_id');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(Manager::class, 'creator_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class, 'invoice_id');
+    }
+
 
     // public function fixPriceIssue($price)
     // {
@@ -153,7 +175,7 @@ class InvoiceItems extends BaseModel
 
     public function getInvoiceUrlAttribute()
     {
-        if(in_array($this->invoice_type,['purchase','return_purchase'])) return "/purchases/{$this->invoice_id}";
+        if (in_array($this->invoice_type, ['purchase', 'return_purchase'])) return "/purchases/{$this->invoice_id}";
         else return "/sales/{$this->invoice_id}";
     }
 
@@ -220,8 +242,8 @@ class InvoiceItems extends BaseModel
 
 // private $invoiceItem = null;
 // 		private $item_statistics = null;
-		
-		
+
+
 // 		private $profit = 0;
 // 		public function __construct(InvoiceItems $invoiceItem)
 // 		{
@@ -229,70 +251,69 @@ class InvoiceItems extends BaseModel
 // 			$this->getItemStatisticsRow();
 // 			if ($this->invoiceItem->invoice_type == 'sale')
 // 				$this->sales();
-			
+
 // 			if ($this->invoiceItem->invoice_type == 'purchase')
 // 				$this->purchase();
-			
+
 // 			if ($this->invoiceItem->invoice_type == 'return_purchase')
 // 				$this->returnPurchase();
-			
+
 // 			if ($this->invoiceItem->invoice_type == 'return_sale')
 // 				$this->returnSales();
-			
+
 // 		}
-		
+
 // 		private function getItemStatisticsRow()
 // 		{
 // 			$this->item_statistics = $this->invoiceItem->item->statistics;
 // 			if (!$this->item_statistics)
 // 				$this->item_statistics = $this->invoiceItem->item->statistics()->create();
-			
+
 // 			$this->profit = $this->invoiceItem->total - ($this->invoiceItem->cost * $this->invoiceItem->qty);
-			
+
 // 		}
-		
+
 // 		private function sales()
 // 		{
-			
-			
-			
+
+
 // 			$this->item_statistics->update([
 // 				'sales_count' => DB::raw("sales_count + 1"),
 // 				'profits' => DB::raw("profits + $this->profit"),
 // 			]);
-			
-			
+
+
 // 		}
-		
+
 // 		private function returnSales()
 // 		{
-			
+
 // 			$this->item_statistics->update([
 // 				'return_sales_count' => DB::raw("return_sales_count + 1"),
 // 				'profits' => DB::raw("profits - $this->profit"),
 // 			]);
-			
-			
+
+
 // 		}
-		
-		
+
+
 // 		private function purchase()
 // 		{
-			
+
 // 			$this->item_statistics->update([
 // 				'purchase_count' => DB::raw("purchase_count + 1")
 // 			]);
-			
-			
+
+
 // 		}
-		
-		
+
+
 // 		private function returnPurchase()
 // 		{
-			
+
 // 			$this->item_statistics->update([
 // 				'return_purchase_count' => DB::raw("return_purchase_count + 1")
 // 			]);
-			
-			
+
+
 // 		}

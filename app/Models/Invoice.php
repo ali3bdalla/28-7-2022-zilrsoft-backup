@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use App\Attributes\InvoiceAttributes;
-use App\Relationships\InvoiceRelationship;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,24 +21,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed total
  * @property mixed invoice_number
  * @property mixed items
+ * @method static create(array $array)
  */
 class Invoice extends Model
 {
 
-    use InvoiceRelationship;
     use InvoiceAttributes;
     use SoftDeletes;
-
-    protected static function boot()
-    {
-        parent::boot();
-     
-        // if (auth()->check() && !auth()->user()->can('manage branches')) {
-        //     static::addGlobalScope('currentManagerInvoicesOnly', function (Builder $builder) {
-        //         $builder->where('creator_id', auth()->user()->id);
-        //     });
-        // }
-    }
 
     protected $appends = [
         // 'description',
@@ -48,9 +35,95 @@ class Invoice extends Model
         // 'user_id',
     ];
     protected $guarded = [];
-
     protected $casts = [
         'printable_price' => 'boolean',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // if (auth()->check() && !auth()->user()->can('manage branches')) {
+        //     static::addGlobalScope('currentManagerInvoicesOnly', function (Builder $builder) {
+        //         $builder->where('creator_id', auth()->user()->id);
+        //     });
+        // }
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+
+    }
+
+
+    public function manager()
+    {
+        return $this->belongsTo(Manager::class, 'managed_by_id');
+
+    }
+
+
+    public function expenses()
+    {
+        return $this->hasMany(InvoiceExpenses::class, 'invoice_id');
+    }
+
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class, 'organization_id');
+    }
+
+    public function sale()
+    {
+        return $this->hasOne(Sale::class, 'invoice_id');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(Manager::class, 'creator_id');
+    }
+
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(InvoiceItems::class, 'invoice_id');
+    }
+
+    public function purchase()
+    {
+        return $this->hasOne(Purchase::class, 'invoice_id');
+    }
+
+    public function serial_history()
+    {
+        return $this->hasOne(SerialHistory::class, 'invoice_id');
+    }
+
+    public function child()
+    {
+        return $this->belongsTo(Invoice::class, 'parent_invoice_id');
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'invoice_id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'invoice_id');
+    }
 
 }

@@ -15,7 +15,7 @@
                 <ul class="nav navbar-nav">
 
                     <li v-if="canConfirmPendingPurchases">
-                        <a class="dropdown-toggle" href="/accounting/purchases/pending/list">
+                        <a class="dropdown-toggle" href="/purchases/pending/list">
                             <i class="fa fa-bars" style="font-size: 19px;
 margin-bottom: -10px;"></i>
                             <span class="label label-danger">{{ pendingPurchases}}</span>
@@ -102,12 +102,12 @@ margin-bottom: -10px;"></i>
                             </li>
                         </ul>
                     </li>
-                    <li><a href="/accounting/settings" v-text="trans.settings"></a></li>
-                    <li><a href="/accounting/printer/printers" v-text="trans.printers"></a></li>
-                    <li><a href="/accounting/statistics" v-text="trans.statistics"></a></li>
+<!--                    <li><a href="/accounting/settings" v-text="trans.settings"></a></li>-->
+                    <li><a href="/printer/printers" v-text="trans.printers"></a></li>
+<!--                    <li><a href="/statistics" v-text="trans.statistics"></a></li>-->
                     <li><a href="/items"> المنتجات</a></li>
-                    <li><a href="/accounting/sales/create">فاتورة مبيعات</a></li>
-                    <li><a href="/accounting/purchases/create">فاتورة مشتريات</a></li>
+                    <li><a href="/sales/create">فاتورة مبيعات</a></li>
+                    <li><a href="/purchases/create">فاتورة مشتريات</a></li>
                     <li><a href="/accounting/reseller_daily/account_close_list">انهاء الوردية</a></li>
 
 

@@ -20,6 +20,7 @@ Route::prefix('financial_statements')->name('financial_statements.')->group(func
 Route::resource('items', 'ItemController');
 Route::prefix('items/{item}')->name('items.')->group(function(){
     Route::get('/transactions', 'ItemController@transactions')->name('transactions');
+    Route::get('/view_serials', 'ItemController@serials')->name('serials');
 });
 Route::resource('purchases', 'PurchaseController');
 Route::prefix('purchases')->name('purchases.')->group(function(){

@@ -6,6 +6,8 @@ use App\Models\Expense;
 use App\Models\Invoice;
 use App\Models\Manager;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 
 class PurchaseController extends Controller
 {
@@ -32,6 +34,32 @@ class PurchaseController extends Controller
         $gateways = [];
         return view('accounting.purchases.create', compact('vendors', 'receivers', 'gateways', 'expenses'));
         //
+    }
+
+
+    /**
+     * @param Invoice $purchase
+     *
+     * @return Factory|View
+     */
+    public function edit(Invoice $purchase)
+    {
+
+        $invoice = $purchase;
+        $purchase = $invoice->purchase;
+        $items = [];
+        $data_source_items = $invoice->items()->with('item')->get();
+        foreach ($data_source_items as $item) {
+            if ($item->item->is_need_serial) {
+                $item['serials'] = $item->item->serials()->purchase($invoice->id)->get();
+            }
+            $items [] = $item;
+        }
+        $gateways = [];
+
+
+
+        return view('accounting.purchases.edit', compact('purchase', 'invoice', 'items', 'gateways'));
     }
 
     public function clone(Invoice $purchase)
@@ -81,5 +109,5 @@ class PurchaseController extends Controller
         $is_pending = true;
         return view('accounting.purchases.index', compact('vendors', 'creators', 'is_pending'));
     }
-    
+
 }

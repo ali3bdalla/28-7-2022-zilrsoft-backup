@@ -1,20 +1,25 @@
 <?php
-	
-	namespace App\Models;
-	
-	use App\Attributes\DepartmentAttributes;
-	use App\Relationships\DepartmentRelationships;
 
-	class Department extends BaseModel
-	{
-		//
-		
-		use DepartmentAttributes,DepartmentRelationships;
-		
-		protected $guarded = [];
-		
-		protected $appends = [
-			'locale_title'
-		];
+namespace App\Models;
 
-	}
+
+class Department extends BaseModel
+{
+    //
+
+
+    protected $guarded = [];
+
+    protected $appends = [
+        'locale_title'
+    ];
+
+    public function getLocaleTitleAttribute()
+    {
+        if (app()->isLocale('ar'))
+            return $this->ar_title;
+
+        return $this->title;
+
+    }
+}

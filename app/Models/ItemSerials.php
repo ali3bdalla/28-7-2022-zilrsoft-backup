@@ -36,12 +36,12 @@
 		
 		public function scopePurchase($query,$invoice_id)
 		{
-			return $query->where('purchase_invoice_id',$invoice_id);
+			return $query->where('purchase_id',$invoice_id);
 		}
 		
 		public function scopeSale($query,$invoice_id)
 		{
-			return $query->where('sale_invoice_id',$invoice_id);
+			return $query->where('sale_id',$invoice_id);
 		}
 		
 		public function item()

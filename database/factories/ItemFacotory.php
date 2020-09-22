@@ -1,16 +1,17 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+/** @var Factory $factory */
 
 use App\Models\Item;
 use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(Item::class, function (Faker $faker) {
 
     $vat = 15;
     $priceWithTax = $faker->numberBetween(20, 500);
 
-    $price =$priceWithTax / 1.15;//50
+    $price = $priceWithTax / 1.15;//50
     return [
 
         'organization_id' => 1,
@@ -28,7 +29,7 @@ $factory->define(Item::class, function (Faker $faker) {
         'is_service' => false,
         'is_expense' => false,
         'is_available_online' => false,
-        'expense_vendor_id' => 0,
+        'expense_vendor_id' => 2,
         'price' => $price,
         'price_with_tax' => $priceWithTax,
         'last_p_price' => 0,
