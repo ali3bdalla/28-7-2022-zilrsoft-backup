@@ -131,7 +131,6 @@ class StoreSaleTransactionsJob implements ShouldQueue
         $data = $this->startupData;
         $data['type'] = 'debit';
         $data['user_id'] = $this->invoice->user_id;
-
         foreach ($this->invoice->payments()->get() as $key => $payment) {
             $data['amount'] = $payment->amount;
             $payment->account->transactions()->create($data);

@@ -23,7 +23,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreSaleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreSaleRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Jobs/Accounting/Sale/StoreSaleTransactionsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Accounting/Sale/StoreSaleTransactionsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Sales/CreateSaleTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Sales/CreateSaleTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -336,7 +335,7 @@
       <workItem from="1600674643170" duration="724000" />
       <workItem from="1600701743084" duration="14036000" />
       <workItem from="1600744707904" duration="14291000" />
-      <workItem from="1600765198221" duration="13252000" />
+      <workItem from="1600765198221" duration="13519000" />
     </task>
     <servers />
   </component>
