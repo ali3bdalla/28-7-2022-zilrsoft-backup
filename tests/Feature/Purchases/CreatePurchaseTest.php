@@ -25,7 +25,7 @@ class CreatePurchaseTest extends TestCase
             ['is_service', false],
             ['is_expense', false],
             ['is_kit', false],
-        ])->inRandomOrder()->take(50)->get();
+        ])->inRandomOrder()->take(5)->get();
 
         $vendor = factory(User::class)->create([
             'is_vendor' => true,
@@ -82,7 +82,7 @@ class CreatePurchaseTest extends TestCase
             ['is_service', false],
             ['is_expense', false],
             ['is_kit', false],
-        ])->inRandomOrder()->take(50)->get();
+        ])->inRandomOrder()->take(5)->get();
 
         $vendor = factory(User::class)->create([
             'is_vendor' => true,

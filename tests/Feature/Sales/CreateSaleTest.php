@@ -28,7 +28,7 @@ class CreateSaleTest extends TestCase
                 ['is_expense', false],
                 ['is_kit', false]
             ]
-        )->inRandomOrder()->take(10)->get();
+        )->inRandomOrder()->take(5)->get();
 
 
         $tempResellerAccount = Account::where('slug', 'temp_reseller_account')->first()->toArray();
@@ -109,7 +109,7 @@ class CreateSaleTest extends TestCase
                 ['is_expense', true],
                 ['is_kit', false]
             ]
-        )->inRandomOrder()->take(10)->get();
+        )->inRandomOrder()->take(5)->get();
         $tempResellerAccount = Account::where('slug', 'temp_reseller_account')->first()->toArray();
 
         $invoiceFinalNet = 0;
@@ -179,7 +179,7 @@ class CreateSaleTest extends TestCase
                 ['is_expense', false],
                 ['is_kit', true]
             ]
-        )->take(1)->get();
+        )->take(2)->get();
 
         $frontEndItems = [];
         foreach ($dbItems as $item) {

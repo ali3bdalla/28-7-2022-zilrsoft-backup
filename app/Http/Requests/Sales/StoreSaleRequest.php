@@ -195,26 +195,24 @@ class StoreSaleRequest extends FormRequest
     {
         $methodsCollects = collect($this->input('methods'));
         $paymentsMethodsCount = $methodsCollects->count();
+        dd($paymentsMethodsCount);
         $totalPaidAmount = $methodsCollects->sum('amount');
         $user = User::find($this->input('client_id'));
         if ($user->is_system_user) {
-            if ($totalPaidAmount != $invoice->net && $paymentsMethodsCount == 0) {
-                throw ValidationException::withMessages(['payments' => "summation of payments methods should match invoice net "]);
-            } else {
-                $variationAmount = (float)$totalPaidAmount - (float)$invoice->net;
-                $methods = $this->input('methods');
-                if ($variationAmount > 0) {
-                    $methods[0]['amount'] = (float)$methods[0]['amount'] - (float)abs($variationAmount);
+            if ($totalPaidAmount != $invoice->net) {
+                if ($paymentsMethodsCount < 1) {
+                    throw ValidationException::withMessages(['payments' => "summation of payments methods should match invoice net "]);
                 } else {
-                    $methods[0]['amount'] = (float)$methods[0]['amount'] + (float)abs($variationAmount);
-
+                    $variationAmount = (float)$invoice->fresh()->net - (float)$totalPaidAmount;
+                    $methods = $this->input('methods');
+                    if ($variationAmount > 0) {
+                        $methods[0]['amount'] = (float)$methods[0]['amount'] + (float)$variationAmount;
+                    }
+                    return $methods;
                 }
-
-                return $methods;
             }
+
         }
-
-
         return $this->input('methods');
     }
 
