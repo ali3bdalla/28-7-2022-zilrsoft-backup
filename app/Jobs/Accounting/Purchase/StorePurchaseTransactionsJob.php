@@ -22,7 +22,7 @@ class StorePurchaseTransactionsJob implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param Invoice $invoice
      */
     public function __construct(Invoice $invoice)
     {

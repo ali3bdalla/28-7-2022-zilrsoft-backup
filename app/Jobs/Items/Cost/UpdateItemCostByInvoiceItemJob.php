@@ -37,7 +37,7 @@ class UpdateItemCostByInvoiceItemJob implements ShouldQueue
     public function handle()
     {
 
-        $availableQty = (int) $this->invoiceItem->item->fresh()->available_qty;
+        $availableQty = (int)$this->invoiceItem->item->fresh()->available_qty;
         /**
          * ==========================================================
          * update cost for purchase invoice item
@@ -46,11 +46,11 @@ class UpdateItemCostByInvoiceItemJob implements ShouldQueue
          */
         if (in_array($this->invoiceItem->invoice_type, ['purchase'])) {
             $stockAmountBeforeNewInvoiceItem = $this->availableQtyBeforeInvoiceItem * $this->costBeforeInvoiceItem;
-            $newStockAmount = (float) $stockAmountBeforeNewInvoiceItem + (float) $this->invoiceItem->subtotal;
-            $newItemCost = (float) $newStockAmount / $availableQty;
+            $newStockAmount = (float)$stockAmountBeforeNewInvoiceItem + (float)$this->invoiceItem->subtotal;
+            $newItemCost = (float)$newStockAmount / $availableQty;
             $this->invoiceItem->item->update([
                 'cost' => $newItemCost,
-                'total_cost_amount' => (float) ($newItemCost * $availableQty),
+                'total_cost_amount' => (float)($newItemCost * $availableQty),
             ]);
         }
 
@@ -63,13 +63,27 @@ class UpdateItemCostByInvoiceItemJob implements ShouldQueue
          */
         if (in_array($this->invoiceItem->invoice_type, ['return_purchase'])) {
             $stockAmountBeforeNewInvoiceItem = $this->availableQtyBeforeInvoiceItem * $this->costBeforeInvoiceItem;
-            $newStockAmount = (float) $stockAmountBeforeNewInvoiceItem - (float) $this->invoiceItem->subtotal;
-            $newItemCost = (float) $newStockAmount / $availableQty;
+            $newStockAmount = (float)$stockAmountBeforeNewInvoiceItem - (float)$this->invoiceItem->subtotal;
+            $newItemCost = (float)$newStockAmount / $availableQty;
             $this->invoiceItem->item->update([
                 'cost' => $newItemCost,
-                'total_cost_amount' => (float) ($newItemCost * $availableQty),
+                'total_cost_amount' => (float)($newItemCost * $availableQty),
             ]);
         }
+
+
+        /**
+         * ==========================================================
+         * update cost for sale invoice item
+         * stock amount = available qty - cost
+         * ==========================================================
+         */
+        if (in_array($this->invoiceItem->invoice_type, ['sale'])) {
+            $this->invoiceItem->item->update([
+                'total_cost_amount' => (float)($this->invoiceItem->item->cost * $availableQty),
+            ]);
+        }
+
 
     }
 }

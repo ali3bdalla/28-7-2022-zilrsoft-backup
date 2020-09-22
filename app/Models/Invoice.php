@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed sale
  * @property mixed purchase
  * @property mixed total
+ * @property mixed invoice_number
+ * @property mixed items
  */
 class Invoice extends Model
 {

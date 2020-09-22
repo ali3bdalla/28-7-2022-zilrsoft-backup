@@ -23,6 +23,8 @@ use Modules\Web\Models\WebItem;
  * @property mixed vtp
  * @property mixed expense_vendor_id
  * @property mixed invoice_id
+ * @property mixed total_credit_amount
+ * @property mixed total_debit_amount
  * @method static findOrFail($id)
  * @method static InRandomOrder()
  */

@@ -1,6 +1,6 @@
 @extends('accounting.layout.master')
 
-@section('title',__('pages/invoice.view') . ' | '. $invoice->title )
+@section('title',__('pages/invoice.view') . ' | '. $invoice->invoice_number )
 
 
 

@@ -150,9 +150,9 @@ class StorePurchaseItemsJob implements ShouldQueue
     private function setCostAndAvailableQty(InvoiceItems $invoiceItem)
     {
         $invoiceItem->update([
-            'cost' => $invoiceItem->item->cost,
-            'available_qty' => $invoiceItem->item->available_qty,
-            'total_stock_cost_amount' => (float) $invoiceItem->item->cost * (float) $invoiceItem->item->available_qty,
+            'cost' => $invoiceItem->item->fresh()->cost,
+            'available_qty' => $invoiceItem->item->fresh()->available_qty,
+            'total_stock_cost_amount' => (float) $invoiceItem->item->fresh()->cost * (float) $invoiceItem->item->fresh()->available_qty,
         ]);
     }
 }

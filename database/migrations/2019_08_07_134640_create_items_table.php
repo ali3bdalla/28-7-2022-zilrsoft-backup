@@ -39,18 +39,11 @@
 				$table->float('vtp')->default(5);
                 $table->float('vts_for_print')->default(15);
                 $table->float('vtp_for_print')->default(15);
-				
-
 				$table->enum('status',['active','pending'])->default('active');
-
-
-
-
 				$table->integer('available_qty')->default(0);
 				$table->float('cost',20, 8)->default(0);
 				$table->float('total_cost_amount',20, 8)->default(0);
-
-
+				$table->float('total_profits_amount',20, 8)->default(0);
 				$table->float('total_credit_amount',20, 8)->default(0);
 				$table->float('total_debit_amount',20, 8)->default(0);
 

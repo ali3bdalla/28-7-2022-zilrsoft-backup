@@ -12,8 +12,10 @@ if (!function_exists('roundMoney')) {
 
 
 if (!function_exists('moneyFormatter')) {
-    function moneyFormatter($money)
+    function moneyFormatter($money,$decimal  = 2)
     {
+
+//        return $money;
         return money_format("%i",$money);
     }
 }

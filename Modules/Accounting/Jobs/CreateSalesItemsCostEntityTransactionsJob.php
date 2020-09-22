@@ -124,7 +124,6 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
         }
 
 
-        /// discounts
         if ($products_sales_total_discount > 0){
             $manager_products_sales_discount_account->transactions()->create(['type'=>'debit',
                 'creator_id' => auth()->user()->id,
@@ -141,7 +140,6 @@ class CreateSalesItemsCostEntityTransactionsJob implements ShouldQueue
             $manager_services_sales_discount_account->transactions()->create(['type'=>'debit',
                 'creator_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
-    
                 'amount' =>(float)( $services_sales_total_discount),
                 'user_id' => $this->invoice->user_id,
                 'invoice_id' => $this->invoice->id,

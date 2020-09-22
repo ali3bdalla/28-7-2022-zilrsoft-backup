@@ -17,17 +17,23 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
      * @var InvoiceItems
      */
     private $invoiceItem;
+    /**
+     * @var bool
+     */
+    private $isDraft;
 
     /**
      * Create a new job instance.
      *
      * @param $serials
      * @param InvoiceItems $invoiceItem
+     * @param bool $isDraft
      */
-    public function __construct($serials, InvoiceItems $invoiceItem)
+    public function __construct($serials, InvoiceItems $invoiceItem,$isDraft = false)
     {
         $this->serials = $serials;
         $this->invoiceItem = $invoiceItem;
+        $this->isDraft = $isDraft;
     }
 
     /**
@@ -45,7 +51,8 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
                     'return_purchase_id' => $this->invoiceItem->invoice_id,
                 ]);
 
-                dispatch(new RegisterSerialHistoryJob($dbSerial, 'return_purchase', $this->invoiceItem->invoice));
+                if(!$this->isDraft)
+                    dispatch(new RegisterSerialHistoryJob($dbSerial, 'return_purchase', $this->invoiceItem->invoice));
             }
         }
         if ($this->invoiceItem->invoice_type == 'return_sale') {
@@ -55,8 +62,8 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
                     'status' => 'return_sale',
                     'return_sale_id' => $this->invoiceItem->invoice_id,
                 ]);
-
-                dispatch(new RegisterSerialHistoryJob($dbSerial, 'return_sale', $this->invoiceItem->invoice));
+                if(!$this->isDraft)
+                    dispatch(new RegisterSerialHistoryJob($dbSerial, 'return_sale', $this->invoiceItem->invoice));
             }
         }
         if ($this->invoiceItem->invoice_type == 'sale') {
@@ -66,8 +73,8 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
                     'status' => 'sold',
                     'sale_id' => $this->invoiceItem->invoice_id,
                 ]);
-
-                dispatch(new RegisterSerialHistoryJob($dbSerial, 'sale', $this->invoiceItem->invoice));
+                if(!$this->isDraft)
+                    dispatch(new RegisterSerialHistoryJob($dbSerial, 'sale', $this->invoiceItem->invoice));
             }
         }
     }

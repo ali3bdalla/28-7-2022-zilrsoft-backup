@@ -86,6 +86,7 @@
 		'creator' => 'الموظف',
 		'make_note' => 'اضافة ملاحظة',
 		'type_here' => 'اكتب هنا',
-		'quotation' => 'عرض سعر'
+		'quotation' => 'عرض سعر',
+        'in_stock' => 'متوفر'
 	
 	];

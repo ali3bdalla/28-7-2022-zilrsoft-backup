@@ -38,7 +38,7 @@ class StorePurchaseRequest extends FormRequest
             'vendor_id' => 'required|integer|exists:users,id',
             'items' => 'required|array',
             'items.*.id' => ['required', 'integer', 'exists:items,id'],
-            'items.*.purchase_price' => 'required|numeric|min:0',
+            'items.*.purchase_price' => 'required|numeric|min:0|purchaseItemPrice',
             // 'items.*.discount' => 'required|numeric',
             'items.*.qty' => 'required|integer|min:1',
             'items.*.price' => 'required|numeric',
@@ -53,6 +53,7 @@ class StorePurchaseRequest extends FormRequest
         DB::beginTransaction();
         try {
             $this->validateSerials();
+
             $authUser = auth()->user();
             $invoice = Invoice::create([
                 'invoice_type' => 'purchase',
@@ -71,8 +72,8 @@ class StorePurchaseRequest extends FormRequest
                 'invoice_type' => 'purchase',
                 "prefix" => 'PU-',
             ]);
-            dispatch(new UpdateInvoiceNumberJob($invoice,'PU-'));
-            dispatch(new StorePurchaseItemsJob($invoice, (array) $this->input('items')));
+            dispatch(new UpdateInvoiceNumberJob($invoice, 'PU-'));
+            dispatch(new StorePurchaseItemsJob($invoice, (array)$this->input('items')));
             dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             dispatch(new StorePurchaseTransactionsJob($invoice->fresh()));
             DB::commit();
@@ -92,11 +93,12 @@ class StorePurchaseRequest extends FormRequest
                     throw ValidationException::withMessages(['item_serial' => 'serials count don\'t  match qty']);
                 }
                 foreach ($item['serials'] as $serial) {
-                    dispatch(new ValidateItemSerialJob($dbItem,$serial, ['in_stock', 'return_sale']));
+                    dispatch(new ValidateItemSerialJob($dbItem, $serial, ['in_stock', 'return_sale']));
                 }
             }
         }
 
     }
+
 
 }

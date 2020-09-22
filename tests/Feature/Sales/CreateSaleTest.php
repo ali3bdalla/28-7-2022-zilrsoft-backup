@@ -12,16 +12,22 @@ use Tests\TestCase;
 class CreateSaleTest extends TestCase
 {
     use WithFaker;
+
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function test_create_sale_non_serialed_item()
+    public function test_create_sales_invoice_for_items_with_just_quantity()
     {
 
-        $dbItems = Item::inRandomOrder()->take(10)->get();
-
+        $dbItems = Item::where([
+//                ['is_need_serial', false],
+                ['is_service', false],
+                ['is_expense', false],
+                ['is_kit', false]
+            ]
+        )->inRandomOrder()->take(10)->get();
         $items = [];
         foreach ($dbItems as $item) {
             $requestItem = [];
@@ -33,31 +39,50 @@ class CreateSaleTest extends TestCase
             if ($item->is_need_serial) {
                 $requestItem['serials'] = ItemSerials::where([
                     ['item_id', $item->id],
-
-                ])->whereIn('current_status', ['purchase', 'available', 'return_sale'])->take($item['qty'])->pluck('serial')->toArray();
+                ])->whereIn('status', ['in_stock', 'return_sale'])->inRandomOrder()->take($requestItem['qty'])->pluck('serial')->toArray();
+//                dd($requestItem['serials']);
             }
 
+            $requestItem['testing_available_qty'] = $item->available_qty;
+            $requestItem['testing_total_profits_amount'] = (float)$item->total_profits_amount;
+            $requestItem['testing_cost'] = $item->cost;
+            $requestItem['testing_total_cost_amount'] = (int)$requestItem['qty'] * (float)$item->cost;
+            $requestItem['testing_subtotal'] = (float)(((float)$requestItem['price'] * (float)$requestItem['qty']) - (float)$requestItem['discount']);
+            $requestItem['testing_total_credit_amount'] = (float)$item->total_credit_amount;
+            $requestItem['testing_total_debit_amount'] = (float)$item->total_debit_amount;
 
-            if($item->is_expense)
-            {
-                $requestItem['purchase_price'] = $item->price;
 
-            }
             $items[] = $requestItem;
         }
 
-        dd($items);
-        $manager = factory(Manager::class)->create();
 
-        $response = $this->actingAs($manager)->postJson('/sales', [
+        $manager = factory(Manager::class)->create();
+        $client = factory(User::class)->create([
+            'is_client' => true
+        ]);
+
+        $response = $this->actingAs($manager)->postJson('/api/sales', [
             'items' => $items,
-            'client_id' => User::where('is_client', true)->inRandomOrder()->first()->id,
-            'salesman_id' => Manager::inRandomOrder()->first()->id,
+            'client_id' => $client->id,
+            'salesman_id' => $manager->id,
         ]);
 
         $response
-        ->dump()
-            ->assertStatus(200);
+            ->dump()
+            ->assertCreated();
+
+
+        foreach ($items as $item) {
+            $dbItem = Item::find($item['id']);
+            $this->assertEquals(roundMoney((float)$item['testing_total_credit_amount'] + (float)$item['testing_subtotal']), roundMoney($dbItem->total_credit_amount));
+            $this->assertEquals(roundMoney($item['testing_total_debit_amount']), roundMoney($dbItem->total_debit_amount));
+            $this->assertEquals((int)$item['testing_available_qty'] - (int)$item['qty'], (int)$dbItem->fresh()->available_qty);
+            $this->assertEquals($item['testing_cost'], $dbItem->cost);
+            $this->assertEquals(roundMoney($dbItem->total_profits_amount),
+                roundMoney((float)$item['testing_total_profits_amount'] + (float)($item['testing_subtotal'] - (float)$item['testing_total_cost_amount'])));
+        }
+
+
     }
 
 }

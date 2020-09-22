@@ -14,10 +14,13 @@ class UpdateItemAccountingBalanceJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private  $item,$amount,$type;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param Item $item
+     * @param $amount
+     * @param string $type
      */
     public function __construct(Item $item,$amount,$type = 'debit')
     {

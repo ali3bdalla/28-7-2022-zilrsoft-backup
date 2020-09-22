@@ -2,15 +2,22 @@
 
 namespace App\Http\Requests\Sales;
 
-use App\Jobs\Sales\Expenses\AddExpensesPurchasesJob;
+use App\Jobs\Accounting\Sale\StoreSaleTransactionsJob;
+use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
+use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
+use App\Jobs\Items\Serial\ValidateItemSerialJob;
+use App\Jobs\Sales\Items\StoreSaleItemsJob;
 use App\Models\Invoice;
-use App\Models\TransactionsContainer;
+use App\Models\Item;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class StoreSaleRequest extends FormRequest
 {
-     /**
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -20,13 +27,13 @@ class StoreSaleRequest extends FormRequest
         return [
             "items" => "required|array",
             "items.*.id" => "required|integer|exists:items,id",
-            "items.*.price" => "validate_item_price_or_discount|price",
-            "items.*.purchase_price" => "purchaseItemPrice|price",
-            "items.*.discount" => "validate_item_price_or_discount",
-            "items.*.qty" => "required|integer|salesItemQty",
-            "items.*.expense_vendor_id" => "validate_expense_vendor",
-            "items.*.serials.*" => 'required|validate_item_serials',
-            "items.*.serials" => "validate_serials_array|array",
+            "items.*.price" => "price|priceAndDiscount",
+            "items.*.purchase_price" => "price",
+            "items.*.discount" => "priceAndDiscount",
+            "items.*.qty" => "required|integer|min:1|salesItemQty",
+            "items.*.expense_vendor_id" => "itemVendorExpenseId",
+            'items.*.serials' => 'array|newInvoiceItemSerials',
+            'items.*.serials.*' => 'required|exists:item_serials,serial',
             "client_id" => "required|integer|exists:users,id",
             "salesman_id" => "required|integer|exists:managers,id",
             'methods.*.id' => 'required|integer|exists:accounts,id',
@@ -41,15 +48,18 @@ class StoreSaleRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('create sale');
+        return true;
     }
 
     public function store()
     {
         DB::beginTransaction();
         try {
+            $this->validateSerials();
+            $this->validateQuantities($this->input('items'));
+
             $authUser = auth()->user();
-            dispatch(new AddExpensesPurchasesJob($this->input('items')));
+//            dispatch(new AddExpensesPurchasesJob($this->input('items')));
             $invoice = Invoice::create([
                 'invoice_type' => 'sale',
                 'notes' => $this->has('notes') ? $this->input('notes') : "",
@@ -57,8 +67,8 @@ class StoreSaleRequest extends FormRequest
                 'organization_id' => $authUser->organization_id,
                 'branch_id' => $authUser->branch_id,
                 'department_id' => $authUser->department_id,
-                'parent_invoice_id' => $this->input('parent_id') == null ? 0 : $this->input('parent_id'),
-                'is_deleted' => $this->has('is_deleted') ? $this->input('is_deleted') : 0
+                'user_id' => $this->client_id,
+                'managed_by_id' => $this->salesman_id,
             ]);
             $invoice->sale()->create([
                 'salesman_id' => $authUser->id,
@@ -68,40 +78,54 @@ class StoreSaleRequest extends FormRequest
                 'alice_name' => $this->input('alice_name'),
                 "prefix" => "SAI-"
             ]);
-            $transactionContaniner = new TransactionsContainer(
-                [
-                    'creator_id' => $this->user()->id,
-                    'organization_id' => $this->user()->organization_id,
-                    'invoice_id' => $invoice->id,
-                    'amount' => 0,
-                    'description' => 'invoice'
-                ]
-            );
-            $transactionContaniner->save();
-            dispatch(new CreateSalesItemsJob($transactionContaniner, $invoice, $this->input('items')));
-            dispatch(new UpdateInvoiceTotalsJob($invoice));
-            dispatch(new CreateSalesPaymentsJob($invoice,$this->input('methods')));
-
-            
-            dispatch(new CreateSalesEntityTransactionsJob($transactionContaniner, $invoice));
-            dispatch(new DeleteQuotationAfterSubSalesCreatedJob($this->input('quotation_id')));
-            dispatch(new EnsureSalesDataAreCorrectJob($invoice));
-            $invoiceData = response($invoice, 200);
-            // DB::rollBack();
-            // 23157
+            dispatch(new UpdateInvoiceNumberJob($invoice, 'SAI-'));
+            dispatch(new StoreSaleItemsJob($invoice, (array)$this->input('items')));
+            dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+//            dispatch(new StoreSalePaymentsJob($invoice));
+            dispatch(new StoreSaleTransactionsJob($invoice));
             DB::commit();
-            return $invoiceData;
+            return $invoice;
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw $queryException;
-        } catch (ValidationException $validationException) {
-            DB::rollBack();
-            throw $validationException;
         } catch (Exception $exception) {
             DB::rollBack();
             throw $exception;
 
         }
     }
-    
+
+
+    private function validateSerials()
+    {
+        foreach ($this->input('items') as $item) {
+            $dbItem = Item::find($item['id']);
+            if ($dbItem->is_need_serial) {
+                if (count($item['serials']) != $item['qty']) {
+                    throw ValidationException::withMessages(['item_serial' => 'serials count don\'t  match qty']);
+                }
+                foreach ($item['serials'] as $serial) {
+                    dispatch(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase']));
+                }
+            }
+        }
+
+    }
+
+
+    private function validateQuantities($items = [])
+    {
+        foreach ($items as $item) {
+            $dbItem = Item::find($item['id']);
+            if (!$dbItem->is_service) {
+                if ((int)$dbItem->available_qty < (int)$item['qty']) {
+                    throw ValidationException::withMessages(['item_available_quantity' => "you can't sale this items , qty not"]);
+                }
+            }
+
+
+        }
+
+    }
+
 }

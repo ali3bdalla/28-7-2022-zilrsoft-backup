@@ -153,7 +153,7 @@ class InvoiceItems extends BaseModel
 
     public function getInvoiceUrlAttribute()
     {
-        if(in_array($this->invoice_type,['purchase','return_purchase'])) return "/puchases/{$this->invoice_id}";
+        if(in_array($this->invoice_type,['purchase','return_purchase'])) return "/purchases/{$this->invoice_id}";
         else return "/sales/{$this->invoice_id}";
     }
 

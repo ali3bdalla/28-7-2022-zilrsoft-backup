@@ -39,7 +39,6 @@ class CreateSalesEntityJob implements ShouldQueue
      *
      * @param TransactionsContainer $entity
      * @param Invoice $invoice
-     * @param array $paymentsMethods
      */
     public function __construct(TransactionsContainer $entity, Invoice $invoice)
     {
@@ -133,7 +132,6 @@ class CreateSalesEntityJob implements ShouldQueue
         foreach ($items as $invoiceItem) {
             if (!$invoiceItem->item->isService()) {
                 $amount = (float) $invoiceItem->item->cost * (int) $invoiceItem->qty;
-
                 $this->stockAccount->transactions()->create([
                     'creator_id' => $this->loggedUser->id,
                     'organization_id' => $this->loggedUser->organization_id,

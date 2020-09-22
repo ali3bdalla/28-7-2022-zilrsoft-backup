@@ -43,9 +43,10 @@ class SaleController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show(Invoice $Sale)
-    {
-        return view('sales.show');
+    public function show(Invoice $sale)
+    {   $transactions = $sale->transactions()->get();
+        $invoice = $sale;
+        return view('accounting.sales.show', compact('invoice', 'transactions'));
     }
 
     /**

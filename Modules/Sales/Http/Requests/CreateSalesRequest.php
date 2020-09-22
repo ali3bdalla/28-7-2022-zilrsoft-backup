@@ -99,9 +99,6 @@ class CreateSalesRequest extends FormRequest
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw $queryException;
-        } catch (ValidationException $validationException) {
-            DB::rollBack();
-            throw $validationException;
         } catch (Exception $exception) {
             DB::rollBack();
             throw $exception;
