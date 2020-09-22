@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Validation\ValidationException;
 
 class StoreSaleTransactionsJob implements ShouldQueue
 {
@@ -77,8 +78,11 @@ class StoreSaleTransactionsJob implements ShouldQueue
     {
         $this->createItemsTransactions();
         $this->createTaxTransaction();
-        $this->createPaymentsTransactions();
+        //client payments should be before payments transactions
+        // may update payments amount
         $this->createClientBalanceTransaction();
+        $this->createPaymentsTransactions();
+
         $this->createCogsTransactions();
         $this->createCostTransactions();
 
@@ -143,21 +147,42 @@ class StoreSaleTransactionsJob implements ShouldQueue
         $netAmount = (float)$this->invoice->net;
         if ($paidAmount != $netAmount) {
             $variation = $paidAmount - $netAmount;
-            if ($variation > 0) {
-                $data = $this->startupData;
-                $data['amount'] = abs($variation);
-                $data['user_id'] = $this->invoice->user_id;
-                $data['type'] = 'credit';
-                $this->clientAccount->transactions()->create($data);
-                dispatch(new UpdateClientBalanceJob($this->invoice->sale->client, $this->invoice->net, 'decrease'));
+            if ($this->invoice->sale->client->is_system_user) {
+                $fistPayment = $this->invoice->payments()->first();
+                if ($fistPayment == null) {
+                    throw ValidationException::withMessages(['payments' => "summation of payments methods should match invoice net "]);
+                } else {
+                    if ($variation > 0) {
+                        $fistPayment->update([
+                            'amount' => $fistPayment->amount + (float)$variation
+                        ]);
+                    } else {
+                        if ($variation > 0) {
+                            $fistPayment->update([
+                                'amount' => $fistPayment->amount - (float)abs($variation)
+                            ]);
+                        }
+                    }
+                }
+
             } else {
-                $data = $this->startupData;
-                $data['amount'] = abs($variation);
-                $data['user_id'] = $this->invoice->user_id;
-                $data['type'] = 'debit';
-                $this->clientAccount->transactions()->create($data);
-                dispatch(new UpdateClientBalanceJob($this->invoice->sale->client, $this->invoice->net, 'increase'));
+                if ($variation > 0) {
+                    $data = $this->startupData;
+                    $data['amount'] = abs($variation);
+                    $data['user_id'] = $this->invoice->user_id;
+                    $data['type'] = 'credit';
+                    $this->clientAccount->transactions()->create($data);
+                    dispatch(new UpdateClientBalanceJob($this->invoice->sale->client, $this->invoice->net, 'decrease'));
+                } else {
+                    $data = $this->startupData;
+                    $data['amount'] = abs($variation);
+                    $data['user_id'] = $this->invoice->user_id;
+                    $data['type'] = 'debit';
+                    $this->clientAccount->transactions()->create($data);
+                    dispatch(new UpdateClientBalanceJob($this->invoice->sale->client, $this->invoice->net, 'increase'));
+                }
             }
+
 
         }
     }

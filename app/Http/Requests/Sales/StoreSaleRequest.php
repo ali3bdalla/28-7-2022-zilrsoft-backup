@@ -195,7 +195,6 @@ class StoreSaleRequest extends FormRequest
     {
         $methodsCollects = collect($this->input('methods'));
         $paymentsMethodsCount = $methodsCollects->count();
-        dd($paymentsMethodsCount);
         $totalPaidAmount = $methodsCollects->sum('amount');
         $user = User::find($this->input('client_id'));
         if ($user->is_system_user) {

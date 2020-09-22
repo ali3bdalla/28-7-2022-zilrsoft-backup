@@ -170,7 +170,7 @@ class CreateSaleTest extends TestCase
      *
      * @return void
      */
-    public function test_create_sales_invoice_for_kit_items()
+    public function create_sales_invoice_for_kit_items()
     {
 
         $dbItems = Item::where([
@@ -179,7 +179,7 @@ class CreateSaleTest extends TestCase
                 ['is_expense', false],
                 ['is_kit', true]
             ]
-        )->take(2)->get();
+        )->take(1)->get();
 
         $frontEndItems = [];
         foreach ($dbItems as $item) {
