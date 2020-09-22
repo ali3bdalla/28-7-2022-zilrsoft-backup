@@ -20,25 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Items/ValidateSerialRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ProviderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ProviderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ItemController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/FindItemsRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Items/QueryItemsRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/ValidateSerialRequest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Items/FetchItemsRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Items/FetchItemsRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreSaleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreSaleRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Sales/Items/StoreSaleItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Sales/Items/StoreSaleItemsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Item.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/ValidatorServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/ValidatorServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/invoiceItemserialsListLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/invoiceItemserialsListLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/kitItemsLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/kitItemsLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/item.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/item.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/En9HFDagmvPHHdv7q09R2By7PbrBa34XxqTMGi6i" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-09-22.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-09-22.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Sales/CreateSaleTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Sales/CreateSaleTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/InvoiceItem/InvoiceItemResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/InvoiceItem/InvoiceItemResource.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -351,7 +334,7 @@
       <workItem from="1600674643170" duration="724000" />
       <workItem from="1600701743084" duration="14036000" />
       <workItem from="1600744707904" duration="14291000" />
-      <workItem from="1600765198221" duration="17916000" />
+      <workItem from="1600765198221" duration="18317000" />
     </task>
     <servers />
   </component>
