@@ -40,7 +40,7 @@ class StoreSaleRequest extends FormRequest
             "items.*.purchase_price" => "price|salesExpensesPurchasePrice",
             'items.*.serials' => 'array|newInvoiceItemSerials',
             'items.*.serials.*' => 'required|exists:item_serials,serial',
-            'items.*.items.*.id' => 'required|exists:kit_items,id',
+            'items.*.items.*.id' => 'required|exists:items,id',
             'items.*.items.*.serials' => 'array',
             'items.*.items.*.serials.*' => 'required|exists:item_serials,serial',
             'items.*.items.*.qty' => 'required|integer|salesKitItemValidator',
@@ -149,7 +149,7 @@ class StoreSaleRequest extends FormRequest
                     // if item need serial, serials array contain valid serials
                     if ($kitItem->item->is_need_serial) {
 
-                        $serials = collect(collect($kitFrontEndData['items'])->where('id', $kitItem->id)->first())->get('serials');
+                        $serials = collect(collect($kitFrontEndData['items'])->where('id', $kitItem->item_id)->first())->get('serials');
                         if ($serials) {
                             if (count($serials) != $kitItemInvoiceQty) {
                                 throw ValidationException::withMessages(['kit_item' => "invalid serials"]);

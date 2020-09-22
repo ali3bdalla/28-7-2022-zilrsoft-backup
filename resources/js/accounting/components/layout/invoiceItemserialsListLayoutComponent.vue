@@ -102,26 +102,29 @@
 
             validateSerial() {
                 this.firstSerialInput = this.serialInput;
-                if (this.serialInput == "") {
+                if (this.serialInput === "") {
                     this.itemData = null;
                     this.index = -1;
 
                     return;
                 }
-                if (this.invoiceType == 'purchase') {
+                if (this.invoiceType === 'purchase') {
                     var appVm = this;
                     ItemQuery.sendValidatePurchaseSerialRequest(
+                        this.item.id,
                         [this.serialInput]
                     ).then(response => {
                         appVm.serials = db.model.createUnique(appVm.serials, appVm.serialInput);
                         appVm.serialInput = "";
                         appVm.publishUpdated();
                     }).catch(error => {
+                        console.log(error.response);
+
                         alert(error);
 
                     });
 
-                } else if (this.invoiceType == 'sale') {
+                } else if (this.invoiceType === 'sale') {
                     var appVm = this;
                     ItemQuery.sendValidateSaleSerialRequest(this.item.id, [
                         this.serialInput
@@ -136,11 +139,13 @@
                             appVm.publishUpdated();
                         }
                     }).catch(error => {
+                        console.log(error);
+
                         alert(error);
 
                     });
 
-                } else if (this.invoiceType == 'return_sale') {
+                } else if (this.invoiceType === 'return_sale') {
                     var appVm = this;
                     ItemQuery.sendValidateReturnSaleSerialRequest(this.item.id, [
                         this.serialInput
@@ -155,11 +160,12 @@
                             appVm.publishUpdated();
                         }
                     }).catch(error => {
+                        console.log(error);
                         alert(error);
 
                     });
 
-                } else if (this.invoiceType == 'return_purchase') {
+                } else if (this.invoiceType === 'return_purchase') {
                     var appVm = this;
                     ItemQuery.sendValidateReturnPurchaseSerialRequest(this.item.id, [
                             this.serialInput
@@ -175,6 +181,8 @@
                             appVm.publishUpdated();
                         }
                     }).catch(error => {
+                        console.log(error.data);
+
                         alert(error);
 
                     });

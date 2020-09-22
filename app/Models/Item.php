@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed is_need_serial
  * @method static findOrFail($id)
  * @method static InRandomOrder()
+ * @method static find($input)
  */
 class Item extends BaseModel
 {

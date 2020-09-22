@@ -170,7 +170,7 @@ class CreateSaleTest extends TestCase
      *
      * @return void
      */
-    public function create_sales_invoice_for_kit_items()
+    public function test_create_sales_invoice_for_kit_items()
     {
 
         $dbItems = Item::where([
@@ -187,7 +187,7 @@ class CreateSaleTest extends TestCase
             $requestItem['id'] = $item->id;
             $requestItem['qty'] = 1;
             foreach ($item->items as $kitItem) {
-                $requestKitItem = $kitItem->toArray();
+                $requestKitItem = $kitItem->item->toArray();
                 if ($kitItem->item->is_need_serial) {
                     $requestKitItem['serials'] = ItemSerials::where([
                         ['item_id', $kitItem->item->id],

@@ -123,6 +123,7 @@
             for (var i = 0; i < this.items.length; i++) {
                 let item = this.items[i];
 
+                // console.log(item);
                 if (item.is_need_serial) {
                     // console.log(this.$refs["itemSerials_" + item.id + "_" + 1][0]);
                     this.$refs["itemSerials_" + item.id + "_" + 1][0].focus();

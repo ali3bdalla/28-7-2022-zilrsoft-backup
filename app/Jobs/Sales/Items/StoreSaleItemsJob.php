@@ -87,8 +87,7 @@ class StoreSaleItemsJob implements ShouldQueue
         foreach ($dbKit->items as $kitItem) {
             $dbItem = $kitItem->item;
             if ($dbItem->is_need_serial) {
-                $data = collect(collect($itemPureCollection->get('items'))->where('id', $kitItem->id)->first());
-//                dd($data);
+                $data = collect(collect($itemPureCollection->get('items'))->where('id', $kitItem->item_id)->first());
                 if (!empty($data)) {
                     $sendData['serials'] = $data->get('serials');
                 } else {
@@ -217,8 +216,6 @@ class StoreSaleItemsJob implements ShouldQueue
         $data['item_id'] = $item->id;
         $data['is_draft'] = $this->isDraft;
 
-//        if ($item->id != 1716)
-//            dd($data);
         return $this->invoice->items()->create($data);
 
     }

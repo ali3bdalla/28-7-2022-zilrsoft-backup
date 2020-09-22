@@ -246,7 +246,7 @@ class ValidatorServiceProvider extends ServiceProvider
             $kitQty = request()->input("items.{$kitIndex}.qty");
             $dbKitItem = KitItems::where([
                 ['kit_id', $kitId],
-                ['id', $kitItemId]
+                ['item_id', $kitItemId]
             ])->firstOrFail();
 
             $requestedQty = (int)$kitQty * $dbKitItem->qty;
