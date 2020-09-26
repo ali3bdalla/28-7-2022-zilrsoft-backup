@@ -32,9 +32,6 @@ class CreateInvoicesTest extends TestCase
     public function test_create_invoices()
     {
 
-//        ->where([
-//        ['id', 21648]
-//    ])
         $invoices = $this->dbConnection->table('invoices')->get();
 
         $createdInvoiceId = 0;
@@ -44,10 +41,10 @@ class CreateInvoicesTest extends TestCase
             } elseif ($invoice->invoice_type == 'purchase') {
                 $createdInvoiceId = $this->createPurchase($invoice);
             } //
-            elseif ($invoice->invoice_type == 'r_purchase') {
-                $this->createReturnPurchase($invoice);
-
-            }
+//            elseif ($invoice->invoice_type == 'r_purchase') {
+//                $this->createReturnPurchase($invoice);
+//
+//            }
 // elseif ($invoice->invoice_type == 'sale') {
 //                $this->createSale($invoice);
 //
@@ -68,9 +65,7 @@ class CreateInvoicesTest extends TestCase
     public function createBeginningInventory($invoice)
     {
 
-        $dbItems = $this->dbConnection->table('invoice_items')->where([
-            ['invoice_id', $invoice->id]
-        ])->take(100)->get();
+        $dbItems = $this->dbConnection->table('invoice_items')->get();
 
         $items = [];
         foreach ($dbItems as $item) {
@@ -135,7 +130,7 @@ class CreateInvoicesTest extends TestCase
         $purchase = $this->dbConnection->table('purchase_invoices')->where('invoice_id', $invoice->id)->first();
         $dbItems = $this->dbConnection->table('invoice_items')->where([
             ['invoice_id', $invoice->id]
-        ])->take(100)->get();
+        ])->get();
 
         if ($purchase != null && $dbItems != null) {
             $items = [];

@@ -21,176 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Config/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Config/config.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Console/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Database/Migrations/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Database/Seeders/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Database/Seeders/AccountingDatabaseSeeder.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Database/factories/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Entities/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Http/Controllers/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Http/Controllers/FinancialController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Http/Controllers/TrialBalanceController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Http/Middleware/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Http/Requests/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreatePurchasesEntityTransactionsJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreatePurchasesItemsEntityJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreatePurchasesPaymentEntityJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateReturnPurchasesEntityTransactionsJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateReturnPurchasesItemEntityJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateReturnSalesEntityTransactionsJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateReturnSalesItemEntityJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateReturnSalesItemsCostEntityTransactionsJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateSalesEntityJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateSalesItemsCostEntityTransactionsJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateSalesPaymentEntityJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Providers/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Providers/AccountingServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Providers/RouteServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/assets/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Sales/CreateKitSaleTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/assets/sass/app.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/lang/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/lang/ar/entities.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/views/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/views/entities/index.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/views/index.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/views/layouts/master.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/index.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/index2.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance/table_cell.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Routes/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Routes/api.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Routes/web.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Tests/Feature/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Tests/Unit/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/composer.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/module.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/webpack.mix.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Config/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Config/config.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Console/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Database/Migrations/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Database/Seeders/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Database/Seeders/CustomersDatabaseSeeder.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Database/factories/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Entities/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Http/Controllers/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Http/Controllers/CustomersController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Http/Middleware/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Http/Requests/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Providers/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Providers/CustomersServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Providers/RouteServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Resources/assets/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Resources/assets/js/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Resources/assets/sass/app.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Resources/lang/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Resources/views/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Resources/views/index.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Resources/views/layouts/master.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Routes/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Routes/api.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Routes/web.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Tests/Feature/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/Tests/Unit/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/composer.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/module.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Customers/webpack.mix.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Config/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Config/config.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Console/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Database/Migrations/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Database/Seeders/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Database/Seeders/ItemsDatabaseSeeder.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Database/factories/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Entities/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Http/Controllers/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Http/Controllers/ItemsController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Http/Middleware/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Http/Requests/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/ChangeItemSerialsStatusJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/CreateItemSerialsJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/EnsureItemQtyIsStillMoreThanZeroJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/EnsureReturnedItemQtyIsStillMoreThanOrEqualToZeroJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/UpdateAvailableQtyForEachInvoiceItemJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/UpdateInvoiceItemProfitJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/UpdateItemCostJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/UpdateItemLastPurchasePriceJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/UpdateItemQtyJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/UpdateItemReturnedQtyJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/UpdateItemSalesPriceJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/UpdateKitDataDependingOnItemsJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Jobs/ValidateItemSerialsJob.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Providers/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Providers/ItemsServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Providers/RouteServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Resources/assets/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Resources/assets/js/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Resources/assets/sass/app.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Resources/lang/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Resources/views/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Resources/views/index.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Resources/views/layouts/master.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Routes/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Routes/api.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Routes/web.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Tests/Feature/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/Tests/Unit/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/composer.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/module.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Items/webpack.mix.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/ChangeTableRelationsipsValuesCommand.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/CreateAccountsHashMapCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/CreateAccountsHashMapCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/UpdateAccountsBalanceCommand.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/UpdateItemsQtyAndCostCommand.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Helpers/money.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/money.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ItemController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/PurchaseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SaleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FinancialStatementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FinancialStatementController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Items/QueryItemsRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Items/QueryItemsRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Purchases/StorePurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StorePurchaseRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreReturnPurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreReturnPurchaseRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreSaleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreSaleRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/InvoiceItem/InvoiceItemResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/InvoiceItem/InvoiceItemResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Invoices/Balance/UpdateInvoiceBalancesByInvoiceItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Invoices/Balance/UpdateInvoiceBalancesByInvoiceItemsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Invoices/Number/UpdateInvoiceNumberJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Invoices/Number/UpdateInvoiceNumberJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/AvailableQty/UpdateAvailableQtyByInvoiceItemJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/AvailableQty/UpdateAvailableQtyByInvoiceItemJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Cost/UpdateItemCostByInvoiceItemJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Cost/UpdateItemCostByInvoiceItemJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Kit/UpdateKitByInvoiceItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Kit/UpdateKitByInvoiceItemsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Serial/UpdateItemSerialStatusByInvoiceItemJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Serial/UpdateItemSerialStatusByInvoiceItemJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Sales/Items/StoreSaleItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Sales/Items/StoreSaleItemsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Account.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Account.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Invoice.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/InvoiceItems.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/InvoiceItems.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Item.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/ValidatorServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/ValidatorServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/limit.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_07_134811_create_invoices_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_07_134811_create_invoices_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/phpunit.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/inventories/beginningCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/inventories/beginningCreateComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/inventories/beginningDatatableComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/inventories/beginningDatatableComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/items/itemTransactionsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/items/itemTransactionsComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesReturnComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesReturnComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/pages/invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/pages/invoice.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting_module/financial_statements/trail_balance.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting_module/financial_statements/trail_balance.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/7pCztDu7V5YduYkgY5ldgbSvFLIyCi1FiU7b2GYk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/j5ugDesSgCv6t7ZD7OiXFnpTbpKCO21j5qpckQEi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/xWOwz92zvRUTshTIE6kZQ2Vy8hlX74Wn2GxZLdkq" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/a08453dd1636ce0618aff968273352a1173d75a1.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/a08453dd1636ce0618aff968273352a1173d75a1.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Sales/CreateSaleTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Sales/CreateSaleTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-09-26.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-09-26.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/App/CreateInvoicesTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/App/CreateInvoicesTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -510,7 +344,7 @@
       <workItem from="1600932701749" duration="10373000" />
       <workItem from="1601006204286" duration="9711000" />
       <workItem from="1601067045765" duration="2125000" />
-      <workItem from="1601102483840" duration="1801000" />
+      <workItem from="1601102483840" duration="3035000" />
     </task>
     <servers />
   </component>
