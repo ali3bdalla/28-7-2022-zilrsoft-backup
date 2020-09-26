@@ -79,7 +79,7 @@
 		'view' => 'View',
 		'edit' => 'Update',
 		'delete' => 'Delete',
-		'PurchaseBaseUrl' => route('accounting.purchases.index'),
+		'PurchaseBaseUrl' => route('purchases.index'),
 		'SaleBaseUrl' => route('sales.index'),
 		'creator' => 'Creator',
 		'make_note' => 'Note',

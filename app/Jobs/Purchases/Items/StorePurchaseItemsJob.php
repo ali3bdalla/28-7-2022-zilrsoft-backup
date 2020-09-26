@@ -24,6 +24,10 @@ class StorePurchaseItemsJob implements ShouldQueue
      * @var bool
      */
     private $isDraft;
+    /**
+     * @var string
+     */
+    private $invoiceType;
 
     /**
      * Create a new job instance.
@@ -31,13 +35,15 @@ class StorePurchaseItemsJob implements ShouldQueue
      * @param Invoice $invoice
      * @param $items
      * @param bool $isDraft
+     * @param string $invoiceType
      */
-    public function __construct(Invoice $invoice, $items,$isDraft = false)
+    public function __construct(Invoice $invoice, $items,$isDraft = false,$invoiceType = 'purchase')
     {
         $this->items = $items;
         $this->invoice = $invoice;
         $this->loggedUser = auth()->user();
         $this->isDraft = $isDraft;
+        $this->invoiceType = $invoiceType;
     }
 
     /**
@@ -99,7 +105,11 @@ class StorePurchaseItemsJob implements ShouldQueue
                  * update last purchase price for this item
                  * ==========================================================
                  */
-                dispatch(new UpdateItemLastPurchasePriceJob($invoiceItem));
+                if($this->invoice == 'purchase')
+                {
+                    dispatch(new UpdateItemLastPurchasePriceJob($invoiceItem));
+                }
+
 
                 /**
                  * ==========================================================
@@ -128,11 +138,19 @@ class StorePurchaseItemsJob implements ShouldQueue
         $qty = (int) $requestItemCollection->get('qty');
         $total = $purchasePrice * $qty;
         $subtotal = $total - $discount;
-        $tax = ($subtotal * $item->vtp) / 100;
+        if($this->invoiceType == 'purchase')
+        {
+            $tax = ($subtotal * $item->vtp) / 100;
+
+        }else
+        {
+            $tax = 0;
+
+        }
         $net = $subtotal + $tax;
         $total = $subtotal;
         $data['price'] =  $subtotal/$qty;
-        $data['invoice_type'] = 'purchase';
+        $data['invoice_type'] = $this->invoiceType;
         $data['user_id'] = $this->invoice->purchase->vendor_id;
         $data['qty'] = $qty;
         $data['discount'] = 0;//$discount

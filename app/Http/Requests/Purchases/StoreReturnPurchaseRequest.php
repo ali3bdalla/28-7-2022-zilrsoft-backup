@@ -71,10 +71,10 @@ class StoreReturnPurchaseRequest extends FormRequest
                 'parent_id' => $purchaseInvoice->id
             ]);
             $invoice->purchase()->create([
-                'receiver_id' => $authUser->id,
+                'receiver_id' => $purchaseInvoice->managed_by_id,
                 'vendor_id' => $purchaseInvoice->user_id,
                 'organization_id' => $authUser->organization_id,
-                'vendor_invoice_id' => $purchaseInvoice->vendor_invoice_number,
+                'vendor_invoice_id' => $purchaseInvoice->purchase->vendor_invoice_number,
                 'invoice_type' => 'return_purchase',
                 "prefix" => 'RPU-',
             ]);

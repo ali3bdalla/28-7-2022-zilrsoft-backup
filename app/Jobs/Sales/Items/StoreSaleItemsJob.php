@@ -108,6 +108,7 @@ class StoreSaleItemsJob implements ShouldQueue
              * =====================================
              */
             $this->storeItem($dbItem, $sendData);
+
         }
     }
 
@@ -150,7 +151,6 @@ class StoreSaleItemsJob implements ShouldQueue
          * ==========================================================
          */
         if (!$this->isDraft) {
-//            dd($invoiceItem);
             /**
              * ==========================================================
              * update qty should be before update cost
@@ -193,7 +193,7 @@ class StoreSaleItemsJob implements ShouldQueue
             $price = (float)$requestItemCollection->get('price');
 
         $discount = (float)$requestItemCollection->get('discount');
-        $qty = (int)$requestItemCollection->get('qty');
+        $qty = (int)$requestItemCollection->get('qty'); // 10
         $total = $price * $qty;
         $subtotal = $total - $discount;
         $tax = ($subtotal * $item->vts) / 100;

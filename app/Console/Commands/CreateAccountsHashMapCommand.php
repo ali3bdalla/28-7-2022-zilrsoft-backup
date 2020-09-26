@@ -12,7 +12,7 @@ class CreateAccountsHashMapCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'command:create_accounts_hashmap_command';
+    protected $signature = 'command:update_accounts_hash_map_command';
 
     /**
      * The console command description.

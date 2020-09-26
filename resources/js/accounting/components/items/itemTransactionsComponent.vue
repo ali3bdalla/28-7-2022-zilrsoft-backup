@@ -53,7 +53,7 @@
                     <th class="has-background-light">{{ translator.movement.qty }}</th>
                     <th class="has-background-light">{{ translator.movement.price }}</th>
                     <th class="has-background-light">{{ translator.movement.value }}</th>
-                    <th>{{ translator.movement.total_cost }}</th>
+                    <th>البيع</th>
                     <th>{{ translator.movement.stock_qty }}</th>
                     <th>{{ translator.movement.cost }}</th>
 
@@ -83,19 +83,28 @@
                     </td>
                     <td>
               <span
-                      v-if="history.invoice_type=='beginning_inventory'
-                         || history.invoice_type=='purchase'
-                         || history.invoice_type=='return_sale'
+                      v-if="history.invoice_type=='return_sale'
                     "
-              >{{roundNumber(history.unit_price)}}</span>
+              >{{roundNumber(history.cost)}}</span>
+
+                        <span
+                                v-if="history.invoice_type=='beginning_inventory'
+                         || history.invoice_type=='purchase'
+                    "
+                        >{{roundNumber(history.unit_price)}}</span>
+
+
                     </td>
                     <td>
               <span
                       v-if="history.invoice_type=='beginning_inventory'
                          || history.invoice_type=='purchase'
-                         || history.invoice_type=='return_sale'
                     "
               >{{`${roundNumber(history.subtotal)}`}}</span>
+
+                        <span v-if="history.invoice_type=='return_sale'
+                    "
+                        >{{roundNumber(parseFloat(history.cost) * parseInt(history.qty))}}</span>
                     </td>
                     <!--out-->
                     <td>
@@ -110,20 +119,20 @@
                       v-if="history.invoice_type=='sale'
                          || history.invoice_type=='return_purchase'
                     "
-              >{{history.unit_price}}</span>
+              >{{history.cost}}</span>
                     </td>
                     <td>
               <span
                       v-if="history.invoice_type=='sale'
                          || history.invoice_type=='return_purchase'
                     "
-              >{{roundNumber(history.subtotal)}}</span>
+              >{{roundNumber(parseFloat(history.cost) * parseInt(history.qty))}}</span>
                     </td>
 
                     <td>
               <span
                       v-if="history.invoice_type=='sale' || history.invoice_type=='return_sale'"
-              >{{roundNumber(parseFloat(history.cost) * parseInt(history.qty))}}</span>
+              >{{roundNumber(history.subtotal)}}</span>
                     </td>
 
                     <td>{{history.available_qty}}</td>

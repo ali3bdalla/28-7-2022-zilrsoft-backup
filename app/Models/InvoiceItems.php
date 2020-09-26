@@ -25,6 +25,8 @@ use Illuminate\Database\Eloquent\Builder;
  * @property mixed organization_id
  * @property mixed creator_id
  * @property mixed returned_qty
+ * @property mixed item_id
+ * @property mixed net
  * @method static findOrFail($id)
  */
 class InvoiceItems extends BaseModel

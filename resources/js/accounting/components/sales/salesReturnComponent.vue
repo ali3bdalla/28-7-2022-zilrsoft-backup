@@ -313,7 +313,7 @@
                     dateTimeTrans: trans('datetime'),
                     validation: trans('validation'),
                     datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
-                    BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
+                    BaseApiUrl: '/',
                     defaultVatSaleValue: 5,
                     defaultVatPurchaseValue: 5,
                 },
@@ -360,12 +360,10 @@
                     item.vts = item.item.vts;
                     item.available_qty = item.qty - item.r_qty;
 
-                    if(item.item.is_need_serial)
-                    {
+                    if (item.item.is_need_serial) {
                         let count = 0;
-                        item.serials.forEach(function(serial){
-                            if(['saled'].includes(serial.current_status))
-                            {
+                        item.serials.forEach(function (serial) {
+                            if (['saled'].includes(serial.current_status)) {
                                 count++;
                             }
                         });
@@ -664,7 +662,7 @@
                 if (this.activateTestMode) {
                     this.testRequestData = JSON.stringify(data)
                 } else {
-                    axios.put( '/sales/' + invoice.id, data) //this.app.BaseApiUrl +
+                    axios.patch('/api/sales/' + invoice.id, data) //this.app.BaseApiUrl +
                         .then(function (response) {
                             console.log(response.data);
 

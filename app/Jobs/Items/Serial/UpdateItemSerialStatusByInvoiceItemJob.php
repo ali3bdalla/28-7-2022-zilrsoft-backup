@@ -46,6 +46,7 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
         if ($this->invoiceItem->invoice_type == 'return_purchase') {
             foreach ((array)$this->serials as $serial) {
                 $dbSerial = $this->invoiceItem->item->serials()->where('serial', $serial)->whereIn('status', ['in_stock', 'return_sale'])->first();
+                
                 $dbSerial->update([
                     'status' => 'return_purchase',
                     'return_purchase_id' => $this->invoiceItem->invoice_id,
@@ -55,9 +56,21 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
                     dispatch(new RegisterSerialHistoryJob($dbSerial, 'return_purchase', $this->invoiceItem->invoice));
             }
         }
+
+
         if ($this->invoiceItem->invoice_type == 'return_sale') {
             foreach ((array)$this->serials as $serial) {
-                $dbSerial = $this->invoiceItem->item->serials()->where('serial', $serial)->whereIn('status', ['sold'])->first();
+                $dbSerial = $this->invoiceItem->item->serials()->where([
+                    [
+                        'sale_id', $this->invoiceItem->invoice->parent_id,
+                    ],
+                    [
+                        'status', 'sold',
+                    ],
+                    [
+                        'serial', $serial,
+                    ],
+                ])->first();
                 $dbSerial->update([
                     'status' => 'return_sale',
                     'return_sale_id' => $this->invoiceItem->invoice_id,
@@ -66,6 +79,8 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
                     dispatch(new RegisterSerialHistoryJob($dbSerial, 'return_sale', $this->invoiceItem->invoice));
             }
         }
+
+
         if ($this->invoiceItem->invoice_type == 'sale') {
             foreach ((array)$this->serials as $serial) {
                 $dbSerial = $this->invoiceItem->item->serials()->where('serial', $serial)->whereIn('status', ['in_stock', 'return_sale'])->first();

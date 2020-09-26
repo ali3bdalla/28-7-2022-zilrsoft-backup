@@ -26,9 +26,10 @@ class CreateSaleTest extends TestCase
 //                ['is_need_serial', false],
                 ['is_service', false],
                 ['is_expense', false],
-                ['is_kit', false]
+                ['is_kit', false],
+                ['available_qty', '>', 0]
             ]
-        )->inRandomOrder()->take(5)->get();
+        )->inRandomOrder()->take(3)->get();
 
 
         $tempResellerAccount = Account::where('slug', 'temp_reseller_account')->first()->toArray();
@@ -40,13 +41,12 @@ class CreateSaleTest extends TestCase
             $requestItem['id'] = $item->id;
             $requestItem['is_need_serial'] = $item->is_need_serial;
             $requestItem['price'] = $item->price;
-            $requestItem['qty'] = $this->faker->numberBetween(1, abs($item->available_qty));
+            $requestItem['qty'] = $this->faker->numberBetween(1, abs((int)$item->available_qty));
             $requestItem['discount'] = $this->faker->numberBetween(1, 5);
             if ($item->is_need_serial) {
                 $requestItem['serials'] = ItemSerials::where([
                     ['item_id', $item->id],
                 ])->whereIn('status', ['in_stock', 'return_sale'])->inRandomOrder()->take($requestItem['qty'])->pluck('serial')->toArray();
-//                dd($requestItem['serials']);
             }
 
             $requestItem['testing_available_qty'] = $item->available_qty;
@@ -78,6 +78,7 @@ class CreateSaleTest extends TestCase
         ]);
 
         $response
+            ->dump()
             ->assertCreated();
 
 
@@ -107,21 +108,25 @@ class CreateSaleTest extends TestCase
                 ['is_need_serial', false],
                 ['is_service', false],
                 ['is_expense', true],
-                ['is_kit', false]
+                ['is_kit', false],
+
             ]
-        )->inRandomOrder()->take(5)->get();
+        )->inRandomOrder()->take(2)->get();
+
         $tempResellerAccount = Account::where('slug', 'temp_reseller_account')->first()->toArray();
 
         $invoiceFinalNet = 0;
         $items = [];
+
+        $salesAmount = $this->faker->numberBetween(10,100);
         foreach ($dbItems as $item) {
             $requestItem = [];
             $requestItem['id'] = $item->id;
             $requestItem['is_need_serial'] = $item->is_need_serial;
-            $requestItem['price'] = $item->price;
-            $requestItem['purchase_price'] = $this->faker->numberBetween(5, $item->price - 5);
+            $requestItem['price'] =$salesAmount;
+            $requestItem['purchase_price'] = $this->faker->numberBetween(1, $salesAmount - 5);
 
-            $requestItem['qty'] = $this->faker->numberBetween(1, 20);
+            $requestItem['qty'] = 1;
 
             $requestItem['discount'] = $this->faker->numberBetween(1, 5);
             $requestItem['testing_available_qty'] = 0;
@@ -153,6 +158,7 @@ class CreateSaleTest extends TestCase
         ]);
 
         $response
+            ->dump()
             ->assertCreated();
 
 
@@ -165,54 +171,4 @@ class CreateSaleTest extends TestCase
     }
 
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_create_sales_invoice_for_kit_items()
-    {
-
-        $dbItems = Item::where([
-                ['is_need_serial', false],
-                ['is_service', false],
-                ['is_expense', false],
-                ['is_kit', true]
-            ]
-        )->take(1)->get();
-
-        $frontEndItems = [];
-        foreach ($dbItems as $item) {
-            $requestItem = [];
-            $requestItem['id'] = $item->id;
-            $requestItem['qty'] = 1;
-            foreach ($item->items as $kitItem) {
-                $requestKitItem = $kitItem->item->toArray();
-                if ($kitItem->item->is_need_serial) {
-                    $requestKitItem['serials'] = ItemSerials::where([
-                        ['item_id', $kitItem->item->id],
-                    ])->whereIn('status', ['in_stock', 'return_sale'])->inRandomOrder()->take($kitItem->qty * $requestItem['qty'])->pluck('serial')->toArray();
-                }
-                $requestKitItem['qty'] = $kitItem->qty * $item->qty;
-                $requestItem['items'][] = $requestKitItem;
-            }
-            $frontEndItems[] = $requestItem;
-        }
-
-
-        $manager = factory(Manager::class)->create();
-        $client = factory(User::class)->create([
-            'is_client' => true
-        ]);
-
-        $response = $this->actingAs($manager)->postJson('/api/sales', [
-            'items' => $frontEndItems,
-            'client_id' => $client->id,
-            'salesman_id' => $manager->id
-        ]);
-
-        $response
-            ->dump()
-            ->assertCreated();
-    }
 }

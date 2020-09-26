@@ -15,10 +15,12 @@ class UpdateInvoiceNumberJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $invoice, $prefix;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param Invoice $invoice
+     * @param string $prefix
      */
     public function __construct(Invoice $invoice, $prefix = 'PU-')
     {
@@ -34,7 +36,7 @@ class UpdateInvoiceNumberJob implements ShouldQueue
     public function handle()
     {
         $this->invoice->update([
-            'invoice_number' => Carbon::now()->format('Y') . '-' .$this->prefix . $this->invoice->id
+            'invoice_number' => Carbon::now()->format('Y') . '/' .$this->prefix . $this->invoice->id
         ]);
     }
 }

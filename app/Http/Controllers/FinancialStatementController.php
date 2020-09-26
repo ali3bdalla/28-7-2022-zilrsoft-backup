@@ -67,6 +67,8 @@ class FinancialStatementController extends Controller
             $accounts[] = $mainAccount;
         }
 
+
+
         return view('accounting_module.financial_statements.trail_balance', compact('accounts', 'totalCreditAmount', 'totalDebitAmount', 'totalCreditBalance', 'totalDebitBalance'));
     }
 

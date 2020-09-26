@@ -241,6 +241,7 @@ class ValidatorServiceProvider extends ServiceProvider
             $kitIndex = $str_attr[1];
             $itemInKitIndex = $str_attr[3];
 
+
             $kitItemId = request()->input("items.{$kitIndex}.items.{$itemInKitIndex}.id");
             $kitId = request()->input("items.{$kitIndex}.id");
             $kitQty = request()->input("items.{$kitIndex}.qty");
@@ -255,15 +256,23 @@ class ValidatorServiceProvider extends ServiceProvider
             }
             if ($dbKitItem->item->is_need_serial) {
                 $serials = request()->input("items.{$kitIndex}.items.{$itemInKitIndex}.serials");
-                if ($serials == 1) {
+                if ($serials == null) {
                     return false;
                 }
+
+
+                if (count($serials) != $requestedQty) {
+                    return false;
+                }
+
+
                 foreach ($serials as $serial) {
                     $itemSerial = ItemSerials::where([
                         ['serial', $serial],
                         ['item_id', $dbKitItem->item_id],
                     ])->whereIn('status', ['in_stock', 'return_sale'])->first();
 
+//                    dd($itemSerial->toArray());
                     if ($itemSerial == null) {
                         return false;
                     }

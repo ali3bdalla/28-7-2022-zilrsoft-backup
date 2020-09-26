@@ -35,7 +35,7 @@ class UpdateAvailableQtyByInvoiceItemJob implements ShouldQueue
     {
 
         $availableQty = $this->invoiceItem->item->available_qty;
-        if(in_array($this->invoiceItem->invoice_type,['purchase','return_sale']))
+        if(in_array($this->invoiceItem->invoice_type,['purchase','return_sale','beginning_inventory']))
         {
             $availableQtyAfterInvoiceItem =(int)$availableQty + (int)$this->invoiceItem->qty;
         }else

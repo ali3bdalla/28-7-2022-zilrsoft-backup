@@ -82,7 +82,7 @@ class Item extends BaseModel
         return $this->hasMany(ItemSerials::class, 'item_id');
     }
 
-    public function pipline()
+    public function pipeline()
     {
         return $this->hasMany(InvoiceItems::class, 'item_id');
     }

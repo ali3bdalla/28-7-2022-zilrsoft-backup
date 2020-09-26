@@ -32,7 +32,7 @@ class UpdateInvoiceBalancesByInvoiceItemsJob implements ShouldQueue
     {
         //
         $this->invoice = $invoice;
-        $this->expensesAmount = (float) $expensesAmount;
+        $this->expensesAmount = (float)$expensesAmount;
     }
 
     /**
@@ -44,7 +44,7 @@ class UpdateInvoiceBalancesByInvoiceItemsJob implements ShouldQueue
     {
         $items = $this->invoice
             ->items()
-            ->where([['belong_to_kit', false]])
+            ->where([['is_kit', false]])
             ->get();
         $result['total'] = 0;
         $result['subtotal'] = 0;
@@ -53,13 +53,13 @@ class UpdateInvoiceBalancesByInvoiceItemsJob implements ShouldQueue
         $result['net'] = 0;
         $result['remaining'] = 0;
         foreach ($items as $item) {
-            $result['total'] = (float) $result['total'] + (float) $item->total;
-            $result['subtotal'] = (float) $result['subtotal'] + (float) $item->subtotal;
-            $result['tax'] = (float) $result['tax'] + (float) $item->tax;
+            $result['total'] = (float)$result['total'] + (float)$item->total;
+            $result['subtotal'] = (float)$result['subtotal'] + (float)$item->subtotal;
+            $result['tax'] = (float)$result['tax'] + (float)$item->tax;
             $result['discount'] = $result['discount'] + (float)$item->discount;
-            $result['net'] = (float) $result['net'] + (float) $item->net;
+            $result['net'] = (float)$result['net'] + (float)$item->net;
         }
-        $result['net'] = (float) $result['net'] + (float) $this->expensesAmount;
+        $result['net'] = (float)$result['net'] + (float)$this->expensesAmount;
 
         $this->invoice->update($result);
     }

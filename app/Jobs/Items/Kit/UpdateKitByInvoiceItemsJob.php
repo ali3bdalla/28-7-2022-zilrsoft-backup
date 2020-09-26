@@ -25,7 +25,7 @@ class UpdateKitByInvoiceItemsJob implements ShouldQueue
     public function __construct(InvoiceItems $invoiceItem)
     {
         //
-        $this->invoiceItem = $invoiceItem;
+        $this->invoiceItem = $invoiceItem->fresh();
     }
 
     /**
@@ -35,16 +35,15 @@ class UpdateKitByInvoiceItemsJob implements ShouldQueue
      */
     public function handle()
     {
-        $children = $this->invoiceItem->invoice->items()->where([['belong_to_kit',true],['parent_kit_id',$this->invoiceItem->id]])->get();
+        $items = $this->invoiceItem->invoice->items()->where([['belong_to_kit',true],['parent_kit_id',$this->invoiceItem->id]])->get();
 
 
-
+//        dd($items)
         $result['total'] = 0;
         $result['subtotal'] = 0;
         $result['tax'] = 0;
         $result['discount'] = 0;
         $result['net'] = 0;
-        $items = $children;
         foreach ($items as $item){
             $result['total'] = (float)$result['total'] + (float)$item['total'];
             $result['subtotal'] = (float) $result['subtotal'] + (float)$item['subtotal'];

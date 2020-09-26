@@ -1,4 +1,4 @@
-@extends('accounting::layouts.master')
+@extends('accounting.layout.master')
 
 @section('content')
 
@@ -46,7 +46,6 @@
                     </tr>
                     </tbody>
                     @endforeach
-
 
                     </tbody>
                 @endforeach

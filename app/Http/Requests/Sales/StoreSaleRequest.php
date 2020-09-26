@@ -33,11 +33,11 @@ class StoreSaleRequest extends FormRequest
 
             "items" => "required|array",
             "items.*.id" => "required|integer|exists:items,id",
-            "items.*.price" => "price|priceAndDiscount",
+            "items.*.price" => "price|priceAndDiscount|min:0",
             "items.*.discount" => "priceAndDiscount",
             "items.*.qty" => "required|integer|min:1|salesItemQty",
             "items.*.expense_vendor_id" => "itemVendorExpenseId",
-            "items.*.purchase_price" => "price|salesExpensesPurchasePrice",
+            "items.*.purchase_price" => "salesExpensesPurchasePrice|price|min:0",
             'items.*.serials' => 'array|newInvoiceItemSerials',
             'items.*.serials.*' => 'required|exists:item_serials,serial',
             'items.*.items.*.id' => 'required|exists:items,id',
@@ -82,7 +82,7 @@ class StoreSaleRequest extends FormRequest
                 'managed_by_id' => $this->input('salesman_id'),
             ]);
             $invoice->sale()->create([
-                'salesman_id' => $authUser->id,
+                'salesman_id' => $this->input('salesman_id'),
                 'client_id' => $this->input('client_id'),
                 'organization_id' => $authUser->organization_id,
                 'invoice_type' => 'sale',

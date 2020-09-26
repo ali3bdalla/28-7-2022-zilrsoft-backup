@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 Route::resource('sales', 'SaleController');
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/', 'HomeController@index')->name('index');
@@ -28,3 +29,6 @@ Route::prefix('purchases')->name('purchases.')->group(function(){
 });
 
 Route::resource('entities', 'EntityController');
+Route::prefix('inventory')->name('inventory.')->group(function (){
+    Route::get('/','InventoryController@begning')->name('index');
+});

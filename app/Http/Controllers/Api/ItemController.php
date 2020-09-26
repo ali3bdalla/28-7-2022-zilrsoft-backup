@@ -20,7 +20,7 @@ class ItemController extends Controller
 
     public function transactions(Item $item)
     {
-        $items = $item->pipline()->with('user', 'creator')->paginate(50);
+        $items = $item->pipeline()->with('user', 'creator')->paginate(50);
         return new InvoiceItemCollection($items);
     }
 

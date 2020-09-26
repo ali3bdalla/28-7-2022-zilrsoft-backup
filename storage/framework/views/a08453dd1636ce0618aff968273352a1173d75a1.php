@@ -45,7 +45,6 @@
                     </tbody>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-
                     </tbody>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 <thead style="background-color:black;color:white">
@@ -65,4 +64,4 @@
 
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('accounting::layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /usr/local/var/www/workspace/zilrsoft/resources/views/accounting_module/financial_statements/trail_balance.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('accounting.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /usr/local/var/www/workspace/zilrsoft/resources/views/accounting_module/financial_statements/trail_balance.blade.php ENDPATH**/ ?>

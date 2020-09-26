@@ -6,6 +6,12 @@ use App\Models\Traits\NestingTrait;
 
 /**
  * @method static where(array $array)
+ * @property mixed parent
+ * @property mixed transactions
+ * @property mixed locale_name
+ * @property mixed type
+ * @property mixed ar_name
+ * @property mixed name
  */
 class Account extends BaseModel
 {

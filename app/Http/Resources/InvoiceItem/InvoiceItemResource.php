@@ -29,7 +29,7 @@ class InvoiceItemResource extends JsonResource
             'total' => ($this->total),
             'subtotal' => ($this->subtotal),
             'discount' => ($this->discount),
-            'unit_price' => ($this->subtotal / $this->qty),
+            'unit_price' => $this->qty == 0  ? 0: ($this->subtotal / $this->qty) ,
             'invoice_type' => $this->invoice_type,
             'belong_to_kit' => $this->belong_to_kit,
             'parent_kit_id' => $this->parent_kit_id,

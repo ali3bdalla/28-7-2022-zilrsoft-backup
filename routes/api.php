@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::resource('sales', 'SaleController');
+Route::prefix('sales')->name('sales.')->group(function () {
+    Route::post('/draft', 'SaleController@storeDraft')->name('store.draft');
+    Route::patch('/{sale}', 'SaleController@storeReturnSale')->name('store.return');
+});
 Route::resource('accounts', 'AccountController');
 Route::prefix('accounts/{account}')->name('accounts.')->group(function () {
     Route::get('/children', 'AccountController@children')->name('children');
@@ -29,3 +33,9 @@ Route::prefix('purchases')->name('purchases.')->group(function () {
     Route::post('/draft', 'PurchaseController@storeDraft')->name('store.draft');
     Route::patch('/{purchase}', 'PurchaseController@storeReturnPurchase')->name('store.return');
 });
+
+
+Route::prefix('inventory')->name('inventory.')->group(function (){
+    Route::post('/beginning','InventoryController@storeBeginning')->name('index');
+});
+
