@@ -36,8 +36,7 @@ class StoreSaleRequest extends FormRequest
             "items.*.price" => "price|priceAndDiscount|min:0",
             "items.*.discount" => "priceAndDiscount",
             "items.*.qty" => "required|integer|min:1|salesItemQty",
-            "items.*.expense_vendor_id" => "itemVendorExpenseId",
-            "items.*.purchase_price" => "salesExpensesPurchasePrice|price|min:0",
+//            "items.*.purchase_price" => "salesExpensesPurchasePrice|price|min:0",
             'items.*.serials' => 'array|newInvoiceItemSerials',
             'items.*.serials.*' => 'required|exists:item_serials,serial',
             'items.*.items.*.id' => 'required|exists:items,id',
@@ -70,7 +69,12 @@ class StoreSaleRequest extends FormRequest
             $this->validateKits();
             $this->validateQuantities($this->input('items'));
             $authUser = auth()->user();
-            dispatch(new CreatePurchaseInvoiceForExpensesJob($this->input('items')));
+            if ($this->has('without_creating_expenses_purchases') && $this->filled('without_creating_expenses_purchases')) {
+
+            } else {
+                dispatch(new CreatePurchaseInvoiceForExpensesJob($this->input('items')));
+            }
+
             $invoice = Invoice::create([
                 'invoice_type' => 'sale',
                 'notes' => $this->has('notes') ? $this->input('notes') : "",
@@ -168,7 +172,6 @@ class StoreSaleRequest extends FormRequest
 
                         } else {
                             throw ValidationException::withMessages(['kit_item' => "invalid serials"]);
-
                         }
                     }
 
@@ -193,20 +196,30 @@ class StoreSaleRequest extends FormRequest
 
     private function validatePaymentsAndGetPaymentMethods(Invoice $invoice)
     {
+        $invoice = $invoice->fresh();
+
         $methodsCollects = collect($this->input('methods'));
         $paymentsMethodsCount = $methodsCollects->count();
         $totalPaidAmount = $methodsCollects->sum('amount');
         $user = User::find($this->input('client_id'));
         if ($user->is_system_user) {
+
             if ($totalPaidAmount != $invoice->net) {
                 if ($paymentsMethodsCount < 1) {
                     throw ValidationException::withMessages(['payments' => "summation of payments methods should match invoice net "]);
                 } else {
-                    $variationAmount = (float)$invoice->fresh()->net - (float)$totalPaidAmount;
+                    $variationAmount = (float)$totalPaidAmount - (float)$invoice->fresh()->net;
                     $methods = $this->input('methods');
+                    $firstAmount = $methods[0]['amount'];
                     if ($variationAmount > 0) {
-                        $methods[0]['amount'] = (float)$methods[0]['amount'] + (float)$variationAmount;
+                        $newAmount = (float)$firstAmount - (float)abs($variationAmount);
+                    } else {
+                        $newAmount = (float)$firstAmount + (float)abs($variationAmount);
                     }
+
+                    $methods[0]['amount'] = $newAmount;
+
+
                     return $methods;
                 }
             }

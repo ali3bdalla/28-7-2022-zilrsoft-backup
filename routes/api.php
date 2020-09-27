@@ -36,6 +36,6 @@ Route::prefix('purchases')->name('purchases.')->group(function () {
 
 
 Route::prefix('inventory')->name('inventory.')->group(function (){
-    Route::post('/beginning','InventoryController@storeBeginning')->name('index');
+    Route::post('/beginning','InventoryController@storeBeginning')->name('store');
 });
 

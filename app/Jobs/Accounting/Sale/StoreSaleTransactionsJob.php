@@ -92,17 +92,17 @@ class StoreSaleTransactionsJob implements ShouldQueue
     {
 
         foreach ($this->invoiceItems as $item) {
-            if (!$item->item->is_service) {
-                $amount = (float)$item->item->cost * (int)$item->qty;
-                $data = $this->startupData;
-                $data['amount'] = $amount;
-                $data['type'] = 'credit';
-                $data['item_id'] = $item['item_id'];
-                $this->stockAccount->transactions()->create($data);
-                dispatch(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'credit'));
-                $this->itemsTaxAmount += $item->tax;
-                $this->itemsCostAmount += $amount;
-            }
+//            if (!$item->item->is_service) {
+            $amount = (float)$item->item->cost * (int)$item->qty;
+            $data = $this->startupData;
+            $data['amount'] = $amount;
+            $data['type'] = 'credit';
+            $data['item_id'] = $item['item_id'];
+            $this->stockAccount->transactions()->create($data);
+            dispatch(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'credit'));
+            $this->itemsTaxAmount += $item->tax;
+            $this->itemsCostAmount += $amount;
+//            }
 
         }
     }
@@ -126,19 +126,14 @@ class StoreSaleTransactionsJob implements ShouldQueue
          * +++++++++++++++++++++++++++++++
          *
          */
-
-
-    }
-
-    private function createPaymentsTransactions()
-    {
-        $data = $this->startupData;
-        $data['type'] = 'debit';
-        $data['user_id'] = $this->invoice->user_id;
-        foreach ($this->invoice->payments()->get() as $key => $payment) {
-            $data['amount'] = $payment->amount;
-            $payment->account->transactions()->create($data);
+        $sum = $this->invoice->expenses()->where('with_net', 0)->sum('amount');
+        if ($sum > 0) {
+            $data = $this->startupData;
+            $data['type'] = 'debit';
+            $data['amount'] = $sum;
+            $this->taxAccount->transactions()->create($data);
         }
+
     }
 
     private function createClientBalanceTransaction()
@@ -187,6 +182,16 @@ class StoreSaleTransactionsJob implements ShouldQueue
         }
     }
 
+    private function createPaymentsTransactions()
+    {
+        $data = $this->startupData;
+        $data['type'] = 'debit';
+        $data['user_id'] = $this->invoice->user_id;
+        foreach ($this->invoice->payments()->get() as $key => $payment) {
+            $data['amount'] = $payment->amount;
+            $payment->account->transactions()->create($data);
+        }
+    }
 
     private function createCogsTransactions()
     {

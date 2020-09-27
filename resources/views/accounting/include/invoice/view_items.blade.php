@@ -11,7 +11,7 @@
             <th class="">{{ __('pages/invoice.total') }}</th>
             <th class="">{{ __('pages/invoice.discount') }}</th>
             <th class="">{{ __('pages/invoice.subtotal') }}</th>
-            <th class="">{{ __('pages/invoice.vat') }}</th>
+{{--            <th class="">{{ __('pages/invoice.vat') }}</th>--}}
             <th class="">{{ __('pages/invoice.tax') }}</th>
             <th class="">{{ __('pages/invoice.net') }}</th>
         </tr>
@@ -72,12 +72,12 @@
                                value="{{
                                 $item->subtotal }}" disabled="">
                     </td>
-                    <td class="">
-                        <input type="text" class="form-control input-sm amount-input" placeholder="vat purchase"
-                               readonly=""
-                               value="{{
-                                $item->item->vtp }}%" disabled="">
-                    </td>
+{{--                    <td class="">--}}
+{{--                        <input type="text" class="form-control input-sm amount-input" placeholder="vat purchase"--}}
+{{--                               readonly=""--}}
+{{--                               value="{{--}}
+{{--                                $item->item->vtp }}%" disabled="">--}}
+{{--                    </td>--}}
                     <td class="text-center">
                         <input type="text" class="form-control input-sm amount-input" placeholder="tax" readonly=""
                                value="{{ $item->tax
@@ -123,8 +123,7 @@
                                     ->orWhere([["return_sale_id",$invoice->id],["item_id",$item->item->id]])
                                     ->orWhere([["return_purchase_id",$invoice->id],["item_id",$item->item->id]])
                                     ->orWhere([["purchase_id",$invoice->id],["item_id",$item->item->id]])
-                                    ->get() as $serial
-                                    )
+                                    ->get() as $serial)
                                         <div class="row">
                                             <div class="col-md-8  text-center">
                                                 {{ $serial->serial }}
@@ -134,9 +133,6 @@
                                                 {{trans('pages/items.' . $serial->status)}}
                                             </div>
                                         </div>
-
-
-
                                     @endforeach
 
                                 </div>

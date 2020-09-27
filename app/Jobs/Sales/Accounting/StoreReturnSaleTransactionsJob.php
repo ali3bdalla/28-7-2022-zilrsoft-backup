@@ -92,7 +92,7 @@ class StoreReturnSaleTransactionsJob implements ShouldQueue
     {
 
         foreach ($this->invoiceItems as $item) {
-            if (!$item->item->is_service) {
+//            if (!$item->item->is_service) {
                 $amount = (float)$item->item->cost * (int)$item->qty;
                 $data = $this->startupData;
                 $data['amount'] = $amount;
@@ -102,7 +102,7 @@ class StoreReturnSaleTransactionsJob implements ShouldQueue
                 dispatch(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'debit'));
                 $this->itemsTaxAmount += $item->tax;
                 $this->itemsCostAmount += $amount;
-            }
+//            }
 
         }
     }

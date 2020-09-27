@@ -11,7 +11,7 @@
             <th class=""><?php echo e(__('pages/invoice.total')); ?></th>
             <th class=""><?php echo e(__('pages/invoice.discount')); ?></th>
             <th class=""><?php echo e(__('pages/invoice.subtotal')); ?></th>
-            <th class=""><?php echo e(__('pages/invoice.vat')); ?></th>
+
             <th class=""><?php echo e(__('pages/invoice.tax')); ?></th>
             <th class=""><?php echo e(__('pages/invoice.net')); ?></th>
         </tr>
@@ -71,11 +71,12 @@
                         <input type="text" class="form-control input-sm amount-input" placeholder="subtotal" readonly=""
                                value="<?php echo e($item->subtotal); ?>" disabled="">
                     </td>
-                    <td class="">
-                        <input type="text" class="form-control input-sm amount-input" placeholder="vat purchase"
-                               readonly=""
-                               value="<?php echo e($item->item->vtp); ?>%" disabled="">
-                    </td>
+
+
+
+
+
+
                     <td class="text-center">
                         <input type="text" class="form-control input-sm amount-input" placeholder="tax" readonly=""
                                value="<?php echo e($item->tax); ?>" disabled="">
@@ -131,9 +132,6 @@
 
                                             </div>
                                         </div>
-
-
-
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </div>

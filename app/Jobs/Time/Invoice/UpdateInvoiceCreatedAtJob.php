@@ -40,39 +40,54 @@ class UpdateInvoiceCreatedAtJob implements ShouldQueue
     {
         //
         $invoice = Invoice::find($this->invoiceId);
-        $invoice->update([
-            'created_at' => $this->createdAt
-        ]);
 
-
-        foreach ($invoice->items as $item) {
-            $item->update([
+//        dd($invoice);
+        if($invoice != null)
+        {
+            $invoice->update([
                 'created_at' => $this->createdAt
             ]);
 
-            if (in_array($invoice->invoice_type, ['purchase', 'beginning_inventory'])) {
-                $item->item->serials()->where([
-                    'purchase_id' => $invoice->id
-                ])->update([
+
+            if (in_array($invoice->invoice_type, ['sale', 'return_sale'])) {
+                $invoice->sale()->update([
+                    'created_at' => $this->createdAt
+                ]);
+            } else {
+                $invoice->purchase()->update([
                     'created_at' => $this->createdAt
                 ]);
             }
+            foreach ($invoice->items as $item) {
+                $item->update([
+                    'created_at' => $this->createdAt
+                ]);
+
+                if (in_array($invoice->invoice_type, ['purchase', 'beginning_inventory'])) {
+                    $item->item->serials()->where([
+                        'purchase_id' => $invoice->id
+                    ])->update([
+                        'created_at' => $this->createdAt
+                    ]);
+                }
 
 
-            TransactionsContainer::where('invoice_id', $invoice->id)->update([
-                'created_at' => $this->createdAt
+                TransactionsContainer::where('invoice_id', $invoice->id)->update([
+                    'created_at' => $this->createdAt
 
-            ]);
-            Transaction::where('invoice_id', $invoice->id)->update([
-                'created_at' => $this->createdAt
+                ]);
+                Transaction::where('invoice_id', $invoice->id)->update([
+                    'created_at' => $this->createdAt
 
-            ]);
+                ]);
 
-            Payment::where('invoice_id', $invoice->id)->update([
-                'created_at' => $this->createdAt
+                Payment::where('invoice_id', $invoice->id)->update([
+                    'created_at' => $this->createdAt
 
-            ]);
+                ]);
+            }
         }
+
 
     }
 }

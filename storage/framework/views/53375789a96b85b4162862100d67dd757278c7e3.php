@@ -29,7 +29,7 @@
 
 
 
-                        <td><?php echo e(trans('pages/items.' . $serial->current_status)); ?> </td>
+                        <td><?php echo e(trans('pages/items.' . $serial->status)); ?> </td>
 
                     </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

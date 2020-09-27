@@ -1,8 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
+
+Route::get('/','GuestController@index')->name('index');
+Route::middleware('guest')->group(function(){
+    Auth::routes(["verify" => true]);
+});
 Route::resource('sales', 'SaleController');
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/', 'HomeController@index')->name('index');

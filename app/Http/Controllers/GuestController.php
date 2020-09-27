@@ -10,6 +10,9 @@ class GuestController extends Controller
 
     public function index(Request $request)
     {
+        if($request->user())
+            return redirect(route('items.index'));
+
         return redirect(route('login'));
     }
 }

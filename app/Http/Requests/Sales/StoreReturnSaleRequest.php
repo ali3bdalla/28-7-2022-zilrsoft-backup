@@ -2,17 +2,14 @@
 
 namespace App\Http\Requests\Sales;
 
-use App\Jobs\Accounting\Sale\StoreSaleTransactionsJob;
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
 use App\Jobs\Sales\Accounting\StoreReturnSaleTransactionsJob;
 use App\Jobs\Sales\Items\StoreReturnSaleItemsJob;
 use App\Jobs\Sales\Payment\StoreReturnSalePaymentsJob;
-use App\Jobs\Sales\Payment\StoreSalePaymentsJob;
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
 use App\Models\Sale;
-use App\Models\User;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
@@ -53,6 +50,7 @@ class StoreReturnSaleRequest extends FormRequest
     {
         DB::beginTransaction();
         try {
+//            dd($this->all());
             $this->validateInvoiceType($saleInvoice);
             $returnedItems = $this->getReturnedItems();
             $this->validateItems($returnedItems, $saleInvoice);
@@ -87,7 +85,7 @@ class StoreReturnSaleRequest extends FormRequest
              * ========================================================
              *
              */
-            $paymentsMethods = $this->validatePaymentsAndGetPaymentMethods($invoice);
+            $paymentsMethods = $this->validatePaymentsAndGetPaymentMethods($invoice->fresh());
             dispatch(new StoreReturnSalePaymentsJob($invoice, $paymentsMethods));
             dispatch(new StoreReturnSaleTransactionsJob($invoice));
 
@@ -273,7 +271,7 @@ class StoreReturnSaleRequest extends FormRequest
                     }
 
                     if ($variationAmount < 0) {
-                        $methods[0]['amount'] = (float)$methods[0]['amount'] - (float)$variationAmount;
+                        $methods[0]['amount'] = (float)$methods[0]['amount'] - (float)abs($variationAmount);
                     }
                     return $methods;
                 }

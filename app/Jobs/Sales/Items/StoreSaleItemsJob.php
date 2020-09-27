@@ -15,7 +15,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Validation\ValidationException;
 
 class StoreSaleItemsJob implements ShouldQueue
 {
@@ -150,7 +149,7 @@ class StoreSaleItemsJob implements ShouldQueue
          * change actual item data if it's not draft items
          * ==========================================================
          */
-        if (!$this->isDraft) {
+        if (!$this->isDraft && !$item->is_service) {
             /**
              * ==========================================================
              * update qty should be before update cost

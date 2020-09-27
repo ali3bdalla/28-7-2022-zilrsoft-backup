@@ -26,6 +26,7 @@ use App\Models\User;
 use App\Models\UserDetails;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -62,6 +63,16 @@ class OrganizationSeederCommand extends Command
      */
     public function handle()
     {
+
+        if(!Schema::connection('data_source')->hasColumn('invoices', 'new_db_id'))
+        {
+            Schema::connection('data_source')->table('invoices', function ($table) {
+//            $table-
+                $table->integer('new_db_id')->nullable();;
+            });
+        }
+
+
         foreach (DB::connection('data_source')->table('countries')->get() as $itemData) {
             $data = collect($itemData)->toArray();
             Country::create($data);

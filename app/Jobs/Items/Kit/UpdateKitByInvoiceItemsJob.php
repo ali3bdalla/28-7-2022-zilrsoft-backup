@@ -37,8 +37,6 @@ class UpdateKitByInvoiceItemsJob implements ShouldQueue
     {
         $items = $this->invoiceItem->invoice->items()->where([['belong_to_kit',true],['parent_kit_id',$this->invoiceItem->id]])->get();
 
-
-//        dd($items)
         $result['total'] = 0;
         $result['subtotal'] = 0;
         $result['tax'] = 0;
