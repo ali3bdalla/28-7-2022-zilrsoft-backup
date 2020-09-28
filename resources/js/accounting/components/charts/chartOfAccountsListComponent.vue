@@ -5,7 +5,7 @@
                 <div class="" style="padding: 10px">
                 <span class="pull-left ">
                     <label :class="{'label-primary':account.current_amount>=0}" class="label label-danger ">
-                        {{ account.current_amount}}
+                        {{ parseFloat(account.current_amount).toFixed(2)}}
                     </label> &nbsp;
                     <label class="label label-info label-sm" v-if="account.type=='credit'">
                        دائن

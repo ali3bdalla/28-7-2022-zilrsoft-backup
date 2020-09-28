@@ -40,7 +40,8 @@ class StoreReturnSaleRequest extends FormRequest
             'items.*.id' => 'integer|required|exists:invoice_items,id',
             'items.*.returned_qty' => 'required',
             'items.*.serials' => 'nullable|array',
-            // 'items.*.serials.*.serial' => 'required|exists:item_serials,serial',
+//            'items.*.serials.*' => 'required|array',
+             'items.*.serials.*' => 'required|exists:item_serials,serial',
             "methods" => 'nullable|array',
             'methods.*.id' => 'integer|required|exists:accounts,id',
         ];
@@ -231,16 +232,11 @@ class StoreReturnSaleRequest extends FormRequest
 
         foreach ($serials as $serial) {
             $dbSerial = $invoiceItem->item->serials()->where([
-                [
-                    'sale_id', $invoiceItem->invoice_id,
-                ],
-                [
-                    'status', 'sold',
-                ],
-                [
-                    'serial', $serial,
-                ],
+                [ 'sale_id', $invoiceItem->invoice_id ],
+                [ 'status', 'sold'],
+                [ 'serial', $serial ]
             ])->first();
+
             if ($dbSerial == null) {
                 $error = ValidationException::withMessages([
                     "items" => ['invalid item serial'],

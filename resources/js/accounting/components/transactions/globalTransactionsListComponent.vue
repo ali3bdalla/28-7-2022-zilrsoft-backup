@@ -94,7 +94,7 @@
                     <th class="text-center "></th>
                     <th class="text-center "></th>
                     <th class="text-center "></th>
-                    <th class="text-center "></a></th>
+                    <th class="text-center "></th>
                     <th class="text-center " v-text="parseFloat(totalDebitAmount).toFixed(2)"></th>
                     <th class="text-center " v-text="parseFloat(totalCreditAmount).toFixed(2)"></th>
                     <th class="text-center "></th>
@@ -108,13 +108,13 @@
             <!--            </div>-->
             <!--            <div class="btn"-->
             <div class="table-paginations">
-                <accounting-table-pagination-helper-layout-component
+                <accounting-table-pagination-helper-layout-v2-component
                         :data="paginationResponseData"
                         :view-only="true"
                         @pagePerItemsUpdated="pagePerItemsUpdated"
                         @paginateUpdatePage="paginateUpdatePage"
 
-                ></accounting-table-pagination-helper-layout-component>
+                ></accounting-table-pagination-helper-layout-v2-component>
             </div>
 
 
@@ -221,7 +221,7 @@
                 // }
             },
             initJob() {
-                this.requestUrl = "/accounting/accounts/" + this.account.id + "/transactions_datatable";
+                this.requestUrl = "/api/entities/" + this.account.id + "/transactions";
                 this.customDateShortcuts = [
                     {key: 'day', label: this.app.datetimetrans.today, value: 'day'},
                     {key: '-day', label: this.app.datetimetrans.yesterday, value: '-day'},

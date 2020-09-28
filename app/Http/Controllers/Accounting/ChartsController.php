@@ -74,14 +74,15 @@
 			$request->save();
 			return redirect(route('accounting.accounts.index'));
 		}
-		
-		/**
-		 * Display the specified resource.
-		 *
-		 * @param Account $account
-		 *
-		 * @return Response
-		 */
+
+        /**
+         * Display the specified resource.
+         *
+         * @param Account $account
+         *
+         * @param Request $request
+         * @return Response
+         */
 		public function show(Account $account,Request $request)
 		{
 			

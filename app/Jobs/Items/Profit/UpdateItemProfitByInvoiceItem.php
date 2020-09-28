@@ -38,15 +38,32 @@ class UpdateItemProfitByInvoiceItem implements ShouldQueue
     {
         $totalProfitAmount = $this->invoiceItem->item->total_profits_amount;
 
-        $profitAmount = ($this->invoiceItem->subtotal - ($this->invoiceItem->item->cost * $this->invoiceItem->qty));
-        if ($this->invoiceItem->invoice_type == 'sale') {
-            $totalProfitAmount += $profitAmount;
+        if($this->invoiceItem->item->is_service)
+        {
+
+            $profitAmount = $this->invoiceItem->subtotal;
+            if ($this->invoiceItem->invoice_type == 'sale') {
+                $totalProfitAmount += $profitAmount;
+            }
+
+            if ($this->invoiceItem->invoice_type == 'return_sale') {
+                $totalProfitAmount -= $profitAmount;
+                $profitAmount = ($profitAmount * -1);
+            }
+
+        }else
+        {
+            $profitAmount = ($this->invoiceItem->subtotal - ($this->invoiceItem->item->cost * $this->invoiceItem->qty));
+            if ($this->invoiceItem->invoice_type == 'sale') {
+                $totalProfitAmount += $profitAmount;
+            }
+
+            if ($this->invoiceItem->invoice_type == 'return_sale') {
+                $totalProfitAmount -= $profitAmount;
+                $profitAmount = ($profitAmount * -1);
+            }
         }
 
-        if ($this->invoiceItem->invoice_type == 'return_sale') {
-            $totalProfitAmount -= $profitAmount;
-            $profitAmount = ($profitAmount * -1);
-        }
 
         $this->invoiceItem->item()->update([
             'total_profits_amount' => $totalProfitAmount

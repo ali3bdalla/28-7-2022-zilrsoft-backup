@@ -14,10 +14,13 @@ class UpdateVendorBalanceJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $amount,$vendor,$type;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param User $vendor
+     * @param $amount
+     * @param string $type
      */
     public function __construct(User $vendor,$amount,$type = 'increase')
     {

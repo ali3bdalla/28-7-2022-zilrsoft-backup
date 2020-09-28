@@ -149,35 +149,38 @@ class StoreSaleItemsJob implements ShouldQueue
          * change actual item data if it's not draft items
          * ==========================================================
          */
-        if (!$this->isDraft && !$item->is_service) {
-            /**
-             * ==========================================================
-             * update qty should be before update cost
-             * ==========================================================
-             */
-            dispatch(new UpdateAvailableQtyByInvoiceItemJob($invoiceItem));
-            /**
-             * ==========================================================
-             * we neeed for available qty and cost before new invoice item
-             * ==========================================================
-             */
-            dispatch(new UpdateItemCostByInvoiceItemJob($invoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
+        if (!$this->isDraft) {
+            if (!$item->is_service) {
+                /**
+                 * ==========================================================
+                 * update qty should be before update cost
+                 * ==========================================================
+                 */
+                dispatch(new UpdateAvailableQtyByInvoiceItemJob($invoiceItem));
+                /**
+                 * ==========================================================
+                 * we neeed for available qty and cost before new invoice item
+                 * ==========================================================
+                 */
+                dispatch(new UpdateItemCostByInvoiceItemJob($invoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
 
-            /**
-             * ==========================================================
-             * set cost and available qty to the created invoice item
-             * ==========================================================
-             */
-            $this->setCostAndAvailableQty($invoiceItem);
+                /**
+                 * ==========================================================
+                 * set cost and available qty to the created invoice item
+                 * ==========================================================
+                 */
+                $this->setCostAndAvailableQty($invoiceItem);
 
-            /**
-             * ==========================================================
-             * update items total profits amount
-             * ==========================================================
-             */
+                /**
+                 * ==========================================================
+                 * update items total profits amount
+                 * ==========================================================
+                 */
+            }
+
             dispatch(new UpdateItemProfitByInvoiceItem($invoiceItem));
-
         }
+
 
     }
 

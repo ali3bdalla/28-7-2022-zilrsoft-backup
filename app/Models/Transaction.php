@@ -22,6 +22,12 @@ class Transaction extends BaseModel
     protected static function boot()
     {
         parent::boot();
+
+
+        static::addGlobalScope('ordered', function (Builder $builder) {
+            $builder->orderBy('container_id', 'desc');
+        });
+
         if (auth()->check()) {
             static::addGlobalScope('pendingTransactionScope', function (Builder $builder) {
                 $builder->where('is_pending', false);

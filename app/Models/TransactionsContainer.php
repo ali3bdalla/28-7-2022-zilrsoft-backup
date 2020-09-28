@@ -16,6 +16,12 @@
 		protected static function boot()
 		{
 			parent::boot();
+
+            static::addGlobalScope('ordered', function (Builder $builder) {
+                $builder->orderBy('created_at', 'desc');
+            });
+
+
 			if (auth()->check()){
 				static::addGlobalScope('pendingTransactionsContainerScope',function (Builder $builder){
 					$builder->where('is_pending',false);

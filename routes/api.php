@@ -14,6 +14,10 @@ Route::prefix('accounts/{account}')->name('accounts.')->group(function () {
     Route::get('/entities', 'AccountController@entities')->name('entities');
 
 });
+Route::resource('entities', 'EntityController');
+Route::prefix('entities')->name('entities.')->group(function () {
+    Route::get('{account}/transactions', 'EntityController@transactions')->name('transactions');
+});
 Route::resource('items', 'ItemController');
 Route::prefix('items/validations')->name('items.validations.')->group(function () {
     Route::match(['get', 'post'], '/sales_serial', 'ItemController@ValidateSalesSerial')->name('sales_serial');

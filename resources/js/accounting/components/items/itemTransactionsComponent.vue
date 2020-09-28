@@ -254,11 +254,11 @@
             </table>
 
             <div>
-                <accounting-table-pagination-helper-layout-component
+                <accounting-table-pagination-helper-layout-v2-component
                         :data="paginationResponseData"
                         @pagePerItemsUpdated="pagePerItemsUpdated"
                         @paginateUpdatePage="paginateUpdatePage"
-                ></accounting-table-pagination-helper-layout-component>
+                ></accounting-table-pagination-helper-layout-v2-component>
             </div>
         </div>
 

@@ -16,4 +16,6 @@ class EntityController extends Controller
         $entities = TransactionsContainer::orderBy('created_at', 'desc')->paginate(40);
         return view('accounting.transactions.index', compact('entities'));
     }
+
+
 }

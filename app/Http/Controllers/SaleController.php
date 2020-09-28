@@ -40,7 +40,7 @@ class SaleController extends Controller
 
     /**
      * Show the specified resource.
-     * @param int $id
+     * @param Invoice $sale
      * @return Response
      */
     public function show(Invoice $sale)
@@ -51,12 +51,25 @@ class SaleController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $id
+     * @param Invoice $sale
      * @return Response
      */
-    public function edit(Invoice $Sale)
-    {
-        return view('sales::edit');
+    public function edit(Invoice $sale) {
+        $invoice = $sale;
+        $sale = $invoice->sale;
+        $items = [];
+        $data_source_items = $invoice->items()->with('item')->get();
+        foreach ($data_source_items as $item) {
+            if ($item->item->is_need_serial) {
+                $item['serials'] = $item->item->serials()->sale($invoice->id)->get();
+            }
+            $items[] = $item;
+        }
+
+        $expenses = Item::where('is_expense', true)->get();
+        $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
+        return view('accounting.sales.edit', compact('sale', 'invoice', 'items', 'gateways', 'expenses'));
     }
+
 
 }

@@ -16,10 +16,11 @@ class CreateReturnSaleTest extends TestCase
      *
      * @return void
      */
-    public function create_return_sale()
+    public function test_create_return_sale()
     {
 
-        $invoice = Invoice::where('invoice_type', 'sale')->inRandomOrder()->first();
+//        $invoice = Invoice::where('invoice_type', 'sale')->inRandomOrder()->first();
+        $invoice = Invoice::find(18163);
         $items = [];
         foreach ($invoice->items as $item) {
             if (!$item->item->is_kit) {
@@ -51,13 +52,16 @@ class CreateReturnSaleTest extends TestCase
 
         }
 
+        $method = Account::where('slug','gateway')->first();
+        $method->amount = $invoice->net;
         $manager = factory(Manager::class)->create();
         $this->assertInstanceOf(Invoice::class, $invoice);
         $response = $this->actingAs($manager)->patchJson('/api/sales/' . $invoice->id, [
             'items' => $items,
+            'methods' => [$method->toArray()]
         ]);
         $response
-            // ->dump()
+             ->dump()
             ->assertCreated();
 
         foreach ($items as $item) {
@@ -80,7 +84,7 @@ class CreateReturnSaleTest extends TestCase
      *
      * @return void
      */
-    public function test_create_return_sale_for_kits()
+    public function create_return_sale_for_kits()
     {
 
         $kit = Item::where([

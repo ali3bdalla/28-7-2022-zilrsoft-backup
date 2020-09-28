@@ -69,7 +69,7 @@ class AccountController extends Controller
 
         // }
 
-        // return view('accounting.charts.transactions.v2.index', compact('account'));
+         return view('accounting.charts.transactions.v2.index', compact('account'));
     }
 
     public function showStock(Account $account)

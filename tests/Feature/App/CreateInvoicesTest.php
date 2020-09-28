@@ -12,12 +12,13 @@ use App\Models\Manager;
 use Carbon\Carbon;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class CreateInvoicesTest extends TestCase
 {
 
-    private $salesMassInvoices = [];
+    private $needManualRefactoringInvoices = [];
 
     private $updatedItems = [];
     /**
@@ -33,15 +34,19 @@ class CreateInvoicesTest extends TestCase
     public function test_create_invoices()
     {
 
+//        ->whereIn('id',[1442,1599,3252,3482,3908,5111,4418,4419,4420,4447,4475,4508,4511,4549,4552,4563,4571,4575,4589,4591,4597,4601,4625,4634,
+//        4637,4642,4647,4652,4664,4708,4714,4724,4728,4729,4749,4764,4778,4781,4797,4817,4845,4894,4903,4905,4913,4924,4942,4964,4966,4993,5010,5014,5017,
+//        5031,9429,9969,9970,16987,17464,17651,17659,20840,20912,20979,21856,21860,22354])
 
-        // sales quantity issue => [1442,1599,3252,3482,3908,5111,4418,4419,4420,4447,4475,4508,4511,4549,4552,4563,4571,4575,4589,4591,4597,4601,4625,4634]
-        //[4637,4642,4647,4652,4664,4708,4714,4724,4728,4729,4749,4764,4778,4781,4797,4817,4845,4894,4903,4905,4913,4924,4942,4964,4966,4993,5010,5014,5017
-        // 5031,9429,9969,9970
+//         [1442,1599,3252,3482,3908,5111,4418,4419,4420,4447,4475,4508,4511,4549,4552,4563,4571,4575,4589,4591,4597,4601,4625,4634,
+//        4637,4642,4647,4652,4664,4708,4714,4724,4728,4729,4749,4764,4778,4781,4797,4817,4845,4894,4903,4905,4913,4924,4942,4964,4966,4993,5010,5014,5017
+//         5031,9429,9969,9970,16987,17464,17651,17659,20840,20912,20979,21856,21860,22354]
 //        ->where('id', '=', 241)
-        $invoices = $this->dbConnection->table('invoices')->where('id', '>', 9970)->get();
+        $invoices = $this->dbConnection->table('invoices')->get();
         //
 
         foreach ($invoices as $invoice) {
+//            $this->needManualRefactoringInvoices[] = $invoice->id;
             echo "\nstarting.......................\n";
             echo "source id " . $invoice->id . "\n";
             echo 'source type ' . $invoice->invoice_type . "\n";
@@ -83,7 +88,9 @@ class CreateInvoicesTest extends TestCase
         }
 
 
-        print_r($this->salesMassInvoices);
+        $content = implode(',',$this->needManualRefactoringInvoices);
+        Storage::put("outputs/file.txt",$content);
+        echo $content;
     }
 
     public function createBeginningInventory($invoice)
@@ -139,8 +146,20 @@ class CreateInvoicesTest extends TestCase
                 'items' => $items,
             ]);
             $response
-                ->dump()
-                ->assertOk();
+                ->dump();
+
+
+            if ($response->status() == 200) {
+//                $response->assertOk();
+                return json_decode($response->content(), true)['id'];
+
+
+            } else {
+                $this->needManualRefactoringInvoices[] = $invoice->id;
+            }
+
+
+//                ->assertOk();
             $this->restUpdatedItemsDetails();
 
             return json_decode($response->content(), true)['id'];
@@ -257,8 +276,19 @@ class CreateInvoicesTest extends TestCase
                     'vendor_invoice_id' => $purchase->vendor_inc_number
                 ]);
                 $response
-                    ->dump()
-                    ->assertOk();
+                    ->dump();
+
+
+
+                if ($response->status() == 200) {
+                    return json_decode($response->content(), true)['id'];
+
+
+                } else {
+                    $this->needManualRefactoringInvoices[] = $invoice->id;
+                }
+
+
 
                 $this->restUpdatedItemsDetails();
 
@@ -298,8 +328,12 @@ class CreateInvoicesTest extends TestCase
                     if ($dbItem != null && $newDBItem != null) {
                         $this->updateItemDetails($newDBItem, $invoice);
 
-                        $requestItem = [];
-                        $requestItem['id'] = $newInvoice->items()->where('item_id', $item->item_id)->first()->id;
+                        $itemDBInstance = $newInvoice->items()->where('item_id', $item->item_id)->first();
+
+                        if($itemDBInstance != null)
+                        {
+                            $requestItem = [];
+                        $requestItem['id'] = $itemDBInstance->id;
 
                         $requestItem['returned_qty'] = $item->qty;
                         if ($dbItem->is_need_serial) {
@@ -333,6 +367,8 @@ class CreateInvoicesTest extends TestCase
 
 
                         $items[] = $requestItem;
+                        }
+                        
                     }
 
                 }
@@ -345,8 +381,18 @@ class CreateInvoicesTest extends TestCase
                         'items' => $items,
                     ]);
                     $response
-                        ->dump()
-                        ->assertOk();
+                        ->dump();
+
+                    if ($response->status() == 200) {
+                        $response->assertOk();
+                        return json_decode($response->content(), true)['id'];
+
+
+                    } else {
+                        $this->needManualRefactoringInvoices[] = $invoice->id;
+                    }
+
+//                        ->assertOk();
 
                     $this->restUpdatedItemsDetails();
 
@@ -487,7 +533,7 @@ class CreateInvoicesTest extends TestCase
 
 
                 } else {
-                    $this->salesMassInvoices[] = $invoice->id;
+                    $this->needManualRefactoringInvoices[] = $invoice->id;
                 }
                 $this->restUpdatedItemsDetails();
 
@@ -651,8 +697,18 @@ class CreateInvoicesTest extends TestCase
                     ]);
 //                    dd($items);
                     $response
-                        ->dump()
-                        ->assertCreated();
+                        ->dump();
+//                        ->assertCreated();
+
+                    if ($response->status() == 201) {
+                        $response->assertCreated();
+                        return json_decode($response->content(), true)['id'];
+
+
+                    } else {
+                        $this->needManualRefactoringInvoices[] = $invoice->id;
+                    }
+
 
                     $this->restUpdatedItemsDetails();
 

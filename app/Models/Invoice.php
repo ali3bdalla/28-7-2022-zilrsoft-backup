@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Attributes\InvoiceAttributes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @property mixed organization_id
@@ -44,6 +45,10 @@ class Invoice extends Model
     protected static function boot()
     {
         parent::boot();
+
+        static::addGlobalScope('ordered', function (Builder $builder) {
+            $builder->orderBy('created_at', 'desc');
+        });
 
         // if (auth()->check() && !auth()->user()->can('manage branches')) {
         //     static::addGlobalScope('currentManagerInvoicesOnly', function (Builder $builder) {

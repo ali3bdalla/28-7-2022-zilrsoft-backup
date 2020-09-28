@@ -34,7 +34,7 @@
                                 <span class="input-group-addon has-background-primary has-text-white">{{__('pages/vouchers.type')}}
                                 </span>
                     <input placeholder="{{__('pages/vouchers.type')}}" disabled
-                           value="@if($payment->paymentable_type=="App\Models\Invoice"){{__('pages/vouchers.invoices_payment')
+                           value="@if($payment->account_type=="App\Models\Invoice"){{__('pages/vouchers.invoices_payment')
                                    }}@else{{__('pages/vouchers.advance_payment')}}@endif"
                            type="text" class="form-control">
                 </div>
@@ -69,12 +69,12 @@
                                 </span>
                     <input placeholder="{{__('pages/vouchers.gateway')}}" disabled
                            value="{{
-                                   $payment->paymentable->locale_name
+                                   $payment->account->locale_name
                                     }}"
                            type="text" class="form-control">
 
-                    {{--                            @if($payment->paymentable->parent_id>=1){{--}}
-                    {{--                                   $payment->paymentable->parent->locale_name--}}
+                    {{--                            @if($payment->account->parent_id>=1){{--}}
+                    {{--                                   $payment->account->parent->locale_name--}}
                     {{--                                   }} - @endif--}}
                 </div>
 

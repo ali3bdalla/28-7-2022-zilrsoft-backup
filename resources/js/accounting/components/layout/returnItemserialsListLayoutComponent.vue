@@ -122,7 +122,7 @@
                 for (let i = 0; i < this.serials.length; i++) {
                     let serial = this.serials[i];
                     if (serial.status == this.invoiceType && serial.first_return) {
-                        list.push(serial);
+                        list.push(serial.serial);
                     }
                 }
                 this.$emit('publishUpdated', {

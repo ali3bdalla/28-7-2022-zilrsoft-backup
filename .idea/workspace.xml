@@ -20,36 +20,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/44/d1/44d142505dd1a3b497197e2f459d2aec779e9ed6" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/cache/data/c2/4f/c24f92750673b2169c8cb7bfbc999cfa8457dc7c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/sessions/yUPs4dpHUTBnWECv7sbaa9m5FLqjzLQL7nxHALEo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/2e3ea8606ce184bd6b789049aba04f889d95ab85.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/views/c082aa4050f90479e43ab9327a25d4bd6d304495.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-09-27.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/tablePaginationHelperLayoutV2Component.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shell/mergeDB.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Console/Commands/Seeder/OrganizationSeederCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/Seeder/OrganizationSeederCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GuestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GuestController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AccountController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ChartsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ChartsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/IdentitiesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/IdentitiesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/EntityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/EntityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EntityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EntityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Voucher/DatatableRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Voucher/DatatableRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreReturnSaleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreReturnSaleRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreSaleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreSaleRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Accounting/Sale/StoreSaleTransactionsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Accounting/Sale/StoreSaleTransactionsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Cost/UpdateItemCostByInvoiceItemJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Cost/UpdateItemCostByInvoiceItemJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Kit/UpdateKitByInvoiceItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Kit/UpdateKitByInvoiceItemsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Sales/Accounting/StoreReturnSaleTransactionsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Sales/Accounting/StoreReturnSaleTransactionsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/InvoiceItem/InvoiceItemCollection.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/InvoiceItem/InvoiceItemCollection.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/InvoiceItem/InvoiceItemResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/InvoiceItem/InvoiceItemResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Profit/UpdateItemProfitByInvoiceItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Profit/UpdateItemProfitByInvoiceItem.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Jobs/Sales/Items/StoreSaleItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Sales/Items/StoreSaleItemsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Time/Invoice/UpdateInvoiceCreatedAtJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Time/Invoice/UpdateInvoiceCreatedAtJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Item.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/items/itemsDatatableComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/items/itemsDatatableComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_items.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_items.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/items/view_serials.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/items/view_serials.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/User/Balance/UpdateVendorBalanceJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/User/Balance/UpdateVendorBalanceJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Account.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Account.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Payment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Payment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Transaction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/TransactionsContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/TransactionsContainer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/charts/chartOfAccountsListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/charts/chartOfAccountsListComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/items/itemTransactionsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/items/itemTransactionsComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/returnItemserialsListLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/returnItemserialsListLayoutComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/transactions/globalTransactionsListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/transactions/globalTransactionsListComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/vouchers/vouchersDatatableComponet.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/vouchers/vouchersDatatableComponet.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/identities/view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/identities/view.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/vouchers/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/vouchers/show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/AxkDm56G91l0JyNoQZWXWRKBx05i39ZsuSqGV49l" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/38a290f39ebdcc1b917654efffaf9c94df7cfa3b.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/38a290f39ebdcc1b917654efffaf9c94df7cfa3b.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/53375789a96b85b4162862100d67dd757278c7e3.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/53375789a96b85b4162862100d67dd757278c7e3.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-09-26.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-09-26.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/yUPs4dpHUTBnWECv7sbaa9m5FLqjzLQL7nxHALEo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/2e3ea8606ce184bd6b789049aba04f889d95ab85.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/2e3ea8606ce184bd6b789049aba04f889d95ab85.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/Feature/App/CreateInvoicesTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/App/CreateInvoicesTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Sales/CreateReturnSaleTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Sales/CreateReturnSaleTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Transaction/CreateTransactionTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Entities/CreateEntityTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Transaction/DeleteTransactionsTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Entities/DeleteTransactionsTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -198,25 +207,25 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="full.screen.before.presentation.mode" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/accounting/components/layout" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/Http/Requests/Items" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Sale" />
-      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature" />
-      <recent name="$PROJECT_DIR$/app/Traits" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js/accounting/components/layout" />
       <recent name="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance" />
       <recent name="$PROJECT_DIR$/Modules/Purchases/Tests/Feature" />
       <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Full" />
       <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/ReturnSale" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/shell" />
+      <recent name="$PROJECT_DIR$/app/Http/Requests/Items" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Sale" />
       <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature" />
     </key>
   </component>
@@ -371,7 +380,9 @@
       <workItem from="1601067045765" duration="2125000" />
       <workItem from="1601102483840" duration="5671000" />
       <workItem from="1601123871828" duration="63000" />
-      <workItem from="1601187789774" duration="16417000" />
+      <workItem from="1601187789774" duration="18491000" />
+      <workItem from="1601279992761" duration="717000" />
+      <workItem from="1601304184466" duration="11613000" />
     </task>
     <servers />
   </component>

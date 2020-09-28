@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\NestingTrait;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @method static where(array $array)
@@ -12,6 +13,8 @@ use App\Models\Traits\NestingTrait;
  * @property mixed type
  * @property mixed ar_name
  * @property mixed name
+ * @property mixed total_debit_amount
+ * @property mixed total_credit_amount
  */
 class Account extends BaseModel
 {
@@ -27,6 +30,16 @@ class Account extends BaseModel
     protected $casts = [
         'is_gateway' => 'boolean',
     ];
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('ordered', function (Builder $builder) {
+            $builder->orderBy('created_at', 'desc');
+        });
+    }
 
     public function getSerialArrayAttribute($value)
     {
@@ -85,14 +98,18 @@ class Account extends BaseModel
         return $this->locale_name;
     }
 
-    public function getCurrentAmountAttribute()
+
+    public function getSingleAccountBalance()
     {
-        $totalDebitAmount = Account::whereIn('id', $this->getChildrenIncludeMe())->sum('total_debit_amount');
-        $totalCreditAmount = Account::whereIn('id', $this->getChildrenIncludeMe())->sum('total_credit_amount');
         if ($this->_isCredit()) {
-            return (float) ($totalCreditAmount - $totalDebitAmount);
+            return (float)($this->total_credit_amount - $this->total_debit_amount);
         }
-        return (float) ($totalDebitAmount - $totalCreditAmount);
+        return (float)($this->total_debit_amount - $this->total_credit_amount);
+    }
+
+    public function _isCredit()
+    {
+        return $this->type == 'credit';
     }
 
     public function getLocaleNameAttribute()
@@ -103,36 +120,47 @@ class Account extends BaseModel
             return $this->name;
         }
     }
-    public function updateAccountBalanceUsingPipeline()
-    {
-        $totalCreditAmount = 0;
-        $totalDebitAmount = 0;
-        foreach ($this->transactions as $transaction) {
-            if ($transaction->type == 'credit') {
-                $totalCreditAmount += (float) $transaction->amount;
-            } else {
-                $totalDebitAmount += (float) $transaction->amount;
 
+//    public function updateAccountBalanceUsingPipeline()
+//    {
+//        $totalCreditAmount = 0;
+//        $totalDebitAmount = 0;
+//        foreach ($this->transactions as $transaction) {
+//            if ($transaction->type == 'credit') {
+//                $totalCreditAmount += (float)$transaction->amount;
+//            } else {
+//                $totalDebitAmount += (float)$transaction->amount;
+//
+//            }
+//        }
+//
+//        $this->forceFill([
+//            'total_credit_amount' => $totalCreditAmount,
+//            'total_debit_amount' => $totalDebitAmount,
+//
+//        ]);
+//
+//        return $this->getCurrentAmountAttribute();
+//    }
+
+    public function getCurrentAmountAttribute()
+    {
+
+        $children = $this->getChildrenIncludeMe();
+        $currentAmount = 0;
+        if ($children != null) {
+            foreach ($children as $child) {
+                $dbChild = Account::find($child);
+                if ($dbChild != null)
+                    $currentAmount+= $dbChild->getSingleAccountBalance();
             }
         }
-
-        $this->forceFill([
-            'total_credit_amount' => $totalCreditAmount,
-            'total_debit_amount' => $totalDebitAmount,
-
-        ]);
-
-        return $this->getCurrentAmountAttribute();
+        return $currentAmount;
     }
 
     public function _isDebit()
     {
         return $this->type == 'debit';
-    }
-
-    public function _isCredit()
-    {
-        return $this->type == 'credit';
     }
 
 }

@@ -15,6 +15,7 @@ class Payment extends BaseModel
     protected $guarded = [];
 
 
+
     /**
      * @return mixed
      */
