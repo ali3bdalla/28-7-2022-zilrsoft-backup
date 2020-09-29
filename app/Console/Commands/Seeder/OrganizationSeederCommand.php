@@ -226,9 +226,9 @@ class OrganizationSeederCommand extends Command
 //        }
 
 
-        foreach (DB::connection('data_source')->table('manager_gateways')->get() as $itemData) {
-            $data = collect($itemData)->toArray();
-            DB::connection('mysql')->table('manager_gateways')->insert($data);
-        }
+        // foreach (DB::connection('data_source')->table('manager_gateways')->get() as $itemData) {
+        //     $data = collect($itemData)->toArray();
+        //     DB::connection('mysql')->table('manager_gateways')->insert($data);
+        // }
     }
 }
