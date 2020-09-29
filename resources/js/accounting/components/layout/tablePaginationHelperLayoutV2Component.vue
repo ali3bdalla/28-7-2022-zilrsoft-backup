@@ -1,8 +1,8 @@
 <template>
     <div class="">
-        <div class="row">
+        <div class="row" v-if="more!=true">
             <div class="col-md-2">
-                <div class="pager" v-show="viewOnly!=true">
+                <div class="pager" v-show="viewOnly!=true && more!=true">
                     <select @change="updateItemsPerPageValue" class="form-control" v-model="itemsPerPage">
                         <option value="20">عدد العناصر في الصفحة (20)</option>
                         <option value="30">30</option>
@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="col-md-10">
-                <nav>
+                <nav >
                     <ul class="pager">
                         <li class="previous" v-if="current_page!=1" v-show="viewOnly!=true"> <a
                                 @click="pageSelected(first_page_url)" v-html="pagination_trans.first"></a></li>
@@ -36,7 +36,12 @@
                         </li>
                     </ul>
                 </nav>
+
             </div>
+        </div>
+
+        <div class="text-center" v-else>
+            <button v-if="next_page_url!=null &&  next_page_url!=current_page_url" @click="pageSelected(next_page_url)" class="btn btn-primary">المزيد</button>
         </div>
 
     </div>
@@ -44,7 +49,7 @@
 
 <script>
     export default {
-        props: ["data",'viewOnly'],
+        props: ["data",'viewOnly','more'],
         data: function () {
             return {
                 itemsPerPage: 20,

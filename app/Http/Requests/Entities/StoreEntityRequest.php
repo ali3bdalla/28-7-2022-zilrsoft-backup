@@ -30,7 +30,7 @@ class StoreEntityRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
+    { 
         return [
             'transactions' => 'required|array',
             "transactions.*.id" => "required|integer|exists:accounts,id",

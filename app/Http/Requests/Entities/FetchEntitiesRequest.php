@@ -93,11 +93,12 @@ class FetchEntitiesRequest extends FormRequest
             $query = $query->orderByDesc("id");
         }
 
+        $query = $query->with('invoice','user');
 
         if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && (int)($this->input("itemsPerPage")) >= 1) {
             $result = $query->paginate(intval($this->input('itemsPerPage')));
         } else {
-            $result = $query->paginate(50);
+            $result = $query->paginate(500);
         }
         return new TransactionCollection($result);
     }

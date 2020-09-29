@@ -42,7 +42,7 @@ class User extends BaseAuthModel
         // 	return $this->ar_name;
 
 
-        return $this->name;
+        return $this->name_ar;
     }
 
 

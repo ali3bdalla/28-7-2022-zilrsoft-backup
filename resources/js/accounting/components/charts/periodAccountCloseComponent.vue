@@ -134,14 +134,15 @@
             },
             sendSubmitRequest() {
                 this.showButton = false;
-                axios.post('/accounting/reseller_daily/account_close', {
+                axios.post('/api/daily/reseller/closing_accounts', {
                     gateways: this.gatewaysList,
                     period_sales_amount: this.periodSalesAmount,
                     remaining_amount: this.remainingAmount,
                     remaining_amount_account_id: this.remainingAmountAccountId
                 }).then(response => {
                     // cmo
-                    window.location = '/accounting/reseller_daily/account_close_list';
+                    console.log(response.data);
+                    // window.location = '/daily/reseller/closing_accounts';
                 }).catch(error => {
                     console.log(error);
                     alert(error.response.data);

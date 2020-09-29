@@ -37,21 +37,15 @@ class CreateManualTransactionsTest extends TestCase
         $transactionsContainers = $this->dbConnection->table('transactions_containers')
             ->where([
                 ['invoice_id','0'],
-//                ['id','>=',921],
+                ['is_pending','0'],
             ])->get();
 
         $manager = Manager::find(1);
 
         foreach ($transactionsContainers as $container)
         {
-//            $manager = Manager::find($container->creator_id);
-//            if($manager == null)
-//            {
-//
-//            }
 
             echo "\n{$container->id}";
-
             $transactions = $this->dbConnection->table('transactions')->where([
                 ['container_id',$container->id],
                 ['invoice_id',null],
@@ -80,12 +74,9 @@ class CreateManualTransactionsTest extends TestCase
                     {
                         $singleData['type']  = 'debit';
                         $singleData['id'] = $transaction->debitable_id;
-
                         $debitAmount+=$transaction->amount;
 
                     }
-
-
                     $requestTransactions[]= $singleData;
                 }
 

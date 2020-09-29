@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Builder;
  * @property mixed name
  * @property mixed total_debit_amount
  * @property mixed total_credit_amount
+ * @property mixed id
+ * @property mixed slug
  */
 class Account extends BaseModel
 {

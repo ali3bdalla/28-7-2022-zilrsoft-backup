@@ -145,8 +145,7 @@
                                 <h2><strong>{{ money_format("%i",$identity->balance) }} </strong></h2>
                                 <p><small>{{ trans('pages/users.client_balance') }}</small></p>
 
-                                <a href="{{ route('accounting.accounts.client',[$identity->id,$clientAccount->id])
-                                }}">كشف
+                                <a href="{{ route('entities.user',[$vendorAccount->id,$identity->id])}}">كشف
                                     حساب</a>
                             </div>
                         @endif
@@ -154,8 +153,7 @@
                             <div class="col-xs-12 col-sm-6 emphasis">
                                 <h2><strong>{{ money_format("%i",$identity->vendor_balance) }} </strong></h2>
                                 <p><small>{{ trans('pages/users.vendor_balance') }}</small></p>
-                                <a href="{{ route('accounting.accounts.vendor',[$identity->id,$vendorAccount->id])
-                                }}">كشف
+                                <a href="{{ route('entities.user',[$vendorAccount->id,$identity->id])}}">كشف
                                     حساب</a>
                             </div>
                         @endif

@@ -2,33 +2,8 @@
 
 namespace App\Console\Commands\Seeder;
 
-use App\Models\Account;
-use App\Models\Bank;
-use App\Models\Branch;
-use App\Models\Category;
-use App\Models\CategoryFilters;
-use App\Models\CategoryFilterValues;
-use App\Models\CategoryItems;
-use App\Models\Country;
-use App\Models\Department;
-use App\Models\Expense;
-use App\Models\Filter;
-use App\Models\FilterValues;
-use App\Models\Item;
-use App\Models\ItemExpenses;
-use App\Models\ItemFilters;
-use App\Models\KitData;
-use App\Models\KitItems;
-use App\Models\Manager;
-use App\Models\Organization;
-use App\Models\Type;
-use App\Models\User;
-use App\Models\UserDetails;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class OrganizationSeederCommand extends Command
 {
@@ -222,33 +197,38 @@ class OrganizationSeederCommand extends Command
 //        }
 
 
-        foreach (DB::connection('data_source')->table('role_has_permissions')->get() as $itemData) {
+//        foreach (DB::connection('data_source')->table('role_has_permissions')->get() as $itemData) {
+//            $data = collect($itemData)->toArray();
+//            DB::connection('mysql')->table('role_has_permissions')->insert($data);
+//        }
+//
+//
+//        foreach (DB::connection('data_source')->table('role_has_permissions')->get() as $itemData) {
+//            $data = collect($itemData)->toArray();
+//            DB::connection('mysql')->table('role_has_permissions')->insert($data);
+//        }
+//
+//
+//
+//        foreach (DB::connection('data_source')->table('model_has_roles')->get() as $itemData) {
+//            $data = collect($itemData)->toArray();
+//            DB::connection('mysql')->table('model_has_roles')->insert($data);
+//        }
+//
+//
+//
+//
+//
+//
+//        foreach (DB::connection('data_source')->table('warranty_subscriptions')->get() as $itemData) {
+//            $data = collect($itemData)->toArray();
+//            DB::connection('mysql')->table('warranty_subscriptions')->insert($data);
+//        }
+
+
+        foreach (DB::connection('data_source')->table('manager_gateways')->get() as $itemData) {
             $data = collect($itemData)->toArray();
-            DB::connection('mysql')->table('role_has_permissions')->insert($data);
+            DB::connection('mysql')->table('manager_gateways')->insert($data);
         }
-
-
-        foreach (DB::connection('data_source')->table('role_has_permissions')->get() as $itemData) {
-            $data = collect($itemData)->toArray();
-            DB::connection('mysql')->table('role_has_permissions')->insert($data);
-        }
-
-
-
-        foreach (DB::connection('data_source')->table('model_has_roles')->get() as $itemData) {
-            $data = collect($itemData)->toArray();
-            DB::connection('mysql')->table('model_has_roles')->insert($data);
-        }
-
-
-
-
-
-
-        foreach (DB::connection('data_source')->table('warranty_subscriptions')->get() as $itemData) {
-            $data = collect($itemData)->toArray();
-            DB::connection('mysql')->table('warranty_subscriptions')->insert($data);
-        }
-
     }
 }

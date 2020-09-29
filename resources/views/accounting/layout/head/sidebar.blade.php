@@ -223,9 +223,13 @@
                             </a></li>
 
                         <li>
-                            <a href="{{route('financial_statements.index')}}"><i class="fa fa-sun"></i>
-                               القوائم المالية
+                            <a href="{{route('financial_statements.trial_balance')}}"><i class="fa fa-sun"></i>
+                                 ميزان المراجعة
                             </a></li>
+{{--                        <li>--}}
+{{--                            <a href="{{route('financial_statements.index')}}"><i class="fa fa-sun"></i>--}}
+{{--                               القوائم المالية--}}
+{{--                            </a></li>--}}
                     @endcan
                     @can('view transactions')
                         <li>

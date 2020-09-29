@@ -107,7 +107,7 @@ class StoreSaleRequest extends FormRequest
 
             dispatch(new StoreSalePaymentsJob($invoice, $paymentsMethods));
             dispatch(new StoreSaleTransactionsJob($invoice));
-            DB::commit();
+            DB::rollBack();
             return $invoice;
         } catch (QueryException $queryException) {
             DB::rollBack();

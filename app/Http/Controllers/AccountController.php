@@ -48,6 +48,7 @@ class AccountController extends Controller
      *
      * @param Account $account
      *
+     * @param Request $request
      * @return Response
      */
     public function show(Account $account, Request $request)
@@ -56,18 +57,11 @@ class AccountController extends Controller
             return redirect(route('accounts.show.stock', $account->id));
         }
 
-        // if ($account->slug == 'clients') {
-        //     $users = User::where('is_client', true)->paginate(50);
-        //     return view('accounting.charts.transactions.identity', compact('users', 'account'));
-        // } else if ($account->slug == 'vendors') {
-        //     $users = User::where('is_vendor', true)->paginate(50);
-        //     return view('accounting.charts.transactions.identity', compact('users', 'account'));
-        // } else if ($account->slug == 'stock') {
-        //     $items = $this->get_account_stock_item_transactions();
-        //     $items = $items['items'];
-        //     return view('accounting.charts.transactions.items', compact('items', 'account'));
 
-        // }
+        if ($account->slug == 'vendors' || $account->slug == 'clients') {
+            return redirect(route('accounts.show.users', $account->id));
+        }
+
 
          return view('accounting.charts.transactions.v2.index', compact('account'));
     }
@@ -83,30 +77,6 @@ class AccountController extends Controller
 
 
 
-    public function showVendors(Account $account)
-    {
-        if ($account->slug != 'vendors') {
-            return back();
-        }
-        return view('accounting.charts.transactions.items', compact('items', 'account'));
-    }
-
-
-    public function showClients(Account $account)
-    {
-        if ($account->slug != 'clients') {
-            return back();
-        }
-        return view('accounting.charts.transactions.items', compact('items', 'account'));
-    }
-
-
-
-    public function showItem(Account $account, Item $item ){
-
-        $transactions = $account->transactions()->where('item_id',$item->id)->paginate(50);
-        return view('accounting.charts.transactions.item',compact('item','transactions','account'));
-    }
     /**
      * Show the form for editing the specified resource.
      *

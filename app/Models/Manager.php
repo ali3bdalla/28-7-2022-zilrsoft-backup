@@ -59,26 +59,28 @@ class Manager extends BaseAuthModel
     /**
      * @return mixed
      */
-    public function private_transactoins()
+    public function resellerClosingAccounts()
     {
-        return $this->hasMany(ManagerPrivateTransactions::class, 'creator_id');
+        return $this->hasMany(ResellerClosingAccount::class, 'creator_id');
     }
 
-    public function dailyTransactionsAmount($period = null)
-    {
+//    public function dailyTransactionsAmount($period = null)
+//    {
+////
+//        $startAt = Carbon::parse($period)->toDateTimeString();
+//        $dailyAccount = Account::where([
+//            ['slug', 'temp_reseller_account'],
+//            ['is_system_account', true],
+//        ])->first();
+//
+//        return $dailyAccount->debit_transaction()->where('creator_id', $this->id)
+//                ->sum('amount') -
+//            $dailyAccount->credit_transaction()->where('creator_id', $this->id)
+//                ->sum('amount');
+////
+//    }
+//
 
-        $startAt = Carbon::parse($period)->toDateTimeString();
-        $dailyAccount = Account::where([
-            ['slug', 'temp_reseller_account'],
-            ['is_system_account', true],
-        ])->first();
-
-        return $dailyAccount->debit_transaction()->where('creator_id', $this->id)
-                ->sum('amount') -
-            $dailyAccount->credit_transaction()->where('creator_id', $this->id)
-                ->sum('amount');
-
-    }
 
     public function organization()
     {

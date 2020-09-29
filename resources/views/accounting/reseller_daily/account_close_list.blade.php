@@ -4,7 +4,7 @@
 
 @section('buttons')
 
-    <a class="btn btn-custom-primary" href="{{ route('accounting.reseller_daily.account_close') }}">انشاء اقفال</a>
+    <a class="btn btn-custom-primary" href="{{ route('daily.reseller.closing_accounts.create') }}">انشاء اقفال</a>
     <a class="btn btn-custom-primary" href="{{ route('accounting.reseller_daily.transfer_list') }}">التحويلات
     </a>
 
