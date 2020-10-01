@@ -1,1 +1,0 @@
-<?php /**PATH /usr/local/var/www/workspace/zilrsoft/resources/views/accounting_module/entities/show.blade.php ENDPATH**/ ?>

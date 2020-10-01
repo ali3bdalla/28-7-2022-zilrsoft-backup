@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Purchases\StoreDraftPurchaseRequest;
 use App\Http\Requests\Purchases\StoreReturnPurchaseRequest as StoreReturnPurchaseRequestAlias;
 use App\Http\Requests\Sales\FetchSalesRequest;
+use App\Http\Requests\Sales\StoreDraftSaleRequest;
 use App\Http\Requests\Sales\StoreReturnSaleRequest;
 use App\Http\Requests\Sales\StoreSaleRequest;
 use App\Models\Invoice;

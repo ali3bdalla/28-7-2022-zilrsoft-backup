@@ -55,6 +55,7 @@ class InvoiceItems extends BaseModel
         'discount' => 'float',
         'net' => 'float',
         'price' => 'float',
+        'is_draft' => 'boolean'
     ];
 
     protected static function boot()

@@ -33,7 +33,7 @@
 
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view item')): ?>
                         <li>
-                            <a href="<?php echo e(route('accounting.items.index')); ?>"><i class="fab fa-product-hunt"></i>
+                            <a href="<?php echo e(route('items.index')); ?>"><i class="fab fa-product-hunt"></i>
                                 <?php echo e(__('sidebar.items')); ?>
 
                             </a></li>

@@ -48,7 +48,7 @@ class StoreSaleItemsJob implements ShouldQueue
      */
     public function handle()
     {
-        foreach ((array)$this->items as $key => $value) {
+        foreach ((array) $this->items as $key => $value) {
             $item = Item::find($value['id']);
             if ($item->is_kit) {
                 $this->storeKit($item, $value);
@@ -61,21 +61,22 @@ class StoreSaleItemsJob implements ShouldQueue
     public function storeKit(Item $dbItem, $value)
     {
         $itemPureCollection = collect($value);
-        $qty = (int)$itemPureCollection->get('qty');
+        $qty = (int) $itemPureCollection->get('qty');
         $data['belong_to_kit'] = false;
         $data['parent_kit_id'] = 0;
-        $data['discount'] = (float)($dbItem->data->discount * $qty);
-        $data['price'] = (float)$dbItem->data->total;
+        $data['discount'] = (float) ($dbItem->data->discount * $qty);
+        $data['price'] = (float) $dbItem->data->total;
         $data['qty'] = $qty;
-        $data['total'] = (float)$data['price'] * (float)$data['qty'];
-        $data['subtotal'] = (float)$data['total'] - (float)$data['discount'];
-        $data['net'] = (float)$data['subtotal'] + ($dbItem->data->tax * $qty);
+        $data['total'] = (float) $data['price'] * (float) $data['qty'];
+        $data['subtotal'] = (float) $data['total'] - (float) $data['discount'];
+        $data['net'] = (float) $data['subtotal'] + ($dbItem->data->tax * $qty);
         $data['organization_id'] = $this->invoice->organization_id;
         $data['creator_id'] = $this->invoice->creator_id;
         $data['item_id'] = $dbItem->id;
         $data['user_id'] = $this->invoice->user_id;
         $data['invoice_type'] = 'sale';
         $data['is_kit'] = true;
+        $data['is_draft'] = $this->isDraft;
         $invoiceKitItem = $this->invoice->items()->create($data);
         $this->storeKitItems($itemPureCollection, $dbItem, $invoiceKitItem->id, $qty);
         dispatch(new UpdateKitByInvoiceItemsJob($invoiceKitItem));
@@ -93,13 +94,12 @@ class StoreSaleItemsJob implements ShouldQueue
                     $sendData['serials'] = [];
                 }
             }
-            $sendData['qty'] = (int)$kitItem->qty * (int)$qty;
-            $sendData['discount'] = (float)$kitItem->discount * (int)$qty;
+            $sendData['qty'] = (int) $kitItem->qty * (int) $qty;
+            $sendData['discount'] = (float) $kitItem->discount * (int) $qty;
             $sendData['price'] = $kitItem->price;
             $sendData['belong_to_kit'] = true;
             $sendData['parent_kit_id'] = $invoiceKitId;
             $sendData['id'] = $dbItem->id;
-
 
             /***
              * =====================================
@@ -111,12 +111,10 @@ class StoreSaleItemsJob implements ShouldQueue
         }
     }
 
-
     private function storeItem(Item $item, $value)
     {
 
         $requestItemCollection = collect($value);
-
 
         /**
          * ==========================================================
@@ -133,7 +131,6 @@ class StoreSaleItemsJob implements ShouldQueue
          */
         $invoiceItem = $this->createInvoiceItem($item, $requestItemCollection);
 
-
         /**
          * ==========================================================
          * if it need serial change the serial list status
@@ -142,7 +139,6 @@ class StoreSaleItemsJob implements ShouldQueue
         if ($item->is_need_serial) {
             dispatch(new UpdateItemSerialStatusByInvoiceItemJob($requestItemCollection->get('serials'), $invoiceItem, $this->isDraft));
         }
-
 
         /**
          * ==========================================================
@@ -171,36 +167,36 @@ class StoreSaleItemsJob implements ShouldQueue
                  */
                 $this->setCostAndAvailableQty($invoiceItem);
 
-                /**
-                 * ==========================================================
-                 * update items total profits amount
-                 * ==========================================================
-                 */
             }
 
+            /**
+             * ==========================================================
+             * update items total profits amount
+             * ==========================================================
+             */
             dispatch(new UpdateItemProfitByInvoiceItem($invoiceItem));
-        }
 
+        }
 
     }
 
     private function createInvoiceItem(Item $item, $requestItemCollection)
     {
 
-        $isBelongToKit = (bool)$requestItemCollection->get('belong_to_kit');
-        $parentKitId = (int)$requestItemCollection->get('parent_kit_id');
-        if (!$isBelongToKit && $item->is_fixed_price)
-            $price = (float)$item->price;
-        else
-            $price = (float)$requestItemCollection->get('price');
+        $isBelongToKit = (bool) $requestItemCollection->get('belong_to_kit');
+        $parentKitId = (int) $requestItemCollection->get('parent_kit_id');
+        if (!$isBelongToKit && $item->is_fixed_price) {
+            $price = (float) $item->price;
+        } else {
+            $price = (float) $requestItemCollection->get('price');
+        }
 
-        $discount = (float)$requestItemCollection->get('discount');
-        $qty = (int)$requestItemCollection->get('qty'); // 10
+        $discount = (float) $requestItemCollection->get('discount');
+        $qty = (int) $requestItemCollection->get('qty'); // 10
         $total = $price * $qty;
         $subtotal = $total - $discount;
         $tax = ($subtotal * $item->vts) / 100;
         $net = $subtotal + $tax;
-
 
         $data['belong_to_kit'] = $isBelongToKit;
         $data['parent_kit_id'] = $parentKitId;
@@ -217,7 +213,6 @@ class StoreSaleItemsJob implements ShouldQueue
         $data['creator_id'] = $this->loggedUser->id;
         $data['item_id'] = $item->id;
         $data['is_draft'] = $this->isDraft;
-
         return $this->invoice->items()->create($data);
 
     }
@@ -227,7 +222,7 @@ class StoreSaleItemsJob implements ShouldQueue
         $invoiceItem->update([
             'cost' => $invoiceItem->item->fresh()->cost,
             'available_qty' => $invoiceItem->item->fresh()->available_qty,
-            'total_stock_cost_amount' => (float)$invoiceItem->item->fresh()->cost * (float)$invoiceItem->item->fresh()->available_qty,
+            'total_stock_cost_amount' => (float) $invoiceItem->item->fresh()->cost * (float) $invoiceItem->item->fresh()->available_qty,
         ]);
     }
 }
