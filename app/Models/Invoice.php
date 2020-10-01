@@ -46,12 +46,18 @@ class Invoice extends Model
     {
         parent::boot();
 
+
+        static::addGlobalScope('draft', function (Builder $builder) {
+            $builder->where('is_draft', false);
+        });
+
+
         static::addGlobalScope('order', function (Builder $builder) {
             $builder->orderBy('created_at', 'desc');
         });
 
         if (auth()->check() && !auth()->user()->can('manage branches')) {
-            static::addGlobalScope('currentManagerInvoicesOnly', function (Builder $builder) {
+            static::addGlobalScope('manager', function (Builder $builder) {
                 $builder->where('creator_id', auth()->user()->id);
             });
         }

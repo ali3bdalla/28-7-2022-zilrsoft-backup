@@ -96,7 +96,7 @@ class FetchSalesRequest extends FormRequest
                 $number = $this->input('title');
             }
 
-            $query = $query->where('id', $number)->withoutGlobalScope('currentManagerInvoicesOnly');
+            $query = $query->where('id', $number)->withoutGlobalScope('manager');
         }
 
         if ($this->has('net') && $this->filled('net')) {
