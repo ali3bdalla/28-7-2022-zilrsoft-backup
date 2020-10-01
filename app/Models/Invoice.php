@@ -46,15 +46,15 @@ class Invoice extends Model
     {
         parent::boot();
 
-        static::addGlobalScope('ordered', function (Builder $builder) {
+        static::addGlobalScope('order', function (Builder $builder) {
             $builder->orderBy('created_at', 'desc');
         });
 
-        // if (auth()->check() && !auth()->user()->can('manage branches')) {
-        //     static::addGlobalScope('currentManagerInvoicesOnly', function (Builder $builder) {
-        //         $builder->where('creator_id', auth()->user()->id);
-        //     });
-        // }
+        if (auth()->check() && !auth()->user()->can('manage branches')) {
+            static::addGlobalScope('currentManagerInvoicesOnly', function (Builder $builder) {
+                $builder->where('creator_id', auth()->user()->id);
+            });
+        }
     }
 
     public function user()

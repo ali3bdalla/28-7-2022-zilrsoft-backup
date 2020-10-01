@@ -37,10 +37,11 @@ class Account extends BaseModel
     protected static function boot()
     {
         parent::boot();
-
-        static::addGlobalScope('ordered', function (Builder $builder) {
+        static::addGlobalScope('order', function (Builder $builder) {
             $builder->orderBy('created_at', 'desc');
         });
+
+        
     }
 
     public function getSerialArrayAttribute($value)

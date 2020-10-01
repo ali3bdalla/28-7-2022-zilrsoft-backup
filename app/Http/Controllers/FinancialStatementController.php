@@ -32,7 +32,7 @@ class FinancialStatementController extends Controller
 
             $children = Account::whereIn('id', $mainAccount->getChildrenHashMap())->where([[
                 'id', '!=', $mainAccount->id,
-            ]])->withCount('children')->having('children_count', 0)->get();
+            ]])->get();//->withCount('children')->having('children_count', 0)
             $mainAccountChildren = [];
             foreach ($children as $account) {
 
@@ -50,11 +50,11 @@ class FinancialStatementController extends Controller
                         $accountDebitBalance = $accountTotalAmount < 0 ? 0 : $accountTotalAmount;
                     }
 
-                    $account->credit_amount = $creditAmount;
-                    $account->debit_amount = $debitAmount;
-                    $account->total_amount = $accountTotalAmount;
-                    $account->credit_balance = $accountCreditBalance;
-                    $account->debit_balance = $accountDebitBalance;
+                    $account->credit_amount = roundMoney($creditAmount);
+                    $account->debit_amount = roundMoney($debitAmount);
+                    $account->total_amount = roundMoney($accountTotalAmount);
+                    $account->credit_balance = roundMoney($accountCreditBalance);
+                    $account->debit_balance = roundMoney($accountDebitBalance);
 
                     $totalCreditAmount = $totalCreditAmount + ((float) $creditAmount);
                     $totalDebitAmount = $totalDebitAmount + ((float) $debitAmount);

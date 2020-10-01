@@ -22,16 +22,7 @@ Route::prefix('accounts/{account}/view')->name('accounts.show.')->group(function
 
 
 Route::prefix('entities')->name('entities.')->group(function () {
-    // Route::get('load_children/{account}/list', "ChartsController@load_children")->name('load_children');
     Route::get('user/{account}/{user}', "EntityController@showUserEntities")->name('user');
-    // Route::get('vendor/{vendor}/{account}', "ChartsController@vendor")->name('vendor');
-    // Route::get('item/{item}/{account}', "ChartsController@item")->name('item');
-    // Route::get('{account}/delete', "ChartsController@delete");
-    // Route::get('{account}/transactions_datatable', "ChartsController@transactions_datatable")->name('transactions_datatable');
-    // Route::prefix('reports')->name('reports.')->group(function () {
-    //     Route::get('index', "ChartsController@reports")->name('index');
-    //     Route::get('{account}/result', "ChartsController@reports_result")->name('result');
-    // });
 });
 
 

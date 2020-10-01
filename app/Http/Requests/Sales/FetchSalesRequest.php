@@ -37,6 +37,7 @@ class FetchSalesRequest extends FormRequest
     public function getData()
     {
 
+        // return 1;
         if ($this->has('invoice_type') && $this->filled('invoice_type') && $this->input('invoice_type') === 'quotation') {
             $getOnly = ['quotation'];
         } else {
@@ -170,7 +171,7 @@ class FetchSalesRequest extends FormRequest
         if ($this->has('orderBy') && $this->filled('orderBy') && $this->has('orderType') && $this->filled('orderType')) {
             $query = $query->orderBy($this->orderBy, $this->orderType);
         } else {
-            $query = $query->orderByDesc("id");
+            // $query = $query->orderByDesc("id");
         }
 
         $query = $query->withCount([

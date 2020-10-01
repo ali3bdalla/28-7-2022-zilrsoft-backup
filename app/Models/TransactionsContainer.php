@@ -17,7 +17,7 @@
 		{
 			parent::boot();
 
-            static::addGlobalScope('ordered', function (Builder $builder) {
+            static::addGlobalScope('order', function (Builder $builder) {
                 $builder->orderBy('created_at', 'desc');
             });
 

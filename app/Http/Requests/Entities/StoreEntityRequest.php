@@ -85,9 +85,8 @@ class StoreEntityRequest extends FormRequest
                 if ($account->slug == 'vendors') {
                     $transactionData['user_id'] = $transaction['user_id'];
                     $this->updateUserBalance('vendor', $transactionData, $account);
-
-
                 }
+                
                 $entity->transactions()->create($transactionData);
             }
             DB::commit();

@@ -48,13 +48,16 @@
         <th><?php echo e($total_credit); ?></th>
         </thead>
 
-        <?php if(money_format("%i",$total_debit)!=money_format("%i",$total_credit)): ?>
-            <script>
-                alert('توجد مشكلة بالعمليات المحاسبية لهذه الفاتورة')
-            </script>
-        <?php endif; ?>
+
+
+
+
+
+
 
 
         </table>
+
+
     </div>
 <?php endif; ?><?php /**PATH /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/include/invoice/view_transactions.blade.php ENDPATH**/ ?>

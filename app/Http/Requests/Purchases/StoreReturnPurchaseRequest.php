@@ -3,16 +3,14 @@
 namespace App\Http\Requests\Purchases;
 
 use App\Http\Controllers\Api\Traits\ReturnInvoiceTraits;
-use App\Jobs\Accounting\Purchase\StorePurchaseTransactionsJob;
 use App\Jobs\Accounting\Purchase\StoreReturnPurchaseTransactionsJob;
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
 use App\Jobs\Items\Serial\ValidateItemSerialJob;
-use App\Jobs\Purchases\Items\StorePurchaseItemsJob;
 use App\Jobs\Purchases\Items\StoreReturnPurchaseItemsJob;
+use App\Jobs\Purchases\Payment\StoreReturnPurchasePaymentsJob;
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
-use App\Models\Item;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
@@ -46,7 +44,9 @@ class StoreReturnPurchaseRequest extends FormRequest
             'items.*.returned_qty' => 'required',
             'items.*.serials' => 'array',
             'items.*.serials.*' => 'required|exists:item_serials,serial',
-
+            'methods' => 'array',
+            'methods.*.id' => 'required|integer|exists:accounts,id',
+            'methods.*.amount' => 'required|numeric',
 //            'methods.*.id' => 'integer|required|exists:accounts,id',
         ];
     }
@@ -80,6 +80,7 @@ class StoreReturnPurchaseRequest extends FormRequest
             ]);
             dispatch(new UpdateInvoiceNumberJob($invoice, 'RPU-'));
             dispatch(new StoreReturnPurchaseItemsJob($invoice, $purchaseInvoice, (array)$returnedItems));
+            dispatch(new StoreReturnPurchasePaymentsJob($invoice, $this->input('methods')));
             dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             dispatch(new StoreReturnPurchaseTransactionsJob($invoice->fresh()));
             DB::commit();

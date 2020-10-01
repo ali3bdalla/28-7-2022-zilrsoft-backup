@@ -17,7 +17,9 @@ class StorePurchaseTransactionsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $invoice, $vendorAccount, $loggedUser, $startupData, $stockAccount, $taxAccount;
+    private $invoice, $vendorAccount, $loggedUser, $startupData, $stockAccount, $taxAccount,$amountPaidViaMethods = 0;
+
+
 
     /**
      * Create a new job instance.
@@ -58,10 +60,26 @@ class StorePurchaseTransactionsJob implements ShouldQueue
     public function handle()
     {
         $this->createItemsTransactions();
+        $this->createPaymentsTransactions();
         $this->createVendorBalanceTransaction();
         $this->createTaxTransaction();
 
     }
+
+    private function createPaymentsTransactions()
+    {
+        $data = $this->startupData;
+        $data['type'] = 'credit';
+        $data['user_id'] = $this->invoice->user_id;
+        foreach ($this->invoice->payments()->get() as $key => $payment) {
+            $data['amount'] = $payment->amount;
+            $payment->account->transactions()->create($data);
+            $this->amountPaidViaMethods+= $data['amount'];
+        }
+    }
+
+
+
 
     private function createItemsTransactions()
     {
@@ -81,12 +99,28 @@ class StorePurchaseTransactionsJob implements ShouldQueue
 
     private function createVendorBalanceTransaction()
     {
+        $unpaidAmount = (float)$this->invoice->net - (float)$this->amountPaidViaMethods;
         $data = $this->startupData;
-        $data['amount'] = $this->invoice->net;
-        $data['user_id'] = $this->invoice->purchase->vendor_id;
-        $data['type'] = 'credit';
-        $this->vendorAccount->transactions()->create($data);
-        dispatch(new UpdateVendorBalanceJob($this->invoice->purchase->vendor, $this->invoice->net, 'increase'));
+
+        if($unpaidAmount != 0)
+        {
+            if($unpaidAmount > 0)
+            {
+                $data['type'] = 'credit';
+                $balanceUpdate = 'increase';
+            }else
+            {
+                $data['type'] = 'debit';
+                $balanceUpdate = 'decrease';
+            }
+
+            $data['amount'] = abs($unpaidAmount);
+            $data['user_id'] = $this->invoice->purchase->vendor_id;
+            $this->vendorAccount->transactions()->create($data);
+            dispatch(new UpdateVendorBalanceJob($this->invoice->purchase->vendor, abs($unpaidAmount), $balanceUpdate));
+
+        }
+
     }
 
     private function createTaxTransaction()

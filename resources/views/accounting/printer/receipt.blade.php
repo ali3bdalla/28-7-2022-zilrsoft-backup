@@ -67,7 +67,7 @@
             رقم الفاتورة
         </div>
         <div class="col-xs-12 text-center" style="font-size: 35px !important;">
-            {{$invoice->title }}
+            {{$invoice->invoice_number }}
         </div>
     </div>
 
@@ -76,12 +76,14 @@
         <div class="col-xs-6 text-left">
             {{ $invoice->sale->alice_name == "" ? $invoice->sale->client->locale_name :$invoice->sale->alice_name   }}</div>
     </div>
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-xs-6"> الحالة</div>
         <div class="col-xs-6 text-left">
-            {{ $invoice->current_status=='paid' ? trans('pages/invoice.paid') :  trans('pages/invoice.credit') }}
-        </div>
-    </div>
+           {{ trans('pages/invoice.paid') }}
+           {{-- {{ $invoice->current_status=='paid' ?  --}}
+           {{-- :  trans('pages/invoice.credit') }} --}}
+        {{-- </div>
+    </div>  --}}
 
 
     <div class="row">
@@ -145,7 +147,7 @@
                 </thead>
 
                 @foreach($invoice->items as $item)
-                    @if($item->belong_to_kit==false  && $item->printable  && $item->item != null)
+                    @if($item->belong_to_kit==false  && $item->show_price_in_print_mode  && $item->item != null)
                     <tbody>
 
 
@@ -159,7 +161,7 @@
                     </tr>
                     <tr>
                         <td style="margin-right: -2px;"><span>الكمية</span></td>
-                        @if($invoice->printable_price)
+                        @if($invoice->show_items_price_in_print_mode)
                             <td><span>السعر</span></td>
                             <td><span>المجموع</span></td>
                             <td><span>الخصم</span></td>
@@ -168,7 +170,7 @@
                             <td><span>النهائي</span></td>
                         @endif
                     </tr>
-                    @if($invoice->printable_price)
+                    @if($invoice->show_items_price_in_print_mode)
                         <tr>
                             <td style="padding-right:10px;"><span>{{ $item->qty }}</span></td>
 
@@ -186,17 +188,16 @@
                     @if($item->item->is_need_serial)
                         @foreach($item->item->serials()
                                    ->where([
-                                   ["sale_invoice_id",$invoice->id],
-                                   ["item_id",$item->item->id],
+                                   ["sale_id",$invoice->id],
                                    ])
-                                   ->orWhere([["return_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                   ->orWhere([["return_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                   ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                   ->orWhere([["return_sale_id",$invoice->id]])
+                                   ->orWhere([["return_purchase_id",$invoice->id]])
+                                   ->orWhere([["purchase_id",$invoice->id]])
                                    ->get() as $index => $serial
                                    )
                             <tr>
                                 <td style="padding-right:10px;text-align: right"
-                                    colspan="@if($invoice->printable_price) 6 @else 2 @endif">
+                                    colspan="@if($invoice->show_items_price_in_print_mode) 6 @else 2 @endif">
                                     <span>{{ $serial->serial }}</span></td>
 
                             </tr>
@@ -250,17 +251,17 @@
         <div class="col-xs-12">
             <div class="header_title">
                 <span class="pull-right"> النهائى</span>
-                <span class="pull-left"> <span> {{money_format('%i ريال',$invoice->net - $invoice->remaining)
+                <span class="pull-left"> <span> {{money_format('%i ريال',$invoice->net )
                     }}</span></span>
             </div>
         </div>
 
-        <div class="col-xs-12">
+        {{-- <div class="col-xs-12">
             <div class="header_title">
                 <span class="pull-right"> المبتقي</span>
                 <span class="pull-left">  {{money_format('%i ريال',$invoice->remaining) }}</span>
             </div>
-        </div>
+        </div> --}}
 
 
     </div>
@@ -335,7 +336,7 @@
 
 <script>
     $("#barcode_demo").barcode(
-        "{{ $invoice->title }}",// Value barcode (dependent on the type of barcode)
+        "{{ $invoice->invoice_number }}",// Value barcode (dependent on the type of barcode)
 
         "code39" // type (string)
 

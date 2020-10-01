@@ -24,8 +24,8 @@ class Transaction extends BaseModel
         parent::boot();
 
 
-        static::addGlobalScope('ordered', function (Builder $builder) {
-            $builder->orderBy('container_id', 'desc');
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('created_at', 'desc');
         });
 
         if (auth()->check()) {

@@ -2,12 +2,15 @@
 
 namespace Tests\Feature\App;
 
+use App\Models\Account;
 use App\Models\Manager;
+use App\Models\Transaction;
 use App\Models\TransactionsContainer;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class CreateManualTransactionsTest extends TestCase
@@ -34,10 +37,14 @@ class CreateManualTransactionsTest extends TestCase
     public function test_create_manual_transactions()
     {
 
+
+
+
         $transactionsContainers = $this->dbConnection->table('transactions_containers')
             ->where([
                 ['invoice_id','0'],
                 ['is_pending','0'],
+                ['id','>',23840]
             ])->get();
 
         $manager = Manager::find(1);
@@ -45,7 +52,6 @@ class CreateManualTransactionsTest extends TestCase
         foreach ($transactionsContainers as $container)
         {
 
-            echo "\n{$container->id}";
             $transactions = $this->dbConnection->table('transactions')->where([
                 ['container_id',$container->id],
                 ['invoice_id',null],
@@ -106,8 +112,6 @@ class CreateManualTransactionsTest extends TestCase
 
 
             }
-
-//            dd($creditAmount,$debitAmount);
 
 
         }

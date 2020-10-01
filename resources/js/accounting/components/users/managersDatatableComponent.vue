@@ -193,7 +193,7 @@
                 isOpenSearchPanel: false,
                 departments: [],
                 baseUrl: "",
-                orderBy: "id",
+                orderBy: "created_at",
                 orderType: "desc",
                 yourValue: null,
                 table_rows: [],

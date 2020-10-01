@@ -5,10 +5,6 @@ namespace App\Attributes;
 trait InvoiceAttributes
 {
 
-  
-
-
-    
     // public function isPurchase()
     // {
     //     return in_array($this->invoice_type, ['purchase', 'beginning_inventory']);
@@ -203,24 +199,24 @@ trait InvoiceAttributes
     //     return $this->purchase->vendor->locale_name;
     // }
 
-    // public function getSteakholderTypeAttribute()
-    // {
-    //     if (in_array($this->invoice_type, ['sale', 'return_sale', 'quotation'])) {
-    //         return __('pages/invoice.client');
-    //     }
+    public function getUserTypeAttribute()
+    {
+        if (in_array($this->invoice_type, ['sale', 'return_sale', 'quotation'])) {
+            return __('pages/invoice.client');
+        }
 
-    //     return __('pages/invoice.vendor');
-    // }
+        return __('pages/invoice.vendor');
+    }
 
-    // //served_title
-    // public function getServedTitleAttribute()
-    // {
-    //     if (in_array($this->invoice_type, ['sale', 'return_sale', 'quotation'])) {
-    //         return __('pages/invoice.salesman');
-    //     }
+    //served_title
+    public function getManagerTypeAttribute()
+    {
+        if (in_array($this->invoice_type, ['sale', 'return_sale', 'quotation'])) {
+            return __('pages/invoice.salesman');
+        }
 
-    //     return __('pages/invoice.receiver');
-    // }
+        return __('pages/invoice.receiver');
+    }
 
     // public function getSteakholderPhoneNumberAttribute()
     // {
@@ -244,24 +240,26 @@ trait InvoiceAttributes
     {
 
         if ($this->invoice_type == 'quotation') {
-            if (app()->isLocale('ar'))
+            if (app()->isLocale('ar')) {
                 return asset('template/images/quotation-ar.png');
-            else
+            } else {
                 return asset('template/images/quotation.png');
+            }
 
         }
 
-        if ($this->current_status == 'paid') {
-            if (app()->isLocale('ar'))
-                return asset('template/images/paid-ar.png');
-            else
-                return asset('template/images/paid.png');
-
+        // if ($this->current_status == 'paid') {
+        if (app()->isLocale('ar')) {
+            return asset('template/images/paid-ar.png');
         } else {
-
-            return ":";
-
+            return asset('template/images/paid.png');
         }
+
+        // } else {
+
+        //     return ":";
+
+        // }
 
     }
 

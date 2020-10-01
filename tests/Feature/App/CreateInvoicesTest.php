@@ -21,83 +21,183 @@ class CreateInvoicesTest extends TestCase
     private $needManualRefactoringInvoices = [];
 
     private $updatedItems = [];
+
+//    private $
     /**
      * @var ConnectionInterface
      */
     private $dbConnection;
 
-    public function test_parse_issues_invoices()
+
+    
+
+
+    public function createSale($invoice)
     {
+        $sale = $this->dbConnection->table('sale_invoices')->where('invoice_id', $invoice->id)->first();
+        $dbItems = $this->dbConnection->table('invoice_items')->where([
+            ['invoice_id', $invoice->id],
+            ['belong_to_kit', false],
+        ])->get();
 
 
-        // 1442, 1599, 3252, 3482, 3908, 5111, 4418, 4419, 4420, 4447, 4475, 4508, 4511, 4549, 4552, 4563, 4571, 4575, 4589, 4591, 4597, 4601, 4625, 4634,
-        //     4637, 4642, 4647, 4652, 4664, 4708, 4714, 4724, 4728, 4729, 4749, 4764, 4778, 4781, 4797, 4817, 4845, 4894, 4903, 4905, 4913, 4924, 4942, 4964, 4966, 4993, 5010, 5014, 5017,
-        //     5031, 9429,9969, 9970, 16987,17464, 17651, 17659, 20840, 20912, 20979, 21856, 21860,
-        $invoices = $this->dbConnection->table('invoices')->whereIn('id', [   22354])->get();
+        
+        $payments = $this->getMethods($invoice->id);
 
-        foreach ($invoices as $invoice) {
-            echo "\nstarting.......................\n";
-            echo "source id " . $invoice->id . "\n";
-            echo 'source type ' . $invoice->invoice_type . "\n";
-            $createdInvoiceId = 0;
-
-            if ($invoice->invoice_type == 'beginning_inventory') {
-                $createdInvoiceId = $this->createBeginningInventory($invoice);
-            } elseif ($invoice->invoice_type == 'purchase') {
-                $createdInvoiceId = $this->createPurchase($invoice);
-            } elseif ($invoice->invoice_type == 'r_purchase') {
-                $createdInvoiceId = $this->createReturnPurchase($invoice);
-            } elseif ($invoice->invoice_type == 'sale') {
-                $createdInvoiceId = $this->createSale($invoice);
-            } elseif ($invoice->invoice_type == 'r_sale') {
-                $createdInvoiceId = $this->createReturnSale($invoice);
-            }
-
-//            dd($createdInvoiceId)
-
-            if ($createdInvoiceId > 0) {
-                dispatch(new UpdateInvoiceCreatedAtJob($createdInvoiceId, $invoice->created_at));
-
-                $this->dbConnection->table('invoices')->where('id', $invoice->id)->update([
-                    'new_db_id' => $createdInvoiceId,
-                ]);
-
-            }
-
-            echo 'created invoice id ' . $createdInvoiceId . "\n";
-            echo "ending ............... \n";
-
-            $totalDebitAmount = Account::sum('total_debit_amount');
-            $totalCreditAmount = Account::sum('total_credit_amount');
-            $variation = abs($totalDebitAmount - $totalCreditAmount);
-            $this->assertLessThanOrEqual(1, $variation);
+        if ($payments == null && $sale->client_id == 2) {
+            $tempResellerAccount = Account::where('slug', 'temp_reseller_account')->first()->toArray();
+            $tempResellerAccount['amount'] = $invoice->net;
+            $payments[] = $tempResellerAccount;
         }
 
+        if ($sale != null && $dbItems != null) {
+            $items = [];
+            
 
-        dd($needManualRefactoringInvoices);
-        //    dd($invoices);
+            foreach ($dbItems as $item) {
+
+                $dbItem = $this->dbConnection->table('items')->find($item->item_id);
+
+                $newDBItem = Item::find($item->item_id);
+                if ($dbItem != null && $newDBItem != null && (!$newDBItem->is_kit || !$newDBItem->is_service || !$newDBItem->is_expense || $newDBItem->available_qty >= $item->qty)) {
+
+                    $this->updateItemDetails($newDBItem, $invoice);
+
+                    $requestItem = [];
+                    $requestItem['id'] = $item->item_id;
+                    $requestItem['price'] = $item->price;
+                    $requestItem['qty'] = $item->qty;
+                    $requestItem['discount'] = $item->discount;
+
+                    if ($dbItem->is_need_serial) {
+                        $serials = $this->dbConnection->table('item_serials')->where([
+                            ['sale_invoice_id', $invoice->id],
+                            ['item_id', $dbItem->id],
+                        ])->pluck('serial')->toArray();
+                        $requestSerials = [];
+                        foreach ($serials as $serial) {
+                            $dbSerial = ItemSerials::where([
+                                ['serial', $serial],
+                                ['item_id', $dbItem->id],
+                            ])->whereIn('status', ['sold'])->first();
+                            if ($dbSerial == null) {
+                                $requestSerials[] = $serial;
+
+                            }
+                        }
+
+                        $requestItem['serials'] = $requestSerials;
+                        $requestItem['qty'] = count($requestSerials);
+                    }
+
+                    if ($dbItem->is_kit) {
+
+                        $dbKitItems = $this->dbConnection->table('invoice_items')->where([
+                            ['invoice_id', $invoice->id],
+                            ['belong_to_kit', true],
+                            ['parent_kit_id', $item->id],
+                        ])->get();
+                        $requestItem['items'] = [];
+
+
+                        // dd($dbKitItems );
+
+                        foreach ($dbKitItems as $kitItem) {
+
+                            $dbKitItem = $this->dbConnection->table('items')->find($kitItem->item_id);
+                            $this->dbConnection->table('items')->find($kitItem->item_id);
+                            $kitItem = KitItems::where([
+                                ['item_id', $dbKitItem->id],
+                                ['kit_id', $item->item_id],
+                            ])->first();
+                            $newDBInstance = Item::find($dbKitItem->id);
+
+
+                            // dd($kitItem);
+
+                            if ($kitItem != null && $newDBInstance != null && (!$newDBInstance->is_service || !$newDBInstance->is_expense  || $newDBInstance->available_qty >= $kitItem->qty)) {
+
+                                $this->updateItemDetails($newDBInstance, $invoice);
+
+                                $requestKitItem['qty'] = $kitItem->qty;
+                                $requestKitItem['id'] = $newDBInstance->id;
+
+                                $items = [];
+                                if ($dbKitItem->is_need_serial) {
+                                    $requestKitItem['serials'] = $this->dbConnection->table('item_serials')->where([
+                                        ['sale_invoice_id', $invoice->id],
+                                        ['item_id', $dbKitItem->id],
+                                    ])->pluck('serial')->toArray();
+
+                                    // dd($requestKitItem);
+                                    $requestKitItem['qty'] = count($requestKitItem['serials']);
+                                }
+                                
+                                $requestItem['items'][] = $requestKitItem;
+
+                            }
+
+
+                        }
+                        // dd($requestItem);
+
+                        if ($requestItem['items'] == null) {
+                            continue;
+                        }
+
+                        // dd($requestItem);
+                    }
+
+
+                    if ($requestItem['qty'] <= 0) {
+                        continue;
+                    }
+
+                    $items[] = $requestItem;
+
+                }
+
+            }
+            $manager = Manager::find(1);
+
+            if ($items != null) {
+                $response = $this->actingAs($manager)->postJson('/api/sales', [
+                    'items' => $items,
+                    'client_id' => $sale->client_id,
+                    'salesman_id' => $sale->salesman_id,
+                    'methods' => $payments,
+                    'without_creating_expenses_purchases' => true,
+                ]);
+                $response
+                    ->dump();
+
+                if ($response->status() == 201) {
+                    $response->assertCreated();
+                    return json_decode($response->content(), true)['id'];
+
+                } 
+                $this->restUpdatedItemsDetails();
+
+            }
+
+        }
+
+        $this->restUpdatedItemsDetails();
+
+        return 0;
     }
+
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function create_invoices()
+    public function test_create_invoices()
     {
 
-//        ->whereIn('id',[1442,1599,3252,3482,3908,5111,4418,4419,4420,4447,4475,4508,4511,4549,4552,4563,4571,4575,4589,4591,4597,4601,4625,4634,
-        //        4637,4642,4647,4652,4664,4708,4714,4724,4728,4729,4749,4764,4778,4781,4797,4817,4845,4894,4903,4905,4913,4924,4942,4964,4966,4993,5010,5014,5017,
-        //        5031,9429,9969,9970,16987,17464,17651,17659,20840,20912,20979,21856,21860,22354])
-
-//         [1442,1599,3252,3482,3908,5111,4418,4419,4420,4447,4475,4508,4511,4549,4552,4563,4571,4575,4589,4591,4597,4601,4625,4634,
-        //        4637,4642,4647,4652,4664,4708,4714,4724,4728,4729,4749,4764,4778,4781,4797,4817,4845,4894,4903,4905,4913,4924,4942,4964,4966,4993,5010,5014,5017
-        //         5031,9429,9969,9970,16987,17464,17651,17659,20840,20912,20979,21856,21860,22354]
-        //        ->where('id', '=', 241)
-        $invoices = $this->dbConnection->table('invoices')->get();
-        //
+        $invoices = $this->dbConnection->table('invoices')->where('id','>',23006)->get();
 
         foreach ($invoices as $invoice) {
-//            $this->needManualRefactoringInvoices[] = $invoice->id;
             echo "\nstarting.......................\n";
             echo "source id " . $invoice->id . "\n";
             echo 'source type ' . $invoice->invoice_type . "\n";
@@ -109,13 +209,12 @@ class CreateInvoicesTest extends TestCase
                 $createdInvoiceId = $this->createPurchase($invoice);
             } elseif ($invoice->invoice_type == 'r_purchase') {
                 $createdInvoiceId = $this->createReturnPurchase($invoice);
-            } elseif ($invoice->invoice_type == 'sale') {
+            }
+             elseif ($invoice->invoice_type == 'sale') {
                 $createdInvoiceId = $this->createSale($invoice);
             } elseif ($invoice->invoice_type == 'r_sale') {
                 $createdInvoiceId = $this->createReturnSale($invoice);
             }
-
-//            dd($createdInvoiceId)
 
             if ($createdInvoiceId > 0) {
                 dispatch(new UpdateInvoiceCreatedAtJob($createdInvoiceId, $invoice->created_at));
@@ -124,6 +223,8 @@ class CreateInvoicesTest extends TestCase
                     'new_db_id' => $createdInvoiceId,
                 ]);
 
+            } else {
+                Storage::append("outputs/file.txt", $invoice->id . ',');
             }
 
             echo 'created invoice id ' . $createdInvoiceId . "\n";
@@ -135,9 +236,7 @@ class CreateInvoicesTest extends TestCase
             $this->assertLessThanOrEqual(1, $variation);
         }
 
-        $content = implode(',', $this->needManualRefactoringInvoices);
-        Storage::put("outputs/file.txt", $content);
-        echo $content;
+
     }
 
     public function createBeginningInventory($invoice)
@@ -193,14 +292,12 @@ class CreateInvoicesTest extends TestCase
                 ->dump();
 
             if ($response->status() == 200) {
-//                $response->assertOk();
                 return json_decode($response->content(), true)['id'];
 
             } else {
                 $this->needManualRefactoringInvoices[] = $invoice->id;
             }
 
-//                ->assertOk();
             $this->restUpdatedItemsDetails();
 
             return json_decode($response->content(), true)['id'];
@@ -216,7 +313,7 @@ class CreateInvoicesTest extends TestCase
     public function updateItemDetails(Item $dbItem, $invoice)
     {
 
-        if (Carbon::parse($invoice->created_at)->lte(Carbon::parse('30-07-2020'))) {
+        if (Carbon::parse($invoice->created_at)->lte(Carbon::parse('30-06-2020'))) {
             $dbItem->update([
                 'vts' => 5,
                 'vtp' => 5,
@@ -252,12 +349,25 @@ class CreateInvoicesTest extends TestCase
 
                 $dbItem = $this->dbConnection->table('items')->find($item->item_id);
                 $newDBItem = Item::find($item->item_id);
+
                 if ($dbItem != null && $newDBItem != null) {
+
                     $this->updateItemDetails($newDBItem, $invoice);
 
+                    if ($newDBItem->last_p_price == 0) {
+                        $price = $item->price;
+                    } else {
+                        $maxExpectedPrice = ($newDBItem->last_p_price * 20) / 100 + $newDBItem->last_p_price;
+                        if ($item->price > $maxExpectedPrice) {
+                            $price = $newDBItem->last_p_price;
+                        } else {
+                            $price = $item->price;
+
+                        }
+                    }
                     $requestItem = [];
                     $requestItem['id'] = $item->item_id;
-                    $requestItem['purchase_price'] = $item->price;
+                    $requestItem['purchase_price'] = $price;
                     $requestItem['price'] = $dbItem->price;
                     $requestItem['qty'] = $item->qty;
                     $requestItem['discount'] = $item->discount;
@@ -266,7 +376,6 @@ class CreateInvoicesTest extends TestCase
                             ['purchase_invoice_id', $invoice->id],
                             ['item_id', $dbItem->id],
                         ])->pluck('serial')->toArray();
-//                        $requestItem['serials']
 
                         $requestSerials = [];
                         foreach ($serials as $serial) {
@@ -308,6 +417,7 @@ class CreateInvoicesTest extends TestCase
                     'vendor_id' => $purchase->vendor_id,
                     'receiver_id' => $purchase->receiver_id,
                     'vendor_invoice_id' => $purchase->vendor_inc_number,
+                    'methods' => $this->getMethods($invoice->id),
                 ]);
                 $response
                     ->dump();
@@ -318,10 +428,6 @@ class CreateInvoicesTest extends TestCase
                 } else {
                     $this->needManualRefactoringInvoices[] = $invoice->id;
                 }
-
-                $this->restUpdatedItemsDetails();
-
-                return json_decode($response->content(), true)['id'];
             }
 
         }
@@ -353,7 +459,7 @@ class CreateInvoicesTest extends TestCase
 
                     $dbItem = $this->dbConnection->table('items')->find($item->item_id);
                     $newDBItem = Item::find($item->item_id);
-                    if ($dbItem != null && $newDBItem != null) {
+                    if ($dbItem != null && $newDBItem != null && (!$newDBItem->is_service  || $newDBItem->available_qty >= $item->qty)) {
                         $this->updateItemDetails($newDBItem, $invoice);
 
                         $itemDBInstance = $newInvoice->items()->where('item_id', $item->item_id)->first();
@@ -368,7 +474,6 @@ class CreateInvoicesTest extends TestCase
                                     ['r_purchase_invoice_id', $invoice->id],
                                     ['item_id', $dbItem->id],
                                 ])->pluck('serial')->toArray();
-//                        $requestItem['serials']
 
                                 $requestSerials = [];
                                 foreach ($serials as $serial) {
@@ -402,158 +507,29 @@ class CreateInvoicesTest extends TestCase
                 if ($items != null) {
                     $response = $this->actingAs($manager)->patchJson("/api/purchases/{$newInvoice->id}", [
                         'items' => $items,
+                        'methods' => $this->getMethods($invoice->id),
                     ]);
                     $response
                         ->dump();
 
                     if ($response->status() == 200) {
                         $response->assertOk();
+                        $this->restUpdatedItemsDetails();
+
                         return json_decode($response->content(), true)['id'];
 
                     } else {
                         $this->needManualRefactoringInvoices[] = $invoice->id;
                     }
 
-//                        ->assertOk();
 
-                    $this->restUpdatedItemsDetails();
 
-                    return json_decode($response->content(), true)['id'];
                 }
 
             }
 
             $this->restUpdatedItemsDetails();
         }
-
-        return 0;
-    }
-
-    public function createSale($invoice)
-    {
-        $sale = $this->dbConnection->table('sale_invoices')->where('invoice_id', $invoice->id)->first();
-        $dbItems = $this->dbConnection->table('invoice_items')->where([
-            ['invoice_id', $invoice->id],
-            ['belong_to_kit', false],
-        ])->get();
-
-        $tempResellerAccount = Account::where('slug', 'temp_reseller_account')->first()->toArray();
-
-        $paidAmount = $this->dbConnection->table('invoice_payments')->where('invoice_id', $invoice->id)->sum('amount');
-
-        $tempResellerAccount['amount'] = $paidAmount;
-
-        if ($sale != null && $dbItems != null) {
-            $items = [];
-            foreach ($dbItems as $item) {
-                $dbItem = $this->dbConnection->table('items')->find($item->item_id);
-                $newDBItem = Item::find($item->item_id);
-                if ($dbItem != null && $newDBItem != null) {
-
-                    $this->updateItemDetails($newDBItem, $invoice);
-
-                    $requestItem = [];
-                    $requestItem['id'] = $item->item_id;
-                    $requestItem['price'] = $item->price;
-                    $requestItem['qty'] = $item->qty;
-                    $requestItem['discount'] = $item->discount;
-
-                    if ($dbItem->is_need_serial) {
-                        $serials = $this->dbConnection->table('item_serials')->where([
-                            ['sale_invoice_id', $invoice->id],
-                            ['item_id', $dbItem->id],
-                        ])->pluck('serial')->toArray();
-                        $requestSerials = [];
-                        foreach ($serials as $serial) {
-                            $dbSerial = ItemSerials::where([
-                                ['serial', $serial],
-                                ['item_id', $dbItem->id],
-                            ])->whereIn('status', ['sold'])->first();
-                            if ($dbSerial == null) {
-                                $requestSerials[] = $serial;
-
-                            }
-                        }
-
-                        $requestItem['serials'] = $requestSerials;
-                        $requestItem['qty'] = count($requestItem['serials']);
-                    }
-
-                    if ($dbItem->is_kit) {
-                        $dbKitItems = $this->dbConnection->table('invoice_items')->where([
-                            ['invoice_id', $invoice->id],
-                            ['belong_to_kit', true],
-                            ['parent_kit_id', $item->id],
-                        ])->get();
-                        $requestItem['items'] = [];
-
-                        foreach ($dbKitItems as $kitItem) {
-
-                            $dbKitItem = $this->dbConnection->table('items')->find($kitItem->item_id);
-                            $kitItem = KitItems::where([
-                                ['item_id', $dbKitItem->id],
-                                ['kit_id', $item->id],
-                            ])->first();
-                            $newDBInstance = Item::find($dbKitItem->id);
-
-                            if ($kitItem != null && $newDBInstance != null) {
-
-                                $this->updateItemDetails($newDBInstance, $invoice);
-
-                                $requestKitItem['qty'] = $kitItem->qty;
-                                $requestKitItem['id'] = $dbKitItem->id;
-                                if ($dbKitItem->is_need_serial) {
-                                    $requestKitItem['serials'] = $this->dbConnection->table('item_serials')->where([
-                                        ['sale_invoice_id', $invoice->id],
-                                        ['item_id', $dbKitItem->id],
-                                    ])->pluck('serial')->toArray();
-                                    $requestKitItem['qty'] = count($requestKitItem['serials']);
-                                }
-                                $requestItem['items'][] = $requestKitItem;
-                            }
-
-                        }
-                        if ($requestItem['items'] == null) {
-                            continue;
-                        }
-                    }
-
-                    if ($requestItem['qty'] <= 0) {
-                        continue;
-                    }
-
-                    $items[] = $requestItem;
-
-                }
-
-            }
-            $manager = Manager::find(1);
-
-            if ($items != null) {
-                $response = $this->actingAs($manager)->postJson('/api/sales', [
-                    'items' => $items,
-                    'client_id' => $sale->client_id,
-                    'salesman_id' => $sale->salesman_id,
-                    'methods' => [$tempResellerAccount],
-                    'without_creating_expenses_purchases' => true,
-                ]);
-                $response
-                    ->dump();
-
-                if ($response->status() == 201) {
-                    $response->assertCreated();
-                    return json_decode($response->content(), true)['id'];
-
-                } else {
-                    $this->needManualRefactoringInvoices[] = $invoice->id;
-                }
-                $this->restUpdatedItemsDetails();
-
-            }
-
-        }
-
-        $this->restUpdatedItemsDetails();
 
         return 0;
     }
@@ -576,11 +552,13 @@ class CreateInvoicesTest extends TestCase
                 ['belong_to_kit', false],
             ])->get();
 
-            $tempResellerAccount = Account::where('slug', 'temp_reseller_account')->first()->toArray();
 
-            $paidAmount = $this->dbConnection->table('invoice_payments')->where('invoice_id', $invoice->id)->sum('amount');
-
-            $tempResellerAccount['amount'] = $paidAmount;
+            $payments = $this->getMethods($invoice->id);
+            if ($payments == null && $sale->client_id == 2) {
+                $tempResellerAccount = Account::where('slug', 'temp_reseller_account')->first()->toArray();
+                $tempResellerAccount['amount'] = $invoice->net;
+                $payments[] = $tempResellerAccount;
+            }
 
             if ($sale != null && $dbItems != null) {
                 $items = [];
@@ -632,7 +610,7 @@ class CreateInvoicesTest extends TestCase
                             $dbKitItems = $this->dbConnection->table('invoice_items')->where([
                                 ['invoice_id', $invoice->id],
                                 ['belong_to_kit', true],
-                                ['parent_kit_id', $item->id],
+                                ['parent_kit_id', $item->item_id],
                             ])->get();
                             $requestItem['items'] = [];
 
@@ -681,34 +659,29 @@ class CreateInvoicesTest extends TestCase
 
                 }
 
-//                if($key > 0)
-                //                {
-                //                    dd($items);
-                //
-                //                }
+
                 $manager = Manager::find(1);
 
                 if ($items != null) {
                     $response = $this->actingAs($manager)->patchJson("/api/sales/{$newInvoice->id}", [
                         'items' => $items,
-                        'methods' => [$tempResellerAccount],
+                        'methods' => $payments,
                     ]);
-//                    dd($items);
                     $response
-                        ->dump();
-//                        ->assertCreated();
+                        ->dump()
+                       ->assertCreated();
 
                     if ($response->status() == 201) {
                         $response->assertCreated();
+                        $this->restUpdatedItemsDetails();
+
                         return json_decode($response->content(), true)['id'];
 
                     } else {
                         $this->needManualRefactoringInvoices[] = $invoice->id;
                     }
 
-                    $this->restUpdatedItemsDetails();
 
-                    return json_decode($response->content(), true)['id'];
                 }
 
             }
@@ -720,6 +693,21 @@ class CreateInvoicesTest extends TestCase
 
     }
 
+    public function getMethods($invoiceId)
+    {
+        $dbMethods = $this->dbConnection->table('payments')->where('invoice_id', $invoiceId)->get();
+
+        $methods = [];
+        foreach ($dbMethods as $method) {
+            $methods[] = [
+                'id' => $method->paymentable_id,
+                'amount' => $method->amount,
+            ];
+        }
+
+        return $methods;
+    }
+
     protected function setUp(): void
     {
         parent::setUp(); // TODO: Change the autogenerated stub
@@ -727,4 +715,101 @@ class CreateInvoicesTest extends TestCase
         $this->dbConnection = DB::connection('data_source');
 
     }
+
+
+
+    // public function test_create_purchases()
+    // {
+    //     $ids = config('global.issued_invoices');
+
+    //     $invoices = $this->dbConnection->table('invoices')->whereIn('id',$ids)->where([['invoice_type','!=','sale']])->get();
+
+    //     foreach ($invoices as $invoice) {
+    //         echo "\nstarting.......................\n";
+    //         echo "source id " . $invoice->id . "\n";
+    //         echo 'source type ' . $invoice->invoice_type . "\n";
+    //         $createdInvoiceId = 0;
+
+    //         if ($invoice->invoice_type == 'beginning_inventory') {
+    //             $createdInvoiceId = $this->createBeginningInventory($invoice);
+    //         } elseif ($invoice->invoice_type == 'purchase') {
+    //             $createdInvoiceId = $this->createPurchase($invoice);
+    //         } elseif ($invoice->invoice_type == 'r_purchase') {
+    //             $createdInvoiceId = $this->createReturnPurchase($invoice);
+    //         } elseif ($invoice->invoice_type == 'sale') {
+    //             $createdInvoiceId = $this->createSale($invoice);
+    //         } elseif ($invoice->invoice_type == 'r_sale') {
+    //             $createdInvoiceId = $this->createReturnSale($invoice);
+    //         }
+
+    //         if ($createdInvoiceId > 0) {
+    //             dispatch(new UpdateInvoiceCreatedAtJob($createdInvoiceId, $invoice->created_at));
+
+    //             $this->dbConnection->table('invoices')->where('id', $invoice->id)->update([
+    //                 'new_db_id' => $createdInvoiceId,
+    //             ]);
+
+    //         } else {
+    //             Storage::append("outputs/others_issues_invoices.txt", $invoice->id . ',');
+    //         }
+
+    //         echo 'created invoice id ' . $createdInvoiceId . "\n";
+    //         echo "ending ............... \n";
+
+    //         $totalDebitAmount = Account::sum('total_debit_amount');
+    //         $totalCreditAmount = Account::sum('total_credit_amount');
+    //         $variation = abs($totalDebitAmount - $totalCreditAmount);
+    //         $this->assertLessThanOrEqual(1, $variation);
+    //     }
+
+
+    // }
+
+
+    // public function create_sales()
+    // {
+    //     $ids = config('global.issued_invoices');
+
+    //     $invoices = $this->dbConnection->table('invoices')->whereIn('id',$ids)->where([['invoice_type','sale'],['id','!=',1613]])->get();
+
+    //     foreach ($invoices as $invoice) {
+    //         echo "\nstarting.......................\n";
+    //         echo "source id " . $invoice->id . "\n";
+    //         echo 'source type ' . $invoice->invoice_type . "\n";
+    //         $createdInvoiceId = 0;
+
+    //         if ($invoice->invoice_type == 'beginning_inventory') {
+    //             $createdInvoiceId = $this->createBeginningInventory($invoice);
+    //         } elseif ($invoice->invoice_type == 'purchase') {
+    //             $createdInvoiceId = $this->createPurchase($invoice);
+    //         } elseif ($invoice->invoice_type == 'r_purchase') {
+    //             $createdInvoiceId = $this->createReturnPurchase($invoice);
+    //         } elseif ($invoice->invoice_type == 'sale') {
+    //             $createdInvoiceId = $this->createSale($invoice);
+    //         } elseif ($invoice->invoice_type == 'r_sale') {
+    //             $createdInvoiceId = $this->createReturnSale($invoice);
+    //         }
+
+    //         if ($createdInvoiceId > 0) {
+    //             dispatch(new UpdateInvoiceCreatedAtJob($createdInvoiceId, $invoice->created_at));
+
+    //             $this->dbConnection->table('invoices')->where('id', $invoice->id)->update([
+    //                 'new_db_id' => $createdInvoiceId,
+    //             ]);
+
+    //         } else {
+    //             Storage::append("outputs/sales_issues_invoices.txt", $invoice->id . ',');
+    //         }
+
+    //         echo 'created invoice id ' . $createdInvoiceId . "\n";
+    //         echo "ending ............... \n";
+
+    //         $totalDebitAmount = Account::sum('total_debit_amount');
+    //         $totalCreditAmount = Account::sum('total_credit_amount');
+    //         $variation = abs($totalDebitAmount - $totalCreditAmount);
+    //         $this->assertLessThanOrEqual(1, $variation);
+    //     }
+
+
+    // }
 }

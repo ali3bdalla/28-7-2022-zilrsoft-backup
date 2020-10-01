@@ -7,6 +7,7 @@ use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
 use App\Jobs\Items\Serial\ValidateItemSerialJob;
 use App\Jobs\Purchases\Items\StorePurchaseItemsJob;
+use App\Jobs\Purchases\Payment\StorePurchasePaymentsJob;
 use App\Models\Invoice;
 use App\Models\Item;
 use Illuminate\Database\QueryException;
@@ -44,6 +45,9 @@ class StorePurchaseRequest extends FormRequest
             'items.*.serials' => 'array',
             'items.*.serials.*' => 'required',
             'vendor_invoice_id' => 'required|string',
+            'methods' => 'array',
+            'methods.*.id' => 'required|integer|exists:accounts,id',
+            'methods.*.amount' => 'required|numeric',
         ];
     }
 
@@ -74,6 +78,7 @@ class StorePurchaseRequest extends FormRequest
             dispatch(new UpdateInvoiceNumberJob($invoice, 'PU-'));
             dispatch(new StorePurchaseItemsJob($invoice, (array)$this->input('items')));
             dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+            dispatch(new StorePurchasePaymentsJob($invoice,$this->input('methods')));
             dispatch(new StorePurchaseTransactionsJob($invoice->fresh()));
             DB::commit();
             return response($invoice, 200);

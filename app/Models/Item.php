@@ -73,6 +73,7 @@ class Item extends BaseModel
     }
 
 
+
     public function organization()
     {
         return $this->belongsTo(Organization::class, 'organization_id');
@@ -85,7 +86,7 @@ class Item extends BaseModel
 
     public function pipeline()
     {
-        return $this->hasMany(InvoiceItems::class, 'item_id');
+        return $this->hasMany(InvoiceItems::class, 'item_id')->orderBy('created_at','asc');
     }
 
     public function category()
