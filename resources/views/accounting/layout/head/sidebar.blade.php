@@ -33,7 +33,7 @@
 
                     @can('view item')
                         <li>
-                            <a href="{{route('accounting.items.index')}}"><i class="fab fa-product-hunt"></i>
+                            <a href="{{route('items.index')}}"><i class="fab fa-product-hunt"></i>
                                 {{ __('sidebar.items') }}
                             </a></li>
 
