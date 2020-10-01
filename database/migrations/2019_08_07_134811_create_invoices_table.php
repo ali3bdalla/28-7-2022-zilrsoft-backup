@@ -29,8 +29,6 @@ class CreateInvoicesTable extends Migration
             $table->float("tax", 20, 8)->default(0);
             $table->float("vts", 20, 8)->default(0);
             $table->float("vtp", 20, 8)->default(0);
-
-//            $table->integer('new_db_id')->nullable(); // used for source db only , should removed after complete migration
             $table->integer('user_id')->default(0);
             $table->integer('managed_by_id')->default(0);
             $table->integer('parent_id')->default(0);

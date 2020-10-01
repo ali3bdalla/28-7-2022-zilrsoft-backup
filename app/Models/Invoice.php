@@ -111,7 +111,7 @@ class Invoice extends Model
 
     public function items()
     {
-        return $this->hasMany(InvoiceItems::class, 'invoice_id');
+        return $this->hasMany(InvoiceItems::class, 'invoice_id')->withoutGlobalScope('draft');
     }
 
     public function purchase()

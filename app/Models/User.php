@@ -36,6 +36,14 @@ class User extends BaseAuthModel
     ];
 
 
+    public function getNameAttribute()
+    {
+        // if (app()->isLocale('ar'))
+        // 	return $this->ar_name;
+
+
+        return $this->name_ar;
+    }
     public function getLocaleNameAttribute()
     {
         // if (app()->isLocale('ar'))

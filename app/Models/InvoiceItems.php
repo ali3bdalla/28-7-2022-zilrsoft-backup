@@ -62,7 +62,7 @@ class InvoiceItems extends BaseModel
     {
         parent::boot();
         if (auth()->check()) {
-            static::addGlobalScope('draftScope', function (Builder $builder) {
+            static::addGlobalScope('draft', function (Builder $builder) {
                 $builder->where('is_draft', false);
             });
         }
@@ -184,7 +184,7 @@ class InvoiceItems extends BaseModel
 
     public function getInvoiceNumberAttribute()
     {
-        return $this->invoice->invoice_number;
+        return $this->invoice()->withoutGlobalScope('draft')->first()->invoice_number;
     }
 
 

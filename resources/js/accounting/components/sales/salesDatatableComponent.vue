@@ -274,7 +274,7 @@
                                             :href="baseUrl + row.id + '/edit'" v-text="app.trans.return"></a></li>
 
                                     <li v-if="onlyQuotations==true"><a
-                                            :href="'quotations/' + row.id + '/edit'">تحويل الى فاتورة</a></li>
+                                            :href="'/sales/drafts/' + row.id + '/clone'">تحويل الى فاتورة</a></li>
 
 
                                 </ul>
@@ -336,7 +336,7 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <thead v-if="canViewAccounting==1 && onlyQuotations!=true">
+                   <!-- <thead v-if="canViewAccounting==1 && onlyQuotations!=true">
                     <tr>
                         <th>
 
@@ -374,7 +374,7 @@
 
                         <th></th>
                     </tr>
-                    </thead>
+                    </thead>-->
                 </table>
 
 
@@ -519,7 +519,7 @@
                 params.itemsPerPage = this.itemsPerPage;
                 params.orderType = this.orderType;
                 if (this.onlyQuotations) {
-                    params.invoice_type = "quotation";
+                    params.is_draft = true;
                 }
 
 

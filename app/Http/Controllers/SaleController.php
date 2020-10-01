@@ -39,14 +39,63 @@ class SaleController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     * @return Response
+     */
+    public function drafts()
+    {
+        $clients = User::where('is_client', true)->get();
+        $creators = Manager::all();
+        return view('sales.drafts', compact('clients', 'creators'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     * @return Response
+     */
+    public function createDraft()
+    {
+        $salesmen = Manager::all();
+        $clients = User::where('is_client', true)->get()->toArray();
+        $services = Item::where('is_service', true)->get();
+        $expenses = Item::where('is_expense', true)->get();
+
+        $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
+        return view('sales.create_draft', compact('clients', 'salesmen', 'gateways', 'expenses'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     * @return Response
+     */
+    public function createServiceDraft()
+    {
+        $salesmen = Manager::all();
+        $clients = User::where('is_client', true)->get()->toArray();
+        $services = Item::where('is_service', true)->get();
+        $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
+        return view('sales.create_draft_service', compact('clients', 'salesmen', 'gateways', 'services'));
+    }
+
+
+    public function clone(Invoice $sale){
+        $salesmen = Manager::all();
+			$clients = User::where('is_client',true)->get()->toArray();
+			$expenses = Item::where('is_expense',true)->get();
+			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
+			$sale = $sale->load('items.item.items.item','items.item.data','sale.client','sale.salesman');
+			return view('sales.clone',compact('clients','salesmen','gateways','expenses','sale'));
+    }
+    /**
      * Show the specified resource.
      * @param Invoice $sale
      * @return Response
      */
     public function show(Invoice $sale)
-    {   $transactions = $sale->transactions()->get();
+    {
+        $transactions = $sale->transactions()->get();
         $invoice = $sale;
-        return view('accounting.sales.show', compact('invoice', 'transactions'));
+        return view('sales.view', compact('invoice', 'transactions'));
     }
 
     /**
@@ -54,7 +103,8 @@ class SaleController extends Controller
      * @param Invoice $sale
      * @return Response
      */
-    public function edit(Invoice $sale) {
+    public function edit(Invoice $sale)
+    {
         $invoice = $sale;
         $sale = $invoice->sale;
         $items = [];
@@ -65,11 +115,9 @@ class SaleController extends Controller
             }
             $items[] = $item;
         }
-
         $expenses = Item::where('is_expense', true)->get();
         $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
-        return view('accounting.sales.edit', compact('sale', 'invoice', 'items', 'gateways', 'expenses'));
+        return view('sales.create_return', compact('sale', 'invoice', 'items', 'gateways', 'expenses'));
     }
-
 
 }

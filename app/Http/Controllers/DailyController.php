@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Payment;
 use App\Models\ResellerClosingAccount;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DailyController extends Controller
@@ -14,11 +16,11 @@ class DailyController extends Controller
         $managerCloseAccountList = ResellerClosingAccount::where([
             ['creator_id', auth()->user()->id],
             ['transaction_type', "close_account"],
-
         ])->orWhere([
             ['receiver_id', auth()->user()->id]
         ])->orderBy('id', 'desc')->paginate(15);
 
+        // return $managerCloseAccountList;
         return view('accounting.reseller_daily.account_close_list', compact('managerCloseAccountList'));
     }
 
@@ -26,27 +28,30 @@ class DailyController extends Controller
     public function createResellerClosingAccount(Request $request)
     {
         $loggedUser = $request->user();
-
         $tempResellerAccount = Account::where([
             ['slug', 'temp_reseller_account'],
             ['is_system_account', true],
         ])->first();
+        $remainingAccountsBalanceAmount = $loggedUser->remaining_accounts_balance;
+        $accountsClosedAt = $loggedUser->accounts_closed_at;
 
-        $lastRemainingTransferAmount = 0;
-        $lastAccountCloseTransaction = $loggedUser->resellerClosingAccount()->orderBy('id', 'desc')->first();
-        if (!empty($lastAccountCloseTransaction) && $lastAccountCloseTransaction->transaction_type == "transfer") {
-            $lastDebit = $tempResellerAccount->transactions()->where([
-                ['container_id', $lastAccountCloseTransaction->container_id]
-            ])->first();
-            if (!empty($lastDebit)) {
-                $lastRemainingTransferAmount = $lastDebit->amount;
-            }
+        if($accountsClosedAt != null)
+        {
+            $accountsClosedAt  = Carbon::parse($accountsClosedAt);
+            $paymentQuery = Payment::whereDate('created_at','>',$accountsClosedAt)->where([
+                ['creator_id',$loggedUser->id],
+            ]);
+            
+        }else
+        {
+            $paymentQuery = Payment::where([
+                ['creator_id',$loggedUser->id],
+            ]);
         }
-
-
-        $periodSalesAmount = 0;// $request->user()->dailyTransactionsAmount();
+        $inAmount =  $paymentQuery->where('payment_type','receipt')->sum('amount');
+        $outAmount =  0;
         $gateways = $loggedUser->gateways()->get();
-        return view('accounting.reseller_daily.account_close', compact('periodSalesAmount', 'gateways', 'lastRemainingTransferAmount'));
+        return view('accounting.reseller_daily.account_close', compact('inAmount', 'loggedUser', 'accountsClosedAt','outAmount','gateways','remainingAccountsBalanceAmount'));
     }
     //
 }

@@ -10,6 +10,14 @@ Route::middleware('guest')->group(function(){
     Auth::routes(["verify" => true]);
 });
 Route::resource('sales', 'SaleController');
+Route::prefix('sales')->name('sales.')->group(function () {
+    Route::prefix('drafts')->name('drafts.')->group(function () {
+        Route::get('/index', 'SaleController@drafts')->name('index');
+        Route::get('/create', 'SaleController@createDraft')->name('create');
+        Route::get('/create_service', 'SaleController@createServiceDraft')->name('create.service');
+        Route::get('/{sale}/clone', 'SaleController@clone')->name('clone');
+    });
+});
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/', 'HomeController@index')->name('index');
 });
@@ -59,6 +67,14 @@ Route::prefix('daily')->name('daily.')->group(function (){
             Route::get('/create','DailyController@createResellerClosingAccount')->name('create');
 
         });
+
+        Route::prefix('closing_accounts')->name('closing_accounts.')->group(function () {
+            Route::get('/','DailyController@resellerClosingAccountsIndex')->name('index');
+            Route::get('/create','DailyController@createResellerClosingAccount')->name('create');
+
+        });
+
+        
     });
 
 });

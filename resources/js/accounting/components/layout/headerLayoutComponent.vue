@@ -108,7 +108,7 @@ margin-bottom: -10px;"></i>
                     <li><a href="/items"> المنتجات</a></li>
                     <li><a href="/sales/create">فاتورة مبيعات</a></li>
                     <li><a href="/purchases/create">فاتورة مشتريات</a></li>
-                    <!--<li><a href="/accounting/reseller_daily/account_close_list">انهاء الوردية</a></li>-->
+                    <li><a href="/daily/reseller/closing_accounts">انهاء الوردية</a></li>
 
 
                 </ul>

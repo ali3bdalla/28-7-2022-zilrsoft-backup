@@ -139,14 +139,14 @@
                     <?php endif; ?>
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('manage quotation')): ?>
                         <li>
-                            <a href="<?php echo e(route('accounting.quotations.index')); ?>"><i class="fa fa-sun"></i>
+                            <a href="<?php echo e(route('sales.drafts.index')); ?>"><i class="fa fa-sun"></i>
                                 <?php echo e(__('sidebar.quotations')); ?>
 
                             </a>
                         </li>
 
                         <li>
-                            <a href="<?php echo e(route('accounting.quotations.services_quotations')); ?>"><i class="fa fa-sun"></i>
+                            <a href="<?php echo e(route('sales.drafts.create.service')); ?>"><i class="fa fa-sun"></i>
                                 <?php echo e(__('sidebar.services_quotations')); ?>
 
                             </a>

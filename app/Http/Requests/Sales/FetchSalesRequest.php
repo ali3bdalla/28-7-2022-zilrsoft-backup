@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Sales;
 
-use App\Http\Resources\Sales\SaleCollection;
 use App\Models\Invoice;
 use App\Models\Sale;
 use Carbon\Carbon;
@@ -37,17 +36,22 @@ class FetchSalesRequest extends FormRequest
     public function getData()
     {
 
-        // return 1;
-        if ($this->has('invoice_type') && $this->filled('invoice_type') && $this->input('invoice_type') === 'quotation') {
-            $getOnly = ['quotation'];
-        } else {
-            $getOnly = ['sale', 'return_sale'];
-        }
 
-        $query = Invoice::whereIn('invoice_type', $getOnly)->with([
+        $query = Invoice::whereIn('invoice_type', ['sale', 'return_sale'])->with([
             'creator', 'items', 'sale.client', 'sale.salesman',
         ]);
 
+
+        if ($this->has('is_draft') && $this->filled('is_draft')) {
+            $isDraft = (boolean)$this->input('is_draft');
+            if($isDraft){
+                $query = $query->withoutGlobalScope('draft')->withoutGlobalScope('manager')->where('is_draft',);
+
+            }
+        }
+
+
+    
         if (
             $this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
             $this->filled('endDate')
@@ -166,7 +170,6 @@ class FetchSalesRequest extends FormRequest
                 $query = $query->where('invoice_type', $this->input("invoice_type"));
             }
         }
-  
 
         if ($this->has('orderBy') && $this->filled('orderBy') && $this->has('orderType') && $this->filled('orderType')) {
             $query = $query->orderBy($this->orderBy, $this->orderType);

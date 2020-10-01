@@ -14,60 +14,48 @@
 	
 	class QuotationController extends Controller
 	{
-		/**
-		 * Display a listing of the resource.
-		 *
-		 * @return Response
-		 */
-		public function index()
-		{
+		// /**
+		//  * Display a listing of the resource.
+		//  *
+		//  * @return Response
+		//  */
+		// public function index()
+		// {
 			
-			$clients = User::where('is_client',true)->get();
-			$creators = Manager::all();
-			return view('accounting.quotations.index',compact('clients','creators'));
-		}
+		// 	$clients = User::where('is_client',true)->get();
+		// 	$creators = Manager::all();
+		// 	return view('accounting.quotations.index',compact('clients','creators'));
+		// }
 		
-		public function services_quotations()
-		{
-			$salesmen = Manager::all();
-			$clients = User::where('is_client',true)->get()->toArray();
-			$services = Item::where('is_service',true)->get();
-//			$gateways = auth()->user()->gateways()->get();
-			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
-//			Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get()
-			return view('accounting.quotations.services',compact('clients','salesmen','gateways','services'));
-		}
+// 		public function services_quotations()
+// 		{
+// 			$salesmen = Manager::all();
+// 			$clients = User::where('is_client',true)->get()->toArray();
+// 			$services = Item::where('is_service',true)->get();
+// //			$gateways = auth()->user()->gateways()->get();
+// 			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
+// //			Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get()
+// 			return view('accounting.quotations.services',compact('clients','salesmen','gateways','services'));
+// 		}
 		
-		/**
-		 * Show the form for creating a new resource.
-		 *
-		 * @return Response
-		 */
-		public function create()
-		{
-			$salesmen = Manager::all();
-			$clients = User::where('is_client',true)->get()->toArray();
-			$expenses = Item::where('is_expense',true)->get();
-//			$gateways = auth()->user()->gateways()->get();
-			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
-//			Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get()
-			return view('accounting.quotations.create',compact('clients','salesmen','gateways','expenses'));
-			//
-		}
+// 		/**
+// 		 * Show the form for creating a new resource.
+// 		 *
+// 		 * @return Response
+// 		 */
+// 		public function create()
+// 		{
+// 			$salesmen = Manager::all();
+// 			$clients = User::where('is_client',true)->get()->toArray();
+// 			$expenses = Item::where('is_expense',true)->get();
+// //			$gateways = auth()->user()->gateways()->get();
+// 			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
+// //			Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get()
+// 			return view('accounting.quotations.create',compact('clients','salesmen','gateways','expenses'));
+// 			//
+// 		}
 		
-		/**
-		 * Store a newly created resource in storage.
-		 *
-		 * @param Request $request
-		 *
-		 * @return Response
-		 */
-		public function store(CreateQuotationRequest $request)
-		{
-			
-			return $request->save();
-			//
-		}
+		
 		
 		/**
 		 * Show the form for editing the specified resource.

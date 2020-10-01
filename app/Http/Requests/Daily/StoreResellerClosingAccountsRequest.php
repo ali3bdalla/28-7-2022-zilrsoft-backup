@@ -3,12 +3,14 @@
 namespace App\Http\Requests\Daily;
 
 use App\Models\Account;
+use App\Models\Payment;
 use App\Models\Transaction;
 use App\Models\TransactionsContainer;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class StoreResellerClosingAccountsRequest extends FormRequest
 {
@@ -32,10 +34,7 @@ class StoreResellerClosingAccountsRequest extends FormRequest
         return [
             'gateways' => 'required|array',
             'gateways.*.id' => 'required|integer|exists:accounts,id',
-//				'remaining_amount_account_id' => 'required|integer|exists:accounts,id',
-            'gateways.*.amount' => 'required|price',
-            'period_sales_amount' => 'required|price',
-            'remaining_amount' => 'nullable|price',
+            'gateways.*.amount' => 'required|numeric',
         ];
     }
 
@@ -44,113 +43,145 @@ class StoreResellerClosingAccountsRequest extends FormRequest
 
         DB::beginTransaction();
         try {
+            $totalAvailableAmount = collect($this->input('gateways'))->sum('amount');
+            if($totalAvailableAmount > 0)
+            {
+                $loggedUser = $this->user();
+                $shiftsShortageAccount = Account::where([
+                    ['is_system_account', true],
+                    ['slug', 'shifts_shortage'],
+                ])->first();
+                $tempResellerAccount = Account::where([
+                    ['is_system_account', true],
+                    ['slug', 'temp_reseller_account'],
+                ])->first();
 
-
-            $loggedUser = $this->user();
-            $tempResellerAccount = Account::where([
-                ['is_system_account', true],
-                ['slug', 'temp_reseller_account'],
-            ])->first();
-
-
-            $container = TransactionsContainer::create([
-                'creator_id' => $loggedUser->id,
-                'description' => 'account_close',
-                'amount' => 0,
-                'organization_id' => $loggedUser->organization_id
-            ]);
-
-            $baseTransactionData = [
-                'creator_id' => $loggedUser->id,
-                'container_id' => $container->id,
-                'description' => 'close_account',
-                'organization_id' => $loggedUser->organization_id
-            ];
-
-            $totalDebitAmount = 0;
-            foreach ($this->input("gateways") as $gateway) {
-                if ($gateway['amount'] > 0) {
-                    $gatewayData = $baseTransactionData;
-                    $gatewayData['account_id'] = $gateway['id'];
-                    $gatewayData['amount'] = (float)$gateway['amount'];
-                    $gatewayData['type'] = 'debit';
-                    Transaction::create($gatewayData);
-                    $totalDebitAmount += (float)$gateway['amount'];
+                $shouldBeAvailableAmount = $this->getShouldBeAvailableAmount($loggedUser);
+                $container = TransactionsContainer::create([
+                    'creator_id' => $loggedUser->id,
+                    'description' => 'close_account',
+                    'amount' => 0,
+                    'organization_id' => $loggedUser->organization_id,
+                ]);
+                $baseTransactionData = [
+                    'creator_id' => $loggedUser->id,
+                    'container_id' => $container->id,
+                    'description' => 'close_account',
+                    'organization_id' => $loggedUser->organization_id,
+                ];
+                $totalDebitAmount = 0;
+                foreach ($this->input("gateways") as $gateway) {
+                    if ($gateway['amount'] > 0) {
+                        $gatewayData = $baseTransactionData;
+                        $gatewayData['account_id'] = $gateway['id'];
+                        $gatewayData['amount'] = (float) $gateway['amount'];
+                        $gatewayData['type'] = 'debit';
+                        Transaction::create($gatewayData);
+                        $totalDebitAmount += (float) $gateway['amount'];
+                    }
+    
                 }
+                
 
-            }
 
-            $shortShortageAmount = $this->getShortageAmount();
-            $shiftsShortageAccount = Account::where([
-                ['is_system_account', true],
-                ['slug', 'shifts_shortage'],
-            ])->first();
-            if ($shortShortageAmount < 0) {
-                $shortShortageAmount = abs($shortShortageAmount);
-                $totalDebitAmount += (float)$shortShortageAmount;
+                $shortShortageAmount = (float)$totalDebitAmount - (float)$shouldBeAvailableAmount;
+                // 1200 , 1000 => 200
+                if($shortShortageAmount != 0)
+                {
+                    if ($shortShortageAmount < 0) {
+                        // he pay more than he should has
+                        $shortShortageAmount = abs($shortShortageAmount);
+                        $totalDebitAmount += (float) $shortShortageAmount;
+                        $transactionData = $baseTransactionData;
+                        $transactionData['account_id'] = $shiftsShortageAccount->id;
+                        $transactionData['amount'] = (float) $shortShortageAmount;
+                        $transactionData['type'] = 'debit';
+                        Transaction::create($transactionData);
+    
+                    } else {
+                        $transactionData = $baseTransactionData;
+                        $transactionData['account_id'] = $shiftsShortageAccount->id;
+                        $transactionData['amount'] = (float) $shortShortageAmount;
+                        $transactionData['type'] = 'credit';
+                        Transaction::create($transactionData);
+                    }
+                }
+                
+    
                 $transactionData = $baseTransactionData;
-                $transactionData['account_id'] = $shiftsShortageAccount->id;
-                $transactionData['amount'] = (float)$shortShortageAmount;
-                $transactionData['type'] = 'debit';
-                Transaction::create($transactionData);
-
-            } else {
-                $transactionData = $baseTransactionData;
-                $transactionData['account_id'] = $shiftsShortageAccount->id;
-                $transactionData['amount'] = (float)$shortShortageAmount;
+                $transactionData['account_id'] = $tempResellerAccount->id;
+                $transactionData['amount'] = (float) $shouldBeAvailableAmount;
                 $transactionData['type'] = 'credit';
                 Transaction::create($transactionData);
+                $container->update([
+                    'amount' => $shouldBeAvailableAmount,
+                ]);
+                $lastDate = Carbon::now()->subDays(5);
+                $loggedUser->resellerClosingAccounts()->create([
+                    'organization_id' => $loggedUser->organization_id,
+                    'transaction_type' => "close_account",
+                    'container_id' => $container->id,
+                    'from' => $lastDate,
+                    'to' => now(),
+                    'amount' => $shouldBeAvailableAmount,
+                    'shortage_amount' => $shortShortageAmount,
+                ]);
+    
+                $loggedUser->update([
+                    'remaining_accounts_balance' => 0,
+                    'accounts_closed_at' => now()
+                ]);
+    
+            }else
+            {
+                throw ValidationException::withMessages([
+                   'paid_amount' => 'should be at lest 0.1 ' 
+                ]);
             }
-
-
-            $transactionData = $baseTransactionData;
-            $transactionData['account_id'] = $tempResellerAccount->id;
-            $transactionData['amount'] = (float)$this->input("period_sales_amount");
-            $transactionData['type'] = 'credit';
-            Transaction::create($transactionData);
-
-            $container->update([
-                'amount' => $totalDebitAmount
-            ]);
-            $lastDate = Carbon::now()->subDays(5);
-            $loggedUser->resellerClosingAccounts()->create([
-                'organization_id' => $loggedUser->organization_id,
-                'transaction_type' => "close_account",
-                'transaction_container_id' => $container,
-                'close_account_start_date' => $lastDate,
-                'close_account_end_date' => now(),
-                'amount' => $totalDebitAmount,
-                'shortage_amount' => $shiftsShortageAccount,
-            ]);
-
-//            $this->toCreateManagerCloseAccountTransaction($debit_total, $container->id, $short_shortage_amount);
-//			if ($this->filled('remaining_amount') && $this->has('remaining_amount') && $this->input("remaining_amount") > 0 && $this->filled('remaining_amount_account_id')
-//			&& $this->input('remaining_amount_account_id') >= 0){
-//				$this->makeReminingCashAmountTransactions($temp_reseller_account);
-//			}
-//			}
-
-
+            
             DB::commit();
 
             return $container;
         } catch (Exception $exception) {
-            DB::rollBack();;
+            DB::rollBack();
             throw $exception;
         }
 
-
     }
 
-    /**
-     * @return int|mixed
-     */
-    public function getShortageAmount()
+    // /**
+    //  * @return int|mixed
+    //  */
+    // public function getShortageAmount($loggedUser , $gatewaysAmount = 0)
+    // {
+      
+    //     return $gatewaysAmount - $this->input("period_sales_amount");
+    // }
+
+
+
+    public function getShouldBeAvailableAmount($loggedUser)
     {
-        $gatewaysAmount = 0;
-        foreach ($this->input("gateways") as $gateway) {
-            $gatewaysAmount = $gatewaysAmount + $gateway['amount'];
+        $remainingAccountsBalanceAmount = $loggedUser->remaining_accounts_balance;
+        $accountsClosedAt = $loggedUser->accounts_closed_at;
+
+        if($accountsClosedAt != null)
+        {
+            $accountsClosedAt  = Carbon::parse($accountsClosedAt);
+            $paymentQuery = Payment::whereDate('created_at','>',$accountsClosedAt)->where([
+                ['creator_id',$loggedUser->id],
+            ]);
+            
+        }else
+        {
+            $paymentQuery = Payment::where([
+                ['creator_id',$loggedUser->id],
+            ]);
         }
-        return $gatewaysAmount - $this->input("period_sales_amount");
+        $inAmount =  $paymentQuery->where('payment_type','receipt')->sum('amount');
+        // $outAmount =  $paymentQuery->where('payment_type','payment')->sum('amount');
+
+        // - $outAmount
+        return $inAmount + $remainingAccountsBalanceAmount;
     }
 }

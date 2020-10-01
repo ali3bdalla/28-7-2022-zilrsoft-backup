@@ -42,7 +42,7 @@ class Manager extends BaseAuthModel
     public function getLocaleNameAttribute()
     {
 
-        return $this->name;
+        return $this->name_ar;
     }
 
     /**
@@ -63,6 +63,7 @@ class Manager extends BaseAuthModel
     {
         return $this->hasMany(ResellerClosingAccount::class, 'creator_id');
     }
+
 
 //    public function dailyTransactionsAmount($period = null)
 //    {
