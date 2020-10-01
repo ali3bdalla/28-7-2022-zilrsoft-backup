@@ -254,12 +254,12 @@
                                          @if($item->item->is_need_serial)
                                              @foreach($item->item->serials()
                                             ->where([
-                                            ["sale_invoice_id",$invoice->id],
+                                            ["sale_id",$invoice->id],
                                             ["item_id",$item->item->id],
                                             ])
-                                            ->orWhere([["return_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                            ->orWhere([["return_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                            ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["return_sale_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["return_purchase_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["purchase_id",$invoice->id],["item_id",$item->item->id]])
                                             ->get() as $index => $serial
                                             )
                                                  <tr style="background-color: #8888">
