@@ -336,7 +336,7 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <thead v-if="canViewAccounting==0 && onlyQuotations!=true">
+                    <thead v-if="canViewAccounting==1 && onlyQuotations!=true">
                     <tr>
                         <th>
 
@@ -355,7 +355,7 @@
 
 
                         <th>
-                            {{parseFloat( totals.net).toFixed(2) }}
+                            {{parseFloat(totals.net).toFixed(2) }}
                         </th>
 
 
