@@ -27,7 +27,8 @@ class AuthServiceProvider extends ServiceProvider
 
 
         Gate::before(function ($user, $ability) {
-            return true;//$user->hasRole('super admin') ? true : null
+            // dd($ability)
+            return $user->hasRole('super admin') ? true : null;//$user->hasRole('super admin') ? true : null
         });
 
     }
