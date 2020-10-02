@@ -49,8 +49,10 @@ Route::prefix('inventory')->name('inventory.')->group(function (){
 Route::prefix('daily')->name('daily.')->group(function (){
     Route::prefix('reseller')->name('reseller.')->group(function (){
         Route::prefix('closing_accounts')->name('closing_account.')->group(function () {
-            Route::post('/','DailyController@storeResellerClosingAccount')->name('index');
-
+            Route::post('/','DailyController@storeResellerClosingAccount')->name('store');
+        });
+        Route::prefix('accounts_transactions')->name('closing_account.')->group(function () {
+            Route::post('/','DailyController@storeResellerAccountTransaction')->name('store');
         });
     });
 

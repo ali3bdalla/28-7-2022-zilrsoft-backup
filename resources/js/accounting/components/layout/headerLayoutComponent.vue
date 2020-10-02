@@ -33,7 +33,7 @@ margin-bottom: -10px;"></i>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu" style="    background: #eee;    max-height: 500px;">
 
-                                    <li v-for="transaction in pendingTransactions">
+                                    <li v-for="transaction in pendingTransactions" :key="transaction.id">
                                         <div class="">
                                             <div class="panel-body">
                                                 <i class="fa fa-warning text-yellow"></i> تحويل من {{
@@ -45,7 +45,7 @@ margin-bottom: -10px;"></i>
                                             </div>
                                             <div class="panel-footer">
                                                 <a
-                                                        :href="'/accounting/reseller_daily/'+transaction.id+'/confirm_transaction'"
+                                                        :href="'/daily/reseller/accounts_transactions/'+transaction.id+'/confirm'"
                                                         class="btn btn-custom-primary pull-left">موافق</a>
                                                 <a :href="'/accounting/reseller_daily/'+transaction.id+
                                                    '/delete_transaction'"
@@ -91,7 +91,7 @@ margin-bottom: -10px;"></i>
                             btn-flat" href="">البروفايل</a>
                                 </div>
                                 <div class="pull-right">
-                                    <form :action="BaseApiUrl + 'logout'" method="post">
+                                    <form action="/logout" method="post">
                                         <input :value="csrf" name="_token" type="hidden">
                                         <button class="btn btn-default btn-flat" type="submit">تسجيل
                                             خروج

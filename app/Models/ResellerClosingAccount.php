@@ -21,7 +21,7 @@
 
 		public function container()
 		{
-			return $this->belongsTo(TransactionsContainer::class,'transaction_container_id')->withoutGlobalScope("pendingTransactionsContainerScope");
+			return $this->belongsTo(TransactionsContainer::class,'container_id')->withoutGlobalScope("pendingTransactionsContainerScope");
 		}
 
 	}

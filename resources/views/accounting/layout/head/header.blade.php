@@ -1,13 +1,11 @@
 @php
 
     //use App\Models\Invoice;
-       //use App\Models\ManagerPrivateTransactions;
+    use App\Models\ResellerClosingAccount;
 
-       $pending_transactions =0;
-   //ManagerPrivateTransactions::where([['is_pending',true],['transaction_type',
-   //		'transfer'],
-   //		['receiver_id',auth()->user()->id]])->with('creator',
-   //		'receiver')->get()
+       $pending_transactions =ResellerClosingAccount::where([['is_pending',true],['transaction_type','transfer'],
+       ['receiver_id',auth()->user()->id]])->with('creator','receiver')->get();
+   //ManagerPrivateTransactions::
        $pending_purchases = 0;//Invoice::where('invoice_type','pending_purchase')->count()
 @endphp
 

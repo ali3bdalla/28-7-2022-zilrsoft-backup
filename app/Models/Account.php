@@ -28,6 +28,7 @@ class Account extends BaseModel
         'current_amount',
         'label',
         'is_expanded',
+        'balance'
     ];
     protected $casts = [
         'is_gateway' => 'boolean',
@@ -146,6 +147,9 @@ class Account extends BaseModel
 //        return $this->getCurrentAmountAttribute();
 //    }
 
+    public function getBalanceAttribute(){
+        return $this->getSingleAccountBalance();
+    }
     public function getCurrentAmountAttribute()
     {
 

@@ -5,7 +5,7 @@
 @section('buttons')
 
     <a class="btn btn-custom-primary" href="{{ route('daily.reseller.closing_accounts.create') }}">انشاء اقفال</a>
-    <a class="btn btn-custom-primary" href="{{ route('accounting.reseller_daily.transfer_list') }}">التحويلات
+    <a class="btn btn-custom-primary" href="{{ route('daily.reseller.accounts_transactions.index') }}">التحويلات
     </a>
 
 @endsection
@@ -34,11 +34,10 @@
                         <td>{{ $transaction->to }}</td>
                         <td>{{ money_format("%i",$transaction->amount) }}</td>
                         @if($transaction->shortage_amount<0)
-                            <td>{{ money_format("%i",($transaction->amount - abs( $transaction->shortage_amount ))) }}</td>
+                            <td>{{ money_format("%i",($transaction->amount - abs($transaction->shortage_amount ))) }}</td>
 
                         @else
-                            <td>{{ money_format("%i",($transaction->amount + abs( $transaction->shortage_amount )))
-                            }}</td>
+                            <td>{{ money_format("%i",($transaction->amount + abs( $transaction->shortage_amount )))}}</td>
 
                         @endif
                         <td>

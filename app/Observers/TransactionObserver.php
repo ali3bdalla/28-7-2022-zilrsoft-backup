@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Jobs\Accounting\Entity\UpdateAccountBalanceJob;
 use App\Models\Transaction;
 
 class TransactionObserver
@@ -15,29 +16,11 @@ class TransactionObserver
      */
     public function created(Transaction $transaction)
     {
-        $account = $transaction->account;
-        if ($transaction->type == 'credit') {
-            $totalCreditAmount = $account->total_credit_amount + (float)$transaction->amount;
-            $totalDebitAmount = $account->total_debit_amount;
-
-            $account->update([
-                'total_credit_amount' => $totalCreditAmount,
-            ]);
-
-
-        } else {
-            $totalDebitAmount = $account->total_debit_amount + (float)$transaction->amount;
-            $totalCreditAmount = $account->total_credit_amount;
-
-            $account->update([
-                'total_debit_amount' => $totalDebitAmount,
-            ]);
+        if($transaction->is_pending == false)
+        {
+            dispatch(new UpdateAccountBalanceJob($transaction));
         }
-
-        $transaction->update([
-            'total_debit_amount' => $totalDebitAmount,
-            'total_credit_amount' => $totalCreditAmount,
-        ]);
+        
     }
 
     /**
