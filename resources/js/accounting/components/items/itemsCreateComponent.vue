@@ -154,7 +154,7 @@
             <div class="col-md-2">
                 <select class="form-control " v-model="itemData.warranty_subscription_id">
                     <option value="0">من غير ضمان</option>
-                    <option v-for="warranty in warranty_subscriptions" :value="warranty.id">
+                    <option v-for="warranty in warranty_subscriptions" :value="warranty.id"  :key="warranty.id">
                         {{ warranty.locale_name }}
                     </option>
                 </select>
@@ -273,7 +273,7 @@
 
         <div v-bind:key="index" v-for='(filter,index) in filterList'>
             <accounting-filter-select-with-search-component
-                :app.trans="app.trans"
+                :app-trans="app.trans"
                 :can-create="canCreateFilter"
                 :can-edit="canEditFilter"
                 :default="selectedFilterValue.get(filter.id)"
@@ -749,11 +749,10 @@
                     axios.put(this.app.BaseApiUrl + "items/" + this.editedItemData.id, data)
                         .then(function (response) {
                             loader.hide();
-                            location.href = appVm.app.BaseApiUrl + 'items';
+                            location.href = '/items';
                         })
                         .catch(function (error) {
                             loader.hide();
-
                         });
 
                     // simulate AJAX

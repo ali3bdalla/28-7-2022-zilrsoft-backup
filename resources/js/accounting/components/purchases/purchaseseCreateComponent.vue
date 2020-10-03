@@ -483,7 +483,7 @@
         },
         created: function () {
             this.vendorsList = this.vendors;
-            this.initExpensesList();
+            // this.initExpensesList();
             if (this.initPurchase != null) {
                 this.cloneExistsInvoice();
             }else
@@ -635,6 +635,7 @@
                 })
             },
             validateAndPrepareItem(item) {
+                
                 if (item.is_service) {
                     return;
                 }
@@ -716,7 +717,28 @@
                 this.searchResultList = [];
                 this.$refs.barcodeNameAndSerialField.focus();
             },
+
+            itemPriceMather(item)
+            {
+                let purchasePrice = item.purchase_price;
+                let lastPurchasePrice = item.last_p_price;
+                //  $maxExpectedPrice = ($newDBItem->last_p_price * 20) / 100 + $newDBItem->last_p_price;
+                //         if ($item->price > $maxExpectedPrice) {
+                //             $price = $newDBItem->last_p_price;
+                //         } else {
+                //             $price = $item->price;
+
+                //         }
+                if(parseFloat(purchasePrice) > parseFloat(lastPurchasePrice) * 20 / 100 + parseFloat(lastPurchasePrice))
+                {
+                    item.purchase_price = lastPurchasePrice;
+                }
+                // alert(`${lastPurchasePrice}`);
+                return item;
+            },
             itemQtyUpdated(item, bySerial = false) {
+
+                item = this.itemPriceMather(item);
                 // item.qty = parseInt(item.qty);
                 if (bySerial === false) {
                     let el = this.$refs['itemQty_' + item.id + 'Ref'][0];

@@ -51,7 +51,16 @@ class DailyController extends Controller
         $inAmount = $paymentQuery->where('payment_type', 'receipt')->sum('amount');
         // return  $inAmount;
         $outAmount = 0;
-        $gateways = $loggedUser->gateways()->get();
+        $dbGateways = $loggedUser->gateways()->get();
+
+        $gateways = [];
+        foreach($dbGateways as $gateway)
+        {
+            if($gateway->getSingleAccountBalance()>0)
+            {
+                $gateways[] = $gateway;
+            }
+        }
         return view('accounting.reseller_daily.account_close', compact('inAmount', 'loggedUser', 'accountsClosedAt', 'outAmount', 'gateways', 'remainingAccountsBalanceAmount'));
     }
 

@@ -21,13 +21,13 @@ class ItemController extends Controller
     public function create()
     {
         $isClone = false;
-        // $chats = Category::mainOnly()->get();
-        // $categories = [];
-        // foreach ($chats as $category) {
-        //     $category['children'] = Category::getAllParentNestedChildren($category);
-        //     $categories[] = $category;
-        // }
-        $categories = Category::all();
+        $chats = Category::where('parent_id',0)->get();
+        $categories = [];
+        foreach ($chats as $category) {
+            $category['children'] = Category::getAllParentNestedChildren($category);
+            $categories[] = $category;
+        }
+        // $categories = Category::all();
         $vendors = User::where('is_vendor', true)->get();
         return view('accounting.items.create', compact('categories', 'isClone', 'vendors'));
 
@@ -37,12 +37,12 @@ class ItemController extends Controller
     {
 
         $isClone = 0;
-        $categories = Category::all();
-        // $categories = [];
-        // foreach ($chats as $category) {
-        //     $category['children'] = Category::getAllParentNestedChildren($category);
-        //     $categories[] = $category;
-        // }
+        $chats = Category::where('parent_id',0)->get();
+        $categories = [];
+        foreach ($chats as $category) {
+            $category['children'] = Category::getAllParentNestedChildren($category);
+            $categories[] = $category;
+        }
         $vendors = User::where('is_vendor', true)->get();
         return view('accounting.items.edit', compact('categories', 'isClone', 'vendors', 'item'));
 
@@ -55,12 +55,12 @@ class ItemController extends Controller
         $isClone = 1;
         $categories = Category::all();
 
-        // $chats = Category::mainOnly()->get();
-        // $categories = [];
-        // foreach ($chats as $category) {
-        //     $category['children'] = Category::getAllParentNestedChildren($category);
-        //     $categories[] = $category;
-        // }
+        $chats = Category::where('parent_id',0)->get();
+        $categories = [];
+        foreach ($chats as $category) {
+            $category['children'] = Category::getAllParentNestedChildren($category);
+            $categories[] = $category;
+        }
         $vendors = User::where('is_vendor', true)->get();
         return view('accounting.items.edit', compact('categories', 'isClone', 'vendors', 'item'));
 

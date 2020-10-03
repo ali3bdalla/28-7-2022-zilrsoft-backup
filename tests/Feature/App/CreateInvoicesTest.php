@@ -28,9 +28,78 @@ class CreateInvoicesTest extends TestCase
      */
     private $dbConnection;
 
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    public function test_create_services_invoices()
+    {
 
-    
+        $services = $this->dbConnection->table('items')->where('is_service', true)->get();
 
+        foreach ($services as $service) {
+            $invociesServices = $this->dbConnection->table('invoice_items')->where([
+                ['item_id', $service->id],
+                ['invoice_type', 'sale'],
+            ])->get();
+
+            foreach ($invociesServices as $invoiceItem) {
+                $invoice = $this->dbConnection->table('invoices')->find($invoiceItem->invoice_id);
+                if ($invoice != null) {
+                    $newInvoiceId = $invoice->new_db_id;
+                    if ($newInvoiceId != null) {
+                        $newInvoice = Invoice::find($newInvoiceId);
+                        if ($newInvoice != null) {
+                            $dbInstance = $newInvoice->items()->where('item_id', $service->id)->first();
+                            // dd($dbInstance);
+                            if ($dbInstance != null) {
+                                echo "Skipped {$newInvoiceId} - {$service->barcode} \n";
+                                continue;
+                            }
+                        }
+
+                    }
+                    // echo "should created {$newInvoiceId} - {$service->barcode} \n";
+                    $tempResellerAccount = Account::where('slug', 'temp_reseller_account')->first()->toArray();
+                    $tempResellerAccount['amount'] = $invoiceItem->net;
+                    $payments[] = $tempResellerAccount;
+                    $manager = Manager::find(1);
+
+                    $response = $this->actingAs($manager)->postJson('/api/sales', [
+                        'items' => [
+                            [
+                                'id' => $service->id,
+                                'price' => $invoiceItem->price,
+                                'qty' => $invoiceItem->qty,
+                                'discount' => $invoiceItem->discount,
+                            ],
+                        ],
+                        'client_id' => 2,
+                        'salesman_id' => 1,
+                        'methods' => $payments,
+                    ]);
+                    $response
+                        ->dump()->assertCreated();
+                    $id = json_decode($response->content(), true)['id'];
+
+                    dispatch(new UpdateInvoiceCreatedAtJob($id, $invoice->created_at));
+
+                    $this->dbConnection->table('invoices')->where('id', $invoice->id)->update([
+                        'new_db_id' => $id,
+                    ]);
+
+                }
+
+                // echo $createdInstance;
+
+                // dd( $invoice);
+            }
+            // dd( $invociesServices );
+
+        }
+
+    }
 
     public function createSale($invoice)
     {
@@ -40,8 +109,6 @@ class CreateInvoicesTest extends TestCase
             ['belong_to_kit', false],
         ])->get();
 
-
-        
         $payments = $this->getMethods($invoice->id);
 
         if ($payments == null && $sale->client_id == 2) {
@@ -52,7 +119,6 @@ class CreateInvoicesTest extends TestCase
 
         if ($sale != null && $dbItems != null) {
             $items = [];
-            
 
             foreach ($dbItems as $item) {
 
@@ -99,7 +165,6 @@ class CreateInvoicesTest extends TestCase
                         ])->get();
                         $requestItem['items'] = [];
 
-
                         // dd($dbKitItems );
 
                         foreach ($dbKitItems as $kitItem) {
@@ -112,10 +177,9 @@ class CreateInvoicesTest extends TestCase
                             ])->first();
                             $newDBInstance = Item::find($dbKitItem->id);
 
-
                             // dd($kitItem);
 
-                            if ($kitItem != null && $newDBInstance != null && (!$newDBInstance->is_service || !$newDBInstance->is_expense  || $newDBInstance->available_qty >= $kitItem->qty)) {
+                            if ($kitItem != null && $newDBInstance != null && (!$newDBInstance->is_service || !$newDBInstance->is_expense || $newDBInstance->available_qty >= $kitItem->qty)) {
 
                                 $this->updateItemDetails($newDBInstance, $invoice);
 
@@ -132,11 +196,10 @@ class CreateInvoicesTest extends TestCase
                                     // dd($requestKitItem);
                                     $requestKitItem['qty'] = count($requestKitItem['serials']);
                                 }
-                                
+
                                 $requestItem['items'][] = $requestKitItem;
 
                             }
-
 
                         }
                         // dd($requestItem);
@@ -147,7 +210,6 @@ class CreateInvoicesTest extends TestCase
 
                         // dd($requestItem);
                     }
-
 
                     if ($requestItem['qty'] <= 0) {
                         continue;
@@ -175,7 +237,7 @@ class CreateInvoicesTest extends TestCase
                     $response->assertCreated();
                     return json_decode($response->content(), true)['id'];
 
-                } 
+                }
                 $this->restUpdatedItemsDetails();
 
             }
@@ -192,10 +254,10 @@ class CreateInvoicesTest extends TestCase
      *
      * @return void
      */
-    public function test_create_invoices()
+    public function create_invoices()
     {
 
-        $invoices = $this->dbConnection->table('invoices')->where('id','>',23006)->get();
+        $invoices = $this->dbConnection->table('invoices')->where('id', '>', 23006)->get();
 
         foreach ($invoices as $invoice) {
             echo "\nstarting.......................\n";
@@ -209,8 +271,7 @@ class CreateInvoicesTest extends TestCase
                 $createdInvoiceId = $this->createPurchase($invoice);
             } elseif ($invoice->invoice_type == 'r_purchase') {
                 $createdInvoiceId = $this->createReturnPurchase($invoice);
-            }
-             elseif ($invoice->invoice_type == 'sale') {
+            } elseif ($invoice->invoice_type == 'sale') {
                 $createdInvoiceId = $this->createSale($invoice);
             } elseif ($invoice->invoice_type == 'r_sale') {
                 $createdInvoiceId = $this->createReturnSale($invoice);
@@ -235,7 +296,6 @@ class CreateInvoicesTest extends TestCase
             $variation = abs($totalDebitAmount - $totalCreditAmount);
             $this->assertLessThanOrEqual(1, $variation);
         }
-
 
     }
 
@@ -459,7 +519,7 @@ class CreateInvoicesTest extends TestCase
 
                     $dbItem = $this->dbConnection->table('items')->find($item->item_id);
                     $newDBItem = Item::find($item->item_id);
-                    if ($dbItem != null && $newDBItem != null && (!$newDBItem->is_service  || $newDBItem->available_qty >= $item->qty)) {
+                    if ($dbItem != null && $newDBItem != null && (!$newDBItem->is_service || $newDBItem->available_qty >= $item->qty)) {
                         $this->updateItemDetails($newDBItem, $invoice);
 
                         $itemDBInstance = $newInvoice->items()->where('item_id', $item->item_id)->first();
@@ -522,8 +582,6 @@ class CreateInvoicesTest extends TestCase
                         $this->needManualRefactoringInvoices[] = $invoice->id;
                     }
 
-
-
                 }
 
             }
@@ -551,7 +609,6 @@ class CreateInvoicesTest extends TestCase
                 ['invoice_id', $invoice->id],
                 ['belong_to_kit', false],
             ])->get();
-
 
             $payments = $this->getMethods($invoice->id);
             if ($payments == null && $sale->client_id == 2) {
@@ -659,7 +716,6 @@ class CreateInvoicesTest extends TestCase
 
                 }
 
-
                 $manager = Manager::find(1);
 
                 if ($items != null) {
@@ -669,7 +725,7 @@ class CreateInvoicesTest extends TestCase
                     ]);
                     $response
                         ->dump()
-                       ->assertCreated();
+                        ->assertCreated();
 
                     if ($response->status() == 201) {
                         $response->assertCreated();
@@ -680,7 +736,6 @@ class CreateInvoicesTest extends TestCase
                     } else {
                         $this->needManualRefactoringInvoices[] = $invoice->id;
                     }
-
 
                 }
 
@@ -715,8 +770,6 @@ class CreateInvoicesTest extends TestCase
         $this->dbConnection = DB::connection('data_source');
 
     }
-
-
 
     // public function test_create_purchases()
     // {
@@ -762,9 +815,7 @@ class CreateInvoicesTest extends TestCase
     //         $this->assertLessThanOrEqual(1, $variation);
     //     }
 
-
     // }
-
 
     // public function create_sales()
     // {
@@ -809,7 +860,6 @@ class CreateInvoicesTest extends TestCase
     //         $variation = abs($totalDebitAmount - $totalCreditAmount);
     //         $this->assertLessThanOrEqual(1, $variation);
     //     }
-
 
     // }
 }
