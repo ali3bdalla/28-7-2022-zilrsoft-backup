@@ -3,7 +3,7 @@
 @section('title',__('sidebar.purchases'))
 @section('buttons')
     @can("create purchase")
-        <a href="{{route('accounting.purchases.create')}}" class="btn btn-custom-primary">
+        <a href="{{route('purchases.create')}}" class="btn btn-custom-primary">
             <i class="fa fa-plus-circle"></i> {{ __('pages/invoice.create') }}
         </a>
     @endcan

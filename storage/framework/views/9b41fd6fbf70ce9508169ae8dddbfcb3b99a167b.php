@@ -10,21 +10,54 @@
             <th><?php echo e(trans('pages/transactions.debit')); ?></th>
             <th><?php echo e(trans('pages/transactions.credit')); ?></th>
             </thead>
+            <?php $total_debit = 0; $total_credit = 0;?>
+        <tbody class="text-center">
+        <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+            <?php if($transaction->type  == 'credit'): ?>
+
+                <?php $total_credit = $total_credit + $transaction['amount']?>
+
+                <tr>
+                    <td class="date_field_center"><?php echo e($transaction->created_at); ?></td>
+                    <td><?php echo e($transaction->account_name); ?></td>
+                    <td></td>
+                    <td><?php echo e($transaction->amount); ?></td>
+                </tr>
 
 
-            <?php if($invoice->invoice_type=='sale'): ?>
-                <?php if ($__env->exists('accounting.include.invoice.transactions.sale')) echo $__env->make('accounting.include.invoice.transactions.sale', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            <?php elseif($invoice->invoice_type=='r_sale'): ?>
-                <?php if ($__env->exists('accounting.include.invoice.transactions.return_sale')) echo $__env->make('accounting.include.invoice.transactions.return_sale', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            <?php elseif($invoice->invoice_type=='r_purchase'): ?>
-                <?php if ($__env->exists('accounting.include.invoice.transactions.return_purchase')) echo $__env->make('accounting.include.invoice.transactions.return_purchase', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            <?php elseif($invoice->invoice_type=='stock_adjust'): ?>
-                <?php if ($__env->exists('accounting.include.invoice.transactions.stock_adjust')) echo $__env->make('accounting.include.invoice.transactions.stock_adjust', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             <?php else: ?>
-                <?php if ($__env->exists('accounting.include.invoice.transactions.purchase')) echo $__env->make('accounting.include.invoice.transactions.purchase', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+                <?php $total_debit = $total_debit + $transaction['amount']?>
+                <tr>
+                    <td class="date_field_center"><?php echo e($transaction->created_at); ?></td>
+                    <td><?php echo e($transaction->account_name); ?></td>
+                    <td><?php echo e($transaction->amount); ?></td>
+                    <td></td>
+                </tr>
+
             <?php endif; ?>
+
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </tbody>
+
+        <thead>
+        <th>المجموع</th>
+        <th></th>
+        <th><?php echo e($total_debit); ?></th>
+        <th><?php echo e($total_credit); ?></th>
+        </thead>
+
+
+
+
+
+
+
 
 
         </table>
+
+
     </div>
 <?php endif; ?><?php /**PATH /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/include/invoice/view_transactions.blade.php ENDPATH**/ ?>

@@ -33,7 +33,7 @@
 
                     @can('view item')
                         <li>
-                            <a href="{{route('accounting.items.index')}}"><i class="fab fa-product-hunt"></i>
+                            <a href="{{route('items.index')}}"><i class="fab fa-product-hunt"></i>
                                 {{ __('sidebar.items') }}
                             </a></li>
 
@@ -103,7 +103,7 @@
 
                     @can('view purchase')
                         <li>
-                            <a href="{{route('accounting.purchases.index')}}"><i class="fab fa-product-hunt"></i>
+                            <a href="{{route('purchases.index')}}"><i class="fab fa-product-hunt"></i>
                                 {{ __('sidebar.purchases') }}
                             </a></li>
 
@@ -129,13 +129,13 @@
                     @endcan
                     @can('manage quotation')
                         <li>
-                            <a href="{{route('accounting.quotations.index')}}"><i class="fa fa-sun"></i>
+                            <a href="{{route('sales.drafts.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.quotations') }}
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{route('accounting.quotations.services_quotations')}}"><i class="fa fa-sun"></i>
+                            <a href="{{route('sales.drafts.create.service')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.services_quotations') }}
                             </a>
                         </li>
@@ -218,14 +218,18 @@
                 <ul class="treeview-menu">
                     @can('view charts')
                         <li>
-                            <a href="{{route('accounting.accounts.index')}}"><i class="fa fa-sun"></i>
+                            <a href="{{route('accounts.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.chart_of_accounts') }}
                             </a></li>
 
                         <li>
-                            <a href="{{route('accounting.trial_balance.index')}}"><i class="fa fa-sun"></i>
-                                {{ __('sidebar.trial_balance') }}
+                            <a href="{{route('financial_statements.trial_balance')}}"><i class="fa fa-sun"></i>
+                                 ميزان المراجعة
                             </a></li>
+{{--                        <li>--}}
+{{--                            <a href="{{route('financial_statements.index')}}"><i class="fa fa-sun"></i>--}}
+{{--                               القوائم المالية--}}
+{{--                            </a></li>--}}
                     @endcan
                     @can('view transactions')
                         <li>
@@ -234,20 +238,6 @@
                             </a></li>
                     @endcan
 
-                    @can('view financial statements')
-                        <li>
-                            <a href="{{route('accounting.filters.index')}}"><i class="fa fa-sun"></i>
-                                {{ __('sidebar.financial_statements') }}
-                            </a></li>
-                    @endcan
-
-
-                    @can('view charts')
-                        <li>
-                            <a href="{{route('accounting.accounts.reports.index')}}"><i class="fa fa-sun"></i>
-                                تقارير
-                            </a></li>
-                    @endcan
 
 
                 </ul>

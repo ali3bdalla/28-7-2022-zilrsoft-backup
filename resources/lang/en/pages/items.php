@@ -103,7 +103,7 @@
 		
 		'available' => 'Available',
 		'saled' => 'Salad',
-		'r_sale' => 'Sales Return',
+		'return_sale' => 'Sales Return',
 		'purchase' => 'Available',
-		'r_purchase' => 'Purchase Return',
+		'return_purchase' => 'Purchase Return',
 	];

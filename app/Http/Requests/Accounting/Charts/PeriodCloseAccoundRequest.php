@@ -4,7 +4,8 @@
 	
 	use App\Models\Account;
 	use App\Models\Accounting\TransactionAccounting;
-	use Illuminate\Foundation\Http\FormRequest;
+    use Carbon\Carbon;
+    use Illuminate\Foundation\Http\FormRequest;
 	
 	class PeriodCloseAccoundRequest extends FormRequest
 	{
@@ -117,13 +118,27 @@
 			$container->update([
 				'amount' => $debit_total
 			]);
-			
-			
+
+
+
+            $lastDate = Carbon::now()->subDays(5);
+
+            $loggedUser->private_transactoins()->create([
+                'organization_id' => auth()->user()->organization_id,
+                'transaction_type' => "close_account",
+                'transaction_container_id' => $transaction_container_id,
+                'close_account_start_date' => $lastDate,
+                'close_account_end_date' => now(),
+                'amount' => $amount,
+                'shortage_amount' => $shortage,
+            ]);
+
+
 			$this->toCreateManagerCloseAccountTransaction($debit_total,$container->id,$short_shortage_amount);
-//			if ($this->filled('remaining_amount') && $this->has('remaining_amount') && $this->input("remaining_amount") > 0 && $this->filled('remaining_amount_account_id')
-//			&& $this->input('remaining_amount_account_id') >= 0){
-//				$this->makeReminingCashAmountTransactions($temp_reseller_account);
-//			}
+			if ($this->filled('remaining_amount') && $this->has('remaining_amount') && $this->input("remaining_amount") > 0 && $this->filled('remaining_amount_account_id')
+			&& $this->input('remaining_amount_account_id') >= 0){
+                    $this->makeReminingCashAmountTransactions($temp_reseller_account);
+			}
 //			}
 			
 			

@@ -28,12 +28,12 @@
                                                 <td class="text-center">
                                                     <button @click="validateSerial(index,serial)" class="btn
                                                             btn-custom-primary"
-                                                            v-if="allowedType.includes(serial.current_status)">ارجاع
+                                                            v-if="allowedType.includes(serial.status)">ارجاع
                                                     </button>
-                                                    <span v-else-if="serial.current_status == 'saled'">تم بيعه</span>
-                                                    <span v-else-if="serial.current_status == 'r_purchase'"> مرتج مشتريات</span>
-                                                    <span v-else-if="serial.current_status == 'r_sale'"> مرتج مبيعات</span>
-                                                    <span v-else-if="serial.current_status == 'purchase'"> مشتريات</span>
+                                                    <span v-else-if="serial.status == 'sold'">تم بيعه</span>
+                                                    <span v-else-if="serial.status == 'return_purchase'"> مرتج مشتريات</span>
+                                                    <span v-else-if="serial.status == 'return_sale'"> مرتج مبيعات</span>
+                                                    <span v-else-if="serial.status == 'purchase'"> مشتريات</span>
                                                 </td>
                                             </tr>
 
@@ -72,13 +72,13 @@
         },
 
         created: function () {
-            if (this.invoiceType == 'r_purchase') {
+            if (this.invoiceType == 'return_purchase') {
                 this.allowedType = [
-                    'r_sale', 'purchase', 'available'
+                    'in_stock', 'return_sale'
                 ];
             } else {
                 this.allowedType = [
-                    'saled'
+                    'sold'
                 ];
             }
         },
@@ -94,7 +94,7 @@
                 let canBeReturned = 0;
                 for (let i = 0; i < this.serials.length; i++) {
                     let serial = this.serials[i];
-                    if (this.allowedType.includes(serial.current_status)) {
+                    if (this.allowedType.includes(serial.status)) {
                         canBeReturned = canBeReturned + 1;
                     }
                 }
@@ -107,9 +107,9 @@
                 // console.log('works')
             },
             validateSerial(index, serial) {
-                if (this.allowedType.includes(serial.current_status)) {
+                if (this.allowedType.includes(serial.status)) {
                     serial.first_return = true;
-                    serial.current_status = this.invoiceType;
+                    serial.status = this.invoiceType;
                     this.serials.splice(index, 1, serial);
                     this.updateReturnSerialList();
                 }
@@ -121,8 +121,8 @@
                 let list = [];
                 for (let i = 0; i < this.serials.length; i++) {
                     let serial = this.serials[i];
-                    if (serial.current_status == this.invoiceType && serial.first_return) {
-                        list.push(serial);
+                    if (serial.status == this.invoiceType && serial.first_return) {
+                        list.push(serial.serial);
                     }
                 }
                 this.$emit('publishUpdated', {

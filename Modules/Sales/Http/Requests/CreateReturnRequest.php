@@ -3,7 +3,7 @@
 namespace Modules\Sales\Http\Requests;
 
 use App\Models\Invoice;
-use App\Models\SaleInvoice;
+use App\Models\Sale;
 use App\Models\TransactionsContainer;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -58,7 +58,7 @@ class CreateReturnRequest extends FormRequest
             $returnedItems = $this->getReturnedItems();
             $authUser = auth()->user();
             $invoice = Invoice::create([
-                'invoice_type' => 'r_sale',
+                'invoice_type' => 'return_sale',
                 'notes' => $this->has('notes') ? $this->input('notes') : "",
                 'creator_id' => $authUser->id,
                 'organization_id' => $sale->organization_id,
@@ -71,7 +71,7 @@ class CreateReturnRequest extends FormRequest
                 'salesman_id' => $sale->sale->salesman_id,
                 'client_id' => $sale->sale->client_id,
                 'organization_id' => $sale->organization_id,
-                'invoice_type' => 'r_sale',
+                'invoice_type' => 'return_sale',
                 'alice_name' => $sale->sale->alice_name,
                 "prefix" => "RSI-"
             ]);
@@ -109,7 +109,7 @@ class CreateReturnRequest extends FormRequest
 
     private function validateInvoiceType(Invoice $invoice)
     {
-        if ($invoice->sale == null || !$invoice->sale instanceof SaleInvoice || $invoice->invoice_type != 'sale' || $invoice->sale->invoice_type != 'sale') {
+        if ($invoice->sale == null || !$invoice->sale instanceof Sale || $invoice->invoice_type != 'sale' || $invoice->sale->invoice_type != 'sale') {
             $error = ValidationException::withMessages([
                 "invoice" => ['must be sales invoice'],
             ]);

@@ -5,7 +5,11 @@
 
 	use Illuminate\Database\Eloquent\Builder;
 
-	class ItemSerials extends BaseModel
+    /**
+     * @property mixed organization_id
+     * @property mixed current_status
+     */
+    class ItemSerials extends BaseModel
 	{
 		
 		
@@ -20,8 +24,8 @@
 		protected static function boot()
 		{
 			parent::boot();
-			static::addGlobalScope('pendingSerialsScope',function (Builder $builder){
-				$builder->where('is_pending',false);
+			static::addGlobalScope('draftScope',function (Builder $builder){
+				$builder->where('is_draft',false);
 			});
 		}
 		
@@ -32,12 +36,12 @@
 		
 		public function scopePurchase($query,$invoice_id)
 		{
-			return $query->where('purchase_invoice_id',$invoice_id);
+			return $query->where('purchase_id',$invoice_id);
 		}
 		
 		public function scopeSale($query,$invoice_id)
 		{
-			return $query->where('sale_invoice_id',$invoice_id);
+			return $query->where('sale_id',$invoice_id);
 		}
 		
 		public function item()
@@ -49,4 +53,13 @@
 		{
 			return $this->hasMany(SerialHistory::class,'serial_id');
 		}
+
+
+		// public function scopeInvoice($query,$invoiceId)
+		// {
+		// 	$serials = $this->histories()->where('invoice_id',$invoiceId)->pluck('serial_id')->toArray();
+		// 	dd($serials);
+		// 	die();
+		// 	return $query->whereIn('id',$serials);
+		// }
 	}

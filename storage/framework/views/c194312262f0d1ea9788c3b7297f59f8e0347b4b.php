@@ -33,7 +33,7 @@
 
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view item')): ?>
                         <li>
-                            <a href="<?php echo e(route('accounting.items.index')); ?>"><i class="fab fa-product-hunt"></i>
+                            <a href="<?php echo e(route('items.index')); ?>"><i class="fab fa-product-hunt"></i>
                                 <?php echo e(__('sidebar.items')); ?>
 
                             </a></li>
@@ -111,7 +111,7 @@
 
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view purchase')): ?>
                         <li>
-                            <a href="<?php echo e(route('accounting.purchases.index')); ?>"><i class="fab fa-product-hunt"></i>
+                            <a href="<?php echo e(route('purchases.index')); ?>"><i class="fab fa-product-hunt"></i>
                                 <?php echo e(__('sidebar.purchases')); ?>
 
                             </a></li>
@@ -139,14 +139,14 @@
                     <?php endif; ?>
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('manage quotation')): ?>
                         <li>
-                            <a href="<?php echo e(route('accounting.quotations.index')); ?>"><i class="fa fa-sun"></i>
+                            <a href="<?php echo e(route('sales.drafts.index')); ?>"><i class="fa fa-sun"></i>
                                 <?php echo e(__('sidebar.quotations')); ?>
 
                             </a>
                         </li>
 
                         <li>
-                            <a href="<?php echo e(route('accounting.quotations.services_quotations')); ?>"><i class="fa fa-sun"></i>
+                            <a href="<?php echo e(route('sales.drafts.create.service')); ?>"><i class="fa fa-sun"></i>
                                 <?php echo e(__('sidebar.services_quotations')); ?>
 
                             </a>
@@ -237,16 +237,19 @@
                 <ul class="treeview-menu">
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view charts')): ?>
                         <li>
-                            <a href="<?php echo e(route('accounting.accounts.index')); ?>"><i class="fa fa-sun"></i>
+                            <a href="<?php echo e(route('accounts.index')); ?>"><i class="fa fa-sun"></i>
                                 <?php echo e(__('sidebar.chart_of_accounts')); ?>
 
                             </a></li>
 
                         <li>
-                            <a href="<?php echo e(route('accounting.trial_balance.index')); ?>"><i class="fa fa-sun"></i>
-                                <?php echo e(__('sidebar.trial_balance')); ?>
-
+                            <a href="<?php echo e(route('financial_statements.trial_balance')); ?>"><i class="fa fa-sun"></i>
+                                 ميزان المراجعة
                             </a></li>
+
+
+
+
                     <?php endif; ?>
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view transactions')): ?>
                         <li>
@@ -256,21 +259,6 @@
                             </a></li>
                     <?php endif; ?>
 
-                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view financial statements')): ?>
-                        <li>
-                            <a href="<?php echo e(route('accounting.filters.index')); ?>"><i class="fa fa-sun"></i>
-                                <?php echo e(__('sidebar.financial_statements')); ?>
-
-                            </a></li>
-                    <?php endif; ?>
-
-
-                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view charts')): ?>
-                        <li>
-                            <a href="<?php echo e(route('accounting.accounts.reports.index')); ?>"><i class="fa fa-sun"></i>
-                                تقارير
-                            </a></li>
-                    <?php endif; ?>
 
 
                 </ul>

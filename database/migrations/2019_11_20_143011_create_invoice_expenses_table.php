@@ -20,6 +20,7 @@ class CreateInvoiceExpensesTable extends Migration
             $table->boolean('with_net')->default(false);
             $table->float('tax');
             $table->float('amount');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

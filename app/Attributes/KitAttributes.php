@@ -37,7 +37,7 @@ trait KitAttributes
             'total' => $data['total'],
             'subtotal' => $data['subtotal'],
             'tax' => $data['tax'],
-            'discount' => $data['discount_value'],
+            'discount' => $data['discount'],
             'net' => $data['net']
         ];
 

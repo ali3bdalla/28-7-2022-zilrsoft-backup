@@ -144,7 +144,7 @@ class CreateReturnSalesItemsJob implements ShouldQueue
             dispatch(new UpdateItemQtyJob($this->invoice, $createdInvoiceItem));
             dispatch(new CreateReturnSalesItemEntityJob($this->entity, $this->invoice, $createdInvoiceItem));
             if ($createdInvoiceItem->item->isNeedSerial())
-                dispatch(new ChangeItemSerialsStatusJob($createdInvoiceItem->item,$this->invoice, $itemRequestData['serials'], $this->availableSerialsStatus, 'r_sale'));
+                dispatch(new ChangeItemSerialsStatusJob($createdInvoiceItem->item,$this->invoice, $itemRequestData['serials'], $this->availableSerialsStatus, 'return_sale'));
             dispatch(new UpdateInvoiceItemProfitJob($createdInvoiceItem));
         }
         dispatch(new UpdateItemReturnedQtyJob($invoiceItem, (int)$itemRequestData['returned_qty']));

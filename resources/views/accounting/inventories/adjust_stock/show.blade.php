@@ -30,9 +30,9 @@
 {{--                <div class="col-md-4">--}}
 {{--                    <div class="input-group">--}}
 {{--                        <span id="vendors-list"--}}
-{{--                              class="input-group-addon">{{ trans('pages/invoice.vendor_inc_number') }}</span>--}}
+{{--                              class="input-group-addon">{{ trans('pages/invoice.vendor_invoice_id') }}</span>--}}
 {{--                        <input type="text" disabled="disabled"--}}
-{{--                               value="{{ $invoice->purchase->vendor_inc_number }}"--}}
+{{--                               value="{{ $invoice->purchase->vendor_invoice_id }}"--}}
 {{--                               class="form-control">--}}
 {{--                    </div>--}}
 {{--                </div>--}}

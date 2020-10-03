@@ -1,80 +1,173 @@
 <?php
-	
-	namespace App\Models;
-	
-	use App\Attributes\AccountAttributes;
-    use App\Relationships\AccountRelationships;
-	use Illuminate\Database\Eloquent\Model;
 
-    /**
-     * @method static where(array $array)
-     */
-    class Account extends BaseModel
-	{
-		
-		use AccountAttributes,AccountRelationships;
+namespace App\Models;
 
-		protected $guarded = [];
-		
-		protected $appends = [
-			'locale_name',
-			'current_amount',
-			'label',
-			'is_expanded',
-		];
-		protected $casts = [
-			'is_gateway' => 'boolean'
-		];
+use App\Models\Traits\NestingTrait;
+use Illuminate\Database\Eloquent\Builder;
+
+/**
+ * @method static where(array $array)
+ * @property mixed parent
+ * @property mixed transactions
+ * @property mixed locale_name
+ * @property mixed type
+ * @property mixed ar_name
+ * @property mixed name
+ * @property mixed total_debit_amount
+ * @property mixed total_credit_amount
+ * @property mixed id
+ * @property mixed slug
+ */
+class Account extends BaseModel
+{
+
+    use  NestingTrait;
+    protected $guarded = [];
+    protected $appends = [
+        'locale_name',
+        'current_amount',
+        'label',
+        'is_expanded',
+        'balance'
+    ];
+    protected $casts = [
+        'is_gateway' => 'boolean',
+    ];
 
 
-		public function returnNestedTreeIds(Model $model)
+    protected static function boot()
     {
-        $result[] = $model->id;
-        $children = $model->children;
-        if($children != null) {
-            foreach ($children as $builder_child)
-                foreach ($this->returnNestedTreeIds($builder_child) as $id)
-                    $result[] = $id;
-        }
-        return $result;
+        parent::boot();
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('created_at', 'desc');
+        });
+
+        
     }
 
-    /**
-     * @param Model $model
-     * @return array|null
-     */
-    public static function getAllParentNestedChildren(Model $model)
+    public function getSerialArrayAttribute($value)
     {
-        $children = [];
-        foreach ($model->children()->get() as $child){
-            $child_children = self::getAllParentNestedChildren($child);
-            if ($child_children != null)
-                $child['children'] = $child_children;
-
-            $children[] = $child;
-        }
-
-
-        return $children == [] ? null  : $children;
+        return str_split($value);
     }
 
-    /**
-     * @param Model $model
-     * @return array|null
-     */
-    public static function infinityChildrenIds(Model $model)
+    public function updateSerial()
     {
-        $children = [];
-        foreach ($model->children()->get() as $child){
-            $child_children = self::infinityChildrenIds($child);
-            if ($child_children != null)
-                foreach ($child_children as $grand_child)
-                    $children[] = $grand_child;
 
-            $children[] = $child['id'];
+        if ($this->parent != null) {
+            $parentSerial = $this->parent->serial_array;
+            $serialArrayIndex = count($this->_getParentsList());
+            $parentChildrenCount = $this->parent->children()->count();
+            $parentSerial[$serialArrayIndex] = $parentChildrenCount;
+            $serial = implode('', $parentSerial);
+            $this->forceFill([
+                'serial' => $serial,
+            ]);
+        } else {
+            $count = Account::where('parent_id', 0)->count();
+            $update = $this->forceFill([
+                'serial' => $count . '0000000',
+            ]);
         }
-
-        return $children == [] ? null  : $children;
     }
-	}
 
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'account_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo($this, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany($this, 'parent_id');
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'account_id');
+    }
+
+
+    public function getIsExpandedAttribute()
+    {
+        return false;
+    }
+
+    public function getLabelAttribute()
+    {
+        return $this->locale_name;
+    }
+
+
+    public function getSingleAccountBalance()
+    {
+        if ($this->_isCredit()) {
+            return (float)($this->total_credit_amount - $this->total_debit_amount);
+        }
+        return (float)($this->total_debit_amount - $this->total_credit_amount);
+    }
+
+    public function _isCredit()
+    {
+        return $this->type == 'credit';
+    }
+
+    public function getLocaleNameAttribute()
+    {
+        if (app()->isLocale('ar')) {
+            return $this->ar_name;
+        } else {
+            return $this->name;
+        }
+    }
+
+//    public function updateAccountBalanceUsingPipeline()
+//    {
+//        $totalCreditAmount = 0;
+//        $totalDebitAmount = 0;
+//        foreach ($this->transactions as $transaction) {
+//            if ($transaction->type == 'credit') {
+//                $totalCreditAmount += (float)$transaction->amount;
+//            } else {
+//                $totalDebitAmount += (float)$transaction->amount;
+//
+//            }
+//        }
+//
+//        $this->forceFill([
+//            'total_credit_amount' => $totalCreditAmount,
+//            'total_debit_amount' => $totalDebitAmount,
+//
+//        ]);
+//
+//        return $this->getCurrentAmountAttribute();
+//    }
+
+    public function getBalanceAttribute(){
+        return $this->getSingleAccountBalance();
+    }
+    public function getCurrentAmountAttribute()
+    {
+
+        $children = $this->getChildrenIncludeMe();
+        $currentAmount = 0;
+        if ($children != null) {
+            foreach ($children as $child) {
+                $dbChild = Account::find($child);
+                if ($dbChild != null)
+                    $currentAmount+= $dbChild->getSingleAccountBalance();
+            }
+        }
+        return $currentAmount;
+    }
+
+    public function _isDebit()
+    {
+        return $this->type == 'debit';
+    }
+
+}

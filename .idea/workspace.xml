@@ -20,189 +20,81 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/OrmNumbersTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/OrmNumbersTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_07_134824_create_invoice_items_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_07_134824_create_invoice_items_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attributes/InvoiceAttributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attributes/InvoiceAttributes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/Seeder/OrganizationSeederCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/Seeder/OrganizationSeederCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/InventoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/InventoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FinancialStatementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FinancialStatementController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Entities/StoreEntityRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Entities/StoreEntityRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Purchases/StorePurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StorePurchaseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreReturnPurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreReturnPurchaseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Sales/FetchSalesRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Sales/FetchSalesRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreSaleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreSaleRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Accounting/Purchase/StorePurchaseTransactionsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Accounting/Purchase/StorePurchaseTransactionsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Accounting/Purchase/StoreReturnPurchaseTransactionsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Accounting/Purchase/StoreReturnPurchaseTransactionsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Price/UpdateItemLastPurchasePriceJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Price/UpdateItemLastPurchasePriceJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/global.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/global.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_12_120636_create_reseller_closing_accounts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_01_12_120636_create_reseller_closing_accounts_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_transactions.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_transactions.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/receipt.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/receipt.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting_module/financial_statements/trail_balance.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting_module/financial_statements/trail_balance.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/app/outputs/file.txt" beforeDir="false" afterPath="$PROJECT_DIR$/storage/app/outputs/file.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/15/74/157431d3b7da64047f5f9a5c1a5e09a4e588a45f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/1a/b2/1ab2034ad35953f948b14ef620ed3d5d2b92e857" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/29/ba/29ba5c726f51fddf80785e5d193ccfd5b51823ac" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/42/6f/426f702735d9d33ceb5b85f89053bc05dee0eaf4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/44/d1/44d142505dd1a3b497197e2f459d2aec779e9ed6" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/44/d1/44d142505dd1a3b497197e2f459d2aec779e9ed6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/6a/5b/6a5b194845ed5d720cc963863fda8d4fd758d562" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/7a/2a/7a2ab4302a99219202efe50ab5db765de838ea54" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/7a/b1/7ab1fc8f5961fbb775ec5e72082f85be737c152b" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/K5fpcbEjVDcqt3a23dyoJniwaZF1MLExtE1ipPzX" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/LMFZ4l3ghTcfyBqPtN6DN4oY8Jgj7u3xw2F3hatJ" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/S2i1NrJzgexGI6VbkreXAZo3xzbcGUHyBkaqRz64" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-08-18.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-09-10.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-09-10.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/.env" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/apidoc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/app/database.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/app/database.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/app/debug.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/app/hash.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/app/helper_functions.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/app/localization.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/app/logger.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/app/mail.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/config/config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/config/default.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/config/development.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/config/production.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/events/customer_created_event.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/lang/ar.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/lang/en.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/listeners/send_confimration_email_listener.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/locale.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/middleware/add_global_vars.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/middleware/add_user.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/middleware/auth.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/middleware/guest.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/middleware/localization.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/middleware/pagination.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/migrations/20200605114918-users.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/migrations/20200605114918-users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/models/account.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/models/account.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/models/filter.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/models/filter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/models/invoice.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/models/invoice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/models/invoice_expense.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/models/invoice_expense.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/models/invoice_item.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/models/invoice_item.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/models/item.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/models/item.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/models/manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/models/manager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/models/sale_invoice.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/models/sale_invoice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/models/transaction.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/models/transaction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/models/transaction_container.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/models/transaction_container.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/models/type.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/models/type.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/old_db/migrator.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/old_db/mysql_connection.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/old_db/pg_run.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/old_db/server.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/old_db/zilrsoft_backup.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/zilrsoft-api/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/api_data.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/api_data.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/api_project.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/api_project.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/fonts/glyphicons-halflings-regular.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/fonts/glyphicons-halflings-regular.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/fonts/glyphicons-halflings-regular.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/fonts/glyphicons-halflings-regular.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/img/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/ca.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/cs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/de.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/es.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/fr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/it.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/locale.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/nl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/pl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/pt_br.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/ro.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/ru.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/tr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/vi.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/zh.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/locales/zh_cn.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/utils/handlebars_helper.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/utils/send_sample_request.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/utils/send_sample_request_utils.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/diff_match_patch.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/handlebars.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/jquery.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/list.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/lodash.custom.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/path-to-regexp/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/path-to-regexp/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/polyfill.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-Splus.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-aea.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-agc.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-apollo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-basic.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-cbm.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-cl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-clj.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-css.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-dart.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-el.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-erl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-erlang.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-fs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-go.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-hs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-lasso.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-lassoscript.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-latex.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-lgt.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-lisp.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-ll.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-llvm.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-logtalk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-ls.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-lsp.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-lua.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-matlab.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-ml.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-mumps.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-n.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-nemerle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-pascal.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-proto.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-r.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-rd.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-rkt.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-rust.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-s.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-scala.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-scm.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-sql.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-ss.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-swift.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-tcl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-tex.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-vb.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-vbs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-vhd.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-vhdl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-wiki.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-xq.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-xquery.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-yaml.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/lang-yml.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/prettify.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/prettify.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/prettify/run_prettify.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/require.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/semver.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/public/docs/vendor/webfontloader.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/api/controllers/auth/init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/api/controllers/auth/login.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/api/controllers/auth/register.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/api/controllers/categories/controller.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/api/controllers/categories/init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/api/controllers/items/controller.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/api/controllers/items/init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/api/controllers/orders/controller.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/api/controllers/orders/init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/api/controllers/payments/init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/api/routes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/database.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/routes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/server.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/src/startup.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/tests/integrations/categories.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/tests/integrations/items.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/tests/integrations/orders.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/tests/integrations/user_auth.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zilrsoft-api/tests/unit/hash.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/ad/f1/adf1e74780fbcc9b9400c1b92d0e3dbbce3dcc1c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/af/bb/afbb5078d72b4475b55aec910f03663fc2fed995" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/c2/4f/c24f92750673b2169c8cb7bfbc999cfa8457dc7c" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/c2/4f/c24f92750673b2169c8cb7bfbc999cfa8457dc7c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/e7/20/e7201b244f0667d66225955af5ad5e85804dd193" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/ea/2b/ea2bf7a67a6c47c2f1c085cbfb1af1ce76e72b7b" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/fb/11/fb1171968c12a7ead3f7a5a563bd4fa7e5833907" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/eLxxpGuoSJ9RLDrpig2uFXXjZnMqN4gliSWQvyh2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/1230b3ae2bc0d68cb8bcc9565d9dfdd6075cd12e.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/130cf304a8d603cd45f5f45548234b0bbaabd732.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/149fd94802efef871704c7b11ea1fe98a3f7f38c.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/2456413f660b50bbd3145af477655ce57967b647.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/3780f14dbc0ba13adc206253e05924932f6433a5.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/3793d7c09114b32ee74f6f4740b70ca7d4d7d6fa.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/3b730fa0cec61dc9df91a0bec6249abd24f0834e.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/4246e2f3bfc946c95579e8ce6de3d1e136f805d1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/53375789a96b85b4162862100d67dd757278c7e3.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/5445ac8bb861ec44e28dbd0a17999c335425fc3b.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/56231e117ae7a820c035655499a8a2f9f070e805.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/63b73cd1fbc3c6b257b465c1d5fb0eb29d0f2b43.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/7458f08c394f8d10120f55e3d818c86596f6a867.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/7de8f897c998b83f06c9ea00350b90aec3358103.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/7de8f897c998b83f06c9ea00350b90aec3358103.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/7ee9fb7875773860e39c4cabd0d346cc9f8d8f15.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/7fad2eef69c70367171bead62f328488f2b051d3.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/89f79079ad1f3ebdfa1db7ce67902e4fd10bde4a.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/9419bd2781092f3a19a68ae70ade773b5c62441c.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/9b41fd6fbf70ce9508169ae8dddbfcb3b99a167b.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/9b41fd6fbf70ce9508169ae8dddbfcb3b99a167b.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/a08453dd1636ce0618aff968273352a1173d75a1.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/a08453dd1636ce0618aff968273352a1173d75a1.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/abb81ea4be497e8a54188506edfb12f9f338cfbd.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/b4d28ed0304c597b39520c4aa0b377119d0357b3.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/bd489da899fec4ad3f4a13bf34a93bb0ccf84c6f.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/c082aa4050f90479e43ab9327a25d4bd6d304495.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/c10ee20a5ed53d9de8918eab05c6411d1ea701b2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/c3a02bbce5235484ab6c490c3923385e61c0f836.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/e27c34cfcc473d6cf89bc034df61b764be04cbc7.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/ef0914cbc509ff2143c803cb3d896d034bdfe7a5.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/f0183877e1b6f660f1110d551d157d76c06b29bb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/f49a104b505e7995ccb18340be3f153c4b6c0738.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-09-29.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-09-29.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/App/CreateInvoicesTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/App/CreateInvoicesTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/App/CreateManualTransactionsTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/App/CreateManualTransactionsTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/BeginningInventory/CreateBeginningInventoryTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Inventory/CreateBeginningInventoryTest.php" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -210,7 +102,9 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -224,7 +118,6 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
-      <path value="$PROJECT_DIR$/vendor/symfony/psr-http-message-bridge" />
       <path value="$PROJECT_DIR$/vendor/symfony/process" />
       <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
       <path value="$PROJECT_DIR$/vendor/symfony/mime" />
@@ -253,16 +146,12 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
       <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
-      <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
       <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
-      <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
       <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
-      <path value="$PROJECT_DIR$/vendor/php-http/message-factory" />
       <path value="$PROJECT_DIR$/vendor/fideloper/proxy" />
       <path value="$PROJECT_DIR$/vendor/paragonie/sodium_compat" />
       <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
       <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
-      <path value="$PROJECT_DIR$/vendor/phpseclib/phpseclib" />
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
       <path value="$PROJECT_DIR$/vendor/sebastian/version" />
       <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
@@ -288,7 +177,6 @@
       <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
       <path value="$PROJECT_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
       <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
-      <path value="$PROJECT_DIR$/vendor/globalcitizen/php-iban" />
       <path value="$PROJECT_DIR$/vendor/jakub-onderka/php-console-highlighter" />
       <path value="$PROJECT_DIR$/vendor/jakub-onderka/php-console-color" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
@@ -297,11 +185,8 @@
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/vendor/benjamincrozat/laravel-dropbox-driver" />
       <path value="$PROJECT_DIR$/vendor/graham-campbell/guzzle-factory" />
-      <path value="$PROJECT_DIR$/vendor/nyholm/psr7" />
       <path value="$PROJECT_DIR$/vendor/predis/predis" />
-      <path value="$PROJECT_DIR$/vendor/league/oauth2-server" />
       <path value="$PROJECT_DIR$/vendor/pusher/pusher-php-server" />
-      <path value="$PROJECT_DIR$/vendor/league/event" />
       <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
       <path value="$PROJECT_DIR$/vendor/league/flysystem" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
@@ -315,11 +200,7 @@
       <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/league/commonmark" />
-      <path value="$PROJECT_DIR$/vendor/laminas/laminas-diactoros" />
-      <path value="$PROJECT_DIR$/vendor/laminas/laminas-zendframework-bridge" />
       <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
-      <path value="$PROJECT_DIR$/vendor/laravel/passport" />
-      <path value="$PROJECT_DIR$/vendor/defuse/php-encryption" />
       <path value="$PROJECT_DIR$/vendor/laravel/framework" />
       <path value="$PROJECT_DIR$/vendor/laravel/tinker" />
       <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
@@ -327,7 +208,6 @@
       <path value="$PROJECT_DIR$/vendor/psr/http-message" />
       <path value="$PROJECT_DIR$/vendor/psr/container" />
       <path value="$PROJECT_DIR$/vendor/psr/log" />
-      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
       <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
@@ -340,6 +220,10 @@
       <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
       <path value="$PROJECT_DIR$/vendor/nwidart/laravel-modules" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
+      <path value="$PROJECT_DIR$/vendor/league/mime-type-detection" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
     </include_path>
   </component>
   <component name="ProjectId" id="1dRRD40XFnydW5tP6QEVIycDQNq" />
@@ -357,30 +241,50 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="full.screen.before.presentation.mode" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/accounting/components/layout" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests/Feature/Inventory" />
+      <recent name="$PROJECT_DIR$/shell" />
+      <recent name="$PROJECT_DIR$/app/Http/Requests/Items" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Sale" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js/accounting/components/layout" />
       <recent name="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance" />
       <recent name="$PROJECT_DIR$/Modules/Purchases/Tests/Feature" />
       <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Full" />
       <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/ReturnSale" />
-      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Sale" />
-      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature" />
-      <recent name="$PROJECT_DIR$/app/Traits" />
-      <recent name="$PROJECT_DIR$/app/Orm/Traits" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.WebController.php">
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="PHPUnit.CreateDraftPurchaseTest.test_create_draft_purchase_for_items_without_expense_or_service_or_kit_with_discount_and_serial">
     <configuration name="WebController.php" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/zilrsoft/Web/Http/Controllers/WebController.php" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="CreateDraftPurchaseTest.test_create_draft_purchase_for_items_without_expense_or_service_or_kit_with_discount_and_serial" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\Purchases\CreateDraftPurchaseTest" file="$PROJECT_DIR$/tests/Feature/Purchases/CreateDraftPurchaseTest.php" method="test_create_draft_purchase_for_items_without_expense_or_service_or_kit_with_discount_and_serial" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="CreateDraftPurchaseTest.test_create_draft_purchase_for_items_without_serial_and_expense_or_service_or_kit_without_discount" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\Purchases\CreateDraftPurchaseTest" file="$PROJECT_DIR$/tests/Feature/Purchases/CreateDraftPurchaseTest.php" method="test_create_draft_purchase_for_items_without_serial_and_expense_or_service_or_kit_without_discount" scope="Method" />
       <method v="2" />
     </configuration>
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -389,6 +293,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="PHPUnit.CreateDraftPurchaseTest.test_create_draft_purchase_for_items_without_expense_or_service_or_kit_with_discount_and_serial" />
+        <item itemvalue="PHPUnit.CreateDraftPurchaseTest.test_create_draft_purchase_for_items_without_serial_and_expense_or_service_or_kit_without_discount" />
         <item itemvalue="JavaScript Debug.WebController.php" />
       </list>
     </recent_temporary>
@@ -490,23 +396,47 @@
       <workItem from="1599481384897" duration="636000" />
       <workItem from="1599769929979" duration="617000" />
       <workItem from="1599931174514" duration="63000" />
+      <workItem from="1600601753257" duration="98000" />
+      <workItem from="1600605827013" duration="160000" />
+      <workItem from="1600606027477" duration="496000" />
+      <workItem from="1600631539916" duration="58000" />
+      <workItem from="1600631619535" duration="3689000" />
+      <workItem from="1600674621381" duration="18000" />
+      <workItem from="1600674643170" duration="724000" />
+      <workItem from="1600701743084" duration="14036000" />
+      <workItem from="1600744707904" duration="14291000" />
+      <workItem from="1600765198221" duration="18732000" />
+      <workItem from="1600844826596" duration="397000" />
+      <workItem from="1600860368246" duration="8000" />
+      <workItem from="1600862192315" duration="5679000" />
+      <workItem from="1600932701749" duration="10373000" />
+      <workItem from="1601006204286" duration="9711000" />
+      <workItem from="1601067045765" duration="2125000" />
+      <workItem from="1601102483840" duration="5671000" />
+      <workItem from="1601123871828" duration="63000" />
+      <workItem from="1601187789774" duration="18491000" />
+      <workItem from="1601279992761" duration="717000" />
+      <workItem from="1601304184466" duration="21665000" />
+      <workItem from="1601394121972" duration="3633000" />
+      <workItem from="1601547327464" duration="328000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="427" y="243" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1595749173171">
@@ -611,5 +541,20 @@
     </state>
     <state x="231" y="293" key="vcs.readOnlyHandler.ReadOnlyStatusDialog.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593589037711" />
     <state x="450" y="369" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.1440.900@0.0.1440.900" timestamp="1593784355162" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php-line-method">
+          <url>file://$PROJECT_DIR$/tests/Feature/App/CreateInvoicesTest.php</url>
+          <line>431</line>
+          <properties>
+            <option name="className" value="\Tests\Feature\App\CreateInvoicesTest" />
+            <option name="methodName" value="createPurchase" />
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

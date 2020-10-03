@@ -6,7 +6,7 @@
 	use App\Models\InvoicePayments;
 	use App\Models\Manager;
 	use App\Models\Organization;
-	use App\Models\SaleInvoice;
+	use App\Models\Sale;
 	use App\Models\Transaction;
 	use App\Models\UserDetails;
 	use App\Models\UserGateways;
@@ -59,7 +59,7 @@
 		
 		public function client_invoices()
 		{
-			return $this->hasMany(SaleInvoice::class,'client_id');
+			return $this->hasMany(Sale::class,'client_id');
 		}
 		
 		public function client_payments_invoice($invoice_ids = [])

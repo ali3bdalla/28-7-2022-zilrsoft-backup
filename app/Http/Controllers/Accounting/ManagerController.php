@@ -91,7 +91,16 @@
 		 */
 		public function edit(Manager $manager)
 		{
-			$manager_gateways = $manager->gateways()->pluck('gateway_id')->toArray();
+			// return 1;
+
+			$dbGateways = $manager->gateways;//()->pluck('id')->toArray()
+			$manager_gateways = [];
+			foreach($dbGateways as $gateway)
+			{
+				$manager_gateways[] = $gateway->id;
+			}
+			// return $manager_gateways;
+			
 			$manager_permissions = $manager->permissions()->pluck('name');
 			$branches = Branch::with('departments')->get();
 			return view('accounting.managers.edit',compact('branches','manager','manager_gateways','manager_permissions'));

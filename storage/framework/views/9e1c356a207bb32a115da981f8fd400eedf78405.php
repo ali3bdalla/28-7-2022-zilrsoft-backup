@@ -1,8 +1,9 @@
 <?php $__env->startSection('title', __('sidebar.account_close')); ?>
 
 <?php $__env->startSection('buttons'); ?>
-    <a class="btn btn-custom-primary" href="<?php echo e(route('accounting.reseller_daily.transfer_amounts')); ?>">انشاء تحويل</a>
-    <a class="btn btn-custom-primary" href="<?php echo e(route('accounting.reseller_daily.account_close_list')); ?>">الاقفالات
+
+    <a class="btn btn-custom-primary" href="<?php echo e(route('daily.reseller.accounts_transactions.create')); ?>">انشاء تحويل</a>
+    <a class="btn btn-custom-primary" href="<?php echo e(route('daily.reseller.closing_accounts.index')); ?>">الاقفالات
     </a>
 
 
@@ -26,21 +27,11 @@
                 </thead>
 
                 <?php $__currentLoopData = $managerCloseAccountList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <?php $total_amount = $transaction->container->transactions()->where("debitable_type","!=","")
+                    <?php $total_amount = $transaction->container->transactions()->where([['type','debit']])
 			            ->withoutGlobalScope
 			            ('pendingTransactionScope')->sum('amount'); ?>
 		            <tbody>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-
-                    
-
+        
                     <tr class="">
                         <td>TRANS-<?php echo e($transaction->creator->id); ?></td>
                         <td><?php echo e($transaction->created_at); ?></td>
@@ -53,61 +44,10 @@
                             <?php if($transaction->is_pending): ?>
                                 منتظرة
                             <?php else: ?>
-                                مقبولة
+                              مقبولة
                             <?php endif; ?>
                         </td>
                     </tr>
-                    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     </tbody>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 

@@ -3,6 +3,7 @@ import AccountingTreeViewRawLayoutComponent from './components/layout/treeViewRa
 import AccountingHeaderLayoutComponent from './components/layout/headerLayoutComponent';
 import accountingAppendGatewaysLayoutComponent from './components/layout/appendGatewaysLayoutComponent';
 import AccountingTablePaginationHelperLayoutComponent from './components/layout/tablePaginationHelperLayoutComponent';
+import AccountingTablePaginationHelperLayoutV2Component from './components/layout/tablePaginationHelperLayoutV2Component';
 import AccountingSelectWithSearchComponent from './components/layout/selectWithSearchComponent';
 import AccountingMultiSelectWithSearchComponent from './components/layout/multiSelectWithSearchLayoutComponent';
 import accountingFilterSelectWithSearchComponent from './components/layout/filterSelectWithSearchComponent';
@@ -72,6 +73,7 @@ Vue.component('accounting-header-layout-component', AccountingHeaderLayoutCompon
 Vue.component('accounting-append-gateways-layout-component', accountingAppendGatewaysLayoutComponent);
 Vue.component('accounting-treeview-raw-layout-component', AccountingTreeViewRawLayoutComponent);
 Vue.component('accounting-table-pagination-helper-layout-component', AccountingTablePaginationHelperLayoutComponent);
+Vue.component('accounting-table-pagination-helper-layout-v2-component', AccountingTablePaginationHelperLayoutV2Component);
 Vue.component('accounting-select-with-search-layout-component', AccountingSelectWithSearchComponent);
 Vue.component('accounting-multi-select-with-search-layout-component', AccountingMultiSelectWithSearchComponent);
 Vue.component('accounting-filter-select-with-search-component', accountingFilterSelectWithSearchComponent);

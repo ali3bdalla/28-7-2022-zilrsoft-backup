@@ -8,7 +8,7 @@
             <ul class="list-group">
                 <li :key="item.id" class="list-group-item" v-for="item in items" v-if="!isLoading">
                     <span class="badge badge-primary badge-pill">{{item.history_count}}</span>
-                    <a :href="'/accounting/items/' + item.id + '/transactions'">
+                    <a :href="'/items/' + item.id + '/transactions'">
                         {{ item.locale_name}}
                     </a>
                     <p>

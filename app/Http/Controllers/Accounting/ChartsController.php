@@ -18,7 +18,6 @@
 	
 	class ChartsController extends Controller
 	{
-		use ChartAccounting;
 		
 		/**
 		 * Display a listing of the resource.
@@ -75,33 +74,34 @@
 			$request->save();
 			return redirect(route('accounting.accounts.index'));
 		}
-		
-		/**
-		 * Display the specified resource.
-		 *
-		 * @param Account $account
-		 *
-		 * @return Response
-		 */
+
+        /**
+         * Display the specified resource.
+         *
+         * @param Account $account
+         *
+         * @param Request $request
+         * @return Response
+         */
 		public function show(Account $account,Request $request)
 		{
 			
 			
-			if ($account->slug == 'clients'){
-				$users = User::where('is_client',true)->paginate(50);//$this->get_users_transactions
-				//('client_balance')
+// 			if ($account->slug == 'clients'){
+// 				$users = User::where('is_client',true)->paginate(50);//$this->get_users_transactions
+// 				//('client_balance')
 				
-				return view('accounting.charts.transactions.identity',compact('users','account'));
-			}else if ($account->slug == 'vendors'){
-				$users = User::where('is_vendor',true)->paginate(50);
-//				$users = $this->get_users_transactions('vendor_balance');
-				return view('accounting.charts.transactions.identity',compact('users','account'));
-			}else if ($account->slug == 'stock'){
-				$items = $this->get_account_stock_item_transactions();
-				$items = $items['items'];
-				return view('accounting.charts.transactions.items',compact('items','account'));
+// 				return view('accounting.charts.transactions.identity',compact('users','account'));
+// 			}else if ($account->slug == 'vendors'){
+// 				$users = User::where('is_vendor',true)->paginate(50);
+// //				$users = $this->get_users_transactions('vendor_balance');
+// 				return view('accounting.charts.transactions.identity',compact('users','account'));
+// 			}else if ($account->slug == 'stock'){
+// 				$items = $this->get_account_stock_item_transactions();
+// 				$items = $items['items'];
+// 				return view('accounting.charts.transactions.items',compact('items','account'));
 				
-			}
+// 			}
 //			$obj = new AccountTransactionsLoader($account,$request);
 //			$transactions = $obj->response();
 //			return $transactions;

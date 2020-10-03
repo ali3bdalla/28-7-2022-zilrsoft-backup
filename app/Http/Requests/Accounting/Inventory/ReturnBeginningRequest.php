@@ -48,16 +48,16 @@ class ReturnBeginningRequest extends FormRequest
 		DB::beginTransaction();
 		try{
 			$invoice = Invoice::publish([
-				'invoice_type' => 'r_purchase',
+				'invoice_type' => 'return_purchase',
 				'parent_id' => $baseInvoice->id
 			]);
 			$return_sale = $invoice->publishSubInvoice('purchase',[
-				'invoice_type' => 'r_purchase',
+				'invoice_type' => 'return_purchase',
 				'prefix' => 'RBEG-',
 				'receiver_id' => $baseInvoice->purchase->receiver_id,
 				'vendor_id' => $baseInvoice->purchase->vendor_id
 			]);
-//				$this->toCreatePurchaseInvoiceForExpensesItems($invoice,$this->input('items'));
+//				$this->toCreatePurchaseForExpensesItems($invoice,$this->input('items'));
 			$invoice->pushItems($this->input('items'));
 			$this->toGetAndUpdatedAmounts($invoice);
 			

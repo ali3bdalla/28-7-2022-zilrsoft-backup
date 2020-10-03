@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests\Sales;
 
-use App\Http\Resources\Sales\SaleCollection;
 use App\Models\Invoice;
-use App\Models\SaleInvoice;
+use App\Models\Sale;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
@@ -18,8 +17,8 @@ class FetchSalesRequest extends FormRequest
      */
     public function authorize()
     {
-        // return true
-        return $this->user()->can('view sale');
+        return true;
+        // return $this->user()->can('view sale');
     }
 
     /**
@@ -37,16 +36,22 @@ class FetchSalesRequest extends FormRequest
     public function getData()
     {
 
-        if ($this->has('invoice_type') && $this->filled('invoice_type') && $this->input('invoice_type') === 'quotation') {
-            $getOnly = ['quotation'];
-        } else {
-            $getOnly = ['sale', 'r_sale'];
-        }
 
-        $query = Invoice::whereIn('invoice_type', $getOnly)->with([
+        $query = Invoice::whereIn('invoice_type', ['sale', 'return_sale'])->with([
             'creator', 'items', 'sale.client', 'sale.salesman',
         ]);
 
+
+        if ($this->has('is_draft') && $this->filled('is_draft')) {
+            $isDraft = (boolean)$this->input('is_draft');
+            if($isDraft){
+                $query = $query->withoutGlobalScope('draft')->withoutGlobalScope('manager')->where('is_draft',);
+
+            }
+        }
+
+
+    
         if (
             $this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
             $this->filled('endDate')
@@ -77,12 +82,12 @@ class FetchSalesRequest extends FormRequest
         }
 
         if ($this->has('clients') && $this->filled('clients')) {
-            $ids = SaleInvoice::whereIn('client_id', $this->input("clients"))->get()->pluck('invoice_id');
+            $ids = Sale::whereIn('client_id', $this->input("clients"))->get()->pluck('invoice_id');
             $query = $query->whereIn('id', $ids);
         }
 
         if ($this->has('salesmen') && $this->filled('salesmen')) {
-            $ids = SaleInvoice::whereIn('salesman_id', $this->input("salesmen"))->get()->pluck('invoice_id');
+            $ids = Sale::whereIn('salesman_id', $this->input("salesmen"))->get()->pluck('invoice_id');
             $query = $query->whereIn('id', $ids);
         }
 
@@ -95,7 +100,7 @@ class FetchSalesRequest extends FormRequest
                 $number = $this->input('title');
             }
 
-            $query = $query->where('id', $number)->withoutGlobalScope('currentManagerInvoicesOnly');
+            $query = $query->where('id', $number)->withoutGlobalScope('manager');
         }
 
         if ($this->has('net') && $this->filled('net')) {
@@ -161,16 +166,15 @@ class FetchSalesRequest extends FormRequest
         }
 
         if ($this->has('invoice_type') && $this->filled('invoice_type')) {
-            if (in_array($this->input("invoice_type"), ['sale', 'r_sale'])) {
+            if (in_array($this->input("invoice_type"), ['sale', 'return_sale'])) {
                 $query = $query->where('invoice_type', $this->input("invoice_type"));
             }
         }
-  
 
         if ($this->has('orderBy') && $this->filled('orderBy') && $this->has('orderType') && $this->filled('orderType')) {
             $query = $query->orderBy($this->orderBy, $this->orderType);
         } else {
-            $query = $query->orderByDesc("id");
+            // $query = $query->orderByDesc("id");
         }
 
         $query = $query->withCount([

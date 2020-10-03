@@ -24,7 +24,7 @@
                 </button>
             </div>
             <div class="col-md-6">
-                <a :href="app.BaseApiUrl + 'sales'" class="btn btn-default "><i
+                <a class="btn btn-default " href="/sales"><i
                         class="fa fa-redo"></i> {{ app.trans.cancel }}</a>
             </div>
 
@@ -123,13 +123,12 @@
 
 
             <div class="col-md-2  text-center" v-if="canViewItems==1">
-                <a :href="app.BaseApiUrl +
-                    'items?selectable=true'" class="btn btn-custom-primary"
+                <a class="btn btn-custom-primary" href="/items?selectable=true"
                    target="_blank">{{ app.trans.view_products}}</a>
 
             </div>
             <div class="col-md-2  text-center" v-if="canCreateItem==1">
-                <a :href="app.BaseApiUrl + 'items/create'" class="btn btn-custom-primary"
+                <a class="btn btn-custom-primary" href="/items/create"
                    target="_blank">{{app.trans.create_product}}</a>
             </div>
 
@@ -578,7 +577,7 @@
             'canCreateItem'],
         data: function () {
             return {
-                activateTestMode:false,
+                activateTestMode: false,
                 testRequestData: "",
                 clientModal: {
                     clientName: "",
@@ -620,15 +619,8 @@
                 barcodeNameAndSerialField: "",
                 bc: new BroadcastChannel('item_barcode_copy_to_invoice'),
                 app: {
-                    primaryColor: metaHelper.getContent('primary-color'),
-                    secondColor: metaHelper.getContent('second-color'),
-                    appLocate: metaHelper.getContent('app-locate'),
                     trans: trans('invoices-page'),
                     messages: trans('messages'),
-                    dateTimeTrans: trans('datetime'),
-                    validation: trans('validation'),
-                    datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
-                    BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
                     defaultVatSaleValue: 15,
                     defaultVatPurchaseValue: 15,
                 },
@@ -1006,6 +998,7 @@
             },
 
             itemPriceUpdated(item) {
+                item.price = parseFloat(item.price).toFixed(2);
                 let el = this.$refs['itemPrice_' + item.id + 'Ref'][0];
                 if (!inputHelper.validatePrice(item.price, el)) {
                     return false;
@@ -1016,6 +1009,7 @@
 
 
             itemDiscountUpdated(item) {
+                item.discount = parseFloat(item.discount).toFixed(2);
                 let el = this.$refs['itemDiscount_' + item.id + 'Ref'][0];
                 if (!inputHelper.validateDiscount(item.discount, el)) {
                     return false;
@@ -1195,7 +1189,7 @@
                     notes: this.invoiceData.notes,
                     total: this.invoiceData.total,
                     tax: this.invoiceData.tax,
-                    discount_value: this.invoiceData.discount,
+                    discount: this.invoiceData.discount,
                     discount_percent: this.invoiceData.discount,
                     net: this.invoiceData.net,
                     subtotal: this.invoiceData.subtotal,
@@ -1213,17 +1207,14 @@
                 // $("")
                 let appVm = this;
 
-                if(this.activateTestMode)
-                {
+                if (this.activateTestMode) {
                     this.testRequestData = JSON.stringify(data)
-                }else
-
-                {
-                    axios.post('/sales', data)
+                } else {
+                    axios.post('/api/sales', data)
                         .then(function (response) {
                             console.log(response.data);
                             if (doWork === 'open') {
-                                window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                                window.location.href = '/sales/' + response.data.id;
                             } else if (doWork === 'print') {
                                 appVm.everythingFineToSave = false;
                                 appVm.createdInvoiceId = response.data.id;
@@ -1247,7 +1238,7 @@
 
                                 setInterval(function () {
                                     if (appVm.cloning) {
-                                        window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                                        window.location.href = '/sales/' + response.data.id;
                                     } else {
                                         window.location.reload();
                                     }
@@ -1255,7 +1246,7 @@
 
                             } else {
                                 if (appVm.cloning) {
-                                    window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                                    window.location.href = '/sales/' + response.data.id;
                                 } else {
                                     window.location.reload();
                                 }

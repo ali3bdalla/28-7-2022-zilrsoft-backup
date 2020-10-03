@@ -2,17 +2,11 @@
 
 namespace Modules\Sales\Jobs;
 
-<<<<<<< HEAD
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
 use App\Models\Item;
 use App\Models\TransactionsContainer;
-=======
-use App\Invoice;
-use App\InvoiceItems;
-use App\Item;
-use App\TransactionsContainer;
->>>>>>> development
+
 use Dotenv\Exception\ValidationException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -42,7 +36,7 @@ class CreateSalesItemsJob implements ShouldQueue
     private $entity;
 
 
-    private $availableSerialsStatus = ["r_sale", "purchase", 'available'];
+    private $availableSerialsStatus = ["return_sale", "purchase", 'available'];
 
     /**
      * Create a new job instance.
@@ -111,7 +105,7 @@ class CreateSalesItemsJob implements ShouldQueue
 
         foreach ($dbKit->items as $kitItem) {
             $item = $kitItem->item;
-            if ($item->isNeedSerial()) {
+            if ($item->is_need_serial) {
                 $data = collect($itemPureCollection->get('items'))->where('id', $item->id)->first();
                 if (!empty($data)) {
                     $sendData['serials'] = $data['serials'];
@@ -133,7 +127,7 @@ class CreateSalesItemsJob implements ShouldQueue
     public function createItem($item, $itemRequestData, $index)
     {
         $invoiceItem = $this->addPureItem($this->invoice, $item, $itemRequestData, $index);
-        if (!$item->isService()  && !$item->isKit() && !$this->invoice->isPending()) {
+        if (!$item->isService() && !$item->isKit() && !$this->invoice->isPending()) {
             dispatch(new UpdateItemCostJob($this->invoice, $invoiceItem));
             dispatch(new UpdateItemQtyJob($this->invoice, $invoiceItem));
             if ($item->isNeedSerial())
@@ -156,7 +150,7 @@ class CreateSalesItemsJob implements ShouldQueue
         $data['parent_kit_id'] = $belongToKit ? (int)$itemPureCollection->get('kit_id') : 0;
         $data['belong_to_kit'] = $belongToKit;
         $data['discount'] = (float)$itemPureCollection->get('discount');
-        $data['price'] = $belongToKit ? (float)$itemPureCollection->get('price') :  $dbItem->getSalePrice((float)$itemPureCollection->get('price'));
+        $data['price'] = $belongToKit ? (float)$itemPureCollection->get('price') : $dbItem->getSalePrice((float)$itemPureCollection->get('price'));
         $data['qty'] = (int)$itemPureCollection->get('qty');
         $data['total'] = (float)$data['price'] * (int)$data['qty'];
         $data['subtotal'] = (float)$data['total'] - (float)$data['discount'];

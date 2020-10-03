@@ -124,7 +124,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
         $coverage->stop(
             true,
-            [TEST_FILES_PATH . 'BankAccount.php' => range(20, 25)]
+            [TEST_FILES_PATH . 'BankAccount.php' => range(20, 85)]
         );
 
         $coverage->start(
@@ -136,7 +136,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             [
                 TEST_FILES_PATH . 'BankAccount.php' => array_merge(
                     range(6, 9),
-                    range(20, 25),
+                    range(20, 85),
                     range(27, 32)
                 )
             ]
@@ -209,7 +209,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
         $coverage->stop(
             true,
-            [TEST_FILES_PATH . 'BankAccount.php' => range(20, 25)]
+            [TEST_FILES_PATH . 'BankAccount.php' => range(20, 85)]
         );
 
         $coverage->start(
@@ -221,7 +221,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             [
                 TEST_FILES_PATH . 'BankAccount.php' => array_merge(
                     range(6, 9),
-                    range(20, 25),
+                    range(20, 85),
                     range(27, 32)
                 )
             ]

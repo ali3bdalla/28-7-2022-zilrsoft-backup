@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Item;
 	
-	use App\Category;
+	use App\Models\Category;
 	use App\Models\Item;
 	use App\Models\ItemFilters;
 	use App\Models\ItemSerials;

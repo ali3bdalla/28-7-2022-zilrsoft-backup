@@ -1,7 +1,7 @@
 <?php $__env->startSection('title',__('sidebar.items')); ?>
 <?php $__env->startSection('buttons'); ?>
     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check("create item")): ?>
-        <a href="<?php echo e(route('accounting.items.create')); ?>" class="btn btn-custom-primary">
+        <a href="<?php echo e(route('items.create')); ?>" class="btn btn-custom-primary">
             <i class="fa fa-plus-circle"></i> <?php echo e(__('pages/items.create')); ?>
 
         </a>

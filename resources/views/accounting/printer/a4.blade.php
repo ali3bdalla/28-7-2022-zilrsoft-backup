@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{$invoice->title }}</title>
+    <title>{{$invoice->invoice_number }}</title>
 
     <!-- Latest compiled and minified CSS -->
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700&subset=latin,latin-ext'
@@ -111,7 +111,7 @@
 
         <div class="col-md-6" style="float: left;padding-top: 10px;color: black !important;">
             <h5>{{ __('pages/invoice.branch') }} :
-                {{$invoice->creator->branch->locale_name }}
+                {{$invoice->branch->locale_name }}
             </h5>
             <h5 style="margin: 10px 0px !important;">الرقم الضريبي : {{auth()->user()->organization->vat}}</h5>
 
@@ -154,10 +154,10 @@
 
 
                 <div class="company-info" style="margin-bottom: 10px">
-                    <span>{{$invoice->steakholder_type }} : {{ $invoice->steakholder_name  }}</span>
+                    <span>{{$invoice->user_type }} : {{ $invoice->user->name  }}</span>
                 </div>
                 <div class="company-info">
-                    <span>{{ __('pages/invoice.phone_number') }} :  {{ $invoice->steakholder_phone_number  }}</span>
+                    <span>{{ __('pages/invoice.phone_number') }} :  {{ $invoice->user->phone_number  }}</span>
                 </div>
 
             </div>
@@ -168,17 +168,17 @@
                 <div class="company-info" style="margin-bottom: 10px">
                     <span>{{ __('pages/invoice.invoice') }}
                         {{$invoice->description }} {{ __('pages/invoice.number') }} :
-                        {{$invoice->title }}</span>
+                        {{$invoice->invoice_number }}</span>
                 </div>
                 <div class="company-info" style="margin-bottom: 10px">
-                    <span>{{$invoice->served_title }} : {{ $invoice->served_by
+                    <span>{{$invoice->manager_type }} : {{ $invoice->manager->name
                     }}</span>
                 </div>
                 {{--                <div class="company-info"  style="margin-bottom: 8px">--}}
                 {{--                    <span>{{  __('pages/invoice.phone_number')  }} : {{  $invoice->creator->user->phone_number  }}</span>--}}
                 {{--                </div>--}}
                 <div class="company-info">
-                    <span>{{ __('pages/invoice.department') }} :  {{ $invoice->creator->department->locale_title  }}</span>
+                    <span>{{ __('pages/invoice.department') }} :  {{ $invoice->department->locale_title  }}</span>
                 </div>
 
 
@@ -201,7 +201,7 @@
                         <th class="unit"
                             style="width: 30px !important;background-color: #777777 !important;">
                             {{__('pages/invoice.qty')}}</th>
-                        @if($invoice->printable_price)
+                        @if($invoice->show_items_price_in_print_mode)
                             <th class="unit"
                                 style="width: 50px !important;background-color: #777777 !important;">{{__('pages/invoice.price')}}</th>
                             <th class="unit"
@@ -222,7 +222,7 @@
 				<?php $items_qty_count = 0; ?>
                     @if(!empty($invoice->items))
                         @foreach($invoice->items as $item)
-                            @if($item->belong_to_kit==false && $item->printable && $item->item != null)
+                            @if($item->belong_to_kit==false && $item->show_price_in_print_mode && $item->item != null)
 						   <?php $items_qty_count = $items_qty_count + $item->qty ?>
                                  @if($loop->index%2==0)
 							   <?php $background_color = "#ffffff"; ?>
@@ -237,29 +237,29 @@
 								 <?php echo $background_color;?> !important;">{{mb_substr($item->item->locale_name, 0,55) }}</td>
                                          <td class="total" style="background-color:
 								 <?php echo $background_color;?> !important;">{{ $item->qty }}</td>
-                                         @if($invoice->printable_price)
+                                         @if($invoice->show_items_price_in_print_mode)
                                              <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;">{{ $item->price }}</td>
+									<?php echo $background_color;?> !important;">{{ roundMoney($item->price) }}</td>
                                              <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> {{ $item->total }}</td>
+									<?php echo $background_color;?> !important;"> {{ roundMoney($item->total) }}</td>
                                              <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> {{ $item->discount }}</td>
+									<?php echo $background_color;?> !important;"> {{ roundMoney($item->discount) }}</td>
                                              <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> {{ $item->printable_tax }}</td>
+									<?php echo $background_color;?> !important;"> {{ roundMoney($item->tax) }}</td>
                                              <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> {{ $item->printable_net }}</td>
+									<?php echo $background_color;?> !important;"> {{ roundMoney($item->net) }}</td>
                                          @endif
                                      </tr>
                                      @if(!in_array($item->invoice_type,['purchase']))
                                          @if($item->item->is_need_serial)
                                              @foreach($item->item->serials()
                                             ->where([
-                                            ["sale_invoice_id",$invoice->id],
+                                            ["sale_id",$invoice->id],
                                             ["item_id",$item->item->id],
                                             ])
-                                            ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                            ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                            ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["return_sale_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["return_purchase_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["purchase_id",$invoice->id],["item_id",$item->item->id]])
                                             ->get() as $index => $serial
                                             )
                                                  <tr style="background-color: #8888">
@@ -273,7 +273,7 @@
                                 $serial->serial }}</td>
                                                      <td class="total" style="background-color:
 										   <?php echo $background_color;?> !important;"></td>
-                                                     @if($invoice->printable_price)
+                                                     @if($invoice->show_items_price_in_print_mode)
                                                          <td class="total" style="background-color:
 											  <?php echo $background_color;?> !important;"></td>
                                                          <td class="total" style="background-color:
@@ -303,7 +303,7 @@
         </div>
     </section>
     <div class="">
-        <?php $printable_tax_net = $invoice->printable_tax_and_net;?>
+        <?php $show_price_in_print_mode_tax_net = $invoice->show_price_in_print_mode_tax_and_net;?>
         <div class="total_numbers text-right">
             <div class="">
                 <h4 style="color: white;font-size: 22px;padding: 4px">{{ __('pages/invoice.invoice_data') }}</h4>
@@ -311,20 +311,20 @@
 
             <div class="number">
                 <div class="label">{{ __('pages/invoice.total') }} :</div>
-                <div class="value"> {{ $invoice->total
+                <div class="value"> {{ roundMoney($invoice->total)
         }}</div>
                 <div class="clear"></div>
             </div>
             <div class="number">
                 <div class="label">{{ __('pages/invoice.discount') }} :</div>
-                <div class="value">{{ $invoice->discount_value
+                <div class="value">{{ roundMoney($invoice->discount)
         }}</div>
                 <div class="clear"></div>
             </div>
 
             <div class="number">
                 <div class="label">{{ __('pages/invoice.subtotal') }} :</div>
-                <div class="value">{{ $invoice->subtotal}}</div>
+                <div class="value">{{roundMoney( $invoice->subtotal)}}</div>
                 <div
                         class="clear"></div>
             </div>
@@ -332,7 +332,7 @@
             <div class="number">
                 <div class="label">{{ __('pages/invoice.vat') }} :
                 </div>
-                <div class="value"> {{ $printable_tax_net['tax']}}</div>
+                <div class="value"> {{ roundMoney($invoice->tax)}}</div>
                 {{--                ({{ $invoice->getVat('purchase') }}%)--}}
                 <div class="clear"></div>
             </div>
@@ -340,7 +340,7 @@
                 <div style="text-align: center;">الاجمالي</div>
                 <div style="margin: 10px;text-align: center;font-size: 25px">
                     <h3 class=><b>
-                            {{ $printable_tax_net['net'] }}</b></h3>
+                            {{ roundMoney($invoice->net) }}</b></h3>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -384,7 +384,7 @@
                 <p>* التبديل خلال سبعة أيام .</p>
 
                 @foreach($invoice->items as $item)
-                    @if($item->belong_to_kit==false &&  $item->item != null && $item->printable && $item->item->warranty)
+                    @if($item->belong_to_kit==false &&  $item->item != null && $item->show_price_in_print_mode && $item->item->warranty)
                         <p>* الصنف {{$loop->index + 1 }} {{ $item->item->warranty_title }} .</p>
                     @endif
                 @endforeach

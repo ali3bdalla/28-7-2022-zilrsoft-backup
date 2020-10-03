@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Category;
+	use App\Models\Category;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Kit\CreateKitRequest;
 	use App\Http\Requests\Accounting\Kit\UpdateKitRequest;

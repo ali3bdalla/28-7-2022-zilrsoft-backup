@@ -5,10 +5,10 @@
 use App\Models\Type;
 use Faker\Generator as Faker;
 
-$factory->define(App\Models\Type::class, function (Faker $faker) {
+$factory->define(Type::class, function (Faker $faker) {
     return [
         //
-        'name'=>$faker->sentence
-
+        'name' => $faker->name,
+        'ar_name' => $faker->name,
     ];
 });

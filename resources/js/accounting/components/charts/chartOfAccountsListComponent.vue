@@ -5,7 +5,7 @@
                 <div class="" style="padding: 10px">
                 <span class="pull-left ">
                     <label :class="{'label-primary':account.current_amount>=0}" class="label label-danger ">
-                        {{ account.current_amount}}
+                        {{ parseFloat(account.current_amount).toFixed(2)}}
                     </label> &nbsp;
                     <label class="label label-info label-sm" v-if="account.type=='credit'">
                        دائن
@@ -14,22 +14,22 @@
                        مدين
                     </label>
                      &nbsp;
-                    <a :href="'/accounting/accounts/' + account.id + '/edit'" v-if="account.parent_id!=0">
+                    <a :href="'/accounts/' + account.id + '/edit'" v-if="account.parent_id!=0">
                         <label class="label label-success label-sm">تعديل</label></a>
 
-                    <accounting-delete-button-layout-component :url="'/accounting/accounts/' + account.id" class=''
+                    <accounting-delete-button-layout-component :url="'/accounts/' + account.id" class=''
                                                                v-if="account.children_count<=0"><label
                             class="label label-danger label-sm">حذف</label>
                     </accounting-delete-button-layout-component>
 
-                    <a :href="'/accounting/accounts/create?parent_id=' + account.id">
+                    <a :href="'/accounts/create?parent_id=' + account.id">
                         <label class="label label-success label-sm">اضافة</label></a>
                 </span>
                     <span class="lead"><button
                             @click="loadChildren(account,index)"
                             v-if="account.children_count>=1"
                     ><i class="fa fa-list"></i></button>
-                    <a :href="'/accounting/accounts/' + account.id ">{{account.locale_name }}</a>
+                    <a :href="'/accounts/' + account.id ">{{account.locale_name }}</a>
                 </span>
 
                 </div>
@@ -60,8 +60,7 @@
                 account.children = null;
                 this.accounts_list.push(account);
             }
-            // this.accounts_list = this.accounts;
-            // this.temp_accounts_list = this.accounts_list;
+
         },
         methods: {
             loadChildren(account, index) {
@@ -72,7 +71,7 @@
                         account.id), item);
                 } else {
 
-                    axios.get('/accounting/accounts/load_children/' + account.id + '/list').then(response => {
+                    axios.get('/api/accounts/' + account.id + '/children').then(response => {
                         let item = appVm.accounts_list[index];
                         item.children = response.data;
                         item.is_expanded = true;

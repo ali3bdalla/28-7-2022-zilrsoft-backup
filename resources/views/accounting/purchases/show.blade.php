@@ -8,14 +8,14 @@
         }
     </style>
 @endsection
-@section('title',__('pages/invoice.view') . ' | '. $invoice->title )
+@section('title',__('pages/invoice.view') . ' | '. $invoice->invoice_number )
 @section('buttons')
 
     <a href="{{route('accounting.printer.a4',$invoice->id)}}" target="_blank" class="btn btn-default">
         <i class="fa fa-print"></i> {{ __('pages/invoice.price_a4') }}
     </a>
     @can('create purchase')
-        <a href="{{route('accounting.purchases.create')}}" class="btn btn-default"><i class="fa fa-plus-square"></i> {{
+        <a href="{{route('purchases.create')}}" class="btn btn-default"><i class="fa fa-plus-square"></i> {{
         trans
         ('pages/invoice.create')
         }}</a>
@@ -62,9 +62,9 @@
                 <div class="col-md-4">
                     <div class="input-group">
                         <span id="vendors-list"
-                              class="input-group-addon">{{ trans('pages/invoice.vendor_inc_number') }}</span>
+                              class="input-group-addon">{{ trans('pages/invoice.vendor_invoice_id') }}</span>
                         <input type="text" disabled="disabled"
-                               value="{{ $invoice->purchase ? $invoice->purchase->vendor_inc_number : "" }}"
+                               value="{{ $invoice->purchase ? $invoice->purchase->vendor_invoice_id : "" }}"
                                class="form-control">
                     </div>
                 </div>
@@ -97,7 +97,7 @@
         </div>
         <div class="panel-body">
             @includeIf('accounting.include.invoice.view_items',[
-                 'items' => $invoice->items
+                 'items' => $invoice->items()->withoutGlobalScope('draftScope')->get()
             ])
 
         </div>

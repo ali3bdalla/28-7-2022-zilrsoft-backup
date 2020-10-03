@@ -297,7 +297,7 @@
                                 <div class="col-md-8">
 
                                     <select class="form-control" v-model="selectedExpense">
-                                        <option :value="expense" v-for="expense in expenses">{{ expense.locale_name
+                                        <option :key="expense.id" :value="expense" v-for="expense in expenses">{{ expense.locale_name
                                             }}
                                         </option>
                                     </select>
@@ -310,7 +310,7 @@
                             </div>
 
                             <div class="">
-                                <div class="panel panel-primary" v-for="expense in invoiceData.items"
+                                <div :key="expense.id" class="panel panel-primary" v-for="expense in invoiceData.items"
                                      v-show="expense.is_expense">
                                     <div class="panel-heading">{{ expense.locale_name}}</div>
                                     <div class="panel-body">
@@ -685,8 +685,7 @@
                 if (item.is_service || item.is_expense) {
                     // let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts); //  1.05
                     item.price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vts);
-                    // item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
-                    // item.price = item.subtotal;
+                 
                     item.total = item.price;
                     item.subtotal = item.price;
                     item.tax = ItemAccounting.getTax(item.subtotal, item.vts, true);
@@ -698,19 +697,13 @@
                     item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
                 }
 
-                // item.tax = ItemMath.sub(ItemMath.mult(item.subtotal, tax / 100), item.subtotal);
-                // this.items.splice(db.model.index(this.invoiceData.items), 1, item);
+                
                 this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
 
             },
 
             itemUpdater(item) {
-                // if (!item.is_kit && !item.is_service) {
-                //     if (!ItemValidator.validateQty(item.qty, item.qty)) {
-                //         item.qty = ItemMath.sub(item.qty, 1);
-                //         return this.itemUpdater(item);
-                //     }
-                // }
+              
 
 
                 item.total = ItemAccounting.getTotal(item.price, item.qty);
@@ -824,6 +817,8 @@
                 this.everythingFineToSave = false;
 
 
+                // alert(1);
+
                 let data = {
                     items: this.invoiceData.items,
                     salesman_id: this.invoiceData.salesmanId,
@@ -832,7 +827,7 @@
                     notes: this.invoiceData.notes,
                     total: this.invoiceData.total,
                     tax: this.invoiceData.tax,
-                    discount_value: this.invoiceData.discount,
+                    discount: this.invoiceData.discount,
                     discount_percent: this.invoiceData.discount,
                     net: this.invoiceData.net,
                     subtotal: this.invoiceData.subtotal,
@@ -848,9 +843,9 @@
                 };
                 let appVm = this;
 
-                axios.post(this.app.BaseApiUrl + 'quotations', data)
+                axios.post('/api/sales/draft', data)
                     .then(function (response) {
-                        window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                        window.location.href = '/sales/' + response.data.id;
                     })
                     .catch(function (error) {
                         alert(error.response.data.message);

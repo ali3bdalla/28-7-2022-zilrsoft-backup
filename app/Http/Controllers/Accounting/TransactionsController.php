@@ -61,7 +61,9 @@ class TransactionsController extends Controller
      */
     public function show(TransactionsContainer $transaction)
     {
-        $transactions = TransactionsContainer::where('id', $transaction->id)->paginate(10);
+        $transactions = TransactionsContainer::where('id', $transaction->id)->first();
+
+        return $transactions->transactions()->with('account')->get();
         return view('accounting.transactions.index', compact('transactions'));
     }
 

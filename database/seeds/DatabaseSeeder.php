@@ -1,7 +1,5 @@
 <?php
 
-use App\Attachment;
-use App\Models\Item;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,20 +11,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-//			;
 
-        foreach (Item::all() as $item) {
-            $item->attachments()->saveMany(factory(Attachment::class, 3)->make());
+        factory(App\Models\Country::class, 3)->create();
+        factory(App\Models\Type::class, 2)->create();
+        factory(App\Models\Manager::class)->create([
+            'email' => 'developer@dev.com'
+        ]);
+        factory(App\Models\Manager::class)->create([
+            'email' => 'tester@dev.com'
+        ]);
 
-        }
-//			$this->call(RoleAndPermissionSeeder::class);
-//			Artisan::all('database:first-init');
-//    	factory(App\Models\Country::class, 10)->create();
-//    	factory(App\Models\Type::class, 10)->create();
-//        factory(App\Role::class, 10)->create();
-//        // factory(App\Category::class, 10)->create();
-        // factory(App\Models\Filter::class, 10)->create();
-        // factory(App\CategoryFilters::class, 10)->create();
-        // $this->call(UsersTableSeeder::class);
+        factory(App\Models\Manager::class, 1)->create();
+        factory(App\Models\Category::class, 2)->create();
+        factory(App\Models\User::class, 5)->create();
+        factory(App\Models\Organization::class)->create();
+//        factory(App\Models\Item::class, 10)->create();
+//        factory(App\Models\Item::class, 5)->create([
+//            'is_need_serial' => true,
+//        ]);
+//        factory(App\Models\Item::class, 5)->create([
+//            'is_expense' => true,
+//        ]);
+
     }
 }

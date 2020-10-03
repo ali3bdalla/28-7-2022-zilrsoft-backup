@@ -28,7 +28,7 @@
                     <div class="row">
                         <div align="right" class="col-md-4 " style="margin-top: -28px;
                         font-weight: bold;margin-right: 3px !important;
-                        margin-left: -3px;" v-text="purchaseInvoiceId">
+                        margin-left: -3px;" v-text="PurchaseId">
 
                         </div>
                         <div align="left" class="col-md-8  div-col" style="margin-left: -10px;margin-right: 10px;
@@ -67,7 +67,7 @@
         data: function () {
             return {
                 blukData: [],
-                purchaseInvoiceId: "",
+                PurchaseId: "",
                 image: null,
                 cropper: null,
                 number_of_barcode: 1,
@@ -91,7 +91,7 @@
         },
         created: function () {
             this.itemsData = this.items;
-            this.purchaseInvoiceId = this.invoiceId;
+            this.PurchaseId = this.invoiceId;
             this.connectQZ();
             if (this.item != null) {
                 this.itemData = this.item;
@@ -381,7 +381,7 @@
                 this.itemsData = value;
             },
             invoiceId: function (value) {
-                this.purchaseInvoiceId = value;
+                this.PurchaseId = value;
             }
         }
     }

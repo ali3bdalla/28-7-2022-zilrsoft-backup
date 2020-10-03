@@ -549,7 +549,7 @@
                     notes: this.invoiceData.notes,
                     total: this.invoiceData.total,
                     tax: this.invoiceData.tax,
-                    discount_value: this.invoiceData.discount,
+                    discount: this.invoiceData.discount,
                     discount_percent: this.invoiceData.discount,
                     net: this.invoiceData.net,
                     subtotal: this.invoiceData.subtotal,
@@ -565,9 +565,11 @@
                 };
                 let appVm = this;
 
-                axios.post(this.app.BaseApiUrl + 'quotations', data)
+                axios.post('/api/sales/draft', data)
                     .then(function (response) {
-                        window.location.href = appVm.app.BaseApiUrl + 'sales/' + response.data.id;
+                                                // console.log(response.data);
+
+                        window.location.href = '/sales/' + response.data.id;
                     })
                     .catch(function (error) {
                         alert(error.response.data.message);

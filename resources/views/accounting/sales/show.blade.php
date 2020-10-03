@@ -1,6 +1,6 @@
 @extends('accounting.layout.master')
 
-@section('title',__('pages/invoice.view') . ' | '. $invoice->title )
+@section('title',__('pages/invoice.view') . ' | '. $invoice->invoice_number )
 
 
 
@@ -96,7 +96,7 @@
         </div>
         <div class="panel-body">
             @includeIf('accounting.include.invoice.view_items',[
-                 'items' => $invoice->items
+                 'items' => $invoice->items()->withoutGlobalScope('draftScope')->get()
             ])
         </div>
         <div class="panel-footer">

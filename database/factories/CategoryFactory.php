@@ -2,9 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Category;
-use App\Models\User;
-use App\Models\Organization;
+use App\Models\Category;
 
 use Faker\Generator as Faker;
 

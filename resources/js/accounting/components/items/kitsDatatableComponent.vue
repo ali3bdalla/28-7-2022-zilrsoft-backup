@@ -199,7 +199,7 @@
                 isOpenSearchPanel: false,
                 category: null,
                 baseUrl: "",
-                orderBy: "id",
+                orderBy: "created_at",
                 orderType: "desc",
                 yourValue: null,
                 table_rows: [],

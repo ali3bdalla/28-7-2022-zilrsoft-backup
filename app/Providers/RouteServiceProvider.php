@@ -30,37 +30,7 @@ class RouteServiceProvider extends ServiceProvider
 
         parent::boot();
 
-        Route::bind('kit', function ($value) {
-            return Item::where([
-                ['is_kit', true],
-                ['id', $value],
-            ])->firstOrFail();
-        });
-
-        Route::bind('sale', function ($value) {
-            return Invoice::where('id', $value)->withoutGlobalScope('currentManagerInvoicesOnly')->first();
-        });
-
-        Route::bind('purchase', function ($value) {
-            return Invoice::where('id', $value)->withoutGlobalScope('currentManagerInvoicesOnly')->first();
-        });
-
-
-        Route::bind('inventory', function ($value) {
-            return Invoice::where('id', $value)->withoutGlobalScope('currentManagerInvoicesOnly')->first();
-        });
-
-
-        Route::bind('invoice', function ($value) {
-            return Invoice::where('id', $value)->withoutGlobalScope('currentManagerInvoicesOnly')->first();
-        });
-        Route::bind('quotation', function ($value) {
-            return Invoice::where([
-                ['id', $value],
-                ['invoice_type', 'quotation'],
-            ])->withoutGlobalScope('currentManagerInvoicesOnly')->first();
-        });
-
+        $this->registerBindings();
 
     }
 
@@ -74,11 +44,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
         $this->mapApiRoutes();
-
         $this->mapAccountingRoutes();
 
-
-        //
     }
 
     /**
@@ -93,16 +60,27 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web','auth')
         ->namespace($this->namespace)
         ->group(base_path('routes/web.php'));
+
+        // Route::middleware('web','guest')
+        // ->namespace($this->namespace)
+        // ->group(base_path('routes/auth.php'));
     }
 
 
     protected function mapApiRoutes()
     {
-        Route::middleware('web','auth')
+        Route::middleware(['web','auth'])
         ->prefix('api')
         ->name('api.')
         ->namespace($this->apiNamespace)
         ->group(base_path('routes/api.php'));
+
+
+        Route::middleware('web','guest')
+        ->prefix('api')
+        ->name('guest.api.')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/guest_api.php'));
     }
 
 
@@ -113,5 +91,50 @@ class RouteServiceProvider extends ServiceProvider
             ->prefix("accounting")
             ->name('accounting.')
             ->group(base_path('routes/accounting.php'));
+    }
+
+    protected function registerBindings()
+    {
+        Route::bind('kit', function ($value) {
+            return Item::where([
+                ['is_kit', true],
+                ['id', $value],
+            ])->firstOrFail();
+        });
+
+        Route::bind('sale', function ($value) {
+            return Invoice::where([
+                ['id', $value],
+            ])
+                ->whereIn('invoice_type',['return_sale','sale'])
+                ->withoutGlobalScope('manager')->withoutGlobalScope('draft')->first();
+        });
+//
+        Route::bind('purchase', function ($value) {
+            return Invoice::where([
+                ['id', $value],
+            ])
+                ->whereIn('invoice_type',['return_purchase','purchase','beginning_inventory'])
+
+                ->withoutGlobalScope('manager')->first();
+        });
+
+        Route::bind('returnPurchase', function ($value) {
+            return Invoice::where([
+                ['id', $value],
+                ['invoice_type','return_purchase']
+            ])->withoutGlobalScope('manager')->first();
+        });
+
+   
+
+        Route::bind('quotation', function ($value) {
+            return Invoice::where([
+                ['id', $value],
+            ])
+                ->whereIn('invoice_type',['return_sale','sale'])
+                ->withoutGlobalScope('manager')->withoutGlobalScope('draft')->first();
+        });
+//
     }
 }

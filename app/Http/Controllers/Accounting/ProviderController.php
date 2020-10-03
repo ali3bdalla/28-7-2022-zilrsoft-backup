@@ -3,12 +3,12 @@
 	namespace App\Http\Controllers\Accounting;
 	
 	use App\Models\Account;
-	use App\Category;
-	use App\CategoryFilters;
+	use App\Models\Category;
+	use App\Models\CategoryFilters;
 	use App\Core\MathCore;
 	use App\Models\Filter;
 	use App\Http\Controllers\Controller;
-	use App\Http\Requests\Accounting\Item\FindItemsRequest;
+	use App\Http\Requests\Accounting\Item\QueryItemsRequest;
 	use App\Http\Requests\Accounting\Item\ValidatePurchaseSerialsRequest;
 	use App\Http\Requests\Accounting\Item\ValidateSerialRequest;
 	use App\Models\Item;
@@ -75,11 +75,11 @@
 		}
 		
 		/**
-		 * @param FindItemsRequest $request
+		 * @param QueryItemsRequest $request
 		 *
 		 * @return mixed
 		 */
-		public function query_find_items(FindItemsRequest $request)
+		public function query_find_items(QueryItemsRequest $request)
 		{
 			return $request->results();
 		}

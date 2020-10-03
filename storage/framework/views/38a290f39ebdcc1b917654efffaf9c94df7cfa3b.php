@@ -11,7 +11,7 @@
             <th class=""><?php echo e(__('pages/invoice.total')); ?></th>
             <th class=""><?php echo e(__('pages/invoice.discount')); ?></th>
             <th class=""><?php echo e(__('pages/invoice.subtotal')); ?></th>
-            <th class=""><?php echo e(__('pages/invoice.vat')); ?></th>
+
             <th class=""><?php echo e(__('pages/invoice.tax')); ?></th>
             <th class=""><?php echo e(__('pages/invoice.net')); ?></th>
         </tr>
@@ -19,7 +19,7 @@
 
         <tbody>
         <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <?php if(!(in_array($invoice->invoice_type,['sale','r_sale']) && $item->is_expense) && $item->item != null): ?>
+            <?php if(!(in_array($invoice->invoice_type,['sale','return_sale']) && $item->is_expense) && $item->item != null): ?>
                 <tr <?php if($item->belong_to_kit==true): ?> class="bg-custom-primary" <?php endif; ?>>
                     <td>
                         <button class="btn btn-custom-primary btn-xs"><?php echo e($loop->index + 1); ?></button>
@@ -71,11 +71,12 @@
                         <input type="text" class="form-control input-sm amount-input" placeholder="subtotal" readonly=""
                                value="<?php echo e($item->subtotal); ?>" disabled="">
                     </td>
-                    <td class="">
-                        <input type="text" class="form-control input-sm amount-input" placeholder="vat purchase"
-                               readonly=""
-                               value="<?php echo e($item->item->vtp); ?>%" disabled="">
-                    </td>
+
+
+
+
+
+
                     <td class="text-center">
                         <input type="text" class="form-control input-sm amount-input" placeholder="tax" readonly=""
                                value="<?php echo e($item->tax); ?>" disabled="">
@@ -111,14 +112,14 @@
                                             <label>الحالة</label>
                                         </div>
                                     </div>
-                                    <?php $__currentLoopData = $item->item->serials()->withoutGlobalScope("pendingSerialsScope")
+                                    <?php $__currentLoopData = $item->item->serials()->withoutGlobalScope("draftScope")
                                     ->where([
-                                    ["sale_invoice_id",$invoice->id],
+                                    ["sale_id",$invoice->id],
                                     ["item_id",$item->item->id],
                                     ])
-                                    ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                    ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                    ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["return_sale_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["return_purchase_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["purchase_id",$invoice->id],["item_id",$item->item->id]])
                                     ->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $serial): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <div class="row">
                                             <div class="col-md-8  text-center">
@@ -126,13 +127,11 @@
 
                                             </div>
                                             <div class="col-md-4  text-center">
-                                                <?php echo e(trans('pages/items.' . $serial->current_status)); ?>
+                                                
+                                                <?php echo e(trans('pages/items.' . $serial->status)); ?>
 
                                             </div>
                                         </div>
-
-
-
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </div>

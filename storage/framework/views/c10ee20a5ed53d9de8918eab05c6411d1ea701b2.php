@@ -7,8 +7,9 @@
 
 <?php $__env->startSection("content"); ?>
     <accounting-period-account-close-component
-            :period-sales-amount='<?php echo json_encode(money_format("%i", $periodSalesAmount), 512) ?>'
-            :last-remaining-transfer='<?php echo json_encode(money_format("%i", $lastRemainingTransferAmount), 512) ?>'
+            :in-amount='<?php echo json_encode(roundMoney($inAmount), 15, 512) ?>'
+            :out-amount='<?php echo json_encode(roundMoney($outAmount), 15, 512) ?>'
+            :remaining-accounts-balance='<?php echo json_encode(roundMoney($remainingAccountsBalanceAmount), 15, 512) ?>'
             :gateways='<?php echo json_encode($gateways, 15, 512) ?>'
     ></accounting-period-account-close-component>
 <?php $__env->stopSection(); ?>

@@ -15,7 +15,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\DB;
 
-class DeletePurchaseInvoiceJob implements ShouldQueue
+class DeletePurchaseJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     private $invoice;
@@ -89,7 +89,7 @@ class DeletePurchaseInvoiceJob implements ShouldQueue
                 $this->invoice->items()->forceDelete();
                 $this->invoice->forceDelete();
                 
-            }else if($this->invoice->invoice_type == 'r_purchase')
+            }else if($this->invoice->invoice_type == 'return_purchase')
             {
                 TransactionsContainer::where('invoice_id', $this->invoice->id)->forceDelete();
                 Transaction::where('invoice_id', $this->invoice->id)->forceDelete();
@@ -102,7 +102,7 @@ class DeletePurchaseInvoiceJob implements ShouldQueue
                             'available_qty' => $current_qty,
                         ]);
                         if ($item->item->is_need_serial) {
-                            $item->item->serials()->where('r_purchase_invoice_id', $this->invoice->id)->update([
+                            $item->item->serials()->where('return_purchase_invoice_id', $this->invoice->id)->update([
                                 'current_status' => "available"
                             ]);
                         }
