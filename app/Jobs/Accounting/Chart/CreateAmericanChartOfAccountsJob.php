@@ -41,7 +41,6 @@ class CreateAmericanChartOfAccountsJob implements ShouldQueue
 
         $supervisor = $this->supervisor;
 
-        // dd($supervisor);
         $this->organization->accounts_creator_id = $supervisor->id;
         $this->organization->accounts_organization_id = $this->organization->id;
         $this->create_init_accounting_accounts();

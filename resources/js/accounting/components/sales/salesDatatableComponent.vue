@@ -495,7 +495,7 @@
 
 
             initUi() {
-                this.requestUrl =  '/accounting/datatable/sales';
+                this.requestUrl =  '/api/sales';
                 this.baseUrl = this.app.trans.SaleBaseUrl + "/";
                 this.customDateShortcuts = [
                     {key: 'day', label: this.app.datetimetrans.today, value: 'day'},

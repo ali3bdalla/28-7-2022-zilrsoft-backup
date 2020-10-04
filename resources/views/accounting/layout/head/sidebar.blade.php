@@ -11,11 +11,11 @@
 
             </a>
             <ul class="treeview-menu">
-                <li><a href="{{route('accounting.dashboard.index')}}"><i class="fa fa-tachometer-alt"></i>
+                <li><a href="{{route('dashboard.index')}}"><i class="fa fa-tachometer-alt"></i>
                         {{ __('sidebar.dashboard') }}</a></li>
                 @can('view accounting')
                     <li>
-                        <a href="{{route('accounting.dashboard.index')}}"><i class="fa fa-sun"></i>
+                        <a href="{{route('dashboard.index')}}"><i class="fa fa-sun"></i>
                             {{ __('sidebar.statistics') }}
                         </a></li>
                 @endcan

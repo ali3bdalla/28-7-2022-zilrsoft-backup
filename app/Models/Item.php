@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Relationships\ItemRelationships;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -55,12 +55,19 @@ class Item extends BaseModel
     ];
     protected $guarded = [];
 
-
+    protected static function boot()
+    {
+        parent::boot();
+        if (auth()->check()) {
+            static::addGlobalScope('organization', function (Builder $builder) {
+                $builder->where('organization_id', auth()->user()->id);
+            });
+        }
+    }
     public function items()
     {
         return $this->hasMany(KitItems::class, 'kit_id')->with('item');
     }
-
 
     public function data()
     {
@@ -71,8 +78,6 @@ class Item extends BaseModel
     {
         return $query->where('is_kit', true);
     }
-
-
 
     public function organization()
     {
@@ -86,7 +91,7 @@ class Item extends BaseModel
 
     public function pipeline()
     {
-        return $this->hasMany(InvoiceItems::class, 'item_id')->orderBy('created_at','asc');
+        return $this->hasMany(InvoiceItems::class, 'item_id')->orderBy('created_at', 'asc');
     }
 
     public function category()
@@ -515,7 +520,6 @@ class Item extends BaseModel
     //     return $history;
     // }
 
-
     // ///
     // /**
     //  * @param $history
@@ -758,5 +762,3 @@ class Item extends BaseModel
     //     );
     // }
 }
-
-

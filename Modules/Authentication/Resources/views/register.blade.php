@@ -13,7 +13,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('accounting.register') }}">
+        <form method="POST" action="">
             @csrf
             <div class="row justify-content-center">
                 <div class="col-md-6">

@@ -47,6 +47,14 @@ class Invoice extends Model
         parent::boot();
 
 
+
+        if (auth()->check())
+        {
+            static::addGlobalScope('organization', function (Builder $builder) {
+                $builder->where('organization_id', auth()->user()->id);
+            });
+        }
+       
         static::addGlobalScope('draft', function (Builder $builder) {
             $builder->where('is_draft', false);
         });

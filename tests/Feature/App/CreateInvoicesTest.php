@@ -46,15 +46,16 @@ class CreateInvoicesTest extends TestCase
 
             foreach ($invociesServices as $invoiceItem) {
                 $invoice = $this->dbConnection->table('invoices')->find($invoiceItem->invoice_id);
-                if ($invoice != null) {
+                $newDBItem = Item::find($service->id);
+                if ($invoice != null)  {
+                    $this->updateItemDetails($newDBItem, $invoice);
+
                     $newInvoiceId = $invoice->new_db_id;
                     if ($newInvoiceId != null) {
                         $newInvoice = Invoice::find($newInvoiceId);
                         if ($newInvoice != null) {
                             $dbInstance = $newInvoice->items()->where('item_id', $service->id)->first();
-                            // dd($dbInstance);
                             if ($dbInstance != null) {
-                                echo "Skipped {$newInvoiceId} - {$service->barcode} \n";
                                 continue;
                             }
                         }
@@ -63,7 +64,6 @@ class CreateInvoicesTest extends TestCase
                     // echo "should created {$newInvoiceId} - {$service->barcode} \n";
                     $tempResellerAccount = Account::where('slug', 'temp_reseller_account')->first()->toArray();
                     $tempResellerAccount['amount'] = $invoiceItem->net;
-                    $payments[] = $tempResellerAccount;
                     $manager = Manager::find(1);
 
                     $response = $this->actingAs($manager)->postJson('/api/sales', [
@@ -77,7 +77,7 @@ class CreateInvoicesTest extends TestCase
                         ],
                         'client_id' => 2,
                         'salesman_id' => 1,
-                        'methods' => $payments,
+                        'methods' => [ $tempResellerAccount],
                     ]);
                     $response
                         ->dump()->assertCreated();
@@ -88,6 +88,9 @@ class CreateInvoicesTest extends TestCase
                     $this->dbConnection->table('invoices')->where('id', $invoice->id)->update([
                         'new_db_id' => $id,
                     ]);
+
+                    $this->restUpdatedItemsDetails();
+
 
                 }
 
@@ -406,7 +409,6 @@ class CreateInvoicesTest extends TestCase
         if ($purchase != null && $dbItems != null) {
             $items = [];
             foreach ($dbItems as $item) {
-
                 $dbItem = $this->dbConnection->table('items')->find($item->item_id);
                 $newDBItem = Item::find($item->item_id);
 
