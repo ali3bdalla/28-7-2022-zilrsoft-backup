@@ -1,0 +1,15 @@
+[2020-10-04 09:01:55] producation.ERROR: The "--alow" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--alow\" option does not exist. at /var/www/vhosts/zilrsoft.com/vendor/symfony/console/Input/ArgvInput.php:203)
+[stacktrace]
+#0 /var/www/vhosts/zilrsoft.com/vendor/symfony/console/Input/ArgvInput.php(145): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption('alow', '41.240.39.167')
+#1 /var/www/vhosts/zilrsoft.com/vendor/symfony/console/Input/ArgvInput.php(81): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption('--alow=41.240.3...')
+#2 /var/www/vhosts/zilrsoft.com/vendor/symfony/console/Input/Input.php(55): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#3 /var/www/vhosts/zilrsoft.com/vendor/symfony/console/Command/Command.php(214): Symfony\\Component\\Console\\Input\\Input->bind(Object(Symfony\\Component\\Console\\Input\\InputDefinition))
+#4 /var/www/vhosts/zilrsoft.com/vendor/laravel/framework/src/Illuminate/Console/Command.php(121): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#5 /var/www/vhosts/zilrsoft.com/vendor/symfony/console/Application.php(1005): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#6 /var/www/vhosts/zilrsoft.com/vendor/symfony/console/Application.php(271): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Foundation\\Console\\DownCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#7 /var/www/vhosts/zilrsoft.com/vendor/symfony/console/Application.php(147): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#8 /var/www/vhosts/zilrsoft.com/vendor/laravel/framework/src/Illuminate/Console/Application.php(93): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#9 /var/www/vhosts/zilrsoft.com/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(131): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#10 /var/www/vhosts/zilrsoft.com/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#11 {main}
+"} 
