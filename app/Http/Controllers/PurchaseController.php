@@ -72,7 +72,7 @@ class PurchaseController extends Controller
         $cloned_items = [];
         foreach ($purchase->items()->with('item')->get() as $item) {
             if ($item->item->is_need_serial) {
-                $item->serials = $item->item->serials()->withoutGlobalScope("draftScope")
+                $item->serials = $item->item->serials()->withoutGlobalScope("draft")
                     ->where([["purchase_id", $purchase->id]])
                     ->pluck('serial');
             } else {

@@ -32,6 +32,8 @@
 			$this->middleware(['permission:view category']);
 			
 			$chats = Category::where('parent_id',0)->get();
+
+			// return $chats;
 			$categories = [];
 			foreach ($chats as $category){
 				$category['children'] = Category::getAllParentNestedChildren($category);

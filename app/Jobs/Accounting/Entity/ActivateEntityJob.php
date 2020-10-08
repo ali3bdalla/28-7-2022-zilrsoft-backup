@@ -34,7 +34,7 @@ class ActivateEntityJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->transactionsContainer->transactions()->withoutGlobalScope('pendingTransactionScope')->update([
+        $this->transactionsContainer->transactions()->withoutGlobalScope('pending')->update([
             'is_pending' => false
         ]);
         $this->transactionsContainer->update([

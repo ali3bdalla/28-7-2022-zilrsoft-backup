@@ -112,7 +112,7 @@ class CreateDraftPurchaseTest extends TestCase
                     ['serial', $serial],
                     ['status', 'in_stock'],
                     ['is_draft',true]
-                ])->withoutGlobalScope('draftScope')->get();
+                ])->withoutGlobalScope('draft')->get();
                 $this->assertNotEmpty($result);
             }
         }

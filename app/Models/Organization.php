@@ -18,7 +18,7 @@
 		
 		public function getOrganizationTaxAttribute()
 		{
-			return 1.05;
+			return 1.15;
 		}
 		
 		

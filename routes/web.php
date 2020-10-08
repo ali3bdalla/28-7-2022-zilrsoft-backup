@@ -80,7 +80,7 @@ Route::middleware('auth')->group(function () {
 
     });
 
-    Route::prefix('/accounting/datatable')->group(function () {
+    Route::prefix('/accounting/datatable')->namespace('Accounting')->group(function () {
         Route::get('items', 'ItemController@datatable')->name('items.datatable');
         Route::get('filters', 'FilterController@datatable')->name('filters.datatable');
         Route::get('{filter}/filter_values', 'FilterValuesController@datatable')->name('filter.values.datatable');

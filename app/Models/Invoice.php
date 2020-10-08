@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Attributes\InvoiceAttributes;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -26,7 +25,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property mixed vendor_invoice_number
  * @method static create(array $array)
  */
-class Invoice extends Model
+class Invoice extends BaseModel
 {
 
     use InvoiceAttributes;
@@ -42,34 +41,22 @@ class Invoice extends Model
         'printable_price' => 'boolean',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
 
 
-        if (auth()->check())
-        {
-            static::addGlobalScope('organization', function (Builder $builder) {
-                $builder->where('organization_id', auth()->user()->id);
-            });
-        }
+    //     // if (auth()->check())
+    //     // {
+    //     //     static::addGlobalScope('organization', function (Builder $builder) {
+    //     //         $builder->where('organization_id', auth()->user()->organization_id);
+    //     //     });
+    //     // }
        
-        static::addGlobalScope('draft', function (Builder $builder) {
-            $builder->where('is_draft', false);
-        });
 
-
-        static::addGlobalScope('order', function (Builder $builder) {
-            $builder->orderBy('created_at', 'desc');
-        });
-
-        if (auth()->check() && !auth()->user()->can('manage branches')) {
-            static::addGlobalScope('manager', function (Builder $builder) {
-                $builder->where('creator_id', auth()->user()->id);
-            });
-        }
-    }
+       
+    // }
 
     public function user()
     {

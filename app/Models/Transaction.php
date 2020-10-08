@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
+use App\Events\Models\Transaction\TransactionCreated;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -19,23 +19,18 @@ class Transaction extends BaseModel
         'amount' => 'float',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
+
+      /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => TransactionCreated::class,
+    ];
 
 
-        static::addGlobalScope('order', function (Builder $builder) {
-            $builder->orderBy('created_at', 'desc');
-        });
-
-        if (auth()->check()) {
-            static::addGlobalScope('pendingTransactionScope', function (Builder $builder) {
-                $builder->where('is_pending', false);
-            });
-        }
-
-    }
-
+  
 
     public function account()
     {

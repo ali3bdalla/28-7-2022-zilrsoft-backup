@@ -22,45 +22,39 @@ class DailyController extends Controller
             ['receiver_id', auth()->user()->id],
         ])->orderBy('id', 'desc')->paginate(15);
 
-        // return $managerCloseAccountList;
         return view('accounting.reseller_daily.account_close_list', compact('managerCloseAccountList'));
     }
 
     public function createResellerClosingAccount(Request $request)
     {
-        // 281284.29
         $loggedUser = $request->user();
         $tempResellerAccount = Account::where([
             ['slug', 'temp_reseller_account'],
             ['is_system_account', true],
         ])->first();
+
         $remainingAccountsBalanceAmount = $loggedUser->remaining_accounts_balance;
         $accountsClosedAt = $loggedUser->accounts_closed_at;
+
 
         if ($accountsClosedAt != null) {
             $accountsClosedAt = Carbon::parse($accountsClosedAt);
             $paymentQuery = Payment::where([
                 ['creator_id', $loggedUser->id],
             ])->whereDate('created_at', '>=', $accountsClosedAt->toDate())->whereTime('created_at', '>=', $accountsClosedAt);
-
         } else {
             $paymentQuery = Payment::where([
                 ['creator_id', $loggedUser->id],
             ]);
         }
         $inAmount = $paymentQuery->where('payment_type', 'receipt')->sum('amount');
-        // return  $inAmount;
+        // return $tempResellerAccount;
+
         $outAmount = 0;
         $gateways = $loggedUser->gateways()->get();
 
-        // $gateways = [];
-        // foreach($dbGateways as $gateway)
-        // {
-        //     if($gateway->getSingleAccountBalance()>0)
-        //     {
-        //         $gateways[] = $gateway;
-        //     }
-        // }
+        // return $tempResellerAccount;
+
         return view('accounting.reseller_daily.account_close', compact('inAmount', 'loggedUser', 'accountsClosedAt', 'outAmount', 'gateways', 'remainingAccountsBalanceAmount'));
     }
 
@@ -92,7 +86,7 @@ class DailyController extends Controller
             }
         }
 
-        // return $gateways;
+
         return view('accounting.reseller_daily.transfer_amounts', compact('gateways', 'manager_gateways'));
     }
 
@@ -114,7 +108,7 @@ class DailyController extends Controller
             }
             
         }
-//
+
         return back();
     }
 }

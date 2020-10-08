@@ -22,6 +22,7 @@ class SaleController extends Controller
         $clients = User::where('is_client', true)->get();
         $creators = Manager::all();
         $departments = Department::all();
+
         return view('sales.index', compact('clients', 'creators', 'departments'));
     }
 
@@ -35,6 +36,7 @@ class SaleController extends Controller
         $clients = User::where('is_client', true)->get()->toArray();
         $expenses = Item::where('is_expense', true)->get();
         $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
+
         return view('sales.create', compact('clients', 'salesmen', 'gateways', 'expenses'));
     }
 

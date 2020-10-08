@@ -2,7 +2,6 @@
 
 namespace App\Observers;
 
-use App\Jobs\Accounting\Chart\CreateAmericanChartOfAccountsJob;
 use App\Models\Organization;
 
 class OrganizationObServer

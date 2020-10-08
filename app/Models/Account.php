@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\Models\Account\AccountCreated;
+use App\Events\Models\Account\AccountUpdated;
 use App\Models\Traits\NestingTrait;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -34,16 +36,18 @@ class Account extends BaseModel
         'is_gateway' => 'boolean',
     ];
 
+     /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => AccountCreated::class,
+        'updated' => AccountUpdated::class,
+    ];
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::addGlobalScope('order', function (Builder $builder) {
-            $builder->orderBy('created_at', 'desc');
-        });
 
-        
-    }
+
 
     public function getSerialArrayAttribute($value)
     {

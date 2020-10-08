@@ -96,7 +96,7 @@
 		{
 			if ($transaction->receiver_id == auth()->user()->id && $transaction->transaction_type == 'transfer'){
 				$container = $transaction->container;
-				$container->transactions()->withoutGlobalScope('pendingTransactionScope')->delete();
+				$container->transactions()->withoutGlobalScope('pending')->delete();
 				$container->delete();
 				$transaction->delete();
 			}
@@ -108,7 +108,7 @@
 		{
 			if ($transaction->receiver_id == auth()->user()->id && $transaction->transaction_type == 'transfer'){
 				$container = $transaction->container;
-				$container->transactions()->withoutGlobalScope('pendingTransactionScope')->update([
+				$container->transactions()->withoutGlobalScope('pending')->update([
 					'is_pending' => false
 				]);
 				$container->update([
