@@ -154,7 +154,7 @@
 
 
                 <div class="company-info" style="margin-bottom: 10px">
-                    <span>{{$invoice->user_type }} : {{ $invoice->user->name  }}</span>
+                    <span>{{$invoice->user_type }} : {{ $invoice->final_user_name  }}</span>
                 </div>
                 <div class="company-info">
                     <span>{{ __('pages/invoice.phone_number') }} :  {{ $invoice->user->phone_number  }}</span>

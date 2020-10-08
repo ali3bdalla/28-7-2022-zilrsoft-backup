@@ -349,7 +349,7 @@
 
             checkBarcodeIfItAlreadyUsed(e) {
                 let vm = this;
-                axios.post('/items/helper/validate_barcode', {
+                axios.post('/api/items/validations/unique_barcode', {
                     barcode: e.target.value,
                 })
                     .then(function (response) {
@@ -375,7 +375,7 @@
 
                     this.error = '';
                 }
-                axios.get('/items/helper/validate_barcode?barcode=' + barcode)
+                axios.get('/api/items/validations/unique_barcode?barcode=' + barcode)
                     .then(function (response) {
                         if (vm.error === 'barcode') {
                             vm.error = '';

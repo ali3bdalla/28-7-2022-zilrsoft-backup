@@ -153,7 +153,7 @@
 
 
                 <div class="company-info" style="margin-bottom: 10px">
-                    <span><?php echo e($invoice->user_type); ?> : <?php echo e($invoice->user->name); ?></span>
+                    <span><?php echo e($invoice->user_type); ?> : <?php echo e($invoice->final_user_name); ?></span>
                 </div>
                 <div class="company-info">
                     <span><?php echo e(__('pages/invoice.phone_number')); ?> :  <?php echo e($invoice->user->phone_number); ?></span>

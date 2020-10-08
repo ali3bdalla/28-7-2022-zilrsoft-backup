@@ -37,21 +37,29 @@ class FetchSalesRequest extends FormRequest
     {
 
 
-        $query = Invoice::whereIn('invoice_type', ['sale', 'return_sale'])->with([
-            'creator', 'items', 'sale.client', 'sale.salesman',
-        ]);
+        $query = Invoice::whereIn('invoice_type', ['sale', 'return_sale']);
+
+
+        
+
 
 
         if ($this->has('is_draft') && $this->filled('is_draft')) {
             $isDraft = (boolean)$this->input('is_draft');
             if($isDraft){
-                $query = $query->withoutGlobalScope('draft')->withoutGlobalScope('manager')->where('is_draft',);
-
+                $query = $query->withoutGlobalScope('draft')->withoutGlobalScope('manager')->where('is_draft',$isDraft );
             }
         }
 
+        
+        $query = $query->with([
+            'creator', 'items', 'sale' => function($sale){
+                return  $sale->withoutGlobalScope('draft')->withoutGlobalScope('manager');
 
-    
+            },'sale.client', 'sale.salesman',
+        ]);
+
+
         if (
             $this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
             $this->filled('endDate')
@@ -182,6 +190,8 @@ class FetchSalesRequest extends FormRequest
                 $query->select(DB::raw("SUM(cost * qty) as invoice_cost"));
             },
         ]);
+
+
 
         if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval($this->input("itemsPerPage")) >= 1) {
             $result = $query->paginate(intval($this->input('itemsPerPage')));

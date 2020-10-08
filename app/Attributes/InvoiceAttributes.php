@@ -23,7 +23,6 @@ trait InvoiceAttributes
         return __('pages/invoice.receiver');
     }
 
-
     public function getBackgroundAssetAttribute()
     {
 
@@ -42,8 +41,15 @@ trait InvoiceAttributes
             return asset('template/images/paid.png');
         }
 
-    
     }
 
+    public function getFinalUserNameAttribute()
+    {
+        if (in_array($this->invoice_type, ['sale', 'return_sale']) && $this->sale->alice_name != null) {
+            return $this->sale->alice_name;
+        }
+
+        return $this->user->name;
+    }
 
 }

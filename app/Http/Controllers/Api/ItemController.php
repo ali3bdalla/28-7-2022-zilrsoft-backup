@@ -8,6 +8,7 @@ use App\Http\Requests\Items\QueryItemsRequest;
 use App\Http\Requests\Items\ValidateSerialRequest;
 use App\Http\Resources\InvoiceItem\InvoiceItemCollection;
 use App\Models\Item;
+use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
@@ -50,6 +51,19 @@ class ItemController extends Controller
     public function querySearch(QueryItemsRequest $request)
     {
         return $request->results();
+    }
+
+
+    /**
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function validateUniqueBarcode(Request $request)
+    {
+        $request->validate([
+            'barcode' => 'required|string|min:4|unique:items,barcode'
+        ]);
     }
 
 }

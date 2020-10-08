@@ -156,7 +156,7 @@
                         <td v-text="index+1"></td>
                         <td class="text-center" v-text="row.invoice_number"></td>
                         <td class="text-center"
-                            v-text="row.manager.name"></td>
+                            v-text="row.user.name"></td>
                         <td v-text="row.created_at"></td>
                         <td class="text-center" v-text="row.net"></td>
                         <td class="text-center">

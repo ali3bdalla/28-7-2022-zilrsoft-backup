@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Attributes\KitAttributes;
+use App\Relationships\KitRelationships;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -31,8 +33,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Item extends BaseModel
 {
-    // use KitAttributes;
-    // use KitRelationships;
+    use KitAttributes;
+    use KitRelationships;
     // use WebItem;
     use SoftDeletes;
 

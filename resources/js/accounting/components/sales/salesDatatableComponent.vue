@@ -518,7 +518,7 @@
                 params.orderBy = this.orderBy;
                 params.itemsPerPage = this.itemsPerPage;
                 params.orderType = this.orderType;
-                if (this.onlyQuotations) {
+                if (this.onlyQuotations == 1 || this.onlyQuotations == true) {
                     params.is_draft = true;
                 }
 
