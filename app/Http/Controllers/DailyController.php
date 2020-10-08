@@ -48,12 +48,10 @@ class DailyController extends Controller
             ]);
         }
         $inAmount = $paymentQuery->where('payment_type', 'receipt')->sum('amount');
-        // return $tempResellerAccount;
 
         $outAmount = 0;
         $gateways = $loggedUser->gateways()->get();
 
-        // return $tempResellerAccount;
 
         return view('accounting.reseller_daily.account_close', compact('inAmount', 'loggedUser', 'accountsClosedAt', 'outAmount', 'gateways', 'remainingAccountsBalanceAmount'));
     }
