@@ -267,7 +267,7 @@ class ItemController extends Controller
 
         $items = Item::where('barcode', $request->barcode)->get();
 //			return $items;
-        return view('accounting.items.barcode.', compact('items'));
+        return view('accounting.items.barcode.show', compact('items'));
     }
 
 
