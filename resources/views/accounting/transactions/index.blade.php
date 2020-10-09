@@ -20,7 +20,7 @@
 @section('buttons')
 
     @can('create transaction')
-        <a href="{{ route("accounting.transactions.create") }}" class="btn btn-custom-primary"><i class='fa
+        <a href="{{ route("entities.create") }}" class="btn btn-custom-primary"><i class='fa
                     fa-plus-circle'></i>&nbsp; {{ __('pages/transactions.create') }}</a>
         <br>
     @endcan

@@ -26,9 +26,23 @@ class EntityController extends Controller
     }
 
 
+    public function create()
+    {
+        $accounts = Account::withCount('children')->having('children_count', 0)->get();
+        $items = [];
+        $clients = User::where([
+            ['is_client', true],
+            ['is_system_user', false],
+        ])->get();
+        $vendors = User::where([
+            ['is_vendor', true],
+            ['is_system_user', false],
+        ])->get();
+        return view('accounting.transactions.create', compact('accounts', 'items', 'vendors', 'clients'));
+    }
+
     public function showUserEntities(Account $account, User $user)
     {
-        // return 1;
         if ($account->slug != 'vendors' && $account->slug == 'clients') {
             return back();
         }
@@ -42,7 +56,6 @@ class EntityController extends Controller
         $transactions = $account->transactions()->where('item_id', $item->id)->paginate(50);
         return view('accounting.charts.transactions.item', compact('item', 'transactions', 'account'));
     }
-
 
 
 }
