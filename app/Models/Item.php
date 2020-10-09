@@ -57,15 +57,7 @@ class Item extends BaseModel
     ];
     protected $guarded = [];
 
-    // protected static function boot()
-    // {
-    //     parent::boot();
-    //     if (auth()->check()) {
-    //         static::addGlobalScope('organization', function (Builder $builder) {
-    //             $builder->where('organization_id', auth()->user()->id);
-    //         });
-    //     }
-    // }
+
     public function items()
     {
         return $this->hasMany(KitItems::class, 'kit_id')->with('item');

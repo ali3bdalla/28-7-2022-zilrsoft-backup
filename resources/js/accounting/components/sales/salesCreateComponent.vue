@@ -1,7 +1,6 @@
 <template>
     <!-- startup box -->
     <div class="message">
-
         <div class="row">
             <div class="col-md-6">
                 <button :disabled="!everythingFineToSave" @click="pushDataToServer"
@@ -179,6 +178,7 @@
                                 class="btn btn-success btn-xs"
                                 v-if="item.is_need_serial"><i class="fa fa-bars"></i> &nbsp;
                         </button>
+
                         <accounting-kit-items-layout-component
                                 :index="index"
                                 :kit="item"

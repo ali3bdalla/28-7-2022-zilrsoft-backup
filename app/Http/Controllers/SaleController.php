@@ -59,7 +59,7 @@ class SaleController extends Controller
     {
         $salesmen = Manager::all();
         $clients = User::where('is_client', true)->get()->toArray();
-        $services = Item::where('is_service', true)->get();
+//        $services = Item::where('is_service', true)->get();
         $expenses = Item::where('is_expense', true)->get();
 
         $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
@@ -82,7 +82,7 @@ class SaleController extends Controller
     function clone(Invoice $sale)
     {
         // return $sale;
-        $sale = $sale->withoutGlobalScope('draft')->first();
+//        $sale = $sale->withoutGlobalScope('draft')->first();
 
         $salesmen = Manager::all();
         $clients = User::where('is_client', true)->get()->toArray();
@@ -99,12 +99,12 @@ class SaleController extends Controller
      */
     public function show(Invoice $sale)
     {
-        $sale = $sale->withoutGlobalScope('draft')->first();
+//        $sale = $sale->withoutGlobalScope('draft');
 
         $transactions = $sale->transactions()->get();
         $invoice = $sale;
         $invoice->sale = $invoice->sale()->withoutGlobalScope('draft')->first();
-//        return $sale;
+
         return view('sales.view', compact('invoice', 'transactions'));
     }
 

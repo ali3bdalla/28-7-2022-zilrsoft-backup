@@ -43,7 +43,7 @@ class StoreReturnPurchaseRequest extends FormRequest
             'items.*.id' => 'integer|required|exists:invoice_items,id',
             'items.*.returned_qty' => 'required',
             'items.*.serials' => 'array',
-            'items.*.serials.*' => 'required|exists:item_serials,serial',
+//            'items.*.serials.*' => 'required|exists:item_serials,serial',
             'methods' => 'array',
             'methods.*.id' => 'required|integer|exists:accounts,id',
             'methods.*.amount' => 'required|numeric',
@@ -56,8 +56,9 @@ class StoreReturnPurchaseRequest extends FormRequest
         DB::beginTransaction();
         try {
             $this->validateItemsBelongsToInvoice($purchaseInvoice, $this->input('items'));
-            $this->validateSerials();
             $returnedItems = $this->getReturnItems($this->input('items'));
+
+            $this->validateSerials($returnedItems);
             $this->validateReturnedItemsData($returnedItems);
             $authUser = auth()->user();
             $invoice = Invoice::create([
@@ -91,9 +92,9 @@ class StoreReturnPurchaseRequest extends FormRequest
         }
     }
 
-    private function validateSerials()
+    private function validateSerials($items)
     {
-        foreach ($this->input('items') as $item) {
+        foreach ($items as $item) {
             $item = collect($item);
             $dbInvoiceItem = InvoiceItems::find($item->get('id'));
             $dbItem = $dbInvoiceItem->item;

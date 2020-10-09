@@ -57,6 +57,7 @@
         "vue-numeric": "^2.3.0",
         "vue-property-decorator": "^8.5.1",
         "vue-spinners": "^1.0.2",
+        "vue-tailwind-modal": "^1.0.3",
         "vue2-daterange-picker": "^0.3.1",
         "vuedraggable": "^2.24.1",
         "vuejs-dialog": "^1.4.2",
