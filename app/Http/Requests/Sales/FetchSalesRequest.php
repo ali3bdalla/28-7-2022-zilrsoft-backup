@@ -74,7 +74,7 @@ class FetchSalesRequest extends FormRequest
         } else {
             if (!$this->user()->can('manage branches') && !$this->filled('title') && auth()->user()->accounts_closed_at != null) {
 
-                $query = $query->whereDate('created_at', '>=', Carbon::parse(auth()->user()->accounts_closed_at));
+                $query = $query->whereDate('created_at', '>=', Carbon::parse(auth()->user()->accounts_closed_at))->whereTime('created_at', '>=', Carbon::parse(auth()->user()->accounts_closed_at));
             }
         }
 
