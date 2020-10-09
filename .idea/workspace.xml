@@ -20,6 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DailyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DailyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DailyController.php.orig" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DailyController.php.orig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Branch/DatatableRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Branch/DatatableRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Purchase/DatatableRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Purchase/DatatableRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Daily/StoreResellerClosingAccountsRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Daily/StoreResellerClosingAccountsRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Entities/FetchEntitiesRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Entities/FetchEntitiesRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Requests/Sales/FetchSalesRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Sales/FetchSalesRequest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -338,7 +345,7 @@
       <workItem from="1602221242680" duration="323000" />
       <workItem from="1602221618463" duration="1424000" />
       <workItem from="1602225452795" duration="274000" />
-      <workItem from="1602249411296" duration="1441000" />
+      <workItem from="1602249411296" duration="1616000" />
     </task>
     <servers />
   </component>
@@ -412,6 +419,14 @@
     </state>
     <state x="561" y="389" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1595248689927" />
     <state x="748" y="519" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1200@0.0.1920.1200" timestamp="1595012190307" />
+    <state x="420" y="205" width="600" height="490" key="find.popup" timestamp="1602255214670">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="0" y="0" width="1304" height="900" key="find.popup.inPresentationMode" timestamp="1602255173110">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="0" y="0" width="1304" height="900" key="find.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1602255173110" />
+    <state x="420" y="205" width="600" height="490" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1602255214670" />
     <state x="716" y="481" width="614" height="269" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1595010883333">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
@@ -419,10 +434,10 @@
     <state x="625" y="270" width="838" height="690" key="search.everywhere.popup" timestamp="1602249905095">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state x="0" y="221" width="1512" height="505" key="search.everywhere.popup.inPresentationMode" timestamp="1602254636157">
+    <state x="0" y="221" width="1512" height="505" key="search.everywhere.popup.inPresentationMode" timestamp="1602255049685">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="221" width="1512" height="505" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1602254636157" />
+    <state x="0" y="221" width="1512" height="505" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1602255049685" />
     <state x="0" y="237" width="1680" height="605" key="search.everywhere.popup.inPresentationMode/0.0.1680.1050@0.0.1680.1050" timestamp="1599122977207" />
     <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1602252099051" />
     <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />

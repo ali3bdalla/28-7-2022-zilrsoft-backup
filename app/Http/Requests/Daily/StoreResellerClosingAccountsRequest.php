@@ -161,7 +161,7 @@ class StoreResellerClosingAccountsRequest extends FormRequest
             $accountsClosedAt = Carbon::parse($accountsClosedAt);
             $paymentQuery = Payment::where([
                 ['creator_id', $loggedUser->id],
-            ])->whereDate('created_at','>=',$accountsClosedAt->toDate())->whereTime('created_at','>=',$accountsClosedAt);
+            ])->where('created_at','>=',$accountsClosedAt);
 
         } else {
             $paymentQuery = Payment::where([
