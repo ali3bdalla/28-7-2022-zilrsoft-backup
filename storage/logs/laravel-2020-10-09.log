@@ -1,0 +1,17 @@
+[2020-10-09 08:37:49] producation.ERROR: include(/usr/local/var/www/workspace/zilrsoft/vendor/composer/../nesbot/carbon/src/Carbon/Laravel/ServiceProvider.php): failed to open stream: No such file or directory {"exception":"[object] (ErrorException(code: 0): include(/usr/local/var/www/workspace/zilrsoft/vendor/composer/../nesbot/carbon/src/Carbon/Laravel/ServiceProvider.php): failed to open stream: No such file or directory at /usr/local/var/www/workspace/zilrsoft/vendor/composer/ClassLoader.php:444)
+[stacktrace]
+#0 /usr/local/var/www/workspace/zilrsoft/vendor/composer/ClassLoader.php(444): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'include(/usr/lo...', '/usr/local/var/...', 444, Array)
+#1 /usr/local/var/www/workspace/zilrsoft/vendor/composer/ClassLoader.php(444): include()
+#2 /usr/local/var/www/workspace/zilrsoft/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/usr/local/var/...')
+#3 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Carbon\\\\Laravel\\\\...')
+#4 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(679): spl_autoload_call('Carbon\\\\Laravel\\\\...')
+#5 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(613): Illuminate\\Foundation\\Application->resolveProvider('Carbon\\\\Laravel\\\\...')
+#6 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(75): Illuminate\\Foundation\\Application->register('Carbon\\\\Laravel\\\\...')
+#7 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(593): Illuminate\\Foundation\\ProviderRepository->load(Array)
+#8 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#9 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#10 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#11 /usr/local/var/www/workspace/zilrsoft/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#12 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#13 {main}
+"} 
