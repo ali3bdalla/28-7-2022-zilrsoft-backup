@@ -8,6 +8,7 @@
             </h1>
         </section>
         <div class="content">
+
             @yield("before_content")
             @yield('content')
             @yield("after_content")

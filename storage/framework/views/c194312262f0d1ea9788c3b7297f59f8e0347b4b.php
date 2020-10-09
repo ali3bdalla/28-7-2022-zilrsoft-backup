@@ -253,7 +253,7 @@
                     <?php endif; ?>
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view transactions')): ?>
                         <li>
-                            <a href="<?php echo e(route('accounting.transactions.index')); ?>"><i class="fa fa-sun"></i>
+                            <a href="<?php echo e(route('entities.index')); ?>"><i class="fa fa-sun"></i>
                                 <?php echo e(__('sidebar.transactions')); ?>
 
                             </a></li>

@@ -8,6 +8,7 @@
             </h1>
         </section>
         <div class="content">
+
             <?php echo $__env->yieldContent("before_content"); ?>
             <?php echo $__env->yieldContent('content'); ?>
             <?php echo $__env->yieldContent("after_content"); ?>

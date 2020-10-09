@@ -204,11 +204,10 @@
                                 v-show="!item.printable"><i class="fa fa-eye-slash"></i> &nbsp;
                         </button>
                     </td>
-                    <td>
+                    <td data-app>
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
                                 <span v-on="on">{{ item.barcode}}</span>
-
                             </template>
                             <span>{{ parseFloat(item.cost * (1 + (item.vtp/100))).toFixed(2) }}</span>
                         </v-tooltip>

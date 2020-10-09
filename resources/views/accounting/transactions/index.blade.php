@@ -26,26 +26,26 @@
     @endcan
 @endsection
 @section('content')
-<div class="panel">
-    <div class="panel-body">
+    <div class="panel">
+        <div class="panel-body">
             <table class="table table-bordered table-bordered" style="">
                 <thead>
-                    <th>التاريخ</th>
-                    <th>رقم القيد</th>
-                    <th> شرح</th>
-                    <th>اسم الحساب</th>
-                    <th>المدين</th>
+                <th>التاريخ</th>
+                <th>رقم القيد</th>
+                <th> شرح</th>
+                <th>اسم الحساب</th>
+                <th>المدين</th>
                 <th>الدائن</th>
-              
+
                 </thead>
-            
+
                 <body>
-                    @foreach($entities as $entity)
-                    @php 
+                @foreach($entities as $entity)
+                    @php
                         $totalCredit = 0;
-                        $totalDebit = 0;
+                        $totalDebit = 0
                     @endphp
-                        @foreach($entity->transactions as $index => $transaction)
+                    @foreach($entity->transactions as $index => $transaction)
                         <tr style="border:none">
                             <th>{{  $entity->created_at }}</th>
                             <th>{{ $entity->id }}</th>
@@ -53,14 +53,14 @@
                             <th>{{ $transaction->account_name }}</th>
 
                             @if($transaction->type=="credit")
-                                @php 
-                                    $totalCredit+= (float)$transaction['amount'];
+                                @php
+                                    $totalCredit+= (float)$transaction['amount']
                                 @endphp
                                 <th></th>
                                 <th>{{ $transaction['amount'] }}</th>
                             @else
-                                @php 
-                                    $totalDebit+= (float)$transaction['amount'];
+                                @php
+                                    $totalDebit+= (float)$transaction['amount']
                                 @endphp
                                 <th>{{ $transaction['amount'] }}</th>
                                 <th></th>
@@ -68,21 +68,21 @@
 
 
                         </tr>
-                        @endforeach
-                        <tr style="background-color: #eeeeee">
-                           
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>المجموع</th>
-
-                            <th>{{ money_format("%i",$totalDebit) }}</th>
-                            <th>{{ money_format("%i",$totalCredit) }}</th>
-                        </tr>
                     @endforeach
+                    <tr style="background-color: #eeeeee">
+
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>المجموع</th>
+
+                        <th>{{ money_format("%i",$totalDebit) }}</th>
+                        <th>{{ money_format("%i",$totalCredit) }}</th>
+                    </tr>
+                @endforeach
                 </body>
             </table>
             {{$entities->links()}}
+        </div>
     </div>
-</div>
 @stop

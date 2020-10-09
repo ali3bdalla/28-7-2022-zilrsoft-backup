@@ -233,7 +233,7 @@
                     @endcan
                     @can('view transactions')
                         <li>
-                            <a href="{{route('accounting.transactions.index')}}"><i class="fa fa-sun"></i>
+                            <a href="{{route('entities.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.transactions') }}
                             </a></li>
                     @endcan

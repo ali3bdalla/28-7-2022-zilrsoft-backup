@@ -30,17 +30,15 @@ class StoreEntityRequest extends FormRequest
      * @return array
      */
     public function rules()
-    { 
+    {
         return [
             'transactions' => 'required|array',
             "transactions.*.id" => "required|integer|exists:accounts,id",
             "transactions.*.amount" => "required|price",
             "transactions.*.type" => "required|in:credit,debit",
             "transactions.*.user_id" => ['nullable', "integer", "exists:users,id"],
-//            "transactions.*.client_id" => ["integer", "exists:users,id"],
             "transactions.*.item_id" => ["nullable", "integer", "exists:items,id"],
-            'description' => "nullable|string",
-//            'amount' => "required|numeric",
+            'description' => "required|string",
         ];
     }
 
@@ -86,7 +84,7 @@ class StoreEntityRequest extends FormRequest
                     $transactionData['user_id'] = $transaction['user_id'];
                     $this->updateUserBalance('vendor', $transactionData, $account);
                 }
-                
+
                 $entity->transactions()->create($transactionData);
             }
             DB::commit();

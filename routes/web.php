@@ -36,12 +36,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/{item}/item', 'AccountController@showItem')->name('item');
 
     });
-
+    Route::resource('entities', 'EntityController');
     Route::prefix('entities')->name('entities.')->group(function () {
         Route::get('user/{account}/{user}', "EntityController@showUserEntities")->name('user');
     });
 
-    Route::resource('entities', 'EntityController');
     Route::prefix('financial_statements')->name('financial_statements.')->group(function () {
         Route::get('/', 'FinancialStatementController@index')->name('index');
         Route::get('trial_balance', 'FinancialStatementController@trailBalance')->name('trial_balance');
