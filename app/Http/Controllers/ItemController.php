@@ -53,7 +53,6 @@ class ItemController extends Controller
     public function clone(Item $item)
     {
         $isClone = 1;
-        $categories = Category::all();
 
         $chats = Category::where('parent_id',0)->get();
         $categories = [];

@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('items/{item}')->name('items.')->group(function () {
         Route::get('/transactions', 'ItemController@transactions')->name('transactions');
         Route::get('/view_serials', 'ItemController@serials')->name('serials');
+        Route::get('/clone', 'ItemController@clone')->name('clone');
     });
     Route::resource('purchases', 'PurchaseController');
     Route::prefix('purchases')->name('purchases.')->group(function () {
