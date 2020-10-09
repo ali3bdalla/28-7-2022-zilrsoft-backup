@@ -4,7 +4,8 @@ import Vue from 'vue'
 Vue.use(InertiaApp)
 
 const app = document.getElementById('app')
-
+console.log(app);
+console.log(JSON.parse(app.dataset.page));
 new Vue({
   render: h => h(InertiaApp, {
     props: {

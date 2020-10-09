@@ -12,6 +12,7 @@
     </head>
 
         <body>
+
             <div id="app" data-page="<?php echo e(json_encode($page)); ?>"></div>
         </body>
         

@@ -106,40 +106,41 @@ var e=__webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/i
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var e,t=(e=__webpack_require__(/*! axios */ "./node_modules/axios/index.js"))&&"object"==typeof e&&"default"in e?e.default:e;function i(){return(i=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var i=arguments[t];for(var n in i)Object.prototype.hasOwnProperty.call(i,n)&&(e[n]=i[n])}return e}).apply(this,arguments)}var n={modal:null,listener:null,show:function(e){var t=this;"object"==typeof e&&(e="All Inertia.js requests must receive a valid Inertia.js response, however a return plain JSON response was received.<hr>"+JSON.stringify(e));var i=document.createElement("html");i.innerHTML=e,i.querySelectorAll("a").forEach(function(e){return e.setAttribute("target","_top")}),this.modal=document.createElement("div"),this.modal.style.position="fixed",this.modal.style.width="100vw",this.modal.style.height="100vh",this.modal.style.padding="50px",this.modal.style.boxSizing="border-box",this.modal.style.backgroundColor="rgba(0, 0, 0, .6)",this.modal.style.zIndex=2e5,this.modal.addEventListener("click",function(){return t.hide()});var n=document.createElement("iframe");n.style.backgroundColor="white",n.style.borderRadius="5px",n.style.width="100%",n.style.height="100%",this.modal.appendChild(n),document.body.prepend(this.modal),document.body.style.overflow="hidden",n.contentWindow.document.open(),n.contentWindow.document.write(i.outerHTML),n.contentWindow.document.close(),this.listener=this.hideOnEscape.bind(this),document.addEventListener("keydown",this.listener)},hide:function(){this.modal.outerHTML="",this.modal=null,document.body.style.overflow="visible",document.removeEventListener("keydown",this.listener)},hideOnEscape:function(e){27===e.keyCode&&this.hide()}};exports.Inertia={resolveComponent:null,updatePage:null,visitId:null,cancelToken:null,page:null,init:function(e){var t,i,n=e.initialPage,o=e.updatePage;this.resolveComponent=e.resolveComponent,this.updatePage=o,window.history.state&&"back_forward"===this.navigationType()?this.setPage(window.history.state):window.sessionStorage.getItem("inertia.hardVisit")?(window.sessionStorage.removeItem("inertia.hardVisit"),this.setPage(n,{preserveState:!0})):(n.url+=window.location.hash,this.setPage(n)),this.fireEvent("navigate",{detail:{page:n}}),window.addEventListener("popstate",this.restoreState.bind(this)),document.addEventListener("scroll",(t=this.handleScrollEvent.bind(this),i=null,function(){var e=arguments,n=this;clearTimeout(i),i=setTimeout(function(){return t.apply(n,e)},100)}),!0)},scrollRegions:function(){return document.querySelectorAll("[scroll-region]")},handleScrollEvent:function(e){"function"==typeof e.target.hasAttribute&&e.target.hasAttribute("scroll-region")&&this.saveScrollPositions()},saveScrollPositions:function(){this.replaceState(i({},window.history.state,{scrollRegions:Array.prototype.slice.call(this.scrollRegions()).map(function(e){return{top:e.scrollTop,left:e.scrollLeft}})}))},resetScrollPositions:function(){document.documentElement.scrollTop=0,document.documentElement.scrollLeft=0,this.scrollRegions().forEach(function(e){e.scrollTop=0,e.scrollLeft=0})},restoreScrollPositions:function(e){e.scrollRegions&&this.scrollRegions().forEach(function(t,i){t.scrollTop=e.scrollRegions[i].top,t.scrollLeft=e.scrollRegions[i].left})},navigationType:function(){if(window.performance&&window.performance.getEntriesByType("navigation").length)return window.performance.getEntriesByType("navigation")[0].type},isInertiaResponse:function(e){return e&&e.headers["x-inertia"]},isHardVisit:function(e){return e&&409===e.status&&e.headers["x-inertia-location"]},fireEvent:function(e,t){return document.dispatchEvent(new CustomEvent("inertia:"+e,t))},cancelActiveVisits:function(){this.cancelToken&&this.cancelToken.cancel(),this.cancelToken=t.CancelToken.source()},createVisitId:function(){return this.visitId={},this.visitId},visit:function(e,o){var r=this,s=void 0===o?{}:o,a=s.method,c=void 0===a?"get":a,l=s.data,d=void 0===l?{}:l,u=s.replace,h=void 0!==u&&u,p=s.preserveScroll,v=void 0!==p&&p,f=s.preserveState,m=void 0!==f&&f,g=s.only,w=void 0===g?[]:g,y=s.headers,S=void 0===y?{}:y,E=s.onCancelToken,P=void 0===E?function(){return{}}:E,b=s.onStart,I=void 0===b?function(){return{}}:b,T=s.onProgress,k=void 0===T?function(){return{}}:T,C=s.onFinish,L=void 0===C?function(){return{}}:C,x=s.onCancel,R=void 0===x?function(){return{}}:x,V=s.onSuccess,j=void 0===V?function(){return{}}:V,A=i({url:e},arguments[1]);if(!1!==I(A)&&this.fireEvent("start",{cancelable:!0,detail:{visit:A}})){this.cancelActiveVisits(),this.saveScrollPositions();var O=this.createVisitId();return P(this.cancelToken),new Proxy(t({method:c,url:e.toString(),data:"get"===c.toLowerCase()?{}:d,params:"get"===c.toLowerCase()?d:{},cancelToken:this.cancelToken.token,headers:i({},S,{Accept:"text/html, application/xhtml+xml","X-Requested-With":"XMLHttpRequest","X-Inertia":!0},w.length?{"X-Inertia-Partial-Component":this.page.component,"X-Inertia-Partial-Data":w.join(",")}:{},this.page.version?{"X-Inertia-Version":this.page.version}:{}),onUploadProgress:function(e){e.percentage=Math.round(e.loaded/e.total*100),r.fireEvent("progress",{detail:{progress:e}}),k(e)}}).then(function(e){return r.isInertiaResponse(e)?(w.length&&(e.data.props=i({},r.page.props,e.data.props)),r.setPage(e.data,{visitId:O,replace:h,preserveScroll:v,preserveState:m})):Promise.reject({response:e})}).then(function(){return r.fireEvent("success",{detail:{page:r.page}}),j(r.page)}).catch(function(e){if(r.isInertiaResponse(e.response))return r.setPage(e.response.data,{visitId:O});if(t.isCancel(e))R();else if(r.isHardVisit(e.response))r.hardVisit(e.response.headers["x-inertia-location"]);else{if(!e.response)return Promise.reject(e);r.fireEvent("invalid",{cancelable:!0,detail:{response:e.response}})&&n.show(e.response.data)}}).catch(function(e){if(r.fireEvent("error",{cancelable:!0,detail:{error:e}}))return Promise.reject(e)}).finally(function(){r.fireEvent("finish"),L()}),{get:function(e,t){return console.warn("Inertia.js visit promises have been deprecated and will be removed in a future release. Please use the new visit event callbacks instead.\n\nLearn more at https://inertiajs.com/manual-visits#promise-deprecation"),e[t].bind(e)}})}},hardVisit:function(e){window.sessionStorage.setItem("inertia.hardVisit",!0),window.location.href=e},setPage:function(e,t){var i=this,n=void 0===t?{}:t,o=n.visitId,r=void 0===o?this.createVisitId():o,s=n.replace,a=void 0!==s&&s,c=n.preserveScroll,l=void 0!==c&&c,d=n.preserveState,u=void 0!==d&&d;return this.page=e,Promise.resolve(this.resolveComponent(e.component)).then(function(t){r===i.visitId&&(u="function"==typeof u?u(e):u,l="function"==typeof l?l(e):l,(a=a||e.url===""+window.location.pathname+window.location.search)?i.replaceState(e,u):i.pushState(e),i.updatePage(t,e.props,{preserveState:u}).then(function(){l||i.resetScrollPositions(),a||i.fireEvent("navigate",{detail:{page:e}})}))})},pushState:function(e){window.history.pushState(i({cache:{}},e),"",e.url)},replaceState:function(e,t){void 0===t&&(t=!1),window.history.replaceState(i({},{cache:t&&window.history.state?window.history.state.cache:{}},e),"",e.url)},restoreState:function(e){var t=this;if(e.state){this.page=e.state;var i=this.createVisitId();return Promise.resolve(this.resolveComponent(this.page.component)).then(function(e){i===t.visitId&&t.updatePage(e,t.page.props,{preserveState:!1}).then(function(){t.restoreScrollPositions(t.page),t.fireEvent("navigate",{detail:{page:t.page}})})})}},get:function(e,t,n){return void 0===t&&(t={}),void 0===n&&(n={}),this.visit(e,i({},n,{method:"get",data:t}))},replace:function(e,t){return void 0===t&&(t={}),this.visit(e,i({preserveState:!0},t,{replace:!0}))},reload:function(e){return void 0===e&&(e={}),this.replace(window.location.href,e)},post:function(e,t,n){return void 0===t&&(t={}),void 0===n&&(n={}),this.visit(e,i({preserveState:!0},n,{method:"post",data:t}))},put:function(e,t,n){return void 0===t&&(t={}),void 0===n&&(n={}),this.visit(e,i({preserveState:!0},n,{method:"put",data:t}))},patch:function(e,t,n){return void 0===t&&(t={}),void 0===n&&(n={}),this.visit(e,i({preserveState:!0},n,{method:"patch",data:t}))},delete:function(e,t){return void 0===t&&(t={}),this.visit(e,i({},t,{method:"delete"}))},remember:function(e,t){void 0===t&&(t="default");var n=i({},window.history.state);n.cache=n.cache||{},n.cache[t]=e,this.replaceState(n)},restore:function(e){if(void 0===e&&(e="default"),window.history.state.cache&&window.history.state.cache[e])return window.history.state.cache[e]},on:function(e,t){var i=function(e){var i=t(e);e.cancelable&&!e.defaultPrevented&&!1===i&&e.preventDefault()};return document.addEventListener("inertia:"+e,i),function(){document.removeEventListener("inertia:"+e,i)}}},exports.shouldIntercept=function(e){return!(e.target&&e.target.isContentEditable||e.defaultPrevented||e.which>1||e.altKey||e.ctrlKey||e.metaKey||e.shiftKey)};
+var e,t=(e=__webpack_require__(/*! axios */ "./node_modules/@inertiajs/inertia/node_modules/axios/index.js"))&&"object"==typeof e&&"default"in e?e.default:e;function i(){return(i=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var i=arguments[t];for(var n in i)Object.prototype.hasOwnProperty.call(i,n)&&(e[n]=i[n])}return e}).apply(this,arguments)}var n={modal:null,listener:null,show:function(e){var t=this;"object"==typeof e&&(e="All Inertia.js requests must receive a valid Inertia.js response, however a return plain JSON response was received.<hr>"+JSON.stringify(e));var i=document.createElement("html");i.innerHTML=e,i.querySelectorAll("a").forEach(function(e){return e.setAttribute("target","_top")}),this.modal=document.createElement("div"),this.modal.style.position="fixed",this.modal.style.width="100vw",this.modal.style.height="100vh",this.modal.style.padding="50px",this.modal.style.boxSizing="border-box",this.modal.style.backgroundColor="rgba(0, 0, 0, .6)",this.modal.style.zIndex=2e5,this.modal.addEventListener("click",function(){return t.hide()});var n=document.createElement("iframe");n.style.backgroundColor="white",n.style.borderRadius="5px",n.style.width="100%",n.style.height="100%",this.modal.appendChild(n),document.body.prepend(this.modal),document.body.style.overflow="hidden",n.contentWindow.document.open(),n.contentWindow.document.write(i.outerHTML),n.contentWindow.document.close(),this.listener=this.hideOnEscape.bind(this),document.addEventListener("keydown",this.listener)},hide:function(){this.modal.outerHTML="",this.modal=null,document.body.style.overflow="visible",document.removeEventListener("keydown",this.listener)},hideOnEscape:function(e){27===e.keyCode&&this.hide()}};exports.Inertia={resolveComponent:null,updatePage:null,visitId:null,cancelToken:null,page:null,init:function(e){var t,i,n=e.initialPage,o=e.updatePage;this.resolveComponent=e.resolveComponent,this.updatePage=o,window.history.state&&"back_forward"===this.navigationType()?this.setPage(window.history.state):window.sessionStorage.getItem("inertia.hardVisit")?(window.sessionStorage.removeItem("inertia.hardVisit"),this.setPage(n,{preserveState:!0})):(n.url+=window.location.hash,this.setPage(n)),this.fireEvent("navigate",{detail:{page:n}}),window.addEventListener("popstate",this.restoreState.bind(this)),document.addEventListener("scroll",(t=this.handleScrollEvent.bind(this),i=null,function(){var e=arguments,n=this;clearTimeout(i),i=setTimeout(function(){return t.apply(n,e)},100)}),!0)},scrollRegions:function(){return document.querySelectorAll("[scroll-region]")},handleScrollEvent:function(e){"function"==typeof e.target.hasAttribute&&e.target.hasAttribute("scroll-region")&&this.saveScrollPositions()},saveScrollPositions:function(){this.replaceState(i({},window.history.state,{scrollRegions:Array.prototype.slice.call(this.scrollRegions()).map(function(e){return{top:e.scrollTop,left:e.scrollLeft}})}))},resetScrollPositions:function(){document.documentElement.scrollTop=0,document.documentElement.scrollLeft=0,this.scrollRegions().forEach(function(e){e.scrollTop=0,e.scrollLeft=0})},restoreScrollPositions:function(e){e.scrollRegions&&this.scrollRegions().forEach(function(t,i){t.scrollTop=e.scrollRegions[i].top,t.scrollLeft=e.scrollRegions[i].left})},navigationType:function(){if(window.performance&&window.performance.getEntriesByType("navigation").length)return window.performance.getEntriesByType("navigation")[0].type},isInertiaResponse:function(e){return e&&e.headers["x-inertia"]},isHardVisit:function(e){return e&&409===e.status&&e.headers["x-inertia-location"]},fireEvent:function(e,t){return document.dispatchEvent(new CustomEvent("inertia:"+e,t))},cancelActiveVisits:function(){this.cancelToken&&this.cancelToken.cancel(),this.cancelToken=t.CancelToken.source()},createVisitId:function(){return this.visitId={},this.visitId},visit:function(e,o){var r=this,s=void 0===o?{}:o,a=s.method,c=void 0===a?"get":a,l=s.data,d=void 0===l?{}:l,u=s.replace,h=void 0!==u&&u,p=s.preserveScroll,v=void 0!==p&&p,f=s.preserveState,m=void 0!==f&&f,g=s.only,w=void 0===g?[]:g,y=s.headers,S=void 0===y?{}:y,E=s.onCancelToken,P=void 0===E?function(){return{}}:E,b=s.onStart,I=void 0===b?function(){return{}}:b,T=s.onProgress,k=void 0===T?function(){return{}}:T,C=s.onFinish,L=void 0===C?function(){return{}}:C,x=s.onCancel,R=void 0===x?function(){return{}}:x,V=s.onSuccess,j=void 0===V?function(){return{}}:V,A=i({url:e},arguments[1]);if(!1!==I(A)&&this.fireEvent("start",{cancelable:!0,detail:{visit:A}})){this.cancelActiveVisits(),this.saveScrollPositions();var O=this.createVisitId();return P(this.cancelToken),new Proxy(t({method:c,url:e.toString(),data:"get"===c.toLowerCase()?{}:d,params:"get"===c.toLowerCase()?d:{},cancelToken:this.cancelToken.token,headers:i({},S,{Accept:"text/html, application/xhtml+xml","X-Requested-With":"XMLHttpRequest","X-Inertia":!0},w.length?{"X-Inertia-Partial-Component":this.page.component,"X-Inertia-Partial-Data":w.join(",")}:{},this.page.version?{"X-Inertia-Version":this.page.version}:{}),onUploadProgress:function(e){e.percentage=Math.round(e.loaded/e.total*100),r.fireEvent("progress",{detail:{progress:e}}),k(e)}}).then(function(e){return r.isInertiaResponse(e)?(w.length&&(e.data.props=i({},r.page.props,e.data.props)),r.setPage(e.data,{visitId:O,replace:h,preserveScroll:v,preserveState:m})):Promise.reject({response:e})}).then(function(){return r.fireEvent("success",{detail:{page:r.page}}),j(r.page)}).catch(function(e){if(r.isInertiaResponse(e.response))return r.setPage(e.response.data,{visitId:O});if(t.isCancel(e))R();else if(r.isHardVisit(e.response))r.hardVisit(e.response.headers["x-inertia-location"]);else{if(!e.response)return Promise.reject(e);r.fireEvent("invalid",{cancelable:!0,detail:{response:e.response}})&&n.show(e.response.data)}}).catch(function(e){if(r.fireEvent("error",{cancelable:!0,detail:{error:e}}))return Promise.reject(e)}).finally(function(){r.fireEvent("finish"),L()}),{get:function(e,t){return console.warn("Inertia.js visit promises have been deprecated and will be removed in a future release. Please use the new visit event callbacks instead.\n\nLearn more at https://inertiajs.com/manual-visits#promise-deprecation"),e[t].bind(e)}})}},hardVisit:function(e){window.sessionStorage.setItem("inertia.hardVisit",!0),window.location.href=e},setPage:function(e,t){var i=this,n=void 0===t?{}:t,o=n.visitId,r=void 0===o?this.createVisitId():o,s=n.replace,a=void 0!==s&&s,c=n.preserveScroll,l=void 0!==c&&c,d=n.preserveState,u=void 0!==d&&d;return this.page=e,Promise.resolve(this.resolveComponent(e.component)).then(function(t){r===i.visitId&&(u="function"==typeof u?u(e):u,l="function"==typeof l?l(e):l,(a=a||e.url===""+window.location.pathname+window.location.search)?i.replaceState(e,u):i.pushState(e),i.updatePage(t,e.props,{preserveState:u}).then(function(){l||i.resetScrollPositions(),a||i.fireEvent("navigate",{detail:{page:e}})}))})},pushState:function(e){window.history.pushState(i({cache:{}},e),"",e.url)},replaceState:function(e,t){void 0===t&&(t=!1),window.history.replaceState(i({},{cache:t&&window.history.state?window.history.state.cache:{}},e),"",e.url)},restoreState:function(e){var t=this;if(e.state){this.page=e.state;var i=this.createVisitId();return Promise.resolve(this.resolveComponent(this.page.component)).then(function(e){i===t.visitId&&t.updatePage(e,t.page.props,{preserveState:!1}).then(function(){t.restoreScrollPositions(t.page),t.fireEvent("navigate",{detail:{page:t.page}})})})}},get:function(e,t,n){return void 0===t&&(t={}),void 0===n&&(n={}),this.visit(e,i({},n,{method:"get",data:t}))},replace:function(e,t){return void 0===t&&(t={}),this.visit(e,i({preserveState:!0},t,{replace:!0}))},reload:function(e){return void 0===e&&(e={}),this.replace(window.location.href,e)},post:function(e,t,n){return void 0===t&&(t={}),void 0===n&&(n={}),this.visit(e,i({preserveState:!0},n,{method:"post",data:t}))},put:function(e,t,n){return void 0===t&&(t={}),void 0===n&&(n={}),this.visit(e,i({preserveState:!0},n,{method:"put",data:t}))},patch:function(e,t,n){return void 0===t&&(t={}),void 0===n&&(n={}),this.visit(e,i({preserveState:!0},n,{method:"patch",data:t}))},delete:function(e,t){return void 0===t&&(t={}),this.visit(e,i({},t,{method:"delete"}))},remember:function(e,t){void 0===t&&(t="default");var n=i({},window.history.state);n.cache=n.cache||{},n.cache[t]=e,this.replaceState(n)},restore:function(e){if(void 0===e&&(e="default"),window.history.state.cache&&window.history.state.cache[e])return window.history.state.cache[e]},on:function(e,t){var i=function(e){var i=t(e);e.cancelable&&!e.defaultPrevented&&!1===i&&e.preventDefault()};return document.addEventListener("inertia:"+e,i),function(){document.removeEventListener("inertia:"+e,i)}}},exports.shouldIntercept=function(e){return!(e.target&&e.target.isContentEditable||e.defaultPrevented||e.which>1||e.altKey||e.ctrlKey||e.metaKey||e.shiftKey)};
 //# sourceMappingURL=index.js.map
 
 
 /***/ }),
 
-/***/ "./node_modules/axios/index.js":
-/*!*************************************!*\
-  !*** ./node_modules/axios/index.js ***!
-  \*************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/index.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/index.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./lib/axios */ "./node_modules/axios/lib/axios.js");
+module.exports = __webpack_require__(/*! ./lib/axios */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/axios.js");
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/adapters/xhr.js":
-/*!************************************************!*\
-  !*** ./node_modules/axios/lib/adapters/xhr.js ***!
-  \************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/adapters/xhr.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/adapters/xhr.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
-var settle = __webpack_require__(/*! ./../core/settle */ "./node_modules/axios/lib/core/settle.js");
-var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ "./node_modules/axios/lib/helpers/buildURL.js");
-var buildFullPath = __webpack_require__(/*! ../core/buildFullPath */ "./node_modules/axios/lib/core/buildFullPath.js");
-var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ "./node_modules/axios/lib/helpers/parseHeaders.js");
-var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ "./node_modules/axios/lib/helpers/isURLSameOrigin.js");
-var createError = __webpack_require__(/*! ../core/createError */ "./node_modules/axios/lib/core/createError.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js");
+var settle = __webpack_require__(/*! ./../core/settle */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/settle.js");
+var cookies = __webpack_require__(/*! ./../helpers/cookies */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/cookies.js");
+var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/buildURL.js");
+var buildFullPath = __webpack_require__(/*! ../core/buildFullPath */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/buildFullPath.js");
+var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/parseHeaders.js");
+var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/isURLSameOrigin.js");
+var createError = __webpack_require__(/*! ../core/createError */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/createError.js");
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -150,12 +151,19 @@ module.exports = function xhrAdapter(config) {
       delete requestHeaders['Content-Type']; // Let the browser set it
     }
 
+    if (
+      (utils.isBlob(requestData) || utils.isFile(requestData)) &&
+      requestData.type
+    ) {
+      delete requestHeaders['Content-Type']; // Let the browser set it
+    }
+
     var request = new XMLHttpRequest();
 
     // HTTP basic authentication
     if (config.auth) {
       var username = config.auth.username || '';
-      var password = config.auth.password || '';
+      var password = unescape(encodeURIComponent(config.auth.password)) || '';
       requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
     }
 
@@ -236,8 +244,6 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(/*! ./../helpers/cookies */ "./node_modules/axios/lib/helpers/cookies.js");
-
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName ?
         cookies.read(config.xsrfCookieName) :
@@ -303,7 +309,7 @@ module.exports = function xhrAdapter(config) {
       });
     }
 
-    if (requestData === undefined) {
+    if (!requestData) {
       requestData = null;
     }
 
@@ -315,21 +321,21 @@ module.exports = function xhrAdapter(config) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/axios.js":
-/*!*****************************************!*\
-  !*** ./node_modules/axios/lib/axios.js ***!
-  \*****************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/axios.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/axios.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
-var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
-var Axios = __webpack_require__(/*! ./core/Axios */ "./node_modules/axios/lib/core/Axios.js");
-var mergeConfig = __webpack_require__(/*! ./core/mergeConfig */ "./node_modules/axios/lib/core/mergeConfig.js");
-var defaults = __webpack_require__(/*! ./defaults */ "./node_modules/axios/lib/defaults.js");
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js");
+var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/bind.js");
+var Axios = __webpack_require__(/*! ./core/Axios */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/Axios.js");
+var mergeConfig = __webpack_require__(/*! ./core/mergeConfig */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/mergeConfig.js");
+var defaults = __webpack_require__(/*! ./defaults */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/defaults.js");
 
 /**
  * Create an instance of Axios
@@ -362,15 +368,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ "./node_modules/axios/lib/cancel/Cancel.js");
-axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ "./node_modules/axios/lib/cancel/CancelToken.js");
-axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ "./node_modules/axios/lib/cancel/isCancel.js");
+axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/cancel/Cancel.js");
+axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/cancel/CancelToken.js");
+axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/cancel/isCancel.js");
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(/*! ./helpers/spread */ "./node_modules/axios/lib/helpers/spread.js");
+axios.spread = __webpack_require__(/*! ./helpers/spread */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/spread.js");
 
 module.exports = axios;
 
@@ -380,10 +386,10 @@ module.exports.default = axios;
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/cancel/Cancel.js":
-/*!*************************************************!*\
-  !*** ./node_modules/axios/lib/cancel/Cancel.js ***!
-  \*************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/cancel/Cancel.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/cancel/Cancel.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -411,17 +417,17 @@ module.exports = Cancel;
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/cancel/CancelToken.js":
-/*!******************************************************!*\
-  !*** ./node_modules/axios/lib/cancel/CancelToken.js ***!
-  \******************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/cancel/CancelToken.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/cancel/CancelToken.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(/*! ./Cancel */ "./node_modules/axios/lib/cancel/Cancel.js");
+var Cancel = __webpack_require__(/*! ./Cancel */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/cancel/Cancel.js");
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -480,10 +486,10 @@ module.exports = CancelToken;
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/cancel/isCancel.js":
-/*!***************************************************!*\
-  !*** ./node_modules/axios/lib/cancel/isCancel.js ***!
-  \***************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/cancel/isCancel.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/cancel/isCancel.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -497,21 +503,21 @@ module.exports = function isCancel(value) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/core/Axios.js":
-/*!**********************************************!*\
-  !*** ./node_modules/axios/lib/core/Axios.js ***!
-  \**********************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/Axios.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/Axios.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
-var buildURL = __webpack_require__(/*! ../helpers/buildURL */ "./node_modules/axios/lib/helpers/buildURL.js");
-var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ "./node_modules/axios/lib/core/InterceptorManager.js");
-var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ "./node_modules/axios/lib/core/dispatchRequest.js");
-var mergeConfig = __webpack_require__(/*! ./mergeConfig */ "./node_modules/axios/lib/core/mergeConfig.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js");
+var buildURL = __webpack_require__(/*! ../helpers/buildURL */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/buildURL.js");
+var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/InterceptorManager.js");
+var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/dispatchRequest.js");
+var mergeConfig = __webpack_require__(/*! ./mergeConfig */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/mergeConfig.js");
 
 /**
  * Create a new instance of Axios
@@ -580,7 +586,7 @@ Axios.prototype.getUri = function getUri(config) {
 utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
   /*eslint func-names:0*/
   Axios.prototype[method] = function(url, config) {
-    return this.request(utils.merge(config || {}, {
+    return this.request(mergeConfig(config || {}, {
       method: method,
       url: url
     }));
@@ -590,7 +596,7 @@ utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData
 utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
   /*eslint func-names:0*/
   Axios.prototype[method] = function(url, data, config) {
-    return this.request(utils.merge(config || {}, {
+    return this.request(mergeConfig(config || {}, {
       method: method,
       url: url,
       data: data
@@ -603,17 +609,17 @@ module.exports = Axios;
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/core/InterceptorManager.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/axios/lib/core/InterceptorManager.js ***!
-  \***********************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/InterceptorManager.js":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/InterceptorManager.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js");
 
 function InterceptorManager() {
   this.handlers = [];
@@ -667,18 +673,18 @@ module.exports = InterceptorManager;
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/core/buildFullPath.js":
-/*!******************************************************!*\
-  !*** ./node_modules/axios/lib/core/buildFullPath.js ***!
-  \******************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/buildFullPath.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/buildFullPath.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isAbsoluteURL = __webpack_require__(/*! ../helpers/isAbsoluteURL */ "./node_modules/axios/lib/helpers/isAbsoluteURL.js");
-var combineURLs = __webpack_require__(/*! ../helpers/combineURLs */ "./node_modules/axios/lib/helpers/combineURLs.js");
+var isAbsoluteURL = __webpack_require__(/*! ../helpers/isAbsoluteURL */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/isAbsoluteURL.js");
+var combineURLs = __webpack_require__(/*! ../helpers/combineURLs */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/combineURLs.js");
 
 /**
  * Creates a new URL by combining the baseURL with the requestedURL,
@@ -699,17 +705,17 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/core/createError.js":
-/*!****************************************************!*\
-  !*** ./node_modules/axios/lib/core/createError.js ***!
-  \****************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/createError.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/createError.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(/*! ./enhanceError */ "./node_modules/axios/lib/core/enhanceError.js");
+var enhanceError = __webpack_require__(/*! ./enhanceError */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/enhanceError.js");
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -729,20 +735,20 @@ module.exports = function createError(message, config, code, request, response) 
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/core/dispatchRequest.js":
-/*!********************************************************!*\
-  !*** ./node_modules/axios/lib/core/dispatchRequest.js ***!
-  \********************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/dispatchRequest.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/dispatchRequest.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
-var transformData = __webpack_require__(/*! ./transformData */ "./node_modules/axios/lib/core/transformData.js");
-var isCancel = __webpack_require__(/*! ../cancel/isCancel */ "./node_modules/axios/lib/cancel/isCancel.js");
-var defaults = __webpack_require__(/*! ../defaults */ "./node_modules/axios/lib/defaults.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js");
+var transformData = __webpack_require__(/*! ./transformData */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/transformData.js");
+var isCancel = __webpack_require__(/*! ../cancel/isCancel */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/cancel/isCancel.js");
+var defaults = __webpack_require__(/*! ../defaults */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/defaults.js");
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -820,10 +826,10 @@ module.exports = function dispatchRequest(config) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/core/enhanceError.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/axios/lib/core/enhanceError.js ***!
-  \*****************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/enhanceError.js":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/enhanceError.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -850,7 +856,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
   error.response = response;
   error.isAxiosError = true;
 
-  error.toJSON = function() {
+  error.toJSON = function toJSON() {
     return {
       // Standard
       message: this.message,
@@ -874,17 +880,17 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/core/mergeConfig.js":
-/*!****************************************************!*\
-  !*** ./node_modules/axios/lib/core/mergeConfig.js ***!
-  \****************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/mergeConfig.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/mergeConfig.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(/*! ../utils */ "./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ../utils */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js");
 
 /**
  * Config-specific merge-function which creates a new config-object
@@ -899,59 +905,73 @@ module.exports = function mergeConfig(config1, config2) {
   config2 = config2 || {};
   var config = {};
 
-  var valueFromConfig2Keys = ['url', 'method', 'params', 'data'];
-  var mergeDeepPropertiesKeys = ['headers', 'auth', 'proxy'];
+  var valueFromConfig2Keys = ['url', 'method', 'data'];
+  var mergeDeepPropertiesKeys = ['headers', 'auth', 'proxy', 'params'];
   var defaultToConfig2Keys = [
-    'baseURL', 'url', 'transformRequest', 'transformResponse', 'paramsSerializer',
-    'timeout', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName',
-    'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress',
-    'maxContentLength', 'validateStatus', 'maxRedirects', 'httpAgent',
-    'httpsAgent', 'cancelToken', 'socketPath'
+    'baseURL', 'transformRequest', 'transformResponse', 'paramsSerializer',
+    'timeout', 'timeoutMessage', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName',
+    'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress', 'decompress',
+    'maxContentLength', 'maxBodyLength', 'maxRedirects', 'transport', 'httpAgent',
+    'httpsAgent', 'cancelToken', 'socketPath', 'responseEncoding'
   ];
+  var directMergeKeys = ['validateStatus'];
+
+  function getMergedValue(target, source) {
+    if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
+      return utils.merge(target, source);
+    } else if (utils.isPlainObject(source)) {
+      return utils.merge({}, source);
+    } else if (utils.isArray(source)) {
+      return source.slice();
+    }
+    return source;
+  }
+
+  function mergeDeepProperties(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(config1[prop], config2[prop]);
+    } else if (!utils.isUndefined(config1[prop])) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  }
 
   utils.forEach(valueFromConfig2Keys, function valueFromConfig2(prop) {
-    if (typeof config2[prop] !== 'undefined') {
-      config[prop] = config2[prop];
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(undefined, config2[prop]);
     }
   });
 
-  utils.forEach(mergeDeepPropertiesKeys, function mergeDeepProperties(prop) {
-    if (utils.isObject(config2[prop])) {
-      config[prop] = utils.deepMerge(config1[prop], config2[prop]);
-    } else if (typeof config2[prop] !== 'undefined') {
-      config[prop] = config2[prop];
-    } else if (utils.isObject(config1[prop])) {
-      config[prop] = utils.deepMerge(config1[prop]);
-    } else if (typeof config1[prop] !== 'undefined') {
-      config[prop] = config1[prop];
-    }
-  });
+  utils.forEach(mergeDeepPropertiesKeys, mergeDeepProperties);
 
   utils.forEach(defaultToConfig2Keys, function defaultToConfig2(prop) {
-    if (typeof config2[prop] !== 'undefined') {
-      config[prop] = config2[prop];
-    } else if (typeof config1[prop] !== 'undefined') {
-      config[prop] = config1[prop];
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(undefined, config2[prop]);
+    } else if (!utils.isUndefined(config1[prop])) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  });
+
+  utils.forEach(directMergeKeys, function merge(prop) {
+    if (prop in config2) {
+      config[prop] = getMergedValue(config1[prop], config2[prop]);
+    } else if (prop in config1) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
     }
   });
 
   var axiosKeys = valueFromConfig2Keys
     .concat(mergeDeepPropertiesKeys)
-    .concat(defaultToConfig2Keys);
+    .concat(defaultToConfig2Keys)
+    .concat(directMergeKeys);
 
   var otherKeys = Object
-    .keys(config2)
+    .keys(config1)
+    .concat(Object.keys(config2))
     .filter(function filterAxiosKeys(key) {
       return axiosKeys.indexOf(key) === -1;
     });
 
-  utils.forEach(otherKeys, function otherKeysDefaultToConfig2(prop) {
-    if (typeof config2[prop] !== 'undefined') {
-      config[prop] = config2[prop];
-    } else if (typeof config1[prop] !== 'undefined') {
-      config[prop] = config1[prop];
-    }
-  });
+  utils.forEach(otherKeys, mergeDeepProperties);
 
   return config;
 };
@@ -959,17 +979,17 @@ module.exports = function mergeConfig(config1, config2) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/core/settle.js":
-/*!***********************************************!*\
-  !*** ./node_modules/axios/lib/core/settle.js ***!
-  \***********************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/settle.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/settle.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(/*! ./createError */ "./node_modules/axios/lib/core/createError.js");
+var createError = __webpack_require__(/*! ./createError */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/createError.js");
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -980,7 +1000,7 @@ var createError = __webpack_require__(/*! ./createError */ "./node_modules/axios
  */
 module.exports = function settle(resolve, reject, response) {
   var validateStatus = response.config.validateStatus;
-  if (!validateStatus || validateStatus(response.status)) {
+  if (!response.status || !validateStatus || validateStatus(response.status)) {
     resolve(response);
   } else {
     reject(createError(
@@ -996,17 +1016,17 @@ module.exports = function settle(resolve, reject, response) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/core/transformData.js":
-/*!******************************************************!*\
-  !*** ./node_modules/axios/lib/core/transformData.js ***!
-  \******************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/transformData.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/core/transformData.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js");
 
 /**
  * Transform the data for a request or a response
@@ -1028,18 +1048,18 @@ module.exports = function transformData(data, headers, fns) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/defaults.js":
-/*!********************************************!*\
-  !*** ./node_modules/axios/lib/defaults.js ***!
-  \********************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/defaults.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/defaults.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
-var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ "./node_modules/axios/lib/helpers/normalizeHeaderName.js");
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js");
+var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/normalizeHeaderName.js");
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -1055,10 +1075,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(/*! ./adapters/xhr */ "./node_modules/axios/lib/adapters/xhr.js");
+    adapter = __webpack_require__(/*! ./adapters/xhr */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/adapters/xhr.js");
   } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(/*! ./adapters/http */ "./node_modules/axios/lib/adapters/xhr.js");
+    adapter = __webpack_require__(/*! ./adapters/http */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/adapters/xhr.js");
   }
   return adapter;
 }
@@ -1112,6 +1132,7 @@ var defaults = {
   xsrfHeaderName: 'X-XSRF-TOKEN',
 
   maxContentLength: -1,
+  maxBodyLength: -1,
 
   validateStatus: function validateStatus(status) {
     return status >= 200 && status < 300;
@@ -1134,14 +1155,14 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/helpers/bind.js":
-/*!************************************************!*\
-  !*** ./node_modules/axios/lib/helpers/bind.js ***!
-  \************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/bind.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/bind.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1161,21 +1182,20 @@ module.exports = function bind(fn, thisArg) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/helpers/buildURL.js":
-/*!****************************************************!*\
-  !*** ./node_modules/axios/lib/helpers/buildURL.js ***!
-  \****************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/buildURL.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/buildURL.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js");
 
 function encode(val) {
   return encodeURIComponent(val).
-    replace(/%40/gi, '@').
     replace(/%3A/gi, ':').
     replace(/%24/g, '$').
     replace(/%2C/gi, ',').
@@ -1244,10 +1264,10 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/helpers/combineURLs.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/axios/lib/helpers/combineURLs.js ***!
-  \*******************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/combineURLs.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/combineURLs.js ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1270,17 +1290,17 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/helpers/cookies.js":
-/*!***************************************************!*\
-  !*** ./node_modules/axios/lib/helpers/cookies.js ***!
-  \***************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/cookies.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/cookies.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -1335,10 +1355,10 @@ module.exports = (
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/helpers/isAbsoluteURL.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
-  \*********************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/isAbsoluteURL.js":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1361,17 +1381,17 @@ module.exports = function isAbsoluteURL(url) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/helpers/isURLSameOrigin.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
-  \***********************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/isURLSameOrigin.js":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -1441,17 +1461,17 @@ module.exports = (
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/helpers/normalizeHeaderName.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
-  \***************************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/normalizeHeaderName.js":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(/*! ../utils */ "./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ../utils */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js");
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -1465,17 +1485,17 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/helpers/parseHeaders.js":
-/*!********************************************************!*\
-  !*** ./node_modules/axios/lib/helpers/parseHeaders.js ***!
-  \********************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/parseHeaders.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js");
 
 // Headers whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -1530,10 +1550,10 @@ module.exports = function parseHeaders(headers) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/helpers/spread.js":
-/*!**************************************************!*\
-  !*** ./node_modules/axios/lib/helpers/spread.js ***!
-  \**************************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/spread.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/spread.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1569,17 +1589,17 @@ module.exports = function spread(callback) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/utils.js":
-/*!*****************************************!*\
-  !*** ./node_modules/axios/lib/utils.js ***!
-  \*****************************************/
+/***/ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@inertiajs/inertia/node_modules/axios/lib/utils.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
+var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/@inertiajs/inertia/node_modules/axios/lib/helpers/bind.js");
 
 /*global toString:true*/
 
@@ -1682,6 +1702,21 @@ function isNumber(val) {
  */
 function isObject(val) {
   return val !== null && typeof val === 'object';
+}
+
+/**
+ * Determine if a value is a plain Object
+ *
+ * @param {Object} val The value to test
+ * @return {boolean} True if value is a plain Object, otherwise false
+ */
+function isPlainObject(val) {
+  if (toString.call(val) !== '[object Object]') {
+    return false;
+  }
+
+  var prototype = Object.getPrototypeOf(val);
+  return prototype === null || prototype === Object.prototype;
 }
 
 /**
@@ -1840,34 +1875,12 @@ function forEach(obj, fn) {
 function merge(/* obj1, obj2, obj3, ... */) {
   var result = {};
   function assignValue(val, key) {
-    if (typeof result[key] === 'object' && typeof val === 'object') {
+    if (isPlainObject(result[key]) && isPlainObject(val)) {
       result[key] = merge(result[key], val);
-    } else {
-      result[key] = val;
-    }
-  }
-
-  for (var i = 0, l = arguments.length; i < l; i++) {
-    forEach(arguments[i], assignValue);
-  }
-  return result;
-}
-
-/**
- * Function equal to merge with the difference being that no reference
- * to original objects is kept.
- *
- * @see merge
- * @param {Object} obj1 Object to merge
- * @returns {Object} Result of all merge properties
- */
-function deepMerge(/* obj1, obj2, obj3, ... */) {
-  var result = {};
-  function assignValue(val, key) {
-    if (typeof result[key] === 'object' && typeof val === 'object') {
-      result[key] = deepMerge(result[key], val);
-    } else if (typeof val === 'object') {
-      result[key] = deepMerge({}, val);
+    } else if (isPlainObject(val)) {
+      result[key] = merge({}, val);
+    } else if (isArray(val)) {
+      result[key] = val.slice();
     } else {
       result[key] = val;
     }
@@ -1898,6 +1911,19 @@ function extend(a, b, thisArg) {
   return a;
 }
 
+/**
+ * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
+ *
+ * @param {string} content with BOM
+ * @return {string} content value without BOM
+ */
+function stripBOM(content) {
+  if (content.charCodeAt(0) === 0xFEFF) {
+    content = content.slice(1);
+  }
+  return content;
+}
+
 module.exports = {
   isArray: isArray,
   isArrayBuffer: isArrayBuffer,
@@ -1907,6 +1933,7 @@ module.exports = {
   isString: isString,
   isNumber: isNumber,
   isObject: isObject,
+  isPlainObject: isPlainObject,
   isUndefined: isUndefined,
   isDate: isDate,
   isFile: isFile,
@@ -1917,9 +1944,9 @@ module.exports = {
   isStandardBrowserEnv: isStandardBrowserEnv,
   forEach: forEach,
   merge: merge,
-  deepMerge: deepMerge,
   extend: extend,
-  trim: trim
+  trim: trim,
+  stripBOM: stripBOM
 };
 
 
@@ -16851,6 +16878,8 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__["InertiaApp"]);
 var app = document.getElementById('app');
+console.log(app);
+console.log(JSON.parse(app.dataset.page));
 new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   render: function render(h) {
     return h(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__["InertiaApp"], {
