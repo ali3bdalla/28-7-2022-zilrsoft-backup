@@ -41,7 +41,7 @@ class FetchEntitiesRequest extends FormRequest
     {
 
 
-        $query = Transaction::where('account_id', $account->id)->orderBy('created_at', 'asc');
+        $query = Transaction::where('account_id', $account->id);//->orderBy('created_at', 'asc')
 
         if (
             $this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
