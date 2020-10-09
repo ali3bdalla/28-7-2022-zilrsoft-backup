@@ -74,7 +74,7 @@ class FetchSalesRequest extends FormRequest
         } else {
             if (!$this->user()->can('manage branches') && !$this->filled('title') && auth()->user()->accounts_closed_at != null) {
 
-                $query = $query->whereDate('created _at', '>=', auth()->user()->accounts_closed_at);
+                $query = $query->whereDate('created_at', '>=', auth()->user()->accounts_closed_at);
             }
         }
 
