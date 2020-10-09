@@ -66,7 +66,10 @@ class FetchSalesRequest extends FormRequest
             if ($_endDate === $_startDate) {
                 $query = $query->where('created_at', $_startDate);
             } else {
-                $query = $query->whereDateBetween(DB::raw('DATE(created_at)'), array($_startDate, $_endDate));
+                $query = $query->whereBetween('created_at', [
+                    $_startDate,
+                    $_endDate,
+                ]);
             }
         } else {
             if (!$this->user()->can('manage branches') && !$this->filled('title') && auth()->user()->accounts_closed_at != null) {
