@@ -998,7 +998,7 @@
             },
 
             itemPriceUpdated(item) {
-                item.price = parseFloat(item.price).toFixed(2);
+                // item.price = parseFloat(item.price).toFixed(2);
                 let el = this.$refs['itemPrice_' + item.id + 'Ref'][0];
                 if (!inputHelper.validatePrice(item.price, el)) {
                     return false;

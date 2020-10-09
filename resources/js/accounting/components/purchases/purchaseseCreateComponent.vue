@@ -747,13 +747,13 @@
                     }
                 }
 
-                console.log('work');
+                // console.log('work');
                 item = this.itemUpdater(item);
                 this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
             },
 
             itemPriceUpdated(item) {
-                item.purchase_price = parseFloat(item.purchase_price).toFixed(2);
+                // item.purchase_price = parseFloat(item.purchase_price).toFixed(2);
                 let el = this.$refs['itemPrice_' + item.id + 'Ref'][0];
                 if (!inputHelper.validatePrice(item.purchase_price, el)) {
                     return false;
