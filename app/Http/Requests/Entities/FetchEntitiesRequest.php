@@ -90,7 +90,7 @@ class FetchEntitiesRequest extends FormRequest
 //        if ($this->has('orderBy') && $this->filled('orderBy') && $this->has('orderType') && $this->filled('orderType')) {
 //            $query = $query->orderBy($this->input(orderBy), $this->input('orderType'));
 //        } else {
-        $query = $query->orderByDesc("created_at");
+//        $query = $query->orderByDesc("created_at");
 //        }
 
         $query = $query->with('invoice', 'user');
