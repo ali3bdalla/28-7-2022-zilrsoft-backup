@@ -40,23 +40,19 @@ class FetchSalesRequest extends FormRequest
         $query = Invoice::whereIn('invoice_type', ['sale', 'return_sale']);
 
 
-        
-
-
-
         if ($this->has('is_draft') && $this->filled('is_draft')) {
             $isDraft = (boolean)$this->input('is_draft');
-            if($isDraft){
-                $query = $query->withoutGlobalScope('draft')->withoutGlobalScope('manager')->where('is_draft',$isDraft );
+            if ($isDraft) {
+                $query = $query->withoutGlobalScope('draft')->withoutGlobalScope('manager')->where('is_draft', $isDraft);
             }
         }
 
-        
-        $query = $query->with([
-            'creator', 'items', 'sale' => function($sale){
-                return  $sale->withoutGlobalScope('draft')->withoutGlobalScope('manager');
 
-            },'sale.client', 'sale.salesman',
+        $query = $query->with([
+            'creator', 'items', 'sale' => function ($sale) {
+                return $sale->withoutGlobalScope('draft')->withoutGlobalScope('manager');
+
+            }, 'sale.client', 'sale.salesman',
         ]);
 
 
@@ -76,8 +72,9 @@ class FetchSalesRequest extends FormRequest
                 ]);
             }
         } else {
-            if (!$this->user()->can('manage branches') && !$this->filled('title')) {
-                // $query = $query->whereDate('created_at', '>=', $this->toGetLastCloseAmountDate());
+            if (!$this->user()->can('manage branches') && !$this->filled('title') && auth()->user()->accounts_closed_at != null) {
+
+                $query = $query->whereDate('created _at', '>=', auth()->user()->accounts_closed_at);
             }
         }
 
@@ -190,7 +187,6 @@ class FetchSalesRequest extends FormRequest
                 $query->select(DB::raw("SUM(cost * qty) as invoice_cost"));
             },
         ]);
-
 
 
         if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval($this->input("itemsPerPage")) >= 1) {
