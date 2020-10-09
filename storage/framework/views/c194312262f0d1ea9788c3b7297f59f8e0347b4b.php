@@ -121,7 +121,7 @@
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('confirm purchase')): ?>
                         <li>
                             <a href="<?php echo e(route('accounting.purchases.pending')); ?>"><i class="fab fa-product-hunt"></i>
-                                مشتريات منتظرة
+                                مشتريات معلقة
                             </a></li>
 
 

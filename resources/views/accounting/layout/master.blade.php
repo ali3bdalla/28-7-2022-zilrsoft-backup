@@ -31,6 +31,12 @@
 
 
     @yield('page_css')
+
+    <style type="text/css">
+        input {
+            direction: ltr !important;
+        }
+    </style>
 </head>
 <body class="sidebar-mini skin-blue">
     @includeIf("accounting.layout.layout")

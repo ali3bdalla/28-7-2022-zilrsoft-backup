@@ -112,7 +112,7 @@
                     @can('confirm purchase')
                         <li>
                             <a href="{{route('accounting.purchases.pending')}}"><i class="fab fa-product-hunt"></i>
-                                مشتريات منتظرة
+                                مشتريات معلقة
                             </a></li>
 
 

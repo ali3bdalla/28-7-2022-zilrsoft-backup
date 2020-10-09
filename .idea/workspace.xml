@@ -20,32 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/Layouts/AppLayout.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/Layouts/WebAppLayout.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/Layouts/WebCustomerPanelLayout.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/ModalComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ItemController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Traits/ReturnInvoiceTraits.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Traits/ReturnInvoiceTraits.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreReturnPurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreReturnPurchaseRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Item.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/kitItemsLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/kitItemsLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/3Y9V0OC3kPNuJQtUVYXCAfEIfdL7pzGNo2KpoQtc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/KJA9lMpnzisDIw9olotnd2UvfFOTmEHe2EgzDCDd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/NRlnwJscNo8K9IURhMVlWxnHfHqgRQEabKMpneN0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/Sd1mTafW6X5cEgacxexvwCCn9AUzVoMu4u8AkrlT" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/SyOCTD5iy2Jk4mSMi6fAUedH0P4zAlsBoT6lp4hP" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/bb2b6ayqxAFtpThW4OSm66EV3fPaLaW2cTvEDGpv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/gSPv0LaIpvOjVjUSe41wqDTN4PxN83e5ZxAU68Zq" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/gvHsKDne9ALrO5NAskhYcnWRbn7QhmWqVFYs5PQX" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/gvHsKDne9ALrO5NAskhYcnWRbn7QhmWqVFYs5PQX" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/zMphLMw4LJBIbKHyHEKnmp3gitKXcWOsWA37d1Du" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-10-09.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-10-09.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/tailwind.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/tailwind.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/master.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/gvHsKDne9ALrO5NAskhYcnWRbn7QhmWqVFYs5PQX" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/cb7c3ac59e9dc16e4bf80b5dc248c1ae2913e6a6.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/cb7c3ac59e9dc16e4bf80b5dc248c1ae2913e6a6.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -363,7 +344,7 @@
       <workItem from="1602221242680" duration="323000" />
       <workItem from="1602221618463" duration="1424000" />
       <workItem from="1602225452795" duration="274000" />
-      <workItem from="1602249411296" duration="5700000" />
+      <workItem from="1602249411296" duration="6170000" />
     </task>
     <servers />
   </component>
@@ -449,7 +430,7 @@
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="716" y="481" width="614" height="269" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595010883333" />
-    <state x="469" y="203" width="838" height="518" key="search.everywhere.popup" timestamp="1602263771968">
+    <state x="469" y="203" width="838" height="518" key="search.everywhere.popup" timestamp="1602264848794">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="0" y="221" width="1512" height="505" key="search.everywhere.popup.inPresentationMode" timestamp="1602255049685">
@@ -461,7 +442,7 @@
     <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />
     <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/-1600.0.1600.900/0.0.1920.1200@0.0.1920.1200" timestamp="1602223594332" />
     <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/-1600.23.1600.877/0.0.1920.1200@0.0.1920.1200" timestamp="1602223022267" />
-    <state x="469" y="203" width="838" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1602263771968" />
+    <state x="469" y="203" width="838" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1602264848794" />
     <state x="547" y="237" width="978" height="605" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599470318592" />
     <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1602249905095" />
     <state x="469" y="221" width="670" height="505" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1593950143500" />

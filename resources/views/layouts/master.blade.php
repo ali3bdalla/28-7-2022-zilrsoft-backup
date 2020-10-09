@@ -4,7 +4,7 @@
     @includeIf("accounting.layout.head.meta")
     <title>@yield('title',config("app.name"))</title>
 
-{{--    @includeIf("accounting.layout.head.defer_js")--}}
+    {{--    @includeIf("accounting.layout.head.defer_js")--}}
 
 
     <script defer>
@@ -21,7 +21,7 @@
     @css_asset('lib/css/bootstrap.min.css')
     @css_asset('lib/css/AdminLTE.min.css')
     @css_asset('lib/css/_all-skins.min.css')
-{{--    @css_asset('lib/css/select2.min.cs.css')--}}
+    {{--    @css_asset('lib/css/select2.min.cs.css')--}}
     @css_asset('lib/css/buttons.css')
     @css_asset('lib/css/main.css')
     @css_asset('lib/css/bootstrap-rtl.css')
@@ -31,12 +31,18 @@
 
 
     @yield('page_css')
+
+    <style type="text/css">
+        input {
+            direction: ltr !important;
+        }
+    </style>
 </head>
 <body class="sidebar-mini skin-blue">
-    @includeIf("accounting.layout.layout")
-    @includeIf("accounting.layout.head.js")
-    @yield('sub_javascript')
-    @yield('page_js')
+@includeIf("accounting.layout.layout")
+@includeIf("accounting.layout.head.js")
+@yield('sub_javascript')
+@yield('page_js')
 </body>
 </html>
 
