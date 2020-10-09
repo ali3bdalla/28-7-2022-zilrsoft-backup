@@ -79,7 +79,8 @@ class SaleController extends Controller
         return view('sales.create_draft_service', compact('clients', 'salesmen', 'gateways', 'services'));
     }
 
-    function clone (Invoice $sale) {
+    function clone(Invoice $sale)
+    {
         // return $sale;
         $sale = $sale->withoutGlobalScope('draft')->first();
 
@@ -90,6 +91,7 @@ class SaleController extends Controller
         $sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
         return view('sales.clone', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale'));
     }
+
     /**
      * Show the specified resource.
      * @param Invoice $sale
@@ -98,8 +100,11 @@ class SaleController extends Controller
     public function show(Invoice $sale)
     {
         $sale = $sale->withoutGlobalScope('draft')->first();
+
         $transactions = $sale->transactions()->get();
         $invoice = $sale;
+        $invoice->sale = $invoice->sale()->withoutGlobalScope('draft')->first();
+//        return $sale;
         return view('sales.view', compact('invoice', 'transactions'));
     }
 
