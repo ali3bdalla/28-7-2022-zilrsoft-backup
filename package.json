@@ -38,7 +38,7 @@
         "moment": "^2.29.0",
         "print-js": "^1.4.0",
         "pusher-js": "^5.1.1",
-        "qz-tray": "^2.1.2",
+        "qz-tray": "^2.0",
         "qzprinty": "^1.0.15",
         "qztrayjsclass": "0.0.2",
         "rsvp": "^4.8.5",
