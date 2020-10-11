@@ -16,6 +16,8 @@ Route::middleware('guest')->group(function () {
     Route::get('/forget_password', 'LoginController@forgetPassword')->name('forget_password');
 });
 
+
+
 Route::middleware('auth')->group(function () {
     Route::post('/logout', 'HomeController@logout')->name('logout');
     Route::resource('sales', 'SaleController');
@@ -36,6 +38,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/{item}/item', 'AccountController@showItem')->name('item');
 
     });
+
+
+    Route::resource('vouchers', 'VoucherController');
+
+
+    
     Route::resource('entities', 'EntityController');
     Route::prefix('entities')->name('entities.')->group(function () {
         Route::get('user/{account}/{user}', "EntityController@showUserEntities")->name('user');
