@@ -19,7 +19,7 @@
             <tbody>
                 <?php $__currentLoopData = $entity->transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                <td><?php echo e($transaction->account->name); ?></td>
+                <td><?php echo e($transaction->account->ar_name); ?></td>
                 <?php if($transaction->type == 'debit'): ?>
                     <td><?php echo e($transaction->amount); ?></td>
                     <td>0</td>

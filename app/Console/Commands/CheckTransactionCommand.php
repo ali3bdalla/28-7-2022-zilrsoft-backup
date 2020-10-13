@@ -39,20 +39,16 @@ class CheckTransactionCommand extends Command
      */
     public function handle()
     {
-        $containers = TransactionsContainer::where([['invoice_id','!=' ,0]])->orderBy('id','desc')->get();
+        $containers = TransactionsContainer::where('id','<',16959)->orderBy('id','desc')->get();
 
-        // $containers = TransactionsContainer::find([27264]);
         foreach ($containers as $container) {
             echo $container->id . "\n";
             $debitAmount = $container->transactions()->where('type', 'debit')->sum('amount');
             $creditAmount = $container->transactions()->where('type', 'credit')->sum('amount');
 
-            // 0 , 0.0
-
-            // 0 == 0.0
-            $def =  $debitAmount - $creditAmount;
-            if (abs($def) > 0.02) {
-
+         
+            $def =(float) ( $debitAmount - $creditAmount);
+            if (abs($def) >= 0.0001) {
                 dd($container->id,$debitAmount - $creditAmount);
             }
         }

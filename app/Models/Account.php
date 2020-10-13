@@ -48,6 +48,11 @@ class Account extends BaseModel
 
 
 
+    public function snapshots()
+    {
+        return $this->hasMany(AccountSnapshot::class,'account_id');
+    }
+
 
     public function getSerialArrayAttribute($value)
     {

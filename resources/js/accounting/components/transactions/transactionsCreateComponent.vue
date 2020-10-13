@@ -284,6 +284,7 @@ export default {
       axios
         .post("/api/entities", data)
         .then((response) => {
+          console.log(response)
           window.location = "/entities";
         })
         .catch((error) => {

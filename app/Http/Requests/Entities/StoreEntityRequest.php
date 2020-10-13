@@ -49,7 +49,12 @@ class StoreEntityRequest extends FormRequest
 
         DB::beginTransaction();
         try {
+            if ($this->created_at != null) {
+                $createdAt = Carbon::parse($this->created_at);
 
+            } else {
+                $createdAt = Carbon::now();
+            }
             $loggedUser = $this->user();
             $amount = $this->validateTransactions();
 
@@ -58,6 +63,8 @@ class StoreEntityRequest extends FormRequest
                 'creator_id' => $loggedUser->id,
                 'description' => $this->input("description"),
                 'amount' => $amount,
+                'created_at' => $createdAt,
+
             ]);
             $entity->save();
 
@@ -72,16 +79,15 @@ class StoreEntityRequest extends FormRequest
                 $transactionData['type'] = $transaction['type'];
                 $transactionData['is_manual'] = true;
                 $transactionData['account_id'] = $account->id;
+                $transactionData['created_at'] = $createdAt;
 
                 if ($account->slug == 'stock') {
                     $transactionData['item_id'] = $transaction['item_id'];
                 }
-
                 if ($account->slug == 'clients') {
                     $transactionData['user_id'] = $transaction['user_id'];
                     $this->updateUserBalance('client', $transactionData, $account);
                 }
-
                 if ($account->slug == 'vendors') {
                     $transactionData['user_id'] = $transaction['user_id'];
                     $this->updateUserBalance('vendor', $transactionData, $account);
@@ -90,16 +96,6 @@ class StoreEntityRequest extends FormRequest
                 $entity->transactions()->create($transactionData);
             }
 
-            if ($this->created_at != null) {
-                $createdAt = Carbon::parse($this->created_at);
-                $entity->update([
-                    'created_at' => $createdAt,
-                ]);
-
-                $entity->transactions()->update([
-                    'created_at' => $createdAt,
-                ]);
-            }
             DB::commit();
             return $entity;
         } catch (ValidationException $exception) {
