@@ -49,7 +49,7 @@
                         <tr style="border:none">
                             <th>{{  $entity->created_at }}</th>
                             <th><a href="{{  route('entities.show',$entity->id) }}">{{ $entity->id }}</a></th>
-                            <th>{{  $entity->description }}</th>
+                            <th>{{  $transaction->description }}</th>
                             <th>{{ $transaction->account_name }}</th>
 
                             @if($transaction->type=="credit")
