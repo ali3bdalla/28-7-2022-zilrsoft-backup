@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use AliAbdalla\Tafqeet\Core\Tafqeet;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -14,8 +15,14 @@ class Payment extends BaseModel
 
     protected $guarded = [];
 
+    protected $appends = [
+        'amount_ar_words',
+    ];
 
-    
+    public function getAmountArWordsAttribute()
+    {
+        return Tafqeet::arablic($this->amount);
+    }
 
     /**
      * @return mixed
@@ -39,12 +46,10 @@ class Payment extends BaseModel
         return $this->user->phone_number;
     }
 
-
     public function account()
     {
         return $this->belongsTo(Account::class, 'account_id');
     }
-
 
     public function user()
     {
@@ -60,6 +65,5 @@ class Payment extends BaseModel
     {
         return $this->belongsTo(Manager::class, 'creator_id');
     }
-
 
 }
