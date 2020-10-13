@@ -48,7 +48,7 @@
                     @foreach($entity->transactions as $index => $transaction)
                         <tr style="border:none">
                             <th>{{  $entity->created_at }}</th>
-                            <th>{{ $entity->id }}</th>
+                            <th><a href="{{  route('entities.show',$entity->id) }}">{{ $entity->id }}</a></th>
                             <th>{{  $entity->description }}</th>
                             <th>{{ $transaction->account_name }}</th>
 
