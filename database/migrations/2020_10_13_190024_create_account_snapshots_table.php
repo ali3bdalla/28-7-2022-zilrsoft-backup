@@ -14,7 +14,7 @@ class CreateAccountSnapshotsTable extends Migration
     public function up()
     {
         Schema::create('account_snapshots', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->integer('account_id');
             $table->float('debit_amount',20,8)->default(0);
             $table->float('credit_amount',20,8)->default(0);
