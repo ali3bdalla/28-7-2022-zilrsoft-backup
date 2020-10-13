@@ -2,7 +2,7 @@
   <div class="">
     <div class="font-sans mx-auto antialiased bg-grey-lightest">
       <!-- Top Nav -->
-      <div class="w-full  bg-green shadow-lg z-1000">
+      <div class="w-full bg-green shadow-lg z-1000">
         <div class="container mx-auto">
           <div class="w-full flex justify-between items-center py-4 px-8">
             <!-- Brand -->
@@ -83,22 +83,6 @@
                 </div>
               </div>
               <div class="flex mb-4">
-                <div class="w-1/2 mr-1">
-                  <label
-                    class="block text-grey-darker text-sm font-bold mb-2"
-                    for="first_name"
-                    >VAT-NUMBER</label
-                  >
-                  <input
-                    v-model="form.vat_number"
-                    class="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-                    type="text"
-                    placeholder="VAT ID Number"
-                  />
-                  <div class="p-2 text-red-500" v-if="$page.errors.vat_number">
-                    {{ $page.errors.vat_number }}
-                  </div>
-                </div>
                 <div class="w-1/2 ml-1">
                   <label
                     class="block text-grey-darker text-sm font-bold mb-2"
@@ -113,6 +97,23 @@
                   />
                   <div class="p-2 text-red-500" v-if="$page.errors.cr_number">
                     {{ $page.errors.cr_number }}
+                  </div>
+                </div>
+
+                <div class="w-1/2 mr-1">
+                  <label
+                    class="block text-grey-darker text-sm font-bold mb-2"
+                    for="first_name"
+                    >VAT-NUMBER</label
+                  >
+                  <input
+                    v-model="form.vat_number"
+                    class="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+                    type="text"
+                    placeholder="VAT ID Number"
+                  />
+                  <div class="p-2 text-red-500" v-if="$page.errors.vat_number">
+                    {{ $page.errors.vat_number }}
                   </div>
                 </div>
               </div>
@@ -178,6 +179,40 @@
                   ></textarea>
                   <div class="p-2 text-red-500" v-if="$page.errors.description">
                     {{ $page.errors.description }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex mb-4">
+                <div class="w-1/2 mr-1">
+                  <label class="block text-grey-darker text-sm font-bold mb-2"
+                    >Logo</label
+                  >
+                  <input
+                    @change="logoUpdated"
+                    ref="file"
+                    class="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+                    accept="image/*"
+                    type="file"
+                  />
+                  <div class="p-2 text-red-500" v-if="$page.errors.logo">
+                    {{ $page.errors.logo }}
+                  </div>
+                </div>
+
+                <div class="w-1/2 mr-1">
+                  <label class="block text-grey-darker text-sm font-bold mb-2"
+                    >Stamp</label
+                  >
+                  <input
+                    @change="stampUpdated"
+                    ref="file"
+                    class="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+                    accept="image/*"
+                    type="file"
+                  />
+                  <div class="p-2 text-red-500" v-if="$page.errors.stamp">
+                    {{ $page.errors.stamp }}
                   </div>
                 </div>
               </div>
@@ -271,7 +306,8 @@
               <div class="flex items-center justify-between mt-8">
                 <button
                   @click="submitRegister"
-                  class="bg-blue-300 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full"
+                  :disabled="inValidData"
+                  class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full"
                   type="submit"
                 >
                   Sign Up
@@ -304,9 +340,12 @@
 export default {
   data() {
     return {
+      inValidData: true,
       form: {
+        logo: null,
+        stamp: null,
         title: "",
-        country_id: "",
+        country_id: 1,
         vat_number: "",
         city: "",
         cr_number: "",
@@ -323,7 +362,41 @@ export default {
   },
   methods: {
     submitRegister() {
+      let formData = new FormData();
+      formData.append("category_id", this.form.category_id);
+      formData.append("description", this.form.description);
+      formData.append("duration", this.form.duration);
+      
       this.$inertia.post("/register", this.form);
+    },
+    logoUpdated(e) {
+      this.form.logo = e.target.files[0];
+      // for (let i = 0; i <= images.length; i++) {
+      //   let imageFile = images[i];
+      //   if (imageFile != null) {
+      //     if (imageFile.type.indexOf("image") === -1) {
+      //       alert("This is not an image file");
+      //       console.log("This is not an image file");
+      //     } else {
+      //       this.form.images.push(imageFile);
+      //     }
+      //   }
+      // }
+    },
+    stampUpdated(e) {
+      this.form.stamp = e.target.files[0];
+      // let images = e.target.files;
+      // for (let i = 0; i <= images.length; i++) {
+      //   let imageFile = images[i];
+      //   if (imageFile != null) {
+      //     if (imageFile.type.indexOf("image") === -1) {
+      //       alert("This is not an image file");
+      //       console.log("This is not an image file");
+      //     } else {
+      //       this.form.images.push(imageFile);
+      //     }
+      //   }
+      // }
     },
   },
 };

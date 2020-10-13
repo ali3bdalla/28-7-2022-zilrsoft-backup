@@ -142,7 +142,7 @@
                                 <h2><strong><?php echo e(money_format("%i",$identity->balance)); ?> </strong></h2>
                                 <p><small><?php echo e(trans('pages/users.client_balance')); ?></small></p>
 
-                                <a href="<?php echo e(route('entities.user',[$vendorAccount->id,$identity->id])); ?>">كشف
+                                <a href="<?php echo e(route('entities.user',[$clientAccount->id,$identity->id])); ?>">كشف
                                     حساب</a>
                             </div>
                         <?php endif; ?>

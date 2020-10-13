@@ -145,7 +145,7 @@
                                 <h2><strong>{{ money_format("%i",$identity->balance) }} </strong></h2>
                                 <p><small>{{ trans('pages/users.client_balance') }}</small></p>
 
-                                <a href="{{ route('entities.user',[$vendorAccount->id,$identity->id])}}">كشف
+                                <a href="{{ route('entities.user',[$clientAccount->id,$identity->id])}}">كشف
                                     حساب</a>
                             </div>
                         @endif

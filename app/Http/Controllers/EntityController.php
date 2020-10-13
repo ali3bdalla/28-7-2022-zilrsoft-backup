@@ -43,7 +43,8 @@ class EntityController extends Controller
 
     public function showUserEntities(Account $account, User $user)
     {
-        if ($account->slug != 'vendors' && $account->slug == 'clients') {
+        
+        if ($account->slug != 'vendors' && $account->slug != 'clients') {
             return back();
         }
         return view('accounting_module.entities.user', compact('user', 'account'));

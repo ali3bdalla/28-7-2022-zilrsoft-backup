@@ -2580,12 +2580,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      inValidData: true,
       form: {
+        logo: null,
+        stamp: null,
         title: "",
-        country_id: "",
+        country_id: 1,
         vat_number: "",
         city: "",
         cr_number: "",
@@ -2602,7 +2641,38 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submitRegister: function submitRegister() {
+      var formData = new FormData();
+      formData.append("category_id", this.form.category_id);
+      formData.append("description", this.form.description);
+      formData.append("duration", this.form.duration);
       this.$inertia.post("/register", this.form);
+    },
+    logoUpdated: function logoUpdated(e) {
+      this.form.logo = e.target.files[0]; // for (let i = 0; i <= images.length; i++) {
+      //   let imageFile = images[i];
+      //   if (imageFile != null) {
+      //     if (imageFile.type.indexOf("image") === -1) {
+      //       alert("This is not an image file");
+      //       console.log("This is not an image file");
+      //     } else {
+      //       this.form.images.push(imageFile);
+      //     }
+      //   }
+      // }
+    },
+    stampUpdated: function stampUpdated(e) {
+      this.form.stamp = e.target.files[0]; // let images = e.target.files;
+      // for (let i = 0; i <= images.length; i++) {
+      //   let imageFile = images[i];
+      //   if (imageFile != null) {
+      //     if (imageFile.type.indexOf("image") === -1) {
+      //       alert("This is not an image file");
+      //       console.log("This is not an image file");
+      //     } else {
+      //       this.form.images.push(imageFile);
+      //     }
+      //   }
+      // }
     }
   }
 });
@@ -3792,55 +3862,6 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "flex mb-4" }, [
-                      _c("div", { staticClass: "w-1/2 mr-1" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "block text-grey-darker text-sm font-bold mb-2",
-                            attrs: { for: "first_name" }
-                          },
-                          [_vm._v("VAT-NUMBER")]
-                        ),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.vat_number,
-                              expression: "form.vat_number"
-                            }
-                          ],
-                          staticClass:
-                            "appearance-none border rounded w-full py-2 px-3 text-grey-darker",
-                          attrs: { type: "text", placeholder: "VAT ID Number" },
-                          domProps: { value: _vm.form.vat_number },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "vat_number",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _vm.$page.errors.vat_number
-                          ? _c("div", { staticClass: "p-2 text-red-500" }, [
-                              _vm._v(
-                                "\n                  " +
-                                  _vm._s(_vm.$page.errors.vat_number) +
-                                  "\n                "
-                              )
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
                       _c("div", { staticClass: "w-1/2 ml-1" }, [
                         _c(
                           "label",
@@ -3884,6 +3905,55 @@ var render = function() {
                               _vm._v(
                                 "\n                  " +
                                   _vm._s(_vm.$page.errors.cr_number) +
+                                  "\n                "
+                              )
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-1/2 mr-1" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass:
+                              "block text-grey-darker text-sm font-bold mb-2",
+                            attrs: { for: "first_name" }
+                          },
+                          [_vm._v("VAT-NUMBER")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.vat_number,
+                              expression: "form.vat_number"
+                            }
+                          ],
+                          staticClass:
+                            "appearance-none border rounded w-full py-2 px-3 text-grey-darker",
+                          attrs: { type: "text", placeholder: "VAT ID Number" },
+                          domProps: { value: _vm.form.vat_number },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "vat_number",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.$page.errors.vat_number
+                          ? _c("div", { staticClass: "p-2 text-red-500" }, [
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(_vm.$page.errors.vat_number) +
                                   "\n                "
                               )
                             ])
@@ -4091,6 +4161,66 @@ var render = function() {
                               _vm._v(
                                 "\n                  " +
                                   _vm._s(_vm.$page.errors.description) +
+                                  "\n                "
+                              )
+                            ])
+                          : _vm._e()
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "flex mb-4" }, [
+                      _c("div", { staticClass: "w-1/2 mr-1" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass:
+                              "block text-grey-darker text-sm font-bold mb-2"
+                          },
+                          [_vm._v("Logo")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          ref: "file",
+                          staticClass:
+                            "appearance-none border rounded w-full py-2 px-3 text-grey-darker",
+                          attrs: { accept: "image/*", type: "file" },
+                          on: { change: _vm.logoUpdated }
+                        }),
+                        _vm._v(" "),
+                        _vm.$page.errors.logo
+                          ? _c("div", { staticClass: "p-2 text-red-500" }, [
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(_vm.$page.errors.logo) +
+                                  "\n                "
+                              )
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-1/2 mr-1" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass:
+                              "block text-grey-darker text-sm font-bold mb-2"
+                          },
+                          [_vm._v("Stamp")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          ref: "file",
+                          staticClass:
+                            "appearance-none border rounded w-full py-2 px-3 text-grey-darker",
+                          attrs: { accept: "image/*", type: "file" },
+                          on: { change: _vm.stampUpdated }
+                        }),
+                        _vm._v(" "),
+                        _vm.$page.errors.stamp
+                          ? _c("div", { staticClass: "p-2 text-red-500" }, [
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(_vm.$page.errors.stamp) +
                                   "\n                "
                               )
                             ])
@@ -4360,8 +4490,11 @@ var render = function() {
                           "button",
                           {
                             staticClass:
-                              "bg-blue-300 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full",
-                            attrs: { type: "submit" },
+                              "bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full",
+                            attrs: {
+                              disabled: _vm.inValidData,
+                              type: "submit"
+                            },
                             on: { click: _vm.submitRegister }
                           },
                           [_vm._v("\n                Sign Up\n              ")]
@@ -4402,7 +4535,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-full  bg-green shadow-lg z-1000" }, [
+    return _c("div", { staticClass: "w-full bg-green shadow-lg z-1000" }, [
       _c("div", { staticClass: "container mx-auto" }, [
         _c(
           "div",
