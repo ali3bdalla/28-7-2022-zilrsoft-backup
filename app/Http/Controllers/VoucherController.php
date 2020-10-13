@@ -55,7 +55,8 @@ class VoucherController extends Controller
 			// return $allCurrentAssetsAccounts;
 			// return $current_assets_account;
 			
-			$accounts = Account::find($allCurrentAssetsAccounts);
+			$accounts = auth()->user()->gateways()->get();
+			// $accounts = Account::find($allCurrentAssetsAccounts);
 			$voucher_types = config('global.voucher_types');
 			if ($request->input('voucher_type') == 'receipt'){
 				$voucher_type = 'receipt';

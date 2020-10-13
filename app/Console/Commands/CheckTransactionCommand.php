@@ -43,6 +43,7 @@ class CheckTransactionCommand extends Command
 
         // $containers = TransactionsContainer::find([27264]);
         foreach ($containers as $container) {
+            echo $container->id . "\n";
             $debitAmount = $container->transactions()->where('type', 'debit')->sum('amount');
             $creditAmount = $container->transactions()->where('type', 'credit')->sum('amount');
 
@@ -50,7 +51,7 @@ class CheckTransactionCommand extends Command
 
             // 0 == 0.0
             $def =  $debitAmount - $creditAmount;
-            if (abs($def) > 0.5) {
+            if (abs($def) > 0.02) {
 
                 dd($container->id,$debitAmount - $creditAmount);
             }

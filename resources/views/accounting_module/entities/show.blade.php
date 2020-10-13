@@ -22,7 +22,7 @@
             <tbody>
                 @foreach($entity->transactions as $transaction)
                 <tr>
-                <td>{{ $transaction->account->name }}</td>
+                <td>{{ $transaction->account->ar_name }}</td>
                 @if($transaction->type == 'debit')
                     <td>{{ $transaction->amount }}</td>
                     <td>0</td>
