@@ -198,7 +198,7 @@
 
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view voucher')): ?>
                         <li>
-                            <a href="<?php echo e(route('accounting.vouchers.index')); ?>"><i class="fab fa-product-hunt"></i>
+                            <a href="<?php echo e(route('vouchers.index')); ?>"><i class="fab fa-product-hunt"></i>
                                 <?php echo e(__('sidebar.vouchers')); ?>
 
                             </a></li>
@@ -207,14 +207,14 @@
                     <?php endif; ?>
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create voucher')): ?>
                         <li>
-                            <a href="<?php echo e(route('accounting.vouchers.create')); ?>?voucher_type=payment"><i class="fa
+                            <a href="<?php echo e(route('vouchers.create')); ?>?voucher_type=payment"><i class="fa
                             fa-sun"></i>
                                 <?php echo e(__('pages/vouchers.create_payment')); ?>
 
                             </a></li>
 
                         <li>
-                            <a href="<?php echo e(route('accounting.vouchers.create')); ?>?voucher_type=receipt"><i class="fa
+                            <a href="<?php echo e(route('vouchers.create')); ?>?voucher_type=receipt"><i class="fa
                             fa-sun"></i>
                                 <?php echo e(__('pages/vouchers.create_receipt')); ?>
 

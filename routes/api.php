@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-
+Route::resource('vouchers', 'VoucherController');
 Route::resource('sales', 'SaleController');
 Route::prefix('sales')->name('sales.')->group(function () {
     Route::post('/draft', 'SaleController@storeDraft')->name('store.draft');

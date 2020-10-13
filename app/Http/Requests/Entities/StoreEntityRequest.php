@@ -7,6 +7,7 @@ use App\Jobs\User\Balance\UpdateVendorBalanceJob;
 use App\Models\Account;
 use App\Models\TransactionsContainer;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
@@ -39,6 +40,7 @@ class StoreEntityRequest extends FormRequest
             "transactions.*.user_id" => ['nullable', "integer", "exists:users,id"],
             "transactions.*.item_id" => ["nullable", "integer", "exists:items,id"],
             'description' => "required|string",
+            'created_at' => 'nullable',
         ];
     }
 
@@ -51,7 +53,7 @@ class StoreEntityRequest extends FormRequest
             $loggedUser = $this->user();
             $amount = $this->validateTransactions();
 
-            $entity = new  TransactionsContainer([
+            $entity = new TransactionsContainer([
                 'organization_id' => $loggedUser->organization_id,
                 'creator_id' => $loggedUser->id,
                 'description' => $this->input("description"),
@@ -87,6 +89,17 @@ class StoreEntityRequest extends FormRequest
 
                 $entity->transactions()->create($transactionData);
             }
+
+            if ($this->created_at != null) {
+                $createdAt = Carbon::parse($this->created_at);
+                $entity->update([
+                    'created_at' => $createdAt,
+                ]);
+
+                $entity->transactions()->update([
+                    'created_at' => $createdAt,
+                ]);
+            }
             DB::commit();
             return $entity;
         } catch (ValidationException $exception) {
@@ -104,29 +117,28 @@ class StoreEntityRequest extends FormRequest
         $debitAmount = 0;
 
         foreach ($this->input("transactions") as $transaction) {
-            if ($transaction['type'] == 'credit')
-                $creditAmount += (float)($transaction['amount']);
-            else
-                $debitAmount += (float)($transaction['amount']);
-        }
+            if ($transaction['type'] == 'credit') {
+                $creditAmount += (float) ($transaction['amount']);
+            } else {
+                $debitAmount += (float) ($transaction['amount']);
+            }
 
+        }
 
         $variation = $creditAmount - $debitAmount;
         if (round(abs($variation), 2) != 0) {
             $error = ValidationException::withMessages([
                 'transactions' => [
-                    'credit amount should match debit amount'
-                ]
+                    'credit amount should match debit amount',
+                ],
             ]);
 
             throw $error;
         }
 
-
         return $creditAmount;
 
     }
-
 
     private function updateUserBalance($type = 'client', $transactionData, Account $account)
     {
@@ -144,7 +156,6 @@ class StoreEntityRequest extends FormRequest
                 dispatch(new UpdateVendorBalanceJob($user, $amount, $effect));
             }
         }
-
 
     }
 }

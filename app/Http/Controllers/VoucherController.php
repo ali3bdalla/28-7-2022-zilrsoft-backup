@@ -48,14 +48,14 @@ class VoucherController extends Controller
 		
 		public function create(Request $request)
 		{
-			$current_assets_account = auth()->user()->toGetManagerAccount('current_assets');
-			$accots = Account::where([['parent_id',$current_assets_account->id]])->get();
-			$accounts = [];
-			foreach ($accots as $account){
-				$account['children'] = Account::getAllParentNestedChildren($account);
-				$accounts[] = $account;
-			}
+			$currentAssetsAccount = Account::where('slug','current_assets')->orderBy('id')->first();
+
+			$allCurrentAssetsAccounts = $currentAssetsAccount->getChildrenIncludeMe();
+
+			// return $allCurrentAssetsAccounts;
+			// return $current_assets_account;
 			
+			$accounts = Account::find($allCurrentAssetsAccounts);
 			$voucher_types = config('global.voucher_types');
 			if ($request->input('voucher_type') == 'receipt'){
 				$voucher_type = 'receipt';
@@ -75,14 +75,14 @@ class VoucherController extends Controller
 			return view('accounting.vouchers.create',compact('accounts','users','voucher_types','voucher_type'));
 		}
 		
-		/**
-		 * @param CreateVoucherRequest $request
-		 *
-		 * @return string
-		 */
-		public function store(CreateVoucherRequest $request)
-		{
+		// /**
+		//  * @param CreateVoucherRequest $request
+		//  *
+		//  * @return string
+		//  */
+		// public function store(CreateVoucherRequest $request)
+		// {
 			
-			return $request->save();
-		}
+		// 	return $request->save();
+		// }
 }

@@ -183,7 +183,7 @@
 
                     @can('view voucher')
                         <li>
-                            <a href="{{route('accounting.vouchers.index')}}"><i class="fab fa-product-hunt"></i>
+                            <a href="{{route('vouchers.index')}}"><i class="fab fa-product-hunt"></i>
                                 {{ __('sidebar.vouchers') }}
                             </a></li>
 
@@ -191,13 +191,13 @@
                     @endcan
                     @can('create voucher')
                         <li>
-                            <a href="{{route('accounting.vouchers.create')}}?voucher_type=payment"><i class="fa
+                            <a href="{{route('vouchers.create')}}?voucher_type=payment"><i class="fa
                             fa-sun"></i>
                                 {{ __('pages/vouchers.create_payment') }}
                             </a></li>
 
                         <li>
-                            <a href="{{route('accounting.vouchers.create')}}?voucher_type=receipt"><i class="fa
+                            <a href="{{route('vouchers.create')}}?voucher_type=receipt"><i class="fa
                             fa-sun"></i>
                                 {{ __('pages/vouchers.create_receipt') }}
                             </a></li>

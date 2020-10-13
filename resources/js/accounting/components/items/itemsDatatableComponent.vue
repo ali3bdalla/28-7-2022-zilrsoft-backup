@@ -21,7 +21,7 @@
 
                 <div v-show="isOpenSearchPanel">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3"> 
                             <VueCtkDateTimePicker
                                     :behaviour="{time: {nearestIfDisabled: true}}"
                                     :custom-shortcuts="customDateShortcuts" :label="trans.created_at"
