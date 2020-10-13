@@ -77,6 +77,7 @@ class StoreEntityRequest extends FormRequest
                 $transactionData = $transactionInitData;
                 $transactionData['amount'] = $transaction['amount'];
                 $transactionData['type'] = $transaction['type'];
+                $transactionData['description'] = $transaction['description'];
                 $transactionData['is_manual'] = true;
                 $transactionData['account_id'] = $account->id;
                 $transactionData['created_at'] = $createdAt;
