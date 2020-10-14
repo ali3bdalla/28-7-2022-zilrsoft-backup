@@ -36,7 +36,8 @@ class UpdateInvoiceNumberJob implements ShouldQueue
     public function handle()
     {
         $this->invoice->update([
-            'invoice_number' => Carbon::now()->format('Y') . '/' .$this->prefix . $this->invoice->id
+            'invoice_number' => $this->prefix . $this->invoice->id
+            //Carbon::now()->format('Y') . '/' .
         ]);
     }
 }

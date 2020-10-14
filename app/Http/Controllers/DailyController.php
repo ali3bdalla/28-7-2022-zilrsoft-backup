@@ -39,17 +39,24 @@ class DailyController extends Controller
 
         if ($accountsClosedAt != null) {
             $accountsClosedAt = Carbon::parse($accountsClosedAt);
-            $paymentQuery = Payment::where([
+            $inAmount = Payment::where([
                 ['creator_id', $loggedUser->id],
-            ])->where('created_at', '>=', $accountsClosedAt);
+            ])->where('created_at', '>=', $accountsClosedAt)->where('payment_type', 'receipt')->sum('amount');
+            $outAmount = Payment::where([
+                ['creator_id', $loggedUser->id],
+            ])->where('created_at', '>=', $accountsClosedAt)->where('payment_type', 'payment')->sum('amount');
         } else {
-            $paymentQuery = Payment::where([
+            $inAmount = Payment::where([
                 ['creator_id', $loggedUser->id],
-            ]);
-        }
-        $inAmount = $paymentQuery->where('payment_type', 'receipt')->sum('amount');
+            ])->where('payment_type', 'receipt')->sum('amount');
 
-        $outAmount = 0;
+            $outAmount = Payment::where([
+                ['creator_id', $loggedUser->id],
+            ])->where('payment_type', 'payment')->sum('amount');
+        }
+        // $inAmount = $paymentQuery->where('payment_type', 'receipt')->sum('amount');
+        // $outAmount = $paymentQuery->where('payment_type', 'payment')->sum('amount');
+        // return $outAmount;
         $gateways = $loggedUser->gateways()->get();
 
 

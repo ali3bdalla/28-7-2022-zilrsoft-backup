@@ -5,6 +5,7 @@ namespace App\Jobs\Purchases\Items;
 use App\Jobs\Items\AvailableQty\UpdateAvailableQtyByInvoiceItemJob;
 use App\Jobs\Items\Cost\UpdateItemCostByInvoiceItemJob;
 use App\Jobs\Items\Price\UpdateItemLastPurchasePriceJob;
+use App\Jobs\Items\Price\UpdateItemSalesPriceJob;
 use App\Jobs\Items\Serial\AddItemSerialByInvoiceItemJob;
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
@@ -105,9 +106,11 @@ class StorePurchaseItemsJob implements ShouldQueue
                  * update last purchase price for this item
                  * ==========================================================
                  */
-                if($this->invoice == 'purchase')
+                if($this->invoice->invoice_type == 'purchase')
                 {
                     dispatch(new UpdateItemLastPurchasePriceJob($invoiceItem));
+                    //$salesPrice = (float)$requestItemCollection->get('price');
+                  //  dispatch(new UpdateItemSalesPriceJob($invoiceItem, $salesPrice));
                 }
 
 

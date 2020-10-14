@@ -36,8 +36,8 @@ class UpdateItemLastPurchasePriceJob implements ShouldQueue
     public function handle()
     {
         //
-        $this->invoiceItem->item->update([
-           'last_p_price'  => $this->price
+        $this->invoiceItem->item()->update([
+           'last_p_price'  => $this->invoiceItem->price
         ]);
     }
 }
