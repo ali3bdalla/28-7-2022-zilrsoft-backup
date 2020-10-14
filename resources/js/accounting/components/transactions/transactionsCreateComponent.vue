@@ -31,7 +31,7 @@
                 >
                   <option
                     v-for="client in clients"
-                    :key="client.id"
+                    :key="index + '_' + client.id"
                     :value="client.id"
                   >
                     {{ client.locale_name }} {{ client.balance }}
