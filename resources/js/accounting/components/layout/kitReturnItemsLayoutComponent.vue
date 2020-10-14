@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div  data-app>
         <button @click="showModal" class="btn btn-success btn-xs"><i class="fa fa-star"></i></button>
         <v-dialog
                 :dark="true"
@@ -10,17 +10,12 @@
         >
 
             <v-card>
-
-
                 <v-card-title
                         class="headline grey lighten-2"
                         primary-title
                 >
                     {{ kit.locale_name }}
                 </v-card-title>
-
-                <!--                </v-card>-->
-
 
                 <v-card style="margin:10px">
                     <table class="table table-dark">
@@ -38,26 +33,26 @@
                             <th scope="col  text-center">يحتاج سيريال</th>
                         </tr>
                         </thead>
-                        <tbody v-for="(item,index) in items">
-                        <tr>
-                            <td>{{ item.barcode }}</td>
-                            <td>{{ item.locale_name }}</td>
-                            <td>{{ item.qty }}</td>
-                            <td>{{ item.price }}</td>
-                            <td>{{ item.total }}</td>
-                            <td>{{ item.discount }}</td>
-                            <td>{{ item.subtotal }}</td>
-                            <td>{{ item.tax }}</td>
-                            <td>{{ item.net }}</td>
+                        <tbody v-for="(item,index) in items" :key="index">
+                            <tr>
+                                <td>{{ item.barcode }}</td>
+                                <td>{{ item.locale_name }}</td>
+                                <td>{{ item.qty }}</td>
+                                <td>{{ item.price }}</td>
+                                <td>{{ item.total }}</td>
+                                <td>{{ item.discount }}</td>
+                                <td>{{ item.subtotal }}</td>
+                                <td>{{ item.tax }}</td>
+                                <td>{{ item.net }}</td>
 
 
-                            <td v-if="item.is_need_serial">نعم</td>
-                            <td v-else>لا</td>
+                                <td v-if="item.is_need_serial">نعم</td>
+                                <td v-else>لا</td>
 
-                        </tr>
+                            </tr>
 
 
-                        <tr v-for="x in kit_qty" v-if="item.is_need_serial">
+                        <tr v-for="x in kit_qty" v-if="item.is_need_serial" :key="x">
                             <td colspan="10">
                                 <input :rel="'serial_'+ index" @keyup="clearField"
                                        @keyup.enter="checkSerial($event,'serial_'+ index +'_'+ x,item)"
@@ -209,7 +204,10 @@
 
                 if (!item.serials.includes(this.intered_serial)) {
                     var vm = this;
-                    ItemQuery.sendValidateSaleSerialRequest(item.id, [intered_serial]).then(function (response) {
+                    ItemQuery.sendValidateReturnSaleSerialRequest({
+                        'item_id':item.id,
+                        'serials':[intered_serial]
+                    }).then(function (response) {
                         if (response.data.length >= 1) {
                             item.serials.push(intered_serial);
                             $(event.target).removeClass("has-background-danger");

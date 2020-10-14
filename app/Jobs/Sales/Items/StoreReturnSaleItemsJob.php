@@ -122,7 +122,7 @@ class StoreReturnSaleItemsJob implements ShouldQueue
 
             $kitItemReturnedQty = ($kitItem->qty / $SalesKitInvoiceItem->qty) * $kitReturnedQty;
             if ($dbItem->is_need_serial) {
-                $kitItemRequestData = collect(collect($kitRequestCollection->get('items'))->where('id', $kitItem->id)->first());
+                $kitItemRequestData = collect(collect($kitRequestCollection->get('items'))->where('id', $kitItem->item_id)->first());
                 if (!empty($kitItemRequestData)) {
                     $requestData['serials'] = $kitItemRequestData->get('serials');
                 } else {

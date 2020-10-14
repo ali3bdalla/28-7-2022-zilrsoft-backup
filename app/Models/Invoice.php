@@ -63,6 +63,8 @@ class Invoice extends BaseModel
         return $this->belongsTo(User::class, 'user_id');
 
     }
+    
+    
 
 
     public function manager()

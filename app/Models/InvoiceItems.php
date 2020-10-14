@@ -73,6 +73,11 @@ class InvoiceItems extends BaseModel
     {
         return $this->belongsTo(Item::class, 'item_id');
     }
+    
+    public function scopeKitItems($query , $kitId = 0)
+    {
+        return $query ->where('parent_kit_id',$kitId);
+    }
 
     public function creator()
     {
