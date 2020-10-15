@@ -100,7 +100,10 @@
 				$vendors = User::where('is_vendor', true)->get();
 				
 				foreach($vendors as $vendor) {
-					$transactions = Transaction::where('user_id', $vendor->id)->get();
+					$transactions = Transaction::where([
+						['user_id', $vendor->id],
+						['account_id',20]
+					])->get();
 					$creditAmount = 0;
 					$debitAmount = 0;
 					
