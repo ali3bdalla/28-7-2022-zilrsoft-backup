@@ -2,6 +2,8 @@
 	
 	namespace App\Console\Commands\Tinker;
 	
+	use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
+	use App\Models\InvoiceItems;
 	use App\Models\Transaction;
 	use App\Models\User;
 	use Exception;
@@ -65,8 +67,8 @@
 					]
 				);
 				dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoiceItem->invoice));
-
-
+				
+				
 				$costTransaction = Transaction::find(59728);//total_credit_amount
 				$costTransaction->update(
 					[
@@ -74,23 +76,23 @@
 						'total_credit_amount' => $costTransaction->account->total_credit_amount - $oldTotal + $total
 					]
 				);
-
+				
 				$costTransaction->account->update(
 					[
 						'total_credit_amount' => $costTransaction->account->total_credit_amount - $oldTotal + $total
 					]
 				);
-
-
+				
+				
 				$costDiscountTransaction = Transaction::find(59729);//total_debit_amount
-
+				
 				$costDiscountTransaction->update(
 					[
 						'amount' => $costDiscountTransaction->amount - $currentDiscount,
 						'total_debit_amount' => $costDiscountTransaction->account->total_debit_amount - $currentDiscount
 					]
 				);
-
+				
 				$costDiscountTransaction->account->update(
 					[
 						'total_debit_amount' => $costDiscountTransaction->account->total_debit_amount - $currentDiscount
@@ -100,10 +102,12 @@
 				$vendors = User::where('is_vendor', true)->get();
 				
 				foreach($vendors as $vendor) {
-					$transactions = Transaction::where([
-						['user_id', $vendor->id],
-						['account_id',20]
-					])->get();
+					$transactions = Transaction::where(
+						[
+							['user_id', $vendor->id],
+							['account_id', 20]
+						]
+					)->get();
 					$creditAmount = 0;
 					$debitAmount = 0;
 					
@@ -116,7 +120,7 @@
 					}
 					$balance = $creditAmount - $debitAmount;
 					
-					echo $vendor->id . " - " . $creditAmount . ':' . $debitAmount .' - ' . $balance . "\n";
+					echo $vendor->id . " - " . $creditAmount . ':' . $debitAmount . ' - ' . $balance . "\n";
 					
 					$vendor->update(
 						[
