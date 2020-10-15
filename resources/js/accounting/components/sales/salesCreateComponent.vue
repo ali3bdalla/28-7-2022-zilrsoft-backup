@@ -153,7 +153,7 @@
                     <th>{{ app.trans.qty }}</th>
                     <th>{{app.trans.sales_price}}</th>
                     <th>{{ app.trans.total }}</th>
-                    <th>{{ app.trans.discount }}</th>
+<!--                    <th>{{ app.trans.discount }}</th>-->
                     <th>{{ app.trans.subtotal }}</th>
                     <th>{{ app.trans.tax }}</th>
                     <th>{{ app.trans.net }}</th>
@@ -259,14 +259,14 @@
                                type="text"
                                v-model="item.total">
                     </td>
-                    <td>
-                        <input :disabled="item.is_kit || item.is_service"
-                               :ref="'itemDiscount_' + item.id + 'Ref'"
-                               @change="itemDiscountUpdated(item)"
-                               @focus="$event.target.select()"
-                               class="form-control input-xs amount-input" placeholder="discount" type="text"
-                               v-model="item.discount">
-                    </td>
+<!--                    <td>-->
+<!--                        <input :disabled="item.is_kit || item.is_service"-->
+<!--                               :ref="'itemDiscount_' + item.id + 'Ref'"-->
+<!--                               @change="itemDiscountUpdated(item)"-->
+<!--                               @focus="$event.target.select()"-->
+<!--                               class="form-control input-xs amount-input" placeholder="discount" type="text"-->
+<!--                               v-model="item.discount">-->
+<!--                    </td>-->
                     <td>
                         <input @focus="$event.target.select()" class="form-control input-xs amount-input" disabled=""
                                placeholder="subtotal"
@@ -310,15 +310,15 @@
                                            v-model="invoiceData.total">
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6"><label>{{ app.trans.discount }}</label></div>
-                                <div class="col-md-6">
-                                    <input :placeholder="app.trans.discount"
-                                           class="form-control  input-xs amount-input"
-                                           disabled type="text"
-                                           v-model="invoiceData.discount">
-                                </div>
-                            </div>
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-6"><label>{{ app.trans.discount }}</label></div>-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <input :placeholder="app.trans.discount"-->
+<!--                                           class="form-control  input-xs amount-input"-->
+<!--                                           disabled type="text"-->
+<!--                                           v-model="invoiceData.discount">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                             <div class="row">
                                 <div class="col-md-6"><label>{{ app.trans.subtotal }}</label></div>
