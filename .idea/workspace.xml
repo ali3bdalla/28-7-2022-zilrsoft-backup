@@ -342,7 +342,7 @@
       <workItem from="1602249411296" duration="9996000" />
       <workItem from="1602740502269" duration="5000" />
       <workItem from="1602740532566" duration="15000" />
-      <workItem from="1602767648586" duration="10993000" />
+      <workItem from="1602767648586" duration="11100000" />
     </task>
     <servers />
   </component>
@@ -421,7 +421,7 @@
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="716" y="481" width="614" height="269" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595010883333" />
-    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup" timestamp="1602788543195">
+    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup" timestamp="1602788710830">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="0" y="221" width="1512" height="505" key="search.everywhere.popup.inPresentationMode" timestamp="1602255049685">
@@ -434,6 +434,6 @@
     <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/-1600.23.1600.877/0.0.1920.1200@0.0.1920.1200" timestamp="1602223022267" />
     <state x="469" y="203" width="838" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1602269059419" />
     <state x="547" y="237" width="978" height="605" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599470318592" />
-    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1602788543195" />
+    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1602788710830" />
   </component>
 </project>
