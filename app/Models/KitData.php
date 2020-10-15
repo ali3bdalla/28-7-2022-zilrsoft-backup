@@ -11,6 +11,8 @@ class KitData extends BaseModel
     {
         return $this->belongsTo(Item::class, 'kit_id');
     }
+    
+    
 }
 
 

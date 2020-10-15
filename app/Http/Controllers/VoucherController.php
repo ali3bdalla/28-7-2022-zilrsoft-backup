@@ -43,7 +43,7 @@ class VoucherController extends Controller
 		public function show(Payment $voucher)
 		{
 			$payment = $voucher;
-			return view('accounting.vouchers.show',compact('payment'));
+			return view('vouchers.show',compact('payment'));
 		}
 		
 		public function create(Request $request)

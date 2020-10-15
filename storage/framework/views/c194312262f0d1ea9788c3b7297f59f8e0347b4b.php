@@ -2,6 +2,7 @@
     <div class="user-panel">
         <img src="<?php echo e(asset(auth()->user()->organization->logo)); ?>" class="center-block img-responsive"
              alt="<?php echo e(auth()->user()->organization->title_ar); ?>" width="100px" style="">
+        <h3 class="p-3 text-white btn btn-primary"><?php echo e(auth()->user()->organization->title_ar); ?></h3>
     </div>
 
     <ul class="sidebar-menu" data-widget="tree">
@@ -118,14 +119,14 @@
 
 
                     <?php endif; ?>
-                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('confirm purchase')): ?>
-                        <li>
-                            <a href="<?php echo e(route('accounting.purchases.pending')); ?>"><i class="fab fa-product-hunt"></i>
-                                مشتريات معلقة
-                            </a></li>
 
 
-                    <?php endif; ?>
+
+
+
+
+
+
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view sale')): ?>
                         <li>
                             <a href="<?php echo e(route('sales.index')); ?>"><i class="fa fa-sun"></i>
@@ -155,7 +156,7 @@
 
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('manage inventory')): ?>
                         <li>
-                            <a href="<?php echo e(route('accounting.inventories.beginning.index')); ?>"><i class="fa fa-sun"></i>
+                            <a href="<?php echo e(route('inventory.index')); ?>"><i class="fa fa-sun"></i>
                                 <?php echo e(__('sidebar.beginning_inventory')); ?>
 
                             </a></li>
@@ -166,20 +167,19 @@
                         
 
                     <?php endif; ?>
-                    <li>
-                        <a href="<?php echo e(route('accounting.reseller_daily.account_close_list')); ?>"><i class="fa fa-sun"></i>
-                            <?php echo e(__('sidebar.account_close')); ?>
 
-                        </a></li>
-                    <li>
-                        <a href="<?php echo e(route('accounting.inventories.adjust_stock.index')); ?>"><i class="fa fa-sun"></i>
-                            جرد المخزون
-                        </a></li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
 
-                    <li>
-                        <a href="<?php echo e(route('accounting.inventories.inventory_reconciliation')); ?>"><i class="fa fa-sun"></i>
-                            تسوية المخزون
-                        </a></li>
+                        
+                        
+                        
+                        
 
                 </ul>
             </li>
@@ -244,12 +244,12 @@
 
                         <li>
                             <a href="<?php echo e(route('financial_statements.trial_balance')); ?>"><i class="fa fa-sun"></i>
-                                 ميزان المراجعة
+                                ميزان المراجعة
                             </a></li>
-
-
-
-
+                        
+                        
+                        
+                        
                     <?php endif; ?>
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view transactions')): ?>
                         <li>
@@ -260,44 +260,40 @@
                     <?php endif; ?>
 
 
-
-                </ul>
-            </li>
-        <?php endif; ?>
-
-
-        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['view reports','create report'])): ?>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fab fa-product-hunt"></i> <span> <?php echo e(__('sidebar.management')); ?>
-
-                        <?php echo e(__('sidebar.reports')); ?></span>
-                </a>
-
-                <ul class="treeview-menu">
-                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view reports')): ?>
-                        <li>
-                            <a href="<?php echo e(route('accounting.reports.index')); ?>"><i class="fa fa-sun"></i>
-                                <?php echo e(__('sidebar.reports')); ?>
-
-                            </a></li>
-                    <?php endif; ?>
-                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create report')): ?>
-                        <li>
-                            <a href="<?php echo e(route('accounting.identities.create')); ?>"><i class="fa fa-sun"></i>
-                                <?php echo e(__('pages/users.create')); ?>
-
-                            </a></li>
-                    <?php endif; ?>
-
-
                 </ul>
             </li>
         <?php endif; ?>
 
 
 
-        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['view identities','create identity','manage managers'])): ?>
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+        
+        
+        
+
+
+
+    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['view identities','create identity','manage managers'])): ?>
             <li class="treeview">
                 <a href="#">
                     <i class="fab fa-product-hunt"></i> <span> <?php echo e(__('sidebar.management')); ?>

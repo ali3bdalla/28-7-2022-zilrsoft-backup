@@ -2,122 +2,122 @@
   <div class="panel">
     <div class="panel-heading">
       <VueCtkDateTimePicker
-        :auto-close="true"
-        :behaviour="{ time: { nearestIfDisabled: true } }"
-        :custom-shortcuts="customDateShortcuts"
-        :only-date="false"
-        :range="true"
-        label="التاريخ"
-        locale="en"
-        v-model="createdAtRange"
+          v-model="createdAtRange"
+          :auto-close="true"
+          :behaviour="{ time: { nearestIfDisabled: true } }"
+          :custom-shortcuts="customDateShortcuts"
+          :only-date="false"
+          :range="true"
+          label="التاريخ"
+          locale="en"
       />
     </div>
 
     <div class="panel-body">
       <table class="table table-bordered text-center">
         <thead>
-          <tr>
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-            <th class="text-center" colspan="2">المجاميع</th>
-            <th class="text-center" colspan="2">الارصدة</th>
-          </tr>
-          <tr>
-            <th class="text-center">التاريخ</th>
-            <th class="text-center">رقم القيد</th>
-            <th class="text-center">الهوية</th>
-            <th class="text-center">البيان</th>
-            <th class="text-center">مدين</th>
-            <th class="text-center">دائن</th>
-            <th class="text-center">مدين</th>
-            <th class="text-center">دائن</th>
-          </tr>
+        <tr>
+          <th class="text-center"></th>
+          <th class="text-center"></th>
+          <th class="text-center"></th>
+          <th class="text-center"></th>
+          <th class="text-center" colspan="2">المجاميع</th>
+          <th class="text-center" colspan="2">الارصدة</th>
+        </tr>
+        <tr>
+          <th class="text-center">التاريخ</th>
+          <th class="text-center">رقم القيد</th>
+          <th class="text-center">الهوية</th>
+          <th class="text-center">البيان</th>
+          <th class="text-center">مدين</th>
+          <th class="text-center">دائن</th>
+          <th class="text-center">مدين</th>
+          <th class="text-center">دائن</th>
+        </tr>
         </thead>
 
-        <tbody :key="index" v-for="(transaction, index) in transactions">
-          <tr :class="{ 'bg-gray': transaction.page }">
-            <th class="text-center" v-text="transaction.created_at"></th>
-            <th class="text-center" v-text="transaction.container_id"></th>
-            <th class="text-center">
-              <a
-                :href="'/identities/' + transaction.user.id"
+        <tbody v-for="(transaction, index) in transactions" :key="index">
+        <tr :class="{ 'bg-gray': transaction.page }">
+          <th class="text-center" v-text="transaction.created_at"></th>
+          <th class="text-center" v-text="transaction.container_id"></th>
+          <th class="text-center">
+            <a
                 v-if="transaction.user"
-                >{{ transaction.user.locale_name }}</a
-              >
-              <span v-else>-</span>
-            </th>
-            <th class="text-center" v-if="transaction.invoice_id >= 1">
-              <a
-                :href="'/sales/' + transaction.invoice_id"
+                :href="'/identities/' + transaction.user.id"
+            >{{ transaction.user.locale_name }}</a
+            >
+            <span v-else>-</span>
+          </th>
+          <th v-if="transaction.invoice_id >= 1" class="text-center">
+            <a
                 v-if="
                   transaction.invoice.invoice_type == 'sale' ||
                   transaction.invoice.invoice_type == 'return_sale'
                 "
+                :href="'/sales/' + transaction.invoice_id"
                 v-text="transaction.invoice.invoice_number"
-              ></a>
-              <a
-                :href="'/purchases/' + transaction.invoice_id"
+            ></a>
+            <a
                 v-else
+                :href="'/purchases/' + transaction.invoice_id"
                 v-text="transaction.invoice.invoice_number"
-              ></a>
-            </th>
-            <th class="text-center" v-else>
-              <a
+            ></a>
+          </th>
+          <th v-else class="text-center">
+            <a
                 :href="'/entities/' + transaction.container_id"
                 v-text="transaction.container_id"
-              ></a>
-            </th>
-            <th
+            ></a>
+          </th>
+          <th
               class="text-center"
               v-text="parseFloat(transaction.debit_amount).toFixed(2)"
-            ></th>
-            <th
+          ></th>
+          <th
               class="text-center"
               v-text="parseFloat(transaction.credit_amount).toFixed(2)"
-            ></th>
-            <th
+          ></th>
+          <th
               class="text-center"
               v-text="parseFloat(transaction.total_debit_amount).toFixed(2)"
-            ></th>
-            <th
+          ></th>
+          <th
               class="text-center"
               v-text="parseFloat(transaction.total_credit_amount).toFixed(2)"
-            ></th>
-          </tr>
+          ></th>
+        </tr>
         </tbody>
         <tfoot>
-          <tr class="success">
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-            <th
+        <tr class="success">
+          <th class="text-center"></th>
+          <th class="text-center"></th>
+          <th class="text-center"></th>
+          <th class="text-center"></th>
+          <th
               class="text-center"
               v-text="parseFloat(totalDebitAmount).toFixed(2)"
-            ></th>
-            <th
+          ></th>
+          <th
               class="text-center"
               v-text="parseFloat(totalCreditAmount).toFixed(2)"
-            ></th>
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-          </tr>
+          ></th>
+          <th class="text-center"></th>
+          <th class="text-center"></th>
+        </tr>
         </tfoot>
       </table>
       <tile
-        :color="app.primaryColor"
-        :loading="isLoading"
-        v-show="isLoading"
+          v-show="isLoading"
+          :color="app.primaryColor"
+          :loading="isLoading"
       ></tile>
       <div class="table-paginations">
         <accounting-table-pagination-helper-layout-v2-component
-          :data="paginationResponseData"
-          :view-only="false"
-          :more="true"
-          @pagePerItemsUpdated="pagePerItemsUpdated"
-          @paginateUpdatePage="paginateUpdatePage"
+            :data="paginationResponseData"
+            :more="true"
+            :view-only="false"
+            @pagePerItemsUpdated="pagePerItemsUpdated"
+            @paginateUpdatePage="paginateUpdatePage"
         ></accounting-table-pagination-helper-layout-v2-component>
       </div>
     </div>
@@ -178,7 +178,7 @@ export default {
       // console.log("scroll down" + window.pageYOffset);
       // console.log("scroll isLoading" + document.documentElement.scrollTop);
       let bottomOfWindow =
-        window.pageYOffset === document.documentElement.scrollTop;
+          window.pageYOffset === document.documentElement.scrollTop;
 
       // Math.max(window.pageYOffset, document.documentElement.scrollTop,
       // document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
@@ -197,8 +197,8 @@ export default {
     initJob() {
       this.requestUrl = "/api/entities/" + this.account.id + "/transactions";
       this.customDateShortcuts = [
-        { key: "day", label: this.app.datetimetrans.today, value: "day" },
-        { key: "-day", label: this.app.datetimetrans.yesterday, value: "-day" },
+        {key: "day", label: this.app.datetimetrans.today, value: "day"},
+        {key: "-day", label: this.app.datetimetrans.yesterday, value: "-day"},
         {
           key: "thisWeek",
           label: this.app.datetimetrans.thisWeek,
@@ -209,7 +209,7 @@ export default {
           label: this.app.datetimetrans.lastWeek,
           value: "-isoWeek",
         },
-        { key: "last7Days", label: this.app.datetimetrans.last7Days, value: 7 },
+        {key: "last7Days", label: this.app.datetimetrans.last7Days, value: 7},
         {
           key: "last30Days",
           label: this.app.datetimetrans.last30Days,
@@ -241,7 +241,7 @@ export default {
       if (this.isLoading == false) {
         this.isLoading = true;
         let params = {},
-          appVm = this;
+            appVm = this;
         params.itemsPerPage = this.itemsPerPage;
         params.startDate = this.filters.startDate;
         params.endDate = this.filters.endDate;
@@ -257,38 +257,38 @@ export default {
           this.totalDebitAmount = 0;
         }
         axios
-          .get(this.requestUrl, {
-            params: params,
-          })
-          .then((response) => {
-            appVm.isLoading = false;
-            let len = response.data.data.length;
-            let responseData = [];
-            for (let index = 0; index < len; index++) {
-              let transaction = response.data.data[index];
+            .get(this.requestUrl, {
+              params: params,
+            })
+            .then((response) => {
+              appVm.isLoading = false;
+              let len = response.data.data.length;
+              let responseData = [];
+              for (let index = 0; index < len; index++) {
+                let transaction = response.data.data[index];
 
-              if (index == 0) {
-                transaction.page = true;
-              } else {
-                transaction.page = false;
-              }
-              appVm.totalCreditAmount =
-                appVm.totalCreditAmount + parseFloat(transaction.credit_amount);
-              appVm.totalDebitAmount =
-                appVm.totalDebitAmount + parseFloat(transaction.debit_amount);
+                if (index == 0) {
+                  transaction.page = true;
+                } else {
+                  transaction.page = false;
+                }
+                appVm.totalCreditAmount =
+                    appVm.totalCreditAmount + parseFloat(transaction.credit_amount);
+                appVm.totalDebitAmount =
+                    appVm.totalDebitAmount + parseFloat(transaction.debit_amount);
                 transaction.total_debit_amount = appVm.totalDebitAmount;
                 transaction.total_credit_amount = appVm.totalCreditAmount;
 
-              responseData.push(transaction);
-              appVm.transactions.push(transaction);
-            }
-            // appVm.transactions.push(transaction);
+                responseData.push(transaction);
+                appVm.transactions.push(transaction);
+              }
+              // appVm.transactions.push(transaction);
 
-            appVm.paginationResponseData = response.data;
-          })
-          .catch((error) => {
-            alert(error);
-          });
+              appVm.paginationResponseData = response.data;
+            })
+            .catch((error) => {
+              alert(error);
+            });
       }
     },
 

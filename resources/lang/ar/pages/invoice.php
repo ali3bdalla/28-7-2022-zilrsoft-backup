@@ -81,7 +81,7 @@
 		'view' => 'عرض',
 		'edit' => 'تعديل',
 		'delete' => 'استرجاع كامل الفاتورة',
-		'PurchaseBaseUrl' => route('accounting.purchases.index'),
+		'PurchaseBaseUrl' => route('purchases.index'),
 		'SaleBaseUrl' => route('sales.index'),
 		'creator' => 'الموظف',
 		'make_note' => 'اضافة ملاحظة',

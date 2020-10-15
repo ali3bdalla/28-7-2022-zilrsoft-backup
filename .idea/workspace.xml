@@ -21,6 +21,53 @@
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attributes/InvoiceAttributes.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attributes/KitAttributes.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attributes/UserAttributes.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/QuotationController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ResellerDailyTransactions.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/VoucherController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/VoucherController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/VoucherController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/VoucherController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Purchases/StorePurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StorePurchaseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Items/Price/UpdateItemSalesPriceJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Items/Price/UpdateItemSalesPriceJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Purchases/Items/StorePurchaseItemsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Branch.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Branch.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Item.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/KitData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/KitData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/KitItems.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/KitItems.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Manager.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Manager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Organization.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Organization.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Sale.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Relationships/InvoiceFiltersRelationships.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Relationships/KitDataRelationships.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Relationships/KitItemsRelationships.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Relationships/KitRelationships.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Relationships/ManagerRelationships.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Relationships/OrganizationRelationships.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Relationships/SaleRelationships.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Relationships/UserRelationships.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Scopes/OrganizationScope.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/AttachmentFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/AttachmentFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/transactions/globalTransactionsListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/transactions/globalTransactionsListComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/pages/expenses.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/pages/expenses.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/pages/invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/pages/invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/pages/vouchers.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/pages/vouchers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/pages/vouchers.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/pages/vouchers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_payments.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/include/invoice/view_payments.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/accounting.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/accounting.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/categories.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/categories.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/orders.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/vouchers.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/1daaa1acd2ef647d5ead122ad0babbd144202143.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/1daaa1acd2ef647d5ead122ad0babbd144202143.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/c194312262f0d1ea9788c3b7297f59f8e0347b4b.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/c194312262f0d1ea9788c3b7297f59f8e0347b4b.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-09-28.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/App/CreateInvoicesTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/App/CreateInvoicesTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +217,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -339,6 +386,9 @@
       <workItem from="1602221618463" duration="1424000" />
       <workItem from="1602225452795" duration="274000" />
       <workItem from="1602249411296" duration="9996000" />
+      <workItem from="1602740502269" duration="5000" />
+      <workItem from="1602740532566" duration="15000" />
+      <workItem from="1602767648586" duration="10556000" />
     </task>
     <servers />
   </component>
@@ -358,6 +408,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="448" y="280" key="#Notifications" timestamp="1602740539130">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="448" y="280" key="#Notifications/0.0.1440.900@0.0.1440.900" timestamp="1602740539130" />
     <state x="427" y="243" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1595749173171">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -366,7 +420,7 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="392" y="146" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1440.900@0.0.1440.900" timestamp="1595265474976" />
-    <state x="698" y="362" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595351585773">
+    <state x="698" y="362" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602768272504">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="305" y="0" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog.inPresentationMode" timestamp="1599122811036">
@@ -374,9 +428,8 @@
     </state>
     <state x="261" y="0" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1595324953989" />
     <state x="305" y="0" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog.inPresentationMode/0.0.1680.1050@0.0.1680.1050" timestamp="1599122811036" />
-    <state x="370" y="78" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593791183332" />
     <state x="524" y="272" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1440.900@0.0.1440.900" timestamp="1595332777811" />
-    <state x="698" y="362" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595351585773" />
+    <state x="698" y="362" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1602768272504" />
     <state x="168" y="128" key="EditFileWatcherDialog.inPresentationMode" timestamp="1595322767724">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -388,44 +441,34 @@
     <state x="515" y="365" key="NewPhpFileDialog" timestamp="1595277644624">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="348" y="309" key="NewPhpFileDialog.inPresentationMode" timestamp="1593724701066">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="348" y="309" key="NewPhpFileDialog.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593724701066" />
     <state x="515" y="365" key="NewPhpFileDialog/0.0.1440.900@0.0.1440.900" timestamp="1595277644624" />
-    <state x="681" y="303" key="SettingsEditor" timestamp="1602249760489">
+    <state x="681" y="303" key="SettingsEditor" timestamp="1602774955702">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state x="0" y="0" key="SettingsEditor.inPresentationMode" timestamp="1594057724258">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="0" y="0" key="SettingsEditor.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1594057724258" />
-    <state x="0" y="0" key="SettingsEditor.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593806977159" />
-    <state x="0" y="23" key="SettingsEditor.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622018491" />
     <state x="681" y="303" key="SettingsEditor/-1600.0.1600.900/0.0.1920.1200@0.0.1920.1200" timestamp="1602222854255" />
     <state x="681" y="303" key="SettingsEditor/-1600.23.1600.877/0.0.1920.1200@0.0.1920.1200" timestamp="1602221263756" />
     <state x="239" y="3" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1595749300686" />
-    <state x="681" y="303" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1602249760489" />
-    <state x="346" y="178" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1593621933337" />
+    <state x="681" y="303" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1602774955702" />
     <state x="561" y="389" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1595248689927">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="561" y="389" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1595248689927" />
     <state x="748" y="519" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1200@0.0.1920.1200" timestamp="1595012190307" />
-    <state x="420" y="205" width="600" height="490" key="find.popup" timestamp="1602268082123">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="560" y="273" width="800" height="654" key="find.popup" timestamp="1602786461126">
+      <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="0" y="0" width="1304" height="900" key="find.popup.inPresentationMode" timestamp="1602255173110">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="0" y="0" width="1304" height="900" key="find.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1602255173110" />
     <state x="420" y="205" width="600" height="490" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1602268082123" />
+    <state x="560" y="273" width="800" height="654" key="find.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1602786461126" />
     <state x="716" y="481" width="614" height="269" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1595010883333">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="716" y="481" width="614" height="269" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595010883333" />
-    <state x="469" y="203" width="838" height="518" key="search.everywhere.popup" timestamp="1602269059419">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup" timestamp="1602787883403">
+      <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="0" y="221" width="1512" height="505" key="search.everywhere.popup.inPresentationMode" timestamp="1602255049685">
       <screen x="0" y="0" width="1440" height="900" />
@@ -433,31 +476,10 @@
     <state x="0" y="221" width="1512" height="505" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1602255049685" />
     <state x="0" y="237" width="1680" height="605" key="search.everywhere.popup.inPresentationMode/0.0.1680.1050@0.0.1680.1050" timestamp="1599122977207" />
     <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1602252099051" />
-    <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />
     <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/-1600.0.1600.900/0.0.1920.1200@0.0.1920.1200" timestamp="1602223594332" />
     <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/-1600.23.1600.877/0.0.1920.1200@0.0.1920.1200" timestamp="1602223022267" />
     <state x="469" y="203" width="838" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1602269059419" />
     <state x="547" y="237" width="978" height="605" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599470318592" />
-    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1602249905095" />
-    <state x="469" y="221" width="670" height="505" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1593950143500" />
-    <state x="450" y="369" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1593784355162">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="450" y="369" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.1440.900@0.0.1440.900" timestamp="1593784355162" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php-line-method">
-          <url>file://$PROJECT_DIR$/tests/Feature/App/CreateInvoicesTest.php</url>
-          <line>431</line>
-          <properties>
-            <option name="className" value="\Tests\Feature\App\CreateInvoicesTest" />
-            <option name="methodName" value="createPurchase" />
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1602787883403" />
   </component>
 </project>

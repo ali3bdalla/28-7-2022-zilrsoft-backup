@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-use App\Relationships\KitItemsRelationships;
 class KitItems extends BaseModel
 {
 
-    use KitItemsRelationships;
 
     protected $guarded = [];
 
@@ -20,6 +18,6 @@ class KitItems extends BaseModel
     {
         return $this->belongsTo(Item::class, 'kit_id');
     }
-
-    //
+	
+	
 }

@@ -8,7 +8,7 @@
                                                    style="min-width: 130px; font-weight: bolder;
 ">
                     <?php echo e($payment->account->locale_name); ?> &nbsp;
-                    &nbsp; ( <a target="_blank" href="<?php echo e(route('accounting.vouchers.show',$payment->id)); ?>">عرض
+                    &nbsp; ( <a target="_blank" href="<?php echo e(route('vouchers.show',$payment->id)); ?>">عرض
                         السند</a> )</span>
                         <input aria-describedby="1" disabled="disabled" type="text"
                                class="form-control" value="<?php echo e($payment->amount); ?>" style="font-weight:
