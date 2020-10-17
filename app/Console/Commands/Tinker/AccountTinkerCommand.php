@@ -105,7 +105,7 @@
 								$entity->transactions()->create($transactionData);
 								
 								
-							} else  {
+							} else {
 								$transactionData = $transactionInitData;
 								$transactionData['amount'] = $amount;
 								$transactionData['type'] = 'debit';
@@ -145,7 +145,7 @@
 								$entity->transactions()->create($transactionData);
 								
 								
-							}else {
+							} else {
 								$transactionData = $transactionInitData;
 								$transactionData['amount'] = $amount;
 								$transactionData['type'] = 'credit';

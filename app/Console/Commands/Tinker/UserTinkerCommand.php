@@ -49,10 +49,6 @@
 			
 			
 			
-			
-			
-			
-			
 			$vendors = User::where([['is_vendor', true], ['is_system_user', 'false']])->get();
 			$lastDate = Carbon::parse('01-10-2020');
 			$createdAt = Carbon::parse('30-09-2020');

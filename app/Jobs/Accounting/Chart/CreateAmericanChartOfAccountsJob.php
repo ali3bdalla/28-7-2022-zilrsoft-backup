@@ -295,24 +295,24 @@ class CreateAmericanChartOfAccountsJob implements ShouldQueue
 //            'is_gateway' => true,
 //        ]);
 
-        $this->creat_single_bank_children($alrass);
+//        $this->creat_single_bank_children($alrass);
 
     }
 
     public function creat_single_bank_children($bank)
     {
-        $mada = Account::create([
-            'is_system_account' => true,
-            "ar_name" => "مدى",
-            "name" => "Mada ",
-            'type' => 'debit',
-            "slug" => "gateway",
-            "parent_id" => $bank->id,
-            "serial" => "112000000000000000000",
-            'organization_id' => $this->organization->accounts_organization_id,
-            'creator_id' => $this->organization->accounts_creator_id,
-            'is_gateway' => true,
-        ]);
+//        $mada = Account::create([
+//            'is_system_account' => true,
+//            "ar_name" => "مدى",
+//            "name" => "Mada ",
+//            'type' => 'debit',
+//            "slug" => "gateway",
+//            "parent_id" => $bank->id,
+//            "serial" => "112000000000000000000",
+//            'organization_id' => $this->organization->accounts_organization_id,
+//            'creator_id' => $this->organization->accounts_creator_id,
+//            'is_gateway' => true,
+//        ]);
 
 //        Account::create([
 //            'is_system_account' => true,
