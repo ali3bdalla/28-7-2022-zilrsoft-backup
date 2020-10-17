@@ -3,9 +3,10 @@
         <div class="row">
             <div class="col-md-6">
                 <div :class="{'has-error':errorFieldName==='arName'}" class="form-group">
+<!--                  readonly=""-->
                     <input :placeholder="app.trans.name_ar"
                            class="form-control has-error"
-                           readonly="" type='text'
+                            type='text'
                            v-model="itemData.arName">
                     <small class="text-danger" v-show="errorFieldName==='arName'">
                         {{ errorFieldMessage}}
@@ -19,7 +20,7 @@
                 <div :class="{'has-error':errorFieldName==='enName'}" class="form-group">
                     <input :placeholder="app.trans.name_en"
                            class="form-control has-error"
-                           readonly="" type='text'
+                           type='text'
                            v-model="itemData.enName">
                     <small class="text-danger" v-show="errorFieldName==='enName'">
                         {{ errorFieldMessage}}
@@ -237,7 +238,7 @@
                 <div>
                     <div :dir="app.appLocate==='ar' ? 'rtl' : 'ltr'">
                         <treeselect
-                            :disable-branch-nodes="true"
+                            :disable-branch-nodes="false"
                             :disabled="cloningItem===true"
                             :load-options="loadCategoriesList"
                             :options="categories"
