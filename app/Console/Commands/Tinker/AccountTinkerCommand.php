@@ -51,8 +51,9 @@
 			foreach($accounts as $account) {
 				$oldAccount = DB::connection('data_source')->table('accounts')->find($account->id);
 				$oldAccountStatic = DB::connection('data_source')->table('account_statistics')->where('account_id', $account->id)->first();
-				$oldBalance = $this->getOldBalance($account, $oldAccountStatic);
-				if($oldAccount) {
+				if($oldAccount && $oldAccountStatic) {
+					$oldBalance = $this->getOldBalance($account, $oldAccountStatic);
+					
 					$transactions = $account->transactions()->whereDate('created_at', '>', $createdAt)->get();
 					
 					$balanceAfterUpdate = $this->getTransactionsBalance($account, $transactions);

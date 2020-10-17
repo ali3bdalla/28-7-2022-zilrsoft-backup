@@ -512,26 +512,26 @@
     },
     {
         "name": "dragonmantank/cron-expression",
-        "version": "v2.3.0",
-        "version_normalized": "2.3.0.0",
+        "version": "v2.3.1",
+        "version_normalized": "2.3.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/dragonmantank/cron-expression.git",
-            "reference": "72b6fbf76adb3cf5bc0db68559b33d41219aba27"
+            "reference": "65b2d8ee1f10915efb3b55597da3404f096acba2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/72b6fbf76adb3cf5bc0db68559b33d41219aba27",
-            "reference": "72b6fbf76adb3cf5bc0db68559b33d41219aba27",
+            "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/65b2d8ee1f10915efb3b55597da3404f096acba2",
+            "reference": "65b2d8ee1f10915efb3b55597da3404f096acba2",
             "shasum": ""
         },
         "require": {
-            "php": "^7.0"
+            "php": "^7.0|^8.0"
         },
         "require-dev": {
-            "phpunit/phpunit": "^6.4|^7.0"
+            "phpunit/phpunit": "^6.4|^7.0|^8.0|^9.0"
         },
-        "time": "2019-03-31T00:38:28+00:00",
+        "time": "2020-10-13T00:52:37+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -564,6 +564,12 @@
         "keywords": [
             "cron",
             "schedule"
+        ],
+        "funding": [
+            {
+                "url": "https://github.com/dragonmantank",
+                "type": "github"
+            }
         ]
     },
     {
@@ -684,37 +690,37 @@
     },
     {
         "name": "filp/whoops",
-        "version": "2.7.3",
-        "version_normalized": "2.7.3.0",
+        "version": "2.8.0",
+        "version_normalized": "2.8.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/filp/whoops.git",
-            "reference": "5d5fe9bb3d656b514d455645b3addc5f7ba7714d"
+            "reference": "fa50d9db1c0c2fae99cf988d27023effda5524a3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/filp/whoops/zipball/5d5fe9bb3d656b514d455645b3addc5f7ba7714d",
-            "reference": "5d5fe9bb3d656b514d455645b3addc5f7ba7714d",
+            "url": "https://api.github.com/repos/filp/whoops/zipball/fa50d9db1c0c2fae99cf988d27023effda5524a3",
+            "reference": "fa50d9db1c0c2fae99cf988d27023effda5524a3",
             "shasum": ""
         },
         "require": {
-            "php": "^5.5.9 || ^7.0",
+            "php": "^5.5.9 || ^7.0 || ^8.0",
             "psr/log": "^1.0.1"
         },
         "require-dev": {
             "mockery/mockery": "^0.9 || ^1.0",
-            "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0",
+            "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20 || ^8.5.8 || ^9.3.3",
             "symfony/var-dumper": "^2.6 || ^3.0 || ^4.0 || ^5.0"
         },
         "suggest": {
             "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
             "whoops/soap": "Formats errors as SOAP responses"
         },
-        "time": "2020-06-14T09:00:00+00:00",
+        "time": "2020-10-17T09:00:00+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.6-dev"
+                "dev-master": "2.7-dev"
             }
         },
         "installation-source": "dist",
@@ -799,28 +805,28 @@
     },
     {
         "name": "graham-campbell/guzzle-factory",
-        "version": "v4.0.3",
-        "version_normalized": "4.0.3.0",
+        "version": "v4.1.0",
+        "version_normalized": "4.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/GrahamCampbell/Guzzle-Factory.git",
-            "reference": "4914d47f075157963c7ba86fb839f235034edf0c"
+            "reference": "3b6c3a7dff0b1b9d0dc1ada9c8bfd0d39b6ee796"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/GrahamCampbell/Guzzle-Factory/zipball/4914d47f075157963c7ba86fb839f235034edf0c",
-            "reference": "4914d47f075157963c7ba86fb839f235034edf0c",
+            "url": "https://api.github.com/repos/GrahamCampbell/Guzzle-Factory/zipball/3b6c3a7dff0b1b9d0dc1ada9c8bfd0d39b6ee796",
+            "reference": "3b6c3a7dff0b1b9d0dc1ada9c8bfd0d39b6ee796",
             "shasum": ""
         },
         "require": {
-            "guzzlehttp/guzzle": "^7.0.1",
+            "guzzlehttp/guzzle": "^7.2",
             "php": "^7.2.5 || ^8.0"
         },
         "require-dev": {
-            "graham-campbell/analyzer": "^3.0",
-            "phpunit/phpunit": "^8.5 || ^9.0"
+            "graham-campbell/analyzer": "^3.0.4",
+            "phpunit/phpunit": "^8.5.8 || ^9.3.7"
         },
-        "time": "2020-07-22T18:54:48+00:00",
+        "time": "2020-10-10T13:56:13+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -860,24 +866,24 @@
     },
     {
         "name": "guzzlehttp/guzzle",
-        "version": "7.1.1",
-        "version_normalized": "7.1.1.0",
+        "version": "7.2.0",
+        "version_normalized": "7.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "7427d6f99df41cc01f33cd59832f721c150ffdf3"
+            "reference": "0aa74dfb41ae110835923ef10a9d803a22d50e79"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/7427d6f99df41cc01f33cd59832f721c150ffdf3",
-            "reference": "7427d6f99df41cc01f33cd59832f721c150ffdf3",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/0aa74dfb41ae110835923ef10a9d803a22d50e79",
+            "reference": "0aa74dfb41ae110835923ef10a9d803a22d50e79",
             "shasum": ""
         },
         "require": {
             "ext-json": "*",
-            "guzzlehttp/promises": "^1.0",
-            "guzzlehttp/psr7": "^1.6.1",
-            "php": "^7.2.5",
+            "guzzlehttp/promises": "^1.4",
+            "guzzlehttp/psr7": "^1.7",
+            "php": "^7.2.5 || ^8.0",
             "psr/http-client": "^1.0"
         },
         "provide": {
@@ -885,8 +891,8 @@
         },
         "require-dev": {
             "ext-curl": "*",
-            "php-http/client-integration-tests": "dev-phpunit8",
-            "phpunit/phpunit": "^8.5.5",
+            "php-http/client-integration-tests": "^3.0",
+            "phpunit/phpunit": "^8.5.5 || ^9.3.5",
             "psr/log": "^1.1"
         },
         "suggest": {
@@ -894,7 +900,7 @@
             "ext-intl": "Required for Internationalized Domain Name (IDN) support",
             "psr/log": "Required for using the Log middleware"
         },
-        "time": "2020-09-30T08:51:17+00:00",
+        "time": "2020-10-10T11:47:56+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1291,17 +1297,17 @@
     },
     {
         "name": "laravel/framework",
-        "version": "v6.18.42",
-        "version_normalized": "6.18.42.0",
+        "version": "v6.18.43",
+        "version_normalized": "6.18.43.0",
         "source": {
             "type": "git",
             "url": "https://github.com/laravel/framework.git",
-            "reference": "ea27c9af8f9fbd27ab0753749830c267f25de9d4"
+            "reference": "7a6043b9049a93a6388d6ab6ac50dad28600d227"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/laravel/framework/zipball/ea27c9af8f9fbd27ab0753749830c267f25de9d4",
-            "reference": "ea27c9af8f9fbd27ab0753749830c267f25de9d4",
+            "url": "https://api.github.com/repos/laravel/framework/zipball/7a6043b9049a93a6388d6ab6ac50dad28600d227",
+            "reference": "7a6043b9049a93a6388d6ab6ac50dad28600d227",
             "shasum": ""
         },
         "require": {
@@ -1406,7 +1412,7 @@
             "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^1.2).",
             "wildbit/swiftmailer-postmark": "Required to use Postmark mail driver (^3.0)."
         },
-        "time": "2020-10-06T14:21:51+00:00",
+        "time": "2020-10-13T14:20:24+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2029,17 +2035,17 @@
     },
     {
         "name": "nesbot/carbon",
-        "version": "2.41.0",
-        "version_normalized": "2.41.0.0",
+        "version": "2.41.3",
+        "version_normalized": "2.41.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/briannesbitt/Carbon.git",
-            "reference": "8690b13ad4da6d54d692afea15aab30b36fee52e"
+            "reference": "e148788eeae9b9b7b87996520358b86faad37b52"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/8690b13ad4da6d54d692afea15aab30b36fee52e",
-            "reference": "8690b13ad4da6d54d692afea15aab30b36fee52e",
+            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/e148788eeae9b9b7b87996520358b86faad37b52",
+            "reference": "e148788eeae9b9b7b87996520358b86faad37b52",
             "shasum": ""
         },
         "require": {
@@ -2058,7 +2064,7 @@
             "phpunit/phpunit": "^7.5 || ^8.0",
             "squizlabs/php_codesniffer": "^3.4"
         },
-        "time": "2020-10-04T09:11:05+00:00",
+        "time": "2020-10-12T20:36:09+00:00",
         "bin": [
             "bin/carbon"
         ],
@@ -2319,31 +2325,31 @@
     },
     {
         "name": "opis/closure",
-        "version": "3.5.7",
-        "version_normalized": "3.5.7.0",
+        "version": "3.6.0",
+        "version_normalized": "3.6.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/opis/closure.git",
-            "reference": "4531e53afe2fc660403e76fb7644e95998bff7bf"
+            "reference": "c547f8262a5fa9ff507bd06cc394067b83a75085"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/opis/closure/zipball/4531e53afe2fc660403e76fb7644e95998bff7bf",
-            "reference": "4531e53afe2fc660403e76fb7644e95998bff7bf",
+            "url": "https://api.github.com/repos/opis/closure/zipball/c547f8262a5fa9ff507bd06cc394067b83a75085",
+            "reference": "c547f8262a5fa9ff507bd06cc394067b83a75085",
             "shasum": ""
         },
         "require": {
-            "php": "^5.4 || ^7.0"
+            "php": "^5.4 || ^7.0 || ^8.0"
         },
         "require-dev": {
             "jeremeamia/superclosure": "^2.0",
-            "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
+            "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
         },
-        "time": "2020-09-06T17:02:15+00:00",
+        "time": "2020-10-11T21:42:15+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "3.5.x-dev"
+                "dev-master": "3.6.x-dev"
             }
         },
         "installation-source": "dist",
@@ -5308,17 +5314,17 @@
     },
     {
         "name": "symfony/http-client-contracts",
-        "version": "v2.2.0",
-        "version_normalized": "2.2.0.0",
+        "version": "v2.3.1",
+        "version_normalized": "2.3.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/http-client-contracts.git",
-            "reference": "3a5d0fe7908daaa23e3dbf4cee3ba4bfbb19fdd3"
+            "reference": "41db680a15018f9c1d4b23516059633ce280ca33"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/http-client-contracts/zipball/3a5d0fe7908daaa23e3dbf4cee3ba4bfbb19fdd3",
-            "reference": "3a5d0fe7908daaa23e3dbf4cee3ba4bfbb19fdd3",
+            "url": "https://api.github.com/repos/symfony/http-client-contracts/zipball/41db680a15018f9c1d4b23516059633ce280ca33",
+            "reference": "41db680a15018f9c1d4b23516059633ce280ca33",
             "shasum": ""
         },
         "require": {
@@ -5327,11 +5333,12 @@
         "suggest": {
             "symfony/http-client-implementation": ""
         },
-        "time": "2020-09-07T11:33:47+00:00",
+        "time": "2020-10-14T17:08:19+00:00",
         "type": "library",
         "extra": {
+            "branch-version": "2.3",
             "branch-alias": {
-                "dev-master": "2.2-dev"
+                "dev-main": "2.3-dev"
             },
             "thanks": {
                 "name": "symfony/contracts",

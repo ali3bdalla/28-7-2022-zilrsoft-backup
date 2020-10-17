@@ -48,11 +48,12 @@ class CronExpressionTest extends TestCase
      * @covers \Cron\CronExpression::__construct
      * @covers \Cron\CronExpression::getExpression
      * @covers \Cron\CronExpression::__toString
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid CRON field value A at position 0
      */
     public function testParsesCronScheduleThrowsAnException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid CRON field value A at position 0');
+
         CronExpression::factory('A 1 2 3 4');
     }
 
@@ -90,20 +91,22 @@ class CronExpressionTest extends TestCase
      * @covers \Cron\CronExpression::__construct
      * @covers \Cron\CronExpression::setExpression
      * @covers \Cron\CronExpression::setPart
-     * @expectedException InvalidArgumentException
      */
     public function testInvalidCronsWillFail()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         // Only four values
         $cron = CronExpression::factory('* * * 1');
     }
 
     /**
      * @covers \Cron\CronExpression::setPart
-     * @expectedException InvalidArgumentException
      */
     public function testInvalidPartsWillFail()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         // Only four values
         $cron = CronExpression::factory('* * * * *');
         $cron->setPart(1, 'abc');
@@ -119,9 +122,9 @@ class CronExpressionTest extends TestCase
         return array(
             array('*/2 */2 * * *', '2015-08-10 21:47:27', '2015-08-10 22:00:00', false),
             array('* * * * *', '2015-08-10 21:50:37', '2015-08-10 21:50:00', true),
-            array('* 20, 81,22 * * *', '2015-08-10 21:50:00', '2015-08-10 21:50:00', true),
+            array('* 20,21,22 * * *', '2015-08-10 21:50:00', '2015-08-10 21:50:00', true),
             // Handles CSV values
-            array('* 20, 82 * * *', '2015-08-10 21:50:00', '2015-08-10 22:00:00', false),
+            array('* 20,22 * * *', '2015-08-10 21:50:00', '2015-08-10 22:00:00', false),
             // CSV values can be complex
             array('7-9 * */9 * *', '2015-08-10 22:02:33', '2015-08-10 22:07:00', false),
             // 15th minute, of the second hour, every 15 days, in January, every Friday
