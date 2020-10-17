@@ -2,16 +2,13 @@
 	
 	namespace App\Console\Commands\Tinker;
 	
-	use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 	use App\Jobs\User\Balance\UpdateVendorBalanceJob;
 	use App\Models\Account;
-	use App\Models\InvoiceItems;
 	use App\Models\Manager;
 	use App\Models\Transaction;
 	use App\Models\TransactionsContainer;
 	use App\Models\User;
 	use Carbon\Carbon;
-	use Exception;
 	use Illuminate\Console\Command;
 	use Illuminate\Support\Facades\DB;
 	
@@ -50,7 +47,14 @@
 		{
 			
 			
+			
+			
+			
+			
+			
+			
 			$vendors = User::where([['is_vendor', true], ['is_system_user', 'false']])->get();
+			$lastDate = Carbon::parse('01-10-2020');
 			$createdAt = Carbon::parse('30-09-2020');
 			foreach($vendors as $vendor) {
 				$oldVendor = DB::connection('data_source')->table('users')->find($vendor->id);
@@ -60,7 +64,7 @@
 							['user_id', $vendor->id],
 							['account_id', 20]
 						]
-					)->whereDate('created_at', '<=', $createdAt)->get();
+					)->whereDate('created_at', '<', $lastDate)->get();
 					$creditAmount = 0;
 					$debitAmount = 0;
 					foreach($transactions as $transaction) {
@@ -72,8 +76,7 @@
 					}
 					
 					$balance = $creditAmount - $debitAmount;
-
-//				" - " . $creditAmount . ':' . $debitAmount . ' - '
+					
 					echo "new system: [" . $vendor->getOriginal('name') . "    balance: " . $balance . "] \t\t\t old system [" . $oldVendor->name . "   balance:" . $oldVendor->vendor_balance . " ]\n";
 //
 					
@@ -148,109 +151,7 @@
 					
 					
 				}
-
-
-//				$vendor->update(
-//					[
-//						'vendor_balance' => $balance
-//					]
-//				);
 				
 			}
-
-
-//			$invoice  = Invoice::find(11092);
-
-//			$transactions = Transaction::where('invoice_id',11092)->get()->toArray();
-
-//			dd($transactions);
-//			DB::beginTransaction();
-//
-//			try {
-//////				dd(1);
-//				$invoiceItem = InvoiceItems::find(16201);
-//				$newDiscount = 0;
-//				$currentDiscount = $invoiceItem->discount;
-//				$oldTotal = $invoiceItem->total;
-//				$price = $invoiceItem->price - $currentDiscount;
-//				$total = $price;
-//				$invoiceItem->update(
-//					[
-//						'discount' => $newDiscount,
-//						'price' => $price,
-//						'total' => $price
-//					]
-//				);
-//				dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoiceItem->invoice));
-//
-//
-//				$costTransaction = Transaction::find(59728);//total_credit_amount
-//				$costTransaction->update(
-//					[
-//						'amount' => $costTransaction->amount - $oldTotal + $total,
-//						'total_credit_amount' => $costTransaction->account->total_credit_amount - $oldTotal + $total
-//					]
-//				);
-//
-//				$costTransaction->account->update(
-//					[
-//						'total_credit_amount' => $costTransaction->account->total_credit_amount - $oldTotal + $total
-//					]
-//				);
-//
-//
-//				$costDiscountTransaction = Transaction::find(59729);//total_debit_amount
-//
-//				$costDiscountTransaction->update(
-//					[
-//						'amount' => $costDiscountTransaction->amount - $currentDiscount,
-//						'total_debit_amount' => $costDiscountTransaction->account->total_debit_amount - $currentDiscount
-//					]
-//				);
-//
-//				$costDiscountTransaction->account->update(
-//					[
-//						'total_debit_amount' => $costDiscountTransaction->account->total_debit_amount - $currentDiscount
-//					]
-//				);
-//
-//				$vendors = User::where('is_vendor', true)->get();
-//
-//				foreach($vendors as $vendor) {
-//					$transactions = Transaction::where(
-//						[
-//							['user_id', $vendor->id],
-//							['account_id', 20]
-//						]
-//					)->get();
-//					$creditAmount = 0;
-//					$debitAmount = 0;
-//
-//					foreach($transactions as $transaction) {
-//						if($transaction->type == 'debit') {
-//							$debitAmount += (float)$transaction->amount;
-//						} else {
-//							$creditAmount += (float)$transaction->amount;
-//						}
-//					}
-//					$balance = $creditAmount - $debitAmount;
-//
-//					echo $vendor->id . " - " . $creditAmount . ':' . $debitAmount . ' - ' . $balance . "\n";
-//
-//					$vendor->update(
-//						[
-//							'vendor_balance' => $balance
-//						]
-//					);
-//
-//				}
-//				DB::commit();
-//			} catch(Exception $exception) {
-//				DB::rollBack();
-//				throw  $exception;
-//
-//			}
-//
-//
 		}
 	}

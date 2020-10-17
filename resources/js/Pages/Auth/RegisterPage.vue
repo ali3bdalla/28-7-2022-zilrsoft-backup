@@ -183,39 +183,39 @@
                 </div>
               </div>
 
-              <div class="flex mb-4">
-                <div class="w-1/2 mr-1">
-                  <label class="block text-grey-darker text-sm font-bold mb-2"
-                    >Logo</label
-                  >
-                  <input
-                    @change="logoUpdated"
-                    ref="file"
-                    class="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-                    accept="image/*"
-                    type="file"
-                  />
-                  <div class="p-2 text-red-500" v-if="$page.errors.logo">
-                    {{ $page.errors.logo }}
-                  </div>
-                </div>
+<!--              <div class="flex mb-4">-->
+<!--                <div class="w-1/2 mr-1">-->
+<!--                  <label class="block text-grey-darker text-sm font-bold mb-2"-->
+<!--                    >Logo</label-->
+<!--                  >-->
+<!--                  <input-->
+<!--                    @change="logoUpdated"-->
+<!--                    ref="file"-->
+<!--                    class="appearance-none border rounded w-full py-2 px-3 text-grey-darker"-->
+<!--                    accept="image/*"-->
+<!--                    type="file"-->
+<!--                  />-->
+<!--                  <div class="p-2 text-red-500" v-if="$page.errors.logo">-->
+<!--                    {{ $page.errors.logo }}-->
+<!--                  </div>-->
+<!--                </div>-->
 
-                <div class="w-1/2 mr-1">
-                  <label class="block text-grey-darker text-sm font-bold mb-2"
-                    >Stamp</label
-                  >
-                  <input
-                    @change="stampUpdated"
-                    ref="file"
-                    class="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-                    accept="image/*"
-                    type="file"
-                  />
-                  <div class="p-2 text-red-500" v-if="$page.errors.stamp">
-                    {{ $page.errors.stamp }}
-                  </div>
-                </div>
-              </div>
+<!--                <div class="w-1/2 mr-1">-->
+<!--                  <label class="block text-grey-darker text-sm font-bold mb-2"-->
+<!--                    >Stamp</label-->
+<!--                  >-->
+<!--                  <input-->
+<!--                    @change="stampUpdated"-->
+<!--                    ref="file"-->
+<!--                    class="appearance-none border rounded w-full py-2 px-3 text-grey-darker"-->
+<!--                    accept="image/*"-->
+<!--                    type="file"-->
+<!--                  />-->
+<!--                  <div class="p-2 text-red-500" v-if="$page.errors.stamp">-->
+<!--                    {{ $page.errors.stamp }}-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
             </div>
             <div class="pb-5 px-8">
               <div><h1 class="text-3xl text-gray-500 mb-2">Supervisor</h1></div>

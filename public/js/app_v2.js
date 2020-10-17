@@ -3739,7 +3739,11 @@ var render = function() {
                       staticClass:
                         "py-4 px-8 text-gray-500 text-2xl border-b border-grey-lighter"
                     },
-                    [_vm._v("\n            Create Your Workspace\n          ")]
+                    [
+                      _vm._v(
+                        "\n              Create Your Workspace\n            "
+                      )
+                    ]
                   ),
                   _vm._v(" "),
                   _c("div", { staticClass: "px-8" }, [
@@ -3785,9 +3789,9 @@ var render = function() {
                         _vm.$page.errors.title
                           ? _c("div", { staticClass: "p-2 text-red-500" }, [
                               _vm._v(
-                                "\n                  " +
+                                "\n                    " +
                                   _vm._s(_vm.$page.errors.title) +
-                                  "\n                "
+                                  "\n                  "
                               )
                             ])
                           : _vm._e()
@@ -3852,9 +3856,9 @@ var render = function() {
                         _vm.$page.errors.business_type_id
                           ? _c("div", { staticClass: "p-2 text-red-500" }, [
                               _vm._v(
-                                "\n                  " +
+                                "\n                    " +
                                   _vm._s(_vm.$page.errors.business_type_id) +
-                                  "\n                "
+                                  "\n                  "
                               )
                             ])
                           : _vm._e()
@@ -3903,9 +3907,9 @@ var render = function() {
                         _vm.$page.errors.cr_number
                           ? _c("div", { staticClass: "p-2 text-red-500" }, [
                               _vm._v(
-                                "\n                  " +
+                                "\n                    " +
                                   _vm._s(_vm.$page.errors.cr_number) +
-                                  "\n                "
+                                  "\n                  "
                               )
                             ])
                           : _vm._e()
@@ -3952,9 +3956,9 @@ var render = function() {
                         _vm.$page.errors.vat_number
                           ? _c("div", { staticClass: "p-2 text-red-500" }, [
                               _vm._v(
-                                "\n                  " +
+                                "\n                    " +
                                   _vm._s(_vm.$page.errors.vat_number) +
-                                  "\n                "
+                                  "\n                  "
                               )
                             ])
                           : _vm._e()
@@ -4021,9 +4025,9 @@ var render = function() {
                         _vm.$page.errors.country_id
                           ? _c("div", { staticClass: "p-2 text-red-500" }, [
                               _vm._v(
-                                "\n                  " +
+                                "\n                    " +
                                   _vm._s(_vm.$page.errors.country_id) +
-                                  "\n                "
+                                  "\n                  "
                               )
                             ])
                           : _vm._e()
@@ -4065,9 +4069,9 @@ var render = function() {
                         _vm.$page.errors.city
                           ? _c("div", { staticClass: "p-2 text-red-500" }, [
                               _vm._v(
-                                "\n                  " +
+                                "\n                    " +
                                   _vm._s(_vm.$page.errors.city) +
-                                  "\n                "
+                                  "\n                  "
                               )
                             ])
                           : _vm._e()
@@ -4111,9 +4115,9 @@ var render = function() {
                         _vm.$page.errors.address
                           ? _c("div", { staticClass: "p-2 text-red-500" }, [
                               _vm._v(
-                                "\n                  " +
+                                "\n                    " +
                                   _vm._s(_vm.$page.errors.address) +
-                                  "\n                "
+                                  "\n                  "
                               )
                             ])
                           : _vm._e()
@@ -4159,69 +4163,9 @@ var render = function() {
                         _vm.$page.errors.description
                           ? _c("div", { staticClass: "p-2 text-red-500" }, [
                               _vm._v(
-                                "\n                  " +
+                                "\n                    " +
                                   _vm._s(_vm.$page.errors.description) +
-                                  "\n                "
-                              )
-                            ])
-                          : _vm._e()
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "flex mb-4" }, [
-                      _c("div", { staticClass: "w-1/2 mr-1" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "block text-grey-darker text-sm font-bold mb-2"
-                          },
-                          [_vm._v("Logo")]
-                        ),
-                        _vm._v(" "),
-                        _c("input", {
-                          ref: "file",
-                          staticClass:
-                            "appearance-none border rounded w-full py-2 px-3 text-grey-darker",
-                          attrs: { accept: "image/*", type: "file" },
-                          on: { change: _vm.logoUpdated }
-                        }),
-                        _vm._v(" "),
-                        _vm.$page.errors.logo
-                          ? _c("div", { staticClass: "p-2 text-red-500" }, [
-                              _vm._v(
-                                "\n                  " +
-                                  _vm._s(_vm.$page.errors.logo) +
-                                  "\n                "
-                              )
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "w-1/2 mr-1" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "block text-grey-darker text-sm font-bold mb-2"
-                          },
-                          [_vm._v("Stamp")]
-                        ),
-                        _vm._v(" "),
-                        _c("input", {
-                          ref: "file",
-                          staticClass:
-                            "appearance-none border rounded w-full py-2 px-3 text-grey-darker",
-                          attrs: { accept: "image/*", type: "file" },
-                          on: { change: _vm.stampUpdated }
-                        }),
-                        _vm._v(" "),
-                        _vm.$page.errors.stamp
-                          ? _c("div", { staticClass: "p-2 text-red-500" }, [
-                              _vm._v(
-                                "\n                  " +
-                                  _vm._s(_vm.$page.errors.stamp) +
-                                  "\n                "
+                                  "\n                  "
                               )
                             ])
                           : _vm._e()
@@ -4269,9 +4213,9 @@ var render = function() {
                         _vm.$page.errors.name
                           ? _c("div", { staticClass: "p-2 text-red-500" }, [
                               _vm._v(
-                                "\n                  " +
+                                "\n                    " +
                                   _vm._s(_vm.$page.errors.name) +
-                                  "\n                "
+                                  "\n                  "
                               )
                             ])
                           : _vm._e()
@@ -4316,9 +4260,9 @@ var render = function() {
                         _vm.$page.errors.email
                           ? _c("div", { staticClass: "p-2 text-red-500" }, [
                               _vm._v(
-                                "\n                  " +
+                                "\n                    " +
                                   _vm._s(_vm.$page.errors.email) +
-                                  "\n                "
+                                  "\n                  "
                               )
                             ])
                           : _vm._e()
@@ -4366,9 +4310,9 @@ var render = function() {
                         _vm.$page.errors.password
                           ? _c("div", { staticClass: "p-2 text-red-500" }, [
                               _vm._v(
-                                "\n                  " +
+                                "\n                    " +
                                   _vm._s(_vm.$page.errors.password) +
-                                  "\n                "
+                                  "\n                  "
                               )
                             ])
                           : _vm._e()
@@ -4417,11 +4361,11 @@ var render = function() {
                         _vm.$page.errors.password_confirmation
                           ? _c("div", { staticClass: "p-2 text-red-500" }, [
                               _vm._v(
-                                "\n                  " +
+                                "\n                    " +
                                   _vm._s(
                                     _vm.$page.errors.password_confirmation
                                   ) +
-                                  "\n                "
+                                  "\n                  "
                               )
                             ])
                           : _vm._e()
@@ -4473,9 +4417,9 @@ var render = function() {
                         _vm.$page.errors.phone_number
                           ? _c("div", { staticClass: "p-2 text-red-500" }, [
                               _vm._v(
-                                "\n                  " +
+                                "\n                    " +
                                   _vm._s(_vm.$page.errors.phone_number) +
-                                  "\n                "
+                                  "\n                  "
                               )
                             ])
                           : _vm._e()
@@ -4497,7 +4441,11 @@ var render = function() {
                             },
                             on: { click: _vm.submitRegister }
                           },
-                          [_vm._v("\n                Sign Up\n              ")]
+                          [
+                            _vm._v(
+                              "\n                  Sign Up\n                "
+                            )
+                          ]
                         )
                       ]
                     )
