@@ -21,7 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RegisterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Accounting/Chart/CreateAmericanChartOfAccountsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Accounting/Chart/CreateAmericanChartOfAccountsJob.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -347,7 +347,7 @@
       <workItem from="1602872797213" duration="104000" />
       <workItem from="1602883086844" duration="1695000" />
       <workItem from="1602921244996" duration="9000" />
-      <workItem from="1602929324296" duration="262000" />
+      <workItem from="1602929324296" duration="421000" />
     </task>
     <servers />
   </component>
@@ -427,7 +427,7 @@
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="716" y="481" width="614" height="269" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595010883333" />
-    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup" timestamp="1602929839179">
+    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup" timestamp="1602930042672">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="0" y="221" width="1512" height="505" key="search.everywhere.popup.inPresentationMode" timestamp="1602255049685">
@@ -440,7 +440,7 @@
     <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/-1600.23.1600.877/0.0.1920.1200@0.0.1920.1200" timestamp="1602223022267" />
     <state x="469" y="203" width="838" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1602269059419" />
     <state x="547" y="237" width="978" height="605" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599470318592" />
-    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1602929839179" />
+    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1602930042672" />
     <state x="625" y="288" width="838" height="677" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1602884193236" />
   </component>
 </project>
