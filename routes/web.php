@@ -30,10 +30,20 @@
 				}
 			);
 			Route::resource('accounts', 'AccountController');
-			Route::prefix('accounts/{account}/view')->name('accounts.show.')->group(
+			Route::prefix('accounts')->name('accounts.')->group(
 				function() {
-					Route::get('/stock', 'AccountController@showStock')->name('stock');
-					Route::get('/{item}/item', 'AccountController@showItem')->name('item');
+					Route::prefix('reports')->name('reports.')->group(
+						function() {
+							Route::get('/index', 'AccountController@reports')->name('index');
+						}
+					);
+					Route::prefix('{account}/view')->name('show.')->group(
+						function() {
+							Route::get('/stock', 'AccountController@showStock')->name('stock');
+							Route::get('/{item}/item', 'AccountController@showItem')->name('item');
+							
+						}
+					);
 					
 				}
 			);

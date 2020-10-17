@@ -93,6 +93,12 @@ class AccountController extends Controller
         return view('accounting.charts.edit', compact('account', 'accounts'));
         //
     }
-     
+	
+	
+	public function reports()
+	{
+		$accounts = Account::all();
+		return view('accounting.charts.reports.index',compact('accounts'));
+    }
 
 }
