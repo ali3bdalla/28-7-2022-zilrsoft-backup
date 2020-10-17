@@ -108,7 +108,7 @@ class InvoiceItems extends BaseModel
 
     public function getInvoiceNumberAttribute()
     {
-        $invoice = $this->invoice()->withoutGlobalScope('draft')->first();
+        $invoice = $this->invoice()->withoutGlobalScope('draft')->withoutGlobalScope('manager')->first();
         if($invoice)
             return $invoice->invoice_number;
 
