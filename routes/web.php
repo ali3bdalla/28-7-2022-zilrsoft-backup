@@ -68,7 +68,8 @@
 			Route::resource('entities', 'EntityController');
 			Route::prefix('inventory')->name('inventory.')->group(
 				function() {
-					Route::get('/', 'InventoryController@begning')->name('index');
+					Route::get('/', 'InventoryController@index')->name('index');
+					Route::get('/create', 'InventoryController@create')->name('create');
 				}
 			);
 			Route::prefix('daily')->name('daily.')->group(
