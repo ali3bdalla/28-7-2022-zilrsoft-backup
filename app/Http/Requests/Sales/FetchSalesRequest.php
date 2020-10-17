@@ -37,30 +37,34 @@ class FetchSalesRequest extends FormRequest
     {
 
 
-        $query = Invoice::whereIn('invoice_type', ['sale', 'return_sale'])->with([
-            'creator', 'items', 'sale.client', 'sale.salesman',
-        ]);
+        $query = Invoice::whereIn('invoice_type', ['sale', 'return_sale']);
 
 
         if ($this->has('is_draft') && $this->filled('is_draft')) {
             $isDraft = (boolean)$this->input('is_draft');
-            if($isDraft){
-                $query = $query->withoutGlobalScope('draft')->withoutGlobalScope('manager')->where('is_draft',);
-
+            if ($isDraft) {
+                $query = $query->withoutGlobalScope('draft')->withoutGlobalScope('manager')->where('is_draft', $isDraft);
             }
         }
 
 
-    
+        $query = $query->with([
+            'creator', 'items', 'sale' => function ($sale) {
+                return $sale->withoutGlobalScope('draft')->withoutGlobalScope('manager');
+
+            }, 'sale.client', 'sale.salesman',
+        ]);
+
+
         if (
             $this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
             $this->filled('endDate')
         ) {
-            $_startDate = Carbon::parse($this->input("startDate"))->toDateString();
-            $_endDate = Carbon::parse($this->input("endDate"))->toDateString();
+            $_startDate = Carbon::parse($this->input("startDate"));
+            $_endDate = Carbon::parse($this->input("endDate"));
 
             if ($_endDate === $_startDate) {
-                $query = $query->whereDate('created_at', $_startDate);
+                $query = $query->where('created_at', $_startDate);
             } else {
                 $query = $query->whereBetween('created_at', [
                     $_startDate,
@@ -68,8 +72,9 @@ class FetchSalesRequest extends FormRequest
                 ]);
             }
         } else {
-            if (!$this->user()->can('manage branches') && !$this->filled('title')) {
-                // $query = $query->whereDate('created_at', '>=', $this->toGetLastCloseAmountDate());
+            if (!$this->user()->can('manage branches') && !$this->filled('title') && auth()->user()->accounts_closed_at != null) {
+
+                $query = $query->where('created_at', '>=', Carbon::parse(auth()->user()->accounts_closed_at));
             }
         }
 
@@ -182,6 +187,7 @@ class FetchSalesRequest extends FormRequest
                 $query->select(DB::raw("SUM(cost * qty) as invoice_cost"));
             },
         ]);
+
 
         if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval($this->input("itemsPerPage")) >= 1) {
             $result = $query->paginate(intval($this->input('itemsPerPage')));

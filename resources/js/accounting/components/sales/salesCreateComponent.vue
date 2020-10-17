@@ -1,7 +1,6 @@
 <template>
     <!-- startup box -->
     <div class="message">
-
         <div class="row">
             <div class="col-md-6">
                 <button :disabled="!everythingFineToSave" @click="pushDataToServer"
@@ -154,7 +153,7 @@
                     <th>{{ app.trans.qty }}</th>
                     <th>{{app.trans.sales_price}}</th>
                     <th>{{ app.trans.total }}</th>
-                    <th>{{ app.trans.discount }}</th>
+<!--                    <th>{{ app.trans.discount }}</th>-->
                     <th>{{ app.trans.subtotal }}</th>
                     <th>{{ app.trans.tax }}</th>
                     <th>{{ app.trans.net }}</th>
@@ -179,6 +178,7 @@
                                 class="btn btn-success btn-xs"
                                 v-if="item.is_need_serial"><i class="fa fa-bars"></i> &nbsp;
                         </button>
+
                         <accounting-kit-items-layout-component
                                 :index="index"
                                 :kit="item"
@@ -204,11 +204,10 @@
                                 v-show="!item.printable"><i class="fa fa-eye-slash"></i> &nbsp;
                         </button>
                     </td>
-                    <td>
+                    <td data-app>
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
                                 <span v-on="on">{{ item.barcode}}</span>
-
                             </template>
                             <span>{{ parseFloat(item.cost * (1 + (item.vtp/100))).toFixed(2) }}</span>
                         </v-tooltip>
@@ -260,14 +259,14 @@
                                type="text"
                                v-model="item.total">
                     </td>
-                    <td>
-                        <input :disabled="item.is_kit || item.is_service"
-                               :ref="'itemDiscount_' + item.id + 'Ref'"
-                               @change="itemDiscountUpdated(item)"
-                               @focus="$event.target.select()"
-                               class="form-control input-xs amount-input" placeholder="discount" type="text"
-                               v-model="item.discount">
-                    </td>
+<!--                    <td>-->
+<!--                        <input :disabled="item.is_kit || item.is_service"-->
+<!--                               :ref="'itemDiscount_' + item.id + 'Ref'"-->
+<!--                               @change="itemDiscountUpdated(item)"-->
+<!--                               @focus="$event.target.select()"-->
+<!--                               class="form-control input-xs amount-input" placeholder="discount" type="text"-->
+<!--                               v-model="item.discount">-->
+<!--                    </td>-->
                     <td>
                         <input @focus="$event.target.select()" class="form-control input-xs amount-input" disabled=""
                                placeholder="subtotal"
@@ -311,15 +310,15 @@
                                            v-model="invoiceData.total">
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6"><label>{{ app.trans.discount }}</label></div>
-                                <div class="col-md-6">
-                                    <input :placeholder="app.trans.discount"
-                                           class="form-control  input-xs amount-input"
-                                           disabled type="text"
-                                           v-model="invoiceData.discount">
-                                </div>
-                            </div>
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-6"><label>{{ app.trans.discount }}</label></div>-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <input :placeholder="app.trans.discount"-->
+<!--                                           class="form-control  input-xs amount-input"-->
+<!--                                           disabled type="text"-->
+<!--                                           v-model="invoiceData.discount">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                             <div class="row">
                                 <div class="col-md-6"><label>{{ app.trans.subtotal }}</label></div>
@@ -998,7 +997,7 @@
             },
 
             itemPriceUpdated(item) {
-                item.price = parseFloat(item.price).toFixed(2);
+                // item.price = parseFloat(item.price).toFixed(2);
                 let el = this.$refs['itemPrice_' + item.id + 'Ref'][0];
                 if (!inputHelper.validatePrice(item.price, el)) {
                     return false;

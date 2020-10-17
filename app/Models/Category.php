@@ -11,7 +11,7 @@ class Category extends BaseModel
 {
     //
     use  SoftDeletes, NestingTrait;
-    use WebCategory;
+    use  WebCategory;
     protected $appends = [
         'locale_name',
         'label',

@@ -22,6 +22,7 @@ class SaleController extends Controller
         $clients = User::where('is_client', true)->get();
         $creators = Manager::all();
         $departments = Department::all();
+
         return view('sales.index', compact('clients', 'creators', 'departments'));
     }
 
@@ -35,6 +36,7 @@ class SaleController extends Controller
         $clients = User::where('is_client', true)->get()->toArray();
         $expenses = Item::where('is_expense', true)->get();
         $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
+
         return view('sales.create', compact('clients', 'salesmen', 'gateways', 'expenses'));
     }
 
@@ -57,7 +59,7 @@ class SaleController extends Controller
     {
         $salesmen = Manager::all();
         $clients = User::where('is_client', true)->get()->toArray();
-        $services = Item::where('is_service', true)->get();
+//        $services = Item::where('is_service', true)->get();
         $expenses = Item::where('is_expense', true)->get();
 
         $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
@@ -77,15 +79,19 @@ class SaleController extends Controller
         return view('sales.create_draft_service', compact('clients', 'salesmen', 'gateways', 'services'));
     }
 
+    function clone(Invoice $sale)
+    {
+        // return $sale;
+//        $sale = $sale->withoutGlobalScope('draft')->first();
 
-    public function clone(Invoice $sale){
         $salesmen = Manager::all();
-			$clients = User::where('is_client',true)->get()->toArray();
-			$expenses = Item::where('is_expense',true)->get();
-			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
-			$sale = $sale->load('items.item.items.item','items.item.data','sale.client','sale.salesman');
-			return view('sales.clone',compact('clients','salesmen','gateways','expenses','sale'));
+        $clients = User::where('is_client', true)->get()->toArray();
+        $expenses = Item::where('is_expense', true)->get();
+        $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
+        $sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
+        return view('sales.clone', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale'));
     }
+
     /**
      * Show the specified resource.
      * @param Invoice $sale
@@ -93,8 +99,12 @@ class SaleController extends Controller
      */
     public function show(Invoice $sale)
     {
+//        $sale = $sale->withoutGlobalScope('draft');
+
         $transactions = $sale->transactions()->get();
         $invoice = $sale;
+        $invoice->sale = $invoice->sale()->withoutGlobalScope('draft')->first();
+
         return view('sales.view', compact('invoice', 'transactions'));
     }
 
@@ -108,14 +118,23 @@ class SaleController extends Controller
         $invoice = $sale;
         $sale = $invoice->sale;
         $items = [];
-        $data_source_items = $invoice->items()->with('item')->get();
+        $data_source_items = $invoice->items()->where('parent_kit_id',0)->with('item')->get();
+
         foreach ($data_source_items as $item) {
             if ($item->item->is_need_serial) {
                 $item['serials'] = $item->item->serials()->sale($invoice->id)->get();
             }
+
+            if ($item->item->is_kit) {
+                $item['items'] = $invoice->items()->kitItems($item->id)->with('item')->get();
+            }
+
+
             $items[] = $item;
         }
-        $expenses = Item::where('is_expense', true)->get();
+
+        // return $items;
+        $expenses = [];//Item::where('is_expense', true)->get()
         $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
         return view('sales.create_return', compact('sale', 'invoice', 'items', 'gateways', 'expenses'));
     }

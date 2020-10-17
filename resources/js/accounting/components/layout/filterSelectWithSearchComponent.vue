@@ -80,17 +80,15 @@
             </div>
         </div>
 
-        <div justify="center">
+        <div justify="center" data-app>
             <v-dialog
-                    :dark="true"
-                    :eager="false"
-                    :full-width="false"
-                    :hide-overlay="true"
-                    :isActive="activeList"
-                    :sm-and-down="false"
-                    :smAndDown="false"
+                
                     v-model="showCreateValueDialog"
-                    width="700">
+                     fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+      dark
+                    >
 
                 <v-card>
                     <v-card-title class="headline grey lighten-2" primary-title>
@@ -154,7 +152,6 @@
 
     export default {
 
-        components: {},
         props: ["options", "default", 'index', 'filter', 'translator', 'messages', 'reusable_translator',
             'disabled', 'canEdit', 'canCreate'],
         data: function () {

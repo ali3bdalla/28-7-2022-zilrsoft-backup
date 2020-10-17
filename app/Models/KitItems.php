@@ -2,24 +2,11 @@
 
 namespace App\Models;
 
-use App\Relationships\KitItemsRelationships;
-use App\Scopes\OrganizationScope;
-use Illuminate\Database\Eloquent\Model;
-
-class KitItems extends Model
+class KitItems extends BaseModel
 {
 
-    use KitItemsRelationships;
 
     protected $guarded = [];
-
-    protected static function boot()
-    {
-        parent::boot();
-        if (auth()->check()) {
-            static::addGlobalScope(new OrganizationScope(auth()->user()->organization_id));
-        }
-    }
 
     public function item()
     {
@@ -31,6 +18,6 @@ class KitItems extends Model
     {
         return $this->belongsTo(Item::class, 'kit_id');
     }
-
-    //
+	
+	
 }

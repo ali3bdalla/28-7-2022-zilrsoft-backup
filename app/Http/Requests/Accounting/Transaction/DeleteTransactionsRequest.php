@@ -37,7 +37,7 @@ class DeleteTransactionsRequest extends FormRequest
         DB::beginTransaction();
         try{
             $response = ['message' =>  "{$transactionsContainer->id} has been deleted"];
-            $transactions = $transactionsContainer->transactions()->withoutGlobalScope('pendingTransactionScope')->get();
+            $transactions = $transactionsContainer->transactions()->withoutGlobalScope('pending')->get();
             if($transactions->count() > 0)
                 foreach ($transactions as $transaction)
                     $transaction->delete();

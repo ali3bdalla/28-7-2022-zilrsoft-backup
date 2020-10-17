@@ -41,7 +41,6 @@ class CreateAmericanChartOfAccountsJob implements ShouldQueue
 
         $supervisor = $this->supervisor;
 
-        // dd($supervisor);
         $this->organization->accounts_creator_id = $supervisor->id;
         $this->organization->accounts_organization_id = $this->organization->id;
         $this->create_init_accounting_accounts();
@@ -270,31 +269,31 @@ class CreateAmericanChartOfAccountsJob implements ShouldQueue
             'is_gateway' => false,
         ]);
 
-        $alrajhi = Account::create([
-            'is_system_account' => true,
-            "ar_name" => "الراجحي",
-            'type' => 'debit',
-            "name" => "Alrghi",
-            "slug" => "gateway",
-            "parent_id" => $banks_account->id,
-            "serial" => "112000000000000000000",
-            'organization_id' => $this->organization->accounts_organization_id,
-            'creator_id' => $this->organization->accounts_creator_id,
-            'is_gateway' => false,
-        ]);
-
-        $alrass = Account::create([
-            'is_system_account' => true,
-            "ar_name" => "فرع الرس",
-            'type' => 'debit',
-            "name" => "Alrass",
-            "slug" => "gateway",
-            "parent_id" => $alrajhi->id,
-            "serial" => "112000000000000000000",
-            'organization_id' => $this->organization->accounts_organization_id,
-            'creator_id' => $this->organization->accounts_creator_id,
-            'is_gateway' => true,
-        ]);
+//        $alrajhi = Account::create([
+//            'is_system_account' => true,
+//            "ar_name" => "الراجحي",
+//            'type' => 'debit',
+//            "name" => "Alrghi",
+//            "slug" => "gateway",
+//            "parent_id" => $banks_account->id,
+//            "serial" => "112000000000000000000",
+//            'organization_id' => $this->organization->accounts_organization_id,
+//            'creator_id' => $this->organization->accounts_creator_id,
+//            'is_gateway' => false,
+//        ]);
+//
+//        $alrass = Account::create([
+//            'is_system_account' => true,
+//            "ar_name" => "فرع الرس",
+//            'type' => 'debit',
+//            "name" => "Alrass",
+//            "slug" => "gateway",
+//            "parent_id" => $alrajhi->id,
+//            "serial" => "112000000000000000000",
+//            'organization_id' => $this->organization->accounts_organization_id,
+//            'creator_id' => $this->organization->accounts_creator_id,
+//            'is_gateway' => true,
+//        ]);
 
         $this->creat_single_bank_children($alrass);
 
@@ -315,57 +314,57 @@ class CreateAmericanChartOfAccountsJob implements ShouldQueue
             'is_gateway' => true,
         ]);
 
-        Account::create([
-            'is_system_account' => true,
-            "ar_name" => "مدى احمد",
-            "name" => "Mada Ahmed",
-            "slug" => "gateway",
-            'type' => 'debit',
-            "parent_id" => $mada->id,
-            "serial" => "112000000000000000000",
-            'organization_id' => $this->organization->accounts_organization_id,
-            'creator_id' => $this->organization->accounts_creator_id,
-            'is_gateway' => true,
-        ]);
+//        Account::create([
+//            'is_system_account' => true,
+//            "ar_name" => "مدى احمد",
+//            "name" => "Mada Ahmed",
+//            "slug" => "gateway",
+//            'type' => 'debit',
+//            "parent_id" => $mada->id,
+//            "serial" => "112000000000000000000",
+//            'organization_id' => $this->organization->accounts_organization_id,
+//            'creator_id' => $this->organization->accounts_creator_id,
+//            'is_gateway' => true,
+//        ]);
 
-        Account::create([
-            'is_system_account' => true,
-            "ar_name" => "مدى محمود",
-            "name" => "Mada Mahmod",
-            'type' => 'debit',
-            "slug" => "gateway",
-            "parent_id" => $mada->id,
-            "serial" => "112000000000000000000",
-            'organization_id' => $this->organization->accounts_organization_id,
-            'creator_id' => $this->organization->accounts_creator_id,
-            'is_gateway' => true,
-        ]);
-
-        Account::create([
-            'is_system_account' => true,
-            "ar_name" => "مدى عبدالرحمن",
-            "name" => "Mada Abdalrahman",
-            'type' => 'debit',
-            "slug" => "gateway",
-            "parent_id" => $mada->id,
-            "serial" => "112000000000000000000",
-            'organization_id' => $this->organization->accounts_organization_id,
-            'creator_id' => $this->organization->accounts_creator_id,
-            'is_gateway' => true,
-        ]);
-
-        Account::create([
-            'is_system_account' => true,
-            "ar_name" => "استي سي بي",
-            "name" => "STC Pay",
-            "slug" => "gateway",
-            'type' => 'debit',
-            "parent_id" => $bank->id,
-            "serial" => "112000000000000000000",
-            'organization_id' => $this->organization->accounts_organization_id,
-            'creator_id' => $this->organization->accounts_creator_id,
-            'is_gateway' => true,
-        ]);
+//        Account::create([
+//            'is_system_account' => true,
+//            "ar_name" => "مدى محمود",
+//            "name" => "Mada Mahmod",
+//            'type' => 'debit',
+//            "slug" => "gateway",
+//            "parent_id" => $mada->id,
+//            "serial" => "112000000000000000000",
+//            'organization_id' => $this->organization->accounts_organization_id,
+//            'creator_id' => $this->organization->accounts_creator_id,
+//            'is_gateway' => true,
+//        ]);
+//
+//        Account::create([
+//            'is_system_account' => true,
+//            "ar_name" => "مدى عبدالرحمن",
+//            "name" => "Mada Abdalrahman",
+//            'type' => 'debit',
+//            "slug" => "gateway",
+//            "parent_id" => $mada->id,
+//            "serial" => "112000000000000000000",
+//            'organization_id' => $this->organization->accounts_organization_id,
+//            'creator_id' => $this->organization->accounts_creator_id,
+//            'is_gateway' => true,
+//        ]);
+//
+//        Account::create([
+//            'is_system_account' => true,
+//            "ar_name" => "استي سي بي",
+//            "name" => "STC Pay",
+//            "slug" => "gateway",
+//            'type' => 'debit',
+//            "parent_id" => $bank->id,
+//            "serial" => "112000000000000000000",
+//            'organization_id' => $this->organization->accounts_organization_id,
+//            'creator_id' => $this->organization->accounts_creator_id,
+//            'is_gateway' => true,
+//        ]);
 
     }
 

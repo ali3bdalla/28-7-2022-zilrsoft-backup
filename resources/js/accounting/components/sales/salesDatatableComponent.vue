@@ -495,7 +495,7 @@
 
 
             initUi() {
-                this.requestUrl =  '/accounting/datatable/sales';
+                this.requestUrl =  '/api/sales';
                 this.baseUrl = this.app.trans.SaleBaseUrl + "/";
                 this.customDateShortcuts = [
                     {key: 'day', label: this.app.datetimetrans.today, value: 'day'},
@@ -518,7 +518,7 @@
                 params.orderBy = this.orderBy;
                 params.itemsPerPage = this.itemsPerPage;
                 params.orderType = this.orderType;
-                if (this.onlyQuotations) {
+                if (this.onlyQuotations == 1 || this.onlyQuotations == true) {
                     params.is_draft = true;
                 }
 

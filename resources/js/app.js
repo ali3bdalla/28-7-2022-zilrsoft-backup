@@ -6,23 +6,23 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import CxltToastr from 'cxlt-vue2-toastr'
 import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css'
-require('./bootstrap');
-window.TextValidator = require('validator');
 import VuejsDialog from 'vuejs-dialog';
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
 import VModal from 'vue-js-modal'
+
+require('./bootstrap');
+window.TextValidator = require('validator');
 
 window.getRequestUrl = function (path) {
     return '/api/web/' + path + "?lang=ar";
 }
 
-window.getIndex = function(needle, haystack)
-{
+window.getIndex = function (needle, haystack) {
     let length = haystack.length;
-    for(let i = 0; i < length; i++) {
-        if(haystack[i] === needle) return i;
+    for (let i = 0; i < length; i++) {
+        if (haystack[i] === needle) return i;
     }
-    return  -1;
+    return -1;
 }
 window.Vue = Vue;
 require('./accounting/load');

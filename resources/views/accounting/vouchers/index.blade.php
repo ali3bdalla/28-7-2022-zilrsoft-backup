@@ -7,10 +7,10 @@
 
 @section('buttons')
     @can('create voucher')
-        <a href="{{ route("accounting.vouchers.create") }}?voucher_type=payment" class="btn btn-custom-primary"><i
+        <a href="{{ route("vouchers.create") }}?voucher_type=payment" class="btn btn-custom-primary"><i
                     class='fa
                     fa-plus-circle'></i>&nbsp; {{ __('pages/vouchers.create_payment') }}</a>
-        <a href="{{ route("accounting.vouchers.create") }}?voucher_type=receipt" class="btn  btn-custom-default"><i
+        <a href="{{ route("vouchers.create") }}?voucher_type=receipt" class="btn  btn-custom-default"><i
                     class='fa
                     fa-plus-circle'></i>&nbsp; {{ __('pages/vouchers.create_receipt') }}</a>
     @endcan

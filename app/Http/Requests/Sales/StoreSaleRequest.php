@@ -104,9 +104,9 @@ class StoreSaleRequest extends FormRequest
              *
              */
             $paymentsMethods = $this->validatePaymentsAndGetPaymentMethods($invoice);
-
             dispatch(new StoreSalePaymentsJob($invoice, $paymentsMethods));
             dispatch(new StoreSaleTransactionsJob($invoice));
+
             DB::commit();
             return $invoice;
         } catch (QueryException $queryException) {

@@ -35,7 +35,7 @@
 		public function rules()
 		{
 			return [
-				//
+				// 
 				'description' => 'nullable|string',
 				'user_id' => 'required|integer|exists:users,id',
 				'amount' => 'required|numeric',

@@ -41,17 +41,17 @@ class FetchEntitiesRequest extends FormRequest
     {
 
 
-        $query =  Transaction::where('account_id',$account->id)->orderBy('created_at','asc');
+        $query = Transaction::where('account_id', $account->id);//->orderBy('created_at', 'asc')
 
         if (
             $this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
             $this->filled('endDate')
         ) {
-            $_startDate = Carbon::parse($this->input("startDate"))->toDateString();
-            $_endDate = Carbon::parse($this->input("endDate"))->toDateString();
+            $_startDate = Carbon::parse($this->input("startDate"));
+            $_endDate = Carbon::parse($this->input("endDate"));
 
             if ($_endDate === $_startDate) {
-                $query = $query->whereDate('created_at', $_startDate);
+                $query = $query->where('created_at', $_startDate);
             } else {
                 $query = $query->whereBetween('created_at', [
                     $_startDate,
@@ -86,14 +86,14 @@ class FetchEntitiesRequest extends FormRequest
             }
             $query = $query->whereBetween('amount', [$startAmount, $endAmount]);
         }
+//
+//        if ($this->has('orderBy') && $this->filled('orderBy') && $this->has('orderType') && $this->filled('orderType')) {
+//            $query = $query->orderBy($this->input(orderBy), $this->input('orderType'));
+//        } else {
+//        $query = $query->orderByDesc("created_at");
+//        }
 
-        if ($this->has('orderBy') && $this->filled('orderBy') && $this->has('orderType') && $this->filled('orderType')) {
-            $query = $query->orderBy($this->input(orderBy), $this->input('orderType'));
-        } else {
-            $query = $query->orderByDesc("id");
-        }
-
-        $query = $query->with('invoice','user');
+        $query = $query->with('invoice', 'user');
 
         if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && (int)($this->input("itemsPerPage")) >= 1) {
             $result = $query->paginate(intval($this->input('itemsPerPage')));

@@ -2,8 +2,8 @@
 /public/hot
 /phpmyadmin
 /public/storage
-/storage/*.key
-#/vendor
+/storage
+/vendor
 .env
 .env.backup
 .phpunit.result.cache

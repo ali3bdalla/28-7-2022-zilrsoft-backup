@@ -2,6 +2,7 @@
     <div class="user-panel">
         <img src="{{ asset(auth()->user()->organization->logo) }}" class="center-block img-responsive"
              alt="{{ auth()->user()->organization->title_ar }}" width="100px" style="">
+        <h3 class="p-3 text-white btn btn-primary">{{ auth()->user()->organization->title_ar }}</h3>
     </div>
 
     <ul class="sidebar-menu" data-widget="tree">
@@ -11,11 +12,11 @@
 
             </a>
             <ul class="treeview-menu">
-                <li><a href="{{route('accounting.dashboard.index')}}"><i class="fa fa-tachometer-alt"></i>
+                <li><a href="{{route('dashboard.index')}}"><i class="fa fa-tachometer-alt"></i>
                         {{ __('sidebar.dashboard') }}</a></li>
                 @can('view accounting')
                     <li>
-                        <a href="{{route('accounting.dashboard.index')}}"><i class="fa fa-sun"></i>
+                        <a href="{{route('dashboard.index')}}"><i class="fa fa-sun"></i>
                             {{ __('sidebar.statistics') }}
                         </a></li>
                 @endcan
@@ -109,14 +110,14 @@
 
 
                     @endcan
-                    @can('confirm purchase')
-                        <li>
-                            <a href="{{route('accounting.purchases.pending')}}"><i class="fab fa-product-hunt"></i>
-                                مشتريات منتظرة
-                            </a></li>
+{{--                    @can('confirm purchase')--}}
+{{--                        <li>--}}
+{{--                            <a href="{{route('purchases.pending')}}"><i class="fab fa-product-hunt"></i>--}}
+{{--                                مشتريات معلقة--}}
+{{--                            </a></li>--}}
 
 
-                    @endcan
+{{--                    @endcan--}}
                     @can('view sale')
                         <li>
                             <a href="{{route('sales.index')}}"><i class="fa fa-sun"></i>
@@ -143,7 +144,7 @@
 
                     @can('manage inventory')
                         <li>
-                            <a href="{{route('accounting.inventories.beginning.index')}}"><i class="fa fa-sun"></i>
+                            <a href="{{route('inventory.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.beginning_inventory') }}
                             </a></li>
 
@@ -153,19 +154,19 @@
                         {{--                            </a></li>--}}
 
                     @endcan
-                    <li>
-                        <a href="{{route('accounting.reseller_daily.account_close_list')}}"><i class="fa fa-sun"></i>
-                            {{ __('sidebar.account_close') }}
-                        </a></li>
-                    <li>
-                        <a href="{{route('accounting.inventories.adjust_stock.index')}}"><i class="fa fa-sun"></i>
-                            جرد المخزون
-                        </a></li>
+{{--                    <li>--}}
+                        {{--                        <a href="{{route('accounting.reseller_daily.account_close_list')}}"><i class="fa fa-sun"></i>--}}
+                        {{--                            {{ __('sidebar.account_close') }}--}}
+                        {{--                        </a></li>--}}
+                        {{--                    <li>--}}
+                        {{--                        <a href="{{route('accounting.inventories.adjust_stock.index')}}"><i class="fa fa-sun"></i>--}}
+                        {{--                            جرد المخزون--}}
+                        {{--                        </a></li>--}}
 
-                    <li>
-                        <a href="{{route('accounting.inventories.inventory_reconciliation')}}"><i class="fa fa-sun"></i>
-                            تسوية المخزون
-                        </a></li>
+                        {{--                    <li>--}}
+                        {{--                        <a href="{{route('accounting.inventories.inventory_reconciliation')}}"><i class="fa fa-sun"></i>--}}
+                        {{--                            تسوية المخزون--}}
+                        {{--                        </a></li>--}}
 
                 </ul>
             </li>
@@ -183,7 +184,7 @@
 
                     @can('view voucher')
                         <li>
-                            <a href="{{route('accounting.vouchers.index')}}"><i class="fab fa-product-hunt"></i>
+                            <a href="{{route('vouchers.index')}}"><i class="fab fa-product-hunt"></i>
                                 {{ __('sidebar.vouchers') }}
                             </a></li>
 
@@ -191,13 +192,13 @@
                     @endcan
                     @can('create voucher')
                         <li>
-                            <a href="{{route('accounting.vouchers.create')}}?voucher_type=payment"><i class="fa
+                            <a href="{{route('vouchers.create')}}?voucher_type=payment"><i class="fa
                             fa-sun"></i>
                                 {{ __('pages/vouchers.create_payment') }}
                             </a></li>
 
                         <li>
-                            <a href="{{route('accounting.vouchers.create')}}?voucher_type=receipt"><i class="fa
+                            <a href="{{route('vouchers.create')}}?voucher_type=receipt"><i class="fa
                             fa-sun"></i>
                                 {{ __('pages/vouchers.create_receipt') }}
                             </a></li>
@@ -224,56 +225,55 @@
 
                         <li>
                             <a href="{{route('financial_statements.trial_balance')}}"><i class="fa fa-sun"></i>
-                                 ميزان المراجعة
+                                ميزان المراجعة
                             </a></li>
-{{--                        <li>--}}
-{{--                            <a href="{{route('financial_statements.index')}}"><i class="fa fa-sun"></i>--}}
-{{--                               القوائم المالية--}}
-{{--                            </a></li>--}}
+                        {{--                        <li>--}}
+                        {{--                            <a href="{{route('financial_statements.index')}}"><i class="fa fa-sun"></i>--}}
+                        {{--                               القوائم المالية--}}
+                        {{--                            </a></li>--}}
                     @endcan
                     @can('view transactions')
                         <li>
-                            <a href="{{route('accounting.transactions.index')}}"><i class="fa fa-sun"></i>
+                            <a href="{{route('entities.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.transactions') }}
                             </a></li>
                     @endcan
 
 
-
                 </ul>
             </li>
         @endcanany
 
 
-        @canany(['view reports','create report'])
-            <li class="treeview">
-                <a href="#">
-                    <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}
-                        {{ __('sidebar.reports') }}</span>
-                </a>
+{{--        @canany(['view reports','create report'])--}}
+        {{--            <li class="treeview">--}}
+        {{--                <a href="#">--}}
+        {{--                    <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}--}}
+        {{--                        {{ __('sidebar.reports') }}</span>--}}
+        {{--                </a>--}}
 
-                <ul class="treeview-menu">
-                    @can('view reports')
-                        <li>
-                            <a href="{{route('accounting.reports.index')}}"><i class="fa fa-sun"></i>
-                                {{ __('sidebar.reports') }}
-                            </a></li>
-                    @endcan
-                    @can('create report')
-                        <li>
-                            <a href="{{route('accounting.identities.create')}}"><i class="fa fa-sun"></i>
-                                {{ __('pages/users.create') }}
-                            </a></li>
-                    @endcan
-
-
-                </ul>
-            </li>
-        @endcanany
+        {{--                <ul class="treeview-menu">--}}
+        {{--                    @can('view reports')--}}
+        {{--                        <li>--}}
+        {{--                            <a href="{{route('accounting.reports.index')}}"><i class="fa fa-sun"></i>--}}
+        {{--                                {{ __('sidebar.reports') }}--}}
+        {{--                            </a></li>--}}
+        {{--                    @endcan--}}
+        {{--                    @can('create report')--}}
+        {{--                        <li>--}}
+        {{--                            <a href="{{route('accounting.identities.create')}}"><i class="fa fa-sun"></i>--}}
+        {{--                                {{ __('pages/users.create') }}--}}
+        {{--                            </a></li>--}}
+        {{--                    @endcan--}}
 
 
+        {{--                </ul>--}}
+        {{--            </li>--}}
+        {{--        @endcanany--}}
 
-        @canany(['view identities','create identity','manage managers'])
+
+
+    @canany(['view identities','create identity','manage managers'])
             <li class="treeview">
                 <a href="#">
                     <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}

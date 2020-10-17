@@ -31,7 +31,7 @@
                 @foreach($managerCloseAccountList as $transaction)
                     <?php $total_amount = $transaction->container->transactions()->where([['type','debit']])
 			            ->withoutGlobalScope
-			            ('pendingTransactionScope')->sum('amount'); ?>
+			            ('pending')->sum('amount'); ?>
 		            <tbody>
         
                     <tr class="">

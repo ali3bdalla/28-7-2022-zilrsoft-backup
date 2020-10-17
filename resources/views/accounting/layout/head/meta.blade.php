@@ -7,7 +7,7 @@
 <meta name="second-color" content="#3498db">
 <meta name="app-locate" content="{{ app()->getLocale()  }}">
 <meta name="app-name" content="{{ config('app.name')  }}">
-<meta name="app-base-url" content="{{ route('accounting.dashboard.index')  }}">
+<meta name="app-base-url" content="{{ route('dashboard.index')  }}">
 
 
 <meta name="lang-sidebar" content="{{ json_encode(trans('sidebar')) }}">

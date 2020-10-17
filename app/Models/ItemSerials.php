@@ -19,15 +19,7 @@
 			'status_description'
 		];
 		
-		//
-		
-		protected static function boot()
-		{
-			parent::boot();
-			static::addGlobalScope('draftScope',function (Builder $builder){
-				$builder->where('is_draft',false);
-			});
-		}
+	
 		
 		public function getStatusDescriptionAttribute()
 		{

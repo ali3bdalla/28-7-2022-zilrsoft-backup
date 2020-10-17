@@ -2,7 +2,13 @@
 
 namespace App\Providers;
 
-
+use App\Events\Models\Account\AccountCreated;
+use App\Events\Models\Account\AccountUpdated;
+use App\Events\Models\Category\CategoryCreated;
+use App\Events\Models\Transaction\TransactionCreated;
+use App\Listeners\Models\Account\UpdateAccountDetailsListener;
+use App\Listeners\Models\Category\UpdateCategoryDetailsListener;
+use App\Listeners\Models\Transaction\UpdateTransactionDetailsListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -26,6 +32,21 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserCreatedEvent'=>[
             'App\Listeners\UserCreatedListener'
         ],
+
+        AccountCreated::class => [
+            UpdateAccountDetailsListener::class
+        ],
+        AccountUpdated::class => [
+            UpdateAccountDetailsListener::class
+        ],
+
+        TransactionCreated::class => [
+            UpdateTransactionDetailsListener::class
+        ],
+
+        CategoryCreated::class => [
+            UpdateCategoryDetailsListener::class
+        ]
 
     ];
 

@@ -153,7 +153,7 @@
 
 
                 <div class="company-info" style="margin-bottom: 10px">
-                    <span><?php echo e($invoice->user_type); ?> : <?php echo e($invoice->user->name); ?></span>
+                    <span><?php echo e($invoice->user_type); ?> : <?php echo e($invoice->final_user_name); ?></span>
                 </div>
                 <div class="company-info">
                     <span><?php echo e(__('pages/invoice.phone_number')); ?> :  <?php echo e($invoice->user->phone_number); ?></span>
@@ -427,11 +427,8 @@
 </html>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="<?php echo e(asset('accounting/js/jquery-barcode.min.js')); ?>"></script>
-<script>
-    $("#barcode_demo").barcode(
-        "<?php echo e($invoice->title); ?>",// Value barcode (dependent on the type of barcode)
-        "code39" // type (string)
-    );
+<script type="text/javascript">
+  
     print();
 </script>
 <?php /**PATH /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/printer/a4.blade.php ENDPATH**/ ?>

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-
+Route::resource('vouchers', 'VoucherController');
 Route::resource('sales', 'SaleController');
 Route::prefix('sales')->name('sales.')->group(function () {
     Route::post('/draft', 'SaleController@storeDraft')->name('store.draft');
@@ -24,6 +24,8 @@ Route::prefix('items/validations')->name('items.validations.')->group(function (
     Route::match(['get', 'post'], '/return_sales_serial', 'ItemController@ValidateReturnSalesSerial')->name('return_sales_serial');
     Route::match(['get', 'post'], '/return_purchases_serial', 'ItemController@ValidatePurchasesSerial')->name('return_purchases_serial');
     Route::match(['get', 'post'], '/purchases_serial', 'ItemController@ValidatePurchasesSerial')->name('purchases_serial');
+    Route::match(['get', 'post'], '/unique_barcode', 'ItemController@validateUniqueBarcode')->name('unique_barcode');
+
 });
 
 Route::prefix('items/query')->name('items.query.')->group(function () {

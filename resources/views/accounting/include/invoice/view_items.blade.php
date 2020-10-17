@@ -115,7 +115,7 @@
                                             <label>الحالة</label>
                                         </div>
                                     </div>
-                                    @foreach($item->item->serials()->withoutGlobalScope("draftScope")
+                                    @foreach($item->item->serials()->withoutGlobalScope("draft")
                                     ->where([
                                     ["sale_id",$invoice->id],
                                     ["item_id",$item->item->id],

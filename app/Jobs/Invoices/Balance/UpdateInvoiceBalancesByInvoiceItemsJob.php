@@ -44,7 +44,7 @@ class UpdateInvoiceBalancesByInvoiceItemsJob implements ShouldQueue
     {
         $items = $this->invoice
             ->items()
-            ->withoutGlobalScope('draftScope')
+            ->withoutGlobalScope('draft')
             ->where([['is_kit', false]])
             ->get();
         $result['total'] = 0;

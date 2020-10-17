@@ -87,7 +87,7 @@
 			
 			Transaction::where([
 				'invoice_id' => $adjust_stock->id
-			])->withoutGlobalScope("pendingTransactionScope")->update([
+			])->withoutGlobalScope("pending")->update([
 				'is_pending' => false
 			]);
 			

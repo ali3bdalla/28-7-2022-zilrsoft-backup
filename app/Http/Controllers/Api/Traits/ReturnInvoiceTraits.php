@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Api\Traits;
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
 use Illuminate\Validation\ValidationException;
-use Modules\Items\Jobs\ValidateItemSerialsJob;
 
 trait ReturnInvoiceTraits
 {
@@ -50,7 +49,7 @@ trait ReturnInvoiceTraits
     }
 
 
-    private function validateReturnedItemsData($items)
+    private function validateReturnedItemsData($items, $invoiceType = 'sale')
     {
 
         foreach ($items as $item) {
@@ -63,12 +62,14 @@ trait ReturnInvoiceTraits
                 throw $error;
             }
 
-            if ($dbInvoiceItem->invoice_type == 'purchase') {
-                if ($returnedQty > $dbInvoiceItem->item->available_qty) {
-                    $error = ValidationException::withMessages([
-                        "items.returned_qty" => ['item qty is not enough'],
-                    ]);
-                    throw $error;
+            if (!$dbInvoiceItem->item->is_service && !$dbInvoiceItem->item->is_kit) {
+                if ($dbInvoiceItem->invoice_type == 'purchase') {
+                    if ($returnedQty > $dbInvoiceItem->item->available_qty) {
+                        $error = ValidationException::withMessages([
+                            "items.returned_qty" => ['item qty is not enough'],
+                        ]);
+                        throw $error;
+                    }
                 }
             }
 

@@ -136,7 +136,7 @@
                 }];
 
                 qz.print(config, data).then(function () {
-                });
+                }).catch(error => console.log(error));
             },
 
             sha256(str) {

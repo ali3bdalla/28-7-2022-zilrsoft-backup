@@ -41,7 +41,7 @@ class StoreReturnSaleRequest extends FormRequest
             'items.*.returned_qty' => 'required',
             'items.*.serials' => 'nullable|array',
 //            'items.*.serials.*' => 'required|array',
-             'items.*.serials.*' => 'required|exists:item_serials,serial',
+            'items.*.serials.*' => 'required|exists:item_serials,serial',
             "methods" => 'nullable|array',
             'methods.*.id' => 'integer|required|exists:accounts,id',
         ];
@@ -51,6 +51,7 @@ class StoreReturnSaleRequest extends FormRequest
     {
         DB::beginTransaction();
         try {
+            // return $this->all();
 //            dd($this->all());
             $this->validateInvoiceType($saleInvoice);
             $returnedItems = $this->getReturnedItems();
@@ -73,7 +74,7 @@ class StoreReturnSaleRequest extends FormRequest
                 'organization_id' => $saleInvoice->organization_id,
                 'invoice_type' => 'return_sale',
                 'alice_name' => $saleInvoice->sale->alice_name,
-                "prefix" => "RSI-"
+                "prefix" => "RSI-",
             ]);
             dispatch(new UpdateInvoiceNumberJob($invoice, 'RSI-'));
             dispatch(new StoreReturnSaleItemsJob($invoice, $saleInvoice, $returnedItems));
@@ -120,7 +121,7 @@ class StoreReturnSaleRequest extends FormRequest
     {
         $items = [];
         foreach ($this->input('items') as $item) {
-            if ((int)$item['returned_qty'] >= 1) {
+            if ((int) $item['returned_qty'] >= 1) {
                 $items[] = $item;
             }
         }
@@ -140,11 +141,10 @@ class StoreReturnSaleRequest extends FormRequest
         foreach ($returnedItems as $item) {
 
             $dbInvoiceItem = InvoiceItems::find($item['id']);
-            $returnedQty = (int)$item['returned_qty'];
+            $returnedQty = (int) $item['returned_qty'];
             $item = collect($item);
             $this->validateBelongToInvoice($invoice, $dbInvoiceItem);
             if ($dbInvoiceItem->item->is_kit) {
-
                 $this->validateKit($dbInvoiceItem, $item, $returnedQty);
             } else {
                 $this->validateItemsQty($dbInvoiceItem, $item);
@@ -152,7 +152,6 @@ class StoreReturnSaleRequest extends FormRequest
                     $this->validateItemsSerials($dbInvoiceItem, $item, $returnedQty);
                 }
             }
-
 
         }
 
@@ -172,16 +171,19 @@ class StoreReturnSaleRequest extends FormRequest
     private function validateKit(InvoiceItems $invoiceItem, $requestItem, $returnedQty)
     {
 
+        // die($requestItem);
         $requestKitChildren = collect($requestItem->get('items'));
-
 
         $kitItems = $invoiceItem->invoice->items()->where([
             ['belong_to_kit', true],
             ['parent_kit_id', $invoiceItem->id],
         ])->get();
 
+        
         foreach ($kitItems as $kitItem) {
-            $kitItemRequestData = collect($requestKitChildren->where('id', $kitItem->id)->first());
+            $kitItemRequestData = collect($requestKitChildren->where('id', $kitItem->item_id)->first());
+
+
             $qtyPerItem = $kitItem->qty / $invoiceItem->qty;
             $KitItemReturnedQty = $returnedQty * $qtyPerItem;
             $requestItem['returned_qty'] = $KitItemReturnedQty;
@@ -190,6 +192,9 @@ class StoreReturnSaleRequest extends FormRequest
 
             if ($kitItem->item->is_need_serial) {
                 $requestItem['serials'] = $kitItemRequestData->get('serials');
+    
+                // die($requestItem);
+
                 $this->validateItemsSerials($kitItem, $kitItemRequestData, $KitItemReturnedQty);
             }
 
@@ -211,7 +216,8 @@ class StoreReturnSaleRequest extends FormRequest
     private function validateItemsSerials(InvoiceItems $invoiceItem, $requestItem, $returnedQty)
     {
 
-        $serials = (array)$requestItem->get('serials');
+
+        $serials = (array) $requestItem->get('serials');
 
         if ($serials == null) {
             $error = ValidationException::withMessages([
@@ -232,9 +238,9 @@ class StoreReturnSaleRequest extends FormRequest
 
         foreach ($serials as $serial) {
             $dbSerial = $invoiceItem->item->serials()->where([
-                [ 'sale_id', $invoiceItem->invoice_id ],
-                [ 'status', 'sold'],
-                [ 'serial', $serial ]
+                ['sale_id', $invoiceItem->invoice_id],
+                ['status', 'sold'],
+                ['serial', $serial],
             ])->first();
 
             if ($dbSerial == null) {
@@ -250,24 +256,24 @@ class StoreReturnSaleRequest extends FormRequest
 
     private function validatePaymentsAndGetPaymentMethods(Invoice $invoice)
     {
-        $netAmount = (float)$invoice->fresh()->net;
+        $netAmount = (float) $invoice->fresh()->net;
         $methodsCollects = collect($this->input('methods'));
         $paymentsMethodsCount = $methodsCollects->count();
-        $totalPaidAmount = (float)$methodsCollects->sum('amount');
+        $totalPaidAmount = (float) $methodsCollects->sum('amount');
         $user = $invoice->sale->client;
         if ($user->is_system_user) {
             if ($totalPaidAmount !== $netAmount) {
                 if ($paymentsMethodsCount < 1) {
                     throw ValidationException::withMessages(['payments' => "summation of payments methods should match invoice net "]);
                 } else {
-                    $variationAmount = $netAmount - (float)$totalPaidAmount;
+                    $variationAmount = $netAmount - (float) $totalPaidAmount;
                     $methods = $this->input('methods');
                     if ($variationAmount > 0) {
-                        $methods[0]['amount'] = (float)$methods[0]['amount'] + (float)$variationAmount;
+                        $methods[0]['amount'] = (float) $methods[0]['amount'] + (float) $variationAmount;
                     }
 
                     if ($variationAmount < 0) {
-                        $methods[0]['amount'] = (float)$methods[0]['amount'] - (float)abs($variationAmount);
+                        $methods[0]['amount'] = (float) $methods[0]['amount'] - (float) abs($variationAmount);
                     }
                     return $methods;
                 }
