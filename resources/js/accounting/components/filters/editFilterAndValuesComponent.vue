@@ -15,17 +15,23 @@
             </div>
         </div>
         <!-- create new value model -->
-        <div justify="center">
+        <div justify="center" data-app>
             <v-dialog
-                    :dark="true"
-                    :eager="true"
-                    :full-width="false"
-                    :hide-overlay="true"
-                    :isActive="filterUpdate.showCreateValueDialog"
-                    :smAndDown="true"
+
+                fullscreen
+                hide-overlay
+                transition="dialog-bottom-transition"
+                dark
+
                     v-model="filterUpdate.showCreateValueDialog"
                     width="700">
-
+<!--
+              :dark="true"
+              :eager="true"
+              :full-width="false"
+              :hide-overlay="true"
+              :isActive="filterUpdate.showCreateValueDialog"
+              :smAndDown="true"-->
                 <v-card>
                     <v-card-title class="headline grey lighten-2" primary-title>
                         ({{ filter.locale_name }})
