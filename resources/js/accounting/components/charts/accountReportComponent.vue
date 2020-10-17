@@ -14,10 +14,11 @@
             ></accounting-select-with-search-layout-component>
           </div>
           <div class="col-md-6">
+<!--            :behaviour="{time: {nearestIfDisabled: true}}"-->
+
             <VueCtkDateTimePicker
                 v-model="date_range"
                 :auto-close="true"
-                :behaviour="{time: {nearestIfDisabled: true}}"
                 :custom-shortcuts="customDateShortcuts"
                 :only-date="false"
                 :range="true"

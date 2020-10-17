@@ -240,8 +240,7 @@ export default {
     loadData: function () {
       if (this.isLoading == false) {
         this.isLoading = true;
-        let params = {},
-            appVm = this;
+        let params = {}, appVm = this;
         params.itemsPerPage = this.itemsPerPage;
         params.startDate = this.filters.startDate;
         params.endDate = this.filters.endDate;
@@ -250,12 +249,12 @@ export default {
           params.user_id = this.user.id;
         }
 
-        console.log(params);
         if (this.clearOldData) {
           this.transactions = [];
           this.totalCreditAmount = 0;
           this.totalDebitAmount = 0;
         }
+        console.log(this.requestUrl);
         axios
             .get(this.requestUrl, {
               params: params,
@@ -287,7 +286,7 @@ export default {
               appVm.paginationResponseData = response.data;
             })
             .catch((error) => {
-              alert(error);
+
             });
       }
     },
@@ -314,7 +313,7 @@ export default {
 
       if (this.filters.startDate != null && this.filters.endDate != null) {
         this.clearOldData = true;
-        this.requestUrl = this.paginationResponseData.path;
+        this.requestUrl = this.paginationResponseData.path == undefined ?  this.requestUrl : this.paginationResponseData.path;
         this.loadData();
       }
     },
