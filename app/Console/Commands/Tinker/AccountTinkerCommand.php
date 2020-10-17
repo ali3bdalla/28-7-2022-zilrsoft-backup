@@ -45,7 +45,8 @@
 		public function handle()
 		{
 			$accounts = Account::where('parent_id', '!=', 0)->whereNotIn('id', [13, 12, 20, 24])->get();
-			$startFrom = Carbon::parse('01-10-2020');
+			$startFromDate = Carbon::parse('01-10-2020 12:00:00');
+			
 			$createdAt = Carbon::parse('30-09-2020');
 			$baseAccount = Account::find(24);
 			
@@ -55,7 +56,7 @@
 				if($oldAccount && $oldAccountStatic) {
 					$oldBalance = $this->getOldBalance($account, $oldAccountStatic);
 					
-					$transactions = $account->transactions()->whereDate('created_at', '>=', $startFrom)->get();
+					$transactions = $account->transactions()->where('created_at', '>', $startFromDate)->get();
 					
 					$balanceAfterUpdate = $this->getTransactionsBalance($account, $transactions);
 					
@@ -211,17 +212,14 @@
 				$balance = $account->total_debit_amount - $account->total_credit_amount;
 			
 			
-			if($account->id == 27)
-			{
+			if($account->id == 27) {
 				$balance = $balance + 21827002.28;
 			}
 			
 			
-			if($account->id == 29)
-			{
+			if($account->id == 29) {
 				$balance = $balance + 21826956.73;
 			}
-			
 			
 			
 			return $balance - $balanceAfterUpdate;
