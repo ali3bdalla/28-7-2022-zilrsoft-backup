@@ -209,6 +209,20 @@
 			else
 				$balance = $account->total_debit_amount - $account->total_credit_amount;
 			
+			
+			if($account->id == 27)
+			{
+				$balance = $balance + 21827002.28;
+			}
+			
+			
+			if($account->id == 29)
+			{
+				$balance = $balance + 21826956.73;
+			}
+			
+			
+			
 			return $balance - $balanceAfterUpdate;
 		}
 	}
