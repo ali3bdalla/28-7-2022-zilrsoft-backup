@@ -306,7 +306,6 @@
               <div class="flex items-center justify-between mt-8">
                 <button
                   @click="submitRegister"
-                  :disabled="inValidData"
                   class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full"
                   type="submit"
                 >

@@ -2615,7 +2615,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4435,10 +4434,7 @@ var render = function() {
                           {
                             staticClass:
                               "bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full",
-                            attrs: {
-                              disabled: _vm.inValidData,
-                              type: "submit"
-                            },
+                            attrs: { type: "submit" },
                             on: { click: _vm.submitRegister }
                           },
                           [
