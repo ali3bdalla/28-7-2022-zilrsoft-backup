@@ -63,7 +63,7 @@
 		{
 			DB::beginTransaction();
 			try {
-				$this->validateSerials();
+//				$this->validateSerials();
 				$this->validateKits();
 //				$this->validateQuantities($this->input('items'));
 				$authUser = auth()->user();
