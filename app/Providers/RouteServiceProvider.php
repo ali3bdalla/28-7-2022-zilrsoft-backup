@@ -131,6 +131,7 @@ class RouteServiceProvider extends ServiceProvider
 		    return Invoice::where([
 			    ['id', $value],
 		    ])
+//			    ->whereIn('invoice_type',['return_sale','sale'])
 			    ->withoutGlobalScope('manager')->withoutGlobalScope('draft')->first();
 	    });
 	    

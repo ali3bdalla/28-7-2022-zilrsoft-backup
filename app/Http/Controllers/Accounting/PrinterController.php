@@ -22,6 +22,7 @@
 //			return $invoice->items()->groupBy('qty')->selectRaw('warranty_subscription_id')->get();
 			
 			
+			$invoice->sale = $invoice->sale()->withoutGlobalScope('draft')->first();
 			return view('accounting.printer.a4',compact('invoice'));
 		}
 		
