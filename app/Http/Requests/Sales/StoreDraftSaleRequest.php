@@ -64,8 +64,8 @@
 			DB::beginTransaction();
 			try {
 				$this->validateSerials();
-//				$this->validateKits();
-				$this->validateQuantities($this->input('items'));
+				$this->validateKits();
+//				$this->validateQuantities($this->input('items'));
 				$authUser = auth()->user();
 				
 				$invoice = Invoice::create(
