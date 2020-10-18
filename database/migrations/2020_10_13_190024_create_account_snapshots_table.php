@@ -16,6 +16,7 @@ class CreateAccountSnapshotsTable extends Migration
         Schema::create('account_snapshots', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('account_id');
+            $table->integer('organization_id');
             $table->float('debit_amount',20,8)->default(0);
             $table->float('credit_amount',20,8)->default(0);
             $table->softDeletes();

@@ -125,8 +125,15 @@ class RouteServiceProvider extends ServiceProvider
                 ['invoice_type','return_purchase']
             ])->withoutGlobalScope('manager')->first();
         });
-
-   
+	
+	
+	    Route::bind('invoice', function ($value) {
+		    return Invoice::where([
+			    ['id', $value],
+		    ])
+			    ->withoutGlobalScope('manager')->withoutGlobalScope('draft')->first();
+	    });
+	    
 
         Route::bind('quotation', function ($value) {
             return Invoice::where([
