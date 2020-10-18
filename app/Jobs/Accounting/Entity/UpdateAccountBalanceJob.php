@@ -15,11 +15,12 @@ class UpdateAccountBalanceJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $transaction;
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
+	
+	/**
+	 * Create a new job instance.
+	 *
+	 * @param Transaction $transaction
+	 */
     public function __construct(Transaction $transaction)
     {
         //
@@ -33,9 +34,15 @@ class UpdateAccountBalanceJob implements ShouldQueue
      */
     public function handle()
     {
+    	// grab account
         $account = $this->transaction->account;
+        
+        
+        
         $createdAt = Carbon::parse($this->transaction->created_at);
+        
         $snapshot = $account->snapshots()->whereDate('created_at', $createdAt)->first();
+        
         if($snapshot == null)
         {
             $snapshot = $account->snapshots()->create([
@@ -48,9 +55,12 @@ class UpdateAccountBalanceJob implements ShouldQueue
         $snapshotCreditAmount = $snapshot->credit_amount;
 
         if ($this->transaction->type == 'credit') {
-            $totalCreditAmount = $account->total_credit_amount + (float) $this->transaction->amount;
+        	
+        	// To Do Sum
+            $totalCreditAmount = (float)$account->total_credit_amount + (float) $this->transaction->amount;
             $totalDebitAmount = $account->total_debit_amount;
-            $snapshotCreditAmount += (float) $this->transaction->amount;
+            
+            $snapshotCreditAmount = (float)$snapshotCreditAmount + (float) $this->transaction->amount;
             $snapshot->update([
                 'credit_amount' => $snapshotCreditAmount,
             ]);

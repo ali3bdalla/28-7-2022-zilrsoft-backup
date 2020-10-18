@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-5"><label><?php echo e(__('pages/invoice.total')); ?></label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="<?php echo e($invoice->total); ?>"
+                    <input type="text" class="form-control input-xs amount-input" value="<?php echo e(displayMoney($invoice->total)); ?>"
                            disabled="">
                 </div>
             </div>
@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-5"><label><?php echo e(__('pages/invoice.discount')); ?></label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="<?php echo e($invoice->discount); ?>"
+                    <input type="text" class="form-control input-xs amount-input" value="<?php echo e(displayMoney($invoice->discount)); ?>"
                            disabled="">
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-md-5"><label><?php echo e(__('pages/invoice.subtotal')); ?></label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="<?php echo e($invoice->subtotal); ?>"
+                    <input type="text" class="form-control input-xs amount-input" value="<?php echo e(displayMoney($invoice->subtotal)); ?>"
                            disabled="">
                 </div>
             </div>
@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col-md-5"><label><?php echo e(__('pages/invoice.tax')); ?></label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="<?php echo e($invoice->tax); ?>"
+                    <input type="text" class="form-control input-xs amount-input" value="<?php echo e(displayMoney($invoice->tax)); ?>"
                            disabled="">
                 </div>
             </div>
@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="col-md-5"><label><?php echo e(__('pages/invoice.net')); ?></label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="<?php echo e($invoice->net); ?>"
+                    <input type="text" class="form-control input-xs amount-input" value="<?php echo e(displayMoney($invoice->net)); ?>"
                            disabled="">
                 </div>
             </div>

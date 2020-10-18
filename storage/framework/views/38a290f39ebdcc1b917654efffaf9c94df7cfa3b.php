@@ -54,22 +54,22 @@
                                disabled="">
                     </td>
                     <td>
-                        <input type="text" class="form-control input-sm amount-input" value="<?php echo e($item->price); ?>"
+                        <input type="text" class="form-control input-sm amount-input" value="<?php echo e(displayMoney($item->price)); ?>"
                                disabled="">
 
                     </td>
                     <td class="">
-                        <input type="text" class="form-control input-sm amount-input" value="<?php echo e($item->total); ?>"
+                        <input type="text" class="form-control input-sm amount-input" value="<?php echo e(displayMoney($item->total)); ?>"
                                disabled="">
                     </td>
                     <td class="">
                         <input type="text" class="form-control input-sm amount-input" placeholder="discount"
-                               value="<?php echo e($item->discount); ?>"
+                               value="<?php echo e(displayMoney($item->discount)); ?>"
                                disabled="">
                     </td>
                     <td class="">
                         <input type="text" class="form-control input-sm amount-input" placeholder="subtotal" readonly=""
-                               value="<?php echo e($item->subtotal); ?>" disabled="">
+                               value="<?php echo e(displayMoney($item->subtotal)); ?>" disabled="">
                     </td>
 
 
@@ -79,11 +79,11 @@
 
                     <td class="text-center">
                         <input type="text" class="form-control input-sm amount-input" placeholder="tax" readonly=""
-                               value="<?php echo e($item->tax); ?>" disabled="">
+                               value="<?php echo e(displayMoney($item->tax)); ?>" disabled="">
                     </td>
                     <td class="">
                         <input type="text" class="form-control input-sm amount-input" placeholder="net" readonly=""
-                               value="<?php echo e($item->net); ?>" disabled="">
+                               value="<?php echo e(displayMoney($item->net)); ?>" disabled="">
                     </td>
 
                 </tr>

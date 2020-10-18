@@ -22,7 +22,7 @@
                     <td class="date_field_center"><?php echo e($transaction->created_at); ?></td>
                     <td><?php echo e($transaction->account_name); ?></td>
                     <td></td>
-                    <td><?php echo e($transaction->amount); ?></td>
+                    <td><?php echo e(displayMoney($transaction->amount)); ?></td>
                 </tr>
 
 
@@ -32,7 +32,7 @@
                 <tr>
                     <td class="date_field_center"><?php echo e($transaction->created_at); ?></td>
                     <td><?php echo e($transaction->account_name); ?></td>
-                    <td><?php echo e($transaction->amount); ?></td>
+                    <td><?php echo e(displayMoney($transaction->amount)); ?></td>
                     <td></td>
                 </tr>
 
@@ -44,8 +44,8 @@
         <thead>
         <th>المجموع</th>
         <th></th>
-        <th><?php echo e($total_debit); ?></th>
-        <th><?php echo e($total_credit); ?></th>
+        <th><?php echo e(displayMoney($total_debit)); ?></th>
+        <th><?php echo e(displayMoney($total_credit)); ?></th>
         </thead>
 
 

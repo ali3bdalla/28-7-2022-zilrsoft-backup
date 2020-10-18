@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @property mixed account
  * @property mixed amount
+ * @property mixed created_at
+ * @property mixed type
  */
 class Transaction extends BaseModel
 {
