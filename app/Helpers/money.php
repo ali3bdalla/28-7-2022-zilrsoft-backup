@@ -30,6 +30,19 @@
 		}
 	}
 	
+	
+	
+	if(!function_exists('displayAccountingMoney')) {
+		function displayAccountingMoney($money, $decimal = 2)
+		{
+//			round($money,2)
+			$fmt = numfmt_create('en_US', NumberFormatter::Accoun);
+			return numfmt_format($fmt, $money,3);
+
+//			return roundMoney($money);
+		}
+	}
+	
 
 
 

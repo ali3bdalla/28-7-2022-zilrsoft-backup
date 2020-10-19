@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed amount
  * @property mixed created_at
  * @property mixed type
+ * @property mixed user_id
  */
 class Transaction extends BaseModel
 {
@@ -86,6 +87,25 @@ class Transaction extends BaseModel
     {
         return $this->belongsTo(TransactionsContainer::class, 'container_id');
     }
+	
+	
+	public function getDescriptionAttribute($value)
+	{
+		if($value == 'close_account')
+		{
+			return 'اغلاق اليومية';
+		}
+		if($value == 'vendor_balance')
+		{
+			return 'رصيد المورد';
+		}
+		
+	
+		
+		return $value;
+    }
+    
+    
 	
 	
 

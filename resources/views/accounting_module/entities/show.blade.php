@@ -10,7 +10,7 @@
     <div class="panel">
 
         <div class="panel panel-body">
-            <h4>{{  $entity->created_at }} - {{  $entity->creator->name }}</h4>
+            <h4>{{  $entity->created_at }} - {{  $entity->creator->locale_name }}</h4>
             <h5>الوصف : {{ $entity->description }}</h5>
 
         </div>

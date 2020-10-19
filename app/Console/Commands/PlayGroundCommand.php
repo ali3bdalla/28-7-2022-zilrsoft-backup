@@ -102,7 +102,14 @@
 //				]
 //			);
 //
-			
+
+//			$account=  Account::find(21);
+//			$startDate = Carbon::parse('01-01-2020');
+//			$endDate = Carbon::parse('30-09-2020');
+//			$totalCredit = $account->transactions()->where('type', 'credit')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
+////			$totalDebit = $account->transactions()->where('type', 'debit')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
+//
+//			dd($totalCredit);
 			
 			$transactions = Transaction::orderBy('created_at', 'asc')->get();
 			

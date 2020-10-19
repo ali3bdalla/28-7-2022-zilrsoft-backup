@@ -12,5 +12,7 @@
     @endcan
 @endsection
 @section('content')
-    <accounting-chart-of-accounts-list-component :accounts='@json($accounts)'></accounting-chart-of-accounts-list-component>
+    <accounting-chart-of-accounts-list-component
+            :can-edit-account='@json(auth()->user()->can('edit chart'))'
+            :accounts='@json($accounts)'></accounting-chart-of-accounts-list-component>
 @endsection

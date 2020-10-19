@@ -13,7 +13,7 @@
         {{-- <div class="panel-heading">
         </div> --}}
         <div class="panel-body">
-            <table class="table table-bordered text-center">
+            <table class="table table-bordered text-center table-striped">
                 <thead>
                 <tr>
                     <th class="text-right ">اسم الهوية</th>

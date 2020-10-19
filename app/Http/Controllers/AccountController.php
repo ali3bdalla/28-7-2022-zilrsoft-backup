@@ -60,7 +60,6 @@
 			if($account->slug == 'stock') {
 				$items = Item::paginate(50);
 				return view('accounting.charts.transactions.items', compact('items', 'account'));
-//				return redirect(route('accounts.show.stock', $account->id));
 			}
 			
 			
@@ -72,7 +71,6 @@
 					]
 				)->get();
 				return view('accounting_module.entities.identities', compact('identities', 'account'));
-//				return redirect(route('accounts.show.users', $account->id));
 			}
 			
 			if($account->slug == 'clients') {
@@ -83,14 +81,12 @@
 					]
 				)->get();
 				return view('accounting_module.entities.identities', compact('identities', 'account'));
-//				return redirect(route('accounts.show.users', $account->id));
 			}
-//			$account->slug == 'clients'
 			
 			
 			$user = null;
-			$stock = null;
-			return view('accounting.charts.transactions.v2.index', compact('account', 'stock', 'user'));
+			$item = null;
+			return view('accounting.charts.transactions.v2.index', compact('account', 'item', 'user'));
 		}
 		
 		
@@ -123,7 +119,6 @@
 			$ids[] = $account->id;
 			$accounts = Account::WhereNotIn('id', $ids)->get();
 			return view('accounting.charts.edit', compact('account', 'accounts'));
-			//
 		}
 		
 		

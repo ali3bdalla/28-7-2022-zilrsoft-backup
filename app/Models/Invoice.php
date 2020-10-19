@@ -21,6 +21,7 @@
 	 * @property mixed items
 	 * @property mixed managed_by_id
 	 * @property mixed vendor_invoice_number
+	 * @property mixed is_draft
 	 * @method static create(array $array)
 	 */
 	class Invoice extends BaseModel
@@ -132,7 +133,7 @@
 		public function getBackgroundAssetAttribute()
 		{
 			
-			if($this->invoice_type == 'quotation') {
+			if($this->is_draft) {
 				if(app()->isLocale('ar')) {
 					return asset('template/images/quotation-ar.png');
 				} else {

@@ -43,17 +43,30 @@
 		
 		public function report(Account $account, Request $request)
 		{
-			$startDate = Carbon::parse($request->startDate);
-			$endDate = Carbon::parse($request->endDate);
-			$totalCredit = $account->transactions()->where('type', 'credit')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
-			$totalDebit = $account->transactions()->where('type', 'debit')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
-			$balance = 0;
+			$startDate = Carbon::parse($request->input('startDate'));
+			$endDate = Carbon::parse($request->input('endDate'));
+			
+			if($startDate == $endDate) {
+				$totalCredit = $account->transactions()->where('type', 'credit')->whereDAte('created_at', $startDate)->sum('amount');
+				
+				$totalDebit = $account->transactions()->where('type', 'debit')->whereDate('created_at', $startDate)->sum('amount');
+				
+			} else {
+				$totalCredit = $account->transactions()->where('type', 'credit')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
+				$totalDebit = $account->transactions()->where('type', 'debit')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
+				
+			}
+			
 			if($account->type == 'credit') {
 				$balance = $totalCredit - $totalDebit;
 			} else {
 				$balance = $totalDebit - $totalCredit;
 			}
 			
+			
+			if($balance < 0.01) {
+				$balance = 0;
+			}
 			return [
 				'total_credit' => $totalCredit,
 				'total_debit' => $totalDebit,

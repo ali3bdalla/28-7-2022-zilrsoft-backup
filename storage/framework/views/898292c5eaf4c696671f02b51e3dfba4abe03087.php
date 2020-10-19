@@ -9,6 +9,8 @@
     <?php endif; ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-    <accounting-chart-of-accounts-list-component :accounts='<?php echo json_encode($accounts, 15, 512) ?>'></accounting-chart-of-accounts-list-component>
+    <accounting-chart-of-accounts-list-component
+            :can-edit-account='<?php echo json_encode(auth()->user()->can('edit chart'), 15, 512) ?>'
+            :accounts='<?php echo json_encode($accounts, 15, 512) ?>'></accounting-chart-of-accounts-list-component>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('accounting.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/charts/index.blade.php ENDPATH**/ ?>

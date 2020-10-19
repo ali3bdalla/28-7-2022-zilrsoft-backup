@@ -7,7 +7,7 @@
     <div class="panel">
 
         <div class="panel panel-body">
-            <h4><?php echo e($entity->created_at); ?> - <?php echo e($entity->creator->name); ?></h4>
+            <h4><?php echo e($entity->created_at); ?> - <?php echo e($entity->creator->locale_name); ?></h4>
             <h5>الوصف : <?php echo e($entity->description); ?></h5>
 
         </div>
