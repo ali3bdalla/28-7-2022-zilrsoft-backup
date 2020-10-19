@@ -413,8 +413,8 @@
 
             </div>
             <div class="issued_by">
-                @if(auth()->user()->organaztion->stamp != null)
-                    <div style="margin-bottom: 9px"><img src="{{auth()->user()->organaztion->stamp}}" style="width: 80px"/></div>
+                @if(auth()->user()->organization->stamp != null)
+                    <div style="margin-bottom: 9px"><img src="{{auth()->user()->organization->stamp}}" style="width: 80px"/></div>
 
                 @endif
                 <h3 style="margin-bottom: 9px">{{__('reusable.issued_by')}}</h3>
