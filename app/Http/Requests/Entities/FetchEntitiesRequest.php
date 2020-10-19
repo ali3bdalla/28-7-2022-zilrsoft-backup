@@ -42,7 +42,6 @@
 			
 			
 			$query = Transaction::where('account_id', $account->id);//->orderBy('created_at', 'asc')
-			
 			if(
 				$this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
 				$this->filled('endDate')
@@ -95,12 +94,12 @@
 //        $query = $query->orderByDesc("created_at");
 //        }
 			
-			$query = $query->with('invoice', 'user');
+			$query = $query->with('invoice', 'user','item');
 			
 			if($this->has('itemsPerPage') && $this->filled('itemsPerPage') && (int)($this->input("itemsPerPage")) >= 1) {
 				$result = $query->paginate(intval($this->input('itemsPerPage')));
 			} else {
-				$result = $query->paginate(500);
+				$result = $query->paginate(100);
 			}
 			return new TransactionCollection($result);
 		}

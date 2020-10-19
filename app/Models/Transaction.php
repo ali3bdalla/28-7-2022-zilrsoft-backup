@@ -68,8 +68,16 @@ class Transaction extends BaseModel
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+	
+	
+	public function item()
+	{
+		return $this->belongsTo(Item::class, 'item_id');
+	}
 
-    public function invoice()
+	
+	
+	public function invoice()
     {
         return $this->belongsTo(Invoice::class, 'invoice_id');
     }
@@ -78,5 +86,7 @@ class Transaction extends BaseModel
     {
         return $this->belongsTo(TransactionsContainer::class, 'container_id');
     }
+	
+	
 
 }

@@ -9,39 +9,49 @@
 @section('content')
     <div class="panel">
 
+        <div class="panel panel-body">
+            <h4>{{  $entity->created_at }} - {{  $entity->creator->name }}</h4>
+            <h5>الوصف : {{ $entity->description }}</h5>
+
+        </div>
+
         <table class="table table-bordered table-sorted">
             <thead>
-                <tr>
+            <tr>
                 <td>الحساب</td>
                 <td>مدين</td>
                 <td>دائن</td>
                 <td>الوصف</td>
-                </tr>
+            </tr>
 
             </thead>
             <tbody>
-                @foreach($entity->transactions as $transaction)
+            @foreach($entity->transactions as $transaction)
                 <tr>
-                <td>{{ $transaction->account->ar_name }}</td>
-                @if($transaction->type == 'debit')
-                    <td>{{ $transaction->amount }}</td>
-                    <td>0</td>
-                @else
-                    <td>0</td>
-                    <td>{{ $transaction->amount }}</td>
-                @endif
-                
-                <td>{{ $transaction->description }}</td>
-                </tr>
-                @endforeach
+                    <td>{{ $transaction->account_name }}</td>
+                    @if($transaction->type == 'debit')
+                        <td>{{ displayMoney($transaction->amount) }}</td>
+                        <td>0</td>
+                    @else
+                        <td>0</td>
+                        <td>{{ displayMoney($transaction->amount) }}</td>
+                    @endif
 
+                    <td>{{ $transaction->description }}</td>
+                </tr>
+            @endforeach
+
+            <tr class="bg-primary">
+                <th></th>
+                <th>{{displayMoney($entity->total_debit_amount)}}</th>
+                <th>{{displayMoney($entity->total_credit_amount)}}</th>
+                <th></th>
+                <th></th>
+            </tr>
             </tbody>
         </table>
     </div>
 
 
-    <div class="panel panel-body">
-        <h3>{{ $entity->description }}</h3>
-        <h4>{{  $entity->created_at }}</h4>
-    </div>
+
 @stop

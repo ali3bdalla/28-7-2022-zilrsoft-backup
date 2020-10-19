@@ -37,9 +37,14 @@
         </thead>
 
         <tbody v-for="(transaction, index) in transactions" :key="index">
-        <tr :class="{ 'bg-gray': transaction.page }">
+        <tr :class="{ 'bg-gray': transaction.page && index != 0 }">
           <th class="text-center" v-text="transaction.created_at"></th>
-          <th class="text-center" v-text="transaction.container_id"></th>
+          <th class="text-center">
+            <a
+                :href="'/entities/' + transaction.container_id"
+                v-text="transaction.container_id"
+            ></a>
+          </th>
           <th class="text-center">
             <a
                 v-if="transaction.user"
@@ -48,7 +53,7 @@
             >
             <span v-else>-</span>
           </th>
-          <th v-if="transaction.invoice_id >= 1" class="text-center">
+          <th v-if="transaction.invoice_id >= 1 && transaction.invoice != null" class="text-center">
             <a
                 v-if="
                   transaction.invoice.invoice_type == 'sale' ||
@@ -129,7 +134,7 @@ import VueCtkDateTimePicker from "vue-ctk-date-time-picker";
 
 export default {
   name: "globalTransactionsListComponent.vue",
-  props: ["account", "user"],
+  props: ["account", "user",'item'],
   components: {
     VueCtkDateTimePicker,
   },
@@ -249,12 +254,16 @@ export default {
           params.user_id = this.user.id;
         }
 
+        if (this.item != null) {
+          params.item_id = this.item.id;
+        }
+
         if (this.clearOldData) {
           this.transactions = [];
           this.totalCreditAmount = 0;
           this.totalDebitAmount = 0;
         }
-        console.log(this.requestUrl);
+        console.log(this.item);
         axios
             .get(this.requestUrl, {
               params: params,
@@ -313,7 +322,7 @@ export default {
 
       if (this.filters.startDate != null && this.filters.endDate != null) {
         this.clearOldData = true;
-        this.requestUrl = this.paginationResponseData.path == undefined ?  this.requestUrl : this.paginationResponseData.path;
+        this.requestUrl = this.paginationResponseData.path == undefined ? this.requestUrl : this.paginationResponseData.path;
         this.loadData();
       }
     },

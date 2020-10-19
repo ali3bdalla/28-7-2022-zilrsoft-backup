@@ -12,8 +12,18 @@
 	{
 		protected $guarded = [];
 		use SoftDeletes;
-
-		
+	
+	
+	    public function getTotalCreditAmountAttribute()
+	    {
+		    return $this->transactions()->where('type','credit')->sum('amount');
+		}
+	
+	
+	    public function getTotalDebitAmountAttribute()
+	    {
+		    return $this->transactions()->where('type','debit')->sum('amount');
+	    }
 
 
 		// new relationship
@@ -33,4 +43,9 @@
 		{
 			return $this->belongsTo(Invoice::class,'invoice_id');
 		}
+	
+	    public function creator()
+	    {
+		    return $this->belongsTo(Manager::class,'creator_id');
+	    }
 	}

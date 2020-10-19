@@ -56,7 +56,7 @@ class StoreSaleTransactionsJob implements ShouldQueue
                 'organization_id' => $this->loggedUser->organization_id,
                 'invoice_id' => $invoice->id,
                 'amount' => 0,
-                'description' => 'Generated From Invoice #' . $invoice->invoice_number
+	            'description' => 'Invoice #' . $invoice->id
             ]
         );
         $transactionContainer->save();

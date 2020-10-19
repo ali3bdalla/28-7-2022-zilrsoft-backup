@@ -41,18 +41,16 @@
 		}
 		
 		
-		public function report(Account $account,Request  $request)
+		public function report(Account $account, Request $request)
 		{
 			$startDate = Carbon::parse($request->startDate);
 			$endDate = Carbon::parse($request->endDate);
-			$totalCredit = $account->transactions()->where('type','credit')->whereBetween('created_at',[$startDate,$endDate])->sum('amount');
-			$totalDebit = $account->transactions()->where('type','debit')->whereBetween('created_at',[$startDate,$endDate])->sum('amount');
+			$totalCredit = $account->transactions()->where('type', 'credit')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
+			$totalDebit = $account->transactions()->where('type', 'debit')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
 			$balance = 0;
-			if($account->type == 'credit')
-			{
+			if($account->type == 'credit') {
 				$balance = $totalCredit - $totalDebit;
-			}else
-			{
+			} else {
 				$balance = $totalDebit - $totalCredit;
 			}
 			

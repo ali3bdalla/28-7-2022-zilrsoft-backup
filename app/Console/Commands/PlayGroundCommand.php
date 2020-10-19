@@ -5,6 +5,7 @@
 	use App\Jobs\Accounting\Entity\UpdateAccountBalanceJob;
 	use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 	use App\Models\Account;
+	use App\Models\AccountSnapshot;
 	use App\Models\Transaction;
 	use App\Models\TransactionsContainer;
 	use Carbon\Carbon;
@@ -111,8 +112,12 @@
 					'total_debit_amount' => 0,
 				]
 			);
-			
+			AccountSnapshot::where('id', '!=', 0)->update([
+				'debit_amount' => 0,
+				'credit_amount' => 0,
+			]);
 			foreach($transactions as $transaction) {
+				echo "{$transaction->id}\n";
 				dispatch(new UpdateAccountBalanceJob($transaction));
 			}
 

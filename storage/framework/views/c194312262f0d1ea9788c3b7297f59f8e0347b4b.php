@@ -6,23 +6,22 @@
     </div>
 
     <ul class="sidebar-menu" data-widget="tree">
-        <li class="treeview">
-            <a href="#">
-                <i class="fa  fa-tachometer-alt"></i> <span><?php echo e(__('sidebar.dashboard')); ?></span>
 
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="<?php echo e(route('dashboard.index')); ?>"><i class="fa fa-tachometer-alt"></i>
-                        <?php echo e(__('sidebar.dashboard')); ?></a></li>
-                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view accounting')): ?>
-                    <li>
-                        <a href="<?php echo e(route('dashboard.index')); ?>"><i class="fa fa-sun"></i>
-                            <?php echo e(__('sidebar.statistics')); ?>
 
-                        </a></li>
-                <?php endif; ?>
-            </ul>
-        </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['view item','create item','edit item','manage kit'])): ?>
             <li class="treeview">

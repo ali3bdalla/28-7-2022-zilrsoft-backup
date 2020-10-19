@@ -37,10 +37,11 @@
 							Route::get('/index', 'AccountController@reports')->name('index');
 						}
 					);
-					Route::prefix('{account}/view')->name('show.')->group(
+					Route::prefix('{account}')->name('show.')->group(
 						function() {
-							Route::get('/stock', 'AccountController@showStock')->name('stock');
-							Route::get('/{item}/item', 'AccountController@showItem')->name('item');
+//							Route::get('/stock', 'AccountController@showStock')->name('stock');
+							Route::get('/stock/{item}', 'AccountController@showItem')->name('item');
+							Route::get('/identity/{identity}', 'AccountController@showIdentity')->name('identity');
 							
 						}
 					);

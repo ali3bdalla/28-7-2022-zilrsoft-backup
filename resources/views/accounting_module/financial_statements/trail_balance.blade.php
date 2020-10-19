@@ -52,10 +52,10 @@
                 <thead style="background-color:black;color:white">
                 <tr>
                     <th></th>
-                    <th>{{ roundMoney($totalDebitAmount)}}</th>
-                    <th>{{ roundMoney($totalCreditAmount)}}</th>
-                    <th>{{ roundMoney($totalDebitBalance)}}</th>
-                    <th>{{ roundMoney($totalCreditBalance)}}</th>
+                    <th>{{ displayMoney($totalDebitAmount)}}</th>
+                    <th>{{ displayMoney($totalCreditAmount)}}</th>
+                    <th>{{ displayMoney($totalDebitBalance)}}</th>
+                    <th>{{ displayMoney($totalCreditBalance)}}</th>
                 </tr>
 
 

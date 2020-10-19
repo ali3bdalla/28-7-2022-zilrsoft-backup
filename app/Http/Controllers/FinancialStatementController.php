@@ -30,7 +30,7 @@
 			$accounts = [];
 			
 			foreach($mainAccounts as $mainAccount) {
-
+				
 				$children = Account::whereIn('id', $mainAccount->getChildrenHashMap())->where(
 					[[
 						'id', '!=', $mainAccount->id,
@@ -38,31 +38,31 @@
 				)->get();//->withCount('children')->having('children_count', 0)
 				$mainAccountChildren = [];
 				foreach($children as $account) {
-
+					
 					$debitAmount = $account->total_debit_amount;
 					$creditAmount = $account->total_credit_amount;
-
+					
 					if($debitAmount > 0 || $creditAmount > 0) {
 						if($account->_isCredit()) {
 							$accountTotalAmount = $creditAmount - $debitAmount;
 							$accountCreditBalance = $accountTotalAmount > 0 ? $accountTotalAmount : 0;
-							$accountDebitBalance = $accountTotalAmount > 0 ? 0 : $accountTotalAmount * -1;
+							$accountDebitBalance = $accountTotalAmount > 0 ? 0 : $accountTotalAmount * - 1;
 						} else {
 							$accountTotalAmount = $debitAmount - $creditAmount;
-							$accountCreditBalance = $accountTotalAmount < 0 ? $accountTotalAmount * -1 : 0;
+							$accountCreditBalance = $accountTotalAmount < 0 ? $accountTotalAmount * - 1 : 0;
 							$accountDebitBalance = $accountTotalAmount < 0 ? 0 : $accountTotalAmount;
 						}
-
-						$account->credit_amount = roundMoney($creditAmount);
-						$account->debit_amount = roundMoney($debitAmount);
-						$account->total_amount = roundMoney($accountTotalAmount);
-						$account->credit_balance = roundMoney($accountCreditBalance);
-						$account->debit_balance = roundMoney($accountDebitBalance);
-
-						$totalCreditAmount = $totalCreditAmount + ((float)$creditAmount);
-						$totalDebitAmount = $totalDebitAmount + ((float)$debitAmount);
-						$totalCreditBalance = $totalCreditBalance + ((float)$accountCreditBalance);
-						$totalDebitBalance = $totalDebitBalance + ((float)$accountDebitBalance);
+						
+						$account->credit_amount = displayMoney($creditAmount);
+						$account->debit_amount = displayMoney($debitAmount);
+						$account->total_amount = displayMoney($accountTotalAmount);
+						$account->credit_balance = displayMoney($accountCreditBalance);
+						$account->debit_balance = displayMoney($accountDebitBalance);
+						
+						$totalCreditAmount = displayMoney($totalCreditAmount + ((float)$creditAmount));
+						$totalDebitAmount = displayMoney($totalDebitAmount + ((float)$debitAmount));
+						$totalCreditBalance =displayMoney( $totalCreditBalance + ((float)$accountCreditBalance));
+						$totalDebitBalance = displayMoney($totalDebitBalance + ((float)$accountDebitBalance));
 						$mainAccountChildren[] = $account;
 					}
 				}

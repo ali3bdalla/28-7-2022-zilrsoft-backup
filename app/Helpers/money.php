@@ -21,7 +21,12 @@
 	if(!function_exists('displayMoney')) {
 		function displayMoney($money, $decimal = 2)
 		{
-			return roundMoney($money);
+//			round($money,2)
+			return money_format("%i",$money);
+			$fmt = numfmt_create('en_US', NumberFormatter::DECIMAL);
+			return numfmt_format($fmt, $money);
+
+//			return roundMoney($money);
 		}
 	}
 	

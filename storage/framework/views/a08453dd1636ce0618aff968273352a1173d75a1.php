@@ -50,10 +50,10 @@
                 <thead style="background-color:black;color:white">
                 <tr>
                     <th></th>
-                    <th><?php echo e(roundMoney($totalDebitAmount)); ?></th>
-                    <th><?php echo e(roundMoney($totalCreditAmount)); ?></th>
-                    <th><?php echo e(roundMoney($totalDebitBalance)); ?></th>
-                    <th><?php echo e(roundMoney($totalCreditBalance)); ?></th>
+                    <th><?php echo e(displayMoney($totalDebitAmount)); ?></th>
+                    <th><?php echo e(displayMoney($totalCreditAmount)); ?></th>
+                    <th><?php echo e(displayMoney($totalDebitBalance)); ?></th>
+                    <th><?php echo e(displayMoney($totalCreditBalance)); ?></th>
                 </tr>
 
 
