@@ -9,6 +9,7 @@
 	use App\Models\Account;
 	use Carbon\Carbon;
 	use Illuminate\Http\Request;
+	use Illuminate\Support\Facades\DB;
 	
 	class AccountController extends Controller
 	{
@@ -43,19 +44,27 @@
 		
 		public function report(Account $account, Request $request)
 		{
-			$startDate = Carbon::parse($request->input('startDate'));
-			$endDate = Carbon::parse($request->input('endDate'));
+			$startDate = Carbon::parse($request->input('startDate'))->toDateString();
+			$endDate = Carbon::parse($request->input('endDate'))->toDateString();
 			
 			if($startDate == $endDate) {
-				$totalCredit = $account->transactions()->where('type', 'credit')->whereDAte('created_at', $startDate)->sum('amount');
-				
+				$totalCredit = $account->transactions()->where('type', 'credit')->whereDate('created_at', $startDate)->sum('amount');
 				$totalDebit = $account->transactions()->where('type', 'debit')->whereDate('created_at', $startDate)->sum('amount');
-				
 			} else {
-				$totalCredit = $account->transactions()->where('type', 'credit')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
-				$totalDebit = $account->transactions()->where('type', 'debit')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
+				$totalCredit = $account->transactions()->where('type', 'credit')->whereBetween(DB::raw("DATE(created_at)"), [$startDate, $endDate])->sum('amount');
+				$totalDebit = $account->transactions()->where('type', 'debit')->whereBetween(DB::raw("DATE(created_at)"), [$startDate, $endDate])->sum('amount');
 				
 			}
+
+//			return [
+//				$startDate->toDateString(),
+//				$endDate->toDateString(),
+//			];
+////
+//			$totalCredit = $account->snapshots()->whereBetween('created_at', [$startDate, $endDate])->sum('credit_amount');
+//			$totalDebit = $account->snapshots()->whereBetween('created_at', [$startDate, $endDate])->sum('debit_amount');
+//
+			
 			
 			if($account->type == 'credit') {
 				$balance = $totalCredit - $totalDebit;
@@ -64,9 +73,6 @@
 			}
 			
 			
-			if($balance < 0.01) {
-				$balance = 0;
-			}
 			return [
 				'total_credit' => $totalCredit,
 				'total_debit' => $totalDebit,
