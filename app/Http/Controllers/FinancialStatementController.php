@@ -3,7 +3,10 @@
 	namespace App\Http\Controllers;
 	
 	use App\Models\Account;
+	use Illuminate\Contracts\Foundation\Application;
+	use Illuminate\Contracts\View\Factory;
 	use Illuminate\Http\Request;
+	use Illuminate\View\View;
 	
 	class FinancialStatementController extends Controller
 	{
@@ -16,7 +19,7 @@
 		/**
 		 * Display a listing of the resource.
 		 * @param Request $request
-		 * @return Application|Factory|View
+		 * @return Application|Factory|View|Application|Factory|View
 		 */
 		public function trailBalance(Request $request)
 		{
@@ -61,7 +64,7 @@
 						
 						$totalCreditAmount = displayMoney($totalCreditAmount + ((float)$creditAmount));
 						$totalDebitAmount = displayMoney($totalDebitAmount + ((float)$debitAmount));
-						$totalCreditBalance =displayMoney( $totalCreditBalance + ((float)$accountCreditBalance));
+						$totalCreditBalance = displayMoney($totalCreditBalance + ((float)$accountCreditBalance));
 						$totalDebitBalance = displayMoney($totalDebitBalance + ((float)$accountDebitBalance));
 						$mainAccountChildren[] = $account;
 					}
