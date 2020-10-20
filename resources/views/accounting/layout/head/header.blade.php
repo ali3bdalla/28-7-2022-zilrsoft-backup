@@ -8,7 +8,6 @@
    //ManagerPrivateTransactions::
        $pending_purchases = 0;//Invoice::where('invoice_type','pending_purchase')->count()
 
-        $disableCreate = ;
 @endphp
 
 <accounting-header-layout-component
