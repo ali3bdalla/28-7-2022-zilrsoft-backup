@@ -39,9 +39,9 @@ class UpdateClientBalanceJob implements ShouldQueue
     {
         $balance = $this->client->balance;
         if ($this->type == 'increase') {
-            $newBalance = (int)$balance + (int)$this->amount;
+            $newBalance = (float)$balance + (float)$this->amount;
         } else {
-            $newBalance = (int)$balance - (int)$this->amount;
+            $newBalance = (float)$balance - (float)$this->amount;
         }
         $this->client->update([
             'balance' => $newBalance

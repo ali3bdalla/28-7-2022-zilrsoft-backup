@@ -8,6 +8,7 @@
 	use App\Models\AccountSnapshot;
 	use App\Models\Transaction;
 	use App\Models\TransactionsContainer;
+	use App\Models\User;
 	use Carbon\Carbon;
 	use Illuminate\Console\Command;
 	
@@ -110,24 +111,72 @@
 ////			$totalDebit = $account->transactions()->where('type', 'debit')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
 //
 //			dd($totalCredit);
+
+//			$transactions = Transaction::orderBy('created_at', 'asc')->get();
+//
+//			Account::where('id', '!=', 0)->update(
+//				[
+//					'total_credit_amount' => 0,
+//					'total_debit_amount' => 0,
+//				]
+//			);
+//			AccountSnapshot::where('id', '!=', 0)->update([
+//				'debit_amount' => 0,
+//				'credit_amount' => 0,
+//			]);
+//			foreach($transactions as $transaction) {
+//				echo "{$transaction->id}\n";
+//				dispatch(new UpdateAccountBalanceJob($transaction));
+//			}
 			
-			$transactions = Transaction::orderBy('created_at', 'asc')->get();
-			
-			Account::where('id', '!=', 0)->update(
+			User::where('id', '!=', 0)->update(
 				[
-					'total_credit_amount' => 0,
-					'total_debit_amount' => 0,
+					
+					'balance' => 0,
+					'vendor_balance' => 0,
+				
 				]
 			);
-			AccountSnapshot::where('id', '!=', 0)->update([
-				'debit_amount' => 0,
-				'credit_amount' => 0,
-			]);
-			foreach($transactions as $transaction) {
-				echo "{$transaction->id}\n";
-				dispatch(new UpdateAccountBalanceJob($transaction));
+			
+			$clients = Account::find(12);
+			$vendors = Account::find(20);
+			
+			$users = User::all();
+			
+			foreach($users as $user) {
+				$vendorTransactions = $vendors->transactions()->where('user_id', $user->id)->get();
+				$clientTransactions = $clients->transactions()->where('user_id', $user->id)->get();
+				$vendorBalance = 0;
+				$clientBalance = 0;
+				
+				foreach($vendorTransactions as $transaction) {
+					if($transaction->type == 'credit') {
+						$vendorBalance += $transaction->amount;
+					} else {
+						$vendorBalance -= $transaction->amount;
+						
+					}
+				}
+				
+				
+				foreach($clientTransactions as $transaction) {
+					if($transaction->type == 'debit') {
+						$clientBalance += $transaction->amount;
+					} else {
+						$clientBalance -= $transaction->amount;
+						
+					}
+				}
+				
+				
+				$user->update(
+					[
+						'balance' => $clientBalance,
+						'vendor_balance' => $vendorBalance,
+					]
+				);
+				
 			}
-
 
 //			$debitAmount = Transaction::where('type', 'debit')->sum('amount');
 //			$accountsDebitAmount = Account::sum('total_debit_amount');

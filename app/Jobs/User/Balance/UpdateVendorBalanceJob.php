@@ -39,10 +39,10 @@ class UpdateVendorBalanceJob implements ShouldQueue
         $balance = $this->vendor->vendor_balance;
         if($this->type == 'increase')
         {
-            $newBalance =(int)$balance + (int)$this->amount;
+            $newBalance =(float)$balance + (float)$this->amount;
         }else
         {
-            $newBalance =(int)$balance - (int)$this->amount;
+            $newBalance =(float)$balance - (float)$this->amount;
         }
         $this->vendor->update([
             'vendor_balance' => $newBalance

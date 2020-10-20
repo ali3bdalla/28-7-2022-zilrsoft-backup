@@ -16,23 +16,31 @@
     <div class="panel-body">
       <table class="table table-bordered text-center">
         <thead>
+<!--        <tr>-->
+<!--          <th class="text-center"></th>-->
+<!--          <th class="text-center"></th>-->
+<!--          <th class="text-center"></th>-->
+<!--          <th class="text-center"></th>-->
+<!--          <th class="text-center" colspan="2">المجاميع</th>-->
+<!--          <th class="text-center">الارصدة</th>-->
+<!--        </tr>-->
+
         <tr>
-          <th class="text-center"></th>
-          <th class="text-center"></th>
-          <th class="text-center"></th>
-          <th class="text-center"></th>
-          <th class="text-center" colspan="2">المجاميع</th>
-          <th class="text-center" colspan="2">الارصدة</th>
-        </tr>
-        <tr>
-          <th class="text-center">التاريخ</th>
-          <th class="text-center">رقم القيد</th>
-          <th class="text-center">الهوية</th>
-          <th class="text-center">البيان</th>
-          <th class="text-center">مدين</th>
-          <th class="text-center">دائن</th>
-          <th class="text-center">مدين</th>
-          <th class="text-center">دائن</th>
+          <th :class="{'orderBy':orderBy=='created_at'}" class="text-center" @click="setOrderByColumn('created_at')">
+            التاريخ
+          </th>
+          <th :class="{'orderBy':orderBy=='container_id'}" class="text-center"
+              @click="setOrderByColumn('container_id')"> رقم القيد
+          </th>
+          <th :class="{'orderBy':orderBy=='user_id'}" class="text-center" @click="setOrderByColumn('user_id')">الهوية
+          </th>
+          <th :class="{'orderBy':orderBy=='description'}" class="text-center" @click="setOrderByColumn('description')">
+            البيان
+          </th>
+          <th :class="{'orderBy':orderBy=='type'}" class="text-center" @click="setOrderByColumn('type')">مدين</th>
+          <th :class="{'orderBy':orderBy=='type'}" class="text-center" @click="setOrderByColumn('type')">دائن</th>
+          <th :class="{'orderBy':orderBy=='type'}" class="text-center" @click="setOrderByColumn('type')">الرصيد</th>
+<!--          <th :class="{'orderBy':orderBy=='type'}" class="text-center" @click="setOrderByColumn('type')">دائن</th>-->
         </tr>
         </thead>
 
@@ -83,13 +91,14 @@
               v-text="parseFloat(transaction.credit_amount).toFixed(2)"
           ></th>
           <th
-              class="text-center"
-              v-text="parseFloat(transaction.total_debit_amount).toFixed(2)"
+              class="text-center "
+              :class="{'bg-danger text-white':transaction.balance < 0}"
+              v-text="parseFloat(transaction.balance).toFixed(2)"
           ></th>
-          <th
-              class="text-center"
-              v-text="parseFloat(transaction.total_credit_amount).toFixed(2)"
-          ></th>
+<!--          <th-->
+<!--              class="text-center"-->
+<!--              v-text="parseFloat(transaction.total_credit_amount).toFixed(2)"-->
+<!--          ></th>-->
         </tr>
         </tbody>
         <tfoot>
@@ -107,7 +116,7 @@
               v-text="parseFloat(totalCreditAmount).toFixed(2)"
           ></th>
           <th class="text-center"></th>
-          <th class="text-center"></th>
+<!--          <th class="text-center"></th>-->
         </tr>
         </tfoot>
       </table>
@@ -134,12 +143,14 @@ import VueCtkDateTimePicker from "vue-ctk-date-time-picker";
 
 export default {
   name: "globalTransactionsListComponent.vue",
-  props: ["account", "user",'item'],
+  props: ["account", "user", 'item'],
   components: {
     VueCtkDateTimePicker,
   },
   data: function () {
     return {
+      orderBy: "created_at",
+      orderType: "asc",
       clearOldData: false,
       isLoading: false,
       createdAtRange: null,
@@ -151,6 +162,7 @@ export default {
       totalCreditAmount: 0,
       totalDebitAmount: 0,
       IntervalValue: null,
+      accountBalance: 0,
       app: {
         primaryColor: metaHelper.getContent("primary-color"),
         secondColor: metaHelper.getContent("second-color"),
@@ -179,6 +191,22 @@ export default {
     window.addEventListener("scroll", this.handleScroll);
   },
   methods: {
+
+    setOrderByColumn(column_name) {
+      if (this.orderBy == column_name) {
+        if (this.orderType == 'asc')
+          this.orderType = "desc";
+        else
+          this.orderType = "asc";
+      } else {
+        this.orderBy = column_name;
+        // this.orderType = "asc";
+      }
+      this.clearOldData = true;
+      this.loadData();
+    },
+
+
     handleScroll(e) {
       // console.log("scroll down" + window.pageYOffset);
       // console.log("scroll isLoading" + document.documentElement.scrollTop);
@@ -249,7 +277,10 @@ export default {
         params.itemsPerPage = this.itemsPerPage;
         params.startDate = this.filters.startDate;
         params.endDate = this.filters.endDate;
+        params.order_by = this.orderBy;
+        params.order_type = this.orderType;
 
+        // console.log(params);
         if (this.user != null) {
           params.user_id = this.user.id;
         }
@@ -262,8 +293,9 @@ export default {
           this.transactions = [];
           this.totalCreditAmount = 0;
           this.totalDebitAmount = 0;
+          this.accountBalance = 0;
         }
-        console.log(this.item);
+        // console.log(this.item);
         axios
             .get(this.requestUrl, {
               params: params,
@@ -272,6 +304,7 @@ export default {
               appVm.isLoading = false;
               let len = response.data.data.length;
               let responseData = [];
+
               for (let index = 0; index < len; index++) {
                 let transaction = response.data.data[index];
 
@@ -280,18 +313,27 @@ export default {
                 } else {
                   transaction.page = false;
                 }
+
+                if (transaction.type == appVm.account.type) {
+                  appVm.accountBalance += parseFloat(transaction.amount);
+                } else {
+                  appVm.accountBalance -= parseFloat(transaction.amount);
+                }
+
+                transaction.balance = appVm.accountBalance;
+
                 appVm.totalCreditAmount =
                     appVm.totalCreditAmount + parseFloat(transaction.credit_amount);
                 appVm.totalDebitAmount =
                     appVm.totalDebitAmount + parseFloat(transaction.debit_amount);
-                transaction.total_debit_amount = appVm.totalDebitAmount;
-                transaction.total_credit_amount = appVm.totalCreditAmount;
+                // transaction.total_debit_amount = appVm.totalDebitAmount;
+                // transaction.total_credit_amount = appVm.totalCreditAmount;
 
                 responseData.push(transaction);
                 appVm.transactions.push(transaction);
               }
               // appVm.transactions.push(transaction);
-
+              appVm.clearOldData = false;
               appVm.paginationResponseData = response.data;
             })
             .catch((error) => {
@@ -331,4 +373,12 @@ export default {
 </script>
 
 <style scoped>
+thead th {
+  cursor: pointer !important;
+}
+
+.orderBy {
+  background-color: #0f7b9f;
+  color: white
+}
 </style>

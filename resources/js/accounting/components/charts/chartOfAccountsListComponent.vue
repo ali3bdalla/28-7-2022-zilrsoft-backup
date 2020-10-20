@@ -14,12 +14,12 @@
                        مدين
                     </label>
                      &nbsp;
-                    <a v-if="account.parent_id!=0 && canEditAccount == true"
+                    <a v-if="account.parent_id!=0 && canEdit == true"
                        :href="'/accounts/' + account.id + '/edit'">
                         <label class="label label-success label-sm">تعديل</label></a>
 
                     <accounting-delete-button-layout-component
-                        v-if="account.children_count<=0 && canEditAccount == true"
+                        v-if="account.children_count<=0 && canEdit == true"
                         :url="'/accounts/' + account.id"
                         class=''><label
                         class="label label-danger label-sm">حذف</label>
@@ -57,11 +57,13 @@ export default {
   name: "chartOfAccountsListComponent",
   data: function () {
     return {
+      canEdit:true,
       accounts_list: [],
     };
   },
   created() {
-    // console.log(this.canEditAccount);
+    this.canEdit = true;//Boolean(this.canEditAccount == 'true')
+    console.log(this.canEditAccount);
     for (let i = 0; i < this.accounts.length; i++) {
       let account = this.accounts[i];
       account.children = null;
