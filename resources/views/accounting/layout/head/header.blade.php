@@ -7,9 +7,12 @@
        ['receiver_id',auth()->user()->id]])->with('creator','receiver')->get();
    //ManagerPrivateTransactions::
        $pending_purchases = 0;//Invoice::where('invoice_type','pending_purchase')->count()
+
+        $disableCreate = auth()->user()->id == 19;
 @endphp
 
 <accounting-header-layout-component
+        :disable-create="{{$disableCreate}}"
         :can-manage-managers="{{ auth()->user()->canDo('manage managers')}}"
         :can-view-accounting="{{ auth()->user()->canDo('view accounting')}}"
         :csrf='@json(csrf_token())'
