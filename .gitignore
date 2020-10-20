@@ -2,7 +2,7 @@
 /public/hot
 /phpmyadmin
 /public/storage
-/storage
+/storage/*
 /vendor
 .env
 .env.backup
