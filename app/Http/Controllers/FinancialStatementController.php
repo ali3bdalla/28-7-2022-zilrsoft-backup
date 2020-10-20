@@ -74,7 +74,7 @@
 			}
 			
 			
-			return view('accounting_module.financial_statements.trail_balance', compact('accounts', 'totalCreditAmount', 'totalDebitAmount', 'totalCreditBalance', 'totalDebitBalance'));
+			return view('accounting_module.financial_statements.trial_balance', compact('accounts', 'totalCreditAmount', 'totalDebitAmount', 'totalCreditBalance', 'totalDebitBalance'));
 		}
 		
 	}

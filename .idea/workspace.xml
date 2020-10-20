@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1847dce-9989-45ff-80d9-69eb3638cb7b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FinancialStatementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FinancialStatementController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/3ce0667af8e8e52d973f523b71f2e261c3f6d141.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/3ce0667af8e8e52d973f523b71f2e261c3f6d141.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/a08453dd1636ce0618aff968273352a1173d75a1.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/a08453dd1636ce0618aff968273352a1173d75a1.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
