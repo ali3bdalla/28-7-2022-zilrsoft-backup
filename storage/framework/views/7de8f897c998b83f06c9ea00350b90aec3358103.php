@@ -218,77 +218,77 @@
                     </tr>
                     </tbody>
                     <tbody class="body">
-				<?php $items_qty_count = 0; ?>
+					<?php $items_qty_count = 0; ?>
                     <?php if(!empty($invoice->items)): ?>
                         <?php $__currentLoopData = $invoice->items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php if($item->belong_to_kit==false && $item->show_price_in_print_mode && $item->item != null): ?>
-						   <?php $items_qty_count = $items_qty_count + $item->qty ?>
-                                 <?php if($loop->index%2==0): ?>
-							   <?php $background_color = "#ffffff"; ?>
-                                      <tr>
-                                 <?php else: ?>
-                                     <tr style="background-color: #8888">
-								  <?php $background_color = "#eee"; ?>
-                                         <?php endif; ?>
-                                         <td class="no" style="width:30px !important;"><?php echo e($loop->index + 1); ?></td>
-                                         <td class="desc" style="width: 10%  !important;text-align: right !important;
-                                                 font-weight: bold;font-size: 13px !important;color: black;background-color:
-								 <?php echo $background_color;?> !important;"><?php echo e(mb_substr($item->item->locale_name, 0,55)); ?></td>
-                                         <td class="total" style="background-color:
-								 <?php echo $background_color;?> !important;"><?php echo e($item->qty); ?></td>
-                                         <?php if($invoice->show_items_price_in_print_mode): ?>
-                                             <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"><?php echo e(roundMoney($item->price)); ?></td>
-                                             <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> <?php echo e(roundMoney($item->total)); ?></td>
-                                             <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> <?php echo e(roundMoney($item->discount)); ?></td>
-                                             <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> <?php echo e(roundMoney($item->tax)); ?></td>
-                                             <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> <?php echo e(roundMoney($item->net)); ?></td>
-                                         <?php endif; ?>
-                                     </tr>
-                                     <?php if(!in_array($item->invoice_type,['purchase'])): ?>
-                                         <?php if($item->item->is_need_serial): ?>
-                                             <?php $__currentLoopData = $item->item->serials()
-                                            ->where([
-                                            ["sale_id",$invoice->id],
-                                            ["item_id",$item->item->id],
-                                            ])
-                                            ->orWhere([["return_sale_id",$invoice->id],["item_id",$item->item->id]])
-                                            ->orWhere([["return_purchase_id",$invoice->id],["item_id",$item->item->id]])
-                                            ->orWhere([["purchase_id",$invoice->id],["item_id",$item->item->id]])
-                                            ->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $serial): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                 <tr style="background-color: #8888">
+								<?php $items_qty_count = $items_qty_count + $item->qty ?>
+                                <?php if($loop->index%2==0): ?>
+									<?php $background_color = "#ffffff"; ?>
+                                    <tr>
+                                <?php else: ?>
+                                    <tr style="background-color: #8888">
+										<?php $background_color = "#eee"; ?>
+                                        <?php endif; ?>
+                                        <td class="no" style="width:30px !important;"><?php echo e($loop->index + 1); ?></td>
+                                        <td class="desc" style="width: 10%  !important;text-align: right !important;
+                                                font-weight: bold;font-size: 13px !important;color: black;background-color:
+										<?php echo $background_color;?> !important;"><?php echo e(mb_substr($item->item->locale_name, 0,55)); ?></td>
+                                        <td class="total" style="background-color:
+										<?php echo $background_color;?> !important;"><?php echo e($item->qty); ?></td>
+                                        <?php if($invoice->show_items_price_in_print_mode): ?>
+                                            <td class="total" style="background-color:
+											<?php echo $background_color;?> !important;"><?php echo e(roundMoney($item->price)); ?></td>
+                                            <td class="total" style="background-color:
+											<?php echo $background_color;?> !important;"> <?php echo e(roundMoney($item->total)); ?></td>
+                                            <td class="total" style="background-color:
+											<?php echo $background_color;?> !important;"> <?php echo e(roundMoney($item->discount)); ?></td>
+                                            <td class="total" style="background-color:
+											<?php echo $background_color;?> !important;"> <?php echo e(roundMoney($item->tax)); ?></td>
+                                            <td class="total" style="background-color:
+											<?php echo $background_color;?> !important;"> <?php echo e(roundMoney($item->net)); ?></td>
+                                        <?php endif; ?>
+                                    </tr>
+                                    <?php if(!in_array($item->invoice_type,['purchase'])): ?>
+                                        <?php if($item->item->is_need_serial): ?>
+                                            <?php $__currentLoopData = $item->item->serials()
+                                           ->where([
+                                           ["sale_id",$invoice->id],
+                                           ["item_id",$item->item->id],
+                                           ])
+                                           ->orWhere([["return_sale_id",$invoice->id],["item_id",$item->item->id]])
+                                           ->orWhere([["return_purchase_id",$invoice->id],["item_id",$item->item->id]])
+                                           ->orWhere([["purchase_id",$invoice->id],["item_id",$item->item->id]])
+                                           ->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $serial): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <tr style="background-color: #8888">
 
-                                                     <td class="" style="width:30px !important;">S/N</td>
-                                                     <td class="desc"
-                                                         style="width: 10%  !important;text-align: right !important;
-                                                                 font-weight: bold;font-size: 10px !important;color: black;
-                                                                 background-color:
-										       <?php echo $background_color;?> !important;padding-right: 20px !important;"><?php echo e($serial->serial); ?></td>
-                                                     <td class="total" style="background-color:
-										   <?php echo $background_color;?> !important;"></td>
-                                                     <?php if($invoice->show_items_price_in_print_mode): ?>
-                                                         <td class="total" style="background-color:
-											  <?php echo $background_color;?> !important;"></td>
-                                                         <td class="total" style="background-color:
-											  <?php echo $background_color;?> !important;"></td>
-                                                         <td class="total" style="background-color:
-											  <?php echo $background_color;?> !important;"></td>
-                                                         <td class="total" style="background-color:
-											  <?php echo $background_color;?> !important;"></td>
-                                                         <td class="total" style="background-color:
-											  <?php echo $background_color;?> !important;"></td>
-                                                     <?php endif; ?>
-                                                 </tr>
+                                                    <td class="" style="width:30px !important;">S/N</td>
+                                                    <td class="desc"
+                                                        style="width: 10%  !important;text-align: right !important;
+                                                                font-weight: bold;font-size: 10px !important;color: black;
+                                                                background-color:
+													    <?php echo $background_color;?> !important;padding-right: 20px !important;"><?php echo e($serial->serial); ?></td>
+                                                    <td class="total" style="background-color:
+													<?php echo $background_color;?> !important;"></td>
+                                                    <?php if($invoice->show_items_price_in_print_mode): ?>
+                                                        <td class="total" style="background-color:
+														<?php echo $background_color;?> !important;"></td>
+                                                        <td class="total" style="background-color:
+														<?php echo $background_color;?> !important;"></td>
+                                                        <td class="total" style="background-color:
+														<?php echo $background_color;?> !important;"></td>
+                                                        <td class="total" style="background-color:
+														<?php echo $background_color;?> !important;"></td>
+                                                        <td class="total" style="background-color:
+														<?php echo $background_color;?> !important;"></td>
+                                                    <?php endif; ?>
+                                                </tr>
 
-                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                         <?php endif; ?>
-                                     <?php endif; ?>
-                                 <?php endif; ?>
-                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 
                             <?php endif; ?>
@@ -300,7 +300,7 @@
         </div>
     </section>
     <div class="">
-        <?php $show_price_in_print_mode_tax_net = $invoice->show_price_in_print_mode_tax_and_net;?>
+		<?php $show_price_in_print_mode_tax_net = $invoice->show_price_in_print_mode_tax_and_net;?>
         <div class="total_numbers text-right">
             <div class="">
                 <h4 style="color: white;font-size: 22px;padding: 4px"><?php echo e(__('pages/invoice.invoice_data')); ?></h4>
@@ -408,6 +408,10 @@
 
             </div>
             <div class="issued_by">
+                <?php if(auth()->user()->organization->stamp != null): ?>
+                    <div style="margin-bottom: 9px"><img src="<?php echo e(auth()->user()->organization->stamp); ?>" style="width: 80px"/></div>
+
+                <?php endif; ?>
                 <h3 style="margin-bottom: 9px"><?php echo e(__('reusable.issued_by')); ?></h3>
                 <p style="margin-bottom: 2px"><?php echo e($invoice->creator->locale_name); ?></p>
 
@@ -428,7 +432,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="<?php echo e(asset('accounting/js/jquery-barcode.min.js')); ?>"></script>
 <script type="text/javascript">
-  
+
     print();
 </script>
 <?php /**PATH /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/printer/a4.blade.php ENDPATH**/ ?>

@@ -100,11 +100,12 @@ export default {
         axios.get("/api/accounts/reports/" + this.account.id , {
           params: params
         }).then(response => {
+          console.log(response.data)
           appVm.totalCredit = response.data.total_credit;
           appVm.totalDebit = response.data.total_debit;
           appVm.totalAmount = response.data.amount;
         }).catch(error => {
-          alert(error);
+          console.log(error);
         });
       }
     }
