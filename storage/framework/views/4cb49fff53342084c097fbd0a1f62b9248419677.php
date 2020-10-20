@@ -8,11 +8,10 @@
    //ManagerPrivateTransactions::
        $pending_purchases = 0;//Invoice::where('invoice_type','pending_purchase')->count()
 
-        $disableCreate = auth()->user()->id == 19;
 ?>
 
 <accounting-header-layout-component
-        :disable-create="<?php echo e($disableCreate); ?>"
+        :disable-create='<?php echo json_encode(auth()->user()->id === 19, 15, 512) ?>'
         :can-manage-managers="<?php echo e(auth()->user()->canDo('manage managers')); ?>"
         :can-view-accounting="<?php echo e(auth()->user()->canDo('view accounting')); ?>"
         :csrf='<?php echo json_encode(csrf_token(), 15, 512) ?>'
