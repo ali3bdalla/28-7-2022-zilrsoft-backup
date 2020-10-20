@@ -20,8 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/7de8f897c998b83f06c9ea00350b90aec3358103.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/7de8f897c998b83f06c9ea00350b90aec3358103.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting_module/financial_statements/trail_balance.blade.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
