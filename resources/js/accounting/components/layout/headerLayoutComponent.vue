@@ -104,12 +104,12 @@ margin-bottom: -10px;"></i>
             </ul>
           </li>
           <!--                    <li><a href="/accounting/settings" v-text="trans.settings"></a></li>-->
-          <li ><a href="/printer/printers" v-text="trans.printers"></a></li>
+          <li v-if="!disableCreate"><a href="/printer/printers" v-text="trans.printers"></a></li>
           <!--                    <li><a href="/statistics" v-text="trans.statistics"></a></li>-->
-          <li><a href="/items"> المنتجات</a></li>
-          <li><a href="/sales/create">فاتورة مبيعات</a></li>
-          <li><a href="/purchases/create">فاتورة مشتريات</a></li>
-          <li><a href="/daily/reseller/closing_accounts">انهاء الوردية</a></li>
+          <li v-if="!disableCreate"><a href="/items"> المنتجات</a></li>
+          <li v-if="!disableCreate"><a href="/sales/create">فاتورة مبيعات</a></li>
+          <li v-if="!disableCreate"><a href="/purchases/create">فاتورة مشتريات</a></li>
+          <li v-if="!disableCreate"><a href="/daily/reseller/closing_accounts">انهاء الوردية</a></li>
 
 
         </ul>
