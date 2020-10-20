@@ -3,9 +3,9 @@
 	namespace App\Http\Requests\Accounting\Voucher;
 	
 	use AliAbdalla\Tafqeet\Core\Tafqeet;
-	use App\Account;
-	use App\Accounting\IdentityAccounting;
-	use App\User;
+	use App\Models\Account;
+	use App\Models\Accounting\IdentityAccounting;
+	use App\Models\User;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
@@ -35,7 +35,7 @@
 		public function rules()
 		{
 			return [
-				//
+				// 
 				'description' => 'nullable|string',
 				'user_id' => 'required|integer|exists:users,id',
 				'amount' => 'required|numeric',

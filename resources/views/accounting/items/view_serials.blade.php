@@ -31,7 +31,7 @@
 {{--                            <accounting-show-barcode-layout-component :barcode="{{$serial->serial}}">--}}
 {{--                            </accounting-show-barcode-layout-component>--}}
 {{--                        </td>--}}
-                        <td>{{trans('pages/items.' . $serial->current_status)}} </td>
+                        <td>{{trans('pages/items.' . $serial->status)}} </td>
 
                     </tr>
                 @endforeach

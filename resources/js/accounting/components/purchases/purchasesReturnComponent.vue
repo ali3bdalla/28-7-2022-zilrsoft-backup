@@ -15,7 +15,7 @@
                 </button>
             </div>
             <div class="col-md-6">
-                <a :href="app.BaseApiUrl + 'purchases'" class="btn btn-default "><i
+                <a class="btn btn-default " href="/purchases"><i
                         class="fa fa-redo"></i> {{ app.trans.cancel }}</a>
             </div>
 
@@ -243,7 +243,7 @@
                 @canBeReturnedSerialCount="handleItemWithSerialCanBeReturnedSerialCount"
                 @panelClosed="handleItemSerialsClosed"
                 @publishUpdated="handleItemSerialsUpdated"
-                invoice-type="r_purchase"
+                invoice-type="return_purchase"
                 v-if="invoice.invoice_type!=='beginning_inventory'"
         >
 
@@ -259,12 +259,7 @@
 
 <script>
 
-    import {
-        accounting as ItemAccounting,
-        math as ItemMath,
-        query as ItemQuery,
-        validator as ItemValidator
-    } from '../../item';
+    import {accounting as ItemAccounting, math as ItemMath, validator as ItemValidator} from '../../item';
     import {sendGetKitAmountsRequest} from '../../api/kits';
 
     export default {
@@ -294,15 +289,7 @@
                 barcodeNameAndSerialField: "",
                 bc: new BroadcastChannel('item_barcode_copy_to_invoice'),
                 app: {
-                    primaryColor: metaHelper.getContent('primary-color'),
-                    secondColor: metaHelper.getContent('second-color'),
-                    appLocate: metaHelper.getContent('app-locate'),
                     trans: trans('invoices-page'),
-                    messages: trans('messages'),
-                    dateTimeTrans: trans('datetime'),
-                    validation: trans('validation'),
-                    datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
-                    BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
                 },
                 LiveTimer: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() +
                     ' ' +
@@ -327,8 +314,7 @@
 
             handleItemWithSerialCanBeReturnedSerialCount(e) {
                 // alert(e);
-                if(e.index != undefined && e.index != null)
-                {
+                if (e.index !== undefined && e.index != null) {
                     let index = e.index;
                     let item = db.model.findByIndex(this.invoiceData.items, index);
                     item.available_qty = e.count;
@@ -346,21 +332,18 @@
                     item.barcode = item.item.barcode;
                     item.vts = item.item.vts;
                     item.available_qty = item.qty - item.r_qty;
-                    if(item.item.is_need_serial)
-                    {
+                    if (item.item.is_need_serial) {
                         let count = 0;
-                        item.serials.forEach(function(serial){
-                            if(['r_sale', 'purchase', 'available'].includes(serial.current_status))
-                            {
+                        item.serials.forEach(function (serial) {
+                            if (['return_sale', 'in_stock'].includes(serial.status)) {
                                 count++;
                             }
                         });
 
                         item.available_qty = count;
                     }
-                    if(item.available_qty > item.item.available_qty)
-                    {
-                        item.available_qty  = item.item.available_qty;
+                    if (item.available_qty > item.item.available_qty) {
+                        item.available_qty = item.item.available_qty;
                     }
                     item.init_discount = item.discount;
                     item.returned_qty = 0;
@@ -549,21 +532,20 @@
 
                 // console.log(this.invoiceData.items);
 
-                let request_url = this.app.BaseApiUrl + 'purchases/' + invoice.id;
+                let request_url = '/api/purchases/' + invoice.id;
                 if (this.invoice.invoice_type === 'beginning_inventory') {
-                    request_url = this.app.BaseApiUrl + 'inventories/beginning/' + invoice.id;
+                    request_url = '/inventories/beginning/' + invoice.id;
                 }
-
 
                 if (this.activateTestMode) {
                     this.testRequestData = JSON.stringify(data)
                 } else {
-                    axios.put(request_url, data)
+                    axios.patch(request_url, data)
                         .then(function (response) {
                             console.log(response.data);
 
                             if (doWork == 'open') {
-                                window.location.href = appVm.app.BaseApiUrl + 'purchases/' + response.data.id;
+                                window.location.href = '/purchases/' + response.data.id;
                             } else {
                                 window.location.reload();
                             }

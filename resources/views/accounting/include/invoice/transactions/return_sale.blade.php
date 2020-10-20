@@ -17,8 +17,7 @@
 	    <?php $total_debit = $total_debit + $transaction['amount']?>
          <tr>
              <td class="date_field_center">{{ $transaction->created_at }}</td>
-             <td> {{
-                                                         $transaction->debitable->locale_name }}</td>
+             <td> {{ $transaction->debitable->locale_name }}</td>
              <td>{{money_format("%i", $transaction->amount) }}</td>
              <td></td>
          </tr>

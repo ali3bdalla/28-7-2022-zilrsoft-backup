@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Voucher;
 	
-	use App\Payment;
+	use App\Models\Payment;
 	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
 	
@@ -94,7 +94,7 @@
 			}
 			
 			
-			$query = $query->with('user','invoice','paymentable','creator');
+			$query = $query->with('user','invoice','account','creator');
 			
 			if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval($this->input("itemsPerPage")
 				) >= 1 && intval($this->input('itemsPerPage')) <= 100){

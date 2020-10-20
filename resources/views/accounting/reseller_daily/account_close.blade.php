@@ -9,8 +9,9 @@
 
 @section("content")
     <accounting-period-account-close-component
-            :period-sales-amount='@json(money_format("%i",$periodSalesAmount))'
-            :last-remaining-transfer='@json(money_format("%i",$lastRemainingTransferAmount))'
+            :in-amount='@json(roundMoney($inAmount))'
+            :out-amount='@json(roundMoney($outAmount))'
+            :remaining-accounts-balance='@json(roundMoney($remainingAccountsBalanceAmount))'
             :gateways='@json($gateways)'
     ></accounting-period-account-close-component>
 @endsection

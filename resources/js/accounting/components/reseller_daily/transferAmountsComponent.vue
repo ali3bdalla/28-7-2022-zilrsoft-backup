@@ -72,7 +72,7 @@
 
             toUpdateAmount() {
                 if (this.activeGateway !== null) {
-                    this.remaining = this.activeGateway.current_amount - this.amount;
+                    this.remaining = this.activeGateway.balance - this.amount;
                 }
 
             },
@@ -83,14 +83,14 @@
             },
 
             toPushDataToServer() {
-                axios.post('/accounting/reseller_daily/transfer_amounts', {
+                axios.post('/api/daily/reseller/accounts_transactions', {
                     amount: this.amount,
                     gateway_id: this.gateway_id,
                     receiver_gateway_id: this.receiver_gateway_id,
                     receiver_id: this.receiver_id,
                 }).then(response => {
                     console.log(response.data);
-                    window.location = '/accounting/reseller_daily/transfer_list';
+                    window.location = '/daily/reseller/accounts_transactions';
                 }).catch(error => {
                     alert(error.response.data);
                     console.log(error.response.data);

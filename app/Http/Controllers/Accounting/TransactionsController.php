@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Accounting;
 
-use App\Account;
+use App\Models\Account;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Accounting\Transaction\CreateTransactionRequest;
 use App\Http\Requests\Accounting\Transaction\DeleteTransactionsRequest;
-use App\Item;
-use App\Transaction;
-use App\TransactionsContainer;
-use App\User;
+use App\Models\Item;
+use App\Models\Transaction;
+use App\Models\TransactionsContainer;
+use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
@@ -61,7 +61,9 @@ class TransactionsController extends Controller
      */
     public function show(TransactionsContainer $transaction)
     {
-        $transactions = TransactionsContainer::where('id', $transaction->id)->paginate(10);
+        $transactions = TransactionsContainer::where('id', $transaction->id)->first();
+
+        return $transactions->transactions()->with('account')->get();
         return view('accounting.transactions.index', compact('transactions'));
     }
 

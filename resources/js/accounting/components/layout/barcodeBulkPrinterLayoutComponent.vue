@@ -403,7 +403,7 @@
 <!--                    <div class="row">-->
 <!--                        <div align="right" class="col-md-4 " style="margin-top: -28px;-->
 <!--                        font-weight: bold;margin-right: 3px !important;-->
-<!--                        margin-left: -3px;" v-text="purchaseInvoiceId">-->
+<!--                        margin-left: -3px;" v-text="PurchaseId">-->
 
 <!--                        </div>-->
 <!--                        <div align="left" class="col-md-8  div-col" style="margin-left: -10px;margin-right: 10px;-->

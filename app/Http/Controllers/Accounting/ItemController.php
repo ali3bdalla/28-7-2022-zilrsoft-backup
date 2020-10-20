@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers\Accounting;
 
-use App\Accounting\CostAccounting;
-use App\Attachment;
-use App\Category;
 use App\Components\Loader\Item\Transactions\ItemTransactionsLoader;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Accounting\Item\ActivateItemsRequest;
 use App\Http\Requests\Accounting\Item\CreateItemRequest;
 use App\Http\Requests\Accounting\Item\DatatableRequest;
-use App\Http\Requests\Accounting\Item\DeleteAttachmentRequest;
 use App\Http\Requests\Accounting\Item\UpdateItemRequest;
 use App\Http\Requests\Accounting\Item\UploadAttachmentRequest;
-use App\Invoice;
-use App\InvoiceItems;
-use App\Item;
-use App\ItemSerials;
-use App\Manager;
-use App\User;
+use App\Http\Resources\InvoiceItem\InvoiceItemActivityCollection;
+use App\Models\Category;
+use App\Models\InvoiceItems;
+use App\Models\Item;
+use App\Models\ItemSerials;
+use App\Models\Manager;
+use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Collection;
@@ -28,8 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ItemController extends Controller
 {
 
-    use CostAccounting;
-
+// 
     /**
      * ItemController constructor.
      */
@@ -186,6 +182,8 @@ class ItemController extends Controller
      */
     public function transactions(Item $item)
     {
+
+        $item->total_stock_amount = $item->cost * $item->available_qty;
         return view('accounting.items.transactions', compact('item'));
 
     }
@@ -198,6 +196,7 @@ class ItemController extends Controller
      */
     public function transactions_datatable(Item $item, Request $request)
     {
+        return new InvoiceItemActivityCollection($item->history()->paginate(10000));
         $transaction = new ItemTransactionsLoader($item, $request);
         return $transaction->run();
 //

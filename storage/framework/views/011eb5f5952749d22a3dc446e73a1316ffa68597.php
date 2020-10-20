@@ -7,7 +7,7 @@
 <meta name="second-color" content="#3498db">
 <meta name="app-locate" content="<?php echo e(app()->getLocale()); ?>">
 <meta name="app-name" content="<?php echo e(config('app.name')); ?>">
-<meta name="app-base-url" content="<?php echo e(route('accounting.dashboard.index')); ?>">
+<meta name="app-base-url" content="<?php echo e(route('dashboard.index')); ?>">
 
 
 <meta name="lang-sidebar" content="<?php echo e(json_encode(trans('sidebar'))); ?>">

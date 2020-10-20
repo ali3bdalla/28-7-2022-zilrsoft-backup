@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\Accounting;
 
-use App\Events\Accounting\Invoice\PendingPurchaseInvoiceCreatedEvent;
-use App\Expense;
+use App\Models\Expense;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Accounting\Purchase\CreatePurchaseRequest;
 use App\Http\Requests\Accounting\Purchase\DatatableRequest;
 use App\Http\Requests\Accounting\Purchase\ReturnPurchaseRequest;
-use App\Invoice;
-use App\InvoiceItems;
-use App\Item;
-use App\Manager;
-use App\User;
+use App\Models\Invoice;
+use App\Models\InvoiceItems;
+use App\Models\Manager;
+use App\Models\User;
 use Exception;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
@@ -67,8 +65,6 @@ class PurchaseController extends Controller
         $vendors = User::where([['is_vendor', true], ['is_system_user', false]])->get()->toArray();
         $expenses = Expense::all();
         $gateways = [];
-        // auth()->user()->gateways()->get()
-//			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
         return view('accounting.purchases.create', compact('vendors', 'receivers', 'gateways', 'expenses'));
         //
     }
@@ -91,10 +87,6 @@ class PurchaseController extends Controller
             }
             $cloned_items[] = $item;
         }
-//			return $cloned_items;
-//			return $purchase->items->load('item');
-        // auth()->user()->gateways()->get()
-//			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
         return view('accounting.purchases.clone', compact('vendors', 'receivers', 'gateways', 'expenses', 'purchase', 'cloned_items'));
         //
     }
@@ -146,10 +138,8 @@ class PurchaseController extends Controller
             $items [] = $item;
         }
         $gateways = [];
-        // auth()->user()->gateways()->get()
-//			$gateways = auth()->user()->gateways()->get();
-//			$gateways = Account::where([['slug','temp_reseller_account'],['is_system_account',true]])->get();
 
+  
         return view('accounting.purchases.edit', compact('purchase', 'invoice', 'items', 'gateways'));
     }
 

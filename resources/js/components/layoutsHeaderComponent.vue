@@ -98,7 +98,7 @@ margin-bottom: -10px;"></i>
                     <li><a :href="routes.configuration" v-text="lang.layouts.configuration"></a></li>
                     <li><a href="/accounting/printer/printers"></a></li>
                     <li><a href="/accounting/statistics"></a></li>
-                    <li><a href="/accounting/items"> المنتجات</a></li>
+                    <li><a href="/items"> المنتجات</a></li>
                     <li><a href="/accounting/sales/create">فاتورة مبيعات</a></li>
                     <li><a href="/accounting/purchases/create">فاتورة مشتريات</a></li>
                     <li><a href="/accounting/reseller_daily/account_close_list">انهاء الوردية</a></li>

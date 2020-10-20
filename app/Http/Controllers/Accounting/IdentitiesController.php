@@ -2,13 +2,14 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Bank;
-	use App\Filter;
+	use App\Models\Account;
+    use App\Models\Bank;
+	use App\Models\Filter;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Identity\CreateIdentityRequest;
 	use App\Http\Requests\Accounting\Identity\DatatableRequest;
 	use App\Http\Requests\Accounting\Identity\UpdateIdentityRequest;
-	use App\User;
+	use App\Models\User;
 	use Exception;
 	use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 	use Illuminate\Contracts\View\Factory;
@@ -60,8 +61,11 @@
 		 */
 		public function show(User $identity)
 		{
+//		    return $identity
 			$this->middleware(['permission:view identity']);
-			return view('accounting.identities.view',compact('identity'));
+			$clientAccount = Account::where('slug','clients')->first();
+			$vendorAccount = Account::where('slug','vendors')->first();
+			return view('accounting.identities.view',compact('identity','clientAccount','vendorAccount'));
 		}
 		
 		/**

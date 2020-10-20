@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Accounting\Inventory\CreateBeginningRequest;
 use App\Http\Requests\Accounting\Inventory\DatatableBeginningRequest;
 use App\Http\Requests\Accounting\Inventory\ReturnBeginningRequest;
-use App\Invoice;
-use App\InvoicePayments;
-use App\Payment;
-use App\Transaction;
-use App\TransactionsContainer;
-use App\User;
+use App\Models\Invoice;
+use App\Models\InvoicePayments;
+use App\Models\Payment;
+use App\Models\Transaction;
+use App\Models\TransactionsContainer;
+use App\Models\User;
 use Dotenv\Exception\ValidationException;
 use Exception;
 use Illuminate\Contracts\View\Factory;
@@ -224,7 +224,7 @@ class InventoryController extends Controller
                         'available_qty' => $current_qty,
                     ]);
                     if ($item->item->is_need_serial) {
-                        $item->item->serials()->where('r_sale_invoice_id', $beginning->id)->update([
+                        $item->item->serials()->where('return_sale_invoice_id', $beginning->id)->update([
                             'current_status' => "saled"
                         ]);
                     }

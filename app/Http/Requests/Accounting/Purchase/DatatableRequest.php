@@ -2,8 +2,8 @@
 	
 	namespace App\Http\Requests\Accounting\Purchase;
 	
-	use App\Invoice;
-	use App\PurchaseInvoice;
+	use App\Models\Invoice;
+	use App\Models\Purchase;
 	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
 	
@@ -39,22 +39,22 @@
 				$query = Invoice::whereIn('invoice_type',['pending_purchase'])->with('creator',
 					'items','purchase.vendor');
 			}else{
-				$query = Invoice::whereIn('invoice_type',['r_purchase','purchase'])->with('creator','items','purchase.vendor');
+				$query = Invoice::whereIn('invoice_type',['return_purchase','purchase'])->with('creator','items','purchase.vendor');
 			}
 //
 			
 			if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
 				$this->filled('endDate')){
-				$_startDate = Carbon::parse($this->input("startDate"))->toDateString();
-				$_endDate = Carbon::parse($this->input("endDate"))->toDateString();
+				$_startDate = Carbon::parse($this->input("startDate"));
+				$_endDate = Carbon::parse($this->input("endDate"));
 				
 				
 				if ($_endDate === $_startDate){
-					$query = $query->whereDate('created_at',$_startDate);
+					$query = $query->where('created_at',$_startDate);
 				}else{
 					$query = $query->whereBetween('created_at',[
-						$_startDate->toDateString(),
-						$_endDate->toDateString()
+						$_startDate,
+						$_endDate
 					]);
 				}
 				
@@ -72,7 +72,7 @@
 			}
 			
 			if ($this->has('vendors') && $this->filled('vendors')){
-				$ids = PurchaseInvoice::whereIn('vendor_id',$this->input("vendors"))->get()->pluck('invoice_id');
+				$ids = Purchase::whereIn('vendor_id',$this->input("vendors"))->get()->pluck('invoice_id');
 //				return $ids;
 				$query = $query->whereIn('id',$ids);
 			}

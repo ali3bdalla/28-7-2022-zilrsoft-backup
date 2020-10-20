@@ -1,11 +1,12 @@
-<?php use App\Invoice;
-	use App\ManagerPrivateTransactions;
+<?php
 
-	$pending_transactions = ManagerPrivateTransactions::where([['is_pending',true],['transaction_type',
-	'transfer'],
-	['receiver_id',auth()->user()->id]])->with('creator',
-	'receiver')->get();
-	$pending_purchases = Invoice::where('invoice_type','pending_purchase')->count();
+    //use App\Models\Invoice;
+    use App\Models\ResellerClosingAccount;
+
+       $pending_transactions = ResellerClosingAccount::where([['is_pending',true],['transaction_type','transfer'],
+       ['receiver_id',auth()->user()->id]])->with('creator','receiver')->get();
+   //ManagerPrivateTransactions::
+       $pending_purchases = 0;//Invoice::where('invoice_type','pending_purchase')->count()
 ?>
 
 <accounting-header-layout-component

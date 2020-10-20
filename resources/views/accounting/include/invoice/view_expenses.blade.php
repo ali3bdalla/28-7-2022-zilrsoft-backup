@@ -3,7 +3,7 @@
         تكاليف اضافية
     </div>
 
-    @if(in_array($invoice->invoice_type,['sale','r_sale']))
+    @if(in_array($invoice->invoice_type,['sale','return_sale']))
         @foreach($invoice->items as $item)
             @if($item->item->is_expense)
                 <tr>
@@ -34,7 +34,7 @@
             @endif
         @endforeach
 
-    @elseif(in_array($invoice->invoice_type,['purchase','beginning_inventory','r_purchase']))
+    @elseif(in_array($invoice->invoice_type,['purchase','beginning_inventory','return_purchase']))
 
 
         <div class="panel-body">

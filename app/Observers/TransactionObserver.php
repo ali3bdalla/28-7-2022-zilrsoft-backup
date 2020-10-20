@@ -2,9 +2,8 @@
 
 namespace App\Observers;
 
-use App\Events\Transaction\TransactionCreatedEvent;
-use App\Events\Transaction\TransactionErasedEvent;
-use App\Transaction;
+use App\Jobs\Accounting\Entity\UpdateAccountBalanceJob;
+use App\Models\Transaction;
 
 class TransactionObserver
 {
@@ -17,7 +16,11 @@ class TransactionObserver
      */
     public function created(Transaction $transaction)
     {
-        event(new TransactionCreatedEvent($transaction));
+        if($transaction->is_pending == false)
+        {
+            dispatch(new UpdateAccountBalanceJob($transaction));
+        }
+        
     }
 
     /**
@@ -39,7 +42,7 @@ class TransactionObserver
      */
     public function deleted(Transaction $transaction)
     {
-        event(new TransactionErasedEvent($transaction));
+        // event(new TransactionErasedEvent($transaction));
     }
 
     /**
@@ -61,8 +64,17 @@ class TransactionObserver
      */
     public function forceDeleted(Transaction $transaction)
     {
-        event(new TransactionErasedEvent($transaction));
-    }
+        // $account = $transaction->account;
+        // if ($transaction->type == 'credit') {
 
+        //     $account->update([
+        //         'total_credit_amount' => $account->total_credit_amount - (float) $transaction->amount,
+        //     ]);
+        // } else {
+        //     $account->update([
+        //         'total_debit_amount' => $account->total_debit_amount - (float) $transaction->amount,
+        //     ]);
+        // }
+    }
 
 }

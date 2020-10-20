@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-5"><label>{{ __('pages/invoice.total') }}</label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="{{ $invoice->total }}"
+                    <input type="text" class="form-control input-xs amount-input" value="{{ displayMoney($invoice->total) }}"
                            disabled="">
                 </div>
             </div>
@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-5"><label>{{ __('pages/invoice.discount') }}</label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="{{ $invoice->discount_value }}"
+                    <input type="text" class="form-control input-xs amount-input" value="{{ displayMoney($invoice->discount) }}"
                            disabled="">
                 </div>
             </div>
@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-md-5"><label>{{ __('pages/invoice.subtotal') }}</label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="{{ $invoice->subtotal }}"
+                    <input type="text" class="form-control input-xs amount-input" value="{{displayMoney($invoice->subtotal) }}"
                            disabled="">
                 </div>
             </div>
@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col-md-5"><label>{{ __('pages/invoice.tax') }}</label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="{{ $invoice->tax }}"
+                    <input type="text" class="form-control input-xs amount-input" value="{{ displayMoney($invoice->tax) }}"
                            disabled="">
                 </div>
             </div>
@@ -46,13 +46,13 @@
             <div class="row">
                 <div class="col-md-5"><label>{{ __('pages/invoice.net') }}</label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="{{ $invoice->net }}"
+                    <input type="text" class="form-control input-xs amount-input" value="{{ displayMoney($invoice->net) }}"
                            disabled="">
                 </div>
             </div>
         </div>
-        <hr>
-        <div class="list-group-item">
+        {{-- <hr> --}}
+        {{-- <div class="list-group-item">
             <div class="row">
                 <div class="col-md-5"><label>{{ __('pages/invoice.paid') }}</label></div>
                 <div class="col-md-5">
@@ -69,11 +69,11 @@
                            disabled="">
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
     <div class="col-md-12">
-        @if(!in_array($invoice->invoice_type,['sale','r_sale']))
+        @if(!in_array($invoice->invoice_type,['sale','return_sale']))
             @includeIf('accounting.include.invoice.view_expenses')
         @endif
     </div>

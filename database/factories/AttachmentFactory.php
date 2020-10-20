@@ -1,16 +1,19 @@
 <?php
-
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-
-use App\Attachment;
-use Faker\Generator as Faker;
-
-$factory->define(Attachment::class, function (Faker $faker) {
-    return [
-        //
-        'url' => $faker->imageUrl(),
-        'size' =>'',
-        'actual_path' => '',
-        'type' => '',
-    ];
-});
+	
+	/** @var Factory $factory */
+	
+	use App\Attachment;
+	use Faker\Generator as Faker;
+	use Illuminate\Database\Eloquent\Factory;
+	
+	$factory->define(
+		Attachment::class, function(Faker $faker) {
+		return [
+			//
+			'url' => $faker->imageUrl(),
+			'size' => '',
+			'actual_path' => '',
+			'type' => '',
+		];
+	}
+	);

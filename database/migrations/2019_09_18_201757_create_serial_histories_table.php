@@ -18,13 +18,7 @@ class CreateSerialHistoriesTable extends Migration
             $table->integer('serial_id');
             $table->integer('invoice_id');
             $table->integer('organization_id');
-            $table->enum('event',[
-                'sale',
-                'purchase',
-                'r_sale',
-                'beginning_inventory',
-                'r_purchase'
-            ]);
+            $table->string('event')->nullable();
             $table->integer('user_id');
             $table->integer('creator_id');
             $table->timestamps();

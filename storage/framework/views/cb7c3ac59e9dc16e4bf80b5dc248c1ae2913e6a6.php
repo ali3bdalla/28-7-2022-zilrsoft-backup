@@ -31,6 +31,12 @@
 
 
     <?php echo $__env->yieldContent('page_css'); ?>
+
+    <style type="text/css">
+        input {
+            direction: ltr !important;
+        }
+    </style>
 </head>
 <body class="sidebar-mini skin-blue">
     <?php if ($__env->exists("accounting.layout.layout")) echo $__env->make("accounting.layout.layout", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

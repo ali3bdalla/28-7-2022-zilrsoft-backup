@@ -21,33 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="33640bc7-b18e-4a20-b304-1fe1f4628330" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Http/Controllers/TrialBalanceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Http/Controllers/TrialBalanceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreatePurchasesEntityTransactionsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreatePurchasesEntityTransactionsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreatePurchasesItemsEntityJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreatePurchasesItemsEntityJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateReturnSalesEntityTransactionsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Accounting/Jobs/CreateReturnSalesEntityTransactionsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Purchases/Http/Requests/CreatePurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Purchases/Http/Requests/CreatePurchaseRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Purchases/Jobs/CreatePurchaseItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Purchases/Jobs/CreatePurchaseItemsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Purchases/Jobs/EnsurePurchaseDataAreCorrectJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Purchases/Jobs/EnsurePurchaseDataAreCorrectJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Purchases/Jobs/UpdateInvoiceTotalsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Purchases/Jobs/UpdateInvoiceTotalsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Sales/Jobs/CreateReturnSalesItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Jobs/CreateReturnSalesItemsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Sales/Jobs/UpdateInvoiceTotalsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Sales/Jobs/UpdateInvoiceTotalsJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/UpdateAccountsBalanceCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/UpdateAccountsBalanceCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/SaleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Invoice.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Item.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/NRE1YegxO4hRhucpxOdMiMeFT6DYBY2L59IvOURO" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/kAhqV6pWALLiiEXOTjshxRprHYJQLj2tS7QofpQc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-07-21.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-07-22.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-07-23.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-07-26.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-07-27.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,12 +30,7 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution>
-      <executable />
-    </execution>
-  </component>
-  <component name="FavoritesManager">
-    <favorites_list name="zilrsoft" />
+    <execution />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -74,7 +44,6 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
-      <path value="$PROJECT_DIR$/vendor/symfony/psr-http-message-bridge" />
       <path value="$PROJECT_DIR$/vendor/symfony/process" />
       <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
       <path value="$PROJECT_DIR$/vendor/symfony/mime" />
@@ -103,16 +72,12 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
       <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
-      <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
       <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
-      <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
       <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
-      <path value="$PROJECT_DIR$/vendor/php-http/message-factory" />
       <path value="$PROJECT_DIR$/vendor/fideloper/proxy" />
       <path value="$PROJECT_DIR$/vendor/paragonie/sodium_compat" />
       <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
       <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
-      <path value="$PROJECT_DIR$/vendor/phpseclib/phpseclib" />
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
       <path value="$PROJECT_DIR$/vendor/sebastian/version" />
       <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
@@ -138,7 +103,6 @@
       <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
       <path value="$PROJECT_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
       <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
-      <path value="$PROJECT_DIR$/vendor/globalcitizen/php-iban" />
       <path value="$PROJECT_DIR$/vendor/jakub-onderka/php-console-highlighter" />
       <path value="$PROJECT_DIR$/vendor/jakub-onderka/php-console-color" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
@@ -147,11 +111,8 @@
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/vendor/benjamincrozat/laravel-dropbox-driver" />
       <path value="$PROJECT_DIR$/vendor/graham-campbell/guzzle-factory" />
-      <path value="$PROJECT_DIR$/vendor/nyholm/psr7" />
       <path value="$PROJECT_DIR$/vendor/predis/predis" />
-      <path value="$PROJECT_DIR$/vendor/league/oauth2-server" />
       <path value="$PROJECT_DIR$/vendor/pusher/pusher-php-server" />
-      <path value="$PROJECT_DIR$/vendor/league/event" />
       <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
       <path value="$PROJECT_DIR$/vendor/league/flysystem" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
@@ -165,11 +126,7 @@
       <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/league/commonmark" />
-      <path value="$PROJECT_DIR$/vendor/laminas/laminas-diactoros" />
-      <path value="$PROJECT_DIR$/vendor/laminas/laminas-zendframework-bridge" />
       <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
-      <path value="$PROJECT_DIR$/vendor/laravel/passport" />
-      <path value="$PROJECT_DIR$/vendor/defuse/php-encryption" />
       <path value="$PROJECT_DIR$/vendor/laravel/framework" />
       <path value="$PROJECT_DIR$/vendor/laravel/tinker" />
       <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
@@ -177,7 +134,6 @@
       <path value="$PROJECT_DIR$/vendor/psr/http-message" />
       <path value="$PROJECT_DIR$/vendor/psr/container" />
       <path value="$PROJECT_DIR$/vendor/psr/log" />
-      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
       <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
@@ -190,10 +146,15 @@
       <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
       <path value="$PROJECT_DIR$/vendor/nwidart/laravel-modules" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
+      <path value="$PROJECT_DIR$/vendor/league/mime-type-detection" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/inertiajs/inertia-laravel" />
     </include_path>
   </component>
   <component name="ProjectId" id="1dRRD40XFnydW5tP6QEVIycDQNq" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -207,42 +168,39 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="full.screen.before.presentation.mode" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Modules/Purchases/Tests/Feature" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests/Feature/Inventory" />
+      <recent name="$PROJECT_DIR$/shell" />
+      <recent name="$PROJECT_DIR$/app/Http/Requests/Items" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Sale" />
-      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature" />
-      <recent name="$PROJECT_DIR$/app/Traits" />
-      <recent name="$PROJECT_DIR$/app/Orm/Traits" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js/accounting/components/layout" />
+      <recent name="$PROJECT_DIR$/Modules/Accounting/Resources/views/trial_balance" />
       <recent name="$PROJECT_DIR$/Modules/Purchases/Tests/Feature" />
       <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/Full" />
       <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature/ReturnSale" />
-      <recent name="$PROJECT_DIR$/Modules/Sales/Tests/Feature" />
-      <recent name="$PROJECT_DIR$/public/accounting" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="JavaScript Debug.WebController.php">
+  <component name="RunManager" selected="PHPUnit.CreateDraftPurchaseTest.test_create_draft_purchase_for_items_without_expense_or_service_or_kit_with_discount_and_serial">
     <configuration name="WebController.php" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/zilrsoft/Web/Http/Controllers/WebController.php" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="CreateDraftPurchaseTest.test_create_draft_purchase_for_items_without_expense_or_service_or_kit_with_discount_and_serial" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\Purchases\CreateDraftPurchaseTest" file="$PROJECT_DIR$/tests/Feature/Purchases/CreateDraftPurchaseTest.php" method="test_create_draft_purchase_for_items_without_expense_or_service_or_kit_with_discount_and_serial" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="CreateDraftPurchaseTest.test_create_draft_purchase_for_items_without_serial_and_expense_or_service_or_kit_without_discount" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\Purchases\CreateDraftPurchaseTest" file="$PROJECT_DIR$/tests/Feature/Purchases/CreateDraftPurchaseTest.php" method="test_create_draft_purchase_for_items_without_serial_and_expense_or_service_or_kit_without_discount" scope="Method" />
       <method v="2" />
     </configuration>
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -251,10 +209,13 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="PHPUnit.CreateDraftPurchaseTest.test_create_draft_purchase_for_items_without_expense_or_service_or_kit_with_discount_and_serial" />
+        <item itemvalue="PHPUnit.CreateDraftPurchaseTest.test_create_draft_purchase_for_items_without_serial_and_expense_or_service_or_kit_without_discount" />
         <item itemvalue="JavaScript Debug.WebController.php" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -340,53 +301,100 @@
       <workItem from="1596981940332" duration="2158000" />
       <workItem from="1596991819792" duration="3594000" />
       <workItem from="1598275411018" duration="3903000" />
+      <workItem from="1599047831463" duration="1989000" />
+      <workItem from="1599081860206" duration="4228000" />
+      <workItem from="1599290475456" duration="3184000" />
+      <workItem from="1599297055755" duration="2123000" />
+      <workItem from="1599307369765" duration="422000" />
+      <workItem from="1599312112824" duration="1508000" />
+      <workItem from="1599380166656" duration="7739000" />
+      <workItem from="1599468802467" duration="189000" />
+      <workItem from="1599469642809" duration="1181000" />
+      <workItem from="1599481384897" duration="636000" />
+      <workItem from="1599769929979" duration="617000" />
+      <workItem from="1599931174514" duration="63000" />
+      <workItem from="1600601753257" duration="98000" />
+      <workItem from="1600605827013" duration="160000" />
+      <workItem from="1600606027477" duration="496000" />
+      <workItem from="1600631539916" duration="58000" />
+      <workItem from="1600631619535" duration="3689000" />
+      <workItem from="1600674621381" duration="18000" />
+      <workItem from="1600674643170" duration="724000" />
+      <workItem from="1600701743084" duration="14036000" />
+      <workItem from="1600744707904" duration="14291000" />
+      <workItem from="1600765198221" duration="18732000" />
+      <workItem from="1600844826596" duration="397000" />
+      <workItem from="1600860368246" duration="8000" />
+      <workItem from="1600862192315" duration="5679000" />
+      <workItem from="1600932701749" duration="10373000" />
+      <workItem from="1601006204286" duration="9711000" />
+      <workItem from="1601067045765" duration="2125000" />
+      <workItem from="1601102483840" duration="5671000" />
+      <workItem from="1601123871828" duration="63000" />
+      <workItem from="1601187789774" duration="18491000" />
+      <workItem from="1601279992761" duration="717000" />
+      <workItem from="1601304184466" duration="21665000" />
+      <workItem from="1601394121972" duration="3633000" />
+      <workItem from="1601547327464" duration="328000" />
+      <workItem from="1602221242680" duration="323000" />
+      <workItem from="1602221618463" duration="1424000" />
+      <workItem from="1602225452795" duration="274000" />
+      <workItem from="1602249411296" duration="9996000" />
+      <workItem from="1602740502269" duration="5000" />
+      <workItem from="1602740532566" duration="15000" />
+      <workItem from="1602767648586" duration="11676000" />
+      <workItem from="1602841568916" duration="2663000" />
+      <workItem from="1602872797213" duration="104000" />
+      <workItem from="1602883086844" duration="1695000" />
+      <workItem from="1602921244996" duration="9000" />
+      <workItem from="1602929324296" duration="560000" />
+      <workItem from="1602940848026" duration="227000" />
+      <workItem from="1603003935429" duration="26000" />
+      <workItem from="1603026965532" duration="2603000" />
+      <workItem from="1603039281575" duration="187000" />
+      <workItem from="1603039834718" duration="16123000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="448" y="280" key="#Notifications" timestamp="1602740539130">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="448" y="280" key="#Notifications/0.0.1440.900@0.0.1440.900" timestamp="1602740539130" />
     <state x="427" y="243" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1595749173171">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="427" y="243" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.900@0.0.1440.900" timestamp="1595749173171" />
-    <state x="0" y="0" width="812" height="900" key="#com.intellij.ide.util.MemberChooser.inPresentationMode" timestamp="1592479121792">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="0" y="0" width="812" height="900" key="#com.intellij.ide.util.MemberChooser.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1592479121792" />
-    <state x="0" y="0" width="842" height="1200" key="#com.intellij.ide.util.MemberChooser.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1592477624591" />
-    <state x="217" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1592471795096">
-      <screen x="0" y="0" width="1920" height="1200" />
-    </state>
-    <state x="217" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1592471795096" />
     <state x="392" y="146" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1595265474976">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="392" y="146" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1440.900@0.0.1440.900" timestamp="1595265474976" />
-    <state x="698" y="362" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595351585773">
-      <screen x="0" y="0" width="1920" height="1200" />
+    <state x="698" y="378" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602884430762">
+      <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state x="261" y="0" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog.inPresentationMode" timestamp="1595324953989">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="305" y="0" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog.inPresentationMode" timestamp="1599122811036">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="261" y="0" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1595324953989" />
-    <state x="370" y="78" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593791183332" />
+    <state x="305" y="0" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog.inPresentationMode/0.0.1680.1050@0.0.1680.1050" timestamp="1599122811036" />
     <state x="524" y="272" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1440.900@0.0.1440.900" timestamp="1595332777811" />
-    <state x="698" y="362" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595351585773" />
+    <state x="698" y="362" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1602857043576" />
+    <state x="698" y="378" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1920.1177@0.23.1920.1177" timestamp="1602884430762" />
     <state x="168" y="128" key="EditFileWatcherDialog.inPresentationMode" timestamp="1595322767724">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -394,70 +402,52 @@
     <state x="446" y="183" key="NewPhpClassDialog" timestamp="1595276592600">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="411" y="82" key="NewPhpClassDialog.inPresentationMode" timestamp="1592467289197">
-      <screen x="0" y="0" width="1920" height="1200" />
-    </state>
-    <state x="411" y="82" key="NewPhpClassDialog.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1592467289197" />
     <state x="446" y="183" key="NewPhpClassDialog/0.0.1440.900@0.0.1440.900" timestamp="1595276592600" />
     <state x="515" y="365" key="NewPhpFileDialog" timestamp="1595277644624">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="348" y="309" key="NewPhpFileDialog.inPresentationMode" timestamp="1593724701066">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="348" y="309" key="NewPhpFileDialog.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593724701066" />
     <state x="515" y="365" key="NewPhpFileDialog/0.0.1440.900@0.0.1440.900" timestamp="1595277644624" />
-    <state x="239" y="3" key="SettingsEditor" timestamp="1595749300686">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="681" y="303" key="SettingsEditor" timestamp="1602774955702">
+      <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state x="0" y="0" key="SettingsEditor.inPresentationMode" timestamp="1594057724258">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="0" y="0" key="SettingsEditor.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1594057724258" />
-    <state x="0" y="0" key="SettingsEditor.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593806977159" />
-    <state x="0" y="23" key="SettingsEditor.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622018491" />
+    <state x="681" y="303" key="SettingsEditor/-1600.0.1600.900/0.0.1920.1200@0.0.1920.1200" timestamp="1602222854255" />
+    <state x="681" y="303" key="SettingsEditor/-1600.23.1600.877/0.0.1920.1200@0.0.1920.1200" timestamp="1602221263756" />
     <state x="239" y="3" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1595749300686" />
-    <state x="681" y="303" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1595351324354" />
-    <state x="346" y="178" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1593621933337" />
-    <state x="0" y="0" key="Vcs.Push.Dialog.v2.inPresentationMode" timestamp="1593595040259">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="0" y="0" key="Vcs.Push.Dialog.v2.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593595040259" />
-    <state x="60" y="28" key="Vcs.Push.Dialog.v2.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1592427198764" />
+    <state x="681" y="303" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1602774955702" />
     <state x="561" y="389" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1595248689927">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="511" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2.inPresentationMode" timestamp="1592412871091">
-      <screen x="0" y="0" width="1920" height="1200" />
-    </state>
-    <state x="511" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1592412871091" />
     <state x="561" y="389" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1595248689927" />
     <state x="748" y="519" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1200@0.0.1920.1200" timestamp="1595012190307" />
-    <state x="748" y="532" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.1177@0.23.1920.1177" timestamp="1592387738991" />
+    <state x="420" y="205" width="600" height="582" key="find.popup" timestamp="1603126739275">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="0" y="0" width="1304" height="900" key="find.popup.inPresentationMode" timestamp="1602255173110">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="0" y="0" width="1304" height="900" key="find.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1602255173110" />
+    <state x="420" y="205" width="600" height="582" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1603126739275" />
+    <state x="560" y="273" width="800" height="654" key="find.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1602786461126" />
     <state x="716" y="481" width="614" height="269" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1595010883333">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="716" y="481" width="614" height="269" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595010883333" />
-    <state x="469" y="203" width="838" height="518" key="search.everywhere.popup" timestamp="1595757616292">
+    <state x="469" y="203" width="838" height="518" key="search.everywhere.popup" timestamp="1603133222234">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="203" width="1440" height="518" key="search.everywhere.popup.inPresentationMode" timestamp="1595332174196">
+    <state x="0" y="221" width="1512" height="505" key="search.everywhere.popup.inPresentationMode" timestamp="1602255049685">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="203" width="1440" height="518" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1595332174196" />
-    <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1593882496251" />
-    <state x="0" y="221" width="1508" height="505" key="search.everywhere.popup.inPresentationMode/0.23.1440.877@0.23.1440.877" timestamp="1593622025193" />
-    <state x="469" y="203" width="838" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1595757616292" />
-    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1595356888586" />
-    <state x="469" y="221" width="670" height="505" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1593950143500" />
-    <state x="625" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1592389494916" />
-    <state x="450" y="369" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1593784355162">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="231" y="293" key="vcs.readOnlyHandler.ReadOnlyStatusDialog.inPresentationMode" timestamp="1593589037711">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="231" y="293" key="vcs.readOnlyHandler.ReadOnlyStatusDialog.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1593589037711" />
-    <state x="450" y="369" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.1440.900@0.0.1440.900" timestamp="1593784355162" />
+    <state x="0" y="221" width="1512" height="505" key="search.everywhere.popup.inPresentationMode/0.0.1440.900@0.0.1440.900" timestamp="1602255049685" />
+    <state x="0" y="237" width="1680" height="605" key="search.everywhere.popup.inPresentationMode/0.0.1680.1050@0.0.1680.1050" timestamp="1599122977207" />
+    <state x="625" y="270" width="1582" height="690" key="search.everywhere.popup.inPresentationMode/0.0.1920.1200@0.0.1920.1200" timestamp="1602252099051" />
+    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/-1600.0.1600.900/0.0.1920.1200@0.0.1920.1200" timestamp="1602223594332" />
+    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/-1600.23.1600.877/0.0.1920.1200@0.0.1920.1200" timestamp="1602223022267" />
+    <state x="469" y="203" width="838" height="518" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1603133222234" />
+    <state width="838" height="518" key="search.everywhere.popup/0.0.1440.900@0.23.1440.877" timestamp="1603131558617" />
+    <state x="547" y="237" width="978" height="605" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599470318592" />
+    <state x="625" y="270" width="838" height="690" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1603126150172" />
+    <state x="469" y="203" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1603131558619" />
+    <state x="625" y="288" width="838" height="677" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1602884193236" />
   </component>
 </project>

@@ -9,7 +9,7 @@
 		'payments' => 'سندات الصرف',
 		'receipts' => 'سندات القبض',
 		
-		'BaseUrl' => route('accounting.vouchers.index'),
+		'BaseUrl' => route('vouchers.index'),
 		'date' => 'التاريخ',
 		'created_by' => 'المحرر ',
 		'created_at' => 'التاريخ والوقت',

@@ -2,13 +2,13 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Account;
-	use App\Branch;
+	use App\Models\Account;
+	use App\Models\Branch;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Manager\CreateManagerRequest;
 	use App\Http\Requests\Accounting\Manager\DatatableRequest;
 	use App\Http\Requests\Accounting\Mananger\UpdateManagerRequest;
-	use App\Manager;
+	use App\Models\Manager;
 	use Exception;
 	use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 	use Illuminate\Http\Request;
@@ -91,7 +91,16 @@
 		 */
 		public function edit(Manager $manager)
 		{
-			$manager_gateways = $manager->gateways()->pluck('gateway_id')->toArray();
+			// return 1;
+
+			$dbGateways = $manager->gateways;//()->pluck('id')->toArray()
+			$manager_gateways = [];
+			foreach($dbGateways as $gateway)
+			{
+				$manager_gateways[] = $gateway->id;
+			}
+			// return $manager_gateways;
+			
 			$manager_permissions = $manager->permissions()->pluck('name');
 			$branches = Branch::with('departments')->get();
 			return view('accounting.managers.edit',compact('branches','manager','manager_gateways','manager_permissions'));

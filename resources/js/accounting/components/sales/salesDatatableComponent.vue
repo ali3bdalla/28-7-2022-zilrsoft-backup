@@ -53,18 +53,18 @@
 
                         </div>
 
-                        <div class="col-md-1" v-if="onlyQuotations!==true">
-                            <select @change="pushServerRequest" class="form-control" v-model="filters.current_status">
-                                <option value="null">{{ app.trans.current_status }}</option>
-                                <option value="paid">{{ app.trans.paid }}</option>
-                                <option value="credit">{{ app.trans.credit }}</option>
-                            </select>
-                        </div>
+<!--                        <div class="col-md-1" v-if="onlyQuotations!==true">-->
+<!--                            <select @change="pushServerRequest" class="form-control" v-model="filters.current_status">-->
+<!--                                <option value="null">{{ app.trans.current_status }}</option>-->
+<!--                                <option value="paid">{{ app.trans.paid }}</option>-->
+<!--                                <option value="credit">{{ app.trans.credit }}</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
                         <div class="col-md-2" v-if="onlyQuotations!==true">
                             <select @change="pushServerRequest" class="form-control" v-model="filters.invoice_type">
                                 <option value="null">{{ app.trans.invoice_type }}</option>
                                 <option value="sale">{{ app.trans.sale }}</option>
-                                <option value="r_sale">{{ app.trans.return_sale }}</option>
+                                <option value="return_sale">{{ app.trans.return_sale }}</option>
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -192,10 +192,10 @@
                             {{ app.trans.profit }}
                         </th>
 
-                        <th :class="{'orderBy':orderBy=='current_status'}" @click="setOrderByColumn('current_status')"
-                            width="">
-                            {{ app.trans.current_status }}
-                        </th>
+<!--                        <th :class="{'orderBy':orderBy=='current_status'}" @click="setOrderByColumn('current_status')"-->
+<!--                            width="">-->
+<!--                            {{ app.trans.current_status }}-->
+<!--                        </th>-->
 
                         <th :class="{'orderBy':orderBy=='invoice_type'}" @click="setOrderByColumn('invoice_type')"
                             width="">
@@ -227,7 +227,7 @@
 
                     <tr :key="row.id" v-for="(row,index) in table_rows">
                         <td v-text="index+1"></td>
-                        <td class="text-center" v-text="row.title"></td>
+                        <td class="text-center" v-text="row.invoice_number"></td>
                         <td class="text-center"
                             v-text="row.sale.alice_name==null ? row.sale.client.locale_name : row.sale.alice_name"></td>
                         <td v-text="row.created_at"></td>
@@ -235,19 +235,19 @@
                         <td class="text-center" v-if="canViewAccounting==1" v-text="row.subtotal"></td>
                         <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='sale'"
                             v-text="parseFloat(row.invoice_cost).toFixed(2)"></td>
-                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='r_sale'"
+                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='return_sale'"
                             v-text="parseFloat(-row.invoice_cost).toFixed(2)"></td>
 
                         <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='sale'"
                             v-text="parseFloat(row.subtotal - row.invoice_cost).toFixed(2)"></td>
-                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='r_sale'"
+                        <td class="text-center" v-if="canViewAccounting==1 && row.invoice_type=='return_sale'"
                             v-text="-parseFloat(row.subtotal - row.invoice_cost).toFixed(2)"></td>
 
 
-                        <td class="text-center">
-                            <span v-if="row.current_status=='paid'">{{ app.trans.paid }}</span>
-                            <span v-else>{{ app.trans.credit }}</span>
-                        </td>
+<!--                        <td class="text-center">-->
+<!--                            <span v-if="row.current_status=='paid'">{{ app.trans.paid }}</span>-->
+<!--                            <span v-else>{{ app.trans.credit }}</span>-->
+<!--                        </td>-->
                         <td class="text-center">
                             <span v-if="row.invoice_type=='sale'">{{ app.trans.sale }}</span>
                             <span v-else-if="row.invoice_type=='quotation'">{{ app.trans.quotation }}</span>
@@ -274,7 +274,7 @@
                                             :href="baseUrl + row.id + '/edit'" v-text="app.trans.return"></a></li>
 
                                     <li v-if="onlyQuotations==true"><a
-                                            :href="'quotations/' + row.id + '/edit'">تحويل الى فاتورة</a></li>
+                                            :href="'/sales/drafts/' + row.id + '/clone'">تحويل الى فاتورة</a></li>
 
 
                                 </ul>
@@ -313,9 +313,9 @@
                             {{parseFloat( totals.profit).toFixed(2) }}
                         </th>
 
-                        <th>
+<!--                        <th>-->
 
-                        </th>
+<!--                        </th>-->
 
                         <th>
                         </th>
@@ -336,7 +336,7 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <thead v-if="canViewAccounting==0 && onlyQuotations!=true">
+                   <!-- <thead v-if="canViewAccounting==1 && onlyQuotations!=true">
                     <tr>
                         <th>
 
@@ -355,7 +355,7 @@
 
 
                         <th>
-                            {{parseFloat( totals.net).toFixed(2) }}
+                            {{parseFloat(totals.net).toFixed(2) }}
                         </th>
 
 
@@ -374,7 +374,7 @@
 
                         <th></th>
                     </tr>
-                    </thead>
+                    </thead>-->
                 </table>
 
 
@@ -427,7 +427,7 @@
                     tax: 0,
                     total: 0,
                     subtotal: 0,
-                    discount_value: 0,
+                    discount: 0,
                     profit: 0,
                     cost: 0,
                 },
@@ -435,7 +435,7 @@
                 isOpenSearchPanel: false,
                 category: null,
                 baseUrl: "",
-                orderBy: "id",
+                orderBy: "created_at",
                 orderType: "desc",
                 yourValue: null,
                 table_rows: [],
@@ -495,7 +495,7 @@
 
 
             initUi() {
-                this.requestUrl = this.app.datatableBaseUrl + 'sales';
+                this.requestUrl =  '/api/sales';
                 this.baseUrl = this.app.trans.SaleBaseUrl + "/";
                 this.customDateShortcuts = [
                     {key: 'day', label: this.app.datetimetrans.today, value: 'day'},
@@ -518,8 +518,8 @@
                 params.orderBy = this.orderBy;
                 params.itemsPerPage = this.itemsPerPage;
                 params.orderType = this.orderType;
-                if (this.onlyQuotations) {
-                    params.invoice_type = "quotation";
+                if (this.onlyQuotations == 1 || this.onlyQuotations == true) {
+                    params.is_draft = true;
                 }
 
 
@@ -546,7 +546,7 @@
                 this.totals.tax = 0;
                 this.totals.total = 0;
                 this.totals.subtotal = 0;
-                this.totals.discount_value = 0;
+                this.totals.discount = 0;
                 this.totals.cost = 0;
                 this.totals.profit = 0;
                 for (let i = 0; i < len; i++) {
@@ -559,7 +559,7 @@
                         this.totals.tax = ItemMath.sum(this.totals.tax, row.tax);
                         this.totals.total = ItemMath.sum(this.totals.total, row.total);
                         this.totals.subtotal = ItemMath.sum(this.totals.subtotal, row.subtotal);
-                        this.totals.discount_value = ItemMath.sum(this.totals.discount_value, row.discount_value);
+                        this.totals.discount = ItemMath.sum(this.totals.discount, row.discount);
                         this.totals.profit = ItemMath.sum(this.totals.profit, row.subtotal - row.invoice_cost);
                         this.totals.cost = ItemMath.sum(this.totals.cost, row.invoice_cost);
                     } else {
@@ -567,7 +567,7 @@
                         this.totals.tax = ItemMath.sub(this.totals.tax, row.tax);
                         this.totals.total = ItemMath.sub(this.totals.total, row.total);
                         this.totals.subtotal = ItemMath.sub(this.totals.subtotal, row.subtotal);
-                        this.totals.discount_value = ItemMath.sub(this.totals.discount_value, row.discount_value);
+                        this.totals.discount = ItemMath.sub(this.totals.discount, row.discount);
                         this.totals.profit = ItemMath.sub(this.totals.profit, row.subtotal - row.invoice_cost);
                         this.totals.cost = ItemMath.sub(this.totals.cost, row.invoice_cost);
                     }

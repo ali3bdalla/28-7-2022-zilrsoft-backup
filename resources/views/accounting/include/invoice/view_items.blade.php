@@ -11,7 +11,7 @@
             <th class="">{{ __('pages/invoice.total') }}</th>
             <th class="">{{ __('pages/invoice.discount') }}</th>
             <th class="">{{ __('pages/invoice.subtotal') }}</th>
-            <th class="">{{ __('pages/invoice.vat') }}</th>
+{{--            <th class="">{{ __('pages/invoice.vat') }}</th>--}}
             <th class="">{{ __('pages/invoice.tax') }}</th>
             <th class="">{{ __('pages/invoice.net') }}</th>
         </tr>
@@ -19,7 +19,7 @@
 
         <tbody>
         @foreach($items as $item)
-            @if(!(in_array($invoice->invoice_type,['sale','r_sale']) && $item->is_expense) && $item->item != null)
+            @if(!(in_array($invoice->invoice_type,['sale','return_sale']) && $item->is_expense) && $item->item != null)
                 <tr @if($item->belong_to_kit==true) class="bg-custom-primary" @endif>
                     <td>
                         <button class="btn btn-custom-primary btn-xs">{{$loop->index + 1}}</button>
@@ -54,38 +54,38 @@
                                disabled="">
                     </td>
                     <td>
-                        <input type="text" class="form-control input-sm amount-input" value="{{ $item->price }}"
+                        <input type="text" class="form-control input-sm amount-input" value="{{ displayMoney($item->price) }}"
                                disabled="">
 
                     </td>
                     <td class="">
-                        <input type="text" class="form-control input-sm amount-input" value="{{ $item->total }}"
+                        <input type="text" class="form-control input-sm amount-input" value="{{ displayMoney($item->total) }}"
                                disabled="">
                     </td>
                     <td class="">
                         <input type="text" class="form-control input-sm amount-input" placeholder="discount"
-                               value="{{ $item->discount }}"
+                               value="{{ displayMoney($item->discount) }}"
                                disabled="">
                     </td>
                     <td class="">
                         <input type="text" class="form-control input-sm amount-input" placeholder="subtotal" readonly=""
                                value="{{
-                                $item->subtotal }}" disabled="">
+                                displayMoney($item->subtotal) }}" disabled="">
                     </td>
-                    <td class="">
-                        <input type="text" class="form-control input-sm amount-input" placeholder="vat purchase"
-                               readonly=""
-                               value="{{
-                                $item->item->vtp }}%" disabled="">
-                    </td>
+{{--                    <td class="">--}}
+{{--                        <input type="text" class="form-control input-sm amount-input" placeholder="vat purchase"--}}
+{{--                               readonly=""--}}
+{{--                               value="{{--}}
+{{--                                $item->item->vtp }}%" disabled="">--}}
+{{--                    </td>--}}
                     <td class="text-center">
                         <input type="text" class="form-control input-sm amount-input" placeholder="tax" readonly=""
-                               value="{{ $item->tax
+                               value="{{ displayMoney($item->tax)
                                 }}" disabled="">
                     </td>
                     <td class="">
                         <input type="text" class="form-control input-sm amount-input" placeholder="net" readonly=""
-                               value="{{ $item->net
+                               value="{{ displayMoney($item->net)
                                 }}" disabled="">
                     </td>
 
@@ -115,27 +115,24 @@
                                             <label>الحالة</label>
                                         </div>
                                     </div>
-                                    @foreach($item->item->serials()->withoutGlobalScope("pendingSerialsScope")
+                                    @foreach($item->item->serials()->withoutGlobalScope("draft")
                                     ->where([
-                                    ["sale_invoice_id",$invoice->id],
+                                    ["sale_id",$invoice->id],
                                     ["item_id",$item->item->id],
                                     ])
-                                    ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                    ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                    ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                    ->get() as $serial
-                                    )
+                                    ->orWhere([["return_sale_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["return_purchase_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["purchase_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->get() as $serial)
                                         <div class="row">
                                             <div class="col-md-8  text-center">
                                                 {{ $serial->serial }}
                                             </div>
                                             <div class="col-md-4  text-center">
-                                                {{trans('pages/items.' . $serial->current_status)}}
+                                                {{-- {{}} --}}
+                                                {{trans('pages/items.' . $serial->status)}}
                                             </div>
                                         </div>
-
-
-
                                     @endforeach
 
                                 </div>

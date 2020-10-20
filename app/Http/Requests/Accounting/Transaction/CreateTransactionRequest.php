@@ -2,10 +2,10 @@
 	
 	namespace App\Http\Requests\Accounting\Transaction;
 	
-	use App\Account;
+	use App\Models\Account;
     use App\Events\User\ShouldUpdateUserBalanceEvent;
-    use App\TransactionsContainer;
-    use App\User;
+    use App\Models\TransactionsContainer;
+    use App\Models\User;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;

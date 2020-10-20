@@ -142,8 +142,7 @@
                                 <h2><strong><?php echo e(money_format("%i",$identity->balance)); ?> </strong></h2>
                                 <p><small><?php echo e(trans('pages/users.client_balance')); ?></small></p>
 
-                                <a href="<?php echo e(route('accounting.accounts.client',[$identity->id,auth()->user()
-                                ->toGetManagerAccount('clients')->id])); ?>">كشف
+                                <a href="<?php echo e(route('entities.user',[$clientAccount->id,$identity->id])); ?>">كشف
                                     حساب</a>
                             </div>
                         <?php endif; ?>
@@ -151,8 +150,7 @@
                             <div class="col-xs-12 col-sm-6 emphasis">
                                 <h2><strong><?php echo e(money_format("%i",$identity->vendor_balance)); ?> </strong></h2>
                                 <p><small><?php echo e(trans('pages/users.vendor_balance')); ?></small></p>
-                                <a href="<?php echo e(route('accounting.accounts.vendor',[$identity->id,auth()->user()
-                                ->toGetManagerAccount('vendors')->id])); ?>">كشف
+                                <a href="<?php echo e(route('entities.user',[$vendorAccount->id,$identity->id])); ?>">كشف
                                     حساب</a>
                             </div>
                         <?php endif; ?>

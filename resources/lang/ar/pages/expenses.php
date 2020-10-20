@@ -8,7 +8,6 @@
 		'search_on_values' => ' ابحث في قيم المصروف',
 		
 		'id' => '#',
-		'date' => '#',
 		'creator' => __('reusable.creator'),
 		'date' => __('reusable.date'),
 		'name' => __('reusable.name'),

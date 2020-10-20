@@ -11,7 +11,7 @@
 
             </div>
             <div class="col-md-6">
-                <a :href="app.BaseApiUrl + 'purchases'" class="btn btn-default "><i
+                <a href="/purchases" class="btn btn-default "><i
                         class="fa fa-redo"></i> {{ app.trans.cancel }}</a>
             </div>
 
@@ -43,7 +43,7 @@
             </div>
             <div class="col-md-6">
                 <div class="input-group">
-                    <span class="input-group-addon">{{ app.trans.vendor_inc_number }}</span>
+                    <span class="input-group-addon">{{ app.trans.vendor_invoice_id }}</span>
                     <input aria-describedby="time-field" class="form-control"
                            type="text" v-model="invoiceData.vendorIncCumber">
 
@@ -63,7 +63,7 @@
                         @valueUpdated="receiverListChanged"
                         identity="002"
                         index="002"
-                        label_text="name"
+                        label_text="locale_name"
                 >
 
                 </accounting-select-with-search-layout-component>
@@ -105,13 +105,12 @@
 
 
             <div class="col-md-2" v-if="canViewItems==1">
-                <a :href="app.BaseApiUrl +
-                    'items?selectable=true&&is_purchase=true'" class="btn btn-custom-primary btn-lg"
+                <a :href="'/items?selectable=true&&is_purchase=true'" class="btn btn-custom-primary btn-lg"
                    target="_blank">{{ app.trans.view_products}}</a>
 
             </div>
             <div class="col-md-2" v-if="canCreateItem==1">
-                <a :href="app.BaseApiUrl + 'items/create'" class="btn btn-custom-primary btn-lg"
+                <a :href="'/items/create'" class="btn btn-custom-primary btn-lg"
                    target="_blank">{{app.trans.create_product}}</a>
             </div>
 
@@ -132,8 +131,8 @@
                     <th>{{app.trans.sales_price}}</th>
                     <th>{{ app.trans.purchase_price }}</th>
                     <th>{{ app.trans.total }}</th>
-                    <th>{{ app.trans.discount }}</th>
-                    <th>{{ app.trans.subtotal }}</th>
+                    <!--<th>{{ app.trans.discount }}</th>
+                    <th>{{ app.trans.subtotal }}</th>-->
                     <th>{{ app.trans.tax }}</th>
                     <th>{{ app.trans.net }}</th>
                     <th>- / +</th>
@@ -203,7 +202,7 @@
                                type="text"
                                v-model="item.total">
                     </td>
-                    <td>
+                    <!--<td>
                         <input :ref="'itemDiscount_' + item.id + 'Ref'"
                                @focus="$event.target.select()"
                                @keyup="itemDiscountUpdated(item)"
@@ -215,7 +214,7 @@
                                placeholder="subtotal"
 
                                type="text" v-model="item.subtotal">
-                    </td>
+                    </td>-->
 
                     <td>
                         <input @focus="$event.target.select()" class="form-control input-xs amount-input" disabled=""
@@ -261,7 +260,7 @@
                                            v-model="invoiceData.total">
                                 </div>
                             </div>
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-md-6"><label>{{ app.trans.discount }}</label></div>
                                 <div class="col-md-6">
                                     <input :placeholder="app.trans.discount"
@@ -279,7 +278,7 @@
                                            disabled type="text"
                                            v-model="invoiceData.subtotal">
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class="row">
                                 <div class="col-md-6"><label>{{ app.trans.tax }}</label></div>
@@ -430,7 +429,7 @@
             'canCreateItem', 'initPurchase', 'initInvoice', 'initItems'],
         data: function () {
             return {
-                activateTestMode:true,
+                activateTestMode:false,
                 testRequestData:"",
                 code_tester: "",
                 pending_purchase_id: 0,
@@ -476,8 +475,6 @@
                     messages: trans('messages'),
                     dateTimeTrans: trans('datetime'),
                     validation: trans('validation'),
-                    datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
-                    BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
                     defaultVatSaleValue: 15,
                     defaultVatPurchaseValue: 15,
                 },
@@ -486,7 +483,7 @@
         },
         created: function () {
             this.vendorsList = this.vendors;
-            this.initExpensesList();
+            // this.initExpensesList();
             if (this.initPurchase != null) {
                 this.cloneExistsInvoice();
             }else
@@ -506,7 +503,7 @@
         methods: {
 
             cloneExistsInvoice() {
-                this.invoiceData.vendorIncCumber = this.initPurchase.vendor_inc_number;
+                this.invoiceData.vendorIncCumber = this.initPurchase.vendor_invoice_id;
                 this.invoiceData.vendorId = this.initPurchase.vendor_id;
                 this.creator_id = this.initInvoice.creator_id;
 
@@ -530,24 +527,12 @@
                 }
             },
             itemNetUpdated(item) {
-
-                // if (item.is_service || item.is_expense) {
+                item.net = parseFloat(item.net).toFixed(2);
                 item.purchase_price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vtp);
                 item.total = parseFloat(item.purchase_price) * parseInt(item.qty);
                 item.subtotal = item.total;
                 item.tax = ItemAccounting.getTax(item.subtotal, item.vtp, true);
                 item.discount = 0;
-                // } else {
-                //     let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vtp); //  1.05
-                //     item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
-                //     item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vtp), 100)).toFixed(3);
-                //     item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
-                // }
-                //
-                // let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vtp); //  1.05
-                // item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
-                // item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vtp), 100)).toFixed(3);
-                // item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
                 this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
 
             },
@@ -650,6 +635,7 @@
                 })
             },
             validateAndPrepareItem(item) {
+                
                 if (item.is_service) {
                     return;
                 }
@@ -731,7 +717,29 @@
                 this.searchResultList = [];
                 this.$refs.barcodeNameAndSerialField.focus();
             },
+
+            itemPriceMather(item)
+            {
+                let purchasePrice = item.purchase_price;
+                let lastPurchasePrice = item.last_p_price;
+                //  $maxExpectedPrice = ($newDBItem->last_p_price * 20) / 100 + $newDBItem->last_p_price;
+                //         if ($item->price > $maxExpectedPrice) {
+                //             $price = $newDBItem->last_p_price;
+                //         } else {
+                //             $price = $item->price;
+
+                //         }
+                if(parseFloat(purchasePrice) > parseFloat(lastPurchasePrice) * 20 / 100 + parseFloat(lastPurchasePrice))
+                {
+                    item.purchase_price = lastPurchasePrice;
+                }
+                // alert(`${lastPurchasePrice}`);
+                return item;
+            },
             itemQtyUpdated(item, bySerial = false) {
+
+                item = this.itemPriceMather(item);
+                // item.qty = parseInt(item.qty);
                 if (bySerial === false) {
                     let el = this.$refs['itemQty_' + item.id + 'Ref'][0];
                     if (!inputHelper.validateQty(item.qty, el)) {
@@ -739,12 +747,13 @@
                     }
                 }
 
-                console.log('work');
+                // console.log('work');
                 item = this.itemUpdater(item);
                 this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
             },
 
             itemPriceUpdated(item) {
+                // item.purchase_price = parseFloat(item.purchase_price).toFixed(2);
                 let el = this.$refs['itemPrice_' + item.id + 'Ref'][0];
                 if (!inputHelper.validatePrice(item.purchase_price, el)) {
                     return false;
@@ -878,11 +887,11 @@
                     pending_purchase_id: this.pending_purchase_id,
                     items: this.invoiceData.items,
                     vendor_id: this.invoiceData.vendorId,
-                    vendor_inc_number: this.invoiceData.vendorIncCumber,
+                    vendor_invoice_id: this.invoiceData.vendorIncCumber,
                     receiver_id: this.invoiceData.receiverId,
                     total: this.invoiceData.total,
                     tax: this.invoiceData.tax,
-                    discount_value: this.invoiceData.discount,
+                    discount: this.invoiceData.discount,
                     discount_percent: this.invoiceData.discount,
                     net: this.invoiceData.net,
                     subtotal: this.invoiceData.subtotal,
@@ -905,7 +914,7 @@
                 }else
 
                 {
-                    axios.post('/purchases', data)//this.app.BaseApiUrl + 
+                    axios.post('/api/purchases', data)//this. 
                         .then(function (response) {
                             console.log(response.data);
                             // if (event == 'a4') {
@@ -965,7 +974,7 @@
                         if (appVm.pending_purchase_id == 0)
                             window.location.reload();
                         else
-                            window.location = '/accounting/purchases/create';
+                            window.location = '/purchases/create';
                     });
 
                 //

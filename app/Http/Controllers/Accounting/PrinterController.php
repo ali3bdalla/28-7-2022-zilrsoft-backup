@@ -3,9 +3,9 @@
 	namespace App\Http\Controllers\Accounting;
 	
 	use App\Http\Controllers\Controller;
-	use App\Invoice;
-	use App\Item;
-	use App\Payment;
+	use App\Models\Invoice;
+	use App\Models\Item;
+	use App\Models\Payment;
 	use Illuminate\Contracts\View\Factory;
 	use Illuminate\Http\Request;
 	use Illuminate\View\View;
@@ -22,6 +22,7 @@
 //			return $invoice->items()->groupBy('qty')->selectRaw('warranty_subscription_id')->get();
 			
 			
+			$invoice->sale = $invoice->sale()->withoutGlobalScope('draft')->first();
 			return view('accounting.printer.a4',compact('invoice'));
 		}
 		

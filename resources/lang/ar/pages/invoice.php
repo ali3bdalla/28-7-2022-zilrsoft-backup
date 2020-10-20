@@ -47,7 +47,7 @@
 		'clone' => 'نسخ الفاتورة',
 		'vat' => 'الضريبة',
 		'tax' => ' الضريبة',
-		'vendor_inc_number' => 'رقم فاتورة المورد',
+		'vendor_invoice_id' => 'رقم فاتورة المورد',
 		'price_invoice' => 'طباعة الفاتورة',
 		'price_receipt' => 'طباعة الايصال',
 		'purchase' => ' مشتريات',
@@ -81,11 +81,12 @@
 		'view' => 'عرض',
 		'edit' => 'تعديل',
 		'delete' => 'استرجاع كامل الفاتورة',
-		'PurchaseBaseUrl' => route('accounting.purchases.index'),
-		'SaleBaseUrl' => route('accounting.sales.index'),
+		'PurchaseBaseUrl' => route('purchases.index'),
+		'SaleBaseUrl' => route('sales.index'),
 		'creator' => 'الموظف',
 		'make_note' => 'اضافة ملاحظة',
 		'type_here' => 'اكتب هنا',
-		'quotation' => 'عرض سعر'
+		'quotation' => 'عرض سعر',
+        'in_stock' => 'متوفر'
 	
 	];

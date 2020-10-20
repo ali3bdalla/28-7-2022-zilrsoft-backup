@@ -115,33 +115,34 @@ exports.validator = {
 
 exports.query = {
     sendQueryRequestToFindItems: function (query = null, invoice_type = null) {
-        let link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_find_items';
+        let link = '/api/items/query/search';
         return axios.post(link, {barcode_or_name_or_serial: query, invoice_type: invoice_type});
     },
     sendQueryRequestToActivateItems: function (id_array = []) {
         let link = metaHelper.getContent("BaseApiUrl") + 'items/helper/activate_items';
         return axios.post(link, {id_array: id_array});
     },
-    sendValidatePurchaseSerialRequest: function (serials = []) {
-        var link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_validate_purchase_serial';
+    sendValidatePurchaseSerialRequest: function (item_id = 0,serials = []) {
+        let link = '/api/items/validations/purchases_serial';
         return axios.post(link, {
+            item_id:item_id,
             serials: serials
         });
     },
 
     sendValidateSaleSerialRequest: function (item_id = 0, serials = []) {
-        var link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_validate_sale_serial';
+        let link = '/api/items/validations/sales_serial';
         return axios.post(link, {
             item_id: item_id,
             serials: serials
         });
     },
     sendValidateReturnPurchaseSerialRequest: function (query = {}) {
-        let link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_validate_return_purchase_serial';
+        let link = '/api/items/validations/return_purchases_serial';
         return axios.post(link, query);
     },
     sendValidateReturnSaleSerialRequest: function (query = {}) {
-        var link = metaHelper.getContent("BaseApiUrl") + 'items/helper/query_validate_return_sale_serial';
+        let link = '/api/items/validations/return_sales_serial';
         return axios.post(link, query);
     }
 };

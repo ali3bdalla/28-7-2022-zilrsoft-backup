@@ -27,7 +27,7 @@
                             <td>{{ trans('pages/invoice.' . $history->event) }}</td>
                             <td>{{$history->user->locale_name}}</td>
                             <td>{{$history->creator->locale_name}}</td>
-                            @if(in_array($history->event,['sale','r_sale']))
+                            @if(in_array($history->event,['sale','return_sale']))
                                 <td>
                                     @if($history->invoice!=null)
                                         <a href="{{route('accounting.sales.show',$history->invoice->id)}}">

@@ -3,7 +3,7 @@
 @section('title',__('sidebar.purchases'))
 @section('buttons')
     @can("create purchase")
-        <a href="{{route('accounting.purchases.create')}}" class="btn btn-custom-primary">
+        <a href="{{route('purchases.create')}}" class="btn btn-custom-primary">
             <i class="fa fa-plus-circle"></i> {{ __('pages/invoice.create') }}
         </a>
     @endcan
@@ -27,7 +27,7 @@
             :creators='@json($creators)'
             :vendors='@json($vendors)'
             :is-pending='{{$is_pending ? 1 : 0}}'
-            :departments='@json(\App\Department::all())'
+            :departments='@json(\App\Models\Department::all())'
             :can-edit="{{ auth()->user()->canDo('edit purchase') }}"
             :can-confirm="{{ auth()->user()->canDo('confirm purchase') }}"
     >

@@ -90,7 +90,7 @@
                         <th :class="{'orderBy':orderBy=='id'}" @click="setOrderByColumn('id')">
                             {{ app.trans.number }}
                         </th>
-                        <th :class="{'orderBy':orderBy=='paymentable_id'}" @click="setOrderByColumn('paymentable_id')">
+                        <th :class="{'orderBy':orderBy=='account_id'}" @click="setOrderByColumn('account_id')">
                             {{ app.trans.gateway }}
                         </th>
 
@@ -124,7 +124,7 @@
                     <tr :key="row.id" v-for="(row,index) in table_rows">
                         <td v-text="index+1"></td>
                         <td v-text="row.id"></td>
-                        <td class="text-center" v-text="row.paymentable.locale_name"></td>
+                        <td class="text-center" v-text="row.account.locale_name"></td>
                         <td class="text-center" v-if="row.payment_type==='receipt'" v-text="app.trans.receipt"></td>
                         <td class="text-center" v-else v-text="app.trans.payment"></td>
                         <td class="text-center" v-text="row.creator.locale_name"></td>
@@ -237,7 +237,7 @@
                 isOpenSearchPanel: false,
                 category: null,
                 baseUrl: "",
-                orderBy: "id",
+                orderBy: "created_at",
                 orderType: "desc",
                 yourValue: null,
                 table_rows: [],

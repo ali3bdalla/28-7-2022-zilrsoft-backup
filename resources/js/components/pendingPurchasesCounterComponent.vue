@@ -18,7 +18,7 @@
                 vm.count = res.data;
             })
 
-        }
+        } 
     }
 </script>
 <style scoped>

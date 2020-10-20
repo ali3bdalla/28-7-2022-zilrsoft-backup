@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Item;
 	
-	use App\ItemSerials;
+	use App\Models\ItemSerials;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class ValidatePurchaseSerialsRequest extends FormRequest
@@ -39,7 +39,7 @@
 //					if (empty($serial)){
 //						$fail('no serial like this');
 //					}else{
-//						if (in_array($serial->current_status,['saled','r_purchase'])){
+//						if (in_array($serial->current_status,['saled','return_purchase'])){
 //							$fail('this serial is already used');
 //						}
 //					}
@@ -57,7 +57,7 @@
 //					if (empty($serial)){
 //						$fail('no serial like this');
 //					}else{
-//						if (in_array($serial->current_status,['saled','r_purchase'])){
+//						if (in_array($serial->current_status,['saled','return_purchase'])){
 //							$fail('this serial is already used');
 //						}
 //					}
@@ -76,7 +76,7 @@
 //					if (empty($serial)){
 //						$fail('no serial like this');
 //					}else{
-//						if (in_array($serial->current_status,['saled','r_purchase'])){
+//						if (in_array($serial->current_status,['saled','return_purchase'])){
 //							$fail('this serial is already used');
 //						}
 //					}

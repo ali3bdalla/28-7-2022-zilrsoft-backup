@@ -15,7 +15,7 @@
                 <ul class="nav navbar-nav">
 
                     <li v-if="canConfirmPendingPurchases">
-                        <a class="dropdown-toggle" href="/accounting/purchases/pending/list">
+                        <a class="dropdown-toggle" href="/purchases/pending/list">
                             <i class="fa fa-bars" style="font-size: 19px;
 margin-bottom: -10px;"></i>
                             <span class="label label-danger">{{ pendingPurchases}}</span>
@@ -33,7 +33,7 @@ margin-bottom: -10px;"></i>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu" style="    background: #eee;    max-height: 500px;">
 
-                                    <li v-for="transaction in pendingTransactions">
+                                    <li v-for="transaction in pendingTransactions" :key="transaction.id">
                                         <div class="">
                                             <div class="panel-body">
                                                 <i class="fa fa-warning text-yellow"></i> تحويل من {{
@@ -45,7 +45,7 @@ margin-bottom: -10px;"></i>
                                             </div>
                                             <div class="panel-footer">
                                                 <a
-                                                        :href="'/accounting/reseller_daily/'+transaction.id+'/confirm_transaction'"
+                                                        :href="'/daily/reseller/accounts_transactions/'+transaction.id+'/confirm'"
                                                         class="btn btn-custom-primary pull-left">موافق</a>
                                                 <a :href="'/accounting/reseller_daily/'+transaction.id+
                                                    '/delete_transaction'"
@@ -91,7 +91,7 @@ margin-bottom: -10px;"></i>
                             btn-flat" href="">البروفايل</a>
                                 </div>
                                 <div class="pull-right">
-                                    <form :action="BaseApiUrl + 'logout'" method="post">
+                                    <form action="/logout" method="post">
                                         <input :value="csrf" name="_token" type="hidden">
                                         <button class="btn btn-default btn-flat" type="submit">تسجيل
                                             خروج
@@ -102,13 +102,13 @@ margin-bottom: -10px;"></i>
                             </li>
                         </ul>
                     </li>
-                    <li><a href="/accounting/settings" v-text="trans.settings"></a></li>
-                    <li><a href="/accounting/printer/printers" v-text="trans.printers"></a></li>
-                    <li><a href="/accounting/statistics" v-text="trans.statistics"></a></li>
-                    <li><a href="/accounting/items"> المنتجات</a></li>
-                    <li><a href="/accounting/sales/create">فاتورة مبيعات</a></li>
-                    <li><a href="/accounting/purchases/create">فاتورة مشتريات</a></li>
-                    <li><a href="/accounting/reseller_daily/account_close_list">انهاء الوردية</a></li>
+<!--                    <li><a href="/accounting/settings" v-text="trans.settings"></a></li>-->
+                    <li><a href="/printer/printers" v-text="trans.printers"></a></li>
+<!--                    <li><a href="/statistics" v-text="trans.statistics"></a></li>-->
+                    <li><a href="/items"> المنتجات</a></li>
+                    <li><a href="/sales/create">فاتورة مبيعات</a></li>
+                    <li><a href="/purchases/create">فاتورة مشتريات</a></li>
+                    <li><a href="/daily/reseller/closing_accounts">انهاء الوردية</a></li>
 
 
                 </ul>

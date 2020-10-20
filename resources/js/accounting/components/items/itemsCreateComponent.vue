@@ -3,9 +3,10 @@
         <div class="row">
             <div class="col-md-6">
                 <div :class="{'has-error':errorFieldName==='arName'}" class="form-group">
+<!--                  readonly=""-->
                     <input :placeholder="app.trans.name_ar"
                            class="form-control has-error"
-                           readonly="" type='text'
+                            type='text'
                            v-model="itemData.arName">
                     <small class="text-danger" v-show="errorFieldName==='arName'">
                         {{ errorFieldMessage}}
@@ -19,7 +20,7 @@
                 <div :class="{'has-error':errorFieldName==='enName'}" class="form-group">
                     <input :placeholder="app.trans.name_en"
                            class="form-control has-error"
-                           readonly="" type='text'
+                           type='text'
                            v-model="itemData.enName">
                     <small class="text-danger" v-show="errorFieldName==='enName'">
                         {{ errorFieldMessage}}
@@ -154,7 +155,7 @@
             <div class="col-md-2">
                 <select class="form-control " v-model="itemData.warranty_subscription_id">
                     <option value="0">من غير ضمان</option>
-                    <option v-for="warranty in warranty_subscriptions" :value="warranty.id">
+                    <option v-for="warranty in warranty_subscriptions" :value="warranty.id"  :key="warranty.id">
                         {{ warranty.locale_name }}
                     </option>
                 </select>
@@ -237,7 +238,7 @@
                 <div>
                     <div :dir="app.appLocate==='ar' ? 'rtl' : 'ltr'">
                         <treeselect
-                            :disable-branch-nodes="true"
+                            :disable-branch-nodes="false"
                             :disabled="cloningItem===true"
                             :load-options="loadCategoriesList"
                             :options="categories"
@@ -273,7 +274,7 @@
 
         <div v-bind:key="index" v-for='(filter,index) in filterList'>
             <accounting-filter-select-with-search-component
-                :app.trans="app.trans"
+                :app-trans="app.trans"
                 :can-create="canCreateFilter"
                 :can-edit="canEditFilter"
                 :default="selectedFilterValue.get(filter.id)"
@@ -430,7 +431,7 @@
                 this.itemData.expenseVendorId = this.editedItemData.expense_vendor_id;
                 this.itemData.categoryId = this.editedItemData.category_id;
                 this.itemData.attachments = this.editedItemData.attachments;
-                this.new_attachment_link = '/accounting/items/' + this.editedItemData.id + '/attachments';
+                this.new_attachment_link = '/items/' + this.editedItemData.id + '/attachments';
 
                 if (!this.editedItemData.name.includes(this.editedItemCategory.name)) {
                     this.categoryNameShouldBeInItemName = false;
@@ -610,7 +611,7 @@
                         }
                     })
                     .catch(function (error) {
-
+                        console.log(error.response);
                     });
             },
             loadCategoriesList(e) {
@@ -749,11 +750,10 @@
                     axios.put(this.app.BaseApiUrl + "items/" + this.editedItemData.id, data)
                         .then(function (response) {
                             loader.hide();
-                            location.href = appVm.app.BaseApiUrl + 'items';
+                            location.href = '/items';
                         })
                         .catch(function (error) {
                             loader.hide();
-
                         });
 
                     // simulate AJAX

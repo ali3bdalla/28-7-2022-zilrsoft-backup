@@ -10,7 +10,6 @@
 
 <?php $__env->startSection("content"); ?>
         <accounting-item-transactions-component :item='<?php echo json_encode($item, 15, 512) ?>'></accounting-item-transactions-component>
-
 <?php $__env->stopSection(); ?>
 
 

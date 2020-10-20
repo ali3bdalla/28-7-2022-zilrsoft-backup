@@ -2,7 +2,7 @@
 
 namespace Modules\Web\Http\Requests\Category;
 
-use App\Category;
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ApiGetSubCategoriesRequest extends FormRequest

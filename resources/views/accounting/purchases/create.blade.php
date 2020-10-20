@@ -2,7 +2,6 @@
 @section('title',__('pages/invoice.purchase'))
 
 
-
 @section('page_css')
     <style>
         .navbar {

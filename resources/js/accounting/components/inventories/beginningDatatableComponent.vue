@@ -69,7 +69,7 @@
                         </td>
                         <td v-text="index+1"></td>
 
-                        <td class="text-center" v-text="row.title"></td>
+                        <td class="text-center" v-text="row.invoice_number"></td>
                         <td class="text-center" v-text="row.total"></td>
                         <td class="text-center" v-text="row.creator.locale_name"></td>
                         <td v-text="row.created_at"></td>
@@ -85,8 +85,7 @@
                                 </button>
                                 <ul :aria-labelledby="'dropDownOptions'
                                 + row.id" class="dropdown-menu CustomDropDownOptions">
-                                    <li><a :href="baseUrl + row.id "
-                                                             v-text="app.trans.view"></a></li>
+                                    <li><a :href="baseUrl + row.id " v-text="app.trans.view"></a></li>
 
                                     <li><a :href="baseUrl + row.id + '/edit'"
                                            v-text="app.trans.return"></a></li>
@@ -145,7 +144,7 @@
                 isOpenSearchPanel: false,
                 category: null,
                 baseUrl: "",
-                orderBy: "id",
+                orderBy: "created_at",
                 orderType: "desc",
                 yourValue: null,
                 table_rows: [],
@@ -186,7 +185,7 @@
 
             initUi() {
                 this.requestUrl = this.app.datatableBaseUrl + 'beginning_inventories';
-                this.baseUrl = this.app.trans.PurchaseBaseUrl + "/";
+                this.baseUrl =  "/purchases/";
                 this.customDateShortcuts = [
                     {key: 'thisWeek', label: this.app.datetimetrans.thisWeek, value: 'isoWeek'},
                     {key: 'lastWeek', label: this.app.datetimetrans.lastWeek, value: '-isoWeek'},

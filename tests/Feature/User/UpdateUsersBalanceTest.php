@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\User;
 
-use App\Account;
-use App\User;
+use App\Models\Account;
+use App\Models\User;
 use Tests\TestCase;
 
 class UpdateUsersBalanceTest extends TestCase

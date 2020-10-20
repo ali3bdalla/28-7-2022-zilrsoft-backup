@@ -1,4 +1,4 @@
-<?php $__env->startSection('title',__('pages/invoice.view') . ' | '. $invoice->title ); ?>
+<?php $__env->startSection('title',__('pages/invoice.view') . ' | '. $invoice->invoice_number ); ?>
 
 
 
@@ -94,9 +94,9 @@
         </div>
         <div class="panel-body">
             <?php if ($__env->exists('accounting.include.invoice.view_items',[
-                 'items' => $invoice->items
+                 'items' => $invoice->items()->withoutGlobalScope('draft')->get()
             ])) echo $__env->make('accounting.include.invoice.view_items',[
-                 'items' => $invoice->items
+                 'items' => $invoice->items()->withoutGlobalScope('draft')->get()
             ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         </div>
         <div class="panel-footer">

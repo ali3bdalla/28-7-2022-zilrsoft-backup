@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Accounting\Item;
 
 use App\Http\Requests\Helper\AttachmentsUploaderHelper;
-use App\Item;
+use App\Models\Item;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpClient\HttpClient;
 

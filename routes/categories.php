@@ -11,5 +11,4 @@ Route::prefix('categories')->name('categories.')->group(function () {
     Route::get('{category}/filters', "CategoryController@filters");
     Route::patch('{category}/filters', "CategoryController@update_filters");
     Route::get('{category}/clone', "CategoryController@clone");
-
 });

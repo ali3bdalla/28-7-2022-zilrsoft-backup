@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo e($invoice->title); ?></title>
+    <title><?php echo e($invoice->invoice_number); ?></title>
 
     <!-- Latest compiled and minified CSS -->
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700&subset=latin,latin-ext'
@@ -111,7 +111,7 @@
 
         <div class="col-md-6" style="float: left;padding-top: 10px;color: black !important;">
             <h5><?php echo e(__('pages/invoice.branch')); ?> :
-                <?php echo e($invoice->creator->branch->locale_name); ?>
+                <?php echo e($invoice->branch->locale_name); ?>
 
             </h5>
             <h5 style="margin: 10px 0px !important;">الرقم الضريبي : <?php echo e(auth()->user()->organization->vat); ?></h5>
@@ -153,10 +153,10 @@
 
 
                 <div class="company-info" style="margin-bottom: 10px">
-                    <span><?php echo e($invoice->steakholder_type); ?> : <?php echo e($invoice->steakholder_name); ?></span>
+                    <span><?php echo e($invoice->user_type); ?> : <?php echo e($invoice->final_user_name); ?></span>
                 </div>
                 <div class="company-info">
-                    <span><?php echo e(__('pages/invoice.phone_number')); ?> :  <?php echo e($invoice->steakholder_phone_number); ?></span>
+                    <span><?php echo e(__('pages/invoice.phone_number')); ?> :  <?php echo e($invoice->user->phone_number); ?></span>
                 </div>
 
             </div>
@@ -168,16 +168,16 @@
                     <span><?php echo e(__('pages/invoice.invoice')); ?>
 
                         <?php echo e($invoice->description); ?> <?php echo e(__('pages/invoice.number')); ?> :
-                        <?php echo e($invoice->title); ?></span>
+                        <?php echo e($invoice->invoice_number); ?></span>
                 </div>
                 <div class="company-info" style="margin-bottom: 10px">
-                    <span><?php echo e($invoice->served_title); ?> : <?php echo e($invoice->served_by); ?></span>
+                    <span><?php echo e($invoice->manager_type); ?> : <?php echo e($invoice->manager->name); ?></span>
                 </div>
                 
                 
                 
                 <div class="company-info">
-                    <span><?php echo e(__('pages/invoice.department')); ?> :  <?php echo e($invoice->creator->department->locale_title); ?></span>
+                    <span><?php echo e(__('pages/invoice.department')); ?> :  <?php echo e($invoice->department->locale_title); ?></span>
                 </div>
 
 
@@ -200,7 +200,7 @@
                         <th class="unit"
                             style="width: 30px !important;background-color: #777777 !important;">
                             <?php echo e(__('pages/invoice.qty')); ?></th>
-                        <?php if($invoice->printable_price): ?>
+                        <?php if($invoice->show_items_price_in_print_mode): ?>
                             <th class="unit"
                                 style="width: 50px !important;background-color: #777777 !important;"><?php echo e(__('pages/invoice.price')); ?></th>
                             <th class="unit"
@@ -221,7 +221,7 @@
 				<?php $items_qty_count = 0; ?>
                     <?php if(!empty($invoice->items)): ?>
                         <?php $__currentLoopData = $invoice->items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php if($item->belong_to_kit==false && $item->printable && $item->item != null): ?>
+                            <?php if($item->belong_to_kit==false && $item->show_price_in_print_mode && $item->item != null): ?>
 						   <?php $items_qty_count = $items_qty_count + $item->qty ?>
                                  <?php if($loop->index%2==0): ?>
 							   <?php $background_color = "#ffffff"; ?>
@@ -236,29 +236,29 @@
 								 <?php echo $background_color;?> !important;"><?php echo e(mb_substr($item->item->locale_name, 0,55)); ?></td>
                                          <td class="total" style="background-color:
 								 <?php echo $background_color;?> !important;"><?php echo e($item->qty); ?></td>
-                                         <?php if($invoice->printable_price): ?>
+                                         <?php if($invoice->show_items_price_in_print_mode): ?>
                                              <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"><?php echo e($item->price); ?></td>
+									<?php echo $background_color;?> !important;"><?php echo e(roundMoney($item->price)); ?></td>
                                              <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> <?php echo e($item->total); ?></td>
+									<?php echo $background_color;?> !important;"> <?php echo e(roundMoney($item->total)); ?></td>
                                              <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> <?php echo e($item->discount); ?></td>
+									<?php echo $background_color;?> !important;"> <?php echo e(roundMoney($item->discount)); ?></td>
                                              <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> <?php echo e($item->printable_tax); ?></td>
+									<?php echo $background_color;?> !important;"> <?php echo e(roundMoney($item->tax)); ?></td>
                                              <td class="total" style="background-color:
-									<?php echo $background_color;?> !important;"> <?php echo e($item->printable_net); ?></td>
+									<?php echo $background_color;?> !important;"> <?php echo e(roundMoney($item->net)); ?></td>
                                          <?php endif; ?>
                                      </tr>
                                      <?php if(!in_array($item->invoice_type,['purchase'])): ?>
                                          <?php if($item->item->is_need_serial): ?>
                                              <?php $__currentLoopData = $item->item->serials()
                                             ->where([
-                                            ["sale_invoice_id",$invoice->id],
+                                            ["sale_id",$invoice->id],
                                             ["item_id",$item->item->id],
                                             ])
-                                            ->orWhere([["r_sale_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                            ->orWhere([["r_purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
-                                            ->orWhere([["purchase_invoice_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["return_sale_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["return_purchase_id",$invoice->id],["item_id",$item->item->id]])
+                                            ->orWhere([["purchase_id",$invoice->id],["item_id",$item->item->id]])
                                             ->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $serial): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                  <tr style="background-color: #8888">
 
@@ -270,7 +270,7 @@
 										       <?php echo $background_color;?> !important;padding-right: 20px !important;"><?php echo e($serial->serial); ?></td>
                                                      <td class="total" style="background-color:
 										   <?php echo $background_color;?> !important;"></td>
-                                                     <?php if($invoice->printable_price): ?>
+                                                     <?php if($invoice->show_items_price_in_print_mode): ?>
                                                          <td class="total" style="background-color:
 											  <?php echo $background_color;?> !important;"></td>
                                                          <td class="total" style="background-color:
@@ -300,7 +300,7 @@
         </div>
     </section>
     <div class="">
-        <?php $printable_tax_net = $invoice->printable_tax_and_net;?>
+        <?php $show_price_in_print_mode_tax_net = $invoice->show_price_in_print_mode_tax_and_net;?>
         <div class="total_numbers text-right">
             <div class="">
                 <h4 style="color: white;font-size: 22px;padding: 4px"><?php echo e(__('pages/invoice.invoice_data')); ?></h4>
@@ -308,18 +308,18 @@
 
             <div class="number">
                 <div class="label"><?php echo e(__('pages/invoice.total')); ?> :</div>
-                <div class="value"> <?php echo e($invoice->total); ?></div>
+                <div class="value"> <?php echo e(roundMoney($invoice->total)); ?></div>
                 <div class="clear"></div>
             </div>
             <div class="number">
                 <div class="label"><?php echo e(__('pages/invoice.discount')); ?> :</div>
-                <div class="value"><?php echo e($invoice->discount_value); ?></div>
+                <div class="value"><?php echo e(roundMoney($invoice->discount)); ?></div>
                 <div class="clear"></div>
             </div>
 
             <div class="number">
                 <div class="label"><?php echo e(__('pages/invoice.subtotal')); ?> :</div>
-                <div class="value"><?php echo e($invoice->subtotal); ?></div>
+                <div class="value"><?php echo e(roundMoney( $invoice->subtotal)); ?></div>
                 <div
                         class="clear"></div>
             </div>
@@ -327,7 +327,7 @@
             <div class="number">
                 <div class="label"><?php echo e(__('pages/invoice.vat')); ?> :
                 </div>
-                <div class="value"> <?php echo e($printable_tax_net['tax']); ?></div>
+                <div class="value"> <?php echo e(roundMoney($invoice->tax)); ?></div>
                 
                 <div class="clear"></div>
             </div>
@@ -335,7 +335,7 @@
                 <div style="text-align: center;">الاجمالي</div>
                 <div style="margin: 10px;text-align: center;font-size: 25px">
                     <h3 class=><b>
-                            <?php echo e($printable_tax_net['net']); ?></b></h3>
+                            <?php echo e(roundMoney($invoice->net)); ?></b></h3>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -379,7 +379,7 @@
                 <p>* التبديل خلال سبعة أيام .</p>
 
                 <?php $__currentLoopData = $invoice->items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <?php if($item->belong_to_kit==false &&  $item->item != null && $item->printable && $item->item->warranty): ?>
+                    <?php if($item->belong_to_kit==false &&  $item->item != null && $item->show_price_in_print_mode && $item->item->warranty): ?>
                         <p>* الصنف <?php echo e($loop->index + 1); ?> <?php echo e($item->item->warranty_title); ?> .</p>
                     <?php endif; ?>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -427,11 +427,8 @@
 </html>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="<?php echo e(asset('accounting/js/jquery-barcode.min.js')); ?>"></script>
-<script>
-    $("#barcode_demo").barcode(
-        "<?php echo e($invoice->title); ?>",// Value barcode (dependent on the type of barcode)
-        "code39" // type (string)
-    );
+<script type="text/javascript">
+  
     print();
 </script>
 <?php /**PATH /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/printer/a4.blade.php ENDPATH**/ ?>

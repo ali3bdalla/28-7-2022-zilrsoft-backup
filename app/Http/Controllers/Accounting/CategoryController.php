@@ -2,8 +2,8 @@
 	
 	namespace App\Http\Controllers\Accounting;
 	
-	use App\Category;
-	use App\Filter;
+	use App\Models\Category;
+	use App\Models\Filter;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Category\CreateCategoryRequest;
 	use App\Http\Requests\Accounting\Category\UpdateCategoryRequest;
@@ -31,7 +31,9 @@
 		{
 			$this->middleware(['permission:view category']);
 			
-			$chats = Category::mainOnly()->get();
+			$chats = Category::where('parent_id',0)->get();
+
+			// return $chats;
 			$categories = [];
 			foreach ($chats as $category){
 				$category['children'] = Category::getAllParentNestedChildren($category);

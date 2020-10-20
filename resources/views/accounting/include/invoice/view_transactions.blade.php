@@ -10,21 +10,54 @@
             <th>{{ trans('pages/transactions.debit') }}</th>
             <th>{{ trans('pages/transactions.credit') }}</th>
             </thead>
+            <?php $total_debit = 0; $total_credit = 0;?>
+        <tbody class="text-center">
+        @foreach($transactions as $transaction)
+
+            @if($transaction->type  == 'credit')
+
+                <?php $total_credit = $total_credit + $transaction['amount']?>
+
+                <tr>
+                    <td class="date_field_center">{{ $transaction->created_at }}</td>
+                    <td>{{ $transaction->account_name}}</td>
+                    <td></td>
+                    <td>{{ displayMoney($transaction->amount) }}</td>
+                </tr>
 
 
-            @if($invoice->invoice_type=='sale')
-                @includeIf('accounting.include.invoice.transactions.sale')
-            @elseif($invoice->invoice_type=='r_sale')
-                @includeIf('accounting.include.invoice.transactions.return_sale')
-            @elseif($invoice->invoice_type=='r_purchase')
-                @includeIf('accounting.include.invoice.transactions.return_purchase')
-            @elseif($invoice->invoice_type=='stock_adjust')
-                @includeIf('accounting.include.invoice.transactions.stock_adjust')
             @else
-                @includeIf('accounting.include.invoice.transactions.purchase')
+
+                <?php $total_debit = $total_debit + $transaction['amount']?>
+                <tr>
+                    <td class="date_field_center">{{ $transaction->created_at }}</td>
+                    <td>{{  $transaction->account_name }}</td>
+                    <td>{{  displayMoney($transaction->amount) }}</td>
+                    <td></td>
+                </tr>
+
             @endif
+
+        @endforeach
+        </tbody>
+
+        <thead>
+        <th>المجموع</th>
+        <th></th>
+        <th>{{ displayMoney($total_debit) }}</th>
+        <th>{{ displayMoney($total_credit) }}</th>
+        </thead>
+
+
+{{--        @if(money_format("%i",$total_debit)!=money_format("%i",$total_credit))--}}
+{{--            <script>--}}
+{{--                alert('توجد مشكلة بالعمليات المحاسبية لهذه الفاتورة')--}}
+{{--            </script>--}}
+{{--        @endif--}}
 
 
         </table>
+{{--        {{money_format("%i",$total_debit)}}--}}
+{{--        {{money_format("%i",$total_credit)}}--}}
     </div>
 @endcan

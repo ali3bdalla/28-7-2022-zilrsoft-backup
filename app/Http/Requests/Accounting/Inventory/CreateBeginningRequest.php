@@ -2,7 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Inventory;
 	
-	use App\User;
+	use App\Models\User;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
@@ -41,7 +41,7 @@
 				'items.*.serials.*' => 'required|unique:item_serials,serial|min:2',
 				'total' => 'required|numeric',
 				'subtotal' => 'required|numeric',
-				'discount_value' => 'required|numeric',
+				'discount' => 'required|numeric',
 				'discount_percent' => 'required|numeric',
 				'tax' => 'required|numeric',
 				'net' => 'required|numeric',
@@ -70,7 +70,7 @@
 				$account->amount = $this->net;
 				$methods = [
 					$account
-				];
+				]; 
 				$invoice_status = $invoice->handle_invoice_transactions($methods,$user->id,$this->net,
 					$this->items,$expenses);
 				
@@ -92,8 +92,8 @@
 		public function create_invoice()
 		{
 			
-			$data = $this->only('total','subtotal','remaining','net','tax','discount_value','discount_percent');
-			$data['discount_value'] = 0;
+			$data = $this->only('total','subtotal','remaining','net','tax','discount','discount_percent');
+			$data['discount'] = 0;
 			$data['discount_percent'] = 0;
 			$data['creator_id'] = $this->user()->id;
 			$data['department_id'] = $this->user()->department_id;
@@ -119,7 +119,7 @@
 				'is_full_returned' => 0,
 				'invoice_type' => 'beginning_inventory',
 				'is_returned' => 0,
-				'vendor_inc_number' => '000000000',
+				'vendor_invoice_id' => '000000000',
 				'prefix' => 'BGN-',
 				'parent_id' => 0
 			

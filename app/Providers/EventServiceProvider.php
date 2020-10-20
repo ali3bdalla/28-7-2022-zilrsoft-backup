@@ -2,14 +2,13 @@
 
 namespace App\Providers;
 
-use App\Events\ChartCreatedEvent;
-use App\Events\Transaction\TransactionCreatedEvent;
-use App\Events\Transaction\TransactionErasedEvent;
-use App\Events\User\ShouldUpdateUserBalanceEvent;
-use App\Listeners\Account\UpdateAccountStatisticListener;
-use App\Listeners\CreatePaymentGatewayListener;
-use App\Listeners\User\UpdateUserBalanceListener;
-use Illuminate\Support\Facades\Event;
+use App\Events\Models\Account\AccountCreated;
+use App\Events\Models\Account\AccountUpdated;
+use App\Events\Models\Category\CategoryCreated;
+use App\Events\Models\Transaction\TransactionCreated;
+use App\Listeners\Models\Account\UpdateAccountDetailsListener;
+use App\Listeners\Models\Category\UpdateCategoryDetailsListener;
+use App\Listeners\Models\Transaction\UpdateTransactionDetailsListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -33,18 +32,22 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserCreatedEvent'=>[
             'App\Listeners\UserCreatedListener'
         ],
-	    ChartCreatedEvent::class => [
-	        CreatePaymentGatewayListener::class
-	    ],
-        TransactionCreatedEvent::class => [
-            UpdateAccountStatisticListener::class,
+
+        AccountCreated::class => [
+            UpdateAccountDetailsListener::class
         ],
-        TransactionErasedEvent::class => [
-            UpdateAccountStatisticListener::class,
+        AccountUpdated::class => [
+            UpdateAccountDetailsListener::class
         ],
-        ShouldUpdateUserBalanceEvent::class => [
-            UpdateUserBalanceListener::class
+
+        TransactionCreated::class => [
+            UpdateTransactionDetailsListener::class
+        ],
+
+        CategoryCreated::class => [
+            UpdateCategoryDetailsListener::class
         ]
+
     ];
 
     /**

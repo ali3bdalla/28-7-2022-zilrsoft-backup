@@ -16,6 +16,6 @@
 		 */
 		protected function redirectTo($request)
 		{
-			return route('authentication.login');
+			return route('login');
 		}
 	}

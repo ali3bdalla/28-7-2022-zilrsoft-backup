@@ -2,6 +2,13 @@
 
 All notable changes to `dropbox-api` will be documented in this file
 
+## 1.16.0 - 2020-09-25
+- allow the Client to work with Dropbox business accounts
+
+## 1.15.0 - 2020-07-09
+
+- allow Guzzle 7 (#70)
+
 ## 1.14.0 - 2020-05-11
 
 - add support for app authentication and no authentication

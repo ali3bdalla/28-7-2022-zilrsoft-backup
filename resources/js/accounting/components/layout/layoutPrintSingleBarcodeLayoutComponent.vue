@@ -28,7 +28,7 @@
                     <div class="row">
                         <div align="right" class="col-md-6 " style="margin-top: -18px;
                         font-weight: bold;margin-right: 3px !important;
-                        margin-left: -3px;" v-text="purchaseInvoiceId">
+                        margin-left: -3px;" v-text="PurchaseId">
 
                         </div>
                         <div align="left" class="col-md-6  div-col" style="margin-top: -18px; font-weight: bold;
@@ -68,7 +68,7 @@
         props: ['invoice_id', 'item'],
         data: function () {
             return {
-                purchaseInvoiceId: "",
+                PurchaseId: "",
                 image: null,
                 cropper: null,
                 number_of_barcode: 1,

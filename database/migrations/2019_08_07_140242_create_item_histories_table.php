@@ -17,8 +17,8 @@ class CreateItemHistoriesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('item_id');
             $table->integer('current_qty')->default(0);
-            $table->float('cost_price',20,2)->default(0);
-            $table->float('last_price',20,2)->default(0);
+            $table->float('cost_price',20, 8)->default(0);
+            $table->float('last_price',20, 8)->default(0);
             $table->timestamps();
         });
     }

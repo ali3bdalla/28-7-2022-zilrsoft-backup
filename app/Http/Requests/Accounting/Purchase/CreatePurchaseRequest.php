@@ -2,14 +2,14 @@
 
 namespace App\Http\Requests\Accounting\Purchase;
 
-use App\Accounting\AmountsAccounting;
-use App\Accounting\ExpensesAccounting;
-use App\Accounting\IdentityAccounting;
-use App\Accounting\PaymentAccounting;
-use App\Accounting\TransactionAccounting;
-use App\Events\Accounting\Invoice\PendingPurchaseInvoiceCreatedEvent;
-use App\Invoice;
-use App\ItemSerials;
+use App\Models\Accounting\AmountsAccounting;
+use App\Models\Accounting\ExpensesAccounting;
+use App\Models\Accounting\IdentityAccounting;
+use App\Models\Accounting\PaymentAccounting;
+use App\Models\Accounting\TransactionAccounting;
+use App\Events\Accounting\Invoice\PendingPurchaseCreatedEvent;
+use App\Models\Invoice;
+use App\Models\ItemSerials;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
@@ -56,12 +56,12 @@ class CreatePurchaseRequest extends FormRequest
             'items.*.serials.*' => ['required', function ($attr, $value, $fail) {
                 $serial = ItemSerials::where('serial', $value)->first();
                 if (!empty($serial)) {
-                    if (in_array($serial->current_status, ['saled', 'available', 'r_sale'])) {
+                    if (in_array($serial->current_status, ['saled', 'available', 'return_sale'])) {
                         $fail('this serial is already exists');
                     }
                 }
             }],
-            'vendor_inc_number' => 'required|string',
+            'vendor_invoice_id' => 'required|string',
             'remaining' => 'required|numeric',
             'expenses.*.id' => 'integer|required|exists:expenses',
             'expenses.*.is_open' => 'boolean|required',
@@ -95,7 +95,7 @@ class CreatePurchaseRequest extends FormRequest
                 'invoice_type' => 'purchase',
                 'prefix' => 'PUI-',
                 'vendor_id' => $this->input("vendor_id"),
-                'vendor_inc_number' => $this->input("vendor_inc_number"),
+                'vendor_invoice_id' => $this->input("vendor_invoice_id"),
                 'receiver_id' => $this->input("receiver_id")]);
             $expenses = $this->toExtractExpenses();
             $expense_amount = floatval(collect($expenses)->sum('amount'));
@@ -132,7 +132,7 @@ class CreatePurchaseRequest extends FormRequest
                 'invoice_type' => 'pending_purchase',
                 'prefix' => 'PPU-',
                 'vendor_id' => $this->input("vendor_id"),
-                'vendor_inc_number' => $this->input("vendor_inc_number"),
+                'vendor_invoice_id' => $this->input("vendor_invoice_id"),
                 'receiver_id' => $this->input("receiver_id")]);
             $expenses = $this->toExtractExpenses();
             $expense_amount = floatval(collect($expenses)->sum('amount'));
@@ -141,7 +141,7 @@ class CreatePurchaseRequest extends FormRequest
 //				$this->toCreateInvoiceTransactions($invoice,$this->items,$this->methods,$expenses);
 
             DB::commit();
-            event(new PendingPurchaseInvoiceCreatedEvent($invoice->fresh()));
+            event(new PendingPurchaseCreatedEvent($invoice->fresh()));
             return $invoice->fresh();
         } catch (Exception $e) {
             DB::rollBack();

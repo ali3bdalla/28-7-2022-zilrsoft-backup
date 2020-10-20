@@ -21,7 +21,7 @@
 
                 <div v-show="isOpenSearchPanel">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3"> 
                             <VueCtkDateTimePicker
                                     :behaviour="{time: {nearestIfDisabled: true}}"
                                     :custom-shortcuts="customDateShortcuts" :label="trans.created_at"
@@ -150,9 +150,11 @@
 
                         <td class="text-right-with-padding">{{row.ar_name}}<p align="left">{{row.name}}</p></td>
                         <td v-if="!row.is_kit" v-text="parseFloat(row.price).toFixed(2)"></td>
-                        <td v-else   v-text="parseFloat(row.data.net).toFixed(2)"></td>
+                        <td v-else   ></td>
+<!--                        v-text="parseFloat(row.data.net).toFixed(2)"-->
                         <td v-if="!row.is_kit" v-text="parseFloat(row.price_with_tax).toFixed(2)"></td>
-                        <td v-else v-text="parseFloat(row.data.total).toFixed(2)"></td>
+                        <td v-else ></td>
+<!--                        v-text="parseFloat(row.data.total).toFixed(2)"-->
                         <td>
                             <v-tooltip bottom>
                                 <template v-slot:activator="{ on }">
@@ -183,7 +185,7 @@
                                 </button>
                                 <ul :aria-labelledby="'dropDownOptions'
                                 + row.id" class="dropdown-menu CustomDropDownOptions">
-                                    <li v-if="row.is_kit"><a :href="BaseApiUrl + 'kits/' + row.id"
+                                    <li v-if="row.is_kit"><a :href="'/items/up_selling/kits/' + row.id"
                                                              v-text="trans.show"></a></li>
                                     <li v-if="canCreate==1  && !row.is_kit"><a :href="baseUrl + row.id + '/clone'"
                                                                                v-text="trans.clone"></a></li>
@@ -254,7 +256,7 @@
                 itemsPerPage: 20,
                 isOpenSearchPanel: false,
                 category: null,
-                baseUrl: "",
+                baseUrl: "/items/",
                 orderBy: "updated_at",
                 orderType: "desc",
                 yourValue: null,
@@ -267,9 +269,7 @@
                 trans: trans('items-page'),
                 messages: trans('messages'),
                 table_trans: trans('table'),
-                BaseApiUrl: metaHelper.getContent('BaseApiUrl'),
                 datetimetrans: trans('datetime'),
-                datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
                 customDateShortcuts: [],
                 date_range: null,
                 showMultiTaskButtons: false,
@@ -332,8 +332,7 @@
 
 
             initUi() {
-                this.requestUrl = this.datatableBaseUrl + 'items';
-                this.baseUrl = this.trans.baseUrl + "/";
+                this.requestUrl = '/api/items';
                 this.customDateShortcuts = [
                     {key: 'thisWeek', label: this.datetimetrans.thisWeek, value: 'isoWeek'},
                     {key: 'lastWeek', label: this.datetimetrans.lastWeek, value: '-isoWeek'},
