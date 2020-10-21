@@ -3,7 +3,8 @@ import AccountingTreeViewRawLayoutComponent from './components/layout/treeViewRa
 import AccountingHeaderLayoutComponent from './components/layout/headerLayoutComponent'
 import accountingAppendGatewaysLayoutComponent from './components/layout/appendGatewaysLayoutComponent'
 import AccountingTablePaginationHelperLayoutComponent from './components/layout/tablePaginationHelperLayoutComponent'
-import AccountingTablePaginationHelperLayoutV2Component from './components/layout/tablePaginationHelperLayoutV2Component'
+import AccountingTablePaginationHelperLayoutV2Component
+    from './components/layout/tablePaginationHelperLayoutV2Component'
 import AccountingSelectWithSearchComponent from './components/layout/selectWithSearchComponent'
 import AccountingMultiSelectWithSearchComponent from './components/layout/multiSelectWithSearchLayoutComponent'
 import accountingFilterSelectWithSearchComponent from './components/layout/filterSelectWithSearchComponent'
@@ -29,7 +30,8 @@ import AccountingReturnItemSerialsListLayoutComponent from './components/layout/
 import AccountingPurchasesDatatableComponent from './components/purchases/purchasesDatatableComponent'
 import AccountingPurchasesCreateComponent from './components/purchases/purchaseseCreateComponent'
 import AccountingInvoiceEmbeddedPaymentsGatewayLayout from './components/layout/invoiceEmbeddedPaymentsGatewayLayout'
-import AccountingInvoiceEmbeddedPurchaseExpensesLayoutComponent from './components/layout/invoiceEmbeddedPurchaseExpensesLayoutComponent'
+import AccountingInvoiceEmbeddedPurchaseExpensesLayoutComponent
+    from './components/layout/invoiceEmbeddedPurchaseExpensesLayoutComponent'
 import AccountingSalesDatatableComponent from './components/sales/salesDatatableComponent'
 import AccountingSalesCreateComponent from './components/sales/salesCreateComponent'
 import AccountingSalesReturnComponent from './components/sales/salesReturnComponent'
@@ -63,265 +65,274 @@ import AccountingChartOfAccountsListComponent from './components/charts/chartOfA
 import AccountingAccountReportComponent from './components/charts/accountReportComponent'
 import AccountingGlobalTransactionsListComponent from './components/transactions/globalTransactionsListComponent'
 import AccountingAttachmentsPreviewComponent from './components/attachments/previewComponent'
+import AccountingFinancialStatementsTrailBalanceComponent from './components/financial_statements/trailBalanceComponent'
 
 Vue.component(
-  'accounting-attachments-preview-component',
-  AccountingAttachmentsPreviewComponent
+    'accounting-attachments-preview-component',
+    AccountingAttachmentsPreviewComponent
 )
 Vue.component(
-  'accounting-search-category-filters-components',
-  require('./components/categories/categorySearchFiltersComponent').default
+    'accounting-search-category-filters-components',
+    require('./components/categories/categorySearchFiltersComponent').default
 )
 Vue.component(
-  'accounting-table-filter-search-component',
-  AccountingTableFiltersSearchComponent
+    'accounting-table-filter-search-component',
+    AccountingTableFiltersSearchComponent
 )
 Vue.component(
-  'accounting-header-layout-component',
-  AccountingHeaderLayoutComponent
+    'accounting-header-layout-component',
+    AccountingHeaderLayoutComponent
 )
 Vue.component(
-  'accounting-append-gateways-layout-component',
-  accountingAppendGatewaysLayoutComponent
+    'accounting-append-gateways-layout-component',
+    accountingAppendGatewaysLayoutComponent
 )
 Vue.component(
-  'accounting-treeview-raw-layout-component',
-  AccountingTreeViewRawLayoutComponent
+    'accounting-treeview-raw-layout-component',
+    AccountingTreeViewRawLayoutComponent
 )
 Vue.component(
-  'accounting-table-pagination-helper-layout-component',
-  AccountingTablePaginationHelperLayoutComponent
+    'accounting-table-pagination-helper-layout-component',
+    AccountingTablePaginationHelperLayoutComponent
 )
 Vue.component(
-  'accounting-table-pagination-helper-layout-v2-component',
-  AccountingTablePaginationHelperLayoutV2Component
+    'accounting-table-pagination-helper-layout-v2-component',
+    AccountingTablePaginationHelperLayoutV2Component
 )
 Vue.component(
-  'accounting-select-with-search-layout-component',
-  AccountingSelectWithSearchComponent
+    'accounting-select-with-search-layout-component',
+    AccountingSelectWithSearchComponent
 )
 Vue.component(
-  'accounting-multi-select-with-search-layout-component',
-  AccountingMultiSelectWithSearchComponent
+    'accounting-multi-select-with-search-layout-component',
+    AccountingMultiSelectWithSearchComponent
 )
 Vue.component(
-  'accounting-filter-select-with-search-component',
-  accountingFilterSelectWithSearchComponent
+    'accounting-filter-select-with-search-component',
+    accountingFilterSelectWithSearchComponent
 )
 Vue.component(
-  'accounting-items-datatable-component',
-  AccountingItemsDatatableComponent
+    'accounting-items-datatable-component',
+    AccountingItemsDatatableComponent
 )
 Vue.component(
-  'accounting-items-create-component',
-  AccountingItemsCreateComponent
+    'accounting-items-create-component',
+    AccountingItemsCreateComponent
 )
 Vue.component(
-  'accounting-category-filters-list-component',
-  accountingCategoryFiltersListComponent
+    'accounting-category-filters-list-component',
+    accountingCategoryFiltersListComponent
 )
 Vue.component(
-  'accounting-filters-datatable-component',
-  AccountingFiltersDatatableComponent
+    'accounting-filters-datatable-component',
+    AccountingFiltersDatatableComponent
 )
 Vue.component(
-  'accounting-edit-filter-and-values-component',
-  AccountingEditFilterAndValuesComponent
+    'accounting-edit-filter-and-values-component',
+    AccountingEditFilterAndValuesComponent
 )
 Vue.component(
-  'accounting-identities-datatable-component',
-  AccountingIdentitiesDatatableComponent
+    'accounting-identities-datatable-component',
+    AccountingIdentitiesDatatableComponent
 )
 Vue.component(
-  'accounting-managers-datatable-component',
-  AccountingManagersDatatableComponent
+    'accounting-managers-datatable-component',
+    AccountingManagersDatatableComponent
+)
+
+
+Vue.component(
+    'accounting-financial-statements-trial-balance-component',
+    AccountingFinancialStatementsTrailBalanceComponent
+)
+
+
+Vue.component(
+    'accounting-managers-gateways-component',
+    AccountingManagersGatewaysComponent
 )
 Vue.component(
-  'accounting-managers-gateways-component',
-  AccountingManagersGatewaysComponent
+    'accounting-identities-create-component',
+    AccountingIdentitiesCreateComponent
 )
 Vue.component(
-  'accounting-identities-create-component',
-  AccountingIdentitiesCreateComponent
+    'accounting-managers-create-component',
+    AccountingManagersCreateComponent
 )
 Vue.component(
-  'accounting-managers-create-component',
-  AccountingManagersCreateComponent
-)
-Vue.component(
-  'accounting-managers-permissions-and-roles-component',
-  AccountingManagerPermissionAndRoleComponent
+    'accounting-managers-permissions-and-roles-component',
+    AccountingManagerPermissionAndRoleComponent
 )
 // Vue.component(
 //   'accounting-dashboard-items-chart-component',
 //   AccountingDashboardItemsChartComponent
 // )
 Vue.component(
-  'accounting-branches-datatable-component',
-  AccountingBranchesDatatableComponent
+    'accounting-branches-datatable-component',
+    AccountingBranchesDatatableComponent
 )
 Vue.component(
-  'accounting-departments-datatable-component',
-  AccountingDepartmentsDatatableComponent
+    'accounting-departments-datatable-component',
+    AccountingDepartmentsDatatableComponent
 )
 Vue.component(
-  'accounting-beginning-datatable-component',
-  AccountingBeginningDatatableComponent
+    'accounting-beginning-datatable-component',
+    AccountingBeginningDatatableComponent
 )
 Vue.component(
-  'accounting-adjust-stock-datatable-component',
-  AccountingAdjustStockDatatableComponent
+    'accounting-adjust-stock-datatable-component',
+    AccountingAdjustStockDatatableComponent
 )
 Vue.component(
-  'accounting-beginning-create-component',
-  AccountingBeginningCreateComponent
+    'accounting-beginning-create-component',
+    AccountingBeginningCreateComponent
 )
 Vue.component(
-  'accounting-beginning-edit-component',
-  AccountingBeginningEditComponent
+    'accounting-beginning-edit-component',
+    AccountingBeginningEditComponent
 )
 Vue.component(
-  'accounting-invoice-item-serials-list-layout-component',
-  AccountingInvoiceItemSerialsListLayoutComponent
+    'accounting-invoice-item-serials-list-layout-component',
+    AccountingInvoiceItemSerialsListLayoutComponent
 )
 Vue.component(
-  'accounting-return-item-serials-list-layout-component',
-  AccountingReturnItemSerialsListLayoutComponent
+    'accounting-return-item-serials-list-layout-component',
+    AccountingReturnItemSerialsListLayoutComponent
 )
 Vue.component(
-  'accounting-purchases-datatable-component',
-  AccountingPurchasesDatatableComponent
+    'accounting-purchases-datatable-component',
+    AccountingPurchasesDatatableComponent
 )
 Vue.component(
-  'accounting-purchases-create-component',
-  AccountingPurchasesCreateComponent
+    'accounting-purchases-create-component',
+    AccountingPurchasesCreateComponent
 )
 Vue.component(
-  'accounting-invoice-embedded-payments-gateway-layout',
-  AccountingInvoiceEmbeddedPaymentsGatewayLayout
+    'accounting-invoice-embedded-payments-gateway-layout',
+    AccountingInvoiceEmbeddedPaymentsGatewayLayout
 )
 Vue.component(
-  'accounting-invoice-embedded-purchase-expenses-layout',
-  AccountingInvoiceEmbeddedPurchaseExpensesLayoutComponent
+    'accounting-invoice-embedded-purchase-expenses-layout',
+    AccountingInvoiceEmbeddedPurchaseExpensesLayoutComponent
 )
 Vue.component(
-  'accounting-sales-datatable-component',
-  AccountingSalesDatatableComponent
+    'accounting-sales-datatable-component',
+    AccountingSalesDatatableComponent
 )
 Vue.component(
-  'accounting-sales-create-component',
-  AccountingSalesCreateComponent
+    'accounting-sales-create-component',
+    AccountingSalesCreateComponent
 )
 Vue.component(
-  'accounting-sales-return-component',
-  AccountingSalesReturnComponent
+    'accounting-sales-return-component',
+    AccountingSalesReturnComponent
 )
 Vue.component(
-  'accounting-kits-datatable-component',
-  AccountingKitsDatatableComponent
+    'accounting-kits-datatable-component',
+    AccountingKitsDatatableComponent
 )
 Vue.component('accounting-kits-create-component', AccountingKitsCreateComponent)
 Vue.component(
-  'accounting-print-receipt-layout-component',
-  AccountingPrintReceiptLayoutComponent
+    'accounting-print-receipt-layout-component',
+    AccountingPrintReceiptLayoutComponent
 )
 Vue.component(
-  'accounting-printers-setting-layout-component',
-  AccountingPrintersSettingLayoutComponent
+    'accounting-printers-setting-layout-component',
+    AccountingPrintersSettingLayoutComponent
 )
 Vue.component(
-  'accounting-item-transactions-component',
-  AccountingItemTransactionsComponent
+    'accounting-item-transactions-component',
+    AccountingItemTransactionsComponent
 )
 Vue.component(
-  'accounting-barcode-printer-layout-component',
-  AccountingBarcodePrinterLayoutComponent
+    'accounting-barcode-printer-layout-component',
+    AccountingBarcodePrinterLayoutComponent
 )
 Vue.component(
-  'accounting-barcode-bulk-printer-layout-component',
-  AccountingBarcodeBulkPrinterLayoutComponent
+    'accounting-barcode-bulk-printer-layout-component',
+    AccountingBarcodeBulkPrinterLayoutComponent
 )
 Vue.component(
-  'accounting-print-single-barcode-layout-component',
-  layoutPrintSingleBarcodeLayoutComponent
+    'accounting-print-single-barcode-layout-component',
+    layoutPrintSingleBarcodeLayoutComponent
 )
 Vue.component(
-  'accounting-kit-items-layout-component',
-  AccountingKitItemsLayoutComponent
+    'accounting-kit-items-layout-component',
+    AccountingKitItemsLayoutComponent
 )
 Vue.component(
-  'accounting-kit-return-items-layout-component',
-  AccountingKitReturnItemsLayoutComponent
+    'accounting-kit-return-items-layout-component',
+    AccountingKitReturnItemsLayoutComponent
 )
 Vue.component(
-  'accounting-purchases-return-component',
-  AccountingPurchasesReturnComponent
+    'accounting-purchases-return-component',
+    AccountingPurchasesReturnComponent
 )
 // Vue.component(
 //   'accounting-dashboard-active-items-layout-component',
 //   AccountingDashbaordActiveItemsLayoutComponet
 // )
 Vue.component(
-  'accounting-show-barcode-layout-component',
-  AccountingShowBarcodeLayoutComponent
+    'accounting-show-barcode-layout-component',
+    AccountingShowBarcodeLayoutComponent
 )
 Vue.component(
-  'accounting-accounts-chart-component',
-  AccountingAccountsChartComponent
+    'accounting-accounts-chart-component',
+    AccountingAccountsChartComponent
 )
 Vue.component(
-  'accounting-delete-button-layout-component',
-  AccountingDeleteButtonLayoutComponent
+    'accounting-delete-button-layout-component',
+    AccountingDeleteButtonLayoutComponent
 )
 Vue.component(
-  'accounting-transactions-create-component',
-  AccountingTransactionsCreateComponent
+    'accounting-transactions-create-component',
+    AccountingTransactionsCreateComponent
 )
 Vue.component(
-  'accounting-vouchers-datatable-component',
-  AccountingVouchersDatatableComponent
+    'accounting-vouchers-datatable-component',
+    AccountingVouchersDatatableComponent
 )
 Vue.component(
-  'accounting-vouchers-create-component',
-  AccountingVouchersCreateComponent
+    'accounting-vouchers-create-component',
+    AccountingVouchersCreateComponent
 )
 Vue.component(
-  'accounting-quotations-create-component',
-  AccountingQuotationsCreateComponent
+    'accounting-quotations-create-component',
+    AccountingQuotationsCreateComponent
 )
 Vue.component(
-  'accounting-quotations-services-create-component',
-  AccountingQuotationsServicesCreateComponent
+    'accounting-quotations-services-create-component',
+    AccountingQuotationsServicesCreateComponent
 )
 Vue.component(
-  'accounting-period-account-close-component',
-  AccountingPeriodAccountCloseComponent
+    'accounting-period-account-close-component',
+    AccountingPeriodAccountCloseComponent
 )
 Vue.component(
-  'accounting-reseller-daily-transfer-amounts-component',
-  AccountingResellerDailyTransferAmountsComponent
+    'accounting-reseller-daily-transfer-amounts-component',
+    AccountingResellerDailyTransferAmountsComponent
 )
 Vue.component(
-  'accounting-header-notifications-layout-component',
-  AccountingHeaderNotificationsLayoutComponent
+    'accounting-header-notifications-layout-component',
+    AccountingHeaderNotificationsLayoutComponent
 )
 Vue.component(
-  'accounting-single-barcode-layout-component',
-  AccountingSingleBarcodeLayoutComponent
+    'accounting-single-barcode-layout-component',
+    AccountingSingleBarcodeLayoutComponent
 )
 Vue.component(
-  'accounting-adjust-stock-create-component',
-  AccountingAdjustStockCreateComponent
+    'accounting-adjust-stock-create-component',
+    AccountingAdjustStockCreateComponent
 )
 Vue.component(
-  'accounting-chart-of-accounts-list-component',
-  AccountingChartOfAccountsListComponent
+    'accounting-chart-of-accounts-list-component',
+    AccountingChartOfAccountsListComponent
 )
 Vue.component(
-  'accounting-global-transactions-list-component',
-  AccountingGlobalTransactionsListComponent
+    'accounting-global-transactions-list-component',
+    AccountingGlobalTransactionsListComponent
 )
 Vue.component(
-  'accounting-account-report-component',
-  AccountingAccountReportComponent
+    'accounting-account-report-component',
+    AccountingAccountReportComponent
 )

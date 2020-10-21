@@ -2,27 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1847dce-9989-45ff-80d9-69eb3638cb7b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/FinancialStatementController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/accounting/components/financial_statements/trailBalanceComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Helpers/money.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/money.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ChartsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ChartsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EntityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EntityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Account/UpdateAccountRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Account/UpdateAccountRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Entities/FetchEntitiesRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Entities/FetchEntitiesRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Entities/StoreEntityRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Entities/StoreEntityRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/User/Balance/UpdateVendorBalanceJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/User/Balance/UpdateVendorBalanceJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Transaction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/charts/chartOfAccountsListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/charts/chartOfAccountsListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/charts/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/charts/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/purchases/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/purchases/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/sales/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/sales/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/transactions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/transactions/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting_module/entities/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting_module/entities/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sales/view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/view.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/416fd1e497088feac6ca457c2bbaa0151a1fff2c.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/416fd1e497088feac6ca457c2bbaa0151a1fff2c.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/898292c5eaf4c696671f02b51e3dfba4abe03087.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/898292c5eaf4c696671f02b51e3dfba4abe03087.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/a75ff02c7c90594ee6542d98c1e44412c8c7d1ce.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/a75ff02c7c90594ee6542d98c1e44412c8c7d1ce.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-10-04.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/items/itemsDatatableComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/items/itemsDatatableComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting_module/financial_statements/trial_balance.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting_module/financial_statements/trial_balance.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +19,13 @@
   <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Vue Single File Component" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -171,7 +165,7 @@
       <workItem from="1603214696572" duration="150000" />
       <workItem from="1603215435016" duration="3785000" />
       <workItem from="1603265524972" duration="40000" />
-      <workItem from="1603284572834" duration="2163000" />
+      <workItem from="1603284572834" duration="4662000" />
     </task>
     <servers />
   </component>
@@ -182,10 +176,22 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="625" y="271" width="670" height="676" key="search.everywhere.popup" timestamp="1603286610171">
+    <state x="643" y="409" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603288389849">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state x="625" y="271" width="670" height="676" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1603286610171" />
+    <state x="643" y="409" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1200@0.0.1920.1200" timestamp="1603288389849" />
+    <state x="698" y="362" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603290348932">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="698" y="362" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1603290348932" />
+    <state x="654" y="333" key="NewPhpClassDialog" timestamp="1603288494904">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="654" y="333" key="NewPhpClassDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1603288494904" />
+    <state x="625" y="271" width="670" height="676" key="search.everywhere.popup" timestamp="1603290475746">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="625" y="271" width="670" height="676" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1603290475746" />
     <state x="625" y="289" width="670" height="664" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1603223373543" />
   </component>
 </project>

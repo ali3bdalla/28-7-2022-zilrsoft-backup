@@ -232,10 +232,10 @@
 
     import Treeselect from '@riophae/vue-treeselect'
     import '@riophae/vue-treeselect/dist/vue-treeselect.css'
-    import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
     import {query as ItemQuery, transfer} from '../../item';
 
     import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
+    import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
 
 
     export default {

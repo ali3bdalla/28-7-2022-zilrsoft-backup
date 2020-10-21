@@ -36,6 +36,12 @@
 		}
 	);
 	
+	Route::prefix('financial_statements')->name('financial_statements.')->group(
+		function() {
+			Route::get('trial_balance', 'FinancialStatementController@trailBalance')->name('trial_balance');
+		}
+	);
+	
 	
 	Route::resource('entities', 'EntityController');
 	Route::prefix('entities')->name('entities.')->group(
