@@ -13,7 +13,8 @@
 		 */
 		public function up()
 		{
-			Schema::create('accounts',function (Blueprint $table){
+			Schema::create(
+				'accounts', function(Blueprint $table) {
 				$table->bigIncrements('id');
 				$table->integer('organization_id');
 				$table->integer('creator_id');
@@ -23,9 +24,10 @@
 				$table->integer('sorting_number')->default(0);
 				$table->string('serial')->nullable();
 				$table->boolean('is_gateway')->default(false);
-				$table->enum('type',['credit','debit'])->default('credit');
+				$table->enum('type', ['credit', 'debit'])->default('credit');
 				$table->boolean('is_system_account')->default(false);
-				$table->enum('slug',
+				$table->enum(
+					'slug',
 					[
 						'withdrawals',
 						'clients',
@@ -59,20 +61,18 @@
 						'temp_reseller_account',
 						'shifts_shortage',
 						'inventory_adjustment'
-					])->nullable();
-
-			
-
-
-				$table->float('total_credit_amount',20, 8)->default(0);
-				$table->float('total_debit_amount',20, 8)->default(0);
-
-
-
-
+					]
+				)->nullable();
+				
+				
+				$table->float('total_credit_amount', 20, 8)->default(0);
+				$table->float('total_debit_amount', 20, 8)->default(0);
+				
+				
 				$table->softDeletes();
 				$table->timestamps();
-			});
+			}
+			);
 		}
 		
 		/**

@@ -8,6 +8,7 @@
 	use App\Http\Requests\Account\UpdateAccountRequest;
 	use App\Models\Account;
 	use Carbon\Carbon;
+	use Exception;
 	use Illuminate\Http\Request;
 	use Illuminate\Support\Facades\DB;
 	
@@ -39,6 +40,22 @@
 		public function update(UpdateAccountRequest $request, Account $account)
 		{
 		
+		}
+		
+		
+		/**
+		 * @param Account $account
+		 *
+		 * @return bool|null
+		 * @throws Exception
+		 */
+		public function destroy(Account $account)
+		{
+			$account->delete();
+			if($account->parent) {
+				$account->parent->updateHashMap();
+			}
+			
 		}
 		
 		
