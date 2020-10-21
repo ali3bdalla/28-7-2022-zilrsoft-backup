@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c1847dce-9989-45ff-80d9-69eb3638cb7b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/PlayGroundCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/PlayGroundCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Accounting/Entity/UpdateAccountBalanceJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Accounting/Entity/UpdateAccountBalanceJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/financial_statements/trailBalanceComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/financial_statements/trailBalanceComponent.vue" afterDir="false" />
-    </list>
+    <list default="true" id="c1847dce-9989-45ff-80d9-69eb3638cb7b" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -161,7 +156,7 @@
       <workItem from="1603214696572" duration="150000" />
       <workItem from="1603215435016" duration="3785000" />
       <workItem from="1603265524972" duration="40000" />
-      <workItem from="1603284572834" duration="6385000" />
+      <workItem from="1603284572834" duration="6641000" />
     </task>
     <servers />
   </component>
@@ -184,6 +179,10 @@
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="654" y="333" key="NewPhpClassDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1603288494904" />
+    <state x="661" y="355" width="598" height="490" key="find.popup" timestamp="1603295863139">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="661" y="355" width="598" height="490" key="find.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1603295863139" />
     <state x="625" y="271" width="670" height="676" key="search.everywhere.popup" timestamp="1603295471337">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
