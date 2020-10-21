@@ -20,7 +20,7 @@
 
                     <accounting-delete-button-layout-component
                         v-if="account.children_count<=0 && manageChartOfAccounts"
-                        :url="'/accounts/' + account.id"
+                        :url="'/api/accounts/' + account.id"
                         class=''><label
                         class="label label-danger label-sm">حذف</label>
                     </accounting-delete-button-layout-component>
@@ -41,11 +41,11 @@
         </div>
         <div style="margin-top: 10px;!important;">
           <accounting-chart-of-accounts-list-component
-              :logged-user-id="loggedUserId"
               v-if="account.children!=null"
               v-show="account.is_expanded"
               :key="account.id"
-              :accounts="account.children"></accounting-chart-of-accounts-list-component>
+              :accounts="account.children"
+              :logged-user-id="loggedUserId"></accounting-chart-of-accounts-list-component>
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@ export default {
   computed: {
     manageChartOfAccounts() {
 
-      console.log(parseInt(this.loggedUserId) !== 19);
+      // console.log(parseInt(this.loggedUserId) !== 19);
       // console.log(typeof parseInt(this.loggedUserId),typeof 19);
       return parseInt(this.loggedUserId) !== 19 ? true : false;
 

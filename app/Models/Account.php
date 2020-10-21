@@ -6,6 +6,7 @@
 	use App\Events\Models\Account\AccountUpdated;
 	use App\Models\Traits\NestingTrait;
 	use Illuminate\Database\Eloquent\Builder;
+	use Illuminate\Database\Eloquent\SoftDeletes;
 	
 	/**
 	 * @method static where(array $array)
@@ -23,7 +24,7 @@
 	class Account extends BaseModel
 	{
 		
-		use  NestingTrait;
+		use  NestingTrait, SoftDeletes;
 		
 		protected $guarded = [];
 		protected $appends = [

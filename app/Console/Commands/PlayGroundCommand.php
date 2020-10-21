@@ -45,6 +45,22 @@
 		 */
 		public function handle()
 		{
+			
+			
+			$accounts = Account::all();
+			
+			foreach($accounts as $account)
+			{
+				if($account->parent)
+				{
+					$account->parent->updateHashMap();
+					$account->parent->updateSerial();
+//					$account->parent
+				}
+				
+				$account->updateHashMap();
+				$account->updateSerial();
+			}
 //        $account = Account::find(3);
 //        $snapshot = $account->snapshots()->whereDate('created_at', '2020-10-13')->first();
 //
@@ -129,54 +145,54 @@
 //				dispatch(new UpdateAccountBalanceJob($transaction));
 //			}
 			
-			User::where('id', '!=', 0)->update(
-				[
-					
-					'balance' => 0,
-					'vendor_balance' => 0,
-				
-				]
-			);
-			
-			$clients = Account::find(12);
-			$vendors = Account::find(20);
-			
-			$users = User::all();
-			
-			foreach($users as $user) {
-				$vendorTransactions = $vendors->transactions()->where('user_id', $user->id)->get();
-				$clientTransactions = $clients->transactions()->where('user_id', $user->id)->get();
-				$vendorBalance = 0;
-				$clientBalance = 0;
-				
-				foreach($vendorTransactions as $transaction) {
-					if($transaction->type == 'credit') {
-						$vendorBalance += $transaction->amount;
-					} else {
-						$vendorBalance -= $transaction->amount;
-						
-					}
-				}
-				
-				
-				foreach($clientTransactions as $transaction) {
-					if($transaction->type == 'debit') {
-						$clientBalance += $transaction->amount;
-					} else {
-						$clientBalance -= $transaction->amount;
-						
-					}
-				}
-				
-				
-				$user->update(
-					[
-						'balance' => $clientBalance,
-						'vendor_balance' => $vendorBalance,
-					]
-				);
-				
-			}
+//			User::where('id', '!=', 0)->update(
+//				[
+//
+//					'balance' => 0,
+//					'vendor_balance' => 0,
+//
+//				]
+//			);
+//
+//			$clients = Account::find(12);
+//			$vendors = Account::find(20);
+//
+//			$users = User::all();
+//
+//			foreach($users as $user) {
+//				$vendorTransactions = $vendors->transactions()->where('user_id', $user->id)->get();
+//				$clientTransactions = $clients->transactions()->where('user_id', $user->id)->get();
+//				$vendorBalance = 0;
+//				$clientBalance = 0;
+//
+//				foreach($vendorTransactions as $transaction) {
+//					if($transaction->type == 'credit') {
+//						$vendorBalance += $transaction->amount;
+//					} else {
+//						$vendorBalance -= $transaction->amount;
+//
+//					}
+//				}
+//
+//
+//				foreach($clientTransactions as $transaction) {
+//					if($transaction->type == 'debit') {
+//						$clientBalance += $transaction->amount;
+//					} else {
+//						$clientBalance -= $transaction->amount;
+//
+//					}
+//				}
+//
+//
+//				$user->update(
+//					[
+//						'balance' => $clientBalance,
+//						'vendor_balance' => $vendorBalance,
+//					]
+//				);
+//
+//			}
 
 //			$debitAmount = Transaction::where('type', 'debit')->sum('amount');
 //			$accountsDebitAmount = Account::sum('total_debit_amount');
