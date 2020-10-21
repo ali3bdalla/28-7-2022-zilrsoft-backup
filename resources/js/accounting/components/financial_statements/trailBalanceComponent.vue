@@ -54,7 +54,7 @@
             <!--        {{ route('accounts.show',$account2->id) }}-->
             <td class="text-bold" colspan=""
                 style="padding-right:40px;text-align: right !important;"><a
-                href="">{{ account.locale_name }}</a>
+                :href="`/accounts/${account.id}`">{{ account.locale_name }}</a>
             </td>
             <td>{{ account.debit_amount }}</td>
             <td>{{ account.credit_amount }}</td>

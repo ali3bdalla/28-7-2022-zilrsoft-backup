@@ -45,22 +45,23 @@
 		 */
 		public function handle()
 		{
+		
+		
 			
-			
-			$accounts = Account::all();
-			
-			foreach($accounts as $account)
-			{
-				if($account->parent)
-				{
-					$account->parent->updateHashMap();
-					$account->parent->updateSerial();
-//					$account->parent
-				}
-				
-				$account->updateHashMap();
-				$account->updateSerial();
-			}
+//			$accounts = Account::all();
+//
+//			foreach($accounts as $account)
+//			{
+//				if($account->parent)
+//				{
+//					$account->parent->updateHashMap();
+//					$account->parent->updateSerial();
+////					$account->parent
+//				}
+//
+//				$account->updateHashMap();
+//				$account->updateSerial();
+//			}
 //        $account = Account::find(3);
 //        $snapshot = $account->snapshots()->whereDate('created_at', '2020-10-13')->first();
 //

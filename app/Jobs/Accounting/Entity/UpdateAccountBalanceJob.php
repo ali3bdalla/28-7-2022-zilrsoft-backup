@@ -15,16 +15,22 @@
 		use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 		
 		private $transaction;
+		/**
+		 * @var bool
+		 */
+		private $increase;
 		
 		/**
 		 * Create a new job instance.
 		 *
 		 * @param Transaction $transaction
+		 * @param bool $increase
 		 */
-		public function __construct(Transaction $transaction)
+		public function __construct(Transaction $transaction, $increase = true)
 		{
 			//
 			$this->transaction = $transaction;
+			$this->increase = $increase;
 		}
 		
 		/**
@@ -56,12 +62,19 @@
 			$snapshotCreditAmount = $snapshot->credit_amount;
 			
 			if($this->transaction->type == 'credit') {
-				
-				// To Do Sum
-				$totalCreditAmount = (float)$account->total_credit_amount + (float)$this->transaction->amount;
 				$totalDebitAmount = $account->total_debit_amount;
 				
-				$snapshotCreditAmount = (float)$snapshotCreditAmount + (float)$this->transaction->amount;
+				if($this->increase) {
+					
+					$totalCreditAmount = (float)$account->total_credit_amount + (float)$this->transaction->amount;
+					
+					$snapshotCreditAmount = (float)$snapshotCreditAmount + (float)$this->transaction->amount;
+				} else {
+					$totalCreditAmount = (float)$account->total_credit_amount - (float)$this->transaction->amount;
+					
+					$snapshotCreditAmount = (float)$snapshotCreditAmount - (float)$this->transaction->amount;
+				}
+				
 				$snapshot->update(
 					[
 						'credit_amount' => $snapshotCreditAmount,
@@ -74,9 +87,16 @@
 				);
 				
 			} else {
-				$totalDebitAmount = $account->total_debit_amount + (float)$this->transaction->amount;
 				$totalCreditAmount = $account->total_credit_amount;
-				$snapshotDebitAmount += (float)$this->transaction->amount;
+				
+				if($this->increase) {
+					$totalDebitAmount = $account->total_debit_amount + (float)$this->transaction->amount;
+					$snapshotDebitAmount += (float)$this->transaction->amount;
+				} else {
+					$totalDebitAmount = $account->total_debit_amount - (float)$this->transaction->amount;
+					$snapshotDebitAmount = $snapshotDebitAmount - (float)$this->transaction->amount;
+				}
+				
 				$snapshot->update(
 					[
 						'debit_amount' => $snapshotDebitAmount,
