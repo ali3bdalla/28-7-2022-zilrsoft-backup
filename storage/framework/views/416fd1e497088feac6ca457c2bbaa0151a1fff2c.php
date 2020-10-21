@@ -6,39 +6,42 @@
     </style>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('title',__('pages/invoice.view') . ' | '. $invoice->invoice_number ); ?>
+
 <?php $__env->startSection('buttons'); ?>
 
-    <a href="<?php echo e(route('accounting.printer.a4',$invoice->id)); ?>" target="_blank" class="btn btn-default">
-        <i class="fa fa-print"></i> <?php echo e(__('pages/invoice.price_a4')); ?>
+    <?php if(auth()->user()->id != 19): ?>
+        <a href="<?php echo e(route('accounting.printer.a4',$invoice->id)); ?>" target="_blank" class="btn btn-default">
+            <i class="fa fa-print"></i> <?php echo e(__('pages/invoice.price_a4')); ?>
 
-    </a>
-    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create purchase')): ?>
-        <a href="<?php echo e(route('purchases.create')); ?>" class="btn btn-default"><i class="fa fa-plus-square"></i> <?php echo e(trans
+        </a>
+        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create purchase')): ?>
+            <a href="<?php echo e(route('purchases.create')); ?>" class="btn btn-default"><i class="fa fa-plus-square"></i> <?php echo e(trans
         ('pages/invoice.create')); ?></a>
-    <?php endif; ?>
+        <?php endif; ?>
 
 
-    <?php if($invoice->invoice_type=='pending_purchase'): ?>
-        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('confirm purchase')): ?>
-            <a href="<?php echo e(route('accounting.purchases.clone',$invoice->id)); ?>" class="btn btn-default"><i class="fa
+        <?php if($invoice->invoice_type=='pending_purchase'): ?>
+            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('confirm purchase')): ?>
+                <a href="<?php echo e(route('accounting.purchases.clone',$invoice->id)); ?>" class="btn btn-default"><i class="fa
             fa-plus-square"></i>تاكيد الفاتورة</a>
+            <?php endif; ?>
+
         <?php endif; ?>
 
-    <?php endif; ?>
 
+        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check("edit purchase")): ?>
+            <?php if($invoice->is_deleted==1): ?>
+                <a href="<?php echo e(route('accounting.purchases.edit',$invoice->id)); ?>" class="btn btn-primary">
+                    <i class="fa fa-plus-circle"></i> <?php echo e(__('pages/invoice.return')); ?>
 
-    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check("edit purchase")): ?>
-        <?php if($invoice->is_deleted==1): ?>
-            <a href="<?php echo e(route('accounting.purchases.edit',$invoice->id)); ?>" class="btn btn-primary">
-                <i class="fa fa-plus-circle"></i> <?php echo e(__('pages/invoice.return')); ?>
+                </a>
+            <?php endif; ?>
+            <?php if($invoice->is_updated==1): ?>
+                <a href="<?php echo e(route('accounting.purchases.destroy',$invoice->id)); ?>" class="btn btn-danger">
+                    <i class="fa fa-trash"></i> <?php echo e(__('pages/invoice.delete')); ?>
 
-            </a>
-        <?php endif; ?>
-        <?php if($invoice->is_updated==1): ?>
-            <a href="<?php echo e(route('accounting.purchases.destroy',$invoice->id)); ?>" class="btn btn-danger">
-                <i class="fa fa-trash"></i> <?php echo e(__('pages/invoice.delete')); ?>
-
-            </a>
+                </a>
+            <?php endif; ?>
         <?php endif; ?>
     <?php endif; ?>
 <?php $__env->stopSection(); ?>

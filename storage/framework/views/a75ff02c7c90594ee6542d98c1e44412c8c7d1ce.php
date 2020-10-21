@@ -4,47 +4,50 @@
 
 <?php $__env->startSection('page_css'); ?>
     <?php if($invoice->is_draft): ?>
-    <style>
-        .navbar {
-            background-color: #b8b83a !important;
-        }
-    </style>
+        <style>
+            .navbar {
+                background-color: #b8b83a !important;
+            }
+        </style>
     <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
 
 <?php $__env->startSection('buttons'); ?>
-    <a href="<?php echo e(route('accounting.printer.a4',$invoice->id)); ?>" target="_blank" class="btn btn-default">
-        <i class="fa fa-print"></i> <?php echo e(__('pages/invoice.price_a4')); ?>
+    <?php if(auth()->user()->id != 19): ?>
 
-    </a>
-
-    <accounting-print-receipt-layout-component
-            :invoice-id="<?php echo e($invoice->id); ?>"></accounting-print-receipt-layout-component>
-
-    <?php if($invoice->is_draft): ?>
-        <a href="<?php echo e(route('sales.drafts.clone',$invoice->id)); ?>"  class="btn btn-default">
-            <i class="fa fa-copy"></i> <?php echo e(__('pages/invoice.quotation_to_sale')); ?>
+        <a href="<?php echo e(route('accounting.printer.a4',$invoice->id)); ?>" target="_blank" class="btn btn-default">
+            <i class="fa fa-print"></i> <?php echo e(__('pages/invoice.price_a4')); ?>
 
         </a>
-    <?php else: ?>
-        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create sale')): ?>
-            <a href="<?php echo e(route('sales.create')); ?>" class="btn btn-default"><i class="fa fa-plus-square"></i> <?php echo e(trans
-        ('pages/invoice.create')); ?></a>
-        <?php endif; ?>
-        <?php if($invoice->invoice_type=='sale'): ?>
-            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check("edit sale")): ?>
-                <?php if($invoice->is_deleted==0): ?>
-                    <a href="<?php echo e(route('sales.edit',$invoice->id)); ?>" class="btn btn-primary">
-                        <i class="fa fa-plus-circle"></i> <?php echo e(__('pages/invoice.return')); ?>
 
-                    </a>
+        <accounting-print-receipt-layout-component
+                :invoice-id="<?php echo e($invoice->id); ?>"></accounting-print-receipt-layout-component>
+
+        <?php if($invoice->is_draft): ?>
+            <a href="<?php echo e(route('sales.drafts.clone',$invoice->id)); ?>" class="btn btn-default">
+                <i class="fa fa-copy"></i> <?php echo e(__('pages/invoice.quotation_to_sale')); ?>
+
+            </a>
+        <?php else: ?>
+            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create sale')): ?>
+                <a href="<?php echo e(route('sales.create')); ?>" class="btn btn-default"><i class="fa fa-plus-square"></i> <?php echo e(trans
+        ('pages/invoice.create')); ?></a>
+            <?php endif; ?>
+            <?php if($invoice->invoice_type=='sale'): ?>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check("edit sale")): ?>
+                    <?php if($invoice->is_deleted==0): ?>
+                        <a href="<?php echo e(route('sales.edit',$invoice->id)); ?>" class="btn btn-primary">
+                            <i class="fa fa-plus-circle"></i> <?php echo e(__('pages/invoice.return')); ?>
+
+                        </a>
+                    <?php endif; ?>
+                    
+                    
+                    
+                    
+                    
                 <?php endif; ?>
-                
-                
-                
-                
-                
             <?php endif; ?>
         <?php endif; ?>
     <?php endif; ?>

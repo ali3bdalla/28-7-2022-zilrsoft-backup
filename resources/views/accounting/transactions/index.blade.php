@@ -57,12 +57,12 @@
                                     $totalCredit+= (float)$transaction['amount']
                                 @endphp
                                 <th></th>
-                                <th>{{ $transaction['amount'] }}</th>
+                                <th>{{ displayMoney($transaction['amount']) }}</th>
                             @else
                                 @php
                                     $totalDebit+= (float)$transaction['amount']
                                 @endphp
-                                <th>{{ $transaction['amount'] }}</th>
+                                <th>{{ displayMoney($transaction['amount']) }}</th>
                                 <th></th>
                             @endif
 
@@ -76,8 +76,8 @@
                         <th></th>
                         <th>المجموع</th>
 
-                        <th>{{ money_format("%i",$totalDebit) }}</th>
-                        <th>{{ money_format("%i",$totalCredit) }}</th>
+                        <th>{{ displayMoney($totalDebit) }}</th>
+                        <th>{{ displayMoney($totalCredit) }}</th>
                     </tr>
                 @endforeach
                 </body>
