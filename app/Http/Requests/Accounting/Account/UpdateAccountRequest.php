@@ -5,6 +5,9 @@
 	use App\Models\Account;
 	use Illuminate\Foundation\Http\FormRequest;
 	
+	/**
+	 * @property mixed parent_id
+	 */
 	class UpdateAccountRequest extends FormRequest
 	{
 		/**
@@ -29,24 +32,28 @@
 				'name' => 'required|string',
 				'ar_name' => 'required|string',
 				'parent_id' => 'required|integer|exists:accounts,id',
-				"sorting_number"=> 'required|integer'
+				"sorting_number" => 'required|integer'
 			];
 		}
 		
 		public function update($account)
-		
 		{
 			$parent = Account::find($this->parent_id);
 			
-			$data = $this->only('parent_id','name','ar_name','sorting_number');
+			$data = $this->only('parent_id', 'name', 'ar_name', 'sorting_number');
 			$data['type'] = $this->input("account_type");
 			
-			if ($this->has('is_gateway') && $this->filled('is_gateway'))
+			if($this->has('is_gateway') && $this->filled('is_gateway'))
 				$data['is_gateway'] = true;
 			else
 				$data['is_gateway'] = false;
-
-//			$data['type'] = $parent->type;
+			
+			if($account->parent) {
+				$account->parent->updateHashMap();
+			}
+			$account->updateHashMap();
+			$account->updateSerial();
+			
 			
 			$account->update($data);
 		}

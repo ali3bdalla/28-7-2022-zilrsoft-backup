@@ -60,11 +60,11 @@
 					);
 				}
 			}
-			
-			if($account->slug == 'vendors')
-			{
-				$query = $query->where('description', $this->input("vendor_balance"));
-			}
+
+//			if($account->slug == 'vendors')
+//			{
+//				$query = $query->where('description', $this->input("vendor_balance"));
+//			}
 
 //			if($account->slug == 'clients')
 //			{
@@ -79,8 +79,6 @@
 			if($this->has('user_id') && $this->filled('user_id')) {
 				$query = $query->where('user_id', $this->input("user_id"));
 			}
-			
-			
 			
 			
 			if($this->has('item_id') && $this->filled('item_id')) {

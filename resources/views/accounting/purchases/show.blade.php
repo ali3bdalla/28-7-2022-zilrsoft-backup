@@ -9,40 +9,43 @@
     </style>
 @endsection
 @section('title',__('pages/invoice.view') . ' | '. $invoice->invoice_number )
+
 @section('buttons')
 
-    <a href="{{route('accounting.printer.a4',$invoice->id)}}" target="_blank" class="btn btn-default">
-        <i class="fa fa-print"></i> {{ __('pages/invoice.price_a4') }}
-    </a>
-    @can('create purchase')
-        <a href="{{route('purchases.create')}}" class="btn btn-default"><i class="fa fa-plus-square"></i> {{
+    @if(auth()->user()->id != 19)
+        <a href="{{route('accounting.printer.a4',$invoice->id)}}" target="_blank" class="btn btn-default">
+            <i class="fa fa-print"></i> {{ __('pages/invoice.price_a4') }}
+        </a>
+        @can('create purchase')
+            <a href="{{route('purchases.create')}}" class="btn btn-default"><i class="fa fa-plus-square"></i> {{
         trans
         ('pages/invoice.create')
         }}</a>
-    @endcan
-
-
-    @if($invoice->invoice_type=='pending_purchase')
-        @can('confirm purchase')
-            <a href="{{route('accounting.purchases.clone',$invoice->id)}}" class="btn btn-default"><i class="fa
-            fa-plus-square"></i>تاكيد الفاتورة</a>
         @endcan
 
+
+        @if($invoice->invoice_type=='pending_purchase')
+            @can('confirm purchase')
+                <a href="{{route('accounting.purchases.clone',$invoice->id)}}" class="btn btn-default"><i class="fa
+            fa-plus-square"></i>تاكيد الفاتورة</a>
+            @endcan
+
+        @endif
+
+
+        @can("edit purchase")
+            @if($invoice->is_deleted==1)
+                <a href="{{route('accounting.purchases.edit',$invoice->id)}}" class="btn btn-primary">
+                    <i class="fa fa-plus-circle"></i> {{ __('pages/invoice.return') }}
+                </a>
+            @endif
+            @if($invoice->is_updated==1)
+                <a href="{{route('accounting.purchases.destroy',$invoice->id)}}" class="btn btn-danger">
+                    <i class="fa fa-trash"></i> {{ __('pages/invoice.delete') }}
+                </a>
+            @endif
+        @endcan
     @endif
-
-
-    @can("edit purchase")
-        @if($invoice->is_deleted==1)
-            <a href="{{route('accounting.purchases.edit',$invoice->id)}}" class="btn btn-primary">
-                <i class="fa fa-plus-circle"></i> {{ __('pages/invoice.return') }}
-            </a>
-        @endif
-        @if($invoice->is_updated==1)
-            <a href="{{route('accounting.purchases.destroy',$invoice->id)}}" class="btn btn-danger">
-                <i class="fa fa-trash"></i> {{ __('pages/invoice.delete') }}
-            </a>
-        @endif
-    @endcan
 @stop
 
 

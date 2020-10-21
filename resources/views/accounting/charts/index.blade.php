@@ -13,6 +13,6 @@
 @endsection
 @section('content')
     <accounting-chart-of-accounts-list-component
-            :can-edit-account='true'
+            :logged-user-id='{{auth()->user()->id}}'
             :accounts='@json($accounts)'></accounting-chart-of-accounts-list-component>
 @endsection

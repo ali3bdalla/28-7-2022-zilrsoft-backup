@@ -80,7 +80,7 @@ class Transaction extends BaseModel
 	
 	public function invoice()
     {
-        return $this->belongsTo(Invoice::class, 'invoice_id');
+        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes(['manager']);
     }
 
     public function container()
@@ -94,6 +94,11 @@ class Transaction extends BaseModel
 		if($value == 'close_account')
 		{
 			return 'اغلاق اليومية';
+		}
+		
+		if($value == 'transfer_amount')
+		{
+			return 'تحويل';
 		}
 		if($value == 'vendor_balance')
 		{

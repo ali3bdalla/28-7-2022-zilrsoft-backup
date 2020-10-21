@@ -10,7 +10,7 @@
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
     <accounting-chart-of-accounts-list-component
-            :can-edit-account='true'
+            :logged-user-id='<?php echo e(auth()->user()->id); ?>'
             :accounts='<?php echo json_encode($accounts, 15, 512) ?>'></accounting-chart-of-accounts-list-component>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('accounting.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /usr/local/var/www/workspace/zilrsoft/resources/views/accounting/charts/index.blade.php ENDPATH**/ ?>

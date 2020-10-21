@@ -22,14 +22,13 @@
 		function displayMoney($money, $decimal = 2)
 		{
 //			round($money,2)
-			return money_format("%i",$money);
-			$fmt = numfmt_create('en_US', NumberFormatter::DECIMAL);
-			return numfmt_format($fmt, $money);
+			return money_format("%i", $money);
+//			$fmt = numfmt_create('en_US', NumberFormatter::DECIMAL);
+//			return numfmt_format($fmt, $money);
 
 //			return roundMoney($money);
 		}
 	}
-	
 	
 	
 	if(!function_exists('displayAccountingMoney')) {
@@ -37,7 +36,7 @@
 		{
 //			round($money,2)
 			$fmt = numfmt_create('en_US', NumberFormatter::Accoun);
-			return numfmt_format($fmt, $money,3);
+			return numfmt_format($fmt, $money, 3);
 
 //			return roundMoney($money);
 		}

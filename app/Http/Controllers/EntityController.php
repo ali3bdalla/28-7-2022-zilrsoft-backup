@@ -15,7 +15,7 @@
 		 */
 		public function index()
 		{
-			$entities = TransactionsContainer::orderBy('created_at', 'desc')->paginate(40);
+			$entities = TransactionsContainer::orderBy('created_at', 'desc')->paginate(15);
 			return view('accounting.transactions.index', compact('entities'));
 		}
 		

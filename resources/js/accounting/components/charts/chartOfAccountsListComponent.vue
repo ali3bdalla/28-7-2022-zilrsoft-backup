@@ -14,18 +14,18 @@
                        مدين
                     </label>
                      &nbsp;
-                    <a v-if="account.parent_id!=0 && canEdit == true"
+                    <a v-if="manageChartOfAccounts && account.parent_id!=0"
                        :href="'/accounts/' + account.id + '/edit'">
                         <label class="label label-success label-sm">تعديل</label></a>
 
                     <accounting-delete-button-layout-component
-                        v-if="account.children_count<=0 && canEdit == true"
+                        v-if="account.children_count<=0 && manageChartOfAccounts"
                         :url="'/accounts/' + account.id"
                         class=''><label
                         class="label label-danger label-sm">حذف</label>
                     </accounting-delete-button-layout-component>
 
-                    <a v-if="canEditAccount == true" :href="'/accounts/create?parent_id=' + account.id">
+                    <a v-if="manageChartOfAccounts" :href="'/accounts/create?parent_id=' + account.id">
                         <label class="label label-success label-sm">اضافة</label></a>
                 </span>
           <span class="lead"><button
@@ -41,6 +41,7 @@
         </div>
         <div style="margin-top: 10px;!important;">
           <accounting-chart-of-accounts-list-component
+              :logged-user-id="loggedUserId"
               v-if="account.children!=null"
               v-show="account.is_expanded"
               :key="account.id"
@@ -53,17 +54,24 @@
 
 <script>
 export default {
-  props: ["accounts", 'canEditAccount'],
+  props: ["accounts", 'loggedUserId'],
   name: "chartOfAccountsListComponent",
   data: function () {
     return {
-      canEdit:true,
+      // canEdit:true,
       accounts_list: [],
     };
   },
+  computed: {
+    manageChartOfAccounts() {
+
+      console.log(parseInt(this.loggedUserId) !== 19);
+      // console.log(typeof parseInt(this.loggedUserId),typeof 19);
+      return parseInt(this.loggedUserId) !== 19 ? true : false;
+
+    }
+  },
   created() {
-    this.canEdit = true;//Boolean(this.canEditAccount == 'true')
-    console.log(this.canEditAccount);
     for (let i = 0; i < this.accounts.length; i++) {
       let account = this.accounts[i];
       account.children = null;

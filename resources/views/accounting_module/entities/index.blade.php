@@ -82,8 +82,8 @@
                             @endif
                         </th>
 
-                        <th> @if($transaction->type =='debit'){{ roundMoney($transaction->amount) }}@else 0 @endif</th>
-                        <th> @if($transaction->type =='credit'){{ roundMoney($transaction->amount) }}@else 0 @endif</th>
+                        <th> @if($transaction->type =='debit'){{ displayMoney($transaction->amount) }}@else 0 @endif</th>
+                        <th> @if($transaction->type =='credit'){{ displayMoney($transaction->amount) }}@else 0 @endif</th>
 
 {{--                        <th>{{  roundMoney($transaction->total_debit_amount) }}</th>--}}
 {{--                        <th>{{  roundMoney($transaction->total_credit_amount) }}</th>--}}
