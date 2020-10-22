@@ -2,6 +2,26 @@
 	
 	use Illuminate\Support\Facades\Route;
 	
+	
+	Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware', 'lang:en'])->name('web.')->group(
+		function() {
+			Route::get('/', 'HomeController@index')->name('index');
+			Route::prefix('/categories')->name('categories.')->group(
+				function() {
+					Route::get('/{category}', 'CategoryController@show')->name('show');
+				}
+			);
+			
+			Route::prefix('/items')->name('items.')->group(
+				function() {
+					Route::get('/{item}', 'ItemController@show')->name('show');
+				}
+			);
+			
+		}
+	);
+	
+	
 	Route::middleware('guest')->group(
 		function() {
 			Route::get('/', 'GuestController@index')->name('index');
