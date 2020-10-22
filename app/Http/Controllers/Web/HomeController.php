@@ -25,7 +25,10 @@
 				]
 			)->inRandomOrder()->take(10)->get();
 			
-			return Inertia::render('Web/Home/Index');
+			return Inertia::render('Web/Home/Index',[
+				'categories' => $categories,
+				'items' => $items
+			]);
 			
 //			return view('web.home.index', compact('categories', 'items'));
 		}

@@ -41,7 +41,11 @@
             $data =$this->only('name','ar_name','description','ar_description','parent_id');
             $data['is_available_online'] =  $this->input('is_available_online') == 'on';
             $category->update($data);
-
+			if ($category->parent) {
+				$category->parent->updateHashMap();
+			}
+			$category->updateHashMap();
+			
             return redirect(route('accounting.categories.index'));
 
 		}

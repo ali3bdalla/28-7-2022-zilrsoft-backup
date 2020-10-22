@@ -5,16 +5,16 @@ namespace App\Models;
 use App\Models\Traits\NestingTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Web\Models\WebCategory;
+
 
 class Category extends BaseModel
 {
     //
     use  SoftDeletes, NestingTrait;
-    use  WebCategory;
     protected $appends = [
         'locale_name',
         'label',
+        'products_count'
     ];
     protected $guarded = [];
 
@@ -104,6 +104,13 @@ class Category extends BaseModel
     public function items()
     {
         return $this->hasMany(Item::class, 'category_id');
+    }
+
+    /*web*/
+
+    public function getProductsCountAttribute()
+    {
+        return Item::whereIn('category_id',$this->getChildrenIncludeMe())->count();
     }
 }
 

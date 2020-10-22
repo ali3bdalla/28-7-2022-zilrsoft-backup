@@ -61,5 +61,15 @@ class BaseModel extends Model
             // });
         }
 
+        if ($table == 'items' && !auth()->check()) {
+            static::addGlobalScope('online', function (Builder $builder) use ($table) {
+                $builder->where([
+                    ["{$table}.is_kit", false],
+                    ["{$table}.available_qty", '>',0]
+                ]);
+            });
+
+        }
+
     }
 }
