@@ -6,6 +6,7 @@ use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\CheckForMaintenanceMode;
 use App\Http\Middleware\Cors;
 use App\Http\Middleware\EncryptCookies;
+use App\Http\Middleware\FrontEndMiddleware;
 use App\Http\Middleware\LanguageMidlleware;
 use App\Http\Middleware\ProtectLimitMiddleware;
 use App\Http\Middleware\RedirectIfAuthenticated;
@@ -94,6 +95,7 @@ class Kernel extends HttpKernel
         'ProtectLimitMiddleware' => ProtectLimitMiddleware::class,
         'lang' => LanguageMidlleware::class,
         'cors' => Cors::class,
+        'font_end_middleware' => FrontEndMiddleware::class,
 
     ];
 
