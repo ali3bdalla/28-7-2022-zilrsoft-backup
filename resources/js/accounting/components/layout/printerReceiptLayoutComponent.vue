@@ -31,6 +31,7 @@ export default {
   methods: {
     initPrinterRequest() {
       let appVm = this;
+      console.log(qzIo.certificate);
       qz.security.setCertificatePromise(function (resolve, reject) {
         resolve(qzIo.certificate);
       });
