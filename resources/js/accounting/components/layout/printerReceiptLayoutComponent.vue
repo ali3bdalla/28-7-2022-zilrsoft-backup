@@ -5,7 +5,7 @@
 </template>
 
 <script>
-const qzIo = require('../../../qz-io');
+const {qzCertificate} = require('../../../qz-io');
 let qz = require("qz-tray");
 export default {
   props: ['invoiceId', 'printId', 'direct'],
@@ -22,7 +22,6 @@ export default {
     };
   },
   created: function () {
-
     this.initPrinterRequest();
     this.targetId = this.invoiceId;
 
@@ -31,9 +30,9 @@ export default {
   methods: {
     initPrinterRequest() {
       let appVm = this;
-      console.log(qzIo.certificate);
+      
       qz.security.setCertificatePromise(function (resolve, reject) {
-        resolve(qzIo.certificate);
+        resolve(qzCertificate);
       });
       qz.security.setSignaturePromise(function (toSign) {
         return function (resolve, reject) {

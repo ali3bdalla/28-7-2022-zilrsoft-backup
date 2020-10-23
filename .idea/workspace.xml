@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1847dce-9989-45ff-80d9-69eb3638cb7b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/qz-io.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Web/Home/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Web/Home/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodeBulkPrinterLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodeBulkPrinterLayoutComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodePrinterLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodePrinterLayoutComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/layoutPrintSingleBarcodeLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/layoutPrintSingleBarcodeLayoutComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/printerReceiptLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/printerReceiptLayoutComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/printersSettingsLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/printersSettingsLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/qz-io.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/qz-io.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +177,7 @@
       <workItem from="1603265524972" duration="40000" />
       <workItem from="1603284572834" duration="9543000" />
       <workItem from="1603440677134" duration="18000" />
-      <workItem from="1603462323061" duration="191000" />
+      <workItem from="1603462323061" duration="516000" />
     </task>
     <servers />
   </component>
@@ -204,10 +204,10 @@
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="661" y="355" width="598" height="490" key="find.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1603295863139" />
-    <state x="469" y="203" width="670" height="507" key="search.everywhere.popup" timestamp="1603462491739">
+    <state x="469" y="203" width="670" height="507" key="search.everywhere.popup" timestamp="1603463667765">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="469" y="203" width="670" height="507" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1603462491739" />
+    <state x="469" y="203" width="670" height="507" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1603463667765" />
     <state x="625" y="271" width="670" height="676" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1603305356530" />
     <state x="625" y="289" width="670" height="664" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1603223373543" />
   </component>
