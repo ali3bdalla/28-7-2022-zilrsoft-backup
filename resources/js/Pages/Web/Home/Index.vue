@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div
     <!-- <SideBarComponent :items='$page.items'></SideBarComponent> -->
     <div class="container  my-5 grid grid-cols-3 gap-3">
       <a

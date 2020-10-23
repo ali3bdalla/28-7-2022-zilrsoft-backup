@@ -5036,32 +5036,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "container  my-5 grid grid-cols-3 gap-3" },
-      _vm._l(_vm.mainCategories, function(category, index) {
-        return _c(
-          "a",
-          {
-            key: index,
-            class: [
-              index == 0
-                ? "row-span-2"
-                : index == 1
-                ? ""
-                : index == 2
-                ? ""
-                : "col-span-2"
-            ],
-            attrs: { href: "/web/categories/" + category.id }
-          },
-          [_c("div", [_c("img", { attrs: { src: category.image } })])]
-        )
-      }),
-      0
-    )
-  ])
+  return _c(
+    "div",
+    { staticClass: "container  my-5 grid grid-cols-3 gap-3" },
+    _vm._l(_vm.mainCategories, function(category, index) {
+      return _c(
+        "a",
+        {
+          key: index,
+          class: [
+            index == 0
+              ? "row-span-2"
+              : index == 1
+              ? ""
+              : index == 2
+              ? ""
+              : "col-span-2"
+          ],
+          attrs: { href: "/web/categories/" + category.id }
+        },
+        [_c("div", [_c("img", { attrs: { src: category.image } })])]
+      )
+    }),
+    0
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
