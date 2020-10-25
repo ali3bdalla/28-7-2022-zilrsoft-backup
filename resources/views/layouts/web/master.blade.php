@@ -16,7 +16,7 @@
 
 <div>
     @includeIf('layouts.web.header')
-    <div class="container-fluid" >
+    <div class="" >
         @yield('content')
     </div>
 </div>

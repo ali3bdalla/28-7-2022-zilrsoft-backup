@@ -3,9 +3,10 @@
         <div class="">
             <div class="row">
 
-<!--                <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">-->
-<!--                    <search-filters-component  @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated" :category-id="categoryId" @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated" @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"></search-filters-component>-->
-<!--                </div>-->
+              dksjl
+                <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+                    <search-filters-component  @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated" :category-id="categoryId" @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated" @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"></search-filters-component>
+                </div>
 
 <!--                -->
                 <!--                order-1 order-lg-2-->
@@ -81,7 +82,7 @@
                     this.showLoading = true;
                     let appVm = this;
 
-                    console.log(this.attributes);
+                    // console.log(this.attributes);
                     axios.post(getRequestUrl('items'),{
                         page:this.currentPage,
                         category_id: categoryId,

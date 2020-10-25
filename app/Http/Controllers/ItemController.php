@@ -27,7 +27,6 @@ class ItemController extends Controller
             $category['children'] = Category::getAllParentNestedChildren($category);
             $categories[] = $category;
         }
-        // $categories = Category::all();
         $vendors = User::where('is_vendor', true)->get();
         return view('accounting.items.create', compact('categories', 'isClone', 'vendors'));
 

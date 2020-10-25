@@ -3,7 +3,7 @@
 	namespace App\Http\Requests\Accounting\Category;
 	
 	use App\Models\Category;
-    use Illuminate\Foundation\Http\FormRequest;
+	use Illuminate\Foundation\Http\FormRequest;
 	
 	class UpdateCategoryRequest extends FormRequest
 	{
@@ -31,22 +31,31 @@
 				'description' => "required|min:3|string",
 				'ar_description' => "required|min:3|string",
 				'parent_id' => "required|integer",
-                'is_available_online' => 'nullable'
+				'is_available_online' => 'nullable'
 			
 			];
 		}
-
-        public function update(Category $category)
-        {
-            $data =$this->only('name','ar_name','description','ar_description','parent_id');
-            $data['is_available_online'] =  $this->input('is_available_online') == 'on';
-            $category->update($data);
-			if ($category->parent) {
+		
+		public function update(Category $category)
+		{
+			
+			$isAvailableOnline = $this->input('is_available_online') == 'on';
+			$data = $this->only('name', 'ar_name', 'description', 'ar_description', 'parent_id');
+			$data['is_available_online'] = $isAvailableOnline;
+			$category->update($data);
+			
+			Category::whereIn('id', $category->getChildrenIncludeMe())->update(
+				[
+					'is_available_online' => $isAvailableOnline
+				]
+			);
+			
+			if($category->parent) {
 				$category->parent->updateHashMap();
 			}
 			$category->updateHashMap();
 			
-            return redirect(route('accounting.categories.index'));
-
+			return redirect(route('accounting.categories.index'));
+			
 		}
 	}

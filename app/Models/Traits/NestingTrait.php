@@ -37,7 +37,8 @@ trait NestingTrait
         $result = $this->getChildrenHashMap();
         $children = [];
         foreach ($result as $value) {
-            $children[] = $value;
+        	if($value != null && $value!="")
+                $children[] = $value;
         }
         $children[] = $this->id;
 

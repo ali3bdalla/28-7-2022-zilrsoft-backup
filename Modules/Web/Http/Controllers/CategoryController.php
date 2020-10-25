@@ -48,6 +48,8 @@ class CategoryController extends Controller
     {
         $items = Item::whereIn('category_id',$category->returnNestedTreeIds($category))->paginate(20);
         $categories = $category->children;
+//        return $items;
+//        return  $categories;
         return view('web::categories.show',compact('category','items','categories'));
     }
 

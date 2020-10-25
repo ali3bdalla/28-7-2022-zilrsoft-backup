@@ -12,6 +12,14 @@
 				}
 			);
 			
+			Route::prefix('items')->name('items.')->group(
+				function() {
+					Route::get('/', 'ItemController@index')->name('index');
+					Route::get('/{item}', 'ItemController@show')->name('show');
+				}
+			);
+
+
 			Route::prefix('/items')->name('items.')->group(
 				function() {
 					Route::get('/{item}', 'ItemController@show')->name('show');
