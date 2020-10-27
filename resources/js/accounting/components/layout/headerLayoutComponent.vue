@@ -104,7 +104,7 @@ margin-bottom: -10px;"></i>
             </ul>
           </li>
           <!--                    <li><a href="/accounting/settings" v-text="trans.settings"></a></li>-->
-          <li v-if="!disableCreate"><a href="/printer/printers" v-text="trans.printers"></a></li>
+          <li v-if="!disableCreate"><a href="/accounting/printer/printers" v-text="trans.printers"></a></li>
           <!--                    <li><a href="/statistics" v-text="trans.statistics"></a></li>-->
           <li v-if="!disableCreate"><a href="/items"> المنتجات</a></li>
           <li v-if="!disableCreate"><a href="/sales/create">فاتورة مبيعات</a></li>
