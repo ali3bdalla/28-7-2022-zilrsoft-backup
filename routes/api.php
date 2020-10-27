@@ -14,6 +14,12 @@
 				Route::match(['POST','GET'],'/', 'CategoryController@index')->name('index');
 			}
 		);
+		
+		Route::prefix('cart')->name('cart.')->group(
+			function() {
+				Route::match(['POST','GET'],'/get_items_details', 'CartController@getItemDetails')->name('get_items_details');
+			}
+		);
 	});
 	
 	Route::middleware('auth')->group(

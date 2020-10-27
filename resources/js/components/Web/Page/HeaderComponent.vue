@@ -13,65 +13,65 @@
           </div>
         </div>
         <div class="ht-right">
-          <a href="#" class="login-panel"><i class="fa fa-user"></i>Login</a>
+          <a class="login-panel" href="#"><i class="fa fa-user"></i>Login</a>
           <div class="lan-selector">
             <div
-              class="ddOutOfVision"
-              id="countries_msddHolder"
-              style="height: 0px; overflow: hidden; position: absolute"
+                id="countries_msddHolder"
+                class="ddOutOfVision"
+                style="height: 0px; overflow: hidden; position: absolute"
             >
               <select
-                class="language_drop"
-                name="countries"
-                id="countries"
-                style="width: 300px"
-                tabindex="-1"
+                  id="countries"
+                  class="language_drop"
+                  name="countries"
+                  style="width: 300px"
+                  tabindex="-1"
               >
+                <!--                <option-->
+                <!--                  value="yt"-->
+                <!--                  data-image="/Web/template/img/flag-1.jpg'"-->
+                <!--                  data-imagecss="flag yt"-->
+                <!--                  data-title="English"-->
+                <!--                >-->
+                <!--                  English-->
+                <!--                </option>-->
                 <option
-                  value="yt"
-                  data-image="/Web/template/img/flag-1.jpg'"
-                  data-imagecss="flag yt"
-                  data-title="English"
-                >
-                  English
-                </option>
-                <option
-                  value="yu"
-                  data-image="/Web/template/img/flag-2.jpg"
-                  data-imagecss="flag yu"
-                  data-title="Bangladesh"
+                    data-image="/Web/template/img/flag-2.jpg"
+                    data-imagecss="flag yu"
+                    data-title="Bangladesh"
+                    value="yu"
                 >
                   German
                 </option>
               </select>
             </div>
             <div
-              class="dd ddcommon borderRadius"
-              id="countries_msdd"
-              tabindex="0"
-              style="width: 300px"
+                id="countries_msdd"
+                class="dd ddcommon borderRadius"
+                style="width: 300px"
+                tabindex="0"
             >
               <div class="ddTitle borderRadiusTp">
                 <span class="divider"></span
                 ><span class="ddArrow arrowoff"></span
-                ><span class="ddTitleText" id="countries_title"
-                  ><img
-                    src="/Web/template/img/flag-1.jpg"
-                    class="flag yt fnone" /><span class="ddlabel">English</span
-                  ><span class="description" style="display: none"></span
-                ></span>
+              ><span id="countries_title" class="ddTitleText"
+              ><img
+                  class="flag yt fnone"
+                  src="/Web/template/img/flag-1.jpg"/><span class="ddlabel">English</span
+              ><span class="description" style="display: none"></span
+              ></span>
               </div>
               <input
-                id="countries_titleText"
-                type="text"
-                autocomplete="off"
-                class="text shadow borderRadius"
-                style="display: none"
+                  id="countries_titleText"
+                  autocomplete="off"
+                  class="text shadow borderRadius"
+                  style="display: none"
+                  type="text"
               />
               <div
-                class="ddChild ddchild_ border shadow"
-                id="countries_child"
-                style="
+                  id="countries_child"
+                  class="ddChild ddchild_ border shadow"
+                  style="
                   z-index: 9999;
                   display: none;
                   position: absolute;
@@ -82,15 +82,15 @@
                 <ul>
                   <li class="enabled _msddli_ selected" title="English">
                     <img
-                      src="/Web/template/img/flag-1.jpg"
-                      class="flag yt fnone"
+                        class="flag yt fnone"
+                        src="/Web/template/img/flag-1.jpg"
                     /><span class="ddlabel">English</span>
                     <div class="clear"></div>
                   </li>
                   <li class="enabled _msddli_" title="Bangladesh">
                     <img
-                      src="/Web/template/img/flag-2.jpg"
-                      class="flag yu fnone"
+                        class="flag yu fnone"
+                        src="/Web/template/img/flag-2.jpg"
                     /><span class="ddlabel">German</span>
                     <div class="clear"></div>
                   </li>
@@ -109,86 +109,20 @@
     </div>
 
     <div class="container">
-      <div class="inner-header">
-        <div class="row">
-          <div class="col-lg-2 col-md-2">
-            <div class="logo">
-              <a href="./index.html">
-                <img src="/Web/template/img/logo.png" alt="" />
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-7 col-md-7">
-            <header-seach-input-component></header-seach-input-component>
-          </div>
-          <div class="col-lg-3 text-right col-md-3">
-            <ul class="nav-right">
-              <li class="heart-icon">
-                <a href="#">
-                  <i class="icon_heart_alt"></i>
-                  <span>1</span>
-                </a>
-              </li>
-              <li class="cart-icon">
-                <a href="#">
-                  <i class="icon_bag_alt"></i>
-                  <span>3</span>
-                </a>
-                <div class="cart-hover">
-                  <div class="select-items">
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td class="si-pic">
-                            <img
-                              src="/Web/template/img/select-product-1.jpg"
-                              alt=""
-                            />
-                          </td>
-                          <td class="si-text">
-                            <div class="product-selected">
-                              <p>$60.00 x 1</p>
-                              <h6>Kabino Bedside Table</h6>
-                            </div>
-                          </td>
-                          <td class="si-close">
-                            <i class="ti-close"></i>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="si-pic">
-                            <img
-                              src="/Web/template/img/select-product-2.jpg"
-                              alt=""
-                            />
-                          </td>
-                          <td class="si-text">
-                            <div class="product-selected">
-                              <p>$60.00 x 1</p>
-                              <h6>Kabino Bedside Table</h6>
-                            </div>
-                          </td>
-                          <td class="si-close">
-                            <i class="ti-close"></i>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="select-total">
-                    <span>total:</span>
-                    <h5>$120.00</h5>
-                  </div>
-                  <div class="select-button">
-                    <a href="#" class="primary-btn view-card">VIEW CARD</a>
-                    <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
-                  </div>
-                </div>
-              </li>
-              <li class="cart-price">$150.00</li>
-            </ul>
+      <div class="inner-header m-0 p-0 flex  items-center justify-center">
+        <!--        <div class="row">-->
+        <div class="w-3/12">
+          <div class="logo">
+            <a href="./index.html">
+              <img alt="" src="/Web/template/img/logo.png"/>
+            </a>
           </div>
         </div>
+        <div class="w-7/12">
+          <header-seach-input-component></header-seach-input-component>
+        </div>
+        <HeaderQuickCartComponent></HeaderQuickCartComponent>
+        <!--        </div>-->
       </div>
     </div>
 
@@ -240,10 +174,10 @@
         <div id="mobile-menu-wrap">
           <div class="slicknav_menu">
             <nav
-              class="slicknav_nav slicknav_hidden"
-              aria-hidden="true"
-              role="menu"
-              style="display: none"
+                aria-hidden="true"
+                class="slicknav_nav slicknav_hidden"
+                role="menu"
+                style="display: none"
             >
               <ul>
                 <li class="active">
@@ -252,20 +186,20 @@
                 <li><a href="./shop.html" role="menuitem">Shop</a></li>
                 <li class="slicknav_collapsed slicknav_parent">
                   <a
-                    href="#"
-                    role="menuitem"
-                    aria-haspopup="true"
-                    tabindex="-1"
-                    class="slicknav_item slicknav_row"
-                    style="outline: none"
-                    ><a href="#">Collection</a>
+                      aria-haspopup="true"
+                      class="slicknav_item slicknav_row"
+                      href="#"
+                      role="menuitem"
+                      style="outline: none"
+                      tabindex="-1"
+                  ><a href="#">Collection</a>
                     <span class="slicknav_arrow">►</span></a
                   >
                   <ul
-                    class="dropdown slicknav_hidden"
-                    role="menu"
-                    aria-hidden="true"
-                    style="display: none"
+                      aria-hidden="true"
+                      class="dropdown slicknav_hidden"
+                      role="menu"
+                      style="display: none"
                   >
                     <li><a href="#" role="menuitem" tabindex="-1">Men's</a></li>
                     <li>
@@ -278,40 +212,40 @@
                 <li><a href="./contact.html" role="menuitem">Contact</a></li>
                 <li class="slicknav_collapsed slicknav_parent">
                   <a
-                    href="#"
-                    role="menuitem"
-                    aria-haspopup="true"
-                    tabindex="-1"
-                    class="slicknav_item slicknav_row"
-                    style="outline: none"
-                    ><a href="#">Pages</a>
+                      aria-haspopup="true"
+                      class="slicknav_item slicknav_row"
+                      href="#"
+                      role="menuitem"
+                      style="outline: none"
+                      tabindex="-1"
+                  ><a href="#">Pages</a>
                     <span class="slicknav_arrow">►</span></a
                   >
                   <ul
-                    class="dropdown slicknav_hidden"
-                    role="menu"
-                    aria-hidden="true"
-                    style="display: none"
+                      aria-hidden="true"
+                      class="dropdown slicknav_hidden"
+                      role="menu"
+                      style="display: none"
                   >
                     <li>
                       <a
-                        href="./blog-details.html"
-                        role="menuitem"
-                        tabindex="-1"
-                        >Blog Details</a
+                          href="./blog-details.html"
+                          role="menuitem"
+                          tabindex="-1"
+                      >Blog Details</a
                       >
                     </li>
                     <li>
                       <a
-                        href="./shopping-cart.html"
-                        role="menuitem"
-                        tabindex="-1"
-                        >Shopping Cart</a
+                          href="./shopping-cart.html"
+                          role="menuitem"
+                          tabindex="-1"
+                      >Shopping Cart</a
                       >
                     </li>
                     <li>
                       <a href="./check-out.html" role="menuitem" tabindex="-1"
-                        >Checkout</a
+                      >Checkout</a
                       >
                     </li>
                     <li>
@@ -319,12 +253,12 @@
                     </li>
                     <li>
                       <a href="./register.html" role="menuitem" tabindex="-1"
-                        >Register</a
+                      >Register</a
                       >
                     </li>
                     <li>
                       <a href="./login.html" role="menuitem" tabindex="-1"
-                        >Login</a
+                      >Login</a
                       >
                     </li>
                   </ul>
@@ -340,8 +274,10 @@
 
 <script>
 import HeaderSeachInputComponent from "./HeaderSeachInputComponent";
+import HeaderQuickCartComponent from "./../Cart/HeaderQuickCartComponent";
+
 export default {
-  components: { HeaderSeachInputComponent },
+  components: {HeaderSeachInputComponent, HeaderQuickCartComponent},
 };
 </script>
 

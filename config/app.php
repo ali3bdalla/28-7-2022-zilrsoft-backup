@@ -1,6 +1,7 @@
 <?php
-
-use App\Providers\ObserverServiceProvider;
+	
+	use App\Providers\EmsServiceProvider;
+	use App\Providers\ObserverServiceProvider;
 
 return [
 
@@ -180,7 +181,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
         App\Providers\ValidatorServiceProvider::class,
-
+	    EmsServiceProvider::class,
         /*
          *
          * custom providers

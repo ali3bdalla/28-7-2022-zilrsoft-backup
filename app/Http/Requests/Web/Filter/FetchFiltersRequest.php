@@ -38,7 +38,7 @@
 			if($this->has('category_id') && $this->filled('category_id')) {
 				$filtersValues = CategoryFilterValues::where('category_id', $this->input('category_id'))->get();
 			} else {
-				$categoriesIds = $items->pluck('category_id');
+				$categoriesIds = [];//$items->pluck('category_id')
 				$filtersValues = CategoryFilterValues::whereIn('category_id', $categoriesIds)->get();
 			}
 			
