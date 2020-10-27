@@ -143,6 +143,11 @@
 
                         </div>
 
+                      <div class="col-md-3">
+                        <input placeholder="الاسم المستعار" @keyup="pushServerRequest"
+                               class="form-control"
+                               type="text" v-model="filters.aliceName">
+                      </div>
                     </div>
 
 
@@ -456,6 +461,7 @@
                 showMultiTaskButtons: false,
                 requestUrl: "",
                 filters: {
+                  aliceName:null,
                     endDate: null,
                     startDate: null,
                     title: null,

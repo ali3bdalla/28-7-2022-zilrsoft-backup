@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="list-group">
-      <li v-for="printer in printers" class="list-group-item">
+      <li v-for="(printer,index) in printers" class="list-group-item" :key="index">
         <a class="list-group-item list-group-item-action flex-column align-items-start"
            href="#">
           <div class="d-flex w-100 justify-content-between"
@@ -37,7 +37,7 @@
 
 <script>
 
-const qzIo = require('../../../qz-io');
+const {qzCertificate} = require('../../../qz-io');
 let qz = require("qz-tray");
 
 
@@ -61,13 +61,12 @@ export default {
     qz.security.setCertificatePromise(function (resolve, reject) {
 
       //Alternate method 2 - direct
-      resolve(qzIo.certificate);
+      resolve(qzCertificate);
 
 
     });
 
     qz.security.setSignaturePromise(function (toSign) {
-      console.log(toSign);
       return function (resolve, reject) {
         $.get("/accounting/printer/sign_receipt_printer", {request: toSign}).then(resolve, reject);
       };

@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1847dce-9989-45ff-80d9-69eb3638cb7b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/qz-io.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Web/Home/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Web/Home/Index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodeBulkPrinterLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodeBulkPrinterLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodePrinterLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/barcodePrinterLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/printerReceiptLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/printerReceiptLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/printersSettingsLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/printersSettingsLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/headerLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/headerLayoutComponent.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +17,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Vue Single File Component" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -135,7 +129,6 @@
       <path value="$PROJECT_DIR$/vendor/nwidart/laravel-modules" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
       <path value="$PROJECT_DIR$/vendor/league/mime-type-detection" />
       <path value="$PROJECT_DIR$/vendor/psr/http-client" />
       <path value="$PROJECT_DIR$/vendor/inertiajs/inertia-laravel" />
@@ -153,6 +146,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/web/components/items" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -177,7 +172,12 @@
       <workItem from="1603265524972" duration="40000" />
       <workItem from="1603284572834" duration="9543000" />
       <workItem from="1603440677134" duration="18000" />
-      <workItem from="1603462323061" duration="191000" />
+      <workItem from="1603462323061" duration="3443000" />
+      <workItem from="1603545956641" duration="5699000" />
+      <workItem from="1603631406774" duration="13693000" />
+      <workItem from="1603719332806" duration="11280000" />
+      <workItem from="1603804076884" duration="2683000" />
+      <workItem from="1603813036673" duration="3316000" />
     </task>
     <servers />
   </component>
@@ -192,23 +192,40 @@
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="643" y="409" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1200@0.0.1920.1200" timestamp="1603288389849" />
-    <state x="698" y="362" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603301743499">
-      <screen x="0" y="0" width="1920" height="1200" />
+    <state x="524" y="272" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603640064483">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="698" y="362" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1603301743499" />
+    <state x="524" y="272" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1440.900@0.0.1440.900" timestamp="1603640064483" />
+    <state x="698" y="362" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1603634076885" />
     <state x="654" y="333" key="NewPhpClassDialog" timestamp="1603288494904">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="654" y="333" key="NewPhpClassDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1603288494904" />
-    <state x="661" y="355" width="598" height="490" key="find.popup" timestamp="1603295863139">
-      <screen x="0" y="0" width="1920" height="1200" />
-    </state>
-    <state x="661" y="355" width="598" height="490" key="find.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1603295863139" />
-    <state x="469" y="203" width="670" height="507" key="search.everywhere.popup" timestamp="1603462491739">
+    <state x="221" y="89" key="SettingsEditor" timestamp="1603652679004">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="469" y="203" width="670" height="507" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1603462491739" />
-    <state x="625" y="271" width="670" height="676" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1603305356530" />
+    <state x="221" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1603652679004" />
+    <state x="496" y="266" width="570" height="490" key="find.popup" timestamp="1603736118420">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="496" y="266" width="570" height="490" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1603736118420" />
+    <state x="661" y="355" width="598" height="490" key="find.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1603295863139" />
+    <state x="469" y="238" width="672" height="483" key="search.everywhere.popup" timestamp="1603821059468">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="469" y="238" width="672" height="483" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1603821059468" />
+    <state x="625" y="289" width="670" height="664" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1603634744630" />
     <state x="625" y="289" width="670" height="664" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1603223373543" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/resources/js/components/Web/Page/HeaderComponent.vue</url>
+          <line>105</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

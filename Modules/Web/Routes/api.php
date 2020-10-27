@@ -17,10 +17,10 @@ use Illuminate\Http\Request;
 // api/web/items
 
 Route::prefix('/web')->middleware('lang:en')->group(function(){
-    Route::post('items',"ItemController@apiGetItems");
-    Route::post('filters',"FilterController@apiGetFilters");
-    Route::get('filters',"FilterController@apiGetFilters");
-    Route::get('subcategories/{category}',"CategoryController@apiGetSubCategories");
+//    Route::post('items',"ItemController@apiGetItems");
+//    Route::post('filters',"FilterController@apiGetFilters");
+//    Route::get('filters',"FilterController@apiGetFilters");
+//    Route::get('subcategories/{category}',"CategoryController@apiGetSubCategories");
 //    Route::post('filters/values',"FilterController@apiGetFilterValues");
 });
 //Route::middleware('auth:api')->get('/web', function (Request $request) {

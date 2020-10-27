@@ -76,8 +76,7 @@
 					);
 				}
 			} else {
-				if(!$this->user()->can('manage branches') && !$this->filled('title') && auth()->user()->accounts_closed_at != null) {
-					
+				if(!$this->user()->can('manage branches') && !$this->filled('title') && !$this->filled('aliceName')  && auth()->user()->accounts_closed_at != null) {
 					$query = $query->where('created_at', '>=', Carbon::parse(auth()->user()->accounts_closed_at));
 				}
 			}
@@ -97,6 +96,12 @@
 			
 			if($this->has('salesmen') && $this->filled('salesmen')) {
 				$ids = Sale::whereIn('salesman_id', $this->input("salesmen"))->get()->pluck('invoice_id');
+				$query = $query->whereIn('id', $ids);
+			}
+			
+			
+			if($this->has('aliceName') && $this->filled('aliceName')) {
+				$ids = Sale::where('alice_name', 'LIKE','%'.$this->input("aliceName").'%')->pluck('invoice_id')->toArray();
 				$query = $query->whereIn('id', $ids);
 			}
 			

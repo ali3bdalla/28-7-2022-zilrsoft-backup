@@ -9,5 +9,9 @@ module.exports = {
     users: baseUrl + 'users/',
     clients: baseUrl + 'clients/',
     configuration: baseUrl + 'configuration/',
+    web:{
+        categories:"/web/categories",
+        products:"/web/products",
+    }
 };
 

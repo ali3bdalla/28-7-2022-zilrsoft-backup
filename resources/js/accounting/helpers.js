@@ -1,8 +1,11 @@
 exports.metaHelper =
     {
         getContent: function (name) {
-            var target = document.head.querySelector('meta[name="' + name + '"]');
-            return target.content;
+            let target = document.head.querySelector('meta[name="' + name + '"]');
+            if(target)
+                return target.content;
+
+            return {};
         }
     };
 

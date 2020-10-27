@@ -5,12 +5,42 @@
 	
 	Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware', 'lang:en'])->name('web.')->group(
 		function() {
+			
+			Route::prefix('sign_in')->name('sign_in.')->group(
+				function() {
+					Route::get('/', 'AuthController@signInPage');
+					Route::post('/', 'AuthController@signIn');
+				}
+			);
+			
+			Route::prefix('sign_up')->name('sign_up.')->group(
+				function() {
+					Route::get('/', 'AuthController@signUpPage');
+					Route::post('/', 'AuthController@signUp');
+				}
+			);
+			
+			
+			Route::prefix('cart')->name('cart.')->group(
+				function() {
+					Route::get('/', 'CartController@index');
+				}
+			);
+			
 			Route::get('/', 'HomeController@index')->name('index');
 			Route::prefix('/categories')->name('categories.')->group(
 				function() {
 					Route::get('/{category}', 'CategoryController@show')->name('show');
 				}
 			);
+			
+			Route::prefix('items')->name('items.')->group(
+				function() {
+					Route::get('/', 'ItemController@index')->name('index');
+					Route::get('/{item}', 'ItemController@show')->name('show');
+				}
+			);
+			
 			
 			Route::prefix('/items')->name('items.')->group(
 				function() {

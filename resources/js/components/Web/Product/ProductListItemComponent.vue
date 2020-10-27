@@ -1,7 +1,7 @@
 <template>
-  <div class=" bg-white p-2 pt-4 border-l border-b border-r transition hover:shadow-md shadow-sm text-center">
+  <div   class="mb-0 bg-white p-2 pt-4 border-b border-r border-l  border-t transition hover:shadow-md text-center">
     <div class="overflow-hidden w-full">
-      <img :src="item.image" class="mx-auto object-cover" />
+      <img :src="itemImage" class="mx-auto object-cover" />
     </div>
     <div class="mt-5 overflow-hidden p-2">
     <h3 class="text-sm bg-gray-900 shadow rounded font-extrabold truncate inline-block py-1 px-2 text-white w-full text-center ">
@@ -20,12 +20,12 @@
       >
         {{ parseFloat(item.price_with_tax).toFixed(2) }}
       </h4>
-      <span class="text-sm text-web-primary font-bold">.SAR</span>
+      <span class="text-sm text-web-primary font-bold">SR</span>
       <div>
         <h4 class="mt-2 text-2xl text-gray-900 font-bold inline-block">
           {{ parseFloat(item.price).toFixed(2) }}
         </h4>
-        <span class="text-sm text-web-primary font-bold">.SAR</span>
+        <span class="text-sm text-web-primary font-bold">SR</span>
       </div>
       <ToggleCartItemButtonComponent
         class="mt-2"
@@ -41,7 +41,29 @@ import ProductRatingComponent from "./ProductRatingComponent";
 
 export default {
   components: { ToggleCartItemButtonComponent, ProductRatingComponent },
-  props: ["item"],
+  props: ["item",'index'],
+  data()
+  {
+    return {
+      images: [
+        "https://images10.newegg.com/ProductImageCompressAll180/11-133-244-41.jpg",
+        "https://images10.newegg.com/ProductImageCompressAll180/A8X5_131058525764839488GVB8iSbB5E.jpg",
+        "https://images10.newegg.com/ProductImageCompressAll180/96-110-022-11.jpg",
+        "https://images10.newegg.com/ProductImageCompressAll180/20-721-108-02.jpg",
+        "https://images10.newegg.com/ProductImageCompressAll180/35-608-044_R01.jpg",
+        "https://images10.newegg.com/ProductImageCompressAll180/75-100-554-02.jpg",
+        "https://images10.newegg.com/ProductImageCompressAll180/11-133-244-41.jpg",
+      ],
+    }
+  },
+  computed:
+  {
+      itemImage()
+      {
+        return this.item.image ? this.item.image : this.images[parseInt(Math.random() * 10) % 7];
+      }
+    
+  }
 };
 </script>
 

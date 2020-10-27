@@ -58,9 +58,9 @@
 		{
 			return Inertia::render(
 				"Auth/RegisterPage", [
-				'types' => Type::all(),
-				'countries' => Country::all(),
-			]
+					'types' => Type::all(),
+					'countries' => Country::all(),
+				]
 			);
 		}
 		
@@ -101,19 +101,19 @@
 		{
 			return Validator::make(
 				$data, [
-				'title' => 'required|string|max:255',
-				'city' => 'required|string|max:255',
-				'address' => 'required|string|max:255',
-				'phone_number' => 'required|string|max:255',
-				'description' => 'nullable',
-				'vat_number' => 'required|string|max:255',
-				'cr_number' => 'required|string|max:255',
-				'country_id' => 'required|integer|exists:countries,id',
-				'business_type_id' => 'required|integer|exists:types,id',
-				'name' => 'required|string|max:255',
-				'email' => 'required|string|email|max:255|unique:managers',
-				'password' => 'required|string|min:8|confirmed',
-			]
+					'title' => 'required|string|max:255',
+					'city' => 'required|string|max:255',
+					'address' => 'required|string|max:255',
+					'phone_number' => 'required|string|max:255',
+					'description' => 'nullable',
+					'vat_number' => 'required|string|max:255',
+					'cr_number' => 'required|string|max:255',
+					'country_id' => 'required|integer|exists:countries,id',
+					'business_type_id' => 'required|integer|exists:types,id',
+					'name' => 'required|string|max:255',
+					'email' => 'required|string|email|max:255|unique:managers',
+					'password' => 'required|string|min:8|confirmed',
+				]
 			);
 		}
 		

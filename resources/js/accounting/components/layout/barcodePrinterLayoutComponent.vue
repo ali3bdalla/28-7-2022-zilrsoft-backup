@@ -58,7 +58,7 @@
 </template>
 
 <script>
-const qzIo = require('../../../qz-io');
+const {qzCertificate} = require('../../../qz-io');
 
 let qz = require("qz-tray");
 import domtoimage from 'dom-to-image';
@@ -160,7 +160,7 @@ export default {
       var appVm = this;
       qz.security.setCertificatePromise(function (resolve, reject) {
         //Alternate method 2 - direct
-        resolve(qzIo.certificate);
+        resolve(qzCertificate);
       });
       qz.security.setSignaturePromise(function (toSign) {
         return function (resolve, reject) {

@@ -1,4 +1,5 @@
-const certificate = "-----BEGIN CERTIFICATE-----\n" +
+
+exports.qzCertificate =   "-----BEGIN CERTIFICATE-----\n" +
     "MIIEvjCCAqigAwIBAgIEOTQ1MTALBgkqhkiG9w0BAQUwgZgxCzAJBgNVBAYTAlVT\n" +
     "MQswCQYDVQQIDAJOWTEbMBkGA1UECgwSUVogSW5kdXN0cmllcywgTExDMRswGQYD\n" +
     "VQQLDBJRWiBJbmR1c3RyaWVzLCBMTEMxGTAXBgNVBAMMEHF6aW5kdXN0cmllcy5j\n" +
@@ -57,8 +58,3 @@ const certificate = "-----BEGIN CERTIFICATE-----\n" +
     "2ur4rDErnHsiphBgZB71C5FD4cdfSONTsYxmPmyUb5T+KLUouxZ9B0Wh28ucc1Lp\n" +
     "rbO7BnjW\n" +
     "-----END CERTIFICATE-----";
-
-
-export default {
-    certificate: certificate
-};

@@ -16,7 +16,6 @@
     {{--        <link rel="stylesheet" href="{{ asset('template/css/pdf.css') }}">--}}
 
 
-
     <style>
         body {
             margin: 10px;
@@ -271,7 +270,7 @@
             <div class="col-md-6"></div>
 
             <div class="col-md-6">
-                <h5>{{__('pages/vouchers.amount_equ')}} {{ $payment->amount }}
+                <h5>{{__('pages/vouchers.amount_equ')}} {{ displayMoney($payment->amount) }}
                     ريال</h5>
             </div>
         </div>
