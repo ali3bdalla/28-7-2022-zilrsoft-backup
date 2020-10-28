@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c1847dce-9989-45ff-80d9-69eb3638cb7b" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/app/Helpers/sms.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/ClientGuestMiddleware.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/ManagerGuestMiddleware.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/vendor/vue-phone-number-input/dist/flags.9c96e0ed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/Pages/Web/Auth/ConfirmOtp.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Web/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Web/Routes/web.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Helpers/otp.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/otp.php" afterDir="false" />
@@ -29,7 +33,10 @@
       <change beforePath="$PROJECT_DIR$/resources/js/Pages/Web/Auth/OtpConfirmComponent.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/Pages/Web/Auth/SignIn.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Web/Auth/SignIn.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/Pages/Web/Auth/SignUp.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Web/Auth/SignUp.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchasesReturnComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchasesReturnComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesReturnComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesReturnComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app_v2.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app_v2.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Web/Page/HeaderComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Web/Page/HeaderComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
@@ -210,7 +217,7 @@
       <workItem from="1603813036673" duration="5609000" />
       <workItem from="1603869603498" duration="79000" />
       <workItem from="1603890204251" duration="5921000" />
-      <workItem from="1603903991396" duration="572000" />
+      <workItem from="1603903991396" duration="833000" />
     </task>
     <servers />
   </component>
@@ -244,11 +251,11 @@
     </state>
     <state x="496" y="266" width="570" height="490" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1603736118420" />
     <state x="661" y="355" width="598" height="490" key="find.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1603295863139" />
-    <state x="625" y="289" width="670" height="664" key="search.everywhere.popup" timestamp="1603904292114">
+    <state x="625" y="289" width="670" height="664" key="search.everywhere.popup" timestamp="1603904911110">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="469" y="238" width="672" height="483" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1603826413218" />
-    <state x="625" y="289" width="670" height="664" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1603904292114" />
+    <state x="625" y="289" width="670" height="664" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1603904911110" />
     <state x="625" y="289" width="670" height="664" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1603223373543" />
   </component>
   <component name="XDebuggerManager">
