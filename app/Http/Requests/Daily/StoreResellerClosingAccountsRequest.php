@@ -143,15 +143,7 @@ class StoreResellerClosingAccountsRequest extends FormRequest
 
     }
 
-    // /**
-    //  * @return int|mixed
-    //  */
-    // public function getShortageAmount($loggedUser , $gatewaysAmount = 0)
-    // {
-
-    //     return $gatewaysAmount - $this->input("period_sales_amount");
-    // }
-
+    
     public function getShouldBeAvailableAmount($loggedUser)
     {
         $remainingAccountsBalanceAmount = $loggedUser->remaining_accounts_balance;
@@ -161,10 +153,16 @@ class StoreResellerClosingAccountsRequest extends FormRequest
             $accountsClosedAt = Carbon::parse($accountsClosedAt);
             $inAmount = Payment::where([
                 ['creator_id', $loggedUser->id],
-            ])->where('created_at', '>=', $accountsClosedAt)->where('payment_type', 'receipt')->sum('amount');
+            ])->where('created_at', '>=', $accountsClosedAt)->where([
+            	['payment_type', 'receipt'],
+	            ['invoice_id','!=',null]
+            ])->sum('amount');
             $outAmount = Payment::where([
                 ['creator_id', $loggedUser->id],
-            ])->where('created_at', '>=', $accountsClosedAt)->where('payment_type', 'payment')->sum('amount');
+            ])->where('created_at', '>=', $accountsClosedAt)->where([
+	            ['payment_type', 'payment'],
+	            ['invoice_id','!=',null]
+            ])->sum('amount');
         } else {
             $inAmount = Payment::where([
                 ['creator_id', $loggedUser->id],
@@ -175,21 +173,6 @@ class StoreResellerClosingAccountsRequest extends FormRequest
             ])->where('payment_type', 'payment')->sum('amount');
         }
 
-        // if ($accountsClosedAt != null) {
-        //     $accountsClosedAt = Carbon::parse($accountsClosedAt);
-        //     $paymentQuery = Payment::where([
-        //         ['creator_id', $loggedUser->id],
-        //     ])->where('created_at','>=',$accountsClosedAt);
-
-        // } else {
-        //     $paymentQuery = Payment::where([
-        //         ['creator_id', $loggedUser->id],
-        //     ]);
-        // }
-        // $inAmount = $paymentQuery->where('payment_type', 'receipt')->sum('amount');
-        // $outAmount =  $paymentQuery->where('payment_type','payment')->sum('amount');
-
-        // - $outAmount
         return $inAmount + $remainingAccountsBalanceAmount - $outAmount;
     }
 }

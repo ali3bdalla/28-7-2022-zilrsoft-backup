@@ -1,22 +1,34 @@
 <?php
 	
 	use Illuminate\Support\Facades\Route;
+
+//	auth('client')->logout();
 	
 	
-	Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware', 'lang:en'])->name('web.')->group(
+	Route::get('/', 'Web\HomeController@toWeb')->name('to.web');
+	
+	
+	Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->name('web.')->group(
 		function() {
 			
-			Route::prefix('sign_in')->name('sign_in.')->group(
+			Route::middleware('client_guest')->group(
 				function() {
-					Route::get('/', 'AuthController@signInPage');
-					Route::post('/', 'AuthController@signIn');
-				}
-			);
-			
-			Route::prefix('sign_up')->name('sign_up.')->group(
-				function() {
-					Route::get('/', 'AuthController@signUpPage');
-					Route::post('/', 'AuthController@signUp');
+					Route::prefix('sign_in')->name('sign_in.')->group(
+						function() {
+							Route::get('/', 'AuthController@signInPage');
+							Route::post('/', 'AuthController@signIn');
+						}
+					);
+					
+					Route::prefix('sign_up')->name('sign_up.')->group(
+						function() {
+							Route::get('/', 'AuthController@signUpPage');
+							Route::post('/', 'AuthController@signUp');
+							Route::post('/confirm_sign_up', 'AuthController@confirmSignUp');
+							Route::get('/confirm_sign_up', 'AuthController@confirmSignUpPage')->name('confirm_sign_up');
+						}
+					);
+					
 				}
 			);
 			
@@ -47,14 +59,36 @@
 					Route::get('/{item}', 'ItemController@show')->name('show');
 				}
 			);
+//
+//
+//			Route::middleware('auth:client')->group(
+//				function() {
+//					Route::prefix('sign_in')->name('sign_in.')->group(
+//						function() {
+//							Route::get('/', 'AuthController@signInPage');
+//							Route::post('/', 'AuthController@signIn');
+//						}
+//					);
+//
+//					Route::prefix('sign_up')->name('sign_up.')->group(
+//						function() {
+//							Route::get('/', 'AuthController@signUpPage');
+//							Route::post('/', 'AuthController@signUp');
+//							Route::post('/confirm_sign_up', 'AuthController@confirmSignUp');
+//							Route::get('/confirm_sign_up', 'AuthController@confirmSignUpPage')->name('confirm_sign_up');
+//						}
+//					);
+//
+//				}
+//			);
+//
 			
 		}
 	);
 	
 	
-	Route::middleware('guest')->group(
+	Route::middleware('manager_guest')->group(
 		function() {
-			Route::get('/', 'GuestController@index')->name('index');
 			Route::get('/register', 'RegisterController@showRegistrationForm')->name('show_registration_form');
 			Route::post('/register', 'RegisterController@register')->name('register');
 			Route::post('/login', 'LoginController@login')->name('perform_login');

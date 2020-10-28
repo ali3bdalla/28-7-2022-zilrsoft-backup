@@ -13,8 +13,10 @@
           </div>
         </div>
         <div class="ht-right">
-          <a class="login-panel" href="#"><i class="fa fa-user"></i>Login</a>
-          <div class="lan-selector">
+          <a class="login-panel" href="/web/sign_in" v-if="!$page.client_logged"><i class="fa fa-user"></i>Login</a>
+          <a class="login-panel" href="/web/profile" v-else><i class="fa fa-user"></i>{{ $page.client.name }}</a>
+
+          <!-- <div class="lan-selector">
             <div
                 id="countries_msddHolder"
                 class="ddOutOfVision"
@@ -34,7 +36,7 @@
                 <!--                  data-title="English"-->
                 <!--                >-->
                 <!--                  English-->
-                <!--                </option>-->
+                <!--                </option>
                 <option
                     data-image="/Web/template/img/flag-2.jpg"
                     data-imagecss="flag yu"
@@ -97,7 +99,7 @@
                 </ul>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="top-social">
             <a href="#"><i class="ti-facebook"></i></a>
             <a href="#"><i class="ti-twitter-alt"></i></a>

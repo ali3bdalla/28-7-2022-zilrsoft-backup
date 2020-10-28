@@ -738,7 +738,9 @@
             },
             itemQtyUpdated(item, bySerial = false) {
 
-                item = this.itemPriceMather(item);
+              item.qty = parseInt(item.qty);
+
+              item = this.itemPriceMather(item);
                 // item.qty = parseInt(item.qty);
                 if (bySerial === false) {
                     let el = this.$refs['itemQty_' + item.id + 'Ref'][0];

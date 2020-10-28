@@ -424,6 +424,7 @@
 
 
             itemQtyUpdated(item, bySerial = false) {
+              item.returned_qty = parseInt(item.returned_qty);
 
 
                 if (item.item.is_kit === 1) {

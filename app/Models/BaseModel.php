@@ -74,7 +74,7 @@
 				// });
 			}
 			
-			if(strpos(url()->current(),'web')) {
+			if(strpos(url()->current(), 'web')) {
 				if($table == 'items') {
 					static::addGlobalScope(
 						'online', function(Builder $builder) use ($table) {
