@@ -18,20 +18,14 @@
 				'online_users_placeholder', function($table) {
 				$table->increments('id');
 				$table->string('phone_number');
-				$table->string('username');
-				$table->integer('otp')->nullable();
-				$table->boolean('is_verified')->default(false);
+				$table->string('username')->nullable();
+				$table->string('password')->nullable();
+				$table->string('otp')->nullable();
 				$table->timestamps();
 				
 			}
 			);
 			
-			Schema::table(
-				'users', function(Blueprint $table) {
-				$table->integer('otp_code')->nullable();
-				$table->timestamp('verified_at')->nullable();
-			}
-			);
 			//
 		}
 		

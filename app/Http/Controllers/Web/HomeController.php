@@ -10,6 +10,11 @@
 	
 	class HomeController extends Controller
 	{
+		
+		public function toWeb()
+		{
+			return redirect(route('web.index'));
+		}
 		public function index()
 		{
 			$categories = Category::where(
