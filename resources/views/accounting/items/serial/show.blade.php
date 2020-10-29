@@ -54,7 +54,6 @@
                                     @if($history->invoice!=null)
                                         <a href="{{route('purchases.show',$history->invoice->id)}}">
                                            @if($history->invoice->invoice_number)
-
                                             {{ $history->invoice->invoice_number }}
                                             @else
                                             {{$history->invoice->id}}
