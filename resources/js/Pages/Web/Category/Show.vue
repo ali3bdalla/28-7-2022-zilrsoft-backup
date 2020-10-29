@@ -1,48 +1,58 @@
 <template>
   <web-layout>
     <div class="container bg-white shadow-lg">
-    <div
-      class="grid  p-2 grid-cols-2  md:grid-cols-3 lg:grid-cols-5 gap-1 lg:gap-2 my-5 "
-    >
-    <!--bg-gray-200-->
-      <a
-        :href="`/web/categories/${category.id}`"
-        v-for="category in subCategories"
-        :key="category.id"
-      >
-        <SubategoryListItemComponent :category="category"></SubategoryListItemComponent>
-      </a>
-    </div>
-
-    <div class="mt-10">
-      <h1 class="text-xl text-center md:text-2xl font-bold text-gray-600 flex justify-center items-center">Products ({{$page.category.products_count}})  <a :href="`/web/categories/${$page.category.id}/products`" class="ml-2 text-sm text-blue-400">show all..</a></h1>
-
       <div
-        class="grid p-2 grid-cols-2 md:grid-cols-4  gap-1 lg:gap-4 mb-5 mt-3"
+        class="grid p-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 lg:gap-2 my-5"
       >
+        <!--bg-gray-200-->
         <a
-          :href="`/web/items/${item.id}`"
-          v-for="(item,index) in items"
-          :key="item.id"
+          :href="`/web/categories/${category.id}`"
+          v-for="category in subCategories"
+          :key="category.id"
         >
-          <ProductListItemComponent :item="item" :index="index"></ProductListItemComponent>
+          <SubategoryListItemComponent
+            :category="category"
+          ></SubategoryListItemComponent>
         </a>
       </div>
+
+      <div class="mt-10">
+        <h1
+          class="text-xl text-center md:text-2xl font-bold text-gray-600 flex justify-center items-center"
+        >
+          Products ({{ $page.category.products_count }})
+          <a
+            :href="`/web/categories/${$page.category.id}/products`"
+            class="ml-2 text-sm text-blue-400"
+            >show all..</a
+          >
+        </h1>
+
+        <div
+          class="grid p-2 grid-cols-2 md:grid-cols-4 gap-1 lg:gap-4 mb-5 mt-3"
+        >
+          <ProductListItemComponent
+            v-for="(item, index) in items"
+            :key="item.id"
+            :item="item"
+            :index="index"
+          ></ProductListItemComponent>
+        </div>
+      </div>
     </div>
-  </div>
   </web-layout>
 </template>
 
 <script>
 import SubategoryListItemComponent from "./../../../components/Web/Category/SubategoryListItemComponent";
 import ProductListItemComponent from "./../../../components/Web/Product/ProductListItemComponent";
-import WebLayout from '../../../Layouts/WebAppLayout';
+import WebLayout from "../../../Layouts/WebAppLayout";
 
 export default {
   components: {
     WebLayout,
     SubategoryListItemComponent,
-    ProductListItemComponent
+    ProductListItemComponent,
   },
   data() {
     return {
@@ -78,7 +88,6 @@ export default {
       }
       return items;
     },
-
   },
 };
 </script>

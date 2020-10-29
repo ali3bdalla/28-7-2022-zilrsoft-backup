@@ -250,7 +250,8 @@ class ItemController extends Controller
         ]);
 
         $serial = ItemSerials::where('serial', $request->serial)->first();
-        return view('accounting.items.serial.show', compact('serial'));
+        $histories = $serial->histories()->orderBy('id','asc')->get();
+        return view('accounting.items.serial.show', compact('serial','histories'));
     }
 
     public function barcode()

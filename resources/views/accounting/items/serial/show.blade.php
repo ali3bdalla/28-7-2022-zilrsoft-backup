@@ -6,7 +6,7 @@
 @section('content')
 
     <div class="box">
-        @if(!empty($serial->histories))
+        @if(!empty($histories))
             <div class="table-container">
                 <table class="table table-bordered text-center">
                     <thead>
@@ -21,16 +21,23 @@
                     </thead>
 
                     <tbody>
-                    @foreach($serial->histories as $history)
+                    @foreach($histories as $history)
                         <tr>
                             <td>{{$history->created_at}}</td>
-                            <td>{{ trans('pages/invoice.' . $history->event) }}</td>
+                            <td>
+                            @if($history->event == 'in_stock')
+مشتريات
+                            @else
+
+{{ trans('pages/invoice.' . $history->event) }}
+                            @endif
+                            </td>
                             <td>{{$history->user->locale_name}}</td>
                             <td>{{$history->creator->locale_name}}</td>
                             @if(in_array($history->event,['sale','return_sale']))
                                 <td>
                                     @if($history->invoice!=null)
-                                        <a href="{{route('accounting.sales.show',$history->invoice->id)}}">
+                                        <a href="{{route('sales.show',$history->invoice->id)}}">
                                             {{ $history->invoice->title }}
                                         </a>
                                     @endif
@@ -38,8 +45,8 @@
                             @else
                                 <td>
                                     @if($history->invoice!=null)
-                                        <a href="{{route('accounting.purchases.show',$history->invoice->id)}}">
-                                            {{ $history->invoice->title }}
+                                        <a href="{{route('purchases.show',$history->invoice->id)}}">
+                                            {{ $history->invoice->invoice_number }}
                                         </a>
                                     @endif
                                 </td>

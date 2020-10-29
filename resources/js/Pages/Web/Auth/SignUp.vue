@@ -85,8 +85,8 @@
                 </button>
               </form>
               <div class="switch-login">
-                <a href="./register.html" class="or-login"
-                  >Or Create An Account</a
+                <a href="/web/sign_in" class="or-login"
+                  >Already have account ?</a
                 >
               </div>
             </div>
