@@ -38,7 +38,14 @@
                                 <td>
                                     @if($history->invoice!=null)
                                         <a href="{{route('sales.show',$history->invoice->id)}}">
-                                            {{ $history->invoice->title }}
+                                            @if($history->invoice->invoice_number)
+
+                                            {{ $history->invoice->invoice_number }}
+
+                                            @else
+
+                                            {{$history->invoice->id}}
+                                            @endif
                                         </a>
                                     @endif
                                 </td>
@@ -46,7 +53,12 @@
                                 <td>
                                     @if($history->invoice!=null)
                                         <a href="{{route('purchases.show',$history->invoice->id)}}">
+                                           @if($history->invoice->invoice_number)
+
                                             {{ $history->invoice->invoice_number }}
+                                            @else
+                                            {{$history->invoice->id}}
+                                            @endif
                                         </a>
                                     @endif
                                 </td>
