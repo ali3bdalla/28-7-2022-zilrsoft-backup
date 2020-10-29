@@ -8,7 +8,9 @@
               <table>
                 <thead>
                   <tr>
-                    <th v-if="$page.client_logged">#</th>
+                    <th v-if="$page.client_logged">
+                      <input v-model="selectedAll" type="checkbox" />
+                    </th>
                     <th>Image</th>
                     <th class="p-name">Product Name</th>
                     <th>Price</th>
@@ -34,7 +36,12 @@
                     class="border-b border-gray-500"
                   >
                     <td class="w-20" v-if="$page.client_logged">
-                      <input type="checkbox" />
+                      <input
+                      v-if="parseInt(item.available_qty) >= parseInt(item.quantity)"
+                        type="checkbox"
+                        :checked="selectedItems.includes(item.id)"
+                        @change="toggleSelectedItem(item)"
+                      />
                     </td>
                     <td class="cart-pic first-row text-center">
                       <img
@@ -58,7 +65,7 @@
                           >
                             -
                           </button>
-                          <input v-model="item.quantity" type="text" />
+                          <input v-model="item.quantity" @change="itemQtyUpdated(item)" type="text" />
                           <button
                             class="inc qtybtn"
                             @click="updateItemQuantity(item, 'inc')"
@@ -98,11 +105,11 @@
               <div class="col-lg-4 offset-lg-8">
                 <div class="proceed-checkout">
                   <ul>
-                    <li class="subtotal">Subtotal <span>$240.00</span></li>
-                    <li class="cart-total">Total <span>$240.00</span></li>
+                    <!--<li class="subtotal">Subtotal <span>{{}}</span></li>-->
+                    <li class="cart-total">Total <span>{{parseFloat(selectedItemsTotal).toFixed(2)}}</span></li>
                   </ul>
                   <a v-if="$page.client_logged" class="proceed-btn" href="#"
-                    >PROCEED TO CHECK OUT</a
+                    >Checkout</a
                   >
                   <a v-else class="proceed-btn" href="/web/sign_in"
                     >LOGIN TO CHECK OUT</a
@@ -125,7 +132,10 @@ export default {
 
   data() {
     return {
+      selectedAll:true,
       cartItems: [],
+      selectedItems: [],
+      selectedItemsTotal:[]
     };
   },
   components: {
@@ -133,17 +143,33 @@ export default {
   },
 
   created() {
+    // this.$alert("Hello Vue Simple Alert.");
+
+    //     this.$fire({
+    //   title: "Error",
+    //   text: "Selected Product Out Of Stock",
+    //   type: "error",
+    //   timer: 000
+    // }).then(r => {
+    //   console.log(r.value);
+    // });
+
     this.updateCartItems();
   },
   methods: {
     updateItemQuantity(item, type) {
-      let quantity = 0;
+      let product = this.$store.state.cart.find(
+        (product) => product.id == item.id
+      );
+
+      let quantity = parseInt(product.quantity);
       if (type == "inc") {
-        quantity = parseInt(item.quantity) + 1;
+        quantity += parseInt(1);
       } else {
-        quantity = parseInt(item.quantity) - 1;
+        quantity -= parseInt(1);
       }
-      this.$store.commit("addToCart", item, quantity, "set");
+
+      this.$store.commit("addToCart", { item: item, quantity: quantity });
     },
 
     updateCartItems() {
@@ -151,9 +177,11 @@ export default {
         let items = [];
 
         for (const item of this.$store.state.cart) {
-          items.push(item.id);
+          if (item.id) {
+            items.push(item.id);
+          }
         }
-        console.log(items);
+
         let appVm = this;
         axios
           .post("/api/web/cart/get_items_details", {
@@ -161,16 +189,30 @@ export default {
           })
           .then((res) => {
             let responseItems = res.data;
-            for (let responseItem of responseItems) {
-              let product = appVm.$store.state.cart.find(
-                (product) => product.id === responseItem.id
+            responseItems.forEach(function(item){
+              let productItem = appVm.$store.state.cart.find(
+              product => product.id === item.id
               );
-              if (product)
-                appVm.$store.updateItemCartAvailableQty(
-                  product,
-                  item.available_qty
-                );
-            }
+
+
+              if (productItem) {
+                appVm.$store.commit("updateItemCartAvailableQty",{
+                  item:productItem,
+                  available_qty:item.available_qty
+                });
+
+                if (
+                  parseInt(item.available_qty) >= parseInt(productItem.quantity)
+                ) {
+                  appVm.selectedItems.push(productItem.id);
+
+                }
+              }
+
+
+
+            })
+        
           })
           .catch((error) => {
             // callback(res);
@@ -178,6 +220,40 @@ export default {
       }
     },
 
+
+    itemQtyUpdated(item)
+    {
+
+    
+      let quantity = parseInt(item.quantity);
+
+      if(quantity>=0)
+      {
+        this.$store.commit("addToCart", { item: item, quantity: quantity });
+      }
+      // if (type == "inc") {
+      //   quantity += parseInt(1);
+      // } else {
+      //   quantity -= parseInt(1);
+      // }
+
+
+
+      // console.log(item.quantity)
+      // console.log(item);
+    },
+    toggleSelectedItem(item)
+    {
+      let product = this.selectedItems.find(p => p.id == item.id);
+      if(product)
+      {
+        let index = this.selectedItems.indexOf(product);
+        this.selectedItems.splice(index,1);
+      }else
+      {
+        this.selectedItems.push(item);
+      }
+    },
     getTotal(item) {
       return parseFloat(parseInt(item.quantity) * item.price).toFixed(2);
     },
@@ -186,6 +262,34 @@ export default {
     },
   },
 
+  watch:{
+    selectedAll(value)
+    {
+      if(value)
+      {
+        this.updateCartItems();
+      }else
+      {
+        this.selectedItems = [];
+      }
+    },
+    selectedItems(value)
+    {
+      let appVm=  this;
+      for (let index = 0; index < value.length; index++) {
+        const element = value[index];
+        let amount = 0;
+        let product = this.$store.state.cart.find(product => product.id === element);
+        if(product)
+        {
+          amount+=appVm.getTotal(product);
+        }
+
+        appVm.selectedItemsTotal = amount;
+      }
+
+    }
+  },
   computed: {},
 };
 </script>

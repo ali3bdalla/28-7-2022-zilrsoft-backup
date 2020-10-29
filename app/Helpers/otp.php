@@ -15,7 +15,7 @@
 		function sendOtp($phoneNumber, $otp)
 		{
 			$$phoneNumber = '966' . $phoneNumber;
-			sendSms("Verification Code: {$otp}", $phoneNumber);
+			// sendSms("Verification Code: {$otp}", $phoneNumber);
 		}
 	}
 	

@@ -62,6 +62,7 @@
         "vue-otp-field": "^0.1.5",
         "vue-phone-number-input": "^1.1.10",
         "vue-property-decorator": "^8.5.1",
+        "vue-simple-alert": "^1.1.1",
         "vue-spinners": "^1.0.2",
         "vue-tailwind-modal": "^1.0.3",
         "vue2-daterange-picker": "^0.3.1",

@@ -47,7 +47,7 @@ export default {
     };
   },
   created() {
-    this.hiddenPhoneNumber = this.phone_number.replaceAt(2, "*******");
+    this.hiddenPhoneNumber = this.phone_number.replaceAt(-2, "********");
     console.log(this.validate_url);
   },
   methods: {
