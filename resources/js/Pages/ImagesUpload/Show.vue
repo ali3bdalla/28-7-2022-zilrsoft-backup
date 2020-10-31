@@ -16,7 +16,7 @@
             <div class="h-full w-full object-cover shadow-lg rounded-lg">
               <div class="text-gray-200">
                 <div class="flex flex-col justify-center items-center">
-                  <img src="/accounting/images/cloud_upload.png"/>
+                  <img src="/public/accounting/images/cloud_upload.png"/>
                   <p class="lead">رفع المرفقات</p>
                 </div>
               </div>
