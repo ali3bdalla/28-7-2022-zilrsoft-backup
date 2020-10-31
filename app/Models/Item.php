@@ -24,6 +24,8 @@
 	 * @property mixed total_cost_amount
 	 * @property mixed total_stock_amount
 	 * @property mixed is_service
+	 * @property mixed ar_name
+	 * @property mixed creator_id
 	 * @method static findOrFail($id)
 	 * @method static InRandomOrder()
 	 * @method static find($input)
@@ -31,12 +33,11 @@
 	class Item extends BaseModel
 	{
 		
-		// use WebItem;
 		use SoftDeletes;
 		
 		protected $appends = [
 			'locale_name',
-
+		
 		];
 		protected $casts = [
 			'id' => 'integer',
@@ -88,6 +89,12 @@
 			return $this->belongsTo(Manager::class, 'creator_id');
 		}
 		
+		
+		public function attachments()
+		{
+			return $this->morphMany(Attachment::class, 'attachable');
+		}
+		
 		public function scopeLastFiveSearch($query, $search)
 		{
 			return $query
@@ -100,9 +107,9 @@
 		
 		public function scopeItemBySerialSearch($query, $search)
 		{
-			$pserials = ItemSerials::where('serial', $search)->whereIn('current_status', ['available', 'return_sale'])->get();
+			$productSerials = ItemSerials::where('serial', $search)->whereIn('current_status', ['available', 'return_sale'])->get();
 			$serials = [];
-			foreach($pserials as $serial) {
+			foreach($productSerials as $serial) {
 				if(!empty($serial)) {
 					$item = $serial->item;
 					$item->has_init_serial = true;
@@ -186,7 +193,4 @@
 		}
 		
 		
-		
-
-
 	}

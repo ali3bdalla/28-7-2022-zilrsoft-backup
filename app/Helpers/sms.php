@@ -1,5 +1,5 @@
 <?php
-	header("Content-Type: text/html; charset=utf-8");
+//	header("Content-Type: text/html; charset=utf-8");
 	
 	if(!function_exists('sendSms')) {
 		function sendSms($messageContent, $mobileNumber)

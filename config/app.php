@@ -188,7 +188,10 @@ return [
          * */
         Spatie\Permission\PermissionServiceProvider::class,
         ObserverServiceProvider::class,
+	
+	
 
+	    
     ],
 
     /*

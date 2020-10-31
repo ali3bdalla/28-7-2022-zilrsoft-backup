@@ -59,14 +59,16 @@ export default {
         "https://images10.newegg.com/ProductImageCompressAll180/35-608-044_R01.jpg",
         "https://images10.newegg.com/ProductImageCompressAll180/75-100-554-02.jpg",
         "https://images10.newegg.com/ProductImageCompressAll180/11-133-244-41.jpg",
+        'https://cdn.salla.sa/zdJgBdtmaJ67xEmyMm6EbdUsS1z6lU050NFTHeqc.jpeg',
       ],
     };
   },
   computed: {
     itemImage() {
-      return this.item.image
-        ? this.item.image
-        : this.images[parseInt(Math.random() * 10) % 7];
+      // this.item.image
+      //     ? this.item.image
+      //     :
+      return  this.images[parseInt(Math.random() * 10) % 7];
     },
   },
 };

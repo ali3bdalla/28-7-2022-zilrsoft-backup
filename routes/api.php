@@ -1,26 +1,41 @@
 <?php
 	
+	use App\Http\Middleware\ImagesUploadMiddleware;
 	use Illuminate\Support\Facades\Route;
 	
-	Route::namespace('Web')->name('web.')->prefix('web')->group(function(){
-		Route::prefix('items')->name('items.')->group(
-			function() {
-				Route::match(['POST','GET'],'/', 'ItemController@index')->name('index');
-				Route::match(['POST','GET'],'/using_filters', 'ItemController@usingFilters')->name('using_filters');
-			}
-		);
-		Route::prefix('categories')->name('categories.')->group(
-			function() {
-				Route::match(['POST','GET'],'/', 'CategoryController@index')->name('index');
-			}
-		);
-		
-		Route::prefix('cart')->name('cart.')->group(
-			function() {
-				Route::match(['POST','GET'],'/get_items_details', 'CartController@getItemDetails')->name('get_items_details');
-			}
-		);
-	});
+	Route::namespace('Web')->name('web.')->prefix('web')->group(
+		function() {
+			Route::prefix('items')->name('items.')->group(
+				function() {
+					Route::match(['POST', 'GET'], '/', 'ItemController@index')->name('index');
+					Route::match(['POST', 'GET'], '/using_filters', 'ItemController@usingFilters')->name('using_filters');
+				}
+			);
+			Route::prefix('categories')->name('categories.')->group(
+				function() {
+					Route::match(['POST', 'GET'], '/', 'CategoryController@index')->name('index');
+				}
+			);
+			
+			Route::prefix('cart')->name('cart.')->group(
+				function() {
+					Route::match(['POST', 'GET'], '/get_items_details', 'CartController@getItemDetails')->name('get_items_details');
+				}
+			);
+		}
+	);
+	
+	
+	
+	Route::prefix("upload_images/{item}")->middleware(ImagesUploadMiddleware::class)->group(
+		function() {
+			Route::get('/', 'ItemController@getImages');
+			Route::post('/', 'ItemController@uploadImages');
+			Route::delete('/{image}', 'ItemController@deleteImage');
+		}
+	);
+	
+	
 	
 	Route::middleware('auth')->group(
 		function() {
@@ -32,8 +47,7 @@
 					Route::patch('/{sale}', 'SaleController@storeReturnSale')->name('store.return');
 				}
 			);
-			Route::resource('accounts', 'AccountController');
-//	Route::prefix('accounts/{account}')->name('accounts.')->group(
+			Route::resource('accounts', 'AccountController');//	Route::prefix('accounts/{account}')->name('accounts.')->group(
 //		function() {
 //
 //Route::get('/children', 'AccountController@children')->name('children');
@@ -130,7 +144,18 @@
 				}
 			);
 			
+			Route::prefix('items/{item}')->name('items.')->group(
+				function() {
+					
+					
+					Route::get('/view_serials', 'ItemController@serials')->name('serials');
+					Route::get('/clone', 'ItemController@clone')->name('clone');
+				}
+			);
+			
 			
 		}
 	);
+	
+	
 	

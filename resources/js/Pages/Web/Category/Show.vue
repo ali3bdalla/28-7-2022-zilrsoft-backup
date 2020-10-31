@@ -57,13 +57,7 @@ export default {
   data() {
     return {
       images: [
-        "https://images10.newegg.com/ProductImageCompressAll180/11-133-244-41.jpg",
-        "https://images10.newegg.com/ProductImageCompressAll180/A8X5_131058525764839488GVB8iSbB5E.jpg",
-        "https://images10.newegg.com/ProductImageCompressAll180/96-110-022-11.jpg",
-        "https://images10.newegg.com/ProductImageCompressAll180/20-721-108-02.jpg",
-        "https://images10.newegg.com/ProductImageCompressAll180/35-608-044_R01.jpg",
-        "https://images10.newegg.com/ProductImageCompressAll180/75-100-554-02.jpg",
-        "https://images10.newegg.com/ProductImageCompressAll180/11-133-244-41.jpg",
+
       ],
     };
   },

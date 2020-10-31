@@ -1,6 +1,8 @@
 <?php
 	
+	use App\Http\Middleware\ImagesUploadMiddleware;
 	use Illuminate\Support\Facades\Route;
+	use Inertia\Inertia;
 
 //	auth('client')->logout();
 	
@@ -96,6 +98,26 @@
 			Route::get('/forget_password', 'LoginController@forgetPassword')->name('forget_password');
 		}
 	);
+	
+	
+	Route::group(
+		['prefix' => 'images_upload'], function() {
+		Inertia::setRootView('images_upload');
+		
+		Route::get('/auth', "ImagesUploadController@auth");
+		Route::post('/auth', "ImagesUploadController@grantAuthorization");
+		
+		Route::group(
+			['middleware' => ImagesUploadMiddleware::class], function() {
+			Route::get('/',"ImagesUploadController@index");
+			Route::get('/{item}',"ImagesUploadController@show");
+		}
+		);
+		
+	}
+	);
+	
+	
 	Route::middleware('auth')->group(
 		function() {
 			Route::get('/dashboard', 'HomeController@index')->name('dashboard.index');
@@ -149,6 +171,7 @@
 			Route::prefix('items/{item}')->name('items.')->group(
 				function() {
 					Route::get('/transactions', 'ItemController@transactions')->name('transactions');
+					
 					Route::get('/view_serials', 'ItemController@serials')->name('serials');
 					Route::get('/clone', 'ItemController@clone')->name('clone');
 				}
@@ -190,6 +213,8 @@
 					
 				}
 			);
+			
+			
 			Route::prefix('/accounting')->name('accounting.')->namespace('Accounting')->group(
 				function() {
 					Route::resources(
