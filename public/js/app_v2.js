@@ -12709,7 +12709,7 @@ var render = function() {
                         [
                           _c("img", {
                             attrs: {
-                              src: "/accounting/images/cloud_upload.png"
+                              src: "/public/accounting/images/cloud_upload.png"
                             }
                           }),
                           _vm._v(" "),
