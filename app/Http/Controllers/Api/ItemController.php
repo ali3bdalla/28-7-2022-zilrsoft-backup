@@ -10,6 +10,7 @@
 	use App\Http\Resources\InvoiceItem\InvoiceItemCollection;
 	use App\Models\Attachment;
 	use App\Models\Item;
+	use Carbon\Carbon;
 	use Illuminate\Http\Request;
 	use Illuminate\Support\Facades\Storage;
 	use Illuminate\Validation\ValidationException;
@@ -24,9 +25,33 @@
 			return $request->getData();
 		}
 		
-		public function transactions(Item $item)
+		public function transactions(Item $item, Request $request)
 		{
-			$items = $item->pipeline()->with('user', 'creator')->paginate(50);
+			$query = $item->pipeline();
+//
+			
+			if(
+				$request->has('start_at') && $request->filled('start_at') && $request->has('end_at') &&
+				$request->filled('end_at')
+			) {
+				$_startDate = Carbon::parse($request->input("start_at"));
+				$_endDate = Carbon::parse($request->input("end_at"));
+				
+				if($_endDate === $_startDate) {
+					$query = $query->whereDate('created_at', $_startDate);
+				} else {
+					$query = $query->whereBetween(
+						'created_at', [
+							$_startDate,
+							$_endDate,
+						]
+					);
+				}
+			}
+			
+			$items = $query->with('user', 'creator')->paginate(50);
+			
+			
 			return new InvoiceItemCollection($items);
 		}
 		

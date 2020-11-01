@@ -157,7 +157,7 @@
 
             </div>
             <div class="table-content" v-show="!isLoading">
-                <table class="table table-striped table-bordered" width="100%">
+                <table class="table  table-bordered" :class="{'table-striped':!onlyQuotations}" width="100%">
                     <thead>
                     <tr>
                         <th @click="setOrderByColumn('id')" width="4%">
@@ -230,7 +230,7 @@
                     </thead>
                     <tbody>
 
-                    <tr :key="row.id" v-for="(row,index) in table_rows">
+                    <tr :key="row.id" v-for="(row,index) in table_rows" :class="{'bg-info':onlyQuotations == true && row.is_draft_converted}">
                         <td v-text="index+1"></td>
                         <td class="text-center" v-text="row.invoice_number"></td>
                         <td class="text-center"
@@ -532,7 +532,7 @@
                 axios.get(this.requestUrl, {
                     params: params
                 }).then(function (response) {
-                    // console.log(response.data);
+                    console.log(response.data.data);
                     appVm.table_rows = response.data.data;
                     appVm.isLoading = false;
                     appVm.paginationResponseData = response.data;

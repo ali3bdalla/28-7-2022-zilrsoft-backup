@@ -7,9 +7,9 @@
     </a>
 
 
-{{--    <a href="{{route('accounting.quotations.create')}}" class="btn btn-custom-primary">--}}
-{{--        <i class="fa fa-plus-circle"></i> {{ __('pages/invoice.service_invoice') }}--}}
-{{--    </a>--}}
+    {{--    <a href="{{route('accounting.quotations.create')}}" class="btn btn-custom-primary">--}}
+    {{--        <i class="fa fa-plus-circle"></i> {{ __('pages/invoice.service_invoice') }}--}}
+    {{--    </a>--}}
 
 @stop
 
