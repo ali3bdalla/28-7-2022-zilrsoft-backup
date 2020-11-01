@@ -11,7 +11,9 @@
 	use App\Models\Attachment;
 	use App\Models\Item;
 	use Illuminate\Http\Request;
+	use Illuminate\Support\Facades\Storage;
 	use Illuminate\Validation\ValidationException;
+	use League\CommonMark\Inline\Element\Strong;
 	
 	class ItemController extends Controller
 	{
@@ -80,25 +82,17 @@
 		
 		public function uploadImages(Item $item, UploadItemImagesRequest $uploadItemImageRequest)
 		{
-			
-			
-			foreach($uploadItemImageRequest->file('images') as $requestImage) {
-				$uploadItemImageRequest->validateUploadedFilesCount($item);
-				$isMaster = false;
-				$imagePath = $uploadItemImageRequest->uploadItemImageAndReturnPath($requestImage);
-				$itemImage = $item->attachments()->create(['is_master' => $uploadItemImageRequest->getIsMaster($item, $isMaster), 'actual_path' => $imagePath, 'url' => $uploadItemImageRequest->getUploadedImageUrl($imagePath)]);
-				$itemImage->removePrevMasterAttachment($item);
-				
-				$result[] = $itemImage;
-			}
-			
+			foreach($uploadItemImageRequest->file('images') as $requestImage)
+				$uploadItemImageRequest->createImage_ReturnImageInstance($requestImage, $item);
 			return back();
 		}
 		
 		
-		public function deleteImage(Item $item, Attachment $attachment)
+		public function deleteImage(Item $item, Attachment $image)
 		{
-		
+//			return $attachment;
+			Storage::disk('spaces')->delete($image->actual_path);
+			$image->forceDelete();
 		}
 		
 		

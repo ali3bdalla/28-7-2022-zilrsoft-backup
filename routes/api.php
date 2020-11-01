@@ -31,7 +31,7 @@
 		function() {
 			Route::get('/', 'ItemController@getImages');
 			Route::post('/', 'ItemController@uploadImages');
-			Route::delete('/{image}', 'ItemController@deleteImage');
+			Route::get('/{image}', 'ItemController@deleteImage');
 		}
 	);
 	
