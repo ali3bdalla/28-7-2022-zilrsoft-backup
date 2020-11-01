@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Controllers;
 	
+	use App\Models\Category;
 	use App\Models\Item;
 	use Illuminate\Http\Request;
 	use Inertia\Inertia;
@@ -41,18 +42,44 @@
 		}
 		
 		
-		public function index()
+		public function index(Request $request)
 		{
-			$items = Item::paginate(20);
-			return view('images_uploads.index', compact('items'));
+			$items = Item::query();
+			
+			
+			$categoryId = 0;
+			if($request->has('category_id')) {
+				
+				$categoryId = $request->input('category_id');
+				$category = Category::find($categoryId);
+				if($category)
+				{
+					$items->whereIn('category_id', $category->getChildrenIncludeMe());
+				}
+			}
+			
+			
+			$itemsCount = $items->count();
+			$items = $items->withCount('attachments')->paginate(20);
+			
+			$chats = Category::where('parent_id', 0)->get();
+			$categories = [];
+			foreach($chats as $category) {
+				$category['children'] = Category::getAllParentNestedChildren($category);
+				$categories[] = $category;
+			}
+			
+			return view('images_uploads.index', compact('items', 'itemsCount','categories','categoryId'));
 		}
 		
 		public function show(Item $item)
 		{
 			
-			return Inertia::render('ImagesUpload/Show',[
-				'item' => $item,
-				'attachments' =>$item->attachments()->get()
-			]);
+			return Inertia::render(
+				'ImagesUpload/Show', [
+					'item' => $item,
+					'attachments' => $item->attachments()->get()
+				]
+			);
 		}
 	}

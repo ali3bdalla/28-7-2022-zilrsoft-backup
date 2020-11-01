@@ -74,6 +74,24 @@
 				// });
 			}
 			
+			
+			if(strpos(url()->current(), 'images_upload')) {
+				if($table == 'items') {
+					static::addGlobalScope(
+						'online', function(Builder $builder) use ($table) {
+						$builder->where(
+							[
+								["{$table}.available_qty", '>', 0],
+							]
+						)->with('category')->whereHas('category');
+					}
+					);
+					
+				}
+				
+			}
+			
+			
 			if(strpos(url()->current(), 'web')) {
 				if($table == 'items') {
 					static::addGlobalScope(

@@ -30,6 +30,16 @@
 			];
 		}
 		
+		public function createImage_ReturnImageInstance($requestImage, $item)
+		{
+			$this->validateUploadedFilesCount($item);
+			$isMaster = false;
+			$imagePath = $this->uploadItemImageAndReturnPath($requestImage);
+			$itemImage = $item->attachments()->create(['is_master' => $this->getIsMaster($item, $isMaster), 'actual_path' => $imagePath, 'url' => $this->getUploadedImageUrl($imagePath)]);
+			$itemImage->removePrevMasterAttachment($item);
+			return $itemImage;
+		}
+		
 		public function validateUploadedFilesCount($item)
 		{
 			if($item->attachments()->count() >= 4)
@@ -41,17 +51,16 @@
 			return $requestImage->store('images/items', ['disk' => 'spaces', 'visibility' => 'public']);
 		}
 		
-		
-		public function getUploadedImageUrl($imagePath)
-		{
-			return config('filesystems.disks.spaces.cdn_base_link') . '/' . $imagePath;
-		}
-		
 		public function getIsMaster($item, $isMaster = false)
 		{
 			if($item->attachments()->count())
 				return $isMaster;
 			
 			return true;
+		}
+		
+		public function getUploadedImageUrl($imagePath)
+		{
+			return config('filesystems.disks.spaces.cdn_base_link') . '/' . $imagePath;
 		}
 	}
