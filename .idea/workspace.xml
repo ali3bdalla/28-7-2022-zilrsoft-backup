@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c1847dce-9989-45ff-80d9-69eb3638cb7b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ItemController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/items/itemTransactionsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/items/itemTransactionsComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/tablePaginationHelperLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/tablePaginationHelperLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/tablePaginationHelperLayoutV2Component.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/tablePaginationHelperLayoutV2Component.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +248,7 @@
       <workItem from="1604140154227" duration="16134000" />
       <workItem from="1604179493549" duration="55000" />
       <workItem from="1604237396114" duration="7918000" />
-      <workItem from="1604251686242" duration="4881000" />
+      <workItem from="1604251686242" duration="5128000" />
     </task>
     <servers />
   </component>
