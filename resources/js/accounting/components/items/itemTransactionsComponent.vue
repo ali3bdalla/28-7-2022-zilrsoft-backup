@@ -248,7 +248,7 @@
           <td></td>
 
           <td></td>
-          <td>{{total_profit }}</td>
+          <td>{{ total_profit }}</td>
         </tr>
         </thead>
       </table>
@@ -403,7 +403,7 @@ export default {
             },
           })
           .then((response) => {
-            // console.log(response.data);
+            console.log(response.data);
 
             vm.paginationResponseData = response.data;
             vm.histories = response.data.data;

@@ -49,7 +49,13 @@
 				}
 			}
 			
-			$items = $query->with('user', 'creator')->paginate(50);
+			
+			if($request->has('perPage') && $request->filled('perPage') && intval($request->input("perPage")) >= 1) {
+				$items = $query->with('user', 'creator')->paginate((int)($request->input('perPage')));
+			} else {
+				$items = $query->with('user', 'creator')->paginate(50);
+				
+			}
 			
 			
 			return new InvoiceItemCollection($items);
