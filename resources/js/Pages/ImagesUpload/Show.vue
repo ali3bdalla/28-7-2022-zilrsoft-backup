@@ -4,7 +4,7 @@
              :can-cancel="true"
              :is-full-page="true"></loading>
 
-    <div class="text-center flex justify-center gap-5  items-center">
+    <div class="text-center flex flex-col md:flex-row justify-center gap-5  items-center">
 
       <div class="flex-1 p-3 w-1/3 flex flex-col justify-between items-center">
         <div class="mb-2">
@@ -38,7 +38,7 @@
           <div class="h-full w-full object-cover shadow-lg rounded-lg">
             <div class="text-gray-200">
               <div class="flex px-3 flex-col justify-center items-center">
-                <img src="/public/accounting/images/cloud_upload.png"/>
+                <img src="/accounting/images/cloud_upload.png"/>
                 <p class="lead">رفع المرفقات</p>
               </div>
             </div>
@@ -68,9 +68,12 @@ export default {
 
   data() {
     return {
-      activeImage: "https://images-na.ssl-images-amazon.com/images/I/71IQiviMzWL._AC_SL1500_.jpg",
+      activeImage: "",
       isLoading: false
     };
+  },
+  created() {
+    this.activeImage = this.$page.attachments[0] ? this.$page.attachments[0].url : "";
   },
   components: {
     ImagesUploadLayout,

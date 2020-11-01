@@ -692,6 +692,8 @@ export default {
     handleCloningEvent() {
       let items = this.quotation.items;
       this.quotationId = this.quotation.id;
+
+      // alert(this.quotationId );
       let appVm = this;
       items.forEach((item) => {
         item.barcode = item.item.barcode;
@@ -713,8 +715,8 @@ export default {
         appVm.invoiceData.items.push(item);
       });
 
-      this.invoiceData.salesmanId = this.quotation.sale.salesman_id;
-      this.invoiceData.clientId = this.quotation.sale.client_id;
+      this.invoiceData.salesmanId = this.quotation.managed_by_id;
+      this.invoiceData.clientId = this.quotation.user_id;
       this.updateInvoiceData();
     },
     pushClientData() {
@@ -1216,15 +1218,15 @@ export default {
         creator_id: this.creator.id,
       };
 
-      // $("")
       let appVm = this;
 
+      console.log(data);
       if (this.activateTestMode) {
         this.testRequestData = JSON.stringify(data)
       } else {
         axios.post('/api/sales', data)
             .then(function (response) {
-              console.log(response.data);
+              // console.log(response.data);
               if (doWork === 'open') {
                 window.location.href = '/sales/' + response.data.id;
               } else if (doWork === 'print') {

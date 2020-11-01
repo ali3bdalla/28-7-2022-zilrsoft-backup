@@ -32,6 +32,7 @@
 		protected $guarded = [];
 		protected $casts = [
 			'printable_price' => 'boolean',
+			'is_draft_converted' => 'boolean',
 		];
 		
 		
