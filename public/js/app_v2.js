@@ -9018,9 +9018,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      activeImage: "https://images-na.ssl-images-amazon.com/images/I/71IQiviMzWL._AC_SL1500_.jpg",
+      activeImage: "",
       isLoading: false
     };
+  },
+  created: function created() {
+    this.activeImage = this.$page.attachments[0] ? this.$page.attachments[0].url : "";
   },
   components: {
     ImagesUploadLayout: _Layouts_ImagesUploadLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -18116,7 +18119,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "text-center flex justify-center gap-5  items-center" },
+        {
+          staticClass:
+            "text-center flex flex-col md:flex-row justify-center gap-5  items-center"
+        },
         [
           _c(
             "div",
