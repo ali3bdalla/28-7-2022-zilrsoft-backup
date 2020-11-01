@@ -37,8 +37,10 @@
 
       </div>
       <div class="col-md-2">
-        <a class="btn btn-custom-primary btn-lg btn-block" @click="modalsInfo.showCreateVendorModal=true">{{app.trans
-          .create_identity}}</a>
+        <a class="btn btn-custom-primary btn-lg btn-block" @click="modalsInfo.showCreateVendorModal=true">{{
+            app.trans
+                .create_identity
+          }}</a>
 
       </div>
       <div class="col-md-6">
@@ -95,7 +97,7 @@
             <div v-for="item in searchResultList" :key="item.id"
                  class="panel-footer" href="#" @click="validateAndPrepareItem(item)">
               <h4 class="title has-text-white">{{ item.locale_name }}
-                <small class="has-text-white">{{ item.barcode}} - {{ item.price }}</small>
+                <small class="has-text-white">{{ item.barcode }} - {{ item.price }}</small>
               </h4>
 
             </div>
@@ -106,12 +108,12 @@
 
       <div v-if="canViewItems==1" class="col-md-2">
         <a :href="'/items?selectable=true&&is_purchase=true'" class="btn btn-custom-primary btn-lg"
-           target="_blank">{{ app.trans.view_products}}</a>
+           target="_blank">{{ app.trans.view_products }}</a>
 
       </div>
       <div v-if="canCreateItem==1" class="col-md-2">
         <a :href="'/items/create'" class="btn btn-custom-primary btn-lg"
-           target="_blank">{{app.trans.create_product}}</a>
+           target="_blank">{{ app.trans.create_product }}</a>
       </div>
 
 
@@ -128,7 +130,7 @@
           <th>{{ app.trans.barcode }}</th>
           <th>{{ app.trans.item_name }}</th>
           <th>{{ app.trans.qty }}</th>
-          <th>{{app.trans.sales_price}}</th>
+          <th>{{ app.trans.sales_price }}</th>
           <th>{{ app.trans.purchase_price }}</th>
           <th>{{ app.trans.total }}</th>
           <!--<th>{{ app.trans.discount }}</th>
@@ -170,7 +172,7 @@
                 @focus="$event.target.select()"
                 @keyup="itemQtyUpdated(item)"
             >
-            <p v-else>{{item.qty}}</p>
+            <p v-else>{{ item.qty }}</p>
           </td>
 
 
@@ -527,8 +529,8 @@ export default {
     },
     itemNetUpdated(item) {
       item.net = parseFloat(item.net).toFixed(2);
-      item.purchase_price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vtp);
-      item.total = parseFloat(item.purchase_price) * parseInt(item.qty);
+      item.total = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vtp);
+      item.purchase_price = parseInt(item.qty) === 0 ? 0 : parseFloat(item.total) / parseInt(item.qty);
       item.subtotal = item.total;
       item.tax = ItemAccounting.getTax(item.subtotal, item.vtp, true);
       item.discount = 0;
