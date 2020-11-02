@@ -4,21 +4,21 @@
              :can-cancel="true"
              :is-full-page="true"></loading>
 
-    <div class="text-center flex flex-col md:flex-row justify-center gap-5  items-center">
+    <div class="text-center flex flex-col md:flex-row justify-center gap-0 md:gap-5   items-center">
 
-      <div class="flex-1 p-3 w-1/3 flex flex-col justify-between items-center">
+      <div class="flex-1 p-3 w-full md:w-1/3 flex flex-col justify-between items-center">
         <div class="mb-2">
-          <h3 class="text-xl text-red-500">Max Image Dimension 475px * 475px</h3>
-          <h3 class="text-xl text-red-500">Max Image size: 1MB</h3>
+          <h3 class="text-lg md:text-xl text-red-500">Max Image Dimension 475px * 475px</h3>
+          <h3 class="text-lg md:text-xl text-red-500">Max Image size: 1MB</h3>
         </div>
-        <div class="border-2 p-5 w-full bg-white flex justify-center items-center" style="width:475px;height:475px">
+        <div class="border-2 p-5 w-full bg-white flex justify-center items-center  w-64 h-72 md:w-100 md:h-100 overflow-hidden">
           <img :src="activeImage"
-               class="  object-center self-center content-center"></div>
+               class=" object-contain  h-64"/>
+        </div>
         <div class="grid grid-cols-4 gap-2 mt-5 bg-gray-200 p-2" data-v-52728e8a="" data-v-a15fc63e="">
           <div v-for="(attachment,index) in $page.attachments" :key="index" class="">
             <img :src="attachment.url" class="w-16 h-16  object-cover"
-                 data-v-52728e8a=""
-                 data-v-a15fc63e=""
+
                  @click="changeActiveImage(attachment.url)">
             <div class="mt-2">
               <button class="btn btn-danger" @click="deleteImage(attachment.id)">حذف</button>
@@ -34,8 +34,8 @@
       <!--          <img :src="attachment.url" class="h-64 w-full object-cover shadow-lg rounded-lg"/>-->
       <!--        </div>-->
       <div class="flex-1">
-        <label class="p-3">
-          <div class="h-full w-full object-cover shadow-lg rounded-lg">
+        <label class="md:p-3 flex justify-center items-start">
+          <div class="w-1/2  object-cover shadow-lg rounded-lg">
             <div class="text-gray-200">
               <div class="flex px-3 flex-col justify-center items-center">
                 <img src="/public/accounting/images/cloud_upload.png"/>

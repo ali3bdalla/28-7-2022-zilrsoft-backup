@@ -110,6 +110,7 @@
 		Route::group(
 			['middleware' => ImagesUploadMiddleware::class], function() {
 			Route::get('/',"ImagesUploadController@index");
+			Route::get('/redirect',"ImagesUploadController@redirectInertia");
 			Route::get('/{item}',"ImagesUploadController@show");
 		}
 		);
