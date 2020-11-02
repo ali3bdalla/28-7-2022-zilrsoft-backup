@@ -15,6 +15,12 @@
 			return Inertia::render('ImagesUpload/Auth');
 		}
 		
+		
+		public function redirectInertia()
+		{
+			return Inertia::render('ImagesUpload/Redirect');
+		}
+		
 		public function grantAuthorization(Request $request)
 		{
 			$actualPassword = env('IMAGE_UPLOAD_PASSWORD');
@@ -26,7 +32,7 @@
 			
 			if($request->input('password') == $actualPassword) {
 				$request->session()->push('IMAGE_UPLOAD_PASSWORD', $actualPassword);
-				return redirect('/images_upload');
+				return redirect('/images_upload/redirect');
 			}
 			
 			
@@ -52,8 +58,7 @@
 				
 				$categoryId = $request->input('category_id');
 				$category = Category::find($categoryId);
-				if($category)
-				{
+				if($category) {
 					$items->whereIn('category_id', $category->getChildrenIncludeMe());
 				}
 			}
@@ -69,7 +74,7 @@
 				$categories[] = $category;
 			}
 			
-			return view('images_uploads.index', compact('items', 'itemsCount','categories','categoryId'));
+			return view('images_uploads.index', compact('items', 'itemsCount', 'categories', 'categoryId'));
 		}
 		
 		public function show(Item $item)
