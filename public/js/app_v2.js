@@ -9432,6 +9432,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_WebAppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Layouts/WebAppLayout */ "./resources/js/Layouts/WebAppLayout.vue");
+/* harmony import */ var _data_shipping__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../data/shipping */ "./resources/js/data/shipping.js");
+/* harmony import */ var _data_shipping__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_data_shipping__WEBPACK_IMPORTED_MODULE_1__);
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -9600,6 +9602,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Index",
@@ -9611,8 +9616,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     };
   },
   computed: {
-    cites: function cites() {
-      return "Dammam:Dhahran:Jeddah:Jouf:Khamis Mushayat:Khayber:Madinah:Riyadh:Tabuk:Taif:Yanbu:Khubar:Makkah:Buraydah:Unayzah:Hail:Abha:Hufuf:Jubail:Qatif:Khafji:Ras Tannurah:Buqaiq:Sayhat:Safwa:Jazan:Sabya:Abu Arish:Hafar Al Baten:Rabigh:Lith:Ula:Duwadimi:Majmaah:Zulfi:Afif:Arar:Kharj:Muzahmiyah:Ranyah:Turbah:Taima:Dhuba:Qurayyat:Turayf:Wadi Dawasir:Quwayiyah:Muhayil:Salwa:Rafha:Baha:Baljurashi:Qunfudhah:Mukhwah:Mandaq:Qilwah:Atawlah:Aqiq:Mudhaylif:Nairiyah:Qarya Al Uliya:Tarut:Anak:Udhayliyah:Najran:Sharourah:Habounah:Samtah:Ahad Al Masarhah:Baysh:Darb:Dhamad:Bani Malek:Furasan:Tuwal:Shuqayq:Badr:Jamoum:Khulais:Bahrah:Masturah:Shaibah:Rass:Bukayriyah:Badaya:Riyadh Al Khabra:Uyun Al Jiwa:Nabhaniah:Sajir:Khabra:Uqlat As Suqur:Rafayaa Al Gimsh:Nabhaniah:Dukhnah:Nifi:Skakah:Dawmat Al Jandal:Namas:Sapt Al Ulaya:Bellasmar:Tanumah:Bashayer:Jadidah:Rafha:Qaysumah:Baqaa:Shinan:Muqiq:Shamli:Bishah:Dhahran Al Janoub:Taberjal:Baysh:Sabt Alalayah:Rijal Alma:Tathleeth:Bareq:Balsamar:Majardah:Ahad Rafidah:Al Hasa:Shaqra:Aflaj:Al Qouz:Ummlujj:Wajh:Midhnab:Artawiyah:Hawtat Sudayr :Ghat:Mubarraz:Thuwal:Dhalim:Khurmah:Qunfudhah:Tubarjal:Haql:Dhurma:Rumah:Huraymila:Dair:Batha:Hawtat Bani Tamim:Tareeb:Namerah:Alardhah:Sulayyil:Sarat Abida:Oyun:Adham:Muwayh:Tumair:Hanakiyah:Edabi:Marat:Aflaj Layla:Dilam:Hurayyiq:Haradh:Bijadiyah:Ras AlKhair:Tanajib:Sarrar:Saffaniyah:Al Hait:Umlej:".split(":");
+    citiesList: function citiesList() {
+      return _data_shipping__WEBPACK_IMPORTED_MODULE_1__["smsaCities"];
     },
     shippingCompanies: function shippingCompanies() {
       return [{
@@ -9698,8 +9703,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }
           });
           appVm.updateOrderTotal();
-        })["catch"](function (error) {// callback(res);
-        });
+        })["catch"](function (error) {});
       }
     },
     itemQtyUpdated: function itemQtyUpdated(item) {
@@ -9740,6 +9744,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       for (var index = 0; index < this.orderProducts.length; index++) {
         var element = this.orderProducts[index];
         var product = this.findProductById(element);
+        console.log(product);
 
         if (product) {
           amount += parseFloat(appVm.getProductTotal(product));
@@ -18216,7 +18221,9 @@ var render = function() {
                       },
                       [
                         _c("img", {
-                          attrs: { src: "/accounting/images/cloud_upload.png" }
+                          attrs: {
+                            src: "/public/accounting/images/cloud_upload.png"
+                          }
                         }),
                         _vm._v(" "),
                         _c("p", { staticClass: "lead" }, [
@@ -18987,7 +18994,7 @@ var render = function() {
                       _c("div", [
                         _c("input", {
                           staticClass: "form-control",
-                          attrs: { value: "saudi", disabled: "" }
+                          attrs: { disabled: "", value: "saudi" }
                         })
                       ])
                     ])
@@ -19021,9 +19028,9 @@ var render = function() {
                             _c("div", { staticClass: "text-right" }, [
                               _c("input", {
                                 attrs: {
-                                  type: "radio",
+                                  disabled: shipper.title === "DHL",
                                   name: "shipper",
-                                  disabled: shipper.title === "DHL"
+                                  type: "radio"
                                 },
                                 domProps: { checked: shipper.title === "SMSA" }
                               })
@@ -53600,6 +53607,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductRatingComponent_vue_vue_type_template_id_3adae817___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/data/shipping.js":
+/*!***************************************!*\
+  !*** ./resources/js/data/shipping.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = {
+  smsaCitites: "Dammam:Dhahran:Jeddah:Jouf:Khamis Mushayat:Khayber:Madinah:Riyadh:Tabuk:Taif:Yanbu:Khubar:Makkah:Buraydah:Unayzah:Hail:Abha:Hufuf:Jubail:Qatif:Khafji:Ras Tannurah:Buqaiq:Sayhat:Safwa:Jazan:Sabya:Abu Arish:Hafar Al Baten:Rabigh:Lith:Ula:Duwadimi:Majmaah:Zulfi:Afif:Arar:Kharj:Muzahmiyah:Ranyah:Turbah:Taima:Dhuba:Qurayyat:Turayf:Wadi Dawasir:Quwayiyah:Muhayil:Salwa:Rafha:Baha:Baljurashi:Qunfudhah:Mukhwah:Mandaq:Qilwah:Atawlah:Aqiq:Mudhaylif:Nairiyah:Qarya Al Uliya:Tarut:Anak:Udhayliyah:Najran:Sharourah:Habounah:Samtah:Ahad Al Masarhah:Baysh:Darb:Dhamad:Bani Malek:Furasan:Tuwal:Shuqayq:Badr:Jamoum:Khulais:Bahrah:Masturah:Shaibah:Rass:Bukayriyah:Badaya:Riyadh Al Khabra:Uyun Al Jiwa:Nabhaniah:Sajir:Khabra:Uqlat As Suqur:Rafayaa Al Gimsh:Nabhaniah:Dukhnah:Nifi:Skakah:Dawmat Al Jandal:Namas:Sapt Al Ulaya:Bellasmar:Tanumah:Bashayer:Jadidah:Rafha:Qaysumah:Baqaa:Shinan:Muqiq:Shamli:Bishah:Dhahran Al Janoub:Taberjal:Baysh:Sabt Alalayah:Rijal Alma:Tathleeth:Bareq:Balsamar:Majardah:Ahad Rafidah:Al Hasa:Shaqra:Aflaj:Al Qouz:Ummlujj:Wajh:Midhnab:Artawiyah:Hawtat Sudayr :Ghat:Mubarraz:Thuwal:Dhalim:Khurmah:Qunfudhah:Tubarjal:Haql:Dhurma:Rumah:Huraymila:Dair:Batha:Hawtat Bani Tamim:Tareeb:Namerah:Alardhah:Sulayyil:Sarat Abida:Oyun:Adham:Muwayh:Tumair:Hanakiyah:Edabi:Marat:Aflaj Layla:Dilam:Hurayyiq:Haradh:Bijadiyah:Ras AlKhair:Tanajib:Sarrar:Saffaniyah:Al Hait:Umlej:".split(":")
+};
 
 /***/ }),
 

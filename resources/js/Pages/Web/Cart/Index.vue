@@ -97,17 +97,17 @@
             </div>
 
 
-            <div v-if="$page.client_logged" class="bg-gray-100 shadow p-2 rounded-lg mb-5" >
+            <div v-if="$page.client_logged" class="bg-gray-100 shadow p-2 rounded-lg mb-5">
               <h3 class="font-bold text-gray-500  text-2xl">Shipping Address</h3>
               <div class="my-4 grid grid-cols-2 gap-3">
                 <div>
-                  <input class="form-control" placholder="First Name" :value="$page.client.name"/>
+                  <input :value="$page.client.name" class="form-control" placholder="First Name"/>
                 </div>
                 <div>
-                  <input class="form-control" placholder="Last Name" :value="$page.client.name"/>
+                  <input :value="$page.client.name" class="form-control" placholder="Last Name"/>
                 </div>
                 <div>
-                  <input class="form-control" value="saudi" disabled/>
+                  <input class="form-control" disabled value="saudi"/>
                 </div>
 
               </div>
@@ -115,13 +115,15 @@
             </div>
             <div v-if="$store.state.cartCount >= 1" class="row">
               <div class="col-lg-4 offset-lg-8">
-                <div v-for="shipper in shippingCompanies" :key="shipper.title" class="bg-gray-100 flex justify-between px-2 py-1 mb-2 border border-gray-800 shadow-lg items-center rounded ">
+                <div v-for="shipper in shippingCompanies" :key="shipper.title"
+                     class="bg-gray-100 flex justify-between px-2 py-1 mb-2 border border-gray-800 shadow-lg items-center rounded ">
                   <div>
-                    <img class="h-12 w-48 object-contain object-left "
-                         :src="shipper.image"/>
+                    <img :src="shipper.image"
+                         class="h-12 w-48 object-contain object-left "/>
                   </div>
                   <div class="text-right">
-                    <input type="radio" name="shipper" :checked="shipper.title === 'SMSA'" :disabled="shipper.title === 'DHL'"/>
+                    <input :checked="shipper.title === 'SMSA'" :disabled="shipper.title === 'DHL'" name="shipper"
+                           type="radio"/>
                   </div>
 
                 </div>
@@ -138,7 +140,7 @@
 
                     <!--                    </li>-->
 
-                    {{cites.length}}
+                    {{ cites.length }}
                     <li class="cart-total">
                       Total
                       <span>{{ parseFloat(orderTotal).toFixed(2) }}</span>
@@ -162,6 +164,7 @@
 
 <script>
 import WebLayout from "../../../Layouts/WebAppLayout";
+import {smsaCities} from '../../../data/shipping';
 
 export default {
   name: "Index",
@@ -173,22 +176,19 @@ export default {
       orderProducts: [],
     };
   },
-  computed:{
-
-    cites()
-    {
-      return "Dammam:Dhahran:Jeddah:Jouf:Khamis Mushayat:Khayber:Madinah:Riyadh:Tabuk:Taif:Yanbu:Khubar:Makkah:Buraydah:Unayzah:Hail:Abha:Hufuf:Jubail:Qatif:Khafji:Ras Tannurah:Buqaiq:Sayhat:Safwa:Jazan:Sabya:Abu Arish:Hafar Al Baten:Rabigh:Lith:Ula:Duwadimi:Majmaah:Zulfi:Afif:Arar:Kharj:Muzahmiyah:Ranyah:Turbah:Taima:Dhuba:Qurayyat:Turayf:Wadi Dawasir:Quwayiyah:Muhayil:Salwa:Rafha:Baha:Baljurashi:Qunfudhah:Mukhwah:Mandaq:Qilwah:Atawlah:Aqiq:Mudhaylif:Nairiyah:Qarya Al Uliya:Tarut:Anak:Udhayliyah:Najran:Sharourah:Habounah:Samtah:Ahad Al Masarhah:Baysh:Darb:Dhamad:Bani Malek:Furasan:Tuwal:Shuqayq:Badr:Jamoum:Khulais:Bahrah:Masturah:Shaibah:Rass:Bukayriyah:Badaya:Riyadh Al Khabra:Uyun Al Jiwa:Nabhaniah:Sajir:Khabra:Uqlat As Suqur:Rafayaa Al Gimsh:Nabhaniah:Dukhnah:Nifi:Skakah:Dawmat Al Jandal:Namas:Sapt Al Ulaya:Bellasmar:Tanumah:Bashayer:Jadidah:Rafha:Qaysumah:Baqaa:Shinan:Muqiq:Shamli:Bishah:Dhahran Al Janoub:Taberjal:Baysh:Sabt Alalayah:Rijal Alma:Tathleeth:Bareq:Balsamar:Majardah:Ahad Rafidah:Al Hasa:Shaqra:Aflaj:Al Qouz:Ummlujj:Wajh:Midhnab:Artawiyah:Hawtat Sudayr :Ghat:Mubarraz:Thuwal:Dhalim:Khurmah:Qunfudhah:Tubarjal:Haql:Dhurma:Rumah:Huraymila:Dair:Batha:Hawtat Bani Tamim:Tareeb:Namerah:Alardhah:Sulayyil:Sarat Abida:Oyun:Adham:Muwayh:Tumair:Hanakiyah:Edabi:Marat:Aflaj Layla:Dilam:Hurayyiq:Haradh:Bijadiyah:Ras AlKhair:Tanajib:Sarrar:Saffaniyah:Al Hait:Umlej:".split(":");
+  computed: {
+    citiesList() {
+      return smsaCities;
     },
-    shippingCompanies()
-    {
+    shippingCompanies() {
       return [
         {
-          title:"SMSA",
-          image:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/SMSA_Express_logo_%28English_version%29.svg/816px-SMSA_Express_logo_%28English_version%29.svg.png",
-        } ,
+          title: "SMSA",
+          image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/SMSA_Express_logo_%28English_version%29.svg/816px-SMSA_Express_logo_%28English_version%29.svg.png",
+        },
         {
-          title:"DHL",
-          image:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/DHL_Logo.svg/352px-DHL_Logo.svg.png",
+          title: "DHL",
+          image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/DHL_Logo.svg/352px-DHL_Logo.svg.png",
         }
       ];
     }
@@ -260,7 +260,6 @@ export default {
               appVm.updateOrderTotal();
             })
             .catch((error) => {
-              // callback(res);
             });
       }
     },
@@ -294,11 +293,13 @@ export default {
     },
 
     updateOrderTotal() {
+
       let appVm = this;
       let amount = 0;
       for (let index = 0; index < this.orderProducts.length; index++) {
         const element = this.orderProducts[index];
         let product = this.findProductById(element);
+        console.log(product);
         if (product) {
           amount += parseFloat(appVm.getProductTotal(product));
         }
