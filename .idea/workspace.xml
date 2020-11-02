@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1847dce-9989-45ff-80d9-69eb3638cb7b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/js/data/shipping.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/tablePaginationHelperLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/tablePaginationHelperLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app_v2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app_v2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/ImagesUpload/Show.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/ImagesUpload/Show.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Web/Cart/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Web/Cart/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,6 +185,7 @@
       <recent name="$PROJECT_DIR$/resources/views/layouts/web" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Models" />
       <recent name="$PROJECT_DIR$/resources/views/web/components/items" />
     </key>
   </component>
@@ -248,7 +252,9 @@
       <workItem from="1604140154227" duration="16134000" />
       <workItem from="1604179493549" duration="55000" />
       <workItem from="1604237396114" duration="7918000" />
-      <workItem from="1604251686242" duration="5128000" />
+      <workItem from="1604251686242" duration="5232000" />
+      <workItem from="1604267850398" duration="36000" />
+      <workItem from="1604321728701" duration="1348000" />
     </task>
     <servers />
   </component>
