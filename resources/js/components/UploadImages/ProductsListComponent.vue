@@ -28,7 +28,7 @@
         <td class="text-center" scope="col">#</td>
         <td class="text-center" scope="col">الباركود</td>
         <td class="text-center" scope="col">اسم المنتج</td>
-        <td class="text-center" scope="col"> اسم الموديل</td>
+        <td class="text-center" scope="col"> رقم الموديل</td>
         <td class="text-center" scope="col">عدد الصور</td>
         <td class="text-center" scope="col">#</td>
       </tr>
