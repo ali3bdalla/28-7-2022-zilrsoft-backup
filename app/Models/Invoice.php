@@ -3,6 +3,7 @@
 	namespace App\Models;
 	
 	use Illuminate\Database\Eloquent\SoftDeletes;
+	use Illuminate\Support\Facades\Storage;
 	
 	/**
 	 * @property mixed organization_id
@@ -161,4 +162,20 @@
 		}
 		
 		
+		public function getHasDropboxSnapshotAttribute()
+		{
+			return Storage::disk('dropbox')->exists($this->dropbox_snapshot);
+		}
+		
+		public function getDropboxSnapshotUrlAttribute()
+		{
+			if($this->has_dropbox_snapshot) {
+				return Storage::disk('dropbox')->url($this->dropbox_snapshot);
+			}
+			
+			
+			return "";
+		}
+		
+	
 	}

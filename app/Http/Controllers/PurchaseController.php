@@ -92,11 +92,14 @@
 		 *
 		 * @param Invoice $purchase
 		 *
-		 * @return Response
+		 * @return Response|\Illuminate\Contracts\Foundation\Application|Factory|View
 		 */
 		public function show(Invoice $purchase)
 		{
 			$transactions = $purchase->transactions()->get();
+			
+//			Storage::url()
+			
 			
 			
 			return view(
