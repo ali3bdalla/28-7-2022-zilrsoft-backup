@@ -10400,6 +10400,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -20967,7 +20979,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.products.data, function(product, index) {
+          _vm._l(_vm.products, function(product, index) {
             return _c("tr", { key: product.id }, [
               _c("td", [_vm._v(_vm._s(parseInt(_vm.itemsCount) - index))]),
               _vm._v(" "),
@@ -21019,6 +21031,38 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href:
+                        "https://www.google.com/search?q=" +
+                        product.model_name +
+                        "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                      target: "_blank"
+                    }
+                  },
+                  [_vm._v(_vm._s(product.model_name))]
+                ),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href:
+                        "https://www.google.com/search?q=" +
+                        product.model_ar_name +
+                        "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                      target: "_blank"
+                    }
+                  },
+                  [_vm._v(_vm._s(product.model_ar_name))]
+                )
+              ]),
+              _vm._v(" "),
               _c("td", [_vm._v(_vm._s(product.attachments_count))]),
               _vm._v(" "),
               _c("td", [
@@ -21059,6 +21103,10 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
           _vm._v("اسم المنتج")
+        ]),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
+          _vm._v(" اسم الموديل")
         ]),
         _vm._v(" "),
         _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [

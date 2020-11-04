@@ -28,13 +28,14 @@
         <td class="text-center" scope="col">#</td>
         <td class="text-center" scope="col">الباركود</td>
         <td class="text-center" scope="col">اسم المنتج</td>
+        <td class="text-center" scope="col"> اسم الموديل</td>
         <td class="text-center" scope="col">عدد الصور</td>
         <td class="text-center" scope="col">#</td>
       </tr>
       </thead>
       <tbody>
 
-      <tr v-for="(product,index) in products.data" :key="product.id">
+      <tr v-for="(product,index) in products" :key="product.id">
         <td>{{ parseInt(itemsCount) - index }}</td>
         <td>
           <a :href="`https://www.google.com/search?q=${product.barcode}&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m`"
@@ -47,6 +48,17 @@
              target="_blank">{{ product.ar_name }}</a>
 
         </td>
+
+        <td>
+          <a :href="`https://www.google.com/search?q=${product.model_name}&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m`"
+             target="_blank">{{ product.model_name }}</a>
+          <br>
+          <a :href="`https://www.google.com/search?q=${product.model_ar_name}&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m`"
+             target="_blank">{{ product.model_ar_name }}</a>
+
+        </td>
+
+
         <td>{{ product.attachments_count }}</td>
         <td><a :href="`/images_upload/${product.id}`" class="btn btn-primary" target="_blank"> المرفقات</a>
         </td>
