@@ -69,6 +69,10 @@
 				'app_secret' => env('DROPBOX_SECRET'),
 				'token' => env('DROPBOX_TOKEN'),
 				'base_folder' => env('DROPBOX_BASE_FOLDER', ''),
+				'folders' => [
+					'pending_purchases' => 'PendingPurchases',
+					'completed_purchases' => 'CompletedPurchases',
+				]
 			],
 			
 			'spaces' => [

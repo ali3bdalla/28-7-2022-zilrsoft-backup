@@ -8,13 +8,13 @@
               <table>
                 <thead>
                 <tr>
-                  <th v-if="$page.client_logged">
+                  <th v-if="$page.client_logged && activePage === 'cart'">
                     <input type="checkbox"/>
                   </th>
                   <th>Image</th>
                   <th class="p-name">Product Name</th>
                   <th>Price</th>
-                  <th>Quantity</th>
+                  <th v-if="activePage === 'cart'">Quantity</th>
                   <th>Total</th>
                   <th>
                     <i
@@ -35,7 +35,7 @@
                     ]"
                     class="border-b border-gray-500"
                 >
-                  <td v-if="$page.client_logged" class="w-20">
+                  <td v-if="$page.client_logged &&   activePage === 'cart'" class="w-20">
                     <input
                         v-if="
                           parseInt(item.available_qty) >=
@@ -59,7 +59,7 @@
                   <td class="p-price first-row">
                     {{ parseFloat(item.price).toFixed(2) }}
                   </td>
-                  <td class="qua-col first-row">
+                  <td v-if="activePage === 'cart'" class="qua-col first-row">
                     <div class="quantity">
                       <div class="pro-qty">
                         <button
@@ -97,25 +97,44 @@
             </div>
 
 
-            <div v-if="$page.client_logged" class="bg-gray-100 shadow p-2 rounded-lg mb-5">
-              <h3 class="font-bold text-gray-500  text-2xl">Shipping Address</h3>
-              <div class="my-4 grid grid-cols-2 gap-3">
-                <div>
-                  <input :value="$page.client.name" class="form-control" placholder="First Name"/>
-                </div>
-                <div>
-                  <input :value="$page.client.name" class="form-control" placholder="Last Name"/>
-                </div>
-                <div>
-                  <input class="form-control" disabled value="saudi"/>
-                </div>
+            <!--            <div v-if="$page.client_logged" class="bg-gray-100 shadow p-2 rounded-lg mb-5">-->
+            <!--              <h3 class="font-bold text-gray-500  text-2xl">Shipping Address</h3>-->
+            <!--              <div class="my-4 grid grid-cols-2 gap-3">-->
+            <!--                <div>-->
+            <!--                  <input :value="$page.client.name" class="form-control" placholder="First Name"/>-->
+            <!--                </div>-->
+            <!--                <div>-->
+            <!--                  <input :value="$page.client.name" class="form-control" placholder="Last Name"/>-->
+            <!--                </div>-->
+            <!--                <div>-->
+            <!--                  <input class="form-control" disabled value="saudi"/>-->
+            <!--                </div>-->
 
+            <!--              </div>-->
+
+            <!--            </div>-->
+
+            <div class="mb-4">
+              <h2 class="my-2 text-gray-500 text-2xl ">Choose Shipping Address</h2>
+              <div class="grid grid-cols-3 gap-2 mt-3">
+
+                <div v-for="shippingAddress in $page.shippingAddresses" :key="shippingAddress.id"
+                     class="bg-white shadow-md border p-2 pb-0 text-gray-400 flex flex-col justify-between " :class="{'bg-blue-500':shippingAddressId !== shippingAddress.id}">
+                  <h3 class="text-xl text-gray-500 font-bold">{{shippingAddress.first_name}} {{shippingAddress.last_name}}</h3>
+                  <h3 class="text-xl text-gray-500 font-bold">{{shippingAddress.country.name }},{{shippingAddress.city }}, {{shippingAddress.zip_code }}, {{shippingAddress.street_name }}</h3>
+                  <h3 class="text-xl text-gray-500 font-bold">{{shippingAddress.building_number}}</h3>
+                  <h3 class="text-xl text-gray-500 font-bold">{{shippingAddress.phone_number}}</h3>
+                  <div class="h-12">
+                    <button @click="shippingAddressId=shippingAddress.id" v-if="shippingAddressId !== shippingAddress.id" class="bg-web-primary p-2 text-white mt-2 w-1/2 text-sm">Select</button>
+                  </div>
+                </div>
               </div>
 
             </div>
             <div v-if="$store.state.cartCount >= 1" class="row">
               <div class="col-lg-4 offset-lg-8">
-                <div v-for="shipper in shippingCompanies" :key="shipper.title"
+                <div v-for="shipper in shippingCompanies" v-if=" activePage === 'cart'"
+                     :key="shipper.title"
                      class="bg-gray-100 flex justify-between px-2 py-1 mb-2 border border-gray-800 shadow-lg items-center rounded ">
                   <div>
                     <img :src="shipper.image"
@@ -140,13 +159,12 @@
 
                     <!--                    </li>-->
 
-                    {{ cites.length }}
                     <li class="cart-total">
                       Total
                       <span>{{ parseFloat(orderTotal).toFixed(2) }}</span>
                     </li>
                   </ul>
-                  <a v-if="$page.client_logged" class="proceed-btn" href="#"
+                  <a v-if="$page.client_logged" class="proceed-btn" href="#" @click="setActivePage('checkout')"
                   >Checkout</a
                   >
                   <a v-else class="proceed-btn" href="/web/sign_in"
@@ -164,7 +182,6 @@
 
 <script>
 import WebLayout from "../../../Layouts/WebAppLayout";
-import {smsaCities} from '../../../data/shipping';
 
 export default {
   name: "Index",
@@ -172,14 +189,15 @@ export default {
   data() {
     return {
       orderTotal: 0,
+      shippingAddressId:0,
       cart: [],
       orderProducts: [],
+      activePage: "cart"
     };
   },
   computed: {
-    citiesList() {
-      return smsaCities;
-    },
+
+
     shippingCompanies() {
       return [
         {
@@ -197,10 +215,15 @@ export default {
     WebLayout,
   },
 
+
   created() {
     this.validateCart();
   },
   methods: {
+
+    setActivePage(activePage) {
+      this.activePage = activePage;
+    },
 
     findProductById(id) {
       return this.$store.state.cart.find(
@@ -213,6 +236,8 @@ export default {
 
     updateProduct(payload) {
       this.$store.commit("addToCart", payload);
+      this.updateOrderTotal();
+
     },
 
     updateOrderProductQuantity(item, type) {
@@ -224,6 +249,7 @@ export default {
         quantity -= 1;
       }
       this.updateProduct({item: item, quantity: quantity});
+
     },
 
 
@@ -264,18 +290,16 @@ export default {
       }
     },
 
-    itemQtyUpdated(item) {
+    async itemQtyUpdated(item) {
       let quantity = parseInt(item.quantity);
 
       if (quantity >= 0) {
-        this.$store.commit("addToCart", {item: item, quantity: quantity});
+        await this.$store.commit("addToCart", {item: item, quantity: quantity});
       }
-
       this.updateOrderTotal();
     },
     toggleOrderProduct(item) {
       let index = this.orderProducts.indexOf(item.id);
-      console.log(index);
       if (index) {
         this.orderProducts.splice(index, 1);
       } else {
@@ -299,11 +323,11 @@ export default {
       for (let index = 0; index < this.orderProducts.length; index++) {
         const element = this.orderProducts[index];
         let product = this.findProductById(element);
-        console.log(product);
-        if (product) {
+        if (product && (parseInt(product.available_qty) >= parseInt(product.quantity))) {
           amount += parseFloat(appVm.getProductTotal(product));
         }
       }
+
       this.orderTotal = amount;
     },
   },

@@ -20,12 +20,12 @@
 				$table->integer('country_id')->nullable();
 				$table->string('city')->nullable();
 				$table->string('phone_number')->nullable();
-				$table->string('building_name')->nullable();
+				$table->string('building_number')->nullable();
 				$table->string('first_name')->nullable();
 				$table->string('last_name')->nullable();
 				$table->string('street_name')->nullable();
 				$table->text('description')->nullable();
-				$table->integer('zip_code')->nullable();
+				$table->string('zip_code')->nullable();
 				$table->float('lat')->nullable();
 				$table->float('lng')->nullable();
 				$table->timestamps();

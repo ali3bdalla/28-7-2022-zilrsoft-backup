@@ -26,7 +26,18 @@
 					);
 				}
 				
+			} else {
+				if(Schema::hasColumn($table, 'organization_id')) {
+					static::addGlobalScope(
+						'organization', function(Builder $builder) use ($table) {
+						$builder->where("{$table}.organization_id", 1);
+					}
+					);
+				}
 			}
+			
+			
+			
 			if(Schema::hasColumn($table, 'is_draft')) {
 				static::addGlobalScope(
 					'draft', function(Builder $builder) use ($table) {

@@ -43,13 +43,42 @@
           }}</a>
 
       </div>
-      <div class="col-md-6">
+      <div class="col-md-3">
         <div class="input-group">
           <span class="input-group-addon">{{ app.trans.vendor_invoice_id }}</span>
           <input v-model="invoiceData.vendorIncCumber" aria-describedby="time-field"
                  class="form-control" type="text">
 
         </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="input-group-addon">صورة الفاتورة</span>
+<!--          <input v-model="invoiceData.vendorIncCumber" aria-describedby="time-field"-->
+          <!--                 class="form-control" type="text">-->
+
+          <select class="form-control h-25" v-model="purchaseDropboxSnapshot">
+            <option value="">----</option>
+            <option :value="pendingPurchase" v-for="(pendingPurchase,index) in pendingDropboxPurchases" :key="index">{{pendingPurchase}}</option>
+          </select>
+
+
+        </div>
+
+<!--        <accounting-select-with-search-layout-component-->
+<!--            :default="invoiceData.vendorId"-->
+<!--            :default-index="invoiceData.vendorId"-->
+<!--            :no_all_option="true"-->
+<!--            :options="vendorsList"-->
+<!--            :placeholder="app.trans.vendor"-->
+<!--            :title="app.trans.vendor"-->
+<!--            identity="001"-->
+<!--            index="001"-->
+<!--            label_text="locale_name"-->
+<!--            @valueUpdated="vendorListChanged"-->
+<!--        >-->
+
+<!--        </accounting-select-with-search-layout-component>-->
       </div>
     </div>
 
@@ -428,9 +457,10 @@ import {
 
 export default {
   props: ['creator', 'vendors', 'receivers', 'gateways', 'expenses', 'canViewItems',
-    'canCreateItem', 'initPurchase', 'initInvoice', 'initItems'],
+    'canCreateItem', 'initPurchase', 'initInvoice', 'initItems', 'pendingDropboxPurchases'],
   data: function () {
     return {
+      purchaseDropboxSnapshot:"",
       activateTestMode: false,
       testRequestData: "",
       code_tester: "",
@@ -905,6 +935,7 @@ export default {
         invoice_type: 'purchase',
         branch_id: this.creator.branch_id,
         creator_id: this.creator.id,
+        dropbox_snapshot:this.purchaseDropboxSnapshot
 
       };
       this.code_tester = JSON.stringify(data);
@@ -1020,5 +1051,8 @@ live-vue-search div:hover {
   cursor: pointer;
 }
 
+select {
+  height: 45px;
+}
 
 </style>

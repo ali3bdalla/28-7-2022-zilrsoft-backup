@@ -37,6 +37,8 @@
 		
 		protected $appends = [
 			'locale_name',
+			'name_including_model'
+		
 		
 		];
 		protected $casts = [
@@ -79,16 +81,10 @@
 			return $this->belongsTo(Category::class, 'category_id');
 		}
 		
-		public function filters()
-		{
-			return $this->hasMany(ItemFilters::class, 'item_id');
-		}
-		
 		public function creator()
 		{
 			return $this->belongsTo(Manager::class, 'creator_id');
 		}
-		
 		
 		public function attachments()
 		{
@@ -124,6 +120,20 @@
 		public function getLocaleNameAttribute()
 		{
 			return $this->ar_name;
+		}
+		
+		public function getNameIncludingModelAttribute()
+		{
+			$itemFilter = $this->filters()->where('filter_id', 38)->first();
+			if($itemFilter) {
+				return "{$this->ar_name} {$itemFilter->value->name}";
+			}
+			return $this->ar_name;
+		}
+		
+		public function filters()
+		{
+			return $this->hasMany(ItemFilters::class, 'item_id');
 		}
 		
 		public function scopeChildrenHaveAvailableQty($query)
@@ -191,6 +201,4 @@
 			return $data;
 			
 		}
-		
-		
 	}

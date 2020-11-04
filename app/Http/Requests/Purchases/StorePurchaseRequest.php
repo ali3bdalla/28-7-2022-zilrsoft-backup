@@ -6,6 +6,7 @@
 	use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 	use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
 	use App\Jobs\Items\Serial\ValidateItemSerialJob;
+	use App\Jobs\Purchases\Dropbox\CreateDropboxSnapshotJob;
 	use App\Jobs\Purchases\Items\StorePurchaseItemsJob;
 	use App\Jobs\Purchases\Payment\StorePurchasePaymentsJob;
 	use App\Models\Invoice;
@@ -48,6 +49,7 @@
 				'methods' => 'array',
 				'methods.*.id' => 'required|integer|exists:accounts,id',
 				'methods.*.amount' => 'required|numeric',
+				'dropbox_snapshot' => 'required|string'
 			];
 		}
 		
@@ -80,6 +82,8 @@
 					]
 				);
 				dispatch(new UpdateInvoiceNumberJob($invoice, 'PU-'));
+				dispatch(new CreateDropboxSnapshotJob($invoice, $this->input('dropbox_snapshot')));
+				
 				dispatch(new StorePurchaseItemsJob($invoice, (array)$this->input('items')));
 				dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
 				dispatch(new StorePurchasePaymentsJob($invoice, $this->input('methods')));
