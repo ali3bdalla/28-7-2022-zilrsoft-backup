@@ -21106,7 +21106,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-          _vm._v(" اسم الموديل")
+          _vm._v(" رقم الموديل")
         ]),
         _vm._v(" "),
         _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
