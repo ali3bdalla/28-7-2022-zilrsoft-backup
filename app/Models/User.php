@@ -36,7 +36,7 @@
 		
 		public function invoices()
 		{
-			return $this->hasMany(Invoice::class,'user_id');
+			return $this->hasMany(Invoice::class, 'user_id');
 		}
 		
 		public function getNameAttribute()
@@ -51,6 +51,11 @@
 			return $this->name_ar;
 		}
 		
+		
+		public function shippingAddresses()
+		{
+			return $this->hasMany(ShippingAddress::class, 'user_id');
+		}
 		
 		public function isSystemUser()
 		{

@@ -65,8 +65,20 @@
 			
 			
 			$itemsCount = $items->count();
-			$items = $items->withCount('attachments')->paginate(20);
+			$items = $items->withCount('attachments')->paginate(20)->each(
+				function($item) {
+					$filter = $item->filters()->where('filter_id', 38)->first();
+					if($filter && $filter->value) {
+						$item->model_name = $filter->value->name;
+						$item->model_ar_name = $filter->value->ar_name;
+					}
+					
+					return $item;
+				}
+			);
 			
+			
+			return $items;
 			$chats = Category::where('parent_id', 0)->get();
 			$categories = [];
 			foreach($chats as $category) {

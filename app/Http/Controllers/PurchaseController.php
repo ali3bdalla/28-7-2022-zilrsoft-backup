@@ -7,6 +7,7 @@
 	use App\Models\Manager;
 	use App\Models\User;
 	use Illuminate\Contracts\View\Factory;
+	use Illuminate\Support\Facades\Storage;
 	use Illuminate\View\View;
 	
 	class PurchaseController extends Controller
@@ -31,6 +32,8 @@
 			$receivers = Manager::all();
 			$vendors = User::where([['is_vendor', true], ['is_system_user', false]])->get()->toArray();
 			$expenses = Expense::all();
+			$pendingDropboxPurchases = [];
+			
 			$gateways = [];
 			return view('accounting.purchases.create', compact('vendors', 'receivers', 'gateways', 'expenses'));
 			//
@@ -98,8 +101,8 @@
 			
 			return view(
 				'accounting.purchases.show', [
-				'invoice' => $purchase, 'transactions' => $transactions
-			]
+					'invoice' => $purchase, 'transactions' => $transactions
+				]
 			);
 		}
 		

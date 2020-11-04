@@ -5,15 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1847dce-9989-45ff-80d9-69eb3638cb7b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/Pages/ImagesUpload/Redirect.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/Feature/Instegram/IntegrateInstagramPhotoUploaderTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/PurchaseController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ImagesUploadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ImagesUploadController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/tailwind.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/tailwind.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app_v2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app_v2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Pages/ImagesUpload/Show.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/ImagesUpload/Show.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Purchases/StorePurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StorePurchaseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Item.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/filesystems.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/filesystems.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/purchases/purchaseseCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/purchases/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/purchases/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/1fc64ba3156bacc0d6e08b6c6a82f185547d8d39.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/e27c34cfcc473d6cf89bc034df61b764be04cbc7.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +111,6 @@
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
-      <path value="$PROJECT_DIR$/vendor/benjamincrozat/laravel-dropbox-driver" />
       <path value="$PROJECT_DIR$/vendor/graham-campbell/guzzle-factory" />
       <path value="$PROJECT_DIR$/vendor/predis/predis" />
       <path value="$PROJECT_DIR$/vendor/pusher/pusher-php-server" />
@@ -152,6 +155,7 @@
       <path value="$PROJECT_DIR$/vendor/aws/aws-sdk-php" />
       <path value="$PROJECT_DIR$/vendor/mtdowling/jmespath.php" />
       <path value="$PROJECT_DIR$/vendor/league/flysystem-aws-s3-v3" />
+      <path value="$PROJECT_DIR$/vendor/benjamincrozat/laravel-dropbox-driver" />
     </include_path>
   </component>
   <component name="ProblemsViewState">
@@ -179,6 +183,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -191,34 +196,34 @@
       <recent name="$PROJECT_DIR$/resources/views/web/components/items" />
     </key>
   </component>
-  <component name="RunManager" selected="PHPUnit.UploadProductImagesTest.test_upload_product_image">
-    <configuration name="Dropbox" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Unit\Dropbox" file="$PROJECT_DIR$/tests/Unit/Dropbox.php" scope="Class" />
+  <component name="RunManager" selected="PHPUnit.AsyncPurchasePdfWithDropBoxTest">
+    <configuration name="AsyncPurchasePdfWithDropBoxTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\Purchase\AsyncPurchasePdfWithDropBoxTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Purchase/AsyncPurchasePdfWithDropBoxTest.php" scope="Class" />
       <method v="2" />
     </configuration>
-    <configuration name="Dropbox.test_dropbox_connection_working" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Unit\Dropbox" file="$PROJECT_DIR$/tests/Unit/Dropbox.php" method="test_dropbox_connection_working" scope="Method" />
+    <configuration name="AsyncPurchasePdfWithDropBoxTest.testExample" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\Purchase\AsyncPurchasePdfWithDropBoxTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Purchase/AsyncPurchasePdfWithDropBoxTest.php" method="testExample" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="UploadProductImagesTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\Product\UploadProductImagesTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Product/UploadProductImagesTest.php" scope="Class" />
+    <configuration name="CreateFilterTest.testCreateFilter_RedirectToFiltersPage" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\Filter\CreateFilterTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Filter/CreateFilterTest.php" method="testCreateFilter_RedirectToFiltersPage" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="UploadProductImagesTest.test_upload_product_image" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\Product\UploadProductImagesTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Product/UploadProductImagesTest.php" method="test_upload_product_image" scope="Method" />
+    <configuration name="EditFilterTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\Filter\EditFilterTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Filter/EditFilterTest.php" scope="Class" />
       <method v="2" />
     </configuration>
-    <configuration name="UploadProductImagesTest.test_upload_products_image" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\Product\UploadProductImagesTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Product/UploadProductImagesTest.php" method="test_upload_products_image" scope="Method" />
+    <configuration name="EditFilterTest.testEditFilter_RedirectToFiltersPage" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\Filter\EditFilterTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Filter/EditFilterTest.php" method="testEditFilter_RedirectToFiltersPage" scope="Method" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="PHPUnit.UploadProductImagesTest.test_upload_product_image" />
-        <item itemvalue="PHPUnit.UploadProductImagesTest" />
-        <item itemvalue="PHPUnit.UploadProductImagesTest.test_upload_products_image" />
-        <item itemvalue="PHPUnit.Dropbox" />
-        <item itemvalue="PHPUnit.Dropbox.test_dropbox_connection_working" />
+        <item itemvalue="PHPUnit.AsyncPurchasePdfWithDropBoxTest" />
+        <item itemvalue="PHPUnit.AsyncPurchasePdfWithDropBoxTest.testExample" />
+        <item itemvalue="PHPUnit.EditFilterTest.testEditFilter_RedirectToFiltersPage" />
+        <item itemvalue="PHPUnit.CreateFilterTest.testCreateFilter_RedirectToFiltersPage" />
+        <item itemvalue="PHPUnit.EditFilterTest" />
       </list>
     </recent_temporary>
   </component>
@@ -256,7 +261,12 @@
       <workItem from="1604237396114" duration="7918000" />
       <workItem from="1604251686242" duration="5232000" />
       <workItem from="1604267850398" duration="36000" />
-      <workItem from="1604321728701" duration="3242000" />
+      <workItem from="1604321728701" duration="8614000" />
+      <workItem from="1604389718539" duration="5472000" />
+      <workItem from="1604409885571" duration="3062000" />
+      <workItem from="1604418540424" duration="5614000" />
+      <workItem from="1604434076837" duration="1740000" />
+      <workItem from="1604496084674" duration="3175000" />
     </task>
     <servers />
   </component>

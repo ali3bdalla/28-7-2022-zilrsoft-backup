@@ -22,9 +22,15 @@
 					Route::match(['POST', 'GET'], '/get_items_details', 'CartController@getItemDetails')->name('get_items_details');
 				}
 			);
+			
+			
+			Route::middleware('auth:client')->group(
+				function() {
+					Route::resource('shipping_addresses', 'ShippingAddressController');
+				}
+			);
 		}
 	);
-	
 	
 	
 	Route::prefix("upload_images/{item}")->middleware(ImagesUploadMiddleware::class)->group(
@@ -34,7 +40,6 @@
 			Route::get('/{image}', 'ItemController@deleteImage');
 		}
 	);
-	
 	
 	
 	Route::middleware('auth')->group(
@@ -47,13 +52,7 @@
 					Route::patch('/{sale}', 'SaleController@storeReturnSale')->name('store.return');
 				}
 			);
-			Route::resource('accounts', 'AccountController');//	Route::prefix('accounts/{account}')->name('accounts.')->group(
-//		function() {
-//
-//Route::get('/children', 'AccountController@children')->name('children');
-//					Route::get('/entities', 'AccountController@entities')->name('entities');
-//		}
-//	);
+			Route::resource('accounts', 'AccountController');
 			Route::prefix('accounts')->name('accounts.')->group(
 				function() {
 					Route::prefix('reports')->name('reports.')->group(
@@ -110,6 +109,7 @@
 			Route::resource('purchases', 'PurchaseController');
 			Route::prefix('purchases')->name('purchases.')->group(
 				function() {
+					Route::get('/fetch/pending_dropbox_purchases', 'PurchaseController@pendingDropBoxPurchases')->name('pending_dropbox_purchases');
 					Route::post('/draft', 'PurchaseController@storeDraft')->name('store.draft');
 					Route::patch('/{purchase}', 'PurchaseController@storeReturnPurchase')->name('store.return');
 				}
@@ -150,6 +150,16 @@
 					
 					Route::get('/view_serials', 'ItemController@serials')->name('serials');
 					Route::get('/clone', 'ItemController@clone')->name('clone');
+				}
+			);
+			
+			
+			Route::prefix('filters')->name('filters.')->group(
+				function() {
+//					Route::get('/', 'FilterController@index')->name('index');
+					Route::post('/', 'FilterController@store')->name('store');
+//					Route::delete('/{filter}', 'FilterController@destroy')->name('destroy');
+					Route::match(['put', 'patch'], '{filter}', 'FilterController@update')->name('update');
 				}
 			);
 			

@@ -109,9 +109,9 @@
 		
 		Route::group(
 			['middleware' => ImagesUploadMiddleware::class], function() {
-			Route::get('/',"ImagesUploadController@index");
-			Route::get('/redirect',"ImagesUploadController@redirectInertia");
-			Route::get('/{item}',"ImagesUploadController@show");
+			Route::get('/', "ImagesUploadController@index");
+			Route::get('/redirect', "ImagesUploadController@redirectInertia");
+			Route::get('/{item}', "ImagesUploadController@show");
 		}
 		);
 		
@@ -216,6 +216,15 @@
 			);
 			
 			
+			Route::prefix('filters')->name('filter')->group(
+				function() {
+					Route::get('/', 'FilterController@index')->name('index');
+					Route::get('/create', 'FilterController@create')->name('create');
+					Route::get('/{filter}', 'FilterController@show')->name('show');
+					Route::get('/{filter}/edit', 'FilterController@edit')->name('edit');
+					
+				}
+			);
 			Route::prefix('/accounting')->name('accounting.')->namespace('Accounting')->group(
 				function() {
 					Route::resources(
@@ -242,6 +251,7 @@
 					
 				}
 			);
+			
 			
 		}
 	);
