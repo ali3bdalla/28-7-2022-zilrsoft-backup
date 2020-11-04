@@ -32,10 +32,10 @@
 			$receivers = Manager::all();
 			$vendors = User::where([['is_vendor', true], ['is_system_user', false]])->get()->toArray();
 			$expenses = Expense::all();
-			$pendingDropboxPurchases = Storage::disk('dropbox')->files('PendingPurchases');
+			$pendingDropboxPurchases = [];
 			
 			$gateways = [];
-			return view('accounting.purchases.create', compact('vendors', 'receivers', 'gateways', 'expenses', 'pendingDropboxPurchases'));
+			return view('accounting.purchases.create', compact('vendors', 'receivers', 'gateways', 'expenses'));
 			//
 		}
 		

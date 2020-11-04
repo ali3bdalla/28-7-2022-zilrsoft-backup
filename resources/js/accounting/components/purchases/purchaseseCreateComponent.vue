@@ -43,7 +43,7 @@
           }}</a>
 
       </div>
-      <div class="col-md-3">
+      <div :class="[creator.organization_id == 1 ? 'col-md-3' : 'col-md-6']">
         <div class="input-group">
           <span class="input-group-addon">{{ app.trans.vendor_invoice_id }}</span>
           <input v-model="invoiceData.vendorIncCumber" aria-describedby="time-field"
@@ -51,34 +51,36 @@
 
         </div>
       </div>
-      <div class="col-md-3">
+      <div v-if="creator.organization_id == 1" class="col-md-3">
         <div class="input-group">
           <span class="input-group-addon">صورة الفاتورة</span>
-<!--          <input v-model="invoiceData.vendorIncCumber" aria-describedby="time-field"-->
+          <!--          <input v-model="invoiceData.vendorIncCumber" aria-describedby="time-field"-->
           <!--                 class="form-control" type="text">-->
 
-          <select class="form-control h-25" v-model="purchaseDropboxSnapshot">
+          <select v-model="purchaseDropboxSnapshot" class="form-control h-25" @click="fetchPendingDropBoxPurchases">
             <option value="">----</option>
-            <option :value="pendingPurchase" v-for="(pendingPurchase,index) in pendingDropboxPurchases" :key="index">{{pendingPurchase}}</option>
+            <option v-for="(pendingPurchase,index) in dropBoxPendingPurchases" :key="index" :value="pendingPurchase">
+              {{ pendingPurchase }}
+            </option>
           </select>
 
 
         </div>
 
-<!--        <accounting-select-with-search-layout-component-->
-<!--            :default="invoiceData.vendorId"-->
-<!--            :default-index="invoiceData.vendorId"-->
-<!--            :no_all_option="true"-->
-<!--            :options="vendorsList"-->
-<!--            :placeholder="app.trans.vendor"-->
-<!--            :title="app.trans.vendor"-->
-<!--            identity="001"-->
-<!--            index="001"-->
-<!--            label_text="locale_name"-->
-<!--            @valueUpdated="vendorListChanged"-->
-<!--        >-->
+        <!--        <accounting-select-with-search-layout-component-->
+        <!--            :default="invoiceData.vendorId"-->
+        <!--            :default-index="invoiceData.vendorId"-->
+        <!--            :no_all_option="true"-->
+        <!--            :options="vendorsList"-->
+        <!--            :placeholder="app.trans.vendor"-->
+        <!--            :title="app.trans.vendor"-->
+        <!--            identity="001"-->
+        <!--            index="001"-->
+        <!--            label_text="locale_name"-->
+        <!--            @valueUpdated="vendorListChanged"-->
+        <!--        >-->
 
-<!--        </accounting-select-with-search-layout-component>-->
+        <!--        </accounting-select-with-search-layout-component>-->
       </div>
     </div>
 
@@ -457,10 +459,10 @@ import {
 
 export default {
   props: ['creator', 'vendors', 'receivers', 'gateways', 'expenses', 'canViewItems',
-    'canCreateItem', 'initPurchase', 'initInvoice', 'initItems', 'pendingDropboxPurchases'],
+    'canCreateItem', 'initPurchase', 'initInvoice', 'initItems'],
   data: function () {
     return {
-      purchaseDropboxSnapshot:"",
+      purchaseDropboxSnapshot: "",
       activateTestMode: false,
       testRequestData: "",
       code_tester: "",
@@ -496,6 +498,7 @@ export default {
       creator_id: 0,
       vendorsList: [],
       searchResultList: [],
+      dropBoxPendingPurchases: [],
       expensesList: [],
       barcodeNameAndSerialField: "",
       bc: new BroadcastChannel('item_barcode_copy_to_invoice'),
@@ -515,6 +518,7 @@ export default {
   },
   created: function () {
     this.vendorsList = this.vendors;
+    this.fetchPendingDropBoxPurchases();
     // this.initExpensesList();
     if (this.initPurchase != null) {
       this.cloneExistsInvoice();
@@ -533,6 +537,14 @@ export default {
 
   methods: {
 
+
+    fetchPendingDropBoxPurchases() {
+      let appVm = this;
+      axios.get('/api/purchases/fetch/pending_dropbox_purchases').then(res => {
+        console.log(res.data);
+        appVm.dropBoxPendingPurchases = res.data;
+      })
+    },
     cloneExistsInvoice() {
       this.invoiceData.vendorIncCumber = this.initPurchase.vendor_invoice_id;
       this.invoiceData.vendorId = this.initPurchase.vendor_id;
@@ -935,7 +947,7 @@ export default {
         invoice_type: 'purchase',
         branch_id: this.creator.branch_id,
         creator_id: this.creator.id,
-        dropbox_snapshot:this.purchaseDropboxSnapshot
+        dropbox_snapshot: this.purchaseDropboxSnapshot
 
       };
       this.code_tester = JSON.stringify(data);

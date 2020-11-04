@@ -36,9 +36,7 @@
 		use SoftDeletes;
 		
 		protected $appends = [
-			'locale_name',
-			'name_including_model'
-		
+			'locale_name'
 		
 		];
 		protected $casts = [
@@ -122,14 +120,7 @@
 			return $this->ar_name;
 		}
 		
-		public function getNameIncludingModelAttribute()
-		{
-			$itemFilter = $this->filters()->where('filter_id', 38)->first();
-			if($itemFilter) {
-				return "{$this->ar_name} {$itemFilter->value->name}";
-			}
-			return $this->ar_name;
-		}
+	
 		
 		public function filters()
 		{

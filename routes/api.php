@@ -109,6 +109,7 @@
 			Route::resource('purchases', 'PurchaseController');
 			Route::prefix('purchases')->name('purchases.')->group(
 				function() {
+					Route::get('/fetch/pending_dropbox_purchases', 'PurchaseController@pendingDropBoxPurchases')->name('pending_dropbox_purchases');
 					Route::post('/draft', 'PurchaseController@storeDraft')->name('store.draft');
 					Route::patch('/{purchase}', 'PurchaseController@storeReturnPurchase')->name('store.return');
 				}

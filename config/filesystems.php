@@ -70,8 +70,8 @@
 				'token' => env('DROPBOX_TOKEN'),
 				'base_folder' => env('DROPBOX_BASE_FOLDER', ''),
 				'folders' => [
-					'pending_purchases' => 'PendingPurchases',
-					'completed_purchases' => 'CompletedPurchases',
+					'pending_purchases' => 'ZilrSoft/PendingPurchases',
+					'completed_purchases' => 'ZilrSoft/CompletedPurchases',
 				]
 			],
 			

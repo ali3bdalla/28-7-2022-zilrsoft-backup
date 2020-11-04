@@ -35,7 +35,7 @@
 		 */
 		public function rules()
 		{
-			return [
+			$rules = [
 				'receiver_id' => 'required|integer|exists:managers,id',
 				'vendor_id' => 'required|integer|exists:users,id',
 				'items' => 'required|array',
@@ -49,8 +49,11 @@
 				'methods' => 'array',
 				'methods.*.id' => 'required|integer|exists:accounts,id',
 				'methods.*.amount' => 'required|numeric',
-				'dropbox_snapshot' => 'required|string'
 			];
+			if($this->user()->organization_id == 1) {
+				$rules['dropbox_snapshot'] = 'required|string';
+			}
+			return $rules;
 		}
 		
 		public function store()
@@ -59,7 +62,8 @@
 			try {
 				$this->validateSerials();
 				
-				$authUser = auth()->user();
+				$authUser = auth('manager')->user();
+				
 				$invoice = Invoice::create(
 					[
 						'invoice_type' => 'purchase',
@@ -82,7 +86,10 @@
 					]
 				);
 				dispatch(new UpdateInvoiceNumberJob($invoice, 'PU-'));
-				dispatch(new CreateDropboxSnapshotJob($invoice, $this->input('dropbox_snapshot')));
+				
+				if($authUser->organization_id == 1) {
+					dispatch(new CreateDropboxSnapshotJob($invoice, $this->input('dropbox_snapshot')));
+				}
 				
 				dispatch(new StorePurchaseItemsJob($invoice, (array)$this->input('items')));
 				dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
