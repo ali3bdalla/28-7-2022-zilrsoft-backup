@@ -121,7 +121,7 @@
             @includeIf('accounting.include.invoice.view_items',[
                  'items' => $invoice->items()->withoutGlobalScope('draft')->get()
             ])
-            
+
         </div>
         <div class="panel-footer">
             <div class="row">

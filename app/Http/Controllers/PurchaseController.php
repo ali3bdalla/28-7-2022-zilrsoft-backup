@@ -6,6 +6,7 @@
 	use App\Models\Invoice;
 	use App\Models\Manager;
 	use App\Models\User;
+	use Illuminate\Contracts\Foundation\Application;
 	use Illuminate\Contracts\View\Factory;
 	use Illuminate\Support\Facades\Storage;
 	use Illuminate\View\View;
@@ -92,14 +93,13 @@
 		 *
 		 * @param Invoice $purchase
 		 *
-		 * @return Response|\Illuminate\Contracts\Foundation\Application|Factory|View
+		 * @return Response|Application|Factory|View
 		 */
 		public function show(Invoice $purchase)
 		{
 			$transactions = $purchase->transactions()->get();
-			
+
 //			Storage::url()
-			
 			
 			
 			return view(

@@ -18,8 +18,9 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>رقم العملية </th>
+                    <th>رقم العملية</th>
                     <th>التاريخ</th>
+                    <th>من</th>
                     <th>الى</th>
                     <th>المبلغ الاجمالي</th>
                     <th>المبلغ المحول</th>
@@ -29,14 +30,17 @@
                 </thead>
 
                 @foreach($managerCloseAccountList as $transaction)
-                    <?php $total_amount = $transaction->container->transactions()->where([['type','debit']])
-			            ->withoutGlobalScope
-			            ('pending')->sum('amount'); ?>
-		            <tbody>
-        
+					<?php $total_amount = $transaction->container->transactions()->where([['type', 'debit']])
+						->withoutGlobalScope
+						(
+							'pending'
+						)->sum('amount'); ?>
+                    <tbody>
+
                     <tr class="">
                         <td>TRANS-{{ $transaction->creator->id }}</td>
                         <td>{{ $transaction->created_at }}</td>
+                        <td>{{ $transaction->creator->locale_name }}</td>
                         <td>{{ $transaction->receiver->locale_name }}</td>
                         <td>{{ money_format("%i",$total_amount)}}</td>
 
@@ -46,7 +50,7 @@
                             @if($transaction->is_pending)
                                 منتظرة
                             @else
-                              مقبولة
+                                مقبولة
                             @endif
                         </td>
                     </tr>
