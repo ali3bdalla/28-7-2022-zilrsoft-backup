@@ -159,7 +159,7 @@
 //					Route::get('/', 'FilterController@index')->name('index');
 					Route::post('/', 'FilterController@store')->name('store');
 //					Route::delete('/{filter}', 'FilterController@destroy')->name('destroy');
-					Route::match(['put', 'patch'], '{filter}', 'FilterController@update')->name('update');
+					Route::match(['PUT', 'PATCH','put','patch','post'], '/{filter}/update', 'FilterController@update')->name('update');
 				}
 			);
 			
