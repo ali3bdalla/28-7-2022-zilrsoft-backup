@@ -660,6 +660,8 @@
             },
             validateAllField() {
 
+
+              console.log('start validating');
                 if (this.itemData.barcode === "" || this.itemData.barcode.length < 4) {
                     this.errorFieldName = 'barcode';
                     this.errorFieldMessage = this.validation.item.barcode_required;
@@ -766,6 +768,7 @@
 
                     axios.post(this.app.BaseApiUrl + 'items', data)
                         .then(function (response) {
+
                             loader.hide();
                             appVm.itemData.barcode = "";
                             appVm.itemData.salesPrice = 0;
@@ -780,7 +783,8 @@
                         })
                         .catch(function (error) {
 
-                            console.log(error);
+                            console.log(error.response);
+                            console.log(error.data);
                             loader.hide();
                             // }
                         });

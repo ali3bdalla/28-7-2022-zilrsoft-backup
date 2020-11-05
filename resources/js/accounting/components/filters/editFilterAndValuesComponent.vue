@@ -280,6 +280,7 @@ export default {
   },
   created() {
     this.filterUpdate.filterDataToCreateValueFor = this.filter;
+    this.isRequiredFilter = this.filter.is_required_filter;
     this.filterData = this.filter;
     this.initUi();
     this.pushServerRequest();
@@ -457,7 +458,9 @@ export default {
       let loader = this.$loading.show({
         container: this.fullPage ? null : this.$refs.formContainer,
       });
-      axios.get(`/api/filters/${this.filterData.id}`,
+      let url =  "/api/filters/" + this.filterData.id + "/update";
+      console.log(url);
+      axios.post(url,
           {
             is_required_filter: this.isRequiredFilter,
             name: this.filterData.name,

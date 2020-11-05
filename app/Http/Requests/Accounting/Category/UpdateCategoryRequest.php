@@ -3,6 +3,8 @@
 	namespace App\Http\Requests\Accounting\Category;
 	
 	use App\Models\Category;
+	use App\Models\CategoryFilters;
+	use App\Models\Filter;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class UpdateCategoryRequest extends FormRequest
@@ -54,6 +56,23 @@
 				$category->parent->updateHashMap();
 			}
 			$category->updateHashMap();
+			
+			
+			$requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
+			$categoryFilters = CategoryFilters::where('category_id', $category->id)->pluck('filter_id')->toArray();
+			
+			foreach($requiredFilter as $filterId) {
+				if(!in_array($filterId, $categoryFilters)) {
+					$category->filters()->attach(
+						$filterId, [
+							'organization_id' => auth()->user()->organization_id,
+							'creator_id' => auth()->user()->id,
+							'sorting' => 0
+						]
+					);
+				}
+			}
+			
 			
 			return redirect(route('accounting.categories.index'));
 			

@@ -254,6 +254,8 @@
 
             editFilterValue() {
                 let value = db.model.find(this.allItems,this.selected);
+
+                console.log(value);
                 this.valueArName = value.ar_name;
                 this.valueEnName = value.name;
                 this.filterValueUpdateMode = 'edit';
