@@ -189,6 +189,8 @@
 			Spatie\Permission\PermissionServiceProvider::class,
 			ObserverServiceProvider::class,
 			BC\Laravel\DropboxDriver\ServiceProvider::class,
+			
+			App\Providers\TranslationServiceProvider::class,
 		
 		],
 		

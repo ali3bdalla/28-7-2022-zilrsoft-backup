@@ -2,12 +2,17 @@
 	
 	namespace App\Console\Commands;
 	
+	use App\Events\Order\OrderIssuedEvent;
+	use App\Events\Order\OrderPendingEvent;
 	use App\Models\Category;
 	use App\Models\CategoryFilters;
 	use App\Models\CategoryFilterValues;
 	use App\Models\Item;
 	use App\Models\ItemFilters;
+	use App\Models\Order;
+	use Carbon\Carbon;
 	use Illuminate\Console\Command;
+	use Illuminate\Support\Facades\DB;
 	
 	class PlayGroundCommand extends Command
 	{
@@ -51,34 +56,34 @@
 //            }
 //            $account->updateHashMap();
 //		}
-			
-			
-			CategoryFilterValues::truncate();
-			
-			$itemsFilters = ItemFilters::all();
-			
-			foreach($itemsFilters as $itemFilter) {
-				
-				$item = $itemFilter->item()->withoutGlobalScope('online')->first();
-				if($item) {
-					$exists = $item->category->filtersValues()->where(
-						[
-							['filter_id', $itemFilter->filter_id],
-							['value_id', $itemFilter->filter_value],
-						]
-					)->first();
-					
-					if(!$exists) {
-						$item->category->filtersValues()->create(
-							[
-								'filter_id' => $itemFilter->filter_id,
-								'value_id' => $itemFilter->filter_value
-							]
-						);
-					}
-				}
-				
-			}
+
+//
+//			CategoryFilterValues::truncate();
+//
+//			$itemsFilters = ItemFilters::all();
+//
+//			foreach($itemsFilters as $itemFilter) {
+//
+//				$item = $itemFilter->item()->withoutGlobalScope('online')->first();
+//				if($item) {
+//					$exists = $item->category->filtersValues()->where(
+//						[
+//							['filter_id', $itemFilter->filter_id],
+//							['value_id', $itemFilter->filter_value],
+//						]
+//					)->first();
+//
+//					if(!$exists) {
+//						$item->category->filtersValues()->create(
+//							[
+//								'filter_id' => $itemFilter->filter_id,
+//								'value_id' => $itemFilter->filter_value
+//							]
+//						);
+//					}
+//				}
+//
+//			}
 			
 			// dd($accounts );
 //        $account = Account::find(3);
@@ -239,6 +244,26 @@
 			////                    dd($container->id, $debitAmount - $creditAmount);
 			////                }
 			//            }
+
+
+//			$newItems = DB::table('items')->whereDate('created_at','<',Carbon::parse('30-09-2020'))->where('organization_id',1)->pluck('barcode')->toArray();
+//			$oldItems = DB::connection('data_source')->table('items')->pluck('barcode')->toArray();
+//
+//			$varation  = [];
+//			foreach($oldItems as $item)
+//			{
+//				if(!in_array($item,$newItems))
+//				{
+//					$varation[] = $item;
+//				}
+//			}
+//
+//
+//			dd($varation);
+			
+			$order = Order::first();
+			
+			event(new OrderIssuedEvent($order));
 			
 		}
 	}

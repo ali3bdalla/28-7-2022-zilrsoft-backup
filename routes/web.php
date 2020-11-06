@@ -61,29 +61,6 @@
 					Route::get('/{item}', 'ItemController@show')->name('show');
 				}
 			);
-//
-//
-//			Route::middleware('auth:client')->group(
-//				function() {
-//					Route::prefix('sign_in')->name('sign_in.')->group(
-//						function() {
-//							Route::get('/', 'AuthController@signInPage');
-//							Route::post('/', 'AuthController@signIn');
-//						}
-//					);
-//
-//					Route::prefix('sign_up')->name('sign_up.')->group(
-//						function() {
-//							Route::get('/', 'AuthController@signUpPage');
-//							Route::post('/', 'AuthController@signUp');
-//							Route::post('/confirm_sign_up', 'AuthController@confirmSignUp');
-//							Route::get('/confirm_sign_up', 'AuthController@confirmSignUpPage')->name('confirm_sign_up');
-//						}
-//					);
-//
-//				}
-//			);
-//
 			
 		}
 	);
@@ -121,6 +98,8 @@
 	
 	Route::middleware('auth')->group(
 		function() {
+			
+			Route::resource('orders', 'OrderController');
 			Route::get('/dashboard', 'HomeController@index')->name('dashboard.index');
 			Route::post('/logout', 'HomeController@logout')->name('logout');
 			Route::resource('sales', 'SaleController');

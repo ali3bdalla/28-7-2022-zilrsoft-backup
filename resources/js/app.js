@@ -25,6 +25,8 @@ window.getIndex = function (needle, haystack) {
     return -1;
 }
 window.Vue = Vue;
+require('./components/include');
+require('./Plugins/plugins');
 require('./accounting/load');
 Vue.use(Vuetify);
 Vue.use(VModal);

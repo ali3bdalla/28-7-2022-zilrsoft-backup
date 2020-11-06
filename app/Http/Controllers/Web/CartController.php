@@ -10,10 +10,16 @@
 	{
 		public function index(Request $request)
 		{
+			
+			$data = [
+			];
+			
+			if(auth('client')->check()) {
+				$data['shippingAddresses'] = $request->user('client')->shippingAddresses()->with('country')->get();
+			}
 			return Inertia::render(
-				'Web/Cart/Index', [
-				'shippingAddresses' => $request->user('client')->shippingAddresses()->with('country')->get()
-			]
+				'Web/Cart/Index',
+				$data
 			);
 		}
 	}

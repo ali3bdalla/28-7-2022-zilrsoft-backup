@@ -114,18 +114,25 @@
 
             <!--            </div>-->
 
-            <div class="mb-4">
+            <div v-if="activePage == 'checkout'" class="mb-4">
               <h2 class="my-2 text-gray-500 text-2xl ">Choose Shipping Address</h2>
               <div class="grid grid-cols-3 gap-2 mt-3">
 
                 <div v-for="shippingAddress in $page.shippingAddresses" :key="shippingAddress.id"
-                     class="bg-white shadow-md border p-2 pb-0 text-gray-400 flex flex-col justify-between " :class="{'bg-blue-500':shippingAddressId !== shippingAddress.id}">
-                  <h3 class="text-xl text-gray-500 font-bold">{{shippingAddress.first_name}} {{shippingAddress.last_name}}</h3>
-                  <h3 class="text-xl text-gray-500 font-bold">{{shippingAddress.country.name }},{{shippingAddress.city }}, {{shippingAddress.zip_code }}, {{shippingAddress.street_name }}</h3>
-                  <h3 class="text-xl text-gray-500 font-bold">{{shippingAddress.building_number}}</h3>
-                  <h3 class="text-xl text-gray-500 font-bold">{{shippingAddress.phone_number}}</h3>
+                     :class="{'bg-blue-500':shippingAddressId !== shippingAddress.id}"
+                     class="bg-white shadow-md border p-2 pb-0 text-gray-400 flex flex-col justify-between ">
+                  <h3 class="text-xl text-gray-500 font-bold">{{ shippingAddress.first_name }}
+                    {{ shippingAddress.last_name }}</h3>
+                  <h3 class="text-xl text-gray-500 font-bold">{{ shippingAddress.country.name }},{{
+                      shippingAddress.city
+                    }}, {{ shippingAddress.zip_code }}, {{ shippingAddress.street_name }}</h3>
+                  <h3 class="text-xl text-gray-500 font-bold">{{ shippingAddress.building_number }}</h3>
+                  <h3 class="text-xl text-gray-500 font-bold">{{ shippingAddress.phone_number }}</h3>
                   <div class="h-12">
-                    <button @click="shippingAddressId=shippingAddress.id" v-if="shippingAddressId !== shippingAddress.id" class="bg-web-primary p-2 text-white mt-2 w-1/2 text-sm">Select</button>
+                    <button v-if="shippingAddressId !== shippingAddress.id"
+                            class="bg-web-primary p-2 text-white mt-2 w-1/2 text-sm"
+                            @click="shippingAddressId=shippingAddress.id">Select
+                    </button>
                   </div>
                 </div>
               </div>
@@ -164,12 +171,19 @@
                       <span>{{ parseFloat(orderTotal).toFixed(2) }}</span>
                     </li>
                   </ul>
-                  <a v-if="$page.client_logged" class="proceed-btn" href="#" @click="setActivePage('checkout')"
-                  >Checkout</a
-                  >
-                  <a v-else class="proceed-btn" href="/web/sign_in"
-                  >LOGIN TO CHECK OUT</a
-                  >
+                  <div v-if="activePage == 'cart'">
+                    <a v-if="$page.client_logged" class="proceed-btn" href="#" @click="setActivePage('checkout')"
+                    >Checkout</a
+                    >
+                    <a v-else class="proceed-btn" href="/web/sign_in"
+                    >LOGIN TO CHECK OUT</a
+                    >
+                  </div>
+                  <div v-else>
+                    <button class="proceed-btn" @click="confirmOrder"
+                    >Confirm Order
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -189,7 +203,8 @@ export default {
   data() {
     return {
       orderTotal: 0,
-      shippingAddressId:0,
+      shippingAddressMethod: 1,
+      shippingAddressId: 0,
       cart: [],
       orderProducts: [],
       activePage: "cart"
@@ -221,6 +236,29 @@ export default {
   },
   methods: {
 
+
+    grabOrderItems() {
+      let items = [];
+      for (let index = 0; index < this.orderProducts.length; index++) {
+        const element = this.orderProducts[index];
+        let product = this.findProductById(element);
+        if (product && (parseInt(product.available_qty) >= parseInt(product.quantity))) {
+          items.push(product);
+        }
+      }
+
+      return items;
+
+    },
+    confirmOrder() {
+      let items = this.grabOrderItems();
+      this.$inertia.post('/api/web/orders', {
+        'shipping_address_id': this.shippingAddressId,
+        'shipping_method_id': this.shippingAddressMethod,
+        'items': items
+
+      });
+    },
     setActivePage(activePage) {
       this.activePage = activePage;
     },
@@ -320,12 +358,9 @@ export default {
 
       let appVm = this;
       let amount = 0;
-      for (let index = 0; index < this.orderProducts.length; index++) {
-        const element = this.orderProducts[index];
-        let product = this.findProductById(element);
-        if (product && (parseInt(product.available_qty) >= parseInt(product.quantity))) {
-          amount += parseFloat(appVm.getProductTotal(product));
-        }
+      let items = this.grabOrderItems();
+      for (let index = 0; index < items.length; index++) {
+        amount += parseFloat(appVm.getProductTotal(items[index]));
       }
 
       this.orderTotal = amount;

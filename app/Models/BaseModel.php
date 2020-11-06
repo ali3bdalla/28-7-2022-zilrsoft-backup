@@ -37,7 +37,6 @@
 			}
 			
 			
-			
 			if(Schema::hasColumn($table, 'is_draft')) {
 				static::addGlobalScope(
 					'draft', function(Builder $builder) use ($table) {
@@ -80,9 +79,14 @@
 					}
 					);
 				}
-				// static::addGlobalScope('manager', function (Builder $builder) {
-				//     $builder->where('creator_id', auth()->user()->id);
-				// });
+				
+				
+				if($table === "orders") static::addGlobalScope(
+					'manager', function(Builder $builder) use ($table) {
+					$builder->where("{$table}.managed_by_id", auth()->user()->id);
+				}
+				);
+				
 			}
 			
 			

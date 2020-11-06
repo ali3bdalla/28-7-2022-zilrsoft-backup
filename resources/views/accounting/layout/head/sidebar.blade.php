@@ -6,22 +6,22 @@
     </div>
 
     <ul class="sidebar-menu" data-widget="tree">
-{{--        <li class="treeview">--}}
-{{--            <a href="#">--}}
-{{--                <i class="fa  fa-tachometer-alt"></i> <span>{{ __('sidebar.dashboard') }}</span>--}}
+        {{--        <li class="treeview">--}}
+        {{--            <a href="#">--}}
+        {{--                <i class="fa  fa-tachometer-alt"></i> <span>{{ __('sidebar.dashboard') }}</span>--}}
 
-{{--            </a>--}}
-{{--            <ul class="treeview-menu">--}}
-{{--                <li><a href="{{route('dashboard.index')}}"><i class="fa fa-tachometer-alt"></i>--}}
-{{--                        {{ __('sidebar.dashboard') }}</a></li>--}}
-{{--                @can('view accounting')--}}
-{{--                    <li>--}}
-{{--                        <a href="{{route('dashboard.index')}}"><i class="fa fa-sun"></i>--}}
-{{--                            {{ __('sidebar.statistics') }}--}}
-{{--                        </a></li>--}}
-{{--                @endcan--}}
-{{--            </ul>--}}
-{{--        </li>--}}
+        {{--            </a>--}}
+        {{--            <ul class="treeview-menu">--}}
+        {{--                <li><a href="{{route('dashboard.index')}}"><i class="fa fa-tachometer-alt"></i>--}}
+        {{--                        {{ __('sidebar.dashboard') }}</a></li>--}}
+        {{--                @can('view accounting')--}}
+        {{--                    <li>--}}
+        {{--                        <a href="{{route('dashboard.index')}}"><i class="fa fa-sun"></i>--}}
+        {{--                            {{ __('sidebar.statistics') }}--}}
+        {{--                        </a></li>--}}
+        {{--                @endcan--}}
+        {{--            </ul>--}}
+        {{--        </li>--}}
 
         @canany(['view item','create item','edit item','manage kit'])
             <li class="treeview">
@@ -134,6 +134,14 @@
                                 {{ __('sidebar.quotations') }}
                             </a>
                         </li>
+
+
+                        <li>
+                            <a href="{{route('orders.index')}}"><i class="fa fa-sun"></i>
+                                {{ __('sidebar.orders') }}
+                            </a>
+                        </li>
+
 
                         <li>
                             <a href="{{route('sales.drafts.create.service')}}"><i class="fa fa-sun"></i>

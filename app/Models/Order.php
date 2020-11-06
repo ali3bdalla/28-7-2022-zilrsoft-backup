@@ -18,7 +18,13 @@
 		
 		public function shippingAddress()
 		{
-			return $this->belongsTo(ShippingAddress::class);
+			return $this->belongsTo(ShippingAddress::class,'shipping_address_id');
+		}
+		
+		public function shippingMethod()
+		{
+			return $this->belongsTo(ShippingMethod::class,'shipping_method_id');
+			
 		}
 		
 	}

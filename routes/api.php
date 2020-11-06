@@ -27,6 +27,7 @@
 			Route::middleware('auth:client')->group(
 				function() {
 					Route::resource('shipping_addresses', 'ShippingAddressController');
+					Route::resource('orders', 'OrderController');
 				}
 			);
 		}
@@ -44,6 +45,10 @@
 	
 	Route::middleware('auth')->group(
 		function() {
+			
+			Route::resource('orders', 'OrderController');
+			
+			
 			Route::resource('vouchers', 'VoucherController');
 			Route::resource('sales', 'SaleController');
 			Route::prefix('sales')->name('sales.')->group(
@@ -159,7 +164,7 @@
 //					Route::get('/', 'FilterController@index')->name('index');
 					Route::post('/', 'FilterController@store')->name('store');
 //					Route::delete('/{filter}', 'FilterController@destroy')->name('destroy');
-					Route::match(['PUT', 'PATCH','put','patch','post'], '/{filter}/update', 'FilterController@update')->name('update');
+					Route::match(['PUT', 'PATCH', 'put', 'patch', 'post'], '/{filter}/update', 'FilterController@update')->name('update');
 				}
 			);
 			
