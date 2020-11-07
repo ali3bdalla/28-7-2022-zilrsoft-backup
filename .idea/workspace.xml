@@ -5,28 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1847dce-9989-45ff-80d9-69eb3638cb7b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/BackEnd/Header/OrderNotificationBell.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/zilrsoft.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/zilrsoft.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/PlayGroundCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/PlayGroundCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Events/Order/OrderIssuedEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/Order/OrderIssuedEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Events/Order/OrderPendingEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/Order/OrderPendingEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Plugins/plugins.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Plugins/plugins.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/headerLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/headerLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/BackEnd/Orders/OnlineOrdersTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/BackEnd/Orders/OnlineOrdersTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/channels.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/channels.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/autoload.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/autoload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_files.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_files.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_real.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_real.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/installed.json" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/installed.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/pages/categories.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/pages/categories.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -284,6 +264,7 @@
       <workItem from="1604615216514" duration="22000" />
       <workItem from="1604657770728" duration="91000" />
       <workItem from="1604670582713" duration="14121000" />
+      <workItem from="1604756177906" duration="400000" />
     </task>
     <servers />
   </component>
