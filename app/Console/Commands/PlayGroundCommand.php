@@ -263,6 +263,7 @@
 			
 			$order = Order::first();
 			
+//			OrderIssuedEvent::dispatch($order);
 			event(new OrderIssuedEvent($order));
 			
 		}

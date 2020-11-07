@@ -28,6 +28,7 @@ return array(
     'App\\Events\\Models\\Organization\\OrganizationUpdated' => $baseDir . '/app/Events/Models/Organization/OrganizationUpdated.php',
     'App\\Events\\Models\\Transaction\\TransactionCreated' => $baseDir . '/app/Events/Models/Transaction/TransactionCreated.php',
     'App\\Events\\Models\\Transaction\\TransactionUpdated' => $baseDir . '/app/Events/Models/Transaction/TransactionUpdated.php',
+    'App\\Events\\Order\\OrderIssuedEvent' => $baseDir . '/app/Events/Order/OrderIssuedEvent.php',
     'App\\Events\\Order\\OrderPendingEvent' => $baseDir . '/app/Events/Order/OrderPendingEvent.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\AccountController' => $baseDir . '/app/Http/Controllers/AccountController.php',

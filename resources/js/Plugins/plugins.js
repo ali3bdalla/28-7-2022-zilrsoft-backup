@@ -4,31 +4,24 @@ import Echo from 'laravel-echo';
 
 window.Pusher = require('pusher-js');
 
-// const pusher = require('pusher-js');
+Vue.prototype.$currency = currency;
+if (window._translations)
+    Vue.prototype.$translator = JSON.parse(window._translations);
 
 
-//
-// Pusher.logToConsole = true;
-//
-// const Pusher = new Pusher('09fe6f5a7f92075a7063', {
-//     cluster: 'ap2'
-// });
-// //
-// var channel = pusher.subscribe('my-channel');
-// channel.bind('my-event', function (data) {
-//     alert('message');
-//     // app.messages.push(JSON.stringify(data));
-// });
+// Vue.prototype.$echo
+Vue.prototype.$sound = {
+    play: (name) => {
+        let audio = new Audio(`./../../../sounds/${name}`);
+        audio.play();
+    }
+}
 
-
-const echo = new Echo({
+window.Echo = new Echo({
     broadcaster: 'pusher',
     key: '09fe6f5a7f92075a7063',
     cluster: 'ap2',
-    forceTLS: true
+    forceTLS: true,
 });
-Vue.prototype.$currency = currency;
-Vue.prototype.$echo = echo;
-Vue.prototype.$translator = JSON.parse(window._translations);
 
 

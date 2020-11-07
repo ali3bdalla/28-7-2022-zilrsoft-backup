@@ -11,7 +11,7 @@
 	use Illuminate\Foundation\Events\Dispatchable;
 	use Illuminate\Queue\SerializesModels;
 	
-	class OrderIssuedEvent
+	class OrderIssuedEvent implements ShouldBroadcast
 	{
 		use Dispatchable, InteractsWithSockets, SerializesModels;
 		
@@ -27,8 +27,13 @@
 		 */
 		public function __construct(Order $order)
 		{
-			//
-			$this->order = $order;
+			$this->order = $order->load('user');
+		}
+		
+		
+		public function broadcastAs()
+		{
+			return 'order.issued';
 		}
 		
 		/**
@@ -38,6 +43,6 @@
 		 */
 		public function broadcastOn()
 		{
-			return new PrivateChannel('orderChannel');//$this->order->id
+			return new PrivateChannel("order.issued");//
 		}
 	}

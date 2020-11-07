@@ -120,11 +120,7 @@ export default {
     }
   },
   created() {
-    this.$echo.private('orderChannel')
-        .listen('OrderIssuedEvent', (e) => {
-          console.log(e.order);
-          alert('order');
-        });
+
 
     this.getData();
   },

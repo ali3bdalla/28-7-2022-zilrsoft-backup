@@ -10,9 +10,10 @@
 
     </a>
     <nav :style="{'backgroundColor':primaryColor}" class="navbar navbar-fixed-top" style="margin-bottom: 50px
-        !important;" >
+        !important;">
       <div class="right" style="">
         <ul class="nav navbar-nav">
+          <OrderNotificationBell :manager="manager"/>
 
           <li v-if="canConfirmPendingPurchases">
             <a class="dropdown-toggle" href="/purchases/pending/list">
@@ -21,7 +22,7 @@ margin-bottom: -10px;"></i>
               <span class="label label-danger">{{ pendingPurchases }}</span>
             </a>
           </li>
-          <li class="dropdown notifications-menu" v-if="!disableCreate">
+          <li v-if="!disableCreate" class="dropdown notifications-menu">
             <a aria-expanded="true" class="dropdown-toggle" data-toggle="dropdown" href="#">
               <i class="fa fa-bell" style="font-size: 19px;
 margin-bottom: -10px;"></i>
@@ -118,8 +119,10 @@ margin-bottom: -10px;"></i>
   </header>
 </template>
 <script>
+import OrderNotificationBell from "../../../components/BackEnd/Header/OrderNotificationBell";
 export default {
-  props: ["csrf", "username", 'pendingTransactions', 'pendingPurchases', 'canConfirmPendingPurchases','disableCreate'],
+  components: {OrderNotificationBell},
+  props: ['manager',"csrf", "username", 'pendingTransactions', 'pendingPurchases', 'canConfirmPendingPurchases', 'disableCreate'],
   data: function () {
     return {
       appName: metaHelper.getContent('app-name'),
@@ -128,11 +131,12 @@ export default {
       secondColor: metaHelper.getContent('second-color'),
       appLocate: metaHelper.getContent('app-locate'),
       BaseApiUrl: metaHelper.getContent('BaseApiUrl'),
-      trans: trans('sidebar')
+      trans: trans('sidebar'),
+      orders: [],
     };
   },
-  created() {
-  }
+
+
 }
 </script>
 

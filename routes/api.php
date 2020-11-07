@@ -47,6 +47,11 @@
 		function() {
 			
 			Route::resource('orders', 'OrderController');
+			Route::prefix('orders')->name('orders.')->group(
+				function() {
+					Route::get('/notification/list', 'OrderController@notificationList')->name('notification.list');
+				}
+			);
 			
 			
 			Route::resource('vouchers', 'VoucherController');

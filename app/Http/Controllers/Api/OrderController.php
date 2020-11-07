@@ -12,7 +12,20 @@
 		
 		public function index(Request $request)
 		{
-			return Order::with('user','shippingMethod','shippingAddress')->get();
+			return Order::with('user', 'shippingMethod', 'shippingAddress')->get();
+		}
+		
+		public function notificationList(Request $request)
+		{
+			$orders = [];
+			if($request->user('manager')->can('manage branches')) {
+				$orders = Order::where('status', 'issued')->with('user','shippingAddress')->get();
+			} else {
+				$orders = Order::where('status', 'pending')->with('user','shippingAddress')->get();
+				
+			}
+			
+			return $orders;
 		}
 		
 		/**

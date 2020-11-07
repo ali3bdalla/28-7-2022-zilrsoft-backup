@@ -11,6 +11,7 @@
 @endphp
 
 <accounting-header-layout-component
+        :manager='@json(auth('manager')->user())'
         :disable-create='@json(auth()->user()->id === 19)'
         :can-manage-managers="{{ auth()->user()->canDo('manage managers')}}"
         :can-view-accounting="{{ auth()->user()->canDo('view accounting')}}"
