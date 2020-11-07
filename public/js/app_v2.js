@@ -9044,6 +9044,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
  // Import stylesheet
 
@@ -9051,18 +9084,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      description: {
+        ar_description: "",
+        description: ""
+      },
       activeImage: "",
       isLoading: false
     };
   },
   created: function created() {
     this.activeImage = this.$page.attachments[0] ? this.$page.attachments[0].url : "";
+    this.description.description = this.$page.item.description;
+    this.description.ar_description = this.$page.item.ar_description; // console.log(this.$page.item);
   },
   components: {
     ImagesUploadLayout: _Layouts_ImagesUploadLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
     Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   methods: {
+    saveDescription: function saveDescription() {
+      var _this = this;
+
+      this.isLoading = true;
+      this.$inertia.post("/api/upload_images/".concat(this.$page.item.id, "/update_description"), this.description, {
+        onFinish: function onFinish() {
+          _this.isLoading = false;
+        }
+      });
+    },
     changeActiveImage: function changeActiveImage(url) {
       this.activeImage = url;
     },
@@ -9084,7 +9133,7 @@ __webpack_require__.r(__webpack_exports__);
       this.attachments_list.push(e.attachment);
     },
     handleFiles: function handleFiles(event) {
-      var _this = this;
+      var _this2 = this;
 
       this.isLoading = true;
       var selectedFiles = this.$refs.file.files;
@@ -9097,7 +9146,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$inertia.post("/api/upload_images/".concat(this.$page.item.id), serverData, {
         onFinish: function onFinish() {
-          _this.isLoading = false;
+          _this2.isLoading = false;
           console.log('finish');
         }
       });
@@ -10444,7 +10493,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -10453,7 +10501,7 @@ __webpack_require__.r(__webpack_exports__);
       categoryIdMutation: 0
     };
   },
-  props: ["products", "categories", "categoryId", 'itemsCount'],
+  props: ["products", "categories", "categoryId", 'itemsCount', 'completedProducts'],
   components: {
     Treeselect: _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
@@ -19177,7 +19225,86 @@ var render = function() {
               : _vm._e()
           ])
         ]
-      )
+      ),
+      _vm._v(" "),
+      _c("div", [
+        _c("div", [
+          _c("div", { staticClass: "p-3" }, [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.description.ar_description,
+                  expression: "description.ar_description"
+                }
+              ],
+              staticClass: "form-control text-right",
+              attrs: { placeholder: "وصف عربي" },
+              domProps: { value: _vm.description.ar_description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.description,
+                    "ar_description",
+                    $event.target.value
+                  )
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.$page.errors.ar_description
+              ? _c("div", { staticClass: "text-red-600 text-xl mt-2" }, [
+                  _vm._v(_vm._s(_vm.$page.errors.ar_description) + "\n        ")
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "p-2" }, [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.description.description,
+                  expression: "description.description"
+                }
+              ],
+              staticClass: "form-control text-right",
+              attrs: { placeholder: "وصف انجليزي" },
+              domProps: { value: _vm.description.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.description, "description", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.$page.errors.description
+              ? _c("div", { staticClass: "text-red-600 text-xl mt-2" }, [
+                  _vm._v(_vm._s(_vm.$page.errors.description) + "\n        ")
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-3" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  on: { click: _vm.saveDescription }
+                },
+                [_vm._v("تعديل الوصف")]
+              )
+            ])
+          ])
+        ])
+      ])
     ],
     1
   )
@@ -20993,9 +21120,9 @@ var render = function() {
             _c("treeselect", {
               attrs: {
                 "disable-branch-nodes": false,
+                loadOptions: _vm.loadOptions,
                 options: _vm.categories,
-                "show-count": true,
-                loadOptions: _vm.loadOptions
+                "show-count": true
               },
               on: { select: _vm.categoryListUpdated },
               model: {
@@ -21026,110 +21153,143 @@ var render = function() {
       "table",
       { staticClass: "table table-light text-center table-bordered" },
       [
-        _vm._m(0),
+        _c("thead", [
+          _c("tr", [
+            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
+              _vm._v("#")
+            ]),
+            _vm._v(" "),
+            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
+              _vm._v("الباركود")
+            ]),
+            _vm._v(" "),
+            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
+              _vm._v("اسم المنتج")
+            ]),
+            _vm._v(" "),
+            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
+              _vm._v(" رقم الموديل")
+            ]),
+            _vm._v(" "),
+            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
+              _vm._v("عدد الصور  (" + _vm._s(_vm.completedProducts) + ")")
+            ]),
+            _vm._v(" "),
+            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
+              _vm._v("#")
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "tbody",
           _vm._l(_vm.products, function(product, index) {
-            return _c("tr", { key: product.id }, [
-              _c("td", [_vm._v(_vm._s(parseInt(_vm.itemsCount) - index))]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href:
-                        "https://www.google.com/search?q=" +
-                        product.barcode +
-                        "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                      target: "_blank"
-                    }
-                  },
-                  [_vm._v(_vm._s(product.barcode))]
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href:
-                        "https://www.google.com/search?q=" +
-                        product.barcode +
-                        "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                      target: "_blank"
-                    }
-                  },
-                  [_vm._v(_vm._s(product.name))]
-                ),
+            return _c(
+              "tr",
+              {
+                key: product.id,
+                class: { "bg-success": product.attachments_count == 4 }
+              },
+              [
+                _c("td", [_vm._v(_vm._s(parseInt(_vm.itemsCount) - index))]),
                 _vm._v(" "),
-                _c("br"),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href:
+                          "https://www.google.com/search?q=" +
+                          product.barcode +
+                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                        target: "_blank"
+                      }
+                    },
+                    [_vm._v(_vm._s(product.barcode))]
+                  )
+                ]),
                 _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href:
-                        "https://www.google.com/search?q=" +
-                        product.ar_name +
-                        "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                      target: "_blank"
-                    }
-                  },
-                  [_vm._v(_vm._s(product.ar_name))]
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href:
-                        "https://www.google.com/search?q=" +
-                        product.model_name +
-                        "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                      target: "_blank"
-                    }
-                  },
-                  [_vm._v(_vm._s(product.model_name))]
-                ),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href:
+                          "https://www.google.com/search?q=" +
+                          product.barcode +
+                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                        target: "_blank"
+                      }
+                    },
+                    [_vm._v(_vm._s(product.name))]
+                  ),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href:
+                          "https://www.google.com/search?q=" +
+                          product.ar_name +
+                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                        target: "_blank"
+                      }
+                    },
+                    [_vm._v(_vm._s(product.ar_name))]
+                  )
+                ]),
                 _vm._v(" "),
-                _c("br"),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href:
+                          "https://www.google.com/search?q=" +
+                          product.model_name +
+                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                        target: "_blank"
+                      }
+                    },
+                    [_vm._v(_vm._s(product.model_name))]
+                  ),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href:
+                          "https://www.google.com/search?q=" +
+                          product.model_ar_name +
+                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                        target: "_blank"
+                      }
+                    },
+                    [_vm._v(_vm._s(product.model_ar_name))]
+                  )
+                ]),
                 _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href:
-                        "https://www.google.com/search?q=" +
-                        product.model_ar_name +
-                        "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                      target: "_blank"
-                    }
-                  },
-                  [_vm._v(_vm._s(product.model_ar_name))]
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(product.attachments_count))]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: {
-                      href: "/images_upload/" + product.id,
-                      target: "_blank"
-                    }
-                  },
-                  [_vm._v(" المرفقات")]
-                )
-              ])
-            ])
+                _c("td", [_vm._v(_vm._s(product.attachments_count))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: {
+                        href: "/images_upload/" + product.id,
+                        target: "_blank"
+                      }
+                    },
+                    [_vm._v(" المرفقات")]
+                  )
+                ])
+              ]
+            )
           }),
           0
         )
@@ -21137,40 +21297,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-          _vm._v("#")
-        ]),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-          _vm._v("الباركود")
-        ]),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-          _vm._v("اسم المنتج")
-        ]),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-          _vm._v(" رقم الموديل")
-        ]),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-          _vm._v("عدد الصور")
-        ]),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-          _vm._v("#")
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

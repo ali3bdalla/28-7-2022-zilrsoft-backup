@@ -12,6 +12,8 @@ return array(
     'AliAbdalla\\Tafqeet\\Helper\\Digit' => $vendorDir . '/3li3bdalla/tafqeet/src/helper/Digit.php',
     'AliAbdalla\\Tafqeet\\Helper\\Handler' => $vendorDir . '/3li3bdalla/tafqeet/src/helper/Handler.php',
     'AliAbdalla\\Tafqeet\\Helper\\Validation' => $vendorDir . '/3li3bdalla/tafqeet/src/helper/Validation.php',
+    'App\\Broadcasting\\OrderChannel' => $baseDir . '/app/Broadcasting/OrderChannel.php',
+    'App\\Console\\Commands\\AddModelNumberToCategoriesCommand' => $baseDir . '/app/Console/Commands/AddModelNumberToCategoriesCommand.php',
     'App\\Console\\Commands\\CheckTransactionCommand' => $baseDir . '/app/Console/Commands/CheckTransactionCommand.php',
     'App\\Console\\Commands\\Entity\\DeleteEntityCommand' => $baseDir . '/app/Console/Commands/Entity/DeleteEntityCommand.php',
     'App\\Console\\Commands\\PlayGroundCommand' => $baseDir . '/app/Console/Commands/PlayGroundCommand.php',

@@ -6,10 +6,10 @@
           <treeselect
               v-model="categoryIdMutation"
               :disable-branch-nodes="false"
+              :loadOptions=" loadOptions "
               :options="categories"
               :show-count="true"
               @select="categoryListUpdated"
-              :loadOptions=" loadOptions "
           ></treeselect>
         </div>
 
@@ -21,7 +21,6 @@
 
     </div>
 
-
     <table class="table table-light text-center table-bordered">
       <thead>
       <tr>
@@ -29,13 +28,13 @@
         <td class="text-center" scope="col">الباركود</td>
         <td class="text-center" scope="col">اسم المنتج</td>
         <td class="text-center" scope="col"> رقم الموديل</td>
-        <td class="text-center" scope="col">عدد الصور</td>
+        <td class="text-center" scope="col">عدد الصور  ({{completedProducts}})</td>
         <td class="text-center" scope="col">#</td>
       </tr>
       </thead>
       <tbody>
 
-      <tr v-for="(product,index) in products" :key="product.id">
+      <tr v-for="(product,index) in products" :key="product.id" :class="{'bg-success':product.attachments_count == 4}">
         <td>{{ parseInt(itemsCount) - index }}</td>
         <td>
           <a :href="`https://www.google.com/search?q=${product.barcode}&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m`"
@@ -80,7 +79,7 @@ export default {
       categoryIdMutation: 0
     };
   },
-  props: ["products", "categories", "categoryId", 'itemsCount'],
+  props: ["products", "categories", "categoryId", 'itemsCount','completedProducts'],
   components: {Treeselect},
   created() {
     this.categoryIdMutation = this.categoryId;
@@ -95,8 +94,7 @@ export default {
       location.href = '/images_upload'
     },
 
-    loadOptions(e)
-    {
+    loadOptions(e) {
 
     }
   }

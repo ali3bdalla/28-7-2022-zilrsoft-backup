@@ -4432,7 +4432,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4441,7 +4440,7 @@ __webpack_require__.r(__webpack_exports__);
       categoryIdMutation: 0
     };
   },
-  props: ["products", "categories", "categoryId", 'itemsCount'],
+  props: ["products", "categories", "categoryId", 'itemsCount', 'completedProducts'],
   components: {
     Treeselect: _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
@@ -6604,9 +6603,9 @@ var render = function() {
             _c("treeselect", {
               attrs: {
                 "disable-branch-nodes": false,
+                loadOptions: _vm.loadOptions,
                 options: _vm.categories,
-                "show-count": true,
-                loadOptions: _vm.loadOptions
+                "show-count": true
               },
               on: { select: _vm.categoryListUpdated },
               model: {
@@ -6637,110 +6636,143 @@ var render = function() {
       "table",
       { staticClass: "table table-light text-center table-bordered" },
       [
-        _vm._m(0),
+        _c("thead", [
+          _c("tr", [
+            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
+              _vm._v("#")
+            ]),
+            _vm._v(" "),
+            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
+              _vm._v("الباركود")
+            ]),
+            _vm._v(" "),
+            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
+              _vm._v("اسم المنتج")
+            ]),
+            _vm._v(" "),
+            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
+              _vm._v(" رقم الموديل")
+            ]),
+            _vm._v(" "),
+            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
+              _vm._v("عدد الصور  (" + _vm._s(_vm.completedProducts) + ")")
+            ]),
+            _vm._v(" "),
+            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
+              _vm._v("#")
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "tbody",
           _vm._l(_vm.products, function(product, index) {
-            return _c("tr", { key: product.id }, [
-              _c("td", [_vm._v(_vm._s(parseInt(_vm.itemsCount) - index))]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href:
-                        "https://www.google.com/search?q=" +
-                        product.barcode +
-                        "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                      target: "_blank"
-                    }
-                  },
-                  [_vm._v(_vm._s(product.barcode))]
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href:
-                        "https://www.google.com/search?q=" +
-                        product.barcode +
-                        "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                      target: "_blank"
-                    }
-                  },
-                  [_vm._v(_vm._s(product.name))]
-                ),
+            return _c(
+              "tr",
+              {
+                key: product.id,
+                class: { "bg-success": product.attachments_count == 4 }
+              },
+              [
+                _c("td", [_vm._v(_vm._s(parseInt(_vm.itemsCount) - index))]),
                 _vm._v(" "),
-                _c("br"),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href:
+                          "https://www.google.com/search?q=" +
+                          product.barcode +
+                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                        target: "_blank"
+                      }
+                    },
+                    [_vm._v(_vm._s(product.barcode))]
+                  )
+                ]),
                 _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href:
-                        "https://www.google.com/search?q=" +
-                        product.ar_name +
-                        "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                      target: "_blank"
-                    }
-                  },
-                  [_vm._v(_vm._s(product.ar_name))]
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href:
-                        "https://www.google.com/search?q=" +
-                        product.model_name +
-                        "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                      target: "_blank"
-                    }
-                  },
-                  [_vm._v(_vm._s(product.model_name))]
-                ),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href:
+                          "https://www.google.com/search?q=" +
+                          product.barcode +
+                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                        target: "_blank"
+                      }
+                    },
+                    [_vm._v(_vm._s(product.name))]
+                  ),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href:
+                          "https://www.google.com/search?q=" +
+                          product.ar_name +
+                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                        target: "_blank"
+                      }
+                    },
+                    [_vm._v(_vm._s(product.ar_name))]
+                  )
+                ]),
                 _vm._v(" "),
-                _c("br"),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href:
+                          "https://www.google.com/search?q=" +
+                          product.model_name +
+                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                        target: "_blank"
+                      }
+                    },
+                    [_vm._v(_vm._s(product.model_name))]
+                  ),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href:
+                          "https://www.google.com/search?q=" +
+                          product.model_ar_name +
+                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                        target: "_blank"
+                      }
+                    },
+                    [_vm._v(_vm._s(product.model_ar_name))]
+                  )
+                ]),
                 _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href:
-                        "https://www.google.com/search?q=" +
-                        product.model_ar_name +
-                        "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                      target: "_blank"
-                    }
-                  },
-                  [_vm._v(_vm._s(product.model_ar_name))]
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(product.attachments_count))]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: {
-                      href: "/images_upload/" + product.id,
-                      target: "_blank"
-                    }
-                  },
-                  [_vm._v(" المرفقات")]
-                )
-              ])
-            ])
+                _c("td", [_vm._v(_vm._s(product.attachments_count))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: {
+                        href: "/images_upload/" + product.id,
+                        target: "_blank"
+                      }
+                    },
+                    [_vm._v(" المرفقات")]
+                  )
+                ])
+              ]
+            )
           }),
           0
         )
@@ -6748,40 +6780,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-          _vm._v("#")
-        ]),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-          _vm._v("الباركود")
-        ]),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-          _vm._v("اسم المنتج")
-        ]),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-          _vm._v(" رقم الموديل")
-        ]),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-          _vm._v("عدد الصور")
-        ]),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-          _vm._v("#")
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

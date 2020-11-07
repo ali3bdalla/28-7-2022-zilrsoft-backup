@@ -38,6 +38,7 @@
 		function() {
 			Route::get('/', 'ItemController@getImages');
 			Route::post('/', 'ItemController@uploadImages');
+			Route::post('/update_description', 'ItemController@updateDescription');
 			Route::get('/{image}', 'ItemController@deleteImage');
 		}
 	);

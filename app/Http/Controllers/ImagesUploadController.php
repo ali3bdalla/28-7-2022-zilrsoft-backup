@@ -67,15 +67,15 @@
 			$itemsCount = $items->count();
 			$items = $items->withCount('attachments')->paginate(20);
 			$links = $items->appends(['category_id' => $categoryId])->links();
+			$completedProducts = Item::withCount('attachments')->having('attachments_count', 4)->get()->count();
+			
 			$items = $items->each(
 				function($item) {
-					$filter  = $item->filters()->where('filter_id',38)->first();
-					if($filter && $filter->value)
-					{
+					$filter = $item->filters()->where('filter_id', 38)->first();
+					if($filter && $filter->value) {
 						$item['model_name'] = $filter->value->name;
 						$item['model_ar_name'] = $filter->value->ar_name;
-					}else
-					{
+					} else {
 						$item['model_name'] = "";
 						$item['model_ar_name'] = "";
 					}
@@ -83,20 +83,21 @@
 					return $item;
 				}
 			);
-//			return $items;
 			$chats = Category::where('parent_id', 0)->get();
+			
 			$categories = [];
 			foreach($chats as $category) {
 				$category['children'] = Category::getAllParentNestedChildren($category);
 				$categories[] = $category;
 			}
 			
-			return view('images_uploads.index', compact('items', 'itemsCount', 'categories', 'categoryId','links'));
+			return view('images_uploads.index', compact('items', 'itemsCount', 'categories', 'categoryId', 'links', 'completedProducts'));
 		}
 		
 		public function show(Item $item)
 		{
 			
+//			return  $item;
 			return Inertia::render(
 				'ImagesUpload/Show', [
 					'item' => $item,

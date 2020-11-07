@@ -11,7 +11,8 @@
           <h3 class="text-lg md:text-xl text-red-500">Max Image Dimension 475px * 475px</h3>
           <h3 class="text-lg md:text-xl text-red-500">Max Image size: 1MB</h3>
         </div>
-        <div class="border-2 p-5 w-full bg-white flex justify-center items-center  w-64 h-72 md:w-100 md:h-100 overflow-hidden">
+        <div
+            class="border-2 p-5 w-full bg-white flex justify-center items-center  w-64 h-72 md:w-100 md:h-100 overflow-hidden">
           <img :src="activeImage"
                class=" object-contain  h-64"/>
         </div>
@@ -25,6 +26,8 @@
             </div>
           </div>
         </div>
+
+
       </div>
 
 
@@ -54,6 +57,36 @@
 
 
       </div>
+
+
+    </div>
+
+
+    <div>
+      <div>
+        <div class="p-3">
+          <textarea v-model="description.ar_description" class="form-control text-right"
+                    placeholder="وصف عربي"></textarea>
+          <div v-if="$page.errors.ar_description" class="text-red-600 text-xl mt-2">{{
+              $page.errors.ar_description
+            }}
+          </div>
+
+        </div>
+        <div class="p-2">
+          <textarea v-model="description.description" class="form-control text-right"
+                    placeholder="وصف انجليزي"></textarea>
+          <div v-if="$page.errors.description" class="text-red-600 text-xl mt-2">{{
+              $page.errors.description
+            }}
+          </div>
+
+          <div class="mt-3">
+            <button class="btn btn-success" @click="saveDescription">تعديل الوصف</button>
+
+          </div>
+        </div>
+      </div>
     </div>
   </images-upload-layout>
 </template>
@@ -68,12 +101,20 @@ export default {
 
   data() {
     return {
+      description: {
+        ar_description: "",
+        description: "",
+      },
       activeImage: "",
       isLoading: false
     };
   },
   created() {
     this.activeImage = this.$page.attachments[0] ? this.$page.attachments[0].url : "";
+
+    this.description.description = this.$page.item.description;
+    this.description.ar_description = this.$page.item.ar_description;
+    // console.log(this.$page.item);
   },
   components: {
     ImagesUploadLayout,
@@ -81,6 +122,15 @@ export default {
   },
 
   methods: {
+
+    saveDescription() {
+      this.isLoading = true;
+      this.$inertia.post(`/api/upload_images/${this.$page.item.id}/update_description`, this.description, {
+        onFinish: () => {
+          this.isLoading = false;
+        },
+      });
+    },
     changeActiveImage(url) {
       this.activeImage = url;
     },

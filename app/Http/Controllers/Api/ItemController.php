@@ -127,4 +127,18 @@
 		}
 		
 		
+		public function updateDescription(Request $request, Item $item)
+		{
+			$request->validate(
+				[
+					'description' => 'required|string|min:20',
+					'ar_description' => 'required|string|min:20',
+				]
+			);
+			
+			
+			$item->update($request->only('description', 'ar_description'));
+			return back();
+//			return $item;
+		}
 	}
