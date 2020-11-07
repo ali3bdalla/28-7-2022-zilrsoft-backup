@@ -10422,6 +10422,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _riophae_vue_treeselect_dist_vue_treeselect_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @riophae/vue-treeselect/dist/vue-treeselect.css */ "./node_modules/@riophae/vue-treeselect/dist/vue-treeselect.css");
 /* harmony import */ var _riophae_vue_treeselect_dist_vue_treeselect_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_riophae_vue_treeselect_dist_vue_treeselect_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-loading-overlay/dist/vue-loading.css */ "./node_modules/vue-loading-overlay/dist/vue-loading.css");
+/* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -10493,23 +10497,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
+
+ // Import stylesheet
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      isLoading: false,
+      activeModel: 'all',
       categoryIdMutation: 0
     };
   },
-  props: ["products", "categories", "categoryId", 'itemsCount', 'completedProducts'],
+  props: ["products", "categories", "categoryId", 'itemsCount', 'completedProducts', 'queryActiveModel'],
   components: {
-    Treeselect: _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default.a
+    Treeselect: _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default.a,
+    Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2___default.a
   },
   created: function created() {
     this.categoryIdMutation = this.categoryId;
-    console.log(this.categoryId);
+    console.log(this.queryActiveModel);
+    this.activeModel = this.queryActiveModel;
   },
   methods: {
+    getTrans: function getTrans(key) {
+      if (key == 'all') return "الكل";
+      if (key == 'not_empty') return "يوجد موديل";
+      if (key == 'empty') return "لا يوجد موديل";
+    },
+    filterByModel: function filterByModel() {
+      this.isLoading = true;
+
+      if (this.activeModel === 'all') {
+        this.activeModel = 'not_empty';
+      } else {
+        if (this.activeModel === 'not_empty') {
+          this.activeModel = 'empty';
+        } else {
+          this.activeModel = 'all';
+        }
+      }
+
+      window.location.href = "?active_model=" + this.activeModel;
+    },
     categoryListUpdated: function categoryListUpdated(e) {
       location.href = '/images_upload?category_id=' + e.id;
     },
@@ -21110,192 +21146,231 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [
-    _c("div", { staticClass: " text-center my-10 shadow-xl" }, [
-      _c("div", { staticClass: "form-group text-center" }, [
-        _c(
-          "div",
-          { attrs: { dir: "rtl" } },
-          [
-            _c("treeselect", {
-              attrs: {
-                "disable-branch-nodes": false,
-                loadOptions: _vm.loadOptions,
-                options: _vm.categories,
-                "show-count": true
-              },
-              on: { select: _vm.categoryListUpdated },
-              model: {
-                value: _vm.categoryIdMutation,
-                callback: function($$v) {
-                  _vm.categoryIdMutation = $$v
-                },
-                expression: "categoryIdMutation"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "my-5" }, [
+  return _c(
+    "div",
+    {},
+    [
+      _c("loading", {
+        attrs: {
+          active: _vm.isLoading,
+          "can-cancel": true,
+          "is-full-page": true
+        },
+        on: {
+          "update:active": function($event) {
+            _vm.isLoading = $event
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: " text-center my-10 shadow-xl" }, [
+        _c("div", { staticClass: "form-group text-center" }, [
           _c(
-            "button",
-            { staticClass: "btn btn-primary", on: { click: _vm.showAll } },
-            [_vm._v("عرض الكل")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("br")
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "table",
-      { staticClass: "table table-light text-center table-bordered" },
-      [
-        _c("thead", [
-          _c("tr", [
-            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-              _vm._v("#")
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-              _vm._v("الباركود")
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-              _vm._v("اسم المنتج")
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-              _vm._v(" رقم الموديل")
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-              _vm._v("عدد الصور  (" + _vm._s(_vm.completedProducts) + ")")
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center", attrs: { scope: "col" } }, [
-              _vm._v("#")
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.products, function(product, index) {
-            return _c(
-              "tr",
-              {
-                key: product.id,
-                class: { "bg-success": product.attachments_count == 4 }
-              },
-              [
-                _c("td", [_vm._v(_vm._s(parseInt(_vm.itemsCount) - index))]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href:
-                          "https://www.google.com/search?q=" +
-                          product.barcode +
-                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                        target: "_blank"
-                      }
-                    },
-                    [_vm._v(_vm._s(product.barcode))]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href:
-                          "https://www.google.com/search?q=" +
-                          product.barcode +
-                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                        target: "_blank"
-                      }
-                    },
-                    [_vm._v(_vm._s(product.name))]
-                  ),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href:
-                          "https://www.google.com/search?q=" +
-                          product.ar_name +
-                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                        target: "_blank"
-                      }
-                    },
-                    [_vm._v(_vm._s(product.ar_name))]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href:
-                          "https://www.google.com/search?q=" +
-                          product.model_name +
-                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                        target: "_blank"
-                      }
-                    },
-                    [_vm._v(_vm._s(product.model_name))]
-                  ),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href:
-                          "https://www.google.com/search?q=" +
-                          product.model_ar_name +
-                          "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
-                        target: "_blank"
-                      }
-                    },
-                    [_vm._v(_vm._s(product.model_ar_name))]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(product.attachments_count))]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: {
-                        href: "/images_upload/" + product.id,
-                        target: "_blank"
-                      }
-                    },
-                    [_vm._v(" المرفقات")]
-                  )
-                ])
-              ]
+            "div",
+            { attrs: { dir: "rtl" } },
+            [
+              _c("treeselect", {
+                attrs: {
+                  "disable-branch-nodes": false,
+                  loadOptions: _vm.loadOptions,
+                  options: _vm.categories,
+                  "show-count": true
+                },
+                on: { select: _vm.categoryListUpdated },
+                model: {
+                  value: _vm.categoryIdMutation,
+                  callback: function($$v) {
+                    _vm.categoryIdMutation = $$v
+                  },
+                  expression: "categoryIdMutation"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "my-5" }, [
+            _c(
+              "button",
+              { staticClass: "btn btn-primary", on: { click: _vm.showAll } },
+              [_vm._v("عرض الكل")]
             )
-          }),
-          0
-        )
-      ]
-    )
-  ])
+          ]),
+          _vm._v(" "),
+          _c("br")
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "table",
+        { staticClass: "table table-light text-center table-bordered" },
+        [
+          _c("thead", [
+            _c("tr", [
+              _c(
+                "td",
+                { staticClass: "text-center", attrs: { scope: "col" } },
+                [_vm._v("#")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "text-center", attrs: { scope: "col" } },
+                [_vm._v("الباركود")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "text-center", attrs: { scope: "col" } },
+                [_vm._v("اسم المنتج")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  staticClass: "text-center btn cursor-pointer  ",
+                  attrs: { scope: "col" },
+                  on: { click: _vm.filterByModel }
+                },
+                [
+                  _c("button", [_vm._v(" رقم الموديل ")]),
+                  _vm._v(
+                    " (" + _vm._s(_vm.getTrans(_vm.activeModel)) + ")\n      "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "text-center", attrs: { scope: "col" } },
+                [_vm._v("عدد الصور (" + _vm._s(_vm.completedProducts) + ")")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "text-center", attrs: { scope: "col" } },
+                [_vm._v("#")]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.products, function(product, index) {
+              return _c(
+                "tr",
+                {
+                  key: product.id,
+                  class: { "bg-success": product.attachments_count == 4 }
+                },
+                [
+                  _c("td", [_vm._v(_vm._s(parseInt(_vm.itemsCount) - index))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href:
+                            "https://www.google.com/search?q=" +
+                            product.barcode +
+                            "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                          target: "_blank"
+                        }
+                      },
+                      [_vm._v(_vm._s(product.barcode))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href:
+                            "https://www.google.com/search?q=" +
+                            product.barcode +
+                            "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                          target: "_blank"
+                        }
+                      },
+                      [_vm._v(_vm._s(product.name))]
+                    ),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href:
+                            "https://www.google.com/search?q=" +
+                            product.ar_name +
+                            "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                          target: "_blank"
+                        }
+                      },
+                      [_vm._v(_vm._s(product.ar_name))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href:
+                            "https://www.google.com/search?q=" +
+                            product.model_name +
+                            "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                          target: "_blank"
+                        }
+                      },
+                      [_vm._v(_vm._s(product.model_name))]
+                    ),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href:
+                            "https://www.google.com/search?q=" +
+                            product.model_ar_name +
+                            "&safe=strict&source=lnms&tbm=isch&sa=X&tbs=isz:m",
+                          target: "_blank"
+                        }
+                      },
+                      [_vm._v(_vm._s(product.model_ar_name))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(product.attachments_count))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: {
+                          href: "/images_upload/" + product.id,
+                          target: "_blank"
+                        }
+                      },
+                      [_vm._v(" المرفقات")]
+                    )
+                  ])
+                ]
+              )
+            }),
+            0
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

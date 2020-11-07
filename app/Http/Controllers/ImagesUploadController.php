@@ -63,26 +63,42 @@
 				}
 			}
 			
+			$activeModel = 'all';
+			if($request->has('active_model')) {
+				
+				$activeModel = $request->input('active_model');
+			}
+			
 			
 			$itemsCount = $items->count();
-			$items = $items->withCount('attachments')->paginate(20);
-			$links = $items->appends(['category_id' => $categoryId])->links();
+			$queryItems = $items->withCount('attachments')->paginate(40);
+			$links = $queryItems->appends(['category_id' => $categoryId,'active_model' => $activeModel])->links();
 			$completedProducts = Item::withCount('attachments')->having('attachments_count', 4)->get()->count();
 			
-			$items = $items->each(
-				function($item) {
-					$filter = $item->filters()->where('filter_id', 38)->first();
-					if($filter && $filter->value) {
-						$item['model_name'] = $filter->value->name;
-						$item['model_ar_name'] = $filter->value->ar_name;
-					} else {
-						$item['model_name'] = "";
-						$item['model_ar_name'] = "";
-					}
-					
-					return $item;
+			
+			$items = [];
+			foreach($queryItems as $item) {
+				$filter = $item->filters()->where('filter_id', 38)->first();
+				if($filter && $filter->value) {
+					$item['model_name'] = $filter->value->name;
+					$item['model_ar_name'] = $filter->value->ar_name;
+				} else {
+					$item['model_name'] = "";
+					$item['model_ar_name'] = "";
 				}
-			);
+				
+				
+				if($activeModel == 'all')
+					$items[] = $item;
+				elseif($activeModel == 'empty') {
+					if($item['model_name'] == "")
+						$items[] = $item;
+				} elseif($activeModel == 'not_empty') {
+					if($item['model_name'] != "")
+						$items[] = $item;
+				}
+			}
+
 			$chats = Category::where('parent_id', 0)->get();
 			
 			$categories = [];
@@ -91,12 +107,12 @@
 				$categories[] = $category;
 			}
 			
-			return view('images_uploads.index', compact('items', 'itemsCount', 'categories', 'categoryId', 'links', 'completedProducts'));
+			return view('images_uploads.index', compact('items', 'activeModel', 'itemsCount', 'categories', 'categoryId', 'links', 'completedProducts'));
 		}
 		
 		public function show(Item $item)
 		{
-			
+
 //			return  $item;
 			return Inertia::render(
 				'ImagesUpload/Show', [
