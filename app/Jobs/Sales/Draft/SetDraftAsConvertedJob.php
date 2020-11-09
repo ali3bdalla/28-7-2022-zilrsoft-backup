@@ -44,7 +44,7 @@
 		 */
 		public function handle()
 		{
-			$draft = Invoice::withoutGlobalScope('draft')->where('id', $this->draftId)->first();
+			$draft = Invoice::withoutGlobalScopes(['draft','manager'])->where('id', $this->draftId)->first();
 			if($draft) {
 				if($draft->is_draft) {
 					$draft->update(
