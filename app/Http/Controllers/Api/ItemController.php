@@ -121,7 +121,6 @@
 		
 		public function deleteImage(Item $item, Attachment $image)
 		{
-//			return $attachment;
 			Storage::disk('spaces')->delete($image->actual_path);
 			$image->forceDelete();
 		}
@@ -139,6 +138,5 @@
 			
 			$item->update($request->only('description', 'ar_description'));
 			return back();
-//			return $item;
 		}
 	}

@@ -78,3 +78,97 @@
 .data__table__dropdown__list__items li a {
   font-weight: 900;
 }
+
+.notification__dropdown {
+  width: 450px !important;
+  max-height: 500px;
+  --bg-opacity: 1;
+  background-color: #e2e8f0;
+  background-color: rgba(226, 232, 240, var(--bg-opacity));
+  overflow-y: auto;
+}
+
+.notification__dropdown-item {
+  width: 450px !important;
+  max-height: 500px;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  display: flex;
+  padding: 0.5rem;
+  width: 100%;
+  border-width: 1px;
+  --border-opacity: 1;
+  border-color: #000;
+  border-color: rgba(0, 0, 0, var(--border-opacity));
+  margin-bottom: 0.25rem;
+}
+
+.notification__dropdown-item__icon {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notification__dropdown-item__icon svg {
+  width: 3rem;
+  height: 3rem;
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+}
+
+.notification__dropdown-item__content {
+  flex: 1 1 0%;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.notification__dropdown-item__message {
+  margin-top: 0.5rem;
+  text-align: right;
+}
+
+.notification__dropdown-item__created_at {
+  margin-top: 0.25rem;
+  --text-opacity: 1;
+  color: #a0aec0;
+  color: rgba(160, 174, 192, var(--text-opacity));
+}
+
+.notification__dropdown-item__link {
+  font-weight: 700;
+  --text-opacity: 1;
+  color: #7f9cf5;
+  color: rgba(127, 156, 245, var(--text-opacity));
+}
+
+.notification__dropdown-item__buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+.notification__dropdown-item__buttons a {
+  --bg-opacity: 1;
+  background-color: #667eea;
+  background-color: rgba(102, 126, 234, var(--bg-opacity));
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.navbar__notification__list {
+  --bg-opacity: 1;
+  background-color: #f56565;
+  background-color: rgba(245, 101, 101, var(--bg-opacity));
+}

@@ -1,0 +1,44 @@
+.notification {
+
+  &__dropdown {
+    width: 450px !important;
+    max-height: 500px;
+    @apply bg-gray-300 overflow-y-auto;
+  }
+
+  &__dropdown-item {
+    width: 450px !important;
+    max-height: 500px;
+    @apply bg-white flex p-2 w-full border border-black mb-1;
+
+    &__icon {
+      @apply p-2 flex justify-center items-center;
+      svg {
+        @apply w-12 h-12 text-gray-700
+      }
+    }
+    &__content {
+      @apply flex-1 px-5;
+    }
+
+    &__message {
+      @apply mt-2 text-right;
+    }
+
+    &__created_at {
+      @apply mt-1 text-gray-500;
+    }
+    &__link {
+      @apply font-bold text-indigo-400;
+    }
+
+    &__buttons {
+      @apply flex justify-between items-center mt-3 w-full;
+      a {
+        @apply bg-indigo-500 px-3 py-1 text-white rounded shadow;
+      }
+    }
+
+  }
+
+}

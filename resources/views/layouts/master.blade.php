@@ -24,6 +24,7 @@
     {{--    @css_asset('lib/css/select2.min.cs.css')--}}
     @css_asset('lib/css/buttons.css')
     @css_asset('lib/css/main.css')
+    @css_asset('css/main.css')
     @css_asset('lib/css/bootstrap-rtl.css')
     @css_asset('lib/css/AdminLTE-rtl.min.css')
     @css_asset('css/rtl.css')

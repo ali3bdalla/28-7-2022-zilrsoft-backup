@@ -5,12 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1847dce-9989-45ff-80d9-69eb3638cb7b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/sass/backend/_navbar.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/backend/_notification.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/sales/clone_draft.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ImagesUploadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ImagesUploadController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app_v2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app_v2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/upload_images.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/upload_images.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/UploadImages/ProductsListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/UploadImages/ProductsListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/images_uploads/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/images_uploads/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ItemController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/BaseModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/BaseModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/headerLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/headerLayoutComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/quotations/quotationsCreateComponet.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/quotations/quotationsCreateComponet.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesDatatableComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesDatatableComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/BackEnd/Header/OrderNotificationBell.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/BackEnd/Header/NotificationBell.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/main.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Items/ShouldContainModelNumberTest.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,7 +281,11 @@
       <workItem from="1604657770728" duration="91000" />
       <workItem from="1604670582713" duration="14121000" />
       <workItem from="1604756177906" duration="1651000" />
-      <workItem from="1604758119900" duration="3808000" />
+      <workItem from="1604758119900" duration="3954000" />
+      <workItem from="1604773938236" duration="4624000" />
+      <workItem from="1604841383710" duration="15138000" />
+      <workItem from="1604896886548" duration="4000" />
+      <workItem from="1604928920976" duration="1457000" />
     </task>
     <servers />
   </component>
@@ -282,11 +298,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/resources/js/components/Web/Page/HeaderComponent.vue</url>
-          <line>107</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Requests/Daily/StoreResellerClosingAccountsRequest.php</url>
           <line>143</line>

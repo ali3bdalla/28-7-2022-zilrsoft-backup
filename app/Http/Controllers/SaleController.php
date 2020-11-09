@@ -86,6 +86,18 @@
 			$expenses = Item::where('is_expense', true)->get();
 			$gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
 			$sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
+			return view('sales.clone_draft', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale'));
+		}
+		
+		
+		function toInvoice(Invoice $sale)
+		{
+			
+			$salesmen = Manager::all();
+			$clients = User::where('is_client', true)->get()->toArray();
+			$expenses = Item::where('is_expense', true)->get();
+			$gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
+			$sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
 			return view('sales.clone', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale'));
 		}
 		

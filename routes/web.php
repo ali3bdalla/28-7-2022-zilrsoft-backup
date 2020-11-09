@@ -111,6 +111,7 @@
 							Route::get('/create', 'SaleController@createDraft')->name('create');
 							Route::get('/create_service', 'SaleController@createServiceDraft')->name('create.service');
 							Route::get('/{sale}/clone', 'SaleController@clone')->name('clone');
+							Route::get('/{sale}/to_invoice', 'SaleController@toInvoice')->name('to_invoice');
 						}
 					);
 				}

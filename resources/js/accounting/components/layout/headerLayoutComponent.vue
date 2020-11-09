@@ -13,7 +13,7 @@
         !important;">
       <div class="right" style="">
         <ul class="nav navbar-nav">
-          <OrderNotificationBell :manager="manager"/>
+          <NotificationBell :manager="manager"/>
 
           <li v-if="canConfirmPendingPurchases">
             <a class="dropdown-toggle" href="/purchases/pending/list">
@@ -119,9 +119,9 @@ margin-bottom: -10px;"></i>
   </header>
 </template>
 <script>
-import OrderNotificationBell from "../../../components/BackEnd/Header/OrderNotificationBell";
+import NotificationBell from "../../../components/BackEnd/Header/NotificationBell";
 export default {
-  components: {OrderNotificationBell},
+  components: {NotificationBell},
   props: ['manager',"csrf", "username", 'pendingTransactions', 'pendingPurchases', 'canConfirmPendingPurchases', 'disableCreate'],
   data: function () {
     return {
