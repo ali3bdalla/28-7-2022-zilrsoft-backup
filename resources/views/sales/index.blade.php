@@ -12,7 +12,7 @@
 
 
 @section("content")
-
+ 
     <accounting-sales-datatable-component
             :creators='@json($creators)'
             :vendors='@json($clients)'
