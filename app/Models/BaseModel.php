@@ -2,15 +2,22 @@
 	
 	namespace App\Models;
 	
+	use App\Models\Traits\PostgresTrait;
+	use Carbon\Carbon;
 	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Database\Eloquent\Model;
 	use Illuminate\Http\Request;
+	use Illuminate\Support\Facades\Auth;
 	use Illuminate\Support\Facades\Schema;
 	
 	class BaseModel extends Model
 	{
 		
 		private static $customTablesOrder = ['accounts' => 'serial'];
+		
+		
+		protected $dateFormat = 'Y-m-d H:i:sO';
+		
 		
 		protected static function boot()
 		{
@@ -52,7 +59,7 @@
 				}
 				);
 			}
-			
+
 //			$disabledDefaultSoringTables = ['invoice_items'];
 //			if(!key_exists($table, self::$customTablesOrder) && !in_array($table,$disabledDefaultSoringTables) {
 //				static::addGlobalScope(
@@ -142,4 +149,7 @@
 			
 			
 		}
+		
+
+		
 	}

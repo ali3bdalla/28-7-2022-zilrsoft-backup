@@ -5,7 +5,7 @@
 	use Illuminate\Database\Eloquent\Model;
 	use Illuminate\Database\Eloquent\SoftDeletes;
 	
-	class ShippingMethod extends Model
+	class ShippingMethod extends BaseModel
 	{
 		
 		use SoftDeletes;

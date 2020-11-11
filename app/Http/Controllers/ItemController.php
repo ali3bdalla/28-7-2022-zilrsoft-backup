@@ -6,14 +6,18 @@ use App\Models\Category;
 use App\Models\Item;
 use App\Models\Manager;
 use App\Models\User;
+use Carbon\Carbon;
 
 class ItemController extends Controller
 {
 
     public function index()
     {
+    	
         $categories = Category::all();
         $creators = Manager::all();
+        
+//        return  $categories;
         return view('accounting.items.index', compact('categories', 'creators'));
     }
 

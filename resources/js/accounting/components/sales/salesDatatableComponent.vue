@@ -236,8 +236,12 @@
                 v-text="-parseFloat(row.subtotal - row.invoice_cost).toFixed(2)"></td>
 
             <td class="text-center">
-              <span v-if="row.invoice_type=='sale'">{{ app.trans.sale }}</span>
-              <span v-else-if="row.invoice_type=='quotation'">{{ app.trans.quotation }}</span>
+              <span v-if="row.is_draft">
+                <span v-if="row.is_draft_converted">محولة</span>
+                <span v-else>غير محولة</span>
+              </span>
+              <span v-else-if="row.invoice_type=='sale'">{{ app.trans.sale }}</span>
+
               <span v-else>{{ app.trans.return_sale }}</span>
             </td>
             <td v-if="canViewAccounting==1" class="text-center" v-text="row.creator.locale_name"></td>

@@ -19,9 +19,13 @@
 		public function index()
 		{
 			// auth()->loginUsingId(1);
-			$clients = User::where('is_client', true)->get();
-			$creators = Manager::all();
-			$departments = Department::all();
+			$clients = User::where('is_client', true)->get()->toArray();
+			
+			$creators = Manager::get()->toArray();
+			$departments = Department::get()->toArray();
+
+//			return  $departments;
+			
 			
 			return view('sales.index', compact('clients', 'creators', 'departments'));
 		}

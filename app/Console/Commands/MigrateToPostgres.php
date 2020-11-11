@@ -42,9 +42,8 @@
 		 */
 		public function handle()
 		{
-			
-			
-		
+
+
 //			$path = app_path() . "/Models";
 			
 			$models = [
@@ -64,15 +63,15 @@
 //				'App\Models\FilterValues',
 //				'App\Models\HashMap',
 				'App\Models\Invoice',
-				'App\Models\InvoiceExpenses',
-				'App\Models\InvoiceItems',
-				'App\Models\Item',
-				'App\Models\ItemExpenses',
-				'App\Models\ItemFilters',
-				'App\Models\ItemSerials',
-				'App\Models\ItemStatistic',
-				'App\Models\KitData',
-				'App\Models\KitItems',
+//				'App\Models\InvoiceExpenses',
+//				'App\Models\InvoiceItems',
+//				'App\Models\Item',
+//				'App\Models\ItemExpenses',
+//				'App\Models\ItemFilters',
+//				'App\Models\ItemSerials',
+//				'App\Models\ItemStatistic',
+//				'App\Models\KitData',
+//				'App\Models\KitItems',
 //				'App\Models\Manager',
 //				'App\Models\ManagerGateways',
 //				'App\Models\Order',
@@ -94,37 +93,32 @@
 			];
 
 
-//				$this->getModels($path);
 			
 			foreach($models as $model) {
 				$class = app($model);
 				
 				$tableName = $class->getTable();
 				
-				$class::truncate();
-				
+//				$class::truncate();
+
 				DB::connection('data_source')->table($tableName)->orderBy('created_at')->chunk(
 					1000,
 					function($data) use ($tableName, $class) {
 						$class::withoutEvents(
 							function() use ($data, $class, $tableName) {
 								foreach($data as $item) {
-									$item = collect($item)->toArray();
-//									unset($item['id])';
-									$query = new $class($item);
-									$query->save();
-									$pgCat = "{$tableName}_id_seq";
-//									DB::statement("ALTER SEQUENCE $tableName.id RESTART WITH 1");
-									DB::statement("UPDATE $tableName SET $pgCat = {$item['id']}");
-//
-//									$pdo = DB::connection()->getPdo();
-//									$pdo->exec("SELECT pg_catalog.setval('invocies_id_seq', true) from invocies");
-//									$pdo = DB::connection()->getPdo();
-//									dd(DB::connection('pgsql2')->statement("UPDATE pg_catalog SET {$pgCat} = {$item['id']}"));
+//									if(!$class::find($item->id))
+//									{
+										$item = collect($item)->toArray();
+										unset($item['id']);
+										$query = new $class($item);
+										$query->save();
+										echo '  -  ' . $query->id .  '  -  ' .  $class::count() . "\n";
+//									}
 								}
 							}
 						);
-						
+
 					}
 				);
 //
@@ -133,7 +127,7 @@
 
 
 //			$rolesTables = ['roles',  'permissions', 'role_has_permissions','model_has_permissions', 'model_has_roles'];
-//
+////
 //			foreach($rolesTables as $table) {
 //				DB::table($table)->truncate();
 //				$data = DB::connection('data_source')->table($table)->get();
@@ -142,9 +136,9 @@
 //					DB::table($table)->insert(collect($item)->toArray());
 //				}
 //
-//
+////				echo "'". $table . "',\n";
 //			}
-			
+//
 			
 		}
 
@@ -164,6 +158,10 @@
 //			}
 //			return $out;
 //		}
+
+
+
+
 //
 		
 	}
