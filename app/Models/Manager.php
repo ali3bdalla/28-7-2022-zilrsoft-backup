@@ -30,7 +30,7 @@
 		 * @var array
 		 */
 		protected $casts = [
-			'email_verified_at' => 'datetime',
+//			'email_verified_at' => 'datetime',
 		];
 		protected $appends = [
 			'locale_name'

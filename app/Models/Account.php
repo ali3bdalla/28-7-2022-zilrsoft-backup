@@ -3,6 +3,7 @@
 	namespace App\Models;
 	
 	use App\Events\Models\Account\AccountCreated;
+	use App\Events\Models\Account\AccountDeleted;
 	use App\Events\Models\Account\AccountUpdated;
 	use App\Models\Traits\NestingTrait;
 	use Illuminate\Database\Eloquent\Builder;
@@ -23,8 +24,9 @@
 	 */
 	class Account extends BaseModel
 	{
-		
-		use  NestingTrait, SoftDeletes;
+	
+		use SoftDeletes;
+		use  NestingTrait;
 		
 		protected $guarded = [];
 		protected $appends = [
@@ -46,6 +48,7 @@
 		protected $dispatchesEvents = [
 			'created' => AccountCreated::class,
 			'updated' => AccountUpdated::class,
+			'deleted' => AccountDeleted::class,
 		];
 		
 		

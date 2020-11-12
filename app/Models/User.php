@@ -17,7 +17,7 @@
 		
 		protected $guarded = [];
 		
-		
+	
 		protected $appends = [
 			'locale_name'
 		];
@@ -90,10 +90,10 @@
 		}
 		
 		
-//		public function getCreatedAtAttribute($value)
-//		{
-//			return Carbon::parse($value)->toDateString();
-//		}
+		public function getCreatedAtAttribute($value)
+		{
+			return Carbon::parse($value)->toDateString();
+		}
 		
 		
 		public function details()

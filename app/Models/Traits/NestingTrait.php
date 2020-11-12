@@ -118,7 +118,7 @@ trait NestingTrait
         }
 
         if ($this->parent) {
-            foreach ($this->parent->_getParentsList() as $id) {
+            foreach (($this->parent()->withTrashed()->first())->_getParentsList() as $id) {
                 $list[] = $id;
             }
         }
@@ -130,8 +130,8 @@ trait NestingTrait
     {
         $list = [];
 
-        if ($this->children()->count() >= 1) {
-            foreach ($this->children()->get() as $child) {
+        if ($this->children()->withTrashed()->count() >= 1) {
+            foreach ($this->children()->withTrashed()->get() as $child) {
                 $list[] = $child->id;
                 foreach ($child->_getChildrenList() as $id) {
                     $list[] = $id;

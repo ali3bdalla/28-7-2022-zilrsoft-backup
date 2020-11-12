@@ -4,12 +4,17 @@
 	
 	use App\Events\Order\OrderIssuedEvent;
 	use App\Events\Order\OrderPendingEvent;
+	use App\Jobs\Accounting\Entity\UpdateAccountBalanceJob;
+	use App\Models\Account;
+	use App\Models\AccountSnapshot;
 	use App\Models\Category;
 	use App\Models\CategoryFilters;
 	use App\Models\CategoryFilterValues;
 	use App\Models\Item;
 	use App\Models\ItemFilters;
 	use App\Models\Order;
+	use App\Models\Transaction;
+	use App\Models\TransactionsContainer;
 	use Carbon\Carbon;
 	use Illuminate\Console\Command;
 	use Illuminate\Support\Facades\DB;
@@ -47,224 +52,61 @@
 		 */
 		public function handle()
 		{
+			
+			$accounts = Account::withTrashed()->get();
+			
+			foreach($accounts as $account) {
+				$account->updateHashMap();
+			}
+			
 
-//        $accounts = Category::all();
+//			$startDate = Carbon::parse('11/5/2020');
+//			$transactions = Transaction::whereDate('created_at', '>=',$startDate)->get();
+//			AccountSnapshot::whereDate('created_at', '>=',$startDate)->update(
+//				[
+//					'debit_amount' => 0,
+//					'credit_amount' => 0,
+//				]
+//			);
 //
-//        foreach ($accounts as $account) {
-//            if ($account->parent) {
-//                $account->parent->updateHashMap();
-//            }
-//            $account->updateHashMap();
-//		}
-
+//			foreach($transactions as $transaction) {
+//				$account = Account::withTrashed()->where('id', $transaction->account_id)->first();
 //
-//			CategoryFilterValues::truncate();
-//
-//			$itemsFilters = ItemFilters::all();
-//
-//			foreach($itemsFilters as $itemFilter) {
-//
-//				$item = $itemFilter->item()->withoutGlobalScope('online')->first();
-//				if($item) {
-//					$exists = $item->category->filtersValues()->where(
+//				if($transaction->type == 'credit') {
+//					$transaction->account()->update(
 //						[
-//							['filter_id', $itemFilter->filter_id],
-//							['value_id', $itemFilter->filter_value],
+//							'total_credit_amount' => (float)$account->total_credit_amount - (float)$transaction->amount,
 //						]
-//					)->first();
-//
-//					if(!$exists) {
-//						$item->category->filtersValues()->create(
-//							[
-//								'filter_id' => $itemFilter->filter_id,
-//								'value_id' => $itemFilter->filter_value
-//							]
-//						);
-//					}
+//					);
+//				} else {
+//					$transaction->account()->update(
+//						[
+//							'total_debit_amount' => (float)$account->total_debit_amount - (float)$transaction->amount,
+//						]
+//					);
 //				}
 //
-//			}
-			
-			// dd($accounts );
-//        $account = Account::find(3);
-			//        $snapshot = $account->snapshots()->whereDate('created_at', '2020-10-13')->first();
-			//
-			//
-			//        dd($snapshot);
-
-//            $invoice = Invoice::find(11092);
-
-//            $transactions = Transaction::where('invoice_id',11092)->get()->toArray();
-
-//            dd($transactions);
-			//            DB::beginTransaction();
-			//
-			//                dd(1);
-			//            $invoiceItem = InvoiceItems::find(16201);
-			//            $newDiscount = 0;
-			//            $currentDiscount = $invoiceItem->discount;
-			//            $oldTotal = $invoiceItem->total;
-			//            $price = $invoiceItem->price - $currentDiscount;
-			//            $total = $price;
-			//            $invoiceItem->update(
-			//                [
-			//                    'discount' => $newDiscount,
-			//                    'price' => $price,
-			//                    'total' => $price
-			//                ]
-			//            );
-			//            dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoiceItem->invoice));
-			//            $costTransaction = Transaction::find(59728);//total_credit_amount
-			//            $costTransaction->update(
-			//                [
-			//                    'amount' => $costTransaction->amount - $oldTotal + $total,
-			//                    'total_credit_amount' => $costTransaction->account->total_credit_amount - $oldTotal + $total
-			//                ]
-			//            );
-			//
-			//            $costTransaction->account->update(
-			//                [
-			//                    'total_credit_amount' => $costTransaction->account->total_credit_amount - $oldTotal + $total
-			//                ]
-			//            );
-			//
-			//
-			//            $costDiscountTransaction = Transaction::find(59729);//total_debit_amount
-			//
-			//            $costDiscountTransaction->update(
-			//                [
-			//                    'amount' => $costDiscountTransaction->amount - $currentDiscount,
-			//                    'total_debit_amount' => $costDiscountTransaction->account->total_debit_amount - $currentDiscount
-			//                ]
-			//            );
-			//
-			//            $costDiscountTransaction->account->update(
-			//                [
-			//                    'total_debit_amount' => $costDiscountTransaction->account->total_debit_amount - $currentDiscount
-			//                ]
-			//            );
-			//
-
-//            $account=  Account::find(21);
-			//            $startDate = Carbon::parse('01-01-2020');
-			//            $endDate = Carbon::parse('30-09-2020');
-			//            $totalCredit = $account->transactions()->where('type', 'credit')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
-			////            $totalDebit = $account->transactions()->where('type', 'debit')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
-			//
-			//            dd($totalCredit);
-
-//            $transactions = Transaction::orderBy('created_at', 'asc')->get();
-			//
-			//            Account::where('id', '!=', 0)->update(
-			//                [
-			//                    'total_credit_amount' => 0,
-			//                    'total_debit_amount' => 0,
-			//                ]
-			//            );
-			//            AccountSnapshot::where('id', '!=', 0)->update([
-			//                'debit_amount' => 0,
-			//                'credit_amount' => 0,
-			//            ]);
-			//            foreach($transactions as $transaction) {
-			//                echo "{$transaction->id}\n";
-			//                dispatch(new UpdateAccountBalanceJob($transaction));
-			//            }
-
-//            User::where('id', '!=', 0)->update(
-			//                [
-			//
-			//                    'balance' => 0,
-			//                    'vendor_balance' => 0,
-			//
-			//                ]
-			//            );
-			//
-			//            $clients = Account::find(12);
-			//            $vendors = Account::find(20);
-			//
-			//            $users = User::all();
-			//
-			//            foreach($users as $user) {
-			//                $vendorTransactions = $vendors->transactions()->where('user_id', $user->id)->get();
-			//                $clientTransactions = $clients->transactions()->where('user_id', $user->id)->get();
-			//                $vendorBalance = 0;
-			//                $clientBalance = 0;
-			//
-			//                foreach($vendorTransactions as $transaction) {
-			//                    if($transaction->type == 'credit') {
-			//                        $vendorBalance += $transaction->amount;
-			//                    } else {
-			//                        $vendorBalance -= $transaction->amount;
-			//
-			//                    }
-			//                }
-			//
-			//
-			//                foreach($clientTransactions as $transaction) {
-			//                    if($transaction->type == 'debit') {
-			//                        $clientBalance += $transaction->amount;
-			//                    } else {
-			//                        $clientBalance -= $transaction->amount;
-			//
-			//                    }
-			//                }
-			//
-			//
-			//                $user->update(
-			//                    [
-			//                        'balance' => $clientBalance,
-			//                        'vendor_balance' => $vendorBalance,
-			//                    ]
-			//                );
-			//
-			//            }
-
-//            $debitAmount = Transaction::where('type', 'debit')->sum('amount');
-			//            $accountsDebitAmount = Account::sum('total_debit_amount');
-			//            $creditAmount = Transaction::where('type', 'credit')->sum('amount');
-			//            $accountCreditAmount = Account::sum('total_credit_amount');
-			//            dd($debitAmount,$accountsDebitAmount,$creditAmount,$accountCreditAmount);
-
-//            $createdAt = Carbon::parse('30-9-2020');
-			//
-			//
-			//            $containers = TransactionsContainer::where('created_at', '>', $createdAt)->get();
-			//
-			//            foreach($containers as $container) {
-			//                $debitAmount = $container->transactions()->where('type', 'debit')->sum('amount');
-			//                $creditAmount = $container->transactions()->where('type', 'credit')->sum('amount');
-			//
-			//
-			//                $variation = abs($debitAmount - $creditAmount);
-			//                echo $container->id . "\t invoice_id {$container->invoice_id} \t  variation: {$variation}\n";
-			//
-			//
-			//////                $def = (float)($debitAmount - $creditAmount);
-			////                if(roundMoney($debitAmount) != roundMoney($creditAmount)) {
-			////                    dd($container->id, $debitAmount - $creditAmount);
-			////                }
-			//            }
-
-
-//			$newItems = DB::table('items')->whereDate('created_at','<',Carbon::parse('30-09-2020'))->where('organization_id',1)->pluck('barcode')->toArray();
-//			$oldItems = DB::connection('data_source')->table('items')->pluck('barcode')->toArray();
 //
-//			$varation  = [];
-//			foreach($oldItems as $item)
-//			{
-//				if(!in_array($item,$newItems))
-//				{
-//					$varation[] = $item;
-//				}
+//				dispatch(new UpdateAccountBalanceJob($transaction, true));
+//
 //			}
 //
 //
-//			dd($varation);
-			
-			$order = Order::first();
-			
-//			OrderIssuedEvent::dispatch($order);
-			event(new OrderIssuedEvent($order));
+//			$accounts = Account::withTrashed()->get();
+//
+//			foreach($accounts as $account) {
+//				$debit = $account->snapshots()->sum('debit_amount');
+//				$credit = $account->snapshots()->sum('credit_amount');
+//
+//				$account->update(
+//					[
+//						'total_debit_amount' => $debit,
+//						'total_credit_amount' => $credit,
+//					]
+//				);
+//			}
 			
 		}
+		
+		
 	}
