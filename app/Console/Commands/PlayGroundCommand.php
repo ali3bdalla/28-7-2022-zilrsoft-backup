@@ -53,12 +53,22 @@
 		public function handle()
 		{
 			
-			$accounts = Account::withTrashed()->get();
+//			$accounts = Account::withTrashed()->get();
+//
+//			foreach($accounts as $account) {
+//				$account->updateHashMap();
+//			}
+			$tables = DB::select("SELECT table_schema,table_name, table_catalog FROM information_schema.tables WHERE  table_schema = 'zilrsoft_production' ORDER BY table_name;");
 			
-			foreach($accounts as $account) {
-				$account->updateHashMap();
+			foreach($tables as $table) {
+				if(!in_array($table->table_name,['migrations',"model_has_permissions","model_has_roles","password_resets","role_has_permissions"]))
+				{
+					DB::statement("ALTER TABLE {$table->table_name} ALTER updated_at SET DATA TYPE timestamp(0) without time zone;");
+					DB::statement("ALTER TABLE {$table->table_name} ALTER created_at SET DATA TYPE timestamp(0) without time zone;");
+				}
+//				echo $table->table_name;
 			}
-			
+//			dd($tables);
 
 //			$startDate = Carbon::parse('11/5/2020');
 //			$transactions = Transaction::whereDate('created_at', '>=',$startDate)->get();

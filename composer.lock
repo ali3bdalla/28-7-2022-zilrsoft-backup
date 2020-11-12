@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4674ddc55ededbd2656ab2484edca778",
+    "content-hash": "871d853483f48eb7827930c66d400637",
     "packages": [
         {
             "name": "3li3bdalla/tafqeet",
@@ -46,16 +46,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.158.21",
+            "version": "3.161.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a2aba95a428f9e478d08b3f8dc1a70837b46785a"
+                "reference": "93f237f55463035896dbe298c9100b2438a87193"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a2aba95a428f9e478d08b3f8dc1a70837b46785a",
-                "reference": "a2aba95a428f9e478d08b3f8dc1a70837b46785a",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/93f237f55463035896dbe298c9100b2438a87193",
+                "reference": "93f237f55463035896dbe298c9100b2438a87193",
                 "shasum": ""
             },
             "require": {
@@ -130,9 +130,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.158.21"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.161.0"
             },
-            "time": "2020-11-05T19:24:22+00:00"
+            "time": "2020-11-12T19:25:24+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1029,16 +1029,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.20.2",
+            "version": "v6.20.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "41915424bbd0939048e9b2d3701568dc2bc98790"
+                "reference": "cd09d4654ff5b9fcae4429254d3572c3b7495bfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/41915424bbd0939048e9b2d3701568dc2bc98790",
-                "reference": "41915424bbd0939048e9b2d3701568dc2bc98790",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/cd09d4654ff5b9fcae4429254d3572c3b7495bfe",
+                "reference": "cd09d4654ff5b9fcae4429254d3572c3b7495bfe",
                 "shasum": ""
             },
             "require": {
@@ -1178,7 +1178,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2020-10-29T18:56:44+00:00"
+            "time": "2020-11-10T14:46:46+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1922,16 +1922,16 @@
         },
         {
             "name": "nwidart/laravel-modules",
-            "version": "7.2.0",
+            "version": "7.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nWidart/laravel-modules.git",
-                "reference": "8980876d63096951e067bcaf8649d591d4c7f0da"
+                "reference": "5194d3c1941518f6131238745aff916453afc727"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/8980876d63096951e067bcaf8649d591d4c7f0da",
-                "reference": "8980876d63096951e067bcaf8649d591d4c7f0da",
+                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/5194d3c1941518f6131238745aff916453afc727",
+                "reference": "5194d3c1941518f6131238745aff916453afc727",
                 "shasum": ""
             },
             "require": {
@@ -1991,7 +1991,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nWidart/laravel-modules/issues",
-                "source": "https://github.com/nWidart/laravel-modules/tree/master"
+                "source": "https://github.com/nWidart/laravel-modules/tree/7.3.0"
             },
             "funding": [
                 {
@@ -1999,20 +1999,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-07-30T17:10:13+00:00"
+            "time": "2020-09-10T08:40:16+00:00"
         },
         {
             "name": "opis/closure",
-            "version": "3.6.0",
+            "version": "3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/closure.git",
-                "reference": "c547f8262a5fa9ff507bd06cc394067b83a75085"
+                "reference": "943b5d70cc5ae7483f6aff6ff43d7e34592ca0f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/closure/zipball/c547f8262a5fa9ff507bd06cc394067b83a75085",
-                "reference": "c547f8262a5fa9ff507bd06cc394067b83a75085",
+                "url": "https://api.github.com/repos/opis/closure/zipball/943b5d70cc5ae7483f6aff6ff43d7e34592ca0f5",
+                "reference": "943b5d70cc5ae7483f6aff6ff43d7e34592ca0f5",
                 "shasum": ""
             },
             "require": {
@@ -2062,9 +2062,9 @@
             ],
             "support": {
                 "issues": "https://github.com/opis/closure/issues",
-                "source": "https://github.com/opis/closure/tree/3.6.0"
+                "source": "https://github.com/opis/closure/tree/3.6.1"
             },
-            "time": "2020-10-11T21:42:15+00:00"
+            "time": "2020-11-07T02:01:34+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -5391,36 +5391,31 @@
         },
         {
             "name": "doctrine/instantiator",
-            "version": "1.3.1",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "f350df0268e904597e3bd9c4685c53e0e333feea"
+                "reference": "d56bf6102915de5702778fe20f2de3b2fe570b5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/f350df0268e904597e3bd9c4685c53e0e333feea",
-                "reference": "f350df0268e904597e3bd9c4685c53e0e333feea",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/d56bf6102915de5702778fe20f2de3b2fe570b5b",
+                "reference": "d56bf6102915de5702778fe20f2de3b2fe570b5b",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1 || ^8.0"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^6.0",
+                "doctrine/coding-standard": "^8.0",
                 "ext-pdo": "*",
                 "ext-phar": "*",
-                "phpbench/phpbench": "^0.13",
-                "phpstan/phpstan-phpunit": "^0.11",
-                "phpstan/phpstan-shim": "^0.11",
-                "phpunit/phpunit": "^7.0"
+                "phpbench/phpbench": "^0.13 || 1.0.0-alpha2",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.2.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
@@ -5434,7 +5429,7 @@
                 {
                     "name": "Marco Pivetta",
                     "email": "ocramius@gmail.com",
-                    "homepage": "http://ocramius.github.com/"
+                    "homepage": "https://ocramius.github.io/"
                 }
             ],
             "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
@@ -5445,7 +5440,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/instantiator/issues",
-                "source": "https://github.com/doctrine/instantiator/tree/1.3.x"
+                "source": "https://github.com/doctrine/instantiator/tree/1.4.0"
             },
             "funding": [
                 {
@@ -5461,7 +5456,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-05-29T17:27:14+00:00"
+            "time": "2020-11-10T18:47:58+00:00"
         },
         {
             "name": "filp/whoops",

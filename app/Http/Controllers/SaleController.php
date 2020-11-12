@@ -19,10 +19,10 @@
 		public function index()
 		{
 			// auth()->loginUsingId(1);
-			$clients = User::where('is_client', true)->get()->toArray();
+			$clients = User::where('is_client', true)->get();
 			
-			$creators = Manager::get()->toArray();
-			$departments = Department::get()->toArray();
+			$creators = Manager::get();
+			$departments = Department::get();
 
 //			return  $departments;
 			

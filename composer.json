@@ -8,6 +8,8 @@
   ],
   "license": "MIT",
   "require": {
+    "nesbot/carbon": "2.41.5 as 1.39.0",
+
     "php": "^7.3",
     "ext-json": "*",
     "ext-openssl": "*",

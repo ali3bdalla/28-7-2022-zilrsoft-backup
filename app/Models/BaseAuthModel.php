@@ -2,6 +2,7 @@
 	
 	namespace App\Models;
 	
+	use Carbon\Carbon;
 	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Foundation\Auth\User as Authenticatable;
 	use Illuminate\Notifications\Notifiable;
@@ -12,9 +13,17 @@
 	{
 		use Notifiable, HasRoles;
 		
-//		protected $dateFormat = 'Y-m-d H:i:sO';
+		protected $dateFormat = 'Y-m-d H:i:sO';
 		
-		
+		public function getUpdatedAtAttribute($value)
+		{
+			
+			return Carbon::parse($value)->toDateTimeString();
+		}
+		public function getCreatedAtAttribute($value)
+		{
+			return Carbon::parse($value)->toDateTimeString();
+		}
 		protected static function boot()
 		{
 			parent::boot();

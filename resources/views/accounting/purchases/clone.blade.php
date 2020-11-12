@@ -22,6 +22,6 @@
             :init-purchase='@json($purchase->purchase)'
             :init-items='@json($cloned_items)'
             :init-creator='@json($purchase->creator)'
-            :creator='@json(auth()->user()->load('department','branch','user'))'
+            :creator='@json($loggedManager)'
     ></accounting-purchases-create-component>
 @endsection

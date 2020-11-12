@@ -89,12 +89,12 @@
 			return $this->is_manager == true;
 		}
 		
-		
-		public function getCreatedAtAttribute($value)
-		{
-			return Carbon::parse($value)->toDateString();
-		}
-		
+//
+//		public function getCreatedAtAttribute($value)
+//		{
+//			return Carbon::parse($value)->toDateString();
+//		}
+//
 		
 		public function details()
 		{

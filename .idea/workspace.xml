@@ -7,17 +7,43 @@
     <list default="true" id="c1847dce-9989-45ff-80d9-69eb3638cb7b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Console/Commands/PlayGroundCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/PlayGroundCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/FinancialStatementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/FinancialStatementController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FinancialStatementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FinancialStatementController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Accounting/Entity/UpdateAccountBalanceJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Accounting/Entity/UpdateAccountBalanceJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Account.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Account.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Views/Composers/ShareLoggedUserComposer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Views/Composers/ShareLoggedUserComposer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/BaseAuthModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/BaseAuthModel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/BaseModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/BaseModel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Manager.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Manager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Traits/NestingTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Traits/NestingTrait.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/purchases/clone.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/purchases/clone.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/purchases/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/purchases/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/quotations/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/quotations/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/quotations/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/quotations/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/quotations/services.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/quotations/services.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/quotations/to_sale.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/quotations/to_sale.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/sales/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/sales/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/sales/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/sales/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/sales/clone.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/clone.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/sales/clone_draft.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/clone_draft.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/sales/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/sales/create_draft.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/create_draft.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/sales/create_draft_service.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/create_draft_service.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/sales/drafts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/drafts.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/sales/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/installed.json" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/installed.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/doctrine/instantiator/.doctrine-project.json" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/doctrine/instantiator/.doctrine-project.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/doctrine/instantiator/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/doctrine/instantiator/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/doctrine/instantiator/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/doctrine/instantiator/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/doctrine/instantiator/phpcs.xml.dist" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/doctrine/instantiator/phpcs.xml.dist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/doctrine/instantiator/phpstan.neon.dist" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/doctrine/instantiator/phpstan.neon.dist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Foundation/Application.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Foundation/Application.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/opis/closure/.github/workflows/tests.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/opis/closure/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/opis/closure/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/opis/closure/src/ReflectionClosure.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/opis/closure/src/ReflectionClosure.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/opis/closure/src/SerializableClosure.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/opis/closure/src/SerializableClosure.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,7 +317,8 @@
       <workItem from="1605104349367" duration="714000" />
       <workItem from="1605110830307" duration="9691000" />
       <workItem from="1605126350657" duration="1711000" />
-      <workItem from="1605176309203" duration="2340000" />
+      <workItem from="1605176309203" duration="2666000" />
+      <workItem from="1605219112237" duration="3157000" />
     </task>
     <servers />
   </component>

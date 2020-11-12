@@ -16,8 +16,11 @@
 		private static $customTablesOrder = ['accounts' => 'serial'];
 		
 		
-//		protected $dateFormat = 'Y-m-d H:i:sO';
-		
+		protected $dateFormat = 'Y-m-d H:i:sO';
+		public function getDateFormat()
+		{
+			return 'Y-m-d H:i:sO';
+		}
 		
 		protected static function boot()
 		{
