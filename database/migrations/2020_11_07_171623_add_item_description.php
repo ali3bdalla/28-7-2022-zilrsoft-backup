@@ -15,8 +15,8 @@ class AddItemDescription extends Migration
     {
 	
 	    Schema::table('items',function (Blueprint $table) {
-		    $table->string('description')->nullable();
-		    $table->string('ar_description')->nullable();
+		    $table->longText('description')->nullable();
+		    $table->longText('ar_description')->nullable();
 	    });
         //
     }

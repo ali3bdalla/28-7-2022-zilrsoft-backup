@@ -2,6 +2,7 @@
 	
 	namespace App\Jobs\Sales\Draft;
 	
+	use App\Models\DraftActivity;
 	use App\Models\Invoice;
 	use Illuminate\Bus\Queueable;
 	use Illuminate\Contracts\Queue\ShouldQueue;
@@ -44,7 +45,7 @@
 		 */
 		public function handle()
 		{
-			$draft = Invoice::withoutGlobalScopes(['draft','manager'])->where('id', $this->draftId)->first();
+			$draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->draftId)->first();
 			if($draft) {
 				if($draft->is_draft) {
 					$draft->update(
@@ -53,14 +54,16 @@
 						]
 					);
 					
-					DB::table('draft_invoices_activities')->insert(
-						[
-							'draft_id' => $draft->id,
-							'invoice_id' => $this->invoiceId,
-							'created_at' => now(),
-							'updated_at' => now(),
-						]
-					);
+					// to Do
+					
+//					DraftActivity::create(
+//						[
+//							'draft_id' => $draft->id,
+//							'invoice_id' => $this->invoiceId,
+//							'created_at' => now(),
+//							'updated_at' => now(),
+//						]
+//					);
 				}
 				
 			}
