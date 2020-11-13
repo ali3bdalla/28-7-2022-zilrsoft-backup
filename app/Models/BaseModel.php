@@ -17,11 +17,17 @@
 		
 		
 		protected $dateFormat = 'Y-m-d H:i:sO';
-//		public function getDateFormat()
-//		{
-//			return 'Y-m-d H:i:sO';
-//		}
-//
+		
+		
+		public function getUpdatedAtAttribute($value)
+		{
+			return Carbon::parse($value)->toDateTimeString();
+		}
+		
+		public function getCreatedAtAttribute($value)
+		{
+			return Carbon::parse($value)->toDateTimeString();
+		}
 		protected static function boot()
 		{
 			parent::boot();

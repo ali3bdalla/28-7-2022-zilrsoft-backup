@@ -16,7 +16,7 @@
 		use SoftDeletes;
 		
 		protected $guarded = [];
-		
+
 	
 		protected $appends = [
 			'locale_name'

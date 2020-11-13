@@ -50,6 +50,13 @@
 		
 		public function index(Request $request)
 		{
+			
+		
+//			having('attachments_count', 4)->get()->count()
+		
+			
+			
+			
 			$items = Item::query();
 			
 			
@@ -73,9 +80,9 @@
 			$itemsCount = $items->count();
 			$queryItems = $items->withCount('attachments')->paginate(40);
 			$links = $queryItems->appends(['category_id' => $categoryId,'active_model' => $activeModel])->links();
-			$completedProducts = Item::withCount('attachments')->having('attachments_count', 4)->get()->count();
+			$completedProducts = collect();
 			
-			
+//			Item::withCount('attachments')->having('attachments_count', 4)->get()->count()
 			$items = [];
 			foreach($queryItems as $item) {
 				$filter = $item->filters()->where('filter_id', 38)->first();
