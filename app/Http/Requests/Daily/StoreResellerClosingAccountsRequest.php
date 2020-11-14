@@ -55,7 +55,8 @@ class StoreResellerClosingAccountsRequest extends FormRequest
                     ['slug', 'temp_reseller_account'],
                 ])->first();
 
-                $shouldBeAvailableAmount = $this->getShouldBeAvailableAmount($loggedUser);
+                $shouldBeAvailableAmount = $this->getActualAmountFromInvoices($loggedUser);
+                
                 $container = TransactionsContainer::create([
                     'creator_id' => $loggedUser->id,
                     'description' => 'close_account',
@@ -73,7 +74,7 @@ class StoreResellerClosingAccountsRequest extends FormRequest
                     if ($gateway['amount'] > 0) {
                         $gatewayData = $baseTransactionData;
                         $gatewayData['account_id'] = $gateway['id'];
-                        $gatewayData['amount'] = (float) $gateway['amount'];
+                        $gatewayData['amount'] = $this->getGatewayAmountWithoutAfterCuttingTheVouchersAmount($gateway['amount'],$gateway['id'],$loggedUser);
                         $gatewayData['type'] = 'debit';
                         Transaction::create($gatewayData);
                         $totalDebitAmount += (float) $gateway['amount'];
@@ -144,7 +145,7 @@ class StoreResellerClosingAccountsRequest extends FormRequest
     }
 
     
-    public function getShouldBeAvailableAmount($loggedUser)
+    public function getActualAmountFromInvoices($loggedUser)
     {
         $remainingAccountsBalanceAmount = $loggedUser->remaining_accounts_balance;
         $accountsClosedAt = $loggedUser->accounts_closed_at;
@@ -174,5 +175,52 @@ class StoreResellerClosingAccountsRequest extends FormRequest
         }
 
         return $inAmount + $remainingAccountsBalanceAmount - $outAmount;
+    }
+	
+	public function getGatewayAmountWithoutAfterCuttingTheVouchersAmount($amount,$id,$loggedUser)
+	{
+		$gateway = Account::find($id);
+		
+		$accountsClosedAt = $loggedUser->accounts_closed_at;
+		
+		
+		
+		if ($accountsClosedAt != null) {
+			$accountsClosedAt = Carbon::parse($accountsClosedAt);
+			$inAmount = Payment::where([
+				['creator_id', $loggedUser->id],
+				['account_id', $gateway->id],
+			])->where('created_at', '>=', $accountsClosedAt)->where([
+				['payment_type', 'receipt'],
+				['invoice_id','==',null],
+				['account_id', $gateway->id],
+
+			])->sum('amount');
+//			$outAmount = Payment::where([
+//				['creator_id', $loggedUser->id],
+//				['account_id', $gateway->id],
+//
+//			])->where('created_at', '>=', $accountsClosedAt)->where([
+//				['payment_type', 'payment'],
+//				['invoice_id','=',null],
+//				['account_id', $gateway->id],
+//
+//			])->sum('amount');
+		} else {
+			$inAmount = Payment::where([
+				['creator_id', $loggedUser->id],
+				['account_id', $gateway->id],
+			
+			])->where('payment_type', 'receipt')->sum('amount');
+			
+//			$outAmount = Payment::where([
+//				['creator_id', $loggedUser->id],
+//				['account_id', $gateway->id],
+//
+//			])->where('payment_type', 'payment')->sum('amount');
+		}
+		
+		
+		return (float)$amount - $inAmount;
     }
 }

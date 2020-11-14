@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c1847dce-9989-45ff-80d9-69eb3638cb7b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ProviderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ProviderController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DailyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DailyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/layout/headerLayoutComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/layout/headerLayoutComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Daily/StoreResellerClosingAccountsRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Daily/StoreResellerClosingAccountsRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/permission.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -285,7 +286,7 @@
       <workItem from="1605176309203" duration="2666000" />
       <workItem from="1605219112237" duration="8666000" />
       <workItem from="1605338976901" duration="164000" />
-      <workItem from="1605367932658" duration="2783000" />
+      <workItem from="1605367932658" duration="5007000" />
     </task>
     <servers />
   </component>
@@ -298,11 +299,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Requests/Daily/StoreResellerClosingAccountsRequest.php</url>
-          <line>143</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" log-message="true" suspend="NONE" type="php">
           <url>file://$PROJECT_DIR$/resources/views/images_uploads/layout.blade.php</url>
           <line>12</line>

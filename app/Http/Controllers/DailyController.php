@@ -52,7 +52,7 @@
 				)->where('created_at', '>=', $accountsClosedAt)->where(
 					[
 						['payment_type', 'receipt'],
-						['invoice_id', '!=', null]
+//						['invoice_id', '!=', null]
 					]
 				)->sum('amount');
 				$outAmount = Payment::where(
@@ -62,7 +62,7 @@
 				)->where('created_at', '>=', $accountsClosedAt)->where(
 					[
 						['payment_type', 'payment'],
-						['invoice_id', '!=', null]
+//						['invoice_id', '!=', null]
 					]
 				)->sum('amount');
 			} else {
@@ -73,7 +73,7 @@
 				)->where(
 					[
 						['payment_type', 'receipt'],
-						['invoice_id', '!=', null]
+//						['invoice_id', '!=', null]
 					]
 				)->sum('amount');
 				
@@ -84,7 +84,7 @@
 				)->where(
 					[
 						['payment_type', 'payment'],
-						['invoice_id', '!=', null]
+//						['invoice_id', '!=', null]
 					]
 				)->sum('amount');
 			}
