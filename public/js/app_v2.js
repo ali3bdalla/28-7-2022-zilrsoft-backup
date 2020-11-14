@@ -9107,6 +9107,9 @@ __webpack_require__.r(__webpack_exports__);
 
       this.isLoading = true;
       this.$inertia.post("/api/upload_images/".concat(this.$page.item.id, "/update_description"), this.description, {
+        onSuccess: function onSuccess(page) {
+          if (Object.keys(page.props.errors).length == 0) _this.$alert("تم الحفظ بنجاح");
+        },
         onFinish: function onFinish() {
           _this.isLoading = false;
         }
@@ -9145,9 +9148,11 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.$inertia.post("/api/upload_images/".concat(this.$page.item.id), serverData, {
+        onSuccess: function onSuccess(page) {
+          if (Object.keys(page.props.errors).length == 0) _this2.$alert("تم الحفظ بنجاح");
+        },
         onFinish: function onFinish() {
           _this2.isLoading = false;
-          console.log('finish');
         }
       });
     }
@@ -54972,12 +54977,18 @@ module.exports = {
 /*!***************************************!*\
   !*** ./resources/js/upload_images.js ***!
   \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_simple_alert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-simple-alert */ "./node_modules/vue-simple-alert/lib/index.js");
 var Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
+
 Vue.component('products-list-for-uploading-images-component', __webpack_require__(/*! ./components/UploadImages/ProductsListComponent */ "./resources/js/components/UploadImages/ProductsListComponent.vue")["default"]);
+Vue.use(vue_simple_alert__WEBPACK_IMPORTED_MODULE_0__["default"]); // alert('hello')
+
 var app = new Vue({
   el: '#app'
 });

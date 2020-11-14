@@ -22,7 +22,7 @@
                         :kit='@json($kit)'
                         :init-items='@json($items)'
                         :data='@json($data)'
-                        :creator='@json(auth()->user()->load('department','branch'))
+                        :creator='@json($loggedManager)
                                 '></accounting-kits-create-component>
             </div>
         </div>

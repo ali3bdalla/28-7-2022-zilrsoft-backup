@@ -126,8 +126,15 @@ export default {
     saveDescription() {
       this.isLoading = true;
       this.$inertia.post(`/api/upload_images/${this.$page.item.id}/update_description`, this.description, {
+        onSuccess: page => {
+          if (Object.keys(page.props.errors).length == 0)
+            this.$alert("تم الحفظ بنجاح");
+
+        },
         onFinish: () => {
           this.isLoading = false;
+
+
         },
       });
     },
@@ -162,10 +169,17 @@ export default {
         let imageFile = selectedFiles[i];
         serverData.append("images[]", imageFile);
       }
+
       this.$inertia.post(`/api/upload_images/${this.$page.item.id}`, serverData, {
+        onSuccess: page => {
+          if (Object.keys(page.props.errors).length == 0)
+            this.$alert("تم الحفظ بنجاح");
+
+        },
         onFinish: () => {
           this.isLoading = false;
-          console.log('finish');
+
+
         },
       });
     },
