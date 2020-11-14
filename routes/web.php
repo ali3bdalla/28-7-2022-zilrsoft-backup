@@ -4,7 +4,6 @@
 	use Illuminate\Support\Facades\Route;
 	use Inertia\Inertia;
 
-//	auth('client')->logout();
 	
 	
 	Route::get('/', 'Web\HomeController@toWeb')->name('to.web');
@@ -187,6 +186,7 @@
 									Route::get('/', 'DailyController@resellerAccountsTransactionsIndex')->name('index');
 									Route::get('/create', 'DailyController@createResellerAccountTransaction')->name('create');
 									Route::get('/{transaction}/confirm', 'DailyController@confirmResellerAccountTransaction')->name('confirm');
+									Route::get('/{transaction}/delete_transaction', 'DailyController@deleteResellerAccountTransaction')->name('confirm');
 								}
 							);
 						}

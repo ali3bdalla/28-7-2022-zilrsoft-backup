@@ -49,8 +49,7 @@ margin-bottom: -10px;"></i>
                         <a
                             :href="'/daily/reseller/accounts_transactions/'+transaction.id+'/confirm'"
                             class="btn btn-custom-primary pull-left">موافق</a>
-                        <a :href="'/accounting/reseller_daily/'+transaction.id+
-                                                   '/delete_transaction'"
+                        <a :href="'/daily/reseller/accounts_transactions/'+transaction.id+ '/delete_transaction'"
                            class="btn btn-custom-default">الغاء </a>
                       </div>
                     </div>
@@ -120,9 +119,10 @@ margin-bottom: -10px;"></i>
 </template>
 <script>
 import NotificationBell from "../../../components/BackEnd/Header/NotificationBell";
+
 export default {
   components: {NotificationBell},
-  props: ['manager',"csrf", "username", 'pendingTransactions', 'pendingPurchases', 'canConfirmPendingPurchases', 'disableCreate'],
+  props: ['manager', "csrf", "username", 'pendingTransactions', 'pendingPurchases', 'canConfirmPendingPurchases', 'disableCreate'],
   data: function () {
     return {
       appName: metaHelper.getContent('app-name'),

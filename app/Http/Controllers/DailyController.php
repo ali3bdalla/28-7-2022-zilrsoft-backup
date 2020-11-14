@@ -155,4 +155,12 @@
 			
 			return back();
 		}
+		
+		
+		public function deleteResellerAccountTransaction(ResellerClosingAccount  $transaction)
+		{
+			$transaction->delete();
+			
+			return back();
+		}
 	}
