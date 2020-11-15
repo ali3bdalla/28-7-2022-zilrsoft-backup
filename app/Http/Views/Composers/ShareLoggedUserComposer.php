@@ -24,6 +24,5 @@
 //				dd(auth('manager')->user());
 			}
 
-//			$view->with('count', $this->users->count());
 		}
 	}

@@ -101,10 +101,12 @@
 				[
 					['creator_id', auth()->user()->id],
 					['transaction_type', "transfer"],
+//					['id', '!=',138],
 				]
 			)->orWhere(
 				[
 					['receiver_id', auth()->user()->id],
+//					['id', '!=',138],
 				]
 			)->orderBy('id', 'desc')->paginate(15);
 			

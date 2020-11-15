@@ -135,6 +135,11 @@
 				}
 			);
 			Route::resource('vouchers', 'VoucherController');
+			Route::prefix('vouchers/manual')->name('vouchers.')->group(
+				function() {
+					Route::get('/create-supplier', "VoucherController@createSupplierVoucher")->name('create.supplier');
+				}
+			);
 			Route::resource('entities', 'EntityController');
 			Route::prefix('entities')->name('entities.')->group(
 				function() {

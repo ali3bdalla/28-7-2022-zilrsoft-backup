@@ -210,6 +210,14 @@
                             fa-sun"></i>
                                 {{ __('pages/vouchers.create_receipt') }}
                             </a></li>
+
+                        @if($loggedManager['organization_id'] == 1)
+                            <li>
+                                <a href="{{route('vouchers.create.supplier')}}"><i class="fa
+                            fa-sun"></i>
+                                    اضافة سند مصاريف
+                                </a></li>
+                        @endif
                     @endcan
 
 

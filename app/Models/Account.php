@@ -136,9 +136,9 @@
 		public function getSingleAccountBalance()
 		{
 			if($this->_isCredit()) {
-				return (float)($this->total_credit_amount - $this->total_debit_amount);
+				return (float)((float)$this->total_credit_amount - (float)$this->total_debit_amount);
 			}
-			return (float)($this->total_debit_amount - $this->total_credit_amount);
+			return (float)((float)$this->total_debit_amount - (float)$this->total_credit_amount);
 		}
 
 //    public function updateAccountBalanceUsingPipeline()
