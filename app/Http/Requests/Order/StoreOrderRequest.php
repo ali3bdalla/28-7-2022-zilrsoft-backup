@@ -2,9 +2,11 @@
 	
 	namespace App\Http\Requests\Order;
 	
+	use App\Events\Order\OrderCreatedEvent;
 	use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 	use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
 	use App\Jobs\Items\Serial\ValidateItemSerialJob;
+	use App\Jobs\Order\CreateOrderPdfSnapshotJob;
 	use App\Jobs\Sales\Items\StoreSaleItemsJob;
 	use App\Jobs\Sales\Order\CreateSalesOrderJob;
 	use App\Models\Invoice;
@@ -76,23 +78,29 @@
 						'organization_id' => $authUser->organization_id,
 						'invoice_type' => 'sale',
 						'alice_name' => '',
-						"prefix" => "Online-",
+						"prefix" => "ONL-",
 						'is_draft' => true
 					]
 				);
-				dispatch(new UpdateInvoiceNumberJob($invoice, 'Online-'));
+				dispatch(new UpdateInvoiceNumberJob($invoice, 'ONL-'));
 				dispatch(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true, $authUser, true));
 				dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
 				dispatch(new CreateSalesOrderJob($invoice, $this->input('shipping_method_id'), $this->input('shipping_address_id')));
 				DB::commit();
+				$path = CreateOrderPdfSnapshotJob::dispatchNow($invoice);
+				
+				event(new OrderCreatedEvent($invoice,$path));
 				return redirect('/web/orders');
 			} catch(QueryException $queryException) {
 				DB::rollBack();
 				throw $queryException;
-			} catch(Exception $exception) {
+			} catch(\Exception $exception) {
 				DB::rollBack();
 				throw $exception;
 				
+			} catch(ValidationException $e) {
+				DB::rollBack();
+				throw $e;
 			}
 		}
 		

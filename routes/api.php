@@ -3,6 +3,7 @@
 	use App\Http\Middleware\ImagesUploadMiddleware;
 	use Illuminate\Support\Facades\Route;
 	
+	auth()->loginUsingId(1);
 	Route::namespace('Web')->name('web.')->prefix('web')->group(
 		function() {
 			Route::prefix('items')->name('items.')->group(
@@ -48,9 +49,18 @@
 		function() {
 			
 			Route::resource('orders', 'OrderController');
+			
+			Route::prefix('notifications')->name('notifications.')->group(function(){
+				Route::prefix('orders')->name('orders.')->group(function(){
+					Route::get('/orders/', 'OrderController@notificationList')->name('order.list');
+				});
+				Route::prefix('transactions')->name('transactions.')->group(function(){
+					Route::get('/issued', 'DailyController@issuedTransactions')->name('issued');
+				});
+				
+			});
 			Route::prefix('orders')->name('orders.')->group(
 				function() {
-					Route::get('/notification/list', 'OrderController@notificationList')->name('notification.list');
 				}
 			);
 			
@@ -141,10 +151,10 @@
 						function() {
 							Route::prefix('closing_accounts')->name('closing_account.')->group(
 								function() {
-									Route::post('/', 'DailyController@storeResellerClosingAccount')->name('store');
+									Route::post('/', 'DailyControllerDailyController@storeResellerClosingAccount')->name('store');
 								}
 							);
-							Route::prefix('accounts_transactions')->name('closing_account.')->group(
+							Route::prefix('/accounts_transactions')->name('accounts_transactions.')->group(
 								function() {
 									Route::post('/', 'DailyController@storeResellerAccountTransaction')->name('store');
 								}

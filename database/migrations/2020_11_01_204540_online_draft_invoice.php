@@ -22,7 +22,7 @@
 			
 			Schema::create(
 				'draft_invoices_activities', function(Blueprint $table) {
-				$table->bigIncrements('id')->primary()->autoIncrement();
+				$table->bigIncrements('id')->autoIncrement();
 				$table->integer('draft_id');
 				$table->integer('invoice_id');
 				$table->enum('activity', ['to_invoice'])->default('to_invoice');

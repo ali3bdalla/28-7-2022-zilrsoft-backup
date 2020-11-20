@@ -97,7 +97,7 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'schema' => 'zilrsoft_production',
+            'schema' => env('DB_SCHEMA', 'zilrsoft_production') ,
             'sslmode' => 'prefer',
         ],
 	

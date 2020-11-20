@@ -15,27 +15,29 @@
 		 */
 		public function up()
 		{
-			Schema::create('organizations',function (Blueprint $table){
+			Schema::create(
+				'organizations', function(Blueprint $table) {
 				$table->bigIncrements('id');
-				$table->string('title');
-				$table->string('title_ar');
-				$table->string('city');
-				$table->string('city_ar');
-				$table->text('description')->nullable();
-				$table->text('description_ar')->nullable();
-				$table->enum('type',["individual","government","corporation",'establishment'])->default('individual');
+//				$table->string('title');
+//				$table->string('title_ar');
+//				$table->string('city');
+//				$table->string('city_ar');
+//				$table->text('description')->nullable();
+//				$table->text('description_ar')->nullable();
+				$table->enum('type', ["individual", "government", "corporation", 'establishment'])->default('individual');
 				$table->integer('country_id');
 				$table->integer('type_id');
 				$table->integer('supervisor_id')->nullable();
 				$table->string('logo')->nullable();
-				$table->string('address')->nullable();
-				$table->string('address_ar')->nullable();
+//				$table->string('address')->nullable();
+//				$table->string('address_ar')->nullable();
 				$table->string('phone_number')->nullable();
 				$table->string('stamp')->nullable();
 				$table->string('vat');
 				$table->string('cr');
 				$table->timestamps();
-			});
+			}
+			);
 		}
 		
 		/**

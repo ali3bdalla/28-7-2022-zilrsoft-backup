@@ -9,8 +9,11 @@
 	{
 		
 		use SoftDeletes;
+		
 		protected $guarded = [];
 		
+		
+	
 		public function item()
 		{
 			return $this->belongsTo(Item::class);

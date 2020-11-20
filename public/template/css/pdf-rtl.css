@@ -19,9 +19,7 @@ time, mark, audio, video {
     vertical-align: baseline;
 }
 @font-face {
-    /*font-family: 'al-mohanad';*/
     font-weight: 400;
-    /*src: url('../../fonts/ae-almohanad.ttf') format('truetype');*/
   }
 html {
     line-height: 1;

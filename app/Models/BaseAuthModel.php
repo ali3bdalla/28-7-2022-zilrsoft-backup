@@ -2,6 +2,7 @@
 	
 	namespace App\Models;
 	
+	use App\Models\Traits\Translatable;
 	use Carbon\Carbon;
 	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,8 +13,9 @@
 	class BaseAuthModel extends Authenticatable
 	{
 		use Notifiable, HasRoles;
+		use Translatable;
 		
-		protected $dateFormat = 'Y-m-d H:i:sO';
+		protected $dateFormat = 'Y-m-d H:i:s';//O
 		
 		public function getUpdatedAtAttribute($value)
 		{

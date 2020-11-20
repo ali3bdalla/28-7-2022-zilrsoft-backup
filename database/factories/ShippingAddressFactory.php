@@ -12,7 +12,7 @@
 	$factory->define(
 		ShippingAddress::class, function(Faker $faker) {
 		return [
-			'user_id' => User::inRandomOrder()->first()->id,
+			'user_id' => User::latest()->first()->id,
 			'country_id' => Country::inRandomOrder()->first()->id,
 			'building_number' => $faker->buildingNumber,
 			'street_name' => $faker->streetName,

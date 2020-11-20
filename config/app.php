@@ -19,6 +19,8 @@
 		
 		'version' => env('APP_VERSION', '1.0'),
 		
+		
+		
 		/*
 		|--------------------------------------------------------------------------
 		| Application Environment
@@ -191,7 +193,9 @@
 			BC\Laravel\DropboxDriver\ServiceProvider::class,
 			
 			App\Providers\TranslationServiceProvider::class,
-		
+			Illuminate\Notifications\NotificationServiceProvider::class,
+			Barryvdh\DomPDF\ServiceProvider::class,
+
 		],
 		
 		/*
@@ -242,7 +246,8 @@
 			'URL' => Illuminate\Support\Facades\URL::class,
 			'Validator' => Illuminate\Support\Facades\Validator::class,
 			'View' => Illuminate\Support\Facades\View::class,
-		
+		'PDF' => Barryvdh\DomPDF\Facade::class,
+
 		],
 	
 	];

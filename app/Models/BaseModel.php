@@ -2,32 +2,23 @@
 	
 	namespace App\Models;
 	
-	use App\Models\Traits\PostgresTrait;
+	use App\Models\Traits\Translatable;
 	use Carbon\Carbon;
 	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Database\Eloquent\Model;
-	use Illuminate\Http\Request;
-	use Illuminate\Support\Facades\Auth;
 	use Illuminate\Support\Facades\Schema;
 	
 	class BaseModel extends Model
 	{
-		
+		use Translatable;
 		private static $customTablesOrder = ['accounts' => 'serial'];
 		
+		protected $casts = [
+			'created_at' => 'datetime',
+			'updated_at' => 'datetime',
+		];
+		protected $dateFormat = 'Y-m-d H:i:s';//O
 		
-		protected $dateFormat = 'Y-m-d H:i:sO';
-		
-		
-		public function getUpdatedAtAttribute($value)
-		{
-			return Carbon::parse($value)->toDateTimeString();
-		}
-		
-		public function getCreatedAtAttribute($value)
-		{
-			return Carbon::parse($value)->toDateTimeString();
-		}
 		protected static function boot()
 		{
 			parent::boot();
@@ -159,6 +150,17 @@
 			
 		}
 		
-
+	
+		
+		public function getUpdatedAtAttribute($value)
+		{
+			return Carbon::parse($value)->toDateTimeString();
+		}
+		
+		public function getCreatedAtAttribute($value)
+		{
+			return Carbon::parse($value)->toDateTimeString();
+		}
+		
 		
 	}

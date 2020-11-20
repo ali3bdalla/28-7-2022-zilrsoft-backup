@@ -39,16 +39,17 @@
 			return $this->hasMany(Invoice::class, 'user_id');
 		}
 		
-		public function getNameAttribute()
+		public function getNameAttribute($value)
 		{
 			
-			return $this->name_ar;
+			return $value;
+//			return $this->name;
 		}
 		
 		public function getLocaleNameAttribute()
 		{
 			
-			return $this->name_ar;
+			return $this->name;
 		}
 		
 		

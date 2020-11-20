@@ -3,6 +3,8 @@
 	namespace App\Models;
 	
 	
+	use Illuminate\Notifications\Notifiable;
+	
 	/**
 	 * @method static inRandomOrder()
 	 */
@@ -10,7 +12,8 @@
 	{
 		
 		
-	
+		use Notifiable;
+		
 		/**
 		 * The attributes that are mass assignable.
 		 *
@@ -119,11 +122,8 @@
 					'gateway_id'
 				)
 					->withPivot('order_number as order_number')
-					->orderBy('order_number', 'asc')
-					;
+					->orderBy('order_number', 'asc');
 		}
-		
-		
 		
 		
 	}

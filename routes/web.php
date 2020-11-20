@@ -3,12 +3,13 @@
 	use App\Http\Middleware\ImagesUploadMiddleware;
 	use Illuminate\Support\Facades\Route;
 	use Inertia\Inertia;
-
 	
+
 	
 	Route::get('/', 'Web\HomeController@toWeb')->name('to.web');
 	
 	
+
 	Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->name('web.')->group(
 		function() {
 			

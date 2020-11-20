@@ -28,8 +28,9 @@
 			
 			Gate::before(
 				function($user, $ability) {
-					if($user->user)
-						return $user->hasRole('super admin') || $user->user->is_supervisor ? true : null;//$user->hasRole('super admin') ? true : null
+					return true;
+//					if($user->user)
+//						return $user->hasRole('super admin') || $user->user->is_supervisor ? true : null;//$user->hasRole('super admin') ? true : null
 				}
 			);
 			

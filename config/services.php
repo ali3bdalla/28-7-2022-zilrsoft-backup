@@ -44,8 +44,11 @@
 			],
 		],
 		
-	
 		
+		'whatsapp' => [
+			'base_url' => env('WHATSAPP_BASE_URL'),
+			'token' => env('WHATSAPP_TOKEN'),
+		],
 		
 		'sms' => [
 			'username' => env('SMS_USER'),

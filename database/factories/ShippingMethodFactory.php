@@ -14,7 +14,7 @@
 			
 			'name' => $name,
 			'ar_name' => $name,
-			'logo' => $faker->imageUrl(75, 75)
+			'logo' => $faker->imageUrl(75, 75),
 		];
 	}
 	);
