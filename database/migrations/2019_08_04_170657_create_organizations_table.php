@@ -18,12 +18,12 @@
 			Schema::create(
 				'organizations', function(Blueprint $table) {
 				$table->bigIncrements('id');
-//				$table->string('title');
-//				$table->string('title_ar');
-//				$table->string('city');
-//				$table->string('city_ar');
-//				$table->text('description')->nullable();
-//				$table->text('description_ar')->nullable();
+				$table->string('title');
+				$table->string('title_ar');
+				$table->string('city');
+				$table->string('city_ar');
+				$table->text('description')->nullable();
+				$table->text('description_ar')->nullable();
 				$table->enum('type', ["individual", "government", "corporation", 'establishment'])->default('individual');
 				$table->integer('country_id');
 				$table->integer('type_id');

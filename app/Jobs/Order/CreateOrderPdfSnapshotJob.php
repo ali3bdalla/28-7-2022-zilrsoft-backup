@@ -47,56 +47,49 @@
 		 */
 		public function handle()
 		{
-//			ob_end_clean();
-
-//			$pdf = App::make('dompdf.wrapper');
-//			$invoice = $this->invoice;
-//			$invoice->sale = $this->invoice->sale()->withoutGlobalScope('draft')->first();
-//
-			$invoice = new APDFCore("decentblue");
-//		$invoice->setLogo("../templates/basic/logo.jpg");
-			$invoice->setType("Sales Invoice");
-			$invoice->setReference("INV-55033645");
-			$invoice->setDate(date('M dS ,Y', time()));
-			$invoice->setDue(date('M dS ,Y', strtotime('+3 months')));
-			$invoice->setFrom(array("Vendeur Nom", "Citroën", "128 AA Juanita Ave", "Île-de-France , DE 91740", "France"));
-			$invoice->setTo(array("Nom de l'acheteur", "Sanofi-Synthélabo", "128 AA Juanita Ave", "Île-de-France , DE 91740", "France"));
 			
-			// Adding Items in table
-			for($i = 0; $i < 10; $i ++) {
-				$invoice->addItem("AMD Athlon X2DC-7450", "2.4GHz/1GB/160GB/SMP-DVD/VB", 1, "50%", 100, "50%");
-				$invoice->addItem("PDC-E5300", "2.6GHz/1GB/320GB/SMP-DVD/FDD/VB", 1, 50, 100, 50);
-				$invoice->addItem('LG 18.5" WLCD', "Test multilingue soutenu dans cette section en ajoutant personnalisée description du produit ici", 1, 0, 100, 0);
-				$invoice->addItem("HP LaserJet (Citroën) źłóźśćąę ", "Ceci est une description de test pour le produit HP LaserJet 5200", 1, 0, 100, 20);
-				
+			$invoice = $this->invoice;
+			$pdfInvoice = new APDFCore("decentblue", ' ');
+//			$pdfInvoice->setLogo(auth()->user()->organization->logo);
+			$pdfInvoice->setType("فاتورة مبيعات");
+			$pdfInvoice->setDirection('rtl');
+			$pdfInvoice->setLang('ar');
+			$pdfInvoice->setReference($invoice->invoice_number);
+			$pdfInvoice->setDate($invoice->created_at);
+//			, , auth()->user()->organization->cr,auth()->user()->organization->phone_number, 'مبيعات الاونلاين',auth()->user()->organization->description_ar
+			$pdfInvoice->setFrom(
+				[['key' => false, 'value' => auth()->user()->organization->title_ar],
+					['key' => 'الرقم الضريبي', 'value' => auth()->user()->organization->vat],
+					['key' => 'السجل التجاري', 'value' => auth()->user()->organization->cr],
+					['key' => "الهاتف", 'value' => auth()->user()->organization->phone_number],
+					['key' => "الفرع", 'value' => 'مبيعات الاونلاين'],
+					['key' => false, 'value' => auth()->user()->organization->description_ar],
+				]
+			);
+			$pdfInvoice->setTo(array($invoice->user->name_ar, $invoice->user->phone_number, "عنوان الشحن"));
+			
+			foreach($invoice->items as $item) {
+				$pdfInvoice->addItem($item->item->locale_name, $item->qty, $item->price, $item->total, $item->tax, $item->net, $item->getInvoiceItemSerials()->pluck('serial')->toArray());
 			}
 			
-			$invoice->addItem("AMD Athlon X2DC-7450", "2.4GHz/1GB/160GB/SMP-DVD/VB", 1, "50%", 100, "50%");
-			$invoice->addItem("PDC-E5300", "2.6GHz/1GB/320GB/SMP-DVD/FDD/VB", 1, 50, 100, 50);
-			$invoice->addItem('LG 18.5" WLCD', "Test multilingue soutenu dans cette section en ajoutant personnalisée description du produit ici", 1, 0, 100, 0);
-			$invoice->addItem("HP LaserJet (Citroën) źłóźśćąę ", "Ceci est une description de test pour le produit HP LaserJet 5200", 1, 0, 100, 20);
-			
-			// Make sure to add  "$invoice->items_total" first before adding other "addTotal()"
-			$invoice->addTotal("Sub Total", $invoice->items_total);
-			$invoice->addTotal("VAT 10%", $invoice->GetPercentage(10));
-			$invoice->addTotal("Discount 10%", $invoice->GetPercentage(10), "red", true);
-			$invoice->addTotal("Shipment", "100");
-			$invoice->addTotal("Grand Total", $invoice->GetGrandTotal());
-			
-			// Set badge
-			$invoice->addBadge("مدفوعة");
-			// Add title
-			$invoice->addTitle("Important Notice");
-			// Add Paragraph
-			$invoice->addParagraph("No item will be replaced or refunded if you don't have the invoice with you. You can refund within 2 days of purchase.");
-			$invoice->addParagraph("Special Charactors Allowed: ” ? ” | ” Data p?atno?ci ” åäö");
-			// Set footer note
-			$invoice->setFooternote("Buy this script from <a href='http://codecanyon.net/item/php-invoice-php-class-for-beautiful-pdf-invoices/9512525/'>codecanyon</a> ");
+			$pdfInvoice->addTotal("المجموع", $invoice->total);
+			$pdfInvoice->addTotal("الضريبة", $invoice->tax);
+			$pdfInvoice->addTotal("الشحن", 0);
+			$pdfInvoice->addTotal("النهائي", $invoice->net);
+			$pdfInvoice->addBadge("مسددة");
+			$pdfInvoice->setThanksMessage("سعدنا بخدمتك");
+			$pdfInvoice->addTitle("الشروط والاحكام");
+			$pdfInvoice->addParagraph("* البضاعة المباعة لاترد ولا تستبدل بعد فتحها .");
+			$pdfInvoice->addParagraph("* الارجاع خلال ثلاثة أيام .");
+			$pdfInvoice->addParagraph("* التبديل خلال سبعة أيام .");
+//			$pdfInvoice->setFooternote("");
+			$pdfInvoice->setFooterContent(auth()->user()->organization->country->ar_name . ' - القصيم - ' . auth()->user()->organization->city_ar . " - " . auth()->user()->organization->address_ar);
+//
 			
 			try {
 				$fileName = 'order_' . $this->order->id . '_' . Carbon::now()->toDateString() . '.pdf';
 				$path = 'orders/' . $fileName;
-				Storage::put($path, $invoice->render($fileName, Destination::STRING_RETURN), 'public');
+				Storage::put($path, $pdfInvoice->render($fileName, Destination::STRING_RETURN), 'public');
 				return $path;
 			} catch(Exception $exception) {
 				throw $exception;

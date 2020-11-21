@@ -5,8 +5,8 @@
 	use App\Events\Order\OrderCreatedEvent;
 	use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 	use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
-	use App\Jobs\Items\Serial\ValidateItemSerialJob;
 	use App\Jobs\Order\CreateOrderPdfSnapshotJob;
+	use App\Jobs\Order\HoldItemQtyJob;
 	use App\Jobs\Sales\Items\StoreSaleItemsJob;
 	use App\Jobs\Sales\Order\CreateSalesOrderJob;
 	use App\Models\Invoice;
@@ -15,6 +15,7 @@
 	use App\Models\ShippingAddress;
 	use App\Models\ShippingMethod;
 	use App\Rules\ExistsRule;
+	use Exception;
 	use Illuminate\Database\QueryException;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
@@ -85,16 +86,16 @@
 				dispatch(new UpdateInvoiceNumberJob($invoice, 'ONL-'));
 				dispatch(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true, $authUser, true));
 				dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
-				dispatch(new CreateSalesOrderJob($invoice, $this->input('shipping_method_id'), $this->input('shipping_address_id')));
+				$order = CreateSalesOrderJob::dispatchNow($invoice, $this->input('shipping_method_id'), $this->input('shipping_address_id'));
+				dispatch(new HoldItemQtyJob($invoice, $order));
 				DB::commit();
 				$path = CreateOrderPdfSnapshotJob::dispatchNow($invoice);
-				
-				event(new OrderCreatedEvent($invoice,$path));
+				event(new OrderCreatedEvent($invoice, $path));
 				return redirect('/web/orders');
 			} catch(QueryException $queryException) {
 				DB::rollBack();
 				throw $queryException;
-			} catch(\Exception $exception) {
+			} catch(Exception $exception) {
 				DB::rollBack();
 				throw $exception;
 				

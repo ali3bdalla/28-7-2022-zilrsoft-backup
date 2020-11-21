@@ -1,5 +1,6 @@
 <?php
 	
+	use AliAbdalla\PDF\APDFCore;
 	use App\Http\Middleware\ImagesUploadMiddleware;
 	use Illuminate\Support\Facades\Route;
 	use Inertia\Inertia;

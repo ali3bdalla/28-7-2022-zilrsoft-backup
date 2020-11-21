@@ -3,7 +3,6 @@
 	use App\Http\Middleware\ImagesUploadMiddleware;
 	use Illuminate\Support\Facades\Route;
 	
-	auth()->loginUsingId(1);
 	Route::namespace('Web')->name('web.')->prefix('web')->group(
 		function() {
 			Route::prefix('items')->name('items.')->group(

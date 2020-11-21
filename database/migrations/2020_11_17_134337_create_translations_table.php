@@ -13,17 +13,21 @@
 		 */
 		public function up()
 		{
-			Schema::create(
-				'translations', function(Blueprint $table) {
-				$table->bigIncrements('id');
-				$table->morphs('translatable');
-				$table->string('key')->nullable();
-				$table->string('language')->nullable();
-				$table->text('content')->nullable();
-				$table->softDeletes();
-				$table->timestamps();
+			if(!Schema::hasTable('translations'))
+			{
+				Schema::create(
+					'translations', function(Blueprint $table) {
+					$table->bigIncrements('id');
+					$table->morphs('translatable');
+					$table->string('key')->nullable();
+					$table->string('language')->nullable();
+					$table->text('content')->nullable();
+					$table->softDeletes();
+					$table->timestamps();
+				}
+				);
 			}
-			);
+			
 		}
 		
 		/**

@@ -51,6 +51,8 @@
 			$order->net = $this->invoice->net;
 			$order->status = 'issued';
 			$order->save();
+			
+			return $order->fresh();
 			//
 		}
 	}

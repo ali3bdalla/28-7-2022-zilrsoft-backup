@@ -18,7 +18,6 @@
 		 */
 		public function index()
 		{
-			// auth()->loginUsingId(1);
 			$clients = User::where('is_client', true)->get();
 			
 			$creators = Manager::get();

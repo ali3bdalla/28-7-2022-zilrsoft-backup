@@ -23,6 +23,7 @@
 	 * @property mixed managed_by_id
 	 * @property mixed vendor_invoice_number
 	 * @property mixed is_draft
+	 * @property mixed created_at
 	 * @method static create(array $array)
 	 */
 	class Invoice extends BaseModel
@@ -166,6 +167,10 @@
 			return Storage::disk('dropbox')->exists($this->dropbox_snapshot);
 		}
 		
+		
+		
+		
+		
 		public function getDropboxSnapshotUrlAttribute()
 		{
 			if($this->has_dropbox_snapshot) {
@@ -176,5 +181,5 @@
 			return "";
 		}
 		
-	
+		
 	}
