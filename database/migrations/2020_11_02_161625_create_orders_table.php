@@ -25,6 +25,7 @@
 				$table->integer('shipping_address_id')->nullable();
 				$table->enum('status', ['issued', 'pending', 'delivered', 'canceled', 'in_progress', 'shipped'])->default('issued');
 				$table->integer('shipping_method_id')->nullable();
+		
 				$table->softDeletes();
 				$table->timestamps();
 			}

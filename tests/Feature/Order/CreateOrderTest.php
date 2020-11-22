@@ -8,7 +8,6 @@
 	use App\Models\ShippingAddress;
 	use App\Models\ShippingMethod;
 	use App\Models\User;
-	use Illuminate\Foundation\Testing\RefreshDatabase;
 	use Tests\Base\CreateManager;
 	use Tests\TestCase;
 	
@@ -16,7 +15,7 @@
 	{
 		use CreateManager;
 		
-		private $userFactory = true;
+		private $userFactory = false;
 		
 		/**
 		 * A basic feature test example.
@@ -71,18 +70,12 @@
 					]
 				)->inRandomOrder()->first();
 				
-				$client->update([
-					'phone_number' => '966556045415'
-				]);
-//				factory(User::class)->create(
-//					[
-//						'is_client' => true,
-//						'name' => $this->faker->userName,
-//						'phone_number' => $this->faker->randomElement(['966556045415', '966504956211', '24966324018']),
-//						'organization_id' => 1
-//					]
-//				);
-			
+				$client->update(
+					[
+						'phone_number' => '966556045415'
+					]
+				);
+
 			
 			}
 			
@@ -112,11 +105,10 @@
 				]
 			);
 			$response->dump();
-			foreach($requestItems as $item)
-			{
+			foreach($requestItems as $item) {
 				$dbitem = Item::find($item['id']);
 				
-				$this->assertEquals($dbitem->available_qty + $item['quantity'],$item['available_qty']);
+				$this->assertEquals($dbitem->available_qty + $item['quantity'], $item['available_qty']);
 			}
 			
 			$response->assertRedirect('/web/orders');

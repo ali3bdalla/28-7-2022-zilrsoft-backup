@@ -15,7 +15,7 @@
 		use Notifiable, HasRoles;
 		use Translatable;
 		
-		protected $dateFormat = 'Y-m-d H:i:s';//O
+		protected $dateFormat = 'Y-m-d H:i:sO';//O
 		
 		public function getUpdatedAtAttribute($value)
 		{

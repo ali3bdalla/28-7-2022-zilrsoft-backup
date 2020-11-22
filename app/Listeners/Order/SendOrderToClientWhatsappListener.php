@@ -42,6 +42,8 @@
 			Whatsapp::sendFile(
 				$event->path, ['966504956211'],  $event->order->id
 			);
+//			966556041451
+//			966504956211
 			Whatsapp::sendMessage(
 				$message, ['966504956211']
 			);

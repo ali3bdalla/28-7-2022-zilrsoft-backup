@@ -5,15 +5,16 @@
 	use Illuminate\Support\Facades\Route;
 	use Inertia\Inertia;
 	
-
 	
 	Route::get('/', 'Web\HomeController@toWeb')->name('to.web');
 	
 	
-
 	Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->name('web.')->group(
 		function() {
-			
+			Route::get('/orders/{order}/cancel', 'Order\CancelOrderController@showPage');
+			Route::post('/orders/{order}/cancel', 'Order\CancelOrderController@confirm');
+			Route::get('/orders/{order}/confirm_payment', 'Order\ConfirmOrderPaymentController@showConfirmPaymentPage');
+			Route::post('/orders/{order}/confirm_payment', 'Order\ConfirmOrderPaymentController@confirmPayment');
 			Route::middleware('client_guest')->group(
 				function() {
 					Route::prefix('sign_in')->name('sign_in.')->group(

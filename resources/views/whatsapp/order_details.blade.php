@@ -17,6 +17,12 @@ Banks Accounts:
 Deadline for Payment {{$deadline}}
 
 Please Fill This Form After Transfer
-{{ $order->generateBillingUrl() }}
+{{ $order->generatePayOrderUrl() }}
+
+
+
+To Cancel Your Order Please Click Flowing Link:
+{{ $order->generateCancelOrderUrl() }}
+
 
 {{$client->organization->getTranslate('title','en')}}
