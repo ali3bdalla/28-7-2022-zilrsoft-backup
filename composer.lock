@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0fcdb1096a5fcca4ebf754539731aa6b",
+    "content-hash": "8f2c3fe073a1032b97db35e3bbcd9cba",
     "packages": [
         {
             "name": "3li3bdalla/tafqeet",
@@ -46,7 +46,7 @@
         },
         {
             "name": "3li3bdalla/whatsapp",
-            "version": "dev-main",
+            "version": "0.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/3li3bdalla/whatsapp.git",
@@ -58,7 +58,6 @@
                 "reference": "43be5e3c81aa7abd8d146960b9d39bb2ca4cf7b5",
                 "shasum": ""
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -88,7 +87,7 @@
             "description": "chat api whatsapp",
             "support": {
                 "issues": "https://github.com/3li3bdalla/whatsapp/issues",
-                "source": "https://github.com/3li3bdalla/whatsapp/tree/main"
+                "source": "https://github.com/3li3bdalla/whatsapp/tree/0.0.1"
             },
             "time": "2020-11-19T17:39:01+00:00"
         },
@@ -5744,23 +5743,22 @@
     "packages-dev": [
         {
             "name": "3li3bdalla/pdf",
-            "version": "dev-master",
+            "version": "0.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/3li3bdalla/pdf.git",
-                "reference": "247efb5ff48d1d7b6c66b414b74db1104b4941fb"
+                "reference": "cc92012e4ae64ed63f37304fd97751923baf751b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/3li3bdalla/pdf/zipball/247efb5ff48d1d7b6c66b414b74db1104b4941fb",
-                "reference": "247efb5ff48d1d7b6c66b414b74db1104b4941fb",
+                "url": "https://api.github.com/repos/3li3bdalla/pdf/zipball/cc92012e4ae64ed63f37304fd97751923baf751b",
+                "reference": "cc92012e4ae64ed63f37304fd97751923baf751b",
                 "shasum": ""
             },
             "require": {
                 "mpdf/mpdf": "v8.0.7",
                 "mustache/mustache": "v2.13.0"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -5790,9 +5788,9 @@
             "description": "export and manage pdf files package",
             "support": {
                 "issues": "https://github.com/3li3bdalla/pdf/issues",
-                "source": "https://github.com/3li3bdalla/pdf/tree/master"
+                "source": "https://github.com/3li3bdalla/pdf/tree/0.0.1"
             },
-            "time": "2020-11-21T15:21:46+00:00"
+            "time": "2020-11-23T16:59:00+00:00"
         },
         {
             "name": "beyondcode/laravel-dump-server",
@@ -8018,10 +8016,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "3li3bdalla/whatsapp": 20,
-        "3li3bdalla/pdf": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

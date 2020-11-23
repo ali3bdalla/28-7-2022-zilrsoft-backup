@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="62ee8e1c-79d0-4682-8776-4dfb31729f0a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/Order/CreateOrderPdfSnapshotJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Order/CreateOrderPdfSnapshotJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Listeners/Order/SendOrderToClientViaWhatsappListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Listeners/Order/SendOrderToClientViaWhatsappListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/whatsapp/order_details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/whatsapp/order_details.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Order/CreateOrderTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Order/CreateOrderTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +14,9 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -192,7 +192,7 @@
       <option name="presentableId" value="Default" />
       <updated>1606139553451</updated>
       <workItem from="1606139554484" duration="187000" />
-      <workItem from="1606139750769" duration="7302000" />
+      <workItem from="1606139750769" duration="8237000" />
     </task>
     <servers />
   </component>
@@ -211,25 +211,29 @@
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state x="1978" y="212" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606146233523" />
-    <state width="1600" height="442" key="GridCell.Tab.0.bottom" timestamp="1606150620431">
+    <state x="2009" y="369" width="461" height="249" key="ComposerInitDialogKey" timestamp="1606151869065">
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
-    <state width="1600" height="442" key="GridCell.Tab.0.bottom/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606150620431" />
+    <state x="2009" y="369" width="461" height="249" key="ComposerInitDialogKey/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606151869065" />
+    <state width="1600" height="442" key="GridCell.Tab.0.bottom" timestamp="1606151636634">
+      <screen x="1440" y="0" width="1600" height="900" />
+    </state>
+    <state width="1600" height="442" key="GridCell.Tab.0.bottom/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606151636634" />
     <state width="1600" height="332" key="GridCell.Tab.0.bottom/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606140871375" />
-    <state width="1600" height="442" key="GridCell.Tab.0.center" timestamp="1606150620430">
+    <state width="1600" height="442" key="GridCell.Tab.0.center" timestamp="1606151636632">
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
-    <state width="1600" height="442" key="GridCell.Tab.0.center/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606150620430" />
+    <state width="1600" height="442" key="GridCell.Tab.0.center/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606151636632" />
     <state width="1600" height="332" key="GridCell.Tab.0.center/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606140871374" />
-    <state width="1600" height="442" key="GridCell.Tab.0.left" timestamp="1606150620429">
+    <state width="1600" height="442" key="GridCell.Tab.0.left" timestamp="1606151636631">
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
-    <state width="1600" height="442" key="GridCell.Tab.0.left/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606150620429" />
+    <state width="1600" height="442" key="GridCell.Tab.0.left/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606151636631" />
     <state width="1600" height="332" key="GridCell.Tab.0.left/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606140871373" />
-    <state width="1600" height="442" key="GridCell.Tab.0.right" timestamp="1606150620430">
+    <state width="1600" height="442" key="GridCell.Tab.0.right" timestamp="1606151636633">
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
-    <state width="1600" height="442" key="GridCell.Tab.0.right/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606150620430" />
+    <state width="1600" height="442" key="GridCell.Tab.0.right/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606151636633" />
     <state width="1600" height="332" key="GridCell.Tab.0.right/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606140871375" />
     <state width="1600" height="332" key="GridCell.Tab.1.bottom" timestamp="1606150075576">
       <screen x="1440" y="0" width="1600" height="900" />
@@ -260,14 +264,15 @@
     </state>
     <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606150469146" />
     <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606140873015" />
-    <state x="2053" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606148777529">
+    <state x="2053" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606150692421">
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
-    <state x="2053" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606148777529" />
-    <state x="1905" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1606150190471">
-      <screen x="1440" y="0" width="1600" height="900" />
+    <state x="2053" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606150692421" />
+    <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup" timestamp="1606153114715">
+      <screen x="1440" y="23" width="1600" height="877" />
     </state>
-    <state x="1905" y="196" width="670" height="676" key="search.everywhere.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606150190471" />
+    <state x="1905" y="196" width="670" height="676" key="search.everywhere.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606151839016" />
+    <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup/1440.23.1600.877/0.23.1440.877@1440.23.1600.877" timestamp="1606153114715" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/zilrsoft@CreateOrderTest_testCreateOrder_RedirectToOrdersPage.xml" NAME="CreateOrderTest.testCreateOrder_RedirectToOrdersPage Coverage Results" MODIFIED="1606146142353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
