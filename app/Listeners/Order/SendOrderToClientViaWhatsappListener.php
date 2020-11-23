@@ -40,10 +40,11 @@
 			Whatsapp::sendMessage(
 				$message, [$phoneNumber]
 			);
+//			dd($event->path);
 			Whatsapp::sendFile(
-				$event->path, [$phoneNumber], $event->order->id
+				$event->path, [$phoneNumber], $event->invoice->id
 			);
-		
+			
 		}
 		
 		

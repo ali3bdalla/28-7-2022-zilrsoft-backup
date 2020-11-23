@@ -29,7 +29,7 @@
 		{
 			$schedule->command(NotifyUnPaidOrder::class)->everyMinute();
 			
-			$schedule->command(CancelUnPaidOrder::class)->everyMinute();
+			$schedule->command(CancelUnPaidOrder::class)->everyFiveMinutes();
 			
 		}
 		

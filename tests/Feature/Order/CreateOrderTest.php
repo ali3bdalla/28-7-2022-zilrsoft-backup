@@ -8,7 +8,6 @@
 	use App\Models\ShippingAddress;
 	use App\Models\ShippingMethod;
 	use App\Models\User;
-	use Illuminate\Foundation\Testing\RefreshDatabase;
 	use Tests\Base\CreateManager;
 	use Tests\TestCase;
 	
@@ -16,7 +15,7 @@
 	{
 		use CreateManager;
 		
-		private $userFactory = true;
+		private $userFactory = false;
 		
 		/**
 		 * A basic feature test example.
@@ -73,7 +72,8 @@
 				
 				$client->update(
 					[
-						'phone_number' => '249966324018'
+						'phone_number' => '249966324018',
+						'organization_id' => 1
 					]
 				);
 				
@@ -114,5 +114,9 @@
 			}
 			
 			$response->assertRedirect('/web/orders');
+		}
+		
+		public function testConfirmOrderPayment(){
+		
 		}
 	}
