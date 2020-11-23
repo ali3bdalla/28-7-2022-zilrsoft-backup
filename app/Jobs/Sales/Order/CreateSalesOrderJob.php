@@ -15,7 +15,7 @@
 	{
 		use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 		
-		private $orderAutoCancelAfter = 5;
+		private $orderAutoCancelAfter = 2;
 		/**
 		 * @var Invoice
 		 */
@@ -53,7 +53,7 @@
 			$order->net = $this->invoice->net;
 			$order->auto_cancel_at = Carbon::now()->addMinutes($this->orderAutoCancelAfter);
 			$order->is_should_pay_notified = false;
-			$order->should_pay_last_notification_at = Carbon::now()->addMinutes($this->orderAutoCancelAfter - 3);
+			$order->should_pay_last_notification_at = Carbon::now()->addMinutes($this->orderAutoCancelAfter - 1);
 			$order->cancel_order_code = rand(1000, 9999);
 			$order->status = 'issued';
 			$order->save();

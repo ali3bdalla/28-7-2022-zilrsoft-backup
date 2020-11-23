@@ -27,8 +27,8 @@
 		 */
 		protected function schedule(Schedule $schedule)
 		{
-			
 			$schedule->command(NotifyUnPaidOrder::class)->everyMinute();
+			
 			$schedule->command(CancelUnPaidOrder::class)->everyMinute();
 			
 		}

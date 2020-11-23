@@ -11,9 +11,7 @@
 	use App\Listeners\Models\Account\UpdateAccountDetailsListener;
 	use App\Listeners\Models\Category\UpdateCategoryDetailsListener;
 	use App\Listeners\Models\Transaction\UpdateTransactionDetailsListener;
-	use App\Listeners\Order\SendOrderToClientWhatsappListener;
-	use App\Listeners\Order\SendPaymentInstructionToClientWhatsappListener;
-	use App\Models\Account;
+	use App\Listeners\Order\SendOrderToClientViaWhatsappListener;
 	use Illuminate\Auth\Events\Registered;
 	use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 	use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -56,8 +54,7 @@
 				UpdateCategoryDetailsListener::class
 			],
 			OrderCreatedEvent::class => [
-				SendOrderToClientWhatsappListener::class,
-				SendPaymentInstructionToClientWhatsappListener::class
+				SendOrderToClientViaWhatsappListener::class,
 			]
 		
 		];

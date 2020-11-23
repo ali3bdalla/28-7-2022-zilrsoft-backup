@@ -7,7 +7,7 @@
 	use PDF;
 	
 	
-	class SendOrderToClientWhatsappListener
+	class SendOrderToClientViaWhatsappListener
 	{
 		/**
 		 * Create the event listener.
@@ -27,21 +27,23 @@
 		 */
 		public function handle($event)
 		{
+			
+			$phoneNumber = $event->order->user->phone_number;
 			$message = view(
 				'whatsapp.order_details', [
 					'client' => $event->client,
 					'order' => $event->order,
 					'invoice' => $event->invoice,
-					'deadline' => Carbon::now()->addMinutes(30)->format('H:ia')
+					'deadline' => Carbon::now()->addMinutes(30)->format('H:i')
 				]
 			)->toHtml();
-			dd($event->order->user->phone_number);
-			Whatsapp::sendFile(
-				$event->path, [$event->order->user->phone_number], $event->order->id
-			);
 			Whatsapp::sendMessage(
-				$message, [$event->order->user->phone_number]
+				$message, [$phoneNumber]
 			);
+			Whatsapp::sendFile(
+				$event->path, [$phoneNumber], $event->order->id
+			);
+		
 		}
 		
 		

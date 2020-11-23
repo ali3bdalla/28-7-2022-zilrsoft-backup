@@ -8,6 +8,7 @@
 	use App\Models\ShippingAddress;
 	use App\Models\ShippingMethod;
 	use App\Models\User;
+	use Illuminate\Foundation\Testing\RefreshDatabase;
 	use Tests\Base\CreateManager;
 	use Tests\TestCase;
 	
@@ -15,7 +16,7 @@
 	{
 		use CreateManager;
 		
-		private $userFactory = false;
+		private $userFactory = true;
 		
 		/**
 		 * A basic feature test example.
@@ -48,7 +49,7 @@
 					[
 						'is_client' => true,
 						'name' => $this->faker->userName,
-						'phone_number' => '249966324018',
+						'phone_number' => '249966324018', //249966324018
 						'organization_id' => 1
 					]
 				);
@@ -75,8 +76,8 @@
 						'phone_number' => '249966324018'
 					]
 				);
-
-			
+				
+				
 			}
 			
 			
@@ -97,6 +98,8 @@
 					'available_qty' => $item->available_qty,
 				];
 			}
+			
+			
 			$response = $this->actingAs($client, 'client')->postJson(
 				'/api/web/orders', [
 					'items' => $requestItems,

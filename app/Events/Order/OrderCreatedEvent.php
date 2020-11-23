@@ -31,9 +31,11 @@
 		 */
 		public function __construct(Invoice $invoice,$path)
 		{
+			
 			$this->invoice = $invoice;
 			$this->order = Order::where('draft_id', $invoice->id)->first();
 			$this->client = User::find($invoice->user_id);
+			
 			$this->path = $path;
 		}
 		

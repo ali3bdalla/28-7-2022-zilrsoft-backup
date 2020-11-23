@@ -72,7 +72,7 @@
 						'is_draft' => true
 					]
 				);
-				$invoice->sale()->create(
+				$sale = $invoice->sale()->create(
 					[
 						'salesman_id' => $authUser->id,
 						'client_id' => $authClient->id,
@@ -83,12 +83,14 @@
 						'is_draft' => true
 					]
 				);
+				
 				dispatch(new UpdateInvoiceNumberJob($invoice, 'ONL-'));
 				dispatch(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true, $authUser, true));
 				dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
 				$order = CreateSalesOrderJob::dispatchNow($invoice, $this->input('shipping_method_id'), $this->input('shipping_address_id'));
 				dispatch(new HoldItemQtyJob($invoice, $order));
 				DB::commit();
+				
 				$path = CreateOrderPdfSnapshotJob::dispatchNow($invoice);
 				event(new OrderCreatedEvent($invoice, $path));
 				return redirect('/web/orders');

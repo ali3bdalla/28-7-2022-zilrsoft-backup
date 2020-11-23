@@ -4,17 +4,18 @@ Thank you for your order
 
 Order# {{$order->id}}
 
-*Amount: {{$order->net}}*
+Amount: *{{$order->net}}*
 
 Banks Accounts:
 
-Rajhi:   *38238258237951*
+    Rajhi:   *38238258237951*
 
-Alahli:  *54564646546546*
+    Alahli:  *54564646546546*
 
-Albilad: *23749823749873*
+    Albilad: *23749823749873*
 
-Deadline for Payment {{$deadline}}
+    Deadline for Payment {{$deadline}}
+
 
 Please Fill This Form After Transfer
 {{ $order->generatePayOrderUrl() }}
