@@ -27,7 +27,6 @@
 		 */
 		public function handle($event)
 		{
-			
 			$message = view(
 				'whatsapp.order_details', [
 					'client' => $event->client,
@@ -36,6 +35,7 @@
 					'deadline' => Carbon::now()->addMinutes(30)->format('H:ia')
 				]
 			)->toHtml();
+			dd($event->order->user->phone_number);
 			Whatsapp::sendFile(
 				$event->path, [$event->order->user->phone_number], $event->order->id
 			);
