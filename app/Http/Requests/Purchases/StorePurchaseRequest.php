@@ -6,6 +6,7 @@
 	use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 	use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
 	use App\Jobs\Items\Serial\ValidateItemSerialJob;
+	use App\Jobs\Purchases\Dropbox\CreateDropboxSnapshotJob;
 	use App\Jobs\Purchases\Items\StorePurchaseItemsJob;
 	use App\Jobs\Purchases\Payment\StorePurchasePaymentsJob;
 	use App\Models\Invoice;
@@ -34,7 +35,7 @@
 		 */
 		public function rules()
 		{
-			return [
+			$rules = [
 				'receiver_id' => 'required|integer|exists:managers,id',
 				'vendor_id' => 'required|integer|exists:users,id',
 				'items' => 'required|array',
@@ -49,6 +50,10 @@
 				'methods.*.id' => 'required|integer|exists:accounts,id',
 				'methods.*.amount' => 'required|numeric',
 			];
+			if($this->user()->organization_id == 1) {
+				$rules['dropbox_snapshot'] = 'required|string';
+			}
+			return $rules;
 		}
 		
 		public function store()
@@ -57,7 +62,8 @@
 			try {
 				$this->validateSerials();
 				
-				$authUser = auth()->user();
+				$authUser = auth('manager')->user();
+				
 				$invoice = Invoice::create(
 					[
 						'invoice_type' => 'purchase',
@@ -80,6 +86,11 @@
 					]
 				);
 				dispatch(new UpdateInvoiceNumberJob($invoice, 'PU-'));
+				
+				if($authUser->organization_id == 1) {
+					dispatch(new CreateDropboxSnapshotJob($invoice, $this->input('dropbox_snapshot')));
+				}
+				
 				dispatch(new StorePurchaseItemsJob($invoice, (array)$this->input('items')));
 				dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
 				dispatch(new StorePurchasePaymentsJob($invoice, $this->input('methods')));

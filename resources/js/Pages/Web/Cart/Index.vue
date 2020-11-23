@@ -8,13 +8,13 @@
               <table>
                 <thead>
                 <tr>
-                  <th v-if="$page.client_logged">
+                  <th v-if="$page.client_logged && activePage === 'cart'">
                     <input type="checkbox"/>
                   </th>
                   <th>Image</th>
                   <th class="p-name">Product Name</th>
                   <th>Price</th>
-                  <th>Quantity</th>
+                  <th v-if="activePage === 'cart'">Quantity</th>
                   <th>Total</th>
                   <th>
                     <i
@@ -35,7 +35,7 @@
                     ]"
                     class="border-b border-gray-500"
                 >
-                  <td v-if="$page.client_logged" class="w-20">
+                  <td v-if="$page.client_logged &&   activePage === 'cart'" class="w-20">
                     <input
                         v-if="
                           parseInt(item.available_qty) >=
@@ -59,7 +59,7 @@
                   <td class="p-price first-row">
                     {{ parseFloat(item.price).toFixed(2) }}
                   </td>
-                  <td class="qua-col first-row">
+                  <td v-if="activePage === 'cart'" class="qua-col first-row">
                     <div class="quantity">
                       <div class="pro-qty">
                         <button
@@ -97,31 +97,59 @@
             </div>
 
 
-            <div v-if="$page.client_logged" class="bg-gray-100 shadow p-2 rounded-lg mb-5" >
-              <h3 class="font-bold text-gray-500  text-2xl">Shipping Address</h3>
-              <div class="my-4 grid grid-cols-2 gap-3">
-                <div>
-                  <input class="form-control" placholder="First Name" :value="$page.client.name"/>
-                </div>
-                <div>
-                  <input class="form-control" placholder="Last Name" :value="$page.client.name"/>
-                </div>
-                <div>
-                  <input class="form-control" value="saudi" disabled/>
-                </div>
+            <!--            <div v-if="$page.client_logged" class="bg-gray-100 shadow p-2 rounded-lg mb-5">-->
+            <!--              <h3 class="font-bold text-gray-500  text-2xl">Shipping Address</h3>-->
+            <!--              <div class="my-4 grid grid-cols-2 gap-3">-->
+            <!--                <div>-->
+            <!--                  <input :value="$page.client.name" class="form-control" placholder="First Name"/>-->
+            <!--                </div>-->
+            <!--                <div>-->
+            <!--                  <input :value="$page.client.name" class="form-control" placholder="Last Name"/>-->
+            <!--                </div>-->
+            <!--                <div>-->
+            <!--                  <input class="form-control" disabled value="saudi"/>-->
+            <!--                </div>-->
 
+            <!--              </div>-->
+
+            <!--            </div>-->
+
+            <div v-if="activePage == 'checkout'" class="mb-4">
+              <h2 class="my-2 text-gray-500 text-2xl ">Choose Shipping Address</h2>
+              <div class="grid grid-cols-3 gap-2 mt-3">
+
+                <div v-for="shippingAddress in $page.shippingAddresses" :key="shippingAddress.id"
+                     :class="{'bg-blue-500':shippingAddressId !== shippingAddress.id}"
+                     class="bg-white shadow-md border p-2 pb-0 text-gray-400 flex flex-col justify-between ">
+                  <h3 class="text-xl text-gray-500 font-bold">{{ shippingAddress.first_name }}
+                    {{ shippingAddress.last_name }}</h3>
+                  <h3 class="text-xl text-gray-500 font-bold">{{ shippingAddress.country.name }},{{
+                      shippingAddress.city
+                    }}, {{ shippingAddress.zip_code }}, {{ shippingAddress.street_name }}</h3>
+                  <h3 class="text-xl text-gray-500 font-bold">{{ shippingAddress.building_number }}</h3>
+                  <h3 class="text-xl text-gray-500 font-bold">{{ shippingAddress.phone_number }}</h3>
+                  <div class="h-12">
+                    <button v-if="shippingAddressId !== shippingAddress.id"
+                            class="bg-web-primary p-2 text-white mt-2 w-1/2 text-sm"
+                            @click="shippingAddressId=shippingAddress.id">Select
+                    </button>
+                  </div>
+                </div>
               </div>
 
             </div>
             <div v-if="$store.state.cartCount >= 1" class="row">
               <div class="col-lg-4 offset-lg-8">
-                <div v-for="shipper in shippingCompanies" :key="shipper.title" class="bg-gray-100 flex justify-between px-2 py-1 mb-2 border border-gray-800 shadow-lg items-center rounded ">
+                <div v-for="shipper in shippingCompanies" v-if=" activePage === 'cart'"
+                     :key="shipper.title"
+                     class="bg-gray-100 flex justify-between px-2 py-1 mb-2 border border-gray-800 shadow-lg items-center rounded ">
                   <div>
-                    <img class="h-12 w-48 object-contain object-left "
-                         :src="shipper.image"/>
+                    <img :src="shipper.image"
+                         class="h-12 w-48 object-contain object-left "/>
                   </div>
                   <div class="text-right">
-                    <input type="radio" name="shipper" :checked="shipper.title === 'SMSA'" :disabled="shipper.title === 'DHL'"/>
+                    <input :checked="shipper.title === 'SMSA'" :disabled="shipper.title === 'DHL'" name="shipper"
+                           type="radio"/>
                   </div>
 
                 </div>
@@ -138,18 +166,24 @@
 
                     <!--                    </li>-->
 
-                    {{cites.length}}
                     <li class="cart-total">
                       Total
                       <span>{{ parseFloat(orderTotal).toFixed(2) }}</span>
                     </li>
                   </ul>
-                  <a v-if="$page.client_logged" class="proceed-btn" href="#"
-                  >Checkout</a
-                  >
-                  <a v-else class="proceed-btn" href="/web/sign_in"
-                  >LOGIN TO CHECK OUT</a
-                  >
+                  <div v-if="activePage == 'cart'">
+                    <a v-if="$page.client_logged" class="proceed-btn" href="#" @click="setActivePage('checkout')"
+                    >Checkout</a
+                    >
+                    <a v-else class="proceed-btn" href="/web/sign_in"
+                    >LOGIN TO CHECK OUT</a
+                    >
+                  </div>
+                  <div v-else>
+                    <button class="proceed-btn" @click="confirmOrder"
+                    >Confirm Order
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -169,26 +203,25 @@ export default {
   data() {
     return {
       orderTotal: 0,
+      shippingAddressMethod: 1,
+      shippingAddressId: 0,
       cart: [],
       orderProducts: [],
+      activePage: "cart"
     };
   },
-  computed:{
+  computed: {
 
-    cites()
-    {
-      return "Dammam:Dhahran:Jeddah:Jouf:Khamis Mushayat:Khayber:Madinah:Riyadh:Tabuk:Taif:Yanbu:Khubar:Makkah:Buraydah:Unayzah:Hail:Abha:Hufuf:Jubail:Qatif:Khafji:Ras Tannurah:Buqaiq:Sayhat:Safwa:Jazan:Sabya:Abu Arish:Hafar Al Baten:Rabigh:Lith:Ula:Duwadimi:Majmaah:Zulfi:Afif:Arar:Kharj:Muzahmiyah:Ranyah:Turbah:Taima:Dhuba:Qurayyat:Turayf:Wadi Dawasir:Quwayiyah:Muhayil:Salwa:Rafha:Baha:Baljurashi:Qunfudhah:Mukhwah:Mandaq:Qilwah:Atawlah:Aqiq:Mudhaylif:Nairiyah:Qarya Al Uliya:Tarut:Anak:Udhayliyah:Najran:Sharourah:Habounah:Samtah:Ahad Al Masarhah:Baysh:Darb:Dhamad:Bani Malek:Furasan:Tuwal:Shuqayq:Badr:Jamoum:Khulais:Bahrah:Masturah:Shaibah:Rass:Bukayriyah:Badaya:Riyadh Al Khabra:Uyun Al Jiwa:Nabhaniah:Sajir:Khabra:Uqlat As Suqur:Rafayaa Al Gimsh:Nabhaniah:Dukhnah:Nifi:Skakah:Dawmat Al Jandal:Namas:Sapt Al Ulaya:Bellasmar:Tanumah:Bashayer:Jadidah:Rafha:Qaysumah:Baqaa:Shinan:Muqiq:Shamli:Bishah:Dhahran Al Janoub:Taberjal:Baysh:Sabt Alalayah:Rijal Alma:Tathleeth:Bareq:Balsamar:Majardah:Ahad Rafidah:Al Hasa:Shaqra:Aflaj:Al Qouz:Ummlujj:Wajh:Midhnab:Artawiyah:Hawtat Sudayr :Ghat:Mubarraz:Thuwal:Dhalim:Khurmah:Qunfudhah:Tubarjal:Haql:Dhurma:Rumah:Huraymila:Dair:Batha:Hawtat Bani Tamim:Tareeb:Namerah:Alardhah:Sulayyil:Sarat Abida:Oyun:Adham:Muwayh:Tumair:Hanakiyah:Edabi:Marat:Aflaj Layla:Dilam:Hurayyiq:Haradh:Bijadiyah:Ras AlKhair:Tanajib:Sarrar:Saffaniyah:Al Hait:Umlej:".split(":");
-    },
-    shippingCompanies()
-    {
+
+    shippingCompanies() {
       return [
         {
-          title:"SMSA",
-          image:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/SMSA_Express_logo_%28English_version%29.svg/816px-SMSA_Express_logo_%28English_version%29.svg.png",
-        } ,
+          title: "SMSA",
+          image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/SMSA_Express_logo_%28English_version%29.svg/816px-SMSA_Express_logo_%28English_version%29.svg.png",
+        },
         {
-          title:"DHL",
-          image:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/DHL_Logo.svg/352px-DHL_Logo.svg.png",
+          title: "DHL",
+          image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/DHL_Logo.svg/352px-DHL_Logo.svg.png",
         }
       ];
     }
@@ -197,10 +230,38 @@ export default {
     WebLayout,
   },
 
+
   created() {
     this.validateCart();
   },
   methods: {
+
+
+    grabOrderItems() {
+      let items = [];
+      for (let index = 0; index < this.orderProducts.length; index++) {
+        const element = this.orderProducts[index];
+        let product = this.findProductById(element);
+        if (product && (parseInt(product.available_qty) >= parseInt(product.quantity))) {
+          items.push(product);
+        }
+      }
+
+      return items;
+
+    },
+    confirmOrder() {
+      let items = this.grabOrderItems();
+      this.$inertia.post('/api/web/orders', {
+        'shipping_address_id': this.shippingAddressId,
+        'shipping_method_id': this.shippingAddressMethod,
+        'items': items
+
+      });
+    },
+    setActivePage(activePage) {
+      this.activePage = activePage;
+    },
 
     findProductById(id) {
       return this.$store.state.cart.find(
@@ -213,6 +274,8 @@ export default {
 
     updateProduct(payload) {
       this.$store.commit("addToCart", payload);
+      this.updateOrderTotal();
+
     },
 
     updateOrderProductQuantity(item, type) {
@@ -224,6 +287,7 @@ export default {
         quantity -= 1;
       }
       this.updateProduct({item: item, quantity: quantity});
+
     },
 
 
@@ -260,23 +324,20 @@ export default {
               appVm.updateOrderTotal();
             })
             .catch((error) => {
-              // callback(res);
             });
       }
     },
 
-    itemQtyUpdated(item) {
+    async itemQtyUpdated(item) {
       let quantity = parseInt(item.quantity);
 
       if (quantity >= 0) {
-        this.$store.commit("addToCart", {item: item, quantity: quantity});
+        await this.$store.commit("addToCart", {item: item, quantity: quantity});
       }
-
       this.updateOrderTotal();
     },
     toggleOrderProduct(item) {
       let index = this.orderProducts.indexOf(item.id);
-      console.log(index);
       if (index) {
         this.orderProducts.splice(index, 1);
       } else {
@@ -294,15 +355,14 @@ export default {
     },
 
     updateOrderTotal() {
+
       let appVm = this;
       let amount = 0;
-      for (let index = 0; index < this.orderProducts.length; index++) {
-        const element = this.orderProducts[index];
-        let product = this.findProductById(element);
-        if (product) {
-          amount += parseFloat(appVm.getProductTotal(product));
-        }
+      let items = this.grabOrderItems();
+      for (let index = 0; index < items.length; index++) {
+        amount += parseFloat(appVm.getProductTotal(items[index]));
       }
+
       this.orderTotal = amount;
     },
   },

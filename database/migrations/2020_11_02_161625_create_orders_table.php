@@ -1,0 +1,44 @@
+<?php
+	
+	use Illuminate\Database\Migrations\Migration;
+	use Illuminate\Database\Schema\Blueprint;
+	use Illuminate\Support\Facades\Schema;
+	
+	class CreateOrdersTable extends Migration
+	{
+		/**
+		 * Run the migrations.
+		 *
+		 * @return void
+		 */
+		public function up()
+		{
+			Schema::create(
+				'orders', function(Blueprint $table) {
+				$table->bigIncrements('id');
+				$table->integer('user_id');
+				$table->integer('draft_id');
+				$table->integer('invoice_id')->nullable();
+				$table->string('tracking_number')->nullable();
+				$table->integer('managed_by_id')->nullable();
+				$table->float('net')->nullable();
+				$table->integer('shipping_address_id')->nullable();
+				$table->enum('status', ['issued', 'pending', 'delivered', 'canceled', 'in_progress', 'shipped'])->default('issued');
+				$table->integer('shipping_method_id')->nullable();
+		
+				$table->softDeletes();
+				$table->timestamps();
+			}
+			);
+		}
+		
+		/**
+		 * Reverse the migrations.
+		 *
+		 * @return void
+		 */
+		public function down()
+		{
+			Schema::dropIfExists('orders');
+		}
+	}

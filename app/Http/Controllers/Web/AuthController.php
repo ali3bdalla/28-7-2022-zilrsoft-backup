@@ -4,14 +4,12 @@
 	
 	use App\Http\Controllers\Controller;
 	use App\Models\Manager;
+	use App\Models\OnlineUserPlaceholder;
 	use App\Models\User;
 	use Illuminate\Http\Request;
-	use Illuminate\Support\Facades\DB;
-	use Illuminate\Support\Facades\Hash;
 	use Illuminate\Support\Facades\Session;
 	use Illuminate\Validation\ValidationException;
 	use Inertia\Inertia;
-	use function GuzzleHttp\Psr7\str;
 	
 	class AuthController extends Controller
 	{
@@ -31,12 +29,7 @@
 				]
 			);
 			
-			$user = User::where('phone_number', $request->input('phone_number'))->first();
-//
-//			if(Hash::check($user->password, $request->input('password'))) {
-//				auth('client')->attempt($user);
-//				return redirect(route('web.index'));
-//			}
+			User::where('phone_number', $request->input('phone_number'))->first();
 			
 			if(auth('client')->attempt(['phone_number' => $request->input('phone_number'), 'password' => $request->input('password')])) {
 				return redirect(route('web.index'));
@@ -74,13 +67,13 @@
 				$phoneNumber = $request->input('phone_number');
 			}
 			
-			DB::table('online_users_placeholder')->insert(
+			OnlineUserPlaceholder::create(
 				[
 					
 					'phone_number' => $phoneNumber,
 					'username' => $request->input('first_name') . " " . $request->input('last_name'),
 					'password' => bcrypt($request->input('password')),
-					'otp' => $otp,
+					'otp' => $otp
 				
 				]
 			);
@@ -109,7 +102,7 @@
 					'phone_number' => 'required|string|exists:online_users_placeholder,phone_number',
 				]
 			);
-			$placeholderUser = DB::table('online_users_placeholder')->where('phone_number', $request->input('phone_number'))->orderByDesc('id')->first();
+			$placeholderUser = OnlineUserPlaceholder::where('phone_number', $request->input('phone_number'))->orderByDesc('id')->first();
 			
 			if($placeholderUser && $placeholderUser->otp == $request->input('otp')) {
 				$manager = Manager::find(1);
@@ -127,7 +120,7 @@
 						'user_title' => 'mr',
 					]
 				);
-				DB::table('online_users_placeholder')->where('phone_number', $request->input('phone_number'))->delete();
+				OnlineUserPlaceholder::where('phone_number', $request->input('phone_number'))->delete();
 				auth('client')->login($client);
 				return redirect('/web');
 			} else {

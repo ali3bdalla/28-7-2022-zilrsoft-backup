@@ -1,7 +1,7 @@
 <?php
 	
 	return [
-		'statistics'=>'الاحصائيات',
+		'statistics' => 'الاحصائيات',
 		'transactions' => 'القيود',
 		'dashboard' => 'لوحة التحكم',
 		'items' => 'المنتجات',
@@ -34,8 +34,9 @@
 		'journal_entry' => ' قيود اليومية',
 		'financial_statements' => '  القوائم المالية',
 		'general_ledger' => ' الاستاذ العام',
-
-        'trial_balance' => 'ميزان المراجعة',
+		
+		'trial_balance' => 'ميزان المراجعة',
 		'management' => 'ادارة',
-		'printers' => 'الطابعات'
+		'printers' => 'الطابعات',
+		'orders' => 'المتجر الالكتروني'
 	];

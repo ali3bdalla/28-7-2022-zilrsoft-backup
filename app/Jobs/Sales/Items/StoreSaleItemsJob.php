@@ -25,6 +25,10 @@
 		 * @var bool
 		 */
 		private $isDraft;
+		/**
+		 * @var bool
+		 */
+		private $isOnlineOrder;
 		
 		/**
 		 * Create a new job instance.
@@ -32,13 +36,16 @@
 		 * @param Invoice $invoice
 		 * @param $items
 		 * @param bool $isDraft
+		 * @param null $loggedUser
+		 * @param bool $isOnlineOrder
 		 */
-		public function __construct(Invoice $invoice, $items, $isDraft = false)
+		public function __construct(Invoice $invoice, $items, $isDraft = false, $loggedUser = null, $isOnlineOrder = false)
 		{
 			$this->items = $items;
 			$this->invoice = $invoice;
-			$this->loggedUser = auth()->user();
+			$this->loggedUser = $loggedUser ? $loggedUser : auth()->user();
 			$this->isDraft = $isDraft;
+			$this->isOnlineOrder = $isOnlineOrder;
 		}
 		
 		/**
@@ -129,7 +136,11 @@
 			 * create new invoice item instance
 			 * ==========================================================
 			 */
-			$invoiceItem = $this->createInvoiceItem($item, $requestItemCollection);
+			if($this->isOnlineOrder)
+				$invoiceItem = $this->createOnlineOrderItem($item, $requestItemCollection);
+			else
+				$invoiceItem = $this->createInvoiceItem($item, $requestItemCollection);
+			
 			
 			/**
 			 * ==========================================================
@@ -183,6 +194,43 @@
 			
 		}
 		
+		public function createOnlineOrderItem(Item $item, $requestItemCollection)
+		{
+			
+			$price = (float)$item->online_price;
+			
+			$discount = false;
+			$qty = (int)$requestItemCollection->get('quantity'); // 10
+			$total = $price * $qty;
+			$subtotal = $total - $discount;
+			$tax = ($subtotal * $item->vts) / 100;
+			$net = $subtotal + $tax;
+			$data['belong_to_kit'] = false;
+			$data['parent_kit_id'] = 0;
+			$data['invoice_type'] = 'sale';
+			$data['user_id'] = $this->invoice->user_id;
+			$data['qty'] = $qty;
+			$data['price'] = $price;
+			$data['discount'] = $discount;
+			$data['total'] = $total;
+			$data['subtotal'] = $subtotal;
+			$data['tax'] = $tax;
+			$data['net'] = $net;
+			$data['organization_id'] = $this->loggedUser->organization_id;
+			$data['creator_id'] = $this->loggedUser->id;
+			$data['item_id'] = $item->id;
+			$data['is_draft'] = $this->isDraft;
+			
+			return $this->performDBCreation($data);
+			
+			
+		}
+		
+		private function performDBCreation($data)
+		{
+			return $this->invoice->items()->create($data);
+		}
+		
 		private function createInvoiceItem(Item $item, $requestItemCollection)
 		{
 			
@@ -200,7 +248,6 @@
 			$subtotal = $total - $discount;
 			$tax = ($subtotal * $item->vts) / 100;
 			$net = $subtotal + $tax;
-			
 			$data['belong_to_kit'] = $isBelongToKit;
 			$data['parent_kit_id'] = $parentKitId;
 			$data['invoice_type'] = 'sale';
@@ -216,7 +263,8 @@
 			$data['creator_id'] = $this->loggedUser->id;
 			$data['item_id'] = $item->id;
 			$data['is_draft'] = $this->isDraft;
-			return $this->invoice->items()->create($data);
+			return $this->performDBCreation($data);
+			
 			
 		}
 		

@@ -27,7 +27,7 @@
             :only-quotations="true"
             :creators='@json($creators)'
             :vendors='@json($clients)'
-            :creator='@json(auth()->user())'
+            :creator='@json($loggedManager)'
     >
 
 

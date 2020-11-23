@@ -21,7 +21,7 @@
             :creators='@json($creators)'
             :vendors='@json($clients)'
             :departments='@json(\App\Models\Department::all())'
-            :creator='@json(auth()->user())'
+            :creator='@json($loggedManager)'
             :can-view-accounting="{{ auth()->user()->canDo('view item transactions') }}"
             :can-edit="{{ auth()->user()->canDo('edit sale') }}"
     >

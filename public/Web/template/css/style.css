@@ -3784,7 +3784,8 @@ ol {
 }
 
 .register-form form .group-input input,
-.login-form form .group-input input {
+.login-form form .group-input input,
+.login-form form .group-input select {
 	border: 1px solid #ebebeb;
 	height: 50px;
 	width: 100%;

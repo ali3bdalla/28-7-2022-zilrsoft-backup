@@ -13,7 +13,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=El+Messiri&display=swap" rel="stylesheet">
 
-    {{--        <link rel="stylesheet" href="{{ asset('template/css/pdf.css') }}">--}}
+    <link rel="stylesheet" href="{{ asset('template/css/pdf.css') }}">
 
 
     <style>
@@ -414,7 +414,8 @@
             </div>
             <div class="issued_by">
                 @if(auth()->user()->organization->stamp != null)
-                    <div style="margin-bottom: 9px"><img src="{{auth()->user()->organization->stamp}}" style="width: 80px"/></div>
+                    <div style="margin-bottom: 9px"><img src="{{auth()->user()->organization->stamp}}"
+                                                         style="width: 80px"/></div>
 
                 @endif
                 <h3 style="margin-bottom: 9px">{{__('reusable.issued_by')}}</h3>
@@ -433,9 +434,8 @@
 </body>
 
 </html>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="{{asset('accounting/js/jquery-barcode.min.js')}}"></script>
-<script type="text/javascript">
-
-    print();
-</script>
+{{--<script src="http://code.jquery.com/jquery-latest.min.js"></script>--}}
+{{--<script src="{{asset('accounting/js/jquery-barcode.min.js')}}"></script>--}}
+{{--<script type="text/javascript">--}}
+{{--    print();--}}
+{{--</script>--}}

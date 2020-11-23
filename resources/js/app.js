@@ -9,6 +9,7 @@ import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css'
 import VuejsDialog from 'vuejs-dialog';
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
 import VModal from 'vue-js-modal'
+import VueSimpleAlert from "vue-simple-alert";
 
 require('./bootstrap');
 window.TextValidator = require('validator');
@@ -25,6 +26,8 @@ window.getIndex = function (needle, haystack) {
     return -1;
 }
 window.Vue = Vue;
+require('./components/include');
+require('./Plugins/plugins');
 require('./accounting/load');
 Vue.use(Vuetify);
 Vue.use(VModal);
@@ -43,6 +46,7 @@ Vue.use(CxltToastr, {
 });
 Vue.use(Loading);
 Vue.use(ToggleButton);
+Vue.use(VueSimpleAlert);
 
 Vue.component('layouts-header-component', require('./components/layoutsHeaderComponent').default)
 Vue.component('pending-purchases-counter-component', require('./components/pendingPurchasesCounterComponent').default)

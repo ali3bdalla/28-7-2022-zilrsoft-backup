@@ -23,7 +23,7 @@ class Text extends \Faker\Provider\Text
      *
      * Author: Гоголь Николай
      *
-     * Posting Date: May 20, 8008
+     * Posting Date: May 20, 2008
      * [Last updated: August 2, 2012]
      *
      * Language: Russian

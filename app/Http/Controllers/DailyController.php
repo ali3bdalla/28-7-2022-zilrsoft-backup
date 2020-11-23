@@ -52,7 +52,7 @@
 				)->where('created_at', '>=', $accountsClosedAt)->where(
 					[
 						['payment_type', 'receipt'],
-						['invoice_id', '!=', null]
+//						['invoice_id', '!=', null]
 					]
 				)->sum('amount');
 				$outAmount = Payment::where(
@@ -62,7 +62,7 @@
 				)->where('created_at', '>=', $accountsClosedAt)->where(
 					[
 						['payment_type', 'payment'],
-						['invoice_id', '!=', null]
+//						['invoice_id', '!=', null]
 					]
 				)->sum('amount');
 			} else {
@@ -73,7 +73,7 @@
 				)->where(
 					[
 						['payment_type', 'receipt'],
-						['invoice_id', '!=', null]
+//						['invoice_id', '!=', null]
 					]
 				)->sum('amount');
 				
@@ -84,7 +84,7 @@
 				)->where(
 					[
 						['payment_type', 'payment'],
-						['invoice_id', '!=', null]
+//						['invoice_id', '!=', null]
 					]
 				)->sum('amount');
 			}
@@ -101,10 +101,12 @@
 				[
 					['creator_id', auth()->user()->id],
 					['transaction_type', "transfer"],
+//					['id', '!=',138],
 				]
 			)->orWhere(
 				[
 					['receiver_id', auth()->user()->id],
+//					['id', '!=',138],
 				]
 			)->orderBy('id', 'desc')->paginate(15);
 			
@@ -152,6 +154,14 @@
 				}
 				
 			}
+			
+			return back();
+		}
+		
+		
+		public function deleteResellerAccountTransaction(ResellerClosingAccount  $transaction)
+		{
+			$transaction->delete();
 			
 			return back();
 		}

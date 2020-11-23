@@ -15,7 +15,7 @@
 	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Database\Eloquent\Collection;
 	use Illuminate\Http\Request;
-	use Spatie\Permission\Models\Role;
+	use App\Models\Role;
 	
 	class ProviderController extends Controller
 	{

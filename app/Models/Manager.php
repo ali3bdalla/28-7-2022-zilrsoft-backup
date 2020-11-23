@@ -3,12 +3,16 @@
 	namespace App\Models;
 	
 	
+	use Illuminate\Notifications\Notifiable;
+	
 	/**
 	 * @method static inRandomOrder()
 	 */
 	class Manager extends BaseAuthModel
 	{
 		
+		
+		use Notifiable;
 		
 		/**
 		 * The attributes that are mass assignable.
@@ -113,16 +117,13 @@
 			return
 				$this->belongsToMany(
 					Account::class,
-					'manager_gateways',
+					ManagerGateways::class,
 					'manager_id',
 					'gateway_id'
 				)
 					->withPivot('order_number as order_number')
-					->orderBy('order_number', 'asc')
-					->withTimestamps();
+					->orderBy('order_number', 'asc');
 		}
-		
-		
 		
 		
 	}

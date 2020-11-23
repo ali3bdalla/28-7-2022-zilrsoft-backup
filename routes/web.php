@@ -1,10 +1,9 @@
 <?php
 	
+	use AliAbdalla\PDF\APDFCore;
 	use App\Http\Middleware\ImagesUploadMiddleware;
 	use Illuminate\Support\Facades\Route;
 	use Inertia\Inertia;
-
-//	auth('client')->logout();
 	
 	
 	Route::get('/', 'Web\HomeController@toWeb')->name('to.web');
@@ -12,7 +11,10 @@
 	
 	Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->name('web.')->group(
 		function() {
-			
+			Route::get('/orders/{order}/cancel', 'Order\CancelOrderController@showPage');
+			Route::post('/orders/{order}/cancel', 'Order\CancelOrderController@confirm');
+			Route::get('/orders/{order}/confirm_payment', 'Order\ConfirmOrderPaymentController@showConfirmPaymentPage');
+			Route::post('/orders/{order}/confirm_payment', 'Order\ConfirmOrderPaymentController@confirmPayment');
 			Route::middleware('client_guest')->group(
 				function() {
 					Route::prefix('sign_in')->name('sign_in.')->group(
@@ -61,29 +63,6 @@
 					Route::get('/{item}', 'ItemController@show')->name('show');
 				}
 			);
-//
-//
-//			Route::middleware('auth:client')->group(
-//				function() {
-//					Route::prefix('sign_in')->name('sign_in.')->group(
-//						function() {
-//							Route::get('/', 'AuthController@signInPage');
-//							Route::post('/', 'AuthController@signIn');
-//						}
-//					);
-//
-//					Route::prefix('sign_up')->name('sign_up.')->group(
-//						function() {
-//							Route::get('/', 'AuthController@signUpPage');
-//							Route::post('/', 'AuthController@signUp');
-//							Route::post('/confirm_sign_up', 'AuthController@confirmSignUp');
-//							Route::get('/confirm_sign_up', 'AuthController@confirmSignUpPage')->name('confirm_sign_up');
-//						}
-//					);
-//
-//				}
-//			);
-//
 			
 		}
 	);
@@ -109,8 +88,9 @@
 		
 		Route::group(
 			['middleware' => ImagesUploadMiddleware::class], function() {
-			Route::get('/',"ImagesUploadController@index");
-			Route::get('/{item}',"ImagesUploadController@show");
+			Route::get('/', "ImagesUploadController@index");
+			Route::get('/redirect', "ImagesUploadController@redirectInertia");
+			Route::get('/{item}', "ImagesUploadController@show");
 		}
 		);
 		
@@ -120,6 +100,8 @@
 	
 	Route::middleware('auth')->group(
 		function() {
+			
+			Route::resource('orders', 'OrderController');
 			Route::get('/dashboard', 'HomeController@index')->name('dashboard.index');
 			Route::post('/logout', 'HomeController@logout')->name('logout');
 			Route::resource('sales', 'SaleController');
@@ -131,6 +113,7 @@
 							Route::get('/create', 'SaleController@createDraft')->name('create');
 							Route::get('/create_service', 'SaleController@createServiceDraft')->name('create.service');
 							Route::get('/{sale}/clone', 'SaleController@clone')->name('clone');
+							Route::get('/{sale}/to_invoice', 'SaleController@toInvoice')->name('to_invoice');
 						}
 					);
 				}
@@ -155,6 +138,11 @@
 				}
 			);
 			Route::resource('vouchers', 'VoucherController');
+			Route::prefix('vouchers/manual')->name('vouchers.')->group(
+				function() {
+					Route::get('/create-supplier', "VoucherController@createSupplierVoucher")->name('create.supplier');
+				}
+			);
 			Route::resource('entities', 'EntityController');
 			Route::prefix('entities')->name('entities.')->group(
 				function() {
@@ -206,6 +194,7 @@
 									Route::get('/', 'DailyController@resellerAccountsTransactionsIndex')->name('index');
 									Route::get('/create', 'DailyController@createResellerAccountTransaction')->name('create');
 									Route::get('/{transaction}/confirm', 'DailyController@confirmResellerAccountTransaction')->name('confirm');
+									Route::get('/{transaction}/delete_transaction', 'DailyController@deleteResellerAccountTransaction')->name('confirm');
 								}
 							);
 						}
@@ -215,6 +204,15 @@
 			);
 			
 			
+			Route::prefix('filters')->name('filter')->group(
+				function() {
+					Route::get('/', 'FilterController@index')->name('index');
+					Route::get('/create', 'FilterController@create')->name('create');
+					Route::get('/{filter}', 'FilterController@show')->name('show');
+					Route::get('/{filter}/edit', 'FilterController@edit')->name('edit');
+					
+				}
+			);
 			Route::prefix('/accounting')->name('accounting.')->namespace('Accounting')->group(
 				function() {
 					Route::resources(
@@ -241,6 +239,7 @@
 					
 				}
 			);
+			
 			
 		}
 	);

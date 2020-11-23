@@ -22,23 +22,59 @@
 					Route::match(['POST', 'GET'], '/get_items_details', 'CartController@getItemDetails')->name('get_items_details');
 				}
 			);
+			
+			
+			Route::middleware('auth:client')->group(
+				function() {
+					Route::resource('shipping_addresses', 'ShippingAddressController');
+					Route::resource('orders', 'OrderController');
+				}
+			);
 		}
 	);
-	
 	
 	
 	Route::prefix("upload_images/{item}")->middleware(ImagesUploadMiddleware::class)->group(
 		function() {
 			Route::get('/', 'ItemController@getImages');
 			Route::post('/', 'ItemController@uploadImages');
-			Route::delete('/{image}', 'ItemController@deleteImage');
+			Route::post('/update_description', 'ItemController@updateDescription');
+			Route::get('/{image}', 'ItemController@deleteImage');
 		}
 	);
 	
 	
-	
 	Route::middleware('auth')->group(
 		function() {
+			
+			Route::resource('orders', 'OrderController');
+			
+			Route::prefix('notifications')->namespace('Notifications')->name('notifications.')->group(
+				function() {
+					Route::prefix('orders')->name('orders.')->group(
+						function() {
+							Route::get('/orders/', 'OrderController@notificationList')->name('order.list');
+						}
+					);
+					Route::prefix('transactions')->name('transactions.')->group(
+						function() {
+							Route::get('/issued', 'TransactionNotificationController@issued')->name('issued');
+						}
+					);
+					Route::prefix('orders')->name('orders.')->group(
+						function() {
+							Route::get('pending', 'OrderNotificationController@pending')->name('pending');
+						}
+					);
+					
+				}
+			);
+			Route::prefix('orders')->name('orders.')->group(
+				function() {
+				}
+			);
+			
+			
 			Route::resource('vouchers', 'VoucherController');
 			Route::resource('sales', 'SaleController');
 			Route::prefix('sales')->name('sales.')->group(
@@ -47,13 +83,7 @@
 					Route::patch('/{sale}', 'SaleController@storeReturnSale')->name('store.return');
 				}
 			);
-			Route::resource('accounts', 'AccountController');//	Route::prefix('accounts/{account}')->name('accounts.')->group(
-//		function() {
-//
-//Route::get('/children', 'AccountController@children')->name('children');
-//					Route::get('/entities', 'AccountController@entities')->name('entities');
-//		}
-//	);
+			Route::resource('accounts', 'AccountController');
 			Route::prefix('accounts')->name('accounts.')->group(
 				function() {
 					Route::prefix('reports')->name('reports.')->group(
@@ -110,6 +140,7 @@
 			Route::resource('purchases', 'PurchaseController');
 			Route::prefix('purchases')->name('purchases.')->group(
 				function() {
+					Route::get('/fetch/pending_dropbox_purchases', 'PurchaseController@pendingDropBoxPurchases')->name('pending_dropbox_purchases');
 					Route::post('/draft', 'PurchaseController@storeDraft')->name('store.draft');
 					Route::patch('/{purchase}', 'PurchaseController@storeReturnPurchase')->name('store.return');
 				}
@@ -130,10 +161,10 @@
 						function() {
 							Route::prefix('closing_accounts')->name('closing_account.')->group(
 								function() {
-									Route::post('/', 'DailyController@storeResellerClosingAccount')->name('store');
+									Route::post('/', 'DailyControllerDailyController@storeResellerClosingAccount')->name('store');
 								}
 							);
-							Route::prefix('accounts_transactions')->name('closing_account.')->group(
+							Route::prefix('/accounts_transactions')->name('accounts_transactions.')->group(
 								function() {
 									Route::post('/', 'DailyController@storeResellerAccountTransaction')->name('store');
 								}
@@ -150,6 +181,16 @@
 					
 					Route::get('/view_serials', 'ItemController@serials')->name('serials');
 					Route::get('/clone', 'ItemController@clone')->name('clone');
+				}
+			);
+			
+			
+			Route::prefix('filters')->name('filters.')->group(
+				function() {
+//					Route::get('/', 'FilterController@index')->name('index');
+					Route::post('/', 'FilterController@store')->name('store');
+//					Route::delete('/{filter}', 'FilterController@destroy')->name('destroy');
+					Route::match(['PUT', 'PATCH', 'put', 'patch', 'post'], '/{filter}/update', 'FilterController@update')->name('update');
 				}
 			);
 			

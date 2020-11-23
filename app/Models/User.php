@@ -16,8 +16,8 @@
 		use SoftDeletes;
 		
 		protected $guarded = [];
-		
-		
+
+	
 		protected $appends = [
 			'locale_name'
 		];
@@ -36,21 +36,27 @@
 		
 		public function invoices()
 		{
-			return $this->hasMany(Invoice::class,'user_id');
+			return $this->hasMany(Invoice::class, 'user_id');
 		}
 		
-		public function getNameAttribute()
+		public function getNameAttribute($value)
 		{
 			
-			return $this->name_ar;
+			return $value;
+//			return $this->name;
 		}
 		
 		public function getLocaleNameAttribute()
 		{
 			
-			return $this->name_ar;
+			return $this->name;
 		}
 		
+		
+		public function shippingAddresses()
+		{
+			return $this->hasMany(ShippingAddress::class, 'user_id');
+		}
 		
 		public function isSystemUser()
 		{
@@ -84,12 +90,12 @@
 			return $this->is_manager == true;
 		}
 		
-		
-		public function getCreatedAtAttribute($value)
-		{
-			return Carbon::parse($value)->toDateString();
-		}
-		
+//
+//		public function getCreatedAtAttribute($value)
+//		{
+//			return Carbon::parse($value)->toDateString();
+//		}
+//
 		
 		public function details()
 		{

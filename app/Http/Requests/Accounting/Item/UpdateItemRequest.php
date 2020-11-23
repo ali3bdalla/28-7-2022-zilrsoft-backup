@@ -2,10 +2,13 @@
 
 	namespace App\Http\Requests\Accounting\Item;
 
+	use App\Models\CategoryFilters;
+	use App\Models\Filter;
 	use App\Models\FilterValues;
 	use App\Models\ItemFilters;
 	use Illuminate\Foundation\Http\FormRequest;
-
+	use Illuminate\Validation\ValidationException;
+	
 	class UpdateItemRequest extends FormRequest
 	{
 		/**
@@ -82,7 +85,22 @@
 					}
 				}
 			}
-
+			
+			
+			
+			$requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
+			$itemFilters = ItemFilters::where('item_id', $item->id)->pluck('filter_id')->toArray();
+			
+			foreach($requiredFilter as $filterId) {
+				if(!in_array($filterId, $itemFilters)) {
+					throw ValidationException::withMessages([
+						'filters' => [
+							'this filter should be selected'
+						]
+					]);
+				}
+			}
+			
 			return $item;
 
 		}

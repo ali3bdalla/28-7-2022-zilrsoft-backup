@@ -16,7 +16,7 @@
 			
 			Schema::create(
 				'online_users_placeholder', function($table) {
-				$table->increments('id');
+				$table->bigIncrements('id');
 				$table->string('phone_number');
 				$table->string('username')->nullable();
 				$table->string('password')->nullable();

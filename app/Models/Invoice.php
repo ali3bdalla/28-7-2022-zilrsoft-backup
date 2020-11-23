@@ -3,6 +3,7 @@
 	namespace App\Models;
 	
 	use Illuminate\Database\Eloquent\SoftDeletes;
+	use Illuminate\Support\Facades\Storage;
 	
 	/**
 	 * @property mixed organization_id
@@ -22,6 +23,7 @@
 	 * @property mixed managed_by_id
 	 * @property mixed vendor_invoice_number
 	 * @property mixed is_draft
+	 * @property mixed created_at
 	 * @method static create(array $array)
 	 */
 	class Invoice extends BaseModel
@@ -32,6 +34,7 @@
 		protected $guarded = [];
 		protected $casts = [
 			'printable_price' => 'boolean',
+			'is_draft_converted' => 'boolean',
 		];
 		
 		
@@ -69,7 +72,6 @@
 		{
 			return $this->belongsTo(Manager::class, 'creator_id');
 		}
-		
 		
 		public function department()
 		{
@@ -157,6 +159,26 @@
 			}
 			
 			return $this->user->name;
+		}
+		
+		
+		public function getHasDropboxSnapshotAttribute()
+		{
+			return Storage::disk('dropbox')->exists($this->dropbox_snapshot);
+		}
+		
+		
+		
+		
+		
+		public function getDropboxSnapshotUrlAttribute()
+		{
+			if($this->has_dropbox_snapshot) {
+				return Storage::disk('dropbox')->url($this->dropbox_snapshot);
+			}
+			
+			
+			return "";
 		}
 		
 		

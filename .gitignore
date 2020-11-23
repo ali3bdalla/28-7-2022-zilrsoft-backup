@@ -3,7 +3,8 @@
 /phpmyadmin
 /public/storage
 /storage/*
-/vendor
+/vendor/*
+.idea
 .env
 .env.backup
 .phpunit.result.cache

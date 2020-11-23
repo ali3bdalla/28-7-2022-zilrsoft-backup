@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-md-12">
                 <accounting-kits-create-component
-                        :creator='@json(auth()->user()->load('department','branch'))
+                        :creator='@json($loggedManager)
                                 '></accounting-kits-create-component>
             </div>
         </div>

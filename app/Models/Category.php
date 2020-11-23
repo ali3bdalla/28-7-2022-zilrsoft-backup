@@ -15,6 +15,7 @@
 		//
 		use  SoftDeletes, NestingTrait;
 		
+		
 		protected $appends = [
 			'locale_name',
 			'label',

@@ -2,6 +2,7 @@
 	
 	namespace App\Jobs\Accounting\Entity;
 	
+	use App\Models\Account;
 	use App\Models\Transaction;
 	use Carbon\Carbon;
 	use Illuminate\Bus\Queueable;
@@ -41,9 +42,7 @@
 		public function handle()
 		{
 			// grab account
-			$account = $this->transaction->account;
-			
-			
+			$account = Account::where('id',$this->transaction->account_id)->withTrashed()->first();
 			$createdAt = Carbon::parse($this->transaction->created_at);
 			
 			$snapshot = $account->snapshots()->whereDate('created_at', $createdAt)->first();
@@ -90,11 +89,11 @@
 				$totalCreditAmount = $account->total_credit_amount;
 				
 				if($this->increase) {
-					$totalDebitAmount = $account->total_debit_amount + (float)$this->transaction->amount;
-					$snapshotDebitAmount += (float)$this->transaction->amount;
+					$totalDebitAmount = (float)$account->total_debit_amount + (float)$this->transaction->amount;
+					$snapshotDebitAmount = (float)$snapshotDebitAmount + (float)$this->transaction->amount;
 				} else {
-					$totalDebitAmount = $account->total_debit_amount - (float)$this->transaction->amount;
-					$snapshotDebitAmount = $snapshotDebitAmount - (float)$this->transaction->amount;
+					$totalDebitAmount = (float)$account->total_debit_amount - (float)$this->transaction->amount;
+					$snapshotDebitAmount = (float)$snapshotDebitAmount - (float)$this->transaction->amount;
 				}
 				
 				$snapshot->update(

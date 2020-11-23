@@ -17,6 +17,6 @@
             :vendors='@json($vendors)'
             :gateways='@json($gateways)'
             :receivers='@json($receivers)'
-            :creator='@json(auth()->user()->load('department','branch','user'))'
+            :creator='@json($loggedManager)'
     ></accounting-purchases-create-component>
 @endsection

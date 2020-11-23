@@ -1,0 +1,54 @@
+.notification {
+
+  &__dropdown {
+    width: 350px !important;
+    max-height: 500px;
+    @apply bg-gray-300 overflow-y-auto;
+  }
+  &__dropdown-header {
+    @apply border flex flex-row-reverse items-center justify-center m-0;
+  }
+  &__dropdown-title {
+    @apply text-gray-500 text-lg border-b px-5;
+  }
+  &__dropdown-icon {
+    @apply p-1 inline-block;
+    svg {
+      @apply w-5 h-5 text-gray-400;
+    }
+  }
+
+  &__created_at {
+    @apply  text-sm text-gray-500;
+  }
+
+
+  &__buttons {
+    @apply flex justify-between items-center my-2 w-full gap-1;
+    a {
+      @apply bg-gray-300 px-3 py-1 text-gray-600 border-none w-full text-center font-bold;
+    }
+  }
+  &__dropdown-item {
+    //width: 450px !important;
+    //max-height: 500px;
+    @apply bg-white flex p-1 w-full border border-black mb-1;
+
+
+    &__content {
+      @apply flex-1 px-5;
+    }
+
+    &__message {
+      @apply mt-2 text-right;
+    }
+
+
+    &__link {
+      @apply font-bold text-indigo-400;
+    }
+
+
+  }
+
+}
