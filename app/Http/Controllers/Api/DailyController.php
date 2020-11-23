@@ -23,8 +23,5 @@
 			return $request->store();
 		}
 		
-		public function issuedTransactions(Request $request)
-		{
-			return ResellerClosingAccount::toMe($request)->get();
-		}
+		
 	}

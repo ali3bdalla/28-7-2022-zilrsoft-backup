@@ -48,7 +48,7 @@
 					[
 						'is_client' => true,
 						'name' => $this->faker->userName,
-						'phone_number' => $this->faker->randomElement(['966556045415', '966504956211', '24966324018']),
+						'phone_number' => '249966324018',
 						'organization_id' => 1
 					]
 				);
@@ -72,7 +72,7 @@
 				
 				$client->update(
 					[
-						'phone_number' => '966556045415'
+						'phone_number' => '249966324018'
 					]
 				);
 
@@ -107,7 +107,6 @@
 			$response->dump();
 			foreach($requestItems as $item) {
 				$dbitem = Item::find($item['id']);
-				
 				$this->assertEquals($dbitem->available_qty + $item['quantity'], $item['available_qty']);
 			}
 			

@@ -2,16 +2,11 @@
 	
 	namespace App\Console\Commands\Order;
 	
-	use AliAbdalla\Whatsapp\Whatsapp;
 	use App\Events\Order\OrderCanceledEvent;
-	use App\Jobs\Items\AvailableQty\UpdateAvailableQtyByInvoiceItemJob;
 	use App\Jobs\Order\CancelOrderJob;
-	use App\Models\InvoiceItems;
 	use App\Models\Order;
-	use App\Models\OrderItemQtyHolder;
 	use Carbon\Carbon;
 	use Illuminate\Console\Command;
-	use Illuminate\Support\Facades\Storage;
 	
 	class CancelUnPaidOrder extends Command
 	{
@@ -49,14 +44,11 @@
 		{
 			$orders = Order::where('status', 'issued')->whereDate('auto_cancel_at', '<=', Carbon::now())->whereTime('auto_cancel_at', '<=', Carbon::now())->get();
 			
-//			dd($orders);
 			foreach($orders as $order) {
-			
 				dispatch(new CancelOrderJob($order));
-				
 			}
 			
 		}
 		
-	
+		
 	}

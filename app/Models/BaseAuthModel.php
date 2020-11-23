@@ -2,8 +2,8 @@
 	
 	namespace App\Models;
 	
+	use App\Models\Traits\PostgresTimestamp;
 	use App\Models\Traits\Translatable;
-	use Carbon\Carbon;
 	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Foundation\Auth\User as Authenticatable;
 	use Illuminate\Notifications\Notifiable;
@@ -12,20 +12,10 @@
 	
 	class BaseAuthModel extends Authenticatable
 	{
-		use Notifiable, HasRoles;
+		use Notifiable, HasRoles, PostgresTimestamp;
 		use Translatable;
 		
-		protected $dateFormat = 'Y-m-d H:i:sO';//O
 		
-		public function getUpdatedAtAttribute($value)
-		{
-			
-			return Carbon::parse($value)->toDateTimeString();
-		}
-		public function getCreatedAtAttribute($value)
-		{
-			return Carbon::parse($value)->toDateTimeString();
-		}
 		protected static function boot()
 		{
 			parent::boot();

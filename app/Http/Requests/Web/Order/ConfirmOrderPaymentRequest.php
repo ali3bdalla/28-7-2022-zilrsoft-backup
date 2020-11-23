@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Requests\Web\Order;
 	
+	use App\Events\Order\ClientUpdateOrderPaymentEvent;
 	use App\Models\Order;
 	use Illuminate\Foundation\Http\FormRequest;
 	
@@ -41,5 +42,14 @@
 					'status' => 'pending'
 				]
 			);
+			foreach($order->itemsQtyHolders as $holdQty) {
+//				UpdateAvailableQtyByInvoiceItemJob::dispatchNow($holdQty->invoiceItem, true);
+				$holdQty->update(
+					[
+						'status' => 'pending'
+					]
+				);
+			}
+			event(new ClientUpdateOrderPaymentEvent($order));
 		}
 	}

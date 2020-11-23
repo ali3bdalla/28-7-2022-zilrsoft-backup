@@ -15,6 +15,7 @@
 	 * @property false|mixed is_should_pay_notified
 	 * @property false|mixed should_pay_last_notification_at
 	 * @property mixed itemsQtyHolders
+	 * @property Carbon|mixed cancel_order_code
 	 */
 	class Order extends BaseModel
 	{

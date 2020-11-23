@@ -45,7 +45,7 @@
 			$order = $this->order;
 			$messageTemplate = view('whatsapp.order_canceled', compact('order','isManual'))->toHtml();
 			
-			Whatsapp::sendMessage($messageTemplate, ['966504956211']);
+			Whatsapp::sendMessage($messageTemplate, [$order->user->phone_number]);
 			$this->order->update(
 				[
 					'status' => 'canceled'

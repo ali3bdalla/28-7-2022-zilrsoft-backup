@@ -3,7 +3,6 @@
 	namespace App\Console\Commands\Order;
 	
 	use AliAbdalla\Whatsapp\Whatsapp;
-	use App\Jobs\Items\AvailableQty\UpdateAvailableQtyByInvoiceItemJob;
 	use App\Models\Order;
 	use Carbon\Carbon;
 	use Illuminate\Console\Command;
@@ -43,8 +42,6 @@
 		public function handle()
 		{
 			$orders = Order::where([['status', 'issued'], ['is_should_pay_notified', false]])->whereDate('should_pay_last_notification_at', '<=', Carbon::now())->whereTime('should_pay_last_notification_at', '<=', Carbon::now())->get();
-		
-//			dd($orders);
 			foreach($orders as $order) {
 				$order->update(
 					[
@@ -52,7 +49,7 @@
 					]
 				);
 				$messageTemplate = view('whatsapp.order_will_be_canceled_notify', compact('order'))->toHtml();
-				Whatsapp::sendMessage($messageTemplate, ['966504956211']);
+				Whatsapp::sendMessage($messageTemplate, [$order->phone_number]);
 			}
 			
 		}

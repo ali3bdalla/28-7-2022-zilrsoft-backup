@@ -20,7 +20,7 @@
 		public function testTransactionIssuedNotification_NotifyUser()
 		{
 			$manager = $this->getManager(2);
-			$receiver = $this->getManager(1);
+			$receiver = $this->getManager(8);
 //			$manager = $this->initOrganizationAndManager();
 //			$receiver = $this->createManager($manager->organization_id);
 			$this->actingAs($manager, 'manager');

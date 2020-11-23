@@ -4,8 +4,6 @@
 	
 	use AliAbdalla\Whatsapp\Whatsapp;
 	use Carbon\Carbon;
-	use Illuminate\Support\Facades\App;
-	use Illuminate\Support\Facades\Storage;
 	use PDF;
 	
 	
@@ -29,7 +27,7 @@
 		 */
 		public function handle($event)
 		{
-		
+			
 			$message = view(
 				'whatsapp.order_details', [
 					'client' => $event->client,
@@ -38,18 +36,13 @@
 					'deadline' => Carbon::now()->addMinutes(30)->format('H:ia')
 				]
 			)->toHtml();
-			
 			Whatsapp::sendFile(
-				$event->path, ['966504956211'],  $event->order->id
+				$event->path, [$event->order->user->phone_number], $event->order->id
 			);
-//			966556041451
-//			966504956211
 			Whatsapp::sendMessage(
-				$message, ['966504956211']
+				$message, [$event->order->user->phone_number]
 			);
 		}
-		
-		
 		
 		
 	}

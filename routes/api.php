@@ -49,15 +49,26 @@
 			
 			Route::resource('orders', 'OrderController');
 			
-			Route::prefix('notifications')->name('notifications.')->group(function(){
-				Route::prefix('orders')->name('orders.')->group(function(){
-					Route::get('/orders/', 'OrderController@notificationList')->name('order.list');
-				});
-				Route::prefix('transactions')->name('transactions.')->group(function(){
-					Route::get('/issued', 'DailyController@issuedTransactions')->name('issued');
-				});
-				
-			});
+			Route::prefix('notifications')->namespace('Notifications')->name('notifications.')->group(
+				function() {
+					Route::prefix('orders')->name('orders.')->group(
+						function() {
+							Route::get('/orders/', 'OrderController@notificationList')->name('order.list');
+						}
+					);
+					Route::prefix('transactions')->name('transactions.')->group(
+						function() {
+							Route::get('/issued', 'TransactionNotificationController@issued')->name('issued');
+						}
+					);
+					Route::prefix('orders')->name('orders.')->group(
+						function() {
+							Route::get('pending', 'OrderNotificationController@pending')->name('pending');
+						}
+					);
+					
+				}
+			);
 			Route::prefix('orders')->name('orders.')->group(
 				function() {
 				}

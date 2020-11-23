@@ -10,8 +10,8 @@ margin-bottom: -10px;"></i>
 <!--                                                   @removeNotification="removeNotification"></OrderPendingPaymentConfirmationNotification>-->
 <!--      <OrderPaymentConfirmedNotification @addNotification="addNotification"-->
 <!--                                         @removeNotification="removeNotification"></OrderPaymentConfirmedNotification>-->
-<!--      <OrderPendingPaymentConfirmationNotification @addNotification="addNotification"-->
-<!--                                                   @removeNotification="removeNotification"></OrderPendingPaymentConfirmationNotification>-->
+      <OrderPendingPaymentConfirmationNotification @addNotification="addNotification"
+                                                   @removeNotification="removeNotification"></OrderPendingPaymentConfirmationNotification>
       <TransactionIssuedNotification @addNotification="addNotification" @removeNotification="removeNotification"></TransactionIssuedNotification>
 <!--      <TransactionCanceledNotification @addNotification="addNotification"-->
 <!--                                       @removeNotification="removeNotification"></TransactionCanceledNotification>-->

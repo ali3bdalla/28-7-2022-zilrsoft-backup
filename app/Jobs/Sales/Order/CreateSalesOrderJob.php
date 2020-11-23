@@ -54,6 +54,7 @@
 			$order->auto_cancel_at = Carbon::now()->addMinutes($this->orderAutoCancelAfter);
 			$order->is_should_pay_notified = false;
 			$order->should_pay_last_notification_at = Carbon::now()->addMinutes($this->orderAutoCancelAfter - 3);
+			$order->cancel_order_code = rand(1000, 9999);
 			$order->status = 'issued';
 			$order->save();
 			return $order->fresh();
