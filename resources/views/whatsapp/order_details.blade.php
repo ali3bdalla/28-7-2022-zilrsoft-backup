@@ -4,7 +4,7 @@ Thank you for your order
 
 Order# {{$order->id}}
 
-Amount: *{{$invoice->amount}}*
+Amount: *{{displayMoney($order->net)}}*
 
 Banks Accounts:
 

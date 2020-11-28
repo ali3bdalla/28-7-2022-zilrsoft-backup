@@ -1,4 +1,7 @@
+import DisplayMoney from "../Money/DisplayMoney";
+
 export default {
+    components:{DisplayMoney},
     data() {
         return {
             notifications: []

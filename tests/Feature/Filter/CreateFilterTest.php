@@ -22,8 +22,8 @@
 			$manager = Manager::inRandomOrder()->first();
 			$response = $this->actingAs($manager)->postJson(
 				'/api/filters', [
-					'name' => $this->faker->name,
-					'ar_name' => $this->faker->name,
+					'name' =>"Inviroment",
+					'ar_name' => 'سنترال',//$this->faker->name
 					'required_filter' => $this->faker->boolean()
 				]
 			);

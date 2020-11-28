@@ -24,6 +24,10 @@
 		 */
 		public function testCreateOrder_RedirectToOrdersPage()
 		{
+			
+			factory(ShippingAddress::class)->create(['user_id' => 206]);
+			
+			
 			if($this->userFactory) {
 				$manager = $this->initOrganizationAndManager();
 				$category = factory(Category::class)->create(
@@ -73,7 +77,8 @@
 				$client->update(
 					[
 						'phone_number' => '249966324018',
-						'organization_id' => 1
+						'organization_id' => 1,
+						'creator_id' => $manager->id
 					]
 				);
 				
@@ -116,7 +121,4 @@
 			$response->assertRedirect('/web/orders');
 		}
 		
-		public function testConfirmOrderPayment(){
-		
-		}
 	}

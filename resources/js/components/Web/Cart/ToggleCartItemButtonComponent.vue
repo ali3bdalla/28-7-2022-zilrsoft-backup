@@ -2,7 +2,7 @@
   <div>
     <button
       v-if="!$store.state.cart.find((product) => product.id === item.id)"
-      class="bg-web-primary py-2 w-full text-center md:px-5 font-extrabold text-white text-sm uppercase"
+      class="product__add-to-cart-button"
       @click="addItem"
     >
       Add Item To Cart

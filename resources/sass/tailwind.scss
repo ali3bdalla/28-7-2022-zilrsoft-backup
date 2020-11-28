@@ -1,7 +1,12 @@
 @tailwind base;
 
 @tailwind components;
-
+@import './web/plugins';
+@import "./web/cart";
+@import "./web/checkout";
+@import "./web/grid";
+@import "./web/page";
+@import "./web/product";
 @tailwind utilities;
 
 

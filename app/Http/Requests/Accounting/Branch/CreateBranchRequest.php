@@ -25,8 +25,8 @@
 		{
 			return [
 				//
-				'name' => 'required|string|min:3|unique:branches,name',
-				'ar_name' => 'required|string|min:3|unique:branches,ar_name',
+				'name' => 'required|string|min:3|organization_unique:App\Models\Branches,name',
+				'ar_name' => 'required|string|min:3|organization_unique:App\Models\Branches,ar_name',
 				'phone_number' => 'required|string|min:6',
 			];
 		}

@@ -17,6 +17,7 @@
     "barryvdh/laravel-dompdf": "^0.8.7",
     "benjamincrozat/laravel-dropbox-driver": "^2.0",
     "fideloper/proxy": "^4.0",
+    "guzzlehttp/guzzle": "^7.2",
     "inertiajs/inertia-laravel": "^0.2.15",
     "laravel-notification-channels/pusher-push-notifications": "^2.3",
     "laravel/framework": "^6.19.1",

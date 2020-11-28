@@ -17,7 +17,11 @@
 		
 		private static $customTablesOrder = ['accounts' => 'serial'];
 		
-	
+//		public function getNameAttribute()
+//		{
+//			return $this->name;
+//		}
+//
 		protected static function boot()
 		{
 			parent::boot();

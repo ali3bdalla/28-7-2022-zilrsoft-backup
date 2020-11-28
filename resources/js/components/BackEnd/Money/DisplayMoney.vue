@@ -1,5 +1,5 @@
 <template>
-  <div style="direction:ltr">{{ $currency.formatter.format(money, {currency: ""}) }}</div>
+  <span style="direction:ltr">{{ $currency.formatter.format(money, {currency: ""}) }}</span>
 </template>
 
 <script>
@@ -7,7 +7,6 @@
 export default {
   props: {
     money: {
-      type: String,
       required: true
     },
     currency: {

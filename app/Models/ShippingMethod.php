@@ -18,5 +18,10 @@
 		{
 			return $this->belongsTo(Item::class);
 		}
+		
+		public function orders()
+		{
+			return $this->morphMany(Order::class,'shippable');
+		}
 		//
 	}

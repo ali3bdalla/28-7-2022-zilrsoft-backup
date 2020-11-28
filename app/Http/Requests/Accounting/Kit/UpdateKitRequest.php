@@ -30,7 +30,7 @@
 				'name' => 'required|string',
 				'ar_name' => 'required|string',
 				'items' => 'required|array',
-				'items.*.id' => 'required|integer|exists:items,id',
+				'items.*.id' => 'required|integer|organization_exists:App\Models\Item,id',
 				'items.*.price' => 'required|numeric',
 				'items.*.total' => 'required|numeric',
 				'items.*.tax' => 'required|numeric',

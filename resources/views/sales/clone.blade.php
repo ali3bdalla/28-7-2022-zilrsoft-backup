@@ -10,6 +10,7 @@
             :can-create-item="{{ auth()->user()->canDo('create item') }}"
             :can-view-items="{{ auth()->user()->canDo('view item')  }}"
             :expenses='@json($expenses)'
+            :is-order='@json($isOrder ?? $isOrder)'
             :clients='@json($clients)'
             :gateways='@json($gateways)'
             :salesmen='@json($salesmen)'

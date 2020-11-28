@@ -64,11 +64,11 @@
 			$query = Account::where('slug','gateway');
 			
 			if ($request->has('name') && $request->filled('name')){
-				$query = $query->where('name','LIKE','%'.$request->input('name').'%');
+				$query = $query->where('name','ILIKE','%'.$request->input('name').'%');
 			}
 			
 			if ($request->has('ar_name') && $request->filled('ar_name')){
-				$query = $query->where('ar_name','LIKE','%'.$request->input('ar_name').'%');
+				$query = $query->where('ar_name','ILIKE','%'.$request->input('ar_name').'%');
 			}
 			return $query->get();
 			

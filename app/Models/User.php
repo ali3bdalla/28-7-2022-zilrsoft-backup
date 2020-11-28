@@ -9,6 +9,9 @@
 	 * @property mixed id
 	 * @property mixed balance
 	 * @property mixed vendor_balance
+	 * @property mixed is_system_user
+	 * @property mixed country_code
+	 * @property mixed phone_number
 	 */
 	class User extends BaseAuthModel
 	{
@@ -16,10 +19,11 @@
 		use SoftDeletes;
 		
 		protected $guarded = [];
-
-	
+		
+		
 		protected $appends = [
-			'locale_name'
+			'locale_name',
+			'international_phone_number'
 		];
 		protected $casts = [
 			'is_vendor' => 'boolean',
@@ -49,7 +53,7 @@
 		public function getLocaleNameAttribute()
 		{
 			
-			return $this->name;
+			return $this->name_ar;
 		}
 		
 		
@@ -89,13 +93,19 @@
 		{
 			return $this->is_manager == true;
 		}
-		
+
 //
 //		public function getCreatedAtAttribute($value)
 //		{
 //			return Carbon::parse($value)->toDateString();
 //		}
 //
+		
+		
+		public function getInternationalPhoneNumberAttribute()
+		{
+			return $this->country_code . $this->phone_number; // 0966324018
+		}
 		
 		public function details()
 		{

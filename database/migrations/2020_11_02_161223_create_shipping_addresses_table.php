@@ -1,4 +1,4 @@
-<?php
+\<?php
 	
 	use Illuminate\Database\Migrations\Migration;
 	use Illuminate\Database\Schema\Blueprint;
@@ -19,6 +19,7 @@
 				$table->integer('user_id');
 				$table->integer('country_id')->nullable();
 				$table->string('city')->nullable();
+				$table->string('state')->nullable();
 				$table->string('phone_number')->nullable();
 				$table->string('building_number')->nullable();
 				$table->string('first_name')->nullable();

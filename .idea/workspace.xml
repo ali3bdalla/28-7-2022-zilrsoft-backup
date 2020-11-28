@@ -1,11 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="62ee8e1c-79d0-4682-8776-4dfb31729f0a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/js/Pages/Web/Cart/CartButton.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/Pages/Web/Cart/CartItems.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/Pages/Web/Cart/CartMixin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/BackEnd/DeliveryMen/DeliveryMenTable.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/BackEnd/Orders/OrderPaymentOptions.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/BackEnd/Product/Images.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/Web/Client/PaymentAccounts.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/web/_cart.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/web/_grid.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/web/_page.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/web/_product.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/delivery_men/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/delivery_men/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/orders/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.testing" beforeDir="false" afterPath="$PROJECT_DIR$/.env.testing" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Helpers/money.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/money.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AccountController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ChartsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ChartsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/FilterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/FilterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ItemController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ProviderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Accounting/ProviderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ItemController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Notifications/OrderNotificationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Notifications/OrderNotificationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Web/CartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Web/CartController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Web/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Web/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SerialHistoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SerialHistoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Web/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Web/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Web/Order/ConfirmOrderPaymentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Web/Order/ConfirmOrderPaymentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Account/StoreAccountRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Account/StoreAccountRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Account/CreateAccountRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Account/CreateAccountRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Account/UpdateAccountRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Account/UpdateAccountRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Branch/CreateBranchRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Branch/CreateBranchRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Branch/DatatableRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Branch/DatatableRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Branch/DepartmentsDatatableRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Branch/DepartmentsDatatableRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Category/CreateCategoryRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Category/CreateCategoryRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Charts/PeriodCloseAccoundRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Charts/PeriodCloseAccoundRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Expense/CreateExpenseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Expense/CreateExpenseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/CreateFilterRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/CreateFilterRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/CreateFilterValueRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/CreateFilterValueRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/DatatableRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/DatatableRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/ValuesDataTableRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Filter/ValuesDataTableRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Identity/CreateIdentityRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Identity/CreateIdentityRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Identity/DatatableRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Identity/DatatableRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Identity/UpdateIdentityRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Identity/UpdateIdentityRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/CreateAdjustStockRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/CreateAdjustStockRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/CreateBeginningRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/CreateBeginningRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/DatatableBeginningRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/DatatableBeginningRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/ReturnBeginningRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/ReturnBeginningRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/ActivateItemsRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/ActivateItemsRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/CreateItemRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/CreateItemRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/DatatableRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/DatatableRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/UpdateItemRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/UpdateItemRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/ValidatePurchaseSerialsRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Item/ValidatePurchaseSerialsRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Kit/CreateKitRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Kit/CreateKitRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Kit/UpdateKitRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Kit/UpdateKitRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Manager/CreateManagerRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Manager/CreateManagerRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Manager/DatatableRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Manager/DatatableRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Mananger/UpdateManagerRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Mananger/UpdateManagerRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Purchase/CreatePurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Purchase/CreatePurchaseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Purchase/ReturnPurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Purchase/ReturnPurchaseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/ResellerDaily/TransferAmountsRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/ResellerDaily/TransferAmountsRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Transaction/CreateTransactionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Transaction/CreateTransactionRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Voucher/CreateVoucherRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Voucher/CreateVoucherRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Daily/StoreResellerAccountTransactionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Daily/StoreResellerAccountTransactionRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Daily/StoreResellerClosingAccountsRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Daily/StoreResellerClosingAccountsRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Entities/StoreEntityRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Entities/StoreEntityRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Filter/StoreFilterRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Filter/StoreFilterRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Inventories/StoreBeginningInventoryRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Inventories/StoreBeginningInventoryRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Inventories/StoreInventoryAdjustmentRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Inventories/StoreInventoryAdjustmentRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Items/FetchItemsRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Items/FetchItemsRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Items/QueryItemsRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Items/QueryItemsRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Items/ValidateSerialRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Items/ValidateSerialRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Order/StoreOrderRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Order/StoreOrderRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Payments/StorePaymentRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Payments/StorePaymentRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreDraftPurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreDraftPurchaseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Purchases/StorePurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StorePurchaseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreReturnPurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreReturnPurchaseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Sales/FetchSalesRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Sales/FetchSalesRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreDraftSaleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreDraftSaleRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreReturnSaleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreReturnSaleRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreSaleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreSaleRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Vouchers/StoreVoucherRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Vouchers/StoreVoucherRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Web/Item/FetchItemsGroupByCategoryRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Web/Item/FetchItemsGroupByCategoryRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Web/Item/FetchItemsRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Web/Item/FetchItemsRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Web/Item/FetchItemsUsingFiltersRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Web/Item/FetchItemsUsingFiltersRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Web/Order/ConfirmOrderPaymentRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Web/Order/ConfirmOrderPaymentRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Accounting/Sale/StoreSaleTransactionsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Accounting/Sale/StoreSaleTransactionsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Sales/Accounting/StoreReturnSaleTransactionsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Sales/Accounting/StoreReturnSaleTransactionsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Sales/Items/StoreSaleItemsJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Sales/Items/StoreSaleItemsJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Sales/Order/CreateSalesOrderJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Sales/Order/CreateSalesOrderJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Listeners/Order/SendOrderToClientViaWhatsappListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Listeners/Order/SendOrderToClientViaWhatsappListener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/BaseModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/BaseModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Item.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/ShippingMethod.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ShippingMethod.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Transaction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/ValidatorServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/ValidatorServiceProvider.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_02_161223_create_shipping_addresses_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_02_161223_create_shipping_addresses_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_02_161625_create_orders_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_02_161625_create_orders_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_21_192839_create_item_qty_holds_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_21_192839_create_item_qty_holds_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_22_195142_add_orders_auto_cancel_keys.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_22_195142_add_orders_auto_cancel_keys.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/tailwind.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/tailwind.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app_v2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app_v2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/ImagesUpload/Show.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/ImagesUpload/Show.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Web/Cart/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Web/Cart/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Web/Order/ConfirmPayment.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Web/Order/ConfirmPayment.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Web/Product/Show.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Web/Product/Show.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Plugins/plugins.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Plugins/plugins.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/items/itemsCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/items/itemsCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app_v2.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app_v2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/BackEnd/Header/NotificationBell.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/BackEnd/Header/NotificationBell.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/BackEnd/Header/NotificationMixin.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/BackEnd/Header/NotificationMixin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/BackEnd/Header/OrderPaymentConfirmedNotification.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/BackEnd/Header/OrderPaymentConfirmedNotification.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/BackEnd/Header/OrderPendingPaymentConfirmationNotification.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/BackEnd/Header/OrderPendingPaymentConfirmationNotification.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/BackEnd/Header/TransactionIssuedNotification.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/BackEnd/Header/TransactionIssuedNotification.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/BackEnd/Money/DisplayMoney.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/BackEnd/Money/DisplayMoney.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Web/Cart/ToggleCartItemButtonComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Web/Cart/ToggleCartItemButtonComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Web/Product/ProductListItemComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Web/Product/ProductListItemComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Web/Product/ProductRatingComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Web/Product/ProductRatingComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/include.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/include.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/web/pages/HomPage.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/backend/_notification.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/backend/_notification.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/main.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/tailwind.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/tailwind.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/head/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/head/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/sales/clone.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/clone.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/whatsapp/order_details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/whatsapp/order_details.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/channels.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/channels.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Filter/CreateFilterTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Filter/CreateFilterTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Order/CreateOrderTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Order/CreateOrderTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +166,14 @@
     <execution>
       <executable path="composer" />
     </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="Vue Single File Component" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -159,27 +316,47 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="full.screen.before.presentation.mode" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected="PHPUnit.CreateOrderTest.testCreateOrder_RedirectToOrdersPage">
-    <configuration name="CreateOrderTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\Order\CreateOrderTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Order/CreateOrderTest.php" scope="Class" />
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Console/Commands/Entity" />
+      <recent name="$PROJECT_DIR$/app/Models" />
+      <recent name="$PROJECT_DIR$/app/Http/Controllers/Api/Web" />
+    </key>
+  </component>
+  <component name="RunManager" selected="PHPUnit.CreateFilterTest">
+    <configuration name="ConfirmOrderPaymentTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\Order\ConfirmOrderPaymentTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Order/ConfirmOrderPaymentTest.php" scope="Class" />
+      <method v="2" />
+    </configuration>
+    <configuration name="ConfirmOrderPaymentTest.testConfirmOrderPayment_GetOrderResponse" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\Order\ConfirmOrderPaymentTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Order/ConfirmOrderPaymentTest.php" method="testConfirmOrderPayment_GetOrderResponse" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="ConfirmOrderPaymentTest.testCreateOrder_RedirectToOrdersPage" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\Order\ConfirmOrderPaymentTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Order/ConfirmOrderPaymentTest.php" method="testCreateOrder_RedirectToOrdersPage" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="CreateFilterTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\Filter\CreateFilterTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Filter/CreateFilterTest.php" scope="Class" />
       <method v="2" />
     </configuration>
     <configuration name="CreateOrderTest.testCreateOrder_RedirectToOrdersPage" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="Tests\Feature\Order\CreateOrderTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Order/CreateOrderTest.php" method="testCreateOrder_RedirectToOrdersPage" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="CreateOrderTest.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/tests/Feature/Order/CreateOrderTest.php">
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="PHPUnit.CreateFilterTest" />
         <item itemvalue="PHPUnit.CreateOrderTest.testCreateOrder_RedirectToOrdersPage" />
-        <item itemvalue="PHPUnit.CreateOrderTest" />
-        <item itemvalue="PHP Script.CreateOrderTest.php" />
+        <item itemvalue="PHPUnit.ConfirmOrderPaymentTest.testCreateOrder_RedirectToOrdersPage" />
+        <item itemvalue="PHPUnit.ConfirmOrderPaymentTest.testConfirmOrderPayment_GetOrderResponse" />
+        <item itemvalue="PHPUnit.ConfirmOrderPaymentTest" />
       </list>
     </recent_temporary>
   </component>
@@ -192,7 +369,17 @@
       <option name="presentableId" value="Default" />
       <updated>1606139553451</updated>
       <workItem from="1606139554484" duration="187000" />
-      <workItem from="1606139750769" duration="8237000" />
+      <workItem from="1606139750769" duration="10869000" />
+      <workItem from="1606203498798" duration="54000" />
+      <workItem from="1606223193571" duration="16216000" />
+      <workItem from="1606308623559" duration="11684000" />
+      <workItem from="1606394079316" duration="12577000" />
+      <workItem from="1606481442310" duration="10744000" />
+      <workItem from="1606568638679" duration="460000" />
+      <workItem from="1606569112421" duration="2529000" />
+      <workItem from="1606571846384" duration="1606000" />
+      <workItem from="1606583993796" duration="538000" />
+      <workItem from="1606584819876" duration="5011000" />
     </task>
     <servers />
   </component>
@@ -203,76 +390,149 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1874" y="135" key="#Inspections" timestamp="1606316335781">
+      <screen x="1440" y="0" width="1600" height="900" />
+    </state>
+    <state x="1874" y="135" key="#Inspections/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606316335781" />
     <state x="1932" y="100" key="#PHP" timestamp="1606139741054">
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state x="1932" y="100" key="#PHP/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606139741054" />
-    <state x="1978" y="212" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606146233523">
+    <state x="2479" y="270" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606396006223">
+      <screen x="1920" y="23" width="1600" height="877" />
+    </state>
+    <state x="2479" y="270" key="#com.intellij.fileTypes.FileTypeChooser/1920.23.1600.877/0.23.1920.1177@1920.23.1600.877" timestamp="1606396006223" />
+    <state x="2053" y="173" key="#com.intellij.ide.util.MemberChooser" timestamp="1606313531489">
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
-    <state x="1978" y="212" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606146233523" />
+    <state x="2053" y="173" key="#com.intellij.ide.util.MemberChooser/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606313531489" />
+    <state x="1991" y="177" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1606585465549">
+      <screen x="1440" y="0" width="1600" height="900" />
+    </state>
+    <state x="1991" y="177" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606585465549" />
+    <state x="1978" y="212" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606500324782">
+      <screen x="1440" y="0" width="1600" height="900" />
+    </state>
+    <state x="1978" y="212" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606497829019" />
+    <state x="1978" y="212" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606500324782" />
     <state x="2009" y="369" width="461" height="249" key="ComposerInitDialogKey" timestamp="1606151869065">
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state x="2009" y="369" width="461" height="249" key="ComposerInitDialogKey/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606151869065" />
-    <state width="1600" height="442" key="GridCell.Tab.0.bottom" timestamp="1606151636634">
-      <screen x="1440" y="0" width="1600" height="900" />
+    <state width="1600" height="275" key="GridCell.Tab.0.bottom" timestamp="1606513157699">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1600" height="442" key="GridCell.Tab.0.bottom/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606151636634" />
-    <state width="1600" height="332" key="GridCell.Tab.0.bottom/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606140871375" />
-    <state width="1600" height="442" key="GridCell.Tab.0.center" timestamp="1606151636632">
-      <screen x="1440" y="0" width="1600" height="900" />
+    <state width="1600" height="275" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1606513157699" />
+    <state width="1600" height="442" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1606159267578" />
+    <state width="1600" height="275" key="GridCell.Tab.0.bottom/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606328384754" />
+    <state width="1600" height="275" key="GridCell.Tab.0.bottom/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606496964613" />
+    <state width="1600" height="275" key="GridCell.Tab.0.center" timestamp="1606513157698">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1600" height="442" key="GridCell.Tab.0.center/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606151636632" />
-    <state width="1600" height="332" key="GridCell.Tab.0.center/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606140871374" />
-    <state width="1600" height="442" key="GridCell.Tab.0.left" timestamp="1606151636631">
-      <screen x="1440" y="0" width="1600" height="900" />
+    <state width="1600" height="275" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1606513157698" />
+    <state width="1600" height="442" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1606159267577" />
+    <state width="1600" height="275" key="GridCell.Tab.0.center/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606328384753" />
+    <state width="1600" height="275" key="GridCell.Tab.0.center/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606496964611" />
+    <state width="1600" height="275" key="GridCell.Tab.0.left" timestamp="1606513157552">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1600" height="442" key="GridCell.Tab.0.left/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606151636631" />
-    <state width="1600" height="332" key="GridCell.Tab.0.left/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606140871373" />
-    <state width="1600" height="442" key="GridCell.Tab.0.right" timestamp="1606151636633">
-      <screen x="1440" y="0" width="1600" height="900" />
+    <state width="1600" height="275" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1606513157552" />
+    <state width="1600" height="442" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1606159267576" />
+    <state width="1600" height="275" key="GridCell.Tab.0.left/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606328384752" />
+    <state width="1600" height="275" key="GridCell.Tab.0.left/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606496964608" />
+    <state width="1600" height="275" key="GridCell.Tab.0.right" timestamp="1606513157698">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1600" height="442" key="GridCell.Tab.0.right/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606151636633" />
-    <state width="1600" height="332" key="GridCell.Tab.0.right/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606140871375" />
-    <state width="1600" height="332" key="GridCell.Tab.1.bottom" timestamp="1606150075576">
-      <screen x="1440" y="0" width="1600" height="900" />
+    <state width="1600" height="275" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1606513157698" />
+    <state width="1600" height="442" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1606159267577" />
+    <state width="1600" height="275" key="GridCell.Tab.0.right/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606328384753" />
+    <state width="1600" height="275" key="GridCell.Tab.0.right/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606496964612" />
+    <state width="1600" height="332" key="GridCell.Tab.1.bottom" timestamp="1606159267546">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
+    <state width="1600" height="332" key="GridCell.Tab.1.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1606159267546" />
     <state width="1600" height="332" key="GridCell.Tab.1.bottom/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606150075576" />
     <state width="1600" height="332" key="GridCell.Tab.1.bottom/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606140871379" />
-    <state width="1600" height="332" key="GridCell.Tab.1.center" timestamp="1606150075575">
-      <screen x="1440" y="0" width="1600" height="900" />
+    <state width="1600" height="332" key="GridCell.Tab.1.center" timestamp="1606159267546">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
+    <state width="1600" height="332" key="GridCell.Tab.1.center/0.0.1680.1050@0.0.1680.1050" timestamp="1606159267546" />
     <state width="1600" height="332" key="GridCell.Tab.1.center/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606150075575" />
     <state width="1600" height="332" key="GridCell.Tab.1.center/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606140871378" />
-    <state width="1600" height="332" key="GridCell.Tab.1.left" timestamp="1606150075574">
-      <screen x="1440" y="0" width="1600" height="900" />
+    <state width="1600" height="332" key="GridCell.Tab.1.left" timestamp="1606159267545">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
+    <state width="1600" height="332" key="GridCell.Tab.1.left/0.0.1680.1050@0.0.1680.1050" timestamp="1606159267545" />
     <state width="1600" height="332" key="GridCell.Tab.1.left/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606150075574" />
     <state width="1600" height="332" key="GridCell.Tab.1.left/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606140871376" />
-    <state width="1600" height="332" key="GridCell.Tab.1.right" timestamp="1606150075576">
-      <screen x="1440" y="0" width="1600" height="900" />
+    <state width="1600" height="332" key="GridCell.Tab.1.right" timestamp="1606159267546">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
+    <state width="1600" height="332" key="GridCell.Tab.1.right/0.0.1680.1050@0.0.1680.1050" timestamp="1606159267546" />
     <state width="1600" height="332" key="GridCell.Tab.1.right/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606150075576" />
     <state width="1600" height="332" key="GridCell.Tab.1.right/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606140871379" />
-    <state x="1749" y="89" key="SettingsEditor" timestamp="1606148816159">
+    <state x="1749" y="89" key="SettingsEditor" timestamp="1606588806597">
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
-    <state x="1749" y="89" key="SettingsEditor/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606148816159" />
-    <state width="500" height="445" key="SwitcherDM" timestamp="1606150469146">
+    <state x="1749" y="89" key="SettingsEditor/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606588806597" />
+    <state x="1970" y="200" width="540" height="524" key="StructurePopup" timestamp="1606319918546">
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
-    <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606150469146" />
-    <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606140873015" />
-    <state x="2053" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606150692421">
+    <state x="1970" y="200" width="540" height="524" key="StructurePopup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606319918546" />
+    <state width="500" height="445" key="SwitcherDM" timestamp="1606589064962">
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
-    <state x="2053" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606150692421" />
-    <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup" timestamp="1606153114715">
-      <screen x="1440" y="23" width="1600" height="877" />
+    <state width="500" height="434" key="SwitcherDM/0.0.1440.900@0.0.1440.900" timestamp="1606574668318" />
+    <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606589064962" />
+    <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606588609366" />
+    <state width="500" height="434" key="SwitcherDM/1440.23.1600.877/0.23.1440.877@1440.23.1600.877" timestamp="1606203524859" />
+    <state width="500" height="445" key="SwitcherDM/1920.0.1600.900/0.0.1920.1200@1920.0.1600.900" timestamp="1606398020225" />
+    <state width="500" height="445" key="SwitcherDM/1920.0.1600.900/0.23.1920.1177@1920.0.1600.900" timestamp="1606396376541" />
+    <state x="1840" y="190" key="Vcs.Push.Dialog.v2" timestamp="1606483275151">
+      <screen x="1440" y="0" width="1600" height="900" />
     </state>
-    <state x="1905" y="196" width="670" height="676" key="search.everywhere.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606151839016" />
+    <state x="1840" y="190" key="Vcs.Push.Dialog.v2/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606483275151" />
+    <state x="2053" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606496217549">
+      <screen x="1440" y="0" width="1600" height="900" />
+    </state>
+    <state x="2053" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606156835413" />
+    <state x="2053" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606496217549" />
+    <state x="2533" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1600.900/0.0.1920.1200@1920.0.1600.900" timestamp="1606395848543" />
+    <state x="1947" y="205" width="586" height="548" key="find.popup" timestamp="1606588884656">
+      <screen x="1440" y="0" width="1600" height="900" />
+    </state>
+    <state x="1947" y="205" width="586" height="548" key="find.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606588884656" />
+    <state x="1947" y="205" width="586" height="548" key="find.popup/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606496989314" />
+    <state x="1905" y="210" key="run.anything.popup" timestamp="1606310624853">
+      <screen x="1440" y="0" width="1600" height="900" />
+    </state>
+    <state x="1905" y="210" key="run.anything.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606310624853" />
+    <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup" timestamp="1606589300949">
+      <screen x="1440" y="0" width="1600" height="900" />
+    </state>
+    <state x="419" y="214" width="670" height="661" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1606576002362" />
+    <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606589300949" />
+    <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606500282802" />
     <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup/1440.23.1600.877/0.23.1440.877@1440.23.1600.877" timestamp="1606153114715" />
+    <state x="2385" y="214" width="670" height="660" key="search.everywhere.popup/1920.0.1600.900/0.0.1920.1200@1920.0.1600.900" timestamp="1606397853129" />
+    <state x="558" y="303" width="804" height="864" key="search.everywhere.popup/1920.23.1600.877/0.23.1920.1177@0.23.1920.1177" timestamp="1606405513898" />
+    <state x="2385" y="232" width="670" height="643" key="search.everywhere.popup/1920.23.1600.877/0.23.1920.1177@1920.23.1600.877" timestamp="1606396176572" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/Api/Notifications/OrderNotificationController.php</url>
+          <line>9</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Requests/Order/StoreOrderRequest.php</url>
+          <line>86</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/zilrsoft@CreateOrderTest_testCreateOrder_RedirectToOrdersPage.xml" NAME="CreateOrderTest.testCreateOrder_RedirectToOrdersPage Coverage Results" MODIFIED="1606146142353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

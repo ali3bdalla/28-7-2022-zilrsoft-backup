@@ -44,6 +44,10 @@ Vue.use(CxltToastr, {
     position: 'top right',
     showDuration: 2000
 });
+
+Vue.prototype.$page = {
+    errors:[]
+};
 Vue.use(Loading);
 Vue.use(ToggleButton);
 Vue.use(VueSimpleAlert);

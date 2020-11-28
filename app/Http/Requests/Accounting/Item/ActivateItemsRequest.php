@@ -27,7 +27,7 @@
 			return [
 				//
 				'id_array' => 'required|array',
-				'id_array.*' => 'required|integer|exists:items,id',
+				'id_array.*' => 'required|integer|organization_exists:App\Models\Item,id',
 			];
 		}
 		

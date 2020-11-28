@@ -17,3 +17,9 @@
 		return $user->can('manage branches');
 	}
 	);
+	
+	Broadcast::channel(
+		'order-payment-confirmed', function(Manager $user) {
+		return !$user->can('manage branches');
+	}
+	);

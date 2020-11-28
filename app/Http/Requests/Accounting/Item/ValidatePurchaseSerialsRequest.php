@@ -33,7 +33,7 @@
 		
 //		public function validatePurchase()
 //		{
-//			$this->validate(['serial' => ['required','string','exists:item_serials',
+//			$this->validate(['serial' => ['required','string','organization_exists:App\Models\ItemSerial',
 //				function ($attr,$value,$fail){
 //					$serial = ItemSerials::where('serial',$value)->first();
 //					if (empty($serial)){
@@ -51,7 +51,7 @@
 //
 //		public function validateSale()
 //		{
-//			$this->validate(['serial' => ['required','string','exists:item_serials',
+//			$this->validate(['serial' => ['required','string','organization_exists:App\Models\ItemSerial',
 //				function ($attr,$value,$fail){
 //					$serial = ItemSerials::where('serial',$value)->first();
 //					if (empty($serial)){
@@ -70,7 +70,7 @@
 //
 //		public function good()
 //		{
-//			$this->validate(['serial' => ['required','string','exists:item_serials',
+//			$this->validate(['serial' => ['required','string','organization_exists:App\Models\ItemSerial',
 //				function ($attr,$value,$fail){
 //					$serial = ItemSerials::where('serial',$value)->first();
 //					if (empty($serial)){

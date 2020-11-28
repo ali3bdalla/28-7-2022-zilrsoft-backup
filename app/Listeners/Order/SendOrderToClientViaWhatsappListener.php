@@ -28,7 +28,7 @@
 		public function handle($event)
 		{
 			
-			$phoneNumber = $event->order->user->phone_number;
+			$phoneNumber = $event->order->user->international_phone_number;
 			$message = view(
 				'whatsapp.order_details', [
 					'client' => $event->client,
@@ -38,9 +38,8 @@
 				]
 			)->toHtml();
 			Whatsapp::sendMessage(
-				$message, [$phoneNumber]
+				$message, [ $phoneNumber]
 			);
-//			dd($event->path);
 			Whatsapp::sendFile(
 				$event->path, [$phoneNumber], $event->invoice->id
 			);

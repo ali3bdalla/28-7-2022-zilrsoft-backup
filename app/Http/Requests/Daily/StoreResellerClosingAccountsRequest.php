@@ -33,7 +33,7 @@
 		{
 			return [
 				'gateways' => 'required|array',
-				'gateways.*.id' => 'required|integer|exists:accounts,id',
+				'gateways.*.id' => 'required|integer|organization_exists:App\Models\Account,id',
 				'gateways.*.amount' => 'required|numeric',
 			];
 		}
@@ -43,9 +43,10 @@
 			
 			DB::beginTransaction();
 			try {
+				$loggedUser = $this->user();
 				$totalAvailableAmount = collect($this->input('gateways'))->sum('amount');
+				//6719.00
 				if($totalAvailableAmount > 0) {
-					$loggedUser = $this->user();
 					$shiftsShortageAccount = Account::where(
 						[
 							['is_system_account', true],
@@ -83,14 +84,15 @@
 							$gatewayData['amount'] = $this->getGatewayAmountWithoutAfterCuttingTheVouchersAmount($gateway['amount'], $gateway['id'], $loggedUser);
 							$gatewayData['type'] = 'debit';
 							Transaction::create($gatewayData);
-							$totalDebitAmount += (float)$gateway['amount'];
+							$totalDebitAmount += (float)$gatewayData['amount'];
 						}
 						
 					}
 					
+					
+					
 					$shortShortageAmount = (float)$totalDebitAmount - (float)$shouldBeAvailableAmount;
 					$shortSourceAmount = $shortShortageAmount;
-					// 1200 , 1000 => 200
 					if($shortShortageAmount != 0) {
 						if($shortShortageAmount < 0) {
 							// he pay more than he should has
@@ -169,23 +171,19 @@
 				$inAmount = Payment::where(
 					[
 						['creator_id', $loggedUser->id],
-					]
-				)->where('created_at', '>=', $accountsClosedAt)->where(
-					[
 						['payment_type', 'receipt'],
 						['invoice_id', '!=', null]
 					]
-				)->sum('amount');
+				)->where('created_at', '>=', $accountsClosedAt)->sum('amount');
+				
+				
 				$outAmount = Payment::where(
 					[
 						['creator_id', $loggedUser->id],
-					]
-				)->where('created_at', '>=', $accountsClosedAt)->where(
-					[
 						['payment_type', 'payment'],
 						['invoice_id', '!=', null]
 					]
-				)->sum('amount');
+				)->where('created_at', '>=', $accountsClosedAt)->sum('amount');
 			} else {
 				$inAmount = Payment::where(
 					[
@@ -215,16 +213,11 @@
 				$inAmount = Payment::where(
 					[
 						['creator_id', $loggedUser->id],
-						['account_id', $gateway->id],
-					]
-				)->where('created_at', '>=', $accountsClosedAt)->where(
-					[
 						['payment_type', 'receipt'],
 						['invoice_id', '=', null],
 						['account_id', $gateway->id],
-					
 					]
-				)->sum('amount');
+				)->where('created_at', '>=', $accountsClosedAt)->sum('amount');
 //			$outAmount = Payment::where([
 //				['creator_id', $loggedUser->id],
 //				['account_id', $gateway->id],
@@ -240,18 +233,14 @@
 					[
 						['creator_id', $loggedUser->id],
 						['account_id', $gateway->id],
-					
+						['payment_type', 'receipt']
 					]
-				)->where('payment_type', 'receipt')->sum('amount');
-
-//			$outAmount = Payment::where([
-//				['creator_id', $loggedUser->id],
-//				['account_id', $gateway->id],
-//
-//			])->where('payment_type', 'payment')->sum('amount');
+				)->sum('amount');
+				
+				
 			}
 			
 			
-			return (float)$amount - $inAmount;
+			return (float)$amount - (float)$inAmount;
 		}
 	}

@@ -28,9 +28,9 @@ class TransferAmountsRequest extends FormRequest
 		{
 			return [
 				'amount' => 'required|price',
-				'gateway_id' => 'required|integer|exists:accounts,id',
+				'gateway_id' => 'required|integer|organization_exists:App\Models\Account,id',
 				'receiver_id' => 'required|integer|exists:managers,id',
-				'receiver_gateway_id' => 'required|integer|exists:accounts,id',
+				'receiver_gateway_id' => 'required|integer|organization_exists:App\Models\Account,id',
 			];
 		}
 		

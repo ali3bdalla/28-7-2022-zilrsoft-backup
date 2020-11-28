@@ -26,6 +26,7 @@
 	 * @property mixed is_service
 	 * @property mixed ar_name
 	 * @property mixed creator_id
+	 * @property mixed online_offer_price
 	 * @method static findOrFail($id)
 	 * @method static InRandomOrder()
 	 * @method static find($input)
@@ -92,9 +93,9 @@
 		public function scopeLastFiveSearch($query, $search)
 		{
 			return $query
-				->where('barcode', 'LIKE', '%' . $search . '%')
-				->orWhere('name', 'LIKE', '%' . $search . '%')
-				->orWhere('ar_name', 'LIKE', '%' . $search . '%')
+				->where('barcode', 'ILIKE', '%' . $search . '%')
+				->orWhere('name', 'ILIKE', '%' . $search . '%')
+				->orWhere('ar_name', 'ILIKE', '%' . $search . '%')
 				->with('items', 'data')
 				->take(5);
 		}

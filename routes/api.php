@@ -30,6 +30,13 @@
 					Route::resource('orders', 'OrderController');
 				}
 			);
+			
+			Route::prefix('{user}')->group(
+				function() {
+					Route::resource('payment_accounts', 'PaymentAccountController');
+					
+				}
+			);
 		}
 	);
 	
@@ -64,13 +71,10 @@
 					Route::prefix('orders')->name('orders.')->group(
 						function() {
 							Route::get('pending', 'OrderNotificationController@pending')->name('pending');
+							Route::get('paid', 'OrderNotificationController@paid')->name('paid');
 						}
 					);
 					
-				}
-			);
-			Route::prefix('orders')->name('orders.')->group(
-				function() {
 				}
 			);
 			

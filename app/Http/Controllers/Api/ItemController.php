@@ -99,7 +99,7 @@
 		{
 			$request->validate(
 				[
-					'barcode' => 'required|string|min:4|unique:items,barcode'
+					'barcode' => 'required|string|min:4|organization_unique:App\Models\Item,barcode'
 				]
 			);
 		}

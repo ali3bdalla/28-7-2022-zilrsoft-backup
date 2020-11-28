@@ -35,13 +35,13 @@
 		{
 			return [
 				'transactions' => 'required|array',
-				"transactions.*.id" => "required|integer|exists:accounts,id",
+				"transactions.*.id" => "required|integer|organization_exists:App\Models\Account,id",
 				"transactions.*.credit_amount" => "required|price",
 				"transactions.*.debit_amount" => "required|price",
 				"transactions.*.is_credit" => "required|boolean",
 				"transactions.*.vendor_id" => ["integer","exists:users,id"],
 				"transactions.*.client_id" => ["integer","exists:users,id"],
-				"transactions.*.item_id" =>["integer","exists:items,id"],
+				"transactions.*.item_id" =>["integer","organization_exists:App\Models\Item,id"],
 				'description' => "required|string",
 				'amount' => "required|numeric",
 			];

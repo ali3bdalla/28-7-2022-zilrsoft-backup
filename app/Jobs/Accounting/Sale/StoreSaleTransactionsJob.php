@@ -141,7 +141,7 @@ class StoreSaleTransactionsJob implements ShouldQueue
         $paidAmount = $this->invoice->payments()->sum('amount');
         $netAmount = (float)$this->invoice->net;
         if ($paidAmount != $netAmount) {
-            $variation = $paidAmount - $netAmount;
+            $variation =  (float)$paidAmount - (float)$netAmount ;
             if ($this->invoice->sale->client->is_system_user) {
                 $fistPayment = $this->invoice->payments()->first();
                 if ($fistPayment == null) {
@@ -167,14 +167,14 @@ class StoreSaleTransactionsJob implements ShouldQueue
                     $data['user_id'] = $this->invoice->user_id;
                     $data['type'] = 'credit';
                     $this->clientAccount->transactions()->create($data);
-                    dispatch(new UpdateClientBalanceJob($this->invoice->sale->client, $this->invoice->net, 'decrease'));
+                    dispatch(new UpdateClientBalanceJob($this->invoice->sale->client,abs($variation), 'decrease'));
                 } else {
                     $data = $this->startupData;
                     $data['amount'] = abs($variation);
                     $data['user_id'] = $this->invoice->user_id;
                     $data['type'] = 'debit';
                     $this->clientAccount->transactions()->create($data);
-                    dispatch(new UpdateClientBalanceJob($this->invoice->sale->client, $this->invoice->net, 'increase'));
+                    dispatch(new UpdateClientBalanceJob($this->invoice->sale->client, abs($variation), 'increase'));
                 }
             }
 

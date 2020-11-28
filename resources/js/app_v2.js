@@ -2,7 +2,9 @@ import {InertiaApp} from '@inertiajs/inertia-vue'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueSimpleAlert from "vue-simple-alert";
+// import {EagleModal} from 'vue-eagle-modal'
 
+import Dialog from 'vue-dialog-loading'
 
 window.axios = require('axios')
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
@@ -20,15 +22,22 @@ String.prototype.replaceAt = function (index, replacement) {
     return (
         this.substr(0, index) +
         replacement +
-        this.substr(index + replacement.length)
+        tAddShippingAddress.vuehis.substr(index + replacement.length)
     )
 }
+require('./Plugins/plugins')
 
 require('./upload_images');
 
 
 Vue.use(Vuex)
 Vue.use(VueSimpleAlert);
+Vue.use(Dialog, {
+    dialogBtnColor: '#0f0',
+    background: 'rgba(0, 0, 0, 0.5)'
+});
+// Vue.use(EagleModal);
+
 
 const store = new Vuex.Store(require('./store/web'))
 Vue.use(InertiaApp)

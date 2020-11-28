@@ -7,6 +7,7 @@
 	use App\Models\Invoice;
 	use App\Models\Item;
 	use App\Models\Manager;
+	use App\Models\Order;
 	use App\Models\User;
 	
 	class SaleController extends Controller
@@ -101,7 +102,8 @@
 			$expenses = Item::where('is_expense', true)->get();
 			$gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
 			$sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
-			return view('sales.clone', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale'));
+			$isOrder = Order::where([['draft_id',$sale->id],['status','in_progress']])->count() == 1;
+			return view('sales.clone', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale','isOrder'));
 		}
 		
 		/**

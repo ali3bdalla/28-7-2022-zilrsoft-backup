@@ -64,6 +64,12 @@
 				}
 			);
 			
+			
+			Route::middleware('auth:client')->group(
+				function() {
+				
+				}
+			);
 		}
 	);
 	
@@ -102,6 +108,13 @@
 		function() {
 			
 			Route::resource('orders', 'OrderController');
+			Route::prefix('orders')->name('orders.')->group(
+				function() {
+					Route::get('{order}/confirm', 'OrderController@confirm');
+					
+				}
+			);
+			
 			Route::get('/dashboard', 'HomeController@index')->name('dashboard.index');
 			Route::post('/logout', 'HomeController@logout')->name('logout');
 			Route::resource('sales', 'SaleController');
@@ -119,6 +132,7 @@
 				}
 			);
 			Route::resource('accounts', 'AccountController');
+			Route::resource('delivery_men', 'DeliveryManController');
 			Route::prefix('accounts')->name('accounts.')->group(
 				function() {
 					Route::prefix('reports')->name('reports.')->group(

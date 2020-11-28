@@ -101,7 +101,7 @@
 			
 			
 			if($this->has('aliceName') && $this->filled('aliceName')) {
-				$ids = Sale::where('alice_name', 'LIKE','%'.$this->input("aliceName").'%')->pluck('invoice_id')->toArray();
+				$ids = Sale::where('alice_name', 'ILIKE','%'.$this->input("aliceName").'%')->pluck('invoice_id')->toArray();
 				$query = $query->whereIn('id', $ids);
 			}
 			

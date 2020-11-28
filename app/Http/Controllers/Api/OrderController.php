@@ -2,8 +2,11 @@
 	
 	namespace App\Http\Controllers\Api;
 	
+	use App\Events\Order\OrderPaymentConfirmedEvent;
 	use App\Http\Controllers\Controller;
+	use App\Jobs\Items\AvailableQty\UpdateAvailableQtyByInvoiceItemJob;
 	use App\Models\Order;
+	use GuzzleHttp\Client;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
 	
@@ -19,9 +22,9 @@
 		{
 			$orders = [];
 			if($request->user('manager')->can('manage branches')) {
-				$orders = Order::where('status', 'issued')->with('user','shippingAddress')->get();
+				$orders = Order::where('status', 'issued')->with('user', 'shippingAddress')->get();
 			} else {
-				$orders = Order::where('status', 'pending')->with('user','shippingAddress')->get();
+				$orders = Order::where('status', 'pending')->with('user', 'shippingAddress')->get();
 				
 			}
 			
@@ -45,9 +48,34 @@
 		 *
 		 * @param Request $request
 		 * @param Order $order
-		 * @return Response
+		 * @return void
 		 */
 		public function update(Request $request, Order $order)
+		{
+			foreach($order->itemsQtyHolders as $holdQty) {
+				UpdateAvailableQtyByInvoiceItemJob::dispatchNow($holdQty->invoiceItem, true);
+//				$holdQty->update(
+//					[
+//						'status' => 'destroyed'
+//					]
+//				);
+			}
+			
+			$order->update(
+				[
+					'status' => 'paid'
+				]
+			);
+			event(new OrderPaymentConfirmedEvent($order));
+		}
+		
+		/**
+		 * Update the specified resource in storage.
+		 *
+		 * @param Order $order
+		 * @return void
+		 */
+		public function destroy(Order $order)
 		{
 			//
 		}

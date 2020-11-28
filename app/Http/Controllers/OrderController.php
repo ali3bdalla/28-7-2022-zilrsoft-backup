@@ -40,7 +40,24 @@
 		 */
 		public function show(Order $order)
 		{
-			//
+			$order->load('paymentDetail', 'user');
+			return view('orders.show', compact('order'));
+		}
+		
+		public function confirm(Order $order)
+		{
+			if(!$order->status == 'paid') {
+				return view('errors.custom');
+			}
+			
+			$order->update(
+				[
+					'status' => 'in_progress',
+					'managed_by_id' => auth()->user()->id
+				]
+			);
+			
+			return redirect('/sales/drafts/' . $order->draft_id . '/to_invoice');
 		}
 		
 		

@@ -578,7 +578,7 @@ import {sendGetKitAmountsRequest} from '../../api/kits';
 export default {
   components: {},
   props: ['creator', 'clients', 'cloning', 'quotation', 'salesmen', 'gateways', 'expenses', 'canViewItems',
-    'canCreateItem'],
+    'canCreateItem', 'isOrder'],
   data: function () {
     return {
       activateTestMode: false,
@@ -637,7 +637,7 @@ export default {
   },
   created: function () {
 
-
+    console.log(this.isOrder);
     this.clientList = this.clients;
     this.initExpensesList();
     this.initLiveTimer();

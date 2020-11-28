@@ -16,7 +16,7 @@ class SerialHistoryController extends Controller
     public function show(Request $request)
     {
         $request->validate([
-           'serial'=>'required|exists:item_serials,serial'
+           'serial'=>'required|organization_exists:App\Models\ItemSerials,serial'
         ]);
 
         $serial = ItemSerials::where('serial',$request->serial)->first();

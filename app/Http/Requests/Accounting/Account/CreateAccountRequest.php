@@ -26,9 +26,9 @@
 		{
 			return [
 				//
-				'name' => 'required|string|unique:accounts',
-				'ar_name' => 'required|string|unique:accounts',
-				'parent_id' => 'required|integer|exists:accounts,id',
+				'name' => 'required|string|organization_unique:App\Models\Account',
+				'ar_name' => 'required|string|organization_unique:App\Models\Account',
+				'parent_id' => 'required|integer|organization_exists:App\Models\Account,id',
 				'account_type' => 'required|in:credit,debit'
 			];
 		}
