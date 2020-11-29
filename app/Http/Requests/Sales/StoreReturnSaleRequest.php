@@ -37,7 +37,7 @@
 		{
 			return [
 				'items' => 'required|array',
-				'items.*.id' => 'integer|required|organization_exists:App\Models\InvoiceItem,id',
+				'items.*.id' => 'integer|required|organization_exists:App\Models\InvoiceItems,id',
 				'items.*.returned_qty' => 'required',
 				'items.*.serials' => 'nullable|array',
 //            'items.*.serials.*' => 'required|array',
@@ -51,7 +51,7 @@
 		{
 			DB::beginTransaction();
 			try {
-				// return $this->all();
+//				 return $this->all();
 //            dd($this->all());
 				$this->validateInvoiceType($saleInvoice);
 				$returnedItems = $this->getReturnedItems();

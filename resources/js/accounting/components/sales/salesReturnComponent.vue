@@ -746,8 +746,6 @@ export default {
         axios
             .patch("/api/sales/" + invoice.id, data) //this.app.BaseApiUrl +
             .then(function (response) {
-              // console.log(response.data);
-
               if (doWork == "open") {
                 window.location.href = "/sales/" + response.data.id;
               } else {
@@ -755,7 +753,7 @@ export default {
               }
             })
             .catch(function (error) {
-              console.log(error.response.data.errors);
+              console.log(error.response.data);
               console.log(error.response.data.errors.items);
 
             });

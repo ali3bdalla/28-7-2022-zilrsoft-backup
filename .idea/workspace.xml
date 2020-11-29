@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62ee8e1c-79d0-4682-8776-4dfb31729f0a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/printer/a4.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SaleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/ReturnBeginningRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/ReturnBeginningRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Purchase/ReturnPurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Purchase/ReturnPurchaseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreReturnPurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreReturnPurchaseRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreReturnSaleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreReturnSaleRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/BaseModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/BaseModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Permission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Role.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Role.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesReturnComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesReturnComponent.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,7 +241,8 @@
       <workItem from="1606571846384" duration="1606000" />
       <workItem from="1606583993796" duration="538000" />
       <workItem from="1606584819876" duration="5011000" />
-      <workItem from="1606632739935" duration="98000" />
+      <workItem from="1606632739935" duration="313000" />
+      <workItem from="1606656341340" duration="1059000" />
     </task>
     <servers />
   </component>
@@ -262,9 +273,10 @@
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state x="1991" y="177" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606585465549" />
-    <state x="1978" y="212" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606500324782">
-      <screen x="1440" y="0" width="1600" height="900" />
+    <state x="484" y="212" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606657409488">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
+    <state x="484" y="212" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1440.900@0.0.1440.900" timestamp="1606657409488" />
     <state x="1978" y="212" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606497829019" />
     <state x="1978" y="212" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606500324782" />
     <state x="2009" y="369" width="461" height="249" key="ComposerInitDialogKey" timestamp="1606151869065">
@@ -331,10 +343,10 @@
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state x="1970" y="200" width="540" height="524" key="StructurePopup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606319918546" />
-    <state width="500" height="445" key="SwitcherDM" timestamp="1606589064962">
-      <screen x="1440" y="0" width="1600" height="900" />
+    <state width="500" height="434" key="SwitcherDM" timestamp="1606657443675">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="500" height="434" key="SwitcherDM/0.0.1440.900@0.0.1440.900" timestamp="1606574668318" />
+    <state width="500" height="434" key="SwitcherDM/0.0.1440.900@0.0.1440.900" timestamp="1606657443675" />
     <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606589064962" />
     <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606588609366" />
     <state width="500" height="434" key="SwitcherDM/1440.23.1600.877/0.23.1440.877@1440.23.1600.877" timestamp="1606203524859" />
@@ -350,19 +362,20 @@
     <state x="2053" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606156835413" />
     <state x="2053" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606496217549" />
     <state x="2533" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1600.900/0.0.1920.1200@1920.0.1600.900" timestamp="1606395848543" />
-    <state x="1947" y="205" width="586" height="548" key="find.popup" timestamp="1606588884656">
-      <screen x="1440" y="0" width="1600" height="900" />
+    <state x="456" y="205" width="568" height="548" key="find.popup" timestamp="1606656558354">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
+    <state x="456" y="205" width="568" height="548" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1606656558354" />
     <state x="1947" y="205" width="586" height="548" key="find.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606588884656" />
     <state x="1947" y="205" width="586" height="548" key="find.popup/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606496989314" />
     <state x="1905" y="210" key="run.anything.popup" timestamp="1606310624853">
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state x="1905" y="210" key="run.anything.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606310624853" />
-    <state x="419" y="214" width="670" height="661" key="search.everywhere.popup" timestamp="1606632830323">
+    <state x="419" y="214" width="670" height="661" key="search.everywhere.popup" timestamp="1606657514895">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="419" y="214" width="670" height="661" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1606632830323" />
+    <state x="419" y="214" width="670" height="661" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1606657514895" />
     <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606589300949" />
     <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606500282802" />
     <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup/1440.23.1600.877/0.23.1440.877@1440.23.1600.877" timestamp="1606153114715" />

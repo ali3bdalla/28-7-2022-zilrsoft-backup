@@ -36,7 +36,7 @@ class ReturnBeginningRequest extends FormRequest
 		return [
 			//
 			'items' => 'required|array',
-			'items.*.id' => 'integer|required|organization_exists:App\Models\InvoiceItem,id',
+			'items.*.id' => 'integer|required|organization_exists:App\Models\InvoiceItems,id',
 			'items.*.returned_qty' => 'required',
 			'methods.*.id' => 'integer|required|organization_exists:App\Models\Account,id',
 		
