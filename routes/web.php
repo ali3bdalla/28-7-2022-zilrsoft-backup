@@ -9,6 +9,10 @@
 	Route::get('/', 'Web\HomeController@toWeb')->name('to.web');
 	
 	
+	
+	Route::get('/delivery_man/confirm/{hash}','DeliveryManController@confirm');
+	Route::post('/delivery_man/confirm/{hash}/{orderId}','DeliveryManController@performConfirm');
+	
 	Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->name('web.')->group(
 		function() {
 			Route::get('/orders/{order}/cancel', 'Order\CancelOrderController@showPage');

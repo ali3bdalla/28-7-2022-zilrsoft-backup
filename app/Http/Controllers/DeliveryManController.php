@@ -5,8 +5,10 @@
 	use App\Http\Requests\DeliveryMan\StoreDeliveryManRequest;
 	use App\Models\City;
 	use App\Models\DeliveryMan;
+	use App\Models\Order;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
+	use Illuminate\Validation\ValidationException;
 	
 	class DeliveryManController extends Controller
 	{
@@ -88,4 +90,60 @@
 		{
 			//
 		}
+		
+		public function confirm($hash)
+		{
+			$deliveryMan = DeliveryMan::where('hash', $hash)->firstOrFail();
+			$orders = $deliveryMan->orders()->with('user', 'shippingAddress')->get();//->where('status', 'shipped')
+
+			return view('delivery_men.confirm', compact('deliveryMan', 'orders'));
+		}
+		
+		
+		public function performConfirm($hash, $orderId, Request $request)
+		{
+			$request->validate(
+				[
+					'code' => 'required|string'
+				]
+			);
+			
+			$deliveryMan = DeliveryMan::where('hash', $hash)->firstOrFail();
+			$order = Order::where(
+				[
+//					['status', 'shipped'],
+					['id', $orderId],
+//					['shippable_id', $deliveryMan->id],
+//					['shippable_type' , class_basename($deliveryMan)],
+				]
+			)->firstOrFail();
+			
+			
+			if($order->order_secret_code == $request->input('code')) {
+				
+				
+				$order->update(
+					[
+						'status' => 'delivered'
+					]
+				);
+				
+//				$order->activities()->create(
+//					[
+//						'doable_type' => class_basename($deliveryMan),
+//						'doable_id' => $deliveryMan->id,
+//						'activity' => 'delivered'
+//					]
+//				);
+				return;
+			}
+			
+			throw ValidationException::withMessages(
+				[
+					'code' => 'invalid code'
+				]
+			);
+		}
+		
+		
 	}

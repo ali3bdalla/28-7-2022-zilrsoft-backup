@@ -18,6 +18,8 @@
 	 * @property Carbon|mixed cancel_order_code
 	 * @property mixed order_secret_code
 	 * @property mixed id
+	 * @property mixed|string shippable_type
+	 * @property int|mixed shippable_id
 	 */
 	class Order extends BaseModel
 	{
@@ -32,6 +34,15 @@
 		}
 		
 		
+		public function draft()
+		{
+			return $this->belongsTo(Invoice::class,'draft_id')->withoutGlobalScopes(["manager",'draft']);
+		}
+		
+		public function activities()
+		{
+			return $this->hasMany(OrderActivity::class,'order_id');
+		}
 		public function itemsQtyHolders()
 		{
 			return $this->hasMany(OrderItemQtyHolder::class, 'order_id');
@@ -68,6 +79,12 @@
 		public function draftInvoice()
 		{
 			return $this->belongsTo(Invoice::class, 'draft_id')->withoutGlobalScopes(['manager', 'draft', 'organization']);
+		}
+		
+		public function invoice()
+		{
+			return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes(['manager', 'draft', 'organization']);
+			
 		}
 		
 	}

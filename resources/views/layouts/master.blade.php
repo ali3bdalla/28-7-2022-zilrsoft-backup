@@ -28,6 +28,7 @@
     @css_asset('lib/css/bootstrap-rtl.css')
     @css_asset('lib/css/AdminLTE-rtl.min.css')
     @css_asset('css/rtl.css')
+
     @yield('sub_styles')
 
 

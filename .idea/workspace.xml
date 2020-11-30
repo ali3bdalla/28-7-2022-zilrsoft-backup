@@ -5,17 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62ee8e1c-79d0-4682-8776-4dfb31729f0a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/js/external/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/external/delivery/confirmOrderDeliveryStatus.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/delivery_men/confirm.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SaleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/ReturnBeginningRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Inventory/ReturnBeginningRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Accounting/Purchase/ReturnPurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Accounting/Purchase/ReturnPurchaseRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreReturnPurchaseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Purchases/StoreReturnPurchaseRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreReturnSaleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Sales/StoreReturnSaleRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/BaseModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/BaseModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Permission.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Role.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Role.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Notifications/TransactionNotificationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Notifications/TransactionNotificationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DeliveryManController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DeliveryManController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Order/StoreOrderRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Order/StoreOrderRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/Sales/Order/CreateSalesOrderJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/Sales/Order/CreateSalesOrderJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesReturnComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/accounting/components/sales/salesReturnComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/upload_images.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/upload_images.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/lib/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/lib/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/BackEnd/Orders/OnlineOrdersTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/BackEnd/Orders/OnlineOrdersTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/order.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/backend/_data.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/backend/_data.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accounting/layout/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accounting/layout/master.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/orders/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/orders/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Order/CreateOrderTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Order/CreateOrderTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +203,7 @@
       <recent name="$PROJECT_DIR$/app/Http/Controllers/Api/Web" />
     </key>
   </component>
-  <component name="RunManager" selected="PHPUnit.CreateFilterTest">
+  <component name="RunManager" selected="PHPUnit.CreateOrderTest.testCreateOrder_RedirectToOrdersPage">
     <configuration name="ConfirmOrderPaymentTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="Tests\Feature\Order\ConfirmOrderPaymentTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Order/ConfirmOrderPaymentTest.php" scope="Class" />
       <method v="2" />
@@ -213,8 +226,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="PHPUnit.CreateFilterTest" />
         <item itemvalue="PHPUnit.CreateOrderTest.testCreateOrder_RedirectToOrdersPage" />
+        <item itemvalue="PHPUnit.CreateFilterTest" />
         <item itemvalue="PHPUnit.ConfirmOrderPaymentTest.testCreateOrder_RedirectToOrdersPage" />
         <item itemvalue="PHPUnit.ConfirmOrderPaymentTest.testConfirmOrderPayment_GetOrderResponse" />
         <item itemvalue="PHPUnit.ConfirmOrderPaymentTest" />
@@ -242,7 +255,9 @@
       <workItem from="1606583993796" duration="538000" />
       <workItem from="1606584819876" duration="5011000" />
       <workItem from="1606632739935" duration="313000" />
-      <workItem from="1606656341340" duration="1059000" />
+      <workItem from="1606656341340" duration="1242000" />
+      <workItem from="1606671208914" duration="5574000" />
+      <workItem from="1606740589639" duration="4599000" />
     </task>
     <servers />
   </component>
@@ -283,33 +298,33 @@
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state x="2009" y="369" width="461" height="249" key="ComposerInitDialogKey/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606151869065" />
-    <state width="1600" height="275" key="GridCell.Tab.0.bottom" timestamp="1606513157699">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1600" height="275" key="GridCell.Tab.0.bottom" timestamp="1606676920346">
+      <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state width="1600" height="275" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1606513157699" />
     <state width="1600" height="442" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1606159267578" />
-    <state width="1600" height="275" key="GridCell.Tab.0.bottom/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606328384754" />
+    <state width="1600" height="275" key="GridCell.Tab.0.bottom/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606676920346" />
     <state width="1600" height="275" key="GridCell.Tab.0.bottom/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606496964613" />
-    <state width="1600" height="275" key="GridCell.Tab.0.center" timestamp="1606513157698">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1600" height="275" key="GridCell.Tab.0.center" timestamp="1606676920345">
+      <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state width="1600" height="275" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1606513157698" />
     <state width="1600" height="442" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1606159267577" />
-    <state width="1600" height="275" key="GridCell.Tab.0.center/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606328384753" />
+    <state width="1600" height="275" key="GridCell.Tab.0.center/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606676920345" />
     <state width="1600" height="275" key="GridCell.Tab.0.center/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606496964611" />
-    <state width="1600" height="275" key="GridCell.Tab.0.left" timestamp="1606513157552">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1600" height="275" key="GridCell.Tab.0.left" timestamp="1606676920344">
+      <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state width="1600" height="275" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1606513157552" />
     <state width="1600" height="442" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1606159267576" />
-    <state width="1600" height="275" key="GridCell.Tab.0.left/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606328384752" />
+    <state width="1600" height="275" key="GridCell.Tab.0.left/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606676920344" />
     <state width="1600" height="275" key="GridCell.Tab.0.left/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606496964608" />
-    <state width="1600" height="275" key="GridCell.Tab.0.right" timestamp="1606513157698">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1600" height="275" key="GridCell.Tab.0.right" timestamp="1606676920346">
+      <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state width="1600" height="275" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1606513157698" />
     <state width="1600" height="442" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1606159267577" />
-    <state width="1600" height="275" key="GridCell.Tab.0.right/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606328384753" />
+    <state width="1600" height="275" key="GridCell.Tab.0.right/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606676920346" />
     <state width="1600" height="275" key="GridCell.Tab.0.right/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606496964612" />
     <state width="1600" height="332" key="GridCell.Tab.1.bottom" timestamp="1606159267546">
       <screen x="0" y="0" width="1680" height="1050" />
@@ -343,12 +358,13 @@
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state x="1970" y="200" width="540" height="524" key="StructurePopup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606319918546" />
-    <state width="500" height="434" key="SwitcherDM" timestamp="1606657443675">
+    <state width="500" height="434" key="SwitcherDM" timestamp="1606745353693">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="500" height="434" key="SwitcherDM/0.0.1440.900@0.0.1440.900" timestamp="1606657443675" />
-    <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606589064962" />
-    <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606588609366" />
+    <state width="500" height="434" key="SwitcherDM/0.0.1440.900@0.0.1440.900" timestamp="1606745353693" />
+    <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.0.1440.900@0.0.1440.900" timestamp="1606742121966" />
+    <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606740876541" />
+    <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606676125298" />
     <state width="500" height="434" key="SwitcherDM/1440.23.1600.877/0.23.1440.877@1440.23.1600.877" timestamp="1606203524859" />
     <state width="500" height="445" key="SwitcherDM/1920.0.1600.900/0.0.1920.1200@1920.0.1600.900" timestamp="1606398020225" />
     <state width="500" height="445" key="SwitcherDM/1920.0.1600.900/0.23.1920.1177@1920.0.1600.900" timestamp="1606396376541" />
@@ -362,6 +378,10 @@
     <state x="2053" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606156835413" />
     <state x="2053" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606496217549" />
     <state x="2533" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1600.900/0.0.1920.1200@1920.0.1600.900" timestamp="1606395848543" />
+    <state x="1540" y="100" width="1400" height="700" key="dock-window-1" timestamp="1606675574348">
+      <screen x="1440" y="0" width="1600" height="900" />
+    </state>
+    <state x="1540" y="100" width="1400" height="700" key="dock-window-1/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606675574348" />
     <state x="456" y="205" width="568" height="548" key="find.popup" timestamp="1606656558354">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -372,12 +392,13 @@
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state x="1905" y="210" key="run.anything.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606310624853" />
-    <state x="419" y="214" width="670" height="661" key="search.everywhere.popup" timestamp="1606657514895">
+    <state x="419" y="214" width="670" height="661" key="search.everywhere.popup" timestamp="1606744714821">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="419" y="214" width="670" height="661" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1606657514895" />
-    <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606589300949" />
-    <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606500282802" />
+    <state x="419" y="214" width="670" height="661" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1606744714821" />
+    <state x="419" y="214" width="670" height="659" key="search.everywhere.popup/1440.0.1600.900/0.0.1440.900@0.0.1440.900" timestamp="1606741883706" />
+    <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606740635096" />
+    <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606674476480" />
     <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup/1440.23.1600.877/0.23.1440.877@1440.23.1600.877" timestamp="1606153114715" />
     <state x="2385" y="214" width="670" height="660" key="search.everywhere.popup/1920.0.1600.900/0.0.1920.1200@1920.0.1600.900" timestamp="1606397853129" />
     <state x="558" y="303" width="804" height="864" key="search.everywhere.popup/1920.23.1600.877/0.23.1920.1177@0.23.1920.1177" timestamp="1606405513898" />
@@ -390,11 +411,6 @@
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Api/Notifications/OrderNotificationController.php</url>
           <line>9</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Requests/Order/StoreOrderRequest.php</url>
-          <line>86</line>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

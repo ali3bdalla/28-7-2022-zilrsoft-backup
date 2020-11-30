@@ -108,7 +108,7 @@
 			$response = $this->actingAs($client, 'client')->postJson(
 				'/api/web/orders', [
 					'items' => $requestItems,
-					'shipping_method_id' => $shippingMethod->id,
+//					'shipping_method_id' => $shippingMethod->id,
 					'shipping_address_id' => $shippingAddress->id
 				]
 			);

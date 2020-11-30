@@ -30,7 +30,7 @@
 		 * @param $shippingMethodId
 		 * @param $shippingAddressId
 		 */
-		public function __construct(Invoice $invoice, $shippingMethodId, $shippingAddressId)
+		public function __construct(Invoice $invoice, $shippingAddressId,$shippingMethodId = null)
 		{
 			//
 			$this->invoice = $invoice;
@@ -47,7 +47,9 @@
 		{
 			$order = new Order();
 			$order->user_id = $this->invoice->user_id;
-			$order->shipping_method_id = $this->shippingMethodId;
+			$order->shippable_type = "App\Models\DeliveryMan";
+			$order->shippable_id = 4;
+//			$order->shipping_method_id = $this->shippingMethodId;
 			$order->shipping_address_id = $this->shippingAddressId;
 			$order->draft_id = $this->invoice->id;
 			$order->net =(float) $this->invoice->net;

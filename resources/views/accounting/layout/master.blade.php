@@ -38,6 +38,11 @@
 
     @yield('page_css')
 
+
+
+
+
+
     <style type="text/css">
         input {
             direction: ltr !important;

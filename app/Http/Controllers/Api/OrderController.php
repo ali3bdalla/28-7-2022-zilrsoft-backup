@@ -15,7 +15,7 @@
 		
 		public function index(Request $request)
 		{
-			return Order::with('user', 'shippingMethod', 'shippingAddress')->get();
+			return Order::with('user', 'shippable', 'shippingAddress')->get();
 		}
 		
 		public function notificationList(Request $request)

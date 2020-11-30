@@ -35,7 +35,7 @@
 				"items.*.id" => "required|integer|organization_exists:App\Models\Item,id",
 				"items.*.quantity" => "required|integer|min:1",
 				'shipping_address_id' => ['required', new ExistsRule(ShippingAddress::class)],
-				'shipping_method_id' => ['required', new ExistsRule(ShippingMethod::class)]
+//				'shipping_method_id' => ['required', new ExistsRule(ShippingMethod::class)]
 			];
 		}
 		
@@ -87,7 +87,8 @@
 				dispatch(new UpdateInvoiceNumberJob($invoice, 'ONL-'));
 				dispatch(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true, $authUser, true));
 				dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
-				$order = CreateSalesOrderJob::dispatchNow($invoice->fresh(), $this->input('shipping_method_id'), $this->input('shipping_address_id'));
+				$order = CreateSalesOrderJob::dispatchNow($invoice->fresh(),  $this->input('shipping_address_id'));
+//				$this->input('shipping_method_id'),
 				dispatch(new HoldItemQtyJob($invoice, $order));
 				DB::commit();
 				

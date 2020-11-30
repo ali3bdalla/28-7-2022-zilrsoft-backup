@@ -3,5 +3,6 @@
     "/css/main.css": "/css/main.css",
     "/css/tailwind.css": "/css/tailwind.css",
     "/js/app_v2.js": "/js/app_v2.js",
+    "/js/external.js": "/js/external.js",
     "/js/upload_images.js": "/js/upload_images.js"
 }
