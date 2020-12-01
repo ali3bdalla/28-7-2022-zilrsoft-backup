@@ -51,9 +51,9 @@ class QueryItemsRequest extends FormRequest
 
 
         if ($this->has('barcode_or_name_or_serial') && $this->filled('barcode_or_name_or_serial')) {
-            $query = $query->where('barcode', 'LIKE', '%' . $this->input('barcode_or_name_or_serial') . '%')
-                ->orWhere('name', 'LIKE', '%' . $this->input('barcode_or_name_or_serial') . '%')
-                ->orWhere('ar_name', 'LIKE', '%' . $this->input('barcode_or_name_or_serial') . '%');
+            $query = $query->where('barcode', 'ILIKE', '%' . $this->input('barcode_or_name_or_serial') . '%')
+                ->orWhere('name', 'ILIKE', '%' . $this->input('barcode_or_name_or_serial') . '%')
+                ->orWhere('ar_name', 'ILIKE', '%' . $this->input('barcode_or_name_or_serial') . '%');
         }
         $result = $query->take($limit)->get();
 

@@ -10,6 +10,11 @@
 	{
 		public function pending(Request $request)
 		{
-			return Order::where('status', 'pending')->with('user')->get();
+			return Order::where('status', 'pending')->with('user', 'paymentDetail','draftInvoice')->get();
+		}
+		
+		public function paid(Request $request)
+		{
+			return Order::where('status', 'paid')->with('user', 'paymentDetail','draftInvoice')->get();
 		}
 	}

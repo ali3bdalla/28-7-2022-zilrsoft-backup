@@ -30,9 +30,9 @@
 				
 				'name' => 'required|string',
 				'ar_name' => 'required|string',
-				'barcode' => 'required|numeric|unique:items,barcode',
+				'barcode' => 'required|numeric|organization_unique:App\Models\Item,barcode',
 				'items' => 'required|array',
-				'items.*.id' => 'required|integer|exists:items,id',
+				'items.*.id' => 'required|integer|organization_exists:App\Models\Item,id',
 				'items.*.price' => 'required|numeric',
 				'items.*.total' => 'required|numeric',
 				'items.*.tax' => 'required|numeric',

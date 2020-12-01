@@ -15,7 +15,7 @@
 	{
 		use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 		
-		private $orderAutoCancelAfter = 5;
+		private $orderAutoCancelAfter = 20;
 		/**
 		 * @var Invoice
 		 */
@@ -30,7 +30,7 @@
 		 * @param $shippingMethodId
 		 * @param $shippingAddressId
 		 */
-		public function __construct(Invoice $invoice, $shippingMethodId, $shippingAddressId)
+		public function __construct(Invoice $invoice, $shippingAddressId,$shippingMethodId = null)
 		{
 			//
 			$this->invoice = $invoice;
@@ -47,17 +47,18 @@
 		{
 			$order = new Order();
 			$order->user_id = $this->invoice->user_id;
-			$order->shipping_method_id = $this->shippingMethodId;
+			$order->shippable_type = "App\Models\DeliveryMan";
+			$order->shippable_id = 4;
+//			$order->shipping_method_id = $this->shippingMethodId;
 			$order->shipping_address_id = $this->shippingAddressId;
 			$order->draft_id = $this->invoice->id;
-			$order->net = $this->invoice->net;
+			$order->net =(float) $this->invoice->net;
 			$order->auto_cancel_at = Carbon::now()->addMinutes($this->orderAutoCancelAfter);
 			$order->is_should_pay_notified = false;
-			$order->should_pay_last_notification_at = Carbon::now()->addMinutes($this->orderAutoCancelAfter - 3);
-			$order->cancel_order_code = rand(1000, 9999);
+			$order->should_pay_last_notification_at = Carbon::now()->addMinutes($this->orderAutoCancelAfter - 1);
+			$order->order_secret_code = bcrypt(rand(10000, 99999));
 			$order->status = 'issued';
 			$order->save();
 			return $order->fresh();
-			//
 		}
 	}

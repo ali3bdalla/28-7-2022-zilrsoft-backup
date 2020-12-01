@@ -9,6 +9,10 @@
 	Route::get('/', 'Web\HomeController@toWeb')->name('to.web');
 	
 	
+	
+	Route::get('/delivery_man/confirm/{hash}','DeliveryManController@confirm');
+	Route::post('/delivery_man/confirm/{hash}/{orderId}','DeliveryManController@performConfirm');
+	
 	Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->name('web.')->group(
 		function() {
 			Route::get('/orders/{order}/cancel', 'Order\CancelOrderController@showPage');
@@ -64,6 +68,12 @@
 				}
 			);
 			
+			
+			Route::middleware('auth:client')->group(
+				function() {
+				
+				}
+			);
 		}
 	);
 	
@@ -102,6 +112,13 @@
 		function() {
 			
 			Route::resource('orders', 'OrderController');
+			Route::prefix('orders')->name('orders.')->group(
+				function() {
+					Route::get('{order}/confirm', 'OrderController@confirm');
+					
+				}
+			);
+			
 			Route::get('/dashboard', 'HomeController@index')->name('dashboard.index');
 			Route::post('/logout', 'HomeController@logout')->name('logout');
 			Route::resource('sales', 'SaleController');
@@ -119,6 +136,7 @@
 				}
 			);
 			Route::resource('accounts', 'AccountController');
+			Route::resource('delivery_men', 'DeliveryManController');
 			Route::prefix('accounts')->name('accounts.')->group(
 				function() {
 					Route::prefix('reports')->name('reports.')->group(

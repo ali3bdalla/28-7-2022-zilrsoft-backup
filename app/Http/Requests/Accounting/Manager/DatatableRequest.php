@@ -56,11 +56,11 @@
 
 //
 			if ($this->has('name') && $this->filled('name')){
-				$query = $query->where('name','LIKE','%'.$this->name.'%')->orWhere('name_ar','LIKE','%'.$this->name.'%');
+				$query = $query->where('name','ILIKE','%'.$this->name.'%')->orWhere('name_ar','ILIKE','%'.$this->name.'%');
 			}
 			
 			if ($this->has('email') && $this->filled('email')){
-				$query = $query->where('email_address','LIKE','%'.$this->email.'%');
+				$query = $query->where('email_address','ILIKE','%'.$this->email.'%');
 			}
 			
 			

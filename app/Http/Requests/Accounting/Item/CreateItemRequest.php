@@ -33,7 +33,7 @@
 				'name' => 'required|string',
 				'ar_name' => 'required|string',
 				'barcode' => 'required',
-				'category_id' => 'required|integer|exists:categories,id',
+				'category_id' => 'required|integer|organization_exists:App\Models\Category,id',
 				'is_fixed_price' => 'required',
 				'is_has_vtp' => 'required',
 				'is_has_vts' => 'required',
@@ -42,10 +42,16 @@
 				'is_service' => 'required',
 				'vtp' => 'required|numeric',
 				'vts' => 'required|numeric',
+				
 				'price' => 'required|numeric',
 				'price_with_tax' => 'required|numeric',
 				'vendor_expense_id' => 'nullable|integer',
 				'warranty_subscription_id' => 'required|integer',
+				'online_price' => 'required_if:is_available_online,true',
+				'online_offer_price' => 'required_if:is_available_online,true',
+				'is_available_online' => 'required_if:is_available_online,true',
+				'weight' => 'required_if:is_available_online,true',
+				'shipping_discount' => 'required_if:is_available_online,true',
 			];
 		}
 		

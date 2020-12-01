@@ -9,10 +9,12 @@
 	use App\Jobs\Sales\Draft\SetDraftAsConvertedJob;
 	use App\Jobs\Sales\Expense\CreatePurchaseInvoiceForExpensesJob;
 	use App\Jobs\Sales\Items\StoreSaleItemsJob;
+	use App\Jobs\Sales\Order\UpdateOnlineOrderStatus;
 	use App\Jobs\Sales\Payment\StoreSalePaymentsJob;
 	use App\Models\Invoice;
 	use App\Models\Item;
 	use App\Models\ItemSerials;
+	use App\Models\Order;
 	use App\Models\User;
 	use Exception;
 	use Illuminate\Database\QueryException;
@@ -33,21 +35,21 @@
 				
 				
 				"items" => "required|array",
-				"items.*.id" => "required|integer|exists:items,id",
+				"items.*.id" => "required|integer|organization_exists:App\Models\Item,id",
 				"items.*.price" => "price|priceAndDiscount|min:0",
 				"items.*.discount" => "priceAndDiscount",
 				"items.*.qty" => "required|integer|min:1|salesItemQty",
 //            "items.*.purchase_price" => "salesExpensesPurchasePrice|price|min:0",
 				'items.*.serials' => 'array|newInvoiceItemSerials',
-				'items.*.serials.*' => 'required|exists:item_serials,serial',
-				'items.*.items.*.id' => 'required|exists:items,id',
+				'items.*.serials.*' => 'required|organization_exists:App\Models\ItemSerials,serial',
+				'items.*.items.*.id' => 'required|organization_exists:App\Models\Item,id',
 				'items.*.items.*.serials' => 'array',
-				'items.*.items.*.serials.*' => 'required|exists:item_serials,serial',
+				'items.*.items.*.serials.*' => 'required|organization_exists:App\Models\ItemSerials,serial',
 				'items.*.items.*.qty' => 'required|integer|salesKitItemValidator',
-				"client_id" => "required|integer|exists:users,id",
-				"salesman_id" => "required|integer|exists:managers,id",
+				"client_id" => "required|integer|organization_exists:App\Models\User,id",
+				"salesman_id" => "required|integer|organization_exists:App\Models\Manager,id",
 				'methods' => 'array',
-				'methods.*.id' => 'required|integer|exists:accounts,id',
+				'methods.*.id' => 'required|integer|organization_exists:App\Models\Account,id',
 				'methods.*.amount' => 'required|numeric',
 			];
 		}
@@ -66,6 +68,7 @@
 		{
 			DB::beginTransaction();
 			try {
+				$isOnlineOrder = $this->isOnlineOrder();
 				$this->validateSerials();
 				$this->validateKits();
 				$this->validateQuantities($this->input('items'));
@@ -108,11 +111,11 @@
 				 * ========================================================
 				 *
 				 */
-				$paymentsMethods = $this->validatePaymentsAndGetPaymentMethods($invoice);
+				$paymentsMethods = $this->validatePaymentsAndGetPaymentMethods($invoice, $isOnlineOrder);
 				dispatch(new StoreSalePaymentsJob($invoice, $paymentsMethods));
 				dispatch(new StoreSaleTransactionsJob($invoice));
 				dispatch(new SetDraftAsConvertedJob($this->input('quotation_id'), $invoice->id));
-				
+				dispatch(new UpdateOnlineOrderStatus($this->input('quotation_id'), $invoice));
 				DB::commit();
 				return $invoice;
 			} catch(QueryException $queryException) {
@@ -123,6 +126,19 @@
 				throw $exception;
 				
 			}
+		}
+		
+		private function isOnlineOrder()
+		{
+			$draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->input('quotation_id'))->first();
+			if($draft) {
+				$order = Order::where('draft_id', $this->input('quotation_id'))->first();
+				if($order && $order->status == 'in_progress') {
+					return true;
+				}
+			}
+			
+			return false;
 		}
 		
 		private function validateSerials()
@@ -202,8 +218,13 @@
 			
 		}
 		
-		private function validatePaymentsAndGetPaymentMethods(Invoice $invoice)
+		private function validatePaymentsAndGetPaymentMethods(Invoice $invoice, $isOnlineOrder = false)
 		{
+			
+			
+			if($isOnlineOrder) {
+				return $this->onlineOrderPayments();
+			}
 			$invoice = $invoice->fresh();
 			
 			$methodsCollects = collect($this->input('methods'));
@@ -235,5 +256,25 @@
 			}
 			return $this->input('methods');
 		}
+		
+		
+		public function onlineOrderPayments()
+		{
+			$draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->input('quotation_id'))->first();
+			if($draft) {
+				$order = Order::where('draft_id', $this->input('quotation_id'))->first();
+				if($order && $order->status == 'in_progress') {
+					if($order->paymentDetail) {
+						$account = $order->paymentDetail->receivedBank->account;
+						$account = $account->toArray();
+						$account['amount'] = $order->net;
+						return $account;
+					}
+				}
+			}
+			
+			throw ValidationException::withMessages(['payment' => 'order payment not exists']);
+		}
+		
 		
 	}

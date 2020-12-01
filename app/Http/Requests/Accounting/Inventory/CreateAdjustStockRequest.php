@@ -39,7 +39,7 @@
 		{
 			return [
 				'items' => 'required|array',
-				'items.*.id' => ['required','integer','exists:items,id'],
+				'items.*.id' => ['required','integer','organization_exists:App\Models\Item,id'],
 				'items.*.qty' => 'required|integer|min:1',
 			];
 		}

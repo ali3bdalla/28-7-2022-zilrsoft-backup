@@ -5,6 +5,7 @@
 	use AliAbdalla\PDF\APDFCore;
 	use App\Models\Invoice;
 	use App\Models\Order;
+	use App\Models\Organization;
 	use App\Models\User;
 	use Carbon\Carbon;
 	use Exception;
@@ -35,7 +36,7 @@
 		public function __construct(Invoice $invoice)
 		{
 			//
-			$this->invoice = $invoice;
+			$this->invoice = $invoice->fresh();
 			$this->order = Order::where('draft_id', $invoice->id)->first();
 			$this->client = User::find($invoice->user_id);
 		}
@@ -43,27 +44,29 @@
 		/**
 		 * Execute the job.
 		 *
-		 * @return void
+		 * @return string
 		 */
 		public function handle()
 		{
 			
+			
+			$organization = Organization::find(1);
+			
 			$invoice = $this->invoice;
 			$pdfInvoice = new APDFCore("decentblue", ' ');
-//			$pdfInvoice->setLogo(auth()->user()->organization->logo);
+//			$pdfInvoice->setLogo($organization->logo);
 			$pdfInvoice->setType("فاتورة مبيعات");
 			$pdfInvoice->setDirection('rtl');
 			$pdfInvoice->setLang('ar');
 			$pdfInvoice->setReference($invoice->invoice_number);
-			$pdfInvoice->setDate($invoice->created_at);
-//			, , auth()->user()->organization->cr,auth()->user()->organization->phone_number, 'مبيعات الاونلاين',auth()->user()->organization->description_ar
+			$pdfInvoice->setDate(Carbon::parse($invoice->created_at)->toDateTimeString());
 			$pdfInvoice->setFrom(
-				[['key' => false, 'value' => auth()->user()->organization->title_ar],
-					['key' => 'الرقم الضريبي', 'value' => auth()->user()->organization->vat],
-					['key' => 'السجل التجاري', 'value' => auth()->user()->organization->cr],
-					['key' => "الهاتف", 'value' => auth()->user()->organization->phone_number],
+				[['key' => false, 'value' => $organization->title_ar],
+					['key' => 'الرقم الضريبي', 'value' => $organization->vat],
+					['key' => 'السجل التجاري', 'value' => $organization->cr],
+					['key' => "الهاتف", 'value' => $organization->phone_number],
 					['key' => "الفرع", 'value' => 'مبيعات الاونلاين'],
-					['key' => false, 'value' => auth()->user()->organization->description_ar],
+					['key' => false, 'value' => $organization->description_ar],
 				]
 			);
 			$pdfInvoice->setTo(array($invoice->user->name_ar, $invoice->user->phone_number, "عنوان الشحن"));
@@ -82,10 +85,7 @@
 			$pdfInvoice->addParagraph("* البضاعة المباعة لاترد ولا تستبدل بعد فتحها .");
 			$pdfInvoice->addParagraph("* الارجاع خلال ثلاثة أيام .");
 			$pdfInvoice->addParagraph("* التبديل خلال سبعة أيام .");
-//			$pdfInvoice->setFooternote("");
-			$pdfInvoice->setFooterContent(auth()->user()->organization->country->ar_name . ' - القصيم - ' . auth()->user()->organization->city_ar . " - " . auth()->user()->organization->address_ar);
-//
-			
+			$pdfInvoice->setFooterContent($organization->country->ar_name . ' - القصيم - ' . $organization->city_ar . " - " . $organization->address_ar);
 			try {
 				$fileName = 'order_' . $this->order->id . '_' . Carbon::now()->toDateString() . '.pdf';
 				$path = 'orders/' . $fileName;

@@ -53,41 +53,8 @@
               </div>
 
 
-              <div class="flex">
+              <PaymentAccounts @updateAccountId="updateAccountId"></PaymentAccounts>
 
-                <div class="flex-1 group-input">
-                  <label for="first_name">Transmitter Account</label>
-
-                  <select v-model="sendAccountBankId" class="">
-                    <option v-for="bank in $page.banks" :key="bank.id" :value="bank.id">{{ bank.name }}</option>
-                  </select>
-                  <div
-                      v-if="$page.errors.sender_bank_id"
-                      class="p-2 text-red-500"
-                  >
-                    {{ $page.errors.sender_bank_id }}
-                  </div>
-                </div>
-
-                <div class="flex-1 group-input">
-                  <label for="sender_account_number">.</label>
-
-                  <input
-                      id="sender_account_number"
-                      v-model="sendAccountBankNumber"
-                      max-length="30"
-                      placeholder="Account Number"
-                      type="text"
-                  />
-                  <div
-                      v-if="$page.errors.sender_account_number"
-                      class="p-2 text-red-500"
-                  >
-                    {{ $page.errors.sender_account_number }}
-                  </div>
-                </div>
-
-              </div>
 
               <div class="flex">
 
@@ -95,7 +62,7 @@
                   <label for="first_name">To Bank</label>
 
                   <select v-model="receiverAccountBankId" class="">
-                    <option v-for="bank in $page.banks" :key="bank.id" :value="bank.id">{{ bank.name }}</option>
+                    <option v-for="bank in $page.receivedBanks" :key="bank.id" :value="bank.id">{{ bank.name }}</option>
                   </select>
                   <div
                       v-if="$page.errors.receiver_bank_id"
@@ -105,23 +72,6 @@
                   </div>
                 </div>
 
-                <!--                  <div class="flex-1 group-input">-->
-                <!--                    <label for="first_name">.</label>-->
-
-                <!--                    <input-->
-                <!--                        id="first_name"-->
-                <!--                        v-model="first_name"-->
-                <!--                        max-length="30"-->
-                <!--                        placeholder="Transmitter Account Number"-->
-                <!--                        type="text"-->
-                <!--                    />-->
-                <!--                    <div-->
-                <!--                        v-if="$page.errors.first_name"-->
-                <!--                        class="p-2 text-red-500"-->
-                <!--                    >-->
-                <!--                      {{ $page.errors.first_name }}-->
-                <!--                    </div>-->
-                <!--                  </div>-->
 
               </div>
               <button
@@ -144,24 +94,26 @@
 
 <script>
 import FlipCountdown from 'vue2-flip-countdown'
+import PaymentAccounts from "../../../components/Web/Client/PaymentAccounts";
 
 export default {
-  components: {FlipCountdown},
+  components: {FlipCountdown, PaymentAccounts},
   data() {
     return {
       firstName: "",
       lastName: "",
-      sendAccountBankId: 1,
-      sendAccountBankNumber: "",
+      senderAccountId: null,
       receiverAccountBankId: 1,
     };
   },
   methods: {
 
+    updateAccountId(e) {
+      this.senderAccountId = e.accountId;
+    },
     confirmPayment() {
       this.$inertia.post('/web/orders/' + this.$page.order.id + '/confirm_payment', {
-        sender_bank_id: this.sendAccountBankId,
-        sender_account_number: this.sendAccountBankNumber,
+        sender_account_id: this.senderAccountId,
         receiver_bank_id: this.receiverAccountBankId,
         first_name: this.firstName,
         last_name: this.lastName,

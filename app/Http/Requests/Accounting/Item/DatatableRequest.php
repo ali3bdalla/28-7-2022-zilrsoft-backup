@@ -39,7 +39,7 @@
 			$query = Item::with('creator','data','items');
 			
 			if ($this->has('barcode') && $this->filled('barcode')){
-				$query = $query->where('barcode','LIKE','%'.$this->barcode.'%');
+				$query = $query->where('barcode','ILIKE','%'.$this->barcode.'%');
 			}
 			
 			if ($this->has('creators') && $this->filled('creators')){
@@ -66,7 +66,7 @@
 			}
 			
 			if ($this->has('name') && $this->filled('name')){
-				$query = $query->where('name','LIKE','%'.$this->name.'%')->orWhere('ar_name','LIKE','%'.$this->name
+				$query = $query->where('name','ILIKE','%'.$this->name.'%')->orWhere('ar_name','ILIKE','%'.$this->name
 					.'%');
 			}
 			
@@ -120,7 +120,7 @@
 			}
 			
 			if ($this->has('date') && $this->filled('date')){
-				$query = $query->where('date','LIKE','%'.$this->date.'%');
+				$query = $query->where('date','ILIKE','%'.$this->date.'%');
 			}
 			
 			
@@ -165,12 +165,12 @@
 			
 			
 			if ($this->has('barcodeNameAndSerial') && $this->filled('barcodeNameAndSerial')){
-				$query = $query->where('barcode','LIKE','%'.$this->input('barcodeNameAndSerial').'%')
-					->orWhere('name','LIKE','%'.$this->input('barcodeNameAndSerial').'%')
-					->orWhere('ar_name','LIKE','%'.$this->input('barcodeNameAndSerial').'%');
+				$query = $query->where('barcode','ILIKE','%'.$this->input('barcodeNameAndSerial').'%')
+					->orWhere('name','ILIKE','%'.$this->input('barcodeNameAndSerial').'%')
+					->orWhere('ar_name','ILIKE','%'.$this->input('barcodeNameAndSerial').'%');
 				if ($query->count() == 0){
 					$serials_items_ids = ItemSerials::
-					where('serial','LIKE','%'.$this->input('barcodeNameAndSerial').'%')
+					where('serial','ILIKE','%'.$this->input('barcodeNameAndSerial').'%')
 						->pluck('item_id');
 				
 					if (!empty($serials_items_ids)){

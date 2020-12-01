@@ -33,7 +33,7 @@
 		{
 			$request->validate(
 				[
-					'parent_id' => 'nullable|exists:accounts,id|integer',
+					'parent_id' => 'nullable|organization_exists:App\Models\Account,id|integer',
 				]
 			);
 			

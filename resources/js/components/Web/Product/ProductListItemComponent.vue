@@ -1,42 +1,42 @@
 <template>
   <div
-    class="mb-0 bg-white p-2 pt-4 border-b border-r border-l border-t transition hover:shadow-md text-center flex flex-col"
+      class="product__list-item"
   >
-    <div class="overflow-hidden w-full">
-      <img :src="itemImage" class="mx-auto object-cover" />
+    <div class="product__list-item-image-container">
+      <img :src="itemImage" class="product__list-item-image"/>
     </div>
     <div class="mt-5 overflow-hidden p-2">
       <h3
-        class="text-sm bg-gray-900 shadow rounded font-extrabold truncate inline-block py-1 px-2 text-white w-full text-center"
+          class="product__list-item-category-name"
       >
         {{ item.category.name }}
       </h3>
       <a
-        :href="`/web/items/${item.id}`"
-        class="block  mt-2 text-lg md:text-xl h-16 overflow-hidden font-extrabold text-web-primary hover:text-yellow-600"
+          :href="`/web/items/${item.id}`"
+          class="product__list-item-name"
       >
         {{ item.name }}
       </a>
       <ProductRatingComponent
-        class="mt-2"
-        :item="item"
+          :item="item"
+          class="mt-2"
       ></ProductRatingComponent>
 
       <h4
-        class="mt-2 text-2xl text-gray-900 font-bold inline-block line-through"
+          class="product__list-item-price"
       >
         {{ parseFloat(item.price_with_tax).toFixed(2) }}
       </h4>
-      <span class="text-sm text-web-primary font-bold">SR</span>
+      <span class="product__list-item-currency">SR</span>
       <div>
-        <h4 class="mt-2 text-2xl text-gray-900 font-bold inline-block">
+        <h4 class="product__list-item-old-price">
           {{ parseFloat(item.price).toFixed(2) }}
         </h4>
-        <span class="text-sm text-web-primary font-bold">SR</span>
+        <span class="product__list-item-currency">SR</span>
       </div>
       <ToggleCartItemButtonComponent
-        class="mt-2"
-        :item="item"
+          :item="item"
+          class="mt-2"
       ></ToggleCartItemButtonComponent>
     </div>
   </div>
@@ -47,7 +47,7 @@ import ToggleCartItemButtonComponent from "../Cart/ToggleCartItemButtonComponent
 import ProductRatingComponent from "./ProductRatingComponent";
 
 export default {
-  components: { ToggleCartItemButtonComponent, ProductRatingComponent },
+  components: {ToggleCartItemButtonComponent, ProductRatingComponent},
   props: ["item", "index"],
   data() {
     return {
@@ -68,7 +68,7 @@ export default {
       // this.item.image
       //     ? this.item.image
       //     :
-      return  this.images[parseInt(Math.random() * 10) % 7];
+      return this.images[parseInt(Math.random() * 10) % 7];
     },
   },
 };

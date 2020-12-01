@@ -67,3 +67,14 @@
     background-color: #0096D9 !important;
 
 }
+
+.order__panel-card-icon-container {
+    position: absolute;
+    top: 27px;
+    left: 17px;
+}
+
+.order__panel-card-icon {
+    font-size: 40px;
+    color: #e2dede;
+}

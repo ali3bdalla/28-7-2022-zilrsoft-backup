@@ -36,7 +36,7 @@
 		'general_ledger' => ' الاستاذ العام',
 		
 		'trial_balance' => 'ميزان المراجعة',
-		'management' => 'ادارة',
+		'management' => '',//ادارة
 		'printers' => 'الطابعات',
 		'orders' => 'المتجر الالكتروني'
 	];

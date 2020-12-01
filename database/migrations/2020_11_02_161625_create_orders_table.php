@@ -19,13 +19,12 @@
 				$table->integer('user_id');
 				$table->integer('draft_id');
 				$table->integer('invoice_id')->nullable();
-				$table->string('tracking_number')->nullable();
-				$table->integer('managed_by_id')->nullable();
-				$table->float('net')->nullable();
+				
+				$table->float('net', 20, 8)->nullable();
 				$table->integer('shipping_address_id')->nullable();
-				$table->enum('status', ['issued', 'pending', 'delivered', 'canceled', 'in_progress', 'shipped'])->default('issued');
-				$table->integer('shipping_method_id')->nullable();
-		
+				$table->enum('status', ['issued', 'pending', 'paid', 'in_progress', 'ready_for_shipping', 'shipped', 'delivered', 'canceled', 'returned'])->default('issued');
+			
+				
 				$table->softDeletes();
 				$table->timestamps();
 			}

@@ -28,10 +28,10 @@ class StoreInventoryAdjustmentRequest extends FormRequest
         return [
             //
             'items' => 'required|array',
-            'items.*.id' => 'required|exists:items,id',
+            'items.*.id' => 'required|organization_exists:App\Models\Item,id',
             'items.*.qty' => 'required|integer',
             'items.*.serials' => 'nullable|array',
-            'items.*.serials.*' => 'nullable|exists:item_serials,serial',
+            'items.*.serials.*' => 'nullable|organization_exists:App\Models\ItemSerials,serial',
         ];
     }
 

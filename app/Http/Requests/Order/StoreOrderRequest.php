@@ -32,10 +32,10 @@
 		{
 			return [
 				"items" => "required|array",
-				"items.*.id" => "required|integer|exists:items,id",
+				"items.*.id" => "required|integer|organization_exists:App\Models\Item,id",
 				"items.*.quantity" => "required|integer|min:1",
 				'shipping_address_id' => ['required', new ExistsRule(ShippingAddress::class)],
-				'shipping_method_id' => ['required', new ExistsRule(ShippingMethod::class)]
+//				'shipping_method_id' => ['required', new ExistsRule(ShippingMethod::class)]
 			];
 		}
 		
@@ -53,7 +53,7 @@
 		{
 			DB::beginTransaction();
 			try {
-				$this->validateQuantities();
+				$this->validateQuantities($this->input('items'));
 				$authUser = Manager::find(1);
 				$authClient = $this->user('client');
 				
@@ -72,7 +72,7 @@
 						'is_draft' => true
 					]
 				);
-				$invoice->sale()->create(
+				$sale = $invoice->sale()->create(
 					[
 						'salesman_id' => $authUser->id,
 						'client_id' => $authClient->id,
@@ -83,26 +83,32 @@
 						'is_draft' => true
 					]
 				);
+				
 				dispatch(new UpdateInvoiceNumberJob($invoice, 'ONL-'));
 				dispatch(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true, $authUser, true));
 				dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
-				$order = CreateSalesOrderJob::dispatchNow($invoice, $this->input('shipping_method_id'), $this->input('shipping_address_id'));
+				$order = CreateSalesOrderJob::dispatchNow($invoice->fresh(),  $this->input('shipping_address_id'));
+//				$this->input('shipping_method_id'),
 				dispatch(new HoldItemQtyJob($invoice, $order));
 				DB::commit();
+				
 				$path = CreateOrderPdfSnapshotJob::dispatchNow($invoice);
 				event(new OrderCreatedEvent($invoice, $path));
 				return redirect('/web/orders');
 			} catch(QueryException $queryException) {
 				DB::rollBack();
 				throw $queryException;
-			} catch(Exception $exception) {
-				DB::rollBack();
-				throw $exception;
-				
 			} catch(ValidationException $e) {
 				DB::rollBack();
 				throw $e;
 			}
+//			catch(Exception $exception) {
+//				DB::rollBack();
+//				throw $exception;
+//			} catch(ValidationException $e) {
+//				DB::rollBack();
+//				throw $e;
+//			}
 		}
 		
 		
@@ -111,7 +117,7 @@
 			foreach($items as $item) {
 				$dbItem = Item::find($item['id']);
 				if(!$dbItem->is_service && !$dbItem->is_expense && !$dbItem->is_kit) {
-					if((int)$dbItem->available_qty < (int)$item['qty']) {
+					if((int)$dbItem->available_qty < (int)$item['quantity']) {
 						throw ValidationException::withMessages(['item_available_quantity' => "you can't sale this items , qty not"]);
 					}
 				}

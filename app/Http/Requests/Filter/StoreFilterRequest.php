@@ -28,8 +28,8 @@
 		public function rules()
 		{
 			return [
-				'name' => ["required", "string", new UnqiueRule(Filter::class, 'name')],
-				'ar_name' => ["required", "string", new UnqiueRule(Filter::class, 'ar_name')],
+				'name' => ["required", "string", 'organization_unique:App\Models\Filter,name'],
+				'ar_name' => ["required", "string", "organization_unique:App\Models\Filter,ar_name"],
 				'is_required_filter' => 'nullable|boolean'
 			];
 		}

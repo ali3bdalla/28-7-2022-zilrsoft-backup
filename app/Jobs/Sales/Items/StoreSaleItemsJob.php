@@ -197,14 +197,16 @@
 		public function createOnlineOrderItem(Item $item, $requestItemCollection)
 		{
 			
-			$price = (float)$item->online_price;
-			
+//			$price = (float)$item->online_offer_price;
+			// price with tax
+			$net = $item->online_offer_price;
 			$discount = false;
 			$qty = (int)$requestItemCollection->get('quantity'); // 10
+			$price = $net / (1 + ( $item->vts / 100));
 			$total = $price * $qty;
 			$subtotal = $total - $discount;
 			$tax = ($subtotal * $item->vts) / 100;
-			$net = $subtotal + $tax;
+
 			$data['belong_to_kit'] = false;
 			$data['parent_kit_id'] = 0;
 			$data['invoice_type'] = 'sale';

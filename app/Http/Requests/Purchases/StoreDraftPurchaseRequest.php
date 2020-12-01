@@ -37,7 +37,7 @@ class StoreDraftPurchaseRequest extends FormRequest
             'receiver_id' => 'required|integer|exists:managers,id',
             'vendor_id' => 'required|integer|exists:users,id',
             'items' => 'required|array',
-            'items.*.id' => ['required', 'integer', 'exists:items,id'],
+            'items.*.id' => ['required', 'integer', 'organization_exists:App\Models\Item,id'],
             'items.*.purchase_price' => 'required|numeric|min:0',
             'items.*.qty' => 'required|integer|min:1',
             'items.*.price' => 'required|numeric',

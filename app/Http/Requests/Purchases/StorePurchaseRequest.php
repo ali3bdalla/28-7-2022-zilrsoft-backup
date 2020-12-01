@@ -39,7 +39,7 @@
 				'receiver_id' => 'required|integer|exists:managers,id',
 				'vendor_id' => 'required|integer|exists:users,id',
 				'items' => 'required|array',
-				'items.*.id' => ['required', 'integer', 'exists:items,id'],
+				'items.*.id' => ['required', 'integer', 'organization_exists:App\Models\Item,id'],
 				'items.*.purchase_price' => 'required|numeric|min:0|purchaseItemPrice',
 				'items.*.qty' => 'required|integer|min:1',
 				'items.*.price_with_tax' => 'required|numeric|min:0',
@@ -47,7 +47,7 @@
 				'items.*.serials.*' => 'required',
 				'vendor_invoice_id' => 'required|string',
 				'methods' => 'array',
-				'methods.*.id' => 'required|integer|exists:accounts,id',
+				'methods.*.id' => 'required|integer|organization_exists:App\Models\Account,id',
 				'methods.*.amount' => 'required|numeric',
 			];
 			if($this->user()->organization_id == 1) {

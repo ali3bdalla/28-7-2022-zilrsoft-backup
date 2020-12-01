@@ -21,7 +21,7 @@
 				$table->timestamp('hold_destroy_at');
 				$table->integer('order_id');
 				$table->integer('qty');
-				$table->enum('status',['hold','destroyed','pending'])->default("hold");
+				$table->enum('status',['hold','destroyed','pending','confirmed'])->default("hold");
 				$table->timestamps();
 			}
 			);

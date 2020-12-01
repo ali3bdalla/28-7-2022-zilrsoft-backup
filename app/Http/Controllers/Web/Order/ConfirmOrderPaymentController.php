@@ -17,7 +17,7 @@
 		public function confirmPayment(ConfirmOrderPaymentRequest $request, Order $order)
 		{
 			
-			if(!$this->isValidOrderStatus($order)) {
+			if(!$this->isValidOrderStatus($order) || !$this->isValidKey($order, $request)) {
 				return Inertia::render(
 					'Web/Order/OrderConfirmationExpired', [
 						'order' => $order
@@ -35,11 +35,21 @@
 			);
 		}
 		
+		private function isValidOrderStatus($order)
+		{
+			return $order->status === 'issued';
+			
+		}
+		
+		private function isValidKey(Order $order, Request $request)
+		{
+			return $request->input('code') == $order->order_secret_code;
+		}
 		
 		public function showConfirmPaymentPage(Request $request, Order $order)
 		{
 			
-			if(!$this->isValidOrderStatus($order)) {
+			if(!$this->isValidOrderStatus($order) || !$this->isValidKey($order, $request)) {
 				return response()->view(
 					'errors.custom', [
 						'message' => 'Your Order Has  Been Canceled',
@@ -52,15 +62,9 @@
 			return Inertia::render(
 				'Web/Order/ConfirmPayment', [
 					'order' => $order,
-					'banks' => Bank::all()
+					'banks' => Bank::all(),
+					'receivedBanks' => Bank::where('account_id', '!=', null)->get(),
 				]
 			);
-		}
-		
-		
-		private function isValidOrderStatus($order)
-		{
-			return $order->status === 'issued';
-			
 		}
 	}

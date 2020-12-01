@@ -12,11 +12,12 @@
     "ext-json": "*",
     "ext-openssl": "*",
     "3li3bdalla/tafqeet": "^3.5.9",
-    "3li3bdalla/whatsapp": "9999999-dev",
+    "3li3bdalla/whatsapp": "^0.0.1",
     "barryvdh/laravel-debugbar": "^3.2",
     "barryvdh/laravel-dompdf": "^0.8.7",
     "benjamincrozat/laravel-dropbox-driver": "^2.0",
     "fideloper/proxy": "^4.0",
+    "guzzlehttp/guzzle": "^7.2",
     "inertiajs/inertia-laravel": "^0.2.15",
     "laravel-notification-channels/pusher-push-notifications": "^2.3",
     "laravel/framework": "^6.19.1",
@@ -29,7 +30,7 @@
     "symfony/http-client": "^4.3"
   },
   "require-dev": {
-    "3li3bdalla/pdf": "9999999-dev",
+    "3li3bdalla/pdf": "^0.0.1",
     "beyondcode/laravel-dump-server": "^1.0",
     "filp/whoops": "^2.0",
     "fzaninotto/faker": "^1.4",

@@ -41,15 +41,26 @@
 		 */
 		public function handle()
 		{
-			$orders = Order::where([['status', 'issued'], ['is_should_pay_notified', false]])->whereDate('should_pay_last_notification_at', '<=', Carbon::now())->whereTime('should_pay_last_notification_at', '<=', Carbon::now())->get();
+//
+			
+			$orders = Order::where([['status', 'issued'],['is_should_pay_notified', false]])->whereDate('should_pay_last_notification_at', '<=', Carbon::now())->whereTime('should_pay_last_notification_at', '<=', Carbon::now())->get();
+//			$ordersCount = count($orders->toArray());
+//			Whatsapp::sendMessage("notifyUnPaidOrder ({$ordersCount}) orders " . Carbon::now()->toDateTimeString(), "249966324018");
 			foreach($orders as $order) {
+				$phoneNumber = $order->user->phone_number;
 				$order->update(
 					[
 						'is_should_pay_notified' => true
 					]
 				);
-				$messageTemplate = view('whatsapp.order_will_be_canceled_notify', compact('order'))->toHtml();
-				Whatsapp::sendMessage($messageTemplate, [$order->phone_number]);
+				
+				$messageTemplate = view(
+					'whatsapp.order_will_be_canceled_notify', [
+						'order' => $order,
+						'date' => Carbon::parse($order->auto_cancel_at)->format('H:i')
+					]
+				)->toHtml();
+				Whatsapp::sendMessage($messageTemplate, $phoneNumber);
 			}
 			
 		}

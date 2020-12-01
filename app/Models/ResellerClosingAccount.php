@@ -53,6 +53,6 @@
 		
 		public function scopeToMe($query,Request $request)
 		{
-			return $query->where([['is_pending', true], ['transaction_type', 'transfer'], ['receiver_id', $request->user()->id]])->with('creator', 'receiver','fromAccount','toAccount');
+			return $query->where([['is_pending', true], ['transaction_type', 'transfer'], ['receiver_id', $request->user()->id]])->with('creator', 'receiver','fromAccount','toAccount')->withoutGlobalScopes(['draft','pending']);
 		}
 	}

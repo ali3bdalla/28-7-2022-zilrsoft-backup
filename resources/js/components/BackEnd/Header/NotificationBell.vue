@@ -6,17 +6,17 @@ margin-bottom: -10px;"></i>
       <span class="label label-danger">{{ notificationCount }}</span>
     </a>
     <div class="dropdown-menu notification__dropdown">
-<!--      <OrderPendingPaymentConfirmationNotification @addNotification="addNotification"-->
-<!--                                                   @removeNotification="removeNotification"></OrderPendingPaymentConfirmationNotification>-->
-<!--      <OrderPaymentConfirmedNotification @addNotification="addNotification"-->
-<!--                                         @removeNotification="removeNotification"></OrderPaymentConfirmedNotification>-->
       <OrderPendingPaymentConfirmationNotification @addNotification="addNotification"
                                                    @removeNotification="removeNotification"></OrderPendingPaymentConfirmationNotification>
-      <TransactionIssuedNotification @addNotification="addNotification" @removeNotification="removeNotification"></TransactionIssuedNotification>
-<!--      <TransactionCanceledNotification @addNotification="addNotification"-->
-<!--                                       @removeNotification="removeNotification"></TransactionCanceledNotification>-->
-<!--      <TransactionConfirmedNotification @addNotification="addNotification"-->
-<!--                                        @removeNotification="removeNotification"></TransactionConfirmedNotification>-->
+      <TransactionIssuedNotification @addNotification="addNotification"
+                                     @removeNotification="removeNotification"></TransactionIssuedNotification>
+      <OrderPaymentConfirmedNotification @addNotification="addNotification"
+                                         @removeNotification="removeNotification"></OrderPaymentConfirmedNotification>
+
+      <!--      <TransactionCanceledNotification @addNotification="addNotification"-->
+      <!--                                       @removeNotification="removeNotification"></TransactionCanceledNotification>-->
+      <!--      <TransactionConfirmedNotification @addNotification="addNotification"-->
+      <!--                                        @removeNotification="removeNotification"></TransactionConfirmedNotification>-->
     </div>
   </li>
 </template>

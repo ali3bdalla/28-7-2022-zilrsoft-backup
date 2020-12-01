@@ -13,16 +13,15 @@
 	
 	class BaseModel extends Model
 	{
-		use Translatable,PostgresTimestamp;
+		use Translatable, PostgresTimestamp;
 		
 		private static $customTablesOrder = ['accounts' => 'serial'];
 		
-	
 		protected static function boot()
 		{
 			parent::boot();
 			$table = (new static)->getTable();
-
+			
 			if(auth()->guard('manager')->check() || auth()->user()) {
 				if(Schema::hasColumn($table, 'organization_id')) {
 					static::addGlobalScope(
@@ -51,7 +50,7 @@
 				);
 			}
 			
-			if(auth()->check() && Schema::hasColumn($table, 'pending')) {
+			if(auth()->check() && Schema::hasColumn($table, 'is_pending')) {
 				static::addGlobalScope(
 					'pending', function(Builder $builder) use ($table) {
 					$builder->where("{$table}.is_pending", false);
@@ -79,7 +78,7 @@
 				}
 			}
 			
-			if(auth()->check() && !auth()->user()->can('manage branches') && $table == 'invoices') {
+			if(auth('manager')->check() && !auth('manager')->user()->can('manage branches') && $table == 'invoices') {
 				if(Schema::hasColumn($table, 'creator_id')) {
 					static::addGlobalScope(
 						'manager', function(Builder $builder) use ($table) {
@@ -148,7 +147,6 @@
 			
 			
 		}
-		
 		
 		
 	}

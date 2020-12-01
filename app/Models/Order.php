@@ -16,6 +16,10 @@
 	 * @property false|mixed should_pay_last_notification_at
 	 * @property mixed itemsQtyHolders
 	 * @property Carbon|mixed cancel_order_code
+	 * @property mixed order_secret_code
+	 * @property mixed id
+	 * @property mixed|string shippable_type
+	 * @property int|mixed shippable_id
 	 */
 	class Order extends BaseModel
 	{
@@ -30,30 +34,57 @@
 		}
 		
 		
+		public function draft()
+		{
+			return $this->belongsTo(Invoice::class,'draft_id')->withoutGlobalScopes(["manager",'draft']);
+		}
+		
+		public function activities()
+		{
+			return $this->hasMany(OrderActivity::class,'order_id');
+		}
 		public function itemsQtyHolders()
 		{
-			return $this->hasMany(OrderItemQtyHolder::class,'order_id');
+			return $this->hasMany(OrderItemQtyHolder::class, 'order_id');
 		}
+		
 		public function shippingAddress()
 		{
 			return $this->belongsTo(ShippingAddress::class, 'shipping_address_id');
 		}
 		
-		public function shippingMethod()
+		public function shippable()
 		{
-			return $this->belongsTo(ShippingMethod::class, 'shipping_method_id');
+			return $this->morphTo('shippable');
 			
 		}
 		
 		public function generatePayOrderUrl()
 		{
-			return file_get_contents('http://tinyurl.com/api-create.php?url=' . 'https://www.zilrsoft.com/web/orders/'  . $this->id . '/confirm_payment');
+			return file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/web/orders/' . $this->id . '/confirm_payment?code=' . $this->order_secret_code));
 		}
 		
 		public function generateCancelOrderUrl()
 		{
-			return file_get_contents('http://tinyurl.com/api-create.php?url=' . 'https://www.zilrsoft.com/web/orders/'  . $this->id . '/cancel');
+			return file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/web/orders/' . $this->id . '/cancel?code=' . $this->order_secret_code));
 		}
 		
+		
+		public function paymentDetail()
+		{
+			return $this->hasOne(OrderPaymentDetail::class, 'order_id');
+		}
+		
+		
+		public function draftInvoice()
+		{
+			return $this->belongsTo(Invoice::class, 'draft_id')->withoutGlobalScopes(['manager', 'draft', 'organization']);
+		}
+		
+		public function invoice()
+		{
+			return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes(['manager', 'draft', 'organization']);
+			
+		}
 		
 	}

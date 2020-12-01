@@ -30,6 +30,13 @@
 					Route::resource('orders', 'OrderController');
 				}
 			);
+			
+			Route::prefix('{user}')->group(
+				function() {
+					Route::resource('payment_accounts', 'PaymentAccountController');
+					
+				}
+			);
 		}
 	);
 	
@@ -64,13 +71,10 @@
 					Route::prefix('orders')->name('orders.')->group(
 						function() {
 							Route::get('pending', 'OrderNotificationController@pending')->name('pending');
+							Route::get('paid', 'OrderNotificationController@paid')->name('paid');
 						}
 					);
 					
-				}
-			);
-			Route::prefix('orders')->name('orders.')->group(
-				function() {
 				}
 			);
 			
@@ -161,7 +165,7 @@
 						function() {
 							Route::prefix('closing_accounts')->name('closing_account.')->group(
 								function() {
-									Route::post('/', 'DailyControllerDailyController@storeResellerClosingAccount')->name('store');
+									Route::post('/', 'DailyController@storeResellerClosingAccount')->name('store');
 								}
 							);
 							Route::prefix('/accounts_transactions')->name('accounts_transactions.')->group(

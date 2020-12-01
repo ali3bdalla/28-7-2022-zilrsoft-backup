@@ -24,6 +24,10 @@
 		 */
 		public function testCreateOrder_RedirectToOrdersPage()
 		{
+			
+			factory(ShippingAddress::class)->create(['user_id' => 206]);
+			
+			
 			if($this->userFactory) {
 				$manager = $this->initOrganizationAndManager();
 				$category = factory(Category::class)->create(
@@ -48,7 +52,7 @@
 					[
 						'is_client' => true,
 						'name' => $this->faker->userName,
-						'phone_number' => '249966324018',
+						'phone_number' => '249966324018', //249966324018
 						'organization_id' => 1
 					]
 				);
@@ -72,11 +76,13 @@
 				
 				$client->update(
 					[
-						'phone_number' => '249966324018'
+						'phone_number' => '249966324018',
+						'organization_id' => 1,
+						'creator_id' => $manager->id
 					]
 				);
-
-			
+				
+				
 			}
 			
 			
@@ -97,10 +103,12 @@
 					'available_qty' => $item->available_qty,
 				];
 			}
+			
+			
 			$response = $this->actingAs($client, 'client')->postJson(
 				'/api/web/orders', [
 					'items' => $requestItems,
-					'shipping_method_id' => $shippingMethod->id,
+//					'shipping_method_id' => $shippingMethod->id,
 					'shipping_address_id' => $shippingAddress->id
 				]
 			);
@@ -112,4 +120,5 @@
 			
 			$response->assertRedirect('/web/orders');
 		}
+		
 	}

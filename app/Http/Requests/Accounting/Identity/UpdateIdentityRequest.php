@@ -37,7 +37,7 @@
 				'is_client' => 'required|boolean',
 				'is_vendor' => 'required|boolean',
 				'can_make_credit' => 'required|boolean',
-				'user_gateways.*.id' => 'required|integer|exists:accounts,id',
+				'user_gateways.*.id' => 'required|integer|organization_exists:App\Models\Account,id',
 				'user_detail_vat' => 'nullable',
 				'email' => 'nullable|email',
 				'user_detail_cr' => 'nullable',

@@ -1,0 +1,48 @@
+.cart {
+  &__item-checkbox {
+    @apply w-5 h-6;
+  }
+
+  &__item-checkbox-container {
+    @apply w-1/12;
+  }
+
+  &__item-image {
+    @apply w-20 h-20 rounded-lg object-center self-center mx-auto shadow;
+  }
+
+  &__table-raw {
+    @apply border-b border-gray-500;
+
+    &__red {
+      @apply bg-red-200;
+    }
+
+    td {
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+    }
+  }
+
+
+  &__totals-buttons {
+    @apply w-64 p-3;
+  }
+  .proceed-checkout {
+    text-align: right;
+    float: right;
+    @apply font-bold shadow;
+    font-weight: bolder;
+    .proceed-btn
+    {
+      width: 100% !important;
+
+    }
+
+  }
+
+  &__total-amount {
+    @apply w-full  p-2 flex justify-between  font-bold my-2;
+    //bg-web-primary //text-white mb-3 border shadow-lg rounded
+  }
+}

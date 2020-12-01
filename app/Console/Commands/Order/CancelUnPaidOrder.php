@@ -2,7 +2,7 @@
 	
 	namespace App\Console\Commands\Order;
 	
-	use App\Events\Order\OrderCanceledEvent;
+	use AliAbdalla\Whatsapp\Whatsapp;
 	use App\Jobs\Order\CancelOrderJob;
 	use App\Models\Order;
 	use Carbon\Carbon;
@@ -43,6 +43,8 @@
 		public function handle()
 		{
 			$orders = Order::where('status', 'issued')->whereDate('auto_cancel_at', '<=', Carbon::now())->whereTime('auto_cancel_at', '<=', Carbon::now())->get();
+//			$ordersCount = count($orders->toArray());
+//			Whatsapp::sendMessage("cancelUnPaidOrder ({$ordersCount}) orders " . Carbon::now()->toDateTimeString(), "249966324018");
 			
 			foreach($orders as $order) {
 				dispatch(new CancelOrderJob($order));

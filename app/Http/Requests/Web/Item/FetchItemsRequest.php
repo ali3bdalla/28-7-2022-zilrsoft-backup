@@ -47,7 +47,7 @@
 			}
 			
 			if($this->has('name') && $this->filled('name')) {
-				$query = $query->where('name', 'LIKE', '%' . $this->input('name') . '%')->orWhere('ar_name', 'LIKE', '%' . $this->input('name') . '%');
+				$query = $query->where('name', 'ILIKE', '%' . $this->input('name') . '%')->orWhere('ar_name', 'ILIKE', '%' . $this->input('name') . '%');
 			}
 //
 //

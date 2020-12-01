@@ -32,7 +32,7 @@ class ValidateSerialRequest extends FormRequest
             //
             'serials' => 'array|required',
             'serials.*' => 'string|min:1',
-            'item_id' => 'required|integer|exists:items,id',
+            'item_id' => 'required|integer|organization_exists:App\Models\Item,id',
 
         ];
     }

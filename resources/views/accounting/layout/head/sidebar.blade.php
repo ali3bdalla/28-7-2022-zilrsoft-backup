@@ -93,8 +93,39 @@
             </li>
         @endcanany
 
+        <li class="treeview">
+            <a href="#">
+                <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}
+                    المتجر الالكتروني</span>
+            </a>
+            <ul class="treeview-menu">
+
+                <li>
+                    <a href="{{route('orders.index')}}"><i class="fa fa-sun"></i>
+                        الطلبات
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('delivery_men.index')}}"><i class="fa fa-sun"></i>
+                        مناديب التوصيل
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('orders.index')}}"><i class="fa fa-sun"></i>
+                        الاعدادات
+                    </a>
+                </li>
+
+
+            </ul>
+
+
+        </li>
+
         @canany(['view sale','create sale','edit sale','view purchase','create purchase','edit purchase','confirm
-        purchase'])
+            purchase'])
             <li class="treeview">
                 <a href="#">
                     <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}
@@ -136,11 +167,6 @@
                         </li>
 
 
-                        <li>
-                            <a href="{{route('orders.index')}}"><i class="fa fa-sun"></i>
-                                {{ __('sidebar.orders') }}
-                            </a>
-                        </li>
 
 
                         <li>
