@@ -3,8 +3,8 @@
 	namespace App\Models;
 	
 	use Illuminate\Database\Eloquent\SoftDeletes;
-	
-	/**
+
+    /**
 	 * @property mixed shipping_method_id
 	 * @property mixed shipping_address_id
 	 * @property mixed draft_id
@@ -20,7 +20,8 @@
 	 * @property mixed id
 	 * @property mixed|string shippable_type
 	 * @property int|mixed shippable_id
-	 */
+     * @property mixed shippable
+     */
 	class Order extends BaseModel
 	{
 		use SoftDeletes;
