@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Laravel\Telescope\TelescopeServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,13 @@ class AppServiceProvider extends ServiceProvider
     {
 
         //
+
+//        if ($this->app->isLocal()) {
+//            $this->app->register(TelescopeServiceProvider::class);
+        $this->app->register(TelescopeServiceProvider::class);
+//        }
+
+
     }
 
     /**
@@ -32,9 +40,9 @@ class AppServiceProvider extends ServiceProvider
     protected function loadHelperFunctions()
     {
         foreach (glob(__DIR__ . '/../Helpers/*.php') as $filename) {
-	        include_once("{$filename}");
+            include_once("{$filename}");
         }
     }
 
-    
+
 }

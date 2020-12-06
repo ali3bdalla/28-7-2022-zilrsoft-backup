@@ -24,7 +24,7 @@
 		{
 			$request->validate(
 				[
-					'phone_number' => 'required|string|min:9|max:10|exists:users,phone_number',
+					'phone_number' => 'required|mobileNumber|exists:users,phone_number',
 					'password' => 'required|string|min:6',
 				]
 			);
@@ -53,7 +53,7 @@
 				[
 					'first_name' => 'required|string',
 					'last_name' => 'required|string',
-					'phone_number' => 'required|string|min:9|max:10|unique:users,phone_number',
+					'phone_number' => 'required|string|mobileNumber|unique:users,phone_number',
 					'password' => 'required|string|min:6',
 				]
 			);
@@ -101,7 +101,7 @@
 			$request->validate(
 				[
 					'otp' => 'required|string|exists:online_users_placeholder,otp',
-					'phone_number' => 'required|string|exists:online_users_placeholder,phone_number',
+					'phone_number' => 'required|mobileNumber|string|exists:online_users_placeholder,phone_number',
 				]
 			);
 			$placeholderUser = OnlineUserPlaceholder::where('phone_number', $request->input('phone_number'))->orderByDesc('id')->first();

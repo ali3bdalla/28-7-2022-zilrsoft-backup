@@ -12,9 +12,9 @@
 			return $this->belongsTo(User::class, 'user_id');
 		}
 		
-		public function country()
+		public function city()
 		{
-			return $this->belongsTo(Country::class, 'country_id');
+			return $this->belongsTo(City::class, 'city_id')->with('country');
 		}
 		
 	}

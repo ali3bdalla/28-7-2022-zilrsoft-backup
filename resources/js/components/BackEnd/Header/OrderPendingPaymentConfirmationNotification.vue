@@ -52,15 +52,12 @@ export default {
       this.addNotification(e.transaction);
     });
   },
-  created() {
-    this.getNotifications();
-  },
-  methods: {
-    getNotifications() {
-      axios.get('/api/notifications/orders/pending').then(res => {
-        this.addNotifications(res.data)
-      });
+
+  data() {
+    return {
+      url:"/api/notifications/orders/pending"
     }
-  }
+  },
+
 }
 </script>

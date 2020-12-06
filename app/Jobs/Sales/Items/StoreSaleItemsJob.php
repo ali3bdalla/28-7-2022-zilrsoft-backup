@@ -118,10 +118,10 @@
 			}
 		}
 		
-		private function storeItem(Item $item, $value)
+		private function storeItem(Item $item, $requestItemData)
 		{
 			
-			$requestItemCollection = collect($value);
+			$requestItemCollection = collect($requestItemData);
 			
 			/**
 			 * ==========================================================

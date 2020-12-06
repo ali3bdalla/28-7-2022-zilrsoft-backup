@@ -1,7 +1,7 @@
 .checkout {
-	@apply my-5 shadow-md p-3;
+	@apply my-5 shadow-md p-2 pt-0;
 	&__title {
-		@apply my-2 text-gray-500 text-2xl;
+		@apply my-3 text-gray-500 text-2xl;
 	}
 
 	&__edit-icon {

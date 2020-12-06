@@ -10,6 +10,6 @@
 	{
 		public function issued(Request $request)
 		{
-			return ResellerClosingAccount::toMe($request)->get();
+			return ResellerClosingAccount::where([['is_pending', true], ['transaction_type', 'transfer'], ['receiver_id', $request->user()->id]])->with('creator', 'receiver','fromAccount','toAccount')->withoutGlobalScopes(['draft','pending'])->get();
 		}
 	}

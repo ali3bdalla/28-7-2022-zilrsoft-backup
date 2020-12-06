@@ -43,15 +43,10 @@ export default {
       this.addNotification(e.transaction);
     });
   },
-  created() {
-    this.getNotifications();
-  },
-  methods: {
-    getNotifications() {
-      axios.get('/api/notifications/orders/paid').then(res => {
-        this.addNotifications(res.data)
-      });
+  data() {
+    return {
+      url:"/api/notifications/orders/paid"
     }
-  }
+  },
 }
 </script>

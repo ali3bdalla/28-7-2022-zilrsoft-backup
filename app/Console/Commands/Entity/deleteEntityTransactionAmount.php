@@ -54,18 +54,27 @@ class deleteEntityTransactionAmount extends Command
                 if ($transaction->account->slug == 'clients') {
                     dispatch(new UpdateClientBalanceJob($transaction->user, $amount, 'decrease'));
                 }
-                dispatch(new UpdateAccountBalanceJob($transaction, false, true, $amount));
+
                 $diff = $transaction->amount - $amount;
-                if($diff > 0)
+                if ($diff > 0) {
                     $transaction->update([
-                       'amount' => $diff
+                        'amount' => $diff
                     ]);
-                else
+                    dispatch(new UpdateAccountBalanceJob($transaction, false, true, $amount));
+
+                } else
+                {
                     $transaction->update([
                         'amount' => abs($diff),
                         'type' => 'debit'
                     ]);
+                    dispatch(new UpdateAccountBalanceJob($transaction, true, true, $amount));
+
+                }
+
 //                $transaction->forceDelete();
+
+
             }
 
         }
@@ -74,7 +83,7 @@ class deleteEntityTransactionAmount extends Command
 //        152735 660
         //154874 1379.44
         // 156012 149.99
-        //155173  294.27
+        //155173  310
 
 
     }

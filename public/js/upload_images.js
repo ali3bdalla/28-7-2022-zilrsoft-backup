@@ -22274,7 +22274,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /usr/local/var/www/workspace/zilrsoft/resources/js/upload_images.js */"./resources/js/upload_images.js");
+module.exports = __webpack_require__(/*! /private/var/www/workspace/zilrsoft/resources/js/upload_images.js */"./resources/js/upload_images.js");
 
 
 /***/ })

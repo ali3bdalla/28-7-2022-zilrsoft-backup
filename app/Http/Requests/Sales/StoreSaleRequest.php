@@ -69,9 +69,7 @@ class StoreSaleRequest extends FormRequest
         DB::beginTransaction();
         try {
             $isOnlineOrder = $this->isOnlineOrder();
-            $this->validateSerials();
-            $this->validateKits();
-            $this->validateQuantities($this->input('items'));
+            $this->requestValidation();
             $authUser = auth()->user();
             if ($this->has('without_creating_expenses_purchases') && $this->filled('without_creating_expenses_purchases')) {
 
@@ -203,6 +201,15 @@ class StoreSaleRequest extends FormRequest
             }
 
         }
+    }
+
+
+    private function requestValidation()
+    {
+
+        $this->validateSerials();
+        $this->validateKits();
+        $this->validateQuantities($this->input('items'));
     }
 
     private function validateQuantities($items = [])

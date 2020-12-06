@@ -7,6 +7,9 @@ export default {
             notifications: []
         }
     },
+    created() {
+        this.getNotifications();
+    },
     methods: {
         addNotification(payload) {
             this.notifications.unshift(payload);
@@ -19,6 +22,12 @@ export default {
         },
         addNotifications(notifications) {
             notifications.forEach((payload) => this.addNotification(payload));
+        },
+        getNotifications() {
+            console.log('hslkdjfls')
+            axios.get(this.url).then(res => {
+                this.addNotifications(res.data)
+            });
         }
     }
 }

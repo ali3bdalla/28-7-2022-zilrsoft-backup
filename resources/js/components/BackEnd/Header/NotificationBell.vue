@@ -7,11 +7,15 @@ margin-bottom: -10px;"></i>
     </a>
     <div class="dropdown-menu notification__dropdown">
       <OrderPendingPaymentConfirmationNotification @addNotification="addNotification"
-                                                   @removeNotification="removeNotification"></OrderPendingPaymentConfirmationNotification>
+                                                   @removeNotification="removeNotification">
+
+      </OrderPendingPaymentConfirmationNotification>
       <TransactionIssuedNotification @addNotification="addNotification"
-                                     @removeNotification="removeNotification"></TransactionIssuedNotification>
+                                     @removeNotification="removeNotification">
+      </TransactionIssuedNotification>
       <OrderPaymentConfirmedNotification @addNotification="addNotification"
-                                         @removeNotification="removeNotification"></OrderPaymentConfirmedNotification>
+                                         @removeNotification="removeNotification">
+      </OrderPaymentConfirmedNotification>
 
       <!--      <TransactionCanceledNotification @addNotification="addNotification"-->
       <!--                                       @removeNotification="removeNotification"></TransactionCanceledNotification>-->
@@ -48,6 +52,7 @@ export default {
       notificationCount: 0
     }
   },
+
 
   methods: {
     addNotification() {

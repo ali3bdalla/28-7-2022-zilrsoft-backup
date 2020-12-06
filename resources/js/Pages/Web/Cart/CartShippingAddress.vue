@@ -25,49 +25,63 @@
     </h2>
     <!--    <div class="error_message">{{$page.errors.shipping_address_id}}-->
     <!--    </div>-->
-    <div class="checkout__list">
-      <div
-          v-for="shippingAddress in $page.shippingAddresses"
-          :key="shippingAddress.id"
-          :class="{ '': shippingAddressId !== shippingAddress.id }"
-          class="checkout__shipping-address"
-      >
-
-        <div class="text-xl text-gray-500 font-bold">
-          {{ shippingAddress.first_name }} {{ shippingAddress.last_name }}
+    <div class="">
+      <div class="flex gap-5">
+        <div class="flex-1">
+          <select class="form-control w-full" v-model="shippingAddressId">
+            <option v-for="shippingAddress in $page.shippingAddresses" :key="shippingAddress.id"
+                    :value="shippingAddress.id">
+              {{ shippingAddress.first_name }} {{ shippingAddress.last_name }} - {{ shippingAddress.city.name }} - {{ shippingAddress.phone_number }}
+            </option>
+          </select>
         </div>
-        <div class="text-xl text-gray-500 font-bold">
-          {{ shippingAddress.street_name }}, {{ shippingAddress.building_number }}
-        </div>
-        <div class="text-xl text-gray-500 font-bold">
-          {{ shippingAddress.description }}
-        </div>
-        <div class="text-xl text-gray-500 font-bold">
-          {{ shippingAddress.city }}, {{ shippingAddress.state }}
-        </div>
+        <div class="flex-1">
+          <div v-if="shippingAddress !== null">
+            <div class="text-xl text-gray-500 font-bold">
+              {{ shippingAddress.first_name }} {{ shippingAddress.last_name }}
+            </div>
+            <!--            <div class="text-xl text-gray-500 font-bold">-->
+            <!--              {{ shippingAddress.street_name }}, {{ shippingAddress.building_number }}-->
+            <!--            </div>-->
+            <div class="text-xl text-gray-500 font-bold">
+              {{ shippingAddress.description }}
+            </div>
+            <div class="text-xl text-gray-500 font-bold">
+              {{ shippingAddress.city.name }}
+            </div>
 
-        <div class="text-xl text-gray-500 font-bold">
-          {{ shippingAddress.country.name }}
-        </div>
+            <!--            , {{ shippingAddress.state }}-->
+            <div class="text-xl text-gray-500 font-bold">
+              <!--          {{ shippingAddress.country.name }}-->
+            </div>
 
-        <div class="text-xl text-gray-500 font-bold">
-          {{ shippingAddress.phone_number }}
-        </div>
+            <div class="text-xl text-gray-500 font-bold">
+              {{ shippingAddress.phone_number }}
+            </div>
+          </div>
 
 
-
-
-        <div class="h-12">
-          <!--  -->
-          <button
-              v-if="shippingAddressId !== shippingAddress.id"
-              class="checkout__shipping-address-button"
-              @click="updateShippingId(shippingAddress.id)"
-          >
-            Select
-          </button>
+          <div class="h-12">
+            <!--  -->
+            <!--            <button-->
+            <!--                v-if="shippingAddressId !== shippingAddress.id"-->
+            <!--                class="checkout__shipping-address-button"-->
+            <!--                @click="updateShippingId(shippingAddress.id)"-->
+            <!--            >-->
+            <!--              Select-->
+            <!--            </button>-->
+          </div>
         </div>
       </div>
+      <!--      <div-->
+      <!--          v-for="shippingAddress in $page.shippingAddresses"-->
+      <!--          :key="shippingAddress.id"-->
+      <!--          :class="{ '': shippingAddressId !== shippingAddress.id }"-->
+      <!--          class="checkout__shipping-address"-->
+      <!--      >-->
+
+
+      <!--      </div>-->
     </div>
   </div>
 </template>
@@ -75,18 +89,34 @@
 <script>
 export default {
   name: "CartShippingAddress",
-  props: {
-    shippingAddressId: {
-      type: Number,
-      required: true
+  // props: {
+  //   shippingAddressId: {
+  //     type: Number,
+  //     required: true
+  //   }
+  // },
+  data() {
+    return {
+      shippingAddressId: 0,
+      shippingAddress: null
     }
   },
   methods: {
     updateShippingId(id) {
+      // console.log(this.$page.shippingAddresses);//.filter(p => p.id === value)
+      this.shippingAddress = this.$page.shippingAddresses.find(p => p.id === id);
       this.$emit('updateShippingId', {id: id})
     }
 
   },
+  watch: {
+    shippingAddressId: {
+      deep: true,
+      handler(value) {
+        this.updateShippingId(value);
+      }
+    }
+  }
 };
 </script>
 

@@ -101,19 +101,27 @@
             <ul class="treeview-menu">
 
                 <li>
-                    <a href="{{route('orders.index')}}"><i class="fa fa-sun"></i>
+                    <a href="{{route('store.orders.index')}}"><i class="fa fa-sun"></i>
                         الطلبات
                     </a>
                 </li>
 
+
                 <li>
-                    <a href="{{route('delivery_men.index')}}"><i class="fa fa-sun"></i>
-                        مناديب التوصيل
+                    <a href="{{route('store.shipping.index')}}"><i class="fa fa-sun"></i>
+                        الشحن
                     </a>
                 </li>
 
+
+{{--                <li>--}}
+{{--                    <a href="{{route('delivery_men.index')}}"><i class="fa fa-sun"></i>--}}
+{{--                        مناديب التوصيل--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+
                 <li>
-                    <a href="{{route('orders.index')}}"><i class="fa fa-sun"></i>
+                    <a href="{{route('store.orders.index')}}"><i class="fa fa-sun"></i>
                         الاعدادات
                     </a>
                 </li>

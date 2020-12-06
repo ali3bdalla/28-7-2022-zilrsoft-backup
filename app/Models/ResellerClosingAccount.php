@@ -5,10 +5,14 @@
 
 	
 	use Illuminate\Http\Request;
-	
-	/**
+
+    /**
 	 * @property mixed receiver_id
-	 */
+     * @property mixed remaining_accounts_balance
+     * @property mixed container
+     * @property mixed transaction_type
+     * @property mixed creator_id
+     */
 	class ResellerClosingAccount extends BaseModel
 	{
 		
@@ -53,6 +57,6 @@
 		
 		public function scopeToMe($query,Request $request)
 		{
-			return $query->where([['is_pending', true], ['transaction_type', 'transfer'], ['receiver_id', $request->user()->id]])->with('creator', 'receiver','fromAccount','toAccount')->withoutGlobalScopes(['draft','pending']);
+			return $query->withoutGlobalScopes(['draft','pending'])->where([['is_pending', true], ['transaction_type', 'transfer'], ['receiver_id', $request->user()->id]])->with('creator', 'receiver','fromAccount','toAccount');
 		}
 	}

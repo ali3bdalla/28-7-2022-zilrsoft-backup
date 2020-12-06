@@ -44,7 +44,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
         $this->mapApiRoutes();
-        $this->mapAccountingRoutes();
+        $this->mapBackEndRoutes();
 
     }
 
@@ -58,40 +58,45 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/web.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
 
-        // Route::middleware('web','guest')
-        // ->namespace($this->namespace)
-        // ->group(base_path('routes/auth.php'));
+
     }
 
 
     protected function mapApiRoutes()
     {
         Route::middleware(['web'])
-        ->prefix('api')
-        ->name('api.')
-        ->namespace($this->apiNamespace)
-        ->group(base_path('routes/api.php'));
+            ->prefix('api')
+            ->name('api.')
+            ->namespace($this->apiNamespace)
+            ->group(base_path('routes/api.php'));
 
 
-        Route::middleware('web','guest')
-        ->prefix('api')
-        ->name('guest.api.')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/guest_api.php'));
+        Route::middleware('web', 'guest')
+            ->prefix('api')
+            ->name('guest.api.')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/guest_api.php'));
     }
 
 
-    protected function mapAccountingRoutes()
+    protected function mapBackEndRoutes()
     {
         Route::middleware('web')
             ->namespace("App\Http\Controllers\Accounting")
             ->prefix("accounting")
             ->name('accounting.')
             ->group(base_path('routes/accounting.php'));
+
+        Route::middleware(['web', "auth"])
+            ->namespace($this->namespace . "\Backend\Store")
+            ->prefix('store')
+            ->name('store.')
+            ->group(base_path('routes/backend/store.php'));
     }
+
 
     protected function registerBindings()
     {
@@ -106,7 +111,7 @@ class RouteServiceProvider extends ServiceProvider
             return Invoice::where([
                 ['id', $value],
             ])
-                ->whereIn('invoice_type',['return_sale','sale'])
+                ->whereIn('invoice_type', ['return_sale', 'sale'])
                 ->withoutGlobalScope('manager')->withoutGlobalScope('draft')->first();
         });
 //
@@ -114,33 +119,32 @@ class RouteServiceProvider extends ServiceProvider
             return Invoice::where([
                 ['id', $value],
             ])
-                ->whereIn('invoice_type',['return_purchase','purchase','beginning_inventory'])
-
+                ->whereIn('invoice_type', ['return_purchase', 'purchase', 'beginning_inventory'])
                 ->withoutGlobalScope('manager')->first();
         });
 
         Route::bind('returnPurchase', function ($value) {
             return Invoice::where([
                 ['id', $value],
-                ['invoice_type','return_purchase']
+                ['invoice_type', 'return_purchase']
             ])->withoutGlobalScope('manager')->first();
         });
-	
-	
-	    Route::bind('invoice', function ($value) {
-		    return Invoice::where([
-			    ['id', $value],
-		    ])
+
+
+        Route::bind('invoice', function ($value) {
+            return Invoice::where([
+                ['id', $value],
+            ])
 //			    ->whereIn('invoice_type',['return_sale','sale'])
-			    ->withoutGlobalScope('manager')->withoutGlobalScope('draft')->first();
-	    });
-	    
+                ->withoutGlobalScope('manager')->withoutGlobalScope('draft')->first();
+        });
+
 
         Route::bind('quotation', function ($value) {
             return Invoice::where([
                 ['id', $value],
             ])
-                ->whereIn('invoice_type',['return_sale','sale'])
+                ->whereIn('invoice_type', ['return_sale', 'sale'])
                 ->withoutGlobalScope('manager')->withoutGlobalScope('draft')->first();
         });
 //

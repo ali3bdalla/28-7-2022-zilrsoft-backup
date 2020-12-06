@@ -15,7 +15,7 @@
 			];
 			
 			if(auth('client')->check()) {
-				$data['shippingAddresses'] = $request->user('client')->shippingAddresses()->with('country')->get();
+				$data['shippingAddresses'] = $request->user('client')->shippingAddresses()->with('city')->get();
 			}
 			return Inertia::render(
 				'Web/Cart/Index',

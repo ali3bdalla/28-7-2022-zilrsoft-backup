@@ -18,9 +18,16 @@
           <div class="notification__dropdown-item__message">
             قام <span class="notification__dropdown-item__link">{{ notification.creator.ar_name }}</span> بتحويل
             مبلغ <span class="notification__dropdown-item__link">{{ notification.amount }}</span>
-            من <span class="notification__dropdown-item__link">{{ notification.from_account.locale_name }}</span> الي
+            من
+
+            <span class="notification__dropdown-item__link"
+                  v-if="notification.from_account !== undefined && notification.from_account !== null">{{ notification.from_account.locale_name }}</span>
+            الي
+
+
             <span
-                class="notification__dropdown-item__link">{{ notification.to_account.locale_name }}</span>
+                class="notification__dropdown-item__link"
+                v-if="notification.to_account !== undefined && notification.to_account !== null">{{ notification.to_account.locale_name }}</span>
             <span class="notification__created_at">{{ notification.created_at }}</span>
           </div>
           <!--          <div class="notification__dropdown-item__created_at">-->
@@ -43,22 +50,17 @@ import NotificationMixin from "./NotificationMixin";
 export default {
   mixins: [NotificationMixin],
   name: "TransactionIssuedNotification",
+  data() {
+    return {
+      url: "/api/notifications/transactions/issued"
+    }
+  },
   mounted() {
     let transaction = 0;
     window.Echo.private(`transaction-issued`).listen('.transaction-issued', (e) => {
-      console.log(e);
       this.addNotification(e.transaction);
     });
   },
-  created() {
-    this.getNotifications();
-  },
-  methods: {
-    getNotifications() {
-      axios.get('/api/notifications/transactions/issued').then(res => {
-        this.addNotifications(res.data)
-      });
-    }
-  }
+
 }
 </script>
