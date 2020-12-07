@@ -58,15 +58,6 @@
 				);
 			}
 
-//			$disabledDefaultSoringTables = ['invoice_items'];
-//			if(!key_exists($table, self::$customTablesOrder) && !in_array($table,$disabledDefaultSoringTables) {
-//				static::addGlobalScope(
-//					'order', function(Builder $builder) use ($table) {
-////						dd($builder);
-//					$builder->orderBy("{$table}.created_at", 'desc');
-//				}
-//				);
-//			}
 			
 			foreach(self::$customTablesOrder as $key => $order) {
 				if($key == $table) {

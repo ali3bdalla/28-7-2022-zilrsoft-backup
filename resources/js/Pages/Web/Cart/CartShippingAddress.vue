@@ -1,5 +1,5 @@
 <template>
-  <div class="checkout">
+  <div class="">
     <h2 class="checkout__title">
       Shipping Address
       <a
@@ -23,65 +23,55 @@
         Add Address
       </a>
     </h2>
-    <!--    <div class="error_message">{{$page.errors.shipping_address_id}}-->
-    <!--    </div>-->
+
     <div class="">
       <div class="flex gap-5">
         <div class="flex-1">
-          <select class="form-control w-full" v-model="shippingAddressId">
-            <option v-for="shippingAddress in $page.shippingAddresses" :key="shippingAddress.id"
-                    :value="shippingAddress.id">
-              {{ shippingAddress.first_name }} {{ shippingAddress.last_name }} - {{ shippingAddress.city.name }} - {{ shippingAddress.phone_number }}
-            </option>
-          </select>
-        </div>
-        <div class="flex-1">
+
+
+          <el-select v-model="shippingAddressId" placeholder="Please Select Address" class="w-full" filterable>
+            <el-option
+                v-for="shippingAddress in $page.shippingAddresses"
+                :key="shippingAddress.id"
+                :label="shippingAddress.first_name"
+                :value="shippingAddress.id">
+              {{ shippingAddress.first_name }} {{ shippingAddress.last_name }} - {{ shippingAddress.city.name }} - {{
+              shippingAddress.phone_number }}
+            </el-option>
+          </el-select>
+
+
           <div v-if="shippingAddress !== null">
-            <div class="text-xl text-gray-500 font-bold">
-              {{ shippingAddress.first_name }} {{ shippingAddress.last_name }}
-            </div>
-            <!--            <div class="text-xl text-gray-500 font-bold">-->
-            <!--              {{ shippingAddress.street_name }}, {{ shippingAddress.building_number }}-->
-            <!--            </div>-->
-            <div class="text-xl text-gray-500 font-bold">
-              {{ shippingAddress.description }}
-            </div>
-            <div class="text-xl text-gray-500 font-bold">
-              {{ shippingAddress.city.name }}
-            </div>
+            <el-card class="box-card" shadow="never">
+              <div class="text-xl text-gray-500 font-bold">
+                {{ shippingAddress.first_name }} {{ shippingAddress.last_name }}
+              </div>
+              <!--            <div class="text-xl text-gray-500 font-bold">-->
+              <!--              {{ shippingAddress.street_name }}, {{ shippingAddress.building_number }}-->
+              <!--            </div>-->
+              <div class="text-xl text-gray-500 font-bold">
+                {{ shippingAddress.description }}
+              </div>
+              <div class="text-xl text-gray-500 font-bold">
+                {{ shippingAddress.city.name }}
+              </div>
 
-            <!--            , {{ shippingAddress.state }}-->
-            <div class="text-xl text-gray-500 font-bold">
-              <!--          {{ shippingAddress.country.name }}-->
-            </div>
+              <!--            , {{ shippingAddress.state }}-->
+              <div class="text-xl text-gray-500 font-bold">
+                <!--          {{ shippingAddress.country.name }}-->
+              </div>
 
-            <div class="text-xl text-gray-500 font-bold">
-              {{ shippingAddress.phone_number }}
-            </div>
+              <div class="text-xl text-gray-500 font-bold">
+                {{ shippingAddress.phone_number }}
+              </div>
+            </el-card>
           </div>
 
 
-          <div class="h-12">
-            <!--  -->
-            <!--            <button-->
-            <!--                v-if="shippingAddressId !== shippingAddress.id"-->
-            <!--                class="checkout__shipping-address-button"-->
-            <!--                @click="updateShippingId(shippingAddress.id)"-->
-            <!--            >-->
-            <!--              Select-->
-            <!--            </button>-->
-          </div>
         </div>
+
       </div>
-      <!--      <div-->
-      <!--          v-for="shippingAddress in $page.shippingAddresses"-->
-      <!--          :key="shippingAddress.id"-->
-      <!--          :class="{ '': shippingAddressId !== shippingAddress.id }"-->
-      <!--          class="checkout__shipping-address"-->
-      <!--      >-->
 
-
-      <!--      </div>-->
     </div>
   </div>
 </template>
@@ -89,21 +79,15 @@
 <script>
 export default {
   name: "CartShippingAddress",
-  // props: {
-  //   shippingAddressId: {
-  //     type: Number,
-  //     required: true
-  //   }
-  // },
+
   data() {
     return {
-      shippingAddressId: 0,
+      shippingAddressId: null,
       shippingAddress: null
     }
   },
   methods: {
     updateShippingId(id) {
-      // console.log(this.$page.shippingAddresses);//.filter(p => p.id === value)
       this.shippingAddress = this.$page.shippingAddresses.find(p => p.id === id);
       this.$emit('updateShippingId', {id: id})
     }

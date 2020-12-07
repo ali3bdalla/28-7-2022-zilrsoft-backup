@@ -16,7 +16,7 @@
                 @updateShippingId="updateShippingId"
             />
           </div>
-          <div class="col-lg-4 offset-lg-8">
+          <div class="col-lg-4 offset-lg-8 mt-5">
             <div class="proceed-checkout">
               <CartButton
                   :active-page="activePage"

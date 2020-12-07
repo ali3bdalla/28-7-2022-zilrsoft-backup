@@ -293,7 +293,8 @@ class ValidatorServiceProvider extends ServiceProvider
 
         Validator::extendImplicit(
             'mobileNumber', function ($attribute, $value, $args) {
-            return preg_match("/(05)[0-9]{8}/", $value);
+            return preg_match("/(5)[0-9]{8}/", $value);
+//            (5)
 //				$str_attr = explode('.', $attribute);
 //				$index = $str_attr[1];
 //				$first = $str_attr[0];

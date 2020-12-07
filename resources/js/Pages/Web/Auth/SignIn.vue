@@ -19,7 +19,7 @@
                         countrySelectorLabel: 'Country',
                         countrySelectorError: 'Choisir un pays',
                         phoneNumberLabel: '5555555555',
-                        example: 'ex: 0500000000',
+                        example: 'ex: 500000000',
                       }"
                       :no-country-selector="false"
                       v-model="phone_number"

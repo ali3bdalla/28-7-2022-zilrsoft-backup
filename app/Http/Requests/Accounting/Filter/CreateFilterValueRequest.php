@@ -26,8 +26,8 @@
 			return [
 				//
 				'filter_id' => 'required|integer|exists:filters,id',
-				'name' => 'required|string|organization_unique:App\Models\FilterValue,name,NULL,id,filter_id,'. request('filter_id'),
-				'ar_name' => 'required|string|organization_unique:App\Models\FilterValue,ar_name,NULL,id,filter_id,' . request('filter_id'),
+				'name' => 'required|string|organization_unique:App\Models\FilterValues,name,NULL,id,filter_id,'. request('filter_id'),
+				'ar_name' => 'required|string|organization_unique:App\Models\FilterValues,ar_name,NULL,id,filter_id,' . request('filter_id'),
 			
 			];
 		}

@@ -5,7 +5,8 @@ import VueSimpleAlert from "vue-simple-alert";
 // import {EagleModal} from 'vue-eagle-modal'
 
 import Dialog from 'vue-dialog-loading'
-
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 window.axios = require('axios')
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 let token = document.head.querySelector('meta[name="csrf-token"]')
@@ -30,6 +31,7 @@ require('./Plugins/plugins')
 require('./upload_images');
 
 
+Vue.use(ElementUI)
 Vue.use(Vuex)
 Vue.use(VueSimpleAlert);
 Vue.use(Dialog, {

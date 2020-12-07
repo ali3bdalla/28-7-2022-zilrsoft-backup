@@ -4,6 +4,7 @@ import Echo from 'laravel-echo';
 
 window.Pusher = require('pusher-js');
 
+
 Vue.prototype.$currency = currency;
 if (window._translations) Vue.prototype.$translator = JSON.parse(window._translations);
 

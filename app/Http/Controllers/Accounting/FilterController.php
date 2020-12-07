@@ -144,9 +144,9 @@
 			//
 			$request->validate(
 				[
-					'name' => 'required|string|organization_unique:App\Models\FilterValue,name',
+					'name' => 'required|string|organization_unique:App\Models\FilterValues,name',
 					'filter_id' => 'required|integer|exists:filters,id',
-					'ar_name' => 'required|string|organization_unique:App\Models\FilterValue,ar_name'
+					'ar_name' => 'required|string|organization_unique:App\Models\FilterValues,ar_name'
 				]
 			);
 			$data = $request->all();

@@ -10,6 +10,8 @@ import VuejsDialog from 'vuejs-dialog';
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
 import VModal from 'vue-js-modal'
 import VueSimpleAlert from "vue-simple-alert";
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 require('./bootstrap');
 window.TextValidator = require('validator');
@@ -30,6 +32,7 @@ require('./components/include');
 require('./Plugins/plugins');
 require('./accounting/load');
 Vue.use(Vuetify);
+Vue.use(ElementUI);
 Vue.use(VModal);
 Vue.use(VuejsDialog);
 
