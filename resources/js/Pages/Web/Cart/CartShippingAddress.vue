@@ -36,7 +36,7 @@
                 :label="shippingAddress.first_name"
                 :value="shippingAddress.id">
               {{ shippingAddress.first_name }} {{ shippingAddress.last_name }} - {{ shippingAddress.city.name }} - {{
-              shippingAddress.phone_number }} 
+              shippingAddress.phone_number }}
             </el-option>
           </el-select>
 
