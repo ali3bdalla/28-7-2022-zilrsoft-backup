@@ -24,10 +24,10 @@
   <component name="ChangeListManager">
     <list default="true" id="62ee8e1c-79d0-4682-8776-4dfb31729f0a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Web/CartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Web/CartController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app_v2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app_v2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Web/Cart/CartShippingAddress.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Web/Cart/CartShippingAddress.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/external/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/external/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/upload_images.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/upload_images.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Web/Cart/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Web/Cart/Index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,7 +280,7 @@
       <workItem from="1607275778599" duration="203000" />
       <workItem from="1607294016256" duration="672000" />
       <workItem from="1607344878654" duration="4336000" />
-      <workItem from="1607354779824" duration="232000" />
+      <workItem from="1607354779824" duration="4155000" />
     </task>
     <servers />
   </component>
@@ -404,11 +404,11 @@
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state x="1970" y="200" width="540" height="524" key="StructurePopup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606319918546" />
-    <state width="889" height="695" key="SwitcherDM" timestamp="1607350439872">
+    <state width="889" height="695" key="SwitcherDM" timestamp="1607363725546">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="500" height="434" key="SwitcherDM/0.0.1440.900@0.0.1440.900" timestamp="1606745353693" />
-    <state width="889" height="695" key="SwitcherDM/0.0.2560.1440@0.0.2560.1440" timestamp="1607350439872" />
+    <state width="889" height="695" key="SwitcherDM/0.0.2560.1440@0.0.2560.1440" timestamp="1607363725546" />
     <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.0.1440.900@0.0.1440.900" timestamp="1606742121966" />
     <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606740876541" />
     <state width="500" height="445" key="SwitcherDM/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606676125298" />
@@ -441,13 +441,13 @@
     </state>
     <state x="744" y="336" key="run.anything.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1607087199195" />
     <state x="1905" y="210" key="run.anything.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606310624853" />
-    <state x="745" y="342" width="1192" height="1058" key="search.everywhere.popup" timestamp="1607354901556">
+    <state x="745" y="342" width="1192" height="1058" key="search.everywhere.popup" timestamp="1607363237609">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="419" y="214" width="670" height="661" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1606744714821" />
     <state x="466" y="214" width="745" height="662" key="search.everywhere.popup/0.0.1600.900@0.0.1600.900" timestamp="1607080593116" />
     <state x="596" y="274" width="954" height="847" key="search.everywhere.popup/0.0.2048.1152@0.0.2048.1152" timestamp="1606932621855" />
-    <state x="745" y="342" width="1192" height="1058" key="search.everywhere.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1607354901556" />
+    <state x="745" y="342" width="1192" height="1058" key="search.everywhere.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1607363237609" />
     <state x="419" y="214" width="670" height="659" key="search.everywhere.popup/1440.0.1600.900/0.0.1440.900@0.0.1440.900" timestamp="1606741883706" />
     <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606740635096" />
     <state x="1905" y="214" width="670" height="659" key="search.everywhere.popup/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606674476480" />

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\City;
+use App\Models\ShippingMethod;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,16 +16,24 @@ class DatabaseSeeder extends Seeder
     {
 
 
-////        $shippingMethods = [
-////            ['name' => 'SMSAEXPRESS', 'ar_name' => 'سمسا اكبريس', 'logo' => 'https://smsaexpress.com/themes/custom/smsa/logo_en.png', 'max_base_weight' => 15, 'max_base_weight_cost' => 30, 'kg_after_max_weight_cost' => 2, 'max_base_weight_price' => 30, 'kg_rate_after_max_price' => 2],
-////            ['name' => 'DHL', 'ar_name' => 'DHL', 'logo' => 'https://mydhl.express.dhl/sa/en/_jcr_content/top-nav-v2/image.img.png/1601049167049.png', 'max_base_weight' => 15, 'max_base_weight_cost' => 30, 'kg_after_max_weight_cost' => 2, 'max_base_weight_price' => 30, 'kg_rate_after_max_price' => 2],
-////            ['name' => 'ARAMEX', 'ar_name' => 'ARAMEX', 'logo' => 'https://www.aramex.com/docs/default-source/site-assets/aramex-logo65995588b3f2659d9310ff0000e7fe0c.svg', 'max_base_weight' => 15, 'max_base_weight_cost' => 30, 'kg_after_max_weight_cost' => 2, 'max_base_weight_price' => 30, 'kg_rate_after_max_price' => 2],
-////            ['name' => 'Free Shipping', 'ar_name' => 'Free Shipping', 'logo' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf7rpaCO0Z3HIQotS2LImHwODEGaSDjF3_w_jurkIrh8XMbIsonqYULCHDAMi5i9Q6aKMmUj3gNeEXSbuEd5knUiAelBqLBglgRQ&usqp=CAU&ec=45732300', 'max_base_weight' => 0, 'max_base_weight_cost' => 10, 'kg_after_max_weight_cost' => 0, 'max_base_weight_price' => 0, 'kg_rate_after_max_price' => 0],
-////        ];
-//////        \App\Models\ShippingMethod::where('id','!=',0)->delete();
-////        foreach ($shippingMethods as $shippingMethod) {
-////            \App\Models\ShippingMethod::create($shippingMethod);
-////        }
+        $rass = City::where('name', 'Rass')->first();
+        $shippingMethods = [
+            ['name' => 'SMSAEXPRESS', 'ar_name' => 'سمسا اكبريس', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/SMSA_Express_logo_%28English_version%29.svg/816px-SMSA_Express_logo_%28English_version%29.svg.png', 'max_base_weight' => 15, 'max_base_weight_cost' => 30, 'kg_after_max_weight_cost' => 2, 'max_base_weight_price' => 30, 'kg_rate_after_max_price' => 2],
+            ['name' => 'DHL', 'ar_name' => 'DHL', 'logo' => '/images/shipping_methods/dhl.png', 'max_base_weight' => 15, 'max_base_weight_cost' => 30, 'kg_after_max_weight_cost' => 2, 'max_base_weight_price' => 30, 'kg_rate_after_max_price' => 2],
+            ['name' => 'ARAMEX', 'ar_name' => 'ARAMEX', 'logo' => 'https://www.aramex.com/docs/default-source/site-assets/aramex-logo65995588b3f2659d9310ff0000e7fe0c.svg', 'max_base_weight' => 15, 'max_base_weight_cost' => 30, 'kg_after_max_weight_cost' => 2, 'max_base_weight_price' => 30, 'kg_rate_after_max_price' => 2],
+            ['name' => 'Free Shipping', 'ar_name' => 'Free Shipping', 'logo' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf7rpaCO0Z3HIQotS2LImHwODEGaSDjF3_w_jurkIrh8XMbIsonqYULCHDAMi5i9Q6aKMmUj3gNeEXSbuEd5knUiAelBqLBglgRQ&usqp=CAU&ec=45732300', 'max_base_weight' => 0, 'max_base_weight_cost' => 10, 'kg_after_max_weight_cost' => 0, 'max_base_weight_price' => 0, 'kg_rate_after_max_price' => 0],
+        ];
+        ShippingMethod::where('id', '!=', 0)->delete();
+        foreach ($shippingMethods as $key => $shippingMethod) {
+            $createdShipping = ShippingMethod::create($shippingMethod);
+
+
+            if ($key == 0) {
+                $cities = City::where("id", '!=', $rass->id)->pluck('id');
+                foreach ($cities as $cityId)
+                    $createdShipping->cities()->create(['city_id' => $cityId]);
+            }
+        }
 ////
 //
 //			$cities = ["Dammam", "Dhahran", "Jeddah", "Jouf", "Khamis Mushayat", "Khayber", "Madinah", "Riyadh", "Tabuk", "Taif", "Yanbu", "Khubar", "Makkah", "Buraydah", "Unayzah", "Hail", "Abha", "Hufuf", "Jubail", "Qatif", "Khafji", "Ras Tannurah", "Buqaiq", "Sayhat", "Safwa", "Jazan", "Sabya", "Abu Arish", "Hafar Al Baten", "Rabigh", "Lith", "Ula", "Duwadimi", "Majmaah", "Zulfi", "Afif", "Arar", "Kharj", "Muzahmiyah", "Ranyah", "Turbah", "Taima", "Dhuba", "Qurayyat", "Turayf", "Wadi Dawasir", "Quwayiyah", "Muhayil", "Salwa", "Rafha", "Baha", "Baljurashi", "Qunfudhah", "Mukhwah", "Mandaq", "Qilwah", "Atawlah", "Aqiq", "Mudhaylif", "Nairiyah", "Qarya Al Uliya", "Tarut", "Anak", "Udhayliyah", "Najran", "Sharourah", "Habounah", "Samtah", "Ahad Al Masarhah", "Baysh", "Darb", "Dhamad", "Bani Malek", "Furasan", "Tuwal", "Shuqayq", "Badr", "Jamoum", "Khulais", "Bahrah", "Masturah", "Shaibah", "Rass", "Bukayriyah", "Badaya", "Riyadh Al Khabra", "Uyun Al Jiwa", "Nabhaniah", "Sajir", "Khabra", "Uqlat As Suqur", "Rafayaa Al Gimsh", "Nabhaniah", "Dukhnah", "Nifi", "Skakah", "Dawmat Al Jandal", "Namas", "Sapt Al Ulaya", "Bellasmar"];
@@ -37,8 +46,6 @@ class DatabaseSeeder extends Seeder
 //					]
 //				);
 //			}
-
-
 
 
 //        DB::insert("INSERT INTO `types` (`id`, `name`, `ar_name`, `created_at`, `updated_at`) VALUES(null , 'wholesales & retail sales', ' مبيعات الجملة والتجزئة', now(), now());");

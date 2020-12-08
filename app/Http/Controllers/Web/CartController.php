@@ -3,7 +3,8 @@
 	namespace App\Http\Controllers\Web;
 	
 	use App\Http\Controllers\Controller;
-	use Illuminate\Http\Request;
+    use App\Models\ShippingMethod;
+    use Illuminate\Http\Request;
 	use Inertia\Inertia;
 	
 	class CartController extends Controller
@@ -17,6 +18,10 @@
 			if(auth('client')->check()) {
 				$data['shippingAddresses'] = $request->user('client')->shippingAddresses()->with('city')->get();
 			}
+
+
+            $data['shippingMethods'] = ShippingMethod::with('cities')->get();
+			
 			return Inertia::render(
 				'Web/Cart/Index',
 				$data
