@@ -5,6 +5,8 @@ Vue.component('products-list-for-uploading-images-component',require('./componen
 Vue.use(VueSimpleAlert)
 
 // alert('hello')
+// alert('hello')
+// alert('hello')
 const app = new Vue({
     el: '#app'
 });

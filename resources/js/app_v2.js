@@ -43,7 +43,7 @@ Vue.use(Dialog, {
 
 const store = new Vuex.Store(require('./store/web'))
 Vue.use(InertiaApp)
-// google 
+// google
 
 const app = document.getElementById('app')
 

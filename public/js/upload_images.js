@@ -22260,6 +22260,8 @@ var Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"
 
 Vue.component('products-list-for-uploading-images-component', __webpack_require__(/*! ./components/UploadImages/ProductsListComponent */ "./resources/js/components/UploadImages/ProductsListComponent.vue")["default"]);
 Vue.use(vue_simple_alert__WEBPACK_IMPORTED_MODULE_0__["default"]); // alert('hello')
+// alert('hello')
+// alert('hello')
 
 var app = new Vue({
   el: '#app'

@@ -25,7 +25,7 @@ window.getIndex = function (needle, haystack) {
     for (let i = 0; i < length; i++) {
         if (haystack[i] === needle) return i;
     }
-    return -1;
+    return -1; // update latter
 }
 window.Vue = Vue;
 require('./components/include');
