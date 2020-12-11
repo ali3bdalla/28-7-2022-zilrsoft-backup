@@ -160,8 +160,9 @@ class DailyController extends Controller
     }
 
 
-    public function deleteResellerAccountTransaction(ResellerClosingAccount $transaction)
+    public function deleteResellerAccountTransaction( $transaction)
     {
+        $transaction = ResellerClosingAccount::where('id',$transaction)->withoutGlobalScope('pending')->firstOrFail();
         $transaction->delete();
         return back();
     }

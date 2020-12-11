@@ -23,9 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62ee8e1c-79d0-4682-8776-4dfb31729f0a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/web/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/web/master.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DailyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DailyController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,7 +284,7 @@
       <workItem from="1607607001972" duration="64000" />
       <workItem from="1607607084014" duration="1917000" />
       <workItem from="1607611409029" duration="709000" />
-      <workItem from="1607693214942" duration="8867000" />
+      <workItem from="1607693214942" duration="9161000" />
     </task>
     <servers />
   </component>
@@ -438,11 +436,11 @@
       <screen x="1440" y="0" width="1600" height="900" />
     </state>
     <state x="1540" y="100" width="1400" height="700" key="dock-window-1/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606675574348" />
-    <state x="649" y="262" width="808" height="702" key="find.popup" timestamp="1607728093336">
+    <state x="649" y="262" width="808" height="702" key="find.popup" timestamp="1607728122601">
       <screen x="0" y="0" width="2048" height="1152" />
     </state>
     <state x="456" y="205" width="568" height="548" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1606656558354" />
-    <state x="649" y="262" width="808" height="702" key="find.popup/0.0.2048.1152@0.0.2048.1152" timestamp="1607728093336" />
+    <state x="649" y="262" width="808" height="702" key="find.popup/0.0.2048.1152@0.0.2048.1152" timestamp="1607728122601" />
     <state x="811" y="328" width="1010" height="877" key="find.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1607349572156" />
     <state x="1947" y="205" width="586" height="548" key="find.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606588884656" />
     <state x="1947" y="205" width="586" height="548" key="find.popup/1440.0.1600.900/0.23.1440.877@1440.0.1600.900" timestamp="1606496989314" />
@@ -451,12 +449,12 @@
     </state>
     <state x="744" y="336" key="run.anything.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1607087199195" />
     <state x="1905" y="210" key="run.anything.popup/1440.0.1600.900/0.0.1440.900@1440.0.1600.900" timestamp="1606310624853" />
-    <state x="596" y="274" width="954" height="847" key="search.everywhere.popup" timestamp="1607728049303">
+    <state x="596" y="274" width="954" height="847" key="search.everywhere.popup" timestamp="1607728890992">
       <screen x="0" y="0" width="2048" height="1152" />
     </state>
     <state x="419" y="214" width="670" height="661" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1606744714821" />
     <state x="466" y="214" width="745" height="662" key="search.everywhere.popup/0.0.1600.900@0.0.1600.900" timestamp="1607080593116" />
-    <state x="596" y="274" width="954" height="847" key="search.everywhere.popup/0.0.2048.1152@0.0.2048.1152" timestamp="1607728049303" />
+    <state x="596" y="274" width="954" height="847" key="search.everywhere.popup/0.0.2048.1152@0.0.2048.1152" timestamp="1607728890992" />
     <state x="745" y="342" width="1192" height="1058" key="search.everywhere.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1607693484490" />
     <state x="931" y="428" width="1490" height="1323" key="search.everywhere.popup/0.0.3200.1800@0.0.3200.1800" timestamp="1607503738352" />
     <state x="745" y="337" width="1192" height="966" key="search.everywhere.popup/0.25.2560.1314@0.25.2560.1314" timestamp="1607409035011" />
