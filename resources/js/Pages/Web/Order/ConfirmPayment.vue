@@ -112,7 +112,7 @@ export default {
       this.senderAccountId = e.accountId;
     },
     confirmPayment() {
-      this.$inertia.post('/web/orders/' + this.$page.order.id + '/confirm_payment', {
+      this.$inertia.post('/web/orders/' + this.$page.order.id + '/confirm_payment?code='+ this.$page.code, {
         sender_account_id: this.senderAccountId,
         receiver_bank_id: this.receiverAccountBankId,
         first_name: this.firstName,

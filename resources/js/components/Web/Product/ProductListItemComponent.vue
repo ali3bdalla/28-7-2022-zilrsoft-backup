@@ -1,30 +1,24 @@
 <template>
-  <div
-      class="product__list-item"
-  >
+  <div class="product__list-item">
     <div class="product__list-item-image-container">
-      <img :src="itemImage" class="product__list-item-image"/>
+      <img :src="itemImage" class="product__list-item-image" />
     </div>
-    <div class="mt-5 overflow-hidden p-2">
-      <h3
-          class="product__list-item-category-name"
-      >
-        {{ item.category.name }}
+    <div class="p-2 mt-5 overflow-hidden">
+      <h3 class="product__list-item-category-name product__list-item-category-name__out-of-stock" v-if="item.available_qty <= 0">
+        <span > Out Of Stock </span>
       </h3>
-      <a
-          :href="`/web/items/${item.id}`"
-          class="product__list-item-name"
-      >
+      <h3 v-else class="product__list-item-category-name">
+          {{item.category.name}}
+      </h3>
+      <a :href="`/web/items/${item.id}`" class="product__list-item-name">
         {{ item.name }}
       </a>
       <ProductRatingComponent
-          :item="item"
-          class="mt-2"
+        :item="item"
+        class="mt-2"
       ></ProductRatingComponent>
 
-      <h4
-          class="product__list-item-price"
-      >
+      <h4 class="product__list-item-price">
         {{ parseFloat(item.price_with_tax).toFixed(2) }}
       </h4>
       <span class="product__list-item-currency">SR</span>
@@ -35,8 +29,8 @@
         <span class="product__list-item-currency">SR</span>
       </div>
       <ToggleCartItemButtonComponent
-          :item="item"
-          class="mt-2"
+        :item="item"
+        class="mt-2"
       ></ToggleCartItemButtonComponent>
     </div>
   </div>
@@ -47,7 +41,7 @@ import ToggleCartItemButtonComponent from "../Cart/ToggleCartItemButtonComponent
 import ProductRatingComponent from "./ProductRatingComponent";
 
 export default {
-  components: {ToggleCartItemButtonComponent, ProductRatingComponent},
+  components: { ToggleCartItemButtonComponent, ProductRatingComponent },
   props: ["item", "index"],
   data() {
     return {
@@ -59,7 +53,7 @@ export default {
         "https://images10.newegg.com/ProductImageCompressAll180/35-608-044_R01.jpg",
         "https://images10.newegg.com/ProductImageCompressAll180/75-100-554-02.jpg",
         "https://images10.newegg.com/ProductImageCompressAll180/11-133-244-41.jpg",
-        'https://cdn.salla.sa/zdJgBdtmaJ67xEmyMm6EbdUsS1z6lU050NFTHeqc.jpeg',
+        "https://cdn.salla.sa/zdJgBdtmaJ67xEmyMm6EbdUsS1z6lU050NFTHeqc.jpeg",
       ],
     };
   },

@@ -2,7 +2,7 @@
   <web-layout>
     <div class="container bg-white shadow-lg">
       <div
-        class="grid p-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 lg:gap-2 my-5"
+        class="grid grid-cols-2 gap-1 p-2 my-5 md:grid-cols-3 lg:grid-cols-5 lg:gap-2"
       >
         <!--bg-gray-200-->
         <a
@@ -18,7 +18,7 @@
 
       <div class="mt-10">
         <h1
-          class="text-xl text-center md:text-2xl font-bold text-gray-600 flex justify-center items-center"
+          class="flex items-center justify-center text-xl font-bold text-center text-gray-600 md:text-2xl"
         >
           Products ({{ $page.category.products_count }})
           <a
@@ -29,7 +29,7 @@
         </h1>
 
         <div
-          class="grid p-2 grid-cols-2 md:grid-cols-4 gap-1 lg:gap-4 mb-5 mt-3"
+          class="grid grid-cols-2 gap-1 p-2 mt-3 mb-5 lg:grid-cols-4 lg:gap-4"
         >
           <ProductListItemComponent
             v-for="(item, index) in items"

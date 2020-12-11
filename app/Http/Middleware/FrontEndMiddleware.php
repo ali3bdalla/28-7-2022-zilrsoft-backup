@@ -19,7 +19,6 @@
 		{
 			Inertia::setRootView('web');
 			
-//			auth('client')->logout();;
 			Inertia::share(
 				[
 					'client_logged' => auth('client')->check(),

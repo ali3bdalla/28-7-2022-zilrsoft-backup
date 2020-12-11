@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->integer('invoice_id')->nullable();
 
             $table->float('net', 20, 8)->nullable();
-            $table->integer('shipping_address_id')->nullable();
+
             $table->enum('status', ['issued', 'pending', 'paid', 'in_progress', 'ready_for_shipping', 'shipped', 'delivered', 'canceled', 'returned'])->default('issued');
 
 
@@ -34,8 +34,11 @@ class CreateOrdersTable extends Migration
             $table->float('shipping_amount', 20, 8)->nullable();
             $table->integer('managed_by_id')->nullable();
             $table->integer('payment_id')->nullable();
-            $table->integer('shipping_method')->nullable();
+            $table->string('payment_method')->nullable();
+            $table->integer('shipping_address_id')->nullable();
+            $table->integer('shipping_method_id')->nullable();
             $table->integer('delivery_man_id')->nullable();
+
 
             $table->softDeletes();
             $table->timestamps();

@@ -43,7 +43,9 @@ class UpdateItemOnlinePriceCommand extends Command
         Item::where('id','>',0)->each(function($item) {
 	        $item->update([
 	        	'online_price' => $item->price_with_tax,
-	        	'online_offer_price' => $item->cost * (1 + ($item->vtp / 100)),
+                'online_offer_price' => $item->cost * (1 + ($item->vtp / 100)),
+                'shipping_discount' => rand(1,5),
+                'weight' => rand(1,3)
 	        ]);
         });
     }

@@ -12,11 +12,37 @@
 	
 	class ConfirmOrderPaymentController extends Controller
 	{
-		
-		
+
+
+
+        public function showConfirmPaymentPage(Request $request, Order $order)
+        {
+
+
+            if(!$this->isValidOrderStatus($order) || !$this->isValidKey($order, $request)) {
+                return response()->view(
+                    'errors.custom', [
+                        'message' => 'Your Order Has  Been Canceled',
+                        'title' => 'Order Not Found'
+                    ]
+                );
+            }
+
+
+            return Inertia::render(
+                'Web/Order/ConfirmPayment', [
+                    'code' => $request->input('code'),
+                    'order' => $order,
+                    'banks' => Bank::all(),
+                    'receivedBanks' => Bank::where('account_id', '!=', null)->get(),
+                ]
+            );
+        }
+
+
 		public function confirmPayment(ConfirmOrderPaymentRequest $request, Order $order)
 		{
-			
+
 			if(!$this->isValidOrderStatus($order) || !$this->isValidKey($order, $request)) {
 				return Inertia::render(
 					'Web/Order/OrderConfirmationExpired', [
@@ -24,15 +50,14 @@
 					]
 				);
 			}
-			
+//
 			$request->confirm($order);
-			
-			
-			return Inertia::render(
-				'Web/Order/PaymentConfirmed', [
-					'order' => $order
-				]
-			);
+//
+//			return Inertia::render(
+//				'Web/Order/PaymentConfirmed', [
+//					'order' => $order
+//				]
+//			);
 		}
 		
 		private function isValidOrderStatus($order)
@@ -46,25 +71,5 @@
 			return $request->input('code') == $order->order_secret_code;
 		}
 		
-		public function showConfirmPaymentPage(Request $request, Order $order)
-		{
-			
-			if(!$this->isValidOrderStatus($order) || !$this->isValidKey($order, $request)) {
-				return response()->view(
-					'errors.custom', [
-						'message' => 'Your Order Has  Been Canceled',
-						'title' => 'Order Not Found'
-					]
-				);
-			}
-			
-			
-			return Inertia::render(
-				'Web/Order/ConfirmPayment', [
-					'order' => $order,
-					'banks' => Bank::all(),
-					'receivedBanks' => Bank::where('account_id', '!=', null)->get(),
-				]
-			);
-		}
+
 	}

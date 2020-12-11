@@ -3,8 +3,8 @@
 	namespace App\Models;
 	
 	use Illuminate\Database\Eloquent\SoftDeletes;
-	
-	/**
+
+    /**
 	 * @property mixed is_fixed_price
 	 * @property mixed price
 	 * @property mixed is_expense
@@ -27,7 +27,8 @@
 	 * @property mixed ar_name
 	 * @property mixed creator_id
 	 * @property mixed online_offer_price
-	 * @method static findOrFail($id)
+     * @property mixed weight
+     * @method static findOrFail($id)
 	 * @method static InRandomOrder()
 	 * @method static find($input)
 	 */

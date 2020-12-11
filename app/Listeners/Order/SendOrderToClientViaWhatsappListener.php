@@ -29,6 +29,7 @@
 		{
 			
 			$phoneNumber = $event->order->user->international_phone_number;
+
 			$message = view(
 				'whatsapp.order_details', [
 					'client' => $event->client,

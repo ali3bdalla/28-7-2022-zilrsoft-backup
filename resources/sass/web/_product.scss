@@ -25,6 +25,11 @@
 
   &__list-item-category-name {
     @apply text-sm bg-gray-900 shadow rounded font-extrabold truncate inline-block py-1 px-2 text-white w-full text-center;
+    
+
+    &__out-of-stock {
+      @apply bg-red-700;
+    }
   }
 
 

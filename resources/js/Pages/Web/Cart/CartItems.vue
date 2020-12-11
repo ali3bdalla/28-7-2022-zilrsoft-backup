@@ -9,23 +9,22 @@
           <th>Image</th>
           <th class="p-name">Product Name</th>
           <th>Price</th>
-          <th v-if="activePage === 'cart'">Quantity</th>
+          <th>Quantity</th>
           <th>Total</th>
-          <th  v-if="$page.client_logged && activePage === 'cart'">
+          <th v-if="$page.client_logged && activePage === 'cart'">
             <i v-if="$store.state.cartCount >= 1" class="ti-close"></i>
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-for="(item, index) in $store.state.cart" :key="index">
         <tr
-          v-for="(item, index) in $store.state.cart"
-          :key="index"
           :class="[
             parseInt(item.available_qty) < parseInt(item.quantity)
               ? 'cart__table-raw__red'
               : '',
           ]"
           class="cart__table-raw"
+          v-if="activePage == 'cart' || (activePage === 'checkout' && parseInt(item.available_qty) >= parseInt(item.quantity))"
         >
           <td
             v-if="$page.client_logged && activePage === 'cart'"
@@ -39,7 +38,7 @@
               @change="toggleOrderProduct(item)"
             />
           </td>
-          <td class="cart-pic first-row text-center">
+          <td class="text-center cart-pic first-row">
             <img
               class="cart__item-image"
               src="https://preview.colorlib.com/theme/fashi/img/cart-page/product-1.jpg"
@@ -74,9 +73,13 @@
               </div>
             </div>
           </td>
+          <td v-else class="total-price first-row">{{ item.quantity }}</td>
           <td class="total-price first-row">{{ getProductTotal(item) }}</td>
-          <td class="close-td first-row"  v-if="$page.client_logged && activePage === 'cart'">
-            <i class="ti-close" @click="removeCartItem(item)" ></i>
+          <td
+            class="close-td first-row"
+            v-if="$page.client_logged && activePage === 'cart'"
+          >
+            <i class="ti-close" @click="removeCartItem(item)"></i>
           </td>
         </tr>
       </tbody>

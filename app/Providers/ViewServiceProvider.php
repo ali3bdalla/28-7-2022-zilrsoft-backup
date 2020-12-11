@@ -57,7 +57,7 @@
 			Blade::directive(
 				'defer_js_asset', function($file) {
 				$file = str_replace(['(', ')', "'"], '', $file);
-				return '<script src="' . asset($file) . '" defer></script>';
+				return '<script src="' . mix($file) . '" defer></script>';
 			}
 			);
 			

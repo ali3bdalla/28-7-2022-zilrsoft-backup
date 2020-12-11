@@ -20,7 +20,7 @@
 			}
 
 
-            $data['shippingMethods'] = ShippingMethod::with('cities')->get();
+            $data['shippingMethods'] = ShippingMethod::all();
 			
 			return Inertia::render(
 				'Web/Cart/Index',

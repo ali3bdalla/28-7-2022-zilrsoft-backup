@@ -50,14 +50,22 @@ class ValidatorServiceProvider extends ServiceProvider
         Validator::extendImplicit(
             'organization_exists', function ($attribute, $value, $parameters, $validator) {
             $model = app($parameters[0]);
+
+            
             if (!$model instanceof Model)
                 return false;
-
-
+                
+          
             $table = (new $model)->getTable();
 
+        
+
+          
             if (!Schema::hasColumn($table, $parameters[1]))
                 return false;
+
+
+
 
             return $model::where($parameters[1], $value)->count() > 0;
 

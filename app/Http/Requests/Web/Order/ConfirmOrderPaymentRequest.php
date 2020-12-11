@@ -30,6 +30,7 @@
 		{
 			return [
 				//
+
 				'first_name' => 'required|string|min:3',
 				'last_name' => 'required|string|min:3',
 				'sender_account_id' => 'required|integer|exists:user_gateways,id',
@@ -54,7 +55,6 @@
 						]
 					);
 				}
-				
 				$order->paymentDetail()->create(
 					[
 						'user_id' => $order->user_id,
@@ -64,10 +64,8 @@
 						'last_name' => $this->input('last_name'),
 					]
 				);
-
 				DB::commit();
 				event(new ClientUpdateOrderPaymentEvent($order));
-				
 			} catch(QueryException $exception) {
 				DB::rollBack();
 				throw  $exception;

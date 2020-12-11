@@ -13,6 +13,8 @@ class ShippingMethod extends BaseModel
     protected $guarded = [];
 
 
+    protected $appends = ['cities_ids'];
+
     public function item()
     {
         return $this->belongsTo(Item::class);
@@ -32,6 +34,11 @@ class ShippingMethod extends BaseModel
     public function deliveryMen()
     {
         return $this->hasMany(DeliveryMan::class, 'shipping_method_id');
+    }
+
+    public function getCitiesIdsAttribute()
+    {
+        return $this->cities()->pluck('city_id')->toArray();
     }
     //
 }

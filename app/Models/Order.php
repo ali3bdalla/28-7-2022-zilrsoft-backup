@@ -21,6 +21,11 @@
 	 * @property mixed|string shippable_type
 	 * @property int|mixed shippable_id
      * @property mixed shippable
+     * @property mixed payment_method_id
+     * @property mixed payment_method
+     * @property float|int|mixed shipping_cost
+     * @property int|mixed shipping_amount
+     * @property float|int|mixed shipping_weight
      */
 	class Order extends BaseModel
 	{

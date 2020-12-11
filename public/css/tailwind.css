@@ -853,6 +853,12 @@ video {
   text-align: center;
 }
 
+.product__list-item-category-name__out-of-stock {
+  --bg-opacity: 1;
+  background-color: #c53030;
+  background-color: rgba(197, 48, 48, var(--bg-opacity));
+}
+
 .product__list-item-name {
   display: block;
   margin-top: 0.5rem;

@@ -69,9 +69,10 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
 
         Route::middleware('auth:client')->group(
             function () {
-        Route::group(['prefix' => 'profile', 'namespace' => 'Profile'], function () {
-            Route::resource('shipping_address', 'ShippingAddressController');
-        });
+                Route::group(['prefix' => 'profile', 'namespace' => 'Profile'], function () {
+                    Route::get('/', 'IndexController@index');
+                    Route::resource('shipping_address', 'ShippingAddressController');
+                });
             }
         );
     }

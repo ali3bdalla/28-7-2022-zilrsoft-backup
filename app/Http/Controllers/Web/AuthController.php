@@ -71,7 +71,8 @@
 				[
 					
 					'phone_number' => $phoneNumber,
-					'username' => $request->input('first_name') . " " . $request->input('last_name'),
+					'first_name' => $request->input('first_name'),
+					'last_name' =>$request->input('last_name'),
 					'password' => bcrypt($request->input('password')),
 					'otp' => $otp
 				
@@ -110,8 +111,10 @@
 				$manager = Manager::find(1);
 				$client = $manager->organization->users()->create(
 					[
-						'name' => $placeholderUser->username,
-						'name_ar' => $placeholderUser->username,
+						'name' => $placeholderUser->first_name . ' ' . $placeholderUser->last_name,
+						'name_ar' => $placeholderUser->first_name . ' ' . $placeholderUser->last_name,
+						'first_name' => $placeholderUser->first_name,
+						'last_name' => $placeholderUser->last_name,
 						'phone_number' => $placeholderUser->phone_number,
 						'password' => $placeholderUser->password,
 						'country_code' => '+966',

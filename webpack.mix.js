@@ -17,3 +17,8 @@ mix.sass('resources/sass/tailwind.scss', 'public/css/tailwind.css')
 
 
 
+ mix.browserSync({
+    proxy:  "https://zilrsoft.test",
+
+  });
+

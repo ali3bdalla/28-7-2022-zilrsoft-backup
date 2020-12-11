@@ -38,10 +38,10 @@ class CreateShippingMethodsTable extends Migration
 //                 DROP TABLE zilrsoft_production.orders;
 //                 DROP TABLE zilrsoft_production.shipping_methods;
 //                 DROP TABLE zilrsoft_production.shipping_addresses;
-//            DELETE from zilrsoft_production.migrations WHERE migration = '2020_11_28_204551_create_delivery_men_table';
-//DELETE from zilrsoft_production.migrations WHERE migration = '2020_11_02_161625_create_orders_table';
-//DELETE from zilrsoft_production.migrations WHERE migration = '2020_11_05_160436_create_shipping_methods_table';
-//DELETE from zilrsoft_production.migrations WHERE migration = '2020_11_02_161223_create_shipping_addresses_table';
+//            DELETE from public.migrations WHERE migration = '2020_11_28_204551_create_delivery_men_table';
+//DELETE from public.migrations WHERE migration = '2020_11_02_161625_create_orders_table';
+//DELETE from public.migrations WHERE migration = '2020_11_05_160436_create_shipping_methods_table';
+//DELETE from public.migrations WHERE migration = '2020_11_02_161223_create_shipping_addresses_table';
         }
         );
     }
