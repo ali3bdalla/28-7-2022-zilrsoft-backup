@@ -5,12 +5,12 @@ window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 
-import ConfirmOrderDeliveryStatus from './delivery/ConfirmOrderDeliveryStatus';
+const ConfirmOrderDeliveryStatus = require('./delivery/ConfirmOrderDeliveryStatus');
 
 Vue.use(VueSimpleAlert);
 
 
-Vue.component('confirm-order-delivery-status',ConfirmOrderDeliveryStatus)
+Vue.component('confirm-order-delivery-status', ConfirmOrderDeliveryStatus)
 
 const app = new Vue({
     el: '#app'
