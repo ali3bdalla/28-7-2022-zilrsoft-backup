@@ -15,10 +15,8 @@
     clone_repository
     composer_install
     npm_install
-{{--    npm_run_prod--}}
     update_symlinks
     migrate
-{{--    cache--}}
 @endstory
 
 @task('clone_repository')
@@ -47,14 +45,6 @@
     npm run dev --quiet --no-progress
 @endtask
 
-{{--@task('npm_run_prod')--}}
-{{--    echo "npm run prod ({{ $release }})"--}}
-{{--    cd {{ $new_release_dir }}--}}
-{{--    npm run prod --silent --no-progress--}}
-{{--    echo "Deleting node_modules folder ({{ $release }})"--}}
-{{--    rm -rf node_modules--}}
-{{--@endtask--}}
-
 @task('update_symlinks')
     echo "Create folder"
     [ -d {{ $app_dir }}/storage ] || mkdir {{ $app_dir }}/storage
@@ -80,10 +70,3 @@
     php artisan migrate
 @endtask
 
-{{--@task('cache')--}}
-{{--    echo "Cleaning cache"--}}
-{{--    cd {{ $current_dir }}--}}
-{{--    php artisan optimize:cache--}}
-{{--    php artisan config:cache--}}
-{{--    php artisan view:cache--}}
-{{--@endtask--}}

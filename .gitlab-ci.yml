@@ -65,8 +65,7 @@ test:
     - php artisan config:cache
 
     # run laravel tests
-    - php vendor/bin/phpunit
-#    - --coverage-text --colors=never
+    - php vendor/bin/phpunit --coverage-text --colors=never
     # run frontend tests
     - npm test
     # run artisan tests
