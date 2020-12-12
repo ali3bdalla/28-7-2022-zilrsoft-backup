@@ -2,7 +2,7 @@ image: registry.gitlab.com/3li3bdalla/zilrsoft:latest
 
 
 stages:
-  # - build
+  - build
   # - test
   - deploy 
   # -
