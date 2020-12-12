@@ -1,10 +1,8 @@
 /node_modules
-/phpmyadmin
-/public/storage	
+/public/storage
 /vendor/*
 /.idea/*
 .env
-.env.backup
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
