@@ -3,7 +3,6 @@
 	namespace App\Http\Requests\Accounting\Transaction;
 	
 	use App\Models\Account;
-    use App\Events\User\ShouldUpdateUserBalanceEvent;
     use App\Models\TransactionsContainer;
     use App\Models\User;
 	use Exception;

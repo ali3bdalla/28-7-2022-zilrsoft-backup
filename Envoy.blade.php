@@ -3,11 +3,18 @@
 
 @setup
     $repository = 'git@gitlab.com:3li3bdalla/zilrsoft.git';
-    $releases_dir = '/var/www/vhosts/development/releases';
-    $app_dir = '/var/www/vhosts/development';
+    @if ($environment && $environment === 'production')
+        $releases_dir = '/var/www/vhosts/production/releases';
+        $app_dir = '/var/www/vhosts/production';
+        $branch = 'master';
+    @else
+        $releases_dir = '/var/www/vhosts/development/releases';
+        $app_dir = '/var/www/vhosts/development';
+        $branch = 'development';
+    @endif
+
     $current_dir = $app_dir . '/current';
     $release = date('YmdHis');
-    $branch = 'development';
     $new_release_dir = $releases_dir .'/'. $release;
 @endsetup
 
