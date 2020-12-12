@@ -8,9 +8,7 @@ on:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Copy .env.example .env
@@ -31,4 +29,10 @@ jobs:
         DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
 
-    
+    db:
+      runs-on: postgres:latest
+      steps:
+        - name: migrate database
+          run: php artisan migrate
+        - name: seed database
+
