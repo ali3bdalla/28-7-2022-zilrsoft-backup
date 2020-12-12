@@ -15,7 +15,7 @@
     clone_repository
     composer_install
     npm_install
-    npm_run_prod
+{{--    npm_run_prod--}}
     update_symlinks
     migrate
     cache
@@ -47,13 +47,13 @@
     npm run dev --quiet --no-progress
 @endtask
 
-@task('npm_run_prod')
-    echo "npm run prod ({{ $release }})"
-    cd {{ $new_release_dir }}
-    npm run prod --silent --no-progress
-    echo "Deleting node_modules folder ({{ $release }})"
-    rm -rf node_modules
-@endtask
+{{--@task('npm_run_prod')--}}
+{{--    echo "npm run prod ({{ $release }})"--}}
+{{--    cd {{ $new_release_dir }}--}}
+{{--    npm run prod --silent --no-progress--}}
+{{--    echo "Deleting node_modules folder ({{ $release }})"--}}
+{{--    rm -rf node_modules--}}
+{{--@endtask--}}
 
 @task('update_symlinks')
     echo "Create folder"
