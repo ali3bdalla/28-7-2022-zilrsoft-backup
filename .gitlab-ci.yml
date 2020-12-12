@@ -87,4 +87,4 @@ deploy:
     url: http://zilrsoft.com
   when: manual
   only:
-    - production
+    - master
