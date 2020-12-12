@@ -4,7 +4,7 @@
 /public/storage
 /storage/*
 /vendor/*
-.idea
+/.idea/*
 .env
 .env.backup
 .phpunit.result.cache
@@ -12,4 +12,3 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-resources/views/accounting_module/financial_statements/trail_balance.blade.php

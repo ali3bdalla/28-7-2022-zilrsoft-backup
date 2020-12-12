@@ -156,6 +156,8 @@ class DailyController extends Controller
 
         }
 
+//        return back();
+
         return back();
     }
 
