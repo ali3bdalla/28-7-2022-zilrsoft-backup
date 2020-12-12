@@ -3,8 +3,8 @@
 	namespace App\Models;
 	
 	use Illuminate\Database\Eloquent\SoftDeletes;
-	
-	/**
+
+    /**
 	 * @property mixed is_fixed_price
 	 * @property mixed price
 	 * @property mixed is_expense
@@ -24,18 +24,22 @@
 	 * @property mixed total_cost_amount
 	 * @property mixed total_stock_amount
 	 * @property mixed is_service
-	 * @method static findOrFail($id)
+	 * @property mixed ar_name
+	 * @property mixed creator_id
+	 * @property mixed online_offer_price
+     * @property mixed weight
+     * @method static findOrFail($id)
 	 * @method static InRandomOrder()
 	 * @method static find($input)
 	 */
 	class Item extends BaseModel
 	{
 		
-		// use WebItem;
 		use SoftDeletes;
 		
 		protected $appends = [
-			'locale_name',
+			'locale_name'
+		
 		];
 		protected $casts = [
 			'id' => 'integer',
@@ -77,31 +81,31 @@
 			return $this->belongsTo(Category::class, 'category_id');
 		}
 		
-		public function filters()
-		{
-			return $this->hasMany(ItemFilters::class, 'item_id');
-		}
-		
 		public function creator()
 		{
 			return $this->belongsTo(Manager::class, 'creator_id');
 		}
 		
+		public function attachments()
+		{
+			return $this->morphMany(Attachment::class, 'attachable');
+		}
+		
 		public function scopeLastFiveSearch($query, $search)
 		{
 			return $query
-				->where('barcode', 'LIKE', '%' . $search . '%')
-				->orWhere('name', 'LIKE', '%' . $search . '%')
-				->orWhere('ar_name', 'LIKE', '%' . $search . '%')
+				->where('barcode', 'ILIKE', '%' . $search . '%')
+				->orWhere('name', 'ILIKE', '%' . $search . '%')
+				->orWhere('ar_name', 'ILIKE', '%' . $search . '%')
 				->with('items', 'data')
 				->take(5);
 		}
 		
 		public function scopeItemBySerialSearch($query, $search)
 		{
-			$pserials = ItemSerials::where('serial', $search)->whereIn('current_status', ['available', 'return_sale'])->get();
+			$productSerials = ItemSerials::where('serial', $search)->whereIn('current_status', ['available', 'return_sale'])->get();
 			$serials = [];
-			foreach($pserials as $serial) {
+			foreach($productSerials as $serial) {
 				if(!empty($serial)) {
 					$item = $serial->item;
 					$item->has_init_serial = true;
@@ -116,6 +120,13 @@
 		public function getLocaleNameAttribute()
 		{
 			return $this->ar_name;
+		}
+		
+	
+		
+		public function filters()
+		{
+			return $this->hasMany(ItemFilters::class, 'item_id');
 		}
 		
 		public function scopeChildrenHaveAvailableQty($query)
@@ -183,69 +194,4 @@
 			return $data;
 			
 		}
-		
-		
-//		// kit relationships
-//		public function items()
-//		{
-//			return $this->hasMany(KitItems::class, 'kit_id')->with('item');
-//		}
-//
-//
-//		public function data()
-//		{
-//			return $this->hasOne(KitData::class, 'kit_id');
-//		}
-//
-//
-//		public function scopeKits($query)
-//		{
-//			return $query->where('is_kit', true);
-//		}
-//
-		// public static function higherSalesItemsQuery($take = 5)
-		// {
-		//     return self::where([
-		//         ['is_service', false],
-		//         ['is_kit', false],
-		//     ])
-		//         ->select('items.*')
-		//         ->leftJoin('item_statistics', 'item_statistics.item_id', '=', 'items.id')
-		//         ->orderBy('item_statistics.sales_count', 'desc')
-		//         ->take($take)
-		//         ->get();
-		// }
-		
-		// public static function latestItemsQuery($take = 5)
-		// {
-		//     return self::where([
-		//         ['is_service', false],
-		//         ['is_kit', false],
-		//     ])->latest()->take($take)->get();
-		// }
-		
-		// public static function bannerItemQuery($take = 5)
-		// {
-		//     return self::where([
-		//         ['is_service', false],
-		//         ['is_kit', false],
-		//     ])->first();
-		// }
-		
-		// public static function formattedCollectionQuery($cell, $orderType = 'desc', $take = 5)
-		// {
-		//     return self::where([
-		//         ['is_service', false],
-		//         ['is_kit', false],
-		//     ])->orderBy($cell, $orderType)->take($take)->get();
-		// }
-		
-		// public static function formattedPackageCollectionQuery($cell = 'id', $orderType = 'desc', $take = 5)
-		// {
-		//     return self::where([
-		//         ['is_service', false],
-		//         ['is_kit', true],
-		//     ])->orderBy($cell, $orderType)->take($take)->get();
-		// }
-		
 	}

@@ -2,7 +2,12 @@
 	
 	namespace App\Models;
 	
-
+	
+	/**
+	 * @property mixed clients_chart_account_id
+	 * @property mixed accounts_organization_id
+	 * @property mixed accounts_creator_id
+	 */
 	class Organization extends BaseModel
 	{
 

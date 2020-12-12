@@ -16,6 +16,9 @@
 		 */
 		protected function redirectTo($request)
 		{
+			if(strpos(url()->current(), 'web'))
+				return '/';
+			
 			return route('login');
 		}
 	}

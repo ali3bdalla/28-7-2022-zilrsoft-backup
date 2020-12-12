@@ -31,7 +31,7 @@
 				//
 				'name' => 'required|string',
 				'ar_name' => 'required|string',
-				'parent_id' => 'required|integer|exists:accounts,id',
+				'parent_id' => 'required|integer|organization_exists:App\Models\Account,id',
 				"sorting_number" => 'required|integer'
 			];
 		}

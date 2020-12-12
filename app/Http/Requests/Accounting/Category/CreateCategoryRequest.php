@@ -3,6 +3,8 @@
 	namespace App\Http\Requests\Accounting\Category;
 	
 	use App\Models\Category;
+	use App\Models\CategoryFilters;
+	use App\Models\Filter;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class CreateCategoryRequest extends FormRequest
@@ -26,31 +28,31 @@
 		{
 			return [
 				//
-				'name' => "required|min:2|string|unique:categories,name,NULL,id,deleted_at,NULL",
-				'ar_name' => "required|min:2|string|unique:categories,ar_name,NULL,id,deleted_at,NULL",
+				'name' => "required|min:2|string|organization_unique:App\Models\Category,name,NULL,id,deleted_at,NULL",
+				'ar_name' => "required|min:2|string|organization_unique:App\Models\Category,ar_name,NULL,id,deleted_at,NULL",
 				'description' => "required|min:2|string",
 				'ar_description' => "required|min:2|string",
 				'parent_id' => "required|integer",
-				'cloned_category' => 'nullable|integer|exists:categories,id',
+				'cloned_category' => 'nullable|integer|organization_exists:App\Models\Category,id',
 				'is_available_online' => 'nullable',
-
+			
 			];
 		}
 		
 		public function save()
 		{
-
-			$data = $this->only('name','ar_name','description','ar_description','parent_id');
-			$data['is_available_online'] =  $this->input('is_available_online') == 'on';
+			
+			$data = $this->only('name', 'ar_name', 'description', 'ar_description', 'parent_id');
+			$data['is_available_online'] = $this->input('is_available_online') == 'on';
 			$data['organization_id'] = $this->user()->organization_id;
 			$category = $this->user()->categories()->create($data);
-			if ($this->has('isCloned') && $this->has('cloned_category')){
+			if($this->has('isCloned') && $this->has('cloned_category')) {
 				$parent_category = Category::findOrFail($this->input("cloned_category"));
-				if(!empty($parent_category))
-				{
+				if(!empty($parent_category)) {
 					
 					$filters = $parent_category->filters()->pluck('filter_id');
-					$category->filters()->attach($filters,
+					$category->filters()->attach(
+						$filters,
 						[
 							'organization_id' => auth()->user()->organization_id,
 							'creator_id' => auth()->user()->id,
@@ -62,9 +64,23 @@
 				
 			}
 			
+			$requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
+			$categoryFilters = CategoryFilters::where('category_id', $category->id)->pluck('filter_id')->toArray();
 			
-
-			return  redirect(route('accounting.categories.index'));
+			foreach($requiredFilter as $filterId) {
+				if(!in_array($filterId, $categoryFilters)) {
+					$category->filters()->attach(
+						$filterId, [
+						'organization_id' => auth()->user()->organization_id,
+						'creator_id' => auth()->user()->id,
+						'sorting' => 0
+					]
+					);
+				}
+			}
+			
+			
+			return redirect(route('accounting.categories.index'));
 		}
 		
 	}

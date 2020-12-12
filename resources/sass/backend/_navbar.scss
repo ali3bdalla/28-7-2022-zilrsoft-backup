@@ -1,0 +1,11 @@
+.navbar {
+
+  &__notification {
+    &__list {
+
+      @apply bg-red-500;
+    }
+  }
+
+
+}

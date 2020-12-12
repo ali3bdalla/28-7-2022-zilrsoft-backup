@@ -13,6 +13,9 @@ class Filter extends BaseModel
     protected $guarded = [
     ];
 
+    protected $casts = [
+        'is_required_filter' => 'boolean'
+    ];
 
     public function getLocaleNameAttribute()
     {

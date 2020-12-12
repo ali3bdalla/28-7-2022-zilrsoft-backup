@@ -30,13 +30,27 @@
 			$totalDebitBalance = 0;
 			$accounts = [];
 			
+			$allAccounts = [];
 			foreach($mainAccounts as $mainAccount) {
 				
-				$children = Account::whereIn('id', $mainAccount->getChildrenHashMap())->where(
-					[[
-						'id', '!=', $mainAccount->id,
-					]]
-				)->get();//->withCount('children')->having('children_count', 0)
+				if(
+					$request->has('startDate') && $request->filled('startDate') && $request->has('endDate') &&
+					$request->filled('endDate')
+				) {
+					$children = Account::whereIn('id', $mainAccount->getChildrenHashMap())->where(
+						[[
+							'id', '!=', $mainAccount->id,
+						]]
+					)->withTrashed()->get();//->withCount('children')->having('children_count', 0)\
+					
+					
+				}else{
+					$children = Account::whereIn('id', $mainAccount->getChildrenHashMap())->where(
+						[[
+							'id', '!=', $mainAccount->id,
+						]]
+					)->get();
+				}
 				$mainAccountChildren = [];
 				foreach($children as $account) {
 					if(
@@ -46,9 +60,11 @@
 						$startDate = Carbon::parse($request->input("startDate"));
 						$endDate = Carbon::parse($request->input("endDate"));
 						
-						$debitAmount = $account->snapshots()->whereBetween('created_at', [$startDate, $endDate])->sum('debit_amount');
-						$creditAmount = $account->snapshots()->whereBetween('created_at', [$startDate, $endDate])->sum('credit_amount');
-						
+						$debitAmount = $account->snapshots()->whereDate('created_at', '>=',$startDate)
+							->whereDate('created_at', '<=',$endDate)->sum('debit_amount');
+						$creditAmount = $account->snapshots()->whereDate('created_at', '>=',$startDate)
+							->whereDate('created_at', '<=',$endDate)->sum('credit_amount');
+		
 					} else {
 						$debitAmount = $account->total_debit_amount;
 						$creditAmount = $account->total_credit_amount;
@@ -77,13 +93,16 @@
 						$totalCreditBalance = displayMoney($totalCreditBalance + ((float)$accountCreditBalance));
 						$totalDebitBalance = displayMoney($totalDebitBalance + ((float)$accountDebitBalance));
 						$mainAccountChildren[] = $account;
+						$allAccounts[] = $account;
 					}
+					
 				}
 				$mainAccount->mainAccountChildren = $mainAccountChildren;
 				$accounts[] = $mainAccount;
 			}
 			
 			
+//			return  $allAccounts;
 			return [
 				'accounts' => $accounts,
 				'totalCreditAmount' => $totalCreditAmount,

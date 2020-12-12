@@ -19,6 +19,7 @@ return [
 
     'version' => env('APP_VERSION', '1.0'),
 
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -178,9 +179,9 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
         App\Providers\ValidatorServiceProvider::class,
-
         /*
          *
          * custom providers
@@ -189,6 +190,15 @@ return [
          * */
         Spatie\Permission\PermissionServiceProvider::class,
         ObserverServiceProvider::class,
+        BC\Laravel\DropboxDriver\ServiceProvider::class,
+
+        App\Providers\TranslationServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+
+
+        Artisaninweb\SoapWrapper\ServiceProvider::class,
+
 
     ],
 
@@ -240,6 +250,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'SoapWrapper' => Artisaninweb\SoapWrapper\Facade\SoapWrapper::class,
 
     ],
 

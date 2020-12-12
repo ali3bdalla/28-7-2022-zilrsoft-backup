@@ -50,7 +50,7 @@
 			
 			
 			if ($this->has('name') && $this->filled('name')){
-				$query = $query->where('title','LIKE','%'.$this->name.'%')->orWhere('ar_title','LIKE','%'
+				$query = $query->where('title','ILIKE','%'.$this->name.'%')->orWhere('ar_title','ILIKE','%'
 					.$this->name
 					.'%');
 			}

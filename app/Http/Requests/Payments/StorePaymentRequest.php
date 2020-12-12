@@ -34,7 +34,7 @@ class StorePaymentRequest extends FormRequest
             'user_id' => 'required|integer|exists:users,id',
             'amount' => 'required|numeric',
             'voucher_type' => 'required|in:transfer,cash,check',
-            'org_account_id' => 'required|integer|exists:accounts,id',
+            'org_account_id' => 'required|integer|organization_exists:App\Models\Account,id',
             'user_account_id' => 'nullable|exists:user_gateways,id',
             'payment_type' => 'in:payment,receipt',
         ];

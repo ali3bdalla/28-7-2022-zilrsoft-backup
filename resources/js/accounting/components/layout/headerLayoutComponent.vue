@@ -10,56 +10,54 @@
 
     </a>
     <nav :style="{'backgroundColor':primaryColor}" class="navbar navbar-fixed-top" style="margin-bottom: 50px
-        !important;" >
+        !important;">
       <div class="right" style="">
         <ul class="nav navbar-nav">
+          <NotificationBell :manager="manager"/>
 
-          <li v-if="canConfirmPendingPurchases">
-            <a class="dropdown-toggle" href="/purchases/pending/list">
-              <i class="fa fa-bars" style="font-size: 19px;
-margin-bottom: -10px;"></i>
-              <span class="label label-danger">{{ pendingPurchases }}</span>
-            </a>
-          </li>
-          <li class="dropdown notifications-menu" v-if="!disableCreate">
-            <a aria-expanded="true" class="dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="fa fa-bell" style="font-size: 19px;
-margin-bottom: -10px;"></i>
-              <span class="label label-danger">{{ pendingTransactions.length }}</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">({{ pendingTransactions.length }}) عملية تحويل منتظرة</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu" style="    background: #eee;    max-height: 500px;">
+<!--          <li v-if="canConfirmPendingPurchases">-->
+<!--            <a class="dropdown-toggle" href="/purchases/pending/list">-->
+<!--              <i class="fa fa-bars" style="font-size: 19px;-->
+<!--margin-bottom: -10px;"></i>-->
+<!--              <span class="label label-danger">{{ pendingPurchases }}</span>-->
+<!--            </a>-->
+<!--          </li>-->
+<!--          <li v-if="!disableCreate" class="dropdown notifications-menu">-->
+<!--            <a aria-expanded="true" class="dropdown-toggle" data-toggle="dropdown" href="#">-->
+<!--              <i class="fa fa-bell" style="font-size: 19px;-->
+<!--margin-bottom: -10px;"></i>-->
+<!--              <span class="label label-danger">{{ pendingTransactions.length }}</span>-->
+<!--            </a>-->
+<!--            <ul class="dropdown-menu">-->
+<!--              <li class="header">({{ pendingTransactions.length }}) عملية تحويل منتظرة</li>-->
+<!--              <li>-->
+<!--                &lt;!&ndash; inner menu: contains the actual data &ndash;&gt;-->
+<!--                <ul class="menu" style="    background: #eee;    max-height: 500px;">-->
 
-                  <li v-for="transaction in pendingTransactions" :key="transaction.id">
-                    <div class="">
-                      <div class="panel-body">
-                        <i class="fa fa-warning text-yellow"></i> تحويل من {{
-                          transaction.creator.locale_name
-                        }} ،
-                        بمبلغ
-                        <span class="text-primary" style="    font-weight: bold;">{{
-                            parseFloat(transaction.amount).toFixed(2)
-                          }}</span>
-                      </div>
-                      <div class="panel-footer">
-                        <a
-                            :href="'/daily/reseller/accounts_transactions/'+transaction.id+'/confirm'"
-                            class="btn btn-custom-primary pull-left">موافق</a>
-                        <a :href="'/accounting/reseller_daily/'+transaction.id+
-                                                   '/delete_transaction'"
-                           class="btn btn-custom-default">الغاء </a>
-                      </div>
-                    </div>
-                  </li>
+<!--                  <li v-for="transaction in pendingTransactions" :key="transaction.id">-->
+<!--                    <div class="">-->
+<!--                      <div class="panel-body">-->
+<!--                        <i class="fa fa-warning text-yellow"></i> تحويل من {{ transaction.creator.locale_name}} ،-->
+<!--                        بمبلغ-->
+<!--                        <span class="text-primary" style="    font-weight: bold;">{{-->
+<!--                            parseFloat(transaction.amount).toFixed(2)-->
+<!--                          }}</span>-->
+<!--                      </div>-->
+<!--                      <div class="panel-footer">-->
+<!--                        <a-->
+<!--                            :href="'/daily/reseller/accounts_transactions/'+transaction.id+'/confirm'"-->
+<!--                            class="btn btn-custom-primary pull-left">موافق</a>-->
+<!--                        <a :href="'/daily/reseller/accounts_transactions/'+transaction.id+ '/delete_transaction'"-->
+<!--                           class="btn btn-custom-default">الغاء </a>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </li>-->
 
-                </ul>
-              </li>
-              <!--                            <li class="footer"><a href="#">View all</a></li>-->
-            </ul>
-          </li>
+<!--                </ul>-->
+<!--              </li>-->
+<!--              &lt;!&ndash;                            <li class="footer"><a href="#">View all</a></li>&ndash;&gt;-->
+<!--            </ul>-->
+<!--          </li>-->
 
           <!--                    -->
           <!--                    -->
@@ -104,7 +102,7 @@ margin-bottom: -10px;"></i>
             </ul>
           </li>
           <!--                    <li><a href="/accounting/settings" v-text="trans.settings"></a></li>-->
-          <li v-if="!disableCreate"><a href="/printer/printers" v-text="trans.printers"></a></li>
+          <li v-if="!disableCreate"><a href="/accounting/printer/printers" v-text="trans.printers"></a></li>
           <!--                    <li><a href="/statistics" v-text="trans.statistics"></a></li>-->
           <li v-if="!disableCreate"><a href="/items"> المنتجات</a></li>
           <li v-if="!disableCreate"><a href="/sales/create">فاتورة مبيعات</a></li>
@@ -118,8 +116,11 @@ margin-bottom: -10px;"></i>
   </header>
 </template>
 <script>
+import NotificationBell from "../../../components/BackEnd/Header/NotificationBell";
+
 export default {
-  props: ["csrf", "username", 'pendingTransactions', 'pendingPurchases', 'canConfirmPendingPurchases','disableCreate'],
+  components: {NotificationBell},
+  props: ['manager', "csrf", "username", 'pendingTransactions', 'pendingPurchases', 'canConfirmPendingPurchases', 'disableCreate'],
   data: function () {
     return {
       appName: metaHelper.getContent('app-name'),
@@ -128,11 +129,12 @@ export default {
       secondColor: metaHelper.getContent('second-color'),
       appLocate: metaHelper.getContent('app-locate'),
       BaseApiUrl: metaHelper.getContent('BaseApiUrl'),
-      trans: trans('sidebar')
+      trans: trans('sidebar'),
+      orders: [],
     };
   },
-  created() {
-  }
+
+
 }
 </script>
 

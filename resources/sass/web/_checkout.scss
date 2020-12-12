@@ -1,0 +1,32 @@
+.checkout {
+	@apply my-5 shadow-md p-2 pt-0;
+	&__title {
+		@apply my-3 text-gray-500 text-2xl;
+	}
+
+	&__edit-icon {
+        @apply float-right text-blue-500 text-lg;
+        &:hover {
+            color: blue !important;
+
+        }
+        
+		svg {
+			@apply w-6 h-6 inline-block;
+		}
+
+		
+	}
+
+	&__shipping-address {
+		@apply bg-white p-2 pb-0 text-gray-700 flex flex-col justify-between;
+    }
+    
+    &__shipping-address-button {
+        @apply bg-web-primary p-2 text-white mt-2 w-1/2 text-sm;
+    }
+
+	&__list {
+		@apply grid grid-cols-3 gap-2 mt-3 border-gray-200 border p-3;
+	}
+}

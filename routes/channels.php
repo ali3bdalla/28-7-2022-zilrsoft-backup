@@ -1,30 +1,25 @@
 <?php
-
-	use \App\Models\Category;
-
-	/*
-	|--------------------------------------------------------------------------
-	| Broadcast Channels
-	|--------------------------------------------------------------------------
-	|
-	| Here you may register all of the event broadcasting channels that your
-	| application supports. The given channel authorization callbacks are
-	| used to check if an authenticated user can listen to the channel.
-	|
-	*/
-
-	// Broadcast::channel('App.User.{id}',function ($user,$id){
-	// 	return (int)$user->id === (int)$id;
-	// });
-
-	// Broadcast::channel("presence-my_channel",function (){
-	// 	return true;
-	// });
-
-	// Broadcast::channel('category.{categoryId}',function ($user,$categoryId){
-	// 	return $user->organization_id === Category::findOrNew($categoryId)->organization_id;
-	// });
-
-	//Broadcast::channel('test_broadcast',function ($user){
-	//
-	//});
+	
+	
+	use App\Models\Manager;
+	use Illuminate\Support\Facades\Broadcast;
+	
+	
+	Broadcast::channel(
+		'transaction-issued', function($user) {
+		return $user !== null;
+	}
+	);
+	
+	
+	Broadcast::channel(
+		'order-payment-updated', function(Manager $user) {
+		return $user->can('manage branches');
+	}
+	);
+	
+	Broadcast::channel(
+		'order-payment-confirmed', function(Manager $user) {
+		return !$user->can('manage branches');
+	}
+	);

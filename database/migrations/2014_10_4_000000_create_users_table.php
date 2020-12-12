@@ -40,7 +40,8 @@ class CreateUsersTable extends Migration
             $table->float('total_credit_amount',20, 8)->default(0);
             $table->float('total_debit_amount',20, 8)->default(0);
 
-            
+
+
             $table->timestamps();
             $table->softDeletes();
 

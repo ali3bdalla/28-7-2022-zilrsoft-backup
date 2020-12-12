@@ -18,6 +18,7 @@
         <table class="table table-bordered table-sorted">
             <thead>
             <tr>
+                <td>#</td>
                 <td>الحساب</td>
                 <td>مدين</td>
                 <td>دائن</td>
@@ -28,6 +29,7 @@
             <tbody>
             @foreach($entity->transactions as $transaction)
                 <tr>
+                    <td>{{ $transaction->id }}</td>
                     <td>{{ $transaction->account_name }}</td>
                     @if($transaction->type == 'debit')
                         <td>{{ displayMoney($transaction->amount) }}</td>

@@ -401,7 +401,7 @@
 
     export default {
         components: {},
-        props: ['creator', 'clients', 'salesmen', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
+        props: ['creator', 'clients','cloning', 'quotation',  'salesmen', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
         data: function () {
             return {
                 clientModal: {
@@ -468,6 +468,9 @@
             this.clientList = this.clients;
             this.initExpensesList();
             this.initLiveTimer();
+          if (this.cloning === true) {
+            this.handleCloningEvent();
+          }
 
         },
 
@@ -479,7 +482,36 @@
 
 
         methods: {
+          handleCloningEvent() {
+            let items = this.quotation.items;
+            this.quotationId = this.quotation.id;
 
+            // alert(this.quotationId );
+            let appVm = this;
+            items.forEach((item) => {
+              item.barcode = item.item.barcode;
+              item.available_qty = item.item.available_qty;
+              item.vts = item.item.vts;
+              item.is_service = item.item.is_service;
+              item.is_fixed_price = item.item.is_fixed_price;
+              item.is_expense = item.item.is_expense;
+              item.is_need_serial = item.item.is_need_serial;
+              item.is_kit = item.item.is_kit;
+              item.items = item.item.items;
+              item.data = item.item.data;
+              item.vts = item.item.vts;
+              item.id = item.item.id;
+              item.locale_name = item.item.locale_name;
+              if (item.is_need_serial) {
+                item.qty = 0;
+              }
+              appVm.invoiceData.items.push(item);
+            });
+
+            this.invoiceData.salesmanId = this.quotation.managed_by_id;
+            this.invoiceData.clientId = this.quotation.user_id;
+            this.updateInvoiceData();
+          },
             addExpenseToInvoice() {
                 if (this.selectedExpense != null) {
                     let new_expense = this.selectedExpense;

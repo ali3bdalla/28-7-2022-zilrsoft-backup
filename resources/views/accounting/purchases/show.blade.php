@@ -89,13 +89,32 @@
                                $invoice->purchase->receiver->locale_name : "" }}">
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <span id="vendors-list" class="input-group-addon">{{ trans('pages/invoice.department') }}</span>
-                        <input type="text" name="" disabled="disabled"
-                               class="form-control" value="{{ $invoice->department->locale_title }}">
+                @if($invoice->has_dropbox_snapshot)
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <span id="vendors-list"
+                                  class="input-group-addon">{{ trans('pages/invoice.department') }}</span>
+                            <input type="text" name="" disabled="disabled"
+                                   class="form-control" value="{{ $invoice->department->locale_title }}">
+                        </div>
                     </div>
-                </div>
+
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <a href="{{$invoice->dropbox_snapshot_url}}" class="btn btn-default"><i class="fa
+            fa-eye"></i> فاتورة المودر</a>
+                        </div>
+                    </div>
+                @else
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span id="vendors-list"
+                                  class="input-group-addon">{{ trans('pages/invoice.department') }}</span>
+                            <input type="text" name="" disabled="disabled"
+                                   class="form-control" value="{{ $invoice->department->locale_title }}">
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
         <div class="panel-body">

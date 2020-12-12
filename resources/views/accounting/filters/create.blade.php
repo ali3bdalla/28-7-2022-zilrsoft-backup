@@ -13,7 +13,7 @@
 
 @section("content")
     <div class="panel panel-custom-form">
-        <form method="post" action="{{ route('accounting.filters.store') }}" class="panel-body">
+        <form method="post" action="{{ route('api.filters.store') }}" class="panel-body">
             @csrf
             <div class="row">
                 <div class="col-md-6">

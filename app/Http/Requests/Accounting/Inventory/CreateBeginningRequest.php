@@ -29,7 +29,7 @@
 			return [
 				
 				'items' => 'required|array',
-				'items.*.id' => ['required','integer','exists:items,id'],
+				'items.*.id' => ['required','integer','organization_exists:App\Models\Item,id'],
 				'items.*.price' => 'required|numeric|min:0|',
 				'items.*.total' => 'required|numeric',
 				'items.*.tax' => 'required|numeric',

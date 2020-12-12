@@ -6,6 +6,8 @@ use App\Models\InvoiceItems;
 use App\Models\Item;
 use App\Models\ItemSerials;
 use App\Models\KitItems;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
@@ -33,13 +35,58 @@ class ValidatorServiceProvider extends ServiceProvider
 
         $this->registerFinialValidations();
 
-        Validator::extendImplicit('phone', function ($attribute, $value, $parameters) {
+        Validator::extendImplicit(
+            'phone', function ($attribute, $value, $parameters) {
             return true;
-        });
-        Validator::extendImplicit('price', function ($attribute, $value, $args) {
+        }
+        );
+        Validator::extendImplicit(
+            'price', function ($attribute, $value, $args) {
 
             return preg_match('/^\d{0,8}(\.\d{1,8})?$/', $value);
-        });
+        }
+        );
+
+        Validator::extendImplicit(
+            'organization_exists', function ($attribute, $value, $parameters, $validator) {
+            $model = app($parameters[0]);
+
+            
+            if (!$model instanceof Model)
+                return false;
+                
+          
+            $table = (new $model)->getTable();
+
+        
+
+          
+            if (!Schema::hasColumn($table, $parameters[1]))
+                return false;
+
+
+
+
+            return $model::where($parameters[1], $value)->count() > 0;
+
+        }
+        );
+
+        Validator::extendImplicit(
+            'organization_unique', function ($attribute, $value, $parameters, $validator) {
+            $model = app($parameters[0]);
+            if (!$model instanceof Model)
+                return false;
+
+            $table = (new $model)->getTable();
+
+            if (!Schema::hasColumn($table, $parameters[1]))
+                return false;
+
+            return $model::where($parameters[1], $value)->count() === 0;
+        }
+        );
+
 
 //        Validator::extendImplicit('item_has_available_qty', function ($attribute, $value, $args) {
 //            $str_attr = explode('.', $attribute);
@@ -120,7 +167,8 @@ class ValidatorServiceProvider extends ServiceProvider
     public function registerFinialValidations()
     {
 
-        Validator::extendImplicit('salesItemQty', function ($attribute, $value, $args) {
+        Validator::extendImplicit(
+            'salesItemQty', function ($attribute, $value, $args) {
             $str_attr = explode('.', $attribute);
             $index = $str_attr[1];
             $first = $str_attr[0];
@@ -132,10 +180,12 @@ class ValidatorServiceProvider extends ServiceProvider
             }
 
             return $item->available_qty >= (int)$value;
-        });
+        }
+        );
 
 
-        Validator::extendImplicit('purchaseItemPrice', function ($attribute, $value, $args) {
+        Validator::extendImplicit(
+            'purchaseItemPrice', function ($attribute, $value, $args) {
             $str_attr = explode('.', $attribute);
             $index = $str_attr[1];
             $first = $str_attr[0];
@@ -147,16 +197,20 @@ class ValidatorServiceProvider extends ServiceProvider
             } else {
                 return true;
             }
-        });
+        }
+        );
 
 
-        Validator::extendImplicit('price', function ($attribute, $value, $args) {
+        Validator::extendImplicit(
+            'price', function ($attribute, $value, $args) {
 
             return preg_match('/^\d{0,8}(\.\d{1,8})?$/', $value);
-        });
+        }
+        );
 
 //
-        Validator::extendImplicit('itemVendorExpenseId', function ($attribute, $value, $args) {
+        Validator::extendImplicit(
+            'itemVendorExpenseId', function ($attribute, $value, $args) {
             $str_attr = explode('.', $attribute);
             $index = $str_attr[1];
             $first = $str_attr[0];
@@ -168,10 +222,12 @@ class ValidatorServiceProvider extends ServiceProvider
             }
             return true;
 //            return $item->is_expense ? is_numeric($value) && !empty($value) : true;
-        });
+        }
+        );
 
 
-        Validator::extendImplicit('salesExpensesPurchasePrice', function ($attribute, $value, $args) {
+        Validator::extendImplicit(
+            'salesExpensesPurchasePrice', function ($attribute, $value, $args) {
             $str_attr = explode('.', $attribute);
             $index = $str_attr[1];
             $first = $str_attr[0];
@@ -182,9 +238,11 @@ class ValidatorServiceProvider extends ServiceProvider
                 return is_numeric($value) && $value >= 0;
             }
             return true;
-        });
+        }
+        );
 
-        Validator::extendImplicit('newInvoiceItemSerials', function ($attribute, $value, $args) {
+        Validator::extendImplicit(
+            'newInvoiceItemSerials', function ($attribute, $value, $args) {
             $str_attr = explode('.', $attribute);
             $index = $str_attr[1];
             $first = $str_attr[0];
@@ -199,10 +257,12 @@ class ValidatorServiceProvider extends ServiceProvider
                 }
             }
             return true;
-        });
+        }
+        );
 
 
-        Validator::extendImplicit('returnInvoiceItemSerials', function ($attribute, $value, $args) {
+        Validator::extendImplicit(
+            'returnInvoiceItemSerials', function ($attribute, $value, $args) {
             $str_attr = explode('.', $attribute);
             $index = $str_attr[1];
             $first = $str_attr[0];
@@ -216,10 +276,12 @@ class ValidatorServiceProvider extends ServiceProvider
                 }
             }
             return true;
-        });
+        }
+        );
 
 
-        Validator::extendImplicit('priceAndDiscount', function ($attribute, $value, $args) {
+        Validator::extendImplicit(
+            'priceAndDiscount', function ($attribute, $value, $args) {
             $str_attr = explode('.', $attribute);
             $index = $str_attr[1];
             $first = $str_attr[0];
@@ -233,10 +295,33 @@ class ValidatorServiceProvider extends ServiceProvider
                 return !$item->is_kit && !$item->is_expense ? is_numeric($value) : true;
             }
 
-        });
+        }
+        );
 
 
-        Validator::extendImplicit('salesKitItemValidator', function ($attribute, $value, $args) {
+        Validator::extendImplicit(
+            'mobileNumber', function ($attribute, $value, $args) {
+            return preg_match("/(5)[0-9]{8}/", $value);
+//            (5)
+//				$str_attr = explode('.', $attribute);
+//				$index = $str_attr[1];
+//				$first = $str_attr[0];
+//				$end = $str_attr[2];
+//				$id = request()->input("{$first}.{$index}.id");
+//				$item = Item::findOrFail($id);
+//
+//				if($end == "price")
+//					return $item->is_kit ? true : is_numeric($value);
+//				else {
+//					return !$item->is_kit && !$item->is_expense ? is_numeric($value) : true;
+//				}
+
+        }, 'invalid mobile number'
+        );
+
+
+        Validator::extendImplicit(
+            'salesKitItemValidator', function ($attribute, $value, $args) {
             $str_attr = explode('.', $attribute);
             $kitIndex = $str_attr[1];
             $itemInKitIndex = $str_attr[3];
@@ -245,10 +330,12 @@ class ValidatorServiceProvider extends ServiceProvider
             $kitItemId = request()->input("items.{$kitIndex}.items.{$itemInKitIndex}.id");
             $kitId = request()->input("items.{$kitIndex}.id");
             $kitQty = request()->input("items.{$kitIndex}.qty");
-            $dbKitItem = KitItems::where([
-                ['kit_id', $kitId],
-                ['item_id', $kitItemId]
-            ])->firstOrFail();
+            $dbKitItem = KitItems::where(
+                [
+                    ['kit_id', $kitId],
+                    ['item_id', $kitItemId]
+                ]
+            )->firstOrFail();
 
             $requestedQty = (int)$kitQty * $dbKitItem->qty;
             if ($requestedQty > $dbKitItem->item->available_qty) {
@@ -267,10 +354,12 @@ class ValidatorServiceProvider extends ServiceProvider
 
 
                 foreach ($serials as $serial) {
-                    $itemSerial = ItemSerials::where([
-                        ['serial', $serial],
-                        ['item_id', $dbKitItem->item_id],
-                    ])->whereIn('status', ['in_stock', 'return_sale'])->first();
+                    $itemSerial = ItemSerials::where(
+                        [
+                            ['serial', $serial],
+                            ['item_id', $dbKitItem->item_id],
+                        ]
+                    )->whereIn('status', ['in_stock', 'return_sale'])->first();
 
 //                    dd($itemSerial->toArray());
                     if ($itemSerial == null) {
@@ -282,7 +371,8 @@ class ValidatorServiceProvider extends ServiceProvider
 
 
             return true;
-        });
+        }
+        );
 
 
 //

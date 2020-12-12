@@ -5,8 +5,8 @@
 		'category_details'=>'بيانات الفئة',
 		'name'=>' الاسم انجليزي',
 		'ar_name'=>' الاسم بالعربي',
-		'description'=>' الوصف انجليزي',
-		'ar_description'=>' الوصف بالعربي',
+		'description'=>'  الفئة اونلاين عربي',
+		'ar_description'=>' الفئة اونلاين انجليزي',
 		'main_category'=>' فئة رئيسية',
 		
 		'create_subcategory' => 'انشاء فئة فرعية',

@@ -1,0 +1,5 @@
+.page {
+  &__content {
+    @apply bg-white shadow-lg my-10 rounded p-3;
+  }
+}

@@ -65,7 +65,7 @@
 			
 			
 			if ($this->has('name') && $this->filled('name')){
-				$query = $query->where('name','LIKE','%'.$this->name.'%')->orWhere('name_ar','LIKE','%'.$this->name
+				$query = $query->where('name','ILIKE','%'.$this->name.'%')->orWhere('name_ar','ILIKE','%'.$this->name
 					.'%');
 			}
 			

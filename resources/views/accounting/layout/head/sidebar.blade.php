@@ -6,22 +6,22 @@
     </div>
 
     <ul class="sidebar-menu" data-widget="tree">
-{{--        <li class="treeview">--}}
-{{--            <a href="#">--}}
-{{--                <i class="fa  fa-tachometer-alt"></i> <span>{{ __('sidebar.dashboard') }}</span>--}}
+        {{--        <li class="treeview">--}}
+        {{--            <a href="#">--}}
+        {{--                <i class="fa  fa-tachometer-alt"></i> <span>{{ __('sidebar.dashboard') }}</span>--}}
 
-{{--            </a>--}}
-{{--            <ul class="treeview-menu">--}}
-{{--                <li><a href="{{route('dashboard.index')}}"><i class="fa fa-tachometer-alt"></i>--}}
-{{--                        {{ __('sidebar.dashboard') }}</a></li>--}}
-{{--                @can('view accounting')--}}
-{{--                    <li>--}}
-{{--                        <a href="{{route('dashboard.index')}}"><i class="fa fa-sun"></i>--}}
-{{--                            {{ __('sidebar.statistics') }}--}}
-{{--                        </a></li>--}}
-{{--                @endcan--}}
-{{--            </ul>--}}
-{{--        </li>--}}
+        {{--            </a>--}}
+        {{--            <ul class="treeview-menu">--}}
+        {{--                <li><a href="{{route('dashboard.index')}}"><i class="fa fa-tachometer-alt"></i>--}}
+        {{--                        {{ __('sidebar.dashboard') }}</a></li>--}}
+        {{--                @can('view accounting')--}}
+        {{--                    <li>--}}
+        {{--                        <a href="{{route('dashboard.index')}}"><i class="fa fa-sun"></i>--}}
+        {{--                            {{ __('sidebar.statistics') }}--}}
+        {{--                        </a></li>--}}
+        {{--                @endcan--}}
+        {{--            </ul>--}}
+        {{--        </li>--}}
 
         @canany(['view item','create item','edit item','manage kit'])
             <li class="treeview">
@@ -93,8 +93,47 @@
             </li>
         @endcanany
 
+        <li class="treeview">
+            <a href="#">
+                <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}
+                    المتجر الالكتروني</span>
+            </a>
+            <ul class="treeview-menu">
+
+                <li>
+                    <a href="{{route('store.orders.index')}}"><i class="fa fa-sun"></i>
+                        الطلبات
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{{route('store.shipping.index')}}"><i class="fa fa-sun"></i>
+                        الشحن
+                    </a>
+                </li>
+
+
+{{--                <li>--}}
+{{--                    <a href="{{route('delivery_men.index')}}"><i class="fa fa-sun"></i>--}}
+{{--                        مناديب التوصيل--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+
+                <li>
+                    <a href="{{route('store.orders.index')}}"><i class="fa fa-sun"></i>
+                        الاعدادات
+                    </a>
+                </li>
+
+
+            </ul>
+
+
+        </li>
+
         @canany(['view sale','create sale','edit sale','view purchase','create purchase','edit purchase','confirm
-        purchase'])
+            purchase'])
             <li class="treeview">
                 <a href="#">
                     <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}
@@ -134,6 +173,9 @@
                                 {{ __('sidebar.quotations') }}
                             </a>
                         </li>
+
+
+
 
                         <li>
                             <a href="{{route('sales.drafts.create.service')}}"><i class="fa fa-sun"></i>
@@ -202,6 +244,14 @@
                             fa-sun"></i>
                                 {{ __('pages/vouchers.create_receipt') }}
                             </a></li>
+
+                        @if($loggedManager['organization_id'] == 1)
+                            <li>
+                                <a href="{{route('vouchers.create.supplier')}}"><i class="fa
+                            fa-sun"></i>
+                                    اضافة سند مصاريف
+                                </a></li>
+                        @endif
                     @endcan
 
 

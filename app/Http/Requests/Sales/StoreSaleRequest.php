@@ -6,12 +6,15 @@ use App\Jobs\Accounting\Sale\StoreSaleTransactionsJob;
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
 use App\Jobs\Items\Serial\ValidateItemSerialJob;
+use App\Jobs\Sales\Draft\SetDraftAsConvertedJob;
 use App\Jobs\Sales\Expense\CreatePurchaseInvoiceForExpensesJob;
 use App\Jobs\Sales\Items\StoreSaleItemsJob;
+use App\Jobs\Sales\Order\UpdateOnlineOrderStatus;
 use App\Jobs\Sales\Payment\StoreSalePaymentsJob;
 use App\Models\Invoice;
 use App\Models\Item;
 use App\Models\ItemSerials;
+use App\Models\Order;
 use App\Models\User;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -32,21 +35,21 @@ class StoreSaleRequest extends FormRequest
 
 
             "items" => "required|array",
-            "items.*.id" => "required|integer|exists:items,id",
+            "items.*.id" => "required|integer|organization_exists:App\Models\Item,id",
             "items.*.price" => "price|priceAndDiscount|min:0",
             "items.*.discount" => "priceAndDiscount",
             "items.*.qty" => "required|integer|min:1|salesItemQty",
 //            "items.*.purchase_price" => "salesExpensesPurchasePrice|price|min:0",
             'items.*.serials' => 'array|newInvoiceItemSerials',
-            'items.*.serials.*' => 'required|exists:item_serials,serial',
-            'items.*.items.*.id' => 'required|exists:items,id',
+            'items.*.serials.*' => 'required|organization_exists:App\Models\ItemSerials,serial',
+            'items.*.items.*.id' => 'required|organization_exists:App\Models\Item,id',
             'items.*.items.*.serials' => 'array',
-            'items.*.items.*.serials.*' => 'required|exists:item_serials,serial',
+            'items.*.items.*.serials.*' => 'required|organization_exists:App\Models\ItemSerials,serial',
             'items.*.items.*.qty' => 'required|integer|salesKitItemValidator',
-            "client_id" => "required|integer|exists:users,id",
-            "salesman_id" => "required|integer|exists:managers,id",
+            "client_id" => "required|integer|organization_exists:App\Models\User,id",
+            "salesman_id" => "required|integer|organization_exists:App\Models\Manager,id",
             'methods' => 'array',
-            'methods.*.id' => 'required|integer|exists:accounts,id',
+            'methods.*.id' => 'required|integer|organization_exists:App\Models\Account,id',
             'methods.*.amount' => 'required|numeric',
         ];
     }
@@ -65,9 +68,8 @@ class StoreSaleRequest extends FormRequest
     {
         DB::beginTransaction();
         try {
-            $this->validateSerials();
-            $this->validateKits();
-            $this->validateQuantities($this->input('items'));
+            $isOnlineOrder = $this->isOnlineOrder();
+            $this->requestValidation();
             $authUser = auth()->user();
             if ($this->has('without_creating_expenses_purchases') && $this->filled('without_creating_expenses_purchases')) {
 
@@ -75,24 +77,28 @@ class StoreSaleRequest extends FormRequest
                 dispatch(new CreatePurchaseInvoiceForExpensesJob($this->input('items')));
             }
 
-            $invoice = Invoice::create([
-                'invoice_type' => 'sale',
-                'notes' => $this->has('notes') ? $this->input('notes') : "",
-                'creator_id' => $authUser->id,
-                'organization_id' => $authUser->organization_id,
-                'branch_id' => $authUser->branch_id,
-                'department_id' => $authUser->department_id,
-                'user_id' => $this->input('client_id'),
-                'managed_by_id' => $this->input('salesman_id'),
-            ]);
-            $invoice->sale()->create([
-                'salesman_id' => $this->input('salesman_id'),
-                'client_id' => $this->input('client_id'),
-                'organization_id' => $authUser->organization_id,
-                'invoice_type' => 'sale',
-                'alice_name' => $this->input('alice_name'),
-                "prefix" => "SAI-"
-            ]);
+            $invoice = Invoice::create(
+                [
+                    'invoice_type' => 'sale',
+                    'notes' => $this->has('notes') ? $this->input('notes') : "",
+                    'creator_id' => $authUser->id,
+                    'organization_id' => $authUser->organization_id,
+                    'branch_id' => $authUser->branch_id,
+                    'department_id' => $authUser->department_id,
+                    'user_id' => $this->input('client_id'),
+                    'managed_by_id' => $this->input('salesman_id'),
+                ]
+            );
+            $invoice->sale()->create(
+                [
+                    'salesman_id' => $this->input('salesman_id'),
+                    'client_id' => $this->input('client_id'),
+                    'organization_id' => $authUser->organization_id,
+                    'invoice_type' => 'sale',
+                    'alice_name' => $this->input('alice_name'),
+                    "prefix" => "SAI-"
+                ]
+            );
             dispatch(new UpdateInvoiceNumberJob($invoice, 'SAI-'));
             dispatch(new StoreSaleItemsJob($invoice, (array)$this->input('items')));
             dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
@@ -103,10 +109,11 @@ class StoreSaleRequest extends FormRequest
              * ========================================================
              *
              */
-            $paymentsMethods = $this->validatePaymentsAndGetPaymentMethods($invoice);
+            $paymentsMethods = $this->validatePaymentsAndGetPaymentMethods($invoice, $isOnlineOrder);
             dispatch(new StoreSalePaymentsJob($invoice, $paymentsMethods));
             dispatch(new StoreSaleTransactionsJob($invoice));
-
+            dispatch(new SetDraftAsConvertedJob($this->input('quotation_id'), $invoice->id));
+            dispatch(new UpdateOnlineOrderStatus($this->input('quotation_id'), $invoice));
             DB::commit();
             return $invoice;
         } catch (QueryException $queryException) {
@@ -117,6 +124,19 @@ class StoreSaleRequest extends FormRequest
             throw $exception;
 
         }
+    }
+
+    private function isOnlineOrder()
+    {
+        $draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->input('quotation_id'))->first();
+        if ($draft) {
+            $order = Order::where('draft_id', $this->input('quotation_id'))->first();
+            if ($order && $order->status == 'in_progress') {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function validateSerials()
@@ -160,10 +180,12 @@ class StoreSaleRequest extends FormRequest
                             }
 
                             foreach ($serials as $serial) {
-                                $itemSerial = ItemSerials::where([
-                                    ['serial', $serial],
-                                    ['item_id', $kitItem->item_id],
-                                ])->whereIn('status', ['in_stock', 'return_sale'])->first();
+                                $itemSerial = ItemSerials::where(
+                                    [
+                                        ['serial', $serial],
+                                        ['item_id', $kitItem->item_id],
+                                    ]
+                                )->whereIn('status', ['in_stock', 'return_sale'])->first();
 
                                 if ($itemSerial == null) {
                                     throw ValidationException::withMessages(['kit_item' => "invalid serial"]);
@@ -181,6 +203,15 @@ class StoreSaleRequest extends FormRequest
         }
     }
 
+
+    private function requestValidation()
+    {
+
+        $this->validateSerials();
+        $this->validateKits();
+        $this->validateQuantities($this->input('items'));
+    }
+
     private function validateQuantities($items = [])
     {
         foreach ($items as $item) {
@@ -194,8 +225,13 @@ class StoreSaleRequest extends FormRequest
 
     }
 
-    private function validatePaymentsAndGetPaymentMethods(Invoice $invoice)
+    private function validatePaymentsAndGetPaymentMethods(Invoice $invoice, $isOnlineOrder = false)
     {
+
+
+        if ($isOnlineOrder) {
+            return $this->onlineOrderPayments();
+        }
         $invoice = $invoice->fresh();
 
         $methodsCollects = collect($this->input('methods'));
@@ -227,5 +263,25 @@ class StoreSaleRequest extends FormRequest
         }
         return $this->input('methods');
     }
+
+
+    public function onlineOrderPayments()
+    {
+        $draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->input('quotation_id'))->first();
+        if ($draft) {
+            $order = Order::where('draft_id', $this->input('quotation_id'))->first();
+            if ($order && $order->status == 'in_progress') {
+                if ($order->paymentDetail) {
+                    $account = $order->paymentDetail->receivedBank->account;
+                    $account = $account->toArray();
+                    $account['amount'] = $order->net;
+                    return $account;
+                }
+            }
+        }
+
+        throw ValidationException::withMessages(['payment' => 'order payment not exists']);
+    }
+
 
 }

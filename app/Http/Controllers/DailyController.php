@@ -15,12 +15,16 @@ class DailyController extends Controller
 
     public function resellerClosingAccountsIndex()
     {
-        $managerCloseAccountList = ResellerClosingAccount::where([
-            ['creator_id', auth()->user()->id],
-            ['transaction_type', "close_account"],
-        ])->orWhere([
-            ['receiver_id', auth()->user()->id],
-        ])->orderBy('id', 'desc')->paginate(15);
+        $managerCloseAccountList = ResellerClosingAccount::where(
+            [
+                ['creator_id', auth()->user()->id],
+                ['transaction_type', "close_account"],
+            ]
+        )->orWhere(
+            [
+                ['receiver_id', auth()->user()->id],
+            ]
+        )->orderBy('id', 'desc')->paginate(15);
 
         return view('accounting.reseller_daily.account_close_list', compact('managerCloseAccountList'));
     }
@@ -28,10 +32,12 @@ class DailyController extends Controller
     public function createResellerClosingAccount(Request $request)
     {
         $loggedUser = $request->user();
-        $tempResellerAccount = Account::where([
-            ['slug', 'temp_reseller_account'],
-            ['is_system_account', true],
-        ])->first();
+        $tempResellerAccount = Account::where(
+            [
+                ['slug', 'temp_reseller_account'],
+                ['is_system_account', true],
+            ]
+        )->first();
 
         $remainingAccountsBalanceAmount = $loggedUser->remaining_accounts_balance;
         $accountsClosedAt = $loggedUser->accounts_closed_at;
@@ -39,24 +45,50 @@ class DailyController extends Controller
 
         if ($accountsClosedAt != null) {
             $accountsClosedAt = Carbon::parse($accountsClosedAt);
-            $inAmount = Payment::where([
-                ['creator_id', $loggedUser->id],
-            ])->where('created_at', '>=', $accountsClosedAt)->where('payment_type', 'receipt')->sum('amount');
-            $outAmount = Payment::where([
-                ['creator_id', $loggedUser->id],
-            ])->where('created_at', '>=', $accountsClosedAt)->where('payment_type', 'payment')->sum('amount');
+            $inAmount = Payment::where(
+                [
+                    ['creator_id', $loggedUser->id],
+                ]
+            )->where('created_at', '>=', $accountsClosedAt)->where(
+                [
+                    ['payment_type', 'receipt'],
+//						['invoice_id', '!=', null]
+                ]
+            )->sum('amount');
+            $outAmount = Payment::where(
+                [
+                    ['creator_id', $loggedUser->id],
+                ]
+            )->where('created_at', '>=', $accountsClosedAt)->where(
+                [
+                    ['payment_type', 'payment'],
+//						['invoice_id', '!=', null]
+                ]
+            )->sum('amount');
         } else {
-            $inAmount = Payment::where([
-                ['creator_id', $loggedUser->id],
-            ])->where('payment_type', 'receipt')->sum('amount');
+            $inAmount = Payment::where(
+                [
+                    ['creator_id', $loggedUser->id],
+                ]
+            )->where(
+                [
+                    ['payment_type', 'receipt'],
+//						['invoice_id', '!=', null]
+                ]
+            )->sum('amount');
 
-            $outAmount = Payment::where([
-                ['creator_id', $loggedUser->id],
-            ])->where('payment_type', 'payment')->sum('amount');
+            $outAmount = Payment::where(
+                [
+                    ['creator_id', $loggedUser->id],
+                ]
+            )->where(
+                [
+                    ['payment_type', 'payment'],
+//						['invoice_id', '!=', null]
+                ]
+            )->sum('amount');
         }
-        // $inAmount = $paymentQuery->where('payment_type', 'receipt')->sum('amount');
-        // $outAmount = $paymentQuery->where('payment_type', 'payment')->sum('amount');
-        // return $outAmount;
+
         $gateways = $loggedUser->gateways()->get();
 
 
@@ -65,12 +97,18 @@ class DailyController extends Controller
 
     public function resellerAccountsTransactionsIndex()
     {
-        $managerCloseAccountList = ResellerClosingAccount::where([
-            ['creator_id', auth()->user()->id],
-            ['transaction_type', "transfer"],
-        ])->orWhere([
-            ['receiver_id', auth()->user()->id],
-        ])->orderBy('id', 'desc')->paginate(15);
+        $managerCloseAccountList = ResellerClosingAccount::where(
+            [
+                ['creator_id', auth()->user()->id],
+                ['transaction_type', "transfer"],
+//					['id', '!=',138],
+            ]
+        )->orWhere(
+            [
+                ['receiver_id', auth()->user()->id],
+//					['id', '!=',138],
+            ]
+        )->orderBy('id', 'desc')->paginate(15);
 
         return view('accounting.reseller_daily.tranfers_list', compact('managerCloseAccountList'));
     }
@@ -95,25 +133,39 @@ class DailyController extends Controller
         return view('accounting.reseller_daily.transfer_amounts', compact('gateways', 'manager_gateways'));
     }
 
-    public function confirmResellerAccountTransaction(ResellerClosingAccount $transaction)
+    public function confirmResellerAccountTransaction($transaction)
     {
+        $transaction = ResellerClosingAccount::where('id',$transaction)->withoutGlobalScope('pending')->firstOrFail();
         if ($transaction->receiver_id == auth()->user()->id && $transaction->transaction_type == 'transfer') {
             $container = $transaction->container;
             dispatch(new ActivateEntityJob($container));
-            $transaction->update([
-                'is_pending' => false,
-            ]);
+            $transaction->update(
+                [
+                    'is_pending' => false,
+                ]
+            );
 
             $creator = Manager::find($transaction->creator_id);
-            if( $creator)
-            {
-                $creator->update([
-                    'remaining_accounts_balance' => $transaction->remaining_accounts_balance,
-                ]);
+            if ($creator) {
+                $creator->update(
+                    [
+                        'remaining_accounts_balance' => $transaction->remaining_accounts_balance,
+                    ]
+                );
             }
-            
+
         }
 
+//        return back();
+
+        return back();
+    }
+
+
+    public function deleteResellerAccountTransaction( $transaction)
+    {
+        $transaction = ResellerClosingAccount::where('id',$transaction)->withoutGlobalScope('pending')->firstOrFail();
+        $transaction->delete();
         return back();
     }
 }

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed created_at
  * @property mixed type
  * @property mixed user_id
+ * @property mixed account_id
  */
 class Transaction extends BaseModel
 {

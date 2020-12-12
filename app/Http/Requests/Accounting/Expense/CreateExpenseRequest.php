@@ -25,8 +25,8 @@ class CreateExpenseRequest extends FormRequest
     {
         return [
             //
-	        'name'=>'required|string|unique:expenses,name',
-	        'ar_name'=>'required|string|unique:expenses,ar_name',
+	        'name'=>'required|string|organization_unique:App\Models\Department,name',
+	        'ar_name'=>'required|string|organization_unique:App\Models\Department,ar_name',
         ];
     }
 	

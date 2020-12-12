@@ -6,14 +6,18 @@ use App\Models\Category;
 use App\Models\Item;
 use App\Models\Manager;
 use App\Models\User;
+use Carbon\Carbon;
 
 class ItemController extends Controller
 {
 
     public function index()
     {
+    	
         $categories = Category::all();
         $creators = Manager::all();
+        
+//        return  $categories;
         return view('accounting.items.index', compact('categories', 'creators'));
     }
 
@@ -27,7 +31,6 @@ class ItemController extends Controller
             $category['children'] = Category::getAllParentNestedChildren($category);
             $categories[] = $category;
         }
-        // $categories = Category::all();
         $vendors = User::where('is_vendor', true)->get();
         return view('accounting.items.create', compact('categories', 'isClone', 'vendors'));
 

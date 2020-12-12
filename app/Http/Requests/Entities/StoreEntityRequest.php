@@ -34,11 +34,11 @@
 		{
 			return [
 				'transactions' => 'required|array',
-				"transactions.*.id" => "required|integer|exists:accounts,id",
+				"transactions.*.id" => "required|integer|organization_exists:App\Models\Account,id",
 				"transactions.*.amount" => "required|price",
 				"transactions.*.type" => "required|in:credit,debit",
 				"transactions.*.user_id" => ['nullable', "integer", "exists:users,id"],
-				"transactions.*.item_id" => ["nullable", "integer", "exists:items,id"],
+				"transactions.*.item_id" => ["nullable", "integer", "organization_exists:App\Models\Item,id"],
 				'description' => "required|string",
 				'created_at' => 'nullable',
 			];

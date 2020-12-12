@@ -86,7 +86,7 @@ class ItemController extends Controller
     {
         $this->middleware("permission:create item");
         $request->validate([
-            'barcode' => 'required|string|min:4|unique:items,barcode'
+            'barcode' => 'required|string|min:4|organization_unique:App\Models\Item,barcode'
         ]);
 
         $result = Item::where('barcode', $request->barcode)->get();
@@ -246,11 +246,12 @@ class ItemController extends Controller
     public function show_serial_activities(Request $request)
     {
         $request->validate([
-            'serial' => 'required|exists:item_serials,serial'
+            'serial' => 'required|organization_exists:App\Models\ItemSerials,serial'
         ]);
 
         $serial = ItemSerials::where('serial', $request->serial)->first();
-        return view('accounting.items.serial.show', compact('serial'));
+        $histories = $serial->histories()->orderBy('id','asc')->get();
+        return view('accounting.items.serial.show', compact('serial','histories'));
     }
 
     public function barcode()
@@ -262,7 +263,7 @@ class ItemController extends Controller
     {
 
         $request->validate([
-            'barcode' => 'required|exists:items,barcode'
+            'barcode' => 'required|organization_exists:App\Models\Item,barcode'
         ]);
 
         $items = Item::where('barcode', $request->barcode)->get();

@@ -70,12 +70,12 @@
 		 */
 		public function store(CreateFilterRequest $request)
 		{
-			$data = $request->only('name','ar_name');
+			$data = $request->only('name', 'ar_name');
 			$data['creator_id'] = auth()->user()->id;
 			$filter = auth()->user()->organization->filters()->create($data);
 			
 			if(auth()->user()->can('edit filter'))
-				return redirect(route('accounting.filters.edit',$filter->id));
+				return redirect(route('accounting.filters.edit', $filter->id));
 			
 			return redirect(route('accounting.filters.index'));
 			//
@@ -105,7 +105,7 @@
 //
 			
 			$this->middleware(['permission:edit filter']);
-			return view('accounting.filters.edit',compact('filter'));
+			return view('accounting.filters.edit', compact('filter'));
 			//
 		}
 		
@@ -115,12 +115,11 @@
 		 *
 		 * @return Filter
 		 */
-		public function update(UpdateFilterRequest $request,Filter $filter)
+		public function update(UpdateFilterRequest $request, Filter $filter)
 		{
 			
-		
 			
-			$filter->forceFill($request->only('name','ar_name'))->save();
+			$filter->forceFill($request->only('name', 'ar_name'))->save();
 			
 			return $filter;
 			//
@@ -143,11 +142,13 @@
 		public function create_value(Request $request)
 		{
 			//
-			$request->validate([
-				'name' => 'required|string|unique:filter_values,name',
-				'filter_id' => 'required|integer|exists:filters,id',
-				'ar_name' => 'required|string|unique:filter_values,ar_name'
-			]);
+			$request->validate(
+				[
+					'name' => 'required|string|organization_unique:App\Models\FilterValues,name',
+					'filter_id' => 'required|integer|exists:filters,id',
+					'ar_name' => 'required|string|organization_unique:App\Models\FilterValues,ar_name'
+				]
+			);
 			$data = $request->all();
 			$data['organization_id'] = auth()->user()->organization_id;
 			$value = auth()->user()->filters_values()->create(
@@ -166,13 +167,15 @@
 		public function upate_value(Request $request)
 		{
 			
-			$request->validate([
-				'name' => 'required|string',
-				'filter_id' => 'required|integer|exists:filters,id',
-				'id' => 'required|integer|exists:filter_values,id',
-				'organization_id' => 'required|integer|exists:organizations,id',
-				'ar_name' => 'required|string'
-			]);
+			$request->validate(
+				[
+					'name' => 'required|string',
+					'filter_id' => 'required|integer|exists:filters,id',
+					'id' => 'required|integer|exists:filter_values,id',
+					'organization_id' => 'required|integer|exists:organizations,id',
+					'ar_name' => 'required|string'
+				]
+			);
 			
 			
 			$value = FilterValues::find($request->id);

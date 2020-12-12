@@ -40,14 +40,14 @@ class StoreReturnPurchaseRequest extends FormRequest
     {
         return [
             'items' => 'required|array',
-            'items.*.id' => 'integer|required|exists:invoice_items,id',
+            'items.*.id' => 'integer|required|organization_exists:App\Models\InvoiceItems,id',
             'items.*.returned_qty' => 'required',
             'items.*.serials' => 'array',
-//            'items.*.serials.*' => 'required|exists:item_serials,serial',
+//            'items.*.serials.*' => 'required|organization_exists:App\Models\ItemSerials,serial',
             'methods' => 'array',
-            'methods.*.id' => 'required|integer|exists:accounts,id',
+            'methods.*.id' => 'required|integer|organization_exists:App\Models\Account,id',
             'methods.*.amount' => 'required|numeric',
-//            'methods.*.id' => 'integer|required|exists:accounts,id',
+//            'methods.*.id' => 'integer|required|organization_exists:App\Models\Account,id',
         ];
     }
 

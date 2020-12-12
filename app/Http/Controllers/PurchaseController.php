@@ -6,7 +6,9 @@
 	use App\Models\Invoice;
 	use App\Models\Manager;
 	use App\Models\User;
+	use Illuminate\Contracts\Foundation\Application;
 	use Illuminate\Contracts\View\Factory;
+	use Illuminate\Support\Facades\Storage;
 	use Illuminate\View\View;
 	
 	class PurchaseController extends Controller
@@ -31,6 +33,8 @@
 			$receivers = Manager::all();
 			$vendors = User::where([['is_vendor', true], ['is_system_user', false]])->get()->toArray();
 			$expenses = Expense::all();
+			$pendingDropboxPurchases = [];
+			
 			$gateways = [];
 			return view('accounting.purchases.create', compact('vendors', 'receivers', 'gateways', 'expenses'));
 			//
@@ -89,17 +93,19 @@
 		 *
 		 * @param Invoice $purchase
 		 *
-		 * @return Response
+		 * @return Response|Application|Factory|View
 		 */
 		public function show(Invoice $purchase)
 		{
 			$transactions = $purchase->transactions()->get();
+
+//			Storage::url()
 			
 			
 			return view(
 				'accounting.purchases.show', [
-				'invoice' => $purchase, 'transactions' => $transactions
-			]
+					'invoice' => $purchase, 'transactions' => $transactions
+				]
 			);
 		}
 		

@@ -78,6 +78,30 @@ class InvoiceItems extends BaseModel
     {
         return $query ->where('parent_kit_id',$kitId);
     }
+	
+	public function getInvoiceItemSerials()
+	{
+		return $this->item->serials()
+			->where(
+				[
+					["sale_id", $this->invoice_id],
+					["item_id", $this->item->id],
+				]
+			)
+			->orWhere([["return_sale_id", $this->invoice_id], ["item_id", $this->item->id]])
+			->orWhere([["return_purchase_id", $this->invoice_id], ["item_id", $this->item->id]])
+			->orWhere([["purchase_id", $this->invoice_id], ["item_id", $this->item->id]])
+			->get();
+		
+		
+	}
+	
+	public function orderQtyHolders()
+	{
+		return $this->hasMany(OrderItemQtyHolder::class,'item_id');
+	}
+	
+	
 
     public function creator()
     {
@@ -91,7 +115,7 @@ class InvoiceItems extends BaseModel
 
     public function invoice()
     {
-        return $this->belongsTo(Invoice::class, 'invoice_id');
+        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScope('manager');
     }
 
 

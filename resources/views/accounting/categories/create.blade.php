@@ -44,9 +44,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group @error('ar_description')has-error @enderror">
-                        <textarea class="form-control" name="ar_description"
-                                  placeholder="{{trans('pages/categories.ar_description')}}">{{old('ar_description')
-                                  }}</textarea>
+                        <input class="form-control arabic-input" name="ar_description"
+                                  placeholder="{{trans('pages/categories.ar_description')}}" value="{{old('ar_description')
+                                  }}"/>
                         @error('ar_description')
                         <small class="text-danger">
                             {{ $message}}
@@ -57,8 +57,13 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group @error('description')has-error @enderror">
-                        <textarea class="form-control" name="description" placeholder="{{trans('pages/categories.description')
-                        }}">{{old('description')}}</textarea>
+
+                        <input class="form-control arabic-input" name="description"
+                               placeholder="{{trans('pages/categories.description')}}" value="{{old('description')
+                                  }}"/>
+
+
+
                         @error('description')
                         <small class="text-danger">
                             {{ $message}}

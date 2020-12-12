@@ -9,6 +9,9 @@
 	 * @property mixed id
 	 * @property mixed balance
 	 * @property mixed vendor_balance
+	 * @property mixed is_system_user
+	 * @property mixed country_code
+	 * @property mixed phone_number
 	 */
 	class User extends BaseAuthModel
 	{
@@ -19,7 +22,8 @@
 		
 		
 		protected $appends = [
-			'locale_name'
+			'locale_name',
+			'international_phone_number'
 		];
 		protected $casts = [
 			'is_vendor' => 'boolean',
@@ -36,13 +40,14 @@
 		
 		public function invoices()
 		{
-			return $this->hasMany(Invoice::class,'user_id');
+			return $this->hasMany(Invoice::class, 'user_id');
 		}
 		
-		public function getNameAttribute()
+		public function getNameAttribute($value)
 		{
 			
-			return $this->name_ar;
+			return $value;
+//			return $this->name;
 		}
 		
 		public function getLocaleNameAttribute()
@@ -51,6 +56,11 @@
 			return $this->name_ar;
 		}
 		
+		
+		public function shippingAddresses()
+		{
+			return $this->hasMany(ShippingAddress::class, 'user_id');
+		}
 		
 		public function isSystemUser()
 		{
@@ -83,13 +93,19 @@
 		{
 			return $this->is_manager == true;
 		}
+
+//
+//		public function getCreatedAtAttribute($value)
+//		{
+//			return Carbon::parse($value)->toDateString();
+//		}
+//
 		
 		
-		public function getCreatedAtAttribute($value)
+		public function getInternationalPhoneNumberAttribute()
 		{
-			return Carbon::parse($value)->toDateString();
+			return $this->country_code . $this->phone_number; // 0966324018
 		}
-		
 		
 		public function details()
 		{

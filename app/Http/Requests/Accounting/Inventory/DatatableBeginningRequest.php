@@ -35,7 +35,7 @@
 			$query = Invoice::where('invoice_type','beginning_inventory')->with('creator','items');
 //
 //			if ($this->has('barcode') && $this->filled('barcode')){
-//				$query = $query->where('barcode','LIKE','%'.$this->barcode.'%');
+//				$query = $query->where('barcode','ILIKE','%'.$this->barcode.'%');
 //			}
 //
 //			if ($this->has('creators') && $this->filled('creators')){
@@ -62,7 +62,7 @@
 //
 //
 //			if ($this->has('name') && $this->filled('name')){
-//				$query = $query->where('name','LIKE','%'.$this->name.'%')->orWhere('ar_name','LIKE','%'.$this->name
+//				$query = $query->where('name','ILIKE','%'.$this->name.'%')->orWhere('ar_name','ILIKE','%'.$this->name
 //					.'%');
 //			}
 //
@@ -79,7 +79,7 @@
 //			}
 //
 //			if ($this->has('date') && $this->filled('date')){
-//				$query = $query->where('date','LIKE','%'.$this->date.'%');
+//				$query = $query->where('date','ILIKE','%'.$this->date.'%');
 //			}
 //
 //

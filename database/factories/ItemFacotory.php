@@ -13,7 +13,6 @@ $factory->define(Item::class, function (Faker $faker) {
 
     $price = $priceWithTax / 1.15;//50
     return [
-
         'organization_id' => 1,
         'creator_id' => 1,
         'category_id' => 1,

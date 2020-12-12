@@ -1,20 +1,22 @@
 <?php
-
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Models\User;
-use Faker\Generator as Faker;
-use Illuminate\Support\Str;
-
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
- */
+	
+	/** @var Factory $factory */
+	
+	use App\Models\Organization;
+	use App\Models\User;
+	use Faker\Generator as Faker;
+	use Illuminate\Database\Eloquent\Factory;
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Model Factories
+	|--------------------------------------------------------------------------
+	|
+	| This directory should contain each of the model factory definitions for
+	| your application. Factories provide a convenient way to generate new
+	| model instances for testing / seeding your application's database.
+	|
+	 */
 
 
 // $table->integer('organization_id');
@@ -41,16 +43,18 @@ use Illuminate\Support\Str;
 // $table->boolean('can_make_credit')->default(false);
 // $table->enum('user_type', ['company', 'individual']);
 // $table->enum('user_title', ['mis', 'mr', 'company'])->default('mr');
-
-$factory->define(User::class, function (Faker $faker) {
-    return [
-        'organization_id' => 1,
-        'name' => $faker->name,
-        'phone_number' => $faker->phoneNumber,
-        'email_address' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'user_type' => 'individual',
-        'is_client' => true,
-        'is_vendor' => true
-    ];
-});
+	
+	$factory->define(
+		User::class, function(Faker $faker) {
+		return [
+			'organization_id' => \factory(Organization::class)->create()->id,
+			'name' => $faker->userName,
+			'phone_number' => $faker->phoneNumber,
+			'email_address' => $faker->unique()->safeEmail,
+			'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+			'user_type' => 'individual',
+			'is_client' => true,
+			'is_vendor' => true
+		];
+	}
+	);

@@ -3,7 +3,9 @@
 	namespace App\Http\Requests\Accounting\Category;
 	
 	use App\Models\Category;
-    use Illuminate\Foundation\Http\FormRequest;
+	use App\Models\CategoryFilters;
+	use App\Models\Filter;
+	use Illuminate\Foundation\Http\FormRequest;
 	
 	class UpdateCategoryRequest extends FormRequest
 	{
@@ -31,18 +33,48 @@
 				'description' => "required|min:3|string",
 				'ar_description' => "required|min:3|string",
 				'parent_id' => "required|integer",
-                'is_available_online' => 'nullable'
+				'is_available_online' => 'nullable'
 			
 			];
 		}
-
-        public function update(Category $category)
-        {
-            $data =$this->only('name','ar_name','description','ar_description','parent_id');
-            $data['is_available_online'] =  $this->input('is_available_online') == 'on';
-            $category->update($data);
-
-            return redirect(route('accounting.categories.index'));
-
+		
+		public function update(Category $category)
+		{
+			
+			$isAvailableOnline = $this->input('is_available_online') == 'on';
+			$data = $this->only('name', 'ar_name', 'description', 'ar_description', 'parent_id');
+			$data['is_available_online'] = $isAvailableOnline;
+			$category->update($data);
+			
+			Category::whereIn('id', $category->getChildrenIncludeMe())->update(
+				[
+					'is_available_online' => $isAvailableOnline
+				]
+			);
+			
+			if($category->parent) {
+				$category->parent->updateHashMap();
+			}
+			$category->updateHashMap();
+			
+			
+			$requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
+			$categoryFilters = CategoryFilters::where('category_id', $category->id)->pluck('filter_id')->toArray();
+			
+			foreach($requiredFilter as $filterId) {
+				if(!in_array($filterId, $categoryFilters)) {
+					$category->filters()->attach(
+						$filterId, [
+							'organization_id' => auth()->user()->organization_id,
+							'creator_id' => auth()->user()->id,
+							'sorting' => 0
+						]
+					);
+				}
+			}
+			
+			
+			return redirect(route('accounting.categories.index'));
+			
 		}
 	}

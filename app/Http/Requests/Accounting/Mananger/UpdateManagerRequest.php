@@ -36,11 +36,11 @@
 				'name' => 'required|string|min:2',
 				'name_ar' => 'required|string|min:2',
 				'branch_id' => 'required|integer|exists:branches,id',
-				'department_id' => 'required|integer|exists:departments,id',
+				'department_id' => 'required|integer|organization_exists:App\Models\Department,id',
 				'permissions' => 'array|nullable',
 				'permissions.*' => 'string|exists:permissions,name',
 				'gateways' => 'array|nullable',
-				'gateways.*.id' => 'integer|exists:accounts,id',
+				'gateways.*.id' => 'integer|organization_exists:App\Models\Account,id',
 			];
 		}
 		
