@@ -53,9 +53,10 @@ test:
   stage: test
   dependencies:
     - build
-  services:
-    - postgres:latest
+#  services:
+#    - postgres:latest
   script:
+    - touch database/database.sqlite
     # Run database migrations
     - php artisan migrate
     # Run database seed
