@@ -4,7 +4,7 @@ stages:
   - test
   - deploy
 
-image: registry.gitlab.com/3li3bdalla/3li3bdalla/zilrsoft:latest
+image: registry.gitlab.com/3li3bdalla/zilrsoft:latest
 
 variables:
   POSTGRES_DB: inventar
