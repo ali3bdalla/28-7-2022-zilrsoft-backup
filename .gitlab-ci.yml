@@ -70,7 +70,7 @@ test:
     # run frontend tests
     - npm test
     # run artisan tests
-    - php artisan test
+    - ./vendor/bin/phpunit
   when: always
 
 deploy:
