@@ -20,6 +20,8 @@ cache:
 
 build:
   stage: build
+  services:
+    - postgres:latest
   script:
     # Install Composer dependencies
     - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
@@ -30,12 +32,18 @@ build:
     # Copy over testing configuration
     - cp .env.example .env
 
+    - php artisan migrate
+    # Run database seed
+    - php artisan db:seed
+
     # Generate an application key, re-cache.
     - php artisan key:generate
     - php artisan config:cache
 
+
     # Run npm build
     - npm run production
+    -
   artifacts:
     paths:
       - vendor/
@@ -45,19 +53,6 @@ build:
     expire_in: 1 days
     when: always
 
-
-prepare_db:
-  stage: build
-  dependencies:
-    - build
-  services:
-    - postgres:latest
-  script:
-    # Run database migrations
-    - php artisan migrate
-    # Run database seed
-    - php artisan db:seed
-  when: manual
 
 
 test:
