@@ -4,7 +4,8 @@ image: registry.gitlab.com/3li3bdalla/zilrsoft:latest
 stages:
   - build
   - test
-  - deploy
+  - deploy 
+  # -
 
 
 variables:
