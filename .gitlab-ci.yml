@@ -4,8 +4,8 @@ services:
   - postgres:latest
 
 variables:
-  POSTGRES_DB: root
-  POSTGRES_USER: root
+  POSTGRES_DB: zilrsoft
+  POSTGRES_USER: zilrsoft
   POSTGRES_PASSWORD: ""
   POSTGRES_HOST_AUTH_METHOD: trust
   XDEBUG_MODE: coverage
