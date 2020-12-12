@@ -1,0 +1,118 @@
+stages:
+  - build
+  - db
+  - test
+  - deploy
+
+image: registry.gitlab.com/3li3bdalla/3li3bdalla/zilrsoft:latest
+
+variables:
+  POSTGRES_DB: inventar
+  POSTGRES_USER: inventar
+  POSTGRES_PASSWORD: ""
+  POSTGRES_HOST_AUTH_METHOD: trust
+  XDEBUG_MODE: coverage
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm/
+    - vendor/
+
+build:
+  stage: build
+  script:
+    # Install Composer dependencies
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+
+    # Install Node dependencies
+    - npm ci --cache .npm --prefer-offline --quiet
+
+    # Copy over testing configuration
+    - cp .env.testing .env
+
+    # Generate an application key, re-cache.
+    - php artisan key:generate
+    - php artisan config:cache
+
+    # Run npm build
+    - npm run production
+  artifacts:
+    paths:
+      - vendor/
+      - .npm/
+      - .env
+      - public/
+    expire_in: 1 days
+    when: always
+
+
+prepare_db:
+  stage: db
+  dependencies:
+    - build
+  services:
+    - postgres:latest
+  script:
+    # Run database migrations
+    - php artisan migrate
+    # Run database seed
+    - php artisan db:seed
+  when: manual
+
+test_db:
+  stage: db
+  dependencies:
+    - build
+  services:
+    - postgres:latest
+  script:
+    - eval $(ssh-agent -s)
+    - echo "$PK_prod_inventoryx_com" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+#    # Copy DB
+#    - scp ivprod@inventoryx.com:/var/www/prod/testdb.sql .
+#
+#    # Import DB
+#    - psql -h postgres -U $POSTGRES_USER $POSTGRES_DB < testdb.sql
+
+    # Run database migrations
+    - php artisan migrate
+  when: manual
+
+test:
+  stage: test
+  dependencies:
+    - build
+  services:
+    - postgres:latest
+  script:
+    # Run database migrations
+    - php artisan migrate
+    # recreate cache
+    - php artisan config:cache
+
+    # run laravel tests
+    - php vendor/bin/phpunit --coverage-text --colors=never
+    # run frontend tests
+    - npm test
+    # run artisan tests
+    - php artisan test
+
+deploy:
+  stage: deploy
+  script:
+    - eval $(ssh-agent -s)
+    - echo "$PK_prod_inventoryx_com" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+    - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA" --cleanup
+  environment:
+    name: production
+    url: http://dev.zilrsoft.com
+  when: manual
+  only:
+    - master
