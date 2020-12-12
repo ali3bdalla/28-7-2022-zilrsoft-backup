@@ -18,7 +18,7 @@
 {{--    npm_run_prod--}}
     update_symlinks
     migrate
-    cache
+{{--    cache--}}
 @endstory
 
 @task('clone_repository')
@@ -80,10 +80,10 @@
     php artisan migrate
 @endtask
 
-@task('cache')
-    echo "Cleaning cache"
-    cd {{ $current_dir }}
-    php artisan route:cache
-    php artisan config:cache
-    php artisan view:cache
-@endtask
+{{--@task('cache')--}}
+{{--    echo "Cleaning cache"--}}
+{{--    cd {{ $current_dir }}--}}
+{{--    php artisan optimize:cache--}}
+{{--    php artisan config:cache--}}
+{{--    php artisan view:cache--}}
+{{--@endtask--}}
