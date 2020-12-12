@@ -3,7 +3,6 @@ image: registry.gitlab.com/3li3bdalla/zilrsoft:latest
 
 stages:
   - build
-  - db
   - test
   - deploy
 
@@ -50,36 +49,6 @@ build:
     expire_in: 1 days
     when: always
 
-
-prepare_db:
-  stage: db
-  dependencies:
-    - build
-  services:
-    - postgres:latest
-  script:
-    # Run database migrations
-    - php artisan migrate
-    # Run database seed
-    - php artisan db:seed
-  when: manual
-
-test_db:
-  stage: db
-  dependencies:
-    - build
-  services:
-    - postgres:latest
-  script:
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-
-    # Run database migrations
-    - php artisan migrate
-  when: manual
-
 test:
   stage: test
   dependencies:
@@ -89,6 +58,8 @@ test:
   script:
     # Run database migrations
     - php artisan migrate
+    # Run database seed
+    - php artisan db:seed
     # recreate cache
     - php artisan config:cache
 
@@ -98,6 +69,7 @@ test:
     - npm test
     # run artisan tests
     - php artisan test
+  when: always
 
 deploy:
   stage: deploy
@@ -111,6 +83,6 @@ deploy:
   environment:
     name: development
     url: http://dev.zilrsoft.com
-  when: manual
+  when: always
   only:
     - development
