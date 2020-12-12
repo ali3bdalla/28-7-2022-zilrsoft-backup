@@ -1,7 +1,6 @@
 /node_modules
 /phpmyadmin
-/public/storage
-/storage/*
+/public/storage	
 /vendor/*
 /.idea/*
 .env
