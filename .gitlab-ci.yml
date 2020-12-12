@@ -83,7 +83,7 @@ deploy:
 
     - ~/.composer/vendor/bin/envoy run deploy --environment=production --commit="$CI_COMMIT_SHA" --cleanup
   environment:
-    name: production
+    name: development
     url: http://zilrsoft.com
   when: manual
   only:
