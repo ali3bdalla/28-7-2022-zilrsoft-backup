@@ -47,7 +47,7 @@ build:
 
 
 prepare_db:
-  stage: db
+  stage: build
   dependencies:
     - build
   services:
