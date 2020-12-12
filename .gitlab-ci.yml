@@ -65,7 +65,8 @@ test:
     - php artisan config:cache
 
     # run laravel tests
-    - php vendor/bin/phpunit --coverage-text --colors=never
+    - php vendor/bin/phpunit
+#    - --coverage-text --colors=never
     # run frontend tests
     - npm test
     # run artisan tests
@@ -84,6 +85,6 @@ deploy:
   environment:
     name: development
     url: http://dev.zilrsoft.com
-  when: always
+  when: on_success
   only:
     - development
