@@ -1,4 +1,4 @@
-name: Laravel
+name: ZilrSoft Development
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ development ]
 
 jobs:
-  laravel-tests:
+  test:
 
     runs-on: ubuntu-latest
 
@@ -30,3 +30,5 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
+
+    
