@@ -23,7 +23,6 @@ unit_test:
     - php artisan key:generate
     - php artisan migrate
     - vendor/bin/phpunit
-
 deploy_production:
   stage: deploy
   script:
