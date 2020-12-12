@@ -1,0 +1,89 @@
+image: registry.gitlab.com/3li3bdalla/zilrsoft:latest
+
+
+stages:
+  - build
+  - test
+  - deploy
+
+
+variables:
+  POSTGRES_DB: zilrsoft
+  POSTGRES_USER: zilrsoft
+  POSTGRES_PASSWORD: ""
+  POSTGRES_HOST_AUTH_METHOD: trust
+  XDEBUG_MODE: coverage
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm/
+    - vendor/
+
+build:
+  stage: build
+  script:
+    - docker-php-ext-install soap
+    # Install Composer dependencies
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+
+
+    # Install Node dependencies
+    - npm ci --cache .npm --prefer-offline --quiet
+
+    # Copy over testing configuration
+    - cp .env.example .env
+
+    # Generate an application key, re-cache.
+    - php artisan key:generate
+    - php artisan config:cache
+
+    # Run npm build
+    - npm run dev
+  artifacts:
+    paths:
+      - vendor/
+      - .npm/
+      - .env
+      - public/
+    expire_in: 1 days
+    when: always
+
+test:
+  stage: test
+  dependencies:
+    - build
+  #  services:
+  #    - postgres:latest
+  script:
+    - touch database/database.sqlite
+    # Run database migrations
+    - php artisan migrate
+    # Run database seed
+    - php artisan db:seed
+    # recreate cache
+    - php artisan config:cache
+
+    # run laravel tests
+    - php vendor/bin/phpunit --coverage-text --colors=never
+    # run frontend tests
+    - npm test
+    # run artisan tests
+    - ./vendor/bin/phpunit
+  when: always
+
+deploy:
+  stage: deploy
+  script:
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+    - ~/.composer/vendor/bin/envoy run deploy --environment=development  --commit="$CI_COMMIT_SHA" --cleanup
+  environment:
+    name: development
+    url: http://dev.zilrsoft.com
+  when: manual
+  only:
+    - development
