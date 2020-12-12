@@ -17,7 +17,7 @@ stages:
 unit_test:
   stage: test
   script:
-    - RUN docker-php-ext-install soap
+    - docker-php-ext-install soap
     - cp .env.example .env
     - composer install
     - php artisan key:generate
