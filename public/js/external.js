@@ -17660,14 +17660,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_simple_alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-simple-alert */ "./node_modules/vue-simple-alert/lib/index.js");
-/* harmony import */ var _delivery_ConfirmOrderDeliveryStatus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./delivery/ConfirmOrderDeliveryStatus */ "./resources/js/external/delivery/ConfirmOrderDeliveryStatus.vue");
 
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+var ConfirmOrderDeliveryStatus = __webpack_require__(/*! ./delivery/ConfirmOrderDeliveryStatus */ "./resources/js/external/delivery/ConfirmOrderDeliveryStatus.vue");
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_simple_alert__WEBPACK_IMPORTED_MODULE_1__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('confirm-order-delivery-status', _delivery_ConfirmOrderDeliveryStatus__WEBPACK_IMPORTED_MODULE_2__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('confirm-order-delivery-status', ConfirmOrderDeliveryStatus);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app'
 });
