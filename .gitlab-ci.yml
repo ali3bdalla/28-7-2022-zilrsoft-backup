@@ -1,9 +1,7 @@
-stages:
-  - build
-  - test
-  - deploy
-
 image: registry.gitlab.com/3li3bdalla/zilrsoft:latest
+
+services:
+  - postgres:latest
 
 variables:
   POSTGRES_DB: root
@@ -12,80 +10,122 @@ variables:
   POSTGRES_HOST_AUTH_METHOD: trust
   XDEBUG_MODE: coverage
 
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - .npm/
-    - vendor/
+stages:
+  - test
+  - deploy
 
-build:
-  stage: build
-  services:
-    - postgres:latest
-  script:
-    # Install Composer dependencies
-    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-
-    # Install Node dependencies
-    - npm ci --cache .npm --prefer-offline --quiet
-
-    # Copy over testing configuration
-    - cp .env.example .env
-
-    - php artisan migrate
-    # Run database seed
-    - php artisan db:seed
-
-    # Generate an application key, re-cache.
-    - php artisan key:generate
-    - php artisan config:cache
-
-
-    # Run npm build
-    - npm run production
-    -
-  artifacts:
-    paths:
-      - vendor/
-      - .npm/
-      - .env
-      - public/
-    expire_in: 1 days
-    when: always
-
-
-
-test:
+unit_test:
   stage: test
-  dependencies:
-    - build
-  services:
-    - postgres:latest
   script:
-    # Run database migrations
+    - cp .env.example .env
+    - composer install
+    - php artisan key:generate
     - php artisan migrate
-    # recreate cache
-    - php artisan config:cache
+    - vendor/bin/phpunit
 
-    # run laravel tests
-    - php vendor/bin/phpunit --coverage-text --colors=never
-    # run frontend tests
-    - npm test
-    # run artisan tests
-    - php artisan test
-
-deploy:
+deploy_production:
   stage: deploy
   script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
-    - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA" --cleanup
+    - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA"
   environment:
     name: development
     url: http://dev.zilrsoft.com
   when: manual
   only:
-    - master
+    - development
+
+#stages:
+#  - build
+#  - test
+#  - deploy
+#
+#image: registry.gitlab.com/3li3bdalla/zilrsoft:latest
+#
+#services:
+#  - postgres:latest
+#
+#variables:
+#  POSTGRES_DB: root
+#  POSTGRES_USER: root
+#  POSTGRES_PASSWORD: ""
+#  POSTGRES_HOST_AUTH_METHOD: trust
+#  XDEBUG_MODE: coverage
+#
+#cache:
+#  key: ${CI_COMMIT_REF_SLUG}
+#  paths:
+#    - .npm/
+#    - vendor/
+#
+#test:
+#  stage: test
+#  script:
+#    # Install Composer dependencies
+#    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+#
+#    # Install Node dependencies
+#    - npm ci --cache .npm --prefer-offline --quiet
+#
+#    # Copy over testing configuration
+#    - cp .env.example .env
+#
+#    # Generate an application key, re-cache.
+#    - php artisan key:generate
+#    - php artisan config:cache
+#
+#    - php artisan migrate
+#    # Run database seed
+#    - php artisan db:seed
+#    # Run npm build
+#    - npm run production
+#  artifacts:
+#    paths:
+#      - vendor/
+#      - .npm/
+#      - .env
+#      - public/
+#    expire_in: 1 days
+#    when: always
+#
+#
+#
+#test:
+#  stage: test
+#  dependencies:
+#    - build
+#  services:
+#    - postgres:latest
+#  script:
+#    # Run database migrations
+#    - php artisan migrate
+#    # recreate cache
+#    - php artisan config:cache
+#
+#    # run laravel tests
+#    - php vendor/bin/phpunit --coverage-text --colors=never
+#    # run frontend tests
+#    - npm test
+#    # run artisan tests
+#    - php artisan test
+#
+#deploy:
+#  stage: deploy
+#  script:
+#    - eval $(ssh-agent -s)
+#    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+#    - mkdir -p ~/.ssh
+#    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+#
+#    - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA" --cleanup
+#  environment:
+#    name: development
+#    url: http://dev.zilrsoft.com
+#  when: manual
+#  only:
+#    - master
