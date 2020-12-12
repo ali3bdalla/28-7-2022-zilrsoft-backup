@@ -50,28 +50,28 @@ build:
     expire_in: 1 days
     when: always
 
-test:
-  stage: test
-  dependencies:
-    - build
-  #  services:
-  #    - postgres:latest
-  script:
-    - touch database/database.sqlite
-    # Run database migrations
-    - php artisan migrate
-    # Run database seed
-    - php artisan db:seed
-    # recreate cache
-    - php artisan config:cache
+# test:
+#   stage: test
+#   dependencies:
+#     - build
+#   #  services:
+#   #    - postgres:latest
+#   script:
+#     - touch database/database.sqlite
+#     # Run database migrations
+#     - php artisan migrate
+#     # Run database seed
+#     - php artisan db:seed
+#     # recreate cache
+#     - php artisan config:cache
 
-    # run laravel tests
-    - php vendor/bin/phpunit --coverage-text --colors=never
-    # run frontend tests
-    - npm test
-    # run artisan tests
-    - ./vendor/bin/phpunit
-  when: always
+#     # run laravel tests
+#     - php vendor/bin/phpunit --coverage-text --colors=never
+#     # run frontend tests
+#     - npm test
+#     # run artisan tests
+#     - ./vendor/bin/phpunit
+#   when: always
 
 deploy:
   stage: deploy
