@@ -56,13 +56,15 @@ test:
   #  services:
   #    - postgres:latest
   script:
+    - cp .env.example .env.testing
+    -
     - touch database/database.sqlite
     # Run database migrations
-    - php artisan migrate
+    - php artisan migrate --env=testing
     # Run database seed
-    - php artisan db:seed
+    - php artisan db:seed --env=testing
     # recreate cache
-    - php artisan config:cache
+    - php artisan config:cache 
 
     # run laravel tests
     - php vendor/bin/phpunit --coverage-text --colors=never
