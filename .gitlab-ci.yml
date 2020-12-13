@@ -87,4 +87,4 @@ deploy:
     url: http://dev.zilrsoft.com
   when: manual
   only:
-    - branch
+    - development
