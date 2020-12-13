@@ -7,7 +7,7 @@ on:
     branches: [ development ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -31,16 +31,3 @@ jobs:
               run: php artisan seed
             - name: unit test
                 run: ./vendor/bin/phpunit
-#        env:
-#          DB_CONNECTION: sqlite
-#          DB_DATABASE: database/database.sqlite
-#
-#  test:
-#    runs-on: postgres:latest
-#    steps:
-#      - name: migrate database
-#        run: php artisan migrate
-#      - name: seed database
-#        run: php artisan seed
-#      - name: unit test
-#          run: ./vendor/bin/phpunit
