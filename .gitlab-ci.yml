@@ -81,10 +81,10 @@ deploy:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
-    - ~/.composer/vendor/bin/envoy run deploy --environment=branch --commit="$CI_COMMIT_SHA" --cleanup
+    - ~/.composer/vendor/bin/envoy run deploy --environment=development --commit="$CI_COMMIT_SHA" --cleanup
   environment:
-    name: user
-    url: url
+    name: development
+    url: http://dev.zilrsoft.com
   when: manual
   only:
     - branch
