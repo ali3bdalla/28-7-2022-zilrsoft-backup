@@ -741,7 +741,7 @@ export default {
         user_title = 'company';
 
 
-      var data = {
+      let data = {
         user_gateways: [],
         user_title: user_title,
         is_client: true,

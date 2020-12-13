@@ -188,6 +188,8 @@
 
         },
         created: function () {
+
+          // console.log(this.$props)
             if (this.disabled) {
                 this.viewOnly = true;
             }
@@ -205,6 +207,8 @@
 
             }
 
+
+          // http://196.202.134.90/SMSbulk/webacc.aspx
 
         },
         methods: {

@@ -69,20 +69,20 @@
         </v-card>
 
 
-                <v-divider></v-divider>
+        <v-divider></v-divider>
 
 
-                <v-card-actions v-show="showButtons">
-                  <v-spacer></v-spacer>
-                  <v-btn
-                      class="button is-primary btn-block"
-                      color="primary"
-                      text
-                      @click="closeModal"
-                  >
-                    اغلاق
-                  </v-btn>
-                </v-card-actions>
+        <v-card-actions v-show="showButtons">
+          <v-spacer></v-spacer>
+          <v-btn
+              class="button is-primary btn-block"
+              color="primary"
+              text
+              @click="closeModal"
+          >
+            اغلاق
+          </v-btn>
+        </v-card-actions>
       </div>
     </vue-tailwind-modal>
   </div>
@@ -105,24 +105,20 @@ export default {
       showButtons: false
     };
   },
-  created: function () {
+  created () {
 
     this.kit_qty = this.kit.qty;
     this.checkItem();
 
   },
 
-  mounted: function () {
-    for (var i = 0; i < this.items.length; i++) {
-      let item = this.items[i];
-
-      // console.log(item);
-      if (item.is_need_serial) {
-        // console.log(this.$refs["itemSerials_" + item.id + "_" + 1][0]);
-        this.$refs["itemSerials_" + item.id + "_" + 1][0].focus();
-        // break;
-      }
-    }
+  mounted () {
+    // for (let i = 0; i < this.items.length; i++) {
+    //   let item = this.items[i];
+    //   if (item.is_need_serial) {
+    //     this.$refs["itemSerials_" + item.id + "_" + 1][0].focus();
+    //   }
+    // }
   },
 
   methods: {
@@ -139,7 +135,7 @@ export default {
       this.dialog = false;
     },
     checkItem() {
-      var len = this.kit.items.length;
+      let len = this.kit.items.length;
       for (let i = 0; i < len; i++) {
 
         let item = this.kit.items[i];
@@ -148,8 +144,6 @@ export default {
           this.is_required_to_add_data = true;
           item.item.is_need_serial = true;
           item.item.serials = [];
-
-
         }
 
         item.item.qty = item.qty;
@@ -160,7 +154,7 @@ export default {
         item.item.net = item.net;
         item.item.tax = item.tax;
         this.items.push(item.item);
-        if (i + 1 == len) {
+        if ((i + 1) === len) {
           this.checkItemsData();
         }
       }
@@ -175,11 +169,10 @@ export default {
 
     checkItemsData() {
       this.has_serials_error = false;
-      var len = this.items.length;
-      for (var i = 0; i < len; i++) {
+      let len = this.items.length;
+      for (let i = 0; i < len; i++) {
 
-        var item = this.items[i];
-        // console.log(item);
+        let item = this.items[i];
         if (item.is_need_serial) {
           if (item.serials.length < parseInt(this.kit_qty)) {
             this.has_serials_error = true;
@@ -201,7 +194,7 @@ export default {
 
     pushEvent() {
 
-      var kit = this.kit;
+      let kit = this.kit;
       kit.items = this.items;
       this.$emit("kitUpdated", {
         index: this.index,
@@ -213,14 +206,14 @@ export default {
 
     checkSerial(event, ref, item) {
 
-      var intered_serial = event.target.value;
+      let insertedSerial = event.target.value;
 
-
-      if (!item.serials.includes(this.intered_serial)) {
-        var vm = this;
-        ItemQuery.sendValidateSaleSerialRequest(item.id, [intered_serial]).then(function (response) {
+      console.log(item.serials);
+      if (!item.serials.includes(insertedSerial)) {
+        let vm = this;
+        ItemQuery.sendValidateSaleSerialRequest(item.id, [insertedSerial]).then(function (response) {
           if (response.data.length >= 1) {
-            item.serials.push(intered_serial);
+            item.serials.push(insertedSerial);
             $(event.target).removeClass("has-background-danger");
             $(event.target).attr("disabled", "disabled");
 
@@ -251,10 +244,10 @@ export default {
   watch: {
     qty: function (value) {
       this.kit_qty = value;
-      var subitems = [];
-      var len = this.items.length;
-      for (var i = 0; i < len; i++) {
-        var item = this.items[i];
+      let subitems = [];
+      let len = this.items.length;
+      for (let i = 0; i < len; i++) {
+        let item = this.items[i];
         subitems.push(item);
       }
 

@@ -55,10 +55,9 @@ class StoreOrderRequest extends FormRequest
         DB::beginTransaction();
         try {
             $this->validateQuantities($this->input('items'));
-            $authUser = Manager::find(1);
+            $authUser = Manager::first();
             $authClient = $this->user('client');
 
-            
             $invoice = Invoice::create(
                 [
                     'invoice_type' => 'sale',
@@ -73,7 +72,7 @@ class StoreOrderRequest extends FormRequest
                     'is_draft' => true
                 ]
             );
-            $sale = $invoice->sale()->create(
+            $invoice->sale()->create(
                 [
                     'salesman_id' => $authUser->id,
                     'client_id' => $authClient->id,

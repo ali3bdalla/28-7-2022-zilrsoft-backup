@@ -25,4 +25,4 @@ To Cancel Your Order Please Click Flowing Link and use this code {{$order->cance
 {{ $order->generateCancelOrderUrl() }}
 
 
-{{$client->organization->title}}
+{{ $invoice->organization->title}}

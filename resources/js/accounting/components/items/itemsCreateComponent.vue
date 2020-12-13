@@ -485,10 +485,8 @@ export default {
   created: function () {
 
 
-    // alert('hello')
     this.reusable_translator = JSON.parse(window.reusable_translator);
     this.local_config = JSON.parse(window.config);
-    // console.log('works');
     if (this.editingItem != null && this.editingItem) {
 
       this.itemData.warranty_subscription_id = this.editedItemData.warranty_subscription_id;
@@ -532,7 +530,6 @@ export default {
       }
       this.categoryListUpdated(this.editedItemCategory, null);
     }
-    console.log(window.messages);
 
     this.messages = window.messages;
 
@@ -545,7 +542,6 @@ export default {
       //warranty_subscriptions
       axios.get('/accounting/warranty_subscriptions').then(response => {
         appVm.warranty_subscriptions = response.data;
-        console.log(appVm.warranty_subscriptions)
       }).catch(error => {
         alert(error);
       })
@@ -557,7 +553,7 @@ export default {
 
     },
     validateBarcode(barcode) {
-      var appVm = this;
+      let appVm = this;
       axios.get(appVm.app.BaseApiUrl + 'items/helper/validate_barcode', {
         params: {
           barcode: barcode
@@ -587,7 +583,7 @@ export default {
     salesPriceFieldUpdated(e) {
       if (this.errorFieldName === 'salesPrice' || this.errorFieldName === 'salesPriceWithTax')
         this.errorFieldName = '';
-      var val = e.target.value;
+      let val = e.target.value;
       if (ItemValidator.validatePriceValue(val))
         this.itemData.salesPriceWithTax = ItemAccounting.getSalesPriceWithTaxFromSalesPriceAndVat(val, this.itemData.vts);
       else
@@ -672,7 +668,7 @@ export default {
         this.error = '';
       }
       this.selectedFilterValue.clear();
-      var appVm = this;
+      let appVm = this;
       this.selectedCategory = node;
       this.itemData.categoryId = node.id;
 
@@ -681,10 +677,10 @@ export default {
       })
           .then(function (response) {
 
-            var filters = response.data;
-            var data = [];
-            for (var i = 0; i < filters.length; i++) {
-              var filter = filters[i];
+            let filters = response.data;
+            let data = [];
+            for (let i = 0; i < filters.length; i++) {
+              let filter = filters[i];
               filter.is_checked = true;
               data.push(filter);
 
@@ -705,21 +701,21 @@ export default {
     loadCategoriesList(e) {
     },
     rebuildItemName() {
-      var arName = "";
-      var enName = "";
+      let arName = "";
+      let enName = "";
       if (this.categoryNameShouldBeInItemName) {
         arName = this.selectedCategory.ar_name;
         enName = this.selectedCategory.name;
       }
 
-      var len = this.filterList.length;
-      for (var i = 0; i < len; i++) {
-        var filter = this.filterList[i];
+      let len = this.filterList.length;
+      for (let i = 0; i < len; i++) {
+        let filter = this.filterList[i];
         if (filter.is_checked) {
           if (this.selectedFilterValue.has(filter.id)) {
-            var value_id = this.selectedFilterValue.get(filter.id);
-            if (value_id != 0) {
-              var value_data = helpers.getDataFromArrayById(filter.values, value_id);
+            let value_id = this.selectedFilterValue.get(filter.id);
+            if (value_id !== 0) {
+              let value_data = helpers.getDataFromArrayById(filter.values, value_id);
               enName = enName.concat(" " + value_data.name);
               arName = arName.concat(" " + value_data.ar_name);
             }
@@ -736,12 +732,12 @@ export default {
 
     },
     filterValueListChanged(data) {
-      var filterData = this.filterList[data.index];
+      let filterData = this.filterList[data.index];
       this.selectedFilterValue.set(filterData.id, data.value);
       this.rebuildItemName();
     },
     generateBarcode() {
-      var barcode = helpers.generateRandomNumberWithSize();
+      let barcode = helpers.generateRandomNumberWithSize();
       this.itemData.barcode = barcode;
 
       this.validateBarcode(barcode);
@@ -749,7 +745,6 @@ export default {
     validateAllField() {
 
 
-      console.log('start validating');
       if (this.itemData.barcode === "" || this.itemData.barcode.length < 4) {
         this.errorFieldName = 'barcode';
         this.errorFieldMessage = this.validation.item.barcode_required;
@@ -795,9 +790,9 @@ export default {
       return true;
     },
     extractAllSelectedFiltersAsKeyValueArray() {
-      var data = [];
+      let data = [];
       this.selectedFilterValue.forEach((value, index) => {
-        if (value != 0) {
+        if (value !== 0) {
           data[index] = value;
         }
       });
@@ -808,8 +803,8 @@ export default {
       if (!this.validateAllField()) {
         return;
       }
-      var filters_values = this.extractAllSelectedFiltersAsKeyValueArray();
-      var data = {
+      let filters_values = this.extractAllSelectedFiltersAsKeyValueArray();
+      let data = {
         expense_vendor_id: this.itemData.expenseVendorId,
         warranty_subscription_id: this.itemData.warranty_subscription_id,
         is_expense: this.itemData.isExpense,
@@ -837,7 +832,7 @@ export default {
       let loader = this.$loading.show({
         container: this.fullPage ? null : this.$refs.formContainer,
       });
-      var appVm = this;
+      let appVm = this;
 
       if (this.editingItem != null && this.editingItem && this.cloningItem != true) {
 
@@ -891,9 +886,12 @@ export default {
 
     },
     updateSelectedValuesFromParentItem() {
-      var filterLen = this.editedItemFilters.length;
-      for (var i = 0; i < filterLen; i++) {
-        var filter_and_value = this.editedItemFilters[i];
+      let filterLen = this.editedItemFilters.length;
+      // console.log(filterLen)
+      for (let i = 0; i < filterLen; i++) {
+        let filter_and_value = this.editedItemFilters[i];
+
+
         this.selectedFilterValue.set(filter_and_value.filter_id, filter_and_value.filter_value);
       }
 
@@ -901,13 +899,13 @@ export default {
 
     },
     updateFiltersToggleButtons() {
-      var data = [];
-      var len = this.filterList.length;
-      for (var i = 0; i < len; i++) {
-        var fit = this.filterList[i];
+      let data = [];
+      let len = this.filterList.length;
+      for (let i = 0; i < len; i++) {
+        let fit = this.filterList[i];
         if (this.selectedFilterValue.has(fit.id)) {
-          var vid = this.selectedFilterValue.get(fit.id);//value id
-          var value = helpers.getDataFromArrayById(fit.values, vid);
+          let vid = this.selectedFilterValue.get(fit.id);//value id
+          let value = helpers.getDataFromArrayById(fit.values, vid);
           if (this.itemData.enName.includes(value.name)) {
             fit.is_checked = true;
           } else {

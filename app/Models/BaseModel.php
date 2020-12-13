@@ -4,11 +4,8 @@
 	
 	use App\Models\Traits\PostgresTimestamp;
 	use App\Models\Traits\Translatable;
-	use Carbon\Carbon;
-	use Carbon\CarbonInterface;
 	use Illuminate\Database\Eloquent\Builder;
 	use Illuminate\Database\Eloquent\Model;
-	use Illuminate\Support\Facades\Date;
 	use Illuminate\Support\Facades\Schema;
 	
 	class BaseModel extends Model

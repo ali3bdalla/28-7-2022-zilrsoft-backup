@@ -50,8 +50,8 @@
 		{
 			
 			
-			$organization = Organization::find(1);
-			
+			$organization =$this->invoice->organization;
+
 			$invoice = $this->invoice;
 			$pdfInvoice = new APDFCore("decentblue", ' ');
 //			$pdfInvoice->setLogo($organization->logo);
