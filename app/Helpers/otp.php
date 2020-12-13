@@ -15,7 +15,11 @@
 		function sendOtp($phoneNumber, $otp)
 		{
 			$phoneNumber = '966' . $phoneNumber;
-			sendSms("Verification Code: {$otp}", $phoneNumber);
+            if (app()->environment(['production', 'local'])) {
+
+                sendSms("Verification Code: {$otp}", $phoneNumber);
+            }
+
 		}
 	}
 	
