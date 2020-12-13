@@ -2230,3 +2230,19 @@ LINE 1: select count(*) as aggregate from \"telescope_entries\" where ...
 #72 /private/var/www/workspace/zilrsoftproject/vendor/phpunit/phpunit/phpunit(61): PHPUnit\\TextUI\\Command::main()
 #73 {main}
 "} 
+[2020-12-13 23:13:52] producation.ERROR: Class 'Laravel\Telescope\TelescopeApplicationServiceProvider' not found {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Class 'Laravel\\Telescope\\TelescopeApplicationServiceProvider' not found at /private/var/www/workspace/zilrsoftproject/app/Providers/TelescopeServiceProvider.php:10)
+[stacktrace]
+#0 /private/var/www/workspace/zilrsoftproject/vendor/composer/ClassLoader.php(444): include()
+#1 /private/var/www/workspace/zilrsoftproject/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/private/var/ww...')
+#2 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('App\\\\Providers\\\\T...')
+#3 /private/var/www/workspace/zilrsoftproject/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(208): spl_autoload_call('App\\\\Providers\\\\T...')
+#4 /private/var/www/workspace/zilrsoftproject/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(144): Illuminate\\Foundation\\ProviderRepository->createProvider('App\\\\Providers\\\\T...')
+#5 /private/var/www/workspace/zilrsoftproject/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(61): Illuminate\\Foundation\\ProviderRepository->compileManifest(Array)
+#6 /private/var/www/workspace/zilrsoftproject/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(593): Illuminate\\Foundation\\ProviderRepository->load(Array)
+#7 /private/var/www/workspace/zilrsoftproject/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#8 /private/var/www/workspace/zilrsoftproject/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(219): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#9 /private/var/www/workspace/zilrsoftproject/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(320): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#10 /private/var/www/workspace/zilrsoftproject/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#11 /private/var/www/workspace/zilrsoftproject/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#12 {main}
+"} 
