@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Store\ShippingAddress\StoreShippingAddressRequest;
 use App\Models\City;
 use App\Models\ShippingAddress;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class ShippingAddressController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return void
      */
     public function index()
     {
@@ -29,75 +30,27 @@ class ShippingAddressController extends Controller
     public function create()
     {
         $cities = City::where('country_id', 1)->get();
-
         return Inertia::render('Web/Profile/CreateShippingAddress', [
             'cities' => $cities
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'city_id' => 'required|integer|exists:cities,id',
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'phone_number' => 'required|mobileNumber',
-//            'building_number' => 'nullable',
-            'description' => 'required|string|max:100',
-//            'street_name' => 'string',
-//            'zip_code' => 'nullable|integer'
-        ]);
-
-        return $request->user('client')->shippingAddresses()->create($request->only('city_id', 'first_name', 'last_name', 'phone_number', 'building_number', 'description', 'street_name', 'zip_code',));
-
-
-    }
 
     /**
-     * Display the specified resource.
-     *
-     * @param ShippingAddress $shippingAddress
-     * @return Response
+     * @param StoreShippingAddressRequest $request
+     * @return mixed
      */
-    public function show(ShippingAddress $shippingAddress)
+    public function store(StoreShippingAddressRequest $request)
     {
-        //
+        return $request->store();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param ShippingAddress $shippingAddress
-     * @return Response
-     */
-    public function edit(ShippingAddress $shippingAddress)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param ShippingAddress $shippingAddress
-     * @return Response
-     */
-    public function update(Request $request, ShippingAddress $shippingAddress)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param ShippingAddress $shippingAddress
-     * @return Response
+     * @return void
      */
     public function destroy(ShippingAddress $shippingAddress)
     {

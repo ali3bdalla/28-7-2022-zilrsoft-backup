@@ -69,9 +69,12 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
 
         Route::middleware('auth:client')->group(
             function () {
-                Route::group(['prefix' => 'profile', 'namespace' => 'Profile'], function () {
+                Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'name' => 'profile.'], function () {
                     Route::get('/', 'IndexController@index');
-                    Route::resource('shipping_address', 'ShippingAddressController');
+                    Route::post('create-shipping-address', 'ShippingAddressController@store')->name('create-shipping-address');
+                    Route::patch('update-information', 'IndexController@updateInformation')->name('update-information');
+                    Route::post('update-password', 'IndexController@updatePassword')->name('update-password');
+                    Route::post('update-phone-number', 'IndexController@updatePhoneNumber')->name('update-phone-number');
                 });
             }
         );

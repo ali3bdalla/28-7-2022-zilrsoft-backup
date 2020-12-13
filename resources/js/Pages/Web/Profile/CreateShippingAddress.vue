@@ -124,7 +124,7 @@ export default {
   },
   methods: {
     saveData() {
-      this.$inertia.post('/web/profile/shipping_address', this.$data);
+      this.$inertia.post('/web/profile/create-shipping-address', this.$data);
     }
   }
 
