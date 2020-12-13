@@ -57,7 +57,6 @@ test:
   #    - postgres:latest
   script:
     - cp .env.example .env.testing
-    -
     - touch database/database.sqlite
     # Run database migrations
     - php artisan migrate --env=testing
