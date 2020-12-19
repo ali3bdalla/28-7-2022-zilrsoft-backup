@@ -99,11 +99,12 @@
     }
 
     &__image {
-      @apply object-contain;
-      span {
-        //width: 100%;
-        //height: 100% !important;
-      }
+      @apply object-contain h-84;
+
+      //span {
+      //  //width: 100%;
+      //  //height: 100% !important;
+      //}
     }
 
     &__images-grid {
@@ -118,6 +119,10 @@
       background: white;
       border-radius: 9px;
       box-shadow: 1px 1px 1px -1px #545050;
+
+      &:hover {
+        @apply bg-red-50;
+      }
     }
 
     &__details {

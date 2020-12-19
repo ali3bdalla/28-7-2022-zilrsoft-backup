@@ -4,11 +4,11 @@
       <div class="container page__section product__show ">
         <div class="product__show__image-container ">
           <div>
-            <ImageZoomComponent class="product__show__image"  :src="$page.item.item_image_url" :src-large="$page.item.item_image_url"></ImageZoomComponent>
-<!--            <img-->
-<!--                class="product__show__image"-->
-<!--                :src="$page.item.item_image_url"-->
-<!--            />-->
+<!--            <ImageZoomComponent class="product__show__image"  src="$page.item.item_image_url" :src-large="$page.item.item_image_url"></ImageZoomComponent>-->
+            <img
+                class="product__show__image"
+                :src="$page.item.item_image_url"
+            />
           </div>
           <div class="product__show__images-grid">
             <div v-for="image in $page.item.attachments" :key="image.id" class="">
