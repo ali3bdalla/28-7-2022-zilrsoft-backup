@@ -2,7 +2,7 @@
   <web-layout>
     <div class="container bg-white shadow-lg">
       <div
-        class="grid grid-cols-2 gap-1 p-2 my-5 md:grid-cols-3 lg:grid-cols-5 lg:gap-2"
+        class="grid grid-cols-2 gap-1 p-2 my-5 md:grid-cols-3 lg:grid-cols-4 lg:gap-2"
       >
         <!--bg-gray-200-->
         <a
@@ -20,11 +20,11 @@
         <h1
           class="flex items-center justify-center text-xl font-bold text-center text-gray-600 md:text-2xl"
         >
-          Products ({{ $page.category.products_count }})
-          <a
-            :href="`/web/categories/${$page.category.id}/products`"
+          {{$page.$t.products.products}} ({{ $page.category.products_count }})
+          &nbsp; <a
+            :href="`/web/items?category_id=${$page.category.id}`"
             class="ml-2 text-sm text-blue-400"
-            >show all..</a
+            >{{$page.$t.products.show_all}}</a
           >
         </h1>
 

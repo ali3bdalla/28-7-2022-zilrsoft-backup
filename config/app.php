@@ -128,6 +128,17 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+
+
+    'msbrshop' => [
+        'email_address' => 'info@msbrshop.com',
+        'phone_number' => '920004747',
+        'social_media' => [
+            'facebook' => '',
+            'twitter' => '',
+            'instagram' => ''
+        ]
+    ],
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

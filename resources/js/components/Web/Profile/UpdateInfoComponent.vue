@@ -19,7 +19,7 @@
           <div class="col-lg-12">
             <div class="">
               <input type="email" placeholder="E-mail Address" v-model="$page.user.email_address">
-              <div class="p-2 text-red-500" v-if="$page.errors.last_name">{{ $page.errors.email_address }}</div>
+              <div class="p-2 text-red-500" v-if="$page.errors.email_address">{{ $page.errors.email_address }}</div>
             </div>
           </div>
           <div class="col-lg-12">
@@ -34,7 +34,16 @@
 
 <script>
 export default {
-name: "UpdateInfoComponent"
+name: "UpdateInfoComponent",
+  methods:{
+    saveData() {
+      this.$inertia.patch('/web/profile/update-information',{
+        'first_name' : this.$page.user.first_name,
+        'last_name' : this.$page.user.first_name,
+        'email_address' : this.$page.user.email_address
+      })
+    }
+  }
 }
 </script>
 

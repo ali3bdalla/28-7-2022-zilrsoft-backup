@@ -27,18 +27,17 @@ class CreateShippingMethodsTable extends Migration
             $table->float('max_base_weight_price')->default(30);
             $table->float('kg_rate_after_max_price')->default(2);
 
-
             $table->integer('item_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
 //
 //
-//                 DROP TABLE zilrsoft_production.delivery_men;
-//                 DROP TABLE zilrsoft_production.orders;
-//                 DROP TABLE zilrsoft_production.shipping_methods;
-//                 DROP TABLE zilrsoft_production.shipping_addresses;
-//            DELETE from public.migrations WHERE migration = '2020_11_28_204551_create_delivery_men_table';
+//DROP TABLE public.delivery_men;
+//DROP TABLE public.orders;
+//DROP TABLE public.shipping_methods;
+//DROP TABLE public.shipping_addresses;
+//DELETE from public.migrations WHERE migration = '2020_11_28_204551_create_delivery_men_table';
 //DELETE from public.migrations WHERE migration = '2020_11_02_161625_create_orders_table';
 //DELETE from public.migrations WHERE migration = '2020_11_05_160436_create_shipping_methods_table';
 //DELETE from public.migrations WHERE migration = '2020_11_02_161223_create_shipping_addresses_table';

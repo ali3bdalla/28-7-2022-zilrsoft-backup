@@ -6,10 +6,10 @@ use App\Jobs\Accounting\Chart\CreateAmericanChartOfAccountsJob;
 use App\Models\Manager;
 use App\Models\Organization;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Gate;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -17,7 +17,6 @@ abstract class TestCase extends BaseTestCase
 
 
     protected static $setUpHasRunOnce = false;
-
 
 
     public function actingAsUser()
@@ -28,20 +27,22 @@ abstract class TestCase extends BaseTestCase
 
     }
 
-    public function actingAsManager()
-    {
-        $this->actingAs($this->organizationProvider(), 'manager');
-    }
-
     public function organizationProvider()
     {
+        Gate::before(
+            function ($user, $ability) {
+                return true;
+//                if ($user->user)
+//                    return $user->hasRole('super admin') || $user->user->is_supervisor ? true : null;//$user->hasRole('super admin') ? true : null
+            }
+        );
         $organization = factory(Organization::class)->create();
         $organization->addTranslate(['en' => $this->faker->name, 'ar' => $this->faker->name], $this->faker->name, 'title');
         $organization->addTranslate(['en' => $this->faker->sentence, 'ar' => $this->faker->sentence], $this->faker->name, 'description');
         $manager = $this->managerProvider($organization->id);
         $organization->fill(['supervisor_id' => $manager->user_id]);
         $organization->save();
-        dispatch(new CreateAmericanChartOfAccountsJob($organization, $manager));
+//        dispatch(new CreateAmericanChartOfAccountsJob($organization, $manager));
         return $manager;
     }
 
@@ -58,6 +59,11 @@ abstract class TestCase extends BaseTestCase
                 'organization_id' => $organizationId
             ]
         );
+    }
+
+    public function actingAsManager()
+    {
+        $this->actingAs($this->organizationProvider(), 'manager');
     }
 
     public function accountProvider(Organization $organization, $slug = null)

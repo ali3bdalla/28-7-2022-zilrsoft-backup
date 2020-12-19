@@ -2,27 +2,27 @@
   <div class="cart__totals-buttons">
     <div>
       <div class="cart__total-amount">
-        <span>Total (Inc Vat): </span>
+        <span>{{$page.$t.cart.total}} ({{$page.$t.cart.inc_vat}}): </span>
         <display-money :money="getOrderTotalAmount(orderItems)"></display-money>
       </div>
       <div v-show="activePage === 'checkout' && shippingMethodId">
         <div class="cart__total-amount">
-          <span>Shipping Weight: </span>
+          <span>{{$page.$t.cart.shipping_weight}}: </span>
           <display-money :money="getTotalShippingWeight()"></display-money>
         </div>
         <div class="cart__total-amount">
-          <span>Shipping Total: </span>
+          <span>{{$page.$t.cart.shipping_total}}: </span>
 
           <display-money
               :money="getTotalShippingSubtotal()"
               v-if="getTotalShippingSubtotal() > 0"
           ></display-money>
-          <span v-else>Free</span>
+          <span v-else>{{$page.$t.cart.free}}</span>
         </div>
 
 
         <div class="cart__total-amount">
-          <span>Net Amount: </span>
+          <span>{{$page.$t.cart.net}}: </span>
 
           <display-money
               :money="getOrderNetAmount()"
@@ -38,15 +38,15 @@
     </div>
     <div v-if="activePage === 'cart'">
       <button class="proceed-btn" @click="changeActivePage('checkout')">
-        Checkout ({{ orderItems.length }})
+        {{$page.$t.cart.checkout}} ({{ orderItems.length }})
       </button>
     </div>
 
     <div v-else>
       <button v-if="$page.client_logged" class="proceed-btn" @click="sendOrder">
-        Confirm Order
+        {{$page.$t.cart.confirm_order}}
       </button>
-      <a v-else class="proceed-btn" href="/web/sign_in">LOGIN TO CHECK OUT</a>
+      <a v-else class="proceed-btn" href="/web/sign_in">{{$page.$t.cart.login_to_checkout}}</a>
     </div>
   </div>
 </template>

@@ -4,24 +4,28 @@
       <!--                <p>Our staff will call back later and answer your questions.</p>-->
       <div action="#" class="comment-form">
         <div class="row">
-          <div class="col-lg-6">
-            <div class="">
-              <input type="text" placeholder="First Name" v-model="$page.user.first_name">
-              <div class="p-2 text-red-500" v-if="$page.errors.first_name">{{ $page.errors.first_name }}</div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="">
-              <input type="text" placeholder="Last Name" v-model="$page.user.last_name">
-              <div class="p-2 text-red-500" v-if="$page.errors.last_name">{{ $page.errors.last_name }}</div>
-            </div>
-          </div>
           <div class="col-lg-12">
             <div class="">
-              <input type="email" placeholder="E-mail Address" v-model="$page.user.email_address">
-              <div class="p-2 text-red-500" v-if="$page.errors.last_name">{{ $page.errors.email_address }}</div>
+              <input type="password" placeholder="Old Password" v-model="old_password">
+              <div class="p-2 text-red-500" v-if="$page.errors.old_password">{{ $page.errors.old_password }}</div>
             </div>
           </div>
+
+          <div class="col-lg-6">
+            <div class="">
+              <input type="password" placeholder="New Password" v-model="password">
+              <div class="p-2 text-red-500" v-if="$page.errors.password">{{ $page.errors.password }}</div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="">
+              <input type="password"  placeholder="Password Confirmation" v-model="password_confirmation">
+              <div class="p-2 text-red-500" v-if="$page.errors.password_confirmation">{{ $page.errors.password_confirmation }}</div>
+            </div>
+          </div>
+
+
           <div class="col-lg-12">
             <button type="submit" class="site-btn" @click="saveData">Save</button>
           </div>
@@ -34,7 +38,23 @@
 
 <script>
 export default {
-name: "ChangePasswordComponent"
+name: "ChangePasswordComponent",
+  data() {
+    return {
+      password:"",
+      password_confirmation:"",
+      old_password:""
+    }
+  },
+  methods:{
+    saveData() {
+      this.$inertia.post('/web/profile/update-password',this.$data,{
+        replace: true,
+        preserveState: true,
+        preserveScroll: true,
+      })
+    }
+  }
 }
 </script>
 

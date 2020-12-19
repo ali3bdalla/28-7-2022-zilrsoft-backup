@@ -38,7 +38,8 @@
 		use SoftDeletes;
 		
 		protected $appends = [
-			'locale_name'
+			'locale_name',
+			'item_image_url'
 		
 		];
 		protected $casts = [
@@ -56,11 +57,27 @@
 		];
 		protected $guarded = [];
 		
+
+
+		public function getItemImageUrlAttribute(){
+			$images = $this->attachments()->get()->toArray();
+
+			if($images) return $images[1]['url'];
+			return "https://image.shutterstock.com/image-vector/stay-home-safe-coronavirus-vector-600w-1679419237.jpg";
+		}
 		public function scopeKits($query)
 		{
 			return $query->where('is_kit', true);
 		}
-		
+
+        public function scopeHasModelNumber($query)
+        {
+            return $query->whereHas('filters',function($query) {
+                $query->where('filter_id',38);
+            });
+		}
+
+
 		public function organization()
 		{
 			return $this->belongsTo(Organization::class, 'organization_id');

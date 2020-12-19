@@ -38,7 +38,7 @@
 				"transactions.*.amount" => "required|price",
 				"transactions.*.type" => "required|in:credit,debit",
 				"transactions.*.user_id" => ['nullable', "integer", "exists:users,id"],
-				"transactions.*.item_id" => ["nullable", "integer", "organization_exists:App\Models\Item,id"],
+				"transactions.*.item_id" => ["nullable", "integer"],
 				'description' => "required|string",
 				'created_at' => 'nullable',
 			];

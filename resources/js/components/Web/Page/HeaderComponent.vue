@@ -5,15 +5,15 @@
         <div class="ht-left">
           <div class="mail-service">
             <i class="fa fa-envelope"></i>
-            hello.colorlib@gmail.com
+            {{$page.app.msbrshop.email_address}}
           </div>
           <div class="phone-service">
             <i class="fa fa-phone"></i>
-            +65 11.188.888
+            {{$page.app.msbrshop.phone_number}}
           </div>
         </div>
         <div class="ht-right">
-          <a class="login-panel" href="/web/sign_in" v-if="!$page.client_logged"><i class="fa fa-user"></i>Login</a>
+          <a class="login-panel" href="/web/sign_in" v-if="!$page.client_logged"><i class="fa fa-user"></i>{{ $page.$t.profile.login }}</a>
           <a class="login-panel" href="/web/profile" v-else><i class="fa fa-user"></i>{{ $page.client.name }}</a>
 
           <!-- <div class="lan-selector">
@@ -29,7 +29,7 @@
                   style="width: 300px"
                   tabindex="-1"
               >
-                <!--                <option-->
+                                <option-->
                 <!--                  value="yt"-->
                 <!--                  data-image="/Web/template/img/flag-1.jpg'"-->
                 <!--                  data-imagecss="flag yt"-->
@@ -66,13 +66,13 @@
               <input
                   id="countries_titleText"
                   autocomplete="off"
-                  class="text shadow borderRadius"
+                  class="shadow text borderRadius"
                   style="display: none"
                   type="text"
               />
               <div
                   id="countries_child"
-                  class="ddChild ddchild_ border shadow"
+                  class="border shadow ddChild ddchild_"
                   style="
                   z-index: 9999;
                   display: none;
@@ -101,22 +101,22 @@
             </div>
           </div> -->
           <div class="top-social">
-            <a href="#"><i class="ti-facebook"></i></a>
-            <a href="#"><i class="ti-twitter-alt"></i></a>
-            <a href="#"><i class="ti-linkedin"></i></a>
-            <a href="#"><i class="ti-pinterest"></i></a>
+            <a :href="$page.app.msbrshop.social_media.facebook"><i class="ti-facebook"></i></a>
+            <a :href="$page.app.msbrshop.social_media.twitter"><i class="ti-twitter"></i></a>
+            <a :href="$page.app.msbrshop.social_media.instagram"><i class="fill-current ti-instagram"></i></a>
+
           </div>
         </div>
       </div>
     </div>
 
     <div class="container">
-      <div class="inner-header m-0 p-0 flex  items-center justify-center">
+      <div class="flex items-center justify-center p-0 m-0 inner-header">
         <!--        <div class="row">-->
         <div class="w-3/12">
           <div class="logo">
-            <a href="./index.html">
-              <img alt="" src="/Web/template/img/logo.png"/>
+            <a href="/web">
+              <img alt="" src="/template/images/msbr_logo.png"/>
             </a>
           </div>
         </div>
@@ -133,22 +133,16 @@
         <div class="nav-depart">
           <div class="depart-btn">
             <i class="ti-menu"></i>
-            <span>All departments</span>
+            <span>{{ $page.$t.header.categories }}</span>
             <ul class="depart-hover">
-              <li class="active"><a href="#">Women’s Clothing</a></li>
-              <li><a href="#">Men’s Clothing</a></li>
-              <li><a href="#">Underwear</a></li>
-              <li><a href="#">Kid's Clothing</a></li>
-              <li><a href="#">Brand Fashion</a></li>
-              <li><a href="#">Accessories/Shoes</a></li>
-              <li><a href="#">Luxury Brands</a></li>
-              <li><a href="#">Brand Outdoor Apparel</a></li>
+              <li v-for="category in $page.main_categories" :key="category.id"><a :href="`/web/categories/${category.id}`">{{ category.locale_name}}</a></li>
+              
             </ul>
           </div>
         </div>
-        <nav class="nav-menu mobile-menu">
+        <!-- <nav class="nav-menu mobile-menu">
           <ul>
-            <li class="active"><a href="./index.html">Home</a></li>
+            <li class="active"><a href="/web">{{$page.$t.header.home}}</a></li>
             <li><a href="./shop.html">Shop</a></li>
             <li>
               <a href="#">Collection</a>
@@ -268,7 +262,7 @@
               </ul>
             </nav>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </header>

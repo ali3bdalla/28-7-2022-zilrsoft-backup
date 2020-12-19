@@ -1,0 +1,26 @@
+.footer-section {
+  padding-top: 28px;
+}
+
+.copyright-reserved {
+  margin-top: 0px;
+}
+
+.footer-widget h5 {
+  margin-bottom: 6px;
+}
+
+.footer-left .footer-logo {
+  margin-bottom: 4px;
+}
+
+.inner-header .advanced-search .input-group button {
+  height: 100%;
+}
+
+.footer-left .footer-social a, .inner-header .advanced-search .input-group button {
+  display: inline-flex;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+}

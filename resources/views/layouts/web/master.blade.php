@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" @if(app()->isLocale( 'ar'))dir="rtl"@endif>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,12 +16,10 @@
 
 <div>
     @includeIf('layouts.web.header')
-    <div class="" >
+    <div class="">
         @yield('content')
     </div>
 </div>
 @includeIf("layouts.web.footer")
-
-
 </body>
 </html>

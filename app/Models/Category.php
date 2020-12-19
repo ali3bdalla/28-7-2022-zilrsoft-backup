@@ -120,6 +120,7 @@
 		
 		public function getProductsCountAttribute()
 		{
+//		    dd($this->getChildrenIncludeMe());
 			return Item::whereIn('category_id', $this->getChildrenIncludeMe())->count();
 		}
 	}

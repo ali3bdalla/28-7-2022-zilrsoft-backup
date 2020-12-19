@@ -1,17 +1,18 @@
 <template>
   <web-layout class="">
     <div class="product">
-      <div class="page__section product__show">
+      <div class="container page__section product__show ">
         <div class="product__show__image-container ">
           <div>
-            <img
-                class="product__show__image"
-                src="https://c1.neweggimages.com/ProductImage/34-155-519-V01.jpg"
-            />
+            <ImageZoomComponent class="product__show__image"  :src="$page.item.item_image_url" :src-large="$page.item.item_image_url"></ImageZoomComponent>
+<!--            <img-->
+<!--                class="product__show__image"-->
+<!--                :src="$page.item.item_image_url"-->
+<!--            />-->
           </div>
           <div class="product__show__images-grid">
-            <div v-for="image in relatedImages" :key="image" class="">
-              <img :src="image" class="product__show__images-grid-image "/>
+            <div v-for="image in $page.item.attachments" :key="image.id" class="">
+              <img :src="image.url" class="product__show__images-grid-image "/>
             </div>
           </div>
         </div>
@@ -19,27 +20,30 @@
             class="product__show__details"
         >
           <h1 class="product__show__details-name">
-            {{ $page.item.name }}
+            {{ $page.item.locale_name }}
           </h1>
-          <ProductRatingComponent
+          <h1 class="product__show__details-slash-price">
+            {{ $page.item.locale_name }}
+          </h1>
+          <!-- <ProductRatingComponent
               :item="$page.item"
               align=""
               class="mt-2"
-          ></ProductRatingComponent>
+          ></ProductRatingComponent> -->
           <div class="pb-2 mb-3">
             <h4
                 class="product__show__details-slash-price"
             >
               {{ parseFloat($page.item.price_with_tax).toFixed(2) }}
             </h4>
-            <span class="product__show__details-currency">SR</span>
+            <span class="product__show__details-currency">{{$page.$t.products.sar}}</span>
             <div>
               <h4
                   class="product__show__details-price"
               >
                 {{ parseFloat($page.item.price).toFixed(2) }}
               </h4>
-              <span class="product__show__details-currency">SR</span>
+              <span class="product__show__details-currency">{{$page.$t.products.sar}}</span>
             </div>
             <!--            text-xl text-web-primary font-bold-->
             <div class="product__show__details-actions">
@@ -50,7 +54,7 @@
             </div>
           </div>
           <h2 class="product__show__details-specification-title">Product Specification</h2>
-          <div class="specification-table product__show__details-specification-table-container">
+          <div class=" specification-table product__show__details-specification-table-container">
             <table class="product__show__details-specification-table">
               <tbody>
               <tr
@@ -60,10 +64,10 @@
               >
                 <td
                     class="product__show__details-specification-table-title-cell">
-                  {{ filter.filter.name }}
+                  {{ filter.filter.locale_name }}
                 </td>
                 <td class="product__show__details-specification-table-value-cell">
-                  {{ filter.value.name }}
+                  {{ filter.value.locale_name }}
                 </td>
               </tr>
               </tbody>
@@ -72,9 +76,9 @@
         </div>
       </div>
 
-      <div class="page__section">
+      <div class="mt-32 page__section">
         <div
-            class="products-grid"
+            class="products-grid container"
         >
           <ProductListItemComponent
               v-for="(item, index) in $page.relatedItems"
@@ -94,7 +98,7 @@ import ProductRatingComponent from "./../../../components/Web/Product/ProductRat
 import ToggleCartItemButtonComponent from "./../../../components/Web/Cart/ToggleCartItemButtonComponent";
 import ToggleFavoriteItemButtonComponent from "./../../../components/Web/Cart/ToggleFavoriteItemButtonComponent";
 import WebLayout from "../../../Layouts/WebAppLayout";
-
+import ImageZoomComponent from './../../../components/Web/Product/ImageZoomComponent'
 export default {
   components: {
     WebLayout,
@@ -102,6 +106,7 @@ export default {
     ProductRatingComponent,
     ToggleCartItemButtonComponent,
     ToggleFavoriteItemButtonComponent,
+    ImageZoomComponent
   },
   computed: {
     relatedImages() {

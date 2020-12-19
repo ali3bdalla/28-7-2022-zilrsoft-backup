@@ -38,8 +38,9 @@ class UpdatePasswordRequest extends FormRequest
     {
         try {
             throw_if(!Hash::check($this->input('old_password'), $this->user()->password), ValidationException::withMessages(['old_password' => 'old password isn\'t valid ']));
-
-
+            $this->user()->update([
+               'password' => Hash::make($this->input('password'))
+            ]);
         } catch (ValidationException $exception) {
             throw $exception;
         }

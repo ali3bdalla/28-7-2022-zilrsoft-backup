@@ -18,7 +18,6 @@ class ItemController extends Controller
         $categories = Category::all();
         $creators = Manager::all();
         
-//        return  $categories;
         return view('accounting.items.index', compact('categories', 'creators'));
     }
 

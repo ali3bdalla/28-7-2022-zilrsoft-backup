@@ -16,7 +16,8 @@ class IndexController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('Web/Profile/Index', [
-            'user' => $request->user()
+            'user' => $request->user(),
+            'shipping_addresses' => $request->user()->shippingAddresses()->with('city.country')->get()
         ]);
     }
 

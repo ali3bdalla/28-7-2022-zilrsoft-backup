@@ -19,11 +19,8 @@
 			$items = $fetchItemsRequest->getData();
 			$filters = $fetchFiltersRequest->getData($items);
 		
-//			return $items;
-//			return $filters;
-			
-//			return $filters;
-			
+
+
 			return Inertia::render(
 				'Web/Product/Index', [
 					'category' => $fetchFiltersRequest->input('categoryId'),
@@ -40,7 +37,7 @@
 			$relatedItems = $item->category->items()->with('category')->inRandomOrder()->take(20)->get();
 			return Inertia::render(
 				'Web/Product/Show', [
-					'item' => $item->load('filters.filter', 'filters.value', 'category'),
+					'item' => $item->load('filters.filter', 'filters.value', 'category','attachments'),
 					'relatedItems' => $relatedItems
 				]
 			);

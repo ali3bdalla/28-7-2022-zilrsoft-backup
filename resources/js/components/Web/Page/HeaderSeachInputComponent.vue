@@ -2,20 +2,20 @@
   <div class="relative p-0">
     <div class="advanced-search">
       <select v-model="categoryId" class="category-btn">
-        <option value="0">All Categories</option>
+        <option value="0">{{ $page.$t.header.categories }}</option>
 
         <option
             v-for="category in categories"
             :key="category.id"
             :value="category.id"
         >
-          {{ category.name }}
+          {{ category.locale_name }}
         </option>
       </select>
       <div class="input-group">
         <input
             v-model="searchKey"
-            placeholder="What do you need?"
+            :placeholder="$page.$t.header.search_placeholder"
             type="text"
             @keydown="getItems"
             @keyup.enter="getToResultPage"
@@ -25,17 +25,17 @@
     </div>
     <div
         v-if="items.length > 0"
-        class="bg-white absolute w-full z-50 shadow-lg mx-auto pt-2 px-3 "
+        class="absolute z-50 w-full px-3 pt-2 mx-auto bg-white shadow-lg "
     >
       <a
           v-for="item in items"
           :key="item.id"
           :href="`/web/items/${item.id}`"
-          class="block px-2 py-1 border-b text-gray-800 font-bold font-bold hover:text-gray-600"
+          class="block px-2 py-1 font-bold text-gray-800 border-b hover:text-gray-600"
       >
-        {{ item.name }}
+        {{ item.locale_name }}
       </a>
-      <h2 class="mt-3 mb-1 p-2 text-lg text-gray-700 font-bold">
+      <h2 class="p-2 mt-3 mb-1 text-lg font-bold text-gray-700">
         categories
       </h2>
       <a
@@ -43,9 +43,9 @@
           v-for="category in categoriesGroup"
           :key="category.id"
           :href="`/web/items?categoryId=${category.id}&&name=${searchKey}`"
-          class="block px-2 py-1 border-b text-gray-800 font-bold hover:text-gray-600 "
+          class="block px-2 py-1 font-bold text-gray-800 border-b hover:text-gray-600 "
       >
-        <span class="">{{ searchKey }}</span> - <span class=" ">{{ category.name }}</span>
+        <span class="">{{ searchKey }}</span> - <span class="">{{ category.locale_name }}</span>
       </a>
 
     </div>

@@ -69,11 +69,10 @@
 			$items = $query->with('category')->take(5)->get();
 			
 			$categoriesHas = $query->take(100)->pluck('category_id')->unique()->toArray();
-			
-			
+
 			return [
 				'items' => $items,
-				'categories_group' => Category::whereIn('id',$categoriesHas)->withCount('children')->having('children_count','=',0)->get()
+				'categories_group' => Category::whereIn('id',$categoriesHas)->get()
 			];
 		}
 	}

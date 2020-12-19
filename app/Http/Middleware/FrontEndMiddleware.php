@@ -5,7 +5,7 @@
 	use Closure;
 	use Illuminate\Http\Request;
 	use Inertia\Inertia;
-	
+	use App\Models\Category;
 	class FrontEndMiddleware
 	{
 		/**
@@ -19,10 +19,16 @@
 		{
 			Inertia::setRootView('web');
 			
+
+			app()->setlocale('ar');
+			
 			Inertia::share(
 				[
 					'client_logged' => auth('client')->check(),
 					'client' => auth('client')->user(),
+					"app" => config('app'),
+					'$t' => __("store"),
+					'main_categories' => Category::where('parent_id',0)->get()
 				]
 			);
 			return $next($request);

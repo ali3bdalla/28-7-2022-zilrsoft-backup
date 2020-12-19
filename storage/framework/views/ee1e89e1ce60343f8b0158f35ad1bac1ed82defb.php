@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" <?php if(app()->isLocale( 'ar')): ?>dir="rtl"<?php endif; ?>>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,13 +16,11 @@
 
 <div>
     <?php if ($__env->exists('layouts.web.header')) echo $__env->make('layouts.web.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-    <div class="" >
+    <div class="">
         <?php echo $__env->yieldContent('content'); ?>
     </div>
 </div>
 <?php if ($__env->exists("layouts.web.footer")) echo $__env->make("layouts.web.footer", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
-
 </body>
 </html>
 <?php /**PATH /private/var/www/workspace/zilrsoftproject/resources/views/layouts/web/master.blade.php ENDPATH**/ ?>

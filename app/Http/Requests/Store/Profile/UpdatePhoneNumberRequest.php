@@ -41,7 +41,7 @@ class UpdatePhoneNumberRequest extends FormRequest
                 $this->preformChange();
 
             } else {
-                $this->send();
+//                $this->send();
             }
 
         } catch (ValidationException $e) {

@@ -1,17 +1,17 @@
 <template>
-  <div class="product__list-item">
+  <div class="product__list-item ">
     <div class="product__list-item-image-container">
-      <img :src="itemImage" class="product__list-item-image" />
+      <img :src="item.item_image_url" class="product__list-item-image" />
     </div>
     <div class="p-2 mt-5 overflow-hidden">
       <h3 class="product__list-item-category-name product__list-item-category-name__out-of-stock" v-if="item.available_qty <= 0">
-        <span > Out Of Stock </span>
+        <span > {{$page.$t.products.out_of_stock}} </span>
       </h3>
       <h3 v-else class="product__list-item-category-name">
-          {{item.category.name}}
+          {{item.category.locale_name}}
       </h3>
       <a :href="`/web/items/${item.id}`" class="product__list-item-name">
-        {{ item.name }}
+        {{ item.locale_name }}
       </a>
       <ProductRatingComponent
         :item="item"
@@ -19,14 +19,14 @@
       ></ProductRatingComponent>
 
       <h4 class="product__list-item-price">
-        {{ parseFloat(item.price_with_tax).toFixed(2) }}
+        {{ parseFloat(item.online_price).toFixed(2) }}
       </h4>
-      <span class="product__list-item-currency">SR</span>
+      <span class="product__list-item-currency">{{$page.$t.products.sar}}</span>
       <div>
         <h4 class="product__list-item-old-price">
-          {{ parseFloat(item.price).toFixed(2) }}
+          {{ parseFloat(item.online_offer_price).toFixed(2) }}
         </h4>
-        <span class="product__list-item-currency">SR</span>
+        <span class="product__list-item-currency">{{$page.$t.products.sar}}</span>
       </div>
       <ToggleCartItemButtonComponent
         :item="item"

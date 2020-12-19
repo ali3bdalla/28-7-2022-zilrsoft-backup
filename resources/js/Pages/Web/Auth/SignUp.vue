@@ -5,11 +5,11 @@
         <div class="">
           <div class="col-lg-6 offset-lg-3">
             <div class="login-form">
-              <h2>SignUp</h2>
+              <h2>{{ $page.$t.profile.sign_up}}</h2>
               <form action="#">
                 <div class="flex flex-col">
                   <div class="flex-1 group-input">
-                    <label for="phone_number">Phone Number</label>
+                    <label for="phone_number">{{ $page.$t.profile.phone_number}}</label>
                     <VuePhoneNumberInput
                         v-model="phone_number"
                         :no-country-selector="false"
@@ -32,7 +32,7 @@
                     </div>
                   </div>
                   <div class="flex-1 group-input">
-                    <label for="password">Password</label>
+                    <label for="password">{{ $page.$t.profile.password}}</label>
                     <input
                         id="password"
                         v-model="password"
@@ -49,7 +49,7 @@
 
                 <div class="flex">
                   <div class="flex-1 group-input">
-                    <label for="first_name">First Name</label>
+                    <label for="first_name">{{ $page.$t.profile.first_name}}</label>
                     <input
                         id="first_name"
                         v-model="first_name"
@@ -64,7 +64,7 @@
                     </div>
                   </div>
                   <div class="flex-1 group-input">
-                    <label for="last_name">Last Name</label>
+                    <label for="last_name">{{ $page.$t.profile.last_name}}</label>
                     <input
                         id="last_name"
                         v-model="last_name"
@@ -81,12 +81,12 @@
                     type="button"
                     @click="submitSignUp"
                 >
-                  Sign Up
+                  {{ $page.$t.profile.sign_up}}
                 </button>
               </form>
               <div class="switch-login">
                 <a class="or-login" href="/web/sign_in"
-                >Already have account ?</a
+                >{{ $page.$t.profile.already_have_account}}</a
                 >
               </div>
             </div>

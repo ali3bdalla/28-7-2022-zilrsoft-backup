@@ -13,8 +13,6 @@ class CategoryController extends Controller
     {
 
 
-        // return $category->children()->pluck('id'); 
-        // return $category->getChildrenIncludeMe();
         return Inertia::render('Web/Category/Show',[
             'category' => $category,
             'subcategories' => $category->children()->get(),

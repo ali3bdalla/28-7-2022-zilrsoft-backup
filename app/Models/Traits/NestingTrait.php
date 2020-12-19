@@ -60,9 +60,11 @@ trait NestingTrait
                 'parents' => $query->parents == null || (count($query->parents) == 1 && $query->parents[0] == 0) ? [] : $query->parents,
             ];
         } else {
+
             $result = [
-                'children' => $hashMap->children == null ? [] : $hashMap->children,
-                'parents' => $hashMap->parents == null ? [] : $hashMap->parents,
+
+                'children' => $hashMap->children == null ? [] : collect($hashMap->children)->toArray(),
+                'parents' => $hashMap->parents == null ? [] : collect($hashMap->parents)->toArray(),
             ];
         }
         return $result;

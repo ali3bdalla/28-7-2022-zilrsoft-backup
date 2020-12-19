@@ -1,0 +1,72 @@
+
+html {
+    direction:rtl;
+    font-family:"Droid Arabic Kufi", "Droid Sans", sans-serif;
+    font-size:18px;
+}
+
+
+*:not(i) {
+    font-family: 'El Messiri', sans-serif;
+    font-family: 'Tajawal', sans-serif;
+}
+
+
+input {
+    text-align: right !important;
+}
+.inner-header .logo {
+    text-align: right;
+}
+
+.header-top .ht-right .login-panel i {
+    margin-right: 0px;
+    margin-left: 8px;
+}
+
+.inner-header .advanced-search .category-btn {
+    float: right;
+    padding-left: 0px;
+    padding-right: 13px;
+    padding-top: 18px;
+}
+
+.inner-header .advanced-search .input-group button {
+    right: auto !important;
+    left: 0px;
+}
+
+.inner-header .advanced-search .input-group {
+    padding-top: 7px !important;
+    padding-right: 10px;
+}
+
+.country-selector.has-value .country-selector__input {
+
+     border-top-left-radius: 0px !important;
+     border-bottom-left-radius:0px  !important;
+    border-color: yellowgreen;
+}
+
+
+.input-tel__input {
+ 
+ 
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius:0px  !important;
+}
+
+.nav-item .nav-depart {
+    float: right;
+}
+
+.newslatter-item .subscribe-form button {
+    right: auto;
+    left: 0;
+
+}
+
+.newslatter-item .subscribe-form input {
+    padding-right: 20px;
+}
+@import "./product";

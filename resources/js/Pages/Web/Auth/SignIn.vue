@@ -5,12 +5,12 @@
         <div class="row">
           <div class="col-lg-6 offset-lg-3">
             <div class="login-form">
-              <h2>Login</h2>
+              <h2>{{ $page.$t.profile.login}}</h2>
 
               <form action="#">
                 <div class="flex flex-col">
                   <div class="flex-1 group-input">
-                    <label for="phone_number">Phone Number</label>
+                    <label for="phone_number">{{ $page.$t.profile.phone_number}}</label>
                     <VuePhoneNumberInput
                       default-country-code="SA"
                       :no-example="true"
@@ -33,7 +33,7 @@
                     </div>
                   </div>
                   <div class="flex-1 group-input">
-                    <label for="password">Password</label>
+                    <label for="password">{{ $page.$t.profile.password}}</label>
                     <input
                       autocomplete="new-zilrsoft-password"
                       auto-complete="new-zilrsoft-password"
@@ -51,7 +51,7 @@
                 <div class="group-input gi-check">
                   <div class="gi-more">
                     <a href="/web/forget_password" class="forget-pass"
-                      >Forget your Password</a
+                      >{{ $page.$t.profile.forget_password}}</a
                     >
                   </div>
                 </div>
@@ -62,12 +62,12 @@
                   @click="submitForm"
                   class="site-btn login-btn"
                 >
-                  Sign In
+                {{ $page.$t.profile.login}}
                 </button>
 
 
               <div class="switch-login">
-                <a href="/web/sign_up" class="or-login">Or Create An Account</a>
+                <a href="/web/sign_up" class="or-login">{{ $page.$t.profile.or_create_new_account}}</a>
               </div>
             </div>
           </div>

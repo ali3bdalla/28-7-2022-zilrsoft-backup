@@ -20,7 +20,7 @@
 
             <div v-if="activePage=='checkout'">
               <div class="mt-6 col-lg-12">
-                <h1 class="mb-3 text-xl text-gray-500">Shipping Method</h1>
+                <h1 class="mb-3 text-xl text-gray-500">{{$page.$t.cart.shipping_method}}</h1>
                 <div class="grid grid-cols-2 gap-2 md:grid-cols-4">
                   <div 
                       class="flex flex-col items-center justify-center gap-5 pb-3 text-xl border rounded shadow-sm"
@@ -46,7 +46,7 @@
               </div>
 
               <div class="mt-8 col-lg-12">
-                <h1 class="mb-3 text-xl text-gray-500">Payment Method</h1>
+                <h1 class="mb-3 text-xl text-gray-500">{{ $page.$t.cart.payment_method }}</h1>
                 <div class="grid grid-cols-2 gap-2 md:grid-cols-4">
                   <div
                       class="flex flex-col items-center justify-center gap-5 pb-3 text-xl border rounded shadow-sm"
@@ -65,7 +65,8 @@
                         v-model="paymentMethodId"
                         :label="paymentMethod.name"
                         :disabled="!paymentMethod.active"
-                    >{{ paymentMethod.name }}
+                    >
+                      {{ $page.$t.cart[paymentMethod.name] }}
                     </el-radio
                     >
                   </div>
@@ -122,24 +123,24 @@ export default {
     paymentMethods() {
       return [
         {
-          name: "Bank Transfer",
+          name: "bank_transfer",
           logo: "/images/shipping_methods/bank_transfer.jpeg",
           active: true,
           selected:true
         },
 
         {
-          name: "Mada",
+          name: "mada",
           logo: "/images/shipping_methods/mada.jpg",
           active: false,
         },
         {
-          name: "Visa",
+          name: "visa",
           logo: "/images/shipping_methods/visa.jpg",
           active: false,
         },
         {
-          name: "SDAD",
+          name: "sada",
           logo: "/images/shipping_methods/sdad.jpg",
           active: false,
         }

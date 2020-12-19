@@ -16,51 +16,56 @@
             <div class="col-lg-3">
                 <div class="footer-left">
                     <div class="footer-logo">
-                        <a href="#"><img src="<?php echo e(asset('Web/template/img/footer-logo.png')); ?>" alt=""></a>
+                        <a href="#"><img src="<?php echo e(asset('/template/images/msbr_logo.png')); ?>" alt=""></a>
                     </div>
                     <ul>
-                        <li>Address: 60-49 Road 11378 New York</li>
-                        <li>Phone: +65 11.188.888</li>
-                        <li>Email: hello.colorlib@gmail.com</li>
+                        <li><?php echo e(__('store.footer.address')); ?>: <?php echo e(config('app.msbrshop.address')); ?></li>
+                        <li><?php echo e(__('store.footer.phone')); ?>: <?php echo e(config('app.msbrshop.phone_number')); ?></li>
+                        <li><?php echo e(__('store.footer.email')); ?>: <?php echo e(config('app.msbrshop.email_address')); ?></li>
                     </ul>
+
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="footer-widget">
+                    <h5><?php echo e(__('store.footer.information')); ?></h5>
+                    <ul>
+                        <li><a href="#"><?php echo e(__('store.footer.about_us')); ?></a></li>
+
+                        <li><a href="#"><?php echo e(__('store.footer.contact')); ?></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="footer-widget">
+                    <h5><?php echo e(__('store.footer.my_account')); ?></h5>
+                    <ul>
+
+                        <li><a href="#"><?php echo e(__('store.footer.my_account')); ?></a></li>
+
+                        <li><a href="#"><?php echo e(__('store.footer.cart')); ?></a></li>
+                        <li><a href="#"><?php echo e(__('store.footer.logout')); ?></a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="newslatter-item">
+                    <h5><?php echo e(__('store.footer.join_news_letter')); ?></h5>
+                    <p><?php echo e(__('store.footer.join_news_letter_bio')); ?></p>
+                    <form action="#" class="subscribe-form">
+                        <input type="text" placeholder="<?php echo e(__('store.footer.your_email')); ?>">
+                        <button type="button"><?php echo e(__('store.footer.subscribe')); ?></button>
+                    </form>
+                </div>
+
+                <div class="footer-left">
                     <div class="footer-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-pinterest"></i></a>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-2 offset-lg-1">
-                <div class="footer-widget">
-                    <h5>Information</h5>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Checkout</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Serivius</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="footer-widget">
-                    <h5>My Account</h5>
-                    <ul>
-                        <li><a href="#">My Account</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Shopping Cart</a></li>
-                        <li><a href="#">Shop</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="newslatter-item">
-                    <h5>Join Our Newsletter Now</h5>
-                    <p>Get E-mail updates about our latest shop and special offers.</p>
-                    <form action="#" class="subscribe-form">
-                        <input type="text" placeholder="Enter Your Mail">
-                        <button type="button">Subscribe</button>
-                    </form>
                 </div>
             </div>
         </div>
@@ -71,17 +76,18 @@
                 <div class="col-lg-12">
                     <div class="copyright-text">
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright ©
-                        <script>document.write(new Date().getFullYear());</script>
-                        2020 All rights reserved | This template is made with <i class="fa fa-heart-o"
-                                                                                 aria-hidden="true"></i> by <a
-                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <?php echo e(__('store.footer.copyright_saved')); ?>
+
+
+
+
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </div>
                     <div class="payment-pic">
                         <img src="<?php echo e(asset('Web/template/img/payment-method.png')); ?>" alt="">
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
