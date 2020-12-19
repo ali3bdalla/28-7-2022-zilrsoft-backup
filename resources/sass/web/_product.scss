@@ -99,7 +99,7 @@
     }
 
     &__image {
-      @apply object-contain h-84;
+      @apply object-contain;
 
       //span {
       //  //width: 100%;
@@ -121,7 +121,7 @@
       box-shadow: 1px 1px 1px -1px #545050;
 
       &:hover {
-        @apply bg-red-50;
+        //@apply bg-red-50;
       }
     }
 
