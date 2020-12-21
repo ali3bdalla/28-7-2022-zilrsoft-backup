@@ -119,7 +119,7 @@
             <h5 style="margin: 10px 0px !important;"> رقم الهاتف : {{auth()->user()->organization->phone_number}}</h5>
 
         </div>
-        <div class="col-md-6 text-right">
+        <div class="text-right col-md-6">
             <img src="{{asset(auth()->user()->organization->logo)}}" class="logo">
         </div>
     </div>
@@ -129,7 +129,7 @@
         <div class="row" style="color:black !important;font-weight: bolder !important;font-size: 19px">
 
 
-            <div class="col-md-12 text-right" style="float: right">
+            <div class="text-right col-md-12" style="float: right">
                 <div class="company-info" style="color: black !important; margin-top: -30px;">
                     <span style="padding-right: 13px;font-size: 25px">{{auth()->user()->organization->title_ar}}</span>
                     <p style="padding-right: 13px;font-size: 20px;margin-top:10px">{{auth()->user()
@@ -143,7 +143,7 @@
         {{--        <hr>--}}
         <div class="row background_primary">
 
-            <div class="col-md-6 text-right" style="float: right">
+            <div class="text-right col-md-6" style="float: right">
                 <div class="company-info" style="margin-bottom: 8px">
                     <span>{{ __('pages/invoice.date') }} :
                         <span style="direction: ltr !important;
@@ -171,7 +171,7 @@
                         {{$invoice->invoice_number }}</span>
                 </div>
                 <div class="company-info" style="margin-bottom: 10px">
-                    <span>{{$invoice->manager_type }} : {{ $invoice->manager->name
+                    <span>{{$invoice->manager_type }} : {{ $invoice->manager->locale_name
                     }}</span>
                 </div>
                 {{--                <div class="company-info"  style="margin-bottom: 8px">--}}
@@ -304,7 +304,7 @@
     </section>
     <div class="">
 		<?php $show_price_in_print_mode_tax_net = $invoice->show_price_in_print_mode_tax_and_net;?>
-        <div class="total_numbers text-right">
+        <div class="text-right total_numbers">
             <div class="">
                 <h4 style="color: white;font-size: 22px;padding: 4px">{{ __('pages/invoice.invoice_data') }}</h4>
             </div>
@@ -350,7 +350,7 @@
 
     </div>
 
-    <div class="total_numbers text-right " style="float:right;color: black !important;">
+    <div class="text-right total_numbers " style="float:right;color: black !important;">
         <div class="">
             <h4 style="color: white;font-size: 22px;padding: 4px">{{ __('pages/invoice.invoice_data') }}</h4>
         </div>

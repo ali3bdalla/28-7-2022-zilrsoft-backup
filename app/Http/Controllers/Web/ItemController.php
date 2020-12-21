@@ -35,6 +35,8 @@
 		public function show(Item $item)
 		{
 			$relatedItems = $item->category->items()->with('category')->inRandomOrder()->take(20)->get();
+
+
 			return Inertia::render(
 				'Web/Product/Show', [
 					'item' => $item->load('filters.filter', 'filters.value', 'category','attachments'),

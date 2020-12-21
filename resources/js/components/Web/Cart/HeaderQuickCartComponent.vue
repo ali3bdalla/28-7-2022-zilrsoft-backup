@@ -7,13 +7,13 @@
       <!--          <span>1</span>-->
       <!--        </a>-->
       <!--      </li>-->
-      <li class="cart-icon">
+      <li class="cart-icon page__header-cart-icon-container">
         <a
           :class="applyClass"
           :href="[$store.state.cartCount === 0 ? '#' : '/web/cart']"
         >
           <svg
-            class="w-12 h-12 m-0 text-gray-800 md:w-16 md:h-16"
+            class="page__header-cart-icon"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

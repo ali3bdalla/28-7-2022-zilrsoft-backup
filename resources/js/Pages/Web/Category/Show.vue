@@ -2,7 +2,7 @@
   <web-layout>
     <div class="container bg-white shadow-lg">
       <div
-        class="grid grid-cols-2 gap-1 p-2 my-5 md:grid-cols-3 lg:grid-cols-4 lg:gap-2"
+        class="products-grid"
       >
         <!--bg-gray-200-->
         <a
@@ -29,7 +29,7 @@
         </h1>
 
         <div
-          class="grid grid-cols-2 gap-1 p-2 mt-3 mb-5 lg:grid-cols-4 lg:gap-4"
+          class="products-grid"
         >
           <ProductListItemComponent
             v-for="(item, index) in items"

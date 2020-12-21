@@ -1,21 +1,21 @@
 <template>
   <div
-      class=" p-3 bg-white border-l border-b border-r transition hover:shadow-md  relative"
+      class="relative p-3 transition bg-white border-b border-l border-r hover:shadow-md"
   >
     <div
-        class="text-sm bg-web-primary absolute   shadow-xl rounded font-extrabold truncate inline-block py-1 px-2 text-white  text-center"
+        class="absolute inline-block px-2 py-1 text-sm font-extrabold text-center text-white truncate rounded shadow-xl bg-web-primary"
     >
       {{ category.products_count }} {{$page.$t.products.product}}
     </div>
-    <div class="overflow-hidden w-full">
+    <div class="w-full overflow-hidden">
       <img
-          src="https://scontent.fruh4-5.fna.fbcdn.net/v/t1.0-9/48397569_2369898056390725_8150239488325451776_o.jpg?_nc_cat=108&ccb=2&_nc_sid=730e14&_nc_ohc=-PoMUrZfEm8AX-aeG1r&_nc_ht=scontent.fruh4-5.fna&oh=34eea4d221547c586334b4f938c3a4f4&oe=6003246B"
-          class="object-cover h-84 w-full"/>
+          src="https://media.extra.com/i/aurora/Mobiles_1x4_en.webp"
+          class="object-cover w-full h-84"/>
     </div>
-    <h3 class="mt-4 text-sm bg-gray-200  text-gray-900 shadow-sm rounded font-extrabold truncate inline-block py-1 px-2  w-full text-center ">
+    <!-- <h3 class="inline-block w-full px-2 py-1 mt-4 text-sm font-extrabold text-center text-gray-900 truncate bg-gray-200 rounded shadow-sm ">
       {{ category.locale_name }}
-    </h3>
-    <!-- <div class="mt-5 h-16 overflow-hidden">
+    </h3> -->
+    <!-- <div class="h-16 mt-5 overflow-hidden">
       <h3 class="text-xl font-extrabold">{{ category.name }}</h3>
       <p class="mt-2 text-sm truncate">{{ category.description }}</p>
     </div> -->

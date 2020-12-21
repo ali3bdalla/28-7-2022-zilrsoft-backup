@@ -1,0 +1,51 @@
+version: '3'
+services:
+  laravel.test:
+    build:
+      context: .
+      dockerfile: DevDockerfile
+      args:
+        WWWGROUP: 'ali'
+    image: app-8.0/app
+    ports:
+      - '${APP_PORT:-8080}:80'
+    environment:
+      WWWUSER: 'ali'
+      LARAVEL_app: 1
+    volumes:
+      - '.:/var/www/html'
+    networks:
+      - app
+    depends_on:
+      - postgres
+
+  postgres:
+    image: library/postgres:13
+    volumes:
+      - database-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=app
+    networks:
+      - app
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "54325:5432"
+
+  mailhog:
+    image: 'mailhog/mailhog:latest'
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - app
+networks:
+  app:
+    driver: bridge
+volumes:
+  database-data:
+    driver: local
+
+

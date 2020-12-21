@@ -25,3 +25,13 @@
   align-items: center;
   justify-content: center;
 }
+
+
+.page__header-cart-icon-container {
+  @apply pt-3;
+}
+
+
+.cart-table table tr td.qua-col .pro-qty input {
+  text-align: center !important;
+}

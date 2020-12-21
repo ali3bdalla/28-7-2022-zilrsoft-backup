@@ -1,7 +1,7 @@
 .products-grid {
-  @apply grid p-2 grid-cols-2  gap-1  mb-5 mt-3;
+  @apply grid p-2 grid-cols-1  gap-1  mb-5 mt-3;
   @screen md {
-    @apply grid-cols-4;
+    @apply grid-cols-3;
   }
   @screen lg {
     @apply gap-4;

@@ -70,6 +70,14 @@
 			return $query->where('is_kit', true);
 		}
 
+
+        public function scopeIncludingModelNumber($query)
+        {
+            return $query;
+//            return $query->with('filters',function($subquery){
+//                return $subquery->where('filter_id',38);
+//            });
+		}
         public function scopeHasModelNumber($query)
         {
             return $query->whereHas('filters',function($query) {

@@ -55,7 +55,7 @@ return [
         "address" => "العنوان",
         "zip" => "الرمز البريدي",
         "edit" => "تحرير",
-        "already_have_account"=>"هل لديك حساب مسبقا ؟"
+        "already_have_account"=>"هل لديك حساب مسبقا ؟",
     ],
 
     'cart' => [

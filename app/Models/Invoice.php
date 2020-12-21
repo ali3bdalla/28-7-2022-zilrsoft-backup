@@ -158,7 +158,7 @@
 				return $this->sale->alice_name;
 			}
 			
-			return $this->user->name;
+			return $this->user->locale_name;
 		}
 		
 		

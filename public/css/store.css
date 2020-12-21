@@ -24,3 +24,11 @@
   align-items: center;
   justify-content: center;
 }
+
+.page__header-cart-icon-container {
+  padding-top: 0.75rem;
+}
+
+.cart-table table tr td.qua-col .pro-qty input {
+  text-align: center !important;
+}

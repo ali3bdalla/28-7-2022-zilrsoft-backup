@@ -2,4 +2,18 @@
   &__section {
     @apply mt-10 w-10/12 mx-auto;
   }
+
+  &__header-cart-icon-container {
+    width: 50px;
+    height: 50px;
+  }
+
+  &__header-cart-icon {
+    @apply  m-0 text-gray-800 ;
+    width: 50px;
+    height: 50px;
+    @screen md {
+      @apply w-16 h-16;
+    }
+  }
 }

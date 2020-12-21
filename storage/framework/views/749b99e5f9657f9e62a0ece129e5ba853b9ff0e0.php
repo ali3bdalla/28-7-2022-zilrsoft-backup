@@ -75,13 +75,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="copyright-text">
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+
                         <?php echo e(__('store.footer.copyright_saved')); ?>
 
 
 
-
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </div>
                     <div class="payment-pic">
                         <img src="<?php echo e(asset('Web/template/img/payment-method.png')); ?>" alt="">

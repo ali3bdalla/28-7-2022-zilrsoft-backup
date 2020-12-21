@@ -9,7 +9,7 @@
     </button>
     <button
       v-else
-      class="bg-gray-300 py-2 w-full text-center md:px-5 font-extrabold text-black text-sm uppercase hover:bg-gray-500"
+      class="product__remove-from-cart-button"
       @click="removeItem"
     >
       {{ $page.$t.products.remove_to_cart}}

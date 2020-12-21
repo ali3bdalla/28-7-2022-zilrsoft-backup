@@ -7,12 +7,14 @@
 <!--            <ImageZoomComponent class="product__show__image"  src="$page.item.item_image_url" :src-large="$page.item.item_image_url"></ImageZoomComponent>-->
             <img
                 class="product__show__image"
-                :src="$page.item.item_image_url"
+                :src="activeImage"
             />
           </div>
           <div class="product__show__images-grid">
-            <div v-for="image in $page.item.attachments" :key="image.id" class="">
-              <img :src="image.url" class="product__show__images-grid-image "/>
+            <div v-for="image in $page.item.attachments" :key="image.id" class="" @click="changeActiveImage(image.url)">
+              <img
+                  :class="{'product__show__images-active-image':activeImage === image.url}"
+                  :src="image.url" class="product__show__images-grid-image "/>
             </div>
           </div>
         </div>
@@ -22,8 +24,8 @@
           <h1 class="product__show__details-name">
             {{ $page.item.locale_name }}
           </h1>
-          <h1 class="product__show__details-slash-price">
-            {{ $page.item.locale_name }}
+          <h1 class="product__show__details-model-number">
+            {{ modelNumber }}
           </h1>
           <!-- <ProductRatingComponent
               :item="$page.item"
@@ -53,7 +55,7 @@
               ></ToggleCartItemButtonComponent>
             </div>
           </div>
-          <h2 class="product__show__details-specification-title">Product Specification</h2>
+          <h2 class="product__show__details-specification-title">{{$page.$t.products.product_specifications}}</h2>
           <div class=" specification-table product__show__details-specification-table-container">
             <table class="product__show__details-specification-table">
               <tbody>
@@ -76,7 +78,7 @@
         </div>
       </div>
 
-      <div class="mt-32 page__section">
+      <div class="mt-10 lg:mt-20">
         <div
             class="products-grid container"
         >
@@ -100,6 +102,11 @@ import ToggleFavoriteItemButtonComponent from "./../../../components/Web/Cart/To
 import WebLayout from "../../../Layouts/WebAppLayout";
 import ImageZoomComponent from './../../../components/Web/Product/ImageZoomComponent'
 export default {
+  data(){
+    return {
+      activeImage:this.$page.item.item_image_url
+    }
+  },
   components: {
     WebLayout,
     ProductListItemComponent,
@@ -109,20 +116,26 @@ export default {
     ImageZoomComponent
   },
   computed: {
-    relatedImages() {
-      return [
-        "https://c1.neweggimages.com/ProductImageCompressAll1280/34-155-519-V80.jpg",
-        "https://c1.neweggimages.com/ProductImageCompressAll1280/34-155-519-V12.jpg",
-        "https://c1.neweggimages.com/ProductImageCompressAll1280/34-155-519-V06.jpg",
-        "https://c1.neweggimages.com/ProductImageCompressAll1280/34-155-519-V07.jpg",
-      ];
+    modelNumber(){
+      let modelNumber = this.$page.item.filters.find(p => p.filter_id == 38);
+
+      if(modelNumber)
+          return modelNumber.value.locale_name;
+      return ""
     },
+
   },
+  methods:{
+    changeActiveImage(url) {
+      this.activeImage = url;
+    },
+  }
 };
 </script>
 
 <style scoped>
 .specification-table td {
-  padding: 0px;
+  padding: 5px !important;
+
 }
 </style>

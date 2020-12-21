@@ -78,10 +78,13 @@
   }
 
   &__add-to-cart-button {
-    @apply bg-web-primary py-2 w-full text-center  font-extrabold text-white text-sm uppercase;
-    @screen md {
-      @apply px-5;
-    }
+    @apply bg-web-primary py-2 w-full text-center  font-extrabold text-white text-sm uppercase px-5;
+  }
+
+
+  &__remove-from-cart-button {
+    @apply bg-gray-300 py-2 w-full text-center px-5 font-extrabold text-black text-sm uppercase bg-gray-500;
+    //@apply bg-web-primary py-2 w-full text-center  font-extrabold text-white text-sm uppercase px-5;
   }
 
 
@@ -108,21 +111,27 @@
     }
 
     &__images-grid {
-      @apply grid grid-cols-4 gap-2 mt-5 bg-gray-200 p-2;
-
+      @apply grid grid-cols-4 gap-2 mt-5  p-2;
+      background-color: #f3f3f3;
 
     }
 
     &__images-grid-image {
-      @apply w-full object-contain;
+      @apply w-full object-contain cursor-pointer;
       height: 92px;
+
       background: white;
       border-radius: 9px;
       box-shadow: 1px 1px 1px -1px #545050;
 
       &:hover {
         //@apply bg-red-50;
+        @apply shadow-lg;
       }
+    }
+
+    &__images-active-image {
+      @apply bg-gray-100;
     }
 
     &__details {
@@ -136,6 +145,9 @@
       @apply text-3xl uppercase tracking-wide font-bold;
     }
 
+    &__details-model-number {
+      @apply mt-2 text-2xl text-gray-900 font-bold inline-block;
+    }
 
     &__details-slash-price {
       @apply mt-2 text-2xl text-gray-900 font-bold inline-block line-through;
@@ -156,7 +168,7 @@
 
 
     &__details-specification-title {
-      @apply text-lg font-bold text-left;
+      @apply text-lg font-bold text-center mt-5;
     }
 
     &__details-specification-table-container {

@@ -25,7 +25,18 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
                         Route::post('/', 'AuthController@signIn');
                     }
                 );
+                Route::prefix('forget_password')->name('forget_password.')->group(
+                    function () {
+                        Route::get('/', 'AuthController@forgetPasswordPage');
+                        Route::post('/', 'AuthController@forgetPassword');
+                        Route::get('/confirm', 'AuthController@confirmForgetPasswordPage');
+                        Route::post('/confirm', 'AuthController@confirmForgetPassword');
 
+
+                        Route::get('/reset', 'AuthController@resetPasswordPage');
+                        Route::post('/reset', 'AuthController@confirmResetPassword');
+                    }
+                );
                 Route::prefix('sign_up')->name('sign_up.')->group(
                     function () {
                         Route::get('/', 'AuthController@signUpPage');

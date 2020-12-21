@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Web\Item;
 
 use App\Models\Category;
-use App\Models\FilterValues;
 use App\Models\Item;
 use App\Models\ItemFilters;
 use Illuminate\Foundation\Http\FormRequest;
@@ -29,7 +28,7 @@ class FetchItemsUsingFiltersRequest extends FormRequest
     {
         return [
             //
-//            'filters_values' => 'array',
+            'filters_values' => 'array',
 //            'filters_values.*' => 'required|integer|exists:filter_values,id'
         ];
     }
@@ -41,27 +40,24 @@ class FetchItemsUsingFiltersRequest extends FormRequest
         if ($this->has('categoryId') && $this->filled('categoryId')) {
             $category = Category::find($this->input('categoryId'));
             if (!empty($category)) {
-                 $query->where('category_id', $this->input('categoryId'));
+                $query->where('category_id', $this->input('categoryId'));
             }
         }
         if ($this->has('name') && $this->filled('name')) {
-             $query->where('name', 'ILIKE', '%' . $this->input('name') . '%')->orWhere('ar_name', 'ILIKE', '%' . $this->input('name') . '%');
+            $query->where('name', 'ILIKE', '%' . $this->input('name') . '%')->orWhere('ar_name', 'ILIKE', '%' . $this->input('name') . '%');
         }
 
-//        if ($this->has('filters_values')) {
+        if ($this->has('filters_values')) {
 
             $filtersValues = $this->input('filters_values');//[100];
             $result = ItemFilters::whereIn('filter_value', $filtersValues)->pluck('filter_value', 'filter_id');
-//            dd($result);
-            foreach ($result as  $filterId => $valueId ) {
-                  $query->whereHas('filters',function($query) use($filterId,$valueId){
-                    $query->where([['filter_id', $filterId],['filter_value',$valueId]]);
+            foreach ($result as $filterId => $valueId) {
+                $query->whereHas('filters', function ($query) use ($filterId, $valueId) {
+                    $query->where([['filter_id', $filterId], ['filter_value', $valueId]]);
                 });
             }
 
-//        }
-
-
+        }
 
 
         return $query->with('category')->paginate(18);

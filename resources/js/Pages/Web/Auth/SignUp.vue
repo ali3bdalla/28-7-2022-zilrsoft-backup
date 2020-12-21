@@ -16,7 +16,7 @@
                         :no-example="true"
                         :only-countries="['SA']"
                         :translations="{
-                        countrySelectorLabel: 'Country',
+                        countrySelectorLabel: $page.$t.profile.country,
                         countrySelectorError: 'Choisir un pays',
                         phoneNumberLabel: '5555555555',
                         example: 'ex: 0500000000',
@@ -38,7 +38,7 @@
                         v-model="password"
                         auto-complete="new-zilrsoft-password"
                         autocomplete="new-zilrsoft-password"
-                        placeholder="Password"
+                        :placeholder="$page.$t.profile.password"
                         type="password"
                     />
                     <div v-if="$page.errors.password" class="p-2 text-red-500">
@@ -53,7 +53,7 @@
                     <input
                         id="first_name"
                         v-model="first_name"
-                        placeholder="First Name"
+                        :placeholder="$page.$t.profile.first_name"
                         type="text"
                     />
                     <div
@@ -68,7 +68,7 @@
                     <input
                         id="last_name"
                         v-model="last_name"
-                        placeholder="Last Name"
+                        :placeholder="$page.$t.profile.last_name"
                         type="text"
                     />
                     <div v-if="$page.errors.last_name" class="p-2 text-red-500">

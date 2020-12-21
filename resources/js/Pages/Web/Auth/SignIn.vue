@@ -16,7 +16,7 @@
                       :no-example="true"
                       :only-countries="['SA']"
                       :translations="{
-                        countrySelectorLabel: 'Country',
+                        countrySelectorLabel: $page.$t.profile.country,
                         countrySelectorError: 'Choisir un pays',
                         phoneNumberLabel: '5555555555',
                         example: 'ex: 500000000',
@@ -40,7 +40,7 @@
                       type="password"
                       id="password"
                       v-model="password"
-                      placeholder="Password"
+                      :placeholder="$page.$t.profile.password"
                     />
                     <div class="p-2 text-red-500" v-if="$page.errors.password">
                       {{ $page.errors.password }}

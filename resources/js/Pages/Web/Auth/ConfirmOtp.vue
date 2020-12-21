@@ -8,7 +8,7 @@
             <span class="text-web-primary">({{ hiddenPhoneNumber }})</span>
           </h2>
           <form action="#">
-            <div class="w-1/2 overflow-hidden mx-auto flex flex-col">
+            <div class="flex flex-col w-1/2 mx-auto overflow-hidden">
               <div class="flex-1 group-input">
                 <VueOTPField
                   :onFieldCompleted="onFieldCompleted"
@@ -43,12 +43,15 @@ export default {
   data() {
     return {
       otp: "",
-      hiddenPhoneNumber: "",
+
     };
   },
-  created() {
-    this.hiddenPhoneNumber = this.phone_number.replaceAt(-2, "********");
-    console.log(this.validate_url);
+  computed:{
+    hiddenPhoneNumber()
+    {
+      return this.phone_number; //.replaceAt(-2, "********")
+
+    }
   },
   methods: {
     onFieldCompleted(value) {
