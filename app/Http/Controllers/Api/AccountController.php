@@ -29,6 +29,7 @@
 		
 		public function store(StoreAccountRequest $request)
 		{
+			// return 1;
 			return $request->store();
 		}
 		

@@ -29,11 +29,11 @@
 		{
 			return [
 				//
-				'email' => 'required|email:rfc,dns,filter|unique:managers,email',
+				'email' => 'required|email:rfc,dns,filter|organization_unique:App\Models\Manager,email',
 				'password' => 'required|string|min:7|confirmed',
 				'name' => 'required|string|min:2',
 				'name_ar' => 'required|string|min:2',
-				'branch_id' => 'required|integer|exists:branches,id',
+				'branch_id' => 'required|integer|organization_exists:App\Models\Branch,id',
 				'department_id' => 'required|integer|organization_exists:App\Models\Department,id',
 				'permissions' => 'array|nullable',
 				'permissions.*' => 'string|exists:permissions,name',
@@ -78,9 +78,10 @@
 					
 					if (!empty($this->gateways)){
 						foreach ($this->gateways as $gateway){
-							$manager->gateways()->create([
+							$manager->gateways()->attach(
+								$gateway['id'],
+								[
 								'organization_id' => $current->organization_id,
-								'gateway_id' => $gateway['id'],
 							]);
 						}
 						

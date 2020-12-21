@@ -26,8 +26,8 @@ class StoreAccountRequest extends FormRequest
 		{
 			return [
 				//
-				'name' => 'required|string|organization_unique:App\Models\Account',
-				'ar_name' => 'required|string|organization_unique:App\Models\Account',
+				'name' => 'required|string|organization_unique:App\Models\Account,name',
+				'ar_name' => 'required|string|organization_unique:App\Models\Account,name',
 				'parent_id' => 'required|integer|organization_exists:App\Models\Account,id',
 				'account_type' => 'required|in:credit,debit'
 			];
@@ -51,6 +51,6 @@ class StoreAccountRequest extends FormRequest
 
             $account = Account::create($data);
     
-            return $account;
+            return redirect('/accounts');
 		}
 }
