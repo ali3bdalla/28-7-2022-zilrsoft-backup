@@ -5,75 +5,80 @@
         <div class="ht-left">
           <div class="mail-service">
             <i class="fa fa-envelope"></i>
-            {{$page.app.msbrshop.email_address}}
+            {{ $page.app.msbrshop.email_address }}
           </div>
           <div class="phone-service">
             <i class="fa fa-phone"></i>
-            {{$page.app.msbrshop.phone_number}}
+            {{ $page.app.msbrshop.phone_number }}
           </div>
         </div>
-        <div class="ht-right">
-          <a class="login-panel" href="/web/sign_in" v-if="!$page.client_logged"><i class="fa fa-user"></i>{{ $page.$t.profile.login }}</a>
-          <a class="login-panel" href="/web/profile" v-else><i class="fa fa-user"></i>{{ $page.client.name }}</a>
+        <div class="text-center ht-right">
+          <a class="login-panel" href="/web/sign_in" v-if="!$page.client_logged"
+            ><i class="fa fa-user"></i>{{ $page.$t.profile.login }}</a
+          >
+          <a class="login-panel" href="/web/profile" v-else
+            ><i class="fa fa-user"></i>{{ $page.client.name }}</a
+          >
 
-          <!-- <div class="lan-selector">
+          <div class="lan-selector">
             <div
-                id="countries_msddHolder"
-                class="ddOutOfVision"
-                style="height: 0px; overflow: hidden; position: absolute"
+              class="ddOutOfVision"
+              id="countries_msddHolder"
+              style="height: 0px; overflow: hidden; position: absolute"
             >
               <select
-                  id="countries"
-                  class="language_drop"
-                  name="countries"
-                  style="width: 300px"
-                  tabindex="-1"
+                class="language_drop"
+                name="countries"
+                id="countries"
+                style="width: 300px"
+                tabindex="-1"
               >
-                                <option-->
-                <!--                  value="yt"-->
-                <!--                  data-image="/Web/template/img/flag-1.jpg'"-->
-                <!--                  data-imagecss="flag yt"-->
-                <!--                  data-title="English"-->
-                <!--                >-->
-                <!--                  English-->
-                <!--                </option>
                 <option
-                    data-image="/Web/template/img/flag-2.jpg"
-                    data-imagecss="flag yu"
-                    data-title="Bangladesh"
-                    value="yu"
+                  value="yt"
+                  data-image="https://preview.colorlib.com/theme/fashi/img/flag-1.jpg"
+                  data-imagecss="flag yt"
+                  data-title="English"
+                >
+                  English
+                </option>
+                <option
+                  value="yu"
+                  data-image="https://preview.colorlib.com/theme/fashi/img/flag-2.jpg"
+                  data-imagecss="flag yu"
+                  data-title="Bangladesh"
                 >
                   German
                 </option>
               </select>
             </div>
             <div
-                id="countries_msdd"
-                class="dd ddcommon borderRadius"
-                style="width: 300px"
-                tabindex="0"
+              class="dd ddcommon borderRadius"
+              id="countries_msdd"
+              tabindex="0"
             >
               <div class="ddTitle borderRadiusTp">
-                <span class="divider"></span
-                ><span class="ddArrow arrowoff"></span
-              ><span id="countries_title" class="ddTitleText"
-              ><img
-                  class="flag yt fnone"
-                  src="/Web/template/img/flag-1.jpg"/><span class="ddlabel">English</span
-              ><span class="description" style="display: none"></span
-              ></span>
+                <div
+                  class="flex gap-2 p-2 item ddTitleText"
+                  id="countries_title"
+                >
+                  <img
+                    src="https://preview.colorlib.com/theme/fashi/img/flag-1.jpg"
+                    class=""
+                  />
+                  <span class="ddlabel">English</span>
+                </div>
               </div>
               <input
-                  id="countries_titleText"
-                  autocomplete="off"
-                  class="shadow text borderRadius"
-                  style="display: none"
-                  type="text"
+                id="countries_titleText"
+                type="text"
+                autocomplete="off"
+                class="shadow text borderRadius"
+                style="display: none"
               />
               <div
-                  id="countries_child"
-                  class="border shadow ddChild ddchild_"
-                  style="
+                class="border shadow ddChild ddchild_"
+                id="countries_child"
+                style="
                   z-index: 9999;
                   display: none;
                   position: absolute;
@@ -83,48 +88,68 @@
               >
                 <ul>
                   <li class="enabled _msddli_ selected" title="English">
-                    <img
-                        class="flag yt fnone"
-                        src="/Web/template/img/flag-1.jpg"
-                    /><span class="ddlabel">English</span>
+                    <img src="img/flag-1.jpg" class="flag yt fnone" /><span
+                      class="ddlabel"
+                      >English</span
+                    >
                     <div class="clear"></div>
                   </li>
                   <li class="enabled _msddli_" title="Bangladesh">
-                    <img
-                        class="flag yu fnone"
-                        src="/Web/template/img/flag-2.jpg"
-                    /><span class="ddlabel">German</span>
+                    <img src="img/flag-2.jpg" class="flag yu fnone" /><span
+                      class="ddlabel"
+                      >German</span
+                    >
                     <div class="clear"></div>
                   </li>
                 </ul>
               </div>
             </div>
-          </div> -->
-          <div class="top-social">
-            <a :href="$page.app.msbrshop.social_media.facebook"><i class="ti-facebook"></i></a>
-            <a :href="$page.app.msbrshop.social_media.twitter"><i class="ti-twitter"></i></a>
-            <a :href="$page.app.msbrshop.social_media.instagram"><i class="fill-current ti-instagram"></i></a>
-
           </div>
+
+          <!-- <div class="top-social ">
+            <a :href="$page.app.msbrshop.social_media.facebook"
+              ><i class="ti-facebook"></i
+            ></a>
+            <a :href="$page.app.msbrshop.social_media.twitter"
+              ><i class="ti-twitter"></i
+            ></a>
+            <a :href="$page.app.msbrshop.social_media.instagram"
+              ><i class="fill-current ti-instagram"></i
+            ></a>
+          </div> -->
         </div>
       </div>
     </div>
 
     <div class="container">
-      <div class="flex items-center justify-center p-0 m-0 inner-header">
-        <!--        <div class="row">-->
-        <div class="w-3/12">
-          <div class="logo">
-            <a href="/web">
-              <img alt="" src="/template/images/msbr_logo.png"/>
-            </a>
+      <div class="inner-header">
+        <div class="flex items-center justify-between p-0 m-0">
+          <!--        <div class="row">-->
+          <!-- <div class="w-1/12">
+         
+          </div> -->
+          <div class="w-3/12">
+            <div class="logo">
+              <a href="/web">
+                <img alt="" src="/template/images/msbr_logo.png" />
+              </a>
+            </div>
           </div>
+
+          <div class="hidden w-8/12 md:flex">
+            <header-seach-input-component></header-seach-input-component>
+          </div>
+          <HeaderQuickCartComponent></HeaderQuickCartComponent>
+
+          <!--        </div>-->
         </div>
-        <div class="w-7/12">
+      </div>
+      <div
+        class="flex items-center justify-between p-0 m-0 inner-header md:hidden"
+      >
+        <div class="w-full">
           <header-seach-input-component></header-seach-input-component>
         </div>
-        <HeaderQuickCartComponent></HeaderQuickCartComponent>
-        <!--        </div>-->
       </div>
     </div>
 
@@ -135,8 +160,11 @@
             <i class="ti-menu"></i>
             <span>{{ $page.$t.header.categories }}</span>
             <ul class="depart-hover">
-              <li v-for="category in $page.main_categories" :key="category.id"><a :href="`/web/categories/${category.id}`">{{ category.locale_name}}</a></li>
-              
+              <li v-for="category in $page.main_categories" :key="category.id">
+                <a :href="`/web/categories/${category.id}`">{{
+                  category.locale_name
+                }}</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -273,7 +301,7 @@ import HeaderSeachInputComponent from "./HeaderSeachInputComponent";
 import HeaderQuickCartComponent from "./../Cart/HeaderQuickCartComponent";
 
 export default {
-  components: {HeaderSeachInputComponent, HeaderQuickCartComponent},
+  components: { HeaderSeachInputComponent, HeaderQuickCartComponent },
 };
 </script>
 

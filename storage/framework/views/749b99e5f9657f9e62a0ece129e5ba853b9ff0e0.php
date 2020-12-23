@@ -10,7 +10,7 @@
 <script src="<?php echo e(asset('Web/template/js/main.js')); ?>"></script>
 <script src="<?php echo e(asset('Web/js/web.js')); ?>"></script>
 
-<footer class="footer-section">
+<footer class="text-center footer-section">
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -81,7 +81,7 @@
 
 
                     </div>
-                    <div class="payment-pic">
+                    <div class="flex items-center justify-center payment-pic">
                         <img src="<?php echo e(asset('Web/template/img/payment-method.png')); ?>" alt="">
                     </div>
                 </div>

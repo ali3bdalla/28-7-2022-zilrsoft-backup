@@ -56,6 +56,7 @@ return [
         "zip" => "الرمز البريدي",
         "edit" => "تحرير",
         "already_have_account"=>"هل لديك حساب مسبقا ؟",
+        "reset_password" => "تغير كلمة المرور"
     ],
 
     'cart' => [
@@ -85,6 +86,7 @@ return [
     ],
     //here
     'products' => [
+        'in' => 'في',
         'products' => 'المنتجات',
         'product' => 'منتج',
         'show_all' => "عرض الكل",

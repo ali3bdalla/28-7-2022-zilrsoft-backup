@@ -1,5 +1,5 @@
 <template>
-  <div class="relative p-0">
+  <div class="relative p-0" style="    width: 100%;">
     <div class="advanced-search">
       <select v-model="categoryId" class="category-btn">
         <option value="0">{{ $page.$t.header.categories }}</option>
@@ -24,28 +24,30 @@
       </div>
     </div>
     <div
-        v-if="items.length > 0"
+        v-if="items.length > 0 && searchKey != ''"
         class="absolute z-50 w-full px-3 pt-2 mx-auto bg-white shadow-lg "
     >
       <a
           v-for="item in items"
           :key="item.id"
           :href="`/web/items/${item.id}`"
-          class="block px-2 py-1 font-bold text-gray-800 border-b hover:text-gray-600"
+          class="flex justify-between px-2 py-1 font-bold text-gray-800 border-b hover:text-gray-600"
       >
-        {{ item.locale_name }}
+        <span>{{ item.locale_name }}</span>
+
+        <span v-if="item.available_qty <= 0" class="text-red-500">{{$page.$t.products.out_of_stock}}</span>
       </a>
-      <h2 class="p-2 mt-3 mb-1 text-lg font-bold text-gray-700">
-        categories
+      <h2 class="p-2 pt-3 mt-4 mb-1 text-lg font-bold text-gray-700 border-t-2 border-black">
+        {{$page.$t.header.categories}}
       </h2>
       <a
 
-          v-for="category in categoriesGroup"
-          :key="category.id"
+          v-for="(category,categoryIndex) in categoriesGroup"
+          :key="`category_${category.id}_${categoryIndex}`"
           :href="`/web/items?categoryId=${category.id}&&name=${searchKey}`"
           class="block px-2 py-1 font-bold text-gray-800 border-b hover:text-gray-600 "
       >
-        <span class="">{{ searchKey }}</span> - <span class="">{{ category.locale_name }}</span>
+        <span class="">{{ searchKey }}</span>  {{ $page.$t.products.in }} - <span class="">{{ category.locale_name }}</span>
       </a>
 
     </div>

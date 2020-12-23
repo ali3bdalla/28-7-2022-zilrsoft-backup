@@ -33,11 +33,18 @@
 		
 		public function getData()
 		{
-			$query = new Item;
+			$query = Item::query();
 			
 			
 			if($this->has('name') && $this->filled('name')) {
-				$query = $query->where('name', 'ILIKE', '%' . $this->input('name') . '%')->orWhere('ar_name', 'ILIKE', '%' . $this->input('name') . '%');
+				$searchArray = explode(' ' , $this->input('name'));
+				foreach ($searchArray as $searchKey)
+				{
+					$query->where(function($subQuery) use($searchKey ) {
+						return $subQuery->where('ar_name', 'ILIKE', '%' . $searchKey . '%')->orWhere('name', 'ILIKE', '%' . $searchKey . '%');
+					});
+				}
+				
 			}
 			if($this->has('categoryId') && $this->filled('categoryId')) {
 				$category = Category::find($this->input('categoryId'));

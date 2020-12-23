@@ -3,9 +3,9 @@
     <div class="register-login-section spad">
       <div class="container">
         <div class="row">
-          <div class="col-lg-6 offset-lg-3">
+          <div class="text-center col-lg-6 offset-lg-3">
             <div class="login-form">
-              <h2>{{ $page.$t.profile.login }}</h2>
+              <h2>{{ $page.$t.profile.reset_password }}</h2>
 
               <form action="#">
                 <div class="flex flex-col">
@@ -19,7 +19,7 @@
                       type="password"
                       id="password"
                       v-model="password"
-                      :placeholder="$page.$t.profile.password"
+
                     />
                     <div class="p-2 text-red-500" v-if="$page.errors.password">
                       {{ $page.errors.password }}
@@ -37,7 +37,7 @@
                     type="password"
                     id="password_confirmation"
                     v-model="password_confirmation"
-                    :placeholder="$page.$t.profile.password_confirmation"
+
                   />
                   <div
                     class="p-2 text-red-500"
@@ -53,7 +53,7 @@
                 @click="submitForm"
                 class="site-btn login-btn"
               >
-                {{ $page.$t.profile.login }}
+                {{ $page.$t.profile.reset_password }}
               </button>
 
 
