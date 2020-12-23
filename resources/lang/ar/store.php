@@ -56,7 +56,8 @@ return [
         "zip" => "الرمز البريدي",
         "edit" => "تحرير",
         "already_have_account"=>"هل لديك حساب مسبقا ؟",
-        "reset_password" => "تغير كلمة المرور"
+        "reset_password" => "تغير كلمة المرور",
+        'confirm_otp' => 'ادخل الرمز'
     ],
 
     'cart' => [

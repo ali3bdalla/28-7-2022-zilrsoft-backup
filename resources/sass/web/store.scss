@@ -30,8 +30,19 @@
 .page__header-cart-icon-container {
   @apply pt-3;
 }
-
+.inner-header {
+  padding: 2px 0;
+}
 
 .cart-table table tr td.qua-col .pro-qty input {
   text-align: center !important;
+}
+
+.inner-header .logo,.inner-header .nav-right {
+  padding: 0px 0;
+}
+
+.inner-header .nav-right 
+{
+  margin-bottom: 0px;
 }

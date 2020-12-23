@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 offset-lg-3">
-            <div class="login-form">
+            <div class="text-center login-form">
               <h2>{{ $page.$t.profile.login}}</h2>
 
               <form action="#">
@@ -40,7 +40,7 @@
                       type="password"
                       id="password"
                       v-model="password"
-                      :placeholder="$page.$t.profile.password"
+
                     />
                     <div class="p-2 text-red-500" v-if="$page.errors.password">
                       {{ $page.errors.password }}

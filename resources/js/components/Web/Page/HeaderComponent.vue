@@ -1,7 +1,30 @@
 <template>
   <header class="header-section">
-    <div class="header-top">
+    <div class="border-b shadow-xs">
       <div class="container">
+        <div class="flex items-center justify-between h-12">
+          <div class="flex-1">
+            <a
+              class="flex items-center text-black login-panel"
+              href="/web/sign_in"
+              v-if="!$page.client_logged"
+              ><i class="fa fa-user" style="font-size: 22px"></i> &nbsp;
+              {{ $page.$t.profile.login }}</a
+            >
+            <a class="flex items-center text-black login-panel " href="/web/profile" v-else
+              ><i class="fa fa-user"  style="font-size: 22px"></i> &nbsp; {{ $page.client.name }}</a
+            >
+          </div>
+
+          <div class="flex justify-end flex-1 gap-2 items-left">
+            <img src="/Web/template/img/flag-1.jpg"  class="float-left h-4"/> 
+            <span class="login-panel">English</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="hidden header-top md:block">
+      <div class="container ">
         <div class="ht-left">
           <div class="mail-service">
             <i class="fa fa-envelope"></i>
@@ -20,118 +43,18 @@
             ><i class="fa fa-user"></i>{{ $page.client.name }}</a
           >
 
-          <div class="lan-selector">
-            <div
-              class="ddOutOfVision"
-              id="countries_msddHolder"
-              style="height: 0px; overflow: hidden; position: absolute"
-            >
-              <select
-                class="language_drop"
-                name="countries"
-                id="countries"
-                style="width: 300px"
-                tabindex="-1"
-              >
-                <option
-                  value="yt"
-                  data-image="https://preview.colorlib.com/theme/fashi/img/flag-1.jpg"
-                  data-imagecss="flag yt"
-                  data-title="English"
-                >
-                  English
-                </option>
-                <option
-                  value="yu"
-                  data-image="https://preview.colorlib.com/theme/fashi/img/flag-2.jpg"
-                  data-imagecss="flag yu"
-                  data-title="Bangladesh"
-                >
-                  German
-                </option>
-              </select>
-            </div>
-            <div
-              class="dd ddcommon borderRadius"
-              id="countries_msdd"
-              tabindex="0"
-            >
-              <div class="ddTitle borderRadiusTp">
-                <div
-                  class="flex gap-2 p-2 item ddTitleText"
-                  id="countries_title"
-                >
-                  <img
-                    src="https://preview.colorlib.com/theme/fashi/img/flag-1.jpg"
-                    class=""
-                  />
-                  <span class="ddlabel">English</span>
-                </div>
-              </div>
-              <input
-                id="countries_titleText"
-                type="text"
-                autocomplete="off"
-                class="shadow text borderRadius"
-                style="display: none"
-              />
-              <div
-                class="border shadow ddChild ddchild_"
-                id="countries_child"
-                style="
-                  z-index: 9999;
-                  display: none;
-                  position: absolute;
-                  visibility: visible;
-                  height: 51px;
-                "
-              >
-                <ul>
-                  <li class="enabled _msddli_ selected" title="English">
-                    <img src="img/flag-1.jpg" class="flag yt fnone" /><span
-                      class="ddlabel"
-                      >English</span
-                    >
-                    <div class="clear"></div>
-                  </li>
-                  <li class="enabled _msddli_" title="Bangladesh">
-                    <img src="img/flag-2.jpg" class="flag yu fnone" /><span
-                      class="ddlabel"
-                      >German</span
-                    >
-                    <div class="clear"></div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- <div class="top-social ">
-            <a :href="$page.app.msbrshop.social_media.facebook"
-              ><i class="ti-facebook"></i
-            ></a>
-            <a :href="$page.app.msbrshop.social_media.twitter"
-              ><i class="ti-twitter"></i
-            ></a>
-            <a :href="$page.app.msbrshop.social_media.instagram"
-              ><i class="fill-current ti-instagram"></i
-            ></a>
-          </div> -->
+         
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="container">
       <div class="inner-header">
         <div class="flex items-center justify-between p-0 m-0">
-          <!--        <div class="row">-->
-          <!-- <div class="w-1/12">
-         
-          </div> -->
           <div class="w-3/12">
             <div class="logo">
               <a href="/web">
-                <img alt="" src="/template/images/msbr_logo.png" />
+                <img alt="" src="/images/logo_hd.png" style="width:6rem;padding-top:2px" />
               </a>
             </div>
           </div>
@@ -140,8 +63,6 @@
             <header-seach-input-component></header-seach-input-component>
           </div>
           <HeaderQuickCartComponent></HeaderQuickCartComponent>
-
-          <!--        </div>-->
         </div>
       </div>
       <div
@@ -168,129 +89,6 @@
             </ul>
           </div>
         </div>
-        <!-- <nav class="nav-menu mobile-menu">
-          <ul>
-            <li class="active"><a href="/web">{{$page.$t.header.home}}</a></li>
-            <li><a href="./shop.html">Shop</a></li>
-            <li>
-              <a href="#">Collection</a>
-              <ul class="dropdown">
-                <li><a href="#">Men's</a></li>
-                <li><a href="#">Women's</a></li>
-                <li><a href="#">Kid's</a></li>
-              </ul>
-            </li>
-            <li><a href="./blog.html">Blog</a></li>
-            <li><a href="./contact.html">Contact</a></li>
-            <li>
-              <a href="#">Pages</a>
-              <ul class="dropdown">
-                <li><a href="./blog-details.html">Blog Details</a></li>
-                <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                <li><a href="./check-out.html">Checkout</a></li>
-                <li><a href="./faq.html">Faq</a></li>
-                <li><a href="./register.html">Register</a></li>
-                <li><a href="./login.html">Login</a></li>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-        <div id="mobile-menu-wrap">
-          <div class="slicknav_menu">
-            <nav
-                aria-hidden="true"
-                class="slicknav_nav slicknav_hidden"
-                role="menu"
-                style="display: none"
-            >
-              <ul>
-                <li class="active">
-                  <a href="./index.html" role="menuitem">Home</a>
-                </li>
-                <li><a href="./shop.html" role="menuitem">Shop</a></li>
-                <li class="slicknav_collapsed slicknav_parent">
-                  <a
-                      aria-haspopup="true"
-                      class="slicknav_item slicknav_row"
-                      href="#"
-                      role="menuitem"
-                      style="outline: none"
-                      tabindex="-1"
-                  ><a href="#">Collection</a>
-                    <span class="slicknav_arrow">►</span></a
-                  >
-                  <ul
-                      aria-hidden="true"
-                      class="dropdown slicknav_hidden"
-                      role="menu"
-                      style="display: none"
-                  >
-                    <li><a href="#" role="menuitem" tabindex="-1">Men's</a></li>
-                    <li>
-                      <a href="#" role="menuitem" tabindex="-1">Women's</a>
-                    </li>
-                    <li><a href="#" role="menuitem" tabindex="-1">Kid's</a></li>
-                  </ul>
-                </li>
-                <li><a href="./blog.html" role="menuitem">Blog</a></li>
-                <li><a href="./contact.html" role="menuitem">Contact</a></li>
-                <li class="slicknav_collapsed slicknav_parent">
-                  <a
-                      aria-haspopup="true"
-                      class="slicknav_item slicknav_row"
-                      href="#"
-                      role="menuitem"
-                      style="outline: none"
-                      tabindex="-1"
-                  ><a href="#">Pages</a>
-                    <span class="slicknav_arrow">►</span></a
-                  >
-                  <ul
-                      aria-hidden="true"
-                      class="dropdown slicknav_hidden"
-                      role="menu"
-                      style="display: none"
-                  >
-                    <li>
-                      <a
-                          href="./blog-details.html"
-                          role="menuitem"
-                          tabindex="-1"
-                      >Blog Details</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                          href="./shopping-cart.html"
-                          role="menuitem"
-                          tabindex="-1"
-                      >Shopping Cart</a
-                      >
-                    </li>
-                    <li>
-                      <a href="./check-out.html" role="menuitem" tabindex="-1"
-                      >Checkout</a
-                      >
-                    </li>
-                    <li>
-                      <a href="./faq.html" role="menuitem" tabindex="-1">Faq</a>
-                    </li>
-                    <li>
-                      <a href="./register.html" role="menuitem" tabindex="-1"
-                      >Register</a
-                      >
-                    </li>
-                    <li>
-                      <a href="./login.html" role="menuitem" tabindex="-1"
-                      >Login</a
-                      >
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div> -->
       </div>
     </div>
   </header>

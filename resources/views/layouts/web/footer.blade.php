@@ -16,10 +16,10 @@
             <div class="col-lg-3">
                 <div class="footer-left">
                     <div class="footer-logo">
-                        <a href="#"><img src="{{ asset('/template/images/msbr_logo.png')}}" alt=""></a>
+                        <a href="#"><img src="{{ asset('/images/logo_hd.png')}}" class="w-20" alt=""></a>
                     </div>
                     <ul>
-                        <li>{{ __('store.footer.address')}}: {{ config('app.msbrshop.address') }}</li>
+                        <!-- <li>{{ __('store.footer.address')}}: {{ config('app.msbrshop.address') }}</li> -->
                         <li>{{ __('store.footer.phone')}}: {{ config('app.msbrshop.phone_number') }}</li>
                         <li>{{ __('store.footer.email')}}: {{ config('app.msbrshop.email_address') }}</li>
                     </ul>
@@ -28,7 +28,7 @@
             </div>
             <div class="col-lg-3">
                 <div class="footer-widget">
-                    <h5>{{ __('store.footer.information') }}</h5>
+                    <!-- <h5>{{ __('store.footer.information') }}</h5> -->
                     <ul>
                         <li><a href="#">{{ __('store.footer.about_us') }}</a></li>
 
@@ -38,7 +38,7 @@
             </div>
             <div class="col-lg-3">
                 <div class="footer-widget">
-                    <h5>{{ __('store.footer.my_account') }}</h5>
+                    <!-- <h5>{{ __('store.footer.my_account') }}</h5> -->
                     <ul>
 
                         <li><a href="#">{{ __('store.footer.my_account') }}</a></li>
@@ -51,7 +51,7 @@
             </div>
             <div class="col-lg-3">
                 <div class="newslatter-item">
-                    <h5>{{ __('store.footer.join_news_letter') }}</h5>
+                    <!-- <h5>{{ __('store.footer.join_news_letter') }}</h5> -->
                     <p>{{ __('store.footer.join_news_letter_bio') }}</p>
                     <form action="#" class="subscribe-form">
                         <input type="text" placeholder="{{ __('store.footer.your_email') }}">

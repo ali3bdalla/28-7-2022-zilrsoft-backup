@@ -3,10 +3,10 @@
 <div class="lg:flex">
     
     <div
-      class="hidden lg:flex items-center justify-center bg-indigo-100 flex-1 h-screen"
+      class="items-center justify-center flex-1 hidden h-screen bg-indigo-100 lg:flex"
     >
       <div
-        class="max-w-xs transform duration-200 hover:scale-110 cursor-pointer"
+        class="max-w-xs duration-200 transform cursor-pointer hover:scale-110 "
       >
         <svg
           class="w-5/6 mx-auto"
@@ -167,9 +167,9 @@
     </div>
     <div class="lg:w-1/2 xl:max-w-screen-sm ">
       <div
-        class="py-12 bg-indigo-100 lg:bg-white flex justify-center lg:justify-start lg:px-12"
+        class="flex justify-center py-12 bg-indigo-100 lg:bg-white lg:justify-start lg:px-12"
       >
-        <div class="cursor-pointer flex items-center">
+        <div class="flex items-center cursor-pointer">
           <div>
             <svg
               class="w-10 text-indigo-500"
@@ -196,27 +196,27 @@
             </svg>
           </div>
           <div
-            class="text-2xl text-indigo-800 tracking-wide ml-2 font-semibold"
+            class="ml-2 text-2xl font-semibold tracking-wide text-indigo-800"
           >
             ZilrSoft App
           </div>
         </div>
       </div>
       <div
-      class="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl"
+      class="px-12 mt-10 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl"
     >
       <h2
-        class="text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl xl:text-bold"
+        class="text-4xl font-semibold text-center text-indigo-900 font-display lg:text-left xl:text-5xl xl:text-bold"
       >
         Log in
       </h2>
       <div class="mt-12">
           <div>
-            <div class="text-sm font-bold text-gray-700 tracking-wide">
+            <div class="text-sm font-bold tracking-wide text-gray-700">
               Email Address
             </div>
             <input
-              class="w-full text-lg p-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+              class="w-full p-2 text-lg border-b border-gray-300 focus:outline-none focus:border-indigo-500"
               type="email"
               v-model="form.email"
               placeholder="Email Address"
@@ -225,20 +225,20 @@
 
           </div>
           <div class="mt-8">
-            <div class="flex justify-between items-center">
-              <div class="text-sm font-bold text-gray-700 tracking-wide">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-bold tracking-wide text-gray-700">
                 Password
               </div>
               <div>
               <inertia-link href="/forget_password" 
-                  class="text-xs font-display font-semibold text-indigo-600 hover:text-indigo-800 cursor-pointer"
+                  class="text-xs font-semibold text-indigo-600 cursor-pointer font-display hover:text-indigo-800"
                 >
                   Forgot Password?
               </inertia-link>
               </div>
             </div>
             <input
-              class="w-full text-lg p-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+              class="w-full p-2 text-lg border-b border-gray-300 focus:outline-none focus:border-indigo-500"
               type="password"
               v-model="form.password"
               placeholder="Enter your password"
@@ -249,16 +249,16 @@
           <div class="mt-10">
             <button
             @click="submitLogin"
-              class="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg"
+              class="w-full p-4 font-semibold tracking-wide text-gray-100 bg-indigo-500 rounded-full shadow-lg font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600"
             >
               Log In
             </button>
           </div>
         <div
-          class="mt-12 text-sm font-display font-semibold text-gray-700 text-center"
+          class="mt-12 text-sm font-semibold text-center text-gray-700 font-display"
         >
           Don't have an account ?
-          <inertia-link href="/register"  class="cursor-pointer text-indigo-600 hover:text-indigo-800"
+          <inertia-link href="/register"  class="text-indigo-600 cursor-pointer hover:text-indigo-800"
             >Sign up </inertia-link>
   
         </div>

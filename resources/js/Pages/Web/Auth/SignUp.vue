@@ -4,7 +4,7 @@
       <div class="container">
         <div class="">
           <div class="col-lg-6 offset-lg-3">
-            <div class="login-form">
+            <div class="text-center login-form">
               <h2>{{ $page.$t.profile.sign_up}}</h2>
               <form action="#">
                 <div class="flex flex-col">
@@ -38,7 +38,7 @@
                         v-model="password"
                         auto-complete="new-zilrsoft-password"
                         autocomplete="new-zilrsoft-password"
-                        :placeholder="$page.$t.profile.password"
+
                         type="password"
                     />
                     <div v-if="$page.errors.password" class="p-2 text-red-500">
@@ -53,7 +53,7 @@
                     <input
                         id="first_name"
                         v-model="first_name"
-                        :placeholder="$page.$t.profile.first_name"
+
                         type="text"
                     />
                     <div
@@ -68,7 +68,7 @@
                     <input
                         id="last_name"
                         v-model="last_name"
-                        :placeholder="$page.$t.profile.last_name"
+
                         type="text"
                     />
                     <div v-if="$page.errors.last_name" class="p-2 text-red-500">

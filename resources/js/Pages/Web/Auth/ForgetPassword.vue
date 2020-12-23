@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 offset-lg-3">
-            <div class="login-form">
+            <div class="text-center login-form">
               <h2>{{ $page.$t.profile.forget_password}}</h2>
 
               <form action="#">
@@ -49,7 +49,7 @@
                   @click="submitForm"
                   class="site-btn login-btn"
                 >
-                {{ $page.$t.profile.login}}
+                {{ $page.$t.profile.forget_password}}
                 </button>
 
 

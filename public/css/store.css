@@ -1,1 +1,46 @@
-.footer-section{padding-top:28px}.copyright-reserved{margin-top:0}.footer-widget h5{margin-bottom:6px}.footer-left .footer-logo{margin-bottom:4px}.inner-header .advanced-search .input-group button{height:100%}.footer-left .footer-social a,.inner-header .advanced-search .input-group button{display:inline-flex;justify-items:center;align-items:center;justify-content:center}.page__header-cart-icon-container{padding-top:.75rem}.cart-table table tr td.qua-col .pro-qty input{text-align:center!important}
+.footer-section {
+  padding-top: 28px;
+}
+
+.copyright-reserved {
+  margin-top: 0px;
+}
+
+.footer-widget h5 {
+  margin-bottom: 6px;
+}
+
+.footer-left .footer-logo {
+  margin-bottom: 4px;
+}
+
+.inner-header .advanced-search .input-group button {
+  height: 100%;
+}
+
+.footer-left .footer-social a, .inner-header .advanced-search .input-group button {
+  display: inline-flex;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.page__header-cart-icon-container {
+  padding-top: 0.75rem;
+}
+
+.inner-header {
+  padding: 2px 0;
+}
+
+.cart-table table tr td.qua-col .pro-qty input {
+  text-align: center !important;
+}
+
+.inner-header .logo, .inner-header .nav-right {
+  padding: 0px 0;
+}
+
+.inner-header .nav-right {
+  margin-bottom: 0px;
+}

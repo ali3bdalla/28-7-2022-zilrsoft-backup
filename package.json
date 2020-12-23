@@ -27,6 +27,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@bachdgvn/vue-otp-input": "^1.0.8",
         "@enso-ui/charts": "^1.0.43",
         "@glidejs/glide": "^3.4.1",
         "@inertiajs/inertia": "^0.3.6",
