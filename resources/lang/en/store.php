@@ -82,4 +82,16 @@ return [
         "net" => "Net Amount",
 
     ],
+      //here
+      'products' => [
+        'in' => 'In',
+        'products' => 'Products',
+        'product' => 'Product',
+        'show_all' => "All",
+        'add_to_cart' => 'Add To Cart',
+        'remove_to_cart' => 'Remove From Cart',
+        'product_specifications' => 'Specifications',
+        'out_of_stock' => 'Out Of Stock',
+        'sar' => 'sar'
+    ]
 ];

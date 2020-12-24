@@ -38,7 +38,7 @@ trait NestingTrait
         $children = [];
         foreach ($result as $value) {
         	if($value != null && $value!="")
-                $children[] = $value;
+                $children[] = (int)$value;
         }
         $children[] = $this->id;
 

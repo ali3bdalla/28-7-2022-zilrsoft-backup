@@ -25,7 +25,7 @@
   }
 
   &__list-item-category-name {
-    @apply text-sm bg-gray-900 shadow rounded font-extrabold truncate inline-block py-1 px-2 text-white w-full text-center;
+    @apply text-sm bg-gray-700 shadow rounded font-extrabold truncate inline-block py-1 px-2 text-white w-full text-center;
     
 
     &__out-of-stock {
@@ -78,12 +78,12 @@
   }
 
   &__add-to-cart-button {
-    @apply bg-web-primary py-2 w-full text-center  font-extrabold text-white text-sm uppercase px-5;
+    @apply bg-web-primary py-2 w-full text-center  font-extrabold text-white text-sm uppercase px-5 flex items-center justify-center;
   }
 
 
   &__remove-from-cart-button {
-    @apply bg-gray-300 py-2 w-full text-center px-5 font-extrabold text-black text-sm uppercase bg-gray-500;
+    @apply bg-gray-300 py-2  w-full text-center px-5 font-extrabold text-white text-sm uppercase bg-gray-500 flex items-center justify-center;
     //@apply bg-web-primary py-2 w-full text-center  font-extrabold text-white text-sm uppercase px-5;
   }
 

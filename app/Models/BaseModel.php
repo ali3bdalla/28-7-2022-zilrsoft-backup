@@ -15,7 +15,15 @@
 		private static $customTablesOrder = ['accounts' => 'serial'];
 
 
+		public function getLocaleNameAttribute()
+		{
+			if(app()->isLocale('ar'))
+				return $this->ar_name;
 
+
+			return $this->name;
+        }
+        
 		protected static function boot()
 		{
 			parent::boot();

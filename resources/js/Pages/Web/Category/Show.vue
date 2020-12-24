@@ -1,11 +1,12 @@
 <template>
   <web-layout>
-    <div class="container bg-white shadow-lg">
+    <div  class="container shadow-lg" >
       <div
-        class="products-grid"
+        class="grid-cols-1 md:grid-cols-2 products-grid "
       >
         <!--bg-gray-200-->
         <a
+          
           :href="`/web/categories/${category.id}`"
           v-for="category in subCategories"
           :key="category.id"
@@ -21,15 +22,16 @@
           class="flex items-center justify-center text-xl font-bold text-center text-gray-600 md:text-2xl"
         >
           {{$page.$t.products.products}} ({{ $page.category.products_count }})
-          &nbsp; <a
+          <!-- &nbsp; <a
             :href="`/web/items?category_id=${$page.category.id}`"
             class="ml-2 text-sm text-blue-400"
             >{{$page.$t.products.show_all}}</a
-          >
+          > -->
         </h1>
 
         <div
-          class="products-grid"
+
+          class="products-grid" 
         >
           <ProductListItemComponent
             v-for="(item, index) in items"

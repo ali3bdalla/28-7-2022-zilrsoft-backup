@@ -27,6 +27,7 @@ class HashMap extends BaseModel
     }
     public function getChildrenAttribute($value){
         $array = explode(',',stripcslashes($value));
+
         $result = [];
         foreach($array as $el)
         {

@@ -140,10 +140,7 @@
 			return $serials;
 		}
 		
-		public function getLocaleNameAttribute()
-		{
-			return $this->ar_name;
-		}
+
 		
 	
 		

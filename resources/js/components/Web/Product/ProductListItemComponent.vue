@@ -1,5 +1,5 @@
 <template>
-  <div class="product__list-item ">
+  <div class="mt-3 border border-gray-500 product__list-item md:mt-0">
     <div class="product__list-item-image-container">
       <img :src="item.item_image_url" class="product__list-item-image" />
     </div>

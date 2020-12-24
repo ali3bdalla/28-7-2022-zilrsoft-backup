@@ -13,6 +13,10 @@ class CategoryController extends Controller
     {
 
 
+        
+        // return Item::whereIn('category_id',$category->getChildrenIncludeMe())->count();
+        // return $category->getChildrenIncludeMe();
+
         return Inertia::render('Web/Category/Show',[
             'category' => $category,
             'subcategories' => $category->children()->get(),

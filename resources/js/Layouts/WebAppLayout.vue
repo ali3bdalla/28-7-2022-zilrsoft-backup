@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderComponent></HeaderComponent>
-    <slot></slot>
+   <div  style="background-color:#f9f9f9"> <slot></slot> </div>
 
   </div>
 </template>
