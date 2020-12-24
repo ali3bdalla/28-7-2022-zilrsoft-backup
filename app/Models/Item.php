@@ -62,7 +62,7 @@
 		public function getItemImageUrlAttribute(){
 			$images = $this->attachments()->get()->toArray();
 
-			if($images) return $images[1]['url'];
+			if($images && count($images) >= 1) return $images[0]['url'];
 			return "https://image.shutterstock.com/image-vector/stay-home-safe-coronavirus-vector-600w-1679419237.jpg";
 		}
 		public function scopeKits($query)
@@ -74,9 +74,7 @@
         public function scopeIncludingModelNumber($query)
         {
             return $query;
-//            return $query->with('filters',function($subquery){
-//                return $subquery->where('filter_id',38);
-//            });
+
 		}
         public function scopeHasModelNumber($query)
         {
