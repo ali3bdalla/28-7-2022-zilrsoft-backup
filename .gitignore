@@ -5,7 +5,7 @@
 .idea/*
 .idea
 storage/*
-
+storage/
 .env
 .env.testing
 .phpunit.result.cache
