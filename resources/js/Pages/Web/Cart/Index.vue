@@ -1,6 +1,8 @@
 <template>
   <web-layout>
     <section class="shopping-cart spad cart">
+
+      
       <div class="container">
         <div class="row">
           <div class="col-lg-12">

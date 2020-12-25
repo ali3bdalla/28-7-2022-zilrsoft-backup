@@ -1,6 +1,6 @@
 .product {
   //container
-  @apply bg-white shadow-lg rounded-lg;
+  @apply bg-white rounded-lg;
 
   &__list-item {
 
@@ -25,7 +25,8 @@
   }
 
   &__list-item-category-name {
-    @apply text-sm bg-gray-700 shadow rounded font-extrabold truncate inline-block py-1 px-2 text-white w-full text-center;
+    @apply text-sm shadow rounded font-extrabold truncate inline-block py-1 px-2 text-white w-full text-center;
+    background:rgb(87, 87, 87);
     
 
     &__out-of-stock {
@@ -35,8 +36,8 @@
 
 
   &__list-item-name {
-    @apply block  mt-2 text-lg  h-16 overflow-hidden font-extrabold text-web-primary;
-
+    @apply block  mt-2 text-lg   font-extrabold text-black truncate;
+  
     &:hover {
       @apply text-yellow-600;
     }
@@ -55,7 +56,7 @@
     @apply w-6 h-6 fill-current;
 
     &__active {
-      @apply text-web-primary;
+      color: #ffbd00;
     }
 
     &__inactive {
@@ -65,7 +66,7 @@
 
 
   &__list-item-price {
-    @apply mt-2 text-2xl text-gray-900 font-bold inline-block line-through;
+    @apply mt-2 text-xl text-gray-900 font-bold inline-block line-through;
   }
 
   &__list-item-currency {
@@ -74,28 +75,35 @@
   }
 
   &__list-item-old-price {
-    @apply mt-2 text-2xl text-gray-900 font-bold inline-block;
+    @apply mt-0 text-3xl text-gray-900 font-bold inline-block;
   }
 
   &__add-to-cart-button {
-    @apply bg-web-primary py-2 w-full text-center  font-extrabold text-white text-sm uppercase px-5 flex items-center justify-center;
+    @apply bg-web-primary py-2 mx-auto text-center  font-extrabold text-white text-sm uppercase px-5 flex items-center justify-center gap-3 rounded-full;
+
   }
 
+  &__add-to-cart-icon {
+    // @apply w-8 h-8;
+    width: 1.8rem;
+    height: 1.8rem;
+  }
 
   &__remove-from-cart-button {
-    @apply bg-gray-300 py-2  w-full text-center px-5 font-extrabold text-white text-sm uppercase bg-gray-500 flex items-center justify-center;
-    //@apply bg-web-primary py-2 w-full text-center  font-extrabold text-white text-sm uppercase px-5;
+    @apply bg-gray-400 py-2  py-2 mx-auto text-center  font-extrabold text-black text-sm uppercase px-5 flex items-center justify-center gap-3 rounded-full;;
+   
   }
 
 
   &__show {
-    @apply flex flex-col gap-5;
+    @apply flex flex-col gap-4;
     @screen md {
-      @apply flex-row gap-3;
+      @apply flex-row gap-4;
     }
 
     &__image-container {
-      @apply p-3 w-full  flex flex-col justify-between items-center;
+      // flex flex-col justify-between 
+      @apply  w-full  items-center;
       @screen md {
         @apply w-4/12;
       }
@@ -135,22 +143,22 @@
     }
 
     &__details {
-      @apply py-3 w-full text-center flex flex-col justify-center content-center mx-auto;
+      @apply  w-full text-center flex flex-col justify-center content-center mx-auto;
       @screen md {
         @apply w-8/12;
       }
     }
 
     &__details-name {
-      @apply text-3xl uppercase tracking-wide font-bold;
+      @apply text-2xl uppercase tracking-wide font-bold;
     }
 
     &__details-model-number {
-      @apply mt-2 text-2xl text-gray-900 font-bold inline-block;
+      @apply mt-2 text-xl text-gray-900 font-bold inline-block;
     }
 
     &__details-slash-price {
-      @apply mt-2 text-2xl text-gray-900 font-bold inline-block line-through;
+      @apply mt-5 text-2xl text-gray-900 font-bold inline-block line-through;
     }
 
     &__details-currency {
@@ -159,7 +167,7 @@
 
 
     &__details-price {
-      @apply mt-2 font-extrabold text-5xl text-gray-900 inline-block;
+      @apply mt-0 font-extrabold text-5xl text-gray-900 inline-block;
     }
 
     &__details-actions {
@@ -206,4 +214,10 @@
   }
 
 
+}
+
+
+
+.specification-table table tr td {
+  border-color:  #d2e8ff !important;
 }

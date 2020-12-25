@@ -1,6 +1,6 @@
 <template>
   <web-layout>
-    <div  class="container shadow-lg" >
+    <div  class="container" >
       <div
         class="grid-cols-1 md:grid-cols-2 products-grid "
       >

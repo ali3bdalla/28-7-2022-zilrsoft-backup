@@ -57,7 +57,8 @@ return [
         "edit" => "تحرير",
         "already_have_account"=>"هل لديك حساب مسبقا ؟",
         "reset_password" => "تغير كلمة المرور",
-        'confirm_otp' => 'ادخل الرمز'
+        'confirm_otp' => 'ادخل الرمز',
+        
     ],
 
     'cart' => [
@@ -95,6 +96,12 @@ return [
         'remove_to_cart' => 'أحذف من السلة',
         'product_specifications' => 'مواصفات المنتج',
         'out_of_stock' => 'غير متوفر',
-        'sar' => 'ر.س'
+        'sar' => 'ر.س',
+        "name" => "اسم المنتج",
+        "quantity" => "الكمية",
+        "price" => "السعر",
+        "total" => "الاجمالي",
+        'model' => "الموديل",
+        "description" => "الوصف"
     ]
 ];

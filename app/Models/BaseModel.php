@@ -23,6 +23,16 @@
 
 			return $this->name;
         }
+
+        public function getLocaleDescriptionAttribute()
+		{
+			if(app()->isLocale('ar'))
+				return $this->ar_description;
+
+
+			return $this->description;
+        }
+        
         
 		protected static function boot()
 		{

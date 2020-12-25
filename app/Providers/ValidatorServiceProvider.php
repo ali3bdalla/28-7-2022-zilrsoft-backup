@@ -360,8 +360,6 @@ class ValidatorServiceProvider extends ServiceProvider
                             ['item_id', $dbKitItem->item_id],
                         ]
                     )->whereIn('status', ['in_stock', 'return_sale'])->first();
-
-//                    dd($itemSerial->toArray());
                     if ($itemSerial == null) {
                         return false;
                     }

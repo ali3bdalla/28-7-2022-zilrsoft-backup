@@ -2,16 +2,16 @@
   <div class="cart__totals-buttons">
     <div>
       <div class="cart__total-amount">
-        <span>{{$page.$t.cart.total}} ({{$page.$t.cart.inc_vat}}): </span>
+        <span>{{$page.$t.cart.total}} (<span class="inc_tax">{{$page.$t.cart.inc_vat}}</span>) : </span>
         <display-money :money="getOrderTotalAmount(orderItems)"></display-money>
       </div>
       <div v-show="activePage === 'checkout' && shippingMethodId">
         <div class="cart__total-amount">
-          <span>{{$page.$t.cart.shipping_weight}}: </span>
+          <span>{{$page.$t.cart.shipping_weight}} : </span>
           <display-money :money="getTotalShippingWeight()"></display-money>
         </div>
         <div class="cart__total-amount">
-          <span>{{$page.$t.cart.shipping_total}}: </span>
+          <span>{{$page.$t.cart.shipping_total}} : </span>
 
           <display-money
               :money="getTotalShippingSubtotal()"

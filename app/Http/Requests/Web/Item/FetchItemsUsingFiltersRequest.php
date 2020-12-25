@@ -60,7 +60,7 @@ class FetchItemsUsingFiltersRequest extends FormRequest
         }
 
 
-        return $query->with('category')->paginate(18);
+        return $query->with('category','filters.filter', 'filters.value')->paginate(18);
 
 
     }

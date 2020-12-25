@@ -39,6 +39,7 @@
 		
 		protected $appends = [
 			'locale_name',
+			'locale_description',
 			'item_image_url'
 		
 		];

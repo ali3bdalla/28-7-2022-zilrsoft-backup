@@ -1,6 +1,6 @@
 <template>
   <div class="relative p-0" style="    width: 100%;">
-    <div class="advanced-search">
+    <div class="advanced-search" style="border-color:#d2e8ff !important">
       <select v-model="categoryId" class="category-btn">
         <option value="0">{{ $page.$t.header.categories }}</option>
 

@@ -20,7 +20,7 @@ class CategoryController extends Controller
         return Inertia::render('Web/Category/Show',[
             'category' => $category,
             'subcategories' => $category->children()->get(),
-            'items' => Item::whereIn('category_id',$category->getChildrenIncludeMe())->with('category')->inRandomOrder()->take(50)->get(),
+            'items' => Item::whereIn('category_id',$category->getChildrenIncludeMe())->with('category','filters.filter', 'filters.value')->inRandomOrder()->take(50)->get(),
 
         ]);
     }

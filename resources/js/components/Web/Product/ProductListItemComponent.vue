@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3 border border-gray-500 product__list-item md:mt-0">
+  <div class="mt-3 border border-gray-500 product__list-item md:mt-0" style="border-color:#d2e8ff !important">
     <div class="product__list-item-image-container">
       <img :src="item.item_image_url" class="product__list-item-image" />
     </div>
@@ -10,9 +10,13 @@
       <h3 v-else class="product__list-item-category-name">
           {{item.category.locale_name}}
       </h3>
+      
       <a :href="`/web/items/${item.id}`" class="product__list-item-name">
         {{ item.locale_name }}
       </a>
+      <h6 class="truncate">
+         {{$page.$t.products.model}} : {{modelNumber}}
+      </h6>
       <ProductRatingComponent
         :item="item"
         class="mt-2"
@@ -43,27 +47,21 @@ import ProductRatingComponent from "./ProductRatingComponent";
 export default {
   components: { ToggleCartItemButtonComponent, ProductRatingComponent },
   props: ["item", "index"],
-  data() {
-    return {
-      images: [
-        "https://images10.newegg.com/ProductImageCompressAll180/11-133-244-41.jpg",
-        "https://images10.newegg.com/ProductImageCompressAll180/A8X5_131058525764839488GVB8iSbB5E.jpg",
-        "https://images10.newegg.com/ProductImageCompressAll180/96-110-022-11.jpg",
-        "https://images10.newegg.com/ProductImageCompressAll180/20-721-108-02.jpg",
-        "https://images10.newegg.com/ProductImageCompressAll180/35-608-044_R01.jpg",
-        "https://images10.newegg.com/ProductImageCompressAll180/75-100-554-02.jpg",
-        "https://images10.newegg.com/ProductImageCompressAll180/11-133-244-41.jpg",
-        "https://cdn.salla.sa/zdJgBdtmaJ67xEmyMm6EbdUsS1z6lU050NFTHeqc.jpeg",
-      ],
-    };
-  },
+  
   computed: {
-    itemImage() {
-      // this.item.image
-      //     ? this.item.image
-      //     :
-      return this.images[parseInt(Math.random() * 10) % 7];
+
+    modelNumber(){
+      if(this.item.filters)
+      {
+let modelNumber = this.item.filters.find(p => p.filter_id == 38);
+
+      if(modelNumber)
+          return modelNumber.value.locale_name;
+      }
+      
+      return ""
     },
+
   },
 };
 </script>

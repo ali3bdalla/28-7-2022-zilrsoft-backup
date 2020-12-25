@@ -1,5 +1,5 @@
 <template>
-  <div class="h-32 overflow-hidden border md:h-48">
+  <div class="h-32 overflow-hidden border md:h-48" style="border-color:#d2e8ff !important">
 <!-- 
     <div
         class="absolute inline-block px-2 py-1 text-sm font-extrabold text-center text-white truncate shadow-xl bg-web-primary"

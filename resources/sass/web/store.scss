@@ -48,3 +48,15 @@ body {
 {
   margin-bottom: 0px;
 }
+
+.cart-table,.cart__totals-buttons {
+  background-color: white
+}
+
+.cart-table table tr td.p-price, .cart-table table tr td.total-price {
+  color: black;
+}
+
+.inc_tax {
+  font-size: 14px;
+}

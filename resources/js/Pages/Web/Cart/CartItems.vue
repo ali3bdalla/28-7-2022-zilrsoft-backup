@@ -4,13 +4,18 @@
       <thead>
         <tr>
           <th v-if="$page.client_logged && activePage === 'cart'">
-            <input type="checkbox" class="cart__item-checkbox" />
+            <input
+              type="checkbox"
+              class="cart__item-checkbox"
+              v-model="select_all"
+              @change="updateAll"
+            />
           </th>
-          <th>Image</th>
-          <th class="p-name">Product Name</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Total</th>
+          <th></th>
+          <th class="p-name">{{ $page.$t.products.name }}</th>
+          <th>{{ $page.$t.products.price }}</th>
+          <th>{{ $page.$t.products.quantity }}</th>
+          <th>{{ $page.$t.products.total }}</th>
           <th v-if="$page.client_logged && activePage === 'cart'">
             <i v-if="$store.state.cartCount >= 1" class="ti-close"></i>
           </th>
@@ -24,7 +29,11 @@
               : '',
           ]"
           class="cart__table-raw"
-          v-if="activePage == 'cart' || (activePage === 'checkout' && parseInt(item.available_qty) >= parseInt(item.quantity))"
+          v-if="
+            activePage == 'cart' ||
+            (activePage === 'checkout' &&
+              parseInt(item.available_qty) >= parseInt(item.quantity))
+          "
         >
           <td
             v-if="$page.client_logged && activePage === 'cart'"
@@ -32,20 +41,17 @@
           >
             <input
               v-if="parseInt(item.available_qty) >= parseInt(item.quantity)"
-              :checked="orderProducts.find((p) => p.id == item.id) !== null"
+              :checked="orderProducts.includes(item.id)"
               class="cart__item-checkbox"
               type="checkbox"
               @change="toggleOrderProduct(item)"
             />
           </td>
           <td class="text-center cart-pic first-row">
-            <img
-              class="cart__item-image"
-              src="https://preview.colorlib.com/theme/fashi/img/cart-page/product-1.jpg"
-            />
+            <img class="cart__item-image" :src="item.item_image_url" />
           </td>
           <td class="cart-title first-row">
-            <h5>{{ item.name }}</h5>
+            <h6>{{ item.locale_name }}</h6>
           </td>
           <td class="p-price first-row">
             {{ parseFloat(item.price).toFixed(2) }}
@@ -95,6 +101,7 @@ export default {
   mixins: [CartMixin],
   data() {
     return {
+      select_all: false,
       shippingAddressMethod: 1,
       shippingAddressId: 0,
       cart: [],
@@ -104,7 +111,22 @@ export default {
   created() {
     this.validateCart();
   },
+
   methods: {
+    updateAll() {
+      let products = this.orderProducts;
+      for (let item of this.$store.state.cart) {
+        if (products.includes(item.id) && !this.select_all) {
+          products.splice(this.orderProducts.indexOf(item.id), 1);
+        }
+        if (!products.includes(item.id) && this.select_all) {
+          products.push(item.id);
+        }
+      }
+
+      this.orderProducts = products;
+      this.emitUpdateEvent();
+    },
     grabOrderItems() {
       let items = [];
       let itemsId = [];
