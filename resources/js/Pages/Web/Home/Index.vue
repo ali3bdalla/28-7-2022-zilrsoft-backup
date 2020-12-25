@@ -3,10 +3,10 @@
     <!-- <SideBarComponent :items='$page.items'></SideBarComponent> -->
     <div class="container">
       <div
-        class="grid w-full grid-cols-1 gap-3 my-5 bg-white shadow-xl md:grid-cols-2"
+        class="grid w-full grid-cols-1 gap-3 my-5 mb-10 md:grid-cols-2"
       >
         <a
-          class="h-32 border md:h-48"
+          class="h-32 md:h-48"
           :href="`/web/categories/${category.id}`"
           v-for="(category, index) in mainCategories"
           :key="index"

@@ -4,9 +4,12 @@ namespace App\Console\Commands\Entity;
 
 use App\Models\Account;
 use App\Models\AccountSnapshot;
+use App\Models\Transaction;
 use App\Models\TransactionsContainer;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 
 class NormalizeAccountingCommand extends Command
 {
@@ -42,6 +45,35 @@ class NormalizeAccountingCommand extends Command
     public function handle()
     {
 
+
+
+        DB::beginTransaction();
+
+
+        try{
+
+
+            $transaction = Transaction::find(155590);
+
+            $transaction->update([
+                'amount' => $transaction->amount -  1.06
+            ]);
+    
+            $transaction->account->update([
+                'total_credit_amount' =>$transaction->account->total_credit_amount -  1.06
+            ]);
+            $snapshot = $transaction->account->snapshots()->whereDate('created_at',$transaction->created_at)->first();
+            
+            $snapshot->update([
+                'credit_amount' => $snapshot->credit_amount -  1.06
+            ]);
+            DB::commit();
+        }
+        catch(QueryException $e)
+        {
+            DB::rollBack();
+            throw $e;
+        }
 
 //         $between = [Carbon::parse('22-11-2020'),Carbon::parse('24-11-2020')];
 //          AccountSnapshot::whereBetween('created_at',$between)->update([

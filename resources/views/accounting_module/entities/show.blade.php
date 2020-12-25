@@ -45,10 +45,11 @@
 
             <tr class="bg-primary">
                 <th></th>
+                <th></th>
                 <th>{{displayMoney($entity->total_debit_amount)}}</th>
                 <th>{{displayMoney($entity->total_credit_amount)}}</th>
                 <th></th>
-                <th></th>
+                
             </tr>
             </tbody>
         </table>

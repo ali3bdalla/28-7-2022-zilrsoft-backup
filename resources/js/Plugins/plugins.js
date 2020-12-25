@@ -8,6 +8,10 @@ window.Pusher = require('pusher-js');
 Vue.prototype.$currency = currency;
 if (window._translations) Vue.prototype.$translator = JSON.parse(window._translations);
 
+
+Vue.prototype.$asset = (url ) => {
+	return '/public/' + url;
+};
 // Vue.prototype.$echo
 Vue.prototype.$sound = {
 	play: (name) => {

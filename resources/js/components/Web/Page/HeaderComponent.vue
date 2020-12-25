@@ -17,7 +17,7 @@
           </div>
 
           <div class="flex justify-end flex-1 gap-2 items-left">
-            <img src="/Web/template/img/flag-1.jpg"  class="float-left h-4"/> 
+            <img :src="$asset('Web/template/img/flag-1.jpg')"  class="float-left h-4"/> 
             <span class="login-panel">English</span>
           </div>
         </div>
@@ -54,7 +54,7 @@
           <div class="w-3/12">
             <div class="logo">
               <a href="/web">
-                <img alt="" src="/images/logo_hd.png" style="width:6rem;padding-top:2px" />
+                <img alt="" :src="$asset('images/logo_hd.png')" style="width:6rem;padding-top:2px" />
               </a>
             </div>
           </div>

@@ -42,10 +42,11 @@
 
             <tr class="bg-primary">
                 <th></th>
+                <th></th>
                 <th><?php echo e(displayMoney($entity->total_debit_amount)); ?></th>
                 <th><?php echo e(displayMoney($entity->total_credit_amount)); ?></th>
                 <th></th>
-                <th></th>
+                
             </tr>
             </tbody>
         </table>

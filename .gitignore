@@ -1,9 +1,11 @@
 /node_modules
-/public/storage
+/public/storage/
 /vendor/*
 /.idea/*
 .idea/*
 .idea
+storage/*
+
 .env
 .env.testing
 .phpunit.result.cache
