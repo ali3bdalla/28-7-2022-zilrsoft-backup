@@ -207,7 +207,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
 
 
-        Artisaninweb\SoapWrapper\ServiceProvider::class,
+        // Artisaninweb\SoapWrapper\ServiceProvider::class,
 
 
     ],

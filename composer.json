@@ -13,7 +13,6 @@
         "ext-openssl": "*",
         "3li3bdalla/tafqeet": "^3.5.9",
         "3li3bdalla/whatsapp": "^0.0.1",
-        "artisaninweb/laravel-soap": "0.3.0.9",
         "barryvdh/laravel-debugbar": "^3.2",
         "barryvdh/laravel-dompdf": "^0.8.7",
         "benjamincrozat/laravel-dropbox-driver": "^2.0",
