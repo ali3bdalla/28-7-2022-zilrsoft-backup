@@ -15,22 +15,22 @@ services:
       - ./:/var/www
     networks:
       - zilrsoft
+      - postgres-server_postgres-sever-networks
+  # postgres:
+  #   image: postgres:13
+  #   container_name: zilrsoft-postgres-db
+  #   restart: unless-stopped
+  #   environment:
+  #     POSTGRES_DB: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #     POSTGRES_USER: postgres
+  #   volumes:
+  #     - ./postgres/data:/var/lib/postgresql/data
+  #   networks:
+  #     - zilrsoft
 
-  postgres:
-    image: postgres:13
-    container_name: zilrsoft-postgres-db
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-    volumes:
-      - ./postgres/data:/var/lib/postgresql/data
-    networks:
-      - zilrsoft
-
-    ports: 
-      - 5432:5432
+  #   ports: 
+  #     - 5432:5432
 
   nginx:
     image: nginx:alpine
@@ -47,3 +47,6 @@ services:
 networks:
   zilrsoft:
     driver: bridge
+  postgres-server_postgres-sever-networks:
+     external:
+            name: postgres-server_postgres-sever-networks

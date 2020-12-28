@@ -18,7 +18,7 @@ class UpdateInvoiceNumberJob implements ShouldQueue
 
     /**
      * Create a new job instance.
-     *
+    *
      * @param Invoice $invoice
      * @param string $prefix
      */
@@ -35,9 +35,10 @@ class UpdateInvoiceNumberJob implements ShouldQueue
      */
     public function handle()
     {
+
         $this->invoice->update([
-            'invoice_number' => $this->prefix . $this->invoice->id
-            //Carbon::now()->format('Y') . '/' .
+            'invoice_number' => $this->prefix . Carbon::now()->format('Y') . (Invoice::withoutGlobalScopes(["manager",'draft'])->whereYear('created_at',Carbon::now()->format('Y'))->where('invoice_type',$this->invoice->id)->count() + 1)
+            //
         ]);
     }
 }
