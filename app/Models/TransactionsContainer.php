@@ -1,8 +1,9 @@
 <?php
 	
 	namespace App\Models;
-	
-	use Illuminate\Database\Eloquent\Builder;
+
+use App\Models\Traits\AccountingPeriodTrait;
+use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\SoftDeletes;
 
     /**
@@ -12,7 +13,7 @@
 	{
 		protected $guarded = [];
 		use SoftDeletes;
-	
+		use AccountingPeriodTrait;
 	
 	    public function getTotalCreditAmountAttribute()
 	    {

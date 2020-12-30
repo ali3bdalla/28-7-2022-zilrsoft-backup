@@ -1,9 +1,10 @@
 <?php
 	
 	namespace App\Models;
-	
-	
-	/**
+
+use App\Models\Traits\Configurable;
+
+/**
 	 * @property mixed clients_chart_account_id
 	 * @property mixed accounts_organization_id
 	 * @property mixed accounts_creator_id
@@ -12,6 +13,7 @@
 	{
 
 
+		use Configurable;
 		/**
 		 * The attributes that are mass assignable.
 		 *

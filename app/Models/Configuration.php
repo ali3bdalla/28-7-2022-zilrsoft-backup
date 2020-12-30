@@ -2,9 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Configuration extends Model
+
+
+class Configuration extends BaseModel
 {
-    //
+
+    protected $guarded = [];
+    
+    public function configurable()
+    {
+        return $this->morphTo('configurable');
+    }
 }

@@ -1,8 +1,9 @@
 <?php
 	
 	namespace App\Models;
-	
-	use Carbon\Carbon;
+
+use App\Models\Traits\Configurable;
+use Carbon\Carbon;
 	use Illuminate\Database\Eloquent\SoftDeletes;
 	
 	/**
@@ -17,6 +18,7 @@
 	{
 		
 		use SoftDeletes;
+		use Configurable;
 		
 		protected $guarded = [];
 		

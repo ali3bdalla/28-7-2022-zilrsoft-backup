@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Events\Models\Transaction\TransactionCreated;
+use App\Models\Traits\AccountingPeriodTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -17,6 +18,7 @@ class Transaction extends BaseModel
 {
     use  SoftDeletes;
 
+    use AccountingPeriodTrait;
     protected $guarded = [];
 
     protected $casts = [
