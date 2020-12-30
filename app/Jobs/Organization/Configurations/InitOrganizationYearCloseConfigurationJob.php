@@ -30,13 +30,9 @@ class InitOrganizationYearCloseConfigurationJob implements ShouldQueue
     public function handle()
     {
         $oganization = auth()->user()->organization;
-        // $content, $key = null, $type = null,$group = ""
-        $oganization->addConfig('01/01','year_close_start_at','start date','date',null,'accounting');
-        $oganization->addConfig('31/12','year_close_end_atfsd','end date','date',null,'accounting');
-
-
-        dd($oganization->getConfigurations(null,"year_close_end_atfsd")->toArray());
-        // dd($oganization->getConfiguration('accounting_year_close_start_at',true));
-        // dd($oganization->getConfig('accounting_year_close_start_at'));
+        $oganization->addConfig(true, 'IS_HAS_YEAR_CLOSING', null, 'boolean', 'ACCOUNTING');
+        $oganization->addConfig('01/01', 'YEAR_STARTING_AT', 'Starting Year At', 'date', 'ACCOUNTING');
+        $oganization->addConfig('31/12', 'YEAR_CLOSEING_AT', 'Closing Year At', 'date', 'ACCOUNTING');
+        $oganization->addConfig(106, 'TARGET_INCOMES_EXPENSES_NORMALIZATION_ACCOUNT', null, 'integer', 'ACCOUNTING');
     }
 }

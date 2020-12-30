@@ -62,7 +62,10 @@ class NormalizeIncomesExpensesJob implements ShouldQueue
     }
     private function targetAccount()
     {
-        return Account::find(106);
+        
+        $targetAccount = auth()->user()->organization->getConfig("TARGET_INCOMES_EXPENSES_NORMALIZATION_ACCOUNT","ACCOUNTING",true);
+        
+        return Account::find($targetAccount );
     }
     private function normalize(Account $account)
     {
