@@ -34,9 +34,8 @@ class InitOrganizationYearCloseConfigurationJob implements ShouldQueue
     {
         $oganization = $this->loggedUser->organization;
         $oganization->addConfig(true, 'IS_HAS_YEAR_CLOSING', null, 'boolean', 'ACCOUNTING');
-        $oganization->addConfig('01/01', 'YEAR_STARTING_AT', 'Starting Year At', 'date', 'ACCOUNTING');
-        $oganization->addConfig('31/12', 'YEAR_CLOSEING_AT', 'Closing Year At', 'date', 'ACCOUNTING');
         $oganization->addConfig(106, 'TARGET_INCOMES_EXPENSES_NORMALIZATION_ACCOUNT', null, 'integer', 'ACCOUNTING');
-        $oganization->addConfig("2018", 'LAST_YEAR_CLOSED', null, 'date', 'ACCOUNTING');
+        $this->loggedUser->addConfig("2018", 'START_YEAR_AT', null, 'date', 'ACCOUNTING');
+        $this->loggedUser->addConfig("2021", 'END_YEAR_AT', null, 'date', 'ACCOUNTING');
     }
 }

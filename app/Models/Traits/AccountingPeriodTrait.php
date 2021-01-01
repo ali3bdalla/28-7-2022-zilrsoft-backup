@@ -22,10 +22,11 @@ trait AccountingPeriodTrait
                 if (Schema::hasColumn($table, 'organization_id')  && $table != 'invoice_items' ) {
                     $STARTAT = static::getAccountingStartYear(auth()->user());
                     $ENDAT =  static::getAccountingEndYear(auth()->user());
+
                     static::addGlobalScope(
                         'accountingPeriod',
                         function (Builder $builder) use ($table, $STARTAT, $ENDAT) {
-                            $builder->whereDate("{$table}.created_at", '>=', $STARTAT)->whereDate("{$table}.created_at", '<=', $ENDAT);
+                            $builder->whereDate("{$table}.created_at", '>=', $STARTAT)->whereDate("{$table}.created_at", '<', $ENDAT);
                         }
                     );
                 }
@@ -35,22 +36,23 @@ trait AccountingPeriodTrait
 
     private static function getAccountingStartYear(Manager $manager)
     {
-        $date = $manager->getConfig("START_YEAR_AT", "ACCOUNTING");
+        $date = $manager->getConfig("START_YEAR_AT", "ACCOUNTING",false);
         if ($date)
-            return Carbon::parse($date);
+            return Carbon::createFromDate($date)->toDateString();
 
-        return Carbon::parse('2021');
+
+        return Carbon::createFromDate('2021')->toDateString();
     }
 
 
     private static function getAccountingEndYear(Manager $manager)
     {
-        $date = $manager->getConfig("END_YEAR_AT", "ACCOUNTING");
+        $date = $manager->getConfig("END_YEAR_AT", "ACCOUNTING",false);
 
         if ($date)
-            return Carbon::parse($date);
+            return Carbon::createFromDate($date)->toDateString();
 
 
-        return Carbon::parse('2022');
+        return Carbon::createFromDate('2022')->toDateString();
     }
 }
