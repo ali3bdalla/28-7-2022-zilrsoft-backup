@@ -63,7 +63,7 @@ class UpdateInvoiceNumberJob implements ShouldQueue
     {
 
 
-        $nextedInvoiceNumber = (Invoice::whereYear('created_at', Carbon::now()->format('Y'))->where('invoice_type', $this->invoice->type)->withTrashed()->withoutGlobalScopes(["manager", 'draft'])->count() + 1);
+        $nextedInvoiceNumber = (Invoice::whereYear('created_at', Carbon::now()->format('Y'))->where('invoice_type', $this->invoice->invoice_type)->withTrashed()->withoutGlobalScopes(["manager", 'draft'])->count() + 1);
         $this->invoice->update([
             'invoice_number' => $this->prefix . Carbon::now()->format('Y') . $nextedInvoiceNumber
         ]);
