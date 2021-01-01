@@ -72,9 +72,9 @@ class StoreDraftPurchaseRequest extends FormRequest
                 'is_draft' => true,
                 "prefix" => 'PU-',
             ]);
-            dispatch(new UpdateInvoiceNumberJob($invoice,'DPU-'));
-            dispatch(new StorePurchaseItemsJob($invoice, (array) $this->input('items'),true));
-            dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+            dispatch_now(new UpdateInvoiceNumberJob($invoice,'DPU-'));
+            dispatch_now(new StorePurchaseItemsJob($invoice, (array) $this->input('items'),true));
+            dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             DB::commit();
             return response($invoice, 200);
         } catch (QueryException $e) {
@@ -93,7 +93,7 @@ class StoreDraftPurchaseRequest extends FormRequest
                 }
 
                 foreach ($item['serials'] as $serial) {
-                    dispatch(new ValidateItemSerialJob($dbItem,$serial, ['in_stock', 'return_sale']));
+                    dispatch_now(new ValidateItemSerialJob($dbItem,$serial, ['in_stock', 'return_sale']));
                 }
             }
         }

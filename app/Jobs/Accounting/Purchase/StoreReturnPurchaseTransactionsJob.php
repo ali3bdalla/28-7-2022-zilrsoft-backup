@@ -75,7 +75,7 @@ class StoreReturnPurchaseTransactionsJob implements ShouldQueue
             $data['type'] = 'credit';
             $data['item_id'] = $item['item_id'];
             $this->stockAccount->transactions()->create($data);
-            dispatch(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'credit'));
+            dispatch_now(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'credit'));
         }
 
     }
@@ -110,7 +110,7 @@ class StoreReturnPurchaseTransactionsJob implements ShouldQueue
             $data['amount'] = abs($unpaidAmount);
             $data['user_id'] = $this->invoice->purchase->vendor_id;
             $this->vendorAccount->transactions()->create($data);
-            dispatch(new UpdateVendorBalanceJob($this->invoice->purchase->vendor, abs($unpaidAmount), $balanceUpdate));
+            dispatch_now(new UpdateVendorBalanceJob($this->invoice->purchase->vendor, abs($unpaidAmount), $balanceUpdate));
 
         }
     }

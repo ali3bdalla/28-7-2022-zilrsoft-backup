@@ -79,7 +79,7 @@
 				 * ==========================================================
 				 */
 				if($item->is_need_serial) {
-					dispatch(new AddItemSerialByInvoiceItemJob($requestItemCollection->get('serials'), $invoiceItem, $this->isDraft));
+					dispatch_now(new AddItemSerialByInvoiceItemJob($requestItemCollection->get('serials'), $invoiceItem, $this->isDraft));
 				}
 				/**
 				 * ==========================================================
@@ -92,13 +92,13 @@
 					 * update qty should be before update cost
 					 * ==========================================================
 					 */
-					dispatch(new UpdateAvailableQtyByInvoiceItemJob($invoiceItem));
+					dispatch_now(new UpdateAvailableQtyByInvoiceItemJob($invoiceItem));
 					/**
 					 * ==========================================================
 					 * we neeed for available qty and cost before new invoice item
 					 * ==========================================================
 					 */
-					dispatch(new UpdateItemCostByInvoiceItemJob($invoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
+					dispatch_now(new UpdateItemCostByInvoiceItemJob($invoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
 					
 					/**
 					 * ==========================================================
@@ -106,10 +106,10 @@
 					 * ==========================================================
 					 */
 					if($this->invoice->invoice_type == 'purchase') {
-						dispatch(new UpdateItemLastPurchasePriceJob($invoiceItem));
+						dispatch_now(new UpdateItemLastPurchasePriceJob($invoiceItem));
 						// To Do => update sales price
 						$salesPrice = (float)$requestItemCollection->get('price_with_tax');
-						dispatch(new UpdateItemSalesPriceJob($invoiceItem, $salesPrice));
+						dispatch_now(new UpdateItemSalesPriceJob($invoiceItem, $salesPrice));
 					}
 					
 					

@@ -18,7 +18,7 @@ class TransactionObserver
     {
         if($transaction->is_pending == false)
         {
-            dispatch(new UpdateAccountBalanceJob($transaction));
+            dispatch_now(new UpdateAccountBalanceJob($transaction));
         }
         
     }

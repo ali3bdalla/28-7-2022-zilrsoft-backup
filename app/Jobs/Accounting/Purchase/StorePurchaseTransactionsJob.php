@@ -76,7 +76,7 @@
 				$data['type'] = 'debit';
 				$data['item_id'] = $item['item_id'];
 				$this->stockAccount->transactions()->create($data);
-				dispatch(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'debit'));
+				dispatch_now(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'debit'));
 			}
 			
 		}
@@ -110,7 +110,7 @@
 				$data['amount'] = abs($unpaidAmount);
 				$data['user_id'] = $this->invoice->purchase->vendor_id;
 				$this->vendorAccount->transactions()->create($data);
-				dispatch(new UpdateVendorBalanceJob($this->invoice->purchase->vendor, abs($unpaidAmount), $balanceUpdate));
+				dispatch_now(new UpdateVendorBalanceJob($this->invoice->purchase->vendor, abs($unpaidAmount), $balanceUpdate));
 				
 			}
 			

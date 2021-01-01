@@ -80,9 +80,9 @@
 						"prefix" => "RSI-",
 					]
 				);
-				dispatch(new UpdateInvoiceNumberJob($invoice, 'RSI-'));
-				dispatch(new StoreReturnSaleItemsJob($invoice, $saleInvoice, $returnedItems));
-				dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+				dispatch_now(new UpdateInvoiceNumberJob($invoice, 'RSI-'));
+				dispatch_now(new StoreReturnSaleItemsJob($invoice, $saleInvoice, $returnedItems));
+				dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
 				
 				/**
 				 *
@@ -92,8 +92,8 @@
 				 *
 				 */
 				$paymentsMethods = $this->validatePaymentsAndGetPaymentMethods($invoice->fresh());
-				dispatch(new StoreReturnSalePaymentsJob($invoice, $paymentsMethods));
-				dispatch(new StoreReturnSaleTransactionsJob($invoice));
+				dispatch_now(new StoreReturnSalePaymentsJob($invoice, $paymentsMethods));
+				dispatch_now(new StoreReturnSaleTransactionsJob($invoice));
 				
 				DB::commit();
 				return $invoice;

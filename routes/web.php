@@ -1,6 +1,12 @@
 <?php
 
+use App\Jobs\Accounting\CloseYear\NormalizeIncomesExpensesJob;
+
+
 use App\Http\Middleware\ImagesUploadMiddleware;
+use App\Jobs\Accounting\CloseYear\CreateCloseYearEntityJob;
+use App\Jobs\Organization\Configurations\InitOrganizationYearCloseConfigurationJob;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -127,7 +133,7 @@ Route::group(
 Route::middleware('auth')->group(
     function () {
 
-
+       
         Route::get('/dashboard', 'HomeController@index')->name('dashboard.index');
         Route::post('/logout', 'HomeController@logout')->name('logout');
         Route::resource('sales', 'SaleController');
@@ -199,6 +205,18 @@ Route::middleware('auth')->group(
         );
 
         Route::resource('entities', 'EntityController');
+        Route::prefix('close_year')->group(function(){
+            // function(){
+
+            //     // ;
+                
+            //     // CreateCloseYearEntityJob::dispatch(auth()->user());
+            // }
+            Route::get('init_organizatinon_config',"BackEnd\Accounting\PeriodController@initOrganizationConfiguration");
+            Route::get('start_normalizing_incomes_expenses',"BackEnd\Accounting\PeriodController@startNormalizingIncomesExpenses");
+            Route::get('normalizing_incomes_expenses_status',"BackEnd\Accounting\PeriodController@normalizingIncomesExpensesStatus");
+
+        });
         Route::prefix('inventory')->name('inventory.')->group(
             function () {
                 Route::get('/', 'InventoryController@index')->name('index');

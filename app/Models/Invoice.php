@@ -1,8 +1,9 @@
 <?php
 	
 	namespace App\Models;
-	
-	use Illuminate\Database\Eloquent\SoftDeletes;
+
+use App\Models\Traits\AccountingPeriodTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 	use Illuminate\Support\Facades\Storage;
 	
 	/**
@@ -30,7 +31,7 @@
 	{
 		
 		use SoftDeletes;
-		
+		use AccountingPeriodTrait;
 		protected $guarded = [];
 		protected $casts = [
 			'printable_price' => 'boolean',

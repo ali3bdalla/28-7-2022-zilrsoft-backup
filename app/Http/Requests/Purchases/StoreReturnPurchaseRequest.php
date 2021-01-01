@@ -79,11 +79,11 @@ class StoreReturnPurchaseRequest extends FormRequest
                 'invoice_type' => 'return_purchase',
                 "prefix" => 'RPU-',
             ]);
-            dispatch(new UpdateInvoiceNumberJob($invoice, 'RPU-'));
-            dispatch(new StoreReturnPurchaseItemsJob($invoice, $purchaseInvoice, (array)$returnedItems));
-            dispatch(new StoreReturnPurchasePaymentsJob($invoice, $this->input('methods')));
-            dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
-            dispatch(new StoreReturnPurchaseTransactionsJob($invoice->fresh()));
+            dispatch_now(new UpdateInvoiceNumberJob($invoice, 'RPU-'));
+            dispatch_now(new StoreReturnPurchaseItemsJob($invoice, $purchaseInvoice, (array)$returnedItems));
+            dispatch_now(new StoreReturnPurchasePaymentsJob($invoice, $this->input('methods')));
+            dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+            dispatch_now(new StoreReturnPurchaseTransactionsJob($invoice->fresh()));
             DB::commit();
             return response($invoice, 200);
         } catch (QueryException $e) {
@@ -103,7 +103,7 @@ class StoreReturnPurchaseRequest extends FormRequest
                     throw ValidationException::withMessages(['item_serial' => 'serials count don\'t  match returned qty']);
                 }
                 foreach ($item['serials'] as $serial) {
-                    dispatch(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase']));
+                    dispatch_now(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase']));
                 }
             }
         }

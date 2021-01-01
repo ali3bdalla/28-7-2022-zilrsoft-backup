@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\AccountingPeriodTrait;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -32,6 +33,7 @@ use Illuminate\Database\Eloquent\Builder;
 class InvoiceItems extends BaseModel
 {
 
+    use AccountingPeriodTrait;
     protected $guarded = [];
 
     protected $appends = [

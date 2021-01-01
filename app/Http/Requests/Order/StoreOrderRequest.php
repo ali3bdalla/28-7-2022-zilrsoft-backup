@@ -83,11 +83,11 @@ class StoreOrderRequest extends FormRequest
                     'is_draft' => true
                 ]
             );
-            dispatch(new UpdateInvoiceNumberJob($invoice, 'ONL-'));
-            dispatch(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true, $authUser, true));
-            dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+            dispatch_now(new UpdateInvoiceNumberJob($invoice, 'ONL-'));
+            dispatch_now(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true, $authUser, true));
+            dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             $order = CreateSalesOrderJob::dispatchNow($invoice->fresh(), $this);
-            dispatch(new HoldItemQtyJob($invoice, $order));
+            dispatch_now(new HoldItemQtyJob($invoice, $order));
             DB::commit();
             $path = CreateOrderPdfSnapshotJob::dispatchNow($invoice);
             event(new OrderCreatedEvent($invoice, $path));

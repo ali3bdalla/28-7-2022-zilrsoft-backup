@@ -67,7 +67,7 @@ class UpdateOnlineOrderStatus implements ShouldQueue
                     ]
                 );
 
-                HandleOrderShippingJob::dispatch($order);
+                HandleOrderShippingJob::dispatchNow($order);
             }
         }
     }

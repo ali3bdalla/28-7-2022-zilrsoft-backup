@@ -92,9 +92,9 @@
 						'is_draft' => true
 					]
 				);
-				dispatch(new UpdateInvoiceNumberJob($invoice, 'QA-'));
-				dispatch(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true));
-				dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+				dispatch_now(new UpdateInvoiceNumberJob($invoice, 'QA-'));
+				dispatch_now(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true));
+				dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
 				
 				DB::commit();
 				return $invoice->load('items');
@@ -117,7 +117,7 @@
 						throw ValidationException::withMessages(['item_serial' => 'serials count don\'t  match qty']);
 					}
 					foreach($item['serials'] as $serial) {
-						dispatch(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase']));
+						dispatch_now(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase']));
 					}
 				}
 			}

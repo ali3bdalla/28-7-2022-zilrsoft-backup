@@ -21,7 +21,7 @@
 //				);
 //			}
 			
-			dispatch(new CancelOrderJob($order, true));
+			dispatch_now(new CancelOrderJob($order, true));
 		}
 		
 		public function showPage(Request $request, Order $order)

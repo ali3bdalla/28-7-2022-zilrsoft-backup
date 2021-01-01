@@ -42,7 +42,7 @@ abstract class TestCase extends BaseTestCase
         $manager = $this->managerProvider($organization->id);
         $organization->fill(['supervisor_id' => $manager->user_id]);
         $organization->save();
-//        dispatch(new CreateAmericanChartOfAccountsJob($organization, $manager));
+//        dispatch_now(new CreateAmericanChartOfAccountsJob($organization, $manager));
         return $manager;
     }
 

@@ -46,7 +46,7 @@ class ActivateEntityJob implements ShouldQueue
 
         foreach( $transactions as $transaction)
         {
-            dispatch(new UpdateAccountBalanceJob($transaction));
+            dispatch_now(new UpdateAccountBalanceJob($transaction));
         }
     }
 }

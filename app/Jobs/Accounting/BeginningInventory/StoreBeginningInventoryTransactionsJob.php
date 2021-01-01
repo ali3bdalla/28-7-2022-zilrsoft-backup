@@ -72,7 +72,7 @@ class StoreBeginningInventoryTransactionsJob implements ShouldQueue
             $data['type'] = 'debit';
             $data['item_id'] = $item['item_id'];
             $this->stockAccount->transactions()->create($data);
-            dispatch(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'debit'));
+            dispatch_now(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'debit'));
         }
 
     }

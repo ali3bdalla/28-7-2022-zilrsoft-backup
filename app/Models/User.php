@@ -1,8 +1,10 @@
 <?php
 	
 	namespace App\Models;
-	
-	use Carbon\Carbon;
+
+use App\Models\Traits\Configurable;
+use App\Models\Traits\UserBalanceTrait;
+use Carbon\Carbon;
 	use Illuminate\Database\Eloquent\SoftDeletes;
 	
 	/**
@@ -17,7 +19,8 @@
 	{
 		
 		use SoftDeletes;
-		
+		use Configurable;
+		use UserBalanceTrait;
 		protected $guarded = [];
 		
 		

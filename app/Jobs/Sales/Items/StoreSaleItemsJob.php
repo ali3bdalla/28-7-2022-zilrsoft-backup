@@ -86,7 +86,7 @@ class StoreSaleItemsJob implements ShouldQueue
         $data['is_draft'] = $this->isDraft;
         $invoiceKitItem = $this->invoice->items()->create($data);
         $this->storeKitItems($itemPureCollection, $dbItem, $invoiceKitItem->id, $qty);
-        dispatch(new UpdateKitByInvoiceItemsJob($invoiceKitItem));
+        dispatch_now(new UpdateKitByInvoiceItemsJob($invoiceKitItem));
     }
 
     public function storeKitItems($itemPureCollection, Item $dbKit, $invoiceKitId, $qty)
@@ -156,7 +156,7 @@ class StoreSaleItemsJob implements ShouldQueue
              * ==========================================================
              */
             if ($item->is_need_serial) {
-                dispatch(new UpdateItemSerialStatusByInvoiceItemJob($requestItemCollection->get('serials'), $invoiceItem, $this->isDraft));
+                dispatch_now(new UpdateItemSerialStatusByInvoiceItemJob($requestItemCollection->get('serials'), $invoiceItem, $this->isDraft));
             }
 
 
@@ -166,13 +166,13 @@ class StoreSaleItemsJob implements ShouldQueue
                  * update qty should be before update cost
                  * ==========================================================
                  */
-                dispatch(new UpdateAvailableQtyByInvoiceItemJob($invoiceItem));
+                dispatch_now(new UpdateAvailableQtyByInvoiceItemJob($invoiceItem));
                 /**
                  * ==========================================================
                  * we neeed for available qty and cost before new invoice item
                  * ==========================================================
                  */
-                dispatch(new UpdateItemCostByInvoiceItemJob($invoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
+                dispatch_now(new UpdateItemCostByInvoiceItemJob($invoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
 
                 /**
                  * ==========================================================
@@ -188,7 +188,7 @@ class StoreSaleItemsJob implements ShouldQueue
              * update items total profits amount
              * ==========================================================
              */
-            dispatch(new UpdateItemProfitByInvoiceItem($invoiceItem));
+            dispatch_now(new UpdateItemProfitByInvoiceItem($invoiceItem));
 
         }
 
