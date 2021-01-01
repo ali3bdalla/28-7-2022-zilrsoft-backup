@@ -2,7 +2,10 @@
 
 namespace App\Jobs\Accounting\CloseYear;
 
+use App\Jobs\Accounting\Entity\UpdateAccountBalanceJob;
 use App\Models\Account;
+use App\Models\Manager;
+use App\Models\Transaction;
 use App\Models\TransactionsContainer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,15 +19,16 @@ class NormalizeIncomesExpensesJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private $loggedUser;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Manager $loggedUser)
     {
+        $this->loggedUser = $loggedUser;
         //
-
     }
 
     /**
@@ -42,6 +46,7 @@ class NormalizeIncomesExpensesJob implements ShouldQueue
             $incomesExpeneseAccount = Account::where([
                 ['parent_id', 0]
             ])->whereIn('slug', ['expenses', "income"])->get();
+
             foreach ($incomesExpeneseAccount as $mainAccount) {
                 $this->normalizeList($mainAccount);
             }
@@ -55,17 +60,26 @@ class NormalizeIncomesExpensesJob implements ShouldQueue
 
     public function normalizeList(Account $mainAccount)
     {
-        $childrenList = Account::find($mainAccount->getChildrenIncludeMe());
-        foreach ($childrenList as $account) {
-            $this->normalize($account);
+        $accounts = $mainAccount->getChildrenIncludeMe();
+
+
+        foreach ($accounts as $accountId) {
+            $account = Account::find($accountId);
+            if($account)
+                $this->normalize($account);
         }
+
+        // $childrenList = Account::find($mainAccount->getChildrenIncludeMe());
+        // foreach ($childrenList as $account) {
+        //     $this->normalize($account);
+        // }
     }
     private function targetAccount()
     {
         
-        $targetAccount = auth()->user()->organization->getConfig("TARGET_INCOMES_EXPENSES_NORMALIZATION_ACCOUNT","ACCOUNTING",true);
+        $targetAccount = $this->loggedUser->organization->getConfig("TARGET_INCOMES_EXPENSES_NORMALIZATION_ACCOUNT","ACCOUNTING",true);
         
-        return Account::find($targetAccount );
+        return Account::findOrFail($targetAccount );
     }
     private function normalize(Account $account)
     {
@@ -87,24 +101,30 @@ class NormalizeIncomesExpensesJob implements ShouldQueue
     private function createNormalizationEntity($amount, $sourceAccount, $targetAccount, $sourceTransactionType, $targetTransactionType)
     {
         $entity = TransactionsContainer::create([
-            'creator_id' => auth()->user()->id,
+            'creator_id' => $this->loggedUser->id,
             'amount' => $amount,
-            'organization_id' => auth()->user()->organization_id,
+            'organization_id' => $this->loggedUser->organization_id,
         ]);
 
-        $entity->transactions()->create([
-            'account_id' => $sourceAccount->id,
-            'amount' => $amount,
-            'creator_id' => auth()->user()->id,
-            'organization_id' => auth()->user()->organization_id,
-            'type' => $sourceTransactionType
-        ]);
-        $entity->transactions()->create([
-            'account_id' => $targetAccount->id,
-            'amount' => $amount,
-            'creator_id' => auth()->user()->id,
-            'organization_id' => auth()->user()->organization_id,
-            'type' => $targetTransactionType
-        ]);
+        Transaction::withoutEvents(function() use ($amount,$entity,$sourceAccount, $targetAccount, $sourceTransactionType, $targetTransactionType) {
+            $transaction1 = $entity->transactions()->create([
+                'account_id' => $sourceAccount->id,
+                'amount' => $amount,
+                'creator_id' => $this->loggedUser->id,
+                'organization_id' => $this->loggedUser->organization_id,
+                'type' => $sourceTransactionType
+            ]);
+
+            $transaction2 =  $entity->transactions()->create([
+                'account_id' => $targetAccount->id,
+                'amount' => $amount,
+                'creator_id' => $this->loggedUser->id,
+                'organization_id' => $this->loggedUser->organization_id,
+                'type' => $targetTransactionType
+            ]);
+            dispatch_now(new UpdateAccountBalanceJob($transaction1));
+            dispatch_now(new UpdateAccountBalanceJob($transaction2));
+        });
+       
     }
 }

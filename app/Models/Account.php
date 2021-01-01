@@ -146,27 +146,6 @@ class Account extends BaseModel
 		return (float)((float)$this->total_debit_amount - (float)$this->total_credit_amount);
 	}
 
-	//    public function updateAccountBalanceUsingPipeline()
-	//    {
-	//        $totalCreditAmount = 0;
-	//        $totalDebitAmount = 0;
-	//        foreach ($this->transactions as $transaction) {
-	//            if ($transaction->type == 'credit') {
-	//                $totalCreditAmount += (float)$transaction->amount;
-	//            } else {
-	//                $totalDebitAmount += (float)$transaction->amount;
-	//
-	//            }
-	//        }
-	//
-	//        $this->forceFill([
-	//            'total_credit_amount' => $totalCreditAmount,
-	//            'total_debit_amount' => $totalDebitAmount,
-	//
-	//        ]);
-	//
-	//        return $this->getCurrentAmountAttribute();
-	//    }
 
 	public function _isCredit()
 	{
@@ -176,16 +155,22 @@ class Account extends BaseModel
 	public function getCurrentAmountAttribute()
 	{
 
-		$children = $this->getChildrenIncludeMe();
-		$currentAmount = 0;
-		if ($children != null) {
-			foreach ($children as $child) {
-				$dbChild = Account::find($child);
-				if ($dbChild != null)
-					$currentAmount += $dbChild->getSingleAccountBalance();
-			}
-		}
-		return $currentAmount;
+		// return 0
+		$balance =  $this->yearlyNestedAccountBalance();
+		if(abs($balance) < 1)
+			return 0;
+
+		return $balance;
+		// $children = $this->getChildrenIncludeMe();
+		// $currentAmount = 0;
+		// if ($children != null) {
+		// 	foreach ($children as $child) {
+		// 		$dbChild = Account::find($child);
+		// 		if ($dbChild != null)
+		// 			$currentAmount += $dbChild->getSingleAccountBalance();
+		// 	}
+		// }
+		// return $currentAmount;
 	}
 
 	public function _isDebit()

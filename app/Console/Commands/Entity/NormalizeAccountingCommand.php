@@ -47,33 +47,37 @@ class NormalizeAccountingCommand extends Command
 
 
 
-        DB::beginTransaction();
+        dd(Transaction::select('account_id',DB::raw('date(created_at)'))->groupBy('account_id',DB::raw('date(created_at)'))->count());
 
 
-        try{
+
+        // DB::beginTransaction();
 
 
-            $transaction = Transaction::find(155590);
+        // try{
 
-            $transaction->update([
-                'amount' => $transaction->amount -  1.06
-            ]);
+
+        //     $transaction = Transaction::find(155590);
+
+        //     $transaction->update([
+        //         'amount' => $transaction->amount -  1.06
+        //     ]);
     
-            $transaction->account->update([
-                'total_credit_amount' =>$transaction->account->total_credit_amount -  1.06
-            ]);
-            $snapshot = $transaction->account->snapshots()->whereDate('created_at',$transaction->created_at)->first();
+        //     $transaction->account->update([
+        //         'total_credit_amount' =>$transaction->account->total_credit_amount -  1.06
+        //     ]);
+        //     $snapshot = $transaction->account->snapshots()->whereDate('created_at',$transaction->created_at)->first();
             
-            $snapshot->update([
-                'credit_amount' => $snapshot->credit_amount -  1.06
-            ]);
-            DB::commit();
-        }
-        catch(QueryException $e)
-        {
-            DB::rollBack();
-            throw $e;
-        }
+        //     $snapshot->update([
+        //         'credit_amount' => $snapshot->credit_amount -  1.06
+        //     ]);
+        //     DB::commit();
+        // }
+        // catch(QueryException $e)
+        // {
+        //     DB::rollBack();
+        //     throw $e;
+        // }
 
 //         $between = [Carbon::parse('22-11-2020'),Carbon::parse('24-11-2020')];
 //          AccountSnapshot::whereBetween('created_at',$between)->update([

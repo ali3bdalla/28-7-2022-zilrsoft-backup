@@ -22,7 +22,7 @@ class ChangeConfigurationStartigy extends Migration
             $table->string('title')->nullable();
             $table->text('value')->nullable();
             $table->string('type')->nullable();
-            $table->string('group')->nullable();
+            $table->string('collection')->nullable();
         });
     }
 

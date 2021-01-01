@@ -66,8 +66,8 @@
 							->whereDate('created_at', '<=',$endDate)->sum('credit_amount');
 		
 					} else {
-						$debitAmount = $account->total_debit_amount;
-						$creditAmount = $account->total_credit_amount;
+						$debitAmount = $account->snapshots()->sum('debit_amount');
+						$creditAmount = $account->snapshots()->sum('credit_amount');
 					}
 					
 					

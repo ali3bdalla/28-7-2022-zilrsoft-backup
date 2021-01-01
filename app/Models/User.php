@@ -3,6 +3,7 @@
 	namespace App\Models;
 
 use App\Models\Traits\Configurable;
+use App\Models\Traits\UserBalanceTrait;
 use Carbon\Carbon;
 	use Illuminate\Database\Eloquent\SoftDeletes;
 	
@@ -19,7 +20,7 @@ use Carbon\Carbon;
 		
 		use SoftDeletes;
 		use Configurable;
-		
+		use UserBalanceTrait;
 		protected $guarded = [];
 		
 		

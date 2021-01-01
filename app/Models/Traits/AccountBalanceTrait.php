@@ -6,6 +6,9 @@ use App\Models\Account;
 
 trait AccountBalanceTrait
 {
+
+
+
     public function yearlyAccountBalance()
     {
         $creditAmount = $this->yearlyAccountCreditAmount();
@@ -29,6 +32,7 @@ trait AccountBalanceTrait
 
     public function yearlyNestedAccountBalance()
     {
+        
         $accounts = $this->getChildrenIncludeMe();
 
         $balance = 0;

@@ -4,6 +4,7 @@ use App\Jobs\Accounting\CloseYear\NormalizeIncomesExpensesJob;
 
 
 use App\Http\Middleware\ImagesUploadMiddleware;
+use App\Jobs\Accounting\CloseYear\CreateCloseYearEntityJob;
 use App\Jobs\Organization\Configurations\InitOrganizationYearCloseConfigurationJob;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -205,9 +206,9 @@ Route::middleware('auth')->group(
         Route::resource('entities', 'EntityController');
         Route::prefix('close_year')->group(function(){
             Route::get('normalize_incomes_expenses',function(){
-                NormalizeIncomesExpensesJob::dispatchNow();
-                // InitOrganizationYearCloseConfigurationJob::dispatchNow();
-                return 1;
+                // InitOrganizationYearCloseConfigurationJob::dispatchNow(auth()->user());
+                // NormalizeIncomesExpensesJob::dispatchNow(auth()->user());
+                CreateCloseYearEntityJob::dispatch(auth()->user());
             });
         });
         Route::prefix('inventory')->name('inventory.')->group(

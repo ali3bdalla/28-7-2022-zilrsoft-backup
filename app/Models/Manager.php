@@ -1,9 +1,9 @@
 <?php
 	
 	namespace App\Models;
-	
-	
-	use Illuminate\Notifications\Notifiable;
+
+use App\Models\Traits\Configurable;
+use Illuminate\Notifications\Notifiable;
 	
 	/**
 	 * @method static inRandomOrder()
@@ -13,7 +13,7 @@
 		
 		
 		use Notifiable;
-		
+		use Configurable;
 		/**
 		 * The attributes that are mass assignable.
 		 *
