@@ -99,7 +99,7 @@
 				$data['type'] = 'debit';
 				$data['item_id'] = $item['item_id'];
 				$this->stockAccount->transactions()->create($data);
-				dispatch(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'debit'));
+				dispatch_now(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'debit'));
 				$this->itemsTaxAmount += $item->tax;
 				$this->itemsCostAmount += $amount;
 //            }
@@ -164,14 +164,14 @@
 						$data['user_id'] = $this->invoice->user_id;
 						$data['type'] = 'debit';
 						$this->clientAccount->transactions()->create($data);
-						dispatch(new UpdateClientBalanceJob($this->invoice->sale->client, abs($variation), 'increase'));
+						dispatch_now(new UpdateClientBalanceJob($this->invoice->sale->client, abs($variation), 'increase'));
 					} else {
 						$data = $this->startupData;
 						$data['amount'] = abs($variation);
 						$data['user_id'] = $this->invoice->user_id;
 						$data['type'] = 'credit';
 						$this->clientAccount->transactions()->create($data);
-						dispatch(new UpdateClientBalanceJob($this->invoice->sale->client,abs($variation), 'decrease'));
+						dispatch_now(new UpdateClientBalanceJob($this->invoice->sale->client,abs($variation), 'decrease'));
 					}
 				}
 				

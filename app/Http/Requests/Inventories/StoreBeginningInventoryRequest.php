@@ -72,10 +72,10 @@ class StoreBeginningInventoryRequest extends FormRequest
                 'invoice_type' => 'beginning_inventory',
                 "prefix" => 'BGI-',
             ]);
-            dispatch(new UpdateInvoiceNumberJob($invoice, 'BGI-'));
-            dispatch(new StorePurchaseItemsJob($invoice, (array)$this->input('items'),false,'beginning_inventory'));
-            dispatch(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
-            dispatch(new StoreBeginningInventoryTransactionsJob($invoice->fresh()));
+            dispatch_now(new UpdateInvoiceNumberJob($invoice, 'BGI-'));
+            dispatch_now(new StorePurchaseItemsJob($invoice, (array)$this->input('items'),false,'beginning_inventory'));
+            dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+            dispatch_now(new StoreBeginningInventoryTransactionsJob($invoice->fresh()));
             DB::commit();
             return response($invoice, 200);
         } catch (QueryException $e) {
@@ -93,7 +93,7 @@ class StoreBeginningInventoryRequest extends FormRequest
                     throw ValidationException::withMessages(['item_serial' => 'serials count don\'t  match qty']);
                 }
                 foreach ($item['serials'] as $serial) {
-                    dispatch(new ValidateItemSerialJob($dbItem, $serial, ['in_stock', 'return_sale']));
+                    dispatch_now(new ValidateItemSerialJob($dbItem, $serial, ['in_stock', 'return_sale']));
                 }
             }
         }

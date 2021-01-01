@@ -190,7 +190,7 @@ class RegisterController extends Controller
 
         $organization->fill(['supervisor_id' => $user->id]);
         $organization->save();
-        dispatch(new CreateAmericanChartOfAccountsJob($organization,$manager));
+        dispatch_now(new CreateAmericanChartOfAccountsJob($organization,$manager));
         return $manager;
     }
 

@@ -105,7 +105,7 @@
 						]
 					);
 					
-					dispatch(new UpdateVendorBalanceJob($user, (float)$this->input('amount'), 'decrease'));
+					dispatch_now(new UpdateVendorBalanceJob($user, (float)$this->input('amount'), 'decrease'));
 					
 				} else {
 					
@@ -134,7 +134,7 @@
 						
 						]
 					);
-					dispatch(new UpdateClientBalanceJob($user, (float)$this->input('amount'), 'decrease'));
+					dispatch_now(new UpdateClientBalanceJob($user, (float)$this->input('amount'), 'decrease'));
 					
 				}
 				

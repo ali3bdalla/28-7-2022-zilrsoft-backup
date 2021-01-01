@@ -208,7 +208,7 @@ Route::middleware('auth')->group(
             Route::get('normalize_incomes_expenses',function(){
                 // InitOrganizationYearCloseConfigurationJob::dispatchNow(auth()->user());
                 // NormalizeIncomesExpensesJob::dispatchNow(auth()->user());
-                CreateCloseYearEntityJob::dispatch(auth()->user());
+                CreateCloseYearEntityJob::dispatchNow(auth()->user());
             });
         });
         Route::prefix('inventory')->name('inventory.')->group(

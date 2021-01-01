@@ -47,7 +47,7 @@ class CancelUnPaidOrder extends Command
 //			Whatsapp::sendMessage("cancelUnPaidOrder ({$ordersCount}) orders " . Carbon::now()->toDateTimeString(), "249966324018");
 
         foreach ($orders as $order) {
-            dispatch(new CancelOrderJob($order));
+            dispatch_now(new CancelOrderJob($order));
         }
 
     }

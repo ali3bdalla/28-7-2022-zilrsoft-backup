@@ -13,26 +13,19 @@ trait AccountingPeriodTrait
 
     protected static function bootAccountingPeriodTrait()
     {
-
-
-        // $oganization->addConfig(true, 'IS_HAS_YEAR_CLOSING', null, 'boolean', 'ACCOUNTING');
-        // $oganization->addConfig('01/01', 'YEAR_STARTING_AT', 'Starting Year At', 'date', 'ACCOUNTING');
-        // $oganization->addConfig('31/12', 'YEAR_CLOSEING_AT', 'Closing Year At', 'date', 'ACCOUNTING');
-        // $oganization->addConfig(106, 'TARGET_INCOMES_EXPENSES_NORMALIZATION_ACCOUNT', null, 'integer', 'ACCOUNTING');
-        // $oganization->addConfig("2018", 'LAST_YEAR_CLOSED', null, 'date', 'ACCOUNTING');
         if (auth()->check()) {
 
             $isHasYearClosing = true; auth()->user()->organization->getConfig('IS_HAS_YEAR_CLOSING', 'ACCOUNTING');
 
             if ($isHasYearClosing && $isHasYearClosing == true) {
                 $table = (new static)->getTable();
-                if (Schema::hasColumn($table, 'organization_id')) {
+                if (Schema::hasColumn($table, 'organization_id')  && $table != 'invoice_items' ) {
                     $STARTAT = static::getAccountingStartYear(auth()->user());
                     $ENDAT =  static::getAccountingEndYear(auth()->user());
                     static::addGlobalScope(
                         'accountingPeriod',
                         function (Builder $builder) use ($table, $STARTAT, $ENDAT) {
-                            $builder->whereYear("{$table}.created_at", '>=', $STARTAT)->whereYear("{$table}.created_at", '<', $ENDAT);
+                            $builder->whereDate("{$table}.created_at", '>=', $STARTAT)->whereDate("{$table}.created_at", '<=', $ENDAT);
                         }
                     );
                 }
@@ -46,17 +39,18 @@ trait AccountingPeriodTrait
         if ($date)
             return Carbon::parse($date);
 
-        return Carbon::parse('2022');
+        return Carbon::parse('2021');
     }
 
 
     private static function getAccountingEndYear(Manager $manager)
     {
         $date = $manager->getConfig("END_YEAR_AT", "ACCOUNTING");
+
         if ($date)
             return Carbon::parse($date);
 
 
-        return Carbon::parse('2021');
+        return Carbon::parse('2022');
     }
 }

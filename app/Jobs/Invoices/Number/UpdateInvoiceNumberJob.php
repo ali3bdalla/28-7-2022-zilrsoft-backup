@@ -22,10 +22,36 @@ class UpdateInvoiceNumberJob implements ShouldQueue
      * @param Invoice $invoice
      * @param string $prefix
      */
-    public function __construct(Invoice $invoice, $prefix = 'PU-')
+    public function __construct(Invoice $invoice, $prefix = 'P')
     {
         $this->invoice = $invoice;
-        $this->prefix = $prefix;
+        switch ($invoice->invoice_type) {
+            case 'purchase':
+                $this->prefix = 'P';
+                break;
+
+            case 'return_purchase':
+                $this->prefix = 'RP';
+                break;
+
+            case 'sale':
+                $this->prefix = 'S';
+                break;
+
+            case 'return_sale':
+                $this->prefix = 'RS';
+                break;
+
+            case 'beginning_inventory':
+                $this->prefix = 'BG';
+                break;  
+            case 'stock_adjustment':
+                $this->prefix = 'AD';
+                break;  
+            default:
+                $this->prefix = $prefix;
+                break;
+        }
     }
 
     /**
@@ -35,9 +61,12 @@ class UpdateInvoiceNumberJob implements ShouldQueue
      */
     public function handle()
     {
+
+        $nextedInvoiceNumber = (Invoice::whereYear('created_at', Carbon::now()->format('Y'))->where('invoice_type', $this->invoice->type)->withTrashed()->withoutGlobalScopes(["manager", 'draft'])->count() + 1);
+
+
         $this->invoice->update([
-            'invoice_number' => $this->prefix  . Carbon::now()->format('Y') . (Invoice::without()->where('invoice_type',$this->invoice->type)->count() + 1)
-            // . '/' .
+            'invoice_number' => $this->prefix . Carbon::now()->format('Y') . $nextedInvoiceNumber
         ]);
     }
 }

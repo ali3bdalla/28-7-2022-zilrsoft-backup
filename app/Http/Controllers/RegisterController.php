@@ -176,7 +176,7 @@
 			
 			$organization->save();
 			
-			dispatch(new CreateAmericanChartOfAccountsJob($organization, $manager));
+			dispatch_now(new CreateAmericanChartOfAccountsJob($organization, $manager));
 			
 			$manager->assignRole('super admin');
 			

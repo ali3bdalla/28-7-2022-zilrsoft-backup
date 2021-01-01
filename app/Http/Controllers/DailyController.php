@@ -138,7 +138,7 @@ class DailyController extends Controller
         $transaction = ResellerClosingAccount::where('id',$transaction)->withoutGlobalScope('pending')->firstOrFail();
         if ($transaction->receiver_id == auth()->user()->id && $transaction->transaction_type == 'transfer') {
             $container = $transaction->container;
-            dispatch(new ActivateEntityJob($container));
+            dispatch_now(new ActivateEntityJob($container));
             $transaction->update(
                 [
                     'is_pending' => false,
