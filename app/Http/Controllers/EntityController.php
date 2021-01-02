@@ -42,7 +42,7 @@ class EntityController extends Controller
 		$vendors = User::where(
 			[
 				['is_vendor', true],
-				['is_system_user', false],
+				// ['is_system_user', false],
 			]
 		)->get();
 		return view('accounting.transactions.create', compact('accounts', 'items', 'vendors', 'clients'));
