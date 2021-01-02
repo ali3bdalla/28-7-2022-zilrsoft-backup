@@ -31,6 +31,7 @@ class DailyController extends Controller
 
     public function createResellerClosingAccount(Request $request)
     {
+
         $loggedUser = $request->user();
         $tempResellerAccount = Account::where(
             [
@@ -38,6 +39,9 @@ class DailyController extends Controller
                 ['is_system_account', true],
             ]
         )->first();
+
+
+
 
         $remainingAccountsBalanceAmount = $loggedUser->remaining_accounts_balance;
         $accountsClosedAt = $loggedUser->accounts_closed_at;
@@ -62,7 +66,6 @@ class DailyController extends Controller
             )->where('created_at', '>=', $accountsClosedAt)->where(
                 [
                     ['payment_type', 'payment'],
-//						['invoice_id', '!=', null]
                 ]
             )->sum('amount');
         } else {
@@ -73,7 +76,6 @@ class DailyController extends Controller
             )->where(
                 [
                     ['payment_type', 'receipt'],
-//						['invoice_id', '!=', null]
                 ]
             )->sum('amount');
 
@@ -84,7 +86,6 @@ class DailyController extends Controller
             )->where(
                 [
                     ['payment_type', 'payment'],
-//						['invoice_id', '!=', null]
                 ]
             )->sum('amount');
         }
@@ -101,12 +102,10 @@ class DailyController extends Controller
             [
                 ['creator_id', auth()->user()->id],
                 ['transaction_type', "transfer"],
-//					['id', '!=',138],
             ]
         )->orWhere(
             [
                 ['receiver_id', auth()->user()->id],
-//					['id', '!=',138],
             ]
         )->orderBy('id', 'desc')->paginate(15);
 

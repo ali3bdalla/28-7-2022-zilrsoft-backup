@@ -26,7 +26,9 @@ trait AccountingPeriodTrait
                     static::addGlobalScope(
                         'accountingPeriod',
                         function (Builder $builder) use ($table, $STARTAT, $ENDAT) {
-                            $builder->whereDate("{$table}.created_at", '>=', $STARTAT)->whereDate("{$table}.created_at", '<', $ENDAT);
+                            $builder->whereYear("{$table}.created_at", '>=', $STARTAT)->whereYear("{$table}.created_at", '<', $ENDAT);
+                            // ->whereDate("{$table}.created_at", '>=', $STARTAT)
+                            // ->whereDate("{$table}.created_at", '<', $ENDAT)
                         }
                     );
                 }
@@ -38,10 +40,10 @@ trait AccountingPeriodTrait
     {
         $date = $manager->getConfig("START_YEAR_AT", "ACCOUNTING",false);
         if ($date)
-            return Carbon::createFromDate($date)->toDateString();
+            return Carbon::createFromDate($date)->format("Y");
 
 
-        return Carbon::createFromDate('2021')->toDateString();
+        return Carbon::createFromDate('2021')->format("Y");
     }
 
 
@@ -50,9 +52,9 @@ trait AccountingPeriodTrait
         $date = $manager->getConfig("END_YEAR_AT", "ACCOUNTING",false);
 
         if ($date)
-            return Carbon::createFromDate($date)->toDateString();
+            return Carbon::createFromDate($date)->format("Y");
 
 
-        return Carbon::createFromDate('2022')->toDateString();
+        return Carbon::createFromDate('2022')->format("Y");
     }
 }
