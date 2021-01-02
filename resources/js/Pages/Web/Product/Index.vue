@@ -26,6 +26,7 @@
             </svg>
             فلاتر
           </button>
+          
           <button
             class="w-full md:w-48  h-full text-white flex  justify-center gap-3 items-center py-1"
              style=" background:rgb(87, 87, 87);"

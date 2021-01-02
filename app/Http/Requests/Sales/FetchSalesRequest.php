@@ -43,7 +43,7 @@
 			if($this->has('is_draft') && $this->filled('is_draft')) {
 				$isDraft = (boolean)$this->input('is_draft');
 				if($isDraft) {
-					$query = $query->withoutGlobalScope('draft')->withoutGlobalScope('manager')->where('is_draft', $isDraft);
+					$query = $query->withoutGlobalScopes(['draft','accountingPeriod','manager'])->where('is_draft', $isDraft);
 				}
 			}
 			

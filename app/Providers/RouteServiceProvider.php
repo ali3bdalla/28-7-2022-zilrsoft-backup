@@ -112,7 +112,7 @@ class RouteServiceProvider extends ServiceProvider
                 ['id', $value],
             ])
                 ->whereIn('invoice_type', ['return_sale', 'sale'])
-                ->withoutGlobalScope('manager')->withoutGlobalScope('draft')->first();
+                ->withoutGlobalScopes(['draft','accountingPeriod',"manager"])->first();
         });
 //
         Route::bind('purchase', function ($value) {
@@ -135,8 +135,7 @@ class RouteServiceProvider extends ServiceProvider
             return Invoice::where([
                 ['id', $value],
             ])
-//			    ->whereIn('invoice_type',['return_sale','sale'])
-                ->withoutGlobalScope('manager')->withoutGlobalScope('draft')->first();
+                ->withoutGlobalScopes(['draft','accountingPeriod',"manager"])->first();
         });
 
 
@@ -145,7 +144,7 @@ class RouteServiceProvider extends ServiceProvider
                 ['id', $value],
             ])
                 ->whereIn('invoice_type', ['return_sale', 'sale'])
-                ->withoutGlobalScope('manager')->withoutGlobalScope('draft')->first();
+                ->withoutGlobalScopes(['draft','accountingPeriod',"manager"])->first();
         });
 //
     }
