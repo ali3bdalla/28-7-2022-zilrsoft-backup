@@ -36,7 +36,7 @@ class EntityController extends Controller
 		$clients = User::where(
 			[
 				['is_client', true],
-				['is_system_user', false],
+				// ['is_system_user', false],
 			]
 		)->get();
 		$vendors = User::where(
