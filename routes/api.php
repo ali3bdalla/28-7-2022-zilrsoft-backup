@@ -24,6 +24,12 @@ Route::namespace('Store')->name('web.')->prefix('web')->group(
         );
 
 
+        Route::prefix('filters')->name('filters.')->group(
+            function () {
+                Route::match(['POST', 'GET'], '/', 'FilterController@apiGetFilters')->name('get_filters');
+            }
+        );
+        
         Route::middleware('auth:client')->group(
             function () {
                 Route::resource('orders', 'OrderController');

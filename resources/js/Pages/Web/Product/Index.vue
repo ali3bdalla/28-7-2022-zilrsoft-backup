@@ -2,34 +2,18 @@
   <web-layout class="">
     <div class="mt-3 container bg-white shadow-lg rounded-lg">
       <div class="pt-3">
-        <div
-          class="flex justify-between md:justify-end items-center gap-6 "
-        >
+        <div class="flex justify-between items-center gap-6">
+          <!-- md:justify-end -->
+
+          <filters-pop
+            @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated"
+            :category-id="$page.categoryId"
+            @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated"
+            @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"
+          ></filters-pop>
           <button
-          
-            class="md:hidden w-full  text-white  flex  justify-center gap-3 items-center py-1"
-            style=" background:rgb(87, 87, 87);"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-4 h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
-              />
-            </svg>
-            فلاتر
-          </button>
-          
-          <button
-            class="w-full md:w-48  h-full text-white flex  justify-center gap-3 items-center py-1"
-             style=" background:rgb(87, 87, 87);"
+            class="w-full md:w-48 h-full text-white flex justify-center gap-3 items-center py-1"
+            style="background: rgb(87, 87, 87)"
           >
             <svg
               class="w-4 h-4"
@@ -46,13 +30,13 @@
               />
             </svg>
 
-            الترتيب حسب 
+            الترتيب حسب
           </button>
         </div>
       </div>
 
       <div class="flex">
-        <div class="w-3/12 hidden md:block">
+        <!-- <div class="w-3/12 hidden md:block">
           <div
             v-for="(filter, filterIndex) in filtersList"
             :key="filter.id"
@@ -84,9 +68,10 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
         <!--        v-if="!isLoading"-->
-        <div class="w-full md:w-9/12">
+        <!-- md:w-9/12 -->
+        <div class="w-full">
           <div
             class="grid grid-cols-1 gap-1 md:grid-cols-3 md:gap-3 mb-5 mt-1 h-auto"
           >
@@ -108,17 +93,21 @@
 </template>
 
 <script>
+import FiltersPop from "../../../components/Web/Product/List/FiltersPop.vue";
 import WebLayout from "../../../Layouts/WebAppLayout";
 import ProductListItemComponent from "./../../../components/Web/Product/ProductListItemComponent";
 
 export default {
-  components: { WebLayout, ProductListItemComponent },
+  components: { WebLayout, ProductListItemComponent, FiltersPop },
   data() {
     return {
       isLoading: false,
       filterValues: [],
       filters: this.$page.filters,
       items: this.$page.items.data,
+      priceRange: {},
+      // items: [],
+      // attributes: [],
     };
   },
   computed: {
@@ -144,6 +133,30 @@ export default {
     },
 
     applyFilterSearch() {
+      // if(!this.showLoading)
+      //           {
+      //               let categoryId = this.selectedSubCategoryId === 0 ? this.categoryId : this.selectedSubCategoryId;
+      //               this.showLoading = true;
+      //               let appVm = this;
+
+      //               console.log(this.attributes);
+      //               axios.post(getRequestUrl('items'),{
+      //                   page:this.currentPage,
+      //                   category_id: categoryId,
+      //                   attributes: this.attributes,
+      //               }).then(function(response){
+      //                   let data = response.data.data;
+      //                   data.forEach(function (item) {
+      //                       appVm.items.push(item);
+      //                   })
+      //                   appVm.lastPage = response.data.last_page;
+      //                   appVm.currentPage = response.data.current_page;
+      //               }).catch(function(error) {
+      //                   alert(`server error : ${error}`);
+      //               }).finally(function () {
+      //                   appVm.showLoading = false;
+      //               });
+      //           }
       this.isLoading = true;
       // console.log(this.filterValues);
       let appVm = this;
@@ -160,6 +173,24 @@ export default {
         .finally(() => {
           appVm.isLoading = false;
         });
+    },
+
+    selectedAttributesHasBeenUpdated(event) {
+      // this.items = [];
+      this.filterValues = event.selectedValues;
+      this.applyFilterSearch();
+    },
+
+    priceFilterRangeHasBeenUpdated(event) {
+      // this.items = [];
+      this.priceRange = event.priceRange;
+      this.applyFilterSearch();
+    },
+
+    subCategoryHasBeenUpdated(event) {
+      this.selectedSubCategoryId = event.selectedSubCategoryId;
+      // this.items = [];
+      this.applyFilterSearch();
     },
   },
 };

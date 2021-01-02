@@ -26,8 +26,7 @@ String.prototype.replaceAt = function (index, replacement) {
         tAddShippingAddress.vuehis.substr(index + replacement.length)
     )
 }
-require('./Plugins/plugins')
-
+require('./Plugins/plugins');
 require('./upload_images');
 
 

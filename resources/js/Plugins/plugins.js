@@ -1,9 +1,10 @@
 const currency = require('./Currency');
 const Vue = require('vue');
 import Echo from 'laravel-echo';
-
+import VModal from 'vue-js-modal'
 window.Pusher = require('pusher-js');
-
+import 'vue-spinners/dist/vue-spinners.css'
+import VueSpinners from 'vue-spinners/dist/vue-spinners.common'
 
 Vue.prototype.$currency = currency;
 if (window._translations) Vue.prototype.$translator = JSON.parse(window._translations);
@@ -19,7 +20,8 @@ Vue.prototype.$sound = {
 		audio.play();
 	}
 };
-
+Vue.use(VModal);
+Vue.use(VueSpinners)
 
 
 window.Echo = new Echo({
