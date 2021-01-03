@@ -1,10 +1,10 @@
 <?php
 	
 	namespace App\Models;
-	
 
-	
-	use Illuminate\Http\Request;
+
+use App\Models\Traits\AccountingPeriodTrait;
+use Illuminate\Http\Request;
 
     /**
 	 * @property mixed receiver_id
@@ -15,6 +15,7 @@
      */
 	class ResellerClosingAccount extends BaseModel
 	{
+		use AccountingPeriodTrait;
 		
 		protected $guarded = [];
 		/**

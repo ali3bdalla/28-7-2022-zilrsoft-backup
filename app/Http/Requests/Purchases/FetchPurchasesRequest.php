@@ -78,7 +78,7 @@ class FetchPurchasesRequest extends FormRequest
                 $number = $this->input('title');
             }
 
-            $query = $query->where('id', $number)->withoutGlobalScope('currentManagerInvoicesOnly');
+            $query = $query->where('id', (int)$number)->orWhere('invoice_number','iLIKE', $number)->withoutGlobalScopes(['accountingPeriod','manager']);
         }
 
         if ($this->has('net') && $this->filled('net')) {
