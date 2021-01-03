@@ -7,7 +7,7 @@
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Manager\CreateManagerRequest;
 	use App\Http\Requests\Accounting\Manager\DatatableRequest;
-	use App\Http\Requests\Accounting\Mananger\UpdateManagerRequest;
+	use App\Http\Requests\Accounting\Manager\UpdateManagerRequest;
 	use App\Models\Manager;
 	use Exception;
 	use Illuminate\Contracts\Pagination\LengthAwarePaginator;
