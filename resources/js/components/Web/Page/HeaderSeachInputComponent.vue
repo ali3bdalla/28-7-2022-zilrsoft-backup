@@ -17,6 +17,8 @@
             v-model="searchKey"
             :placeholder="$page.$t.header.search_placeholder"
             type="text"
+          
+            class="text-gray-800"
             @keydown="getItems"
             @keyup.enter="getToResultPage"
         />
@@ -33,9 +35,9 @@
           :href="`/web/items/${item.id}`"
           class="flex justify-between px-2 py-1 font-bold text-gray-800 border-b hover:text-gray-600"
       >
-        <span>{{ item.locale_name }}</span>
+        <span class="truncate">{{ item.locale_name }}</span>
 
-        <span v-if="item.available_qty <= 0" class="text-red-500">{{$page.$t.products.out_of_stock}}</span>
+        <span v-if="item.available_qty <= 0" class="text-red-500 text-sm w-20 text-left">{{$page.$t.products.out_of_stock}}</span>
       </a>
       <h2 class="p-2 pt-3 mt-4 mb-1 text-lg font-bold text-gray-700 border-t-2 border-black">
         {{$page.$t.header.categories}}
@@ -64,7 +66,7 @@ export default {
       items: [],
       categoriesGroup: [],
       categories: [],
-      searchKey: "",
+      searchKey: this.$page.name,
     };
   },
 
@@ -127,4 +129,8 @@ export default {
 </script>
 
 <style>
+
+.inner-header .advanced-search .input-group input {
+  color: black;
+}
 </style>

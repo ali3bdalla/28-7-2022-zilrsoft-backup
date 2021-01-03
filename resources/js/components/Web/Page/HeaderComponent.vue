@@ -5,7 +5,7 @@
         <div class="flex items-center justify-between h-12">
           <div class="flex-1">
             <a
-              class="flex items-center text-black login-panel"
+              class="flex items-center text-gray-800 login-panel"
               href="/web/sign_in"
               v-if="!$page.client_logged"
               ><i class="fa fa-user" style="font-size: 22px"></i> &nbsp;
@@ -16,7 +16,7 @@
             >
           </div>
 
-          <div class="flex justify-end flex-1 gap-2 items-left">
+          <div class="flex justify-end flex-1 text-gray-800 gap-2 items-left">
             <img :src="$asset('Web/template/img/flag-1.jpg')"  class="float-left h-4"/> 
             <span class="login-panel">English</span>
           </div>

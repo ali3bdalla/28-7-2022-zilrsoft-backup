@@ -6,13 +6,14 @@
           <!-- md:justify-end -->
 
           <filters-pop
+            :search-name="$page.name"
             @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated"
             :category-id="$page.categoryId"
             @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated"
             @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"
           ></filters-pop>
           <button
-            class="w-full md:w-48 h-full text-white flex justify-center gap-3 items-center py-1"
+            class="w-full md:w-48 h-full text-white flex justify-center gap-3 items-center py-1  text-white"
             style="background: rgb(87, 87, 87)"
           >
             <svg

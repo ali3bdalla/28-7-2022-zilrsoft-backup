@@ -102,6 +102,10 @@ return [
         "price" => "السعر",
         "total" => "الاجمالي",
         'model' => "الموديل",
-        "description" => "الوصف"
+        "description" => "الوصف",
+        'filters' => 'الفلاتر',
+        "apply" => "تطبيق",
+        "reset" => "مسح",
+        "filters_for_search" => "فلاتر بحث ... "
     ]
 ];

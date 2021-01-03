@@ -58,6 +58,7 @@ RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo
 RUN mkdir -p /run/php/
 RUN touch /run/php/php7.3-fpm.pid
 RUN touch /run/php/php7.3-fpm.sock
+RUN apt install node 
 
 COPY ./docker/php-fpm.conf /etc/php7.3/php-fpm.conf
 

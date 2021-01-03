@@ -19,8 +19,8 @@ mix.sass('resources/sass/tailwind.scss', 'public/css/tailwind.css')
 
 
 
- mix.browserSync({
-     proxy:"http://127.0.0.1:8009"
-    // proxy:  "https://zilrsoftproject.test",
-  });
+//  mix.browserSync({
+//      proxy:"http://127.0.0.1:8009"
+//     // proxy:  "https://zilrsoftproject.test",
+//   });
 

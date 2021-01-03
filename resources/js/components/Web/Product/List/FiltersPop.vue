@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full md:w-48 text-white">
+  <div class="w-full md:w-48 text-gray-800">
     <button
       @click="showFiltersLayout"
-      class="w-full flex justify-center gap-3 items-center py-1"
+      class="w-full flex justify-center gap-3 items-center py-1 text-white"
       style="background: rgb(87, 87, 87)"
     >
       <svg
@@ -19,7 +19,7 @@
           d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
         />
       </svg>
-      فلاتر
+      {{ $page.$t.products.filters }}
     </button>
 
     <modal
@@ -33,7 +33,7 @@
     >
       <div style="overflow-y: scroll; height: 100vh !important">
         <div class="closeBtnClass">
-          <i @click="quiteModel" class="fa fa-close"></i> Selected Filters ({{
+          <i @click="quiteModel" class="fa fa-close"></i> {{$page.$t.products.filters_for_search }}  {{ searchName }} ({{
             selectedValues.length
           }})
         </div>
@@ -51,11 +51,11 @@
         </div>
         <div class="container-fluid filters-layout-modal" v-else>
           <div class="row">
-            <div class="col-md-6" v-for="filter in filters" :key="filter.id">
+            <div class="col-md-6" v-for="(filter,index) in filters" :key="filter.id" :class="[index % 2 == 0 ? 'toGrayBg' : 'bg-white']">
               <div class="filter-widget">
-                <h4 class="fw-title">
+                <h6 class="fw-title">
                   {{ filter.locale_name }}
-                </h4>
+                </h6>
 
                 <div class="fw-brand-check">
                   <div class="row">
@@ -64,18 +64,19 @@
                       v-for="val in filter.values"
                       :key="val.id"
                     >
-                      <div class="bc-item">
-                        <label :for="'value_' + val.id">
+                      <div class="w-full flex items-center gap-2 text-black" style="font-size: 15px;
+color: #575555;">
+                        <!-- <label :for="'value_' + val.id"> -->
                           <input
                             type="checkbox"
                             :id="'value_' + val.id"
                             :checked="selectedValues.includes(val.id)"
                             @change="toggleValueAvailability(val)"
                           />
-                          <span class="checkmark"></span>
+                          <!-- <span class="checkmark"></span> -->
 
                           {{ val.locale_name }}
-                        </label>
+                        <!-- </label> -->
                       </div>
                     </div>
                   </div>
@@ -84,13 +85,13 @@
             </div>
           </div>
 
-          <div class="row">
+          <div class="row mt-5">
             <div class="col-md-6 col-6">
               <button
                 @click="applyFilters"
                 class="btn btn-primary btn-block applyBtn"
               >
-                Apply
+                {{ $page.$t.products.apply }}
               </button>
             </div>
             <div class="col-md-6 col-6">
@@ -98,7 +99,7 @@
                 @click="resetFilters"
                 class="btn btn-default btn-block resetBtn"
               >
-                Reset
+                 {{ $page.$t.products.reset }}
               </button>
             </div>
           </div>
@@ -111,7 +112,7 @@
 
 <script>
 export default {
-  props: ["categoryId"],
+  props: ["categoryId","searchName"],
   name: "ProductListItemComponentFilters",
 
   data: function () {
@@ -263,12 +264,17 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
+
+.filter-widget {
+
+  margin-bottom: 10px !important;
+}
 .vm--overlay {
   overflow-y: scroll;
 }
 .filters-layout-modal {
-  padding-top: 20px;
+  padding-top: 5px;
 }
 
 .toggleButton {
@@ -299,11 +305,11 @@ export default {
   /*color: #777;*/
   color: #252424;
 
-  font-size: 16px;
+  font-size: 13px !important;
   text-transform: lowercase;
-  border-bottom: 1px solid #e8e0e0;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+  /* border-bottom: 1px solid #e8e0e0; */
+  padding-bottom: 0px;
+  margin-bottom: 5px;
   margin-top: 20px;
 }
 .fw-brand-check {
@@ -311,7 +317,7 @@ export default {
 }
 
 .container-fluid .filters-layout-modal .filter-widget {
-  margin-bottom: 10px;
+  margin-bottom: 10px !important;
 }
 
 .loading-progress {
@@ -334,5 +340,10 @@ export default {
   border-radius: 50%;
   box-shadow: 0px 2px 5px #ddd;
   cursor: pointer;
+}
+
+
+.toGrayBg {
+  background: #f9f9f9;
 }
 </style>
