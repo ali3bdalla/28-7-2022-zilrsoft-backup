@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Item;
 use App\Models\ItemFilters;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Schema;
 
 class FetchItemsUsingFiltersRequest extends FormRequest
 {
@@ -37,6 +38,8 @@ class FetchItemsUsingFiltersRequest extends FormRequest
     {
         $query = Item::query();
 
+        $table = (new Item())->getTable();
+
         if ($this->has('categoryId') && $this->filled('categoryId')) {
             $category = Category::find($this->input('categoryId'));
             if (!empty($category)) {
@@ -59,6 +62,17 @@ class FetchItemsUsingFiltersRequest extends FormRequest
 
         }
 
+
+        if($this->has('order_by') && $this->filled('order_by') && Schema::hasColumn($table, $this->input('order_by')))
+        {
+            $sortDirection = $this->input('order_direction');
+
+            if(!in_array($sortDirection,['desc','asc']))
+            {
+                $sortDirection = 'desc';
+            }
+            $query = $query->orderBy($this->input('order_by'),$sortDirection);
+        }
 
         return $query->with('category','filters.filter', 'filters.value')->paginate(18);
 

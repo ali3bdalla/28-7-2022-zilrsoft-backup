@@ -26,7 +26,7 @@
     <div class="w-full absolute" v-if="isOpen">
       <div class="bg-white shadow-xl rounded-lg w-full">
         <ul class="divide-y divide-gray-300">
-          <li class="p-2 hover:bg-gray-50 cursor-pointer" v-for="(item,index) in list" :key="index">
+          <li @click="setSorting(item)" class="p-2 hover:bg-gray-50 cursor-pointer" :class="{'bg-gray-200':activeSorting.title == item.title }" v-for="(item,index) in list" :key="index">
               {{item.title}}
           </li>
        
@@ -40,34 +40,48 @@
 export default {
     data(){
         return {
+            activeSorting:{
+
+            },
             list:[
                 {
                     title:"السعر من الاقل الي الآعلى",
-                    key:"price",
+                    key:"online_offer_price",
                     direction:"asc"
                 },
                  {
                     title:"السعر من الآعلى الي الاقل",
-                    key:"price",
+                    key:"online_offer_price",
                     direction:"desc"
                 },
 
                  {
                     title:"الاحدث",
                     key:"id",
-                    direction:"asc"
+                    direction:"desc"
                 },
 
                  {
                     title:"الاقدم",
                     key:"id",
-                    direction:"desc"
+                    direction:"asc"
                 },
             ],
             isOpen:false
         }
     },
     methods:{
+        setSorting(object)
+        {
+            if(object.title !== this.activeSorting.title)
+            {
+                this.activeSorting = object;
+                this.$emit('updated',object)
+                
+            }
+            
+            this.toggleList();
+        },
         toggleList()
         {
             this.isOpen = !this.isOpen;
