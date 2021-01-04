@@ -12,27 +12,7 @@
             @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated"
             @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"
           ></filters-pop>
-          <button
-            class="w-full md:w-48 h-full text-white flex justify-center gap-3 items-center py-1  text-white"
-            style="background: rgb(87, 87, 87)"
-          >
-            <svg
-              class="w-4 h-4"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
-              />
-            </svg>
-
-            الترتيب حسب
-          </button>
+          <sorting-pop></sorting-pop>
         </div>
       </div>
 
@@ -95,11 +75,12 @@
 
 <script>
 import FiltersPop from "../../../components/Web/Product/List/FiltersPop.vue";
+import SortingPop from "../../../components/Web/Product/List/SortingPop.vue";
 import WebLayout from "../../../Layouts/WebAppLayout";
 import ProductListItemComponent from "./../../../components/Web/Product/ProductListItemComponent";
 
 export default {
-  components: { WebLayout, ProductListItemComponent, FiltersPop },
+  components: { WebLayout, ProductListItemComponent, FiltersPop,SortingPop },
   data() {
     return {
       isLoading: false,
@@ -107,8 +88,6 @@ export default {
       filters: this.$page.filters,
       items: this.$page.items.data,
       priceRange: {},
-      // items: [],
-      // attributes: [],
     };
   },
   computed: {

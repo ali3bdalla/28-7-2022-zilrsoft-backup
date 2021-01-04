@@ -117,7 +117,7 @@ class InvoiceItems extends BaseModel
 
     public function invoice()
     {
-        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScope('manager');
+        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes(['manager','accountingPeriod']);
     }
 
 
