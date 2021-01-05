@@ -9,16 +9,16 @@ use Tests\TestCase;
 
 class NormalizeIncomesExpensesTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     * @test
-     */
-    public function itShouldNormalizeIncomesAndExpenses()
-    {
-        $this->actingAsManager();
-        NormalizeIncomesExpensesJob::dispatchNow();
+    // /**
+    //  * A basic feature test example.
+    //  *
+    //  * @return void
+    //  * @test
+    //  */
+    // public function itShouldNormalizeIncomesAndExpenses()
+    // {
+    //     $this->actingAsManager();
+    //     NormalizeIncomesExpensesJob::dispatchNow();
         
-    }
+    // }
 }
