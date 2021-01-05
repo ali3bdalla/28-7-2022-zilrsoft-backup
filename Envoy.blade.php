@@ -1,18 +1,17 @@
-@servers(['web' => 'development@zilrsoft.com'])
-{{--@servers(['prod' => 'ivprod@inventoryx.com'])--}}
+@servers(['web' => 'deployer@zilrsoft.com'])
 
 @setup
     $repository = 'git@gitlab.com:3li3bdalla/zilrsoft.git';
     if ($environment && $environment === 'production')
     {
-        $releases_dir = '/var/www/vhosts/production/releases';
-        $app_dir = '/var/www/vhosts/production';
+        $releases_dir = '/var/www/vhosts/zilrsoft/production/releases';
+        $app_dir = '/var/www/vhosts/zilrsoft/production';
         $branch = 'master';
     }
     else
     {
-        $releases_dir = '/var/www/vhosts/development/releases';
-        $app_dir = '/var/www/vhosts/development';
+        $releases_dir = '/var/www/vhosts/zilrsoft/development/releases';
+        $app_dir = '/var/www/vhosts/zilrsoft/development';
         $branch = 'development';
     }
 
