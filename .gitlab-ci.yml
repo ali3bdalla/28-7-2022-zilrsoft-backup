@@ -87,7 +87,7 @@ deploy:
     - ~/.composer/vendor/bin/envoy run deploy --environment=development  --commit="$CI_COMMIT_SHA" --cleanup
   environment:
     name: deployer
-    url: https://dev.zilrsoft.com
+    url: http://dev.zilrsoft.com
   when: always
   only:
     - development 
