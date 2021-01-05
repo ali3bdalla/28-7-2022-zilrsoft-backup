@@ -88,6 +88,6 @@ deploy:
   environment:
     name: deployer
     url: https://zilrsoft.com
-  when: always
+  when: manual
   only:
-    - development
+    - master
