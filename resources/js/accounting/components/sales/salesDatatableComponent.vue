@@ -328,7 +328,7 @@
             <th></th>
           </tr>
           </thead>
-          <!-- <thead v-if="canViewAccounting==1 && onlyQuotations!=true">
+          <thead v-else>
            <tr>
                <th>
 
@@ -351,9 +351,9 @@
                </th>
 
 
-               <th>
+               <!-- <th>
 
-               </th>
+               </th> -->
 
                <th>
                </th>
@@ -366,7 +366,7 @@
 
                <th></th>
            </tr>
-           </thead>-->
+           </thead>
         </table>
 
 

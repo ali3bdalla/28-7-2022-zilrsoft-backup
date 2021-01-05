@@ -77,7 +77,7 @@
 				}
 			} else {
 				if(!$this->user()->can('manage branches') && !$this->filled('title') && !$this->filled('aliceName')  && auth()->user()->accounts_closed_at != null) {
-					$query = $query->where('created_at', '>=', Carbon::parse(auth()->user()->accounts_closed_at));
+					// $query = $query->where('created_at', '>=', Carbon::parse(auth()->user()->accounts_closed_at));
 				}
 			}
 			
