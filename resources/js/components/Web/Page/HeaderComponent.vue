@@ -17,7 +17,7 @@
           </div>
 
           <div class="flex justify-end flex-1 text-gray-800 gap-2 items-left">
-            <img :src="$asset('Web/template/img/flag-1.jpg')"  class="float-left h-4"/> 
+            <img :src="$asset('web_assets/template/img/flag-1.jpg')"  class="float-left h-4"/> 
             <span class="login-panel">English</span>
           </div>
         </div>
