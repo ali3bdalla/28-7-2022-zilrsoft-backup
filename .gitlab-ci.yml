@@ -77,14 +77,14 @@ deploy:
   stage: deploy
   script:
     - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - echo "$DEPLOYER_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
     - ~/.composer/vendor/bin/envoy run deploy --environment=development --commit="$CI_COMMIT_SHA" --cleanup
   environment:
-    name: development
-    url: https://zilrsoft.com
+    name: deployer
+    url: https://dev.zilrsoft.com
   when: manual
   only:
     - development
