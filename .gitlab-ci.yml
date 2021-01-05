@@ -84,6 +84,7 @@ deploy:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
+<<<<<<<
     - ~/.composer/vendor/bin/envoy run deploy --environment=development   --commit="$CI_COMMIT_SHA" --cleanup
 
   environment:
@@ -95,4 +96,7 @@ deploy:
   only:
 
     - development  
+=======
+    - master 
+>>>>>>>
 
