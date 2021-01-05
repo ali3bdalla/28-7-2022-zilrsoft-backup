@@ -1,14 +1,14 @@
-<script src="{{ asset('Web/template/js/jquery-3.3.1.min.js')}}"></script>
-<script src="{{ asset('Web/template/js/bootstrap.min.js')}}"></script>
-<script src="{{ asset('Web/template/js/jquery-ui.min.js')}}"></script>
-<script src="{{ asset('Web/template/js/jquery.countdown.min.js')}}"></script>
-<script src="{{ asset('Web/template/js/jquery.nice-select.min.js')}}"></script>
-<script src="{{ asset('Web/template/js/jquery.zoom.min.js')}}"></script>
-<script src="{{ asset('Web/template/js/jquery.dd.min.js')}}"></script>
-<script src="{{ asset('Web/template/js/jquery.slicknav.js')}}"></script>
-<script src="{{ asset('Web/template/js/owl.carousel.min.js')}}"></script>
-<script src="{{ asset('Web/template/js/main.js')}}"></script>
-<script src="{{ asset('Web/js/web.js') }}"></script>
+<script src="{{ asset('web_assets/template/js/jquery-3.3.1.min.js')}}"></script>
+<script src="{{ asset('web_assets/template/js/bootstrap.min.js')}}"></script>
+<script src="{{ asset('web_assets/template/js/jquery-ui.min.js')}}"></script>
+<script src="{{ asset('web_assets/template/js/jquery.countdown.min.js')}}"></script>
+<script src="{{ asset('web_assets/template/js/jquery.nice-select.min.js')}}"></script>
+<script src="{{ asset('web_assets/template/js/jquery.zoom.min.js')}}"></script>
+<script src="{{ asset('web_assets/template/js/jquery.dd.min.js')}}"></script>
+<script src="{{ asset('web_assets/template/js/jquery.slicknav.js')}}"></script>
+<script src="{{ asset('web_assets/template/js/owl.carousel.min.js')}}"></script>
+<script src="{{ asset('web_assets/template/js/main.js')}}"></script>
+<script src="{{ asset('web_assets/js/web.js') }}"></script>
 
 <footer class="text-center footer-section">
     <div class="container">
@@ -81,7 +81,7 @@
 
                     </div>
                     <div class="flex items-center justify-center payment-pic">
-                        <img src="{{ asset('Web/template/img/payment-method.png') }}" alt="">
+                        <img src="{{ asset('web_assets/template/img/payment-method.png') }}" alt="">
                     </div>
                 </div>
 

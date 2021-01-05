@@ -5,9 +5,9 @@
 	use App\Models\Traits\NestingTrait;
 	use Illuminate\Database\Eloquent\Model;
 	use Illuminate\Database\Eloquent\SoftDeletes;
-	
-	
-	/**
+use Illuminate\Support\Facades\Storage;
+
+/**
 	 * @property mixed locale_name
 	 */
 	class Category extends BaseModel
@@ -19,10 +19,23 @@
 		protected $appends = [
 			'locale_name',
 			'label',
+			'image_url',
 			'products_count'
 		];
 		protected $guarded = [];
 		
+
+		protected $casts = [
+			'is_available_online' => "int"
+		];
+
+		// public function getIsAvailableOnlineAttribute($value)
+		// {
+		// 	if($value)
+		// 		return 1;
+
+		// 	return 0;
+		// }
 		/**
 		 * @param Model $model
 		 * @return array|null
@@ -120,8 +133,15 @@
 		
 		public function getProductsCountAttribute()
 		{
-//		    dd($this->getChildrenIncludeMe());
+
 			return Item::whereIn('category_id', $this->getChildrenIncludeMe())->count();
 		}
+
+
+		public function getImageUrlAttribute()
+		{
+			return Storage::url($this);
+		}
+		
 	}
 
