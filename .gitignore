@@ -3,9 +3,10 @@
 /public/storage
 /storage/*.key
 /storage/logs/*
-/storage/views/*
-/storage/framework/*
-/storage/sessions/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
 /vendor
 /.idea
 /.vscode
