@@ -1,5 +1,8 @@
 image: registry.gitlab.com/3li3bdalla/zilrsoft:latest
 
+services:
+  - postgres:13
+
 
 stages:
   - build
@@ -10,8 +13,7 @@ stages:
 variables:
   POSTGRES_DB: zilrsoft
   POSTGRES_USER: zilrsoft
-  POSTGRES_PASSWORD: ""
-  POSTGRES_HOST_AUTH_METHOD: trust
+  POSTGRES_PASSWORD: zilrsoft
   XDEBUG_MODE: coverage
 
 cache:
