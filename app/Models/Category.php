@@ -140,7 +140,7 @@ use Illuminate\Support\Facades\Storage;
 
 		public function getImageUrlAttribute()
 		{
-			return Storage::url($this);
+			return Storage::url($this->image);
 		}
 		
 	}
