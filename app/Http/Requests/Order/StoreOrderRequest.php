@@ -54,6 +54,8 @@ class StoreOrderRequest extends FormRequest
     {
         DB::beginTransaction();
         try {
+
+         
             $this->validateQuantities($this->input('items'));
             $authUser = Manager::first();
             $authClient = $this->user('client');
@@ -79,11 +81,11 @@ class StoreOrderRequest extends FormRequest
                     'organization_id' => $authUser->organization_id,
                     'invoice_type' => 'sale',
                     'alice_name' => '',
-                    "prefix" => "ONL-",
+                    "prefix" => "O",
                     'is_draft' => true
                 ]
             );
-            dispatch_now(new UpdateInvoiceNumberJob($invoice, 'ONL-'));
+            dispatch_now(new UpdateInvoiceNumberJob($invoice, 'ONLINE'));
             dispatch_now(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true, $authUser, true));
             dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             $order = CreateSalesOrderJob::dispatchNow($invoice->fresh(), $this);

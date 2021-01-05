@@ -12,15 +12,6 @@ use Inertia\Inertia;
 
 class ShippingAddressController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return void
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.

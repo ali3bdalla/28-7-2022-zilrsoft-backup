@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <h2 class="checkout__title">
-      Shipping Address
+      {{$page.$t.cart.shipping_address}}
 
     </h2>
 
@@ -9,7 +9,7 @@
       <div class="flex flex-col gap-5">
         <div class="flex">
           <div class="w-7/12 lg:w-10/12">
-          <el-select v-model="shippingAddressId" placeholder="Please Select Address" class="w-full" filterable>
+          <el-select v-model="shippingAddressId" :placeholder="$page.$t.cart.select_shipping_address" class="w-full" filterable>
             <el-option
                 v-for="shippingAddress in $page.shippingAddresses"
                 :key="shippingAddress.id"
@@ -26,7 +26,7 @@
 
           <a
               class="checkout__edit-icon"
-              href="/web/profile/shipping_address/create"
+              href="/web/profile/create-shipping-address"
           >
             <svg
                 fill="none"
@@ -42,7 +42,7 @@
                   stroke-width="2"
               />
             </svg>
-            Create Address
+           {{$page.$t.cart.create_shipping_address}}
           </a>
         </div>
         </div>

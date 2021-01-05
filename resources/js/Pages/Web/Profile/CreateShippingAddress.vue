@@ -7,19 +7,19 @@
           <div class="col-lg-12">
             <div class="contact-form">
               <div class="leave-comment">
-                <h4>Add Shipping Address</h4>
+                <h4>{{$page.$t.cart.create_shipping_address}}</h4>
                 <!--                <p>Our staff will call back later and answer your questions.</p>-->
                 <div action="#" class="comment-form">
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <input type="text" placeholder="First Name" v-model="first_name">
+                        <input type="text" class="px-2" :placeholder="$page.$t.profile.first_name" v-model="first_name">
                         <div class="p-2 text-red-500" v-if="$page.errors.first_name">{{ $page.errors.first_name }}</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <input type="text" placeholder="Last Name" v-model="last_name">
+                        <input type="text" class="px-2" :placeholder="$page.$t.profile.last_name" v-model="last_name">
                         <div class="p-2 text-red-500" v-if="$page.errors.last_name">{{ $page.errors.last_name }}</div>
                       </div>
                     </div>
@@ -31,7 +31,7 @@
                             :no-example="true"
                             :only-countries="['SA']"
                             :translations="{
-                        countrySelectorLabel: 'Country',
+                        countrySelectorLabel: $page.$t.profile.country,
                         countrySelectorError: 'Choisir un pays',
                         phoneNumberLabel: '5555555555',
                         example: 'ex: 500000000',
@@ -78,13 +78,13 @@
 
                     <div class="col-lg-12">
                       <div class="form-group">
-                        <textarea placeholder="Address" v-model="description"></textarea>
+                        <textarea class="px-2" :placeholder="$page.$t.profile.address" v-model="description"></textarea>
                         <div class="p-2 text-red-500" v-if="$page.errors.description">{{
                             $page.errors.description
                           }}
                         </div>
                       </div>
-                      <button type="submit" class="site-btn" @click="saveData">Save</button>
+                      <button type="submit" class="site-btn" @click="saveData">{{$page.$t.common.save}}</button>
 
                     </div>
 

@@ -1,11 +1,44 @@
 <?php
 
 return [
+
+    "common" => [
+        "save" => "حفظ"
+    ],
     "header" => [
         "search_placeholder" => "ابحث عن المنتجات",
         "categories" => 'الفئات',
         'home' => "الرئيسية",
         // here
+    ],
+
+
+    "order" => [
+        "sales_invoice" => "فاتورة مبيعات",
+        "vatId"=> 'الرقم الضريبي',
+        "taxId" => 'السجل التجاري',
+        "phone" => "الهاتف",
+        "branch" => "الفرع",
+        "online_sales" => "مبيعات الاونلاين",
+        "shipping_address" => "عنوان الشحن",
+        "total" => "المجموع",
+        "tax" => "الضريبة",
+        "shipping" => 'الشحن',
+        "net" => 'النهائي',
+        "paid" => 'مسددة',
+        "happy_to_serv_you" => "سعدنا بخدمتك",
+        "terms_privacy" => "الشروط والاحكام",
+        "terms_list" => [
+            "* البضاعة المباعة لاترد ولا تستبدل بعد فتحها .",
+            "* الارجاع خلال ثلاثة أيام .",
+            "* التبديل خلال سبعة أيام ."
+        ],
+        "our_address_state" => 'القصيم',
+        "draft" => "فاتورة مبدئية",
+        "thanks_for_order" => "شكرا لك",
+        "created"=>"نجاح",
+        "instructions_for_payment" => "ستتلقى رسالة تتحتوي على تفاصيل الدفع في رقم الجوال "
+        // You will receive payment instructions via whatsapp  to
     ],
     "footer" => [
         "about_us" => "من نحن",
@@ -84,6 +117,8 @@ return [
         "shipping_weight" => "وزن الشحنة",
         "shipping_total" => "تكلفة الشحن",
         "net" => "الصافي",
+        'create_shipping_address' => 'اضافة عنوان',
+        'select_shipping_address' => 'اختر عنوان الشحن'
 
     ],
     //here

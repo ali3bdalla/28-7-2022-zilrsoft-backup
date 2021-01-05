@@ -52,6 +52,12 @@ class UpdateInvoiceNumberJob implements ShouldQueue
                 $this->prefix = $prefix;
                 break;
         }
+
+        if($prefix == 'ONLINE')
+        {
+            $this->prefix = "ON";
+        }
+        
     }
 
     /**

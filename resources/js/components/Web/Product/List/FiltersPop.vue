@@ -329,6 +329,7 @@ export default {
   padding-bottom: 0px;
   font-size: 19px;
   font-weight: bold;
+   text-align: right;
 }
 
 .closeBtnClass i {
@@ -340,6 +341,7 @@ export default {
   border-radius: 50%;
   box-shadow: 0px 2px 5px #ddd;
   cursor: pointer;
+ 
 }
 
 

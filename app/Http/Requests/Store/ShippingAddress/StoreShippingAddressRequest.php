@@ -48,7 +48,7 @@ class StoreShippingAddressRequest extends FormRequest
                     'street_name', 'zip_code')
             );
             DB::commit();
-            return $shippingAddress;
+            return redirect('/web/profile');
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw  $queryException;

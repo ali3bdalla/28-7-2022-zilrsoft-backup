@@ -13,7 +13,7 @@ trait AccountingPeriodTrait
 
     protected static function bootAccountingPeriodTrait()
     {
-        if (auth()->check()) {
+        if (auth('manager')->check()) {
 
             $isHasYearClosing = true; auth()->user()->organization->getConfig('IS_HAS_YEAR_CLOSING', 'ACCOUNTING');
 
