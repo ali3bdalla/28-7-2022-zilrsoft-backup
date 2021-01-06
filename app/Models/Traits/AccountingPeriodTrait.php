@@ -23,14 +23,13 @@ trait AccountingPeriodTrait
                     $STARTAT = static::getAccountingStartYear(auth()->user());
                     $ENDAT =  static::getAccountingEndYear(auth()->user());
 
-                    // static::addGlobalScope(
-                    //     'accountingPeriod',
-                    //     function (Builder $builder) use ($table, $STARTAT, $ENDAT) {
-                    //         $builder->whereYear("{$table}.created_at", '>=', $STARTAT)->whereYear("{$table}.created_at", '<', $ENDAT);
-                    //         // ->whereDate("{$table}.created_at", '>=', $STARTAT)
-                    //         // ->whereDate("{$table}.created_at", '<', $ENDAT)
-                    //     }
-                    // );
+                    static::addGlobalScope(
+                        'accountingPeriod',
+                        function (Builder $builder) use ($table, $STARTAT, $ENDAT) {
+                            $builder->whereYear("{$table}.created_at", '>=', $STARTAT)->whereYear("{$table}.created_at", '<', $ENDAT);
+
+                        }
+                    );
                 }
             }
         }
