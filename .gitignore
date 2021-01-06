@@ -1,8 +1,8 @@
 /node_modules
 /public/hot
 /public/storage
-/public/css/*
-/public/js/*
+/public/css/
+/public/js/
 /storage/*.key
 /storage/logs/*
 
@@ -22,3 +22,4 @@ yarn-error.log
 .phpunit.result.cache
 .DS_store
 .env.testing
+
