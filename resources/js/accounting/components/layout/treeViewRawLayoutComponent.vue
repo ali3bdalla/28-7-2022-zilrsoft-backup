@@ -2,7 +2,8 @@
     <div class='raw-child'>
         <div>
             <div class="row">
-                <div class="col-md-3">
+
+                <div class="col-md-2">
                     <button @click="showAndHideChildren" v-show="hasChildren && !showChildren"><i
                             class="fa fa-arrow-left icon"></i></button>
                     <button @click="showAndHideChildren" v-show="hasChildren && showChildren"><i
@@ -10,7 +11,7 @@
 
                     <span>{{ itemData.locale_name}}</span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-8">
                     <a :href="app.BaseApiUrl + 'categories/create?parent_id='+ itemData.id"
                        class="btn btn-sm btn-default"
                        v-if="canCreate"><i
@@ -29,6 +30,10 @@
                        v-if="canEdit"><i class="fa fa-edit"></i> {{ app.trans.edit}}</a>
                     <a @click="deleteItemClicked" class="btn btn-sm btn-danger"
                        v-if="canDelete"><i class="fa fa-trash"></i> {{ app.trans.delete}}</a>
+
+                       <span class="p-2">
+                           #{{ itemData.sorting }}
+                       </span>
                 </div>
             </div>
         </div>

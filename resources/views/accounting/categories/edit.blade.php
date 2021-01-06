@@ -76,7 +76,7 @@
 
 
                 <div class="col-md-6">
-                    <div class="form-group @error('sorting')has-error @enderror">
+                    <div class="form-group @error('parent_id')has-error @enderror">
                         <select class="form-control" name="parent_id" placeholder="{{trans('pages/categories.parent_id')
                         }}">
                             <option class="form-control" value="0">{{trans('pages/categories.main_category') }}</option>
