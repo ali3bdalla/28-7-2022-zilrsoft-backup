@@ -8,6 +8,7 @@ import Dialog from 'vue-dialog-loading'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 window.axios = require('axios')
+window._ = require('lodash');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 let token = document.head.querySelector('meta[name="csrf-token"]')
 if (token) {

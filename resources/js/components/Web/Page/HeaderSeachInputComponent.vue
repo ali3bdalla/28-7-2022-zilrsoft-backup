@@ -1,72 +1,97 @@
 <template>
-  <div class="relative p-0" style="    width: 100%;">
-    <div class="advanced-search" style="border-color:#d2e8ff !important">
+  <div class="relative p-0" style="width: 100%">
+    <div class="advanced-search" style="border-color: #d2e8ff !important">
       <select v-model="categoryId" class="category-btn">
         <option value="0">{{ $page.$t.header.categories }}</option>
 
         <option
-            v-for="category in categories"
-            :key="category.id"
-            :value="category.id"
+          v-for="category in categories"
+          :key="category.id"
+          :value="category.id"
         >
           {{ category.locale_name }}
         </option>
       </select>
       <div class="input-group">
         <input
-            v-model="searchKey"
-            :placeholder="$page.$t.header.search_placeholder"
-            type="text"
-          
-            class="text-gray-800"
-            @keydown="getItems"
-            @keyup.enter="getToResultPage"
+          v-model="searchKey"
+          :placeholder="$page.$t.header.search_placeholder"
+          type="text"
+          class="text-gray-800"
+          @keyup="getItems"
+          @keyup.enter="getToResultPage"
         />
         <button type="button"><i class="ti-search"></i></button>
       </div>
     </div>
     <div
-        v-if="items.length > 0 && searchKey != ''"
-        class="absolute z-50 w-full px-3 pt-2 mx-auto bg-white shadow-lg "
+      v-if="items.length > 0 && searchKey != ''"
+      class="absolute z-50 w-full px-3 pt-2 mx-auto bg-white shadow-lg"
     >
       <a
-          v-for="item in items"
-          :key="item.id"
-          :href="`/web/items/${item.id}`"
-          class="flex justify-between px-2 py-1 font-bold text-gray-800 border-b hover:text-gray-600"
+        v-for="item in items"
+        :key="item.id"
+        :href="`/web/items/${item.id}`"
+        class="flex justify-between px-2 py-1 font-bold text-gray-800 border-b hover:text-gray-600"
       >
         <span class="truncate">{{ item.locale_name }}</span>
 
-        <span v-if="item.available_qty <= 0" class="text-red-500 text-sm w-20 text-left">{{$page.$t.products.out_of_stock}}</span>
+        <span
+          v-if="item.available_qty <= 0"
+          class="text-red-500 text-sm w-20 text-left"
+          >{{ $page.$t.products.out_of_stock }}</span
+        >
       </a>
-      <h2 class="p-2 pt-3 mt-4 mb-1 text-lg font-bold text-gray-700 border-t-2 border-black">
-        {{$page.$t.header.categories}}
+      <h2
+        class="p-2 pt-3 mt-4 mb-1 text-lg font-bold text-gray-700 border-t-2 border-black"
+      >
+        {{ $page.$t.header.categories }}
       </h2>
       <a
-
-          v-for="(category,categoryIndex) in categoriesGroup"
-          :key="`category_${category.id}_${categoryIndex}`"
-          :href="`/web/items?categoryId=${category.id}&&name=${searchKey}`"
-          class="block px-2 py-1 font-bold text-gray-800 border-b hover:text-gray-600 "
+        v-for="(category, categoryIndex) in categoriesGroup"
+        :key="`category_${category.id}_${categoryIndex}`"
+        :href="`/web/items?categoryId=${category.id}&&name=${searchKey}`"
+        class="block px-2 py-1 font-bold text-gray-800 border-b hover:text-gray-600"
       >
-        <span class="">{{ searchKey }}</span>  {{ $page.$t.products.in }} - <span class="">{{ category.locale_name }}</span>
+        <span class="">{{ searchKey }}</span> {{ $page.$t.products.in }} -
+        <span class="">{{ category.locale_name }}</span>
       </a>
-
     </div>
   </div>
 </template>
 
 <script>
-import {Inertia} from "@inertiajs/inertia";
+import { Inertia } from "@inertiajs/inertia";
 
 export default {
   data() {
     return {
+      isSearching: false,
       categoryId: 0,
       items: [],
       categoriesGroup: [],
       categories: [],
       searchKey: this.$page.name,
+      call: _.debounce(
+        (e) => {
+          console.log("call");
+          axios
+            .post("/api/web/items", {
+              name: this.searchKey,
+              categoryId: this.categoryId,
+            })
+            .then((res) => {
+              this.items = res.data.items;
+              this.categoriesGroup = res.data.categories_group;
+            })
+            .finally(() => {
+              this.isSearching = false;
+              // e.cancel;
+            });
+        },
+        250,
+        { maxWait: 1000 }
+      ),
     };
   },
 
@@ -76,7 +101,9 @@ export default {
   methods: {
     getToResultPage() {
       console.log(this.searchKey);
-      this.$inertia.visit(`/web/items?categoryId=${this.categoryId}&&name=${this.searchKey}`);
+      this.$inertia.visit(
+        `/web/items?categoryId=${this.categoryId}&&name=${this.searchKey}`
+      );
     },
     getCategories() {
       let appVm = this;
@@ -88,16 +115,13 @@ export default {
       if (this.searchKey == "") {
         this.items = [];
       } else {
-        let appVm = this;
-        axios
-            .post("/api/web/items", {
-              name: this.searchKey,
-              categoryId: this.categoryId,
-            })
-            .then((res) => {
-              appVm.items = res.data.items;
-              appVm.categoriesGroup = res.data.categories_group;
-            });
+        this.call();
+
+        // if (!this.isSearching) {
+        //   this.isSearching = true;
+        //   let appVm = this;
+
+        // }
       }
 
       //   this.$inertia.visit("/api/web/items", {
@@ -129,7 +153,6 @@ export default {
 </script>
 
 <style>
-
 .inner-header .advanced-search .input-group input {
   color: black;
 }
