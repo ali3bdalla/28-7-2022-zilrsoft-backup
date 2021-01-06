@@ -11,7 +11,7 @@ if (window._translations) Vue.prototype.$translator = JSON.parse(window._transla
 
 
 Vue.prototype.$asset = (url ) => {
-	return '/public/' + url;
+	return '/' + url;
 };
 // Vue.prototype.$echo
 Vue.prototype.$sound = {
