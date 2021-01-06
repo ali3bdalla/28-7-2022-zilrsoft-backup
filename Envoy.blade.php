@@ -2,6 +2,7 @@
 
 @setup
     $repository = 'git@gitlab.com:3li3bdalla/zilrsoft.git';
+    $activeEnv = $environment;
     if ($environment && $environment === 'production')
     {
         $releases_dir = '/var/www/vhosts/zilrsoft/production/releases';
@@ -24,11 +25,11 @@
     clone_repository
     composer_install
     npm_install
-    if ($environment && $environment === 'production')
+    @if ($activeEnv  && $activeEnv  === 'production')
         npm_run_prod
-    else
+    @else
         npm_run_dev
-
+    @endif
     update_symlinks
     migrate
 @endstory
