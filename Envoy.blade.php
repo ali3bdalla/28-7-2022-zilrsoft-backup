@@ -24,6 +24,11 @@
     clone_repository
     composer_install
     npm_install
+    if ($environment && $environment === 'production')
+        npm_run_prod
+    else
+        npm_run_dev
+
     update_symlinks
     migrate
 @endstory
@@ -52,6 +57,12 @@
     echo "npm run dev ({{ $release }})"
     cd {{ $new_release_dir }}
     npm run dev --quiet --no-progress
+@endtask
+
+@task('npm_run_prod')
+    echo "npm run prod ({{ $release }})"
+    cd {{ $new_release_dir }}
+    npm run prod --quiet --no-progress
 @endtask
 
 @task('update_symlinks')
