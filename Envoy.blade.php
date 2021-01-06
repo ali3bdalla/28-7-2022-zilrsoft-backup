@@ -2,6 +2,7 @@
 
 @setup
     $repository = 'git@gitlab.com:3li3bdalla/zilrsoft.git';
+    $activeEnv = $environment;
     if ($environment && $environment === 'production')
     {
         $releases_dir = '/var/www/vhosts/zilrsoft/production/releases';
@@ -24,6 +25,11 @@
     clone_repository
     composer_install
     npm_install
+    @if ($activeEnv  && $activeEnv  === 'production')
+        npm_run_prod
+    @else
+        npm_run_dev
+    @endif
     update_symlinks
     migrate
 @endstory
@@ -52,6 +58,12 @@
     echo "npm run dev ({{ $release }})"
     cd {{ $new_release_dir }}
     npm run dev --quiet --no-progress
+@endtask
+
+@task('npm_run_prod')
+    echo "npm run prod ({{ $release }})"
+    cd {{ $new_release_dir }}
+    npm run prod --quiet --no-progress
 @endtask
 
 @task('update_symlinks')
