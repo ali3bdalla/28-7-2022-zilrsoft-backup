@@ -4,7 +4,7 @@
     "/css/tailwind.css": "/css/tailwind.css",
     "/css/ar/store.css": "/css/ar/store.css",
     "/css/store.css": "/css/store.css",
-    "/js/app_v2.js": "/js/app_v2.js",
     "/js/external.js": "/js/external.js",
+    "/js/online-store.js": "/js/online-store.js",
     "/js/upload_images.js": "/js/upload_images.js"
 }
