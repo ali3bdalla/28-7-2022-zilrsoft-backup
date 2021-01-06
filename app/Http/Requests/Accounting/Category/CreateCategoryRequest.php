@@ -35,14 +35,15 @@
 				'parent_id' => "required|integer",
 				'cloned_category' => 'nullable|integer|organization_exists:App\Models\Category,id',
 				'is_available_online' => 'nullable',
-			
+				"sorting" => "nullable|integer",
+				"image" => "nullable|image"
 			];
 		}
 		
 		public function save()
 		{
 			
-			$data = $this->only('name', 'ar_name', 'description', 'ar_description', 'parent_id');
+			$data = $this->only('name', 'ar_name', 'description', 'ar_description', 'parent_id',"sorting");
 			$data['is_available_online'] = $this->input('is_available_online') == 'on';
 			$data['organization_id'] = $this->user()->organization_id;
 			$category = $this->user()->categories()->create($data);
@@ -64,6 +65,16 @@
 				
 			}
 			
+
+			if($this->hasFile('image'))
+			{
+				$imageUrl = $this->file('image')->store('images/categories', ['disk' => 'spaces', 'visibility' => 'public']);
+				$category->update([
+					'image' => $imageUrl
+				]);
+			}
+
+
 			$requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
 			$categoryFilters = CategoryFilters::where('category_id', $category->id)->pluck('filter_id')->toArray();
 			

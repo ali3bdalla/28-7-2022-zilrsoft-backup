@@ -33,7 +33,9 @@
 				'description' => "required|min:3|string",
 				'ar_description' => "required|min:3|string",
 				'parent_id' => "required|integer",
-				'is_available_online' => 'nullable'
+				'is_available_online' => 'nullable',
+				"sorting" => "nullable|integer",
+				"image" => "nullable|image"
 			
 			];
 		}
@@ -42,7 +44,7 @@
 		{
 			
 			$isAvailableOnline = $this->input('is_available_online') == 'on';
-			$data = $this->only('name', 'ar_name', 'description', 'ar_description', 'parent_id');
+			$data = $this->only('name', 'ar_name', 'description', 'ar_description', 'parent_id',"sorting");
 			$data['is_available_online'] = $isAvailableOnline;
 			$category->update($data);
 			
@@ -52,6 +54,14 @@
 				]
 			);
 			
+
+			if($this->hasFile('image'))
+			{
+				$imageUrl = $this->file('image')->store('images/categories', ['disk' => 'spaces', 'visibility' => 'public']);
+				$category->update([
+					'image' => $imageUrl
+				]);
+			}
 			if($category->parent) {
 				$category->parent->updateHashMap();
 			}

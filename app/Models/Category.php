@@ -29,13 +29,7 @@ use Illuminate\Support\Facades\Storage;
 			'is_available_online' => "int"
 		];
 
-		// public function getIsAvailableOnlineAttribute($value)
-		// {
-		// 	if($value)
-		// 		return 1;
 
-		// 	return 0;
-		// }
 		/**
 		 * @param Model $model
 		 * @return array|null
