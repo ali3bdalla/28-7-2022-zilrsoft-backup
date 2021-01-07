@@ -25,7 +25,7 @@
 
 			return Inertia::render(
 				'Web/Product/Index', [
-					'category' => $fetchFiltersRequest->input('categoryId'),
+					'categoryId' => $fetchFiltersRequest->input('categoryId'),
 					'name' => $fetchFiltersRequest->input('name'),
 					'items' => $items,
 					'filters' => $filters

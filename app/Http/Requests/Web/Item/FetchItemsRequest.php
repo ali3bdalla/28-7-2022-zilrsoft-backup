@@ -33,44 +33,24 @@
 		
 		public function getData()
 		{
-			$query = new Item;
+			$query = Item::query();
 			
 			
+			
+			
+			
+			if($this->has('name') && $this->filled('name')) {
+				$query->where('name', 'ILIKE', '% ' . $this->input('name') . '%')->orWhere('ar_name', 'ILIKE', '% ' . $this->input('name') . '%');
+			}
+
 			if($this->has('categoryId') && $this->filled('categoryId')) {
 				$category = Category::find($this->input('categoryId'));
 				
-				if(!empty($category)) {
-//					$categoryIds = $category->getChildrenIncludeMe();
-					$query = $query->where('category_id',$this->input('categoryId'));
+				if($category) {
+					$query->where('category_id',$this->input('categoryId'));
 				}
 				
 			}
-			
-			if($this->has('name') && $this->filled('name')) {
-				$query = $query->where('name', 'ILIKE', '%' . $this->input('name') . '%')->orWhere('ar_name', 'ILIKE', '%' . $this->input('name') . '%');
-			}
-//
-//
-//
-//			if($this->has('filters') && $this->filled('filters') && $this->input('filters') != []) {
-//				$collectionsItemsFilterResults = ItemFilters::whereIn('filter_value', $this->input('filters'))->select('item_id', 'filter_value')->get();
-//				$attributes = $this->input('filters');
-//				$finalCollections = [];
-//
-//				foreach($collectionsItemsFilterResults as $result) {
-//					$finalCollections[$result['item_id']][] = $result['filter_value'];
-//				}
-//				$resultCollections = [];
-//				foreach($finalCollections as $key => $finalCollect) {
-//					if(count($finalCollect) >= count($attributes))
-//						$resultCollections[] = $key;
-//
-//				}
-//
-//				$query = $query->whereIn('id', $resultCollections);
-//			}
-//
-			
 			return $query->with('category','filters.filter', 'filters.value')->paginate(18);
 		}
 		

@@ -4,8 +4,6 @@
     @includeIf("accounting.layout.head.meta")
     <title>@yield('title',config("app.name"))</title>
 
-    {{--    @includeIf("accounting.layout.head.defer_js")--}}
-
 
     <script defer>
         window.reusable_translator = `@json(trans('reusable'))`;
@@ -21,7 +19,6 @@
     @css_asset('lib/css/bootstrap.min.css')
     @css_asset('lib/css/AdminLTE.min.css')
     @css_asset('lib/css/_all-skins.min.css')
-    {{--    @css_asset('lib/css/select2.min.cs.css')--}}
     @css_asset('lib/css/buttons.css')
     @css_asset('lib/css/main.css')
     @css_asset('css/main.css')
