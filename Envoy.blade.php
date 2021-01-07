@@ -25,11 +25,11 @@
     clone_repository
     composer_install
     npm_install
-    @if ($activeEnv  && $activeEnv  === 'production')
+    {{-- @if ($activeEnv  && $activeEnv  === 'production')
         npm_run_prod
-    @else
+    @else --}}
         npm_run_dev
-    @endif
+    {{-- @endif --}}
     update_symlinks
     migrate
 @endstory
