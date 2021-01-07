@@ -17,41 +17,6 @@
       </div>
 
       <div class="flex items-center justfiy-center">
-        <!-- <div class="w-3/12 hidden md:block">
-          <div
-            v-for="(filter, filterIndex) in filtersList"
-            :key="filter.id"
-            class="border-b p-2 font-bold"
-          >
-            {{ filter.filter.locale_name }}
-
-            <div class="mt-2 ml-2">
-              <div
-                v-if="filter.expand_values || index < 5"
-                v-for="(filterValue, index) in filter.values"
-                :key="filterValue.id"
-                class="my-1 text-gray-700"
-              >
-                <input
-                  :checked="filterValues.includes(filterValue.id)"
-                  class="mr-2"
-                  type="checkbox"
-                  @change="addFilterValue(filterValue)"
-                />
-                {{ filterValue.locale_name }}
-              </div>
-              <button
-                v-if="filter.values.length > 5"
-                @click="expandFilterValues(filterIndex, true)"
-                class="text-gray-600"
-              >
-                {{ $page.$t.products.all }}.. ({{ filter.values.length }})
-              </button>
-            </div>
-          </div>
-        </div> -->
-        <!--        v-if="!isLoading"-->
-        <!-- md:w-9/12 -->
         <div
           v-if="isLoading"
           class="flex items-center justify-center w-full h-full"
@@ -126,7 +91,7 @@ export default {
         let appVm = this;
         axios
           .post("/api/web/items/using_filters", {
-            categoryId: this.$page.categoryId,
+            category_id: this.$page.categoryId,
             name: this.$page.name,
             order_by: this.orderBy,
             order_direction: this.orderDirection,

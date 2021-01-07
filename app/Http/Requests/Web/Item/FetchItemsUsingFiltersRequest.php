@@ -30,7 +30,6 @@ class FetchItemsUsingFiltersRequest extends FormRequest
         return [
             //
             'filters_values' => 'array',
-//            'filters_values.*' => 'required|integer|exists:filter_values,id'
         ];
     }
 
@@ -40,15 +39,15 @@ class FetchItemsUsingFiltersRequest extends FormRequest
 
         $table = (new Item())->getTable();
 
-        if ($this->has('categoryId') && $this->filled('categoryId')) {
-            $category = Category::find($this->input('categoryId'));
+        if ($this->has('category_id') && $this->filled('category_id')) {
+            $category = Category::find($this->input('category_id'));
             if (!empty($category)) {
-                $query =  $query->where('category_id', $this->input('categoryId'));
+                $query =  $query->where('category_id', $this->input('category_id'));
             }
         }
         
         if ($this->has('name') && $this->filled('name')) {
-            $query = $query->where('name', 'iLIKE', '%' . $this->input('name') . '%')->orWhere('ar_name', 'iLIKE', '%' . $this->input('name') . '%');
+            $query = $query->where('name', 'iLIKE', '% ' . $this->input('name') . '%')->orWhere('ar_name', 'iLIKE', '% ' . $this->input('name') . '%');
         }
 
         if ($this->has('filters_values')) {

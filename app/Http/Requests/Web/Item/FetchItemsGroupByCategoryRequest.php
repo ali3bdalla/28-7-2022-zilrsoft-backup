@@ -41,19 +41,19 @@
 				foreach ($searchArray as $searchKey)
 				{
 					$query->where(function($subQuery) use($searchKey ) {
-						return $subQuery->where('ar_name', 'ILIKE', '%' . $searchKey . '%')->orWhere('name', 'ILIKE', '%' . $searchKey . '%');
+						return $subQuery->where('ar_name', 'ILIKE', '% ' . $searchKey . '%')->orWhere('name', 'ILIKE', '%' . $searchKey . '%');
 					});
 				}
 				
 			}
-			if($this->has('categoryId') && $this->filled('categoryId')) {
-				$category = Category::find($this->input('categoryId'));
-				if(!empty($category)) {
-					$categoryIds = $category->getChildrenIncludeMe();
-					$query = $query->whereIn('category_id', $categoryIds);
-				}
+			// if($this->has('categoryId') && $this->filled('categoryId')) {
+			// 	$category = Category::find($this->input('categoryId'));
+			// 	if(!empty($category)) {
+			// 		// $categoryIds = $category->getChildrenIncludeMe();
+			// 		$query = $query->whereIn('category_id', $category->id);
+			// 	}
 				
-			}
+			// }
 			
 			if($this->has('filters') && $this->filled('filters') && $this->input('filters') != []) {
 				$collectionsItemsFilterResults = ItemFilters::whereIn('filter_value', $this->input('filters'))->select('item_id', 'filter_value')->get();

@@ -67,6 +67,7 @@
 
   &__list-item-price {
     @apply mt-2 text-xl text-gray-900 font-bold inline-block line-through;
+    text-decoration-color:red
   }
 
   &__list-item-currency {
@@ -79,19 +80,23 @@
   }
 
   &__add-to-cart-button {
-    @apply bg-web-primary py-2 mx-auto text-center  font-extrabold text-white text-sm uppercase px-5 flex items-center justify-center gap-3 rounded-full;
-
+    @apply bg-web-primary py-1 mx-auto text-center  font-extrabold text-white text-sm uppercase px-3 flex items-center justify-center gap-3 rounded-full;
+    &:focus {
+      @apply border-none outline-none
+    }
   }
 
   &__add-to-cart-icon {
     // @apply w-8 h-8;
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 1.4rem;
+    height: 1.4rem;
   }
 
   &__remove-from-cart-button {
-    @apply bg-gray-400 py-2  py-2 mx-auto text-center  font-extrabold text-black text-sm uppercase px-5 flex items-center justify-center gap-3 rounded-full;;
-   
+    @apply bg-gray-400 py-2  py-1 mx-auto text-center  font-extrabold text-black text-sm uppercase px-3 flex items-center justify-center gap-3 rounded-full;;
+    &:focus {
+      @apply border-none outline-none
+    }
   }
 
 
@@ -159,6 +164,7 @@
 
     &__details-slash-price {
       @apply mt-5 text-2xl text-gray-900 font-bold inline-block line-through;
+      text-decoration-color:red
     }
 
     &__details-currency {
@@ -167,7 +173,10 @@
 
 
     &__details-price {
-      @apply mt-0 font-extrabold text-5xl text-gray-900 inline-block;
+      @apply mt-0 font-extrabold text-3xl text-gray-900 inline-block;
+      screen md {
+        @apply text-5xl;
+      }
     }
 
     &__details-actions {
@@ -195,10 +204,10 @@
 
 
     &__details-specification-table-title-cell {
-      @apply bg-gray-100 py-1 px-3 font-bold text-left;
-      border-color: #e7e7e7;
-      background-color: #f3f3f3;
-      color: #555;
+      @apply bg-white py-1 px-3 font-bold text-left;
+      // border-color: #e7e7e7;
+      // background-color: #f3f3f3;
+      // color: #555;
     }
 
 

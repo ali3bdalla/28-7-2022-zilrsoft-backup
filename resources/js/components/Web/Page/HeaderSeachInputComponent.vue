@@ -1,17 +1,6 @@
 <template>
   <div class="relative p-0" style="width: 100%">
     <div class="advanced-search" style="border-color: #d2e8ff !important">
-      <select v-model="categoryId" class="category-btn">
-        <option value="0">{{ $page.$t.header.categories }}</option>
-
-        <option
-          v-for="category in categories"
-          :key="category.id"
-          :value="category.id"
-        >
-          {{ category.locale_name }}
-        </option>
-      </select>
       <div class="input-group">
         <input
           v-model="searchKey"
@@ -21,7 +10,7 @@
           @keyup="getItems"
           @keyup.enter="getToResultPage"
         />
-        <button type="button"><i class="ti-search"></i></button>
+        <button v-if="items.length > 0" @click="hideItems" type="button" style="    font-size: 32px;"><i class="fa fa-remove"></i></button>
       </div>
     </div>
     <div
@@ -74,13 +63,13 @@ export default {
       searchKey: this.$page.name,
       call: _.debounce(
         (e) => {
-          console.log("call");
           axios
             .post("/api/web/items", {
               name: this.searchKey,
               categoryId: this.categoryId,
             })
             .then((res) => {
+              console.log(res.data);
               this.items = res.data.items;
               this.categoriesGroup = res.data.categories_group;
             })
@@ -96,32 +85,32 @@ export default {
   },
 
   created() {
-    this.getCategories();
+    // this.getCategories();
   },
   methods: {
+
+    hideItems()
+    {
+      this.items = [];
+      this.searchKey = "";
+    },
     getToResultPage() {
-      console.log(this.searchKey);
       this.$inertia.visit(
         `/web/items?categoryId=${this.categoryId}&&name=${this.searchKey}`
       );
     },
-    getCategories() {
-      let appVm = this;
-      axios.get("/api/web/categories").then((res) => {
-        appVm.categories = res.data;
-      });
-    },
+    // getCategories() {
+    //   let appVm = this;
+    //   axios.get("/api/web/categories").then((res) => {
+
+    //     appVm.categories = res.data;
+    //   });
+    // },
     getItems() {
       if (this.searchKey == "") {
         this.items = [];
       } else {
         this.call();
-
-        // if (!this.isSearching) {
-        //   this.isSearching = true;
-        //   let appVm = this;
-
-        // }
       }
 
       //   this.$inertia.visit("/api/web/items", {
