@@ -50,8 +50,8 @@
           <td class="text-center cart-pic first-row">
             <img class="cart__item-image" :src="item.item_image_url" />
           </td>
-          <td class="cart-title first-row">
-            <h6>{{ item.locale_name }}</h6>
+          <td class="cart-title first-row " style="font-size:15px !important">
+            {{ item.locale_name }}
           </td>
           <td class="p-price first-row">
             {{ parseFloat(item.price).toFixed(2) }}

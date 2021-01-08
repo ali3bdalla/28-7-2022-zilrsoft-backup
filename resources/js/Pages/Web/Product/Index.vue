@@ -6,6 +6,7 @@
           <!-- md:justify-end -->
 
           <filters-pop
+          :items="items"
             :search-name="$page.name"
             @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated"
             :category-id="$page.categoryId"

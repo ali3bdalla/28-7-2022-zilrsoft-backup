@@ -54,7 +54,7 @@
             <div class="col-md-6" v-for="(filter,index) in filters" :key="filter.id" :class="[index % 2 == 0 ? 'toGrayBg' : 'bg-white']">
               <div class="filter-widget">
                 <h6 class="fw-title">
-                  {{ filter.locale_name }}
+                  {{ filter.filter.locale_name }}
                 </h6>
 
                 <div class="fw-brand-check">
@@ -112,7 +112,7 @@ color: #575555;">
 
 <script>
 export default {
-  props: ["categoryId","searchName"],
+  props: ["categoryId","searchName","items"],
   name: "ProductListItemComponentFilters",
 
   data: function () {
@@ -155,11 +155,8 @@ export default {
       this.isSubCategoriesPanelOpen = !this.isSubCategoriesPanelOpen;
     },
     getSelectedCategory() {
-      //  this.selectedSubCategoryId === 0 ?
-      // : this.selectedSubCategoryId
-      //   return  this.categoryId ;
-      return 2;
-      return this.$page.category_id;
+      return this.$page.categoryId;
+
     },
 
     getSelectedFiltersMap() {
@@ -181,6 +178,7 @@ export default {
       axios
         .post(`/api/web/filters`, {
           filters: this.getSelectedFiltersMap(),
+          items:this.items,
           values: this.getSelectedValues(),
           category_id: this.getSelectedCategory(),
         })
@@ -231,7 +229,7 @@ export default {
         );
       }
 
-      this.getApiFilters();
+      // this.getApiFilters();
     },
 
     showFiltersLayout() {

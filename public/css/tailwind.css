@@ -686,6 +686,19 @@ video {
   margin-bottom: 0.5rem;
 }
 
+.cart-table table tr td.qua-col .pro-qty .qtybtn:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.cart-table table tr td.qua-col .pro-qty {
+  height: 33px !important;
+}
+
+.cart-table table tr td.qua-col .pro-qty .qtybtn, .cart-table table tr td.qua-col .pro-qty input {
+  line-height: 28px !important;
+}
+
 .checkout {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
