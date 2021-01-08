@@ -32,7 +32,8 @@ build:
 
 
     # Install Node dependencies
-    - npm ci --cache .npm --prefer-offline --quiet
+    - npm install
+    # ci --cache .npm --prefer-offline --quiet
 
     # Copy over testing configuration
     - cp .env.example .env
