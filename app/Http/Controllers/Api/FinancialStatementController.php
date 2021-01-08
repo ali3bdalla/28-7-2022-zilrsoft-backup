@@ -88,12 +88,15 @@
 						$account->credit_balance = displayMoney($accountCreditBalance);
 						$account->debit_balance = displayMoney($accountDebitBalance);
 						
-						$totalCreditAmount = displayMoney($totalCreditAmount + ((float)$creditAmount));
+						
+						if(displayMoney($accountDebitBalance) > 0 || displayMoney($accountCreditBalance) > 0) {
+							$totalCreditAmount = displayMoney($totalCreditAmount + ((float)$creditAmount));
 						$totalDebitAmount = displayMoney($totalDebitAmount + ((float)$debitAmount));
 						$totalCreditBalance = displayMoney($totalCreditBalance + ((float)$accountCreditBalance));
 						$totalDebitBalance = displayMoney($totalDebitBalance + ((float)$accountDebitBalance));
-						$mainAccountChildren[] = $account;
-						$allAccounts[] = $account;
+							$mainAccountChildren[] = $account;
+							$allAccounts[] = $account;
+						}
 					}
 					
 				}

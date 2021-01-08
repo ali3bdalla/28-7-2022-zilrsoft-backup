@@ -1,5 +1,11 @@
 <template>
   <div class="panel">
+    <loading :active.sync="isLoading" 
+        :can-cancel="false" 
+
+        :is-full-page="true"></loading>
+
+        
     <div class="panel-footer">
       <VueCtkDateTimePicker
         v-model="createdAtRange"
@@ -24,22 +30,28 @@
 
     </div>
     <div class="panel-body">
-      <div class="table">
+<!--      
         <vue-html2pdf
           :show-layout="true"
           :float-layout="false"
           :enable-download="true"
           :preview-modal="true"
-          :paginate-elements-by-height="1400"
-          filename="hee hee"
+          :paginate-elements-by-height="800"
+          filename="Zilrsoft Trail Balance"
+          
           :pdf-quality="2"
-          :manual-pagination="false"
-          pdf-format="a4"
+          :manual-pagination="true"
+          pdf-format="a3"
           pdf-orientation="landscape"
-          pdf-content-width="80%"
+          pdf-content-width="70%"
           ref="html2Pdf"
-        >
-          <section slot="pdf-content">
+          @progress="onProgress($event)"
+          @beforeDownload="beforeDownload($event)"
+        @hasStartedGeneration="hasStartedGeneration()"
+        @hasGenerated="hasGenerated($event)"
+        > -->
+          <!-- <section slot="pdf-content"> -->
+             <div class="table" id="pdfLayout">
             <table
               id="myTable"
               class="table table-bordered bg-white display"
@@ -81,6 +93,7 @@
                   :key="account.id"
                   class="table-body-child"
                   style="margin-right: 5px !important"
+
                 >
                   <!--      <tr>-->
                   <!--        {{ route('accounts.show',$account2->id) }}-->
@@ -112,14 +125,18 @@
                 </tr>
               </thead>
             </table>
-          </section>
-        </vue-html2pdf>
+             </div>
+          <!-- </section> -->
+        <!-- </vue-html2pdf> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+
 import VueCtkDateTimePicker from "vue-ctk-date-time-picker";
 import PDFMxin from "./../../../Plugins/pdf";
 export default {
@@ -127,9 +144,11 @@ export default {
   mixins: [PDFMxin],
   components: {
     VueCtkDateTimePicker,
+    Loading,
   },
   data() {
     return {
+      isLoading: false,
       startDate: null,
       endDate: null,
       createdAtRange: null,
@@ -145,8 +164,19 @@ export default {
     this.loadData();
   },
   methods: {
+    onProgress(e) {
+      // this.isLoading = true;
+    },
+    hasStartedGeneration(e) {
+      //  this.isLoading = true;
+    },
+    hasGenerated(e) {
+      //  this.isLoading = false;
+    },
+
     loadData() {
       let appVm = this;
+      this.isLoading = true;
       axios
         .get("/api/financial_statements/trial_balance", {
           params: {
@@ -163,7 +193,10 @@ export default {
           appVm.totalDebitBalance = res.totalDebitBalance;
           appVm.totalCreditBalance = res.totalCreditBalance;
         })
-        .catch((error) => {});
+        .catch((error) => {})
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
   },
 
@@ -186,4 +219,9 @@ export default {
 </script>
 
 <style scoped>
+@page 
+    {
+        size:  auto;   /* auto is the initial value */
+        margin: 0mm;  /* this affects the margin in the printer settings */
+    }
 </style>

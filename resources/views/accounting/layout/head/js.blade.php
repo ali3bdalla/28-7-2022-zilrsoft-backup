@@ -5,4 +5,4 @@
 
 <script src="{{ asset('accounting/js/select2.min.js')}}"
 defer></script>
-<script src="{{ asset('js/main.js') }}" defer></script>
+{{-- <script src="{{ asset('js/main.js') }}" defer></script> --}}
