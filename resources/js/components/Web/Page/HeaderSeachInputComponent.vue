@@ -7,10 +7,12 @@
           :placeholder="$page.$t.header.search_placeholder"
           type="text"
           class="text-gray-800"
-          @keyup="getItems"
-          @keyup.enter="getToResultPage"
+          @keypress.enter="getItems" 
         />
-        <button v-if="items.length > 0" @click="hideItems" type="button" style="    font-size: 32px;"><i class="fa fa-remove"></i></button>
+                  <!-- -->
+
+         <button type="button"  @click="getItems"><i class="ti-search"></i></button>
+        <!-- <button v-if="items.length > 0" @click="getItems" type="button" style="    font-size: 32px;"><i class="li-search"></i></button> -->
       </div>
     </div>
     <div
@@ -27,7 +29,7 @@
 
         <span
           v-if="item.available_qty <= 0"
-          class="text-red-500 text-sm w-20 text-left"
+          class="text-red-500 text-sm w-32 text-left"
           >{{ $page.$t.products.out_of_stock }}</span
         >
       </a>
