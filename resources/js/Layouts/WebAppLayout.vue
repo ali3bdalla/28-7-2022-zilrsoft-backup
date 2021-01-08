@@ -10,7 +10,7 @@
       <circle-spin class="loading" v-show="isLoading"></circle-spin>
     </div>
     <div v-else>
-      <HeaderComponent></HeaderComponent>
+      <!-- <HeaderComponent></HeaderComponent> -->
       <div style="background-color: #f9f9f9; padding-top: 200px">
         <slot></slot>
       </div>
