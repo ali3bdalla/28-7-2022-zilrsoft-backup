@@ -169,9 +169,12 @@
           class="pt-3 mt-32 border-t-2 lg:mt-20"
           style="border-color: #d2e8ff !important"
         >
-          <h1 class="p-2 -mb-2 text-2xl">منتجات ذات صلة</h1>
+        <!-- منتجات ذات صلة -->
+          <h3 class=" -mb-2 text-2xl">{{ $page.$t.products.related_products }}</h3>
 
-          <vue-horizontal  snap="center" scroll  :button-between="false" ref="horizontal" style="direction:ltr" class="products-grid">
+          <vue-horizontal  snap="center" scroll  :button-between="false"
+              :button="false"
+             ref="horizontal" style="direction:ltr" class="products-grid">
             <div v-for="(item, index) in $page.relatedItems" :key="item.id">
               <ProductListItemComponent
                 class="mx-1"

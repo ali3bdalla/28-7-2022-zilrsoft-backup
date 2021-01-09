@@ -19,7 +19,7 @@
       <vue-horizontal
         v-else-if="subCategories.length > 0"
         snap="center"
-
+        :button="true"
         :button-between="false"
         ref="horizontal"
         style="direction: ltr"

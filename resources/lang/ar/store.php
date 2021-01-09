@@ -141,6 +141,7 @@ return [
         'filters' => 'الفلاتر',
         "apply" => "تطبيق",
         "reset" => "مسح",
-        "filters_for_search" => "فلاتر بحث ... "
+        "filters_for_search" => "فلاتر بحث ... ",
+        "related_products" => "منتجات ذات من صلة"
     ]
 ];
