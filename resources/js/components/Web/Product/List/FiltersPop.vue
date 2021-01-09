@@ -97,6 +97,7 @@
             <div class="col-md-6 col-6">
               <button
                 @click="applyFilters"
+
                 class="btn btn-primary btn-block applyBtn"
               >
                 {{ $page.$t.products.apply }}
@@ -105,6 +106,7 @@
             <div class="col-md-6 col-6">
               <button
                 @click="clearFilters"
+                :disabled="selectedValues.length == 0"
                 class="btn btn-default btn-block resetBtn"
               >
                 {{ $page.$t.products.reset }}
@@ -153,7 +155,7 @@ export default {
     clearFilters() {
       // this.selectedSubCategoryId = 0;
       this.selectedValues = [];
-      this.applyFilters();
+      // this.applyFilters();
       // this.selectedFilters = [];
       // this.getApiFilters();
     },

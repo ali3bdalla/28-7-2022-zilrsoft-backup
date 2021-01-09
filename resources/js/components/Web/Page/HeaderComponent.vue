@@ -1,7 +1,7 @@
 <template>
   <header class="header-section">
     <div class="fixedHeader border-b shadow" :class="{ hidden: !showHiddenNavbar }">
-      <div class="pb-3" style="background: #f9f9f9">
+      <div class="pb-0" style="background: #f9f9f9">
         <div class="container">
           <div class="inner-header">
             <div class="flex items-center justify-between p-0 m-0">
@@ -11,7 +11,7 @@
                     <img
                       alt=""
                       :src="$asset('images/logo_hd.png')"
-                      style="width: 6rem; padding-top: 2px"
+                      style="width: 5rem; padding-top: 2px"
                     />
                   </a>
                 </div>

@@ -3,7 +3,7 @@
 use App\Http\Middleware\ImagesUploadMiddleware;
 use Illuminate\Support\Facades\Route;
 
-Route::namespace('Store')->name('web.')->prefix('web')->group(
+Route::namespace('Store')->name('web.')->middleware('font_end_middleware')->prefix('web')->group(
     function () {
         Route::prefix('items')->name('items.')->group(
             function () {

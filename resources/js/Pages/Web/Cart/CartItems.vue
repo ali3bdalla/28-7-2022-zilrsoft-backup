@@ -51,7 +51,7 @@
             <img class="cart__item-image" :src="item.item_image_url" />
           </td>
           <td class="cart-title first-row " style="font-size:15px !important">
-            {{ item.locale_name }}
+            {{ getItemNamme(item) }}
           </td>
           <td class="p-price first-row">
             {{ parseFloat(item.price).toFixed(2) }}
@@ -113,6 +113,12 @@ export default {
   },
 
   methods: {
+
+    getItemNamme(item){
+      if(this.$page.active_locale == 'en') return item.name;
+
+      return item.ar_name;
+    },
     updateAll() {
       let products = this.orderProducts;
       for (let item of this.$store.state.cart) {

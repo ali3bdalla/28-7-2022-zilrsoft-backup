@@ -23,10 +23,10 @@
         :button-between="false"
         ref="horizontal"
         style="direction: ltr"
-        class="products-grid "
+        class="products-grid mb-2"
       >
         <div v-for="(category, index) in subCategories" :key="category.id">
-          <a  :href="`/web/categories/${category.id}`" class=" ">
+          <a  :href="`/web/categories/${category.id}`" class=" hover:text-blue-500">
           <div
            
             class="bg-white p-2 px-3 mx-2 border-2  my-2"
@@ -42,7 +42,7 @@
           </a>
         </div>
       </vue-horizontal>
-      <div class="mt-10">
+      <div class="mt-2">
         <h1
           class="flex items-center justify-center text-xl font-bold text-center text-gray-600 md:text-2xl"
         >

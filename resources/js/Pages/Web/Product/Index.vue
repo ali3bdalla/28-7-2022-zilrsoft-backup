@@ -1,17 +1,6 @@
 <template>
   <web-layout class="">
-    <!-- <template v-slot:navbarItems>
 
-       <li class="active"><filters-pop
-          :items="items"
-            :search-name="$page.name"
-            @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated"
-            :category-id="$page.categoryId"
-            @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated"
-            @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"
-          ></filters-pop></li>
-       <li class="active"><sorting-pop @updated="sortingUpdated"></sorting-pop></li>
-    </template> -->
     <div class="mt-3 container bg-white shadow-lg rounded-lg">
     
     <div class="pt-3">
@@ -102,7 +91,6 @@ export default {
       if (!this.isLoading) {
         this.isLoading = true;
         let appVm = this;
-        console.log(this.filterValues);
         axios
           .post("/api/web/items/using_filters", {
             category_id: this.$page.categoryId,
@@ -128,7 +116,7 @@ export default {
       this.applyFilterSearch();
     },
     selectedAttributesHasBeenUpdated(event) {
-      console.log( event.selectedValues);
+
       // this.items = [];
       this.filterValues = event.selectedValues;
       this.applyFilterSearch();
