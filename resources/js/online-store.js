@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VueSimpleAlert from "vue-simple-alert";
 // import {EagleModal} from 'vue-eagle-modal'
+import vClickOutside from 'v-click-outside'
 
 import Dialog from 'vue-dialog-loading'
 import ElementUI from 'element-ui';
@@ -39,7 +40,7 @@ Vue.use(Dialog, {
     background: 'rgba(0, 0, 0, 0.5)'
 });
 // Vue.use(EagleModal);
-
+Vue.use(vClickOutside)
 
 const store = new Vuex.Store(require('./store/web'))
 Vue.use(InertiaApp)

@@ -52,11 +52,19 @@ class FetchItemsUsingFiltersRequest extends FormRequest
 
         if ($this->has('filters_values')) {
 
-            $filtersValues = $this->input('filters_values');//[100];
+            $filtersValues = $this->input('filters_values');
             $result = ItemFilters::whereIn('filter_value', $filtersValues)->pluck('filter_value', 'filter_id');
-            foreach ($result as $filterId => $valueId) {
-                $query =  $query->whereHas('filters', function ($query2) use ($filterId, $valueId) {
-                    $query2->where([['filter_id', $filterId], ['filter_value', $valueId]]);
+
+            // group by filter_id 
+
+            $filterValuesGroupedByFilters = [];
+
+            foreach ($result  as $key => $value) {
+                $filterValuesGroupedByFilters[$key][] = $value;
+            }
+            foreach ($filterValuesGroupedByFilters as $filterId => $values) {
+                $query =  $query->whereHas('filters', function ($query2) use ($filterId, $values) {
+                    $query2->where([['filter_id', $filterId]])->whereIn('filter_value', $values);
                 });
             }
 

@@ -3,24 +3,25 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category,App\Models\Item;
+use App\Models\Category, App\Models\Item;
 use Inertia\Inertia;
+
 class CategoryController extends Controller
 {
     //
 
-    public function show( Category $category )
+    public function show(Category $category)
     {
 
 
-        
-        // return Item::whereIn('category_id',$category->getChildrenIncludeMe())->count();
-        // return $category->getChildrenIncludeMe();
+        $level = 'main';
+        if ($category->parent)  $level = 'sub';
 
-        return Inertia::render('Web/Category/Show',[
+        return Inertia::render('Web/Category/Show', [
             'category' => $category,
+            'level' => $level,
             'subcategories' => $category->children()->get(),
-            'items' => Item::whereIn('category_id',$category->getChildrenIncludeMe())->with('category','filters.filter', 'filters.value')->inRandomOrder()->take(50)->get(),
+            'items' => Item::whereIn('category_id', $category->getChildrenIncludeMe())->with('category', 'filters.filter', 'filters.value')->inRandomOrder()->take(50)->get(),
 
         ]);
     }

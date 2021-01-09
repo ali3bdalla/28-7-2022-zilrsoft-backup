@@ -26,6 +26,8 @@ Vue.use(VueSpinners)
 Vue.component("downloadExcel", JsonExcel);
 Vue.use(html2Pdf)
 
+
+  
 window.Echo = new Echo({
 	broadcaster: 'pusher',
 	key: '09fe6f5a7f92075a7063',
