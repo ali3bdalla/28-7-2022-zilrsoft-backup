@@ -15,7 +15,8 @@
           <slot name="navbarItems"></slot>
         </template>
       </HeaderComponent>
-      <div style="background-color: #f9f9f9; padding-top: 230px">
+      <div style="background-color: #f9f9f9;"> 
+         <!-- padding-top: 230px -->
         <slot></slot>
       </div>
 

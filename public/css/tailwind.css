@@ -826,7 +826,7 @@ video {
   }
 }
 
-.header-section {
+.fixedHeader {
   position: fixed;
   width: 100%;
   background: white;

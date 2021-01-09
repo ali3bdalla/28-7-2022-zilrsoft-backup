@@ -23,17 +23,17 @@
         :button-between="false"
         ref="horizontal"
         style="direction: ltr"
-        class="products-grid"
+        class="products-grid "
       >
         <div v-for="(category, index) in subCategories" :key="category.id">
           <a  :href="`/web/categories/${category.id}`" class=" ">
           <div
            
-            class="bg-white p-4 mx-2 border-2 shadow my-2"
+            class="bg-white p-2 px-3 mx-2 border-2  my-2"
           style="border-color:#d2e8ff !important">
             <!-- {{ category.locale_name }} -->
             <div
-              class=" p-3 text-xl font-bold text-center  md:text-2xl"
+              class=" p-2 text-xl font-bold text-center  md:text-2xl"
              
             >
               {{ category.locale_name }}

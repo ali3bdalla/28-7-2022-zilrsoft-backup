@@ -1,5 +1,32 @@
 <template>
   <header class="header-section">
+    <div class="fixedHeader border-b shadow" :class="{ hidden: !showHiddenNavbar }">
+      <div class="pb-3" style="background: #f9f9f9">
+        <div class="container">
+          <div class="inner-header">
+            <div class="flex items-center justify-between p-0 m-0">
+              <div class="w-3/12">
+                <div class="logo">
+                  <a href="/web">
+                    <img
+                      alt=""
+                      :src="$asset('images/logo_hd.png')"
+                      style="width: 6rem; padding-top: 2px"
+                    />
+                  </a>
+                </div>
+              </div>
+
+              <div class=" w-8/12 md:flex">
+                <header-seach-input-component></header-seach-input-component>
+              </div>
+              <HeaderQuickCartComponent></HeaderQuickCartComponent>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
     <div class="border-b shadow-xs">
       <div class="container">
         <div class="flex items-center justify-between h-12">
@@ -104,7 +131,7 @@
         <nav class="nav-menu mobile-menu">
           <ul style="margin-bottom: 0px">
             <slot name="navbarListItems"></slot>
-<!-- 
+            <!-- 
               <li class="active"><a href="./index.html">Home</a></li>
             <li><a href="./shop.html">Shop</a></li>
             <li>
@@ -141,6 +168,38 @@ import HeaderQuickCartComponent from "./../Cart/HeaderQuickCartComponent";
 
 export default {
   components: { HeaderSeachInputComponent, HeaderQuickCartComponent },
+  data() {
+    return {
+      showHiddenNavbar: false,
+      lastScrollPosition: 0,
+    };
+  },
+  mounted() {
+    window.addEventListener("scroll", this.onScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.onScroll);
+  },
+  methods: {
+    onScroll() {
+      // Get the current scroll position
+      const currentScrollPosition =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+      this.showHiddenNavbar = currentScrollPosition > 65;
+
+        // if()
+        // console.log(currentScrollPosition)
+      // Because of momentum scrolling on mobiles, we shouldn't continue if it is less than zero
+      // if (currentScrollPosition < 0) {
+      //   return;
+      // }
+      // // Here we determine whether we need to show or hide the navbar
+      // this.showNavbar = currentScrollPosition < this.lastScrollPosition;
+      // // Set the current scroll position as the last scroll position
+      // this.lastScrollPosition = currentScrollPosition;
+    },
+  },
 };
 </script>
 
