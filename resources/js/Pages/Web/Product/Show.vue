@@ -245,8 +245,4 @@ export default {
 .specification-table td {
   padding: 5px !important;
 }
-
-.v-hl-container {
-  direction: rtl !important;
-}
 </style>
