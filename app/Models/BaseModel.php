@@ -168,9 +168,11 @@ class BaseModel extends Model
                                 [
                                     ["{$table}.is_available_online", true],
                                 ]
-                            );
+                                );
                         }
                     );
+
+                    
                 }
             }
         }

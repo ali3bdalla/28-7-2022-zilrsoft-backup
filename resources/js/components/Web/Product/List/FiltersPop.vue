@@ -33,7 +33,8 @@
     >
       <div style="overflow-y: scroll; height: 100vh !important">
         <div class="closeBtnClass">
-          <i @click="quiteModel" class="fa fa-close"></i> {{$page.$t.products.filters_for_search }}  {{ searchName }} ({{
+          <i @click="quiteModel" class="fa fa-close"></i>
+          {{ $page.$t.products.filters_for_search }} {{ searchName }} ({{
             selectedValues.length
           }})
         </div>
@@ -51,10 +52,15 @@
         </div>
         <div class="container-fluid filters-layout-modal" v-else>
           <div class="row">
-            <div class="col-md-6" v-for="(filter,index) in filters" :key="filter.id" :class="[index % 2 == 0 ? 'toGrayBg' : 'bg-white']">
+            <div
+              class="col-md-6"
+              v-for="(filter, index) in filters"
+              :key="filter.id"
+              :class="[index % 2 == 0 ? 'toGrayBg' : 'bg-white']"
+            >
               <div class="filter-widget">
                 <h6 class="fw-title">
-                  {{ filter.locale_name }}
+                  {{ filter.filter.locale_name }}
                 </h6>
 
                 <div class="fw-brand-check">
@@ -64,18 +70,20 @@
                       v-for="val in filter.values"
                       :key="val.id"
                     >
-                      <div class="w-full flex items-center gap-2 text-black" style="font-size: 15px;
-color: #575555;">
+                      <div
+                        class="w-full flex items-center gap-2 text-black"
+                        style="font-size: 15px; color: #575555"
+                      >
                         <!-- <label :for="'value_' + val.id"> -->
-                          <input
-                            type="checkbox"
-                            :id="'value_' + val.id"
-                            :checked="selectedValues.includes(val.id)"
-                            @change="toggleValueAvailability(val)"
-                          />
-                          <!-- <span class="checkmark"></span> -->
+                        <input
+                          type="checkbox"
+                          :id="'value_' + val.id"
+                          :checked="selectedValues.includes(val.id)"
+                          @change="toggleItemFilterValue(val.id)"
+                        />
+                        <!-- <span class="checkmark"></span> -->
 
-                          {{ val.locale_name }}
+                        {{ val.locale_name }}
                         <!-- </label> -->
                       </div>
                     </div>
@@ -89,6 +97,7 @@ color: #575555;">
             <div class="col-md-6 col-6">
               <button
                 @click="applyFilters"
+
                 class="btn btn-primary btn-block applyBtn"
               >
                 {{ $page.$t.products.apply }}
@@ -96,10 +105,11 @@ color: #575555;">
             </div>
             <div class="col-md-6 col-6">
               <button
-                @click="resetFilters"
+                @click="clearFilters"
+                :disabled="selectedValues.length == 0"
                 class="btn btn-default btn-block resetBtn"
               >
-                 {{ $page.$t.products.reset }}
+                {{ $page.$t.products.reset }}
               </button>
             </div>
           </div>
@@ -112,7 +122,7 @@ color: #575555;">
 
 <script>
 export default {
-  props: ["categoryId","searchName"],
+  props: ["categoryId", "searchName", "items"],
   name: "ProductListItemComponentFilters",
 
   data: function () {
@@ -133,7 +143,7 @@ export default {
   },
   methods: {
     quiteModel() {
-      this.resetFilters();
+      // this.clearFilters();
       this.closeModel();
     },
     applyFilters() {
@@ -142,11 +152,12 @@ export default {
       });
       this.closeModel();
     },
-    resetFilters() {
-      this.selectedSubCategoryId = 0;
+    clearFilters() {
+      // this.selectedSubCategoryId = 0;
       this.selectedValues = [];
-      this.selectedFilters = [];
-      this.getApiFilters();
+      // this.applyFilters();
+      // this.selectedFilters = [];
+      // this.getApiFilters();
     },
     closeModel() {
       this.$modal.hide("filtersLayoutModal");
@@ -155,11 +166,7 @@ export default {
       this.isSubCategoriesPanelOpen = !this.isSubCategoriesPanelOpen;
     },
     getSelectedCategory() {
-      //  this.selectedSubCategoryId === 0 ?
-      // : this.selectedSubCategoryId
-      //   return  this.categoryId ;
-      return 2;
-      return this.$page.category_id;
+      return this.$page.categoryId;
     },
 
     getSelectedFiltersMap() {
@@ -173,14 +180,10 @@ export default {
     getApiFilters() {
       this.isSendingApiRequest = true;
       let appVm = this;
-      console.log({
-        filters: this.getSelectedFiltersMap(),
-        values: this.getSelectedValues(),
-        category_id: this.getSelectedCategory(),
-      });
       axios
         .post(`/api/web/filters`, {
           filters: this.getSelectedFiltersMap(),
+          items: this.items,
           values: this.getSelectedValues(),
           category_id: this.getSelectedCategory(),
         })
@@ -197,15 +200,15 @@ export default {
     handleGetFiltersResponse(data = []) {
       let tempSelectedValuesArray = [];
       this.filters = data;
-      for (let i = 0; i < data.length; i++) {
-        let filter = data[i];
-        for (let j = 0; j < filter.values.length; j++) {
-          if (this.selectedValues.includes(filter.values[j].id))
-            tempSelectedValuesArray.push(filter.values[j].id);
-        }
-      }
+      // for (let i = 0; i < data.length; i++) {
+      //   let filter = data[i];
+      //   for (let j = 0; j < filter.values.length; j++) {
+      //     if (this.selectedValues.includes(filter.values[j].id))
+      //       tempSelectedValuesArray.push(filter.values[j].id);
+      //   }
+      // }
 
-      this.selectedValues = tempSelectedValuesArray;
+      // this.selectedValues = tempSelectedValuesArray;
     },
 
     async toggleFilterChildrenLayoutAvailability(filter) {
@@ -220,18 +223,16 @@ export default {
       }
     },
 
-    async toggleValueAvailability(value) {
-      let valueId = value.id;
-      if (!this.selectedValues.includes(valueId)) {
-        await this.selectedValues.push(valueId);
+    toggleItemFilterValue(valueId) {
+      let tempSelectedValues = this.selectedValues;
+      if (!tempSelectedValues.includes(valueId)) {
+        tempSelectedValues.push(valueId);
       } else {
-        await this.selectedValues.splice(
-          this.selectedFilters.indexOf(valueId),
-          1
-        );
+        tempSelectedValues.splice(tempSelectedValues.indexOf(valueId), 1);
       }
+      console.log(tempSelectedValues)
 
-      this.getApiFilters();
+      this.selectedValues = tempSelectedValues;
     },
 
     showFiltersLayout() {
@@ -265,9 +266,7 @@ export default {
 </script>
 
 <style >
-
 .filter-widget {
-
   margin-bottom: 10px !important;
 }
 .vm--overlay {
@@ -329,7 +328,7 @@ export default {
   padding-bottom: 0px;
   font-size: 19px;
   font-weight: bold;
-   text-align: right;
+  text-align: right;
 }
 
 .closeBtnClass i {
@@ -341,9 +340,7 @@ export default {
   border-radius: 50%;
   box-shadow: 0px 2px 5px #ddd;
   cursor: pointer;
- 
 }
-
 
 .toGrayBg {
   background: #f9f9f9;

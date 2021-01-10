@@ -1,12 +1,17 @@
 <template>
   <web-layout>
-    <div  class="container" >
+    <div class="container">
+      <div class="breadcrumb-text breadcrumb-text-disable-last" >
+        <!-- <a href="#"><i class="fa fa-home"></i> Home</a> -->
+        <a :href="page.url"  v-for="(page,index) in $page.breadcrumb" :key="index">{{page.title}}</a>
+
+      </div>
       <div
-        class="grid-cols-1 md:grid-cols-2 products-grid "
+        v-if="$page.level == 'main'"
+        class="grid-cols-1 md:grid-cols-2 products-grid"
       >
         <!--bg-gray-200-->
         <a
-          
           :href="`/web/categories/${category.id}`"
           v-for="category in subCategories"
           :key="category.id"
@@ -16,12 +21,38 @@
           ></SubategoryListItemComponent>
         </a>
       </div>
-
-      <div class="mt-10">
+      <vue-horizontal
+        v-else-if="subCategories.length > 0"
+        scroll
+        snap="center"
+        :button="false"
+        :button-between="false"
+        ref="horizontal"
+        style="direction: ltr"
+        class="products-grid mb-2"
+      >
+        <div v-for="(category, index) in subCategories" :key="category.id" class="animate__animated  animate__fadeInRightBig " style=" animation-duration: 8s;">
+          <a
+            :href="`/web/categories/${category.id}`"
+            class="text-gray-800 hover:text-gray-900"
+          >
+            <div
+              class="bg-white p-1 px-2 mx-1 border-2 my-2"
+              style="border-color: #d2e8ff !important"
+            >
+              <!-- {{ category.locale_name }} -->
+              <div class="px-2 text-xl font-bold text-center">
+                {{ category.locale_name }}
+              </div>
+            </div>
+          </a>
+        </div>
+      </vue-horizontal>
+      <div class="mt-2">
         <h1
           class="flex items-center justify-center text-xl font-bold text-center text-gray-600 md:text-2xl"
         >
-          {{$page.$t.products.products}} ({{ $page.category.products_count }})
+          {{ $page.$t.products.products_count }} ({{ $page.category.products_count }})
           <!-- &nbsp; <a
             :href="`/web/items?category_id=${$page.category.id}`"
             class="ml-2 text-sm text-blue-400"
@@ -29,10 +60,7 @@
           > -->
         </h1>
 
-        <div
-
-          class="products-grid" 
-        >
+        <div class="products-grid -mt-2">
           <ProductListItemComponent
             v-for="(item, index) in items"
             :key="item.id"
@@ -49,18 +77,18 @@
 import SubategoryListItemComponent from "./../../../components/Web/Category/SubategoryListItemComponent";
 import ProductListItemComponent from "./../../../components/Web/Product/ProductListItemComponent";
 import WebLayout from "../../../Layouts/WebAppLayout";
+import VueHorizontal from "vue-horizontal";
 
 export default {
   components: {
     WebLayout,
     SubategoryListItemComponent,
     ProductListItemComponent,
+    VueHorizontal,
   },
   data() {
     return {
-      images: [
-
-      ],
+      images: [],
     };
   },
   computed: {

@@ -41,7 +41,7 @@ input {
 .inner-header .advanced-search .input-group button {
     right: auto !important;
     left: 0px;
-    height: 50px;
+
 }
 
 .inner-header .advanced-search .input-group {
@@ -86,4 +86,14 @@ input {
 a:hover {
     text-decoration: none
 }
+
+
+.breadcrumb-text a:after {
+    content: ">" !important;
+}
+
+.breadcrumb-text a:first-child:after {
+    content: "" !important;
+}
+
 @import "./product";

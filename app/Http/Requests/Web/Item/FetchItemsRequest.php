@@ -36,13 +36,6 @@
 			$query = Item::query();
 			
 			
-			
-			
-			
-			if($this->has('name') && $this->filled('name')) {
-				$query->where('name', 'ILIKE', '% ' . $this->input('name') . '%')->orWhere('ar_name', 'ILIKE', '% ' . $this->input('name') . '%');
-			}
-
 			if($this->has('categoryId') && $this->filled('categoryId')) {
 				$category = Category::find($this->input('categoryId'));
 				
@@ -51,6 +44,13 @@
 				}
 				
 			}
+			
+			
+			if($this->has('name') && $this->filled('name')) {
+				$query->where('name', 'ILIKE', '% ' . $this->input('name') . '%')->orWhere('ar_name', 'ILIKE', '% ' . $this->input('name') . '%');
+			}
+
+			
 			return $query->with('category','filters.filter', 'filters.value')->paginate(18);
 		}
 		

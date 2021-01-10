@@ -3,25 +3,63 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category,App\Models\Item;
+use App\Models\Category, App\Models\Item;
 use Inertia\Inertia;
+
 class CategoryController extends Controller
 {
     //
 
-    public function show( Category $category )
+    private $breadcrumb =  [
+        [
+            'title' => 'الرئيسية',
+            "url" => '/web'
+
+        ]
+    ];
+
+    public function show(Category $category)
     {
 
 
-        
-        // return Item::whereIn('category_id',$category->getChildrenIncludeMe())->count();
-        // return $category->getChildrenIncludeMe();
+        // $level = 'main';
+        // if ($category->parent)
+         $level = 'sub';
 
-        return Inertia::render('Web/Category/Show',[
+        $list = [];
+        foreach ($category->children()->get() as $key => $child) {
+            if (Item::whereIn('category_id', $child->getChildrenIncludeMe())->count())
+                $list[] = $child;
+        }
+
+        $this->fillBreadcrumb($category,$category->id);
+
+
+        return Inertia::render('Web/Category/Show', [
             'category' => $category,
-            'subcategories' => $category->children()->get(),
-            'items' => Item::whereIn('category_id',$category->getChildrenIncludeMe())->with('category','filters.filter', 'filters.value')->inRandomOrder()->take(50)->get(),
+            'breadcrumb' => $this->breadcrumb,
+            'level' => $level,
+            'subcategories' => $list,
+            'items' => Item::whereIn('category_id', $category->getChildrenIncludeMe())->with('category', 'filters.filter', 'filters.value')->inRandomOrder()->take(50)->get(),
 
         ]);
+    }
+
+
+    private function fillBreadcrumb($category,$inActiveId)
+    {
+        if ($category->parent)
+            $this->fillBreadcrumb($category->parent,$inActiveId);
+
+
+        // $this->breadcrumb[] = [
+        //     'title' => "/",
+
+        // ];
+        $this->breadcrumb[] = [
+            'title' => $category->locale_name,
+            'url' =>  '/web/categories/' . $category->id
+
+        ];
     }
 }

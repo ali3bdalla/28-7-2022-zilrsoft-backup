@@ -1,10 +1,10 @@
 <template>
-  <div class="mt-3 border border-gray-500 product__list-item md:mt-0" style="border-color:#d2e8ff !important;border-width:3px !important">
+  <div class="mt-3 border border-gray-500 product__list-item md:mt-0 animate__animated  animate__bounceIn" style="border-color:#d2e8ff !important;border-width:3px !important">
     <div class="product__list-item-image-container">
       <img :src="item.item_image_url" class="product__list-item-image" />
     </div>
     <div class="p-2 mt-5 overflow-hidden">
-      <h3 class="product__list-item-category-name product__list-item-category-name__out-of-stock" v-if="item.available_qty <= 0">
+      <h3 class="product__list-item-category-name product__list-item-category-name__out-of-stock" v-if="item.available_qty <= 0 || item.category == null">
         <span > {{$page.$t.products.out_of_stock}} </span>
       </h3>
       <h3 v-else class="product__list-item-category-name">

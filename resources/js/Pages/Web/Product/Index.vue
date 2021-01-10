@@ -1,11 +1,13 @@
 <template>
   <web-layout class="">
+
     <div class="mt-3 container bg-white shadow-lg rounded-lg">
-      <div class="pt-3">
+    
+    <div class="pt-3">
         <div class="flex justify-between items-center gap-6">
-          <!-- md:justify-end -->
 
           <filters-pop
+          :items="items"
             :search-name="$page.name"
             @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated"
             :category-id="$page.categoryId"
@@ -114,6 +116,7 @@ export default {
       this.applyFilterSearch();
     },
     selectedAttributesHasBeenUpdated(event) {
+
       // this.items = [];
       this.filterValues = event.selectedValues;
       this.applyFilterSearch();

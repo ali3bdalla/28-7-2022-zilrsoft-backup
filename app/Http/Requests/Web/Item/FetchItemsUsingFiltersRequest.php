@@ -30,6 +30,7 @@ class FetchItemsUsingFiltersRequest extends FormRequest
         return [
             //
             'filters_values' => 'array',
+            "name" => "nullable|string"
         ];
     }
 
@@ -39,30 +40,57 @@ class FetchItemsUsingFiltersRequest extends FormRequest
 
         $table = (new Item())->getTable();
 
-        if ($this->has('category_id') && $this->filled('category_id')) {
+
+       
+
+        // if ($this->has('category_id') && $this->filled('category_id')) {
+        //     $category = Category::find($this->input('category_id'));
+        //     if (!empty($category)) {
+        //          $query->where('category_id', $this->input('category_id'));
+        //     }
+        // }
+
+        // if ($this->has('name') && $this->filled('name')) {
+        //     $query->where('name', 'iLIKE', '%' . $this->input('name') . '%')->orWhere('ar_name', 'iLIKE', '%' . $this->input('name') . '%');
+        // }
+
+
+
+        if($this->has('category_id') && $this->filled('category_id')) {
             $category = Category::find($this->input('category_id'));
-            if (!empty($category)) {
-                $query =  $query->where('category_id', $this->input('category_id'));
+            
+            if($category) {
+                $query->where('category_id',$this->input('category_id'));
             }
+            
         }
         
-        if ($this->has('name') && $this->filled('name')) {
-            $query = $query->where('name', 'iLIKE', '% ' . $this->input('name') . '%')->orWhere('ar_name', 'iLIKE', '% ' . $this->input('name') . '%');
-        }
+       
 
-        if ($this->has('filters_values')) {
+       
 
-            $filtersValues = $this->input('filters_values');//[100];
+        if ($this->has('filters_values') ) {
+
+            $filtersValues = $this->input('filters_values');
             $result = ItemFilters::whereIn('filter_value', $filtersValues)->pluck('filter_value', 'filter_id');
-            foreach ($result as $filterId => $valueId) {
-                $query =  $query->whereHas('filters', function ($query2) use ($filterId, $valueId) {
-                    $query2->where([['filter_id', $filterId], ['filter_value', $valueId]]);
+
+
+            $filterValuesGroupedByFilters = [];
+
+            foreach ($result  as $key => $value) {
+                $filterValuesGroupedByFilters[$key][] = $value;
+            }
+            foreach ($filterValuesGroupedByFilters as $filterId => $values) {
+                 $query->whereHas('filters', function ($query2) use ($filterId, $values) {
+                    $query2->where([['filter_id', $filterId]])->whereIn('filter_value', $values);
                 });
             }
 
         }
 
-        
+        if($this->has('name') && $this->filled('name')) {
+            $query->where('name', 'ILIKE', '% ' . $this->input('name') . '%')->orWhere('ar_name', 'ILIKE', '% ' . $this->input('name') . '%');
+        }
 
         if($this->has('order_by') && $this->filled('order_by') && Schema::hasColumn($table, $this->input('order_by')))
         {
@@ -72,7 +100,7 @@ class FetchItemsUsingFiltersRequest extends FormRequest
             {
                 $sortDirection = 'desc';
             }
-            $query = $query->orderBy($this->input('order_by'),$sortDirection);
+           $query->orderBy($this->input('order_by'),$sortDirection);
         }
 
         return $query->with('category','filters.filter', 'filters.value')->paginate(18);

@@ -24,6 +24,7 @@
 			
 			Inertia::share(
 				[
+					'active_locale' => app()->getLocale(),
 					'client_logged' => auth('client')->check(),
 					'client' => auth('client')->user(),
 					"app" => config('app'),

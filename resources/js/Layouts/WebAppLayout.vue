@@ -10,8 +10,13 @@
       <circle-spin class="loading" v-show="isLoading"></circle-spin>
     </div>
     <div v-else>
-      <HeaderComponent></HeaderComponent>
-      <div style="background-color: #f9f9f9; padding-top: 200px">
+      <HeaderComponent>
+        <template v-slot:navbarListItems>
+          <slot name="navbarItems"></slot>
+        </template>
+      </HeaderComponent>
+      <div style="background-color: #f9f9f9;"> 
+         <!-- padding-top: 230px -->
         <slot></slot>
       </div>
 
@@ -32,7 +37,7 @@
                   <!-- <li>{{ __('store.footer.address')}}: {{ config('app.msbrshop.address') }}</li> -->
                   <li>
                     {{ $page.$t.footer.phone }}:
-                    {{ $page.app.msbrshop.phone_number  }}
+                    {{ $page.app.msbrshop.phone_number }}
                   </li>
                   <li>
                     {{ $page.$t.footer.email }}:
@@ -78,7 +83,7 @@
             <div class="col-lg-3">
               <div class="newslatter-item">
                 <!-- <h5>{{ __('store.footer.join_news_letter') }}</h5> -->
-                <p>{{ $page.$t.footer.join_news_letter_bio  }}</p>
+                <p>{{ $page.$t.footer.join_news_letter_bio }}</p>
                 <form action="#" class="subscribe-form">
                   <input
                     type="text"
@@ -106,7 +111,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="copyright-text">
-                  {{ $page.$t.footer.copyright_saved  }}
+                  {{ $page.$t.footer.copyright_saved }}
                 </div>
                 <div class="flex items-center justify-center payment-pic">
                   <img
@@ -137,9 +142,9 @@ export default {
     };
   },
 
-  mounted(){
-    this.isLoading = false
-  }
+  mounted() {
+    this.isLoading = false;
+  },
 };
 </script>
 

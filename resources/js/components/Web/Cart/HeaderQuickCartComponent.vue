@@ -131,11 +131,11 @@ export default {
   // },
   watch: {
     cartCount: function (oldValue, NewValue) {
-      this.applyClass = "animate__animated animate__rubberBand  ";
-      // let appVm = this;
-      // setTimeout(function (){
-      //   appVm.applyClass = " ";
-      // },350)
+      this.applyClass = "animate__animated animate__rubberBand ";
+      let appVm = this;
+      setTimeout(function (){
+        appVm.applyClass = " ";
+      },350)
     },
   },
 };

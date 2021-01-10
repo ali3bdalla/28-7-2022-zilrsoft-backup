@@ -1,10 +1,21 @@
 <template>
   <web-layout>
     <div class="container">
+
+      <div class="breadcrumb-text" >
+        <!-- <a href="#"><i class="fa fa-home"></i> Home</a> -->
+        <a :href="page.url"  v-for="(page,index) in $page.breadcrumb" :key="index">{{page.title}}</a>
+
+      </div>
+
+      
       <div class="">
-        <div class=" product__show" style="margin-top: 2.5rem">
-          <div class=" product__show__details">
-            <div class="pt-3 bg-white border" style="border-color: #d2e8ff !important">
+        <div class="product__show" style="margin-top: 2.5rem">
+          <div class="product__show__details">
+            <div
+              class="pt-3 bg-white border"
+              style="border-color: #d2e8ff !important"
+            >
               <h1 class="product__show__details-name">
                 {{ $page.item.locale_name }}
               </h1>
@@ -80,7 +91,10 @@
               <div>
                 <img class="product__show__image" :src="activeImage" />
               </div>
-              <div class="border product__show__images-grid " style="border-color: #d2e8ff !important">
+              <div
+                class="border product__show__images-grid"
+                style="border-color: #d2e8ff !important"
+              >
                 <div
                   v-for="image in $page.item.attachments"
                   :key="image.id"
@@ -101,11 +115,11 @@
           </div>
         </div>
 
-        <div class="mt-3 ">
+        <div class="mt-3">
           <div
             class="visible specification-table product__show__details-specification-table-container md:hidden"
           >
-            <table class=" product__show__details-specification-table">
+            <table class="product__show__details-specification-table">
               <tbody>
                 <tr class="product__show__details-specification-table-raw">
                   <td
@@ -159,16 +173,40 @@
           </div>
         </div>
 
-        <div class="pt-3 mt-32 border-t-2 lg:mt-20" style="border-color: #d2e8ff !important">
-          <h1 class="p-2 -mb-2 text-2xl">منتجات ذات صلة</h1>
-          <div class=" products-grid">
+        <div
+          class="pt-3 mt-32 border-t-2 lg:mt-20"
+          style="border-color: #d2e8ff !important"
+        >
+        <!-- منتجات ذات صلة -->
+          <h3 class=" -mb-2 text-2xl">{{ $page.$t.products.related_products }}</h3>
+
+          <vue-horizontal  snap="center" scroll  :button-between="false"
+              :button="false"
+             ref="horizontal" style="direction:ltr" class="products-grid">
+            <div v-for="(item, index) in $page.relatedItems" :key="item.id"   style="direction:ltr">
+              <ProductListItemComponent
+                class="mx-1 w-64"
+              
+                :index="index"
+                :item="item"
+              ></ProductListItemComponent>
+            </div>
+       
+          </vue-horizontal>
+          <!-- <ProductListItemComponent
+                :index="index"
+                :item="item"
+              ></ProductListItemComponent>
+               -->
+          <!-- 
+          <div class="products-grid">
             <ProductListItemComponent
               v-for="(item, index) in $page.relatedItems"
               :key="item.id"
               :index="index"
               :item="item"
             ></ProductListItemComponent>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -176,12 +214,14 @@
 </template>
 
 <script>
+import VueHorizontal from "vue-horizontal";
 import ProductListItemComponent from "./../../../components/Web/Product/ProductListItemComponent";
 import ProductRatingComponent from "./../../../components/Web/Product/ProductRatingComponent";
 import ToggleCartItemButtonComponent from "./../../../components/Web/Cart/ToggleCartItemButtonComponent";
 import ToggleFavoriteItemButtonComponent from "./../../../components/Web/Cart/ToggleFavoriteItemButtonComponent";
 import WebLayout from "../../../Layouts/WebAppLayout";
 import ImageZoomComponent from "./../../../components/Web/Product/ImageZoomComponent";
+
 export default {
   data() {
     return {
@@ -195,6 +235,7 @@ export default {
     ToggleCartItemButtonComponent,
     ToggleFavoriteItemButtonComponent,
     ImageZoomComponent,
+    VueHorizontal,
   },
   computed: {
     modelNumber() {

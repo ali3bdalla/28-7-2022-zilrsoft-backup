@@ -125,6 +125,7 @@ return [
     'products' => [
         'in' => 'في',
         'products' => 'المنتجات',
+        'products_count' => 'عدد المنتجات',
         'product' => 'منتج',
         'show_all' => "عرض الكل",
         'add_to_cart' => 'أضف الى السلة',
@@ -141,6 +142,7 @@ return [
         'filters' => 'الفلاتر',
         "apply" => "تطبيق",
         "reset" => "مسح",
-        "filters_for_search" => "فلاتر بحث ... "
+        "filters_for_search" => "فلاتر بحث ... ",
+        "related_products" => "منتجات ذات من صلة"
     ]
 ];

@@ -46,3 +46,21 @@
     //bg-web-primary //text-white mb-3 border shadow-lg rounded
   }
 }
+
+
+.cart-table table tr td.qua-col .pro-qty .qtybtn {
+  &:focus {
+    @apply outline-none
+  }
+
+  
+}
+
+.cart-table table tr td.qua-col .pro-qty {
+  height: 33px !important;
+
+}
+
+.cart-table table tr td.qua-col .pro-qty .qtybtn,.cart-table table tr td.qua-col .pro-qty input {
+  line-height: 28px  !important;
+}

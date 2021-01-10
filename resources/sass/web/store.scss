@@ -60,3 +60,9 @@ body {
 .inc_tax {
   font-size: 14px;
 }
+
+.breadcrumb-text-disable-last a:last-child
+{
+    pointer-events: none;
+   cursor: default;
+}
