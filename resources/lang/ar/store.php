@@ -125,6 +125,7 @@ return [
     'products' => [
         'in' => 'في',
         'products' => 'المنتجات',
+        'products_count' => 'عدد المنتجات',
         'product' => 'منتج',
         'show_all' => "عرض الكل",
         'add_to_cart' => 'أضف الى السلة',

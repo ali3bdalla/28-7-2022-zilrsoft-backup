@@ -834,6 +834,19 @@ video {
   top: 0px;
 }
 
+.hero__item {
+  height: 200px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media (min-width: 768px) {
+  .hero__item {
+    height: 500px;
+  }
+}
+
 .product {
   --bg-opacity: 1;
   background-color: #fff;
@@ -11257,6 +11270,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .h-full {
@@ -19407,6 +19426,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .w-1\/2 {
@@ -19652,6 +19677,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .gap-spacing gap {
@@ -19662,6 +19693,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .col-gap-0 {
@@ -19786,6 +19823,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .col-gap-spacing columnGap {
@@ -19796,6 +19839,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .gap-x-0 {
@@ -19920,6 +19969,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .gap-x-spacing columnGap {
@@ -19930,6 +19985,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .row-gap-0 {
@@ -20035,6 +20096,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .row-gap-spacing rowGap {
@@ -20045,6 +20112,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .gap-y-0 {
@@ -20150,6 +20223,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .gap-y-spacing rowGap {
@@ -20160,6 +20239,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .grid-flow-row {
@@ -21287,6 +21372,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .-translate-x-1 {
@@ -21369,6 +21460,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .-translate-x-full {
@@ -21471,6 +21568,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .-translate-y-1 {
@@ -21553,6 +21656,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .-translate-y-full {
@@ -21655,6 +21764,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .hover\:-translate-x-1:hover {
@@ -21737,6 +21852,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .hover\:-translate-x-full:hover {
@@ -21839,6 +21960,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .hover\:-translate-y-1:hover {
@@ -21921,6 +22048,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .hover\:-translate-y-full:hover {
@@ -22023,6 +22156,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .focus\:-translate-x-1:focus {
@@ -22105,6 +22244,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .focus\:-translate-x-full:focus {
@@ -22207,6 +22352,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .focus\:-translate-y-1:focus {
@@ -22289,6 +22440,12 @@ video {
   120: 30rem;
   140: 35rem;
   240: 60rem;
+  280: 70rem;
+  320: 80rem;
+  360: 90rem;
+  400: 100rem;
+  500: 125rem;
+  640: 150rem;
 }
 
 .focus\:-translate-y-full:focus {
@@ -34038,6 +34195,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:h-full {
@@ -42188,6 +42351,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:w-1\/2 {
@@ -42433,6 +42602,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:gap-spacing gap {
@@ -42443,6 +42618,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:col-gap-0 {
@@ -42567,6 +42748,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:col-gap-spacing columnGap {
@@ -42577,6 +42764,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:gap-x-0 {
@@ -42701,6 +42894,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:gap-x-spacing columnGap {
@@ -42711,6 +42910,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:row-gap-0 {
@@ -42816,6 +43021,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:row-gap-spacing rowGap {
@@ -42826,6 +43037,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:gap-y-0 {
@@ -42931,6 +43148,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:gap-y-spacing rowGap {
@@ -42941,6 +43164,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:grid-flow-row {
@@ -44068,6 +44297,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:-translate-x-1 {
@@ -44150,6 +44385,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:-translate-x-full {
@@ -44252,6 +44493,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:-translate-y-1 {
@@ -44334,6 +44581,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:-translate-y-full {
@@ -44436,6 +44689,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:hover\:-translate-x-1:hover {
@@ -44518,6 +44777,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:hover\:-translate-x-full:hover {
@@ -44620,6 +44885,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:hover\:-translate-y-1:hover {
@@ -44702,6 +44973,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:hover\:-translate-y-full:hover {
@@ -44804,6 +45081,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:focus\:-translate-x-1:focus {
@@ -44886,6 +45169,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:focus\:-translate-x-full:focus {
@@ -44988,6 +45277,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:focus\:-translate-y-1:focus {
@@ -45070,6 +45365,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .sm\:focus\:-translate-y-full:focus {
@@ -56735,6 +57036,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:h-full {
@@ -64885,6 +65192,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:w-1\/2 {
@@ -65130,6 +65443,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:gap-spacing gap {
@@ -65140,6 +65459,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:col-gap-0 {
@@ -65264,6 +65589,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:col-gap-spacing columnGap {
@@ -65274,6 +65605,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:gap-x-0 {
@@ -65398,6 +65735,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:gap-x-spacing columnGap {
@@ -65408,6 +65751,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:row-gap-0 {
@@ -65513,6 +65862,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:row-gap-spacing rowGap {
@@ -65523,6 +65878,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:gap-y-0 {
@@ -65628,6 +65989,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:gap-y-spacing rowGap {
@@ -65638,6 +66005,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:grid-flow-row {
@@ -66765,6 +67138,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:-translate-x-1 {
@@ -66847,6 +67226,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:-translate-x-full {
@@ -66949,6 +67334,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:-translate-y-1 {
@@ -67031,6 +67422,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:-translate-y-full {
@@ -67133,6 +67530,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:hover\:-translate-x-1:hover {
@@ -67215,6 +67618,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:hover\:-translate-x-full:hover {
@@ -67317,6 +67726,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:hover\:-translate-y-1:hover {
@@ -67399,6 +67814,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:hover\:-translate-y-full:hover {
@@ -67501,6 +67922,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:focus\:-translate-x-1:focus {
@@ -67583,6 +68010,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:focus\:-translate-x-full:focus {
@@ -67685,6 +68118,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:focus\:-translate-y-1:focus {
@@ -67767,6 +68206,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .md\:focus\:-translate-y-full:focus {
@@ -79432,6 +79877,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:h-full {
@@ -87582,6 +88033,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:w-1\/2 {
@@ -87827,6 +88284,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:gap-spacing gap {
@@ -87837,6 +88300,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:col-gap-0 {
@@ -87961,6 +88430,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:col-gap-spacing columnGap {
@@ -87971,6 +88446,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:gap-x-0 {
@@ -88095,6 +88576,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:gap-x-spacing columnGap {
@@ -88105,6 +88592,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:row-gap-0 {
@@ -88210,6 +88703,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:row-gap-spacing rowGap {
@@ -88220,6 +88719,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:gap-y-0 {
@@ -88325,6 +88830,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:gap-y-spacing rowGap {
@@ -88335,6 +88846,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:grid-flow-row {
@@ -89462,6 +89979,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:-translate-x-1 {
@@ -89544,6 +90067,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:-translate-x-full {
@@ -89646,6 +90175,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:-translate-y-1 {
@@ -89728,6 +90263,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:-translate-y-full {
@@ -89830,6 +90371,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:hover\:-translate-x-1:hover {
@@ -89912,6 +90459,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:hover\:-translate-x-full:hover {
@@ -90014,6 +90567,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:hover\:-translate-y-1:hover {
@@ -90096,6 +90655,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:hover\:-translate-y-full:hover {
@@ -90198,6 +90763,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:focus\:-translate-x-1:focus {
@@ -90280,6 +90851,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:focus\:-translate-x-full:focus {
@@ -90382,6 +90959,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:focus\:-translate-y-1:focus {
@@ -90464,6 +91047,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .lg\:focus\:-translate-y-full:focus {
@@ -102129,6 +102718,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:h-full {
@@ -110279,6 +110874,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:w-1\/2 {
@@ -110524,6 +111125,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:gap-spacing gap {
@@ -110534,6 +111141,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:col-gap-0 {
@@ -110658,6 +111271,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:col-gap-spacing columnGap {
@@ -110668,6 +111287,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:gap-x-0 {
@@ -110792,6 +111417,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:gap-x-spacing columnGap {
@@ -110802,6 +111433,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:row-gap-0 {
@@ -110907,6 +111544,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:row-gap-spacing rowGap {
@@ -110917,6 +111560,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:gap-y-0 {
@@ -111022,6 +111671,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:gap-y-spacing rowGap {
@@ -111032,6 +111687,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:grid-flow-row {
@@ -112159,6 +112820,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:-translate-x-1 {
@@ -112241,6 +112908,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:-translate-x-full {
@@ -112343,6 +113016,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:-translate-y-1 {
@@ -112425,6 +113104,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:-translate-y-full {
@@ -112527,6 +113212,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:hover\:-translate-x-1:hover {
@@ -112609,6 +113300,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:hover\:-translate-x-full:hover {
@@ -112711,6 +113408,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:hover\:-translate-y-1:hover {
@@ -112793,6 +113496,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:hover\:-translate-y-full:hover {
@@ -112895,6 +113604,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:focus\:-translate-x-1:focus {
@@ -112977,6 +113692,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:focus\:-translate-x-full:focus {
@@ -113079,6 +113800,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:focus\:-translate-y-1:focus {
@@ -113161,6 +113888,12 @@ video {
     120: 30rem;
     140: 35rem;
     240: 60rem;
+    280: 70rem;
+    320: 80rem;
+    360: 90rem;
+    400: 100rem;
+    500: 125rem;
+    640: 150rem;
   }
 
   .xl\:focus\:-translate-y-full:focus {

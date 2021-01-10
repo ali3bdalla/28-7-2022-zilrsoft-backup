@@ -21,6 +21,7 @@ class HomeController extends Controller
 
 
 		return Inertia::render('Web/Home/Index', [
+			'products_count' => Item::count(),
 			'items' => Item::with('category', 'filters.filter', 'filters.value')->inRandomOrder()->take(150)->get(),
 		]);
 	}

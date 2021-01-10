@@ -1,6 +1,14 @@
 <template>
   <web-layout>
     <div class="container">
+
+      <div class="breadcrumb-text" >
+        <!-- <a href="#"><i class="fa fa-home"></i> Home</a> -->
+        <a :href="page.url"  v-for="(page,index) in $page.breadcrumb" :key="index">{{page.title}}</a>
+
+      </div>
+
+      
       <div class="">
         <div class="product__show" style="margin-top: 2.5rem">
           <div class="product__show__details">
@@ -175,9 +183,10 @@
           <vue-horizontal  snap="center" scroll  :button-between="false"
               :button="false"
              ref="horizontal" style="direction:ltr" class="products-grid">
-            <div v-for="(item, index) in $page.relatedItems" :key="item.id">
+            <div v-for="(item, index) in $page.relatedItems" :key="item.id"   style="direction:ltr">
               <ProductListItemComponent
-                class="mx-1"
+                class="mx-1 w-64"
+              
                 :index="index"
                 :item="item"
               ></ProductListItemComponent>

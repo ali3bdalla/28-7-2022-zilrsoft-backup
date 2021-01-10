@@ -17,9 +17,9 @@
                 </div>
               </div>
 
-              <div class=" w-8/12 md:flex">
+              <!-- <div class=" w-8/12 md:flex">
                 <header-seach-input-component></header-seach-input-component>
-              </div>
+              </div> -->
               <HeaderQuickCartComponent></HeaderQuickCartComponent>
             </div>
           </div>
