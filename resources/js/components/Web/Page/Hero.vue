@@ -55,8 +55,5 @@ export default {
 </script>
 
 <style>
-.v-hl-svg {
-  background: rgba(0, 0, 0, 0.5) !important;
-  color: white !important;
-}
+
 </style>

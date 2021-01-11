@@ -66,3 +66,31 @@ body {
     pointer-events: none;
    cursor: default;
 }
+
+
+.breadcrumb-text {
+  padding: 6px 0 !important; 
+}
+
+.breadcrumb-text a {
+  margin-right: 15px;
+  font-size: 13px;
+  color: #777777;
+}
+
+
+.breadcrumb-text-disable-last a:first-child
+{
+  margin-right: 0px;
+}
+
+
+.breadcrumb-text a::after {
+  right: -10px !important;
+  font-size: 12px;
+}
+
+.v-hl-svg {
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: white !important;
+}

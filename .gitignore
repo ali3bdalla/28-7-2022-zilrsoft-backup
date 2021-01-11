@@ -21,3 +21,7 @@ yarn-error.log
 .DS_store
 .env.testing
 
+
+public/js/online-store.js
+
+public/css/store.css

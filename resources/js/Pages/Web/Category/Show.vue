@@ -23,25 +23,25 @@
       </div>
       <vue-horizontal
         v-else-if="subCategories.length > 0"
-        scroll
         snap="center"
-        :button="false"
+        :button="true"
         :button-between="false"
         ref="horizontal"
         style="direction: ltr"
-        class="products-grid mb-2"
+        class="products-grid mb-2  rounded"
       >
-        <div v-for="(category, index) in subCategories" :key="category.id" class="animate__animated  animate__fadeInRightBig " style=" animation-duration: 8s;">
+      <!-- animate__animated  animate__fadeInRightBig -->
+      <!-- class=" " style=" animation-duration: 8s;" -->
+        <div v-for="(category, index) in subCategories" :key="category.id" >
           <a
             :href="`/web/categories/${category.id}`"
             class="text-gray-800 hover:text-gray-900"
           >
+          <!-- px-2 mx-1  my-2 -->
             <div
-              class="bg-white p-1 px-2 mx-1 border-2 my-2"
-              style="border-color: #d2e8ff !important"
+              class=" py-2 px-3 mx-2 border bg-white rounded-full " style="border-color:rgb(249, 249, 249)"
             >
-              <!-- {{ category.locale_name }} -->
-              <div class="px-2 text-xl font-bold text-center">
+              <div class="font-bold text-center">
                 {{ category.locale_name }}
               </div>
             </div>
@@ -53,11 +53,6 @@
           class="flex items-center justify-center text-xl font-bold text-center text-gray-600 md:text-2xl"
         >
           {{ $page.$t.products.products_count }} ({{ $page.category.products_count }})
-          <!-- &nbsp; <a
-            :href="`/web/items?category_id=${$page.category.id}`"
-            class="ml-2 text-sm text-blue-400"
-            >{{$page.$t.products.show_all}}</a
-          > -->
         </h1>
 
         <div class="products-grid -mt-2">
@@ -117,4 +112,5 @@ export default {
 </script>
 
 <style>
+
 </style>>

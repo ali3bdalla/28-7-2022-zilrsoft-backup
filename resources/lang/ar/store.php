@@ -123,7 +123,7 @@ return [
     ],
     //here
     'products' => [
-        'in' => 'في',
+        'in' => 'في فئة',
         'products' => 'المنتجات',
         'products_count' => 'عدد المنتجات',
         'product' => 'منتج',
@@ -143,6 +143,7 @@ return [
         "apply" => "تطبيق",
         "reset" => "مسح",
         "filters_for_search" => "فلاتر بحث ... ",
+        "barcode" => "الباركود",
         "related_products" => "منتجات ذات من صلة"
     ]
 ];

@@ -98,7 +98,7 @@
               <button
                 @click="applyFilters"
 
-                class="btn btn-primary btn-block applyBtn"
+                class="btn btn-primary  applyBtn px-5"
               >
                 {{ $page.$t.products.apply }}
               </button>
@@ -107,7 +107,7 @@
               <button
                 @click="clearFilters"
                 :disabled="selectedValues.length == 0"
-                class="btn btn-default btn-block resetBtn"
+                class="btn btn-default  resetBtn bg-web-primary px-5"
               >
                 {{ $page.$t.products.reset }}
               </button>
@@ -289,13 +289,13 @@ export default {
 }
 
 .applyBtn {
-  height: 55px;
+  height: 42px;
   border-radius: 17px;
   box-shadow: 1px 5px 7px #c1baba;
 }
 
 .resetBtn {
-  height: 55px;
+  height: 42px;
   border-radius: 17px;
   box-shadow: 2px 1px 7px #c1baba;
 }

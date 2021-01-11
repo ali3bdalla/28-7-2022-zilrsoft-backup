@@ -1,14 +1,16 @@
 <template>
   <web-layout>
     <div class="container">
-
-      <div class="breadcrumb-text" >
+      <div class="breadcrumb-text">
         <!-- <a href="#"><i class="fa fa-home"></i> Home</a> -->
-        <a :href="page.url"  v-for="(page,index) in $page.breadcrumb" :key="index">{{page.title}}</a>
-
+        <a
+          :href="page.url"
+          v-for="(page, index) in $page.breadcrumb"
+          :key="index"
+          >{{ page.title }}</a
+        >
       </div>
 
-      
       <div class="">
         <div class="product__show" style="margin-top: 2.5rem">
           <div class="product__show__details">
@@ -81,6 +83,19 @@
                       {{ filter.value.locale_name }}
                     </td>
                   </tr>
+
+                  <tr class="product__show__details-specification-table-raw">
+                  <td
+                    class="product__show__details-specification-table-title-cell"
+                  >
+                    {{ $page.$t.products.barcode }}
+                  </td>
+                  <td
+                    class="product__show__details-specification-table-value-cell"
+                  >
+                    {{ $page.item.barcode }}
+                  </td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -145,6 +160,18 @@
                     {{ filter.value.locale_name }}
                   </td>
                 </tr>
+                <tr class="product__show__details-specification-table-raw">
+                  <td
+                    class="product__show__details-specification-table-title-cell"
+                  >
+                    {{ $page.$t.products.barcode }}
+                  </td>
+                  <td
+                    class="product__show__details-specification-table-value-cell"
+                  >
+                    {{ $page.item.barcode }}
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -177,21 +204,31 @@
           class="pt-3 mt-32 border-t-2 lg:mt-20"
           style="border-color: #d2e8ff !important"
         >
-        <!-- منتجات ذات صلة -->
-          <h3 class=" -mb-2 text-2xl">{{ $page.$t.products.related_products }}</h3>
+          <!-- منتجات ذات صلة -->
+          <h3 class="-mb-2 text-2xl">
+            {{ $page.$t.products.related_products }}
+          </h3>
 
-          <vue-horizontal  snap="center" scroll  :button-between="false"
-              :button="false"
-             ref="horizontal" style="direction:ltr" class="products-grid">
-            <div v-for="(item, index) in $page.relatedItems" :key="item.id"   style="direction:ltr">
+          <vue-horizontal
+            snap="center"
+            scroll
+            :button-between="false"
+            :button="false"
+            ref="horizontal"
+            style="direction: ltr"
+            class="products-grid"
+          >
+            <div
+              v-for="(item, index) in $page.relatedItems"
+              :key="item.id"
+              style="direction: ltr"
+            >
               <ProductListItemComponent
                 class="mx-1 w-64"
-              
                 :index="index"
                 :item="item"
               ></ProductListItemComponent>
             </div>
-       
           </vue-horizontal>
           <!-- <ProductListItemComponent
                 :index="index"
