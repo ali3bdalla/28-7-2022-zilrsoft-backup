@@ -5,8 +5,8 @@ import VModal from 'vue-js-modal'
 window.Pusher = require('pusher-js');
 import 'vue-spinners/dist/vue-spinners.css'
 import VueSpinners from 'vue-spinners/dist/vue-spinners.common'
-import JsonExcel from "vue-json-excel";
-import html2Pdf from './pdf';
+// import JsonExcel from "vue-json-excel";
+// import html2Pdf from './pdf';
 Vue.prototype.$currency = currency;
 if (window._translations) Vue.prototype.$translator = JSON.parse(window._translations);
 
@@ -23,8 +23,8 @@ Vue.prototype.$sound = {
 };
 Vue.use(VModal);
 Vue.use(VueSpinners)
-Vue.component("downloadExcel", JsonExcel);
-Vue.use(html2Pdf)
+// Vue.component("downloadExcel", JsonExcel);
+// Vue.use(html2Pdf)
 
 
   
