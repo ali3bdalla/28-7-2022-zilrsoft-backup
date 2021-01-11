@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Schema;
 
 class FetchItemsUsingFiltersRequest extends FormRequest
 {
+
+    use ItemSearch;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -74,12 +76,13 @@ class FetchItemsUsingFiltersRequest extends FormRequest
             }
         }
 
-        $searchArray = explode(' ', $this->input('name'));
-        foreach ($searchArray as $searchKey) {
-            $query->where(function ($subQuery) use ($searchKey) {
-                return $subQuery->where('ar_name', 'ILIKE', '%' . $searchKey . '%')->orWhere('name', 'ILIKE', '%' . $searchKey . '%');
-            });
-        }
+        $query  = $this->apply($query);
+        // $searchArray = explode(' ', $this->input('name'));
+        // foreach ($searchArray as $searchKey) {
+        //     $query->where(function ($subQuery) use ($searchKey) {
+        //         return $subQuery->where('ar_name', 'ILIKE', '%' . $searchKey . '%')->orWhere('name', 'ILIKE', '%' . $searchKey . '%');
+        //     });
+        // }
 
         if ($this->has('order_by') && $this->filled('order_by') && Schema::hasColumn($table, $this->input('order_by'))) {
             $sortDirection = $this->input('order_direction');
