@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Jobs\Accounting\Chart\CreateAmericanChartOfAccountsJob;
 use App\Models\Manager;
 use App\Models\Organization;
 use App\Models\User;
@@ -34,6 +35,9 @@ abstract class TestCase extends BaseTestCase
         $manager = $this->managerProvider($organization->id);
         $organization->fill(['supervisor_id' => $manager->user_id]);
         $organization->save();
+
+        dispatch_now(new CreateAmericanChartOfAccountsJob($organization, $manager));
+
         return $manager;
     }
 

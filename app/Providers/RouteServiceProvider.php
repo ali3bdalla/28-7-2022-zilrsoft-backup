@@ -119,7 +119,7 @@ class RouteServiceProvider extends ServiceProvider
             return Invoice::where([
                 ['id', $value],
             ])
-                ->whereIn('invoice_type', ['return_purchase', 'purchase', 'beginning_inventory'])
+                ->whereIn('invoice_type', ['return_purchase', 'purchase', 'beginning_inventory','inventory_adjustment'])
                 ->withoutGlobalScope('manager')->first();
         });
 

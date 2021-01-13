@@ -57,7 +57,7 @@ class UpdateAccountBalanceJob implements ShouldQueue
         $account = Account::where('id', $this->transaction->account_id)->withTrashed()->first();
         $createdAt = Carbon::parse($this->transaction->created_at);
 
-        $snapshot = $account->snapshots()->whereDate('created_at', $createdAt)->first();
+        $snapshot = $account->snapshots()->withoutGlobalScopes(["manager","accountingPeriod"])->whereDate('created_at', $createdAt)->first();
 
         if ($snapshot == null) {
             $snapshot = $account->snapshots()->create(

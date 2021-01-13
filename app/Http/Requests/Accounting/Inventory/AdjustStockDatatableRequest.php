@@ -32,7 +32,7 @@
 		public function data()
 		{
 			
-			$query = Invoice::where('invoice_type','stock_adjust')->with('creator','items');
+			$query = Invoice::where('invoice_type','inventory_adjustment');
 			
 			if ($this->has('id') && $this->filled('id')){
 				$query = $query->where('id',$this->id);
@@ -52,9 +52,9 @@
 			
 			if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval($this->input("itemsPerPage")
 				) >= 1 && intval($this->input('itemsPerPage')) <= 100){
-				return $query->paginate(intval($this->input('itemsPerPage')));
+				return $query->with('creator','items')->paginate(intval($this->input('itemsPerPage')));
 			}else{
-				return $query->paginate(20);
+				return $query->with('creator','items')->paginate(20);
 				
 			}
 			

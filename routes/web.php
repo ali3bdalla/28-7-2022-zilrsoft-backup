@@ -52,7 +52,6 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
                         Route::get('/confirm_sign_up', 'AuthController@confirmSignUpPage')->name('confirm_sign_up');
                     }
                 );
-
             }
         );
 
@@ -113,28 +112,29 @@ Route::middleware('manager_guest')->group(
 
 
 Route::group(
-    ['prefix' => 'images_upload'], function () {
-    Inertia::setRootView('images_upload');
+    ['prefix' => 'images_upload'],
+    function () {
+        Inertia::setRootView('images_upload');
 
-    Route::get('/auth', "ImagesUploadController@auth");
-    Route::post('/auth', "ImagesUploadController@grantAuthorization");
+        Route::get('/auth', "ImagesUploadController@auth");
+        Route::post('/auth', "ImagesUploadController@grantAuthorization");
 
-    Route::group(
-        ['middleware' => ImagesUploadMiddleware::class], function () {
-        Route::get('/', "ImagesUploadController@index");
-        Route::get('/redirect', "ImagesUploadController@redirectInertia");
-        Route::get('/{item}', "ImagesUploadController@show");
+        Route::group(
+            ['middleware' => ImagesUploadMiddleware::class],
+            function () {
+                Route::get('/', "ImagesUploadController@index");
+                Route::get('/redirect', "ImagesUploadController@redirectInertia");
+                Route::get('/{item}', "ImagesUploadController@show");
+            }
+        );
     }
-    );
-
-}
 );
 
 
 Route::middleware('auth')->group(
     function () {
 
-       
+
         Route::get('/dashboard', 'HomeController@index')->name('dashboard.index');
         Route::post('/logout', 'HomeController@logout')->name('logout');
         Route::resource('sales', 'SaleController');
@@ -162,13 +162,11 @@ Route::middleware('auth')->group(
                 );
                 Route::prefix('{account}')->name('show.')->group(
                     function () {
-//							Route::get('/stock', 'AccountController@showStock')->name('stock');
+                        //							Route::get('/stock', 'AccountController@showStock')->name('stock');
                         Route::get('/stock/{item}', 'AccountController@showItem')->name('item');
                         Route::get('/identity/{identity}', 'AccountController@showIdentity')->name('identity');
-
                     }
                 );
-
             }
         );
         Route::resource('vouchers', 'VoucherController');
@@ -206,17 +204,20 @@ Route::middleware('auth')->group(
         );
 
         Route::resource('entities', 'EntityController');
-        Route::prefix('close_year')->group(function(){
- 
-            Route::get('init_organizatinon_config',"BackEnd\Accounting\PeriodController@initOrganizationConfiguration");
-            Route::get('start_normalizing_incomes_expenses',"BackEnd\Accounting\PeriodController@startNormalizingIncomesExpenses");
-            Route::get('normalizing_incomes_expenses_status',"BackEnd\Accounting\PeriodController@normalizingIncomesExpensesStatus");
+        Route::prefix('close_year')->group(function () {
 
+            Route::get('init_organizatinon_config', "BackEnd\Accounting\PeriodController@initOrganizationConfiguration");
+            Route::get('start_normalizing_incomes_expenses', "BackEnd\Accounting\PeriodController@startNormalizingIncomesExpenses");
+            Route::get('normalizing_incomes_expenses_status', "BackEnd\Accounting\PeriodController@normalizingIncomesExpensesStatus");
         });
         Route::prefix('inventory')->name('inventory.')->group(
             function () {
                 Route::get('/', 'InventoryController@index')->name('index');
                 Route::get('/create', 'InventoryController@create')->name('create');
+                Route::prefix('adjustments')->name('adjustments.')->group(function () {
+                    Route::get('/', 'InventoryController@adjustements')->name('index');
+                    Route::get('/create', 'InventoryController@createAdjustement')->name('create');
+                });
             }
         );
         Route::prefix('daily')->name('daily.')->group(
@@ -240,7 +241,6 @@ Route::middleware('auth')->group(
                         );
                     }
                 );
-
             }
         );
 
@@ -251,7 +251,6 @@ Route::middleware('auth')->group(
                 Route::get('/create', 'FilterController@create')->name('create');
                 Route::get('/{filter}', 'FilterController@show')->name('show');
                 Route::get('/{filter}/edit', 'FilterController@edit')->name('edit');
-
             }
         );
         Route::prefix('/accounting')->name('accounting.')->namespace('Accounting')->group(
@@ -277,10 +276,7 @@ Route::middleware('auth')->group(
                         Route::get('vouchers', 'VoucherController@datatable')->name('vouchers.datatable');
                     }
                 );
-
             }
         );
-
-
     }
 );

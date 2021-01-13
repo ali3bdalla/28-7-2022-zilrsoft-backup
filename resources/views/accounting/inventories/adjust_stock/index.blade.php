@@ -3,7 +3,7 @@
 @section('title',__('sidebar.adjust_stock'))
 @section('buttons')
     @can("manage inventory")
-        <a href="{{route('accounting.inventories.adjust_stock.create')}}" class="btn btn-custom-primary">
+        <a href="{{route('inventory.adjustments.create')}}" class="btn btn-custom-primary">
             <i class="fa fa-plus-circle"></i> اضافة بيان
         </a>
     @endcan
