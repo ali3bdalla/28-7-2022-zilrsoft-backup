@@ -31,16 +31,16 @@ build:
     - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
 
 
-    # Install Node dependencies
-    - npm install
-    # ci --cache .npm --prefer-offline --quiet
-
     # Copy over testing configuration
     - cp .env.example .env
 
     # Generate an application key, re-cache.
     - php artisan key:generate
     - php artisan config:cache
+
+    # Install Node dependencies
+    - npm install
+    # ci --cache .npm --prefer-offline --quiet
 
     # Run npm build
     - npm run dev
@@ -68,7 +68,6 @@ test:
     - php artisan db:seed --env=testing
     # recreate cache
     - php artisan config:cache 
-
     # run laravel tests
     - php vendor/bin/phpunit --coverage-text --colors=never
     # run frontend tests
@@ -89,7 +88,7 @@ deploy_dev:
   environment:
     name: deployer
     url: https://dev.zilrsoft.com 
-  when: always  
+  when:  on_success
   only:
     - development  
 
@@ -107,6 +106,6 @@ deploy_prod:
   environment:
     name: deployer
     url: https://zilrsoft.com 
-  when: always  
+  when:  on_success
   only:
     - master  
