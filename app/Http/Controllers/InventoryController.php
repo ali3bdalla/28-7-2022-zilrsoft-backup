@@ -54,4 +54,20 @@
 			
 		}
 		
+
+		public function adjustements()
+		{
+			return view('accounting.inventories.adjust_stock.index');
+		}
+
+		public function createAdjustement()
+		{
+			$user = User::where([
+				['user_slug','beginning-inventory'],
+				['is_system_user',true]
+			])->first();
+			
+			$creator = auth()->user()->with('department','branch')->first();
+			return view('accounting.inventories.adjust_stock.create',compact('user','creator'));
+		}
 	}

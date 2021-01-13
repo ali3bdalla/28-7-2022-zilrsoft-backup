@@ -24,7 +24,7 @@ class CreatePurchasesTable extends Migration
             $table->string("vendor_invoice_id")->nullable();
             $table->boolean("is_draft")->default(false);
             // ,'pending_purchase'
-            $table->enum("invoice_type",['purchase','return_purchase','beginning_inventory'])->nullable();
+            $table->enum("invoice_type",['purchase','return_purchase','beginning_inventory','inventory_adjustment'])->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -20,7 +20,7 @@ class CreateInvoicesTable extends Migration
             $table->integer('department_id');
             $table->integer('creator_id');
             $table->boolean('is_draft')->default(false);
-            $table->enum('invoice_type', ['purchase', "return_purchase", "sale", "return_sale",'beginning_inventory','stock_adjustment']);
+            $table->enum('invoice_type', ['purchase', "return_purchase", "sale", "return_sale",'beginning_inventory','inventory_adjustment']);
             $table->float("discount", 20, 8)->nullable();
             $table->float("total", 20, 8)->default(0);
             $table->float("subtotal", 20, 8)->default(0);

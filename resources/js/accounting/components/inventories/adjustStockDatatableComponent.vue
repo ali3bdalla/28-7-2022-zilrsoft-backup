@@ -3,34 +3,7 @@
         <div class="table-posistion">
 
             <div class="table-filters">
-                <!--                <div @click="openOrCloseSearchPanel" class="text-right search-text" style="cursor: pointer;"><i-->
-                <!--                        class="fa fa-search-plus"></i>-->
-                <!--                    {{app.trans.search_by_filters }}-->
-                <!--                </div>-->
-
-                <!--                <div v-show="isOpenSearchPanel">-->
-                <!--                    <div class="row">-->
-                <!--                        <div class="col-md-4">-->
-                <!--                            <VueCtkDateTimePicker-->
-                <!--                                    :behaviour="{time: {nearestIfDisabled: true}}"-->
-                <!--                                    :custom-shortcuts="customDateShortcuts" :label="app.trans.created_at"-->
-                <!--                                    :only-date="true"-->
-                <!--                                    :range="true" locale="en" v-model="date_range"/>-->
-                <!--                        </div>-->
-
-                <!--                        <div class="col-md-4">-->
-                <!--                            <input :placeholder="app.trans.id" @keyup="pushServerRequest" class="form-control"-->
-                <!--                                   type="text" v-model="filters.id">-->
-                <!--                        </div>-->
-                <!--                        <div class="col-md-4">-->
-                <!--                            <input :placeholder="app.trans.name" @keyup="pushServerRequest" class="form-control"-->
-                <!--                                   type="text" v-model="filters.global_name">-->
-                <!--                        </div>-->
-
-                <!--                    </div>-->
-
-
-                <!--                </div>-->
+        
             </div>
             <div class="table-multi-task-buttons" v-show="showMultiTaskButtons">
 
@@ -39,16 +12,14 @@
                 <table class="table table-striped table-bordered" width="100%">
                     <thead>
                     <tr>
-                        <th width="2%"><input @click="checkAndUncheckAllRowsCheckBoxChanged" type="checkbox"/></th>
+                        <!-- <th width="2%"><input @click="checkAndUncheckAllRowsCheckBoxChanged" type="checkbox"/></th> -->
                         <th :class="{'orderBy':orderBy=='id'}" @click="setOrderByColumn('id')" width="4%">
                             {{ app.trans.id }}
                         </th>
                         <th :class="{'orderBy':orderBy=='ar_name'}" @click="setOrderByColumn('id')">
                            بيان الجرد
                         </th>
-<!--                        <th :class="{'orderBy':orderBy=='name'}" @click="setOrderByColumn('total')">-->
-<!--                            {{ app.trans.total }}-->
-<!--                        </th>-->
+
 
                         <th :class="{'orderBy':orderBy=='creator_id'}" @click="setOrderByColumn('creator_id')"
                             width="20%">
@@ -64,12 +35,12 @@
                     </thead>
                     <tbody>
                     <tr :key="row.id" v-for="(row,index) in table_rows">
-                        <td><input @change="rowSelectCheckBoxUpdated(row)" type="checkbox"
+                        <!-- <td><input @change="rowSelectCheckBoxUpdated(row)" type="checkbox"
                                    v-model="row.tb_row_selected"/>
-                        </td>
+                        </td> -->
                         <td v-text="index+1"></td>
 
-                        <td class="text-center" v-text="row.title"></td>
+                        <td class="text-center" v-text="row.invoice_number"></td>
 <!--                        <td class="text-center" v-text="row.total"></td>-->
                         <td class="text-center" v-text="row.creator.locale_name"></td>
                         <td v-text="row.created_at"></td>
@@ -85,11 +56,11 @@
                                 </button>
                                 <ul :aria-labelledby="'dropDownOptions'
                                 + row.id" class="dropdown-menu CustomDropDownOptions">
-                                    <li><a :href="baseUrl + row.id "
+                                    <li><a :href="'/purchases/' + row.id "
                                            v-text="app.trans.view"></a></li>
 
-                                    <li v-if="isDeleted==true && canManage"><a :href="baseUrl + row.id + '/edit'"
-                                    > تسوية المخزون</a></li>
+                                    <!-- <li v-if="isDeleted==true && canManage"><a :href="baseUrl + row.id + '/edit'"
+                                    > تسوية المخزون</a></li> -->
 
 
                                 </ul>
@@ -176,7 +147,7 @@
         },
         created() {
             this.initUi();
-            this.pushServerRequest();
+            this.pushServerReques();
 
             // console.log(this.isDeleted)
         },
@@ -184,8 +155,9 @@
 
 
             initUi() {
-                this.requestUrl = this.app.datatableBaseUrl + 'adjust_stock_inventories';
-                this.baseUrl = "/accounting/inventories/adjust_stock/";
+                // this.requestUrl = this.app.datatableBaseUrl + 'adjust_stock_inventories';
+                this.requestUrl = "/api/inventory/adjustments/";
+                this.baseUrl = "/inventory/adjustments/";
                 this.customDateShortcuts = [
                     {key: 'thisWeek', label: this.app.datetimetrans.thisWeek, value: 'isoWeek'},
                     {key: 'lastWeek', label: this.app.datetimetrans.lastWeek, value: '-isoWeek'},
@@ -197,8 +169,7 @@
                     {key: 'lastYear', label: this.app.datetimetrans.lastYear, value: '-year'}
                 ];
             },
-            pushServerRequest: function () {
-
+            pushServerReques() {
                 this.isLoading = true;
                 var appVm = this;
                 var params = appVm.filters;
@@ -206,13 +177,12 @@
                 params.itemsPerPage = this.itemsPerPage;
                 params.orderType = this.orderType;
                 params.isDeleted = this.isDeleted;
-
-                console.log(params);
                 axios.get(this.requestUrl, {
-                    params: params
+                    // params: params
                 }).then(function (response) {
-                    appVm.table_rows = response.data.data;
-                    appVm.isLoading = false;
+                    console.log(response.data);
+                appVm.table_rows = response.data.data;
+                
                     appVm.paginationResponseData = response.data;
                 }).catch(function (error) {
                     alert(error)
@@ -220,6 +190,8 @@
                     appVm.isLoading = false;
                 });
             },
+
+
 
 
             setOrderByColumn(column_name) {

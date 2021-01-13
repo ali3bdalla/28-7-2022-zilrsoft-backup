@@ -40,7 +40,7 @@
 		{
 			
 			$availableQty = $this->invoiceItem->item->available_qty;
-			if(in_array($this->invoiceItem->invoice_type, ['purchase', 'return_sale', 'beginning_inventory']) && !$this->reverse) {
+			if(in_array($this->invoiceItem->invoice_type, ['purchase', 'return_sale', 'beginning_inventory','inventory_adjustment']) && !$this->reverse) {
 				$availableQtyAfterInvoiceItem = (int)$availableQty + (int)$this->invoiceItem->qty;
 			} else {
 				$availableQtyAfterInvoiceItem = (int)$availableQty - (int)$this->invoiceItem->qty;
