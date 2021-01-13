@@ -22,6 +22,7 @@ class CreateItemSerialsTable extends Migration
             $table->integer('sale_id')->default(0);
             $table->integer('return_sale_id')->default(0);
             $table->integer('return_purchase_id')->default(0);
+            $table->integer('inventory_adjustment_id')->default(0);
             $table->string('serial');
             $table->enum('status',['in_stock','return_sale','return_purchase','sold','stock_adjustment'])->default("in_stock");
             $table->boolean('is_draft')->default(false);
