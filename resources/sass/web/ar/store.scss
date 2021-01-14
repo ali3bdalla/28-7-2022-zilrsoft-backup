@@ -96,4 +96,16 @@ a:hover {
     content: "" !important;
 }
 
+
+.el-tabs__nav {
+    float: right !important;
+}
+
+.el-tabs__nav i {
+    margin-left: 5px
+}
+
+.contact-form .leave-comment .comment-form input  {
+    padding-right: 8px
+}
 @import "./product";

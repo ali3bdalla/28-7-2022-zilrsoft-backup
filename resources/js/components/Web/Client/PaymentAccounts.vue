@@ -8,14 +8,14 @@
             <button :class="[activeTab == 'select' ? 'activeClass' : 'inActiveClass']" :disabled="disableSelect"
                     class="site-btn login-btn"
                     type="button"
-                    @click="activeTab = 'select'">Select Existing
+                    @click="activeTab = 'select'">{{ $page.$t.common.select}}
             </button>
 
           </div>
           <div class="flex-1">
             <button :class="[activeTab == 'create' ? 'activeClass' : 'inActiveClass']" class="site-btn login-btn"
                     type="button"
-                    @click="activeTab = 'create'"> Add New
+                    @click="activeTab = 'create'"> {{ $page.$t.common.add_new}}
             </button>
           </div>
         </div>
@@ -26,7 +26,7 @@
     <div v-if="activeTab == 'select'">
       <div class="flex-1 group-input">
         <select v-model="selectedAccountId" class="">
-          <option v-for="account in accounts" :key="account.id" :value="account.id">{{ account.bank.name }} - {{
+          <option v-for="account in accounts" :key="account.id" :value="account.id">{{ account.bank.locale_name }} - {{
               account.detail
             }}
           </option>
@@ -41,7 +41,7 @@
           <!--        sendAccountBankNumber: "",-->
           <div>
             <select v-model="bankId" class="">
-              <option v-for="bank in $page.banks" :key="bank.id" :value="bank.id">{{ bank.name }}</option>
+              <option v-for="bank in $page.banks" :key="bank.id" :value="bank.id">{{ bank.locale_name }}</option>
             </select>
           </div>
           <!--        <div-->
@@ -57,7 +57,7 @@
               id="sender_account_number"
               v-model="accountNumber"
               max-length="30"
-              placeholder="Account Number"
+              :placeholder="$page.$t.profile.account_number"
               type="text"
           />
           <div
@@ -72,7 +72,7 @@
               class="site-btn login-btn inActiveClass"
               style="margin-top: -1px;height: 50px"
               type="button"
-              @click="addNewAccount">Save
+              @click="addNewAccount">{{ $page.$t.common.save }}
           </button>
         </div>
       </div>
@@ -116,11 +116,10 @@ export default {
         this.detail = "";
         this.bank_id = "";
         this.activeTab = 'select';
-        // this.$emit('createdNewAccount', res.data);
 
         this.accounts.push(res.data);
         this.selectedAccountId = res.data.id;
-        this.$alert('new Account Created','','success');
+        this.$alert(this.$page.$t.messages.success,this.$page.$t.messages.bank_account_has_been_created,'success');
       }).catch(error => this.$alert('Please Check Your Account Information Again','','error'));
     }
   },

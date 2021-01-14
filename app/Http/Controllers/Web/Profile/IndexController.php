@@ -23,16 +23,20 @@ class IndexController extends Controller
 
     public function updateInformation(UpdateInformationRequest $request)
     {
-        return $request->update();
+         $request->update();
+         return Inertia::render('Web/Common/ShowMessage');
     }
 
     public function updatePassword(UpdatePasswordRequest $request)
     {
-        return $request->update();
+         $request->update();
+         return Inertia::render('Web/Common/ShowMessage');
     }
 
     public function updatePhoneNumber(UpdatePhoneNumberRequest $request)
     {
-        return $request->change();
+        return  $request->change();
+
     }
+
 }

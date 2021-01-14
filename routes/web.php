@@ -96,6 +96,9 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
                 });
             }
         );
+
+
+
     }
 );
 

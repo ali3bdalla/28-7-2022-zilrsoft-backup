@@ -38,7 +38,8 @@ class CreateOrdersTable extends Migration
             $table->integer('shipping_address_id')->nullable();
             $table->integer('shipping_method_id')->nullable();
             $table->integer('delivery_man_id')->nullable();
-
+            $table->float('shipping_cost')->default(0);
+            $table->float('shipping_weight')->default(0);
 
             $table->softDeletes();
             $table->timestamps();

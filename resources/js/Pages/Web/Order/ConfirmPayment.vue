@@ -5,11 +5,12 @@
       <div class="">
         <div class="col-lg-6 offset-lg-3">
           <div class="login-form">
-            <h2>Payment Confirmation</h2>
-            <h2>Order #{{ $page.order.id }}</h2>
+            <h2>{{$page.$t.order.payment_confirmation }}</h2>
+            <h2>{{$page.$t.order.order}} #{{ $page.order.id }}</h2>
             <div class="flex">
               <div class="flex-1 group-input text-center">
-                <div><label for="first_name">Ramming Time To Auto Cancel Order</label></div>
+                <!-- Ramming Time To Auto Cancel Order -->
+                <div><label for="first_name">{{$page.$t.order.remmning_time_to_auto_cancel_order}}</label></div>
                 <br/>
                 <flip-countdown :deadline="$page.order.auto_cancel_at" :showDays="false"
                                 :showHours="false"></flip-countdown>
@@ -23,11 +24,11 @@
 
               <div class="flex">
                 <div class="flex-1 group-input">
-                  <label for="first_name">Transmitter Name</label>
+                  <label for="first_name">{{$page.$t.order.transmitter_name }}</label>
                   <input
                       id="first_name"
                       v-model="firstName"
-                      placeholder="First Name"
+                      :placeholder="$page.$t.profile.first_name"
                       type="text"
                   />
                   <div
@@ -43,7 +44,7 @@
                   <input
                       id="last_name"
                       v-model="lastName"
-                      placeholder="Last Name"
+                      :placeholder="$page.$t.profile.last_name"
                       type="text"
                   />
                   <div v-if="$page.errors.last_name" class="p-2 text-red-500">
@@ -59,10 +60,10 @@
               <div class="flex">
 
                 <div class="flex-1 group-input">
-                  <label for="first_name">To Bank</label>
+                  <label for="first_name">{{$page.$t.order.to_blank }}</label>
 
                   <select v-model="receiverAccountBankId" class="">
-                    <option v-for="bank in $page.receivedBanks" :key="bank.id" :value="bank.id">{{ bank.name }}</option>
+                    <option v-for="bank in $page.receivedBanks" :key="bank.id" :value="bank.id">{{ bank.locale_name }}</option>
                   </select>
                   <div
                       v-if="$page.errors.receiver_bank_id"
@@ -79,7 +80,7 @@
                   type="button"
                   @click="confirmPayment"
               >
-                Confirm
+                {{ $page.$t.messages.confirm}}
               </button>
             </form>
 

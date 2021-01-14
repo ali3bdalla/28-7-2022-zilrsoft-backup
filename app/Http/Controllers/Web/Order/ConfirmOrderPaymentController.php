@@ -53,11 +53,11 @@
 //
 			$request->confirm($order);
 //
-//			return Inertia::render(
-//				'Web/Order/PaymentConfirmed', [
-//					'order' => $order
-//				]
-//			);
+			return Inertia::render(
+				'Web/Order/PaymentConfirmed', [
+					'order' => $order
+				]
+			);
 		}
 		
 		private function isValidOrderStatus($order)

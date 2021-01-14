@@ -37,5 +37,7 @@ class UpdateInformationRequest extends FormRequest
         $updateData = $this->only('email_address', 'first_name', 'last_name');
         $updateData['name'] = $this->input('first_name') . ' ' . $this->input('last_name');
         $this->user()->update($updateData);
+
+
     }
 }

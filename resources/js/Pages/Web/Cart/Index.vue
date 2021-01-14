@@ -175,7 +175,7 @@ export default {
     sendOrder() {
       let items = this.orderItems;
 
-      this.$confirm("confirm", "", "success").then(() => {
+      this.$confirm(this.$page.$t.messages.confirm,this.$page.$t.messages.are_you_sure, "success").then(() => {
         this.$loading.show({ delay: 0 });
         this.$inertia.post(
           "/api/web/orders",
