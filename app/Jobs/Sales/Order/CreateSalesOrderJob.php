@@ -57,10 +57,11 @@ class CreateSalesOrderJob implements ShouldQueue
         $order->payment_method = $this->request->input('payment_method_id');
         $order->shipping_method_id = $this->request->input('shipping_method_id');
         $order->draft_id = $this->invoice->id;
-        $order->shipping_amount = $this->getShippingAmount($invoiceItems);
+        $shippingAmount = $this->getShippingAmount($invoiceItems);
+        $order->shipping_amount = $shippingAmount;
         $order->shipping_cost = $this->getShippingCost($invoiceItems);
         $order->shipping_weight = $this->getItemsTotalShippingWeight($invoiceItems);
-        $order->net = (float)$this->invoice->net;
+        $order->net = (float)$this->invoice->net + (float)$shippingAmount;
         $order->auto_cancel_at = Carbon::now()->addMinutes($this->orderAutoCancelAfter);
         $order->is_should_pay_notified = false;
         $order->should_pay_last_notification_at = Carbon::now()->addMinutes($this->orderAutoCancelAfter - 1);
@@ -79,7 +80,6 @@ class CreateSalesOrderJob implements ShouldQueue
         $shippingAmount = $this->getItemsBaseShippingAmount($itemsTotalWeight, $shippingMethod);
         $shippingAmount -= $itemsTotalShippingDiscount;
         return $this->finalShippingAmount($shippingAmount);
-
     }
 
     private function getShippingMethod()
@@ -115,10 +115,8 @@ class CreateSalesOrderJob implements ShouldQueue
         if ($itemsTotalWeight > $maxShippingMethodWeight) {
             $kgAfterBase = $itemsTotalWeight - $maxShippingMethodWeight;
             $shippingAmount += $kgAfterBase * $shippingMethod->kg_rate_after_max_price;
-
         }
         return $shippingAmount;
-
     }
 
     private function finalShippingAmount(int $shippingAmount)
@@ -127,7 +125,6 @@ class CreateSalesOrderJob implements ShouldQueue
             $shippingAmount = 0;
         }
         return $shippingAmount;
-
     }
 
     private function getShippingCost($invoiceItems)
@@ -139,9 +136,7 @@ class CreateSalesOrderJob implements ShouldQueue
         if ($itemsTotalWeight > $maxShippingMethodWeight) {
             $kgAfterBase = $itemsTotalWeight - $maxShippingMethodWeight;
             $shippingCost += $kgAfterBase * $shippingMethod->kg_rate_after_max_cost;
-
         }
         return $shippingCost;
     }
-
 }

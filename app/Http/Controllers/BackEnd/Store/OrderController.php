@@ -23,15 +23,6 @@ use App\Models\Order;
 			return view('orders.index');
 		}
 		
-		/**
-		 * Show the form for creating a new resource.
-		 *
-		 * @return Response
-		 */
-		public function create()
-		{
-			//
-		}
 		
 		/**
 		 * Display the specified resource.
@@ -45,7 +36,28 @@ use App\Models\Order;
 			return view('orders.show', compact('order'));
 		}
 		
-		public function confirm(Order $order)
+
+
+
+
+
+
+
+		public function viewPayment(Order $order)
+		{
+			$shippingMen = $order->shippingMethod->deliveryMen()->get();
+			return view('orders.view-payment',compact('order','shippingMen'));
+		}
+		public function viewShipping(Order $order)
+		{
+			return view('orders.view-shipping',compact('order'));
+		}
+
+
+
+
+
+		public function acceptOrderAsManager(Order $order)
 		{
 			if(!$order->status == 'paid') {
 				return view('errors.custom');

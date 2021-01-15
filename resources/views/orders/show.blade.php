@@ -7,78 +7,12 @@
 
 @section("content")
 
-    {{--    <div class="panel">--}}
-    {{--        <div class="panel-heading">--}}
-    {{--            <div class="row">--}}
-    {{--                <div class="col-md-6">--}}
-    {{--                    <div class="input-group"><span id="vendors-list" class="input-group-addon">العميل</span> <input--}}
-    {{--                                type="text" name="" disabled="disabled" value="{{$order->user->name}}"--}}
-    {{--                                class="form-control"></div>--}}
-    {{--                </div>--}}
-    {{--                <div class="col-md-6">--}}
-    {{--                    <div class="input-group"><span id="vendors-list" class="input-group-addon">التاريخ والوقت</span>--}}
-    {{--                        <input type="text" name="" disabled="disabled" value="{{ $order->paymentDetail->created_at }}"--}}
-    {{--                               class="form-control date_field_center"></div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--            <div class="row">--}}
-    {{--                <div class="col-md-6">--}}
-    {{--                    <div class="input-group"><span id="vendors-list" class="input-group-addon">البنك المحول منه </span>--}}
-    {{--                        <input--}}
-    {{--                                type="text" name="" disabled="disabled"--}}
-    {{--                                value="{{ $order->paymentDetail->senderAccount->bank->ar_name }}" class="form-control">--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--                <div class="col-md-6">--}}
-    {{--                    <div class="input-group"><span id="vendors-list"--}}
-    {{--                                                   class="input-group-addon">رقم الحساب المحول منه</span> <input--}}
-    {{--                                type="text" name="" disabled="disabled"--}}
-    {{--                                value="{{ $order->paymentDetail->senderAccount->detail }}" class="form-control"></div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-
-    {{--            <div class="row">--}}
-    {{--                <div class="col-md-12">--}}
-    {{--                    <div class="input-group"><span id="vendors-list" class="input-group-addon">البنك المحول له </span>--}}
-    {{--                        <input--}}
-    {{--                                type="text" name="" disabled="disabled"--}}
-    {{--                                value="{{ $order->paymentDetail->receivedBank->ar_name }}" class="form-control"></div>--}}
-    {{--                </div>--}}
-
-    {{--            </div>--}}
-    {{--            <div class="row">--}}
-    {{--                <div class="col-md-6">--}}
-    {{--                    <div class="input-group"><span id="vendors-list" class="input-group-addon"> الاسم الاول  </span>--}}
-    {{--                        <input--}}
-    {{--                                type="text" name="" disabled="disabled" value="{{ $order->paymentDetail->first_name }}"--}}
-    {{--                                class="form-control"></div>--}}
-    {{--                </div>--}}
-    {{--                <div class="col-md-6">--}}
-    {{--                    <div class="input-group"><span id="vendors-list" class="input-group-addon">الاسم الثاني</span>--}}
-    {{--                        <input--}}
-    {{--                                type="text" name="" disabled="disabled" value="{{ $order->paymentDetail->last_name }}"--}}
-    {{--                                class="form-control"></div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-
-
-    {{--            <div class="row">--}}
-    {{--                <div class="col-md-12 text-center">--}}
-    {{--                    <order-payment-options :order='@json($order)'></order-payment-options>--}}
-    {{--                </div>--}}
-
-    {{--            </div>--}}
-
-
-    {{--        </div>--}}
-    {{--    </div>--}}
 
     <div class="row">
         <div class="col-lg-3 col-xs-6">
             <a href="{{ route('sales.show',$order->draft_id) }}" class="small-box bg-primary">
                 <div class="inner">
-                    <h4 style="font-weight: bolder">{{$order->draft->invoice_number}}</h4>
-
+                    <h4 style="font-weight: bolder">{{$order->draftInvoice->invoice_number}}</h4>
                     <p>عرض الطلب</p>
                 </div>
                 <div class="order__panel-card-icon-container">
@@ -107,7 +41,7 @@
             <div class="col-lg-3 col-xs-6">
                 <a href="{{ route('sales.edit',$order->draft_id) }}" class="small-box bg-red">
                     <div class="inner">
-                        <h4 style="font-weight: bolder">{{$order->draft->invoice_number}}</h4>
+                        <h4 style="font-weight: bolder">{{$order->draftInvoice->invoice_number}}</h4>
 
                         <p> المرتجع</p>
                     </div>
@@ -133,9 +67,9 @@
 
 
         <div class="col-lg-3 col-xs-6">
-            <a href="{{ route('sales.show',$order->draft_id) }}" class="small-box bg-green">
+            <a href="/store/orders/{{$order->id}}/customer-data" class="small-box bg-green">
                 <div class="inner">
-                    <h4 style="font-weight: bolder">{{$order->draft->invoice_number}}</h4>
+                    <h4 style="font-weight: bolder">{{$order->draftInvoice->invoice_number}}</h4>
 
                     <p>بيانات العميل</p>
                 </div>
@@ -147,11 +81,11 @@
 
 
         <div class="col-lg-3 col-xs-6">
-            <a href="{{ route('sales.show',$order->draft_id) }}" class="small-box bg-purple">
+            <a href="/store/orders/{{$order->id}}/view-shipping" class="small-box bg-purple">
                 <div class="inner">
-                    <h4 style="font-weight: bolder">{{$order->draft->invoice_number}}</h4>
+                    <h4 style="font-weight: bolder">{{$order->draftInvoice->invoice_number}}</h4>
 
-                    <p> عنوان الشحن</p>
+                    <p> تفاصيل الشحن</p>
                 </div>
                 <div class="order__panel-card-icon-container">
                     <i class="fa fa-address-card order__panel-card-icon"></i>
@@ -161,9 +95,9 @@
 
 
         <div class="col-lg-3 col-xs-6">
-            <a href="{{ route('sales.show',$order->draft_id) }}" class="small-box bg-orange">
+            <a href="/store/orders/{{$order->id}}/view-payment" class="small-box bg-orange">
                 <div class="inner">
-                    <h4 style="font-weight: bolder">{{$order->draft->invoice_number}}</h4>
+                    <h4 style="font-weight: bolder">{{$order->draftInvoice->invoice_number}}</h4>
 
                     <p> تاكيد الدفع</p>
                 </div>
@@ -177,7 +111,7 @@
         <div class="col-lg-3 col-xs-6">
             <a href="{{ route('sales.show',$order->draft_id) }}" class="small-box bg-aqua">
                 <div class="inner">
-                    <h4 style="font-weight: bolder">{{$order->draft->invoice_number}}</h4>
+                    <h4 style="font-weight: bolder">{{$order->draftInvoice->invoice_number}}</h4>
 
                     <p>بيانات السداد</p>
                 </div>
@@ -191,7 +125,7 @@
         <div class="col-lg-3 col-xs-6">
             <a href="{{ route('sales.show',$order->draft_id) }}" class="small-box bg-teal">
                 <div class="inner">
-                    <h4 style="font-weight: bolder">{{$order->draft->invoice_number}}</h4>
+                    <h4 style="font-weight: bolder">{{$order->draftInvoice->invoice_number}}</h4>
 
                     <p>سجل الطلب</p>
                 </div>

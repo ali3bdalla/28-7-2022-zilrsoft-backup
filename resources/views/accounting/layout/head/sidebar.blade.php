@@ -114,17 +114,6 @@
                 </li>
 
 
-{{--                <li>--}}
-{{--                    <a href="{{route('delivery_men.index')}}"><i class="fa fa-sun"></i>--}}
-{{--                        مناديب التوصيل--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-
-                <li>
-                    <a href="{{route('store.orders.index')}}"><i class="fa fa-sun"></i>
-                        الاعدادات
-                    </a>
-                </li>
 
 
             </ul>

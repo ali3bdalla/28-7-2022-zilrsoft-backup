@@ -11,7 +11,7 @@
 		
 		public function orders()
 		{
-			return $this->morphMany(Order::class, 'shippable');
+			return $this->hasMany(Order::class, 'delivery_man_id');
 		}
 		
 	}

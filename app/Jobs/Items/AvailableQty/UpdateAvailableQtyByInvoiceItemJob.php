@@ -46,8 +46,6 @@
 				$availableQtyAfterInvoiceItem = (int)$availableQty - (int)$this->invoiceItem->qty;
 			}
 
-
-//        dd($availableQty,$availableQtyAfterInvoiceItem);
 			$this->invoiceItem->item()->update(
 				[
 					'available_qty' => $availableQtyAfterInvoiceItem
