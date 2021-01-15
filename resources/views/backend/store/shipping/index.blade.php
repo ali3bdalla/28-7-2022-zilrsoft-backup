@@ -14,19 +14,21 @@
 
             @foreach($shippingMethods as $shippingMethod)
                 <div class="col-lg-3 col-xs-6">
-                    <a href="{{ route('store.shipping.edit',$shippingMethod->id) }}" class="small-box bg-primary">
+                    <div href="{{ route('store.shipping.edit',$shippingMethod->id) }}" class="small-box bg-primary">
                         <div class="inner">
                             <h4 style="font-weight: bolder">{{$shippingMethod->name}}</h4>
 
                             <p> {{$shippingMethod->ar_name}}</p>
 {{--                            <p><span class="label label-success">Approved</span></p>--}}
-                            <p> <button class="btn btn-success">تعديل</button></p>
+                            <p> <a href="{{ route('store.shipping.view-transactions',$shippingMethod->id) }}" class="btn btn-info">بوالص الشحن</a>
+                             <a href="{{ route('store.shipping.edit',$shippingMethod->id) }}" class="btn btn-success">تعديل</a></p>
+{{-- create AWB --}}
                         </div>
                         <div class="order__panel-card-icon-container">
                             <img src="{{$shippingMethod->logo}}" style="height: 40px;object-fit: cover"/>
 {{--                            <i class="fa fa-redo order__panel-card-icon"></i>--}}
                         </div>
-                    </a>
+                    </div>
                     <div class="small-box-footer text-center">
 
 

@@ -8,6 +8,10 @@
     height: 50px;
   }
 
+  &__header-quick-cart {
+    @apply flex items-center justify-end w-2/12 m-0 text-center;
+  }
+
   &__header-cart-icon {
     @apply  m-0 text-gray-800 ;
     width: 50px;
@@ -16,14 +20,54 @@
       @apply w-16 h-16;
     }
   }
+
+  &__header-cart-icon-counter {
+    @apply inline-block w-4 h-8 text-xl rounded-full;
+  }
+
+  &__footer-icon {
+    @apply w-20;
+  }
+
+  &__header-logo-section {
+    @apply w-3/12;
+  }
+
+  &__header-navbar {
+    @apply flex items-center justify-between p-0 m-0;
+  }
+
+  &__header-search-field {
+    @apply hidden w-8/12 md:flex;
+    &__h {
+      @apply flex items-center justify-between p-0 m-0 inner-header md:hidden;
+    }
+
+    &__f {
+      @apply w-full;
+    }
+  }
+
+  &__header-buttons {
+    @apply border-b shadow-xs;
+
+    &__item {
+      @apply flex items-center text-gray-800 
+    }
+
+    &__item-container {
+      @apply flex-1;
+    }
+
+    &__item-right {
+      @apply flex justify-end flex-1 text-gray-800 gap-2 items-left;
+    }
+  }
+  &__header-buttons-container {
+    @apply flex items-center justify-between h-12;
+  }
 }
-// .header-section {
-//   position: fixed;
-//     width: 100%;
-//     background: white;
-//     z-index: 100;
-//     top: 0px;
-// }
+
 
 .fixedHeader {
   position: fixed;

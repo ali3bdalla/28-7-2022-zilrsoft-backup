@@ -20,5 +20,6 @@ Route::prefix('orders')->name('orders.')->group(
 Route::resource('shipping', 'ShippingController');
 Route::prefix('/shipping/{shipping}')->name('shipping.')->group(function () {
     Route::post('delivery_men', 'ShippingController@storeDeliveryMan')->name('delivery_men.store');
+    Route::get('view-transactions', 'ShippingController@viewTransactions')->name('view-transactions');
     Route::patch('delivery_men/{deliveryMan}', 'ShippingController@updateDeliveryMan')->name('delivery_men.update');
 });
