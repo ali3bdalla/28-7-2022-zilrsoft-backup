@@ -61,13 +61,13 @@ class FetchItemsUsingFiltersRequest extends FormRequest
         if ($this->has('filters_values')) {
 
             $filtersValues = $this->input('filters_values');
-            $result = ItemFilters::whereIn('filter_value', $filtersValues)->pluck('filter_value', 'filter_id');
+            $result = ItemFilters::whereIn('filter_value', $filtersValues)->get();
 
 
             $filterValuesGroupedByFilters = [];
 
-            foreach ($result  as $key => $value) {
-                $filterValuesGroupedByFilters[$key][] = $value;
+            foreach ($result  as $value) {
+                $filterValuesGroupedByFilters[$value->filter_id][] = $value->filter_value;
             }
             foreach ($filterValuesGroupedByFilters as $filterId => $values) {
                 $query->whereHas('filters', function ($query2) use ($filterId, $values) {
@@ -77,12 +77,6 @@ class FetchItemsUsingFiltersRequest extends FormRequest
         }
 
         $query  = $this->apply($query);
-        // $searchArray = explode(' ', $this->input('name'));
-        // foreach ($searchArray as $searchKey) {
-        //     $query->where(function ($subQuery) use ($searchKey) {
-        //         return $subQuery->where('ar_name', 'ILIKE', '%' . $searchKey . '%')->orWhere('name', 'ILIKE', '%' . $searchKey . '%');
-        //     });
-        // }
 
         if ($this->has('order_by') && $this->filled('order_by') && Schema::hasColumn($table, $this->input('order_by'))) {
             $sortDirection = $this->input('order_direction');
