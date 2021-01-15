@@ -15,7 +15,7 @@
         <div class="product__show" style="margin-top: 2.5rem">
           <div class="product__show__details">
             <div
-              class="pt-3 bg-white border"
+              class="product__show__details-bg"
               style="border-color: #d2e8ff !important"
             >
               <h1 class="product__show__details-name">
@@ -24,13 +24,7 @@
               <h1 class="product__show__details-model-number">
                 {{ $page.$t.products.model }} : {{ modelNumber }}
               </h1>
-
-              <!-- <ProductRatingComponent
-              :item="$page.item"
-              align=""
-              class="mt-2"
-          ></ProductRatingComponent> -->
-              <div class="pb-2 mb-3">
+              <div class="page__mt-2">
                 <h4 class="product__show__details-slash-price">
                   {{ parseFloat($page.item.price_with_tax).toFixed(2) }}
                 </h4>
@@ -49,13 +43,13 @@
                 <div class="product__show__details-actions">
                   <ToggleCartItemButtonComponent
                     :item="$page.item"
-                    class="mt-2"
+                    class="page__mt-2"
                   ></ToggleCartItemButtonComponent>
                 </div>
               </div>
             </div>
             <div
-              class="hidden pt-0 mt-2 bg-white specification-table product__show__details-specification-table-container md:block"
+              class="specification-table product__show__details-specification-table-container product__show__details-specification-table-container__mobile"
             >
               <table class="product__show__details-specification-table">
                 <tbody>
@@ -130,16 +124,16 @@
           </div>
         </div>
 
-        <div class="mt-3">
+        <div class="page__mt-2">
           <div
-            class="visible specification-table product__show__details-specification-table-container md:hidden"
+            class="specification-table product__show__details-specification-table-container product__show__details-specification-table-container__pc"
           >
             <table class="product__show__details-specification-table">
               <tbody>
                 <tr class="product__show__details-specification-table-raw">
                   <td
                     colspan="2"
-                    class="p-2 text-center text-black product__show__details-specification-table-title-cell product__show__details-specification-title"
+                    class=" product__show__details-specification-table-title-cell product__show__details-specification-title"
                   >
                     {{ $page.$t.products.product_specifications }}
                   </td>
@@ -176,13 +170,13 @@
             </table>
           </div>
           <div
-            class="mt-3 specification-table product__show__details-specification-table-container md:mt-1"
+            class="specification-table product__show__details-specification-table-container"
           >
-            <table class="bg-white product__show__details-specification-table">
+            <table class=" product__show__details-specification-table">
               <tbody>
                 <tr class="product__show__details-specification-table-raw">
                   <td
-                    class="p-2 text-center text-black product__show__details-specification-table-title-cell product__show__details-specification-title"
+                    class=" product__show__details-specification-table-title-cell product__show__details-specification-title"
                   >
                     {{ $page.$t.products.description }}
                   </td>
@@ -190,7 +184,7 @@
 
                 <tr class="product__show__details-specification-table-raw">
                   <td
-                    class="p-2 text-sm product__show__details-specification-table-value-cell"
+                    class=" product__show__details-specification-table-value-cell"
                   >
                     {{ $page.item.locale_description }}
                   </td>
@@ -201,11 +195,11 @@
         </div>
 
         <div
-          class="pt-3 mt-32 border-t-2 lg:mt-20"
+          class="product__related-products-area"
           style="border-color: #d2e8ff !important"
         >
           <!-- منتجات ذات صلة -->
-          <h3 class="-mb-2 text-2xl">
+          <h3 class="page__mt-2 home__products-count">
             {{ $page.$t.products.related_products }}
           </h3>
 
@@ -213,7 +207,7 @@
             snap="center"
             scroll
             :button-between="false"
-            :button="false"
+            :button="true"
             ref="horizontal"
             style="direction: ltr"
             class="products-grid"
@@ -224,26 +218,13 @@
               style="direction: ltr"
             >
               <ProductListItemComponent
-                class="mx-1 w-64"
+                class="product__hor-list-item"
                 :index="index"
                 :item="item"
               ></ProductListItemComponent>
             </div>
           </vue-horizontal>
-          <!-- <ProductListItemComponent
-                :index="index"
-                :item="item"
-              ></ProductListItemComponent>
-               -->
-          <!-- 
-          <div class="products-grid">
-            <ProductListItemComponent
-              v-for="(item, index) in $page.relatedItems"
-              :key="item.id"
-              :index="index"
-              :item="item"
-            ></ProductListItemComponent>
-          </div> -->
+
         </div>
       </div>
     </div>

@@ -1,11 +1,11 @@
 <template>
   <div
-    class="relative p-0"
+    class="page__header-search-input-container"
     style="width: 100%"
     v-click-outside="resetItemsToNull"
   >
     <div class="advanced-search" style="border-color: #d2e8ff !important">
-      <div class="input-group">
+      <div class="input-group" style="    max-width: 100% !important;">
         <input
           v-model="searchKey"
           :placeholder="$page.$t.header.search_placeholder"
@@ -24,33 +24,33 @@
     <div>
       <div
         v-if="items.length > 0 && searchKey != ''"
-        class="absolute z-50 w-full px-3 pt-2 mx-auto bg-white shadow-lg"
+        class="page__header-search-result"
         style="max-height: 80vh; overflow: scroll"
       >
         <a
           v-for="item in items"
           :key="item.id"
           :href="`/web/items/${item.id}`"
-          class="flex justify-between px-2 py-1 font-bold text-gray-800 border-b hover:text-gray-600"
+          class="page__header-search-result-item"
         >
-          <span class="truncate">{{ item.locale_name }}</span>
+          <span class="page__header-search-result-item-name">{{
+            item.locale_name
+          }}</span>
 
           <span
             v-if="item.available_qty <= 0"
-            class="text-red-500 text-sm w-32 text-left"
+            class="page__header-search-out-of-stock"
             >{{ $page.$t.products.out_of_stock }}</span
           >
         </a>
-        <h2
-          class="p-2 pt-3 mt-4 mb-1 text-lg font-bold text-gray-700 border-t-2 border-black"
-        >
+        <h2 class="page__header-search-categories">
           {{ $page.$t.header.categories }}
         </h2>
         <a
           v-for="(category, categoryIndex) in categoriesGroup"
           :key="`category_${category.id}_${categoryIndex}`"
           :href="`/web/items?categoryId=${category.id}&&name=${searchKey}`"
-          class="block px-2 py-1 font-bold text-gray-800 border-b hover:text-gray-600"
+          class="page__header-search-categories-item"
         >
           <span class="">{{ searchKey }}</span> {{ $page.$t.products.in }} -
           <span class="">{{ category.locale_name }}</span>

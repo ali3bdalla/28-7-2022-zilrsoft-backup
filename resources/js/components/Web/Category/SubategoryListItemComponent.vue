@@ -1,12 +1,12 @@
 <template>
   <div
-    class="h-32 overflow-hidden border md:h-48 animate__animated  animate__bounceIn"
+    class="home__categories-cell animate__animated  animate__bounceIn"
     style="border-color: #d2e8ff !important"
   >
-    <div class="flex items-center justify-center">
-      <div class="flex-1 bg-white">
+    <div class="home__categories-cell-content">
+      <div class="home__categories-cell-content__bg">
         <img
-          class="object-contain w-full h-full"
+          class="home__categories-cell-content__image"
           src="https://m.xcite.com/media/wysiwyg/KSABannersNew2/20201228-Heaters-KSA-V2-AR-SBx.jpg"
         />
       </div>

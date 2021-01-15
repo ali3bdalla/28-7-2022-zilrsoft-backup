@@ -5,14 +5,28 @@
   &__list-item {
 
 
-    @apply mb-0 bg-white p-2 pt-4 border-b border-r border-l border-t transition  text-center flex flex-col;
+    @apply mb-0 bg-white p-2 pt-4 border-b border-r border-l border-t transition  text-center flex flex-col mt-3 border border-gray-500;
 
     &:hover {
       @apply shadow-md;
     }
+    @screen md { @pply mt-0;}
   }
 
 
+  &__list-item-model-number {
+
+    @apply truncate;
+  }
+
+  &__list-item-content {
+
+    @apply p-2 mt-5 overflow-hidden;
+  }
+
+  &__list-item-cart-options {
+    @apply mt-2;
+  }
 
   &__list-item-image-container {
     @apply overflow-hidden w-full;
@@ -148,10 +162,14 @@
     }
 
     &__details {
-      @apply  w-full text-center flex flex-col justify-center content-center mx-auto;
+      @apply  w-full text-center flex flex-col justify-center content-center mx-auto ;
       @screen md {
         @apply w-8/12;
       }
+    }
+
+    &__details-bg {
+      @apply pt-3 bg-white border;
     }
 
     &__details-name {
@@ -180,7 +198,7 @@
     }
 
     &__details-actions {
-      @apply mt-2 flex gap-3 items-center justify-center;
+      @apply my-2 flex gap-3 items-center justify-center;
     }
 
 
@@ -189,12 +207,34 @@
     }
 
     &__details-specification-table-container {
-      @apply mt-2 pt-0 text-left w-full;
+      @apply mt-3 pt-0 text-left w-full ;
       margin-top: 0px !important;
+      
+
+    
+
+      @screen md {
+        @apply mt-1 ;
+      }
+
+      &__mobile {
+        @apply hidden pt-0 mt-2 bg-white;
+        @screen md {
+          @apply block ;
+        }
+      }
+
+
+      &__pc {
+        @apply hidden pt-0 mt-2 bg-white visible;
+        @screen md {
+          @apply  hidden ;
+        }
+      }
     }
 
     &__details-specification-table {
-      @apply w-full;
+      @apply w-full bg-white;
     }
 
 
@@ -204,7 +244,7 @@
 
 
     &__details-specification-table-title-cell {
-      @apply bg-white py-1 px-3 font-bold text-left;
+      @apply bg-white py-1 px-3 font-bold text-left p-2 text-center text-black;
       // border-color: #e7e7e7;
       // background-color: #f3f3f3;
       // color: #555;
@@ -217,9 +257,22 @@
 
 
     &__details-specification-table-value-cell {
-      @apply text-left py-1 px-3 font-bold;
+      @apply text-left py-1 px-3 font-bold p-2 text-sm;
     }
 
+  }
+
+
+  &__hor-list-item {
+    @apply mx-1 w-64;
+  }
+
+  &__related-products-area {
+    @apply pt-3 mt-32 border-t-2;
+
+    @screen md {
+      @apply mt-20;
+    }
   }
 
 

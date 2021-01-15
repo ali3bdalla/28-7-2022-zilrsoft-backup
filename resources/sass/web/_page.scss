@@ -1,4 +1,13 @@
 .page {
+
+  &__mt-2 {
+    @apply mt-2;
+  }
+
+
+  &__-mt-2 {
+    @apply -mt-2;
+  }
   &__section {
     @apply mt-10 w-10/12 mx-auto;
   }
@@ -38,9 +47,16 @@
   }
 
   &__header-search-field {
-    @apply hidden w-8/12 md:flex;
+    @apply hidden w-8/12;
+    @screen md {
+      @apply flex;
+    }
+    
     &__h {
-      @apply flex items-center justify-between p-0 m-0 inner-header md:hidden;
+      @apply flex items-center justify-between p-0 m-0;
+      @screen md {
+        @apply hidden;
+      }
     }
 
     &__f {
@@ -48,6 +64,39 @@
     }
   }
 
+  &__header-search-result {
+    @apply absolute z-50 w-full px-3 pt-2 mx-auto bg-white shadow-lg;
+  }
+
+  &__header-search-result-item {
+    @apply flex justify-between px-2 py-1 font-bold text-gray-800 border-b ;
+    &:hover {
+      @apply text-gray-600;
+    }
+  }
+
+  &__header-search-result-item-item {
+    @apply truncate;
+  }
+
+  &__header-search-out-of-stock
+  {
+    @apply text-red-500 text-sm w-32 text-left
+  }
+
+  &__header-search-categories {
+    @apply p-2 pt-3 mt-4 mb-1 text-lg font-bold text-gray-700 border-t-2 border-black;
+  }
+
+  &__header-search-categories-item {
+    @apply block px-2 py-1 font-bold text-gray-800 border-b;
+    &:hover {
+      @apply text-gray-600;
+    }
+  }
+  &__header-search-input-container {
+    @apply relative p-0;
+  }
   &__header-buttons {
     @apply border-b shadow-xs;
 
@@ -60,11 +109,33 @@
     }
 
     &__item-right {
-      @apply flex justify-end flex-1 text-gray-800 gap-2 items-left;
+      @apply flex justify-end flex-1 text-gray-800 gap-2;
     }
   }
   &__header-buttons-container {
     @apply flex items-center justify-between h-12;
+  }
+
+
+
+
+
+  &__categories {
+
+    &__list {
+      @apply mb-2  rounded;
+    }
+
+    &__list-item {
+      @apply text-gray-800;
+      &:hover {
+        @apply text-gray-900
+      }
+    }
+    &__name {
+      @apply  py-2 px-3 mx-2 border bg-white rounded-full font-bold text-center;
+      border-color:rgb(249, 249, 249);
+    }
   }
 }
 
@@ -75,6 +146,10 @@
     background: white;
     z-index: 100;
     top: 0px;
+  @apply border-b shadow;
+    &__hide {
+      @apply hidden;
+    }
 }
 
 
@@ -90,4 +165,6 @@
       height: 500px;
     }
   }
+
+  @apply mt-2;
 }

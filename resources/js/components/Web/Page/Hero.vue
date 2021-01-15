@@ -15,20 +15,6 @@
         
         :style="{ backgroundImage: 'url(' + item + ')' }"
       >
-        <!-- <div class="content">
-          <h2>The Great Title</h2>
-          <a :href="item.credit.url" target="_blank"
-            ><h4>{{ item.credit.name }}</h4></a
-          >
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            fringilla congue enim, at convallis magna pulvinar vel. Suspendisse
-            sed diam mi. Quisque purus velit, commodo non diam vitae, semper
-            pharetra purus. Nam non gravida dolor.
-          </p>
-          <button>Action Button</button>
-        </div>
-      </div> -->
       </div>
     </vue-horizontal>
   </div>

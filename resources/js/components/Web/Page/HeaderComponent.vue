@@ -1,8 +1,8 @@
 <template>
   <header class="header-section">
     <div
-      class="fixedHeader border-b shadow"
-      :class="{ hidden: !showHiddenNavbar }"
+      class="fixedHeader "
+      :class="{ 'fixedHeader__hide': !showHiddenNavbar }"
     >
       <div class="pb-0" style="background: #f9f9f9">
         <div class="container">
@@ -45,7 +45,7 @@
             >
           </div>
 
-          <div class="page__header-buttons__item-right">
+          <div class="page__header-buttons__item-right items-left">
             <img
               :src="$asset('web_assets/template/img/flag-1.jpg')"
               class="float-left h-4"
@@ -72,14 +72,14 @@
               </div>
             </div>
 
-            <div class="page__header-search-field">
+            <div class="page__header-search-field page__header-search-field__f" style="width:100%">
               <header-seach-input-component></header-seach-input-component>
             </div>
             <HeaderQuickCartComponent></HeaderQuickCartComponent>
           </div>
         </div>
-        <div class="page__header-search-field__h">
-          <div class="page__header-search-field_f">
+        <div class="page__header-search-field__h  inner-header ">
+          <div class="page__header-search-field__f">
             <header-seach-input-component></header-seach-input-component>
           </div>
         </div>
