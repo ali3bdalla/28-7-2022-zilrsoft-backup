@@ -19,22 +19,22 @@
             </div>
 
             <div v-if="activePage == 'checkout'">
-              <div class="mt-6 col-lg-12">
-                <h1 class="mb-3 text-xl text-gray-500">
+              <div class="page__mt-5 col-lg-12">
+                <h1 class="cart__shipping-method-title">
                   {{ $page.$t.cart.shipping_method }}
                 </h1>
-                <div class="grid grid-cols-2 gap-2 md:grid-cols-4">
+                <div class="cart__shipping-method-list">
                   <div
-                    class="flex flex-col items-center justify-center gap-5 pb-3 text-xl border rounded shadow-sm"
+                    class="cart-shipping-method-list-item"
                     v-for="shippingMethod in $page.shippingMethods"
                     :key="shippingMethod.id"
                   >
                     <el-image
                       :class="{
-                        'opacity-50': disableShippingMethod(shippingMethod),
+                        'cart__shipping-method-list-item-image__hidden': disableShippingMethod(shippingMethod),
                       }"
                       :src="shippingMethod.logo"
-                      class="object-cover h-32"
+                      class="cart-shipping-method-list-item-image "
                     ></el-image>
                     <el-radio
                       v-model="shippingMethodId"
@@ -46,22 +46,22 @@
                 </div>
               </div>
 
-              <div class="mt-8 col-lg-12">
-                <h1 class="mb-3 text-xl text-gray-500">
+              <div class="page__mt-5 col-lg-12">
+                <h1 class="page__mt-2 home__products-count">
                   {{ $page.$t.cart.payment_method }}
                 </h1>
-                <div class="grid grid-cols-2 gap-2 md:grid-cols-4">
+                <div class="cart__shipping-method-list">
                   <div
-                    class="flex flex-col items-center justify-center gap-5 pb-3 text-xl border rounded shadow-sm"
+                    class="cart-shipping-method-list-item"
                     v-for="paymentMethod in paymentMethods"
                     :key="paymentMethod.name"
                   >
                     <el-image
                       :class="{
-                        'opacity-50': !paymentMethod.active,
+                        'cart__shipping-method-list-item-image__hidden': !paymentMethod.active,
                       }"
                       :src="paymentMethod.logo"
-                      class="object-cover h-32"
+                      class="cart__shipping-method-list-item-image"
                     ></el-image>
                     <el-radio
                       :selected="paymentMethod.active"
@@ -76,7 +76,7 @@
               </div>
             </div>
           </div>
-          <div class="flex items-center justify-center w-full mt-5">
+          <div class="cart__checkout">
             <div class="proceed-checkout">
               <CartButton
                 :shipping-method-id="shippingMethodId"

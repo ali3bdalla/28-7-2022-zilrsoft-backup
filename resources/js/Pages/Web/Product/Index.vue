@@ -1,13 +1,10 @@
 <template>
   <web-layout class="">
-
     <div class="mt-3 container bg-white shadow-lg rounded-lg">
-    
-    <div class="pt-3">
+      <div class="pt-3">
         <div class="flex justify-between items-center gap-6">
-
           <filters-pop
-          :items="items"
+            :items="items"
             :search-name="$page.name"
             @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated"
             :category-id="$page.categoryId"
@@ -19,41 +16,21 @@
       </div>
 
       <div class="flex items-center justfiy-center">
-        <div
-          v-if="isLoading"
-          class="flex items-center justify-center w-full h-full"
-        >
-          <circle-spin class="loading" v-show="isLoading"></circle-spin>
-        </div>
-        <div class="w-full" v-else>
-          <div
-            class="grid grid-cols-1 gap-1 md:grid-cols-3 md:gap-3 mb-5 mt-1 h-auto"
-          >
-            <a
-              v-for="(item, index) in items"
-              :key="item.id"
-              :href="`/web/items/${item.id}`"
-            >
-              <ProductListItemComponent
-                :index="index"
-                :item="item"
-              ></ProductListItemComponent>
-            </a>
-          </div>
-        </div>
+        <items-infinity-load :params="params" :paramsUpdated="applyFilterSearch"></items-infinity-load>
       </div>
     </div>
   </web-layout>
 </template>
 
 <script>
+import ItemsInfinityLoad from '../../../components/Web/Item/ItemsInfinityLoad.vue';
 import FiltersPop from "../../../components/Web/Product/List/FiltersPop.vue";
 import SortingPop from "../../../components/Web/Product/List/SortingPop.vue";
 import WebLayout from "../../../Layouts/WebAppLayout";
 import ProductListItemComponent from "./../../../components/Web/Product/ProductListItemComponent";
 
 export default {
-  components: { WebLayout, ProductListItemComponent, FiltersPop, SortingPop },
+  components: { WebLayout, ProductListItemComponent, FiltersPop, SortingPop, ItemsInfinityLoad },
   data() {
     return {
       isLoading: false,
@@ -69,6 +46,15 @@ export default {
     filtersList() {
       return this.filters;
     },
+    params() {
+      return {
+        category_id: this.$page.categoryId,
+        name: this.$page.name,
+        order_by: this.orderBy,
+        order_direction: this.orderDirection,
+        filters_values: this.filterValues,
+      };
+    },
   },
   methods: {
     addFilterValue(filterValue) {
@@ -78,7 +64,7 @@ export default {
         this.filterValues.push(filterValue.id);
       }
 
-      this.applyFilterSearch();
+      // this.applyFilterSearch();
     },
 
     expandFilterValues(filterIndex, expand = true) {
@@ -88,50 +74,50 @@ export default {
     },
 
     applyFilterSearch() {
-      if (!this.isLoading) {
-        this.isLoading = true;
-        let appVm = this;
-        axios
-          .post("/api/web/items/using_filters", {
-            category_id: this.$page.categoryId,
-            name: this.$page.name,
-            order_by: this.orderBy,
-            order_direction: this.orderDirection,
-            filters_values: this.filterValues,
-          })
-          .then((res) => {
-            appVm.items = res.data.data;
-          }).catch(err => {
-            console.log(err)
-          })
-          .finally(() => {
-            appVm.isLoading = false;
-          });
-      }
+      // if (!this.isLoading) {
+      //   this.isLoading = true;
+      //   let appVm = this;
+      //   axios
+      //     .post("/api/web/items/using_filters", {
+      //       category_id: this.$page.categoryId,
+      //       name: this.$page.name,
+      //       order_by: this.orderBy,
+      //       order_direction: this.orderDirection,
+      //       filters_values: this.filterValues,
+      //     })
+      //     .then((res) => {
+      //       appVm.items = res.data.data;
+      //     })
+      //     .catch((err) => {
+      //       console.log(err);
+      //     })
+      //     .finally(() => {
+      //       appVm.isLoading = false;
+      //     });
+      // }
     },
 
     sortingUpdated(object) {
       this.orderBy = object.key;
       this.orderDirection = object.direction;
-      this.applyFilterSearch();
+      // this.applyFilterSearch();
     },
     selectedAttributesHasBeenUpdated(event) {
-
       // this.items = [];
       this.filterValues = event.selectedValues;
-      this.applyFilterSearch();
+      // this.applyFilterSearch();
     },
 
     priceFilterRangeHasBeenUpdated(event) {
       // this.items = [];
       this.priceRange = event.priceRange;
-      this.applyFilterSearch();
+      // this.applyFilterSearch();
     },
 
     subCategoryHasBeenUpdated(event) {
       this.selectedSubCategoryId = event.selectedSubCategoryId;
       // this.items = [];
-      this.applyFilterSearch();
+      // this.applyFilterSearch();
     },
   },
 };

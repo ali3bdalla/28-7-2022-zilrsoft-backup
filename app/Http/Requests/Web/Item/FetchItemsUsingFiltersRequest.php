@@ -56,6 +56,14 @@ class FetchItemsUsingFiltersRequest extends FormRequest
 
 
 
+        if ($this->has('parent_category_id') && $this->filled('parent_category_id')) {
+            $category = Category::find($this->input('parent_category_id'));
+
+            if ($category) {
+                $query->whereIn('category_id', $category->getChildrenIncludeMe());
+            }
+        }
+
 
 
         if ($this->has('filters_values')) {

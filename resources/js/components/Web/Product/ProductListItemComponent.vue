@@ -8,7 +8,7 @@
         <span > {{$page.$t.products.out_of_stock}} </span>
       </h3>
       <h3 v-else class="product__list-item-category-name">
-          {{item.category.locale_name}}
+          {{item.category ? item.category.locale_name : ""}}
       </h3>
       
       <a :href="`/web/items/${item.id}`" class="product__list-item-name">
@@ -53,9 +53,9 @@ export default {
     modelNumber(){
       if(this.item.filters)
       {
-let modelNumber = this.item.filters.find(p => p.filter_id == 38);
+      let modelNumber = this.item.filters.find(p => p.filter_id == 38);
 
-      if(modelNumber)
+      if(modelNumber && modelNumber.value)
           return modelNumber.value.locale_name;
       }
       

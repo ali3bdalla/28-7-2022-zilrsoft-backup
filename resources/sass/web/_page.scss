@@ -1,7 +1,14 @@
 .page {
 
+
+  &_w-full {
+    @apply w-full;
+  }
   &__mt-2 {
     @apply mt-2;
+  }
+  &__mt-5 {
+    @apply mt-5;
   }
 
 

@@ -32,14 +32,8 @@
           {{ $page.$t.products.products_count }} ({{ $page.category.products_count }})
         </h1>
 
-        <div class="products-grid page__-mt-2">
-          <ProductListItemComponent
-            v-for="(item, index) in items"
-            :key="item.id"
-            :item="item"
-            :index="index"
-          ></ProductListItemComponent>
-        </div>
+        <items-infinity-load :params="{parent_category_id:$page.category.id}"></items-infinity-load>
+
       </div>
     </div>
   </web-layout>
@@ -50,6 +44,7 @@ import SubategoryListItemComponent from "./../../../components/Web/Category/Suba
 import ProductListItemComponent from "./../../../components/Web/Product/ProductListItemComponent";
 import WebLayout from "../../../Layouts/WebAppLayout";
 import VueHorizontal from "vue-horizontal";
+import ItemsInfinityLoad from '../../../components/Web/Item/ItemsInfinityLoad.vue';
 
 export default {
   components: {
@@ -57,6 +52,7 @@ export default {
     SubategoryListItemComponent,
     ProductListItemComponent,
     VueHorizontal,
+    ItemsInfinityLoad
   },
   data() {
     return {
@@ -75,15 +71,15 @@ export default {
       return subcategories;
     },
 
-    items() {
-      let items = [];
-      for (const index in this.$page.items) {
-        let item = this.$page.items[index];
-        item.image = this.images[index % 7];
-        items.push(item);
-      }
-      return items;
-    },
+    // items() {
+    //   let items = [];
+    //   for (const index in this.$page.items) {
+    //     let item = this.$page.items[index];
+    //     item.image = this.images[index % 7];
+    //     items.push(item);
+    //   }
+    //   return items;
+    // },
   },
 };
 </script>

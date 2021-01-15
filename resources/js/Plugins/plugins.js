@@ -6,6 +6,7 @@ window.Pusher = require('pusher-js');
 import 'vue-spinners/dist/vue-spinners.css'
 import VueSpinners from 'vue-spinners/dist/vue-spinners.common'
 
+import InfiniteLoading from 'vue-infinite-loading';
 
 
 import {
@@ -24,6 +25,7 @@ Vue.use(Radio)
 Vue.use(Card)
 Vue.use(Option)
 Vue.use(Select)
+Vue.use(InfiniteLoading, { /* options */ });
 
 
 Vue.prototype.$currency = currency;

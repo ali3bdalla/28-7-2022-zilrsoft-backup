@@ -6,10 +6,10 @@
     </h2>
 
     <div class="">
-      <div class="flex flex-col gap-5">
-        <div class="flex">
-          <div class="w-7/12 lg:w-10/12">
-          <el-select v-model="shippingAddressId" :placeholder="$page.$t.cart.select_shipping_address" class="w-full" filterable>
+      <div class="cart__shipping-address">
+        <div class="cart__shipping-address-list">
+          <div class="cart__shipping-address-right">
+          <el-select v-model="shippingAddressId" :placeholder="$page.$t.cart.select_shipping_address" class="page__w-full" filterable>
             <el-option
                 v-for="shippingAddress in $page.shippingAddresses"
                 :key="shippingAddress.id"
@@ -22,7 +22,7 @@
           </el-select>
 
         </div>
-        <div class="flex items-center justify-center w-5/12 text-sm lg:w-2/12">
+        <div class="cart__shipping-address-left">
 
           <a
               class="checkout__edit-icon"
@@ -50,20 +50,20 @@
 
         <div v-if="shippingAddress !== null">
           <el-card class="box-card" shadow="never">
-            <div class="text-xl font-bold text-gray-500">
+            <div class="cart__shipping-address-title">
               {{ shippingAddress.first_name }} {{ shippingAddress.last_name }}
             </div>
-            <div class="text-xl font-bold text-gray-500">
+            <div class="cart__shipping-address-title">
               {{ shippingAddress.description }}
             </div>
-            <div class="text-xl font-bold text-gray-500">
+            <div class="cart__shipping-address-title">
               {{ shippingAddress.city.name }}
             </div>
 
-            <div class="text-xl font-bold text-gray-500">
+            <div class="cart__shipping-address-title">
             </div>
 
-            <div class="text-xl font-bold text-gray-500">
+            <div class="cart__shipping-address-title">
               {{ shippingAddress.phone_number }}
             </div>
           </el-card>

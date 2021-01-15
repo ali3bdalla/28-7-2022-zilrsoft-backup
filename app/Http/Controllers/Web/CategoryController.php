@@ -22,8 +22,6 @@ class CategoryController extends Controller
     {
 
 
-        // $level = 'main';
-        // if ($category->parent)
          $level = 'sub';
 
         $list = [];
@@ -40,7 +38,7 @@ class CategoryController extends Controller
             'breadcrumb' => $this->breadcrumb,
             'level' => $level,
             'subcategories' => $list,
-            'items' => Item::whereIn('category_id', $category->getChildrenIncludeMe())->with('category', 'filters.filter', 'filters.value')->inRandomOrder()->take(50)->get(),
+            // 'items' => Item::whereIn('category_id', $category->getChildrenIncludeMe())->with('category', 'filters.filter', 'filters.value')->inRandomOrder()->take(50)->get(),
 
         ]);
     }
