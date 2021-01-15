@@ -1,36 +1,49 @@
 <template>
-  <web-layout class="">
-    <div class="mt-3 container bg-white shadow-lg rounded-lg">
-      <div class="pt-3">
-        <div class="flex justify-between items-center gap-6">
-          <filters-pop
-            :items="items"
-            :search-name="$page.name"
-            @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated"
-            :category-id="$page.categoryId"
-            @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated"
-            @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"
-          ></filters-pop>
-          <sorting-pop @updated="sortingUpdated"></sorting-pop>
+  <web-layout>
+    <div class="container">
+      <div class="product__search-page">
+        <div class="page__mt-2">
+          <div class="product__search-options">
+            <filters-pop
+              :items="items"
+              :search-name="$page.name"
+              @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated"
+              :category-id="$page.categoryId"
+              @selectedAttributesHasBeenUpdated="
+                selectedAttributesHasBeenUpdated
+              "
+              @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"
+            ></filters-pop>
+            <sorting-pop @updated="sortingUpdated"></sorting-pop>
+          </div>
         </div>
-      </div>
 
-      <div class="flex items-center justfiy-center">
-        <items-infinity-load :params="params" :paramsUpdated="applyFilterSearch"></items-infinity-load>
+        <div class="">
+          <items-infinity-load
+            :params="params"
+            :paramsUpdated="applyFilterSearch"
+          ></items-infinity-load>
+        </div>
       </div>
     </div>
   </web-layout>
 </template>
 
 <script>
-import ItemsInfinityLoad from '../../../components/Web/Item/ItemsInfinityLoad.vue';
+import ItemsInfinityLoad from "../../../components/Web/Item/ItemsInfinityLoad.vue";
 import FiltersPop from "../../../components/Web/Product/List/FiltersPop.vue";
 import SortingPop from "../../../components/Web/Product/List/SortingPop.vue";
 import WebLayout from "../../../Layouts/WebAppLayout";
 import ProductListItemComponent from "./../../../components/Web/Product/ProductListItemComponent";
 
 export default {
-  components: { WebLayout, ProductListItemComponent, FiltersPop, SortingPop, ItemsInfinityLoad },
+  components: {
+    WebLayout,
+    ProductListItemComponent,
+    FiltersPop,
+    SortingPop,
+    ItemsInfinityLoad,
+  },
   data() {
     return {
       isLoading: false,

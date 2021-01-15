@@ -263,6 +263,66 @@
   }
 
 
+
+
+
+  &__search-page {
+    @apply mt-3 bg-white shadow-lg rounded-lg;
+  }
+
+  &__search-options {
+    @apply flex justify-between items-center gap-6;
+  }
+  &__search-filters {
+    @apply w-full text-gray-800;
+    @screen md {
+      @apply w-48;
+    }
+  }
+
+  &__search-option-button {
+    @apply w-full flex justify-center gap-3 items-center py-1 text-white;
+  }
+
+  &__search-option-icon {
+    @apply w-4 h-4;
+  }
+
+  &__search-filter-value {
+    @apply w-full flex items-center gap-2 text-black
+  }
+  
+  &__search-sorting {
+    @apply w-full relative;
+
+    @screen md {
+      @apply w-48;
+    }
+  }
+
+  &__search-sorting-panel {
+    @apply w-full absolute z-50;
+  }
+
+  &__search-sorting-panel-content {
+    @apply bg-white shadow-xl rounded-lg w-full;
+  }
+
+  &__search-sorting-list {
+    // @apply  divide-gray-300;
+  }
+
+  &__search-sorting-list-item {
+    @apply p-2  cursor-pointer;
+    &:hover {
+      @apply bg-gray-100;
+    }
+
+    &__active {
+      @apply bg-gray-200;
+    }
+  }
+
   &__hor-list-item {
     @apply mx-1 w-64;
   }

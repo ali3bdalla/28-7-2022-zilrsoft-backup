@@ -1,12 +1,12 @@
 <template>
-  <div class="w-full md:w-48 relative">
+  <div class="product__search-sorting">
     <button
     @click="toggleList"
-      class="w-full h-full text-white flex justify-center gap-3 items-center py-1 text-white"
+      class="product__search-option-button"
       style="background: rgb(87, 87, 87)"
     >
       <svg
-        class="w-4 h-4"
+        class="product__search-option-icon"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -23,10 +23,10 @@
       الترتيب حسب
     </button>
  
-    <div class="w-full absolute" v-if="isOpen">
-      <div class="bg-white shadow-xl rounded-lg w-full">
-        <ul class="divide-y divide-gray-300">
-          <li @click="setSorting(item)" class="p-2 hover:bg-gray-50 cursor-pointer" :class="{'bg-gray-200':activeSorting.title == item.title }" v-for="(item,index) in list" :key="index">
+    <div class="product__search-sorting-panel" v-if="isOpen">
+      <div class="product__search-sorting-panel-content">
+        <ul class="product__search-sorting-list">
+          <li @click="setSorting(item)" class="product__search-sorting-list-item" :class="{'product__search-sorting-list-item__active':activeSorting.title == item.title }" v-for="(item,index) in list" :key="index">
               {{item.title}}
           </li>
        

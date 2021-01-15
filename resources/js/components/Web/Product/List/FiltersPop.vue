@@ -1,13 +1,13 @@
 <template>
-  <div class="w-full md:w-48 text-gray-800">
+  <div class="product__search-filters">
     <button
       @click="showFiltersLayout"
-      class="w-full flex justify-center gap-3 items-center py-1 text-white"
+      class="product__search-option-button"
       style="background: rgb(87, 87, 87)"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="w-4 h-4"
+        class="product__search-option-icon"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -71,7 +71,7 @@
                       :key="val.id"
                     >
                       <div
-                        class="w-full flex items-center gap-2 text-black"
+                        class="product__search-filter-value"
                         style="font-size: 15px; color: #575555"
                       >
                         <!-- <label :for="'value_' + val.id"> -->
@@ -93,7 +93,7 @@
             </div>
           </div>
 
-          <div class="row mt-5">
+          <div class="row page__mt-5">
             <div class="col-md-6 col-6">
               <button
                 @click="applyFilters"
