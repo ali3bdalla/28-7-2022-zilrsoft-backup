@@ -50,7 +50,6 @@ export default {
       this.$store.commit("addToCart", { item: this.item, quantity: 1 });
     },
     removeItem() {
-      console.log("delete");
       this.$store.commit("removeFromCart", this.item);
     },
   },

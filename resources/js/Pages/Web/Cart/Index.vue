@@ -25,7 +25,7 @@
                 </h1>
                 <div class="cart__shipping-method-list">
                   <div
-                    class="cart-shipping-method-list-item"
+                    class="cart__shipping-method-list-item"
                     v-for="shippingMethod in $page.shippingMethods"
                     :key="shippingMethod.id"
                   >
@@ -34,7 +34,7 @@
                         'cart__shipping-method-list-item-image__hidden': disableShippingMethod(shippingMethod),
                       }"
                       :src="shippingMethod.logo"
-                      class="cart-shipping-method-list-item-image "
+                      class="cart__shipping-method-list-item-image"
                     ></el-image>
                     <el-radio
                       v-model="shippingMethodId"
@@ -52,7 +52,7 @@
                 </h1>
                 <div class="cart__shipping-method-list">
                   <div
-                    class="cart-shipping-method-list-item"
+                    class="cart__shipping-method-list-item"
                     v-for="paymentMethod in paymentMethods"
                     :key="paymentMethod.name"
                   >
@@ -151,7 +151,6 @@ export default {
   methods: {
     disableShippingMethod(shippingMethod) {
       if (this.shippingAddress) {
-        // this.shippingMethodId = shippingMethod.id;
         return !shippingMethod.cities_ids.includes(
           parseInt(this.shippingAddress.city_id)
         );
@@ -162,9 +161,6 @@ export default {
       this.shippingAddress = e;
       this.shippingAddressId = e.id;
 
-      // this.$page.shippingMethods.forEach((shippingMethod) => {
-      //   shippingMethod.cities_ids.includes(parseInt(this.shippingAddress.city_id))
-      // })
     },
     updateOrderItems(e) {
       this.orderItems = e.items;

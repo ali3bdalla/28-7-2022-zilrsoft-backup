@@ -140,7 +140,7 @@ export default {
         const element = this.orderProducts[index];
         let product = this.findProductById(element);
         if (
-          product &&
+          product && parseInt(product.available_qty) > 0 && 
           parseInt(product.available_qty) >= parseInt(product.quantity) &&
           !itemsId.includes(element)
         ) {
