@@ -2,72 +2,38 @@
   <web-layout>
     <div class="container">
       <div class="breadcrumb-text breadcrumb-text-disable-last" >
-        <!-- <a href="#"><i class="fa fa-home"></i> Home</a> -->
         <a :href="page.url"  v-for="(page,index) in $page.breadcrumb" :key="index">{{page.title}}</a>
-
-      </div>
-      <div
-        v-if="$page.level == 'main'"
-        class="grid-cols-1 md:grid-cols-2 products-grid"
-      >
-        <!--bg-gray-200-->
-        <a
-          :href="`/web/categories/${category.id}`"
-          v-for="category in subCategories"
-          :key="category.id"
-        >
-          <SubategoryListItemComponent
-            :category="category"
-          ></SubategoryListItemComponent>
-        </a>
       </div>
       <vue-horizontal
-        v-else-if="subCategories.length > 0"
-        scroll
         snap="center"
-        :button="false"
+        :button="true"
         :button-between="false"
         ref="horizontal"
         style="direction: ltr"
-        class="products-grid mb-2"
+        class="products-grid page__categories__list"
       >
-        <div v-for="(category, index) in subCategories" :key="category.id" class="animate__animated  animate__fadeInRightBig " style=" animation-duration: 8s;">
+        <div v-for="(category, index) in subCategories" :key="category.id" >
           <a
             :href="`/web/categories/${category.id}`"
-            class="text-gray-800 hover:text-gray-900"
+            class="page__categories__list-item"
           >
             <div
-              class="bg-white p-1 px-2 mx-1 border-2 my-2"
-              style="border-color: #d2e8ff !important"
+              class="page__categories__name" 
             >
-              <!-- {{ category.locale_name }} -->
-              <div class="px-2 text-xl font-bold text-center">
                 {{ category.locale_name }}
-              </div>
             </div>
           </a>
         </div>
       </vue-horizontal>
-      <div class="mt-2">
+      <div class="page__mt-2">
         <h1
-          class="flex items-center justify-center text-xl font-bold text-center text-gray-600 md:text-2xl"
+          class="home__products-count"
         >
           {{ $page.$t.products.products_count }} ({{ $page.category.products_count }})
-          <!-- &nbsp; <a
-            :href="`/web/items?category_id=${$page.category.id}`"
-            class="ml-2 text-sm text-blue-400"
-            >{{$page.$t.products.show_all}}</a
-          > -->
         </h1>
 
-        <div class="products-grid -mt-2">
-          <ProductListItemComponent
-            v-for="(item, index) in items"
-            :key="item.id"
-            :item="item"
-            :index="index"
-          ></ProductListItemComponent>
-        </div>
+        <items-infinity-load :params="{parent_category_id:$page.category.id}"></items-infinity-load>
+
       </div>
     </div>
   </web-layout>
@@ -78,6 +44,7 @@ import SubategoryListItemComponent from "./../../../components/Web/Category/Suba
 import ProductListItemComponent from "./../../../components/Web/Product/ProductListItemComponent";
 import WebLayout from "../../../Layouts/WebAppLayout";
 import VueHorizontal from "vue-horizontal";
+import ItemsInfinityLoad from '../../../components/Web/Item/ItemsInfinityLoad.vue';
 
 export default {
   components: {
@@ -85,6 +52,7 @@ export default {
     SubategoryListItemComponent,
     ProductListItemComponent,
     VueHorizontal,
+    ItemsInfinityLoad
   },
   data() {
     return {
@@ -103,18 +71,19 @@ export default {
       return subcategories;
     },
 
-    items() {
-      let items = [];
-      for (const index in this.$page.items) {
-        let item = this.$page.items[index];
-        item.image = this.images[index % 7];
-        items.push(item);
-      }
-      return items;
-    },
+    // items() {
+    //   let items = [];
+    //   for (const index in this.$page.items) {
+    //     let item = this.$page.items[index];
+    //     item.image = this.images[index % 7];
+    //     items.push(item);
+    //   }
+    //   return items;
+    // },
   },
 };
 </script>
 
 <style>
+
 </style>>

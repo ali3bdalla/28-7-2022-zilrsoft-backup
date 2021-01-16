@@ -30,7 +30,7 @@
           <!--            {{ notification.created_at }}-->
           <!--          </div>-->
           <div class="notification__buttons">
-            <a :href="`/orders/${notification.id}`">عرض السداد</a>
+            <a :href="`/store/orders/${notification.id}`">عرض السداد</a>
             <a :href="`/sales/${notification.draft_id}`">عرض الطلب</a>
           </div>
         </div>

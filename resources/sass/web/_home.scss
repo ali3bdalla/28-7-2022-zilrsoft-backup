@@ -1,0 +1,48 @@
+
+.home {
+    &__categories-list {
+        @apply grid w-full grid-cols-1 gap-3 mt-3 mb-10 ;
+        @screen md {
+            @apply grid-cols-2;
+        }
+    }
+
+
+    &__categories-list-item {
+        @apply h-32 ;
+        @screen md {
+            @apply h-48;
+        }
+    }
+
+    &__products-count {
+
+        @apply flex items-center justify-center text-xl font-bold text-center text-gray-600 ;
+
+        @screen md {
+            @apply text-2xl;
+        }
+    }
+
+    &__products-area {
+        @apply mt-10;
+    }
+
+    &__categories-cell {
+        @apply h-32 overflow-hidden border;
+        @screen md {
+            @apply h-48;
+        }
+    }
+    &__categories-cell-content  {
+        @apply flex items-center justify-center;
+
+        &__bg {
+            @apply flex-1 bg-white;
+        }
+        &__image {
+            @apply object-contain w-full h-full;
+        }
+    }
+}
+

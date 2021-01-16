@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Schema;
 
 class FetchItemsUsingFiltersRequest extends FormRequest
 {
+
+    use ItemSearch;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -41,70 +43,58 @@ class FetchItemsUsingFiltersRequest extends FormRequest
         $table = (new Item())->getTable();
 
 
-       
-
-        // if ($this->has('category_id') && $this->filled('category_id')) {
-        //     $category = Category::find($this->input('category_id'));
-        //     if (!empty($category)) {
-        //          $query->where('category_id', $this->input('category_id'));
-        //     }
-        // }
-
-        // if ($this->has('name') && $this->filled('name')) {
-        //     $query->where('name', 'iLIKE', '%' . $this->input('name') . '%')->orWhere('ar_name', 'iLIKE', '%' . $this->input('name') . '%');
-        // }
 
 
 
-        if($this->has('category_id') && $this->filled('category_id')) {
+        if ($this->has('category_id') && $this->filled('category_id')) {
             $category = Category::find($this->input('category_id'));
-            
-            if($category) {
-                $query->where('category_id',$this->input('category_id'));
+
+            if ($category) {
+                $query->where('category_id', $this->input('category_id'));
             }
-            
         }
-        
-       
 
-       
 
-        if ($this->has('filters_values') ) {
+
+        if ($this->has('parent_category_id') && $this->filled('parent_category_id')) {
+            $category = Category::find($this->input('parent_category_id'));
+
+            if ($category) {
+                $query->whereIn('category_id', $category->getChildrenIncludeMe());
+            }
+        }
+
+
+
+        if ($this->has('filters_values')) {
 
             $filtersValues = $this->input('filters_values');
-            $result = ItemFilters::whereIn('filter_value', $filtersValues)->pluck('filter_value', 'filter_id');
+            $result = ItemFilters::whereIn('filter_value', $filtersValues)->get();
 
 
             $filterValuesGroupedByFilters = [];
 
-            foreach ($result  as $key => $value) {
-                $filterValuesGroupedByFilters[$key][] = $value;
+            foreach ($result  as $value) {
+                $filterValuesGroupedByFilters[$value->filter_id][] = $value->filter_value;
             }
             foreach ($filterValuesGroupedByFilters as $filterId => $values) {
-                 $query->whereHas('filters', function ($query2) use ($filterId, $values) {
+                $query->whereHas('filters', function ($query2) use ($filterId, $values) {
                     $query2->where([['filter_id', $filterId]])->whereIn('filter_value', $values);
                 });
             }
-
         }
 
-        if($this->has('name') && $this->filled('name')) {
-            $query->where('name', 'ILIKE', '% ' . $this->input('name') . '%')->orWhere('ar_name', 'ILIKE', '% ' . $this->input('name') . '%');
-        }
+        $query  = $this->apply($query);
 
-        if($this->has('order_by') && $this->filled('order_by') && Schema::hasColumn($table, $this->input('order_by')))
-        {
+        if ($this->has('order_by') && $this->filled('order_by') && Schema::hasColumn($table, $this->input('order_by'))) {
             $sortDirection = $this->input('order_direction');
 
-            if(!in_array($sortDirection,['desc','asc']))
-            {
+            if (!in_array($sortDirection, ['desc', 'asc'])) {
                 $sortDirection = 'desc';
             }
-           $query->orderBy($this->input('order_by'),$sortDirection);
+            $query->orderBy($this->input('order_by'), $sortDirection);
         }
 
-        return $query->with('category','filters.filter', 'filters.value')->paginate(18);
-
-
+        return $query->with('category', 'filters.filter', 'filters.value')->paginate(18);
     }
 }

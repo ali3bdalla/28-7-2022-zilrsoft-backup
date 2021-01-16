@@ -1,12 +1,7 @@
 <template>
-  <div class="flex items-center justify-end w-2/12 m-0 text-center">
+  <div class="page__header-quick-cart">
     <ul class="nav-right">
-      <!--      <li class="heart-icon">-->
-      <!--        <a href="#">-->
-      <!--          <i class="icon_heart_alt"></i>-->
-      <!--          <span>1</span>-->
-      <!--        </a>-->
-      <!--      </li>-->
+  
       <li class="cart-icon page__header-cart-icon-container">
         <a
           :class="applyClass"
@@ -26,9 +21,8 @@
               stroke-width="2"
             />
           </svg>
-          <!--          <i class="text-xl icon_bag_alt"></i>-->
           <span
-            class="inline-block w-4 h-8 text-xl rounded-full"
+            class="page__header-cart-icon-counter"
             style="
               width: 34px;
               height: 34px;
@@ -43,58 +37,7 @@
             >{{ $store.state.cartCount }}</span
           >
         </a>
-        <!--        <div class="cart-hover">-->
-        <!--          <div class="select-items">-->
-        <!--            <table>-->
-        <!--              <tbody>-->
-        <!--              <tr>-->
-        <!--                <td class="si-pic">-->
-        <!--                  <img-->
-        <!--                      alt=""-->
-        <!--                      src="/Web/template/img/select-product-1.jpg"-->
-        <!--                  />-->
-        <!--                </td>-->
-        <!--                <td class="si-text">-->
-        <!--                  <div class="product-selected">-->
-        <!--                    <p>$60.00 x 1</p>-->
-        <!--                    <h6>Kabino Bedside Table</h6>-->
-        <!--                  </div>-->
-        <!--                </td>-->
-        <!--                <td class="si-close">-->
-        <!--                  <i class="ti-close"></i>-->
-        <!--                </td>-->
-        <!--              </tr>-->
-        <!--              <tr>-->
-        <!--                <td class="si-pic">-->
-        <!--                  <img-->
-        <!--                      alt=""-->
-        <!--                      src="/Web/template/img/select-product-2.jpg"-->
-        <!--                  />-->
-        <!--                </td>-->
-        <!--                <td class="si-text">-->
-        <!--                  <div class="product-selected">-->
-        <!--                    <p>$60.00 x 1</p>-->
-        <!--                    <h6>Kabino Bedside Table</h6>-->
-        <!--                  </div>-->
-        <!--                </td>-->
-        <!--                <td class="si-close">-->
-        <!--                  <i class="ti-close"></i>-->
-        <!--                </td>-->
-        <!--              </tr>-->
-        <!--              </tbody>-->
-        <!--            </table>-->
-        <!--          </div>-->
-        <!--          <div class="select-total">-->
-        <!--            <span>total:</span>-->
-        <!--            <h5>$120.00</h5>-->
-        <!--          </div>-->
-        <!--          <div class="select-button">-->
-        <!--            <a class="primary-btn view-card" href="#">VIEW CARD</a>-->
-        <!--            <a class="primary-btn checkout-btn" href="#">CHECK OUT</a>-->
-        <!--          </div>-->
-        <!--        </div>-->
       </li>
-      <!--      <li class="cart-price text-web-primary">{{ totalCartAmount }}</li>-->
     </ul>
   </div>
 </template>
@@ -111,24 +54,7 @@ export default {
     };
   },
   computed: mapState(["cartCount"]),
-  // {
-  //
-  // cartCountMapped() {
-  //   return ;
-  // },
-  // totalCartAmount() {
-  //   if (this.$store.state.cartCount === 0)
-  //     return 0;
-  //
-  //   let total = 0;
-  //   for (const item of this.$store.state.cart) {
-  //     total = total + (parseFloat(item.price) * parseInt(item.quantity));
-  //   }
-  //
-  //   return parseFloat(total).toFixed(2);
-  // }
 
-  // },
   watch: {
     cartCount: function (oldValue, NewValue) {
       this.applyClass = "animate__animated animate__rubberBand ";

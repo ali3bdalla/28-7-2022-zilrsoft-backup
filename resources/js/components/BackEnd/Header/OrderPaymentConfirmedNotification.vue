@@ -23,7 +23,7 @@
           </div>
 
           <div class="notification__buttons">
-            <a :href="`/orders/${notification.id}/confirm`">قبول الطلب</a>
+            <a :href="`/store/orders/${notification.id}/accept-order-as-manager`">قبول الطلب</a>
           </div>
         </div>
 

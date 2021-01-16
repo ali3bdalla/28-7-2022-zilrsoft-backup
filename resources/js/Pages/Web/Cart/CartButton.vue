@@ -2,51 +2,49 @@
   <div class="cart__totals-buttons">
     <div>
       <div class="cart__total-amount">
-        <span>{{$page.$t.cart.total}} (<span class="inc_tax">{{$page.$t.cart.inc_vat}}</span>) : </span>
+        <span
+          >{{ $page.$t.cart.total }} (<span class="inc_tax">{{
+            $page.$t.cart.inc_vat
+          }}</span
+          >) :
+        </span>
         <display-money :money="getOrderTotalAmount(orderItems)"></display-money>
       </div>
       <div v-show="activePage === 'checkout' && shippingMethodId">
         <div class="cart__total-amount">
-          <span>{{$page.$t.cart.shipping_weight}} : </span>
+          <span>{{ $page.$t.cart.shipping_weight }} : </span>
           <display-money :money="getTotalShippingWeight()"></display-money>
         </div>
         <div class="cart__total-amount">
-          <span>{{$page.$t.cart.shipping_total}} : </span>
+          <span>{{ $page.$t.cart.shipping_total }} : </span>
 
           <display-money
-              :money="getTotalShippingSubtotal()"
-              v-if="getTotalShippingSubtotal() > 0"
+            :money="getTotalShippingSubtotal()"
+            v-if="getTotalShippingSubtotal() > 0"
           ></display-money>
-          <span v-else>{{$page.$t.cart.free}}</span>
+          <span v-else>{{ $page.$t.cart.free }}</span>
         </div>
-
 
         <div class="cart__total-amount">
-          <span>{{$page.$t.cart.net}}: </span>
+          <span>{{ $page.$t.cart.net }}: </span>
 
-          <display-money
-              :money="getOrderNetAmount()"
-
-          ></display-money>
-
+          <display-money :money="getOrderNetAmount()"></display-money>
         </div>
-        <!-- <div class="cart__total-amount">
-          <span>Shipping Discount: </span>
-          <display-money :money="getShippingDiscount()"></display-money>
-        </div> -->
       </div>
     </div>
     <div v-if="activePage === 'cart'">
       <button class="proceed-btn" @click="changeActivePage('checkout')">
-        {{$page.$t.cart.checkout}} ({{ orderItems.length }})
+        {{ $page.$t.cart.checkout }} ({{ orderItems.length }})
       </button>
     </div>
 
     <div v-else>
       <button v-if="$page.client_logged" class="proceed-btn" @click="sendOrder">
-        {{$page.$t.cart.confirm_order}}
+        {{ $page.$t.cart.confirm_order }}
       </button>
-      <a v-else class="proceed-btn" href="/web/sign_in">{{$page.$t.cart.login_to_checkout}}</a>
+      <a v-else class="proceed-btn" href="/web/sign_in">{{
+        $page.$t.cart.login_to_checkout
+      }}</a>
     </div>
   </div>
 </template>
@@ -56,7 +54,7 @@ import CartMixin from "./CartMixin";
 import DisplayMoney from "../../../components/BackEnd/Money/DisplayMoney";
 
 export default {
-  components: {DisplayMoney},
+  components: { DisplayMoney },
   mixins: [CartMixin],
   name: "CartButton",
   props: {
@@ -81,7 +79,7 @@ export default {
   methods: {
     changeActivePage(page) {
       console.log(page);
-      this.$emit("changeActivePage", {page: page});
+      this.$emit("changeActivePage", { page: page });
     },
 
     sendOrder() {
@@ -91,7 +89,7 @@ export default {
 
     updateShippingDetails() {
       this.shippingMethod = this.$page.shipping_methods.find(
-          (p) => p.id === value
+        (p) => p.id === value
       );
     },
     getTotalShippingWeight() {
@@ -99,7 +97,7 @@ export default {
       let items = this.orderItems;
       for (let index = 0; index < items.length; index++) {
         totalWeight +=
-            parseFloat(items[index].weight) * parseInt(items[index].quantity);
+          parseFloat(items[index].weight) * parseInt(items[index].quantity);
       }
       return totalWeight;
     },
@@ -110,8 +108,8 @@ export default {
       let totalShippingAmount = parseFloat(this.getTotalShippingAmount());
       for (let index = 0; index < items.length; index++) {
         discount +=
-            parseFloat(items[index].shipping_discount) *
-            parseInt(items[index].quantity);
+          parseFloat(items[index].shipping_discount) *
+          parseInt(items[index].quantity);
       }
 
       if (totalShippingAmount < discount) {
@@ -121,36 +119,39 @@ export default {
     },
 
     getOrderNetAmount() {
-      return parseFloat(this.getTotalShippingSubtotal()) + parseFloat(this.getOrderTotalAmount(this.orderItems));
+      return (
+        parseFloat(this.getTotalShippingSubtotal()) +
+        parseFloat(this.getOrderTotalAmount(this.orderItems))
+      );
     },
 
     getShippingMethod() {
       let shippingMethod = this.$page.shippingMethods.find(
-          (p) => p.id == this.shippingMethodId
+        (p) => p.id == this.shippingMethodId
       );
       return shippingMethod ? shippingMethod : {};
     },
 
     getTotalShippingSubtotal() {
-      return parseFloat(this.getTotalShippingAmount()) - parseFloat(this.getShippingDiscount());
+      return (
+        parseFloat(this.getTotalShippingAmount()) -
+        parseFloat(this.getShippingDiscount())
+      );
     },
     getTotalShippingAmount() {
       let totalWeight = parseFloat(this.getTotalShippingWeight()); // 39
 
-      if(totalWeight == 0)
-        return 0;
+      if (totalWeight == 0) return 0;
       let maxBaseWeight = parseFloat(this.getShippingMethod().max_base_weight);
       let shippingAmount = parseFloat(
-          this.getShippingMethod().max_base_weight_price
+        this.getShippingMethod().max_base_weight_price
       );
-
-
 
       if (maxBaseWeight < totalWeight) {
         let weightVaritionToBase = totalWeight - maxBaseWeight;
         shippingAmount +=
-            weightVaritionToBase *
-            parseFloat(this.getShippingMethod().kg_rate_after_max_price);
+          weightVaritionToBase *
+          parseFloat(this.getShippingMethod().kg_rate_after_max_price);
       }
 
       return shippingAmount;
@@ -158,6 +159,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-</style>

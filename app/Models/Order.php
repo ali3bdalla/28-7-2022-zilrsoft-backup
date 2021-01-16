@@ -40,10 +40,7 @@ class Order extends BaseModel
     }
 
 
-    public function draft()
-    {
-        return $this->belongsTo(Invoice::class, 'draft_id')->withoutGlobalScopes(["manager", 'draft']);
-    }
+ 
 
     public function activities()
     {
@@ -81,16 +78,20 @@ class Order extends BaseModel
     {
         return $this->hasOne(OrderPaymentDetail::class, 'order_id');
     }
+    public function shippingMethod()
+    {
+        return $this->belongsTo(ShippingMethod::class, 'shipping_method_id')->withoutGlobalScopes(['manager', 'draft', 'organization','accountingPeriod']);
+    }
 
 
     public function draftInvoice()
     {
-        return $this->belongsTo(Invoice::class, 'draft_id')->withoutGlobalScopes(['manager', 'draft', 'organization']);
+        return $this->belongsTo(Invoice::class, 'draft_id')->withoutGlobalScopes(['manager', 'draft', 'organization','accountingPeriod']);
     }
 
     public function invoice()
     {
-        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes(['manager', 'draft', 'organization']);
+        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes(['manager', 'draft', 'organization','accountingPeriod']);
 
     }
 

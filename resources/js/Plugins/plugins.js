@@ -5,8 +5,29 @@ import VModal from 'vue-js-modal'
 window.Pusher = require('pusher-js');
 import 'vue-spinners/dist/vue-spinners.css'
 import VueSpinners from 'vue-spinners/dist/vue-spinners.common'
-import JsonExcel from "vue-json-excel";
-import html2Pdf from './pdf';
+
+import InfiniteLoading from 'vue-infinite-loading';
+
+
+import {
+    
+    Image,
+    Radio,
+    Card,
+    Option,
+    Select
+  } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+
+Vue.use(Image)
+Vue.use(Radio)
+Vue.use(Card)
+Vue.use(Option)
+Vue.use(Select)
+Vue.use(InfiniteLoading, { /* options */ });
+
+
 Vue.prototype.$currency = currency;
 if (window._translations) Vue.prototype.$translator = JSON.parse(window._translations);
 
@@ -14,7 +35,7 @@ if (window._translations) Vue.prototype.$translator = JSON.parse(window._transla
 Vue.prototype.$asset = (url ) => {
 	return '/' + url;
 };
-// Vue.prototype.$echo
+
 Vue.prototype.$sound = {
 	play: (name) => {
 		let audio = new Audio(`./../../../sounds/${name}`);
@@ -23,8 +44,8 @@ Vue.prototype.$sound = {
 };
 Vue.use(VModal);
 Vue.use(VueSpinners)
-Vue.component("downloadExcel", JsonExcel);
-Vue.use(html2Pdf)
+
+
 
 
   

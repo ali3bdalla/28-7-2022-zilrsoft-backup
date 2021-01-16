@@ -45,6 +45,72 @@
     @apply w-full  p-2 flex justify-center gap-2  font-bold my-2;
     //bg-web-primary //text-white mb-3 border shadow-lg rounded
   }
+
+  &__shipping-address {
+    @apply flex flex-col gap-5;
+  }
+
+
+  &__shipping-address-list {
+    @apply flex;
+  }
+
+  &__shipping-address-right {
+    @apply w-7/12 ;
+    @screen md {
+      @apply w-10/12;
+    }
+  }
+
+  &__shipping-address-left {
+    @apply flex items-center justify-center w-5/12 text-sm ;
+
+    @screen md {
+      @apply w-2/12
+    }
+  }
+
+  &__shipping-address-title {
+    @apply text-xl font-bold text-gray-500;
+  }
+
+
+  &__shipping-method-title {
+    @apply mb-3 text-xl text-gray-500;
+  }
+
+  &__shipping-method-list {
+    @apply  grid grid-cols-2 gap-2 ;
+    @screen md {
+      @apply grid-cols-4;
+    }
+  }
+
+  &__shipping-method-list-item {
+    @apply flex flex-col items-center justify-center gap-5 pb-3 text-xl border rounded shadow-sm;
+  }
+
+  &__shipping-method-list-item-image {
+    @apply object-cover h-32;
+
+    &__hidden {
+      @apply opacity-50
+    }
+  }
+  &__shipping-methods-list  {
+    @apply grid grid-cols-2 gap-2;
+
+    @screen md {
+      @apply grid-cols-4;
+    }
+  }
+
+
+  &__checkout {
+    @apply flex items-center justify-center w-full mt-5;
+  }
+
+
 }
 
 

@@ -1,13 +1,15 @@
 import {InertiaApp} from '@inertiajs/inertia-vue'
 import Vue from 'vue'
 import Vuex from 'vuex'
+
+
+
 import VueSimpleAlert from "vue-simple-alert";
 // import {EagleModal} from 'vue-eagle-modal'
 import vClickOutside from 'v-click-outside'
 
 import Dialog from 'vue-dialog-loading'
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+
 window.axios = require('axios')
 window._ = require('lodash');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
@@ -32,7 +34,7 @@ require('./Plugins/plugins');
 require('./upload_images');
 
 
-Vue.use(ElementUI)
+
 Vue.use(Vuex)
 Vue.use(VueSimpleAlert);
 Vue.use(Dialog, {

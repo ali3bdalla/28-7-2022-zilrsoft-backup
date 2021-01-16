@@ -1,50 +1,36 @@
 <template>
   <web-layout>
-    <!-- <SideBarComponent :items='$page.items'></SideBarComponent> -->
-    
     <div class="container">
-      <hero class="mt-2"></hero>
-      <div
-        class="grid w-full grid-cols-1 gap-3 mt-3 mb-10 md:grid-cols-2"
-      >
+      <hero class=""></hero>
+      <div class="home__categories-list">
         <a
-          class="h-32 md:h-48" 
+          class="home__categories-list-item"
           :href="`/web/categories/${category.id}`"
           v-for="(category, index) in $page.main_categories"
           :key="index"
         >
-        <SubategoryListItemComponent
+          <SubategoryListItemComponent
             :category="category"
           ></SubategoryListItemComponent>
-
         </a>
       </div>
 
-        <div class="mt-10">
-       <h1
-          class="flex items-center justify-center text-xl font-bold text-center text-gray-600 md:text-2xl"
-        >
+      <div class="home__products-area">
+        <h1 class="home__products-count">
           {{ $page.$t.products.products_count }} ({{ $page.products_count }})
-          <!-- &nbsp; <a
-            :href="`/web/items?category_id=${$page.category.id}`"
-            class="ml-2 text-sm text-blue-400"
-            >{{$page.$t.products.show_all}}</a
-          > -->
         </h1>
-        <div
-
-          class="products-grid" 
-        >
+        <!-- <div class="products-grid">
           <ProductListItemComponent
-            v-for="(item, index) in $page.items"
+            v-for="(item, index) in dataItems"
             :key="item.id"
             :item="item"
             :index="index"
           ></ProductListItemComponent>
+          <infinite-loading @infinite="infiniteHandler"></infinite-loading>
         </div>
+      </div> -->
+        <ItemsInfinityLoad :params="{}"></ItemsInfinityLoad>
       </div>
-
-
     </div>
   </web-layout>
 </template>
@@ -53,8 +39,9 @@
 import SideBarComponent from "./../../../components/Web/Page/SideBarComponent";
 import WebLayout from "../../../Layouts/WebAppLayout";
 import SubategoryListItemComponent from "./../../../components/Web/Category/SubategoryListItemComponent";
-import ProductListItemComponent from '../../../components/Web/Product/ProductListItemComponent.vue';
-import Hero from '../../../components/Web/Page/Hero.vue';
+import ProductListItemComponent from "../../../components/Web/Product/ProductListItemComponent.vue";
+import Hero from "../../../components/Web/Page/Hero.vue";
+import ItemsInfinityLoad from "../../../components/Web/Item/ItemsInfinityLoad.vue";
 
 export default {
   name: "Index",
@@ -63,9 +50,12 @@ export default {
     SideBarComponent,
     SubategoryListItemComponent,
     ProductListItemComponent,
-    Hero
+    Hero,
+    ItemsInfinityLoad,
   },
 
+
+ 
 };
 </script>
 

@@ -16,7 +16,6 @@
         </template>
       </HeaderComponent>
       <div style="background-color: #f9f9f9;"> 
-         <!-- padding-top: 230px -->
         <slot></slot>
       </div>
 
@@ -29,7 +28,7 @@
                   <a href="#"
                     ><img
                       :src="$asset('images/logo_hd.png')"
-                      class="w-20"
+                      class="page__footer-icon"
                       alt=""
                   /></a>
                 </div>

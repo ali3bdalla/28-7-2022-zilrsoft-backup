@@ -44,4 +44,11 @@ class ShippingController extends Controller
     {
         return $request->store($shipping);
     }
+
+
+    public function viewTransactions(ShippingMethod $shipping)
+    {
+
+        return view('backend.store.shipping.transactions',compact('shipping'));
+    }
 }

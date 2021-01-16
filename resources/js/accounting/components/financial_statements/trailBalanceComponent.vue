@@ -23,10 +23,10 @@
     <div class="panel-heading">
 
 
-      <button class="btn btn-success" @click="generateReport">PDF</button>
-      <download-excel class="btn btn-primary" :data="accounts">
+      <button class="btn btn-success" @click="printPdf">PDF</button>
+      <!-- <download-excel class="btn btn-primary" :data="accounts">
         CSV
-      </download-excel>
+      </download-excel> -->
 
     </div>
     <div class="panel-body">
@@ -138,10 +138,10 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 
 import VueCtkDateTimePicker from "vue-ctk-date-time-picker";
-import PDFMxin from "./../../../Plugins/pdf";
+// import PDFMxin from "./../../../Plugins/pdf";
 export default {
   name: "trailBalanceComponent",
-  mixins: [PDFMxin],
+  // mixins: [PDFMxin],
   components: {
     VueCtkDateTimePicker,
     Loading,
@@ -164,6 +164,17 @@ export default {
     this.loadData();
   },
   methods: {
+    printPdf()
+    {
+      var printContents = document.getElementById("pdfLayout").innerHTML;
+			var originalContents = document.body.innerHTML;
+
+			document.body.innerHTML = printContents;
+
+			window.print();
+
+			document.body.innerHTML = originalContents;
+    },
     onProgress(e) {
       // this.isLoading = true;
     },

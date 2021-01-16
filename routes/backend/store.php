@@ -3,10 +3,16 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::resource('orders', 'OrderController');
+// Route::resource('orders', 'OrderController');
 Route::prefix('orders')->name('orders.')->group(
     function () {
-        Route::get('{order}/confirm', 'OrderController@confirm');
+        Route::get('/', 'OrderController@index')->name('index');
+        Route::get('{order}', 'OrderController@show')->name('show');
+        Route::get('{order}/accept-order-as-manager', 'OrderController@acceptOrderAsManager')->name('accept-order-as-manager');
+        Route::get('{order}/view-payment', 'OrderController@viewPayment')->name('view-payment');
+        Route::get('{order}/view-shipping', 'OrderController@viewShipping')->name('view-shipping');
+        Route::get('{order}/activities', 'OrderController@activites')->name('activites');
+        Route::get('{order}/customer-data', 'OrderController@customerData')->name('customer-data');
     }
 );
 
@@ -14,5 +20,6 @@ Route::prefix('orders')->name('orders.')->group(
 Route::resource('shipping', 'ShippingController');
 Route::prefix('/shipping/{shipping}')->name('shipping.')->group(function () {
     Route::post('delivery_men', 'ShippingController@storeDeliveryMan')->name('delivery_men.store');
+    Route::get('view-transactions', 'ShippingController@viewTransactions')->name('view-transactions');
     Route::patch('delivery_men/{deliveryMan}', 'ShippingController@updateDeliveryMan')->name('delivery_men.update');
 });

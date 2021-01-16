@@ -93,7 +93,7 @@ class StoreOrderRequest extends FormRequest
             DB::commit();
             $path = CreateOrderPdfSnapshotJob::dispatchNow($invoice);
             event(new OrderCreatedEvent($invoice, $path));
-            return redirect('/web/orders');
+            return redirect('/web/profile');
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw $queryException;

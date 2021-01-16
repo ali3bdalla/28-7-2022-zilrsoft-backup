@@ -1,154 +1,192 @@
 <template>
   <div class="table">
-    <div class="box" style="overflow:scroll">
+    <div class="box" style="overflow: scroll">
       <div class="panel-heading">
         <VueCtkDateTimePicker
-            v-model="date_range"
-            :auto-close="true"
-            :behaviour="{time: {nearestIfDisabled: true}}"
-            :custom-shortcuts="customDateShortcuts"
-            :only-date="false"
-            :range="true"
-            label="تحديد التاريخ"
-            locale="en"
+          v-model="date_range"
+          :auto-close="true"
+          :behaviour="{ time: { nearestIfDisabled: true } }"
+          :custom-shortcuts="customDateShortcuts"
+          :only-date="false"
+          :range="true"
+          label="تحديد التاريخ"
+          locale="en"
         />
       </div>
       <div class>
         <div class="panel-heading has-background-dark has-text-white">
           <div class="columns is-center">
-            <div
-                class="column text-center"
-            >{{ translator.movement.stock_qty }} : ( {{ item.available_qty }} )
+            <div class="column text-center">
+              {{ translator.movement.stock_qty }} : ( {{ item.available_qty }} )
             </div>
             <div class="column text-center">
-              {{ translator.movement.stock_value }} : ({{ item.total_stock_amount }})
+              {{ translator.movement.stock_value }} : ({{
+                item.total_stock_amount
+              }})
             </div>
-            <div class="column text-center">{{ translator.movement.cost }} : ({{ item.cost }})</div>
-            <div class="column text-center">{{ translator.movement.profits }} : ({{ item.total_profits_amount }})
+            <div class="column text-center">
+              {{ translator.movement.cost }} : ({{ item.cost }})
+            </div>
+            <div class="column text-center">
+              {{ translator.movement.profits }} : ({{
+                item.total_profits_amount
+              }})
             </div>
           </div>
         </div>
       </div>
-      <table id class="text-center table is-bordered is-dark is-triped" style="width:100%;">
+      <table
+        id
+        class="text-center table is-bordered is-dark is-triped"
+        style="width: 100%"
+      >
         <thead class="thead-dark">
-        <tr>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th colspan="3">{{ translator.movement.in }}</th>
-          <th class="has-background-light" colspan="4">{{ translator.movement.out }}</th>
-          <th colspan="3">{{ translator.movement.stock }}</th>
-          <th></th>
-        </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th colspan="3">{{ translator.movement.in }}</th>
+            <th class="has-background-light" colspan="4">
+              {{ translator.movement.out }}
+            </th>
+            <th colspan="3">{{ translator.movement.stock }}</th>
+            <th></th>
+          </tr>
 
-        <tr>
-          <th>{{ translator.movement.date }}</th>
-          <th>{{ translator.movement.invoice }}</th>
-          <th>{{ translator.movement.user }}</th>
-          <th>{{ translator.movement.creator }}</th>
-          <th>{{ translator.movement.qty }}</th>
-          <th>{{ translator.movement.price }}</th>
-          <th>{{ translator.movement.value }}</th>
-          <th class="has-background-light">{{ translator.movement.qty }}</th>
-          <th class="has-background-light">{{ translator.movement.price }}</th>
-          <th class="has-background-light">{{ translator.movement.value }}</th>
-          <th>البيع</th>
-          <th>{{ translator.movement.stock_qty }}</th>
-          <th>{{ translator.movement.cost }}</th>
+          <tr>
+            <th>{{ translator.movement.date }}</th>
+            <th>{{ translator.movement.invoice }}</th>
+            <th>{{ translator.movement.user }}</th>
+            <th>{{ translator.movement.creator }}</th>
+            <th>{{ translator.movement.qty }}</th>
+            <th>{{ translator.movement.price }}</th>
+            <th>{{ translator.movement.value }}</th>
+            <th class="has-background-light">{{ translator.movement.qty }}</th>
+            <th class="has-background-light">
+              {{ translator.movement.price }}
+            </th>
+            <th class="has-background-light">
+              {{ translator.movement.value }}
+            </th>
+            <th>البيع</th>
+            <th>{{ translator.movement.stock_qty }}</th>
+            <th>{{ translator.movement.cost }}</th>
 
-          <th>{{ translator.movement.stock_value }}</th>
-          <th>{{ translator.movement.description }}</th>
-          <th>{{ translator.movement.profits }}</th>
-        </tr>
+            <th>{{ translator.movement.stock_value }}</th>
+            <th>{{ translator.movement.description }}</th>
+            <th>{{ translator.movement.profits }}</th>
+          </tr>
         </thead>
-        <tbody v-for="(history,index) in histories" :key="history.id">
-        <tr :class="{'has-background-light':true}">
-          <td class="datedirection">{{ history.created_at }}</td>
-          <td>
-            <a :href="history.invoice_url">{{ history.invoice_number }}</a>
-          </td>
-          <td>
-            <span v-if="history.user!=null">{{ history.user.name }}</span>
-            <span v-else></span>
-          </td>
-          <td>{{ history.creator ? history.creator.name : "" }}</td>
-          <td>
+        <tbody v-for="(history, index) in histories" :key="history.id">
+          <tr :class="{ 'has-background-light': true }">
+            <td class="datedirection">{{ history.created_at }}</td>
+            <td>
+              <a :href="history.invoice_url">{{ history.invoice_number }}</a>
+            </td>
+            <td>
+              <span v-if="history.user != null">{{ history.user.name }}</span>
+              <span v-else></span>
+            </td>
+            <td>{{ history.creator ? history.creator.name : "" }}</td>
+            <td>
               <span
-                  v-if="history.invoice_type=='beginning_inventory'
-                         || history.invoice_type=='purchase'
-                         || history.invoice_type=='return_sale'
-                    "
-              >{{ history.qty }}</span>
-          </td>
-          <td>
+                v-if="
+                  history.invoice_type == 'beginning_inventory' ||
+                  history.invoice_type == 'purchase' ||
+                  history.invoice_type == 'inventory_adjustment' ||
+                  history.invoice_type == 'return_sale'
+                "
+                >{{ history.qty }}</span
+              >
+            </td>
+            <td>
+              <span v-if="history.invoice_type == 'return_sale'">{{
+                roundNumber(history.cost)
+              }}</span>
+
               <span
-                  v-if="history.invoice_type=='return_sale'
-                    "
-              >{{ roundNumber(history.cost) }}</span>
-
-            <span
-                v-if="history.invoice_type=='beginning_inventory'
-                         || history.invoice_type=='purchase'
-                    "
-            >{{ roundNumber(history.unit_price) }}</span>
-
-
-          </td>
-          <td>
+                v-if="
+                  history.invoice_type == 'beginning_inventory' ||
+                  history.invoice_type == 'purchase' ||
+                  history.invoice_type == 'inventory_adjustment'
+                "
+                >{{ roundNumber(history.unit_price) }}</span
+              >
+            </td>
+            <td>
               <span
-                  v-if="history.invoice_type=='beginning_inventory'
-                         || history.invoice_type=='purchase'
-                    "
-              >{{ `${roundNumber(history.subtotal)}` }}</span>
+                v-if="
+                  history.invoice_type == 'beginning_inventory' ||
+                  history.invoice_type == 'purchase' ||
+                  history.invoice_type == 'inventory_adjustment'
+                "
+                >{{ `${roundNumber(history.subtotal)}` }}</span
+              >
 
-            <span v-if="history.invoice_type=='return_sale'
-                    "
-            >{{ roundNumber(parseFloat(history.cost) * parseInt(history.qty)) }}</span>
-          </td>
-          <!--out-->
-          <td>
+              <span v-if="history.invoice_type == 'return_sale'">{{
+                roundNumber(parseFloat(history.cost) * parseInt(history.qty))
+              }}</span>
+            </td>
+            <!--out-->
+            <td>
               <span
-                  v-if="history.invoice_type=='sale'
-                         || history.invoice_type=='return_purchase'
-                    "
-              >{{ history.qty }}</span>
-          </td>
-          <td>
+                v-if="
+                  history.invoice_type == 'sale' ||
+                  history.invoice_type == 'return_purchase'
+                "
+                >{{ history.qty }}</span
+              >
+            </td>
+            <td>
               <span
-                  v-if="history.invoice_type=='sale'
-                         || history.invoice_type=='return_purchase'
-                    "
-              >{{ history.cost }}</span>
-          </td>
-          <td>
+                v-if="
+                  history.invoice_type == 'sale' ||
+                  history.invoice_type == 'return_purchase'
+                "
+                >{{ history.cost }}</span
+              >
+            </td>
+            <td>
               <span
-                  v-if="history.invoice_type=='sale'
-                         || history.invoice_type=='return_purchase'
-                    "
-              >{{ roundNumber(parseFloat(history.cost) * parseInt(history.qty)) }}</span>
-          </td>
+                v-if="
+                  history.invoice_type == 'sale' ||
+                  history.invoice_type == 'return_purchase'
+                "
+                >{{
+                  roundNumber(parseFloat(history.cost) * parseInt(history.qty))
+                }}</span
+              >
+            </td>
 
-          <td>
+            <td>
               <span
-                  v-if="history.invoice_type=='sale' || history.invoice_type=='return_sale'"
-              >{{ roundNumber(history.subtotal) }}</span>
-          </td>
+                v-if="
+                  history.invoice_type == 'sale' ||
+                  history.invoice_type == 'return_sale'
+                "
+                >{{ roundNumber(history.subtotal) }}</span
+              >
+            </td>
 
-          <td>{{ history.available_qty }}</td>
-          <td>{{ roundNumber(history.cost) }}</td>
+            <td>{{ history.available_qty }}</td>
+            <td>{{ roundNumber(history.cost) }}</td>
 
-          <td>{{ roundNumber(history.total_stock_cost_amount) }}</td>
-          <td>{{ history.description }}</td>
-          <td>
+            <td>{{ roundNumber(history.total_stock_cost_amount) }}</td>
+            <td>{{ history.description }}</td>
+            <td>
               <span
-                  v-if="history.invoice_type=='sale' || history.invoice_type=='return_sale'"
-              >{{ history.profit }}</span>
-          </td>
-        </tr>
+                v-if="
+                  history.invoice_type == 'sale' ||
+                  history.invoice_type == 'return_sale'
+                "
+                >{{ history.profit }}</span
+              >
+            </td>
+          </tr>
 
-        <!--DICOUNT-->
-        <!--<tr v-if="parseFloat(history.discount)>0">
+          <!--DICOUNT-->
+          <!--<tr v-if="parseFloat(history.discount)>0">
           <td></td>
           <td></td>
           <td></td>
@@ -227,37 +265,37 @@
         </tr>-->
         </tbody>
         <thead>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <!--out-->
-          <td></td>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <!--out-->
+            <td></td>
 
-          <td></td>
+            <td></td>
 
-          <td></td>
-          <td></td>
+            <td></td>
+            <td></td>
 
-          <td></td>
-          <td></td>
-          <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
 
-          <td></td>
-          <td>{{ total_profit }}</td>
-        </tr>
+            <td></td>
+            <td>{{ total_profit }}</td>
+          </tr>
         </thead>
       </table>
 
       <div>
         <accounting-table-pagination-helper-layout-v2-component
-            :data="paginationResponseData"
-            @pagePerItemsUpdated="pagePerItemsUpdated"
-            @paginateUpdatePage="paginateUpdatePage"
+          :data="paginationResponseData"
+          @pagePerItemsUpdated="pagePerItemsUpdated"
+          @paginateUpdatePage="paginateUpdatePage"
         ></accounting-table-pagination-helper-layout-v2-component>
       </div>
     </div>
@@ -336,8 +374,8 @@ export default {
     this.reusable_translator = JSON.parse(window.reusable_translator);
     // this.roundNumber = helpers.roundTheFloatValueTo2DigitOnlyAfterComma;
     this.customDateShortcuts = [
-      {key: "day", label: this.app.datetimetrans.today, value: "day"},
-      {key: "-day", label: this.app.datetimetrans.yesterday, value: "-day"},
+      { key: "day", label: this.app.datetimetrans.today, value: "day" },
+      { key: "-day", label: this.app.datetimetrans.yesterday, value: "-day" },
       {
         key: "thisWeek",
         label: this.app.datetimetrans.thisWeek,
@@ -348,7 +386,7 @@ export default {
         label: this.app.datetimetrans.lastWeek,
         value: "-isoWeek",
       },
-      {key: "last7Days", label: this.app.datetimetrans.last7Days, value: 7},
+      { key: "last7Days", label: this.app.datetimetrans.last7Days, value: 7 },
       {
         key: "last30Days",
         label: this.app.datetimetrans.last30Days,
@@ -395,29 +433,29 @@ export default {
       let vm = this;
 
       axios
-          .get(this.requestUrl, {
-            params: {
-              start_at: vm.filters.start_at,
-              end_at: vm.filters.end_at,
-              perPage: vm.itemsPerPage,
-            },
-          })
-          .then((response) => {
-            console.log(response.data);
+        .get(this.requestUrl, {
+          params: {
+            start_at: vm.filters.start_at,
+            end_at: vm.filters.end_at,
+            perPage: vm.itemsPerPage,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
 
-            vm.paginationResponseData = response.data;
-            vm.histories = response.data.data;
+          vm.paginationResponseData = response.data;
+          vm.histories = response.data.data;
 
-            vm.total_profit = 0;
-            vm.histories.forEach(function (item) {
-              vm.total_profit += parseFloat(item.profit);
-            });
-            // vm.stock_value = response.data.totals.total_stock_amount;
-            // vm.stock_qty = response.data.totals.total_stock_qty;
-            // vm.cost = response.data.totals.current_stock_item_cost;
-            // vm.profits = response.data.totals.total_sales_profits;
-            // vm.cost = response.data.cost;
+          vm.total_profit = 0;
+          vm.histories.forEach(function (item) {
+            vm.total_profit += parseFloat(item.profit);
           });
+          // vm.stock_value = response.data.totals.total_stock_amount;
+          // vm.stock_qty = response.data.totals.total_stock_qty;
+          // vm.cost = response.data.totals.current_stock_item_cost;
+          // vm.profits = response.data.totals.total_sales_profits;
+          // vm.cost = response.data.cost;
+        });
     },
 
     paginateUpdatePage(event) {

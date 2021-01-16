@@ -8,11 +8,11 @@
 
             <div class="mt-3 text-center">
               <h3 id="modal-headline" class="text-lg leading-6 font-medium text-gray-900" @click="cancelOrder">
-                Cancel Order
+                {{$page.$t.order.cancel}}
               </h3>
               <div class="mt-2">
                 <p class="text-lg text-center">
-                  Are you sure you want to cancel your order ?
+                  {{$page.$t.messages.are_you_sure}}
                 </p>
               </div>
             </div>
@@ -22,11 +22,11 @@
           <button class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                   @click="cancelOrder"
                   type="button">
-            Cancel Order
+            {{$page.$t.order.cancel}}
           </button>
           <button class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                   type="button">
-            Back To Home
+            {{$page.$t.common.back_to_home}}
           </button>
         </div>
       </div>

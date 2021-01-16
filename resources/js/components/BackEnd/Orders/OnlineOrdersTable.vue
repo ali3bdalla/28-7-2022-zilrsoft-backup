@@ -15,22 +15,21 @@
       <tr v-for="order in rows" :key="order.id" class="data__table__row">
         <td class="data__table__cell" v-text="order.id"></td>
         <td class="data__table__cell" v-text="order.user.name"></td>
-        <td class="data__table__cell" v-text="">زياد</td>
+        <td class="data__table__cell"></td>
         <td class="data__table__cell">
           <display-money :money="order.net"/>
         </td>
         <td class="data__table__cell">
-          <display-money :money="order.net"/>
+          <display-money :money="order.shipping_amount"/>
         </td>
 
         <td class="data__table__cell" ></td>
         <td class="data__table__cell" v-text="order.tracking_number"></td>
         <td class="data__table__cell" v-text="order.status"></td>
         <td class="data__table__cell">
-<!--          <dropdown :items="dropdownItems"/>-->
-          <button href="/order/update" class="data__table__dropdown__button">
+          <a :href="`/store/orders/${order.id}`" class="data__table__dropdown__button">
            لوحة التحكم
-          </button>
+          </a>
         </td>
       </tr>
       </tbody>

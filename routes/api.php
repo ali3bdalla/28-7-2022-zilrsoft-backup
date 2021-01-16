@@ -158,8 +158,9 @@ Route::middleware('auth')->group(
 
         Route::prefix('inventory')->name('inventory.')->group(
             function () {
-                Route::post('/beginning', 'InventoryController@storeBeginning')->name('beginning.store');
-                Route::post('/adjustment', 'InventoryController@storeAdjustment')->name('adjustment.store');
+                Route::post('beginning', 'InventoryController@storeBeginning')->name('beginning.store');
+                Route::post('adjustments', 'InventoryController@storeAdjustment')->name('adjustments.store');
+                Route::get('adjustments', 'InventoryController@adjustments')->name('adjustments.index');
             }
         );
 

@@ -3,7 +3,12 @@
 return [
 
     "common" => [
-        "save" => "حفظ"
+        "save" => "حفظ",
+        'back_to_home' => "عودة للصفحة الرئيسية",
+        "completed_message" => "تم تعديل البيانات  بنجاح",
+        "title_message" => "نجاح",
+        "select" => "اختيار",
+        'add_new' => "اضافة حساب"
     ],
     "header" => [
         "search_placeholder" => "ابحث عن المنتجات",
@@ -12,8 +17,18 @@ return [
         // here
     ],
 
+    'messages' => [
+        "success" => "نجاح",
+        "profile_information_updated" => "تم تعديل بيانات الملف الشخصي بنجاح",
+        "phone_number_has_been_changed" => " تم تغير رقم الجوال بنجاح",
+        "password_has_been_changed" => "تم تغير كلمة المرور بنجاح",
+        "confirm" => "تاكيد",
+        "are_you_sure" => "هل انت متاكد ؟ ",
+        'bank_account_has_been_created' => "تمت عملية اضافة الحساب البنكي"
+    ],
 
     "order" => [
+        "cancel" => "الغاء الطلب",
         "sales_invoice" => "فاتورة مبيعات",
         "vatId"=> 'الرقم الضريبي',
         "taxId" => 'السجل التجاري',
@@ -37,8 +52,13 @@ return [
         "draft" => "فاتورة مبدئية",
         "thanks_for_order" => "شكرا لك",
         "created"=>"نجاح",
-        "instructions_for_payment" => "ستتلقى رسالة تتحتوي على تفاصيل الدفع في رقم الجوال "
-        // You will receive payment instructions via whatsapp  to
+        "instructions_for_payment" => "ستتلقى رسالة تتحتوي على تفاصيل الدفع في رقم الجوال ",
+        'payment_confirmation' => "تاكيد عملية الدفع",
+        "order" => "الطلب",
+        "remmning_time_to_auto_cancel_order" => "الوقت المتبقى حتى الالغاء التلقائي للطلب",
+        "transmitter_name" => "اسم المحول",
+        "to_blank" => "البنك المحول له"
+
     ],
     "footer" => [
         "about_us" => "من نحن",
@@ -64,9 +84,11 @@ return [
         "or_create_new_account" => "أنشئ حساب جديد",
         "forget_password" => "نسيت كلمة المرور",
         "password" => "كلمة المرور",
+        "new_password" => "كلمة المرور الجديدة",
         "first_name" => "الأسم الأول",
         "last_name" => "أسم العائلة",
         "sign_up" => "انشاء حساب",
+        "account_number" => "رقم الحساب",
         // here
         'my_info' => 'معلوماتي',
         'orders' => "الطلبات",
@@ -123,7 +145,7 @@ return [
     ],
     //here
     'products' => [
-        'in' => 'في',
+        'in' => 'في فئة',
         'products' => 'المنتجات',
         'products_count' => 'عدد المنتجات',
         'product' => 'منتج',
@@ -143,6 +165,7 @@ return [
         "apply" => "تطبيق",
         "reset" => "مسح",
         "filters_for_search" => "فلاتر بحث ... ",
+        "barcode" => "الباركود",
         "related_products" => "منتجات ذات من صلة"
     ]
 ];

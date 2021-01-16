@@ -1,13 +1,13 @@
 <template>
-  <div class="w-full md:w-48 text-gray-800">
+  <div class="product__search-filters">
     <button
       @click="showFiltersLayout"
-      class="w-full flex justify-center gap-3 items-center py-1 text-white"
+      class="product__search-option-button"
       style="background: rgb(87, 87, 87)"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="w-4 h-4"
+        class="product__search-option-icon"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -71,7 +71,7 @@
                       :key="val.id"
                     >
                       <div
-                        class="w-full flex items-center gap-2 text-black"
+                        class="product__search-filter-value"
                         style="font-size: 15px; color: #575555"
                       >
                         <!-- <label :for="'value_' + val.id"> -->
@@ -93,12 +93,12 @@
             </div>
           </div>
 
-          <div class="row mt-5">
+          <div class="row page__mt-5">
             <div class="col-md-6 col-6">
               <button
                 @click="applyFilters"
 
-                class="btn btn-primary btn-block applyBtn"
+                class="btn btn-primary  applyBtn px-5"
               >
                 {{ $page.$t.products.apply }}
               </button>
@@ -107,7 +107,7 @@
               <button
                 @click="clearFilters"
                 :disabled="selectedValues.length == 0"
-                class="btn btn-default btn-block resetBtn"
+                class="btn btn-default  resetBtn bg-web-primary px-5"
               >
                 {{ $page.$t.products.reset }}
               </button>
@@ -289,13 +289,13 @@ export default {
 }
 
 .applyBtn {
-  height: 55px;
+  height: 42px;
   border-radius: 17px;
   box-shadow: 1px 5px 7px #c1baba;
 }
 
 .resetBtn {
-  height: 55px;
+  height: 42px;
   border-radius: 17px;
   box-shadow: 2px 1px 7px #c1baba;
 }

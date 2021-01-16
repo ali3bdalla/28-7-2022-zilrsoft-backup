@@ -114,17 +114,6 @@
                 </li>
 
 
-{{--                <li>--}}
-{{--                    <a href="{{route('delivery_men.index')}}"><i class="fa fa-sun"></i>--}}
-{{--                        مناديب التوصيل--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-
-                <li>
-                    <a href="{{route('store.orders.index')}}"><i class="fa fa-sun"></i>
-                        الاعدادات
-                    </a>
-                </li>
 
 
             </ul>
@@ -189,8 +178,14 @@
                             <a href="{{route('inventory.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.beginning_inventory') }}
                             </a></li>
+                            
 
-                        {{--                        <li>--}}
+                             <li>
+                            <a href="{{route('inventory.adjustments.index')}}"><i class="fa fa-sun"></i>
+                                {{ __('sidebar.adjust_stock') }}
+                            </a></li>
+
+                        {{--                        <li>
                         {{--                            <a href="{{route('accounting.inventories.index')}}"><i class="fa fa-sun"></i>--}}
                         {{--                                {{ __('sidebar.adjust_stock') }}--}}
                         {{--                            </a></li>--}}

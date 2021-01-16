@@ -10,7 +10,20 @@
     <script defer src="{{ asset('js/online-store.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    @includeIf("layouts.web.styles")
+    
+<link rel="stylesheet" href="{{ asset('web_assets/template/css/bootstrap.min.css')}}" type="text/css">
+<link rel="stylesheet" href="{{ asset('web_assets/template/css/font-awesome.min.css')}}" type="text/css">
+<link rel="stylesheet" href="{{ asset('web_assets/template/css/style.css')}}" type="text/css">
+<link rel="stylesheet" href="{{ asset('css/store.css') }}">
+@if(app()->isLocale( 'ar'))
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@600&family=Tajawal:wght@300;500&display=swap" rel="stylesheet">
+    <link 
+  rel="stylesheet"
+  href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"
+  integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe"
+  crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ asset('css/ar/store.css') }}">
+@endif
 </head>
 <body>
 
@@ -20,19 +33,6 @@
         @yield('content')
     </div>
 </div>
-@includeIf("layouts.web.footer")
-
-<script src="{{ asset('web_assets/template/js/jquery-3.3.1.min.js')}}"></script>
-<script src="{{ asset('web_assets/template/js/bootstrap.min.js')}}"></script>
-<script src="{{ asset('web_assets/template/js/jquery-ui.min.js')}}"></script>
-<script src="{{ asset('web_assets/template/js/jquery.countdown.min.js')}}"></script>
-<script src="{{ asset('web_assets/template/js/jquery.nice-select.min.js')}}"></script>
-<script src="{{ asset('web_assets/template/js/jquery.zoom.min.js')}}"></script>
-<script src="{{ asset('web_assets/template/js/jquery.dd.min.js')}}"></script>
-<script src="{{ asset('web_assets/template/js/jquery.slicknav.js')}}"></script>
-<script src="{{ asset('web_assets/template/js/owl.carousel.min.js')}}"></script>
-<script src="{{ asset('web_assets/template/js/main.js')}}"></script>
-<script src="{{ asset('web_assets/js/web.js') }}"></script>
 
 </body>
 </html>

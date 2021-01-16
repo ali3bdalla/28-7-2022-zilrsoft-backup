@@ -26,8 +26,6 @@ class DatabaseSeeder extends Seeder
     //    ShippingMethod::where('id', '!=', 0)->delete();
     //    foreach ($shippingMethods as $key => $shippingMethod) {
     //        $createdShipping = ShippingMethod::create($shippingMethod);
-
-
     //        if ($key == 1) {
     //            $cities = City::where("id", '!=', $rass->id)->pluck('id');
     //            foreach ($cities as $cityId)

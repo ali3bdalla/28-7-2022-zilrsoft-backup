@@ -26,9 +26,10 @@
     composer_install
     npm_install
     {{-- @if ($activeEnv  && $activeEnv  === 'production')
-        npm_run_prod
+        
     @else --}}
-        npm_run_dev
+    npm_run_prod
+        {{-- npm_run_dev --}}
     {{-- @endif --}}
     update_symlinks
     migrate
