@@ -70,10 +70,6 @@ test:
     - php artisan config:cache 
     # run laravel tests
     - php vendor/bin/phpunit --coverage-text --colors=never
-    # run frontend tests
-    - npm test
-    # run artisan tests
-    - ./vendor/bin/phpunit
   when: always
 
 deploy_dev:
