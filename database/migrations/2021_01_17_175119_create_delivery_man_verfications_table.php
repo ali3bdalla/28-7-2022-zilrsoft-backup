@@ -31,6 +31,3 @@ class CreateDeliveryManVerficationsTable extends Migration
 }
 
 
-// alter type invoice_items_invoice_type ADD VALUE  IF NOT EXISTS 'inventory_adjustment'
-// alter type purchases_invoice_type ADD VALUE  IF NOT EXISTS 'inventory_adjustment'
-//alter type invoices_invoice_type ADD VALUE IF NOT EXISTS 'inventory_adjustment'

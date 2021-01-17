@@ -12,7 +12,7 @@
       </h3>
       
       <a :href="`/web/items/${item.id}`" class="product__list-item-name">
-        {{ item.locale_name }}
+        {{ productName }}
       </a>
       <h6 class="product__list-item-model-number">
          {{$page.$t.products.model}} : {{modelNumber}}
@@ -49,7 +49,14 @@ export default {
   props: ["item", "index"],
   
   computed: {
+    productName(){
+      let modelNumber = this.modelNumber;
+      if(modelNumber != "")
+        return this.item.locale_name.replace(modelNumber, "");
 
+      return this.item.locale_name;
+
+    },
     modelNumber(){
       if(this.item.filters)
       {

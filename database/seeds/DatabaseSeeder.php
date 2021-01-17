@@ -37,18 +37,18 @@ class DatabaseSeeder extends Seeder
     //            $createdShipping->cities()->create(['city_id' => $rass->id]);
     //        }
     //    }
-//
 
-//			$cities = ["Dammam", "Dhahran", "Jeddah", "Jouf", "Khamis Mushayat", "Khayber", "Madinah", "Riyadh", "Tabuk", "Taif", "Yanbu", "Khubar", "Makkah", "Buraydah", "Unayzah", "Hail", "Abha", "Hufuf", "Jubail", "Qatif", "Khafji", "Ras Tannurah", "Buqaiq", "Sayhat", "Safwa", "Jazan", "Sabya", "Abu Arish", "Hafar Al Baten", "Rabigh", "Lith", "Ula", "Duwadimi", "Majmaah", "Zulfi", "Afif", "Arar", "Kharj", "Muzahmiyah", "Ranyah", "Turbah", "Taima", "Dhuba", "Qurayyat", "Turayf", "Wadi Dawasir", "Quwayiyah", "Muhayil", "Salwa", "Rafha", "Baha", "Baljurashi", "Qunfudhah", "Mukhwah", "Mandaq", "Qilwah", "Atawlah", "Aqiq", "Mudhaylif", "Nairiyah", "Qarya Al Uliya", "Tarut", "Anak", "Udhayliyah", "Najran", "Sharourah", "Habounah", "Samtah", "Ahad Al Masarhah", "Baysh", "Darb", "Dhamad", "Bani Malek", "Furasan", "Tuwal", "Shuqayq", "Badr", "Jamoum", "Khulais", "Bahrah", "Masturah", "Shaibah", "Rass", "Bukayriyah", "Badaya", "Riyadh Al Khabra", "Uyun Al Jiwa", "Nabhaniah", "Sajir", "Khabra", "Uqlat As Suqur", "Rafayaa Al Gimsh", "Nabhaniah", "Dukhnah", "Nifi", "Skakah", "Dawmat Al Jandal", "Namas", "Sapt Al Ulaya", "Bellasmar"];
-//
-//			foreach($cities as $ciy) {
-//				City::create(
-//					[
-//						'country_id' => 1,
-//						'name' => $ciy
-//					]
-//				);
-//			}
+
+	// 		$cities = ["Dammam", "Dhahran", "Jeddah", "Jouf", "Khamis Mushayat", "Khayber", "Madinah", "Riyadh", "Tabuk", "Taif", "Yanbu", "Khubar", "Makkah", "Buraydah", "Unayzah", "Hail", "Abha", "Hufuf", "Jubail", "Qatif", "Khafji", "Ras Tannurah", "Buqaiq", "Sayhat", "Safwa", "Jazan", "Sabya", "Abu Arish", "Hafar Al Baten", "Rabigh", "Lith", "Ula", "Duwadimi", "Majmaah", "Zulfi", "Afif", "Arar", "Kharj", "Muzahmiyah", "Ranyah", "Turbah", "Taima", "Dhuba", "Qurayyat", "Turayf", "Wadi Dawasir", "Quwayiyah", "Muhayil", "Salwa", "Rafha", "Baha", "Baljurashi", "Qunfudhah", "Mukhwah", "Mandaq", "Qilwah", "Atawlah", "Aqiq", "Mudhaylif", "Nairiyah", "Qarya Al Uliya", "Tarut", "Anak", "Udhayliyah", "Najran", "Sharourah", "Habounah", "Samtah", "Ahad Al Masarhah", "Baysh", "Darb", "Dhamad", "Bani Malek", "Furasan", "Tuwal", "Shuqayq", "Badr", "Jamoum", "Khulais", "Bahrah", "Masturah", "Shaibah", "Rass", "Bukayriyah", "Badaya", "Riyadh Al Khabra", "Uyun Al Jiwa", "Nabhaniah", "Sajir", "Khabra", "Uqlat As Suqur", "Rafayaa Al Gimsh", "Nabhaniah", "Dukhnah", "Nifi", "Skakah", "Dawmat Al Jandal", "Namas", "Sapt Al Ulaya", "Bellasmar"];
+
+	// 		foreach($cities as $ciy) {
+	// 			City::create(
+	// 				[
+	// 					'country_id' => 1,
+	// 					'name' => $ciy
+	// 				]
+	// 			);
+	// 		}
 
 
 //        DB::insert("INSERT INTO `types` (`id`, `name`, `ar_name`, `created_at`, `updated_at`) VALUES(null , 'wholesales & retail sales', ' مبيعات الجملة والتجزئة', now(), now());");

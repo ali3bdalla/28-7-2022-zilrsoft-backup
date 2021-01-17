@@ -17,7 +17,7 @@ class CreateVerficationsTable extends Migration
             $table->bigIncrements('id');
             $table->morphs("manager");
             $table->string('verfication_code');
-            $table->string("reson")->nullable();
+            $table->string("slug")->nullable();
             $table->timestamps();
         });
     }
