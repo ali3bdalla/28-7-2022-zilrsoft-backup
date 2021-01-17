@@ -97,8 +97,7 @@
             <div class="col-md-6 col-6">
               <button
                 @click="applyFilters"
-
-                class="btn btn-primary  applyBtn px-5"
+                class="btn btn-primary applyBtn px-5"
               >
                 {{ $page.$t.products.apply }}
               </button>
@@ -107,7 +106,7 @@
               <button
                 @click="clearFilters"
                 :disabled="selectedValues.length == 0"
-                class="btn btn-default  resetBtn bg-web-primary px-5"
+                class="btn btn-default resetBtn bg-web-primary px-5"
               >
                 {{ $page.$t.products.reset }}
               </button>
@@ -138,12 +137,19 @@ export default {
     };
   },
   created() {
-    // this.getSubCategories();
+    console.log(this.items);
     this.getApiFilters();
+  },
+  watch: {
+    items: {
+      deep: true,
+      handler(value) {
+        this.getApiFilters();
+      },
+    },
   },
   methods: {
     quiteModel() {
-      // this.clearFilters();
       this.closeModel();
     },
     applyFilters() {
@@ -153,11 +159,7 @@ export default {
       this.closeModel();
     },
     clearFilters() {
-      // this.selectedSubCategoryId = 0;
       this.selectedValues = [];
-      // this.applyFilters();
-      // this.selectedFilters = [];
-      // this.getApiFilters();
     },
     closeModel() {
       this.$modal.hide("filtersLayoutModal");
@@ -200,15 +202,6 @@ export default {
     handleGetFiltersResponse(data = []) {
       let tempSelectedValuesArray = [];
       this.filters = data;
-      // for (let i = 0; i < data.length; i++) {
-      //   let filter = data[i];
-      //   for (let j = 0; j < filter.values.length; j++) {
-      //     if (this.selectedValues.includes(filter.values[j].id))
-      //       tempSelectedValuesArray.push(filter.values[j].id);
-      //   }
-      // }
-
-      // this.selectedValues = tempSelectedValuesArray;
     },
 
     async toggleFilterChildrenLayoutAvailability(filter) {
@@ -230,7 +223,7 @@ export default {
       } else {
         tempSelectedValues.splice(tempSelectedValues.indexOf(valueId), 1);
       }
-      console.log(tempSelectedValues)
+      console.log(tempSelectedValues);
 
       this.selectedValues = tempSelectedValues;
     },

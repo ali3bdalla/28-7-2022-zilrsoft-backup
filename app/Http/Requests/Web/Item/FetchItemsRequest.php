@@ -30,13 +30,13 @@ class FetchItemsRequest extends FormRequest
 	{
 		return [
 			//
-			'categoryId' => 'required|integer'
+			// 'categoryId' => 'required|integer'
 		];
 	}
 
 	public function getData()
 	{
-		$query = Item::where('category_id', $this->input('categoryId'));
+		$query = Item::where('category_id', $this->input('category_id'));
 		$query = $this->apply($query);
 		return $query->with('category', 'filters.filter', 'filters.value')->paginate(18);
 	}

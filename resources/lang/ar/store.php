@@ -145,7 +145,7 @@ return [
     ],
     //here
     'products' => [
-        'in' => 'في فئة',
+        'in' => 'في قسم',
         'products' => 'المنتجات',
         'products_count' => 'عدد المنتجات',
         'product' => 'منتج',

@@ -1,10 +1,34 @@
 <template>
   <web-layout>
     <div class="container">
+      <vue-horizontal
+        v-if="!$page.categoryId"
+        snap="center"
+        :button="true"
+        :button-between="false"
+        ref="horizontal"
+        style="direction: ltr"
+        class="products-grid page__categories__list"
+      >
+        <div v-for="(category, index) in $page.categories" :key="category.id">
+          <a
+            :href="`/web/items?category_id=${category.id}&&name=${$page.name}`"
+            class="page__categories__list-item"
+          >
+            <div class="page__categories__name">
+               <span class="">{{ $page.name }}</span> {{ $page.$t.products.in }} -
+          <span class="">{{ category.locale_name }}</span>
+              <!-- {{ category.locale_name }} -->
+            </div>
+          </a>
+        </div>
+      </vue-horizontal>
+
       <div class="product__search-page">
         <div class="page__mt-2">
           <div class="product__search-options">
             <filters-pop
+              v-if="$page.categoryId"
               :items="items"
               :search-name="$page.name"
               @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated"
@@ -20,6 +44,7 @@
 
         <div class="">
           <items-infinity-load
+            @listUpdated="listUpdated"
             :params="params"
             :paramsUpdated="applyFilterSearch"
           ></items-infinity-load>
@@ -35,6 +60,7 @@ import FiltersPop from "../../../components/Web/Product/List/FiltersPop.vue";
 import SortingPop from "../../../components/Web/Product/List/SortingPop.vue";
 import WebLayout from "../../../Layouts/WebAppLayout";
 import ProductListItemComponent from "./../../../components/Web/Product/ProductListItemComponent";
+import VueHorizontal from "vue-horizontal";
 
 export default {
   components: {
@@ -42,6 +68,7 @@ export default {
     ProductListItemComponent,
     FiltersPop,
     SortingPop,
+    VueHorizontal,
     ItemsInfinityLoad,
   },
   data() {
@@ -49,13 +76,14 @@ export default {
       isLoading: false,
       filterValues: [],
       filters: this.$page.filters,
-      items: this.$page.items.data,
+      items: [], //this.$page.items.data
       priceRange: {},
       orderBy: "id",
       orderDirection: "asc",
     };
   },
   computed: {
+    
     filtersList() {
       return this.filters;
     },
@@ -70,14 +98,15 @@ export default {
     },
   },
   methods: {
+    listUpdated(e){
+      this.items = e.data;
+    },
     addFilterValue(filterValue) {
       if (this.filterValues.includes(filterValue.id)) {
         this.filterValues.splice(this.filterValues.indexOf(filterValue.id), 1);
       } else {
         this.filterValues.push(filterValue.id);
       }
-
-      // this.applyFilterSearch();
     },
 
     expandFilterValues(filterIndex, expand = true) {
@@ -86,29 +115,7 @@ export default {
       this.filters = filters;
     },
 
-    applyFilterSearch() {
-      // if (!this.isLoading) {
-      //   this.isLoading = true;
-      //   let appVm = this;
-      //   axios
-      //     .post("/api/web/items/using_filters", {
-      //       category_id: this.$page.categoryId,
-      //       name: this.$page.name,
-      //       order_by: this.orderBy,
-      //       order_direction: this.orderDirection,
-      //       filters_values: this.filterValues,
-      //     })
-      //     .then((res) => {
-      //       appVm.items = res.data.data;
-      //     })
-      //     .catch((err) => {
-      //       console.log(err);
-      //     })
-      //     .finally(() => {
-      //       appVm.isLoading = false;
-      //     });
-      // }
-    },
+    applyFilterSearch() {},
 
     sortingUpdated(object) {
       this.orderBy = object.key;
@@ -116,21 +123,15 @@ export default {
       // this.applyFilterSearch();
     },
     selectedAttributesHasBeenUpdated(event) {
-      // this.items = [];
       this.filterValues = event.selectedValues;
-      // this.applyFilterSearch();
     },
 
     priceFilterRangeHasBeenUpdated(event) {
-      // this.items = [];
       this.priceRange = event.priceRange;
-      // this.applyFilterSearch();
     },
 
     subCategoryHasBeenUpdated(event) {
       this.selectedSubCategoryId = event.selectedSubCategoryId;
-      // this.items = [];
-      // this.applyFilterSearch();
     },
   },
 };

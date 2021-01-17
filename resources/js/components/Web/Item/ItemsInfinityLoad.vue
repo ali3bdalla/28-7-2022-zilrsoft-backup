@@ -64,6 +64,9 @@ export default {
             this.page += 1;
             this.dataItems.push(...data.data);
             $state.loaded();
+            this.$emit("listUpdated",{
+              data:this.dataItems
+            })
           } else {
             $state.complete();
           }
