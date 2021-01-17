@@ -434,7 +434,7 @@ export default {
         .post("/api/inventory/adjustments", data)
         .then(function (response) {
           console.log(response.data);
-          // window.location.reload();
+          window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
