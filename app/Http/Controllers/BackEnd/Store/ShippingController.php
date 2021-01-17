@@ -51,4 +51,9 @@ class ShippingController extends Controller
 
         return view('backend.store.shipping.transactions',compact('shipping'));
     }
+
+    public function createTransaction(ShippingMethod $shipping)
+    {
+        return view('backend.store.shipping.create-transaction',compact('shipping'));
+    }
 }

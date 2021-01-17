@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use CodeDredd\Soap\Facades\Soap;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
 
-
+        $this->app->bind("SmsaClient", function ($app) {
+            return  Soap::buildClient("smsa_soap");
+        });
 
     }
 
