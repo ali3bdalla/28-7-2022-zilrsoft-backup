@@ -60,7 +60,13 @@ Route::middleware('auth')->group(
     function () {
 
         Route::resource('orders', 'OrderController');
+        Route::prefix("orders/{order}")->name('orders.')->group(
+            function () {
+                Route::post('sign-to-delivery-man', 'OrderController@signToDeliveryMan');
+            }
+        );
 
+        
         Route::prefix('notifications')->namespace('Notifications')->name('notifications.')->group(
             function () {
                 Route::prefix('orders')->name('orders.')->group(

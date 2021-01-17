@@ -68,7 +68,7 @@
                @if($order->status == 'in_progress' && !$order->deliveryMan)
                <div class="row" >
                    <div class="col-md-12 text-center">
-                       <order-shipping-options :order='@json($order)'></order-shipping-options>
+                       <order-shipping-options :order='@json($order)' :shipping-men='@json($shippingMen)'></order-shipping-options>
                    </div>
 
                </div>

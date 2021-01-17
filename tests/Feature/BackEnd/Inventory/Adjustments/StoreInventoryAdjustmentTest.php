@@ -10,7 +10,8 @@ use Tests\TestCase;
 
 class StoreInventoryAdjustmentTest extends TestCase
 {
-    use RefreshDatabase,WithFaker;
+    // RefreshDatabase
+    // use WithFaker;
     /**
      * A basic feature test example.
      *
@@ -19,23 +20,28 @@ class StoreInventoryAdjustmentTest extends TestCase
      */
     public function itShouldNormalizeInventory()
     {
-        $this->actingAsManager();
-        $items = factory(Item::class,10)->create([
-            'organization_id' => 1,
-            'creator_id' => 1,
-            'is_need_serial' => false,
-            'is_kit' => false,
-            'is_service' => false,
-            'available_qty' => $this->faker->numberBetween(5,100)
-        ]);
+        $this->actingAs(Manager::find(1));
+        // $this->actingAsManager();
+        // $items = factory(Item::class,10)->create([
+        //     'organization_id' => 1,
+        //     'creator_id' => 1,
+        //     'is_need_serial' => false,
+        //     'is_kit' => false,
+        //     'is_service' => false,
+        //     'available_qty' => 50
+        // ]);
+        $items = Item::find([1717]);
+
+        dd($items );
 
         $requestItems = [];
         foreach ($items as $item) {
-            $item['qty'] = $this->faker->numberBetween(1,599);
-            $requestItems[] = $item;
+            $item['qty'] = 120;
+            $requestItems[] = $item->toArray();
         }
 
 
+        dd( $requestItems);
         $response = $this->postJson('/api/inventory/adjustments',[
             'items' => $requestItems
         ]);

@@ -12,7 +12,7 @@
       </div>
       <div class="col-md-3">
         <a
-          :href="app.BaseApiUrl + 'inventories/adjust_stock'"
+          :href="'/inventory/adjustments'"
           class="btn btn-default"
           ><i class="fa fa-redo"></i> {{ app.trans.cancel }}</a
         >
@@ -433,11 +433,13 @@ export default {
       axios
         .post("/api/inventory/adjustments", data)
         .then(function (response) {
-          window.location.reload();
+          console.log(response.data);
+          // window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
           console.log(error.response);
+  
         });
     },
   },

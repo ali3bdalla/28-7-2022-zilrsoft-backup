@@ -94,6 +94,13 @@
 		{
 			return $this->hasMany(ItemSerials::class, 'item_id');
 		}
+
+		public function piplineWithoutSorting()
+		{
+			return $this->hasMany(InvoiceItems::class, 'item_id');
+		}
+
+
 		
 		public function pipeline()
 		{

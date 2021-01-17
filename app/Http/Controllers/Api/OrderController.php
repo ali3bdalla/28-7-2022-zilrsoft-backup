@@ -68,5 +68,26 @@
 		{
 			//
 		}
+
+
+		public function signToDeliveryMan(Order $order,Request $request)
+		{
+			$request->validate([
+				"delivey_man_id" => "required|integer|exists:delivery_men,id"
+			]);
+
+
+			
+			
+		}
 		
 	}
+
+
+
+	// stock adjustment
+	// sign deliveryMan to order
+	// create awb ui 
+	// whatsapp notification
+	// delete model number form the name in online
+	// online search dispaly all items and allow to select category => then filters (filters allowed for category only)

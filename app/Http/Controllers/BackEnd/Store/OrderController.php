@@ -45,12 +45,12 @@ use App\Models\Order;
 
 		public function viewPayment(Order $order)
 		{
-			$shippingMen = $order->shippingMethod->deliveryMen()->get();
-			return view('orders.view-payment',compact('order','shippingMen'));
+			return view('orders.view-payment',compact('order'));
 		}
 		public function viewShipping(Order $order)
 		{
-			return view('orders.view-shipping',compact('order'));
+			$shippingMen = $order->shippingMethod->deliveryMen()->get();
+			return view('orders.view-shipping',compact('order','shippingMen'));
 		}
 
 
