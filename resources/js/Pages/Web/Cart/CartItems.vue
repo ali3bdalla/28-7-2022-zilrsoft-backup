@@ -81,11 +81,12 @@
           </td>
           <td v-else class="total-price first-row">{{ item.quantity }}</td>
           <td class="total-price first-row">{{ getProductTotal(item) }}</td>
+          <!-- $page.client_logged &&  -->
           <td
             class="close-td first-row"
-            v-if="$page.client_logged && activePage === 'cart'"
+            v-if="activePage === 'cart'"
           >
-            <i class="ti-close" @click="removeCartItem(item)"></i>
+            <i class="fa fa-remove" @click="removeCartItem(item)"></i>
           </td>
         </tr>
       </tbody>
@@ -240,7 +241,11 @@ export default {
     },
 
     removeCartItem(item) {
-      this.$confirm("are you sure ?", "", "error").then(() => {
+//       denyButtonText
+// 'No'	Use this to change the text on the "Deny"-button.
+// cancelButtonText
+// 'Cancel'
+      this.$confirm(this.$page.$t.messages.are_you_sure, "", "error",{confirmButtonText:this.$page.$t.messages.yes,cancelButtonText:this.$page.$t.messages.no}).then(() => {
         this.$store.commit("removeFromCart", item);
         this.emitUpdateEvent();
       });

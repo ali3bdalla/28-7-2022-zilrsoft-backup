@@ -27,6 +27,8 @@ return [
         "password_has_been_changed" => "تم تغير كلمة المرور بنجاح",
         "confirm" => "تاكيد",
         "are_you_sure" => "هل انت متاكد ؟ ",
+        "yes" => "نعم",
+        "no" => "لا",
         'bank_account_has_been_created' => "تمت عملية اضافة الحساب البنكي"
     ],
 
