@@ -16,8 +16,12 @@
             class="page__categories__list-item"
           >
             <div class="page__categories__name">
-               <span class="">{{ $page.name }}</span> {{ $page.$t.products.in }} -
-          <span class="">{{ category.locale_name }}</span>
+              <!-- getSearchName($page.name, category.locale_name,category.id) -->
+              <span class="">{{category.search_keywords }}</span>
+              {{ $page.$t.products.in }} -
+              <span class="">{{ category.locale_name }}</span>
+
+              <span class="">({{ category.result_items_count }})</span>
               <!-- {{ category.locale_name }} -->
             </div>
           </a>
@@ -25,7 +29,7 @@
       </vue-horizontal>
 
       <div class="product__search-page">
-        <div class="page__mt-2">
+        <div class="page__mt-2"  v-if="items.length > 2">
           <div class="product__search-options">
             <filters-pop
               v-if="$page.categoryId"
@@ -83,7 +87,6 @@ export default {
     };
   },
   computed: {
-    
     filtersList() {
       return this.filters;
     },
@@ -98,7 +101,25 @@ export default {
     },
   },
   methods: {
-    listUpdated(e){
+    getSearchName(name, categoryName,categoryId = 0) {
+      let names = name.split(" ");
+      let result = "";
+      names.forEach((subName) => {
+        // console.log(categoryName.indexOf(subName));
+        // if (categoryName.indexOf(subName) >= 0) result = result + " " + subName; 
+
+        let items = this.items.filter(p => p.category_id == categoryId);
+        items.forEach((item) => {
+            console.log(item.locale_name);
+            if (item.locale_name.indexOf(subName) >= 0 && result.indexOf(subName) == -1 ) result = result + " " + subName; 
+         });
+        // console.log(items);)
+      });
+
+      return result;
+      // return name.substr(str.indexOf("mac"), "mac".length);
+    },
+    listUpdated(e) {
       this.items = e.data;
     },
     addFilterValue(filterValue) {
@@ -136,6 +157,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

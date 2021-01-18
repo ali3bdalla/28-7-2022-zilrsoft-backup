@@ -30,8 +30,8 @@ class ItemController extends Controller
 		$categories = [];
 		if(!$fetchItemsGroupByCategoryRequest->has('category_id') &&  !$fetchItemsGroupByCategoryRequest->filled('category_id'))
 		{
-			$data =  $fetchItemsGroupByCategoryRequest->getData();
-			$categories  = $data['categories_group'];
+			$categories =  $fetchItemsGroupByCategoryRequest->getData();
+
 		}
 
 

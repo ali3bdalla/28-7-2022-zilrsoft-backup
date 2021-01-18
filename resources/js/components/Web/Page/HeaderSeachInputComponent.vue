@@ -5,7 +5,7 @@
     v-click-outside="resetItemsToNull"
   >
     <div class="advanced-search" style="border-color: #d2e8ff !important">
-      <div class="input-group" style="    max-width: 100% !important;">
+      <div class="input-group" style="max-width: 100% !important">
         <input
           v-model="searchKey"
           :placeholder="$page.$t.header.search_placeholder"
@@ -103,22 +103,15 @@ export default {
       this.searchKey = "";
     },
     getToResultPage() {
-      
-      // this.$inertia.visit(
-      //   `/web/items?categoryId=${this.categoryId}&&name=${this.searchKey}`
-      // );
+   
     },
 
     getItems() {
-      this.$inertia.visit(
-        `/web/items?name=${this.searchKey}`
-      );
-      // ?categoryId=${this.categoryId}
-      // if (this.searchKey == "") {
-      //   this.items = [];
-      // } else {
-      //   this.call();
-      // }
+      if (!this.searchKey) {
+        this.$inertia.visit(`/web`);
+      } else {
+        this.$inertia.visit(`/web/items?name=${this.searchKey}`);
+      }
     },
   },
 };

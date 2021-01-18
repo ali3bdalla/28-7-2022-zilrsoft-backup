@@ -54,6 +54,8 @@ class ShippingController extends Controller
 
     public function createTransaction(ShippingMethod $shipping)
     {
-        return view('backend.store.shipping.create-transaction',compact('shipping'));
+        $citites = City::all();
+
+        return view('backend.store.shipping.create-transaction',compact('shipping','citites'));
     }
 }

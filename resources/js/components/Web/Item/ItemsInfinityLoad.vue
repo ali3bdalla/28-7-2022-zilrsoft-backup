@@ -10,7 +10,16 @@
       ></ProductListItemComponent>
     </div>
     <div class="page__mt-5">
-      <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+      <infinite-loading @infinite="infiniteHandler" v-if="page <= 3">
+        <div slot="spinner" class="my-2">{{ $page.$t.common.loading }}</div>
+        <div slot="no-more" class="my-2">{{ $page.$t.common.no_more }}</div>
+        <div slot="no-results" class="my-2">{{ $page.$t.common.no_results }}</div>
+      </infinite-loading>
+      <div v-else class="product__show-more-button-container">
+        <button class="product__show-more-button" @click="infiniteHandler">
+          {{ $page.$t.products.show_more }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -37,19 +46,18 @@ export default {
       dataItems: [],
     };
   },
-  watch:{
-      params:{
-          deep:true,
-          handler(value) {
-              this.page = 1;
-              this.dataItems = [];
-              this.infiniteHandler();
-          }
-      }
+  watch: {
+    params: {
+      deep: true,
+      handler(value) {
+        this.page = 1;
+        this.dataItems = [];
+        this.infiniteHandler();
+      },
+    },
   },
   methods: {
-    
-    paramsUpdated(){
+    paramsUpdated() {
       // console.log('working')
     },
     infiniteHandler($state) {
@@ -64,9 +72,9 @@ export default {
             this.page += 1;
             this.dataItems.push(...data.data);
             $state.loaded();
-            this.$emit("listUpdated",{
-              data:this.dataItems
-            })
+            this.$emit("listUpdated", {
+              data: this.dataItems,
+            });
           } else {
             $state.complete();
           }

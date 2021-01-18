@@ -17,7 +17,7 @@
 
       <div class="home__products-area">
         <h1 class="home__products-count">
-          {{ $page.$t.products.products_count }} ({{ $page.products_count }})
+          {{ $page.$t.products.all_products_count }} ({{ $page.products_count }})
         </h1>
         <ItemsInfinityLoad :params="{}"></ItemsInfinityLoad>
       </div>

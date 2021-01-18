@@ -8,7 +8,10 @@ return [
         "completed_message" => "تم تعديل البيانات  بنجاح",
         "title_message" => "نجاح",
         "select" => "اختيار",
-        'add_new' => "اضافة حساب"
+        'add_new' => "اضافة حساب",
+        'loading' => "يتم تحميل البيانات",
+        'no_more' => "لا تتوفر المزيد من النتائج",
+        'no_results' => "لاتوجد نتائج",
     ],
     "header" => [
         "search_placeholder" => "ابحث عن المنتجات",
@@ -145,9 +148,11 @@ return [
     ],
     //here
     'products' => [
+        'show_more' => 'عرض المزيد',
         'in' => 'في قسم',
         'products' => 'المنتجات',
         'products_count' => 'عدد المنتجات',
+        'all_products_count' => 'كل المنتجات',
         'product' => 'منتج',
         'show_all' => "عرض الكل",
         'add_to_cart' => 'أضف الى السلة',

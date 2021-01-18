@@ -336,6 +336,14 @@
   }
 
 
+  &__show-more-button-container {
+    @apply text-center flex items-center justify-center my-3;
+  }
+  &__show-more-button {
+    @apply bg-yellow-600 px-2 py-1 rounded shadow-lg text-white;
+  }
+
+
 }
 
 

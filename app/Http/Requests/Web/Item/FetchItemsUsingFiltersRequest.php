@@ -87,12 +87,19 @@ class FetchItemsUsingFiltersRequest extends FormRequest
         $query  = $this->apply($query);
 
         if ($this->has('order_by') && $this->filled('order_by') && Schema::hasColumn($table, $this->input('order_by'))) {
-            $sortDirection = $this->input('order_direction');
+            if($this->input('order_by') == "available_qty")
+            {
+                $query->where('available_qty','>=',1);
+            }else
+            {
+                $sortDirection = $this->input('order_direction');
 
-            if (!in_array($sortDirection, ['desc', 'asc'])) {
-                $sortDirection = 'desc';
+                if (!in_array($sortDirection, ['desc', 'asc'])) {
+                    $sortDirection = 'desc';
+                }
+                $query->orderBy($this->input('order_by'), $sortDirection);
             }
-            $query->orderBy($this->input('order_by'), $sortDirection);
+            
         }
 
         return $query->with('category', 'filters.filter', 'filters.value')->paginate(18);

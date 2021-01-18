@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Web\Item;
 
+use App\Jobs\Utility\Str\ReplaceArabicSensitiveCharJob;
 use Illuminate\Database\Eloquent\Builder;
 
 trait ItemSearch
@@ -13,11 +14,17 @@ trait ItemSearch
 
             $query->where(function ($subQueryLevel) use ($searchArray) {
                 foreach ($searchArray as $searchKey) {
+                    $searchKey = ReplaceArabicSensitiveCharJob::dispatchNow($searchKey);
                     $subQueryLevel->orWhere('ar_name', 'iLIKE', '%' . $searchKey . '%')->orWhere('name', 'iLIKE', '%' . $searchKey . '%');
                 }
             });
         }
 
         return $query;
+    }
+
+    public function replaceChars($char)
+    {
+        
     }
 }
