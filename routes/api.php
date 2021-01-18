@@ -63,6 +63,7 @@ Route::middleware('auth')->group(
         Route::prefix("orders/{order}")->name('orders.')->group(
             function () {
                 Route::post('sign-to-delivery-man', 'OrderController@signToDeliveryMan');
+                Route::post('activate-sign-to-delivery-man', 'OrderController@activateSignToDeliveryMan');
             }
         );
 

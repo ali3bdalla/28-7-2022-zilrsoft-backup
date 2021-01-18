@@ -7,6 +7,7 @@
 
 @section("content")
 
+    @if($order->paymentDetail)
     
        <div class="panel">
            <div class="panel-heading">
@@ -80,6 +81,11 @@
 
            </div>
        </div>
+
+       @else 
+
+            <h1>لم يتم سداد المبلغ لهذا الطلب بعد</h1>
+       @endif
 @endsection
 
 

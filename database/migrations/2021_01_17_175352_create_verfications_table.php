@@ -15,7 +15,7 @@ class CreateVerficationsTable extends Migration
     {
         Schema::create('verfications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->morphs("manager");
+            $table->morphs("verifiable");
             $table->string('verfication_code');
             $table->string("slug")->nullable();
             $table->timestamps();

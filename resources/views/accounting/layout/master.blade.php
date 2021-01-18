@@ -26,7 +26,7 @@
     @css_asset('lib/css/bootstrap.min.css')
     @css_asset('lib/css/AdminLTE.min.css')
     @css_asset('lib/css/_all-skins.min.css')
-    {{--    @css_asset('lib/css/select2.min.cs.css')--}}
+
     @css_asset('lib/css/buttons.css')
     @css_asset('lib/css/main.css')
 

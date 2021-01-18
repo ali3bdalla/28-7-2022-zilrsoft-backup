@@ -20,7 +20,7 @@
 
                             <p> {{$shippingMethod->ar_name}}</p>
 {{--                            <p><span class="label label-success">Approved</span></p>--}}
-                            <p> <a href="{{ route('store.shipping.view-transactions',$shippingMethod->id) }}" class="btn btn-info">بوالص الشحن</a>
+                            <p> <a href="{{ route('store.shipping.view_transactions',$shippingMethod->id) }}" class="btn btn-info">بوالص الشحن</a>
                              <a href="{{ route('store.shipping.edit',$shippingMethod->id) }}" class="btn btn-success">تعديل</a></p>
 {{-- create AWB --}}
                         </div>

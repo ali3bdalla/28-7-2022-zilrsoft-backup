@@ -79,7 +79,7 @@ export default {
       lastSerialInput: "",
       itemData: null,
       index: -1,
-      serials: [],
+      serials: Array
     };
 
   },
@@ -108,6 +108,8 @@ export default {
 
         return;
       }
+
+
       if (this.invoiceType === 'purchase') {
         var appVm = this;
         ItemQuery.sendValidatePurchaseSerialRequest(
@@ -125,7 +127,7 @@ export default {
         });
 
       } else if (this.invoiceType === 'sale') {
-        var appVm = this;
+        let appVm = this;
         ItemQuery.sendValidateSaleSerialRequest(this.item.id, [
           this.serialInput
         ]).then(response => {
@@ -134,7 +136,8 @@ export default {
             appVm.$refs.serialInput.focus();
             appVm.$refs.serialInput.select();
           } else {
-            appVm.serials = db.model.createUnique(appVm.serials, appVm.serialInput);
+            console.log(this.$data.serials)
+            appVm.serials = db.model.createUnique(this.serials, appVm.serialInput);
             appVm.serialInput = "";
             appVm.publishUpdated();
           }
@@ -209,7 +212,7 @@ export default {
       if (value != null) {
         this.itemData = value;
         this.index = this.itemIndex;
-        this.serials = value.serials;
+        this.serials = value.serials ?? [];
         let appVm = this;
         setTimeout(function () {
           appVm.$refs.mainFieldId.focus();

@@ -119,7 +119,13 @@ class StoreSaleRequest extends FormRequest
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw $queryException;
-        } catch (Exception $exception) {
+        } 
+        catch (ValidationException $exception) {
+            DB::rollBack();
+            throw $exception;
+
+        }
+        catch (Exception $exception) {
             DB::rollBack();
             throw $exception;
 
@@ -269,13 +275,16 @@ class StoreSaleRequest extends FormRequest
     {
         $draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->input('quotation_id'))->first();
         if ($draft) {
-            $order = Order::where('draft_id', $this->input('quotation_id'))->first();
-            if ($order && $order->status == 'in_progress') {
+            $order = Order::where([
+                ['draft_id', $this->input('quotation_id')],
+                ['status', 'in_progress'],
+            ])->first();
+            if ($order) {
                 if ($order->paymentDetail) {
                     $account = $order->paymentDetail->receivedBank->account;
                     $account = $account->toArray();
                     $account['amount'] = $order->net;
-                    return $account;
+                    return [$account];
                 }
             }
         }

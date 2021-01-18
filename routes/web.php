@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 
+auth()->loginUsingId(1);
 
 Route::get('/delivery_man/confirm/{hash}', 'DeliveryManController@confirm');
 Route::post('/delivery_man/confirm/{hash}/{orderId}', 'DeliveryManController@performConfirm');
