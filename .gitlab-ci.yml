@@ -84,7 +84,7 @@ deploy_dev:
   environment:
     name: deployer
     url: https://dev.zilrsoft.com 
-  when:  on_success
+  when:  manual
   only:
     - development  
 
