@@ -36,7 +36,7 @@ build:
 
     # Generate an application key, re-cache.
     - php artisan key:generate
-    # - php artisan config:cache
+    - php artisan config:cache
 
     # Install Node dependencies
     - npm install
@@ -84,7 +84,7 @@ deploy_dev:
   environment:
     name: deployer
     url: https://dev.zilrsoft.com 
-  when:  always
+  when:  on_success
   only:
     - development  
 
