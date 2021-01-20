@@ -22,10 +22,10 @@ class SmsaGetRtlCitiesJob implements ShouldQueue
     public function handle()
     {
 
-
         try {
             $result = app('SmsaClient')->getRTLCities();
-            $data = simplexml_load_string($result->body()->getRTLCitiesResult->any);
+            $data = simplexml_load_string(json_decode($result->body())->getRTLCitiesResult->any);
+
             return $data;
         } catch (\Throwable $th) {
             return [];

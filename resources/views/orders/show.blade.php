@@ -95,6 +95,20 @@
 
 
         <div class="col-lg-3 col-xs-6">
+            <a href="/store/shipping/{{$order->shipping_method_id}}/{{ $order->id }}/create-order-transaction" class="small-box bg-purple">
+                <div class="inner">
+                    <h4 style="font-weight: bolder">{{$order->draftInvoice->invoice_number}}</h4>
+
+                    <p> تفاصيل الشحن</p>
+                </div>
+                <div class="order__panel-card-icon-container">
+                    <i class="fa fa-address-card order__panel-card-icon"></i>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-lg-3 col-xs-6">
             <a href="/store/orders/{{$order->id}}/view-payment" class="small-box bg-orange">
                 <div class="inner">
                     <h4 style="font-weight: bolder">{{$order->draftInvoice->invoice_number}}</h4>

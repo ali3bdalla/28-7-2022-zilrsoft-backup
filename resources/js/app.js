@@ -61,6 +61,11 @@ require('./components/include');
 window.routes = require('./routes')
 
 
+
+const shipping = require('./data/shipping')
+
+
+
 const app = new Vue({
     el: '#app'
 });

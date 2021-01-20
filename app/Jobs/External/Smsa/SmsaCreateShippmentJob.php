@@ -2,12 +2,15 @@
 
 namespace App\Jobs\External\Smsa;
 
-use CodeDredd\Soap\Facades\Soap;
+use App\Models\City;
+use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use GuzzleHttp\Psr7\Request;
+
 
 class SmsaCreateShippmentJob implements ShouldQueue
 {
@@ -33,44 +36,53 @@ class SmsaCreateShippmentJob implements ShouldQueue
      */
     public function handle()
     {
-        // try {\
 
-        // $client = Soap::buildClient('smsa_soap');
-        $response = app('SmsaClient')->addShip(array(
-            "passKey" => "Testing1",
-            "refNo" => '53',
+        $city = City::findOrFail($this->shippmentData['city_id']);
+        $request = new Request(
+            'POST',
+            'https://track.smsaexpress.com/SeCom/SMSAwebService.asmx',
+            ['Content-Type' => 'text/xml; charset=UTF8'],
+            '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://www.w3.org/2003/05/soap-envelope" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://track.smsaexpress.com/secom/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+            <SOAP-ENV:Body>
+                <tns:addShipment xmlns:tns="http://track.smsaexpress.com/secom/">
+                    <tns:passKey>Testing1</tns:passKey>
+                    <tns:refNo>'.$this->shippmentData['reference'].'</tns:refNo>
+                    <tns:sentDate></tns:sentDate>
+                    <tns:idNo>'.$this->shippmentData['reference'].'</tns:idNo>
+                    <tns:cName>'.$this->shippmentData['first_name'] . ' ' . $this->shippmentData['last_name'].'</tns:cName>
+                    <tns:cntry>'.$this->shippmentData['first_name'].'</tns:cntry>
+                    <tns:cCity>'.$city->name.'</tns:cCity>
+                    <tns:cZip></tns:cZip>
+                    <tns:cPOBox></tns:cPOBox>
+                    <tns:cMobile>'.$this->shippmentData['phone_number'].'</tns:cMobile>
+                    <tns:cTel1></tns:cTel1>
+                    <tns:cTel2></tns:cTel2>
+                    <tns:cAddr1>sdfdsfsdf</tns:cAddr1>
+                    <tns:cAddr2></tns:cAddr2>
+                    <tns:shipType>DLV</tns:shipType>
+                    <tns:PCs>1</tns:PCs>
+                    <tns:cEmail></tns:cEmail>
+                    <tns:carrValue></tns:carrValue>
+                    <tns:carrCurr></tns:carrCurr>
+                    <tns:codAmt>0</tns:codAmt>
+                    <tns:weight>'.$this->shippmentData['weight'].'</tns:weight>
+                    <tns:custVal></tns:custVal>
+                    <tns:custCurr></tns:custCurr>
+                    <tns:insrAmt></tns:insrAmt>
+                    <tns:insrCurr></tns:insrCurr>
+                    <tns:itemDesc></tns:itemDesc>
+                </tns:addShipment>
+            </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>'
+        );
+        $response = app("SmsaClient")->send($request);
+        preg_match("#\<addShipmentResult\>(.*)<\/addShipmentResult\>#",(string)$response->getBody(),$matches);
+        if($trackingNumber = $matches[1]) 
+        {
+            return $trackingNumber;       
+        }
+        
 
-            "idNo" => '300189',
-            "cName" => "ali abdalla",
-            "sCntry" => "KSA",
-            "cCity" => "Qaseem",
-            "cMobile" => "556945415",
-            "cAddr1" => "Suadia arebia - alrass",
-            // "shipType" => "DLV",
-            "codAmt" => 0,
-            "PCs" => 45,
-            "cEmail" => "test@gtest.com",
-            "carrValue" => "sar",
-            "insrCurr" => "sar",
-            "itemDesc" => "iphone 6",
-            "weight" => "1",
-            "sName" => "Bait Amesbar",
-            "sContact" => "Mahmoud",
-            "sAddr1" => "Mahmoud",
-            "sCity" => "Ar Rass",
-            "sPhone" => "556045415"
-
-        ));
-
-        // $response = $client->call("getRTLCities");
-
-        dd($response->body());
-
-        // dd($result);
-        // $data = simplexml_load_string($result->getRTLCitiesResult->any);
-        // return $data;
-        // } catch (\Throwable $th) {
-        //     return [];
-        // }
+        return "";
     }
 }

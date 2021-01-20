@@ -183,7 +183,7 @@
       :item-index="selectedItemIndex"
       @panelClosed="handleItemSerialsClosed"
       @publishUpdated="handleItemSerialsUpdated"
-      invoice-type="purchase"
+      invoice-type="inventory-adjustment"
     >
     </accounting-invoice-item-serials-list-layout-component>
   </div>

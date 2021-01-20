@@ -20,6 +20,6 @@ class GetRtlCitiesTest extends TestCase
 
         // $response->assertStatus(200);
     
-        SmsaGetRtlCitiesJob::dispatchNow();
+        dd(SmsaGetRtlCitiesJob::dispatchNow());
     }
 }

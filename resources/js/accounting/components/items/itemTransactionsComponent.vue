@@ -85,10 +85,10 @@
               <a :href="history.invoice_url">{{ history.invoice_number }}</a>
             </td>
             <td>
-              <span v-if="history.user != null">{{ history.user.name }}</span>
+              <span v-if="history.user != null">{{ history.user.locale_name }}</span>
               <span v-else></span>
             </td>
-            <td>{{ history.creator ? history.creator.name : "" }}</td>
+            <td>{{ history.creator ? history.creator.locale_name : "" }}</td>
             <td>
               <span
                 v-if="
