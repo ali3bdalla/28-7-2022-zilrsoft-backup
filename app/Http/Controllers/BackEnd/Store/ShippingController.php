@@ -105,6 +105,9 @@ class ShippingController extends Controller
         
 
         $created = false;
+        $data['shipping_method_id'] = $shipping->id;
+        $data['creator_id'] =  auth()->user()->id;
+        $data['organization_id'] = auth()->user()->organization_id;
         if($request->filled('order_id'))
         {
             $orderTransaction = ShippingTransaction::where('order_id',$request->input('order_id'))->first();
@@ -132,6 +135,6 @@ class ShippingController extends Controller
         
 
         
-        return redirect(route('store.shipping.transactions',$shipping->id));
+        // return redirect(route('store.shipping.transactions',$shipping->id));
     }
 }

@@ -17,6 +17,7 @@ class CreateShippingTransactions extends Migration
         Schema::create('shipping_transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('shipping_method_id');
+            $table->integer('organization_id');
             $table->integer('delivery_man_id')->nullable();
             $table->integer('creator_id');
             $table->integer('city_id');
@@ -30,6 +31,9 @@ class CreateShippingTransactions extends Migration
             $table->string('tracking_number')->nullable();
             $table->text('extra')->nullable();
 
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('phone_number')->nullable();
             $table->string('reference')->nullable();
             $table->string('address')->nullable();
             $table->string('description')->nullable();
