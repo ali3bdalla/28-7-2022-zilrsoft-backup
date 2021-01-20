@@ -37,7 +37,7 @@
         @endif
 
 
-{{--        @if($order->invoice_id)--}}
+       @if($order->invoice_id)
             <div class="col-lg-3 col-xs-6">
                 <a href="{{ route('sales.edit',$order->draft_id) }}" class="small-box bg-red">
                     <div class="inner">
@@ -50,8 +50,8 @@
                     </div>
                 </a>
             </div>
-{{--        @endif--}}
-
+       @endif
+{{-- 
         <div class="col-lg-3 col-xs-6">
             <a href="{{ route('sales.show',$order->draft_id) }}" class="small-box bg-yellow">
                 <div class="inner">
@@ -63,9 +63,9 @@
                     <i class="fa fa-shipping-fast order__panel-card-icon"></i>
                 </div>
             </a>
-        </div>
+        </div> --}}
 
-
+{{-- 
         <div class="col-lg-3 col-xs-6">
             <a href="/store/orders/{{$order->id}}/customer-data" class="small-box bg-green">
                 <div class="inner">
@@ -77,11 +77,25 @@
                     <i class="fa fa-user-alt order__panel-card-icon"></i>
                 </div>
             </a>
-        </div>
+        </div> --}}
 
 
         <div class="col-lg-3 col-xs-6">
             <a href="/store/orders/{{$order->id}}/view-shipping" class="small-box bg-purple">
+                <div class="inner">
+                    <h4 style="font-weight: bolder">{{$order->draftInvoice->invoice_number}}</h4>
+
+                    <p> تفاصيل الشحن</p>
+                </div>
+                <div class="order__panel-card-icon-container">
+                    <i class="fa fa-address-card order__panel-card-icon"></i>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-lg-3 col-xs-6">
+            <a href="/store/shipping/{{$order->shipping_method_id}}/{{ $order->id }}/create-order-transaction" class="small-box bg-purple">
                 <div class="inner">
                     <h4 style="font-weight: bolder">{{$order->draftInvoice->invoice_number}}</h4>
 
@@ -108,21 +122,23 @@
         </div>
 
 
-        <div class="col-lg-3 col-xs-6">
-            <a href="{{ route('sales.show',$order->draft_id) }}" class="small-box bg-aqua">
+       @if(!$order->paymentDetail)
+             <div class="col-lg-3 col-xs-6">
+            <a href="{{ $order->generatePayOrderUrl() }}" class="small-box bg-aqua">
                 <div class="inner">
                     <h4 style="font-weight: bolder">{{$order->draftInvoice->invoice_number}}</h4>
 
-                    <p>بيانات السداد</p>
+                    <p>رابط السداد</p>
                 </div>
                 <div class="order__panel-card-icon-container">
                     <i class="fa fa-money-bill-alt order__panel-card-icon"></i>
                 </div>
             </a>
         </div>
+       @endif
 
 
-        <div class="col-lg-3 col-xs-6">
+        {{-- <div class="col-lg-3 col-xs-6">
             <a href="{{ route('sales.show',$order->draft_id) }}" class="small-box bg-teal">
                 <div class="inner">
                     <h4 style="font-weight: bolder">{{$order->draftInvoice->invoice_number}}</h4>
@@ -133,7 +149,7 @@
                     <i class="fa fa-history order__panel-card-icon"></i>
                 </div>
             </a>
-        </div>
+        </div> --}}
 
 
 

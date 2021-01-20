@@ -86,7 +86,7 @@
       </div>
     </div>
 
-    <div class="nav-item">
+    <!-- <div class="nav-item">
       <div class="container">
         <div class="nav-depart">
           <div class="depart-btn">
@@ -107,7 +107,7 @@
           </ul>
         </nav>
       </div>
-    </div>
+    </div> -->
   </header>
 </template>
 

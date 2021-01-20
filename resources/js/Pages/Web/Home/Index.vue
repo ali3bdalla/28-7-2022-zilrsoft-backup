@@ -17,18 +17,8 @@
 
       <div class="home__products-area">
         <h1 class="home__products-count">
-          {{ $page.$t.products.products_count }} ({{ $page.products_count }})
+          {{ $page.$t.products.all_products_count }} ({{ $page.products_count }})
         </h1>
-        <!-- <div class="products-grid">
-          <ProductListItemComponent
-            v-for="(item, index) in dataItems"
-            :key="item.id"
-            :item="item"
-            :index="index"
-          ></ProductListItemComponent>
-          <infinite-loading @infinite="infiniteHandler"></infinite-loading>
-        </div>
-      </div> -->
         <ItemsInfinityLoad :params="{}"></ItemsInfinityLoad>
       </div>
     </div>

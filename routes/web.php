@@ -12,6 +12,7 @@ use Inertia\Inertia;
 
 
 
+
 Route::get('/delivery_man/confirm/{hash}', 'DeliveryManController@confirm');
 Route::post('/delivery_man/confirm/{hash}/{orderId}', 'DeliveryManController@performConfirm');
 

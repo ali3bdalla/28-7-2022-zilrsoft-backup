@@ -26,7 +26,7 @@
                 :invoice-id="{{$invoice->id}}"></accounting-print-receipt-layout-component>
 
         @if($invoice->is_draft)
-            <a href="{{route('sales.drafts.clone',$invoice->id)}}" class="btn btn-default">
+            <a href="{{route('sales.drafts.to_invoice',$invoice->id)}}" class="btn btn-default">
                 <i class="fa fa-copy"></i> {{ __('pages/invoice.quotation_to_sale') }}
             </a>
         @else

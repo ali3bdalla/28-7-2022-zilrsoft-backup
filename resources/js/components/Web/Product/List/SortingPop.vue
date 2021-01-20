@@ -66,6 +66,11 @@ export default {
                     key:"id",
                     direction:"asc"
                 },
+                {
+                    title:"المتوفر فقط",
+                    key:"available_qty",
+                    direction:"asc"
+                },
             ],
             isOpen:false
         }

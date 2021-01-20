@@ -19,7 +19,7 @@
               style="border-color: #d2e8ff !important"
             >
               <h1 class="product__show__details-name">
-                {{ $page.item.locale_name }}
+                {{ productName }}
               </h1>
               <h1 class="product__show__details-model-number">
                 {{ $page.$t.products.model }} : {{ modelNumber }}
@@ -256,6 +256,14 @@ export default {
     VueHorizontal,
   },
   computed: {
+    productName(){
+      let modelNumber = this.modelNumber;
+      if(modelNumber != "")
+        return this.$page.item.locale_name.replace(modelNumber, "");
+
+      return this.$page.item.locale_name;
+
+    },
     modelNumber() {
       let modelNumber = this.$page.item.filters.find((p) => p.filter_id == 38);
 

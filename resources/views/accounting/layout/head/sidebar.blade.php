@@ -93,6 +93,7 @@
             </li>
         @endcanany
 
+        @if(auth()->user()->organization_id == 1)
         <li class="treeview">
             <a href="#">
                 <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}
@@ -120,6 +121,8 @@
 
 
         </li>
+
+        @endif
 
         @canany(['view sale','create sale','edit sale','view purchase','create purchase','edit purchase','confirm
             purchase'])

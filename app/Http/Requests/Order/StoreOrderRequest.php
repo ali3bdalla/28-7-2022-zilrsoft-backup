@@ -54,7 +54,7 @@ class StoreOrderRequest extends FormRequest
     {
         DB::beginTransaction();
         try {
-
+            $this->validateQuantities();
          
             $this->validateQuantities($this->input('items'));
             $authUser = Manager::first();

@@ -43,8 +43,13 @@ class UpdateOnlineOrderStatus implements ShouldQueue
     {
         $draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->draftId)->first();
         if ($draft) {
-            $order = Order::where('draft_id', $this->draftId)->first();
-            if ($order && $order->status == 'in_progress') {
+            $order = Order::where([
+                ['draft_id', $this->draftId],
+                ['status', 'in_progress']
+            ])->first();
+            if ($order) {
+
+                // die();
                 $order->update(
                     [
                         'status' => 'ready_for_shipping',
@@ -66,8 +71,6 @@ class UpdateOnlineOrderStatus implements ShouldQueue
                         'is_online' => true
                     ]
                 );
-
-                HandleOrderShippingJob::dispatchNow($order);
             }
         }
     }

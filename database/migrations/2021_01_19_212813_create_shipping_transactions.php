@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateShippingTransactionsTable extends Migration
+class CreateShippingTransactions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,33 @@ class CreateShippingTransactionsTable extends Migration
      */
     public function up()
     {
-
-        
+        Schema::dropIfExists('shipping_transactions');
         Schema::create('shipping_transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('shipping_method_id');
-            $table->integer('delivery_man_id');
+            $table->integer('organization_id');
+            $table->integer('delivery_man_id')->nullable();
             $table->integer('creator_id');
-            $table->morphs('receiver');
+            $table->integer('city_id');
+            $table->string('receiver_type')->nullable();
+            $table->integer('receiver_id')->nullable();
             $table->float('cost_amount')->default(0);
             $table->float('sales_amount')->default(0);
             $table->float('weight')->default(0);
             $table->string('transaction_id')->nullable();
-            $table->enum('status',['issued','shipped','received','returned',"canceled"])->default("issued");
+            $table->enum('status', ['issued', 'shipped', 'received', 'returned', "canceled"])->default("issued");
             $table->string('tracking_number')->nullable();
             $table->text('extra')->nullable();
+
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('reference')->nullable();
+            $table->string('address')->nullable();
+            $table->string('description')->nullable();
+            $table->string('cod')->nullable();
+            $table->string('boxes')->nullable();
+            $table->integer('order_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

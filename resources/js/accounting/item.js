@@ -130,7 +130,7 @@ exports.query = {
         });
     },
 
-    sendValidateSaleSerialRequest: function (item_id = 0, serials = []) {
+    sendValidateSaleSerialRequest:  (item_id = 0, serials = [])  => {
         let link = '/api/items/validations/sales_serial';
         return axios.post(link, {
             item_id: item_id,

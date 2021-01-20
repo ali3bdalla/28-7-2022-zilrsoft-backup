@@ -5,7 +5,7 @@
     v-click-outside="resetItemsToNull"
   >
     <div class="advanced-search" style="border-color: #d2e8ff !important">
-      <div class="input-group" style="    max-width: 100% !important;">
+      <div class="input-group" style="max-width: 100% !important">
         <input
           v-model="searchKey"
           :placeholder="$page.$t.header.search_placeholder"
@@ -16,12 +16,11 @@
         <!-- -->
 
         <button type="button" @click="getItems">
-          <i class="ti-search"></i>
+          <i class="fa fa-search"></i>
         </button>
-        <!-- <button v-if="items.length > 0" @click="getItems" type="button" style="    font-size: 32px;"><i class="li-search"></i></button> -->
       </div>
     </div>
-    <div>
+    <!-- <div>
       <div
         v-if="items.length > 0 && searchKey != ''"
         class="page__header-search-result"
@@ -56,7 +55,7 @@
           <span class="">{{ category.locale_name }}</span>
         </a>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -104,16 +103,14 @@ export default {
       this.searchKey = "";
     },
     getToResultPage() {
-      this.$inertia.visit(
-        `/web/items?categoryId=${this.categoryId}&&name=${this.searchKey}`
-      );
+   
     },
 
     getItems() {
-      if (this.searchKey == "") {
-        this.items = [];
+      if (!this.searchKey) {
+        this.$inertia.visit(`/web`);
       } else {
-        this.call();
+        this.$inertia.visit(`/web/items?name=${this.searchKey}`);
       }
     },
   },

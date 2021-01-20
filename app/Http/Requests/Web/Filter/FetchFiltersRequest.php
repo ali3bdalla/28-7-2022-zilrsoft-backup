@@ -40,7 +40,8 @@ class FetchFiltersRequest extends FormRequest
     {
 
 
-//        dd($items->toArray());
+        $items = collect($items);
+
         if ($this->has('category_id') && $this->filled('category_id') && $this->input('category_id') > 0) {
             $itemsIdList = Item::where('category_id', $this->input('category_id'))->pluck('id')->toArray();
             $filtersList = CategoryFilterValues::where('category_id', $this->input('category_id'))->groupBy('filter_id')->pluck('filter_id')->toArray();
@@ -52,6 +53,8 @@ class FetchFiltersRequest extends FormRequest
         }
 
 
+
+        // dd($filtersList );
         $filterValueList = ItemFilters::whereIn('item_id', $itemsIdList)
             ->whereIn('filter_id', $filtersList)
             ->select('filter_id', 'filter_value')
@@ -64,37 +67,9 @@ class FetchFiltersRequest extends FormRequest
                 $this->result[$item->filter_id]['values'][] = $item;
                 $this->servedValues[] = $item->id;
             }
-
-
         });
 
         return $this->result;
 
-
-//        dd($this->result);
-
-
-//            foreach($itemsValuesList as $categoryFilterValue) {
-//                if(in_array($categoryFilterValue->id,$servedValues))
-//                {
-//                    continue;
-//                }
-//
-//                if(!$categoryFilterValue->filter) {
-//                    continue;
-//                }
-//
-//                if($categoryFilterValue->value) {
-//                    $result[$categoryFilterValue->filter_id]['values'][] = $categoryFilterValue->value;
-//
-//                }
-//                if(count($result[$categoryFilterValue->filter_id]['values']) == 1) {
-//                    $result[$categoryFilterValue->filter_id]['filter'] = $categoryFilterValue->filter;
-//                }
-//
-//                $servedValues[] = $categoryFilterValue->id;
-//            }
-
-        return array_splice($result, 1);
     }
 }

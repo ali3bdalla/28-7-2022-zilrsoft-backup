@@ -12,7 +12,7 @@
       </div>
       <div class="col-md-3">
         <a
-          :href="app.BaseApiUrl + 'inventories/adjust_stock'"
+          :href="'/inventory/adjustments'"
           class="btn btn-default"
           ><i class="fa fa-redo"></i> {{ app.trans.cancel }}</a
         >
@@ -183,7 +183,7 @@
       :item-index="selectedItemIndex"
       @panelClosed="handleItemSerialsClosed"
       @publishUpdated="handleItemSerialsUpdated"
-      invoice-type="purchase"
+      invoice-type="inventory-adjustment"
     >
     </accounting-invoice-item-serials-list-layout-component>
   </div>
@@ -433,11 +433,13 @@ export default {
       axios
         .post("/api/inventory/adjustments", data)
         .then(function (response) {
+          console.log(response.data);
           window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
           console.log(error.response);
+  
         });
     },
   },

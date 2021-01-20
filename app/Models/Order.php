@@ -65,12 +65,15 @@ class Order extends BaseModel
 
     public function generatePayOrderUrl()
     {
-        return file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/web/orders/' . $this->id . '/confirm_payment?code=' . $this->order_secret_code));
+        return  url('/web/orders/' . $this->id . '/confirm_payment?code=' . $this->order_secret_code);
+        // return file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/web/orders/' . $this->id . '/confirm_payment?code=' . $this->order_secret_code));
     }
 
     public function generateCancelOrderUrl()
     {
-        return file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/web/orders/' . $this->id . '/cancel?code=' . $this->order_secret_code));
+
+        return url('/web/orders/' . $this->id . '/cancel?code=' . $this->order_secret_code);
+        // return file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/web/orders/' . $this->id . '/cancel?code=' . $this->order_secret_code));
     }
 
 
@@ -83,6 +86,10 @@ class Order extends BaseModel
         return $this->belongsTo(ShippingMethod::class, 'shipping_method_id')->withoutGlobalScopes(['manager', 'draft', 'organization','accountingPeriod']);
     }
 
+    public function deliveryMan()
+    {
+        return $this->belongsTo(DeliveryMan::class, 'delivery_man_id');
+    }
 
     public function draftInvoice()
     {

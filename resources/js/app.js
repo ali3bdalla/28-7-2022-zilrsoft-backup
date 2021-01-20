@@ -19,7 +19,6 @@ window.TextValidator = require('validator');
 window.getRequestUrl = function (path) {
     return '/api/web/' + path + "?lang=ar";
 }
-
 window.getIndex = function (needle, haystack) {
     let length = haystack.length;
     for (let i = 0; i < length; i++) {
@@ -28,13 +27,14 @@ window.getIndex = function (needle, haystack) {
     return -1; // update latter
 }
 window.Vue = Vue;
-require('./components/include');
+
 require('./Plugins/plugins');
 require('./accounting/load');
 Vue.use(Vuetify);
-Vue.use(ElementUI);
+// Vue.use(ElementUI);
 Vue.use(VModal);
 Vue.use(VuejsDialog);
+Vue.use(VueSimpleAlert);
 
 export default new Vuetify({
     icons: {
@@ -57,8 +57,13 @@ Vue.use(VueSimpleAlert);
 
 Vue.component('layouts-header-component', require('./components/layoutsHeaderComponent').default)
 Vue.component('pending-purchases-counter-component', require('./components/pendingPurchasesCounterComponent').default)
-
+require('./components/include');
 window.routes = require('./routes')
+
+
+
+const shipping = require('./data/shipping')
+
 
 
 const app = new Vue({

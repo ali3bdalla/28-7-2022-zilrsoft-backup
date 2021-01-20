@@ -1,8 +1,9 @@
 <?php
 	
 	namespace App\Http\Requests\Accounting\Item;
-	
-	use App\Models\Filter;
+
+use App\Jobs\Utility\Str\ReplaceArabicSensitiveCharJob;
+use App\Models\Filter;
 	use App\Models\FilterValues;
 	use App\Models\Item;
 	use App\Models\ItemFilters;
@@ -60,6 +61,7 @@
 			$data = $this->except('filters');
 			$data['organization_id'] = $this->user()->organization_id;
 			$data['creator_id'] = $this->user()->id;
+			$data['ar_name'] = ReplaceArabicSensitiveCharJob::dispatchNow($this->input('ar_name'));
 			$data['is_kit'] = false;
 			$data['warranty_subscription_id'] = $this->warranty_subscription_id;
 			

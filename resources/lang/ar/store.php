@@ -8,7 +8,10 @@ return [
         "completed_message" => "تم تعديل البيانات  بنجاح",
         "title_message" => "نجاح",
         "select" => "اختيار",
-        'add_new' => "اضافة حساب"
+        'add_new' => "اضافة حساب",
+        'loading' => "يتم تحميل البيانات",
+        'no_more' => "لا تتوفر المزيد من النتائج",
+        'no_results' => "لاتوجد نتائج",
     ],
     "header" => [
         "search_placeholder" => "ابحث عن المنتجات",
@@ -24,6 +27,8 @@ return [
         "password_has_been_changed" => "تم تغير كلمة المرور بنجاح",
         "confirm" => "تاكيد",
         "are_you_sure" => "هل انت متاكد ؟ ",
+        "yes" => "نعم",
+        "no" => "لا",
         'bank_account_has_been_created' => "تمت عملية اضافة الحساب البنكي"
     ],
 
@@ -145,9 +150,11 @@ return [
     ],
     //here
     'products' => [
-        'in' => 'في فئة',
+        'show_more' => 'عرض المزيد',
+        'in' => 'في قسم',
         'products' => 'المنتجات',
         'products_count' => 'عدد المنتجات',
+        'all_products_count' => 'كل المنتجات',
         'product' => 'منتج',
         'show_all' => "عرض الكل",
         'add_to_cart' => 'أضف الى السلة',

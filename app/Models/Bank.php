@@ -14,5 +14,10 @@ class Bank extends BaseModel
 	{
 		return $this->ar_name;
 	}
+
+	public function account()
+	{
+		return $this->belongsTo(Account::class);
+	}
     //
 }

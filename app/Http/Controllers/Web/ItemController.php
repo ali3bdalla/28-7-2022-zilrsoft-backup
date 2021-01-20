@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\Filter\FetchFiltersRequest;
+use App\Http\Requests\Web\Item\FetchItemsGroupByCategoryRequest;
 use App\Http\Requests\Web\Item\FetchItemsRequest;
 use App\Models\Category;
 use App\Models\Filter;
@@ -23,22 +24,23 @@ class ItemController extends Controller
 		]
 	];
 
-	public function index(FetchItemsRequest $fetchItemsRequest, FetchFiltersRequest $fetchFiltersRequest)
+	public function index(FetchItemsGroupByCategoryRequest $fetchItemsGroupByCategoryRequest)
 	{
-		$items = $fetchItemsRequest->getData();
-		$filters = $fetchFiltersRequest->getData($items);
+		
+		$categories = [];
+		if(!$fetchItemsGroupByCategoryRequest->has('category_id') &&  !$fetchItemsGroupByCategoryRequest->filled('category_id'))
+		{
+			$categories =  $fetchItemsGroupByCategoryRequest->getData();
 
-
-
+		}
 
 
 		return Inertia::render(
 			'Web/Product/Index',
 			[
-				'categoryId' => $fetchFiltersRequest->input('categoryId'),
-				'name' => $fetchFiltersRequest->input('name'),
-				'items' => $items,
-				'filters' => $filters
+				'categoryId' => $fetchItemsGroupByCategoryRequest->input('category_id'),
+				'name' => $fetchItemsGroupByCategoryRequest->input('name'),
+				'categories' => $categories,
 			]
 		);
 	}
@@ -70,11 +72,6 @@ class ItemController extends Controller
 		if ($category->parent)
 			$this->fillBreadcrumb($category->parent);
 
-
-		// $this->breadcrumb[] = [
-		//     'title' => "/",
-
-		// ];
 		$this->breadcrumb[] = [
 			'title' => $category->locale_name,
 			'url' =>  '/web/categories/' . $category->id

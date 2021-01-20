@@ -36,9 +36,9 @@ class StoreInventoryAdjustmentRequest extends FormRequest
             //
             'items' => 'required|array',
             'items.*.id' => 'required|organization_exists:App\Models\Item,id',
-            'items.*.qty' => 'required|integer',
+            'items.*.qty' => 'required|integer|min:0',
             'items.*.serials' => 'nullable|array',
-            'items.*.serials.*' => 'nullable|organization_exists:App\Models\ItemSerials,serial',
+            'items.*.serials.*' => 'nullable',//|organization_exists:App\Models\ItemSerials,serial
             'created_at' => "nullable"
         ];
     }

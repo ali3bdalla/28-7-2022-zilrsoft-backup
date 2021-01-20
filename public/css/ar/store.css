@@ -89,6 +89,10 @@ a:hover {
   padding-right: 8px;
 }
 
+.page__categories__name {
+  direction: rtl;
+}
+
 .cart-table table tr th, .cart-table table tr th.p-name {
   text-align: center;
 }

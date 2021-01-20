@@ -28,8 +28,8 @@
     {{-- @if ($activeEnv  && $activeEnv  === 'production')
         
     @else --}}
-    npm_run_prod
-        {{-- npm_run_dev --}}
+    {{-- npm_run_prod --}}
+        npm_run_dev
     {{-- @endif --}}
     update_symlinks
     migrate

@@ -1,8 +1,9 @@
 <?php
 	
 	namespace App\Http\Requests\Accounting\Item;
-	
-	use App\Models\CategoryFilters;
+
+use App\Jobs\Utility\Str\ReplaceArabicSensitiveCharJob;
+use App\Models\CategoryFilters;
 	use App\Models\Filter;
 	use App\Models\FilterValues;
 	use App\Models\ItemFilters;
@@ -75,7 +76,8 @@
 				'warranty_subscription_id',
 				'price_with_tax'
 			);
-			
+			$data['ar_name'] = ReplaceArabicSensitiveCharJob::dispatchNow($this->input('ar_name'));
+
 			$item->update($data);
 			
 			$item->filters()->delete();
