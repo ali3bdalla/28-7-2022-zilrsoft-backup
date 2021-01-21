@@ -15,13 +15,16 @@
         </div>
         <form action="{{ route('store.shipping.store_transaction', $shipping->id) }}" method="post">
             @csrf
-
+            @include('backend.store.shipping.sender_details')
             <div class="box-body">
+                <h3 class="mb-3">بيانات المستقبل</h3>
                 <div class="row">
+                    <input type="hidden" class="form-control" name="order_id" value="{{ $order->id }}" readonly/>
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>الاسم الاول</label>
-                            <input type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" />
+                            <input type="text" class="form-control" name="first_name" value="{{ $order->shippingAddress->first_name }}" readonly/>
                             @error('first_name')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -30,7 +33,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>الاسم الثاني</label>
-                            <input type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" />
+                            <input type="text" class="form-control" name="last_name" value="{{ $order->shippingAddress->last_name }}" readonly/>
 
                             @error('last_name')
                                 <div class="text-danger">{{ $message }}</div>
@@ -42,9 +45,9 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>المدينة</label>
-                            <select class="form-control" name="city_id">
+                            <select class="form-control" name="city_id" readonly>
                                 @foreach ($citites as $city)
-                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                    <option value="{{ $city->id }}" @if($order->shippingAddress->city_id == $city->id) selected @endif>{{ $city->name }}</option>
                                 @endforeach
                             </select>
                             @error('city_id')
@@ -56,7 +59,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>رقم الجوال </label>
-                            <input type="text" class="form-control" name="phone_number" value="{{ old('phone_number') }}" />
+                            <input type="text" class="form-control" name="phone_number" value="{{ $order->shippingAddress->phone_number }}" readonly />
                             @error('phone_number')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -71,7 +74,7 @@
                         <div class="form-group">
                             <label>العنوان</label>
                             <textarea type="text" class="form-control" name="address"
-                                value="{{ old('address') }}"></textarea>
+                               readonly>{{ $order->shippingAddress->description }}</textarea>
                             @error('address')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -87,7 +90,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label>الرقم المرجعي</label>
-                            <input type="text" class="form-control" name="reference" value="{{ old('reference') }}" />
+                            <input type="text" class="form-control" name="reference" value="{{ $order->id }}" readonly />
                             @error('reference')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -97,7 +100,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label>الوصف</label>
-                            <input type="text" class="form-control" name="description" value="{{ old('description') }}" />
+                            <input type="text" class="form-control" name="description" value="Electornics" readonly />
                             @error('description')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -107,7 +110,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label>الدفع عند الاستلام</label>
-                            <input type="text" class="form-control" name="cod" value="{{ old('cod') }}" />
+                            <input type="text" class="form-control" name="cod" value="0" readonly />
                             @error('cod')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -119,7 +122,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label> عدد الصناديق </label>
-                            <input type="text" class="form-control" name="boxes" value="{{ old('boxes') }}" />
+                            <input type="text" class="form-control" name="boxes" value="1" />
                             @error('boxes')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -130,7 +133,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label> الوزن </label>
-                            <input type="text" class="form-control" name="weight" value="{{ old('weight') }}" />
+                            <input type="text" class="form-control" name="weight" value="{{ $order->shipping_weight }}" readonly />
                             @error('weight')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -139,7 +142,7 @@
                 </div>
 
 
-                <button class="btn btn-primary" type="submit">انشاء</button>
+                <button class="btn btn-primary" style="color:white" type="submit">انشاء</button>
 
             </div>
 

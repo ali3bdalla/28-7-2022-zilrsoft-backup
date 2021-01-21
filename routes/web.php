@@ -43,8 +43,10 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
 
                         Route::get('/reset', 'AuthController@resetPasswordPage');
                         Route::post('/reset', 'AuthController@confirmResetPassword');
+                        
                     }
                 );
+                Route::post('/resend_otp', 'AuthController@resendOtp');
                 Route::prefix('sign_up')->name('sign_up.')->group(
                     function () {
                         Route::get('/', 'AuthController@signUpPage');

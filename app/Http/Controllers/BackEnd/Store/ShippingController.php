@@ -56,6 +56,11 @@ class ShippingController extends Controller
         return view('backend.store.shipping.transactions',compact('shipping'));
     }
 
+
+    public function fetchTransactions(ShippingMethod $shipping)
+    {
+        return $shipping->translations()->paginate(50);
+    }
     public function createTransaction(ShippingMethod $shipping)
     {
         $citites = City::orderBy('name')->get();
@@ -135,6 +140,6 @@ class ShippingController extends Controller
         
 
         
-        // return redirect(route('store.shipping.transactions',$shipping->id));
+        return redirect(route('store.shipping.view_transactions',$shipping->id));
     }
 }

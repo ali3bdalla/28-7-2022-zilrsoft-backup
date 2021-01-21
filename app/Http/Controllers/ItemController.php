@@ -47,6 +47,7 @@ class ItemController extends Controller
             $categories[] = $category;
         }
         $vendors = User::where('is_vendor', true)->get();
+        $item['tags'] = $item->tags()->pluck('tag')->toArray();
         return view('accounting.items.edit', compact('categories', 'isClone', 'vendors', 'item'));
 
 
@@ -64,6 +65,7 @@ class ItemController extends Controller
             $categories[] = $category;
         }
         $vendors = User::where('is_vendor', true)->get();
+        $item['tags'] = $item->tags()->pluck('tag')->toArray();
         return view('accounting.items.edit', compact('categories', 'isClone', 'vendors', 'item'));
 
 

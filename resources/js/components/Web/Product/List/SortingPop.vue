@@ -19,8 +19,8 @@
           d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
         />
       </svg>
-
-      الترتيب حسب
+      {{ $page.$t.products.sorting_via }}
+      
     </button>
  
     <div class="product__search-sorting-panel" v-if="isOpen">
@@ -43,31 +43,31 @@ export default {
             activeSorting:{
 
             },
-            list:[
+             list:[
                 {
-                    title:"السعر من الاقل الي الآعلى",
+                    title:this.$page.$t.products.sorting_low_price,
                     key:"online_offer_price",
                     direction:"asc"
                 },
                  {
-                    title:"السعر من الآعلى الي الاقل",
+                    title:this.$page.$t.products.sorting_high_price,
                     key:"online_offer_price",
                     direction:"desc"
                 },
 
                  {
-                    title:"الاحدث",
+                    title:this.$page.$t.products.sorting_lastest,
                     key:"id",
                     direction:"desc"
                 },
 
                  {
-                    title:"الاقدم",
+                    title:this.$page.$t.products.sorting_oldest,
                     key:"id",
                     direction:"asc"
                 },
                 {
-                    title:"المتوفر فقط",
+                    title:this.$page.$t.products.sorting_only_available,
                     key:"available_qty",
                     direction:"asc"
                 },

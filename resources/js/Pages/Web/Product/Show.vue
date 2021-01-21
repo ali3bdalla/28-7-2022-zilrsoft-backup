@@ -69,12 +69,12 @@
                     <td
                       class="product__show__details-specification-table-title-cell"
                     >
-                      {{ filter.filter.locale_name }}
+                       {{ filter.filter ?  filter.filter.locale_name : ""}}
                     </td>
                     <td
                       class="product__show__details-specification-table-value-cell"
                     >
-                      {{ filter.value.locale_name }}
+                      {{ filter.value ? filter.value.locale_name : "" }}
                     </td>
                   </tr>
 
@@ -146,12 +146,12 @@
                   <td
                     class="product__show__details-specification-table-title-cell"
                   >
-                    {{ filter.filter.locale_name }}
+                    {{ filter.filter ?  filter.filter.locale_name : ""}}
                   </td>
                   <td
                     class="product__show__details-specification-table-value-cell"
                   >
-                    {{ filter.value.locale_name }}
+                    {{ filter.value ? filter.value.locale_name : "" }}
                   </td>
                 </tr>
                 <tr class="product__show__details-specification-table-raw">
@@ -168,6 +168,7 @@
                 </tr>
               </tbody>
             </table>
+            
           </div>
           <div
             class="specification-table product__show__details-specification-table-container"
@@ -192,8 +193,20 @@
               </tbody>
             </table>
           </div>
+          
         </div>
+<div
+            class="mt-2 bg-white p-3"
+          >
+          <div class="filter-widget pb-0 mb-0">
+            <h4 class="fw-title">{{$page.$t.products.tags}}</h4>
+            <div class="fw-tags">
 
+              <inertia-link :href="'/web/items?search_via=tag&&name=' + tag.tag" style="background-color: rgb(249, 249, 249);" v-for="tag in $page.item.tags" :key="tag.id">{{tag.tag}}</inertia-link>
+          
+            </div>
+            </div> 
+          </div>
         <div
           class="product__related-products-area"
           style="border-color: #d2e8ff !important"
@@ -267,7 +280,7 @@ export default {
     modelNumber() {
       let modelNumber = this.$page.item.filters.find((p) => p.filter_id == 38);
 
-      if (modelNumber) return modelNumber.value.locale_name;
+      if (modelNumber && modelNumber.value) return modelNumber.value.locale_name;
       return "";
     },
   },

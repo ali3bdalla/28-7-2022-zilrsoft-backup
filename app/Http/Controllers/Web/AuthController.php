@@ -50,8 +50,8 @@ class AuthController extends Controller
 	{
 		$request->validate(
 			[
-				'first_name' => 'required|string',
-				'last_name' => 'required|string',
+				'first_name' => 'required|alpha',
+				'last_name' => 'required|alpha',
 				'phone_number' => 'required|string|mobileNumber|unique:users,phone_number',
 				'password' => 'required|string|min:6',
 			]
@@ -132,6 +132,23 @@ class AuthController extends Controller
 		}
 	}
 
+
+	public function resendOtp(Request $request)
+	{
+		$request->validate(
+			[
+				'phone_number' => 'required|mobileNumber|string|exists:online_users_placeholder,phone_number',
+			]
+		);
+		$placeholderUser = OnlineUserPlaceholder::where('phone_number', $request->input('phone_number'))->orderByDesc('id')->first();
+
+		$otp = generateOtp();
+		$placeholderUser->update([
+			'otp' => $otp
+		]);
+		sendOtp($request->input('phone_number'), $otp);
+		// return back();
+	}
 
 
 

@@ -1,8 +1,9 @@
 <?php
 	
 	namespace App\Models;
-	
-	use Illuminate\Database\Eloquent\SoftDeletes;
+
+use App\ItemTag;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
     /**
 	 * @property mixed is_fixed_price
@@ -71,6 +72,11 @@
 			return $query->where('is_kit', true);
 		}
 
+
+		public function tags()
+		{
+			return $this->hasMany(ItemTag::class);
+		}
 
         public function scopeIncludingModelNumber($query)
         {

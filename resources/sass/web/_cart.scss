@@ -48,6 +48,12 @@
 
   &__shipping-address {
     @apply flex flex-col gap-5;
+    .el-select-dropdown , .el-popper {
+      top: 409px !important;
+    }
+    .el-input__inner {
+      margin-bottom: 0px !important;
+    }
   }
 
 

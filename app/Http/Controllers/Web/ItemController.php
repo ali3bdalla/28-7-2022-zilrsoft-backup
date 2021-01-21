@@ -35,9 +35,11 @@ class ItemController extends Controller
 		}
 
 
+
 		return Inertia::render(
 			'Web/Product/Index',
 			[
+				'search_via' => $fetchItemsGroupByCategoryRequest->input('search_via'),
 				'categoryId' => $fetchItemsGroupByCategoryRequest->input('category_id'),
 				'name' => $fetchItemsGroupByCategoryRequest->input('name'),
 				'categories' => $categories,
@@ -59,7 +61,7 @@ class ItemController extends Controller
 		return Inertia::render(
 			'Web/Product/Show',
 			[
-				'item' => $item->load('filters.filter', 'filters.value', 'category', 'attachments'),
+				'item' => $item->load('filters.filter', 'filters.value', 'category', 'attachments','tags'),
 				'breadcrumb' => $this->breadcrumb,
 				'relatedItems' => $relatedItems
 			]

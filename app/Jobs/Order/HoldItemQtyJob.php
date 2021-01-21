@@ -48,7 +48,6 @@
 		{
 			
 			foreach($this->invoice->items as $item) {
-				dispatch_now(new UpdateAvailableQtyByInvoiceItemJob($item));
 				 $item->orderQtyHolders()->create(
 					[
 						'order_id' => $this->order->id,

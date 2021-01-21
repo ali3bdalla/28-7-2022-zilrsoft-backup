@@ -12,6 +12,8 @@ return [
         'loading' => "يتم تحميل البيانات",
         'no_more' => "لا تتوفر المزيد من النتائج",
         'no_results' => "لاتوجد نتائج",
+        'resend_otp' => 'اعادة ارسال الرمز',
+        "internationalKey" => "966"
     ],
     "header" => [
         "search_placeholder" => "ابحث عن المنتجات",
@@ -22,6 +24,7 @@ return [
 
     'messages' => [
         "success" => "نجاح",
+        "select_city" =>"اختر المدينة",
         "profile_information_updated" => "تم تعديل بيانات الملف الشخصي بنجاح",
         "phone_number_has_been_changed" => " تم تغير رقم الجوال بنجاح",
         "password_has_been_changed" => "تم تغير كلمة المرور بنجاح",
@@ -29,7 +32,8 @@ return [
         "are_you_sure" => "هل انت متاكد ؟ ",
         "yes" => "نعم",
         "no" => "لا",
-        'bank_account_has_been_created' => "تمت عملية اضافة الحساب البنكي"
+        'bank_account_has_been_created' => "تمت عملية اضافة الحساب البنكي",
+        'invalid_otp' => 'رمز التاكيد غير صحيح '
     ],
 
     "order" => [
@@ -118,10 +122,14 @@ return [
         "already_have_account"=>"هل لديك حساب مسبقا ؟",
         "reset_password" => "تغير كلمة المرور",
         'confirm_otp' => 'ادخل الرمز',
+        "street_name" => "الشارع",
+        "area" => "الحي",
         
     ],
 
     'cart' => [
+        'cart_empty' => "السلة فارغة",
+        'shopping_here' => "تسوق من هنا ",
         'checkout' => "اتمام الطلب",
         "image" => "الصورة",
         "product_name" => "اسم المنتج",
@@ -145,11 +153,15 @@ return [
         "shipping_total" => "تكلفة الشحن",
         "net" => "الصافي",
         'create_shipping_address' => 'اضافة عنوان',
-        'select_shipping_address' => 'اختر عنوان الشحن'
+        'select_shipping_address' => 'اختر عنوان الشحن',
+
+
 
     ],
     //here
     'products' => [
+        'sorting_via' => 'الترتيب حسب',
+        'tags' => 'تاغ',
         'show_more' => 'عرض المزيد',
         'in' => 'في قسم',
         'products' => 'المنتجات',
@@ -173,6 +185,11 @@ return [
         "reset" => "مسح",
         "filters_for_search" => "فلاتر بحث ... ",
         "barcode" => "الباركود",
-        "related_products" => "منتجات ذات من صلة"
+        "related_products" => "منتجات ذات من صلة",
+        "sorting_low_price" => "الاقل سعراً",
+        "sorting_high_price" => "الاعلى سعراً",
+        "sorting_lastest" => "الاحدث",
+        "sorting_oldest" => "الاقدم",
+        "sorting_only_available" => "المتوفر فقط",
     ]
 ];

@@ -9,7 +9,7 @@
 
               <form action="#">
                 <div class="flex flex-col">
-                  <div class="flex-1 group-input">
+                  <div class="flex-1 group-input page__dir-left">
                     <label for="phone_number">{{ $page.$t.profile.phone_number}}</label>
                     <VuePhoneNumberInput
                       default-country-code="SA"
@@ -17,9 +17,8 @@
                       :only-countries="['SA']"
                       :translations="{
                         countrySelectorLabel: $page.$t.profile.country,
-                        countrySelectorError: 'Choisir un pays',
-                        phoneNumberLabel: '5555555555',
-                        example: 'ex: 500000000',
+                        phoneNumberLabel: '5XXXXXXXXX',
+                        example: 'ex: 5XXXXXXXXX',
                       }"
                       :no-country-selector="false"
                       v-model="phone_number"

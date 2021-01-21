@@ -1,6 +1,8 @@
 .page {
 
-
+  &__dir-left {
+    direction: ltr !important;
+  }
   &__w-full {
     @apply w-full;
   }

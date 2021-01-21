@@ -13,7 +13,7 @@ class ShippingMethod extends BaseModel
     protected $guarded = [];
 
 
-    protected $appends = ['cities_ids'];
+    protected $appends = ['cities_ids','locale_name'];
 
     public function item()
     {

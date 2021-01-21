@@ -33,9 +33,13 @@
       </div>
     </div>
     <div v-if="activePage === 'cart'">
-      <button class="proceed-btn" @click="changeActivePage('checkout')">
+      <button  v-if="$page.client_logged" class="proceed-btn" @click="changeActivePage('checkout')">
         {{ $page.$t.cart.checkout }} ({{ orderItems.length }})
       </button>
+
+      <a v-else class="proceed-btn" href="/web/sign_in">{{
+        $page.$t.cart.login_to_checkout
+      }}</a>
     </div>
 
     <div v-else>
@@ -50,112 +54,114 @@
 </template>
 
 <script>
-import CartMixin from "./CartMixin";
-import DisplayMoney from "../../../components/BackEnd/Money/DisplayMoney";
+import CartMixin from './CartMixin'
+import DisplayMoney from '../../../components/BackEnd/Money/DisplayMoney'
 
 export default {
   components: { DisplayMoney },
   mixins: [CartMixin],
-  name: "CartButton",
+  name: 'CartButton',
   props: {
     orderItems: {
       type: Array,
-      required: true,
+      required: true
     },
     shippingMethodId: {
       required: true,
-      type: Number,
-    },
+      type: Number
+    }
   },
-  data() {
+  data () {
     return {
       shippingMethod: {},
       shippingTotal: 0,
       shippingWeight: 0,
       shippingDiscount: 0,
-      shippingSubtotal: 0,
-    };
+      shippingSubtotal: 0
+    }
   },
   methods: {
-    changeActivePage(page) {
-      console.log(page);
-      this.$emit("changeActivePage", { page: page });
+    changeActivePage (page) {
+      console.log(page)
+      this.$emit('changeActivePage', { page: page })
     },
 
-    sendOrder() {
-      console.log("works");
-      this.$emit("sendOrder");
+    sendOrder () {
+      console.log('works')
+      this.$emit('sendOrder')
     },
 
-    updateShippingDetails() {
+    updateShippingDetails () {
       this.shippingMethod = this.$page.shipping_methods.find(
         (p) => p.id === value
-      );
+      )
     },
-    getTotalShippingWeight() {
-      let totalWeight = 0;
-      let items = this.orderItems;
+    getTotalShippingWeight () {
+      let totalWeight = 0
+      const items = this.orderItems
       for (let index = 0; index < items.length; index++) {
-        totalWeight +=
-          parseFloat(items[index].weight) * parseInt(items[index].quantity);
+        if (items[index].weight) {
+          totalWeight += parseFloat(items[index].weight).toFixed(2) * parseInt(items[index].quantity)
+        }
       }
-      return totalWeight;
+      console.log(totalWeight)
+      return totalWeight
     },
 
-    getShippingDiscount() {
-      let discount = 0;
-      let items = this.orderItems;
-      let totalShippingAmount = parseFloat(this.getTotalShippingAmount());
+    getShippingDiscount () {
+      let discount = 0
+      const items = this.orderItems
+      const totalShippingAmount = parseFloat(this.getTotalShippingAmount())
       for (let index = 0; index < items.length; index++) {
         discount +=
           parseFloat(items[index].shipping_discount) *
-          parseInt(items[index].quantity);
+          parseInt(items[index].quantity)
       }
 
       if (totalShippingAmount < discount) {
-        discount = totalShippingAmount;
+        discount = totalShippingAmount
       }
-      return discount;
+      return discount
     },
 
-    getOrderNetAmount() {
+    getOrderNetAmount () {
       return (
         parseFloat(this.getTotalShippingSubtotal()) +
         parseFloat(this.getOrderTotalAmount(this.orderItems))
-      );
+      )
     },
 
-    getShippingMethod() {
-      let shippingMethod = this.$page.shippingMethods.find(
+    getShippingMethod () {
+      const shippingMethod = this.$page.shippingMethods.find(
         (p) => p.id == this.shippingMethodId
-      );
-      return shippingMethod ? shippingMethod : {};
+      )
+      return shippingMethod || {}
     },
 
-    getTotalShippingSubtotal() {
+    getTotalShippingSubtotal () {
       return (
         parseFloat(this.getTotalShippingAmount()) -
         parseFloat(this.getShippingDiscount())
-      );
+      )
     },
-    getTotalShippingAmount() {
-      let totalWeight = parseFloat(this.getTotalShippingWeight()); // 39
+    getTotalShippingAmount () {
+      const totalWeight = parseFloat(this.getTotalShippingWeight()).toFixed(2) // 39
 
-      if (totalWeight == 0) return 0;
-      let maxBaseWeight = parseFloat(this.getShippingMethod().max_base_weight);
+      if (totalWeight == 0) return 0
+      const maxBaseWeight = parseFloat(this.getShippingMethod().max_base_weight)
       let shippingAmount = parseFloat(
         this.getShippingMethod().max_base_weight_price
-      );
+      )
 
       if (maxBaseWeight < totalWeight) {
-        let weightVaritionToBase = totalWeight - maxBaseWeight;
+        const weightVaritionToBase = totalWeight - maxBaseWeight
         shippingAmount +=
           weightVaritionToBase *
-          parseFloat(this.getShippingMethod().kg_rate_after_max_price);
+          parseFloat(this.getShippingMethod().kg_rate_after_max_price)
       }
 
-      return shippingAmount;
-    },
-  },
-};
+      return shippingAmount
+    }
+  }
+}
 </script>

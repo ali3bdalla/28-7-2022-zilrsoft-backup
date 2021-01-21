@@ -21,6 +21,7 @@ Route::resource('shipping', 'ShippingController');
 Route::prefix('/shipping/{shipping}')->name('shipping.')->group(function () {
     Route::post('delivery_men', 'ShippingController@storeDeliveryMan')->name('delivery_men.store');
     Route::get('view-transactions', 'ShippingController@viewTransactions')->name('view_transactions');
+    Route::get('fetch_transactions', 'ShippingController@fetchTransactions')->name('fetch_transactions');
     Route::get('create-transaction', 'ShippingController@createTransaction')->name('create_transaction');
     Route::get('{order}/create-order-transaction', 'ShippingController@createOrderTransaction')->name('create_order_transaction');
     Route::post('store-transaction', 'ShippingController@storeTransaction')->name('store_transaction');
