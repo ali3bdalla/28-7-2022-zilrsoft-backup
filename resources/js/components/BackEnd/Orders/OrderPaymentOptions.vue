@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "OrderPaymentOptions",
+  name: 'OrderPaymentOptions',
   props: {
     order: {
       type: Object,
@@ -17,15 +17,15 @@ export default {
     }
   },
   methods: {
-    confirm() {
-      this.$confirm('هل انت متاكد ؟', "تاكيد الحوالة", 'success').then(() => {
-        axios.patch(`/api/orders/${this.order.id}`).then(response => console.log(response.data));
-      });
+    confirm () {
+      this.$confirm('هل انت متاكد ؟', 'تاكيد الحوالة', 'success', { confirmButtonText: 'نعم', cancelButtonText: 'لا' }).then(() => {
+        axios.patch(`/api/orders/${this.order.id}`).then(response => console.log(response.data))
+      })
     },
-    cancel() {
-      this.$confirm('هل انت متاكد ؟', "الغاء الحوالة", 'error').then(function () {
-        axios.delete(`/api/orders/${this.order.id}`).then(response => console.log(response.data));
-      });
+    cancel () {
+      this.$confirm('هل انت متاكد ؟', 'الغاء الحوالة', 'error', { confirmButtonText: 'نعم', cancelButtonText: 'لا' }).then(function () {
+        axios.delete(`/api/orders/${this.order.id}`).then(response => console.log(response.data))
+      })
     }
   }
 }

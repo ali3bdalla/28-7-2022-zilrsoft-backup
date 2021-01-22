@@ -39,7 +39,7 @@
                 :key="shippingAddress.id"
                 :label="shippingAddress.first_name"
                 :value="shippingAddress.id">
-              {{ shippingAddress.first_name }} {{ shippingAddress.last_name }} - {{ shippingAddress.city.name }} - {{
+              {{ shippingAddress.first_name }} {{ shippingAddress.last_name }} - {{ shippingAddress.city.locale_name }} - {{
                 shippingAddress.phone_number
               }}
             </el-option>
@@ -80,7 +80,7 @@
               {{ shippingAddress.description }}
             </div>
             <div class="cart__shipping-address-title">
-              {{ shippingAddress.city.name }}
+              {{ shippingAddress.city.locale_name }}
             </div>
 
             <div class="cart__shipping-address-title">

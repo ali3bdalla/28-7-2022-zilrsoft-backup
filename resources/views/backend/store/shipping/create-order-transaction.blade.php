@@ -47,7 +47,7 @@
                             <label>المدينة</label>
                             <select class="form-control" name="city_id" readonly>
                                 @foreach ($citites as $city)
-                                    <option value="{{ $city->id }}" @if($order->shippingAddress->city_id == $city->id) selected @endif>{{ $city->name }}</option>
+                                    <option value="{{ $city->id }}" @if($order->shippingAddress->city_id == $city->id) selected @endif>{{ $city->locale_name }}</option>
                                 @endforeach
                             </select>
                             @error('city_id')

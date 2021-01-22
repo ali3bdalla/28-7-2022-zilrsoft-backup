@@ -97,23 +97,11 @@
             <el-option
                 v-for="city in $page.cities"
                 :key="city.id"
-                :label="city.name"
+                :label="city.locale_name"
                 :value="city.id">
-              {{ city.name }}
+              {{ city.locale_name }}
             </el-option>
           </el-select>
-                        <!-- <select v-model="city_id">
-                          <option value="0">
-                            {{ $page.$t.messages.select_city }}
-                          </option>
-                          <option
-                            v-for="city in $page.cities"
-                            :key="city.id"
-                            :value="city.id"
-                          >
-                            {{ city.name }}
-                          </option>
-                        </select> -->
                         <div
                           class="p-2 text-red-500"
                           v-if="$page.errors.city_id"
@@ -122,27 +110,6 @@
                         </div>
                       </div>
                     </div>
-                    <!--                    <div class="col-lg-6">-->
-                    <!--                      <div class="form-group">-->
-                    <!--                        <input type="text" placeholder="Building Number" v-model="building_number">-->
-                    <!--                        <div class="p-2 text-red-500" v-if="$page.errors.building_number">{{-->
-                    <!--                          $page.errors.building_number }}-->
-                    <!--                        </div>-->
-                    <!--                      </div>-->
-                    <!--                    </div>-->
-                    <!--                    <div class="col-lg-6">-->
-                    <!--                      <div class="form-group">-->
-                    <!--                        <input type="text" placeholder="Street Name" v-model="street_name">-->
-                    <!--                        <div class="p-2 text-red-500" v-if="$page.errors.street_name">{{ $page.errors.street_name }}-->
-                    <!--                        </div>-->
-                    <!--                      </div>-->
-                    <!--                    </div>-->
-                    <!--                    <div class="col-lg-6">-->
-                    <!--                      <div class="form-group">-->
-                    <!--                        <input type="text" placeholder="Zip Code" v-model="zip_code">-->
-                    <!--                        <div class="p-2 text-red-500" v-if="$page.errors.zip_code">{{ $page.errors.zip_code }}</div>-->
-                    <!--                      </div>-->
-                    <!--                    </div>-->
 
                     <div class="col-lg-6">
                       <div class="form-group">
@@ -264,5 +231,4 @@ export default {
 .contact-form .leave-comment .comment-form textarea {
   margin-bottom: 0px;
 }
-
 </style>

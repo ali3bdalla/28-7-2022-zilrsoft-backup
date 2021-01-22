@@ -13,7 +13,8 @@ return [
         'no_more' => "لا تتوفر المزيد من النتائج",
         'no_results' => "لاتوجد نتائج",
         'resend_otp' => 'اعادة ارسال الرمز',
-        "internationalKey" => "966"
+        "internationalKey" => "966",
+        'verification_code' => 'رمز التحقق:'
     ],
     "header" => [
         "search_placeholder" => "ابحث عن المنتجات",
@@ -61,7 +62,7 @@ return [
         "draft" => "فاتورة مبدئية",
         "thanks_for_order" => "شكرا لك",
         "created"=>"نجاح",
-        "instructions_for_payment" => "ستتلقى رسالة تتحتوي على تفاصيل الدفع في رقم الجوال ",
+        "instructions_for_payment" => "ستتلقى رسالة تحتوي على تفاصيل الدفع في رقم الجوال ",
         'payment_confirmation' => "تاكيد عملية الدفع",
         "order" => "الطلب",
         "remmning_time_to_auto_cancel_order" => "الوقت المتبقى حتى الالغاء التلقائي للطلب",

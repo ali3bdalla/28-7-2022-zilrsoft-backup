@@ -166,7 +166,7 @@
                                                 @if(in_array($city->id,$shippingCities))
                                                 selected
                                                 @endif
-                                        >{{$city->name}}</option>
+                                        >{{$city->locale_name}}</option>
                                     @endforeach
                                 </select>
                                 @error('cities')

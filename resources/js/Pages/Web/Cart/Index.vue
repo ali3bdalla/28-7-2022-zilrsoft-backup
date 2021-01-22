@@ -173,7 +173,7 @@ export default {
     sendOrder () {
       const items = this.orderItems
 
-      this.$confirm(this.$page.$t.messages.confirm, this.$page.$t.messages.are_you_sure, 'success').then(() => {
+      this.$confirm('', this.$page.$t.messages.are_you_sure, 'success', { confirmButtonText: this.$page.$t.messages.yes, cancelButtonText: this.$page.$t.messages.no }).then(() => {
         this.$loading.show({ delay: 0 })
         this.$inertia.post(
           '/api/web/orders',
@@ -199,11 +199,13 @@ export default {
     },
 
     alertUser () {
+      const number = `${this.$page.client.international_phone_number}`.replace('+', '')
       return new Promise((resolve, reject) => {
         this.$alert(
-          `${this.$page.$t.order.instructions_for_payment} ${this.$page.client.international_phone_number}`,
+          `${this.$page.$t.order.instructions_for_payment} ${number}`,
           this.$page.$t.order.thanks_for_order,
-          this.$page.$t.order.created
+          'success',
+          { confirmButtonText: this.$page.$t.messages.yes, cancelButtonText: this.$page.$t.messages.no }
         )
         resolve()
       })

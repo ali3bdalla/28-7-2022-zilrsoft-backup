@@ -26,62 +26,61 @@
 
 <script>
 export default {
-  name: "OrderPaymentOptions",
+  name: 'OrderPaymentOptions',
   props: {
     order: {
       type: Object,
-      required: true,
+      required: true
     },
     shippingMen: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
-  data() {
+  data () {
     return {
-      deliveryManId: null,
-    };
+      deliveryManId: null
+    }
   },
 
   methods: {
-    deliveryManHasBeenChanged(e) {
-      this.deliveryManId = e.value ? e.value.id : null;
+    deliveryManHasBeenChanged (e) {
+      this.deliveryManId = e.value ? e.value.id : null
     },
-    confirm() {
-      this.$confirm("هل انت متاكد ؟", "تاكيد الحوالة", "success").then(() => {
+    confirm () {
+      this.$confirm('هل انت متاكد ؟', 'تاكيد الحوالة', 'success').then(() => {
         axios
           .post(`/api/orders/${this.order.id}/sign-to-delivery-man`, {
-            delivery_man_id: this.deliveryManId,
+            delivery_man_id: this.deliveryManId
           })
-          .then((response) => {this.verifyCode()})
+          .then((response) => { this.verifyCode() })
           .catch((error) => {
-            this.$alert("بيانات الطلب/المندوب غير سليمة", "خطأ", "error");
-            console.log(error.response);
-          });
-      });
+            this.$alert('بيانات الطلب/المندوب غير سليمة', 'خطأ', 'error')
+            console.log(error.response)
+          })
+      })
     },
 
-    verifyCode() {
-      this.$prompt("الرجاء ادخال رمز المندوب").then((text) => {
+    verifyCode () {
+      this.$prompt('الرجاء ادخال رمز المندوب').then((text) => {
         axios
           .post(`/api/orders/${this.order.id}/activate-sign-to-delivery-man`, {
             delivery_man_id: this.deliveryManId,
-            verification_code:text
+            verification_code: text
           })
           .then((response) => {
-
-            this.$alert("", "تمت العملية", "success").then(() => {
-              location.reload();
+            this.$alert('', 'تمت العملية', 'success').then(() => {
+              location.reload()
             })
           })
           .catch((error) => {
-            this.$alert("بيانات تاكيد العملية  غير سليمة", "خطأ", "error").then(() => {
-              this.verifyCode();
-            });
+            this.$alert('بيانات تاكيد العملية  غير سليمة', 'خطأ', 'error').then(() => {
+              this.verifyCode()
+            })
             // console.log(error.response);
-          });
-      });
-    },
-  },
-};
+          })
+      })
+    }
+  }
+}
 </script>

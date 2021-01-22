@@ -48,8 +48,6 @@ class UpdateOnlineOrderStatus implements ShouldQueue
                 ['status', 'in_progress']
             ])->first();
             if ($order) {
-
-                // die();
                 $order->update(
                     [
                         'status' => 'ready_for_shipping',

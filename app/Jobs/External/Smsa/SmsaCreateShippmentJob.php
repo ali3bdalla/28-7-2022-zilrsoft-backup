@@ -53,7 +53,7 @@ class SmsaCreateShippmentJob implements ShouldQueue
                     <tns:idNo>'.$this->shippmentData['reference'].'</tns:idNo>
                     <tns:cName>'.$this->shippmentData['first_name'] . ' ' . $this->shippmentData['last_name'].'</tns:cName>
                     <tns:cntry>'.$city->country->name.'</tns:cntry>
-                    <tns:cCity>'.$city->name.'</tns:cCity>
+                    <tns:cCity>'.$city->locale_name.'</tns:cCity>
                     <tns:cZip></tns:cZip>
                     <tns:cPOBox></tns:cPOBox>
                     <tns:cMobile>'.$this->country_code . '' . $this->shippmentData['phone_number'].'</tns:cMobile>

@@ -8,8 +8,7 @@
             <h2>{{$page.$t.order.payment_confirmation }}</h2>
             <h2>{{$page.$t.order.order}} #{{ $page.order.id }}</h2>
             <div class="flex">
-              <div class="flex-1 group-input text-center">
-                <!-- Ramming Time To Auto Cancel Order -->
+              <div class="flex-1 group-input text-center" style="direction:ltr">
                 <div><label for="first_name">{{$page.$t.order.remmning_time_to_auto_cancel_order}}</label></div>
                 <br/>
                 <flip-countdown :deadline="$page.order.auto_cancel_at" :showDays="false"
@@ -18,9 +17,7 @@
 
             </div>
             <br/>
-            <!--              <h3>Order #{{$page.order.id}}</h3>-->
             <form action="#">
-
 
               <div class="flex">
                 <div class="flex-1 group-input">
@@ -53,9 +50,7 @@
                 </div>
               </div>
 
-
               <PaymentAccounts @updateAccountId="updateAccountId"></PaymentAccounts>
-
 
               <div class="flex">
 
@@ -73,7 +68,6 @@
                   </div>
                 </div>
 
-
               </div>
               <button
                   class="site-btn login-btn"
@@ -88,43 +82,42 @@
         </div>
       </div>
 
-
     </div>
   </div>
 </template>
 
 <script>
 import FlipCountdown from 'vue2-flip-countdown'
-import PaymentAccounts from "../../../components/Web/Client/PaymentAccounts";
+import PaymentAccounts from '../../../components/Web/Client/PaymentAccounts'
 
 export default {
-  components: {FlipCountdown, PaymentAccounts},
-  data() {
+  components: { FlipCountdown, PaymentAccounts },
+  data () {
     return {
-      firstName: "",
-      lastName: "",
+      firstName: '',
+      lastName: '',
       senderAccountId: null,
-      receiverAccountBankId: 1,
-    };
+      receiverAccountBankId: 1
+    }
   },
   methods: {
 
-    updateAccountId(e) {
-      this.senderAccountId = e.accountId;
+    updateAccountId (e) {
+      this.senderAccountId = e.accountId
     },
-    confirmPayment() {
-      this.$inertia.post('/web/orders/' + this.$page.order.id + '/confirm_payment?code='+ this.$page.code, {
+    confirmPayment () {
+      this.$inertia.post('/web/orders/' + this.$page.order.id + '/confirm_payment?code=' + this.$page.code, {
         sender_account_id: this.senderAccountId,
         receiver_bank_id: this.receiverAccountBankId,
         first_name: this.firstName,
-        last_name: this.lastName,
+        last_name: this.lastName
       })
     }
     // items() {
     //   return this.$page.items.data;
     // },
-  },
-};
+  }
+}
 </script>
 
 <style>

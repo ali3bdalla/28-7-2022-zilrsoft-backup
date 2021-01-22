@@ -31,6 +31,11 @@ class ShippingMethod extends BaseModel
     }
 
 
+    public function transactions()
+    {
+        return $this->hasMany(ShippingTransaction::class,'shipping_method_id');
+    }
+
     public function deliveryMen()
     {
         return $this->hasMany(DeliveryMan::class, 'shipping_method_id');
