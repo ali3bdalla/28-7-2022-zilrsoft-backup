@@ -50,7 +50,7 @@ class FetchItemsUsingFiltersRequest extends FormRequest
             $category = Category::find($this->input('category_id'));
 
             if ($category) {
-                $query->where('category_id', $this->input('category_id'));
+                $query  = $query->where('category_id', $this->input('category_id'));
             }
         }
 
@@ -60,7 +60,7 @@ class FetchItemsUsingFiltersRequest extends FormRequest
             $category = Category::find($this->input('parent_category_id'));
 
             if ($category) {
-                $query->whereIn('category_id', $category->getChildrenIncludeMe());
+                $query  = $query->whereIn('category_id', $category->getChildrenIncludeMe());
             }
         }
 
@@ -78,18 +78,20 @@ class FetchItemsUsingFiltersRequest extends FormRequest
                 $filterValuesGroupedByFilters[$value->filter_id][] = $value->filter_value;
             }
             foreach ($filterValuesGroupedByFilters as $filterId => $values) {
-                $query->whereHas('filters', function ($query2) use ($filterId, $values) {
+                $query  = $query->whereHas('filters', function ($query2) use ($filterId, $values) {
                     $query2->where([['filter_id', $filterId]])->whereIn('filter_value', $values);
                 });
             }
         }
 
-        $query  = $this->apply($query);
+        $query->where(function($subQuery){
+            $this->apply($subQuery);
+        });
 
         if ($this->has('order_by') && $this->filled('order_by') && Schema::hasColumn($table, $this->input('order_by'))) {
             if($this->input('order_by') == "available_qty")
             {
-                $query->where('available_qty','>=',1);
+                $query  =$query->where('available_qty','>=',1);
             }else
             {
                 $sortDirection = $this->input('order_direction');
@@ -97,7 +99,7 @@ class FetchItemsUsingFiltersRequest extends FormRequest
                 if (!in_array($sortDirection, ['desc', 'asc'])) {
                     $sortDirection = 'desc';
                 }
-                $query->orderBy($this->input('order_by'), $sortDirection);
+                $query  = $query->orderBy($this->input('order_by'), $sortDirection);
             }
             
         }

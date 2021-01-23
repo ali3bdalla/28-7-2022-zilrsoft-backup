@@ -11,9 +11,16 @@
     </div>
     <div class="page__mt-5">
       <infinite-loading @infinite="infiniteHandler" v-if="page <= 3">
-        <div slot="spinner" class="my-2">{{ $page.$t.common.loading }}</div>
-        <div slot="no-more" class="my-2">{{ $page.$t.common.no_more }}</div>
-        <div slot="no-results" class="my-2">{{ $page.$t.common.no_results }}</div>
+        <div slot="spinner" class="my-2">
+            <loading-svg></loading-svg>
+        </div>
+        <div slot="no-more" class=""></div>
+        <!-- {{ $page.$t.common.no_more }} -->
+        <div slot="no-results" class="my-2 flex items-center justify-center">
+            <img :src="$asset('images/no-result.png')" class="object-cover w-48 h-48">
+          <!-- {{ $page.$t.common.no_results }} -->
+
+        </div>
       </infinite-loading>
       <div v-else class="product__show-more-button-container">
         <button class="product__show-more-button" @click="infiniteHandler">
@@ -25,61 +32,57 @@
 </template>
 
 <script>
-import ProductListItemComponent from "../Product/ProductListItemComponent.vue";
+import LoadingSvg from '../Page/LoadingSvg.vue'
+import ProductListItemComponent from '../Product/ProductListItemComponent.vue'
 export default {
-  components: { ProductListItemComponent },
+  components: { ProductListItemComponent, LoadingSvg },
   props: {
     params: {
       type: Object,
-      default: {},
-    },
-    // paramsUpdated:{
-    //   type:function,
-    //   handler(){
-    //     console.log('call')
-    //   }
-    // }
+      default: {}
+    }
+
   },
-  data() {
+  data () {
     return {
       page: 1,
-      dataItems: [],
-    };
+      dataItems: []
+    }
   },
   watch: {
     params: {
       deep: true,
-      handler(value) {
-        this.page = 1;
-        this.dataItems = [];
-        this.infiniteHandler();
-      },
-    },
+      handler (value) {
+        this.page = 1
+        this.dataItems = []
+        this.infiniteHandler()
+      }
+    }
   },
   methods: {
-    paramsUpdated() {
+    paramsUpdated () {
       // console.log('working')
     },
-    infiniteHandler($state) {
-      let params = this.params;
-      params.page = this.page;
+    infiniteHandler ($state) {
+      const params = this.params
+      params.page = this.page
       axios
-        .get("/api/web/items/using_filters", {
-          params: params,
+        .get('/api/web/items/using_filters', {
+          params: params
         })
         .then(({ data }) => {
           if (data.data.length) {
-            this.page += 1;
-            this.dataItems.push(...data.data);
-            $state.loaded();
-            this.$emit("listUpdated", {
-              data: this.dataItems,
-            });
+            this.page += 1
+            this.dataItems.push(...data.data)
+            $state.loaded()
+            this.$emit('listUpdated', {
+              data: this.dataItems
+            })
           } else {
-            $state.complete();
+            $state.complete()
           }
-        });
-    },
-  },
-};
+        })
+    }
+  }
+}
 </script>

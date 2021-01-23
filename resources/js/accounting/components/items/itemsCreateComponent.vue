@@ -351,6 +351,14 @@
           </div>
         </div>
 
+        <div class="row">
+           <vue-tags-input
+            v-model="tag"
+            :tags="itemData.tags"
+            @tags-changed="newTags => itemData.tags = newTags"
+          />
+        </div>
+
       </div>
 
     </div>
@@ -407,10 +415,12 @@ import PreviewComponent from "../attachments/previewComponent"
 import {accounting as ItemAccounting, validator as ItemValidator} from '../../item';
 import Images from "../../../components/BackEnd/Product/Images";
 
+import VueTagsInput from '@johmun/vue-tags-input';
 
 export default {
 
   components: {
+    VueTagsInput,
     Images,
     Treeselect,
     'attachments-preview-component': PreviewComponent,
@@ -425,6 +435,8 @@ export default {
       errorFieldName: "",
       errorFieldMessage: "",
       warranty_subscriptions: [],
+      tag: '',
+      tags:[],
       app: {
         primaryColor: metaHelper.getContent('primary-color'),
         secondColor: metaHelper.getContent('second-color'),
@@ -439,6 +451,7 @@ export default {
         defaultVatPurchaseValue: 15,
       },
       itemData: {
+        tags: [],
         attachments: [],
         warranty_subscription_id: 0,
         arName: "",
@@ -503,6 +516,12 @@ export default {
       this.itemData.onlineOfferPrice = this.editedItemData.online_offer_price;
       this.itemData.weight = this.editedItemData.weight;
       this.itemData.shippingDiscount = this.editedItemData.shipping_discount;
+      this.editedItemData.tags.forEach((item) => {
+        this.itemData.tags.push({
+          text:item
+        })
+      })
+
 
       this.itemData.hasVatSale = this.editedItemData.is_has_vts;
       this.itemData.has_vat_purchase = this.editedItemData.is_has_vtp;
@@ -537,6 +556,7 @@ export default {
 
   },
   methods: {
+  
     loadWarrantySubscriptions() {
       let appVm = this;
       //warranty_subscriptions
@@ -803,6 +823,13 @@ export default {
       if (!this.validateAllField()) {
         return;
       }
+
+      let Tags = [];
+
+      this.itemData.tags.forEach(element => {
+        Tags.push(element.text);
+      });
+
       let filters_values = this.extractAllSelectedFiltersAsKeyValueArray();
       let data = {
         expense_vendor_id: this.itemData.expenseVendorId,
@@ -827,6 +854,7 @@ export default {
         weight: this.itemData.weight,
         shipping_discount: this.itemData.shippingDiscount,
         is_available_online: this.itemData.isAvailableOnline,
+        tags: Tags,
         filters: filters_values
       };
       let loader = this.$loading.show({
@@ -968,4 +996,8 @@ input {
   font-size: 16px !important;
 }
 
+
+.vue-tags-input {
+  max-width: 100% !important;
+}
 </style>

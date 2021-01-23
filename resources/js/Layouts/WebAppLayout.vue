@@ -15,7 +15,7 @@
           <slot name="navbarItems"></slot>
         </template>
       </HeaderComponent>
-      <div style="background-color: #f9f9f9;"> 
+      <div style="background-color: #f9f9f9;">
         <slot></slot>
       </div>
 
@@ -27,7 +27,7 @@
                 <div class="footer-logo">
                   <a href="#"
                     ><img
-                      :src="$asset('images/logo_hd.png')"
+                      :src="$page.active_logo"
                       class="page__footer-icon"
                       alt=""
                   /></a>
@@ -128,23 +128,23 @@
 </template>
 
 <script>
-import HeaderComponent from "../components/Web/Page/HeaderComponent";
+import HeaderComponent from '../components/Web/Page/HeaderComponent'
 
 export default {
   components: {
-    HeaderComponent,
+    HeaderComponent
   },
-  name: "WebAppLayout",
-  data() {
+  name: 'WebAppLayout',
+  data () {
     return {
-      isLoading: true,
-    };
+      isLoading: true
+    }
   },
 
-  mounted() {
-    this.isLoading = false;
-  },
-};
+  mounted () {
+    this.isLoading = false
+  }
+}
 </script>
 
 <style scoped>

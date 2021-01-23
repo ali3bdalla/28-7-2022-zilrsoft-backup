@@ -17,7 +17,7 @@
 			$phoneNumber = '966' . $phoneNumber;
             if (app()->environment(['production', 'local'])) {
 
-                sendSms("Verification Code: {$otp}", $phoneNumber);
+                sendSms(__('store.common.verification_code') . ' '. $otp, $phoneNumber);
             }
 
 		}

@@ -18,7 +18,7 @@
 @section("content")
 
     
-    <shipping-method-transactions-table :shipping-method='@json($shipping)'>
+    <shipping-method-transactions-table :shipping-method='@json($shipping)' :delivery-men='@json($deliveryMen)' >
 
     </shipping-method-transactions-table>
 @endsection

@@ -95,11 +95,11 @@
 
 
         <div class="col-lg-3 col-xs-6">
-            <a href="/store/shipping/{{$order->shipping_method_id}}/{{ $order->id }}/create-order-transaction" class="small-box bg-purple">
+            <a href="/store/shipping/{{$order->shipping_method_id}}/{{ $order->id }}/create-order-transaction" class="small-box bg-primary">
                 <div class="inner">
                     <h4 style="font-weight: bolder">{{$order->draftInvoice->invoice_number}}</h4>
 
-                    <p> تفاصيل الشحن</p>
+                    <p> انشاء بوليصة شحن</p>
                 </div>
                 <div class="order__panel-card-icon-container">
                     <i class="fa fa-address-card order__panel-card-icon"></i>

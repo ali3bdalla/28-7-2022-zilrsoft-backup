@@ -16,7 +16,9 @@
         <form action="{{ route('store.shipping.store_transaction', $shipping->id) }}" method="post">
             @csrf
 
+            @include('backend.store.shipping.sender_details')
             <div class="box-body">
+                <h3 class="mb-3">بيانات المستقبل</h3>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -44,7 +46,7 @@
                             <label>المدينة</label>
                             <select class="form-control" name="city_id">
                                 @foreach ($citites as $city)
-                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                    <option value="{{ $city->id }}">{{ $city->locale_name }}</option>
                                 @endforeach
                             </select>
                             @error('city_id')

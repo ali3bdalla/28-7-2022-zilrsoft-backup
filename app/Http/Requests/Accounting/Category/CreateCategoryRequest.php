@@ -33,7 +33,7 @@
 				'description' => "required|min:2|string",
 				'ar_description' => "required|min:2|string",
 				'parent_id' => "required|integer",
-				'cloned_category' => 'nullable|integer|organization_exists:App\Models\Category,id',
+				'cloned_category' => 'nullable|integer|exists:App\Models\Category,id',
 				'is_available_online' => 'nullable',
 				"sorting" => "nullable|integer",
 				"image" => "nullable|image"

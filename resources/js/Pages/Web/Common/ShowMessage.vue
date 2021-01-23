@@ -6,12 +6,12 @@
           <div class="px-4 pb-4 sm:p-6 sm:pb-4">
             <div class="">
               <div class="mt-3 text-center">
-                <h3
+                <!-- <h3
                   id="modal-headline"
                   class="text-lg leading-6 font-medium text-gray-900"
                 >
                   {{ title }}
-                </h3>
+                </h3> -->
                 <div class="mt-2">
                   <p class="text-lg text-center">
                     {{ message }}
@@ -35,27 +35,23 @@
 </template>
 
 <script>
-import WebAppLayout from "../../../Layouts/WebAppLayout";
+import WebAppLayout from '../../../Layouts/WebAppLayout'
 
 export default {
   components: { WebAppLayout },
-  computed:{
-    title()
-    {
-      if(this.$page.title)
-        return this.$page.title;
+  computed: {
+    title () {
+      if (this.$page.title) { return this.$page.title }
 
-      return this.$page.$t.common.title_message;
+      return this.$page.$t.common.title_message
     },
-    message()
-    {
-      if(this.$page.message)
-        return this.$page.message;
+    message () {
+      if (this.$page.message) { return this.$page.message }
 
-      return this.$page.$t.common.completed_message;
+      return this.$page.$t.common.completed_message
     }
   }
-};
+}
 </script>
 
 <style>

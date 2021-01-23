@@ -130,12 +130,12 @@ class BaseModel extends Model
                     static::addGlobalScope(
                         'online',
                         function (Builder $builder) use ($table) {
-                            $builder->with('category')->whereHas('category');
-                            //                        where(
-                            //                            [
-                            //                                ["{$table}.available_qty", '>', 0],
-                            //                            ]
-                            //                        )->
+                            $builder->with('category')->whereHas('category')
+                                ->where(
+                                    [
+                                        ["{$table}.available_qty", '>', 0],
+                                    ]
+                                );
                         }
                     );
                 }
@@ -168,11 +168,9 @@ class BaseModel extends Model
                                 [
                                     ["{$table}.is_available_online", true],
                                 ]
-                                );
+                            );
                         }
                     );
-
-                    
                 }
             }
         }

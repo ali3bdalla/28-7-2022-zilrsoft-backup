@@ -41,31 +41,30 @@ class FetchItemsGroupByCategoryRequest extends FormRequest
 			$this->apply($query);
 		})->get();
 
+		
 		$categories = [];
 		foreach ($categoriesEntities as $entity) {
+			$items = Item::where('category_id', $entity->id)->where(function($query){
+				$this->apply($query);
+			})->get();
+			
 
-			$itemsQuery = Item::where('category_id', $entity->id);
-			$items = $this->apply($itemsQuery)->get();
-			$entity['search_keywords'] = $this->getCategorySearchKeywords($entity, $items, $searchKeywords);
+			if($this->has('search_via') && $this->filled('search_via') && $this->input('search_via') == 'tag')
+            {
+				$entity['search_keywords'] = $this->input('name');
+				
+			}else
+			{
+				$entity['search_keywords'] = $this->getCategorySearchKeywords($entity, $items, $searchKeywords);
+			}
+			
 			$entity['result_items_count'] = count($items);
 			$categories[] = $entity->toArray();
 		}
 
 
 		return $categories;
-		// ->get()
-		// dd(	$categories);
 
-		// // $query = $this->apply($query);
-
-		// // $items = $query->with('category')->get();
-
-		// // $categoriesHas = $query->pluck('category_id')->unique()->toArray();
-
-		// return [
-		// 	// 'items' => $items,
-		// 	'categories_group' => Category::whereIn('id',$categoriesHas)->get()
-		// ];
 	}
 
 	public function getCategorySearchKeywords($entity, $items, $searchKeywords)
@@ -74,7 +73,9 @@ class FetchItemsGroupByCategoryRequest extends FormRequest
 
 
 		if( $searchKeywords == [] || $searchKeywords[0] == "") return "";
-		// شاحن ايفون
+		
+		if(count($searchKeywords ) == 1) return $searchKeywords[0];
+		
 		foreach ($searchKeywords as $searchKeyword) {
 
 			

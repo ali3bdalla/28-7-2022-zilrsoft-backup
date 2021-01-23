@@ -1,71 +1,74 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 import ToggleButton from 'vue-js-toggle-button'
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 import CxltToastr from 'cxlt-vue2-toastr'
 import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css'
-import VuejsDialog from 'vuejs-dialog';
-import 'vuejs-dialog/dist/vuejs-dialog.min.css';
+import VuejsDialog from 'vuejs-dialog'
+import 'vuejs-dialog/dist/vuejs-dialog.min.css'
 import VModal from 'vue-js-modal'
-import VueSimpleAlert from "vue-simple-alert";
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import VueSimpleAlert from 'vue-simple-alert'
+import ElementUI from 'element-ui' // keep it to keep simple alert working
+import 'element-ui/lib/theme-chalk/index.css'
+// import shippingCities from './data/shipping'
 
-require('./bootstrap');
-window.TextValidator = require('validator');
-
+require('./bootstrap')
+window.TextValidator = require('validator')
 window.getRequestUrl = function (path) {
-    return '/api/web/' + path + "?lang=ar";
+  return '/api/web/' + path + '?lang=ar'
 }
 window.getIndex = function (needle, haystack) {
-    let length = haystack.length;
-    for (let i = 0; i < length; i++) {
-        if (haystack[i] === needle) return i;
-    }
-    return -1; // update latter
+  const length = haystack.length
+  for (let i = 0; i < length; i++) {
+    if (haystack[i] === needle) return i
+  }
+  return -1 // update latter
 }
-window.Vue = Vue;
+window.Vue = Vue
 
-require('./Plugins/plugins');
-require('./accounting/load');
-Vue.use(Vuetify);
+require('./Plugins/plugins')
+require('./accounting/load')
+Vue.use(Vuetify)
 // Vue.use(ElementUI);
-Vue.use(VModal);
-Vue.use(VuejsDialog);
-Vue.use(VueSimpleAlert);
+Vue.use(VModal)
+Vue.use(VuejsDialog)
+Vue.use(VueSimpleAlert)
 
 export default new Vuetify({
-    icons: {
-        iconfont: "md"
-    },
-    theme: {dark: true}
+  icons: {
+    iconfont: 'md'
+  },
+  theme: { dark: true }
 })
 
+// const citites = []
+// for (const key in shippingCities.smsaCitites) {
+//   citites.push(`['name' => '${shippingCities.smsaCitites[key]}','ar_name' =>  '${shippingCities.arsmsaCitites[key]}']`)
+// }
+// // shippingCities.smsaCitites.forEach(element => {
+// //   citites.push(`['name' => '${element}','ar_name' =>  '']`)
+// // })
+// console.log(JSON.stringify(citites))
+
 Vue.use(CxltToastr, {
-    position: 'top right',
-    showDuration: 2000
-});
+  position: 'top right',
+  showDuration: 2000
+})
 
 Vue.prototype.$page = {
-    errors:[]
-};
-Vue.use(Loading);
-Vue.use(ToggleButton);
-Vue.use(VueSimpleAlert);
+  errors: []
+}
+Vue.use(Loading)
+Vue.use(ToggleButton)
+Vue.use(VueSimpleAlert)
 
 Vue.component('layouts-header-component', require('./components/layoutsHeaderComponent').default)
 Vue.component('pending-purchases-counter-component', require('./components/pendingPurchasesCounterComponent').default)
-require('./components/include');
+require('./components/include')
 window.routes = require('./routes')
 
-
-
-const shipping = require('./data/shipping')
-
-
-
 const app = new Vue({
-    el: '#app'
-});
+  el: '#app'
+})

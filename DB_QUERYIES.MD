@@ -1,0 +1,1 @@
+<!-- select ar_name,available_qty from items where id  not in (select attachable_id from attachments where attachable_type != 'App\\Models\\Item') and organization_id = 1 and available_qty > 0 and is_kit is false and is_service is false; -->

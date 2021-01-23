@@ -32,23 +32,26 @@ class SendOrderToClientViaWhatsappListener
 
 
         $message = view(
-            'whatsapp.order_details', [
+            'whatsapp.order_details',
+            [
                 'client' => $event->client,
                 'order' => $event->order,
                 'invoice' => $event->invoice,
                 'deadline' => Carbon::now()->addMinutes(30)->format('H:i')
             ]
         )->toHtml();
-        if (app()->environment(['production', 'local'])) {
-            Whatsapp::sendMessage(
-                $message, [$phoneNumber]
-            );
-            Whatsapp::sendFile(
-                $event->path, [$phoneNumber], $event->invoice->id
-            );
-        }
+        // if (app()->environment(['production', 'local'])) {
+        sendSms($message, $phoneNumber);
+        Whatsapp::sendMessage(
+            $message,
+            [$phoneNumber]
+        );
+        // Whatsapp::sendFile(
+        //     $event->path,
+        //     [$phoneNumber],
+        //     $event->invoice->id
+        // );
+        // }
 
     }
-
-
 }

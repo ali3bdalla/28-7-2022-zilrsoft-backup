@@ -60,10 +60,10 @@
 </template>
 
 <script>
-import { Inertia } from "@inertiajs/inertia";
+import { Inertia } from '@inertiajs/inertia'
 
 export default {
-  data() {
+  data () {
     return {
       isSearching: false,
       categoryId: 0,
@@ -74,47 +74,47 @@ export default {
       call: _.debounce(
         (e) => {
           axios
-            .post("/api/web/items", {
+            .post('/api/web/items', {
               name: this.searchKey,
-              categoryId: this.categoryId,
+              categoryId: this.categoryId
             })
             .then((res) => {
-              console.log(res.data);
-              this.items = res.data.items;
-              this.categoriesGroup = res.data.categories_group;
+              console.log(res.data)
+              this.items = res.data.items
+              this.categoriesGroup = res.data.categories_group
             })
             .finally(() => {
-              this.isSearching = false;
+              this.isSearching = false
               // e.cancel;
-            });
+            })
         },
         250,
         { maxWait: 1000 }
-      ),
-    };
+      )
+    }
   },
 
   methods: {
-    resetItemsToNull() {
-      this.items = [];
+    resetItemsToNull () {
+      this.items = []
     },
-    hideItems() {
-      this.resetItemsToNull();
-      this.searchKey = "";
+    hideItems () {
+      this.resetItemsToNull()
+      this.searchKey = ''
     },
-    getToResultPage() {
-   
+    getToResultPage () {
+
     },
 
-    getItems() {
+    getItems () {
       if (!this.searchKey) {
-        this.$inertia.visit(`/web`);
+        this.$inertia.visit('/web')
       } else {
-        this.$inertia.visit(`/web/items?name=${this.searchKey}`);
+        this.$inertia.visit(`/web/items?name=${this.searchKey}`)
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style>

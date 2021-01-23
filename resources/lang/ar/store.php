@@ -12,6 +12,9 @@ return [
         'loading' => "يتم تحميل البيانات",
         'no_more' => "لا تتوفر المزيد من النتائج",
         'no_results' => "لاتوجد نتائج",
+        'resend_otp' => 'اعادة ارسال الرمز',
+        "internationalKey" => "966",
+        'verification_code' => 'رمز التحقق:'
     ],
     "header" => [
         "search_placeholder" => "ابحث عن المنتجات",
@@ -22,6 +25,7 @@ return [
 
     'messages' => [
         "success" => "نجاح",
+        "select_city" =>"اختر المدينة",
         "profile_information_updated" => "تم تعديل بيانات الملف الشخصي بنجاح",
         "phone_number_has_been_changed" => " تم تغير رقم الجوال بنجاح",
         "password_has_been_changed" => "تم تغير كلمة المرور بنجاح",
@@ -29,7 +33,8 @@ return [
         "are_you_sure" => "هل انت متاكد ؟ ",
         "yes" => "نعم",
         "no" => "لا",
-        'bank_account_has_been_created' => "تمت عملية اضافة الحساب البنكي"
+        'bank_account_has_been_created' => "تمت عملية اضافة الحساب البنكي",
+        'invalid_otp' => 'رمز التاكيد غير صحيح '
     ],
 
     "order" => [
@@ -50,14 +55,13 @@ return [
         "terms_privacy" => "الشروط والاحكام",
         "terms_list" => [
             "* البضاعة المباعة لاترد ولا تستبدل بعد فتحها .",
-            "* الارجاع خلال ثلاثة أيام .",
-            "* التبديل خلال سبعة أيام ."
+            "* الارجاع خلال ثلاثة أيام والتبديل خلال سبعة أيام."
         ],
         "our_address_state" => 'القصيم',
         "draft" => "فاتورة مبدئية",
         "thanks_for_order" => "شكرا لك",
         "created"=>"نجاح",
-        "instructions_for_payment" => "ستتلقى رسالة تتحتوي على تفاصيل الدفع في رقم الجوال ",
+        "instructions_for_payment" => "ستتلقى رسالة تحتوي على تفاصيل الدفع علي رقم الجوال ",
         'payment_confirmation' => "تاكيد عملية الدفع",
         "order" => "الطلب",
         "remmning_time_to_auto_cancel_order" => "الوقت المتبقى حتى الالغاء التلقائي للطلب",
@@ -83,6 +87,7 @@ return [
         // here
     ],
     "profile" => [
+
         "login" => "تسجيل دخول",
         "phone_number" => "الجوال",
         "country" => "الدولة",
@@ -94,7 +99,6 @@ return [
         "last_name" => "أسم العائلة",
         "sign_up" => "انشاء حساب",
         "account_number" => "رقم الحساب",
-        // here
         'my_info' => 'معلوماتي',
         'orders' => "الطلبات",
         "mobile" => "الجوال",
@@ -118,10 +122,15 @@ return [
         "already_have_account"=>"هل لديك حساب مسبقا ؟",
         "reset_password" => "تغير كلمة المرور",
         'confirm_otp' => 'ادخل الرمز',
+        "street_name" => "الشارع",
+        "area" => "الحي",
+       
         
     ],
 
     'cart' => [
+        'cart_empty' => "السلة فارغة",
+        'shopping_here' => "تسوق من هنا ",
         'checkout' => "اتمام الطلب",
         "image" => "الصورة",
         "product_name" => "اسم المنتج",
@@ -145,11 +154,15 @@ return [
         "shipping_total" => "تكلفة الشحن",
         "net" => "الصافي",
         'create_shipping_address' => 'اضافة عنوان',
-        'select_shipping_address' => 'اختر عنوان الشحن'
+        'select_shipping_address' => 'اختر عنوان الشحن',
+
+
 
     ],
     //here
     'products' => [
+        'sorting_via' => 'الترتيب حسب',
+        'tags' => 'لنتائج أكثر دقة.. أنقر على التاغ',
         'show_more' => 'عرض المزيد',
         'in' => 'في قسم',
         'products' => 'المنتجات',
@@ -168,11 +181,16 @@ return [
         "total" => "الاجمالي",
         'model' => "الموديل",
         "description" => "الوصف",
-        'filters' => 'الفلاتر',
+        'filters' => 'فلاتر البحث',
         "apply" => "تطبيق",
         "reset" => "مسح",
         "filters_for_search" => "فلاتر بحث ... ",
         "barcode" => "الباركود",
-        "related_products" => "منتجات ذات من صلة"
+        "related_products" => "منتجات ذات من صلة",
+        "sorting_low_price" => "الاقل سعراً",
+        "sorting_high_price" => "الاعلى سعراً",
+        "sorting_lastest" => "الاحدث",
+        "sorting_oldest" => "الاقدم",
+        "sorting_only_available" => "المتوفر فقط",
     ]
 ];

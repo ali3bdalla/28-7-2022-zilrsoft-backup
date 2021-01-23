@@ -16,13 +16,9 @@ class ItemController extends Controller
 {
 
 
-	private $breadcrumb =  [
-		[
-			'title' => 'الرئيسية',
-			"url" => '/web'
+	private $breadcrumb;
 
-		]
-	];
+
 
 	public function index(FetchItemsGroupByCategoryRequest $fetchItemsGroupByCategoryRequest)
 	{
@@ -35,9 +31,11 @@ class ItemController extends Controller
 		}
 
 
+
 		return Inertia::render(
 			'Web/Product/Index',
 			[
+				'search_via' => $fetchItemsGroupByCategoryRequest->input('search_via'),
 				'categoryId' => $fetchItemsGroupByCategoryRequest->input('category_id'),
 				'name' => $fetchItemsGroupByCategoryRequest->input('name'),
 				'categories' => $categories,
@@ -50,7 +48,10 @@ class ItemController extends Controller
 	{
 		$relatedItems = $item->category->items()->with('category')->inRandomOrder()->take(20)->get();
 
-
+		$this->breadcrumb [] = [
+            'title' => trans('store.header.home') . ' ',
+            "url" => '/web'
+        ];
 
 		$this->fillBreadcrumb($item->category);
 
@@ -59,7 +60,7 @@ class ItemController extends Controller
 		return Inertia::render(
 			'Web/Product/Show',
 			[
-				'item' => $item->load('filters.filter', 'filters.value', 'category', 'attachments'),
+				'item' => $item->load('filters.filter', 'filters.value', 'category', 'attachments','tags'),
 				'breadcrumb' => $this->breadcrumb,
 				'relatedItems' => $relatedItems
 			]

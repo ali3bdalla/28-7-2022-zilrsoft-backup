@@ -13,8 +13,8 @@
                   <a href="/web">
                     <img
                       alt=""
-                      :src="$asset('images/logo_hd.png')"
-                      style="width: 5rem; padding-top: 2px"
+                      :src="$page.active_logo"
+                      :style="$page.active_locale == 'en' ? 'width: 6rem; padding-top: 2px' : 'width: 5rem; padding-top: 2px'"
                     />
                   </a>
                 </div>
@@ -45,13 +45,8 @@
             >
           </div>
 
-          <div class="page__header-buttons__item-right items-left">
-            <img
-              :src="$asset('web_assets/template/img/flag-1.jpg')"
-              class="float-left h-4"
-            />
-            <span class="login-panel">English</span>
-          </div>
+            <LanguageSwitcher></LanguageSwitcher>
+
         </div>
       </div>
     </div>
@@ -65,8 +60,8 @@
                 <a href="/web">
                   <img
                     alt=""
-                    :src="$asset('images/logo_hd.png')"
-                    style="width: 6rem; padding-top: 2px"
+                    :src="$page.active_logo"
+                    :style="$page.active_locale == 'en' ? 'width: 7rem; padding-top: 2px' : 'width: 6rem; padding-top: 2px'"
                   />
                 </a>
               </div>
@@ -112,32 +107,33 @@
 </template>
 
 <script>
-import HeaderSeachInputComponent from "./HeaderSeachInputComponent";
-import HeaderQuickCartComponent from "./../Cart/HeaderQuickCartComponent";
+import HeaderSeachInputComponent from './HeaderSeachInputComponent'
+import LanguageSwitcher from './LanguageSwitcher'
+import HeaderQuickCartComponent from './../Cart/HeaderQuickCartComponent'
 
 export default {
-  components: { HeaderSeachInputComponent, HeaderQuickCartComponent },
-  data() {
+  components: { HeaderSeachInputComponent, HeaderQuickCartComponent, LanguageSwitcher },
+  data () {
     return {
       showHiddenNavbar: false,
-      lastScrollPosition: 0,
-    };
+      lastScrollPosition: 0
+    }
   },
-  mounted() {
-    window.addEventListener("scroll", this.onScroll);
+  mounted () {
+    window.addEventListener('scroll', this.onScroll)
   },
-  beforeDestroy() {
-    window.removeEventListener("scroll", this.onScroll);
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.onScroll)
   },
   methods: {
-    onScroll() {
+    onScroll () {
       const currentScrollPosition =
-        window.pageYOffset || document.documentElement.scrollTop;
+        window.pageYOffset || document.documentElement.scrollTop
 
-      this.showHiddenNavbar = currentScrollPosition > 65;
-    },
-  },
-};
+      this.showHiddenNavbar = currentScrollPosition > 65
+    }
+  }
+}
 </script>
 
 <style>

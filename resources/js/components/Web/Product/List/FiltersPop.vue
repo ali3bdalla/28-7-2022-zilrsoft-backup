@@ -1,5 +1,5 @@
 <template>
-  <div class="product__search-filters">
+  <div class="product__search-filters" v-click-outside="closeModel">
     <button
       @click="showFiltersLayout"
       class="product__search-option-button"
@@ -121,8 +121,8 @@
 
 <script>
 export default {
-  props: ["categoryId", "searchName", "items"],
-  name: "ProductListItemComponentFilters",
+  props: ['categoryId', 'searchName', 'items'],
+  name: 'ProductListItemComponentFilters',
 
   data: function () {
     return {
@@ -133,129 +133,127 @@ export default {
       subcategories: [],
       isFilterLayoutOpen: false,
       selectedFilters: [],
-      selectedValues: [],
-    };
+      selectedValues: []
+    }
   },
-  created() {
-    console.log(this.items);
-    this.getApiFilters();
+  created () {
+    console.log(this.items)
+    this.getApiFilters()
   },
   watch: {
     items: {
       deep: true,
-      handler(value) {
-        this.getApiFilters();
-      },
-    },
+      handler (value) {
+        this.getApiFilters()
+      }
+    }
   },
   methods: {
-    quiteModel() {
-      this.closeModel();
+    quiteModel () {
+      this.closeModel()
     },
-    applyFilters() {
-      this.$emit("selectedAttributesHasBeenUpdated", {
-        selectedValues: this.selectedValues,
-      });
-      this.closeModel();
+    applyFilters () {
+      this.$emit('selectedAttributesHasBeenUpdated', {
+        selectedValues: this.selectedValues
+      })
+      this.closeModel()
     },
-    clearFilters() {
-      this.selectedValues = [];
+    clearFilters () {
+      this.selectedValues = []
     },
-    closeModel() {
-      this.$modal.hide("filtersLayoutModal");
+    closeModel () {
+      this.$modal.hide('filtersLayoutModal')
     },
-    toggleSubCategoriesPanel() {
-      this.isSubCategoriesPanelOpen = !this.isSubCategoriesPanelOpen;
+    toggleSubCategoriesPanel () {
+      this.isSubCategoriesPanelOpen = !this.isSubCategoriesPanelOpen
     },
-    getSelectedCategory() {
-      return this.$page.categoryId;
-    },
-
-    getSelectedFiltersMap() {
-      return this.selectedFilters;
+    getSelectedCategory () {
+      return this.$page.categoryId
     },
 
-    getSelectedValues() {
-      return this.selectedValues;
+    getSelectedFiltersMap () {
+      return this.selectedFilters
     },
 
-    getApiFilters() {
-      this.isSendingApiRequest = true;
-      let appVm = this;
+    getSelectedValues () {
+      return this.selectedValues
+    },
+
+    getApiFilters () {
+      this.isSendingApiRequest = true
+      const appVm = this
       axios
-        .post(`/api/web/filters`, {
+        .post('/api/web/filters', {
           filters: this.getSelectedFiltersMap(),
           items: this.items,
           values: this.getSelectedValues(),
-          category_id: this.getSelectedCategory(),
+          category_id: this.getSelectedCategory()
         })
         .then(function (response) {
-          appVm.handleGetFiltersResponse(response.data);
+          appVm.handleGetFiltersResponse(response.data)
         })
         .catch(function (error) {
-          alert(`server error : ${error}`);
+          alert(`server error : ${error}`)
         })
         .finally(function () {
-          appVm.isSendingApiRequest = false;
-        });
+          appVm.isSendingApiRequest = false
+        })
     },
-    handleGetFiltersResponse(data = []) {
-      let tempSelectedValuesArray = [];
-      this.filters = data;
+    handleGetFiltersResponse (data = []) {
+      const tempSelectedValuesArray = []
+      this.filters = data
     },
 
-    async toggleFilterChildrenLayoutAvailability(filter) {
-      let filterId = filter.id;
+    async toggleFilterChildrenLayoutAvailability (filter) {
+      const filterId = filter.id
       if (!this.selectedFilters.includes(filterId)) {
-        await this.selectedFilters.push(filterId);
+        await this.selectedFilters.push(filterId)
       } else {
         await this.selectedFilters.splice(
           this.selectedFilters.indexOf(filterId),
           1
-        );
+        )
       }
     },
 
-    toggleItemFilterValue(valueId) {
-      let tempSelectedValues = this.selectedValues;
+    toggleItemFilterValue (valueId) {
+      const tempSelectedValues = this.selectedValues
       if (!tempSelectedValues.includes(valueId)) {
-        tempSelectedValues.push(valueId);
+        tempSelectedValues.push(valueId)
       } else {
-        tempSelectedValues.splice(tempSelectedValues.indexOf(valueId), 1);
+        tempSelectedValues.splice(tempSelectedValues.indexOf(valueId), 1)
       }
-      console.log(tempSelectedValues);
+      console.log(tempSelectedValues)
 
-      this.selectedValues = tempSelectedValues;
+      this.selectedValues = tempSelectedValues
     },
 
-    showFiltersLayout() {
-      this.$modal.show("filtersLayoutModal");
+    showFiltersLayout () {
+      this.$modal.show('filtersLayoutModal')
     },
 
-    toggleSubCategory(subCategory) {
-      if (subCategory.id === this.selectedSubCategoryId)
-        this.selectedSubCategoryId = 0;
-      else this.selectedSubCategoryId = subCategory.id;
+    toggleSubCategory (subCategory) {
+      if (subCategory.id === this.selectedSubCategoryId) { this.selectedSubCategoryId = 0 } else this.selectedSubCategoryId = subCategory.id
 
-      this.$emit("subCategoryHasBeenUpdated", {
-        selectedSubCategoryId: this.selectedSubCategoryId,
-      });
-      this.getApiFilters();
+      this.$emit('subCategoryHasBeenUpdated', {
+        selectedSubCategoryId: this.selectedSubCategoryId
+      })
+      this.getApiFilters()
     },
-    getSubCategories() {
-      let appVm = this;
+    getSubCategories () {
+      const appVm = this
       axios
         .get(getRequestUrl(`subcategories/${this.categoryId}`))
         .then(function (response) {
-          appVm.subcategories = response.data;
+          appVm.subcategories = response.data
         })
         .catch(function (error) {
-          alert(`server error : ${error}`);
+          alert(`server error : ${error}`)
         })
-        .finally(function () {});
-    },
-  },
-};
+        .finally(function () {})
+    }
+  }
+}
 </script>
 
 <style >

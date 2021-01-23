@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Requests\Accounting\Item;
 
+use App\Jobs\Items\Tag\UpdateItemTagsJob;
 use App\Jobs\Utility\Str\ReplaceArabicSensitiveCharJob;
 use App\Models\Filter;
 	use App\Models\FilterValues;
@@ -53,6 +54,8 @@ use App\Models\Filter;
 				'is_available_online' => 'required_if:is_available_online,true',
 				'weight' => 'required_if:is_available_online,true',
 				'shipping_discount' => 'required_if:is_available_online,true',
+				'tags' => 'nullable|array',
+				'tags.*' => 'required|string'
 			];
 		}
 		
@@ -88,7 +91,7 @@ use App\Models\Filter;
 				}
 			}
 			
-			
+			UpdateItemTagsJob::dispatchNow($item,$this->input('tags'));
 			$requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
 			$itemFilters = ItemFilters::where('item_id', $item->id)->pluck('filter_id')->toArray();
 			

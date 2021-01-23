@@ -10,18 +10,18 @@ class CategoryController extends Controller
 {
     //
 
-    private $breadcrumb =  [
-        [
-            'title' => 'الرئيسية',
-            "url" => '/web'
+    public $breadcrumb;
 
-        ]
-    ];
+    
+  
 
     public function show(Category $category)
     {
 
-
+        $this->breadcrumb [] = [
+            'title' => trans('store.header.home')  . ' ',
+            "url" => '/web'
+        ];
          $level = 'sub';
 
         $list = [];

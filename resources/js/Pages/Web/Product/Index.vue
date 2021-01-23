@@ -1,7 +1,7 @@
 <template>
   <web-layout>
     <div class="container">
-      <vue-horizontal
+      <!-- <vue-horizontal
         v-if="!$page.categoryId"
         snap="center"
         :button="true"
@@ -12,21 +12,20 @@
       >
         <div v-for="(category, index) in $page.categories" :key="category.id">
           <a
-            :href="`/web/items?category_id=${category.id}&&name=${$page.name}`"
+            :href="`/web/items?category_id=${category.id}&&name=${$page.name}&&search_via=${$page.search_via}`"
             class="page__categories__list-item"
           >
             <div class="page__categories__name">
-              <!-- getSearchName($page.name, category.locale_name,category.id) -->
               <span class="">{{category.search_keywords }}</span>
               {{ $page.$t.products.in }} -
               <span class="">{{ category.locale_name }}</span>
 
               <span class="">({{ category.result_items_count }})</span>
-              <!-- {{ category.locale_name }} -->
+
             </div>
           </a>
         </div>
-      </vue-horizontal>
+      </vue-horizontal> -->
 
       <div class="product__search-page">
         <div class="page__mt-2"  v-if="items.length > 2">
@@ -42,6 +41,8 @@
               "
               @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"
             ></filters-pop>
+
+            <categories-pop  v-if="!$page.categoryId"></categories-pop>
             <sorting-pop @updated="sortingUpdated"></sorting-pop>
           </div>
         </div>
@@ -65,6 +66,7 @@ import SortingPop from "../../../components/Web/Product/List/SortingPop.vue";
 import WebLayout from "../../../Layouts/WebAppLayout";
 import ProductListItemComponent from "./../../../components/Web/Product/ProductListItemComponent";
 import VueHorizontal from "vue-horizontal";
+import CategoriesPop from '../../../components/Web/Product/List/CategoriesPop.vue';
 
 export default {
   components: {
@@ -74,6 +76,7 @@ export default {
     SortingPop,
     VueHorizontal,
     ItemsInfinityLoad,
+    CategoriesPop
   },
   data() {
     return {
@@ -92,6 +95,7 @@ export default {
     },
     params() {
       return {
+        search_via:this.$page.search_via,
         category_id: this.$page.categoryId,
         name: this.$page.name,
         order_by: this.orderBy,

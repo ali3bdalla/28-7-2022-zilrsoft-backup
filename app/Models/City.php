@@ -8,6 +8,7 @@ class City extends BaseModel
 {
     //
     protected $guarded = [];
+    protected $appends = ['locale_name'];
 
     public function country()
     {
