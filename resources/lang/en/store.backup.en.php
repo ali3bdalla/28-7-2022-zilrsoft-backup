@@ -18,8 +18,8 @@ return [
     ],
     "header" => [
         "search_placeholder" => "ابحث عن المنتجات",
-        "categories" => 'الفئات',
-        'home' => "الرئيسية",
+        "categories" => 'Categories',
+        'home' => "Home",
         // here
     ],
 
@@ -62,7 +62,7 @@ return [
         "draft" => "فاتورة مبدئية",
         "thanks_for_order" => "شكرا لك",
         "created"=>"نجاح",
-        "instructions_for_payment" => "ستتلقى رسالة تحتوي على تفاصيل الدفع علي رقم الجوال ",
+        "instructions_for_payment" => "ستتلقى رسالة تحتوي على تفاصيل الدفع في رقم الجوال ",
         'payment_confirmation' => "تاكيد عملية الدفع",
         "order" => "الطلب",
         "remmning_time_to_auto_cancel_order" => "الوقت المتبقى حتى الالغاء التلقائي للطلب",
@@ -71,24 +71,25 @@ return [
 
     ],
     "footer" => [
-        "about_us" => "من نحن",
-        "contact" => "اتصل بنا",
-        "logout" => "تسجيل خروج",
-        "my_account" => "حسابي",
-        "subscribe" => "اشتراك",
-        "cart" => "السلة",
-        "your_email" => "بريدك الالكتروني",
-        "join_news_letter" => "انضم لنشرتنا البريدية",
-        "join_news_letter_bio" => "اشترك لتصلك آخر العروض",
-        "copyright_saved" => "جميع الحقوق © 2020  محفوظة",
-        "address" => "العنوان",
-        "phone" => "الهاتف",
-        "email" => "البريد الالكتروني",
-        "information" => 'من نحن'
+
+        "about_us" => "About Us",
+        "contact" => "Contact",
+        "my_account" => "My Account",
+        "subscribe" => "Subscribe",
+        "information" => "Information",
+        "cart" => "Cart",
+        "your_email" => "Your Email",
+        "join_news_letter" => "Join Our Newsletter Now",
+        "join_news_letter_bio" => "Get E-mail updates about our latest shop and special offers.",
+        "copyright_saved" => "All Copyright rights © 2020  reserved | msbrshop",
+        "address" => "Address",
+        "phone" => "Phone",
+        "email" => "E-mail",
+        "logout" => "Log Out",
+        "information" => 'About'
         // here
     ],
     "profile" => [
-
         "login" => "تسجيل دخول",
         "phone_number" => "الجوال",
         "country" => "الدولة",
@@ -100,6 +101,7 @@ return [
         "last_name" => "أسم العائلة",
         "sign_up" => "انشاء حساب",
         "account_number" => "رقم الحساب",
+        // here
         'my_info' => 'معلوماتي',
         'orders' => "الطلبات",
         "mobile" => "الجوال",
@@ -125,7 +127,6 @@ return [
         'confirm_otp' => 'ادخل الرمز',
         "street_name" => "الشارع",
         "area" => "الحي",
-       
         
     ],
 
