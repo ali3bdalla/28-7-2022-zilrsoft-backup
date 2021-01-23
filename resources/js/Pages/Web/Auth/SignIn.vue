@@ -25,7 +25,7 @@
                     />
 
                     <div
-                      class="p-2 text-red-500"
+                      class="p-2 text-red-500 mt-2"
                       v-if="$page.errors.phone_number"
                     >
                       {{ $page.errors.phone_number }}
@@ -41,15 +41,15 @@
                       v-model="password"
 
                     />
-                    <div class="p-2 text-red-500" v-if="$page.errors.password">
+                    <div class="p-2 text-red-500  mt-2" v-if="$page.errors.password">
                       {{ $page.errors.password }}
                     </div>
                   </div>
                 </div>
 
                 <div class="group-input gi-check">
-                  <div class="gi-more">
-                    <a href="/web/forget_password" class="forget-pass"
+                  <div class="gi-more" >
+                    <a href="/web/forget_password" :style="$page.active_locale == 'en' ? 'float:left' : ''" class="forget-pass"
                       >{{ $page.$t.profile.forget_password}}</a
                     >
                   </div>
@@ -64,7 +64,6 @@
                 {{ $page.$t.profile.login}}
                 </button>
 
-
               <div class="switch-login">
                 <a href="/web/sign_up" class="or-login">{{ $page.$t.profile.or_create_new_account}}</a>
               </div>
@@ -77,31 +76,31 @@
 </template>
 
 <script>
-import WebLayout from "../../../Layouts/WebAppLayout";
+import WebLayout from '../../../Layouts/WebAppLayout'
 
-import VuePhoneNumberInput from "vue-phone-number-input";
-import "vue-phone-number-input/dist/vue-phone-number-input.css";
+import VuePhoneNumberInput from 'vue-phone-number-input'
+import 'vue-phone-number-input/dist/vue-phone-number-input.css'
 export default {
-  name: "Index",
+  name: 'Index',
   components: { VuePhoneNumberInput, WebLayout },
-  data() {
+  data () {
     return {
-      phone_number: "",
-      password: "",
-      first_name: "",
-      last_name: "",
-    };
+      phone_number: '',
+      password: '',
+      first_name: '',
+      last_name: ''
+    }
   },
 
   methods: {
-    submitForm() {
-      this.$inertia.post("/web/sign_in", {
+    submitForm () {
+      this.$inertia.post('/web/sign_in', {
         phone_number: this.phone_number,
-        password: this.password,
-      });
-    },
-  },
-};
+        password: this.password
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>

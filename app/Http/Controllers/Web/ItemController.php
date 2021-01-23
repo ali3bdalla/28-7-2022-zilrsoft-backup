@@ -16,13 +16,9 @@ class ItemController extends Controller
 {
 
 
-	private $breadcrumb =  [
-		[
-			'title' => 'الرئيسية',
-			"url" => '/web'
+	private $breadcrumb;
 
-		]
-	];
+
 
 	public function index(FetchItemsGroupByCategoryRequest $fetchItemsGroupByCategoryRequest)
 	{
@@ -52,7 +48,10 @@ class ItemController extends Controller
 	{
 		$relatedItems = $item->category->items()->with('category')->inRandomOrder()->take(20)->get();
 
-
+		$this->breadcrumb [] = [
+            'title' => trans('store.header.home') . ' ',
+            "url" => '/web'
+        ];
 
 		$this->fillBreadcrumb($item->category);
 

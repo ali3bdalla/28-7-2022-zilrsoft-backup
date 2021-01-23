@@ -293,7 +293,7 @@
   }
   
   &__search-sorting {
-    @apply w-full relative;
+    @apply w-full relative text-center;
 
     @screen md {
       @apply w-48;
@@ -340,7 +340,8 @@
     @apply text-center flex items-center justify-center my-3;
   }
   &__show-more-button {
-    @apply bg-yellow-600 px-2 py-1 rounded shadow-lg text-white;
+    @apply bg-yellow-600 px-2 py-1 rounded shadow-lg text-white mb-2;
+    margin-bottom: 16px !important;
   }
 
 

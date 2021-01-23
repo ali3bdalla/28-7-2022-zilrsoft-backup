@@ -10,7 +10,7 @@ html {
 
 
 *:not(i) {
-    font-family: 'Dubai-Bold', sans-serif;
+    font-family: 'Dubai-Bold', sans-serif !important;
 }
 
 
@@ -94,7 +94,15 @@ a:hover {
 .breadcrumb-text a:first-child:after {
     content: "" !important;
 }
-
+.breadcrumb-text a:last-child:after {
+    content: ">" !important;
+  }
+.breadcrumb-text a {
+    margin-right: 15px;
+    margin-left: 0px;
+    font-size: 13px;
+    color: #777777;
+  }
 
 .el-tabs__nav {
     float: right !important;
@@ -110,5 +118,12 @@ a:hover {
 
 .page__categories__name {
     direction: rtl
+}
+
+
+.breadcrumb-text-disable-last a:last-child
+{
+    pointer-events: none;
+   cursor: default;
 }
 @import "./product";

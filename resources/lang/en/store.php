@@ -2,7 +2,7 @@
 
 return [
     "header" => [
-        "search_placeholder" => "",
+        "search_placeholder" => "search here..",
         "categories" => 'Categories',
         'home' => "Home",
         
@@ -148,26 +148,25 @@ return [
         "happy_to_serv_you" => "Thank You",
         "terms_privacy" => "Terms & Conditions",
         "terms_list" => [
-            "* البضاعة المباعة لاترد ولا تستبدل بعد فتحها .",
-            "* الارجاع خلال ثلاثة أيام .",
-            "* التبديل خلال سبعة أيام ."
+            "* Item is in original packing condition.",
+            "* Return is within 3 days and exchange is within 7 days of date of purchase."
         ],
         "our_address_state" => 'Gassim',
         "draft" => "Quotation Invoice",
         "thanks_for_order" => "Thank You",
         "created"=>"Success",
-        "instructions_for_payment" => "ستتلقى رسالة تحتوي على تفاصيل الدفع علي رقم الجوال ",
+        "instructions_for_payment" => "You will receive a WhatsApp message containing payment details to mobile number",
         'payment_confirmation' => "Payment Confirmation",
         "order" => "Order",
-        "remmning_time_to_auto_cancel_order" => "الوقت المتبقى حتى الالغاء التلقائي للطلب",
-        "transmitter_name" => "اسم المحول",
-        "to_blank" => "البنك المحول له"
+        "remmning_time_to_auto_cancel_order" => "Payment Deadline",
+        "transmitter_name" => "Transmitter Name",
+        "to_blank" => "Beneficiary Bank"
 
     ],
       //here
       'products' => [
         'sorting_via' => 'Sorted By',
-        'tags' => 'Tags',
+        'tags' => 'For more accurate results.. click on the tag',
         'show_more' => 'show more',
         'in' => 'In',
         'products' => 'Products',
@@ -181,12 +180,12 @@ return [
         'out_of_stock' => 'Out Of Stock',
         'sar' => 'sar',
         "name" => "Product Name",
-        "quantity" => "Quantity",
-        "price" => "Quantity",
+        "quantity" => "QTY",
+        "price" => "Price",
         "total" => "Total",
         'model' => "Model",
         "description" => "Description",
-        'filters' => 'Filters',
+        'filters' => 'Search Filters',
         "apply" => "Apply",
         "reset" => "Reset",
         "filters_for_search" => "Search Filters..",

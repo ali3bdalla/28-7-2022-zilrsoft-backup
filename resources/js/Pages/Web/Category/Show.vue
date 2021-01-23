@@ -4,8 +4,14 @@
       <div class="breadcrumb-text breadcrumb-text-disable-last" >
         <a :href="page.url"  v-for="(page,index) in $page.breadcrumb" :key="index">{{page.title}}</a>
       </div>
-      <vue-horizontal
-        snap="center"
+       <div class="page__mt-2" v-if="subCategories.length > 0">
+          <div class="product__search-options">
+            <categories-pop :categories="subCategories" :show-subcategories="true"></categories-pop>
+            <!-- <sorting-pop @updated="sortingUpdated"></sorting-pop> -->
+          </div>
+        </div>
+      <!-- <vue-horizontal
+        snap="left"
         :button="true"
         :button-between="false"
         ref="horizontal"
@@ -18,15 +24,16 @@
             class="page__categories__list-item"
           >
             <div
-              class="page__categories__name" 
+              class="page__categories__name"
             >
                 {{ category.locale_name }}
             </div>
           </a>
         </div>
-      </vue-horizontal>
+      </vue-horizontal> -->
       <div class="page__mt-2">
         <h1
+          v-if="$page.category.products_count > 0 "
           class="home__products-count"
         >
           {{ $page.$t.products.products_count }} ({{ $page.category.products_count }})
@@ -40,36 +47,38 @@
 </template>
 
 <script>
-import SubategoryListItemComponent from "./../../../components/Web/Category/SubategoryListItemComponent";
-import ProductListItemComponent from "./../../../components/Web/Product/ProductListItemComponent";
-import WebLayout from "../../../Layouts/WebAppLayout";
-import VueHorizontal from "vue-horizontal";
-import ItemsInfinityLoad from '../../../components/Web/Item/ItemsInfinityLoad.vue';
+// import SubategoryListItemComponent from './../../../components/Web/Category/SubategoryListItemComponent'
+// import ProductListItemComponent from './../../../components/Web/Product/ProductListItemComponent'
+import WebLayout from '../../../Layouts/WebAppLayout'
+// import VueHorizontal from 'vue-horizontal'
+import ItemsInfinityLoad from '../../../components/Web/Item/ItemsInfinityLoad.vue'
+import CategoriesPop from '../../../components/Web/Product/List/CategoriesPop.vue'
 
 export default {
   components: {
     WebLayout,
-    SubategoryListItemComponent,
-    ProductListItemComponent,
-    VueHorizontal,
-    ItemsInfinityLoad
+    // SubategoryListItemComponent,
+    // ProductListItemComponent,
+    // VueHorizontal,
+    ItemsInfinityLoad,
+    CategoriesPop
   },
-  data() {
+  data () {
     return {
-      images: [],
-    };
+      images: []
+    }
   },
   computed: {
-    subCategories() {
-      let subcategories = [];
+    subCategories () {
+      const subcategories = []
       for (const index in this.$page.subcategories) {
-        let category = this.$page.subcategories[index];
-        category.image = this.images[index % 7];
+        const category = this.$page.subcategories[index]
+        category.image = this.images[index % 7]
 
-        subcategories.push(category);
+        subcategories.push(category)
       }
-      return subcategories;
-    },
+      return subcategories
+    }
 
     // items() {
     //   let items = [];
@@ -80,8 +89,8 @@ export default {
     //   }
     //   return items;
     // },
-  },
-};
+  }
+}
 </script>
 
 <style>

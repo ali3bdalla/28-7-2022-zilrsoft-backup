@@ -1,7 +1,7 @@
 <template>
 
 <div class="lg:flex">
-    
+
     <div
       class="items-center justify-center flex-1 hidden h-screen bg-indigo-100 lg:flex"
     >
@@ -163,7 +163,7 @@
           />
         </svg>
       </div>
-      
+
     </div>
     <div class="lg:w-1/2 xl:max-w-screen-sm ">
       <div
@@ -183,7 +183,7 @@
               style="enable-background: new 0 0 225 225"
               xml:space="preserve"
             >
-           
+
               <g transform="matrix( 1, 0, 0, 1, 0,0) ">
                 <g>
                   <path
@@ -230,7 +230,7 @@
                 Password
               </div>
               <div>
-              <inertia-link href="/forget_password" 
+              <inertia-link href="/forget_password"
                   class="text-xs font-semibold text-indigo-600 cursor-pointer font-display hover:text-indigo-800"
                 >
                   Forgot Password?
@@ -260,34 +260,32 @@
           Don't have an account ?
           <inertia-link href="/register"  class="text-indigo-600 cursor-pointer hover:text-indigo-800"
             >Sign up </inertia-link>
-  
+
         </div>
       </div>
     </div>
     </div>
   </div>
 
-
-    
 </template>
 
 <script>
 export default {
-  
-  data() {
+
+  data () {
     return {
       form: {
-        email: "",
-        password: "",
-      },
-    };
+        email: '',
+        password: ''
+      }
+    }
   },
   methods: {
-    submitLogin() {
-      this.$inertia.post("/login", this.form);
-    },
-  },
-};
+    submitLogin () {
+      this.$inertia.post('/login', this.form)
+    }
+  }
+}
 </script>
 
 <style></style>

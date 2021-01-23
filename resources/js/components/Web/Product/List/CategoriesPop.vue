@@ -1,5 +1,5 @@
 <template>
-  <div class="product__search-sorting" style="width: 24rem;">
+  <div class="product__search-sorting" style="width: 24rem;"  v-click-outside="closePanel">
     <button
     @click="toggleList"
       class="product__search-option-button"
@@ -50,23 +50,23 @@
     <div class="product__search-sorting-panel" v-if="isOpen">
       <div class="product__search-sorting-panel-content">
         <ul class="product__search-sorting-list">
-          <li v-for="(category, index) in $page.categories" :key="category.id" class="product__search-sorting-list-item" >
+          <li v-for="(category, index) in categoriesList" :key="category.id" class="product__search-sorting-list-item" >
              <a
-            :href="`/web/items?category_id=${category.id}&&name=${$page.name}&&search_via=${$page.search_via}`"
+            :href=" showSubcategories == true ?`/web/categories/${category.id}` : `/web/items?category_id=${category.id}&&name=${$page.name}&&search_via=${$page.search_via}`"
             class="page__categories__list-item"
           >
             <div class="page__categories__name">
               <!-- getSearchName($page.name, category.locale_name,category.id) -->
-              <span class="">{{category.search_keywords }}</span>
-              {{ $page.$t.products.in }} -
+              <span class="" v-if="showSubcategories !== true">{{category.search_keywords }}</span>
+              <span  v-if="showSubcategories !== true"> {{ $page.$t.products.in }} - </span>
               <span class="">{{ category.locale_name }}</span>
 
-              <span class="">({{ category.result_items_count }})</span>
+              <span class=""  v-if="showSubcategories !== true">({{ category.result_items_count }})</span>
               <!-- {{ category.locale_name }} -->
             </div>
           </a>
           </li>
-       
+
         </ul>
       </div>
     </div>
@@ -75,19 +75,30 @@
 
 <script>
 export default {
-data(){
-        return {
-
-            isOpen:false
-        }
-    },
-    methods:{
-        toggleList()
-        {
-            this.isOpen = !this.isOpen;
-        }
+  props: ['categories', 'showSubcategories'],
+  data () {
+    return {
+      categoriesList: [],
+      isOpen: false
     }
-};
+  },
+  created () {
+    if (this.categories) {
+      this.categoriesList = categories
+    } else {
+      this.categoriesList = this.$page.categories
+    }
+  // $page.categories    //
+  },
+  methods: {
+    closePanel () {
+      if (this.isOpen) { this.isOpen = false }
+    },
+    toggleList () {
+      this.isOpen = !this.isOpen
+    }
+  }
+}
 </script>
 
 <style>

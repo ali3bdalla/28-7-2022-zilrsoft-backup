@@ -14,9 +14,11 @@
 <link rel="stylesheet" href="{{ asset('web_assets/template/css/bootstrap.min.css')}}" type="text/css">
 <link rel="stylesheet" href="{{ asset('web_assets/template/css/font-awesome.min.css')}}" type="text/css">
 <link rel="stylesheet" href="{{ asset('web_assets/template/css/style.css')}}" type="text/css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+{{-- <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> --}}
 <link rel="stylesheet" href="{{ asset('css/store.css') }}">
 @if(app()->isLocale( 'ar'))
-    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@600&family=Tajawal:wght@300;500&display=swap" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@600&family=Tajawal:wght@300;500&display=swap" rel="stylesheet"> --}}
     <link 
   rel="stylesheet"
   href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"

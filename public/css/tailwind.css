@@ -1856,6 +1856,7 @@ video {
 .product__search-sorting {
   width: 100%;
   position: relative;
+  text-align: center;
 }
 
 @media (min-width: 768px) {
@@ -1936,6 +1937,8 @@ video {
   --text-opacity: 1;
   color: #fff;
   color: rgba(255, 255, 255, var(--text-opacity));
+  margin-bottom: 0.5rem;
+  margin-bottom: 16px !important;
 }
 
 .specification-table table tr td {
