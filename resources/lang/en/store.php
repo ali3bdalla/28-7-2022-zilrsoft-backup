@@ -192,11 +192,11 @@ return [
         "filters_for_search" => "Search Filters..",
         "barcode" => "Barcode",
         "related_products" => "Related Products",
-        "sorting_low_price" => "الاقل سعراً",
-        "sorting_high_price" => "الاعلى سعراً",
-        "sorting_lastest" => "الاحدث",
-        "sorting_oldest" => "الاقدم",
-        "sorting_only_available" => "المتوفر فقط",
+        "sorting_low_price" => "lowest price",
+        "sorting_high_price" => "highest price",
+        "sorting_lastest" => "latest",
+        "sorting_oldest" => "oldest",
+        "sorting_only_available" => "available only",
 
 
 
