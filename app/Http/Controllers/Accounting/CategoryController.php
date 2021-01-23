@@ -51,7 +51,7 @@
 		{
 			$this->middleware(['permission:create category']);
 			$request->validate([
-				'parent_id' => 'nullable|exists:categories,id|integer'
+				'parent_id' => 'nullable|integer|exists:categories,id'
 			]);
 			if (isset($request->parent_id)){
 				$parent_id = $request->parent_id;

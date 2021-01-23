@@ -75,7 +75,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="form-group @error('parent_id')has-error @enderror">
                         <select class="form-control" name="parent_id" placeholder="{{trans('pages/categories.parent_id')
                         }}">
@@ -105,6 +105,8 @@
 
                 </div>
 
+
+                {{ $errors }}
                 {{-- <div class="col-md-6">
                     <div class="form-group @error('is_available_online')has-error @enderror">
                         <toggle-button
@@ -122,7 +124,7 @@
 
                     </div>
                 </div> --}}
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <div class="form-group @error('parent_id')has-error @enderror">
                         <select class="form-control" name="parent_id" placeholder="{{trans('pages/categories.parent_id')
                         }}">
@@ -148,7 +150,7 @@
                         @enderror
 
                     </div>
-                </div>
+                </div> --}}
 
 
                 <div class="col-md-2">

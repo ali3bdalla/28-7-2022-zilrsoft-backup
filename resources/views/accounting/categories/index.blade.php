@@ -3,7 +3,7 @@
 @section('title',__('sidebar.categories'))
 @section('buttons')
     @can("create category")
-        <a href="{{route('accounting.categories.create')}}?parent_id=0" class="btn btn-custom-primary">
+        <a href="{{route('accounting.categories.create')}}" class="btn btn-custom-primary">
             <i class="fa fa-plus-circle"></i> {{ __('pages/categories.create') }}
         </a>
     @endcan

@@ -20,7 +20,7 @@
 			Inertia::setRootView('web');
 			
 
-			app()->setlocale('ar');
+			app()->setlocale('en');
 			
 			Inertia::share(
 				[
