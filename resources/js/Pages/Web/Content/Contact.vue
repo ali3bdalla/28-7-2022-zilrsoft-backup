@@ -43,8 +43,8 @@
                   <i class="ti-mobile"></i>
                 </div>
                 <div class="ci-text">
-                  <span>{{ $page.$t.profile.phone_number }}:</span>
-                  <p>{{ $page.app.msbrshop.phone_number }}</p>
+                  <span>{{ $page.$t.profile.tel }}:</span>
+                  <p class="direction: ltr !important">{{ $page.app.msbrshop.phone_number }}</p>
                 </div>
               </div>
               <div class="cw-item">

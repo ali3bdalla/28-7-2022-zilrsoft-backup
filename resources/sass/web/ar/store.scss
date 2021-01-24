@@ -130,4 +130,8 @@ a:hover {
     pointer-events: none;
    cursor: default;
 }
+
+.contact-widget .cw-item .ci-text p {
+    direction: ltr !important
+}
 @import "./product";

@@ -22,13 +22,13 @@ return [
         "internationalKey" => "966",
         'verification_code' => 'Verification Code:',
         "contact_us" => "Contact Us",
-        "keep_message" => "Keep Message",
+        "keep_message" => "Send Message",
 
     ],
     "contact" => [
         'name' => "Name",
         'email' => "E-mail Address",
-        'message' => "Message",
+        'message' => "Type your message..",
         'send' => "Send Message",
     ],
 
@@ -104,7 +104,8 @@ return [
         'confirm_otp' => 'Enter Verification Code',
         "street_name" => "Street",
         "area" => "Area",
-       
+        "tel" => "Telephone"
+
     ],
 
     'cart' => [

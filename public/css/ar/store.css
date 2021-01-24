@@ -114,6 +114,10 @@ a:hover {
   cursor: default;
 }
 
+.contact-widget .cw-item .ci-text p {
+  direction: ltr !important;
+}
+
 .cart-table table tr th, .cart-table table tr th.p-name {
   text-align: center;
 }

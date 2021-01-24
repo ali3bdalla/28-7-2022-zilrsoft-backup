@@ -132,15 +132,15 @@ return [
 
     'msbrshop' => [
         'email_address' => 'info@msbrshop.com',
-        'phone_number' => '920004747',
+        'phone_number' => '(+966) 920004746',
         'social_media' => [
             'facebook' => '',
             'twitter' => '',
             'instagram' => ''
         ],
         "address" => [
-            'ar' => "طريق الملك فهد، Al Zahrah, Ar Rass 58876",
-            'en' => ""
+            'ar' => "الرس ، طريق الملك فهد ، غرب الأحوال المدنية",
+            'en' => "ArRass, King Fahad Rd. West Civil Affairs"
         ]
     ],
     /*
