@@ -20,7 +20,16 @@ return [
         'no_results' => "No result",
         'resend_otp' => 'resend otp',
         "internationalKey" => "966",
-        'verification_code' => 'Verification Code:'
+        'verification_code' => 'Verification Code:',
+        "contact_us" => "Contact Us",
+        "keep_message" => "Keep Message",
+
+    ],
+    "contact" => [
+        'name' => "Name",
+        'email' => "E-mail Address",
+        'message' => "Message",
+        'send' => "Send Message",
     ],
 
 

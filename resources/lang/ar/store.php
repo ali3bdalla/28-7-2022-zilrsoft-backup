@@ -14,7 +14,16 @@ return [
         'no_results' => "لاتوجد نتائج",
         'resend_otp' => 'اعادة ارسال الرمز',
         "internationalKey" => "966",
-        'verification_code' => 'رمز التحقق:'
+        'verification_code' => 'رمز التحقق:',
+        "contact_us" => "تواصل معنا",
+        "keep_message" => "راسلنا",
+
+    ],
+    "contact" => [
+        'name' => "الاسم",
+        'email' => "البريد الاكتروني",
+        'message' => "الرسالة",
+        'send' => "ارسال",
     ],
     "header" => [
         "search_placeholder" => "ابحث عن المنتجات",

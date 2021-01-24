@@ -64,10 +64,10 @@
                 <!-- <h5>{{ __('store.footer.my_account') }}</h5> -->
                 <ul>
                   <li>
-                    <a href="#">{{ $page.$t.footer.about_us }}</a>
+                    <a href="/web/content/about">{{ $page.$t.footer.about_us }}</a>
                   </li>
                   <li>
-                    <a href="#">{{ $page.$t.footer.contact }}</a>
+                    <a href="/web/content/contact">{{ $page.$t.footer.contact }}</a>
                   </li>
                    <li style="    margin-top: 42px !important;" class="flex items-center justify-center">
                     <img

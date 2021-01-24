@@ -137,6 +137,10 @@ return [
             'facebook' => '',
             'twitter' => '',
             'instagram' => ''
+        ],
+        "address" => [
+            'ar' => "طريق الملك فهد، Al Zahrah, Ar Rass 58876",
+            'en' => ""
         ]
     ],
     /*

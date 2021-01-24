@@ -96,8 +96,13 @@ a:hover {
   margin-left: 5px;
 }
 
-.contact-form .leave-comment .comment-form input {
-  padding-right: 8px;
+.contact-form .leave-comment .comment-form input, .contact-form .leave-comment .comment-form textarea {
+  padding-right: 15px;
+}
+
+.contact-widget .cw-item .ci-text {
+  padding-left: 0px;
+  padding-right: 30px;
 }
 
 .page__categories__name {
