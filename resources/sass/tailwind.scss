@@ -1,6 +1,7 @@
 @tailwind base;
 
 @tailwind components;
+@import './web/variable';
 @import './web/plugins';
 @import "./web/cart";
 @import "./web/checkout";

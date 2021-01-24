@@ -40,8 +40,8 @@
 
   &__list-item-category-name {
     @apply text-sm shadow rounded font-extrabold truncate inline-block py-1 px-2 text-white w-full text-center;
-    background:rgb(87, 87, 87);
-    
+    // background:rgb(87, 87, 87);
+    background-color: $secondaryColor;
 
     &__out-of-stock {
       @apply bg-red-700;
@@ -282,19 +282,24 @@
 
   &__search-option-button {
     @apply w-full flex justify-center gap-3 items-center py-1 text-white;
+    background-color: $secondaryColor !important;
   }
 
+  &__search-only-available {
+    @apply w-full flex justify-center gap-3 items-center py-1 text-white
+  }
   &__search-option-icon {
     @apply w-4 h-4;
   }
 
   &__search-filter-value {
-    @apply w-full flex items-center gap-2 text-black
+    @apply w-full flex items-center gap-2;
+    color: $secondaryColor;
   }
   
   &__search-sorting {
     @apply w-full relative text-center;
-
+    background-color: $secondaryColor;
     @screen md {
       @apply w-48;
     }
@@ -313,7 +318,7 @@
   }
 
   &__search-sorting-list-item {
-    @apply p-2  cursor-pointer;
+    @apply   cursor-pointer;
     &:hover {
       @apply bg-gray-100;
     }
@@ -345,7 +350,29 @@
   }
 
 
+
+
+  &__switch-available-qty-button {
+    @apply w-48 flex justify-items-center items-center text-white;
+    // background-color: $secondaryColor;
+    .v-switch-core {
+      border-radius: 0px !important;
+      font-weight: normal !important;
+      display: flex;
+      margin-bottom: 0px !important ;
+      bottom: 0px !important;
+      padding-bottom: 0px !important;
+
+    }   
+
+    
+    .vue-js-switch  {
+      margin-bottom: 0px !important;
+    }
+  
+  }
 }
+
 
 
 

@@ -13,6 +13,8 @@
           class="text-gray-800"
           @keypress.enter="getItems"
         />
+          <!--  -->
+
         <!-- -->
 
         <button type="button" @click="getItems">
@@ -60,7 +62,6 @@
 </template>
 
 <script>
-import { Inertia } from '@inertiajs/inertia'
 
 export default {
   data () {
@@ -85,7 +86,6 @@ export default {
             })
             .finally(() => {
               this.isSearching = false
-              // e.cancel;
             })
         },
         250,
@@ -103,11 +103,11 @@ export default {
       this.searchKey = ''
     },
 
-    getItems () {
-      if (!this.searchKey) {
+    getItems (e) {
+      if (e.target.value === '' || !e.target.value) {
         this.$inertia.visit('/web')
       } else {
-        this.$inertia.visit(`/web/items?name=${this.searchKey}`)
+        this.$inertia.visit(`/web/items?name=${e.target.value}`)
       }
     }
   }

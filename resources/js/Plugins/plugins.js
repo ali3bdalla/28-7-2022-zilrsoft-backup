@@ -3,7 +3,7 @@ import VModal from 'vue-js-modal'
 import 'vue-spinners/dist/vue-spinners.css'
 import VueSpinners from 'vue-spinners/dist/vue-spinners.common'
 import VueCountdownTimer from 'vuejs-countdown-timer'
-
+import ToggleButton from 'vue-js-toggle-button'
 import InfiniteLoading from 'vue-infinite-loading'
 import VueProgressBar from 'vue-progressbar'
 
@@ -23,7 +23,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 const currency = require('./Currency')
 const Vue = require('vue')
 window.Pusher = require('pusher-js')
-
+Vue.use(ToggleButton)
 Vue.use(Image)
 Vue.use(Radio)
 Vue.use(Card)

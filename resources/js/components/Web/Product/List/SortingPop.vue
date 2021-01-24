@@ -65,12 +65,12 @@ export default {
           title: this.$page.$t.products.sorting_oldest,
           key: 'id',
           direction: 'asc'
-        },
-        {
-          title: this.$page.$t.products.sorting_only_available,
-          key: 'available_qty',
-          direction: 'asc'
         }
+        // {
+        //   title: this.$page.$t.products.sorting_only_available,
+        //   key: 'available_qty',
+        //   direction: 'asc'
+        // }
       ],
       isOpen: false
     }

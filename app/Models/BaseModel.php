@@ -154,7 +154,9 @@ class BaseModel extends Model
                                 [
                                     ["{$table}.is_kit", false],
                                 ]
-                            )->whereHas('attachments')->with('category')->whereHas('category')->hasModelNumber();
+                            )->with('category')->whereHas('category')->hasModelNumber();
+
+                            // ->whereHas('attachments')
                         }
                     );
                 }

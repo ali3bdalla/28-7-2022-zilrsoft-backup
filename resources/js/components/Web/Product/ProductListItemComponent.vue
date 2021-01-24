@@ -15,10 +15,10 @@
       >
         <span> {{ $page.$t.products.out_of_stock }} </span>
       </h3>
-      <a  v-else :href="`/web/categories/${item.category.id}`"
+      <a  v-else :href="`/web/items?category_id=${item.category.id}&&name=&&search_via=null`"
           ><h3 class="product__list-item-category-name">
         {{ item.category ? item.category.locale_name : "" }}
-        
+
       </h3></a>
 
       <a :href="`/web/items/${item.id}`" class="product__list-item-name">
@@ -55,33 +55,31 @@
 </template>
 
 <script>
-import ToggleCartItemButtonComponent from "../Cart/ToggleCartItemButtonComponent";
-import ProductRatingComponent from "./ProductRatingComponent";
+import ToggleCartItemButtonComponent from '../Cart/ToggleCartItemButtonComponent'
+import ProductRatingComponent from './ProductRatingComponent'
 
 export default {
   components: { ToggleCartItemButtonComponent, ProductRatingComponent },
-  props: ["item", "index"],
+  props: ['item', 'index'],
 
   computed: {
-    productName() {
-      let modelNumber = this.modelNumber;
-      if (modelNumber != "")
-        return this.item.locale_name.replace(modelNumber, "");
+    productName () {
+      const modelNumber = this.modelNumber
+      if (modelNumber != '') { return this.item.locale_name.replace(modelNumber, '') }
 
-      return this.item.locale_name;
+      return this.item.locale_name
     },
-    modelNumber() {
+    modelNumber () {
       if (this.item.filters) {
-        let modelNumber = this.item.filters.find((p) => p.filter_id == 38);
+        const modelNumber = this.item.filters.find((p) => p.filter_id == 38)
 
-        if (modelNumber && modelNumber.value)
-          return modelNumber.value.locale_name;
+        if (modelNumber && modelNumber.value) { return modelNumber.value.locale_name }
       }
 
-      return "";
-    },
-  },
-};
+      return ''
+    }
+  }
+}
 </script>
 
 <style>

@@ -1,34 +1,8 @@
 <template>
   <web-layout>
     <div class="container">
-      <!-- <vue-horizontal
-        v-if="!$page.categoryId"
-        snap="center"
-        :button="true"
-        :button-between="false"
-        ref="horizontal"
-        style="direction: ltr"
-        class="products-grid page__categories__list"
-      >
-        <div v-for="(category, index) in $page.categories" :key="category.id">
-          <a
-            :href="`/web/items?category_id=${category.id}&&name=${$page.name}&&search_via=${$page.search_via}`"
-            class="page__categories__list-item"
-          >
-            <div class="page__categories__name">
-              <span class="">{{category.search_keywords }}</span>
-              {{ $page.$t.products.in }} -
-              <span class="">{{ category.locale_name }}</span>
-
-              <span class="">({{ category.result_items_count }})</span>
-
-            </div>
-          </a>
-        </div>
-      </vue-horizontal> -->
-
       <div class="product__search-page">
-        <div class="page__mt-2"  v-if="items.length > 2">
+        <div class="page__mt-2" v-if="items.length > 2">
           <div class="product__search-options">
             <filters-pop
               v-if="$page.categoryId"
@@ -42,11 +16,20 @@
               @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"
             ></filters-pop>
 
-            <categories-pop  v-if="!$page.categoryId"></categories-pop>
+            <categories-pop v-if="!$page.categoryId"></categories-pop>
             <sorting-pop @updated="sortingUpdated"></sorting-pop>
           </div>
         </div>
-
+      </div>
+      <div class="product__search-page">
+        <div class="page__mt-2" v-if="items.length > 2">
+          <div class="product__search-options items-center">
+            <switchAvailableButton
+              class="items-center"
+              @changed="switchAvailableQtyChanged"
+            ></switchAvailableButton>
+          </div>
+        </div>
         <div class="">
           <items-infinity-load
             @listUpdated="listUpdated"
@@ -60,104 +43,108 @@
 </template>
 
 <script>
-import ItemsInfinityLoad from "../../../components/Web/Item/ItemsInfinityLoad.vue";
-import FiltersPop from "../../../components/Web/Product/List/FiltersPop.vue";
-import SortingPop from "../../../components/Web/Product/List/SortingPop.vue";
-import WebLayout from "../../../Layouts/WebAppLayout";
-import ProductListItemComponent from "./../../../components/Web/Product/ProductListItemComponent";
-import VueHorizontal from "vue-horizontal";
-import CategoriesPop from '../../../components/Web/Product/List/CategoriesPop.vue';
+import ItemsInfinityLoad from '../../../components/Web/Item/ItemsInfinityLoad.vue'
+import FiltersPop from '../../../components/Web/Product/List/FiltersPop.vue'
+import SortingPop from '../../../components/Web/Product/List/SortingPop.vue'
+import WebLayout from '../../../Layouts/WebAppLayout'
+import CategoriesPop from '../../../components/Web/Product/List/CategoriesPop.vue'
+import switchAvailableButton from '../../../components/Web/Product/List/switchAvailableButton'
 
 export default {
   components: {
     WebLayout,
-    ProductListItemComponent,
     FiltersPop,
+    switchAvailableButton,
+
     SortingPop,
-    VueHorizontal,
     ItemsInfinityLoad,
     CategoriesPop
   },
-  data() {
+  data () {
     return {
       isLoading: false,
       filterValues: [],
       filters: this.$page.filters,
-      items: [], //this.$page.items.data
+      items: [], // this.$page.items.data
       priceRange: {},
-      orderBy: "id",
-      orderDirection: "asc",
-    };
+      orderBy: 'id',
+      orderDirection: 'asc',
+      available_only: 'no'
+    }
   },
   computed: {
-    filtersList() {
-      return this.filters;
+    filtersList () {
+      return this.filters
     },
-    params() {
+    params () {
       return {
-        search_via:this.$page.search_via,
+        available_only: this.available_only,
+        search_via: this.$page.search_via,
         category_id: this.$page.categoryId,
         name: this.$page.name,
         order_by: this.orderBy,
         order_direction: this.orderDirection,
         filters_values: this.filterValues,
-      };
-    },
+        forceUpdate: 0
+      }
+    }
   },
   methods: {
-    getSearchName(name, categoryName,categoryId = 0) {
-      let names = name.split(" ");
-      let result = "";
+    applyFilterSearch () {},
+    switchAvailableQtyChanged (e) {
+      this.available_only = e ? 'yes' : 'no'
+      this.forceUpdate++
+    },
+    getSearchName (name, categoryName, categoryId = 0) {
+      const names = name.split(' ')
+      let result = ''
       names.forEach((subName) => {
-        // console.log(categoryName.indexOf(subName));
-        // if (categoryName.indexOf(subName) >= 0) result = result + " " + subName; 
-
-        let items = this.items.filter(p => p.category_id == categoryId);
+        const items = this.items.filter((p) => p.category_id === categoryId)
         items.forEach((item) => {
-            console.log(item.locale_name);
-            if (item.locale_name.indexOf(subName) >= 0 && result.indexOf(subName) == -1 ) result = result + " " + subName; 
-         });
-        // console.log(items);)
-      });
+          console.log(item.locale_name)
+          if (
+            item.locale_name.indexOf(subName) >= 0 &&
+            result.indexOf(subName) == -1
+          ) { result = result + ' ' + subName }
+        })
+      })
 
-      return result;
-      // return name.substr(str.indexOf("mac"), "mac".length);
+      return result
     },
-    listUpdated(e) {
-      this.items = e.data;
+    listUpdated (e) {
+      this.items = e.data
     },
-    addFilterValue(filterValue) {
+    addFilterValue (filterValue) {
       if (this.filterValues.includes(filterValue.id)) {
-        this.filterValues.splice(this.filterValues.indexOf(filterValue.id), 1);
+        this.filterValues.splice(this.filterValues.indexOf(filterValue.id), 1)
       } else {
-        this.filterValues.push(filterValue.id);
+        this.filterValues.push(filterValue.id)
       }
     },
 
-    expandFilterValues(filterIndex, expand = true) {
-      let filters = this.$page.filters;
-      filters[filterIndex].expand_values = true;
-      this.filters = filters;
+    expandFilterValues (filterIndex, expand = true) {
+      const filters = this.$page.filters
+      filters[filterIndex].expand_values = true
+      this.filters = filters
     },
 
-    applyFilterSearch() {},
+    applyFilterSearch () {},
 
-    sortingUpdated(object) {
-      this.orderBy = object.key;
-      this.orderDirection = object.direction;
-      // this.applyFilterSearch();
+    sortingUpdated (object) {
+      this.orderBy = object.key
+      this.orderDirection = object.direction
     },
-    selectedAttributesHasBeenUpdated(event) {
-      this.filterValues = event.selectedValues;
-    },
-
-    priceFilterRangeHasBeenUpdated(event) {
-      this.priceRange = event.priceRange;
+    selectedAttributesHasBeenUpdated (event) {
+      this.filterValues = event.selectedValues
     },
 
-    subCategoryHasBeenUpdated(event) {
-      this.selectedSubCategoryId = event.selectedSubCategoryId;
+    priceFilterRangeHasBeenUpdated (event) {
+      this.priceRange = event.priceRange
     },
-  },
-};
+
+    subCategoryHasBeenUpdated (event) {
+      this.selectedSubCategoryId = event.selectedSubCategoryId
+    }
+  }
+}
 </script>

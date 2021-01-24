@@ -165,6 +165,7 @@ return [
     ],
       //here
       'products' => [
+        'subcategories' => 'Sub Categories',
         'sorting_via' => 'Sorted By',
         'tags' => 'For more accurate results.. click on the tag',
         'show_more' => 'show more',
@@ -195,7 +196,7 @@ return [
         "sorting_high_price" => "highest price",
         "sorting_lastest" => "latest",
         "sorting_oldest" => "oldest",
-        "sorting_only_available" => "available only",
+        "sorting_only_available" => "Available Only",
 
 
 

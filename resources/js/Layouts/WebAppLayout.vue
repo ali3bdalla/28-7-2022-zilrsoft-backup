@@ -49,12 +49,12 @@
               <div class="footer-widget">
                 <!-- <h5>{{ $page.$t.footer.information }}</h5> -->
                 <ul>
-                  <li>
-                    <a href="#">{{ $page.$t.footer.about_us }}</a>
-                  </li>
 
                   <li>
-                    <a href="#">{{ $page.$t.footer.contact }}</a>
+                    <img
+                    :src="$asset('web_assets/template/img/our-location.png')"
+                    alt=""
+                  />
                   </li>
                 </ul>
               </div>
@@ -64,17 +64,24 @@
                 <!-- <h5>{{ __('store.footer.my_account') }}</h5> -->
                 <ul>
                   <li>
-                    <a href="#">{{ $page.$t.footer.my_account }}</a>
+                    <a href="#">{{ $page.$t.footer.about_us }}</a>
                   </li>
                   <li>
                     <a href="#">{{ $page.$t.footer.contact }}</a>
                   </li>
-                  <li>
+                   <li style="    margin-top: 42px !important;" class="flex items-center justify-center">
+                    <img
+                    :src="$asset('web_assets/template/img/payment-method.png')"
+                    alt=""
+                  />
+                  </li>
+                  <!-- <li>
                     <a href="#">{{ $page.$t.footer.cart }}</a>
                   </li>
                   <li>
                     <a href="#">{{ $page.$t.footer.logout }}</a>
-                  </li>
+                  </li> -->
+
                   <!-- <li><a href="#">Shop</a></li> -->
                 </ul>
               </div>
@@ -113,10 +120,10 @@
                   {{ $page.$t.footer.copyright_saved }}
                 </div>
                 <div class="flex items-center justify-center payment-pic">
-                  <img
+                  <!-- <img
                     :src="$asset('web_assets/template/img/payment-method.png')"
                     alt=""
-                  />
+                  /> -->
                 </div>
               </div>
             </div>

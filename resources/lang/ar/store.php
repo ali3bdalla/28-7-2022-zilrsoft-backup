@@ -161,6 +161,7 @@ return [
     ],
     //here
     'products' => [
+        'subcategories' => 'الاقسام الفرعية',
         'sorting_via' => 'الترتيب حسب',
         'tags' => 'لنتائج أكثر دقة.. أنقر على التاغ',
         'show_more' => 'عرض المزيد',

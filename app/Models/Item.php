@@ -65,7 +65,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 			$images = $this->attachments()->get()->toArray();
 
 			if($images && count($images) >= 1) return $images[0]['url'];
-			return "https://image.shutterstock.com/image-vector/stay-home-safe-coronavirus-vector-600w-1679419237.jpg";
+			return asset("images/logo_ar.png");
 		}
 		public function scopeKits($query)
 		{
