@@ -61,7 +61,7 @@ use App\Models\Filter;
 		
 		public function save()
 		{
-			$data = $this->except('filters');
+			$data = $this->except('filters','tags');
 			$data['organization_id'] = $this->user()->organization_id;
 			$data['creator_id'] = $this->user()->id;
 			$data['ar_name'] = ReplaceArabicSensitiveCharJob::dispatchNow($this->input('ar_name'));
@@ -90,8 +90,12 @@ use App\Models\Filter;
 					}
 				}
 			}
+			if($this->has('tags') && $this->filled('tags'))
+			{
+				UpdateItemTagsJob::dispatchNow($item,$this->input('tags'));
+			}
 			
-			UpdateItemTagsJob::dispatchNow($item,$this->input('tags'));
+			
 			$requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
 			$itemFilters = ItemFilters::where('item_id', $item->id)->pluck('filter_id')->toArray();
 			
