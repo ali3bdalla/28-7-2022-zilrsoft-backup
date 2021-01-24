@@ -26,27 +26,21 @@
 </template>
 
 <script>
-import SideBarComponent from "./../../../components/Web/Page/SideBarComponent";
-import WebLayout from "../../../Layouts/WebAppLayout";
-import SubategoryListItemComponent from "./../../../components/Web/Category/SubategoryListItemComponent";
-import ProductListItemComponent from "../../../components/Web/Product/ProductListItemComponent.vue";
-import Hero from "../../../components/Web/Page/Hero.vue";
-import ItemsInfinityLoad from "../../../components/Web/Item/ItemsInfinityLoad.vue";
+import WebLayout from '../../../Layouts/WebAppLayout'
+import SubategoryListItemComponent from './../../../components/Web/Category/SubategoryListItemComponent'
+import Hero from '../../../components/Web/Page/Hero.vue'
+import ItemsInfinityLoad from '../../../components/Web/Item/ItemsInfinityLoad.vue'
 
 export default {
-  name: "Index",
+  name: 'Index',
   components: {
     WebLayout,
-    SideBarComponent,
     SubategoryListItemComponent,
-    ProductListItemComponent,
     Hero,
-    ItemsInfinityLoad,
-  },
+    ItemsInfinityLoad
+  }
 
-
- 
-};
+}
 </script>
 
 <style scoped>

@@ -1,0 +1,37 @@
+<?php
+
+use App\Models\Item;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddBarcodeToTags extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        $items = Item::all();
+        foreach ($items as $item) {
+
+            $item->tags()->create([
+                'tag' => $item->barcode
+            ]);
+        }
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('tags', function (Blueprint $table) {
+            //
+        });
+    }
+}

@@ -7,7 +7,7 @@
       <div class="home__categories-cell-content__bg">
         <img
           class="home__categories-cell-content__image"
-          src="https://m.xcite.com/media/wysiwyg/KSABannersNew2/20201228-Heaters-KSA-V2-AR-SBx.jpg"
+          :src="category.image_url_attribute"
         />
       </div>
     </div>
@@ -16,8 +16,13 @@
 
 <script>
 export default {
-  props: ["category"],
-};
+  props: {
+    category: {
+      type: Object,
+      required: true
+    }
+  }
+}
 </script>
 
 <style>
