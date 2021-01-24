@@ -7,7 +7,7 @@
       <div class="home__categories-cell-content__bg">
         <img
           class="home__categories-cell-content__image"
-          :src="category.image_url_attribute"
+          :src="category.image_url"
         />
       </div>
     </div>
