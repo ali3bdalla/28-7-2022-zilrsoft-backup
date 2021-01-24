@@ -7,31 +7,23 @@
        <div class="page__mt-2" v-if="subCategories.length > 0">
           <div class="product__search-options">
             <categories-pop :categories="subCategories" :show-subcategories="true"></categories-pop>
-            <!-- <sorting-pop @updated="sortingUpdated"></sorting-pop> -->
+             <sorting-pop @updated="sortingUpdated"></sorting-pop>
+            <!-- <switchAvailableButton @changed="switchAvailableQtyChanged"></switchAvailableButton> -->
           </div>
         </div>
-      <!-- <vue-horizontal
-        snap="left"
-        :button="true"
-        :button-between="false"
-        ref="horizontal"
-        style="direction: ltr"
-        class="products-grid page__categories__list"
-      >
-        <div v-for="(category, index) in subCategories" :key="category.id" >
-          <a
-            :href="`/web/categories/${category.id}`"
-            class="page__categories__list-item"
-          >
-            <div
-              class="page__categories__name"
-            >
-                {{ category.locale_name }}
-            </div>
-          </a>
+
+      <div class="product__search-page">
+        <div class="page__mt-2">
+          <div class="product__search-options items-center">
+            <switchAvailableButton
+              class="items-center"
+              @changed="switchAvailableQtyChanged"
+            ></switchAvailableButton>
+          </div>
         </div>
-      </vue-horizontal> -->
-      <div class="page__mt-2">
+
+      </div>
+      <div class="page__mt-2 mt-4">
         <h1
           v-if="$page.category.products_count > 0 "
           class="home__products-count"
@@ -39,7 +31,7 @@
           {{ $page.$t.products.products_count }} ({{ $page.category.products_count }})
         </h1>
 
-        <items-infinity-load :params="{parent_category_id:$page.category.id}"></items-infinity-load>
+        <items-infinity-load :params="params" :forceUpdate="forceUpdate" :paramsUpdated="applyFilterSearch"></items-infinity-load>
 
       </div>
     </div>
@@ -47,25 +39,42 @@
 </template>
 
 <script>
-// import SubategoryListItemComponent from './../../../components/Web/Category/SubategoryListItemComponent'
-// import ProductListItemComponent from './../../../components/Web/Product/ProductListItemComponent'
+
 import WebLayout from '../../../Layouts/WebAppLayout'
-// import VueHorizontal from 'vue-horizontal'
 import ItemsInfinityLoad from '../../../components/Web/Item/ItemsInfinityLoad.vue'
 import CategoriesPop from '../../../components/Web/Product/List/CategoriesPop.vue'
+import switchAvailableButton from '../../../components/Web/Product/List/switchAvailableButton'
+import SortingPop from '../../../components/Web/Product/List/SortingPop.vue'
 
 export default {
   components: {
     WebLayout,
-    // SubategoryListItemComponent,
-    // ProductListItemComponent,
-    // VueHorizontal,
+    SortingPop,
+    switchAvailableButton,
     ItemsInfinityLoad,
     CategoriesPop
   },
   data () {
     return {
-      images: []
+      params: { parent_category_id: this.$page.category.id },
+      images: [],
+      forceUpdate: 0
+    }
+  },
+  methods: {
+    applyFilterSearch () {},
+    switchAvailableQtyChanged (e) {
+      this.params.available_only = e ? 'yes' : 'no'
+      this.forceUpdate++
+    },
+    sortingUpdated (object) {
+      console.log(object)
+      this.params.order_by = object.key
+      this.params.order_direction = object.direction
+      //       order_by: this.orderBy,
+      // order_direction: this.orderDirection,
+      this.forceUpdate++
+      console.log(this.params)
     }
   },
   computed: {
@@ -80,15 +89,6 @@ export default {
       return subcategories
     }
 
-    // items() {
-    //   let items = [];
-    //   for (const index in this.$page.items) {
-    //     let item = this.$page.items[index];
-    //     item.image = this.images[index % 7];
-    //     items.push(item);
-    //   }
-    //   return items;
-    // },
   }
 }
 </script>

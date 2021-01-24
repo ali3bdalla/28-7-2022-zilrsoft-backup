@@ -84,16 +84,23 @@ class FetchItemsUsingFiltersRequest extends FormRequest
             }
         }
 
-        $query->where(function($subQuery){
+
+
+        if ($this->has('available_only') && $this->filled('available_only') && $this->input('available_only') == 'yes') {
+
+            $query  = $query->where('available_qty', '>', 0);
+        }
+
+
+
+        $query->where(function ($subQuery) {
             $this->apply($subQuery);
         });
 
         if ($this->has('order_by') && $this->filled('order_by') && Schema::hasColumn($table, $this->input('order_by'))) {
-            if($this->input('order_by') == "available_qty")
-            {
-                $query  =$query->where('available_qty','>=',1);
-            }else
-            {
+            if ($this->input('order_by') == "available_qty") {
+                $query  = $query->where('available_qty', '>=', 1);
+            } else {
                 $sortDirection = $this->input('order_direction');
 
                 if (!in_array($sortDirection, ['desc', 'asc'])) {
@@ -101,7 +108,6 @@ class FetchItemsUsingFiltersRequest extends FormRequest
                 }
                 $query  = $query->orderBy($this->input('order_by'), $sortDirection);
             }
-            
         }
 
         return $query->with('category', 'filters.filter', 'filters.value')->paginate(18);

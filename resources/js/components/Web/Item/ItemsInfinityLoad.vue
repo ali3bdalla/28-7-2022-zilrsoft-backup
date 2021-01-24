@@ -15,10 +15,8 @@
             <loading-svg></loading-svg>
         </div>
         <div slot="no-more" class=""></div>
-        <!-- {{ $page.$t.common.no_more }} -->
         <div slot="no-results" class="my-2 flex items-center justify-center">
             <img :src="$asset('images/no-result.png')" class="object-cover w-48 h-48">
-          <!-- {{ $page.$t.common.no_results }} -->
 
         </div>
       </infinite-loading>
@@ -37,6 +35,9 @@ import ProductListItemComponent from '../Product/ProductListItemComponent.vue'
 export default {
   components: { ProductListItemComponent, LoadingSvg },
   props: {
+    forceUpdate: {
+      type: Number
+    },
     params: {
       type: Object,
       default: {}
@@ -50,6 +51,11 @@ export default {
     }
   },
   watch: {
+    forceUpdate (value) {
+      this.page = 1
+      this.dataItems = []
+      this.infiniteHandler()
+    },
     params: {
       deep: true,
       handler (value) {
@@ -61,10 +67,11 @@ export default {
   },
   methods: {
     paramsUpdated () {
-      // console.log('working')
+      console.log('working')
     },
     infiniteHandler ($state) {
       const params = this.params
+      console.log(params)
       params.page = this.page
       axios
         .get('/api/web/items/using_filters', {

@@ -3,7 +3,6 @@
     <button
     @click="toggleList"
       class="product__search-option-button"
-      style="background: rgb(87, 87, 87)"
     >
       <svg
         class="product__search-option-icon"
@@ -20,7 +19,7 @@
         />
       </svg>
 
-      {{ $page.$t.products.filters }}
+      {{ $page.$t.products.subcategories }}
     </button>
         <!-- <vue-horizontal
         v-if="!$page.categoryId"

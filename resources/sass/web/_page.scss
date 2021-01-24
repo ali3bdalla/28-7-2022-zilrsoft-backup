@@ -31,7 +31,8 @@
   }
 
   &__header-cart-icon {
-    @apply  m-0 text-gray-800 ;
+    @apply  m-0;
+    color: $secondaryColor;
     width: 50px;
     height: 50px;
     @screen md {
@@ -78,7 +79,8 @@
   }
 
   &__header-search-result-item {
-    @apply flex justify-between px-2 py-1 font-bold text-gray-800 border-b ;
+    @apply flex justify-between px-2 py-1 font-bold border-b ;
+    color: $secondaryColor;
     &:hover {
       @apply text-gray-600;
     }
@@ -94,11 +96,13 @@
   }
 
   &__header-search-categories {
-    @apply p-2 pt-3 mt-4 mb-1 text-lg font-bold text-gray-700 border-t-2 border-black;
+    @apply p-2 pt-3 mt-4 mb-1 text-lg font-bold  border-t-2 border-black;
+    color: $secondaryColor;
   }
 
   &__header-search-categories-item {
-    @apply block px-2 py-1 font-bold text-gray-800 border-b;
+    @apply block px-2 py-1 font-bold  border-b;
+    color: $secondaryColor;
     &:hover {
       @apply text-gray-600;
     }
@@ -110,7 +114,8 @@
     @apply border-b shadow-xs;
 
     &__item {
-      @apply flex items-center text-gray-800 
+      @apply flex items-center;
+      color: $secondaryColor;
     }
 
     &__item-container {
@@ -118,7 +123,8 @@
     }
 
     &__item-right {
-      @apply flex justify-end flex-1 text-gray-800 gap-2;
+      @apply flex justify-end flex-1  gap-2;
+      color: $secondaryColor;
     }
   }
   &__header-buttons-container {
@@ -136,18 +142,28 @@
     }
 
     &__list-item {
-      @apply text-gray-800;
+
+      color: $secondaryColor;
       &:hover {
         @apply text-gray-900
       }
     }
     &__name {
-      @apply  py-2 px-3 mx-2 border bg-white rounded-full font-bold text-center;
+      @apply  py-1 px-3 mx-2 border bg-white rounded-full font-bold text-center;
+      color: $secondaryColor;
       border-color:rgb(249, 249, 249);
     }
   }
 }
 
+.footer-section,.newslatter-item p,.footer-widget ul li a,.copyright-reserved .copyright-text,.footer-left ul li {
+  background-color: $secondaryColor !important;
+  color: white !important;
+}
+.newslatter-item .subscribe-form input {
+  color: black !important;
+  background-color: white !important;
+}
 
 .fixedHeader {
   position: fixed;
@@ -162,17 +178,21 @@
 }
 
 
+.or-login {
+  // text-transform: inherit !important;
+  letter-spacing: 0px !important;
+}
 .hero {
   &__item {
-    height: 200px;
+    // height: 160px;
     width: 100%;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
 
 
-    @screen md {
-      height: 500px;
-    }
+    // @screen md {
+    //   height: 500px;
+    // }
   }
 
   @apply mt-2;

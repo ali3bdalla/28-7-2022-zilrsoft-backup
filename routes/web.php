@@ -21,6 +21,12 @@ Route::get('/', 'Web\HomeController@toWeb')->name('to.web');
 
 Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->name('web.')->group(
     function () {
+
+        Route::prefix('content')->group(function(){
+            Route::get('about','ContentController@about');
+            Route::get('contact','ContentController@contact');
+
+        });
         Route::get('/orders/{order}/cancel', 'Order\CancelOrderController@showPage');
         Route::post('/orders/{order}/cancel', 'Order\CancelOrderController@confirm');
         Route::get('/orders/{order}/confirm_payment', 'Order\ConfirmOrderPaymentController@showConfirmPaymentPage');

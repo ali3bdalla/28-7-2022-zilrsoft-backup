@@ -38,7 +38,6 @@ class CategoryController extends Controller
             'breadcrumb' => $this->breadcrumb,
             'level' => $level,
             'subcategories' => $list,
-            // 'items' => Item::whereIn('category_id', $category->getChildrenIncludeMe())->with('category', 'filters.filter', 'filters.value')->inRandomOrder()->take(50)->get(),
 
         ]);
     }
@@ -49,11 +48,6 @@ class CategoryController extends Controller
         if ($category->parent)
             $this->fillBreadcrumb($category->parent,$inActiveId);
 
-
-        // $this->breadcrumb[] = [
-        //     'title' => "/",
-
-        // ];
         $this->breadcrumb[] = [
             'title' => $category->locale_name,
             'url' =>  '/web/categories/' . $category->id

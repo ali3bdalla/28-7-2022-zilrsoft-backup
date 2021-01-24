@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import ToggleButton from 'vue-js-toggle-button'
+
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 import CxltToastr from 'cxlt-vue2-toastr'
@@ -61,7 +61,7 @@ Vue.prototype.$page = {
   errors: []
 }
 Vue.use(Loading)
-Vue.use(ToggleButton)
+
 Vue.use(VueSimpleAlert)
 
 Vue.component('layouts-header-component', require('./components/layoutsHeaderComponent').default)

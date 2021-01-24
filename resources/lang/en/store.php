@@ -20,7 +20,16 @@ return [
         'no_results' => "No result",
         'resend_otp' => 'resend otp',
         "internationalKey" => "966",
-        'verification_code' => 'Verification Code:'
+        'verification_code' => 'Verification Code:',
+        "contact_us" => "Contact Us",
+        "keep_message" => "Send Message",
+
+    ],
+    "contact" => [
+        'name' => "Name",
+        'email' => "E-mail Address",
+        'message' => "Type your message..",
+        'send' => "Send Message",
     ],
 
 
@@ -95,7 +104,8 @@ return [
         'confirm_otp' => 'Enter Verification Code',
         "street_name" => "Street",
         "area" => "Area",
-       
+        "tel" => "Telephone"
+
     ],
 
     'cart' => [
@@ -165,6 +175,7 @@ return [
     ],
       //here
       'products' => [
+        'subcategories' => 'Sub Categories',
         'sorting_via' => 'Sorted By',
         'tags' => 'For more accurate results.. click on the tag',
         'show_more' => 'show more',
@@ -195,7 +206,7 @@ return [
         "sorting_high_price" => "highest price",
         "sorting_lastest" => "latest",
         "sorting_oldest" => "oldest",
-        "sorting_only_available" => "available only",
+        "sorting_only_available" => "Available Only",
 
 
 

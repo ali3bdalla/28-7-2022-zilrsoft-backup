@@ -14,7 +14,16 @@ return [
         'no_results' => "لاتوجد نتائج",
         'resend_otp' => 'اعادة ارسال الرمز',
         "internationalKey" => "966",
-        'verification_code' => 'رمز التحقق:'
+        'verification_code' => 'رمز التحقق:',
+        "contact_us" => "تواصل معنا",
+        "keep_message" => "راسلنا",
+
+    ],
+    "contact" => [
+        'name' => "الاسم",
+        'email' => "البريد الإلكتروني",
+        'message' => "اكتب رسالتك هنا..",
+        'send' => "إرسال",
     ],
     "header" => [
         "search_placeholder" => "ابحث عن المنتجات",
@@ -124,7 +133,7 @@ return [
         'confirm_otp' => 'ادخل الرمز',
         "street_name" => "الشارع",
         "area" => "الحي",
-       
+       "tel" => "الهاتف"
         
     ],
 
@@ -161,6 +170,7 @@ return [
     ],
     //here
     'products' => [
+        'subcategories' => 'الاقسام الفرعية',
         'sorting_via' => 'الترتيب حسب',
         'tags' => 'لنتائج أكثر دقة.. أنقر على التاغ',
         'show_more' => 'عرض المزيد',

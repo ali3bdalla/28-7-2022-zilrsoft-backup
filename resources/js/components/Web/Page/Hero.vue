@@ -13,8 +13,10 @@
         class="item hero__item"
         v-for="item in heroItems"
         :key="item.id"
-        :style="{ backgroundImage: 'url(' + item + ')' }"
+
       >
+      <!-- :style="{ backgroundImage: 'url(' + item + ')' }" -->
+        <img :src="item" class="object-cover" />
       </div>
     </vue-horizontal>
   </div>
@@ -48,7 +50,7 @@ export default {
   mounted () {
     // Custom observe visibility is below
     // Much easier way: https://www.npmjs.com/package/vue-observe-visibility
-    observeVisibility(this.$refs.horizontal.$el, (visible) => {
+    observeVisibility(this.$refs.horizontalBanner.$el, (visible) => {
       if (visible) {
         this.interval = setInterval(this.play, 4000)
       } else {
