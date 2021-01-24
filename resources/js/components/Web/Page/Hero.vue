@@ -5,7 +5,7 @@
       snap="center"
       :button-between="false"
       :button="true"
-      ref="horizontal"
+      ref="horizontalBanner"
       style="direction: ltr"
       @scroll-debounce="onScrollDebounce"
     >
@@ -13,7 +13,6 @@
         class="item hero__item"
         v-for="item in heroItems"
         :key="item.id"
-        
         :style="{ backgroundImage: 'url(' + item + ')' }"
       >
       </div>
@@ -22,20 +21,20 @@
 </template>
 
 <script>
-import VueHorizontal from "vue-horizontal";
+import VueHorizontal from 'vue-horizontal'
 
-  export default {
-    components: {
-    VueHorizontal,
+export default {
+  components: {
+    VueHorizontal
   },
 
-  data() {
+  data () {
     return {
       heroItems: [
-        "https://m.xcite.com/media/wysiwyg/KSABannersNew2/20201213-Watch-S6-AN-AR-HP.jpg",
-        "https://m.xcite.com/media/wysiwyg/KSABannersNew2/xSLA_Express-delivery-KSA-AR-BN.jpg",
-        "https://m.xcite.com/media/wysiwyg/KSABannersNew2/14-12-2020-offer_coffee_machines_2-AR-HP.jpg",
-        "https://m.xcite.com/media/wysiwyg/KSABannersNew2/Meshaiei/X1foldHPar.jpg",
+        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/20201213-Watch-S6-AN-AR-HP.jpg',
+        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/xSLA_Express-delivery-KSA-AR-BN.jpg',
+        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/14-12-2020-offer_coffee_machines_2-AR-HP.jpg',
+        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/Meshaiei/X1foldHPar.jpg'
       ],
       hasPrev: false,
       hasNext: false,
@@ -43,10 +42,10 @@ import VueHorizontal from "vue-horizontal";
       scrollWidth: 0,
       left: 0,
       progress: 0,
-      index: 0,
+      index: 0
     }
   },
-  mounted() {
+  mounted () {
     // Custom observe visibility is below
     // Much easier way: https://www.npmjs.com/package/vue-observe-visibility
     observeVisibility(this.$refs.horizontal.$el, (visible) => {
@@ -57,12 +56,11 @@ import VueHorizontal from "vue-horizontal";
       }
     })
   },
-  destroyed() {
+  destroyed () {
     clearInterval(this.interval)
   },
   methods: {
-    onScrollDebounce({hasNext, hasPrev, scrollWidth, width, left}) {
-      console.log('move')
+    onScrollDebounce ({ hasNext, hasPrev, scrollWidth, width, left }) {
       this.hasPrev = hasPrev
       this.hasNext = hasNext
       this.scrollWidth = scrollWidth
@@ -70,17 +68,17 @@ import VueHorizontal from "vue-horizontal";
       this.progress = left / scrollWidth
       this.index = Math.round(left / width)
     },
-    onIndexClick(i) {
-      this.$refs.horizontal.scrollToIndex(i)
+    onIndexClick (i) {
+      this.$refs.horizontalBanner.scrollToIndex(i)
     },
-    play() {
+    play () {
       if (!this.hasNext && this.hasPrev) {
-        this.$refs.horizontal.scrollToIndex(0)
+        this.$refs.horizontalBanner.scrollToIndex(0)
         return
       }
 
       if (this.hasNext) {
-        this.$refs.horizontal.next()
+        this.$refs.horizontalBanner.next()
       }
     }
   }
@@ -92,11 +90,11 @@ import VueHorizontal from "vue-horizontal";
  * @param element to track visibility
  * @param callback: function(boolean) when visibility change
  */
-function observeVisibility(element, callback) {
+function observeVisibility (element, callback) {
   const observer = new IntersectionObserver((records) => {
     callback(records.find(record => record.isIntersecting))
-  }, {rootMargin: '10% 0% 10% 0%', threshold: 0.5});
-  observer.observe(element);
+  }, { rootMargin: '10% 0% 10% 0%', threshold: 0.5 })
+  observer.observe(element)
 }
 
 </script>

@@ -267,7 +267,7 @@
 
 
   &__search-page {
-    @apply mt-3 bg-white shadow-lg rounded-lg;
+    @apply mt-3 ; //bg-white shadow-lg rounded-lg
   }
 
   &__search-options {
