@@ -102,9 +102,6 @@ export default {
       this.resetItemsToNull()
       this.searchKey = ''
     },
-    getToResultPage () {
-
-    },
 
     getItems () {
       if (!this.searchKey) {

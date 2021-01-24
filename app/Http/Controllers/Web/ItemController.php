@@ -49,7 +49,7 @@ class ItemController extends Controller
 		$relatedItems = $item->category->items()->with('category')->inRandomOrder()->take(20)->get();
 
 		$this->breadcrumb [] = [
-            'title' => trans('store.header.home') . ' ',
+            'title' => trans('store.header.home'),
             "url" => '/web'
         ];
 

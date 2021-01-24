@@ -35,8 +35,5 @@ trait ItemSearch
         return $query;
     }
 
-    public function replaceChars($char)
-    {
-        
-    }
+ 
 }

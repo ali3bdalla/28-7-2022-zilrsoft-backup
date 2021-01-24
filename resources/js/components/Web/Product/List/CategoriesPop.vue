@@ -84,7 +84,7 @@ export default {
   },
   created () {
     if (this.categories) {
-      this.categoriesList = categories
+      this.categoriesList = this.categories
     } else {
       this.categoriesList = this.$page.categories
     }

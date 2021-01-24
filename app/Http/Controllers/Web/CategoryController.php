@@ -19,7 +19,7 @@ class CategoryController extends Controller
     {
 
         $this->breadcrumb [] = [
-            'title' => trans('store.header.home')  . ' ',
+            'title' => trans('store.header.home'),
             "url" => '/web'
         ];
          $level = 'sub';

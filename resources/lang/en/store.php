@@ -49,7 +49,7 @@ return [
         "cart" => "Cart",
         "your_email" => "Your Email",
         "join_news_letter" => "Join Our Newsletter Now",
-        "join_news_letter_bio" => "Get E-mail updates about our latest shop and special offers.",
+        "join_news_letter_bio" => "Subscribe To Get Latest Offer's.",
         "copyright_saved" => "All Copyright rights © 2020  reserved | msbrshop",
         "address" => "Address",
         "phone" => "Phone",
