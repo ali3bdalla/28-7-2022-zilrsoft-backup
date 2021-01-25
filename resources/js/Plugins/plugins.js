@@ -12,12 +12,14 @@ import {
   TableColumn,
   Table,
   TabPane,
+  InputNumber,
   Tabs,
   Image,
   Radio,
   Card,
   Option,
-  Select
+  Select,
+  Checkbox
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 const currency = require('./Currency')
@@ -34,9 +36,10 @@ Vue.use(TableColumn)
 Vue.use(Table)
 Vue.use(Option)
 Vue.use(Select)
+Vue.use(InputNumber)
 Vue.use(VueCountdownTimer)
 Vue.use(InfiniteLoading, { /* options */ })
-
+Vue.use(Checkbox)
 Vue.use(VueProgressBar, {
   color: 'rgb(143, 255, 199)',
   failedColor: 'red',

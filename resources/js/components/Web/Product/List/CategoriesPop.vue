@@ -21,47 +21,22 @@
 
       {{ $page.$t.products.subcategories }}
     </button>
-        <!-- <vue-horizontal
-        v-if="!$page.categoryId"
-        snap="center"
-        :button="true"
-        :button-between="false"
-        ref="horizontal"
-        style="direction: ltr"
-        class="products-grid page__categories__list"
-      >
-        <div v-for="(category, index) in $page.categories" :key="category.id">
-          <a
-            :href="`/web/items?category_id=${category.id}&&name=${$page.name}&&search_via=${$page.search_via}`"
-            class="page__categories__list-item"
-          >
-            <div class="page__categories__name">
-              <span class="">{{category.search_keywords }}</span>
-              {{ $page.$t.products.in }} -
-              <span class="">{{ category.locale_name }}</span>
-
-              <span class="">({{ category.result_items_count }})</span>
-            </div>
-          </a>
-        </div>
-      </vue-horizontal> -->
 
     <div class="product__search-sorting-panel" v-if="isOpen">
       <div class="product__search-sorting-panel-content">
         <ul class="product__search-sorting-list">
-          <li v-for="(category, index) in categoriesList" :key="category.id" class="product__search-sorting-list-item" >
+          <li v-for="(category, index) in categoriesList" :key="category.id" class="product__search-sorting-list-item"  style="padding:3px !important">
              <a
             :href=" showSubcategories == true ?`/web/categories/${category.id}` : `/web/items?category_id=${category.id}&&name=${$page.name}&&search_via=${$page.search_via}`"
             class="page__categories__list-item"
           >
             <div class="page__categories__name">
-              <!-- getSearchName($page.name, category.locale_name,category.id) -->
+
               <span class="" v-if="showSubcategories !== true">{{category.search_keywords }}</span>
               <span  v-if="showSubcategories !== true"> {{ $page.$t.products.in }} - </span>
               <span class="">{{ category.locale_name }}</span>
 
               <span class=""  v-if="showSubcategories !== true">({{ category.result_items_count }})</span>
-              <!-- {{ category.locale_name }} -->
             </div>
           </a>
           </li>
@@ -87,7 +62,6 @@ export default {
     } else {
       this.categoriesList = this.$page.categories
     }
-  // $page.categories    //
   },
   methods: {
     closePanel () {

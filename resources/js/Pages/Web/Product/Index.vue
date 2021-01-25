@@ -67,8 +67,8 @@ export default {
       filters: this.$page.filters,
       items: [], // this.$page.items.data
       priceRange: {},
-      orderBy: 'id',
-      orderDirection: 'asc',
+      orderBy: 'available_qty',
+      orderDirection: 'desc',
       available_only: 'no'
     }
   },

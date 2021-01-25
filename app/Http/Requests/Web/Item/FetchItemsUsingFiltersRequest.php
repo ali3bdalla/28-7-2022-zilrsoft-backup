@@ -100,13 +100,15 @@ class FetchItemsUsingFiltersRequest extends FormRequest
         if ($this->has('order_by') && $this->filled('order_by') && Schema::hasColumn($table, $this->input('order_by'))) {
             if ($this->input('order_by') == "available_qty") {
                 $query  = $query->where('available_qty', '>=', 1);
-            } else {
+            } elseif($this->has('order_direction') && $this->filled('order_direction')) {
                 $sortDirection = $this->input('order_direction');
 
                 if (!in_array($sortDirection, ['desc', 'asc'])) {
                     $sortDirection = 'desc';
                 }
                 $query  = $query->orderBy($this->input('order_by'), $sortDirection);
+            }else {
+                $query = $query->orderBy('available_qty','desc');
             }
         }
 

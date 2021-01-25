@@ -1,6 +1,6 @@
 <template>
   <web-layout>
-    <section class="shopping-cart spad cart">
+    <section class="shopping-cart spad cart" style="padding-top:0px !important">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">

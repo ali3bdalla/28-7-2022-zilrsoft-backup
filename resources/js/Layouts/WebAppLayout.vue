@@ -36,11 +36,11 @@
                   <!-- <li>{{ __('store.footer.address')}}: {{ config('app.msbrshop.address') }}</li> -->
                   <li>
                     {{ $page.$t.footer.phone }}:
-                    {{ $page.app.msbrshop.phone_number }}
+                    <div style="direction: ltr !important" >{{ $page.app.msbrshop.phone_number }}</div>
                   </li>
-                  <li>
+                  <li class="mt-2">
                     {{ $page.$t.footer.email }}:
-                    {{ $page.app.msbrshop.email_address }}
+                    <div>{{ $page.app.msbrshop.email_address }} </div>
                   </li>
                 </ul>
               </div>
@@ -66,10 +66,10 @@
                   <li>
                     <a href="/web/content/about">{{ $page.$t.footer.about_us }}</a>
                   </li>
-                  <li>
+                  <li  class="mt-2">
                     <a href="/web/content/contact">{{ $page.$t.footer.contact }}</a>
                   </li>
-                   <li style="    margin-top: 42px !important;" class="flex items-center justify-center">
+                   <li style="    margin-top: 35px !important;" class="flex items-center justify-center">
                     <img
                     :src="$asset('web_assets/template/img/payment-method.png')"
                     alt=""
