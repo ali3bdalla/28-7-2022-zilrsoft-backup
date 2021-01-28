@@ -11,6 +11,13 @@
     </div>
 
     <div class="product__search-page mt-3  flex items-center gap-3 justify-center">
+
+        <ais-query-rule-context :tracked-filters="{
+         available_qty:(values)=> {
+           return [];
+         }
+      }" />
+
         <ais-current-refinements>
 
     <div  slot-scope="{ items, createURL }"

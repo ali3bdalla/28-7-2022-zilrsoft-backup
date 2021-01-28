@@ -37,7 +37,7 @@ return [
     |
     */
 
-    'customRanking' => ['desc(online_offer_price)', 'desc(id)'],
+    'customRanking' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -276,8 +276,6 @@ return [
     */
     'hitsPerPage' => 100,
     'ranking' => [
-        'desc(id)',
-        'desc(online_offer_price)',
         'desc(available_qty)',
         'typo',
         'geo',
