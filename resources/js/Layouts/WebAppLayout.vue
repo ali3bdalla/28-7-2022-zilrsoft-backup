@@ -17,6 +17,9 @@
         </template>
       </HeaderComponent>
       <div style="background-color: #f9f9f9;">
+         <!-- <div class="container"> -->
+        <!-- <alogira-product-result-list></alogira-product-result-list> -->
+         <!-- </div> -->
         <slot></slot>
       </div>
 
@@ -143,9 +146,13 @@ import { history as historyRouter } from 'instantsearch.js/es/lib/routers'
 import { simple } from 'instantsearch.js/es/lib/stateMappings'
 // { simple as simpleStateMapping, singleIndex as singleIndexMapping }
 import 'instantsearch.css/themes/algolia-min.css'
+import AlogiraProductResultList from '../components/Web/Product/AlogiraProductResultList.vue'
+
 export default {
   components: {
-    HeaderComponent
+
+    HeaderComponent,
+    AlogiraProductResultList
   },
   name: 'WebAppLayout',
   data () {

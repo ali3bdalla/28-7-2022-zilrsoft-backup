@@ -22,15 +22,12 @@
       <!-- {{ $page.$t.products.filters }} -->
     </button>
 
-    <modal
+    <modal-fullscreen-vue
+      :show="isVisable"
       :scrollable="true"
-      name="filtersLayoutModal"
-      class="filtersLayoutModal"
-      :adaptive="true"
-      width="100%"
-      height="100%"
-      style="overflow-y: scroll"
+      v-on:show="handleShow"
     >
+      <template slot="body">
       <div style="overflow-y: scroll; height: 100vh !important">
         <!-- <div class="closeBtnClass">
           <i @click="quiteModel" class="fa fa-close"></i>
@@ -38,13 +35,10 @@
             selectedValues.length
           }})
         </div> -->
-        <div class="container  mb-2">
-           <div class="row page__mt-5">
-            <div class="col-md-6 col-6  text-center">
-              <button
-                @click="hide"
-                class="btn btn-primary applyBtn px-5"
-              >
+        <div class="container mb-2">
+          <div class="row page__mt-5">
+            <div class="col-md-6 col-6 text-center">
+              <button @click="hide" class="btn btn-primary applyBtn px-5">
                 {{ $page.$t.products.apply }}
               </button>
             </div>
@@ -62,63 +56,136 @@
         <div class="container-fluid filters-layout-modal">
           <div class="row">
             <div
-              class="col-md-6 border"
-              v-for="(filter, index) in filters"
-              :key="filter.id"
+              v-if="shouldBeAvailable(filter)"
+              v-for="filter in $page.alogia_search_filters"
+              :key="filter"
             >
-                          <!-- :class="[((index+1) % 2) == 0 ? 'toGrayBg' : 'bg-white']" -->
+              <ais-refinement-list
+                :class-names="{
+                  'ais-RefinementList-list': '',
+                  'ais-RefinementList-showMore': 'hidden',
+                }"
+                :transform-items="applyTransformation"
+                :show-more="true"
+                :attribute="filter"
+                :show-more-limit="20"
+              >
+                <!-- sorty-by="count:desc" -->
+                <div
+                  class="border filter-widget p-3 pt-0"
+                  v-if="items.length"
+                  slot-scope="{
+                    items,
+                    isShowingMore,
+                    isFromSearch,
+                    canToggleShowMore,
+                    refine,
+                    createURL,
+                    toggleShowMore,
+                    searchForItems,
+                  }"
+                >
+                  <!-- :class="[((index+1) % 2) == 0 ? 'toGrayBg' : 'bg-white']" -->
 
-              <div class="filter-widget">
-                <h6 class="fw-title">
-                  {{ filter.filter.locale_name }}
-                </h6>
+                  <div class="filter-widget">
+                    <h6 class="fw-title">
+                      {{ actulFilterName(filter) }}
+                    </h6>
+                    <div class="fw-brand-check">
+                      <!-- <div class="row"> -->
+                      <!-- col-md-4 col-4 -->
+                      <div class="" v-for="item in items" :key="item.value">
+                        <div
+                          class="product__search-filter-value"
+                          style="font-size: 15px; color: #575555"
+                        >
+                          <!-- <input
+                  :checked="item.isRefined"
+                  type="checkbox"
+                  @change="refine(item.value)"
+                /> -->
+                          <el-switch
+                            v-model="item.isRefined"
+                            @change="refine(item.value)"
+                            active-color="#13ce66"
+                            inactive-color="#ff4949"
+                          >
+                          </el-switch>
+                          <!-- {{ item.value }} -->
 
-                <div class="fw-brand-check">
-                  <div class="row">
-                    <div
-                      class="col-md-6 col-6"
-                      v-for="val in filter.values"
-                      :key="val.id"
-                    >
-                      <div
-                        class="product__search-filter-value"
-                        style="font-size: 15px; color: #575555"
-                      >
-                        <!-- <label :for="'value_' + val.id"> -->
-                        <input
-                          type="checkbox"
-                          :id="'value_' + val.id"
-                          :checked="selectedValues.includes(val.id)"
-                          @change="toggleItemFilterValue(val.id)"
-                        />
-                        <!-- <span class="checkmark"></span> -->
-
-                        {{ val.locale_name }}
-                        <!-- </label> -->
+                          <span
+                            :class="[
+                              item.isRefined ? 'bg-gray-200 px-2 py-1' : '',
+                            ]"
+                            ><ais-highlight attribute="item" :hit="item" /> ({{
+                              item.count.toLocaleString()
+                            }})</span
+                          >
+                        </div>
                       </div>
+                    </div>
+                    <!-- </div> -->
+
+                    <div class="mt-2">
+                      <a
+                        href="#"
+                        v-if="!isShowingMore && canToggleShowMore"
+                        @click.prevent="toggleShowMore"
+                        class="text-sm text-gray-800"
+                        >عرض المزيد</a
+                      >
                     </div>
                   </div>
                 </div>
-              </div>
+              </ais-refinement-list>
             </div>
           </div>
-
-          <div class="form-group"></div>
         </div>
+
+        <div class="form-group"></div>
       </div>
-    </modal>
+      <template>
+    </modal-fullscreen-vue>
   </div>
 </template>
 
 <script>
+import ModalFullScreenVue from 'modal-fullscreen-vue'
+
 export default {
+  components: { 'modal-fullscreen-vue': ModalFullScreenVue },
+  data () {
+    return {
+      bodyText: 'Lorem Ipsum',
+      isVisable: false
+    }
+  },
+
   methods: {
+    applyTransformation (items) {
+      return items.map((item) => ({
+        ...item,
+        label: this.actulFilterName(item.name).toUpperCase()
+      }))
+    },
+    handleShow (show) {
+      // alert(`show: ${show}`)
+    },
+    actulFilterName (filename) {
+      return `${filename}`.replace('ar_filters_', '')
+    },
+
+    shouldBeAvailable (filter) {
+      return !filter.indexOf('ar_filters') && filter !== 'category_name'
+    },
     hide () {
-      this.$modal.hide('filtersLayoutModal')
+      this.isVisable = true
+      //   this.$modal.hide('filtersLayoutModal')
     },
 
     show () {
-      this.$modal.show('filtersLayoutModal')
+      this.isVisable = false
+      // this.$modal.show('filtersLayoutModal')
     }
   }
 }

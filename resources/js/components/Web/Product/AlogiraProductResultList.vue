@@ -5,7 +5,7 @@
       <div class="page__mt-2">
         <div class="product__search-options">
           <!-- <alogira-search-filters></alogira-search-filters> -->
- <alogria-pop-filters></alogria-pop-filters>
+          <alogria-pop-filters></alogria-pop-filters>
         </div>
       </div>
     </div>
