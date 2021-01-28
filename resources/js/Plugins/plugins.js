@@ -22,7 +22,8 @@ import {
   Select,
   Checkbox,
   Slider,
-  Switch
+  Switch,
+  Tag
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 const currency = require('./Currency')
@@ -45,6 +46,7 @@ Vue.use(VueCountdownTimer)
 Vue.use(InfiniteLoading, { /* options */ })
 Vue.use(Checkbox)
 Vue.use(InstantSearch)
+Vue.use(Tag)
 Vue.use(Switch)
 Vue.use(VueProgressBar, {
   color: 'rgb(143, 255, 199)',

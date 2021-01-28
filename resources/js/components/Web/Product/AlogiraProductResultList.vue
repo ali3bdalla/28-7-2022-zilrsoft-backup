@@ -4,37 +4,74 @@
     <div class="product__search-page">
       <div class="page__mt-2">
         <div class="product__search-options">
-          <!-- <alogira-search-filters></alogira-search-filters> -->
           <alogria-pop-filters></alogria-pop-filters>
 
-          <ais-current-refinements>
-  <!-- <ul slot-scope="{ items, createURL }"> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="product__search-page mt-3  flex items-center gap-3 justify-center">
+        <ais-current-refinements>
 
     <div  slot-scope="{ items, createURL }"
           >
-          <div class="filter-widget pb-0 mb-0">
-            <div class="fw-tags">
+          <div class="container pb-0 mb-0 flex items-center gap-3 justify-center">
+            <div class="flex-wrap flex items-center gap-3 justify-center">
 
-              <div  v-for="item in items" :key="item.attribute">
-                 <inertia-link  :href="createURL(refinement)" class="bg-white flex items-center justify-between gap-2"
-              v-for="refinement in item.refinements"
-              :key="[
-            refinement.attribute,
-            refinement.type,
-            refinement.value,
-            refinement.operator
-          ].join(':')">{{refinement.label}}  <i class="fa fa-remove"></i> </inertia-link>
+              <div class=" flex items-center gap-2 justify-center" v-for="item in items" :key="item.attribute" >
+                    <inertia-link :href="createURL(refinement)" v-for="refinement in item.refinements"
+                      :key="[
+                    refinement.attribute,
+                    refinement.type,
+                    refinement.value,
+                    refinement.operator
+                  ].join(':')">
+                        <el-tag
+                      effect="dark"
+                        closable>
+
+                        {{refinement.label}} ({{ refinement.count }})
+                      </el-tag>
+                    </inertia-link>
               </div>
 
+              <ais-clear-refinements >
+                  <span slot-scope="{ canRefine, refine, createURL }">
+                    <inertia-link v-if="canRefine"  :href="createURL()">
+                        <el-tag
+                      effect="dark"
+                      type="danger"
+                        >
+
+                        {{  $page.$t.products.remove_all }}
+                      </el-tag>
+                    </inertia-link>
+
+                  </span>
+              </ais-clear-refinements>
             </div>
             </div>
           </div>
 
 </ais-current-refinements>
-        </div>
-      </div>
     </div>
     <div class="product__search-page">
+      <ais-toggle-refinement
+  attribute="is_need_serial"
+  label="Free Shipping"
+    :on="true"
+
+>
+  <a
+    slot-scope="{ value, refine, createURL }"
+    :href="createURL(value)"
+    :style="{ fontWeight: value.isRefined ? 'bold' : '' }"
+    @click.prevent="refine(value)"
+  >
+    {{ value.name }}
+    ({{ value.count }})
+  </a>
+      </ais-toggle-refinement>
       <!-- <div class="page__mt-2" v-if="items.length > 2">
           <div class="product__search-options items-center">
             <switchAvailableButton
@@ -215,3 +252,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>

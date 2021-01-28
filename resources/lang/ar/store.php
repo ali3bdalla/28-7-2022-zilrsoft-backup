@@ -205,6 +205,7 @@ return [
         'more_than' => 'اعلى من ',
         "all" => 'جميع',
         'prices' => "الاسعار",
-        'category' => 'القسم'
+        'category' => 'القسم',
+        "remove_all" => "مسح الكل"
     ] 
 ];

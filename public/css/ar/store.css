@@ -118,6 +118,10 @@ a:hover {
   direction: ltr !important;
 }
 
+.el-tag .el-icon-close {
+  right: 5px !important;
+}
+
 .cart-table table tr th, .cart-table table tr th.p-name {
   text-align: center;
 }

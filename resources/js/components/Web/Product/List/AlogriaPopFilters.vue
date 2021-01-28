@@ -19,6 +19,7 @@
           d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
         />
       </svg>
+      {{ $page.$t.products.filters }}
     </button>
     <div ref="filters_pop_model" class="filters_pop_model" name="alogira-search-filters-modal">
         <div style="overflow-y: scroll; height: 100vh !important">
@@ -42,6 +43,129 @@
 
           <div class="container-fluid filters-layout-modal">
             <div class="grid grid-cols-1">
+
+              <div   class=" w-full" >
+                   <ais-numeric-menu
+        attribute="online_offer_price"
+        :items="[
+          {
+            label: `${$page.$t.products.all} ${$page.$t.products.prices}`,
+          },
+          { label: `1-100 ${$page.$t.products.sar}`, end: 100 },
+          {
+            label: `101-1000 ${$page.$t.products.sar}`,
+            start: 101,
+            end: 1000,
+          },
+          {
+            label: `1001-5000 ${$page.$t.products.sar}`,
+            start: 1001,
+            end: 5000,
+          },
+          {
+            label: `5001-20000 ${$page.$t.products.sar}`,
+            start: 5001,
+            end: 20000,
+          },
+          {
+            label: `${$page.$t.products.more_than} 2000 ${$page.$t.products.sar}`,
+            start: 20000,
+          },
+        ]"
+      >
+        <div
+          class="border filter-widget p-3 pt-0"
+          slot-scope="{ items, canRefine, refine, createURL }"
+        >
+                              <h6  class=" w-full text-center py-1 text-2xl rounded-full  border" style="background-color: rgb(249, 249, 249);font-size:18px !important;border-color: #d2e8ff !important; border-width: 2px !important" >
+            {{ $page.$t.products.price }}
+          </h6>
+                              <div class="mb-1 fw-brand-check pt-3 grid  grid-cols-1 md:grid-cols-4 gap-0 md:gap-2">
+            <!-- <div class="row"> -->
+            <!-- class="col-md-4 col-4"
+                     row -->
+            <div v-for="(item,index) in items" :key="index">
+              <div
+                class="product__search-filter-value"
+                style="font-size: 15px; color: #575555"
+              >
+              <el-switch
+                                        v-model="item.isRefined"
+                                        active-color="#13ce66"
+ @change="refine(item.value)"
+                                      >
+                                      </el-switch>
+                                      <span class="px-2 py-1" :class="[item.isRefined ? '' : '']"
+                                        ><ais-highlight attribute="item" :hit="item" /> ({{item.label}})</span
+                                      >
+                <!-- <input
+                  :checked="item.isRefined"
+                  type="checkbox"
+                  @change="refine(item.value)"
+                />
+                {{ item.label }} -->
+              </div>
+            </div>
+            <!-- </div> -->
+          </div>
+        </div>
+        <!-- </div> -->
+      </ais-numeric-menu>
+
+                  <ais-refinement-list
+                  :class-names="{
+                    'ais-RefinementList-list': '',
+                    'ais-RefinementList-showMore': 'hidden',
+                  }"
+                  :transform-items="applyTransformation"
+                  :show-more="false"
+                  :attribute=" $page.active_locale == 'en' ? 'category_name' : 'category_ar_name'"
+                  :show-more-limit="20"
+                  class="w-full "
+                  >
+                      <div
+                        class="    w-full pt-0 mt-3"
+                        v-if="items.length"
+                        slot-scope="{
+                          items,
+                          isShowingMore,
+                          isFromSearch,
+                          canToggleShowMore,
+                          refine,
+                          createURL,
+                          toggleShowMore,
+                          searchForItems,
+                        }"
+                      >
+                              <h6  class=" w-full text-center py-1 text-2xl rounded-full  border" style="background-color: rgb(249, 249, 249);font-size:18px !important;border-color: #d2e8ff !important; border-width: 2px !important" >
+                                {{ $page.$t.products.category }}
+                              </h6>
+                              <div class="mb-1 fw-brand-check pt-3 grid  grid-cols-1 md:grid-cols-4 gap-0 md:gap-2">
+
+                                <div class="" v-for="item in items" :key="item.value">
+                                  <div
+                                  class="product__search-filter-value"
+                                  style="font-size: 15px; color: #575555"
+                                  >
+                                      <el-switch
+                                        v-model="item.isRefined"
+                                        @change="refine(item.value)"
+                                        active-color="#13ce66"
+
+                                      >
+                                      </el-switch>
+                                      <span class="px-2 py-1" :class="[item.isRefined ? '' : '']"
+                                        ><ais-highlight attribute="item" :hit="item" /> ({{item.count.toLocaleString()}})</span
+                                      >
+                                  </div>
+                                </div>
+                              </div>
+
+                      </div>
+
+                  </ais-refinement-list>
+                </div>
+
                 <div v-if="shouldBeAvailable(filter)" v-for="filter in $page.alogia_search_filters"  :key="filter" class=" w-full" >
                   <ais-refinement-list
                   :class-names="{
@@ -84,9 +208,7 @@
                                         active-color="#13ce66"
 
                                       >
-                                         <!-- inactive-color="#ff4949" -->
                                       </el-switch>
- <!-- border rounded-full -->
                                       <span class="px-2 py-1" :class="[item.isRefined ? '' : '']"
                                         ><ais-highlight attribute="item" :hit="item" /> ({{item.count.toLocaleString()}})</span
                                       >
@@ -94,21 +216,11 @@
                                 </div>
                               </div>
 
-                              <!-- <div class="mt-2">
-                                <a
-                                href="#"
-                                v-if="!isShowingMore && canToggleShowMore"
-                                @click.prevent="toggleShowMore"
-                                class="text-sm text-gray-800"
-                                >
-                                  عرض المزيد
-                                </a>
-                            </div> -->
-
                       </div>
 
                   </ais-refinement-list>
                 </div>
+
             </div>
           </div>
         </div>

@@ -211,7 +211,8 @@ return [
         'more_than' => 'More Than',
         "all" => 'All',
         'prices' => "Prices",
-        'category' => 'Category'
+        'category' => 'Category',
+        "remove_all" => "Clear All"
 
     ]
 ];

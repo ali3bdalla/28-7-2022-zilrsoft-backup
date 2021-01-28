@@ -37,9 +37,9 @@ class FrontEndMiddleware
 
 
 		$searchFilters = [
-			'online_offer_price',
-			'category_name',
-			'category_ar_name',
+			// 'online_offer_price',
+			// 'category_name',
+			// 'category_ar_name',
 			// 'filters',
 			// 'ar_filters',
 		];
