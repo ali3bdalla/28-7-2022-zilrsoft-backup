@@ -168,7 +168,7 @@
                 </tr>
               </tbody>
             </table>
-            
+
           </div>
           <div
             class="specification-table product__show__details-specification-table-container"
@@ -193,7 +193,7 @@
               </tbody>
             </table>
           </div>
-          
+
         </div>
 <div
             class="mt-2 bg-white p-3"
@@ -203,9 +203,9 @@
             <div class="fw-tags">
 
               <inertia-link :href="'/web/items?search_via=tag&&name=' + tag.tag" style="background-color: rgb(249, 249, 249);" v-for="tag in $page.item.tags" :key="tag.id">{{tag.tag}}</inertia-link>
-          
+
             </div>
-            </div> 
+            </div>
           </div>
         <div
           class="product__related-products-area"
@@ -245,19 +245,19 @@
 </template>
 
 <script>
-import VueHorizontal from "vue-horizontal";
-import ProductListItemComponent from "./../../../components/Web/Product/ProductListItemComponent";
-import ProductRatingComponent from "./../../../components/Web/Product/ProductRatingComponent";
-import ToggleCartItemButtonComponent from "./../../../components/Web/Cart/ToggleCartItemButtonComponent";
-import ToggleFavoriteItemButtonComponent from "./../../../components/Web/Cart/ToggleFavoriteItemButtonComponent";
-import WebLayout from "../../../Layouts/WebAppLayout";
-import ImageZoomComponent from "./../../../components/Web/Product/ImageZoomComponent";
+import VueHorizontal from 'vue-horizontal'
+import ProductListItemComponent from './../../../components/Web/Product/ProductListItemComponent'
+import ProductRatingComponent from './../../../components/Web/Product/ProductRatingComponent'
+import ToggleCartItemButtonComponent from './../../../components/Web/Cart/ToggleCartItemButtonComponent'
+import ToggleFavoriteItemButtonComponent from './../../../components/Web/Cart/ToggleFavoriteItemButtonComponent'
+import WebLayout from '../../../Layouts/WebAppLayout'
+import ImageZoomComponent from './../../../components/Web/Product/ImageZoomComponent'
 
 export default {
-  data() {
+  data () {
     return {
-      activeImage: this.$page.item.item_image_url,
-    };
+      activeImage: this.$page.item.item_image_url
+    }
   },
   components: {
     WebLayout,
@@ -266,30 +266,28 @@ export default {
     ToggleCartItemButtonComponent,
     ToggleFavoriteItemButtonComponent,
     ImageZoomComponent,
-    VueHorizontal,
+    VueHorizontal
   },
   computed: {
-    productName(){
-      let modelNumber = this.modelNumber;
-      if(modelNumber != "")
-        return this.$page.item.locale_name.replace(modelNumber, "");
+    productName () {
+      const modelNumber = this.modelNumber
+      if (modelNumber != '') { return this.$page.item.locale_name.replace(modelNumber, '') }
 
-      return this.$page.item.locale_name;
-
+      return this.$page.item.locale_name
     },
-    modelNumber() {
-      let modelNumber = this.$page.item.filters.find((p) => p.filter_id == 38);
+    modelNumber () {
+      const modelNumber = this.$page.item.filters.find((p) => p.filter_id == 38)
 
-      if (modelNumber && modelNumber.value) return modelNumber.value.locale_name;
-      return "";
-    },
+      if (modelNumber && modelNumber.value) return modelNumber.value.locale_name
+      return ''
+    }
   },
   methods: {
-    changeActiveImage(url) {
-      this.activeImage = url;
-    },
-  },
-};
+    changeActiveImage (url) {
+      this.activeImage = url
+    }
+  }
+}
 </script>
 
 <style scoped>

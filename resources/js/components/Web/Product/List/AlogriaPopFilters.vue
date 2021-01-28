@@ -19,148 +19,105 @@
           d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
         />
       </svg>
-      <!-- {{ $page.$t.products.filters }} -->
     </button>
-
-    <modal-fullscreen-vue
-      :show="isVisable"
-      :scrollable="true"
-      v-on:show="handleShow"
-    >
-      <template slot="body">
-      <div style="overflow-y: scroll; height: 100vh !important">
-        <!-- <div class="closeBtnClass">
-          <i @click="quiteModel" class="fa fa-close"></i>
-          {{ $page.$t.products.filters_for_search }} {{ searchName }} ({{
-            selectedValues.length
-          }})
-        </div> -->
-        <div class="container mb-2">
-          <div class="row page__mt-5">
-            <div class="col-md-6 col-6 text-center">
-              <button @click="hide" class="btn btn-primary applyBtn px-5">
-                {{ $page.$t.products.apply }}
-              </button>
-            </div>
-            <div class="col-md-6 col-6 text-center">
-              <button
-                @click="hide"
-                class="btn btn-default resetBtn bg-web-primary px-5"
-              >
-                {{ $page.$t.products.reset }}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="container-fluid filters-layout-modal">
-          <div class="row">
-            <div
-              v-if="shouldBeAvailable(filter)"
-              v-for="filter in $page.alogia_search_filters"
-              :key="filter"
-            >
-              <ais-refinement-list
-                :class-names="{
-                  'ais-RefinementList-list': '',
-                  'ais-RefinementList-showMore': 'hidden',
-                }"
-                :transform-items="applyTransformation"
-                :show-more="true"
-                :attribute="filter"
-                :show-more-limit="20"
-              >
-                <!-- sorty-by="count:desc" -->
-                <div
-                  class="border filter-widget p-3 pt-0"
-                  v-if="items.length"
-                  slot-scope="{
-                    items,
-                    isShowingMore,
-                    isFromSearch,
-                    canToggleShowMore,
-                    refine,
-                    createURL,
-                    toggleShowMore,
-                    searchForItems,
-                  }"
+    <div ref="filters_pop_model" class="filters_pop_model" name="alogira-search-filters-modal">
+        <div style="overflow-y: scroll; height: 100vh !important">
+          <div class="container mb-2">
+            <div class="row page__mt-5">
+              <div class="col-md-6 col-6 text-center">
+                <button @click="hide" class="btn btn-primary applyBtn px-5">
+                  {{ $page.$t.products.apply }}
+                </button>
+              </div>
+              <div class="col-md-6 col-6 text-center">
+                <button
+                  @click="hide"
+                  class="btn btn-default resetBtn bg-web-primary px-5"
                 >
-                  <!-- :class="[((index+1) % 2) == 0 ? 'toGrayBg' : 'bg-white']" -->
+                  {{ $page.$t.products.reset }}
+                </button>
+              </div>
+            </div>
+          </div>
 
-                  <div class="filter-widget">
-                    <h6 class="fw-title">
-                      {{ actulFilterName(filter) }}
-                    </h6>
-                    <div class="fw-brand-check">
-                      <!-- <div class="row"> -->
-                      <!-- col-md-4 col-4 -->
-                      <div class="" v-for="item in items" :key="item.value">
-                        <div
-                          class="product__search-filter-value"
-                          style="font-size: 15px; color: #575555"
-                        >
-                          <!-- <input
-                  :checked="item.isRefined"
-                  type="checkbox"
-                  @change="refine(item.value)"
-                /> -->
-                          <el-switch
-                            v-model="item.isRefined"
-                            @change="refine(item.value)"
-                            active-color="#13ce66"
-                            inactive-color="#ff4949"
-                          >
-                          </el-switch>
-                          <!-- {{ item.value }} -->
-
-                          <span
-                            :class="[
-                              item.isRefined ? 'bg-gray-200 px-2 py-1' : '',
-                            ]"
-                            ><ais-highlight attribute="item" :hit="item" /> ({{
-                              item.count.toLocaleString()
-                            }})</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                    <!-- </div> -->
-
-                    <div class="mt-2">
-                      <a
-                        href="#"
-                        v-if="!isShowingMore && canToggleShowMore"
-                        @click.prevent="toggleShowMore"
-                        class="text-sm text-gray-800"
-                        >عرض المزيد</a
+          <div class="container-fluid filters-layout-modal">
+            <div class="grid grid-cols-1">
+                <div v-if="shouldBeAvailable(filter)" v-for="filter in $page.alogia_search_filters"  :key="filter" class=" w-full" >
+                  <ais-refinement-list
+                  :class-names="{
+                    'ais-RefinementList-list': '',
+                    'ais-RefinementList-showMore': 'hidden',
+                  }"
+                  :transform-items="applyTransformation"
+                  :show-more="false"
+                  :attribute="filter"
+                  :show-more-limit="20"
+                  class="w-full "
+                  >
+                      <div
+                        class="    w-full pt-0 mt-3"
+                        v-if="items.length"
+                        slot-scope="{
+                          items,
+                          isShowingMore,
+                          isFromSearch,
+                          canToggleShowMore,
+                          refine,
+                          createURL,
+                          toggleShowMore,
+                          searchForItems,
+                        }"
                       >
-                    </div>
-                  </div>
+                              <h6  class=" w-full text-center py-1 text-2xl rounded-full  border" style="background-color: rgb(249, 249, 249);font-size:18px !important;border-color: #d2e8ff !important; border-width: 2px !important" >
+                                {{ actulFilterName(filter) }}
+                              </h6>
+                              <div class="mb-1 fw-brand-check pt-3 grid  grid-cols-1 md:grid-cols-4 gap-0 md:gap-2">
+
+                                <div class="" v-for="item in items" :key="item.value">
+                                  <div
+                                  class="product__search-filter-value"
+                                  style="font-size: 15px; color: #575555"
+                                  >
+                                      <el-switch
+                                        v-model="item.isRefined"
+                                        @change="refine(item.value)"
+                                        active-color="#13ce66"
+
+                                      >
+                                         <!-- inactive-color="#ff4949" -->
+                                      </el-switch>
+ <!-- border rounded-full -->
+                                      <span class="px-2 py-1" :class="[item.isRefined ? '' : '']"
+                                        ><ais-highlight attribute="item" :hit="item" /> ({{item.count.toLocaleString()}})</span
+                                      >
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- <div class="mt-2">
+                                <a
+                                href="#"
+                                v-if="!isShowingMore && canToggleShowMore"
+                                @click.prevent="toggleShowMore"
+                                class="text-sm text-gray-800"
+                                >
+                                  عرض المزيد
+                                </a>
+                            </div> -->
+
+                      </div>
+
+                  </ais-refinement-list>
                 </div>
-              </ais-refinement-list>
             </div>
           </div>
         </div>
-
-        <div class="form-group"></div>
-      </div>
-      <template>
-    </modal-fullscreen-vue>
+    </div>
   </div>
 </template>
 
 <script>
-import ModalFullScreenVue from 'modal-fullscreen-vue'
-
 export default {
-  components: { 'modal-fullscreen-vue': ModalFullScreenVue },
-  data () {
-    return {
-      bodyText: 'Lorem Ipsum',
-      isVisable: false
-    }
-  },
-
   methods: {
     applyTransformation (items) {
       return items.map((item) => ({
@@ -168,24 +125,24 @@ export default {
         label: this.actulFilterName(item.name).toUpperCase()
       }))
     },
-    handleShow (show) {
-      // alert(`show: ${show}`)
-    },
     actulFilterName (filename) {
-      return `${filename}`.replace('ar_filters_', '')
+      if (this.$page.active_locale === 'ar') { return `${filename}`.replace('ar_filters_', '') }
+      return `${filename}`.replace('filters_', '')
     },
 
     shouldBeAvailable (filter) {
-      return !filter.indexOf('ar_filters') && filter !== 'category_name'
+      if (this.$page.active_locale === 'ar') { return !filter.indexOf('ar_filters_') && filter !== 'category_name' }
+
+      return filter.indexOf('ar_filters_') && filter !== 'category_ar_name'
     },
     hide () {
-      this.isVisable = true
-      //   this.$modal.hide('filtersLayoutModal')
+      this.$refs.filters_pop_model.style.display = 'none'
+      // this.$modal.hide('alogira-search-filters-modal')
     },
 
     show () {
-      this.isVisable = false
-      // this.$modal.show('filtersLayoutModal')
+      this.$refs.filters_pop_model.style.display = 'block'
+      // this.$modal.show('alogira-search-filters-modal')
     }
   }
 }
@@ -270,5 +227,16 @@ export default {
 
 .toGrayBg {
   background: #f9f9f9;
+}
+
+.filters_pop_model {
+  position: fixed;
+  top: 0;
+  display:none;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+  background: white;
 }
 </style>

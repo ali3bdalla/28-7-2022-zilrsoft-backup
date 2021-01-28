@@ -6,6 +6,31 @@
         <div class="product__search-options">
           <!-- <alogira-search-filters></alogira-search-filters> -->
           <alogria-pop-filters></alogria-pop-filters>
+
+          <ais-current-refinements>
+  <!-- <ul slot-scope="{ items, createURL }"> -->
+
+    <div  slot-scope="{ items, createURL }"
+          >
+          <div class="filter-widget pb-0 mb-0">
+            <div class="fw-tags">
+
+              <div  v-for="item in items" :key="item.attribute">
+                 <inertia-link  :href="createURL(refinement)" class="bg-white flex items-center justify-between gap-2"
+              v-for="refinement in item.refinements"
+              :key="[
+            refinement.attribute,
+            refinement.type,
+            refinement.value,
+            refinement.operator
+          ].join(':')">{{refinement.label}}  <i class="fa fa-remove"></i> </inertia-link>
+              </div>
+
+            </div>
+            </div>
+          </div>
+
+</ais-current-refinements>
         </div>
       </div>
     </div>
@@ -115,7 +140,7 @@
 import LoadingSvg from '../Page/LoadingSvg.vue'
 // import ProductListItemComponent from '../Product/ProductListItemComponent.vue'
 import AlogiraListProduct from '../../../components/Web/Product/AlogiraListProduct.vue'
-import AlogiraSearchFilters from './List/AlogiraSearchFilters.vue'
+// import AlogiraSearchFilters from './List/AlogiraSearchFilters.vue'
 import AlogriaPopFilters from './List/AlogriaPopFilters.vue'
 
 export default {
@@ -123,17 +148,17 @@ export default {
     AlogiraListProduct,
     // ProductListItemComponent,
     LoadingSvg,
-    AlogiraSearchFilters,
+    // AlogiraSearchFilters,
     AlogriaPopFilters
   },
   props: {
-    forceUpdate: {
-      type: Number
-    },
-    params: {
-      type: Object,
-      default: {}
-    }
+    // forceUpdate: {
+    //   type: Number
+    // },
+    // params: {
+    //   type: Object,
+    //   default: {}
+    // }
   },
   data () {
     return {
@@ -142,24 +167,24 @@ export default {
     }
   },
   watch: {
-    forceUpdate (value) {
-      this.page = 1
-      this.dataItems = []
-      this.infiniteHandler()
-    },
-    params: {
-      deep: true,
-      handler (value) {
-        this.page = 1
-        this.dataItems = []
-        this.infiniteHandler()
-      }
-    }
+    // forceUpdate (value) {
+    //   this.page = 1
+    //   this.dataItems = []
+    //   this.infiniteHandler()
+    // },
+    // params: {
+    //   deep: true,
+    //   handler (value) {
+    //     this.page = 1
+    //     this.dataItems = []
+    //     this.infiniteHandler()
+    //   }
+    // }
   },
   methods: {
-    paramsUpdated () {
-      console.log('working')
-    },
+    // paramsUpdated () {
+    //   console.log('working')
+    // },
     infiniteHandler ($state) {
       this.page += 1
       $state.loaded()
