@@ -4,8 +4,9 @@
 
 use App\ItemTag;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
-    /**
+/**
 	 * @property mixed is_fixed_price
 	 * @property mixed price
 	 * @property mixed is_expense
@@ -36,8 +37,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 	class Item extends BaseModel
 	{
 		
-		use SoftDeletes;
-		
+		use SoftDeletes,Searchable;
+		protected $touches = ['category','filters','tags'];
 		protected $appends = [
 			'locale_name',
 			'locale_description',
@@ -227,5 +228,65 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 			
 			return $data;
 			
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+		public function searchableAs()
+		{
+			return 'items_index';
+		}
+	
+	
+		public function toSearchableArray()
+		{
+			$array = $this->toArray();
+	
+			$array = $this->transform($array);
+	
+	
+			$modelFilter = $this->filters()->where('filter_id',38)->first();
+			if($modelFilter && $modelFilter->value)
+			{   
+				$modelName=  $modelFilter->value->name;
+			}else {
+				$modelName= "";
+			}
+			$array['model_number'] = $modelName;
+			$array['tags'] = $this->tags->map(function ($data) {
+				return $data['tag'];
+			})->toArray();
+
+			// $filters = [];
+
+			foreach ($this->filters as $filter) {
+				if($filter->value)
+				{
+					$array['filters_' . $filter->filter->name][] = $filter->value->name;
+					$array['ar_filters_' . $filter->filter->ar_name][] = $filter->value->ar_name;
+				}
+				
+			}
+			// $array['filters'] = $this->filters->map(function ($data) {
+			// 	return $data['value']['name'];
+			// })->toArray();
+			// $array['ar_filters'] = $this->filters->map(function ($data) {
+			// 	return $data['value']['ar_name'];
+			// })->toArray();
+			$array['category_name'] = $this->category ? $this->category->name : "";
+			$array['category_id'] = $this->category_id;
+			$array['category_ar_name'] = $this->category ? $this->category->ar_name : "";
+
+			return $array;
 		}
 	}

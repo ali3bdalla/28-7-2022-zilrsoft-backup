@@ -202,5 +202,9 @@ return [
         "sorting_lastest" => "الاحدث",
         "sorting_oldest" => "الاقدم",
         "sorting_only_available" => "المتوفر فقط",
-    ]
+        'more_than' => 'اعلى من ',
+        "all" => 'جميع',
+        'prices' => "الاسعار",
+        'category' => 'القسم'
+    ] 
 ];

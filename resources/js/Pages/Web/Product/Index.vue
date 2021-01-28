@@ -3,7 +3,7 @@
     <div class="container">
       <div class="product__search-page">
         <div class="page__mt-2" v-if="items.length > 2">
-          <div class="product__search-options">
+          <!-- <div class="product__search-options">
             <filters-pop
               v-if="$page.categoryId"
               :items="items"
@@ -18,24 +18,24 @@
 
             <categories-pop v-if="!$page.categoryId"></categories-pop>
             <sorting-pop @updated="sortingUpdated"></sorting-pop>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="product__search-page">
-        <div class="page__mt-2" v-if="items.length > 2">
+        <!-- <div class="page__mt-2" v-if="items.length > 2">
           <div class="product__search-options items-center">
             <switchAvailableButton
               class="items-center"
               @changed="switchAvailableQtyChanged"
             ></switchAvailableButton>
           </div>
-        </div>
+        </div> -->
         <div class="">
-          <items-infinity-load
+          <alogira-product-result-list
             @listUpdated="listUpdated"
             :params="params"
             :paramsUpdated="applyFilterSearch"
-          ></items-infinity-load>
+          ></alogira-product-result-list>
         </div>
       </div>
     </div>
@@ -43,22 +43,24 @@
 </template>
 
 <script>
-import ItemsInfinityLoad from '../../../components/Web/Item/ItemsInfinityLoad.vue'
-import FiltersPop from '../../../components/Web/Product/List/FiltersPop.vue'
-import SortingPop from '../../../components/Web/Product/List/SortingPop.vue'
+// import ItemsInfinityLoad from '../../../components/Web/Item/ItemsInfinityLoad.vue'
+// import FiltersPop from '../../../components/Web/Product/List/FiltersPop.vue'
+// import SortingPop from '../../../components/Web/Product/List/SortingPop.vue'
 import WebLayout from '../../../Layouts/WebAppLayout'
-import CategoriesPop from '../../../components/Web/Product/List/CategoriesPop.vue'
-import switchAvailableButton from '../../../components/Web/Product/List/switchAvailableButton'
+// import CategoriesPop from '../../../components/Web/Product/List/CategoriesPop.vue'
+// import switchAvailableButton from '../../../components/Web/Product/List/switchAvailableButton'
+import AlogiraProductResultList from '../../../components/Web/Product/AlogiraProductResultList.vue'
 
 export default {
   components: {
     WebLayout,
-    FiltersPop,
-    switchAvailableButton,
+    // FiltersPop,
+    // switchAvailableButton,
 
-    SortingPop,
-    ItemsInfinityLoad,
-    CategoriesPop
+    // SortingPop,
+    // ItemsInfinityLoad,
+    // CategoriesPop,
+    AlogiraProductResultList
   },
   data () {
     return {

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ais-instant-search :routing="routing" index-name="items_index" :search-client="searchClient">
     <div
       class="container-fluid filters-layout-modal loading-progress"
       v-if="isLoading"
@@ -131,12 +132,17 @@
         </div>
       </footer>
     </div>
+      </ais-instant-search>
   </div>
 </template>
 
 <script>
 import HeaderComponent from '../components/Web/Page/HeaderComponent'
-
+import algoliasearch from 'algoliasearch/lite'
+import { history as historyRouter } from 'instantsearch.js/es/lib/routers'
+import { simple } from 'instantsearch.js/es/lib/stateMappings'
+// { simple as simpleStateMapping, singleIndex as singleIndexMapping }
+import 'instantsearch.css/themes/algolia-min.css'
 export default {
   components: {
     HeaderComponent
@@ -144,6 +150,11 @@ export default {
   name: 'WebAppLayout',
   data () {
     return {
+      searchClient: algoliasearch('ZXFZ7FDM25', this.$page.alogria_search_key),
+      routing: {
+        router: historyRouter(),
+        stateMapping: simple()
+      },
       isLoading: true
     }
   },

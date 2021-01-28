@@ -6,20 +6,37 @@
   >
     <div class="advanced-search" style="border-color: #d2e8ff !important">
       <div class="input-group" style="max-width: 100% !important">
-        <input
+        <!-- <input
           v-model="searchKey"
           :placeholder="$page.$t.header.search_placeholder"
           type="text"
           class="text-gray-800"
           @keypress.enter="getItems"
-        />
-          <!--  -->
+        /> -->
+        <!--  -->
+
+        <alogria-search></alogria-search>
+        <!-- <ais-instant-search
+          :search-client="searchClient"
+          index-name="item_tags"
+        >
+          <ais-search-box placeholder="Search articles..."></ais-search-box>
+
+          <ais-hits>
+            <template slot="item" slot-scope="{ item }">
+              <div>
+                <h1>@{{ item.item_name }}</h1>
+                <h4>@{{ item.item_ar_name }}</h4>
+              </div>
+            </template>
+          </ais-hits>
+        </ais-instant-search> -->
 
         <!-- -->
 
-        <button type="button" @click="getItems">
+        <!-- <button type="button" @click="getItems">
           <i class="fa fa-search"></i>
-        </button>
+        </button> -->
       </div>
     </div>
     <!-- <div>
@@ -62,10 +79,12 @@
 </template>
 
 <script>
-
+import AlogriaSearch from './AlogriaSearch.vue'
 export default {
+  components: { AlogriaSearch },
   data () {
     return {
+      // searchClient: algoliasearch('ZXFZ7FDM25', this.$page.alogria_search_key),
       isSearching: false,
       categoryId: 0,
       items: [],

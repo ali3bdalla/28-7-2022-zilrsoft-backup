@@ -208,8 +208,10 @@ return [
         "sorting_oldest" => "oldest",
         "sorting_only_available" => "Available Only",
 
-
-
+        'more_than' => 'More Than',
+        "all" => 'All',
+        'prices' => "Prices",
+        'category' => 'Category'
 
     ]
 ];

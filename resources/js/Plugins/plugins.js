@@ -6,6 +6,7 @@ import VueCountdownTimer from 'vuejs-countdown-timer'
 import ToggleButton from 'vue-js-toggle-button'
 import InfiniteLoading from 'vue-infinite-loading'
 import VueProgressBar from 'vue-progressbar'
+import InstantSearch from 'vue-instantsearch'
 
 import {
   Button,
@@ -19,7 +20,9 @@ import {
   Card,
   Option,
   Select,
-  Checkbox
+  Checkbox,
+  Slider,
+  Switch
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 const currency = require('./Currency')
@@ -37,9 +40,12 @@ Vue.use(Table)
 Vue.use(Option)
 Vue.use(Select)
 Vue.use(InputNumber)
+Vue.use(Slider)
 Vue.use(VueCountdownTimer)
 Vue.use(InfiniteLoading, { /* options */ })
 Vue.use(Checkbox)
+Vue.use(InstantSearch)
+Vue.use(Switch)
 Vue.use(VueProgressBar, {
   color: 'rgb(143, 255, 199)',
   failedColor: 'red',
