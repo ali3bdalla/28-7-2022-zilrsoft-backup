@@ -85,11 +85,13 @@ return [
     */
 
     'attributesForFaceting' => [
+        // 'filterOnly(is_available_online)',
+        // 'filterOnly(is_kit)',
         'searchable(online_offer_price)',
         'searchable(category_name)',
         'searchable(category_ar_name)',
-        'searchable(filters)',
-        'searchable(ar_filters)',
+        // 'searchable(filters)',
+        // 'searchable(ar_filters)',
         'searchable(filters_BRAND)',
         "searchable(ar_filters_\xd8\xa7\xd9\x84\xd9\x85\xd8\xa7\xd8\xb1\xd9\x83\xd8\xa9)",
         'searchable(filters_Model name)',

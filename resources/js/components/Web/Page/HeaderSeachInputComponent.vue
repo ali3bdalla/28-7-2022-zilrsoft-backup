@@ -4,8 +4,8 @@
     style="width: 100%"
     v-click-outside="resetItemsToNull"
   >
-    <div class="advanced-search" style="border-color: #d2e8ff !important">
-      <div class="input-group" style="max-width: 100% !important">
+    <div class="advanced-search" style="border-color: #d2e8ff !important;direction:ltr !important">
+      <!-- <div class="input-group" style="max-width: 100% !important"> -->
         <!-- <input
           v-model="searchKey"
           :placeholder="$page.$t.header.search_placeholder"

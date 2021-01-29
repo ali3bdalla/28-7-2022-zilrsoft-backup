@@ -86,11 +86,6 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
         );
 
 
-        Route::prefix('/items')->name('items.')->group(
-            function () {
-                Route::get('/{item}', 'ItemController@show')->name('show');
-            }
-        );
 
 
         Route::middleware('auth:client')->group(

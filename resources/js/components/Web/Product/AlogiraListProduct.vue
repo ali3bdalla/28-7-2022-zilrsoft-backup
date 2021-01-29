@@ -5,7 +5,7 @@
   >
     <div class="product__list-item-image-container">
       <a :href="`/web/items/${item.id}`"
-        ><img :src="item.item_image_url" class="product__list-item-image"
+        ><img :src="getUrl" class="product__list-item-image"
       /></a>
     </div>
     <div class="product__list-item-content">
@@ -15,10 +15,9 @@
       >
         <span> {{ $page.$t.products.out_of_stock }} </span>
       </h3>
-      <a  v-else :href="`/web/items?category_id=${item.category_id}&&name=&&search_via=null`"
+      <a  v-else :href="`/web/items?${$page.algolia_items_search_as}%5BrefinementList%5D%${$page.active_logo == 'en' ? 'category_name' : 'category_ar_name'}%5D%5B0%5D=${getCategoryName}`"
           ><h3 class="product__list-item-category-name">
-        {{ item.category_name }}
-
+        {{ getCategoryName }}
       </h3></a>
 
       <a :href="`/web/items/${item.id}`" class="product__list-item-name">
@@ -71,16 +70,20 @@ export default {
       if (modelNumber !== '') { return name.replace(modelNumber, '') }
 
       return name
+    },
+    getCategoryName () {
+      if (this.$page.active_locale === 'en') return this.item.category_name
+
+      return this.item.category_ar_name
+    },
+    getUrl () {
+      if (this.item.item_image_url === 'https://zilrsoft.com/images/logo_ar.png') {
+        if (this.$page.active_locale === 'en') { return 'https://zilrsoft.com/images/logo_en.png' }
+
+        return 'https://zilrsoft.com/images/logo_ar.png'
+      }
+      return this.item.item_image_url
     }
-    // modelNumber () {
-    //   if (this.item.filters) {
-    //     const modelNumber = this.item.filters.find((p) => p.filter_id == 38)
-
-    //     if (modelNumber && modelNumber.value) { return modelNumber.value.locale_name }
-    //   }
-
-    //   return ''
-    // }
   }
 }
 </script>

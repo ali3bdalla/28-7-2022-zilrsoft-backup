@@ -5,7 +5,29 @@
       <div class="page__mt-2">
         <div class="product__search-options">
           <alogria-pop-filters></alogria-pop-filters>
+           <ais-numeric-menu
+        attribute="available_qty"
+        :items="[
+          { label: `${$page.$t.products.sorting_only_available}`, start: 1 },
+        ]"
+      >
+        <div
+          class=""
+          slot-scope="{ items, canRefine, refine, createURL }"
+        >
 
+            <div v-for="(item,index) in items" :key="index">
+              <div
+                class="product__search-filter-value"
+                style="font-size: 15px; color: #575555"
+              >
+                  <toggle-button @change="refine(item.value)" :height="25" :width="120" v-model="item.isRefined" :labels="{checked: $page.$t.products.sorting_only_available, unchecked: $page.$t.products.sorting_only_available}"/>
+            </div>
+            <!-- </div> -->
+          </div>
+        </div>
+        <!-- </div> -->
+      </ais-numeric-menu>
         </div>
       </div>
     </div>
@@ -63,35 +85,9 @@
 </ais-current-refinements>
     </div>
     <div class="product__search-page">
-      <ais-toggle-refinement
-  attribute="is_need_serial"
-  label="Free Shipping"
-    :on="true"
 
->
-  <a
-    slot-scope="{ value, refine, createURL }"
-    :href="createURL(value)"
-    :style="{ fontWeight: value.isRefined ? 'bold' : '' }"
-    @click.prevent="refine(value)"
-  >
-    {{ value.name }}
-    ({{ value.count }})
-  </a>
-      </ais-toggle-refinement>
-      <!-- <div class="page__mt-2" v-if="items.length > 2">
-          <div class="product__search-options items-center">
-            <switchAvailableButton
-              class="items-center"
-              @changed="switchAvailableQtyChanged"
-            ></switchAvailableButton>
-          </div>
-        </div> -->
       <div class="flex gap-3">
-        <!--<div class="w-64">
-          <alogria-pop-filters></alogria-pop-filters>
-          <alogira-search-filters></alogira-search-filters>
-        </div>-->
+
         <div class="flex-1">
           <div class="mt-0 pt-0">
             <ais-configure :hitsPerPage="50" />

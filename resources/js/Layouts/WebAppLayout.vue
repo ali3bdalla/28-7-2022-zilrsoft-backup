@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ais-instant-search :routing="routing" index-name="items_index" :search-client="searchClient">
+    <ais-instant-search :routing="routing" :index-name="$page.algolia_items_search_as" :search-client="searchClient">
     <div
       class="container-fluid filters-layout-modal loading-progress"
       v-if="isLoading"
@@ -17,9 +17,6 @@
         </template>
       </HeaderComponent>
       <div style="background-color: #f9f9f9;">
-         <!-- <div class="container"> -->
-        <!-- <alogira-product-result-list></alogira-product-result-list> -->
-         <!-- </div> -->
         <slot></slot>
       </div>
 
@@ -37,7 +34,6 @@
                   /></a>
                 </div>
                 <ul>
-                  <!-- <li>{{ __('store.footer.address')}}: {{ config('app.msbrshop.address') }}</li> -->
                   <li>
                     {{ $page.$t.footer.phone }}:
                     <div style="direction: ltr !important" >{{ $page.app.msbrshop.phone_number }}</div>
@@ -51,7 +47,6 @@
             </div>
             <div class="col-lg-3">
               <div class="footer-widget">
-                <!-- <h5>{{ $page.$t.footer.information }}</h5> -->
                 <ul>
 
                   <li>
@@ -65,7 +60,6 @@
             </div>
             <div class="col-lg-3">
               <div class="footer-widget">
-                <!-- <h5>{{ __('store.footer.my_account') }}</h5> -->
                 <ul>
                   <li>
                     <a href="/web/content/about">{{ $page.$t.footer.about_us }}</a>
@@ -79,20 +73,11 @@
                     alt=""
                   />
                   </li>
-                  <!-- <li>
-                    <a href="#">{{ $page.$t.footer.cart }}</a>
-                  </li>
-                  <li>
-                    <a href="#">{{ $page.$t.footer.logout }}</a>
-                  </li> -->
-
-                  <!-- <li><a href="#">Shop</a></li> -->
                 </ul>
               </div>
             </div>
             <div class="col-lg-3">
               <div class="newslatter-item">
-                <!-- <h5>{{ __('store.footer.join_news_letter') }}</h5> -->
                 <p>{{ $page.$t.footer.join_news_letter_bio }}</p>
                 <form action="#" class="subscribe-form">
                   <input
@@ -143,24 +128,23 @@
 import HeaderComponent from '../components/Web/Page/HeaderComponent'
 import algoliasearch from 'algoliasearch/lite'
 import { history as historyRouter } from 'instantsearch.js/es/lib/routers'
-import { simple } from 'instantsearch.js/es/lib/stateMappings'
-// { simple as simpleStateMapping, singleIndex as singleIndexMapping }
+import { simple, singleIndex as singleIndexMapping } from 'instantsearch.js/es/lib/stateMappings'
+
 import 'instantsearch.css/themes/algolia-min.css'
-import AlogiraProductResultList from '../components/Web/Product/AlogiraProductResultList.vue'
 
 export default {
   components: {
+    HeaderComponent
 
-    HeaderComponent,
-    AlogiraProductResultList
   },
   name: 'WebAppLayout',
   data () {
     return {
-      searchClient: algoliasearch('ZXFZ7FDM25', this.$page.alogria_search_key),
+      searchClient: algoliasearch(this.$page.algolia_app_key, this.$page.aloglia_daily_search_key),
       routing: {
         router: historyRouter(),
         stateMapping: simple()
+        // stateMapping: singleIndexMapping(this.$page.item_tags_search_as)
       },
       isLoading: true
     }

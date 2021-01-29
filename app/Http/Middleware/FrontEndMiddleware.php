@@ -33,20 +33,33 @@ class FrontEndMiddleware
 		}
 
 		app()->setlocale($activeLang);
-		$searchKey = Algolia::searchKey(Item::class);
 
+		// $searchFilters = [
+		// 	// 'online_offer_price',
+		// 	// 'category_name',
+		// 	// 'category_ar_name',
+		// 	// 'filters',
+		// 	// 'ar_filters',
+		// ];
+		// foreach (Filter::all() as $filter) {
+		// 	$searchFilters[]  = "filters_{$filter->name}";
+		// 	$searchFilters[]  = "ar_filters_{$filter->ar_name}";
+		// }
 
-		$searchFilters = [
-			// 'online_offer_price',
-			// 'category_name',
-			// 'category_ar_name',
-			// 'filters',
-			// 'ar_filters',
-		];
-		foreach (Filter::all() as $filter) {
-			$searchFilters[]  = "filters_{$filter->name}";
-			$searchFilters[]  = "ar_filters_{$filter->ar_name}";
+		// return $searchFilters;
+
+		$itemsIndexSearchFilters = config('scout-items-index.attributesForFaceting');
+
+		$searchFilters = [];
+		foreach ($itemsIndexSearchFilters as $searchFilter) {
+			if(!in_array($searchFilter,['searchable(online_offer_price)',
+			'searchable(category_name)','searchable(category_ar_name)'])) {
+				$searchFilter = str_replace('searchable(',"",$searchFilter);
+				$searchFilters[] = str_replace(')',"",$searchFilter);
+			}
 		}
+
+
 
 		Inertia::share(
 			[
@@ -57,9 +70,10 @@ class FrontEndMiddleware
 				"app" => config('app'),
 				'$t' => __("store"),
 				'main_categories' => Category::where('parent_id', 0)->get(),
-				'alogria_search_key' => $searchKey,
-				'item_tags_search_as' => (new \App\Models\Item())->searchableAs(),
-				'alogia_search_filters' => $searchFilters
+				'algolia_items_search_as' => "items_index",
+				'aloglia_daily_search_key' => Algolia::searchKey(Item::class),
+				'algolia_search_filters' => $searchFilters,
+				'algolia_app_key' => config('scout.algolia.id')
 			]
 		);
 		return $next($request);

@@ -3,24 +3,20 @@
   <div class="w-full">
     <ais-search-box
       class=""
-      placeholder="string"
-      submit-title="string"
-      reset-title="string"
-      :autofocus="true"
-      :show-loading-indicator="true"
-    />
+      :placeholder="$page.$t.header.search_placeholder"
+      :autofocus="false"
+      :show-loading-indicator="false"
+    >
+    </ais-search-box>
+    <!-- submit-title="string"
+      reset-title="string" -->
   </div>
 </template>
 
 <script>
-import algoliasearch from 'algoliasearch/lite'
-import 'instantsearch.css/themes/algolia-min.css'
-
 export default {
   data () {
-    return {
-      searchClient: algoliasearch('ZXFZ7FDM25', this.$page.alogria_search_key)
-    }
+    return {}
   }
 }
 </script>

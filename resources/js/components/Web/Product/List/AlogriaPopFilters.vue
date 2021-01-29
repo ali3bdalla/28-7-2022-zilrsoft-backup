@@ -166,7 +166,7 @@
                   </ais-refinement-list>
                 </div>
 
-                <div v-if="shouldBeAvailable(filter)" v-for="filter in $page.alogia_search_filters"  :key="filter" class=" w-full" >
+                <div v-if="shouldBeAvailable(filter)" v-for="filter in $page.algolia_search_filters"  :key="filter" class=" w-full" >
                   <ais-refinement-list
                   :class-names="{
                     'ais-RefinementList-list': '',
