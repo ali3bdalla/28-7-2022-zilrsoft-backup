@@ -98,7 +98,7 @@
           <div class="product product__show__image-container">
             <div class="p-3 border" style="border-color: #d2e8ff !important">
               <div>
-                <img class="product__show__image" :src="activeImage" />
+                <img class="product__show__image" :src="`http://46.101.185.238:8080/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/326/326/sm/0/plain/` + activeImage" />
               </div>
               <div
                 class="border product__show__images-grid"
