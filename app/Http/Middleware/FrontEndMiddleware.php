@@ -34,19 +34,6 @@ class FrontEndMiddleware
 
 		app()->setlocale($activeLang);
 
-		// $searchFilters = [
-		// 	// 'online_offer_price',
-		// 	// 'category_name',
-		// 	// 'category_ar_name',
-		// 	// 'filters',
-		// 	// 'ar_filters',
-		// ];
-		// foreach (Filter::all() as $filter) {
-		// 	$searchFilters[]  = "filters_{$filter->name}";
-		// 	$searchFilters[]  = "ar_filters_{$filter->ar_name}";
-		// }
-
-		// return $searchFilters;
 
 		$itemsIndexSearchFilters = config('scout-items-index.attributesForFaceting');
 
@@ -58,8 +45,7 @@ class FrontEndMiddleware
 				$searchFilters[] = str_replace(')',"",$searchFilter);
 			}
 		}
-
-
+		
 
 		Inertia::share(
 			[

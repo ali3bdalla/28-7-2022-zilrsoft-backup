@@ -17,9 +17,22 @@
         </template>
       </HeaderComponent>
       <div style="background-color: #f9f9f9;">
+
+        <div class="container">
+          <!-- <alogira-product-result-list></alogira-product-result-list> -->
+        </div>
         <slot></slot>
       </div>
-
+<!-- <ais-state-results>
+            <div
+             slot-scope="{ state: { query }, results: { hits } }"
+            >
+              <div class="container" v-if="nbHits > 0 ">
+                <alogira-product-result-list></alogira-product-result-list>
+              </div>
+              <slot v-else></slot>
+            </div>
+          </ais-state-results> -->
       <footer class="text-center footer-section">
         <div class="container">
           <div class="row">
@@ -128,13 +141,15 @@
 import HeaderComponent from '../components/Web/Page/HeaderComponent'
 import algoliasearch from 'algoliasearch/lite'
 import { history as historyRouter } from 'instantsearch.js/es/lib/routers'
-import { simple, singleIndex as singleIndexMapping } from 'instantsearch.js/es/lib/stateMappings'
+import { simple } from 'instantsearch.js/es/lib/stateMappings'
 
 import 'instantsearch.css/themes/algolia-min.css'
+import AlogiraProductResultList from '../components/Web/Product/AlogiraProductResultList.vue'
 
 export default {
   components: {
-    HeaderComponent
+    HeaderComponent,
+    AlogiraProductResultList
 
   },
   name: 'WebAppLayout',
@@ -144,7 +159,6 @@ export default {
       routing: {
         router: historyRouter(),
         stateMapping: simple()
-        // stateMapping: singleIndexMapping(this.$page.item_tags_search_as)
       },
       isLoading: true
     }

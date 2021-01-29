@@ -5,6 +5,14 @@
       <div class="page__mt-2">
         <div class="product__search-options">
           <alogria-pop-filters></alogria-pop-filters>
+        <ais-stats>
+  <p slot-scope="{ hitsPerPage, nbPages, nbHits, page, processingTimeMS, query }">
+    <!-- Page {{ page + 1 }} of {{ nbPages }} with {{ hitsPerPage }} hits per page  -
+    {{ nbHits }} hits retrieved in {{ processingTimeMS }}ms for <q>{{ query }}</q> -->
+    {{ nbHits }}
+  </p>
+</ais-stats>
+
            <ais-numeric-menu
         attribute="available_qty"
         :items="[
@@ -28,6 +36,7 @@
         </div>
         <!-- </div> -->
       </ais-numeric-menu>
+      <!-- <alogria-pop-sorting></alogria-pop-sorting> -->
         </div>
       </div>
     </div>
@@ -182,6 +191,7 @@ import LoadingSvg from '../Page/LoadingSvg.vue'
 import AlogiraListProduct from '../../../components/Web/Product/AlogiraListProduct.vue'
 // import AlogiraSearchFilters from './List/AlogiraSearchFilters.vue'
 import AlogriaPopFilters from './List/AlogriaPopFilters.vue'
+import AlogriaPopSorting from './List/AlogriaPopSorting.vue'
 
 export default {
   components: {
@@ -189,7 +199,8 @@ export default {
     // ProductListItemComponent,
     LoadingSvg,
     // AlogiraSearchFilters,
-    AlogriaPopFilters
+    AlogriaPopFilters,
+    AlogriaPopSorting
   },
   props: {
     // forceUpdate: {

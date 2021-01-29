@@ -4,7 +4,7 @@
     <ais-search-box
       class=""
       :placeholder="$page.$t.header.search_placeholder"
-      :autofocus="false"
+      :autofocus="true"
       :show-loading-indicator="false"
     >
     </ais-search-box>
