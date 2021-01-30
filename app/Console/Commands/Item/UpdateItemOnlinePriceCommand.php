@@ -39,22 +39,22 @@ class UpdateItemOnlinePriceCommand extends Command
     public function handle()
     {
     
-        $items = Item::all();
-        foreach ($items as $item) {
+        // $items = Item::all();
+        // foreach ($items as $item) {
 
-            foreach ($item->filters as $key => $value) {
-                $item->tags()->create([
-                    'tag' => $value->value->name
-                ]);
+        //     foreach ($item->filters as $key => $value) {
+        //         $item->tags()->create([
+        //             'tag' => $value->value->name
+        //         ]);
 
-                $item->tags()->create([
-                    'tag' => $value->value->ar_name
-                ]);
-            }
-        }
+        //         $item->tags()->create([
+        //             'tag' => $value->value->ar_name
+        //         ]);
+        //     }
+        // }
 
 
-//	    item.cost * (1 + (item.vtp / 100)
+	    // item.cost * (1 + (item.vtp / 100)
         // Item::where('id','>',0)->each(function($item) {
 	    //     $item->update([
 	    //     	'online_price' => $item->price_with_tax,
@@ -63,5 +63,23 @@ class UpdateItemOnlinePriceCommand extends Command
         //         'weight' => rand(1,3)
 	    //     ]);
         // });
+
+        $items = Item::where('organization_id',1)->get();
+        foreach ($items as $key => $item) {
+            $salesPrice = ($item->online_price + $item->cost) / 2;
+            $profit = $salesPrice -  $item->cost;
+            $shippingDiscount = $profit / 4;
+            if($shippingDiscount  > 30)
+            {
+                $shippingDiscount  = 30;
+            }
+	        $item->update([
+	        	// 'online_price' => $item->price_with_tax,
+                'online_offer_price' =>   $salesPrice,
+                'shipping_discount' => $shippingDiscount ,
+                // 'weight' => rand(1,3)
+	        ]);
+        }
+
     }
 }

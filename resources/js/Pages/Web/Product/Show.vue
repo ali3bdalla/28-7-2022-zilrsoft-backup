@@ -26,14 +26,14 @@
               </h1>
               <div class="page__mt-2">
                 <h4 class="product__show__details-slash-price">
-                  {{ parseFloat($page.item.price_with_tax).toFixed(2) }}
+                  {{ parseFloat($page.item.online_price).toFixed(2) }}
                 </h4>
                 <span class="product__show__details-currency">{{
                   $page.$t.products.sar
                 }}</span>
                 <div>
                   <h4 class="product__show__details-price">
-                    {{ parseFloat($page.item.price).toFixed(2) }}
+                    {{ parseFloat($page.item.online_offer_price).toFixed(2) }}
                   </h4>
                   <span class="product__show__details-currency">{{
                     $page.$t.products.sar
