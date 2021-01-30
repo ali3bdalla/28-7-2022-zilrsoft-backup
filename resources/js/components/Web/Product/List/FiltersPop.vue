@@ -38,6 +38,27 @@
             selectedValues.length
           }})
         </div>
+        <div class="container  mb-2">
+           <div class="row page__mt-5">
+            <div class="col-md-6 col-6  text-center">
+              <button
+                @click="applyFilters"
+                class="btn btn-primary applyBtn px-5"
+              >
+                {{ $page.$t.products.apply }}
+              </button>
+            </div>
+            <div class="col-md-6 col-6 text-center">
+              <button
+                @click="clearFilters"
+                :disabled="selectedValues.length == 0"
+                class="btn btn-default resetBtn bg-web-primary px-5"
+              >
+                {{ $page.$t.products.reset }}
+              </button>
+            </div>
+          </div>
+        </div>
         <div
           class="container-fluid filters-layout-modal loading-progress"
           v-if="isSendingApiRequest"
@@ -53,11 +74,12 @@
         <div class="container-fluid filters-layout-modal" v-else>
           <div class="row">
             <div
-              class="col-md-6"
+              class="col-md-6 border"
               v-for="(filter, index) in filters"
               :key="filter.id"
-              :class="[index % 2 == 0 ? 'toGrayBg' : 'bg-white']"
             >
+                          <!-- :class="[((index+1) % 2) == 0 ? 'toGrayBg' : 'bg-white']" -->
+
               <div class="filter-widget">
                 <h6 class="fw-title">
                   {{ filter.filter.locale_name }}
@@ -93,25 +115,6 @@
             </div>
           </div>
 
-          <div class="row page__mt-5">
-            <div class="col-md-6 col-6">
-              <button
-                @click="applyFilters"
-                class="btn btn-primary applyBtn px-5"
-              >
-                {{ $page.$t.products.apply }}
-              </button>
-            </div>
-            <div class="col-md-6 col-6">
-              <button
-                @click="clearFilters"
-                :disabled="selectedValues.length == 0"
-                class="btn btn-default resetBtn bg-web-primary px-5"
-              >
-                {{ $page.$t.products.reset }}
-              </button>
-            </div>
-          </div>
           <div class="form-group"></div>
         </div>
       </div>

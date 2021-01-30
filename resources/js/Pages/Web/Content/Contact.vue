@@ -73,7 +73,7 @@
                     </div>
                     <div class="col-lg-12">
                       <textarea :placeholder="$page.$t.contact.message"></textarea>
-                      <button type="submit" class="site-btn">
+                      <button type="submit" class="site-btn w-full">
                         {{  $page.$t.contact.send }}
                       </button>
                     </div>

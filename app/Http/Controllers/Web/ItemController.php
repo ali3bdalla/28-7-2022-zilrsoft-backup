@@ -44,6 +44,12 @@ class ItemController extends Controller
 	}
 
 
+	public function search()
+	{
+		return Inertia::render(
+			'Web/Product/Search'
+		);
+	}
 	public function show(Item $item)
 	{
 		$relatedItems = $item->category->items()->with('category')->inRandomOrder()->take(20)->get();

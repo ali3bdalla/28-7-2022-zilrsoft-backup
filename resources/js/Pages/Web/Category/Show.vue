@@ -12,7 +12,7 @@
           </div>
         </div>
 
-      <div class="product__search-page">
+      <div class="product__search-page" v-if="this.$page.category.products_count > 0">
         <div class="page__mt-2">
           <div class="product__search-options items-center">
             <switchAvailableButton
@@ -25,13 +25,13 @@
       </div>
       <div class="page__mt-2 mt-4">
         <h1
-          v-if="$page.category.products_count > 0 "
+         v-if="this.$page.category.products_count> 0"
           class="home__products-count"
         >
-          {{ $page.$t.products.products_count }} ({{ $page.category.products_count }})
+          {{ this.$page.$t.products.products_count }} ({{ totalItems  }})
         </h1>
 
-        <items-infinity-load :params="params" :forceUpdate="forceUpdate" :paramsUpdated="applyFilterSearch"></items-infinity-load>
+        <items-infinity-load @listUpdated="listUpdated" :params="params" :forceUpdate="forceUpdate" :paramsUpdated="applyFilterSearch"></items-infinity-load>
 
       </div>
     </div>
@@ -58,10 +58,15 @@ export default {
     return {
       params: { parent_category_id: this.$page.category.id },
       images: [],
+      totalItems: this.$page.category.products_count,
       forceUpdate: 0
     }
   },
   methods: {
+    listUpdated (re) {
+      console.log(re)
+      this.totalItems = re.total
+    },
     applyFilterSearch () {},
     switchAvailableQtyChanged (e) {
       this.params.available_only = e ? 'yes' : 'no'
@@ -78,6 +83,7 @@ export default {
     }
   },
   computed: {
+
     subCategories () {
       const subcategories = []
       for (const index in this.$page.subcategories) {

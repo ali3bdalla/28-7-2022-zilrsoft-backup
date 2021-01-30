@@ -286,7 +286,11 @@
   }
 
   &__search-only-available {
-    @apply w-full flex justify-center gap-3 items-center py-1 text-white
+    @apply w-full flex justify-end gap-3 items-center py-1 text-white text-xs;
+
+    .v-switch-label {
+      font-size:15px !important
+    }
   }
   &__search-option-icon {
     @apply w-4 h-4;
@@ -318,7 +322,7 @@
   }
 
   &__search-sorting-list-item {
-    @apply   cursor-pointer;
+    @apply   cursor-pointer py-2;
     &:hover {
       @apply bg-gray-100;
     }

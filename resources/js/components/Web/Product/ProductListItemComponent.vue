@@ -7,6 +7,7 @@
       <a :href="`/web/items/${item.id}`"
         ><img :src="item.item_image_url" class="product__list-item-image"
       /></a>
+      <!-- `http://46.101.185.238:8080/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/334/250/sm/0/plain/` + -->
     </div>
     <div class="product__list-item-content">
       <h3
@@ -18,7 +19,7 @@
       <a  v-else :href="`/web/items?category_id=${item.category.id}&&name=&&search_via=null`"
           ><h3 class="product__list-item-category-name">
         {{ item.category ? item.category.locale_name : "" }}
-
+  <!-- `/web/items/search/results?${$page.algolia_items_search_as}%5BrefinementList%5D%5B${$page.active_logo == 'en' ? 'category_name' : 'category_ar_name'}%5D%5B0%5D=${item.category ? item.category.locale_name : ''}` -->
       </h3></a>
 
       <a :href="`/web/items/${item.id}`" class="product__list-item-name">

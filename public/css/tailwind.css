@@ -672,6 +672,7 @@ video {
 
 .cart .proceed-checkout .proceed-btn {
   width: 100% !important;
+  background: #192a56 !important;
 }
 
 .cart__total-amount {
@@ -1830,7 +1831,7 @@ video {
 .product__search-only-available {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   grid-gap: 0.75rem;
   gap: 0.75rem;
   align-items: center;
@@ -1839,6 +1840,11 @@ video {
   --text-opacity: 1;
   color: #fff;
   color: rgba(255, 255, 255, var(--text-opacity));
+  font-size: 0.75rem;
+}
+
+.product__search-only-available .v-switch-label {
+  font-size: 15px !important;
 }
 
 .product__search-option-icon {
@@ -1885,6 +1891,8 @@ video {
 
 .product__search-sorting-list-item {
   cursor: pointer;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .product__search-sorting-list-item:hover {

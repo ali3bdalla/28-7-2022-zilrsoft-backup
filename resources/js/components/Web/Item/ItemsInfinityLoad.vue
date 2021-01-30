@@ -71,7 +71,6 @@ export default {
     },
     infiniteHandler ($state) {
       const params = this.params
-      console.log(params)
       params.page = this.page
       axios
         .get('/api/web/items/using_filters', {
@@ -81,11 +80,16 @@ export default {
           if (data.data.length) {
             this.page += 1
             this.dataItems.push(...data.data)
-            $state.loaded()
             this.$emit('listUpdated', {
+              total: data.total,
               data: this.dataItems
             })
+            $state.loaded()
           } else {
+            this.$emit('listUpdated', {
+              total: data.total,
+              data: this.dataItems
+            })
             $state.complete()
           }
         })

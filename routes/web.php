@@ -78,19 +78,16 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
             }
         );
 
+        
         Route::prefix('items')->name('items.')->group(
             function () {
+                Route::get('/search/results', 'ItemController@search')->name('search');
                 Route::get('/', 'ItemController@index')->name('index');
                 Route::get('/{item}', 'ItemController@show')->name('show');
             }
         );
 
 
-        Route::prefix('/items')->name('items.')->group(
-            function () {
-                Route::get('/{item}', 'ItemController@show')->name('show');
-            }
-        );
 
 
         Route::middleware('auth:client')->group(

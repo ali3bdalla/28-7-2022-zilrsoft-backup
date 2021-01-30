@@ -16,6 +16,7 @@
 
       >
       <!-- :style="{ backgroundImage: 'url(' + item + ')' }" -->
+      <!-- `http://46.101.185.238:8080/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/1110/462/sm/0/plain/` +  -->
         <img :src="item" class="object-cover" />
       </div>
     </vue-horizontal>

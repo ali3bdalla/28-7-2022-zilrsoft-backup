@@ -208,7 +208,17 @@ return [
         "sorting_oldest" => "oldest",
         "sorting_only_available" => "Available Only",
 
-
+        'more_than' => 'More Than',
+        "all" => 'All',
+        'prices' => "Prices",
+        'category' => 'Category',
+        "remove_all" => "Clear All",
+        "sorting_most_sellers" => "Most Sellers",
+        "special_offer" => "Enjoy a Special Offer",
+        "time_days" => "Days",
+        "time_hrs" => "HRS",
+        "time_mins" => "MINS",
+        "time_secs" => "SECS",
 
 
     ]

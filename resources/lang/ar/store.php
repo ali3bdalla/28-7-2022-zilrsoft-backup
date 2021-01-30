@@ -199,8 +199,19 @@ return [
         "related_products" => "منتجات ذات من صلة",
         "sorting_low_price" => "الاقل سعراً",
         "sorting_high_price" => "الاعلى سعراً",
+        "sorting_most_sellers" => "الاكثر مبيعاً",
         "sorting_lastest" => "الاحدث",
         "sorting_oldest" => "الاقدم",
         "sorting_only_available" => "المتوفر فقط",
-    ]
+        'more_than' => 'اعلى من ',
+        "all" => 'جميع',
+        'prices' => "الاسعار",
+        'category' => 'القسم',
+        "remove_all" => "مسح الكل",
+        "special_offer" => "الحق على العرض الخاص",
+        "time_days" => "يوم",
+        "time_hrs" => "ساعة",
+        "time_mins" => "دقيقة",
+        "time_secs" => "ثانية",
+    ]  
 ];

@@ -1,5 +1,7 @@
 <template>
   <div>
+    <ais-instant-search :index-name="$page.algolia_items_search_as" :search-client="searchClient">
+      <!-- :routing="routing"  -->
     <div
       class="container-fluid filters-layout-modal loading-progress"
       v-if="isLoading"
@@ -16,7 +18,18 @@
         </template>
       </HeaderComponent>
       <div style="background-color: #f9f9f9;">
-        <slot></slot>
+        <ais-state-results>
+          <template slot-scope="{state:{hierarchicalFacetsRefinements,numericRefinements,tagRefinements,query,hits}}">
+            <!-- {{ JSON.stringify(numericRefinements.online_offer_price) == '{}'  &&  JSON.stringify(numericRefinements.available_qty) == '{}' && tagRefinements.length == 0  && !query.length }} -->
+
+            <!-- {{ JSON.stringify(numericRefinements.online_offer_price) == '{}'  &&  JSON.stringify(numericRefinements.available_qty) == '{}' && tagRefinements.length == 0  && !query.length }} -->
+            <div class="container" v-if="!(isSearchPage(hierarchicalFacetsRefinements,numericRefinements,tagRefinements,query,hits))">
+              <alogira-product-result-list></alogira-product-result-list>
+            </div>
+             <slot v-if="isSearchPage(hierarchicalFacetsRefinements,numericRefinements,tagRefinements,query,hits)"></slot>
+
+          </template>
+        </ais-state-results>
       </div>
 
       <footer class="text-center footer-section">
@@ -33,21 +46,19 @@
                   /></a>
                 </div>
                 <ul>
-                  <!-- <li>{{ __('store.footer.address')}}: {{ config('app.msbrshop.address') }}</li> -->
                   <li>
                     {{ $page.$t.footer.phone }}:
-                    {{ $page.app.msbrshop.phone_number }}
+                    <div style="direction: ltr !important" >{{ $page.app.msbrshop.phone_number }}</div>
                   </li>
-                  <li>
+                  <li class="mt-2">
                     {{ $page.$t.footer.email }}:
-                    {{ $page.app.msbrshop.email_address }}
+                    <div>{{ $page.app.msbrshop.email_address }} </div>
                   </li>
                 </ul>
               </div>
             </div>
             <div class="col-lg-3">
               <div class="footer-widget">
-                <!-- <h5>{{ $page.$t.footer.information }}</h5> -->
                 <ul>
 
                   <li>
@@ -61,34 +72,24 @@
             </div>
             <div class="col-lg-3">
               <div class="footer-widget">
-                <!-- <h5>{{ __('store.footer.my_account') }}</h5> -->
                 <ul>
                   <li>
                     <a href="/web/content/about">{{ $page.$t.footer.about_us }}</a>
                   </li>
-                  <li>
+                  <li  class="mt-2">
                     <a href="/web/content/contact">{{ $page.$t.footer.contact }}</a>
                   </li>
-                   <li style="    margin-top: 42px !important;" class="flex items-center justify-center">
+                   <li style="    margin-top: 35px !important;" class="flex items-center justify-center">
                     <img
                     :src="$asset('web_assets/template/img/payment-method.png')"
                     alt=""
                   />
                   </li>
-                  <!-- <li>
-                    <a href="#">{{ $page.$t.footer.cart }}</a>
-                  </li>
-                  <li>
-                    <a href="#">{{ $page.$t.footer.logout }}</a>
-                  </li> -->
-
-                  <!-- <li><a href="#">Shop</a></li> -->
                 </ul>
               </div>
             </div>
             <div class="col-lg-3">
               <div class="newslatter-item">
-                <!-- <h5>{{ __('store.footer.join_news_letter') }}</h5> -->
                 <p>{{ $page.$t.footer.join_news_letter_bio }}</p>
                 <form action="#" class="subscribe-form">
                   <input
@@ -120,34 +121,52 @@
                   {{ $page.$t.footer.copyright_saved }}
                 </div>
                 <div class="flex items-center justify-center payment-pic">
-                  <!-- <img
-                    :src="$asset('web_assets/template/img/payment-method.png')"
-                    alt=""
-                  /> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
       </footer>
+      <!--Start of Tawk.to Script-->
+
+<!--End of Tawk.to Script-->
     </div>
+      </ais-instant-search>
   </div>
 </template>
 
 <script>
 import HeaderComponent from '../components/Web/Page/HeaderComponent'
-
+import algoliasearch from 'algoliasearch/lite'
+import { history as historyRouter } from 'instantsearch.js/es/lib/routers'
+import { simple as simpleStateMapping } from 'instantsearch.js/es/lib/stateMappings'
+import 'instantsearch.css/themes/algolia-min.css'
+import AlogiraProductResultList from '../components/Web/Product/AlogiraProductResultList.vue'
 export default {
   components: {
-    HeaderComponent
+    HeaderComponent,
+    AlogiraProductResultList
+
   },
   name: 'WebAppLayout',
   data () {
     return {
+      searchClient: algoliasearch(this.$page.algolia_app_key, this.$page.aloglia_daily_search_key),
+      routing: {
+        router: historyRouter(),
+        stateMapping: simpleStateMapping()
+      },
       isLoading: true
     }
   },
-
+  methods: {
+    isSearchPage (hierarchicalFacetsRefinements, numericRefinements, tagRefinements, query, hits) {
+      const isSearchPage = !query.length
+      // JSON.stringify(numericRefinements.online_offer_price) === '{}' && JSON.stringify(numericRefinements.available_qty) === '{}' && !tagRefinements.length &&
+      this.isLoading = false
+      return isSearchPage
+    }
+  },
   mounted () {
     this.isLoading = false
   }

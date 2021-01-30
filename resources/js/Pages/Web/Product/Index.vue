@@ -30,13 +30,12 @@
             ></switchAvailableButton>
           </div>
         </div>
-        <div class="">
-          <items-infinity-load
-            @listUpdated="listUpdated"
-            :params="params"
-            :paramsUpdated="applyFilterSearch"
-          ></items-infinity-load>
-        </div>
+
+        <items-infinity-load
+          @listUpdated="listUpdated"
+          :params="params"
+          :paramsUpdated="applyFilterSearch"
+        ></items-infinity-load>
       </div>
     </div>
   </web-layout>
@@ -55,7 +54,6 @@ export default {
     WebLayout,
     FiltersPop,
     switchAvailableButton,
-
     SortingPop,
     ItemsInfinityLoad,
     CategoriesPop
@@ -65,10 +63,10 @@ export default {
       isLoading: false,
       filterValues: [],
       filters: this.$page.filters,
-      items: [], // this.$page.items.data
+      items: [],
       priceRange: {},
-      orderBy: 'id',
-      orderDirection: 'asc',
+      orderBy: 'available_qty',
+      orderDirection: 'desc',
       available_only: 'no'
     }
   },
@@ -90,7 +88,6 @@ export default {
     }
   },
   methods: {
-    applyFilterSearch () {},
     switchAvailableQtyChanged (e) {
       this.available_only = e ? 'yes' : 'no'
       this.forceUpdate++
@@ -105,7 +102,9 @@ export default {
           if (
             item.locale_name.indexOf(subName) >= 0 &&
             result.indexOf(subName) == -1
-          ) { result = result + ' ' + subName }
+          ) {
+            result = result + ' ' + subName
+          }
         })
       })
 
