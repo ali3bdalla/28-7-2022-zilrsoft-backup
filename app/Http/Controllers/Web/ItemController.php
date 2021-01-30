@@ -23,28 +23,12 @@ class ItemController extends Controller
 	public function index(FetchItemsGroupByCategoryRequest $fetchItemsGroupByCategoryRequest)
 	{
 		
-		// $settings = [
-		// 	'searchable(online_offer_price)',
-		// 	'searchable(category_name)',
-		// 	'searchable(category_ar_name)',
-		// 	'searchable(filters)',
-		// 	'searchable(ar_filters)',
-		// ];
-		// foreach (Filter::all() as $filter) {
-		// 	$settings[]  = "searchable(filters_{$filter->name})";
-		// 	$settings[]  = "searchable(ar_filters_{$filter->ar_name})";
-		// }
-		// foreach ($settings as $key => $value) {
-		// 	echo "'" . $value . "',\n";
-		// }
-		// return ;
-		// dd($settings);
 		$categories = [];
-		// if(!$fetchItemsGroupByCategoryRequest->has('category_id') &&  !$fetchItemsGroupByCategoryRequest->filled('category_id'))
-		// {
-		// 	$categories =  $fetchItemsGroupByCategoryRequest->getData();
+		if(!$fetchItemsGroupByCategoryRequest->has('category_id') &&  !$fetchItemsGroupByCategoryRequest->filled('category_id'))
+		{
+			$categories =  $fetchItemsGroupByCategoryRequest->getData();
 
-		// }
+		}
 
 
 
@@ -60,6 +44,12 @@ class ItemController extends Controller
 	}
 
 
+	public function search()
+	{
+		return Inertia::render(
+			'Web/Product/Search'
+		);
+	}
 	public function show(Item $item)
 	{
 		$relatedItems = $item->category->items()->with('category')->inRandomOrder()->take(20)->get();

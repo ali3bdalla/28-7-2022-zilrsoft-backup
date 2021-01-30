@@ -15,10 +15,12 @@
       >
         <span> {{ $page.$t.products.out_of_stock }} </span>
       </h3>
-      <a  v-else :href="`/web/items?${$page.algolia_items_search_as}%5BrefinementList%5D%${$page.active_logo == 'en' ? 'category_name' : 'category_ar_name'}%5D%5B0%5D=${getCategoryName}`"
+      <!-- -->
+      <a  v-else :href="`/web/items?category_id=${item.category_id}&&name=&&search_via=null`"
           ><h3 class="product__list-item-category-name">
         {{ getCategoryName }}
       </h3></a>
+      <!-- `/web/items/search/results?${$page.algolia_items_search_as}%5BrefinementList%5D%5B${$page.active_logo == 'en' ? 'category_name' : 'category_ar_name'}%5D%5B0%5D=${getCategoryName}` -->
 
       <a :href="`/web/items/${item.id}`" class="product__list-item-name">
 {{ productName }}

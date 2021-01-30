@@ -22,7 +22,9 @@ class HomeController extends Controller
 
 		return Inertia::render('Web/Home/Index', [
 			'products_count' => Item::count(),
-			'params' => []
+			'params' => [],
+			'latest' => Item::orderBy('created_at','desc')->take(15)->get(),
+			'heigest_price' => Item::orderBy('online_offer_price','desc')->take(15)->get(),
 			// 'items' => Item::with('category', 'filters.filter', 'filters.value')->inRandomOrder()->take(20)->get(),
 		]);
 	}

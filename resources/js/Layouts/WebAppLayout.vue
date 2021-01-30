@@ -1,6 +1,7 @@
 <template>
   <div>
-    <ais-instant-search :routing="routing" :index-name="$page.algolia_items_search_as" :search-client="searchClient">
+    <ais-instant-search :index-name="$page.algolia_items_search_as" :search-client="searchClient">
+      <!-- :routing="routing"  -->
     <div
       class="container-fluid filters-layout-modal loading-progress"
       v-if="isLoading"
@@ -17,22 +18,20 @@
         </template>
       </HeaderComponent>
       <div style="background-color: #f9f9f9;">
+        <ais-state-results>
+          <template slot-scope="{state:{hierarchicalFacetsRefinements,numericRefinements,tagRefinements,query,hits}}">
+            <!-- {{ JSON.stringify(numericRefinements.online_offer_price) == '{}'  &&  JSON.stringify(numericRefinements.available_qty) == '{}' && tagRefinements.length == 0  && !query.length }} -->
 
-        <div class="container">
-          <!-- <alogira-product-result-list></alogira-product-result-list> -->
-        </div>
-        <slot></slot>
-      </div>
-<!-- <ais-state-results>
-            <div
-             slot-scope="{ state: { query }, results: { hits } }"
-            >
-              <div class="container" v-if="nbHits > 0 ">
-                <alogira-product-result-list></alogira-product-result-list>
-              </div>
-              <slot v-else></slot>
+            <!-- {{ JSON.stringify(numericRefinements.online_offer_price) == '{}'  &&  JSON.stringify(numericRefinements.available_qty) == '{}' && tagRefinements.length == 0  && !query.length }} -->
+            <div class="container" v-if="!(isSearchPage(hierarchicalFacetsRefinements,numericRefinements,tagRefinements,query,hits))">
+              <alogira-product-result-list></alogira-product-result-list>
             </div>
-          </ais-state-results> -->
+             <slot v-if="isSearchPage(hierarchicalFacetsRefinements,numericRefinements,tagRefinements,query,hits)"></slot>
+
+          </template>
+        </ais-state-results>
+      </div>
+
       <footer class="text-center footer-section">
         <div class="container">
           <div class="row">
@@ -122,16 +121,15 @@
                   {{ $page.$t.footer.copyright_saved }}
                 </div>
                 <div class="flex items-center justify-center payment-pic">
-                  <!-- <img
-                    :src="$asset('web_assets/template/img/payment-method.png')"
-                    alt=""
-                  /> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
       </footer>
+      <!--Start of Tawk.to Script-->
+
+<!--End of Tawk.to Script-->
     </div>
       </ais-instant-search>
   </div>
@@ -141,11 +139,9 @@
 import HeaderComponent from '../components/Web/Page/HeaderComponent'
 import algoliasearch from 'algoliasearch/lite'
 import { history as historyRouter } from 'instantsearch.js/es/lib/routers'
-import { simple } from 'instantsearch.js/es/lib/stateMappings'
-
+import { simple as simpleStateMapping } from 'instantsearch.js/es/lib/stateMappings'
 import 'instantsearch.css/themes/algolia-min.css'
 import AlogiraProductResultList from '../components/Web/Product/AlogiraProductResultList.vue'
-
 export default {
   components: {
     HeaderComponent,
@@ -158,12 +154,19 @@ export default {
       searchClient: algoliasearch(this.$page.algolia_app_key, this.$page.aloglia_daily_search_key),
       routing: {
         router: historyRouter(),
-        stateMapping: simple()
+        stateMapping: simpleStateMapping()
       },
       isLoading: true
     }
   },
-
+  methods: {
+    isSearchPage (hierarchicalFacetsRefinements, numericRefinements, tagRefinements, query, hits) {
+      const isSearchPage = !query.length
+      // JSON.stringify(numericRefinements.online_offer_price) === '{}' && JSON.stringify(numericRefinements.available_qty) === '{}' && !tagRefinements.length &&
+      this.isLoading = false
+      return isSearchPage
+    }
+  },
   mounted () {
     this.isLoading = false
   }

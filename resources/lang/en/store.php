@@ -212,7 +212,14 @@ return [
         "all" => 'All',
         'prices' => "Prices",
         'category' => 'Category',
-        "remove_all" => "Clear All"
+        "remove_all" => "Clear All",
+        "sorting_most_sellers" => "Most Sellers",
+        "special_offer" => "Enjoy a Special Offer",
+        "time_days" => "Days",
+        "time_hrs" => "HRS",
+        "time_mins" => "MINS",
+        "time_secs" => "SECS",
+
 
     ]
 ];

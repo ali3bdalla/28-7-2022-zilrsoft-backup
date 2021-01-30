@@ -19,8 +19,8 @@ return [
     'searchableAttributes' => [
         'tags',
         'barcode',
-        'unordered(category_ar_name)',
-        'unordered(category_name)',
+        'category_ar_name',
+        'category_name',
     ],
 
     /*
@@ -275,8 +275,6 @@ return [
     'hitsPerPage' => 100,
     'ranking' => [
         'desc(available_qty)',
-        'desc(online_offer_price)',
-        'desc(created_at)',
         'typo',
         'geo',
         'words',
@@ -286,4 +284,7 @@ return [
         'exact',
         'custom',
     ],
+
+    // 'desc(online_offer_price)',
+    // 'desc(created_at)',
 ];
