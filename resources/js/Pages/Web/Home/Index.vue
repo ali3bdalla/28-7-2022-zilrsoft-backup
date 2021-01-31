@@ -23,8 +23,18 @@
       </div> -->
       <div class="">
         <!-- منتجات ذات صلة -->
-        <h3 class="page__mt-2 home__products-count">
-          {{ $page.$t.products.sorting_lastest }}
+        <h3
+          class="page__mt-2 home__products-count"
+          style="
+            background: #86bbf7;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 22px;
+            color: white;
+            border-radius: 5px;
+          "
+        >
+          {{ $page.$t.products.new_arrival }}
         </h3>
 
         <vue-horizontal
@@ -33,7 +43,7 @@
           :button-between="false"
           :button="true"
           ref="horizontal"
-          style="direction: ltr"
+          style="direction: ltr; margin-top: -11px"
           class="products-grid"
         >
           <div
@@ -56,7 +66,7 @@
           <div class="col-lg-3">
             <div class="categories__text flex items-center justify-center">
               <h2 class="flex items-center justify-center h-full">
-                {{$page.$t.products.agent_warrnaty}}
+                {{ $page.$t.products.agent_warrnaty }}
                 <!-- <br />
                 <span>Shoe Collection</span> <br />
                 Accessories -->
@@ -66,19 +76,25 @@
           <div class="col-lg-4">
             <div class="categories__hot__deal">
               <img
-                :src="$processedImageUrl(offerItem.item_image_url,350,260)"
+                :src="$processedImageUrl(offerItem.item_image_url, 350, 260)"
                 alt=""
               />
-              <div class="hot__deal__sticker flex flex-col items-center justify-center">
-                <h5 style="direction:rtl !important;margin-bottom:0px">{{ offerItem.online_offer_price }}</h5>
-                <span style="margin-bottom:0px"> {{$page.$t.products.sar}}</span>
+              <div
+                class="hot__deal__sticker flex flex-col items-center justify-center"
+              >
+                <h5 style="direction: rtl !important; margin-bottom: 0px">
+                  {{ offerItem.online_offer_price }}
+                </h5>
+                <span style="margin-bottom: 0px">
+                  {{ $page.$t.products.sar }}</span
+                >
               </div>
             </div>
           </div>
           <div class="col-lg-5">
             <div class="categories__deal__countdown text-center">
               <span class="title">{{ $page.$t.products.special_offer }}</span>
-              <h2>{{productName}}</h2>
+              <h2>{{ productName }}</h2>
               <div class="categories__deal__countdown__timer" id="countdown">
                 <div class="cd-item">
                   <span>0</span>
@@ -107,7 +123,17 @@
     <div class="container">
       <div class="mt-3" style="border-color: #d2e8ff !important">
         <!-- منتجات ذات صلة -->
-        <h3 class="page__mt-2 home__products-count">
+        <h3
+          class="page__mt-2 home__products-count"
+          style="
+            background: #86bbf7;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 22px;
+            color: white;
+            border-radius: 5px;
+          "
+        >
           {{ $page.$t.products.sorting_most_sellers }}
         </h3>
 
@@ -117,7 +143,7 @@
           :button-between="false"
           :button="true"
           ref="horizontal"
-          style="direction: ltr"
+          style="direction: ltr; margin-top: -11px"
           class="products-grid"
         >
           <div
@@ -158,13 +184,12 @@ export default {
       return this.$page.offer_item ?? {}
     },
     productName () {
-      return this.$page.active_locale === 'en' ? this.offerItem.name : this.offerItem.ar_name
+      return this.$page.active_locale === 'en'
+        ? this.offerItem.name
+        : this.offerItem.ar_name
     }
-
   },
-  methods: {
-
-  }
+  methods: {}
 }
 </script>
 
@@ -239,7 +264,6 @@ export default {
   text-shadow: 1px 1px 3px white;
   font-weight: bold;
   text-transform: uppercase;
-
 }
 
 .hot__deal__sticker h5 {

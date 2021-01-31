@@ -214,6 +214,7 @@ return [
         "time_mins" => "دقيقة",
         "time_secs" => "ثانية",
         "sale_for" => "عرض",
-        "agent_warrnaty" => "ضمان الوكيل"
+        "agent_warrnaty" => "ضمان الوكيل",
+        "new_arrival" => "وصل حديثاً"
     ]  
 ];

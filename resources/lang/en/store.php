@@ -220,7 +220,8 @@ return [
         "time_mins" => "MINS",
         "time_secs" => "SECS",
         "sale_for" => "Sale for",
-        "agent_warrnaty" => "Agent Warrnaty"
+        "agent_warrnaty" => "Agent Warrnaty",
+        "new_arrival" => "New Arrival"
 
 
 
