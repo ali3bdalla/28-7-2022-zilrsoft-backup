@@ -54,6 +54,9 @@
 			'username' => env('SMS_USER'),
 			'password' => env('SMS_PASS'),
 			'send_name' => env('SMS_SEND_NAME'),
+		], 
+		'image_processing' => [
+			'url' => env('IMAGE_PROCESSING_URL')
 		]
 	
 	];

@@ -66,6 +66,12 @@ Vue.prototype.$sound = {
     audio.play()
   }
 }
+
+Vue.prototype.$processedImageUrl = (url, height, width) => {
+  return `http://images-processing.zilrsoft.com/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/${width}/${height}/sm/0/plain/${url}`
+
+  // :src="[$page.image_processing_url ? `${$page.image_processing_url}/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/334/250/sm/0/plain/${item.item_image_url}` : item.item_image_url]"
+}
 Vue.use(VModal)
 Vue.use(VueSpinners)
 
