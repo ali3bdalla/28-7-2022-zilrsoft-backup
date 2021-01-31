@@ -58,4 +58,8 @@ export default {
 .product__search-sorting-list-item_hide {
   display: none;
 }
+.el-input__inner {
+  border-radius: 0px !important;
+  height: 38px !important;
+}
 </style>

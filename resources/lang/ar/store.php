@@ -213,5 +213,7 @@ return [
         "time_hrs" => "ساعة",
         "time_mins" => "دقيقة",
         "time_secs" => "ثانية",
+        "sale_for" => "عرض",
+        "agent_warrnaty" => "ضمان الوكيل"
     ]  
 ];

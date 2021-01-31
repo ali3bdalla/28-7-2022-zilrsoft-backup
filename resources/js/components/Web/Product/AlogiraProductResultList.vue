@@ -89,6 +89,7 @@
                 :key="item.attribute"
               >
                 <inertia-link
+
                   :href="createURL(refinement)"
                   v-for="refinement in item.refinements"
                   :key="
@@ -100,8 +101,11 @@
                     ].join(':')
                   "
                 >
-                  <el-tag effect="dark" closable>
+                  <el-tag effect="dark" closable v-if="refinement.attribute !== 'available_qty'">
                     {{ refinement.label }} ({{ refinement.count }})
+                  </el-tag>
+                  <el-tag  effect="dark" closable>
+                    {{  $page.$t.products.sorting_only_available }} ({{ refinement.count }})
                   </el-tag>
                 </inertia-link>
               </div>
@@ -162,7 +166,7 @@
       <div class="flex gap-3 mt-3">
         <div class="flex-1">
           <div class="mt-0 pt-0">
-            <ais-configure :hitsPerPage="2" />
+            <ais-configure :hitsPerPage="21" />
             <ais-infinite-hits :escapeHTML="false" :show-previous="true">
               <div
                 slot-scope="{ items, refinePrevious, refineNext, isLastPage }"

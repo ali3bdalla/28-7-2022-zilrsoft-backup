@@ -278,11 +278,13 @@
                                    unchecked: 'غير متاح اونلاين'}"
                      :sync="true" :width='150'/>
 
-      <div>
+      <div class="mt-" style="margin-top:15p">
         <div class="row">
 
           <div class="col-md-3">
             <div :class="{'has-error':errorFieldName==='onlinePrice'}" class="form-group">
+                                          <label>سعر الاونلاين </label>
+
               <input v-model="itemData.onlinePrice" :class="{'is-danger':errorFieldName==='onlinePrice'}"
                      class="form-control"
                      placeholder="سعر الاونلاين" type='text'
@@ -297,6 +299,8 @@
 
           <div class="col-md-3">
             <div :class="{'has-error':errorFieldName==='onlineOfferPrice'}" class="form-group">
+                                                        <label>سعر العرض </label>
+
               <input v-model="itemData.onlineOfferPrice" :class="{'is-danger':errorFieldName==='onlineOfferPrice'}"
                      class="form-control"
                      placeholder="سعر العرض" type='text'>
@@ -310,6 +314,8 @@
 
           <div class="col-md-3">
             <div :class="{'has-error':errorFieldName==='weight'}" class="form-group">
+                            <label>الوزن </label>
+
               <input v-model="itemData.weight" :class="{'is-danger':errorFieldName==='weight'}"
                      class="form-control"
                      placeholder="الوزن" type='text'/>
@@ -324,6 +330,7 @@
           <div class="col-md-3">
 
             <div :class="{'has-error':errorFieldName==='shippingDiscount'}" class="form-group">
+              <label>خصم الشحن</label>
               <input v-model="itemData.shippingDiscount"
                      :class="{'is-danger':errorFieldName==='shippingDiscount'}"
                      class="form-control" placeholder="خصم الشحن"

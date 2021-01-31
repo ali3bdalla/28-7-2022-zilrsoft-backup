@@ -95,7 +95,16 @@ class Item extends BaseModel
 		});
 	}
 
+	public function getOnlineOfferPriceAttribute($value)
+	{
+		return moneyFormatter($value);
+	}
 
+
+	public function getOnlinePriceAttribute($value)
+	{
+		return moneyFormatter($value);
+	}
 	public function organization()
 	{
 		return $this->belongsTo(Organization::class, 'organization_id');
