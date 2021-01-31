@@ -33,7 +33,7 @@
     {{-- @endif --}}
     update_symlinks
     migrate
-    cache
+    {{-- cache --}}
     cleanup_releases
 
 @endstory
