@@ -6,6 +6,7 @@
         <div class="product__search-options">
           <alogria-pop-filters></alogria-pop-filters>
           <ais-numeric-menu
+            class="hidden md:block"
             attribute="available_qty"
             :items="[
               {
@@ -37,6 +38,40 @@
           <alogria-pop-sorting></alogria-pop-sorting>
         </div>
       </div>
+    </div>
+    <div
+      class="product__search-page mt-3 flex items-center gap-3 justify-center"
+    >
+    <ais-numeric-menu
+            class="md:hidden"
+            attribute="available_qty"
+            :items="[
+              {
+                label: `${$page.$t.products.sorting_only_available}`,
+                start: 1,
+              },
+            ]"
+          >
+            <div class="" slot-scope="{ items, canRefine, refine, createURL }">
+              <div v-for="(item, index) in items" :key="index">
+                <div
+                  class="product__search-filter-value"
+                  style="font-size: 15px; color: #575555"
+                >
+                  <toggle-button
+                    @change="refine(item.value)"
+                    :height="25"
+                    :width="120"
+                    v-model="item.isRefined"
+                    :labels="{
+                      checked: $page.$t.products.sorting_only_available,
+                      unchecked: $page.$t.products.sorting_only_available,
+                    }"
+                  />
+                </div>
+              </div>
+            </div>
+          </ais-numeric-menu>
     </div>
     <div
       class="product__search-page mt-3 flex items-center gap-3 justify-center"

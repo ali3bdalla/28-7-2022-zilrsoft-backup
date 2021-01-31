@@ -59,7 +59,8 @@ class FrontEndMiddleware
 				'algolia_items_search_as' => "items_index",
 				'aloglia_daily_search_key' => "3b92b3e1e70e7c12777604f891614933",
 				'algolia_search_filters' => $searchFilters,
-				'algolia_app_key' => "GM476AOG07"
+				'algolia_app_key' => "GM476AOG07",
+				'image_processing_url' => config('services.image_processing.url')
 			]
 		);
 		return $next($request);

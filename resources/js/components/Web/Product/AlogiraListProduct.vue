@@ -1,12 +1,12 @@
 <template>
+ <!-- animate__animated animate__bounceIn -->
   <div
-    class="product__list-item animate__animated animate__bounceIn"
+    class="product__list-item"
     style="border-color: #d2e8ff !important; border-width: 3px !important"
   >
     <div class="product__list-item-image-container">
       <a :href="`/web/items/${item.id}`"
-        ><img :src="getUrl" class="product__list-item-image"
-      /></a>
+        ><img :src="$processedImageUrl(getUrl,334 * 5,250  * 5)" class="product__list-item-image"/></a>
     </div>
     <div class="product__list-item-content">
       <h3

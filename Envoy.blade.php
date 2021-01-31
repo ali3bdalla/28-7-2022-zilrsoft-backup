@@ -33,6 +33,9 @@
     {{-- @endif --}}
     update_symlinks
     migrate
+    {{-- cache --}}
+    cleanup_releases
+
 @endstory
 
 @task('clone_repository')
@@ -92,3 +95,17 @@
     php artisan migrate
 @endtask
 
+@task('cache')
+    echo "Cleaning cache"
+    cd {{ $current_dir }}
+    php artisan route:cache
+    php artisan config:cache
+    php artisan view:cache
+@endtask
+
+
+@task('cleanup_releases')
+    echo "cleanup releases ({{ $release }})"
+    cd {{ $releases_dir }}
+    ls -1d 20* | head -n -5 | xargs -d '\n' rm -Rf
+@endtask
