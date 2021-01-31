@@ -1,11 +1,12 @@
 <template>
+ <!-- animate__animated animate__bounceIn -->
   <div
-    class="product__list-item animate__animated animate__bounceIn"
+    class="product__list-item"
     style="border-color: #d2e8ff !important; border-width: 3px !important"
   >
     <div class="product__list-item-image-container">
       <a :href="`/web/items/${item.id}`"
-        ><img :src="$processedImageUrl(item.item_image_url,334,250)" class="product__list-item-image"/>
+        ><img :src="$processedImageUrl(item.item_image_url,334 * 5,250  * 5)" class="product__list-item-image"/>
         <!-- <img :src="[$page.image_processing_url ? `${$page.image_processing_url}/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/334/250/sm/0/plain/${item.item_image_url}` : item.item_image_url]" class="product__list-item-image" -->
       </a>
       <!-- `http://46.101.185.238:8080/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/334/250/sm/0/plain/` + -->

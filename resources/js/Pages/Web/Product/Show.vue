@@ -97,8 +97,8 @@
 
           <div class="product product__show__image-container">
             <div class="p-3 border" style="border-color: #d2e8ff !important">
-              <div>
-                <img class="product__show__image" :src="`http://46.101.185.238:8080/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/326/326/sm/0/plain/` + activeImage" />
+              <div :height="326 * 5" :style="{minHeight:326 * 5}" style="    min-height: 469px !important;" class="flex items-center justify-center">
+                <img class="product__show__image" :src="$processedImageUrl(activeImage,1000,1000)" :height="469"/>
               </div>
               <div
                 class="border product__show__images-grid"
@@ -115,7 +115,7 @@
                       'product__show__images-active-image':
                         activeImage === image.url,
                     }"
-                    :src="image.url"
+                    :src="$processedImageUrl(image.url,70 * 2,92  * 2)"
                     class="product__show__images-grid-image"
                   />
                 </div>
