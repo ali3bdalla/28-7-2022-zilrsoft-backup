@@ -1,137 +1,186 @@
 <template>
   <div>
-    <ais-instant-search :index-name="$page.algolia_items_search_as" :search-client="searchClient">
-      <!-- :routing="routing"  -->
-    <div
-      class="container-fluid filters-layout-modal loading-progress"
-      v-if="isLoading"
-      width="100%"
-      height="100%"
-      style="overflow-y: scroll"
+        <loading :active.sync="isPageLoading"
+        :can-cancel="false"
+        :is-full-page="true" :opacity="1"></loading>
+    <ais-instant-search
+      :index-name="$page.algolia_items_search_as"
+      :search-client="searchClient"
     >
-      <circle-spin class="loading" v-show="isLoading"></circle-spin>
-    </div>
-    <div v-else>
-      <HeaderComponent>
-        <template v-slot:navbarListItems>
-          <slot name="navbarItems"></slot>
-        </template>
-      </HeaderComponent>
-      <div style="background-color: #f9f9f9;">
-        <ais-state-results>
-          <template slot-scope="{state:{hierarchicalFacetsRefinements,numericRefinements,tagRefinements,query,hits}}">
-            <!-- {{ JSON.stringify(numericRefinements.online_offer_price) == '{}'  &&  JSON.stringify(numericRefinements.available_qty) == '{}' && tagRefinements.length == 0  && !query.length }} -->
-
-            <!-- {{ JSON.stringify(numericRefinements.online_offer_price) == '{}'  &&  JSON.stringify(numericRefinements.available_qty) == '{}' && tagRefinements.length == 0  && !query.length }} -->
-            <div class="container" v-if="!(isSearchPage(hierarchicalFacetsRefinements,numericRefinements,tagRefinements,query,hits))">
-              <alogira-product-result-list></alogira-product-result-list>
-            </div>
-             <slot v-if="isSearchPage(hierarchicalFacetsRefinements,numericRefinements,tagRefinements,query,hits)"></slot>
-
+      <!-- :routing="routing"  -->
+      <!-- <div
+        class="container-fluid filters-layout-modal loading-progress"
+        v-if="isPageLoading"
+        width="100%"
+        height="100%"
+        style="overflow-y: scroll"
+      >
+        <circle-spin class="loading" v-show="isPageLoading"></circle-spin>
+      </div>v-else -->
+      <div >
+        <HeaderComponent>
+          <template v-slot:navbarListItems>
+            <slot name="navbarItems"></slot>
           </template>
-        </ais-state-results>
-      </div>
+        </HeaderComponent>
+        <div style="background-color: #f9f9f9">
+          <ais-state-results>
+            <template
+              slot-scope="{
+                state: {
+                  hierarchicalFacetsRefinements,
+                  numericRefinements,
+                  tagRefinements,
+                  query,
+                  hits,
+                },
+              }"
+            >
+              <!-- {{ JSON.stringify(numericRefinements.online_offer_price) == '{}'  &&  JSON.stringify(numericRefinements.available_qty) == '{}' && tagRefinements.length == 0  && !query.length }} -->
 
-      <footer class="text-center footer-section">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="footer-left">
-                <div class="footer-logo">
-                  <a href="#"
-                    ><img
-                      :src="$page.active_logo"
-                      class="page__footer-icon"
-                      alt=""
-                  /></a>
-                </div>
-                <ul>
-                  <li>
-                    {{ $page.$t.footer.phone }}:
-                    <div style="direction: ltr !important" >{{ $page.app.msbrshop.phone_number }}</div>
-                  </li>
-                  <li class="mt-2">
-                    {{ $page.$t.footer.email }}:
-                    <div>{{ $page.app.msbrshop.email_address }} </div>
-                  </li>
-                </ul>
+              <!-- {{ JSON.stringify(numericRefinements.online_offer_price) == '{}'  &&  JSON.stringify(numericRefinements.available_qty) == '{}' && tagRefinements.length == 0  && !query.length }} -->
+              <div
+                class="container"
+                v-if="
+                  !isSearchPage(
+                    hierarchicalFacetsRefinements,
+                    numericRefinements,
+                    tagRefinements,
+                    query,
+                    hits
+                  )
+                "
+              >
+                <alogira-product-result-list></alogira-product-result-list>
               </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="footer-widget">
-                <ul>
-
-                  <li>
-                    <img
-                    :src="$asset('web_assets/template/img/our-location.png')"
-                    alt=""
-                  />
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="footer-widget">
-                <ul>
-                  <li>
-                    <a href="/web/content/about">{{ $page.$t.footer.about_us }}</a>
-                  </li>
-                  <li  class="mt-2">
-                    <a href="/web/content/contact">{{ $page.$t.footer.contact }}</a>
-                  </li>
-                   <li style="    margin-top: 35px !important;" class="flex items-center justify-center">
-                    <img
-                    :src="$asset('web_assets/template/img/payment-method.png')"
-                    alt=""
-                  />
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="newslatter-item">
-                <p>{{ $page.$t.footer.join_news_letter_bio }}</p>
-                <form action="#" class="subscribe-form">
-                  <input
-                    type="text"
-                    :placeholder="$page.$t.footer.your_email"
-                  />
-                  <button type="button">
-                    {{ $page.$t.footer.subscribe }}
-                  </button>
-                </form>
-              </div>
-
-              <div class="footer-left">
-                <div class="footer-social">
-                  <a href="#"><i class="fa fa-facebook"></i></a>
-                  <a href="#"><i class="fa fa-instagram"></i></a>
-                  <a href="#"><i class="fa fa-twitter"></i></a>
-                  <a href="#"><i class="fa fa-pinterest"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
+              <slot
+                v-if="
+                  isSearchPage(
+                    hierarchicalFacetsRefinements,
+                    numericRefinements,
+                    tagRefinements,
+                    query,
+                    hits
+                  )
+                "
+              ></slot>
+            </template>
+          </ais-state-results>
         </div>
-        <div class="copyright-reserved">
+
+        <footer class="text-center footer-section">
           <div class="container">
             <div class="row">
-              <div class="col-lg-12">
-                <div class="copyright-text">
-                  {{ $page.$t.footer.copyright_saved }}
+              <div class="col-lg-3">
+                <div class="footer-left">
+                  <div class="footer-logo">
+                    <a href="#"
+                      ><img
+                        :src="$page.active_logo"
+                        class="page__footer-icon"
+                        alt=""
+                    /></a>
+                  </div>
+                  <ul>
+                    <li>
+                      {{ $page.$t.footer.phone }}:
+                      <div style="direction: ltr !important">
+                        {{ $page.app.msbrshop.phone_number }}
+                      </div>
+                    </li>
+                    <li class="mt-2">
+                      {{ $page.$t.footer.email }}:
+                      <div>{{ $page.app.msbrshop.email_address }}</div>
+                    </li>
+                  </ul>
                 </div>
-                <div class="flex items-center justify-center payment-pic">
+              </div>
+              <div class="col-lg-3">
+                <div class="footer-widget">
+                  <ul>
+                    <li>
+                      <img
+                        :src="
+                          $asset('web_assets/template/img/our-location.png')
+                        "
+                        alt=""
+                      />
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="footer-widget">
+                  <ul>
+                    <li>
+                      <a href="/web/content/about">{{
+                        $page.$t.footer.about_us
+                      }}</a>
+                    </li>
+                    <li class="mt-2">
+                      <a href="/web/content/contact">{{
+                        $page.$t.footer.contact
+                      }}</a>
+                    </li>
+                    <li
+                      style="margin-top: 35px !important"
+                      class="flex items-center justify-center"
+                    >
+                      <img
+                        :src="
+                          $asset('web_assets/template/img/payment-method.png')
+                        "
+                        alt=""
+                      />
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="newslatter-item">
+                  <p>{{ $page.$t.footer.join_news_letter_bio }}</p>
+                  <form action="#" class="subscribe-form">
+                    <input
+                      type="text"
+                      :placeholder="$page.$t.footer.your_email"
+                    />
+                    <button type="button">
+                      {{ $page.$t.footer.subscribe }}
+                    </button>
+                  </form>
+                </div>
+
+                <div class="footer-left">
+                  <div class="footer-social">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-instagram"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </footer>
-      <!--Start of Tawk.to Script-->
+          <div class="copyright-reserved">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="copyright-text">
+                    {{ $page.$t.footer.copyright_saved }}
+                  </div>
+                  <div
+                    class="flex items-center justify-center payment-pic"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+        <!--Start of Tawk.to Script-->
 
-<!--End of Tawk.to Script-->
-    </div>
-      </ais-instant-search>
+        <!--End of Tawk.to Script-->
+      </div>
+    </ais-instant-search>
   </div>
 </template>
 
@@ -142,34 +191,51 @@ import { history as historyRouter } from 'instantsearch.js/es/lib/routers'
 import { simple as simpleStateMapping } from 'instantsearch.js/es/lib/stateMappings'
 import 'instantsearch.css/themes/algolia-min.css'
 import AlogiraProductResultList from '../components/Web/Product/AlogiraProductResultList.vue'
+import { Inertia } from '@inertiajs/inertia'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
+
 export default {
   components: {
     HeaderComponent,
-    AlogiraProductResultList
-
+    AlogiraProductResultList,
+    Loading
   },
   name: 'WebAppLayout',
   data () {
     return {
-      searchClient: algoliasearch(this.$page.algolia_app_key, this.$page.aloglia_daily_search_key),
+      searchClient: algoliasearch(
+        this.$page.algolia_app_key,
+        this.$page.aloglia_daily_search_key
+      ),
       routing: {
         router: historyRouter(),
         stateMapping: simpleStateMapping()
       },
-      isLoading: true
+      isLoading: true,
+      isPageLoading: true
     }
   },
+  mounted () {
+    setTimeout(() => {
+      this.isPageLoading = false
+    }, 2000)
+  },
   methods: {
-    isSearchPage (hierarchicalFacetsRefinements, numericRefinements, tagRefinements, query, hits) {
+    isSearchPage (
+      hierarchicalFacetsRefinements,
+      numericRefinements,
+      tagRefinements,
+      query,
+      hits
+    ) {
       const isSearchPage = !query.length
       // JSON.stringify(numericRefinements.online_offer_price) === '{}' && JSON.stringify(numericRefinements.available_qty) === '{}' && !tagRefinements.length &&
       this.isLoading = false
       return isSearchPage
     }
-  },
-  mounted () {
-    this.isLoading = false
   }
+
 }
 </script>
 

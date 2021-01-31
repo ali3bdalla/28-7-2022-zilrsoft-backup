@@ -23,8 +23,18 @@
       </div> -->
       <div class="">
         <!-- منتجات ذات صلة -->
-        <h3 class="page__mt-2 home__products-count">
-          {{ $page.$t.products.sorting_lastest }}
+        <h3
+          class="page__mt-2 home__products-count"
+          style="
+            background: #86bbf7;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 22px;
+            color: white;
+            border-radius: 5px;
+          "
+        >
+          {{ $page.$t.products.new_arrival }}
         </h3>
 
         <vue-horizontal
@@ -33,7 +43,7 @@
           :button-between="false"
           :button="true"
           ref="horizontal"
-          style="direction: ltr"
+          style="direction: ltr; margin-top: -11px"
           class="products-grid"
         >
           <div
@@ -56,7 +66,7 @@
           <div class="col-lg-3">
             <div class="categories__text flex items-center justify-center">
               <h2 class="flex items-center justify-center h-full">
-                Clothings Hot
+                {{ $page.$t.products.agent_warrnaty }}
                 <!-- <br />
                 <span>Shoe Collection</span> <br />
                 Accessories -->
@@ -66,19 +76,25 @@
           <div class="col-lg-4">
             <div class="categories__hot__deal">
               <img
-                src="https://cdn.zilrsoft.com/images/items/z9FbB6x5FOau8G2SCyU4w0HxL8YumO8FZOgPyc2j.png"
+                :src="$processedImageUrl(offerItem.item_image_url, 350, 260)"
                 alt=""
               />
-              <div class="hot__deal__sticker">
-                <span>Sale Of</span>
-                <h5>$29.99</h5>
+              <div
+                class="hot__deal__sticker flex flex-col items-center justify-center"
+              >
+                <h5 style="direction: rtl !important; margin-bottom: 0px">
+                  {{ offerItem.online_offer_price }}
+                </h5>
+                <span style="margin-bottom: 0px">
+                  {{ $page.$t.products.sar }}</span
+                >
               </div>
             </div>
           </div>
           <div class="col-lg-5">
             <div class="categories__deal__countdown text-center">
-              <span>{{ $page.$t.products.special_offer }}</span>
-              <h2>Multi-pocket Chest Bag Black</h2>
+              <span class="title">{{ $page.$t.products.special_offer }}</span>
+              <h2>{{ productName }}</h2>
               <div class="categories__deal__countdown__timer" id="countdown">
                 <div class="cd-item">
                   <span>0</span>
@@ -104,91 +120,20 @@
       </div>
     </section>
 
-    <!-- <section class="bg-white set-bg" style="margin-left: 0px !important">
-        <div class="flex items-center justify-center">
-          <div class="flex-1 flex items-center justify-center">
-            <div data-v-4c5cb6b4="" data-v-3e0d31e2="" style="direction: ltr">
-              <div
-                data-v-4c5cb6b4=""
-                class="text-center border-none animate__animated animate__bounceIn product__hor-list-item"
-                data-v-3e0d31e2=""
-              >
-                <div class="product__list-item-image-container">
-                  <a href="/web/items/3277"
-                    ><img
-                      src="https://cdn.zilrsoft.com/images/items/z9FbB6x5FOau8G2SCyU4w0HxL8YumO8FZOgPyc2j.png"
-                      class="product__list-item-image"
-                  /></a>
-                </div>
-                <div class="product__list-item-content">
-                  <a
-                    href="/web/items/3277"
-                    class="product__list-item-name"
-                    style="text-overflow: clip"
-                  >
-                    لابتوب اتش بي سيليرون 4 جيجا 14 بوصة 1 تيرا 14-cf2011nx
-                  </a>
-                </div>
-                <h4 class="product__list-item-price">1850.00</h4>
-            <span class="product__list-item-currency">ر.س</span>
-              </div>
-            </div>
-          </div>
-          <div class="flex-1 text-center">
-            <div class="section-title">
-              <h2>{{ $page.$t.products.special_offer }}</h2>
-            </div>
-            <div class="countdown-timer" id="countdown">
-              <div class="cd-item">
-                <span>0</span>
-                <p>{{ $page.$t.products.time_days }}</p>
-              </div>
-              <div class="cd-item">
-                <span>0</span>
-                <p>{{ $page.$t.products.time_hrs }}</p>
-              </div>
-              <div class="cd-item">
-                <span>0</span>
-                <p>{{ $page.$t.products.time_mins }}</p>
-              </div>
-              <div class="cd-item">
-                <span>0</span>
-                <p>{{ $page.$t.products.time_secs }}</p>
-              </div>
-            </div>
-
-            <div>
-              <h4 class="product__list-item-old-price">1610.00</h4>
-              <span class="product__list-item-currency">ر.س</span>
-            </div>
-
-            <div class="product__list-item-cart-options">
-              <button class="product__add-to-cart-button">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  class="product__add-to-cart-icon"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                  ></path>
-                </svg>
-                أضف الى السلة
-              </button>
-            </div>
-          </div>
-        </div>
-      </section> -->
-
     <div class="container">
       <div class="mt-3" style="border-color: #d2e8ff !important">
         <!-- منتجات ذات صلة -->
-        <h3 class="page__mt-2 home__products-count">
+        <h3
+          class="page__mt-2 home__products-count"
+          style="
+            background: #86bbf7;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 22px;
+            color: white;
+            border-radius: 5px;
+          "
+        >
           {{ $page.$t.products.sorting_most_sellers }}
         </h3>
 
@@ -198,7 +143,7 @@
           :button-between="false"
           :button="true"
           ref="horizontal"
-          style="direction: ltr"
+          style="direction: ltr; margin-top: -11px"
           class="products-grid"
         >
           <div
@@ -223,7 +168,6 @@ import VueHorizontal from 'vue-horizontal'
 import WebLayout from '../../../Layouts/WebAppLayout'
 import SubategoryListItemComponent from './../../../components/Web/Category/SubategoryListItemComponent'
 import Hero from '../../../components/Web/Page/Hero.vue'
-import ItemsInfinityLoad from '../../../components/Web/Item/ItemsInfinityLoad.vue'
 import ProductListItemComponent from './../../../components/Web/Product/ProductListItemComponent'
 
 export default {
@@ -233,9 +177,19 @@ export default {
     SubategoryListItemComponent,
     Hero,
     ProductListItemComponent,
-    ItemsInfinityLoad,
     VueHorizontal
-  }
+  },
+  computed: {
+    offerItem () {
+      return this.$page.offer_item ?? {}
+    },
+    productName () {
+      return this.$page.active_locale === 'en'
+        ? this.offerItem.name
+        : this.offerItem.ar_name
+    }
+  },
+  methods: {}
 }
 </script>
 
@@ -266,7 +220,7 @@ export default {
 }
 
 .categories__text h2 {
-  color: #b7b7b7;
+  color: #192a56;
   line-height: 72px;
   font-size: 34px;
 }
@@ -304,6 +258,14 @@ export default {
   margin-bottom: 4px;
 }
 
+.categories__deal__countdown .title {
+  color: #192a56;
+  font-size: 47px;
+  text-shadow: 1px 1px 3px white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 .hot__deal__sticker h5 {
   color: #ffffff;
   font-size: 20px;
@@ -315,7 +277,8 @@ export default {
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 2px;
+
+  /* letter-spacing: 2px; */
   margin-bottom: 15px;
   display: block;
 }
