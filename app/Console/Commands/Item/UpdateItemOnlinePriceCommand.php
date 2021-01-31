@@ -63,21 +63,39 @@ class UpdateItemOnlinePriceCommand extends Command
         //         'weight' => rand(1,3)
 	    //     ]);
         // });
+        // dd((570 + (445 + (445 * 0.15)))/2);
 
         $items = Item::where('organization_id',1)->get();
         foreach ($items as $key => $item) {
-            $salesPrice = ($item->online_price + $item->cost) / 2;
-            $profit = $salesPrice -  $item->cost;
-            $shippingDiscount = $profit / 4;
+            $costWithTax = $item->cost + ($item->cost * $item->vts / 100); 
+
+
+            $onlinOfferSalesPrice = ($item->price_with_tax + $costWithTax ) / 2; // 570 + ((445 * 15) / 100)
+            $profitAmount = $onlinOfferSalesPrice -  $costWithTax;
+            $shippingDiscount = $profitAmount / 4;
             if($shippingDiscount  > 30)
             {
                 $shippingDiscount  = 30;
             }
+            // weight
+            $weight = $item->weight;
+            if(!$weight)
+                $weight = 0.5;
+
+
+            $isOnline = true;
+            if($item->is_kit || $item->is_service)
+            {
+                $isOnline = false;
+            }
+
+
 	        $item->update([
-	        	// 'online_price' => $item->price_with_tax,
-                'online_offer_price' =>   $salesPrice,
+	        	'online_price' => $item->price_with_tax,
+                'online_offer_price' =>   $onlinOfferSalesPrice,
                 'shipping_discount' => $shippingDiscount ,
-                // 'weight' => rand(1,3)
+                'weight' => $weight,
+                'is_available_online' => $isOnline
 	        ]);
         }
 

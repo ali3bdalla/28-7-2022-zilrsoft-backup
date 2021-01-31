@@ -237,7 +237,7 @@ class Item extends BaseModel
 
 	public function shouldBeSearchable()
 	{
-		return !$this->is_kit && $this->is_available_online;
+		return $this->organization_id == 1 && !$this->is_kit && $this->is_available_online;
 	}
 
 
