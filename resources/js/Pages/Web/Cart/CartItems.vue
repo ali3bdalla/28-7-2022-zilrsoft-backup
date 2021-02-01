@@ -142,7 +142,7 @@
               {{ getItemNamme(item) }}
             </td>
             <td class="p-price first-row">
-              {{ parseFloat(item.price).toFixed(2) }}
+              {{ parseFloat(item.online_offer_price).toFixed(2) }}
             </td>
             <td v-if="activePage === 'cart'" class="qua-col first-row">
               <div class="quantity">
