@@ -24,6 +24,8 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
 
         Route::prefix('content')->group(function(){
             Route::get('about','ContentController@about');
+            Route::get('privacy','ContentController@privacy');
+            Route::get('terms','ContentController@terms');
             Route::get('contact','ContentController@contact');
 
         });
