@@ -121,7 +121,11 @@ use App\Models\CategoryFilters;
 					);
 				}
 			}
-			
+			$itemDb = $item->fresh();
+
+			if($itemDb->shouldBeSearchable())
+				$itemDb->searchable();
+
 			return $item;
 			
 		}

@@ -97,12 +97,12 @@
 
           <div class="product product__show__image-container">
             <div class="p-3 border" style="border-color: #d2e8ff !important">
-              <div :height="326 * 5" :style="{minHeight:326 * 5}" style="    min-height: 469px !important;" class="flex items-center justify-center">
+              <div :height="326 * 5" :style="{minHeight:326 * 5}" style="    min-height: 469px !important; max-height: 469px !important;height: 469px !important;" class="flex items-center justify-center">
                 <img class="product__show__image" :src="$processedImageUrl(activeImage,1000,1000)" :height="469"/>
               </div>
               <div
                 class="border product__show__images-grid"
-                style="border-color: #d2e8ff !important"
+                style="border-color: #d2e8ff !important;min-height: 112px !important; max-height: 112px !important;height: 112px !important;"
               >
                 <div
                   v-for="image in $page.item.attachments"
@@ -212,7 +212,13 @@
           style="border-color: #d2e8ff !important"
         >
           <!-- منتجات ذات صلة -->
-          <h3 class="page__mt-2 home__products-count">
+          <h3 class="page__mt-2 home__products-count" style="
+            background: #86bbf7;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 22px;
+            color: white;
+            border-radius: 5px;">
             {{ $page.$t.products.related_products }}
           </h3>
 
@@ -247,11 +253,8 @@
 <script>
 import VueHorizontal from 'vue-horizontal'
 import ProductListItemComponent from './../../../components/Web/Product/ProductListItemComponent'
-import ProductRatingComponent from './../../../components/Web/Product/ProductRatingComponent'
 import ToggleCartItemButtonComponent from './../../../components/Web/Cart/ToggleCartItemButtonComponent'
-import ToggleFavoriteItemButtonComponent from './../../../components/Web/Cart/ToggleFavoriteItemButtonComponent'
 import WebLayout from '../../../Layouts/WebAppLayout'
-import ImageZoomComponent from './../../../components/Web/Product/ImageZoomComponent'
 
 export default {
   data () {
@@ -262,10 +265,7 @@ export default {
   components: {
     WebLayout,
     ProductListItemComponent,
-    ProductRatingComponent,
     ToggleCartItemButtonComponent,
-    ToggleFavoriteItemButtonComponent,
-    ImageZoomComponent,
     VueHorizontal
   },
   computed: {

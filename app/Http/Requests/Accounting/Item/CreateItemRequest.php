@@ -110,6 +110,13 @@ use App\Models\Filter;
 					);
 				}
 			}
+
+			$itemDb = $item->fresh();
+
+			if($itemDb->shouldBeSearchable())
+				$itemDb->searchable();
+
+				
 			return $item;
 			
 		}
