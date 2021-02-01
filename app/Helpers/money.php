@@ -13,7 +13,7 @@
 	if(!function_exists('moneyFormatter')) {
 		function moneyFormatter($money, $decimal = 2)
 		{
-			return number_format($money, 2);
+			return number_format($money, 2,'.','.');
 			
 //			return money_format("%i", $money);
 		}
