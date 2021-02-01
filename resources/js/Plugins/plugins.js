@@ -54,7 +54,7 @@ Vue.use(VueProgressBar, {
   height: '2px'
 })
 Vue.prototype.$currency = currency
-if (window._translations) Vue.prototype.$translator = JSON.parse(window._translations)
+// if (window._translations) Vue.prototype.$translator = JSON.parse(window._translations)
 
 Vue.prototype.$asset = (url) => {
   return '/' + url
@@ -68,7 +68,7 @@ Vue.prototype.$sound = {
 }
 
 Vue.prototype.$processedImageUrl = (url, height, width) => {
-  return `${Vue.prototype.$page.image_processing_url}AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/${width}/${height}/sm/0/plain/${url}`
+  if (Vue.prototype.$page) { return `${Vue.prototype.$page.image_processing_url}AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/${width}/${height}/sm/0/plain/${url}` }
 
   // :src="[$page.image_processing_url ? `${$page.image_processing_url}/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/334/250/sm/0/plain/${item.item_image_url}` : item.item_image_url]"
 }
