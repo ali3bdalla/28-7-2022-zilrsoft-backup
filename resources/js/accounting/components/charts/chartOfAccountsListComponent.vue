@@ -54,57 +54,51 @@
 
 <script>
 export default {
-  props: ["accounts", 'loggedUserId'],
-  name: "chartOfAccountsListComponent",
+  props: ['accounts', 'loggedUserId'],
+  name: 'chartOfAccountsListComponent',
   data: function () {
     return {
       // canEdit:true,
-      accounts_list: [],
-    };
+      accounts_list: []
+    }
   },
   computed: {
-    manageChartOfAccounts() {
-
+    manageChartOfAccounts () {
       // console.log(parseInt(this.loggedUserId) !== 19);
       // console.log(typeof parseInt(this.loggedUserId),typeof 19);
-      return parseInt(this.loggedUserId) !== 19 ? true : false;
-
+      return parseInt(this.loggedUserId) !== 19
     }
   },
-  created() {
+  created () {
     for (let i = 0; i < this.accounts.length; i++) {
-      let account = this.accounts[i];
-      account.children = null;
-      account.is_expanded = false;
-      this.accounts_list.push(account);
+      const account = this.accounts[i]
+      account.children = null
+      account.is_expanded = false
+      this.accounts_list.push(account)
     }
-
   },
   methods: {
-    loadChildren(account, index) {
-      let appVm = this;
+    loadChildren (account, index) {
+      const appVm = this
       if (account.is_expanded === true) {
-        account.is_expanded = false;
-        this.accounts_list.splice(index, 1, account);
+        account.is_expanded = false
+        this.accounts_list.splice(index, 1, account)
       } else {
-        account.is_expanded = true;
+        account.is_expanded = true
 
         axios.get('/api/accounts/' + account.id + '/children').then(response => {
-          let item = appVm.accounts_list[index];
-          item.children = response.data;
-          item.is_expanded = true;
-          appVm.accounts_list = db.model.replace(appVm.accounts_list, db.model.index(appVm.accounts_list, account.id), item);
-
+          const item = appVm.accounts_list[index]
+          item.children = response.data
+          item.is_expanded = true
+          appVm.accounts_list = db.model.replace(appVm.accounts_list, db.model.index(appVm.accounts_list, account.id), item)
         })
       }
-      this.accounts_list.splice(index, 1, account);
-
-
+      this.accounts_list.splice(index, 1, account)
     }
   },
   watch: {
     accounts: function (value) {
-      this.accounts_list = value;
+      this.accounts_list = value
     }
   }
 }

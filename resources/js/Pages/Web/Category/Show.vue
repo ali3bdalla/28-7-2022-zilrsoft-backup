@@ -13,17 +13,18 @@
         <!-- v-if="subCategories.length > 0" -->
         <div class="product__search-options">
           <filters-pop
-            v-if="subCategories.length == 0"
+            v-if="this.$page.subcategories.length == 0"
             :items="items"
             :search-name="$page.name"
-            @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated"
+
             :category-id="$page.categoryId"
             @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated"
-            @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"
           ></filters-pop>
+                      <!-- @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated" -->
 
+<!-- @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated" -->
           <categories-pop
-            :categories="subCategories"
+            :categories="this.$page.subcategories"
             v-else
             :show-subcategories="true"
           ></categories-pop>
@@ -86,11 +87,29 @@ export default {
   },
   data () {
     return {
-      params: { parent_category_id: this.$page.category.id },
+      // params: { parent_category_id: this.$page.category.id },
       images: [],
       items: [],
+      filterValues: [],
       totalItems: this.$page.category.products_count,
       forceUpdate: 0
+    }
+  },
+  computed: {
+    // filtersList () {
+    //   return this.filters
+    // },
+    params () {
+      return {
+        available_only: this.available_only,
+        search_via: this.$page.search_via,
+        parent_category_id: this.$page.category.id,
+        name: this.$page.name,
+        order_by: this.orderBy,
+        order_direction: this.orderDirection,
+        filters_values: this.filterValues,
+        forceUpdate: 0
+      }
     }
   },
   methods: {
@@ -111,19 +130,19 @@ export default {
     selectedAttributesHasBeenUpdated (event) {
       this.filterValues = event.selectedValues
     }
-  },
-  computed: {
-    subCategories () {
-      const subcategories = []
-      for (const index in this.$page.subcategories) {
-        const category = this.$page.subcategories[index]
-        category.image = this.images[index % 7]
-
-        subcategories.push(category)
-      }
-      return subcategories
-    }
   }
+  // computed: {
+  //   subCategories () {
+  //     const subcategories = []
+  //     for (const index in this.$page.subcategories) {
+  //       const category = this.$page.subcategories[index]
+  //       category.image = this.images[index % 7]
+
+  //       subcategories.push(category)
+  //     }
+  //     return subcategories
+  //   }
+  // }
 }
 </script>
 

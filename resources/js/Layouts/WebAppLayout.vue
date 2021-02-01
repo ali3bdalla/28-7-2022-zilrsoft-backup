@@ -112,19 +112,29 @@
               <div class="col-lg-3">
                 <div class="footer-widget">
                   <ul>
-                    <li>
+                    <li class="-mt-1">
                       <a href="/web/content/about">{{
                         $page.$t.footer.about_us
                       }}</a>
                     </li>
-                    <li class="mt-2">
+                    <li class="-mt-1">
                       <a href="/web/content/contact">{{
                         $page.$t.footer.contact
                       }}</a>
                     </li>
+                    <li class="-mt-1">
+                      <a href="/web/content/privacy">{{
+                        $page.$t.footer.privacy
+                      }}</a>
+                    </li>
+                    <li class="-mt-1">
+                      <a href="/web/content/terms">{{
+                        $page.$t.footer.terms
+                      }}</a>
+                    </li>
                     <li
-                      style="margin-top: 35px !important"
-                      class="flex items-center justify-center"
+                      style=""
+                      class="flex items-center justify-center mt-2"
                     >
                       <img
                         :src="

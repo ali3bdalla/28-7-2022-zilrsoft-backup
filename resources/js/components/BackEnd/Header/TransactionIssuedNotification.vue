@@ -24,7 +24,6 @@
                   v-if="notification.from_account !== undefined && notification.from_account !== null">{{ notification.from_account.locale_name }}</span>
             الي
 
-
             <span
                 class="notification__dropdown-item__link"
                 v-if="notification.to_account !== undefined && notification.to_account !== null">{{ notification.to_account.locale_name }}</span>
@@ -45,22 +44,22 @@
 </template>
 
 <script>
-import NotificationMixin from "./NotificationMixin";
+import NotificationMixin from './NotificationMixin'
 
 export default {
   mixins: [NotificationMixin],
-  name: "TransactionIssuedNotification",
-  data() {
+  name: 'TransactionIssuedNotification',
+  data () {
     return {
-      url: "/api/notifications/transactions/issued"
+      url: '/api/notifications/transactions/issued'
     }
   },
-  mounted() {
-    let transaction = 0;
-    window.Echo.private(`transaction-issued`).listen('.transaction-issued', (e) => {
-      this.addNotification(e.transaction);
-    });
-  },
+  mounted () {
+    const transaction = 0
+    window.Echo.private('transaction-issued').listen('.transaction-issued', (e) => {
+      this.addNotification(e.transaction)
+    })
+  }
 
 }
 </script>

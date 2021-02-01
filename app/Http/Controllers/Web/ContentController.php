@@ -18,6 +18,24 @@ class ContentController extends Controller
     public function about()
     {
 
-        return Inertia::render('Web/Content/AboutUs');
+        return Inertia::render('Web/Content/Content',[
+            'content' => __('store.content.about_us_content')
+        ]);
+    }
+
+    public function terms()
+    {
+
+        return Inertia::render('Web/Content/Content',[
+            'content' => __('store.content.terms_and_conditions_content')
+        ]);
+    }
+
+    public function privacy()
+    {
+
+        return Inertia::render('Web/Content/Content',[
+            'content' => __('store.content.privacy_content')
+        ]);
     }
 }
