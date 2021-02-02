@@ -18,11 +18,11 @@ Banks Accounts:
 
 
 Please Fill This Form After Transfer
-{{-- {{ $order->generatePayOrderUrl() }} --}}
+ {{ $order->generatePayOrderUrl() }}
 
 
 To Cancel Your Order Please Click Flowing Link and use this code {{$order->cancel_order_code}}:
-{{-- {{ $order->generateCancelOrderUrl() }} --}}
+ {{ $order->generateCancelOrderUrl() }}
 
 
 {{ $invoice->organization->title}}

@@ -112,23 +112,43 @@
               <div class="col-lg-3">
                 <div class="footer-widget">
                   <ul>
-                    <li class="-mt-1">
-                      <a href="/web/content/about">{{
+                    <li class="-mt-1 ">
+                      <a href="/web/content/about" style="background-color: rgb(142 139 139) !important;
+
+  font-size: 18px; width: 100%;display: block;
+  color: white;
+  border-radius: 5px;
+  margin:1px 0px" class="footer_item">{{
                         $page.$t.footer.about_us
                       }}</a>
                     </li>
-                    <li class="-mt-1">
-                      <a href="/web/content/contact">{{
+                    <li class="">
+                      <a href="/web/content/contact" style="background-color: rgb(142 139 139) !important;
+
+  font-size: 18px; width: 100%;display: block;
+  color: white;
+  border-radius: 5px;
+  margin:1px 0px" class="footer_item">{{
                         $page.$t.footer.contact
                       }}</a>
                     </li>
-                    <li class="-mt-1">
-                      <a href="/web/content/privacy">{{
+                    <li class="">
+                      <a href="/web/content/privacy"  style="background-color: rgb(142 139 139) !important;
+
+  font-size: 18px; width: 100%;display: block;
+  color: white;
+  border-radius: 5px;
+  margin:1px 0px" class="footer_item">{{
                         $page.$t.footer.privacy
                       }}</a>
                     </li>
-                    <li class="-mt-1">
-                      <a href="/web/content/terms">{{
+                    <li class="">
+                      <a href="/web/content/terms"  style="background-color: rgb(142 139 139) !important;
+
+  font-size: 18px; width: 100%;display: block;
+  color: white;
+  border-radius: 5px;
+  margin:1px 0px" class="footer_item">{{
                         $page.$t.footer.terms
                       }}</a>
                     </li>
@@ -249,5 +269,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+
+.footer_item {
+  background-color: #86bbf7 !important;
+
+  font-size: 18px;
+  color: white;
+  border-radius: 5px;
+  margin:1px 0px
+}
 </style>

@@ -9,13 +9,14 @@
           </h2>
           <form action="#">
             <div class="flex flex-col w-full md:w-1/2 mx-auto overflow-hidden">
-              <div class="flex-1 group-input">
+              <div class="flex-1 group-input" style="    direction: ltr !important;">
                 <!-- <VueOTPField
                   :onFieldCompleted="onFieldCompleted"
                   :onFill="onFill"
                 /> -->
 
                 <v-otp-input
+                  style="direction:ltr"
                   ref="otpInput"
                   input-classes="otp-input"
                   separator="-"

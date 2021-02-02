@@ -70,7 +70,7 @@ return [
         "draft" => "فاتورة مبدئية",
         "thanks_for_order" => "شكرا لك",
         "created"=>"نجاح",
-        "instructions_for_payment" => "ستتلقى رسالة تحتوي على تفاصيل الدفع علي رقم الجوال ",
+        "instructions_for_payment" => "ستتلقى رسالة تحتوي على تفاصيل الدفع على رقم الجوال ",
         'payment_confirmation' => "تاكيد عملية الدفع",
         "order" => "الطلب",
         "remmning_time_to_auto_cancel_order" => "الوقت المتبقى حتى الالغاء التلقائي للطلب",
