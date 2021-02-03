@@ -68,10 +68,12 @@ class Item extends BaseModel
 
 		if ($images && count($images) >= 1) return $images[0]['url'];
 
-		if (app()->isLocale('ar'))
-			return asset("images/logo_ar.png");
 
-		return asset("images/logo_en.png");
+		return "https://zilrsoft-cdn.fra1.digitaloceanspaces.com/images/no_image.png";
+//		if (app()->isLocale('ar'))
+//			return asset("images/logo_ar.png");
+//
+//		return asset("images/logo_en.png");
 	}
 	public function scopeKits($query)
 	{

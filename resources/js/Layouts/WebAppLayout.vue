@@ -7,16 +7,6 @@
       :index-name="$page.algolia_items_search_as"
       :search-client="searchClient"
     >
-      <!-- :routing="routing"  -->
-      <!-- <div
-        class="container-fluid filters-layout-modal loading-progress"
-        v-if="isPageLoading"
-        width="100%"
-        height="100%"
-        style="overflow-y: scroll"
-      >
-        <circle-spin class="loading" v-show="isPageLoading"></circle-spin>
-      </div>v-else -->
       <div >
         <HeaderComponent>
           <template v-slot:navbarListItems>
@@ -36,10 +26,7 @@
                 },
               }"
             >
-              <!-- {{ JSON.stringify(numericRefinements.online_offer_price) == '{}'  &&  JSON.stringify(numericRefinements.available_qty) == '{}' && tagRefinements.length == 0  && !query.length }} -->
-
-              <!-- {{ JSON.stringify(numericRefinements.online_offer_price) == '{}'  &&  JSON.stringify(numericRefinements.available_qty) == '{}' && tagRefinements.length == 0  && !query.length }} -->
-              <div
+                <div
                 class="container"
                 v-if="
                   !isSearchPage(
@@ -112,23 +99,43 @@
               <div class="col-lg-3">
                 <div class="footer-widget">
                   <ul>
-                    <li class="-mt-1">
-                      <a href="/web/content/about">{{
+                    <li class="-mt-1 ">
+                      <a href="/web/content/about" style="background-color: rgb(142 139 139) !important;
+
+  font-size: 18px; width: 100%;display: block;
+  color: white;
+  border-radius: 5px;
+  margin:1px 0px" class="footer_item">{{
                         $page.$t.footer.about_us
                       }}</a>
                     </li>
-                    <li class="-mt-1">
-                      <a href="/web/content/contact">{{
+                    <li class="">
+                      <a href="/web/content/contact" style="background-color: rgb(142 139 139) !important;
+
+  font-size: 18px; width: 100%;display: block;
+  color: white;
+  border-radius: 5px;
+  margin:1px 0px" class="footer_item">{{
                         $page.$t.footer.contact
                       }}</a>
                     </li>
-                    <li class="-mt-1">
-                      <a href="/web/content/privacy">{{
+                    <li class="">
+                      <a href="/web/content/privacy"  style="background-color: rgb(142 139 139) !important;
+
+  font-size: 18px; width: 100%;display: block;
+  color: white;
+  border-radius: 5px;
+  margin:1px 0px" class="footer_item">{{
                         $page.$t.footer.privacy
                       }}</a>
                     </li>
-                    <li class="-mt-1">
-                      <a href="/web/content/terms">{{
+                    <li class="">
+                      <a href="/web/content/terms"  style="background-color: rgb(142 139 139) !important;
+
+  font-size: 18px; width: 100%;display: block;
+  color: white;
+  border-radius: 5px;
+  margin:1px 0px" class="footer_item">{{
                         $page.$t.footer.terms
                       }}</a>
                     </li>
@@ -186,9 +193,6 @@
             </div>
           </div>
         </footer>
-        <!--Start of Tawk.to Script-->
-
-        <!--End of Tawk.to Script-->
       </div>
     </ais-instant-search>
   </div>
@@ -201,7 +205,6 @@ import { history as historyRouter } from 'instantsearch.js/es/lib/routers'
 import { simple as simpleStateMapping } from 'instantsearch.js/es/lib/stateMappings'
 import 'instantsearch.css/themes/algolia-min.css'
 import AlogiraProductResultList from '../components/Web/Product/AlogiraProductResultList.vue'
-import { Inertia } from '@inertiajs/inertia'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 
@@ -249,5 +252,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+
+.footer_item {
+  background-color: #86bbf7 !important;
+
+  font-size: 18px;
+  color: white;
+  border-radius: 5px;
+  margin:1px 0px
+}
 </style>

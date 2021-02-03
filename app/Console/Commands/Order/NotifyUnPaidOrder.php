@@ -44,7 +44,6 @@ class NotifyUnPaidOrder extends Command
 //
 
         $orders = Order::where([['status', 'issued'], ['is_should_pay_notified', false]])->whereDate('should_pay_last_notification_at', '<=', Carbon::now())->whereTime('should_pay_last_notification_at', '<=', Carbon::now())->get();
-//			$ordersCount = count($orders->toArray());
 //			Whatsapp::sendMessage("notifyUnPaidOrder ({$ordersCount}) orders " . Carbon::now()->toDateTimeString(), "249966324018");
         foreach ($orders as $order) {
             $phoneNumber = $order->user->phone_number;
@@ -60,9 +59,11 @@ class NotifyUnPaidOrder extends Command
                     'date' => Carbon::parse($order->auto_cancel_at)->format('H:i')
                 ]
             )->toHtml();
-            Whatsapp::sendMessage($messageTemplate, $phoneNumber);
+            sendSms($messageTemplate, $phoneNumber);
+//            Whatsapp::sendMessage($messageTemplate, $phoneNumber);
         }
 
     }
+
 
 }

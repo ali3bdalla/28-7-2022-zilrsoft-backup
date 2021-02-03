@@ -46,7 +46,6 @@ import layoutPrintSingleBarcodeLayoutComponent from './components/layout/layoutP
 import AccountingKitItemsLayoutComponent from './components/layout/kitItemsLayoutComponent'
 import AccountingKitReturnItemsLayoutComponent from './components/layout/kitReturnItemsLayoutComponent'
 import AccountingPurchasesReturnComponent from './components/purchases/purchasesReturnComponent'
-// import AccountingDashbaordActiveItemsLayoutComponet from './components/dashboard/activeItemsLayoutComponent'
 import AccountingShowBarcodeLayoutComponent from './components/layout/showBarcodeLayoutComponent'
 import AccountingAccountsChartComponent from './components/charts/accountsChartComponent'
 import AccountingDeleteButtonLayoutComponent from './components/layout/deleteButtonLayoutComponent'
@@ -66,7 +65,7 @@ import AccountingAccountReportComponent from './components/charts/accountReportC
 import AccountingGlobalTransactionsListComponent from './components/transactions/globalTransactionsListComponent'
 import AccountingAttachmentsPreviewComponent from './components/attachments/previewComponent'
 import AccountingFinancialStatementsTrailBalanceComponent from './components/financial_statements/trailBalanceComponent'
-
+import AccountingOrdersDatatableComponent from './components/orders/ordersDatatableComponent'
 Vue.component(
   'accounting-attachments-preview-component',
   AccountingAttachmentsPreviewComponent
@@ -333,4 +332,11 @@ Vue.component(
 Vue.component(
   'accounting-account-report-component',
   AccountingAccountReportComponent
+)
+
+
+
+Vue.component(
+  'accounting-orders-datatable-component',
+  AccountingOrdersDatatableComponent
 )

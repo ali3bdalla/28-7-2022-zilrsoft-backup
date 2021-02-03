@@ -67,7 +67,6 @@
 
           <!--                   </accounting-header-notifications-layout-component>-->
 
-
           <li class="dropdown user user-menu  dropdown-menu-right pull-right">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
               <img alt="User Image" class="user-image"
@@ -109,18 +108,17 @@
           <li v-if="!disableCreate"><a href="/purchases/create">فاتورة مشتريات</a></li>
           <li v-if="!disableCreate"><a href="/daily/reseller/closing_accounts">انهاء الوردية</a></li>
 
-
         </ul>
       </div>
     </nav>
   </header>
 </template>
 <script>
-import NotificationBell from "../../../components/BackEnd/Header/NotificationBell";
+import NotificationBell from '../../../components/BackEnd/Header/NotificationBell'
 
 export default {
-  components: {NotificationBell},
-  props: ['manager', "csrf", "username", 'pendingTransactions', 'pendingPurchases', 'canConfirmPendingPurchases', 'disableCreate'],
+  components: { NotificationBell },
+  props: ['manager', 'csrf', 'username', 'pendingTransactions', 'pendingPurchases', 'canConfirmPendingPurchases', 'disableCreate'],
   data: function () {
     return {
       appName: metaHelper.getContent('app-name'),
@@ -130,10 +128,9 @@ export default {
       appLocate: metaHelper.getContent('app-locate'),
       BaseApiUrl: metaHelper.getContent('BaseApiUrl'),
       trans: trans('sidebar'),
-      orders: [],
-    };
-  },
-
+      orders: []
+    }
+  }
 
 }
 </script>
@@ -143,7 +140,6 @@ export default {
   box-shadow: 0px 3px 6px 0px #777;
   background-color: rgb(44, 62, 80);
 }
-
 
 .navbar-nav > li > .dropdown-menu {
   background-color: #2c3e50 !important;

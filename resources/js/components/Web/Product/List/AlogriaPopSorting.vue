@@ -52,7 +52,7 @@ export default {
 
 <style>
 .product__search-sorting-list-item {
-  padding-top: 0px !important;
+  /*padding-top: 0px !important;*/
 }
 
 .product__search-sorting-list-item_hide {

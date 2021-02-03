@@ -1,7 +1,7 @@
 <?php
-	
+
 	namespace App\Jobs\Order;
-	
+
 	use App\Jobs\Items\AvailableQty\UpdateAvailableQtyByInvoiceItemJob;
 	use App\Models\Invoice;
 	use App\Models\Order;
@@ -12,11 +12,11 @@
 	use Illuminate\Foundation\Bus\Dispatchable;
 	use Illuminate\Queue\InteractsWithQueue;
 	use Illuminate\Queue\SerializesModels;
-	
+
 	class HoldItemQtyJob implements ShouldQueue
 	{
 		use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-		
+
 		/**
 		 * @var Invoice
 		 */
@@ -25,7 +25,7 @@
 		 * @var Order
 		 */
 		private $order;
-		
+
 		/**
 		 * Create a new job instance.
 		 *
@@ -38,7 +38,7 @@
 			$this->invoice = $invoice;
 			$this->order = $order;
 		}
-		
+
 		/**
 		 * Execute the job.
 		 *
@@ -46,9 +46,10 @@
 		 */
 		public function handle()
 		{
-			
+
 			foreach($this->invoice->items as $item) {
-				 $item->orderQtyHolders()->create(
+                dispatch_now(new UpdateAvailableQtyByInvoiceItemJob($item));
+                $item->orderQtyHolders()->create(
 					[
 						'order_id' => $this->order->id,
 						'qty' => $item->qty,
@@ -56,7 +57,7 @@
 						'hold_destroy_at' => Carbon::now()->addMinutes(30),
 					]
 				);
-				
+
 			}
 		}
 	}

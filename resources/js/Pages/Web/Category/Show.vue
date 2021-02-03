@@ -10,29 +10,24 @@
         >
       </div>
       <div class="page__mt-2">
-        <!-- v-if="subCategories.length > 0" -->
-        <div class="product__search-options">
+        <!--  -->
+        <div class="product__search-options" v-if="items.length > 0">
           <filters-pop
-            v-if="this.$page.subcategories.length == 0"
+            v-if="this.$page.subcategories.length === 0"
             :items="items"
             :search-name="$page.name"
 
             :category-id="$page.categoryId"
             @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated"
           ></filters-pop>
-                      <!-- @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated" -->
-
-<!-- @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated" -->
           <categories-pop
+              :category="$page.category"
             :categories="this.$page.subcategories"
             v-else
             :show-subcategories="true"
           ></categories-pop>
 
-          <!-- <sorting-pop @updated="sortingUpdated"></sorting-pop> -->
-
-          <sorting-pop @updated="sortingUpdated"></sorting-pop>
-          <!-- <switchAvailableButton @changed="switchAvailableQtyChanged"></switchAvailableButton> -->
+           <sorting-pop @updated="sortingUpdated"></sorting-pop>
         </div>
       </div>
 

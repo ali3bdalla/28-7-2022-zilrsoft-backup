@@ -36,7 +36,6 @@ class CreateSalesOrderJob implements ShouldQueue
      */
     public function __construct(Invoice $invoice, Request $request)
     {
-        //
         $this->invoice = $invoice;
         $this->request = $request;
     }
@@ -49,8 +48,6 @@ class CreateSalesOrderJob implements ShouldQueue
     public function handle()
     {
         $invoiceItems = $this->invoice->items()->withoutGlobalScope('draft')->get();
-
-
         $order = new Order();
         $order->user_id = $this->invoice->user_id;
         $order->shipping_address_id = $this->request->input('shipping_address_id');
@@ -65,12 +62,16 @@ class CreateSalesOrderJob implements ShouldQueue
         $order->auto_cancel_at = Carbon::now()->addMinutes($this->orderAutoCancelAfter);
         $order->is_should_pay_notified = false;
         $order->should_pay_last_notification_at = Carbon::now()->addMinutes($this->orderAutoCancelAfter - 1);
-        $order->order_secret_code = bcrypt(rand(10000, 99999));
+        $order->order_secret_code = (rand(10000, 99999));//bcrypt
         $order->status = 'issued';
         $order->save();
         return $order->fresh();
     }
 
+    /**
+     * @param $invoiceItems
+     * @return int
+     */
     private function getShippingAmount($invoiceItems)
     {
 
@@ -82,6 +83,9 @@ class CreateSalesOrderJob implements ShouldQueue
         return $this->finalShippingAmount($shippingAmount);
     }
 
+    /**
+     * @return mixed
+     */
     private function getShippingMethod()
     {
         return ShippingMethod::find($this->request->input('shipping_method_id'));
@@ -91,7 +95,7 @@ class CreateSalesOrderJob implements ShouldQueue
     {
         $itemsTotalWeight = 0;
         foreach ($invoiceItems as $item) {
-            $itemsTotalWeight += (float)$item->item->shipping_discount * $item->qty;
+            $itemsTotalWeight += (float)$item->item->weight * $item->qty;
         }
 
         return $itemsTotalWeight;
@@ -107,6 +111,11 @@ class CreateSalesOrderJob implements ShouldQueue
         return $itemsTotalShippingDiscount;
     }
 
+    /**
+     * @param $itemsTotalWeight
+     * @param $shippingMethod
+     * @return float|int
+     */
     private function getItemsBaseShippingAmount($itemsTotalWeight, $shippingMethod)
     {
         $maxShippingMethodWeight = $shippingMethod->max_base_weight;

@@ -55,7 +55,7 @@ class StoreOrderRequest extends FormRequest
         DB::beginTransaction();
         try {
             $this->validateQuantities();
-         
+
             $this->validateQuantities($this->input('items'));
             $authUser = Manager::first();
             $authClient = $this->user('client');
@@ -93,6 +93,9 @@ class StoreOrderRequest extends FormRequest
             DB::commit();
             $path = CreateOrderPdfSnapshotJob::dispatchNow($invoice);
             event(new OrderCreatedEvent($invoice, $path));
+            if($this->acceptsJson())
+                  return $invoice;
+
             return redirect('/web/profile');
         } catch (QueryException $queryException) {
             DB::rollBack();

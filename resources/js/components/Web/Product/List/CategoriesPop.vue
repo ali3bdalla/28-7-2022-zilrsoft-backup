@@ -1,47 +1,77 @@
 <template>
-  <div class="product__search-sorting" style="width: 24rem;"  v-click-outside="closePanel">
+  <div v-click-outside="closePanel" class="product__search-sorting" style="width: 24rem;">
     <button
-    @click="toggleList"
-      class="product__search-option-button"
+        v-if="activeCategory && this.$page.category.id != activeCategory.id "
+        class="product__search-option-button"
+        @click="fetchSubcategories(activeCategory.parent_id)"
+    >
+      <svg class="product__search-option-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+
+        <path v-if="$page.active_locale == 'ar'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        <path v-else d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+      </svg>
+
+      {{ $page.$t.common.back }}
+    </button>
+
+    <button
+        v-else
+        class="product__search-option-button"
+        @click="toggleList"
     >
       <svg
-        class="product__search-option-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
+          class="product__search-option-icon"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
+            d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
         />
       </svg>
 
       {{ $page.$t.products.subcategories }}
     </button>
 
-    <div class="product__search-sorting-panel" v-if="isOpen">
+
+    <div v-if="isOpen" class="product__search-sorting-panel">
       <div class="product__search-sorting-panel-content">
-        <ul class="product__search-sorting-list">
-          <li v-for="(category, index) in categoriesList" :key="category.id" class="product__search-sorting-list-item"  style="padding:3px !important">
-             <a
-            :href=" showSubcategories == true ?`/web/categories/${category.id}` : `/web/items?category_id=${category.id}&&name=${$page.name}&&search_via=${$page.search_via}`"
-            class="page__categories__list-item"
-          >
-            <div class="page__categories__name">
+        <div class="product__search-sorting-list">
+          <div v-for="(subcategory, index) in subcategories" :key="subcategory.id"
+               class="product__search-sorting-list-item flex items-center justify-between gap-2 border-b"
+               style=""  @click="fetchSubcategories(subcategory.id,subcategory)">
 
-              <span class="" v-if="showSubcategories !== true">{{category.search_keywords }}</span>
-              <span  v-if="showSubcategories !== true"> {{ $page.$t.products.in }} - </span>
-              <span class="">{{ category.locale_name }}</span>
+            <div>
+              <a
+                  :href="showSubcategories === true ?`/web/categories/${subcategory.id}` : `/web/items?category_id=${subcategory.id}&&name=${$page.name}&&search_via=${$page.search_via}`"
+                  class="page__categories__list-item"
+              >
+                <div class="page__categories__name">
 
-              <span class=""  v-if="showSubcategories !== true">({{ category.result_items_count }})</span>
+                  <span v-if="showSubcategories !== true" class="">{{ subcategory.search_keywords }}</span>
+                  <span v-if="showSubcategories !== true"> {{ $page.$t.products.in }} - </span>
+                  <span class="">{{ subcategory.locale_name }}</span>
+
+                  <span v-if="showSubcategories !== true" class="">({{ subcategory.result_items_count }})</span>
+                </div>
+              </a>
             </div>
-          </a>
-          </li>
+            <div v-if="subcategory.children_count > 0" class="w-1/4 flex items-center px-3 justify-end">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
 
-        </ul>
+                  <path v-if="$page.active_locale == 'en'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  <path v-else d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<!--                  <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>-->
+                </svg>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
@@ -49,23 +79,38 @@
 
 <script>
 export default {
-  props: ['categories', 'showSubcategories'],
+  props: ['categories', 'showSubcategories', 'category'],
   data () {
     return {
       categoriesList: [],
-      isOpen: false
+      subcategories: [],
+      isOpen: false,
+      pipelineCategories: []
+    }
+  },
+  computed: {
+    activeCategory () {
+      return this.pipelineCategories[this.pipelineCategories.length - 1]
     }
   },
   created () {
-    if (this.categories) {
-      this.categoriesList = this.categories
-    } else {
-      this.categoriesList = this.$page.categories
-    }
+    // console.log(this.$page.category.id)
+    this.fetchSubcategories(this.category.id, this.category)
   },
   methods: {
+    fetchSubcategories (categoryId, category = null) {
+      if(category && category.children_count == 0) return ;
+      if (category != null) {
+        this.pipelineCategories.push(category)
+      } else {
+        this.pipelineCategories.pop()
+      }
+      axios.get('/api/web/categories/' + categoryId + '/subcategories').then(res => this.subcategories = res.data)
+    },
     closePanel () {
-      if (this.isOpen) { this.isOpen = false }
+      if (this.isOpen) {
+        this.isOpen = false
+      }
     },
     toggleList () {
       this.isOpen = !this.isOpen

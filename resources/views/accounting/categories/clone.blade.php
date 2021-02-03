@@ -100,56 +100,12 @@
 
                     </div>
                 </div>
-                <div class="col-md-6">
-                    {{-- <div class="form-group @error('is_available_online')has-error @enderror">
-                        <toggle-button
-                                :value="true"
-                                name="is_available_online"
-                                :async="true"
-                                :font-size="19" :height='35' :labels="{checked: 'متاح في الاونلاين', unchecked: 'غير متاح  '}"
-                                :width='200'
-                        ></toggle-button>
-                        @error('is_available_online')
-                        <small class="text-danger">
-                            {{ $message}}
-                        </small>
-                        @enderror
-
-                    </div> --}}
-
-                    <div class="col-md-6">
-                    <div class="form-group @error('parent_id')has-error @enderror">
-                        <select class="form-control" name="parent_id" placeholder="{{trans('pages/categories.parent_id')
-                        }}">
-                            <option class="form-control" value="0">{{trans('pages/categories.main_category') }}</option>
-                            @foreach($categories as $cat)
-                                <option
-                                        @if(!empty(old('parent_id')) && old('parent_id')==$cat['id'])
-                                        selected
-                                        @elseif($category->parent_id==$cat['id'] && empty(old('parent_id')))
-                                        selected
-                                        @endif
-                                        class="form-control" value="{{
-                                $cat['id']
-                                }}">{{
-                                $cat['locale_name']
-                            }}</option>
-                            @endforeach
-                        </select>
-                        @error('is_available_online')
-                        <small class="text-danger">
-                            {{ $message}}
-                        </small>
-                        @enderror
-
-                    </div>
-                </div>
 
 
                 <div class="col-md-2">
                     <div class="form-group @error('is_available_online')has-error @enderror">
                         <toggle-button
-                                :value="{{ $category->is_available_online }}"
+                                :value="{{ $category->is_available_online  }}"
                                 name="is_available_online"
                                 :async="true"
                                 :font-size="19" :height='35' :labels="{checked: 'اونلاين', unchecked: 'اوفلاين'}"
@@ -194,9 +150,8 @@
                     </div>
                 </div>
 
-                
+
                 </div>
-            </div>
 
                 <input type="hidden" name="isCloned" value="true"/>
                 <input type="hidden" name="cloned_category" value="{{ $category->id }}"/>
@@ -213,7 +168,9 @@
 
                     </div>
                 </div>
+
         </form>
+
     </div>
 @endsection
 
