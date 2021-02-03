@@ -51,7 +51,7 @@
 
   &__list-item-name {
     @apply block  mt-2 text-lg   font-extrabold text-black truncate;
-  
+
     &:hover {
       @apply text-yellow-600;
     }
@@ -121,7 +121,7 @@
     }
 
     &__image-container {
-      // flex flex-col justify-between 
+      // flex flex-col justify-between
       @apply  w-full  items-center;
       @screen md {
         @apply w-4/12;
@@ -209,9 +209,9 @@
     &__details-specification-table-container {
       @apply mt-3 pt-0 text-left w-full ;
       margin-top: 0px !important;
-      
 
-    
+
+
 
       @screen md {
         @apply mt-1 ;
@@ -271,7 +271,7 @@
   }
 
   &__search-options {
-    @apply flex justify-between items-center gap-6;
+    @apply flex justify-between items-center gap-6 relative;
   }
   &__search-filters {
     @apply w-full text-gray-800;
@@ -300,9 +300,9 @@
     @apply w-full flex items-center gap-2;
     color: $secondaryColor;
   }
-  
+
   &__search-sorting {
-    @apply w-full relative text-center;
+    @apply w-full  text-center;
     background-color: $secondaryColor;
     @screen md {
       @apply w-48;
@@ -310,11 +310,15 @@
   }
 
   &__search-sorting-panel {
-    @apply w-full absolute z-50;
+    @apply w-full absolute z-50 left-0 ;
+    top: 44px;
+    //@screen md {
+    //  @apply w-48;
+    //}
   }
 
   &__search-sorting-panel-content {
-    @apply bg-white shadow-xl rounded-lg w-full;
+    @apply bg-white shadow-xl rounded-lg w-full pt-2;
   }
 
   &__search-sorting-list {
@@ -322,7 +326,8 @@
   }
 
   &__search-sorting-list-item {
-    @apply   cursor-pointer py-2;
+    @apply   cursor-pointer py-1 border-b flex items-center justify-center;
+    //padding:3px !important
     &:hover {
       @apply bg-gray-100;
     }
@@ -367,13 +372,13 @@
       bottom: 0px !important;
       padding-bottom: 0px !important;
 
-    }   
+    }
 
-    
+
     .vue-js-switch  {
       margin-bottom: 0px !important;
     }
-  
+
   }
 }
 

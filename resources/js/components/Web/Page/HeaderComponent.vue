@@ -1,9 +1,6 @@
 <template>
   <header class="header-section">
-    <div
-      class="fixedHeader "
-      :class="{ 'fixedHeader__hide': !showHiddenNavbar }"
-    >
+    <div class="fixedHeader" :class="{ fixedHeader__hide: !showHiddenNavbar }">
       <div class="pb-0" style="background: #f9f9f9">
         <div class="container">
           <div class="inner-header">
@@ -14,7 +11,11 @@
                     <img
                       alt=""
                       :src="$page.active_logo"
-                      :style="$page.active_locale == 'en' ? 'width: 6rem; padding-top: 2px' : 'width: 5rem; padding-top: 2px'"
+                      :style="
+                        $page.active_locale == 'en'
+                          ? 'width: 6rem; padding-top: 2px'
+                          : 'width: 5rem; padding-top: 2px'
+                      "
                     />
                   </a>
                 </div>
@@ -36,17 +37,17 @@
               ><i class="fa fa-user" style="font-size: 22px"></i> &nbsp;
               {{ $page.$t.profile.login }}</a
             >
+
             <a
+              v-else
               class="page__header-buttons__item login-panel"
               href="/web/profile"
-              v-else
               ><i class="fa fa-user" style="font-size: 22px"></i> &nbsp;
               {{ $page.client.name }}</a
             >
           </div>
 
-            <LanguageSwitcher></LanguageSwitcher>
-
+          <LanguageSwitcher></LanguageSwitcher>
         </div>
       </div>
     </div>
@@ -61,19 +62,26 @@
                   <img
                     alt=""
                     :src="$page.active_logo"
-                    :style="$page.active_locale == 'en' ? 'width: 7rem; padding-top: 2px' : 'width: 6rem; padding-top: 2px'"
+                    :style="
+                      $page.active_locale == 'en'
+                        ? 'width: 7rem; padding-top: 2px'
+                        : 'width: 6rem; padding-top: 2px'
+                    "
                   />
                 </a>
               </div>
             </div>
 
-            <div class="page__header-search-field page__header-search-field__f" style="width:100%">
+            <div
+              class="page__header-search-field page__header-search-field__f"
+              style="width: 100%"
+            >
               <header-seach-input-component></header-seach-input-component>
             </div>
             <HeaderQuickCartComponent></HeaderQuickCartComponent>
           </div>
         </div>
-        <div class="page__header-search-field__h  inner-header ">
+        <div class="page__header-search-field__h inner-header">
           <div class="page__header-search-field__f">
             <header-seach-input-component></header-seach-input-component>
           </div>
@@ -112,7 +120,11 @@ import LanguageSwitcher from './LanguageSwitcher'
 import HeaderQuickCartComponent from './../Cart/HeaderQuickCartComponent'
 
 export default {
-  components: { HeaderSeachInputComponent, HeaderQuickCartComponent, LanguageSwitcher },
+  components: {
+    HeaderSeachInputComponent,
+    HeaderQuickCartComponent,
+    LanguageSwitcher
+  },
   data () {
     return {
       showHiddenNavbar: false,

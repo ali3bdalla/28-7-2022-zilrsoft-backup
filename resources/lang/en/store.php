@@ -5,10 +5,11 @@ return [
         "search_placeholder" => "search here..",
         "categories" => 'Categories',
         'home' => "Home",
-        
+
     ],
 
     "common" => [
+        "back" => "Back",
         "save" => "Save",
         'back_to_home' => "Back to home",
         "completed_message" => "Information Updated",
@@ -68,7 +69,7 @@ return [
 
     ],
     "profile" => [
-    
+
 
         "login" => "Login",
         "phone_number" => "Mobile Number",
@@ -138,7 +139,7 @@ return [
         'create_shipping_address' => "Create Shipping Address",
         'select_shipping_address' => "Select Shipping Address",
 
-    
+
 
     ],
 

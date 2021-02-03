@@ -14,6 +14,7 @@ Route::namespace('Store')->name('web.')->middleware('font_end_middleware')->pref
         Route::prefix('categories')->name('categories.')->group(
             function () {
                 Route::match(['POST', 'GET'], '/', 'CategoryController@index')->name('index');
+                Route::get('{category}/subcategories', 'CategoryController@subcategories')->name('subcategories');
             }
         );
 
@@ -29,7 +30,7 @@ Route::namespace('Store')->name('web.')->middleware('font_end_middleware')->pref
                 Route::match(['POST', 'GET'], '/', 'FilterController@apiGetFilters')->name('get_filters');
             }
         );
-        
+
         Route::middleware('auth:client')->group(
             function () {
                 Route::resource('orders', 'OrderController');
@@ -67,7 +68,7 @@ Route::middleware('auth')->group(
             }
         );
 
-        
+
         Route::prefix('notifications')->namespace('Notifications')->name('notifications.')->group(
             function () {
                 Route::prefix('orders')->name('orders.')->group(
@@ -214,6 +215,5 @@ Route::middleware('auth')->group(
 
     }
 );
-	
-	
-	
+
+

@@ -7,16 +7,6 @@
       :index-name="$page.algolia_items_search_as"
       :search-client="searchClient"
     >
-      <!-- :routing="routing"  -->
-      <!-- <div
-        class="container-fluid filters-layout-modal loading-progress"
-        v-if="isPageLoading"
-        width="100%"
-        height="100%"
-        style="overflow-y: scroll"
-      >
-        <circle-spin class="loading" v-show="isPageLoading"></circle-spin>
-      </div>v-else -->
       <div >
         <HeaderComponent>
           <template v-slot:navbarListItems>
@@ -36,10 +26,7 @@
                 },
               }"
             >
-              <!-- {{ JSON.stringify(numericRefinements.online_offer_price) == '{}'  &&  JSON.stringify(numericRefinements.available_qty) == '{}' && tagRefinements.length == 0  && !query.length }} -->
-
-              <!-- {{ JSON.stringify(numericRefinements.online_offer_price) == '{}'  &&  JSON.stringify(numericRefinements.available_qty) == '{}' && tagRefinements.length == 0  && !query.length }} -->
-              <div
+                <div
                 class="container"
                 v-if="
                   !isSearchPage(
@@ -206,9 +193,6 @@
             </div>
           </div>
         </footer>
-        <!--Start of Tawk.to Script-->
-
-        <!--End of Tawk.to Script-->
       </div>
     </ais-instant-search>
   </div>
@@ -221,7 +205,6 @@ import { history as historyRouter } from 'instantsearch.js/es/lib/routers'
 import { simple as simpleStateMapping } from 'instantsearch.js/es/lib/stateMappings'
 import 'instantsearch.css/themes/algolia-min.css'
 import AlogiraProductResultList from '../components/Web/Product/AlogiraProductResultList.vue'
-import { Inertia } from '@inertiajs/inertia'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 

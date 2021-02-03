@@ -24,14 +24,15 @@
 
 <!-- @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated" -->
           <categories-pop
+              :category="$page.category"
             :categories="this.$page.subcategories"
             v-else
             :show-subcategories="true"
           ></categories-pop>
 
-          <!-- <sorting-pop @updated="sortingUpdated"></sorting-pop> -->
+           <sorting-pop @updated="sortingUpdated"></sorting-pop>
 
-          <sorting-pop @updated="sortingUpdated"></sorting-pop>
+<!--          <sorting-pop @updated="sortingUpdated"></sorting-pop>-->
           <!-- <switchAvailableButton @changed="switchAvailableQtyChanged"></switchAvailableButton> -->
         </div>
       </div>
