@@ -5,7 +5,11 @@
         class="product__search-option-button"
         @click="fetchSubcategories(activeCategory.parent_id)"
     >
-      <svg class="product__search-option-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      <svg class="product__search-option-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+
+        <path v-if="$page.active_locale == 'ar'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        <path v-else d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+      </svg>
 
       {{ $page.$t.common.back }}
     </button>
@@ -39,7 +43,7 @@
         <div class="product__search-sorting-list">
           <div v-for="(subcategory, index) in subcategories" :key="subcategory.id"
                class="product__search-sorting-list-item flex items-center justify-between gap-2 border-b"
-               style="">
+               style=""  @click="fetchSubcategories(subcategory.id,subcategory)">
 
             <div>
               <a
@@ -56,15 +60,14 @@
                 </div>
               </a>
             </div>
-            <div>
-              <button v-if="subcategory.children_count > 0" @click="fetchSubcategories(subcategory.id,subcategory)">
-
+            <div v-if="subcategory.children_count > 0" class="w-1/4 flex items-center px-3 justify-end">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                      xmlns="http://www.w3.org/2000/svg">
-                  <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                </svg>
 
-              </button>
+                  <path v-if="$page.active_locale == 'en'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  <path v-else d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<!--                  <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>-->
+                </svg>
             </div>
           </div>
 
@@ -96,6 +99,7 @@ export default {
   },
   methods: {
     fetchSubcategories (categoryId, category = null) {
+      if(category && category.children_count == 0) return ;
       if (category != null) {
         this.pipelineCategories.push(category)
       } else {

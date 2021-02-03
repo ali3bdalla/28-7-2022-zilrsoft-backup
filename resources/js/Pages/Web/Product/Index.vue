@@ -15,8 +15,8 @@
               "
               @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"
             ></filters-pop>
-
-            <categories-pop v-if="!$page.categoryId"></categories-pop>
+<!-- v-if="!$page." -->
+            <categories-pop ></categories-pop>
             <sorting-pop @updated="sortingUpdated"></sorting-pop>
           </div>
         </div>

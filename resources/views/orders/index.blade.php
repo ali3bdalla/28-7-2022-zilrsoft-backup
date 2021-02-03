@@ -6,7 +6,8 @@
 
 
 @section("content")
-    <online-orders-table></online-orders-table>
+    <accounting-orders-datatable-component></accounting-orders-datatable-component>
+{{--    <online-orders-table></online-orders-table>--}}
 @endsection
 
 

@@ -22,7 +22,7 @@
       {{ $page.$t.products.filters }}
     </button>
     <div ref="filters_pop_model" class="filters_pop_model" name="alogira-search-filters-modal">
-        <div style="overflow-y: scroll; height: 100vh !important">
+        <div style="overflow-y: scroll; height: 100vh !important;min-height: 100%">
           <div class="container mb-2">
             <div class="row page__mt-5">
               <div class="col-md-6 col-6 text-center">
@@ -346,9 +346,9 @@ export default {
   top: 0;
   display:none;
   left: 0;
+  z-index: 500000;
   width: 100%;
   height: 100%;
-  z-index: 500;
   background: white;
 }
 </style>

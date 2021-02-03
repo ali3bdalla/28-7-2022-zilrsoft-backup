@@ -91,10 +91,10 @@ class StoreOrderRequest extends FormRequest
             $order = CreateSalesOrderJob::dispatchNow($invoice->fresh(), $this);
             dispatch_now(new HoldItemQtyJob($invoice, $order));
             DB::commit();
-//            $path = CreateOrderPdfSnapshotJob::dispatchNow($invoice);
-//            event(new OrderCreatedEvent($invoice, $path));
+            $path = CreateOrderPdfSnapshotJob::dispatchNow($invoice);
+            event(new OrderCreatedEvent($invoice, $path));
             if($this->acceptsJson())
-                 return $invoice;
+                  return $invoice;
 
             return redirect('/web/profile');
         } catch (QueryException $queryException) {

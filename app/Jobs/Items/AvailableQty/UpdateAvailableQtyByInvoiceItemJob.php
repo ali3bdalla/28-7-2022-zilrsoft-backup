@@ -55,7 +55,6 @@ class UpdateAvailableQtyByInvoiceItemJob implements ShouldQueue
             }
         }
 
-
         $this->invoiceItem->item()->update(
             [
                 'available_qty' => $availableQtyAfterInvoiceItem

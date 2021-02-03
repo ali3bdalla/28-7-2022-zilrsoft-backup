@@ -42,10 +42,10 @@ class SendOrderToClientViaWhatsappListener
         )->toHtml();
         // if (app()->environment(['production', 'local'])) {
         sendSms($message, $phoneNumber);
-        Whatsapp::sendMessage(
-            $message,
-            [$phoneNumber]
-        );
+//        Whatsapp::sendMessage(
+//            $message,
+//            [$phoneNumber]
+//        );
         // Whatsapp::sendFile(
         //     $event->path,
         //     [$phoneNumber],

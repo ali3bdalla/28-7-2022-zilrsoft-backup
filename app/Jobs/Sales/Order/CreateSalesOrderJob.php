@@ -36,7 +36,6 @@ class CreateSalesOrderJob implements ShouldQueue
      */
     public function __construct(Invoice $invoice, Request $request)
     {
-        //
         $this->invoice = $invoice;
         $this->request = $request;
     }
@@ -49,8 +48,6 @@ class CreateSalesOrderJob implements ShouldQueue
     public function handle()
     {
         $invoiceItems = $this->invoice->items()->withoutGlobalScope('draft')->get();
-
-
         $order = new Order();
         $order->user_id = $this->invoice->user_id;
         $order->shipping_address_id = $this->request->input('shipping_address_id');
@@ -71,6 +68,10 @@ class CreateSalesOrderJob implements ShouldQueue
         return $order->fresh();
     }
 
+    /**
+     * @param $invoiceItems
+     * @return int
+     */
     private function getShippingAmount($invoiceItems)
     {
 
@@ -82,6 +83,9 @@ class CreateSalesOrderJob implements ShouldQueue
         return $this->finalShippingAmount($shippingAmount);
     }
 
+    /**
+     * @return mixed
+     */
     private function getShippingMethod()
     {
         return ShippingMethod::find($this->request->input('shipping_method_id'));

@@ -7,7 +7,7 @@
       <thead>
       <tr class="data__table__header">
         <th v-for="(column,index) in columns" :key="index" class="data__table__title"
-            v-text="$translator.order[column.name]">
+            v-text="column.name">
         </th>
       </tr>
       </thead>
@@ -41,12 +41,13 @@
 <script>
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
-import DisplayMoney from "../Money/DisplayMoney";
-import Dropdown from "../Table/Dropdown";
+// import DisplayMoney from "../Money/DisplayMoney";
+// import Dropdown from "../Table/Dropdown";
 
 export default {
-  name: "OnlineOrdersTable",
-  components: {Dropdown, DisplayMoney, Loading},
+  // name: "OnlineOrdersTable",
+  // Dropdown, DisplayMoney,
+  // components: {Loading},
   data() {
     return {
       loading: true,
