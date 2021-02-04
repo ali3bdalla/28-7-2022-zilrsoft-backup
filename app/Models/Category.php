@@ -93,7 +93,7 @@ class Category extends BaseModel
 			if (app()->isLocale('ar')) {
 				return $this->ar_description;
 			}
-	
+
 			return $this->description;
 		}
 
@@ -123,7 +123,7 @@ class Category extends BaseModel
 	}
 	public function filters()
 	{
-		return $this->belongsToMany(Filter::class, 'category_filters', 'category_id', 'filter_id')->withTimestamps()->orderBy('category_filters.id', 'asc');
+		return $this->belongsToMany(Filter::class, 'category_filters', 'category_id', 'filter_id')->orderBy('category_filters.id', 'asc');
 	}
 
 	public function filtersValues()
