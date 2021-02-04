@@ -37,7 +37,6 @@
       {{ $page.$t.products.subcategories }}
     </button>
 
-
     <div v-if="isOpen" class="product__search-sorting-panel">
       <div class="product__search-sorting-panel-content">
         <div class="product__search-sorting-list">
@@ -64,9 +63,8 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                      xmlns="http://www.w3.org/2000/svg">
 
-                  <path v-if="$page.active_locale == 'en'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  <path v-if="$page.active_locale === 'en'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                   <path v-else d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-<!--                  <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>-->
                 </svg>
             </div>
           </div>
@@ -99,13 +97,20 @@ export default {
   },
   methods: {
     fetchSubcategories (categoryId, category = null) {
-      if(category && category.children_count == 0) return ;
+      if (category && category.children_count === 0) {
+        this.redirectTo(category)
+        return
+      }
       if (category != null) {
         this.pipelineCategories.push(category)
       } else {
         this.pipelineCategories.pop()
       }
       axios.get('/api/web/categories/' + categoryId + '/subcategories').then(res => this.subcategories = res.data)
+    },
+
+    redirectTo (subcategory) {
+      this.$inertia.visit(this.showSubcategories === true ? `/web/categories/${subcategory.id}` : `/web/items?category_id=${subcategory.id}&&name=${this.$page.name}&&search_via=${this.$page.search_via}`)
     },
     closePanel () {
       if (this.isOpen) {
