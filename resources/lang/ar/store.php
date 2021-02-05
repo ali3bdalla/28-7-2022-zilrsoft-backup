@@ -2,7 +2,11 @@
 
 return [
 
+    "app" => [
+        "name" => 'متجر المسبار'
+    ],
     "common" => [
+        "customer_support" => "خدمة العملاء",
         "back" => "الخلف",
         "save" => "حفظ",
         'back_to_home' => "عودة للصفحة الرئيسية",
@@ -34,6 +38,13 @@ return [
     ],
 
     'messages' => [
+        "notify_unpaid_order_message" =>
+            "تذكير..\n سوف تنتهي مهلة سداد الطلب رقم (:ORDERID) قريبا \n يرجى السداد قبل \n:DATE\n:TIME",
+        'as_your_request' => "1- بناء على طلبك",
+        'not_paid' => "1- إنتهاء مهلة السداد",
+        "unpaid_order_canceled_message" =>
+            "عزيزي العميل :CUSTOMER_NAME,\n نأسف، طلبك رقم (:ORDERID) تم الغاءه \n\n سبب الإلغاء:\n:REASON .  ",
+        "notify_customer_by_new_order_message" => "عزيزي العميل ~:CUSTOMER_NAME~,\nشكرا لتسوقك من متجر المسبار\nرقم الطلب: :ORDER_ID\nالمبلغ: *:AMOUNT*\nالحسابات البنكية:\n\tالراجحي:   *38238258237951*\n\tالبلاد:  *54564646546546*\n\t23749823749873*\nيرجى السداد قبل :DEADLINE\nبعد السداد، فضلا أنقر على الرابط التالي\n:PAYMENT_URL\nلإلغاء الطلب، أنقر على الرابط التالي :\n\n:CANCEL_URL",
         "success" => "نجاح",
         "select_city" =>"اختر المدينة",
         "profile_information_updated" => "تم تعديل بيانات الملف الشخصي بنجاح",
@@ -173,6 +184,8 @@ return [
     ],
     //here
     'products' => [
+        "all_of_them" => "الكل",
+        'inc' => 'شامل الضريبة',
         'subcategories' => 'الاقسام الفرعية',
         'sorting_via' => 'الترتيب حسب',
         'tags' => 'لنتائج أكثر دقة.. أنقر على التاغ',

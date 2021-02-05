@@ -1,5 +1,5 @@
 <template>
-  <div class="product__search-sorting" v-click-outside="closePanel">
+  <div class="product__search-sorting md:relative" v-click-outside="closePanel">
     <button
     @click="toggleList"
       class="product__search-option-button"

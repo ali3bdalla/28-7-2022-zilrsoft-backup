@@ -90,9 +90,13 @@
   }
 
   &__list-item-old-price {
-    @apply mt-0 text-3xl text-gray-900 font-bold inline-block;
+    @apply mt-0 text-3xl text-gray-900 font-bold inline-block mb-0;
   }
 
+  &__list-item-including-tax {
+    @apply   text-xl text-gray-900 font-bold inline-block text-xs my-0 mt-0;
+
+  }
   &__add-to-cart-button {
     @apply bg-web-primary py-1 mx-auto text-center  font-extrabold text-white text-sm uppercase px-3 flex items-center justify-center gap-3 rounded-full;
     &:focus {

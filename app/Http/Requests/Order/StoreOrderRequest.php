@@ -7,6 +7,7 @@ use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
 use App\Jobs\Order\CreateOrderPdfSnapshotJob;
 use App\Jobs\Order\HoldItemQtyJob;
+use App\Jobs\Order\NotifyCustomerByNewOrderJob;
 use App\Jobs\Sales\Items\StoreSaleItemsJob;
 use App\Jobs\Sales\Order\CreateSalesOrderJob;
 use App\Models\Invoice;
@@ -59,7 +60,6 @@ class StoreOrderRequest extends FormRequest
             $this->validateQuantities($this->input('items'));
             $authUser = Manager::first();
             $authClient = $this->user('client');
-
             $invoice = Invoice::create(
                 [
                     'invoice_type' => 'sale',
@@ -92,7 +92,7 @@ class StoreOrderRequest extends FormRequest
             dispatch_now(new HoldItemQtyJob($invoice, $order));
             DB::commit();
             $path = CreateOrderPdfSnapshotJob::dispatchNow($invoice);
-            event(new OrderCreatedEvent($invoice, $path));
+            NotifyCustomerByNewOrderJob::dispatchNow($order,$path,$authClient,$invoice);
             if($this->acceptsJson())
                   return $invoice;
 

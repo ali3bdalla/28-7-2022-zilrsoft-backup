@@ -54,7 +54,7 @@
 						'order_id' => $this->order->id,
 						'qty' => $item->qty,
 						'hold_created_at' => Carbon::now(),
-						'hold_destroy_at' => Carbon::now()->addMinutes(30),
+						'hold_destroy_at' => Carbon::now()->addMinutes(config('app.store.cancel_unpaid_orders_after',30)),
 					]
 				);
 

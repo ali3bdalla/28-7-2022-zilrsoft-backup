@@ -126,7 +126,8 @@ class User extends BaseAuthModel
 
 	public function getInternationalPhoneNumberAttribute()
 	{
-		return $this->country_code . $this->phone_number; // 0966324018
+//        $this->country_code
+		return '966' . $this->phone_number; // 0966324018
 	}
 
 	public function details()

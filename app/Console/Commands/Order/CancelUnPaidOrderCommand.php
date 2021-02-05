@@ -8,7 +8,7 @@ use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class CancelUnPaidOrder extends Command
+class CancelUnPaidOrderCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -43,11 +43,8 @@ class CancelUnPaidOrder extends Command
     public function handle()
     {
         $orders = Order::where('status', 'issued')->whereDate('auto_cancel_at', '<=', Carbon::now())->whereTime('auto_cancel_at', '<=', Carbon::now())->get();
-//			$ordersCount = count($orders->toArray());
-//			Whatsapp::sendMessage("cancelUnPaidOrder ({$ordersCount}) orders " . Carbon::now()->toDateTimeString(), "249966324018");
-
         foreach ($orders as $order) {
-            dispatch_now(new CancelOrderJob($order));
+            CancelOrderJob::dispatchNow($order);
         }
 
     }

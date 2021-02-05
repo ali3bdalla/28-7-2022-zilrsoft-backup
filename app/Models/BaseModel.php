@@ -155,8 +155,8 @@ class BaseModel extends Model
                                     // ["{$table}.is_available_online", true],
                                     // ["{$table}.is_kit", false],
                                 ]
-                            )->with('category')->whereHas('category')->hasModelNumber()->orderBy('available_qty','desc');
-
+                            )->with('category')->whereHas('category')->orderBy('available_qty','desc');
+//                            ->hasModelNumber()
                             // ->whereHas('attachments')
                         }
                     );

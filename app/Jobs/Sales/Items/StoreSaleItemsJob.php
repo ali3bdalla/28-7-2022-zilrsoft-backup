@@ -198,15 +198,14 @@ class StoreSaleItemsJob implements ShouldQueue
     {
 
 
-        $discount = false;
+        $discount = 0;
         $qty = (int)$requestItemCollection->get('quantity'); // 10
-
         $net = $item->online_offer_price * $qty;
         $total = $net / (1 + ($item->vts / 100));
-        $subtotal = $total - $discount;
+        $subtotal = $total;
         $price = $total / $qty;
 
-        $tax = ($subtotal * $item->vts) / 100;
+        $tax = $net - $total;
 
         $data['belong_to_kit'] = false;
         $data['parent_kit_id'] = 0;
@@ -223,18 +222,16 @@ class StoreSaleItemsJob implements ShouldQueue
         $data['creator_id'] = $this->loggedUser->id;
         $data['item_id'] = $item->id;
         $data['is_draft'] = $this->isDraft;
-
         return $this->performDBCreation($data);
-
 
     }
 
-    private function performDBCreation($data)
+    private function performDBCreation($data = []): \Illuminate\Database\Eloquent\Model
     {
         return $this->invoice->items()->create($data);
     }
 
-    private function createInvoiceItem(Item $item, $requestItemCollection)
+    private function createInvoiceItem(Item $item, $requestItemCollection): \Illuminate\Database\Eloquent\Model
     {
 
         $isBelongToKit = (bool)$requestItemCollection->get('belong_to_kit');

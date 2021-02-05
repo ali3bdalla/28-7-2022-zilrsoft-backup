@@ -121,6 +121,9 @@ export default {
       if (totalShippingAmount < discount) {
         discount = totalShippingAmount
       }
+
+      console.log("shippingDiscount:" ,discount)
+
       return discount
     },
 
@@ -146,12 +149,16 @@ export default {
     },
     getTotalShippingAmount () {
       const totalWeight = parseFloat(this.getTotalShippingWeight()).toFixed(2) // 39
-
-      if (totalWeight == 0) return 0
+      console.log("totalWeight:" , totalWeight)
+      if (totalWeight === 0) return 0
       const maxBaseWeight = parseFloat(this.getShippingMethod().max_base_weight)
       let shippingAmount = parseFloat(
         this.getShippingMethod().max_base_weight_price
       )
+
+      console.log("maxBaseWeight:" , maxBaseWeight)
+      console.log("maxBasePrice:" , this.getShippingMethod().max_base_weight_price)
+
 
       if (maxBaseWeight < totalWeight) {
         const weightVaritionToBase = totalWeight - maxBaseWeight
@@ -159,6 +166,9 @@ export default {
           weightVaritionToBase *
           parseFloat(this.getShippingMethod().kg_rate_after_max_price)
       }
+
+      console.log("shippingTotal:" ,shippingAmount)
+
 
       return shippingAmount
     }

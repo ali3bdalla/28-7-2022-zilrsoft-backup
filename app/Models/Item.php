@@ -45,6 +45,7 @@ class Item extends BaseModel
 		'item_image_url'
 
 	];
+
 	protected $casts = [
 		'id' => 'integer',
 		'is_has_vts' => 'boolean',
@@ -60,7 +61,10 @@ class Item extends BaseModel
 	];
 	protected $guarded = [];
 
-
+    public function scopeAvailable($query)
+    {
+        return $query->where('available_qty','>',0);
+    }
 
 	public function getItemImageUrlAttribute()
 	{
@@ -70,10 +74,6 @@ class Item extends BaseModel
 
 
 		return "https://zilrsoft-cdn.fra1.digitaloceanspaces.com/images/no_image.png";
-//		if (app()->isLocale('ar'))
-//			return asset("images/logo_ar.png");
-//
-//		return asset("images/logo_en.png");
 	}
 	public function scopeKits($query)
 	{

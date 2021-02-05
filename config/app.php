@@ -61,6 +61,14 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+
+    'store' => [
+        'cancel_unpaid_orders_after' => env('STORE_CANCEL_UNPAID_ORDERS_AFTER',2),
+        'notify_unpaid_orders_after' => env('STORE_NOTIFY_UNPAID_ORDERS_AFTER',1),
+        'notify_via_whatsapp' => env('STORE_NOTIFY_VIA_WHATSAPP',true),
+        'notify_via_sms' => env('STORE_NOTIFY_VIA_SMS',false),
+        'notify_via_email' => env('STORE_NOTIFY_VIA_EMAIL',false),
+    ],
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

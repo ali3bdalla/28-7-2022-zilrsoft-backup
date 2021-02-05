@@ -67,7 +67,6 @@ export default {
   },
   methods: {
     paramsUpdated () {
-      console.log('working')
     },
     infiniteHandler ($state) {
       const params = this.params

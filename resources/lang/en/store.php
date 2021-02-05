@@ -1,6 +1,9 @@
 <?php
 
 return [
+    "app" => [
+        "name" => 'Almesbar Shop'
+    ],
     "header" => [
         "search_placeholder" => "search here..",
         "categories" => 'Categories',
@@ -9,6 +12,8 @@ return [
     ],
 
     "common" => [
+        "customer_support" => "Customer Service",
+
         "back" => "Back",
         "save" => "Save",
         'back_to_home' => "Back to home",
@@ -35,6 +40,13 @@ return [
 
 
     'messages' => [
+        "notify_unpaid_order_message" =>
+            "Reminder ..\nPayment deadline for order number (:ORDERID) is soon .\nPlease pay before\n:DATE\n:TIME",
+        'as_your_request' => "1- At Your Request",
+        'not_paid' => "1- Not Paid.",
+        "unpaid_order_canceled_message" =>
+            "Dear Customer :CUSTOMER_NAME,\n Sorry, Your Order #:ORDERID has been cancelled \n\n Cancelled Reasons:\n :REASON . \n\n Customer Service (WhatsApp) \n Wa.me/065433",
+
         "success" => "Success",
         "select_city" =>"Select City",
         "profile_information_updated" => "Your Profile has been updated",
@@ -178,6 +190,8 @@ return [
     ],
       //here
       'products' => [
+          "all_of_them" => "All",
+          "inc" => "Including VAT",
         'subcategories' => 'Sub Categories',
         'sorting_via' => 'Sorted By',
         'tags' => 'For more accurate results.. click on the tag',
