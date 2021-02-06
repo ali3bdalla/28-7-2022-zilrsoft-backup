@@ -1,8 +1,8 @@
 <template>
-  <div v-click-outside="closePanel" class="product__search-sorting" style="width: 24rem;">
+  <div v-click-outside="closePanel" class="product__search-sorting md:relative" style="width: 24rem;">
     <button
         v-if="activeCategory && this.$page.category.id != activeCategory.id "
-        class="product__search-option-button"
+        class="product__search-option-button  "
         @click="fetchSubcategories(activeCategory.parent_id)"
     >
       <svg class="product__search-option-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -40,13 +40,37 @@
     <div v-if="isOpen" class="product__search-sorting-panel">
       <div class="product__search-sorting-panel-content">
         <div class="product__search-sorting-list">
+          <div
+              v-if="activeCategory && this.$page.category.id != activeCategory.id"
+               class="product__search-sorting-list-item flex items-center justify-between gap-2 border-b bg-gray-100"
+               style=""  @click="redirectTo(activeCategory)">
+
+            <div>
+              <a
+                  :href="showSubcategories === true ?`/web/categories/${activeCategory.id}` : `/web/items?category_id=${activeCategory.id}&&name=${$page.name}&&search_via=${$page.search_via}`"
+                  class="page__categories__list-item"
+              >
+                <div class="page__categories__name">
+
+                  <span v-if="showSubcategories !== true" class="">{{ activeCategory.search_keywords }}</span>
+                  <span v-if="showSubcategories !== true"> {{ $page.$t.products.in }} - </span>
+                  <span class="">{{ $page.$t.products.all_of_them }}</span>
+<!--                  {{ activeCategory.locale_name }}-->
+
+                  <span v-if="showSubcategories !== true" class="">({{ activeCategory.result_items_count }})</span>
+                </div>
+              </a>
+            </div>
+
+          </div>
           <div v-for="(subcategory, index) in subcategories" :key="subcategory.id"
                class="product__search-sorting-list-item flex items-center justify-between gap-2 border-b"
                style=""  @click="fetchSubcategories(subcategory.id,subcategory)">
 
-            <div>
-              <a
-                  :href="showSubcategories === true ?`/web/categories/${subcategory.id}` : `/web/items?category_id=${subcategory.id}&&name=${$page.name}&&search_via=${$page.search_via}`"
+<!--            :href="showSubcategories === true ?`/web/categories/${subcategory.id}` : `/web/items?category_id=${subcategory.id}&&name=${$page.name}&&search_via=${$page.search_via}`"-->
+<!--            <div>-->
+              <div
+
                   class="page__categories__list-item"
               >
                 <div class="page__categories__name">
@@ -57,7 +81,7 @@
 
                   <span v-if="showSubcategories !== true" class="">({{ subcategory.result_items_count }})</span>
                 </div>
-              </a>
+<!--              </div>-->
             </div>
             <div v-if="subcategory.children_count > 0" class="w-1/4 flex items-center px-3 justify-end">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -92,7 +116,6 @@ export default {
     }
   },
   created () {
-    // console.log(this.$page.category.id)
     this.fetchSubcategories(this.category.id, this.category)
   },
   methods: {

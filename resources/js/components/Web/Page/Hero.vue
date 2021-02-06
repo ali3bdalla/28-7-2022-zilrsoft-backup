@@ -5,9 +5,11 @@
       snap="center"
       :button-between="false"
       :button="true"
+      :displacement="0.75"
       ref="horizontalBanner"
       style="direction: ltr"
       @scroll-debounce="onScrollDebounce"
+      @prev="onPrev" @next="onNext"
     >
       <div
         class="item hero__item"
@@ -15,8 +17,6 @@
         :key="item.id"
 
       >
-      <!-- :style="{ backgroundImage: 'url(' + item + ')' }" -->
-      <!-- `http://46.101.185.238:8080/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/1110/462/sm/0/plain/` +  -->
         <img :src="$processedImageUrl(item,1110 * 5,462 * 5)" class="object-cover" />
       </div>
     </vue-horizontal>
@@ -45,7 +45,8 @@ export default {
       scrollWidth: 0,
       left: 0,
       progress: 0,
-      index: 0
+      index: 0,
+      autoplay:true,
     }
   },
   mounted () {
@@ -56,6 +57,7 @@ export default {
         this.interval = setInterval(this.play, 4000)
       } else {
         clearInterval(this.interval)
+        this.autoplay = false;
       }
     })
   },
@@ -69,10 +71,16 @@ export default {
       this.scrollWidth = scrollWidth
       this.left = left
       this.progress = left / scrollWidth
-      this.index = Math.round(left / width)
+      this.index = Math.floor(left / width)
     },
-    onIndexClick (i) {
-      this.$refs.horizontalBanner.scrollToIndex(i)
+
+    onPrev() {
+      clearInterval(this.interval)
+      this.autoplay = false;
+    },
+    onNext() {
+      clearInterval(this.interval)
+      this.autoplay = false;
     },
     play () {
       if (!this.hasNext && this.hasPrev) {

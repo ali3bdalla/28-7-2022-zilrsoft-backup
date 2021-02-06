@@ -8,7 +8,7 @@
 @section("content")
 
     @if($order->paymentDetail)
-    
+
        <div class="panel">
            <div class="panel-heading">
                <div class="row">
@@ -70,9 +70,12 @@
 
 
                @if($order->status == 'pending')
+                   @error('account_id')
+               {{ $message }}
+               @enderror
                <div class="row" >
                    <div class="col-md-12 text-center">
-                       <order-payment-options :order='@json($order)'></order-payment-options>
+                       <order-payment-options :order='@json($order)' :accounts='@json($accounts)'></order-payment-options>
                    </div>
 
                </div>
@@ -82,7 +85,7 @@
            </div>
        </div>
 
-       @else 
+       @else
 
             <h1>لم يتم سداد المبلغ لهذا الطلب بعد</h1>
        @endif

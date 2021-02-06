@@ -1,7 +1,7 @@
 <?php
-	
+
 	namespace App\Http\Controllers;
-	
+
 	use App\Models\Account;
 	use App\Models\Department;
 	use App\Models\Invoice;
@@ -9,7 +9,7 @@
 	use App\Models\Manager;
 	use App\Models\Order;
 	use App\Models\User;
-	
+
 	class SaleController extends Controller
 	{
 		//
@@ -20,16 +20,12 @@
 		public function index()
 		{
 			$clients = User::where('is_client', true)->get();
-			
+
 			$creators = Manager::get();
 			$departments = Department::get();
-
-//			return  $departments;
-			
-			
 			return view('sales.index', compact('clients', 'creators', 'departments'));
 		}
-		
+
 		/**
 		 * Show the form for creating a new resource.
 		 * @return Response
@@ -40,10 +36,10 @@
 			$clients = User::where('is_client', true)->get()->toArray();
 			$expenses = Item::where('is_expense', true)->get();
 			$gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
-			
+
 			return view('sales.create', compact('clients', 'salesmen', 'gateways', 'expenses'));
 		}
-		
+
 		/**
 		 * Show the form for creating a new resource.
 		 * @return Response
@@ -54,7 +50,7 @@
 			$creators = Manager::all();
 			return view('sales.drafts', compact('clients', 'creators'));
 		}
-		
+
 		/**
 		 * Show the form for creating a new resource.
 		 * @return Response
@@ -64,11 +60,10 @@
 			$salesmen = Manager::all();
 			$clients = User::where('is_client', true)->get()->toArray();
 			$expenses = Item::where('is_expense', true)->get();
-			
 			$gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
 			return view('sales.create_draft', compact('clients', 'salesmen', 'gateways', 'expenses'));
 		}
-		
+
 		/**
 		 * Show the form for creating a new resource.
 		 * @return Response
@@ -81,10 +76,10 @@
 			$gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
 			return view('sales.create_draft_service', compact('clients', 'salesmen', 'gateways', 'services'));
 		}
-		
+
 		function clone(Invoice $sale)
 		{
-			
+
 			$salesmen = Manager::all();
 			$clients = User::where('is_client', true)->get()->toArray();
 			$expenses = Item::where('is_expense', true)->get();
@@ -92,11 +87,11 @@
 			$sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
 			return view('sales.clone_draft', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale'));
 		}
-		
-		
+
+
 		function toInvoice(Invoice $sale)
 		{
-			
+			$sale->sale = $sale->sale()->withoutGlobalScope('draft')->first();
 			$salesmen = Manager::all();
 			$clients = User::where('is_client', true)->get()->toArray();
 			$expenses = Item::where('is_expense', true)->get();
@@ -105,7 +100,7 @@
 			$isOrder = Order::where([['draft_id',$sale->id],['status','in_progress']])->count() == 1;
 			return view('sales.clone', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale','isOrder'));
 		}
-		
+
 		/**
 		 * Show the specified resource.
 		 * @param Invoice $sale
@@ -113,15 +108,14 @@
 		 */
 		public function show(Invoice $sale)
 		{
-//        $sale = $sale->withoutGlobalScope('draft');
-			
+
 			$transactions = $sale->transactions()->get();
 			$invoice = $sale;
 			$invoice->sale = $invoice->sale()->withoutGlobalScope('draft')->first();
-			
+
 			return view('sales.view', compact('invoice', 'transactions'));
 		}
-		
+
 		/**
 		 * Show the form for editing the specified resource.
 		 * @param Invoice $sale
@@ -133,24 +127,23 @@
 			$sale = $invoice->sale;
 			$items = [];
 			$data_source_items = $invoice->items()->where('parent_kit_id', 0)->with('item')->get();
-			
+
 			foreach($data_source_items as $item) {
 				if($item->item->is_need_serial) {
 					$item['serials'] = $item->item->serials()->sale($invoice->id)->get();
 				}
-				
+
 				if($item->item->is_kit) {
 					$item['items'] = $invoice->items()->kitItems($item->id)->with('item')->get();
 				}
-				
-				
+
+
 				$items[] = $item;
 			}
-			
-			// return $items;
+
 			$expenses = [];//Item::where('is_expense', true)->get()
 			$gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
 			return view('sales.create_return', compact('sale', 'invoice', 'items', 'gateways', 'expenses'));
 		}
-		
+
 	}

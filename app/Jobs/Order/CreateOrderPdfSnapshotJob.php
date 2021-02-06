@@ -75,7 +75,6 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
 		foreach ($invoice->items as $item) {
 			$pdfInvoice->addItem($item->item->locale_name, $item->qty, $item->price, $item->total, $item->tax, $item->net, $item->getInvoiceItemSerials()->pluck('serial')->toArray());
 		}
-
 		$pdfInvoice->addTotal(__("store.order.total"), $invoice->total);
 		$pdfInvoice->addTotal(__("store.order.tax"), $invoice->tax);
 		$pdfInvoice->addTotal(__("store.order.shipping"), 0);
@@ -91,7 +90,7 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
 			$fileName = 'order_' . $this->order->id . '_' . Carbon::now()->toDateString() . '.pdf';
 			$path = 'orders/' . $fileName;
 			Storage::put($path, $pdfInvoice->render($fileName, Destination::STRING_RETURN), 'public');
-			
+
 			return $path;
 		} catch (Exception $exception) {
 			throw $exception;

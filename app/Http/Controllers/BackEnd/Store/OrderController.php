@@ -35,29 +35,6 @@ class OrderController extends Controller
 	public function show(Order $order)
 	{
 		$phoneNumber = $order->user->international_phone_number;
-
-
-
-		// $message = view(
-		// 	'whatsapp.order_details', [
-		// 		'client' => $order->draftInvoice->user,
-		// 		'order' => $order,
-		// 		'invoice' => $order->draftInvoice,
-		// 		'deadline' => Carbon::now()->addMinutes(30)->format('H:i')
-		// 	]
-		// )->toHtml();
-
-		// return $phoneNumber;
-		// if (app()->environment(['production', 'local'])) {
-		// Whatsapp::sendMessage(
-		// 	$phoneNumber, [$phoneNumber]
-		// );
-		// Whatsapp::sendFile(
-		// 	$event->path, [$phoneNumber], $order->invoice->id
-		// );
-		// }
-
-
 		$order->load('paymentDetail', 'user');
 		return view('orders.show', compact('order'));
 	}
@@ -71,7 +48,8 @@ class OrderController extends Controller
 
 	public function viewPayment(Order $order)
 	{
-		return view('orders.view-payment', compact('order'));
+        $accounts = auth()->user()->gateways()->get();
+        return view('orders.view-payment', compact('order','accounts'));
 	}
 	public function viewShipping(Order $order)
 	{

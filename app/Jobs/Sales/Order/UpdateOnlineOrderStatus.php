@@ -69,6 +69,8 @@ class UpdateOnlineOrderStatus implements ShouldQueue
                         'is_online' => true
                     ]
                 );
+
+
             }
         }
     }

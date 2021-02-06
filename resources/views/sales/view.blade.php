@@ -43,11 +43,7 @@
                             <i class="fa fa-plus-circle"></i> {{ __('pages/invoice.return') }}
                         </a>
                     @endif
-                    {{--        @if(!$invoice->is_updated)--}}
-                    {{--            <a href="{{route('accounting.sales.destroy',$invoice->id)}}" class="btn btn-danger">--}}
-                    {{--                <i class="fa fa-trash"></i> {{ __('pages/invoice.delete') }}--}}
-                    {{--            </a>--}}
-                    {{--        @endif--}}
+
                 @endcan
             @endif
         @endif

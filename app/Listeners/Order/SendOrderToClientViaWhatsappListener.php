@@ -2,8 +2,9 @@
 
 namespace App\Listeners\Order;
 
-use AliAbdalla\Whatsapp\Whatsapp;
+use App\Package\Whatsapp;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 
 
@@ -40,18 +41,22 @@ class SendOrderToClientViaWhatsappListener
                 'deadline' => Carbon::now()->addMinutes(30)->format('H:i')
             ]
         )->toHtml();
-        // if (app()->environment(['production', 'local'])) {
-        sendSms($message, $phoneNumber);
-//        Whatsapp::sendMessage(
-//            $message,
-//            [$phoneNumber]
-//        );
-        // Whatsapp::sendFile(
-        //     $event->path,
-        //     [$phoneNumber],
-        //     $event->invoice->id
-        // );
-        // }
+
+        if (config('app.store.notify_via_sms')) {
+            sendSms($message, $phoneNumber);
+        }
+        if (config('app.store.notify_via_whatsapp')) {
+
+            Whatsapp::sendMessage(
+                $message,
+                $phoneNumber
+            );
+            Whatsapp::sendFile(
+                Storage::url($event->path),
+                $phoneNumber,
+                $event->invoice->id . '.pdf'
+            );
+        }
 
     }
 }

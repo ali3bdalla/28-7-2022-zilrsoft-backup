@@ -2,7 +2,8 @@
  <!-- animate__animated animate__bounceIn -->
   <div
     class="product__list-item"
-    style="border-color: #d2e8ff !important; border-width: 3px !important"
+    style="border-color: #d2e8ff !important; border-width: 3px !important;"
+    :style="$page.active_locale === 'ar' ? 'direction:rtl' : 'direction:ltr'"
   >
     <div class="product__list-item-image-container">
       <a :href="`/web/items/${item.id}`"
@@ -35,12 +36,12 @@
         class="product__list-item-cart-options"
       ></ProductRatingComponent>
 
-      <h4 class="product__list-item-price">
-        {{ parseFloat(item.online_price).toFixed(2) }}
-      </h4>
-      <span class="product__list-item-currency">{{
-        $page.$t.products.sar
-      }}</span>
+<!--      <h4 class="product__list-item-price">-->
+<!--        {{ parseFloat(item.online_price).toFixed(2) }}-->
+<!--      </h4>-->
+<!--      <span class="product__list-item-currency">{{-->
+<!--        $page.$t.products.sar-->
+<!--      }}</span>-->
       <div>
         <h4 class="product__list-item-old-price">
           {{ parseFloat(item.online_offer_price).toFixed(2) }}
@@ -49,6 +50,9 @@
           $page.$t.products.sar
         }}</span>
       </div>
+      <p class="product__list-item-including-tax">
+       {{ $page.$t.products.inc }}
+      </p>
       <ToggleCartItemButtonComponent
         :item="item"
         class="product__list-item-cart-options"

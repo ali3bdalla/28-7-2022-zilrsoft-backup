@@ -1,7 +1,7 @@
 <template>
   <div class="register-login-section">
     <div class="container">
-
+      <language-switcher></language-switcher>
       <div class="">
         <div class="col-lg-6 offset-lg-3">
           <div class="login-form">
@@ -89,13 +89,14 @@
 <script>
 import FlipCountdown from 'vue2-flip-countdown'
 import PaymentAccounts from '../../../components/Web/Client/PaymentAccounts'
+import LanguageSwitcher from '../../../components/Web/Page/LanguageSwitcher'
 
 export default {
-  components: { FlipCountdown, PaymentAccounts },
+  components: { LanguageSwitcher, FlipCountdown, PaymentAccounts },
   data () {
     return {
-      firstName: '',
-      lastName: '',
+      firstName: this.$page.user.first_name,
+      lastName: this.$page.user.last_name,
       senderAccountId: null,
       receiverAccountBankId: 1
     }
@@ -113,9 +114,7 @@ export default {
         last_name: this.lastName
       })
     }
-    // items() {
-    //   return this.$page.items.data;
-    // },
+
   }
 }
 </script>

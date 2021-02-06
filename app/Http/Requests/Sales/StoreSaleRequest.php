@@ -39,7 +39,6 @@ class StoreSaleRequest extends FormRequest
             "items.*.price" => "price|priceAndDiscount|min:0",
             "items.*.discount" => "priceAndDiscount",
             "items.*.qty" => "required|integer|min:1|salesItemQty",
-//            "items.*.purchase_price" => "salesExpensesPurchasePrice|price|min:0",
             'items.*.serials' => 'array|newInvoiceItemSerials',
             'items.*.serials.*' => 'required|organization_exists:App\Models\ItemSerials,serial',
             'items.*.items.*.id' => 'required|organization_exists:App\Models\Item,id',
@@ -67,6 +66,7 @@ class StoreSaleRequest extends FormRequest
     public function store()
     {
         DB::beginTransaction();
+        /** @var TYPE_NAME $exception */
         try {
             $isOnlineOrder = $this->isOnlineOrder();
             $this->requestValidation();
@@ -119,7 +119,7 @@ class StoreSaleRequest extends FormRequest
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw $queryException;
-        } 
+        }
         catch (ValidationException $exception) {
             DB::rollBack();
             throw $exception;
@@ -128,7 +128,6 @@ class StoreSaleRequest extends FormRequest
         catch (Exception $exception) {
             DB::rollBack();
             throw $exception;
-
         }
     }
 
@@ -212,7 +211,6 @@ class StoreSaleRequest extends FormRequest
 
     private function requestValidation()
     {
-
         $this->validateSerials();
         $this->validateKits();
         $this->validateQuantities($this->input('items'));
@@ -234,9 +232,9 @@ class StoreSaleRequest extends FormRequest
     private function validatePaymentsAndGetPaymentMethods(Invoice $invoice, $isOnlineOrder = false)
     {
 
-
         if ($isOnlineOrder) {
-            return $this->onlineOrderPayments();
+            return [];
+//            return $this->onlineOrderPayments();
         }
         $invoice = $invoice->fresh();
 
@@ -273,23 +271,24 @@ class StoreSaleRequest extends FormRequest
 
     public function onlineOrderPayments()
     {
-        $draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->input('quotation_id'))->first();
-        if ($draft) {
-            $order = Order::where([
-                ['draft_id', $this->input('quotation_id')],
-                ['status', 'in_progress'],
-            ])->first();
-            if ($order) {
-                if ($order->paymentDetail) {
-                    $account = $order->paymentDetail->receivedBank->account;
-                    $account = $account->toArray();
-                    $account['amount'] = $order->net;
-                    return [$account];
-                }
-            }
-        }
-
-        throw ValidationException::withMessages(['payment' => 'order payment not exists']);
+        return [];
+//        $draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->input('quotation_id'))->first();
+//        if ($draft) {
+//            $order = Order::where([
+//                ['draft_id', $this->input('quotation_id')],
+//                ['status', 'in_progress'],
+//            ])->first();
+//            if ($order) {
+//                if ($order->paymentDetail) {
+//                    $account = $order->paymentDetail->receivedBank->account;
+//                    $account = $account->toArray();
+//                    $account['amount'] = $order->net;
+//                    return [$account];
+//                }
+//            }
+//        }
+//
+//        throw ValidationException::withMessages(['payment' => 'order payment not exists']);
     }
 
 

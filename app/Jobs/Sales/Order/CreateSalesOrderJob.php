@@ -17,7 +17,6 @@ class CreateSalesOrderJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $orderAutoCancelAfter = 20;
     /**
      * @var Invoice
      */
@@ -59,20 +58,20 @@ class CreateSalesOrderJob implements ShouldQueue
         $order->shipping_cost = $this->getShippingCost($invoiceItems);
         $order->shipping_weight = $this->getItemsTotalShippingWeight($invoiceItems);
         $order->net = (float)$this->invoice->net + (float)$shippingAmount;
-        $order->auto_cancel_at = Carbon::now()->addMinutes($this->orderAutoCancelAfter);
+        $order->auto_cancel_at = Carbon::now()->addMinutes(config('app.store.cancel_unpaid_orders_after',30));
         $order->is_should_pay_notified = false;
-        $order->should_pay_last_notification_at = Carbon::now()->addMinutes($this->orderAutoCancelAfter - 1);
-        $order->order_secret_code = (rand(10000, 99999));//bcrypt
+        $order->should_pay_last_notification_at = Carbon::now()->addMinutes(config('app.store.notify_unpaid_orders_after',25));
+        $order->order_secret_code = (rand(10000, 99999));
         $order->status = 'issued';
         $order->save();
         return $order->fresh();
     }
 
     /**
-     * @param $invoiceItems
+     * @param array $invoiceItems
      * @return int
      */
-    private function getShippingAmount($invoiceItems)
+    private function getShippingAmount($invoiceItems = []): int
     {
 
         $shippingMethod = $this->getShippingMethod();

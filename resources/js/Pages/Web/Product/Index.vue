@@ -15,7 +15,6 @@
               "
               @priceFilterRangeHasBeenUpdated="priceFilterRangeHasBeenUpdated"
             ></filters-pop>
-<!-- v-if="!$page." -->
             <categories-pop ></categories-pop>
             <sorting-pop @updated="sortingUpdated"></sorting-pop>
           </div>
@@ -98,10 +97,9 @@ export default {
       names.forEach((subName) => {
         const items = this.items.filter((p) => p.category_id === categoryId)
         items.forEach((item) => {
-          console.log(item.locale_name)
           if (
             item.locale_name.indexOf(subName) >= 0 &&
-            result.indexOf(subName) == -1
+            result.indexOf(subName) === -1
           ) {
             result = result + ' ' + subName
           }

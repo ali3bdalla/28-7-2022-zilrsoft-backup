@@ -18,7 +18,7 @@
 		
 		public function client()
 		{
-			return $this->belongsTo(User::class, 'client_id');
+			return $this->belongsTo(User::class, 'client_id')->withoutGlobalScopes(['draft','manager']);
 		}
 		
 		public function salesman()

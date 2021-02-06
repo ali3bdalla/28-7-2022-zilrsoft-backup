@@ -40,7 +40,7 @@ class Order extends BaseModel
     }
 
 
- 
+
 
     public function activities()
     {
@@ -65,15 +65,12 @@ class Order extends BaseModel
 
     public function generatePayOrderUrl()
     {
-        return  url('/web/orders/' . $this->id . '/confirm_payment?code=' . $this->order_secret_code);
-        // return file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/web/orders/' . $this->id . '/confirm_payment?code=' . $this->order_secret_code));
+         return file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/web/orders/' . $this->id . '/confirm_payment?code=' . $this->order_secret_code));
     }
 
     public function generateCancelOrderUrl()
     {
-
-        return url('/web/orders/' . $this->id . '/cancel?code=' . $this->order_secret_code);
-        // return file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/web/orders/' . $this->id . '/cancel?code=' . $this->order_secret_code));
+        return file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/web/orders/' . $this->id . '/cancel?code=' . $this->order_secret_code));
     }
 
 

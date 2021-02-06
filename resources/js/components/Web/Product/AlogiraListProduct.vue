@@ -34,20 +34,39 @@
         class="product__list-item-cart-options"
       ></ProductRatingComponent>
 
-      <h4 class="product__list-item-price">
-        {{ parseFloat(item.online_price).toFixed(2) }}
-      </h4>
-      <span class="product__list-item-currency">{{
-        $page.$t.products.sar
-      }}</span>
+<!--      <h4 class="product__list-item-price">-->
+<!--        {{ parseFloat(item.online_price).toFixed(2) }}-->
+<!--      </h4>-->
+<!--      <span class="product__list-item-currency">{{-->
+<!--        $page.$t.products.sar-->
+<!--      }}</span>-->
+<!--      <div>-->
+<!--        <h4 class="product__list-item-old-price">-->
+<!--          {{ parseFloat(item.online_offer_price).toFixed(2) }}-->
+<!--        </h4>-->
+<!--        <span class="product__list-item-currency">{{-->
+<!--          $page.$t.products.sar-->
+<!--        }}</span>-->
+<!--      </div>-->
+
+
+      <!--      <h4 class="product__list-item-price">-->
+      <!--        {{ parseFloat(item.online_price).toFixed(2) }}-->
+      <!--      </h4>-->
+      <!--      <span class="product__list-item-currency">{{-->
+      <!--        $page.$t.products.sar-->
+      <!--      }}</span>-->
       <div>
         <h4 class="product__list-item-old-price">
           {{ parseFloat(item.online_offer_price).toFixed(2) }}
         </h4>
         <span class="product__list-item-currency">{{
-          $page.$t.products.sar
-        }}</span>
+            $page.$t.products.sar
+          }}</span>
       </div>
+      <p class="product__list-item-including-tax">
+        {{ $page.$t.products.inc }}
+      </p>
       <ToggleCartItemButtonComponent
         :item="item"
         class="product__list-item-cart-options"

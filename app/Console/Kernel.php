@@ -2,11 +2,10 @@
 
 	namespace App\Console;
 
-	use App\Console\Commands\Order\CancelUnPaidOrder;
-	use App\Console\Commands\Order\NotifyUnPaidOrder;
+    use App\Console\Commands\Order\CancelUnPaidOrderCommand;
+    use App\Console\Commands\Order\NotifyUnPaidOrderCommand;
 	use Illuminate\Console\Scheduling\Schedule;
 	use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-	use Illuminate\Support\Facades\Storage;
 
 	class Kernel extends ConsoleKernel
 	{
@@ -27,9 +26,8 @@
 		 */
 		protected function schedule(Schedule $schedule)
 		{
-			 $schedule->command(NotifyUnPaidOrder::class)->everyMinute();
-			 $schedule->command(CancelUnPaidOrder::class)->everyMinute();
-
+			 $schedule->command(NotifyUnPaidOrderCommand::class)->everyMinute();
+			 $schedule->command(CancelUnPaidOrderCommand::class)->everyMinute();
 		}
 
 		/**

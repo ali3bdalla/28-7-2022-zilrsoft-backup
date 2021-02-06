@@ -1,6 +1,9 @@
 <?php
 
 return [
+    "app" => [
+        "name" => 'Almesbar Shop'
+    ],
     "header" => [
         "search_placeholder" => "search here..",
         "categories" => 'Categories',
@@ -9,6 +12,8 @@ return [
     ],
 
     "common" => [
+        "customer_support" => "Customer Service",
+
         "back" => "Back",
         "save" => "Save",
         'back_to_home' => "Back to home",
@@ -35,6 +40,74 @@ return [
 
 
     'messages' => [
+        "notify_customer_by_payment_confirmation" => "
+Dear :CUSTOMER_NAME 
+Your payment has been confirmed for order :ORDER_ID
+we will ship your order as soon as posiable 
+",
+        "notify_unpaid_order_message" =>
+            "Reminder ..\nPayment deadline for order number (:ORDERID) is soon .\nPlease pay before\n:DATE\n:TIME",
+        'as_your_request' => "1- At Your Request",
+        'not_paid' => "1- Not Paid.",
+        "unpaid_order_canceled_message" =>
+            "Dear Customer :CUSTOMER_NAME,\n Sorry, Your Order #:ORDERID has been cancelled \n\n Cancelled Reasons:\n :REASON . \n\n Customer Service (WhatsApp) \n Wa.me/065433",
+
+        "notify_customer_by_new_order_message" => "
+Dear *:CUSTOMER_NAME*,
+Thank you for ordering form *Almesbar Shop* 
+Order: *:ORDER_ID*
+Amount: *:AMOUNT*
+
+Banks Accounts:
+Rajhi:   
+    *38238258237951*
+Alahli:  
+    *54564646546546*
+Albilad:
+    *23749823749873*
+
+Deadline for Payment 
+    *:DEADLINE_DATE*
+    *:DEADLINE_TIME*
+    
+Please fill this form after transfer:
+    :PAYMENT_URL
+    
+To cancel your order please click the flowing Link:
+    :CANCEL_URL
+        ",
+"order_payment_confirmed" => "
+Dear Customer :CUSTOMER_NAME
+Your Payment For Order #:ORDER_ID has been received
+",
+"invalid_order_payment" => "
+Dear Customer :CUSTOMER_NAME
+Unfortunately, Your Payment For Order #:ORDER_ID is Invalid
+For more information, you can contact customer service via the following link
+https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
+",
+
+"order_shipped_with_shipping_method" => "
+Dear Customer :CUSTOMER_NAME
+Your Order #:ORDER_ID has been shipped via :SHIPPING_METHOD
+Tracking Number :TRACKING_NUMBER
+Tracking Link
+:TRACKING_URL
+",
+
+"order_shipped_with_deivery_man" => "
+Dear Customer :CUSTOMER_NAME
+Your Order #:ORDER_ID has been shipped with delivery man
+:DELIVERY_MAN
+:DELIVERY_MAN_NUMBER
+Receipt code :CODE
+",
+
+"order_shipping_confirmation" => "
+Dear Customer :CUSTOMER_NAME
+Your Order #:ORDER_ID ready to pick up
+Receipt code :CODE
+",
         "success" => "Success",
         "select_city" =>"Select City",
         "profile_information_updated" => "Your Profile has been updated",
@@ -45,7 +118,9 @@ return [
         "yes" => "Yes",
         "no" => "No",
         'bank_account_has_been_created' => "Your bank account has been updated",
-        'invalid_otp' => 'invalid verification code'
+        'invalid_otp' => 'invalid verification code',
+        "invalid_activity" => "This is invalid Activity",
+        "invalid_activity_message" => "Invalid Request"
     ],
 
 
@@ -173,11 +248,14 @@ return [
         "order" => "Order",
         "remmning_time_to_auto_cancel_order" => "Payment Deadline",
         "transmitter_name" => "Transmitter Name",
-        "to_blank" => "Beneficiary Bank"
+        "to_blank" => "Beneficiary Bank",
+        "payment_confirmed" => "we have received your payment confirmation request",
+        "payment_confirmed_message" => "Once we have received your payment we will confirm your order. we will keep you in touch",
 
     ],
-      //here
       'products' => [
+          "all_of_them" => "All",
+          "inc" => "Including VAT",
         'subcategories' => 'Sub Categories',
         'sorting_via' => 'Sorted By',
         'tags' => 'For more accurate results.. click on the tag',
@@ -192,7 +270,7 @@ return [
         'remove_to_cart' => 'Remove From Cart',
         'product_specifications' => 'Product Specifications',
         'out_of_stock' => 'Out Of Stock',
-        'sar' => 'sar',
+        'sar' => 'SR',
         "name" => "Product Name",
         "quantity" => "QTY",
         "price" => "Price",
