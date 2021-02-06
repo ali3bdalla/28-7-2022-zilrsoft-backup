@@ -142,7 +142,7 @@
                     <div class="col-xs-12 divider text-center">
                         @if($identity->is_client)
                             <div class="col-xs-12 col-sm-6 emphasis">
-                                <h2><strong>{{ money_format("%i",$identity->balance) }} </strong></h2>
+                                <h2><strong>{{ moneyFormatter($identity->balance) }} </strong></h2>
                                 <p><small>{{ trans('pages/users.client_balance') }}</small></p>
 
                                 <a href="{{ route('entities.user',[$clientAccount->id,$identity->id])}}">كشف
@@ -151,7 +151,7 @@
                         @endif
                         @if($identity->is_vendor)
                             <div class="col-xs-12 col-sm-6 emphasis">
-                                <h2><strong>{{ money_format("%i",$identity->vendor_balance) }} </strong></h2>
+                                <h2><strong>{{ moneyFormatter($identity->vendor_balance) }} </strong></h2>
                                 <p><small>{{ trans('pages/users.vendor_balance') }}</small></p>
                                 <a href="{{ route('entities.user',[$vendorAccount->id,$identity->id])}}">كشف
                                     حساب</a>

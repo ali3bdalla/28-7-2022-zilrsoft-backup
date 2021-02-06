@@ -72,17 +72,17 @@
                         </th>
                         @if($transaction['creditable_type']=="")
 						<?php $balance = $balance + $transaction['amount'];?>
-                            <th class="text-center ">{{money_format("%i",$transaction->amount)}}</th>
+                            <th class="text-center ">{{moneyFormatter($transaction->amount)}}</th>
                             <th class="text-center ">0</th>
                         @else
 						<?php $balance = $balance - $transaction['amount'];?>
                             <th class="text-center ">0</th>
-                            <th class="text-center ">{{money_format("%i",$transaction->amount)}}</th>
+                            <th class="text-center ">{{moneyFormatter($transaction->amount)}}</th>
                         @endif
                         <th class="text-center ">
                             @if($balance>0)
 
-                                {{money_format("%i",$balance)}}
+                                {{moneyFormatter($balance)}}
                             @else
                                 0
                             @endif
@@ -90,7 +90,7 @@
                         <th class="text-center ">
                             @if($balance<0)
 
-                                {{money_format("%i",abs($balance))}}
+                                {{moneyFormatter(abs($balance))}}
                             @else
                                 0
                             @endif

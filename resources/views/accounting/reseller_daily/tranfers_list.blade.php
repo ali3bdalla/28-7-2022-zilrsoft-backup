@@ -42,10 +42,10 @@
                         <td>{{ $transaction->created_at }}</td>
                         <td>{{ $transaction->creator->locale_name }}</td>
                         <td>{{ $transaction->receiver->locale_name }}</td>
-                        <td>{{ money_format("%i",$total_amount)}}</td>
+                        <td>{{ moneyFormatter($total_amount)}}</td>
 
-                        <td>{{  money_format("%i",$transaction->amount) }}</td>
-                        <td>{{ money_format("%i",$total_amount - $transaction->amount) }}</td>
+                        <td>{{  moneyFormatter($transaction->amount) }}</td>
+                        <td>{{ moneyFormatter($total_amount - $transaction->amount) }}</td>
                         <td>
                             @if($transaction->is_pending)
                                 منتظرة

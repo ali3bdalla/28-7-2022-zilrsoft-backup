@@ -1,4 +1,4 @@
-<?php $amount = money_format("%i",$account->current_amount) ?>
+<?php $amount = moneyFormatter($account->current_amount) ?>
 <ul class="group list-group">
     <li class="list-group-item">
         <div class="title @if($amount<0) rgRed @endif"><a href="{{ route('accounting.accounts.show',$account->id)

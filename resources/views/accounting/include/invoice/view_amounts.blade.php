@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="col-md-5"><label>{{ __('pages/invoice.paid') }}</label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="{{ money_format("%i",$invoice->net
+                    <input type="text" class="form-control input-xs amount-input" value="{{ moneyFormatter($invoice->net
                     - $invoice->remaining )}}"
                            disabled="">
                 </div>

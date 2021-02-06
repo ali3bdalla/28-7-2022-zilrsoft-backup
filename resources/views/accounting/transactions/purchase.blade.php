@@ -6,7 +6,7 @@
 
             @if($invoice_transaction['description']=='to_item' || $invoice_transaction['description']=='to_tax')
 			    <?php $total_credit = $total_credit + $invoice_transaction['amount'];?>
-                <th>{{ money_format("%i", $invoice_transaction['amount']) }}</th>
+                <th>{{ moneyFormatter( $invoice_transaction['amount']) }}</th>
                 <th></th>
                 <th>@if(!empty( $invoice_transaction->creditable)){{ $invoice_transaction->creditable->locale_name }}@else
                         - @endif </th>
@@ -15,7 +15,7 @@
 
 			    <?php $total_debit = $total_debit + $invoice_transaction['amount']?>
                 <th></th>
-                <th>{{ money_format("%i", $invoice_transaction['amount']) }}</th>
+                <th>{{ moneyFormatter( $invoice_transaction['amount']) }}</th>
                 <th>@if(!empty( $invoice_transaction->debitable)){{ $invoice_transaction->debitable->locale_name }}@else
                         - @endif </th>
             @endif
@@ -29,13 +29,13 @@
             @if($invoice_transaction['description']=='to_item' || $invoice_transaction['description']=='to_tax')
 			    <?php $total_debit = $total_debit + $invoice_transaction['amount']?>
                 <th></th>
-                <th>{{money_format("%i", $invoice_transaction['amount']) }}</th>
+                <th>{{moneyFormatter( $invoice_transaction['amount']) }}</th>
                 <th>@if(!empty( $invoice_transaction->debitable)){{ $invoice_transaction->debitable->locale_name }}@else
                         - @endif </th>
 
             @else
 			    <?php $total_credit = $total_credit + $invoice_transaction['amount']?>
-                <th>{{ money_format("%i", $invoice_transaction['amount']) }}</th>
+                <th>{{ moneyFormatter( $invoice_transaction['amount']) }}</th>
                 <th></th>
                 <th>@if(!empty( $invoice_transaction->creditable)){{ $invoice_transaction->creditable->locale_name }}@else
                         - @endif </th>
@@ -68,8 +68,8 @@
 @endforeach
 
 <tr style="background-color: #eeeeee">
-    <th>{{ money_format("%i",$total_debit) }}</th>
-    <th>{{ money_format("%i",$total_credit) }}</th>
+    <th>{{ moneyFormatter($total_debit) }}</th>
+    <th>{{ moneyFormatter($total_credit) }}</th>
     <th>المجموع</th>
     <th></th>
     <th></th>

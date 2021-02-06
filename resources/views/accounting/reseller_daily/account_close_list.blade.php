@@ -32,21 +32,21 @@
                         <td>CSH-{{ $transaction->id }}</td>
                         <td>{{ $transaction->from }}</td>
                         <td>{{ $transaction->to }}</td>
-                        <td>{{ money_format("%i",$transaction->amount) }}</td>
+                        <td>{{ moneyFormatter($transaction->amount) }}</td>
                         @if($transaction->shortage_amount<0)
-                            <td>{{ money_format("%i",($transaction->amount - abs($transaction->shortage_amount ))) }}</td>
+                            <td>{{ moneyFormatter(($transaction->amount - abs($transaction->shortage_amount ))) }}</td>
 
                         @else
-                            <td>{{ money_format("%i",($transaction->amount + abs( $transaction->shortage_amount )))}}</td>
+                            <td>{{ moneyFormatter(($transaction->amount + abs( $transaction->shortage_amount )))}}</td>
 
                         @endif
                         <td>
                             @if($transaction->shortage_amount>0)
-                                <span class="text-green">{{ money_format("%i",$transaction->shortage_amount) }}</span>
+                                <span class="text-green">{{ moneyFormatter($transaction->shortage_amount) }}</span>
                             @elseif($transaction->shortage_amount<0)
-                                <span class="text-danger">{{ money_format("%i",$transaction->shortage_amount) }}</span>
+                                <span class="text-danger">{{ moneyFormatter($transaction->shortage_amount) }}</span>
                             @else
-                                {{ money_format("%i",$transaction->shortage_amount) }}
+                                {{ moneyFormatter($transaction->shortage_amount) }}
 
                             @endif
                         </td>
@@ -58,7 +58,7 @@
                     {{--                            <td>تحويل</td>--}}
                     {{--                            <td>{{ $transaction->creator->locale_name }}</td>--}}
                     {{--                            <td>{{ $transaction->receiver->locale_name }}</td>--}}
-                    {{--                            <td>{{ money_format("%i",$transaction->amount) }}</td>--}}
+                    {{--                            <td>{{ moneyFormatter($transaction->amount) }}</td>--}}
                     {{--                            <td>--}}
                     {{--                                @if($transaction->is_pending)--}}
                     {{--                                    منتظرة--}}
@@ -99,8 +99,8 @@
                     {{--                            <td>تقفيل الحساب</td>--}}
                     {{--                            <td>{{ $transaction->close_account_start_date }}</td>--}}
                     {{--                            <td>{{ $transaction->close_account_end_date }}</td>--}}
-                    {{--                            <td>{{ money_format("%i",$transaction->amount) }}</td>--}}
-                    {{--                            <td>{{ money_format("%i",$transaction->shortage_amount) }}</td>--}}
+                    {{--                            <td>{{ moneyFormatter($transaction->amount) }}</td>--}}
+                    {{--                            <td>{{ moneyFormatter($transaction->shortage_amount) }}</td>--}}
                     {{--                        </tr>--}}
                     {{--                    @else--}}
                     {{--                        --}}{{----}}
@@ -108,7 +108,7 @@
                     {{--                            <td>تحويل</td>--}}
                     {{--                            <td>{{ $transaction->creator->locale_name }}</td>--}}
                     {{--                            <td>{{ $transaction->receiver->locale_name }}</td>--}}
-                    {{--                            <td>{{ money_format("%i",$transaction->amount) }}</td>--}}
+                    {{--                            <td>{{ moneyFormatter($transaction->amount) }}</td>--}}
                     {{--                            <td>--}}
                     {{--                                @if($transaction->is_pending)--}}
                     {{--                                    منتظرة--}}

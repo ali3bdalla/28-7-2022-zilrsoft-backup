@@ -55,14 +55,14 @@
                         $user['locale_name'] }}</a></th>
 
 
-                            <th class="text-center ">{{ money_format("%i",$account->debit_transaction()->where('user_id',$user['id'])->sum('amount')) }}</th>
-                            <th class="text-center ">{{ money_format("%i",$account->credit_transaction()->where('user_id', $user['id'])->sum('amount')) }}</th>
-                            {{--                            <th class="text-center ">{{ money_format("%i",$user->credit_transaction()->sum('amount')) }}</th>--}}
+                            <th class="text-center ">{{ moneyFormatter($account->debit_transaction()->where('user_id',$user['id'])->sum('amount')) }}</th>
+                            <th class="text-center ">{{ moneyFormatter($account->credit_transaction()->where('user_id', $user['id'])->sum('amount')) }}</th>
+                            {{--                            <th class="text-center ">{{ moneyFormatter($user->credit_transaction()->sum('amount')) }}</th>--}}
 
-                            <th class="text-center ">{{ $accumulation_total > 0  ? money_format("%i",
+                            <th class="text-center ">{{ $accumulation_total > 0  ? moneyFormatter(
                             $accumulation_total) : 0 }}</th>
 
-                            <th class="text-center ">{{ $accumulation_total < 0  ? money_format("%i",
+                            <th class="text-center ">{{ $accumulation_total < 0  ? moneyFormatter(
                             abs($accumulation_total)) : 0 }}</th>
 
                         @else
@@ -73,13 +73,13 @@
                             <th class="text-center "><a
                                         href="{{ route('accounting.accounts.vendor',[ $user['id'],$account->id] ) }}">{{
                         $user['locale_name'] }}</a></th>
-                            <th class="text-center ">{{ money_format("%i",$account->debit_transaction()->where('user_id',$user['id'])->sum('amount')) }}</th>
-                            <th class="text-center ">{{ money_format("%i",$account->credit_transaction()->where('user_id', $user['id'])->sum('amount')) }}</th>
-                            {{--                            <th class="text-center ">{{ money_format("%i",$user->credit_transaction()->sum('amount')) }}</th>--}}
-                            <th class="text-center ">{{ $accumulation_total < 0  ? money_format("%i",
+                            <th class="text-center ">{{ moneyFormatter($account->debit_transaction()->where('user_id',$user['id'])->sum('amount')) }}</th>
+                            <th class="text-center ">{{ moneyFormatter($account->credit_transaction()->where('user_id', $user['id'])->sum('amount')) }}</th>
+                            {{--                            <th class="text-center ">{{ moneyFormatter($user->credit_transaction()->sum('amount')) }}</th>--}}
+                            <th class="text-center ">{{ $accumulation_total < 0  ? moneyFormatter(
                             abs($accumulation_total)) : 0 }}</th>
 
-                            <th class="text-center ">{{ $accumulation_total > 0  ? money_format("%i",
+                            <th class="text-center ">{{ $accumulation_total > 0  ? moneyFormatter(
                             $accumulation_total) : 0 }}</th>
 
                         @endif

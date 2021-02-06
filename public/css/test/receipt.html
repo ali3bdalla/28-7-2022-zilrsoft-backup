@@ -111,7 +111,7 @@
                         </td>
                         <td class="text-left">
                             الكمية : {{  $item->qty  }}<br>
-                            {{money_format('%i ريال',$item->qty * $item->price) }}
+                            {{currencyMoneyFormatter($item->qty * $item->price) }}
                         </td>
                     </tr>
                     @endforeach
@@ -129,33 +129,33 @@
             <div class="col-xs-12">
                 <div class="header_title">
                     <span class="pull-right"> الاجمالي</span>
-                    <span class="pull-left">  {{money_format('%i ريال',$invoice->total) }}</span>
+                    <span class="pull-left">  {{currencyMoneyFormatter($invoice->total) }}</span>
                 </div>
             </div>
             <div class="col-xs-12">
                 <div class="header_title">
                     <span class="pull-right"> الخصم</span>
-                    <span class="pull-left">{{money_format('%i ريال',$invoice->discount) }}</span>
+                    <span class="pull-left">{{currencyMoneyFormatter($invoice->discount) }}</span>
                 </div>
             </div>
 
             <div class="col-xs-12">
                 <div class="header_title">
                     <span class="pull-right"> الضريبة (5%)</span>
-                    <span class="pull-left"> {{money_format('%i ريال',$invoice->tax) }}</span>
+                    <span class="pull-left"> {{currencyMoneyFormatter($invoice->tax) }}</span>
                 </div>
             </div>
             <div class="col-xs-12">
                 <div class="header_title">
                     <span class="pull-right"> الصافي</span>
-                    <span class="pull-left">  {{money_format('%i ريال',$invoice->sutotal) }}</span>
+                    <span class="pull-left">  {{currencyMoneyFormatter($invoice->sutotal) }}</span>
                 </div>
             </div>
 
             <div class="col-xs-12">
                 <div class="header_title">
                     <span class="pull-right"> المدفوع</span>
-                    <span class="pull-left"> <strong> {{money_format('%i ريال',$invoice->net - $invoice->remaining)
+                    <span class="pull-left"> <strong> {{currencyMoneyFormatter($invoice->net - $invoice->remaining)
                     }}</strong></span>
                 </div>
             </div>
@@ -163,7 +163,7 @@
             <div class="col-xs-12">
                 <div class="header_title">
                     <span class="pull-right"> المبتقي</span>
-                    <span class="pull-left">  {{money_format('%i ريال',$invoice->remaining) }}</span>
+                    <span class="pull-left">  {{currencyMoneyFormatter($invoice->remaining) }}</span>
                 </div>
             </div>
 

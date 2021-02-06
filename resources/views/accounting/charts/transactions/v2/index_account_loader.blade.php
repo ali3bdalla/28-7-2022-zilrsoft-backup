@@ -6,9 +6,9 @@
     </th>
     <th class="text-center "><a href="{{ route('accounting.accounts.show',$transaction->id) }}">
             {{ $transaction->locale_name }}</a></th>
-    <th class="text-center ">{{ money_format("%i",$transaction->debit_amount )}}</th>
-    <th class="text-center ">{{ money_format("%i",$transaction->credit_amount )}}</th>
+    <th class="text-center ">{{ moneyFormatter($transaction->debit_amount )}}</th>
+    <th class="text-center ">{{ moneyFormatter($transaction->credit_amount )}}</th>
 
-    <th class="text-center ">{{ money_format("%i",$transaction->total_debit_amount)  }}</th>
-    <th class="text-center ">{{ money_format("%i",$transaction->total_credit_amount)  }}</th>
+    <th class="text-center ">{{ moneyFormatter($transaction->total_debit_amount)  }}</th>
+    <th class="text-center ">{{ moneyFormatter($transaction->total_credit_amount)  }}</th>
 </tr>

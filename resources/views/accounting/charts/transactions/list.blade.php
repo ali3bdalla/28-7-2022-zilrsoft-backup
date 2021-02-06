@@ -89,24 +89,24 @@
                                      @endif
                                  </th>
                                  <th class="text-center ">0</th>
-                                 <th class="text-center ">{{money_format("%i",$transaction->amount)  }}</th>
+                                 <th class="text-center ">{{moneyFormatter($transaction->amount)  }}</th>
                                  @if($account->type=='debit')
                                      @if($total_balance<0)
-                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
-                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(0)  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(abs($total_balance))  }}</th>
                                      @else
-                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
-                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(abs($total_balance))  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(0)  }}</th>
                                      @endif
                                  @else
 
                                      @if($total_balance<0)
-                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
-                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(0)  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(abs($total_balance))  }}</th>
 
                                      @else
-                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
-                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(abs($total_balance))  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(0)  }}</th>
 
 
                                      @endif
@@ -147,25 +147,25 @@
 
                                      @endif
                                  </th>
-                                 <th class="text-center ">{{ money_format("%i",$transaction->amount )}}</th>
+                                 <th class="text-center ">{{ moneyFormatter($transaction->amount )}}</th>
                                  <th class="text-center ">0</th>
                                  @if($account->type=='debit')
                                      @if($total_balance<0)
-                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
-                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(0)  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(abs($total_balance))  }}</th>
                                      @else
-                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
-                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(abs($total_balance))  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(0)  }}</th>
                                      @endif
                                  @else
 
                                      @if($total_balance<0)
 
-                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
-                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(0)  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(abs($total_balance))  }}</th>
                                      @else
-                                         <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
-                                         <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(abs($total_balance))  }}</th>
+                                         <th class="text-center ">{{ moneyFormatter(0)  }}</th>
 
 
                                      @endif
@@ -191,24 +191,24 @@
                              <th class="text-center "><a href="{{ route('accounting.accounts.show',
                                 $transaction->id) }}">{{
                                 $transaction->locale_name }}</a></th>
-                             <th class="text-center ">{{ money_format("%i",$transaction->debit )}}</th>
-                             <th class="text-center ">{{ money_format("%i",$transaction->credit )}}</th>
+                             <th class="text-center ">{{ moneyFormatter($transaction->debit )}}</th>
+                             <th class="text-center ">{{ moneyFormatter($transaction->credit )}}</th>
                              @if($account->type=='debit')
                                  @if($total_balance<0)
-                                     <th class="text-center ">{{ money_format("%i",0)  }}</th>
-                                     <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                     <th class="text-center ">{{ moneyFormatter(0)  }}</th>
+                                     <th class="text-center ">{{ moneyFormatter(abs($total_balance))  }}</th>
                                  @else
-                                     <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
-                                     <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                     <th class="text-center ">{{ moneyFormatter(abs($total_balance))  }}</th>
+                                     <th class="text-center ">{{ moneyFormatter(0)  }}</th>
                                  @endif
                              @else
 
                                  @if($total_balance<0)
-                                     <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
-                                     <th class="text-center ">{{ money_format("%i",0)  }}</th>
+                                     <th class="text-center ">{{ moneyFormatter(abs($total_balance))  }}</th>
+                                     <th class="text-center ">{{ moneyFormatter(0)  }}</th>
                                  @else
-                                     <th class="text-center ">{{ money_format("%i",0)  }}</th>
-                                     <th class="text-center ">{{ money_format("%i",abs($total_balance))  }}</th>
+                                     <th class="text-center ">{{ moneyFormatter(0)  }}</th>
+                                     <th class="text-center ">{{ moneyFormatter(abs($total_balance))  }}</th>
 
                                  @endif
 
