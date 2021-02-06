@@ -19,6 +19,7 @@ use App\Rules\ExistsRule;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
@@ -59,7 +60,7 @@ class StoreOrderRequest extends FormRequest
 
             $this->validateQuantities($this->input('items'));
             $authUser = Manager::first();
-            $authClient = $this->user('client');
+            $authClient = Auth::user("client");
             $invoice = Invoice::create(
                 [
                     'invoice_type' => 'sale',
@@ -80,7 +81,7 @@ class StoreOrderRequest extends FormRequest
                     'client_id' => $authClient->id,
                     'organization_id' => $authUser->organization_id,
                     'invoice_type' => 'sale',
-                    'alice_name' => '',
+                    'alice_name' => null,
                     "prefix" => "O",
                     'is_draft' => true
                 ]
@@ -92,7 +93,7 @@ class StoreOrderRequest extends FormRequest
             dispatch_now(new HoldItemQtyJob($invoice, $order));
             DB::commit();
             $path = CreateOrderPdfSnapshotJob::dispatchNow($invoice);
-            NotifyCustomerByNewOrderJob::dispatchNow($order,$path,$authClient,$invoice);
+            NotifyCustomerByNewOrderJob::dispatchNow($order,$path,$invoice);
             if($this->acceptsJson())
                   return $invoice;
 

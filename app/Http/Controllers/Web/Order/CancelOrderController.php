@@ -29,11 +29,9 @@ class CancelOrderController extends Controller
 	{
 
 		if (!$this->isValidOrderStatus($order)) {
-			return response()->view(
-				'errors.custom',
-				[
-					'message' => 'Your Order Has  Been Canceled',
-					'title' => 'Order Not Found'
+			return Inertia::render(
+				'Web/Order/OrderConfirmationExpired', [
+					'order' => $order
 				]
 			);
 		}

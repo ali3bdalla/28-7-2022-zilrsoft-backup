@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Api;
 use AliAbdalla\Whatsapp\Whatsapp;
 use App\Events\Order\OrderPaymentConfirmedEvent;
 use App\Http\Controllers\Controller;
+use App\Jobs\Accounting\CreateReceivedPaymentFromClientJob;
 use App\Jobs\Items\AvailableQty\UpdateAvailableQtyByInvoiceItemJob;
+use App\Jobs\Order\ConfirmPaymentJob;
+use App\Jobs\Order\NotifyCustomerByOrderPaymentCancellationJob;
+use App\Jobs\Order\NotifyCustomerByPaymentConfirmationJob;
 use App\Jobs\Order\Shipping\HandleOrderShippingJob;
 use App\Models\DeliveryMan;
 use App\Models\Order;
@@ -20,7 +24,7 @@ class OrderController extends Controller
 
 	public function index(Request $request)
 	{
-		return Order::with('user', 'shippable', 'shippingAddress')->get();
+		return Order::with('user', 'shippable', 'shippingAddress')->paginate(50);
 	}
 
 	public function notificationList(Request $request)
@@ -45,21 +49,25 @@ class OrderController extends Controller
 	 */
 	public function update(Request $request, Order $order)
 	{
-		foreach ($order->itemsQtyHolders as $holdQty) {
-			UpdateAvailableQtyByInvoiceItemJob::dispatchNow($holdQty->invoiceItem, true);
-			//				$holdQty->update(
-			//					[
-			//						'status' => 'destroyed'
-			//					]
-			//				);
+	    $request->validate([
+	        'account_id' => 'required|integer|exists:accounts,id'
+        ]);
+		if($order->status === 'pending')
+		{
+			foreach ($order->itemsQtyHolders()->get() as $holdQty) {
+				UpdateAvailableQtyByInvoiceItemJob::dispatchNow($holdQty->invoiceItem, true);
+			}
+			$order->update(
+				[
+					'status' => 'paid'
+				]
+			);
+            CreateReceivedPaymentFromClientJob::dispatchNow($order->user,$order->net,$request->input('account_id'));
+            event(new OrderPaymentConfirmedEvent($order));
+            NotifyCustomerByPaymentConfirmationJob::dispatchNow($order);
 		}
 
-		$order->update(
-			[
-				'status' => 'paid'
-			]
-		);
-		event(new OrderPaymentConfirmedEvent($order));
+
 	}
 
 	/**
@@ -70,7 +78,13 @@ class OrderController extends Controller
 	 */
 	public function destroy(Order $order)
 	{
-		//
+		foreach ($order->itemsQtyHolders()->get() as $holdQty) {
+			UpdateAvailableQtyByInvoiceItemJob::dispatchNow($holdQty->invoiceItem, true);
+		}
+		$order->update([
+			'status' => "canceled"
+		]);
+		NotifyCustomerByOrderPaymentCancellationJob::dispatchNow($order);
 	}
 
 
@@ -120,5 +134,5 @@ class OrderController extends Controller
 
 
 	// sign deliveryMan to order
-	// create awb ui 
+	// create awb ui
 	// whatsapp notification

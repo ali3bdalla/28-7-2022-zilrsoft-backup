@@ -200,10 +200,10 @@ class StoreSaleItemsJob implements ShouldQueue
 
         $discount = 0;
         $qty = (int)$requestItemCollection->get('quantity'); // 10
-        $net = $item->online_offer_price * $qty;
-        $total = $net / (1 + ($item->vts / 100));
+        $net = moneyFormatter($item->online_offer_price * $qty);
+        $total = moneyFormatter($net / (1 + ($item->vts / 100)));
         $subtotal = $total;
-        $price = $total / $qty;
+        $price = moneyFormatter($total / $qty);
 
         $tax = $net - $total;
 

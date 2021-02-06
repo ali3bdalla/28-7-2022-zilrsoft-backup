@@ -32,7 +32,6 @@
                   locale="en"/>
             </div>
 
-
             <div class="col-md-3">
               <accounting-multi-select-with-search-layout-component
 
@@ -49,7 +48,6 @@
               </accounting-multi-select-with-search-layout-component>
 
             </div>
-
 
             <div v-if="onlyQuotations!==true" class="col-md-2">
               <select v-model="filters.invoice_type" class="form-control" @change="pushServerRequest">
@@ -75,7 +73,6 @@
             </div>
           </div>
 
-
           <div class="row">
             <div class="col-md-2">
               <input v-model="filters.net" :placeholder="app.trans.net"
@@ -87,7 +84,6 @@
                      class="form-control"
                      type="text" @keyup="pushServerRequest">
             </div>
-
 
             <div v-if="canViewAccounting==1" class="col-md-2">
               <input v-model="filters.total" :placeholder="app.trans.total"
@@ -104,11 +100,9 @@
                   label_text="locale_name"
                   @valueUpdated="creatorListUpdated"
 
-
               >
 
               </accounting-multi-select-with-search-layout-component>
-
 
             </div>
 
@@ -141,7 +135,6 @@
             </div>
           </div>
 
-
         </div>
       </div>
       <div v-show="showMultiTaskButtons" class="table-multi-task-buttons">
@@ -166,7 +159,6 @@
                 @click="setOrderByColumn('created_at')">
               {{ app.trans.created_at }}
             </th>
-
 
             <th :class="{'orderBy':orderBy=='net'}" width=""
                 @click="setOrderByColumn('net')">
@@ -193,7 +185,6 @@
               {{ app.trans.invoice_type }}
             </th>
 
-
             <th v-if="canViewAccounting==1" :class="{'orderBy':orderBy=='creator_id'}"
                 width="" @click="setOrderByColumn('creator_id')">
               {{ app.trans.created_by }}
@@ -203,7 +194,6 @@
                 width="">
               {{ app.trans.salesman }}
             </th>
-
 
             <th v-if="canViewAccounting==1" :class="{'orderBy':orderBy=='tax'}"
                 width=""
@@ -221,7 +211,7 @@
             <td v-text="index+1"></td>
             <td class="text-center" v-text="row.invoice_number"></td>
             <td class="text-center"
-                v-text="row.sale  == null || row.sale.alice_name==null ? row.sale.client.locale_name : row.sale.alice_name"></td>
+                v-text="row.sale  == null || row.sale.alice_name==null  || row.sale.alice_name == '' ? row.sale.client.locale_name : row.sale.alice_name"></td>
             <td v-text="row.created_at"></td>
             <td class="text-center" v-text="row.net"></td>
             <td v-if="canViewAccounting==1" class="text-center" v-text="row.subtotal"></td>
@@ -291,7 +281,6 @@
 
             </th>
 
-
             <th>
               {{ parseFloat(totals.net).toFixed(2) }}
             </th>
@@ -312,14 +301,12 @@
             <th>
             </th>
 
-
             <th>
 
             </th>
             <th>
 
             </th>
-
 
             <th>
               {{ parseFloat(totals.tax).toFixed(2) }}
@@ -345,11 +332,9 @@
 
                </th>
 
-
                <th>
                    {{parseFloat(totals.net).toFixed(2) }}
                </th>
-
 
                <!-- <th>
 
@@ -358,17 +343,14 @@
                <th>
                </th>
 
-
                <th>
 
                </th>
-
 
                <th></th>
            </tr>
            </thead>
         </table>
-
 
       </div>
       <tile v-show="isLoading" :color="app.primaryColor" :loading="isLoading"></tile>
@@ -386,14 +368,12 @@
 
 <script>
 
-
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
-import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
-import {math as ItemMath} from '../../item';
+import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
+import { math as ItemMath } from '../../item'
 
-import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
-
+import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
 
 export default {
   components: {
@@ -401,15 +381,15 @@ export default {
 
   },
   props: [
-    "onlyQuotations",
+    'onlyQuotations',
     'creator',
     'canViewAccounting',
-    "canEdit",
-    "canDelete",
-    "canCreate",
-    "creators",
-    "clients",
-    "departments"
+    'canEdit',
+    'canDelete',
+    'canCreate',
+    'creators',
+    'clients',
+    'departments'
   ],
   data: function () {
     return {
@@ -421,14 +401,14 @@ export default {
         subtotal: 0,
         discount: 0,
         profit: 0,
-        cost: 0,
+        cost: 0
       },
       itemsPerPage: 20,
       isOpenSearchPanel: false,
       category: null,
-      baseUrl: "",
-      orderBy: "created_at",
-      orderType: "desc",
+      baseUrl: '',
+      orderBy: 'created_at',
+      orderType: 'desc',
       yourValue: null,
       table_rows: [],
       isLoading: true,
@@ -440,13 +420,13 @@ export default {
         messages: trans('messages'),
         table_trans: trans('table'),
         datetimetrans: trans('datetime'),
-        datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
-        BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
+        datatableBaseUrl: metaHelper.getContent('datatableBaseUrl'),
+        BaseApiUrl: metaHelper.getContent('BaseApiUrl')
       },
       customDateShortcuts: [],
       date_range: null,
       showMultiTaskButtons: false,
-      requestUrl: "",
+      requestUrl: '',
       filters: {
         aliceName: null,
         endDate: null,
@@ -461,235 +441,206 @@ export default {
         tax: null,
         current_status: null,
         salesmen: [],
-        invoice_type: null,
+        invoice_type: null
       },
       paginationResponseData: null,
       tableSelectionActiveMode: false
 
-    };
+    }
   },
-  created() {
-    this.initUi();
-    this.pushServerRequest();
-
-
+  created () {
+    this.initUi()
+    this.pushServerRequest()
   },
   mounted: function () {
-    let appVm = this;
+    const appVm = this
     if (this.creator.id == 7) {
       setInterval(function () {
-        appVm.pushServerRequest();
+        appVm.pushServerRequest()
       }, 40000)
     }
-
-
   },
   methods: {
 
-
-    initUi() {
-      this.requestUrl = '/api/sales';
-      this.baseUrl = this.app.trans.SaleBaseUrl + "/";
+    initUi () {
+      this.requestUrl = '/api/sales'
+      this.baseUrl = this.app.trans.SaleBaseUrl + '/'
       this.customDateShortcuts = [
-        {key: 'day', label: this.app.datetimetrans.today, value: 'day'},
-        {key: '-day', label: this.app.datetimetrans.yesterday, value: '-day'},
-        {key: 'thisWeek', label: this.app.datetimetrans.thisWeek, value: 'isoWeek'},
-        {key: 'lastWeek', label: this.app.datetimetrans.lastWeek, value: '-isoWeek'},
-        {key: 'last7Days', label: this.app.datetimetrans.last7Days, value: 7},
-        {key: 'last30Days', label: this.app.datetimetrans.last30Days, value: 30},
-        {key: 'thisMonth', label: this.app.datetimetrans.thisMonth, value: 'month'},
-        {key: 'lastMonth', label: this.app.datetimetrans.lastMonth, value: '-month'},
-        {key: 'thisYear', label: this.app.datetimetrans.thisYear, value: 'year'},
-        {key: 'lastYear', label: this.app.datetimetrans.lastYear, value: '-year'}
-      ];
+        { key: 'day', label: this.app.datetimetrans.today, value: 'day' },
+        { key: '-day', label: this.app.datetimetrans.yesterday, value: '-day' },
+        { key: 'thisWeek', label: this.app.datetimetrans.thisWeek, value: 'isoWeek' },
+        { key: 'lastWeek', label: this.app.datetimetrans.lastWeek, value: '-isoWeek' },
+        { key: 'last7Days', label: this.app.datetimetrans.last7Days, value: 7 },
+        { key: 'last30Days', label: this.app.datetimetrans.last30Days, value: 30 },
+        { key: 'thisMonth', label: this.app.datetimetrans.thisMonth, value: 'month' },
+        { key: 'lastMonth', label: this.app.datetimetrans.lastMonth, value: '-month' },
+        { key: 'thisYear', label: this.app.datetimetrans.thisYear, value: 'year' },
+        { key: 'lastYear', label: this.app.datetimetrans.lastYear, value: '-year' }
+      ]
     },
     pushServerRequest: function () {
-
-      this.isLoading = true;
-      var appVm = this;
-      var params = appVm.filters;
-      params.orderBy = this.orderBy;
-      params.itemsPerPage = this.itemsPerPage;
-      params.orderType = this.orderType;
+      this.isLoading = true
+      const appVm = this
+      const params = appVm.filters
+      params.orderBy = this.orderBy
+      params.itemsPerPage = this.itemsPerPage
+      params.orderType = this.orderType
       if (this.onlyQuotations == 1 || this.onlyQuotations == true) {
-        params.is_draft = true;
+        params.is_draft = true
       }
-
 
       axios.get(this.requestUrl, {
         params: params
       }).then(function (response) {
-        console.log(response.data.data);
-        appVm.table_rows = response.data.data;
-        appVm.isLoading = false;
-        appVm.paginationResponseData = response.data;
-        appVm.updateTotalsAmount();
+        console.log(response.data.data)
+        appVm.table_rows = response.data.data
+        appVm.isLoading = false
+        appVm.paginationResponseData = response.data
+        appVm.updateTotalsAmount()
       }).catch(function (error) {
         alert(error)
       }).finally(function () {
-        appVm.isLoading = false;
-      });
+        appVm.isLoading = false
+      })
     },
 
-    updateTotalsAmount() {
-
-      let items = this.table_rows;
-      let len = items.length;
-      this.totals.net = 0;
-      this.totals.tax = 0;
-      this.totals.total = 0;
-      this.totals.subtotal = 0;
-      this.totals.discount = 0;
-      this.totals.cost = 0;
-      this.totals.profit = 0;
+    updateTotalsAmount () {
+      const items = this.table_rows
+      const len = items.length
+      this.totals.net = 0
+      this.totals.tax = 0
+      this.totals.total = 0
+      this.totals.subtotal = 0
+      this.totals.discount = 0
+      this.totals.cost = 0
+      this.totals.profit = 0
       for (let i = 0; i < len; i++) {
-        let row = items[i];
+        const row = items[i]
         if (row.invoice_type === 'sale') {
           if (parseFloat(row.invoice_cost) == NaN) {
-            console.log(row);
+            console.log(row)
           }
-          this.totals.net = ItemMath.sum(this.totals.net, row.net);
-          this.totals.tax = ItemMath.sum(this.totals.tax, row.tax);
-          this.totals.total = ItemMath.sum(this.totals.total, row.total);
-          this.totals.subtotal = ItemMath.sum(this.totals.subtotal, row.subtotal);
-          this.totals.discount = ItemMath.sum(this.totals.discount, row.discount);
-          this.totals.profit = ItemMath.sum(this.totals.profit, row.subtotal - row.invoice_cost);
-          this.totals.cost = ItemMath.sum(this.totals.cost, row.invoice_cost);
+          this.totals.net = ItemMath.sum(this.totals.net, row.net)
+          this.totals.tax = ItemMath.sum(this.totals.tax, row.tax)
+          this.totals.total = ItemMath.sum(this.totals.total, row.total)
+          this.totals.subtotal = ItemMath.sum(this.totals.subtotal, row.subtotal)
+          this.totals.discount = ItemMath.sum(this.totals.discount, row.discount)
+          this.totals.profit = ItemMath.sum(this.totals.profit, row.subtotal - row.invoice_cost)
+          this.totals.cost = ItemMath.sum(this.totals.cost, row.invoice_cost)
         } else {
-          this.totals.net = ItemMath.sub(this.totals.net, row.net);
-          this.totals.tax = ItemMath.sub(this.totals.tax, row.tax);
-          this.totals.total = ItemMath.sub(this.totals.total, row.total);
-          this.totals.subtotal = ItemMath.sub(this.totals.subtotal, row.subtotal);
-          this.totals.discount = ItemMath.sub(this.totals.discount, row.discount);
-          this.totals.profit = ItemMath.sub(this.totals.profit, row.subtotal - row.invoice_cost);
-          this.totals.cost = ItemMath.sub(this.totals.cost, row.invoice_cost);
+          this.totals.net = ItemMath.sub(this.totals.net, row.net)
+          this.totals.tax = ItemMath.sub(this.totals.tax, row.tax)
+          this.totals.total = ItemMath.sub(this.totals.total, row.total)
+          this.totals.subtotal = ItemMath.sub(this.totals.subtotal, row.subtotal)
+          this.totals.discount = ItemMath.sub(this.totals.discount, row.discount)
+          this.totals.profit = ItemMath.sub(this.totals.profit, row.subtotal - row.invoice_cost)
+          this.totals.cost = ItemMath.sub(this.totals.cost, row.invoice_cost)
         }
       }
-
-
     },
-    setOrderByColumn(column_name) {
+    setOrderByColumn (column_name) {
       if (this.orderBy == column_name) {
         // alert('hello')
-        if (this.orderType == 'asc')
-          this.orderType = "desc";
-        else
-          this.orderType = "asc";
-
+        if (this.orderType == 'asc') { this.orderType = 'desc' } else { this.orderType = 'asc' }
       } else {
-        this.orderBy = column_name;
-        this.orderType = "asc";
+        this.orderBy = column_name
+        this.orderType = 'asc'
       }
-      this.pushServerRequest();
+      this.pushServerRequest()
     },
 
-    paginateUpdatePage(event) {
-      this.requestUrl = event.link;
-      this.pushServerRequest();
-
+    paginateUpdatePage (event) {
+      this.requestUrl = event.link
+      this.pushServerRequest()
     },
 
-    pagePerItemsUpdated(event) {
-
-      this.itemsPerPage = event.items;
-      this.pushServerRequest();
-
+    pagePerItemsUpdated (event) {
+      this.itemsPerPage = event.items
+      this.pushServerRequest()
     },
 
-    checkAndUncheckAllRowsCheckBoxChanged() {
+    checkAndUncheckAllRowsCheckBoxChanged () {
+      const items = this.table_rows
+      const len = items.length
 
-      var items = this.table_rows,
-          len = items.length;
-
-      var new_items = [];
-      for (var index = 0; index < len; index++) {
-        var item = items[index];
+      const new_items = []
+      for (let index = 0; index < len; index++) {
+        const item = items[index]
         if (this.tableSelectionActiveMode) {
-          item.tb_row_selected = false;
+          item.tb_row_selected = false
         } else {
-          item.tb_row_selected = true;
+          item.tb_row_selected = true
         }
-        new_items.push(item);
-
+        new_items.push(item)
       }
-
 
       if (this.tableSelectionActiveMode) {
-        this.showMultiTaskButtons = false;
+        this.showMultiTaskButtons = false
       } else {
-        this.showMultiTaskButtons = true;
+        this.showMultiTaskButtons = true
       }
 
-      this.table_rows = new_items;
-      this.tableSelectionActiveMode = !this.tableSelectionActiveMode;
-
+      this.table_rows = new_items
+      this.tableSelectionActiveMode = !this.tableSelectionActiveMode
     },
-    rowSelectCheckBoxUpdated(item) {
-      this.showOrHideMultiTaskButtons();
+    rowSelectCheckBoxUpdated (item) {
+      this.showOrHideMultiTaskButtons()
     },
-    showOrHideMultiTaskButtons() {
-      var items = this.table_rows,
-          len = items.length;
+    showOrHideMultiTaskButtons () {
+      const items = this.table_rows
+      const len = items.length
 
-      var showButtons = false;
-      for (var index = 0; index < len; index++) {
-        var item = items[index];
+      let showButtons = false
+      for (let index = 0; index < len; index++) {
+        const item = items[index]
         if (item.tb_row_selected) {
-          showButtons = true;
+          showButtons = true
         }
       }
 
-      this.showMultiTaskButtons = showButtons;
+      this.showMultiTaskButtons = showButtons
     },
 
-    openOrCloseSearchPanel() {
-      this.isOpenSearchPanel = !this.isOpenSearchPanel;
+    openOrCloseSearchPanel () {
+      this.isOpenSearchPanel = !this.isOpenSearchPanel
     },
-    exportsPdf() {
+    exportsPdf () {
 
-    },
-
-    creatorListUpdated(e) {
-
-      this.filters.creators = db.model.pluck(e.items, 'id');
-      this.pushServerRequest();
     },
 
-    salesmanListUpdated(e) {
-
-      this.filters.salesmen = db.model.pluck(e.items, 'id');
-      this.pushServerRequest();
+    creatorListUpdated (e) {
+      this.filters.creators = db.model.pluck(e.items, 'id')
+      this.pushServerRequest()
     },
 
-    clientListUpdated(e) {
-
-      this.filters.clients = db.model.pluck(e.items, 'id');
-      this.pushServerRequest();
+    salesmanListUpdated (e) {
+      this.filters.salesmen = db.model.pluck(e.items, 'id')
+      this.pushServerRequest()
     },
 
-
-    departmentListUpdated(e) {
-
-      this.filters.departments = db.model.pluck(e.items, 'id');
-      this.pushServerRequest();
+    clientListUpdated (e) {
+      this.filters.clients = db.model.pluck(e.items, 'id')
+      this.pushServerRequest()
     },
 
+    departmentListUpdated (e) {
+      this.filters.departments = db.model.pluck(e.items, 'id')
+      this.pushServerRequest()
+    }
 
   },
 
   watch: {
     date_range: function (value) {
       if (value == null) {
-        this.filters.startDate = null;
-        this.filters.endDate = null;
-
+        this.filters.startDate = null
+        this.filters.endDate = null
       } else {
-        this.filters.startDate = value.start;
-        this.filters.endDate = value.end;
+        this.filters.startDate = value.start
+        this.filters.endDate = value.end
       }
-      this.pushServerRequest();
-
-    },
+      this.pushServerRequest()
+    }
 
   }
 }
@@ -734,7 +685,6 @@ select {
   height: 42px;
 }
 
-
 .dropdown-menu li a {
   padding: 7px;
   font-size: 14px;
@@ -744,6 +694,5 @@ select {
 .table-multi-task-buttons {
   padding: 5px;
 }
-
 
 </style>

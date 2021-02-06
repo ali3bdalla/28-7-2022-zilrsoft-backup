@@ -25,12 +25,7 @@
                 {{ $page.$t.products.model }} : {{ modelNumber }}
               </h1>
               <div class="page__mt-2">
-                <h4 class="product__show__details-slash-price">
-                  {{ parseFloat($page.item.online_price).toFixed(2) }}
-                </h4>
-                <span class="product__show__details-currency">{{
-                  $page.$t.products.sar
-                }}</span>
+
                 <div>
                   <h4 class="product__show__details-price">
                     {{ parseFloat($page.item.online_offer_price).toFixed(2) }}
@@ -39,6 +34,9 @@
                     $page.$t.products.sar
                   }}</span>
                 </div>
+                <p class="product__list-item-including-tax">
+                  {{ $page.$t.products.inc }}
+                </p>
                 <!--            text-xl text-web-primary font-bold-->
                 <div class="product__show__details-actions">
                   <ToggleCartItemButtonComponent

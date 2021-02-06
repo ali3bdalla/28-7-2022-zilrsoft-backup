@@ -716,7 +716,8 @@ export default {
 
     pushDataToServer(doWork = null) {
       let client = this.sale.client;
-      if (client.can_make_credit === false) {
+      if (client.is_system_user) {
+        // can_make_credit === false
         let amount = db.model.sum(this.invoiceData.methods, "amount");
         if (ItemMath.isBiggerThan(this.invoiceData.net, amount)) {
           this.everythingFineToSave = false;

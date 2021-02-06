@@ -4,12 +4,8 @@ use App\Jobs\Accounting\CloseYear\NormalizeIncomesExpensesJob;
 
 
 use App\Http\Middleware\ImagesUploadMiddleware;
-use App\Jobs\Accounting\CloseYear\CreateCloseYearEntityJob;
-use App\Jobs\Organization\Configurations\InitOrganizationYearCloseConfigurationJob;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
 
 
 
@@ -51,7 +47,7 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
 
                         Route::get('/reset', 'AuthController@resetPasswordPage');
                         Route::post('/reset', 'AuthController@confirmResetPassword');
-                        
+
                     }
                 );
                 Route::post('/resend_otp', 'AuthController@resendOtp');
@@ -80,7 +76,7 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
             }
         );
 
-        
+
         Route::prefix('items')->name('items.')->group(
             function () {
                 Route::get('/search/results', 'ItemController@search')->name('search');

@@ -40,12 +40,11 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
      * @param User $client
      * @param Invoice $invoice
      */
-    public function __construct(Order $order, $path, User $client, Invoice $invoice)
+    public function __construct(Order $order, $path,  Invoice $invoice)
     {
         //
         $this->order = $order;
         $this->path = $path;
-        $this->client = $client;
         $this->invoice = $invoice;
     }
 
@@ -59,11 +58,12 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
         $phoneNumber = $this->order->user->international_phone_number;
         $message = __('store.messages.notify_customer_by_new_order_message',[
             'CUSTOMER_NAME' => $this->order->user->name,
-            'CANCEL_URL' => '',
-            'PAYMENT_URL' => '',
-            'DEADLINE' => '',
-            'AMOUNT' => '',
-            'ORDER_ID' => '',
+            'CANCEL_URL' => $this->order->generateCancelOrderUrl(),
+            'PAYMENT_URL' => $this->order->generatePayOrderUrl(),
+            'DEADLINE_TIME' => Carbon::now()->addMinutes(config('app.store.cancel_unpaid_orders_after'))->format('H:i'),
+            'DEADLINE_DATE' => Carbon::now()->toDateString(),
+            'AMOUNT' => displayMoney($this->order->net) .' '. __('store.products.sar'),
+            'ORDER_ID' => $this->order->id,
         ]);
 
         if (config('app.store.notify_via_sms')) {
@@ -78,7 +78,7 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
             Whatsapp::sendFile(
                 Storage::url($this->path),
                 $phoneNumber,
-                $this->invoice->id . '.pdf'
+                $this->order->id . '.pdf'
             );
         }
     }

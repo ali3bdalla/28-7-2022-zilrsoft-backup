@@ -2,138 +2,28 @@
   <div class="register-login-section">
     <div class="container">
 
-      <div class="">
-        <div class="col-lg-6 offset-lg-3">
-          <div class="login-form">
-            <h2>Payment Confirmation</h2>
-            <h2>Order #{{ $page.order.id }}</h2>
-            <div class="flex">
-              <div class="flex-1 group-input text-center">
-                <div><label for="first_name">Ramming Time To Auto Cancel Order</label></div>
-                <br/>
-                <flip-countdown :deadline="$page.order.auto_cancel_at" :showDays="false"
-                                :showHours="false"></flip-countdown>
-              </div>
+      <div class="w-lg mx-auto sm:w-6/12 w-11/12 p-3 shadow-md">
+        <div class=" px-4 pb-4 sm:p-6 sm:pb-4">
+          <div class="">
 
+            <div class="mt-3 text-center">
+              <i class="fa fa-times-circle text-red-500 mb-3" style="font-size: 82px"></i>
+              <h3 id="modal-headline" class="text-xl md:text-3xl font-medium text-gray-900">
+                {{$page.$t.messages.invalid_activity}}
+              </h3>
+              <div class="mt-2">
+                <p class="text-lg text-center">
+                  {{$page.$t.messages.invalid_activity_message}}
+                </p>
+              </div>
             </div>
-            <br/>
-            <!--              <h3>Order #{{$page.order.id}}</h3>-->
-            <form action="#">
-
-
-              <div class="flex">
-                <div class="flex-1 group-input">
-                  <label for="first_name">Transmitter Name</label>
-                  <input
-                      id="first_name"
-                      v-model="firstName"
-                      placeholder="First Name"
-                      type="text"
-                  />
-                  <div
-                      v-if="$page.errors.first_name"
-                      class="p-2 text-red-500"
-                  >
-                    {{ $page.errors.first_name }}
-                  </div>
-                </div>
-                <div class="flex-1 group-input">
-                  <label for="first_name">.</label>
-
-                  <input
-                      id="last_name"
-                      v-model="lastName"
-                      placeholder="Last Name"
-                      type="text"
-                  />
-                  <div v-if="$page.errors.last_name" class="p-2 text-red-500">
-                    {{ $page.errors.last_name }}
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="flex">
-
-                <div class="flex-1 group-input">
-                  <label for="first_name">Transmitter Account</label>
-
-                  <select v-model="sendAccountBankId" class="">
-                    <option v-for="bank in $page.banks" :key="bank.id" :value="bank.id">{{ bank.name }}</option>
-                  </select>
-                  <div
-                      v-if="$page.errors.sender_bank_id"
-                      class="p-2 text-red-500"
-                  >
-                    {{ $page.errors.sender_bank_id }}
-                  </div>
-                </div>
-
-                <div class="flex-1 group-input">
-                  <label for="sender_account_number">.</label>
-
-                  <input
-                      id="sender_account_number"
-                      v-model="sendAccountBankNumber"
-                      max-length="30"
-                      placeholder="Account Number"
-                      type="text"
-                  />
-                  <div
-                      v-if="$page.errors.sender_account_number"
-                      class="p-2 text-red-500"
-                  >
-                    {{ $page.errors.sender_account_number }}
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="flex">
-
-                <div class="flex-1 group-input">
-                  <label for="first_name">To Bank</label>
-
-                  <select v-model="receiverAccountBankId" class="">
-                    <option v-for="bank in $page.banks" :key="bank.id" :value="bank.id">{{ bank.name }}</option>
-                  </select>
-                  <div
-                      v-if="$page.errors.receiver_bank_id"
-                      class="p-2 text-red-500"
-                  >
-                    {{ $page.errors.receiver_bank_id }}
-                  </div>
-                </div>
-
-                <!--                  <div class="flex-1 group-input">-->
-                <!--                    <label for="first_name">.</label>-->
-
-                <!--                    <input-->
-                <!--                        id="first_name"-->
-                <!--                        v-model="first_name"-->
-                <!--                        max-length="30"-->
-                <!--                        placeholder="Transmitter Account Number"-->
-                <!--                        type="text"-->
-                <!--                    />-->
-                <!--                    <div-->
-                <!--                        v-if="$page.errors.first_name"-->
-                <!--                        class="p-2 text-red-500"-->
-                <!--                    >-->
-                <!--                      {{ $page.errors.first_name }}-->
-                <!--                    </div>-->
-                <!--                  </div>-->
-
-              </div>
-              <button
-                  class="site-btn login-btn"
-                  type="button"
-                  @click="confirmPayment"
-              >
-                Confirm
-              </button>
-            </form>
-
           </div>
+        </div>
+        <div class="flex justify-between">
+          <inertia-link href="/web" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  type="button">
+            {{$page.$t.common.back_to_home}}
+          </inertia-link>
         </div>
       </div>
 
@@ -143,34 +33,9 @@
 </template>
 
 <script>
-import FlipCountdown from 'vue2-flip-countdown'
 
 export default {
-  components: {FlipCountdown},
-  data() {
-    return {
-      firstName: "",
-      lastName: "",
-      sendAccountBankId: 1,
-      sendAccountBankNumber: "",
-      receiverAccountBankId: 1,
-    };
-  },
-  methods: {
 
-    confirmPayment() {
-      this.$inertia.post('/web/orders/' + this.$page.order.id + '/confirm_payment', {
-        sender_bank_id: this.sendAccountBankId,
-        sender_account_number: this.sendAccountBankNumber,
-        receiver_bank_id: this.receiverAccountBankId,
-        first_name: this.firstName,
-        last_name: this.lastName,
-      })
-    }
-    // items() {
-    //   return this.$page.items.data;
-    // },
-  },
 };
 </script>
 

@@ -41,23 +41,22 @@
 </template>
 
 <script>
-import NotificationMixin from "./NotificationMixin";
+import NotificationMixin from './NotificationMixin'
 
 export default {
   mixins: [NotificationMixin],
-  name: "OrderPendingPaymentConfirmationNotification",
-  mounted() {
-    console.log('OrderPendingPaymentConfirmationNotification')
-    window.Echo.private(`order-payment-updated`).listen('.order-payment-updated', (e) => {
-      this.addNotification(e.transaction);
-    });
+  name: 'OrderPendingPaymentConfirmationNotification',
+  mounted () {
+    window.Echo.private('order-payment-updated').listen('.order-payment-updated', (e) => {
+      this.addNotification(e.transaction)
+    })
   },
 
-  data() {
+  data () {
     return {
-      url:"/api/notifications/orders/pending"
+      url: '/api/notifications/orders/pending'
     }
-  },
+  }
 
 }
 </script>

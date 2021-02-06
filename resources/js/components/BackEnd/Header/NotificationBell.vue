@@ -26,14 +26,14 @@ margin-bottom: -10px;"></i>
 </template>
 
 <script>
-import OrderPendingPaymentConfirmationNotification from "./OrderPendingPaymentConfirmationNotification";
-import OrderPaymentConfirmedNotification from "./OrderPaymentConfirmedNotification";
-import TransactionIssuedNotification from "./TransactionIssuedNotification";
-import TransactionCanceledNotification from "./TransactionCanceledNotification";
-import TransactionConfirmedNotification from "./TransactionConfirmedNotification";
+import OrderPendingPaymentConfirmationNotification from './OrderPendingPaymentConfirmationNotification'
+import OrderPaymentConfirmedNotification from './OrderPaymentConfirmedNotification'
+import TransactionIssuedNotification from './TransactionIssuedNotification'
+import TransactionCanceledNotification from './TransactionCanceledNotification'
+import TransactionConfirmedNotification from './TransactionConfirmedNotification'
 
 export default {
-  name: "OrderNotificationBell",
+  name: 'OrderNotificationBell',
   components: {
     OrderPendingPaymentConfirmationNotification,
     OrderPaymentConfirmedNotification,
@@ -47,24 +47,23 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       notificationCount: 0
     }
   },
 
-
   methods: {
-    addNotification() {
+    addNotification () {
       // this.$sound.play('order_issued_notification.mp3')
-      this.notificationCount++;
+      this.notificationCount++
     },
-    removeNotification() {
+    removeNotification () {
       // this.$sound.play('order_issued_notification.mp3')
-      this.notificationCount--;
-    },
+      this.notificationCount--
+    }
 
-  },
+  }
 
 }
 </script>
