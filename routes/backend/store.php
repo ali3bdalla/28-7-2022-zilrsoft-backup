@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 
-// Route::resource('orders', 'OrderController');
 Route::prefix('orders')->name('orders.')->group(
     function () {
         Route::get('/', 'OrderController@index')->name('index');
