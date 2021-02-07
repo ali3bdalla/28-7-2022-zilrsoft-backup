@@ -169,13 +169,9 @@ class ShippingController extends Controller
 		]);
 		$deliveryMan = DeliveryMan::findOrFail($request->input('delivery_man_id'));
 
-		$phoneNumber = $deliveryMan->international_phone_number;//$deliveryMan->phone_number
+		$phoneNumber = $deliveryMan->international_phone_number;
 		$otp = generateOtp();
 		sendOtp($phoneNumber, $otp);
-
-		// Whatsapp::sendMessage(
-		// 	"verification code for accepting order {$order->id} is: {$otp }", [$phoneNumber]
-		// );
 		$deliveryMan->verfications()->create([
 			'slug' => 'transactions_' . implode('-',$request->input('transactions')),
 			'verfication_code' => $otp
