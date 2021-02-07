@@ -34,7 +34,7 @@
     update_symlinks
     migrate
     {{-- cache --}}
-    cleanup_releases
+    {{-- cleanup_releases --}}
 
 @endstory
 
