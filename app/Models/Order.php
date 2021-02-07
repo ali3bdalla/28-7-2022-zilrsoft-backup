@@ -38,6 +38,11 @@ class Order extends BaseModel
     {
         return $this->belongsTo(User::class);
     }
+    public function managedBy()
+    {
+        return $this->belongsTo(Manager::class,'managed_by_id');
+    }
+
 
 
 

@@ -24,7 +24,7 @@ class OrderController extends Controller
 
 	public function index(Request $request)
 	{
-		return Order::with('user', 'shippable', 'shippingAddress')->paginate(50);
+		return Order::with('user', 'shippingAddress',"shippingMethod","deliveryMan","managedBy")->orderBy('id','desc')->paginate(50);
 	}
 
 	public function notificationList(Request $request)

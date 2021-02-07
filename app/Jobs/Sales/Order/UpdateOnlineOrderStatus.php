@@ -41,12 +41,16 @@ class UpdateOnlineOrderStatus implements ShouldQueue
      */
     public function handle()
     {
-        $draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->draftId)->first();
+       
+        $draft = Invoice::withoutGlobalScopes(['draft', 'manager','accountingPeriod'])->where('id', $this->draftId)->first();
+        
         if ($draft) {
             $order = Order::where([
+                ["invoice_id",null],
                 ['draft_id', $this->draftId],
                 ['status', 'in_progress']
             ])->first();
+
             if ($order) {
                 $order->update(
                     [
