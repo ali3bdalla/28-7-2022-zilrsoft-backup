@@ -32,7 +32,7 @@
     <div class="row">
       <div class="col-md-4">
         <accounting-select-with-search-layout-component
-            :default-index="quotation.user_id"
+            :default-index="quotation ? quotation.user_id : 0"
             :no_all_option="true"
             :options="clientList"
             :placeholder="app.trans.client"
