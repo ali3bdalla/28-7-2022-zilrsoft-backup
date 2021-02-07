@@ -21,7 +21,7 @@
 
                 <div v-show="isOpenSearchPanel">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3"> 
                             <VueCtkDateTimePicker
                                     :behaviour="{time: {nearestIfDisabled: true}}"
                                     :custom-shortcuts="customDateShortcuts" :label="trans.created_at"
@@ -138,6 +138,7 @@
                         <td v-text="getRowColumnIndex(index + 1)"></td>
                         <td @click="sendItemToOpenInvoice(row)" style="text-align:left;cursor: pointer">
 
+
                             &nbsp;<span :style="{'color' :primaryColor}" v-if="row.is_need_serial">{{ row.barcode }}
                             </span>
 
@@ -210,6 +211,7 @@
                     </tbody>
                 </table>
 
+
             </div>
 
             <tile :color="primaryColor" :loading="isLoading" v-show="isLoading"></tile>
@@ -227,318 +229,356 @@
 
 <script>
 
-import Treeselect from '@riophae/vue-treeselect'
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
-import { query as ItemQuery, transfer } from '../../item'
 
-import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
-import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
+    import Treeselect from '@riophae/vue-treeselect'
+    import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+    import {query as ItemQuery, transfer} from '../../item';
 
-export default {
-  components: {
-    VueCtkDateTimePicker, Treeselect
-  },
-  props: [
-    'categories',
-    'canEdit',
-    'canDelete',
-    'canCreate',
-    'canViewAccounting',
-    'creators'
-  ],
-  data: function () {
-    return {
+    import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
+    import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
 
-      itemsPerPage: 20,
-      isOpenSearchPanel: false,
-      category: null,
-      baseUrl: '/items/',
-      orderBy: 'updated_at',
-      orderType: 'desc',
-      yourValue: null,
-      table_rows: [],
 
-      isLoading: true,
-      primaryColor: metaHelper.getContent('primary-color'),
-      secondColor: metaHelper.getContent('second-color'),
-      appLocate: metaHelper.getContent('app-locate'),
-      trans: trans('items-page'),
-      messages: trans('messages'),
-      table_trans: trans('table'),
-      datetimetrans: trans('datetime'),
-      customDateShortcuts: [],
-      date_range: null,
-      showMultiTaskButtons: false,
-      requestUrl: '',
-      filters: {
-        endDate: null,
-        startDate: null,
-        barcodeNameAndSerial: '',
-        barcode: null,
-        price: null,
-        price_with_tax: null,
-        available_qty: null,
-        name: null,
-        current_status: 'all',
-        categoryIds: [],
-        filters: [],
-        creators: []
-      },
+    export default {
+        components: {
+            VueCtkDateTimePicker, Treeselect
+        },
+        props: [
+            "categories",
+            "canEdit",
+            "canDelete",
+            "canCreate",
+            "canViewAccounting",
+            "creators"
+        ],
+        data: function () {
+            return {
 
-      paginationResponseData: null,
-      tableSelectionActiveMode: false
+                itemsPerPage: 20,
+                isOpenSearchPanel: false,
+                category: null,
+                baseUrl: "/items/",
+                orderBy: "updated_at",
+                orderType: "desc",
+                yourValue: null,
+                table_rows: [],
 
-    }
-  },
-  created () {
-    this.initUi()
-    this.pushServerRequest()
-  },
-  methods: {
+                isLoading: true,
+                primaryColor: metaHelper.getContent('primary-color'),
+                secondColor: metaHelper.getContent('second-color'),
+                appLocate: metaHelper.getContent('app-locate'),
+                trans: trans('items-page'),
+                messages: trans('messages'),
+                table_trans: trans('table'),
+                datetimetrans: trans('datetime'),
+                customDateShortcuts: [],
+                date_range: null,
+                showMultiTaskButtons: false,
+                requestUrl: "",
+                filters: {
+                    endDate: null,
+                    startDate: null,
+                    barcodeNameAndSerial: "",
+                    barcode: null,
+                    price: null,
+                    price_with_tax: null,
+                    available_qty: null,
+                    name: null,
+                    current_status: "all",
+                    categoryIds: [],
+                    filters: [],
+                    creators: []
+                },
 
-    selectedAttributesHasBeenUpdated (event) {
-      this.isLoading = true
-      const appVm = this
+                paginationResponseData: null,
+                tableSelectionActiveMode: false
 
-      axios.post(getRequestUrl('items'), {
-        page: 1,
-        category_id: appVm.filters.categoryIds[0],
-        attributes: event.selectedValues
-      }).then(function (response) {
-        appVm.table_rows = response.data.data
-        appVm.paginationResponseData = response.data
-      }).catch(function (error) {
-        alert(`server error : ${error}`)
-      }).finally(function () {
-        appVm.isLoading = false
-      })
-    },
+            };
+        },
+        created() {
+            this.initUi();
+            this.pushServerRequest();
 
-    barcodeAndNameUpdated (event) {
-      event.target.select()
-      this.pushServerRequest()
-      this.$refs.barcodeAndNameUpdated.select()
-    },
+        },
+        methods: {
 
-    initUi () {
-      this.requestUrl = '/api/items'
-      this.customDateShortcuts = [
-        { key: 'thisWeek', label: this.datetimetrans.thisWeek, value: 'isoWeek' },
-        { key: 'lastWeek', label: this.datetimetrans.lastWeek, value: '-isoWeek' },
-        { key: 'last7Days', label: this.datetimetrans.last7Days, value: 7 },
-        { key: 'last30Days', label: this.datetimetrans.last30Days, value: 30 },
-        { key: 'thisMonth', label: this.datetimetrans.thisMonth, value: 'month' },
-        { key: 'lastMonth', label: this.datetimetrans.lastMonth, value: '-month' },
-        { key: 'thisYear', label: this.datetimetrans.thisYear, value: 'year' },
-        { key: 'lastYear', label: this.datetimetrans.lastYear, value: '-year' }
-      ]
-    },
-    pushServerRequest: function (ref = null) {
-      this.isLoading = true
-      const appVm = this
-      const params = appVm.filters
-      params.orderBy = this.orderBy
-      params.itemsPerPage = this.itemsPerPage
-      params.orderType = this.orderType
+            selectedAttributesHasBeenUpdated(event)
+            {
 
-      axios.get(this.requestUrl, {
-        params: params
-      }).then(function (response) {
-        // console.log(response.data);
-        appVm.table_rows = response.data.data
-        appVm.isLoading = false
-        appVm.paginationResponseData = response.data
-      }).catch(function (error) {
-        alert(error)
-      }).finally(function () {
-        appVm.isLoading = false
-      })
+                this.isLoading = true;
+                var appVm = this;
 
-      if (ref !== null) {
-        this.$refs[ref].focus()
-        this.$refs[ref].select()
+                axios.post(getRequestUrl('items'),{
+                    page:1,
+                    category_id: appVm.filters.categoryIds[0],
+                    attributes: event.selectedValues,
+                }).then(function(response){
+                    appVm.table_rows = response.data.data;
+                    appVm.paginationResponseData = response.data;
+                }).catch(function(error) {
+                    alert(`server error : ${error}`);
+                }).finally(function () {
+                    appVm.isLoading = false;
 
-        // this.$refs[ref][0].focus();
-      }
-    },
+                });
 
-    setOrderByColumn (column_name) {
-      if (this.orderBy == column_name) {
-        // alert('hello')
-        if (this.orderType == 'asc') { this.orderType = 'desc' } else { this.orderType = 'asc' }
-      } else {
-        this.orderBy = column_name
-        this.orderType = 'asc'
-      }
-      this.pushServerRequest()
-    },
+            },
 
-    sendItemToOpenInvoice (item) {
-      transfer.pushToOpenInvoice(item)
-      this.$toast.success({
-        type: 'success',
-        showMethod: 'lightSpeedIn',
-        closeButton: false,
-        timeOut: 2000,
-        icon: '',
-        title: this.messages.process_title,
-        message: this.messages.process_done,
-        progressBar: true,
-        hideDuration: 1000
-      })
-    },
-    paginateUpdatePage (event) {
-      this.requestUrl = event.link
-      this.pushServerRequest()
-    },
 
-    pagePerItemsUpdated (event) {
-      this.itemsPerPage = event.items
-      this.pushServerRequest()
-    },
-    categoryUpdated (e) {
-      this.filters.category_id = e.id
-      this.pushServerRequest()
-    },
+            barcodeAndNameUpdated(event) {
+                event.target.select();
+                this.pushServerRequest();
+                this.$refs.barcodeAndNameUpdated.select()
+            },
 
-    creatorListUpdated (e) {
-      this.filters.creators = db.model.pluck(e.items, 'id')
-      this.pushServerRequest()
-    },
 
-    openOrCloseSearchPanel () {
-      this.isOpenSearchPanel = !this.isOpenSearchPanel
-    },
+            initUi() {
+                this.requestUrl = '/api/items';
+                this.customDateShortcuts = [
+                    {key: 'thisWeek', label: this.datetimetrans.thisWeek, value: 'isoWeek'},
+                    {key: 'lastWeek', label: this.datetimetrans.lastWeek, value: '-isoWeek'},
+                    {key: 'last7Days', label: this.datetimetrans.last7Days, value: 7},
+                    {key: 'last30Days', label: this.datetimetrans.last30Days, value: 30},
+                    {key: 'thisMonth', label: this.datetimetrans.thisMonth, value: 'month'},
+                    {key: 'lastMonth', label: this.datetimetrans.lastMonth, value: '-month'},
+                    {key: 'thisYear', label: this.datetimetrans.thisYear, value: 'year'},
+                    {key: 'lastYear', label: this.datetimetrans.lastYear, value: '-year'}
+                ];
+            },
+            pushServerRequest: function (ref = null) {
 
-    advancedSearchUpdated (event) {
-      this.filters.categoryIds = event.categoryIds
-      this.filters.filters = event.searchFilters
-      if (event.categoryIds === []) {
-        this.filters.filters = []
-      }
 
-      this.pushServerRequest()
-    },
-    checkAndUncheckAllRowsCheckBoxChanged () {
-      const items = this.table_rows
-      const len = items.length
+                this.isLoading = true;
+                var appVm = this;
+                var params = appVm.filters;
+                params.orderBy = this.orderBy;
+                params.itemsPerPage = this.itemsPerPage;
+                params.orderType = this.orderType;
 
-      const new_items = []
-      for (let index = 0; index < len; index++) {
-        const item = items[index]
-        if (this.tableSelectionActiveMode) {
-          item.tb_row_selected = false
-        } else {
-          item.tb_row_selected = true
+
+                axios.get(this.requestUrl, {
+                    params: params
+                }).then(function (response) {
+                    // console.log(response.data);
+                    appVm.table_rows = response.data.data;
+                    appVm.isLoading = false;
+                    appVm.paginationResponseData = response.data;
+                }).catch(function (error) {
+                    alert(error)
+                }).finally(function () {
+                    appVm.isLoading = false;
+                });
+
+                if (ref !== null) {
+                    this.$refs[ref].focus();
+                    this.$refs[ref].select();
+
+                    // this.$refs[ref][0].focus();
+                }
+
+            },
+
+
+            setOrderByColumn(column_name) {
+                if (this.orderBy == column_name) {
+                    // alert('hello')
+                    if (this.orderType == 'asc')
+                        this.orderType = "desc";
+                    else
+                        this.orderType = "asc";
+
+                } else {
+                    this.orderBy = column_name;
+                    this.orderType = "asc";
+                }
+                this.pushServerRequest();
+            },
+
+            sendItemToOpenInvoice(item) {
+                transfer.pushToOpenInvoice(item);
+                this.$toast.success({
+                    type: 'success',
+                    showMethod: 'lightSpeedIn',
+                    closeButton: false,
+                    timeOut: 2000,
+                    icon: '',
+                    title: this.messages.process_title,
+                    message: this.messages.process_done,
+                    progressBar: true,
+                    hideDuration: 1000
+                });
+            },
+            paginateUpdatePage(event) {
+                this.requestUrl = event.link;
+                this.pushServerRequest();
+
+            },
+
+            pagePerItemsUpdated(event) {
+
+                this.itemsPerPage = event.items;
+                this.pushServerRequest();
+
+            },
+            categoryUpdated(e) {
+                this.filters.category_id = e.id;
+                this.pushServerRequest();
+            },
+
+            creatorListUpdated(e) {
+
+                this.filters.creators = db.model.pluck(e.items, 'id');
+                this.pushServerRequest();
+            },
+
+
+            openOrCloseSearchPanel() {
+                this.isOpenSearchPanel = !this.isOpenSearchPanel;
+            },
+
+            advancedSearchUpdated(event) {
+                this.filters.categoryIds = event.categoryIds;
+                this.filters.filters = event.searchFilters;
+                if (event.categoryIds === []) {
+                    this.filters.filters = [];
+                }
+
+                this.pushServerRequest();
+            },
+            checkAndUncheckAllRowsCheckBoxChanged() {
+
+                var items = this.table_rows,
+                    len = items.length;
+
+                var new_items = [];
+                for (var index = 0; index < len; index++) {
+                    var item = items[index];
+                    if (this.tableSelectionActiveMode) {
+                        item.tb_row_selected = false;
+                    } else {
+                        item.tb_row_selected = true;
+                    }
+                    new_items.push(item);
+
+                }
+
+
+                if (this.tableSelectionActiveMode) {
+                    this.showMultiTaskButtons = false;
+                } else {
+                    this.showMultiTaskButtons = true;
+                }
+
+                this.table_rows = new_items;
+                this.tableSelectionActiveMode = !this.tableSelectionActiveMode;
+
+            },
+            rowSelectCheckBoxUpdated(item) {
+                this.showOrHideMultiTaskButtons();
+            },
+            showOrHideMultiTaskButtons() {
+                var items = this.table_rows,
+                    len = items.length;
+
+                var showButtons = false;
+                for (var index = 0; index < len; index++) {
+                    var item = items[index];
+                    if (item.tb_row_selected) {
+                        showButtons = true;
+                    }
+                }
+
+                this.showMultiTaskButtons = showButtons;
+            },
+
+            exportsPdf() {
+
+            },
+            getRowColumnIndex(index) {
+                if (this.paginationResponseData != null) {
+                    return index + ((this.paginationResponseData.current_page - 1) *
+                        this.paginationResponseData.per_page);
+                }
+                return index;
+            },
+            activateListItems() {
+
+                var appVm = this;
+                var ids = db.model.pluck(this.table_rows, 'id', 'tb_row_selected', true);
+                if (ids !== []) {
+                    ItemQuery.sendQueryRequestToActivateItems(ids).then(response => {
+                        appVm.pushServerRequest();
+
+                    }).catch(error => {
+                        alert(error);
+                    })
+                }
+            },
+
+
+            deleteItemClicked(itemData) {
+
+
+                let options = {
+                    html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+                    loader: false, // set to true if you want the dailog to show a loader after click on "proceed"
+                    reverse: false, // switch the button positions (left to right, and vise versa)
+                    okText: this.messages.ok_button_txt,
+                    cancelText: this.messages.close_pop_txt,
+                    animation: 'zoom', // Available: "zoom", "bounce", "fade"
+                    type: 'hard', // coming soon: 'soft', 'hard'
+                    verification: 'delete',
+                    // for hard confirm, user will be prompted to type this to enable the proceed button
+                    verificationHelp: 'اكتب "[+:verification]" لتأكيد عملية الحذف ',
+                    // Verification help text. [+:verification] will be matched with 'options.verification' (i.e 'Type "continue" below to confirm')
+                    clicksCount: 3, // for soft confirm, user will be asked to click on "proceed" btn 3 times before actually proceeding
+                    backdropClose: false, // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+                    customClass: 'danger'
+                    // Custom class to be injected into the parent node for the current dialog instance
+                };
+
+                var appVm = this;
+
+                this.$dialog
+                    .confirm(this.messages.confirm_msg, options)
+                    .then(dialog => {
+
+                        axios.delete(appVm.baseUrl + itemData.id)
+                            .then(function (response) {
+                                // console.log(response.data);
+                                window.location.reload();
+                            })
+                            .catch(function (error) {
+
+                            });
+
+                    })
+                    .catch(() => {
+
+                    });
+            },
+
+
+        },
+
+        watch: {
+            date_range: function (value) {
+                if (value == null) {
+                    this.filters.startDate = null;
+                    this.filters.endDate = null;
+
+                } else {
+                    this.filters.startDate = value.start;
+                    this.filters.endDate = value.end;
+                }
+                this.pushServerRequest();
+
+            },
+
         }
-        new_items.push(item)
-      }
-
-      if (this.tableSelectionActiveMode) {
-        this.showMultiTaskButtons = false
-      } else {
-        this.showMultiTaskButtons = true
-      }
-
-      this.table_rows = new_items
-      this.tableSelectionActiveMode = !this.tableSelectionActiveMode
-    },
-    rowSelectCheckBoxUpdated (item) {
-      this.showOrHideMultiTaskButtons()
-    },
-    showOrHideMultiTaskButtons () {
-      const items = this.table_rows
-      const len = items.length
-
-      let showButtons = false
-      for (let index = 0; index < len; index++) {
-        const item = items[index]
-        if (item.tb_row_selected) {
-          showButtons = true
-        }
-      }
-
-      this.showMultiTaskButtons = showButtons
-    },
-
-    exportsPdf () {
-
-    },
-    getRowColumnIndex (index) {
-      if (this.paginationResponseData != null) {
-        return index + ((this.paginationResponseData.current_page - 1) *
-                        this.paginationResponseData.per_page)
-      }
-      return index
-    },
-    activateListItems () {
-      const appVm = this
-      const ids = db.model.pluck(this.table_rows, 'id', 'tb_row_selected', true)
-      if (ids !== []) {
-        ItemQuery.sendQueryRequestToActivateItems(ids).then(response => {
-          appVm.pushServerRequest()
-        }).catch(error => {
-          alert(error)
-        })
-      }
-    },
-
-    deleteItemClicked (itemData) {
-      const options = {
-        html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
-        loader: false, // set to true if you want the dailog to show a loader after click on "proceed"
-        reverse: false, // switch the button positions (left to right, and vise versa)
-        okText: this.messages.ok_button_txt,
-        cancelText: this.messages.close_pop_txt,
-        animation: 'zoom', // Available: "zoom", "bounce", "fade"
-        type: 'hard', // coming soon: 'soft', 'hard'
-        verification: 'delete',
-        // for hard confirm, user will be prompted to type this to enable the proceed button
-        verificationHelp: 'اكتب "[+:verification]" لتأكيد عملية الحذف ',
-        // Verification help text. [+:verification] will be matched with 'options.verification' (i.e 'Type "continue" below to confirm')
-        clicksCount: 3, // for soft confirm, user will be asked to click on "proceed" btn 3 times before actually proceeding
-        backdropClose: false, // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
-        customClass: 'danger'
-        // Custom class to be injected into the parent node for the current dialog instance
-      }
-
-      const appVm = this
-
-      this.$dialog
-        .confirm(this.messages.confirm_msg, options)
-        .then(dialog => {
-          axios.delete(appVm.baseUrl + itemData.id)
-            .then(function (response) {
-              // console.log(response.data);
-              window.location.reload()
-            })
-            .catch(function (error) {
-
-            })
-        })
-        .catch(() => {
-
-        })
     }
-
-  },
-
-  watch: {
-    date_range: function (value) {
-      if (value == null) {
-        this.filters.startDate = null
-        this.filters.endDate = null
-      } else {
-        this.filters.startDate = value.start
-        this.filters.endDate = value.end
-      }
-      this.pushServerRequest()
-    }
-
-  }
-}
 </script>
 <style scoped>
+
 
     .table-content {
         background: #f8f8f8;
@@ -590,6 +630,7 @@ export default {
         font-size: 17px;
     }
 
+
     .dropdown-menu li a {
         padding: 7px;
         font-size: 14px;
@@ -604,5 +645,6 @@ export default {
     .table-multi-task-buttons {
         padding: 5px;
     }
+
 
 </style>
