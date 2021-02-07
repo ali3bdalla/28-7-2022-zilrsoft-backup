@@ -94,7 +94,7 @@ Dear Customer :CUSTOMER_NAME
 :DELIVERY_MAN_NUMBER
 كود  التسليم :CODE
 ",
-"order_shipping_confirmation" => "
+"order_ready_to_pick_up_from_store" => "
 عزيزي العميل :CUSTOMER_NAME
 طلبك #:ORDER_ID جاهز للإستلام
 كود الإستلام :CODE

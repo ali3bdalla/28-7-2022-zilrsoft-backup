@@ -9,6 +9,13 @@
 		
 		protected $guarded = [];
 
+		public function getInternationalPhoneNumberAttribute()
+		{
+	//        $this->country_code
+			return '966' . $this->phone_number; // 0966324018
+		}
+
+		
 		protected $appends = ['locale_name'];
 		
 		public function orders()

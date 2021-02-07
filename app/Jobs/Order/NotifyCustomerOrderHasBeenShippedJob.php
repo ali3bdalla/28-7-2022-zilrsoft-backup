@@ -33,13 +33,34 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
     public function handle()
     {
         $phoneNumber = $this->order->user->international_phone_number;
-        $message = __('store.messages.order_shipped_with_shipping_method',[
-            'CUSTOMER_NAME' => $this->order->user->name,
-            'ORDER_ID' => $this->order->id,
-            'TRACKING_NUMBER' => $this->order->tracking_number,
-            'TRACKING_URL' => "https://www.smsaexpress.com/ar/trackingdetails?tracknumbers={$this->order->tracking_number}",
-            'SHIPPING_METHOD' => $this->order->shippingMethod->locale_name
-        ]);
+
+        if($this->order->shipping_method_id === 1)
+        {
+            $message = __('store.messages.order_shipped_with_deivery_man',[
+                'CUSTOMER_NAME' => $this->order->user->name,
+                'ORDER_ID' => $this->order->id,
+                'DELIVERY_MAN' => $this->order->deliveryMan->locale_name,
+                'DELIVERY_MAN_NUMBER' =>$this->order->deliveryMan->phone_number,
+                'CODE' => $this->order->delivery_man_code
+            ]);
+
+        }else if($this->order->shipping_method_id == 5)
+        {
+            $message = __('store.messages.order_ready_to_pick_up_from_store',[
+                'CUSTOMER_NAME' => $this->order->user->name,
+                'ORDER_ID' => $this->order->id,
+                'CODE' => $this->order->delivery_man_code
+            ]);
+        }else {
+            $message = __('store.messages.order_shipped_with_shipping_method',[
+                'CUSTOMER_NAME' => $this->order->user->name,
+                'ORDER_ID' => $this->order->id,
+                'TRACKING_NUMBER' => $this->order->tracking_number,
+                'TRACKING_URL' => "https://www.smsaexpress.com/ar/trackingdetails?tracknumbers={$this->order->tracking_number}",
+                'SHIPPING_METHOD' => $this->order->shippingMethod->locale_name
+            ]);
+        }
+        
         if (config('app.store.notify_via_sms')) {
             sendSms($message, $phoneNumber);
         }

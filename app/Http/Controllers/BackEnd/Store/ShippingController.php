@@ -169,7 +169,7 @@ class ShippingController extends Controller
 		]);
 		$deliveryMan = DeliveryMan::findOrFail($request->input('delivery_man_id'));
 
-		$phoneNumber = '+966556045415';//$deliveryMan->phone_number
+		$phoneNumber = $deliveryMan->international_phone_number;//$deliveryMan->phone_number
 		$otp = generateOtp();
 		sendOtp($phoneNumber, $otp);
 
