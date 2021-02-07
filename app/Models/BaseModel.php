@@ -152,10 +152,10 @@ class BaseModel extends Model
                         function (Builder $builder) use ($table) {
                             $builder->where(
                                 [
-                                    // ["{$table}.is_available_online", true],
-                                    // ["{$table}.is_kit", false],
+                                    ["{$table}.is_available_online", true],
+                                    ["{$table}.is_kit", false],
                                 ]
-                            )->with('category')->whereHas('category')->orderBy('available_qty','desc');
+                            )->with('category')->whereHas('category')->whereHas('attachments')->hasModelNumber()->orderBy('available_qty','desc');
 //                            ->hasModelNumber()
                             // ->whereHas('attachments')
                         }

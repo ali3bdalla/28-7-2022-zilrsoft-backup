@@ -92,7 +92,7 @@
 @task('migrate')
     echo "Migrate db"
     cd {{ $current_dir }}
-    php artisan migrate
+    php artisan migrate --force
 @endtask
 
 @task('cache')
