@@ -91,7 +91,6 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/accounting.php'));
 
         Route::middleware(['web', "auth"])
-            ->namespace("App\Http\Controllers\Backend\Store")
             ->prefix('store')
             ->name('store.')
             ->group(base_path('routes/backend/store.php'));

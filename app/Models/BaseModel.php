@@ -156,8 +156,6 @@ class BaseModel extends Model
                                     ["{$table}.is_kit", false],
                                 ]
                             )->with('category')->whereHas('category')->whereHas('attachments')->hasModelNumber()->orderBy('available_qty','desc');
-//                            ->hasModelNumber()
-                            // ->whereHas('attachments')
                         }
                     );
                 }
