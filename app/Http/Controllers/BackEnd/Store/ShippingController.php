@@ -77,7 +77,6 @@ class ShippingController extends Controller
 
     public function downloadTransaction(ShippingMethod $shipping,ShippingTransaction $transaction)
     {
-        // return GetShippmentStatusJob::dispatchNow($transaction);
         return DownloadShippmentPdfJob::dispatchNow($transaction);
     }
     public function createOrderTransaction(ShippingMethod $shipping,Order $order)
@@ -125,10 +124,11 @@ class ShippingController extends Controller
         $data['shipping_method_id'] = $shipping->id;
         $data['creator_id'] =  auth()->user()->id;
         $data['organization_id'] = auth()->user()->organization_id;
+        $order  = null;
         if($request->filled('order_id'))
         {
             $orderTransaction = ShippingTransaction::where('order_id',$request->input('order_id'))->first();
-
+            $order = Order::find($request->input('order_id'));
             if($orderTransaction)
             {
                 $created  = true;
@@ -148,6 +148,11 @@ class ShippingController extends Controller
 
             $data['tracking_number'] = SmsaCreateShippmentJob::dispatchNow($data);
             ShippingTransaction::create($data);
+            if($order ) {
+                $order ->update([
+                    'tracking_number' => $data['tracking_number']
+                ]);
+            }
         }
         
 

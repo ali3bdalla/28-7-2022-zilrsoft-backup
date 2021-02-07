@@ -12,7 +12,7 @@
 	if(!function_exists('moneyFormatter')) {
 		function moneyFormatter($money, $decimal = 2)
 		{
-			return number_format($money, 2,'.','.');			
+			return (float)number_format($money,  $decimal,'.','.');			
 		}
 	}
 	if(!function_exists('currencyMoneyFormatter')) {

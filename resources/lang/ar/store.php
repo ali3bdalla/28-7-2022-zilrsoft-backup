@@ -82,7 +82,8 @@ https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
 "order_shipped_with_shipping_method" => "
 عزيزي العميل :CUSTOMER_NAME
 تم شحن طلبك #:ORDER_ID عبر :SHIPPING_METHOD 
-رقم التتبع :TRACKING_NUMBER
+رقم التتبع 
+:TRACKING_NUMBER
 رابط التتبع
 :TRACKING_URL
 ",

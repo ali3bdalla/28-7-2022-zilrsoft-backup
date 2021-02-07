@@ -21,21 +21,21 @@
                 width="13%"
                 @click="setOrderByColumn('barcode')"
               >
-                {{ trans.client }}
+                العميل
               </th>
-              <th
+              <!-- <th
                 :class="{ orderBy: orderBy == 'name' }"
                 @click="setOrderByColumn('name')"
               >
                 {{ trans.creator }}
-              </th>
+              </th> -->
 
               <th
                 :class="{ orderBy: orderBy == 'price' }"
                 width="6%"
                 @click="setOrderByColumn('price')"
               >
-                {{ trans.net }}
+                قيمة الطلب
               </th>
 
               <th
@@ -43,29 +43,43 @@
                 width="10%"
                 @click="setOrderByColumn('price_with_tax')"
               >
-                {{ trans.shipping_amount }}
+                وسيلة الشحن
               </th>
               <th
                 :class="{ orderBy: orderBy == 'available_qty' }"
                 width="5%"
                 @click="setOrderByColumn('available_qty')"
               >
-                {{ trans.available_qty }}
+                رقم التتبع
+              </th>
+            <th
+                :class="{ orderBy: orderBy == 'available_qty' }"
+                width="5%"
+                @click="setOrderByColumn('available_qty')"
+              >
+                المسؤل
               </th>
 
+              <th
+                :class="{ orderBy: orderBy == 'available_qty' }"
+                width="5%"
+                @click="setOrderByColumn('available_qty')"
+              >
+                مندوب التوصيل
+              </th>
               <th
                 :class="{ orderBy: orderBy == 'creator_id' }"
                 width="13%"
                 @click="setOrderByColumn('creator_id')"
               >
-                {{ trans.created_by }}
+                التاريخ
               </th>
               <th
                 :class="{ orderBy: orderBy == 'created_at' }"
                 width="10%"
                 @click="setOrderByColumn('created_at')"
               >
-                {{ trans.created_at }}
+                الحالة
               </th>
 
               <th width="8%" v-text="trans.options"></th>
@@ -74,17 +88,19 @@
           <tbody>
             <tr v-for="row in table_rows" :key="row.id">
               <td class="" v-text="row.id"></td>
-              <td class="" v-text="row.user.name"></td>
-              <td class=""></td>
+              <td class="" v-text="row.user.locale_name"></td>
+              <!-- <td class=""></td> -->
               <td class="">
                 <display-money :money="row.net" />
               </td>
               <td class="">
-                <display-money :money="row.shipping_amount" />
+                {{  row.shipping_method.locale_name }}
               </td>
 
-              <td class=""></td>
               <td class="" v-text="row.tracking_number"></td>
+              <td class="" v-text="row.managed_by ? row.managed_by.locale_name : '' "></td>
+              <td class="" v-text="row.delivery_man ? row.delivery_man.locale_name : ''"></td>
+              <td class="" v-text="row.created_at"></td>
               <td class="" v-text="row.status"></td>
               <td class="">
                 <div class="dropdown">
@@ -103,49 +119,51 @@
                     :aria-labelledby="'dropDownOptions' + row.id"
                     class="dropdown-menu CustomDropDownOptions"
                   >
-                    <li v-if="row.is_kit">
+                    <li>
                       <a
-                        :href="'/items/up_selling/kits/' + row.id"
-                        v-text="trans.show"
-                      ></a>
-                    </li>
-                    <li v-if="canCreate == 1 && !row.is_kit">
-                      <a
-                        :href="baseUrl + row.id + '/clone'"
-                        v-text="trans.clone"
-                      ></a>
-                    </li>
-                    <li v-if="!row.is_kit">
-                      <a
-                        :href="`/store/orders/${row.id}/create-order-transaction`"
+                        :href="`/sales/${row.draft_id}`"
 
-                      >ان شاء البوليصة</a>
+                      > فاتورة الطلب</a>
                     </li>
-                    <li v-if="canEdit == 1 && !row.is_kit">
+                     <li>
                       <a
-                        :href="baseUrl + row.id + '/edit'"
-                        v-text="trans.edit"
-                      ></a>
+                        :href="`/store/orders/${row.id}/view-shipping`"
+
+                      >  عنوان الشحن</a>
                     </li>
-                    <li v-if="row.is_need_serial == 1 && !row.is_kit">
+                    <li v-if="row.status === 'pending'">
                       <a
-                        :href="baseUrl + row.id + '/view_serials'"
-                        v-text="trans.view_serials"
-                      ></a>
+                        :href="`/store/orders/${row.id}/view-payment`"
+
+                      >   تاكيد الدفع</a>
                     </li>
-                    <li v-if="row.status == 'pending' && canEdit == 1">
+                    <li v-if="row.status === 'in_progress'">
                       <a
-                        :href="baseUrl + row.id + '/activate'"
-                        v-text="trans.activate"
-                      ></a>
+                        :href="`/sales/drafts/${row.draft_id}/to_invoice`"
+
+                      > تحويل الى فاتورة</a>
+                    </li>
+                    <li v-if="row.invoice_id">
+                      <a
+                        :href="`/sales/${row.invoice_id}`"
+
+                      > الفاتورة النهائية</a>
                     </li>
 
-                    <li v-if="canDelete == 1 && canViewAccounting == 1">
+                    <li v-if="row.status === 'issued'">
                       <a
-                        @click="deleteItemClicked(row)"
-                        v-text="trans.delete"
-                      ></a>
+                        :href="row.payment_url"
+
+                      > رابط السداد</a>
                     </li>
+
+                    <li v-if="row.status === 'ready_for_shipping'">
+                      <a
+                        :href="`/store/shipping/${row.shipping_method_id}/${row.id}/create-order-transaction`"
+
+                      >انشاء البوليصة</a>
+                    </li>
+
                   </ul>
                 </div>
                 <!-- <a

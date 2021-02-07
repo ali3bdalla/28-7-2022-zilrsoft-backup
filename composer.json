@@ -23,7 +23,6 @@
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.5.5",
         "inertiajs/inertia-laravel": "^0.2.15",
-        "juhlinus/depictr": "^1.0",
         "laravel-notification-channels/pusher-push-notifications": "^2.3",
         "laravel/envoy": "^2.4",
         "laravel/framework": "^6.19.1",
