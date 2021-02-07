@@ -32,7 +32,7 @@
     <div class="row">
       <div class="col-md-4">
         <accounting-select-with-search-layout-component
-            :default-index="quotation ? quotation.user_id : 0"
+            :default-index="defaultClient"
             :no_all_option="true"
             :options="clientList"
             :placeholder="app.trans.client"
@@ -347,7 +347,7 @@
                 <div class="col-md-8">
 
                   <select v-model="selectedExpense" class="form-control">
-                    <option v-for="expense in expenses" :value="expense">{{
+                    <option v-for="expense in expenses" :value="expense" :key="expense.id">{{
                         expense.locale_name
                       }}
                     </option>
@@ -361,7 +361,7 @@
               </div>
 
               <div class="">
-                <div v-for="expense in invoiceData.items" v-show="expense.is_expense"
+                <div v-for="expense in invoiceData.items" v-show="expense.is_expense" :key="expense.id"
                      class="panel panel-primary">
                   <div class="panel-heading">{{ expense.locale_name }}</div>
                   <div class="panel-body">
@@ -573,6 +573,7 @@ export default {
         isMsr: true,
         canMakeCredit: true
       },
+      defaultClient:null,
       selectedExpense: null,
       modalsInfo: {
         showCreateClientModal: false,
@@ -624,10 +625,12 @@ export default {
     if (this.cloning === true) {
       this.handleCloningEvent()
     }
+    this.defaultClient = this.quotation ? this.quotation.user_id : this.clientList[0];
   },
 
   mounted: function () {
-    this.clientList = this.clients
+    // this.clientList = this.clients
+    
     this.itemsTabsPusherHandler()
     this.$refs.barcodeNameAndSerialField.focus()
   },
