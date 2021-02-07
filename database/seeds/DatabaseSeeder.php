@@ -18,19 +18,20 @@ class DatabaseSeeder extends Seeder
 
        $rass = City::where('name', 'Rass')->first();
        $shippingMethods = [
-           ['name' => 'Free Shipping', 'ar_name' => 'Free Shipping', 'logo' => '/images/shipping_methods/free_shipping.jpg', 'max_base_weight' => 0, 'max_base_weight_cost' => 10, 'kg_after_max_weight_cost' => 0, 'max_base_weight_price' => 0, 'kg_rate_after_max_price' => 0],
-           ['name' => 'SMSAEXPRESS', 'ar_name' => 'سمسا اكبريس', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/SMSA_Express_logo_%28English_version%29.svg/816px-SMSA_Express_logo_%28English_version%29.svg.png', 'max_base_weight' => 15, 'max_base_weight_cost' => 30, 'kg_after_max_weight_cost' => 2, 'max_base_weight_price' => 30, 'kg_rate_after_max_price' => 2],
-           ['name' => 'DHL', 'ar_name' => 'DHL', 'logo' => '/images/shipping_methods/dhl.png', 'max_base_weight' => 15, 'max_base_weight_cost' => 30, 'kg_after_max_weight_cost' => 2, 'max_base_weight_price' => 30, 'kg_rate_after_max_price' => 2],
-           ['name' => 'Naqel', 'ar_name' => 'Naqel', 'logo' => '/images/shipping_methods/naqel.jpg', 'max_base_weight' => 15, 'max_base_weight_cost' => 30, 'kg_after_max_weight_cost' => 2, 'max_base_weight_price' => 30, 'kg_rate_after_max_price' => 2],
+        //    ['name' => 'Free Shipping', 'ar_name' => 'Free Shipping', 'logo' => '/images/shipping_methods/free_shipping.jpg', 'max_base_weight' => 0, 'max_base_weight_cost' => 10, 'kg_after_max_weight_cost' => 0, 'max_base_weight_price' => 0, 'kg_rate_after_max_price' => 0],
+        //    ['name' => 'SMSAEXPRESS', 'ar_name' => 'سمسا اكبريس', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/SMSA_Express_logo_%28English_version%29.svg/816px-SMSA_Express_logo_%28English_version%29.svg.png', 'max_base_weight' => 15, 'max_base_weight_cost' => 30, 'kg_after_max_weight_cost' => 2, 'max_base_weight_price' => 30, 'kg_rate_after_max_price' => 2],
+        //    ['name' => 'DHL', 'ar_name' => 'DHL', 'logo' => '/images/shipping_methods/dhl.png', 'max_base_weight' => 15, 'max_base_weight_cost' => 30, 'kg_after_max_weight_cost' => 2, 'max_base_weight_price' => 30, 'kg_rate_after_max_price' => 2],
+        //    ['name' => 'Naqel', 'ar_name' => 'Naqel', 'logo' => '/images/shipping_methods/naqel.jpg', 'max_base_weight' => 15, 'max_base_weight_cost' => 30, 'kg_after_max_weight_cost' => 2, 'max_base_weight_price' => 30, 'kg_rate_after_max_price' => 2],
+           ['name' => 'Store Pickup', 'ar_name' => 'استلام من المتجر', 'logo' => '/images/shipping_methods/naqel.jpg', 'max_base_weight' => 15, 'max_base_weight_cost' => 30, 'kg_after_max_weight_cost' => 2, 'max_base_weight_price' => 30, 'kg_rate_after_max_price' => 2],
        ];
-       ShippingMethod::where('id', '!=', 0)->delete();
+    //    ShippingMethod::where('id', '!=', 0)->delete();
        foreach ($shippingMethods as $key => $shippingMethod) {
            $createdShipping = ShippingMethod::create($shippingMethod);
-           if ($key == 1) {
-               $cities = City::where("id", '!=', $rass->id)->pluck('id');
-               foreach ($cities as $cityId)
-                   $createdShipping->cities()->create(['city_id' => $cityId]);
-           }
+        //    if ($key == 1) {
+        //        $cities = City::where("id", '!=', $rass->id)->pluck('id');
+        //        foreach ($cities as $cityId)
+        //            $createdShipping->cities()->create(['city_id' => $cityId]);
+        //    }
 
 
            if ($key == 0) {

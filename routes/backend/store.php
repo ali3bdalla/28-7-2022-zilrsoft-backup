@@ -18,7 +18,7 @@ Route::prefix('orders')->name('orders.')->group(
 );
 
 
-Route::resource('shipping', 'ShippingController');
+Route::resource('shipping', ShippingController::class);
 Route::prefix('/shipping')->name('shipping.')->group(function () {
     Route::post('sign-transactions-to-delivery-man',[ShippingController::class,'signTransactionsToDeliveryMan'])->name('sign-transactions-to-delivery-man');
     Route::post('activate-sign-transactions-to-delivery-man', [ShippingController::class,'activateSignTransactionsToDeliveryMan'])->name('activate-sign-transactions-to-delivery-man');

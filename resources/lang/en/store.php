@@ -76,7 +76,7 @@ Please fill this form after transfer:
 To cancel your order please click the flowing Link:
     :CANCEL_URL
         ",
-"order_payment_confirmed" => "
+"order_shipping_confirmation" => "
 Dear Customer :CUSTOMER_NAME
 Your Payment For Order #:ORDER_ID has been received
 ",

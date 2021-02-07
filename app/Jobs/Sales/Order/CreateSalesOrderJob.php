@@ -62,6 +62,7 @@ class CreateSalesOrderJob implements ShouldQueue
         $order->is_should_pay_notified = false;
         $order->should_pay_last_notification_at = Carbon::now()->addMinutes(config('app.store.notify_unpaid_orders_after',25));
         $order->order_secret_code = (rand(10000, 99999));
+        $order->delivery_man_code = (rand(10000, 99999));
         $order->status = 'issued';
         $order->save();
         return $order->fresh();

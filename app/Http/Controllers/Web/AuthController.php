@@ -78,7 +78,6 @@ class AuthController extends Controller
 			]
 		);
 
-		// $phoneNumber => 556045415
 		sendOtp($phoneNumber, $otp);
 		Session::put('sign_up_phone_number', $phoneNumber);
 		return redirect(route('web.sign_up.confirm_sign_up'));
