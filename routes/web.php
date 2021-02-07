@@ -9,8 +9,11 @@ use Inertia\Inertia;
 
 
 
-Route::get('/delivery_man/confirm/{hash}', 'DeliveryManController@confirm');
-Route::post('/delivery_man/confirm/{hash}/{orderId}', 'DeliveryManController@performConfirm');
+Route::group(['prefix' => 'delivery_man'],function() {
+    Route::get('/confirm/{hash}', 'DeliveryManController@confirm');
+    Route::post('/confirm/{hash}/{transaction}', 'DeliveryManController@performConfirm');
+    Route::get('/{transaction}/resend_otp', 'DeliveryManController@resendOtp');
+});
 
 
 Route::get('/', 'Web\HomeController@toWeb')->name('to.web');

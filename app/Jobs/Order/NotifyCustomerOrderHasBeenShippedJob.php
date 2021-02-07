@@ -40,7 +40,6 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
             'TRACKING_URL' => "https://www.smsaexpress.com/ar/trackingdetails?tracknumbers={$this->order->tracking_number}",
             'SHIPPING_METHOD' => $this->order->shippingMethod->locale_name
         ]);
-
         if (config('app.store.notify_via_sms')) {
             sendSms($message, $phoneNumber);
         }

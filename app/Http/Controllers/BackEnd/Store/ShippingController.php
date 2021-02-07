@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Store\Shipping\StoreShippingMethodDeliveryManRequest;
 use App\Http\Requests\Backend\Store\Shipping\UpdateShippingMethodRequest;
 use App\Jobs\External\Smsa\DownloadShippmentPdfJob;
-use App\Jobs\External\Smsa\GetShippmentStatusJob;
 use App\Jobs\External\Smsa\SmsaCreateShippmentJob;
 use App\Jobs\Order\Shipping\HandleOrderShippingJob;
 use App\Models\City;

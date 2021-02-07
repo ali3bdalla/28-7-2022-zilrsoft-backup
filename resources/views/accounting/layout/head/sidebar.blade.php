@@ -62,37 +62,35 @@
                 </ul>
             </li>
         @endcanany
+        @can("manage settings")
+            @canany(['view category','create category','edit category','view filter','create filter','edit filter'])
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}
+                            {{ __('sidebar.categories') }}</span>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        @can('view category')
+                            <li>
+                                <a href="{{route('accounting.categories.index')}}"><i class="fab fa-product-hunt"></i>
+                                    {{ __('sidebar.categories') }}
+                                </a></li>
 
 
-
-        @canany(['view category','create category','edit category','view filter','create filter','edit filter'])
-            <li class="treeview">
-                <a href="#">
-                    <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}
-                        {{ __('sidebar.categories') }}</span>
-                </a>
-                <ul class="treeview-menu">
-
-                    @can('view category')
-                        <li>
-                            <a href="{{route('accounting.categories.index')}}"><i class="fab fa-product-hunt"></i>
-                                {{ __('sidebar.categories') }}
-                            </a></li>
+                        @endcan
+                        @can('view filter')
+                            <li>
+                                <a href="{{route('accounting.filters.index')}}"><i class="fa fa-sun"></i>
+                                    {{ __('sidebar.filters') }}
+                                </a></li>
+                        @endcan
 
 
-                    @endcan
-                    @can('view filter')
-                        <li>
-                            <a href="{{route('accounting.filters.index')}}"><i class="fa fa-sun"></i>
-                                {{ __('sidebar.filters') }}
-                            </a></li>
-                    @endcan
-
-
-                </ul>
-            </li>
-        @endcanany
-
+                    </ul>
+                </li>
+            @endcanany
+        @endcan
         @if(auth()->user()->organization_id == 1)
         <li class="treeview">
             <a href="#">
