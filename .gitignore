@@ -3,7 +3,8 @@
 /public/storage
 /storage/*.key
 /storage/logs/*
-
+/public/css/app.css
+/public/js/app.js
 /storage/framework/sessions/*
 /storage/framework/views/*
 /storage/framework/cache/*
