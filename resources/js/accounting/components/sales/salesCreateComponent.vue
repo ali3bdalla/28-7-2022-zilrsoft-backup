@@ -303,14 +303,6 @@
                 @focus="$event.target.select()"
               />
             </td>
-            <!--                    <td>-->
-            <!--                        <input :disabled="item.is_kit || item.is_service"-->
-            <!--                               :ref="'itemDiscount_' + item.id + 'Ref'"-->
-            <!--                               @change="itemDiscountUpdated(item)"-->
-            <!--                               @focus="$event.target.select()"-->
-            <!--                               class="form-control input-xs amount-input" placeholder="discount" type="text"-->
-            <!--                               v-model="item.discount">-->
-            <!--                    </td>-->
             <td>
               <input
                 v-model="item.subtotal"
@@ -369,15 +361,6 @@
                   />
                 </div>
               </div>
-              <!--                            <div class="row">-->
-              <!--                                <div class="col-md-6"><label>{{ app.trans.discount }}</label></div>-->
-              <!--                                <div class="col-md-6">-->
-              <!--                                    <input :placeholder="app.trans.discount"-->
-              <!--                                           class="form-control  input-xs amount-input"-->
-              <!--                                           disabled type="text"-->
-              <!--                                           v-model="invoiceData.discount">-->
-              <!--                                </div>-->
-              <!--                            </div>-->
 
               <div class="row">
                 <div class="col-md-6">
@@ -427,7 +410,7 @@
               <div class="row">
                 <div class="col-md-8">
                   <select v-model="selectedExpense" class="form-control">
-                    <option v-for="expense in expenses" :value="expense">
+                    <option v-for="expense in expenses" :value="expense" :key="expense.id">
                       {{ expense.locale_name }}
                     </option>
                   </select>
