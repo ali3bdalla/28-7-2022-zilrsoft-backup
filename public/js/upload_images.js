@@ -4440,7 +4440,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
  // Import stylesheet
@@ -4454,7 +4453,7 @@ __webpack_require__.r(__webpack_exports__);
       categoryIdMutation: 0
     };
   },
-  props: ["products", "categories", "categoryId", 'itemsCount', 'completedProducts', 'queryActiveModel'],
+  props: ['products', 'categories', 'categoryId', 'itemsCount', 'completedProducts', 'queryActiveModel'],
   components: {
     Treeselect: _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default.a,
     Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2___default.a
@@ -4466,9 +4465,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getTrans: function getTrans(key) {
-      if (key == 'all') return "الكل";
-      if (key == 'not_empty') return "يوجد موديل";
-      if (key == 'empty') return "لا يوجد موديل";
+      if (key == 'all') {
+        return 'الكل';
+      }
+
+      if (key == 'not_empty') {
+        return 'يوجد موديل';
+      }
+
+      if (key == 'empty') {
+        return 'لا يوجد موديل';
+      }
     },
     filterByModel: function filterByModel() {
       this.isLoading = true;
@@ -4483,7 +4490,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
 
-      window.location.href = "?active_model=" + this.activeModel;
+      window.location.href = '?active_model=' + this.activeModel;
     },
     categoryListUpdated: function categoryListUpdated(e) {
       location.href = '/images_upload?category_id=' + e.id;

@@ -20,42 +20,40 @@
 </template>
 
 <script>
-    import UploaderComponent from "../attachments/uploaderComponent"
+import UploaderComponent from '../attachments/uploaderComponent'
 
-    export default {
-        props: ['new_attachment_link', 'attachments'],
-        name: "PreviewComponent",
-        data: function () {
-            return {
-                attachments_list: []
-            };
-        },
-        components: {
-            'attachment-uploader-component': UploaderComponent,
-        },
-        created: function () {
-            // alert("hello")
-
-            this.attachments_list = this.attachments;
-
-        },
-        methods: {
-            deleteAttachment(id, index) {
-                let appVm = this;
-                axios.delete(this.new_attachment_link + "/" + id).then(response => {
-                    appVm.attachments_list = db.model.deleteByIndex(appVm.attachments_list, index);
-                }).catch(error => {
-                    console.log(error.response);
-                    console.log(error.response.message);
-                });
-            },
-            attachmentsUploaded(e) {
-
-                this.attachments_list.push(e.attachment);
-                // console.log(e.attachment);
-            }
-        }
+export default {
+  props: ['new_attachment_link', 'attachments'],
+  name: 'PreviewComponent',
+  data: function () {
+    return {
+      attachments_list: []
     }
+  },
+  components: {
+    'attachment-uploader-component': UploaderComponent
+  },
+  created: function () {
+    // alert("hello")
+
+    this.attachments_list = this.attachments
+  },
+  methods: {
+    deleteAttachment (id, index) {
+      const appVm = this
+      axios.delete(this.new_attachment_link + '/' + id).then(response => {
+        appVm.attachments_list = db.model.deleteByIndex(appVm.attachments_list, index)
+      }).catch(error => {
+        console.log(error.response)
+        console.log(error.response.message)
+      })
+    },
+    attachmentsUploaded (e) {
+      this.attachments_list.push(e.attachment)
+      // console.log(e.attachment);
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -74,7 +72,6 @@
         height: 230px;
         object-fit: cover;
     }
-
 
     .delete {
         position: absolute;
