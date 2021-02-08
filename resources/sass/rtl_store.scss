@@ -1,0 +1,19 @@
+@tailwind base;
+
+// @tailwind components;
+
+@import './web/store';
+@import './web/variable';
+@import './web/plugins';
+@import "./web/cart";
+@import "./web/checkout";
+@import "./web/grid";
+@import "./web/page";
+@import "./web/home";
+@import "./web/product";
+@import './web/ar/store'
+
+// @tailwind utilities;
+
+
+

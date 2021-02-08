@@ -88,7 +88,7 @@
                     <li>
                       <img
                         :src="
-                          $asset('web_assets/template/img/our-location.png')
+                          $processedImageUrl($asset('web_assets/template/img/our-location.png@jpg'),262 * 1,135 * 1)
                         "
                         alt=""
                       />
