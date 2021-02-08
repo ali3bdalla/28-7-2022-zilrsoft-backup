@@ -32,7 +32,7 @@
     <div class="row">
       <div class="col-md-4">
         <accounting-select-with-search-layout-component
-            :default-index="quotation ? quotation.user_id : 0"
+            :default-index="defaultClientId"
             :no_all_option="true"
             :options="clientList"
             :placeholder="app.trans.client"
@@ -580,6 +580,7 @@ export default {
         showAliceNameModal: false
       },
       clientList: [],
+      defaultClientId: 0,
       createdInvoiceId: 0,
       everythingFineToSave: false,
       selectedItem: null,
@@ -624,12 +625,14 @@ export default {
     if (this.cloning === true) {
       this.handleCloningEvent()
     }
+    this.defaultClientId = this.quotation ? this.quotation.user_id : this.clientList[0].id
   },
 
   mounted: function () {
     this.clientList = this.clients
     this.itemsTabsPusherHandler()
     this.$refs.barcodeNameAndSerialField.focus()
+    this.defaultClientId = this.quotation ? this.quotation.user_id : this.clientList[0].id
   },
 
   methods: {

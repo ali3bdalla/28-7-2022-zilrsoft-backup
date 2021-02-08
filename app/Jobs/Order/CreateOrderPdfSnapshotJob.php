@@ -90,7 +90,10 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
 			$fileName = 'order_' . $this->order->id . '_' . Carbon::now()->toDateString() . '.pdf';
 			$path = 'orders/' . $fileName;
 			Storage::put($path, $pdfInvoice->render($fileName, Destination::STRING_RETURN), 'public');
-
+			$this->order->update([
+				'pdf_path' => $path,
+				'lang' => app()->getLocale()
+			]);
 			return $path;
 		} catch (Exception $exception) {
 			throw $exception;
