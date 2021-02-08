@@ -69,7 +69,7 @@ class ShippingController extends Controller
     public function createTransaction(ShippingMethod $shipping)
     {
         $citites = City::orderBy('name')->get();
-
+        
         return view('backend.store.shipping.create-transaction',compact('shipping','citites'));
     }
 
@@ -145,7 +145,10 @@ class ShippingController extends Controller
                 $data['reference'] = uniqid();
             }
 
-            $data['tracking_number'] = SmsaCreateShippmentJob::dispatchNow($data);
+            if($shipping->id == 2)
+                $data['tracking_number'] = SmsaCreateShippmentJob::dispatchNow($data);
+            else 
+                $data['tracking_number'] = uniqid();
             ShippingTransaction::create($data);
             if($order ) {
                 $order ->update([
