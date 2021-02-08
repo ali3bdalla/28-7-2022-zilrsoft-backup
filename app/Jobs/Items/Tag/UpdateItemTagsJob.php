@@ -33,6 +33,7 @@ class UpdateItemTagsJob implements ShouldQueue
      */
     public function handle()
     {
+       
         $itemsTags = $this->item->tags()->pluck('tag')->toArray();
         if (!empty($this->tags)) {
             foreach ($this->tags as $tag) {
@@ -42,8 +43,20 @@ class UpdateItemTagsJob implements ShouldQueue
                         'tag' =>  $tag,//ReplaceArabicSensitiveCharJob::dispatchNow($tag)
                     ]);
                 }
+
+                
             }
         }
         $this->item->tags()->whereNotIn('tag',$this->tags)->delete();
+
+        $tags = [];
+        foreach ($this->item->tags()->get() as $tag) {
+            # code...
+            if(in_array($tag->tag,$tags)) {
+                $tag->delete();
+            }else {
+                $tags[] = $tag->tag;
+            }
+        }
     }
 }

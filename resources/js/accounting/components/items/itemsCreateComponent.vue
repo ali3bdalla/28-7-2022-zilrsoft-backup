@@ -611,7 +611,6 @@ export default {
       this.itemData.barcode = this.editedItemData.barcode
       this.itemData.salesPrice = this.editedItemData.price
       this.itemData.salesPriceWithTax = this.editedItemData.price_with_tax
-
       this.itemData.onlinePrice = this.editedItemData.online_price
       this.itemData.onlineOfferPrice = this.editedItemData.online_offer_price
       this.itemData.weight = this.editedItemData.weight
@@ -827,6 +826,10 @@ export default {
           }
         })
         .catch(function (error) {
+          const message = error.response.data[0][0][0]
+          if (message) {
+            this.$alert(this.message)
+          }
           console.log(error.response)
         })
     },
@@ -919,18 +922,14 @@ export default {
       })
       return data
     },
-    // when submit form
     sendDataToServer (redirect_to) {
       if (!this.validateAllField()) {
         return
       }
-
       const Tags = []
-
       this.itemData.tags.forEach((element) => {
         Tags.push(element.text)
       })
-
       const filters_values = this.extractAllSelectedFiltersAsKeyValueArray()
       const data = {
         expense_vendor_id: this.itemData.expenseVendorId,
@@ -960,16 +959,16 @@ export default {
         tags: Tags,
         filters: filters_values
       }
-      console.log(data)
+
       const loader = this.$loading.show({
         container: this.fullPage ? null : this.$refs.formContainer
       })
       const appVm = this
 
       if (
-        this.editingItem != null &&
+        this.editingItem !== null &&
         this.editingItem &&
-        this.cloningItem != true
+        this.cloningItem !== true
       ) {
         axios
           .put(this.app.BaseApiUrl + 'items/' + this.editedItemData.id, data)
@@ -977,9 +976,13 @@ export default {
             loader.hide()
             location.href = '/items'
           })
-          .catch(function (error) {
-            console.log(error.response)
+          .catch((error) => {
             loader.hide()
+            console.log(error.response)
+            // const message = error.response.data.errros[0][0]
+            // if (message) {
+            //   this.$alert(this.message)
+            // }
           })
 
         // simulate AJAX
@@ -1001,10 +1004,11 @@ export default {
               location.href = appVm.app.BaseApiUrl + 'items'
             }
           })
-          .catch(function (error) {
-            console.log(error.response)
-            console.log(error.data)
+          .catch((error) => {
             loader.hide()
+            // const message = error.response.data[0][0][0]
+            // if (message) {
+            //   this.$alert(this.message)
             // }
           })
 
@@ -1015,10 +1019,8 @@ export default {
     },
     updateSelectedValuesFromParentItem () {
       const filterLen = this.editedItemFilters.length
-      // console.log(filterLen)
       for (let i = 0; i < filterLen; i++) {
         const filter_and_value = this.editedItemFilters[i]
-
         this.selectedFilterValue.set(
           filter_and_value.filter_id,
           filter_and_value.filter_value

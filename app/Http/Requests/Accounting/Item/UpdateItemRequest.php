@@ -94,8 +94,8 @@ use App\Models\CategoryFilters;
 				if($item->attachments()->count() < 4) {
 					throw ValidationException::withMessages(
 						[
-							'attachments' => [
-								'item attachments required'
+							'message' => [
+								'يجب اضافة ٤ صور'
 							]
 						]
 					);
@@ -118,6 +118,8 @@ use App\Models\CategoryFilters;
 						if(!empty($value_obj))
 							$value_obj->setAsLastUsedValue();
 					}
+
+					
 				}
 			}
 			UpdateItemTagsJob::dispatchNow($item,(array)$this->input('tags'));
@@ -129,8 +131,8 @@ use App\Models\CategoryFilters;
 				if(!in_array($filterId, $itemFilters)) {
 					throw ValidationException::withMessages(
 						[
-							'filters' => [
-								'this filter should be selected'
+							'message' => [
+								"يجب اختيار رقم الموديل"
 							]
 						]
 					);
