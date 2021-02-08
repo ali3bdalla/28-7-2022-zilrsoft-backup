@@ -3,68 +3,85 @@
   <div class="message">
     <div class="row">
       <div class="col-md-6">
-        <button :disabled="!everythingFineToSave" class="btn btn-custom-primary"
-                @click="pushDataToServer"><i
-            class="fa fa-save"></i> {{ app.trans.save }}
+        <button
+          :disabled="!everythingFineToSave"
+          class="btn btn-custom-primary"
+          @click="pushDataToServer"
+        >
+          <i class="fa fa-save"></i> {{ app.trans.save }}
         </button>
-        <button ref="saveAndPrintReceiptBarcode" :disabled="!everythingFineToSave"
-                class="btn btn-custom-primary"
-                @click="pushDataToServer('print')"><i
-            class="fa fa-print"></i> {{ app.trans.save_and_print_receipt }}
+        <button
+          ref="saveAndPrintReceiptBarcode"
+          :disabled="!everythingFineToSave"
+          class="btn btn-custom-primary"
+          @click="pushDataToServer('print')"
+        >
+          <i class="fa fa-print"></i> {{ app.trans.save_and_print_receipt }}
         </button>
 
         <accounting-print-receipt-layout-component
-            :direct="true"
-            :invoice-id="createdInvoiceId"></accounting-print-receipt-layout-component>
+          :direct="true"
+          :invoice-id="createdInvoiceId"
+        ></accounting-print-receipt-layout-component>
 
-        <button :disabled="!everythingFineToSave" class="btn btn-custom-primary"
-                @click="pushDataToServer('open')"><i
-            class="fa fa-save"></i> {{ app.trans.save_and_open }}
+        <button
+          :disabled="!everythingFineToSave"
+          class="btn btn-custom-primary"
+          @click="pushDataToServer('open')"
+        >
+          <i class="fa fa-save"></i> {{ app.trans.save_and_open }}
         </button>
       </div>
       <div class="col-md-6">
-        <a class="btn btn-default " href="/sales"><i
-            class="fa fa-redo"></i> {{ app.trans.cancel }}</a>
+        <a class="btn btn-default" href="/sales"
+          ><i class="fa fa-redo"></i> {{ app.trans.cancel }}</a
+        >
       </div>
-
     </div>
 
     <div class="row">
       <div class="col-md-4">
         <accounting-select-with-search-layout-component
-            :default-index="defaultClientId"
-            :no_all_option="true"
-            :options="clientList"
-            :placeholder="app.trans.client"
-            :title="app.trans.client"
-            identity="001"
-            index="001"
-            label_text="locale_name"
-            @valueUpdated="clientListChanged"
+          :default-index="defaultClientId"
+          :no_all_option="true"
+          :options="clientList"
+          :placeholder="app.trans.client"
+          :title="app.trans.client"
+          identity="001"
+          index="001"
+          label_text="locale_name"
+          @valueUpdated="clientListChanged"
         >
-
         </accounting-select-with-search-layout-component>
-
       </div>
       <div class="col-md-4">
-        <a class="btn btn-custom-primary btn-sm" @click="modalsInfo.showAliceNameModal=true">{{
-            app.trans
-                .make_alice_name
-          }}</a>
+        <a
+          class="btn btn-custom-primary btn-sm"
+          @click="modalsInfo.showAliceNameModal = true"
+          >{{ app.trans.make_alice_name }}</a
+        >
 
-        <a class="btn btn-custom-primary btn-sm" @click="modalsInfo.showCreateClientModal=true">{{
-            app.trans
-                .create_identity
-          }}</a>
-
+        <a
+          class="btn btn-custom-primary btn-sm"
+          @click="modalsInfo.showCreateClientModal = true"
+          >{{ app.trans.create_identity }}</a
+        >
       </div>
       <div class="col-md-4">
         <div class="input-group">
-          <span id="time-field" class="input-group-addon">{{ app.trans.date }}</span>
-          <input v-model="LiveTimer" aria-describedby="time-field" class="form-control" disabled name="" readonly
-                 style=" direction: ltr
-                            !important;" type="text">
-
+          <span id="time-field" class="input-group-addon">{{
+            app.trans.date
+          }}</span>
+          <input
+            v-model="LiveTimer"
+            aria-describedby="time-field"
+            class="form-control"
+            disabled
+            name=""
+            readonly
+            style="direction: ltr !important"
+            type="text"
+          />
         </div>
       </div>
     </div>
@@ -72,26 +89,28 @@
     <div class="row">
       <div class="col-md-6">
         <accounting-select-with-search-layout-component
-            :default-index="creator.id"
-            :no_all_option="true"
-            :options="salesmen"
-            :placeholder="app.trans.salesman"
-            :title="app.trans.salesman"
-            identity="002"
-            index="002"
-            label_text="locale_name"
-            @valueUpdated="salesmanListChanged"
+          :default-index="creator.id"
+          :no_all_option="true"
+          :options="salesmen"
+          :placeholder="app.trans.salesman"
+          :title="app.trans.salesman"
+          identity="002"
+          index="002"
+          label_text="locale_name"
+          @valueUpdated="salesmanListChanged"
         >
-
         </accounting-select-with-search-layout-component>
-
       </div>
       <div class="col-md-6">
         <div class="input-group">
           <span class="input-group-addon">{{ app.trans.department }}</span>
-          <input v-model="creator.department.locale_title" aria-describedby="time-field" class="form-control"
-                 disabled type="text">
-
+          <input
+            v-model="creator.department.locale_title"
+            aria-describedby="time-field"
+            class="form-control"
+            disabled
+            type="text"
+          />
         </div>
       </div>
     </div>
@@ -102,125 +121,153 @@
         <div id="seach_area" class="product_search">
           <div class="">
             <input
-                ref="barcodeNameAndSerialField"
-                v-model="barcodeNameAndSerialField"
-                :placeholder="app.trans.search_barcode"
-                class="form-control" tabindex="1"
-                type="text"
-                @keyup.enter="sendQueryRequestToFindItems"/>
+              ref="barcodeNameAndSerialField"
+              v-model="barcodeNameAndSerialField"
+              :placeholder="app.trans.search_barcode"
+              class="form-control"
+              tabindex="1"
+              type="text"
+              @keyup.enter="sendQueryRequestToFindItems"
+            />
           </div>
-          <div v-show="searchResultList.length >=1" class="live-vue-search panel">
-            <div v-for="item in searchResultList" :key="item.id"
-                 class="panel-footer" href="#" @click="validateAndPrepareItem(item)">
-              <h4 class="title has-text-white">{{ item.locale_name }}
-                <small class="has-text-white">{{ item.barcode }} - {{ item.price_with_tax }}</small>
+          <div
+            v-show="searchResultList.length >= 1"
+            class="live-vue-search panel"
+          >
+            <div
+              v-for="item in searchResultList"
+              :key="item.id"
+              class="panel-footer"
+              href="#"
+              @click="validateAndPrepareItem(item)"
+            >
+              <h4 class="title has-text-white">
+                {{ item.locale_name }}
+                <small class="has-text-white"
+                  >{{ item.barcode }} - {{ item.price_with_tax }}</small
+                >
               </h4>
-
             </div>
           </div>
         </div>
       </div>
 
-      <div v-if="canViewItems==1" class="col-md-2  text-center">
-        <a class="btn btn-custom-primary" href="/items?selectable=true"
-           target="_blank">{{ app.trans.view_products }}</a>
-
+      <div v-if="canViewItems == 1" class="col-md-2 text-center">
+        <a
+          class="btn btn-custom-primary"
+          href="/items?selectable=true"
+          target="_blank"
+          >{{ app.trans.view_products }}</a
+        >
       </div>
-      <div v-if="canCreateItem==1" class="col-md-2  text-center">
-        <a class="btn btn-custom-primary" href="/items/create"
-           target="_blank">{{ app.trans.create_product }}</a>
+      <div v-if="canCreateItem == 1" class="col-md-2 text-center">
+        <a
+          class="btn btn-custom-primary"
+          href="/items/create"
+          target="_blank"
+          >{{ app.trans.create_product }}</a
+        >
       </div>
 
       <div class="col-md-2 text-center">
-        <a class="btn btn-custom-primary" @click="modalsInfo.showNoteModal=true">{{ app.trans.make_note }}</a>
+        <a
+          class="btn btn-custom-primary"
+          @click="modalsInfo.showNoteModal = true"
+          >{{ app.trans.make_note }}</a
+        >
       </div>
-
     </div>
 
     <div class="panel panel-primary">
-      <table class="table table-bordered text-center  table-striped">
+      <table class="table table-bordered text-center table-striped">
         <thead class="panel-heading">
-        <tr>
-          <th></th>
-          <th></th>
-          <th></th>
-          <!-- <th class="has-text-white"></th> -->
-          <th>{{ app.trans.barcode }}</th>
-          <th>{{ app.trans.item_name }}</th>
-          <th>{{ app.trans.item_available_qty }}</th>
-          <th>{{ app.trans.qty }}</th>
-          <th>{{ app.trans.sales_price }}</th>
-          <th>{{ app.trans.total }}</th>
-          <!--                    <th>{{ app.trans.discount }}</th>-->
-          <th>{{ app.trans.subtotal }}</th>
-          <th>{{ app.trans.tax }}</th>
-          <th>{{ app.trans.net }}</th>
-
-        </tr>
-
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <!-- <th class="has-text-white"></th> -->
+            <th>{{ app.trans.barcode }}</th>
+            <th>{{ app.trans.item_name }}</th>
+            <th>{{ app.trans.item_available_qty }}</th>
+            <th>{{ app.trans.qty }}</th>
+            <th>{{ app.trans.sales_price }}</th>
+            <th>{{ app.trans.total }}</th>
+            <!--                    <th>{{ app.trans.discount }}</th>-->
+            <th>{{ app.trans.subtotal }}</th>
+            <th>{{ app.trans.tax }}</th>
+            <th>{{ app.trans.net }}</th>
+          </tr>
         </thead>
 
         <tbody>
-
-        <tr v-for="(item,index) in invoiceData.items" v-if="item.is_expense!=1" :key="item.id">
-          <td>
-            <button class="btn btn-danger btn-xs" @click="deleteItemFromList(item)"><i
-                class="fa fa-trash"></i></button>
-          </td>
-          <td>
-            <button
-
+          <tr
+            v-for="(item, index) in invoiceData.items"
+            v-if="item.is_expense != 1"
+            :key="item.id"
+          >
+            <td>
+              <button
+                class="btn btn-danger btn-xs"
+                @click="deleteItemFromList(item)"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+            <td>
+              <button
                 v-if="item.is_need_serial"
                 class="btn btn-success btn-xs"
-                @click="openItemSerialsModal(index,item)"><i class="fa fa-bars"></i> &nbsp;
-            </button>
+                @click="openItemSerialsModal(index, item)"
+              >
+                <i class="fa fa-bars"></i> &nbsp;
+              </button>
 
-            <accounting-kit-items-layout-component
-                v-if="item.is_kit===true"
+              <accounting-kit-items-layout-component
+                v-if="item.is_kit === true"
                 :index="index"
                 :kit="item"
                 :qty="item.qty"
-                @kitUpdated="kitItemsDataUpdated">
-
-            </accounting-kit-items-layout-component>
-
-          </td>
-          <td>
-            <button
-
+                @kitUpdated="kitItemsDataUpdated"
+              >
+              </accounting-kit-items-layout-component>
+            </td>
+            <td>
+              <button
                 v-show="item.printable"
                 class="btn btn-success btn-xs"
-                @click="updateItemPrintable(false,item)"><i class="fa fa-eye"></i> &nbsp;
-            </button>
-            <button
-
+                @click="updateItemPrintable(false, item)"
+              >
+                <i class="fa fa-eye"></i> &nbsp;
+              </button>
+              <button
                 v-show="!item.printable"
                 class="btn btn-danger btn-xs"
-                @click="updateItemPrintable(true,item)"><i class="fa fa-eye-slash"></i> &nbsp;
-            </button>
-          </td>
-          <td data-app>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on }">
-                <span v-on="on">{{ item.barcode }}</span>
-              </template>
-              <span>{{ parseFloat(item.cost * (1 + (item.vtp / 100))).toFixed(2) }}</span>
-            </v-tooltip>
-          </td>
-          <td>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on }">
-                <span v-on="on">{{ item.locale_name }}</span>
-
-              </template>
-              <span>{{ item.warranty_title }}</span>
-            </v-tooltip>
-          </td>
-          <td v-text="item.available_qty"></td>
-          <td>
-
-            <input
-
+                @click="updateItemPrintable(true, item)"
+              >
+                <i class="fa fa-eye-slash"></i> &nbsp;
+              </button>
+            </td>
+            <td data-app>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <span v-on="on">{{ item.barcode }}</span>
+                </template>
+                <span>{{
+                  parseFloat(item.cost * (1 + item.vtp / 100)).toFixed(2)
+                }}</span>
+              </v-tooltip>
+            </td>
+            <td>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <span v-on="on">{{ item.locale_name }}</span>
+                </template>
+                <span>{{ item.warranty_title }}</span>
+              </v-tooltip>
+            </td>
+            <td v-text="item.available_qty"></td>
+            <td>
+              <input
                 v-if="!item.is_need_serial"
                 :ref="'itemQty_' + item.id + 'Ref'"
                 v-model="item.qty"
@@ -230,12 +277,12 @@
                 type="text"
                 @focus="$event.target.select()"
                 @keyup="itemQtyUpdated(item)"
-            >
-            <p v-else>{{ item.qty }}</p>
-          </td>
+              />
+              <p v-else>{{ item.qty }}</p>
+            </td>
 
-          <td>
-            <input
+            <td>
+              <input
                 :ref="'itemPrice_' + item.id + 'Ref'"
                 v-model="item.price"
                 :disabled="item.is_fixed_price || item.is_service"
@@ -243,45 +290,60 @@
                 type="text"
                 @change="itemPriceUpdated(item)"
                 @focus="$event.target.select()"
-                @keyup.enter="clearAndFocusOnBarcodeField">
+                @keyup.enter="clearAndFocusOnBarcodeField"
+              />
+            </td>
 
-          </td>
+            <td>
+              <input
+                v-model="item.total"
+                class="form-control input-xs amount-input"
+                disabled
+                type="text"
+                @focus="$event.target.select()"
+              />
+            </td>
+            <!--                    <td>-->
+            <!--                        <input :disabled="item.is_kit || item.is_service"-->
+            <!--                               :ref="'itemDiscount_' + item.id + 'Ref'"-->
+            <!--                               @change="itemDiscountUpdated(item)"-->
+            <!--                               @focus="$event.target.select()"-->
+            <!--                               class="form-control input-xs amount-input" placeholder="discount" type="text"-->
+            <!--                               v-model="item.discount">-->
+            <!--                    </td>-->
+            <td>
+              <input
+                v-model="item.subtotal"
+                class="form-control input-xs amount-input"
+                disabled=""
+                placeholder="subtotal"
+                type="text"
+                @focus="$event.target.select()"
+              />
+            </td>
 
-          <td>
-            <input v-model="item.total" class="form-control input-xs amount-input" disabled
-                   type="text"
-                   @focus="$event.target.select()">
-          </td>
-          <!--                    <td>-->
-          <!--                        <input :disabled="item.is_kit || item.is_service"-->
-          <!--                               :ref="'itemDiscount_' + item.id + 'Ref'"-->
-          <!--                               @change="itemDiscountUpdated(item)"-->
-          <!--                               @focus="$event.target.select()"-->
-          <!--                               class="form-control input-xs amount-input" placeholder="discount" type="text"-->
-          <!--                               v-model="item.discount">-->
-          <!--                    </td>-->
-          <td>
-            <input v-model="item.subtotal" class="form-control input-xs amount-input" disabled=""
-                   placeholder="subtotal"
-
-                   type="text" @focus="$event.target.select()">
-          </td>
-
-          <td>
-            <input v-model="item.tax" class="form-control input-xs amount-input" disabled=""
-                   placeholder="tax"
-                   type="text" @focus="$event.target.select()">
-          </td>
-          <td>
-            <input v-model="item.net"
-                   :disabled="item.is_fixed_price"
-                   class="form-control input-xs amount-input"
-                   placeholder="net"
-                   type="text" @change="itemNetUpdated(item)" @focus="$event.target.select()">
-          </td>
-
-        </tr>
-
+            <td>
+              <input
+                v-model="item.tax"
+                class="form-control input-xs amount-input"
+                disabled=""
+                placeholder="tax"
+                type="text"
+                @focus="$event.target.select()"
+              />
+            </td>
+            <td>
+              <input
+                v-model="item.net"
+                :disabled="item.is_fixed_price"
+                class="form-control input-xs amount-input"
+                placeholder="net"
+                type="text"
+                @change="itemNetUpdated(item)"
+                @focus="$event.target.select()"
+              />
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -294,12 +356,17 @@
             </div>
             <div class="panel-body text-center">
               <div class="row">
-                <div class="col-md-6"><label>{{ app.trans.total }}</label></div>
                 <div class="col-md-6">
-                  <input v-model="invoiceData.total"
-                         :placeholder="app.trans.total"
-                         class="form-control  input-xs amount-input" disabled
-                         type="text">
+                  <label>{{ app.trans.total }}</label>
+                </div>
+                <div class="col-md-6">
+                  <input
+                    v-model="invoiceData.total"
+                    :placeholder="app.trans.total"
+                    class="form-control input-xs amount-input"
+                    disabled
+                    type="text"
+                  />
                 </div>
               </div>
               <!--                            <div class="row">-->
@@ -313,79 +380,101 @@
               <!--                            </div>-->
 
               <div class="row">
-                <div class="col-md-6"><label>{{ app.trans.subtotal }}</label></div>
                 <div class="col-md-6">
-                  <input v-model="invoiceData.subtotal"
-                         :placeholder="app.trans.subtotal"
-                         class="form-control  input-xs amount-input" disabled
-                         type="text">
+                  <label>{{ app.trans.subtotal }}</label>
+                </div>
+                <div class="col-md-6">
+                  <input
+                    v-model="invoiceData.subtotal"
+                    :placeholder="app.trans.subtotal"
+                    class="form-control input-xs amount-input"
+                    disabled
+                    type="text"
+                  />
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-md-6"><label>{{ app.trans.tax }}</label></div>
                 <div class="col-md-6">
-                  <input v-model="invoiceData.tax"
-                         :placeholder="app.trans.tax"
-                         class="form-control  input-xs amount-input" disabled
-                         type="text">
+                  <label>{{ app.trans.tax }}</label>
+                </div>
+                <div class="col-md-6">
+                  <input
+                    v-model="invoiceData.tax"
+                    :placeholder="app.trans.tax"
+                    class="form-control input-xs amount-input"
+                    disabled
+                    type="text"
+                  />
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6"><label>{{ app.trans.net }}</label></div>
                 <div class="col-md-6">
-                  <input v-model="invoiceData.net"
-                         :placeholder="app.trans.net"
-                         class="form-control  input-xs amount-input" disabled
-                         type="text">
+                  <label>{{ app.trans.net }}</label>
+                </div>
+                <div class="col-md-6">
+                  <input
+                    v-model="invoiceData.net"
+                    :placeholder="app.trans.net"
+                    class="form-control input-xs amount-input"
+                    disabled
+                    type="text"
+                  />
                 </div>
               </div>
-
             </div>
             <div class="panel-footer">
               <div class="row">
                 <div class="col-md-8">
-
                   <select v-model="selectedExpense" class="form-control">
-                    <option v-for="expense in expenses" :value="expense">{{
-                        expense.locale_name
-                      }}
+                    <option v-for="expense in expenses" :value="expense">
+                      {{ expense.locale_name }}
                     </option>
                   </select>
-
                 </div>
                 <div class="col-md-4">
-                  <button class="btn btn-custom-primary"
-                          @click="addExpenseToInvoice"><i class="fa fa-plus-circle"></i></button>
+                  <button
+                    class="btn btn-custom-primary"
+                    @click="addExpenseToInvoice"
+                  >
+                    <i class="fa fa-plus-circle"></i>
+                  </button>
                 </div>
               </div>
 
               <div class="">
-                <div v-for="expense in invoiceData.items" v-show="expense.is_expense"
-                     class="panel panel-primary">
+                <div
+                  v-for="expense in invoiceData.items"
+                  v-show="expense.is_expense" :key="expense.id"
+                  class="panel panel-primary"
+                >
                   <div class="panel-heading">{{ expense.locale_name }}</div>
                   <div class="panel-body">
                     <div class="row">
                       <div class="col-md-12">
                         <div class="input-group">
                           <span class="input-group-addon">السعر الضريبة</span>
-                          <input :ref="'itemNet_' + expense.id+ 'Ref'"
-                                 v-model="expense.net"
-                                 class="form-control" name=""
-                                 placeholder="القيمة بالضريبة"
-                                 style=" direction: ltr!important;"
-                                 type="text"
-                                 @focus="$event.target.select()" @keyup="itemNetUpdated(expense)"
+                          <input
+                            :ref="'itemNet_' + expense.id + 'Ref'"
+                            v-model="expense.net"
+                            class="form-control"
+                            name=""
+                            placeholder="القيمة بالضريبة"
+                            style="direction: ltr !important"
+                            type="text"
+                            @focus="$event.target.select()"
+                            @keyup="itemNetUpdated(expense)"
                           />
-
                         </div>
-
                       </div>
                       <div class="col-md-12">
                         <div class="input-group">
                           <span class="input-group-addon">سعر الشراء</span>
-                          <input v-model="expense.purchase_price" class="form-control" placeholder="سعر الشراء"
-                                 type="text"
+                          <input
+                            v-model="expense.purchase_price"
+                            class="form-control"
+                            placeholder="سعر الشراء"
+                            type="text"
                           />
                         </div>
                       </div>
@@ -393,53 +482,54 @@
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
-
         </div>
         <div class="col-md-9">
           <accounting-invoice-embedded-payments-gateway-layout
-              v-if="!isOrder"
-              :gateways="gateways"
-              :net-amount="invoiceData.net"
-              invoice-type="sale"
-              @updateGatewaysAmounts="updateGatewaysAmounts"
+            v-if="!isOrder"
+            :gateways="gateways"
+            :net-amount="invoiceData.net"
+            invoice-type="sale"
+            @updateGatewaysAmounts="updateGatewaysAmounts"
           >
           </accounting-invoice-embedded-payments-gateway-layout>
         </div>
-
       </div>
     </div>
 
     <accounting-invoice-item-serials-list-layout-component
-        :item="selectedItem"
-        :item-index="selectedItemIndex"
-        invoice-type="sale"
-        @panelClosed="handleItemSerialsClosed"
-        @publishUpdated="handleItemSerialsUpdated"
+      :item="selectedItem"
+      :item-index="selectedItemIndex"
+      invoice-type="sale"
+      @panelClosed="handleItemSerialsClosed"
+      @publishUpdated="handleItemSerialsUpdated"
     >
-
     </accounting-invoice-item-serials-list-layout-component>
 
     <!--invoice Note Modal-->
-    <div v-if="modalsInfo.showNoteModal===true">
+    <div v-if="modalsInfo.showNoteModal === true">
       <transition name="modal">
         <div class="modal-mask">
           <div class="modal-wrapper">
             <div class="modal-dialog">
               <div class="modal-content">
-                <div class="modal-header ">
-                  <button class="pull-left btn btn-custom-primary"
-                          type="button"
-                          @click="modalsInfo.showNoteModal = false">
+                <div class="modal-header">
+                  <button
+                    class="pull-left btn btn-custom-primary"
+                    type="button"
+                    @click="modalsInfo.showNoteModal = false"
+                  >
                     اغلاق
                   </button>
                   <h4 class="modal-title">{{ app.trans.make_note }}</h4>
                 </div>
                 <div class="modal-body">
-                                    <textarea v-model="invoiceData.notes" :placeholder="app.trans.type_here"
-                                              class="form-control"></textarea>
+                  <textarea
+                    v-model="invoiceData.notes"
+                    :placeholder="app.trans.type_here"
+                    class="form-control"
+                  ></textarea>
                 </div>
               </div>
             </div>
@@ -450,25 +540,29 @@
     <!--invoice Note Modal-->
 
     <!--        invoice other client name  Modal-->
-    <div v-if="modalsInfo.showAliceNameModal===true">
+    <div v-if="modalsInfo.showAliceNameModal === true">
       <transition name="modal">
         <div class="modal-mask">
           <div class="modal-wrapper">
             <div class="modal-dialog">
               <div class="modal-content">
-                <div class="modal-header ">
-                  <button class="pull-left btn btn-custom-primary"
-                          type="button"
-                          @click="modalsInfo.showAliceNameModal = false">
+                <div class="modal-header">
+                  <button
+                    class="pull-left btn btn-custom-primary"
+                    type="button"
+                    @click="modalsInfo.showAliceNameModal = false"
+                  >
                     اغلاق
                   </button>
                   <h4 class="modal-title">{{ app.trans.make_alice_name }}</h4>
                 </div>
                 <div class="modal-body">
-                  <input v-model="invoiceData.aliceName"
-                         :placeholder="app.trans.type_here"
-                         class="form-control"
-                         type="text"/>
+                  <input
+                    v-model="invoiceData.aliceName"
+                    :placeholder="app.trans.type_here"
+                    class="form-control"
+                    type="text"
+                  />
                 </div>
               </div>
             </div>
@@ -479,16 +573,18 @@
     <!--        invoice other client name  Modal-->
 
     <!--invoice Note Modal-->
-    <div v-show="modalsInfo.showCreateClientModal===true">
+    <div v-show="modalsInfo.showCreateClientModal === true">
       <transition name="modal">
         <div class="modal-mask">
           <div class="modal-wrapper">
             <div class="modal-dialog">
               <div class="modal-content">
-                <div class="modal-header ">
-                  <button class="pull-left btn btn-custom-primary"
-                          type="button"
-                          @click="modalsInfo.showCreateClientModal = false">
+                <div class="modal-header">
+                  <button
+                    class="pull-left btn btn-custom-primary"
+                    type="button"
+                    @click="modalsInfo.showCreateClientModal = false"
+                  >
                     اغلاق
                   </button>
                   <h4 class="modal-title">انشاء هوية</h4>
@@ -496,40 +592,63 @@
                 <div class="modal-body">
                   <div class="row">
                     <div class="col-md-4">
-                      <toggle-button v-model="clientModal.isIndividual" :font-size="19" :height='30' :labels="{checked:'فرد',
-                                   unchecked: 'منشأة'}" :sync="true"
-                                     :width='150'/>
+                      <toggle-button
+                        v-model="clientModal.isIndividual"
+                        :font-size="19"
+                        :height="30"
+                        :labels="{ checked: 'فرد', unchecked: 'منشأة' }"
+                        :sync="true"
+                        :width="150"
+                      />
                     </div>
                     <div class="col-md-4">
-                      <toggle-button v-show="clientModal.isIndividual" v-model="clientModal.isMsr"
-                                     :font-size="19"
-                                     :height='30' :labels="{checked:'السيد',
-                                   unchecked: 'السيد'}" :sync="true"
-                                     :width='150'/>
+                      <toggle-button
+                        v-show="clientModal.isIndividual"
+                        v-model="clientModal.isMsr"
+                        :font-size="19"
+                        :height="30"
+                        :labels="{ checked: 'السيد', unchecked: 'السيد' }"
+                        :sync="true"
+                        :width="150"
+                      />
                     </div>
                     <div class="col-md-4">
-                      <toggle-button v-model="clientModal.canMakeCredit" :font-size="19"
-                                     :height='30'
-                                     :labels="{checked:'فواتير اجله',
-                                   unchecked: 'سداد فقط'}" :sync="true"
-                                     :width='150'
+                      <toggle-button
+                        v-model="clientModal.canMakeCredit"
+                        :font-size="19"
+                        :height="30"
+                        :labels="{
+                          checked: 'فواتير اجله',
+                          unchecked: 'سداد فقط',
+                        }"
+                        :sync="true"
+                        :width="150"
                       />
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6">
-                      <input v-model="clientModal.clientArName" class="form-control"
-                             placeholder="اسم العميل"/>
+                      <input
+                        v-model="clientModal.clientArName"
+                        class="form-control"
+                        placeholder="اسم العميل"
+                      />
                     </div>
                     <div class="col-md-6">
-                      <input v-model="clientModal.clientName" class="form-control"
-                             placeholder="اسم العميل (انجليزي)"/>
+                      <input
+                        v-model="clientModal.clientName"
+                        class="form-control"
+                        placeholder="اسم العميل (انجليزي)"
+                      />
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="col-md-12">
-                      <div class="btn btn-custom-primary" @click="pushClientData">
+                      <div
+                        class="btn btn-custom-primary"
+                        @click="pushClientData"
+                      >
                         حفظ
                       </div>
                     </div>
@@ -543,13 +662,15 @@
     </div>
     <!--invoice create Modal-->
 
-    <textarea v-if="activateTestMode" v-model="testRequestData" class="form-control"></textarea>
+    <textarea
+      v-if="activateTestMode"
+      v-model="testRequestData"
+      class="form-control"
+    ></textarea>
   </div>
-
 </template>
 
 <script>
-
 import {
   accounting as ItemAccounting,
   math as ItemMath,
@@ -560,8 +681,19 @@ import { sendGetKitAmountsRequest } from '../../api/kits'
 
 export default {
   components: {},
-  props: ['creator', 'clients', 'cloning', 'quotation', 'salesmen', 'gateways', 'expenses', 'canViewItems',
-    'canCreateItem', 'isOrder', 'shoudNotPay'],
+  props: [
+    'creator',
+    'clients',
+    'cloning',
+    'quotation',
+    'salesmen',
+    'gateways',
+    'expenses',
+    'canViewItems',
+    'canCreateItem',
+    'isOrder',
+    'shoudNotPay'
+  ],
   data: function () {
     return {
       activateTestMode: false,
@@ -612,10 +744,18 @@ export default {
         defaultVatSaleValue: 15,
         defaultVatPurchaseValue: 15
       },
-      LiveTimer: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() +
-          ' ' +
-          new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds()
-
+      LiveTimer:
+        new Date().getFullYear() +
+        '-' +
+        (new Date().getMonth() + 1) +
+        '-' +
+        new Date().getDate() +
+        ' ' +
+        new Date().getHours() +
+        ':' +
+        new Date().getMinutes() +
+        ':' +
+        new Date().getSeconds()
     }
   },
   created: function () {
@@ -625,18 +765,21 @@ export default {
     if (this.cloning === true) {
       this.handleCloningEvent()
     }
-    this.defaultClientId = this.quotation ? this.quotation.user_id : this.clientList[0].id
+    this.defaultClientId = this.quotation
+      ? this.quotation.user_id
+      : this.clientList[0].id
   },
 
   mounted: function () {
     this.clientList = this.clients
     this.itemsTabsPusherHandler()
     this.$refs.barcodeNameAndSerialField.focus()
-    this.defaultClientId = this.quotation ? this.quotation.user_id : this.clientList[0].id
+    this.defaultClientId = this.quotation
+      ? this.quotation.user_id
+      : this.clientList[0].id
   },
 
   methods: {
-
     toCheckMakePrintableOption (item) {
       let canMakeItPrintable = false
       const len = this.invoiceData.items.length
@@ -655,15 +798,20 @@ export default {
     },
     updateItemPrintable (printable, item) {
       if (!printable) {
-        if (this.toCheckMakePrintableOption(item)) { this.toRealChangePrintableStatus(printable, item) }
+        if (this.toCheckMakePrintableOption(item)) {
+          this.toRealChangePrintableStatus(printable, item)
+        }
       } else {
         this.toRealChangePrintableStatus(printable, item)
       }
     },
     toRealChangePrintableStatus (printable, item) {
       item.printable = printable
-      this.invoiceData.items = db.model.replace(this.invoiceData.items,
-        db.model.index(this.invoiceData.items, item.id), item)
+      this.invoiceData.items = db.model.replace(
+        this.invoiceData.items,
+        db.model.index(this.invoiceData.items, item.id),
+        item
+      )
     },
     handleCloningEvent () {
       const items = this.quotation.items
@@ -695,15 +843,14 @@ export default {
     },
     pushClientData () {
       this.modalsInfo.showCreateclientModal = false
-      //
-      let user_type
+      let user_type = ''
       if (this.clientModal.isIndividual) {
         user_type = 'individual'
       } else {
         user_type = 'company'
       }
 
-      let user_title
+      let user_title = ''
 
       if (this.clientModal.isMr) {
         user_title = 'mr'
@@ -711,7 +858,9 @@ export default {
         user_title = 'mis'
       }
 
-      if (user_type === 'company') { user_title = 'company' }
+      if (user_type === 'company') {
+        user_title = 'company'
+      }
 
       const data = {
         user_gateways: [],
@@ -732,26 +881,28 @@ export default {
         user_detail_address: '',
         user_detail_responser: '',
         user_detail_responser_phone: '000000'
-
       }
       const appVm = this
-      axios.post('/accounting/identities', data).then(response => {
-        alert('تم التسجيل بنجاح')
-        appVm.clientList.push(response.data)
-        appVm.modalsInfo.showCreateclientModal = false
-        appVm.invoiceData.clientId = response.data.id
-        appVm.clientModal.clientArName = ''
-        appVm.clientModal.clientName = ''
-        appVm.clientListChanged({
-          value: {
-            id: response.data.id
-          }
+      axios
+        .post('/accounting/identities', data)
+        .then((response) => {
+          alert('تم التسجيل بنجاح')
+          appVm.clientList.push(response.data)
+          appVm.modalsInfo.showCreateclientModal = false
+          appVm.invoiceData.clientId = response.data.id
+          appVm.clientModal.clientArName = ''
+          appVm.clientModal.clientName = ''
+          appVm.clientListChanged({
+            value: {
+              id: response.data.id
+            }
+          })
         })
-      }).catch(error => {
-        console.log(error.response)
-        console.log(error.response.messages)
-        console.log(error.message)
-      })
+        .catch((error) => {
+          console.log(error.response)
+          console.log(error.response.messages)
+          console.log(error.message)
+        })
     },
     addExpenseToInvoice () {
       if (this.selectedExpense != null) {
@@ -803,20 +954,25 @@ export default {
         }
       }
       const appVm = this
-      ItemQuery.sendQueryRequestToFindItems(this.barcodeNameAndSerialField, 'sale').then(response => {
-        if (response.data.length === 1) {
-          appVm.validateAndPrepareItem(response.data[0])
-          appVm.barcodeNameAndSerialField = ''
-          appVm.searchResultList = []
-        } else if (response.data.length === 0) {
-          appVm.$refs.barcodeNameAndSerialField.select()
-          appVm.searchResultList = []
-        } else {
-          appVm.searchResultList = response.data
-        }
-      }).catch(error => {
-        console.log(error)
-      })
+      ItemQuery.sendQueryRequestToFindItems(
+        this.barcodeNameAndSerialField,
+        'sale'
+      )
+        .then((response) => {
+          if (response.data.length === 1) {
+            appVm.validateAndPrepareItem(response.data[0])
+            appVm.barcodeNameAndSerialField = ''
+            appVm.searchResultList = []
+          } else if (response.data.length === 0) {
+            appVm.$refs.barcodeNameAndSerialField.select()
+            appVm.searchResultList = []
+          } else {
+            appVm.searchResultList = response.data
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
     validateAndPrepareItem (item) {
       item.price = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.price)
@@ -835,7 +991,9 @@ export default {
       } else {
         const preparedItem = this.prepareDataInFirstUse(item)
         this.appendItemToInvoiceItemsList(preparedItem)
-        if (preparedItem.is_kit) { return 0 }
+        if (preparedItem.is_kit) {
+          return 0
+        }
       }
 
       this.clearAndFocusOnBarcodeField()
@@ -900,8 +1058,14 @@ export default {
     },
     updateInvoiceData () {
       this.invoiceData.total = db.model.sum(this.invoiceData.items, 'total')
-      this.invoiceData.discount = db.model.sum(this.invoiceData.items, 'discount')
-      this.invoiceData.subtotal = db.model.sum(this.invoiceData.items, 'subtotal')
+      this.invoiceData.discount = db.model.sum(
+        this.invoiceData.items,
+        'discount'
+      )
+      this.invoiceData.subtotal = db.model.sum(
+        this.invoiceData.items,
+        'subtotal'
+      )
       this.invoiceData.tax = db.model.sum(this.invoiceData.items, 'tax')
       this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net')
       this.validateInvoiceData(focus)
@@ -918,10 +1082,14 @@ export default {
         'net'
       ])
 
-      validating = validating && ItemValidator.validateAmount(this.invoiceData.total)
-      validating = validating && ItemValidator.validateAmount(this.invoiceData.subtotal)
-      validating = validating && ItemValidator.validateAmount(this.invoiceData.discount)
-      validating = validating && ItemValidator.validateAmount(this.invoiceData.net)
+      validating =
+        validating && ItemValidator.validateAmount(this.invoiceData.total)
+      validating =
+        validating && ItemValidator.validateAmount(this.invoiceData.subtotal)
+      validating =
+        validating && ItemValidator.validateAmount(this.invoiceData.discount)
+      validating =
+        validating && ItemValidator.validateAmount(this.invoiceData.net)
 
       this.everythingFineToSave = validating
     },
@@ -943,22 +1111,31 @@ export default {
       }
 
       item = this.itemUpdater(item)
-      this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id))
+      this.appendItemToInvoiceItemsList(
+        item,
+        db.model.index(this.invoiceData.items, item.id)
+      )
     },
 
     kitQtyUpdated (kit) {
       const appVm = this
-      sendGetKitAmountsRequest(kit.id, kit.qty).then(response => {
-        kit.total = response.data.total
-        kit.discount = response.data.discount
-        kit.subtotal = response.data.subtotal
-        kit.tax = response.data.tax
-        kit.net = response.data.net
-        appVm.invoiceData.items.splice(db.model.index(appVm.invoiceData.items, kit.id), 1, kit)
-        appVm.updateInvoiceData()
-      }).catch(error => {
-        alert(error)
-      })
+      sendGetKitAmountsRequest(kit.id, kit.qty)
+        .then((response) => {
+          kit.total = response.data.total
+          kit.discount = response.data.discount
+          kit.subtotal = response.data.subtotal
+          kit.tax = response.data.tax
+          kit.net = response.data.net
+          appVm.invoiceData.items.splice(
+            db.model.index(appVm.invoiceData.items, kit.id),
+            1,
+            kit
+          )
+          appVm.updateInvoiceData()
+        })
+        .catch((error) => {
+          alert(error)
+        })
     },
 
     itemPriceUpdated (item) {
@@ -968,7 +1145,10 @@ export default {
         return false
       }
       item = this.itemUpdater(item)
-      this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id))
+      this.appendItemToInvoiceItemsList(
+        item,
+        db.model.index(this.invoiceData.items, item.id)
+      )
     },
 
     itemDiscountUpdated (item) {
@@ -978,35 +1158,55 @@ export default {
         return false
       }
       item = this.itemUpdater(item)
-      this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id))
+      this.appendItemToInvoiceItemsList(
+        item,
+        db.model.index(this.invoiceData.items, item.id)
+      )
     },
 
     itemNetUpdated (item) {
       if (item.is_service || item.is_expense) {
-        item.price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vts)
+        item.price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(
+          item.net,
+          item.vts
+        )
         item.total = item.price
         item.subtotal = item.price
         item.tax = ItemAccounting.getTax(item.subtotal, item.vts, true)
         item.discount = 0
       } else {
-        const tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts) //  1.05
+        const tax = ItemAccounting.convertVatPercentValueIntoFloatValue(
+          item.vts
+        ) //  1.05
         item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2)
-        item.tax = parseFloat(ItemMath.dev(ItemMath.mult(item.subtotal, item.vts), 100)).toFixed(3)
+        item.tax = parseFloat(
+          ItemMath.dev(ItemMath.mult(item.subtotal, item.vts), 100)
+        ).toFixed(3)
         // item.total = ItemMath.sub(item.total, item.subtotal);
 
         item.discount = 0
         item.total = item.subtotal
-        if (parseInt(item.qty) >= 1) { item.price = parseFloat(item.total / parseInt(item.qty)) } else { item.price = item.total }
+        if (parseInt(item.qty) >= 1) {
+          item.price = parseFloat(item.total / parseInt(item.qty))
+        } else {
+          item.price = item.total
+        }
       }
 
       if (parseFloat(item.discount) < 0) {
         item = this.itemNetToUpdatePriceWithoutTax(item)
       }
-      this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id))
+      this.appendItemToInvoiceItemsList(
+        item,
+        db.model.index(this.invoiceData.items, item.id)
+      )
     },
 
     itemNetToUpdatePriceWithoutTax (item) {
-      item.price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vtp)
+      item.price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(
+        item.net,
+        item.vtp
+      )
       item.total = parseFloat(item.price) * parseInt(item.qty)
       item.subtotal = item.total
       item.tax = ItemAccounting.getTax(item.subtotal, item.vtp, true)
@@ -1026,7 +1226,9 @@ export default {
       item.total = ItemAccounting.getTotal(item.price, item.qty)
       item.subtotal = ItemAccounting.getSubtotal(item.total, item.discount)
       //
-      item.tax = item.is_kit ? item.data.tax : ItemAccounting.getTax(item.subtotal, item.vts, true)// this for vat purchase => vtp
+      item.tax = item.is_kit
+        ? item.data.tax
+        : ItemAccounting.getTax(item.subtotal, item.vts, true) // this for vat purchase => vtp
       item.net = ItemAccounting.getNet(item.subtotal, item.tax, true)
       return item
     },
@@ -1058,7 +1260,11 @@ export default {
         const item = this.invoiceData.items[i]
         const itemWidget = ItemMath.dev(item.total, this.invoiceData.total)
         item.widget = itemWidget
-        this.invoiceData.items = db.model.replace(this.invoiceData.items, i, item)
+        this.invoiceData.items = db.model.replace(
+          this.invoiceData.items,
+          i,
+          item
+        )
       }
     },
 
@@ -1092,13 +1298,19 @@ export default {
     },
 
     expenseIncludeInNet (e) {
-      this.invoiceData.net = ItemMath.sum(this.invoiceData.net, e.expense.amount)
+      this.invoiceData.net = ItemMath.sum(
+        this.invoiceData.net,
+        e.expense.amount
+      )
       this.expensesList.splice(e.index, 1, e.expense)
       this.updateListItemsWidgets()
     },
 
     expenseDeIncludeInNet (e) {
-      this.invoiceData.net = ItemMath.sub(this.invoiceData.net, e.expense.amount)
+      this.invoiceData.net = ItemMath.sub(
+        this.invoiceData.net,
+        e.expense.amount
+      )
       this.expensesList.splice(e.index, 1, e.expense)
       this.updateListItemsWidgets()
     },
@@ -1114,7 +1326,10 @@ export default {
       }
 
       if (total > 0) {
-        this.invoiceData.net = ItemMath.sum(total, db.model.sum(this.invoiceData.items, 'net'))
+        this.invoiceData.net = ItemMath.sum(
+          total,
+          db.model.sum(this.invoiceData.items, 'net')
+        )
       } else {
         this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net')
       }
@@ -1128,7 +1343,9 @@ export default {
         // can_make_credit === false
         const amount = db.model.sum(this.invoiceData.methods, 'amount')
         if (ItemMath.isBiggerThan(this.invoiceData.net, amount)) {
-          alert('هذا العميل لا يمكنه القيام بفواتير آجله الرجاء التحقق من وسائل الدفع واكمال المبلغ ')
+          alert(
+            'هذا العميل لا يمكنه القيام بفواتير آجله الرجاء التحقق من وسائل الدفع واكمال المبلغ '
+          )
 
           return
         }
@@ -1163,7 +1380,8 @@ export default {
       if (this.activateTestMode) {
         this.testRequestData = JSON.stringify(data)
       } else {
-        axios.post('/api/sales', data)
+        axios
+          .post('/api/sales', data)
           .then(function (response) {
             if (doWork === 'open') {
               window.location.href = '/sales/' + response.data.id
@@ -1210,19 +1428,17 @@ export default {
       }
       // this.stringifyRequestData = JSON.stringify(data);
     }
-
   }
-
 }
 </script>
 
 <style scoped>
 input {
-  text-align: center
+  text-align: center;
 }
 
 .product_search {
-  position: relative;;
+  position: relative;
 }
 
 .live-vue-search {
@@ -1245,11 +1461,9 @@ input {
 }
 
 live-vue-search div:hover {
-
   border-radius: 0px;
 
   border-bottom: 1px solid #eeeeee;
   cursor: pointer;
 }
-
 </style>
