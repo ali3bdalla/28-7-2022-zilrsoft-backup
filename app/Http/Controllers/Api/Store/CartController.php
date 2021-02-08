@@ -13,7 +13,7 @@
 			$request->validate(
 				[
 					'items' => 'array',
-					'items.*' => 'required|integer|organization_exists:App\Models\Item,id'
+					'items.*' => 'required|integer|exists:items,id'
 				]
 			);
 			

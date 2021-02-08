@@ -244,7 +244,7 @@
 
         <div class="col-xs-12">
             <div class="header_title">
-                <span class="pull-right"> الضريبة  </span>
+                <span class="pull-right"> (15%) الضريبة  </span>
                 <span class="pull-left"> {{currencyMoneyFormatter($invoice->tax) }}</span>
             </div>
         </div>

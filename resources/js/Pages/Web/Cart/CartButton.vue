@@ -91,11 +91,6 @@ export default {
       this.$emit('sendOrder')
     },
 
-    updateShippingDetails () {
-      this.shippingMethod = this.$page.shipping_methods.find(
-        (p) => p.id === value
-      )
-    },
     getTotalShippingWeight () {
       let totalWeight = 0
       const items = this.orderItems
@@ -122,7 +117,7 @@ export default {
         discount = totalShippingAmount
       }
 
-      console.log("shippingDiscount:" ,discount)
+      console.log('shippingDiscount:', discount)
 
       return discount
     },
@@ -161,8 +156,6 @@ export default {
           weightVaritionToBase *
           parseFloat(this.getShippingMethod().kg_rate_after_max_price)
       }
-
-
 
       return shippingAmount
     }

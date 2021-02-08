@@ -38,7 +38,7 @@ class Item extends BaseModel
 {
 
 	use SoftDeletes, Searchable;
-	protected $touches = ['category', 'filters', 'tags'];
+	protected $touches = ['category', 'filters', 'tags','attachments'];
 	protected $appends = [
 		'locale_name',
 		'locale_description',
@@ -248,7 +248,7 @@ class Item extends BaseModel
 
 	public function shouldBeSearchable()
 	{
-		return $this->organization_id == 1 && !$this->is_kit && $this->is_available_online;
+		return $this->organization_id == 1 && !$this->is_kit && $this->is_available_online && $this->attachments()->count() >= 4;
 	}
 
 

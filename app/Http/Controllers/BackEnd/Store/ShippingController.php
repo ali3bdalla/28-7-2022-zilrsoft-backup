@@ -15,6 +15,7 @@ use App\Models\Order;
 use App\Models\ShippingMethod;
 use App\Models\ShippingTransaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class ShippingController extends Controller
@@ -69,14 +70,16 @@ class ShippingController extends Controller
     public function createTransaction(ShippingMethod $shipping)
     {
         $citites = City::orderBy('name')->get();
-
+        
         return view('backend.store.shipping.create-transaction',compact('shipping','citites'));
     }
 
 
     public function downloadTransaction(ShippingMethod $shipping,ShippingTransaction $transaction)
     {
-        return DownloadShippmentPdfJob::dispatchNow($transaction);
+        if($shipping->id == 1) return DownloadShippmentPdfJob::dispatchNow($transaction);
+
+        if($transaction->order) return Storage::download($transaction->order->pdf_path);
     }
     public function createOrderTransaction(ShippingMethod $shipping,Order $order)
     {
@@ -145,7 +148,11 @@ class ShippingController extends Controller
                 $data['reference'] = uniqid();
             }
 
-            $data['tracking_number'] = SmsaCreateShippmentJob::dispatchNow($data);
+            if($shipping->id == 2) // smsa
+                $data['tracking_number'] = SmsaCreateShippmentJob::dispatchNow($data);
+            else 
+                $data['tracking_number'] = uniqid();
+
             ShippingTransaction::create($data);
             if($order ) {
                 $order ->update([
