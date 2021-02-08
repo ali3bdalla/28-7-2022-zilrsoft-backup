@@ -2,8 +2,8 @@
     "/js/app.js": "/js/app.js",
     "/css/main.css": "/css/main.css",
     "/css/store.css": "/css/store.css",
+    "/css/rtl_store.css": "/css/rtl_store.css",
     "/js/external.js": "/js/external.js",
     "/js/online-store.js": "/js/online-store.js",
-    "/js/upload_images.js": "/js/upload_images.js",
-    "/css/rtl_store.css": "/css/rtl_store.css"
+    "/js/upload_images.js": "/js/upload_images.js"
 }
