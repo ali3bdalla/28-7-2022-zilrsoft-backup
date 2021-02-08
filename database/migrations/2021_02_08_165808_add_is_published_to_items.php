@@ -14,9 +14,9 @@ class AddIsPublishedToItems extends Migration
      */
     public function up()
     {
-        // Schema::table('items', function (Blueprint $table) {
-        //     $table->boolean('is_published')->default(false);
-        // });
+        Schema::table('items', function (Blueprint $table) {
+            $table->boolean('is_published')->default(false);
+        });
         $items = Item::where([['is_kit',false],['is_available_online',true]])->whereHas('attachments')->get();
         foreach ($items as $key => $item) {
 			$item->update([
