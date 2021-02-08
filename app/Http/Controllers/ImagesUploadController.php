@@ -57,7 +57,7 @@
 			
 			
 			
-			$items = Item::query();
+			$items = Item::has('attachments','<','4');
 			
 			
 			$categoryId = 0;

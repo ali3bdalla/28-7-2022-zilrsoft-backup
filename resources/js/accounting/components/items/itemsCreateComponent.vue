@@ -238,13 +238,6 @@
             {{ warranty.locale_name }}
           </option>
         </select>
-        <!--                <accounting-select-with-search-layout-component-->
-        <!--                        :options="warranty_subscriptions"-->
-        <!--                        placeholder="الضمان" :no_all_option="true"-->
-        <!--                        :default_id="itemData.warranty_subscription_id"-->
-        <!--                        title="الضمان"-->
-        <!--                        label_text="locale_name"-->
-        <!--                ></accounting-select-with-search-layout-component>-->
       </div>
       <div class="col-md-2"></div>
       <div class="col-md-2"></div>
@@ -379,7 +372,7 @@
 
       <div class="mt-" style="margin-top: 15p">
         <div class="row">
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <div
               :class="{ 'has-error': errorFieldName === 'onlinePrice' }"
               class="form-group"
@@ -400,14 +393,14 @@
                 {{ errorFieldMessage }}
               </small>
             </div>
-          </div>
+          </div> -->
 
           <div class="col-md-3">
             <div
               :class="{ 'has-error': errorFieldName === 'onlineOfferPrice' }"
               class="form-group"
             >
-              <label>سعر العرض </label>
+              <label>سعر الاونلاين </label>
 
               <input
                 v-model="itemData.onlineOfferPrice"
@@ -478,17 +471,11 @@
       </div>
     </div>
 
-    <div class="row">
-      <div v-for="image in attachments" :key="image.id">
-        {{ image.url }}
-      </div>
+    <div class="row" style="margin-top:15px">
+      <images :no-update-button="true" :item="itemData" :attachments="itemData.attachments" @descriptionUpdated="descriptionUpdated"></images>
+
     </div>
-    <div class="row">
-      <item-images
-        :item="itemData"
-      ></item-images>
-    </div>
-    <!-- <Images :item="itemData"></Images> -->
+
     <br />
     <br />
     <br />
@@ -526,15 +513,12 @@ import {
 import Images from '../../../components/BackEnd/Product/Images'
 
 import VueTagsInput from '@johmun/vue-tags-input'
-import ItemImages from './ItemImages.vue'
 
 export default {
   components: {
     VueTagsInput,
     Images,
-    Treeselect,
-    // 'attachments-preview-component': PreviewComponent,
-    ItemImages
+    Treeselect
   },
   props: [
     'categories',
@@ -620,6 +604,7 @@ export default {
     if (this.editingItem != null && this.editingItem) {
       this.itemData.warranty_subscription_id = this.editedItemData.warranty_subscription_id
 
+      this.itemData.id = this.editedItemData.id
       this.itemData.arName = this.editedItemData.ar_name
       this.itemData.isAvailableOnline = this.editedItemData.is_available_online
       this.itemData.enName = this.editedItemData.name
@@ -638,6 +623,8 @@ export default {
       })
 
       this.itemData.hasVatSale = this.editedItemData.is_has_vts
+      this.itemData.description = this.editedItemData.description
+      this.itemData.ar_description = this.editedItemData.ar_description
       this.itemData.has_vat_purchase = this.editedItemData.is_has_vtp
       this.itemData.isNeedSerial = this.editedItemData.is_need_serial
       this.itemData.hasFixedPrice = this.editedItemData.is_fixed_price
@@ -672,7 +659,6 @@ export default {
   methods: {
     loadWarrantySubscriptions () {
       const appVm = this
-      // warranty_subscriptions
       axios
         .get('/accounting/warranty_subscriptions')
         .then((response) => {
@@ -681,6 +667,10 @@ export default {
         .catch((error) => {
           alert(error)
         })
+    },
+    descriptionUpdated (e) {
+      this.itemData.description = e.description
+      this.itemData.ar_description = e.ar_description
     },
     // barcode events
     barcodeFieldChanged (e) {
@@ -948,6 +938,8 @@ export default {
         is_expense: this.itemData.isExpense,
         name: this.itemData.enName,
         ar_name: this.itemData.arName,
+        description: this.itemData.description,
+        ar_description: this.itemData.ar_description,
         barcode: this.itemData.barcode,
         is_has_vts: this.itemData.hasVatSale,
         is_has_vtp: this.itemData.hasVatPurchase,
@@ -968,6 +960,7 @@ export default {
         tags: Tags,
         filters: filters_values
       }
+      console.log(data)
       const loader = this.$loading.show({
         container: this.fullPage ? null : this.$refs.formContainer
       })

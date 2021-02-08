@@ -47,12 +47,14 @@ use App\Models\CategoryFilters;
 				'price' => 'required|numeric',
 				'price_with_tax' => 'required|numeric',
 				'warranty_subscription_id' => 'required|integer',
-				'online_price' => 'required_if:is_available_online,true',
+				// 'online_price' => 'required_if:is_available_online,true',
 				'online_offer_price' => 'required_if:is_available_online,true',
 				'is_available_online' => 'required_if:is_available_online,true',
 				'weight' => 'required_if:is_available_online,true',
 				'shipping_discount' => 'required_if:is_available_online,true',
 				'tags' => 'nullable|array',
+				"description" => "required_if:is_available_online,true|string",
+				"ar_description" => "required_if:is_available_online,true|string",
 				'tags.*' => 'required|string'
 			
 			];
@@ -64,6 +66,7 @@ use App\Models\CategoryFilters;
 				'vtp_for_print',
 				'vts_for_print',
 				'name',
+				"description","ar_description",
 				'ar_name', 'barcode',
 				'category_id', 'is_fixed_price',
 				'is_has_vtp', 'is_has_vts',
@@ -86,6 +89,18 @@ use App\Models\CategoryFilters;
 			
 			$item->filters()->delete();
 			
+			if($this->input('is_available_online')) 
+			{
+				if($item->attachments()->count() < 4) {
+					throw ValidationException::withMessages(
+						[
+							'attachments' => [
+								'item attachments required'
+							]
+						]
+					);
+				}
+			}
 			if(!empty($this->filters)) {
 				foreach($this->filters as $filter => $value) {
 					if($value != null) {

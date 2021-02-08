@@ -1,6 +1,6 @@
 @tailwind base;
 
-// @tailwind components;
+@tailwind components;
 
 @import './web/store';
 @import './web/variable';
@@ -11,9 +11,9 @@
 @import "./web/page";
 @import "./web/home";
 @import "./web/product";
-@import './web/ar/store'
+@import './web/ar/store';
 
-// @tailwind utilities;
+@tailwind utilities;
 
 
 

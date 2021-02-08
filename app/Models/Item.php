@@ -68,8 +68,13 @@ class Item extends BaseModel
 
 	public function getItemImageUrlAttribute()
 	{
-		$images = $this->attachments()->get()->toArray();
+		
+		$main = $this->attachments()->where('is_main',true)->first();
+		if($main) return $main->url;
 
+		
+		$images = $this->attachments()->get()->toArray();
+		
 		if ($images && count($images) >= 1) return $images[0]['url'];
 
 

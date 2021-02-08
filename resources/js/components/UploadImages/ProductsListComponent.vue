@@ -92,7 +92,6 @@ export default {
   created () {
     this.categoryIdMutation = this.categoryId
 
-    console.log(this.queryActiveModel)
     this.activeModel = this.queryActiveModel
   },
   methods: {

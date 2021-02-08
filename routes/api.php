@@ -53,6 +53,7 @@ Route::prefix("upload_images/{item}")->middleware(ImagesUploadMiddleware::class)
         Route::post('/', 'ItemController@uploadImages');
         Route::post('/update_description', 'ItemController@updateDescription');
         Route::get('/{image}', 'ItemController@deleteImage');
+        Route::get('/{image}/set_master', 'ItemController@setMaster');
     }
 );
 
