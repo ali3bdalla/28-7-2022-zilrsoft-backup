@@ -232,7 +232,7 @@ export default {
   mounted () {
     setTimeout(() => {
       this.isPageLoading = false
-    }, 2000)
+    }, 1000)
   },
   methods: {
     isSearchPage (
