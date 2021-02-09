@@ -4,8 +4,9 @@
 
 use App\Models\Traits\Configurable;
 use Illuminate\Notifications\Notifiable;
-	
-	/**
+use Laravel\Sanctum\HasApiTokens;
+
+/**
 	 * @method static inRandomOrder()
 	 */
 	class Manager extends BaseAuthModel
@@ -14,6 +15,7 @@ use Illuminate\Notifications\Notifiable;
 		
 		use Notifiable;
 		use Configurable;
+		use HasApiTokens;
 		/**
 		 * The attributes that are mass assignable.
 		 *

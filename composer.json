@@ -26,6 +26,7 @@
         "laravel-notification-channels/pusher-push-notifications": "^2.3",
         "laravel/envoy": "^2.4",
         "laravel/framework": "^6.19.1",
+        "laravel/sanctum": "^2.9",
         "laravel/tinker": "^2.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "nesbot/carbon": "2.41.5 as 1.39.0",
