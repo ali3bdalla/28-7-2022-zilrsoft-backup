@@ -113,12 +113,21 @@
 		
 		public function uploadImages(Item $item, UploadItemImagesRequest $uploadItemImageRequest)
 		{
+			$images = [];
 			foreach($uploadItemImageRequest->file('images') as $requestImage)
-				$uploadItemImageRequest->createImage_ReturnImageInstance($requestImage, $item);
-			return back();
+			$images  [] = $uploadItemImageRequest->createImage_ReturnImageInstance($requestImage, $item);
+			return $images ;
 		}
 		
-		
+		public function setMaster( Item $item, Attachment $image)
+		{
+			$image->attachable->attachments()->update([
+				'is_main' => false
+			]);
+			$image->update([
+				'is_main' => true
+			]);
+		}
 		public function deleteImage(Item $item, Attachment $image)
 		{
 			Storage::disk('spaces')->delete($image->actual_path);

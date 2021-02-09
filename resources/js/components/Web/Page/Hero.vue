@@ -17,7 +17,7 @@
         :key="item.id"
 
       >
-        <img :src="$processedImageUrl(item,1110 * 5,462 * 5)" class="object-cover" />
+        <img :src="$processedImageUrl(item,1110 * 3,462 * 3)" class="object-cover" />
       </div>
     </vue-horizontal>
   </div>
@@ -34,10 +34,10 @@ export default {
   data () {
     return {
       heroItems: [
-        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/20201213-Watch-S6-AN-AR-HP.jpg',
-        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/xSLA_Express-delivery-KSA-AR-BN.jpg',
-        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/14-12-2020-offer_coffee_machines_2-AR-HP.jpg',
-        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/Meshaiei/X1foldHPar.jpg'
+        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/20201213-Watch-S6-AN-AR-HP.jpg@jpg',
+        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/xSLA_Express-delivery-KSA-AR-BN.jpg@jpg',
+        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/14-12-2020-offer_coffee_machines_2-AR-HP.jpg@jpg',
+        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/Meshaiei/X1foldHPar.jpg@jpg'
       ],
       hasPrev: false,
       hasNext: false,
@@ -46,18 +46,16 @@ export default {
       left: 0,
       progress: 0,
       index: 0,
-      autoplay:true,
+      autoplay: true
     }
   },
   mounted () {
-    // Custom observe visibility is below
-    // Much easier way: https://www.npmjs.com/package/vue-observe-visibility
     observeVisibility(this.$refs.horizontalBanner.$el, (visible) => {
       if (visible) {
         this.interval = setInterval(this.play, 4000)
       } else {
         clearInterval(this.interval)
-        this.autoplay = false;
+        this.autoplay = false
       }
     })
   },
@@ -74,13 +72,13 @@ export default {
       this.index = Math.floor(left / width)
     },
 
-    onPrev() {
+    onPrev () {
       clearInterval(this.interval)
-      this.autoplay = false;
+      this.autoplay = false
     },
-    onNext() {
+    onNext () {
       clearInterval(this.interval)
-      this.autoplay = false;
+      this.autoplay = false
     },
     play () {
       if (!this.hasNext && this.hasPrev) {

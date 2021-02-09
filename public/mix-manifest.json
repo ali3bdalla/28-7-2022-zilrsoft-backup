@@ -1,9 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/main.css": "/css/main.css",
-    "/css/tailwind.css": "/css/tailwind.css",
-    "/css/ar/store.css": "/css/ar/store.css",
     "/css/store.css": "/css/store.css",
+    "/css/rtl_store.css": "/css/rtl_store.css",
     "/js/external.js": "/js/external.js",
     "/js/online-store.js": "/js/online-store.js",
     "/js/upload_images.js": "/js/upload_images.js"

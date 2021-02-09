@@ -60,7 +60,9 @@ class FrontEndMiddleware
 				'aloglia_daily_search_key' => "3b92b3e1e70e7c12777604f891614933",
 				'algolia_search_filters' => $searchFilters,
 				'algolia_app_key' => "GM476AOG07",
-				'image_processing_url' => config('services.image_processing.url')
+				'image_processing_url' => config('services.image_processing.url'),
+				'search_category_ar_name' => $request->input('category_ar_name'),
+				'search_category_en_name' => $request->input('category_en_name'),
 			]
 		);
 		return $next($request);

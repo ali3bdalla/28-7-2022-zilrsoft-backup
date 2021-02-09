@@ -18,58 +18,52 @@
 </template>
 
 <script>
-    export default {
-        name: "UploaderComponent",
-        props: ["upload_link"],
-        data: function () {
-
-            return {
-                primaryColor: "red",
-                isLoading: false
-            };
-
-        },
-        methods: {
-            handleFiles(event) {
-
-                let imageFiles = this.$refs.file.files;
-
-                for (let i = 0; i <= imageFiles.length; i++) {
-                    let imageFile = imageFiles[i];
-                    if (imageFile != null) {
-                        if (imageFile.type.indexOf("image") === -1) {
-                            alert("This is not an image file");
-                        } else {
-                            this.startUploading(imageFile);
-                        }
-                    }
-
-                }
-
-
-            },
-            startUploading: function (file) {
-                this.isLoading = true;
-                let appVm = this;
-                let serverData = new FormData();
-                serverData.append("attachment", file);
-                axios.post(this.upload_link, serverData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }).then(response => {
-                    appVm.$emit("uploaded", {
-                        attachment: response.data
-                    })
-                }).catch(error => {
-                    console.log(error.response);
-                    console.log(error.response.data);
-                }).finally(() => {
-                    appVm.isLoading = false;
-                });
-            }
-        }
+export default {
+  name: 'UploaderComponent',
+  props: ['upload_link'],
+  data: function () {
+    return {
+      primaryColor: 'red',
+      isLoading: false
     }
+  },
+  methods: {
+    handleFiles (event) {
+      const imageFiles = this.$refs.file.files
+
+      for (let i = 0; i <= imageFiles.length; i++) {
+        const imageFile = imageFiles[i]
+        if (imageFile != null) {
+          if (imageFile.type.indexOf('image') === -1) {
+            alert('This is not an image file')
+          } else {
+            this.startUploading(imageFile)
+          }
+        }
+      }
+    },
+    startUploading: function (file) {
+      this.isLoading = true
+      const appVm = this
+      const serverData = new FormData()
+      serverData.append('attachment', file)
+      axios.post(this.upload_link, serverData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(response => {
+        appVm.$emit('uploaded', {
+          attachment: response.data
+        })
+      }).catch(error => {
+        console.log(error.response)
+        console.log(error.response.data)
+      }).finally(() => {
+        appVm.isLoading = false
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -85,7 +79,6 @@
         height: 100%;
         text-align: center;
     }
-
 
     .panel:hover {
         background: #eeeeee;

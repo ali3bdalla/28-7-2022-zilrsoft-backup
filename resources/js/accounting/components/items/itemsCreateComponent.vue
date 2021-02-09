@@ -2,13 +2,18 @@
   <div>
     <div class="row">
       <div class="col-md-6">
-        <div :class="{'has-error':errorFieldName==='arName'}" class="form-group">
+        <div
+          :class="{ 'has-error': errorFieldName === 'arName' }"
+          class="form-group"
+        >
           <!--                  readonly=""-->
-          <input v-model="itemData.arName"
-                 :placeholder="app.trans.name_ar"
-                 class="form-control has-error"
-                 type='text'>
-          <small v-show="errorFieldName==='arName'" class="text-danger">
+          <input
+            v-model="itemData.arName"
+            :placeholder="app.trans.name_ar"
+            class="form-control has-error"
+            type="text"
+          />
+          <small v-show="errorFieldName === 'arName'" class="text-danger">
             {{ errorFieldMessage }}
           </small>
         </div>
@@ -17,177 +22,250 @@
       </div>
 
       <div class="col-md-6">
-        <div :class="{'has-error':errorFieldName==='enName'}" class="form-group">
-          <input v-model="itemData.enName"
-                 :placeholder="app.trans.name_en"
-                 class="form-control has-error"
-                 type='text'>
-          <small v-show="errorFieldName==='enName'" class="text-danger">
+        <div
+          :class="{ 'has-error': errorFieldName === 'enName' }"
+          class="form-group"
+        >
+          <input
+            v-model="itemData.enName"
+            :placeholder="app.trans.name_en"
+            class="form-control has-error"
+            type="text"
+          />
+          <small v-show="errorFieldName === 'enName'" class="text-danger">
             {{ errorFieldMessage }}
           </small>
         </div>
-
       </div>
-
     </div>
     <div class="row">
       <div class="col-md-4">
-        <div :class="{'has-error':errorFieldName==='barcode'}" class="form-group">
-          <input v-model="itemData.barcode" :class="{'is-danger':errorFieldName==='salesPrice'}"
-                 :placeholder="app.trans.barcode"
-                 class="form-control"
-                 type='text' @blur="barcodeFieldChanged"
-                 @keyup.13="barcodeFieldEnterButtonClicked">
-          <small v-show="errorFieldName==='barcode'" class="text-danger">
+        <div
+          :class="{ 'has-error': errorFieldName === 'barcode' }"
+          class="form-group"
+        >
+          <input
+            v-model="itemData.barcode"
+            :class="{ 'is-danger': errorFieldName === 'salesPrice' }"
+            :placeholder="app.trans.barcode"
+            class="form-control"
+            type="text"
+            @blur="barcodeFieldChanged"
+            @keyup.13="barcodeFieldEnterButtonClicked"
+          />
+          <small v-show="errorFieldName === 'barcode'" class="text-danger">
             {{ errorFieldMessage }}
           </small>
-
         </div>
       </div>
       <div v-if="!openForEditing" class="col-md-2">
-        <button class="btn btn-custom-primary" @click="generateBarcode">{{ app.trans.generate_barcode }}
+        <button class="btn btn-custom-primary" @click="generateBarcode">
+          {{ app.trans.generate_barcode }}
         </button>
       </div>
 
       <div class="col-md-3">
-        <div :class="{'has-error':errorFieldName==='salesPrice'}" class="form-group">
-          <input v-model="itemData.salesPrice" :class="{'is-danger':errorFieldName==='salesPrice'}"
-                 :placeholder="app.trans.price"
-                 class="form-control" type='text'
-                 @keyup="salesPriceFieldUpdated">
-          <small v-show="errorFieldName==='salesPrice'" class="text-danger">
+        <div
+          :class="{ 'has-error': errorFieldName === 'salesPrice' }"
+          class="form-group"
+        >
+          <input
+            v-model="itemData.salesPrice"
+            :class="{ 'is-danger': errorFieldName === 'salesPrice' }"
+            :placeholder="app.trans.price"
+            class="form-control"
+            type="text"
+            @keyup="salesPriceFieldUpdated"
+          />
+          <small v-show="errorFieldName === 'salesPrice'" class="text-danger">
             {{ errorFieldMessage }}
           </small>
-
         </div>
-
       </div>
 
       <div class="col-md-3">
-
-        <div :class="{'has-error':errorFieldName==='salesPriceWithTax'}" class="form-group">
-          <input ref="salesPriceWithTaxFieldRef" v-model="itemData.salesPriceWithTax"
-                 :class="{'is-danger':errorFieldName==='salesPriceWithTax'}"
-                 :placeholder="app.trans.price_tax" class="form-control"
-                 type='text'
-                 @keyup="salesPriceWithTaxFieldUpdated">
-          <small v-show="errorFieldName==='salesPriceWithTax'" class="text-danger">
+        <div
+          :class="{ 'has-error': errorFieldName === 'salesPriceWithTax' }"
+          class="form-group"
+        >
+          <input
+            ref="salesPriceWithTaxFieldRef"
+            v-model="itemData.salesPriceWithTax"
+            :class="{ 'is-danger': errorFieldName === 'salesPriceWithTax' }"
+            :placeholder="app.trans.price_tax"
+            class="form-control"
+            type="text"
+            @keyup="salesPriceWithTaxFieldUpdated"
+          />
+          <small
+            v-show="errorFieldName === 'salesPriceWithTax'"
+            class="text-danger"
+          >
             {{ errorFieldMessage }}
           </small>
         </div>
-
       </div>
     </div>
     <div class="row">
       <div class="col-md-2">
-        <toggle-button v-model="itemData.hasVatSale" :font-size="14" :height='30' :labels="{checked: reusable_translator.radio_checked,
-                                   unchecked: reusable_translator.unchecked}"
-                       :sync="true" :width='70'
-                       @change="vatSaleValueToggleButtonChanged"/>
+        <toggle-button
+          v-model="itemData.hasVatSale"
+          :font-size="14"
+          :height="30"
+          :labels="{
+            checked: reusable_translator.radio_checked,
+            unchecked: reusable_translator.unchecked,
+          }"
+          :sync="true"
+          :width="70"
+          @change="vatSaleValueToggleButtonChanged"
+        />
         <label>{{ app.trans.has_vat_sale }}</label>
       </div>
 
       <div class="col-md-2">
-        <toggle-button v-model="itemData.hasVatPurchase" :font-size="14" :height='30' :labels="{checked: reusable_translator.radio_checked,
-                                   unchecked: reusable_translator.unchecked}"
-                       :sync="true" :width='70'
-                       @change="vatPurchaseValueToggleButtonChanged"/>
+        <toggle-button
+          v-model="itemData.hasVatPurchase"
+          :font-size="14"
+          :height="30"
+          :labels="{
+            checked: reusable_translator.radio_checked,
+            unchecked: reusable_translator.unchecked,
+          }"
+          :sync="true"
+          :width="70"
+          @change="vatPurchaseValueToggleButtonChanged"
+        />
         <label>{{ app.trans.has_vat_purchase }}</label>
       </div>
 
       <div class="col-md-2">
-        <toggle-button v-model="itemData.isNeedSerial" :font-size="14" :height='30'
-                       :labels="{checked: reusable_translator.radio_checked,
-                                   unchecked: reusable_translator.unchecked}" :sync="true" :width='70'
-                       @change="isNeedSerialToggleButtonChanged"/>
+        <toggle-button
+          v-model="itemData.isNeedSerial"
+          :font-size="14"
+          :height="30"
+          :labels="{
+            checked: reusable_translator.radio_checked,
+            unchecked: reusable_translator.unchecked,
+          }"
+          :sync="true"
+          :width="70"
+          @change="isNeedSerialToggleButtonChanged"
+        />
         <label>{{ app.trans.has_serial_number }}</label>
       </div>
 
       <div class="col-md-2">
-        <toggle-button v-model="itemData.hasFixedPrice" :font-size="14" :height='30' :labels="{checked: reusable_translator.unchecked,
-                                   unchecked: reusable_translator.radio_checked}"
-                       :sync="true" :width='70'/>
+        <toggle-button
+          v-model="itemData.hasFixedPrice"
+          :font-size="14"
+          :height="30"
+          :labels="{
+            checked: reusable_translator.unchecked,
+            unchecked: reusable_translator.radio_checked,
+          }"
+          :sync="true"
+          :width="70"
+        />
         <label>{{ app.trans.is_fixed_price }}</label>
       </div>
 
       <div class="col-md-2">
-        <toggle-button v-model="itemData.isService" :font-size="14" :height='30' :labels="{checked: reusable_translator.radio_checked,
-                                   unchecked: reusable_translator.unchecked}"
-                       :sync="true" :width='70' @change="isServiceToggleButtonChanged"/>
+        <toggle-button
+          v-model="itemData.isService"
+          :font-size="14"
+          :height="30"
+          :labels="{
+            checked: reusable_translator.radio_checked,
+            unchecked: reusable_translator.unchecked,
+          }"
+          :sync="true"
+          :width="70"
+          @change="isServiceToggleButtonChanged"
+        />
         <label>{{ app.trans.is_service }}</label>
       </div>
 
       <div class="col-md-2">
-        <toggle-button v-model="itemData.isExpense" :font-size="14" :height='30' :labels="{checked: reusable_translator.radio_checked,
-                                   unchecked: reusable_translator.unchecked}"
-                       :sync="true" :width='70' @change="isExpenseToggleButtonChanged"/>
+        <toggle-button
+          v-model="itemData.isExpense"
+          :font-size="14"
+          :height="30"
+          :labels="{
+            checked: reusable_translator.radio_checked,
+            unchecked: reusable_translator.unchecked,
+          }"
+          :sync="true"
+          :width="70"
+          @change="isExpenseToggleButtonChanged"
+        />
         <label>{{ app.trans.is_expense }}</label>
       </div>
-
     </div>
 
     <div class="row">
       <div class="col-md-2">
-        <input v-model="itemData.vts"
-               :disabled="!itemData.hasVatSale"
-               :placeholder="app.trans.vat_sale"
-               class="form-control"
-               type='text'
-               @keydown="vatSaleFieldUpdated">
-
+        <input
+          v-model="itemData.vts"
+          :disabled="!itemData.hasVatSale"
+          :placeholder="app.trans.vat_sale"
+          class="form-control"
+          type="text"
+          @keydown="vatSaleFieldUpdated"
+        />
       </div>
       <div class="col-md-2">
-
-        <input v-model="itemData.vtp" :disabled="!itemData.hasVatPurchase"
-               :placeholder="app.trans.vat_purchase"
-               class="form-control"
-               type='text'
-               @keydown="vatPurchaseFieldUpdated">
-
+        <input
+          v-model="itemData.vtp"
+          :disabled="!itemData.hasVatPurchase"
+          :placeholder="app.trans.vat_purchase"
+          class="form-control"
+          type="text"
+          @keydown="vatPurchaseFieldUpdated"
+        />
       </div>
       <div class="col-md-2">
-        <select v-model="itemData.warranty_subscription_id" class="form-control ">
+        <select
+          v-model="itemData.warranty_subscription_id"
+          class="form-control"
+        >
           <option value="0">من غير ضمان</option>
-          <option v-for="warranty in warranty_subscriptions" :key="warranty.id" :value="warranty.id">
+          <option
+            v-for="warranty in warranty_subscriptions"
+            :key="warranty.id"
+            :value="warranty.id"
+          >
             {{ warranty.locale_name }}
           </option>
         </select>
-        <!--                <accounting-select-with-search-layout-component-->
-        <!--                        :options="warranty_subscriptions"-->
-        <!--                        placeholder="الضمان" :no_all_option="true"-->
-        <!--                        :default_id="itemData.warranty_subscription_id"-->
-        <!--                        title="الضمان"-->
-        <!--                        label_text="locale_name"-->
-        <!--                ></accounting-select-with-search-layout-component>-->
       </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"></div>
       <div class="col-md-2">
-
-      </div>
-      <div class="col-md-2">
-
-      </div>
-      <div class="col-md-2">
-        <div v-show="itemData.isExpense" :class="{'has-error':errorFieldName==='expenseVendorId'}"
-             class="form-group">
+        <div
+          v-show="itemData.isExpense"
+          :class="{ 'has-error': errorFieldName === 'expenseVendorId' }"
+          class="form-group"
+        >
           <accounting-select-with-search-layout-component
-              :identity="10023749872394"
-              :no_all_option="true"
-              :options="vendors"
-              default="0"
-              label_text="locale_name"
-              placeholder="المورد"
-              title="المورد"
-              @valueUpdated="vendorListHasBeenUpdated"
+            :identity="10023749872394"
+            :no_all_option="true"
+            :options="vendors"
+            default="0"
+            label_text="locale_name"
+            placeholder="المورد"
+            title="المورد"
+            @valueUpdated="vendorListHasBeenUpdated"
           >
           </accounting-select-with-search-layout-component>
-          <small v-show="errorFieldName==='expenseVendorId'" class="text-danger">-->
+          <small
+            v-show="errorFieldName === 'expenseVendorId'"
+            class="text-danger"
+            >-->
             {{ errorFieldMessage }}
           </small>
-
         </div>
-
       </div>
-
     </div>
 
     <div v-show="!itemData.hasVatSale || !itemData.hasVatPurchase" class="row">
@@ -195,227 +273,265 @@
         <label>ضريبة في الطباعة</label>
       </div>
       <div class="col-md-2">
-        <input v-show="!itemData.hasVatSale"
-               v-model="itemData.vts_for_print"
-               :placeholder="app.trans.vat_sale"
-               class="form-control"
-               type='text'>
-
+        <input
+          v-show="!itemData.hasVatSale"
+          v-model="itemData.vts_for_print"
+          :placeholder="app.trans.vat_sale"
+          class="form-control"
+          type="text"
+        />
       </div>
       <div class="col-md-2">
-
         <input
-            v-show="!itemData.hasVatPurchase"
-            v-model="itemData.vtp_for_print" :placeholder="app.trans.vat_purchase"
-            class="form-control"
-            type='text'>
-
+          v-show="!itemData.hasVatPurchase"
+          v-model="itemData.vtp_for_print"
+          :placeholder="app.trans.vat_purchase"
+          class="form-control"
+          type="text"
+        />
       </div>
-
     </div>
 
     <div class="row">
-
-      <div class="col-md-2 label-txt  col-md-offset-1">
+      <div class="col-md-2 label-txt col-md-offset-1">
         <b>{{ app.trans.categories }}</b>
       </div>
       <div class="col-md-6">
         <div>
-          <div :dir="app.appLocate==='ar' ? 'rtl' : 'ltr'">
+          <div :dir="app.appLocate === 'ar' ? 'rtl' : 'ltr'">
             <treeselect
-                v-model="itemData.categoryId"
-                :disable-branch-nodes="false"
-                :disabled="cloningItem===true"
-                :load-options="loadCategoriesList"
-                :options="categories"
-                :placeholder="app.trans.category"
-                :show-count="true"
-                :value="itemData.categoryId"
-                @select="categoryListUpdated"
+              v-model="itemData.categoryId"
+              :disable-branch-nodes="false"
+              :disabled="cloningItem === true"
+              :load-options="loadCategoriesList"
+              :options="categories"
+              :placeholder="app.trans.category"
+              :show-count="true"
+              :value="itemData.categoryId"
+              @select="categoryListUpdated"
             ></treeselect>
           </div>
         </div>
       </div>
 
       <div class="col-md-1">
-        &nbsp;<toggle-button v-model="categoryNameShouldBeInItemName"
-                             :font-size="14" :height='30'
-                             :labels="{checked: reusable_translator.radio_checked,
-                                   unchecked: reusable_translator.unchecked}"
-                             :sync="true"
-                             :width='70'
-                             @change="categoryNameShouldBeInItemNameToggleUpdated">
-      </toggle-button>
+        &nbsp;<toggle-button
+          v-model="categoryNameShouldBeInItemName"
+          :font-size="14"
+          :height="30"
+          :labels="{
+            checked: reusable_translator.radio_checked,
+            unchecked: reusable_translator.unchecked,
+          }"
+          :sync="true"
+          :width="70"
+          @change="categoryNameShouldBeInItemNameToggleUpdated"
+        >
+        </toggle-button>
       </div>
 
-      <div class="col-md-1  text-center">
-        <a v-if="canCreateCategory===1" :href="app.BaseApiUrl + 'categories/create'" target="_blank">
-          <button class="btn btn-custom-primary btn-sm"><i class="fa fa-plus-circle"></i></button>
+      <div class="col-md-1 text-center">
+        <a
+          v-if="canCreateCategory === 1"
+          :href="app.BaseApiUrl + 'categories/create'"
+          target="_blank"
+        >
+          <button class="btn btn-custom-primary btn-sm">
+            <i class="fa fa-plus-circle"></i>
+          </button>
         </a>
       </div>
-
     </div>
 
-    <div v-for='(filter,index) in filterList' v-bind:key="index">
+    <div v-for="(filter, index) in filterList" v-bind:key="index">
       <accounting-filter-select-with-search-component
-          :app-trans="app.trans"
-          :can-create="canCreateFilter"
-          :can-edit="canEditFilter"
-          :default="selectedFilterValue.get(filter.id)"
-          :filter="filter"
-          :index="index"
-          :messages="messages"
-          :options="filter.values"
-          :reusable_translator="reusable_translator"
-          @updateItemName="rebuildItemName"
-          v-on:valueUpdated="filterValueListChanged">
+        :app-trans="app.trans"
+        :can-create="canCreateFilter"
+        :can-edit="canEditFilter"
+        :default="selectedFilterValue.get(filter.id)"
+        :filter="filter"
+        :index="index"
+        :messages="messages"
+        :options="filter.values"
+        :reusable_translator="reusable_translator"
+        @updateItemName="rebuildItemName"
+        v-on:valueUpdated="filterValueListChanged"
+      >
       </accounting-filter-select-with-search-component>
     </div>
 
-    <div style="margin-top: 35px;padding:5px">
+    <div style="margin-top: 35px; padding: 5px">
+      <toggle-button
+        v-model="itemData.isAvailableOnline"
+        :font-size="14"
+        :height="30"
+        :labels="{ checked: 'متاح اونلاين', unchecked: 'غير متاح اونلاين' }"
+        :sync="true"
+        :width="150"
+      />
 
-      <toggle-button v-model="itemData.isAvailableOnline" :font-size="14" :height='30' :labels="{checked: 'متاح اونلاين',
-                                   unchecked: 'غير متاح اونلاين'}"
-                     :sync="true" :width='150'/>
-
-      <div class="mt-" style="margin-top:15p">
+      <div class="mt-" style="margin-top: 15p">
         <div class="row">
+          <!-- <div class="col-md-3">
+            <div
+              :class="{ 'has-error': errorFieldName === 'onlinePrice' }"
+              class="form-group"
+            >
+              <label>سعر الاونلاين </label>
 
-          <div class="col-md-3">
-            <div :class="{'has-error':errorFieldName==='onlinePrice'}" class="form-group">
-                                          <label>سعر الاونلاين </label>
-
-              <input v-model="itemData.onlinePrice" :class="{'is-danger':errorFieldName==='onlinePrice'}"
-                     class="form-control"
-                     placeholder="سعر الاونلاين" type='text'
+              <input
+                v-model="itemData.onlinePrice"
+                :class="{ 'is-danger': errorFieldName === 'onlinePrice' }"
+                class="form-control"
+                placeholder="سعر الاونلاين"
+                type="text"
+              />
+              <small
+                v-show="errorFieldName === 'onlinePrice'"
+                class="text-danger"
               >
-              <small v-show="errorFieldName==='onlinePrice'" class="text-danger">
                 {{ errorFieldMessage }}
               </small>
-
             </div>
+          </div> -->
 
+          <div class="col-md-3">
+            <div
+              :class="{ 'has-error': errorFieldName === 'onlineOfferPrice' }"
+              class="form-group"
+            >
+              <label>سعر الاونلاين </label>
+
+              <input
+                v-model="itemData.onlineOfferPrice"
+                :class="{ 'is-danger': errorFieldName === 'onlineOfferPrice' }"
+                class="form-control"
+                placeholder="سعر العرض"
+                type="text"
+              />
+              <small
+                v-show="errorFieldName === 'onlineOfferPrice'"
+                class="text-danger"
+              >
+                {{ errorFieldMessage }}
+              </small>
+            </div>
           </div>
 
           <div class="col-md-3">
-            <div :class="{'has-error':errorFieldName==='onlineOfferPrice'}" class="form-group">
-                                                        <label>سعر العرض </label>
+            <div
+              :class="{ 'has-error': errorFieldName === 'weight' }"
+              class="form-group"
+            >
+              <label>الوزن </label>
 
-              <input v-model="itemData.onlineOfferPrice" :class="{'is-danger':errorFieldName==='onlineOfferPrice'}"
-                     class="form-control"
-                     placeholder="سعر العرض" type='text'>
-              <small v-show="errorFieldName==='onlineOfferPrice'" class="text-danger">
+              <input
+                v-model="itemData.weight"
+                :class="{ 'is-danger': errorFieldName === 'weight' }"
+                class="form-control"
+                placeholder="الوزن"
+                type="text"
+              />
+              <small v-show="errorFieldName === 'weight'" class="text-danger">
                 {{ errorFieldMessage }}
               </small>
-
             </div>
-
           </div>
 
           <div class="col-md-3">
-            <div :class="{'has-error':errorFieldName==='weight'}" class="form-group">
-                            <label>الوزن </label>
-
-              <input v-model="itemData.weight" :class="{'is-danger':errorFieldName==='weight'}"
-                     class="form-control"
-                     placeholder="الوزن" type='text'/>
-              <small v-show="errorFieldName==='weight'" class="text-danger">
-                {{ errorFieldMessage }}
-              </small>
-
-            </div>
-
-          </div>
-
-          <div class="col-md-3">
-
-            <div :class="{'has-error':errorFieldName==='shippingDiscount'}" class="form-group">
+            <div
+              :class="{ 'has-error': errorFieldName === 'shippingDiscount' }"
+              class="form-group"
+            >
               <label>خصم الشحن</label>
-              <input v-model="itemData.shippingDiscount"
-                     :class="{'is-danger':errorFieldName==='shippingDiscount'}"
-                     class="form-control" placeholder="خصم الشحن"
-                     type='text'>
-              <small v-show="errorFieldName==='shippingDiscount'" class="text-danger">
+              <input
+                v-model="itemData.shippingDiscount"
+                :class="{ 'is-danger': errorFieldName === 'shippingDiscount' }"
+                class="form-control"
+                placeholder="خصم الشحن"
+                type="text"
+              />
+              <small
+                v-show="errorFieldName === 'shippingDiscount'"
+                class="text-danger"
+              >
                 {{ errorFieldMessage }}
               </small>
             </div>
-
           </div>
         </div>
 
         <div class="row">
-           <vue-tags-input
+          <vue-tags-input
             v-model="tag"
             :tags="itemData.tags"
-            @tags-changed="newTags => itemData.tags = newTags"
+            @tags-changed="(newTags) => (itemData.tags = newTags)"
           />
         </div>
-
       </div>
+    </div>
+
+    <div class="row" style="margin-top:15px">
+      <images :no-update-button="true" :item="itemData" :attachments="itemData.attachments" @descriptionUpdated="descriptionUpdated"></images>
 
     </div>
 
-<!--    <div class="row">-->
-<!--      <div v-for="image in attachments" :key="image.id">-->
-<!--        {{ image.url}}-->
-<!--      </div>-->
-<!--    </div>-->
-    <!--        <div class="row">-->
-    <!--            <attachments-preview-component :attachments="itemData.attachments"-->
-    <!--                                           :new_attachment_link="new_attachment_link"></attachments-preview-component>-->
-    <!--        </div>-->
-    <!--    <Images :attachments="[]" :item="itemData"></Images>-->
-    <br>
-    <br>
-    <br>
+    <br />
+    <br />
+    <br />
     <div class="form-group text-center">
-
-      <button v-if="editingItem!=true ||
-            cloningItem===1" class="btn btn-custom-primary" @click="sendDataToServer('clone')"><i
-          class="fa fa-check-circle"></i> &nbsp;&nbsp;{{ app.trans.save_clone }}
+      <button
+        v-if="editingItem != true || cloningItem === 1"
+        class="btn btn-custom-primary"
+        @click="sendDataToServer('clone')"
+      >
+        <i class="fa fa-check-circle"></i> &nbsp;&nbsp;{{
+          app.trans.save_clone
+        }}
       </button>
-      &nbsp;&nbsp;
-      &nbsp;
-      &nbsp;
-      &nbsp;
-      <button class="btn btn-custom-primary" @click="sendDataToServer('exit')"><i class="fa fa-door-open"></i>&nbsp;&nbsp;
+      &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+      <button class="btn btn-custom-primary" @click="sendDataToServer('exit')">
+        <i class="fa fa-door-open"></i>&nbsp;&nbsp;
         {{ app.trans.save_exit }}
       </button>
-      &nbsp;
-      &nbsp;
-      &nbsp;
-      &nbsp;
-      &nbsp;
-      <a :href="app.BaseApiUrl + 'items'" class="btn btn-custom-default"><i class="fa fa-undo-alt"></i>
-        &nbsp;&nbsp;{{ app.trans.cancel }}</a>
-
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+      <a :href="app.BaseApiUrl + 'items'" class="btn btn-custom-default"
+        ><i class="fa fa-undo-alt"></i> &nbsp;&nbsp;{{ app.trans.cancel }}</a
+      >
     </div>
-
   </div>
-
 </template>
 
 <script>
-
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
-import PreviewComponent from '../attachments/previewComponent'
-import { accounting as ItemAccounting, validator as ItemValidator } from '../../item'
+// import PreviewComponent from '../attachments/previewComponent'
+import {
+  accounting as ItemAccounting,
+  validator as ItemValidator
+} from '../../item'
 import Images from '../../../components/BackEnd/Product/Images'
 
 import VueTagsInput from '@johmun/vue-tags-input'
 
 export default {
-
   components: {
     VueTagsInput,
     Images,
-    Treeselect,
-    'attachments-preview-component': PreviewComponent
-
+    Treeselect
   },
-  props: ['categories', 'cloningItem', 'editingItem', 'editedItemFilters', 'editedItemCategory', 'editedItemData',
-    'vendors', 'canCreateCategory', 'canEditFilter', 'canCreateFilter'],
+  props: [
+    'categories',
+    'cloningItem',
+    'editingItem',
+    'editedItemFilters',
+    'editedItemCategory',
+    'editedItemData',
+    'vendors',
+    'canCreateCategory',
+    'canEditFilter',
+    'canCreateFilter'
+  ],
   data: function () {
     return {
       new_attachment_link: null,
@@ -480,7 +596,6 @@ export default {
       selectedCategory: null,
       selectedFilterValue: new Map(),
       isLoading: true
-
     }
   },
   created: function () {
@@ -489,13 +604,13 @@ export default {
     if (this.editingItem != null && this.editingItem) {
       this.itemData.warranty_subscription_id = this.editedItemData.warranty_subscription_id
 
+      this.itemData.id = this.editedItemData.id
       this.itemData.arName = this.editedItemData.ar_name
       this.itemData.isAvailableOnline = this.editedItemData.is_available_online
       this.itemData.enName = this.editedItemData.name
       this.itemData.barcode = this.editedItemData.barcode
       this.itemData.salesPrice = this.editedItemData.price
       this.itemData.salesPriceWithTax = this.editedItemData.price_with_tax
-
       this.itemData.onlinePrice = this.editedItemData.online_price
       this.itemData.onlineOfferPrice = this.editedItemData.online_offer_price
       this.itemData.weight = this.editedItemData.weight
@@ -507,6 +622,8 @@ export default {
       })
 
       this.itemData.hasVatSale = this.editedItemData.is_has_vts
+      this.itemData.description = this.editedItemData.description
+      this.itemData.ar_description = this.editedItemData.ar_description
       this.itemData.has_vat_purchase = this.editedItemData.is_has_vtp
       this.itemData.isNeedSerial = this.editedItemData.is_need_serial
       this.itemData.hasFixedPrice = this.editedItemData.is_fixed_price
@@ -519,7 +636,8 @@ export default {
       this.itemData.expenseVendorId = this.editedItemData.expense_vendor_id
       this.itemData.categoryId = this.editedItemData.category_id
       this.itemData.attachments = this.editedItemData.attachments
-      this.new_attachment_link = '/items/' + this.editedItemData.id + '/attachments'
+      this.new_attachment_link =
+        '/items/' + this.editedItemData.id + '/attachments'
 
       if (!this.editedItemData.name.includes(this.editedItemCategory.name)) {
         this.categoryNameShouldBeInItemName = false
@@ -538,15 +656,20 @@ export default {
     this.loadWarrantySubscriptions()
   },
   methods: {
-
     loadWarrantySubscriptions () {
       const appVm = this
-      // warranty_subscriptions
-      axios.get('/accounting/warranty_subscriptions').then(response => {
-        appVm.warranty_subscriptions = response.data
-      }).catch(error => {
-        alert(error)
-      })
+      axios
+        .get('/accounting/warranty_subscriptions')
+        .then((response) => {
+          appVm.warranty_subscriptions = response.data
+        })
+        .catch((error) => {
+          alert(error)
+        })
+    },
+    descriptionUpdated (e) {
+      this.itemData.description = e.description
+      this.itemData.ar_description = e.ar_description
     },
     // barcode events
     barcodeFieldChanged (e) {
@@ -554,13 +677,16 @@ export default {
     },
     validateBarcode (barcode) {
       const appVm = this
-      axios.get(appVm.app.BaseApiUrl + 'items/helper/validate_barcode', {
-        params: {
-          barcode: barcode
-        }
-      })
+      axios
+        .get(appVm.app.BaseApiUrl + 'items/helper/validate_barcode', {
+          params: {
+            barcode: barcode
+          }
+        })
         .then(function (response) {
-          if (appVm.errorFieldName === 'barcode') { appVm.errorFieldName = '' }
+          if (appVm.errorFieldName === 'barcode') {
+            appVm.errorFieldName = ''
+          }
         })
         .catch(function (error) {
           appVm.errorFieldName = 'barcode'
@@ -578,14 +704,38 @@ export default {
     },
     // sales price and sales price with tax fields events
     salesPriceFieldUpdated (e) {
-      if (this.errorFieldName === 'salesPrice' || this.errorFieldName === 'salesPriceWithTax') { this.errorFieldName = '' }
+      if (
+        this.errorFieldName === 'salesPrice' ||
+        this.errorFieldName === 'salesPriceWithTax'
+      ) {
+        this.errorFieldName = ''
+      }
       const val = e.target.value
-      if (ItemValidator.validatePriceValue(val)) { this.itemData.salesPriceWithTax = ItemAccounting.getSalesPriceWithTaxFromSalesPriceAndVat(val, this.itemData.vts) } else { this.itemData.salesPriceWithTax = '' }
+      if (ItemValidator.validatePriceValue(val)) {
+        this.itemData.salesPriceWithTax = ItemAccounting.getSalesPriceWithTaxFromSalesPriceAndVat(
+          val,
+          this.itemData.vts
+        )
+      } else {
+        this.itemData.salesPriceWithTax = ''
+      }
     },
     salesPriceWithTaxFieldUpdated (e) {
-      if (this.errorFieldName === 'salesPrice' || this.errorFieldName === 'salesPriceWithTax') { this.errorFieldName = '' }
+      if (
+        this.errorFieldName === 'salesPrice' ||
+        this.errorFieldName === 'salesPriceWithTax'
+      ) {
+        this.errorFieldName = ''
+      }
       const val = this.itemData.salesPriceWithTax
-      if (ItemValidator.validatePriceValue(val)) { this.itemData.salesPrice = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(val, this.itemData.vts) } else { this.itemData.salesPrice = '' }
+      if (ItemValidator.validatePriceValue(val)) {
+        this.itemData.salesPrice = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(
+          val,
+          this.itemData.vts
+        )
+      } else {
+        this.itemData.salesPrice = ''
+      }
     },
     // toggle buttons events
     vatSaleValueToggleButtonChanged (e) {
@@ -655,9 +805,10 @@ export default {
       this.selectedCategory = node
       this.itemData.categoryId = node.id
 
-      axios.post(this.app.BaseApiUrl + 'categories/view/filters', {
-        categories_ids: [node.id]
-      })
+      axios
+        .post(this.app.BaseApiUrl + 'categories/view/filters', {
+          categories_ids: [node.id]
+        })
         .then(function (response) {
           const filters = response.data
           const data = []
@@ -675,11 +826,14 @@ export default {
           }
         })
         .catch(function (error) {
+          const message = error.response.data[0][0][0]
+          if (message) {
+            this.$alert(this.message)
+          }
           console.log(error.response)
         })
     },
-    loadCategoriesList (e) {
-    },
+    loadCategoriesList (e) {},
     rebuildItemName () {
       let arName = ''
       let enName = ''
@@ -695,7 +849,10 @@ export default {
           if (this.selectedFilterValue.has(filter.id)) {
             const value_id = this.selectedFilterValue.get(filter.id)
             if (value_id !== 0) {
-              const value_data = helpers.getDataFromArrayById(filter.values, value_id)
+              const value_data = helpers.getDataFromArrayById(
+                filter.values,
+                value_id
+              )
               enName = enName.concat(' ' + value_data.name)
               arName = arName.concat(' ' + value_data.ar_name)
             }
@@ -765,18 +922,14 @@ export default {
       })
       return data
     },
-    // when submit form
     sendDataToServer (redirect_to) {
       if (!this.validateAllField()) {
         return
       }
-
       const Tags = []
-
-      this.itemData.tags.forEach(element => {
+      this.itemData.tags.forEach((element) => {
         Tags.push(element.text)
       })
-
       const filters_values = this.extractAllSelectedFiltersAsKeyValueArray()
       const data = {
         expense_vendor_id: this.itemData.expenseVendorId,
@@ -784,6 +937,8 @@ export default {
         is_expense: this.itemData.isExpense,
         name: this.itemData.enName,
         ar_name: this.itemData.arName,
+        description: this.itemData.description,
+        ar_description: this.itemData.ar_description,
         barcode: this.itemData.barcode,
         is_has_vts: this.itemData.hasVatSale,
         is_has_vtp: this.itemData.hasVatPurchase,
@@ -804,20 +959,30 @@ export default {
         tags: Tags,
         filters: filters_values
       }
+
       const loader = this.$loading.show({
         container: this.fullPage ? null : this.$refs.formContainer
       })
       const appVm = this
 
-      if (this.editingItem != null && this.editingItem && this.cloningItem != true) {
-        axios.put(this.app.BaseApiUrl + 'items/' + this.editedItemData.id, data)
+      if (
+        this.editingItem !== null &&
+        this.editingItem &&
+        this.cloningItem !== true
+      ) {
+        axios
+          .put(this.app.BaseApiUrl + 'items/' + this.editedItemData.id, data)
           .then(function (response) {
             loader.hide()
             location.href = '/items'
           })
-          .catch(function (error) {
-            console.log(error.response)
+          .catch((error) => {
             loader.hide()
+            console.log(error.response)
+            // const message = error.response.data.errros[0][0]
+            // if (message) {
+            //   this.$alert(this.message)
+            // }
           })
 
         // simulate AJAX
@@ -825,7 +990,8 @@ export default {
           loader.hide()
         }, 5000)
       } else {
-        axios.post(this.app.BaseApiUrl + 'items', data)
+        axios
+          .post(this.app.BaseApiUrl + 'items', data)
           .then(function (response) {
             loader.hide()
             appVm.itemData.barcode = ''
@@ -838,10 +1004,11 @@ export default {
               location.href = appVm.app.BaseApiUrl + 'items'
             }
           })
-          .catch(function (error) {
-            console.log(error.response)
-            console.log(error.data)
+          .catch((error) => {
             loader.hide()
+            // const message = error.response.data[0][0][0]
+            // if (message) {
+            //   this.$alert(this.message)
             // }
           })
 
@@ -852,11 +1019,12 @@ export default {
     },
     updateSelectedValuesFromParentItem () {
       const filterLen = this.editedItemFilters.length
-      // console.log(filterLen)
       for (let i = 0; i < filterLen; i++) {
         const filter_and_value = this.editedItemFilters[i]
-
-        this.selectedFilterValue.set(filter_and_value.filter_id, filter_and_value.filter_value)
+        this.selectedFilterValue.set(
+          filter_and_value.filter_id,
+          filter_and_value.filter_value
+        )
       }
 
       this.updateFiltersToggleButtons()
@@ -867,7 +1035,7 @@ export default {
       for (let i = 0; i < len; i++) {
         const fit = this.filterList[i]
         if (this.selectedFilterValue.has(fit.id)) {
-          const vid = this.selectedFilterValue.get(fit.id)// value id
+          const vid = this.selectedFilterValue.get(fit.id) // value id
           const value = helpers.getDataFromArrayById(fit.values, vid)
           if (this.itemData.enName.includes(value.name)) {
             fit.is_checked = true
@@ -898,16 +1066,10 @@ export default {
 
       this.$dialog
         .alert(this.app.messages.item_has_been_saved, options)
-        .then(dialog => {
-
-        })
-        .catch(() => {
-
-        })
+        .then((dialog) => {})
+        .catch(() => {})
     }
-
   }
-
 }
 </script>
 
@@ -922,7 +1084,8 @@ input {
   margin-top: 9px;
 }
 
-.vue-treeselect div, .vue-treeselect span {
+.vue-treeselect div,
+.vue-treeselect span {
   padding: 1px !important;
   font-size: 16px !important;
 }

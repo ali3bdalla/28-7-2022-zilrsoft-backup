@@ -3,6 +3,28 @@
   <div>
     <div class="product__search-page">
       <div class="page__mt-2">
+
+        <!-- <ais-configure
+        v-if="$page.search_category_ar_name"
+          :hits-per-page.camel="4"
+          :distinct="true"
+          :analytics="false"
+          :enable-personalization.camel="true"
+        /> -->
+        <!-- <ais-toggle-refinement
+  attribute="category_ar_name"
+  label="Free Shipping"
+    on="كونكتور"
+
+/> -->
+  <ais-query-rule-context :tracked-filters="{category_ar_name:() => ['Comedy', 'Thriller']}" />
+
+<!-- <ais-configure
+  :hits-per-page.camel="4"
+  :distinct="true"
+  :analytics="false"
+  :enable-personalization.camel="true"
+/> -->
         <div class="product__search-options">
           <alogria-pop-filters></alogria-pop-filters>
           <ais-numeric-menu

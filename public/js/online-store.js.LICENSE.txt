@@ -60,6 +60,8 @@ object-assign
  * @license MIT
  */
 
+/*! algoliasearch-lite.umd.js | 4.8.4 | © Algolia, inc. | https://github.com/algolia/algoliasearch-client-javascript */
+
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /**

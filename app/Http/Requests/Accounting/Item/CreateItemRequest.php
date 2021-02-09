@@ -44,7 +44,8 @@ use App\Models\Filter;
 				'is_service' => 'required',
 				'vtp' => 'required|numeric',
 				'vts' => 'required|numeric',
-				
+				"description" => "required|string",
+				"ar_description" => "required|string",
 				'price' => 'required|numeric',
 				'price_with_tax' => 'required|numeric',
 				'vendor_expense_id' => 'nullable|integer',

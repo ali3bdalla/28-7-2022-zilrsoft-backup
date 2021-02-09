@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import ImagesUploadLayout from "../../Layouts/ImagesUploadLayout";
+import ImagesUploadLayout from '../../Layouts/ImagesUploadLayout'
 
-import Images from "../../components/BackEnd/Product/Images";
+import Images from '../../components/BackEnd/Product/Images'
 
-export default {components: {ImagesUploadLayout, Images}}
+export default { components: { ImagesUploadLayout, Images } }
 </script>

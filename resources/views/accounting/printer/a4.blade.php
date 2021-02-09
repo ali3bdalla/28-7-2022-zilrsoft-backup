@@ -330,7 +330,7 @@
             </div>
 
             <div class="number">
-                <div class="label">{{ __('pages/invoice.vat') }}(15%) :
+                <div class="label">{{ __('pages/invoice.vat') }} (15%) :
                 </div>
                 <div class="value"> {{ roundMoney($invoice->tax)}}</div>
                 {{--                ({{ $invoice->getVat('purchase') }}%)--}}

@@ -62,7 +62,6 @@
 
         </td>
 
-
         <td>{{ product.attachments_count }}</td>
         <td><a :href="`/images_upload/${product.id}`" class="btn btn-primary" target="_blank"> المرفقات</a>
         </td>
@@ -77,62 +76,55 @@
 <script>
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
-import Loading from 'vue-loading-overlay';
+import Loading from 'vue-loading-overlay'
 // Import stylesheet
-import 'vue-loading-overlay/dist/vue-loading.css';
+import 'vue-loading-overlay/dist/vue-loading.css'
 export default {
-  data() {
+  data () {
     return {
-      isLoading:false,
+      isLoading: false,
       activeModel: 'all',
       categoryIdMutation: 0
-    };
+    }
   },
-  props: ["products", "categories", "categoryId", 'itemsCount', 'completedProducts', 'queryActiveModel'],
-  components: {Treeselect,Loading},
-  created() {
-    this.categoryIdMutation = this.categoryId;
+  props: ['products', 'categories', 'categoryId', 'itemsCount', 'completedProducts', 'queryActiveModel'],
+  components: { Treeselect, Loading },
+  created () {
+    this.categoryIdMutation = this.categoryId
 
-    console.log(this.queryActiveModel);
-    this.activeModel = this.queryActiveModel;
+    this.activeModel = this.queryActiveModel
   },
   methods: {
 
-    getTrans(key)
-    {
-      if(key  == 'all')
-        return "الكل";
+    getTrans (key) {
+      if (key == 'all') { return 'الكل' }
 
+      if (key == 'not_empty') { return 'يوجد موديل' }
 
-      if(key  == 'not_empty')
-        return "يوجد موديل";
-
-
-      if(key  == 'empty')
-        return "لا يوجد موديل";
+      if (key == 'empty') { return 'لا يوجد موديل' }
     },
-    filterByModel() {
-      this.isLoading = true;
+    filterByModel () {
+      this.isLoading = true
       if (this.activeModel === 'all') {
-        this.activeModel = 'not_empty';
+        this.activeModel = 'not_empty'
       } else {
         if (this.activeModel === 'not_empty') {
-          this.activeModel = 'empty';
+          this.activeModel = 'empty'
         } else {
-          this.activeModel = 'all';
+          this.activeModel = 'all'
         }
       }
-      window.location.href = "?active_model=" + this.activeModel;
+      window.location.href = '?active_model=' + this.activeModel
     },
-    categoryListUpdated(e) {
-      location.href = '/images_upload?category_id=' + e.id;
+    categoryListUpdated (e) {
+      location.href = '/images_upload?category_id=' + e.id
     },
 
-    showAll() {
+    showAll () {
       location.href = '/images_upload'
     },
 
-    loadOptions(e) {
+    loadOptions (e) {
 
     }
   }

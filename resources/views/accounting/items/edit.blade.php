@@ -18,7 +18,7 @@
     <accounting-items-create-component
             :editing-item="true"
             :cloning-item="{{ $isClone }}"
-            :edited-item-data="{{$item}}"
+            :edited-item-data="{{$item->load('attachments')}}"
             :edited-item-filters='@json($item->filters)'
             :edited-item-category='@json($item->category)'
             :can-create-category="true"
