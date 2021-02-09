@@ -118,6 +118,10 @@ use App\Models\Filter;
 				$itemDb->searchable();
 
 				
+			$item->update([
+				'is_published' => $itemDb->shouldBeSearchable()
+			]);
+			
 			return $item;
 			
 		}

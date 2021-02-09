@@ -981,7 +981,7 @@ export default {
             console.log(error.response)
             // const message = error.response.data.errros[0][0]
             // if (message) {
-            //   this.$alert(this.message)
+            this.$alert('لم يتم حفظ البيانات راجع جميع الحقول')
             // }
           })
 
@@ -1009,6 +1009,8 @@ export default {
             // const message = error.response.data[0][0][0]
             // if (message) {
             //   this.$alert(this.message)
+            this.$alert('لم يتم حفظ البيانات راجع جميع الحقول')
+
             // }
           })
 
