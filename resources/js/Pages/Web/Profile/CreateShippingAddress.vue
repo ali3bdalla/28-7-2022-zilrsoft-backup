@@ -1,6 +1,6 @@
 <template>
   <web-layout>
-    <section class="contact-section spad">
+    <section class="contact-section spad add-address">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
@@ -13,14 +13,14 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <input
-                          type="text"
-                          class="px-2"
-                          :placeholder="$page.$t.profile.first_name"
-                          v-model="first_name"
+                            v-model="first_name"
+                            :placeholder="$page.$t.profile.first_name"
+                            class="px-2"
+                            type="text"
                         />
                         <div
-                          class="p-2 text-red-500"
-                          v-if="$page.errors.first_name"
+                            v-if="$page.errors.first_name"
+                            class="p-2 text-red-500"
                         >
                           {{ $page.errors.first_name }}
                         </div>
@@ -29,14 +29,14 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <input
-                          type="text"
-                          class="px-2"
-                          :placeholder="$page.$t.profile.last_name"
-                          v-model="last_name"
+                            v-model="last_name"
+                            :placeholder="$page.$t.profile.last_name"
+                            class="px-2"
+                            type="text"
                         />
                         <div
-                          class="p-2 text-red-500"
-                          v-if="$page.errors.last_name"
+                            v-if="$page.errors.last_name"
+                            class="p-2 text-red-500"
                         >
                           {{ $page.errors.last_name }}
                         </div>
@@ -45,23 +45,23 @@
                     <div class="col-lg-6">
                       <div class="form-group page__dir-left">
                         <VuePhoneNumberInput
-                          v-model="phone_number"
-                          :no-country-selector="false"
-                          :no-example="true"
-                          :only-countries="['SA']"
-                          :translations="{
+                            v-model="phone_number"
+                            :no-country-selector="false"
+                            :no-example="true"
+                            :only-countries="['SA']"
+                            :translations="{
                             countrySelectorLabel: $page.$t.profile.country,
                             countrySelectorError: 'Choisir un pays',
                             phoneNumberLabel: '5XXXXXXXXX',
                             example: 'ex: 5XXXXXXXXX',
                           }"
-                          default-country-code="SA"
+                            default-country-code="SA"
                         />
 
                         <!--                        <input type="text" placeholder="Phone Number" v-model="phone_number">-->
                         <div
-                          class="p-2 text-red-500"
-                          v-if="$page.errors.phone_number"
+                            v-if="$page.errors.phone_number"
+                            class="p-2 text-red-500"
                         >
                           {{ $page.errors.phone_number }}
                         </div>
@@ -69,42 +69,43 @@
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                         <el-select  no-match-text="No Data" no-data-text="No" :filterable="true"  v-model="city_id" :placeholder=" $page.$t.messages.select_city" class="page__w-full" >
-            <!-- <template #prefix>Click Me</template> -->
-            <template #empty>
-               <a
-               style="padding:5px"
-              class="checkout__edit-icon"
-              href="/web/profile/create-shipping-address"
-          >
-            <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs/>
-              <path
-                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-              />
-            </svg>
-           {{ $page.$t.messages.select_city}}
-          </a>
-            </template>
-            <el-option
-                v-for="city in $page.cities"
-                :key="city.id"
-                :label="city.locale_name"
-                :value="city.id">
-              {{ city.locale_name }}
-            </el-option>
-          </el-select>
+                        <el-select v-model="city_id" :filterable="true" :placeholder=" $page.$t.messages.select_city" class="page__w-full"
+                                   no-data-text="No" no-match-text="No Data">
+                          <!-- <template #prefix>Click Me</template> -->
+                          <template #empty>
+                            <a
+                                class="checkout__edit-icon"
+                                href="/web/profile/create-shipping-address"
+                                style="padding:5px"
+                            >
+                              <svg
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <defs/>
+                                <path
+                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                />
+                              </svg>
+                              {{ $page.$t.messages.select_city}}
+                            </a>
+                          </template>
+                          <el-option
+                              v-for="city in $page.cities"
+                              :key="city.id"
+                              :label="city.locale_name"
+                              :value="city.id">
+                            {{ city.locale_name }}
+                          </el-option>
+                        </el-select>
                         <div
-                          class="p-2 text-red-500"
-                          v-if="$page.errors.city_id"
+                            v-if="$page.errors.city_id"
+                            class="p-2 text-red-500"
                         >
                           {{ $page.errors.city_id }}
                         </div>
@@ -114,14 +115,14 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <input
-                          type="text"
-                          class="px-2"
-                          :placeholder="$page.$t.profile.street_name"
-                          v-model="street_name"
+                            v-model="street_name"
+                            :placeholder="$page.$t.profile.street_name"
+                            class="px-2"
+                            type="text"
                         />
                         <div
-                          class="p-2 text-red-500"
-                          v-if="$page.errors.description"
+                            v-if="$page.errors.description"
+                            class="p-2 text-red-500"
                         >
                           {{ $page.errors.description }}
                         </div>
@@ -130,14 +131,14 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <input
-                          type="text"
-                          class="px-2"
-                          :placeholder="$page.$t.profile.area"
-                          v-model="area"
+                            v-model="area"
+                            :placeholder="$page.$t.profile.area"
+                            class="px-2"
+                            type="text"
                         />
                         <div
-                          class="p-2 text-red-500"
-                          v-if="$page.errors.description"
+                            v-if="$page.errors.description"
+                            class="p-2 text-red-500"
                         >
                           {{ $page.errors.description }}
                         </div>
@@ -147,31 +148,31 @@
                     <div class="col-lg-12">
                       <div class="form-group">
                         <input
-                          type="text"
-                          class="px-2"
-                          :placeholder="$page.$t.profile.address"
-                          v-model="description"
+                            v-model="description"
+                            :placeholder="$page.$t.profile.address"
+                            class="px-2"
+                            type="text"
                         />
                         <div
-                          class="p-2 text-red-500"
-                          v-if="$page.errors.description"
+                            v-if="$page.errors.description"
+                            class="p-2 text-red-500"
                         >
                           {{ $page.errors.description }}
                         </div>
 
                       </div>
-                      <button type="submit" class="site-btn" @click="saveData">
+                      <button class="site-btn" type="submit" @click="saveData">
                         {{ $page.$t.common.save }}
                       </button>
                     </div>
 
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   </web-layout>
@@ -216,7 +217,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 /* select {
   width: 100%;
   font-size: 16px;
@@ -227,8 +228,14 @@ export default {
   padding-left: 20px;
 } */
 
-.contact-form .leave-comment .comment-form input,
-.contact-form .leave-comment .comment-form textarea {
+.add-address .contact-form .leave-comment .comment-form input,
+.add-address .contact-form .leave-comment .comment-form textarea {
   margin-bottom: 0px;
 }
+
+.add-address .contact-form .leave-comment .el-input__inner {
+  margin-bottom: 0px;
+  height: 50px !important;
+}
+
 </style>
