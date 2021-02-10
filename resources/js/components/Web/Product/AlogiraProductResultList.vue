@@ -4,15 +4,15 @@
     <div class="product__search-page">
       <div class="page__mt-2">
         <ais-configure
-          v-if="$page.search_category_ar_name"
+          v-if="$page.categories_search_list.length && $page.active_locale == 'ar'"
           :disjunctive-facets-refinements.camel="{
-            category_ar_name: [$page.search_category_ar_name],
+            category_ar_name: $page.categories_search_list
           }"
         />
          <ais-configure
-          v-if="$page.search_category_en_name"
+          v-if="$page.categories_search_list.length  && $page.active_locale == 'en'"
           :disjunctive-facets-refinements.camel="{
-            category_en_name: [$page.search_category_en_name],
+            category_en_name: $page.categories_search_list
           }"
         />
 

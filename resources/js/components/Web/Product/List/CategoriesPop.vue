@@ -67,8 +67,8 @@
               <a
                 :href="
                   showSubcategories === true
-                    ? `/web/categories/${activeCategory.id}`
-                    : `/web/items?category_id=${activeCategory.id}&&name=${$page.name}&&search_via=${$page.search_via}`
+                    ? `/web/items/search/results?category_id=${activeCategory.id}`
+                    : `/web/items/search/results?category_id=${subcategory.id}`
                 "
                 class="page__categories__list-item"
               >
@@ -187,11 +187,7 @@ export default {
       // this.$inertia.visit(this.showSubcategories === true ? `/web/categories/${subcategory.id}` : `/web/items?category_id=${subcategory.id}&&name=${this.$page.name}&&search_via=${this.$page.search_via}`)
       this.$inertia.visit(
         this.showSubcategories === true && subcategory
-          ? `/web/items/search/results?${
-              this.$page.active_logo == 'en'
-                ? 'category_en_name='
-                : 'category_ar_name='
-            }${subcategory.locale_name}`
+          ? `/web/items/search/results?category_id=${subcategory.id}`
           : `/web/items?category_id=${subcategory.id}&&name=${this.$page.name}&&search_via=${this.$page.search_via}`
       )
     },
