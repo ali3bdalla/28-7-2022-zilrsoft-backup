@@ -63,8 +63,8 @@ return [
 
 
     'store' => [
-        'cancel_unpaid_orders_after' => env('STORE_CANCEL_UNPAID_ORDERS_AFTER',2),
-        'notify_unpaid_orders_after' => env('STORE_NOTIFY_UNPAID_ORDERS_AFTER',1),
+        'cancel_unpaid_orders_after' => env('STORE_CANCEL_UNPAID_ORDERS_AFTER',10),
+        'notify_unpaid_orders_after' => env('STORE_NOTIFY_UNPAID_ORDERS_AFTER',8),
         'notify_via_whatsapp' => env('STORE_NOTIFY_VIA_WHATSAPP',true),
         'notify_via_sms' => env('STORE_NOTIFY_VIA_SMS',false),
         'notify_via_email' => env('STORE_NOTIFY_VIA_EMAIL',false),
