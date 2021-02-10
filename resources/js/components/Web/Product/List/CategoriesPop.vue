@@ -186,7 +186,7 @@ export default {
     redirectTo (subcategory) {
       // this.$inertia.visit(this.showSubcategories === true ? `/web/categories/${subcategory.id}` : `/web/items?category_id=${subcategory.id}&&name=${this.$page.name}&&search_via=${this.$page.search_via}`)
       this.$inertia.visit(
-        this.showSubcategories === true
+        this.showSubcategories === true && subcategory
           ? `/web/items/search/results?${
               this.$page.active_logo == 'en'
                 ? 'category_en_name='

@@ -16,7 +16,11 @@
         <span> {{ $page.$t.products.out_of_stock }} </span>
       </h3>
       <!-- -->
-      <a  v-else :href="`/web/items?category_id=${item.category_id}&&name=&&search_via=null`"
+      <a  v-else :href="`/web/items/search/results?${
+              this.$page.active_logo == 'en'
+                ? 'category_en_name='
+                : 'category_ar_name='
+            }${getCategoryName}`"
           ><h3 class="product__list-item-category-name">
         {{ getCategoryName }}
       </h3></a>
@@ -48,7 +52,6 @@
 <!--          $page.$t.products.sar-->
 <!--        }}</span>-->
 <!--      </div>-->
-
 
       <!--      <h4 class="product__list-item-price">-->
       <!--        {{ parseFloat(item.online_price).toFixed(2) }}-->
