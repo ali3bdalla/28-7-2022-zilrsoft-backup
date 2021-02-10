@@ -645,8 +645,9 @@ export default {
 
       if (this.cloningItem != null && this.cloningItem === 1) {
         this.itemData.barcode = ''
-        this.itemData.salesPrice = 0
         this.itemData.salesPriceWithTax = 0
+        this.itemData.salesPrice = 0
+        this.itemData.id = null
       }
       this.categoryListUpdated(this.editedItemCategory, null)
     }
@@ -968,7 +969,7 @@ export default {
       if (
         this.editingItem !== null &&
         this.editingItem &&
-        this.cloningItem !== true
+        !this.cloningItem
       ) {
         axios
           .put(this.app.BaseApiUrl + 'items/' + this.editedItemData.id, data)
@@ -979,10 +980,7 @@ export default {
           .catch((error) => {
             loader.hide()
             console.log(error.response)
-            // const message = error.response.data.errros[0][0]
-            // if (message) {
             this.$alert('لم يتم حفظ البيانات راجع جميع الحقول')
-            // }
           })
 
         // simulate AJAX
