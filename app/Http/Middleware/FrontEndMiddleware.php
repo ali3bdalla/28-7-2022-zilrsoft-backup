@@ -39,13 +39,18 @@ class FrontEndMiddleware
 
 		$searchFilters = [];
 		foreach ($itemsIndexSearchFilters as $searchFilter) {
-			if(!in_array($searchFilter,['searchable(online_offer_price)',
-			'searchable(category_name)','searchable(category_ar_name)'])) {
-				$searchFilter = str_replace('searchable(',"",$searchFilter);
-				$searchFilters[] = str_replace(')',"",$searchFilter);
+			if (!in_array($searchFilter, [
+				'searchable(online_offer_price)',
+				'searchable(category_name)', 'searchable(category_ar_name)'
+			])) {
+				$searchFilter = str_replace('searchable(', "", $searchFilter);
+				$searchFilters[] = str_replace(')', "", $searchFilter);
 			}
 		}
-		
+
+
+
+
 
 		Inertia::share(
 			[
@@ -61,10 +66,29 @@ class FrontEndMiddleware
 				'algolia_search_filters' => $searchFilters,
 				'algolia_app_key' => "GM476AOG07",
 				'image_processing_url' => config('services.image_processing.url'),
-				'search_category_ar_name' => $request->input('category_ar_name'),
-				'search_category_en_name' => $request->input('category_en_name'),
+				'categories_search_list' => $this->getSearchCategories($request),
 			]
 		);
 		return $next($request);
+	}
+
+	public function getSearchCategories($request)
+	{
+		$result  = [];
+
+		if ($request->has('category_id') && $request->filled('category_id') && is_int((int)$request->input('category_id'))) {
+			$category = Category::where('id', $request->input('category_id'))->first();
+			if ($category) {
+
+				$categories = Category::find($category->getChildrenIncludeMe());
+				foreach ($categories as $key => $sub) {
+					$result[] = $sub->locale_name;
+				}
+			}
+		}
+
+
+
+		return $result;
 	}
 }

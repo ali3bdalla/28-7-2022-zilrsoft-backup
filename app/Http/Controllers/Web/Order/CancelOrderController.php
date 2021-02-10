@@ -12,7 +12,6 @@ class CancelOrderController extends Controller
 {
 	public function confirm(Request $request, Order $order)
 	{
-		//
 		if (!$this->isValidOrderStatus($order)) {
 			return Inertia::render(
 				'Web/Order/CancelOrder',

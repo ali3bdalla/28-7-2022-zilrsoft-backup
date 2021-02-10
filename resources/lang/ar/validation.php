@@ -94,7 +94,7 @@ return [
     'numeric'              => 'يجب على :attribute أن يكون رقمًا.',
     'present'              => 'يجب تقديم :attribute.',
     'regex'                => 'صيغة :attribute .غير صحيحة.',
-    'required'             => ':attribute مطلوب.',
+    'required'             => 'يجب ادخال :attribute',
     'required_if'          => ':attribute مطلوب في حال ما إذا كان :other يساوي :value.',
     'required_unless'      => ':attribute مطلوب في حال ما لم يكن :other يساوي :values.',
     'required_with'        => ':attribute مطلوب إذا توفّر :values.',
@@ -148,8 +148,11 @@ return [
         'name'                  => 'الاسم',
         'username'              => 'اسم المُستخدم',
         'email'                 => 'البريد الالكتروني',
+        'city_id'            => 'المدينة',
+        'country_id'            => 'الدولة',
         'first_name'            => 'الاسم الأول',
         'last_name'             => 'اسم العائلة',
+        'phone_number'             => 'رقم الجوال',
         'password'              => 'كلمة المرور',
         'password_confirmation' => 'تأكيد كلمة المرور',
         'city'                  => 'المدينة',
@@ -175,10 +178,10 @@ return [
         'available'             => 'مُتاح',
         'size'                  => 'الحجم',
     ],
-	
-	
-	
-	
+
+
+
+
 	'item' => [
 		'barcode_required' => 'حقل الباركود لا يمكن ان يكون فارغ ، او اقل من اربعة خانات',
 		'name_required' => 'اسم المنتج لا يمكن ان يكون فارغ',

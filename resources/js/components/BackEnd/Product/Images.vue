@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center flex-col">
+  <div class="flex items-center justify-center flex-col" >
     <loading
       :active.sync="isLoading"
       :can-cancel="true"
@@ -7,6 +7,7 @@
     ></loading>
 
     <div
+    v-if="item.id"
       class="text-center flex flex-col md:flex-row justify-center gap-0 md:gap-5 items-center"
     >
       <div
@@ -45,7 +46,7 @@
           <div class="w-1/2 object-cover shadow-lg rounded-lg">
             <div class="text-gray-200">
               <div class="flex px-3 flex-col justify-center items-center">
-                <img src="/accounting/images/cloud_upload.png" />
+                <img style="width: 500px;" src="/accounting/images/cloud_upload.png" />
                 <p class="lead">رفع المرفقات</p>
               </div>
             </div>
@@ -244,10 +245,9 @@ export default {
   }
 }
 </script>
-<style>
-@import url("/css/store.css");
-</style>
+
 <style scoped>
+@import url("/css/store.css");
 label {
   width: 100%;
   height: 250px;

@@ -33,7 +33,7 @@ class AddIsPublishedToItems extends Migration
     public function down()
     {
         Schema::table('items', function (Blueprint $table) {
-            //
+            $table->dropColumn('is_published');
         });
     }
 }

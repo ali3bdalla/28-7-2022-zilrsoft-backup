@@ -19,7 +19,8 @@
       >
         <span> {{ $page.$t.products.out_of_stock }} </span>
       </h3>
-      <a  v-else :href="`/web/items?category_id=${item.category.id}&&name=&&search_via=null`"
+      <!-- `/web/items?category_id=${item.category.id}&&name=&&search_via=null` -->
+      <a  v-else :href="`/web/items/search/results?category_id=${item.category_id}`"
           ><h3 class="product__list-item-category-name">
         {{ item.category ? item.category.locale_name : "" }}
   <!-- `/web/items/search/results?${$page.algolia_items_search_as}%5BrefinementList%5D%5B${$page.active_logo == 'en' ? 'category_name' : 'category_ar_name'}%5D%5B0%5D=${item.category ? item.category.locale_name : ''}` -->
