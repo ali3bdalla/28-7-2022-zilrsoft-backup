@@ -225,7 +225,9 @@ export default {
         .post(`/api/upload_images/${this.item.id}`, serverData)
         .then((res) => {
           this.$alert('تم الحفظ بنجاح')
-          this.attachmentsList.push(res.data[0])
+          res.data.forEach(element => {
+            this.attachmentsList.push(element)
+          })
         })
         .catch((errr) => {
           this.$alert('لم يتم اضافة الصورة')
