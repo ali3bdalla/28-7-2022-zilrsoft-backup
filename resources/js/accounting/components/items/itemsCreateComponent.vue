@@ -363,6 +363,7 @@
     <div style="margin-top: 35px; padding: 5px">
       <toggle-button
         v-model="itemData.isAvailableOnline"
+        @change="isAvailableOnlineChanged"
         :font-size="14"
         :height="30"
         :labels="{ checked: 'متاح اونلاين', unchecked: 'غير متاح اونلاين' }"
@@ -657,6 +658,9 @@ export default {
     this.loadWarrantySubscriptions()
   },
   methods: {
+    isAvailableOnlineChanged () {
+      this.updateOnlinePriceAndShippingDiscount()
+    },
     loadWarrantySubscriptions () {
       const appVm = this
       axios
@@ -736,6 +740,20 @@ export default {
         )
       } else {
         this.itemData.salesPrice = ''
+      }
+      this.updateOnlinePriceAndShippingDiscount()
+    },
+    updateOnlinePriceAndShippingDiscount () {
+      if (this.editingItem && this.editedItemData.cost) {
+        const costWithTax = parseFloat(this.editedItemData.cost) + parseFloat((parseFloat(this.editedItemData.cost) * this.editedItemData.vts) / 100)
+        this.itemData.onlineOfferPrice = (parseFloat(costWithTax) + parseFloat(this.itemData.salesPriceWithTax)) / 2
+
+        let shippingDiscount = parseFloat((this.itemData.onlineOfferPrice - parseFloat(costWithTax)) / 4).toFixed(2)
+
+        if (shippingDiscount > 30) {
+          shippingDiscount = 30
+        }
+        this.itemData.shippingDiscount = shippingDiscount
       }
     },
     // toggle buttons events
