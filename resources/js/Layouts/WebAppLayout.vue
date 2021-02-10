@@ -1,13 +1,16 @@
 <template>
   <div>
-        <loading :active.sync="isPageLoading"
-        :can-cancel="false"
-        :is-full-page="true" :opacity="1"></loading>
+    <loading
+      :active.sync="isPageLoading"
+      :can-cancel="false"
+      :is-full-page="true"
+      :opacity="1"
+    ></loading>
     <ais-instant-search
       :index-name="$page.algolia_items_search_as"
       :search-client="searchClient"
     >
-      <div >
+      <div>
         <HeaderComponent>
           <template v-slot:navbarListItems>
             <slot name="navbarItems"></slot>
@@ -26,7 +29,7 @@
                 },
               }"
             >
-                <div
+              <div
                 class="container"
                 v-if="
                   !isSearchPage(
@@ -88,7 +91,13 @@
                     <li>
                       <img
                         :src="
-                          $processedImageUrl($asset('web_assets/template/img/our-location.png@jpg'),262 * 1,135 * 1)
+                          $processedImageUrl(
+                            $asset(
+                              'web_assets/template/img/our-location.png@jpg'
+                            ),
+                            262 * 1,
+                            135 * 1
+                          )
                         "
                         alt=""
                       />
@@ -99,50 +108,75 @@
               <div class="col-lg-3">
                 <div class="footer-widget">
                   <ul>
-                    <li class="-mt-1 ">
-                      <a href="/web/content/about" style="background-color: rgb(142 139 139) !important;
+                    <li class="-mt-1">
+                      <a
+                        href="/web/content/about"
+                        style="
+                          background-color: rgb(142 139 139) !important;
 
-  font-size: 18px; width: 100%;display: block;
-  color: white;
-  border-radius: 5px;
-  margin:1px 0px" class="footer_item">{{
-                        $page.$t.footer.about_us
-                      }}</a>
+                          font-size: 18px;
+                          width: 100%;
+                          display: block;
+                          color: white;
+                          border-radius: 5px;
+                          margin: 1px 0px;
+                        "
+                        class="footer_item"
+                        >{{ $page.$t.footer.about_us }}</a
+                      >
                     </li>
                     <li class="">
-                      <a href="/web/content/contact" style="background-color: rgb(142 139 139) !important;
+                      <a
+                        href="/web/content/contact"
+                        style="
+                          background-color: rgb(142 139 139) !important;
 
-  font-size: 18px; width: 100%;display: block;
-  color: white;
-  border-radius: 5px;
-  margin:1px 0px" class="footer_item">{{
-                        $page.$t.footer.contact
-                      }}</a>
+                          font-size: 18px;
+                          width: 100%;
+                          display: block;
+                          color: white;
+                          border-radius: 5px;
+                          margin: 1px 0px;
+                        "
+                        class="footer_item"
+                        >{{ $page.$t.footer.contact }}</a
+                      >
                     </li>
                     <li class="">
-                      <a href="/web/content/privacy"  style="background-color: rgb(142 139 139) !important;
+                      <a
+                        href="/web/content/privacy"
+                        style="
+                          background-color: rgb(142 139 139) !important;
 
-  font-size: 18px; width: 100%;display: block;
-  color: white;
-  border-radius: 5px;
-  margin:1px 0px" class="footer_item">{{
-                        $page.$t.footer.privacy
-                      }}</a>
+                          font-size: 18px;
+                          width: 100%;
+                          display: block;
+                          color: white;
+                          border-radius: 5px;
+                          margin: 1px 0px;
+                        "
+                        class="footer_item"
+                        >{{ $page.$t.footer.privacy }}</a
+                      >
                     </li>
                     <li class="">
-                      <a href="/web/content/terms"  style="background-color: rgb(142 139 139) !important;
+                      <a
+                        href="/web/content/terms"
+                        style="
+                          background-color: rgb(142 139 139) !important;
 
-  font-size: 18px; width: 100%;display: block;
-  color: white;
-  border-radius: 5px;
-  margin:1px 0px" class="footer_item">{{
-                        $page.$t.footer.terms
-                      }}</a>
+                          font-size: 18px;
+                          width: 100%;
+                          display: block;
+                          color: white;
+                          border-radius: 5px;
+                          margin: 1px 0px;
+                        "
+                        class="footer_item"
+                        >{{ $page.$t.footer.terms }}</a
+                      >
                     </li>
-                    <li
-                      style=""
-                      class="flex items-center justify-center mt-2"
-                    >
+                    <li style="" class="flex items-center justify-center mt-2">
                       <img
                         :src="
                           $asset('web_assets/template/img/payment-method.png')
@@ -248,18 +282,16 @@ export default {
       return isSearchPage
     }
   }
-
 }
 </script>
 
 <style>
-
 .footer_item {
   background-color: #86bbf7 !important;
 
   font-size: 18px;
   color: white;
   border-radius: 5px;
-  margin:1px 0px
+  margin: 1px 0px;
 }
 </style>

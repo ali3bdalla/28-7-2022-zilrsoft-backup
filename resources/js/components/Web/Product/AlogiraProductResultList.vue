@@ -3,28 +3,19 @@
   <div>
     <div class="product__search-page">
       <div class="page__mt-2">
+        <ais-configure
+          v-if="$page.search_category_ar_name"
+          :disjunctive-facets-refinements.camel="{
+            category_ar_name: [$page.search_category_ar_name],
+          }"
+        />
+         <ais-configure
+          v-if="$page.search_category_en_name"
+          :disjunctive-facets-refinements.camel="{
+            category_en_name: [$page.search_category_en_name],
+          }"
+        />
 
-        <!-- <ais-configure
-        v-if="$page.search_category_ar_name"
-          :hits-per-page.camel="4"
-          :distinct="true"
-          :analytics="false"
-          :enable-personalization.camel="true"
-        /> -->
-        <!-- <ais-toggle-refinement
-  attribute="category_ar_name"
-  label="Free Shipping"
-    on="كونكتور"
-
-/> -->
-  <ais-query-rule-context :tracked-filters="{category_ar_name:() => ['Comedy', 'Thriller']}" />
-
-<!-- <ais-configure
-  :hits-per-page.camel="4"
-  :distinct="true"
-  :analytics="false"
-  :enable-personalization.camel="true"
-/> -->
         <div class="product__search-options">
           <alogria-pop-filters></alogria-pop-filters>
           <ais-numeric-menu
@@ -64,41 +55,40 @@
     <div
       class="product__search-page mt-3 flex items-center gap-3 justify-center"
     >
-    <ais-numeric-menu
-            class="md:hidden"
-            attribute="available_qty"
-            :items="[
-              {
-                label: `${$page.$t.products.sorting_only_available}`,
-                start: 1,
-              },
-            ]"
-          >
-            <div class="" slot-scope="{ items, canRefine, refine, createURL }">
-              <div v-for="(item, index) in items" :key="index">
-                <div
-                  class="product__search-filter-value"
-                  style="font-size: 15px; color: #575555"
-                >
-                  <toggle-button
-                    @change="refine(item.value)"
-                    :height="25"
-                    :width="120"
-                    v-model="item.isRefined"
-                    :labels="{
-                      checked: $page.$t.products.sorting_only_available,
-                      unchecked: $page.$t.products.sorting_only_available,
-                    }"
-                  />
-                </div>
-              </div>
+      <ais-numeric-menu
+        class="md:hidden"
+        attribute="available_qty"
+        :items="[
+          {
+            label: `${$page.$t.products.sorting_only_available}`,
+            start: 1,
+          },
+        ]"
+      >
+        <div class="" slot-scope="{ items, canRefine, refine, createURL }">
+          <div v-for="(item, index) in items" :key="index">
+            <div
+              class="product__search-filter-value"
+              style="font-size: 15px; color: #575555"
+            >
+              <toggle-button
+                @change="refine(item.value)"
+                :height="25"
+                :width="120"
+                v-model="item.isRefined"
+                :labels="{
+                  checked: $page.$t.products.sorting_only_available,
+                  unchecked: $page.$t.products.sorting_only_available,
+                }"
+              />
             </div>
-          </ais-numeric-menu>
+          </div>
+        </div>
+      </ais-numeric-menu>
     </div>
     <div
       class="product__search-page mt-3 flex items-center gap-3 justify-center"
     >
-
       <ais-current-refinements>
         <div slot-scope="{ items, createURL }">
           <div
@@ -111,7 +101,6 @@
                 :key="item.attribute"
               >
                 <inertia-link
-
                   :href="createURL(refinement)"
                   v-for="refinement in item.refinements"
                   :key="
@@ -123,11 +112,17 @@
                     ].join(':')
                   "
                 >
-                  <el-tag effect="dark" closable v-if="refinement.attribute !== 'available_qty'">
+                  <el-tag
+                    effect="dark"
+                    closable
+                    v-if="refinement.attribute !== 'available_qty'"
+                  >
                     {{ refinement.label }} ({{ refinement.count }})
                   </el-tag>
-                  <el-tag  effect="dark" closable>
-                    {{  $page.$t.products.sorting_only_available }} ({{ refinement.count }})
+                  <el-tag v-if="refinement.attribute == 'available_qty'" effect="dark" closable>
+                    {{ $page.$t.products.sorting_only_available }} ({{
+                      refinement.count
+                    }})
                   </el-tag>
                 </inertia-link>
               </div>
@@ -163,7 +158,7 @@
           </p>
         </ais-stats>
       </h1> -->
-  <h1 class="home__products-count">
+      <h1 class="home__products-count">
         <ais-stats>
           <div
             slot-scope="{
@@ -177,10 +172,16 @@
           >
             {{ $page.$t.products.products_count }} ({{ nbHits }})
 
-          <div slot="no-results" v-if="nbHits  == 0" class="my-2 flex items-center justify-center">
-            <img :src="$asset('images/no-result.png')" class="object-cover w-48 h-48"/>
-          </div>
-
+            <div
+              slot="no-results"
+              v-if="nbHits == 0"
+              class="my-2 flex items-center justify-center"
+            >
+              <img
+                :src="$asset('images/no-result.png')"
+                class="object-cover w-48 h-48"
+              />
+            </div>
           </div>
         </ais-stats>
       </h1>
