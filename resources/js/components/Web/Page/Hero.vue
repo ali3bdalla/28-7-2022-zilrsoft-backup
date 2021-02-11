@@ -17,7 +17,7 @@
         :key="item.id"
 
       >
-        <img :src="$processedImageUrl(item,1110 * 3,462 * 3)" class="object-cover" />
+        <img :src="$processedImageUrl(item,1110 * 3,462 * 3,false,false)" class="object-cover" />
       </div>
     </vue-horizontal>
   </div>

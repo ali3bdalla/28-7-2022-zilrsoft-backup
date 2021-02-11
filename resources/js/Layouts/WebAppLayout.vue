@@ -89,18 +89,12 @@
                 <div class="footer-widget">
                   <ul>
                     <li>
-                      <img
-                        :src="
-                          $processedImageUrl(
-                            $asset(
-                              'web_assets/template/img/our-location.png@jpg'
-                            ),
-                            262 * 1,
-                            135 * 1
-                          )
-                        "
+                      <a href="">
+                        <img
+                        :src="$asset('web_assets/template/img/our-location.png')"
                         alt=""
                       />
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -178,10 +172,7 @@
                     </li>
                     <li style="" class="flex items-center justify-center mt-2">
                       <img
-                        :src="
-                          $asset('web_assets/template/img/payment-method.png')
-                        "
-                        alt=""
+                        :src="$asset('web_assets/template/img/payment-method.png')" alt=""
                       />
                     </li>
                   </ul>

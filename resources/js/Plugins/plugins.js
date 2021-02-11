@@ -66,10 +66,15 @@ Vue.prototype.$sound = {
     audio.play()
   }
 }
+// https://images.zilrsoft.com/api/insecure/fit/300/200/no/0/plain/local:///com.zilrsoft/storage/app/public/images
 
-Vue.prototype.$processedImageUrl = (url, height, width) => {
-  if (Vue.prototype.$page) { return `${Vue.prototype.$page.image_processing_url}AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/${width}/${height}/sm/0/plain/${url}` }
+Vue.prototype.$processedImageUrl = (url, height, width, isPublic = true, isLocale = true) => {
+  const path = isLocale ? 'local:///com.zilrsoft/' : ''
+  const finalLink = isPublic && isLocale
+    ? `https://images.zilrsoft.com/api/enrypt/fit/${width}/${height}/sm/0/plain/${path}/storage/app/public/${url}`
+    : `https://images.zilrsoft.com/api/enrypt/fit/${width}/${height}/sm/0/plain/${path}${url}`
 
+  return finalLink
   // :src="[$page.image_processing_url ? `${$page.image_processing_url}/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/334/250/sm/0/plain/${item.item_image_url}` : item.item_image_url]"
 }
 Vue.use(VModal)
