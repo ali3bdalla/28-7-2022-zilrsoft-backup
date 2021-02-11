@@ -76,7 +76,7 @@ deploy_dev:
   stage: deploy
   script:
     - eval $(ssh-agent -s)
-    - echo "$DEPLOYER_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
@@ -94,7 +94,7 @@ deploy_prod:
   stage: deploy
   script:
     - eval $(ssh-agent -s)
-    - echo "$DEPLOYER_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
