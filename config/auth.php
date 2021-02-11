@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'managers',
         ],
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'managers',
+        ],
 
         'client' => [
             'driver' => 'session',

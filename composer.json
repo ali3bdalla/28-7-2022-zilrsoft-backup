@@ -14,6 +14,7 @@
         "3li3bdalla/tafqeet": "^3.5.9",
         "3li3bdalla/whatsapp": "^0.0.1",
         "algolia/scout-extended": "^1.13",
+        "alymosul/laravel-exponent-push-notifications": "^2.2",
         "aws/aws-sdk-php": "^3.172",
         "barryvdh/laravel-debugbar": "^3.2",
         "barryvdh/laravel-dompdf": "^0.8.7",
