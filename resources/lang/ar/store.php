@@ -44,10 +44,10 @@ return [
         'as_your_request' => "1- بناء على طلبك",
         'not_paid' => "1- إنتهاء مهلة السداد",
         "unpaid_order_canceled_message" =>
-            "عزيزي العميل :CUSTOMER_NAME,\n نأسف، طلبك رقم (:ORDERID) تم الغاءه \n\n سبب الإلغاء:\n:REASON .  ",
-//        "notify_customer_by_new_order_message" => "عزيزي العميل *:CUSTOMER_NAME*\nشكرا لتسوقك من *متجر المسبار*\nرقم الطلب: *:ORDER_ID*\nالمبلغ: *:AMOUNT*\nالحسابات البنكية:\n\n\tالراجحي:  \n *38238258237951*\n\tالبلاد:  \n*54564646546546*\n\t23749823749873*\nيرجى السداد قبل :DEADLINE\nبعد السداد، فضلا أنقر على الرابط التالي\n:PAYMENT_URL\nلإلغاء الطلب، أنقر على الرابط التالي :\n\n:CANCEL_URL",
+            "مرحبا :CUSTOMER_NAME,\n نأسف، طلبك رقم (:ORDERID) تم الغاءه \n\n سبب الإلغاء:\n:REASON .  ",
+//        "notify_customer_by_new_order_message" => "مرحبا *:CUSTOMER_NAME*\nشكرا لتسوقك من *متجر المسبار*\nرقم الطلب: *:ORDER_ID*\nالمبلغ: *:AMOUNT*\nالحسابات البنكية:\n\n\tالراجحي:  \n *38238258237951*\n\tالبلاد:  \n*54564646546546*\n\t23749823749873*\nيرجى السداد قبل :DEADLINE\nبعد السداد، فضلا أنقر على الرابط التالي\n:PAYMENT_URL\nلإلغاء الطلب، أنقر على الرابط التالي :\n\n:CANCEL_URL",
         "notify_customer_by_new_order_message" => "
-عزيزي العميل *:CUSTOMER_NAME*
+مرحبا *:CUSTOMER_NAME*
 شكرا لتسوقك من *متجر المسبار*
 رقم الطلب: *:ORDER_ID*
 المبلغ: *:AMOUNT*
@@ -69,18 +69,18 @@ return [
 :CANCEL_URL
 ",
 "order_payment_confirmed" => "
-عميلنا العزيز :CUSTOMER_NAME
+مرحبا :CUSTOMER_NAME
 تم استلام سداد الطلب #:ORDER_ID بنجاح
 ",
 "invalid_order_payment" => "
-عزيزي العميل :CUSTOMER_NAME
+مرحبا :CUSTOMER_NAME
 نأسف، عملية السداد للطلب رقم #:ORDER_ID غير صالحة
 لمزيد من المعلومات يمكنك التواصل مع خدمة العملاء عبر الرابط التالي
 https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
 ",
 
 "order_shipped_with_shipping_method" => "
-عزيزي العميل :CUSTOMER_NAME
+مرحبا :CUSTOMER_NAME
 تم شحن طلبك #:ORDER_ID عبر :SHIPPING_METHOD 
 رقم التتبع 
 :TRACKING_NUMBER
@@ -95,7 +95,7 @@ Dear Customer :CUSTOMER_NAME
 كود  التسليم :CODE
 ",
 "order_ready_to_pick_up_from_store" => "
-عزيزي العميل :CUSTOMER_NAME
+مرحبا :CUSTOMER_NAME
 طلبك #:ORDER_ID جاهز للإستلام
 كود الإستلام :CODE
 "
