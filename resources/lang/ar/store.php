@@ -38,7 +38,7 @@ return [
     ],
 
     'messages' => [
-        
+
         "notify_unpaid_order_message" =>
             "تذكير..\n سوف تنتهي مهلة سداد الطلب رقم (:ORDERID) قريبا \n يرجى السداد قبل \n:DATE\n:TIME",
         'as_your_request' => "1- بناء على طلبك",
@@ -170,6 +170,9 @@ Dear Customer :CUSTOMER_NAME
     ],
     "profile" => [
 
+        "new_customer" => "عميل جديد",
+        "exists_customer" => "لدي حساب ",
+
         "login" => "تسجيل دخول",
         "phone_number" => "الجوال",
         "country" => "الدولة",
@@ -218,7 +221,7 @@ Dear Customer :CUSTOMER_NAME
         "price" => "السعر",
         "quantity" => "الكمية",
         "total" => "الإجمالي",
-        "login_to_checkout" => "التسجيل لإتمام الشراء",
+        "login_to_checkout" => "إتمام الشراء",
         "inc_vat" => "شامل الضريبة",
         "shipping_address" => "عنوان الشحن",
         "shipping_method" => "طريقة الشحن",
