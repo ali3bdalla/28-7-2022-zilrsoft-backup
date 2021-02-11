@@ -51,7 +51,7 @@
 			$pendingDropboxPurchases = [];
 			$files = Storage::disk('dropbox')->files(config('filesystems.disks.dropbox.folders.pending_purchases'));
 			foreach($files as $file) {
-//				$ext = explode('.',$file);
+
 				$array = explode('.', $file);
 				$ext = end($array);
 				if(in_array($ext, ['PDF', 'pdf'])) {

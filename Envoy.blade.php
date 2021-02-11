@@ -70,8 +70,6 @@ echo "Create folder"
 [ -d {{ $app_dir }}/storage/framework/sessions ] || mkdir {{ $app_dir }}/storage/framework/sessions
 [ -d {{ $app_dir }}/storage/framework/views ] || mkdir {{ $app_dir }}/storage/framework/views
 [ -d {{ $app_dir }}/storage/framework/cache ] || mkdir {{ $app_dir }}/storage/framework/cache
-[ -d {{ $app_dir }}/storage/app ] || mkdir {{ $app_dir }}/storage/storage/app
-[ -d {{ $app_dir }}/storage/app/public ] || mkdir {{ $app_dir }}/storage/storage/app/public
 
 echo "Linking storage directory"
 rm -rf {{ $new_release_dir }}/storage
@@ -82,9 +80,6 @@ ln -nfs {{ $app_dir }}/.env {{ $new_release_dir }}/.env
 
 echo 'Linking current release'
 ln -nfs {{ $new_release_dir }} {{ $current_dir }}
-
-echo "Link Stroage"
-php artisan storage:link
 @endtask
 
 @task('migrate')
