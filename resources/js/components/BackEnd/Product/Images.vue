@@ -26,7 +26,7 @@
         >
           <div v-for="(attachment, index) in attachmentsList" :key="index" class="">
             <img
-              :src="attachment.url"
+              :src="$processedImageUrl(attachment.url, 300, 400)"
               class="w-16 h-16 object-cover"
               @click="changeActiveImage(attachment)"
             />
@@ -158,7 +158,7 @@ export default {
   created () {
     this.attachmentsList = this.attachments
     const masterImage = this.attachments.find(p => p.is_main)
-    this.activeImage = masterImage ? masterImage.url : this.attachments[0] ? this.attachments[0].url : ''
+    this.activeImage = masterImage ? masterImage.url : this.attachments[0] ? this.$processedImageUrl(this.attachments[0].url, 300, 400) : ''
 
     this.description.description = this.item.description
     this.description.ar_description = this.item.ar_description
