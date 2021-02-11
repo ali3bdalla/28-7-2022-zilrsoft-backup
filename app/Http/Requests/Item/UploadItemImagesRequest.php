@@ -48,7 +48,7 @@
 		
 		public function uploadItemImageAndReturnPath($requestImage)
 		{
-			return $requestImage->store('images/items', ['disk' => 'spaces', 'visibility' => 'public']);
+			return $requestImage->store('images/items', 'public');
 		}
 		
 		public function getIsMaster($item, $isMaster = false)
