@@ -84,11 +84,11 @@
                   {{ $page.$t.profile.sign_up}}
                 </button>
               </form>
-              <div class="switch-login">
+              <!-- <div class="switch-login">
                 <a class="or-login" href="/web/sign_in"
                 >{{ $page.$t.profile.already_have_account}}</a
                 >
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -135,4 +135,3 @@ export default {
   watch: {}
 }
 </script>
-

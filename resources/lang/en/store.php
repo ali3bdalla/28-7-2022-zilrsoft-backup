@@ -145,7 +145,8 @@ Receipt code :CODE
     ],
     "profile" => [
 
-
+        "new_customer" => "New Customer",
+        "exists_customer" => "Have account",
         "login" => "Login",
         "phone_number" => "Mobile Number",
         "country" => "Country",
@@ -195,7 +196,7 @@ Receipt code :CODE
         "price" => "Price",
         "quantity" => "Quantity",
         "total" => "Total",
-        "login_to_checkout" => "Login To Checkout",
+        "login_to_checkout" => "Checkout",
         "inc_vat" => "Inc Vat",
         "shipping_address" => "Shipping Address",
         "shipping_method" => "Shipping Method",
@@ -375,7 +376,7 @@ Receipt code :CODE
          <h4 class='content__title'>(12) Cancellation of access / membership</h4>
         Without prejudice to its other rights and its legitimate means to recover its rights, the Almesbar Shop can stop or cancel your membership or your access to the site at any time without warning and for any reason, and without limitation, and it can also cancel this agreement of terms and conditions.
          <h4 class='content__title'>(13) Warranty</h4>
-        Our store provides perfect digital and cartoon products and therefore it is difficult for us to provide guarantees on all the products that we offer or guarantee their replacement or return, all our digital products are not subject to the warranty or return policy, and if we add products with a guarantee in the future, we will refer to that in the terms or in Product Description.    
+        Our store provides perfect digital and cartoon products and therefore it is difficult for us to provide guarantees on all the products that we offer or guarantee their replacement or return, all our digital products are not subject to the warranty or return policy, and if we add products with a guarantee in the future, we will refer to that in the terms or in Product Description.
          <h4 class='content__title'>(14) Defining Responsibilities</h4>
         As permitted by law, our store, its employees, directors, agents, subsidiaries and suppliers will not be responsible for any direct or indirect loss or malfunctions arising from your use of the site. If you are not satisfied with the site or any of its contents, the solution is to not continue to use it, in addition to that, you agree that any unauthorized use of the site and its services, due to your negligence, will cause harm to the Almesbar Shop, and therefore the site will have to resort to the terms and conditions.
          <h4 class='content__title'>(15) Safety</h4>

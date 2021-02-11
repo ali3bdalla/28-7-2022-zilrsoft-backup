@@ -38,7 +38,12 @@
 			
 		}
 
-//
+//	
+
+		public function getUrlAttribute()
+		{
+			return $this->actual_path;
+		}
 		
 		public function attachable()
 		{

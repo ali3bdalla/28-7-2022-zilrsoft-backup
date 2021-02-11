@@ -300,4 +300,4 @@ class Item extends BaseModel
 
 		return $array;
 	}
-}
+} 

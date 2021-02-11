@@ -89,18 +89,12 @@
                 <div class="footer-widget">
                   <ul>
                     <li>
-                      <img
-                        :src="
-                          $processedImageUrl(
-                            $asset(
-                              'web_assets/template/img/our-location.png@jpg'
-                            ),
-                            262 * 1,
-                            135 * 1
-                          )
-                        "
+                      <a href="https://maps.app.goo.gl/ZwuXJRrZkMhYt5wY6" target="_blank">
+                        <img
+                        :src="$asset('web_assets/template/img/our-location.png')"
                         alt=""
                       />
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -112,14 +106,9 @@
                       <a
                         href="/web/content/about"
                         style="
-                          background-color: rgb(142 139 139) !important;
 
                           font-size: 18px;
-                          width: 100%;
-                          display: block;
-                          color: white;
-                          border-radius: 5px;
-                          margin: 1px 0px;
+
                         "
                         class="footer_item"
                         >{{ $page.$t.footer.about_us }}</a
@@ -129,14 +118,7 @@
                       <a
                         href="/web/content/contact"
                         style="
-                          background-color: rgb(142 139 139) !important;
-
                           font-size: 18px;
-                          width: 100%;
-                          display: block;
-                          color: white;
-                          border-radius: 5px;
-                          margin: 1px 0px;
                         "
                         class="footer_item"
                         >{{ $page.$t.footer.contact }}</a
@@ -146,14 +128,7 @@
                       <a
                         href="/web/content/privacy"
                         style="
-                          background-color: rgb(142 139 139) !important;
-
                           font-size: 18px;
-                          width: 100%;
-                          display: block;
-                          color: white;
-                          border-radius: 5px;
-                          margin: 1px 0px;
                         "
                         class="footer_item"
                         >{{ $page.$t.footer.privacy }}</a
@@ -163,14 +138,7 @@
                       <a
                         href="/web/content/terms"
                         style="
-                          background-color: rgb(142 139 139) !important;
-
                           font-size: 18px;
-                          width: 100%;
-                          display: block;
-                          color: white;
-                          border-radius: 5px;
-                          margin: 1px 0px;
                         "
                         class="footer_item"
                         >{{ $page.$t.footer.terms }}</a
@@ -178,10 +146,7 @@
                     </li>
                     <li style="" class="flex items-center justify-center mt-2">
                       <img
-                        :src="
-                          $asset('web_assets/template/img/payment-method.png')
-                        "
-                        alt=""
+                        :src="$asset('web_assets/template/img/payment-method.png')" alt=""
                       />
                     </li>
                   </ul>
@@ -266,7 +231,7 @@ export default {
   mounted () {
     setTimeout(() => {
       this.isPageLoading = false
-    }, 1000)
+    }, 250)
   },
   methods: {
     isSearchPage (

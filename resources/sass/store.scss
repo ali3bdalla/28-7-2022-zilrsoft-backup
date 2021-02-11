@@ -10,7 +10,9 @@
 @import "./web/page";
 @import "./web/home";
 @import "./web/product";
-
+a:hover {
+    color: gray !important;
+}
 @tailwind utilities;
 
 
