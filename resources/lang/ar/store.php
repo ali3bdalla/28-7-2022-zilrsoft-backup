@@ -240,7 +240,7 @@ Dear Customer :CUSTOMER_NAME
         'create_shipping_address' => 'اضافة عنوان',
         'select_shipping_address' => 'اختر عنوان الشحن',
 
-
+        'back_to_cart' => 'الرجوع الى السلة'
 
     ],
     'products' => [

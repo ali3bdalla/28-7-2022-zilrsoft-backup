@@ -68,7 +68,7 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
 
         Route::prefix('cart')->name('cart.')->group(
             function () {
-                Route::get('/', 'CartController@index');
+                Route::get('/', 'CartController@index')->name('index');
             }
         );
 

@@ -33,7 +33,7 @@ class AuthController extends Controller
 		User::where('phone_number', $request->input('phone_number'))->first();
 
 		if (auth('client')->attempt(['phone_number' => $request->input('phone_number'), 'password' => $request->input('password')])) {
-			return redirect(route('web.index'));
+			return redirect('/web/cart');
 		}
 
 

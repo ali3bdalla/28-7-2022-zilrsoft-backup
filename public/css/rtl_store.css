@@ -856,16 +856,16 @@ body {
   font-size: 1.25rem;
   font-weight: 700;
   --text-opacity: 1;
-  color: #a0aec0;
-  color: rgba(160, 174, 192, var(--text-opacity));
+  color: #1a202c;
+  color: rgba(26, 32, 44, var(--text-opacity));
 }
 
 .cart__shipping-method-title {
   margin-bottom: 0.75rem;
   font-size: 1.25rem;
   --text-opacity: 1;
-  color: #a0aec0;
-  color: rgba(160, 174, 192, var(--text-opacity));
+  color: #1a202c;
+  color: rgba(26, 32, 44, var(--text-opacity));
 }
 
 .cart__shipping-method-list {
@@ -951,8 +951,8 @@ body {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
   --text-opacity: 1;
-  color: #a0aec0;
-  color: rgba(160, 174, 192, var(--text-opacity));
+  color: #1a202c;
+  color: rgba(26, 32, 44, var(--text-opacity));
   font-size: 1.5rem;
 }
 
@@ -981,8 +981,8 @@ body {
   padding: 0.5rem;
   padding-bottom: 0;
   --text-opacity: 1;
-  color: #4a5568;
-  color: rgba(74, 85, 104, var(--text-opacity));
+  color: #1a202c;
+  color: rgba(26, 32, 44, var(--text-opacity));
   display: flex;
   flex-direction: column;
   justify-content: space-between;

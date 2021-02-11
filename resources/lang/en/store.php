@@ -214,7 +214,7 @@ Receipt code :CODE
         "net" => "Net Amount",
         'create_shipping_address' => "Create Shipping Address",
         'select_shipping_address' => "Select Shipping Address",
-
+        'back_to_cart' => "Back To Cart"
 
 
     ],

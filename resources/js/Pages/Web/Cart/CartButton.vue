@@ -5,7 +5,7 @@
         <span
           >{{ $page.$t.cart.total }} (<span class="inc_tax">{{
             $page.$t.cart.inc_vat
-          }}</span
+          }} 15%</span
           >) :
         </span>
         <display-money :money="getOrderTotalAmount(orderItems)"></display-money>
@@ -46,6 +46,11 @@
       <button v-if="$page.client_logged" class="proceed-btn" @click="sendOrder">
         {{ $page.$t.cart.confirm_order }}
       </button>
+      <div v-if="$page.client_logged" class="text-center flex items-center justify-center  border-t mt-3">
+         <button   class="text-center flex items-center justify-center mt-2 text-gray-900 text-sm" @click="changeActivePage('cart')">
+        {{ $page.$t.cart.back_to_cart }}
+      </button>
+       </div>
       <a v-else class="proceed-btn" href="/web/sign_in">{{
         $page.$t.cart.login_to_checkout
       }}</a>
