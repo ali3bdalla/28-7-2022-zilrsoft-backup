@@ -130,7 +130,7 @@
 		}
 		public function deleteImage(Item $item, Attachment $image)
 		{
-			Storage::disk('spaces')->delete($image->actual_path);
+			Storage::delete($image->actual_path);
 			$image->forceDelete();
 		}
 		

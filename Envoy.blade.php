@@ -82,6 +82,9 @@ ln -nfs {{ $app_dir }}/.env {{ $new_release_dir }}/.env
 
 echo 'Linking current release'
 ln -nfs {{ $new_release_dir }} {{ $current_dir }}
+
+echo "Link Stroage"
+php artisan storage:link
 @endtask
 
 @task('migrate')

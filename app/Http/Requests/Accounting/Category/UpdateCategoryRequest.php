@@ -57,7 +57,7 @@
 
 			if($this->hasFile('image'))
 			{
-				$imageUrl = $this->file('image')->store('images/categories', ['disk' => 'spaces', 'visibility' => 'public']);
+				$imageUrl = $this->file('image')->store('images/categories',  'public');
 				$category->update([
 					'image' => $imageUrl
 				]);
