@@ -1,0 +1,98 @@
+.page__content {
+  @apply bg-white shadow-lg my-10 rounded p-3;
+}
+
+.data__table {
+  @apply table-auto;
+}
+
+.data__table__title {
+  @apply mb-5 p-3 border shadow-lg;
+}
+
+.data__table__row {
+  @apply mt-5;
+}
+
+.data__table__cell {
+  @apply px-3 py-1 shadow;
+}
+
+.data__table__dropdown {
+  @apply relative;
+}
+
+.data__table__dropdown__button {
+  @apply bg-gray-500 text-white px-3 py-1 rounded  shadow-lg;
+}
+
+.data__table__dropdown__list {
+  @apply bg-white absolute w-full z-10 mt-1;
+}
+
+.data__table__dropdown__list__items {
+  @apply list-none;
+}
+
+.data__table__dropdown__list__items li {
+  @apply bg-gray-400 py-1 mb-1 rounded;
+}
+
+.data__table__dropdown__list__items li a {
+  @apply font-black;
+}
+
+.notification__dropdown {
+  width: 350px !important;
+  max-height: 500px;
+  @apply bg-gray-300 overflow-y-auto;
+}
+
+.notification__dropdown-header {
+  @apply border flex flex-row-reverse items-center justify-center m-0;
+}
+
+.notification__dropdown-title {
+  @apply text-gray-600 text-lg border-b px-5;
+}
+
+.notification__dropdown-icon {
+  @apply p-1 inline-block;
+}
+
+.notification__dropdown-icon svg {
+  @apply w-5 h-5 text-gray-600;
+}
+
+.notification__created_at {
+  @apply text-sm text-gray-500;
+}
+
+.notification__buttons {
+  @apply flex justify-between items-center my-2 w-full gap-1;
+}
+
+.notification__buttons a {
+  @apply bg-gray-300 px-3 py-1 text-gray-600 border-none w-full text-center font-bold;
+}
+
+.notification__dropdown-item {
+  @apply bg-white flex p-1 w-full border border-black mb-1;
+}
+
+.notification__dropdown-item__content {
+  @apply flex-1 px-5;
+}
+
+.notification__dropdown-item__message {
+  @apply mt-2 text-right;
+}
+
+.notification__dropdown-item__link {
+  @apply font-bold text-indigo-400;
+}
+
+.navbar__notification__list {
+  @apply bg-red-500;
+}
+/*# sourceMappingURL=main.css.map */

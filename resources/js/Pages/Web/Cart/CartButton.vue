@@ -6,17 +6,15 @@
         >{{ $page.$t.cart.total }} (<span class="inc_tax">{{
             $page.$t.cart.inc_vat
           }} 15%</span
-        >) :
-        </span>
-        <display-money :money="getOrderTotalAmount(orderItems)"></display-money>
+        >) </span> <display-money :money="getOrderTotalAmount(orderItems)"></display-money>
       </div>
       <div v-show="activePage === 'checkout' && shippingMethodId">
         <div class="cart__total-amount">
-          <span>{{ $page.$t.cart.shipping_weight }} : </span>
+          <span>{{ $page.$t.cart.shipping_weight }} </span>
           <display-money :money="getTotalShippingWeight()"></display-money>
         </div>
         <div class="cart__total-amount">
-          <span>{{ $page.$t.cart.shipping_total }} : </span>
+          <span>{{ $page.$t.cart.shipping_total }}  </span>
 
           <display-money
               v-if="getTotalShippingSubtotal() > 0"
@@ -26,7 +24,7 @@
         </div>
 
         <div class="cart__total-amount">
-          <span>{{ $page.$t.cart.net }}: </span>
+          <span>{{ $page.$t.cart.net }} </span>
 
           <display-money :money="getOrderNetAmount()"></display-money>
         </div>
@@ -52,9 +50,7 @@
           {{ $page.$t.cart.back_to_cart }}
         </button>
       </div>
-      <a v-else class="proceed-btn" href="/web/sign_in">{{
-        $page.$t.cart.login_to_checkout
-        }}</a>
+      <a v-else class="proceed-btn" href="/web/sign_in">{{$page.$t.cart.login_to_checkout}}</a>
     </div>
   </div>
 </template>

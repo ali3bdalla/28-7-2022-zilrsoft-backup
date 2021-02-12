@@ -51,16 +51,16 @@ class ValidatorServiceProvider extends ServiceProvider
             'organization_exists', function ($attribute, $value, $parameters, $validator) {
             $model = app($parameters[0]);
 
-            
+
             if (!$model instanceof Model)
                 return false;
-                
-          
+
+
             $table = (new $model)->getTable();
 
-        
 
-          
+
+
             if (!Schema::hasColumn($table, $parameters[1]))
                 return false;
 
@@ -302,21 +302,7 @@ class ValidatorServiceProvider extends ServiceProvider
         Validator::extendImplicit(
             'mobileNumber', function ($attribute, $value, $args) {
             return preg_match("/(5)[0-9]{8}/", $value);
-//            (5)
-//				$str_attr = explode('.', $attribute);
-//				$index = $str_attr[1];
-//				$first = $str_attr[0];
-//				$end = $str_attr[2];
-//				$id = request()->input("{$first}.{$index}.id");
-//				$item = Item::findOrFail($id);
-//
-//				if($end == "price")
-//					return $item->is_kit ? true : is_numeric($value);
-//				else {
-//					return !$item->is_kit && !$item->is_expense ? is_numeric($value) : true;
-//				}
-
-        }, 'invalid mobile number'
+        }, app()->getLocale() === 'ar' ? 'رقم الهاتف المدخل غير صحيح': 'invalid mobile number'
         );
 
 
