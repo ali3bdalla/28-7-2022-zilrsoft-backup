@@ -38,10 +38,17 @@
                 </p>
                 <!--            text-xl text-web-primary font-bold-->
                 <div class="product__show__details-actions">
-                  <ToggleCartItemButtonComponent
+                    <ToggleCartItemButtonComponent
                     :item="$page.item"
                     class="page__mt-2"
                   ></ToggleCartItemButtonComponent>
+
+                  <div class="text-center flex items-center justify-center mt-2 md:hidden">
+                    <a :href="`https://api.whatsapp.com/send?phone=&&message=${$page.item.locale_name}+${$page.itemUrl}`">
+                      <img class="w-8 h-8" src="https://pcdn.sharethis.com/wp-content/uploads/2017/05/WhatsApp.png"/>
+                    </a>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -87,7 +94,10 @@
                       {{ $page.item.barcode }}
                     </td>
                   </tr>
-                  <tr class="product__show__details-specification-table-raw" v-if="$page.item.warranty_subscription">
+                  <tr
+                    class="product__show__details-specification-table-raw"
+                    v-if="$page.item.warranty_subscription"
+                  >
                     <td
                       class="product__show__details-specification-table-title-cell"
                     >
@@ -194,18 +204,21 @@
                   </td>
                 </tr>
 
-                <tr class="product__show__details-specification-table-raw" v-if="$page.item.warranty_subscription">
-                    <td
-                      class="product__show__details-specification-table-title-cell"
-                    >
-                      {{ $page.$t.products.warranty_subscription }}
-                    </td>
-                    <td
-                      class="product__show__details-specification-table-value-cell"
-                    >
-                      {{ $page.item.warranty_subscription.locale_name }}
-                    </td>
-                  </tr>
+                <tr
+                  class="product__show__details-specification-table-raw"
+                  v-if="$page.item.warranty_subscription"
+                >
+                  <td
+                    class="product__show__details-specification-table-title-cell"
+                  >
+                    {{ $page.$t.products.warranty_subscription }}
+                  </td>
+                  <td
+                    class="product__show__details-specification-table-value-cell"
+                  >
+                    {{ $page.item.warranty_subscription.locale_name }}
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -325,9 +338,14 @@ export default {
         (p) => p.filter_id == 38
       )
 
-      if (modelNumber && modelNumber.value) { return modelNumber.value.locale_name }
+      if (modelNumber && modelNumber.value) {
+        return modelNumber.value.locale_name
+      }
       return ''
     }
+  },
+  created () {
+    document.title = this.$page.item.locale_name
   },
   methods: {
     changeActiveImage (url) {

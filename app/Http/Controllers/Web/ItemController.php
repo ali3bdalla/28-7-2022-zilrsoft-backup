@@ -68,7 +68,8 @@ class ItemController extends Controller
 			[
 				'item' => $item->load('filters.filter', 'filters.value', 'category', 'attachments','tags','warrantySubscription'),
 				'breadcrumb' => $this->breadcrumb,
-				'relatedItems' => $relatedItems
+				'relatedItems' => $relatedItems,
+				'itemUrl' => url('web/items/'.$item->id)
 			]
 		);
 	}
