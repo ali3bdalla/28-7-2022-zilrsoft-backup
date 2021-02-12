@@ -12,6 +12,11 @@ class ShippingTransaction extends BaseModel
 
     // protected $appends = ['shipping_status'];
 
+
+    public function shippingMethod()
+    {
+        return $this->belongsTo(ShippingMethod::class,'shipping_method_id');
+    }
     public function order()
     {
         return $this->belongsTo(Order::class,'order_id');

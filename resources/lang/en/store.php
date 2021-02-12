@@ -13,7 +13,7 @@ return [
 
     "common" => [
         "customer_support" => "Customer Service",
-
+        "update" => "Update",
         "back" => "Back",
         "save" => "Save",
         'back_to_home' => "Back to home",
@@ -221,6 +221,27 @@ Receipt code :CODE
 
 
     "order" => [
+        "statuses" => [
+            'issued' => 'Issued',
+            'pending' => 'Pending',
+            'paid'=> 'Paid',
+            'in_progress'=> 'In Progress',
+            'ready_for_shipping'=> 'Ready For Shipping',
+            'shipped'=> 'Shipped',
+            'delivered'=> 'Delivered',
+            'canceled'=> 'Canceled',
+            'returned'=> 'Returned'
+        ],
+        "id" => "Id",
+        "amount" => "Amount",
+        "payment_method" => "Payment Method",
+        "tracking_number" => "Tracking number",
+        "shipping_method" => "Shipping method",
+        "created_at" => "Created at",
+        "status" => "Status",
+
+
+        "no_order" => "No Orders",
         "cancel" => "Cancel Order",
         "sales_invoice" => "Sales Invoice",
         "vatId"=> 'VAT NO.',
@@ -255,6 +276,7 @@ Receipt code :CODE
 
     ],
       'products' => [
+          "warranty_subscription" => "Warranty",
           "all_of_them" => "All",
           "inc" => "Including VAT",
         'subcategories' => 'Sub Categories',

@@ -52,7 +52,8 @@ class ItemController extends Controller
 	}
 	public function show(Item $item)
 	{
-		$relatedItems = $item->category->items()->with('category')->inRandomOrder()->take(20)->get();
+
+		$relatedItems = $item->category->items()->with('category')->where('available_qty','>',0)->inRandomOrder()->take(20)->get();
 
 		$this->breadcrumb [] = [
             'title' => trans('store.header.home'),
@@ -62,11 +63,10 @@ class ItemController extends Controller
 		$this->fillBreadcrumb($item->category);
 
 
-
 		return Inertia::render(
 			'Web/Product/Show',
 			[
-				'item' => $item->load('filters.filter', 'filters.value', 'category', 'attachments','tags'),
+				'item' => $item->load('filters.filter', 'filters.value', 'category', 'attachments','tags','warrantySubscription'),
 				'breadcrumb' => $this->breadcrumb,
 				'relatedItems' => $relatedItems
 			]

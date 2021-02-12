@@ -44,7 +44,10 @@ class User extends BaseAuthModel
 	];
 
 
-
+	public function orders()
+	{
+		return $this->hasMany(Order::class,'user_id');
+	}
 	public function getYearlyBalance(Account $account)
 	{
 		$creditAmount = $account->transactions()->where(

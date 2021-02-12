@@ -45,7 +45,7 @@
 
           <div class="col-lg-12">
             <button type="submit" class="site-btn" @click="saveData">
-              {{ $page.$t.common.save }}
+              {{ $page.$t.common.update }}
             </button>
           </div>
         </div>
@@ -56,64 +56,64 @@
 
 <script>
 export default {
-  name: "ChangePasswordComponent",
-  data() {
+  name: 'ChangePasswordComponent',
+  data () {
     return {
-      password: "",
-      password_confirmation: "",
-      old_password: "",
-      errors: [],
-    };
+      password: '',
+      password_confirmation: '',
+      old_password: '',
+      errors: []
+    }
   },
   methods: {
-    saveData() {
+    saveData () {
       axios
-        .post("/web/profile/update-password", this.$data)
+        .post('/web/profile/update-password', this.$data)
         .then((res) => {
           this.$fire({
             title: this.$page.$t.messages.success,
             text: this.$page.$t.messages.password_has_been_changed,
-            type: "success",
-            timer: 3000,
+            type: 'success',
+            timer: 3000
           }).then((r) => {
-            console.log(r.value);
-          });
-          this.old_password = "";
-          this.password = "";
-          this.password_confirmation = "";
+            console.log(r.value)
+          })
+          this.old_password = ''
+          this.password = ''
+          this.password_confirmation = ''
 
-          this.errors = {};
+          this.errors = {}
         })
         .catch((err) => {
           if (err.response.data.errors.password_confirmation) {
             this.errors = {
               password_confirmation:
-                err.response.data.errors.password_confirmation,
-            };
+                err.response.data.errors.password_confirmation
+            }
           }
 
           if (err.response.data.errors.old_password) {
             this.errors = {
-              old_password: err.response.data.errors.old_password,
-            };
+              old_password: err.response.data.errors.old_password
+            }
           }
 
           if (err.response.data.errors.password) {
-            this.errors = { password: err.response.data.errors.password };
+            this.errors = { password: err.response.data.errors.password }
           }
 
           // this.errors =
           // err.response.data.errors.phone_number
-        });
+        })
 
       // this.$inertia.post('/web/profile/update-password',this.$data,{
       //   replace: true,
       //   preserveState: true,
       //   preserveScroll: true,
       // })
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped>
