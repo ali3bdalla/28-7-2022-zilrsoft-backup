@@ -44,7 +44,7 @@
                   ></ToggleCartItemButtonComponent>
 
                   <div class="text-center flex items-center justify-center mt-2 md:hidden">
-                    <a :href="`https://api.whatsapp.com/send?phone=&&message=${$page.item.locale_name}+${$page.itemUrl}`">
+                    <a :href="`whatsapp://send?text=${$page.item.locale_name}+${$page.itemUrl}`" data-action="share/whatsapp/share">
                       <img class="w-8 h-8" src="https://pcdn.sharethis.com/wp-content/uploads/2017/05/WhatsApp.png"/>
                     </a>
                   </div>
