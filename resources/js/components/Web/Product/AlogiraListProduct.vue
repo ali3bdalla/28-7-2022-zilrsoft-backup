@@ -102,7 +102,7 @@ export default {
 
         return 'https://zilrsoft.com/images/logo_ar.png'
       }
-      return this.item.item_image_url
+      return `local:///com.zilrsoft/storage/app/public/${this.item.item_image_url}`
     }
   }
 }

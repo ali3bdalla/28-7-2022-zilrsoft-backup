@@ -24,6 +24,6 @@ Route::middleware('auth:sanctum')->group(function(){
     });
 
     Route::get('notify',function(){
-        
+            
     });
 });
