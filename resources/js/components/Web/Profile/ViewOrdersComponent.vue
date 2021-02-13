@@ -41,15 +41,12 @@
               <div v-else>{{ scope.row.tracking_number }}</div>
            </template>
         </el-table-column>
-        <!-- <el-table-column fixed="right" label="Operations" width="165">
-          <template slot-scope="scope">
-            <el-button @click="handleClick" type="text" size="small"
-              >Detail</el-button
-            >
-            <el-button type="text" size="small">Track</el-button>
-            <el-button type="text" size="small">ReOrder</el-button> </template
-          >https://zilrsoft.test/web/profile
-        </el-table-column> -->
+         <el-table-column prop="pdf_url" :label="$page.$t.order.pdf">
+           <template slot-scope="scope">
+              <a :href="scope.row.pdf_url"><el-button size="small">{{$page.$t.common.download}}</el-button></a>
+           </template>
+        </el-table-column>
+
       </el-table>
     </div>
   </div>

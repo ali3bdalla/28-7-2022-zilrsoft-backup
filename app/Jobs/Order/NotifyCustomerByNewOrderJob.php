@@ -70,7 +70,6 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
             sendSms($message, $phoneNumber);
         }
         if (config('app.store.notify_via_whatsapp')) {
-
             Whatsapp::sendMessage(
                 $message,
                 $phoneNumber

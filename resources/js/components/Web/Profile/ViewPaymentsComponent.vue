@@ -41,6 +41,7 @@
               <div v-else>{{ scope.row.tracking_number }}</div>
            </template>
         </el-table-column>
+
         <!-- <el-table-column fixed="right" label="Operations" width="165">
           <template slot-scope="scope">
             <el-button @click="handleClick" type="text" size="small"

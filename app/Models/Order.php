@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @property mixed shipping_method_id
@@ -34,6 +35,7 @@ class Order extends BaseModel
 
     protected $guarded;
 
+    protected $appends = ['pdf_url'];
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -43,7 +45,10 @@ class Order extends BaseModel
         return $this->belongsTo(Manager::class,'managed_by_id');
     }
 
-
+    public function getPdfUrlAttribute()
+    {
+        return Storage::url($this->pdf_path);
+    }
 
 
 

@@ -6,27 +6,27 @@
         >{{ $page.$t.cart.total }} (<span class="inc_tax">{{
             $page.$t.cart.inc_vat
           }} 15%</span
-        >) </span> <display-money :money="getOrderTotalAmount(orderItems)"></display-money>
+        >) </span><div> <display-money :money="getOrderTotalAmount(orderItems)"></display-money>  {{  $page.$t.products.sar }}</div>
       </div>
       <div v-show="activePage === 'checkout' && shippingMethodId">
         <div class="cart__total-amount">
           <span>{{ $page.$t.cart.shipping_weight }} </span>
-          <display-money :money="getTotalShippingWeight()"></display-money>
+          <div><display-money :money="getTotalShippingWeight()"></display-money> {{  $page.$t.products.kg }}</div>
         </div>
         <div class="cart__total-amount">
           <span>{{ $page.$t.cart.shipping_total }}  </span>
 
-          <display-money
-              v-if="getTotalShippingSubtotal() > 0"
+           <div  v-if="getTotalShippingSubtotal() > 0"><display-money
+
               :money="getTotalShippingSubtotal()"
-          ></display-money>
+          ></display-money> </div>
           <span v-else>{{ $page.$t.cart.free }}</span>
         </div>
 
         <div class="cart__total-amount">
           <span>{{ $page.$t.cart.net }} </span>
 
-          <display-money :money="getOrderNetAmount()"></display-money>
+          <div><display-money :money="getOrderNetAmount()"></display-money>  {{  $page.$t.products.sar }}</div>
         </div>
       </div>
     </div>
@@ -121,21 +121,21 @@ export default {
 
     getOrderNetAmount () {
       return (
-          parseFloat(this.getTotalShippingSubtotal()) +
+        parseFloat(this.getTotalShippingSubtotal()) +
           parseFloat(this.getOrderTotalAmount(this.orderItems))
       )
     },
 
     getShippingMethod () {
       const shippingMethod = this.$page.shippingMethods.find(
-          (p) => p.id == this.shippingMethodId
+        (p) => p.id == this.shippingMethodId
       )
       return shippingMethod || {}
     },
 
     getTotalShippingSubtotal () {
       return (
-          parseFloat(this.getTotalShippingAmount()) -
+        parseFloat(this.getTotalShippingAmount()) -
           parseFloat(this.getShippingDiscount())
       )
     },
@@ -144,7 +144,7 @@ export default {
       if (totalWeight === 0) return 0
       const maxBaseWeight = parseFloat(this.getShippingMethod().max_base_weight)
       let shippingAmount = parseFloat(
-          this.getShippingMethod().max_base_weight_price
+        this.getShippingMethod().max_base_weight_price
       )
 
       if (maxBaseWeight < totalWeight) {

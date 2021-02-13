@@ -6,6 +6,7 @@ return [
         "name" => 'متجر المسبار'
     ],
     "common" => [
+        "download" => "تحميل",
         "search_in_all_products" => "البحث في كل المنتجات",
         "customer_support" => "خدمة العملاء",
         "back" => "الخلف",
@@ -39,7 +40,8 @@ return [
         'home' => "الرئيسية",
         // here
     ],
-
+    // البلاد:
+    // *54564646546546*
     'messages' => [
 
         "notify_unpaid_order_message" =>
@@ -56,10 +58,9 @@ return [
 المبلغ: *:AMOUNT*
 
 الحسابات البنكية
-الراجحي:
-*38238258237951*
-البلاد:
-*54564646546546*
+مصرف الراجحي:
+*SA122000010006080398991*
+
 
 يرجى السداد قبل
 *:DEADLINE_DATE*
@@ -137,7 +138,7 @@ Dear Customer :CUSTOMER_NAME
         "created_at" => "التاريخ",
         "status" => "حالة الطلب",
         "no_order" => "لاتوجد طلبات",
-
+        "pdf" => "الفاتورة",
         
         "cancel" => "الغاء الطلب",
         "sales_invoice" => "فاتورة مبيعات",
@@ -162,7 +163,7 @@ Dear Customer :CUSTOMER_NAME
         "draft" => "فاتورة مبدئية",
         "thanks_for_order" => "شكرا لك",
         "created" => "نجاح",
-        "instructions_for_payment" => "ستتلقى رسالة تحتوي على تفاصيل الدفع على رقم الجوال ",
+        "instructions_for_payment" => "ستتلقى رسالة واتساب تحتوي على تفاصيل الدفع على رقم الجوال ",
         'payment_confirmation' => "تاكيد عملية الدفع",
         "order" => "الطلب",
         "remmning_time_to_auto_cancel_order" => "الوقت المتبقى حتى الالغاء التلقائي للطلب",
@@ -285,6 +286,7 @@ Dear Customer :CUSTOMER_NAME
         'product_specifications' => 'مواصفات المنتج',
         'out_of_stock' => 'غير متوفر',
         'sar' => 'ر.س',
+        "kg" => "كيلو",
         "name" => "اسم المنتج",
         "quantity" => "الكمية",
         "price" => "السعر",

@@ -12,6 +12,7 @@ return [
     ],
 
     "common" => [
+        "downlod" => "Download",
         "search_in_all_products" => "Search in all products",
         "search_in" => "Search In",
         "customer_support" => "Customer Service",
@@ -61,13 +62,9 @@ Order: *:ORDER_ID*
 Amount: *:AMOUNT*
 
 Banks Accounts:
-Rajhi:   
-    *38238258237951*
-Alahli:  
-    *54564646546546*
-Albilad:
-    *23749823749873*
-
+Rajhi Bank:   
+    *SA122000010006080398991*
+    
 Deadline for Payment 
     *:DEADLINE_DATE*
     *:DEADLINE_TIME*
@@ -234,6 +231,8 @@ Receipt code :CODE
             'canceled'=> 'Canceled',
             'returned'=> 'Returned'
         ],
+        "pdf" => "Invoice",
+
         "id" => "Id",
         "amount" => "Amount",
         "payment_method" => "Payment Method",
@@ -296,6 +295,7 @@ Receipt code :CODE
         'product_specifications' => 'Product Specifications',
         'out_of_stock' => 'Out Of Stock',
         'sar' => 'SR',
+        "kg" => "K.G",
         "name" => "Product Name",
         "quantity" => "QTY",
         "price" => "Price",

@@ -7,6 +7,7 @@ use App\Http\Requests\Backend\Store\Shipping\StoreShippingMethodDeliveryManReque
 use App\Http\Requests\Backend\Store\Shipping\UpdateShippingMethodRequest;
 use App\Jobs\External\Smsa\DownloadShippmentPdfJob;
 use App\Jobs\External\Smsa\SmsaCreateShippmentJob;
+use App\Jobs\Order\NotifyCustomerOrderHasBeenShippedJob;
 use App\Jobs\Order\Shipping\HandleOrderShippingJob;
 use App\Jobs\Shipping\CreateShippingSalesInvoiceJob;
 use App\Models\City;
@@ -92,6 +93,7 @@ class ShippingController extends Controller
 
     public function storeTransaction(ShippingMethod $shipping, Request $request)
     {
+
         $request->validate([
             'phone_number' => "required|string",
             'first_name' => "required|string",
@@ -128,6 +130,7 @@ class ShippingController extends Controller
         $data['creator_id'] =  auth()->user()->id;
         $data['organization_id'] = auth()->user()->organization_id;
         $order  = null;
+        
         if ($request->filled('order_id')) {
             $orderTransaction = ShippingTransaction::where('order_id', $request->input('order_id'))->first();
             $order = Order::find($request->input('order_id'));
@@ -148,7 +151,11 @@ class ShippingController extends Controller
             if ($shipping->id == 2) // smsa
                 $data['tracking_number'] = SmsaCreateShippmentJob::dispatchNow($data);
             else
+            {
                 $data['tracking_number'] = uniqid();
+                if($order)
+                    NotifyCustomerOrderHasBeenShippedJob::dispatchNow($order);
+            }
 
             ShippingTransaction::create($data);
             if ($order) {
@@ -158,6 +165,9 @@ class ShippingController extends Controller
             }
         }
 
+       
+        if($order)
+            NotifyCustomerOrderHasBeenShippedJob::dispatchNow($order);
 
 
         return redirect(route('store.shipping.view_transactions', $shipping->id));
