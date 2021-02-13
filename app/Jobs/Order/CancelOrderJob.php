@@ -52,14 +52,14 @@ class CancelOrderJob implements ShouldQueue
         $this->unHoldItemQuantity();
         if (config('app.store.notify_via_sms')) {
             sendSms($message, $this->order->user->phone_number);
-            if (app()->environment('local'))
-                sendSms($message, "966504956211");
+            // if (app()->environment('local'))
+            //     sendSms($message, "966504956211");
         }
 
         if (config('app.store.notify_via_whatsapp')) {
             Whatsapp::sendMessage($message, $this->order->user->international_phone_number);
-            if (app()->environment('local'))
-                Whatsapp::sendMessage($message, "966504956211");
+            // if (app()->environment('local'))
+            //     Whatsapp::sendMessage($message, "966504956211");
         }
 
     }

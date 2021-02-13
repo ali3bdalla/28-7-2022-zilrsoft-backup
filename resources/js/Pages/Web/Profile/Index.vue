@@ -1,17 +1,17 @@
 <template>
   <WebAppLayout>
     <div class="container my-5">
-      <el-tabs type="border-card">
+      <el-tabs type="border-card" >
+        <el-tab-pane label="Config">
+          <span slot="label"><i class="el-icon-date"></i> {{ $page.$t.profile.orders }}</span>
+
+          <ViewOrdersComponent></ViewOrdersComponent>
+        </el-tab-pane>
         <el-tab-pane>
           <span slot="label"><i class="el-icon-date"></i> {{ $page.$t.profile.my_info }}</span>
           <div>
            <UpdateInfoComponent></UpdateInfoComponent>
           </div>
-        </el-tab-pane>
-        <el-tab-pane label="Config">
-          <span slot="label"><i class="el-icon-date"></i> {{ $page.$t.profile.orders }}</span>
-
-          <ViewOrdersComponent></ViewOrdersComponent>
         </el-tab-pane>
         <el-tab-pane label="Role">
           <span slot="label"><i class="el-icon-date"></i> {{ $page.$t.profile.phone_number }}</span>

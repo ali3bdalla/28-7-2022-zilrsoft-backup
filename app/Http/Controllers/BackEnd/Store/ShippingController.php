@@ -166,8 +166,8 @@ class ShippingController extends Controller
         }
 
        
-        if($order)
-            NotifyCustomerOrderHasBeenShippedJob::dispatchNow($order);
+        // if($order)
+        //     NotifyCustomerOrderHasBeenShippedJob::dispatchNow($order);
 
 
         return redirect(route('store.shipping.view_transactions', $shipping->id));

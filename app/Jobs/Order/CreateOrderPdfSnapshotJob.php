@@ -54,7 +54,7 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
 
 		$invoice = $this->invoice;
 		$pdfInvoice = new APDFCore("decentblue", ' ');
-		$pdfInvoice->setLogo(asset($organization->logo));
+		$pdfInvoice->setLogo($organization->localized_logo);
 		$pdfInvoice->setType(__("store.order.sales_invoice"));
 		$pdfInvoice->setDirection('rtl');
 		$pdfInvoice->setLang('ar');
