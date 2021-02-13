@@ -49,7 +49,7 @@ return [
 
     'messages' => [
         "notify_customer_by_payment_confirmation" => "
-Dear :CUSTOMER_NAME 
+Dear *:CUSTOMER_NAME* 
 Your payment has been confirmed for order :ORDER_ID
 we will ship your order as soon as posiable 
 ",
@@ -58,7 +58,7 @@ we will ship your order as soon as posiable
         'as_your_request' => "1- At Your Request",
         'not_paid' => "1- Not Paid.",
         "unpaid_order_canceled_message" =>
-            "Dear Customer :CUSTOMER_NAME,\n Sorry, Your Order #:ORDERID has been cancelled \n\n Cancelled Reasons:\n :REASON . \n\n Customer Service (WhatsApp) \n Wa.me/065433",
+            "Dear Customer *:CUSTOMER_NAME*,\n Sorry, Your Order #:ORDERID has been cancelled \n\n Cancelled Reasons:\n :REASON . \n\n Customer Service (WhatsApp) \n Wa.me/065433",
 
         "notify_customer_by_new_order_message" => "
 Dear *:CUSTOMER_NAME*,
@@ -81,18 +81,18 @@ To cancel your order please click the flowing Link:
     :CANCEL_URL
         ",
 "order_shipping_confirmation" => "
-Dear Customer :CUSTOMER_NAME
+Dear Customer *:CUSTOMER_NAME*
 Your Payment For Order #:ORDER_ID has been received
 ",
 "invalid_order_payment" => "
-Dear Customer :CUSTOMER_NAME
+Dear Customer *:CUSTOMER_NAME*
 Unfortunately, Your Payment For Order #:ORDER_ID is Invalid
 For more information, you can contact customer service via the following link
 https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
 ",
 
 "order_shipped_with_shipping_method" => "
-Dear Customer :CUSTOMER_NAME
+Dear Customer *:CUSTOMER_NAME*
 Your Order #:ORDER_ID has been shipped via :SHIPPING_METHOD
 Tracking Number :TRACKING_NUMBER
 Tracking Link
@@ -100,7 +100,7 @@ Tracking Link
 ",
 
 "order_shipped_with_deivery_man" => "
-Dear Customer :CUSTOMER_NAME
+Dear Customer *:CUSTOMER_NAME*
 Your Order #:ORDER_ID has been shipped with delivery man
 :DELIVERY_MAN
 :DELIVERY_MAN_NUMBER
@@ -108,7 +108,7 @@ Receipt code :CODE
 ",
 
 "order_shipping_confirmation" => "
-Dear Customer :CUSTOMER_NAME
+Dear Customer *:CUSTOMER_NAME*
 Your Order #:ORDER_ID ready to pick up
 Receipt code :CODE
 ",

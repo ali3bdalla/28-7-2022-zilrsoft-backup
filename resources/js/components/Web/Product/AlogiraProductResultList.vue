@@ -116,13 +116,14 @@
                     effect="dark"
                     closable
                     @close="item.refine(refinement)"
-                    v-if="refinement.attribute !== 'available_qty'"
                   >
                     {{ refinement.label }} ({{ refinement.count }})
                   </el-tag>
-                  <el-tag @close="item.refine(refinement)" v-if="refinement.attribute == 'available_qty'" effect="dark" closable>
+                  <!-- <el-tag @close="item.refine(refinement)" v-if="refinement.attribute == 'available_qty'" effect="dark" closable>
                     {{ $page.$t.products.sorting_only_available }}
-                  </el-tag>
+                  </el-tag> -->
+                                      <!-- v-if="refinement.attribute !== 'available_qty'" -->
+
                 </inertia-link>
               </div>
 

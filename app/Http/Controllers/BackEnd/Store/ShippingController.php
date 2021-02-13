@@ -215,7 +215,7 @@ class ShippingController extends Controller
 
                     if ($transaction->order && $transaction->order->status == 'ready_for_shipping') {
                         HandleOrderShippingJob::dispatchNow($transaction->order, $deliveryMan);
-                        CreateShippingSalesInvoiceJob::dispatchNow($transaction->order->user, $transaction);
+                        CreateShippingSalesInvoiceJob::dispatchNow($transaction->order->user, $transaction,$transaction->order->shipping_cost);
                     }
                 }
             }

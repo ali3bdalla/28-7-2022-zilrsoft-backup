@@ -21,7 +21,23 @@ use Illuminate\Support\Facades\Storage;
 		 * @var array
 		 */
 		protected $guarded = [];
-		
+
+
+		public function getLocaleDescriptionAttribute()
+		{
+			if(app()->isLocale('ar'))
+			return $this->description_ar;
+
+		return $this->description;
+		}
+
+		public function getLocaleTitleAttribute()
+		{
+			if(app()->isLocale('ar'))
+			return $this->title_ar;
+
+		return $this->title;
+		}
 		public function getOrganizationTaxAttribute()
 		{
 			return 1.15;
@@ -36,9 +52,9 @@ use Illuminate\Support\Facades\Storage;
 		public function getLocalizedLogoAttribute()
 		{
 			if(app()->isLocale('ar'))
-				return url("images/logo_ar.png");
+				return "https://zilrsoft.com/images/logo_ar.png";
 
-			return url('images/logo_en.png');
+			return "https://zilrsoft.com/images/logo_en.png";
 
 		}
 		public function country()

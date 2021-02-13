@@ -54,6 +54,7 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
 
 		$invoice = $this->invoice;
 		$pdfInvoice = new APDFCore("decentblue", ' ');
+		
 		$pdfInvoice->setLogo($organization->localized_logo);
 		$pdfInvoice->setType(__("store.order.sales_invoice"));
 		$pdfInvoice->setDirection('rtl');
@@ -62,15 +63,15 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
 		$pdfInvoice->setDate(Carbon::parse($invoice->created_at)->toDateTimeString());
 		$pdfInvoice->setFrom(
 			[
-				['key' => false, 'value' => $organization->title_ar],
+				['key' => false, 'value' => $organization->locale_title],
 				['key' => __("store.order.vatId"), 'value' => $organization->vat],
 				['key' => __("store.order.vatId"), 'value' => $organization->cr],
 				['key' => __("store.order.phone"), 'value' => $organization->phone_number],
 				['key' => __("store.order.branch"), 'value' => __("store.order.online_sales")],
-				['key' => false, 'value' => $organization->description_ar],
+				['key' => false, 'value' => $organization->locale_description],
 			]
 		);
-		$pdfInvoice->setTo(array($invoice->user->name_ar, $invoice->user->phone_number, __("store.order.shipping_address")));
+		$pdfInvoice->setTo(array($invoice->user->locale_name, $invoice->user->phone_number, __("store.order.shipping_address")));
 
 		foreach ($invoice->items as $item) {
 			$pdfInvoice->addItem($item->item->locale_name, $item->qty, $item->price, $item->total, $item->tax, $item->net, $item->getInvoiceItemSerials()->pluck('serial')->toArray());
