@@ -75,7 +75,7 @@ export default {
 .ais-SearchBox-loadingIndicator,
 .ais-SearchBox-reset,
 .ais-SearchBox-submit {
-  width: 210px !important;
+  width: auto !important;
   height: 28px !important;
   @apply flex items-center justify-items-end;
   padding: 0px !important;
