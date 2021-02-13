@@ -201,7 +201,7 @@ export default {
             preserveState: (page) => Object.keys(page.props.errors).length,
             preserveScroll: (page) => Object.keys(page.props.errors).length,
             onSuccess: () => {
-              return Promise.all([this.removeCartItems(), this.alertUser()])
+              return Promise.all([this.removeCartItems(items), this.alertUser()])
             },
             onFinish: () => {
               this.$loading.hide()
@@ -210,10 +210,10 @@ export default {
         )
       })
     },
-    removeCartItems () {
+    removeCartItems (items) {
       return new Promise((resolve) => {
         this.$store.state.cart.forEach((item) => {
-          const isOrdered = this.orderItems.find(p => p.id === item.id)
+          const isOrdered = items.find(p => p.id === item.id)
           if (isOrdered) { this.$store.commit('removeFromCart', item) }
         })
         resolve()
