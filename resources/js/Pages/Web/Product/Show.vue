@@ -163,7 +163,7 @@
 
         <div class="page__mt-2">
           <div
-            class="specification-table product__show__details-specification-table-container product__show__details-specification-table-container__pc"
+            class="specification-table product__show__details-specification-table-container product__show__details-specification-table-container__pc mb-3"
           >
             <table class="product__show__details-specification-table">
               <tbody>

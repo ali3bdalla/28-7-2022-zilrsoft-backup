@@ -1696,6 +1696,7 @@ body {
 .product__show__image {
   -o-object-fit: contain;
      object-fit: contain;
+  height: 100%;
 }
 
 .product__show__images-grid {
@@ -2257,13 +2258,27 @@ a:hover {
   direction: rtl !important;
 }
 
-a:hover {
+a:hover, a:focus {
   color: gray !important;
 }
 
 .login-btn {
   letter-spacing: 0px !important;
   font-size: 18px;
+}
+
+.ais-SearchBox-submit {
+  background-color: #b1b1b1 !important;
+  color: white !important;
+  text-align: right !important;
+  padding: 1px !important;
+}
+
+.search_in_category {
+  text-align: right !important;
+  width: 100%;
+  padding: 0px 5px;
+  font-size: 15px;
 }
 
 .space-y-0 > :not(template) ~ :not(template){

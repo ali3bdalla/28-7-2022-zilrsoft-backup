@@ -6,6 +6,7 @@ return [
         "name" => 'متجر المسبار'
     ],
     "common" => [
+        "search_in_all_products" => "البحث في كل المنتجات",
         "customer_support" => "خدمة العملاء",
         "back" => "الخلف",
         "save" => "حفظ",
@@ -22,7 +23,8 @@ return [
         'verification_code' => 'رمز التحقق:',
         "contact_us" => "تواصل معنا",
         "keep_message" => "راسلنا",
-        "update" => "تعديل"
+        "update" => "تعديل",
+        "search_in" => "البحث في"
 
     ],
     "contact" => [

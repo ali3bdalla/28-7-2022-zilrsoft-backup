@@ -231,7 +231,7 @@ export default {
   mounted () {
     setTimeout(() => {
       this.isPageLoading = false
-    }, 250)
+    }, 750)
   },
   methods: {
     isSearchPage (

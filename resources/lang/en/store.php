@@ -12,6 +12,8 @@ return [
     ],
 
     "common" => [
+        "search_in_all_products" => "Search in all products",
+        "search_in" => "Search In",
         "customer_support" => "Customer Service",
         "update" => "Update",
         "back" => "Back",

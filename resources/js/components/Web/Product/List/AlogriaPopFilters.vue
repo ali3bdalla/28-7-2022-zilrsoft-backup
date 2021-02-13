@@ -21,209 +21,251 @@
       </svg>
       {{ $page.$t.products.filters }}
     </button>
-    <div ref="filters_pop_model" class="filters_pop_model" name="alogira-search-filters-modal">
-        <div style="overflow-y: scroll; height: 100vh !important;min-height: 100%">
-          <div class="container mb-2">
-            <div class="row page__mt-5">
-              <div class="col-md-6 col-6 text-center">
-                <button @click="hide" class="btn btn-primary applyBtn px-5">
-                  {{ $page.$t.products.apply }}
-                </button>
-              </div>
-              <div class="col-md-6 col-6 text-center">
-                <button
-                  @click="hide"
-                  class="btn btn-default resetBtn bg-web-primary px-5"
-                >
-                  {{ $page.$t.products.reset }}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="container-fluid filters-layout-modal">
-            <div class="grid grid-cols-1">
-
-              <div   class=" w-full" >
-                   <ais-numeric-menu
-        attribute="online_offer_price"
-        :items="[
-          {
-            label: `${$page.$t.products.all} ${$page.$t.products.prices}`,
-          },
-          { label: `1-100 ${$page.$t.products.sar}`, end: 100 },
-          {
-            label: `101-1000 ${$page.$t.products.sar}`,
-            start: 101,
-            end: 1000,
-          },
-          {
-            label: `1001-5000 ${$page.$t.products.sar}`,
-            start: 1001,
-            end: 5000,
-          },
-          {
-            label: `5001-20000 ${$page.$t.products.sar}`,
-            start: 5001,
-            end: 20000,
-          },
-          {
-            label: `${$page.$t.products.more_than} 2000 ${$page.$t.products.sar}`,
-            start: 20000,
-          },
-        ]"
+    <div
+      ref="filters_pop_model"
+      class="filters_pop_model"
+      name="alogira-search-filters-modal"
+    >
+      <div
+        style="overflow-y: scroll; height: 100vh !important; min-height: 100%"
       >
-        <div
-          class="border filter-widget p-3 pt-0"
-          slot-scope="{ items, canRefine, refine, createURL }"
-        >
-                              <h6  class=" w-full text-center py-1 text-2xl rounded-full  border" style="background-color: rgb(249, 249, 249);font-size:18px !important;border-color: #d2e8ff !important; border-width: 2px !important" >
-            {{ $page.$t.products.price }}
-          </h6>
-                              <div class="mb-1 fw-brand-check pt-3 grid  grid-cols-1 md:grid-cols-4 gap-0 md:gap-2">
-            <!-- <div class="row"> -->
-            <!-- class="col-md-4 col-4"
-                     row -->
-            <div v-for="(item,index) in items" :key="index">
-              <div
-                class="product__search-filter-value"
-                style="font-size: 15px; color: #575555"
+        <div class="container mb-2">
+          <div class="row page__mt-5">
+            <div class="col-md-6 col-6 text-center">
+              <button @click="hide" class="btn btn-primary applyBtn px-5">
+                {{ $page.$t.products.apply }}
+              </button>
+            </div>
+            <div class="col-md-6 col-6 text-center">
+              <button
+                @click="hide"
+                class="btn btn-default resetBtn bg-web-primary px-5"
               >
-              <el-switch
-                                        v-model="item.isRefined"
-                                        active-color="#13ce66"
- @change="refine(item.value)"
-                                      >
-                                      </el-switch>
-                                      <span class="px-2 py-1" :class="[item.isRefined ? '' : '']"
-                                        ><ais-highlight attribute="item" :hit="item" /> ({{item.label}})</span
-                                      >
-                <!-- <input
-                  :checked="item.isRefined"
-                  type="checkbox"
-                  @change="refine(item.value)"
-                />
-                {{ item.label }} -->
-              </div>
-            </div>
-            <!-- </div> -->
-          </div>
-        </div>
-        <!-- </div> -->
-      </ais-numeric-menu>
-
-                  <ais-refinement-list
-                  :class-names="{
-                    'ais-RefinementList-list': '',
-                    'ais-RefinementList-showMore': 'hidden',
-                  }"
-                  :transform-items="applyTransformation"
-                  :show-more="false"
-                  :attribute=" $page.active_locale == 'en' ? 'category_name' : 'category_ar_name'"
-                  :show-more-limit="20"
-                  class="w-full "
-                  >
-                      <div
-                        class="    w-full pt-0 mt-3"
-                        v-if="items.length"
-                        slot-scope="{
-                          items,
-                          isShowingMore,
-                          isFromSearch,
-                          canToggleShowMore,
-                          refine,
-                          createURL,
-                          toggleShowMore,
-                          searchForItems,
-                        }"
-                      >
-                              <h6  class=" w-full text-center py-1 text-2xl rounded-full  border" style="background-color: rgb(249, 249, 249);font-size:18px !important;border-color: #d2e8ff !important; border-width: 2px !important" >
-                                {{ $page.$t.products.category }}
-                              </h6>
-                              <div class="mb-1 fw-brand-check pt-3 grid  grid-cols-1 md:grid-cols-4 gap-0 md:gap-2">
-
-                                <div class="" v-for="item in items" :key="item.value">
-                                  <div
-                                  class="product__search-filter-value"
-                                  style="font-size: 15px; color: #575555"
-                                  >
-                                      <el-switch
-                                        v-model="item.isRefined"
-                                        @change="refine(item.value)"
-                                        active-color="#13ce66"
-
-                                      >
-                                      </el-switch>
-                                      <span class="px-2 py-1" :class="[item.isRefined ? '' : '']"
-                                        ><ais-highlight attribute="item" :hit="item" /> ({{item.count.toLocaleString()}})</span
-                                      >
-                                  </div>
-                                </div>
-                              </div>
-
-                      </div>
-
-                  </ais-refinement-list>
-                </div>
-
-                <div v-if="shouldBeAvailable(filter)" v-for="filter in $page.algolia_search_filters"  :key="filter" class=" w-full" >
-                  <ais-refinement-list
-                  :class-names="{
-                    'ais-RefinementList-list': '',
-                    'ais-RefinementList-showMore': 'hidden',
-                  }"
-                  :transform-items="applyTransformation"
-                  :show-more="false"
-                  :attribute="filter"
-                  :show-more-limit="20"
-                  class="w-full "
-                  >
-                      <div
-                        class="    w-full pt-0 mt-3"
-                        v-if="items.length"
-                        slot-scope="{
-                          items,
-                          isShowingMore,
-                          isFromSearch,
-                          canToggleShowMore,
-                          refine,
-                          createURL,
-                          toggleShowMore,
-                          searchForItems,
-                        }"
-                      >
-                              <h6  class=" w-full text-center py-1 text-2xl rounded-full  border" style="background-color: rgb(249, 249, 249);font-size:18px !important;border-color: #d2e8ff !important; border-width: 2px !important" >
-                                {{ actulFilterName(filter) }}
-                              </h6>
-                              <div class="mb-1 fw-brand-check pt-3 grid  grid-cols-1 md:grid-cols-4 gap-0 md:gap-2">
-
-                                <div class="" v-for="item in items" :key="item.value">
-                                  <div
-                                  class="product__search-filter-value"
-                                  style="font-size: 15px; color: #575555"
-                                  >
-                                      <el-switch
-                                        v-model="item.isRefined"
-                                        @change="refine(item.value)"
-                                        active-color="#13ce66"
-
-                                      >
-                                      </el-switch>
-                                      <span class="px-2 py-1" :class="[item.isRefined ? '' : '']"
-                                        ><ais-highlight attribute="item" :hit="item" /> ({{item.count.toLocaleString()}})</span
-                                      >
-                                  </div>
-                                </div>
-                              </div>
-
-                      </div>
-
-                  </ais-refinement-list>
-                </div>
-
+                {{ $page.$t.products.reset }}
+              </button>
             </div>
           </div>
         </div>
+
+        <div class="container-fluid filters-layout-modal">
+          <div class="grid grid-cols-1">
+            <div class="w-full">
+              <ais-numeric-menu
+                attribute="online_offer_price"
+                :items="[
+                  {
+                    label: `${$page.$t.products.all} ${$page.$t.products.prices}`,
+                  },
+                  { label: `1-100 ${$page.$t.products.sar}`, end: 100 },
+                  {
+                    label: `101-1000 ${$page.$t.products.sar}`,
+                    start: 101,
+                    end: 1000,
+                  },
+                  {
+                    label: `1001-2000 ${$page.$t.products.sar}`,
+                    start: 1001,
+                    end: 2000,
+                  },
+                  {
+                    label: `2001-4000 ${$page.$t.products.sar}`,
+                    start: 2001,
+                    end: 4000,
+                  },
+                  {
+                    label: `${$page.$t.products.more_than} 4000 ${$page.$t.products.sar}`,
+                    start: 4001,
+                  },
+                ]"
+              >
+                <div
+                  class="border filter-widget p-3 pt-0"
+                  slot-scope="{ items, canRefine, refine, createURL }"
+                >
+                  <h6
+                    class="w-full text-center py-1 text-2xl rounded-full border"
+                    style="
+                      background-color: rgb(249, 249, 249);
+                      font-size: 18px !important;
+                      border-color: #d2e8ff !important;
+                      border-width: 2px !important;
+                    "
+                  >
+                    {{ $page.$t.products.price }}
+                  </h6>
+                  <div
+                    class="mb-1 fw-brand-check pt-3 grid grid-cols-1 md:grid-cols-4 gap-0 md:gap-2"
+                  >
+                    <!-- <div class="row"> -->
+                    <!-- class="col-md-4 col-4"
+                     row -->
+                    <div v-for="(item, index) in items" :key="index">
+                      <div
+                        class="product__search-filter-value"
+                        style="font-size: 15px; color: #575555"
+                      >
+                        <el-switch
+                          v-model="item.isRefined"
+                          active-color="#13ce66"
+                          @change="refine(item.value)"
+                        >
+                        </el-switch>
+                        <span
+                          class="px-2 py-1"
+                          :class="[item.isRefined ? '' : '']"
+                          ><ais-highlight attribute="item" :hit="item" /> ({{
+                            item.label
+                          }})</span
+                        >
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </ais-numeric-menu>
+
+              <ais-refinement-list
+                :class-names="{
+                  'ais-RefinementList-list': '',
+                  'ais-RefinementList-showMore': 'hidden',
+                }"
+                :transform-items="applyTransformation"
+                :show-more="false"
+                :attribute="
+                  $page.active_locale == 'en'
+                    ? 'category_name'
+                    : 'category_ar_name'
+                "
+                :show-more-limit="20"
+                class="w-full"
+              >
+                <div
+                  class="w-full pt-0 mt-3"
+                  v-if="items.length"
+                  slot-scope="{
+                    items,
+                    isShowingMore,
+                    isFromSearch,
+                    canToggleShowMore,
+                    refine,
+                    createURL,
+                    toggleShowMore,
+                    searchForItems,
+                  }"
+                >
+                  <h6
+                    class="w-full text-center py-1 text-2xl rounded-full border"
+                    style="
+                      background-color: rgb(249, 249, 249);
+                      font-size: 18px !important;
+                      border-color: #d2e8ff !important;
+                      border-width: 2px !important;
+                    "
+                  >
+                    {{ $page.$t.products.category }}
+                  </h6>
+                  <div
+                    class="mb-1 fw-brand-check pt-3 grid grid-cols-1 md:grid-cols-4 gap-0 md:gap-2"
+                  >
+                    <div class="" v-for="item in items" :key="item.value">
+                      <div
+                        class="product__search-filter-value"
+                        style="font-size: 15px; color: #575555"
+                      >
+                        <el-switch
+                          v-model="item.isRefined"
+                          @change="refine(item.value)"
+                          active-color="#13ce66"
+                        >
+                        </el-switch>
+                        <span
+                          class="px-2 py-1"
+                          :class="[item.isRefined ? '' : '']"
+                          ><ais-highlight attribute="item" :hit="item" /> ({{
+                            item.count.toLocaleString()
+                          }})</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ais-refinement-list>
+            </div>
+
+            <div
+              v-if="shouldBeAvailable(filter)"
+              v-for="filter in $page.algolia_search_filters"
+              :key="filter"
+              class="w-full"
+            >
+              <ais-refinement-list
+                :class-names="{
+                  'ais-RefinementList-list': '',
+                  'ais-RefinementList-showMore': 'hidden',
+                }"
+                :transform-items="applyTransformation"
+                :show-more="false"
+                :attribute="filter"
+                :show-more-limit="20"
+                class="w-full"
+              >
+                <div
+                  class="w-full pt-0 mt-3"
+                  v-if="items.length"
+                  slot-scope="{
+                    items,
+                    isShowingMore,
+                    isFromSearch,
+                    canToggleShowMore,
+                    refine,
+                    createURL,
+                    toggleShowMore,
+                    searchForItems,
+                  }"
+                >
+                  <h6
+                    class="w-full text-center py-1 text-2xl rounded-full border"
+                    style="
+                      background-color: rgb(249, 249, 249);
+                      font-size: 18px !important;
+                      border-color: #d2e8ff !important;
+                      border-width: 2px !important;
+                    "
+                  >
+                    {{ actulFilterName(filter) }}
+                  </h6>
+                  <div
+                    class="mb-1 fw-brand-check pt-3 grid grid-cols-1 md:grid-cols-4 gap-0 md:gap-2"
+                  >
+                    <div class="" v-for="item in items" :key="item.value">
+                      <div
+                        class="product__search-filter-value"
+                        style="font-size: 15px; color: #575555"
+                      >
+                        <el-switch
+                          v-model="item.isRefined"
+                          @change="refine(item.value)"
+                          active-color="#13ce66"
+                        >
+                        </el-switch>
+                        <span
+                          class="px-2 py-1"
+                          :class="[item.isRefined ? '' : '']"
+                          ><ais-highlight attribute="item" :hit="item" /> ({{
+                            item.count.toLocaleString()
+                          }})</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ais-refinement-list>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -238,12 +280,16 @@ export default {
       }))
     },
     actulFilterName (filename) {
-      if (this.$page.active_locale === 'ar') { return `${filename}`.replace('ar_filters_', '') }
+      if (this.$page.active_locale === 'ar') {
+        return `${filename}`.replace('ar_filters_', '')
+      }
       return `${filename}`.replace('filters_', '')
     },
 
     shouldBeAvailable (filter) {
-      if (this.$page.active_locale === 'ar') { return !filter.indexOf('ar_filters_') && filter !== 'category_name' }
+      if (this.$page.active_locale === 'ar') {
+        return !filter.indexOf('ar_filters_') && filter !== 'category_name'
+      }
 
       return filter.indexOf('ar_filters_') && filter !== 'category_ar_name'
     },
@@ -344,7 +390,7 @@ export default {
 .filters_pop_model {
   position: fixed;
   top: 0;
-  display:none;
+  display: none;
   left: 0;
   z-index: 500000;
   width: 100%;
