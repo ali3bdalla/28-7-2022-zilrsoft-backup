@@ -339,7 +339,10 @@ Receipt code :CODE
 
       ],
       'content' => [
-        'about_us_content' => '<h4 class="content__title">About Use</h4>Almesbar Shop is a website specialized in selling gadgets and electronic devices such as computers, smart watches, phones, as well as some digital products such as Gift Cards, Operation systems, and others, as our site is proud of being a leading website in this field at a very competitive price compared to other stores in Saudi Arabia market.
+        'about_us_content' => '<h4 class="content__title">About Use</h4>Bait Almesbar For Trading
+        CR: 1132002748
+        VAT No.: 301032266600003
+        Almesbar Shop is a website specialized in selling gadgets and electronic devices such as computers, smart watches, phones, as well as some digital products such as Gift Cards, Operation systems, and others, as our site is proud of being a leading website in this field at a very competitive price compared to other stores in Saudi Arabia market.
         Almesbar Shop, since its inception, has gained the confidence of all users thanks to its excellence in providing a store with the latest technological and programming standards to facilitate displaying and accessing products, as well as by providing high-quality products while ensuring the buyer\'s right in case he wants to return or replace the product.
         We could not reach this success except with the support and confidence of our customers, and because they always have a constant desire for excellence, we always strive to develop the store with everything new and keep pace with the aspirations of our customers.<h4 class="content__title">Our Values</h4>
         Believing in making the online shopping experience a unique and distinctive one, we made Almesbar Shop in a simplified way, where the buyer will find in our platform the diversity of products and the ease in selecting and searching for them, and he will find a technical support team ready throughout the day and seven days a week to answer the questions of our distinguished visitors and help in case There is problems.
