@@ -1,131 +1,132 @@
 <template>
   <div>
-    <div class="flex">
 
-      <div class="flex-1 group-input">
-        <div class="flex justify-between">
-          <div class="flex-1 mb-2">
-            <button :class="[activeTab == 'select' ? 'activeClass' : 'inActiveClass']" :disabled="disableSelect"
-                    class="site-btn login-btn"
-                    type="button"
-                    @click="activeTab = 'select'">{{ $page.$t.common.select}}
-            </button>
+    <div>
+      <!-- <div>
+        <div class="flex-1 group-input">
+          <select v-model="selectedAccountId" class="">
+            <option :value="null">{{ $page.$t.common.select_bank }}</option>
 
-          </div>
-          <div class="flex-1">
-            <button :class="[activeTab == 'create' ? 'activeClass' : 'inActiveClass']" class="site-btn login-btn"
-                    type="button"
-                    @click="activeTab = 'create'"> {{ $page.$t.common.add_new}}
-            </button>
-          </div>
+            <option
+              v-for="account in accounts"
+              :key="account.id"
+              :value="account.id"
+            >
+              {{ account.bank.locale_name }} - {{ account.detail }}
+            </option>
+          </select>
         </div>
+      </div> -->
 
-      </div>
-    </div>
-
-    <div v-if="activeTab == 'select'">
-      <div class="flex-1 group-input">
-        <select v-model="selectedAccountId" class="">
-          <option v-for="account in accounts" :key="account.id" :value="account.id">{{ account.bank.locale_name }} - {{
-              account.detail
-            }}
-          </option>
-        </select>
-      </div>
-    </div>
-    <div v-else>
       <div class="flex">
         <div class="flex-1 group-input">
-
-          <!--        sendAccountBankId: 1,-->
-          <!--        sendAccountBankNumber: "",-->
-          <div>
-            <select v-model="bankId" class="">
-              <option v-for="bank in $page.banks" :key="bank.id" :value="bank.id">{{ bank.locale_name }}</option>
-            </select>
+          <label for="first_name">{{ $page.$t.order.transmitter_name }}</label>
+          <input
+            id="first_name"
+            v-model="form.firstName"
+            :placeholder="$page.$t.profile.first_name"
+            type="text"
+          />
+          <div v-if="$page.errors.first_name" class="p-2 text-red-500">
+            {{ $page.errors.first_name }}
           </div>
-          <!--        <div-->
-          <!--            v-if="$page.errors.sender_bank_id"-->
-          <!--            class="p-2 text-red-500"-->
-          <!--        >-->
-          <!--          {{ $page.errors.sender_bank_id }}-->
-          <!--        </div>-->
         </div>
         <div class="flex-1 group-input">
+          <label for="first_name">.</label>
 
           <input
-              id="sender_account_number"
-              v-model="accountNumber"
-              max-length="30"
-              :placeholder="$page.$t.profile.account_number"
-              type="text"
+            id="last_name"
+            v-model="form.lastName"
+            :placeholder="$page.$t.profile.last_name"
+            type="text"
+          />
+          <div v-if="$page.errors.last_name" class="p-2 text-red-500">
+            {{ $page.errors.last_name }}
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <div class="flex-1 group-input">
+          <div>
+            <select v-model="form.bankId" class="">
+              <option :value="null">{{ $page.$t.common.select_bank }}</option>
+              <option
+                v-for="bank in $page.banks"
+                :key="bank.id"
+                :value="bank.id"
+              >
+                {{ bank.locale_name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="flex-1 group-input">
+          <input
+            id="sender_account_number"
+            v-model="form.accountNumber"
+            max-length="30"
+            :placeholder="$page.$t.profile.account_number"
+            type="text"
           />
           <div
-              v-if="$page.errors.sender_account_number"
-              class="p-2 text-red-500"
+            v-if="$page.errors.sender_account_number"
+            class="p-2 text-red-500"
           >
             {{ $page.errors.sender_account_number }}
           </div>
         </div>
-        <div class="w-1/4">
+        <!-- <div class="w-1/4">
           <button
-              class="site-btn login-btn inActiveClass"
-              style="margin-top: -1px;height: 50px"
-              type="button"
+              class="inActiveClass"
               @click="addNewAccount">{{ $page.$t.common.save }}
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
-
-
   </div>
-
 </template>
 
 <script>
 export default {
-  name: "PaymentAccounts",
-  data() {
+  name: 'PaymentAccounts',
+  data () {
     return {
       activeTab: 'select',
       disableSelect: false,
-      selectedAccountId: null,
-      bankId: null,
-      accountNumber: "",
-      accounts: []
-    }
-  },
-  created() {
-    axios.get(`/api/web/${this.$page.order.user_id}/payment_accounts`).then(res => {
-      if (res.data.length === 0) {
-        this.activeTab = 'create';
-        this.disableSelect = true;
+      accounts: [],
+      form: {
+        accountNumber: '',
+        bankId: null,
+        selectedAccountId: null,
+
+        firstName: this.$page.user.first_name,
+        lastName: this.$page.user.last_name
       }
-
-      this.accounts = res.data
-    });
-  },
-  methods: {
-    addNewAccount() {
-      axios.post(`/api/web/${this.$page.order.user_id}/payment_accounts`, {
-        detail: this.accountNumber,
-        bank_id: this.bankId,
-      }).then(res => {
-        console.log(res.data);
-        this.detail = "";
-        this.bank_id = "";
-        this.activeTab = 'select';
-
-        this.accounts.push(res.data);
-        this.selectedAccountId = res.data.id;
-        this.$alert(this.$page.$t.messages.success,this.$page.$t.messages.bank_account_has_been_created,'success');
-      }).catch(error => this.$alert('Please Check Your Account Information Again','','error'));
     }
   },
+  created () {
+    axios
+      .get(`/api/web/${this.$page.order.user_id}/payment_accounts`)
+      .then((res) => {
+        if (res.data.length === 0) {
+          this.activeTab = 'create'
+          this.disableSelect = true
+        }
+
+        this.accounts = res.data
+      })
+  },
+
   watch: {
-    selectedAccountId(value) {
-      this.$emit('updateAccountId', {accountId: value})
+    form: {
+      deep: true,
+      handler (value) {
+        this.$emit('formUpdated', value)
+      }
+    },
+    selectedAccountId (value) {
+      this.$emit('updateAccountId', { accountId: value })
     }
   }
 }

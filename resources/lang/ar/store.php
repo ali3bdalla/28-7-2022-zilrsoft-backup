@@ -10,6 +10,11 @@ return [
         "search_in_all_products" => "البحث في كل المنتجات",
         "customer_support" => "خدمة العملاء",
         "back" => "الخلف",
+        "select_bank" => "اختر البنك",
+        "select_account" => "اختر حساب",
+        'create_new_account' => 'اضافة حساب',
+        'select_or_create_account' => 'اختر او اضف حساب',
+
         "save" => "حفظ",
         'back_to_home' => "عودة للصفحة الرئيسية",
         "completed_message" => "تم تعديل البيانات  بنجاح",
@@ -59,7 +64,7 @@ return [
 
 الحسابات البنكية
 مصرف الراجحي:
-*SA122000010006080398991*
+*SA7280000122608010398991*
 
 
 يرجى السداد قبل
@@ -115,7 +120,7 @@ Dear Customer :CUSTOMER_NAME
         'bank_account_has_been_created' => "تمت عملية اضافة الحساب البنكي",
         'invalid_otp' => 'رمز التاكيد غير صحيح ',
         "invalid_activity" => "رابط غير صحيح",
-        "invalid_activity_message" => "تحاول الولوج لصفحة غير سلمية"
+        "invalid_activity_message" => "تحاول الولوج لصفحة غير سليمة"
     ],
 
     "order" => [

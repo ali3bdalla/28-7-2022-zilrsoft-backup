@@ -17,6 +17,11 @@ return [
         "search_in" => "Search In",
         "customer_support" => "Customer Service",
         "update" => "Update",
+        "select_bank" => "Select Bank",
+        "select_account" => "Select Account",
+        'create_new_account' => 'Add Account',
+        'select_or_create_account' => 'Select/Add Account',
+
         "back" => "Back",
         "save" => "Save",
         'back_to_home' => "Back to home",
@@ -63,7 +68,7 @@ Amount: *:AMOUNT*
 
 Banks Accounts:
 Rajhi Bank:   
-    *SA122000010006080398991*
+    *SA7280000122608010398991*
     
 Deadline for Payment 
     *:DEADLINE_DATE*
