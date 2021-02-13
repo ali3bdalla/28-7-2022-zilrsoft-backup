@@ -40,7 +40,7 @@ return [
         'send' => "إرسال",
     ],
     "header" => [
-        "search_placeholder" => "ابحث عن المنتجات",
+        "search_placeholder" => "ابحث هنا",
         "categories" => 'الفئات',
         'home' => "الرئيسية",
         // here
@@ -198,6 +198,8 @@ https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
         "information" => 'من نحن'
     ],
     "profile" => [
+        "profile" => "لوحة التحكم",
+        "logout" => "تسجيل خروج",
 
         "new_customer" => "عميل جديد",
         "exists_customer" => "لدي حساب ",

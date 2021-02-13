@@ -148,7 +148,8 @@ Receipt code :CODE
 
     ],
     "profile" => [
-
+        "profile" => "Control Panel",
+        "logout" => "Log Out",
         "new_customer" => "New Customer",
         "exists_customer" => "Have account",
         "login" => "Login",

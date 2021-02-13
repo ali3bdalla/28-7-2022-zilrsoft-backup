@@ -88,10 +88,10 @@
               <div class="col-lg-3">
                 <div class="footer-widget">
                   <ul>
-                    <li>
-                      <a href="https://maps.app.goo.gl/ZwuXJRrZkMhYt5wY6" target="_blank">
+                    <li class="text-center flex items-center justify-center">
+                      <a href="https://maps.app.goo.gl/ZwuXJRrZkMhYt5wY6" class="text-center flex items-center justify-center" target="_blank">
                         <img
-                        :src="$asset('web_assets/template/img/our-location.png')"
+                        :src="$asset('web_assets/template/img/our-location.png')" class="object-cover"
                         alt=""
                       />
                       </a>
@@ -146,8 +146,7 @@
                     </li>
                     <li style="" class="flex items-center justify-center mt-2">
                       <img
-                        :src="$asset('web_assets/template/img/payment-method.png')" alt=""
-                      />
+                        :src="$asset('web_assets/template/img/payment-method.png')" alt=""/>
                     </li>
                   </ul>
                 </div>
