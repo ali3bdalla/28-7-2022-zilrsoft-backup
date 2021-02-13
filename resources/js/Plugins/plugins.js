@@ -23,7 +23,10 @@ import {
   Checkbox,
   Slider,
   Switch,
-  Tag
+  Tag,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 const currency = require('./Currency')
@@ -37,6 +40,9 @@ Vue.use(Button)
 Vue.use(Tabs)
 Vue.use(TabPane)
 Vue.use(TableColumn)
+Vue.use(Dropdown)
+Vue.use(DropdownItem)
+Vue.use(DropdownMenu)
 Vue.use(Table)
 Vue.use(Option)
 Vue.use(Select)

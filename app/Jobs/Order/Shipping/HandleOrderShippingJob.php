@@ -4,6 +4,7 @@ namespace App\Jobs\Order\Shipping;
 
 use App\Jobs\Order\NotifyCustomerOrderHasBeenShippedJob;
 use App\Jobs\Sales\Expense\CreatePurchaseInvoiceForExpensesJob;
+use App\Jobs\Shipping\CreateShippingSalesInvoiceJob;
 use App\Models\DeliveryMan;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
@@ -44,6 +45,7 @@ class HandleOrderShippingJob implements ShouldQueue
 
 
         NotifyCustomerOrderHasBeenShippedJob::dispatchNow($this->order);
+
         // to create shipping item
 
         // $item = $this->deliveryMan->shippingMethod->item;

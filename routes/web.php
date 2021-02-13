@@ -7,10 +7,7 @@ use App\Http\Middleware\ImagesUploadMiddleware;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Mail\TestMail;
-
-
-
-
+use Illuminate\Support\Facades\Auth;
 
 Route::group(['prefix' => 'delivery_man'],function() {
     Route::get('/confirm/{hash}', 'DeliveryManController@confirm');
@@ -96,6 +93,10 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
 
         Route::middleware('auth:client')->group(
             function () {
+                Route::get('logout',function() {
+                    auth('client')->logout();
+                    return back();
+                });
                 Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'name' => 'profile.'], function () {
                     Route::get('/', 'IndexController@index');
                     Route::get('create-shipping-address', 'ShippingAddressController@create');

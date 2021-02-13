@@ -14,16 +14,17 @@ class CreateShippingSalesInvoiceJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $shippingTransaction,$user;
+    private $shippingTransaction,$user,$amount;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct( User $user,ShippingTransaction $shippingTransaction)
+    public function __construct( User $user,ShippingTransaction $shippingTransaction,$amount = 0)
     {
         $this->shippingTransaction = $shippingTransaction;
         $this->user = $user;
+        $this->amount = $amount;
     }
 
     /**
@@ -39,7 +40,7 @@ class CreateShippingSalesInvoiceJob implements ShouldQueue
 
             
             $item->qty = 1;
-            $item->price = $this->shippingTransaction->sales_amount;
+            $item->price = $this->amount;
             $item->discount = 0;
             CreateSalesJob::dispatchNow($this->user->id,[$item->toArray()],[],auth()->user(),"",false,"");
             

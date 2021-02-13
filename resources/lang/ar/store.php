@@ -40,7 +40,7 @@ return [
         'send' => "إرسال",
     ],
     "header" => [
-        "search_placeholder" => "ابحث عن المنتجات",
+        "search_placeholder" => "ابحث هنا",
         "categories" => 'الفئات',
         'home' => "الرئيسية",
         // here
@@ -78,18 +78,18 @@ return [
 :CANCEL_URL
 ",
         "order_payment_confirmed" => "
-مرحبا :CUSTOMER_NAME
+مرحبا*:CUSTOMER_NAME*
 تم استلام سداد الطلب #:ORDER_ID بنجاح
 ",
         "invalid_order_payment" => "
-مرحبا :CUSTOMER_NAME
+مرحبا*:CUSTOMER_NAME*
 نأسف، عملية السداد للطلب رقم #:ORDER_ID غير صالحة
 لمزيد من المعلومات يمكنك التواصل مع خدمة العملاء عبر الرابط التالي
 https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
 ",
 
         "order_shipped_with_shipping_method" => "
-مرحبا :CUSTOMER_NAME
+مرحبا*:CUSTOMER_NAME*
 تم شحن طلبك #:ORDER_ID عبر :SHIPPING_METHOD 
 رقم التتبع 
 :TRACKING_NUMBER
@@ -97,7 +97,7 @@ https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
 :TRACKING_URL
 ",
         "order_shipped_with_deivery_man" => "
-Dear Customer :CUSTOMER_NAME
+مرحبا *:CUSTOMER_NAME*
 تم شحن طلبك #:ORDER_ID مع مندوب التوصيل
 :DELIVERY_MAN
 :DELIVERY_MAN_NUMBER
@@ -198,6 +198,8 @@ Dear Customer :CUSTOMER_NAME
         "information" => 'من نحن'
     ],
     "profile" => [
+        "profile" => "لوحة التحكم",
+        "logout" => "تسجيل خروج",
 
         "new_customer" => "عميل جديد",
         "exists_customer" => "لدي حساب ",
