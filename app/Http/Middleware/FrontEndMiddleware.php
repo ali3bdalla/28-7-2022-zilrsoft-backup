@@ -80,7 +80,7 @@ class FrontEndMiddleware
 			$category = Category::where('id', $request->input('category_id'))->first();
 			if ($category) {
 				$result[] = $category->locale_name;
-				$categories = Category::find($category->getChildrenIncludeMe());
+				$categories = Category::find($category->getChildrenHashMap());
 				foreach ($categories as $key => $sub) {
 					$result[] = $sub->locale_name;
 				}
