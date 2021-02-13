@@ -153,8 +153,6 @@ class ShippingController extends Controller
             else
             {
                 $data['tracking_number'] = uniqid();
-                if($order)
-                    NotifyCustomerOrderHasBeenShippedJob::dispatchNow($order);
             }
 
             ShippingTransaction::create($data);
@@ -165,9 +163,6 @@ class ShippingController extends Controller
             }
         }
 
-       
-        // if($order)
-        //     NotifyCustomerOrderHasBeenShippedJob::dispatchNow($order);
 
 
         return redirect(route('store.shipping.view_transactions', $shipping->id));
