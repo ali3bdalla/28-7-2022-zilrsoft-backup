@@ -58,9 +58,11 @@
 				[
 					'bank_id' => 'required|integer|exists:banks,id',
 					'detail' => 'required|string',
+					'first_name' => 'required|string',
+					'last_name' => 'required|string',
 				]
 			);
-			$data = $request->only('bank_id', 'detail');
+			$data = $request->only('bank_id', 'detail','first_name', 'last_name');
 			$data['organization_id'] = 1;
 			$data['creator_id'] = 1;
 			$data['user_id'] = $userId;

@@ -36,7 +36,7 @@
                     'code' => $request->input('code'),
                     'order' => $order,
                     'banks' => Bank::all(),
-                    'receivedBanks' => Bank::where('account_id', '!=', null)->get(),
+                    'receivedBank' => Bank::where('account_id', '!=', null)->first(),
                 ]
             );
         }

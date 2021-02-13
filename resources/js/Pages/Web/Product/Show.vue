@@ -25,7 +25,6 @@
                 {{ $page.$t.products.model }} : {{ modelNumber }}
               </h1>
               <div class="page__mt-2">
-
                 <div>
                   <h4 class="product__show__details-price">
                     {{ parseFloat($page.item.online_offer_price).toFixed(2) }}
@@ -39,10 +38,17 @@
                 </p>
                 <!--            text-xl text-web-primary font-bold-->
                 <div class="product__show__details-actions">
-                  <ToggleCartItemButtonComponent
+                    <ToggleCartItemButtonComponent
                     :item="$page.item"
                     class="page__mt-2"
                   ></ToggleCartItemButtonComponent>
+
+                  <div class="text-center flex items-center justify-center mt-2 md:hidden">
+                    <a :href="`whatsapp://send?text=${$page.item.locale_name}+${$page.itemUrl}`" data-action="share/whatsapp/share">
+                      <img class="w-8 h-8" src="https://pcdn.sharethis.com/wp-content/uploads/2017/05/WhatsApp.png"/>
+                    </a>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -67,7 +73,7 @@
                     <td
                       class="product__show__details-specification-table-title-cell"
                     >
-                       {{ filter.filter ?  filter.filter.locale_name : ""}}
+                      {{ filter.filter ? filter.filter.locale_name : "" }}
                     </td>
                     <td
                       class="product__show__details-specification-table-value-cell"
@@ -77,17 +83,32 @@
                   </tr>
 
                   <tr class="product__show__details-specification-table-raw">
-                  <td
-                    class="product__show__details-specification-table-title-cell"
+                    <td
+                      class="product__show__details-specification-table-title-cell"
+                    >
+                      {{ $page.$t.products.barcode }}
+                    </td>
+                    <td
+                      class="product__show__details-specification-table-value-cell"
+                    >
+                      {{ $page.item.barcode }}
+                    </td>
+                  </tr>
+                  <tr
+                    class="product__show__details-specification-table-raw"
+                    v-if="$page.item.warranty_subscription"
                   >
-                    {{ $page.$t.products.barcode }}
-                  </td>
-                  <td
-                    class="product__show__details-specification-table-value-cell"
-                  >
-                    {{ $page.item.barcode }}
-                  </td>
-                </tr>
+                    <td
+                      class="product__show__details-specification-table-title-cell"
+                    >
+                      {{ $page.$t.products.warranty_subscription }}
+                    </td>
+                    <td
+                      class="product__show__details-specification-table-value-cell"
+                    >
+                      {{ $page.item.warranty_subscription.locale_name }}
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -95,12 +116,30 @@
 
           <div class="product product__show__image-container">
             <div class="p-3 border" style="border-color: #d2e8ff !important">
-              <div :height="326 * 5" :style="{minHeight:326 * 5}" style="    min-height: 469px !important; max-height: 469px !important;height: 469px !important;" class="flex items-center justify-center">
-                <img class="product__show__image" :src="$processedImageUrl(activeImage,1000,1000)" :height="469"/>
+              <div
+                :height="326 * 5"
+                :style="{ minHeight: 326 * 5 }"
+                style="
+                  min-height: 469px !important;
+                  max-height: 469px !important;
+                  height: 469px !important;
+                "
+                class="flex items-center justify-center"
+              >
+                <img
+                  class="product__show__image"
+                  :src="$processedImageUrl(activeImage, 1000, 1000)"
+                  :height="469"
+                />
               </div>
               <div
                 class="border product__show__images-grid"
-                style="border-color: #d2e8ff !important;min-height: 112px !important; max-height: 112px !important;height: 112px !important;"
+                style="
+                  border-color: #d2e8ff !important;
+                  min-height: 112px !important;
+                  max-height: 112px !important;
+                  height: 112px !important;
+                "
               >
                 <div
                   v-for="image in $page.item.attachments"
@@ -113,7 +152,7 @@
                       'product__show__images-active-image':
                         activeImage === image.url,
                     }"
-                    :src="$processedImageUrl(image.url,70 * 2,92  * 2)"
+                    :src="$processedImageUrl(image.url, 70 * 2, 92 * 2)"
                     class="product__show__images-grid-image"
                   />
                 </div>
@@ -124,14 +163,14 @@
 
         <div class="page__mt-2">
           <div
-            class="specification-table product__show__details-specification-table-container product__show__details-specification-table-container__pc"
+            class="specification-table product__show__details-specification-table-container product__show__details-specification-table-container__pc mb-3"
           >
             <table class="product__show__details-specification-table">
               <tbody>
                 <tr class="product__show__details-specification-table-raw">
                   <td
                     colspan="2"
-                    class=" product__show__details-specification-table-title-cell product__show__details-specification-title"
+                    class="product__show__details-specification-table-title-cell product__show__details-specification-title"
                   >
                     {{ $page.$t.products.product_specifications }}
                   </td>
@@ -144,7 +183,7 @@
                   <td
                     class="product__show__details-specification-table-title-cell"
                   >
-                    {{ filter.filter ?  filter.filter.locale_name : ""}}
+                    {{ filter.filter ? filter.filter.locale_name : "" }}
                   </td>
                   <td
                     class="product__show__details-specification-table-value-cell"
@@ -164,18 +203,33 @@
                     {{ $page.item.barcode }}
                   </td>
                 </tr>
+
+                <tr
+                  class="product__show__details-specification-table-raw"
+                  v-if="$page.item.warranty_subscription"
+                >
+                  <td
+                    class="product__show__details-specification-table-title-cell"
+                  >
+                    {{ $page.$t.products.warranty_subscription }}
+                  </td>
+                  <td
+                    class="product__show__details-specification-table-value-cell"
+                  >
+                    {{ $page.item.warranty_subscription.locale_name }}
+                  </td>
+                </tr>
               </tbody>
             </table>
-
           </div>
           <div
             class="specification-table product__show__details-specification-table-container"
           >
-            <table class=" product__show__details-specification-table">
+            <table class="product__show__details-specification-table">
               <tbody>
                 <tr class="product__show__details-specification-table-raw">
                   <td
-                    class=" product__show__details-specification-table-title-cell product__show__details-specification-title"
+                    class="product__show__details-specification-table-title-cell product__show__details-specification-title"
                   >
                     {{ $page.$t.products.description }}
                   </td>
@@ -183,7 +237,7 @@
 
                 <tr class="product__show__details-specification-table-raw">
                   <td
-                    class=" product__show__details-specification-table-value-cell"
+                    class="product__show__details-specification-table-value-cell"
                   >
                     {{ $page.item.locale_description }}
                   </td>
@@ -191,32 +245,37 @@
               </tbody>
             </table>
           </div>
-
         </div>
-<div
-            class="mt-2 bg-white p-3"
-          >
+        <div class="mt-2 bg-white p-3">
           <div class="filter-widget pb-0 mb-0">
-            <h4 class="fw-title">{{$page.$t.products.tags}}</h4>
+            <h4 class="fw-title">{{ $page.$t.products.tags }}</h4>
             <div class="fw-tags">
-
-              <inertia-link :href="'/web/items?search_via=tag&&name=' + tag.tag" style="background-color: rgb(249, 249, 249);" v-for="tag in $page.item.tags" :key="tag.id">{{tag.tag}}</inertia-link>
-
-            </div>
+              <inertia-link
+                :href="'/web/items?search_via=tag&&name=' + tag.tag"
+                style="background-color: rgb(249, 249, 249)"
+                v-for="tag in $page.item.tags"
+                :key="tag.id"
+                >{{ tag.tag }}</inertia-link
+              >
             </div>
           </div>
+        </div>
         <div
           class="product__related-products-area"
           style="border-color: #d2e8ff !important"
         >
           <!-- منتجات ذات صلة -->
-          <h3 class="page__mt-2 home__products-count" style="
-            background: #86bbf7;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            font-size: 22px;
-            color: white;
-            border-radius: 5px;">
+          <h3
+            class="page__mt-2 home__products-count"
+            style="
+              background: #86bbf7;
+              padding-top: 5px;
+              padding-bottom: 5px;
+              font-size: 22px;
+              color: white;
+              border-radius: 5px;
+            "
+          >
             {{ $page.$t.products.related_products }}
           </h3>
 
@@ -241,7 +300,6 @@
               ></ProductListItemComponent>
             </div>
           </vue-horizontal>
-
         </div>
       </div>
     </div>
@@ -269,16 +327,25 @@ export default {
   computed: {
     productName () {
       const modelNumber = this.modelNumber
-      if (modelNumber != '') { return this.$page.item.locale_name.replace(modelNumber, '') }
+      if (modelNumber != '') {
+        return this.$page.item.locale_name.replace(modelNumber, '')
+      }
 
       return this.$page.item.locale_name
     },
     modelNumber () {
-      const modelNumber = this.$page.item.filters.find((p) => p.filter_id == 38)
+      const modelNumber = this.$page.item.filters.find(
+        (p) => p.filter_id == 38
+      )
 
-      if (modelNumber && modelNumber.value) return modelNumber.value.locale_name
+      if (modelNumber && modelNumber.value) {
+        return modelNumber.value.locale_name
+      }
       return ''
     }
+  },
+  created () {
+    document.title = this.$page.item.locale_name
   },
   methods: {
     changeActiveImage (url) {

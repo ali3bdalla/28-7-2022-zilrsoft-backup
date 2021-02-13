@@ -12,7 +12,15 @@ return [
     ],
 
     "common" => [
+        "downlod" => "Download",
+        "search_in_all_products" => "Search in all products",
+        "search_in" => "Search In",
         "customer_support" => "Customer Service",
+        "update" => "Update",
+        "select_bank" => "Select Bank",
+        "select_account" => "Select Account",
+        'create_new_account' => 'Add Account',
+        'select_or_create_account' => 'Select/Add Account',
 
         "back" => "Back",
         "save" => "Save",
@@ -59,13 +67,9 @@ Order: *:ORDER_ID*
 Amount: *:AMOUNT*
 
 Banks Accounts:
-Rajhi:   
-    *38238258237951*
-Alahli:  
-    *54564646546546*
-Albilad:
-    *23749823749873*
-
+Rajhi Bank:   
+    *SA7280000122608010398991*
+    
 Deadline for Payment 
     *:DEADLINE_DATE*
     *:DEADLINE_TIME*
@@ -221,6 +225,29 @@ Receipt code :CODE
 
 
     "order" => [
+        "statuses" => [
+            'issued' => 'Issued',
+            'pending' => 'Pending',
+            'paid'=> 'Paid',
+            'in_progress'=> 'In Progress',
+            'ready_for_shipping'=> 'Ready For Shipping',
+            'shipped'=> 'Shipped',
+            'delivered'=> 'Delivered',
+            'canceled'=> 'Canceled',
+            'returned'=> 'Returned'
+        ],
+        "pdf" => "Invoice",
+
+        "id" => "Id",
+        "amount" => "Amount",
+        "payment_method" => "Payment Method",
+        "tracking_number" => "Tracking number",
+        "shipping_method" => "Shipping method",
+        "created_at" => "Created at",
+        "status" => "Status",
+
+
+        "no_order" => "No Orders",
         "cancel" => "Cancel Order",
         "sales_invoice" => "Sales Invoice",
         "vatId"=> 'VAT NO.',
@@ -255,6 +282,7 @@ Receipt code :CODE
 
     ],
       'products' => [
+          "warranty_subscription" => "Warranty",
           "all_of_them" => "All",
           "inc" => "Including VAT",
         'subcategories' => 'Sub Categories',
@@ -272,6 +300,7 @@ Receipt code :CODE
         'product_specifications' => 'Product Specifications',
         'out_of_stock' => 'Out Of Stock',
         'sar' => 'SR',
+        "kg" => "K.G",
         "name" => "Product Name",
         "quantity" => "QTY",
         "price" => "Price",

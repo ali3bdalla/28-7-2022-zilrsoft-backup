@@ -43,17 +43,17 @@
 
 <script>
 export default {
-  props: ["item"],
+  props: ['item'],
 
   methods: {
-    addItem() {
-      this.$store.commit("addToCart", { item: this.item, quantity: 1 });
+    addItem () {
+      this.$store.commit('addToCart', { item: this.item, quantity: 1 })
     },
-    removeItem() {
-      this.$store.commit("removeFromCart", this.item);
-    },
-  },
-};
+    removeItem () {
+      this.$store.commit('removeFromCart', this.item)
+    }
+  }
+}
 </script>
 
 <style>

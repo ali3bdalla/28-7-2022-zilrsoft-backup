@@ -6,8 +6,15 @@ return [
         "name" => 'متجر المسبار'
     ],
     "common" => [
+        "download" => "تحميل",
+        "search_in_all_products" => "البحث في كل المنتجات",
         "customer_support" => "خدمة العملاء",
         "back" => "الخلف",
+        "select_bank" => "اختر البنك",
+        "select_account" => "اختر حساب",
+        'create_new_account' => 'اضافة حساب',
+        'select_or_create_account' => 'اختر او اضف حساب',
+
         "save" => "حفظ",
         'back_to_home' => "عودة للصفحة الرئيسية",
         "completed_message" => "تم تعديل البيانات  بنجاح",
@@ -22,6 +29,8 @@ return [
         'verification_code' => 'رمز التحقق:',
         "contact_us" => "تواصل معنا",
         "keep_message" => "راسلنا",
+        "update" => "تعديل",
+        "search_in" => "البحث في"
 
     ],
     "contact" => [
@@ -36,16 +45,17 @@ return [
         'home' => "الرئيسية",
         // here
     ],
-
+    // البلاد:
+    // *54564646546546*
     'messages' => [
 
         "notify_unpaid_order_message" =>
-            "تذكير..\n سوف تنتهي مهلة سداد الطلب رقم (:ORDERID) قريبا \n يرجى السداد قبل \n:DATE\n:TIME",
+        "تذكير..\n سوف تنتهي مهلة سداد الطلب رقم (:ORDERID) قريبا \n يرجى السداد قبل \n:DATE\n:TIME",
         'as_your_request' => "1- بناء على طلبك",
         'not_paid' => "1- إنتهاء مهلة السداد",
         "unpaid_order_canceled_message" =>
-            "مرحبا :CUSTOMER_NAME,\n نأسف، طلبك رقم (:ORDERID) تم الغاءه \n\n سبب الإلغاء:\n:REASON .  ",
-//        "notify_customer_by_new_order_message" => "مرحبا *:CUSTOMER_NAME*\nشكرا لتسوقك من *متجر المسبار*\nرقم الطلب: *:ORDER_ID*\nالمبلغ: *:AMOUNT*\nالحسابات البنكية:\n\n\tالراجحي:  \n *38238258237951*\n\tالبلاد:  \n*54564646546546*\n\t23749823749873*\nيرجى السداد قبل :DEADLINE\nبعد السداد، فضلا أنقر على الرابط التالي\n:PAYMENT_URL\nلإلغاء الطلب، أنقر على الرابط التالي :\n\n:CANCEL_URL",
+        "مرحبا :CUSTOMER_NAME,\n نأسف، طلبك رقم (:ORDERID) تم الغاءه \n\n سبب الإلغاء:\n:REASON .  ",
+        //        "notify_customer_by_new_order_message" => "مرحبا *:CUSTOMER_NAME*\nشكرا لتسوقك من *متجر المسبار*\nرقم الطلب: *:ORDER_ID*\nالمبلغ: *:AMOUNT*\nالحسابات البنكية:\n\n\tالراجحي:  \n *38238258237951*\n\tالبلاد:  \n*54564646546546*\n\t23749823749873*\nيرجى السداد قبل :DEADLINE\nبعد السداد، فضلا أنقر على الرابط التالي\n:PAYMENT_URL\nلإلغاء الطلب، أنقر على الرابط التالي :\n\n:CANCEL_URL",
         "notify_customer_by_new_order_message" => "
 مرحبا *:CUSTOMER_NAME*
 شكرا لتسوقك من *متجر المسبار*
@@ -53,10 +63,9 @@ return [
 المبلغ: *:AMOUNT*
 
 الحسابات البنكية
-الراجحي:
-*38238258237951*
-البلاد:
-*54564646546546*
+مصرف الراجحي:
+*SA7280000122608010398991*
+
 
 يرجى السداد قبل
 *:DEADLINE_DATE*
@@ -68,18 +77,18 @@ return [
 لإلغاء الطلب، أنقر على الرابط التالي
 :CANCEL_URL
 ",
-"order_payment_confirmed" => "
+        "order_payment_confirmed" => "
 مرحبا :CUSTOMER_NAME
 تم استلام سداد الطلب #:ORDER_ID بنجاح
 ",
-"invalid_order_payment" => "
+        "invalid_order_payment" => "
 مرحبا :CUSTOMER_NAME
 نأسف، عملية السداد للطلب رقم #:ORDER_ID غير صالحة
 لمزيد من المعلومات يمكنك التواصل مع خدمة العملاء عبر الرابط التالي
 https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
 ",
 
-"order_shipped_with_shipping_method" => "
+        "order_shipped_with_shipping_method" => "
 مرحبا :CUSTOMER_NAME
 تم شحن طلبك #:ORDER_ID عبر :SHIPPING_METHOD 
 رقم التتبع 
@@ -87,21 +96,20 @@ https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
 رابط التتبع
 :TRACKING_URL
 ",
-"order_shipped_with_deivery_man" => "
+        "order_shipped_with_deivery_man" => "
 Dear Customer :CUSTOMER_NAME
 تم شحن طلبك #:ORDER_ID مع مندوب التوصيل
 :DELIVERY_MAN
 :DELIVERY_MAN_NUMBER
 كود  التسليم :CODE
 ",
-"order_ready_to_pick_up_from_store" => "
+        "order_ready_to_pick_up_from_store" => "
 مرحبا :CUSTOMER_NAME
 طلبك #:ORDER_ID جاهز للإستلام
 كود الإستلام :CODE
-"
-,
+",
         "success" => "نجاح",
-        "select_city" =>"اختر المدينة",
+        "select_city" => "اختر المدينة",
         "profile_information_updated" => "تم تعديل بيانات الملف الشخصي بنجاح",
         "phone_number_has_been_changed" => " تم تغير رقم الجوال بنجاح",
         "password_has_been_changed" => "تم تغير كلمة المرور بنجاح",
@@ -112,13 +120,34 @@ Dear Customer :CUSTOMER_NAME
         'bank_account_has_been_created' => "تمت عملية اضافة الحساب البنكي",
         'invalid_otp' => 'رمز التاكيد غير صحيح ',
         "invalid_activity" => "رابط غير صحيح",
-        "invalid_activity_message" => "تحاول الولوج لصفحة غير سلمية"
+        "invalid_activity_message" => "تحاول الولوج لصفحة غير سليمة"
     ],
 
     "order" => [
+        "statuses" => [
+            'issued' => 'جديد',
+            'pending' => 'معلق',
+            'paid'=> 'تم السداد',
+            'in_progress'=> 'تحت الاجراء',
+            'ready_for_shipping'=> 'جاهز للشحن',
+            'shipped'=> 'تم الشحن',
+            'delivered'=> 'تم التسليم',
+            'canceled'=> 'ملغي',
+            'returned'=> 'مرتجع'
+        ],
+        "id" => "رقم الطلب",
+        "amount" => "المبلغ",
+        "payment_method" => "وسيلة الدفع",
+        "tracking_number" => "رقم التتبع",
+        "shipping_method" => "وسيلة الشحن",
+        "created_at" => "التاريخ",
+        "status" => "حالة الطلب",
+        "no_order" => "لاتوجد طلبات",
+        "pdf" => "الفاتورة",
+        
         "cancel" => "الغاء الطلب",
         "sales_invoice" => "فاتورة مبيعات",
-        "vatId"=> 'الرقم الضريبي',
+        "vatId" => 'الرقم الضريبي',
         "taxId" => 'السجل التجاري',
         "phone" => "الهاتف",
         "branch" => "الفرع",
@@ -138,8 +167,8 @@ Dear Customer :CUSTOMER_NAME
         "our_address_state" => 'القصيم',
         "draft" => "فاتورة مبدئية",
         "thanks_for_order" => "شكرا لك",
-        "created"=>"نجاح",
-        "instructions_for_payment" => "ستتلقى رسالة تحتوي على تفاصيل الدفع على رقم الجوال ",
+        "created" => "نجاح",
+        "instructions_for_payment" => "ستتلقى رسالة واتساب تحتوي على تفاصيل الدفع على رقم الجوال ",
         'payment_confirmation' => "تاكيد عملية الدفع",
         "order" => "الطلب",
         "remmning_time_to_auto_cancel_order" => "الوقت المتبقى حتى الالغاء التلقائي للطلب",
@@ -204,12 +233,12 @@ Dear Customer :CUSTOMER_NAME
         "address" => "العنوان",
         "zip" => "الرمز البريدي",
         "edit" => "تحرير",
-        "already_have_account"=>"هل لديك حساب مسبقا ؟",
+        "already_have_account" => "هل لديك حساب مسبقا ؟",
         "reset_password" => "تغيير كلمة المرور",
         'confirm_otp' => 'ادخل الرمز',
         "street_name" => "الشارع",
         "area" => "الحي",
-       "tel" => "الهاتف"
+        "tel" => "الهاتف"
 
     ],
     'cart' => [
@@ -244,6 +273,7 @@ Dear Customer :CUSTOMER_NAME
 
     ],
     'products' => [
+        'warranty_subscription' => "الضمان",
         "all_of_them" => "الكل",
         'inc' => 'شامل الضريبة',
         'subcategories' => 'الاقسام الفرعية',
@@ -261,6 +291,7 @@ Dear Customer :CUSTOMER_NAME
         'product_specifications' => 'مواصفات المنتج',
         'out_of_stock' => 'غير متوفر',
         'sar' => 'ر.س',
+        "kg" => "كيلو",
         "name" => "اسم المنتج",
         "quantity" => "الكمية",
         "price" => "السعر",
@@ -293,7 +324,7 @@ Dear Customer :CUSTOMER_NAME
         "agent_warrnaty" => "ضمان الوكيل",
         "new_arrival" => "وصل حديثاً",
 
-    ] ,
+    ],
     'content' => [
         'about_us_content' => '<h4 class="content__title">من نحن</h4>متجر المسبار هو موقع الكتروني مختص في بيع الأجهزة الالكترونية والرقمية الحديثة من قبيل الحواسيب والساعات الذكية، الهواتف وأيضا بعض المنتجات الرقمية كبطاقات شحن وأنظمة حماية وغيرها حيث يفتخر موقعنا بكونه رائدا وشاملا في هذا المجال بأثمنة جد تنافسية مقارنة بالمتاجر الأخرى في السوق.
         اكتسب متجر المسبار مند انطلاقته على ثقة كافة المستخدمين وذلك بفضل تميزه بتقديم متجر بأحدث المعايير التكنولوجية والبرمجية لتسهيل عرض المنتجات والوصول اليها وكذلك بفضل تقديم منتجات في غاية الجودة مع ضمان حق المشتري في حال أراد ارجاع او استبدال المنتج.        

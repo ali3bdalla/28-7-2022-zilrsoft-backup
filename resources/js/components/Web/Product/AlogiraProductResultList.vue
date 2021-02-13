@@ -12,7 +12,7 @@
          <ais-configure
           v-if="$page.categories_search_list.length  && $page.active_locale == 'en'"
           :disjunctive-facets-refinements.camel="{
-            category_en_name: $page.categories_search_list
+            category_name: $page.categories_search_list
           }"
         />
 
@@ -53,7 +53,7 @@
       </div>
     </div>
     <div
-      class="product__search-page mt-3 flex items-center gap-3 justify-center"
+      class="product__search-page mt-3 flex items-center gap-3 justify-center flex-wrap"
     >
       <ais-numeric-menu
         class="md:hidden"
@@ -96,7 +96,7 @@
           >
             <div class="flex-wrap flex items-center gap-3 justify-center">
               <div
-                class="flex items-center gap-2 justify-center"
+                class="flex items-center gap-2 justify-center  flex-wrap"
                 v-for="item in items"
                 :key="item.attribute"
               >
@@ -115,21 +115,25 @@
                   <el-tag
                     effect="dark"
                     closable
+                    @close="item.refine(refinement)"
                     v-if="refinement.attribute !== 'available_qty'"
                   >
                     {{ refinement.label }} ({{ refinement.count }})
                   </el-tag>
-                  <el-tag v-if="refinement.attribute == 'available_qty'" effect="dark" closable>
-                    {{ $page.$t.products.sorting_only_available }} ({{
-                      refinement.count
-                    }})
+                  <el-tag @close="item.refine(refinement)" v-if="refinement.attribute == 'available_qty'" effect="dark" closable>
+                    {{ $page.$t.products.sorting_only_available }}
                   </el-tag>
                 </inertia-link>
               </div>
 
               <ais-clear-refinements>
                 <span slot-scope="{ canRefine, refine, createURL }">
-                  <inertia-link v-if="canRefine" :href="createURL()">
+                  <inertia-link  v-if="$page.categories_search_list.length == 0 && canRefine" :href="createURL()">
+                    <el-tag effect="dark" type="danger">
+                      {{ $page.$t.products.remove_all }}
+                    </el-tag>
+                  </inertia-link>
+                  <inertia-link  v-else-if="canRefine" href="/web/items/search/results">
                     <el-tag effect="dark" type="danger">
                       {{ $page.$t.products.remove_all }}
                     </el-tag>

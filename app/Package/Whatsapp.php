@@ -17,7 +17,7 @@ class Whatsapp
         $appCustomerSupport = trans('store.common.customer_support');
         $data = [
             'query' => [
-                'body' => "$message\n\n$appCustomerSupport\nWa.me/065433\n$appName\n$appUrl",
+                'body' => "$message\n\n$appCustomerSupport\nhttps://tinyurl.com/2eol5vxz\n$appName\n$appUrl",
                 'phone' => $phoneNumber,
                 'token' => config('services.whatsapp.token')
             ]

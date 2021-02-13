@@ -3,6 +3,7 @@
 	namespace App\Models;
 
 use App\Models\Traits\Configurable;
+use Illuminate\Support\Facades\Storage;
 
 /**
 	 * @property mixed clients_chart_account_id
@@ -32,6 +33,14 @@ use App\Models\Traits\Configurable;
 			return 15;
 		}
 		
+		public function getLocalizedLogoAttribute()
+		{
+			if(app()->isLocale('ar'))
+				return url("images/logo_ar.png");
+
+			return url('images/logo_en.png');
+
+		}
 		public function country()
 		{
 			return $this->belongsTo(Country::class, 'country_id');

@@ -61,6 +61,11 @@ class Item extends BaseModel
 	];
 	protected $guarded = [];
 
+
+	public function warrantySubscription()
+	{
+		return $this->belongsTo(WarrantySubscription::class,'warranty_subscription_id');
+	}
     public function scopeAvailable($query)
     {
         return $query->where('available_qty','>',0);

@@ -6,16 +6,16 @@ margin-bottom: -10px;"></i>
       <span class="label label-danger">{{ notificationCount }}</span>
     </a>
     <div class="dropdown-menu notification__dropdown">
-      <OrderPendingPaymentConfirmationNotification @addNotification="addNotification"
+      <OrderPendingPaymentConfirmationNotification v-if="canManageManagers"  @addNotification="addNotification"
                                                    @removeNotification="removeNotification">
 
       </OrderPendingPaymentConfirmationNotification>
+      <OrderPaymentConfirmedNotification v-else @addNotification="addNotification"
+                                         @removeNotification="removeNotification">
+      </OrderPaymentConfirmedNotification>
       <TransactionIssuedNotification @addNotification="addNotification"
                                      @removeNotification="removeNotification">
       </TransactionIssuedNotification>
-      <OrderPaymentConfirmedNotification @addNotification="addNotification"
-                                         @removeNotification="removeNotification">
-      </OrderPaymentConfirmedNotification>
 
       <!--      <TransactionCanceledNotification @addNotification="addNotification"-->
       <!--                                       @removeNotification="removeNotification"></TransactionCanceledNotification>-->
@@ -42,6 +42,9 @@ export default {
     TransactionConfirmedNotification
   },
   props: {
+    canManageManagers: {
+      type: Boolean
+    },
     manager: {
       type: Object,
       required: true

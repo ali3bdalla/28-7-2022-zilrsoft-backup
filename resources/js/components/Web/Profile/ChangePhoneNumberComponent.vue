@@ -31,7 +31,7 @@
           </div>
           <div class="col-lg-12">
             <button type="submit" class="site-btn" @click="saveData">
-              {{ $page.$t.common.save }}
+              {{ $page.$t.common.update }}
             </button>
           </div>
         </div>
@@ -42,55 +42,54 @@
 
 <script>
 export default {
-  name: "ChangePhoneNumberComponent",
-  data() {
+  name: 'ChangePhoneNumberComponent',
+  data () {
     return {
       optSent: false,
-      otp: "",
-      errors: [],
-    };
+      otp: '',
+      errors: []
+    }
   },
   methods: {
-    saveData() {
+    saveData () {
       //
       // console.log('working')
       axios
-        .post("/web/profile/update-phone-number", {
+        .post('/web/profile/update-phone-number', {
           otp: this.otp,
-          phone_number: this.$page.user.phone_number,
+          phone_number: this.$page.user.phone_number
         })
         .then((res) => {
           if (!this.otp) {
-            this.optSent = true;
+            this.optSent = true
           } else {
             this.$fire({
               title: this.$page.$t.messages.success,
               text: this.$page.$t.messages.phone_number_has_been_changed,
-              type: "success",
-              timer: 3000,
+              type: 'success',
+              timer: 3000
             }).then((r) => {
-              console.log(r.value);
-            });
-            this.optSent = false;
-
+              console.log(r.value)
+            })
+            this.optSent = false
           }
-            this.errors = {};
+          this.errors = {}
         })
         .catch((err) => {
-          console.log(err.response.data.errors.phone_number);
+          console.log(err.response.data.errors.phone_number)
           if (err.response.data.errors.phone_number) {
             this.errors = {
-              phone_number: err.response.data.errors.phone_number,
-            };
+              phone_number: err.response.data.errors.phone_number
+            }
           }
 
           if (err.response.data.errors.otp) {
-            this.errors = { otp: err.response.data.errors.otp };
+            this.errors = { otp: err.response.data.errors.otp }
           }
 
           // this.errors =
           // err.response.data.errors.phone_number
-        });
+        })
       // this.$inertia.post('/web/profile/update-phone-number',{
       //   'otp' : this.otp,
       //   'phone_number' : this.$page.user.phone_number,
@@ -115,9 +114,9 @@ export default {
       //   },
       //   onFinish: () => {},
       // })
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style >

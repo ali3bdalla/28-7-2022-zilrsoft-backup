@@ -11,6 +11,7 @@ mix.sass('./resources/sass/main.scss', 'public/css/main.css').options({
 })
 mix.sass('resources/sass/store.scss', 'public/css/')
   .sass('resources/sass/rtl_store.scss', 'public/css/')
+  .sass('resources/sass/images.scss', 'public/css/')
   .options({
     processCssUrls: false,
     postCss: [tailwindcss('./tailwind.config.js')]

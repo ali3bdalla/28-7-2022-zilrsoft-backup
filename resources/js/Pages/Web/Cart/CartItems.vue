@@ -30,7 +30,7 @@
                 </div>
                 <div class="prod-img border p-2 w-32 mx-auto">
                   <img
-                    :src="item.item_image_url"
+                    :src="$processedImageUrl(item.item_image_url,90 * 5,90 * 5)"
                     class="w-full object-cover object-center h-20"
                   />
                 </div>
@@ -136,7 +136,7 @@
               />
             </td>
             <td class="text-center cart-pic first-row">
-              <img class="cart__item-image" :src="item.item_image_url" />
+              <img class="cart__item-image" :src="$processedImageUrl(item.item_image_url,90 * 5 , 90 * 5)" />
             </td>
             <td class="cart-title first-row" style="font-size: 15px !important">
               {{ getItemNamme(item) }}

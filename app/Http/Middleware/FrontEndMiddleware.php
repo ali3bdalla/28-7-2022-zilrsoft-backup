@@ -79,7 +79,7 @@ class FrontEndMiddleware
 		if ($request->has('category_id') && $request->filled('category_id') && is_int((int)$request->input('category_id'))) {
 			$category = Category::where('id', $request->input('category_id'))->first();
 			if ($category) {
-
+				$result[] = $category->locale_name;
 				$categories = Category::find($category->getChildrenIncludeMe());
 				foreach ($categories as $key => $sub) {
 					$result[] = $sub->locale_name;

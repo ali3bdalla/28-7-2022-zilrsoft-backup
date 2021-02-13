@@ -1,11 +1,13 @@
 <template>
   <web-layout>
-    <section class="shopping-cart spad cart" style="padding-top:0px !important">
+    <section
+      class="shopping-cart spad cart"
+      style="padding-top: 0px !important"
+    >
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
-
-            <cart-empty  v-if="!this.$store.state.cart.length"></cart-empty>
+            <cart-empty v-if="!this.$store.state.cart.length"></cart-empty>
             <CartItems
               :active-page="activePage"
               @orderItems="updateOrderItems"
@@ -33,13 +35,14 @@
                   >
                     <el-image
                       :class="{
-                        'cart__shipping-method-list-item-image__hidden': disableShippingMethod(shippingMethod),
+                        'cart__shipping-method-list-item-image__hidden': disableShippingMethod(
+                          shippingMethod
+                        ),
                       }"
                       :src="shippingMethod.logo"
                       class="cart__shipping-method-list-item-image"
                     ></el-image>
                     <el-radio
-
                       v-model="shippingMethodId"
                       :label="shippingMethod.id"
                       :disabled="disableShippingMethod(shippingMethod)"
@@ -103,6 +106,8 @@ import CartItems from './CartItems'
 import CartButton from './CartButton'
 import CartShippingAddress from './CartShippingAddress.vue'
 import CartEmpty from './CartEmpty'
+import { Inertia } from '@inertiajs/inertia'
+
 export default {
   name: 'Index',
   data () {
@@ -173,8 +178,16 @@ export default {
     sendOrder () {
       const items = this.orderItems
 
-      this.$confirm('', this.$page.$t.messages.are_you_sure, 'success', { confirmButtonText: this.$page.$t.messages.yes, cancelButtonText: this.$page.$t.messages.no }).then(() => {
+      this.$confirm('', this.$page.$t.messages.are_you_sure, 'success', {
+        confirmButtonText: this.$page.$t.messages.yes,
+        cancelButtonText: this.$page.$t.messages.no
+      }).then(() => {
         this.$loading.show({ delay: 0 })
+        Inertia.on('success', (event) => {
+          event.preventDefault()
+          console.log(`Successfully made a visit to ${event.detail.page.url}`)
+        })
+        this.$inertia.on('')
         this.$inertia.post(
           '/api/web/orders',
           {
@@ -188,7 +201,7 @@ export default {
             preserveState: (page) => Object.keys(page.props.errors).length,
             preserveScroll: (page) => Object.keys(page.props.errors).length,
             onSuccess: () => {
-              return Promise.all([this.alertUser()])
+              return Promise.all([this.removeCartItems(items), this.alertUser()])
             },
             onFinish: () => {
               this.$loading.hide()
@@ -197,16 +210,34 @@ export default {
         )
       })
     },
+    removeCartItems (items) {
+      return new Promise((resolve) => {
+        this.$store.state.cart.forEach((item) => {
+          const isOrdered = items.find(p => p.id === item.id)
+          if (isOrdered) { this.$store.commit('removeFromCart', item) }
+        })
+        resolve()
+      })
+    },
 
     alertUser () {
-      const number = `${this.$page.client.international_phone_number}`.replace('+', '')
+      const number = `${this.$page.client.international_phone_number}`.replace(
+        '+',
+        ''
+      )
+
       return new Promise((resolve, reject) => {
         this.$alert(
           `${this.$page.$t.order.instructions_for_payment} ${number}`,
           this.$page.$t.order.thanks_for_order,
           'success',
-          { confirmButtonText: this.$page.$t.messages.yes, cancelButtonText: this.$page.$t.messages.no }
-        )
+          {
+            confirmButtonText: this.$page.$t.messages.yes,
+            cancelButtonText: this.$page.$t.messages.no
+          }
+        ).then(() => {
+
+        })
         resolve()
       })
     }

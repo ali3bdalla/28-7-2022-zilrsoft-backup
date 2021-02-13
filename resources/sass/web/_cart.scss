@@ -42,8 +42,7 @@
   }
 
   &__total-amount {
-    @apply w-full  p-2 flex justify-center gap-2  font-bold my-2;
-    //bg-web-primary //text-white mb-3 border shadow-lg rounded
+    @apply w-full  p-2 flex flex-col justify-center gap-1  font-bold pb-1 text-center border-b border-gray-200;
   }
 
   &__shipping-address {
