@@ -90,19 +90,19 @@ deploy_dev:
 
 
 
-deploy_prod:
-  stage: deploy
-  script:
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+# deploy_prod:
+#   stage: deploy
+#   script:
+#     - eval $(ssh-agent -s)
+#     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+#     - mkdir -p ~/.ssh
+#     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
-    - ~/.composer/vendor/bin/envoy run deploy --environment=production --commit="$CI_COMMIT_SHA" --cleanup
-  environment:
-    name: deployer
-    url: https://zilrsoft.com 
-  when:  on_success
+#     - ~/.composer/vendor/bin/envoy run deploy --environment=production --commit="$CI_COMMIT_SHA" --cleanup
+#   environment:
+#     name: deployer
+#     url: https://zilrsoft.com 
+#   when:  on_success
   
-  only:
-    - master  
+#   only:
+#     - master  
