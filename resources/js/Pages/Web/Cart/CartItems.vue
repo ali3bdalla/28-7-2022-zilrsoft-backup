@@ -1,6 +1,6 @@
 <template>
   <div v-if="$store.state.cartCount >= 1">
-    <div class="md:hidden">
+    <div class="md:hidden mb-4">
       <div>
         <div class="container flex justify-center items-center md:hidden">
           <div class="mx-auto w-full">

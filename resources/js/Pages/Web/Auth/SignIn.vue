@@ -68,7 +68,7 @@
               <button
                 type="button"
                 @click="submitForm"
-                class="site-btn login-btn"
+                class="site-btn login-btn mt-3"
               >
                 {{ $page.$t.profile.login }}
               </button>
