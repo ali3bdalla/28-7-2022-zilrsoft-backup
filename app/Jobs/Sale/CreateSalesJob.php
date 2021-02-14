@@ -93,8 +93,11 @@ class CreateSalesJob implements ShouldQueue
         $paymentsMethods = $this->validatePaymentsAndGetPaymentMethods($invoice, $this->isOnlineOrder);
         dispatch_now(new StoreSalePaymentsJob($invoice, $paymentsMethods));
         dispatch_now(new StoreSaleTransactionsJob($invoice));
-        dispatch_now(new SetDraftAsConvertedJob($this->quatationId, $invoice->id));
+        if($this->quatationId !== "")
+        {
+            dispatch_now(new SetDraftAsConvertedJob($this->quatationId, $invoice->id));
         dispatch_now(new UpdateOnlineOrderStatus($this->quatationId, $invoice));
+        }
     }
 
 

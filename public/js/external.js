@@ -1924,12 +1924,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ConfirmTransctionDelivered',
   props: {
@@ -1947,27 +1941,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("/delivery_man/".concat(this.transaction.id, "/resend_otp")).then(function (res) {
-        _this.$alert('Done', 'Success', 'success').then(function (res) {// location.reload()
+        _this.$alert('تم اعادة ارسال الرمز', 'نجاح', 'success').then(function (res) {// location.reload()
         });
       });
     },
     showConfirmationCode: function showConfirmationCode() {
       var _this2 = this;
 
-      this.$prompt('Confirm Delivery Code', '', this.transaction.order_id).then(function (text) {
+      this.$prompt('ادخل رمز التسليم', '', "\u0631\u0642\u0645 \u0627\u0644\u0637\u0644\u0628 ".concat(this.transaction.order_id), {
+        confirmButtonText: 'تاكيد',
+        cancelButtonText: 'الغاء'
+      }).then(function (text) {
         if (text !== null) {
           axios.post("/delivery_man/confirm/".concat(_this2.deliveryMan.hash, "/").concat(_this2.transaction.order_id), {
             code: text
           }).then(function (res) {
             console.log(res.data);
 
-            _this2.$alert('order Delivered Successfully ', 'Success', 'success').then(function (res) {
+            _this2.$alert('تم تسليم الشحنة بنجاح ', 'نجاح', 'success').then(function (res) {
               location.reload();
             });
           })["catch"](function (error) {
             console.log(error.response);
 
-            _this2.$alert('Wrong Code', 'Error', 'error').then(function (res) {
+            _this2.$alert('الرمز المدخل غير صحيح', 'خطأ', 'error').then(function (res) {
               _this2.showConfirmationCode();
             });
           });
@@ -5387,39 +5384,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "button",
-      {
-        staticStyle: {
-          "background-color": "transparent",
-          border: "none",
-          color: "black"
-        },
-        attrs: { disabled: _vm.transaction.status != "shipped" },
-        on: { click: _vm.showConfirmationCode }
-      },
-      [
+  return _vm.transaction.status == "shipped"
+    ? _c("div", [
         _c(
-          "h2",
+          "button",
           {
-            style: [
-              _vm.transaction.status == "shipped"
-                ? "color: blue;cursor: pointer"
-                : "color:white"
-            ]
+            staticClass: "btn btn-success",
+            attrs: { disabled: _vm.transaction.status != "shipped" },
+            on: { click: _vm.showConfirmationCode }
           },
-          [_vm._v("\n      #" + _vm._s(_vm.transaction.order_id) + "\n    ")]
+          [
+            _vm._v(
+              "\n\n     تاكيد تسليم الطلب #" +
+                _vm._s(_vm.transaction.order_id) +
+                "\n\n  "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", on: { click: _vm.resendOtp } },
+          [_vm._v("اعادة ارسال")]
         )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      { staticClass: "btn btn-primary", on: { click: _vm.resendOtp } },
-      [_vm._v("resend")]
-    )
-  ])
+      ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true

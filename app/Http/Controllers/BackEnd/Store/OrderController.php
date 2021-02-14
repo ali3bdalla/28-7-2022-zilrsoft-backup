@@ -74,6 +74,7 @@ class OrderController extends Controller
 			]
 		);
 
-		return redirect('/sales/drafts/' . $order->draft_id . '/to_invoice');
+		return redirect('/sales/' . $order->draft_id );
+		// drafts// . '/to_invoice'
 	}
 }

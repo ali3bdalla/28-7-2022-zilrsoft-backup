@@ -40,7 +40,7 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
      * @param User $client
      * @param Invoice $invoice
      */
-    public function __construct(Order $order, $path,  Invoice $invoice)
+    public function __construct(Order $order, $path = "",  Invoice $invoice)
     {
         //
         $this->order = $order;
@@ -74,11 +74,11 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
                 $message,
                 $phoneNumber
             );
-            Whatsapp::sendFile(
-                Storage::url($this->path),
-                $phoneNumber,
-                $this->order->id . '.pdf'
-            );
+            // Whatsapp::sendFile(
+            //     Storage::url($this->path),
+            //     $phoneNumber,
+            //     $this->order->id . '.pdf'
+            // );
         }
     }
 }

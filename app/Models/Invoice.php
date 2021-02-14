@@ -45,6 +45,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 			
 		}
 		
+
+		public function getOrder()
+		{
+			return Order::where('invoice_id',$this->id)->first();
+		}
+		
 		
 		public function manager()
 		{

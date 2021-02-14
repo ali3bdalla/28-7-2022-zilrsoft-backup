@@ -114,7 +114,6 @@ class StoreSaleItemsJob implements ShouldQueue
              * =====================================
              */
             $this->storeItem($dbItem, $sendData);
-
         }
     }
 
@@ -180,7 +179,6 @@ class StoreSaleItemsJob implements ShouldQueue
                  * ==========================================================
                  */
                 $this->setCostAndAvailableQty($invoiceItem);
-
             }
 
             /**
@@ -189,9 +187,7 @@ class StoreSaleItemsJob implements ShouldQueue
              * ==========================================================
              */
             dispatch_now(new UpdateItemProfitByInvoiceItem($invoiceItem));
-
         }
-
     }
 
     public function createOnlineOrderItem(Item $item, $requestItemCollection)
@@ -224,7 +220,6 @@ class StoreSaleItemsJob implements ShouldQueue
         $data['item_id'] = $item->id;
         $data['is_draft'] = $this->isDraft;
         return $this->performDBCreation($data);
-
     }
 
     private function performDBCreation($data = []): \Illuminate\Database\Eloquent\Model
@@ -237,11 +232,11 @@ class StoreSaleItemsJob implements ShouldQueue
 
         $isBelongToKit = (bool)$requestItemCollection->get('belong_to_kit');
         $parentKitId = (int)$requestItemCollection->get('parent_kit_id');
-        if (!$isBelongToKit && $item->is_fixed_price) {
-            $price = (float)$item->price;
-        } else {
-            $price = (float)$requestItemCollection->get('price');
-        }
+        // if (!$isBelongToKit && $item->is_fixed_price) {
+        //     $price = (float)$item->price;
+        // } else {
+        $price = (float)$requestItemCollection->get('price');
+        // }
 
         $discount = (float)$requestItemCollection->get('discount');
         $qty = (int)$requestItemCollection->get('qty'); // 10
@@ -265,8 +260,6 @@ class StoreSaleItemsJob implements ShouldQueue
         $data['item_id'] = $item->id;
         $data['is_draft'] = $this->isDraft;
         return $this->performDBCreation($data);
-
-
     }
 
     private function setCostAndAvailableQty(InvoiceItems $invoiceItem)

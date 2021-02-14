@@ -6,7 +6,7 @@
 
 
 @section("content")
-    <accounting-orders-datatable-component></accounting-orders-datatable-component>
+    <accounting-orders-datatable-component :store-translations='@json(__('store.order'))'></accounting-orders-datatable-component>
 {{--    <online-orders-table></online-orders-table>--}}
 @endsection
 

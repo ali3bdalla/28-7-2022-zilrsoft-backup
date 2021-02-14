@@ -13,25 +13,26 @@
               @orderItems="updateOrderItems"
             />
           </div>
-          <div v-if="$page.client">
-            <div class="col-lg-12">
+          <div v-if="$page.client" class="col-12">
+            <div class="w-full">
               <cart-shipping-address
                 v-if="activePage === 'checkout'"
                 :shippingAddressId="shippingAddressId"
                 @updateShippingId="updateShippingId"
               />
             </div>
-
-            <div v-if="activePage == 'checkout'">
-              <div class="page__mt-5 col-lg-12">
+          </div>
+          <div v-if="activePage == 'checkout' && shippingAddress">
+            <div class="page__mt-5 col-lg-12  ">
                 <h1 class="cart__shipping-method-title">
                   {{ $page.$t.cart.shipping_method }}
                 </h1>
                 <div class="cart__shipping-method-list">
                   <div
-                    class="cart__shipping-method-list-item"
+                    class="cart__shipping-method-list-item bg-white"
                     v-for="shippingMethod in $page.shippingMethods"
                     :key="shippingMethod.id"
+                    v-if="!disableShippingMethod(shippingMethod)"
                   >
                     <el-image
                       :class="{
@@ -52,7 +53,7 @@
                 </div>
               </div>
 
-              <div class="page__mt-5 col-lg-12">
+            <!-- <div class="page__mt-5 col-lg-12">
                 <h1 class="page__mt-2 home__products-count">
                   {{ $page.$t.cart.payment_method }}
                 </h1>
@@ -79,8 +80,7 @@
                     </el-radio>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div> -->
           </div>
           <div class="cart__checkout">
             <div class="proceed-checkout">
@@ -106,7 +106,6 @@ import CartItems from './CartItems'
 import CartButton from './CartButton'
 import CartShippingAddress from './CartShippingAddress.vue'
 import CartEmpty from './CartEmpty'
-import { Inertia } from '@inertiajs/inertia'
 
 export default {
   name: 'Index',
@@ -115,7 +114,7 @@ export default {
       activePage: 'cart',
       orderItems: [],
       shippingMethodId: 0,
-      paymentMethodId: 'Bank Transfer',
+      paymentMethodId: 'bank_transfer',
       shippingAddress: null,
       shippingAddressMethods: [],
       shippingAddressId: 0
@@ -183,11 +182,7 @@ export default {
         cancelButtonText: this.$page.$t.messages.no
       }).then(() => {
         this.$loading.show({ delay: 0 })
-        Inertia.on('success', (event) => {
-          event.preventDefault()
-          console.log(`Successfully made a visit to ${event.detail.page.url}`)
-        })
-        this.$inertia.on('')
+
         this.$inertia.post(
           '/api/web/orders',
           {
@@ -201,7 +196,10 @@ export default {
             preserveState: (page) => Object.keys(page.props.errors).length,
             preserveScroll: (page) => Object.keys(page.props.errors).length,
             onSuccess: () => {
-              return Promise.all([this.removeCartItems(items), this.alertUser()])
+              return Promise.all([
+                this.removeCartItems(items),
+                this.alertUser()
+              ])
             },
             onFinish: () => {
               this.$loading.hide()
@@ -213,8 +211,10 @@ export default {
     removeCartItems (items) {
       return new Promise((resolve) => {
         this.$store.state.cart.forEach((item) => {
-          const isOrdered = items.find(p => p.id === item.id)
-          if (isOrdered) { this.$store.commit('removeFromCart', item) }
+          const isOrdered = items.find((p) => p.id === item.id)
+          if (isOrdered) {
+            this.$store.commit('removeFromCart', item)
+          }
         })
         resolve()
       })
@@ -235,9 +235,7 @@ export default {
             confirmButtonText: this.$page.$t.messages.yes,
             cancelButtonText: this.$page.$t.messages.no
           }
-        ).then(() => {
-
-        })
+        ).then(() => {})
         resolve()
       })
     }

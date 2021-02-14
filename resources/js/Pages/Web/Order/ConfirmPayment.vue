@@ -29,8 +29,8 @@
             <form action="#">
               <!-- <PaymentAccounts @updateAccountId="updateAccountId"></PaymentAccounts> -->
               <div>
-                 <label for="first_name">{{ $page.$t.common.select_or_create_account }}</label>
-                <div class="flex-1 flex items-center justify-between group-input gap-2">
+                 <!-- <label for="first_name">{{ $page.$t.common.select_or_create_account }}</label> -->
+                <!-- <div class="flex-1 flex items-center justify-between group-input gap-2">
                   <select v-model="senderAccountId" class="">
                     <option :value="null">
                       {{ $page.$t.common.select_account }}
@@ -45,9 +45,9 @@
                     </option>
                   </select>
                   <el-button @click="showCreate = true" size="" style="height:50px"> <i class="fa fa-plus"></i></el-button>
-                </div>
+                </div> -->
               </div>
-              <div class="flex" v-if="showCreate">
+              <div class="flex">
                 <div class="flex-1 group-input">
                   <label for="first_name">{{
                     $page.$t.order.transmitter_name
@@ -77,12 +77,12 @@
                 </div>
               </div>
 
-              <div class="flex flex-col" v-if="showCreate">
+              <div class="flex flex-col" >
                 <div class="flex-1 group-input">
                   <div>
                     <select v-model="form.bankId" class="">
                       <option :value="null">
-                        {{ $page.$t.common.select_bank }}
+                        {{ $page.$t.common.select_sender_bank }}
                       </option>
                       <option
                         v-for="bank in $page.banks"
@@ -97,7 +97,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="flex-1 group-input">
+                <!-- <div class="flex-1 group-input">
                   <input
                     id="sender_account_number"
                     v-model="form.accountNumber"
@@ -108,10 +108,10 @@
                   <div v-if="$page.errors.detail" class="p-2 text-red-500">
                     {{ $page.errors.detail }}
                   </div>
-                </div>
+                </div> -->
               </div>
 
-              <div class="flex">
+              <div class="flex mt-3 border-t pt-4">
                 <div class="flex-1 group-input">
                   <label for="first_name">{{ $page.$t.order.to_blank }}</label>
                   <div
@@ -162,10 +162,11 @@ export default {
       }
     },
     addNewAccount () {
+      // this.form.accountNumber
       this.$inertia.post(
         `/api/web/${this.$page.order.user_id}/payment_accounts`,
         {
-          detail: this.form.accountNumber,
+          detail: '00000000',
           first_name: this.form.firstName,
           last_name: this.form.lastName,
           bank_id: this.form.bankId

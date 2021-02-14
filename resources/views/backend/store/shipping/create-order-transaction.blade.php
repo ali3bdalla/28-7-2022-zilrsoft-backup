@@ -45,7 +45,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>المدينة</label>
-                            <select class="form-control" name="city_id" readonly>
+                            <input type="hidden" class="form-control" name="city_id" value="{{ $order->shippingAddress->city_id}}"/>
+                            <select disabled class="form-control"  readonly>
                                 @foreach ($citites as $city)
                                     <option value="{{ $city->id }}" @if($order->shippingAddress->city_id == $city->id) selected @endif>{{ $city->locale_name }}</option>
                                 @endforeach

@@ -100,7 +100,7 @@ class StoreSaleRequest extends FormRequest
                 ]
             );
             dispatch_now(new UpdateInvoiceNumberJob($invoice, 'S'));
-            dispatch_now(new StoreSaleItemsJob($invoice, (array)$this->input('items')));
+            dispatch_now(new StoreSaleItemsJob($invoice, (array)$this->input('items')),false,null,false,$isOnlineOrder);
             dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             /**
              *

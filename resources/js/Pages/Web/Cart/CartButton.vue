@@ -41,7 +41,7 @@
     </div>
 
     <div v-else>
-      <button v-if="$page.client_logged" class="proceed-btn" @click="sendOrder">
+      <button v-if="$page.client_logged" :disabled="!shippingMethodId" class="proceed-btn" @click="sendOrder">
         {{ $page.$t.cart.confirm_order }}
       </button>
       <div v-if="$page.client_logged" class="text-center flex items-center justify-center  border-t mt-3">
@@ -72,6 +72,7 @@ export default {
       required: true,
       type: Number
     }
+
   },
   data () {
     return {
@@ -134,7 +135,7 @@ export default {
     },
 
     getTotalShippingSubtotal () {
-      return (
+      return Math.floor(
         parseFloat(this.getTotalShippingAmount()) -
           parseFloat(this.getShippingDiscount())
       )

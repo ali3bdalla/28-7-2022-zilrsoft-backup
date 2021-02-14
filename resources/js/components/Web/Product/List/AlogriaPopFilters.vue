@@ -120,10 +120,10 @@
 
                       </div>
                     </div>
-
+                    <!-- </div> -->
                   </div>
                 </div>
-
+                <!-- </div> -->
               </ais-numeric-menu>
 
               <ais-refinement-list
@@ -138,6 +138,7 @@
                     ? 'category_name'
                     : 'category_ar_name'
                 "
+                :limit="100"
                 :show-more-limit="20"
                 class="w-full"
               >
@@ -206,7 +207,7 @@
                   'ais-RefinementList-showMore': 'hidden',
                 }"
                 :transform-items="applyTransformation"
-                :show-more="false"
+                :limit="100"
                 :attribute="filter"
                 :show-more-limit="20"
                 class="w-full"

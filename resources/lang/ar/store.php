@@ -6,11 +6,14 @@ return [
         "name" => 'متجر المسبار'
     ],
     "common" => [
+        "add_new" => "اضف جديد",
+        "or" => "او",
         "download" => "تحميل",
         "search_in_all_products" => "البحث في كل المنتجات",
         "customer_support" => "خدمة العملاء",
         "back" => "الخلف",
         "select_bank" => "اختر البنك",
+        "select_sender_bank" => "اختر البنك المحول منه",
         "select_account" => "اختر حساب",
         'create_new_account' => 'اضافة حساب',
         'select_or_create_account' => 'اختر او اضف حساب',
@@ -20,7 +23,7 @@ return [
         "completed_message" => "تم تعديل البيانات  بنجاح",
         "title_message" => "نجاح",
         "select" => "اختيار",
-        'add_new' => "اضافة حساب",
+        // 'add_new' => "اضافة حساب",
         'loading' => "يتم تحميل البيانات",
         'no_more' => "لا تتوفر المزيد من النتائج",
         'no_results' => "لاتوجد نتائج",
@@ -54,8 +57,7 @@ return [
         'as_your_request' => "1- بناء على طلبك",
         'not_paid' => "1- إنتهاء مهلة السداد",
         "unpaid_order_canceled_message" =>
-        "مرحبا :CUSTOMER_NAME,\n نأسف، طلبك رقم (:ORDERID) تم الغاءه \n\n سبب الإلغاء:\n:REASON .  ",
-        //        "notify_customer_by_new_order_message" => "مرحبا *:CUSTOMER_NAME*\nشكرا لتسوقك من *متجر المسبار*\nرقم الطلب: *:ORDER_ID*\nالمبلغ: *:AMOUNT*\nالحسابات البنكية:\n\n\tالراجحي:  \n *38238258237951*\n\tالبلاد:  \n*54564646546546*\n\t23749823749873*\nيرجى السداد قبل :DEADLINE\nبعد السداد، فضلا أنقر على الرابط التالي\n:PAYMENT_URL\nلإلغاء الطلب، أنقر على الرابط التالي :\n\n:CANCEL_URL",
+        "مرحبا *:CUSTOMER_NAME*,\n نأسف، طلبك رقم (:ORDERID) تم الغاءه \n\n سبب الإلغاء:\n:REASON .  ",
         "notify_customer_by_new_order_message" => "
 مرحبا *:CUSTOMER_NAME*
 شكرا لتسوقك من *متجر المسبار*
@@ -78,18 +80,16 @@ return [
 :CANCEL_URL
 ",
         "order_payment_confirmed" => "
-مرحبا*:CUSTOMER_NAME*
-تم استلام سداد الطلب #:ORDER_ID بنجاح
+مرحبا *:CUSTOMER_NAME*
+تم استلام سداد الطلب #:ORDER_ID بنجاح ، وجاري تجهيز طلبك ، سنقوم باشعارك قريبا
 ",
         "invalid_order_payment" => "
-مرحبا*:CUSTOMER_NAME*
+مرحبا *:CUSTOMER_NAME*
 نأسف، عملية السداد للطلب رقم #:ORDER_ID غير صالحة
-لمزيد من المعلومات يمكنك التواصل مع خدمة العملاء عبر الرابط التالي
-https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
-",
+لمزيد من المعلومات يمكنك التواصل مع خدمة العملاء عبر الرابط التالي",
 
         "order_shipped_with_shipping_method" => "
-مرحبا*:CUSTOMER_NAME*
+مرحبا *:CUSTOMER_NAME*
 تم شحن طلبك #:ORDER_ID عبر :SHIPPING_METHOD 
 رقم التتبع 
 :TRACKING_NUMBER
@@ -104,7 +104,7 @@ https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
 كود  التسليم :CODE
 ",
         "order_ready_to_pick_up_from_store" => "
-مرحبا :CUSTOMER_NAME
+مرحبا *:CUSTOMER_NAME*
 طلبك #:ORDER_ID جاهز للإستلام
 كود الإستلام :CODE
 ",
@@ -168,7 +168,7 @@ https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
         "draft" => "فاتورة مبدئية",
         "thanks_for_order" => "شكرا لك",
         "created" => "نجاح",
-        "instructions_for_payment" => "ستتلقى رسالة واتساب تحتوي على تفاصيل الدفع على رقم الجوال ",
+        "instructions_for_payment" => "ستتلقى رسالة واتساب تحتوي على رقم الحساب البنكي ورابط لتاكيد عملية التحويل على رقم الجوال ",
         'payment_confirmation' => "تاكيد عملية الدفع",
         "order" => "الطلب",
         "remmning_time_to_auto_cancel_order" => "الوقت المتبقى حتى الالغاء التلقائي للطلب",
@@ -232,7 +232,7 @@ https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
         "name" => "الاسم",
         "state" => "المنطقة",
         "city" => "المدينة",
-        "address" => "العنوان",
+        "address" => "الوصف",
         "zip" => "الرمز البريدي",
         "edit" => "تحرير",
         "already_have_account" => "هل لديك حساب مسبقا ؟",

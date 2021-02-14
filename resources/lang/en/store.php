@@ -12,12 +12,15 @@ return [
     ],
 
     "common" => [
+        "add_new" => "Add New",
+        "or" => "Or",
         "downlod" => "Download",
         "search_in_all_products" => "Search in all products",
         "search_in" => "Search In",
         "customer_support" => "Customer Service",
         "update" => "Update",
         "select_bank" => "Select Bank",
+        "select_sender_bank" => "Select Your Bank",
         "select_account" => "Select Account",
         'create_new_account' => 'Add Account',
         'select_or_create_account' => 'Select/Add Account',
@@ -28,7 +31,7 @@ return [
         "completed_message" => "Information Updated",
         "title_message" => "Success",
         "select" => "Select",
-        'add_new' => "Add Account",
+        // 'add_new' => "Add Account",
         'loading' => "Loading Data",
         'no_more' => "No more result",
         'no_results' => "No result",
@@ -51,7 +54,7 @@ return [
         "notify_customer_by_payment_confirmation" => "
 Dear *:CUSTOMER_NAME* 
 Your payment has been confirmed for order :ORDER_ID
-we will ship your order as soon as posiable 
+Your order processing now, we will keep you in touch
 ",
         "notify_unpaid_order_message" =>
             "Reminder ..\nPayment deadline for order number (:ORDERID) is soon .\nPlease pay before\n:DATE\n:TIME",
@@ -85,14 +88,12 @@ Dear Customer *:CUSTOMER_NAME*
 Your Payment For Order #:ORDER_ID has been received
 ",
 "invalid_order_payment" => "
-Dear Customer *:CUSTOMER_NAME*
+Dear *:CUSTOMER_NAME*
 Unfortunately, Your Payment For Order #:ORDER_ID is Invalid
-For more information, you can contact customer service via the following link
-https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
-",
+For more information, you can contact customer service via the following link",
 
 "order_shipped_with_shipping_method" => "
-Dear Customer *:CUSTOMER_NAME*
+Dear *:CUSTOMER_NAME*
 Your Order #:ORDER_ID has been shipped via :SHIPPING_METHOD
 Tracking Number :TRACKING_NUMBER
 Tracking Link
@@ -100,7 +101,7 @@ Tracking Link
 ",
 
 "order_shipped_with_deivery_man" => "
-Dear Customer *:CUSTOMER_NAME*
+Dear *:CUSTOMER_NAME*
 Your Order #:ORDER_ID has been shipped with delivery man
 :DELIVERY_MAN
 :DELIVERY_MAN_NUMBER
@@ -108,7 +109,7 @@ Receipt code :CODE
 ",
 
 "order_shipping_confirmation" => "
-Dear Customer *:CUSTOMER_NAME*
+Dear *:CUSTOMER_NAME*
 Your Order #:ORDER_ID ready to pick up
 Receipt code :CODE
 ",
@@ -180,7 +181,7 @@ Receipt code :CODE
         "name" => "Name",
         "state" => "State",
         "city" => "City",
-        "address" => "Address",
+        "address" => "Description",
         "zip" => "Zip",
         "edit" => "Edit",
         "already_have_account" => "Already Have Account ?",
@@ -272,7 +273,7 @@ Receipt code :CODE
         "draft" => "Quotation Invoice",
         "thanks_for_order" => "Thank You",
         "created"=>"Success",
-        "instructions_for_payment" => "You will receive a WhatsApp message containing payment details to mobile number",
+        "instructions_for_payment" => "You will receive a WhatsApp message including bank account & payment confirmation link to mobile number",
         'payment_confirmation' => "Payment Confirmation",
         "order" => "Order",
         "remmning_time_to_auto_cancel_order" => "Payment Deadline",

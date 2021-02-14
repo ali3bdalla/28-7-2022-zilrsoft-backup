@@ -104,24 +104,33 @@ class BaseModel extends Model
                     );
                 }
             }
+            // dd(1);
+            if (auth('manager')->check() && !auth('manager')->user()->can('manage branches')) {
 
-            if (auth('manager')->check() && !auth('manager')->user()->can('manage branches') && $table == 'invoices') {
-                if (Schema::hasColumn($table, 'creator_id')) {
+                if($table == 'invoices')
+                {
+
+                    if (Schema::hasColumn($table, 'creator_id')) {
+                        static::addGlobalScope(
+                            'manager',
+                            function (Builder $builder) use ($table) {
+                                $builder->where("{$table}.creator_id", auth()->user()->id);
+                            }
+                        );
+                    }
+                }
+
+           
+                if ($table == "orders") {
+                    
+                    
                     static::addGlobalScope(
                         'manager',
                         function (Builder $builder) use ($table) {
-                            $builder->where("{$table}.creator_id", auth()->user()->id);
+                            $builder->where("{$table}.managed_by_id", auth()->user()->id)->orWhere('status','paid');
                         }
                     );
                 }
-
-
-                if ($table === "orders") static::addGlobalScope(
-                    'manager',
-                    function (Builder $builder) use ($table) {
-                        $builder->where("{$table}.managed_by_id", auth()->user()->id);
-                    }
-                );
             }
 
 

@@ -52,9 +52,9 @@
                         <th :class="{'orderBy':orderBy=='id'}" @click="setOrderByColumn('id')" width="4%">
                             #
                         </th>
-                        <th :class="{'orderBy':orderBy=='id'}" @click="setOrderByColumn('id')" width="4%">
+                        <!-- <th :class="{'orderBy':orderBy=='id'}" @click="setOrderByColumn('id')" width="4%">
                             #
-                        </th>
+                        </th> -->
 
                         <th :class="{'orderBy':orderBy=='name'}" @click="setOrderByColumn('name')">
                             وسيلة الشحن
@@ -96,7 +96,7 @@
                     <tr :key="row.id" v-for="(row,index) in table_rows">
                       <td><input v-if="row.status =='issued'" @change="rowSelectCheckBoxUpdated(row)" type="checkbox"
                                    v-model="row.tb_row_selected"/>
-                        <td v-text="index+1"></td>
+                        <!-- <td v-text="index+1"></td> -->
 
                         <td class="text-center">{{shippingMethod.locale_name}}</td>
                         <td class="text-center">

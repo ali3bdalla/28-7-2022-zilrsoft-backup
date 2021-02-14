@@ -18,9 +18,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind("SmsaClient", function ($app) {
             $client = new Client(['base_uri' => 'https://track.smsaexpress.com/SeCom/SMSAwebService.asmx?wsdl' ,'headers' => ['Content-Type' => "text/xml", "charset" => "utf-8"]]);
             return $client;
-            // new Client()
-
-            // return  Soap::buildClient("smsa_soap");
         });
 
     }

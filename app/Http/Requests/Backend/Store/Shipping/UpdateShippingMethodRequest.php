@@ -28,7 +28,7 @@ class UpdateShippingMethodRequest extends FormRequest
         DB::beginTransaction();
 
         try {
-            $shippingMethod->update($this->only('name', 'ar_name', 'max_base_weight', 'max_base_weight_cost', 'max_base_weight_price', 'kg_after_max_weight_cost', 'kg_rate_after_max_price'));
+            $shippingMethod->update($this->only('name','item_id', 'ar_name', 'max_base_weight', 'max_base_weight_cost', 'max_base_weight_price', 'kg_after_max_weight_cost', 'kg_rate_after_max_price'));
 
 
             $shippingMethod->cities()->delete();
