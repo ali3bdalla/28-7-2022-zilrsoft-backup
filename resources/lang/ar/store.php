@@ -13,6 +13,7 @@ return [
         "customer_support" => "خدمة العملاء",
         "back" => "الخلف",
         "select_bank" => "اختر البنك",
+        "select_sender_bank" => "اختر البنك المحول منه",
         "select_account" => "اختر حساب",
         'create_new_account' => 'اضافة حساب',
         'select_or_create_account' => 'اختر او اضف حساب',

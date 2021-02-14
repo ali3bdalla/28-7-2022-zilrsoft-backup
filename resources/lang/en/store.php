@@ -20,6 +20,7 @@ return [
         "customer_support" => "Customer Service",
         "update" => "Update",
         "select_bank" => "Select Bank",
+        "select_sender_bank" => "Select Your Bank",
         "select_account" => "Select Account",
         'create_new_account' => 'Add Account',
         'select_or_create_account' => 'Select/Add Account',

@@ -99,7 +99,7 @@ class DeliveryManController extends Controller
 			['delivery_man_id', $deliveryMan->id],
 
 			['order_id', '!=', null],
-		])->paginate(25);
+		])->orderBy('id','desc')->paginate(25);
 		
 
 		return view('delivery_men.confirm', compact('deliveryMan', 'transactions'));

@@ -29,8 +29,8 @@
     <div class="row">
         <div class="col-12">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Orders</span>
-                <span class="badge badge-secondary badge-pill">{{$transactions->count()}}</span>
+                {{-- <span class="text-muted">Orders</span> --}}
+              <span class="badge badge-secondary badge-pill">  عدد الشحنات  ({{$transactions->count()}})</span>
             </h4>
             <ul class="list-group mb-3">
                 @foreach($transactions as $transaction)

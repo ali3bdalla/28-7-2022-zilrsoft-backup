@@ -1,22 +1,16 @@
 <template>
-  <div>
+  <div v-if="transaction.status == 'shipped'">
     <button
       @click="showConfirmationCode"
       :disabled="transaction.status != 'shipped'"
-      style="background-color: transparent; border: none; color: black"
+      class="btn btn-success"
     >
-      <h2
-        :style="[
-          transaction.status == 'shipped'
-            ? 'color: blue;cursor: pointer'
-            : 'color:white',
-        ]"
-      >
-        #{{ transaction.order_id }}
-      </h2>
+
+       تاكيد تسليم الطلب #{{ transaction.order_id }}
+
     </button>
 
-    <button @click="resendOtp" class="btn btn-primary">resend</button>
+    <button @click="resendOtp" class="btn btn-primary">اعادة ارسال</button>
   </div>
 </template>
 
@@ -41,8 +35,8 @@ export default {
         )
         .then((res) => {
           this.$alert(
-            'Done',
-            'Success',
+            'تم اعادة ارسال الرمز',
+            'نجاح',
             'success'
           ).then((res) => {
             // location.reload()
@@ -50,7 +44,10 @@ export default {
         })
     },
     showConfirmationCode () {
-      this.$prompt('Confirm Delivery Code', '', this.transaction.order_id).then(
+      this.$prompt('ادخل رمز التسليم', '', `رقم الطلب ${this.transaction.order_id}`, {
+        confirmButtonText: 'تاكيد',
+        cancelButtonText: 'الغاء'
+      }).then(
         (text) => {
           if (text !== null) {
             axios
@@ -63,8 +60,8 @@ export default {
               .then((res) => {
                 console.log(res.data)
                 this.$alert(
-                  'order Delivered Successfully ',
-                  'Success',
+                  'تم تسليم الشحنة بنجاح ',
+                  'نجاح',
                   'success'
                 ).then((res) => {
                   location.reload()
@@ -72,7 +69,7 @@ export default {
               })
               .catch((error) => {
                 console.log(error.response)
-                this.$alert('Wrong Code', 'Error', 'error').then((res) => {
+                this.$alert('الرمز المدخل غير صحيح', 'خطأ', 'error').then((res) => {
                   this.showConfirmationCode()
                 })
               })

@@ -5,20 +5,20 @@
         <input autofocus="autofocus" class="form-control" type="text" />
       </div>
 
-      <div v-show="!isLoading" class="table-content">
+      <div v-show="!isLoading" class="table-content" style="overflow: scroll;">
         <table class="table table-striped table-bordered" width="100%">
           <thead>
             <tr>
               <th
                 :class="{ orderBy: orderBy == 'id' }"
-                width="4%"
+                width="25px"
                 @click="setOrderByColumn('id')"
               >
                 {{ trans.id }}
               </th>
               <th
                 :class="{ orderBy: orderBy == 'barcode' }"
-                width="13%"
+                width="100px"
                 @click="setOrderByColumn('barcode')"
               >
                 العميل
@@ -32,7 +32,7 @@
 
               <th
                 :class="{ orderBy: orderBy == 'price' }"
-                width="6%"
+                width="100px"
                 @click="setOrderByColumn('price')"
               >
                 قيمة الطلب
@@ -40,21 +40,21 @@
 
               <th
                 :class="{ orderBy: orderBy == 'price_with_tax' }"
-                width="10%"
+                width="100px"
                 @click="setOrderByColumn('price_with_tax')"
               >
                 وسيلة الشحن
               </th>
               <th
                 :class="{ orderBy: orderBy == 'available_qty' }"
-                width="5%"
+                width="130px"
                 @click="setOrderByColumn('available_qty')"
               >
                 رقم التتبع
               </th>
             <th
                 :class="{ orderBy: orderBy == 'available_qty' }"
-                width="5%"
+                width="100px"
                 @click="setOrderByColumn('available_qty')"
               >
                 المسؤل
@@ -62,27 +62,27 @@
 
               <th
                 :class="{ orderBy: orderBy == 'available_qty' }"
-                width="5%"
+                width="120px"
                 @click="setOrderByColumn('available_qty')"
               >
                 مندوب التوصيل
               </th>
               <th
                 :class="{ orderBy: orderBy == 'creator_id' }"
-                width="13%"
+                width="100px"
                 @click="setOrderByColumn('creator_id')"
               >
                 التاريخ
               </th>
               <th
                 :class="{ orderBy: orderBy == 'created_at' }"
-                width="10%"
+                width="70px"
                 @click="setOrderByColumn('created_at')"
               >
                 الحالة
               </th>
 
-              <th width="8%" v-text="trans.options"></th>
+              <th width="100px" v-text="trans.options"></th>
             </tr>
           </thead>
           <tbody>
@@ -101,7 +101,8 @@
               <td class="" v-text="row.managed_by ? row.managed_by.locale_name : '' "></td>
               <td class="" v-text="row.delivery_man ? row.delivery_man.locale_name : ''"></td>
               <td class="" v-text="row.created_at"></td>
-              <td class="" v-text="row.status"></td>
+              <td class="" >{{storeTranslations.statuses[row.status]}}</td>
+              <!-- v-text="row.status" -->
               <td class="">
                 <div class="dropdown">
                   <button
@@ -243,7 +244,8 @@ export default {
     'canDelete',
     'canCreate',
     'canViewAccounting',
-    'creators'
+    'creators',
+    'storeTranslations'
   ],
   data: function () {
     return {

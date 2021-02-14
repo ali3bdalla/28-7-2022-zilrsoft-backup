@@ -43,7 +43,10 @@
 			if($this->has('is_draft') && $this->filled('is_draft')) {
 				$isDraft = (boolean)$this->input('is_draft');
 				if($isDraft) {
-					$query = $query->withoutGlobalScopes(['draft','accountingPeriod','manager'])->where('is_draft', $isDraft);
+					$query = $query->withoutGlobalScopes(['draft','accountingPeriod','manager'])->where([
+						['is_draft', $isDraft],
+						['is_online', false]
+					]);
 				}
 			}
 			
@@ -77,7 +80,7 @@
 				}
 			} else {
 				if(!$this->user()->can('manage branches') && !$this->filled('title') && !$this->filled('aliceName')  && auth()->user()->accounts_closed_at != null) {
-					// $query = $query->where('created_at', '>=', Carbon::parse(auth()->user()->accounts_closed_at));
+					$query = $query->where('created_at', '>=', Carbon::parse(auth()->user()->accounts_closed_at));
 				}
 			}
 			

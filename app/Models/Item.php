@@ -109,7 +109,7 @@ class Item extends BaseModel
 
 	public function getOnlineOfferPriceAttribute($value)
 	{
-		return moneyFormatter($value);
+		return moneyFormatter(round($value));
 	}
 
 
@@ -298,11 +298,13 @@ class Item extends BaseModel
 				$array['ar_filters_' . $filter->filter->ar_name][] = $filter->value->ar_name;
 			}
 		}
-
+		// $array['online_offer_price'] = round($this->online_offer_price);
 		$array['category_name'] = $this->category ? $this->category->name : "";
 		$array['category_id'] = $this->category_id;
 		$array['category_ar_name'] = $this->category ? $this->category->ar_name : "";
 
 		return $array;
 	}
+
+	
 } 
