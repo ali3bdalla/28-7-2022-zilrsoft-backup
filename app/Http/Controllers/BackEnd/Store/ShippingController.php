@@ -145,14 +145,14 @@ class ShippingController extends Controller
 
             $refernence = ShippingTransaction::where('reference', $request->input('reference'))->first();
             if ($refernence) {
-                $data['reference'] = uniqid();
+                $data['reference'] = rand(100000000000,99999999999999);
             }
 
             if ($shipping->id == 2) // smsa
                 $data['tracking_number'] = SmsaCreateShippmentJob::dispatchNow($data);
             else
             {
-                $data['tracking_number'] = uniqid();
+                $data['tracking_number'] =rand(100000000000,99999999999999);
             }
 
             ShippingTransaction::create($data);
@@ -181,8 +181,10 @@ class ShippingController extends Controller
         $phoneNumber = $deliveryMan->international_phone_number;
         $otp = generateOtp();
         $transactionsIdes = implode(',',$request->input('transactions'));
-        $messages = 'You picked up orders ' . $transactionsIdes . ', code: ' . $otp ;
-        $messages = 'لقد استلمت الطلبات ' . $transactionsIdes . ', الرمز: ' . $otp ;
+        $messages = 'You picked up orders (' . $transactionsIdes . ')
+code: ' . $otp ;
+        $messages = 'لقد استلمت الطلبات (' . $transactionsIdes . ')
+الرمز: ' . $otp ;
         sendSms($messages, '966' . $phoneNumber);
         $deliveryMan->verfications()->create([
             'slug' => 'transactions_' . implode('-', $request->input('transactions')),
