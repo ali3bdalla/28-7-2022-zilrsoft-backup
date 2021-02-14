@@ -37,7 +37,7 @@ class AuthController extends Controller
 		}
 
 
-		throw  ValidationException::withMessages(['phone_number' => 'Phone Number Or password Are Not Valid']);
+		throw  ValidationException::withMessages(['phone_number' => __('store.common.invalid_user_data')]);
 	}
 
 

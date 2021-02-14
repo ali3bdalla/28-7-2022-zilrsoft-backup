@@ -4440,6 +4440,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
  // Import stylesheet
@@ -4553,7 +4582,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".vue-treeselect {\n  text-align: center !important;\n}\n\n", ""]);
+exports.push([module.i, ".vue-treeselect {\n  text-align: center !important;\n}\n", ""]);
 
 // exports
 
@@ -9596,7 +9625,7 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: " text-center my-10 shadow-xl" }, [
+      _c("div", { staticClass: "text-center my-10 shadow-xl" }, [
         _c("div", { staticClass: "form-group text-center" }, [
           _c(
             "div",
@@ -9661,14 +9690,14 @@ var render = function() {
               _c(
                 "td",
                 {
-                  staticClass: "text-center btn cursor-pointer  ",
+                  staticClass: "text-center btn cursor-pointer",
                   attrs: { scope: "col" },
                   on: { click: _vm.filterByModel }
                 },
                 [
-                  _c("button", [_vm._v(" رقم الموديل ")]),
+                  _c("button", [_vm._v("رقم الموديل")]),
                   _vm._v(
-                    " (" + _vm._s(_vm.getTrans(_vm.activeModel)) + ")\n      "
+                    " (" + _vm._s(_vm.getTrans(_vm.activeModel)) + ")\n        "
                   )
                 ]
               ),
@@ -9676,7 +9705,13 @@ var render = function() {
               _c(
                 "td",
                 { staticClass: "text-center", attrs: { scope: "col" } },
-                [_vm._v("عدد الصور (" + _vm._s(_vm.completedProducts) + ")")]
+                [
+                  _vm._v(
+                    "\n          عدد الصور (" +
+                      _vm._s(_vm.completedProducts) +
+                      ")\n        "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -9791,7 +9826,7 @@ var render = function() {
                           target: "_blank"
                         }
                       },
-                      [_vm._v(" المرفقات")]
+                      [_vm._v("\n            المرفقات")]
                     )
                   ])
                 ]

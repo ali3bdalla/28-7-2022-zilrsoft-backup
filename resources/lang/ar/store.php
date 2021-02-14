@@ -6,6 +6,7 @@ return [
         "name" => 'متجر المسبار'
     ],
     "common" => [
+        "invalid_user_data" => "بيانات الدخول غير صحيحة",
         "add_new" => "اضف جديد",
         "or" => "او",
         "download" => "تحميل",
