@@ -180,7 +180,10 @@ class ShippingController extends Controller
 
         $phoneNumber = $deliveryMan->international_phone_number;
         $otp = generateOtp();
-        sendOtp($phoneNumber, $otp);
+        $transactionsIdes = implode(',',$request->input('transactions'));
+        $messages = 'You picked up orders ' . $transactionsIdes . ', code: ' . $otp ;
+        $messages = 'لقد استلمت الطلبات ' . $transactionsIdes . ', الرمز: ' . $otp ;
+        sendSms($messages, '966' . $phoneNumber);
         $deliveryMan->verfications()->create([
             'slug' => 'transactions_' . implode('-', $request->input('transactions')),
             'verfication_code' => $otp
