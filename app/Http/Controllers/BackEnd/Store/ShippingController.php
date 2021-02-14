@@ -130,7 +130,7 @@ class ShippingController extends Controller
         $data['creator_id'] =  auth()->user()->id;
         $data['organization_id'] = auth()->user()->organization_id;
         $order  = null;
-        
+
         if ($request->filled('order_id')) {
             $orderTransaction = ShippingTransaction::where('order_id', $request->input('order_id'))->first();
             $order = Order::find($request->input('order_id'));
@@ -145,14 +145,13 @@ class ShippingController extends Controller
 
             $refernence = ShippingTransaction::where('reference', $request->input('reference'))->first();
             if ($refernence) {
-                $data['reference'] = rand(100000000000,99999999999999);
+                $data['reference'] = rand(100000000000, 99999999999999);
             }
 
             if ($shipping->id == 2) // smsa
                 $data['tracking_number'] = SmsaCreateShippmentJob::dispatchNow($data);
-            else
-            {
-                $data['tracking_number'] =rand(100000000000,99999999999999);
+            else {
+                $data['tracking_number'] = rand(100000000000, 99999999999999);
             }
 
             ShippingTransaction::create($data);
@@ -180,11 +179,13 @@ class ShippingController extends Controller
 
         $phoneNumber = $deliveryMan->international_phone_number;
         $otp = generateOtp();
-        $transactionsIdes = implode(',',$request->input('transactions'));
-        $messages = 'You picked up orders (' . $transactionsIdes . ')
-code: ' . $otp ;
-        $messages = 'لقد استلمت الطلبات (' . $transactionsIdes . ')
-الرمز: ' . $otp ;
+        $transactionsIdes = implode(',', $request->input('transactions'));
+        $orders = ShippingTransaction::whereIn('id', $request->input('transactions'))->pluck('order_id')->toArray();
+        $ordersIds = implode(',', $orders);
+        $messages = 'You picked up orders (' . $ordersIds . ')
+code: ' . $otp;
+        $messages = 'لقد استلمت الطلبات (' . $ordersIds . ')
+الرمز: ' . $otp;
         sendSms($messages, '966' . $phoneNumber);
         $deliveryMan->verfications()->create([
             'slug' => 'transactions_' . implode('-', $request->input('transactions')),
@@ -220,7 +221,8 @@ code: ' . $otp ;
 
                     if ($transaction->order && $transaction->order->status == 'ready_for_shipping') {
                         HandleOrderShippingJob::dispatchNow($transaction->order, $deliveryMan);
-                        CreateShippingSalesInvoiceJob::dispatchNow($transaction->order->user, $transaction,$transaction->order->shipping_cost);
+                        if ($transaction->order->shipping_amount > 0)
+                            CreateShippingSalesInvoiceJob::dispatchNow($transaction->order->user, $transaction, $transaction->order->shipping_amount);
                     }
                 }
             }
