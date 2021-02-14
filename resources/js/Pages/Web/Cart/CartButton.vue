@@ -135,7 +135,7 @@ export default {
     },
 
     getTotalShippingSubtotal () {
-      return (
+      return Math.floor(
         parseFloat(this.getTotalShippingAmount()) -
           parseFloat(this.getShippingDiscount())
       )

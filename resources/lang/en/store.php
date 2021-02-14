@@ -54,7 +54,7 @@ return [
         "notify_customer_by_payment_confirmation" => "
 Dear *:CUSTOMER_NAME* 
 Your payment has been confirmed for order :ORDER_ID
-we will ship your order as soon as posiable 
+Your order processing now, we will keep you in touch
 ",
         "notify_unpaid_order_message" =>
             "Reminder ..\nPayment deadline for order number (:ORDERID) is soon .\nPlease pay before\n:DATE\n:TIME",
@@ -88,14 +88,12 @@ Dear Customer *:CUSTOMER_NAME*
 Your Payment For Order #:ORDER_ID has been received
 ",
 "invalid_order_payment" => "
-Dear Customer *:CUSTOMER_NAME*
+Dear *:CUSTOMER_NAME*
 Unfortunately, Your Payment For Order #:ORDER_ID is Invalid
-For more information, you can contact customer service via the following link
-https://tawk.to/chat/60159e84c31c9117cb7429af/1eta8u6eh
-",
+For more information, you can contact customer service via the following link",
 
 "order_shipped_with_shipping_method" => "
-Dear Customer *:CUSTOMER_NAME*
+Dear *:CUSTOMER_NAME*
 Your Order #:ORDER_ID has been shipped via :SHIPPING_METHOD
 Tracking Number :TRACKING_NUMBER
 Tracking Link
@@ -103,7 +101,7 @@ Tracking Link
 ",
 
 "order_shipped_with_deivery_man" => "
-Dear Customer *:CUSTOMER_NAME*
+Dear *:CUSTOMER_NAME*
 Your Order #:ORDER_ID has been shipped with delivery man
 :DELIVERY_MAN
 :DELIVERY_MAN_NUMBER
@@ -111,7 +109,7 @@ Receipt code :CODE
 ",
 
 "order_shipping_confirmation" => "
-Dear Customer *:CUSTOMER_NAME*
+Dear *:CUSTOMER_NAME*
 Your Order #:ORDER_ID ready to pick up
 Receipt code :CODE
 ",

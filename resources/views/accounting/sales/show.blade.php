@@ -16,8 +16,9 @@
 
 
 @section('buttons')
-    @if(auth()->user()->id != 19)
 
+    @if(auth()->user()->id != 19)
+        
         <a href="{{route('accounting.printer.a4',$invoice->id)}}" target="_blank" class="btn btn-default">
             <i class="fa fa-print"></i> {{ __('pages/invoice.price_a4') }}
         </a>
