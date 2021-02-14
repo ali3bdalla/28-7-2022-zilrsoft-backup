@@ -117,7 +117,7 @@ class DeliveryManController extends Controller
 		$deliveryMan = DeliveryMan::where('hash', $hash)->firstOrFail();
 
 
-		if ($transaction->order && $transaction->order->order_secret_code === $request->input('code') && $deliveryMan->id === $transaction->delivery_man_id) {
+		if ($transaction->order && $transaction->order->delivery_man_code === $request->input('code') && $deliveryMan->id === $transaction->delivery_man_id) {
 			$transaction->order->update(
 				[
 					'status' => 'delivered'

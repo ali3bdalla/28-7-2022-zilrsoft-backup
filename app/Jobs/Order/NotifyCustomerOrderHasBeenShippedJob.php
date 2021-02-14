@@ -40,7 +40,7 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
                 'CUSTOMER_NAME' => $this->order->user->name,
                 'ORDER_ID' => $this->order->id,
                 'DELIVERY_MAN' => $this->order->deliveryMan->locale_name,
-                'DELIVERY_MAN_NUMBER' => '0' + $this->order->deliveryMan->phone_number,
+                'DELIVERY_MAN_NUMBER' => "0{$this->order->deliveryMan->phone_number}",
                 'CODE' => $this->order->delivery_man_code
             ]);
 

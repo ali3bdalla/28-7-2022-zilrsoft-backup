@@ -1,7 +1,7 @@
 <template>
   <div class="">
-    <h2 class="checkout__title">
-      {{$page.$t.cart.shipping_address}}
+    <h2 class="cart__shipping-method-title">
+      {{$page.$t.cart.select_shipping_address }}  {{$page.$t.common.or }} <inertia-link class="text-blue-400" href="/web/profile/create-shipping-address">{{  $page.$t.common.add_new }}</inertia-link>
 
     </h2>
 
