@@ -16,10 +16,10 @@
       >
        <div class="truncate"> {{ $page.$t.common.search_in }} {{ $page.categories_search_list[0] }}</div>
       </div>
-      <div slot="submit-icon"  class="search_in_category" v-else>
+      <!-- <div slot="submit-icon"  class="search_in_category" v-else>
           {{ $page.$t.common.search_in_all_products }}
       </div>
-      <div slot="reset-icon"></div>
+      <div slot="reset-icon"></div> -->
     </ais-search-box>
     <!-- submit-title="string"
       reset-title="string" -->
@@ -75,10 +75,10 @@ export default {
 .ais-SearchBox-loadingIndicator,
 .ais-SearchBox-reset,
 .ais-SearchBox-submit {
-  width: auto !important;
+  /* width: auto !important;
   height: 28px !important;
   @apply flex items-center justify-items-end;
-  padding: 0px !important;
+  padding: 0px !important; */
 }
 
 </style>

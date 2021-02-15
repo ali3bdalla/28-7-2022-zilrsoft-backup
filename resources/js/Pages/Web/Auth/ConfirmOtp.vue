@@ -5,17 +5,24 @@
         <div class="login-form">
           <h2 class="text-xl">
             {{ $page.$t.profile.confirm_otp }}
-            <!-- <span class="text-web-primary">({{ hiddenPhoneNumber }})</span> -->
           </h2>
           <form action="#">
             <div class="flex flex-col w-full md:w-1/2 mx-auto overflow-hidden">
               <div class="flex-1 group-input" style="    direction: ltr !important;">
-                <!-- <VueOTPField
-                  :onFieldCompleted="onFieldCompleted"
-                  :onFill="onFill"
-                /> -->
 
-                <v-otp-input
+                <input
+        class="text-center"
+                        v-model="otp"
+                        type="number"
+                    />
+                    <button
+                    class="site-btn login-btn"
+                    type="button"
+                    @click="onFieldCompleted"
+                >
+                  {{ $page.$t.common.ok}}
+                </button>
+                <!-- <v-otp-input
                   style="direction:ltr"
                   ref="otpInput"
                   input-classes="otp-input"
@@ -25,7 +32,7 @@
                   :is-input-num="true"
                   @on-change="onFill"
                   @on-complete="onFieldCompleted"
-                />
+                /> -->
 
                 <div class="p-2 text-red-500" v-if="$page.errors.otp">
                   {{ $page.$t.messages.invalid_otp }}
@@ -44,15 +51,7 @@
                   >
                     {{ timerCount }}
                   </div>
-                  <!-- <vue-countdown-timer
-                    @end_callback="endCallBack"
-                    :start-time="startCountingAt"
-                    :end-time="finishCountingAt"
-                    :show-minute="false"
-                    :showDay="false"
-                    :showHour="false"
-                  >
-                  </vue-countdown-timer> -->
+
                   <button
                     v-else
                     @click="resendOtp"
@@ -73,13 +72,13 @@
 
 <script>
 import WebLayout from '../../../Layouts/WebAppLayout'
-import OtpInput from '@bachdgvn/vue-otp-input'
+// import OtpInput from '@bachdgvn/vue-otp-input'
 
 export default {
   props: ['phone_number', 'validate_url'],
   components: {
-    WebLayout,
-    'v-otp-input': OtpInput
+    WebLayout
+    // 'v-otp-input': OtpInput
   },
   data () {
     return {
@@ -109,11 +108,6 @@ export default {
           this.timerCount--
         }
       }, 1000)
-      // const dt = new Date()
-      // this.startCountingAt = dt.getTime()
-
-      // dt.setMinutes(dt.getMinutes() + 1)
-      // this.finishCountingAt = dt.getTime()
     },
     endCallBack: function () {
       this.enableResendButton = true
@@ -130,6 +124,7 @@ export default {
       })
 
       this.$inertia.on('exception', (event) => {
+        event.preventDefault()
         console.log('An unexpected error occurred during an Inertia visit.')
         console.log(event.detail.error)
       })
@@ -140,9 +135,9 @@ export default {
         this.resetTime()
       })
     },
-    onFieldCompleted (value) {
+    onFieldCompleted () {
       this.$inertia.post(this.validate_url, {
-        otp: value,
+        otp: this.otp,
         phone_number: this.phone_number
       })
     },

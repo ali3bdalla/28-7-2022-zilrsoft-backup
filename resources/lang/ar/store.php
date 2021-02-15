@@ -10,6 +10,7 @@ return [
         "add_new" => "اضف جديد",
         "add" => "اضافة",
         "or" => "او",
+        "ok" =>"موافق",
         "download" => "تحميل",
         "search_in_all_products" => "البحث في كل المنتجات",
         "customer_support" => "خدمة العملاء",

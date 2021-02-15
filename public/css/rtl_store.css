@@ -2272,20 +2272,6 @@ a:hover, a:focus {
   font-size: 18px;
 }
 
-.ais-SearchBox-submit {
-  background-color: #b1b1b1 !important;
-  color: white !important;
-  text-align: right !important;
-  padding: 1px !important;
-}
-
-.search_in_category {
-  text-align: right !important;
-  width: 100%;
-  padding: 0px 5px;
-  font-size: 15px;
-}
-
 .space-y-0 > :not(template) ~ :not(template){
   --space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--space-y-reverse)));
