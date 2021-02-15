@@ -220,7 +220,7 @@
 
 
             <td class="bold-font">
-                المجموع :  {{ $invoice->total }} {{__('store.products.sar')}}
+                المجموع :  {{ moneyFormatter($invoice->total) }} {{__('store.products.sar')}}
             </td>
             <td></td>
             <td></td>
@@ -228,7 +228,7 @@
         <tr class="total">
 
             <td width="230px" class="bold-font">
-                الضريبة (15%) :  {{ $invoice->tax }} {{__('store.products.sar')}}
+                الضريبة (15%) :  {{ moneyFormatter($invoice->tax) }} {{__('store.products.sar')}}
             </td>
             <td></td>
             <td></td>
@@ -236,7 +236,7 @@
         </tr><tr class="total" class="bold-font">
 
             <td width="230px" class="bold-font">
-                الشحن :  {{ $order->shipping_amount }} {{__('store.products.sar')}}
+                الشحن :  {{ moneyFormatter($order->shipping_amount) }} {{__('store.products.sar')}}
             </td>
             <td></td>
             <td></td>
@@ -245,7 +245,7 @@
         <tr class="total">
 
             <td width="230px" class="bold-font">
-                النهائى :  {{ $order->net }} {{__('store.products.sar')}}
+                النهائى :  {{ moneyFormatter($invoice->net + $order->shipping_amount) }} {{__('store.products.sar')}}
             </td>
             <td></td>
             <td></td>
