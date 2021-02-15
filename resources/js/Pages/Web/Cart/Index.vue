@@ -251,4 +251,7 @@ export default {
 .el-radio__label {
   margin: 0px 5px;
 }
+.el-image__inner {
+  object-fit: contain;
+}
 </style>
