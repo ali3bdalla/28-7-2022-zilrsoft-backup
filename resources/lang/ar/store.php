@@ -8,6 +8,7 @@ return [
     "common" => [
         "invalid_user_data" => "بيانات الدخول غير صحيحة",
         "add_new" => "اضف جديد",
+        "add" => "اضافة",
         "or" => "او",
         "download" => "تحميل",
         "search_in_all_products" => "البحث في كل المنتجات",
@@ -145,7 +146,7 @@ return [
         "status" => "حالة الطلب",
         "no_order" => "لاتوجد طلبات",
         "pdf" => "الفاتورة",
-        
+
         "cancel" => "الغاء الطلب",
         "sales_invoice" => "فاتورة مبيعات",
         "vatId" => 'الرقم الضريبي',

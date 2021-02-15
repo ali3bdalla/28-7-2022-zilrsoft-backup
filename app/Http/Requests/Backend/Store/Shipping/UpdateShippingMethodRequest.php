@@ -6,6 +6,7 @@ use App\Models\ShippingMethod;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class UpdateShippingMethodRequest extends FormRequest
 {
@@ -28,14 +29,24 @@ class UpdateShippingMethodRequest extends FormRequest
         DB::beginTransaction();
 
         try {
-            $shippingMethod->update($this->only('name','item_id', 'ar_name', 'max_base_weight', 'max_base_weight_cost', 'max_base_weight_price', 'kg_after_max_weight_cost', 'kg_rate_after_max_price'));
 
 
-            $shippingMethod->cities()->delete();
+            $data = $this->only('name','item_id', 'ar_name', 'max_base_weight', 'max_base_weight_cost', 'max_base_weight_price', 'kg_after_max_weight_cost', 'kg_rate_after_max_price');
+            if($this->hasFile('logo'))
+            {
+                $imageurl  = Storage::url($this->file('logo')->store('images/shipping_methods', 'public'));
+                $data['logo'] = $imageurl;
+
+            }
+            $shippingMethod->update($data);
+
 
             if ($this->has('cities'))
+            {
+                $shippingMethod->cities()->delete();
                 foreach ($this->input('cities') as $cityId)
                     $shippingMethod->cities()->create(['city_id' => $cityId]);
+            }
 
 
             DB::commit();

@@ -15,6 +15,8 @@ return [
         "invalid_user_data" => "invalid login credentials",
         "add_new" => "Add New",
         "or" => "Or",
+        "add" => "Add",
+
         "downlod" => "Download",
         "search_in_all_products" => "Search in all products",
         "search_in" => "Search In",

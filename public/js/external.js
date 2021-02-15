@@ -5385,7 +5385,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.transaction.status == "shipped"
-    ? _c("div", [
+    ? _c("div", { staticClass: "d-flex justify-content-between" }, [
         _c(
           "button",
           {
@@ -5395,7 +5395,7 @@ var render = function() {
           },
           [
             _vm._v(
-              "\n\n     تاكيد تسليم الطلب #" +
+              "\n\n      تسليم الطلب #" +
                 _vm._s(_vm.transaction.order_id) +
                 "\n\n  "
             )

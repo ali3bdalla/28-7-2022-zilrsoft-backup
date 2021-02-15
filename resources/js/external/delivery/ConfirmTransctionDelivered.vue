@@ -1,12 +1,12 @@
 <template>
-  <div v-if="transaction.status == 'shipped'">
+  <div v-if="transaction.status == 'shipped'" class="d-flex justify-content-between">
     <button
       @click="showConfirmationCode"
       :disabled="transaction.status != 'shipped'"
       class="btn btn-success"
     >
 
-       تاكيد تسليم الطلب #{{ transaction.order_id }}
+        تسليم الطلب #{{ transaction.order_id }}
 
     </button>
 
