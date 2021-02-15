@@ -123,29 +123,31 @@ class UpdateItemRequest extends FormRequest
 			}
 		}
 		UpdateItemTagsJob::dispatchNow($item, (array)$this->input('tags'));
+        if(auth()->user()->organization_id == 1) {
 
-		$requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
-		$itemFilters = ItemFilters::where('item_id', $item->id)->pluck('filter_id')->toArray();
+            $requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
+            $itemFilters = ItemFilters::where('item_id', $item->id)->pluck('filter_id')->toArray();
 
-		foreach ($requiredFilter as $filterId) {
-			if (!in_array($filterId, $itemFilters)) {
-				throw ValidationException::withMessages(
-					[
-						'message' => [
-							"يجب اختيار رقم الموديل"
-						]
-					]
-				);
-			}
-		}
-		$itemDb = $item->fresh();
+            foreach ($requiredFilter as $filterId) {
+                if (!in_array($filterId, $itemFilters)) {
+                    throw ValidationException::withMessages(
+                        [
+                            'message' => [
+                                "يجب اختيار رقم الموديل"
+                            ]
+                        ]
+                    );
+                }
+            }
+            $itemDb = $item->fresh();
 
-		if ($itemDb->shouldBeSearchable())
-			$itemDb->searchable();
+            if ($itemDb->shouldBeSearchable())
+                $itemDb->searchable();
 
-		$item->update([
-			'is_published' => $itemDb->shouldBeSearchable()
-		]);
+            $item->update([
+                'is_published' => $itemDb->shouldBeSearchable()
+            ]);
+        }
 
 		return $item;
 	}

@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Sales\Order;
 
+use App\Jobs\Order\CreateOrderPdfSnapshotJob;
 use App\Jobs\Order\HandleOrderShippingJob;
 use App\Models\Invoice;
 use App\Models\Order;
@@ -74,6 +75,8 @@ class UpdateOnlineOrderStatus implements ShouldQueue
                     ]
                 );
 
+
+                CreateOrderPdfSnapshotJob::dispatchNow($this->invoice);
 
             }
         }

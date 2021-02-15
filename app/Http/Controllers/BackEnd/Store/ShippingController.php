@@ -184,13 +184,13 @@ class ShippingController extends Controller
 //        $transactionsIdes = implode(',', $request->input('transactions'));
         $orders = ShippingTransaction::whereIn('id', $request->input('transactions'))->pluck('order_id')->toArray();
         $ordersIds = implode(',', $orders);
-        $messages = 'You picked up orders (' . $ordersIds . ')
+        $messages = 'You picked up order (' . $ordersIds . ')
 code: ' . $otp;
-        $messages = 'لقد استلمت الطلبات (' . $ordersIds . ')
+        $messages = 'لقد استلمت الطلب (' . $ordersIds . ')
 الرمز: ' . $otp . '
-رابط استلام الطلبات ' . url('/delivery_man/confirm/' . $deliveryMan->hash);
+رابط استلام الطلبات ' .file_get_contents('http://tinyurl.com/api-create.php?url=' .  url('/delivery_man/confirm/' . $deliveryMan->hash));
         sendSms($messages, '966' . $phoneNumber);
-        Whatsapp::sendMessage($messages,'966' . $phoneNumber);
+        Whatsapp::sendMessage($messages,$phoneNumber);
         $deliveryMan->verfications()->create([
             'slug' => 'transactions_' . implode('-', $request->input('transactions')),
             'verfication_code' => $otp

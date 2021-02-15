@@ -53,7 +53,7 @@ class CreateItemRequest extends FormRequest
 				'price_with_tax' => 'required|numeric',
 				'vendor_expense_id' => 'nullable|integer',
 				'warranty_subscription_id' => 'required|integer',
-				'online_price' => 'required_if:is_available_online,true',
+//				'online_price' => 'required_if:is_available_online,true',
 				'online_offer_price' => 'required_if:is_available_online,true',
 				'is_available_online' => 'required_if:is_available_online,true',
 				'weight' => 'required_if:is_available_online,true',
@@ -94,36 +94,41 @@ class CreateItemRequest extends FormRequest
 					}
 				}
 			}
-			if($this->has('tags') && $this->filled('tags'))
-			{
-				UpdateItemTagsJob::dispatchNow($item,$this->input('tags'));
-			}
+            if($this->has('tags') && $this->filled('tags'))
+            {
+                UpdateItemTagsJob::dispatchNow($item,$this->input('tags'));
+            }
+            $requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
+            $itemFilters = ItemFilters::where('item_id', $item->id)->pluck('filter_id')->toArray();
+
+            foreach($requiredFilter as $filterId) {
+                if(!in_array($filterId, $itemFilters)) {
+                    throw ValidationException::withMessages(
+                        [
+                            'filters' => [
+                                'this filter should be selected'
+                            ]
+                        ]
+                    );
+                }
+            }
+
+			if(auth()->user()->organization_id == 1)
+            {
 
 
-			$requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
-			$itemFilters = ItemFilters::where('item_id', $item->id)->pluck('filter_id')->toArray();
-
-			foreach($requiredFilter as $filterId) {
-				if(!in_array($filterId, $itemFilters)) {
-					throw ValidationException::withMessages(
-						[
-							'filters' => [
-								'this filter should be selected'
-							]
-						]
-					);
-				}
-			}
-
-			$itemDb = $item->fresh();
-
-			if($itemDb->shouldBeSearchable())
-				$itemDb->searchable();
 
 
-			$item->update([
-				'is_published' => $itemDb->shouldBeSearchable()
-			]);
+                $itemDb = $item->fresh();
+
+                if($itemDb->shouldBeSearchable())
+                    $itemDb->searchable();
+
+
+                $item->update([
+                    'is_published' => $itemDb->shouldBeSearchable()
+                ]);
+            }
 
 			return $item;
 

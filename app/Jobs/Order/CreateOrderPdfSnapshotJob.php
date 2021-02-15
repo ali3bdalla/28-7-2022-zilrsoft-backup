@@ -7,6 +7,7 @@ use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Organization;
 use App\Models\User;
+use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Bus\Queueable;
@@ -14,6 +15,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 use Mpdf\Output\Destination;
 
@@ -37,7 +39,7 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
 	{
 		//
 		$this->invoice = $invoice->fresh();
-		$this->order = Order::where('draft_id', $invoice->id)->first();
+		$this->order = Order::where('invoice_id', $invoice->id)->first();
 		$this->client = User::find($invoice->user_id);
 	}
 
@@ -48,56 +50,32 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
 	 */
 	public function handle()
 	{
+	    $view =  view('whatsapp.invoice_pdf',[
+	        'order' => $this->order,
+            'invoice' => $this->invoice
+        ]);
 
+        $mpdf = new \Mpdf\Mpdf([
+            'default_font' => 'XB'
+        ]);
+        $mpdf->SetDirectionality('rtl');
 
-		$organization = $this->invoice->organization;
+        $mpdf->WriteHTML($view);
 
-		$invoice = $this->invoice;
-		$pdfInvoice = new APDFCore("decentblue", ' ');
-		
-		$pdfInvoice->setLogo($organization->localized_logo);
-		$pdfInvoice->setType(__("store.order.sales_invoice"));
-		$pdfInvoice->setDirection('rtl');
-		$pdfInvoice->setLang('ar');
-		$pdfInvoice->setReference($invoice->invoice_number);
-		$pdfInvoice->setDate(Carbon::parse($invoice->created_at)->toDateTimeString());
-		$pdfInvoice->setFrom(
-			[
-				['key' => false, 'value' => $organization->locale_title],
-				['key' => __("store.order.vatId"), 'value' => $organization->vat],
-				['key' => __("store.order.vatId"), 'value' => $organization->cr],
-				['key' => __("store.order.phone"), 'value' => $organization->phone_number],
-				['key' => __("store.order.branch"), 'value' => __("store.order.online_sales")],
-				['key' => false, 'value' => $organization->locale_description],
-			]
-		);
-		$pdfInvoice->setTo(array($invoice->user->locale_name, $invoice->user->phone_number, __("store.order.shipping_address")));
-
-		foreach ($invoice->items as $item) {
-			$pdfInvoice->addItem($item->item->locale_name, $item->qty, $item->price, $item->total, $item->tax, $item->net, $item->getInvoiceItemSerials()->pluck('serial')->toArray());
-		}
-		$pdfInvoice->addTotal(__("store.order.total"), $invoice->total);
-		$pdfInvoice->addTotal(__("store.order.tax"), $invoice->tax);
-		$pdfInvoice->addTotal(__("store.order.shipping"), 0);
-		$pdfInvoice->addTotal(__("store.order.net"), $invoice->net);
-		$pdfInvoice->addBadge(__("store.order.draft"));
-		$pdfInvoice->setThanksMessage(__("store.order.happy_to_serv_you"));
-		$pdfInvoice->addTitle(__("store.order.terms_privacy"));
-		foreach (__("store.order.terms_list") as $key => $value) {
-			$pdfInvoice->addParagraph($value);
-		}
-		$pdfInvoice->setFooterContent($organization->country->ar_name . ' - ' . __("store.order.our_address_state") . ' - ' . $organization->city_ar . " - " . $organization->address_ar);
-		try {
-			$fileName = 'order_' . $this->order->id . '_' . Carbon::now()->toDateString() . '.pdf';
-			$path = 'orders/' . $fileName;
-			Storage::put($path, $pdfInvoice->render($fileName, Destination::STRING_RETURN), 'public');
-			$this->order->update([
-				'pdf_path' => $path,
-				'lang' => app()->getLocale()
-			]);
-			return $path;
-		} catch (Exception $exception) {
-			throw $exception;
-		}
+        $mpdf->SetHTMLFooter('
+<table width="100%">
+    <tr>
+        <td width="100%" align="center" style="font-weight: bold;">المملكة العربية السعودية - القصيم - الرس - طريق الملك فهد - غرب الاحوال المدنية</td>
+    </tr>
+    <tr>
+        <td width="100%" align="center" style="font-weight: bold;">'.url('').'</td>
+    </tr>
+</table>');
+        $fileName = 'order_' . $this->order->id . '_' . Carbon::now()->toDateString() . '.pdf';
+        $path = storage_path('app/public/orders/' . $fileName);
+        $mpdf->Output( $path,'F');
+        $this->order->update([
+            'pdf_path' => 'orders/' . $fileName
+        ]);
 	}
 }

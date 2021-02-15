@@ -1,19 +1,18 @@
 <?php
 
-use App\Jobs\Accounting\CloseYear\NormalizeIncomesExpensesJob;
-
-
 use App\Http\Middleware\ImagesUploadMiddleware;
+use App\Jobs\Order\CreateOrderPdfSnapshotJob;
+use App\Models\Invoice;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Mail\TestMail;
-use Illuminate\Support\Facades\Auth;
 
-Route::group(['prefix' => 'delivery_man'],function() {
+
+Route::group(['prefix' => 'delivery_man'], function () {
     Route::get('/confirm/{hash}', 'DeliveryManController@confirm');
     Route::post('/confirm/{hash}/{transaction}', 'DeliveryManController@performConfirm');
     Route::get('/{transaction}/resend_otp', 'DeliveryManController@resendOtp');
 });
+
 
 
 Route::get('/', 'Web\HomeController@toWeb')->name('to.web');
@@ -21,11 +20,11 @@ Route::get('/', 'Web\HomeController@toWeb')->name('to.web');
 Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->name('web.')->group(
     function () {
 
-        Route::prefix('content')->group(function(){
-            Route::get('about','ContentController@about');
-            Route::get('privacy','ContentController@privacy');
-            Route::get('terms','ContentController@terms');
-            Route::get('contact','ContentController@contact');
+        Route::prefix('content')->group(function () {
+            Route::get('about', 'ContentController@about');
+            Route::get('privacy', 'ContentController@privacy');
+            Route::get('terms', 'ContentController@terms');
+            Route::get('contact', 'ContentController@contact');
 
         });
         Route::get('/orders/{order}/cancel', 'Order\CancelOrderController@showPage');
@@ -89,11 +88,9 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
         );
 
 
-
-
         Route::middleware('auth:client')->group(
             function () {
-                Route::get('logout',function() {
+                Route::get('logout', function () {
                     auth('client')->logout();
                     return back();
                 });
@@ -107,7 +104,6 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
                 });
             }
         );
-
 
 
     }

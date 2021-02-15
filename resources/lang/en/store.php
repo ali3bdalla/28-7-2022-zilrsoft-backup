@@ -55,7 +55,7 @@ return [
 
     'messages' => [
         "order_has_been_shipping" => "
-Success delivered, we will send you invoice now .
+Success delivered,
 Happy to serve you",
         "notify_customer_by_payment_confirmation" => "
 Dear *:CUSTOMER_NAME* 
