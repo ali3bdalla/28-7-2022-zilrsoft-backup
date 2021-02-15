@@ -41,7 +41,7 @@
                         ),
                       }"
                       :src="shippingMethod.logo"
-                      class="cart__shipping-method-list-item-image"
+                      class="cart__shipping-method-list-item-image object-contain"
                     ></el-image>
                     <el-radio
                       v-model="shippingMethodId"

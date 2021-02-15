@@ -191,9 +191,9 @@ export default {
   },
   data () {
     return {
-      first_name: '',
-      last_name: '',
-      phone_number: '',
+      first_name: this.$page.user.first_name,
+      last_name: this.$page.user.last_name,
+      phone_number: this.$page.user.phone_number,
       building_number: '',
       street_name: '',
       area: '',
