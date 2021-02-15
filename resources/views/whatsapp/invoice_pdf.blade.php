@@ -169,7 +169,7 @@
                 الكمية
             </td>
             <td  width="20%" style="text-align: center">
-                السعر
+                المجموع
             </td>
 
 
@@ -185,7 +185,7 @@
                 {{$item->qty}}
             </td>
             <td  style="text-align: center">
-                {{$item->price}} {{__('store.products.sar')}}
+                {{moneyFormatter($item->net)}} {{__('store.products.sar')}}
             </td>
         </tr>
         @endforeach
@@ -220,20 +220,12 @@
 
 
             <td class="bold-font">
-                المجموع :  {{ moneyFormatter($invoice->total) }} {{__('store.products.sar')}}
+                المجموع :  {{ moneyFormatter($invoice->net) }} {{__('store.products.sar')}}
             </td>
             <td></td>
             <td></td>
         </tr>
-        <tr class="total">
-
-            <td width="230px" class="bold-font">
-                الضريبة (15%) :  {{ moneyFormatter($invoice->tax) }} {{__('store.products.sar')}}
-            </td>
-            <td></td>
-            <td></td>
-
-        </tr><tr class="total" class="bold-font">
+        <tr class="total" class="bold-font">
 
             <td width="230px" class="bold-font">
                 الشحن :  {{ moneyFormatter($order->shipping_amount) }} {{__('store.products.sar')}}
@@ -246,6 +238,14 @@
 
             <td width="230px" class="bold-font">
                 النهائى :  {{ moneyFormatter($invoice->net + $order->shipping_amount) }} {{__('store.products.sar')}}
+            </td>
+            <td></td>
+            <td></td>
+
+        </tr><tr class="total">
+
+            <td width="230px" class="bold-font">
+                النهائي يتضمن الضريبة (15%) : {{ moneyFormatter(((float)$invoice->net + (float)$order->shipping_amount) / 100 * 15 )  }} {{__('store.products.sar')}}
             </td>
             <td></td>
             <td></td>

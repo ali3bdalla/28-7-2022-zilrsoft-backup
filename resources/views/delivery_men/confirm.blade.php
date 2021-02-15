@@ -32,6 +32,7 @@
                 {{-- <span class="text-muted">Orders</span> --}}
               <span class="badge badge-secondary badge-pill">  عدد الشحنات  ({{$transactions->count()}})</span>
             </h4>
+
             <div class="list-group mb-3">
                 @foreach($transactions as $transaction)
                     <div class="list-group-item"
@@ -41,7 +42,10 @@
                     >
                         <div>
                             <h6 class="my-0">{{$transaction->first_name}} {{$transaction->last_name}}</h6>
-                            <small class="text-muted">{{$transaction->phone_number}}</small>
+                            <small class="text-muted">0{{$transaction->phone_number}}</small>
+                        </div>
+                        <div>
+                             {{ $transaction->address }} 
                         </div>
                         @if($transaction->status !== 'received')
                         <div style="margin-top: 9px">

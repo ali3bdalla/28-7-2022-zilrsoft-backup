@@ -39,7 +39,7 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
 	{
 		//
 		$this->invoice = $invoice->fresh();
-		$this->order = Order::where('invoice_id', $invoice->id)->first();
+		$this->order = Order::where('draft_id', $invoice->id)->first();
 		$this->client = User::find($invoice->user_id);
 	}
 
@@ -73,6 +73,7 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
 </table>');
         $fileName = 'order_' . $this->order->id . '_' . Carbon::now()->toDateString() . '.pdf';
         $path = storage_path('app/public/orders/' . $fileName);
+		$mpdf->Output();
         $mpdf->Output( $path,'F');
         $this->order->update([
             'pdf_path' => 'orders/' . $fileName

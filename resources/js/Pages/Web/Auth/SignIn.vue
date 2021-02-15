@@ -53,13 +53,21 @@
                   </div>
                 </div>
 
-                <div class="group-input gi-check">
+                <div class="group-input gi-check flex items-center justify-between">
                   <div class="gi-more">
                     <a
                       href="/web/forget_password"
                       :style="$page.active_locale == 'en' ? 'float:left' : ''"
                       class="forget-pass"
                       >{{ $page.$t.profile.forget_password }}</a
+                    >
+                  </div>
+                  <div class="gi-more">
+                    <a
+                     href="/web/sign_up"
+                      :style="$page.active_locale == 'en' ? 'float:right' : ''"
+                      class="forget-pass"
+                      >{{ $page.$t.profile.or_create_new_account }}</a
                     >
                   </div>
                 </div>

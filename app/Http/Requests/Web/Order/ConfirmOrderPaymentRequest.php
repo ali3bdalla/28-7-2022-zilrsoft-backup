@@ -5,7 +5,8 @@
 	use App\Events\Order\ClientUpdateOrderPaymentEvent;
 	use App\Models\Order;
 	use App\Models\OrderPaymentDetail;
-	use Illuminate\Database\QueryException;
+use App\Package\Whatsapp;
+use Illuminate\Database\QueryException;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
 	
@@ -64,6 +65,10 @@
 						'last_name' => $this->input('last_name'),
 					]
 				);
+				if(app()->environment('production'))
+				{
+					Whatsapp::sendMessage("new payment","966509025606");
+				}
 				DB::commit();
 				event(new ClientUpdateOrderPaymentEvent($order));
 			} catch(QueryException $exception) {
