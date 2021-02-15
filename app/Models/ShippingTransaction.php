@@ -5,6 +5,10 @@ namespace App\Models;
 use App\Jobs\External\Smsa\GetShippmentStatusJob;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed delivery_man_id
+ * @property mixed order
+ */
 class ShippingTransaction extends BaseModel
 {
 
@@ -31,13 +35,13 @@ class ShippingTransaction extends BaseModel
 	{
 		return $this->belongsTo(Manager::class, 'creator_id');
 	}
-    
+
     public function city()
 	{
 		return $this->belongsTo(City::class, 'city_id');
     }
-    
-    
+
+
     public function deliveryMan()
     {
         return $this->belongsTo(DeliveryMan::class, 'delivery_man_id');
@@ -47,8 +51,8 @@ class ShippingTransaction extends BaseModel
 
     public function getShippingStatusAttribute()
     {
-        return GetShippmentStatusJob::dispatch($this); 
+        return GetShippmentStatusJob::dispatch($this);
     }
-    
+
     //
 }

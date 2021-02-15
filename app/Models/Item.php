@@ -73,13 +73,13 @@ class Item extends BaseModel
 
 	public function getItemImageUrlAttribute()
 	{
-		
+
 		$main = $this->attachments()->where('is_main',true)->first();
 		if($main) return $main->url;
 
-		
+
 		$images = $this->attachments()->get()->toArray();
-		
+
 		if ($images && count($images) >= 1) return $images[0]['url'];
 
 
@@ -299,12 +299,12 @@ class Item extends BaseModel
 			}
 		}
 		// $array['online_offer_price'] = round($this->online_offer_price);
-		$array['category_name'] = $this->category ? $this->category->name : "";
+		$array['category_name'] = $this->category ? $this->category->description : "";
 		$array['category_id'] = $this->category_id;
-		$array['category_ar_name'] = $this->category ? $this->category->ar_name : "";
+		$array['category_ar_name'] = $this->category ? $this->category->ar_description : "";
 
 		return $array;
 	}
 
-	
-} 
+
+}

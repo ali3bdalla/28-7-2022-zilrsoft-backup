@@ -1,127 +1,127 @@
 <template>
-  <div class="images-uploader" >
+  <div class="images-uploader">
     <loading
-      :active.sync="isLoading"
-      :can-cancel="true"
-      :is-full-page="true"
+        :active.sync="isLoading"
+        :can-cancel="true"
+        :is-full-page="true"
     ></loading>
 
     <div
-    v-if="item.id"
-      class="images-uploader__main-image"
+        v-if="item.id"
+        class="images-uploader__main-image"
     >
       <div
-        class="images-uploader__main-image-viewer"
+          class="images-uploader__main-image-viewer"
       >
 
         <div
-          class="images-uploader__main-image-container"
+            class="images-uploader__main-image-container"
         >
-          <img :src="activeImage" class="images-uploader__main-image-preview" />
+          <img :src="activeImage" class="images-uploader__main-image-preview"/>
         </div>
         <div
-          class="images-uploader__sub-images"
-          data-v-52728e8a=""
-          data-v-a15fc63e=""
-        >
-          <div v-for="(attachment, index) in attachmentsList" :key="index" class="">
-            <img
+            class="images-uploader__sub-images"
+            data-v-52728e8a=""
+            data-v-a15fc63e="">
+
+        <div v-for="(attachment, index) in attachmentsList" :key="index">
+          <img
               :src="$processedImageUrl(attachment.url, 300, 400)"
               class="images-uploader__sub-image-preview"
               @click="changeActiveImage(attachment)"
-            />
-            <div class="images-uploader__mt-3">
-              <button
+          />
+          <div class="images-uploader__mt-3">
+            <button
                 class="images-uploader__delete-image"
                 @click="deleteImage(attachment.id)"
-              >
-                حذف
-              </button>
-            </div>
+            >
+              حذف
+            </button>
           </div>
         </div>
       </div>
-      <div class="images-uploader__flex-1"  v-if="attachmentsList.length < 4">
-        <label class="images-uploader__upload-area">
-          <div class="images-uploader__upload-area-container">
-            <div class="images-uploader__text-gray">
-              <div class="images-uploader__upload">
-                <img style="width: 500px;" src="/accounting/images/cloud_upload.png" />
-                <p class="lead">رفع المرفقات</p>
-              </div>
+    </div>
+    <div v-if="attachmentsList.length < 4" class="images-uploader__flex-1">
+      <label class="images-uploader__upload-area">
+        <div class="images-uploader__upload-area-container">
+          <div class="images-uploader__text-gray">
+            <div class="images-uploader__upload">
+              <img src="/accounting/images/cloud_upload.png" style="width: 500px;"/>
+              <p class="lead">رفع المرفقات</p>
             </div>
-            <input
+          </div>
+          <input
               ref="file"
               accept="image/*"
               multiple
               style="display: none"
               type="file"
               @change="handleFiles"
-            />
-          </div>
-        </label>
-        <div v-if="$page.errors" class="images-uploader__error">
-          {{ $page.errors.images }}
+          />
         </div>
-        <div v-if="$page.errors[`images.0`]" class="images-uploader__error">
-          {{ $page.errors[`images.0`] }}
-        </div>
-        <div v-if="$page.errors[`images.1`]" class="images-uploader__error">
-          {{ $page.errors[`images.1`] }}
-        </div>
-        <div v-if="$page.errors[`images.2`]" class="images-uploader__error">
-          {{ $page.errors[`images.2`] }}
-        </div>
-        <div v-if="$page.errors[`images.3`]" class="images-uploader__error">
-          {{ $page.errors[`images.3`] }}
-        </div>
+      </label>
+      <div v-if="$page.errors" class="images-uploader__error">
+        {{ $page.errors.images }}
+      </div>
+      <div v-if="$page.errors[`images.0`]" class="images-uploader__error">
+        {{ $page.errors[`images.0`] }}
+      </div>
+      <div v-if="$page.errors[`images.1`]" class="images-uploader__error">
+        {{ $page.errors[`images.1`] }}
+      </div>
+      <div v-if="$page.errors[`images.2`]" class="images-uploader__error">
+        {{ $page.errors[`images.2`] }}
+      </div>
+      <div v-if="$page.errors[`images.3`]" class="images-uploader__error">
+        {{ $page.errors[`images.3`] }}
       </div>
     </div>
+  </div>
 
-    <div class=" images-uploader__mt-10">
-      <div class="images-uploader__content images-uploader__w-full images-uploader__gap-3">
-        <div class="images-uploader__flex-1 images-uploader__w-full">
+  <div class=" images-uploader__mt-10">
+    <div class="images-uploader__content images-uploader__w-full images-uploader__gap-3">
+      <div class="images-uploader__flex-1 images-uploader__w-full">
           <textarea
-            @change="publishDescription"
-            v-model="description.ar_description"
-            class="form-control images-uploader__text-right images-uploader__w-full  images-uploader__p-3"
-            placeholder="وصف عربي"
-             cols="100"
-            rows="5"
+              v-model="description.ar_description"
+              class="form-control images-uploader__text-right images-uploader__w-full  images-uploader__p-3"
+              cols="100"
+              placeholder="وصف عربي"
+              rows="5"
+              @change="publishDescription"
           ></textarea>
-          <div
+        <div
             v-if="$page.errors.ar_description"
             class="images-uploader__error"
-          >
-            {{ $page.errors.ar_description }}
-          </div>
-        </div>
-        <div class="images-uploader__flex-1  images-uploader__w-full">
-          <textarea
-            @change="publishDescription"
-            v-model="description.description"
-            class="form-control images-uploader__text-left  images-uploader__w-full images-uploader__p-3"
-            style="direction:ltr"
-            cols="100"
-            rows="5"
-            placeholder="وصف انجليزي"
-          ></textarea>
-          <div
-            v-if="$page.errors.description"
-            class="images-uploader__error"
-          >
-            {{ $page.errors.description }}
-          </div>
-
+        >
+          {{ $page.errors.ar_description }}
         </div>
       </div>
+      <div class="images-uploader__flex-1  images-uploader__w-full">
+          <textarea
+              v-model="description.description"
+              class="form-control images-uploader__text-left  images-uploader__w-full images-uploader__p-3"
+              cols="100"
+              placeholder="وصف انجليزي"
+              rows="5"
+              style="direction:ltr"
+              @change="publishDescription"
+          ></textarea>
+        <div
+            v-if="$page.errors.description"
+            class="images-uploader__error"
+        >
+          {{ $page.errors.description }}
+        </div>
 
-      <div class="images-uploader__mt-3" v-if="!noUpdateButton">
-            <button class="images-uploader__update-button" @click="saveDescription">
-              تعديل الوصف
-            </button>
-          </div>
+      </div>
     </div>
+
+    <div v-if="!noUpdateButton" class="images-uploader__mt-3">
+      <button class="images-uploader__update-button" @click="saveDescription">
+        تعديل الوصف
+      </button>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -174,24 +174,24 @@ export default {
     saveDescription () {
       this.isLoading = true
       this.$inertia.post(
-        `/api/upload_images/${this.item.id}/update_description`,
-        this.description,
-        {
-          onSuccess: (page) => {
-            if (Object.keys(page.props.errors).length === 0) {
-              this.$alert('تم الحفظ بنجاح')
+          `/api/upload_images/${this.item.id}/update_description`,
+          this.description,
+          {
+            onSuccess: (page) => {
+              if (Object.keys(page.props.errors).length === 0) {
+                this.$alert('تم الحفظ بنجاح')
+              }
+            },
+            onFinish: () => {
+              this.isLoading = false
             }
-          },
-          onFinish: () => {
-            this.isLoading = false
           }
-        }
       )
     },
     changeActiveImage (image) {
       this.activeImage = this.$processedImageUrl(image.url, 300, 400)
       axios
-        .get(`/api/upload_images/${this.item.id}/${image.id}/set_master`)
+          .get(`/api/upload_images/${this.item.id}/${image.id}/set_master`)
     },
     deleteImage (id) {
       const appVm = this
@@ -222,19 +222,19 @@ export default {
       }
 
       axios
-        .post(`/api/upload_images/${this.item.id}`, serverData)
-        .then((res) => {
-          this.$alert('تم الحفظ بنجاح')
-          res.data.forEach(element => {
-            this.attachmentsList.push(element)
+          .post(`/api/upload_images/${this.item.id}`, serverData)
+          .then((res) => {
+            this.$alert('تم الحفظ بنجاح')
+            res.data.forEach(element => {
+              this.attachmentsList.push(element)
+            })
           })
-        })
-        .catch((errr) => {
-          this.$alert('لم يتم اضافة الصورة')
-        })
-        .finally(() => {
-          this.isLoading = false
-        })
+          .catch((errr) => {
+            this.$alert('لم يتم اضافة الصورة')
+          })
+          .finally(() => {
+            this.isLoading = false
+          })
       // this.$inertia.post(`/api/upload_images/${this.item.id}`, serverData, {
       //   onSuccess: page => {
       //     if (Object.keys(page.props.errors).length == 0) { this.$alert('تم الحفظ بنجاح') }
@@ -318,7 +318,7 @@ export default {
 
 .images-uploader__main-image-preview {
   -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
   height: 16rem;
 }
 
@@ -338,7 +338,7 @@ export default {
   width: 4rem;
   height: 4rem;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .images-uploader__delete-image {
@@ -398,7 +398,7 @@ export default {
 .images-uploader__upload-area-container {
   width: 50%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;
 }
@@ -438,6 +438,7 @@ export default {
 .images-uploader__mt-10 {
   margin-top: 2.5rem;
 }
+
 /*@import url("/css/store.css");*/
 /*@import url("/css/rlt_store.css");*/
 label {

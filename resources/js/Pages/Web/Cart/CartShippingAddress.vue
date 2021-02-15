@@ -1,11 +1,15 @@
 <template>
   <div class="">
-    <h2 class="cart__shipping-method-title">
+    <h2 class="cart__shipping-method-title" v-if="$page.shippingAddresses.length > 0">
       {{$page.$t.cart.select_shipping_address }}  {{$page.$t.common.or }} <inertia-link class="text-blue-400" href="/web/profile/create-shipping-address">{{  $page.$t.common.add_new }}</inertia-link>
 
     </h2>
+    <h2 class="cart__shipping-method-title" v-else>
+      <inertia-link class="text-blue-400" href="/web/profile/create-shipping-address">{{  $page.$t.common.add }} {{$page.$t.cart.shipping_address }} </inertia-link>
+<!--      {{$page.$t.cart.select_shipping_address }}  {{$page.$t.common.or }}-->
+    </h2>
 
-    <div class="">
+    <div class="" v-if="$page.shippingAddresses.length > 0">
       <div class="cart__shipping-address">
         <div class="cart__shipping-address-list">
           <div class="cart__shipping-address-right w-full">

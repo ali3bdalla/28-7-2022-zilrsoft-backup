@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Storage;
  * @property float|int|mixed shipping_cost
  * @property int|mixed shipping_amount
  * @property float|int|mixed shipping_weight
+ * @property mixed user
  */
 class Order extends BaseModel
 {

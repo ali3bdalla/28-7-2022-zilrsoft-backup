@@ -48,6 +48,7 @@ class CreateSalesOrderJob implements ShouldQueue
     {
         $invoiceItems = $this->invoice->items()->withoutGlobalScope('draft')->get();
         $order = new Order();
+        $order->lang = app()->getLocale();
         $order->user_id = $this->invoice->user_id;
         $order->shipping_address_id = $this->request->input('shipping_address_id');
         $order->payment_method = $this->request->input('payment_method_id');

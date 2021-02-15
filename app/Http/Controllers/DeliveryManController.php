@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DeliveryMan\StoreDeliveryManRequest;
+use App\Jobs\Order\NotifyCustomerOrderHasBeenDeliveredJob;
 use App\Jobs\Order\NotifyCustomerOrderHasBeenShippedJob;
 use App\Models\City;
 use App\Models\DeliveryMan;
@@ -100,7 +101,7 @@ class DeliveryManController extends Controller
 
 			['order_id', '!=', null],
 		])->orderBy('id','desc')->paginate(25);
-		
+
 
 		return view('delivery_men.confirm', compact('deliveryMan', 'transactions'));
 	}
@@ -126,6 +127,7 @@ class DeliveryManController extends Controller
 			$transaction->update([
 				'status' => 'received'
 			]);
+            NotifyCustomerOrderHasBeenDeliveredJob::dispatchNow($transaction->order);
 			return;
 		}
 

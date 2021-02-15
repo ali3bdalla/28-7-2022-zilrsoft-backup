@@ -16,6 +16,7 @@ use App\Models\Item;
 use App\Models\Order;
 use App\Models\ShippingMethod;
 use App\Models\ShippingTransaction;
+use App\Package\Whatsapp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
@@ -33,6 +34,7 @@ class ShippingController extends Controller
     public function edit(ShippingMethod $shipping)
     {
         $expensesItems = Item::where('is_service', true)->get();
+
 
 
         return view('backend.store.shipping.edit', [
@@ -179,14 +181,16 @@ class ShippingController extends Controller
 
         $phoneNumber = $deliveryMan->international_phone_number;
         $otp = generateOtp();
-        $transactionsIdes = implode(',', $request->input('transactions'));
+//        $transactionsIdes = implode(',', $request->input('transactions'));
         $orders = ShippingTransaction::whereIn('id', $request->input('transactions'))->pluck('order_id')->toArray();
         $ordersIds = implode(',', $orders);
-        $messages = 'You picked up orders (' . $ordersIds . ')
+        $messages = 'You picked up order (' . $ordersIds . ')
 code: ' . $otp;
-        $messages = 'لقد استلمت الطلبات (' . $ordersIds . ')
-الرمز: ' . $otp;
+        $messages = 'لقد استلمت الطلب (' . $ordersIds . ')
+الرمز: ' . $otp . '
+رابط استلام الطلبات ' .file_get_contents('http://tinyurl.com/api-create.php?url=' .  url('/delivery_man/confirm/' . $deliveryMan->hash));
         sendSms($messages, '966' . $phoneNumber);
+        Whatsapp::sendMessage($messages,$phoneNumber);
         $deliveryMan->verfications()->create([
             'slug' => 'transactions_' . implode('-', $request->input('transactions')),
             'verfication_code' => $otp

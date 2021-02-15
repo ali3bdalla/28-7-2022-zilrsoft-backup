@@ -43,7 +43,7 @@
         </el-table-column>
          <el-table-column prop="pdf_url" :label="$page.$t.order.pdf">
            <template slot-scope="scope">
-              <a :href="scope.row.pdf_url"><el-button size="small">{{$page.$t.common.download}}</el-button></a>
+              <a :href="scope.row.pdf_url" v-if="scope.row.pdf_path"><el-button size="small">{{$page.$t.common.download}}</el-button></a>
            </template>
         </el-table-column>
 

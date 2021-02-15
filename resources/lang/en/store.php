@@ -15,6 +15,8 @@ return [
         "invalid_user_data" => "invalid login credentials",
         "add_new" => "Add New",
         "or" => "Or",
+        "add" => "Add",
+
         "downlod" => "Download",
         "search_in_all_products" => "Search in all products",
         "search_in" => "Search In",
@@ -52,6 +54,9 @@ return [
 
 
     'messages' => [
+        "order_has_been_shipping" => "
+Success delivered,
+Happy to serve you",
         "notify_customer_by_payment_confirmation" => "
 Dear *:CUSTOMER_NAME* 
 Your payment has been confirmed for order :ORDER_ID

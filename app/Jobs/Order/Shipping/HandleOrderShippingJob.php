@@ -46,10 +46,5 @@ class HandleOrderShippingJob implements ShouldQueue
 
         NotifyCustomerOrderHasBeenShippedJob::dispatchNow($this->order);
 
-        // to create shipping item
-
-        // $item = $this->deliveryMan->shippingMethod->item;
-
-        // dispatch_now(new CreatePurchaseInvoiceForExpensesJob($this->input('items')));
     }
 }

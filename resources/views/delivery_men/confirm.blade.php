@@ -28,13 +28,13 @@
 
     <div class="row">
         <div class="col-12">
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="d-flex justify-content-center align-items-center mb-3">
                 {{-- <span class="text-muted">Orders</span> --}}
               <span class="badge badge-secondary badge-pill">  عدد الشحنات  ({{$transactions->count()}})</span>
             </h4>
-            <ul class="list-group mb-3">
+            <div class="list-group mb-3">
                 @foreach($transactions as $transaction)
-                    <li class="list-group-item d-flex justify-content-between lh-condensed"
+                    <div class="list-group-item"
                         @if($transaction->status == 'received')
                         style="background-color: #84e6d3"
                             @endif
@@ -44,11 +44,11 @@
                             <small class="text-muted">{{$transaction->phone_number}}</small>
                         </div>
                         @if($transaction->status !== 'received')
-                        <div class="float-right text-lg">
+                        <div style="margin-top: 9px">
                             <confirm-transaction-delivered :delivery-man='@json($deliveryMan)' :transaction='@json($transaction)'></confirm-transaction-delivered>
                         </div>
                         @endif
-                    </li>
+                    </div>
                 @endforeach
                {{ $transactions->links() }}
         </div>

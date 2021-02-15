@@ -14,7 +14,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">تعديل بيانات </h3>
             </div>
-            <form role="form" method="post" action="{{route('store.shipping.update',$shipping->id)}}">
+            <form role="form" method="post" action="{{route('store.shipping.update',$shipping->id)}}" enctype="multipart/form-data" >
                 @method('PATCH')
                 <div class="box-body">
                     <div class="raw">
@@ -140,8 +140,8 @@
                             <div class="form-group">
                                 <label>المنتج</label>
                                 <label for="">الشعار</label>
-                                <input type="file" id="exampleInputFile">
-                                @error('item_id')
+                                <input type="file" name="logo" id="exampleInputFile">
+                                @error('logo')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>

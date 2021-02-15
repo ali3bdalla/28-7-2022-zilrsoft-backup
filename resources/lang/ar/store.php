@@ -8,6 +8,7 @@ return [
     "common" => [
         "invalid_user_data" => "بيانات الدخول غير صحيحة",
         "add_new" => "اضف جديد",
+        "add" => "اضافة",
         "or" => "او",
         "download" => "تحميل",
         "search_in_all_products" => "البحث في كل المنتجات",
@@ -59,6 +60,9 @@ return [
         'not_paid' => "1- إنتهاء مهلة السداد",
         "unpaid_order_canceled_message" =>
         "مرحبا *:CUSTOMER_NAME*,\n نأسف، طلبك رقم (:ORDERID) تم الغاءه \n\n سبب الإلغاء:\n:REASON .  ",
+        "order_has_been_shipping" => "
+تم تسليم الطلب بنجاح، .
+سعدنا بخدمتك",
         "notify_customer_by_new_order_message" => "
 مرحبا *:CUSTOMER_NAME*
 شكرا لتسوقك من *متجر المسبار*
@@ -145,7 +149,7 @@ return [
         "status" => "حالة الطلب",
         "no_order" => "لاتوجد طلبات",
         "pdf" => "الفاتورة",
-        
+
         "cancel" => "الغاء الطلب",
         "sales_invoice" => "فاتورة مبيعات",
         "vatId" => 'الرقم الضريبي',
