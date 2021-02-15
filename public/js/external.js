@@ -1953,11 +1953,9 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: 'الغاء'
       }).then(function (text) {
         if (text !== null) {
-          axios.post("/delivery_man/confirm/".concat(_this2.deliveryMan.hash, "/").concat(_this2.transaction.order_id), {
+          axios.post("/delivery_man/confirm/".concat(_this2.deliveryMan.hash, "/").concat(_this2.transaction.id), {
             code: text
           }).then(function (res) {
-            console.log(res.data);
-
             _this2.$alert('تم تسليم الشحنة بنجاح ', 'نجاح', 'success').then(function (res) {
               location.reload();
             });

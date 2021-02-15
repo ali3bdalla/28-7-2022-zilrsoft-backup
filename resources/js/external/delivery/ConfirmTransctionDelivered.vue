@@ -52,13 +52,12 @@ export default {
           if (text !== null) {
             axios
               .post(
-                `/delivery_man/confirm/${this.deliveryMan.hash}/${this.transaction.order_id}`,
+                `/delivery_man/confirm/${this.deliveryMan.hash}/${this.transaction.id}`,
                 {
                   code: text
                 }
               )
               .then((res) => {
-                console.log(res.data)
                 this.$alert(
                   'تم تسليم الشحنة بنجاح ',
                   'نجاح',
