@@ -81,7 +81,7 @@ class ShippingController extends Controller
 
     public function downloadTransaction(ShippingMethod $shipping, ShippingTransaction $transaction)
     {
-        if ($shipping->id == 1) return DownloadShippmentPdfJob::dispatchNow($transaction);
+        if ($shipping->id == 2) return DownloadShippmentPdfJob::dispatchNow($transaction);
 
         if ($transaction->order) return Storage::download($transaction->order->pdf_path);
     }
@@ -189,7 +189,7 @@ code: ' . $otp;
         $messages = 'لقد استلمت الطلب (' . $ordersIds . ')
 الرمز: ' . $otp . '
 رابط استلام الطلبات ' .file_get_contents('http://tinyurl.com/api-create.php?url=' .  url('/delivery_man/confirm/' . $deliveryMan->hash));
-        sendSms($messages, '966' . $phoneNumber);
+        sendSms($messages, $phoneNumber);
         Whatsapp::sendMessage($messages,$phoneNumber);
         $deliveryMan->verfications()->create([
             'slug' => 'transactions_' . implode('-', $request->input('transactions')),
@@ -222,7 +222,7 @@ code: ' . $otp;
                     ]);
 
 
-
+                    
                     if ($transaction->order && $transaction->order->status == 'ready_for_shipping') {
                         HandleOrderShippingJob::dispatchNow($transaction->order, $deliveryMan);
                         if ($transaction->order->shipping_amount > 0)

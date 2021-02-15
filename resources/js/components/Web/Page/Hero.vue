@@ -17,7 +17,7 @@
         :key="item.id"
 
       >
-        <img :src="$processedImageUrl(item,1110 * 3,462 * 3,false,false)" class="object-cover" />
+        <img :src="$processedImageUrl(item,1110 * 3,462 * 3,false,false)" class="object-cover h-full w-full" />
       </div>
     </vue-horizontal>
   </div>
@@ -34,10 +34,10 @@ export default {
   data () {
     return {
       heroItems: [
-        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/20201213-Watch-S6-AN-AR-HP.jpg@jpg',
-        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/xSLA_Express-delivery-KSA-AR-BN.jpg@jpg',
-        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/14-12-2020-offer_coffee_machines_2-AR-HP.jpg@jpg',
-        'https://m.xcite.com/media/wysiwyg/KSABannersNew2/Meshaiei/X1foldHPar.jpg@jpg'
+        'local:///com.zilrsoft/storage/app/public/hero/Et4A17RVIAcrNvo.jpg@jpg',
+        // 'local:///com.zilrsoft/storage/app/public/hero/759x300.jpg@jpg',
+        'local:///com.zilrsoft/storage/app/public/hero/627x308.jpg@jpg'
+
       ],
       hasPrev: false,
       hasNext: false,

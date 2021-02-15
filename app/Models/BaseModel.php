@@ -104,7 +104,7 @@ class BaseModel extends Model
                     );
                 }
             }
-            // dd(1);
+
             if (auth('manager')->check() && !auth('manager')->user()->can('manage branches')) {
 
                 if($table == 'invoices')
