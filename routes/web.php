@@ -13,11 +13,7 @@ Route::group(['prefix' => 'delivery_man'], function () {
     Route::get('/{transaction}/resend_otp', 'DeliveryManController@resendOtp');
 });
 
-Route::get('test_pdf',function(){
 
-
-    return CreateOrderPdfSnapshotJob::dispatchNow((\App\Models\Order::with('draftInvoice')->first())->draftInvoice);
-});
 
 Route::get('/', 'Web\HomeController@toWeb')->name('to.web');
 
