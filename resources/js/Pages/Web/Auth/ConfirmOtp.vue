@@ -14,6 +14,7 @@
         class="text-center"
                         v-model="otp"
                         type="number"
+                         pattern="\d*"
                     />
                     <button
                     class="site-btn login-btn"

@@ -106,7 +106,7 @@
                             <p><strong>{{ trans('pages/users.title') }}</strong> :
                                 {{ trans("pages/users.$identity->user_title")}} </p>
                             <p><strong>{{ trans('pages/users.email_address') }}</strong> :
-                                {{ $identity->details->email }} </p>
+                                {{ $identity->details ? $identity->details->email : "" }} </p>
                             <p><strong>{{ trans('pages/users.identitySubscriptions') }}: </strong>
                                 @if($identity->is_client) <span class="label label-primary">
                                     {{ trans('pages/users.client')
@@ -117,7 +117,7 @@
                                     {{ trans('pages/users.supplier')}}</span>@endif
                             </p>
                             <p><strong>{{ trans('pages/users.address') }}</strong> :
-                                {{ $identity->details->address}} </p>
+                                {{ $identity->details ? $identity->details->address : ""}} </p>
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <p><strong>{{ trans('pages/users.created_at') }}</strong> :
@@ -125,16 +125,16 @@
                             <p><strong>{{ trans('pages/users.phone_number') }}</strong> :
                                 {{ $identity->phone_number}} </p>
                             <p><strong>{{ trans('pages/users.work_manager_name') }}</strong> :
-                                {{ $identity->details->responsible_name}} </p>
+                                {{ $identity->details ? $identity->details->responsible_name : ""}} </p>
                             <p><strong>{{ trans('pages/users.work_phone_number') }}</strong> :
-                                {{ $identity->details->responsible_phone_number}} </p>
+                                {{ $identity->details ? $identity->details->responsible_phone_number : ""}} </p>
 
 
                             @if($identity->is_vendor)
                                 <p><strong>{{ trans('pages/users.vat_number') }}</strong> :
-                                    {{ $identity->details->vat}} </p>
+                                    {{$identity->details ??  $identity->details->vat}} </p>
                                 <p><strong>{{ trans('pages/users.cr_number') }}</strong> :
-                                    {{ $identity->details->cr}} </p>
+                                    {{$identity->details ??  $identity->details->cr}} </p>
                             @endif
 
                         </div>
