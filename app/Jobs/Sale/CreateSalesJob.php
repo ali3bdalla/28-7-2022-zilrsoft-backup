@@ -38,12 +38,12 @@ class CreateSalesJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($clientId, $items = [], $paymentsMethods = [], $salesmanId, $quatationId = "", $isOnlineOrder = false, $aliasName = "")
+    public function __construct($clientId, $items = [], $paymentsMethods = [], $salesmanId = null, $quatationId = "", $isOnlineOrder = false, $aliasName = "")
     {
         $this->clientId = $clientId;
         $this->items = $items;
         $this->paymentsMethods = $paymentsMethods;
-        $this->salesmanId = $salesmanId;
+        $this->salesmanId = $salesmanId ? $salesmanId : auth('manager')->user()->id;
         $this->aliasName = $aliasName;
         $this->quatationId = $quatationId;
         $this->isOnlineOrder = $isOnlineOrder;;
@@ -73,7 +73,7 @@ class CreateSalesJob implements ShouldQueue
         $invoice->sale()->create(
             [
                 'salesman_id' => $this->salesmanId,
-                'client_id' => $this->salesmanId,
+                'client_id' => $this->clientId,
                 'organization_id' => $authUser->organization_id,
                 'invoice_type' => 'sale',
                 'alice_name' => $this->aliasName,
@@ -96,7 +96,7 @@ class CreateSalesJob implements ShouldQueue
         if($this->quatationId !== "")
         {
             dispatch_now(new SetDraftAsConvertedJob($this->quatationId, $invoice->id));
-        dispatch_now(new UpdateOnlineOrderStatus($this->quatationId, $invoice));
+            dispatch_now(new UpdateOnlineOrderStatus($this->quatationId, $invoice));
         }
     }
 
@@ -107,7 +107,6 @@ class CreateSalesJob implements ShouldQueue
 
         if ($isOnlineOrder) {
             return [];
-            //            return $this->onlineOrderPayments();
         }
         $invoice = $invoice->fresh();
 

@@ -15,9 +15,10 @@ class Whatsapp
         $appUrl = config('app.url');
         $appName = trans('store.app.name');
         $appCustomerSupport = trans('store.common.customer_support');
+        $contentSupportNote = trans('store.common.customer_support_note');
         $data = [
             'query' => [
-                'body' => "$message\n\n$appCustomerSupport\nhttps://tinyurl.com/2eol5vxz\n$appName\n$appUrl",
+                'body' => "$message\n\n$appCustomerSupport\nhttps://tinyurl.com/2eol5vxz\n$appName\n$appUrl\n$contentSupportNote",
                 'phone' => $phoneNumber,
                 'token' => config('services.whatsapp.token')
             ]
@@ -37,9 +38,6 @@ class Whatsapp
     public static function sendFile($storagePath, $phoneNumber,$fileName = "order.pdf")
     {
         $client = HttpClient::create();
-//        $appUrl = config('app.url');
-//        $appName = trans('store.app.name');
-//        $appCustomerSupport = trans('store.common.customer_support');
 
 
         $data = [

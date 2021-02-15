@@ -41,7 +41,7 @@
     </div>
 
     <div v-else>
-      <button v-if="$page.client_logged" :disabled="!shippingMethodId" class="proceed-btn" @click="sendOrder">
+      <button v-if="$page.client_logged" :disabled="!shippingMethodId" :style="!shippingMethod ? ' background-color: #d4d2d2 !important;color: black' : ''"  class="proceed-btn bg-gray-500" @click="sendOrder">
         {{ $page.$t.cart.confirm_order }}
       </button>
       <div v-if="$page.client_logged" class="text-center flex items-center justify-center  border-t mt-3">

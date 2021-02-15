@@ -17,6 +17,7 @@ return [
         "or" => "Or",
         "add" => "Add",
         "ok" => "Ok",
+        "customer_support_note" => "* If you are unable to open links, please save 0163394000 in your contacts",
         "downlod" => "Download",
         "search_in_all_products" => "Search in all products",
         "search_in" => "Search In",

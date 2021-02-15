@@ -110,7 +110,7 @@
                         </td>
                         <td class="text-center">{{row.phone_number}}</td>
                         <td class="text-center">
-                          <span v-if="row.status =='issued'" class="label label-danger">لم تشحن</span>
+                          <span v-if="row.status =='issued'" class="label label-danger">لم يتم تشحن</span>
                           <span v-else class="label label-success">تم تشحن</span>
                         <td class="text-center">{{row.delivery_man ? row.delivery_man.locale_name: "-" }}</td>
 
@@ -118,7 +118,7 @@
                         <td v-text="row.created_at"></td>
                         <td>
 
-                            <a :href="`/store/shipping/${shippingMethod.id}/${row.id}/download`" class="btn btn-primary">
+                            <a v-if="shippingMethod.id == 2" :href="`/store/shipping/${shippingMethod.id}/${row.id}/download`" class="btn btn-primary">
                                    تحميل
                                 </a>
                             <!-- <div class="dropdown">

@@ -53,13 +53,13 @@ class SmsaCreateShippmentJob implements ShouldQueue
                     <tns:idNo>'.$this->shippmentData['reference'].'</tns:idNo>
                     <tns:cName>'.$this->shippmentData['first_name'] . ' ' . $this->shippmentData['last_name'].'</tns:cName>
                     <tns:cntry>'.$city->country->name.'</tns:cntry>
-                    <tns:cCity>'.$city->locale_name.'</tns:cCity>
+                    <tns:cCity>'.$city->name.'</tns:cCity>
                     <tns:cZip></tns:cZip>
                     <tns:cPOBox></tns:cPOBox>
                     <tns:cMobile>'.$this->country_code . '' . $this->shippmentData['phone_number'].'</tns:cMobile>
                     <tns:cTel1></tns:cTel1>
                     <tns:cTel2></tns:cTel2>
-                    <tns:cAddr1>sdfdsfsdf</tns:cAddr1>
+                    <tns:cAddr1>'.$this->shippmentData['address'].'</tns:cAddr1>
                     <tns:cAddr2></tns:cAddr2>
                     <tns:shipType>DLV</tns:shipType>
                     <tns:PCs>1</tns:PCs>
@@ -72,7 +72,7 @@ class SmsaCreateShippmentJob implements ShouldQueue
                     <tns:custCurr></tns:custCurr>
                     <tns:insrAmt></tns:insrAmt>
                     <tns:insrCurr></tns:insrCurr>
-                    <tns:itemDesc>الكترونيات</tns:itemDesc>
+                    <tns:itemDesc>Electronics</tns:itemDesc>
                 </tns:addShipment>
             </SOAP-ENV:Body>
         </SOAP-ENV:Envelope>'

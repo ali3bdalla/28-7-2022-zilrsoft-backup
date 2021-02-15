@@ -46,7 +46,7 @@
         <div class="images-uploader__upload-area-container">
           <div class="images-uploader__text-gray">
             <div class="images-uploader__upload">
-              <img src="/accounting/images/cloud_upload.png" style="width: 500px;"/>
+              <img src="/accounting/images/cloud_upload.png" style="    width: 51px;"/>
               <p class="lead">رفع المرفقات</p>
             </div>
           </div>
@@ -191,7 +191,7 @@ export default {
     changeActiveImage (image) {
       this.activeImage = this.$processedImageUrl(image.url, 300, 400)
       axios
-          .get(`/api/upload_images/${this.item.id}/${image.id}/set_master`)
+        .get(`/api/upload_images/${this.item.id}/${image.id}/set_master`)
     },
     deleteImage (id) {
       const appVm = this
@@ -222,19 +222,19 @@ export default {
       }
 
       axios
-          .post(`/api/upload_images/${this.item.id}`, serverData)
-          .then((res) => {
-            this.$alert('تم الحفظ بنجاح')
-            res.data.forEach(element => {
-              this.attachmentsList.push(element)
-            })
+        .post(`/api/upload_images/${this.item.id}`, serverData)
+        .then((res) => {
+          this.$alert('تم الحفظ بنجاح')
+          res.data.forEach(element => {
+            this.attachmentsList.push(element)
           })
-          .catch((errr) => {
-            this.$alert('لم يتم اضافة الصورة')
-          })
-          .finally(() => {
-            this.isLoading = false
-          })
+        })
+        .catch((errr) => {
+          this.$alert('لم يتم اضافة الصورة')
+        })
+        .finally(() => {
+          this.isLoading = false
+        })
       // this.$inertia.post(`/api/upload_images/${this.item.id}`, serverData, {
       //   onSuccess: page => {
       //     if (Object.keys(page.props.errors).length == 0) { this.$alert('تم الحفظ بنجاح') }
