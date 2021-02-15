@@ -60,6 +60,9 @@ return [
         'not_paid' => "1- إنتهاء مهلة السداد",
         "unpaid_order_canceled_message" =>
         "مرحبا *:CUSTOMER_NAME*,\n نأسف، طلبك رقم (:ORDERID) تم الغاءه \n\n سبب الإلغاء:\n:REASON .  ",
+        "order_has_been_shipping" => "
+تم تسليم الطلب بنجاح، وسوف يتم ارسال الفاتورة لك الآن .
+سعدنا بخدمتك",
         "notify_customer_by_new_order_message" => "
 مرحبا *:CUSTOMER_NAME*
 شكرا لتسوقك من *متجر المسبار*

@@ -1,5 +1,5 @@
 <?php
-	
+
 	namespace App\Http\Requests\Accounting\Item;
 
 use App\Jobs\Items\Tag\UpdateItemTagsJob;
@@ -10,8 +10,11 @@ use App\Models\Filter;
 	use App\Models\ItemFilters;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Validation\ValidationException;
-	
-	class CreateItemRequest extends FormRequest
+
+/**
+ * @property mixed warranty_subscription_id
+     */
+class CreateItemRequest extends FormRequest
 	{
 		/**
 		 * Determine if the user is authorized to make this request.
@@ -22,7 +25,7 @@ use App\Models\Filter;
 		{
 			return $this->user()->can('create item');
 		}
-		
+
 		/**
 		 * Get the validation rules that apply to the request.
 		 *
@@ -59,7 +62,7 @@ use App\Models\Filter;
 				'tags.*' => 'required|string'
 			];
 		}
-		
+
 		public function save()
 		{
 			$data = $this->except('filters','tags');
@@ -68,7 +71,7 @@ use App\Models\Filter;
 			$data['ar_name'] = ReplaceArabicSensitiveCharJob::dispatchNow($this->input('ar_name'));
 			$data['is_kit'] = false;
 			$data['warranty_subscription_id'] = $this->warranty_subscription_id;
-			
+
 			if(!$this->user()->can('edit item')) {
 				$data['status'] = 'pending';
 			}
@@ -95,11 +98,11 @@ use App\Models\Filter;
 			{
 				UpdateItemTagsJob::dispatchNow($item,$this->input('tags'));
 			}
-			
-			
+
+
 			$requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
 			$itemFilters = ItemFilters::where('item_id', $item->id)->pluck('filter_id')->toArray();
-			
+
 			foreach($requiredFilter as $filterId) {
 				if(!in_array($filterId, $itemFilters)) {
 					throw ValidationException::withMessages(
@@ -117,12 +120,12 @@ use App\Models\Filter;
 			if($itemDb->shouldBeSearchable())
 				$itemDb->searchable();
 
-				
+
 			$item->update([
 				'is_published' => $itemDb->shouldBeSearchable()
 			]);
-			
+
 			return $item;
-			
+
 		}
 	}

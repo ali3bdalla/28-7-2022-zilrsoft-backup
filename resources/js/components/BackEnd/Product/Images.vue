@@ -22,7 +22,7 @@
         <div
             class="images-uploader__sub-images"
             data-v-52728e8a=""
-            data-v-a15fc63e=""
+            data-v-a15fc63e="">
 
         <div v-for="(attachment, index) in attachmentsList" :key="index">
           <img
@@ -121,6 +121,7 @@
         تعديل الوصف
       </button>
     </div>
+  </div>
   </div>
 </template>
 
