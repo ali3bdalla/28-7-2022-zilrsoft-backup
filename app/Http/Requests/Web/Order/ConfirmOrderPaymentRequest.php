@@ -67,7 +67,7 @@ use Illuminate\Database\QueryException;
 				);
 				if(app()->environment('production'))
 				{
-					Whatsapp::sendMessage("new payment","966509025606");
+					Whatsapp::sendMessage("عملية سداد جديدة","966509025606");
 				}
 				DB::commit();
 				event(new ClientUpdateOrderPaymentEvent($order));
