@@ -22,7 +22,8 @@ class ShippingAddressController extends Controller
     {
         $cities = City::where('country_id', 1)->get();
         return Inertia::render('Web/Profile/CreateShippingAddress', [
-            'cities' => $cities
+            'cities' => $cities,
+            'user' => auth()->user()
         ]);
     }
 
