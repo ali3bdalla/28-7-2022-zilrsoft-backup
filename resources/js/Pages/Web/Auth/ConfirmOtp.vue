@@ -23,17 +23,6 @@
                 >
                   {{ $page.$t.common.ok}}
                 </button>
-                <!-- <v-otp-input
-                  style="direction:ltr"
-                  ref="otpInput"
-                  input-classes="otp-input"
-                  separator="-"
-                  :num-inputs="4"
-                  :should-auto-focus="true"
-                  :is-input-num="true"
-                  @on-change="onFill"
-                  @on-complete="onFieldCompleted"
-                /> -->
 
                 <div class="p-2 text-red-500" v-if="$page.errors.otp">
                   {{ $page.$t.messages.invalid_otp }}
@@ -139,6 +128,7 @@ export default {
     onFieldCompleted () {
       this.$inertia.post(this.validate_url, {
         otp: this.otp,
+        status:false,
         phone_number: this.phone_number
       })
     },

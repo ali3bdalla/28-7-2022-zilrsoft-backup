@@ -4,7 +4,7 @@
 
 use App\Models\Traits\Configurable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+
 
 /**
 	 * @method static inRandomOrder()
@@ -15,7 +15,6 @@ use Laravel\Sanctum\HasApiTokens;
 		
 		use Notifiable;
 		use Configurable;
-		use HasApiTokens;
 		/**
 		 * The attributes that are mass assignable.
 		 *

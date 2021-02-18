@@ -1,8 +1,9 @@
 <?php
 	
 	namespace App\Http;
-	
-	use App\Http\Middleware\Authenticate;
+
+use App\Http\Middleware\ApiAuth;
+use App\Http\Middleware\Authenticate;
 	use App\Http\Middleware\CheckForMaintenanceMode;
 	use App\Http\Middleware\ClientGuestMiddleware;
 	use App\Http\Middleware\Cors;
@@ -102,7 +103,7 @@
 			'font_end_middleware' => FrontEndMiddleware::class,
 			'client_guest' => ClientGuestMiddleware::class,
 			'manager_guest' => ManagerGuestMiddleware::class,
-		
+			'api_auth' => ApiAuth::class,
 		];
 		
 		/**

@@ -1,7 +1,13 @@
 <?php
 
 use App\Http\Middleware\ImagesUploadMiddleware;
+use App\Models\Manager;
+use App\Models\OrderPaymentDetail;
+use GuzzleHttp\Client;
+use Symfony\Component\HttpClient\HttpClient;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 Route::namespace('Store')->name('web.')->middleware('font_end_middleware')->prefix('web')->group(
     function () {
@@ -40,7 +46,6 @@ Route::namespace('Store')->name('web.')->middleware('font_end_middleware')->pref
         Route::prefix('{user}')->group(
             function () {
                 Route::resource('payment_accounts', 'PaymentAccountController');
-
             }
         );
     }
@@ -88,7 +93,6 @@ Route::middleware('auth')->group(
                         Route::get('paid', 'OrderNotificationController@paid')->name('paid');
                     }
                 );
-
             }
         );
 
@@ -113,10 +117,8 @@ Route::middleware('auth')->group(
                     function () {
                         Route::get('/children', 'AccountController@children')->name('children');
                         Route::get('/entities', 'AccountController@entities')->name('entities');
-
                     }
                 );
-
             }
         );
 
@@ -141,7 +143,6 @@ Route::middleware('auth')->group(
                 Route::match(['get', 'post'], '/return_purchases_serial', 'ItemController@ValidatePurchasesSerial')->name('return_purchases_serial');
                 Route::match(['get', 'post'], '/purchases_serial', 'ItemController@ValidatePurchasesSerial')->name('purchases_serial');
                 Route::match(['get', 'post'], '/unique_barcode', 'ItemController@validateUniqueBarcode')->name('unique_barcode');
-
             }
         );
 
@@ -190,7 +191,6 @@ Route::middleware('auth')->group(
                         );
                     }
                 );
-
             }
         );
 
@@ -206,15 +206,89 @@ Route::middleware('auth')->group(
 
         Route::prefix('filters')->name('filters.')->group(
             function () {
-//					Route::get('/', 'FilterController@index')->name('index');
                 Route::post('/', 'FilterController@store')->name('store');
-//					Route::delete('/{filter}', 'FilterController@destroy')->name('destroy');
                 Route::match(['PUT', 'PATCH', 'put', 'patch', 'post'], '/{filter}/update', 'FilterController@update')->name('update');
             }
         );
-
-
     }
 );
 
 
+Route::prefix('app')->group(function () {
+
+
+    Route::get('/demo_token', function () {
+        $token = Str::random(80);
+
+        $manager = Manager::first();
+        $manager->update([
+            'api_token' => $token
+        ]);
+        return [
+            'demo_token' => $token
+        ];
+    });
+    Route::middleware('api_auth')->group(function () {
+        Route::get('token', function (Request $request) {
+            $request->validate([
+                'expo_token' => 'required|string'
+            ]);
+            $request->user()->update([
+                'expo_token' => $request->input('expo_token')
+            ]);
+            return [
+                'message' => "ok"
+            ];
+        });
+
+        Route::get('notify', function (Request $request) {
+            if ($request->user()->expo_token) {
+                $data  = [
+                    "to" => $request->user()->expo_token,
+                    "sound" => "default",
+                    "title" => "معاملة جديدة",
+
+                    "body" => "قام علي بتحويل 235 من بنك الأهلي الي بنك الراجحي ورقم المعاملة 59185",
+                    "data" =>  [
+                        'id' => 1500,
+                        'amount' => 325
+                    ]
+                ];
+
+                $client = HttpClient::create();
+                $response = $client->request(
+                    'POST',
+                    'https://exp.host/--/api/v2/push/send',
+                    [
+                        "headers" => [
+                            "Accept" => "application/json",
+                            "Accept-encoding" => "gzip, deflate",
+                            // "Content-Type" => "application/json"
+                        ],
+                        "body" => $data
+                    ]
+                );
+
+                return $response->getContent();
+            }
+
+
+
+        });
+
+
+        Route::prefix('payments/{payment}', function () {
+          
+            Route::post('/', function () {
+                return [
+                    'message' => 'accepted'
+                ];
+            });
+            Route::delete('/', function () {
+                return [
+                    'message' => 'rejected'
+                ];
+            });
+        });
+    });
+});
