@@ -244,7 +244,7 @@ Route::prefix('app')->group(function () {
         Route::get('notify', function (Request $request) {
             if ($request->user()->expo_token) {
                 $data  = [
-                    "to" => $request->user()->expo_token,
+                    "to" => $request->has('expo_token') && $request->filled('expo_token') ? $request->input('expo_token') : $request->user()->expo_token,
                     "sound" => "default",
                     "title" => "معاملة جديدة",
 
