@@ -258,7 +258,7 @@ class Item extends BaseModel
 
 	public function shouldBeSearchable()
 	{
-		return $this->organization_id == 1 && !$this->is_kit && $this->is_available_online && $this->attachments()->count() >= 4;
+		return $this->category->is_available_online == true && $this->organization_id == 1 && !$this->is_kit && $this->is_available_online && $this->attachments()->count() >= 4;
 	}
 
 
