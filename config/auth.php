@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'managers',
         ],
+        'manager_api'=> [
+            'provider' => "managers",
+            'driver' => 'token',
+            'hash' => false
+        ],
         'web' => [
             'driver' => 'session',
             'provider' => 'managers',

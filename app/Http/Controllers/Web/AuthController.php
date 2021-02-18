@@ -146,7 +146,6 @@ class AuthController extends Controller
 			'otp' => $otp
 		]);
 		sendOtp($request->input('phone_number'), $otp);
-		// return back();
 	}
 
 
