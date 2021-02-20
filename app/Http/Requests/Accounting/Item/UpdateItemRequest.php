@@ -47,14 +47,13 @@ class UpdateItemRequest extends FormRequest
 			'price' => 'required|numeric',
 			'price_with_tax' => 'required|numeric',
 			'warranty_subscription_id' => 'required|integer',
-			// 'online_price' => 'required_if:is_available_online,true',
-			'online_offer_price' => 'required',
-			'is_available_online' => 'required',
-			'weight' => 'required',
-			'shipping_discount' => 'required',
+			'online_offer_price' => 'required_if:is_available_online,true',
+			'is_available_online' => 'required_if:is_available_online,true',
+			'weight' => 'required_if:is_available_online,true',
+			'shipping_discount' => 'required_if:is_available_online,true',
+			"description" => "required_if:is_available_online,true|string",
+			"ar_description" => "required_if:is_available_online,true|string",
 			'tags' => 'nullable|array',
-			"description" => "required|string",
-			"ar_description" => "required|string",
 			'tags.*' => 'required|string'
 
 		];
@@ -123,31 +122,33 @@ class UpdateItemRequest extends FormRequest
 			}
 		}
 		UpdateItemTagsJob::dispatchNow($item, (array)$this->input('tags'));
-        if(auth()->user()->organization_id == 1) {
+		if (auth()->user()->organization_id == 1) {
 
-            $requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
-            $itemFilters = ItemFilters::where('item_id', $item->id)->pluck('filter_id')->toArray();
+			$requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
+			$itemFilters = ItemFilters::where('item_id', $item->id)->pluck('filter_id')->toArray();
 
-            foreach ($requiredFilter as $filterId) {
-                if (!in_array($filterId, $itemFilters)) {
-                    throw ValidationException::withMessages(
-                        [
-                            'message' => [
-                                "يجب اختيار رقم الموديل"
-                            ]
-                        ]
-                    );
-                }
-            }
-            $itemDb = $item->fresh();
+			foreach ($requiredFilter as $filterId) {
+				if (!in_array($filterId, $itemFilters)) {
+					throw ValidationException::withMessages(
+						[
+							'message' => [
+								"يجب اختيار رقم الموديل"
+							]
+						]
+					);
+				}
+			}
+			$itemDb = $item->fresh();
 
-            if ($itemDb->shouldBeSearchable())
-                $itemDb->searchable();
+			if ($itemDb->shouldBeSearchable())
+				$itemDb->searchable();
+			else
+				$itemDb->unsearchable();
 
-            $item->update([
-                'is_published' => $itemDb->shouldBeSearchable()
-            ]);
-        }
+			$item->update([
+				'is_published' => $itemDb->shouldBeSearchable()
+			]);
+		}
 
 		return $item;
 	}

@@ -362,6 +362,7 @@
 
     <div style="margin-top: 35px; padding: 5px">
       <toggle-button
+        :disabled="!itemData.cost || !itemData.id"
         v-model="itemData.isAvailableOnline"
         @change="isAvailableOnlineChanged"
         :font-size="14"
@@ -607,6 +608,7 @@ export default {
 
       this.itemData.id = this.editedItemData.id
       this.itemData.arName = this.editedItemData.ar_name
+      this.itemData.cost = this.editedItemData.cost
       this.itemData.isAvailableOnline = this.editedItemData.is_available_online
       this.itemData.enName = this.editedItemData.name
       this.itemData.barcode = this.editedItemData.barcode
