@@ -143,6 +143,8 @@ class UpdateItemRequest extends FormRequest
 
             if ($itemDb->shouldBeSearchable())
                 $itemDb->searchable();
+			else
+				$itemDb->unsearchable();
 
             $item->update([
                 'is_published' => $itemDb->shouldBeSearchable()

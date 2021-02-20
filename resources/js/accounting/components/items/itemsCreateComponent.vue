@@ -362,6 +362,7 @@
 
     <div style="margin-top: 35px; padding: 5px">
       <toggle-button
+        :disabled="!itemData.id"
         v-model="itemData.isAvailableOnline"
         @change="isAvailableOnlineChanged"
         :font-size="14"
