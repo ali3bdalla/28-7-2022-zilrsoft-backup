@@ -7,7 +7,6 @@
     ></loading>
 
     <div
-        v-if="item.id"
         class="images-uploader__main-image"
     >
       <div
@@ -222,12 +221,13 @@ export default {
       }
 
       axios
-        .post(`/api/upload_images/${this.item.id}`, serverData)
+        .post(this.item.id ? `/api/upload_images/${this.item.id}` : '/api/items/add_images', serverData)
         .then((res) => {
           this.$alert('تم الحفظ بنجاح')
           res.data.forEach(element => {
             this.attachmentsList.push(element)
           })
+          this.$emit('pushed', res.data)
         })
         .catch((errr) => {
           this.$alert('لم يتم اضافة الصورة')
