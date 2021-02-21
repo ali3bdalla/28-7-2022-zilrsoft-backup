@@ -3,6 +3,7 @@
 use App\Http\Middleware\ImagesUploadMiddleware;
 use App\Models\Manager;
 use App\Models\OrderPaymentDetail;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Symfony\Component\HttpClient\HttpClient;
 use Illuminate\Http\Request;
@@ -255,7 +256,13 @@ Route::prefix('app')->group(function () {
                     "body" => "قام علي بتحويل 235 من بنك الأهلي الي بنك الراجحي ورقم المعاملة 59185",
                     "data" =>  [
                         'id' => 1500,
-                        'amount' => 325
+                        'amount' => 325,
+                        'sender_name' => "Ali abdalla",
+                        "sender_bank_name" => "Rajhi",
+                        "sender_bank_account" => "2352312323",
+                        "created_at" => Carbon::now(),
+                        "destination_bank" => "Test Bank",
+                        "destination_bank_account" => "598325325"
                     ]
                 ];
 
