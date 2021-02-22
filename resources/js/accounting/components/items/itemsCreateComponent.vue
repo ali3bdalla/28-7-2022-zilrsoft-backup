@@ -474,7 +474,7 @@
     </div>
 
     <div class="row" style="margin-top:15px">
-      <images :no-update-button="true" :item="itemData" :attachments="itemData.attachments" @descriptionUpdated="descriptionUpdated"></images>
+      <images :no-update-button="true" :item="itemData" @pushed="imagesPushed" :attachments="itemData.attachments" @descriptionUpdated="descriptionUpdated"></images>
 
     </div>
 
@@ -543,6 +543,7 @@ export default {
       warranty_subscriptions: [],
       tag: '',
       tags: [],
+      validation: trans('validation'),
       app: {
         primaryColor: metaHelper.getContent('primary-color'),
         secondColor: metaHelper.getContent('second-color'),
@@ -550,7 +551,6 @@ export default {
         trans: trans('items-page'),
         messages: trans('messages'),
         dateTimeTrans: trans('datetime'),
-        validation: trans('validation'),
         datatableBaseUrl: metaHelper.getContent('datatableBaseUrl'),
         BaseApiUrl: metaHelper.getContent('BaseApiUrl'),
         defaultVatSaleValue: 15,
@@ -558,6 +558,7 @@ export default {
       },
       itemData: {
         tags: [],
+        images: [],
         attachments: [],
         warranty_subscription_id: 0,
         arName: '',
@@ -744,6 +745,9 @@ export default {
         this.itemData.salesPrice = ''
       }
       this.updateOnlinePriceAndShippingDiscount()
+    },
+    imagesPushed (e) {
+      this.itemData.images = e
     },
     updateOnlinePriceAndShippingDiscount () {
       if (this.editingItem && this.editedItemData.cost) {
@@ -975,6 +979,7 @@ export default {
         online_price: this.itemData.onlinePrice,
         online_offer_price: this.itemData.onlineOfferPrice,
         weight: this.itemData.weight,
+        images: this.itemData.images,
         shipping_discount: this.itemData.shippingDiscount,
         is_available_online: this.itemData.isAvailableOnline,
         tags: Tags,
@@ -1008,6 +1013,7 @@ export default {
           loader.hide()
         }, 5000)
       } else {
+        console.log(data)
         axios
           .post(this.app.BaseApiUrl + 'items', data)
           .then(function (response) {

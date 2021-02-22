@@ -1,9 +1,11 @@
 <?php
 	
 	namespace App\Http\Requests\Item;
-	
-	use Illuminate\Foundation\Http\FormRequest;
-	use Illuminate\Validation\ValidationException;
+
+use App\Models\Attachment;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 	
 	class UploadItemImagesRequest extends FormRequest
 	{
@@ -26,17 +28,22 @@
 		{
 			return [
 				'images' => 'required|array|max:4',
-				'images.*' => 'required|image|max:1000',
+				'images.*' => 'required|image|max:5000',
 			];
 		}
 		
-		public function createImage_ReturnImageInstance($requestImage, $item)
+		public function createImage_ReturnImageInstance($requestImage, $item = null)
 		{
-			$this->validateUploadedFilesCount($item);
 			$isMaster = false;
 			$imagePath = $this->uploadItemImageAndReturnPath($requestImage);
-			$itemImage = $item->attachments()->create(['is_master' => $this->getIsMaster($item, $isMaster), 'actual_path' => $imagePath, 'url' => $this->getUploadedImageUrl($imagePath)]);
-			$itemImage->removePrevMasterAttachment($item);
+			if($item) {
+				$this->validateUploadedFilesCount($item);
+				$itemImage = $item->attachments()->create(['is_master' => $this->getIsMaster($item, $isMaster), 'actual_path' => $imagePath, 'url' => $this->getUploadedImageUrl($imagePath)]);
+				$itemImage->removePrevMasterAttachment($item);
+			}else {
+				$itemImage = Attachment::create(['attachable_type' => "",'attachable_id' =>0 ,'is_master' => false, 'actual_path' => $imagePath, 'url' => $this->getUploadedImageUrl($imagePath)]);
+
+			}
 			return $itemImage;
 		}
 		
@@ -61,6 +68,7 @@
 		
 		public function getUploadedImageUrl($imagePath)
 		{
+			return Storage::url($imagePath);
 			return config('filesystems.disks.spaces.cdn_base_link') . '/' . $imagePath;
 		}
 	}

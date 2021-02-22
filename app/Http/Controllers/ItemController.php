@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Item\UploadItemImagesRequest;
 use App\Models\Category;
 use App\Models\Item;
 use App\Models\ItemFilters;
 use App\Models\Manager;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ItemController extends Controller
 {
@@ -84,4 +87,6 @@ class ItemController extends Controller
         $serials = $item->serials()->paginate(20);
         return view('accounting.items.view_serials', compact('item', 'serials'));
     }
+
+   
 }

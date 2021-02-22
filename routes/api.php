@@ -3,6 +3,7 @@
 use App\Http\Middleware\ImagesUploadMiddleware;
 use App\Models\Manager;
 use App\Models\OrderPaymentDetail;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Symfony\Component\HttpClient\HttpClient;
 use Illuminate\Http\Request;
@@ -136,13 +137,17 @@ Route::middleware('auth')->group(
             }
         );
         Route::resource('items', 'ItemController');
-        Route::prefix('items/validations')->name('items.validations.')->group(
+        Route::prefix('items')->name('items.')->group(
             function () {
-                Route::match(['get', 'post'], '/sales_serial', 'ItemController@ValidateSalesSerial')->name('sales_serial');
-                Route::match(['get', 'post'], '/return_sales_serial', 'ItemController@ValidateReturnSalesSerial')->name('return_sales_serial');
-                Route::match(['get', 'post'], '/return_purchases_serial', 'ItemController@ValidatePurchasesSerial')->name('return_purchases_serial');
-                Route::match(['get', 'post'], '/purchases_serial', 'ItemController@ValidatePurchasesSerial')->name('purchases_serial');
-                Route::match(['get', 'post'], '/unique_barcode', 'ItemController@validateUniqueBarcode')->name('unique_barcode');
+                Route::post( '/add_images', 'ItemController@addImage')->name('add_images');
+                Route::prefix('validations')->name('validations.')->group(function(){
+
+                    Route::match(['get', 'post'], '/sales_serial', 'ItemController@ValidateSalesSerial')->name('sales_serial');
+                    Route::match(['get', 'post'], '/return_sales_serial', 'ItemController@ValidateReturnSalesSerial')->name('return_sales_serial');
+                    Route::match(['get', 'post'], '/return_purchases_serial', 'ItemController@ValidatePurchasesSerial')->name('return_purchases_serial');
+                    Route::match(['get', 'post'], '/purchases_serial', 'ItemController@ValidatePurchasesSerial')->name('purchases_serial');
+                    Route::match(['get', 'post'], '/unique_barcode', 'ItemController@validateUniqueBarcode')->name('unique_barcode');
+                });
             }
         );
 
@@ -251,7 +256,13 @@ Route::prefix('app')->group(function () {
                     "body" => "قام علي بتحويل 235 من بنك الأهلي الي بنك الراجحي ورقم المعاملة 59185",
                     "data" =>  [
                         'id' => 1500,
-                        'amount' => 325
+                        'amount' => 325,
+                        'sender_name' => "Ali abdalla",
+                        "sender_bank_name" => "Rajhi",
+                        "sender_bank_account" => "2352312323",
+                        "created_at" => Carbon::now(),
+                        "destination_bank" => "Test Bank",
+                        "destination_bank_account" => "598325325"
                     ]
                 ];
 

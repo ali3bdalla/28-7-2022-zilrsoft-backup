@@ -148,4 +148,20 @@
 			$item->update($request->only('description', 'ar_description'));
 			return back();
 		}
+
+		public function addImage(UploadItemImagesRequest $request)
+		{
+			$request->validate([
+				'item_id' => 'nullable|integer|exists:items,id',
+			]);
+	
+			$item = null;
+			if($request->has('item_id') && $request->filled('item_id')) {
+				$item = Item::findOrFail($request->input('item_id'));
+			}
+	
+			foreach($request->file('images') as $requestImage)
+			$images  [] = $request->createImage_ReturnImageInstance($requestImage, $item);
+			return $images ;
+		}
 	}

@@ -4,6 +4,7 @@
 
 use App\Jobs\Items\Tag\UpdateItemTagsJob;
 use App\Jobs\Utility\Str\ReplaceArabicSensitiveCharJob;
+use App\Models\Attachment;
 use App\Models\Filter;
 	use App\Models\FilterValues;
 	use App\Models\Item;
@@ -58,13 +59,15 @@ class CreateItemRequest extends FormRequest
 				"description" => "required_if:is_available_online,true|string",
 				"ar_description" => "required_if:is_available_online,true|string",
 				'tags' => 'nullable|array',
-				'tags.*' => 'required|string'
+				'tags.*' => 'required|string',
+				'images' => "nullable|array",
+				"images.*.id" => "required|integer|exists:attachments,id",
 			];
 		}
 
 		public function save()
 		{
-			$data = $this->except('filters','tags');
+			$data = $this->except('filters','tags','images');
 			$data['organization_id'] = $this->user()->organization_id;
 			$data['creator_id'] = $this->user()->id;
 			$data['ar_name'] = ReplaceArabicSensitiveCharJob::dispatchNow($this->input('ar_name'));
@@ -96,6 +99,16 @@ class CreateItemRequest extends FormRequest
             if($this->has('tags') && $this->filled('tags'))
             {
                 UpdateItemTagsJob::dispatchNow($item,$this->input('tags'));
+            }
+
+			if($this->filled('images'))
+            {
+                foreach ($this->input('images') as $key => $image) {
+					Attachment::where('id',$image['id'])->update([
+						'attachable_type' => "App\\Models\\Item",
+						'attachable_id' => $item->id
+					]);
+				}
             }
             $requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
             $itemFilters = ItemFilters::where('item_id', $item->id)->pluck('filter_id')->toArray();
