@@ -83,10 +83,6 @@ ln -nfs {{ $app_dir }}/.env {{ $new_release_dir }}/.env
 echo 'Linking current release'
 ln -nfs {{ $new_release_dir }} {{ $current_dir }}
 
-
-echo "Generate Storage Link in public"
-cd {{ $new_release_dir }} 
-php artisan storage:link
 @endtask
 
 @task('migrate',['on' => [$push_on]])
