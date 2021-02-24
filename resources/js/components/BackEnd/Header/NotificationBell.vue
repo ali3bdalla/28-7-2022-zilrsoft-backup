@@ -29,21 +29,21 @@ margin-bottom: -10px;"></i>
 import OrderPendingPaymentConfirmationNotification from './OrderPendingPaymentConfirmationNotification'
 import OrderPaymentConfirmedNotification from './OrderPaymentConfirmedNotification'
 import TransactionIssuedNotification from './TransactionIssuedNotification'
-import TransactionCanceledNotification from './TransactionCanceledNotification'
-import TransactionConfirmedNotification from './TransactionConfirmedNotification'
+// import TransactionCanceledNotification from './TransactionCanceledNotification'
+// import TransactionConfirmedNotification from './TransactionConfirmedNotification'
 
 export default {
   name: 'OrderNotificationBell',
   components: {
     OrderPendingPaymentConfirmationNotification,
     OrderPaymentConfirmedNotification,
-    TransactionIssuedNotification,
-    TransactionCanceledNotification,
-    TransactionConfirmedNotification
+    TransactionIssuedNotification
+    // TransactionCanceledNotification,
+    // TransactionConfirmedNotification
   },
   props: {
     canManageManagers: {
-      type: Boolean
+      type: Number
     },
     manager: {
       type: Object,
