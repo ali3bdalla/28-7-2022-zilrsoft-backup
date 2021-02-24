@@ -46,7 +46,7 @@
         >
           <input
             v-model="itemData.barcode"
-            :class="{ 'is-danger': errorFieldName === 'salesPrice' }"
+            :class="{ 'is-danger': errorFieldName === 'barcode' }"
             :placeholder="app.trans.barcode"
             class="form-control"
             type="text"
@@ -751,8 +751,11 @@ export default {
     },
     updateOnlinePriceAndShippingDiscount () {
       if (this.editingItem && this.editedItemData.cost) {
-        const costWithTax = parseFloat(this.editedItemData.cost) + parseFloat((parseFloat(this.editedItemData.cost) * this.editedItemData.vts) / 100)
-        this.itemData.onlineOfferPrice = (parseFloat(costWithTax) + parseFloat(this.itemData.salesPriceWithTax)) / 2
+        const itemCost = parseFloat(this.editedItemData.cost)
+        const costWithTax = parseFloat(itemCost + parseFloat((itemCost * this.editedItemData.vts) / 100))
+        console.log(itemCost)
+        console.log(costWithTax)
+        this.itemData.onlineOfferPrice = (costWithTax + parseFloat(this.itemData.salesPriceWithTax)) / 2
 
         let shippingDiscount = parseFloat((this.itemData.onlineOfferPrice - parseFloat(costWithTax)) / 4).toFixed(2)
 
@@ -1030,6 +1033,7 @@ export default {
           })
           .catch((error) => {
             loader.hide()
+            console.log(error)
             // const message = error.response.data[0][0][0]
             // if (message) {
             //   this.$alert(this.message)
