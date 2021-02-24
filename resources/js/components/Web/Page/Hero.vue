@@ -17,7 +17,7 @@
         :key="item.id"
 
       >
-        <img :src="$processedImageUrl(item,1110 * 3,462 * 3,false,false)" class="object-cover h-full w-full" />
+        <img :src="$processedImageUrl(item,1110 * 3,462 * 3,false,false)" class="hero__item-image" />
       </div>
     </vue-horizontal>
   </div>
