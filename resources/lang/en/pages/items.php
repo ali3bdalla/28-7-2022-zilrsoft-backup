@@ -6,6 +6,8 @@
 		'ar_name' => 'Item name (ar)',
 		'price' => ' Price',
 		'price_tax' => '  Price With Tax',
+		'cost' => 'cost',
+		'online_offer_price' => 'online',
 		'date' => 'Created At',
 		'qty' => 'Qty',
 		'available_qty' => ' Available Qty',

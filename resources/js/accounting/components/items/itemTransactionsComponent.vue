@@ -141,20 +141,32 @@
             <td>
               <span
                 v-if="
-                  history.invoice_type == 'sale' ||
-                  history.invoice_type == 'return_purchase'
+                  history.invoice_type == 'sale'
                 "
                 >{{ history.cost }}</span
+              >
+              <span
+                v-if="
+                  history.invoice_type == 'return_purchase'
+                "
+                >{{ history.price }}</span
               >
             </td>
             <td>
               <span
                 v-if="
-                  history.invoice_type == 'sale' ||
-                  history.invoice_type == 'return_purchase'
+                  history.invoice_type == 'sale'
                 "
                 >{{
                   roundNumber(parseFloat(history.cost) * parseInt(history.qty))
+                }}</span
+              >
+              <span
+                v-if="
+                  history.invoice_type == 'return_purchase'
+                "
+                >{{
+                  roundNumber(parseFloat(history.price) * parseInt(history.qty))
                 }}</span
               >
             </td>
@@ -310,12 +322,12 @@
   </div>
 </template>
 <script>
-import VueCtkDateTimePicker from "vue-ctk-date-time-picker";
+import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
 
 export default {
-  props: ["item"],
+  props: ['item'],
   components: {
-    VueCtkDateTimePicker,
+    VueCtkDateTimePicker
   },
   data: function () {
     return {
@@ -332,17 +344,17 @@ export default {
 
       customDateShortcuts: [],
       showMultiTaskButtons: false,
-      requestUrl: "",
+      requestUrl: '',
       app: {
-        primaryColor: metaHelper.getContent("primary-color"),
-        secondColor: metaHelper.getContent("second-color"),
-        appLocate: metaHelper.getContent("app-locate"),
-        trans: trans("invoices-page"),
-        messages: trans("messages"),
-        table_trans: trans("table"),
-        datetimetrans: trans("datetime"),
-        datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
-        BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
+        primaryColor: metaHelper.getContent('primary-color'),
+        secondColor: metaHelper.getContent('second-color'),
+        appLocate: metaHelper.getContent('app-locate'),
+        trans: trans('invoices-page'),
+        messages: trans('messages'),
+        table_trans: trans('table'),
+        datetimetrans: trans('datetime'),
+        datatableBaseUrl: metaHelper.getContent('datatableBaseUrl'),
+        BaseApiUrl: metaHelper.getContent('BaseApiUrl')
       },
       filters: {
         start_at: null,
@@ -357,118 +369,118 @@ export default {
         tax: null,
         current_status: null,
         salesmen: [],
-        invoice_type: null,
+        invoice_type: null
       },
       paginationResponseData: null,
 
       roundNumber: (amount) => {
-        return amount;
+        return amount
         // return parseFloat(amount).toFixed(5);
-      },
-    };
+      }
+    }
   },
   created: function () {
-    this.requestUrl = `/api/items/${this.item.id}/transactions`;
+    this.requestUrl = `/api/items/${this.item.id}/transactions`
 
-    this.translator = JSON.parse(window.translator);
-    this.reusable_translator = JSON.parse(window.reusable_translator);
+    this.translator = JSON.parse(window.translator)
+    this.reusable_translator = JSON.parse(window.reusable_translator)
     // this.roundNumber = helpers.roundTheFloatValueTo2DigitOnlyAfterComma;
     this.customDateShortcuts = [
-      { key: "day", label: this.app.datetimetrans.today, value: "day" },
-      { key: "-day", label: this.app.datetimetrans.yesterday, value: "-day" },
+      { key: 'day', label: this.app.datetimetrans.today, value: 'day' },
+      { key: '-day', label: this.app.datetimetrans.yesterday, value: '-day' },
       {
-        key: "thisWeek",
+        key: 'thisWeek',
         label: this.app.datetimetrans.thisWeek,
-        value: "isoWeek",
+        value: 'isoWeek'
       },
       {
-        key: "lastWeek",
+        key: 'lastWeek',
         label: this.app.datetimetrans.lastWeek,
-        value: "-isoWeek",
+        value: '-isoWeek'
       },
-      { key: "last7Days", label: this.app.datetimetrans.last7Days, value: 7 },
+      { key: 'last7Days', label: this.app.datetimetrans.last7Days, value: 7 },
       {
-        key: "last30Days",
+        key: 'last30Days',
         label: this.app.datetimetrans.last30Days,
-        value: 30,
+        value: 30
       },
       {
-        key: "thisMonth",
+        key: 'thisMonth',
         label: this.app.datetimetrans.thisMonth,
-        value: "month",
+        value: 'month'
       },
       {
-        key: "lastMonth",
+        key: 'lastMonth',
         label: this.app.datetimetrans.lastMonth,
-        value: "-month",
+        value: '-month'
       },
       {
-        key: "thisYear",
+        key: 'thisYear',
         label: this.app.datetimetrans.thisYear,
-        value: "year",
+        value: 'year'
       },
       {
-        key: "lastYear",
+        key: 'lastYear',
         label: this.app.datetimetrans.lastYear,
-        value: "-year",
-      },
-    ];
-    this.loadData();
+        value: '-year'
+      }
+    ]
+    this.loadData()
   },
 
   watch: {
     date_range: function (value) {
-      this.filters.start_at = null;
-      this.filters.end_at = null;
+      this.filters.start_at = null
+      this.filters.end_at = null
       if (value != null) {
-        this.filters.start_at = value.start;
-        this.filters.end_at = value.end;
+        this.filters.start_at = value.start
+        this.filters.end_at = value.end
       }
-      this.loadData();
-    },
+      this.loadData()
+    }
   },
 
   methods: {
-    loadData() {
-      let vm = this;
+    loadData () {
+      const vm = this
 
       axios
         .get(this.requestUrl, {
           params: {
             start_at: vm.filters.start_at,
             end_at: vm.filters.end_at,
-            perPage: vm.itemsPerPage,
-          },
+            perPage: vm.itemsPerPage
+          }
         })
         .then((response) => {
-          console.log(response.data);
+          console.log(response.data)
 
-          vm.paginationResponseData = response.data;
-          vm.histories = response.data.data;
+          vm.paginationResponseData = response.data
+          vm.histories = response.data.data
 
-          vm.total_profit = 0;
+          vm.total_profit = 0
           vm.histories.forEach(function (item) {
-            vm.total_profit += parseFloat(item.profit);
-          });
+            vm.total_profit += parseFloat(item.profit)
+          })
           // vm.stock_value = response.data.totals.total_stock_amount;
           // vm.stock_qty = response.data.totals.total_stock_qty;
           // vm.cost = response.data.totals.current_stock_item_cost;
           // vm.profits = response.data.totals.total_sales_profits;
           // vm.cost = response.data.cost;
-        });
+        })
     },
 
-    paginateUpdatePage(event) {
-      this.requestUrl = event.link;
-      this.loadData();
+    paginateUpdatePage (event) {
+      this.requestUrl = event.link
+      this.loadData()
     },
 
-    pagePerItemsUpdated(event) {
-      this.itemsPerPage = event.items;
-      this.loadData();
-    },
-  },
-};
+    pagePerItemsUpdated (event) {
+      this.itemsPerPage = event.items
+      this.loadData()
+    }
+  }
+}
 </script>
 
 <style scoped src='bulma/css/bulma.css'>

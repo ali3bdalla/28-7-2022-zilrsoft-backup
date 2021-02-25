@@ -113,6 +113,14 @@
                             @click="setOrderByColumn('price_with_tax')" width="10%">
                             {{ trans.price_tax }}
                         </th>
+                         <th :class="{'orderBy':orderBy=='cost'}"
+                            @click="setOrderByColumn('cost')" width="10%">
+                            {{ trans.cost }}
+                        </th>
+                         <th :class="{'orderBy':orderBy=='online_offer_price'}"
+                            @click="setOrderByColumn('online_offer_price')" width="10%">
+                            {{ trans.online_offer_price }}
+                        </th>
                         <th :class="{'orderBy':orderBy=='available_qty'}" @click="setOrderByColumn('available_qty')"
                             width="5%">
                             {{ trans.available_qty }}
@@ -155,6 +163,8 @@
                         <td v-else   ></td>
 <!--                        v-text="parseFloat(row.data.net).toFixed(2)"-->
                         <td v-if="!row.is_kit" v-text="parseFloat(row.price_with_tax).toFixed(2)"></td>
+                        <td v-if="!row.is_kit" v-text="parseFloat(row.cost).toFixed(2)"></td>
+                        <td v-if="!row.is_kit" v-text="parseFloat(row.online_offer_price).toFixed(2)"></td>
                         <td v-else ></td>
 <!--                        v-text="parseFloat(row.data.total).toFixed(2)"-->
                         <td>

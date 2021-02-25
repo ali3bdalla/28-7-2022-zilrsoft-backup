@@ -47,11 +47,4 @@
 		}
 
 
-		// public function scopeInvoice($query,$invoiceId)
-		// {
-		// 	$serials = $this->histories()->where('invoice_id',$invoiceId)->pluck('serial_id')->toArray();
-		// 	dd($serials);
-		// 	die();
-		// 	return $query->whereIn('id',$serials);
-		// }
 	}

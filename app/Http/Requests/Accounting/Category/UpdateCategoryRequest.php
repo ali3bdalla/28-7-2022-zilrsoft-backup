@@ -5,6 +5,7 @@ namespace App\Http\Requests\Accounting\Category;
 use App\Models\Category;
 use App\Models\CategoryFilters;
 use App\Models\Filter;
+use App\Models\Item;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCategoryRequest extends FormRequest
@@ -83,12 +84,18 @@ class UpdateCategoryRequest extends FormRequest
 			}
 		}
 
-		foreach ($category->items as $item) {
-			if ($item->shouldBeSearchable())
-				$item->searchable();
-			else
-				$item->unsearchable();
-		}
+		Item::where('category_id',$category->id)->update([
+			'is_category_available_online' => $isAvailableOnline
+		]);
+		// foreach ($category->items as $item) {
+		// 	$item->update([
+		// 		'is_category_available_online' => $isAvailableOnline
+		// 	]);
+		// 	// if ($item->shouldBeSearchable())
+		// 	// 	$item->searchable();
+		// 	// else
+		// 	// 	$item->unsearchable();
+		// }
 
 		return redirect(route('accounting.categories.index'));
 	}

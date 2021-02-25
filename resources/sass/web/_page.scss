@@ -184,6 +184,8 @@
   letter-spacing: 0px !important;
 }
 .hero {
+  @apply mt-2;
+
   &__item {
     // height: 160px;
     width: 100%;
@@ -195,6 +197,18 @@
     //   height: 500px;
     // }
   }
+  
 
-  @apply mt-2;
+  
+
+  &__item-image {
+    @apply h-64  object-cover  w-full;
+    @screen md {
+      @apply h-140;
+    }
+
+    // @screen xl {
+    //   @apply h-120;
+    // }
+  }
 }
