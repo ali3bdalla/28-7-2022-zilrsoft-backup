@@ -1,27 +1,12 @@
 <section class="sidebar" style=" margin-top: 50px;">
     <div class="user-panel">
-        <img src="{{ asset(auth()->user()->organization->logo) }}" class="center-block img-responsive"
+        <img src="{{ auth()->user()->organization->logo }}" class="center-block img-responsive"
              alt="{{ auth()->user()->organization->title_ar }}" width="100px" style="">
         <h3 class="p-3 text-white btn btn-primary">{{ auth()->user()->organization->title_ar }}</h3>
     </div>
 
     <ul class="sidebar-menu" data-widget="tree">
-        {{--        <li class="treeview">--}}
-        {{--            <a href="#">--}}
-        {{--                <i class="fa  fa-tachometer-alt"></i> <span>{{ __('sidebar.dashboard') }}</span>--}}
 
-        {{--            </a>--}}
-        {{--            <ul class="treeview-menu">--}}
-        {{--                <li><a href="{{route('dashboard.index')}}"><i class="fa fa-tachometer-alt"></i>--}}
-        {{--                        {{ __('sidebar.dashboard') }}</a></li>--}}
-        {{--                @can('view accounting')--}}
-        {{--                    <li>--}}
-        {{--                        <a href="{{route('dashboard.index')}}"><i class="fa fa-sun"></i>--}}
-        {{--                            {{ __('sidebar.statistics') }}--}}
-        {{--                        </a></li>--}}
-        {{--                @endcan--}}
-        {{--            </ul>--}}
-        {{--        </li>--}}
 
         @canany(['view item','create item','edit item','manage kit'])
             <li class="treeview">
@@ -179,7 +164,7 @@
                             <a href="{{route('inventory.index')}}"><i class="fa fa-sun"></i>
                                 {{ __('sidebar.beginning_inventory') }}
                             </a></li>
-                            
+
 
                              <li>
                             <a href="{{route('inventory.adjustments.index')}}"><i class="fa fa-sun"></i>

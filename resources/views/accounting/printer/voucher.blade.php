@@ -188,7 +188,7 @@
 
         </div>
         <div class="col-md-6 text-right">
-            <img src="{{asset(auth()->user()->organization->logo)}}" class="logo">
+            <img src="{{ auth()->user()->organization->logo }}" class="logo">
         </div>
     </div>
 

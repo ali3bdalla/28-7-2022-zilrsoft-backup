@@ -1,5 +1,5 @@
 <?php
-	
+
 	namespace App\Models;
 
 use App\Models\Traits\Configurable;
@@ -42,13 +42,22 @@ use Illuminate\Support\Facades\Storage;
 		{
 			return 1.15;
 		}
-		
-		
+
+
 		public function getOrganizationVatAttribute()
 		{
 			return 15;
 		}
-		
+        public function getLogoAttribute($value)
+        {
+           return Storage::url($value);
+        }
+
+        public function getStampAttribute($value)
+        {
+            return Storage::url($value);
+        }
+
 		public function getLocalizedLogoAttribute()
 		{
 			if(app()->isLocale('ar'))
@@ -61,80 +70,80 @@ use Illuminate\Support\Facades\Storage;
 		{
 			return $this->belongsTo(Country::class, 'country_id');
 		}
-		
+
 		public function categories()
 		{
 			return $this->hasMany(Category::class, 'organization_id');
 		}
-		
+
 		public function items()
 		{
 			return $this->hasMany(Item::class, 'organization_id');
 		}
-		
+
 		public function invoices()
 		{
 			return $this->hasMany(Invoice::class, 'organization_id');
 		}
-		
+
 		public function expenses()
 		{
 			return $this->hasMany(Expense::class, 'organization_id');
 		}
-		
+
 		public function branches()
 		{
 			return $this->hasMany(Branch::class, 'organization_id');
 		}
-		
+
 		public function departments()
 		{
 			return $this->hasMany(Department::class, 'organization_id');
 		}
-		
+
 		public function kits()
 		{
 			return $this->hasMany(Item::class, 'organization_id');
 		}
-		
+
 		public function sales()
 		{
 			return $this->hasMany(Sale::class, 'organization_id');
 		}
-		
+
 		public function payments()
 		{
 			return $this->hasMany(Payment::class, 'organization_id');
 		}
-		
+
 		public function users()
 		{
 			return $this->hasMany(User::class, 'organization_id');
 		}
-		
+
 		public function filters()
 		{
 			return $this->hasMany(Filter::class, 'organization_id');
 		}
-		
+
 		public function managers()
 		{
 			return $this->hasMany(Manager::class, 'organization_id');
 		}
-		
+
 		public function supervisor()
 		{
 			return $this->belongsTo(User::class, 'supervisor_id');
 		}
-		
+
 		public function accounts()
 		{
 			return $this->hasMany(Account::class, 'organization_id');
 		}
-		
+
 		public function transactions_containers()
 		{
 			return $this->hasMany(TransactionsContainer::class, 'organization_id');
 		}
-		
+
 	}
