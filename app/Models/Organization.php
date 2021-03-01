@@ -52,6 +52,12 @@ use Illuminate\Support\Facades\Storage;
         {
            return Storage::url($value);
         }
+
+        public function getStampAttribute($value)
+        {
+            return Storage::url($value);
+        }
+
 		public function getLocalizedLogoAttribute()
 		{
 			if(app()->isLocale('ar'))
