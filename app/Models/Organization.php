@@ -50,12 +50,12 @@ use Illuminate\Support\Facades\Storage;
 		}
         public function getLogoAttribute($value)
         {
-           return Storage::url($value);
+           return 'https://images.zilrsoft.com/api/insecure/fit/200/200/no/0/plain/local:///com.zilrsoft/storage/app/public/' . $value;
         }
 
         public function getStampAttribute($value)
         {
-            return Storage::url($value);
+            return 'https://images.zilrsoft.com/api/insecure/fit/200/200/no/0/plain/local:///com.zilrsoft/storage/app/public/' . $value;
         }
 
 		public function getLocalizedLogoAttribute()
