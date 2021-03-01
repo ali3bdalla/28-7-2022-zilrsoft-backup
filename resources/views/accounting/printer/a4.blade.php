@@ -120,7 +120,7 @@
 
         </div>
         <div class="text-right col-md-6">
-            <img src="{{asset(auth()->user()->organization->logo)}}" class="logo">
+            <img src="{{ auth()->user()->organization->logo }}" class="logo">
         </div>
     </div>
 
@@ -437,5 +437,5 @@
 {{--<script src="http://code.jquery.com/jquery-latest.min.js"></script>--}}
 {{--<script src="{{asset('accounting/js/jquery-barcode.min.js')}}"></script>--}}
 <script type="text/javascript">
-    print();
+    // print();
 </script>
