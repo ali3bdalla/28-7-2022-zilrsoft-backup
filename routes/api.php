@@ -2,13 +2,11 @@
 
 use App\Http\Middleware\ImagesUploadMiddleware;
 use App\Models\Manager;
-use App\Models\OrderPaymentDetail;
 use Carbon\Carbon;
-use GuzzleHttp\Client;
-use Symfony\Component\HttpClient\HttpClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpClient\HttpClient;
 
 Route::namespace('Store')->name('web.')->middleware('font_end_middleware')->prefix('web')->group(
     function () {
@@ -139,9 +137,8 @@ Route::middleware('auth')->group(
         Route::resource('items', 'ItemController');
         Route::prefix('items')->name('items.')->group(
             function () {
-                Route::post( '/add_images', 'ItemController@addImage')->name('add_images');
-                Route::prefix('validations')->name('validations.')->group(function(){
-
+                Route::post('/add_images', 'ItemController@addImage')->name('add_images');
+                Route::prefix('validations')->name('validations.')->group(function () {
                     Route::match(['get', 'post'], '/sales_serial', 'ItemController@ValidateSalesSerial')->name('sales_serial');
                     Route::match(['get', 'post'], '/return_sales_serial', 'ItemController@ValidateReturnSalesSerial')->name('return_sales_serial');
                     Route::match(['get', 'post'], '/return_purchases_serial', 'ItemController@ValidatePurchasesSerial')->name('return_purchases_serial');
@@ -248,13 +245,13 @@ Route::prefix('app')->group(function () {
 
         Route::get('notify', function (Request $request) {
             if ($request->user()->expo_token) {
-                $data  = [
+                $data = [
                     "to" => $request->has('expo_token') && $request->filled('expo_token') ? $request->input('expo_token') : $request->user()->expo_token,
                     "sound" => "default",
                     "title" => "معاملة جديدة",
 
                     "body" => "قام علي بتحويل 235 من بنك الأهلي الي بنك الراجحي ورقم المعاملة 59185",
-                    "data" =>  [
+                    "data" => [
                         'id' => 1500,
                         'amount' => 325,
                         'sender_name' => "Ali abdalla",
@@ -284,12 +281,11 @@ Route::prefix('app')->group(function () {
             }
 
 
-
         });
 
 
-        Route::prefix('payments/{payment}', function () {
-          
+        Route::prefix('payments/{payment}')->group(function () {
+
             Route::post('/', function () {
                 return [
                     'message' => 'accepted'
