@@ -29,9 +29,10 @@
 		{
 			 $schedule->command(NotifyUnPaidOrderCommand::class)->everyMinute();
 			 $schedule->command(CancelUnPaidOrderCommand::class)->everyMinute();
-
 			 $schedule->command(DailyUpdateAccountSnapshotCommand::class)->daily();
-		}
+			 $schedule->command('telescope:prune --hours=48')->daily();
+
+        }
 
 		/**
 		 * Register the commands for the application.
