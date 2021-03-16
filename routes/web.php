@@ -219,6 +219,7 @@ Route::middleware('auth')->group(
             Route::get('init_organizatinon_config', "BackEnd\Accounting\PeriodController@initOrganizationConfiguration");
             Route::get('start_normalizing_incomes_expenses', "BackEnd\Accounting\PeriodController@startNormalizingIncomesExpenses");
             Route::get('normalizing_incomes_expenses_status', "BackEnd\Accounting\PeriodController@normalizingIncomesExpensesStatus");
+            Route::get('close', "BackEnd\Accounting\PeriodController@close");
         });
         Route::prefix('inventory')->name('inventory.')->group(
             function () {

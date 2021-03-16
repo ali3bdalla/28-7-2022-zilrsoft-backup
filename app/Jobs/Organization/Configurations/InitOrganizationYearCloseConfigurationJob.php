@@ -14,10 +14,11 @@ class InitOrganizationYearCloseConfigurationJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $loggedUser;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param Manager $loggedUser
      */
     public function __construct(Manager $loggedUser)
     {

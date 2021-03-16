@@ -41,11 +41,7 @@ class DailyUpdateAccountSnapshotCommand extends Command
     {
         DB::transaction(function () {
             DB::table('account_snapshots')->delete();
-
-            $transactionsAmounts = DB::select("select sum(case when type = 'debit'  then amount  else 0 end) as total_debit,sum(case when type = 'credit'  then amount  else 0 end) as total_credit,account_id,
-        date(created_at) as snapshot_date,
-        organization_id
-        from transactions group by date(created_at),account_id,organization_id");
+            $transactionsAmounts = DB::select("select sum(case when type = 'debit'  then amount  else 0 end) as total_debit,sum(case when type = 'credit'  then amount  else 0 end) as total_credit,account_id, date(created_at) as snapshot_date, organization_id  from transactions group by date(created_at),account_id,organization_id");
 
             foreach ($transactionsAmounts as $snapshotAmount) {
                 $date = Carbon::parse($snapshotAmount->snapshot_date)->toDate();
@@ -60,7 +56,6 @@ class DailyUpdateAccountSnapshotCommand extends Command
                 ]);
             }
 
-//            dd(count($transactionsAmounts),DB::table('account_snapshots')->count());
         });
     }
 }

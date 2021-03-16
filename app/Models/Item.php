@@ -61,6 +61,10 @@ class Item extends BaseModel
 	];
 	protected $guarded = [];
 
+    public function translations()
+    {
+        return $this->hasMany(Transaction::class,'item_id');
+	}
 
 	public function warrantySubscription()
 	{
@@ -258,10 +262,10 @@ class Item extends BaseModel
 
 	public function shouldBeSearchable()
 	{
-		return 
-		($this->is_category_available_online and 
+		return
+		($this->is_category_available_online and
 		$this->organization_id == 1 and
-		!$this->is_kit and 
+		!$this->is_kit and
 		$this->is_available_online and
 		$this->attachments()->count() >= 4);
 	}

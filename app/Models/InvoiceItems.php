@@ -33,7 +33,7 @@ use Illuminate\Database\Eloquent\Builder;
 class InvoiceItems extends BaseModel
 {
 
-    use AccountingPeriodTrait;
+//    use AccountingPeriodTrait;
     protected $guarded = [];
 
     protected $appends = [
@@ -75,12 +75,12 @@ class InvoiceItems extends BaseModel
     {
         return $this->belongsTo(Item::class, 'item_id');
     }
-    
+
     public function scopeKitItems($query , $kitId = 0)
     {
         return $query ->where('parent_kit_id',$kitId);
     }
-	
+
 	public function getInvoiceItemSerials()
 	{
 		return $this->item->serials()
@@ -94,16 +94,16 @@ class InvoiceItems extends BaseModel
 			->orWhere([["return_purchase_id", $this->invoice_id], ["item_id", $this->item->id]])
 			->orWhere([["purchase_id", $this->invoice_id], ["item_id", $this->item->id]])
 			->get();
-		
-		
+
+
 	}
-	
+
 	public function orderQtyHolders()
 	{
 		return $this->hasMany(OrderItemQtyHolder::class,'item_id');
 	}
-	
-	
+
+
 
     public function creator()
     {
