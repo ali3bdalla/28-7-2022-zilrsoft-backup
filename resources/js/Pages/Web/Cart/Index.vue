@@ -87,6 +87,7 @@
               <CartButton
                 v-if="orderItems.length"
                 :shipping-method-id="shippingMethodId"
+                :shipping-address-id="shippingAddressId"
                 :active-page="activePage"
                 :order-items="orderItems"
                 @changeActivePage="changeActivePage"

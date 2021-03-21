@@ -131,7 +131,10 @@ return [
         'bank_account_has_been_created' => "تمت عملية اضافة الحساب البنكي",
         'invalid_otp' => 'رمز التاكيد غير صحيح ',
         "invalid_activity" => "رابط غير صحيح",
-        "invalid_activity_message" => "تحاول الولوج لصفحة غير سليمة"
+        "invalid_activity_message" => "تحاول الولوج لصفحة غير سليمة",
+        "order_payment_already_received" => "لا يمكن تكرار ارسال الاشعار مرة اخرى",
+        "sorry" => "عفواً",
+        "order_has_been_canceled" => "هذا الطلب تم الغاءه ، الرجاء مراسلة الدعم اذا كانت لديك مشكلة "
     ],
 
     "order" => [

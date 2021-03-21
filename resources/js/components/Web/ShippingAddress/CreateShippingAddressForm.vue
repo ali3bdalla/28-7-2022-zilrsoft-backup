@@ -179,14 +179,13 @@
 <script>
 import VuePhoneNumberInput from 'vue-phone-number-input'
 import 'vue-phone-number-input/dist/vue-phone-number-input.css'
-import { Inertia } from '@inertiajs/inertia'
 
 export default {
   data () {
     return {
-      first_name: this.$page.user.first_name,
-      last_name: this.$page.user.last_name,
-      phone_number: this.$page.user.phone_number,
+      first_name: this.$page.client.first_name,
+      last_name: this.$page.client.last_name,
+      phone_number: this.$page.client.phone_number,
       building_number: '',
       street_name: '',
       area: '',
@@ -203,7 +202,6 @@ export default {
       default: false
     }
   },
-
   computed: {
     getAddress () {
       return this.area + ' - ' + this.street_name + ' - ' + this.description
@@ -215,12 +213,11 @@ export default {
       data.description = this.getAddress
       data.return_object = this.returnObject
       this.$inertia.post('/web/profile/create-shipping-address', data)
-      Inertia.on('invalid', (e) => {
+      this.$inertia.on('invalid', (e) => {
         const statusCode = e.detail.response.status
         if (statusCode === 200 || statusCode === 201) {
           if (this.returnObject) {
             e.preventDefault()
-            console.log(e.detail.response.data)
             this.$emit('created', e.detail.response.data)
           }
         }

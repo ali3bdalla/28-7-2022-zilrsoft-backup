@@ -50,7 +50,7 @@ class StoreShippingAddressRequest extends FormRequest
             );
             DB::commit();
             if($this->has('return_object') && $this->input('return_object')) {
-                return $shippingAddress;
+                return $shippingAddress->load('city');
             }else
             {
                 return redirect('/web/cart');

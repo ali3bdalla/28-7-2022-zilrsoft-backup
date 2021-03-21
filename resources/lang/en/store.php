@@ -135,7 +135,10 @@ Receipt code :CODE
         'bank_account_has_been_created' => "Your bank account has been updated",
         'invalid_otp' => 'invalid verification code',
         "invalid_activity" => "This is invalid Activity",
-        "invalid_activity_message" => "Invalid Request"
+        "invalid_activity_message" => "Invalid Request",
+        "order_payment_already_received" => "We already received your payment confirmation request",
+        "sorry" => "Sorry",
+        "order_has_been_canceled" => "This order has been canceled, contact the support if you have problem"
     ],
 
 

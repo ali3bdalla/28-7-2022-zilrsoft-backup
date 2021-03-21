@@ -91,6 +91,13 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
                 $paymentLinkMessage,
                 $phoneNumber
             );
+//            Whatsapp::sendMessage(
+//                $message,
+//                "00201557138744"
+//            ); Whatsapp::sendMessage(
+//                $paymentLinkMessage,
+//                "00201557138744"
+//            );
         }
     }
 }

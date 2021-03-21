@@ -17,7 +17,7 @@ class CartController extends Controller
         ];
 
         if (auth('client')->check()) {
-            $data['shippingAddresses'] = [];//$request->user('client')->shippingAddresses()->with('city')->get()
+            $data['shippingAddresses'] = $request->user('client')->shippingAddresses()->with('city')->get();//)
         }
 
 
