@@ -71,6 +71,9 @@ class ConfirmOrderPaymentRequest extends FormRequest
             if (app()->environment('production')) {
 
                 Whatsapp::sendMessage($message, "966509025606");
+                Whatsapp::sendMessage($message, "966509362779");
+                Whatsapp::sendMessage($message, "966552243345");
+                Whatsapp::sendMessage($message, "966504950211");
             } else {
                 Whatsapp::sendMessage($message, "00201557138744");
 
