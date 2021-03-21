@@ -2,11 +2,10 @@
   <div class="">
     <h2 class="cart__shipping-method-title" v-if="$page.shippingAddresses.length > 0">
       {{$page.$t.cart.select_shipping_address }}  {{$page.$t.common.or }} <inertia-link class="text-blue-400" href="/web/profile/create-shipping-address">{{  $page.$t.common.add_new }}</inertia-link>
-
     </h2>
     <h2 class="cart__shipping-method-title" v-else>
-      <inertia-link class="text-blue-400" href="/web/profile/create-shipping-address">{{  $page.$t.common.add }} {{$page.$t.cart.shipping_address }} </inertia-link>
-<!--      {{$page.$t.cart.select_shipping_address }}  {{$page.$t.common.or }}-->
+        <create-shipping-address-form ></create-shipping-address-form>
+<!--      <inertia-link class="text-blue-400" href="/web/profile/create-shipping-address">{{  $page.$t.common.add }} {{$page.$t.cart.shipping_address }} </inertia-link>-->
     </h2>
 
     <div class="" v-if="$page.shippingAddresses.length > 0">
@@ -104,9 +103,10 @@
 </template>
 
 <script>
+import CreateShippingAddressForm from '../../../components/Web/ShippingAddress/CreateShippingAddressForm'
 export default {
   name: 'CartShippingAddress',
-
+  components: { CreateShippingAddressForm },
   data () {
     return {
       shippingAddressId: null,

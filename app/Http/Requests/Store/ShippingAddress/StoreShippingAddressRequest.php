@@ -32,6 +32,7 @@ class StoreShippingAddressRequest extends FormRequest
             'last_name' => 'required|string',
             'phone_number' => 'required|mobileNumber',
             'description' => 'required|string|max:100',
+            'return_object' => 'nullable|boolean'
         ];
     }
 
@@ -48,7 +49,12 @@ class StoreShippingAddressRequest extends FormRequest
                     'street_name', 'zip_code')
             );
             DB::commit();
-            return redirect('/web/cart');
+            if($this->has('return_object') && $this->input('return_object')) {
+                return $shippingAddress;
+            }else
+            {
+                return redirect('/web/cart');
+            }
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw  $queryException;
