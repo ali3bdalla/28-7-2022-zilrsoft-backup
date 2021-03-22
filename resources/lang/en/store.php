@@ -86,9 +86,13 @@ Order: *:ORDER_ID*
 Amount: *:AMOUNT*
 
 Banks Accounts:
-Rajhi Bank:   
-    *SA7280000122608010398991*
-    
+From Rajhi bank:
+*122608010398991*
+
+From other banks (IBAN):
+*SA7280000122608010398991*
+
+   
 Deadline for Payment 
     *:DEADLINE_DATE*
     *:DEADLINE_TIME*
