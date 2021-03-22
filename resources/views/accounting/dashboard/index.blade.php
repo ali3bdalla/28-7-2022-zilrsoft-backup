@@ -12,6 +12,7 @@
 
 
 @section("content")
+    {{-- <a href="/close_year/close">Close Accounting Year</a> --}}
     {{-- @can(' view charts') --}}
         {{-- <div class="row">
             <div class="col-md-4">

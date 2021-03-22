@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static where(array $array)
+ * @method static whereNotIn(string $string, string[] $array)
+ * @method static each(\Closure $param)
  * @property mixed parent
  * @property mixed transactions
  * @property mixed locale_name
@@ -59,6 +61,7 @@ class Account extends BaseModel
 	{
 		return $this->hasMany(AccountSnapshot::class, 'account_id');
 	}
+
 
 
 
@@ -155,22 +158,11 @@ class Account extends BaseModel
 	public function getCurrentAmountAttribute()
 	{
 
-		// return 0
 		$balance =  $this->yearlyNestedAccountBalance();
 		if(abs($balance) < 1)
 			return 0;
 
 		return $balance;
-		// $children = $this->getChildrenIncludeMe();
-		// $currentAmount = 0;
-		// if ($children != null) {
-		// 	foreach ($children as $child) {
-		// 		$dbChild = Account::find($child);
-		// 		if ($dbChild != null)
-		// 			$currentAmount += $dbChild->getSingleAccountBalance();
-		// 	}
-		// }
-		// return $currentAmount;
 	}
 
 	public function _isDebit()

@@ -9,20 +9,20 @@
           <div class="col-lg-12">
             <cart-empty v-if="!this.$store.state.cart.length"></cart-empty>
             <CartItems
+                v-if="activePage === 'checkout' || activePage === 'cart'"
               :active-page="activePage"
               @orderItems="updateOrderItems"
             />
           </div>
-          <div v-if="$page.client" class="col-12">
+          <div v-if="$page.client && activePage === 'select_shipping_address'" class="col-12">
             <div class="w-full">
               <cart-shipping-address
-                v-if="activePage === 'checkout'"
                 :shippingAddressId="shippingAddressId"
                 @updateShippingId="updateShippingId"
               />
             </div>
           </div>
-          <div v-if="activePage == 'checkout' && shippingAddress">
+          <div v-if="activePage === 'select_shipping_method' && shippingAddress">
             <div class="page__mt-5 col-lg-12  ">
                 <h1 class="cart__shipping-method-title">
                   {{ $page.$t.cart.shipping_method }}
@@ -87,6 +87,7 @@
               <CartButton
                 v-if="orderItems.length"
                 :shipping-method-id="shippingMethodId"
+                :shipping-address-id="shippingAddressId"
                 :active-page="activePage"
                 :order-items="orderItems"
                 @changeActivePage="changeActivePage"

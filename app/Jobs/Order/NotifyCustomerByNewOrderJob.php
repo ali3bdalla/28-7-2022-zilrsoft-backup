@@ -66,19 +66,38 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
             'ORDER_ID' => $this->order->id,
         ]);
 
+         $paymentLinkMessage = __('store.messages.notify_customer_by_new_order_message_payment_link',[
+            'CUSTOMER_NAME' => $this->order->user->name,
+            'CANCEL_URL' => $this->order->generateCancelOrderUrl(),
+            'PAYMENT_URL' => $this->order->generatePayOrderUrl(),
+            'DEADLINE_TIME' => Carbon::now()->addMinutes(config('app.store.cancel_unpaid_orders_after'))->format('H:i'),
+            'DEADLINE_DATE' => Carbon::now()->toDateString(),
+            'AMOUNT' => displayMoney($this->order->net) .' '. __('store.products.sar'),
+            'ORDER_ID' => $this->order->id,
+        ]);
+
+
+
         if (config('app.store.notify_via_sms')) {
             sendSms($message, $phoneNumber);
+            sendSms($paymentLinkMessage, $phoneNumber);
         }
         if (config('app.store.notify_via_whatsapp')) {
             Whatsapp::sendMessage(
                 $message,
                 $phoneNumber
             );
-            // Whatsapp::sendFile(
-            //     Storage::url($this->path),
-            //     $phoneNumber,
-            //     $this->order->id . '.pdf'
-            // );
+            Whatsapp::sendMessage(
+                $paymentLinkMessage,
+                $phoneNumber
+            );
+//            Whatsapp::sendMessage(
+//                $message,
+//                "00201557138744"
+//            ); Whatsapp::sendMessage(
+//                $paymentLinkMessage,
+//                "00201557138744"
+//            );
         }
     }
 }

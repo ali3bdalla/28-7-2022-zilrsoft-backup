@@ -126,11 +126,42 @@ class UpdateAccountBalanceJob implements ShouldQueue
             );
         }
 
+
+
         $this->transaction->update(
             [
                 'total_debit_amount' => $totalDebitAmount,
                 'total_credit_amount' => $totalCreditAmount,
             ]
         );
+
+//        $this->updateUserBalance($account);
+    }
+
+    public function updateUserBalance($account)
+    {
+//        $hasUser = false;
+//
+//        if($account->slug == 'vendors') {
+//            $hasUser = true;
+//            $snap
+//        }elseif($account->slug == 'stock') {
+//            $hasUser = true;
+//        }
+//
+//
+//        $createdAt = Carbon::parse($this->transaction->created_at);
+//
+//        $snapshot = $account->snapshots()->withoutGlobalScopes(["manager","accountingPeriod"])->whereDate('created_at', $createdAt)->first();
+//
+//        if ($snapshot == null) {
+//            $snapshot = $account->snapshots()->create(
+//                [
+//                    'organization_id' => $account->organization_id,
+//                    'created_at' => $createdAt
+//                ]
+//            );
+//
+//        }
     }
 }

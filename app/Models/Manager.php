@@ -1,5 +1,5 @@
 <?php
-	
+
 	namespace App\Models;
 
 use App\Models\Traits\Configurable;
@@ -7,12 +7,13 @@ use Illuminate\Notifications\Notifiable;
 
 
 /**
-	 * @method static inRandomOrder()
-	 */
+ * @property mixed organization_id
+ * @property mixed id
+ */
 	class Manager extends BaseAuthModel
 	{
-		
-		
+
+
 		use Notifiable;
 		use Configurable;
 		/**
@@ -40,14 +41,14 @@ use Illuminate\Notifications\Notifiable;
 		protected $appends = [
 			'locale_name'
 		];
-		
-		
+
+
 		public function getLocaleNameAttribute()
 		{
-			
+
 			return $this->name_ar;
 		}
-		
+
 		/**
 		 * @param $option
 		 * @return int
@@ -55,10 +56,10 @@ use Illuminate\Notifications\Notifiable;
 		public function canDo($option)
 		{
 			return $this->can($option) == true ? 1 : 0;
-			
+
 		}
-		
-		
+
+
 		/**
 		 * @return mixed
 		 */
@@ -66,8 +67,8 @@ use Illuminate\Notifications\Notifiable;
 		{
 			return $this->hasMany(ResellerClosingAccount::class, 'creator_id');
 		}
-		
-		
+
+
 		public function organization()
 		{
 			return $this->belongsTo(
@@ -75,44 +76,44 @@ use Illuminate\Notifications\Notifiable;
 				'organization_id'
 			);
 		}
-		
+
 		public function user()
 		{
 			return $this->belongsTo(User::class, 'user_id');
 		}
-		
+
 		public function department()
 		{
 			// return 1;
 			return $this->belongsTo(Department::class, 'department_id');
 		}
-		
+
 		public function branch()
 		{
 			// return 1;
 			return $this->belongsTo(Branch::class, 'branch_id');
 		}
-		
+
 		public function categories()
 		{
 			return $this->hasMany(Category::class, 'creator_id');
 		}
-		
+
 		public function filters()
 		{
 			return $this->hasMany(Filter::class, 'creator_id');
 		}
-		
+
 		public function filters_values()
 		{
 			return $this->hasMany(FilterValues::class, 'creator_id');
 		}
-		
+
 		public function accounts()
 		{
 			return $this->hasMany(Account::class, 'creator_id');
 		}
-		
+
 		public function gateways()
 		{
 			return
@@ -125,6 +126,6 @@ use Illuminate\Notifications\Notifiable;
 					->withPivot('order_number as order_number')
 					->orderBy('order_number', 'asc');
 		}
-		
-		
+
+
 	}

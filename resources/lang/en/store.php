@@ -12,6 +12,7 @@ return [
     ],
 
     "common" => [
+        "next" => "Next",
         "invalid_user_data" => "invalid login credentials",
         "add_new" => "Add New",
         "or" => "Or",
@@ -69,7 +70,15 @@ Your order processing now, we will keep you in touch
         'not_paid' => "1- Not Paid.",
         "unpaid_order_canceled_message" =>
             "Dear Customer *:CUSTOMER_NAME*,\n Sorry, Your Order #:ORDERID has been cancelled \n\n Cancelled Reasons:\n :REASON . \n\n Customer Service (WhatsApp) \n Wa.me/065433",
+        "notify_customer_by_new_order_message_payment_link" => "
+Dear *:CUSTOMER_NAME*
 
+Please fill this form after transfer:
+    :PAYMENT_URL
+    
+To cancel your order please click the flowing Link:
+    :CANCEL_URL
+ ",
         "notify_customer_by_new_order_message" => "
 Dear *:CUSTOMER_NAME*,
 Thank you for ordering form *Almesbar Shop* 
@@ -83,13 +92,7 @@ Rajhi Bank:
 Deadline for Payment 
     *:DEADLINE_DATE*
     *:DEADLINE_TIME*
-    
-Please fill this form after transfer:
-    :PAYMENT_URL
-    
-To cancel your order please click the flowing Link:
-    :CANCEL_URL
-        ",
+",
 "order_shipping_confirmation" => "
 Dear Customer *:CUSTOMER_NAME*
 Your Payment For Order #:ORDER_ID has been received
@@ -132,7 +135,10 @@ Receipt code :CODE
         'bank_account_has_been_created' => "Your bank account has been updated",
         'invalid_otp' => 'invalid verification code',
         "invalid_activity" => "This is invalid Activity",
-        "invalid_activity_message" => "Invalid Request"
+        "invalid_activity_message" => "Invalid Request",
+        "order_payment_already_received" => "We already received your payment confirmation request",
+        "sorry" => "Sorry",
+        "order_has_been_canceled" => "This order has been canceled, contact the support if you have problem"
     ],
 
 

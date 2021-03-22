@@ -6,6 +6,7 @@ return [
         "name" => 'متجر المسبار'
     ],
     "common" => [
+        "next" => "التالي",
         "invalid_user_data" => "بيانات الدخول غير صحيحة",
         "add_new" => "اضف جديد",
         "add" => "اضافة",
@@ -65,6 +66,15 @@ return [
         "order_has_been_shipping" => "
 تم تسليم الطلب بنجاح، .
 سعدنا بخدمتك",
+        "notify_customer_by_new_order_message_payment_link" => "
+مرحبا *:CUSTOMER_NAME*
+
+بعد السداد، فضلا أنقر على الرابط التالي
+:PAYMENT_URL
+
+لإلغاء الطلب، أنقر على الرابط التالي
+:CANCEL_URL
+ ",
         "notify_customer_by_new_order_message" => "
 مرحبا *:CUSTOMER_NAME*
 شكرا لتسوقك من *متجر المسبار*
@@ -79,12 +89,6 @@ return [
 يرجى السداد قبل
 *:DEADLINE_DATE*
 *:DEADLINE_TIME*
-
-بعد السداد، فضلا أنقر على الرابط التالي
-:PAYMENT_URL
-
-لإلغاء الطلب، أنقر على الرابط التالي
-:CANCEL_URL
 ",
         "order_payment_confirmed" => "
 مرحبا *:CUSTOMER_NAME*
@@ -127,7 +131,10 @@ return [
         'bank_account_has_been_created' => "تمت عملية اضافة الحساب البنكي",
         'invalid_otp' => 'رمز التاكيد غير صحيح ',
         "invalid_activity" => "رابط غير صحيح",
-        "invalid_activity_message" => "تحاول الولوج لصفحة غير سليمة"
+        "invalid_activity_message" => "تحاول الولوج لصفحة غير سليمة",
+        "order_payment_already_received" => "لا يمكن تكرار ارسال الاشعار مرة اخرى",
+        "sorry" => "عفواً",
+        "order_has_been_canceled" => "هذا الطلب تم الغاءه ، الرجاء مراسلة الدعم اذا كانت لديك مشكلة "
     ],
 
     "order" => [

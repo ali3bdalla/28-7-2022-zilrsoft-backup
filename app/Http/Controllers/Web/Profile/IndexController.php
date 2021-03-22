@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Store\Profile\UpdateInformationRequest;
 use App\Http\Requests\Store\Profile\UpdatePasswordRequest;
 use App\Http\Requests\Store\Profile\UpdatePhoneNumberRequest;
+use App\Models\City;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -25,19 +26,19 @@ class IndexController extends Controller
 
     public function updateInformation(UpdateInformationRequest $request)
     {
-         $request->update();
-         return Inertia::render('Web/Common/ShowMessage');
+        $request->update();
+        return Inertia::render('Web/Common/ShowMessage');
     }
 
     public function updatePassword(UpdatePasswordRequest $request)
     {
-         $request->update();
-         return Inertia::render('Web/Common/ShowMessage');
+        $request->update();
+        return Inertia::render('Web/Common/ShowMessage');
     }
 
     public function updatePhoneNumber(UpdatePhoneNumberRequest $request)
     {
-        return  $request->change();
+        return $request->change();
 
     }
 

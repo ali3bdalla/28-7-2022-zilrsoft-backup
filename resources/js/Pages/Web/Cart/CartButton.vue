@@ -41,15 +41,53 @@
     </div>
 
     <div v-else>
-      <button v-if="$page.client_logged" :disabled="!shippingMethodId" :style="!shippingMethod ? ' background-color: #d4d2d2 !important;color: black' : ''"  class="proceed-btn bg-gray-500" @click="sendOrder">
-        {{ $page.$t.cart.confirm_order }}
-      </button>
-      <div v-if="$page.client_logged" class="text-center flex items-center justify-center  border-t mt-3">
-        <button class="text-center flex items-center justify-center mt-2 text-gray-900 text-sm"
-                @click="changeActivePage('cart')">
-          {{ $page.$t.cart.back_to_cart }}
-        </button>
+      <div v-if="$page.client_logged">
+        <div>
+          <button class="confirmButton proceed-btn bg-gray-500"  v-if="activePage === 'checkout'"
+                  @click="changeActivePage('select_shipping_address')">
+            {{ $page.$t.common.next }}
+          </button>
+          <button class="text-center flex items-center justify-center mt-2 text-gray-900 text-sm mt-2 w-full"
+                  v-if="activePage === 'checkout'"
+                  @click="changeActivePage('cart')">
+            {{ $page.$t.common.back }}
+          </button>
+
+          <button :disabled="!shippingAddressId" class="confirmButton proceed-btn bg-gray-500" v-if="activePage ===
+          'select_shipping_address'"
+                   @click="changeActivePage('select_shipping_method')">
+            {{ $page.$t.common.next }}
+          </button>
+          <button class="text-center flex items-center justify-center mt-2 text-gray-900 text-sm  mt-2 w-full"
+                  v-if="activePage === 'select_shipping_address'"
+                  @click="changeActivePage('checkout')">
+            {{ $page.$t.common.back }}
+          </button>
+
+          <button class="confirmButton proceed-btn bg-gray-500" v-if="activePage === 'select_shipping_method'"
+                  :disabled="!shippingMethodId" @click="sendOrder">
+            {{ $page.$t.cart.confirm_order }}
+          </button>
+          <button class="text-center flex items-center justify-center mt-2 text-gray-900 text-sm  mt-2 w-full"
+                  v-if="activePage === 'select_shipping_method'"
+                  @click="changeActivePage('select_shipping_address')">
+            {{ $page.$t.common.back }}
+          </button>
+
+        </div>
+
+<!--        <button  :disabled="!shippingMethodId" :style="!shippingMethod ?-->
+<!--        ' background-color: #d4d2d2 !important;color: black' : ''"  class="confirmButton proceed-btn bg-gray-500" @click="sendOrder">-->
+<!--          {{ $page.$t.cart.confirm_order }}-->
+<!--        </button>-->
+<!--        <div v-if="$page.client_logged" class="text-center flex items-center justify-center  border-t mt-3">-->
+<!--          <button class="text-center flex items-center justify-center mt-2 text-gray-900 text-sm"-->
+<!--                  @click="changeActivePage('cart')">-->
+<!--            {{ $page.$t.cart.back_to_cart }}-->
+<!--          </button>-->
+<!--        </div>-->
       </div>
+
       <a v-else class="proceed-btn" href="/web/sign_in">{{$page.$t.cart.login_to_checkout}}</a>
     </div>
   </div>
@@ -69,6 +107,10 @@ export default {
       required: true
     },
     shippingMethodId: {
+      required: true,
+      type: Number
+    },
+    shippingAddressId: {
       required: true,
       type: Number
     }
@@ -160,3 +202,12 @@ export default {
   }
 }
 </script>
+
+
+<style scoped>
+  .confirmButton:disabled {
+    background-color: #d2d2d2 !important;
+    color: gray
+  }
+
+</style>

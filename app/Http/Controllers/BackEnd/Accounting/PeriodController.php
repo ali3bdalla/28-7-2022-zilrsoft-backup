@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\BackEnd\Accounting;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Accounting\CloseYear\CreateCloseYearEntityJob;
 use App\Jobs\Accounting\CloseYear\NormalizeIncomesExpensesJob;
 use App\Jobs\Organization\Configurations\InitOrganizationYearCloseConfigurationJob;
+use App\Models\Item;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class PeriodController extends Controller
@@ -18,8 +21,13 @@ class PeriodController extends Controller
         if (!$manager->organization->getConfig('is_nomalizing_expenses_incomes_running', 'ACCOUNTING')) {
             $manager->organization->addConfig(true, 'is_nomalizing_expenses_incomes_running', null, 'boolean', 'ACCOUNTING');
             NormalizeIncomesExpensesJob::dispatch($manager);
-        } 
+        }
 
+        return back();
+    }
+    public function close()
+    {
+        CreateCloseYearEntityJob::dispatch(auth()->user());
         return back();
     }
 
@@ -27,7 +35,7 @@ class PeriodController extends Controller
     {
         $manager = auth()->user();
         $status = $manager->organization->getConfig('is_nomalizing_expenses_incomes_running', 'ACCOUNTING') ? "running" : "not-running";
-        
+
         $resp = [
             'status' => $status
         ];
@@ -45,5 +53,5 @@ class PeriodController extends Controller
         InitOrganizationYearCloseConfigurationJob::dispatchNow(auth()->user());
         return back();
     }
-    
+
 }

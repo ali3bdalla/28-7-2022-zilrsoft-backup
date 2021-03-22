@@ -17,10 +17,11 @@ class TransactionCreated
 
 
     public $transaction;
+
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Transaction $transaction
      */
     public function __construct(Transaction $transaction)
     {

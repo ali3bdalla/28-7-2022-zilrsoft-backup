@@ -7,22 +7,23 @@
           <div class="">
 
             <div class="mt-3 text-center">
-              <i class="fa fa-times-circle text-red-500 mb-3" style="font-size: 82px"></i>
+              <i class="fa fa-info-circle text-yellow-500 mb-3" style="font-size: 82px"></i>
               <h3 id="modal-headline" class="text-xl md:text-3xl font-medium text-gray-900">
-                {{$page.$t.messages.invalid_activity}}
+                {{ title }}
               </h3>
               <div class="mt-2">
                 <p class="text-lg text-center">
-                  {{$page.$t.messages.invalid_activity_message}}
+                  {{ message }}
                 </p>
               </div>
             </div>
           </div>
         </div>
         <div class="flex justify-between">
-          <inertia-link href="/web" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                  type="button">
-            {{$page.$t.common.back_to_home}}
+          <inertia-link class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                        href="/web"
+                        type="button">
+            {{ $page.$t.common.back_to_home }}
           </inertia-link>
         </div>
       </div>
@@ -35,8 +36,21 @@
 <script>
 
 export default {
-
-};
+  props: ['order'],
+  computed:{
+    orderStatus() {
+      return this.order.status;
+    },
+    title() {
+      return this.$page.$t.messages.sorry;
+    },
+    message() {
+      if(this.orderStatus === 'pending') return this.$page.$t.messages.order_payment_already_received;
+      if(this.orderStatus === 'canceled') return this.$page.$t.messages.order_has_been_canceled;
+      return  this.$page.$t.messages.invalid_activity_message;
+    }
+  }
+}
 </script>
 
 <style>
