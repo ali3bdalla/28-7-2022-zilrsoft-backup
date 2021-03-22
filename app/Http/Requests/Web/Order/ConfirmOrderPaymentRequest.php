@@ -66,16 +66,17 @@ class ConfirmOrderPaymentRequest extends FormRequest
             );
             $message = "
 				        عملية سداد جديدة
+اسم العميل: {$order->user->locale_name}
 رقم الطلب: $order->id
 المبلغ المفترض:  $order->net";
             if (app()->environment('production')) {
 
-                Whatsapp::sendMessage($message, "966509025606");
-                Whatsapp::sendMessage($message, "966509362779");
-                Whatsapp::sendMessage($message, "966552243345");
-                Whatsapp::sendMessage($message, "966504950211");
+                Whatsapp::sendMessage($message, "966509025606", false);
+                Whatsapp::sendMessage($message, "966509362779", false);
+                Whatsapp::sendMessage($message, "966552243345", false);
+                Whatsapp::sendMessage($message, "966504950211", false);
             } else {
-                Whatsapp::sendMessage($message, "00201557138744");
+                Whatsapp::sendMessage($message, "00201557138744", false);
 
             }
             DB::commit();

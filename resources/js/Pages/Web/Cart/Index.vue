@@ -22,7 +22,7 @@
               />
             </div>
           </div>
-          <div v-if="activePage === 'select_shipping_method' && shippingAddress">
+          <div v-show="activePage === 'select_shipping_method' && shippingAddress">
             <div class="page__mt-5 col-lg-12  ">
                 <h1 class="cart__shipping-method-title">
                   {{ $page.$t.cart.shipping_method }}
