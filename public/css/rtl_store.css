@@ -19512,7 +19512,6 @@ a:hover, a:focus {
 }
 
 .sticky{
-  position: -webkit-sticky;
   position: sticky;
 }
 
@@ -44860,7 +44859,6 @@ a:hover, a:focus {
   }
 
   .sm\:sticky{
-    position: -webkit-sticky;
     position: sticky;
   }
 
@@ -70112,7 +70110,6 @@ a:hover, a:focus {
   }
 
   .md\:sticky{
-    position: -webkit-sticky;
     position: sticky;
   }
 
@@ -95364,7 +95361,6 @@ a:hover, a:focus {
   }
 
   .lg\:sticky{
-    position: -webkit-sticky;
     position: sticky;
   }
 
@@ -120616,7 +120612,6 @@ a:hover, a:focus {
   }
 
   .xl\:sticky{
-    position: -webkit-sticky;
     position: sticky;
   }
 

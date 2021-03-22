@@ -8,7 +8,7 @@
           }} 15%</span
         >) </span><div> <display-money :money="getOrderTotalAmount(orderItems)"></display-money>  {{  $page.$t.products.sar }}</div>
       </div>
-      <div v-show="activePage === 'checkout' && shippingMethodId">
+      <div v-show="activePage === 'select_shipping_method' && shippingMethodId">
         <div class="cart__total-amount">
           <span>{{ $page.$t.cart.shipping_weight }} </span>
           <div><display-money :money="getTotalShippingWeight()"></display-money> {{  $page.$t.products.kg }}</div>

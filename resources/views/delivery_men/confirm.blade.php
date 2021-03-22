@@ -42,10 +42,11 @@
                     >
                         <div>
                             <h6 class="my-0">{{$transaction->first_name}} {{$transaction->last_name}}</h6>
-                            <small class="text-muted">0{{$transaction->phone_number}}</small>
+                            <small class="text-muted"><a href="tel:0{{$transaction->phone_number}}">0{{$transaction->phone_number}}</a> </small>
+                            <small class="text-muted">{{$transaction->created_at}} </small>
                         </div>
                         <div>
-                             {{ $transaction->address }} 
+                             {{ $transaction->address }}
                         </div>
                         @if($transaction->status !== 'received')
                         <div style="margin-top: 9px">
