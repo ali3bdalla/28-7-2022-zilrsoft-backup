@@ -121,11 +121,11 @@ class DeliveryManController extends Controller
         if ($transaction->order && $transaction->order->delivery_man_code === $request->input('code') && $deliveryMan->id === $transaction->delivery_man_id) {
             $transaction->order->update(
                 [
-                    'status' => 'delivered',
-                    'delivered_at' => Carbon::now()
+                    'status' => 'delivered'
                 ]
             );
             $transaction->update([
+                'delivered_at' => Carbon::now(),
                 'status' => 'received'
             ]);
             NotifyCustomerOrderHasBeenDeliveredJob::dispatchNow($transaction->order);

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDeliveredAtAndShippedAtToOrders extends Migration
+class AddDeliveredAtAndShippedAtToShippingTransactions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddDeliveredAtAndShippedAtToOrders extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
+        Schema::table('shipping_transactions', function (Blueprint $table) {
             $table->timestamp('shipped_at')->nullable();
             $table->timestamp('delivered_at')->nullable();
         });
@@ -26,7 +26,7 @@ class AddDeliveredAtAndShippedAtToOrders extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function (Blueprint $table) {
+        Schema::table('shipping_transactions', function (Blueprint $table) {
             $table->dropColumn('shipped_at');
             $table->dropColumn('delivered_at');
         });

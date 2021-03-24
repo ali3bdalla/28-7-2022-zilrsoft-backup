@@ -18,10 +18,12 @@ class HandleOrderShippingJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $deliveryMan,$order;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param Order $order
+     * @param DeliveryMan $deliveryMan
      */
     public function __construct(Order $order,DeliveryMan $deliveryMan)
     {

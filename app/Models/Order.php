@@ -39,7 +39,7 @@ class Order extends BaseModel
 
     protected $guarded;
 
-    protected $appends = ['pdf_url','delivery_time'];
+    protected $appends = ['pdf_url'];
 
     public function user()
     {
@@ -56,17 +56,7 @@ class Order extends BaseModel
         return Storage::url($this->pdf_path);
     }
 
-    /**
-     * @return string
-     */
-    public function getDeliveryTimeAttribute(): string
-    {
-        if ($this->shipped_at && $this->delivered_at) {
-            return $this->delivered_at->diffInMinutes($this->shipped_at);
-        }
 
-        return "";
-    }
 
 
     public function activities()

@@ -100,7 +100,7 @@ class StoreSaleRequest extends FormRequest
                 ]
             );
             dispatch_now(new UpdateInvoiceNumberJob($invoice, 'S'));
-            dispatch_now(new StoreSaleItemsJob($invoice, (array)$this->input('items')),false,null,false,$isOnlineOrder);
+            dispatch_now(new StoreSaleItemsJob($invoice, (array)$this->input('items')), false, null, false, $isOnlineOrder);
             dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             /**
              *
@@ -119,13 +119,11 @@ class StoreSaleRequest extends FormRequest
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw $queryException;
-        }
-        catch (ValidationException $exception) {
+        } catch (ValidationException $exception) {
             DB::rollBack();
             throw $exception;
 
-        }
-        catch (Exception $exception) {
+        } catch (Exception $exception) {
             DB::rollBack();
             throw $exception;
         }
@@ -142,6 +140,13 @@ class StoreSaleRequest extends FormRequest
         }
 
         return false;
+    }
+
+    private function requestValidation()
+    {
+        $this->validateSerials();
+        $this->validateKits();
+        $this->validateQuantities($this->input('items'));
     }
 
     private function validateSerials()
@@ -206,14 +211,6 @@ class StoreSaleRequest extends FormRequest
             }
 
         }
-    }
-
-
-    private function requestValidation()
-    {
-        $this->validateSerials();
-        $this->validateKits();
-        $this->validateQuantities($this->input('items'));
     }
 
     private function validateQuantities($items = [])
