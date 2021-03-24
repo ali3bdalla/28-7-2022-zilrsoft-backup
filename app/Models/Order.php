@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
@@ -28,6 +29,8 @@ use Illuminate\Support\Facades\Storage;
  * @property int|mixed shipping_amount
  * @property float|int|mixed shipping_weight
  * @property mixed user
+ * @property mixed delivered_at
+ * @property mixed shipped_at
  */
 class Order extends BaseModel
 {
@@ -36,14 +39,16 @@ class Order extends BaseModel
 
     protected $guarded;
 
-    protected $appends = ['pdf_url'];
+    protected $appends = ['pdf_url','delivery_time'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
     public function managedBy()
     {
-        return $this->belongsTo(Manager::class,'managed_by_id');
+        return $this->belongsTo(Manager::class, 'managed_by_id');
     }
 
     public function getPdfUrlAttribute()
@@ -51,6 +56,17 @@ class Order extends BaseModel
         return Storage::url($this->pdf_path);
     }
 
+    /**
+     * @return string
+     */
+    public function getDeliveryTimeAttribute(): string
+    {
+        if ($this->shipped_at && $this->delivered_at) {
+            return $this->delivered_at->diffInMinutes($this->shipped_at);
+        }
+
+        return "";
+    }
 
 
     public function activities()
@@ -76,7 +92,7 @@ class Order extends BaseModel
 
     public function generatePayOrderUrl()
     {
-         return file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/web/orders/' . $this->id . '/confirm_payment?code=' . $this->order_secret_code));
+        return file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/web/orders/' . $this->id . '/confirm_payment?code=' . $this->order_secret_code));
     }
 
     public function generateCancelOrderUrl()
@@ -89,9 +105,10 @@ class Order extends BaseModel
     {
         return $this->hasOne(OrderPaymentDetail::class, 'order_id');
     }
+
     public function shippingMethod()
     {
-        return $this->belongsTo(ShippingMethod::class, 'shipping_method_id')->withoutGlobalScopes(['manager', 'draft', 'organization','accountingPeriod']);
+        return $this->belongsTo(ShippingMethod::class, 'shipping_method_id')->withoutGlobalScopes(['manager', 'draft', 'organization', 'accountingPeriod']);
     }
 
     public function deliveryMan()
@@ -101,15 +118,14 @@ class Order extends BaseModel
 
     public function draftInvoice()
     {
-        return $this->belongsTo(Invoice::class, 'draft_id')->withoutGlobalScopes(['manager', 'draft', 'organization','accountingPeriod']);
+        return $this->belongsTo(Invoice::class, 'draft_id')->withoutGlobalScopes(['manager', 'draft', 'organization', 'accountingPeriod']);
     }
 
     public function invoice()
     {
-        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes(['manager', 'draft', 'organization','accountingPeriod']);
+        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes(['manager', 'draft', 'organization', 'accountingPeriod']);
 
     }
-
 
 
 }

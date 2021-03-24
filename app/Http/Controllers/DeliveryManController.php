@@ -7,142 +7,143 @@ use App\Jobs\Order\NotifyCustomerOrderHasBeenDeliveredJob;
 use App\Jobs\Order\NotifyCustomerOrderHasBeenShippedJob;
 use App\Models\City;
 use App\Models\DeliveryMan;
-use App\Models\Order;
 use App\Models\ShippingTransaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class DeliveryManController extends Controller
 {
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		return view('delivery_men.index');
-	}
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        return view('delivery_men.index');
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
 
-		$cities = City::all();
-		return view('delivery_men.create', compact('cities'));
-	}
+        $cities = City::all();
+        return view('delivery_men.create', compact('cities'));
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param StoreDeliveryManRequest $request
-	 * @return void
-	 */
-	public function store(StoreDeliveryManRequest $request)
-	{
-		return $request->store();
-	}
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param StoreDeliveryManRequest $request
+     * @return void
+     */
+    public function store(StoreDeliveryManRequest $request)
+    {
+        return $request->store();
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param DeliveryMan $deliveryMan
-	 * @return Response
-	 */
-	public function show(DeliveryMan $deliveryMan)
-	{
-		//
-	}
+    /**
+     * Display the specified resource.
+     *
+     * @param DeliveryMan $deliveryMan
+     * @return Response
+     */
+    public function show(DeliveryMan $deliveryMan)
+    {
+        //
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param DeliveryMan $deliveryMan
-	 * @return Response
-	 */
-	public function edit(DeliveryMan $deliveryMan)
-	{
-		//
-	}
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param DeliveryMan $deliveryMan
+     * @return Response
+     */
+    public function edit(DeliveryMan $deliveryMan)
+    {
+        //
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param Request $request
-	 * @param DeliveryMan $deliveryMan
-	 * @return Response
-	 */
-	public function update(Request $request, DeliveryMan $deliveryMan)
-	{
-		//
-	}
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param DeliveryMan $deliveryMan
+     * @return Response
+     */
+    public function update(Request $request, DeliveryMan $deliveryMan)
+    {
+        //
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param DeliveryMan $deliveryMan
-	 * @return Response
-	 */
-	public function destroy(DeliveryMan $deliveryMan)
-	{
-		//
-	}
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param DeliveryMan $deliveryMan
+     * @return Response
+     */
+    public function destroy(DeliveryMan $deliveryMan)
+    {
+        //
+    }
 
-	public function confirm($hash)
-	{
-		$deliveryMan = DeliveryMan::where('hash', $hash)->firstOrFail();
-		$transactions = ShippingTransaction::where([
-			['delivery_man_id', $deliveryMan->id],
+    public function confirm($hash)
+    {
+        $deliveryMan = DeliveryMan::where('hash', $hash)->firstOrFail();
+        $transactions = ShippingTransaction::where([
+            ['delivery_man_id', $deliveryMan->id],
 
-			['order_id', '!=', null],
-		])->orderBy('id','desc')->paginate(25);
-
-
-		return view('delivery_men.confirm', compact('deliveryMan', 'transactions'));
-	}
+            ['order_id', '!=', null],
+        ])->orderBy('id', 'desc')->paginate(25);
 
 
-	public function performConfirm($hash,ShippingTransaction $transaction, Request $request)
-	{
-		$request->validate(
-			[
-				'code' => 'required|string'
-			]
-		);
-
-		$deliveryMan = DeliveryMan::where('hash', $hash)->firstOrFail();
+        return view('delivery_men.confirm', compact('deliveryMan', 'transactions'));
+    }
 
 
-		if ($transaction->order && $transaction->order->delivery_man_code === $request->input('code') && $deliveryMan->id === $transaction->delivery_man_id) {
-			$transaction->order->update(
-				[
-					'status' => 'delivered'
-				]
-			);
-			$transaction->update([
-				'status' => 'received'
-			]);
+    public function performConfirm($hash, ShippingTransaction $transaction, Request $request)
+    {
+        $request->validate(
+            [
+                'code' => 'required|string'
+            ]
+        );
+
+        $deliveryMan = DeliveryMan::where('hash', $hash)->firstOrFail();
+
+
+        if ($transaction->order && $transaction->order->delivery_man_code === $request->input('code') && $deliveryMan->id === $transaction->delivery_man_id) {
+            $transaction->order->update(
+                [
+                    'status' => 'delivered',
+                    'delivered_at' => Carbon::now()
+                ]
+            );
+            $transaction->update([
+                'status' => 'received'
+            ]);
             NotifyCustomerOrderHasBeenDeliveredJob::dispatchNow($transaction->order);
-			return;
-		}
+            return;
+        }
 
-		throw ValidationException::withMessages(
-			[
-				'code' => 'invalid code'
-			]
-		);
-	}
+        throw ValidationException::withMessages(
+            [
+                'code' => 'invalid code'
+            ]
+        );
+    }
 
-	public function resendOtp(ShippingTransaction $transaction)
-	{
+    public function resendOtp(ShippingTransaction $transaction)
+    {
 
-		if($transaction->order){
-			NotifyCustomerOrderHasBeenShippedJob::dispatchNow($transaction->order);
-		}
-	}
+        if ($transaction->order) {
+            NotifyCustomerOrderHasBeenShippedJob::dispatchNow($transaction->order);
+        }
+    }
 }
