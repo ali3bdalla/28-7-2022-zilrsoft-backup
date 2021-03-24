@@ -119,11 +119,7 @@ class StoreSaleRequest extends FormRequest
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw $queryException;
-        } catch (ValidationException $exception) {
-            DB::rollBack();
-            throw $exception;
-
-        } catch (Exception $exception) {
+        } catch (ValidationException | Exception $exception) {
             DB::rollBack();
             throw $exception;
         }

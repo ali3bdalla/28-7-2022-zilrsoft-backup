@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Jobs\External\Smsa\GetShippmentStatusJob;
+use Illuminate\Support\Carbon;
 
 /**
  * @property mixed delivery_man_id
  * @property mixed order
+ * @property mixed shippingMethod
  */
 class ShippingTransaction extends BaseModel
 {
@@ -21,7 +23,7 @@ class ShippingTransaction extends BaseModel
     public function getDeliveryTimeAttribute(): string
     {
         if ($this->shipped_at && $this->delivered_at) {
-            return $this->delivered_at->diffInMinutes($this->shipped_at);
+            return Carbon::parse($this->delivered_at)->diffInMinutes($this->shipped_at) . ' min';
         }
 
         return "";

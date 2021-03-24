@@ -13,6 +13,7 @@
             :manager-branch='@json($manager->branch->load('departments'))'
             :manager-permissions='@json($manager_permissions)'
             :manager-gateways='@json($manager_gateways)'
+            :delivery-men='@json($deliveryMen)'
             :branches='@json($branches)'>
 
     </accounting-managers-create-component>

@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Store\Shipping\StoreShippingMethodDeliveryManRequest;
 use App\Http\Requests\Backend\Store\Shipping\UpdateShippingMethodRequest;
 use App\Jobs\External\Smsa\DownloadShippmentPdfJob;
-use App\Jobs\External\Smsa\SmsaCreateShippmentJob;
 use App\Jobs\Order\Shipping\HandleOrderShippingJob;
 use App\Jobs\Shipping\CreateShippingSalesInvoiceJob;
+use App\Jobs\Shipping\CreateShippingTransactionJob;
+use App\Jobs\Shipping\CreateShippingTransactionShippingStatusJob;
 use App\Models\City;
 use App\Models\DeliveryMan;
 use App\Models\Item;
@@ -94,7 +95,7 @@ class ShippingController extends Controller
     }
 
 
-    public function storeTransaction(ShippingMethod $shipping, Request $request)
+    public function storeTransaction(ShippingMethod $shippingMethod, Request $request)
     {
 
         $request->validate([
@@ -127,44 +128,8 @@ class ShippingController extends Controller
         );
 
 
-        $created = false;
-        $data['shipping_method_id'] = $shipping->id;
-        $data['creator_id'] = auth()->user()->id;
-        $data['organization_id'] = auth()->user()->organization_id;
-        $order = null;
-
-        if ($request->filled('order_id')) {
-            $orderTransaction = ShippingTransaction::where('order_id', $request->input('order_id'))->first();
-            $order = Order::find($request->input('order_id'));
-            if ($orderTransaction) {
-                $created = true;
-            }
-        }
-
-
-        if (!$created) {
-
-            $refernence = ShippingTransaction::where('reference', $request->input('reference'))->first();
-            if ($refernence) {
-                $data['reference'] = rand(100000000000, 99999999999999);
-            }
-
-            if ($shipping->id == 2) // smsa
-                $data['tracking_number'] = SmsaCreateShippmentJob::dispatchNow($data);
-            else {
-                $data['tracking_number'] = rand(100000000000, 99999999999999);
-            }
-
-            ShippingTransaction::create($data);
-            if ($order) {
-                $order->update([
-                    'tracking_number' => $data['tracking_number']
-                ]);
-            }
-        }
-
-
-        return redirect(route('store.shipping.view_transactions', $shipping->id));
+        CreateShippingTransactionJob::dispatchNow( $shippingMethod,$data);
+        return redirect(route('store.shipping.view_transactions', $shippingMethod->id));
     }
 
 
@@ -179,7 +144,6 @@ class ShippingController extends Controller
 
         $phoneNumber = $deliveryMan->international_phone_number;
         $otp = generateOtp();
-//        $transactionsIdes = implode(',', $request->input('transactions'));
         $orders = ShippingTransaction::whereIn('id', $request->input('transactions'))->pluck('order_id')->toArray();
         $ordersIds = implode(',', $orders);
         $messages = 'You picked up order (' . $ordersIds . ')
@@ -214,18 +178,7 @@ code: ' . $otp;
             $transactions = ShippingTransaction::find($request->input('transactions'));
             foreach ($transactions as $key => $transaction) {
                 if ($transaction->status === 'issued') {
-                    $transaction->update([
-                        'status' => 'shipped',
-                        'shipped_at' => Carbon::now(),
-                        'delivery_man_id' => $request->input('delivery_man_id')
-                    ]);
-
-
-                    if ($transaction->order && $transaction->order->status == 'ready_for_shipping') {
-                        HandleOrderShippingJob::dispatchNow($transaction->order, $deliveryMan);
-                        if ($transaction->order->shipping_amount > 0)
-                            CreateShippingSalesInvoiceJob::dispatchNow($transaction->order->user, $transaction, $transaction->order->shipping_amount);
-                    }
+                   CreateShippingTransactionShippingStatusJob::dispatchNow($transaction,$deliveryMan);
                 }
             }
         } else {

@@ -3,6 +3,10 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,6 +35,8 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed user
  * @property mixed delivered_at
  * @property mixed shipped_at
+ * @property mixed shippingAddress
+ * @property mixed shippingMethod
  */
 class Order extends BaseModel
 {
@@ -41,12 +47,12 @@ class Order extends BaseModel
 
     protected $appends = ['pdf_url'];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function managedBy()
+    public function managedBy(): BelongsTo
     {
         return $this->belongsTo(Manager::class, 'managed_by_id');
     }
@@ -57,24 +63,22 @@ class Order extends BaseModel
     }
 
 
-
-
-    public function activities()
+    public function activities(): HasMany
     {
         return $this->hasMany(OrderActivity::class, 'order_id');
     }
 
-    public function itemsQtyHolders()
+    public function itemsQtyHolders(): HasMany
     {
         return $this->hasMany(OrderItemQtyHolder::class, 'order_id');
     }
 
-    public function shippingAddress()
+    public function shippingAddress(): BelongsTo
     {
         return $this->belongsTo(ShippingAddress::class, 'shipping_address_id');
     }
 
-    public function shippable()
+    public function shippable(): MorphTo
     {
         return $this->morphTo('shippable');
 
@@ -91,27 +95,27 @@ class Order extends BaseModel
     }
 
 
-    public function paymentDetail()
+    public function paymentDetail(): HasOne
     {
         return $this->hasOne(OrderPaymentDetail::class, 'order_id');
     }
 
-    public function shippingMethod()
+    public function shippingMethod(): BelongsTo
     {
         return $this->belongsTo(ShippingMethod::class, 'shipping_method_id')->withoutGlobalScopes(['manager', 'draft', 'organization', 'accountingPeriod']);
     }
 
-    public function deliveryMan()
+    public function deliveryMan(): BelongsTo
     {
         return $this->belongsTo(DeliveryMan::class, 'delivery_man_id');
     }
 
-    public function draftInvoice()
+    public function draftInvoice(): BelongsTo
     {
         return $this->belongsTo(Invoice::class, 'draft_id')->withoutGlobalScopes(['manager', 'draft', 'organization', 'accountingPeriod']);
     }
 
-    public function invoice()
+    public function invoice(): BelongsTo
     {
         return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes(['manager', 'draft', 'organization', 'accountingPeriod']);
 

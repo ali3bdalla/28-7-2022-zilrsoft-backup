@@ -4,23 +4,27 @@ namespace App\Jobs\Shipping;
 
 use App\Jobs\Sale\CreateSalesJob;
 use App\Models\ShippingTransaction;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
+
 class CreateShippingSalesInvoiceJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $shippingTransaction,$user,$amount;
+    private $shippingTransaction, $user, $amount;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param User $user
+     * @param ShippingTransaction $shippingTransaction
+     * @param int $amount
      */
-    public function __construct( User $user,ShippingTransaction $shippingTransaction,$amount = 0)
+    public function __construct(User $user, ShippingTransaction $shippingTransaction, $amount = 0)
     {
         $this->shippingTransaction = $shippingTransaction;
         $this->user = $user;
@@ -34,16 +38,12 @@ class CreateShippingSalesInvoiceJob implements ShouldQueue
      */
     public function handle()
     {
-        if($this->shippingTransaction->shippingMethod->item) 
-        {
+        if ($this->shippingTransaction->shippingMethod->item) {
             $item = $this->shippingTransaction->shippingMethod->item;
-
-            
             $item->qty = 1;
             $item->price = moneyFormatter(($this->amount / 1.15));
             $item->discount = 0;
-            CreateSalesJob::dispatchNow($this->user->id,[$item->toArray()]);
-            
+            CreateSalesJob::dispatchNow($this->user->id, [$item->toArray()]);
         }
     }
 }

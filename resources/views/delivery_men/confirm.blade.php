@@ -41,7 +41,9 @@
                             @endif
                     >
                         <div>
-                            <h6 class="my-0">{{$transaction->first_name}} {{$transaction->last_name}}</h6>
+                            <h6 class="my-0">{{$transaction->first_name}} {{$transaction->last_name}}
+                            <span class="float-right">{{$transaction->delivery_time}}</span>
+                            </h6>
                             <small class="text-muted"><a href="tel:0{{$transaction->phone_number}}">0{{$transaction->phone_number}}</a> </small>
                             <small class="text-muted">{{$transaction->created_at}} </small>
                         </div>

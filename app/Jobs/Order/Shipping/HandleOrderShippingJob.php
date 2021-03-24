@@ -38,13 +38,11 @@ class HandleOrderShippingJob implements ShouldQueue
      */
     public function handle()
     {
-        //
 
         $this->order->update([
             'delivery_man_id' => $this->deliveryMan->id,
             'status' => 'shipped'
         ]);
-
 
         NotifyCustomerOrderHasBeenShippedJob::dispatchNow($this->order);
 
