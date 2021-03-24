@@ -20,9 +20,10 @@ class Whatsapp
         $appName = trans('store.app.name');
         $appCustomerSupport = trans('store.common.customer_support');
         $contentSupportNote = trans('store.common.customer_support_note');
+        $followOffers = trans('store.common.follow_offers');
 
         if ($addSignature) {
-            $message = "$message\n\n$appCustomerSupport\nhttps://tinyurl.com/2eol5vxz\n$appName\n$appUrl\n$contentSupportNote";
+            $message = "$message\n\n$appCustomerSupport\nhttps://tinyurl.com/2eol5vxz\n$appName\n$appUrl\n$contentSupportNote\n$followOffers\nTwitter: @msbrshop\nInstagram: msbrshop\nSnapchat: msbrshop";
         }
         $data = [
             'query' => [
