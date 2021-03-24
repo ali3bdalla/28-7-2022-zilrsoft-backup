@@ -23,7 +23,7 @@ class Whatsapp
         $followOffers = trans('store.common.follow_offers');
 
         if ($addSignature) {
-            $message = "$message\n\n$appCustomerSupport\nhttps://tinyurl.com/2eol5vxz\n$appName\n$appUrl\n$contentSupportNote\n$followOffers\nTwitter: @msbrshop\nInstagram: msbrshop\nSnapchat: msbrshop";
+            $message = "$message\n\n$appCustomerSupport\nhttps://tinyurl.com/2eol5vxz\n$appName\n$appUrl\n\n$contentSupportNote\n\n$followOffers\nTwitter: @msbrshop\nInstagram: msbrshop\nSnapchat: msbrshop";
         }
         $data = [
             'query' => [
