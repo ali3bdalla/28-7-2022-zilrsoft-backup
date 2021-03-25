@@ -36,8 +36,7 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
      * Create a new job instance.
      *
      * @param Order $order
-     * @param $path
-     * @param User $client
+     * @param string $path
      * @param Invoice $invoice
      */
     public function __construct(Order $order, $path = "",  Invoice $invoice)
@@ -88,16 +87,19 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
                 $phoneNumber
             );
             Whatsapp::sendMessage(
+                "122608010398991",
+                $phoneNumber,
+                false
+            );
+            Whatsapp::sendMessage(
+                "SA7280000122608010398991",
+                $phoneNumber,false
+            );
+            Whatsapp::sendMessage(
                 $paymentLinkMessage,
                 $phoneNumber
             );
-//            Whatsapp::sendMessage(
-//                $message,
-//                "00201557138744"
-//            ); Whatsapp::sendMessage(
-//                $paymentLinkMessage,
-//                "00201557138744"
-//            );
+
         }
     }
 }

@@ -1,27 +1,28 @@
 <?php
-	
+
 	namespace App\Http\Controllers\Accounting;
-	
+
 	use App\Models\Account;
 	use App\Models\Branch;
 	use App\Http\Controllers\Controller;
 	use App\Http\Requests\Accounting\Manager\CreateManagerRequest;
 	use App\Http\Requests\Accounting\Manager\DatatableRequest;
 	use App\Http\Requests\Accounting\Manager\UpdateManagerRequest;
-	use App\Models\Manager;
+    use App\Models\DeliveryMan;
+    use App\Models\Manager;
 	use Exception;
 	use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\Response;
 	use Spatie\Permission\Models\Permission;
-	
+
 	class ManagerController extends Controller
 	{
 		public function __construct()
 		{
 			$this->middleware(['permission:manage managers']);
 		}
-		
+
 		/**
 		 * Display a listing of the resource.
 		 *
@@ -34,7 +35,7 @@
 			return view('accounting.managers.index',compact('branches'));
 			//
 		}
-		
+
 		/**
 		 * @param DatatableRequest $request
 		 *
@@ -44,7 +45,7 @@
 		{
 			return $request->data();
 		}
-		
+
 		/**
 		 * Show the form for creating a new resource.
 		 *
@@ -54,10 +55,11 @@
 		{
 			$branches = Branch::with('departments')->get();
 			$gateways = Account::where('slug','gateway')->get();
-			return view('accounting.managers.create',compact('branches','gateways'));
+            $deliveryMen = DeliveryMan::all();
+			return view('accounting.managers.create',compact('branches','gateways','deliveryMen'));
 			//
 		}
-		
+
 		/**
 		 * @param CreateManagerRequest $request
 		 *
@@ -69,7 +71,7 @@
 			return $request->save();
 			//
 		}
-		
+
 		/**
 		 * Display the specified resource.
 		 *
@@ -81,7 +83,7 @@
 		{
 			//
 		}
-		
+
 		/**
 		 * Show the form for editing the specified resource.
 		 *
@@ -100,13 +102,14 @@
 				$manager_gateways[] = $gateway->id;
 			}
 			// return $manager_gateways;
-			
+
+            $deliveryMen = DeliveryMan::all();
 			$manager_permissions = $manager->permissions()->pluck('name');
 			$branches = Branch::with('departments')->get();
-			return view('accounting.managers.edit',compact('branches','manager','manager_gateways','manager_permissions'));
+			return view('accounting.managers.edit',compact('branches','manager','manager_gateways','manager_permissions','deliveryMen'));
 			//
 		}
-		
+
 		/**
 		 * @param UpdateManagerRequest $request
 		 * @param Manager $manager
@@ -116,12 +119,12 @@
 		 */
 		public function update(UpdateManagerRequest $request,Manager $manager)
 		{
-			
-			
+
+
 			return $request->save($manager);
 			//
 		}
-		
+
 		/**
 		 * @param Manager $manager
 		 *

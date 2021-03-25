@@ -12,6 +12,7 @@ return [
     ],
 
     "common" => [
+        "follow_offers" => "follow our offers",
         "next" => "Next",
         "invalid_user_data" => "invalid login credentials",
         "add_new" => "Add New",
@@ -85,21 +86,18 @@ Thank you for ordering form *Almesbar Shop*
 Order: *:ORDER_ID*
 Amount: *:AMOUNT*
 
-Banks Accounts:
+Payment via transfer to following account:
 From Rajhi bank:
 *122608010398991*
 
 From other banks (IBAN):
 *SA7280000122608010398991*
+Bait Almesbar For Trading
 
    
 Deadline for Payment 
     *:DEADLINE_DATE*
     *:DEADLINE_TIME*
-",
-"order_shipping_confirmation" => "
-Dear Customer *:CUSTOMER_NAME*
-Your Payment For Order #:ORDER_ID has been received
 ",
 "invalid_order_payment" => "
 Dear *:CUSTOMER_NAME*

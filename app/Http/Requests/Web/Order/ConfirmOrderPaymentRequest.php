@@ -64,8 +64,7 @@ class ConfirmOrderPaymentRequest extends FormRequest
                     'last_name' => $this->input('last_name'),
                 ]
             );
-            $message = "
-				        عملية سداد جديدة
+            $message = "عملية سداد جديدة
 اسم العميل: {$order->user->locale_name}
 رقم الطلب: $order->id
 المبلغ المفترض:  $order->net";

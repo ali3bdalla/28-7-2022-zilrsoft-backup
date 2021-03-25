@@ -18,10 +18,12 @@ class HandleOrderShippingJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $deliveryMan,$order;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param Order $order
+     * @param DeliveryMan $deliveryMan
      */
     public function __construct(Order $order,DeliveryMan $deliveryMan)
     {
@@ -36,13 +38,11 @@ class HandleOrderShippingJob implements ShouldQueue
      */
     public function handle()
     {
-        //
 
         $this->order->update([
             'delivery_man_id' => $this->deliveryMan->id,
             'status' => 'shipped'
         ]);
-
 
         NotifyCustomerOrderHasBeenShippedJob::dispatchNow($this->order);
 
