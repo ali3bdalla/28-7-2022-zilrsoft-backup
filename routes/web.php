@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Middleware\ImagesUploadMiddleware;
-use App\Jobs\Order\CreateOrderPdfSnapshotJob;
-use App\Models\Invoice;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -12,7 +10,6 @@ Route::group(['prefix' => 'delivery_man'], function () {
     Route::post('/confirm/{hash}/{transaction}', 'DeliveryManController@performConfirm');
     Route::get('/{transaction}/resend_otp', 'DeliveryManController@resendOtp');
 });
-
 
 
 Route::get('/', 'Web\HomeController@toWeb')->name('to.web');

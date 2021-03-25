@@ -2,8 +2,6 @@
 
 namespace App\Jobs\Sales\Order;
 
-use App\Jobs\Order\CreateOrderPdfSnapshotJob;
-use App\Jobs\Order\HandleOrderShippingJob;
 use App\Jobs\Order\Shipping\AutoCreateShippingTransactionJob;
 use App\Models\Invoice;
 use App\Models\Order;
@@ -44,11 +42,11 @@ class UpdateOnlineOrderStatus implements ShouldQueue
     public function handle()
     {
 
-        $draft = Invoice::withoutGlobalScopes(['draft', 'manager','accountingPeriod'])->where('id', $this->draftId)->first();
+        $draft = Invoice::withoutGlobalScopes(['draft', 'manager', 'accountingPeriod'])->where('id', $this->draftId)->first();
 
         if ($draft) {
             $order = Order::where([
-                ["invoice_id",null],
+                ["invoice_id", null],
                 ['draft_id', $this->draftId],
                 ['status', 'in_progress']
             ])->first();
@@ -75,8 +73,8 @@ class UpdateOnlineOrderStatus implements ShouldQueue
                         'is_online' => true
                     ]
                 );
-                CreateOrderPdfSnapshotJob::dispatch($this->invoice);
-                if($order->shippingMethod && $order->shippingMethod->deliver_when_invoice_created) {
+
+                if ($order->shippingMethod && $order->shippingMethod->deliver_when_invoice_created) {
                     AutoCreateShippingTransactionJob::dispatchNow($order);
                 }
             }

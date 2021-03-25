@@ -15,10 +15,11 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $order;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param Order $order
      */
     public function __construct(Order $order)
     {
@@ -32,6 +33,8 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
      */
     public function handle()
     {
+        CreateOrderPdfSnapshotJob::dispatchNow($this->order->invoice);
+
         $phoneNumber = $this->order->user->international_phone_number;
 
         if($this->order->shipping_method_id === 1)
@@ -60,7 +63,7 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
                 'SHIPPING_METHOD' => $this->order->shippingMethod->locale_name
             ]);
         }
-        
+
         if (config('app.store.notify_via_sms')) {
             sendSms($message, $phoneNumber);
         }

@@ -99,7 +99,6 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
                 $paymentLinkMessage,
                 $phoneNumber
             );
-
         }
     }
 }
