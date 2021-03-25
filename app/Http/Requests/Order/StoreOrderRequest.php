@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests\Order;
 
-use App\Events\Order\OrderCreatedEvent;
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
-use App\Jobs\Order\CreateOrderPdfSnapshotJob;
 use App\Jobs\Order\HoldItemQtyJob;
 use App\Jobs\Order\NotifyCustomerByNewOrderJob;
 use App\Jobs\Sales\Items\StoreSaleItemsJob;
@@ -16,7 +14,6 @@ use App\Models\Manager;
 use App\Models\ShippingAddress;
 use App\Models\ShippingMethod;
 use App\Rules\ExistsRule;
-use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -92,9 +89,9 @@ class StoreOrderRequest extends FormRequest
             $order = CreateSalesOrderJob::dispatchNow($invoice->fresh(), $this);
             dispatch_now(new HoldItemQtyJob($invoice, $order));
             DB::commit();
-            NotifyCustomerByNewOrderJob::dispatch($order,"",$invoice); //$path
-            if($this->acceptsJson())
-                  return $invoice;
+            NotifyCustomerByNewOrderJob::dispatch($order, "", $invoice); //$path
+            if ($this->acceptsJson())
+                return $invoice;
 
             return redirect('/web/profile');
         } catch (QueryException $queryException) {

@@ -44,7 +44,7 @@ class HandleOrderShippingJob implements ShouldQueue
             'status' => 'shipped'
         ]);
 
-        NotifyCustomerOrderHasBeenShippedJob::dispatchNow($this->order);
+        NotifyCustomerOrderHasBeenShippedJob::dispatch($this->order);
 
     }
 }

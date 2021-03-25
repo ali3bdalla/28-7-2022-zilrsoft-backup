@@ -128,7 +128,7 @@ class DeliveryManController extends Controller
                 'delivered_at' => Carbon::now(),
                 'status' => 'received'
             ]);
-            NotifyCustomerOrderHasBeenDeliveredJob::dispatchNow($transaction->order);
+            NotifyCustomerOrderHasBeenDeliveredJob::dispatch($transaction->order);
             return;
         }
 
@@ -143,7 +143,7 @@ class DeliveryManController extends Controller
     {
 
         if ($transaction->order) {
-            NotifyCustomerOrderHasBeenShippedJob::dispatchNow($transaction->order);
+            NotifyCustomerOrderHasBeenShippedJob::dispatch($transaction->order);
         }
     }
 }
