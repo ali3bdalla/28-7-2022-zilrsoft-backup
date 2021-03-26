@@ -95,7 +95,7 @@ class ShippingController extends Controller
     }
 
 
-    public function storeTransaction(ShippingMethod $shippingMethod, Request $request)
+    public function storeTransaction(ShippingMethod $shipping, Request $request)
     {
 
         $request->validate([
@@ -128,8 +128,8 @@ class ShippingController extends Controller
         );
 
 
-        CreateShippingTransactionJob::dispatchNow( $shippingMethod,$data);
-        return redirect(route('store.shipping.view_transactions', $shippingMethod->id));
+        CreateShippingTransactionJob::dispatchNow( $shipping,$data);
+        return redirect(route('store.shipping.view_transactions', $shipping->id));
     }
 
 
