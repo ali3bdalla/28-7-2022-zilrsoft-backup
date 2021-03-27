@@ -86,19 +86,22 @@ Thank you for ordering form *Almesbar Shop*
 Order: *:ORDER_ID*
 Amount: *:AMOUNT*
 
-Payment via transfer to following account:
-From Rajhi bank:
-*122608010398991*
+Payment via transfer to our account in Rajhi bank named: Bait Almesbar For Trading 
 
-From other banks (IBAN):
-*SA7280000122608010398991*
-Bait Almesbar For Trading
 
    
 Deadline for Payment 
     *:DEADLINE_DATE*
     *:DEADLINE_TIME*
 ",
+
+// From Rajhi bank:
+// *122608010398991*
+
+// From other banks (IBAN):
+// *SA7280000122608010398991*
+"send_from_rajhi" => "From Rajhi bank:",
+"send_from_other_banks_via_iban" => "From other banks (IBAN):",
 "invalid_order_payment" => "
 Dear *:CUSTOMER_NAME*
 Unfortunately, Your Payment For Order #:ORDER_ID is Invalid

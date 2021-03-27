@@ -87,14 +87,24 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
                 $phoneNumber
             );
             Whatsapp::sendMessage(
+                __('store.messages.send_from_rajhi'),
+                $phoneNumber,
+                false
+            );
+            Whatsapp::sendMessage(
                 "122608010398991",
                 $phoneNumber,
                 false
             );
             Whatsapp::sendMessage(
+                __('store.messages.send_from_other_banks_via_iban'),
+                $phoneNumber,false
+            );
+            Whatsapp::sendMessage(
                 "SA7280000122608010398991",
                 $phoneNumber,false
             );
+            
             Whatsapp::sendMessage(
                 $paymentLinkMessage,
                 $phoneNumber
