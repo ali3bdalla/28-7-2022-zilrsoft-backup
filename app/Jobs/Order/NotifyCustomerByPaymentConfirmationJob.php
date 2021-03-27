@@ -15,6 +15,7 @@ class NotifyCustomerByPaymentConfirmationJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $order;
+
     /**
      * Create a new job instance.
      *
@@ -33,7 +34,7 @@ class NotifyCustomerByPaymentConfirmationJob implements ShouldQueue
     public function handle()
     {
         $phoneNumber = $this->order->user->international_phone_number;
-        $message = __('store.messages.order_payment_confirmed',[
+        $message = __('store.messages.order_payment_confirmed', [
             'CUSTOMER_NAME' => $this->order->user->name,
             'ORDER_ID' => $this->order->id,
         ]);
@@ -44,7 +45,8 @@ class NotifyCustomerByPaymentConfirmationJob implements ShouldQueue
         if (config('app.store.notify_via_whatsapp')) {
             Whatsapp::sendMessage(
                 $message,
-                $phoneNumber
+                $phoneNumber,
+                false
             );
 
         }

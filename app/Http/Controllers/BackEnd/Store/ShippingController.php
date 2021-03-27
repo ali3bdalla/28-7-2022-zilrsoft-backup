@@ -112,7 +112,6 @@ class ShippingController extends Controller
             'weight' => "required|numeric"
         ]);
 
-
         $data = $request->only(
             "first_name",
             "last_name",
@@ -126,8 +125,6 @@ class ShippingController extends Controller
             "boxes",
             "weight",
         );
-
-
         CreateShippingTransactionJob::dispatchNow( $shipping,$data);
         return redirect(route('store.shipping.view_transactions', $shipping->id));
     }

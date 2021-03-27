@@ -16,7 +16,7 @@ return [
         "customer_support_note" => "* عند عدم تمكنك من فتح الروابط يرجى حفظ الرقم 0163394000 في جهات الاتصال لديك",
         "download" => "تحميل",
         "search_in_all_products" => "البحث في كل المنتجات",
-        "customer_support" => "خدمة العملاء",
+        "customer_support" => "تحتاج مساعدة ؟",
         "back" => "الخلف",
         "select_bank" => "اختر البنك",
         "select_sender_bank" => "اختر البنك المحول منه",
@@ -54,8 +54,7 @@ return [
         'home' => "الرئيسية",
         // here
     ],
-    // البلاد:
-    // *54564646546546*
+
     'messages' => [
 
         "notify_unpaid_order_message" =>
@@ -63,7 +62,7 @@ return [
         'as_your_request' => "1- بناء على طلبك",
         'not_paid' => "1- إنتهاء مهلة السداد",
         "unpaid_order_canceled_message" =>
-        "مرحبا *:CUSTOMER_NAME*,\n نأسف، طلبك رقم (:ORDERID) تم الغاءه \n\n سبب الإلغاء:\n:REASON .  ",
+        "مرحبا *:CUSTOMER_NAME*,\n نأسف، طلبك رقم (:ORDERID) تم الغاءه آلياً\n\n سبب الإلغاء:\n:REASON .  ",
         "order_has_been_shipping" => "
 تم تسليم الطلب بنجاح، .
 سعدنا بخدمتك",
@@ -82,18 +81,15 @@ return [
 رقم الطلب: *:ORDER_ID*
 المبلغ: *:AMOUNT*
 
-السداد عن طريق التحويل الى الحساب التالي 
-من مصرف الراجحي:
-*122608010398991*
-
-من بنوك أخرى (آيبان):
-*SA7280000122608010398991*
+السداد عن طريق التحويل الى حسابنا البنكي في مصرف الراجحي باسم: 
 فرع مؤسسة بيت المسبار التجارية
 
 يرجى السداد قبل
 *:DEADLINE_DATE*
 *:DEADLINE_TIME*
 ",
+        "send_from_rajhi" => "من مصرف الراجحي:",
+        "send_from_other_banks_via_iban" => "من بنوك أخرى (آيبان):",
         "order_payment_confirmed" => "
 مرحبا *:CUSTOMER_NAME*
 تم استلام سداد الطلب #:ORDER_ID بنجاح ، وجاري تجهيز طلبك ، سنقوم باشعارك قريبا

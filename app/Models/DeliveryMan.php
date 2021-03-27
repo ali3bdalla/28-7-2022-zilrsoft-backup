@@ -1,12 +1,15 @@
 <?php
-	
+
 	namespace App\Models;
-	
+
 	use Illuminate\Database\Eloquent\Model;
-	
-	class DeliveryMan extends BaseModel
+
+    /**
+     * @property mixed id
+     */
+    class DeliveryMan extends BaseModel
 	{
-		
+
 		protected $guarded = [];
 
 		public function getInternationalPhoneNumberAttribute()
@@ -15,9 +18,9 @@
 			return '966' . $this->phone_number; // 0966324018
 		}
 
-		
+
 		protected $appends = ['locale_name'];
-		
+
 		public function orders()
 		{
 			return $this->hasMany(Order::class, 'delivery_man_id');
@@ -38,5 +41,5 @@
 		{
 			return $this->belongsTo(ShippingMethod::class,'shipping_method_id');
 		}
-		
+
 	}

@@ -84,7 +84,13 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
         if (config('app.store.notify_via_whatsapp')) {
             Whatsapp::sendMessage(
                 $message,
-                $phoneNumber
+                $phoneNumber,
+                false
+            );
+            Whatsapp::sendMessage(
+                __('store.messages.send_from_rajhi'),
+                $phoneNumber,
+                false
             );
             Whatsapp::sendMessage(
                 "122608010398991",
@@ -92,9 +98,14 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
                 false
             );
             Whatsapp::sendMessage(
+                __('store.messages.send_from_other_banks_via_iban'),
+                $phoneNumber,false
+            );
+            Whatsapp::sendMessage(
                 "SA7280000122608010398991",
                 $phoneNumber,false
             );
+
             Whatsapp::sendMessage(
                 $paymentLinkMessage,
                 $phoneNumber
