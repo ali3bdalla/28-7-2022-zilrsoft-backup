@@ -178,7 +178,7 @@
         @foreach($invoice->items as $item)
         <tr class="item" >
             <td >
-                {{$item->item->locale_name}}
+                {{$item->item ? $item->item->locale_name : ""}}
             </td>
 
             <td  style="text-align: center">
