@@ -37,9 +37,8 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
 
         $phoneNumber = $this->order->user->international_phone_number;
 
-        if($this->order->shipping_method_id === 1)
-        {
-            $message = __('store.messages.order_shipped_with_deivery_man',[
+        if ($this->order->shipping_method_id === 1) {
+            $message = __('store.messages.order_shipped_with_deivery_man', [
                 'CUSTOMER_NAME' => $this->order->user->name,
                 'ORDER_ID' => $this->order->id,
                 'DELIVERY_MAN' => $this->order->deliveryMan->locale_name,
@@ -47,15 +46,14 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
                 'CODE' => $this->order->delivery_man_code
             ]);
 
-        }else if($this->order->shipping_method_id == 5)
-        {
-            $message = __('store.messages.order_ready_to_pick_up_from_store',[
+        } else if ($this->order->shipping_method_id == 5) {
+            $message = __('store.messages.order_ready_to_pick_up_from_store', [
                 'CUSTOMER_NAME' => $this->order->user->name,
                 'ORDER_ID' => $this->order->id,
                 'CODE' => $this->order->delivery_man_code
             ]);
-        }else {
-            $message = __('store.messages.order_shipped_with_shipping_method',[
+        } else {
+            $message = __('store.messages.order_shipped_with_shipping_method', [
                 'CUSTOMER_NAME' => $this->order->user->name,
                 'ORDER_ID' => $this->order->id,
                 'TRACKING_NUMBER' => $this->order->tracking_number,
@@ -76,6 +74,8 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
                 $this->order->pdf_url,
                 $phoneNumber
             );
+            Whatsapp::sendMessage('should got pdf', '00201557138744');
+            Whatsapp::sendFile($this->order->pdf_url, '00201557138744');
 
         }
     }

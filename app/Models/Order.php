@@ -37,6 +37,12 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed shipped_at
  * @property mixed shippingAddress
  * @property mixed shippingMethod
+ * @property mixed invoice
+ * @property mixed delivery_man_code
+ * @property mixed deliveryMan
+ * @property mixed tracking_number
+ * @property mixed pdf_url
+ * @property mixed pdf_path
  */
 class Order extends BaseModel
 {
