@@ -54,20 +54,13 @@ class NotifyUnPaidOrderCommand extends Command
 
             $userPhoneNumber = $order->user->international_phone_number;
             if (config('app.store.notify_via_whatsapp')) {
-                Whatsapp::sendMessage($message, $userPhoneNumber,false);
-                // if (app()->environment('local'))
-                //     Whatsapp::sendMessage($message, "966504956211");
+                Whatsapp::sendMessage($message, $userPhoneNumber);
             }
-
             if (config('app.store.notify_via_sms')) {
-                sendSms($message, $userPhoneNumber,false);
-                // if (app()->environment('local'))
-                //     sendSms($message, "966504956211");
+                sendSms($message, $userPhoneNumber);
             }
-
 
         }
-
     }
 
 

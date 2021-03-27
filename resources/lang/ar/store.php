@@ -16,7 +16,7 @@ return [
         "customer_support_note" => "* عند عدم تمكنك من فتح الروابط يرجى حفظ الرقم 0163394000 في جهات الاتصال لديك",
         "download" => "تحميل",
         "search_in_all_products" => "البحث في كل المنتجات",
-        "customer_support" => "خدمة العملاء",
+        "customer_support" => "تحتاج مساعدة ؟",
         "back" => "الخلف",
         "select_bank" => "اختر البنك",
         "select_sender_bank" => "اختر البنك المحول منه",
@@ -62,7 +62,7 @@ return [
         'as_your_request' => "1- بناء على طلبك",
         'not_paid' => "1- إنتهاء مهلة السداد",
         "unpaid_order_canceled_message" =>
-        "مرحبا *:CUSTOMER_NAME*,\n نأسف، طلبك رقم (:ORDERID) تم الغاءه \n\n سبب الإلغاء:\n:REASON .  ",
+        "مرحبا *:CUSTOMER_NAME*,\n نأسف، طلبك رقم (:ORDERID) تم الغاءه آلياً\n\n سبب الإلغاء:\n:REASON .  ",
         "order_has_been_shipping" => "
 تم تسليم الطلب بنجاح، .
 سعدنا بخدمتك",
@@ -75,11 +75,6 @@ return [
 لإلغاء الطلب، أنقر على الرابط التالي
 :CANCEL_URL
  ",
-//  من مصرف الراجحي:
-// *122608010398991*
-
-// من بنوك أخرى (آيبان):
-// *SA7280000122608010398991*
         "notify_customer_by_new_order_message" => "
 مرحبا *:CUSTOMER_NAME*
 شكرا لتسوقك من *متجر المسبار*

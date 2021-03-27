@@ -70,7 +70,7 @@ Your order processing now, we will keep you in touch
         'as_your_request' => "1- At Your Request",
         'not_paid' => "1- Not Paid.",
         "unpaid_order_canceled_message" =>
-            "Dear Customer *:CUSTOMER_NAME*,\n Sorry, Your Order #:ORDERID has been cancelled \n\n Cancelled Reasons:\n :REASON . \n\n Customer Service (WhatsApp) \n Wa.me/065433",
+            "Dear Customer *:CUSTOMER_NAME*,\n Sorry, Your Order #:ORDERID has been automatically cancelled \n\n Cancelled Reasons:\n :REASON . \n\n Customer Service (WhatsApp) \n Wa.me/065433",
         "notify_customer_by_new_order_message_payment_link" => "
 Dear *:CUSTOMER_NAME*
 
@@ -100,14 +100,14 @@ Deadline for Payment
 
 // From other banks (IBAN):
 // *SA7280000122608010398991*
-"send_from_rajhi" => "From Rajhi bank:",
-"send_from_other_banks_via_iban" => "From other banks (IBAN):",
-"invalid_order_payment" => "
+        "send_from_rajhi" => "From Rajhi bank:",
+        "send_from_other_banks_via_iban" => "From other banks (IBAN):",
+        "invalid_order_payment" => "
 Dear *:CUSTOMER_NAME*
 Unfortunately, Your Payment For Order #:ORDER_ID is Invalid
 For more information, you can contact customer service via the following link",
 
-"order_shipped_with_shipping_method" => "
+        "order_shipped_with_shipping_method" => "
 Dear *:CUSTOMER_NAME*
 Your Order #:ORDER_ID has been shipped via :SHIPPING_METHOD
 Tracking Number :TRACKING_NUMBER
@@ -115,7 +115,7 @@ Tracking Link
 :TRACKING_URL
 ",
 
-"order_shipped_with_deivery_man" => "
+        "order_shipped_with_deivery_man" => "
 Dear *:CUSTOMER_NAME*
 Your Order #:ORDER_ID has been shipped with delivery man
 :DELIVERY_MAN
@@ -123,13 +123,13 @@ Your Order #:ORDER_ID has been shipped with delivery man
 Receipt code :CODE
 ",
 
-"order_shipping_confirmation" => "
+        "order_shipping_confirmation" => "
 Dear *:CUSTOMER_NAME*
 Your Order #:ORDER_ID ready to pick up
 Receipt code :CODE
 ",
         "success" => "Success",
-        "select_city" =>"Select City",
+        "select_city" => "Select City",
         "profile_information_updated" => "Your Profile has been updated",
         "phone_number_has_been_changed" => "Your phone number has been updated",
         "password_has_been_changed" => "Your password has been updated",
@@ -248,13 +248,13 @@ Receipt code :CODE
         "statuses" => [
             'issued' => 'Issued',
             'pending' => 'Pending',
-            'paid'=> 'Paid',
-            'in_progress'=> 'In Progress',
-            'ready_for_shipping'=> 'Ready For Shipping',
-            'shipped'=> 'Shipped',
-            'delivered'=> 'Delivered',
-            'canceled'=> 'Canceled',
-            'returned'=> 'Returned'
+            'paid' => 'Paid',
+            'in_progress' => 'In Progress',
+            'ready_for_shipping' => 'Ready For Shipping',
+            'shipped' => 'Shipped',
+            'delivered' => 'Delivered',
+            'canceled' => 'Canceled',
+            'returned' => 'Returned'
         ],
         "pdf" => "Invoice",
 
@@ -270,7 +270,7 @@ Receipt code :CODE
         "no_order" => "No Orders",
         "cancel" => "Cancel Order",
         "sales_invoice" => "Sales Invoice",
-        "vatId"=> 'VAT NO.',
+        "vatId" => 'VAT NO.',
         "taxId" => 'CR NO.',
         "phone" => "Phone",
         "branch" => "Branch",
@@ -290,7 +290,7 @@ Receipt code :CODE
         "our_address_state" => 'Gassim',
         "draft" => "Quotation Invoice",
         "thanks_for_order" => "Thank You",
-        "created"=>"Success",
+        "created" => "Success",
         "instructions_for_payment" => "You will receive a WhatsApp message including bank account & payment confirmation link to mobile number",
         'payment_confirmation' => "Payment Confirmation",
         "order" => "Order",
@@ -301,10 +301,10 @@ Receipt code :CODE
         "payment_confirmed_message" => "Once we have received your payment we will confirm your order. we will keep you in touch",
 
     ],
-      'products' => [
-          "warranty_subscription" => "Warranty",
-          "all_of_them" => "All",
-          "inc" => "Including VAT",
+    'products' => [
+        "warranty_subscription" => "Warranty",
+        "all_of_them" => "All",
+        "inc" => "Including VAT",
         'subcategories' => 'Sub Categories',
         'sorting_via' => 'Sorted By',
         'tags' => 'For more accurate results.. click on the tag',
@@ -355,9 +355,8 @@ Receipt code :CODE
         "new_arrival" => "New Arrival"
 
 
-
-      ],
-      'content' => [
+    ],
+    'content' => [
         'about_us_content' => '<h4 class="content__title">About Use</h4>Bait Almesbar For Trading
         CR: 1132002748
         VAT No.: 301032266600003
@@ -465,5 +464,5 @@ Receipt code :CODE
         <h4 class='content__title'>Contact us</h4>You can contact us when needed through the phone number or the contact us page or send to our email.
          <h4 class='content__title'>finally</h4>Your concerns about the confidentiality and privacy of the data are very important for us. We hope that all your concerns will be cleared and all your data paths clarified through this policy.
         In the event that you are not satisfied with anything on this page or in the terms and conditions page, please stop using our site.",
-      ]
+    ]
 ];

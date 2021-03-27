@@ -2,9 +2,9 @@
 
 namespace App\Console;
 
+use App\Console\Commands\Accounting\DailyUpdateAccountSnapshotCommand;
 use App\Console\Commands\Order\CancelUnPaidOrderCommand;
 use App\Console\Commands\Order\NotifyUnPaidOrderCommand;
-use App\Console\Commands\Accounting\DailyUpdateAccountSnapshotCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
