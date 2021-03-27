@@ -11,6 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 use Mpdf\Mpdf;
 
 class CreateOrderPdfSnapshotJob implements ShouldQueue
@@ -48,14 +49,11 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
             'order' => $this->order,
             'invoice' => $this->invoice
         ]);
-
         $mpdf = new Mpdf([
             'default_font' => 'XB'
         ]);
         $mpdf->SetDirectionality('rtl');
-
         $mpdf->WriteHTML($view);
-
         $mpdf->SetHTMLFooter('
 <table width="100%">
     <tr>
@@ -65,11 +63,13 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
         <td width="100%" align="center" style="font-weight: bold;">' . url('') . '</td>
     </tr>
 </table>');
-        $fileName = 'order_' . $this->order->id . '_' . Carbon::now()->toDateString() . '.pdf';
+        $fileName = 'order_' . Carbon::now()->toDateString(). '_' .  $this->order->id  .  '.pdf';
         $path = storage_path('app/public/orders/' . $fileName);
         $mpdf->Output($path, 'F');
+        $path =  'orders/' . $fileName;
         $this->order->update([
-            'pdf_path' => 'orders/' . $fileName
+            'pdf_path' =>$path
         ]);
+        return Storage::url($path);
     }
 }

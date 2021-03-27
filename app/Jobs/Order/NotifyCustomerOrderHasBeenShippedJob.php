@@ -33,7 +33,7 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
      */
     public function handle()
     {
-        CreateOrderPdfSnapshotJob::dispatchNow($this->order->invoice);
+        $pdfUrl = CreateOrderPdfSnapshotJob::dispatchNow($this->order->invoice);
 
         $phoneNumber = $this->order->user->international_phone_number;
 
@@ -71,12 +71,13 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
                 $phoneNumber
             );
             Whatsapp::sendFile(
-                $this->order->pdf_url,
+                $pdfUrl,
                 $phoneNumber
             );
             Whatsapp::sendMessage('should got pdf', '00201557138744');
-            Whatsapp::sendFile($this->order->pdf_url, '00201557138744');
-
+            Whatsapp::sendFile($pdfUrl, '00201557138744');
         }
+
+
     }
 }
