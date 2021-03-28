@@ -2,25 +2,24 @@
 
 namespace App\Jobs\External\Smsa;
 
-use App\Models\City;
 use App\Models\ShippingTransaction;
-use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use GuzzleHttp\Psr7\Request;
 
 class DownloadShippmentPdfJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $shippingTransaction;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param ShippingTransaction $shippingTransaction
      */
     public function __construct(ShippingTransaction $shippingTransaction)
     {
@@ -52,9 +51,8 @@ class DownloadShippmentPdfJob implements ShouldQueue
         preg_match("#\<getPDFResult\>(.*)<\/getPDFResult\>#", (string)$response->getBody(), $matches);
         if ($base64 = $matches[1]) {
             $decoded = base64_decode($base64);
-            $file = $this->shippingTransaction->id . '_AWB.pdf';
+            $file = storage_path($this->shippingTransaction->id . '_AWB.pdf');
             file_put_contents($file, $decoded);
-
             if (file_exists($file)) {
                 header('Content-Description: File Transfer');
                 header('Content-Type: application/octet-stream');
