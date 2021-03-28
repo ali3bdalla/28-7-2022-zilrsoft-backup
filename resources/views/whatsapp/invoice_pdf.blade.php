@@ -150,8 +150,9 @@
                         <td>
                             الاسم: {{$order->user->locale_name}}<br>
                             رقم الجوال: 0{{$order->user->phone_number}}<br>
-                            {{$order->shippingAddress->city->locale_name}} - {{$order->shippingAddress->description}}<br>
-                            طريقة التسليم: {{$order->shippingMethod->locale_name}}<br>
+                            {{$order->shippingAddress->city ? $order->shippingAddress->city->locale_name : ""}} -
+                            {{$order->shippingAddress->description}}<br>
+                            طريقة التسليم: {{$order->shippingMethod ? $order->shippingMethod->locale_name : ""}}<br>
                             وسيلة السداد: تحويل بنكي
                         </td>
                         <td></td>
