@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
 {
@@ -30,6 +31,7 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
      * Execute the job.
      *
      * @return void
+     * @throws TransportExceptionInterface
      */
     public function handle()
     {
@@ -41,7 +43,7 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
             $message = __('store.messages.order_shipped_with_deivery_man', [
                 'CUSTOMER_NAME' => $this->order->user->name,
                 'ORDER_ID' => $this->order->id,
-                'DELIVERY_MAN' => $this->order->deliveryMan->locale_name,
+                'DELIVERY_MAN' => $this->order->deliveryMan ? $this->order->deliveryMan->locale_name : "",
                 'DELIVERY_MAN_NUMBER' => "0{$this->order->deliveryMan->phone_number}",
                 'CODE' => $this->order->delivery_man_code
             ]);
@@ -57,8 +59,8 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
                 'CUSTOMER_NAME' => $this->order->user->name,
                 'ORDER_ID' => $this->order->id,
                 'TRACKING_NUMBER' => $this->order->tracking_number,
-                'TRACKING_URL' => "https://www.smsaexpress.com/ar/trackingdetails?tracknumbers={$this->order->tracking_number}",
-                'SHIPPING_METHOD' => $this->order->shippingMethod->locale_name
+                'TRACKING_URL' => file_get_contents("http://tinyurl.com/api-create.php?url=https://www.smsaexpress.com/ar/trackingdetails?tracknumbers={$this->order->tracking_number}"),
+                'SHIPPING_METHOD' => $this->order->shippingMethod ?  $this->order->shippingMethod->locale_name : ""
             ]);
         }
 
@@ -73,10 +75,10 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
             );
             Whatsapp::sendFile(
                 $pdfUrl,
-                $phoneNumber
+                $phoneNumber,
+                $this->order->id . '.pdf'
             );
-            Whatsapp::sendMessage('should got pdf', '00201557138744');
-            Whatsapp::sendFile($pdfUrl, '00201557138744');
+            Whatsapp::sendFile($pdfUrl, '00201557138744', $this->order->id . '.pdf');
         }
 
 

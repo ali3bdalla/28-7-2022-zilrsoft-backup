@@ -12,7 +12,6 @@ if (!function_exists('roundMoney')) {
 if (!function_exists('moneyFormatter')) {
     function moneyFormatter($number, $decimal = 2)
     {
-        return money_format('%i',$number);
         $format = "%i";
         $regex = '/%((?:[\^!\-]|\+|\(|\=.)*)([0-9]+)?' .
             '(?:#([0-9]+))?(?:\.([0-9]+))?([in%])/';
