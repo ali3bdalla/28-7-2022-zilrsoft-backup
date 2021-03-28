@@ -22,9 +22,10 @@ class Whatsapp
         $contentSupportNote = trans('store.common.customer_support_note');
         $followOffers = trans('store.common.follow_offers');
 
-        if ($addSignature) {
+        if ($addSignature === true) {
             $message = "$message\n\n$appCustomerSupport\nhttps://tinyurl.com/2eol5vxz\n$appName\n$appUrl\n\n$contentSupportNote\n\n$followOffers\nTwitter: @msbrshop\nInstagram: msbrshop\nSnapchat: msbrshop";
         }
+
         $data = [
             'query' => [
                 'body' => $message,
@@ -61,10 +62,8 @@ class Whatsapp
             $client->request(
                 'POST', config('services.whatsapp.base_url') . 'sendFile' . "?token=" . config('services.whatsapp.token'), $data
             );
-
-        } catch (TransportExceptionInterface $e) {
-
-        } catch (ClientException $e) {
+        } catch (TransportExceptionInterface | ClientException $e) {
+            throw $e;
         }
     }
 }
