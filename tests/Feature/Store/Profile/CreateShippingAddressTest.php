@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class CreateAddressTest extends TestCase
+class CreateShippingAddressTest extends TestCase
 {
     /**
      * test return unauthenticated status code
