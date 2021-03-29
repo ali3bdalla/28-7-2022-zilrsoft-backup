@@ -36,7 +36,7 @@ if (!function_exists('displayMoney')) {
 if (!function_exists('displayAccountingMoney')) {
     function displayAccountingMoney($money, $decimal = 2)
     {
-        $fmt = numfmt_create('en_US', 2);//NumberFormatter::
+        $fmt = numfmt_create('en_US', 2);
         return numfmt_format($fmt, $money, 3);
     }
 }
