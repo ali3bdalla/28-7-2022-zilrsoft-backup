@@ -69,7 +69,7 @@ test:
     # recreate cache
     - php artisan config:cache 
     # run laravel tests
-    # - php vendor/bin/phpunit --coverage-text --colors=never
+    - php vendor/bin/phpunit --coverage-text --colors=never
   when: always
 
 deploy_dev:
@@ -79,7 +79,6 @@ deploy_dev:
     - echo "$DEV_SSH_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-
     - ~/.composer/vendor/bin/envoy run deploy --environment=development --commit="$CI_COMMIT_SHA" --cleanup
   environment:
     name: deployer
@@ -97,7 +96,6 @@ deploy_prod:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-
     - ~/.composer/vendor/bin/envoy run deploy --environment=production --commit="$CI_COMMIT_SHA" --cleanup
   environment:
     name: deployer

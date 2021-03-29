@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use CodeDredd\Soap\Facades\Soap;
-use Illuminate\Support\ServiceProvider;
 use GuzzleHttp\Client;
+use Illuminate\Support\ServiceProvider;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
 
         $this->app->bind("SmsaClient", function ($app) {
-            $client = new Client(['base_uri' => 'https://track.smsaexpress.com/SeCom/SMSAwebService.asmx?wsdl' ,'headers' => ['Content-Type' => "text/xml", "charset" => "utf-8"]]);
+            $client = new Client(['base_uri' => 'https://track.smsaexpress.com/SeCom/SMSAwebService.asmx?wsdl', 'headers' => ['Content-Type' => "text/xml", "charset" => "utf-8"]]);
             return $client;
         });
 
@@ -30,15 +30,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        $this->loadHelperFunctions();
 
-    }
-
-    protected function loadHelperFunctions()
-    {
-        foreach (glob(__DIR__ . '/../Helpers/*.php') as $filename) {
-            include_once("{$filename}");
-        }
     }
 
 
