@@ -12,7 +12,7 @@ if (!function_exists('roundMoney')) {
 if (!function_exists('moneyFormatter')) {
     function moneyFormatter($number, $decimal = 2)
     {
-        return (float)number_format(round($number, $decimal), $decimal, '.', '');
+        return floatval(number_format(round($number, $decimal), $decimal, '.', ''));
     }
 }
 
