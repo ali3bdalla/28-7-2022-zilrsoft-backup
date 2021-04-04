@@ -42,7 +42,7 @@ class ValidateSerialRequest extends FormRequest
 
         $item = Item::find($this->input('item_id'));
         return $item->serials()
-            ->whereIn('status', ['in_stock', 'return_sale'])
+            ->whereIn('status', ['in_stock', 'return_sale','stock_adjustment'])
             ->whereIn('serial', $this->input('serials'))
             ->pluck('serial');
 
