@@ -39,7 +39,7 @@ class DailyUpdateAccountSnapshotCommand extends Command
      */
     public function handle()
     {
-//        DB::transaction(function () {
+       DB::transaction(function () {
         DB::table('account_snapshots')->delete();
 
         $transactions = DB::select("select * from transactions where is_pending = false and deleted_at is null order by created_at");
@@ -66,9 +66,9 @@ class DailyUpdateAccountSnapshotCommand extends Command
 //                    'credit_amount' => $snapshotAmount->total_credit,
 //                    'debit_amount' => $snapshotAmount->total_debit,
 //                ]);
-//            }
+        //    }
 
-//        });
+        });
     }
 
     private function addTransaction($transaction)
