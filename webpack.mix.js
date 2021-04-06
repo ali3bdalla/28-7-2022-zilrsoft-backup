@@ -14,5 +14,5 @@ mix.js('./resources/js/app.js', 'public/js')
     postCss: [tailwindcss('./tailwind.config.js')]
   })
   .browserSync({
-    proxy: 'https://zilrsoft.test'
+    proxy: 'https://zilrsoft_dev.test'
   })
