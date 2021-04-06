@@ -6,7 +6,7 @@ margin-bottom: -10px;"></i>
       <span class="label label-danger">{{ notificationCount }}</span>
     </a>
     <div class="dropdown-menu notification__dropdown">
-      <OrderPendingPaymentConfirmationNotification v-if="canManageManagers"  @addNotification="addNotification"
+      <OrderPendingPaymentConfirmationNotification v-if="canManageManagers || canViewSystemEvents"  @addNotification="addNotification"
                                                    @removeNotification="removeNotification">
 
       </OrderPendingPaymentConfirmationNotification>
@@ -43,6 +43,9 @@ export default {
   },
   props: {
     canManageManagers: {
+      type: Number
+    },
+    canViewSystemEvents: {
       type: Number
     },
     manager: {

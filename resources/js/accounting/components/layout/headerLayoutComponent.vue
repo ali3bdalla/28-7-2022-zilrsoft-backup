@@ -13,7 +13,7 @@
         !important;">
       <div class="right" style="">
         <ul class="nav navbar-nav">
-          <NotificationBell :can-manage-managers="canManageManagers" :manager="manager"/>
+          <NotificationBell :can-manage-managers="canManageManagers" :can-view-system-events="canViewSystemEvents" :manager="manager"/>
 
           <li class="dropdown user user-menu  dropdown-menu-right pull-right">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -66,7 +66,7 @@ import NotificationBell from '../../../components/BackEnd/Header/NotificationBel
 
 export default {
   components: { NotificationBell },
-  props: ['manager', 'csrf', 'username', 'pendingTransactions', 'pendingPurchases', 'canConfirmPendingPurchases', 'disableCreate', 'canManageManagers'],
+  props: ['manager', 'csrf', 'username', 'pendingTransactions', 'pendingPurchases', 'canConfirmPendingPurchases', 'disableCreate', 'canManageManagers','canViewSystemEvents'],
   data: function () {
     return {
       appName: metaHelper.getContent('app-name'),

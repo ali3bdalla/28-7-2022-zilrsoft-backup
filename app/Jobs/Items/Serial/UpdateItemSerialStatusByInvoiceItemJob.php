@@ -45,7 +45,7 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
     {
         if ($this->invoiceItem->invoice_type == 'return_purchase') {
             foreach ((array)$this->serials as $serial) {
-                $dbSerial = $this->invoiceItem->item->serials()->where('serial', $serial)->whereIn('status', ['in_stock', 'return_sale'])->first();
+                $dbSerial = $this->invoiceItem->item->serials()->where('serial', $serial)->whereIn('status', ['in_stock', 'return_sale'])->orderBy('id','desc')->first();
 
                 $dbSerial->update([
                     'status' => 'return_purchase',
@@ -62,10 +62,8 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
         if ($this->invoiceItem->invoice_type == 'inventory_adjustment') {
             $removedList = [];
             foreach ((array)$this->serials as $serial) {
-                $dbSerial = $this->invoiceItem->item->serials()->where('serial', $serial)->whereIn('status', ['in_stock', 'return_sale'])->first();
-
+                $dbSerial = $this->invoiceItem->item->serials()->where('serial', $serial)->orderBy('id','desc')->first();
                 if ($dbSerial) {
-                    
                     $dbSerial->update([
                         'status' => 'in_stock',
                         'inventory_adjustment_id' => $this->invoiceItem->invoice_id,
@@ -123,7 +121,7 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
 
         if ($this->invoiceItem->invoice_type == 'sale') {
             foreach ((array)$this->serials as $serial) {
-                $dbSerial = $this->invoiceItem->item->serials()->where('serial', $serial)->whereIn('status', ['in_stock', 'return_sale'])->first();
+                $dbSerial = $this->invoiceItem->item->serials()->where('serial', $serial)->whereIn('status', ['in_stock', 'return_sale'])->orderBy('id','desc')->first();
                 $dbSerial->update([
                     'status' => 'sold',
                     'sale_id' => $this->invoiceItem->invoice_id,
