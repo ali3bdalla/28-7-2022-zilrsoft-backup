@@ -39,34 +39,34 @@ class DailyUpdateAccountSnapshotCommand extends Command
      */
     public function handle()
     {
-       DB::transaction(function () {
-        DB::table('account_snapshots')->delete();
+        DB::transaction(function () {
+            DB::table('account_snapshots')->delete();
 
-        $transactions = DB::select("select * from transactions where is_pending = false and deleted_at is null order by created_at");
-        foreach ($transactions as $transaction) {
-            $this->addTransaction($transaction);
-        }
+//        $transactions = DB::select("select * from transactions where is_pending = false and deleted_at is null order by created_at");
+//        foreach ($transactions as $transaction) {
+//            $this->addTransaction($transaction);
+//        }
 
-//            $transactionsAmounts = DB::select("
-//                                select sum(case when type = 'debit'  then amount  else 0 end) as total_debit,
-//                                sum(case when type = 'credit'  then amount  else 0 end) as total_credit,
-//                                  account_id, date(created_at) as snapshot_date, organization_id
-//                                from transactions
-//                                where is_pending = false and deleted_at is null
-//                                group by date(created_at),account_id,organization_id");
-//
-//            foreach ($transactionsAmounts as $snapshotAmount) {
-//                $date = Carbon::parse($snapshotAmount->snapshot_date);
-//
-//                DB::table('account_snapshots')->insert([
-//                    'created_at' => $date,
-//                    'updated_at' => $date,
-//                    'account_id' => $snapshotAmount->account_id,
-//                    'organization_id' => $snapshotAmount->organization_id,
-//                    'credit_amount' => $snapshotAmount->total_credit,
-//                    'debit_amount' => $snapshotAmount->total_debit,
-//                ]);
-        //    }
+            $transactionsAmounts = DB::select("
+                                select sum(case when type = 'debit'  then amount  else 0 end) as total_debit,
+                                sum(case when type = 'credit'  then amount  else 0 end) as total_credit,
+                                  account_id, date(created_at) as snapshot_date, organization_id
+                                from transactions
+                                where is_pending = false and deleted_at is null
+                                group by date(created_at),account_id,organization_id");
+
+            foreach ($transactionsAmounts as $snapshotAmount) {
+                $date = Carbon::parse($snapshotAmount->snapshot_date);
+
+                DB::table('account_snapshots')->insert([
+                    'created_at' => $date,
+                    'updated_at' => $date,
+                    'account_id' => $snapshotAmount->account_id,
+                    'organization_id' => $snapshotAmount->organization_id,
+                    'credit_amount' => $snapshotAmount->total_credit,
+                    'debit_amount' => $snapshotAmount->total_debit,
+                ]);
+            }
 
         });
     }
@@ -94,15 +94,14 @@ class DailyUpdateAccountSnapshotCommand extends Command
             }
 
 
-
             DB::table('transactions')->where('id', $transaction->id)->update([
                 'total_debit_amount' => DB::table('account_snapshots')->where([
-                    ['account_id',$account->id],
-                    ['created_at','<=',$date]
+                    ['account_id', $account->id],
+                    ['created_at', '<=', $date]
                 ])->sum('debit_amount'),
                 'total_credit_amount' => DB::table('account_snapshots')->where([
-                    ['account_id',$account->id],
-                    ['created_at','<=',$date]
+                    ['account_id', $account->id],
+                    ['created_at', '<=', $date]
                 ])->sum('credit_amount'),
             ]);
 

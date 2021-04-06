@@ -16,14 +16,14 @@
     <div class="panel-body">
       <table class="table table-bordered text-center">
         <thead>
-<!--        <tr>-->
-<!--          <th class="text-center"></th>-->
-<!--          <th class="text-center"></th>-->
-<!--          <th class="text-center"></th>-->
-<!--          <th class="text-center"></th>-->
-<!--          <th class="text-center" colspan="2">المجاميع</th>-->
-<!--          <th class="text-center">الارصدة</th>-->
-<!--        </tr>-->
+        <!--        <tr>-->
+        <!--          <th class="text-center"></th>-->
+        <!--          <th class="text-center"></th>-->
+        <!--          <th class="text-center"></th>-->
+        <!--          <th class="text-center"></th>-->
+        <!--          <th class="text-center" colspan="2">المجاميع</th>-->
+        <!--          <th class="text-center">الارصدة</th>-->
+        <!--        </tr>-->
 
         <tr>
           <th :class="{'orderBy':orderBy=='created_at'}" class="text-center" @click="setOrderByColumn('created_at')">
@@ -40,7 +40,7 @@
           <th :class="{'orderBy':orderBy=='type'}" class="text-center" @click="setOrderByColumn('type')">مدين</th>
           <th :class="{'orderBy':orderBy=='type'}" class="text-center" @click="setOrderByColumn('type')">دائن</th>
           <th :class="{'orderBy':orderBy=='type'}" class="text-center" @click="setOrderByColumn('type')">الرصيد</th>
-<!--          <th :class="{'orderBy':orderBy=='type'}" class="text-center" @click="setOrderByColumn('type')">دائن</th>-->
+          <!--          <th :class="{'orderBy':orderBy=='type'}" class="text-center" @click="setOrderByColumn('type')">دائن</th>-->
         </tr>
         </thead>
 
@@ -95,10 +95,10 @@
               :class="{'bg-danger text-white':transaction.balance < 0}"
               v-text="parseFloat(transaction.balance).toFixed(2)"
           ></th>
-<!--          <th-->
-<!--              class="text-center"-->
-<!--              v-text="parseFloat(transaction.total_credit_amount).toFixed(2)"-->
-<!--          ></th>-->
+          <!--          <th-->
+          <!--              class="text-center"-->
+          <!--              v-text="parseFloat(transaction.total_credit_amount).toFixed(2)"-->
+          <!--          ></th>-->
         </tr>
         </tbody>
         <tfoot>
@@ -116,7 +116,7 @@
               v-text="parseFloat(totalCreditAmount).toFixed(2)"
           ></th>
           <th class="text-center"></th>
-<!--          <th class="text-center"></th>-->
+          <!--          <th class="text-center"></th>-->
         </tr>
         </tfoot>
       </table>
@@ -139,24 +139,24 @@
 </template>
 
 <script>
-import VueCtkDateTimePicker from "vue-ctk-date-time-picker";
+import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
 
 export default {
-  name: "globalTransactionsListComponent.vue",
-  props: ["account", "user", 'item'],
+  name: 'globalTransactionsListComponent.vue',
+  props: ['account', 'user', 'item'],
   components: {
-    VueCtkDateTimePicker,
+    VueCtkDateTimePicker
   },
   data: function () {
     return {
-      orderBy: "created_at",
-      orderType: "asc",
+      orderBy: 'created_at',
+      orderType: 'asc',
       clearOldData: false,
       isLoading: false,
       createdAtRange: null,
       customDateShortcuts: [],
       itemsPerPage: 150,
-      requestUrl: "",
+      requestUrl: '',
       paginationResponseData: null,
       transactions: [],
       totalCreditAmount: 0,
@@ -164,54 +164,54 @@ export default {
       IntervalValue: null,
       accountBalance: 0,
       app: {
-        primaryColor: metaHelper.getContent("primary-color"),
-        secondColor: metaHelper.getContent("second-color"),
-        appLocate: metaHelper.getContent("app-locate"),
-        trans: trans("invoices-page"),
-        messages: trans("messages"),
-        table_trans: trans("table"),
-        datetimetrans: trans("datetime"),
-        datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
-        BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
+        primaryColor: metaHelper.getContent('primary-color'),
+        secondColor: metaHelper.getContent('second-color'),
+        appLocate: metaHelper.getContent('app-locate'),
+        trans: trans('invoices-page'),
+        messages: trans('messages'),
+        table_trans: trans('table'),
+        datetimetrans: trans('datetime'),
+        datatableBaseUrl: metaHelper.getContent('datatableBaseUrl'),
+        BaseApiUrl: metaHelper.getContent('BaseApiUrl')
       },
       filters: {
         endDate: null,
-        startDate: null,
-      },
-    };
+        startDate: null
+      }
+    }
   },
   created: function () {
-    this.initJob();
-    this.loadData();
+    this.initJob()
+    this.loadData()
   },
-  destroyed() {
-    window.removeEventListener("scroll", this.handleScroll);
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
   },
   mounted: function () {
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener('scroll', this.handleScroll)
   },
   methods: {
 
-    setOrderByColumn(column_name) {
+    setOrderByColumn (column_name) {
       if (this.orderBy == column_name) {
-        if (this.orderType == 'asc')
-          this.orderType = "desc";
-        else
-          this.orderType = "asc";
+        if (this.orderType == 'asc') {
+          this.orderType = 'desc'
+        } else {
+          this.orderType = 'asc'
+        }
       } else {
-        this.orderBy = column_name;
+        this.orderBy = column_name
         // this.orderType = "asc";
       }
-      this.clearOldData = true;
-      this.loadData();
+      this.clearOldData = true
+      this.loadData()
     },
 
-
-    handleScroll(e) {
+    handleScroll (e) {
       // console.log("scroll down" + window.pageYOffset);
       // console.log("scroll isLoading" + document.documentElement.scrollTop);
-      let bottomOfWindow =
-          window.pageYOffset === document.documentElement.scrollTop;
+      const bottomOfWindow =
+          window.pageYOffset === document.documentElement.scrollTop
 
       // Math.max(window.pageYOffset, document.documentElement.scrollTop,
       // document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
@@ -219,157 +219,171 @@ export default {
       if (bottomOfWindow) {
         if (this.paginationResponseData != null && !this.isLoading) {
           if (this.paginationResponseData.next_page_url != null) {
-            this.requestUrl = this.paginationResponseData.next_page_url;
-            this.clearOldData = false;
-            this.loadData();
+            this.requestUrl = this.paginationResponseData.next_page_url
+            this.clearOldData = false
+            this.loadData()
           }
         }
       }
     },
 
-    initJob() {
-      this.requestUrl = "/api/entities/" + this.account.id + "/transactions";
+    initJob () {
+      this.requestUrl = '/api/entities/' + this.account.id + '/transactions'
       this.customDateShortcuts = [
-        {key: "day", label: this.app.datetimetrans.today, value: "day"},
-        {key: "-day", label: this.app.datetimetrans.yesterday, value: "-day"},
         {
-          key: "thisWeek",
+          key: 'day',
+          label: this.app.datetimetrans.today,
+          value: 'day'
+        },
+        {
+          key: '-day',
+          label: this.app.datetimetrans.yesterday,
+          value: '-day'
+        },
+        {
+          key: 'thisWeek',
           label: this.app.datetimetrans.thisWeek,
-          value: "isoWeek",
+          value: 'isoWeek'
         },
         {
-          key: "lastWeek",
+          key: 'lastWeek',
           label: this.app.datetimetrans.lastWeek,
-          value: "-isoWeek",
+          value: '-isoWeek'
         },
-        {key: "last7Days", label: this.app.datetimetrans.last7Days, value: 7},
         {
-          key: "last30Days",
+          key: 'last7Days',
+          label: this.app.datetimetrans.last7Days,
+          value: 7
+        },
+        {
+          key: 'last30Days',
           label: this.app.datetimetrans.last30Days,
-          value: 30,
+          value: 30
         },
         {
-          key: "thisMonth",
+          key: 'thisMonth',
           label: this.app.datetimetrans.thisMonth,
-          value: "month",
+          value: 'month'
         },
         {
-          key: "lastMonth",
+          key: 'lastMonth',
           label: this.app.datetimetrans.lastMonth,
-          value: "-month",
+          value: '-month'
         },
         {
-          key: "thisYear",
+          key: 'thisYear',
           label: this.app.datetimetrans.thisYear,
-          value: "year",
+          value: 'year'
         },
         {
-          key: "lastYear",
+          key: 'lastYear',
           label: this.app.datetimetrans.lastYear,
-          value: "-year",
-        },
-      ];
+          value: '-year'
+        }
+      ]
     },
     loadData: function () {
       if (this.isLoading == false) {
-        this.isLoading = true;
-        let params = {}, appVm = this;
-        params.itemsPerPage = this.itemsPerPage;
-        params.startDate = this.filters.startDate;
-        params.endDate = this.filters.endDate;
-        params.order_by = this.orderBy;
-        params.order_type = this.orderType;
+        this.isLoading = true
+        const params = {}
+        const appVm = this
+        params.itemsPerPage = this.itemsPerPage
+        params.startDate = this.filters.startDate
+        params.endDate = this.filters.endDate
+        params.order_by = this.orderBy
+        params.order_type = this.orderType
 
         // console.log(params);
         if (this.user != null) {
-          params.user_id = this.user.id;
+          params.user_id = this.user.id
         }
 
         if (this.item != null) {
-          params.item_id = this.item.id;
+          params.item_id = this.item.id
         }
 
         if (this.clearOldData) {
-          this.transactions = [];
-          this.totalCreditAmount = 0;
-          this.totalDebitAmount = 0;
-          this.accountBalance = 0;
+          this.transactions = []
+          this.totalCreditAmount = 0
+          this.totalDebitAmount = 0
+          this.accountBalance = 0
         }
         // console.log(this.item);
         axios
-            .get(this.requestUrl, {
-              params: params,
-            })
-            .then((response) => {
-              appVm.isLoading = false;
-              let len = response.data.data.length;
-              let responseData = [];
+          .get(this.requestUrl, {
+            params: params
+          })
+          .then((response) => {
+            appVm.isLoading = false
+            const len = response.data.data.length
+            const responseData = []
 
-              for (let index = 0; index < len; index++) {
-                let transaction = response.data.data[index];
+            for (let index = 0; index < len; index++) {
+              const transaction = response.data.data[index]
 
-                if (index == 0) {
-                  transaction.page = true;
-                } else {
-                  transaction.page = false;
-                }
-
-                if (transaction.type == appVm.account.type) {
-                  appVm.accountBalance += parseFloat(transaction.amount);
-                } else {
-                  appVm.accountBalance -= parseFloat(transaction.amount);
-                }
-
-                transaction.balance = appVm.accountBalance;
-
-                appVm.totalCreditAmount =
-                    appVm.totalCreditAmount + parseFloat(transaction.credit_amount);
-                appVm.totalDebitAmount =
-                    appVm.totalDebitAmount + parseFloat(transaction.debit_amount);
-                // transaction.total_debit_amount = appVm.totalDebitAmount;
-                // transaction.total_credit_amount = appVm.totalCreditAmount;
-
-                responseData.push(transaction);
-                appVm.transactions.push(transaction);
+              if (index == 0) {
+                transaction.page = true
+                this.accountBalance = transaction.balance
+              } else {
+                transaction.page = false
               }
-              // appVm.transactions.push(transaction);
-              appVm.clearOldData = false;
-              appVm.paginationResponseData = response.data;
-            })
-            .catch((error) => {
 
-            });
+              if (transaction.type == appVm.account.type) {
+                appVm.accountBalance += parseFloat(transaction.amount)
+              } else {
+                appVm.accountBalance -= parseFloat(transaction.amount)
+              }
+
+              transaction.balance = appVm.accountBalance
+
+              appVm.totalCreditAmount =
+                    appVm.totalCreditAmount + parseFloat(transaction.credit_amount)
+              appVm.totalDebitAmount =
+                    appVm.totalDebitAmount + parseFloat(transaction.debit_amount)
+              // transaction.total_debit_amount = appVm.totalDebitAmount;
+              // transaction.total_credit_amount = appVm.totalCreditAmount;
+
+              responseData.push(transaction)
+              appVm.transactions.push(transaction)
+            }
+            // appVm.transactions.push(transaction);
+            appVm.clearOldData = false
+            appVm.paginationResponseData = response.data
+          })
+          .catch((error) => {
+
+          })
       }
     },
 
-    paginateUpdatePage(event) {
-      this.requestUrl = event.link;
-      this.loadData();
+    paginateUpdatePage (event) {
+      this.requestUrl = event.link
+      this.loadData()
     },
 
-    pagePerItemsUpdated(event) {
-      this.itemsPerPage = event.items;
-      this.loadData();
-    },
+    pagePerItemsUpdated (event) {
+      this.itemsPerPage = event.items
+      this.loadData()
+    }
   },
   watch: {
     createdAtRange: function (value) {
       if (value == null) {
-        this.filters.startDate = null;
-        this.filters.endDate = null;
+        this.filters.startDate = null
+        this.filters.endDate = null
       } else {
-        this.filters.startDate = value.start;
-        this.filters.endDate = value.end;
+        this.filters.startDate = value.start
+        this.filters.endDate = value.end
       }
 
       if (this.filters.startDate != null && this.filters.endDate != null) {
-        this.clearOldData = true;
-        this.requestUrl = this.paginationResponseData.path == undefined ? this.requestUrl : this.paginationResponseData.path;
-        this.loadData();
+        this.clearOldData = true
+        this.requestUrl = this.paginationResponseData.path == undefined ? this.requestUrl : this.paginationResponseData.path
+        this.loadData()
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped>

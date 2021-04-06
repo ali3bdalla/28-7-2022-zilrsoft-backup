@@ -197,15 +197,14 @@
                                 </button>
                                 <ul :aria-labelledby="'dropDownOptions'
                                 + row.id" class="dropdown-menu CustomDropDownOptions">
-                                    <li v-if="row.is_kit"><a :href="'/items/up_selling/kits/' + row.id"
-                                                             v-text="trans.show"></a></li>
+                                    <li v-if="row.is_kit"><a :href="'/accounting/kits/' + row.id">عرض منتجات الصنف</a></li>
                                     <li v-if="canCreate==1  && !row.is_kit"><a :href="baseUrl + row.id + '/clone'"
                                                                                v-text="trans.clone"></a></li>
                                     <li v-if="!row.is_kit"><a :href="baseUrl + row.id +
                                     '/transactions'"
                                                               v-text="trans.transactions"></a>
                                     </li>
-                                    <li v-if="canEdit==1  && !row.is_kit"><a :href="baseUrl + row.id + '/edit'"
+                                    <li v-if="canEdit==1 "><a :href="baseUrl + row.id + '/edit'"
                                                                              v-text="trans.edit"></a></li>
                                     <li v-if="row.is_need_serial==1  && !row.is_kit"><a
                                             :href="baseUrl + row.id + '/view_serials'"
@@ -526,7 +525,6 @@ export default {
               window.location.reload()
             })
             .catch(function (error) {
-
             })
         })
         .catch(() => {

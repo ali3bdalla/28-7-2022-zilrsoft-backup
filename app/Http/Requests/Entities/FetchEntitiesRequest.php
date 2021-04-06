@@ -1,13 +1,13 @@
 <?php
-	
+
 	namespace App\Http\Requests\Entities;
-	
+
 	use App\Http\Resources\Entity\TransactionCollection;
 	use App\Models\Account;
 	use App\Models\Transaction;
 	use Carbon\Carbon;
 	use Illuminate\Foundation\Http\FormRequest;
-	
+
 	/**
 	 * @property mixed orderType
 	 * @property mixed orderBy
@@ -24,7 +24,7 @@
 			return true;
 			// return $this->user()->can('view sale');
 		}
-		
+
 		/**
 		 * Get the validation rules that apply to the request.
 		 *
@@ -36,11 +36,11 @@
 				//
 			];
 		}
-		
+
 		public function getData(Account $account)
 		{
-			
-			
+
+
 			$query = $account->transactions();//->orderBy('created_at', 'asc')
 			if(
 				$this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
@@ -48,7 +48,7 @@
 			) {
 				$startDate = Carbon::parse($this->input("startDate"))->toDateString();
 				$endDate = Carbon::parse($this->input("endDate"))->toDateString();
-				
+
 				if($endDate === $startDate) {
 					$query = $query->whereDate('created_at', $startDate);
 				} else {
@@ -61,31 +61,22 @@
 				}
 			}
 
-//			if($account->slug == 'vendors')
-//			{
-//				$query = $query->where('description', $this->input("vendor_balance"));
-//			}
 
-//			if($account->slug == 'clients')
-//			{
-//				$query = $query->where('description', $this->input("client_balance"));
-//			}
-			
 			if($this->has('invoice_id') && $this->filled('invoice_id')) {
 				$query = $query->where('invoice_id', $this->input("invoice_id"));
 			}
-			
-			
+
+
 			if($this->has('user_id') && $this->filled('user_id')) {
 				$query = $query->where('user_id', $this->input("user_id"));
 			}
-			
-			
+
+
 			if($this->has('item_id') && $this->filled('item_id')) {
 				$query = $query->where('item_id', $this->input("item_id"));
 			}
-			
-			
+
+
 			if($this->has('amount') && $this->filled('amount')) {
 				$amount = explode("-", $this->input('amount'));
 				if(count($amount) >= 2) {
@@ -97,15 +88,14 @@
 				}
 				$query = $query->whereBetween('amount', [$startAmount, $endAmount]);
 			}
-//
 			if($this->has('order_by') && $this->filled('order_by') && $this->has('order_type') && $this->filled('order_type')) {
 				$query = $query->orderBy($this->input("order_by"), $this->input('order_type'));
 			} else {
 				$query = $query->orderByDesc("created_at");
 			}
-			
+
 			$query = $query->with('invoice', 'user', 'item');
-			
+
 			if($this->has('itemsPerPage') && $this->filled('itemsPerPage') && (int)($this->input("itemsPerPage")) >= 1) {
 				$result = $query->paginate(intval($this->input('itemsPerPage')));
 			} else {

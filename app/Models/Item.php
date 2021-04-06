@@ -37,283 +37,276 @@ use Laravel\Scout\Searchable;
 class Item extends BaseModel
 {
 
-	use SoftDeletes, Searchable;
-	protected $touches = ['category', 'filters', 'tags','attachments'];
-	protected $appends = [
-		'locale_name',
-		'locale_description',
-		'item_image_url'
+    use SoftDeletes, Searchable;
 
-	];
+    protected $touches = ['category', 'filters', 'tags', 'attachments'];
+    protected $appends = [
+        'locale_name',
+        'locale_description',
+        'item_image_url'
 
-	protected $casts = [
-		'id' => 'integer',
-		'is_has_vts' => 'boolean',
-		'is_has_vtp' => 'boolean',
-		'is_fixed_price' => 'boolean',
-		'is_kit' => 'boolean',
-		'is_service' => 'boolean',
-		'is_need_serial' => 'boolean',
-		'available_qty' => 'integer',
-		'price' => 'float',
-		'price_with_tax' => 'float',
-		'is_expense' => 'boolean',
-	];
-	protected $guarded = [];
+    ];
+
+    protected $casts = [
+        'id' => 'integer',
+        'is_has_vts' => 'boolean',
+        'is_has_vtp' => 'boolean',
+        'is_fixed_price' => 'boolean',
+        'is_kit' => 'boolean',
+        'is_service' => 'boolean',
+        'is_need_serial' => 'boolean',
+        'available_qty' => 'integer',
+        'price' => 'float',
+        'price_with_tax' => 'float',
+        'is_expense' => 'boolean',
+    ];
+    protected $guarded = [];
 
     public function translations()
     {
-        return $this->hasMany(Transaction::class,'item_id');
-	}
-
-	public function warrantySubscription()
-	{
-		return $this->belongsTo(WarrantySubscription::class,'warranty_subscription_id');
-	}
-    public function scopeAvailable($query)
-    {
-        return $query->where('available_qty','>',0);
+        return $this->hasMany(Transaction::class, 'item_id');
     }
 
-	public function getItemImageUrlAttribute()
-	{
+    public function warrantySubscription()
+    {
+        return $this->belongsTo(WarrantySubscription::class, 'warranty_subscription_id');
+    }
 
-		$main = $this->attachments()->where('is_main',true)->first();
-		if($main) return $main->url;
+    public function scopeAvailable($query)
+    {
+        return $query->where('available_qty', '>', 0);
+    }
 
+    public function getAvailableQtyAttribute($value)
+    {
+        if ($this->is_kit) return 2;
 
-		$images = $this->attachments()->get()->toArray();
+        return $value;
+    }
 
-		if ($images && count($images) >= 1) return $images[0]['url'];
+    public function getItemImageUrlAttribute()
+    {
 
-
-		return "https://zilrsoft-cdn.fra1.digitaloceanspaces.com/images/no_image.png";
-	}
-	public function scopeKits($query)
-	{
-		return $query->where('is_kit', true);
-	}
-
-
-	public function tags()
-	{
-		return $this->hasMany(ItemTag::class);
-	}
-
-	public function scopeIncludingModelNumber($query)
-	{
-		return $query;
-	}
-	public function scopeHasModelNumber($query)
-	{
-		return $query->whereHas('filters', function ($query) {
-			$query->where('filter_id', 38);
-		});
-	}
-
-	public function getOnlineOfferPriceAttribute($value)
-	{
-		return moneyFormatter(round($value));
-	}
+        $main = $this->attachments()->where('is_main', true)->first();
+        if ($main) return $main->url;
 
 
-	public function getOnlinePriceAttribute($value)
-	{
-		return moneyFormatter($value);
-	}
-	public function organization()
-	{
-		return $this->belongsTo(Organization::class, 'organization_id');
-	}
+        $images = $this->attachments()->get()->toArray();
 
-	public function serials()
-	{
-		return $this->hasMany(ItemSerials::class, 'item_id');
-	}
-
-	public function piplineWithoutSorting()
-	{
-		return $this->hasMany(InvoiceItems::class, 'item_id');
-	}
+        if ($images && count($images) >= 1) return $images[0]['url'];
 
 
+        return "https://zilrsoft-cdn.fra1.digitaloceanspaces.com/images/no_image.png";
+    }
 
-	public function pipeline()
-	{
-		return $this->hasMany(InvoiceItems::class, 'item_id')->orderBy('created_at', 'asc');
-	}
+    public function attachments()
+    {
+        return $this->morphMany(Attachment::class, 'attachable');
+    }
 
-	public function category()
-	{
-		return $this->belongsTo(Category::class, 'category_id');
-	}
+    public function scopeKits($query)
+    {
+        return $query->where('is_kit', true);
+    }
 
-	public function creator()
-	{
-		return $this->belongsTo(Manager::class, 'creator_id');
-	}
+    public function tags()
+    {
+        return $this->hasMany(ItemTag::class);
+    }
 
-	public function attachments()
-	{
-		return $this->morphMany(Attachment::class, 'attachable');
-	}
+    public function scopeIncludingModelNumber($query)
+    {
+        return $query;
+    }
 
-	public function scopeLastFiveSearch($query, $search)
-	{
-		return $query
-			->where('barcode', 'ILIKE', '%' . $search . '%')
-			->orWhere('name', 'ILIKE', '%' . $search . '%')
-			->orWhere('ar_name', 'ILIKE', '%' . $search . '%')
-			->with('items', 'data')
-			->take(5);
-	}
+    public function scopeHasModelNumber($query)
+    {
+        return $query->whereHas('filters', function ($query) {
+            $query->where('filter_id', 38);
+        });
+    }
 
-	public function scopeItemBySerialSearch($query, $search)
-	{
-		$productSerials = ItemSerials::where('serial', $search)->whereIn('current_status', ['available', 'return_sale'])->get();
-		$serials = [];
-		foreach ($productSerials as $serial) {
-			if (!empty($serial)) {
-				$item = $serial->item;
-				$item->has_init_serial = true;
-				$item->init_serial = $serial->fresh();
-				$serials[] = $item;
-			}
-		}
+    public function getOnlineOfferPriceAttribute($value)
+    {
+        if ($this->is_kit) return moneyFormatter($this->data ? $this->data->net : 0);
+        return moneyFormatter(round($value));
+    }
 
-		return $serials;
-	}
+    public function getOnlinePriceAttribute($value)
+    {
+        return moneyFormatter($value);
+    }
 
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class, 'organization_id');
+    }
 
+    public function serials()
+    {
+        return $this->hasMany(ItemSerials::class, 'item_id');
+    }
 
+    public function piplineWithoutSorting()
+    {
+        return $this->hasMany(InvoiceItems::class, 'item_id');
+    }
 
+    public function pipeline()
+    {
+        return $this->hasMany(InvoiceItems::class, 'item_id')->orderBy('created_at', 'asc');
+    }
 
-	public function filters()
-	{
-		return $this->hasMany(ItemFilters::class, 'item_id');
-	}
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 
-	public function scopeChildrenHaveAvailableQty($query)
-	{
-		return $query->with(
-			['items' => function ($query2) {
-				return $query2->with(
-					[
-						'item' => function ($query3) {
-							return $query3->where('available_qty', '>', 0);
-						}
-					]
-				);
-			}]
-		);
-	}
+    public function creator()
+    {
+        return $this->belongsTo(Manager::class, 'creator_id');
+    }
 
-	public function addKitChildren($items)
-	{
-		foreach ($items as $kit_item) {
-			$obj = collect($kit_item)->only(['organization_id', 'qty', 'discount', 'tax', 'price', 'net', 'total', 'subtotal']);
-			$obj['item_id'] = $kit_item['id'];
-			$obj['creator_id'] = $this->creator_id;
-			$items[] = $this->items()->create(collect($obj)->toArray());
-		}
-	}
+    public function scopeLastFiveSearch($query, $search)
+    {
+        return $query
+            ->where('barcode', 'ILIKE', '%' . $search . '%')
+            ->orWhere('name', 'ILIKE', '%' . $search . '%')
+            ->orWhere('ar_name', 'ILIKE', '%' . $search . '%')
+            ->with('items', 'data')
+            ->take(5);
+    }
 
-	public function items()
-	{
-		return $this->hasMany(KitItems::class, 'kit_id')->with('item');
-	}
+    public function scopeItemBySerialSearch($query, $search)
+    {
+        $productSerials = ItemSerials::where('serial', $search)->whereIn('current_status', ['available', 'return_sale'])->get();
+        $serials = [];
+        foreach ($productSerials as $serial) {
+            if (!empty($serial)) {
+                $item = $serial->item;
+                $item->has_init_serial = true;
+                $item->init_serial = $serial->fresh();
+                $serials[] = $item;
+            }
+        }
 
-	public function fillKitData($data)
-	{
+        return $serials;
+    }
 
-		$kit_data = [
-			'total' => $data['total'],
-			'subtotal' => $data['subtotal'],
-			'tax' => $data['tax'],
-			'discount' => $data['discount'],
-			'net' => $data['net']
-		];
+    public function scopeChildrenHaveAvailableQty($query)
+    {
+        return $query->with(
+            ['items' => function ($query2) {
+                return $query2->with(
+                    [
+                        'item' => function ($query3) {
+                            return $query3->where('available_qty', '>', 0);
+                        }
+                    ]
+                );
+            }]
+        );
+    }
 
-		$this->data()->create($kit_data);
-	}
+    public function addKitChildren($items)
+    {
+        foreach ($items as $kit_item) {
+            $obj = collect($kit_item)->only(['organization_id', 'qty', 'discount', 'tax', 'price', 'net', 'total', 'subtotal']);
+            $obj['item_id'] = $kit_item['id'];
+            $obj['creator_id'] = $this->creator_id;
+            $items[] = $this->items()->create(collect($obj)->toArray());
+        }
+    }
 
-	public function data()
-	{
-		return $this->hasOne(KitData::class, 'kit_id');
-	}
+    public function items()
+    {
+        return $this->hasMany(KitItems::class, 'kit_id')->with('item');
+    }
 
-	public function fetchKitData($qty, $kit_data)
-	{
+    public function fillKitData($data)
+    {
 
+        $kit_data = [
+            'total' => $data['total'],
+            'subtotal' => $data['subtotal'],
+            'tax' => $data['tax'],
+            'discount' => $data['discount'],
+            'net' => $data['net']
+        ];
 
-		$data['total'] = $kit_data['total'];
-		$data['subtotal'] = $kit_data['subtotal'];
-		$data['tax'] = $kit_data['tax'];
-		$data['net'] = $kit_data['net'];
-		$data['price'] = $kit_data['price'];
+        $this->data()->create($kit_data);
+    }
 
+    public function data()
+    {
+        return $this->hasOne(KitData::class, 'kit_id');
+    }
 
-		return $data;
-	}
-
-
-
-
-
-	public function shouldBeSearchable()
-	{
-		return
-		($this->is_category_available_online and
-		$this->organization_id == 1 and
-		!$this->is_kit and
-		$this->is_available_online and
-		$this->attachments()->count() >= 4);
-	}
-
-
-
-
-
-
-
-	public function searchableAs()
-	{
-		return 'items_index';
-	}
-
-
-	public function toSearchableArray()
-	{
-		$array = $this->toArray();
-
-		$array = $this->transform($array);
+    public function fetchKitData($qty, $kit_data)
+    {
 
 
-		$modelFilter = $this->filters()->where('filter_id', 38)->first();
-		if ($modelFilter && $modelFilter->value) {
-			$modelName =  $modelFilter->value->name;
-		} else {
-			$modelName = "";
-		}
-		$array['model_number'] = $modelName;
-		$array['tags'] = $this->tags->map(function ($data) {
-			return $data['tag'];
-		})->toArray();
+        $data['total'] = $kit_data['total'];
+        $data['subtotal'] = $kit_data['subtotal'];
+        $data['tax'] = $kit_data['tax'];
+        $data['net'] = $kit_data['net'];
+        $data['price'] = $kit_data['price'];
 
 
-		foreach ($this->filters as $filter) {
-			if ($filter->value) {
-				$array['filters_' . $filter->filter->name][] = $filter->value->name;
-				$array['ar_filters_' . $filter->filter->ar_name][] = $filter->value->ar_name;
-			}
-		}
-		// $array['online_offer_price'] = round($this->online_offer_price);
-		$array['category_name'] = $this->category ? $this->category->description : "";
-		$array['category_id'] = $this->category_id;
-		$array['category_ar_name'] = $this->category ? $this->category->ar_description : "";
+        return $data;
+    }
 
-		return $array;
-	}
+    public function shouldBeSearchable()
+    {
+        return
+            ($this->is_category_available_online and
+                $this->organization_id == 1 and
+                $this->is_available_online and
+                $this->attachments()->count() >= 4);
+    }
+
+    public function searchableAs()
+    {
+        return 'items_index';
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        $array = $this->transform($array);
+
+
+        $modelFilter = $this->filters()->where('filter_id', 38)->first();
+        if ($modelFilter && $modelFilter->value) {
+            $modelName = $modelFilter->value->name;
+        } else {
+            $modelName = "";
+        }
+        $array['model_number'] = $modelName;
+        $array['tags'] = $this->tags->map(function ($data) {
+            return $data['tag'];
+        })->toArray();
+
+
+        foreach ($this->filters as $filter) {
+            if ($filter->value) {
+                $array['filters_' . $filter->filter->name][] = $filter->value->name;
+                $array['ar_filters_' . $filter->filter->ar_name][] = $filter->value->ar_name;
+            }
+        }
+        // $array['online_offer_price'] = round($this->online_offer_price);
+        $array['category_name'] = $this->category ? $this->category->description : "";
+        $array['category_id'] = $this->category_id;
+        $array['category_ar_name'] = $this->category ? $this->category->ar_description : "";
+
+        return $array;
+    }
+
+    public function filters()
+    {
+        return $this->hasMany(ItemFilters::class, 'item_id');
+    }
 
 
 }
