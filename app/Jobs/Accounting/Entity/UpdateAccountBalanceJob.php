@@ -105,7 +105,6 @@ class UpdateAccountBalanceJob implements ShouldQueue
 
         } else {
             $totalCreditAmount = $account->total_credit_amount;
-
             if ($this->increase) {
                 $totalDebitAmount = (float)$account->total_debit_amount + (float)$amount;
                 $snapshotDebitAmount = (float)$snapshotDebitAmount + (float)$amount;
@@ -135,33 +134,5 @@ class UpdateAccountBalanceJob implements ShouldQueue
             ]
         );
 
-//        $this->updateUserBalance($account);
-    }
-
-    public function updateUserBalance($account)
-    {
-//        $hasUser = false;
-//
-//        if($account->slug == 'vendors') {
-//            $hasUser = true;
-//            $snap
-//        }elseif($account->slug == 'stock') {
-//            $hasUser = true;
-//        }
-//
-//
-//        $createdAt = Carbon::parse($this->transaction->created_at);
-//
-//        $snapshot = $account->snapshots()->withoutGlobalScopes(["manager","accountingPeriod"])->whereDate('created_at', $createdAt)->first();
-//
-//        if ($snapshot == null) {
-//            $snapshot = $account->snapshots()->create(
-//                [
-//                    'organization_id' => $account->organization_id,
-//                    'created_at' => $createdAt
-//                ]
-//            );
-//
-//        }
     }
 }
