@@ -34,7 +34,7 @@ class UpdateItemRequest extends FormRequest
 			'name' => 'required|string',
 			'ar_name' => 'required|string',
 			'barcode' => 'required|min:4',
-			'category_id' => 'required|integer|organization_exists:App\Models\Category,id',
+			'category_id' => 'required|integer|exists:App\Models\Category,id',
 			'is_fixed_price' => 'required',
 			'is_has_vtp' => 'required',
 			'is_has_vts' => 'required',

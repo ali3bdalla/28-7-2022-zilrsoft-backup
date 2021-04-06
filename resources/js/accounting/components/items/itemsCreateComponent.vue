@@ -903,6 +903,7 @@ export default {
       this.validateBarcode(barcode)
     },
     validateAllField () {
+      if (this.itemData.is_kit) return true
       if (this.itemData.barcode === '' || this.itemData.barcode.length < 4) {
         this.errorFieldName = 'barcode'
         this.errorFieldMessage = this.validation.item.barcode_required
