@@ -97,11 +97,11 @@ class DailyUpdateAccountSnapshotCommand extends Command
 
             DB::table('transactions')->where('id', $transaction->id)->update([
                 'total_debit_amount' => DB::table('account_snapshots')->where([
-                    ['account',$account->id],
+                    ['account_id',$account->id],
                     ['created_at','<=',$date]
                 ])->sum('debit_amount'),
                 'total_credit_amount' => DB::table('account_snapshots')->where([
-                    ['account',$account->id],
+                    ['account_id',$account->id],
                     ['created_at','<=',$date]
                 ])->sum('credit_amount'),
             ]);
