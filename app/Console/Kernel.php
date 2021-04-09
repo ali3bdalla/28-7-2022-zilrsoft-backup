@@ -33,8 +33,6 @@ class Kernel extends ConsoleKernel
         if ($this->app->environment('production')) {
             $schedule->command('scout:import')->daily();
         }
-        $schedule->command('telescope:prune --hours=48')->daily();
-
     }
 
     /**
