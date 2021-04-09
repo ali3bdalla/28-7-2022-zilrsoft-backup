@@ -13,7 +13,7 @@
       </div>
     </h1>
     <div v-for="(notification,index) in notifications" :key="index" class="">
-      <div class="notification__dropdown-item">
+      <div class="notification__dropdown-item" v-if="notification.to_account.id === manager.id">
         <div class="notification__dropdown-item__content">
           <div class="notification__dropdown-item__message">
             قام <span class="notification__dropdown-item__link">{{ notification.creator.ar_name }}</span> بتحويل
@@ -52,6 +52,12 @@ export default {
   data () {
     return {
       url: '/api/notifications/transactions/issued'
+    }
+  },
+  props:{
+    manager: {
+      type: Object,
+      required: true
     }
   },
   mounted () {
