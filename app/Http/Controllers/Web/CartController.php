@@ -20,7 +20,6 @@ class CartController extends Controller
             $data['shippingAddresses'] = $request->user('client')->shippingAddresses()->with('city')->get();//)
         }
 
-
         $data['shippingMethods'] = ShippingMethod::all();
         $data['cities'] = City::where('country_id', 1)->get();
 
@@ -28,5 +27,11 @@ class CartController extends Controller
             'Web/Cart/Index',
             $data
         );
+    }
+
+    public function redirectToLogin(Request  $request)
+    {
+        $request->session()->put('url.intended', '/web/cart');
+        return redirect('/web/sign_in');
     }
 }

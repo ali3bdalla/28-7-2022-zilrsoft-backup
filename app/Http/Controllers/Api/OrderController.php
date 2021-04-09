@@ -22,117 +22,121 @@ use Illuminate\Validation\ValidationException as ValidationValidationException;
 class OrderController extends Controller
 {
 
-	public function index(Request $request)
-	{
-		return Order::with('user', 'shippingAddress',"shippingMethod","deliveryMan","managedBy")->orderBy('id','desc')->paginate(50);
-	}
+    public function index(Request $request)
+    {
+        $query = Order::query();
+        if (!$request->user('manager')->can('manage branches')) {
+            $query->where('managed_by_id', auth()->user()->id);
+        }
+        return $query->with('user', 'shippingAddress', "shippingMethod", "deliveryMan", "managedBy")->orderBy('id', 'desc')->paginate(50);
+    }
 
-	public function notificationList(Request $request)
-	{
-		$orders = [];
-		if ($request->user('manager')->can('manage branches')) {
-			$orders = Order::where('status', 'issued')->with('user', 'shippingAddress')->get();
-		} else {
-			$orders = Order::where('status', 'pending')->with('user', 'shippingAddress')->get();
-		}
+    public function notificationList(Request $request)
+    {
+        $orders = [];
+        if ($request->user('manager')->can('manage branches')) {
+            $orders = Order::where('status', 'issued')->with('user', 'shippingAddress')->get();
+        } else {
+            $orders = Order::where('status', 'pending')->with('user', 'shippingAddress')->get();
+        }
 
-		return $orders;
-	}
+        return $orders;
+    }
 
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param Request $request
-	 * @param Order $order
-	 * @return void
-	 */
-	public function update(Request $request, Order $order)
-	{
-	    $request->validate([
-	        'account_id' => 'required|integer|exists:accounts,id'
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param Order $order
+     * @return void
+     */
+    public function update(Request $request, Order $order)
+    {
+        $request->validate([
+            'account_id' => 'required|integer|exists:accounts,id'
         ]);
-		if($order->status === 'pending')
-		{
-			foreach ($order->itemsQtyHolders()->get() as $holdQty) {
-				UpdateAvailableQtyByInvoiceItemJob::dispatchNow($holdQty->invoiceItem, true);
-			}
-			$order->update(
-				[
-					'status' => 'paid'
-				]
-			);
-            CreateReceivedPaymentFromClientJob::dispatchNow($order->user,$order->net,$request->input('account_id'));
+        if ($order->status === 'pending') {
+            foreach ($order->itemsQtyHolders()->get() as $holdQty) {
+                UpdateAvailableQtyByInvoiceItemJob::dispatchNow($holdQty->invoiceItem, true);
+            }
+            $order->update(
+                [
+                    'status' => 'paid'
+                ]
+            );
+            CreateReceivedPaymentFromClientJob::dispatchNow($order->user, $order->net, $request->input('account_id'));
             event(new OrderPaymentConfirmedEvent($order));
             NotifyCustomerByPaymentConfirmationJob::dispatchNow($order);
-		}
+        }
 
 
-	}
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param Order $order
-	 * @return void
-	 */
-	public function destroy(Order $order)
-	{
-		foreach ($order->itemsQtyHolders()->get() as $holdQty) {
-			UpdateAvailableQtyByInvoiceItemJob::dispatchNow($holdQty->invoiceItem, true);
-		}
-		$order->update([
-			'status' => "canceled"
-		]);
-		NotifyCustomerByOrderPaymentCancellationJob::dispatchNow($order);
-	}
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Order $order
+     * @return void
+     */
+    public function destroy(Order $order)
+    {
+        foreach ($order->itemsQtyHolders()->get() as $holdQty) {
+            UpdateAvailableQtyByInvoiceItemJob::dispatchNow($holdQty->invoiceItem, true);
+        }
+        $order->update([
+            'status' => "canceled"
+        ]);
+        NotifyCustomerByOrderPaymentCancellationJob::dispatchNow($order);
+    }
 
 
-	public function signToDeliveryMan(Order $order, Request $request)
-	{
-		$request->validate([
-			"delivery_man_id" => "required|integer|exists:delivery_men,id"
-		]);
+    public function signToDeliveryMan(Order $order, Request $request)
+    {
+        $request->validate([
+            "delivery_man_id" => "required|integer|exists:delivery_men,id"
+        ]);
 
-		$deliveryMan = DeliveryMan::findOrFail($request->input('delivery_man_id'));
+        $deliveryMan = DeliveryMan::findOrFail($request->input('delivery_man_id'));
 
-		$phoneNumber =$deliveryMan->phone_number;//
-		$otp = generateOtp();
-		sendOtp($phoneNumber, $otp);
+        $phoneNumber = $deliveryMan->phone_number;//
+        $otp = generateOtp();
+        sendOtp($phoneNumber, $otp);
 
-		// Whatsapp::sendMessage(
-		// 	"verification code for accepting order {$order->id} is: {$otp }", [$phoneNumber]
-		// );
-		$deliveryMan->verfications()->create([
-			'slug' => 'verify_signed_order_' . $order->id,
-			'verfication_code' => $otp
-		]);
+        // Whatsapp::sendMessage(
+        // 	"verification code for accepting order {$order->id} is: {$otp }", [$phoneNumber]
+        // );
+        $deliveryMan->verfications()->create([
+            'slug' => 'verify_signed_order_' . $order->id,
+            'verfication_code' => $otp
+        ]);
 
-	}
-	public function activateSignToDeliveryMan(Order $order, Request $request)
-	{
-		$request->validate([
-			"delivery_man_id" => "required|integer|exists:delivery_men,id",
-			"verification_code" => "required|integer",
-		]);
+    }
 
-		$deliveryMan = DeliveryMan::findOrFail($request->input('delivery_man_id'));
-		$verification = $deliveryMan->verfications()->where([
-			['slug', 'verify_signed_order_' . $order->id]
-		])->orderBy('id','desc')->first();
+    public function activateSignToDeliveryMan(Order $order, Request $request)
+    {
+        $request->validate([
+            "delivery_man_id" => "required|integer|exists:delivery_men,id",
+            "verification_code" => "required|integer",
+        ]);
 
-		if($verification && $verification->verfication_code == $request->input('verification_code') && $order->status == 'ready_for_shipping') {
-			HandleOrderShippingJob::dispatchNow($order,$deliveryMan);
-		}else{
+        $deliveryMan = DeliveryMan::findOrFail($request->input('delivery_man_id'));
+        $verification = $deliveryMan->verfications()->where([
+            ['slug', 'verify_signed_order_' . $order->id]
+        ])->orderBy('id', 'desc')->first();
 
-			throw  ValidationValidationException::withMessages([]);
-		}
+        if ($verification && $verification->verfication_code == $request->input('verification_code') && $order->status == 'ready_for_shipping') {
+            HandleOrderShippingJob::dispatchNow($order, $deliveryMan);
+        } else {
 
-	}
+            throw  ValidationValidationException::withMessages([]);
+        }
+
+    }
 }
 
 
 
-	// sign deliveryMan to order
-	// create awb ui
-	// whatsapp notification
+// sign deliveryMan to order
+// create awb ui
+// whatsapp notification

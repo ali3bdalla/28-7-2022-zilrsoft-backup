@@ -10,7 +10,7 @@ margin-bottom: -10px;"></i>
                                                    @removeNotification="removeNotification">
 
       </OrderPendingPaymentConfirmationNotification>
-      <OrderPaymentConfirmedNotification v-else @addNotification="addNotification"
+      <OrderPaymentConfirmedNotification v-if="!canManageManagers" @addNotification="addNotification"
                                          @removeNotification="removeNotification">
       </OrderPaymentConfirmedNotification>
       <TransactionIssuedNotification @addNotification="addNotification"

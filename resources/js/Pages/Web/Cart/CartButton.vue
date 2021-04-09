@@ -35,7 +35,7 @@
         {{ $page.$t.cart.checkout }} ({{ orderItems.length }})
       </button>
 
-      <a v-else class="proceed-btn" href="/web/sign_in">{{
+      <a v-else class="proceed-btn" href="/web/cart/redirect">{{
         $page.$t.cart.login_to_checkout
         }}</a>
     </div>

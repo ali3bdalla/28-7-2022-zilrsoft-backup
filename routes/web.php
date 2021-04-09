@@ -25,6 +25,7 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
 
         });
         Route::get('/orders/{order}/cancel', 'Order\CancelOrderController@showPage');
+        Route::get('/orders/auth', 'Order\CancelOrderController@auth');
         Route::post('/orders/{order}/cancel', 'Order\CancelOrderController@confirm');
         Route::get('/orders/{order}/confirm_payment', 'Order\ConfirmOrderPaymentController@showConfirmPaymentPage');
         Route::post('/orders/{order}/confirm_payment', 'Order\ConfirmOrderPaymentController@confirmPayment');
@@ -65,10 +66,12 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
         Route::prefix('cart')->name('cart.')->group(
             function () {
                 Route::get('/', 'CartController@index')->name('index');
+                Route::get('redirect', 'CartController@redirectToLogin')->name('redirect');
             }
         );
 
         Route::get('/', 'HomeController@index')->name('index');
+
         Route::prefix('/categories')->name('categories.')->group(
             function () {
                 Route::get('/{category}', 'CategoryController@show')->name('show');
