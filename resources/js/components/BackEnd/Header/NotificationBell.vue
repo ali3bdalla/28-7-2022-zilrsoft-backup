@@ -14,6 +14,7 @@ margin-bottom: -10px;"></i>
                                          @removeNotification="removeNotification">
       </OrderPaymentConfirmedNotification>
       <TransactionIssuedNotification @addNotification="addNotification"
+                                     :manager="manager"
                                      @removeNotification="removeNotification">
       </TransactionIssuedNotification>
 
