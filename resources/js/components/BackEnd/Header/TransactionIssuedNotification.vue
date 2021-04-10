@@ -20,13 +20,17 @@
             مبلغ <span class="notification__dropdown-item__link">{{ notification.amount }}</span>
             من
 
-            <span class="notification__dropdown-item__link"
-                  v-if="notification.from_account !== undefined && notification.from_account !== null">{{ notification.from_account.locale_name }}</span>
+            <span v-if="notification.from_account !== undefined && notification.from_account !== null"
+                  class="notification__dropdown-item__link">{{
+                notification.from_account.locale_name
+              }}</span>
             الي
 
             <span
-                class="notification__dropdown-item__link"
-                v-if="notification.to_account !== undefined && notification.to_account !== null">{{ notification.to_account.locale_name }}</span>
+                v-if="notification.to_account !== undefined && notification.to_account !== null"
+                class="notification__dropdown-item__link">{{
+                notification.to_account.locale_name
+              }}</span>
             <span class="notification__created_at">{{ notification.created_at }}</span>
           </div>
           <!--          <div class="notification__dropdown-item__created_at">-->
@@ -54,7 +58,7 @@ export default {
       url: '/api/notifications/transactions/issued'
     }
   },
-  props:{
+  props: {
     manager: {
       type: Object,
       required: true
