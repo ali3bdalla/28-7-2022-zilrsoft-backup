@@ -321,9 +321,10 @@ export default {
             for (let index = 0; index < len; index++) {
               const transaction = response.data.data[index]
 
-              if (index == 0) {
+              if (index === 0 ) {
                 transaction.page = true
-                this.accountBalance = transaction.balance
+                if(this.paginationResponseData == null)
+                  this.accountBalance = transaction.balance
               } else {
                 transaction.page = false
               }
