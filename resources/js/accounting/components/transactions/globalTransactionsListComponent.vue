@@ -91,8 +91,8 @@
               v-text="parseFloat(transaction.credit_amount).toFixed(2)"
           ></th>
           <th
-              class="text-center "
               :class="{'bg-danger text-white':transaction.balance < 0}"
+              class="text-center "
               v-text="parseFloat(transaction.balance).toFixed(2)"
           ></th>
           <!--          <th-->
@@ -321,10 +321,12 @@ export default {
             for (let index = 0; index < len; index++) {
               const transaction = response.data.data[index]
 
-              if (index === 0 ) {
+              if (index === 0) {
                 transaction.page = true
-                if(this.paginationResponseData == null)
+                if (parseInt(response.data.meta.current_page) === 1) {
+                  console.log(transaction.balance)
                   this.accountBalance = transaction.balance
+                }
               } else {
                 transaction.page = false
               }
