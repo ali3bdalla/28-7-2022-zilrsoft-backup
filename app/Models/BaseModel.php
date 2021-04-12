@@ -18,6 +18,11 @@ class BaseModel extends Model
             'key' => 'serial',
             'dir' => 'desc'
         ],
+        'users' =>
+            [
+                'key' => 'id',
+                'dir' => 'asc'
+            ],
         'categories' =>
         [
             'key' => 'sorting',
@@ -120,10 +125,10 @@ class BaseModel extends Model
                     }
                 }
 
-           
+
                 if ($table == "orders") {
-                    
-                    
+
+
                     static::addGlobalScope(
                         'manager',
                         function (Builder $builder) use ($table) {
