@@ -67,7 +67,9 @@ class ConfirmOrderPaymentRequest extends FormRequest
             $message = "عملية سداد جديدة
 اسم العميل: {$order->user->locale_name}
 رقم الطلب: $order->id
-المبلغ المفترض:  $order->net";
+المبلغ المفترض:  $order->net
+   رابط التاكيد : https://next.zilrsoft.com/web/orders/{$order->id}
+";
             if (app()->environment('production')) {
 
                 Whatsapp::sendMessage($message, "966509025606", false);
