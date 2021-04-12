@@ -66,7 +66,6 @@ class OrderController extends Controller
 		if (!$order->status == 'paid') {
 			return view('errors.custom');
 		}
-
 		$order->update(
 			[
 				'status' => 'in_progress',

@@ -93,7 +93,6 @@ class CreateReceivedPaymentFromClientJob implements ShouldQueue
             ]
         );
         dispatch_now(new UpdateClientBalanceJob($this->client, $this->amount, 'decrease'));
-
         $organizationAccount->payments()->create(
             [
                 'creator_id' => $loggedUser->id,

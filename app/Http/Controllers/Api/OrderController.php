@@ -62,7 +62,9 @@ class OrderController extends Controller
             }
             $order->update(
                 [
-                    'status' => 'paid'
+                    'status' => 'paid',
+                    'payment_approved_at' => now(),
+                    'payment_approved_by_id' => $request->user()->id
                 ]
             );
             CreateReceivedPaymentFromClientJob::dispatchNow($order->user, $order->net, $request->input('account_id'));
