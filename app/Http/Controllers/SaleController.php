@@ -33,7 +33,7 @@
 		public function create()
 		{
 			$salesmen = Manager::all();
-			$clients = User::where('is_client', true)->get()->toArray();
+			$clients = User::where('is_client', true)->orderBy('id','asc')->get()->toArray();
 			$expenses = Item::where('is_expense', true)->get();
 			$gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
 
@@ -46,7 +46,7 @@
 		 */
 		public function drafts()
 		{
-			$clients = User::where('is_client', true)->get();
+			$clients = User::where('is_client', true)->orderBy('id','asc')->get();
 			$creators = Manager::all();
 			return view('sales.drafts', compact('clients', 'creators'));
 		}
@@ -58,7 +58,7 @@
 		public function createDraft()
 		{
 			$salesmen = Manager::all();
-			$clients = User::where('is_client', true)->get()->toArray();
+			$clients = User::where('is_client', true)->orderBy('id','asc')->get()->toArray();
 			$expenses = Item::where('is_expense', true)->get();
 			$gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
 			return view('sales.create_draft', compact('clients', 'salesmen', 'gateways', 'expenses'));
@@ -71,7 +71,7 @@
 		public function createServiceDraft()
 		{
 			$salesmen = Manager::all();
-			$clients = User::where('is_client', true)->get()->toArray();
+			$clients = User::where('is_client', true)->orderBy('id','asc')->get()->toArray();
 			$services = Item::where('is_service', true)->get();
 			$gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
 			return view('sales.create_draft_service', compact('clients', 'salesmen', 'gateways', 'services'));
@@ -81,7 +81,7 @@
 		{
 
 			$salesmen = Manager::all();
-			$clients = User::where('is_client', true)->get()->toArray();
+			$clients = User::where('is_client', true)->orderBy('id','asc')->get()->toArray();
 			$expenses = Item::where('is_expense', true)->get();
 			$gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
 			$sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
@@ -93,7 +93,7 @@
 		{
 			$sale->sale = $sale->sale()->withoutGlobalScope('draft')->first();
 			$salesmen = Manager::all();
-			$clients = User::where('is_client', true)->get()->toArray();
+			$clients = User::where('is_client', true)->orderBy('id','asc')->get()->toArray();
 			$expenses = Item::where('is_expense', true)->get();
 			$gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
 			$sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
