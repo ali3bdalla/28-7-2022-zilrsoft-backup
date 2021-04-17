@@ -1,239 +1,239 @@
 <template>
-    <div class="table">
+  <div class="table">
 
-        <div class="table-posistion">
+    <div class="table-posistion">
 
-            <div>
-                <input :placeholder="trans.search_barcode_sale"
-                       @focus="$event.target.select()"
-                       @keyup.enter="barcodeAndNameUpdated"
-                       autofocus="autofocus"
-                       class="form-control"
-                       ref="barcodeAndNameUpdated"
-                       type="text"
-                       v-model="filters.barcodeNameAndSerial">
+      <div>
+        <input ref="barcodeAndNameUpdated"
+               v-model="filters.barcodeNameAndSerial"
+               :placeholder="trans.search_barcode_sale"
+               autofocus="autofocus"
+               class="form-control"
+               type="text"
+               @focus="$event.target.select()"
+               @keyup.enter="barcodeAndNameUpdated">
+      </div>
+      <div class="table-filters">
+        <div class="text-right search-text" style="cursor: pointer;" @click="openOrCloseSearchPanel"><i
+            class="fa fa-search-plus"></i>
+          {{ trans.search_by_filters }}
+        </div>
+
+        <div v-show="isOpenSearchPanel">
+          <div class="row">
+            <div class="col-md-3">
+              <VueCtkDateTimePicker
+                  v-model="date_range"
+                  :behaviour="{time: {nearestIfDisabled: true}}" :custom-shortcuts="customDateShortcuts"
+                  :label="trans.created_at"
+                  :only-date="true" :range="true" locale="en"/>
             </div>
-            <div class="table-filters">
-                <div @click="openOrCloseSearchPanel" class="text-right search-text" style="cursor: pointer;"><i
-                        class="fa fa-search-plus"></i>
-                    {{trans.search_by_filters }}
-                </div>
-
-                <div v-show="isOpenSearchPanel">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <VueCtkDateTimePicker
-                                    :behaviour="{time: {nearestIfDisabled: true}}"
-                                    :custom-shortcuts="customDateShortcuts" :label="trans.created_at"
-                                    :only-date="true"
-                                    :range="true" locale="en" v-model="date_range"/>
-                        </div>
-                        <div class="col-md-3">
-                            <input :placeholder="trans.barcode" @keyup.enter="pushServerRequest('barcodeFieldRef')"
-                                   class="form-control"
-                                   ref="barcodeFieldRef"
-                                   type="text" v-model="filters.barcode">
-                        </div>
-                        <div class="col-md-3">
-                            <input :placeholder="trans.price_placeholder" @keyup="pushServerRequest"
-                                   class="form-control"
-                                   type="text" v-model="filters.price">
-                        </div>
-                        <div class="col-md-3">
-                            <select @change="pushServerRequest" class="form-control" v-model="filters.current_status">
-                                <option value="all">{{ trans.status }}</option>
-                                <option value="active">{{ trans.active }}</option>
-                                <option value="pending">{{ trans.pending }}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <input :placeholder="trans.price_tax_placeholder" @keyup="pushServerRequest"
-                                   class="form-control"
-                                   type="text" v-model="filters.price_with_tax">
-                        </div>
-                        <div class="col-md-3">
-                            <input :placeholder="trans.qty" @keyup="pushServerRequest" class="form-control"
-                                   type="text" v-model="filters.available_qty">
-                        </div>
-                        <div class="col-md-3">
-                            <accounting-multi-select-with-search-layout-component
-                                    :options="creators"
-                                    :placeholder="trans.creator"
-                                    :title="trans.creator"
-                                    @valueUpdated="creatorListUpdated"
-                                    default="0"
-                                    identity="000000001"
-                                    label_text="locale_name"
-
-                            >
-
-                            </accounting-multi-select-with-search-layout-component>
-
-                        </div>
-                        <div class="col-md-3">
-                            <input :placeholder="trans.name" @keyup="pushServerRequest" class="form-control"
-                                   type="text" v-model="filters.name">
-                        </div>
-
-                    </div>
-
-                    <div class="table-advanced-search">
-                        <accounting-table-filter-search-component
-                                @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated"
-                                :categories="categories"
-                                :trans="trans"
-                                @filterValuesUpdated="advancedSearchUpdated"></accounting-table-filter-search-component>
-                    </div>
-
-                </div>
+            <div class="col-md-3">
+              <input ref="barcodeFieldRef" v-model="filters.barcode"
+                     :placeholder="trans.barcode"
+                     class="form-control"
+                     type="text" @keyup.enter="pushServerRequest('barcodeFieldRef')">
             </div>
-            <div class="table-multi-task-buttons" v-show="showMultiTaskButtons">
-                <button @click="activateListItems" class="btn btn-default">{{ trans.activate }}</button>
+            <div class="col-md-3">
+              <input v-model="filters.price" :placeholder="trans.price_placeholder"
+                     class="form-control"
+                     type="text" @keyup="pushServerRequest">
             </div>
-            <div class="table-content " v-show="!isLoading">
-                <table class="table table-striped table-bordered" width="100%">
-                    <thead>
-                    <tr>
-                        <th width="2%"><input @click="checkAndUncheckAllRowsCheckBoxChanged" type="checkbox"/></th>
-                        <th :class="{'orderBy':orderBy=='is_published'}" @click="setOrderByColumn('is_published')" width="4%">
-                            {{ trans.id }}
-                        </th>
-                        <th :class="{'orderBy':orderBy=='barcode'}" @click="setOrderByColumn('barcode')" width="13%">
-                            {{ trans.barcode }}
-                        </th>
-                        <th :class="{'orderBy':orderBy=='name'}" @click="setOrderByColumn('name')">
-                            {{ trans.name }}
-                        </th>
-                      <th :class="{'orderBy':orderBy=='cost'}"
-                          @click="setOrderByColumn('cost')" width="10%">
-                        {{ trans.cost }}
-                      </th>
-                        <th :class="{'orderBy':orderBy=='price'}" @click="setOrderByColumn('price_tax')" width="6%">
-                            {{ trans.price }}
-                        </th>
+            <div class="col-md-3">
+              <select v-model="filters.current_status" class="form-control" @change="pushServerRequest">
+                <option value="all">{{ trans.status }}</option>
+                <option value="active">{{ trans.active }}</option>
+                <option value="pending">{{ trans.pending }}</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <input v-model="filters.price_with_tax" :placeholder="trans.price_tax_placeholder"
+                     class="form-control"
+                     type="text" @keyup="pushServerRequest">
+            </div>
+            <div class="col-md-3">
+              <input v-model="filters.available_qty" :placeholder="trans.qty" class="form-control"
+                     type="text" @keyup="pushServerRequest">
+            </div>
+            <div class="col-md-3">
+              <accounting-multi-select-with-search-layout-component
+                  :options="creators"
+                  :placeholder="trans.creator"
+                  :title="trans.creator"
+                  default="0"
+                  identity="000000001"
+                  label_text="locale_name"
+                  @valueUpdated="creatorListUpdated"
 
-<!--                        <th :class="{'orderBy':orderBy=='price_with_tax'}"-->
-<!--                            @click="setOrderByColumn('price_with_tax')" width="10%">-->
-<!--                            {{ trans.price_tax }}-->
-<!--                        </th>-->
+              >
 
-                         <th :class="{'orderBy':orderBy=='online_offer_price'}"
-                            @click="setOrderByColumn('online_offer_price')" width="10%">
-                            {{ trans.online_offer_price }}
-                        </th>
-                        <th :class="{'orderBy':orderBy=='available_qty'}" @click="setOrderByColumn('available_qty')"
-                            width="5%">
-                            {{ trans.available_qty }}
-                        </th>
-
-                        <th :class="{'orderBy':orderBy=='creator_id'}" @click="setOrderByColumn('creator_id')"
-                            width="13%">
-                            {{ trans.created_by }}
-                        </th>
-                        <th :class="{'orderBy':orderBy=='created_at'}" @click="setOrderByColumn('created_at')"
-                            width="10%">
-                            {{ trans.created_at }}
-                        </th>
-
-                        <th v-text="trans.options" width="8%"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr :key="row.id" v-for="(row,index) in table_rows">
-                        <td><input @change="rowSelectCheckBoxUpdated(row)" type="checkbox"
-                                   v-model="row.tb_row_selected"/>
-                        </td>
-                        <td>
-                            <i class="fa fa-circle" style="color:#e74c3c" v-if="!row.is_published"></i>
-                            <i class="fa fa-circle" style="color:#2ecc71" v-else></i>
-                        </td>
-                        <td @click="sendItemToOpenInvoice(row)" style="text-align:left;cursor: pointer">
-
-                            &nbsp;<span :style="{'color' :primaryColor}" v-if="row.is_need_serial">{{ row.barcode }}
-                            </span>
-
-                            <span style="color:green" v-else-if="row.is_kit">{{ row.barcode}}</span>
-                            <span v-else>{{ row.barcode}}</span> &nbsp;
-                            <i :style="{'color':primaryColor}" class="fa fa-check-circle pull-left"
-                               style="margin-top: 3px;" v-show="row.status=='active'"></i>
-                        </td>
-
-                        <td class="text-right-with-padding">{{row.ar_name}}<p align="left">{{row.name}}</p></td>
-                      <td v-if="!row.is_kit" v-text="parseFloat(row.cost * 1.15).toFixed(2)"></td>
-                      <td v-if="!row.is_kit" v-text="parseFloat(row.price_with_tax).toFixed(2)"></td>
-                        <td v-else   ></td>
-<!--                        <td v-if="!row.is_kit" v-text="parseFloat(row.price_with_tax).toFixed(2)"></td>-->
-                        <td v-if="!row.is_kit" v-text="parseFloat(row.online_offer_price).toFixed(2)"></td>
-                        <td v-else ></td>
-<!--                        v-text="parseFloat(row.data.total).toFixed(2)"-->
-                        <td>
-                            <v-tooltip bottom>
-                                <template v-slot:activator="{ on }">
-                                    <span v-on="on" v-if="row.is_service">0</span>
-                                    <span v-on="on" v-else>{{ row.available_qty}}</span>
-
-                                </template>
-                                <span>{{ parseFloat(row.cost).toFixed(2) }}</span>
-                            </v-tooltip>
-
-                            <!--                            <v-tooltip bottom>-->
-                            <!--                                <template v-slot:activator="{ on }">-->
-                            <!--                                </template>-->
-                            <!--                                <span>{{ row.available_qty }}</span>-->
-                            <!--                            </v-tooltip>-->
-                        </td>
-                        <td class="text-right-with-padding" v-text="row.creator.locale_name"></td>
-                        <td v-text="row.created_at"></td>
-                        <td>
-
-                            <div class="dropdown">
-                                <button :id="'dropDownOptions'
-                                + row.id" aria-expanded="false" aria-haspopup="true"
-                                        class="btn btn-options dropdown-toggle " data-toggle="dropdown"
-                                        type="button">
-                                    {{ trans.options }}
-                                    <span class="caret"></span>
-                                </button>
-                                <ul :aria-labelledby="'dropDownOptions'
-                                + row.id" class="dropdown-menu CustomDropDownOptions">
-                                    <li v-if="row.is_kit"><a :href="'/accounting/kits/' + row.id">عرض منتجات الصنف</a></li>
-                                    <li v-if="canCreate==1  && !row.is_kit"><a :href="baseUrl + row.id + '/clone'"
-                                                                               v-text="trans.clone"></a></li>
-                                    <li v-if="!row.is_kit"><a :href="baseUrl + row.id +
-                                    '/transactions'"
-                                                              v-text="trans.transactions"></a>
-                                    </li>
-                                    <li v-if="canEdit==1 "><a :href="baseUrl + row.id + '/edit'"
-                                                                             v-text="trans.edit"></a></li>
-                                    <li v-if="row.is_need_serial==1  && !row.is_kit"><a
-                                            :href="baseUrl + row.id + '/view_serials'"
-                                            v-text="trans.view_serials"></a></li>
-                                    <li v-if="row.status=='pending' && canEdit==1"><a :href="baseUrl + row.id +
-                                    '/activate'" v-text="trans.activate"></a></li>
-
-                                    <li v-if="canDelete==1 && canViewAccounting==1"><a @click="deleteItemClicked(row)"
-                                                                                       v-text="trans.delete"></a></li>
-                                </ul>
-                            </div>
-
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+              </accounting-multi-select-with-search-layout-component>
 
             </div>
-
-            <tile :color="primaryColor" :loading="isLoading" v-show="isLoading"></tile>
-            <div class="table-paginations">
-                <accounting-table-pagination-helper-layout-component :data="paginationResponseData"
-
-                                                                     @pagePerItemsUpdated="pagePerItemsUpdated"
-                                                                     @paginateUpdatePage="paginateUpdatePage"
-                ></accounting-table-pagination-helper-layout-component>
+            <div class="col-md-3">
+              <input v-model="filters.name" :placeholder="trans.name" class="form-control"
+                     type="text" @keyup="pushServerRequest">
             </div>
+
+          </div>
+
+          <div class="table-advanced-search">
+            <accounting-table-filter-search-component
+                :categories="categories"
+                :trans="trans"
+                @filterValuesUpdated="advancedSearchUpdated"
+                @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated"></accounting-table-filter-search-component>
+          </div>
 
         </div>
+      </div>
+      <div v-show="showMultiTaskButtons" class="table-multi-task-buttons">
+        <button class="btn btn-default" @click="activateListItems">{{ trans.activate }}</button>
+      </div>
+      <div v-show="!isLoading" class="table-content ">
+        <table class="table table-striped table-bordered" width="100%">
+          <thead>
+          <tr>
+            <th width="2%"><input type="checkbox" @click="checkAndUncheckAllRowsCheckBoxChanged"/></th>
+            <th :class="{'orderBy':orderBy=='is_published'}" width="4%" @click="setOrderByColumn('is_published')">
+              {{ trans.id }}
+            </th>
+            <th :class="{'orderBy':orderBy=='barcode'}" width="13%" @click="setOrderByColumn('barcode')">
+              {{ trans.barcode }}
+            </th>
+            <th :class="{'orderBy':orderBy=='name'}" @click="setOrderByColumn('name')">
+              {{ trans.name }}
+            </th>
+            <th :class="{'orderBy':orderBy=='cost'}"
+                width="10%" @click="setOrderByColumn('cost')">
+              {{ trans.cost }}
+            </th>
+            <th :class="{'orderBy':orderBy=='price'}" width="6%" @click="setOrderByColumn('price_tax')">
+              {{ trans.price }}
+            </th>
+
+            <!--                        <th :class="{'orderBy':orderBy=='price_with_tax'}"-->
+            <!--                            @click="setOrderByColumn('price_with_tax')" width="10%">-->
+            <!--                            {{ trans.price_tax }}-->
+            <!--                        </th>-->
+
+            <th :class="{'orderBy':orderBy=='online_offer_price'}"
+                width="10%" @click="setOrderByColumn('online_offer_price')">
+              {{ trans.online_offer_price }}
+            </th>
+            <th :class="{'orderBy':orderBy=='available_qty'}" width="5%"
+                @click="setOrderByColumn('available_qty')">
+              {{ trans.available_qty }}
+            </th>
+
+            <th :class="{'orderBy':orderBy=='creator_id'}" width="13%"
+                @click="setOrderByColumn('creator_id')">
+              {{ trans.created_by }}
+            </th>
+            <th :class="{'orderBy':orderBy=='created_at'}" width="10%"
+                @click="setOrderByColumn('created_at')">
+              {{ trans.created_at }}
+            </th>
+
+            <th width="8%" v-text="trans.options"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(row,index) in table_rows" :key="row.id" :class="{'row-has-error': row.is_published && (getItemCost(row) > row.price_with_tax || getItemCost(row) > row.online_offer_price)}">
+            <td><input v-model="row.tb_row_selected" type="checkbox"
+                       @change="rowSelectCheckBoxUpdated(row)"/>
+            </td>
+            <td>
+              <i v-if="!row.is_published" class="fa fa-circle" style="color:#e74c3c"></i>
+              <i v-else class="fa fa-circle" style="color:#2ecc71"></i>
+            </td>
+            <td style="text-align:left;cursor: pointer" @click="sendItemToOpenInvoice(row)">
+
+              &nbsp;<span v-if="row.is_need_serial" :style="{'color' :primaryColor}">{{ row.barcode }}
+                            </span>
+
+              <span v-else-if="row.is_kit" style="color:green">{{ row.barcode }}</span>
+              <span v-else>{{ row.barcode }}</span> &nbsp;
+              <i v-show="row.status=='active'" :style="{'color':primaryColor}"
+                 class="fa fa-check-circle pull-left" style="margin-top: 3px;"></i>
+            </td>
+
+            <td class="text-right-with-padding">{{ row.ar_name }}<p align="left">{{ row.name }}</p></td>
+            <td v-if="!row.is_kit" v-text="getItemCost(row)"></td>
+            <td v-if="!row.is_kit" v-text="parseFloat(row.price_with_tax).toFixed(2)"></td>
+            <td v-else></td>
+            <!--                        <td v-if="!row.is_kit" v-text="parseFloat(row.price_with_tax).toFixed(2)"></td>-->
+            <td v-if="!row.is_kit" v-text="parseFloat(row.online_offer_price).toFixed(2)"></td>
+            <td v-else></td>
+            <!--                        v-text="parseFloat(row.data.total).toFixed(2)"-->
+            <td>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <span v-if="row.is_service" v-on="on">0</span>
+                  <span v-else v-on="on">{{ row.available_qty }}</span>
+
+                </template>
+                <span>{{ parseFloat(row.cost).toFixed(2) }}</span>
+              </v-tooltip>
+
+              <!--                            <v-tooltip bottom>-->
+              <!--                                <template v-slot:activator="{ on }">-->
+              <!--                                </template>-->
+              <!--                                <span>{{ row.available_qty }}</span>-->
+              <!--                            </v-tooltip>-->
+            </td>
+            <td class="text-right-with-padding" v-text="row.creator.locale_name"></td>
+            <td v-text="row.created_at"></td>
+            <td>
+
+              <div class="dropdown">
+                <button :id="'dropDownOptions'
+                                + row.id" aria-expanded="false" aria-haspopup="true"
+                        class="btn btn-options dropdown-toggle " data-toggle="dropdown"
+                        type="button">
+                  {{ trans.options }}
+                  <span class="caret"></span>
+                </button>
+                <ul :aria-labelledby="'dropDownOptions'
+                                + row.id" class="dropdown-menu CustomDropDownOptions">
+                  <li v-if="row.is_kit"><a :href="'/accounting/kits/' + row.id">عرض منتجات الصنف</a></li>
+                  <li v-if="canCreate==1  && !row.is_kit"><a :href="baseUrl + row.id + '/clone'"
+                                                             v-text="trans.clone"></a></li>
+                  <li v-if="!row.is_kit"><a :href="baseUrl + row.id +
+                                    '/transactions'"
+                                            v-text="trans.transactions"></a>
+                  </li>
+                  <li v-if="canEdit==1 "><a :href="baseUrl + row.id + '/edit'"
+                                            v-text="trans.edit"></a></li>
+                  <li v-if="row.is_need_serial==1  && !row.is_kit"><a
+                      :href="baseUrl + row.id + '/view_serials'"
+                      v-text="trans.view_serials"></a></li>
+                  <li v-if="row.status=='pending' && canEdit==1"><a :href="baseUrl + row.id +
+                                    '/activate'" v-text="trans.activate"></a></li>
+
+                  <li v-if="canDelete==1 && canViewAccounting==1"><a @click="deleteItemClicked(row)"
+                                                                     v-text="trans.delete"></a></li>
+                </ul>
+              </div>
+
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <tile v-show="isLoading" :color="primaryColor" :loading="isLoading"></tile>
+      <div class="table-paginations">
+        <accounting-table-pagination-helper-layout-component :data="paginationResponseData"
+
+                                                             @pagePerItemsUpdated="pagePerItemsUpdated"
+                                                             @paginateUpdatePage="paginateUpdatePage"
+        ></accounting-table-pagination-helper-layout-component>
+      </div>
+
     </div>
+  </div>
 </template>
 
 <script>
@@ -247,7 +247,8 @@ import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
 
 export default {
   components: {
-    VueCtkDateTimePicker, Treeselect
+    VueCtkDateTimePicker,
+    Treeselect
   },
   props: [
     'categories',
@@ -306,6 +307,9 @@ export default {
     this.pushServerRequest()
   },
   methods: {
+    getItemCost (row) {
+      return parseFloat(row.cost * 1.15).toFixed(2)
+    },
 
     selectedAttributesHasBeenUpdated (event) {
       this.isLoading = true
@@ -334,14 +338,46 @@ export default {
     initUi () {
       this.requestUrl = '/api/items'
       this.customDateShortcuts = [
-        { key: 'thisWeek', label: this.datetimetrans.thisWeek, value: 'isoWeek' },
-        { key: 'lastWeek', label: this.datetimetrans.lastWeek, value: '-isoWeek' },
-        { key: 'last7Days', label: this.datetimetrans.last7Days, value: 7 },
-        { key: 'last30Days', label: this.datetimetrans.last30Days, value: 30 },
-        { key: 'thisMonth', label: this.datetimetrans.thisMonth, value: 'month' },
-        { key: 'lastMonth', label: this.datetimetrans.lastMonth, value: '-month' },
-        { key: 'thisYear', label: this.datetimetrans.thisYear, value: 'year' },
-        { key: 'lastYear', label: this.datetimetrans.lastYear, value: '-year' }
+        {
+          key: 'thisWeek',
+          label: this.datetimetrans.thisWeek,
+          value: 'isoWeek'
+        },
+        {
+          key: 'lastWeek',
+          label: this.datetimetrans.lastWeek,
+          value: '-isoWeek'
+        },
+        {
+          key: 'last7Days',
+          label: this.datetimetrans.last7Days,
+          value: 7
+        },
+        {
+          key: 'last30Days',
+          label: this.datetimetrans.last30Days,
+          value: 30
+        },
+        {
+          key: 'thisMonth',
+          label: this.datetimetrans.thisMonth,
+          value: 'month'
+        },
+        {
+          key: 'lastMonth',
+          label: this.datetimetrans.lastMonth,
+          value: '-month'
+        },
+        {
+          key: 'thisYear',
+          label: this.datetimetrans.thisYear,
+          value: 'year'
+        },
+        {
+          key: 'lastYear',
+          label: this.datetimetrans.lastYear,
+          value: '-year'
+        }
       ]
     },
     pushServerRequest: function (ref = null) {
@@ -376,7 +412,11 @@ export default {
     setOrderByColumn (column_name) {
       if (this.orderBy == column_name) {
         // alert('hello')
-        if (this.orderType == 'asc') { this.orderType = 'desc' } else { this.orderType = 'asc' }
+        if (this.orderType == 'asc') {
+          this.orderType = 'desc'
+        } else {
+          this.orderType = 'asc'
+        }
       } else {
         this.orderBy = column_name
         this.orderType = 'asc'
@@ -478,7 +518,7 @@ export default {
     getRowColumnIndex (index) {
       if (this.paginationResponseData != null) {
         return index + ((this.paginationResponseData.current_page - 1) *
-                        this.paginationResponseData.per_page)
+            this.paginationResponseData.per_page)
       }
       return index
     },
@@ -550,69 +590,72 @@ export default {
 </script>
 <style scoped>
 
-    .table-content {
-        background: #f8f8f8;
-        padding: 1px;
-    }
+.table-content {
+  background: #f8f8f8;
+  padding: 1px;
+}
 
-    .table {
-        border: 5px;
-        table-layout: fixed;
-        text-align: center !important;
-    }
+.table {
+  border: 5px;
+  table-layout: fixed;
+  text-align: center !important;
+}
 
-    .table thead th {
-        text-align: center;
-        cursor: pointer;
+.table thead th {
+  text-align: center;
+  cursor: pointer;
 
-    }
+}
 
-    .table-filters {
-        background: #f8f8f8;
-        padding: 7px;
-        margin-bottom: 7px;
-    }
+.table-filters {
+  background: #f8f8f8;
+  padding: 7px;
+  margin-bottom: 7px;
+}
 
-    .search-text {
-        font-size: 19px;
-        color: #999;
-    }
+.search-text {
+  font-size: 19px;
+  color: #999;
+}
 
-    input[type=text],
-    input[type=number],
-    select {
-        height: 42px;
-    }
+input[type=text],
+input[type=number],
+select {
+  height: 42px;
+}
 
-    .form-control, .field-input {
-        /*text-align: right !important;*/
+.form-control, .field-input {
+  /*text-align: right !important;*/
 
-    }
+}
 
-    .orderBy {
-        background-color: cornsilk;
-    }
+.orderBy {
+  background-color: cornsilk;
+}
 
-    .sort-icon {
-        color: #999;
-        float: right;
-        margin-right: 1px;
-        font-size: 17px;
-    }
+.sort-icon {
+  color: #999;
+  float: right;
+  margin-right: 1px;
+  font-size: 17px;
+}
 
-    .dropdown-menu li a {
-        padding: 7px;
-        font-size: 14px;
-        border-bottom: 1px solid #eee;
-    }
+.dropdown-menu li a {
+  padding: 7px;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+}
 
-    .vue-treeselect__control {
-        padding: 7px !important;
-        border-radius: 0px !important;
-    }
+.vue-treeselect__control {
+  padding: 7px !important;
+  border-radius: 0px !important;
+}
 
-    .table-multi-task-buttons {
-        padding: 5px;
-    }
+.table-multi-task-buttons {
+  padding: 5px;
+}
 
+.row-has-error {
+  color: #f14668 !important;
+}
 </style>
