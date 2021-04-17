@@ -104,19 +104,19 @@
                         <th :class="{'orderBy':orderBy=='name'}" @click="setOrderByColumn('name')">
                             {{ trans.name }}
                         </th>
-
-                        <th :class="{'orderBy':orderBy=='price'}" @click="setOrderByColumn('price')" width="6%">
+                      <th :class="{'orderBy':orderBy=='cost'}"
+                          @click="setOrderByColumn('cost')" width="10%">
+                        {{ trans.cost }}
+                      </th>
+                        <th :class="{'orderBy':orderBy=='price'}" @click="setOrderByColumn('price_tax')" width="6%">
                             {{ trans.price }}
                         </th>
 
-                        <th :class="{'orderBy':orderBy=='price_with_tax'}"
-                            @click="setOrderByColumn('price_with_tax')" width="10%">
-                            {{ trans.price_tax }}
-                        </th>
-                         <th :class="{'orderBy':orderBy=='cost'}"
-                            @click="setOrderByColumn('cost')" width="10%">
-                            {{ trans.cost }}
-                        </th>
+<!--                        <th :class="{'orderBy':orderBy=='price_with_tax'}"-->
+<!--                            @click="setOrderByColumn('price_with_tax')" width="10%">-->
+<!--                            {{ trans.price_tax }}-->
+<!--                        </th>-->
+
                          <th :class="{'orderBy':orderBy=='online_offer_price'}"
                             @click="setOrderByColumn('online_offer_price')" width="10%">
                             {{ trans.online_offer_price }}
@@ -159,11 +159,10 @@
                         </td>
 
                         <td class="text-right-with-padding">{{row.ar_name}}<p align="left">{{row.name}}</p></td>
-                        <td v-if="!row.is_kit" v-text="parseFloat(row.price).toFixed(2)"></td>
+                      <td v-if="!row.is_kit" v-text="parseFloat(row.cost * 1.15).toFixed(2)"></td>
+                      <td v-if="!row.is_kit" v-text="parseFloat(row.price_with_tax).toFixed(2)"></td>
                         <td v-else   ></td>
-<!--                        v-text="parseFloat(row.data.net).toFixed(2)"-->
-                        <td v-if="!row.is_kit" v-text="parseFloat(row.price_with_tax).toFixed(2)"></td>
-                        <td v-if="!row.is_kit" v-text="parseFloat(row.cost).toFixed(2)"></td>
+<!--                        <td v-if="!row.is_kit" v-text="parseFloat(row.price_with_tax).toFixed(2)"></td>-->
                         <td v-if="!row.is_kit" v-text="parseFloat(row.online_offer_price).toFixed(2)"></td>
                         <td v-else ></td>
 <!--                        v-text="parseFloat(row.data.total).toFixed(2)"-->
