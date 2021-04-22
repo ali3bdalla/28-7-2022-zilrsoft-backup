@@ -193,7 +193,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        MOIREI\GoogleMerchantApi\GoogleMerchantApiServiceProvider::class,
         /*
          * Application Service Providers...
          */

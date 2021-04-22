@@ -44,7 +44,6 @@ class Item extends BaseModel
         'locale_name',
         'locale_description',
         'item_image_url'
-
     ];
 
     protected $casts = [
@@ -84,6 +83,10 @@ class Item extends BaseModel
         return $value;
     }
 
+    public function scopePublished($query)
+    {
+        return $query->where('is_published',true);
+    }
     public function getItemImageUrlAttribute()
     {
 
