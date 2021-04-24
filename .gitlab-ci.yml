@@ -44,14 +44,14 @@ build:
 
     # Run npm build
     - npm run dev
-  artifacts:
-    paths:
-      - vendor/
-      - .npm/
-      - .env
-      - public/
-    expire_in: 1 days
-    when: always
+#  artifacts:
+#    paths:
+#      - vendor/
+#      - .npm/
+#      - .env
+#      - public/
+#    expire_in: 1 days
+#    when: always
 
 test:
   stage: test
@@ -84,7 +84,7 @@ deploy_dev:
   environment:
     name: deployer
     url: https://dev.zilrsoft.com
-  when:  on_success
+  when: on_success
   only:
     - development
 
@@ -101,7 +101,7 @@ deploy_prod:
   environment:
     name: deployer
     url: https://zilrsoft.com
-  when:  on_success
+  when: on_success
 
   only:
     - master

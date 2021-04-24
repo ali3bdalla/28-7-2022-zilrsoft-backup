@@ -32,6 +32,7 @@
     "league/flysystem-aws-s3-v3": "^1.0",
     "mpdf/mpdf": "^8.0",
     "nesbot/carbon": "2.41.5 as 1.39.0",
+    "moirei/laravel-google-merchant-api": "dev-master",
     "opsway/doctrine-dbal-postgresql": "^0.8.1",
     "predis/predis": "^1.1",
     "pusher/pusher-php-server": "^4.1",
