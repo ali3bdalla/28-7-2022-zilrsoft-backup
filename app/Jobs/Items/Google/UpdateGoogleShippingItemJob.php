@@ -75,10 +75,6 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
                     ->mobileLink($link);
             })->then(function ($response) {
                 echo 'Product inserted';
-            })->otherwise(function ($response) {
-                echo 'Insert failed';
-            })->catch(function ($e) {
-                echo($e->getResponse()->getBody()->getContents());
             });
 
         }
@@ -90,3 +86,4 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
         return "https://images.zilrsoft.com/api/enrypt/fit/1250/1670/sm/0/plain/local:///com.zilrsoft//storage/app/public/" . $path;
     }
 }
+
