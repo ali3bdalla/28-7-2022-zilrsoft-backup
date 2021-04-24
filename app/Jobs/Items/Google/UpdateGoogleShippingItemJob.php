@@ -55,7 +55,15 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
                 'shippingHeight', 'shippingLabel', 'shippingLength', 'shippingWeight',
                 'sizeSystem', 'sizeType', 'taxCategory', 'taxes', 'transitTimeLabel', 'unitPricingBaseMeasure', 'unitPricingMeasure',*/
         if ($this->item->shouldBeSearchable()) {
+
+
             ProductApi::insert(function ($product) {
+                $filters = $this->item->filters()->with('value', 'filter')->get();
+                $attributes = [];
+                foreach ($filters as $filter) {
+                    if ($filter->filter && $filter->value)
+                        $attributes[$filter->filter->locale_name] = $filter->value->locale_name;
+                }
                 $link = 'https://msbrshop.com/web/items/' . $this->item->id;
                 return $product
                     ->title($this->item->locale_name)
@@ -69,6 +77,7 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
                     ->additionalImageLinks($this->item->attachments()->pluck('actual_path')->map(function ($path) {
                         return $this->getImageUrl($path);
                     }))
+                    ->customAttributes($attributes)
                     ->link($link)
                     ->availability($this->item->available_qty >= 0 ? 'in stock' : 'out of stock')
 //            "in stock", "out of stock", or "preorder"
