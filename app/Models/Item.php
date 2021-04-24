@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\Item\ItemUpdatedEvent;
 use App\ItemTag;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -38,6 +39,9 @@ class Item extends BaseModel
 {
 
     use SoftDeletes, Searchable;
+    protected $dispatchesEvents = [
+      'updated' => ItemUpdatedEvent::class
+    ];
 
     protected $touches = ['category', 'filters', 'tags', 'attachments'];
     protected $appends = [
