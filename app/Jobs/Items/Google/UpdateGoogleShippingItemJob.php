@@ -59,7 +59,7 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
                 $link = 'https://msbrshop.com/web/items/' . $this->item->id;
                 return $product
                     ->title($this->item->locale_name)
-                    ->offerId($this->item->id)
+                    ->offerId($this->item->barcode)
                     ->description($this->item->locale_description)
                     ->price(moneyFormatter($this->item->price_with_tax))
                     ->salePrice(moneyFormatter($this->item->online_offer_price))
