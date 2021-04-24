@@ -39,7 +39,11 @@ class UpdateGoogleShippingCommand extends Command
      */
     public function handle()
     {
-        foreach (Item::published()->get() as $item) {
+        foreach (Item::where([
+            ['organization_id', 1],
+            ['is_kit', false],
+        ])->get() as $item) {
+            if ($item->shouldBeSearchable())
                 UpdateGoogleShippingItemJob::dispatch($item);
         }
     }
