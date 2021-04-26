@@ -54,9 +54,7 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
                 'mobileLink', 'multipack', 'pattern', 'productTypes', 'productHighlights',
                 'shippingHeight', 'shippingLabel', 'shippingLength', 'shippingWeight',
                 'sizeSystem', 'sizeType', 'taxCategory', 'taxes', 'transitTimeLabel', 'unitPricingBaseMeasure', 'unitPricingMeasure',*/
-        if ($this->item->shouldBeSearchable()) {
-
-
+        if ($this->item->shouldBeSearchable() && $this->item->available_qty) {
             ProductApi::insert(function ($product) {
                 $filters = $this->item->filters()->with('value', 'filter')->get();
                 $attributes = [];
@@ -86,7 +84,15 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
                 echo 'Product inserted';
             });
 
+        } else {
+            ProductApi::get(function ($product) {
+                $product
+                    ->offerId($this->item->barcode);
+            })->then(function ($response) {
+                ProductApi::delete($response);
+            });
         }
+
 
     }
 
