@@ -71,6 +71,7 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
                     ->salePrice(moneyFormatter($this->item->online_offer_price))
                     ->imageLink($this->getImageUrl($this->item->item_image_url))
                     ->itemGroupId($this->item->category_id)
+//                    ->shipping($this->getShippingAmount())
                     ->shippingWeight($this->item->weight)
                     ->additionalImageLinks($this->item->attachments()->pluck('actual_path')->map(function ($path) {
                         return $this->getImageUrl($path);
@@ -85,11 +86,12 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
             });
 
         } else {
-            ProductApi::get(function ($product) {
+
+            ProductApi::delete(function ($product) {
                 $product
                     ->offerId($this->item->barcode);
             })->then(function ($response) {
-                ProductApi::delete($response);
+            })->catch(function($erro) {
             });
         }
 
@@ -99,6 +101,13 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
     public function getImageUrl($path)
     {
         return "https://images.zilrsoft.com/api/enrypt/fit/1250/1670/sm/0/plain/local:///com.zilrsoft//storage/app/public/" . $path;
+    }
+
+    private function getShippingAmount()
+    {
+        $amount = 35 - (float)$this->item->shipping_discount;
+        if ($amount) return $amount;
+        return 0;
     }
 }
 
