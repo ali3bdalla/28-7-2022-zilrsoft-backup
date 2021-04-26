@@ -154,7 +154,7 @@ class StoreSaleRequest extends FormRequest
                     throw ValidationException::withMessages(['item_serial' => 'serials count don\'t  match qty']);
                 }
                 foreach ($item['serials'] as $serial) {
-                    dispatch_now(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase']));
+                    dispatch_now(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase'],['in_stock', 'return_sale']));
                 }
             }
         }

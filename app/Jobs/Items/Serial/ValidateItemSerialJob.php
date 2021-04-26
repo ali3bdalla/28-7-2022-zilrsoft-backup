@@ -16,15 +16,21 @@ class ValidateItemSerialJob implements ShouldQueue
 
     private $item, $serial, $notAllowedValues;
     /**
+     * @var array
+     */
+    private $allowdSerials;
+
+    /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Item $item, $serial, $notAllowedValues = [])
+    public function __construct(Item $item, $serial, $notAllowedValues = [], $allowdSerials = [])
     {
         $this->serial = $serial;
         $this->notAllowedValues = $notAllowedValues;
         $this->item = $item;
+        $this->allowdSerials = $allowdSerials;
     }
 
     /**
@@ -34,8 +40,11 @@ class ValidateItemSerialJob implements ShouldQueue
      */
     public function handle()
     {
-        $serial = $this->item->serials()->where('serial',$this->serial)->whereIn('status', $this->notAllowedValues)->first();
-        if ($serial) {
+        $serial = $this->item->serials()->where('serial', $this->serial)->whereIn('status', $this->notAllowedValues)->first();
+        $allowedSerial = $this->item
+            ->serials()->where('serial', $this->serial)
+            ->whereIn('status', $this->allowdSerials)->first();
+        if ($serial && !$allowedSerial) {
             throw ValidationException::withMessages(['item_serial' => 'item serial available with un allowed data']);
         }
     }
