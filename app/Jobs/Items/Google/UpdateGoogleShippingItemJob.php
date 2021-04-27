@@ -106,8 +106,7 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
     private function getShippingLabel()
     {
         $amount = 35 - (float)$this->item->shipping_discount;
-        if (!$amount) $amount = 0;
-
+        if ($amount < 0) $amount = 0;
 
         return "shipping_items_group_" . round($amount);
     }

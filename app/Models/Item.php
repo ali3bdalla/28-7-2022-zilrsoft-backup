@@ -79,6 +79,10 @@ class Item extends BaseModel
     {
         return $query->where('available_qty', '>', 0);
     }
+    public function getShippingDiscountAttribute($value)
+    {
+        return round($value);
+    }
 
     public function getAvailableQtyAttribute($value)
     {
