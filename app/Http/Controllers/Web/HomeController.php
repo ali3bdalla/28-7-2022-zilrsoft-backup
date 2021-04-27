@@ -34,8 +34,8 @@ class HomeController extends Controller
 		return Inertia::render('Web/Home/Index', [
 			'products_count' => Item::count(),
 			'params' => [],
-			'latest' => Item::available()->orderBy('created_at','desc')->take(15)->get(),
-			'heigest_price' => Item::available()->orderBy('online_offer_price','desc')->take(15)->get(),
+			'latest' => Item::available()->with('category', 'filters.filter', 'filters.value')->orderBy('created_at','desc')->take(15)->get(),
+			'heigest_price' => Item::available()->with('category', 'filters.filter', 'filters.value')->orderBy('online_offer_price','desc')->take(15)->get(),
 			'offer_item' => $offerItem
 			// 'items' => Item::with('category', 'filters.filter', 'filters.value')->inRandomOrder()->take(20)->get(),
 		]);
