@@ -107,7 +107,9 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
     {
         $amount = 35 - (float)$this->item->shipping_discount;
         if (!$amount) $amount = 0;
-        return "shipping_items_group_" . $amount;
+
+
+        return "shipping_items_group_" . round($amount);
     }
 }
 
