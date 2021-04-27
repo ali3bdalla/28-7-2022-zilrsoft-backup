@@ -39,7 +39,6 @@ class UpdateGoogleShippingCommand extends Command
      */
     public function handle()
     {
-//        UpdateGoogleShippingItemJob::dispatchNow(Item::where('barcode',"633755123917")->first());
         $items = Item::where([
             ['organization_id', 1],
             ['is_available_online', true],
