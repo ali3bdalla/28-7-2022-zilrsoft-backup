@@ -22,7 +22,7 @@ class ItemController extends Controller
 
 	public function index(FetchItemsGroupByCategoryRequest $fetchItemsGroupByCategoryRequest)
 	{
-		
+
 		$categories = [];
 		if(!$fetchItemsGroupByCategoryRequest->has('category_id') &&  !$fetchItemsGroupByCategoryRequest->filled('category_id'))
 		{
@@ -53,7 +53,7 @@ class ItemController extends Controller
 	public function show(Item $item)
 	{
 
-		$relatedItems = $item->category->items()->with('category')->where('available_qty','>',0)->inRandomOrder()->take(20)->get();
+		$relatedItems = $item->category->items()->with('category', 'filters.filter', 'filters.value')->where('available_qty','>',0)->inRandomOrder()->take(20)->get();
 
 		$this->breadcrumb [] = [
             'title' => trans('store.header.home'),
