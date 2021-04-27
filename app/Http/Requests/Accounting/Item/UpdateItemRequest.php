@@ -146,6 +146,7 @@ class UpdateItemRequest extends FormRequest
                 $itemDb->unsearchable();
 
             $item->update([
+                'last_purchase_id' => null,
                 'is_published' => $itemDb->shouldBeSearchable()
             ]);
         }
