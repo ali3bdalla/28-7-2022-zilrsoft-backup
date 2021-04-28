@@ -73,6 +73,7 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
                     ->itemGroupId($this->item->category_id)
                     ->shippingLabel($this->getShippingLabel())
                     ->shippingWeight($this->item->weight)
+                    ->condition("new")
                     ->additionalImageLinks($this->item->attachments()->pluck('actual_path')->map(function ($path) {
                         return $this->getImageUrl($path);
                     }))
@@ -107,6 +108,7 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
                     ->itemGroupId($this->item->category_id)
                     ->shippingLabel($this->getShippingLabel())
                     ->shippingWeight($this->item->weight)
+                    ->condition("new")
                     ->additionalImageLinks($this->item->attachments()->pluck('actual_path')->map(function ($path) {
                         return $this->getImageUrl($path);
                     }))
