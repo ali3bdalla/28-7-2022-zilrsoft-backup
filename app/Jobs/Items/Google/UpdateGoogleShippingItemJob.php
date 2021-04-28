@@ -73,27 +73,74 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
                     ->itemGroupId($this->item->category_id)
                     ->shippingLabel($this->getShippingLabel())
                     ->shippingWeight($this->item->weight)
+                    ->condition("new")
                     ->additionalImageLinks($this->item->attachments()->pluck('actual_path')->map(function ($path) {
                         return $this->getImageUrl($path);
                     }))
 //                    ->customAttributes($attributes)
                     ->link($link)
-                    ->availability($this->item->available_qty >= 0 ? 'in stock' : 'out of stock')
+                    ->contentLanguage('ar')
+                    ->availability($this->item->available_qty >= 0 ? 'in stock' : 'out of stock');
 //            "in stock", "out of stock", or "preorder"
-                    ->mobileLink($link);
+//                    ->mobileLink($link);
             })->then(function ($response) {
                 echo 'Product inserted';
-            })->catch(function($erro) {
+            })->catch(function ($erro) {
                 var_dump($erro);
             });
+
+
+            ProductApi::insert(function ($product) {
+                $filters = $this->item->filters()->with('value', 'filter')->get();
+                $attributes = [];
+                foreach ($filters as $filter) {
+                    if ($filter->filter && $filter->value)
+                        $attributes[$filter->filter->name] = $filter->value->name;
+                }
+                $link = 'https://msbrshop.com/web/items/' . $this->item->id;
+                return $product
+                    ->title($this->item->name)
+                    ->offerId($this->item->barcode)
+                    ->description($this->item->description)
+                    ->price(moneyFormatter($this->item->price_with_tax))
+                    ->salePrice(moneyFormatter($this->item->online_offer_price))
+                    ->imageLink($this->getImageUrl($this->item->item_image_url))
+                    ->itemGroupId($this->item->category_id)
+                    ->shippingLabel($this->getShippingLabel())
+                    ->shippingWeight($this->item->weight)
+                    ->condition("new")
+                    ->additionalImageLinks($this->item->attachments()->pluck('actual_path')->map(function ($path) {
+                        return $this->getImageUrl($path);
+                    }))
+//                    ->customAttributes($attributes)
+                    ->link($link)
+                    ->contentLanguage('en')
+                    ->availability($this->item->available_qty >= 0 ? 'in stock' : 'out of stock');
+//            "in stock", "out of stock", or "preorder"
+//                    ->mobileLink($link);
+            })->then(function ($response) {
+                echo 'Product inserted';
+            })->catch(function ($erro) {
+                var_dump($erro);
+            });
+
 
         } else {
 
             ProductApi::delete(function ($product) {
                 $product
+                    ->contentLanguage('ar')
                     ->offerId($this->item->barcode);
             })->then(function ($response) {
-            })->catch(function($erro) {
+            })->catch(function ($erro) {
+            });
+
+            ProductApi::delete(function ($product) {
+                $product
+                    ->contentLanguage('en')
+                    ->offerId($this->item->barcode);
+            })->then(function ($response) {
+            })->catch(function ($erro) {
             });
         }
 
