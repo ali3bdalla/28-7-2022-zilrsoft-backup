@@ -50,6 +50,7 @@ class CreateSalesOrderJob implements ShouldQueue
         $order = new Order();
         $order->lang = app()->getLocale();
         $order->user_id = $this->invoice->user_id;
+        $order->organization_id = $this->invoice->organization_id;
         $order->shipping_address_id = $this->request->input('shipping_address_id');
         $order->payment_method = $this->request->input('payment_method_id');
         $order->shipping_method_id = $this->request->input('shipping_method_id');
@@ -59,9 +60,9 @@ class CreateSalesOrderJob implements ShouldQueue
         $order->shipping_cost = $this->getShippingCost($invoiceItems);
         $order->shipping_weight = $this->getItemsTotalShippingWeight($invoiceItems);
         $order->net = (float)$this->invoice->net + (float)$shippingAmount;
-        $order->auto_cancel_at = Carbon::now()->addMinutes(config('app.store.cancel_unpaid_orders_after',30));
+        $order->auto_cancel_at = Carbon::now()->addMinutes(config('app.store.cancel_unpaid_orders_after', 30));
         $order->is_should_pay_notified = false;
-        $order->should_pay_last_notification_at = Carbon::now()->addMinutes(config('app.store.notify_unpaid_orders_after',25));
+        $order->should_pay_last_notification_at = Carbon::now()->addMinutes(config('app.store.notify_unpaid_orders_after', 25));
         $order->order_secret_code = (rand(10000, 99999));
         $order->delivery_man_code = (rand(100, 999));
         $order->status = 'issued';
