@@ -9,27 +9,27 @@
             <h2>{{ $page.$t.order.order }} #{{ $page.order.id }}</h2>
             <div class="flex">
               <div
-                class="flex-1 group-input text-center"
-                style="direction: ltr"
+                  class="flex-1 group-input text-center"
+                  style="direction: ltr"
               >
                 <div>
                   <label for="first_name">{{
-                    $page.$t.order.remmning_time_to_auto_cancel_order
-                  }}</label>
+                      $page.$t.order.remmning_time_to_auto_cancel_order
+                    }}</label>
                 </div>
-                <br />
+                <br/>
                 <flip-countdown
-                  :deadline="$page.order.auto_cancel_at"
-                  :showDays="false"
-                  :showHours="false"
+                    :deadline="$page.order.auto_cancel_at"
+                    :showDays="false"
+                    :showHours="false"
                 ></flip-countdown>
               </div>
             </div>
-            <br />
+            <br/>
             <form action="#">
               <!-- <PaymentAccounts @updateAccountId="updateAccountId"></PaymentAccounts> -->
               <div>
-                 <!-- <label for="first_name">{{ $page.$t.common.select_or_create_account }}</label> -->
+                <!-- <label for="first_name">{{ $page.$t.common.select_or_create_account }}</label> -->
                 <!-- <div class="flex-1 flex items-center justify-between group-input gap-2">
                   <select v-model="senderAccountId" class="">
                     <option :value="null">
@@ -50,13 +50,13 @@
               <div class="flex">
                 <div class="flex-1 group-input">
                   <label for="first_name">{{
-                    $page.$t.order.transmitter_name
-                  }}</label>
+                      $page.$t.order.transmitter_name
+                    }}</label>
                   <input
-                    id="first_name"
-                    v-model="form.firstName"
-                    :placeholder="$page.$t.profile.first_name"
-                    type="text"
+                      id="first_name"
+                      v-model="form.firstName"
+                      :placeholder="$page.$t.profile.first_name"
+                      type="text"
                   />
                   <div v-if="$page.errors.first_name" class="p-2 text-red-500">
                     {{ $page.errors.first_name }}
@@ -66,10 +66,10 @@
                   <label for="first_name">.</label>
 
                   <input
-                    id="last_name"
-                    v-model="form.lastName"
-                    :placeholder="$page.$t.profile.last_name"
-                    type="text"
+                      id="last_name"
+                      v-model="form.lastName"
+                      :placeholder="$page.$t.profile.last_name"
+                      type="text"
                   />
                   <div v-if="$page.errors.last_name" class="p-2 text-red-500">
                     {{ $page.errors.last_name }}
@@ -77,7 +77,7 @@
                 </div>
               </div>
 
-              <div class="flex flex-col" >
+              <div class="flex flex-col">
                 <div class="flex-1 group-input">
                   <div>
                     <select v-model="form.bankId" class="">
@@ -85,9 +85,9 @@
                         {{ $page.$t.common.select_sender_bank }}
                       </option>
                       <option
-                        v-for="bank in $page.banks"
-                        :key="bank.id"
-                        :value="bank.id"
+                          v-for="bank in $page.banks"
+                          :key="bank.id"
+                          :value="bank.id"
                       >
                         {{ bank.locale_name }}
                       </option>
@@ -115,7 +115,7 @@
                 <div class="flex-1 group-input">
                   <label for="first_name">{{ $page.$t.order.to_blank }}</label>
                   <div
-                    class="flex flex-col text-center items-center justify-between"
+                      class="flex flex-col text-center items-center justify-between"
                   >
                     <div>{{ $page.receivedBank.locale_name }}</div>
                     <div>SA7280000122608010398991</div>
@@ -138,7 +138,10 @@ import FlipCountdown from 'vue2-flip-countdown'
 import LanguageSwitcher from '../../../components/Web/Page/LanguageSwitcher'
 
 export default {
-  components: { LanguageSwitcher, FlipCountdown },
+  components: {
+    LanguageSwitcher,
+    FlipCountdown
+  },
   data () {
     return {
       showCreate: false,
@@ -162,15 +165,19 @@ export default {
       }
     },
     addNewAccount () {
+      window.getGooogleTag('event', 'conversion', {
+        send_to: 'AW-851059339/U_sVCLfmhI0CEIvF6JUD',
+        transaction_id: this.$page.order.id
+      })
       // this.form.accountNumber
       this.$inertia.post(
-        `/api/web/${this.$page.order.user_id}/payment_accounts`,
-        {
-          detail: '00000000',
-          first_name: this.form.firstName,
-          last_name: this.form.lastName,
-          bank_id: this.form.bankId
-        }
+          `/api/web/${this.$page.order.user_id}/payment_accounts`,
+          {
+            detail: '00000000',
+            first_name: this.form.firstName,
+            last_name: this.form.lastName,
+            bank_id: this.form.bankId
+          }
       )
       this.$inertia.on('invalid', (event) => {
         event.preventDefault()
