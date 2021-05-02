@@ -64,7 +64,7 @@
 				SendPaymentConfirmationListener::class
 			],
             ItemUpdatedEvent::class => [
-                UpdateGoogleRecordListener::class
+//                UpdateGoogleRecordListener::class
             ]
 
 		];
