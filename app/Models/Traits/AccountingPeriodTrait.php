@@ -16,26 +16,26 @@ trait AccountingPeriodTrait
      */
     protected static function bootAccountingPeriodTrait()
     {
-        if (auth('manager')->check()) {
-
-            $isHasYearClosing = true; auth()->user()->organization->getConfig('IS_HAS_YEAR_CLOSING', 'ACCOUNTING');
-
-            if ($isHasYearClosing) {
-                $table = (new static)->getTable();
-                if (Schema::hasColumn($table, 'organization_id')  && $table != 'invoice_items' ) {
-                    $STARTAT = static::getAccountingStartYear(auth()->user());
-                    $ENDAT =  static::getAccountingEndYear(auth()->user());
-
-                    static::addGlobalScope(
-                        'accountingPeriod',
-                        function (Builder $builder) use ($table, $STARTAT, $ENDAT) {
-                            $builder->whereYear("{$table}.created_at", '>=', $STARTAT)->whereYear("{$table}.created_at", '<', $ENDAT);
-
-                        }
-                    );
-                }
-            }
-        }
+//        if (auth('manager')->check()) {
+//
+//            $isHasYearClosing = true; auth()->user()->organization->getConfig('IS_HAS_YEAR_CLOSING', 'ACCOUNTING');
+//
+//            if ($isHasYearClosing) {
+//                $table = (new static)->getTable();
+//                if (Schema::hasColumn($table, 'organization_id')  && $table != 'invoice_items' ) {
+//                    $STARTAT = static::getAccountingStartYear(auth()->user());
+//                    $ENDAT =  static::getAccountingEndYear(auth()->user());
+//
+//                    static::addGlobalScope(
+//                        'accountingPeriod',
+//                        function (Builder $builder) use ($table, $STARTAT, $ENDAT) {
+//                            $builder->whereYear("{$table}.created_at", '>=', $STARTAT)->whereYear("{$table}.created_at", '<', $ENDAT);
+//
+//                        }
+//                    );
+//                }
+//            }
+//        }
     }
 
     private static function getAccountingStartYear(Manager $manager)
