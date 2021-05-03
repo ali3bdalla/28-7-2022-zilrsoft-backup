@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Foundation\Http\Exceptions\MaintenanceModeException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Inertia\Inertia;
 use App\Models\Category;
 use Illuminate\Support\Facades\Session;
@@ -23,7 +25,7 @@ class FrontEndMiddleware
 	 */
 	public function handle($request, Closure $next)
 	{
-	    abort(401,'جاري تحديث الموقع');
+        throw new MaintenanceModeException(null, null,'جاري تحديث الموقع');
 
 		Inertia::setRootView('web');
 
