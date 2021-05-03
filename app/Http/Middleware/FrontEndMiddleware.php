@@ -23,6 +23,8 @@ class FrontEndMiddleware
 	 */
 	public function handle($request, Closure $next)
 	{
+	    abort(401,'جاري تحديث الموقع');
+
 		Inertia::setRootView('web');
 
 		$activeLang = Session::get('webActiveLang', 'ar');
