@@ -25,7 +25,6 @@ class FrontEndMiddleware
 	 */
 	public function handle($request, Closure $next)
 	{
-        throw new MaintenanceModeException(null, null,'جاري تحديث الموقع');
 
 		Inertia::setRootView('web');
 
