@@ -78,7 +78,6 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
                 $phoneNumber,
                 $this->order->id . '.pdf'
             );
-            Whatsapp::sendFile($pdfUrl, '00201557138744', $this->order->id . '.pdf');
         }
 
 
