@@ -147,7 +147,7 @@ class User extends BaseAuthModel
 
 	public function creator()
 	{
-		return $this->belongsTo(Manager::class, 'creator_id');
+		return $this->belongsTo(Manager::class, 'creator_id')->withTrashed();
 	}
 
 	public function manager()
