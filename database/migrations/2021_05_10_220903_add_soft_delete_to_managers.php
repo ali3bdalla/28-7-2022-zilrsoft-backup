@@ -2,13 +2,11 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class AddSoftDeleteToManagers extends Migration
 {
-    use WithFaker;
 
     /**
      * Run the migrations.
@@ -21,26 +19,13 @@ class AddSoftDeleteToManagers extends Migration
             //
             $table->softDeletes();
         });
-//        $table->bigIncrements('id');
-//        $table->string('email')->unique();
-//        $table->timestamp('email_verified_at')->nullable();
-//        $table->string('password');
-//        $table->string('pin_code')->nullable();
-//        $table->string('name')->nullable();
-//        $table->string('name_ar')->nullable();
-//        $table->string('last_ip')->nullable();
-//        $table->string('profile_image')->nullable();
-//        $table->string('last_browser')->nullable();
-//        $table->integer('user_id');
-//        $table->integer('organization_id');
-//        $table->integer('branch_id');
-//        $table->integer('department_id');
-//        $table->enum('locale',['en','ar'])->default('ar');
+
+
         $removedUsers = [
             [
                 'id' => 16,
                 'name' => 'زياد الغفيلي',
-                'email' => $this->faker->safeEmail,
+                'email' => 'ziad@msbrshop.com',
                 'deleted_at' => now(),
                 'user_id' => 0,
                 'organization_id' => 1,
@@ -50,7 +35,7 @@ class AddSoftDeleteToManagers extends Migration
             [
                 'id' => 15,
                 'name' => 'احمد ضيف الله',
-                'email' => $this->faker->safeEmail,
+                'email' => 'a@msbrshop.com',
                 'deleted_at' => now(),
                 'user_id' => 0,
                 'organization_id' => 1,
@@ -60,7 +45,7 @@ class AddSoftDeleteToManagers extends Migration
             [
                 'id' => 13,
                 'name' => 'محمد البتال',
-                'email' => $this->faker->safeEmail,
+                'email' => 'm@msbrshop.com',
                 'deleted_at' => now(),
                 'user_id' => 0,
                 'organization_id' => 1,
@@ -69,7 +54,7 @@ class AddSoftDeleteToManagers extends Migration
             ], [
                 'id' => 12,
                 'name' => 'hgjgh',
-                'email' => $this->faker->safeEmail,
+                'email' => 'msbjjjar.acc.info@gmail.com',
                 'deleted_at' => now(),
                 'user_id' => 0,
                 'organization_id' => 1,
@@ -78,7 +63,7 @@ class AddSoftDeleteToManagers extends Migration
             ], [
                 'id' => 6,
                 'name' => 'عثمان',
-                'email' => $this->faker->safeEmail,
+                'email' => 'othman@msbrshop.com',
                 'deleted_at' => now(),
                 'user_id' => 0,
                 'organization_id' => 1,
@@ -87,7 +72,7 @@ class AddSoftDeleteToManagers extends Migration
             ], [
                 'id' => 5,
                 'name' => 'عبدالرحمن غزاي',
-                'email' => $this->faker->safeEmail,
+                'email' => 'g@msbrshop.com',
                 'deleted_at' => now(),
                 'user_id' => 0,
                 'organization_id' => 1,
