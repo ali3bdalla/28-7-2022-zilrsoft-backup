@@ -88,11 +88,11 @@ class StoreOrderRequest extends FormRequest
             dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             $order = CreateSalesOrderJob::dispatchNow($invoice->fresh(), $this);
             dispatch_now(new HoldItemQtyJob($invoice, $order));
+            dispatch(new NotifyCustomerByNewOrderJob($order, "", $invoice));
+//            NotifyCustomerByNewOrderJob::dispatchNow();
             DB::commit();
-            NotifyCustomerByNewOrderJob::dispatch($order, "", $invoice); //$path
             if ($this->acceptsJson())
                 return $invoice;
-
             return redirect('/web/profile');
         } catch (QueryException $queryException) {
             DB::rollBack();
