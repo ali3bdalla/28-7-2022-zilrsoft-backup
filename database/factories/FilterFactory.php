@@ -1,10 +1,11 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+/** @var Factory $factory */
 
 use App\Models\Filter;
 use App\Models\CategoryFilters;
 use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(Filter::class, function (Faker $faker) {
     return [

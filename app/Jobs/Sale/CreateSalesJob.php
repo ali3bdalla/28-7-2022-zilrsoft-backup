@@ -46,7 +46,7 @@ class CreateSalesJob implements ShouldQueue
         $this->salesmanId = $salesmanId ? $salesmanId : auth('manager')->user()->id;
         $this->aliasName = $aliasName;
         $this->quatationId = $quatationId;
-        $this->isOnlineOrder = $isOnlineOrder;;
+        $this->isOnlineOrder = $isOnlineOrder;
     }
 
     /**

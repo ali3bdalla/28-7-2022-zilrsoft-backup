@@ -26,7 +26,7 @@ class SmsaCreateShippmentJob implements ShouldQueue
      */
     public function __construct($shippmentData = [])
     {
-        $this->country_code = __('store.common.internationalKey');;
+        $this->country_code = __('store.common.internationalKey');
         $this->shippmentData = $shippmentData;
         //
     }
@@ -80,11 +80,11 @@ class SmsaCreateShippmentJob implements ShouldQueue
 
         $response = app("SmsaClient")->send($request);
         preg_match("#\<addShipmentResult\>(.*)<\/addShipmentResult\>#",(string)$response->getBody(),$matches);
-        if($trackingNumber = $matches[1]) 
+        if($trackingNumber = $matches[1])
         {
-            return $trackingNumber;       
+            return $trackingNumber;
         }
-        
+
 
 
 

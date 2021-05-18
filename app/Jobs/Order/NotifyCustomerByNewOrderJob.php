@@ -12,7 +12,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Storage;
 
 class NotifyCustomerByNewOrderJob implements ShouldQueue
 {
@@ -39,7 +38,7 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
      * @param string $path
      * @param Invoice $invoice
      */
-    public function __construct(Order $order, $path = "",  Invoice $invoice)
+    public function __construct(Order $order, $path = "", Invoice $invoice)
     {
         //
         $this->order = $order;
@@ -55,27 +54,26 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
     public function handle()
     {
         $phoneNumber = $this->order->user->international_phone_number;
-        $message = __('store.messages.notify_customer_by_new_order_message',[
+        $message = __('store.messages.notify_customer_by_new_order_message', [
             'CUSTOMER_NAME' => $this->order->user->name,
             'CANCEL_URL' => $this->order->generateCancelOrderUrl(),
             'PAYMENT_URL' => $this->order->generatePayOrderUrl(),
             'DEADLINE_TIME' => Carbon::now()->addMinutes(config('app.store.cancel_unpaid_orders_after'))->format('H:i'),
             'DEADLINE_DATE' => Carbon::now()->toDateString(),
-            'AMOUNT' => displayMoney($this->order->net) .' '. __('store.products.sar'),
+            'AMOUNT' => displayMoney($this->order->net) . ' ' . __('store.products.sar'),
             'ORDER_ID' => $this->order->id,
         ]);
 
-         $paymentLinkMessage = __('store.messages.notify_customer_by_new_order_message_payment_link',[
+        $paymentLinkMessage = __('store.messages.notify_customer_by_new_order_message_payment_link', [
             'CUSTOMER_NAME' => $this->order->user->name,
             'CANCEL_URL' => $this->order->generateCancelOrderUrl(),
             'PAYMENT_URL' => $this->order->generatePayOrderUrl(),
             'DEADLINE_TIME' => Carbon::now()->addMinutes(config('app.store.cancel_unpaid_orders_after'))->format('H:i'),
             'DEADLINE_DATE' => Carbon::now()->toDateString(),
-            'AMOUNT' => displayMoney($this->order->net) .' '. __('store.products.sar'),
+            'AMOUNT' => displayMoney($this->order->net) . ' ' . __('store.products.sar'),
             'ORDER_ID' => $this->order->id,
         ]);
-
-
+        $paymentLinkMessage .= trans('store.common.customer_support_note');
 
         if (config('app.store.notify_via_sms')) {
             sendSms($message, $phoneNumber);
@@ -99,16 +97,16 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
             );
             Whatsapp::sendMessage(
                 __('store.messages.send_from_other_banks_via_iban'),
-                $phoneNumber,false
+                $phoneNumber, false
             );
             Whatsapp::sendMessage(
                 "SA7280000122608010398991",
-                $phoneNumber,false
+                $phoneNumber, false
             );
 
             Whatsapp::sendMessage(
                 $paymentLinkMessage,
-                $phoneNumber
+                $phoneNumber, false
             );
         }
     }

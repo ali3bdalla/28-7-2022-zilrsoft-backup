@@ -54,7 +54,7 @@ class StoreBeginningInventoryRequest extends FormRequest
             $beginningInventoryUser = User::where([
                 ['user_slug', 'beginning-inventory'],
                 ['is_system_user', true]
-            ])->first();;
+            ])->first();
             $invoice = Invoice::create([
                 'invoice_type' => 'beginning_inventory',
                 'creator_id' => $authUser->id,

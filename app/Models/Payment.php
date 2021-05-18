@@ -63,7 +63,7 @@ class Payment extends BaseModel
 
     public function creator()
     {
-        return $this->belongsTo(Manager::class, 'creator_id')->withTrashed();;
+        return $this->belongsTo(Manager::class, 'creator_id')->withTrashed();
     }
 
 }

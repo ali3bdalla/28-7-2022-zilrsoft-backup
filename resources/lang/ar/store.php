@@ -67,13 +67,8 @@ return [
 تم تسليم الطلب بنجاح، .
 سعدنا بخدمتك",
         "notify_customer_by_new_order_message_payment_link" => "
-مرحبا *:CUSTOMER_NAME*
-
 بعد السداد، فضلا أنقر على الرابط التالي
 :PAYMENT_URL
-
-لإلغاء الطلب، أنقر على الرابط التالي
-:CANCEL_URL
  ",
         "notify_customer_by_new_order_message" => "
 مرحبا *:CUSTOMER_NAME*
@@ -304,6 +299,8 @@ return [
         'show_all' => "عرض الكل",
         'add_to_cart' => 'أضف الى السلة',
         'remove_to_cart' => 'أحذف من السلة',
+        'add_to_favourite' => 'أضف الى المفضلة',
+        'remove_from_favourite' => 'احدف من المفضلة',
         'product_specifications' => 'مواصفات المنتج',
         'out_of_stock' => 'غير متوفر',
         'sar' => 'ر.س',

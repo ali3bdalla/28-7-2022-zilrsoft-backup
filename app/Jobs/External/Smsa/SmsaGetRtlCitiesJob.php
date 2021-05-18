@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-
+use Throwable;
 
 
 class SmsaGetRtlCitiesJob implements ShouldQueue
@@ -27,7 +27,7 @@ class SmsaGetRtlCitiesJob implements ShouldQueue
             $data = simplexml_load_string(json_decode($result->body())->getRTLCitiesResult->any);
 
             return $data;
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return [];
         }
     }

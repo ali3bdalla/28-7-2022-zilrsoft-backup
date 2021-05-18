@@ -6,6 +6,7 @@ namespace App\Models\Traits;
 use App\Models\Configuration;
 use App\Models\Translation;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Str;
 
@@ -57,7 +58,7 @@ trait Configurable
 	{
 		try {
 			return Carbon::parse($configEntity->value);
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			return  $configEntity->value;
 		}
 	}

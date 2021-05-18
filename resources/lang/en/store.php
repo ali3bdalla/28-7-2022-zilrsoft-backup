@@ -72,14 +72,10 @@ Your order processing now, we will keep you in touch
         "unpaid_order_canceled_message" =>
             "Dear Customer *:CUSTOMER_NAME*,\n Sorry, Your Order #:ORDERID has been automatically cancelled \n\n Cancelled Reasons:\n :REASON . \n\n Customer Service (WhatsApp) \n Wa.me/065433",
         "notify_customer_by_new_order_message_payment_link" => "
-Dear *:CUSTOMER_NAME*
-
 Please fill this form after transfer:
     :PAYMENT_URL
     
-To cancel your order please click the flowing Link:
-    :CANCEL_URL
- ",
+",
         "notify_customer_by_new_order_message" => "
 Dear *:CUSTOMER_NAME*,
 Thank you for ordering form *Almesbar Shop* 
@@ -317,6 +313,8 @@ Receipt code :CODE
         'show_all' => "All",
         'add_to_cart' => 'Add To Cart',
         'remove_to_cart' => 'Remove From Cart',
+        'add_to_favourite' => 'Add To Favourite',
+        'remove_from_favourite' => 'Remove From Favourite',
         'product_specifications' => 'Product Specifications',
         'out_of_stock' => 'Out Of Stock',
         'sar' => 'SR',

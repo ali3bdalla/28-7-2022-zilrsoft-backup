@@ -28,8 +28,9 @@ class CreateManagersTable extends Migration
             $table->integer('organization_id');
             $table->integer('branch_id');
             $table->integer('department_id');
-            $table->enum('locale',['en','ar'])->default('ar');
+            $table->enum('locale', ['en', 'ar'])->default('ar');
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

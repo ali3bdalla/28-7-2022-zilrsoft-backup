@@ -14,66 +14,57 @@ use Illuminate\View\View;
 
 class OrderController extends Controller
 {
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @param Request $request
-	 * @return Application|Factory|View
-	 */
-	public function index()
-	{
-		return view('orders.index');
-	}
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function index()
+    {
+        return view('orders.index');
+    }
 
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param Order $order
-	 * @return Response
-	 */
-	public function show(Order $order)
-	{
-		$phoneNumber = $order->user->international_phone_number;
-		$order->load('paymentDetail', 'user');
-		return view('orders.show', compact('order'));
-	}
+    /**
+     * Display the specified resource.
+     *
+     * @param Order $order
+     * @return Response
+     */
+    public function show(Order $order)
+    {
+        $order->load('paymentDetail', 'user');
+        return view('orders.show', compact('order'));
+    }
 
 
-
-
-
-
-
-
-	public function viewPayment(Order $order)
-	{
+    public function viewPayment(Order $order)
+    {
         $accounts = auth()->user()->gateways()->get();
-        return view('orders.view-payment', compact('order','accounts'));
-	}
-	public function viewShipping(Order $order)
-	{
-		$shippingMen = $order->shippingMethod->deliveryMen()->get();
-		return view('orders.view-shipping', compact('order', 'shippingMen'));
-	}
+        return view('orders.view-payment', compact('order', 'accounts'));
+    }
+
+    public function viewShipping(Order $order)
+    {
+        $shippingMen = $order->shippingMethod->deliveryMen()->get();
+        return view('orders.view-shipping', compact('order', 'shippingMen'));
+    }
 
 
+    public function acceptOrderAsManager(Order $order)
+    {
+        if (!$order->status == 'paid') {
+            return view('errors.custom');
+        }
+        $order->update(
+            [
+                'status' => 'in_progress',
+                'managed_by_id' => auth()->user()->id
+            ]
+        );
 
-
-
-	public function acceptOrderAsManager(Order $order)
-	{
-		if (!$order->status == 'paid') {
-			return view('errors.custom');
-		}
-		$order->update(
-			[
-				'status' => 'in_progress',
-				'managed_by_id' => auth()->user()->id
-			]
-		);
-
-		return redirect('/sales/' . $order->draft_id );
-		// drafts// . '/to_invoice'
-	}
+        return redirect('/sales/' . $order->draft_id);
+        // drafts// . '/to_invoice'
+    }
 }

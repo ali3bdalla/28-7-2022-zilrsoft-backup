@@ -1,29 +1,25 @@
 <template>
- <!-- animate__animated animate__bounceIn -->
   <div
-    class="product__list-item"
-    style="border-color: #d2e8ff !important; border-width: 3px !important;"
-    :style="$page.active_locale === 'ar' ? 'direction:rtl' : 'direction:ltr'"
+      :style="$page.active_locale === 'ar' ? 'direction:rtl' : 'direction:ltr'"
+      class="product__list-item"
+      style="border-color: #d2e8ff !important; border-width: 3px !important;"
   >
     <div class="product__list-item-image-container">
       <a :href="`/web/items/${item.id}`"
-        ><img :src="$processedImageUrl(item.item_image_url,334 * 5,250  * 5)" class="product__list-item-image"/>
-        <!-- <img :src="[$page.image_processing_url ? `${$page.image_processing_url}/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/334/250/sm/0/plain/${item.item_image_url}` : item.item_image_url]" class="product__list-item-image" -->
+      ><img :alt="item.locale_name" :src="$processedImageUrl(item.item_image_url,334 * 5,250  * 5)"
+            class="product__list-item-image"/>
       </a>
-      <!-- `http://46.101.185.238:8080/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/fit/334/250/sm/0/plain/` + -->
     </div>
     <div class="product__list-item-content">
       <h3
-        class="product__list-item-category-name product__list-item-category-name__out-of-stock"
-        v-if="item.available_qty <= 0 || item.category == null"
+          v-if="item.available_qty <= 0 || item.category == null"
+          class="product__list-item-category-name product__list-item-category-name__out-of-stock"
       >
         <span> {{ $page.$t.products.out_of_stock }} </span>
       </h3>
-      <!-- `/web/items?category_id=${item.category.id}&&name=&&search_via=null` -->
-      <a  v-else :href="`/web/items/search/results?category_id=${item.category_id}`"
-          ><h3 class="product__list-item-category-name">
-        {{ item.category ? item.category.locale_name : "" }}
-  <!-- `/web/items/search/results?${$page.algolia_items_search_as}%5BrefinementList%5D%5B${$page.active_logo == 'en' ? 'category_name' : 'category_ar_name'}%5D%5B0%5D=${item.category ? item.category.locale_name : ''}` -->
+      <a v-else :href="`/web/items/search/results?category_id=${item.category_id}`"
+      ><h3 class="product__list-item-category-name">
+        {{ item.category ? item.category.locale_name : '' }}
       </h3></a>
 
       <a :href="`/web/items/${item.id}`" class="product__list-item-name">
@@ -33,30 +29,23 @@
         {{ $page.$t.products.model }} : {{ modelNumber }}
       </h6>
       <ProductRatingComponent
-        :item="item"
-        class="product__list-item-cart-options"
+          :item="item"
+          class="product__list-item-cart-options"
       ></ProductRatingComponent>
-
-<!--      <h4 class="product__list-item-price">-->
-<!--        {{ parseFloat(item.online_price).toFixed(2) }}-->
-<!--      </h4>-->
-<!--      <span class="product__list-item-currency">{{-->
-<!--        $page.$t.products.sar-->
-<!--      }}</span>-->
       <div>
         <h4 class="product__list-item-old-price">
           {{ parseFloat(item.online_offer_price).toFixed(2) }}
         </h4>
         <span class="product__list-item-currency">{{
-          $page.$t.products.sar
-        }}</span>
+            $page.$t.products.sar
+          }}</span>
       </div>
       <p class="product__list-item-including-tax">
-       {{ $page.$t.products.inc }}
+        {{ $page.$t.products.inc }}
       </p>
       <ToggleCartItemButtonComponent
-        :item="item"
-        class="product__list-item-cart-options"
+          :item="item"
+          class="product__list-item-cart-options"
       ></ToggleCartItemButtonComponent>
     </div>
   </div>
@@ -67,13 +56,18 @@ import ToggleCartItemButtonComponent from '../Cart/ToggleCartItemButtonComponent
 import ProductRatingComponent from './ProductRatingComponent'
 
 export default {
-  components: { ToggleCartItemButtonComponent, ProductRatingComponent },
+  components: {
+    ToggleCartItemButtonComponent,
+    ProductRatingComponent
+  },
   props: ['item', 'index'],
 
   computed: {
     productName () {
       const modelNumber = this.modelNumber
-      if (modelNumber != '') { return this.item.locale_name.replace(modelNumber, '') }
+      if (modelNumber != '') {
+        return this.item.locale_name.replace(modelNumber, '')
+      }
 
       return this.item.locale_name
     },
@@ -81,7 +75,9 @@ export default {
       if (this.item.filters) {
         const modelNumber = this.item.filters.find((p) => p.filter_id == 38)
 
-        if (modelNumber && modelNumber.value) { return modelNumber.value.locale_name }
+        if (modelNumber && modelNumber.value) {
+          return modelNumber.value.locale_name
+        }
       }
 
       return ''
