@@ -74,6 +74,7 @@ Your order processing now, we will keep you in touch
         "notify_customer_by_new_order_message_payment_link" => "
 Please fill this form after transfer:
     :PAYMENT_URL
+    
 ",
         "notify_customer_by_new_order_message" => "
 Dear *:CUSTOMER_NAME*,

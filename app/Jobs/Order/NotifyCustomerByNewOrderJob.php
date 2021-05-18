@@ -38,12 +38,12 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
      * @param string $path
      * @param Invoice $invoice
      */
-    public function __construct(Order $order, $path = "", Invoice $invoice = null)
+    public function __construct(Order $order, $path = "", Invoice $invoice)
     {
         //
         $this->order = $order;
         $this->path = $path;
-        $this->invoice = $invoice ?? $order->invoice;
+        $this->invoice = $invoice;
     }
 
     /**
