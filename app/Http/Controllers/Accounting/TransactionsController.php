@@ -10,7 +10,10 @@ use App\Models\Item;
 use App\Models\Transaction;
 use App\Models\TransactionsContainer;
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class TransactionsController extends Controller
@@ -46,7 +49,7 @@ class TransactionsController extends Controller
     /**
      * @param CreateTransactionRequest $request
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return Application|ResponseFactory|Response
      */
     public function store(CreateTransactionRequest $request)
     {

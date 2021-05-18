@@ -317,6 +317,8 @@ Receipt code :CODE
         'show_all' => "All",
         'add_to_cart' => 'Add To Cart',
         'remove_to_cart' => 'Remove From Cart',
+        'add_to_favourite' => 'Add To Favourite',
+        'remove_from_favourite' => 'Remove From Favourite',
         'product_specifications' => 'Product Specifications',
         'out_of_stock' => 'Out Of Stock',
         'sar' => 'SR',

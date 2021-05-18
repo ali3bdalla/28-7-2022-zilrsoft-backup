@@ -12,6 +12,7 @@ use App\Models\InvoiceItems;
 use App\Models\Item;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -222,12 +223,12 @@ class StoreSaleItemsJob implements ShouldQueue
         return $this->performDBCreation($data);
     }
 
-    private function performDBCreation($data = []): \Illuminate\Database\Eloquent\Model
+    private function performDBCreation($data = []): Model
     {
         return $this->invoice->items()->create($data);
     }
 
-    private function createInvoiceItem(Item $item, $requestItemCollection): \Illuminate\Database\Eloquent\Model
+    private function createInvoiceItem(Item $item, $requestItemCollection): Model
     {
 
         $isBelongToKit = (bool)$requestItemCollection->get('belong_to_kit');

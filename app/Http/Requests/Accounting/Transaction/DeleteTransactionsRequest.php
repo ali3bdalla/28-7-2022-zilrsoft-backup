@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Accounting\Transaction;
 
 use App\Models\TransactionsContainer;
+use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +50,7 @@ class DeleteTransactionsRequest extends FormRequest
         {
             DB::rollBack();
             return response(['message' => $e->getMessage()],500);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             return response(['message' => $e->getMessage()],500);
         }

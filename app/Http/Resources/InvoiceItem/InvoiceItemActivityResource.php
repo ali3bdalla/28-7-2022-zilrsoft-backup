@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\InvoiceItem;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class InvoiceItemActivityResource extends JsonResource
@@ -9,7 +10,7 @@ class InvoiceItemActivityResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -19,7 +20,7 @@ class InvoiceItemActivityResource extends JsonResource
         //     'id' => $this->id,
         //     'invoice_type' => $this->invoice_type,
         //     'tax' => $this->tax,
-            
+
         // ];
         return parent::toArray($request);
     }

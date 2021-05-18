@@ -12,7 +12,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Storage;
 
 class NotifyCustomerByNewOrderJob implements ShouldQueue
 {
@@ -65,7 +64,7 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
             'ORDER_ID' => $this->order->id,
         ]);
 
-         $paymentLinkMessage = __('store.messages.notify_customer_by_new_order_message_payment_link',[
+        $paymentLinkMessage = __('store.messages.notify_customer_by_new_order_message_payment_link',[
             'CUSTOMER_NAME' => $this->order->user->name,
             'CANCEL_URL' => $this->order->generateCancelOrderUrl(),
             'PAYMENT_URL' => $this->order->generatePayOrderUrl(),
@@ -76,7 +75,7 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
         ]);
 
 
-
+        dd($message);
         if (config('app.store.notify_via_sms')) {
             sendSms($message, $phoneNumber);
             sendSms($paymentLinkMessage, $phoneNumber);

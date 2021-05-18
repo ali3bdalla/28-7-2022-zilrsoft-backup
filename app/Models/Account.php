@@ -8,13 +8,14 @@ use App\Events\Models\Account\AccountUpdated;
 use App\Models\Traits\AccountBalanceTrait;
 
 use App\Models\Traits\NestingTrait;
+use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static where(array $array)
  * @method static whereNotIn(string $string, string[] $array)
- * @method static each(\Closure $param)
+ * @method static each(Closure $param)
  * @property mixed parent
  * @property mixed transactions
  * @property mixed locale_name

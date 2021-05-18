@@ -304,6 +304,8 @@ return [
         'show_all' => "عرض الكل",
         'add_to_cart' => 'أضف الى السلة',
         'remove_to_cart' => 'أحذف من السلة',
+        'add_to_favourite' => 'أضف الى المفضلة',
+        'remove_from_favourite' => 'احدف من المفضلة',
         'product_specifications' => 'مواصفات المنتج',
         'out_of_stock' => 'غير متوفر',
         'sar' => 'ر.س',

@@ -1,5 +1,5 @@
 <?php
-	
+
 	namespace App\Http;
 
 use App\Http\Middleware\ApiAuth;
@@ -30,11 +30,12 @@ use App\Http\Middleware\Authenticate;
 	use Illuminate\Session\Middleware\AuthenticateSession;
 	use Illuminate\Session\Middleware\StartSession;
 	use Illuminate\View\Middleware\ShareErrorsFromSession;
-	use Michaelmetz\Passwordprotect\Middleware\PasswordProtect;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
+use Michaelmetz\Passwordprotect\Middleware\PasswordProtect;
 	use Spatie\Permission\Middlewares\PermissionMiddleware;
 	use Spatie\Permission\Middlewares\RoleMiddleware;
 	use Spatie\Permission\Middlewares\RoleOrPermissionMiddleware;
-	
+
 	class Kernel extends HttpKernel
 	{
 		/**
@@ -51,7 +52,7 @@ use App\Http\Middleware\Authenticate;
 			TrimStrings::class,
 			ConvertEmptyStringsToNull::class,
 		];
-		
+
 		/**
 		 * The application's route middleware groups.
 		 *
@@ -66,17 +67,17 @@ use App\Http\Middleware\Authenticate;
 				ShareErrorsFromSession::class,
 //            VerifyCsrfToken::class,
 				SubstituteBindings::class,
-			
+
 			],
-			
+
 			'api' => [
-				\Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+				EnsureFrontendRequestsAreStateful::class,
 				'throttle:60,1',
 				'bindings',
-			
+
 			],
 		];
-		
+
 		/**
 		 * The application's route middleware.
 		 *
@@ -105,7 +106,7 @@ use App\Http\Middleware\Authenticate;
 			'manager_guest' => ManagerGuestMiddleware::class,
 			'api_auth' => ApiAuth::class,
 		];
-		
+
 		/**
 		 * The priority-sorted list of middleware.
 		 *

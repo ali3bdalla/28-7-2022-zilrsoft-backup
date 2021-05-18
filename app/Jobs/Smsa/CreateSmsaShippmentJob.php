@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Smsa;
 
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -61,7 +62,7 @@ class CreateSmsaShippmentJob implements ShouldQueue
             $result = $client->getRTLCities($checkVatParameters);
 //            $xml=simplexml_load_string($result->getRTLCitiesResult->schema);
             dd($result);
-        }catch (\Exception $exception) {
+        }catch (Exception $exception) {
 
         }
     }

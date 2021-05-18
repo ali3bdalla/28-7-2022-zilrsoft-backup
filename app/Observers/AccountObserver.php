@@ -10,7 +10,7 @@ class AccountObserver
     /**
      * Handle the organization "created" event.
      *
-     * @param  \App\Models\Account  $account
+     * @param Account $account
      * @return void
      */
     public function created(Account $account)
@@ -26,7 +26,7 @@ class AccountObserver
     /**
      * Handle the organization "updated" event.
      *
-     * @param  \App\Models\Account  $account
+     * @param Account $account
      * @return void
      */
     public function updated(Account $account)
@@ -42,7 +42,7 @@ class AccountObserver
     /**
      * Handle the organization "deleted" event.
      *
-     * @param  \App\Models\Account  $account
+     * @param Account $account
      * @return void
      */
     public function deleted(Account $account)
@@ -53,5 +53,5 @@ class AccountObserver
 
     }
 
-    
+
 }
