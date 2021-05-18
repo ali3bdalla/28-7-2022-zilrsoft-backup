@@ -11,7 +11,7 @@ Route::group(['prefix' => 'delivery_man'], function () {
     Route::get('/{transaction}/resend_otp', 'DeliveryManController@resendOtp');
 });
 
-
+\App\Jobs\Order\NotifyCustomerByNewOrderJob::dispatchNow(\App\Models\Order::whereHas('invoice')->first());
 Route::get('/', 'Web\HomeController@toWeb')->name('to.web');
 
 Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->name('web.')->group(
