@@ -71,14 +71,12 @@ class ConfirmOrderPaymentRequest extends FormRequest
    رابط التاكيد : https://next.zilrsoft.com/web/orders/{$order->id}
 ";
             if (app()->environment('production')) {
-
                 Whatsapp::sendMessage($message, "966509025606", false);
                 Whatsapp::sendMessage($message, "966509362779", false);
                 Whatsapp::sendMessage($message, "966552243345", false);
                 Whatsapp::sendMessage($message, "966504950211", false);
             } else {
-                Whatsapp::sendMessage($message, "00201557138744", false);
-
+                Whatsapp::sendMessage($message, "0024966324018", false);
             }
             DB::commit();
             event(new ClientUpdateOrderPaymentEvent($order));

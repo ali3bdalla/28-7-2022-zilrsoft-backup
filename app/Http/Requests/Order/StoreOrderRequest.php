@@ -89,7 +89,6 @@ class StoreOrderRequest extends FormRequest
             $order = CreateSalesOrderJob::dispatchNow($invoice->fresh(), $this);
             dispatch_now(new HoldItemQtyJob($invoice, $order));
             dispatch_now(new NotifyCustomerByNewOrderJob($order, "", $invoice));
-//            NotifyCustomerByNewOrderJob::dispatchNow();
             DB::commit();
             if ($this->acceptsJson())
                 return $invoice;
