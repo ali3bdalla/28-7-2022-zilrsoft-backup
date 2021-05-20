@@ -572,7 +572,7 @@ export default {
     itemNetUpdated(item) {
       item.net = parseFloat(item.net).toFixed(2);
       item.total = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vtp);
-      item.purchase_price = parseInt(item.qty) === 0 ? 0 : parseFloat(item.total) / parseInt(item.qty);
+      item.purchase_price = parseFloat(parseInt(item.qty) === 0 ? 0 : parseFloat(item.total) / parseInt(item.qty)).toFixed(3);
       item.subtotal = item.total;
       item.tax = ItemAccounting.getTax(item.subtotal, item.vtp, true);
       item.discount = 0;

@@ -19,8 +19,10 @@
     <style>
         body {
             padding: 10px;
+            margin: 10px;
             padding-bottom: 0px !important;
             margin-bottom: 0px !important;
+
         }
 
         tr th, tr td {
@@ -269,8 +271,7 @@
                                                         style="width: 10%  !important;text-align: right !important;
                                                                 font-weight: bold;font-size: 10px !important;color: black;
                                                                 background-color:
-													    <?php echo $background_color;?> !important;padding-right: 20px !important;">{{
-                                $serial->serial }}</td>
+													    <?php echo $background_color;?> !important;padding-right: 20px !important;">{{$serial->serial }}</td>
                                                     <td class="total" style="background-color:
 													<?php echo $background_color;?> !important;"></td>
                                                     @if($invoice->show_items_price_in_print_mode)
