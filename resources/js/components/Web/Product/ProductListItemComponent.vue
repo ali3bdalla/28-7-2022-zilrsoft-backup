@@ -5,7 +5,7 @@
       style="border-color: #d2e8ff !important; border-width: 3px !important;"
   >
     <div class="product__list-item-image-container">
-      <a :href="`/web/items/${item.id}`"
+      <a :href="`/web/items/${item.slug}`"
       ><img :alt="item.locale_name" :src="$processedImageUrl(item.item_image_url,334 * 5,250  * 5)"
             class="product__list-item-image"/>
       </a>
@@ -22,7 +22,7 @@
         {{ item.category ? item.category.locale_name : '' }}
       </h3></a>
 
-      <a :href="`/web/items/${item.id}`" class="product__list-item-name">
+      <a :href="`/web/items/${item.slug}`" class="product__list-item-name">
         {{ productName }}
       </a>
       <h6 class="product__list-item-model-number">

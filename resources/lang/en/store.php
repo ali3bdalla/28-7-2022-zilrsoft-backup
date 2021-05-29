@@ -2,6 +2,7 @@
 
 return [
     "app" => [
+        "description" => '',
         "name" => 'Almesbar Shop'
     ],
     "header" => [
@@ -61,7 +62,7 @@ return [
 Success delivered,
 Happy to serve you",
         "notify_customer_by_payment_confirmation" => "
-Dear *:CUSTOMER_NAME* 
+Dear *:CUSTOMER_NAME*
 Your payment has been confirmed for order :ORDER_ID
 Your order processing now, we will keep you in touch
 ",
@@ -74,19 +75,19 @@ Your order processing now, we will keep you in touch
         "notify_customer_by_new_order_message_payment_link" => "
 Please fill this form after transfer:
     :PAYMENT_URL
-    
+
 ",
         "notify_customer_by_new_order_message" => "
 Dear *:CUSTOMER_NAME*,
-Thank you for ordering form *Almesbar Shop* 
+Thank you for ordering form *Almesbar Shop*
 Order: *:ORDER_ID*
 Amount: *:AMOUNT*
 
-Payment via transfer to our account in Rajhi bank named: Bait Almesbar For Trading 
+Payment via transfer to our account in Rajhi bank named: Bait Almesbar For Trading
 
 
-   
-Deadline for Payment 
+
+Deadline for Payment
     *:DEADLINE_DATE*
     *:DEADLINE_TIME*
 ",
@@ -452,7 +453,7 @@ Receipt code :CODE
         <h4 class='content__title'>External links and ads</h4>Our site may include links to other websites on the Internet. Or ads from advertising companies such as Google AdSense and we are not responsible for the methods of data collection by those sites, you can see the privacy policies and contents of those sites when accessing them.
         We may use third-party advertising companies to serve ads when you visit our site. These companies have the right to use information about your visits to our website (except for the name, address, email address or phone number), in order to provide advertisements about the goods and services that interest you.
         We also may use Affiliate Links for some companies to market products or services to you, knowing that we do not have any interference or responsibility in the data that you enter in the pages of these products or in the information they collect about you, and you can always Learn about the policies of those sites by visiting their privacy policy page on their website.
-        <h4 class='content__title'>Disclosure of information</h4>We will at all times maintain the privacy and confidentiality of all personal data that we obtain. This information will only be disclosed if it is required by any law or court memo, and only when we believe in good faith that such action will be required or desirable to comply with the law, or to defend or protect the property rights of this site or its beneficiaries. 
+        <h4 class='content__title'>Disclosure of information</h4>We will at all times maintain the privacy and confidentiality of all personal data that we obtain. This information will only be disclosed if it is required by any law or court memo, and only when we believe in good faith that such action will be required or desirable to comply with the law, or to defend or protect the property rights of this site or its beneficiaries.
         <h4 class='content__title'>Fair use of our services</h4>The visitor assumes all responsibility for all his data, which he uploads and publishes through our website.
         The visitor shall not attempt to access, piracy, or amend any information about him or the administration that has no authority to access it. In the event that this is done, the site and its administration shall have the full right to pursue judicially.
         The visitor shall abide by all conditions of use, and not to use the Almesbar Shop website or anything that falls within our site for anything that violates Islamic law in any way, or for unlawful purposes, for example but not limited to, such as: piracy, publication, and distribution of copied materials or programs , Deception, forgery, fraud, threat, or inconvenience to any person, company, group, posting viruses or spyware, or placing links to sites that contain such violations ..

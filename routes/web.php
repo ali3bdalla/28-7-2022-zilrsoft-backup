@@ -82,7 +82,7 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
             function () {
                 Route::get('/search/results', 'ItemController@search')->name('search');
                 Route::get('/', 'ItemController@index')->name('index');
-                Route::get('/{item}', 'ItemController@show')->name('show');
+                Route::get('/{itemSlug}', 'ItemController@show')->name('show');
             }
         );
 

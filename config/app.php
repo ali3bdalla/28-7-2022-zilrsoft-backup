@@ -17,6 +17,9 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'ar_title' => 'مؤسسة بيت المسبار التجارية',
+    'en_title' => 'Bit Almesbar For Trading',
+
     'version' => env('APP_VERSION', '1.0'),
 
 

@@ -62,7 +62,7 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
                     if ($filter->filter && $filter->value)
                         $attributes[$filter->filter->locale_name] = $filter->value->locale_name;
                 }
-                $link = 'https://msbrshop.com/web/items/' . $this->item->id;
+                $link = 'https://msbrshop.com/web/items/' . $this->item->ar_slug;
                 return $product
                     ->title($this->item->locale_name)
                     ->offerId($this->item->barcode)

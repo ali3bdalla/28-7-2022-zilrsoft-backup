@@ -34,6 +34,60 @@ class RouteServiceProvider extends ServiceProvider
 
     }
 
+    protected function registerBindings()
+    {
+        Route::bind('itemSlug', function ($value) {
+            return Item::where('en_slug', $value)->orWhere('ar_slug', $value)->firstOrFail();
+        });
+        Route::bind('kit', function ($value) {
+            return Item::where([
+                ['is_kit', true],
+                ['id', $value],
+            ])->firstOrFail();
+        });
+
+        Route::bind('sale', function ($value) {
+            return Invoice::where([
+                ['id', $value],
+            ])
+                ->whereIn('invoice_type', ['return_sale', 'sale'])
+                ->withoutGlobalScopes(['draft', 'accountingPeriod', "manager"])->first();
+        });
+//
+        Route::bind('purchase', function ($value) {
+            return Invoice::where([
+                ['id', $value],
+            ])
+                ->whereIn('invoice_type', ['return_purchase', 'purchase', 'beginning_inventory', 'inventory_adjustment'])
+                ->withoutGlobalScope('manager')->first();
+        });
+
+        Route::bind('returnPurchase', function ($value) {
+            return Invoice::where([
+                ['id', $value],
+                ['invoice_type', 'return_purchase']
+            ])->withoutGlobalScope('manager')->first();
+        });
+
+
+        Route::bind('invoice', function ($value) {
+            return Invoice::where([
+                ['id', $value],
+            ])
+                ->withoutGlobalScopes(['draft', 'accountingPeriod', "manager"])->first();
+        });
+
+
+        Route::bind('quotation', function ($value) {
+            return Invoice::where([
+                ['id', $value],
+            ])
+                ->whereIn('invoice_type', ['return_sale', 'sale'])
+                ->withoutGlobalScopes(['draft', 'accountingPeriod', "manager"])->first();
+        });
+//
+    }
+
     /**
      * Define the routes for the application.
      *
@@ -64,14 +118,13 @@ class RouteServiceProvider extends ServiceProvider
 
     }
 
-
     protected function mapApiRoutes()
     {
         Route::middleware(['api'])
-        ->prefix('mobile')
-        ->name('mobile.')
-        ->namespace($this->apiNamespace)
-        ->group(base_path('routes/mobile.php'));
+            ->prefix('mobile')
+            ->name('mobile.')
+            ->namespace($this->apiNamespace)
+            ->group(base_path('routes/mobile.php'));
 
         Route::middleware(['web'])
             ->prefix('api')
@@ -87,7 +140,6 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/guest_api.php'));
     }
 
-
     protected function mapBackEndRoutes()
     {
         Route::middleware('web')
@@ -100,57 +152,5 @@ class RouteServiceProvider extends ServiceProvider
             ->prefix('store')
             ->name('store.')
             ->group(base_path('routes/backend/store.php'));
-    }
-
-
-    protected function registerBindings()
-    {
-        Route::bind('kit', function ($value) {
-            return Item::where([
-                ['is_kit', true],
-                ['id', $value],
-            ])->firstOrFail();
-        });
-
-        Route::bind('sale', function ($value) {
-            return Invoice::where([
-                ['id', $value],
-            ])
-                ->whereIn('invoice_type', ['return_sale', 'sale'])
-                ->withoutGlobalScopes(['draft','accountingPeriod',"manager"])->first();
-        });
-//
-        Route::bind('purchase', function ($value) {
-            return Invoice::where([
-                ['id', $value],
-            ])
-                ->whereIn('invoice_type', ['return_purchase', 'purchase', 'beginning_inventory','inventory_adjustment'])
-                ->withoutGlobalScope('manager')->first();
-        });
-
-        Route::bind('returnPurchase', function ($value) {
-            return Invoice::where([
-                ['id', $value],
-                ['invoice_type', 'return_purchase']
-            ])->withoutGlobalScope('manager')->first();
-        });
-
-
-        Route::bind('invoice', function ($value) {
-            return Invoice::where([
-                ['id', $value],
-            ])
-                ->withoutGlobalScopes(['draft','accountingPeriod',"manager"])->first();
-        });
-
-
-        Route::bind('quotation', function ($value) {
-            return Invoice::where([
-                ['id', $value],
-            ])
-                ->whereIn('invoice_type', ['return_sale', 'sale'])
-                ->withoutGlobalScopes(['draft','accountingPeriod',"manager"])->first();
-        });
-//
     }
 }

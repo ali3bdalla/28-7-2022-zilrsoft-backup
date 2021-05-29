@@ -74,6 +74,9 @@ class ConfirmOrderPaymentRequest extends FormRequest
                 Whatsapp::sendMessage($message, "966509025606", false);
                 Whatsapp::sendMessage($message, "966509362779", false);
                 Whatsapp::sendMessage($message, "966552243345", false);
+                Whatsapp::sendMessage($message, "966557704903", false);
+                Whatsapp::sendMessage($message, "966543696767", false);
+                Whatsapp::sendMessage($message, "966536753439", false);
                 Whatsapp::sendMessage($message, "966504950211", false);
             } else {
                 Whatsapp::sendMessage($message, "0024966324018", false);

@@ -50,26 +50,27 @@ class ItemController extends Controller
 			'Web/Product/Search'
 		);
 	}
-	public function show(Item $item)
+	public function show(Item $itemSlug)
 	{
 
-		$relatedItems = $item->category->items()->with('category', 'filters.filter', 'filters.value')->where('available_qty','>',0)->inRandomOrder()->take(20)->get();
+		$relatedItems = $itemSlug->category->items()->with('category', 'filters.filter', 'filters.value')->where('available_qty','>',0)->inRandomOrder()->take(20)->get();
 
 		$this->breadcrumb [] = [
             'title' => trans('store.header.home'),
             "url" => '/web'
         ];
 
-		$this->fillBreadcrumb($item->category);
+		$this->fillBreadcrumb($itemSlug->category);
 
 
 		return Inertia::render(
 			'Web/Product/Show',
 			[
-				'item' => $item->load('filters.filter', 'filters.value', 'category', 'attachments','tags','warrantySubscription'),
+				'item' => $itemSlug->load('filters.filter', 'filters.value', 'category', 'attachments','tags','warrantySubscription'),
 				'breadcrumb' => $this->breadcrumb,
 				'relatedItems' => $relatedItems,
-				'itemUrl' => url('web/items/'.$item->id)
+				'itemUrl' => url('web/items/'.$itemSlug->id),
+                'page_title' => $itemSlug->locale_name
 			]
 		);
 	}

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\Item\ItemCreatedEvent;
 use App\Events\Item\ItemUpdatedEvent;
 use App\ItemTag;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -39,12 +40,15 @@ class Item extends BaseModel
 {
 
     use SoftDeletes, Searchable;
+
     protected $dispatchesEvents = [
-      'updated' => ItemUpdatedEvent::class
+        'updated' => ItemUpdatedEvent::class,
+        'created' => ItemCreatedEvent::class
     ];
 
     protected $touches = ['category', 'filters', 'tags', 'attachments'];
     protected $appends = [
+        'slug',
         'locale_name',
         'locale_description',
         'item_image_url'
@@ -79,9 +83,15 @@ class Item extends BaseModel
     {
         return $query->where('available_qty', '>', 0);
     }
+
     public function getShippingDiscountAttribute($value)
     {
         return round($value);
+    }
+
+    public function getSlugAttribute()
+    {
+        return app()->getLocale() == 'ar' ? $this->ar_slug : $this->en_slug;
     }
 
     public function getAvailableQtyAttribute($value)
@@ -93,8 +103,9 @@ class Item extends BaseModel
 
     public function scopePublished($query)
     {
-        return $query->where('is_published',true);
+        return $query->where('is_published', true);
     }
+
     public function getItemImageUrlAttribute()
     {
 
@@ -310,6 +321,8 @@ class Item extends BaseModel
         $array['category_name'] = $this->category ? $this->category->description : "";
         $array['category_id'] = $this->category_id;
         $array['category_ar_name'] = $this->category ? $this->category->ar_description : "";
+        $array['ar_slug'] = $this->ar_slug;
+        $array['en_slug'] = $this->en_slug;
 
         return $array;
     }

@@ -5,7 +5,7 @@
     style="border-color: #d2e8ff !important; border-width: 3px !important"
   >
     <div class="product__list-item-image-container">
-      <a :href="`/web/items/${item.id}`"
+      <a :href="`/web/items/${$page.active_logo === 'en' ? item.en_slug : item.ar_slug}`"
         ><img :src="$processedImageUrl(getUrl,334 * 5,250  * 5,false,false)" class="product__list-item-image"/></a>
     </div>
     <div class="product__list-item-content">
@@ -22,7 +22,7 @@
       </h3></a>
       <!-- `/web/items/search/results?${$page.algolia_items_search_as}%5BrefinementList%5D%5B${$page.active_logo == 'en' ? 'category_name' : 'category_ar_name'}%5D%5B0%5D=${getCategoryName}` -->
 
-      <a :href="`/web/items/${item.id}`" class="product__list-item-name">
+      <a :href="`/web/items/${$page.active_logo === 'en' ? item.en_slug : item.ar_slug}`" class="product__list-item-name">
 {{ productName }}
 
       </a>
