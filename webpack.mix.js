@@ -16,3 +16,4 @@ mix.js('./resources/js/app.js', 'public/js')
   .browserSync({
     proxy: 'https://dev.zilrsoft.test'
   })
+  .version()
