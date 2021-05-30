@@ -95,7 +95,7 @@
         "vuedraggable": "^2.24.1",
         "vuejs-countdown-timer": "^2.1.3",
         "vuejs-dialog": "^1.4.2",
-        "vuetify": "^2.3.12",
+        "vuetify": "^2.5.1",
         "vuex": "^3.5.1",
         "zpl-print-service": "^0.2.1"
     }
