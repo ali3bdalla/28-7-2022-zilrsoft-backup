@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
@@ -8,6 +10,9 @@ import VuejsDialog from 'vuejs-dialog'
 import 'vuejs-dialog/dist/vuejs-dialog.min.css'
 import VModal from 'vue-js-modal'
 import VueSimpleAlert from 'vue-simple-alert'
+import ElementUI from 'element-ui' // keep it to keep simple alert working
+import 'element-ui/lib/theme-chalk/index.css'
+// import shippingCities from './data/shipping'
 
 require('./bootstrap')
 window.TextValidator = require('validator')
@@ -25,11 +30,18 @@ window.Vue = Vue
 
 require('./Plugins/plugins')
 require('./accounting/load')
+Vue.use(Vuetify)
 // Vue.use(ElementUI);
 Vue.use(VModal)
 Vue.use(VuejsDialog)
 Vue.use(VueSimpleAlert)
 
+export default new Vuetify({
+  icons: {
+    iconfont: 'md'
+  },
+  theme: { dark: true }
+})
 Vue.use(CxltToastr, {
   position: 'top right',
   showDuration: 2000
