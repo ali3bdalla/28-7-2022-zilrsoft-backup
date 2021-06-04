@@ -50,14 +50,7 @@ build:
 
     # Run npm build
     - npm run dev
-  artifacts:
-    paths:
-      - vendor/
-      - .npm/
-      - .env
-      - public/
-    expire_in: 1 days
-    when: always
+
 
 test:
   stage: test
