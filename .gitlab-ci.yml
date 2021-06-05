@@ -16,6 +16,10 @@ variables:
   POSTGRES_HOST_AUTH_METHOD: trust
   DB_CONNECTION: pgsql
   REDIS_HOST: redis
+  FILESYSTEM_DRIVER: local
+  BROADCAST_DRIVER: redis
+  QUEUE_CONNECTION: redis
+  CACHE_DRIVER: redis
   DB_HOST: postgres
   DB_PORT: 5432
   DB_DATABASE: zilrsoft
