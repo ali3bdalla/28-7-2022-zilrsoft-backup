@@ -1,7 +1,7 @@
 image: registry.gitlab.com/3li3bdalla/zilrsoft:latest
 services:
   - postgres:12
-  - redis:6.0
+  - redis:6-alpine
 
 stages:
   - build
@@ -16,12 +16,14 @@ variables:
   POSTGRES_HOST_AUTH_METHOD: trust
   DB_CONNECTION: pgsql
   REDIS_HOST: redis
-  FILESYSTEM_DRIVER: local
+  REDIS_PORT: 6379
+  FILESYSTEM_DRIVER: "local"
   BROADCAST_DRIVER: redis
   QUEUE_CONNECTION: redis
   CACHE_DRIVER: redis
   DB_HOST: postgres
   DB_PORT: 5432
+  SCOUT_QUEUE: "true"
   DB_DATABASE: zilrsoft
   DB_USERNAME: zilrsoft
   DB_PASSWORD: ""
@@ -67,11 +69,10 @@ test:
     - php artisan migrate --env=testing
     # Run database seed
     - php artisan db:seed --env=testing
-    # recreate cache
     - php artisan config:cache
     # run laravel tests
     - ./vendor/bin/phpunit
-  when: always
+  when: on_success
 
 
 deploy_dev:
@@ -100,7 +101,7 @@ deploy_next:
   environment:
     name: deployer
     url: https://next.zilrsoft.com
-  when: always
+  when: on_success
   only:
     - next
 
