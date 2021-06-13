@@ -34,16 +34,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"  integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"  crossorigin="anonymous">
     @endif
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"  type="text/css">
-    <link rel="stylesheet" href="{{ mix('web_assets/template/css/style.min.css') }}" type="text/css">
     @if (app()->isLocale('ar'))
     <link rel="stylesheet" href="{{ mix('css/rtl_store.css') }}">
     @else
     <link rel="stylesheet" href="{{ mix('css/store.css') }}">
     @endif
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('fav/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('fav/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('fav/favicon-16x16.png') }}">
-    <link rel="manifest" href="{{ asset('fav/site.webmanifest') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ mix('fav/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ mix('fav/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ mix('fav/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ mix('fav/site.webmanifest') }}">
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-851059339"></script>
     <script>
       window.dataLayer = window.dataLayer || []

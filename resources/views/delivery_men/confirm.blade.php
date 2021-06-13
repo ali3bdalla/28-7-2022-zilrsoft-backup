@@ -13,7 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <script defer src="{{ asset('js/external.js') }}" type="text/javascript"></script>
+    <script defer src="{{ mix('js/external.js') }}" type="text/javascript"></script>
     <!-- Custom styles for this template -->
 </head>
 

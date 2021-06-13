@@ -1,8 +1,7 @@
 image: registry.gitlab.com/3li3bdalla/zilrsoft:latest
-
 services:
-  - postgres:12.2-alpine
-
+  - postgres:12
+  - redis:6-alpine
 
 stages:
   - build
@@ -15,7 +14,19 @@ variables:
   POSTGRES_USER: zilrsoft
   POSTGRES_PASSWORD: ""
   POSTGRES_HOST_AUTH_METHOD: trust
-  XDEBUG_MODE: coverage
+  DB_CONNECTION: pgsql
+  REDIS_HOST: redis
+  REDIS_PORT: 6379
+  FILESYSTEM_DRIVER: "local"
+  BROADCAST_DRIVER: redis
+  QUEUE_CONNECTION: redis
+  CACHE_DRIVER: redis
+  DB_HOST: postgres
+  DB_PORT: 5432
+  SCOUT_QUEUE: "true"
+  DB_DATABASE: zilrsoft
+  DB_USERNAME: zilrsoft
+  DB_PASSWORD: ""
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -29,8 +40,6 @@ build:
     - docker-php-ext-install soap
     # Install Composer dependencies
     - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-
-
     # Copy over testing configuration
     - cp .env.example .env
 
@@ -38,40 +47,33 @@ build:
     - php artisan key:generate
     - php artisan config:cache
 
+    - php artisan migrate --env=testing
+    # Run database seed
+    - php artisan db:seed --env=testing
     # Install Node dependencies
     - npm install
     # ci --cache .npm --prefer-offline --quiet
 
     # Run npm build
     - npm run dev
-#  artifacts:
-#    paths:
-#      - vendor/
-#      - .npm/
-#      - .env
-#      - public/
-#    expire_in: 1 days
-#    when: always
+
 
 test:
   stage: test
   dependencies:
     - build
-  #  services:
-  #    - postgres:latest
   script:
     - cp .env.example .env.testing
-    - touch database/database.sqlite
     - php artisan key:generate --env=testing
     # Run database migrations
     - php artisan migrate --env=testing
     # Run database seed
     - php artisan db:seed --env=testing
-    # recreate cache
     - php artisan config:cache
     # run laravel tests
-    - php vendor/bin/phpunit --coverage-text --colors=never
-  when: always
+    - ./vendor/bin/phpunit
+  when: on_success
+
 
 deploy_dev:
   stage: deploy
@@ -88,7 +90,20 @@ deploy_dev:
   only:
     - development
 
-
+deploy_next:
+  stage: deploy
+  script:
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ~/.composer/vendor/bin/envoy run deploy --environment=next --commit="$CI_COMMIT_SHA" --cleanup
+  environment:
+    name: deployer
+    url: https://next.zilrsoft.com
+  when: on_success
+  only:
+    - next
 
 deploy_prod:
   stage: deploy
