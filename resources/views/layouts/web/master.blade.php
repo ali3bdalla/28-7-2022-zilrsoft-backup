@@ -39,10 +39,10 @@
     @else
     <link rel="stylesheet" href="{{ mix('css/store.css') }}">
     @endif
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ mix('fav/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ mix('fav/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ mix('fav/favicon-16x16.png') }}">
-    <link rel="manifest" href="{{ mix('fav/site.webmanifest') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('fav/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('fav/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('fav/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('fav/site.webmanifest') }}">
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-851059339"></script>
     <script>
       window.dataLayer = window.dataLayer || []
