@@ -26,7 +26,7 @@
     <meta property="twitter:title" content="@if(isset($page_title)) {{ $page_title  }}  @else @if (app()->isLocale('ar')) {{ config('app.ar_title') }} @else {{ config('app.en_title') }} @endif @endif">
     <meta property="twitter:description" content="{{ __('store.app.description') }}">
     <meta property="twitter:image" content="{{ config('app.url') }}/images/logo_ar.png">
-    <script defer src="{{ mix('js/online-store.js') }}"></script>
+    <script defer src="{{ asset('js/online-store.js') }}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     @if (app()->isLocale('ar'))
     <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"  integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe"  crossorigin="anonymous"/>
@@ -35,9 +35,9 @@
     @endif
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"  type="text/css">
     @if (app()->isLocale('ar'))
-    <link rel="stylesheet" href="{{ mix('css/rtl_store.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/rtl_store.css') }}">
     @else
-    <link rel="stylesheet" href="{{ mix('css/store.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/store.css') }}">
     @endif
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('fav/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('fav/favicon-32x32.png') }}">

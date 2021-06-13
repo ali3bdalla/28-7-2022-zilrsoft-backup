@@ -8,12 +8,12 @@
           rel='stylesheet' type='text/css'>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta http-equiv="content-type" content="text-html; charset=utf-8">
-    <link rel="stylesheet" href="{{ mix('template/css/bootstrap.css')}}">
-    <link rel="stylesheet" href="{{ mix('template/css/pdf-rtl.css')}}">
+    <link rel="stylesheet" href="{{ asset('template/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{ asset('template/css/pdf-rtl.css')}}">
 
     <link href="https://fonts.googleapis.com/css?family=El+Messiri&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ mix('template/css/pdf.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/css/pdf.css') }}">
 
 
     <style>
@@ -35,7 +35,7 @@
 
         {{--.centerd_data {--}}
         {{--    height: 200px;--}}
-        {{--    background: url({{ mix('template/images/paid.png') }}) no-repeat no-repeat center center;--}}
+        {{--    background: url({{ asset('template/images/paid.png') }}) no-repeat no-repeat center center;--}}
         {{--    /*background-image: url();*/--}}
         {{--    background-position: center center;--}}
         {{--}--}}
