@@ -58,7 +58,7 @@
                     <div class="input-group">
                         <span id="vendors-list" class="input-group-addon">{{ trans('pages/invoice.vendor') }}</span>
                         <input type="text" name="" disabled="disabled"
-                               class="form-control" value="{{$invoice->purchase ?
+                               class="form-control" value="{{$invoice->purchase &&  $invoice->purchase->vendor ?
                                $invoice->purchase->vendor->locale_name : null }}">
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                     <div class="input-group">
                         <span id="vendors-list" class="input-group-addon">{{ trans('pages/invoice.receiver') }}</span>
                         <input type="text" name="" disabled="disabled"
-                               class="form-control" value="{{ $invoice->purchase ?
+                               class="form-control" value="{{ $invoice->purchase && $invoice->purchase->receiver ?
                                $invoice->purchase->receiver->locale_name : "" }}">
                     </div>
                 </div>
