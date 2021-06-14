@@ -16,7 +16,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'App\Http\Controllers';
+    protected $namespace    = 'App\Http\Controllers';
     protected $apiNamespace = 'App\Http\Controllers\Api';
 
     /**
@@ -31,13 +31,17 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
 
         $this->registerBindings();
-
     }
 
     protected function registerBindings()
     {
         Route::bind('itemSlug', function ($value) {
-            return Item::where('en_slug', $value)->orWhere('ar_slug', $value)->firstOrFail();
+            $query = Item::where('en_slug', ($value))->orWhere('ar_slug', $value);
+            if (is_numeric($value)) {
+                $query = $query->orWhere('id', $value);
+            }
+
+            return $query->firstOrFail();
         });
         Route::bind('kit', function ($value) {
             return Item::where([
@@ -51,7 +55,7 @@ class RouteServiceProvider extends ServiceProvider
                 ['id', $value],
             ])
                 ->whereIn('invoice_type', ['return_sale', 'sale'])
-                ->withoutGlobalScopes(['draft', 'accountingPeriod', "manager"])->first();
+                ->withoutGlobalScopes(['draft', 'accountingPeriod', 'manager'])->first();
         });
 //
         Route::bind('purchase', function ($value) {
@@ -69,21 +73,19 @@ class RouteServiceProvider extends ServiceProvider
             ])->withoutGlobalScope('manager')->first();
         });
 
-
         Route::bind('invoice', function ($value) {
             return Invoice::where([
                 ['id', $value],
             ])
-                ->withoutGlobalScopes(['draft', 'accountingPeriod', "manager"])->first();
+                ->withoutGlobalScopes(['draft', 'accountingPeriod', 'manager'])->first();
         });
-
 
         Route::bind('quotation', function ($value) {
             return Invoice::where([
                 ['id', $value],
             ])
                 ->whereIn('invoice_type', ['return_sale', 'sale'])
-                ->withoutGlobalScopes(['draft', 'accountingPeriod', "manager"])->first();
+                ->withoutGlobalScopes(['draft', 'accountingPeriod', 'manager'])->first();
         });
 //
     }
@@ -95,11 +97,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-
         $this->mapWebRoutes();
         $this->mapApiRoutes();
         $this->mapBackEndRoutes();
-
     }
 
     /**
@@ -114,8 +114,6 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
-
-
     }
 
     protected function mapApiRoutes()
@@ -132,7 +130,6 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->apiNamespace)
             ->group(base_path('routes/api.php'));
 
-
         Route::middleware('web', 'guest')
             ->prefix('api')
             ->name('guest.api.')
@@ -144,11 +141,11 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
             ->namespace("App\Http\Controllers\Accounting")
-            ->prefix("accounting")
+            ->prefix('accounting')
             ->name('accounting.')
             ->group(base_path('routes/accounting.php'));
 
-        Route::middleware(['web', "auth"])
+        Route::middleware(['web', 'auth'])
             ->prefix('store')
             ->name('store.')
             ->group(base_path('routes/backend/store.php'));
