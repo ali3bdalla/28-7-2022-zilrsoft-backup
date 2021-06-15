@@ -44,7 +44,7 @@ class UpdateGoogleShippingCommand extends Command
             ['is_available_online', true],
             ['is_category_available_online', true],
             ['is_kit', false],
-        ])->get();
+        ])->whereNotIn('barcode', ["194441597332", "6986500195870", "193905621590", "190781167747", "718037868448", "740617249231", "6901443368907", "5530324215022", "4710886126423", "6446611318679"])->get();
         foreach ($items as $item) {
             if ($item->shouldBeSearchable())
                 UpdateGoogleShippingItemJob::dispatch($item);
