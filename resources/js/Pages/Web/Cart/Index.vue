@@ -183,8 +183,6 @@ export default {
         cancelButtonText: this.$page.$t.messages.no
       }).then(() => {
         this.$loading.show({ delay: 0 })
-        getGooogleTag('event', 'conversion', { send_to: 'AW-851059339/nfCMCISGycICEIvF6JUD' })
-        console.log('event')
         this.$inertia.post(
           '/api/web/orders',
           {
@@ -198,6 +196,7 @@ export default {
             preserveState: (page) => Object.keys(page.props.errors).length,
             preserveScroll: (page) => Object.keys(page.props.errors).length,
             onSuccess: () => {
+              getGooogleTag('event', 'conversion', { send_to: 'AW-851059339/nfCMCISGycICEIvF6JUD' })
               return Promise.all([
                 this.removeCartItems(items),
                 this.alertUser()

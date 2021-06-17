@@ -41,7 +41,17 @@
 
 
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-851059339"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
 
+      function gtag () {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'AW-851059339')
+      window.getGooogleTag = gtag
+    </script>
 
     <style type="text/css">
         input {
