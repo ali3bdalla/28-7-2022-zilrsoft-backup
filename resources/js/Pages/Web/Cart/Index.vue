@@ -183,7 +183,8 @@ export default {
         cancelButtonText: this.$page.$t.messages.no
       }).then(() => {
         this.$loading.show({ delay: 0 })
-
+        getGooogleTag('event', 'conversion', { send_to: 'AW-851059339/nfCMCISGycICEIvF6JUD' })
+        console.log('event')
         this.$inertia.post(
           '/api/web/orders',
           {
