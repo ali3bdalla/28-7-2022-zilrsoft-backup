@@ -1,7 +1,7 @@
 <?php
-
+	
 	namespace App\Jobs\Purchases\Dropbox;
-
+	
 	use App\Models\Invoice;
 	use Illuminate\Bus\Queueable;
 	use Illuminate\Contracts\Queue\ShouldQueue;
@@ -9,17 +9,17 @@
 	use Illuminate\Queue\InteractsWithQueue;
 	use Illuminate\Queue\SerializesModels;
 	use Illuminate\Support\Facades\Storage;
-
+	
 	class CreateDropboxSnapshotJob implements ShouldQueue
 	{
 		use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
+		
 		/**
 		 * @var Invoice
 		 */
 		private $invoice;
 		private $dropBoxPendingPath;
-
+		
 		/**
 		 * Create a new job instance.
 		 *
@@ -32,7 +32,7 @@
 			$this->invoice = $invoice;
 			$this->dropBoxPendingPath = $dropBoxPendingPath;
 		}
-
+		
 		/**
 		 * Execute the job.
 		 *
@@ -45,7 +45,7 @@
 				$ext = end($array);
 				$imagePath = config('filesystems.disks.dropbox.folders.completed_purchases') . '/' . $this->invoice->invoice_number . '.' . $ext;
 				Storage::disk('dropbox')->move($this->dropBoxPendingPath, $imagePath);
-
+				
 				$this->invoice->update(
 					[
 						'dropbox_snapshot' => $imagePath
