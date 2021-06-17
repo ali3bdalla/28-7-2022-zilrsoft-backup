@@ -42,7 +42,7 @@ class Item extends BaseModel
     use SoftDeletes, Searchable;
 
     protected $dispatchesEvents = [
-        'updated' => ItemUpdatedEvent::class,
+//        'updated' => ItemUpdatedEvent::class,
         'created' => ItemCreatedEvent::class
     ];
 
