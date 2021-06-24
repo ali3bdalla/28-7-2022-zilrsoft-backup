@@ -191,6 +191,12 @@ export default {
       this.senderAccountId = e.accountId
     },
     confirmPayment () {
+      window.getGooogleTag('event', 'conversion', {
+        send_to: 'AW-851059339/MESSCPaAycICEIvF6JUD',
+        value: this.$page.order.net,
+        currency: 'SAR',
+        transaction_id: this.$page.order.id
+      })
       this.$inertia.post(
         '/web/orders/' +
           this.$page.order.id +
