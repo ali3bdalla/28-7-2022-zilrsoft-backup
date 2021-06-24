@@ -127,6 +127,9 @@ export default {
   },
   methods: {
     changeActivePage (page) {
+      if (page == 'checkout') {
+        window.getGooogleTag('event', 'conversion', { send_to: 'AW-851059339/nfCMCISGycICEIvF6JUD' })
+      }
       this.$emit('changeActivePage', { page: page })
     },
 
@@ -202,7 +205,6 @@ export default {
   }
 }
 </script>
-
 
 <style scoped>
   .confirmButton:disabled {
