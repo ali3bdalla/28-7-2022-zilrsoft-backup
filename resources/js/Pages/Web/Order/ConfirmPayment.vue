@@ -27,26 +27,6 @@
             </div>
             <br/>
             <form action="#">
-              <!-- <PaymentAccounts @updateAccountId="updateAccountId"></PaymentAccounts> -->
-              <div>
-                <!-- <label for="first_name">{{ $page.$t.common.select_or_create_account }}</label> -->
-                <!-- <div class="flex-1 flex items-center justify-between group-input gap-2">
-                  <select v-model="senderAccountId" class="">
-                    <option :value="null">
-                      {{ $page.$t.common.select_account }}
-                    </option>
-
-                    <option
-                      v-for="account in accounts"
-                      :key="account.id"
-                      :value="account.id"
-                    >
-                      {{ account.bank.locale_name }} - {{ account.detail }}
-                    </option>
-                  </select>
-                  <el-button @click="showCreate = true" size="" style="height:50px"> <i class="fa fa-plus"></i></el-button>
-                </div> -->
-              </div>
               <div class="flex">
                 <div class="flex-1 group-input">
                   <label for="first_name">{{
@@ -165,11 +145,6 @@ export default {
       }
     },
     addNewAccount () {
-      window.getGooogleTag('event', 'conversion', {
-        send_to: 'AW-851059339/U_sVCLfmhI0CEIvF6JUD',
-        transaction_id: this.$page.order.id
-      })
-      // this.form.accountNumber
       this.$inertia.post(
           `/api/web/${this.$page.order.user_id}/payment_accounts`,
           {
