@@ -143,7 +143,7 @@ return [
 
     'msbrshop' => [
         'email_address' => 'info@msbrshop.com',
-        'phone_number' => '(+966) 920004746',
+        'phone_number' => '(+966) 163394000',
         'social_media' => [
             'facebook' => '',
             'twitter' => '',
