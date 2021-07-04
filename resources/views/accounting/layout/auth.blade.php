@@ -22,7 +22,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <link href="{{ asset('css/aliframework.css') }}" rel="stylesheet">
-
+        
 
     @if(app()->isLocale('ar'))
         <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">

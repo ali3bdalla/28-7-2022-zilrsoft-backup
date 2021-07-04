@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title',config('app.name'))</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/0.0.0-insiders.4a070ac/utilities.min.css"  crossorigin="anonymous"/>
     <script defer src="{{ asset('js/online-store.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/store.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
