@@ -54,9 +54,10 @@ npm install --quiet --no-progress
 @endtask
 
 @task('npm_run_dev',['on' => [$push_on]])
-echo "npm run dev ({{ $release }})"
+echo "npm run dev & prod ({{ $release }})"
 cd {{ $new_release_dir }}
 npm run dev --quiet --no-progress
+npm run prod --quiet --no-progress
 @endtask
 
 @task('npm_run_prod',['on' => [$push_on]])

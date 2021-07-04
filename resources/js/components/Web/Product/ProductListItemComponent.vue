@@ -1,36 +1,45 @@
 <template>
   <div
-      :style="$page.active_locale === 'ar' ? 'direction:rtl' : 'direction:ltr'"
-      class="product__list-item"
-      style="border-color: #d2e8ff !important; border-width: 3px !important;"
+    :style="$page.active_locale === 'ar' ? 'direction:rtl' : 'direction:ltr'"
+    class="product__list-item"
+    style="border-color: #d2e8ff !important; border-width: 3px !important;"
   >
     <div class="product__list-item-image-container">
-      <a :href="`/web/items/${item.slug}`"
-      ><img :alt="item.locale_name" :src="$processedImageUrl(item.item_image_url,334 * 5,250  * 5)"
-            class="product__list-item-image"/>
+      <a :href="`/web/items/${item.slug}`"><img
+          :alt="item.locale_name"
+          :src="$processedImageUrl(item.item_image_url,334 * 2,250  * 2)"
+          class="product__list-item-image"
+        />
       </a>
     </div>
     <div class="product__list-item-content">
       <h3
-          v-if="item.available_qty <= 0 || item.category == null"
-          class="product__list-item-category-name product__list-item-category-name__out-of-stock"
+        v-if="item.available_qty <= 0 || item.category == null"
+        class="product__list-item-category-name product__list-item-category-name__out-of-stock"
       >
         <span> {{ $page.$t.products.out_of_stock }} </span>
       </h3>
-      <a v-else :href="`/web/items/search/results?category_id=${item.category_id}`"
-      ><h3 class="product__list-item-category-name">
-        {{ item.category ? item.category.locale_name : '' }}
-      </h3></a>
+      <a
+        v-else
+        :href="`/web/items/search/results?category_id=${item.category_id}`"
+      >
+        <h3 class="product__list-item-category-name">
+          {{ item.category ? item.category.locale_name : '' }}
+        </h3>
+      </a>
 
-      <a :href="`/web/items/${item.slug}`" class="product__list-item-name">
+      <a
+        :href="`/web/items/${item.slug}`"
+        class="product__list-item-name"
+      >
         {{ productName }}
       </a>
       <h6 class="product__list-item-model-number">
         {{ $page.$t.products.model }} : {{ modelNumber }}
       </h6>
       <ProductRatingComponent
-          :item="item"
-          class="product__list-item-cart-options"
+        :item="item"
+        class="product__list-item-cart-options"
       ></ProductRatingComponent>
       <div>
         <h4 class="product__list-item-old-price">
@@ -44,46 +53,46 @@
         {{ $page.$t.products.inc }}
       </p>
       <ToggleCartItemButtonComponent
-          :item="item"
-          class="product__list-item-cart-options"
+        :item="item"
+        class="product__list-item-cart-options"
       ></ToggleCartItemButtonComponent>
     </div>
   </div>
 </template>
 
 <script>
-import ToggleCartItemButtonComponent from '../Cart/ToggleCartItemButtonComponent'
-import ProductRatingComponent from './ProductRatingComponent'
+import ToggleCartItemButtonComponent from "../Cart/ToggleCartItemButtonComponent";
+import ProductRatingComponent from "./ProductRatingComponent";
 
 export default {
   components: {
     ToggleCartItemButtonComponent,
-    ProductRatingComponent
+    ProductRatingComponent,
   },
-  props: ['item', 'index'],
+  props: ["item", "index"],
 
   computed: {
-    productName () {
-      const modelNumber = this.modelNumber
-      if (modelNumber != '') {
-        return this.item.locale_name.replace(modelNumber, '')
+    productName() {
+      const modelNumber = this.modelNumber;
+      if (modelNumber != "") {
+        return this.item.locale_name.replace(modelNumber, "");
       }
 
-      return this.item.locale_name
+      return this.item.locale_name;
     },
-    modelNumber () {
+    modelNumber() {
       if (this.item.filters) {
-        const modelNumber = this.item.filters.find((p) => p.filter_id == 38)
+        const modelNumber = this.item.filters.find((p) => p.filter_id == 38);
 
         if (modelNumber && modelNumber.value) {
-          return modelNumber.value.locale_name
+          return modelNumber.value.locale_name;
         }
       }
 
-      return ''
-    }
-  }
-}
+      return "";
+    },
+  },
+};
 </script>
 
 <style>

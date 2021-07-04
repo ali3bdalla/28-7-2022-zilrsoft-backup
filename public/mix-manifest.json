@@ -1,10 +1,5 @@
 {
-    "/js/app.js": "/js/app.js?id=f7752baa41179ef559da",
-    "/css/main.css": "/css/main.css?id=f9bde3d90c3ebf7dc270",
-    "/css/store.css": "/css/store.css?id=8ab2c6318b18cdd37edd",
-    "/css/rtl_store.css": "/css/rtl_store.css?id=74e7126323d007be7315",
-    "/css/images.css": "/css/images.css?id=b1a44708dd89fb54a877",
-    "/js/external.js": "/js/external.js?id=b115ca1c606bb0d784f0",
-    "/js/online-store.js": "/js/online-store.js?id=3ae460f96f457c9646e9",
-    "/js/upload_images.js": "/js/upload_images.js?id=45b8846179a9a3840888"
+    "/js/online-store.js": "/js/online-store.js?id=b502bd32a787af8fd785",
+    "/css/store.css": "/css/store.css?id=53a80601bc1ab8824842",
+    "/css/rtl_store.css": "/css/rtl_store.css?id=17c35f4a8e388897ef06"
 }

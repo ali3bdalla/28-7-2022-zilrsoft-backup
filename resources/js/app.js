@@ -10,7 +10,6 @@ import VuejsDialog from 'vuejs-dialog'
 import 'vuejs-dialog/dist/vuejs-dialog.min.css'
 import VModal from 'vue-js-modal'
 import VueSimpleAlert from 'vue-simple-alert'
-import ElementUI from 'element-ui' // keep it to keep simple alert working
 import 'element-ui/lib/theme-chalk/index.css'
 // import shippingCities from './data/shipping'
 
