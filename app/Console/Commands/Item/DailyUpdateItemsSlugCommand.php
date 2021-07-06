@@ -41,8 +41,8 @@ class DailyUpdateItemsSlugCommand extends Command
     {
         Item::query()->each(function($item) {
             $item->update([
-                'en_slug' => Str::slug($item->name),
-                'ar_slug' => Str::slug($item->ar_name,'ar'),
+                'en_slug' => Str::slug("$item->name $item->id"),
+                'ar_slug' => Str::slug("$item->ar_name $item->id",'ar'),
             ]);
         });
 
