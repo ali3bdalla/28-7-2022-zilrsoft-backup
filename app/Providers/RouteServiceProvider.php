@@ -36,10 +36,11 @@ class RouteServiceProvider extends ServiceProvider
     protected function registerBindings()
     {
         Route::bind('itemSlug', function ($value) {
-            $query = Item::where('en_slug', ($value))->orWhere('ar_slug', $value);
+            $query = Item::where('en_slug', $value)->orWhere('ar_slug', $value);
             if (is_numeric($value)) {
                 $query = $query->orWhere('id', $value);
             }
+
 
             return $query->firstOrFail();
         });

@@ -25,8 +25,8 @@ class UpdateItemSlugListener
         $item = $event->item;
         if ($item) {
             $item->update([
-                'en_slug' => str_replace(' ', '-', $item->getOriginal('name') . '-' . ' ' . $item->id),
-                'ar_slug' => str_replace(' ', '-', $item->getOriginal('ar_name') . '-' . ' ' . $item->id),
+                'en_slug' => urlencode(str_replace('/','-',str_replace(' ', '-', $item->getOriginal('name') . '-' . ' ' . $item->id))),
+                'ar_slug' => urlencode(str_replace('/','-',str_replace(' ', '-', $item->getOriginal('ar_name') . '-' . ' ' . $item->id))),
             ]);
         }
 

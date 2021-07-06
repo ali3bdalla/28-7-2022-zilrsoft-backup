@@ -169,7 +169,7 @@ class BaseModel extends Model
                                     ["{$table}.is_available_online", true],
                                     ["{$table}.is_kit", false],
                                 ]
-                            )->with('category')->whereHas('category')->whereHas('attachments')->orderBy('available_qty','desc');
+                            )->with('category','attachments')->whereHas('category')->whereHas('attachments')->orderBy('available_qty','desc');
 
                             // ->hasModelNumber()
                         }
