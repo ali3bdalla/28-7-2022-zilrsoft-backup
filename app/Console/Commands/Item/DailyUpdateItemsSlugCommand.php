@@ -39,17 +39,17 @@ class DailyUpdateItemsSlugCommand extends Command
      */
     public function handle()
     {
-        DB::transaction(function(){
-            Item::query()->update([
+        Item::query()->update([
             'en_slug' => null,
-               'ar_slug' => null,
+            'ar_slug' => null,
         ]);
-        Item::query()->each(function($item) {
-            $item->update([
-                'en_slug' => Str::slug("$item->name $item->id"),
-                'ar_slug' => Str::slug("$item->ar_name $item->id",'ar'),
-            ]);
-        });
+        DB::transaction(function(){
+            Item::query()->each(function($item) {
+                $item->update([
+                    'en_slug' => Str::slug("$item->name $item->id"),
+                    'ar_slug' => Str::slug("$item->ar_name $item->id",'ar'),
+                ]);
+            });
         });
 
 
