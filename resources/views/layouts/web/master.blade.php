@@ -26,6 +26,7 @@
     <meta property="twitter:title" content="@if(isset($page_title)) {{ $page_title  }}  @else @if (app()->isLocale('ar')) {{ config('app.ar_title') }} @else {{ config('app.en_title') }} @endif @endif">
     <meta property="twitter:description" content="{{ __('store.app.description') }}">
     <meta property="twitter:image" content="{{ config('app.url') }}/images/logo_ar.png">
+    <meta name="google-site-verification" content="H4RSiA3lkNIWykSYFrXjvkJy8O8y0QS0dYPA1PedqoQ" />
     <script defer src="{{ asset('js/online-store.js') }}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/0.0.0-insiders.4a070ac/utilities.min.css"  crossorigin="anonymous"/>

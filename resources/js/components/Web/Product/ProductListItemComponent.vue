@@ -7,7 +7,7 @@
     <div class="product__list-item-image-container">
       <a :href="`/web/items/${item.slug}`"><img
           :alt="item.locale_name"
-          :src="$processedImageUrl(item.item_image_url,350,250)"
+          :src="$processedImageUrl(item.item_image_url,200,180)"
           class="product__list-item-image"
         />
       </a>

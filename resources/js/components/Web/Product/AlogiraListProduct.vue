@@ -1,12 +1,14 @@
 <template>
- <!-- animate__animated animate__bounceIn -->
+  <!-- animate__animated animate__bounceIn -->
   <div
     class="product__list-item"
     style="border-color: #d2e8ff !important; border-width: 3px !important"
   >
     <div class="product__list-item-image-container">
-      <a :href="`/web/items/${$page.active_logo === 'en' ? item.en_slug : item.ar_slug}`"
-        ><img :src="$processedImageUrl(getUrl,334 * 5,250  * 5,false,false)" class="product__list-item-image"/></a>
+      <a :href="`/web/items/${$page.active_logo === 'en' ? item.en_slug : item.ar_slug}`"><img
+          :src="$processedImageUrl(getUrl,334,250,false,false)"
+          class="product__list-item-image"
+        /></a>
     </div>
     <div class="product__list-item-content">
       <h3
@@ -16,14 +18,21 @@
         <span> {{ $page.$t.products.out_of_stock }} </span>
       </h3>
       <!-- -->
-      <a  v-else :href="`/web/items/search/results?category_id=${item.category_id}`"
-          ><h3 class="product__list-item-category-name">
-        {{ getCategoryName }}
-      </h3></a>
+      <a
+        v-else
+        :href="`/web/items/search/results?category_id=${item.category_id}`"
+      >
+        <h3 class="product__list-item-category-name">
+          {{ getCategoryName }}
+        </h3>
+      </a>
       <!-- `/web/items/search/results?${$page.algolia_items_search_as}%5BrefinementList%5D%5B${$page.active_logo == 'en' ? 'category_name' : 'category_ar_name'}%5D%5B0%5D=${getCategoryName}` -->
 
-      <a :href="`/web/items/${$page.active_logo === 'en' ? item.en_slug : item.ar_slug}`" class="product__list-item-name">
-{{ productName }}
+      <a
+        :href="`/web/items/${$page.active_logo === 'en' ? item.en_slug : item.ar_slug}`"
+        class="product__list-item-name"
+      >
+        {{ productName }}
 
       </a>
       <h6 class="product__list-item-model-number">
@@ -34,20 +43,20 @@
         class="product__list-item-cart-options"
       ></ProductRatingComponent>
 
-<!--      <h4 class="product__list-item-price">-->
-<!--        {{ parseFloat(item.online_price).toFixed(2) }}-->
-<!--      </h4>-->
-<!--      <span class="product__list-item-currency">{{-->
-<!--        $page.$t.products.sar-->
-<!--      }}</span>-->
-<!--      <div>-->
-<!--        <h4 class="product__list-item-old-price">-->
-<!--          {{ parseFloat(item.online_offer_price).toFixed(2) }}-->
-<!--        </h4>-->
-<!--        <span class="product__list-item-currency">{{-->
-<!--          $page.$t.products.sar-->
-<!--        }}</span>-->
-<!--      </div>-->
+      <!--      <h4 class="product__list-item-price">-->
+      <!--        {{ parseFloat(item.online_price).toFixed(2) }}-->
+      <!--      </h4>-->
+      <!--      <span class="product__list-item-currency">{{-->
+      <!--        $page.$t.products.sar-->
+      <!--      }}</span>-->
+      <!--      <div>-->
+      <!--        <h4 class="product__list-item-old-price">-->
+      <!--          {{ parseFloat(item.online_offer_price).toFixed(2) }}-->
+      <!--        </h4>-->
+      <!--        <span class="product__list-item-currency">{{-->
+      <!--          $page.$t.products.sar-->
+      <!--        }}</span>-->
+      <!--      </div>-->
 
       <!--      <h4 class="product__list-item-price">-->
       <!--        {{ parseFloat(item.online_price).toFixed(2) }}-->
@@ -75,37 +84,44 @@
 </template>
 
 <script>
-import ToggleCartItemButtonComponent from '../Cart/ToggleCartItemButtonComponent'
-import ProductRatingComponent from './ProductRatingComponent'
+import ToggleCartItemButtonComponent from "../Cart/ToggleCartItemButtonComponent";
+import ProductRatingComponent from "./ProductRatingComponent";
 
 export default {
   components: { ToggleCartItemButtonComponent, ProductRatingComponent },
-  props: ['item', 'index'],
+  props: ["item", "index"],
 
   computed: {
-    productName () {
-      const modelNumber = this.item.model_number
-      const name = this.$page.active_locale === 'ar' ? this.item.ar_name : this.item.name
+    productName() {
+      const modelNumber = this.item.model_number;
+      const name =
+        this.$page.active_locale === "ar" ? this.item.ar_name : this.item.name;
 
-      if (modelNumber !== '') { return name.replace(modelNumber, '') }
-
-      return name
-    },
-    getCategoryName () {
-      if (this.$page.active_locale === 'en') return this.item.category_name
-
-      return this.item.category_ar_name
-    },
-    getUrl () {
-      if (this.item.item_image_url === 'https://zilrsoft.com/images/logo_ar.png') {
-        if (this.$page.active_locale === 'en') { return 'https://zilrsoft.com/images/logo_en.png' }
-
-        return 'https://zilrsoft.com/images/logo_ar.png'
+      if (modelNumber !== "") {
+        return name.replace(modelNumber, "");
       }
-      return `local:///com.zilrsoft/storage/app/public/${this.item.item_image_url}`
-    }
-  }
-}
+
+      return name;
+    },
+    getCategoryName() {
+      if (this.$page.active_locale === "en") return this.item.category_name;
+
+      return this.item.category_ar_name;
+    },
+    getUrl() {
+      if (
+        this.item.item_image_url === "https://zilrsoft.com/images/logo_ar.png"
+      ) {
+        if (this.$page.active_locale === "en") {
+          return "https://zilrsoft.com/images/logo_en.png";
+        }
+
+        return "https://zilrsoft.com/images/logo_ar.png";
+      }
+      return `local:///com.zilrsoft/storage/app/public/${this.item.item_image_url}`;
+    },
+  },
+};
 </script>
 
 <style>
