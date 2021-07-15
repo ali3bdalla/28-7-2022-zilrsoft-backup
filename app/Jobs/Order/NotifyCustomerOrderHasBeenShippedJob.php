@@ -13,14 +13,15 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     private $order;
 
     /**
      * Create a new job instance.
-     *
-     * @param Order $order
      */
     public function __construct(Order $order)
     {
@@ -30,7 +31,6 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @return void
      * @throws TransportExceptionInterface
      */
     public function handle()
@@ -38,21 +38,21 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
         $pdfUrl = CreateOrderPdfSnapshotJob::dispatchNow($this->order->invoice);
 
         $phoneNumber = $this->order->user->international_phone_number;
-
-        if ($this->order->shipping_method_id === 1) {
+        $deliveryMan = $this->order->deliveryMan;
+        $deliveryManPhoneNumber = $deliveryMan ? $deliveryMan->phone_number : '';
+        if (1 === $this->order->shipping_method_id) {
             $message = __('store.messages.order_shipped_with_deivery_man', [
                 'CUSTOMER_NAME' => $this->order->user->name,
                 'ORDER_ID' => $this->order->id,
-                'DELIVERY_MAN' => $this->order->deliveryMan ? $this->order->deliveryMan->locale_name : "",
-                'DELIVERY_MAN_NUMBER' => "0{$this->order->deliveryMan->phone_number}",
-                'CODE' => $this->order->delivery_man_code
+                'DELIVERY_MAN' => $this->order->deliveryMan ? $this->order->deliveryMan->locale_name : '',
+                'DELIVERY_MAN_NUMBER' => "0{$deliveryManPhoneNumber}",
+                'CODE' => $this->order->delivery_man_code,
             ]);
-
-        } else if ($this->order->shipping_method_id == 5) {
+        } elseif (5 == $this->order->shipping_method_id) {
             $message = __('store.messages.order_ready_to_pick_up_from_store', [
                 'CUSTOMER_NAME' => $this->order->user->name,
                 'ORDER_ID' => $this->order->id,
-                'CODE' => $this->order->delivery_man_code
+                'CODE' => $this->order->delivery_man_code,
             ]);
         } else {
             $message = __('store.messages.order_shipped_with_shipping_method', [
@@ -60,7 +60,7 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
                 'ORDER_ID' => $this->order->id,
                 'TRACKING_NUMBER' => $this->order->tracking_number,
                 'TRACKING_URL' => file_get_contents("http://tinyurl.com/api-create.php?url=https://www.smsaexpress.com/ar/trackingdetails?tracknumbers={$this->order->tracking_number}"),
-                'SHIPPING_METHOD' => $this->order->shippingMethod ?  $this->order->shippingMethod->locale_name : ""
+                'SHIPPING_METHOD' => $this->order->shippingMethod ? $this->order->shippingMethod->locale_name : '',
             ]);
         }
 
@@ -76,10 +76,8 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
             Whatsapp::sendFile(
                 $pdfUrl,
                 $phoneNumber,
-                $this->order->id . '.pdf'
+                $this->order->id.'.pdf'
             );
         }
-
-
     }
 }

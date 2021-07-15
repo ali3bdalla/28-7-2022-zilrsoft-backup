@@ -16,7 +16,10 @@ use Mpdf\Mpdf;
 
 class CreateOrderPdfSnapshotJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * @var Invoice
@@ -27,12 +30,9 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
 
     /**
      * Create a new event instance.
-     *
-     * @param Invoice $invoice
      */
     public function __construct(Invoice $invoice)
     {
-        //
         $this->invoice = $invoice->fresh();
         $this->order = Order::where('invoice_id', $invoice->id)->first();
         $this->client = User::find($invoice->user_id);
@@ -47,10 +47,10 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
     {
         $view = view('whatsapp.invoice_pdf', [
             'order' => $this->order,
-            'invoice' => $this->invoice
+            'invoice' => $this->invoice,
         ]);
         $mpdf = new Mpdf([
-            'default_font' => 'XB'
+            'default_font' => 'XB',
         ]);
         $mpdf->SetDirectionality('rtl');
         $mpdf->WriteHTML($view);
@@ -60,16 +60,17 @@ class CreateOrderPdfSnapshotJob implements ShouldQueue
         <td width="100%" align="center" style="font-weight: bold;">المملكة العربية السعودية - القصيم - الرس - طريق الملك فهد - غرب الاحوال المدنية</td>
     </tr>
     <tr>
-        <td width="100%" align="center" style="font-weight: bold;">' . url('') . '</td>
+        <td width="100%" align="center" style="font-weight: bold;">'.url('').'</td>
     </tr>
 </table>');
-        $fileName = 'order_' . Carbon::now()->toDateString(). '_' .  $this->order->id  .  '.pdf';
-        $path = storage_path('app/public/orders/' . $fileName);
+        $fileName = 'order_'.Carbon::now()->toDateString().'_'.$this->order->id.'.pdf';
+        $path = storage_path('app/public/orders/'.$fileName);
         $mpdf->Output($path, 'F');
-        $path =  'orders/' . $fileName;
+        $path = 'orders/'.$fileName;
         $this->order->update([
-            'pdf_path' =>$path
+            'pdf_path' => $path,
         ]);
+
         return Storage::url($path);
     }
 }
