@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(DailyUpdateAccountSnapshotCommand::class)->daily();
         $schedule->command(DailyUpdateItemsSlugCommand::class)->daily();
         $schedule->command(UpdateGoogleShippingCommand::class)->daily();
-        $schedule->command('queue:retry --all')->everyTenMinutes();
+        $schedule->command('queue:retry all')->everyTenMinutes();
         if ($this->app->environment('production')) {
             $schedule->command('scout:import')->daily();
         }
