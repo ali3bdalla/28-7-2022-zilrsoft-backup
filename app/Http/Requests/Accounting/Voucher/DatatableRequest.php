@@ -37,8 +37,8 @@
 			
 			if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
 				$this->filled('endDate')){
-				$_startDate = Carbon::parse($this->input("startDate"))->toDateString();
-				$_endDate = Carbon::parse($this->input("endDate"))->toDateString();
+				$_startDate = Carbon::parse($this->input("startDate"));
+				$_endDate = Carbon::parse($this->input("endDate"));
 				
 				
 				if ($_endDate === $_startDate){
