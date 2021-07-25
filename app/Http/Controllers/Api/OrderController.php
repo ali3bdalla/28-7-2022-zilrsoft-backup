@@ -119,7 +119,7 @@ class OrderController extends Controller
     {
         $request->validate([
             "delivery_man_id" => "required|integer|exists:delivery_men,id",
-            "verification_code" => "required|integer",
+            "verification_code" => "required|string",
         ]);
 
         $deliveryMan = DeliveryMan::findOrFail($request->input('delivery_man_id'));

@@ -142,10 +142,10 @@ class SendMessageToOurCustomersCommand extends Command
 *فضلا الرد بنعم أو لا*
 
 متجر المسبار";
-//        foreach ($numbers  as $phone)
-//        {
-//            Whatsapp::sendMessage($message, '00966' . $phone,false);
-//        }
+        foreach ($numbers  as $phone)
+        {
+            Whatsapp::sendMessage($message, '00966' . $phone,false);
+        }
 ////
         Whatsapp::sendMessage($message, '00201096295472',false);
     }
