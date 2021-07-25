@@ -70,7 +70,7 @@ export default {
           .post('/store/shipping/activate-sign-transactions-to-delivery-man', {
             delivery_man_id: this.deliveryManId,
             transactions: this.items,
-            verification_code: text
+            verification_code: text.value
           })
           .then((response) => {
             this.$alert('', 'تمت العملية', 'success').then(() => {
