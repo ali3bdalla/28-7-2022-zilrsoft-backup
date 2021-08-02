@@ -13,7 +13,7 @@ class ShippingMethod extends BaseModel
     protected $guarded = [];
 
 
-    protected $appends = ['cities_ids','locale_name'];
+    protected $appends = ['locale_name'];
 
     public function item()
     {
@@ -33,7 +33,7 @@ class ShippingMethod extends BaseModel
 
     public function transactions()
     {
-        return $this->hasMany(ShippingTransaction::class,'shipping_method_id');
+        return $this->hasMany(ShippingTransaction::class, 'shipping_method_id');
     }
 
     public function deliveryMen()

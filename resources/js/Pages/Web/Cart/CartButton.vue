@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div v-if="activePage === 'cart'">
+    <div v-if="activePage === 'cart' && shippingMethodId">
       <button
         v-if="$page.client_logged"
         class="proceed-btn"
@@ -99,6 +99,10 @@ export default {
   props: {
     orderItems: {
       type: Array,
+      required: true
+    },
+    getShippingMethod: {
+      type: Function,
       required: true
     },
     shippingMethodId: {
@@ -169,13 +173,6 @@ export default {
         parseFloat(this.getTotalShippingSubtotal()) +
         parseFloat(this.getOrderTotalAmount(this.orderItems))
       )
-    },
-
-    getShippingMethod () {
-      const shippingMethod = this.$page.shippingMethods.find(
-        (p) => p.id == this.shippingMethodId
-      )
-      return shippingMethod || {}
     },
 
     getTotalShippingSubtotal () {

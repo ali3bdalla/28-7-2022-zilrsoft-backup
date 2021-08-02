@@ -26,43 +26,46 @@
             </div>
           </div>
           <div>
-            <div
-              class="page__mt-5 col-lg-12  "
-              v-if="activePage === 'cart'"
-            >
+            <div class="page__mt-5 col-lg-12" v-if="activePage === 'cart'">
+              <div class="my-4">
+                <el-select @change="loadShippingMethods" v-model="cityId" :filterable="true" :placeholder=" $page.$t.messages.select_city"
+                          class=""
+                          no-data-text="No" no-match-text="No Data">
+                <el-option
+                    v-for="city in $page.cities"
+                    :key="city.id"
+                    :label="city.locale_name"
+                    :value="city.id">
+                  {{ city.locale_name }}
+                </el-option>
+              </el-select>
+              </div>
               <h1 class="cart__shipping-method-title">
                 {{ $page.$t.cart.shipping_method }}
               </h1>
               <div class="cart__shipping-method-list">
                 <div
                   class="cart__shipping-method-list-item bg-white"
-                  v-for="shippingMethod in $page.shippingMethods"
+                  v-for="shippingMethod in shippingMethods"
                   :key="shippingMethod.id"
-                  v-if="!disableShippingMethod(shippingMethod)"
                 >
                   <el-image
-                    :class="{
-                        'cart__shipping-method-list-item-image__hidden': disableShippingMethod(
-                          shippingMethod
-                        ),
-                      }"
                     :src="shippingMethod.logo"
                     class="cart__shipping-method-list-item-image object-contain"
                   ></el-image>
                   <el-radio
                     v-model="shippingMethodId"
                     :label="shippingMethod.id"
-                    :disabled="disableShippingMethod(shippingMethod)"
-                  >{{ shippingMethod.locale_name }}
+                    >{{ shippingMethod.locale_name }}
                   </el-radio>
                 </div>
               </div>
             </div>
-
           </div>
           <div class="cart__checkout">
             <div class="proceed-checkout">
               <CartButton
+               :getShippingMethod="getShippingMethod"
                 v-if="orderItems.length"
                 :shipping-method-id="shippingMethodId"
                 :shipping-address-id="shippingAddressId"
@@ -96,7 +99,9 @@ export default {
       paymentMethodId: 'bank_transfer',
       shippingAddress: null,
       shippingAddressMethods: [],
-      shippingAddressId: 0
+      shippingAddressId: 0,
+      cityId: '',
+      shippingMethods: []
     }
   },
   components: {
@@ -134,15 +139,24 @@ export default {
       ]
     }
   },
+  created () {
+    this.cityId = localStorage.getItem('cart_shipping_city_id', null)
+    if (this.cityId) {
+      this.loadShippingMethods(this.cityId)
+    }
+  },
   methods: {
-    disableShippingMethod (shippingMethod) {
-      return false
-      // if (this.shippingAddress) {
-      //   return !shippingMethod.cities_ids.includes(
-      //     parseInt(this.shippingAddress.city_id)
-      //   );
-      // }
-      return true
+    getShippingMethod () {
+      const shippingMethod = this.shippingMethods.find(
+        (p) => p.id === this.shippingMethodId
+      )
+      return shippingMethod || {}
+    },
+    loadShippingMethods (e) {
+      localStorage.setItem('cart_shipping_city_id', e)
+      axios.get(`/api/web/shipping_methods?city_id=${e}`).then(res => {
+        this.shippingMethods = res.data
+      })
     },
     updateShippingId (e) {
       this.shippingAddress = e

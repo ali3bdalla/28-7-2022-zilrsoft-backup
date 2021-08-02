@@ -13,14 +13,12 @@ class CartController extends Controller
     public function index(Request $request)
     {
 
-        $data = [
-        ];
+        $data = [];
 
         if (auth('client')->check()) {
-            $data['shippingAddresses'] = $request->user('client')->shippingAddresses()->with('city')->get();//)
+            $data['shippingAddresses'] = $request->user('client')->shippingAddresses()->with('city')->get(); //)
         }
 
-        $data['shippingMethods'] = ShippingMethod::all();
         $data['cities'] = City::where('country_id', 1)->get();
 
         return Inertia::render(

@@ -16,6 +16,8 @@ Route::namespace('Store')->name('web.')->middleware('font_end_middleware')->pref
                 Route::match(['POST', 'GET'], '/using_filters', 'ItemController@usingFilters')->name('using_filters');
             }
         );
+        Route::get('shipping_methods', 'ShippingMethodController@index');
+
         Route::prefix('categories')->name('categories.')->group(
             function () {
                 Route::match(['POST', 'GET'], '/', 'CategoryController@index')->name('index');
@@ -279,8 +281,6 @@ Route::prefix('app')->group(function () {
 
                 return $response->getContent();
             }
-
-
         });
 
 

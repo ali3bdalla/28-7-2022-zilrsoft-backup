@@ -21,7 +21,6 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
             Route::get('privacy', 'ContentController@privacy');
             Route::get('terms', 'ContentController@terms');
             Route::get('contact', 'ContentController@contact');
-
         });
         Route::get('/orders/{order}/cancel', 'Order\CancelOrderController@showPage');
         Route::get('/orders/auth', 'Order\CancelOrderController@auth');
@@ -46,7 +45,6 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
 
                         Route::get('/reset', 'AuthController@resetPasswordPage');
                         Route::post('/reset', 'AuthController@confirmResetPassword');
-
                     }
                 );
                 Route::post('/resend_otp', 'AuthController@resendOtp');
@@ -103,8 +101,6 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
                 });
             }
         );
-
-
     }
 );
 
