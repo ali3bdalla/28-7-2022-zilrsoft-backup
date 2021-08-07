@@ -72,7 +72,6 @@ class StoreSaleRequest extends FormRequest
             $this->requestValidation();
             $authUser = auth()->user();
             if ($this->has('without_creating_expenses_purchases') && $this->filled('without_creating_expenses_purchases')) {
-
             } else {
                 dispatch_now(new CreatePurchaseInvoiceForExpensesJob($this->input('items')));
             }
@@ -154,11 +153,10 @@ class StoreSaleRequest extends FormRequest
                     throw ValidationException::withMessages(['item_serial' => 'serials count don\'t  match qty']);
                 }
                 foreach ($item['serials'] as $serial) {
-                    dispatch_now(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase'],['in_stock', 'return_sale']));
+                    dispatch_now(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase'], ['in_stock', 'return_sale']));
                 }
             }
         }
-
     }
 
     private function validateKits()
@@ -197,15 +195,12 @@ class StoreSaleRequest extends FormRequest
                                     throw ValidationException::withMessages(['kit_item' => "invalid serial"]);
                                 }
                             }
-
                         } else {
                             throw ValidationException::withMessages(['kit_item' => "invalid serials"]);
                         }
                     }
-
                 }
             }
-
         }
     }
 
@@ -214,12 +209,11 @@ class StoreSaleRequest extends FormRequest
         foreach ($items as $item) {
             $dbItem = Item::find($item['id']);
             if (!$dbItem->is_service && !$dbItem->is_expense && !$dbItem->is_kit) {
-                if ((int)$dbItem->available_qty < (int)$item['qty']) {
+                if ((float)$dbItem->available_qty < (float)$item['qty']) {
                     throw ValidationException::withMessages(['item_available_quantity' => "you can't sale this items , qty not"]);
                 }
             }
         }
-
     }
 
     private function validatePaymentsAndGetPaymentMethods(Invoice $invoice, $isOnlineOrder = false)
@@ -227,7 +221,7 @@ class StoreSaleRequest extends FormRequest
 
         if ($isOnlineOrder) {
             return [];
-//            return $this->onlineOrderPayments();
+            //            return $this->onlineOrderPayments();
         }
         $invoice = $invoice->fresh();
 
@@ -256,7 +250,6 @@ class StoreSaleRequest extends FormRequest
                     return $methods;
                 }
             }
-
         }
         return $this->input('methods');
     }
@@ -265,24 +258,22 @@ class StoreSaleRequest extends FormRequest
     public function onlineOrderPayments()
     {
         return [];
-//        $draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->input('quotation_id'))->first();
-//        if ($draft) {
-//            $order = Order::where([
-//                ['draft_id', $this->input('quotation_id')],
-//                ['status', 'in_progress'],
-//            ])->first();
-//            if ($order) {
-//                if ($order->paymentDetail) {
-//                    $account = $order->paymentDetail->receivedBank->account;
-//                    $account = $account->toArray();
-//                    $account['amount'] = $order->net;
-//                    return [$account];
-//                }
-//            }
-//        }
-//
-//        throw ValidationException::withMessages(['payment' => 'order payment not exists']);
+        //        $draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->input('quotation_id'))->first();
+        //        if ($draft) {
+        //            $order = Order::where([
+        //                ['draft_id', $this->input('quotation_id')],
+        //                ['status', 'in_progress'],
+        //            ])->first();
+        //            if ($order) {
+        //                if ($order->paymentDetail) {
+        //                    $account = $order->paymentDetail->receivedBank->account;
+        //                    $account = $account->toArray();
+        //                    $account['amount'] = $order->net;
+        //                    return [$account];
+        //                }
+        //            }
+        //        }
+        //
+        //        throw ValidationException::withMessages(['payment' => 'order payment not exists']);
     }
-
-
 }

@@ -45,7 +45,7 @@ class CreatePurchaseInvoiceForExpensesJob implements ShouldQueue
         foreach ($this->items as $item) {
             $dbItem = Item::findOrFail($item['id']);
             if ($dbItem->is_expense) {
-                $expenses [] = $item;
+                $expenses[] = $item;
             }
         }
 
@@ -73,22 +73,21 @@ class CreatePurchaseInvoiceForExpensesJob implements ShouldQueue
         $itemData = collect($requestData);
 
         $dbData = collect($item)->toArray();
-        if($itemData->has('qty'))
-        {
+        if ($itemData->has('qty')) {
             $qty = $itemData->get('qty');
-        }else{
+        } else {
             $qty = 1;
         }
-        $dbData['qty'] = (int)$qty;
-        $dbData['net'] = (float)$itemData->get('purchase_price') * (int)$qty;
+        $dbData['qty'] = (float)$qty;
+        $dbData['net'] = (float)$itemData->get('purchase_price') * (float)$qty;
         $dbData['subtotal'] = (float)$dbData['net'] / (1 + ($item->vtp / 100)); // 0.05 + 1 = 1.05
 
         $dbData['tax'] = (float)$dbData['net'] - (float)$dbData['subtotal'];
         $dbData['discount'] = 0;
         $dbData['total'] = $dbData['subtotal'];
         $dbData['cost'] = (float)$itemData->get('purchase_price');
-        $dbData['purchase_price'] = (float)$dbData['total'] / (int)$qty;
-//        dd($dbData);
+        $dbData['purchase_price'] = (float)$dbData['total'] / (float)$qty;
+        //        dd($dbData);
 
         $invoice = Invoice::create([
             'invoice_type' => 'purchase',

@@ -37,14 +37,14 @@ class UpdateItemCostByInvoiceItemJob implements ShouldQueue
     public function handle()
     {
 
-        $availableQty = (int)$this->invoiceItem->item->fresh()->available_qty;
+        $availableQty = (float)$this->invoiceItem->item->fresh()->available_qty;
         /**
          * ==========================================================
          * update cost for purchase invoice item
          * stock amount = old stock amount + invoice item subtotal
          * ==========================================================
          */
-        if (in_array($this->invoiceItem->invoice_type, ['purchase','beginning_inventory','inventory_adjustment'])) {
+        if (in_array($this->invoiceItem->invoice_type, ['purchase', 'beginning_inventory', 'inventory_adjustment'])) {
             $stockAmountBeforeNewInvoiceItem = $this->availableQtyBeforeInvoiceItem * $this->costBeforeInvoiceItem;
             $newStockAmount = (float)$stockAmountBeforeNewInvoiceItem + (float)$this->invoiceItem->subtotal;
             $newItemCost = $availableQty == 0 ? $this->invoiceItem->item->fresh()->cost :  (float)$newStockAmount / $availableQty;
@@ -64,14 +64,10 @@ class UpdateItemCostByInvoiceItemJob implements ShouldQueue
         if (in_array($this->invoiceItem->invoice_type, ['return_purchase'])) {
             $stockAmountBeforeNewInvoiceItem = $this->availableQtyBeforeInvoiceItem * $this->costBeforeInvoiceItem;
             $newStockAmount = (float)$stockAmountBeforeNewInvoiceItem - (float)$this->invoiceItem->subtotal;
-            if($availableQty == 0)
-            {
+            if ($availableQty == 0) {
                 $newItemCost = $this->costBeforeInvoiceItem;
-
-            }else
-            {
+            } else {
                 $newItemCost = (float)$newStockAmount / $availableQty;
-
             }
             $this->invoiceItem->item->update([
                 'cost' => $newItemCost,
@@ -86,12 +82,10 @@ class UpdateItemCostByInvoiceItemJob implements ShouldQueue
          * stock amount = available qty - cost
          * ==========================================================
          */
-        if (in_array($this->invoiceItem->invoice_type, ['sale','return_sale'])) {
+        if (in_array($this->invoiceItem->invoice_type, ['sale', 'return_sale'])) {
             $this->invoiceItem->item->update([
                 'total_cost_amount' => (float)($this->invoiceItem->item->cost * $availableQty),
             ]);
         }
-
-
     }
 }

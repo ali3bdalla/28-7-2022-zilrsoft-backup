@@ -43,11 +43,11 @@ class StoreReturnPurchaseRequest extends FormRequest
             'items.*.id' => 'integer|required|organization_exists:App\Models\InvoiceItems,id',
             'items.*.returned_qty' => 'required',
             'items.*.serials' => 'array',
-//            'items.*.serials.*' => 'required|organization_exists:App\Models\ItemSerials,serial',
+            //            'items.*.serials.*' => 'required|organization_exists:App\Models\ItemSerials,serial',
             'methods' => 'array',
             'methods.*.id' => 'required|integer|organization_exists:App\Models\Account,id',
             'methods.*.amount' => 'required|numeric',
-//            'methods.*.id' => 'integer|required|organization_exists:App\Models\Account,id',
+            //            'methods.*.id' => 'integer|required|organization_exists:App\Models\Account,id',
         ];
     }
 
@@ -99,7 +99,7 @@ class StoreReturnPurchaseRequest extends FormRequest
             $dbInvoiceItem = InvoiceItems::find($item->get('id'));
             $dbItem = $dbInvoiceItem->item;
             if ($dbItem->is_need_serial) {
-                if (count($item->get("serials")) != (int)$item->get('returned_qty')) {
+                if (count($item->get("serials")) != (float)$item->get('returned_qty')) {
                     throw ValidationException::withMessages(['item_serial' => 'serials count don\'t  match returned qty']);
                 }
                 foreach ($item['serials'] as $serial) {
@@ -107,7 +107,5 @@ class StoreReturnPurchaseRequest extends FormRequest
                 }
             }
         }
-
     }
-
 }

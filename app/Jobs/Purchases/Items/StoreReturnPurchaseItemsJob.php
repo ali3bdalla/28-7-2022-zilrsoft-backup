@@ -34,7 +34,7 @@ class StoreReturnPurchaseItemsJob implements ShouldQueue
      */
     private $loggedUser;
 
-//44
+    //44
     private $isDraft;
 
     /**
@@ -128,7 +128,7 @@ class StoreReturnPurchaseItemsJob implements ShouldQueue
     {
 
         $purchasePrice = $invoiceItem->price;
-        $returnedQty = (int)$requestItemCollection->get('returned_qty');
+        $returnedQty = (float)$requestItemCollection->get('returned_qty');
         $total = $purchasePrice * $returnedQty;
         $subtotal = $total;
         $tax = ($invoiceItem->tax / $invoiceItem->qty) * $returnedQty;
@@ -148,7 +148,6 @@ class StoreReturnPurchaseItemsJob implements ShouldQueue
         $data['item_id'] = $invoiceItem->item_id;
         $data['is_draft'] = $this->isDraft;
         return $this->returnPurchaseInvoice->items()->create($data);
-
     }
 
     private function setCostAndAvailableQty(InvoiceItems $invoiceItem)

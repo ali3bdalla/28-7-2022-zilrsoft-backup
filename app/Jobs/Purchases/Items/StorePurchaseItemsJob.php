@@ -133,20 +133,18 @@ class StorePurchaseItemsJob implements ShouldQueue
 
         $purchasePrice = (float)$requestItemCollection->get('purchase_price');
         if ($requestItemCollection->has('discount')) {
-            $discount = (float)$requestItemCollection->get('discount');//
+            $discount = (float)$requestItemCollection->get('discount'); //
         } else {
             $discount = 0;
         }
 
-        $qty = (int)$requestItemCollection->get('qty');
+        $qty = (float)$requestItemCollection->get('qty');
         $total = $purchasePrice * $qty;
         $subtotal = $total - $discount;
         if ($this->invoiceType == 'purchase') {
             $tax = ($subtotal * $item->vtp) / 100;
-
         } else {
             $tax = 0;
-
         }
         $net = $subtotal + $tax;
         $total = $subtotal;
@@ -154,7 +152,7 @@ class StorePurchaseItemsJob implements ShouldQueue
         $data['invoice_type'] = $this->invoiceType;
         $data['user_id'] = $this->invoice->purchase->vendor_id;
         $data['qty'] = $qty;
-        $data['discount'] = 0;//$discount
+        $data['discount'] = 0; //$discount
         $data['total'] = $total;
         $data['subtotal'] = $subtotal;
         $data['tax'] = $tax;

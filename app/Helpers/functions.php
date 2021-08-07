@@ -60,7 +60,6 @@ if (!function_exists('sendOtp')) {
 
             sendSms(__('store.common.verification_code') . ' ' . $otp, $phoneNumber);
         }
-
     }
 }
 
@@ -88,10 +87,3 @@ if (!function_exists('sendSms')) {
 //$url = "http://www.oursms.net/api/sendsms.php?username=$user&password=$password&numbers=$to&message=$text&sender=$sendername&unicode=E";
 // Call API and get return message
 //fopen($url,"r");
-
-
-
-
-
-
-

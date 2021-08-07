@@ -39,8 +39,10 @@ class FetchPurchasesRequest extends FormRequest
             $query = Invoice::whereIn('invoice_type', ['return_purchase', 'purchase'])->where('is_draft', false);
         }
 
-        if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
-            $this->filled('endDate')) {
+        if (
+            $this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
+            $this->filled('endDate')
+        ) {
             $_startDate = Carbon::parse($this->input("startDate"))->toDateString();
             $_endDate = Carbon::parse($this->input("endDate"))->toDateString();
             if ($_endDate === $_startDate) {
@@ -51,7 +53,6 @@ class FetchPurchasesRequest extends FormRequest
                     $_endDate->toDateString(),
                 ]);
             }
-
         }
 
         if ($this->has('creators') && $this->filled('creators')) {
@@ -78,7 +79,7 @@ class FetchPurchasesRequest extends FormRequest
                 $number = $this->input('title');
             }
 
-            $query = $query->where('id', (int)$number)->orWhere('invoice_number','iLIKE', $number)->withoutGlobalScopes(['accountingPeriod','manager']);
+            $query = $query->where('id', (float)$number)->orWhere('invoice_number', 'iLIKE', $number)->withoutGlobalScopes(['accountingPeriod', 'manager']);
         }
 
         if ($this->has('net') && $this->filled('net')) {
@@ -144,13 +145,13 @@ class FetchPurchasesRequest extends FormRequest
         }
 
 
-        $query = $query->with('creator', 'items', 'purchase.vendor','manager','user');
-        if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval($this->input("itemsPerPage")
+        $query = $query->with('creator', 'items', 'purchase.vendor', 'manager', 'user');
+        if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval(
+            $this->input("itemsPerPage")
         ) >= 1 && intval($this->input('itemsPerPage')) <= 100) {
             return $query->paginate(intval($this->input('itemsPerPage')));
         } else {
             return $query->paginate(20);
         }
     }
-
 }

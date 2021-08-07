@@ -24,7 +24,6 @@ trait ReturnInvoiceTraits
                     "invoice" => ['all items must belongs to current invoice'],
                 ]);
                 throw  $error;
-
             }
         }
     }
@@ -34,7 +33,7 @@ trait ReturnInvoiceTraits
     {
         $returnedItems = [];
         foreach ($items as $item) {
-            if ((int)$item['returned_qty'] >= 1) {
+            if ((float)$item['returned_qty'] >= 1) {
                 $returnedItems[] = $item;
             }
         }
@@ -54,7 +53,7 @@ trait ReturnInvoiceTraits
 
         foreach ($items as $item) {
             $dbInvoiceItem = InvoiceItems::find($item['id']);
-            $returnedQty = (int)$dbInvoiceItem->returned_qty + (int)$item['returned_qty'];
+            $returnedQty = (float)$dbInvoiceItem->returned_qty + (float)$item['returned_qty'];
             if ($returnedQty > $dbInvoiceItem->qty) {
                 $error = ValidationException::withMessages([
                     "items.returned_qty" => ['item qty is not enough'],
@@ -72,10 +71,6 @@ trait ReturnInvoiceTraits
                     }
                 }
             }
-
-
         }
-
     }
-
 }

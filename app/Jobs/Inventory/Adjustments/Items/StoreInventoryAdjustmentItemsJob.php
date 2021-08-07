@@ -133,7 +133,7 @@ class StoreInventoryAdjustmentItemsJob implements ShouldQueue
                  * ==========================================================
                  */
                 $item->update([
-                    'available_qty' =>  $newAvailableQty 
+                    'available_qty' =>  $newAvailableQty
                 ]);
                 // dispatch_now(new UpdateAvailableQtyByInvoiceItemJob($invoiceItem));
                 /**
@@ -196,7 +196,7 @@ class StoreInventoryAdjustmentItemsJob implements ShouldQueue
         $price = (float)$costBeforeInvoiceItem;
         $discount = (float)0;
 
-        $qty = (int)  $newTransactionQty; // 2 - 27 = -25 //+ $availableQtyBeforeInvoiceItem
+        $qty = (float)  $newTransactionQty; // 2 - 27 = -25 //+ $availableQtyBeforeInvoiceItem
         $total = $price * $qty;
         $subtotal = $total - $discount;
         $tax = 0;

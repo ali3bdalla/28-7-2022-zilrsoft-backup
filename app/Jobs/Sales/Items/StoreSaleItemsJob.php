@@ -69,7 +69,7 @@ class StoreSaleItemsJob implements ShouldQueue
     public function storeKit(Item $dbItem, $value)
     {
         $itemPureCollection = collect($value);
-        $qty = (int)$itemPureCollection->get('qty');
+        $qty = (float)$itemPureCollection->get('qty');
         $data['belong_to_kit'] = false;
         $data['parent_kit_id'] = 0;
         $data['discount'] = (float)($dbItem->data->discount * $qty);
@@ -102,8 +102,8 @@ class StoreSaleItemsJob implements ShouldQueue
                     $sendData['serials'] = [];
                 }
             }
-            $sendData['qty'] = (int)$kitItem->qty * (int)$qty;
-            $sendData['discount'] = (float)$kitItem->discount * (int)$qty;
+            $sendData['qty'] = (float)$kitItem->qty * (float)$qty;
+            $sendData['discount'] = (float)$kitItem->discount * (float)$qty;
             $sendData['price'] = $kitItem->price;
             $sendData['belong_to_kit'] = true;
             $sendData['parent_kit_id'] = $invoiceKitId;
@@ -196,7 +196,7 @@ class StoreSaleItemsJob implements ShouldQueue
 
 
         $discount = 0;
-        $qty = (int)$requestItemCollection->get('quantity'); // 10
+        $qty = (float)$requestItemCollection->get('quantity'); // 10
         $net = moneyFormatter((float)$item->online_offer_price * $qty);
         $total = moneyFormatter($net / (1 + ($item->vts / 100)));
         $subtotal = $total;
@@ -240,7 +240,7 @@ class StoreSaleItemsJob implements ShouldQueue
         // }
 
         $discount = (float)$requestItemCollection->get('discount');
-        $qty = (int)$requestItemCollection->get('qty'); // 10
+        $qty = (float)$requestItemCollection->get('qty'); // 10
         $total = $price * $qty;
         $subtotal = $total - $discount;
         $tax = ($subtotal * $item->vts) / 100;

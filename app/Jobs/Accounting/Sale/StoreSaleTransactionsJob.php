@@ -56,7 +56,7 @@ class StoreSaleTransactionsJob implements ShouldQueue
                 'organization_id' => $this->loggedUser->organization_id,
                 'invoice_id' => $invoice->id,
                 'amount' => 0,
-	            'description' => 'Invoice #' . $invoice->id
+                'description' => 'Invoice #' . $invoice->id
             ]
         );
         $transactionContainer->save();
@@ -85,15 +85,14 @@ class StoreSaleTransactionsJob implements ShouldQueue
 
         $this->createCogsTransactions();
         $this->createCostTransactions();
-
     }
 
     private function createItemsTransactions()
     {
 
         foreach ($this->invoiceItems as $item) {
-//            if (!$item->item->is_service) {
-            $amount = (float)$item->item->cost * (int)$item->qty;
+            //            if (!$item->item->is_service) {
+            $amount = (float)$item->item->cost * (float)$item->qty;
             $data = $this->startupData;
             $data['amount'] = $amount;
             $data['type'] = 'credit';
@@ -102,7 +101,7 @@ class StoreSaleTransactionsJob implements ShouldQueue
             dispatch_now(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'credit'));
             $this->itemsTaxAmount += $item->tax;
             $this->itemsCostAmount += $amount;
-//            }
+            //            }
 
         }
     }
@@ -133,7 +132,6 @@ class StoreSaleTransactionsJob implements ShouldQueue
             $data['amount'] = $sum;
             $this->taxAccount->transactions()->create($data);
         }
-
     }
 
     private function createClientBalanceTransaction()
@@ -141,7 +139,7 @@ class StoreSaleTransactionsJob implements ShouldQueue
         $paidAmount = $this->invoice->payments()->sum('amount');
         $netAmount = (float)$this->invoice->net;
         if ($paidAmount != $netAmount) {
-            $variation =  (float)$paidAmount - (float)$netAmount ;
+            $variation =  (float)$paidAmount - (float)$netAmount;
             if ($this->invoice->sale->client->is_system_user) {
                 $fistPayment = $this->invoice->payments()->first();
                 if ($fistPayment == null) {
@@ -159,7 +157,6 @@ class StoreSaleTransactionsJob implements ShouldQueue
                         }
                     }
                 }
-
             } else {
                 if ($variation > 0) {
                     $data = $this->startupData;
@@ -167,7 +164,7 @@ class StoreSaleTransactionsJob implements ShouldQueue
                     $data['user_id'] = $this->invoice->user_id;
                     $data['type'] = 'credit';
                     $this->clientAccount->transactions()->create($data);
-                    dispatch_now(new UpdateClientBalanceJob($this->invoice->sale->client,abs($variation), 'decrease'));
+                    dispatch_now(new UpdateClientBalanceJob($this->invoice->sale->client, abs($variation), 'decrease'));
                 } else {
                     $data = $this->startupData;
                     $data['amount'] = abs($variation);
@@ -177,8 +174,6 @@ class StoreSaleTransactionsJob implements ShouldQueue
                     dispatch_now(new UpdateClientBalanceJob($this->invoice->sale->client, abs($variation), 'increase'));
                 }
             }
-
-
         }
     }
 
@@ -278,7 +273,5 @@ class StoreSaleTransactionsJob implements ShouldQueue
             $data['type'] = 'debit';
             $this->otherServicesSalesDiscountAccount->transactions()->create($data);
         }
-
     }
-
 }

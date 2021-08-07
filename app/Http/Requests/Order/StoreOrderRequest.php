@@ -108,12 +108,10 @@ class StoreOrderRequest extends FormRequest
         foreach ($items as $item) {
             $dbItem = Item::find($item['id']);
             if (!$dbItem->is_service && !$dbItem->is_expense && !$dbItem->is_kit) {
-                if ((int)$dbItem->available_qty < (int)$item['quantity']) {
+                if ((float)$dbItem->available_qty < (float)$item['quantity']) {
                     throw ValidationException::withMessages(['item_available_quantity' => "you can't sale this items , qty not"]);
                 }
             }
         }
-
     }
-
 }

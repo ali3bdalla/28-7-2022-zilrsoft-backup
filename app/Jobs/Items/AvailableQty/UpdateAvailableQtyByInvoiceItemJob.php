@@ -42,16 +42,16 @@ class UpdateAvailableQtyByInvoiceItemJob implements ShouldQueue
         $availableQty = $this->invoiceItem->item->available_qty;
         if (!$this->reverse) {
             if (in_array($this->invoiceItem->invoice_type, ['purchase', 'return_sale', 'beginning_inventory', 'inventory_adjustment'])) {
-                $availableQtyAfterInvoiceItem = (int)$availableQty + (int)$this->invoiceItem->qty;
+                $availableQtyAfterInvoiceItem = (float)$availableQty + (float)$this->invoiceItem->qty;
             } else {
-                $availableQtyAfterInvoiceItem = (int)$availableQty - (int)$this->invoiceItem->qty;
+                $availableQtyAfterInvoiceItem = (float)$availableQty - (float)$this->invoiceItem->qty;
             }
         } else {
             if (in_array($this->invoiceItem->invoice_type, ['purchase', 'return_sale', 'beginning_inventory', 'inventory_adjustment'])) {
 
-                $availableQtyAfterInvoiceItem = (int)$availableQty - (int)$this->invoiceItem->qty;
+                $availableQtyAfterInvoiceItem = (float)$availableQty - (float)$this->invoiceItem->qty;
             } else {
-                $availableQtyAfterInvoiceItem = (int)$availableQty + (int)$this->invoiceItem->qty;
+                $availableQtyAfterInvoiceItem = (float)$availableQty + (float)$this->invoiceItem->qty;
             }
         }
 

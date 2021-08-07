@@ -83,15 +83,15 @@ class StoreReturnSaleItemsJob implements ShouldQueue
     {
         $kitRequestCollection = collect($value);
 
-        $qty = (int)$kitRequestCollection->get('returned_qty');
+        $qty = (float)$kitRequestCollection->get('returned_qty');
         $qtyWidget = $qty / $invoiceItem->qty;
 
 
 
         $data['belong_to_kit'] = false;
         $data['parent_kit_id'] = 0;
-        $data['discount'] = $invoiceItem->discount * $qtyWidget;//(float)($dbItem->data->discount * $qty)
-        $data['price'] = $invoiceItem->price;//(float)$dbItem->data->total
+        $data['discount'] = $invoiceItem->discount * $qtyWidget; //(float)($dbItem->data->discount * $qty)
+        $data['price'] = $invoiceItem->price; //(float)$dbItem->data->total
         $data['qty'] = $qty;
         $data['total'] = $invoiceItem->total * $qtyWidget;
         $data['subtotal'] = $invoiceItem->subtotal * $qtyWidget;
@@ -106,7 +106,6 @@ class StoreReturnSaleItemsJob implements ShouldQueue
         $this->storeKitItems($kitRequestCollection, $createdInvoiceKitItem, $invoiceItem, $qty);
         dispatch_now(new UpdateKitByInvoiceItemsJob($createdInvoiceKitItem));
         $this->updateInvoiceItemReturnQty($invoiceItem, $createdInvoiceKitItem);
-
     }
 
     public function storeKitItems($kitRequestCollection, InvoiceItems $returnSalesKitInvoiceItem, InvoiceItems $SalesKitInvoiceItem, $kitReturnedQty)
@@ -140,7 +139,6 @@ class StoreReturnSaleItemsJob implements ShouldQueue
              * =====================================
              */
             $this->storeItem($kitItem, $requestData);
-
         }
     }
 
@@ -212,7 +210,6 @@ class StoreReturnSaleItemsJob implements ShouldQueue
 
 
             $this->updateInvoiceItemReturnQty($invoiceItem, $createdInvoiceItem);
-
         }
     }
 
@@ -222,19 +219,19 @@ class StoreReturnSaleItemsJob implements ShouldQueue
         $requestItemCollection = collect($value);
         $isBelongToKit = (bool)$requestItemCollection->get('belong_to_kit');
         $salesPrice = $invoiceItem->price;
-        $returnedQty = (int)$requestItemCollection->get('returned_qty');
+        $returnedQty = (float)$requestItemCollection->get('returned_qty');
         if ($returnedQty > 0)
             $returnedQtyWidget = $returnedQty / $invoiceItem->qty; //0.1
         else
             $returnedQtyWidget = 0;
 
         $total = (float)$salesPrice * $returnedQty; // 0.1
-        $discount =(float) $invoiceItem->discount * (float)$returnedQtyWidget;//0
-        $subtotal =(float) $total - (float)$discount;
+        $discount = (float) $invoiceItem->discount * (float)$returnedQtyWidget; //0
+        $subtotal = (float) $total - (float)$discount;
         $tax = (float)$invoiceItem->tax * $returnedQtyWidget;
         $net = (float)$subtotal + (float)$tax;
 
-        $data['parent_kit_id'] = $isBelongToKit ? (int)$requestItemCollection->get('kit_id') : 0;
+        $data['parent_kit_id'] = $isBelongToKit ? (float)$requestItemCollection->get('kit_id') : 0;
         $data['belong_to_kit'] = $isBelongToKit;
         $data['price'] = $salesPrice;
         $data['invoice_type'] = 'return_sale';
@@ -269,6 +266,4 @@ class StoreReturnSaleItemsJob implements ShouldQueue
             'returned_qty' => $invoiceItem->returned_qty + $returnInvoiceItem->qty
         ]);
     }
-
-
 }

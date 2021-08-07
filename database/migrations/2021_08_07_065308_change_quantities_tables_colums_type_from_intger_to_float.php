@@ -11,10 +11,13 @@ class ChangeQuantitiesTablesColumsTypeFromIntgerToFloat extends Migration
     {
         $placeholderColumn = "{$tableName}_{$quantityColumnName}_placeholder";
         Schema::table($tableName, function (Blueprint $table) use ($placeholderColumn) {
-            $table->double($placeholderColumn)->default(0);
+            $table->double($placeholderColumn)->nullable()->default(0);
         });
         DB::table($tableName)->update([
-            $placeholderColumn => DB::raw("${$quantityColumnName}")
+            $placeholderColumn => DB::raw("{$quantityColumnName}")
+        ]);
+        DB::table($tableName)->where($placeholderColumn, null)->update([
+            $placeholderColumn => 0
         ]);
         Schema::table($tableName, function (Blueprint $table) use ($quantityColumnName) {
             $table->dropColumn($quantityColumnName);
@@ -23,7 +26,7 @@ class ChangeQuantitiesTablesColumsTypeFromIntgerToFloat extends Migration
             $table->double($quantityColumnName)->default(0);
         });
         DB::table($tableName)->update([
-            $quantityColumnName => DB::raw("${$placeholderColumn}")
+            $quantityColumnName => DB::raw("{$placeholderColumn}")
         ]);
         Schema::table($tableName, function (Blueprint $table) use ($placeholderColumn) {
             $table->dropColumn($placeholderColumn);
@@ -37,12 +40,13 @@ class ChangeQuantitiesTablesColumsTypeFromIntgerToFloat extends Migration
     public function up()
     {
         $this->changeQuantityTypeToFloat('items', 'available_qty');
-        $this->changeQuantityTypeToFloat('invoice_items', 'quantity');
-        $this->changeQuantityTypeToFloat('items', 'available_qty');
-        $this->changeQuantityTypeToFloat('items', 'available_qty');
-        $this->changeQuantityTypeToFloat('items', 'available_qty');
-        $this->changeQuantityTypeToFloat('items', 'available_qty');
-        $this->changeQuantityTypeToFloat('items', 'available_qty');
+        $this->changeQuantityTypeToFloat('invoice_items', 'available_qty');
+        $this->changeQuantityTypeToFloat('invoice_items', 'qty');
+        $this->changeQuantityTypeToFloat('invoice_items', 'returned_qty');
+        $this->changeQuantityTypeToFloat('invoice_items', 'warranty_quantity');
+        $this->changeQuantityTypeToFloat('order_item_qty_holders', 'qty');
+        $this->changeQuantityTypeToFloat('kit_items', 'qty');
+        $this->changeQuantityTypeToFloat('inventory_transactions', 'quantity');
     }
 
     /**
@@ -52,8 +56,5 @@ class ChangeQuantitiesTablesColumsTypeFromIntgerToFloat extends Migration
      */
     public function down()
     {
-        Schema::table('intger_to_float', function (Blueprint $table) {
-            //
-        });
     }
 }
