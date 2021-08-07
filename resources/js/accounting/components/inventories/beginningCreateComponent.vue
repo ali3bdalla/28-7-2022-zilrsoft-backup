@@ -152,7 +152,7 @@
                 class="form-control"
                 type="text"
                 @focus="$event.target.select()"
-                @keyup="itemQtyUpdated(item)"
+                @change="itemQtyUpdated(item)"
 
             >
             <p v-else>{{ item.qty }}</p>

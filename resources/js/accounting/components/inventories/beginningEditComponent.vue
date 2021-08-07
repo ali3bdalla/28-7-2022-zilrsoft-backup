@@ -1,7 +1,6 @@
 <template>
     <div class="">
 
-
         <div class="row">
             <div class="col-md-6">
                 <button :disabled="disabledButton" @click="pushDataToServer" class="btn btn-custom-primary"><i
@@ -14,7 +13,6 @@
             </div>
 
         </div>
-
 
         <div class="row">
             <div class="col-md-6">
@@ -36,10 +34,8 @@
 
                 </div>
 
-
             </div>
         </div>
-
 
         <div class="row">
             <div class="col-md-6">
@@ -91,7 +87,6 @@
                 </div>
             </div>
 
-
             <div class="col-md-2" v-if="canViewItems==1">
                 <a :href="app.BaseApiUrl +
                     'items?selectable=true&&is_purchase=true'" class="btn btn-custom-primary btn-lg"
@@ -103,9 +98,7 @@
                    target="_blank">{{app.trans.create_product}}</a>
             </div>
 
-
         </div>
-
 
         <div class="panel">
             <table class="table table-bordered text-center  table-striped">
@@ -147,7 +140,7 @@
                                 :placeholder="app.trans.qty"
                                 :ref="'itemQty_' + item.id + 'Ref'"
                                 @focus="$event.target.select()"
-                                @keyup="itemQtyUpdated(item)"
+                                @change="itemQtyUpdated(item)"
                                 class="form-control"
                                 type="text"
                                 v-if="!item.is_need_serial"
@@ -174,7 +167,6 @@
                     </th>
 
                 </tr>
-
 
                 </tbody>
             </table>
@@ -206,7 +198,6 @@
             </div>
         </div>
 
-
         <accounting-invoice-item-serials-list-layout-component
                 :item="selectedItem"
                 :item-index="selectedItemIndex"
@@ -217,263 +208,241 @@
 
         </accounting-invoice-item-serials-list-layout-component>
 
-
     </div>
-
 
 </template>
 
 <script>
 
+import { query as ItemQuery } from '../../item'
+// import 'bulma/css/bulma.css'
 
-    import {query as ItemQuery} from '../../item';
-    // import 'bulma/css/bulma.css'
+export default {
+  props: [
+    'creator',
+    'user',
+    'canViewItems',
+    'canCreateItem'
+  ],
+  data: function () {
+    return {
+      disabledButton: false,
+      selectedItemIndex: null,
+      selectedItem: null,
+      codeTest: '',
+      invoiceData: {
+        items: [],
+        total: 0,
+        net: 0,
+        tax: 0,
+        discount: 0,
+        subtotal: 0
 
-    export default {
-        props: [
-            'creator',
-            'user',
-            'canViewItems',
-            'canCreateItem',
-        ],
-        data: function () {
-            return {
-                disabledButton: false,
-                selectedItemIndex: null,
-                selectedItem: null,
-                codeTest: "",
-                invoiceData: {
-                    items: [],
-                    total: 0,
-                    net: 0,
-                    tax: 0,
-                    discount: 0,
-                    subtotal: 0,
-
-                },
-                searchResultList: [],
-                barcodeNameAndSerialField: "",
-                bc: new BroadcastChannel('item_barcode_copy_to_invoice'),
-                app: {
-                    primaryColor: metaHelper.getContent('primary-color'),
-                    secondColor: metaHelper.getContent('second-color'),
-                    appLocate: metaHelper.getContent('app-locate'),
-                    trans: trans('invoices-page'),
-                    messages: trans('messages'),
-                    dateTimeTrans: trans('datetime'),
-                    validation: trans('validation'),
-                    datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
-                    BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
-                    defaultVatSaleValue: 5,
-                    defaultVatPurchaseValue: 5,
-                },
-                time: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' ' + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
-            };
-        },
-        created: function () {
-            this.showActiveDateTime();
-
-        },
-        mounted: function () {
-            this.itemsTabsPusherHandler();
-            this.$refs.barcodeNameAndSerialField.focus();
-        },
-
-        methods: {
-            itemsTabsPusherHandler() {
-                let appVm = this;
-                this.bc.onmessage = function (ev) {
-                    if (ev.isTrusted) {
-                        var item = JSON.parse(ev.data);
-                        appVm.validateAndPrepareItem(item);
-                    }
-                }
-            },
-            sendQueryRequestToFindItems() {
-                var appVm = this;
-                ItemQuery.sendQueryRequestToFindItems(this.barcodeNameAndSerialField).then(response => {
-                    if (response.data.length === 1) {
-                        appVm.validateAndPrepareItem(response.data[0]);
-                        appVm.barcodeNameAndSerialField = "";
-                        appVm.searchResultList = [];
-                    } else if (response.data.length === 0) {
-                        appVm.$refs.barcodeNameAndSerialField.select();
-                        appVm.searchResultList = [];
-
-
-                    } else {
-                        appVm.searchResultList = response.data;
-                    }
-
-                }).catch(error => {
-                    console.log(error);
-                })
-            },
-            validateAndPrepareItem(item) {
-                if (db.model.contain(this.invoiceData.items, item.id)) {
-                    let parent = db.model.find(this.invoiceData.items, item.id);
-                    if (!parent.is_need_serial) {
-                        parent.qty = parseInt(parent.qty) + 1;
-                        this.itemQtyUpdated(parent);
-
-                    }
-                    this.clearAndFocusOnBarcodeField();
-                } else {
-                    var preparedItem = this.prepareDataInFirstUse(item);
-                    var index = this.appendItemToInvoiceItemsList(preparedItem);
-                    // this.invoiceData.items.reverse();
-                    this.clearAndFocusOnBarcodeField();
-                    this.focusOnQtyField(index);
-
-
-                }
-
-
-            },
-
-
-            focusOnQtyField: function (index) {
-                var item = db.model.findByIndex(this.invoiceData.items, index);
-
-                let ref = 'itemQty_' + item.id + 'Ref';
-
-                // console.log(inputHelper.getReference(ref));
-                // if (item.is_need_serial) {
-                // console.log(this.$refs['itemQty_52Ref']);
-                // } else {
-                //     this.$refs['itemQty_' + item.id + 'Ref'].focus();
-                // }
-            },
-            prepareDataInFirstUse(item,) {
-                item.isOpen = false;
-                item.qty = 1;
-                if (item.is_need_serial) {
-                    item.qty = 0;
-                    item.serials = [];
-                }
-                item.purchase_price = item.last_p_price;
-                item.total = item.qty * item.purchase_price;
-                item.discount = 0;
-                item.subtotal = item.total;
-                item.tax = 0;
-                item.net = item.total;
-                return item;
-
-            },
-            appendItemToInvoiceItemsList(item, index = null) {
-                if (index != null) {
-                    this.invoiceData.items.splice(index, 1, item);
-                } else {
-                    this.invoiceData.items.push(item);
-                }
-
-                this.updateInvoiceData();
-                return db.model.index(this.invoiceData.items, item.id);
-            },
-            updateInvoiceData() {
-                this.disabledButton = false;
-                this.invoiceData.total = db.model.sum(this.invoiceData.items, 'total');
-                this.invoiceData.discount = db.model.sum(this.invoiceData.items, 'discount');
-                this.invoiceData.subtotal = db.model.sum(this.invoiceData.items, 'subtotal');
-                this.invoiceData.tax = db.model.sum(this.invoiceData.items, 'tax');
-                this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net');
-            },
-            clearAndFocusOnBarcodeField() {
-                this.barcodeNameAndSerialField = "";
-                this.searchResultList = [];
-                this.$refs.barcodeNameAndSerialField.focus();
-            },
-            itemQtyUpdated(item, bySerial = false) {
-                if (bySerial == false) {
-                    var el = this.$refs['itemQty_' + item.id + 'Ref'][0];
-                    if (!inputHelper.validateQty(item.qty, el)) {
-                        return false;
-                    }
-                }
-
-                item = this.itemUpdater(item);
-                this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
-            },
-            itemUpdater(item) {
-                item.total = item.purchase_price * item.qty;
-                item.subtotal = item.total;
-                item.net = item.total;
-                item.tax = 0;
-
-                return item;
-            },
-
-            itemPriceUpdated(item) {
-                var el = this.$refs['itemPrice_' + item.id + 'Ref'][0];
-                if (!inputHelper.validatePrice(item.purchase_price, el)) {
-                    return false;
-                }
-                item = this.itemUpdater(item);
-                this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
-            },
-
-
-            showActiveDateTime() {
-                let vm = this;
-                setInterval(function () {
-
-                    vm.time = helpers.getFullDateAndTime();
-                }, 1000);
-            },
-
-
-            deleteItemFromList(item) {
-                this.invoiceData.items = db.model.delete(this.invoiceData.items, item.id);
-                this.updateInvoiceData();
-            },
-
-            openItemSerialsModal(index, item) {
-                this.selectedItem = item;
-                this.selectedItemIndex = index;
-            },
-
-            handleItemSerialsUpdated(e) {
-                var index = e.index;
-                var item = db.model.findByIndex(this.invoiceData.items, index);
-                item.serials = e.serials;
-                item.qty = e.serials.length;
-                this.itemQtyUpdated(item, true);
-            },
-            handleItemSerialsClosed(e) {
-                this.selectedItem = null;
-                this.selectedItemIndex = null;
-            },
-
-
-            pushDataToServer() {
-                this.disabledButton = true;
-                var data = {
-                    items: this.invoiceData.items,
-                    total: this.invoiceData.total,
-                    tax: 0,
-                    discount: 0,
-                    discount_percent: 0,
-                    net: this.invoiceData.total,
-                    subtotal: this.invoiceData.total,
-                };
-                var appVm = this;
-                axios.post(this.app.BaseApiUrl + 'inventories/beginning/store', data)
-                    .then(function (response) {
-
-                        window.location.reload();
-                    })
-                    .catch(function (error) {
-                        alert(error)
-                    });
-
-            },
-
-        },
-
-
+      },
+      searchResultList: [],
+      barcodeNameAndSerialField: '',
+      bc: new BroadcastChannel('item_barcode_copy_to_invoice'),
+      app: {
+        primaryColor: metaHelper.getContent('primary-color'),
+        secondColor: metaHelper.getContent('second-color'),
+        appLocate: metaHelper.getContent('app-locate'),
+        trans: trans('invoices-page'),
+        messages: trans('messages'),
+        dateTimeTrans: trans('datetime'),
+        validation: trans('validation'),
+        datatableBaseUrl: metaHelper.getContent('datatableBaseUrl'),
+        BaseApiUrl: metaHelper.getContent('BaseApiUrl'),
+        defaultVatSaleValue: 5,
+        defaultVatPurchaseValue: 5
+      },
+      time: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' ' + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds()
     }
-</script>
+  },
+  created: function () {
+    this.showActiveDateTime()
+  },
+  mounted: function () {
+    this.itemsTabsPusherHandler()
+    this.$refs.barcodeNameAndSerialField.focus()
+  },
 
+  methods: {
+    itemsTabsPusherHandler () {
+      const appVm = this
+      this.bc.onmessage = function (ev) {
+        if (ev.isTrusted) {
+          const item = JSON.parse(ev.data)
+          appVm.validateAndPrepareItem(item)
+        }
+      }
+    },
+    sendQueryRequestToFindItems () {
+      const appVm = this
+      ItemQuery.sendQueryRequestToFindItems(this.barcodeNameAndSerialField).then(response => {
+        if (response.data.length === 1) {
+          appVm.validateAndPrepareItem(response.data[0])
+          appVm.barcodeNameAndSerialField = ''
+          appVm.searchResultList = []
+        } else if (response.data.length === 0) {
+          appVm.$refs.barcodeNameAndSerialField.select()
+          appVm.searchResultList = []
+        } else {
+          appVm.searchResultList = response.data
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    validateAndPrepareItem (item) {
+      if (db.model.contain(this.invoiceData.items, item.id)) {
+        const parent = db.model.find(this.invoiceData.items, item.id)
+        if (!parent.is_need_serial) {
+          parent.qty = parseInt(parent.qty) + 1
+          this.itemQtyUpdated(parent)
+        }
+        this.clearAndFocusOnBarcodeField()
+      } else {
+        const preparedItem = this.prepareDataInFirstUse(item)
+        const index = this.appendItemToInvoiceItemsList(preparedItem)
+        // this.invoiceData.items.reverse();
+        this.clearAndFocusOnBarcodeField()
+        this.focusOnQtyField(index)
+      }
+    },
+
+    focusOnQtyField: function (index) {
+      const item = db.model.findByIndex(this.invoiceData.items, index)
+
+      const ref = 'itemQty_' + item.id + 'Ref'
+
+      // console.log(inputHelper.getReference(ref));
+      // if (item.is_need_serial) {
+      // console.log(this.$refs['itemQty_52Ref']);
+      // } else {
+      //     this.$refs['itemQty_' + item.id + 'Ref'].focus();
+      // }
+    },
+    prepareDataInFirstUse (item) {
+      item.isOpen = false
+      item.qty = 1
+      if (item.is_need_serial) {
+        item.qty = 0
+        item.serials = []
+      }
+      item.purchase_price = item.last_p_price
+      item.total = item.qty * item.purchase_price
+      item.discount = 0
+      item.subtotal = item.total
+      item.tax = 0
+      item.net = item.total
+      return item
+    },
+    appendItemToInvoiceItemsList (item, index = null) {
+      if (index != null) {
+        this.invoiceData.items.splice(index, 1, item)
+      } else {
+        this.invoiceData.items.push(item)
+      }
+
+      this.updateInvoiceData()
+      return db.model.index(this.invoiceData.items, item.id)
+    },
+    updateInvoiceData () {
+      this.disabledButton = false
+      this.invoiceData.total = db.model.sum(this.invoiceData.items, 'total')
+      this.invoiceData.discount = db.model.sum(this.invoiceData.items, 'discount')
+      this.invoiceData.subtotal = db.model.sum(this.invoiceData.items, 'subtotal')
+      this.invoiceData.tax = db.model.sum(this.invoiceData.items, 'tax')
+      this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net')
+    },
+    clearAndFocusOnBarcodeField () {
+      this.barcodeNameAndSerialField = ''
+      this.searchResultList = []
+      this.$refs.barcodeNameAndSerialField.focus()
+    },
+    itemQtyUpdated (item, bySerial = false) {
+      if (bySerial == false) {
+        const el = this.$refs['itemQty_' + item.id + 'Ref'][0]
+        if (!inputHelper.validateQty(item.qty, el)) {
+          return false
+        }
+      }
+
+      item = this.itemUpdater(item)
+      this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id))
+    },
+    itemUpdater (item) {
+      item.total = item.purchase_price * item.qty
+      item.subtotal = item.total
+      item.net = item.total
+      item.tax = 0
+
+      return item
+    },
+
+    itemPriceUpdated (item) {
+      const el = this.$refs['itemPrice_' + item.id + 'Ref'][0]
+      if (!inputHelper.validatePrice(item.purchase_price, el)) {
+        return false
+      }
+      item = this.itemUpdater(item)
+      this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id))
+    },
+
+    showActiveDateTime () {
+      const vm = this
+      setInterval(function () {
+        vm.time = helpers.getFullDateAndTime()
+      }, 1000)
+    },
+
+    deleteItemFromList (item) {
+      this.invoiceData.items = db.model.delete(this.invoiceData.items, item.id)
+      this.updateInvoiceData()
+    },
+
+    openItemSerialsModal (index, item) {
+      this.selectedItem = item
+      this.selectedItemIndex = index
+    },
+
+    handleItemSerialsUpdated (e) {
+      const index = e.index
+      const item = db.model.findByIndex(this.invoiceData.items, index)
+      item.serials = e.serials
+      item.qty = e.serials.length
+      this.itemQtyUpdated(item, true)
+    },
+    handleItemSerialsClosed (e) {
+      this.selectedItem = null
+      this.selectedItemIndex = null
+    },
+
+    pushDataToServer () {
+      this.disabledButton = true
+      const data = {
+        items: this.invoiceData.items,
+        total: this.invoiceData.total,
+        tax: 0,
+        discount: 0,
+        discount_percent: 0,
+        net: this.invoiceData.total,
+        subtotal: this.invoiceData.total
+      }
+      const appVm = this
+      axios.post(this.app.BaseApiUrl + 'inventories/beginning/store', data)
+        .then(function (response) {
+          window.location.reload()
+        })
+        .catch(function (error) {
+          alert(error)
+        })
+    }
+
+  }
+
+}
+</script>
 
 <style scoped>
     input {
@@ -511,7 +480,4 @@
         cursor: pointer;
     }
 
-
 </style>
-
-

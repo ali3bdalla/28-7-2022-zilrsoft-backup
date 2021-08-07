@@ -173,7 +173,7 @@
                                 :placeholder="app.trans.qty"
                                 :ref="'itemQty_' + item.id + 'Ref'"
                                 @focus="$event.target.select()"
-                                @keyup="itemQtyUpdated(item)"
+                                @change="itemQtyUpdated(item)"
                                 class="form-control input-xs amount-input"
                                 type="text"
                                 v-model="item.qty"
@@ -717,7 +717,7 @@
                 if (item.is_service || item.is_expense) {
                     // let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts); //  1.05
                     item.price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vts);
-                 
+
                     item.total = item.price;
                     item.subtotal = item.price;
                     item.tax = ItemAccounting.getTax(item.subtotal, item.vts, true);
@@ -729,13 +729,13 @@
                     item.discount = parseFloat(ItemMath.sub(item.total, item.subtotal)).toFixed(2);
                 }
 
-                
+
                 this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
 
             },
 
             itemUpdater(item) {
-              
+
 
 
                 item.total = ItemAccounting.getTotal(item.price, item.qty);

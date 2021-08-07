@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Rules\Quantity;
+use App\Rules\QuantityValidationRule;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
@@ -30,6 +30,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extendImplicit('quantity', Quantity::class);
+        Validator::extendImplicit('quantity', QuantityValidationRule::class);
     }
 }

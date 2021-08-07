@@ -4,7 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class Quantity implements Rule
+class QuantityValidationRule implements Rule
 {
     /**
      * Create a new rule instance.
@@ -15,7 +15,17 @@ class Quantity implements Rule
     {
         //
     }
-
+    /**
+     * Determine if the validation rule passes.
+     *
+     * @param  string  $attribute
+     * @param  mixed  $value
+     * @return bool
+     */
+    public function validate($attribute, $value)
+    {
+        return is_numeric($value);
+    }
     /**
      * Determine if the validation rule passes.
      *

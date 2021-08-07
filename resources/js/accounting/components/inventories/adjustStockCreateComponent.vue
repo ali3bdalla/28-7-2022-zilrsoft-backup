@@ -124,7 +124,7 @@
                 :placeholder="app.trans.qty"
                 :ref="'itemQty_' + item.id + 'Ref'"
                 @focus="$event.target.select()"
-                @keyup="itemQtyUpdated(item)"
+                @change="itemQtyUpdated(item)"
                 class="form-control"
                 type="text"
                 v-if="!item.is_need_serial"
@@ -439,7 +439,7 @@ export default {
         .catch(function (error) {
           console.log(error);
           console.log(error.response);
-  
+
         });
     },
   },

@@ -101,7 +101,7 @@
                                 :placeholder="app.trans.qty"
                                 :ref="'itemQty_' + item.id + 'Ref'"
                                 @focus="$event.target.select()"
-                                @keyup="itemQtyUpdated(item)"
+                                @change="itemQtyUpdated(item)"
                                 class="form-control input-xs amount-input"
                                 type="text"
                                 v-if="!item.is_need_serial"
