@@ -38,7 +38,7 @@ class StoreBeginningInventoryRequest extends FormRequest
             'items' => 'required|array',
             'items.*.id' => ['required', 'integer', 'organization_exists:App\Models\Item,id'],
             'items.*.purchase_price' => 'required|numeric|min:0|purchaseItemPrice',
-            'items.*.qty' => 'required|integer|min:1',
+            'items.*.qty' => 'required|quantity|min:1',
             'items.*.serials' => 'array',
             'items.*.serials.*' => 'required',
         ];
@@ -73,7 +73,7 @@ class StoreBeginningInventoryRequest extends FormRequest
                 "prefix" => 'BGI-',
             ]);
             dispatch_now(new UpdateInvoiceNumberJob($invoice, 'BGI-'));
-            dispatch_now(new StorePurchaseItemsJob($invoice, (array)$this->input('items'),false,'beginning_inventory'));
+            dispatch_now(new StorePurchaseItemsJob($invoice, (array)$this->input('items'), false, 'beginning_inventory'));
             dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             dispatch_now(new StoreBeginningInventoryTransactionsJob($invoice->fresh()));
             DB::commit();
@@ -97,7 +97,5 @@ class StoreBeginningInventoryRequest extends FormRequest
                 }
             }
         }
-
     }
-
 }

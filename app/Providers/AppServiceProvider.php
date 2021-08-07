@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Rules\Quantity;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,7 +21,6 @@ class AppServiceProvider extends ServiceProvider
             $client = new Client(['base_uri' => 'https://track.smsaexpress.com/SeCom/SMSAwebService.asmx?wsdl', 'headers' => ['Content-Type' => "text/xml", "charset" => "utf-8"]]);
             return $client;
         });
-
     }
 
     /**
@@ -29,9 +30,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
-
+        Validator::extendImplicit('quantity', Quantity::class);
     }
-
-
 }

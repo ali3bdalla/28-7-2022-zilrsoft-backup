@@ -39,7 +39,7 @@ class StoreDraftPurchaseRequest extends FormRequest
             'items' => 'required|array',
             'items.*.id' => ['required', 'integer', 'organization_exists:App\Models\Item,id'],
             'items.*.purchase_price' => 'required|numeric|min:0',
-            'items.*.qty' => 'required|integer|min:1',
+            'items.*.qty' => 'required|quantity|min:1',
             'items.*.price' => 'required|numeric',
             'items.*.serials' => 'array',
             'items.*.serials.*' => 'required',
@@ -72,8 +72,8 @@ class StoreDraftPurchaseRequest extends FormRequest
                 'is_draft' => true,
                 "prefix" => 'PU-',
             ]);
-            dispatch_now(new UpdateInvoiceNumberJob($invoice,'DPU-'));
-            dispatch_now(new StorePurchaseItemsJob($invoice, (array) $this->input('items'),true));
+            dispatch_now(new UpdateInvoiceNumberJob($invoice, 'DPU-'));
+            dispatch_now(new StorePurchaseItemsJob($invoice, (array) $this->input('items'), true));
             dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             DB::commit();
             return response($invoice, 200);
@@ -93,10 +93,9 @@ class StoreDraftPurchaseRequest extends FormRequest
                 }
 
                 foreach ($item['serials'] as $serial) {
-                    dispatch_now(new ValidateItemSerialJob($dbItem,$serial, ['in_stock', 'return_sale']));
+                    dispatch_now(new ValidateItemSerialJob($dbItem, $serial, ['in_stock', 'return_sale']));
                 }
             }
         }
-
     }
 }

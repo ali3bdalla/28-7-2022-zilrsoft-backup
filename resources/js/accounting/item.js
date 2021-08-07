@@ -26,7 +26,7 @@ exports.accounting = {
         return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(price / this.convertVatPercentValueIntoFloatValue(vat));
     },
     getTotal: function (price, qty) {
-        return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseInt(qty) * parseFloat(price));
+        return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(qty) * parseFloat(price));
     },
     getSubtotal: function (total, discount) {
         return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(total) - parseFloat(discount));
@@ -94,11 +94,11 @@ exports.math = {
 exports.validator = {
     validateQty: function (qty, availableQty = null) {
         let result = true;
-        if (isNaN(parseInt(qty)))
+        if (isNaN(parseFloat(qty)))
             result = false;
 
 
-        if (availableQty !== null && parseInt(qty) > parseInt(availableQty))
+        if (availableQty !== null && parseFloat(qty) > parseInt(availableQty))
             result = false;
 
 

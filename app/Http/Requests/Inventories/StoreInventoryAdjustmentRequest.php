@@ -36,9 +36,9 @@ class StoreInventoryAdjustmentRequest extends FormRequest
             //
             'items' => 'required|array',
             'items.*.id' => 'required|organization_exists:App\Models\Item,id',
-            'items.*.qty' => 'required|integer|min:0',
+            'items.*.qty' => 'required|quantity|min:0',
             'items.*.serials' => 'nullable|array',
-            'items.*.serials.*' => 'nullable',//|organization_exists:App\Models\ItemSerials,serial
+            'items.*.serials.*' => 'nullable', //|organization_exists:App\Models\ItemSerials,serial
             'created_at' => "nullable"
         ];
     }
@@ -56,7 +56,7 @@ class StoreInventoryAdjustmentRequest extends FormRequest
             ])->first();
 
 
-            
+
             $authUser = auth()->user();
             $invoice = Invoice::create(
                 [
@@ -72,7 +72,7 @@ class StoreInventoryAdjustmentRequest extends FormRequest
                     'updated_at' => $this->getCreatedAt()
                 ]
             );
-            
+
             $invoice->purchase()->create(
                 [
                     'receiver_id' => $authUser->id,
@@ -86,9 +86,9 @@ class StoreInventoryAdjustmentRequest extends FormRequest
                 ]
             );
             dispatch_now(new UpdateInvoiceNumberJob($invoice, 'IA'));
-            dispatch_now(new StoreInventoryAdjustmentItemsJob($invoice, (array)$this->input('items'),false,$this->getCreatedAt()));
+            dispatch_now(new StoreInventoryAdjustmentItemsJob($invoice, (array)$this->input('items'), false, $this->getCreatedAt()));
             dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
-            dispatch_now(new StoreInventoryAdjustmentTransactionsJob($invoice->fresh(),$this->getCreatedAt()));
+            dispatch_now(new StoreInventoryAdjustmentTransactionsJob($invoice->fresh(), $this->getCreatedAt()));
 
             DB::commit();
         } catch (Exception $ex) {
@@ -102,9 +102,9 @@ class StoreInventoryAdjustmentRequest extends FormRequest
     {
         $createdAt = $this->input('created_at');
 
-        if($createdAt)
+        if ($createdAt)
             return Carbon::parse($createdAt);
-        
+
         return Carbon::now();
     }
 }

@@ -572,7 +572,7 @@ export default {
     itemNetUpdated(item) {
       item.net = parseFloat(item.net).toFixed(2);
       item.total = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vtp);
-      item.purchase_price = parseFloat(parseInt(item.qty) === 0 ? 0 : parseFloat(item.total) / parseInt(item.qty)).toFixed(3);
+      item.purchase_price = parseFloat(parseFloat(item.qty) === 0 ? 0 : parseFloat(item.total) / parseFloat(item.qty)).toFixed(3);
       item.subtotal = item.total;
       item.tax = ItemAccounting.getTax(item.subtotal, item.vtp, true);
       item.discount = 0;
@@ -779,10 +779,10 @@ export default {
     },
     itemQtyUpdated(item, bySerial = false) {
 
-      item.qty = parseInt(item.qty);
+      item.qty = parseFloat(item.qty);
 
       item = this.itemPriceMather(item);
-      // item.qty = parseInt(item.qty);
+      // item.qty = parseFloat(item.qty);
       if (bySerial === false) {
         let el = this.$refs['itemQty_' + item.id + 'Ref'][0];
         if (!inputHelper.validateQty(item.qty, el)) {

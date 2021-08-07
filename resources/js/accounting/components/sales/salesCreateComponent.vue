@@ -1082,7 +1082,7 @@ export default {
       this.$refs.barcodeNameAndSerialField.focus()
     },
     itemQtyUpdated (item, bySerial = false) {
-      item.qty = parseInt(item.qty)
+      item.qty = parseFloat(item.qty)
       if (item.is_kit) {
         return this.kitQtyUpdated(item)
       }
@@ -1169,8 +1169,8 @@ export default {
 
         item.discount = 0
         item.total = item.subtotal
-        if (parseInt(item.qty) >= 1) {
-          item.price = parseFloat(item.total / parseInt(item.qty))
+        if (parseFloat(item.qty) >= 1) {
+          item.price = parseFloat(item.total / parseFloat(item.qty))
         } else {
           item.price = item.total
         }
@@ -1190,7 +1190,7 @@ export default {
         item.net,
         item.vtp
       )
-      item.total = parseFloat(item.price) * parseInt(item.qty)
+      item.total = parseFloat(item.price) * parseFloat(item.qty)
       item.subtotal = item.total
       item.tax = ItemAccounting.getTax(item.subtotal, item.vtp, true)
       item.discount = 0

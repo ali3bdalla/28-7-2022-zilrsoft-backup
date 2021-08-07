@@ -41,7 +41,7 @@ class StorePurchaseRequest extends FormRequest
             'items' => 'required|array',
             'items.*.id' => ['required', 'integer', 'organization_exists:App\Models\Item,id'],
             'items.*.purchase_price' => 'required|numeric|min:0|purchaseItemPrice',
-            'items.*.qty' => 'required|integer|min:1',
+            'items.*.qty' => 'required|quantity|min:1',
             'items.*.price_with_tax' => 'required|numeric|min:0',
             'items.*.serials' => 'array',
             'items.*.serials.*' => 'required',
@@ -116,8 +116,5 @@ class StorePurchaseRequest extends FormRequest
                 }
             }
         }
-
     }
-
-
 }

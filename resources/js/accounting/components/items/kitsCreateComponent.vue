@@ -348,8 +348,8 @@ export default {
 
       item.discount = 0;
       item.total = item.subtotal;
-      if (parseInt(item.qty) >= 1)
-        item.price = parseFloat(item.total / parseInt(item.qty));
+      if (parseFloat(item.qty) >= 1)
+        item.price = parseFloat(item.total / parseFloat(item.qty));
       else
         item.price = item.total;
 
