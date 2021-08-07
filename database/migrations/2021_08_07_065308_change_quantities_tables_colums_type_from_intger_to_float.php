@@ -9,28 +9,31 @@ class ChangeQuantitiesTablesColumsTypeFromIntgerToFloat extends Migration
 {
     private function changeQuantityTypeToFloat($tableName, $quantityColumnName)
     {
-        $placeholderColumn = "{$tableName}_{$quantityColumnName}_placeholder";
-        Schema::table($tableName, function (Blueprint $table) use ($placeholderColumn) {
-            $table->double($placeholderColumn)->nullable()->default(0);
-        });
-        DB::table($tableName)->update([
-            $placeholderColumn => DB::raw("{$quantityColumnName}")
-        ]);
-        DB::table($tableName)->where($placeholderColumn, null)->update([
-            $placeholderColumn => 0
-        ]);
-        Schema::table($tableName, function (Blueprint $table) use ($quantityColumnName) {
-            $table->dropColumn($quantityColumnName);
-        });
-        Schema::table($tableName, function (Blueprint $table) use ($quantityColumnName) {
-            $table->double($quantityColumnName)->default(0);
-        });
-        DB::table($tableName)->update([
-            $quantityColumnName => DB::raw("{$placeholderColumn}")
-        ]);
-        Schema::table($tableName, function (Blueprint $table) use ($placeholderColumn) {
-            $table->dropColumn($placeholderColumn);
-        });
+
+        if (Schema::hasColumn($tableName, $quantityColumnName)) {
+            $placeholderColumn = "{$tableName}_{$quantityColumnName}_placeholder";
+            Schema::table($tableName, function (Blueprint $table) use ($placeholderColumn) {
+                $table->double($placeholderColumn)->nullable()->default(0);
+            });
+            DB::table($tableName)->update([
+                $placeholderColumn => DB::raw("{$quantityColumnName}")
+            ]);
+            DB::table($tableName)->where($placeholderColumn, null)->update([
+                $placeholderColumn => 0
+            ]);
+            Schema::table($tableName, function (Blueprint $table) use ($quantityColumnName) {
+                $table->dropColumn($quantityColumnName);
+            });
+            Schema::table($tableName, function (Blueprint $table) use ($quantityColumnName) {
+                $table->double($quantityColumnName)->default(0);
+            });
+            DB::table($tableName)->update([
+                $quantityColumnName => DB::raw("{$placeholderColumn}")
+            ]);
+            Schema::table($tableName, function (Blueprint $table) use ($placeholderColumn) {
+                $table->dropColumn($placeholderColumn);
+            });
+        }
     }
     /**
      * Run the migrations.
