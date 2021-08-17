@@ -19,10 +19,10 @@ class BaseModel extends Model
             'dir' => 'desc'
         ],
         'users' =>
-            [
-                'key' => 'id',
-                'dir' => 'asc'
-            ],
+        [
+            'key' => 'id',
+            'dir' => 'asc'
+        ],
         'categories' =>
         [
             'key' => 'sorting',
@@ -112,8 +112,7 @@ class BaseModel extends Model
 
             if (auth('manager')->check() && !auth('manager')->user()->can('manage branches')) {
 
-                if($table == 'invoices')
-                {
+                if ($table == 'invoices') {
 
                     if (Schema::hasColumn($table, 'creator_id')) {
                         static::addGlobalScope(
@@ -132,7 +131,7 @@ class BaseModel extends Model
                     static::addGlobalScope(
                         'manager',
                         function (Builder $builder) use ($table) {
-                            $builder->where("{$table}.managed_by_id", auth()->user()->id)->orWhere('status','paid');
+                            $builder->where("{$table}.managed_by_id", auth()->user()->id)->orWhere('status', 'paid');
                         }
                     );
                 }
@@ -168,8 +167,10 @@ class BaseModel extends Model
                                 [
                                     ["{$table}.is_available_online", true],
                                     ["{$table}.is_kit", false],
+                                    ["{$table}.available_qty", '>', 0]
                                 ]
-                            )->with('category','attachments')->whereHas('category')->whereHas('attachments')->orderBy('available_qty','desc');
+                            )
+                                ->with('category', 'attachments')->whereHas('category')->whereHas('attachments')->orderBy('available_qty', 'desc');
 
                             // ->hasModelNumber()
                         }

@@ -42,7 +42,7 @@ class Item extends BaseModel
     use SoftDeletes, Searchable;
 
     protected $dispatchesEvents = [
-//        'updated' => ItemUpdatedEvent::class,
+        //        'updated' => ItemUpdatedEvent::class,
         'created' => ItemCreatedEvent::class
     ];
 
@@ -280,11 +280,11 @@ class Item extends BaseModel
 
     public function shouldBeSearchable()
     {
-        return
-            ($this->is_category_available_online and
-                $this->organization_id == 1 and
-                $this->is_available_online and
-                $this->attachments()->count() >= 4);
+        return ($this->is_category_available_online and
+            $this->available_qty > 0 and
+            $this->organization_id == 1 and
+            $this->is_available_online and
+            $this->attachments()->count() >= 4);
     }
 
     public function searchableAs()
@@ -331,6 +331,4 @@ class Item extends BaseModel
     {
         return $this->hasMany(ItemFilters::class, 'item_id');
     }
-
-
 }
