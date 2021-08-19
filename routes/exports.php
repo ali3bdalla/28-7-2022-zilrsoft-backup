@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
 Route::name('printer')->prefix('printer')->group(function () {
@@ -12,3 +13,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('voucher/{voucher}', 'PrinterController@voucher')->name('voucher');
     });
 });
+
+Route::get('public-invoice/{invoicePublicIdElementsHash}', 'PrinterController@show_public_invoice')->name('public-invoice.show');

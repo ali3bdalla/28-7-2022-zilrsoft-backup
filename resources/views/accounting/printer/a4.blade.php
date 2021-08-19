@@ -115,14 +115,14 @@
             <h5>{{ __('pages/invoice.branch') }} :
                 {{$invoice->branch->locale_name }}
             </h5>
-            <h5 style="margin: 10px 0px !important;">الرقم الضريبي : {{auth()->user()->organization->vat}}</h5>
+            <h5 style="margin: 10px 0px !important;">الرقم الضريبي : {{$invoice->creator->organization->vat}}</h5>
 
-            <h5 style="margin: 10px 0px !important;"> السجل التجاري : {{auth()->user()->organization->cr}}</h5>
-            <h5 style="margin: 10px 0px !important;"> رقم الهاتف : {{auth()->user()->organization->phone_number}}</h5>
+            <h5 style="margin: 10px 0px !important;"> السجل التجاري : {{$invoice->creator->organization->cr}}</h5>
+            <h5 style="margin: 10px 0px !important;"> رقم الهاتف : {{$invoice->creator->organization->phone_number}}</h5>
 
         </div>
         <div class="text-right col-md-6">
-            <img src="{{ auth()->user()->organization->logo }}" class="logo">
+            <img src="{{ $invoice->creator->organization->logo }}" class="logo">
         </div>
     </div>
 
@@ -133,7 +133,7 @@
 
             <div class="text-right col-md-12" style="float: right">
                 <div class="company-info" style="color: black !important; margin-top: -30px;">
-                    <span style="padding-right: 13px;font-size: 25px">{{auth()->user()->organization->title_ar}}</span>
+                    <span style="padding-right: 13px;font-size: 25px">{{$invoice->creator->organization->title_ar}}</span>
                     <p style="padding-right: 13px;font-size: 20px;margin-top:10px">{{auth()->user()
                     ->organization->description_ar}}</p>
 
@@ -225,31 +225,31 @@
                     @if(!empty($invoice->items))
                         @foreach($invoice->items as $item)
                             @if($item->belong_to_kit==false && $item->show_price_in_print_mode && $item->item != null)
-								<?php $items_qty_count = $items_qty_count + $item->qty ?>
+								<?php $items_qty_count = $items_qty_count + $item->qty; ?>
                                 @if($loop->index%2==0)
-									<?php $background_color = "#ffffff"; ?>
+									<?php $background_color = '#ffffff'; ?>
                                     <tr>
                                 @else
                                     <tr style="background-color: #8888">
-										<?php $background_color = "#eee"; ?>
+										<?php $background_color = '#eee'; ?>
                                         @endif
                                         <td class="no" style="width:30px !important;">{{$loop->index + 1}}</td>
                                         <td class="desc" style="width: 10%  !important;text-align: right !important;
                                                 font-weight: bold;font-size: 13px !important;color: black;background-color:
-										<?php echo $background_color;?> !important;">{{mb_substr($item->item->locale_name, 0,55) }}</td>
+										<?php echo $background_color; ?> !important;">{{mb_substr($item->item->locale_name, 0,55) }}</td>
                                         <td class="total" style="background-color:
-										<?php echo $background_color;?> !important;">{{ $item->qty }}</td>
+										<?php echo $background_color; ?> !important;">{{ $item->qty }}</td>
                                         @if($invoice->show_items_price_in_print_mode)
                                             <td class="total" style="background-color:
-											<?php echo $background_color;?> !important;">{{ roundMoney($item->price) }}</td>
+											<?php echo $background_color; ?> !important;">{{ roundMoney($item->price) }}</td>
                                             <td class="total" style="background-color:
-											<?php echo $background_color;?> !important;"> {{ roundMoney($item->total) }}</td>
+											<?php echo $background_color; ?> !important;"> {{ roundMoney($item->total) }}</td>
                                             <td class="total" style="background-color:
-											<?php echo $background_color;?> !important;"> {{ roundMoney($item->discount) }}</td>
+											<?php echo $background_color; ?> !important;"> {{ roundMoney($item->discount) }}</td>
                                             <td class="total" style="background-color:
-											<?php echo $background_color;?> !important;"> {{ roundMoney($item->tax) }}</td>
+											<?php echo $background_color; ?> !important;"> {{ roundMoney($item->tax) }}</td>
                                             <td class="total" style="background-color:
-											<?php echo $background_color;?> !important;"> {{ roundMoney($item->net) }}</td>
+											<?php echo $background_color; ?> !important;"> {{ roundMoney($item->net) }}</td>
                                         @endif
                                     </tr>
                                     @if(!in_array($item->invoice_type,['purchase']))
@@ -271,20 +271,20 @@
                                                         style="width: 10%  !important;text-align: right !important;
                                                                 font-weight: bold;font-size: 10px !important;color: black;
                                                                 background-color:
-													    <?php echo $background_color;?> !important;padding-right: 20px !important;">{{$serial->serial }}</td>
+													    <?php echo $background_color; ?> !important;padding-right: 20px !important;">{{$serial->serial }}</td>
                                                     <td class="total" style="background-color:
-													<?php echo $background_color;?> !important;"></td>
+													<?php echo $background_color; ?> !important;"></td>
                                                     @if($invoice->show_items_price_in_print_mode)
                                                         <td class="total" style="background-color:
-														<?php echo $background_color;?> !important;"></td>
+														<?php echo $background_color; ?> !important;"></td>
                                                         <td class="total" style="background-color:
-														<?php echo $background_color;?> !important;"></td>
+														<?php echo $background_color; ?> !important;"></td>
                                                         <td class="total" style="background-color:
-														<?php echo $background_color;?> !important;"></td>
+														<?php echo $background_color; ?> !important;"></td>
                                                         <td class="total" style="background-color:
-														<?php echo $background_color;?> !important;"></td>
+														<?php echo $background_color; ?> !important;"></td>
                                                         <td class="total" style="background-color:
-														<?php echo $background_color;?> !important;"></td>
+														<?php echo $background_color; ?> !important;"></td>
                                                     @endif
                                                 </tr>
 
@@ -304,7 +304,7 @@
         </div>
     </section>
     <div class="">
-		<?php $show_price_in_print_mode_tax_net = $invoice->show_price_in_print_mode_tax_and_net;?>
+		<?php $show_price_in_print_mode_tax_net = $invoice->show_price_in_print_mode_tax_and_net; ?>
         <div class="text-right total_numbers">
             <div class="">
                 <h4 style="color: white;font-size: 22px;padding: 4px">{{ __('pages/invoice.invoice_data') }}</h4>
@@ -407,15 +407,20 @@
 
 
         <div class="row" style="color: black !important;">
-            <div class="stamp">
+            <div class="stamp" style="    margin-left: 127px;">
 
-                <div id="barcode_demo"></div>
+                <div >
+                    {!! QrCode::size(250)->generate(route('accounting.public-invoice.show',$invoice->getEncryptedPublicId())); !!}
+                </div>
+                <div>
+                    {{ route('accounting.public-invoice.show',$invoice->getEncryptedPublicId()) }}
+                </div>
 
 
             </div>
             <div class="issued_by">
-                @if(auth()->user()->organization->stamp != null)
-                    <div style="margin-bottom: 9px"><img src="{{auth()->user()->organization->stamp}}"
+                @if($invoice->creator->organization->stamp != null)
+                    <div style="margin-bottom: 9px"><img src="{{$invoice->creator->organization->stamp}}"
                                                          style="width: 80px"/></div>
 
                 @endif
@@ -426,8 +431,8 @@
             </div>
             <div class="clear"></div>
         </div>
-        <div class="end" style="padding-top: 10px"> {{ auth()->user()->organization->city_ar }}
-            - {{ auth()->user()->organization->address_ar }}</div>
+        <div class="end" style="padding-top: 10px"> {{ $invoice->creator->organization->city_ar }}
+            - {{ $invoice->creator->organization->address_ar }}</div>
         <div style="padding-top: 10px;text-align: center"> سعدنا بخدمتك</div>
     </div>
 </footer>
