@@ -6,7 +6,7 @@
             $page.$t.cart.inc_vat
           }} 15%</span>) </span>
         <div>
-          <display-money :money="getOrderTotalAmount(orderItems)"></display-money> {{  $page.$t.products.sar }}
+          <display-money :money="getOrderTotalAmount()"></display-money> {{  $page.$t.products.sar }}
         </div>
       </div>
       <div v-show="activePage === 'cart' && shippingMethodId">
@@ -89,12 +89,11 @@
 </template>
 
 <script>
-import CartMixin from './CartMixin'
 import DisplayMoney from '../../../components/BackEnd/Money/DisplayMoney'
+import { getProductsAmount } from '../../../repo/products'
 
 export default {
   components: { DisplayMoney },
-  mixins: [CartMixin],
   name: 'CartButton',
   props: {
     orderItems: {
@@ -124,6 +123,11 @@ export default {
     }
   },
   methods: {
+    getOrderTotalAmount (orderItems = null) {
+      const items = this.$store.cart.items
+      this.$log.info('getOrderTotalAmount', items)
+      return getProductsAmount(items, 'total', { price: 'online_offer_price' })
+    },
     loginToCheckout () {
       window.getGooogleTag('event', 'conversion', {
         send_to: 'AW-851059339/nfCMCISGycICEIvF6JUD'

@@ -3968,6 +3968,11 @@
     "es5-ext" "^0.10.35"
     "es6-symbol" "^3.1.1"
 
+"es6-object-assign@1.1.0":
+  "integrity" "sha1-wsNYJlYkfDnqEHyx5mUrb58kUjw="
+  "resolved" "https://registry.npmjs.org/es6-object-assign/-/es6-object-assign-1.1.0.tgz"
+  "version" "1.1.0"
+
 "es6-symbol@^3.1.0", "es6-symbol@^3.1.1", "es6-symbol@~3.1.3":
   "integrity" "sha512-NJ6Yn3FuDinBaBRWl/q5X/s4koRHBrgKAu+yGI6JCBeiu3qrcbJhwT2GeR/EXVfylRk8dpQVJoLEFhK+Mu31NA=="
   "resolved" "https://registry.npmjs.org/es6-symbol/-/es6-symbol-3.1.3.tgz"
@@ -10473,6 +10478,14 @@
   "integrity" "sha512-6kRse144WXDFBMKdeuqE43rHy0ZJ81uLOFh62r2d80ICKavQYHIvr+GlTFmoR23190lC4f2w+ZJ8cS4ljkCDMw=="
   "resolved" "https://registry.npmjs.org/vuejs-dialog/-/vuejs-dialog-1.4.2.tgz"
   "version" "1.4.2"
+
+"vuejs-logger@^1.5.5":
+  "integrity" "sha512-wESz1F4KWk98YANEDg2yeS+fpwk2WrR41ZslLfZgTD+EYFm/7VMMUjRThhHT8CCOLOCQdsS4Ge2C9bIs68v8Ww=="
+  "resolved" "https://registry.npmjs.org/vuejs-logger/-/vuejs-logger-1.5.5.tgz"
+  "version" "1.5.5"
+  dependencies:
+    "es6-object-assign" "1.1.0"
+    "vue" "2.6.11"
 
 "vuetify-loader@^1.4.3":
   "integrity" "sha512-1bx3YeZ712dT1+QMX+XSFlP0O5k5O5Ui9ysBBmUZ9bWkAEHWZJQI9soI+qG5qmeFxUC0L9QYMCIKP0hOL/pf3Q=="

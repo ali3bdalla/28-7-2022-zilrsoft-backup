@@ -26,8 +26,6 @@
           {{ getCategoryName }}
         </h3>
       </a>
-      <!-- `/web/items/search/results?${$page.algolia_items_search_as}%5BrefinementList%5D%5B${$page.active_logo == 'en' ? 'category_name' : 'category_ar_name'}%5D%5B0%5D=${getCategoryName}` -->
-
       <a
         :href="`/web/items/${$page.active_logo === 'en' ? item.en_slug : item.ar_slug}`"
         class="product__list-item-name"
@@ -84,44 +82,44 @@
 </template>
 
 <script>
-import ToggleCartItemButtonComponent from "../Cart/ToggleCartItemButtonComponent";
-import ProductRatingComponent from "./ProductRatingComponent";
+import ToggleCartItemButtonComponent from '../Cart/ToggleCartItemButtonComponent'
+import ProductRatingComponent from './ProductRatingComponent'
 
 export default {
   components: { ToggleCartItemButtonComponent, ProductRatingComponent },
-  props: ["item", "index"],
+  props: ['item', 'index'],
 
   computed: {
-    productName() {
-      const modelNumber = this.item.model_number;
+    productName () {
+      const modelNumber = this.item.model_number
       const name =
-        this.$page.active_locale === "ar" ? this.item.ar_name : this.item.name;
+        this.$page.active_locale === 'ar' ? this.item.ar_name : this.item.name
 
-      if (modelNumber !== "") {
-        return name.replace(modelNumber, "");
+      if (modelNumber !== '') {
+        return name.replace(modelNumber, '')
       }
 
-      return name;
+      return name
     },
-    getCategoryName() {
-      if (this.$page.active_locale === "en") return this.item.category_name;
+    getCategoryName () {
+      if (this.$page.active_locale === 'en') return this.item.category_name
 
-      return this.item.category_ar_name;
+      return this.item.category_ar_name
     },
-    getUrl() {
+    getUrl () {
       if (
-        this.item.item_image_url === "https://zilrsoft.com/images/logo_ar.png"
+        this.item.item_image_url === 'https://zilrsoft.com/images/logo_ar.png'
       ) {
-        if (this.$page.active_locale === "en") {
-          return "https://zilrsoft.com/images/logo_en.png";
+        if (this.$page.active_locale === 'en') {
+          return 'https://zilrsoft.com/images/logo_en.png'
         }
 
-        return "https://zilrsoft.com/images/logo_ar.png";
+        return 'https://zilrsoft.com/images/logo_ar.png'
       }
-      return `local:///com.zilrsoft/storage/app/public/${this.item.item_image_url}`;
-    },
-  },
-};
+      return `local:///com.zilrsoft/storage/app/public/${this.item.item_image_url}`
+    }
+  }
+}
 </script>
 
 <style>

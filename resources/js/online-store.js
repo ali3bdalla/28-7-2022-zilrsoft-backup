@@ -1,11 +1,12 @@
 import { InertiaApp } from '@inertiajs/inertia-vue'
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VueLogger from 'vuejs-logger'
 
 import VueSimpleAlert from 'vue-simple-alert'
 import vClickOutside from 'v-click-outside'
 import Dialog from 'vue-dialog-loading'
-
+const isProduction = process.env.NODE_ENV === 'production'
 window.axios = require('axios')
 window._ = require('lodash')
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
@@ -19,16 +20,17 @@ if (token) {
   )
 }
 
-String.prototype.replaceAt = function (index, replacement) {
-  return (
-    this.substr(0, index) +
-        replacement +
-        tAddShippingAddress.vuehis.substr(index + replacement.length)
-  )
-}
+Vue.use(VueLogger, {
+  isEnabled: true,
+  logLevel: isProduction ? 'error' : 'info',
+  stringifyArguments: false,
+  showLogLevel: true,
+  showMethodName: true,
+  separator: '|',
+  showConsoleColors: true
+})
 require('./Plugins/plugins')
 require('./upload_images')
-
 Vue.use(Vuex)
 Vue.use(VueSimpleAlert)
 Vue.use(Dialog, {

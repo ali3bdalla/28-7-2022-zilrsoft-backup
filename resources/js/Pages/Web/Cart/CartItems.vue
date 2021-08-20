@@ -180,11 +180,9 @@
 </template>
 
 <script>
-import CartMixin from './CartMixin'
 
 export default {
   name: 'CartItems',
-  mixins: [CartMixin],
   data () {
     return {
       select_all: false,
