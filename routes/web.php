@@ -1,9 +1,6 @@
 <?php
 
-use App\Http\Middleware\ImagesUploadMiddleware;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-
 
 Route::group(['prefix' => 'delivery_man'], function () {
     Route::get('/confirm/{hash}', 'DeliveryManController@confirm');
@@ -15,7 +12,6 @@ Route::get('/', 'Web\HomeController@toWeb')->name('to.web');
 
 Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->name('web.')->group(
     function () {
-
         Route::prefix('content')->group(function () {
             Route::get('about', 'ContentController@about');
             Route::get('privacy', 'ContentController@privacy');
@@ -42,7 +38,6 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
                         Route::get('/confirm', 'AuthController@confirmForgetPasswordPage');
                         Route::post('/confirm', 'AuthController@confirmForgetPassword');
 
-
                         Route::get('/reset', 'AuthController@resetPasswordPage');
                         Route::post('/reset', 'AuthController@confirmResetPassword');
                     }
@@ -59,7 +54,6 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
             }
         );
 
-
         Route::prefix('cart')->name('cart.')->group(
             function () {
                 Route::get('/', 'CartController@index')->name('index');
@@ -75,7 +69,6 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
             }
         );
 
-
         Route::prefix('items')->name('items.')->group(
             function () {
                 Route::get('/search/results', 'ItemController@search')->name('search');
@@ -84,11 +77,11 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
             }
         );
 
-
         Route::middleware('auth:client')->group(
             function () {
                 Route::get('logout', function () {
                     auth('client')->logout();
+
                     return back();
                 });
                 Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'name' => 'profile.'], function () {
@@ -104,7 +97,6 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
     }
 );
 
-
 Route::middleware('manager_guest')->group(
     function () {
         Route::get('/register', 'RegisterController@showRegistrationForm')->name('show_registration_form');
@@ -115,31 +107,8 @@ Route::middleware('manager_guest')->group(
     }
 );
 
-
-Route::group(
-    ['prefix' => 'images_upload'],
-    function () {
-        Inertia::setRootView('images_upload');
-
-        Route::get('/auth', "ImagesUploadController@auth");
-        Route::post('/auth', "ImagesUploadController@grantAuthorization");
-
-        Route::group(
-            ['middleware' => ImagesUploadMiddleware::class],
-            function () {
-                Route::get('/', "ImagesUploadController@index");
-                Route::get('/redirect', "ImagesUploadController@redirectInertia");
-                Route::get('/{item}', "ImagesUploadController@show");
-            }
-        );
-    }
-);
-
-
 Route::middleware('auth')->group(
     function () {
-
-
         Route::get('/dashboard', 'HomeController@index')->name('dashboard.index');
         Route::post('/logout', 'HomeController@logout')->name('logout');
         Route::resource('sales', 'SaleController');
@@ -177,13 +146,13 @@ Route::middleware('auth')->group(
         Route::resource('vouchers', 'VoucherController');
         Route::prefix('vouchers/manual')->name('vouchers.')->group(
             function () {
-                Route::get('/create-supplier', "VoucherController@createSupplierVoucher")->name('create.supplier');
+                Route::get('/create-supplier', 'VoucherController@createSupplierVoucher')->name('create.supplier');
             }
         );
         Route::resource('entities', 'EntityController');
         Route::prefix('entities')->name('entities.')->group(
             function () {
-                Route::get('user/{account}/{user}', "EntityController@showUserEntities")->name('user');
+                Route::get('user/{account}/{user}', 'EntityController@showUserEntities')->name('user');
             }
         );
         Route::prefix('financial_statements')->name('financial_statements.')->group(
@@ -210,11 +179,10 @@ Route::middleware('auth')->group(
 
         Route::resource('entities', 'EntityController');
         Route::prefix('close_year')->group(function () {
-
-            Route::get('init_organizatinon_config', "BackEnd\Accounting\PeriodController@initOrganizationConfiguration");
-            Route::get('start_normalizing_incomes_expenses', "BackEnd\Accounting\PeriodController@startNormalizingIncomesExpenses");
-            Route::get('normalizing_incomes_expenses_status', "BackEnd\Accounting\PeriodController@normalizingIncomesExpensesStatus");
-            Route::get('close', "BackEnd\Accounting\PeriodController@close");
+            Route::get('init_organizatinon_config', 'BackEnd\\Accounting\\PeriodController@initOrganizationConfiguration');
+            Route::get('start_normalizing_incomes_expenses', 'BackEnd\\Accounting\\PeriodController@startNormalizingIncomesExpenses');
+            Route::get('normalizing_incomes_expenses_status', 'BackEnd\\Accounting\\PeriodController@normalizingIncomesExpensesStatus');
+            Route::get('close', 'BackEnd\\Accounting\\PeriodController@close');
         });
         Route::prefix('inventory')->name('inventory.')->group(
             function () {
@@ -250,7 +218,6 @@ Route::middleware('auth')->group(
             }
         );
 
-
         Route::prefix('filters')->name('filter')->group(
             function () {
                 Route::get('/', 'FilterController@index')->name('index');
@@ -263,7 +230,7 @@ Route::middleware('auth')->group(
             function () {
                 Route::resources(
                     [
-                        'expenses' => 'ExpenseController'
+                        'expenses' => 'ExpenseController',
                     ]
                 );
                 Route::prefix('/datatable')->group(

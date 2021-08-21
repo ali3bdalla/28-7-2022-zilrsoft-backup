@@ -10,54 +10,48 @@ use Illuminate\Support\Facades\Schema;
 
 class BaseModel extends Model
 {
-    use Translatable, PostgresTimestamp;
+    use Translatable;
+    use PostgresTimestamp;
 
     private static $customTablesOrder = [
-        'accounts' =>
-        [
+        'accounts' => [
             'key' => 'serial',
-            'dir' => 'desc'
+            'dir' => 'desc',
         ],
-        'users' =>
-        [
+        'users' => [
             'key' => 'id',
-            'dir' => 'asc'
+            'dir' => 'asc',
         ],
-        'categories' =>
-        [
+        'categories' => [
             'key' => 'sorting',
-            'dir' => 'asc'
-        ]
+            'dir' => 'asc',
+        ],
     ];
-
 
     public function getLocaleNameAttribute()
     {
-        if (app()->isLocale('ar'))
+        if (app()->isLocale('ar')) {
             return $this->ar_name;
-
+        }
 
         return $this->name;
     }
 
     public function getLocaleDescriptionAttribute()
     {
-        if (app()->isLocale('ar'))
+        if (app()->isLocale('ar')) {
             return $this->ar_description;
-
+        }
 
         return $this->description;
     }
-
 
     protected static function boot()
     {
         parent::boot();
 
         if (!app()->environment('testing')) {
-
-
-            $table = (new static)->getTable();
+            $table = (new static())->getTable();
 
             if (auth()->guard('manager')->check() || auth()->user()) {
                 if (Schema::hasColumn($table, 'organization_id')) {
@@ -79,7 +73,6 @@ class BaseModel extends Model
                 }
             }
 
-
             if (Schema::hasColumn($table, 'is_draft')) {
                 static::addGlobalScope(
                     'draft',
@@ -98,7 +91,6 @@ class BaseModel extends Model
                 );
             }
 
-
             foreach (self::$customTablesOrder as $key => $order) {
                 if ($key == $table) {
                     static::addGlobalScope(
@@ -111,9 +103,7 @@ class BaseModel extends Model
             }
 
             if (auth('manager')->check() && !auth('manager')->user()->can('manage branches')) {
-
-                if ($table == 'invoices') {
-
+                if ('invoices' == $table) {
                     if (Schema::hasColumn($table, 'creator_id')) {
                         static::addGlobalScope(
                             'manager',
@@ -124,10 +114,7 @@ class BaseModel extends Model
                     }
                 }
 
-
-                if ($table == "orders") {
-
-
+                if ('orders' == $table) {
                     static::addGlobalScope(
                         'manager',
                         function (Builder $builder) use ($table) {
@@ -137,29 +124,8 @@ class BaseModel extends Model
                 }
             }
 
-
-            if (strpos(url()->current(), 'images_upload')) {
-                if ($table == 'items') {
-                    static::addGlobalScope(
-                        'online',
-                        function (Builder $builder) use ($table) {
-                            $builder->with('category')->whereHas('category')
-                                ->where(
-                                    [
-                                        ["{$table}.available_qty", '>', 0],
-                                    ]
-                                );
-                        }
-                    );
-                }
-            }
-
-
             if (strpos(url()->current(), 'web')) {
-
-
-
-                if ($table == 'items') {
+                if ('items' == $table) {
                     static::addGlobalScope(
                         'online',
                         function (Builder $builder) use ($table) {
@@ -167,7 +133,7 @@ class BaseModel extends Model
                                 [
                                     ["{$table}.is_available_online", true],
                                     ["{$table}.is_kit", false],
-                                    ["{$table}.available_qty", '>', 0]
+                                    ["{$table}.available_qty", '>', 0],
                                 ]
                             )
                                 ->with('category', 'attachments')->whereHas('category')->whereHas('attachments')->orderBy('available_qty', 'desc');
@@ -177,8 +143,7 @@ class BaseModel extends Model
                     );
                 }
 
-
-                if ($table == 'categories') {
+                if ('categories' == $table) {
                     static::addGlobalScope(
                         'online',
                         function (Builder $builder) use ($table) {
