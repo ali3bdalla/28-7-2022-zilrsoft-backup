@@ -16,9 +16,8 @@
           <div class="cart__shipping-address-right w-full">
             <el-select v-model="shippingAddressId" :allow-create="true" :filterable="true"
                        :placeholder="$page.$t.cart.select_shipping_address"
-                       class="page__w-full" filterable
+                       class="page__w-full"
                        no-data-text="No" no-match-text="No Data">
-              <!-- <template #prefix>Click Me</template> -->
               <template #empty>
                 <a
                     class="checkout__edit-icon"
@@ -100,8 +99,8 @@ export default {
   },
   methods: {
     shippingAddressCreated (e) {
-      this.shippingAddresses.push(e);
-      this.updateShippingId(e.id);
+      this.shippingAddresses.push(e)
+      this.updateShippingId(e.id)
     },
     updateShippingId (id) {
       this.shippingAddress = this.shippingAddresses.find(p => p.id === id)

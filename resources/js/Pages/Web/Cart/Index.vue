@@ -10,12 +10,11 @@
             <ShowEmptyCartComponent v-if="!this.$store.state.cart.length"></ShowEmptyCartComponent>
             <CartItems
               v-if="activePage === 'cart'"
-              :active-page="activePage"
-              @orderItems="updateOrderItems"
+              :cartItemsList="cartItemsList"
             />
           </div>
           <div
-            v-if="$page.client && activePage === 'select_shipping_address'"
+            v-if="$page.client && activePage === 'checkout'"
             class="col-12"
           >
             <div class="w-full">
@@ -64,15 +63,15 @@
           </div>
           <div class="cart__checkout">
             <div class="proceed-checkout">
-              <CartButton
+              <CartActions
                :getShippingMethod="getShippingMethod"
-                v-if="orderItems.length"
+                v-if="cartItemsList.length"
                 :shipping-method-id="shippingMethodId"
                 :shipping-address-id="shippingAddressId"
                 :active-page="activePage"
-                :order-items="orderItems"
+                :cart-items-list="cartItemsList"
                 @changeActivePage="changeActivePage"
-                @sendOrder="sendOrder"
+                @issueOrder="issueOrder"
               />
             </div>
           </div>
@@ -85,7 +84,7 @@
 <script>
 import WebLayout from '../../../Layouts/WebAppLayout'
 import CartItems from './CartItems'
-import CartButton from './CartButton'
+import CartActions from './CartActions'
 import CartShippingAddress from './CartShippingAddress.vue'
 import ShowEmptyCartComponent from './../../../components/Web/Cart/ShowEmptyCartComponent.vue'
 
@@ -94,7 +93,6 @@ export default {
   data () {
     return {
       activePage: 'cart',
-      orderItems: [],
       shippingMethodId: 0,
       paymentMethodId: 'bank_transfer',
       shippingAddress: null,
@@ -106,12 +104,15 @@ export default {
   },
   components: {
     ShowEmptyCartComponent,
-    CartButton,
+    CartActions,
     CartItems,
     WebLayout,
     CartShippingAddress
   },
   computed: {
+    cartItemsList () {
+      return this.$store.state.cart
+    },
     paymentMethods () {
       return [
         {
@@ -162,15 +163,13 @@ export default {
       this.shippingAddress = e
       this.shippingAddressId = e.id
     },
-    updateOrderItems (e) {
-      this.orderItems = e.items
+    updatecartItemsList (e) {
+      this.cartItemsList = e.items
     },
     changeActivePage (e) {
       this.activePage = e.page
     },
-    sendOrder () {
-      const items = this.orderItems
-
+    issueOrder () {
       this.$confirm('', this.$page.$t.messages.are_you_sure, 'success', {
         confirmButtonText: this.$page.$t.messages.yes,
         cancelButtonText: this.$page.$t.messages.no
@@ -182,7 +181,7 @@ export default {
             shipping_address_id: this.shippingAddressId,
             shipping_method_id: this.shippingMethodId,
             payment_method_id: this.paymentMethodId,
-            items: items
+            items: this.cartItemsList
           },
           {
             replace: true,
@@ -190,7 +189,7 @@ export default {
             preserveScroll: (page) => Object.keys(page.props.errors).length,
             onSuccess: () => {
               return Promise.all([
-                this.removeCartItems(items),
+                this.clearCart(),
                 this.alertUser()
               ])
             },
@@ -201,13 +200,10 @@ export default {
         )
       })
     },
-    removeCartItems (items) {
+    clearCart () {
       return new Promise((resolve) => {
         this.$store.state.cart.forEach((item) => {
-          const isOrdered = items.find((p) => p.id === item.id)
-          if (isOrdered) {
-            this.$store.commit('removeFromCart', item)
-          }
+          this.$store.commit('removeFromCart', item)
         })
         resolve()
       })

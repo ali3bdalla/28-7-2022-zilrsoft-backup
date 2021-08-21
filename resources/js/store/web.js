@@ -1,7 +1,7 @@
 const Vue = require('vue')
 
-let cart = window.localStorage.getItem('cart')
-let cartCount = window.localStorage.getItem('cartCount')
+const cart = window.localStorage.getItem('cart')
+const cartCount = window.localStorage.getItem('cartCount')
 
 module.exports = {
   state: {
@@ -11,11 +11,11 @@ module.exports = {
 
   mutations: {
     addToCart (state, payload) {
-      let quantity = parseInt(payload.quantity)
-      let item = payload.item
-      let found = state.cart.find(product => product.id === item.id)
+      const quantity = parseInt(payload.quantity)
+      const item = payload.item
+      const found = state.cart.find(product => product.id === item.id)
       if (found) {
-        let newQuantity = parseInt(quantity)
+        const newQuantity = parseInt(quantity)
         if (parseInt(newQuantity) >= 0) {
           found.quantity = parseInt(newQuantity)
         }
@@ -30,9 +30,9 @@ module.exports = {
       this.commit('saveCart')
     },
     removeFromCart (state, item) {
-      let product = state.cart.find(product => product.id == item.id)
+      const product = state.cart.find(product => product.id == item.id)
 
-      let index = state.cart.indexOf(product)
+      const index = state.cart.indexOf(product)
 
       if (index > -1) {
         state.cartCount -= 1
@@ -44,9 +44,8 @@ module.exports = {
       window.localStorage.setItem('cart', JSON.stringify(state.cart))
       window.localStorage.setItem('cartCount', state.cartCount)
     },
-    updateItemCartAvailableQty (state,payload) {
-
-      let found = state.cart.find(product => product.id === payload.item.id)
+    updateItemCartAvailableQty (state, payload) {
+      const found = state.cart.find(product => product.id === payload.item.id)
       if (found) {
         found.available_qty = parseInt(payload.available_qty)
       }

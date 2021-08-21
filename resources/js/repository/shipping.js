@@ -3,7 +3,7 @@ export function getShippingSubtotal (shippingMethod, products, options = {}) {
   return parseFloat(Math.floor(getShippingTotal(shippingMethod, products, options) - getShippingDiscount(products, options))).toFixed(2)
 }
 export function getShippingTotal (shippingMethod, products, options = {}) {
-  const shippingWeight = getProductsAmount(products, options)
+  const shippingWeight = getProductsWeight(products, options)
   if (shippingWeight === 0) return 0
   const shippingMethodBaseWeightPrice = parseFloat(shippingMethod.max_base_weight_price)
   const shippingAmountAfterBaseWeight = getWeightAfterBaseShippingAmount(shippingMethod, shippingWeight)

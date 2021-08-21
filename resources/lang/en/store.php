@@ -1,83 +1,78 @@
 <?php
 
 return [
-    "app" => [
-        "description" => '',
-        "name" => 'Almesbar Shop'
+    'app' => [
+        'description' => '',
+        'name' => 'Almesbar Shop',
     ],
-    "header" => [
-        "search_placeholder" => "search here..",
-        "categories" => 'Categories',
-        'home' => "Home",
-
+    'header' => [
+        'search_placeholder' => 'search here..',
+        'categories' => 'Categories',
+        'home' => 'Home',
     ],
 
-    "common" => [
-        "follow_offers" => "follow our offers",
-        "next" => "Next",
-        "invalid_user_data" => "invalid login credentials",
-        "add_new" => "Add New",
-        "or" => "Or",
-        "add" => "Add",
-        "ok" => "Ok",
-        "customer_support_note" => "* If you are unable to open links, please save 0163394000 in your contacts",
-        "downlod" => "Download",
-        "search_in_all_products" => "Search in all products",
-        "search_in" => "Search In",
-        "customer_support" => "Customer Service",
-        "update" => "Update",
-        "select_bank" => "Select Bank",
-        "select_sender_bank" => "Select Your Bank",
-        "select_account" => "Select Account",
+    'common' => [
+        'follow_offers' => 'follow our offers',
+        'next' => 'Next',
+        'invalid_user_data' => 'invalid login credentials',
+        'add_new' => 'Add New',
+        'or' => 'Or',
+        'add' => 'Add',
+        'ok' => 'Ok',
+        'customer_support_note' => '* If you are unable to open links, please save 0163394000 in your contacts',
+        'downlod' => 'Download',
+        'search_in_all_products' => 'Search in all products',
+        'search_in' => 'Search In',
+        'customer_support' => 'Customer Service',
+        'update' => 'Update',
+        'select_bank' => 'Select Bank',
+        'select_sender_bank' => 'Select Your Bank',
+        'select_account' => 'Select Account',
         'create_new_account' => 'Add Account',
         'select_or_create_account' => 'Select/Add Account',
 
-        "back" => "Back",
-        "save" => "Save",
-        'back_to_home' => "Back to home",
-        "completed_message" => "Information Updated",
-        "title_message" => "Success",
-        "select" => "Select",
+        'back' => 'Back',
+        'save' => 'Save',
+        'back_to_home' => 'Back to home',
+        'completed_message' => 'Information Updated',
+        'title_message' => 'Success',
+        'select' => 'Select',
         // 'add_new' => "Add Account",
-        'loading' => "Loading Data",
-        'no_more' => "No more result",
-        'no_results' => "No result",
+        'loading' => 'Loading Data',
+        'no_more' => 'No more result',
+        'no_results' => 'No result',
         'resend_otp' => 'resend otp',
-        "internationalKey" => "966",
+        'internationalKey' => '966',
         'verification_code' => 'Verification Code:',
-        "contact_us" => "Contact Us",
-        "keep_message" => "Send Message",
-
+        'contact_us' => 'Contact Us',
+        'keep_message' => 'Send Message',
     ],
-    "contact" => [
-        'name' => "Name",
-        'email' => "E-mail Address",
-        'message' => "Type your message..",
-        'send' => "Send Message",
+    'contact' => [
+        'name' => 'Name',
+        'email' => 'E-mail Address',
+        'message' => 'Type your message..',
+        'send' => 'Send Message',
     ],
-
 
     'messages' => [
-        "order_has_been_shipping" => "
+        'order_has_been_shipping' => '
 Success delivered,
-Happy to serve you",
-        "notify_customer_by_payment_confirmation" => "
+Happy to serve you',
+        'notify_customer_by_payment_confirmation' => '
 Dear *:CUSTOMER_NAME*
 Your payment has been confirmed for order :ORDER_ID
 Your order processing now, we will keep you in touch
-",
-        "notify_unpaid_order_message" =>
-            "Reminder ..\nPayment deadline for order number (:ORDERID) is soon .\nPlease pay before\n:DATE\n:TIME",
-        'as_your_request' => "1- At Your Request",
-        'not_paid' => "1- Not Paid.",
-        "unpaid_order_canceled_message" =>
-            "Dear Customer *:CUSTOMER_NAME*,\n Sorry, Your Order #:ORDERID has been automatically cancelled \n\n Cancelled Reasons:\n :REASON . \n\n Customer Service (WhatsApp) \n Wa.me/065433",
-        "notify_customer_by_new_order_message_payment_link" => "
+',
+        'notify_unpaid_order_message' => "Reminder ..\nPayment deadline for order number (:ORDERID) is soon .\nPlease pay before\n:DATE\n:TIME",
+        'as_your_request' => '1- At Your Request',
+        'not_paid' => '1- Not Paid.',
+        'unpaid_order_canceled_message' => "Dear Customer *:CUSTOMER_NAME*,\n Sorry, Your Order #:ORDERID has been automatically cancelled \n\n Cancelled Reasons:\n :REASON . \n\n Customer Service (WhatsApp) \n Wa.me/065433",
+        'notify_customer_by_new_order_message_payment_link' => '
 Please fill this form after transfer:
     :PAYMENT_URL
 
-",
-        "notify_customer_by_new_order_message" => "
+',
+        'notify_customer_by_new_order_message' => '
 Dear *:CUSTOMER_NAME*,
 Thank you for ordering form *Almesbar Shop*
 Order: *:ORDER_ID*
@@ -90,159 +85,155 @@ Payment via transfer to our account in Rajhi bank named: Bait Almesbar For Tradi
 Deadline for Payment
     *:DEADLINE_DATE*
     *:DEADLINE_TIME*
-",
+',
 
-// From Rajhi bank:
-// *122608010398991*
+        // From Rajhi bank:
+        // *122608010398991*
 
-// From other banks (IBAN):
-// *SA7280000122608010398991*
-        "send_from_rajhi" => "From Rajhi bank:",
-        "send_from_other_banks_via_iban" => "From other banks (IBAN):",
-        "invalid_order_payment" => "
+        // From other banks (IBAN):
+        // *SA7280000122608010398991*
+        'send_from_rajhi' => 'From Rajhi bank:',
+        'send_from_other_banks_via_iban' => 'From other banks (IBAN):',
+        'invalid_order_payment' => '
 Dear *:CUSTOMER_NAME*
 Unfortunately, Your Payment For Order #:ORDER_ID is Invalid
-For more information, you can contact customer service via the following link",
+For more information, you can contact customer service via the following link',
 
-        "order_shipped_with_shipping_method" => "
+        'order_shipped_with_shipping_method' => '
 Dear *:CUSTOMER_NAME*
 Your Order #:ORDER_ID has been shipped via :SHIPPING_METHOD
 Tracking Number :TRACKING_NUMBER
 Tracking Link
 :TRACKING_URL
-",
+',
 
-        "order_shipped_with_deivery_man" => "
+        'order_shipped_with_deivery_man' => '
 Dear *:CUSTOMER_NAME*
 Your Order #:ORDER_ID has been shipped with delivery man
 :DELIVERY_MAN
 :DELIVERY_MAN_NUMBER
 Receipt code :CODE
-",
+',
 
-        "order_shipping_confirmation" => "
+        'order_shipping_confirmation' => '
 Dear *:CUSTOMER_NAME*
 Your Order #:ORDER_ID ready to pick up
 Receipt code :CODE
-",
-        "success" => "Success",
-        "select_city" => "Select City",
-        "profile_information_updated" => "Your Profile has been updated",
-        "phone_number_has_been_changed" => "Your phone number has been updated",
-        "password_has_been_changed" => "Your password has been updated",
-        "confirm" => "Confirm",
-        "are_you_sure" => "are you sure ? ",
-        "yes" => "Yes",
-        "no" => "No",
-        'bank_account_has_been_created' => "Your bank account has been updated",
+',
+        'success' => 'Success',
+        'select_city' => 'Select City',
+        'profile_information_updated' => 'Your Profile has been updated',
+        'phone_number_has_been_changed' => 'Your phone number has been updated',
+        'password_has_been_changed' => 'Your password has been updated',
+        'confirm' => 'Confirm',
+        'are_you_sure' => 'are you sure ? ',
+        'yes' => 'Yes',
+        'no' => 'No',
+        'bank_account_has_been_created' => 'Your bank account has been updated',
         'invalid_otp' => 'invalid verification code',
-        "invalid_activity" => "This is invalid Activity",
-        "invalid_activity_message" => "Invalid Request",
-        "order_payment_already_received" => "We already received your payment confirmation request",
-        "sorry" => "Sorry",
-        "order_has_been_canceled" => "This order has been canceled, contact the support if you have problem"
+        'invalid_activity' => 'This is invalid Activity',
+        'invalid_activity_message' => 'Invalid Request',
+        'order_payment_already_received' => 'We already received your payment confirmation request',
+        'sorry' => 'Sorry',
+        'order_has_been_canceled' => 'This order has been canceled, contact the support if you have problem',
     ],
 
-
-    "footer" => [
-        "about_us" => "About Us",
-        "contact" => "Contact",
-        "checkout" => "Checkout",
-        "my_account" => "My Account",
-        "subscribe" => "Subscribe",
-        "information" => "Information",
-        "cart" => "Cart",
-        "your_email" => "Your Email",
-        "join_news_letter" => "Join Our Newsletter Now",
-        "join_news_letter_bio" => "Subscribe To Get Latest Offer's.",
-        "copyright_saved" => "All Copyright rights © 2020  reserved | msbrshop",
-        "address" => "Address",
-        'privacy' => "Privacy & Policy",
-        'terms' => "Terms & Conditions ",
-        "phone" => "Phone",
-        "email" => "E-mail"
-
+    'footer' => [
+        'about_us' => 'About Us',
+        'contact' => 'Contact',
+        'checkout' => 'Checkout',
+        'my_account' => 'My Account',
+        'subscribe' => 'Subscribe',
+        'information' => 'Information',
+        'cart' => 'Cart',
+        'your_email' => 'Your Email',
+        'join_news_letter' => 'Join Our Newsletter Now',
+        'join_news_letter_bio' => "Subscribe To Get Latest Offer's.",
+        'copyright_saved' => 'All Copyright rights © 2020  reserved | msbrshop',
+        'address' => 'Address',
+        'privacy' => 'Privacy & Policy',
+        'terms' => 'Terms & Conditions ',
+        'phone' => 'Phone',
+        'email' => 'E-mail',
     ],
-    "profile" => [
-        "profile" => "Control Panel",
-        "logout" => "Log Out",
-        "new_customer" => "New Customer",
-        "exists_customer" => "Have account",
-        "login" => "Login",
-        "phone_number" => "Mobile Number",
-        "country" => "Country",
-        "or_create_new_account" => "Or Create New Account ",
-        "forget_password" => "Forget Password ?",
-        "password" => "password",
-        "new_password" => "New Password",
-        "first_name" => "First Name",
-        "last_name" => "Last Name",
-        "sign_up" => "Sign Up",
-        "account_number" => "Account Number",
+    'profile' => [
+        'profile' => 'Control Panel',
+        'logout' => 'Log Out',
+        'new_customer' => 'New Customer',
+        'exists_customer' => 'Have account',
+        'login' => 'Login',
+        'phone_number' => 'Mobile Number',
+        'country' => 'Country',
+        'or_create_new_account' => 'Or Create New Account ',
+        'forget_password' => 'Forget Password ?',
+        'password' => 'password',
+        'new_password' => 'New Password',
+        'first_name' => 'First Name',
+        'last_name' => 'Last Name',
+        'sign_up' => 'Sign Up',
+        'account_number' => 'Account Number',
         'my_info' => 'My Info',
-        'orders' => "Orders",
-        "mobile" => "Mobile",
-        "addresses" => 'Addresses',
-        "payments" => "Payments",
-        "email_address" => "E-mail Address",
-        "date" => "Date",
-        "order" => "Order",
-        "status" => "Status",
-        "amount" => "Amount",
-        "operations" => "Operations",
-        "detail" => "Detail",
-        "old_password" => "Old Password",
-        "password_confirmation" => "password Confirmation",
-        "name" => "Name",
-        "state" => "State",
-        "city" => "City",
-        "address" => "Description",
-        "zip" => "Zip",
-        "edit" => "Edit",
-        "already_have_account" => "Already Have Account ?",
-        "reset_password" => "Reset Password",
+        'orders' => 'Orders',
+        'mobile' => 'Mobile',
+        'addresses' => 'Addresses',
+        'payments' => 'Payments',
+        'email_address' => 'E-mail Address',
+        'date' => 'Date',
+        'order' => 'Order',
+        'status' => 'Status',
+        'amount' => 'Amount',
+        'operations' => 'Operations',
+        'detail' => 'Detail',
+        'old_password' => 'Old Password',
+        'password_confirmation' => 'password Confirmation',
+        'name' => 'Name',
+        'state' => 'State',
+        'city' => 'City',
+        'address' => 'Description',
+        'zip' => 'Zip',
+        'edit' => 'Edit',
+        'already_have_account' => 'Already Have Account ?',
+        'reset_password' => 'Reset Password',
         'confirm_otp' => 'Enter Verification Code',
-        "street_name" => "Street",
-        "area" => "Area",
-        "tel" => "Telephone"
-
+        'street_name' => 'Street',
+        'area' => 'Area',
+        'tel' => 'Telephone',
     ],
 
     'cart' => [
-        'cart_empty' => "Cart is empty",
-        'shopping_here' => "Shopping Here",
-        'checkout' => "Checkout",
-        "image" => "Image",
-        "product_name" => "Product Name",
-        "price" => "Price",
-        "quantity" => "Quantity",
-        "total" => "Total",
-        "login_to_checkout" => "Checkout",
-        "inc_vat" => "Inc Vat",
-        "shipping_address" => "Shipping Address",
-        "shipping_method" => "Shipping Method",
-        "bank_transfer" => "Bank Transfer",
-        "mada" => "Mada",
-        "visa" => "Visa",
-        "sdad" => "Sadad",
-        "confirm_order" => "Confirm Order",
-        "you_order_processed" => "You will receive payment instructions via whatsapp to",
-        "select_address" => 'Select You Shipping Address',
-        "create_address" => "Create Address",
-        "free" => "Free",
-        "shipping_weight" => "Shipping Weight",
-        "shipping_total" => "Shipping Total",
-        "net" => "Net Amount",
-        'create_shipping_address' => "Create Shipping Address",
-        'select_shipping_address' => "Select Shipping Address",
-        'back_to_cart' => "Back To Cart"
-
-
+        'i_agree_to' => 'I agree to the ',
+        'terms_and_conditions' => 'terms and conditions',
+        'cart_empty' => 'Cart is empty',
+        'shopping_here' => 'Shopping Here',
+        'checkout' => 'Checkout',
+        'image' => 'Image',
+        'product_name' => 'Product Name',
+        'price' => 'Price',
+        'quantity' => 'Quantity',
+        'total' => 'Total',
+        'login_to_checkout' => 'Checkout',
+        'inc_vat' => 'Inc Vat',
+        'shipping_address' => 'Shipping Address',
+        'shipping_method' => 'Shipping Method',
+        'bank_transfer' => 'Bank Transfer',
+        'mada' => 'Mada',
+        'visa' => 'Visa',
+        'sdad' => 'Sadad',
+        'confirm_order' => 'Confirm Order',
+        'you_order_processed' => 'You will receive payment instructions via whatsapp to',
+        'select_address' => 'Select You Shipping Address',
+        'create_address' => 'Create Address',
+        'free' => 'Free',
+        'shipping_weight' => 'Shipping Weight',
+        'shipping_total' => 'Shipping Total',
+        'net' => 'Net Amount',
+        'create_shipping_address' => 'Create Shipping Address',
+        'select_shipping_address' => 'Select Shipping Address',
+        'back_to_cart' => 'Back To Cart',
     ],
 
-
-    "order" => [
-        "statuses" => [
+    'order' => [
+        'statuses' => [
             'issued' => 'Issued',
             'pending' => 'Pending',
             'paid' => 'Paid',
@@ -251,57 +242,55 @@ Receipt code :CODE
             'shipped' => 'Shipped',
             'delivered' => 'Delivered',
             'canceled' => 'Canceled',
-            'returned' => 'Returned'
+            'returned' => 'Returned',
         ],
-        "pdf" => "Invoice",
+        'pdf' => 'Invoice',
 
-        "id" => "Id",
-        "amount" => "Amount",
-        "payment_method" => "Payment Method",
-        "tracking_number" => "Tracking number",
-        "shipping_method" => "Shipping method",
-        "created_at" => "Created at",
-        "status" => "Status",
+        'id' => 'Id',
+        'amount' => 'Amount',
+        'payment_method' => 'Payment Method',
+        'tracking_number' => 'Tracking number',
+        'shipping_method' => 'Shipping method',
+        'created_at' => 'Created at',
+        'status' => 'Status',
 
-
-        "no_order" => "No Orders",
-        "cancel" => "Cancel Order",
-        "sales_invoice" => "Sales Invoice",
-        "vatId" => 'VAT NO.',
-        "taxId" => 'CR NO.',
-        "phone" => "Phone",
-        "branch" => "Branch",
-        "online_sales" => "Online Sales",
-        "shipping_address" => "Shipping Address",
-        "total" => "Total",
-        "tax" => "VAT",
-        "shipping" => 'Shipping',
-        "net" => 'NET',
-        "paid" => 'Paid',
-        "happy_to_serv_you" => "Thank You",
-        "terms_privacy" => "Terms & Conditions",
-        "terms_list" => [
-            "* Item is in original packing condition.",
-            "* Return is within 3 days and exchange is within 7 days of date of purchase."
+        'no_order' => 'No Orders',
+        'cancel' => 'Cancel Order',
+        'sales_invoice' => 'Sales Invoice',
+        'vatId' => 'VAT NO.',
+        'taxId' => 'CR NO.',
+        'phone' => 'Phone',
+        'branch' => 'Branch',
+        'online_sales' => 'Online Sales',
+        'shipping_address' => 'Shipping Address',
+        'total' => 'Total',
+        'tax' => 'VAT',
+        'shipping' => 'Shipping',
+        'net' => 'NET',
+        'paid' => 'Paid',
+        'happy_to_serv_you' => 'Thank You',
+        'terms_privacy' => 'Terms & Conditions',
+        'terms_list' => [
+            '* Item is in original packing condition.',
+            '* Return is within 3 days and exchange is within 7 days of date of purchase.',
         ],
-        "our_address_state" => 'Gassim',
-        "draft" => "Quotation Invoice",
-        "thanks_for_order" => "Thank You",
-        "created" => "Success",
-        "instructions_for_payment" => "You will receive a WhatsApp message including bank account & payment confirmation link to mobile number",
-        'payment_confirmation' => "Payment Confirmation",
-        "order" => "Order",
-        "remmning_time_to_auto_cancel_order" => "Payment Deadline",
-        "transmitter_name" => "Transmitter Name",
-        "to_blank" => "Beneficiary Bank",
-        "payment_confirmed" => "we have received your payment confirmation request",
-        "payment_confirmed_message" => "Once we have received your payment we will confirm your order. we will keep you in touch",
-
+        'our_address_state' => 'Gassim',
+        'draft' => 'Quotation Invoice',
+        'thanks_for_order' => 'Thank You',
+        'created' => 'Success',
+        'instructions_for_payment' => 'You will receive a WhatsApp message including bank account & payment confirmation link to mobile number',
+        'payment_confirmation' => 'Payment Confirmation',
+        'order' => 'Order',
+        'remmning_time_to_auto_cancel_order' => 'Payment Deadline',
+        'transmitter_name' => 'Transmitter Name',
+        'to_blank' => 'Beneficiary Bank',
+        'payment_confirmed' => 'we have received your payment confirmation request',
+        'payment_confirmed_message' => 'Once we have received your payment we will confirm your order. we will keep you in touch',
     ],
     'products' => [
-        "warranty_subscription" => "Warranty",
-        "all_of_them" => "All",
-        "inc" => "Including VAT",
+        'warranty_subscription' => 'Warranty',
+        'all_of_them' => 'All',
+        'inc' => 'Including VAT',
         'subcategories' => 'Sub Categories',
         'sorting_via' => 'Sorted By',
         'tags' => 'For more accurate results.. click on the tag',
@@ -311,7 +300,7 @@ Receipt code :CODE
         'products_count' => 'Products Count',
         'all_products_count' => 'All Products',
         'product' => 'Product',
-        'show_all' => "All",
+        'show_all' => 'All',
         'add_to_cart' => 'Add To Cart',
         'remove_to_cart' => 'Remove From Cart',
         'add_to_favourite' => 'Add To Favourite',
@@ -319,41 +308,39 @@ Receipt code :CODE
         'product_specifications' => 'Product Specifications',
         'out_of_stock' => 'Out Of Stock',
         'sar' => 'SR',
-        "kg" => "K.G",
-        "name" => "Product Name",
-        "quantity" => "QTY",
-        "price" => "Price",
-        "total" => "Total",
-        'model' => "Model",
-        "description" => "Description",
+        'kg' => 'K.G',
+        'name' => 'Product Name',
+        'quantity' => 'QTY',
+        'price' => 'Price',
+        'total' => 'Total',
+        'model' => 'Model',
+        'description' => 'Description',
         'filters' => 'Search Filters',
-        "apply" => "Apply",
-        "reset" => "Reset",
-        "filters_for_search" => "Search Filters..",
-        "barcode" => "Barcode",
-        "related_products" => "Related Products",
-        "sorting_low_price" => "lowest price",
-        "sorting_high_price" => "highest price",
-        "sorting_lastest" => "latest",
-        "sorting_oldest" => "oldest",
-        "sorting_only_available" => "Available Only",
+        'apply' => 'Apply',
+        'reset' => 'Reset',
+        'filters_for_search' => 'Search Filters..',
+        'barcode' => 'Barcode',
+        'related_products' => 'Related Products',
+        'sorting_low_price' => 'lowest price',
+        'sorting_high_price' => 'highest price',
+        'sorting_lastest' => 'latest',
+        'sorting_oldest' => 'oldest',
+        'sorting_only_available' => 'Available Only',
 
         'more_than' => 'More Than',
-        "all" => 'All',
-        'prices' => "Prices",
+        'all' => 'All',
+        'prices' => 'Prices',
         'category' => 'Category',
-        "remove_all" => "Clear All",
-        "sorting_most_sellers" => "Most Sellers",
-        "special_offer" => "Enjoy a Special Offer",
-        "time_days" => "Days",
-        "time_hrs" => "HRS",
-        "time_mins" => "MINS",
-        "time_secs" => "SECS",
-        "sale_for" => "Sale for",
-        "agent_warrnaty" => "Agent Warrnaty",
-        "new_arrival" => "New Arrival"
-
-
+        'remove_all' => 'Clear All',
+        'sorting_most_sellers' => 'Most Sellers',
+        'special_offer' => 'Enjoy a Special Offer',
+        'time_days' => 'Days',
+        'time_hrs' => 'HRS',
+        'time_mins' => 'MINS',
+        'time_secs' => 'SECS',
+        'sale_for' => 'Sale for',
+        'agent_warrnaty' => 'Agent Warrnaty',
+        'new_arrival' => 'New Arrival',
     ],
     'content' => [
         'about_us_content' => '<h4 class="content__title">About Use</h4>Bait Almesbar For Trading
@@ -368,7 +355,7 @@ Receipt code :CODE
         Among our goals is also to make Almesbar Shop a title of excellence, quality, and ease of use, so we are keen to make purchasing from our store a unique experience by relying on a user friendly interface that allows our visitors to move between the sections easily, in addition to that our platform is Responsive which is viewable to all Devices, whether desktop devices or mobiles and tablets, and what distinguishes our platform also is continuous communication with our visitors, whether through the Contact Us page, which everyone can use to reach us or through our pages on social media, which makes our site in line with the interests of our valued visitors, which is also called User Feedback.        <h4 class="content__title">How can I buy from Almesbar Shop ?</h4>
         Please visit the site in Arabic or English and choose the appropriate section that you want to buy from or directly the products you want to buy in the main page by clicking on the product and reading all its details and then clicking on Add to Cart and complete the payment process with your preferred method or choose between "Continue Shopping" If you want to add more products or finalize the purchase\', if you have added all the products you want.
         You can create a new membership if you are a new user or log in to the Almesbar Shop using your email and password.',
-        "terms_and_conditions_content" => "<h4 class='content__title'>Terms And Conditions</h4>By using the store, you implicitly agree to the terms and conditions shown on this page. These terms may change from time to time, so be sure to visit the page frequently.
+        'terms_and_conditions_content' => "<h4 class='content__title'>Terms And Conditions</h4>By using the store, you implicitly agree to the terms and conditions shown on this page. These terms may change from time to time, so be sure to visit the page frequently.
         All the terms and conditions set forth on this page do not contradict any of the laws in force locally or laws that violate privacy, intellectual property and common property applicable internationally. You can learn more about this by visiting the \"Privacy Policy\" page.
         terms that you must adhere to:<h4 class='content__title'>(1) Introduce</h4>
         Welcome to Almesbar Shop. The following are the terms and conditions for your use and access to the pages of the website:
@@ -443,7 +430,7 @@ Receipt code :CODE
          <h4 class='content__title'>(19) Governing Law and Legislation</h4>
         This agreement of terms and conditions is governed and drafted according to the laws regulating the safe use of European digital data and does not contradict with local or international laws in force in this field.
         ",
-        "privacy_content" => "<h4 class='content__title'>Privacy Policy</h4>We appreciate your concerns about the privacy of your data on the Internet and on the website www.msbrshop.com This policy has been prepared to assist you in understanding the nature of the data that we collect about you when you visit our website and how we deal with this personal data.
+        'privacy_content' => "<h4 class='content__title'>Privacy Policy</h4>We appreciate your concerns about the privacy of your data on the Internet and on the website www.msbrshop.com This policy has been prepared to assist you in understanding the nature of the data that we collect about you when you visit our website and how we deal with this personal data.
         By using Almesbar Shop, you agree to all the terms of this page and the \"Terms and Conditions\" page shown on the site, and you are obligated to accept these terms and conditions applicable to you from your entry to the site until you leave it.
         The site administration is obligated, in accordance with the data protection laws approved by international organizations, not to disclose any personal information about the user to our website such as name, address, phone number or e-mail address and others that you provide either when commenting on our site or when you contact to us.
         Almesbar Shop is obligated not to exchange, trade any of this information or sell it to any other party as long as it is within the limits of the possible site management capabilities, and access to the information will only be allowed to qualified and professional people who supervise the Almesbar Shop website.
@@ -463,5 +450,5 @@ Receipt code :CODE
         <h4 class='content__title'>Contact us</h4>You can contact us when needed through the phone number or the contact us page or send to our email.
          <h4 class='content__title'>finally</h4>Your concerns about the confidentiality and privacy of the data are very important for us. We hope that all your concerns will be cleared and all your data paths clarified through this policy.
         In the event that you are not satisfied with anything on this page or in the terms and conditions page, please stop using our site.",
-    ]
+    ],
 ];
