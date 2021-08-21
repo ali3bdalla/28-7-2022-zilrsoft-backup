@@ -14,15 +14,7 @@
           ></SubategoryListItemComponent>
         </a>
       </div>
-
-      <!-- <div class="home__products-area">
-        <h1 class="home__products-count">
-          {{ $page.$t.products.all_products_count }} ({{ $page.products_count }})
-        </h1>
-        <ItemsInfinityLoad :params="{}"></ItemsInfinityLoad>
-      </div> -->
       <div class="">
-        <!-- منتجات ذات صلة -->
         <h3
           class="page__mt-2 home__products-count"
           style="
@@ -67,9 +59,6 @@
             <div class="categories__text flex items-center justify-center">
               <h2 class="flex items-center justify-center h-full">
                 {{ $page.$t.products.agent_warrnaty }}
-                <!-- <br />
-                <span>Shoe Collection</span> <br />
-                Accessories -->
               </h2>
             </div>
           </div>
@@ -122,7 +111,6 @@
 
     <div class="container">
       <div class="mt-3" style="border-color: #d2e8ff !important">
-        <!-- منتجات ذات صلة -->
         <h3
           class="page__mt-2 home__products-count"
           style="

@@ -7,7 +7,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
-            <cart-empty v-if="!this.$store.state.cart.length"></cart-empty>
+            <ShowEmptyCartComponent v-if="!this.$store.state.cart.length"></ShowEmptyCartComponent>
             <CartItems
               v-if="activePage === 'cart'"
               :active-page="activePage"
@@ -87,7 +87,7 @@ import WebLayout from '../../../Layouts/WebAppLayout'
 import CartItems from './CartItems'
 import CartButton from './CartButton'
 import CartShippingAddress from './CartShippingAddress.vue'
-import CartEmpty from './CartEmpty'
+import ShowEmptyCartComponent from './../../../components/Web/Cart/ShowEmptyCartComponent.vue'
 
 export default {
   name: 'Index',
@@ -105,7 +105,7 @@ export default {
     }
   },
   components: {
-    CartEmpty,
+    ShowEmptyCartComponent,
     CartButton,
     CartItems,
     WebLayout,
