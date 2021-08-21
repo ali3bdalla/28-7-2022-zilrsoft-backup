@@ -8,7 +8,6 @@
             <i class="fa fa-bars"></i>
 
         </a>
-<!--        :style="{'backgroundColor':primaryColor}"-->
         <nav  class="navbar navbar-fixed-top" style="margin-bottom: 50px
         !important;">
             <div class="right" style="">
@@ -60,8 +59,6 @@ margin-bottom: -10px;"></i>
                         </ul>
                     </li>
 
-
-
                     <li class="dropdown user user-menu  dropdown-menu-right pull-right">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <img alt="User Image" class="user-image"
@@ -109,16 +106,16 @@ margin-bottom: -10px;"></i>
 </template>
 
 <script>
-    export default {
-        name: "headerPageComponent.vue",
-        data:function () {
-            return {
-                routes:window.routes,
-                lang:window.lang
-            }
-        }
-
+export default {
+  name: 'headerPageComponent.vue',
+  data: function () {
+    return {
+      routes: window.routes,
+      lang: window.lang
     }
+  }
+
+}
 </script>
 
 <style scoped>

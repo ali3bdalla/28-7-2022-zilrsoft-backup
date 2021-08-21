@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import WebLayout from '../../../Layouts/WebAppLayout'
+import WebLayout from '../../Layouts/WebAppLayout'
 import CartItems from './CartItems'
 import CartActions from './CartActions'
 import CartShippingAddress from './CartShippingAddress.vue'

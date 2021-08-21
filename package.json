@@ -44,6 +44,7 @@
         "@johmun/vue-tags-input": "^2.1.0",
         "@nuxtjs/vuetify": "^1.11.2",
         "@riophae/vue-treeselect": "^0.4.0",
+        "@vue/composition-api": "^1.1.2",
         "algoliasearch": "^4.8.4",
         "animate": "^1.0.0",
         "animate.css": "^4.1.1",

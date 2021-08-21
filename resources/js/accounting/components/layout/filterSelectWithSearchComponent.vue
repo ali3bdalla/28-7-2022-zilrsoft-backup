@@ -82,7 +82,7 @@
 
         <div justify="center" data-app>
             <v-dialog
-                
+
                     v-model="showCreateValueDialog"
                      fullscreen
       hide-overlay
@@ -119,7 +119,6 @@
                         </div>
                     </v-card-text>
 
-
                     <v-card-actions>
 
                         <div class="row">
@@ -149,231 +148,202 @@
 
 <script>
 
+export default {
 
-    export default {
-
-        props: ["options", "default", 'index', 'filter', 'translator', 'messages', 'reusable_translator',
-            'disabled', 'canEdit', 'canCreate'],
-        data: function () {
-            return {
-                app: {
-                    primaryColor: metaHelper.getContent('primary-color'),
-                    secondColor: metaHelper.getContent('second-color'),
-                    appLocate: metaHelper.getContent('app-locate'),
-                    trans: trans('items-page'),
-                    messages: trans('messages'),
-                    dateTimeTrans: trans('datetime'),
-                    datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
-                    BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
-                    defaultVatSaleValue: 5,
-                    defaultVatPurchaseValue: 5,
-                },
-                activeIndex: -1,
-                noThing: "الغاء الاختيار",
-                viewOnly: false,
-                isListOpened: false,
-                isActive: true,
-                search: '',
-                old_search: '',
-                selected: 0,
-                allItems: [],
-                showCreateValueDialog: false,
-                filterDataToCreateValueFor: null,
-                defaultValueObj: null,
-                items: null,
-                valueArName: "",
-                valueEnName: "",
-                filterValueUpdateMode: 'edit'
-            };
-
-        },
-        created: function () {
-
-          // console.log(this.$props)
-            if (this.disabled) {
-                this.viewOnly = true;
-            }
-            this.selected = this.default;
-            this.items = this.options;
-            this.allItems = this.options;
-            this.filterDataToCreateValueFor = this.filter;
-            this.defaultValueObj = helpers.getDataFromArrayById(this.options, this.default);
-            if (this.defaultValueObj != null) {
-                this.search = this.defaultValueObj.locale_name;
-            }
-
-            if (this.options.length === 1) {
-                this.setFilterValue(this.options[0].id);
-
-            }
-
-
-          // http://196.202.134.90/SMSbulk/webacc.aspx
-
-        },
-        methods: {
-            activeList(e) {
-
-            },
-            setFilterValue(id, index) {
-
-                this.isListOpened = false;
-                this.selected = id;
-                this.activeIndex = index !== -1 ? db.model.index(this.allItems, id) : index;
-
-                if (index === -1) {
-                    this.$emit('valueUpdated', {
-                        value: id,
-                        index: this.index
-                    });
-                } else {
-
-                    this.defaultValueObj = helpers.getDataFromArrayById(this.options, id);
-                    this.search = this.defaultValueObj.locale_name;
-                    this.items = this.options;
-                    this.$emit('valueUpdated', {
-                        value: id,
-                        index: this.index
-                    });
-                }
-
-                this.hideList();
-            },
-
-            filterNameAppearOnItemNameUpdated() {
-
-                this.$emit('updateItemName');
-
-            },
-
-            createNewFilterValue() {
-                this.filterValueUpdateMode = 'create';
-                this.showCreateValueDialog = true;
-                this.valueArName = "";
-                this.valueEnName = "";
-                this.filterDataToCreateValueFor = this.filter;
-
-
-            },
-
-            editFilterValue() {
-                let value = db.model.find(this.allItems,this.selected);
-
-                console.log(value);
-                this.valueArName = value.ar_name;
-                this.valueEnName = value.name;
-                this.filterValueUpdateMode = 'edit';
-                this.showCreateValueDialog = true;
-                this.filterDataToCreateValueFor = this.filter;
-
-            },
-
-
-            hideTheList() {
-                this.isListOpened = false;
-                this.search = this.old_search;
-                this.hideList();
-
-            },
-            createNewFilterValueRequest() {
-                var vm = this;
-                var appVm = this;
-                let loader = this.$loading.show({
-                    container: this.fullPage ? null : this.$refs.formContainer,
-                });
-
-
-                if (this.filterValueUpdateMode == 'create') {
-
-                    axios.post(this.app.BaseApiUrl + 'filter_values', {
-                        filter_id: this.filterDataToCreateValueFor.id,
-                        name: this.valueEnName,
-                        ar_name: this.valueArName,
-                    })
-                        .then(function (response) {
-
-                            vm.showCreateValueDialog = false;
-                            vm.valueArName = "";
-                            vm.valueEnName = "";
-                            // console.log(response.data);
-                            loader.hide();
-                            vm.items.push(response.data);
-                            // vm.allItems.push(response.data);
-                            vm.search = response.data.locale_name;
-                            vm.setFilterValue(response.data.id, appVm.activeIndex);
-                            // console.log(response.data);
-                        })
-                        .catch(function (error) {
-                            loader.hide();
-                            alert(error.response.data.message);
-                            // console.log(error.response);
-                        });
-
-                } else {
-                    axios.put(this.app.BaseApiUrl + 'filter_values/' + this.selected,
-                        {
-                            name: this.valueEnName,
-                            ar_name: this.valueArName,
-                            filter_id: this.filterDataToCreateValueFor.id
-                        })
-                        .then(function (response) {
-
-                            // var
-                            vm.showCreateValueDialog = false;
-                            loader.hide();
-                            var value = response.data;
-                            value.name = appVm.valueEnName;
-                            value.ar_name = appVm.valueArName;
-                            // console.log(value);
-                            appVm.items.splice(appVm.activeIndex, 1, value);
-                            appVm.setFilterValue(appVm.selected, appVm.activeIndex);
-                            appVm.valueArName = "";
-                            appVm.valueEnName = "";
-
-                        })
-                        .catch(function (error) {
-                            loader.hide();
-                            alert(error.response.data.message);
-                            console.log(error.response);
-                        });
-
-                }
-
-
-            },
-
-
-            searchOnList() {
-                if (this.search == '') {
-                    this.items = this.allItems;
-                } else {
-                    this.items = helpers.searchInArrayByArOrEnName(this.search, this.allItems);
-                }
-
-
-                // console.lo/g(this.search);
-            },
-
-
-            focusOnField() {
-                this.isListOpened = true;
-                this.old_search = this.search;
-                this.search = '';
-                $('.result_list').css('display', 'none');
-                $('#filter_result_' + this.filter.id).css('display', 'block');
-            },
-            hideList() {
-                $('#filter_result_' + this.filter.id).css('display', 'none');
-            },
-            blurFromField() {
-
-            },
-
-
-        }
+  props: ['options', 'default', 'index', 'filter', 'translator', 'messages', 'reusable_translator',
+    'disabled', 'canEdit', 'canCreate'],
+  data: function () {
+    return {
+      app: {
+        primaryColor: metaHelper.getContent('primary-color'),
+        secondColor: metaHelper.getContent('second-color'),
+        appLocate: metaHelper.getContent('app-locate'),
+        trans: trans('items-page'),
+        messages: trans('messages'),
+        dateTimeTrans: trans('datetime'),
+        datatableBaseUrl: metaHelper.getContent('datatableBaseUrl'),
+        BaseApiUrl: metaHelper.getContent('BaseApiUrl'),
+        defaultVatSaleValue: 5,
+        defaultVatPurchaseValue: 5
+      },
+      activeIndex: -1,
+      noThing: 'الغاء الاختيار',
+      viewOnly: false,
+      isListOpened: false,
+      isActive: true,
+      search: '',
+      old_search: '',
+      selected: 0,
+      allItems: [],
+      showCreateValueDialog: false,
+      filterDataToCreateValueFor: null,
+      defaultValueObj: null,
+      items: null,
+      valueArName: '',
+      valueEnName: '',
+      filterValueUpdateMode: 'edit'
     }
-</script>
+  },
+  created: function () {
+    // console.log(this.$props)
+    if (this.disabled) {
+      this.viewOnly = true
+    }
+    this.selected = this.default
+    this.items = this.options
+    this.allItems = this.options
+    this.filterDataToCreateValueFor = this.filter
+    this.defaultValueObj = helpers.getDataFromArrayById(this.options, this.default)
+    if (this.defaultValueObj != null) {
+      this.search = this.defaultValueObj.locale_name
+    }
 
+    if (this.options.length === 1) {
+      this.setFilterValue(this.options[0].id)
+    }
+
+    // http://196.202.134.90/SMSbulk/webacc.aspx
+  },
+  methods: {
+    activeList (e) {
+
+    },
+    setFilterValue (id, index) {
+      this.isListOpened = false
+      this.selected = id
+      this.activeIndex = index !== -1 ? db.model.index(this.allItems, id) : index
+
+      if (index === -1) {
+        this.$emit('valueUpdated', {
+          value: id,
+          index: this.index
+        })
+      } else {
+        this.defaultValueObj = helpers.getDataFromArrayById(this.options, id)
+        this.search = this.defaultValueObj.locale_name
+        this.items = this.options
+        this.$emit('valueUpdated', {
+          value: id,
+          index: this.index
+        })
+      }
+
+      this.hideList()
+    },
+
+    filterNameAppearOnItemNameUpdated () {
+      this.$emit('updateItemName')
+    },
+
+    createNewFilterValue () {
+      this.filterValueUpdateMode = 'create'
+      this.showCreateValueDialog = true
+      this.valueArName = ''
+      this.valueEnName = ''
+      this.filterDataToCreateValueFor = this.filter
+    },
+
+    editFilterValue () {
+      const value = db.model.find(this.allItems, this.selected)
+
+      console.log(value)
+      this.valueArName = value.ar_name
+      this.valueEnName = value.name
+      this.filterValueUpdateMode = 'edit'
+      this.showCreateValueDialog = true
+      this.filterDataToCreateValueFor = this.filter
+    },
+
+    hideTheList () {
+      this.isListOpened = false
+      this.search = this.old_search
+      this.hideList()
+    },
+    createNewFilterValueRequest () {
+      const vm = this
+      const appVm = this
+      const loader = this.$loading.show({
+        container: this.fullPage ? null : this.$refs.formContainer
+      })
+
+      if (this.filterValueUpdateMode == 'create') {
+        axios.post(this.app.BaseApiUrl + 'filter_values', {
+          filter_id: this.filterDataToCreateValueFor.id,
+          name: this.valueEnName,
+          ar_name: this.valueArName
+        })
+          .then(function (response) {
+            vm.showCreateValueDialog = false
+            vm.valueArName = ''
+            vm.valueEnName = ''
+            // console.log(response.data);
+            loader.hide()
+            vm.items.push(response.data)
+            // vm.allItems.push(response.data);
+            vm.search = response.data.locale_name
+            vm.setFilterValue(response.data.id, appVm.activeIndex)
+            // console.log(response.data);
+          })
+          .catch(function (error) {
+            loader.hide()
+            alert(error.response.data.message)
+            // console.log(error.response);
+          })
+      } else {
+        axios.put(this.app.BaseApiUrl + 'filter_values/' + this.selected,
+          {
+            name: this.valueEnName,
+            ar_name: this.valueArName,
+            filter_id: this.filterDataToCreateValueFor.id
+          })
+          .then(function (response) {
+            // var
+            vm.showCreateValueDialog = false
+            loader.hide()
+            const value = response.data
+            value.name = appVm.valueEnName
+            value.ar_name = appVm.valueArName
+            // console.log(value);
+            appVm.items.splice(appVm.activeIndex, 1, value)
+            appVm.setFilterValue(appVm.selected, appVm.activeIndex)
+            appVm.valueArName = ''
+            appVm.valueEnName = ''
+          })
+          .catch(function (error) {
+            loader.hide()
+            alert(error.response.data.message)
+            console.log(error.response)
+          })
+      }
+    },
+
+    searchOnList () {
+      if (this.search == '') {
+        this.items = this.allItems
+      } else {
+        this.items = helpers.searchInArrayByArOrEnName(this.search, this.allItems)
+      }
+
+      // console.lo/g(this.search);
+    },
+
+    focusOnField () {
+      this.isListOpened = true
+      this.old_search = this.search
+      this.search = ''
+      $('.result_list').css('display', 'none')
+      $('#filter_result_' + this.filter.id).css('display', 'block')
+    },
+    hideList () {
+      $('#filter_result_' + this.filter.id).css('display', 'none')
+    },
+    blurFromField () {
+
+    }
+
+  }
+}
+</script>
 
 <style scoped>
     input {

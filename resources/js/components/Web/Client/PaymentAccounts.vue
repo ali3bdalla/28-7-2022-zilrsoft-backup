@@ -1,23 +1,5 @@
 <template>
-  <div>
-
     <div>
-      <!-- <div>
-        <div class="flex-1 group-input">
-          <select v-model="selectedAccountId" class="">
-            <option :value="null">{{ $page.$t.common.select_bank }}</option>
-
-            <option
-              v-for="account in accounts"
-              :key="account.id"
-              :value="account.id"
-            >
-              {{ account.bank.locale_name }} - {{ account.detail }}
-            </option>
-          </select>
-        </div>
-      </div> -->
-
       <div class="flex">
         <div class="flex-1 group-input">
           <label for="first_name">{{ $page.$t.order.transmitter_name }}</label>
@@ -84,7 +66,6 @@
         </div> -->
       </div>
     </div>
-  </div>
 </template>
 
 <script>

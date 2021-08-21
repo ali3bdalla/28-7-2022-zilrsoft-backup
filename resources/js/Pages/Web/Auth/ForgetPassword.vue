@@ -32,7 +32,7 @@
                       {{ $page.errors.phone_number }}
                     </div>
                   </div>
-                 
+
                 </div>
 
                 <!-- <div class="group-input gi-check">
@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import WebLayout from "../../../Layouts/WebAppLayout";
+import WebLayout from "../../Layouts/WebAppLayout";
 
 import VuePhoneNumberInput from "vue-phone-number-input";
 import "vue-phone-number-input/dist/vue-phone-number-input.css";

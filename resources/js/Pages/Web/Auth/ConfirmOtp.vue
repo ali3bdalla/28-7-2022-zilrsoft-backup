@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import WebLayout from '../../../Layouts/WebAppLayout'
+import WebLayout from '../../Layouts/WebAppLayout'
 // import OtpInput from '@bachdgvn/vue-otp-input'
 
 export default {

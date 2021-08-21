@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import WebLayout from '../../../Layouts/WebAppLayout'
+import WebLayout from '../../Layouts/WebAppLayout'
 import VuePhoneNumberInput from 'vue-phone-number-input'
 import 'vue-phone-number-input/dist/vue-phone-number-input.css'
 

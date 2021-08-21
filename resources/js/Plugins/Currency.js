@@ -1,7 +1,5 @@
-let currencyFormatter = require('currency-formatter');
+const currencyFormatter = require('currency-formatter')
 
 // window.currencyFormatter = currencyFormatter;
 
-module.exports = {
-    formatter: currencyFormatter
-};
+module.exports = 
