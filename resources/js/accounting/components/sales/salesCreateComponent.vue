@@ -1055,8 +1055,6 @@ export default {
     },
 
     validateInvoiceData () {
-      const everythingFineToSave = true
-
       let validating = db.model.validateAmounts(this.invoiceData.items, [
         'purchase',
         'tax',
@@ -1321,9 +1319,7 @@ export default {
     pushDataToServer (doWork = null) {
       this.everythingFineToSave = false
       const client = db.model.find(this.clientList, this.invoiceData.clientId)
-      // if (client.can_make_credit === false) {
       if (client.is_system_user) {
-        // can_make_credit === false
         const amount = db.model.sum(this.invoiceData.methods, 'amount')
         if (ItemMath.isBiggerThan(this.invoiceData.net, amount)) {
           alert(
@@ -1409,7 +1405,6 @@ export default {
             console.log(error.response.data)
           })
       }
-      // this.stringifyRequestData = JSON.stringify(data);
     }
   }
 }
