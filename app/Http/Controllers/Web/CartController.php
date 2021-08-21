@@ -22,7 +22,7 @@ class CartController extends Controller
         $data['cities'] = City::where('country_id', 1)->get();
 
         return Inertia::render(
-            'Web/Cart/Index',
+            'Cart/Index',
             $data
         );
     }

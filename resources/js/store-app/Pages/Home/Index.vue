@@ -154,9 +154,9 @@
 <script>
 import VueHorizontal from 'vue-horizontal'
 import WebLayout from '../../Layouts/WebAppLayout'
-import SubategoryListItemComponent from './../../../components/Web/Category/SubategoryListItemComponent'
-import Hero from '../../../components/Web/Page/Hero.vue'
-import ProductListItemComponent from './../../../components/Web/Product/ProductListItemComponent'
+import SubategoryListItemComponent from './../../Components/Category/SubategoryListItemComponent.vue'
+import Hero from '../../Components/Layout/Hero.vue'
+import ProductListItemComponent from './../../Components/Product/ProductListItemComponent.vue'
 
 export default {
   name: 'Index',

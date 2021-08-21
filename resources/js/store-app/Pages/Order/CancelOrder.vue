@@ -31,7 +31,6 @@
         </div>
       </div>
 
-
     </div>
   </div>
 </template>
@@ -42,12 +41,12 @@ export default {
 
   methods: {
 
-    cancelOrder() {
+    cancelOrder () {
       this.$inertia.post('/web/orders/' + this.$page.order.id + '/cancel')
     }
 
-  },
-};
+  }
+}
 </script>
 
 <style>

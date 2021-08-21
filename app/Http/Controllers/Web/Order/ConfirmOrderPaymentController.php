@@ -19,7 +19,7 @@ class ConfirmOrderPaymentController extends Controller
 
         if (!$this->isValidOrderStatus($order) || !$this->isValidKey($order, $request)) {
             return Inertia::render(
-                'Web/Order/OrderConfirmationExpired', [
+                'Order/OrderConfirmationExpired', [
                     'order' => $order
                 ]
             );
@@ -28,7 +28,7 @@ class ConfirmOrderPaymentController extends Controller
 
 
         return Inertia::render(
-            'Web/Order/ConfirmPayment', [
+            'Order/ConfirmPayment', [
                 'user' => $order->user,
                 'code' => $request->input('code'),
                 'order' => $order,
@@ -54,14 +54,14 @@ class ConfirmOrderPaymentController extends Controller
 
         if (!$this->isValidOrderStatus($order) || !$this->isValidKey($order, $request)) {
             return Inertia::render(
-                'Web/Order/OrderConfirmationExpired', [
+                'Order/OrderConfirmationExpired', [
                     'order' => $order
                 ]
             );
         }
         $request->confirm($order);
         return Inertia::render(
-            'Web/Order/PaymentConfirmed', [
+            'Order/PaymentConfirmed', [
                 'order' => $order
             ]
         );

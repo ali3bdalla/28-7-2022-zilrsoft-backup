@@ -40,7 +40,6 @@
                             <span> ر.س</span>
                         </div>
 
-
                     </div>
                 </div>
 
@@ -55,247 +54,246 @@
             </div>
         </div>
 
-
     </div>
 </template>
 
 <script>
-const {qzCertificate} = require('../../../qz-io');
+import domtoimage from 'dom-to-image'
+import VueBarcode from 'vue-barcode'
+const { qzCertificate } = require('../../../mass/qz-io')
 
-    var qz = require("qz-tray");
-    import domtoimage from 'dom-to-image';
-    import VueBarcode from 'vue-barcode';
+const qz = require('qz-tray')
 
-    export default {
-        components: {'barcode': VueBarcode, domtoimage, VueBarcode},
-        props: ['items', 'invoiceId', 'hideBtn'],
-        data: function () {
-            return {
-                barcodesLoaders: [],
-                shouldPrint: false,
-                invoiceTitle: "",
-                itemsList: [],
-                image: null,
-                cropper: null,
-                number_of_barcode: 1,
-                itemsGeneratedImage: [],
-                app: {
-                    primaryColor: metaHelper.getContent('primary-color'),
-                    secondColor: metaHelper.getContent('second-color'),
-                    appLocate: metaHelper.getContent('app-locate'),
-                    trans: trans('invoices-page'),
-                    BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
-                },
-            };
-        },
-        created: function () {
-            // this.itemsList = this.items;
-            // console.log(this.invoiceId);
-            this.invoiceTitle = this.invoiceId;
-            this.initItems();
-            this.connectQZ();
-        },
-        mounted: function () {
-            this.generatedData();
-        },
-        methods: {
-            initItems() {
-                for (let i = 0; i < this.items.length; i++) {
-                    let item = this.items[i];
-                    // if (item.item != null) {
-                    item.price_with_tax = item.item.price_with_tax;
-                    item.ar_name = item.item.ar_name;
-                    item.barcode = item.item.barcode;
-                    // }else
-                    //
-                    // {
-                    //
-                    // }
-                    this.itemsList.push(item);
-                }
-            },
-            async generatedData(items = null) {
-                let LocaleItems = items == null ? this.itemsList : items;
-                let appVm = this;
-                // document.getElementById("showGeneratedBarcodeImageId_").innerHTML = "";
-                this.itemsGeneratedImage = [];
-                let len = LocaleItems.length;
-                for (let i = 0; i < len; i++) {
-                    // appVm.barcodesLoaders.push(i);
-                    // let item = LocaleItems[i];
-                    await domtoimage.toPng(document.getElementById('barcode_area_' + i), {
-                        quality: 1, style: {
-                            width: '100%',
-                            height: '100%',
-                            padding: '0px',
-                            margin: "0px"
-                        }
-                    }).then(function (dataUrl) {
-                        appVm.src = dataUrl;
-                        appVm.image = dataUrl;
+export default {
+  components: { barcode: VueBarcode, domtoimage, VueBarcode },
+  props: ['items', 'invoiceId', 'hideBtn'],
+  data: function () {
+    return {
+      barcodesLoaders: [],
+      shouldPrint: false,
+      invoiceTitle: '',
+      itemsList: [],
+      image: null,
+      cropper: null,
+      number_of_barcode: 1,
+      itemsGeneratedImage: [],
+      app: {
+        primaryColor: metaHelper.getContent('primary-color'),
+        secondColor: metaHelper.getContent('second-color'),
+        appLocate: metaHelper.getContent('app-locate'),
+        trans: trans('invoices-page'),
+        BaseApiUrl: metaHelper.getContent('BaseApiUrl')
+      }
+    }
+  },
+  created: function () {
+    // this.itemsList = this.items;
+    // console.log(this.invoiceId);
+    this.invoiceTitle = this.invoiceId
+    this.initItems()
+    this.connectQZ()
+  },
+  mounted: function () {
+    this.generatedData()
+  },
+  methods: {
+    initItems () {
+      for (let i = 0; i < this.items.length; i++) {
+        const item = this.items[i]
+        // if (item.item != null) {
+        item.price_with_tax = item.item.price_with_tax
+        item.ar_name = item.item.ar_name
+        item.barcode = item.item.barcode
+        // }else
+        //
+        // {
+        //
+        // }
+        this.itemsList.push(item)
+      }
+    },
+    async generatedData (items = null) {
+      const LocaleItems = items == null ? this.itemsList : items
+      const appVm = this
+      // document.getElementById("showGeneratedBarcodeImageId_").innerHTML = "";
+      this.itemsGeneratedImage = []
+      const len = LocaleItems.length
+      for (let i = 0; i < len; i++) {
+        // appVm.barcodesLoaders.push(i);
+        // let item = LocaleItems[i];
+        await domtoimage.toPng(document.getElementById('barcode_area_' + i), {
+          quality: 1,
+          style: {
+            width: '100%',
+            height: '100%',
+            padding: '0px',
+            margin: '0px'
+          }
+        }).then(function (dataUrl) {
+          appVm.src = dataUrl
+          appVm.image = dataUrl
 
-                        // console.log(dataUrl);
-                        appVm.itemsGeneratedImage.push(dataUrl);
-                        // appVm.barcodesLoaders.push(i);
-                        // let DOM_img = document.createElement("img");
-                        // DOM_img.src = dataUrl;
-                        // document.getElementById("showGeneratedBarcodeImageId_" + i).appendChild(DOM_img);
-                    })
-                        .catch(function (error) {
-                            console.log(error)
-                        });
-                }
-            },
-            connectQZ() {
-                var appVm = this;
-                qz.security.setCertificatePromise(function (resolve, reject) {
-                    //Alternate method 2 - direct
-                    resolve(qzCertificate);
-                });
-                qz.security.setSignaturePromise(function (toSign) {
-                    return function (resolve, reject) {
-                        $.get(appVm.app.BaseApiUrl + 'printer/sign_receipt_printer', {request: toSign}).then(resolve, reject);
-                    };
-                });
-                qz.websocket.connect().then(function () {
-                    var sha256 = function (str) {
-                        // We transform the string into an arraybuffer.
-                        var buffer = new TextEncoder('utf-8').encode(str);
-                        return crypto.subtle.digest('SHA-256', buffer).then(function (hash) {
-                            return hex(hash)
-                        })
-                    };
-                    var hex = function (buffer) {
-                        var hexCodes = [];
-                        var view = new DataView(buffer);
-                        for (var i = 0; i < view.byteLength; i += 4) {
-                            // Using getUint32 reduces the number of iterations needed (we process 4 bytes each time)
-                            var value = view.getUint32(i);
-                            // toString(16) will give the hex representation of the number without padding
-                            var stringValue = value.toString(16);
-                            // We use concatenation and slice for padding
-                            var padding = '00000000';
-                            var paddedValue = (padding + stringValue).slice(-padding.length);
-                            hexCodes.push(paddedValue)
-                        }
-                        // Join all the hex strings into one
-                        return hexCodes.join('')
-                    };
-                    qz.api.setPromiseType(function promise(resolver) {
-                        return new Promise(resolver);
-                    });
-                    qz.api.setSha256Type(function (data) {
-                        return sha256(data)
-                    });
-                    return qz.printers.find();
-                });
-            },
-            convertEnToArabicNumber(en) {
-                var response = [];
-                var en_arr = en.split('');
-                for (var i = 0; i < en_arr.length; i++) {
-                    var num = en_arr[i];
-                    if (num == 0) {
-                        response.push('٠');
-                    } else if (num == 1) {
-                        response.push('١');
-                    } else if (num == 2) {
-                        response.push('٢');
-                    } else if (num == 3) {
-                        response.push('٣');
-                    } else if (num == 4) {
-                        response.push('٤');
-                    } else if (num == 5) {
-                        response.push('٥');
-                    } else if (num == 6) {
-                        response.push('٦');
-                    } else if (num == 7) {
-                        response.push('٧');
-                    } else if (num == 8) {
-                        response.push('٨');
-                    } else if (num == 9) {
-                        response.push('٩');
-                    } else {
-                        response.push(num);
-                    }
-                }
-                return response.join('');
-            },
-            chr(n) {
-                return String.fromCharCode(n);
-            },
-            printBulkBarcode() {
-                let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
-                let data = [];
-                // this.barcodesLoaders = [];
-                for (let i = 0; i < this.itemsList.length; i++) {
-                    let generatedItem = this.itemsGeneratedImage[i];
-                    let actItem = this.itemsList[i];
+          // console.log(dataUrl);
+          appVm.itemsGeneratedImage.push(dataUrl)
+          // appVm.barcodesLoaders.push(i);
+          // let DOM_img = document.createElement("img");
+          // DOM_img.src = dataUrl;
+          // document.getElementById("showGeneratedBarcodeImageId_" + i).appendChild(DOM_img);
+        })
+          .catch(function (error) {
+            console.log(error)
+          })
+      }
+    },
+    connectQZ () {
+      const appVm = this
+      qz.security.setCertificatePromise(function (resolve, reject) {
+        // Alternate method 2 - direct
+        resolve(qzCertificate)
+      })
+      qz.security.setSignaturePromise(function (toSign) {
+        return function (resolve, reject) {
+          $.get(appVm.app.BaseApiUrl + 'printer/sign_receipt_printer', { request: toSign }).then(resolve, reject)
+        }
+      })
+      qz.websocket.connect().then(function () {
+        const sha256 = function (str) {
+          // We transform the string into an arraybuffer.
+          const buffer = new TextEncoder('utf-8').encode(str)
+          return crypto.subtle.digest('SHA-256', buffer).then(function (hash) {
+            return hex(hash)
+          })
+        }
+        var hex = function (buffer) {
+          const hexCodes = []
+          const view = new DataView(buffer)
+          for (let i = 0; i < view.byteLength; i += 4) {
+            // Using getUint32 reduces the number of iterations needed (we process 4 bytes each time)
+            const value = view.getUint32(i)
+            // toString(16) will give the hex representation of the number without padding
+            const stringValue = value.toString(16)
+            // We use concatenation and slice for padding
+            const padding = '00000000'
+            const paddedValue = (padding + stringValue).slice(-padding.length)
+            hexCodes.push(paddedValue)
+          }
+          // Join all the hex strings into one
+          return hexCodes.join('')
+        }
+        qz.api.setPromiseType(function promise (resolver) {
+          return new Promise(resolver)
+        })
+        qz.api.setSha256Type(function (data) {
+          return sha256(data)
+        })
+        return qz.printers.find()
+      })
+    },
+    convertEnToArabicNumber (en) {
+      const response = []
+      const en_arr = en.split('')
+      for (let i = 0; i < en_arr.length; i++) {
+        const num = en_arr[i]
+        if (num == 0) {
+          response.push('٠')
+        } else if (num == 1) {
+          response.push('١')
+        } else if (num == 2) {
+          response.push('٢')
+        } else if (num == 3) {
+          response.push('٣')
+        } else if (num == 4) {
+          response.push('٤')
+        } else if (num == 5) {
+          response.push('٥')
+        } else if (num == 6) {
+          response.push('٦')
+        } else if (num == 7) {
+          response.push('٧')
+        } else if (num == 8) {
+          response.push('٨')
+        } else if (num == 9) {
+          response.push('٩')
+        } else {
+          response.push(num)
+        }
+      }
+      return response.join('')
+    },
+    chr (n) {
+      return String.fromCharCode(n)
+    },
+    printBulkBarcode () {
+      const config = qz.configs.create(localStorage.getItem('default_barcode_printer'))
+      const data = []
+      // this.barcodesLoaders = [];
+      for (let i = 0; i < this.itemsList.length; i++) {
+        const generatedItem = this.itemsGeneratedImage[i]
+        const actItem = this.itemsList[i]
 
-
-                    if (i > 0) {
-                        data.push(
-                            '\nN\n' +
+        if (i > 0) {
+          data.push(
+            '\nN\n' +
                             'A180,20,0,2,1,1,N, \n' +
                             'A200,50,0,4,1,1,N, \n' +
                             'B200,100,0,1A,1,2,30,B, \n' +
                             '\nP1\n'
-                        );
-                    }
-
-                    // this.barcodesLoaders.push(generatedItem);
-                    for (let y = 0; y < actItem.qty; y++) {
-
-                        data.push(
-                            '\nN\n',
-                            {
-                                type: 'raw', format: 'image', data: generatedItem,
-                                options: {language: 'EPL', y: 0, x: 170}
-                            },
-                            '\nP1,1\n'
-                        );
-                        // console.log(actItem.barcode);
-                    }
-                }
-                // console.log(data);
-                qz.print(config, data);
-            },
-        },
-        watch: {
-            items: function (value) {
-                this.itemsList = [];
-                for (let i = 0; i < value.length; i++) {
-                    let item = value[i];
-                    this.itemsList.push(item);
-                }
-                let appVm = this;
-                let interval = setInterval(function () {
-                    appVm.generatedData();
-                    clearInterval(interval);
-                }, 100)
-                //
-            },
-            invoiceId: function (value) {
-                this.invoiceTitle = value;
-                let appVm = this;
-                appVm.generatedData();
-                let interval = setInterval(function () {
-                    appVm.shouldPrint = true;
-                    clearInterval(interval);
-                }, 1000);
-            },
-            shouldPrint: function (val) {
-                this.printBulkBarcode();
-                let appVm = this;
-                let interval = setInterval(function () {
-                    appVm.$emit("CompletePrintProcess", {});
-                    clearInterval(interval);
-                }, 1000);
-            }
+          )
         }
-    }
-</script>
 
+        // this.barcodesLoaders.push(generatedItem);
+        for (let y = 0; y < actItem.qty; y++) {
+          data.push(
+            '\nN\n',
+            {
+              type: 'raw',
+              format: 'image',
+              data: generatedItem,
+              options: { language: 'EPL', y: 0, x: 170 }
+            },
+            '\nP1,1\n'
+          )
+          // console.log(actItem.barcode);
+        }
+      }
+      // console.log(data);
+      qz.print(config, data)
+    }
+  },
+  watch: {
+    items: function (value) {
+      this.itemsList = []
+      for (let i = 0; i < value.length; i++) {
+        const item = value[i]
+        this.itemsList.push(item)
+      }
+      const appVm = this
+      const interval = setInterval(function () {
+        appVm.generatedData()
+        clearInterval(interval)
+      }, 100)
+      //
+    },
+    invoiceId: function (value) {
+      this.invoiceTitle = value
+      const appVm = this
+      appVm.generatedData()
+      const interval = setInterval(function () {
+        appVm.shouldPrint = true
+        clearInterval(interval)
+      }, 1000)
+    },
+    shouldPrint: function (val) {
+      this.printBulkBarcode()
+      const appVm = this
+      const interval = setInterval(function () {
+        appVm.$emit('CompletePrintProcess', {})
+        clearInterval(interval)
+      }, 1000)
+    }
+  }
+}
+</script>
 
 <style scoped>
     @import "https://fonts.googleapis.com/css?family=Cairo&display=swap";
@@ -323,13 +321,11 @@ const {qzCertificate} = require('../../../qz-io');
 <!--<template>-->
 <!--    <div style="display: inline">-->
 
-
 <!--        <button @click="printBulkBarcode" class="btn btn-primary" v-if="hideBtn!=true">طباعة الباركود-->
 <!--            <i class="fa fa-print"></i></button>-->
 
 <!--        <div class="row text-center align-content-center">-->
 <!--            <div class="col-md-6 text-center">-->
-
 
 <!--                <div :id="'barcode_area_' + index" :key="index" style="width: 255px;"  v-for="(item,index) in-->
 <!--                itemsList">-->
@@ -359,12 +355,10 @@ const {qzCertificate} = require('../../../qz-io');
 <!--                            <span> ر.س</span>-->
 <!--                        </div>-->
 
-
 <!--                    </div>-->
 <!--                </div>-->
 
 <!--            </div>-->
-
 
 <!--            <div :id="'barcode_area_' + index" :key="index" style="width: 255px;" v-for="(item,index) in-->
 <!--                itemsList">-->
@@ -392,7 +386,6 @@ const {qzCertificate} = require('../../../qz-io');
 <!--                        <span> ر.س</span>-->
 <!--                    </div>-->
 
-
 <!--                </div>-->
 <!--            </div>-->
 
@@ -408,17 +401,14 @@ const {qzCertificate} = require('../../../qz-io');
 <!--        &lt;!&ndash;            </div>&ndash;&gt;-->
 <!--    </div>-->
 
-
 <!--    </div>-->
 <!--</template>-->
 
 <!--<script>-->
 
-
 <!--    var qz = require("qz-tray");-->
 <!--    import domtoimage from 'dom-to-image';-->
 <!--    import VueBarcode from 'vue-barcode';-->
-
 
 <!--    export default {-->
 <!--        components: {'barcode': VueBarcode, domtoimage, VueBarcode},-->
@@ -563,7 +553,6 @@ const {qzCertificate} = require('../../../qz-io');
 <!--                        "rbO7BnjW\n" +-->
 <!--                        "-&#45;&#45;&#45;&#45;END CERTIFICATE-&#45;&#45;&#45;&#45;");-->
 
-
 <!--                });-->
 <!--                qz.security.setSignaturePromise(function (toSign) {-->
 
@@ -572,7 +561,6 @@ const {qzCertificate} = require('../../../qz-io');
 <!--                    };-->
 <!--                });-->
 <!--                qz.websocket.connect().then(function () {-->
-
 
 <!--                    var sha256 = function (str) {-->
 <!--                        // We transform the string into an arraybuffer.-->
@@ -600,7 +588,6 @@ const {qzCertificate} = require('../../../qz-io');
 <!--                        return hexCodes.join('')-->
 <!--                    };-->
 
-
 <!--                    qz.api.setPromiseType(function promise(resolver) {-->
 <!--                        return new Promise(resolver);-->
 <!--                    });-->
@@ -608,7 +595,6 @@ const {qzCertificate} = require('../../../qz-io');
 <!--                    qz.api.setSha256Type(function (data) {-->
 <!--                        return sha256(data)-->
 <!--                    });-->
-
 
 <!--                    return qz.printers.find();-->
 <!--                });-->
@@ -643,9 +629,7 @@ const {qzCertificate} = require('../../../qz-io');
 <!--                        response.push(num);-->
 <!--                    }-->
 
-
 <!--                }-->
-
 
 <!--                return response.join('');-->
 <!--            },-->
@@ -689,7 +673,6 @@ const {qzCertificate} = require('../../../qz-io');
 <!--                }-->
 <!--                this.itemsList = tempItems;-->
 
-
 <!--                let appVm = this;-->
 <!--                let interval = setInterval(function () {-->
 <!--                    appVm.generatedData(value);-->
@@ -721,9 +704,7 @@ const {qzCertificate} = require('../../../qz-io');
 
 <!--    }-->
 
-
 <!--</script>-->
-
 
 <!--<style>-->
 <!--    @import "https://fonts.googleapis.com/css?family=Cairo&display=swap";-->

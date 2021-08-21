@@ -17,7 +17,7 @@ class AuthController extends Controller
 
     public function signInPage()
     {
-        return Inertia::render('Web/Auth/SignIn');
+        return Inertia::render('Auth/SignIn');
     }
 
 
@@ -43,7 +43,7 @@ class AuthController extends Controller
 
     public function signUpPage()
     {
-        return Inertia::render('Web/Auth/SignUp');
+        return Inertia::render('Auth/SignUp');
     }
 
     public function signUp(Request $request)
@@ -88,7 +88,7 @@ class AuthController extends Controller
     {
 
         return Inertia::render(
-            'Web/Auth/ConfirmOtp',
+            'Auth/ConfirmOtp',
             [
                 'phone_number' => Session::get('sign_up_phone_number', ""),
                 'validate_url' => '/web/sign_up/confirm_sign_up'
@@ -151,7 +151,7 @@ class AuthController extends Controller
 
     public function forgetPasswordPage()
     {
-        return Inertia::render('Web/Auth/ForgetPassword');
+        return Inertia::render('Auth/ForgetPassword');
     }
 
     public function forgetPassword(Request $request)
@@ -194,7 +194,7 @@ class AuthController extends Controller
     {
 
         return Inertia::render(
-            'Web/Auth/ConfirmOtp',
+            'Auth/ConfirmOtp',
             [
                 'phone_number' => Session::get('reset_password_phone_number', ""),
                 'validate_url' => '/web/forget_password/confirm'
@@ -230,7 +230,7 @@ class AuthController extends Controller
     {
 
         return Inertia::render(
-            'Web/Auth/ResetPassword',
+            'Auth/ResetPassword',
             [
 
                 'validate_url' => '/web/forget_password/reset'

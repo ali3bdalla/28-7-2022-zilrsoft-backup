@@ -20,12 +20,12 @@
             :category-id="$page.categoryId"
             @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated"
           ></filters-pop>
-          <categories-pop
+          <CategoriesFilterPanelComponent
               :category="$page.category"
             :categories="this.$page.subcategories"
             v-else
             :show-subcategories="true"
-          ></categories-pop>
+          ></CategoriesFilterPanelComponent>
 
            <sorting-pop @updated="sortingUpdated"></sorting-pop>
         </div>
@@ -37,10 +37,10 @@
       >
         <div class="page__mt-2">
           <div class="product__search-options items-center">
-            <switchAvailableButton
+            <SwitchAvailableOnlyButtonComponent
               class="items-center"
               @changed="switchAvailableQtyChanged"
-            ></switchAvailableButton>
+            ></SwitchAvailableOnlyButtonComponent>
           </div>
         </div>
       </div>
@@ -51,13 +51,12 @@
         >
           {{ this.$page.$t.products.products_count }} ({{ totalItems }})
         </h1>
-
-        <items-infinity-load
+        <AutoReloadProductListComponent
           @listUpdated="listUpdated"
           :params="params"
           :forceUpdate="forceUpdate"
           :paramsUpdated="applyFilterSearch"
-        ></items-infinity-load>
+        ></AutoReloadProductListComponent>
       </div>
     </div>
   </web-layout>
@@ -65,19 +64,19 @@
 
 <script>
 import WebLayout from '../../Layouts/WebAppLayout'
-import ItemsInfinityLoad from '../../../components/Web/Item/ItemsInfinityLoad.vue'
-import CategoriesPop from '../../../components/Web/Product/List/CategoriesPop.vue'
-import switchAvailableButton from '../../../components/Web/Product/List/switchAvailableButton'
-import SortingPop from '../../../components/Web/Product/List/SortingPop.vue'
-import FiltersPop from '../../../components/Web/Product/List/FiltersPop.vue'
+import AutoReloadProductListComponent from '../../Components/Product/AutoReloadProductListComponent.vue'
+import CategoriesFilterPanelComponent from '../../Components/Product/CategoriesFilterPanelComponent.vue'
+import SwitchAvailableOnlyButtonComponent from '../../Components/Product/SwitchAvailableOnlyButtonComponent.vue'
+import SortingPop from '../../Components/Product/SortingPop.vue'
+import FiltersPop from '../../Components/Product/FiltersPop.vue'
 
 export default {
   components: {
     WebLayout,
     SortingPop,
-    switchAvailableButton,
-    ItemsInfinityLoad,
-    CategoriesPop,
+    SwitchAvailableOnlyButtonComponent,
+    AutoReloadProductListComponent,
+    CategoriesFilterPanelComponent,
     FiltersPop
   },
   data () {
@@ -126,18 +125,6 @@ export default {
       this.filterValues = event.selectedValues
     }
   }
-  // computed: {
-  //   subCategories () {
-  //     const subcategories = []
-  //     for (const index in this.$page.subcategories) {
-  //       const category = this.$page.subcategories[index]
-  //       category.image = this.images[index % 7]
-
-  //       subcategories.push(category)
-  //     }
-  //     return subcategories
-  //   }
-  // }
 }
 </script>
 

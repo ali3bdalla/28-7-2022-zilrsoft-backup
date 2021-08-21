@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function index()
     {
         return Inertia::render(
-            'Web/Home/Index',
+            'Home/Index',
             [
                 'heigest_price' => Item::available()->with('category', 'filters.filter', 'filters.value')->orderBy('online_offer_price', 'desc')->take(15)->get(),
                 'offer_item' => Item::inRandomOrder()->hasModelNumber()->first(),

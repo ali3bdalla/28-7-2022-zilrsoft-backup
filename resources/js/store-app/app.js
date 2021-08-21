@@ -34,12 +34,12 @@ import {
   DropdownMenu
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-require('./bootstrap')
-require('./func')
+
 const isProduction = process.env.NODE_ENV === 'production'
-const store = new Vuex.Store(require('./state'))
 const app = document.getElementById('app')
 
+require('./bootstrap')
+require('./func')
 Vue.use(ToggleButton)
 Vue.use(Image)
 Vue.use(Radio)
@@ -86,8 +86,9 @@ Vue.use(Dialog, {
 })
 Vue.use(vClickOutside)
 Vue.use(InertiaApp)
+
 new Vue({
-  store: store,
+  store: new Vuex.Store(require('./state')),
   render: h =>
     h(InertiaApp, {
       props: {

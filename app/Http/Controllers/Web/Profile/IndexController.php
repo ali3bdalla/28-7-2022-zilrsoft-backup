@@ -18,7 +18,7 @@ class IndexController extends Controller
     {
 
 
-        return Inertia::render('Web/Profile/Index', [
+        return Inertia::render('Profile/Index', [
             'user' => $request->user(),
             'shipping_addresses' => $request->user()->shippingAddresses()->with('city.country')->get(),
         ]);
@@ -27,13 +27,13 @@ class IndexController extends Controller
     public function updateInformation(UpdateInformationRequest $request)
     {
         $request->update();
-        return Inertia::render('Web/Common/ShowMessage');
+        return Inertia::render('Common/ShowMessage');
     }
 
     public function updatePassword(UpdatePasswordRequest $request)
     {
         $request->update();
-        return Inertia::render('Web/Common/ShowMessage');
+        return Inertia::render('Common/ShowMessage');
     }
 
     public function updatePhoneNumber(UpdatePhoneNumberRequest $request)

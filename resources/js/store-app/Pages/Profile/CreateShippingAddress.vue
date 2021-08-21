@@ -1,18 +1,18 @@
 <template>
   <web-layout>
     <section class="contact-section spad">
-        <create-shipping-address-form :return-object="true"></create-shipping-address-form>
+        <CreateShippingAddressFormComponent :return-object="true"></CreateShippingAddressFormComponent>
     </section>
   </web-layout>
 </template>
 
 <script>
 import WebLayout from '../../Layouts/WebAppLayout'
-import CreateShippingAddressForm from '../../../components/Web/ShippingAddress/CreateShippingAddressForm'
+import CreateShippingAddressFormComponent from '../../Components/Customer/CreateShippingAddressFormComponent.vue'
 
 export default {
   components: {
-    CreateShippingAddressForm,
+    CreateShippingAddressFormComponent,
     WebLayout
   }
 

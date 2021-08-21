@@ -5,8 +5,8 @@
 </template>
 
 <script>
-const {qzCertificate} = require('../../../qz-io');
-let qz = require("qz-tray");
+const { qzCertificate } = require('../../../mass/qz-io')
+const qz = require('qz-tray')
 export default {
   props: ['invoiceId', 'printId', 'direct'],
   data: function () {
@@ -17,85 +17,84 @@ export default {
         secondColor: metaHelper.getContent('second-color'),
         appLocate: metaHelper.getContent('app-locate'),
         trans: trans('invoices-page'),
-        BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
-      },
-    };
+        BaseApiUrl: metaHelper.getContent('BaseApiUrl')
+      }
+    }
   },
   created: function () {
-    this.initPrinterRequest();
-    this.targetId = this.invoiceId;
-
+    this.initPrinterRequest()
+    this.targetId = this.invoiceId
   },
 
   methods: {
-    initPrinterRequest() {
-      let appVm = this;
-      
+    initPrinterRequest () {
+      const appVm = this
+
       qz.security.setCertificatePromise(function (resolve, reject) {
-        resolve(qzCertificate);
-      });
+        resolve(qzCertificate)
+      })
       qz.security.setSignaturePromise(function (toSign) {
         return function (resolve, reject) {
-          $.get(appVm.app.BaseApiUrl + 'printer/sign_receipt_printer', {request: toSign}).then(resolve, reject);
-        };
-      });
+          $.get(appVm.app.BaseApiUrl + 'printer/sign_receipt_printer', { request: toSign }).then(resolve, reject)
+        }
+      })
       qz.websocket.connect().then(function () {
-        let sha256 = function (str) {
-          var buffer = new TextEncoder('utf-8').encode(str);
+        const sha256 = function (str) {
+          const buffer = new TextEncoder('utf-8').encode(str)
           return crypto.subtle.digest('SHA-256', buffer).then(function (hash) {
             return hex(hash)
           })
-        };
-        let hex = function (buffer) {
-          var hexCodes = [];
-          var view = new DataView(buffer);
-          for (var i = 0; i < view.byteLength; i += 4) {
-            var value = view.getUint32(i);
-            var stringValue = value.toString(16);
-            var padding = '00000000';
-            var paddedValue = (padding + stringValue).slice(-padding.length);
+        }
+        const hex = function (buffer) {
+          const hexCodes = []
+          const view = new DataView(buffer)
+          for (let i = 0; i < view.byteLength; i += 4) {
+            const value = view.getUint32(i)
+            const stringValue = value.toString(16)
+            const padding = '00000000'
+            const paddedValue = (padding + stringValue).slice(-padding.length)
             hexCodes.push(paddedValue)
           }
           return hexCodes.join('')
-        };
-        qz.api.setPromiseType(function promise(resolver) {
-          return new Promise(resolver);
-        });
+        }
+        qz.api.setPromiseType(function promise (resolver) {
+          return new Promise(resolver)
+        })
         qz.api.setSha256Type(function (data) {
           return sha256(data)
-        });
-        return qz.printers.find();
-      });
+        })
+        return qz.printers.find()
+      })
     },
 
-    pushPrintRequest(id) {
-      let config = qz.configs.create(localStorage.getItem('default_receipt_printer'));
-      let data = [{
+    pushPrintRequest (id) {
+      const config = qz.configs.create(localStorage.getItem('default_receipt_printer'))
+      const data = [{
         type: 'html',
         format: 'file',
         data: this.app.BaseApiUrl + 'printer/print_receipt/' + id
-      }];
+      }]
 
       qz.print(config, data).then(function () {
-      }).catch(error => console.log(error));
+      }).catch(error => console.log(error))
     },
 
-    sha256(str) {
+    sha256 (str) {
       // We transform the string into an arraybuffer.
-      var buffer = new TextEncoder('utf-8').encode(str);
+      const buffer = new TextEncoder('utf-8').encode(str)
       return crypto.subtle.digest('SHA-256', buffer).then(function (hash) {
         return this.hex(hash)
       })
     },
 
-    hex(buffer) {
-      var hexCodes = [];
-      var view = new DataView(buffer);
-      for (var i = 0; i < view.byteLength; i += 4) {
-        var value = view.getUint32(i);
-        var stringValue = value.toString(16);
-        var padding = '00000000';
-        var paddedValue = (padding + stringValue).slice(-padding.length);
+    hex (buffer) {
+      const hexCodes = []
+      const view = new DataView(buffer)
+      for (let i = 0; i < view.byteLength; i += 4) {
+        const value = view.getUint32(i)
+        const stringValue = value.toString(16)
+        const padding = '00000000'
+        const paddedValue = (padding + stringValue).slice(-padding.length)
         hexCodes.push(paddedValue)
       }
 
@@ -104,18 +103,15 @@ export default {
 
   },
 
-
   watch: {
     invoiceId: function (value) {
-      this.pushPrintRequest(value);
-    },
+      this.pushPrintRequest(value)
+    }
 
   }
 }
 
-
 </script>
-
 
 <style scoped>
 .dis {

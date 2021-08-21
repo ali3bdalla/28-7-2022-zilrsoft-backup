@@ -40,7 +40,6 @@
               <span> ر.س</span>
             </div>
 
-
           </div>
         </div>
 
@@ -53,31 +52,29 @@
       </div>
     </div>
 
-
   </div>
 </template>
 
 <script>
-const {qzCertificate} = require('../../../qz-io');
+import VueBarcode from 'vue-barcode'
+const { qzCertificate } = require('../../../mass/qz-io')
 
-let qz = require("qz-tray");
-import domtoimage from 'dom-to-image';
-import VueBarcode from 'vue-barcode';
+const qz = require('qz-tray')
 
 export default {
-  components: {'barcode': VueBarcode, domtoimage, VueBarcode},
+  components: { barcode: VueBarcode },
   props: ['items', 'print', 'insideInvoice', 'item', 'invoice-id'],
   data: function () {
     return {
       blukData: [],
-      PurchaseId: "",
+      PurchaseId: '',
       image: null,
       cropper: null,
       number_of_barcode: 1,
       itemData: {
-        ar_name: "",
-        barcode: "",
-        price_with_tax: "",
+        ar_name: '',
+        barcode: '',
+        price_with_tax: ''
       },
       barcode: 0,
       price: 0,
@@ -88,54 +85,55 @@ export default {
         secondColor: metaHelper.getContent('second-color'),
         appLocate: metaHelper.getContent('app-locate'),
         trans: trans('invoices-page'),
-        BaseApiUrl: metaHelper.getContent("BaseApiUrl"),
-      },
-    };
+        BaseApiUrl: metaHelper.getContent('BaseApiUrl')
+      }
+    }
   },
   created: function () {
-    this.itemsData = this.items;
-    this.PurchaseId = this.invoiceId;
-    this.connectQZ();
+    this.itemsData = this.items
+    this.PurchaseId = this.invoiceId
+    this.connectQZ()
     if (this.item != null) {
-      this.itemData = this.item;
+      this.itemData = this.item
     }
   },
   mounted: function () {
     if (this.item != null) {
-      this.generatedData();
-      console.log(this.image);
+      this.generatedData()
+      console.log(this.image)
     }
   },
   methods: {
-    generatedData(barcode_count = null) {
-      let appVm = this;
+    generatedData (barcode_count = null) {
+      const appVm = this
       //
       domtoimage.toPng(document.getElementById('barcode_area'), {
-        quality: 1, style: {
+        quality: 1,
+        style: {
           width: '100%',
           height: '100%',
           padding: '0px',
-          margin: "0px"
+          margin: '0px'
         }
       }).then(function (dataUrl) {
-        appVm.src = dataUrl;
-        appVm.image = dataUrl;
-        var DOM_img = document.createElement("img");
-        DOM_img.src = dataUrl;
-        document.getElementById("showGeneratedBarcodeImageId").appendChild(DOM_img);
+        appVm.src = dataUrl
+        appVm.image = dataUrl
+        const DOM_img = document.createElement('img')
+        DOM_img.src = dataUrl
+        document.getElementById('showGeneratedBarcodeImageId').appendChild(DOM_img)
         if (appVm.insideInvoice == true && appVm.print == true) {
-          appVm.printBulkFile(dataUrl, barcode_count);
+          appVm.printBulkFile(dataUrl, barcode_count)
         }
       })
-          .catch(function (error) {
-            console.log(error)
-          });
+        .catch(function (error) {
+          console.log(error)
+        })
     },
-    generatedBulkData(barcode_count = null, item = null) {
-      let appVm = this;
-      this.itemData.barcode = item.barcode;
-      this.itemData.price_with_tax = item.price_with_tax;
-      this.itemData.ar_anme = item.ar_anme;
+    generatedBulkData (barcode_count = null, item = null) {
+      const appVm = this
+      this.itemData.barcode = item.barcode
+      this.itemData.price_with_tax = item.price_with_tax
+      this.itemData.ar_anme = item.ar_anme
       //
       // domtoimage.toPng(document.getElementById('barcode_area'), {
       //     quality: 1, style: {
@@ -156,113 +154,114 @@ export default {
       //         console.log(error)
       //     });
     },
-    connectQZ() {
-      var appVm = this;
+    connectQZ () {
+      const appVm = this
       qz.security.setCertificatePromise(function (resolve, reject) {
-        //Alternate method 2 - direct
-        resolve(qzCertificate);
-      });
+        // Alternate method 2 - direct
+        resolve(qzCertificate)
+      })
       qz.security.setSignaturePromise(function (toSign) {
         return function (resolve, reject) {
-          $.get(appVm.app.BaseApiUrl + 'printer/sign_receipt_printer', {request: toSign}).then(resolve, reject);
-        };
-      });
+          $.get(appVm.app.BaseApiUrl + 'printer/sign_receipt_printer', { request: toSign }).then(resolve, reject)
+        }
+      })
       qz.websocket.connect().then(function () {
-        var sha256 = function (str) {
+        const sha256 = function (str) {
           // We transform the string into an arraybuffer.
-          var buffer = new TextEncoder('utf-8').encode(str);
+          const buffer = new TextEncoder('utf-8').encode(str)
           return crypto.subtle.digest('SHA-256', buffer).then(function (hash) {
             return hex(hash)
           })
-        };
+        }
         var hex = function (buffer) {
-          var hexCodes = [];
-          var view = new DataView(buffer);
-          for (var i = 0; i < view.byteLength; i += 4) {
+          const hexCodes = []
+          const view = new DataView(buffer)
+          for (let i = 0; i < view.byteLength; i += 4) {
             // Using getUint32 reduces the number of iterations needed (we process 4 bytes each time)
-            var value = view.getUint32(i);
+            const value = view.getUint32(i)
             // toString(16) will give the hex representation of the number without padding
-            var stringValue = value.toString(16);
+            const stringValue = value.toString(16)
             // We use concatenation and slice for padding
-            var padding = '00000000';
-            var paddedValue = (padding + stringValue).slice(-padding.length);
+            const padding = '00000000'
+            const paddedValue = (padding + stringValue).slice(-padding.length)
             hexCodes.push(paddedValue)
           }
           // Join all the hex strings into one
           return hexCodes.join('')
-        };
+        }
         //  //   var createHash = require('sha.js');
         // qz.api.setSha256Type(function (data) {
         //     return createHash('sha256').update(data).digest('hex');
         // });
         //     //
-        qz.api.setPromiseType(function promise(resolver) {
-          return new Promise(resolver);
-        });
+        qz.api.setPromiseType(function promise (resolver) {
+          return new Promise(resolver)
+        })
         qz.api.setSha256Type(function (data) {
           return sha256(data)
-        });
-        return qz.printers.find();
-      });
+        })
+        return qz.printers.find()
+      })
     },
-    convertEnToArabicNumber(en) {
-      var response = [];
-      var en_arr = en.split('');
-      for (var i = 0; i < en_arr.length; i++) {
-        var num = en_arr[i];
+    convertEnToArabicNumber (en) {
+      const response = []
+      const en_arr = en.split('')
+      for (let i = 0; i < en_arr.length; i++) {
+        const num = en_arr[i]
         if (num == 0) {
-          response.push('٠');
+          response.push('٠')
         } else if (num == 1) {
-          response.push('١');
+          response.push('١')
         } else if (num == 2) {
-          response.push('٢');
+          response.push('٢')
         } else if (num == 3) {
-          response.push('٣');
+          response.push('٣')
         } else if (num == 4) {
-          response.push('٤');
+          response.push('٤')
         } else if (num == 5) {
-          response.push('٥');
+          response.push('٥')
         } else if (num == 6) {
-          response.push('٦');
+          response.push('٦')
         } else if (num == 7) {
-          response.push('٧');
+          response.push('٧')
         } else if (num == 8) {
-          response.push('٨');
+          response.push('٨')
         } else if (num == 9) {
-          response.push('٩');
+          response.push('٩')
         } else {
-          response.push(num);
+          response.push(num)
         }
       }
-      return response.join('');
-    }
-    ,
-    chr(n) {
-      return String.fromCharCode(n);
+      return response.join('')
     },
-    printSingleFile() {
-      let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
-      let data = [];
+    chr (n) {
+      return String.fromCharCode(n)
+    },
+    printSingleFile () {
+      const config = qz.configs.create(localStorage.getItem('default_barcode_printer'))
+      const data = []
       data.push(
-          '\nN\n' +
+        '\nN\n' +
           'A180,20,0,2,1,1,N, \n' +
           'A200,50,0,4,1,1,N, \n' +
           'B200,100,0,1A,1,2,30,B, \n' +
           '\nP1\n'
-      );
+      )
       for (let i = 0; i < this.number_of_barcode; i++) {
         data.push(
-            '\nN\n',
-            {
-              type: 'raw', format: 'image', data: this.image,
-              options: {language: 'EPL', y: 0, x: 170}
-            },
-            '\nP1,1\n'
-        );
+          '\nN\n',
+          {
+            type: 'raw',
+            format: 'image',
+            data: this.image,
+            options: { language: 'EPL', y: 0, x: 170 }
+          },
+          '\nP1,1\n'
+        )
       }
-      qz.print(config, data);
+      qz.print(config, data)
     },
-    printBulkFile(embededImage = null, Qty = null) {
+    printBulkFile (embededImage = null, Qty = null) {
       // let config = qz.configs.create(localStorage.getItem('default_barcode_printer'));
       //
       // let barcode_count = Qty == null ? 0 : Qty;
@@ -290,9 +289,9 @@ export default {
       //
       //
       // qz.print(config, data);
-      this.watcher = false;
+      this.watcher = false
     },
-    bulkPrintListener() {
+    bulkPrintListener () {
       // var indexer = 0;
       // for (let i = 0; i < this.itemsData.length; i++) {
       //     // this.itemData = this.itemsData[indexer];
@@ -320,18 +319,17 @@ export default {
   },
   watch: {
     print: function (value) {
-      this.bulkPrintListener();
+      this.bulkPrintListener()
     },
     items: function (value) {
-      this.itemsData = value;
+      this.itemsData = value
     },
     invoiceId: function (value) {
-      this.PurchaseId = value;
+      this.PurchaseId = value
     }
   }
 }
 </script>
-
 
 <style scoped>
 @import "https://fonts.googleapis.com/css?family=Cairo&display=swap";

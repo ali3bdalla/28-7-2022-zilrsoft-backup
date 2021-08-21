@@ -41,7 +41,7 @@
                   )
                 "
               >
-                <alogira-product-result-list></alogira-product-result-list>
+                <ProductSearchResultListComponent></ProductSearchResultListComponent>
               </div>
               <slot
                 v-if="
@@ -202,14 +202,14 @@ import algoliasearch from 'algoliasearch/lite'
 import { history as historyRouter } from 'instantsearch.js/es/lib/routers'
 import { simple as simpleStateMapping } from 'instantsearch.js/es/lib/stateMappings'
 import 'instantsearch.css/themes/algolia-min.css'
-import AlogiraProductResultList from '../Components/Product/AlogiraProductResultList.vue'
+import ProductSearchResultListComponent from '../Components/Product/ProductSearchResultListComponent.vue'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
   components: {
     HeaderComponent,
-    AlogiraProductResultList,
+    ProductSearchResultListComponent,
     Loading
   },
   name: 'WebAppLayout',
@@ -241,7 +241,6 @@ export default {
       hits
     ) {
       const isSearchPage = !query.length
-      // JSON.stringify(numericRefinements.online_offer_price) === '{}' && JSON.stringify(numericRefinements.available_qty) === '{}' && !tagRefinements.length &&
       this.isLoading = false
       return isSearchPage
     }

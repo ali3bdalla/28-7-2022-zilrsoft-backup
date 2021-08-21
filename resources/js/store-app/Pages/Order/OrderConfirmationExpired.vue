@@ -28,7 +28,6 @@
         </div>
       </div>
 
-
     </div>
   </div>
 </template>
@@ -37,17 +36,17 @@
 
 export default {
   props: ['order'],
-  computed:{
-    orderStatus() {
-      return this.order.status;
+  computed: {
+    orderStatus () {
+      return this.order.status
     },
-    title() {
-      return this.$page.$t.messages.sorry;
+    title () {
+      return this.$page.$t.messages.sorry
     },
-    message() {
-      if(this.orderStatus === 'pending') return this.$page.$t.messages.order_payment_already_received;
-      if(this.orderStatus === 'canceled') return this.$page.$t.messages.order_has_been_canceled;
-      return  this.$page.$t.messages.invalid_activity_message;
+    message () {
+      if (this.orderStatus === 'pending') return this.$page.$t.messages.order_payment_already_received
+      if (this.orderStatus === 'canceled') return this.$page.$t.messages.order_has_been_canceled
+      return this.$page.$t.messages.invalid_activity_message
     }
   }
 }

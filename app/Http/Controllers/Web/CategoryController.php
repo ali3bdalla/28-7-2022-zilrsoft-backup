@@ -12,8 +12,8 @@ class CategoryController extends Controller
 
     public $breadcrumb;
 
-    
-  
+
+
 
     public function show(Category $category)
     {
@@ -33,7 +33,7 @@ class CategoryController extends Controller
         $this->fillBreadcrumb($category,$category->id);
 
 
-        return Inertia::render('Web/Category/Show', [
+        return Inertia::render('Category/Show', [
             'category' => $category,
             'breadcrumb' => $this->breadcrumb,
             'level' => $level,

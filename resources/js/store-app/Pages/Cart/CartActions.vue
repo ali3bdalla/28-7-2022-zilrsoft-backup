@@ -128,9 +128,6 @@ export default {
       return getOrderTotal(items, { price: 'online_offer_price' })
     },
     loginToCheckout () {
-      window.getGooogleTag('event', 'conversion', {
-        send_to: 'AW-851059339/nfCMCISGycICEIvF6JUD'
-      })
       location.href = '/web/cart/redirect'
     },
     changeActivePage (page) {

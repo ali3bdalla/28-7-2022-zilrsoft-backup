@@ -2,11 +2,8 @@
   <web-layout>
     <div class="container">
       <div class="product__search-page">
-
-          <alogira-product-result-list
-
-          ></alogira-product-result-list>
-
+          <ProductSearchResultListComponent
+          ></ProductSearchResultListComponent>
       </div>
     </div>
   </web-layout>
@@ -15,12 +12,12 @@
 <script>
 
 import WebLayout from '../../Layouts/WebAppLayout'
-import AlogiraProductResultList from '../../../components/Web/Product/AlogiraProductResultList.vue'
+import ProductSearchResultListComponent from '../../Components/Product/ProductSearchResultListComponent.vue'
 
 export default {
   components: {
     WebLayout,
-    AlogiraProductResultList
+    ProductSearchResultListComponent
   }
 
 }

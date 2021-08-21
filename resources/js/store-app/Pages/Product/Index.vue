@@ -23,38 +23,38 @@
       <div class="product__search-page">
         <div class="page__mt-2" v-if="items.length > 2">
           <div class="product__search-options items-center">
-            <switchAvailableButton
+            <SwitchAvailableOnlyButtonComponent
               class="items-center"
               @changed="switchAvailableQtyChanged"
-            ></switchAvailableButton>
+            ></SwitchAvailableOnlyButtonComponent>
           </div>
         </div>
 
-        <items-infinity-load
+        <AutoReloadProductListComponent
           @listUpdated="listUpdated"
           :params="params"
           :paramsUpdated="applyFilterSearch"
-        ></items-infinity-load>
+        ></AutoReloadProductListComponent>
       </div>
     </div>
   </web-layout>
 </template>
 
 <script>
-import ItemsInfinityLoad from '../../../components/Web/Item/ItemsInfinityLoad.vue'
-import FiltersPop from '../../../components/Web/Product/List/FiltersPop.vue'
-import SortingPop from '../../../components/Web/Product/List/SortingPop.vue'
+import AutoReloadProductListComponent from '../../Components/Product/AutoReloadProductListComponent.vue'
+import FiltersPop from '../../Components/Product/FiltersPop.vue'
+import SortingPop from '../../Components/Product/SortingPop.vue'
 import WebLayout from '../../Layouts/WebAppLayout'
-import CategoriesPop from '../../../components/Web/Product/List/CategoriesPop.vue'
-import switchAvailableButton from '../../../components/Web/Product/List/switchAvailableButton'
+import CategoriesPop from '../../Components/Product/CategoriesFilterPanelComponent.vue'
+import SwitchAvailableOnlyButtonComponent from '../../Components/Product/SwitchAvailableOnlyButtonComponent.vue'
 
 export default {
   components: {
     WebLayout,
     FiltersPop,
-    switchAvailableButton,
+    SwitchAvailableOnlyButtonComponent,
     SortingPop,
-    ItemsInfinityLoad,
+    AutoReloadProductListComponent,
     CategoriesPop
   },
   data () {

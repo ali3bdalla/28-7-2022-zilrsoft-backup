@@ -14,7 +14,7 @@ class CancelOrderController extends Controller
 	{
 		if (!$this->isValidOrderStatus($order)) {
 			return Inertia::render(
-				'Web/Order/CancelOrder',
+				'Order/CancelOrder',
 				[
 					'order' => $order
 				]
@@ -29,7 +29,7 @@ class CancelOrderController extends Controller
 
 		if (!$this->isValidOrderStatus($order)) {
 			return Inertia::render(
-				'Web/Order/OrderConfirmationExpired', [
+				'Order/OrderConfirmationExpired', [
 					'order' => $order
 				]
 			);
@@ -37,7 +37,7 @@ class CancelOrderController extends Controller
 		//
 
 		return Inertia::render(
-			'Web/Order/CancelOrder',
+			'Order/CancelOrder',
 			[
 
 				'order' => $order

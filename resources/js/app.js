@@ -24,7 +24,7 @@ window.getIndex = function (needle, haystack) {
 }
 window.Vue = Vue
 
-require('./Plugins/plugins')
+// require('./Plugins/plugins')
 require('./accounting/load')
 Vue.use(Vuetify)
 // Vue.use(ElementUI);

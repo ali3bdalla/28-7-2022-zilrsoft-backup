@@ -115,7 +115,7 @@
 
 <script>
 import FlipCountdown from 'vue2-flip-countdown'
-import LanguageSwitcher from '../../../components/Web/Page/LanguageSwitcher'
+import LanguageSwitcher from '../../Components/Layout/LanguageSwitcher.vue'
 
 export default {
   components: {
@@ -166,12 +166,6 @@ export default {
       this.senderAccountId = e.accountId
     },
     confirmPayment () {
-      window.getGooogleTag('event', 'conversion', {
-        send_to: 'AW-851059339/MESSCPaAycICEIvF6JUD',
-        value: this.$page.order.net,
-        currency: 'SAR',
-        transaction_id: this.$page.order.id
-      })
       this.$inertia.post(
         '/web/orders/' +
           this.$page.order.id +

@@ -29,7 +29,7 @@
                   >
                     <el-input-number
                       :min="0"
-                      :max="item.available_qty"
+                      :max="parseFloat(item.available_qty)"
                       style="text-align: center !important"
                       class="text-center"
                       size="small"

@@ -308,8 +308,8 @@
 
 <script>
 import VueHorizontal from 'vue-horizontal'
-import ProductListItemComponent from './../../../components/Web/Product/ProductListItemComponent'
-import ToggleCartItemButtonComponent from './../../../components/Web/Cart/ToggleCartItemButtonComponent'
+import ProductListItemComponent from './../../Components/Product/ProductListItemComponent.vue'
+import ToggleCartItemButtonComponent from './../../Components/Cart/ToggleCartItemButtonComponent.vue'
 import WebLayout from '../../Layouts/WebAppLayout'
 
 export default {

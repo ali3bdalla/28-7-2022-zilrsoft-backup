@@ -45,12 +45,6 @@ export default {
     confirm () {
       this.$confirm('هل انت متاكد ؟', 'تاكيد الحوالة', 'success', { confirmButtonText: 'نعم', cancelButtonText: 'لا' }).then(() => {
         axios.patch(`/api/orders/${this.order.id}?account_id=${this.accountId}`).then(response => {
-          getGooogleTag('event', 'conversion', {
-            send_to: 'AW-851059339/MESSCPaAycICEIvF6JUD',
-            value: this.order.net,
-            currency: 'SAR',
-            transaction_id: this.order.id
-          })
           location.reload()
         }).catch(error => {
           this.$alert('يجب ان تقوم باختيار حساب', 'خطأ', 'error')

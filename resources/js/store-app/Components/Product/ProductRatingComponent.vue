@@ -17,14 +17,13 @@
 
 <script>
 export default {
-  props: ["item"],
+  props: ['item'],
   computed: {
-    rating() {
-      return Math.floor(Math.random() * (5- 4+ 1) + 4);
-      return (Math.random() * 100) % 6;
-    },
-  },
-};
+    rating () {
+      return Math.floor(Math.random() * (5 - 4 + 1) + 4)
+    }
+  }
+}
 </script>
 
 <style>

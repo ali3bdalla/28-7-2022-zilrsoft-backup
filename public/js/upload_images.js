@@ -86,17 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/upload_images.js":
-/*!***************************************!*\
-  !*** ./resources/js/upload_images.js ***!
-  \***************************************/
-/*! no exports provided */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/Users/ali/repositries/zilrsoft/resources/js/upload_images.js'");
-
-/***/ }),
-
 /***/ 3:
 /*!*********************************************!*\
   !*** multi ./resources/js/upload_images.js ***!
@@ -104,7 +93,7 @@ throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ali/repositries/zilrsoft/resources/js/upload_images.js */"./resources/js/upload_images.js");
+!(function webpackMissingModule() { var e = new Error("Cannot find module '/Users/ali/repositries/zilrsoft/resources/js/upload_images.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 
 
 /***/ })

@@ -13,12 +13,12 @@ class ContentController extends Controller
     public function contact()
     {
 
-        return Inertia::render('Web/Content/Contact');
+        return Inertia::render('Content/Contact');
     }
     public function about()
     {
 
-        return Inertia::render('Web/Content/Content',[
+        return Inertia::render('Content/Content',[
             'content' => __('store.content.about_us_content')
         ]);
     }
@@ -26,7 +26,7 @@ class ContentController extends Controller
     public function terms()
     {
 
-        return Inertia::render('Web/Content/Content',[
+        return Inertia::render('Content/Content',[
             'content' => __('store.content.terms_and_conditions_content')
         ]);
     }
@@ -34,7 +34,7 @@ class ContentController extends Controller
     public function privacy()
     {
 
-        return Inertia::render('Web/Content/Content',[
+        return Inertia::render('Content/Content',[
             'content' => __('store.content.privacy_content')
         ]);
     }

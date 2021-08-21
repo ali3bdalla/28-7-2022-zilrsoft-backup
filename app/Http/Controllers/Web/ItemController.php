@@ -33,7 +33,7 @@ class ItemController extends Controller
 
 
 		return Inertia::render(
-			'Web/Product/Index',
+			'Product/Index',
 			[
 				'search_via' => $fetchItemsGroupByCategoryRequest->input('search_via'),
 				'categoryId' => $fetchItemsGroupByCategoryRequest->input('category_id'),
@@ -47,7 +47,7 @@ class ItemController extends Controller
 	public function search()
 	{
 		return Inertia::render(
-			'Web/Product/Search'
+			'Product/Search'
 		);
 	}
 	public function show(Item $itemSlug)
@@ -64,12 +64,12 @@ class ItemController extends Controller
 
 
 		return Inertia::render(
-			'Web/Product/Show',
+			'Product/Show',
 			[
 				'item' => $itemSlug->load('filters.filter', 'filters.value', 'category', 'attachments','tags','warrantySubscription'),
 				'breadcrumb' => $this->breadcrumb,
 				'relatedItems' => $relatedItems,
-				'itemUrl' => url('web/items/'.$itemSlug->id),
+				'itemUrl' => url('items/'.$itemSlug->id),
                 'page_title' => $itemSlug->locale_name
 			]
 		);

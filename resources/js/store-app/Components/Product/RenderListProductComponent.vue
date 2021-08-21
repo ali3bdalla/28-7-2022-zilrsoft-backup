@@ -60,7 +60,6 @@
 <script>
 import ToggleCartItemButtonComponent from '../Cart/ToggleCartItemButtonComponent.vue'
 import ProductRatingComponent from './ProductRatingComponent.vue'
-
 export default {
   components: { ToggleCartItemButtonComponent, ProductRatingComponent },
   props: {
@@ -73,22 +72,17 @@ export default {
       type: Number
     }
   },
-
   computed: {
     productName () {
       const modelNumber = this.item.model_number
-      const name =
-        this.$page.active_locale === 'ar' ? this.item.ar_name : this.item.name
-
+      const name = this.$page.active_locale === 'ar' ? this.item.ar_name : this.item.name
       if (modelNumber !== '') {
         return name.replace(modelNumber, '')
       }
-
       return name
     },
     getCategoryName () {
       if (this.$page.active_locale === 'en') return this.item.category_name
-
       return this.item.category_ar_name
     },
     getUrl () {
@@ -98,7 +92,6 @@ export default {
         if (this.$page.active_locale === 'en') {
           return 'https://zilrsoft.com/images/logo_en.png'
         }
-
         return 'https://zilrsoft.com/images/logo_ar.png'
       }
       return `local:///com.zilrsoft/storage/app/public/${this.item.item_image_url}`

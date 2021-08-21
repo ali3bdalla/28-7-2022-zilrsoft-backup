@@ -48,7 +48,6 @@ export default {
   props: ['item'],
   methods: {
     addItem () {
-      getGooogleTag('event', 'conversion', { send_to: 'AW-851059339/n9j6CK7AycICEIvF6JUD' })
       this.$store.commit('addToCart', {
         item: this.item,
         quantity: 1
