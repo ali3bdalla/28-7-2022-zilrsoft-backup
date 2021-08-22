@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title',config('app.name'))</title>
 
-    <script defer src="{{ asset('js/auth-app/app.js') }}"></script>
+    <script defer src="{{ asset('js/store-app/app.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}">
 </head>
 
