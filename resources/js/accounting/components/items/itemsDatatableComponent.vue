@@ -112,11 +112,6 @@
               {{ trans.price }}
             </th>
 
-            <!--                        <th :class="{'orderBy':orderBy=='price_with_tax'}"-->
-            <!--                            @click="setOrderByColumn('price_with_tax')" width="10%">-->
-            <!--                            {{ trans.price_tax }}-->
-            <!--                        </th>-->
-
             <th :class="{'orderBy':orderBy=='online_offer_price'}"
                 width="10%" @click="setOrderByColumn('online_offer_price')">
               {{ trans.online_offer_price }}
@@ -222,8 +217,6 @@
         </table>
 
       </div>
-
-      <tile v-show="isLoading" :color="primaryColor" :loading="isLoading"></tile>
       <div class="table-paginations">
         <accounting-table-pagination-helper-layout-component :data="paginationResponseData"
 

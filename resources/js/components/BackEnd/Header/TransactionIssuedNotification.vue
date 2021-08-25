@@ -63,12 +63,6 @@ export default {
       type: Object,
       required: true
     }
-  },
-  mounted () {
-    const transaction = 0
-    window.Echo.private('transaction-issued').listen('.transaction-issued', (e) => {
-      this.addNotification(e.transaction)
-    })
   }
 
 }

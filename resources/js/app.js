@@ -10,6 +10,8 @@ import 'vuejs-dialog/dist/vuejs-dialog.min.css'
 import VModal from 'vue-js-modal'
 import VueSimpleAlert from 'vue-simple-alert'
 import 'element-ui/lib/theme-chalk/index.css'
+import ToggleButton from 'vue-js-toggle-button'
+
 require('./bootstrap')
 window.TextValidator = require('validator')
 window.getRequestUrl = function (path) {
@@ -27,7 +29,7 @@ window.Vue = Vue
 // require('./Plugins/plugins')
 require('./accounting/load')
 Vue.use(Vuetify)
-// Vue.use(ElementUI);
+Vue.use(ToggleButton)
 Vue.use(VModal)
 Vue.use(VuejsDialog)
 Vue.use(VueSimpleAlert)

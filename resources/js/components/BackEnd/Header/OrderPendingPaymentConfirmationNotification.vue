@@ -20,15 +20,7 @@
             <div> رقم الطلب : <span class="notification__dropdown-item__link">{{ notification.id }}</span></div>
             <div> المبلغ : <span class="notification__dropdown-item__link"><display-money
                 :money="notification.draft_invoice.net"/> </span></div>
-            <!--            بالرقم <span class="notification__dropdown-item__link">{{ notification.id }}</span>-->
-            <!--            من <span class="notification__dropdown-item__link">{{ notification.payment_detail.id }}</span>-->
-            <!--            <span-->
-            <!--                class="notification__dropdown-item__link">{{ notification.to_account.locale_name }}</span>-->
-            <!--            <span class="notification__created_at">{{ notification.created_at }}</span>-->
           </div>
-          <!--          <div class="notification__dropdown-item__created_at">-->
-          <!--            {{ notification.created_at }}-->
-          <!--          </div>-->
           <div class="notification__buttons">
             <a :href="`/store/orders/${notification.id}/view-payment`">عرض السداد</a>
             <a :href="`/sales/${notification.draft_id}`">عرض الطلب</a>
@@ -46,11 +38,6 @@ import NotificationMixin from './NotificationMixin'
 export default {
   mixins: [NotificationMixin],
   name: 'OrderPendingPaymentConfirmationNotification',
-  mounted () {
-    window.Echo.private('order-payment-updated').listen('.order-payment-updated', (e) => {
-      this.addNotification(e.transaction)
-    })
-  },
 
   data () {
     return {
