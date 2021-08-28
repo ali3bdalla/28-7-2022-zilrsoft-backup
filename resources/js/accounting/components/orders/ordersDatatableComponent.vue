@@ -220,14 +220,10 @@
           </tbody>
         </table>
       </div>
-
-      <tile v-show="isLoading" :loading="isLoading"></tile>
       <div class="table-paginations">
         <accounting-table-pagination-helper-layout-component
           :data="paginationResponseData"
         ></accounting-table-pagination-helper-layout-component>
-        <!--              @pagePerItemsUpdated="pagePerItemsUpdated"-->
-        <!--              @paginateUpdatePage="paginateUpdatePage"-->
       </div>
     </div>
   </div>

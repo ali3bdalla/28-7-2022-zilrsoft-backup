@@ -1,9 +1,9 @@
 <template>
-  <span style="direction:ltr">{{ $currency.formatter.format(money, {currency: ""}) }}</span>
+  <span style="direction:ltr">{{ currencyFormatter.format(money, { currency: '' }) }}</span>
 </template>
 
 <script>
-
+import currencyFormatter from 'currency-formatter';
 export default {
   props: {
     money: {
@@ -14,7 +14,12 @@ export default {
       default: 'SAR'
     }
   },
-  name: "DisplayMoney"
+  data() {
+      return {
+        currencyFormatter: currencyFormatter
+      }
+  },
+  name: 'DisplayMoney'
 }
 </script>
 
