@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import AccountingTableFiltersSearchComponent from './components/layout/tableFiltersSearch'
 import AccountingTreeViewRawLayoutComponent from './components/layout/treeViewRawLayoutComponent'
 import AccountingHeaderLayoutComponent from './components/layout/headerLayoutComponent'
@@ -21,7 +22,6 @@ import AccountingIdentitiesCreateComponent from './components/users/identitiesCr
 import AccountingManagersCreateComponent from './components/users/managersCreateComponent'
 import AccountingManagersGatewaysComponent from './components/users/managersGatewaysComponent'
 import AccountingManagerPermissionAndRoleComponent from './components/users/managerPermissionAndRoleComponent'
-// import AccountingDashboardItemsChartComponent from './components/dashboard/dashboardItemsChartComponent'
 import AccountingBeginningDatatableComponent from './components/inventories/beginningDatatableComponent'
 import AccountingBeginningCreateComponent from './components/inventories/beginningCreateComponent'
 import AccountingBeginningEditComponent from './components/inventories/beginningEditComponent'
@@ -333,9 +333,6 @@ Vue.component(
   'accounting-account-report-component',
   AccountingAccountReportComponent
 )
-
-
-
 Vue.component(
   'accounting-orders-datatable-component',
   AccountingOrdersDatatableComponent

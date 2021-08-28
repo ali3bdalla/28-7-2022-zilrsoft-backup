@@ -24,7 +24,6 @@ window.getIndex = function (needle, haystack) {
   }
   return -1 // update latter
 }
-window.Vue = Vue
 
 require('./accounting/load')
 Vue.use(Vuetify)
@@ -39,22 +38,14 @@ export default new Vuetify({
   },
   theme: { dark: true }
 })
+
 Vue.use(CxltToastr, {
   position: 'top right',
   showDuration: 2000
 })
-
-Vue.prototype.$page = {
-  errors: []
-}
 Vue.use(Loading)
-
 Vue.use(VueSimpleAlert)
-
-Vue.component('layouts-header-component', require('./components/layoutsHeaderComponent').default)
-Vue.component('pending-purchases-counter-component', require('./components/pendingPurchasesCounterComponent').default)
 require('./components/include')
-window.routes = require('./routes')
-const app = new Vue({
+new Vue({
   el: '#app'
 })

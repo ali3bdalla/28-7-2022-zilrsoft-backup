@@ -17673,10 +17673,10 @@ __webpack_require__.r(__webpack_exports__);
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-var ConfirmTransctionDelivered = __webpack_require__(/*! ./delivery/ConfirmTransctionDelivered */ "./resources/js/external/delivery/ConfirmTransctionDelivered.vue");
+var ConfirmTransactionDelivered = __webpack_require__(/*! ./delivery/ConfirmTransctionDelivered */ "./resources/js/external/delivery/ConfirmTransctionDelivered.vue");
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_simple_alert__WEBPACK_IMPORTED_MODULE_1__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('confirm-transaction-delivered', ConfirmTransctionDelivered["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('confirm-transaction-delivered', ConfirmTransactionDelivered["default"]);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app'
 });

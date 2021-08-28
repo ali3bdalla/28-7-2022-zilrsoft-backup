@@ -58,9 +58,8 @@
 <script>
 import VueBarcode from 'vue-barcode'
 const { qzCertificate } = require('../../../mass/qz-io')
-
 const qz = require('qz-tray')
-
+import DomToImage from 'dom-to-image'
 export default {
   components: { barcode: VueBarcode },
   props: ['items', 'print', 'insideInvoice', 'item', 'invoice-id'],
@@ -100,14 +99,12 @@ export default {
   mounted: function () {
     if (this.item != null) {
       this.generatedData()
-      console.log(this.image)
     }
   },
   methods: {
     generatedData (barcode_count = null) {
       const appVm = this
-      //
-      domtoimage.toPng(document.getElementById('barcode_area'), {
+      DomToImage.toPng(document.getElementById('barcode_area'), {
         quality: 1,
         style: {
           width: '100%',
