@@ -3,7 +3,7 @@
         <div class="table-posistion">
 
             <div class="table-filters">
-        
+
             </div>
             <div class="table-multi-task-buttons" v-show="showMultiTaskButtons">
 
@@ -73,7 +73,7 @@
 
 
             </div>
-            <tile :color="primaryColor" :loading="isLoading" v-show="isLoading"></tile>
+
             <div class="table-paginations">
                 <accounting-table-pagination-helper-layout-component :data="paginationResponseData"
 
@@ -182,7 +182,7 @@
                 }).then(function (response) {
                     console.log(response.data);
                 appVm.table_rows = response.data.data;
-                
+
                     appVm.paginationResponseData = response.data;
                 }).catch(function (error) {
                     alert(error)

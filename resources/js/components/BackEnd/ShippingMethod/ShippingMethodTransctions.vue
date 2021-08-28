@@ -1,6 +1,6 @@
 <template>
     <div class="table">
-        <tile :color="primaryColor" :loading="isLoading" v-show="isLoading"></tile>
+
         <div class="table-posistion">
 
           <div class="table-filters">
