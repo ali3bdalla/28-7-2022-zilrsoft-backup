@@ -93,7 +93,7 @@
         }
 
         .issued_by {
-            margin-left: 20px;
+            margin-right: 50px;
             text-align: right;
         }
 
@@ -134,8 +134,7 @@
             <div class="text-right col-md-12" style="float: right">
                 <div class="company-info" style="color: black !important; margin-top: -30px;">
                     <span style="padding-right: 13px;font-size: 25px">{{$invoice->creator->organization->title_ar}}</span>
-                    <p style="padding-right: 13px;font-size: 20px;margin-top:10px">{{auth()->user()
-                    ->organization->description_ar}}</p>
+                    <p style="padding-right: 13px;font-size: 20px;margin-top:10px">{{$invoice->creator->organization->description_ar}}</p>
 
                 </div>
             </div>
@@ -404,19 +403,9 @@
 
 <footer style="">
     <div class="">
-
-
         <div class="row" style="color: black !important;">
-            <div class="stamp" style="    margin-left: 127px;">
-
-                <div >
-                    {!! QrCode::size(250)->generate(route('accounting.public-invoice.show',$invoice->getEncryptedPublicId())); !!}
-                </div>
-                <div>
-                    {{ route('accounting.public-invoice.show',$invoice->getEncryptedPublicId()) }}
-                </div>
-
-
+            <div class="stamp" style="">
+                    {!! QrCode::size(100)->generate(route('accounting.public-invoice.show',$invoice->getEncryptedPublicId())); !!}
             </div>
             <div class="issued_by">
                 @if($invoice->creator->organization->stamp != null)
@@ -424,8 +413,7 @@
                                                          style="width: 80px"/></div>
 
                 @endif
-                <h3 style="margin-bottom: 9px">{{__('reusable.issued_by')}}</h3>
-                <p style="margin-bottom: 2px">{{ $invoice->creator->locale_name }}</p>
+                <h3 style="margin-bottom: 9px">{{__('reusable.issued_by')}} {{ $invoice->creator->locale_name }}</h3>
 
 
             </div>
