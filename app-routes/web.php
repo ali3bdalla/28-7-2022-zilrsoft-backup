@@ -29,7 +29,6 @@ Route::prefix('accounts')->name('accounts.')->group(
         );
         Route::prefix('{account}')->name('show.')->group(
             function () {
-                //							Route::get('/stock', 'AccountController@showStock')->name('stock');
                 Route::get('/stock/{item}', 'AccountController@showItem')->name('item');
                 Route::get('/identity/{identity}', 'AccountController@showIdentity')->name('identity');
             }
@@ -70,12 +69,6 @@ Route::prefix('purchases')->name('purchases.')->group(
 );
 
 Route::resource('entities', 'EntityController');
-Route::prefix('close_year')->group(function () {
-    Route::get('init_organizatinon_config', 'BackEnd\\Accounting\\PeriodController@initOrganizationConfiguration');
-    Route::get('start_normalizing_incomes_expenses', 'BackEnd\\Accounting\\PeriodController@startNormalizingIncomesExpenses');
-    Route::get('normalizing_incomes_expenses_status', 'BackEnd\\Accounting\\PeriodController@normalizingIncomesExpensesStatus');
-    Route::get('close', 'BackEnd\\Accounting\\PeriodController@close');
-});
 Route::prefix('inventory')->name('inventory.')->group(
     function () {
         Route::get('/', 'InventoryController@index')->name('index');
@@ -227,16 +220,8 @@ Route::middleware('lang:ar')
         });
 
 
-        Route::resources([
-            'accounts' => 'ChartsController',
-            'transactions' => 'TransactionsController'
-        ]);
 
 
-        Route::prefix('transactions')->name('transactions.')->group(function () {
-            Route::get('add/create', "TransactionsController@create")->name('add.create');
-
-        });
         Route::prefix('reseller_daily')->name('reseller_daily.')->group(function () {
             Route::get('account_close', "ResellerDailyTransactions@dailyShutdownShowForm")->name('account_close');
             Route::post('account_close', "ResellerDailyTransactions@dailyShutdownSubmitForm")->name('account_close_store');
