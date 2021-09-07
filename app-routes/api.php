@@ -1,11 +1,6 @@
 <?php
 
-use App\Models\Manager;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
-use Symfony\Component\HttpClient\HttpClient;
 
 
 Route::middleware('auth')->group(
@@ -152,82 +147,3 @@ Route::middleware('auth')->group(
     }
 );
 
-Route::prefix('app')->group(function () {
-    Route::get('/demo_token', function () {
-        $token = Str::random(80);
-
-        $manager = Manager::first();
-        $manager->update([
-            'api_token' => $token,
-        ]);
-
-        return [
-            'demo_token' => $token,
-        ];
-    });
-    Route::middleware('api_auth')->group(function () {
-        Route::get('token', function (Request $request) {
-            $request->validate([
-                'expo_token' => 'required|string',
-            ]);
-            $request->user()->update([
-                'expo_token' => $request->input('expo_token'),
-            ]);
-
-            return [
-                'message' => 'ok',
-            ];
-        });
-
-        Route::get('notify', function (Request $request) {
-            if ($request->user()->expo_token) {
-                $data = [
-                    'to' => $request->has('expo_token') && $request->filled('expo_token') ? $request->input('expo_token') : $request->user()->expo_token,
-                    'sound' => 'default',
-                    'title' => 'معاملة جديدة',
-
-                    'body' => 'قام علي بتحويل 235 من بنك الأهلي الي بنك الراجحي ورقم المعاملة 59185',
-                    'data' => [
-                        'id' => 1500,
-                        'amount' => 325,
-                        'sender_name' => 'Ali abdalla',
-                        'sender_bank_name' => 'Rajhi',
-                        'sender_bank_account' => '2352312323',
-                        'created_at' => Carbon::now(),
-                        'destination_bank' => 'Test Bank',
-                        'destination_bank_account' => '598325325',
-                    ],
-                ];
-
-                $client = HttpClient::create();
-                $response = $client->request(
-                    'POST',
-                    'https://exp.host/--/api/v2/push/send',
-                    [
-                        'headers' => [
-                            'Accept' => 'application/json',
-                            'Accept-encoding' => 'gzip, deflate',
-                            // "Content-Type" => "application/json"
-                        ],
-                        'body' => $data,
-                    ]
-                );
-
-                return $response->getContent();
-            }
-        });
-
-        Route::prefix('payments/{payment}')->group(function () {
-            Route::post('/', function () {
-                return [
-                    'message' => 'accepted',
-                ];
-            });
-            Route::delete('/', function () {
-                return [
-                    'message' => 'rejected',
-                ];
-            });
-        });
-    });
-});

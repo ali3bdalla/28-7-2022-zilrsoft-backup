@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Store\Shipping\StoreShippingMethodDeliveryManRequest;
 use App\Http\Requests\Backend\Store\Shipping\UpdateShippingMethodRequest;
 use App\Jobs\External\Smsa\DownloadShippmentPdfJob;
-use App\Jobs\Order\Shipping\HandleOrderShippingJob;
-use App\Jobs\Shipping\CreateShippingSalesInvoiceJob;
 use App\Jobs\Shipping\CreateShippingTransactionJob;
 use App\Jobs\Shipping\CreateShippingTransactionShippingStatusJob;
 use App\Models\City;
@@ -17,7 +15,6 @@ use App\Models\Order;
 use App\Models\ShippingMethod;
 use App\Models\ShippingTransaction;
 use App\Package\Whatsapp;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
@@ -125,7 +122,7 @@ class ShippingController extends Controller
             "boxes",
             "weight",
         );
-        CreateShippingTransactionJob::dispatchNow( $shipping,$data);
+        CreateShippingTransactionJob::dispatchNow($shipping, $data);
         return redirect(route('store.shipping.view_transactions', $shipping->id));
     }
 
@@ -175,7 +172,7 @@ code: ' . $otp;
             $transactions = ShippingTransaction::find($request->input('transactions'));
             foreach ($transactions as $key => $transaction) {
                 if ($transaction->status === 'issued') {
-                   CreateShippingTransactionShippingStatusJob::dispatchNow($transaction,$deliveryMan);
+                    CreateShippingTransactionShippingStatusJob::dispatchNow($transaction, $deliveryMan);
                 }
             }
         } else {
