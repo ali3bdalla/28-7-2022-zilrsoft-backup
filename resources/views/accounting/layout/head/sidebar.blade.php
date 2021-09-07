@@ -124,14 +124,7 @@
 
 
                     @endcan
-                    {{--                    @can('confirm purchase')--}}
-                    {{--                        <li>--}}
-                    {{--                            <a href="{{route('purchases.pending')}}"><i class="fab fa-product-hunt"></i>--}}
-                    {{--                                مشتريات معلقة--}}
-                    {{--                            </a></li>--}}
 
-
-                    {{--                    @endcan--}}
                     @can('view sale')
                         <li>
                             <a href="{{route('sales.index')}}"><i class="fa fa-sun"></i>
@@ -171,25 +164,8 @@
                                 {{ __('sidebar.adjust_stock') }}
                             </a></li>
 
-                        {{--                        <li>
-                        {{--                            <a href="{{route('accounting.inventories.index')}}"><i class="fa fa-sun"></i>--}}
-                        {{--                                {{ __('sidebar.adjust_stock') }}--}}
-                        {{--                            </a></li>--}}
 
                     @endcan
-                    {{--                    <li>--}}
-                    {{--                        <a href="{{route('accounting.reseller_daily.account_close_list')}}"><i class="fa fa-sun"></i>--}}
-                    {{--                            {{ __('sidebar.account_close') }}--}}
-                    {{--                        </a></li>--}}
-                    {{--                    <li>--}}
-                    {{--                        <a href="{{route('accounting.inventories.adjust_stock.index')}}"><i class="fa fa-sun"></i>--}}
-                    {{--                            جرد المخزون--}}
-                    {{--                        </a></li>--}}
-
-                    {{--                    <li>--}}
-                    {{--                        <a href="{{route('accounting.inventories.inventory_reconciliation')}}"><i class="fa fa-sun"></i>--}}
-                    {{--                            تسوية المخزون--}}
-                    {{--                        </a></li>--}}
 
                 </ul>
             </li>
@@ -286,33 +262,6 @@
         @endcanany
 
 
-        {{--        @canany(['view reports','create report'])--}}
-        {{--            <li class="treeview">--}}
-        {{--                <a href="#">--}}
-        {{--                    <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}--}}
-        {{--                        {{ __('sidebar.reports') }}</span>--}}
-        {{--                </a>--}}
-
-        {{--                <ul class="treeview-menu">--}}
-        {{--                    @can('view reports')--}}
-        {{--                        <li>--}}
-        {{--                            <a href="{{route('accounting.reports.index')}}"><i class="fa fa-sun"></i>--}}
-        {{--                                {{ __('sidebar.reports') }}--}}
-        {{--                            </a></li>--}}
-        {{--                    @endcan--}}
-        {{--                    @can('create report')--}}
-        {{--                        <li>--}}
-        {{--                            <a href="{{route('accounting.identities.create')}}"><i class="fa fa-sun"></i>--}}
-        {{--                                {{ __('pages/users.create') }}--}}
-        {{--                            </a></li>--}}
-        {{--                    @endcan--}}
-
-
-        {{--                </ul>--}}
-        {{--            </li>--}}
-        {{--        @endcanany--}}
-
-
 
         @canany(['view identities','create identity','manage managers'])
             <li class="treeview">
@@ -351,37 +300,37 @@
             </li>
         @endcanany
 
-        @canany(['manage settings','manage branches','manage expenses'])
-            <li class="treeview">
-                <a href="#">
-                    <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}
-                        {{ __('sidebar.settings') }}</span>
-                </a>
+{{--        @canany(['manage settings','manage branches','manage expenses'])--}}
+{{--            <li class="treeview">--}}
+{{--                <a href="#">--}}
+{{--                    <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}--}}
+{{--                        {{ __('sidebar.settings') }}</span>--}}
+{{--                </a>--}}
 
-                <ul class="treeview-menu">
-                    @can('manage settings')
-                        <li>
-                            <a href="{{route('accounting.settings.index')}}"><i class="fa fa-sun"></i>
-                                {{ __('sidebar.settings') }}
-                            </a></li>
-                    @endcan
-                    @can('manage branches')
-                        <li>
-                            <a href="{{route('accounting.branches.index')}}"><i class="fa fa-sun"></i>
-                                {{ __('sidebar.branches') }}
-                            </a></li>
-                    @endcan
-                    @can('manage expenses')
-                        <li>
-                            <a href="{{route('accounting.expenses.index')}}"><i class="fa fa-sun"></i>
-                                {{ __('sidebar.expenses') }}
-                            </a></li>
-                    @endcan
+{{--                <ul class="treeview-menu">--}}
+{{--                    @can('manage settings')--}}
+{{--                        <li>--}}
+{{--                            <a href="{{route('accounting.settings.index')}}"><i class="fa fa-sun"></i>--}}
+{{--                                {{ __('sidebar.settings') }}--}}
+{{--                            </a></li>--}}
+{{--                    @endcan--}}
+{{--                    @can('manage branches')--}}
+{{--                        <li>--}}
+{{--                            <a href="{{route('accounting.branches.index')}}"><i class="fa fa-sun"></i>--}}
+{{--                                {{ __('sidebar.branches') }}--}}
+{{--                            </a></li>--}}
+{{--                    @endcan--}}
+{{--                    @can('manage expenses')--}}
+{{--                        <li>--}}
+{{--                            <a href="{{route('accounting.expenses.index')}}"><i class="fa fa-sun"></i>--}}
+{{--                                {{ __('sidebar.expenses') }}--}}
+{{--                            </a></li>--}}
+{{--                    @endcan--}}
 
 
-                </ul>
-            </li>
-        @endcanany
+{{--                </ul>--}}
+{{--            </li>--}}
+{{--        @endcanany--}}
 
 
     </ul>

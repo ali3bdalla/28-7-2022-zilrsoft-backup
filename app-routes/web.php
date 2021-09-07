@@ -144,6 +144,7 @@ Route::prefix('/accounting')->name('accounting.')->namespace('Accounting')->grou
         );
     }
 );
+
 Route::middleware('lang:ar')
     ->prefix('accounting')
     ->namespace("\App\Http\Controllers\App\Web")
@@ -229,7 +230,6 @@ Route::middleware('lang:ar')
 
 
         Route::resources([
-            'reports' => 'ReportController',
             'accounts' => 'ChartsController',
             'transactions' => 'TransactionsController'
         ]);

@@ -105,13 +105,14 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapStoreRoutes()
     {
         Route::middleware('web')
+            ->namespace('App\Http\Controllers\Store')
             ->group(base_path('store-routes/web.php'));
 
         Route::middleware('web')
             ->namespace('\App\Http\Controllers\Store\API')
-            ->as('web.')
+            ->as('api.web.')
             ->middleware('font_end_middleware')
-            ->prefix('web')
+            ->prefix('api/web')
             ->group(base_path('store-routes/api.php'));
     }
 
@@ -128,14 +129,13 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware(['guest', 'web', 'manager_guest'])
             ->namespace("$this->namespace\App\Auth")
             ->group(base_path('app-routes/guest.php'));
-//
         Route::middleware(['web', 'auth'])
             ->namespace("\App\Http\Controllers")
             ->group(base_path('app-routes/web.php'));
-//
-//
+
         Route::middleware('web')
             ->prefix('api')
+            ->name('api.')
             ->namespace($this->apiNamespace)
             ->group(base_path('app-routes/api.php'));
 

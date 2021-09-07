@@ -8,7 +8,6 @@ use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class AccountController extends Controller
@@ -17,9 +16,9 @@ class AccountController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function index(): Response
+    public function index()
     {
         $accounts = Account::where('parent_id', 0)->withCount('children')->get();
         return view('accounting.charts.index', compact('accounts'));
@@ -29,9 +28,9 @@ class AccountController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Request $request
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
         $request->validate(
             [
