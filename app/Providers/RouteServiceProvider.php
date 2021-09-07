@@ -10,14 +10,14 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * This namespace is applied to your controller routes.
+     * This namespace is applied to your controller app-routes.
      *
      * In addition, it is set as the URL generator's root namespace.
      *
      * @var string
      */
-    protected $namespace    = 'App\Http\Controllers';
-    protected $apiNamespace = 'App\Http\Controllers\Api';
+    protected $namespace = 'App\Http\Controllers';
+    protected $apiNamespace = 'App\Http\Controllers\App\API';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -92,63 +92,54 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the routes for the application.
+     * Define the app-routes for the application.
      *
      * @return void
      */
     public function map()
     {
-        $this->mapWebRoutes();
-        $this->mapApiRoutes();
-        $this->mapBackEndRoutes();
+        $this->mapStoreRoutes();
+        $this->mapAppRoutes();
+    }
+
+    protected function mapStoreRoutes()
+    {
+        Route::middleware('web')
+            ->group(base_path('store-routes/web.php'));
+
+        Route::middleware('web')
+            ->namespace('\App\Http\Controllers\Store\API')
+            ->as('web.')
+            ->middleware('font_end_middleware')
+            ->prefix('web')
+            ->group(base_path('store-routes/api.php'));
     }
 
     /**
-     * Define the "web" routes for the application.
+     * Define the "web" app-routes for the application.
      *
-     * These routes all receive session state, CSRF protection, etc.
+     * These app-routes all receive session state, CSRF protection, etc.
      *
      * @return void
      */
-    protected function mapWebRoutes()
+    protected function mapAppRoutes()
     {
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/web.php'));
-    }
 
-    protected function mapApiRoutes()
-    {
-        Route::middleware(['api'])
-            ->prefix('mobile')
-            ->name('mobile.')
-            ->namespace($this->apiNamespace)
-            ->group(base_path('routes/mobile.php'));
-
-        Route::middleware(['web'])
-            ->prefix('api')
-            ->name('api.')
-            ->namespace($this->apiNamespace)
-            ->group(base_path('routes/api.php'));
-
-        Route::middleware('web', 'guest')
-            ->prefix('api')
-            ->name('guest.api.')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/guest_api.php'));
-    }
-
-    protected function mapBackEndRoutes()
-    {
-        Route::middleware('web')
-            ->namespace("App\Http\Controllers\Accounting")
-            ->prefix('accounting')
-            ->name('accounting.')
-            ->group(base_path('routes/accounting.php'));
-
+        Route::middleware(['guest', 'web', 'manager_guest'])
+            ->namespace("$this->namespace\App\Auth")
+            ->group(base_path('app-routes/guest.php'));
+//
         Route::middleware(['web', 'auth'])
-            ->prefix('store')
-            ->name('store.')
-            ->group(base_path('routes/backend/store.php'));
+            ->namespace("\App\Http\Controllers")
+            ->group(base_path('app-routes/web.php'));
+//
+//
+        Route::middleware('web')
+            ->prefix('api')
+            ->namespace($this->apiNamespace)
+            ->group(base_path('app-routes/api.php'));
+
+
     }
+
 }

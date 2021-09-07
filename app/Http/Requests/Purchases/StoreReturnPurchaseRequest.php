@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Purchases;
 
-use App\Http\Controllers\Api\Traits\ReturnInvoiceTraits;
+use App\Http\Controllers\App\API\Traits\ReturnInvoiceTraits;
 use App\Jobs\Accounting\Purchase\StoreReturnPurchaseTransactionsJob;
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;

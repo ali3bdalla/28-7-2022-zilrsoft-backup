@@ -1,7 +1,7 @@
 <?php
-	
+
 	namespace App\Http\Requests\Daily;
-	
+
 	use App\Models\Account;
 	use App\Models\Payment;
 	use App\Models\Transaction;
@@ -11,7 +11,7 @@
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
 	use Illuminate\Validation\ValidationException;
-	
+
 	class StoreResellerClosingAccountsRequest extends FormRequest
 	{
 		/**
@@ -23,7 +23,7 @@
 		{
 			return true;
 		}
-		
+
 		/**
 		 * Get the validation rules that apply to the request.
 		 *
@@ -37,15 +37,14 @@
 				'gateways.*.amount' => 'required|numeric',
 			];
 		}
-		
+
 		public function store()
 		{
-			
+
 			DB::beginTransaction();
 			try {
 				$loggedUser = $this->user();
 				$totalAvailableAmount = collect($this->input('gateways'))->sum('amount');
-				//6719.00
 				if($totalAvailableAmount > 0) {
 					$shiftsShortageAccount = Account::where(
 						[
@@ -59,9 +58,8 @@
 							['slug', 'temp_reseller_account'],
 						]
 					)->first();
-					
 					$shouldBeAvailableAmount = $this->getActualAmountFromInvoices($loggedUser);
-					
+
 					$container = TransactionsContainer::create(
 						[
 							'creator_id' => $loggedUser->id,
@@ -86,11 +84,11 @@
 							Transaction::create($gatewayData);
 							$totalDebitAmount += (float)$gatewayData['amount'];
 						}
-						
+
 					}
-					
-					
-					
+
+
+
 					$shortShortageAmount = (float)$totalDebitAmount - (float)$shouldBeAvailableAmount;
 					$shortSourceAmount = $shortShortageAmount;
 					if($shortShortageAmount != 0) {
@@ -103,7 +101,7 @@
 							$transactionData['amount'] = (float)$shortShortageAmount;
 							$transactionData['type'] = 'debit';
 							Transaction::create($transactionData);
-							
+
 						} else {
 							$transactionData = $baseTransactionData;
 							$transactionData['account_id'] = $shiftsShortageAccount->id;
@@ -112,7 +110,7 @@
 							Transaction::create($transactionData);
 						}
 					}
-					
+
 					$transactionData = $baseTransactionData;
 					$transactionData['account_id'] = $tempResellerAccount->id;
 					$transactionData['amount'] = (float)$shouldBeAvailableAmount;
@@ -134,14 +132,14 @@
 							'shortage_amount' => $shortSourceAmount,
 						]
 					);
-					
+
 					$loggedUser->update(
 						[
 							'remaining_accounts_balance' => 0,
 							'accounts_closed_at' => now(),
 						]
 					);
-					
+
 				} else {
 					throw ValidationException::withMessages(
 						[
@@ -149,23 +147,23 @@
 						]
 					);
 				}
-				
+
 				DB::commit();
-				
+
 				return $container;
 			} catch(Exception $exception) {
 				DB::rollBack();
 				throw $exception;
 			}
-			
+
 		}
-		
-		
+
+
 		public function getActualAmountFromInvoices($loggedUser)
 		{
 			$remainingAccountsBalanceAmount = $loggedUser->remaining_accounts_balance;
 			$accountsClosedAt = $loggedUser->accounts_closed_at;
-			
+
 			if($accountsClosedAt != null) {
 				$accountsClosedAt = Carbon::parse($accountsClosedAt);
 				$inAmount = Payment::where(
@@ -175,8 +173,8 @@
 						['invoice_id', '!=', null]
 					]
 				)->where('created_at', '>=', $accountsClosedAt)->sum('amount');
-				
-				
+
+
 				$outAmount = Payment::where(
 					[
 						['creator_id', $loggedUser->id],
@@ -190,24 +188,24 @@
 						['creator_id', $loggedUser->id],
 					]
 				)->where('payment_type', 'receipt')->sum('amount');
-				
+
 				$outAmount = Payment::where(
 					[
 						['creator_id', $loggedUser->id],
 					]
 				)->where('payment_type', 'payment')->sum('amount');
 			}
-			
+
 			return $inAmount + $remainingAccountsBalanceAmount - $outAmount;
 		}
-		
+
 		public function getGatewayAmountWithoutAfterCuttingTheVouchersAmount($amount, $id, $loggedUser)
 		{
 			$gateway = Account::find($id);
-			
+
 			$accountsClosedAt = $loggedUser->accounts_closed_at;
-			
-			
+
+
 			if($accountsClosedAt != null) {
 				$accountsClosedAt = Carbon::parse($accountsClosedAt);
 				$inAmount = Payment::where(
@@ -236,11 +234,11 @@
 						['payment_type', 'receipt']
 					]
 				)->sum('amount');
-				
-				
+
+
 			}
-			
-			
+
+
 			return (float)$amount - (float)$inAmount;
 		}
 	}

@@ -313,14 +313,14 @@ var render = function() {
     "data-grid-component",
     {
       attrs: {
-        "actions-link": _vm.$appRoute("next-routes.web.orders.index"),
+        "actions-link": _vm.$appRoute("next-app-routes.web.orders.index"),
         "addtional-sorded-by-items": [
           { key: "id", direction: "asc", label: "Number Asc" },
           { key: "id", direction: "desc", label: "Number DESC" },
           { key: "net", direction: "desc", label: "Total DESC" },
           { key: "net", direction: "desc", label: "Total DESC" }
         ],
-        endpoint: _vm.$appRoute("next-routes.api.orders.index"),
+        endpoint: _vm.$appRoute("next-app-routes.api.orders.index"),
         filters: _vm.filters,
         "has-create-button": false
       },
@@ -538,7 +538,7 @@ var render = function() {
           {
             attrs: {
               href:
-                _vm.$appRoute("next-routes.web.orders.export_pdf") +
+                _vm.$appRoute("next-app-routes.web.orders.export_pdf") +
                 "?" +
                 _vm.$toQueryString(_vm.tableState)
             }
@@ -560,7 +560,7 @@ var render = function() {
           {
             attrs: {
               href:
-                _vm.$appRoute("next-routes.web.orders.export_excel") +
+                _vm.$appRoute("next-app-routes.web.orders.export_excel") +
                 "?" +
                 _vm.$toQueryString(_vm.tableState)
             }
@@ -608,7 +608,7 @@ var render = function() {
                             staticClass: "datagrid__actions-link",
                             attrs: {
                               href: _vm.$appRoute(
-                                "next-routes.web.orders.show",
+                                "next-app-routes.web.orders.show",
                                 row.id
                               )
                             }
@@ -672,7 +672,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   null,
   null
-  
+
 )
 
 /* hot reload */
@@ -692,7 +692,7 @@ component.options.__file = "resources/next/js/Web/Components/Order/OrderStatusTa
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderStatusTagComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./OrderStatusTagComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Components/Order/OrderStatusTagComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderStatusTagComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderStatusTagComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -741,7 +741,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   "37d908f0",
   null
-  
+
 )
 
 /* hot reload */
@@ -761,7 +761,7 @@ component.options.__file = "resources/next/js/Web/Pages/Order/IndexPage.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Pages/Order/IndexPage.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 

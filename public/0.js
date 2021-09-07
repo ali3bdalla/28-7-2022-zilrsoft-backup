@@ -221,7 +221,7 @@ __webpack_require__(/*! collections/listen/array-changes */ "./node_modules/coll
       });
     },
     markNotificationAsRead: function markNotificationAsRead(notification) {
-      window.axios.put(this.$appRoute('next-routes.api.notifications.mark_as_read', notification.id));
+      window.axios.put(this.$appRoute('next-app-routes.api.notifications.mark_as_read', notification.id));
       var index = this.notifications.indexOf(notification);
       notification.read_at = new Date().getDate();
       this.notifications.splice(index, 1, notification);
@@ -234,7 +234,7 @@ __webpack_require__(/*! collections/listen/array-changes */ "./node_modules/coll
     loadUnreadNotification: function loadUnreadNotification() {
       var _this2 = this;
 
-      window.axios.get(this.$appRoute('next-routes.api.notifications.index')).then(function (res) {
+      window.axios.get(this.$appRoute('next-app-routes.api.notifications.index')).then(function (res) {
         res.data.forEach(function (notification) {
           return _this2.addNotification(notification);
         });
@@ -332,15 +332,15 @@ __webpack_require__.r(__webpack_exports__);
         items: [{
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.dashboard,
-          to: this.$appRoute('next-routes.web.dashboard.index')
+          to: this.$appRoute('next-app-routes.web.dashboard.index')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.navbar.organization_settings,
-          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.navbar.profile_settings,
-          to: this.$appRoute('next-routes.web.dashboard.profile_settings')
+          to: this.$appRoute('next-app-routes.web.dashboard.profile_settings')
         }]
       });
       return navbarItems;
@@ -354,19 +354,19 @@ __webpack_require__.r(__webpack_exports__);
         items: [{
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.sales,
-          to: this.$appRoute('next-routes.web.sales.index')
+          to: this.$appRoute('next-app-routes.web.sales.index')
         }, // {
         //   _name: 'CSidebarNavItem',
         //   name: this.$page.props.layoutLang.sidebar.return_sales,
-        //   to: this.$appRoute('next-routes.web.dashboard.organization_settings')
+        //   to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
         // },
         {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.purchases,
-          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
         } // {
         //   name: this.$page.props.layoutLang.sidebar.return_purchases,
-        //   to: this.$appRoute('next-routes.web.dashboard.profile_settings')
+        //   to: this.$appRoute('next-app-routes.web.dashboard.profile_settings')
         // }
         ]
       });
@@ -376,30 +376,30 @@ __webpack_require__.r(__webpack_exports__);
       navbarItems.push({
         _name: 'CSidebarNavDropdown',
         name: this.$page.props.layoutLang.sidebar.items,
-        to: this.$appRoute('next-routes.web.items.index'),
+        to: this.$appRoute('next-app-routes.web.items.index'),
         icon: 'cil-list',
         items: [{
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.items,
-          to: this.$appRoute('next-routes.web.items.index')
+          to: this.$appRoute('next-app-routes.web.items.index')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.kits,
-          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.categories,
-          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.filters,
-          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
         }]
       });
       return navbarItems;
     },
     addOnlineStoreOrder: function addOnlineStoreOrder(navbarItems) {
-      var ordersURL = this.$appRoute('next-routes.web.orders.index');
+      var ordersURL = this.$appRoute('next-app-routes.web.orders.index');
       navbarItems.push({
         _name: 'CSidebarNavItem',
         name: this.$page.props.layoutLang.sidebar.online_store,
@@ -409,19 +409,19 @@ __webpack_require__.r(__webpack_exports__);
           to: ordersURL
         }, {
           name: this.$page.props.layoutLang.sidebar.payment_methods,
-          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.shipping_methods,
-          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.shipping_transactions,
-          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.online_store_settings,
-          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
         }]
       });
       return navbarItems;
@@ -797,7 +797,7 @@ var render = function() {
               _c(
                 "CHeaderNavLink",
                 {
-                  attrs: { href: _vm.$appRoute("next-routes.web.daily.index") }
+                  attrs: { href: _vm.$appRoute("next-app-routes.web.daily.index") }
                 },
                 [
                   _vm._v(
@@ -1185,7 +1185,7 @@ var render = function() {
             "inertia-link",
             {
               attrs: {
-                href: _vm.$appRoute("next-routes.web.dashboard.profile")
+                href: _vm.$appRoute("next-app-routes.web.dashboard.profile")
               }
             },
             [
@@ -1208,7 +1208,7 @@ var render = function() {
             {
               attrs: {
                 href: _vm.$appRoute(
-                  "next-routes.web.dashboard.profile_settings"
+                  "next-app-routes.web.dashboard.profile_settings"
                 )
               }
             },
@@ -1232,7 +1232,7 @@ var render = function() {
             {
               attrs: {
                 href: _vm.$appRoute(
-                  "next-routes.web.dashboard.organization_settings"
+                  "next-app-routes.web.dashboard.organization_settings"
                 )
               }
             },
@@ -1258,7 +1258,7 @@ var render = function() {
           _c(
             "inertia-link",
             {
-              attrs: { href: _vm.$appRoute("next-routes.web.dashboard.logout") }
+              attrs: { href: _vm.$appRoute("next-app-routes.web.dashboard.logout") }
             },
             [
               _vm._v(
@@ -1583,7 +1583,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   "1477f62c",
   null
-  
+
 )
 
 /* hot reload */
@@ -1603,7 +1603,7 @@ component.options.__file = "resources/next/js/Web/Components/Layout/OrderPayment
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderPaymentApprovedNotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./OrderPaymentApprovedNotificationComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Components/Layout/OrderPaymentApprovedNotificationComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderPaymentApprovedNotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderPaymentApprovedNotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -1652,7 +1652,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   null,
   null
-  
+
 )
 
 /* hot reload */
@@ -1672,7 +1672,7 @@ component.options.__file = "resources/next/js/Web/Layouts/Web/Footer.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Footer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Footer.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Layouts/Web/Footer.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Footer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Footer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -1721,7 +1721,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   null,
   null
-  
+
 )
 
 /* hot reload */
@@ -1741,7 +1741,7 @@ component.options.__file = "resources/next/js/Web/Layouts/Web/Header.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Header.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Layouts/Web/Header.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -1790,7 +1790,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   "67a0aaee",
   null
-  
+
 )
 
 /* hot reload */
@@ -1810,7 +1810,7 @@ component.options.__file = "resources/next/js/Web/Layouts/Web/Notification.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Notification_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Notification.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Layouts/Web/Notification.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Notification_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Notification_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -1859,7 +1859,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   null,
   null
-  
+
 )
 
 /* hot reload */
@@ -1879,7 +1879,7 @@ component.options.__file = "resources/next/js/Web/Layouts/Web/Sidebar.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Sidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Sidebar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Layouts/Web/Sidebar.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Sidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Sidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -1930,7 +1930,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   "482e89bc",
   null
-  
+
 )
 
 /* hot reload */
@@ -1950,7 +1950,7 @@ component.options.__file = "resources/next/js/Web/Layouts/Web/TheHeaderDropdownA
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheHeaderDropdownAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./TheHeaderDropdownAccount.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Layouts/Web/TheHeaderDropdownAccount.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheHeaderDropdownAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheHeaderDropdownAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -2015,7 +2015,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   "a774e2ea",
   null
-  
+
 )
 
 /* hot reload */
@@ -2035,7 +2035,7 @@ component.options.__file = "resources/next/js/Web/Layouts/WebLayout.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WebLayout_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./WebLayout.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Layouts/WebLayout.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WebLayout_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WebLayout_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 

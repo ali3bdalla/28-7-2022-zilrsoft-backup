@@ -31,22 +31,9 @@ class DailyController extends Controller
 
     public function createResellerClosingAccount(Request $request)
     {
-
         $loggedUser = $request->user();
-        $tempResellerAccount = Account::where(
-            [
-                ['slug', 'temp_reseller_account'],
-                ['is_system_account', true],
-            ]
-        )->first();
-
-
-
-
         $remainingAccountsBalanceAmount = $loggedUser->remaining_accounts_balance;
         $accountsClosedAt = $loggedUser->accounts_closed_at;
-
-
         if ($accountsClosedAt != null) {
             $accountsClosedAt = Carbon::parse($accountsClosedAt);
             $inAmount = Payment::where(
@@ -56,7 +43,6 @@ class DailyController extends Controller
             )->where('created_at', '>=', $accountsClosedAt)->where(
                 [
                     ['payment_type', 'receipt'],
-//						['invoice_id', '!=', null]
                 ]
             )->sum('amount');
             $outAmount = Payment::where(
@@ -89,10 +75,7 @@ class DailyController extends Controller
                 ]
             )->sum('amount');
         }
-
         $gateways = $loggedUser->gateways()->get();
-
-
         return view('accounting.reseller_daily.account_close', compact('inAmount', 'loggedUser', 'accountsClosedAt', 'outAmount', 'gateways', 'remainingAccountsBalanceAmount'));
     }
 

@@ -308,7 +308,7 @@ var render = function() {
     "data-grid-component",
     {
       attrs: {
-        "actions-link": _vm.$appRoute("next-routes.web.items.index"),
+        "actions-link": _vm.$appRoute("next-app-routes.web.items.index"),
         "addtional-sorded-by-items": [
           {
             key: "price_with_tax",
@@ -343,7 +343,7 @@ var render = function() {
               _vm.$page.props.layoutLang.common.sort.desc
           }
         ],
-        endpoint: _vm.$appRoute("next-routes.api.items.index"),
+        endpoint: _vm.$appRoute("next-app-routes.api.items.index"),
         filters: _vm.filters,
         "has-create-button": true
       },
@@ -818,7 +818,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       href: _vm.$appRoute(
-                                        "next-routes.web.items.show",
+                                        "next-app-routes.web.items.show",
                                         row.id
                                       )
                                     }
@@ -845,7 +845,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       href: _vm.$appRoute(
-                                        "next-routes.web.items.edit",
+                                        "next-app-routes.web.items.edit",
                                         row.id
                                       )
                                     }
@@ -872,7 +872,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       href: _vm.$appRoute(
-                                        "next-routes.web.items.show",
+                                        "next-app-routes.web.items.show",
                                         row.id
                                       )
                                     }
@@ -900,7 +900,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       href: _vm.$appRoute(
-                                        "next-routes.web.items.history",
+                                        "next-app-routes.web.items.history",
                                         row.id
                                       )
                                     }
@@ -925,7 +925,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       href: _vm.$appRoute(
-                                        "next-routes.web.items.serials",
+                                        "next-app-routes.web.items.serials",
                                         row.id
                                       )
                                     }
@@ -995,7 +995,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   "3ba7106d",
   null
-  
+
 )
 
 /* hot reload */
@@ -1015,7 +1015,7 @@ component.options.__file = "resources/next/js/Web/Pages/Item/IndexPage.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Pages/Item/IndexPage.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 

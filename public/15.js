@@ -46,8 +46,8 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit(data) {
       // this.askUser().then(res => {
       //     if (res) {
-      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_4__["Inertia"].patch(this.$appRoute('next-routes.api.items.update', this.item.id), JSON.parse(JSON.stringify(data)));
-      this.handleResponse(this.$appRoute('next-routes.web.items.index'), this.$page.props.layoutLang.common.messages.success, this.$getLang('item_updated'), 'success', false); // }
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_4__["Inertia"].patch(this.$appRoute('next-app-routes.api.items.update', this.item.id), JSON.parse(JSON.stringify(data)));
+      this.handleResponse(this.$appRoute('next-app-routes.web.items.index'), this.$page.props.layoutLang.common.messages.success, this.$getLang('item_updated'), 'success', false); // }
       // })
     }
   }
@@ -109,7 +109,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   "1ada5906",
   null
-  
+
 )
 
 /* hot reload */
@@ -129,7 +129,7 @@ component.options.__file = "resources/next/js/Web/Pages/Item/EditPage.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./EditPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Pages/Item/EditPage.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
