@@ -3,8 +3,6 @@
 namespace App\Http;
 
 use App\Http\Middleware\Authenticate;
-use App\Http\Middleware\CheckForMaintenanceMode;
-use App\Http\Middleware\Cors;
 use App\Http\Middleware\EcommerceMiddleware;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\GuestMiddleware;
@@ -26,7 +24,6 @@ use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 use Spatie\Permission\Middlewares\PermissionMiddleware;
 use Spatie\Permission\Middlewares\RoleMiddleware;
 
@@ -41,7 +38,6 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         TrustProxies::class,
-        CheckForMaintenanceMode::class,
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
@@ -62,7 +58,6 @@ class Kernel extends HttpKernel
             SubstituteBindings::class,
         ],
         'api' => [
-            EnsureFrontendRequestsAreStateful::class,
             'throttle:60,1',
             'bindings',
 
@@ -89,9 +84,7 @@ class Kernel extends HttpKernel
         'permission' => PermissionMiddleware::class,
         'ProtectLimitMiddleware' => ProtectLimitMiddleware::class,
         'lang' => LanguageMiddleware::class,
-        'cors' => Cors::class,
         'ecommerceMiddleware' => EcommerceMiddleware::class,
-//        "appInertiaMiddleware" =>
         'guest' => GuestMiddleware::class,
     ];
 

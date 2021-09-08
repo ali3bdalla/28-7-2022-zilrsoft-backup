@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\App\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -11,6 +10,4 @@ Route::group(['prefix' => 'delivery_man'], function () {
 });
 
 
-Route::group(['prefix' => 'app', 'middleware' => 'appInertiaMiddleware'], function () {
-    Route::get('/login', [LoginController::class, 'index'])->name('index');
-});
+Route::get('/login', [\App\Http\Controllers\App\Auth\LoginController::class,'index'])->name('index');
