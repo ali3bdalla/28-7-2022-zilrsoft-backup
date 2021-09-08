@@ -234,7 +234,6 @@ Route::middleware('lang:ar')
         });
 
 
-
         Route::middleware(['auth', 'verified'])->group(function () {
             Route::name('printer.')->prefix('printer')->group(function () {
                 Route::get('sign_receipt_printer', 'PrinterController@sign_receipt_printer');
@@ -261,10 +260,10 @@ Route::group(['as' => 'store.', 'prefix' => 'store', 'namespace' => '\App\Http\C
         }
     );
     Route::resource('shipping', "ShippingController");
-    Route::prefix('/shipping')->name('shipping.')->group(function () {
+    Route::group(['as'=> 'shipping.','prefix' => 'shipping'],function () {
         Route::post('sign-transactions-to-delivery-man', ["ShippingController", 'signTransactionsToDeliveryMan'])->name('sign-transactions-to-delivery-man');
         Route::post('activate-sign-transactions-to-delivery-man', ["ShippingController", 'activateSignTransactionsToDeliveryMan'])->name('activate-sign-transactions-to-delivery-man');
-        Route::prefix('/{shipping}')->group(function () {
+        Route::group(['namespace' => '\App\Http\Controllers\App\Web', 'prefix' => '/{shipping}'], function () {
             Route::post('delivery_men', ["ShippingController", 'storeDeliveryMan'])->name('delivery_men.store');
             Route::get('view-transactions', ["ShippingController", 'viewTransactions'])->name('view_transactions');
             Route::get('fetch_transactions', ["ShippingController", 'fetchTransactions'])->name('fetch_transactions');
