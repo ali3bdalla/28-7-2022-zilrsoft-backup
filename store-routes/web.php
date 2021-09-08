@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'Web\HomeController@toWeb')->name('to.web');
-Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->name('web.')->group(
+Route::prefix('web')->namespace('Web')->middleware(['ecommerceMiddleware'])->name('web.')->group(
     function () {
         Route::prefix('content')->group(function () {
             Route::get('about', 'ContentController@about');

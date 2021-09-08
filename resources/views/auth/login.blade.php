@@ -1,4 +1,4 @@
-@extends('layouts.auth')
+@extends('auth.layout')
 
 @section('content')
     <login-component></login-component>

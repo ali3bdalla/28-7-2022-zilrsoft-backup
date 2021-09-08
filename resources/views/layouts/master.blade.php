@@ -4,7 +4,6 @@
     @includeIf("accounting.layout.head.meta")
     <title>@yield('title',config("app.name"))</title>
 
-
     <script defer>
         window.reusable_translator = `@json(trans('reusable'))`;
         window.messages = `@json(trans('messages'))`

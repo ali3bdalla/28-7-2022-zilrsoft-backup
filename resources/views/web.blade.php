@@ -1,4 +1,4 @@
-@extends('layouts.web.master')
+@extends('layouts.web')
 
 @section('content')
     @inertia
