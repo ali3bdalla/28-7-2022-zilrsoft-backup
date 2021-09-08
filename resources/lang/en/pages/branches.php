@@ -1,11 +1,11 @@
 <?php
-	
+
 	return [
 		'create' => 'Add Branch',
 		'create_department' => 'Add Department',
 		'edit_department' => '  Update Department',
 		'update_name' => 'Update Name',
-		
+
 		'id' => '#',
 		'date' => '#',
 		'phone_number' => 'Branch Phone number',
@@ -16,12 +16,12 @@
 		'update' => __('reusable.update'),
 		'cancel' => __('reusable.cancel'),
 		'copy' => __('reusable.copy'),
-		"baseUrl" => route('accounting.branches.index'),
+		"baseUrl" => "",
 		'global_name' => 'Name',
 		'options' => 'Options',
 		'view' => 'View',
 		'edit' => 'Update',
 		'delete' => 'Delete',
-	
+
 		'departments'=>'Departments',
 	];

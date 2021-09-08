@@ -1,11 +1,11 @@
 <?php
-	
+
 	return [
 		'create' => 'اضافة فرع',
 		'create_department' => 'اضافة قسم',
 		'edit_department' => ' تعديل القسم',
 		'update_name' => 'تحديث الاسم',
-		
+
 		'id' => '#',
 		'date' => '#',
 		'phone_number' => 'رقم جوال الفرع',
@@ -16,12 +16,12 @@
 		'update' => __('reusable.update'),
 		'cancel' => __('reusable.cancel'),
 		'copy' => __('reusable.copy'),
-		"baseUrl" => route('accounting.branches.index'),
+		"baseUrl" => "",
 		'global_name' => 'الاسم',
 		'options' => 'خيارات',
 		'view' => 'عرض',
 		'edit' => 'تعديل',
 		'delete' => 'حذف',
-	
+
 		'departments'=>'الافسام',
 	];

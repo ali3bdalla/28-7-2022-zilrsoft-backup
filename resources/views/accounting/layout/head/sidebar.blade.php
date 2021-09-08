@@ -300,37 +300,6 @@
             </li>
         @endcanany
 
-{{--        @canany(['manage settings','manage branches','manage expenses'])--}}
-{{--            <li class="treeview">--}}
-{{--                <a href="#">--}}
-{{--                    <i class="fab fa-product-hunt"></i> <span> {{ __('sidebar.management') }}--}}
-{{--                        {{ __('sidebar.settings') }}</span>--}}
-{{--                </a>--}}
-
-{{--                <ul class="treeview-menu">--}}
-{{--                    @can('manage settings')--}}
-{{--                        <li>--}}
-{{--                            <a href="{{route('accounting.settings.index')}}"><i class="fa fa-sun"></i>--}}
-{{--                                {{ __('sidebar.settings') }}--}}
-{{--                            </a></li>--}}
-{{--                    @endcan--}}
-{{--                    @can('manage branches')--}}
-{{--                        <li>--}}
-{{--                            <a href="{{route('accounting.branches.index')}}"><i class="fa fa-sun"></i>--}}
-{{--                                {{ __('sidebar.branches') }}--}}
-{{--                            </a></li>--}}
-{{--                    @endcan--}}
-{{--                    @can('manage expenses')--}}
-{{--                        <li>--}}
-{{--                            <a href="{{route('accounting.expenses.index')}}"><i class="fa fa-sun"></i>--}}
-{{--                                {{ __('sidebar.expenses') }}--}}
-{{--                            </a></li>--}}
-{{--                    @endcan--}}
-
-
-{{--                </ul>--}}
-{{--            </li>--}}
-{{--        @endcanany--}}
 
 
     </ul>

@@ -129,8 +129,8 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::middleware(['guest', 'web', 'guest:manager,dashboard'])
             ->group(base_path('routes/guest.php'));
+
         Route::middleware(['web', 'auth'])
-            ->namespace("\App\Http\Controllers\App\CurrentWeb")
             ->group(base_path('routes/web.php'));
 
         Route::middleware('web')
