@@ -221,7 +221,7 @@ __webpack_require__(/*! collections/listen/array-changes */ "./node_modules/coll
       });
     },
     markNotificationAsRead: function markNotificationAsRead(notification) {
-      window.axios.put(this.$appRoute('next-app-routes.api.notifications.mark_as_read', notification.id));
+      window.axios.put(this.$appRoute('next-routes.api.notifications.mark_as_read', notification.id));
       var index = this.notifications.indexOf(notification);
       notification.read_at = new Date().getDate();
       this.notifications.splice(index, 1, notification);
@@ -234,7 +234,7 @@ __webpack_require__(/*! collections/listen/array-changes */ "./node_modules/coll
     loadUnreadNotification: function loadUnreadNotification() {
       var _this2 = this;
 
-      window.axios.get(this.$appRoute('next-app-routes.api.notifications.index')).then(function (res) {
+      window.axios.get(this.$appRoute('next-routes.api.notifications.index')).then(function (res) {
         res.data.forEach(function (notification) {
           return _this2.addNotification(notification);
         });
@@ -332,15 +332,15 @@ __webpack_require__.r(__webpack_exports__);
         items: [{
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.dashboard,
-          to: this.$appRoute('next-app-routes.web.dashboard.index')
+          to: this.$appRoute('next-routes.web.dashboard.index')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.navbar.organization_settings,
-          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.navbar.profile_settings,
-          to: this.$appRoute('next-app-routes.web.dashboard.profile_settings')
+          to: this.$appRoute('next-routes.web.dashboard.profile_settings')
         }]
       });
       return navbarItems;
@@ -354,19 +354,19 @@ __webpack_require__.r(__webpack_exports__);
         items: [{
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.sales,
-          to: this.$appRoute('next-app-routes.web.sales.index')
+          to: this.$appRoute('next-routes.web.sales.index')
         }, // {
         //   _name: 'CSidebarNavItem',
         //   name: this.$page.props.layoutLang.sidebar.return_sales,
-        //   to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
+        //   to: this.$appRoute('next-routes.web.dashboard.organization_settings')
         // },
         {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.purchases,
-          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
         } // {
         //   name: this.$page.props.layoutLang.sidebar.return_purchases,
-        //   to: this.$appRoute('next-app-routes.web.dashboard.profile_settings')
+        //   to: this.$appRoute('next-routes.web.dashboard.profile_settings')
         // }
         ]
       });
@@ -376,30 +376,30 @@ __webpack_require__.r(__webpack_exports__);
       navbarItems.push({
         _name: 'CSidebarNavDropdown',
         name: this.$page.props.layoutLang.sidebar.items,
-        to: this.$appRoute('next-app-routes.web.items.index'),
+        to: this.$appRoute('next-routes.web.items.index'),
         icon: 'cil-list',
         items: [{
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.items,
-          to: this.$appRoute('next-app-routes.web.items.index')
+          to: this.$appRoute('next-routes.web.items.index')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.kits,
-          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.categories,
-          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.filters,
-          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
         }]
       });
       return navbarItems;
     },
     addOnlineStoreOrder: function addOnlineStoreOrder(navbarItems) {
-      var ordersURL = this.$appRoute('next-app-routes.web.orders.index');
+      var ordersURL = this.$appRoute('next-routes.web.orders.index');
       navbarItems.push({
         _name: 'CSidebarNavItem',
         name: this.$page.props.layoutLang.sidebar.online_store,
@@ -409,19 +409,19 @@ __webpack_require__.r(__webpack_exports__);
           to: ordersURL
         }, {
           name: this.$page.props.layoutLang.sidebar.payment_methods,
-          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.shipping_methods,
-          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.shipping_transactions,
-          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
         }, {
           _name: 'CSidebarNavItem',
           name: this.$page.props.layoutLang.sidebar.online_store_settings,
-          to: this.$appRoute('next-app-routes.web.dashboard.organization_settings')
+          to: this.$appRoute('next-routes.web.dashboard.organization_settings')
         }]
       });
       return navbarItems;
@@ -797,7 +797,7 @@ var render = function() {
               _c(
                 "CHeaderNavLink",
                 {
-                  attrs: { href: _vm.$appRoute("next-app-routes.web.daily.index") }
+                  attrs: { href: _vm.$appRoute("next-routes.web.daily.index") }
                 },
                 [
                   _vm._v(
@@ -1185,7 +1185,7 @@ var render = function() {
             "inertia-link",
             {
               attrs: {
-                href: _vm.$appRoute("next-app-routes.web.dashboard.profile")
+                href: _vm.$appRoute("next-routes.web.dashboard.profile")
               }
             },
             [
@@ -1208,7 +1208,7 @@ var render = function() {
             {
               attrs: {
                 href: _vm.$appRoute(
-                  "next-app-routes.web.dashboard.profile_settings"
+                  "next-routes.web.dashboard.profile_settings"
                 )
               }
             },
@@ -1232,7 +1232,7 @@ var render = function() {
             {
               attrs: {
                 href: _vm.$appRoute(
-                  "next-app-routes.web.dashboard.organization_settings"
+                  "next-routes.web.dashboard.organization_settings"
                 )
               }
             },
@@ -1258,7 +1258,7 @@ var render = function() {
           _c(
             "inertia-link",
             {
-              attrs: { href: _vm.$appRoute("next-app-routes.web.dashboard.logout") }
+              attrs: { href: _vm.$appRoute("next-routes.web.dashboard.logout") }
             },
             [
               _vm._v(

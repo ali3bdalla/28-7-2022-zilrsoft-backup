@@ -87,7 +87,7 @@ __webpack_require__.r(__webpack_exports__);
     fetch: function fetch() {
       var _this = this;
 
-      axios.get(this.$appRoute('next-app-routes.api.categories.index')).then(function (res) {
+      axios.get(this.$appRoute('next-routes.api.categories.index')).then(function (res) {
         var transformed = _this.transform(res.data);
 
         _this.items = transformed;
@@ -422,7 +422,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.categoryId) {
         this.isLoading = true;
-        axios.get(this.$appRoute('next-app-routes.api.categories.filters_including_values', this.categoryId)).then(function (res) {
+        axios.get(this.$appRoute('next-routes.api.categories.filters_including_values', this.categoryId)).then(function (res) {
           _this2.items = res.data;
 
           if (_this2.value.length) {
@@ -1085,7 +1085,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _context.next = 6;
-                return axios["delete"](_this2.$appRoute('next-app-routes.api.uploads.delete', e.id));
+                return axios["delete"](_this2.$appRoute('next-routes.api.uploads.delete', e.id));
 
               case 6:
                 isRemoved = _context.sent;
@@ -2280,7 +2280,7 @@ var render = function() {
       _c("el-upload", {
         staticClass: "avatar-uploader",
         attrs: {
-          action: _vm.$appRoute("next-app-routes.api.uploads.upload"),
+          action: _vm.$appRoute("next-routes.api.uploads.upload"),
           "before-upload": _vm.beforeUpload,
           disabled: _vm.onlyView,
           "file-list": _vm.fileList,

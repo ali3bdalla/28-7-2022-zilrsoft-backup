@@ -17,12 +17,12 @@ class GuestMiddleware
      * @param string $redirectTo
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $guard = "", $redirectTo = '/')
+    public function handle(Request $request, Closure $next, string $guard = "", string $redirectTo = '/')
     {
         $isLogged = Auth::guard($guard)->check();
 
         if ($isLogged)
-            return $redirectTo;
+            return redirect($redirectTo);
 
         return $next($request);
     }

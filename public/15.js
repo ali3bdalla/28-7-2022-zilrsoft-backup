@@ -46,8 +46,8 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit(data) {
       // this.askUser().then(res => {
       //     if (res) {
-      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_4__["Inertia"].patch(this.$appRoute('next-app-routes.api.items.update', this.item.id), JSON.parse(JSON.stringify(data)));
-      this.handleResponse(this.$appRoute('next-app-routes.web.items.index'), this.$page.props.layoutLang.common.messages.success, this.$getLang('item_updated'), 'success', false); // }
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_4__["Inertia"].patch(this.$appRoute('next-routes.api.items.update', this.item.id), JSON.parse(JSON.stringify(data)));
+      this.handleResponse(this.$appRoute('next-routes.web.items.index'), this.$page.props.layoutLang.common.messages.success, this.$getLang('item_updated'), 'success', false); // }
       // })
     }
   }

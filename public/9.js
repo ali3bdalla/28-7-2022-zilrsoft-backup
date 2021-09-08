@@ -292,11 +292,11 @@ __webpack_require__.r(__webpack_exports__);
 
       this.askUser().then(function (res) {
         if (res) {
-          _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__["Inertia"].post(_this.$appRoute('next-app-routes.api.daily.close'), {
+          _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__["Inertia"].post(_this.$appRoute('next-routes.api.daily.close'), {
             gateways: _this.managerGateways
           });
 
-          _this.handleResponse(_this.$appRoute('next-app-routes.web.items.index'), _this.$page.props.layoutLang.common.messages.success, _this.$getLang('item_created'), 'success', false);
+          _this.handleResponse(_this.$appRoute('next-routes.web.items.index'), _this.$page.props.layoutLang.common.messages.success, _this.$getLang('item_created'), 'success', false);
         }
       });
     }

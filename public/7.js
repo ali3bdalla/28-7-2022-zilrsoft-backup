@@ -83,7 +83,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.askUser().then(function (res) {
         if (res) {
-          _this.$inertia.post(_this.$appRoute('next-app-routes.api.orders.approve_payment', _this.order.id));
+          _this.$inertia.post(_this.$appRoute('next-routes.api.orders.approve_payment', _this.order.id));
 
           _this.handleResponse(location.href, _this.$page.props.layoutLang.common.messages.success, _this.$getLang('payment_has_been_approved'), 'success', false);
         }
@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.askUser().then(function (res) {
         if (res) {
-          _this2.$inertia["delete"](_this2.$appRoute('next-app-routes.api.orders.close_order', _this2.order.id));
+          _this2.$inertia["delete"](_this2.$appRoute('next-routes.api.orders.close_order', _this2.order.id));
 
           _this2.handleResponse(location.href, _this2.$page.props.layoutLang.common.messages.success, _this2.$getLang('order_has_been_closed'), 'info', false);
         }
@@ -838,7 +838,7 @@ var render = function() {
         {
           attrs: {
             href: _vm.$appRoute(
-              "next-app-routes.web.sales.show",
+              "next-routes.web.sales.show",
               _vm.order.draft_id
             )
           }
@@ -857,7 +857,7 @@ var render = function() {
             {
               attrs: {
                 href: _vm.$appRoute(
-                  "next-app-routes.web.sales.show",
+                  "next-routes.web.sales.show",
                   _vm.order.invoice_id
                 )
               }
@@ -877,7 +877,7 @@ var render = function() {
             {
               attrs: {
                 href: _vm.$appRoute(
-                  "next-app-routes.web.sales.clone",
+                  "next-routes.web.sales.clone",
                   _vm.order.draft_id
                 )
               }

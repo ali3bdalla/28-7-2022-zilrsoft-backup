@@ -344,7 +344,7 @@ var render = function() {
     "data-grid-component",
     {
       attrs: {
-        "actions-link": _vm.$appRoute("next-app-routes.web.sales.index"),
+        "actions-link": _vm.$appRoute("next-routes.web.sales.index"),
         "addtional-sorded-by-items": [
           {
             key: "price_with_tax",
@@ -854,7 +854,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       href: _vm.$appRoute(
-                                        "next-app-routes.web.sales.show",
+                                        "next-routes.web.sales.show",
                                         row.id
                                       )
                                     }
@@ -881,7 +881,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       href: _vm.$appRoute(
-                                        "next-app-routes.web.sales.edit",
+                                        "next-routes.web.sales.edit",
                                         row.id
                                       )
                                     }
@@ -908,7 +908,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       href: _vm.$appRoute(
-                                        "next-app-routes.web.sales.show",
+                                        "next-routes.web.sales.show",
                                         row.id
                                       )
                                     }

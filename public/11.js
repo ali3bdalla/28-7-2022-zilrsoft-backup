@@ -313,14 +313,14 @@ var render = function() {
     "data-grid-component",
     {
       attrs: {
-        "actions-link": _vm.$appRoute("next-app-routes.web.orders.index"),
+        "actions-link": _vm.$appRoute("next-routes.web.orders.index"),
         "addtional-sorded-by-items": [
           { key: "id", direction: "asc", label: "Number Asc" },
           { key: "id", direction: "desc", label: "Number DESC" },
           { key: "net", direction: "desc", label: "Total DESC" },
           { key: "net", direction: "desc", label: "Total DESC" }
         ],
-        endpoint: _vm.$appRoute("next-app-routes.api.orders.index"),
+        endpoint: _vm.$appRoute("next-routes.api.orders.index"),
         filters: _vm.filters,
         "has-create-button": false
       },
@@ -538,7 +538,7 @@ var render = function() {
           {
             attrs: {
               href:
-                _vm.$appRoute("next-app-routes.web.orders.export_pdf") +
+                _vm.$appRoute("next-routes.web.orders.export_pdf") +
                 "?" +
                 _vm.$toQueryString(_vm.tableState)
             }
@@ -560,7 +560,7 @@ var render = function() {
           {
             attrs: {
               href:
-                _vm.$appRoute("next-app-routes.web.orders.export_excel") +
+                _vm.$appRoute("next-routes.web.orders.export_excel") +
                 "?" +
                 _vm.$toQueryString(_vm.tableState)
             }
@@ -608,7 +608,7 @@ var render = function() {
                             staticClass: "datagrid__actions-link",
                             attrs: {
                               href: _vm.$appRoute(
-                                "next-app-routes.web.orders.show",
+                                "next-routes.web.orders.show",
                                 row.id
                               )
                             }

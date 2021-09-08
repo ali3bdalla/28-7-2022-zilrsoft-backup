@@ -282,9 +282,9 @@ var render = function() {
     "data-grid-component",
     {
       attrs: {
-        "actions-link": _vm.$appRoute("next-app-routes.web.items.index"),
+        "actions-link": _vm.$appRoute("next-routes.web.items.index"),
         "addtional-sorded-by-items": [],
-        endpoint: _vm.$appRoute("next-app-routes.api.daily.index"),
+        endpoint: _vm.$appRoute("next-routes.api.daily.index"),
         filters: _vm.filters,
         "has-create-button": true
       },
@@ -759,7 +759,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       href: _vm.$appRoute(
-                                        "next-app-routes.web.items.show",
+                                        "next-routes.web.items.show",
                                         row.id
                                       )
                                     }
@@ -786,7 +786,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       href: _vm.$appRoute(
-                                        "next-app-routes.web.items.edit",
+                                        "next-routes.web.items.edit",
                                         row.id
                                       )
                                     }
@@ -813,7 +813,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       href: _vm.$appRoute(
-                                        "next-app-routes.web.items.show",
+                                        "next-routes.web.items.show",
                                         row.id
                                       )
                                     }
@@ -841,7 +841,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       href: _vm.$appRoute(
-                                        "next-app-routes.web.items.history",
+                                        "next-routes.web.items.history",
                                         row.id
                                       )
                                     }
@@ -866,7 +866,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       href: _vm.$appRoute(
-                                        "next-app-routes.web.items.serials",
+                                        "next-routes.web.items.serials",
                                         row.id
                                       )
                                     }

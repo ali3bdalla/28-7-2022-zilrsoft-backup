@@ -132,8 +132,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submit: function submit() {
-      this.$inertia.post(this.$appRoute('next-app-routes.api.portal.login'), this.form);
-      this.handleResponse(this.$appRoute('next-app-routes.web.dashboard.index'), 'Success', 'Login Success', 'success', true);
+      this.$inertia.post(this.$appRoute('next-routes.api.portal.login'), this.form);
+      this.handleResponse(this.$appRoute('next-routes.web.dashboard.index'), 'Success', 'Login Success', 'success', true);
     }
   }
 });

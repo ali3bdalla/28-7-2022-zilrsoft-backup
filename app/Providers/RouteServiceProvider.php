@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
+    const HOME="dashboard";
     /**
-     * This namespace is applied to your controller app-routes.
+     * This namespace is applied to your controller routes.
      *
      * In addition, it is set as the URL generator's root namespace.
      *
@@ -92,7 +93,7 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the app-routes for the application.
+     * Define the routes for the application.
      *
      * @return void
      */
@@ -117,27 +118,26 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "web" app-routes for the application.
+     * Define the "web" routes for the application.
      *
-     * These app-routes all receive session state, CSRF protection, etc.
+     * These routes all receive session state, CSRF protection, etc.
      *
      * @return void
      */
     protected function mapAppRoutes()
     {
 
-        Route::middleware(['guest', 'web', 'guest:manager'])
-            ->namespace("$this->namespace\App\Auth")
-            ->group(base_path('app-routes/guest.php'));
+        Route::middleware(['guest', 'web', 'guest:manager,dashboard'])
+            ->group(base_path('routes/guest.php'));
         Route::middleware(['web', 'auth'])
-            ->namespace("\App\Http\Controllers")
-            ->group(base_path('app-routes/web.php'));
+            ->namespace("\App\Http\Controllers\App\CurrentWeb")
+            ->group(base_path('routes/web.php'));
 
         Route::middleware('web')
             ->prefix('api')
             ->name('api.')
-            ->namespace($this->apiNamespace)
-            ->group(base_path('app-routes/api.php'));
+            ->namespace("$this->apiNamespace")
+            ->group(base_path('routes/api.php'));
 
 
     }
