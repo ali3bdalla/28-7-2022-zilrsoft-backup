@@ -136,16 +136,12 @@ class SaleController extends Controller
             if ($item->item->is_need_serial) {
                 $item['serials'] = $item->item->serials()->sale($invoice->id)->get();
             }
-
             if ($item->item->is_kit) {
                 $item['items'] = $invoice->items()->kitItems($item->id)->with('item')->get();
             }
-
-
             $items[] = $item;
         }
-
-        $expenses = [];//Item::where('is_expense', true)->get()
+        $expenses = [];
         $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
         return view('sales.create_return', compact('sale', 'invoice', 'items', 'gateways', 'expenses'));
     }
