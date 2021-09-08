@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\App\Web\OrderController;
-use App\Http\Controllers\App\Web\ShippingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('dashboard', 'HomeController@index')->name('dashboard.index');
@@ -236,9 +234,7 @@ Route::middleware('lang:ar')
         });
 
 
-        Route::name('printer')->prefix('printer')->group(function () {
-            Route::get('print_receipt/{sale}', 'PrinterController@print_receipt');
-        });
+
         Route::middleware(['auth', 'verified'])->group(function () {
             Route::name('printer.')->prefix('printer')->group(function () {
                 Route::get('sign_receipt_printer', 'PrinterController@sign_receipt_printer');
