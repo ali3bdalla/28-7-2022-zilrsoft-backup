@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\App\Web\OrderController;
+use App\Http\Controllers\App\Web\ShippingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('dashboard', 'HomeController@index')->name('dashboard.index');
@@ -67,7 +69,6 @@ Route::prefix('purchases')->name('purchases.')->group(
         Route::get('view/drafts', 'PurchaseController@drafts')->name('drafts');
     }
 );
-
 Route::resource('entities', 'EntityController');
 Route::prefix('inventory')->name('inventory.')->group(
     function () {
@@ -246,32 +247,31 @@ Route::middleware('lang:ar')
         Route::get('public-invoice/{invoicePublicIdElementsHash}', 'PrinterController@show_public_invoice')->name('public-invoice.show');
     });
 
-
-Route::group(['as' => 'store.', 'prefix' => 'store', 'namespace' => '\App\Http\Controllers\App\Web'], function () {
+Route::group(['as' => 'store.', 'prefix' => 'store'], function () {
     Route::prefix('orders')->name('orders.')->group(
         function () {
-            Route::get('/', ["OrderController", 'index'])->name('index');
-            Route::get('{order}', ["OrderController", 'show'])->name('show');
-            Route::get('{order}/accept-order-as-manager', ["OrderController", 'acceptOrderAsManager'])->name('accept-order-as-manager');
-            Route::get('{order}/view-payment', ["OrderController", 'viewPayment'])->name('view-payment');
-            Route::get('{order}/view-shipping', ["OrderController", 'viewShipping'])->name('view-shipping');
-            Route::get('{order}/activities', ["OrderController", 'activites'])->name('activites');
-            Route::get('{order}/customer-data', ["OrderController", 'customerData'])->name('customer-data');
+            Route::get('/', [OrderController::class, 'index'])->name('index');
+            Route::get('{order}', [OrderController::class, 'show'])->name('show');
+            Route::get('{order}/accept-order-as-manager', [OrderController::class, 'acceptOrderAsManager'])->name('accept-order-as-manager');
+            Route::get('{order}/view-payment', [OrderController::class, 'viewPayment'])->name('view-payment');
+            Route::get('{order}/view-shipping', [OrderController::class, 'viewShipping'])->name('view-shipping');
+            Route::get('{order}/activities', [OrderController::class, 'activites'])->name('activites');
+            Route::get('{order}/customer-data', [OrderController::class, 'customerData'])->name('customer-data');
         }
     );
-    Route::resource('shipping', "ShippingController");
-    Route::group(['as'=> 'shipping.','prefix' => 'shipping', 'namespace' => '\App\Http\Controllers\App\Web'],function () {
-        Route::post('sign-transactions-to-delivery-man', ["ShippingController", 'signTransactionsToDeliveryMan'])->name('sign-transactions-to-delivery-man');
-        Route::post('activate-sign-transactions-to-delivery-man', ["ShippingController", 'activateSignTransactionsToDeliveryMan'])->name('activate-sign-transactions-to-delivery-man');
-        Route::group(['namespace' => '\App\Http\Controllers\App\Web', 'prefix' => '/{shipping}'], function () {
-            Route::post('delivery_men', ["ShippingController", 'storeDeliveryMan'])->name('delivery_men.store');
-            Route::get('view-transactions', ["ShippingController", 'viewTransactions'])->name('view_transactions');
-            Route::get('fetch_transactions', ["ShippingController", 'fetchTransactions'])->name('fetch_transactions');
-            Route::get('{transaction}/download', ["ShippingController", 'downloadTransaction'])->name('download');
-            Route::get('create-transaction', ["ShippingController", 'createTransaction'])->name('create_transaction');
-            Route::get('{order}/create-order-transaction', ["ShippingController", 'createOrderTransaction'])->name('create_order_transaction');
-            Route::post('store-transaction', ["ShippingController", 'storeTransaction'])->name('store_transaction');
-            Route::patch('delivery_men/{deliveryMan}', ["ShippingController", 'updateDeliveryMan'])->name('delivery_men.update');
+    Route::resource('shipping', ShippingController::class);
+    Route::group(['as' => 'shipping.', 'prefix' => 'shipping'], function () {
+        Route::post('sign-transactions-to-delivery-man', [ShippingController::class, 'signTransactionsToDeliveryMan'])->name('sign-transactions-to-delivery-man');
+        Route::post('activate-sign-transactions-to-delivery-man', [ShippingController::class, 'activateSignTransactionsToDeliveryMan'])->name('activate-sign-transactions-to-delivery-man');
+        Route::group(['prefix' => '/{shipping}'], function () {
+            Route::post('delivery_men', [ShippingController::class, 'storeDeliveryMan'])->name('delivery_men.store');
+            Route::get('view-transactions', [ShippingController::class, 'viewTransactions'])->name('view_transactions');
+            Route::get('fetch_transactions', [ShippingController::class, 'fetchTransactions'])->name('fetch_transactions');
+            Route::get('{transaction}/download', [ShippingController::class, 'downloadTransaction'])->name('download');
+            Route::get('create-transaction', [ShippingController::class, 'createTransaction'])->name('create_transaction');
+            Route::get('{order}/create-order-transaction', [ShippingController::class, 'createOrderTransaction'])->name('create_order_transaction');
+            Route::post('store-transaction', [ShippingController::class, 'storeTransaction'])->name('store_transaction');
+            Route::patch('delivery_men/{deliveryMan}', [ShippingController::class, 'updateDeliveryMan'])->name('delivery_men.update');
         });
     });
 });
