@@ -1,16 +1,24 @@
-const mix = require('laravel-mix');
+const mix = require('laravel-mix')
+const tailwindcss = require('tailwindcss')
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
- */
+if (mix.inProduction()) {
+  mix.js('resources/js/store-app/app.js', 'public/js/store-app/app.js')
+    .sass('resources/sass/store.scss', 'public/css/')
+    .sass('resources/sass/rtl_store.scss', 'public/css/')
+} else {
+  mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/store-app/app.js', 'public/js/store-app/app.js')
+    .js('resources/js/external/app.js', 'public/js/external.js')
+    .sass('resources/sass/main.scss', 'public/css/main.css')
+    .sass('resources/sass/store.scss', 'public/css/')
+    .sass('resources/sass/rtl_store.scss', 'public/css/')
+    .browserSync({
+      proxy: 'http://zilrsoft.test'
+    })
+}
 
-mix.js('resources/js/app.js', 'public/js')
-    .vue()
-    .sass('resources/sass/app.scss', 'public/css');
+mix.version()
+  .options({
+    processCssUrls: false,
+    postCss: [tailwindcss('./tailwind.config.js')]
+  })

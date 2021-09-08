@@ -1,9 +1,8 @@
 {
-    "/js/app.js": "/js/app.js?id=7a7a9f61989b6043915b",
+    "/js/app.js": "/js/app.js?id=6c4e72450ffe6a622156",
     "/css/main.css": "/css/main.css?id=f9bde3d90c3ebf7dc270",
-    "/css/store.css": "/css/store.css?id=b03a332d27ff25016c9f",
-    "/css/rtl_store.css": "/css/rtl_store.css?id=70395dd83a95b3cf288b",
-    "/js/app/app.js": "/js/app/app.js?id=c4f40183b3023afb1a37",
-    "/js/external.js": "/js/external.js?id=e35bc696b397ddddc405",
-    "/js/store-app/app.js": "/js/store-app/app.js?id=5475c7f9d19cc7999ab7"
+    "/css/store.css": "/css/store.css?id=8ab2c6318b18cdd37edd",
+    "/css/rtl_store.css": "/css/rtl_store.css?id=74e7126323d007be7315",
+    "/js/external.js": "/js/external.js?id=c7f951ff0a50033e7721",
+    "/js/store-app/app.js": "/js/store-app/app.js?id=e0ef4e725ff7d8591bff"
 }
