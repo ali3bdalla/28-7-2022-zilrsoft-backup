@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App\CurrentWeb;
 
+use App\Http\Controllers\Controller;
 use App\Jobs\Accounting\Entity\ActivateEntityJob;
-use App\Models\Account;
 use App\Models\Manager;
 use App\Models\Payment;
 use App\Models\ResellerClosingAccount;
@@ -117,7 +117,7 @@ class DailyController extends Controller
 
     public function confirmResellerAccountTransaction($transaction)
     {
-        $transaction = ResellerClosingAccount::where('id',$transaction)->withoutGlobalScope('pending')->firstOrFail();
+        $transaction = ResellerClosingAccount::where('id', $transaction)->withoutGlobalScope('pending')->firstOrFail();
         if ($transaction->receiver_id == auth()->user()->id && $transaction->transaction_type == 'transfer') {
             $container = $transaction->container;
             dispatch_now(new ActivateEntityJob($container));
@@ -144,9 +144,9 @@ class DailyController extends Controller
     }
 
 
-    public function deleteResellerAccountTransaction( $transaction)
+    public function deleteResellerAccountTransaction($transaction)
     {
-        $transaction = ResellerClosingAccount::where('id',$transaction)->withoutGlobalScope('pending')->firstOrFail();
+        $transaction = ResellerClosingAccount::where('id', $transaction)->withoutGlobalScope('pending')->firstOrFail();
         $transaction->delete();
         return back();
     }

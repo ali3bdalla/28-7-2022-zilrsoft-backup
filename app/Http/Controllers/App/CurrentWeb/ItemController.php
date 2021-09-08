@@ -1,26 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App\CurrentWeb;
 
-use App\Http\Requests\Item\UploadItemImagesRequest;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Item;
-use App\Models\ItemFilters;
 use App\Models\Manager;
 use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 
 class ItemController extends Controller
 {
 
     public function index()
     {
-    	
+
         $categories = Category::all();
         $creators = Manager::all();
-        
+
         return view('accounting.items.index', compact('categories', 'creators'));
     }
 
@@ -28,7 +24,7 @@ class ItemController extends Controller
     public function create()
     {
         $isClone = false;
-        $chats = Category::where('parent_id',0)->get();
+        $chats = Category::where('parent_id', 0)->get();
         $categories = [];
         foreach ($chats as $category) {
             $category['children'] = Category::getAllParentNestedChildren($category);
@@ -43,7 +39,7 @@ class ItemController extends Controller
     {
 
         $isClone = 0;
-        $chats = Category::where('parent_id',0)->get();
+        $chats = Category::where('parent_id', 0)->get();
         $categories = [];
         foreach ($chats as $category) {
             $category['children'] = Category::getAllParentNestedChildren($category);
@@ -61,7 +57,7 @@ class ItemController extends Controller
     {
         $isClone = 1;
 
-        $chats = Category::where('parent_id',0)->get();
+        $chats = Category::where('parent_id', 0)->get();
         $categories = [];
         foreach ($chats as $category) {
             $category['children'] = Category::getAllParentNestedChildren($category);
@@ -88,5 +84,5 @@ class ItemController extends Controller
         return view('accounting.items.view_serials', compact('item', 'serials'));
     }
 
-   
+
 }

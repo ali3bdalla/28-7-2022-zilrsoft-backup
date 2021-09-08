@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App\CurrentWeb;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -90,7 +90,7 @@ class LoginController extends Controller
     }
 
 
-     /**
+    /**
      * Send the response after the user was authenticated.
      *
      * @param Request $request
@@ -106,8 +106,8 @@ class LoginController extends Controller
     }
 
 
-
-    public function forgetPassword(){
+    public function forgetPassword()
+    {
         return Inertia::render('Auth/ForgetPasswordPage');
     }
 }

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
      * @property mixed container
      * @property mixed transaction_type
      * @property mixed creator_id
+     * @method static where(array $array)
      */
 	class ResellerClosingAccount extends BaseModel
 	{

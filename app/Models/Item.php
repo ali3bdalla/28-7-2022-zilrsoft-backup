@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Events\Item\ItemCreatedEvent;
-use App\Events\Item\ItemUpdatedEvent;
-use App\ItemTag;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
@@ -32,6 +34,8 @@ use Laravel\Scout\Searchable;
  * @property mixed creator_id
  * @property mixed online_offer_price
  * @property mixed weight
+ * @property mixed category
+ * @property mixed en_slug
  * @method static findOrFail($id)
  * @method static InRandomOrder()
  * @method static find($input)
@@ -74,7 +78,7 @@ class Item extends BaseModel
         return $this->hasMany(Transaction::class, 'item_id');
     }
 
-    public function warrantySubscription()
+    public function warrantySubscription(): BelongsTo
     {
         return $this->belongsTo(WarrantySubscription::class, 'warranty_subscription_id');
     }
@@ -84,7 +88,7 @@ class Item extends BaseModel
         return $query->where('available_qty', '>', 0);
     }
 
-    public function getShippingDiscountAttribute($value)
+    public function getShippingDiscountAttribute($value): float
     {
         return round($value);
     }
@@ -94,7 +98,7 @@ class Item extends BaseModel
         return app()->getLocale() == 'ar' ? $this->ar_slug : $this->en_slug;
     }
 
-    public function getAvailableQtyAttribute($value)
+    public function getAvailableQtyAttribute($value): int
     {
         if ($this->is_kit) return 2;
 
@@ -121,7 +125,7 @@ class Item extends BaseModel
         return "https://zilrsoft-cdn.fra1.digitaloceanspaces.com/images/no_image.png";
     }
 
-    public function attachments()
+    public function attachments(): MorphMany
     {
         return $this->morphMany(Attachment::class, 'attachable');
     }
@@ -131,7 +135,7 @@ class Item extends BaseModel
         return $query->where('is_kit', true);
     }
 
-    public function tags()
+    public function tags(): HasMany
     {
         return $this->hasMany(ItemTag::class);
     }
@@ -148,38 +152,38 @@ class Item extends BaseModel
         });
     }
 
-    public function getOnlineOfferPriceAttribute($value)
+    public function getOnlineOfferPriceAttribute($value): float
     {
         if ($this->is_kit) return moneyFormatter($this->data ? $this->data->net : 0);
         return moneyFormatter(round($value));
     }
 
-    public function getOnlinePriceAttribute($value)
+    public function getOnlinePriceAttribute($value): float
     {
         return moneyFormatter($value);
     }
 
-    public function organization()
+    public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class, 'organization_id');
     }
 
-    public function serials()
+    public function serials(): HasMany
     {
         return $this->hasMany(ItemSerials::class, 'item_id');
     }
 
-    public function piplineWithoutSorting()
+    public function piplineWithoutSorting(): HasMany
     {
         return $this->hasMany(InvoiceItems::class, 'item_id');
     }
 
-    public function pipeline()
+    public function pipeline(): HasMany
     {
         return $this->hasMany(InvoiceItems::class, 'item_id')->orderBy('created_at', 'asc');
     }
 
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
@@ -199,7 +203,7 @@ class Item extends BaseModel
             ->take(5);
     }
 
-    public function scopeItemBySerialSearch($query, $search)
+    public function scopeItemBySerialSearch($query, $search): array
     {
         $productSerials = ItemSerials::where('serial', $search)->whereIn('current_status', ['available', 'return_sale'])->get();
         $serials = [];
@@ -240,7 +244,7 @@ class Item extends BaseModel
         }
     }
 
-    public function items()
+    public function items(): HasMany
     {
         return $this->hasMany(KitItems::class, 'kit_id')->with('item');
     }
@@ -259,12 +263,12 @@ class Item extends BaseModel
         $this->data()->create($kit_data);
     }
 
-    public function data()
+    public function data(): HasOne
     {
         return $this->hasOne(KitData::class, 'kit_id');
     }
 
-    public function fetchKitData($qty, $kit_data)
+    public function fetchKitData($qty, $kit_data): array
     {
 
 
@@ -278,7 +282,7 @@ class Item extends BaseModel
         return $data;
     }
 
-    public function shouldBeSearchable()
+    public function shouldBeSearchable(): bool
     {
         return ($this->is_category_available_online and
             $this->available_qty > 0 and
@@ -287,12 +291,12 @@ class Item extends BaseModel
             $this->attachments()->count() >= 4);
     }
 
-    public function searchableAs()
+    public function searchableAs(): string
     {
         return 'items_index';
     }
 
-    public function toSearchableArray()
+    public function toSearchableArray(): array
     {
         $array = $this->toArray();
 
@@ -317,7 +321,6 @@ class Item extends BaseModel
                 $array['ar_filters_' . $filter->filter->ar_name][] = $filter->value->ar_name;
             }
         }
-        // $array['online_offer_price'] = round($this->online_offer_price);
         $array['category_name'] = $this->category ? $this->category->description : "";
         $array['category_id'] = $this->category_id;
         $array['category_ar_name'] = $this->category ? $this->category->ar_description : "";
@@ -327,7 +330,7 @@ class Item extends BaseModel
         return $array;
     }
 
-    public function filters()
+    public function filters(): HasMany
     {
         return $this->hasMany(ItemFilters::class, 'item_id');
     }

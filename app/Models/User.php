@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed is_system_user
  * @property mixed country_code
  * @property mixed phone_number
+ * @method static where(array $array)
  */
 class User extends BaseAuthModel
 {

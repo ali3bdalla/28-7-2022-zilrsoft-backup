@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App\CurrentWeb;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\DeliveryMan\StoreDeliveryManRequest;
 use App\Jobs\Order\NotifyCustomerOrderHasBeenDeliveredJob;
 use App\Jobs\Order\NotifyCustomerOrderHasBeenShippedJob;
@@ -9,16 +10,20 @@ use App\Models\City;
 use App\Models\DeliveryMan;
 use App\Models\ShippingTransaction;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class DeliveryManController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -28,7 +33,7 @@ class DeliveryManController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
     public function create()
     {
@@ -41,57 +46,13 @@ class DeliveryManController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreDeliveryManRequest $request
-     * @return void
+     * @return Application|Redirector|RedirectResponse
      */
     public function store(StoreDeliveryManRequest $request)
     {
         return $request->store();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param DeliveryMan $deliveryMan
-     * @return Response
-     */
-    public function show(DeliveryMan $deliveryMan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param DeliveryMan $deliveryMan
-     * @return Response
-     */
-    public function edit(DeliveryMan $deliveryMan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param DeliveryMan $deliveryMan
-     * @return Response
-     */
-    public function update(Request $request, DeliveryMan $deliveryMan)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param DeliveryMan $deliveryMan
-     * @return Response
-     */
-    public function destroy(DeliveryMan $deliveryMan)
-    {
-        //
-    }
 
     public function confirm($hash)
     {
