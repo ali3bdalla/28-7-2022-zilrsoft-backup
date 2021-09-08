@@ -260,7 +260,7 @@ Route::group(['as' => 'store.', 'prefix' => 'store', 'namespace' => '\App\Http\C
         }
     );
     Route::resource('shipping', "ShippingController");
-    Route::group(['as'=> 'shipping.','prefix' => 'shipping'],function () {
+    Route::group(['as'=> 'shipping.','prefix' => 'shipping', 'namespace' => '\App\Http\Controllers\App\Web'],function () {
         Route::post('sign-transactions-to-delivery-man', ["ShippingController", 'signTransactionsToDeliveryMan'])->name('sign-transactions-to-delivery-man');
         Route::post('activate-sign-transactions-to-delivery-man', ["ShippingController", 'activateSignTransactionsToDeliveryMan'])->name('activate-sign-transactions-to-delivery-man');
         Route::group(['namespace' => '\App\Http\Controllers\App\Web', 'prefix' => '/{shipping}'], function () {
