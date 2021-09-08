@@ -111,7 +111,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace('\App\Http\Controllers\Store\API')
             ->as('api.web.')
-            ->middleware('font_end_middleware')
+            ->middleware('ecommerceMiddleware')
             ->prefix('api/web')
             ->group(base_path('store-routes/api.php'));
     }
@@ -126,7 +126,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapAppRoutes()
     {
 
-        Route::middleware(['guest', 'web', 'manager_guest'])
+        Route::middleware(['guest', 'web', 'guest:manager'])
             ->namespace("$this->namespace\App\Auth")
             ->group(base_path('app-routes/guest.php'));
         Route::middleware(['web', 'auth'])

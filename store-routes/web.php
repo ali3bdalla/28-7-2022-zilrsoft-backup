@@ -16,7 +16,8 @@ Route::prefix('web')->namespace('Web')->middleware(['font_end_middleware'])->nam
         Route::post('/orders/{order}/cancel', 'Order\CancelOrderController@confirm');
         Route::get('/orders/{order}/confirm_payment', 'Order\ConfirmOrderPaymentController@showConfirmPaymentPage');
         Route::post('/orders/{order}/confirm_payment', 'Order\ConfirmOrderPaymentController@confirmPayment');
-        Route::middleware('client_guest')->group(
+
+        Route::middleware('guest:client')->group(
             function () {
                 Route::prefix('sign_in')->name('sign_in.')->group(
                     function () {

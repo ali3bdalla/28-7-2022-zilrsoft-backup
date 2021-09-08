@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
-class FrontEndMiddleware
+class EcommerceMiddleware
 {
     /**
      * Handle an incoming request.
@@ -67,7 +67,7 @@ class FrontEndMiddleware
     {
         $result = [];
 
-        if ($request->has('category_id') && $request->filled('category_id') && is_int((int) $request->input('category_id'))) {
+        if ($request->has('category_id') && $request->filled('category_id') && is_int((int)$request->input('category_id'))) {
             $category = Category::where('id', $request->input('category_id'))->first();
             if ($category) {
                 $result[] = $category->locale_name;
