@@ -252,7 +252,7 @@ Route::middleware('lang:ar')
     });
 
 
-Route::group(['as' => 'store.', 'prefix' => 'store', 'namespace' => '\App\Http\Controllers\App\Web'], function () {
+Route::group(['as' => 'store.', 'prefix' => 'store'], function () {
     Route::prefix('orders')->name('orders.')->group(
         function () {
             Route::get('/', [OrderController::class, 'index'])->name('index');
