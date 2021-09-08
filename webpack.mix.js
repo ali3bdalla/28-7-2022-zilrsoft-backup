@@ -17,8 +17,11 @@ if (mix.inProduction()) {
     })
 }
 
+mix.js('resources/js/app/app.js', 'public/js/app/app.js')
 mix.version()
   .options({
     processCssUrls: false,
     postCss: [tailwindcss('./tailwind.config.js')]
   })
+
+mix.webpackConfig(require('./webpack.config'))

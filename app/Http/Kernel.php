@@ -91,6 +91,7 @@ class Kernel extends HttpKernel
         'lang' => LanguageMiddleware::class,
         'cors' => Cors::class,
         'ecommerceMiddleware' => EcommerceMiddleware::class,
+//        "appInertiaMiddleware" =>
         'guest' => GuestMiddleware::class,
     ];
 
