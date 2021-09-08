@@ -81,9 +81,7 @@ class User extends BaseAuthModel
 
     public function getNameAttribute($value)
     {
-
         return $value;
-        //			return $this->name;
     }
 
     public function getLocaleNameAttribute()
