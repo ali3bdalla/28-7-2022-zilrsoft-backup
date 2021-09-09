@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Events\Models\Transaction\TransactionCreated;
 use App\Models\Traits\AccountingPeriodTrait;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -19,6 +20,7 @@ class Transaction extends BaseModel
     use  SoftDeletes;
 
     use AccountingPeriodTrait;
+
     protected $guarded = [];
 
     protected $casts = [
@@ -26,7 +28,7 @@ class Transaction extends BaseModel
     ];
 
 
-      /**
+    /**
      * The event map for the model.
      *
      * @var array
@@ -36,9 +38,7 @@ class Transaction extends BaseModel
     ];
 
 
-  
-
-    public function account()
+    public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class, 'account_id');
     }
@@ -68,53 +68,56 @@ class Transaction extends BaseModel
         return $this->account->locale_name;
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-	
-	
-	public function item()
-	{
-		return $this->belongsTo(Item::class, 'item_id');
-	}
 
-	
-	
-	public function invoice()
+
+    public function item(): BelongsTo
     {
-        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes(['manager','accountingPeriod']);
+        return $this->belongsTo(Item::class, 'item_id');
     }
 
-    public function container()
+
+    public function invoice(): BelongsTo
+    {
+        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes(['manager', 'accountingPeriod']);
+    }
+
+    public function container(): BelongsTo
     {
         return $this->belongsTo(TransactionsContainer::class, 'container_id');
     }
-	
-	
-	public function getDescriptionAttribute($value)
-	{
-		if($value == 'close_account')
-		{
-			return 'اغلاق اليومية';
-		}
-		
-		if($value == 'transfer_amount')
-		{
-			return 'تحويل';
-		}
-		if($value == 'vendor_balance')
-		{
-			return 'رصيد المورد';
-		}
-		
-	
-		
-		return $value;
+
+
+    public function getDescriptionAttribute($value): string
+    {
+        if ($value == 'close_account') {
+            return 'اغلاق اليومية';
+        }
+
+        if ($value == 'transfer_amount') {
+            return 'تحويل';
+        }
+        if ($value == 'vendor_balance') {
+            return 'رصيد المورد';
+        }
+
+
+        return $value;
     }
-    
-    
-	
-	
+
+
+    public function isCredit(): bool
+    {
+        return $this->type === 'credit';
+    }
+
+    public function isDebit(): bool
+    {
+        return $this->type === 'debit';
+    }
+
 
 }

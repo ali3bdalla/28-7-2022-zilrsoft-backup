@@ -3,16 +3,21 @@
 namespace App\Models;
 
 use AliAbdalla\Tafqeet\Core\Tafqeet;
+use App\Enums\VoucherTypeEnum;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property mixed user
  * @property mixed payment_type
+ * @property mixed amount
  */
 class Payment extends BaseModel
 {
     use SoftDeletes;
 
+    protected $casts = [
+        'type' => VoucherTypeEnum::class . ':nullable'
+    ];
     protected $guarded = [];
 
     protected $appends = [

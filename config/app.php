@@ -1,6 +1,5 @@
 <?php
 
-use App\Providers\ObserverServiceProvider;
 
 return [
 
@@ -140,7 +139,6 @@ return [
     'cipher' => 'AES-256-CBC',
 
 
-
     'msbrshop' => [
         'email_address' => 'info@msbrshop.com',
         'phone_number' => '(+966) 163394000',
@@ -214,15 +212,15 @@ return [
          *
          * */
         Spatie\Permission\PermissionServiceProvider::class,
-        ObserverServiceProvider::class,
         BC\Laravel\DropboxDriver\ServiceProvider::class,
+
+        App\Providers\RepositoryServiceProvider::class,
+
 
         App\Providers\TranslationServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
-
-
 
 
     ],

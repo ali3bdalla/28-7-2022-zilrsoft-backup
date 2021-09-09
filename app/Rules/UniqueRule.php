@@ -4,8 +4,9 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class ExistsRule implements Rule
+class UniqueRule implements Rule
 {
+
     /**
      * @var string
      */
@@ -35,7 +36,7 @@ class ExistsRule implements Rule
     public function passes($attribute, $value): bool
     {
         $model = app($this->model);
-        return $model->where($this->column, $value)->first() !== null;
+        return $model->where($this->column, $value)->first() === null;
     }
 
     /**
@@ -45,7 +46,6 @@ class ExistsRule implements Rule
      */
     public function message(): string
     {
-        return 'is not exists';
+        return 'Already Exists';
     }
-
 }

@@ -35,8 +35,8 @@
               <div class="panel-heading">المبلغ المفترض</div>
               <div class="panel-body">
                 <strong>{{
-                  parseFloat(shouldBeAvailableAmount).toFixed(2)
-                }}</strong>
+                    parseFloat(shouldBeAvailableAmount).toFixed(2)
+                  }}</strong>
               </div>
             </div>
           </div>
@@ -53,12 +53,12 @@
               <div class="panel-heading">الفرق</div>
               <div class="panel-body">
                 <strong
-                  :class="[
+                    :class="[
                     parseFloat(variationAmount).toFixed(2) < 0
                       ? 'redValue'
                       : 'greenValue',
                   ]"
-                  >{{ parseFloat(variationAmount).toFixed(2) }}</strong
+                >{{ parseFloat(variationAmount).toFixed(2) }}</strong
                 >
               </div>
             </div>
@@ -68,17 +68,17 @@
       <div class="panel-footer">
         <div class="row">
           <div
-            class="col-md-3"
-            v-for="(gateway, index) in gatewaysList"
-            :key="index"
+              v-for="(gateway, index) in gatewaysList"
+              :key="index"
+              class="col-md-3"
           >
             <div class="panel panel-primary">
               <div class="panel-body">{{ gateway.locale_name }}</div>
               <div class="panel-footer">
                 <input
-                  class="form-control"
-                  placeholder="المبلغ"
-                  v-model.number="gateway.amount"
+                    v-model.number="gateway.amount"
+                    class="form-control"
+                    placeholder="المبلغ"
                 />
               </div>
             </div>
@@ -88,16 +88,16 @@
 
       <div class="panel-body">
         <button
-          :disabled="!showButton"
-          @click="sendSubmitRequest"
-          class="btn btn-custom-primary"
+            :disabled="!showButton"
+            class="btn btn-custom-primary"
+            @click="sendSubmitRequest"
         >
           اكمال عملية الاقفال
         </button>
 
         <a
-          class="btn btn-custom-default pull-left"
-          href="/accounting/dashboard"
+            class="btn btn-custom-default pull-left"
+            href="/accounting/dashboard"
         >
           الغاء
         </a>
@@ -107,70 +107,70 @@
 </template>
 <script>
 export default {
-  props: ["remainingAccountsBalance", "gateways", "inAmount", "outAmount"],
+  props: ['remainingAccountsBalance', 'gateways', 'inAmount', 'outAmount'],
   data: function () {
     return {
       disabledRemainingAmount: true,
       showButton: true,
-      gatewaysList: [],
-    };
+      gatewaysList: []
+    }
   },
   computed: {
     variationAmount: {
-      get(value) {
-        return this.availableAmount - this.shouldBeAvailableAmount;
-      },
+      get (value) {
+        return this.availableAmount - this.shouldBeAvailableAmount
+      }
     },
     availableAmount: {
-      get(value) {
-        let amount = 0;
+      get (value) {
+        let amount = 0
 
         this.gatewaysList.forEach((element) => {
-          amount += parseFloat(element.amount);
-        });
-        return amount;
+          amount += parseFloat(element.amount)
+        })
+        return amount
       },
-      set() {},
+      set () {
+      }
     },
     shouldBeAvailableAmount: {
-      get(value) {
+      get (value) {
         return (
           parseFloat(this.inAmount) -
-          parseFloat(this.outAmount) +
-          parseFloat(this.remainingAccountsBalance)
-        );
+            parseFloat(this.outAmount) +
+            parseFloat(this.remainingAccountsBalance)
+        )
       },
-      set() {},
-    },
+      set () {
+      }
+    }
   },
-  created() {
+  created () {
     for (let index = 0; index < this.gateways.length; index++) {
-      let gateway = this.gateways[index];
-      gateway.amount = 0;
-      this.gatewaysList.push(gateway);
+      const gateway = this.gateways[index]
+      gateway.amount = 0
+      this.gatewaysList.push(gateway)
     }
   },
   methods: {
-    sendSubmitRequest() {
-      this.showButton = false;
+    sendSubmitRequest () {
+      this.showButton = false
       axios
-        .post("/api/daily/reseller/closing_accounts", {
-          gateways: this.gatewaysList,
+        .post('/api/daily/reseller/closing_accounts', {
+          gateways: this.gatewaysList
         })
         .then((response) => {
-          // cmo
-          console.log(response.data);
-          window.location = '/daily/reseller/closing_accounts';
+          console.log(response.data)
+          // window.location = '/daily/reseller/closing_accounts'
         })
         .catch((error) => {
-          console.log(error);
-        //   alert(error.response.data);
-          console.log(error.response.data);
-          console.log(error.data);
-        });
-    },
-  },
-};
+          console.log(error)
+          console.log(error.response.data)
+          console.log(error.data)
+        })
+    }
+  }
+}
 </script>
 
 <style>

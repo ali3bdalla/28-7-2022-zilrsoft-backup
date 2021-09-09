@@ -9,11 +9,11 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 class Whatsapp
 {
     /**
-     * @param $message
-     * @param $phoneNumber
+     * @param string $message
+     * @param string $phoneNumber
      * @param bool $addSignature
      */
-    public static function sendMessage($message, $phoneNumber, $addSignature = true)
+    public static function sendMessage(string $message, string $phoneNumber, bool $addSignature = true)
     {
         $client = HttpClient::create();
         $appUrl = config('app.url');
@@ -39,9 +39,8 @@ class Whatsapp
                 'GET', config('services.whatsapp.base_url') . 'sendMessage' . "?token=" . config('services.whatsapp.token'), $data
             );
 
-        } catch (TransportExceptionInterface $e) {
+        } catch (TransportExceptionInterface | ClientException $e) {
 
-        } catch (ClientException $e) {
         }
     }
 
@@ -63,7 +62,6 @@ class Whatsapp
                 'POST', config('services.whatsapp.base_url') . 'sendFile' . "?token=" . config('services.whatsapp.token'), $data
             );
         } catch (TransportExceptionInterface | ClientException $e) {
-            throw $e;
         }
     }
 }

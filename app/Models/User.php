@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Configurable;
 use App\Models\Traits\UserBalanceTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,13 +15,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed is_system_user
  * @property mixed country_code
  * @property mixed phone_number
+ * @property mixed is_client
+ * @property mixed name_ar
+ * @property mixed is_manager
+ * @property mixed is_vendor
  * @method static where(array $array)
  */
 class User extends BaseAuthModel
 {
 
     use SoftDeletes;
-    use Configurable;
     use UserBalanceTrait;
 
     protected $guarded = [];

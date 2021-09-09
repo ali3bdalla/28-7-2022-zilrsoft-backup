@@ -13,6 +13,7 @@
     "ext-openssl": "*",
     "3li3bdalla/tafqeet": "^3.5.9",
     "3li3bdalla/whatsapp": "^0.0.1",
+    "algolia/algoliasearch-client-php": "^3.1",
     "algolia/scout-extended": "^1.13",
     "aws/aws-sdk-php": "^3.172",
     "barryvdh/laravel-dompdf": "^0.8.7",
@@ -25,6 +26,7 @@
     "laravel-notification-channels/pusher-push-notifications": "^2.3",
     "laravel/envoy": "^2.4",
     "laravel/framework": "^v8.58.0",
+    "laravel/scout": "^9.2",
     "laravel/tinker": "^2.0",
     "laravel/ui": "^3.3",
     "league/flysystem-aws-s3-v3": "^1.0",
@@ -35,6 +37,7 @@
     "predis/predis": "^1.1",
     "pusher/pusher-php-server": "^4.1",
     "simplesoftwareio/simple-qrcode": "^4.2",
+    "spatie/laravel-enum": "^2.5",
     "spatie/laravel-permission": "^3.3",
     "symfony/http-client": "^v5.3.4"
   },
@@ -44,6 +47,7 @@
     "fzaninotto/faker": "^1.4",
     "mockery/mockery": "^1.0",
     "nunomaduro/collision": "^5.0",
+    "nunomaduro/larastan": "^0.7.12",
     "phpunit/phpunit": "^9.5.8"
   },
   "config": {

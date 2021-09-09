@@ -1,29 +1,40 @@
 <?php
 
-/** @var Factory $factory */
+namespace Database\Factories;
 
-use App\Models\Country;
 use App\Models\Organization;
-use App\Models\Type;
-use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(
-    Organization::class, function (Faker $faker) {
-    return [
-        'logo' => $faker->imageUrl(),
-        'stamp' => $faker->imageUrl(),
-        'title' => $faker->userName,
-        'title_ar' => $faker->userName,
-        'description_ar' => $faker->userName,
-        'description' => $faker->userName,
-        'city' => $faker->userName,
-        'city_ar' => $faker->userName,
-        'country_id' => \factory(Country::class)->create()->id,
-        'type_id' => \factory(Type::class)->create()->id,
-        'phone_number' => $faker->phoneNumber,
-        'cr' => $faker->uuid,
-        'vat' => $faker->creditCardNumber
-    ];
+class OrganizationFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Organization::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'logo' => $this->faker->imageUrl(),
+            'stamp' => $this->faker->imageUrl(),
+            'title' => $this->faker->userName,
+            'title_ar' => $this->faker->userName,
+            'description_ar' => $this->faker->userName,
+            'description' => $this->faker->userName,
+            'city' => $this->faker->userName,
+            'city_ar' => $this->faker->userName,
+            'country_id' => 1,
+            'type_id' => 1,
+            'phone_number' => $this->faker->phoneNumber,
+            'cr' => $this->faker->uuid,
+            'vat' => $this->faker->creditCardNumber
+        ];
+    }
 }
-);

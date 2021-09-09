@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Configurable;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
@@ -10,14 +14,15 @@ use Illuminate\Notifications\Notifiable;
 /**
  * @property mixed organization_id
  * @property mixed id
+ * @property mixed accounts_closed_at
+ * @property mixed created_at
  */
 class Manager extends BaseAuthModel
 {
 
     use SoftDeletes;
     use Notifiable;
-    use Configurable;
-
+    use HasFactory;
     /**
      * The attributes that are mass assignable.
      *
@@ -55,23 +60,13 @@ class Manager extends BaseAuthModel
      * @param $option
      * @return int
      */
-    public function canDo($option)
+    public function canDo($option): int
     {
         return $this->can($option) == true ? 1 : 0;
 
     }
 
-
-    /**
-     * @return mixed
-     */
-    public function resellerClosingAccounts()
-    {
-        return $this->hasMany(ResellerClosingAccount::class, 'creator_id');
-    }
-
-
-    public function organization()
+    public function organization(): BelongsTo
     {
         return $this->belongsTo(
             Organization::class,
@@ -79,44 +74,44 @@ class Manager extends BaseAuthModel
         );
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function department()
+    public function department(): BelongsTo
     {
         // return 1;
         return $this->belongsTo(Department::class, 'department_id');
     }
 
-    public function branch()
+    public function branch(): BelongsTo
     {
         // return 1;
         return $this->belongsTo(Branch::class, 'branch_id');
     }
 
-    public function categories()
+    public function categories(): HasMany
     {
         return $this->hasMany(Category::class, 'creator_id');
     }
 
-    public function filters()
+    public function filters(): HasMany
     {
         return $this->hasMany(Filter::class, 'creator_id');
     }
 
-    public function filters_values()
+    public function filters_values(): HasMany
     {
         return $this->hasMany(FilterValues::class, 'creator_id');
     }
 
-    public function accounts()
+    public function accounts(): HasMany
     {
         return $this->hasMany(Account::class, 'creator_id');
     }
 
-    public function gateways()
+    public function gateways(): BelongsToMany
     {
         return
             $this->belongsToMany(
@@ -126,8 +121,40 @@ class Manager extends BaseAuthModel
                 'gateway_id'
             )
                 ->withPivot('order_number as order_number')
-                ->orderBy('order_number', 'asc');
+                ->orderBy('order_number');
     }
 
 
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'creator_id');
+    }
+
+    public function createCloseDailyAccounts(TransactionsContainer $entry, $shortageAmount = 0)
+    {
+        $this->resellerClosingAccounts()->create(
+            [
+                'organization_id' => $this->organization_id,
+                'transaction_type' => "close_account",
+                'container_id' => $entry->id,
+                'from' => $this->accounts_closed_at,
+                'to' => now(),
+                'amount' => $entry->amount,
+                'shortage_amount' => (float)$shortageAmount,
+            ]
+        );
+        $this->update([
+            'remaining_accounts_balance' => 0,
+            'accounts_closed_at' => now(),
+        ]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function resellerClosingAccounts()
+    {
+        return $this->hasMany(ResellerClosingAccount::class, 'creator_id');
+    }
 }

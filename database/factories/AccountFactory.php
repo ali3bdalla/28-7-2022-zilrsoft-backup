@@ -1,20 +1,35 @@
 <?php
 
-/** @var Factory $factory */
+namespace Database\Factories;
 
 use App\Models\Account;
-use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Account::class, function (Faker $faker) {
-    return [
-        'organization_id' => 1,
-        'creator_id' => 1,
-        'parent_id' => 1,
-        'name' =>$faker->name,
-        'ar_name' => $faker->name,
-        'is_gateway' => $faker->boolean,
-        'type' => $faker->randomElement(['credit','debit']),
-        'is_system_account' => $faker->boolean
-    ];
-});
+class AccountFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Account::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'organization_id' => 1,
+            'creator_id' => 1,
+            'parent_id' => 1,
+            'name' => $this->faker->name,
+            'ar_name' => $this->faker->name,
+            'is_gateway' => $this->faker->boolean,
+            'type' => $this->faker->randomElement(['credit', 'debit']),
+            'is_system_account' => $this->faker->boolean
+        ];
+    }
+}

@@ -26,6 +26,5 @@ class UpdateAccountDetailsListener
             $event->account->parent->updateHashMap();
         }
         $event->account->updateHashMap();
-        $event->account->updateSerial();
     }
 }

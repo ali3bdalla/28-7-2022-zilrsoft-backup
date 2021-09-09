@@ -1,13 +1,13 @@
 <?php
-	
+
 	namespace App\Http\Requests\Filter;
-	
+
 	use App\Models\Filter;
-	use App\Rules\UnqiueRule;
+	use App\Rules\UniqueRule;
 	use Illuminate\Database\QueryException;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
-	
+
 	class StoreFilterRequest extends FormRequest
 	{
 		/**
@@ -19,7 +19,7 @@
 		{
 			return true;
 		}
-		
+
 		/**
 		 * Get the validation rules that apply to the request.
 		 *
@@ -33,7 +33,7 @@
 				'is_required_filter' => 'nullable|boolean'
 			];
 		}
-		
+
 		public function store()
 		{
 			DB::beginTransaction();
@@ -45,7 +45,7 @@
 				} else {
 					$data['is_required_filter'] = false;
 				}
-				
+
 				$data['organization_id'] = $loggedUser->organization_id;
 				$data['creator_id'] = $loggedUser->id;
 				Filter::create($data);

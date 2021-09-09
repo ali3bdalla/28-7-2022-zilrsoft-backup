@@ -1,13 +1,13 @@
 <?php
-	
+
 	namespace App\Http\Requests\Filter;
-	
+
 	use App\Models\Filter;
-	use App\Rules\UnqiueRule;
+	use App\Rules\UniqueRule;
 	use Illuminate\Database\QueryException;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
-	
+
 	class UpdateFilterRequest extends FormRequest
 	{
 		/**
@@ -19,13 +19,13 @@
 		{
 			return true;
 		}
-		
+
 		/**
 		 * Get the validation rules that apply to the request.
 		 *
 		 * @return array
 		 */
-		
+
 		/**
 		 * Get the validation rules that apply to the request.
 		 *
@@ -39,7 +39,7 @@
 				'is_required_filter' => 'nullable|boolean'
 			];
 		}
-		
+
 		public function update(Filter $filter)
 		{
 			DB::beginTransaction();

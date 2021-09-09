@@ -6,6 +6,8 @@ use App\Models\Traits\PostgresTimestamp;
 use App\Models\Traits\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 
 class BaseModel extends Model
@@ -50,7 +52,7 @@ class BaseModel extends Model
     {
         parent::boot();
 
-        if (!app()->environment('testing')) {
+        if (!App::environment('testing')) {
             $table = (new static())->getTable();
 
             if (auth()->guard('manager')->check() || auth()->user()) {
@@ -58,7 +60,7 @@ class BaseModel extends Model
                     static::addGlobalScope(
                         'organization',
                         function (Builder $builder) use ($table) {
-                            $builder->where("{$table}.organization_id", auth()->user()->organization_id);
+                            $builder->where("{$table}.organization_id", Auth::user()->organization_id);
                         }
                     );
                 }
