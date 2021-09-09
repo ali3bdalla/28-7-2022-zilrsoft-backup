@@ -23,12 +23,6 @@ class DailyController extends Controller
 
     public function resellerClosingAccountsIndex()
     {
-//        $this->accountsDailyRepositoryContract->createDailyCloseAccountAggregate([
-//           [
-//               'id' => 38,
-//               'amount' => 1800
-//           ]
-//        ]);
         $managerCloseAccountList = ResellerClosingAccount::myDailyCloseAccounts()->orderBy('id', 'desc')->paginate(100);
         return view('accounting.reseller_daily.account_close_list', compact('managerCloseAccountList'));
     }
