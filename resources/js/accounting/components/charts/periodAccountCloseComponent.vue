@@ -161,7 +161,7 @@ export default {
         })
         .then((response) => {
           console.log(response.data)
-          // window.location = '/daily/reseller/closing_accounts'
+          window.location = '/daily/reseller/closing_accounts'
         })
         .catch((error) => {
           console.log(error)

@@ -131,24 +131,7 @@ class Manager extends BaseAuthModel
         return $this->hasMany(Payment::class, 'creator_id');
     }
 
-    public function createCloseDailyAccounts(TransactionsContainer $entry, $shortageAmount = 0)
-    {
-        $this->resellerClosingAccounts()->create(
-            [
-                'organization_id' => $this->organization_id,
-                'transaction_type' => "close_account",
-                'container_id' => $entry->id,
-                'from' => $this->accounts_closed_at,
-                'to' => now(),
-                'amount' => $entry->amount,
-                'shortage_amount' => (float)$shortageAmount,
-            ]
-        );
-        $this->update([
-            'remaining_accounts_balance' => 0,
-            'accounts_closed_at' => now(),
-        ]);
-    }
+
 
     /**
      * @return mixed

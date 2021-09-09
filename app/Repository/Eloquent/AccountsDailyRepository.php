@@ -27,7 +27,7 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
             $container = TransactionsContainer::createEntry(['description' => 'close_account']);
             $transactions = array_merge($this->generateDebitSideTransactionsArray($banks), $this->generateCreditSideTransactionsArray());
             $container->addTransactions($transactions);
-            $this->user()->createCloseDailyAccounts($container, $this->getShortageAmount($banks));
+            $this->registerDailyAccountsReport($container, $banks);
             return $container;
         });
     }
@@ -35,7 +35,7 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
     private function generateDebitSideTransactionsArray($banks): array
     {
         $debitTransactions = $this->getBanksTransactionsCollection($banks)->toArray();
-        $shortShortageAmount = $this->getShortageAmount($banks);
+        $shortShortageAmount = $this->getBanksShortageAmount($banks);
         if ($shortShortageAmount != 0)
             $debitTransactions[] = $this->generateShortageTransaction($shortShortageAmount);
         return $debitTransactions;
@@ -59,14 +59,13 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
 
     private function getGatewayExpectedDailyAmount(float $amount, $accountId): float
     {
-        return $amount - $this->getResellerDailyBankIncomeAmount(true, $accountId);
+        return $amount - ($this->getResellerDailyBankIncomeAmount(false, $accountId) - $this->getResellerDailyBankOutcomeAmount(false, $accountId));
     }
 
     public function getResellerDailyBankIncomeAmount($excludeVouchers = false, $accountId = null): float
     {
         return $this->getResellerDailyAmount(VoucherTypeEnum::receipt(), $excludeVouchers, $accountId);
     }
-
 
     public function getResellerDailyAmount(VoucherTypeEnum $voucherTypeEnum, $excludeVouchers = false, $accountId = null): float
     {
@@ -85,7 +84,12 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
         return Auth::user();
     }
 
-    private function getShortageAmount($bank): float
+    public function getResellerDailyBankOutcomeAmount($excludeVouchers = false, $accountId = null): float
+    {
+        return $this->getResellerDailyAmount(VoucherTypeEnum::payment(), $excludeVouchers, $accountId);
+    }
+
+    private function getBanksShortageAmount($bank): float
     {
         return $this->getBanksTotalAmount($bank) - $this->getExpectedDailyAmount();
     }
@@ -98,11 +102,6 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
     private function getExpectedDailyAmount(): float
     {
         return $this->getResellerDailyBankIncomeAmount(true) - $this->getResellerDailyBankOutcomeAmount(true);
-    }
-
-    public function getResellerDailyBankOutcomeAmount($excludeVouchers = false, $accountId = null): float
-    {
-        return $this->getResellerDailyAmount(VoucherTypeEnum::payment(), $excludeVouchers, $accountId);
     }
 
     private function generateShortageTransaction(float $shortShortageAmount): array
@@ -122,6 +121,33 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
         $transactionData['amount'] = $this->getExpectedDailyAmount();
         $transactionData['type'] = 'credit';
         return [$transactionData];
+    }
+
+    private function registerDailyAccountsReport(TransactionsContainer $entry, $banks)
+    {
+        $actualAmount = collect($banks)->sum('amount');
+        $worthyAmount = $this->getTotalDailyWorthyAmount();
+        $shortageAmount = $actualAmount - $worthyAmount;
+        $this->user()->resellerClosingAccounts()->create(
+            [
+                'organization_id' => $this->user()->organization_id,
+                'transaction_type' => "close_account",
+                'container_id' => $entry->id,
+                'from' => $this->user()->accounts_closed_at,
+                'to' => now(),
+                'amount' => $actualAmount,
+                'shortage_amount' => $shortageAmount,
+            ]
+        );
+        $this->user()->update([
+            'remaining_accounts_balance' => 0,
+            'accounts_closed_at' => now(),
+        ]);
+    }
+
+    private function getTotalDailyWorthyAmount(): float
+    {
+        return $this->getResellerDailyBankIncomeAmount() - $this->getResellerDailyBankOutcomeAmount();
     }
 
 }
