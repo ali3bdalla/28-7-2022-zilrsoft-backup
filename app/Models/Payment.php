@@ -26,7 +26,7 @@ class Payment extends BaseModel
 
     public function getAmountArWordsAttribute()
     {
-        return Tafqeet::arablic($this->amount);
+        return $this->amount;
     }
 
     /**

@@ -136,6 +136,7 @@ Route::prefix('/accounting')->name('accounting.')->group(
         Route::prefix('/datatable')->group(
             function () {
                 Route::get('items', [WebItemController::class, 'datatable'])->name('items.datatable');
+                Route::get('vouchers', [VoucherController::class, 'datatable'])->name('vouchers.datatable');
                 Route::get('filters', [WebFilterController::class, 'datatable'])->name('filters.datatable');
                 Route::get('{filter}/filter_values', [WebFilterValuesController::class, 'datatable'])->name('filter.values.datatable');
                 Route::get('identities', [WebIdentitiesController::class, 'datatable'])->name('identities.datatable');
