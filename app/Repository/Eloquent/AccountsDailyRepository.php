@@ -24,9 +24,8 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
     public function createDailyCloseAccountAggregate(array $banks = [])
     {
         return DB::transaction(function () use ($banks) {
-            $container = TransactionsContainer::createEntry(['description' => 'close_account']);
             $transactions = array_merge($this->generateDebitSideTransactionsArray($banks), $this->generateCreditSideTransactionsArray());
-            $container->addTransactions($transactions);
+            $container = TransactionsContainer::createEntry(['description' => 'close_account'], $transactions);
             $this->registerDailyAccountsReport($container, $banks);
             return $container;
         });

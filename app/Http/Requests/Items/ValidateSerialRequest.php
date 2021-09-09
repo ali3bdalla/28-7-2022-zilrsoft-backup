@@ -61,6 +61,9 @@ class ValidateSerialRequest extends FormRequest
     }
 
 
+    /**
+     * @throws ValidationException
+     */
     public function purchase()
     {
 

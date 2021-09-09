@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 
+Route::group(['prefix' => 'v2', 'as' => 'v2.'], function () {
+    Route::get('items/search', 'ItemController@search');
+});
+
 Route::middleware('auth')->group(
     function () {
         Route::resource('orders', 'OrderController');
@@ -84,7 +88,6 @@ Route::middleware('auth')->group(
                 });
             }
         );
-
         Route::prefix('items/query')->name('items.query.')->group(
             function () {
                 Route::match(['get', 'post'], '/search', 'ItemController@querySearch')->name('search');

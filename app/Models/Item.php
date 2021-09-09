@@ -39,6 +39,7 @@ use Laravel\Scout\Searchable;
  * @method static findOrFail($id)
  * @method static InRandomOrder()
  * @method static find($input)
+ * @method static where(string $string, false $false)
  */
 class Item extends BaseModel
 {
@@ -72,6 +73,10 @@ class Item extends BaseModel
     ];
     protected $guarded = [];
 
+    protected function makeAllSearchableUsing($query)
+    {
+        return $query->with('tags', 'serials');
+    }
     public function translations()
     {
         return $this->hasMany(Transaction::class, 'item_id');

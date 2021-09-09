@@ -14,13 +14,9 @@ class QueryItemsRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return $this->user()->can([
-            'manage inventory',
-            'create purchase',
-            'create sale',
-        ]);
+        return true;
     }
 
     /**
@@ -41,8 +37,7 @@ class QueryItemsRequest extends FormRequest
 
 
         $limit = 6;
-
-        if ($this->has('invoice_type') && $this->filled('invoice_type') && $this->input('invoice_type') == 'dashbaord') {
+        if ($this->has('invoice_type') && $this->filled('invoice_type') && $this->input('invoice_type') == 'dashboard') {
             $limit = 10;
         }
         $query = Item::where('is_expense', false)->with('data', 'items')->withCount(['pipeline' => function (Builder $query) {
@@ -59,8 +54,7 @@ class QueryItemsRequest extends FormRequest
 
         if ($this->has('invoice_type') && $this->input("invoice_type") == 'sale') {
             if (count($result) == 0) {
-                $serialData = ItemSerials::
-                where('serial', $this->input('barcode_or_name_or_serial'))
+                $serialData = ItemSerials::where('serial', $this->input('barcode_or_name_or_serial'))
                     ->whereIn('status', ['in_stock', 'return_sale'])
                     ->first();
                 if (!empty($serialData)) {

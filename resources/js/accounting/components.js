@@ -267,7 +267,7 @@ Vue.component(
 )
 // Vue.component(
 //   'accounting-dashboard-active-items-layout-component',
-//   AccountingDashbaordActiveItemsLayoutComponet
+//   AccountingdashboardActiveItemsLayoutComponet
 // )
 Vue.component(
   'accounting-show-barcode-layout-component',
