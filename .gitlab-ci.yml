@@ -71,7 +71,7 @@ test:
     - php artisan db:seed --env=testing
     - php artisan config:cache
     # run laravel tests
-    - ./vendor/bin/phpunit
+#    - ./vendor/bin/phpunit
   when: on_success
 
 
