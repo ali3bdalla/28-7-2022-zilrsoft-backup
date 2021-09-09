@@ -135,7 +135,7 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
                 'container_id' => $entry->id,
                 'from' => $this->user()->accounts_closed_at,
                 'to' => now(),
-                'amount' => $actualAmount,
+                'amount' => $worthyAmount,
                 'shortage_amount' => $shortageAmount,
             ]
         );

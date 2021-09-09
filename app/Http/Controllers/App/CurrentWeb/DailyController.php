@@ -9,7 +9,6 @@ use App\Models\ResellerClosingAccount;
 use App\Repository\AccountsDailyRepositoryContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class DailyController extends Controller
 {
@@ -79,7 +78,7 @@ class DailyController extends Controller
         $transaction = ResellerClosingAccount::where("id", $transaction)->withoutGlobalScope('pending')->firstOrFail();
         if ($transaction->receiver_id == auth()->user()->id && $transaction->transaction_type == 'transfer') {
             $container = $transaction->container;
-            dispatch_now(new ActivateEntityJob($container));
+            dispatch_sync(new ActivateEntityJob($container));
             $transaction->update(
                 [
                     'is_pending' => false,
@@ -97,13 +96,11 @@ class DailyController extends Controller
 
         }
 
-//        return back();
-
         return back();
     }
 
 
-    public function deleteResellerAccountTransaction($transaction)
+    public function deleteResellerAccountTransaction($transaction): RedirectResponse
     {
         $transaction = ResellerClosingAccount::where('id', $transaction)->withoutGlobalScope('pending')->firstOrFail();
         $transaction->delete();
