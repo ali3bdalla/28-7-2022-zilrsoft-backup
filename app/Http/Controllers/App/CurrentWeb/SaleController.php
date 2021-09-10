@@ -24,8 +24,7 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $clients = User::where('is_client', true)->get();
-
+        $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get();
         $creators = Manager::get();
         $departments = Department::get();
         return view('sales.index', compact('clients', 'creators', 'departments'));
@@ -38,8 +37,8 @@ class SaleController extends Controller
     public function create()
     {
         $salesmen = Manager::all();
-        $clients = User::where('is_client', true)->orderBy('id', 'asc')->get()->toArray();
-        $expenses = Item::where('is_expense', true)->get();
+        $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get();
+        $expenses = Item::whereIsExpense(true)->get();
         $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
 
         return view('sales.create', compact('clients', 'salesmen', 'gateways', 'expenses'));
@@ -51,7 +50,7 @@ class SaleController extends Controller
      */
     public function drafts()
     {
-        $clients = User::where('is_client', true)->orderBy('id', 'asc')->get();
+        $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get();
         $creators = Manager::all();
         return view('sales.drafts', compact('clients', 'creators'));
     }
@@ -63,8 +62,8 @@ class SaleController extends Controller
     public function createDraft()
     {
         $salesmen = Manager::all();
-        $clients = User::where('is_client', true)->orderBy('id', 'asc')->get()->toArray();
-        $expenses = Item::where('is_expense', true)->get();
+        $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get();
+        $expenses = Item::whereIsExpense(true)->get();
         $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
         return view('sales.create_draft', compact('clients', 'salesmen', 'gateways', 'expenses'));
     }
@@ -76,8 +75,8 @@ class SaleController extends Controller
     public function createServiceDraft()
     {
         $salesmen = Manager::all();
-        $clients = User::where('is_client', true)->orderBy('id', 'asc')->get()->toArray();
-        $services = Item::where('is_service', true)->get();
+        $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get();
+        $services = Item::whereIsService(true)->get();
         $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
         return view('sales.create_draft_service', compact('clients', 'salesmen', 'gateways', 'services'));
     }
@@ -86,8 +85,8 @@ class SaleController extends Controller
     {
 
         $salesmen = Manager::all();
-        $clients = User::where('is_client', true)->orderBy('id', 'asc')->get()->toArray();
-        $expenses = Item::where('is_expense', true)->get();
+        $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get();
+        $expenses = Item::whereIsExpense(true)->get();
         $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
         $sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
         return view('sales.clone_draft', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale'));
@@ -98,9 +97,9 @@ class SaleController extends Controller
     {
         $sale->sale = $sale->sale()->withoutGlobalScope(DraftScope::class)->first();
         $salesmen = Manager::all();
-        $clients = User::where('is_client', true)->orderBy('id', 'asc')->get()->toArray();
-        $expenses = Item::where('is_expense', true)->get();
-        $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
+        $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get()->toArray();
+        $expenses = Item::whereIsExpense(true)->get();
+        $gateways = Account::whereSlack("temp_reseller_account")->whereIsSystemAccount(true)->get();
         $sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
         $isOrder = Order::where([['draft_id', $sale->id], ['status', 'in_progress']])->count() == 1;
         return view('sales.clone', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale', 'isOrder'));
