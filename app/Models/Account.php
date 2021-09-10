@@ -7,6 +7,8 @@ use App\Events\Models\Account\AccountDeleted;
 use App\Events\Models\Account\AccountUpdated;
 use App\Models\Traits\AccountBalanceTrait;
 use App\Models\Traits\NestingTrait;
+use App\Scopes\SortByScope;
+use App\ValueObjects\GenericSortByValueObject;
 use Closure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -32,8 +34,7 @@ class Account extends BaseModel
 {
 
     use SoftDeletes;
-    use  NestingTrait;
-    use AccountBalanceTrait;
+    use NestingTrait;
     use HasFactory;
 
     protected $guarded = [];
@@ -47,7 +48,6 @@ class Account extends BaseModel
     protected $casts = [
         'is_gateway' => 'boolean',
     ];
-
     /**
      * The event map for the model.
      *
@@ -66,6 +66,12 @@ class Account extends BaseModel
                 ['slug', $slug],
             ]
         )->first();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new SortByScope(new GenericSortByValueObject(new static(), 'serial', 'desc')));
     }
 
     public function snapshots(): HasMany
@@ -137,14 +143,9 @@ class Account extends BaseModel
         return $this->type == 'credit';
     }
 
-    public function getCurrentAmountAttribute()
+    public function getCurrentAmountAttribute(): float
     {
-
-        $balance = $this->yearlyNestedAccountBalance();
-        if (abs($balance) < 1)
-            return 0;
-
-        return $balance;
+        return $this->getSingleAccountBalance();
     }
 
     public function isDebit(): bool

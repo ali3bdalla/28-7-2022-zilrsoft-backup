@@ -8,6 +8,7 @@ use App\Models\Manager;
 use App\Models\ResellerClosingAccount;
 use App\Repository\AccountsDailyRepositoryContract;
 use App\Repository\ManagerRepositoryContract;
+use App\Scopes\PendingScope;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,7 +79,7 @@ class DailyController extends Controller
 
     public function deleteResellerAccountTransaction($transaction): RedirectResponse
     {
-        $transaction = ResellerClosingAccount::where('id', $transaction)->withoutGlobalScope('pending')->firstOrFail();
+        $transaction = ResellerClosingAccount::whereId($transaction)->withoutGlobalScope(PendingScope::class)->firstOrFail();
         $transaction->delete();
         return back();
     }

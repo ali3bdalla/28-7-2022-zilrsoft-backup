@@ -3,6 +3,7 @@
 namespace App\Jobs\Invoices\Balance;
 
 use App\Models\Invoice;
+use App\Scopes\DraftScope;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -44,7 +45,7 @@ class UpdateInvoiceBalancesByInvoiceItemsJob implements ShouldQueue
     {
         $items = $this->invoice
             ->items()
-            ->withoutGlobalScope('draft')
+            ->withoutGlobalScope(DraftScope::class)
             ->where([['is_kit', false]])
             ->get();
         $result['total'] = 0;

@@ -56,9 +56,10 @@
 
     @if($order)
         @if($order->status == 'ready_for_shipping')
-        <a href="/store/shipping/{{$order->shipping_method_id}}/{{$order->id}}/create-order-transaction" class="btn btn-default">
-            <i class="fa fa-copy"></i> انشاء بوليصة
-        </a>
+            <a href="/store/shipping/{{$order->shipping_method_id}}/{{$order->id}}/create-order-transaction"
+               class="btn btn-default">
+                <i class="fa fa-copy"></i> انشاء بوليصة
+            </a>
         @endif
     @endif
 @stop
@@ -107,7 +108,7 @@
         </div>
         <div class="panel-body">
             @includeIf('accounting.include.invoice.view_items',[
-                 'items' => $invoice->items()->withoutGlobalScope('draft')->get()
+                 'items' => $invoice->items()->withoutGlobalScope(App\Scopes\DraftScope::class)->get()
             ])
         </div>
         <div class="panel-footer">

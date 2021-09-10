@@ -14,4 +14,6 @@ interface AccountRepositoryContract extends BaseRepositoryContract
     public function getAccountTransactionsListPagination(Account $account, SearchValueObjectContract $searchValueObjectContract, SortingValueObjectContract $sortingValueObjectContract): AnonymousResourceCollection;
 
     public function getAccountsList(AccountSearchValueObject $accountSearchValueObject = null): Collection;
+
+    public function getAccountBalance(Account $account, SearchValueObjectContract $searchValueObjectContract);
 }

@@ -9,7 +9,6 @@ use App\Repository\AccountRepositoryContract;
 use App\ValueObjects\AccountSearchValueObject;
 use App\ValueObjects\Contract\SearchValueObjectContract;
 use App\ValueObjects\Contract\SortingValueObjectContract;
-use App\ValueObjects\TransactionSearchValueObject;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -42,5 +41,13 @@ class AccountRepository extends BaseRepository implements AccountRepositoryContr
     {
         $queryBuilder = $accountSearchValueObject->apply($this->model->query());
         return $queryBuilder->withCount('children')->get();
+    }
+
+    public function getAccountBalance(Account $account, SearchValueObjectContract $searchValueObjectContract)
+    {
+        $debitAmount = $searchValueObjectContract->apply(Transaction::whereAccountId($account->id)->whereType('debit')->with("account", 'invoice', 'user', 'item'))->sum('amount');
+        $creditAmount = $searchValueObjectContract->apply(Transaction::whereAccountId($account->id)->whereType('credit')->with("account", 'invoice', 'user', 'item'))->sum('amount');
+        if ($account->isCredit()) return $creditAmount - $debitAmount;
+        return $debitAmount - $creditAmount;
     }
 }

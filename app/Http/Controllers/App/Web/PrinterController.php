@@ -5,6 +5,7 @@ namespace App\Http\Controllers\App\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Payment;
+use App\Scopes\DraftScope;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -18,6 +19,13 @@ class PrinterController extends Controller
         $invoice = $this->get_invoice_dependencies($invoice);
 
         return view('accounting.printer.a4', compact('invoice'));
+    }
+
+    private function get_invoice_dependencies(Invoice $invoice): Invoice
+    {
+        $invoice->sale = $invoice->sale()->withoutGlobalScope(DraftScope::class)->first();
+
+        return $invoice;
     }
 
     public function print_a4(Invoice $invoice)
@@ -64,12 +72,5 @@ class PrinterController extends Controller
         $payment = $voucher;
 
         return view('accounting.printer.voucher', compact('voucher', 'payment'));
-    }
-
-    private function get_invoice_dependencies(Invoice $invoice)
-    {
-        $invoice->sale = $invoice->sale()->withoutGlobalScope('draft')->first();
-
-        return $invoice;
     }
 }

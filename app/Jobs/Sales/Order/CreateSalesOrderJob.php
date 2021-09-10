@@ -5,6 +5,7 @@ namespace App\Jobs\Sales\Order;
 use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\ShippingMethod;
+use App\Scopes\DraftScope;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -46,7 +47,7 @@ class CreateSalesOrderJob implements ShouldQueue
      */
     public function handle()
     {
-        $invoiceItems = $this->invoice->items()->withoutGlobalScope('draft')->get();
+        $invoiceItems = $this->invoice->items()->withoutGlobalScope(DraftScope::class)->get();
         $order = new Order();
         $order->lang = app()->getLocale();
         $order->user_id = $this->invoice->user_id;

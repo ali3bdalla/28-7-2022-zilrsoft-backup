@@ -3,22 +3,26 @@
 namespace App\Models;
 
 use App\Models\Traits\UserBalanceTrait;
+use App\Scopes\SortByScope;
+use App\ValueObjects\GenericSortByValueObject;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 /**
- * @property mixed id
- * @property mixed balance
- * @property mixed vendor_balance
- * @property mixed is_system_user
- * @property mixed country_code
- * @property mixed phone_number
- * @property mixed is_client
- * @property mixed name_ar
- * @property mixed is_manager
- * @property mixed is_vendor
+ * @property int id
+ * @property float balance
+ * @property float vendor_balance
+ * @property bool is_system_user
+ * @property string country_code
+ * @property string phone_number
+ * @property bool is_client
+ * @property string name_ar
+ * @property bool is_manager
+ * @property bool is_vendor
+ * @property string international_phone_number
  * @method static where(array $array)
  * @method static find(mixed $user_id)
  */
@@ -26,7 +30,9 @@ class User extends BaseAuthModel
 {
 
     use SoftDeletes;
-    use UserBalanceTrait;
+    use Notifiable;
+
+
 
     protected $guarded = [];
 
@@ -73,7 +79,6 @@ class User extends BaseAuthModel
         if ($account->type == 'credit')
             return $creditAmount - $debitAmount;
 
-
         return $debitAmount - $creditAmount;
     }
 
@@ -87,9 +92,8 @@ class User extends BaseAuthModel
         return $value;
     }
 
-    public function getLocaleNameAttribute()
+    public function getLocaleNameAttribute(): string
     {
-
         return $this->name_ar;
     }
 
@@ -99,44 +103,9 @@ class User extends BaseAuthModel
         return $this->hasMany(ShippingAddress::class, 'user_id');
     }
 
-    public function isSystemUser()
-    {
-        return $this->is_system_user;
-    }
-
-    public function _getClientBalance()
-    {
-        return $this->balance;
-    }
-
-    public function _getVendorBalance()
-    {
-        return $this->getOriginal('vendor_balance');
-    }
-
-
-    public function _isClient(): bool
-    {
-        return $this->is_client == true;
-    }
-
-    public function _isVendor(): bool
-    {
-        return $this->is_vendor == true;
-    }
-
-
-    public function _isManager(): bool
-    {
-        return $this->is_manager == true;
-    }
-
     public function getInternationalPhoneNumberAttribute(): string
     {
-        if (!app()->environment('production'))
-            return '+201096295472';
-
-        return '966' . $this->phone_number; // 0966324018
+        return '966' . $this->phone_number;
     }
 
     public function details(): HasOne
@@ -162,5 +131,10 @@ class User extends BaseAuthModel
     public function gateways(): HasMany
     {
         return $this->hasMany(UserGateways::class, 'user_id');
+    }
+
+    public function useAsWhatsappTargetPhoneNumber(): string
+    {
+        return $this->international_phone_number;
     }
 }

@@ -30,8 +30,6 @@ class SendOrderToClientViaWhatsappListener
     {
 
         $phoneNumber = $event->order->user->international_phone_number;
-
-
         $message = view(
             'whatsapp.order_details',
             [
@@ -46,7 +44,6 @@ class SendOrderToClientViaWhatsappListener
             sendSms($message, $phoneNumber);
         }
         if (config('app.store.notify_via_whatsapp')) {
-
             Whatsapp::sendMessage(
                 $message,
                 $phoneNumber

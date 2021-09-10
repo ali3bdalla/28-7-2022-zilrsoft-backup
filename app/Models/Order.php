@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Scopes\DraftScope;
+use App\Scopes\OrganizationScope;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -43,13 +46,15 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed tracking_number
  * @property mixed pdf_url
  * @property mixed pdf_path
+ * @property mixed organization_id
+ * @property mixed|string lang
  */
 class Order extends BaseModel
 {
     use SoftDeletes;
+    use HasFactory;
 
-
-    protected $guarded;
+    protected $guarded = [];
 
     protected $appends = ['pdf_url'];
 
@@ -63,7 +68,7 @@ class Order extends BaseModel
         return $this->belongsTo(Manager::class, 'managed_by_id');
     }
 
-    public function getPdfUrlAttribute()
+    public function getPdfUrlAttribute(): string
     {
         return Storage::url($this->pdf_path);
     }
@@ -108,7 +113,7 @@ class Order extends BaseModel
 
     public function shippingMethod(): BelongsTo
     {
-        return $this->belongsTo(ShippingMethod::class, 'shipping_method_id')->withoutGlobalScopes(['manager', 'draft', 'organization', 'accountingPeriod']);
+        return $this->belongsTo(ShippingMethod::class, 'shipping_method_id')->withoutGlobalScopes([OrganizationScope::class, DraftScope::class]);
     }
 
     public function deliveryMan(): BelongsTo
@@ -118,12 +123,12 @@ class Order extends BaseModel
 
     public function draftInvoice(): BelongsTo
     {
-        return $this->belongsTo(Invoice::class, 'draft_id')->withoutGlobalScopes(['manager', 'draft', 'organization', 'accountingPeriod']);
+        return $this->belongsTo(Invoice::class, 'draft_id')->withoutGlobalScopes([OrganizationScope::class, DraftScope::class]);
     }
 
     public function invoice(): BelongsTo
     {
-        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes(['manager', 'draft', 'organization', 'accountingPeriod']);
+        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes([OrganizationScope::class, DraftScope::class]);
 
     }
 

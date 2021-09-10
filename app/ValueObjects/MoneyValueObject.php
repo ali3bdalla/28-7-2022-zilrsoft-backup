@@ -84,6 +84,6 @@ class MoneyValueObject implements CastsAttributes
 
     public function set($model, string $key, $value, array $attributes)
     {
-        $this->amount = $value;
+        $this->setAmount((float)$value);
     }
 }

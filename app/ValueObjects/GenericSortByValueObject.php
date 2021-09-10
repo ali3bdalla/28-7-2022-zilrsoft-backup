@@ -4,22 +4,26 @@ namespace App\ValueObjects;
 
 use App\ValueObjects\Contract\SortingValueObjectContract;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 
-class SortTransactionValueObject implements SortingValueObjectContract
+class GenericSortByValueObject implements SortingValueObjectContract
 {
 
     private ?string $sortBy;
     private ?string $sortDirection;
+    private Model $model;
 
     /**
      * @param string|null $sortBy
      * @param string|null $sortDirection
+     * @param Model $model
      */
-    public function __construct(?string $sortBy = "", ?string $sortDirection = "asc")
+    public function __construct(Model $model, ?string $sortBy, ?string $sortDirection)
     {
         $this->sortBy = $sortBy;
         $this->sortDirection = $sortDirection;
+        $this->model = $model;
     }
 
     public function sort(Builder $builder): Builder
@@ -31,7 +35,7 @@ class SortTransactionValueObject implements SortingValueObjectContract
 
     public function isValid(): bool
     {
-        return Schema::hasColumn('transactions', $this->getSortBy()) && in_array($this->getSortDirection(), ['desc', 'asc']);
+        return Schema::hasColumn($this->model->getTable(), $this->getSortBy()) && in_array($this->getSortDirection(), ['desc', 'asc']);
     }
 
     /**
@@ -64,5 +68,13 @@ class SortTransactionValueObject implements SortingValueObjectContract
     public function setSortDirection(?string $sortDirection): void
     {
         $this->sortDirection = $sortDirection;
+    }
+
+    /**
+     * @return Model
+     */
+    public function getModel(): Model
+    {
+        return $this->model;
     }
 }

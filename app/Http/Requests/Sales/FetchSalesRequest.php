@@ -4,6 +4,7 @@ namespace App\Http\Requests\Sales;
 
 use App\Models\Invoice;
 use App\Models\Sale;
+use App\Scopes\DraftScope;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
@@ -54,7 +55,7 @@ class FetchSalesRequest extends FormRequest
 		$query = $query->with(
 			[
 				'creator', 'items', 'sale' => function ($sale) {
-					return $sale->withoutGlobalScope('draft')->withoutGlobalScope('manager');
+					return $sale->withoutGlobalScope(DraftScope::class)->withoutGlobalScope('manager');
 				}, 'sale.client', 'sale.salesman',
 			]
 		);

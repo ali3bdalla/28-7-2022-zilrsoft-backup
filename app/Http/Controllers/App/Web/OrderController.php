@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class OrderController extends Controller
@@ -36,7 +37,7 @@ class OrderController extends Controller
 
     public function viewPayment(Order $order)
     {
-        $accounts = auth()->user()->gateways()->get();
+        $accounts = Auth::user()->gateways()->get();
         return view('orders.view-payment', compact('order', 'accounts'));
     }
 

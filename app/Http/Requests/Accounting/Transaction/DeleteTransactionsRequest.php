@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Accounting\Transaction;
 
 use App\Models\TransactionsContainer;
+use App\Scopes\PendingScope;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
@@ -38,7 +39,7 @@ class DeleteTransactionsRequest extends FormRequest
         DB::beginTransaction();
         try{
             $response = ['message' =>  "{$transactionsContainer->id} has been deleted"];
-            $transactions = $transactionsContainer->transactions()->withoutGlobalScope('pending')->get();
+            $transactions = $transactionsContainer->transactions()->withoutGlobalScope(PendingScope::class)->get();
             if($transactions->count() > 0)
                 foreach ($transactions as $transaction)
                     $transaction->delete();

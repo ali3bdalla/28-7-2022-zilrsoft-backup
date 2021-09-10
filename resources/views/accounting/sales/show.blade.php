@@ -18,7 +18,7 @@
 @section('buttons')
 
     @if(auth()->user()->id != 19)
-        
+
         <a href="{{route('accounting.printer.a4',$invoice->id)}}" target="_blank" class="btn btn-default">
             <i class="fa fa-print"></i> {{ __('pages/invoice.price_a4') }}
         </a>
@@ -101,7 +101,7 @@
         </div>
         <div class="panel-body">
             @includeIf('accounting.include.invoice.view_items',[
-                 'items' => $invoice->items()->withoutGlobalScope('draft')->get()
+                 'items' => $invoice->items()->withoutGlobalScope(\App\Scopes\DraftScope::class)->get()
             ])
         </div>
         <div class="panel-footer">

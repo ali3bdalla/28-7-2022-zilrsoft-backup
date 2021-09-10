@@ -7,6 +7,7 @@ use App\Models\Expense;
 use App\Models\Invoice;
 use App\Models\Manager;
 use App\Models\User;
+use App\Scopes\DraftScope;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -33,8 +34,6 @@ class PurchaseController extends Controller
         $receivers = Manager::all();
         $vendors = User::where([['is_vendor', true], ['is_system_user', false]])->get()->toArray();
         $expenses = Expense::all();
-        $pendingDropboxPurchases = [];
-
         $gateways = [];
         return view('accounting.purchases.create', compact('vendors', 'receivers', 'gateways', 'expenses'));
         //
@@ -75,7 +74,7 @@ class PurchaseController extends Controller
         $cloned_items = [];
         foreach ($purchase->items()->with('item')->get() as $item) {
             if ($item->item->is_need_serial) {
-                $item->serials = $item->item->serials()->withoutGlobalScope("draft")
+                $item->serials = $item->item->serials()->withoutGlobalScope(DraftScope::class)
                     ->where([["purchase_id", $purchase->id]])
                     ->pluck('serial');
             } else {
@@ -97,9 +96,7 @@ class PurchaseController extends Controller
      */
     public function show(Invoice $purchase)
     {
-        $transactions = $purchase->transactions()->get();
-
-
+        $transactions = $purchase->transactions()->with('account')->get();
         return view(
             'accounting.purchases.show', [
                 'invoice' => $purchase, 'transactions' => $transactions
@@ -110,7 +107,7 @@ class PurchaseController extends Controller
 
     public function drafts()
     {
-        $vendors = User::where('is_vendor', true)->get();
+        $vendors = User::whereIsVendor(true)->get();
         $creators = Manager::all();
         $is_pending = true;
         return view('accounting.purchases.index', compact('vendors', 'creators', 'is_pending'));

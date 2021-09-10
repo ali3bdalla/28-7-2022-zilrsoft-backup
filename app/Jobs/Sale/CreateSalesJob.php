@@ -2,37 +2,29 @@
 
 namespace App\Jobs\Sale;
 
+use App\Jobs\Accounting\Sale\StoreSaleTransactionsJob;
+use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
+use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
+use App\Jobs\Sales\Draft\SetDraftAsConvertedJob;
+use App\Jobs\Sales\Items\StoreSaleItemsJob;
+use App\Jobs\Sales\Order\UpdateOnlineOrderStatus;
+use App\Jobs\Sales\Payment\StoreSalePaymentsJob;
 use App\Models\Invoice;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-
-
-use App\Jobs\Accounting\Sale\StoreSaleTransactionsJob;
-use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
-use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
-use App\Jobs\Items\Serial\ValidateItemSerialJob;
-use App\Jobs\Sales\Draft\SetDraftAsConvertedJob;
-use App\Jobs\Sales\Expense\CreatePurchaseInvoiceForExpensesJob;
-use App\Jobs\Sales\Items\StoreSaleItemsJob;
-use App\Jobs\Sales\Order\UpdateOnlineOrderStatus;
-use App\Jobs\Sales\Payment\StoreSalePaymentsJob;
-use App\Models\Item;
-use App\Models\ItemSerials;
-use App\Models\Order;
-use App\Models\User;
-use Exception;
-use Illuminate\Database\QueryException;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+
 
 class CreateSalesJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     private $clientId, $items, $paymentsMethods, $salesmanId, $aliasName, $quatationId, $isOnlineOrder;
+
     /**
      * Create a new job instance.
      *
@@ -93,13 +85,11 @@ class CreateSalesJob implements ShouldQueue
         $paymentsMethods = $this->validatePaymentsAndGetPaymentMethods($invoice, $this->isOnlineOrder);
         dispatch_now(new StoreSalePaymentsJob($invoice, $paymentsMethods));
         dispatch_now(new StoreSaleTransactionsJob($invoice));
-        if($this->quatationId !== "")
-        {
+        if ($this->quatationId !== "") {
             dispatch_now(new SetDraftAsConvertedJob($this->quatationId, $invoice->id));
             dispatch_now(new UpdateOnlineOrderStatus($this->quatationId, $invoice));
         }
     }
-
 
 
     private function validatePaymentsAndGetPaymentMethods(Invoice $invoice, $isOnlineOrder = false)

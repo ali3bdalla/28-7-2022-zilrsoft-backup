@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\AccountingPeriodTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,7 +18,6 @@ class TransactionsContainer extends BaseModel
 {
     protected $guarded = [];
     use SoftDeletes;
-    use AccountingPeriodTrait;
 
     public static function createEntry(array $attributes = [], array $transactions = []): TransactionsContainer
     {

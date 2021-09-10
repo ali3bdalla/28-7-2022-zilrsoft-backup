@@ -2,24 +2,23 @@
 
 namespace App\Models;
 
-use App\Models\Traits\AccountingPeriodTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserBalanceSnapshot extends Model
 {
     use SoftDeletes;
-    use AccountingPeriodTrait;
-
     protected $guarded = [];
 
 
-    public function user()
+    public function user(): BelongsTo
     {
-        return  $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
-    public function account()
+
+    public function account(): BelongsTo
     {
-        return  $this->belongsTo(Account::class,'account_id');
+        return $this->belongsTo(Account::class, 'account_id');
     }
 }

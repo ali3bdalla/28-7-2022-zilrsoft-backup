@@ -10,6 +10,7 @@ use App\Models\Item;
 use App\Models\Manager;
 use App\Models\Order;
 use App\Models\User;
+use App\Scopes\DraftScope;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -95,7 +96,7 @@ class SaleController extends Controller
 
     function toInvoice(Invoice $sale)
     {
-        $sale->sale = $sale->sale()->withoutGlobalScope('draft')->first();
+        $sale->sale = $sale->sale()->withoutGlobalScope(DraftScope::class)->first();
         $salesmen = Manager::all();
         $clients = User::where('is_client', true)->orderBy('id', 'asc')->get()->toArray();
         $expenses = Item::where('is_expense', true)->get();
@@ -113,9 +114,9 @@ class SaleController extends Controller
     public function show(Invoice $sale)
     {
 
-        $transactions = $sale->transactions()->get();
+        $transactions = $sale->transactions()->with('account')->get();
         $invoice = $sale;
-        $invoice->sale = $invoice->sale()->withoutGlobalScope('draft')->first();
+        $invoice->sale = $invoice->sale()->withoutGlobalScope(DraftScope::class)->first();
 
         return view('sales.view', compact('invoice', 'transactions'));
     }

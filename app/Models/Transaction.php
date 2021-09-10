@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Events\Models\Transaction\TransactionCreated;
-use App\Models\Traits\AccountingPeriodTrait;
 use App\ValueObjects\MoneyValueObject;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,7 +21,7 @@ class Transaction extends BaseModel
 {
     use  SoftDeletes;
 
-    use AccountingPeriodTrait;
+    protected $with = ['account'];
 
     protected $guarded = [];
 

@@ -29,8 +29,10 @@ class TransactionSearchValueObject implements SearchValueObjectContract
     {
         if ($this->hasMoney())
             $builder->whereAmount($this->getMoney()->getAmount());
-        if ($this->hasStartAt() && $this->hasEndAt())
-            $builder->whereBetween('created_at', [$this->getStartAt(), $this->getEndAt()]);
+        if ($this->hasStartAt())
+            $builder->where('created_at', '>=', $this->getStartAt());
+        if ($this->hasEndAt())
+            $builder->where('created_at', '<=', $this->getEndAt());
         if ($this->hasUserId())
             $builder->whereUserId($this->getUserId());
         if ($this->hasItemId())
@@ -56,11 +58,6 @@ class TransactionSearchValueObject implements SearchValueObjectContract
         return $this->startAt != null;
     }
 
-    public function hasEndAt(): bool
-    {
-        return $this->endAt != null;
-    }
-
     /**
      * @return ?Carbon
      */
@@ -78,6 +75,11 @@ class TransactionSearchValueObject implements SearchValueObjectContract
             $this->startAt = Carbon::parse($startAt);
         else
             $this->startAt = null;
+    }
+
+    public function hasEndAt(): bool
+    {
+        return $this->endAt != null;
     }
 
     /**

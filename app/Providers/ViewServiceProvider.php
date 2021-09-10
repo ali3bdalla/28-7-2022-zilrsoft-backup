@@ -20,12 +20,6 @@
 		public function register()
 		{
 
-			View::share(
-				'organization_config', [
-					'vts' => 15,
-					'vtp' => 15
-				]
-			);
 
 
 		}

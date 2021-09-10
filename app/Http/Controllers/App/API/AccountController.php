@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\FetchAccountsRequest;
 use App\Http\Requests\Account\FetchAccountTransactionRequest;
 use App\Http\Requests\Account\StoreAccountRequest;
-use App\Http\Resources\Entity\TransactionCollection;
 use App\Models\Account;
+use App\Models\Transaction;
 use App\Repository\AccountRepositoryContract;
 use App\ValueObjects\AccountSearchValueObject;
-use App\ValueObjects\SortTransactionValueObject;
+use App\ValueObjects\GenericSortByValueObject;
 use App\ValueObjects\TransactionSearchValueObject;
 use Carbon\Carbon;
 use Exception;
@@ -47,8 +47,8 @@ class AccountController extends Controller
             $accountTransactionRequest->getStartAt(),
             $accountTransactionRequest->getEndAt()
         );
-        $sortTransactionValueObject = new SortTransactionValueObject($accountTransactionRequest->getSortColumn(),$accountTransactionRequest->getSortDirection());
-        return $this->accountRepositoryContract->getAccountTransactionsListPagination($account, $accountTransactionsSearchValueObject,$sortTransactionValueObject);
+        $sortTransactionValueObject = new GenericSortByValueObject(new Transaction(), $accountTransactionRequest->getSortColumn(), $accountTransactionRequest->getSortDirection());
+        return $this->accountRepositoryContract->getAccountTransactionsListPagination($account, $accountTransactionsSearchValueObject, $sortTransactionValueObject);
     }
 
     public function store(StoreAccountRequest $request)

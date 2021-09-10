@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Events\Item\ItemCreatedEvent;
+use App\Scopes\StoreItemScope;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -49,7 +50,6 @@ class Item extends BaseModel
     protected $dispatchesEvents = [
         'created' => ItemCreatedEvent::class
     ];
-
     protected $touches = ['category', 'filters', 'tags', 'attachments'];
     protected $appends = [
         'slug',
@@ -57,7 +57,6 @@ class Item extends BaseModel
         'locale_description',
         'item_image_url'
     ];
-
     protected $casts = [
         'id' => 'integer',
         'is_has_vts' => 'boolean',
@@ -73,13 +72,10 @@ class Item extends BaseModel
     ];
     protected $guarded = [];
 
-    protected function makeAllSearchableUsing($query)
+    protected static function boot()
     {
-        return $query->with('tags', 'serials');
-    }
-    public function translations()
-    {
-        return $this->hasMany(Transaction::class, 'item_id');
+        parent::boot();
+        static::addGlobalScope(new StoreItemScope());
     }
 
     public function warrantySubscription(): BelongsTo
@@ -337,5 +333,10 @@ class Item extends BaseModel
     public function filters(): HasMany
     {
         return $this->hasMany(ItemFilters::class, 'item_id');
+    }
+
+    protected function makeAllSearchableUsing($query)
+    {
+        return $query->with('tags', 'serials');
     }
 }

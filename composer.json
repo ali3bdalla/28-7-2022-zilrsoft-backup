@@ -12,7 +12,6 @@
     "ext-json": "*",
     "ext-openssl": "*",
     "3li3bdalla/tafqeet": "^3.5.9",
-    "3li3bdalla/whatsapp": "^0.0.1",
     "algolia/algoliasearch-client-php": "^3.1",
     "algolia/scout-extended": "^1.13",
     "aws/aws-sdk-php": "^3.172",

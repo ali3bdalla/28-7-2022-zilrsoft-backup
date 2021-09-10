@@ -4,12 +4,13 @@ namespace App\Providers;
 
 use App\Models\Invoice;
 use App\Models\Item;
+use App\Scopes\DraftScope;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    const HOME="dashboard";
+    const HOME = "dashboard";
     /**
      * This namespace is applied to your controller routes.
      *
@@ -46,40 +47,25 @@ class RouteServiceProvider extends ServiceProvider
             return $query->firstOrFail();
         });
         Route::bind('kit', function ($value) {
-            return Item::where([
-                ['is_kit', true],
-                ['id', $value],
-            ])->firstOrFail();
+            return Item::whereIsKit(true)->whereId($value)->firstOrFail();
         });
 
         Route::bind('sale', function ($value) {
-            return Invoice::where([
-                ['id', $value],
-            ])
+            return Invoice::whereId($value)
                 ->whereIn('invoice_type', ['return_sale', 'sale'])
-                ->withoutGlobalScopes(['draft', 'accountingPeriod', 'manager'])->first();
+                ->withoutGlobalScopes([DraftScope::class])->first();
         });
-//
         Route::bind('purchase', function ($value) {
-            return Invoice::where([
-                ['id', $value],
-            ])
-                ->whereIn('invoice_type', ['return_purchase', 'purchase', 'beginning_inventory', 'inventory_adjustment'])
-                ->withoutGlobalScope('manager')->first();
+            return Invoice::whereId($value)
+                ->whereIn('invoice_type', ['return_purchase', 'purchase', 'beginning_inventory', 'inventory_adjustment'])->first();
         });
 
         Route::bind('returnPurchase', function ($value) {
-            return Invoice::where([
-                ['id', $value],
-                ['invoice_type', 'return_purchase']
-            ])->withoutGlobalScope('manager')->first();
+            return Invoice::whereId($value)->whereInvoiceType('return_purchase')->first();
         });
 
         Route::bind('invoice', function ($value) {
-            return Invoice::where([
-                ['id', $value],
-            ])
-                ->withoutGlobalScopes(['draft', 'accountingPeriod', 'manager'])->first();
+            return Invoice::whereId($value)->withoutGlobalScopes([DraftScope::class])->first();
         });
 
         Route::bind('quotation', function ($value) {
@@ -87,7 +73,7 @@ class RouteServiceProvider extends ServiceProvider
                 ['id', $value],
             ])
                 ->whereIn('invoice_type', ['return_sale', 'sale'])
-                ->withoutGlobalScopes(['draft', 'accountingPeriod', 'manager'])->first();
+                ->withoutGlobalScopes([DraftScope::class])->first();
         });
 //
     }

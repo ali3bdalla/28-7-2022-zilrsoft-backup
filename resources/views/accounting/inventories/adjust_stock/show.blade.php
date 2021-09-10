@@ -64,7 +64,7 @@
         </div>
         <div class="panel-body">
             @includeIf('accounting.include.invoice.view_items',[
-                 'items' => $invoice->items()->withoutGlobalScope('pendingItemsScope')->get()
+                 'items' => $invoice->items()->withoutGlobalScope(\App\Scopes\PendingScope::class)->get()
             ])
 
         </div>

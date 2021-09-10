@@ -119,7 +119,7 @@
         </div>
         <div class="panel-body">
             @includeIf('accounting.include.invoice.view_items',[
-                 'items' => $invoice->items()->withoutGlobalScope('draft')->get()
+                 'items' => $invoice->items()->withoutGlobalScope(\App\Scopes\DraftScope::class)->get()
             ])
 
         </div>

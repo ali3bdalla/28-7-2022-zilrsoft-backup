@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Traits\AccountingPeriodTrait;
+use App\Scopes\DraftScope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property mixed item
@@ -33,7 +35,6 @@ use Illuminate\Database\Eloquent\Builder;
 class InvoiceItems extends BaseModel
 {
 
-//    use AccountingPeriodTrait;
     protected $guarded = [];
 
     protected $appends = [
@@ -43,14 +44,6 @@ class InvoiceItems extends BaseModel
         'r_qty'
 
     ];
-
-
-    public function getRQtyAttribute()
-    {
-        return $this->returned_qty;
-    }
-
-
     protected $casts = [
         'tax' => 'float',
         'total' => 'float',
@@ -70,39 +63,42 @@ class InvoiceItems extends BaseModel
         }
     }
 
+    public function getRQtyAttribute()
+    {
+        return $this->returned_qty;
+    }
 
-    public function item()
+    public function item(): BelongsTo
     {
         return $this->belongsTo(Item::class, 'item_id');
     }
 
-    public function scopeKitItems($query , $kitId = 0)
+    public function scopeKitItems($query, $kitId = 0)
     {
-        return $query ->where('parent_kit_id',$kitId);
+        return $query->where('parent_kit_id', $kitId);
     }
 
-	public function getInvoiceItemSerials()
-	{
-		return $this->item->serials()
-			->where(
-				[
-					["sale_id", $this->invoice_id],
-					["item_id", $this->item->id],
-				]
-			)
-			->orWhere([["return_sale_id", $this->invoice_id], ["item_id", $this->item->id]])
-			->orWhere([["return_purchase_id", $this->invoice_id], ["item_id", $this->item->id]])
-			->orWhere([["purchase_id", $this->invoice_id], ["item_id", $this->item->id]])
-			->get();
+    public function getInvoiceItemSerials()
+    {
+        return $this->item->serials()
+            ->where(
+                [
+                    ["sale_id", $this->invoice_id],
+                    ["item_id", $this->item->id],
+                ]
+            )
+            ->orWhere([["return_sale_id", $this->invoice_id], ["item_id", $this->item->id]])
+            ->orWhere([["return_purchase_id", $this->invoice_id], ["item_id", $this->item->id]])
+            ->orWhere([["purchase_id", $this->invoice_id], ["item_id", $this->item->id]])
+            ->get();
 
 
-	}
+    }
 
-	public function orderQtyHolders()
-	{
-		return $this->hasMany(OrderItemQtyHolder::class,'item_id');
-	}
-
+    public function orderQtyHolders(): HasMany
+    {
+        return $this->hasMany(OrderItemQtyHolder::class, 'item_id');
+    }
 
 
     public function creator()
@@ -110,23 +106,17 @@ class InvoiceItems extends BaseModel
         return $this->belongsTo(Manager::class, 'creator_id')->withTrashed();
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    public function invoice()
-    {
-        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes(['manager','accountingPeriod']);
-    }
-
 
     public function getDescriptionAttribute()
     {
         return $this->invoice_type;
     }
 
-    public function getInvoiceUrlAttribute()
+    public function getInvoiceUrlAttribute(): string
     {
         if (in_array($this->invoice_type, ['purchase', 'return_purchase'])) return "/purchases/{$this->invoice_id}";
         else return "/sales/{$this->invoice_id}";
@@ -134,11 +124,16 @@ class InvoiceItems extends BaseModel
 
     public function getInvoiceNumberAttribute()
     {
-        $invoice = $this->invoice()->withoutGlobalScope('draft')->withoutGlobalScope('manager')->first();
-        if($invoice)
+        $invoice = $this->invoice()->withoutGlobalScope(DraftScope::class)->withoutGlobalScope('manager')->first();
+        if ($invoice)
             return $invoice->invoice_number;
 
         return "";
+    }
+
+    public function invoice(): BelongsTo
+    {
+        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes(['manager', 'accountingPeriod']);
     }
 
 }

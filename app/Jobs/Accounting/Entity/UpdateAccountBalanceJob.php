@@ -53,12 +53,9 @@ class UpdateAccountBalanceJob implements ShouldQueue
      */
     public function handle()
     {
-        // grab account
-        $account = Account::where('id', $this->transaction->account_id)->withTrashed()->first();
+        $account = Account::whereId($this->transaction->account_id)->withTrashed()->first();
         $createdAt = Carbon::parse($this->transaction->created_at);
-
-        $snapshot = $account->snapshots()->withoutGlobalScopes(["manager","accountingPeriod"])->whereDate('created_at', $createdAt)->first();
-
+        $snapshot = $account->snapshots()->whereDate('created_at', $createdAt)->first();
         if ($snapshot == null) {
             $snapshot = $account->snapshots()->create(
                 [
@@ -124,7 +121,6 @@ class UpdateAccountBalanceJob implements ShouldQueue
                 ]
             );
         }
-
 
 
         $this->transaction->update(
