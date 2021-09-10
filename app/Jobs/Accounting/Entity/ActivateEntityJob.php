@@ -2,8 +2,6 @@
 
 namespace App\Jobs\Accounting\Entity;
 
-use App\Http\Resources\Entity\TransactionCollection;
-use App\Models\Transaction;
 use App\Models\TransactionsContainer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -15,7 +13,8 @@ class ActivateEntityJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $transactionsContainer;
+    private TransactionsContainer $transactionsContainer;
+
     /**
      * Create a new job instance.
      *
@@ -39,14 +38,10 @@ class ActivateEntityJob implements ShouldQueue
         ]);
         $this->transactionsContainer->update([
             'is_pending' => false
-        ]);//
-
-
+        ]);
         $transactions = $this->transactionsContainer->fresh()->transactions()->get();
-
-        foreach( $transactions as $transaction)
-        {
-            dispatch_now(new UpdateAccountBalanceJob($transaction));
+        foreach ($transactions as $transaction) {
+            dispatch_sync(new UpdateAccountBalanceJob($transaction));
         }
     }
 }

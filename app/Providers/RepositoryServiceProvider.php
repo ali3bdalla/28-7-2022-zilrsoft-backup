@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Repository\AccountsDailyRepositoryContract;
+use App\Repository\BaseRepositoryContract;
 use App\Repository\Eloquent\AccountsDailyRepository;
 use App\Repository\Eloquent\BaseRepository;
-use App\Repository\BaseRepositoryContract;
+use App\Repository\Eloquent\ManagerRepository;
+use App\Repository\ManagerRepositoryContract;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -19,6 +21,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(BaseRepositoryContract::class, BaseRepository::class);
         $this->app->bind(AccountsDailyRepositoryContract::class, AccountsDailyRepository::class);
+        $this->app->bind(ManagerRepositoryContract::class, ManagerRepository::class);
     }
 
     /**
