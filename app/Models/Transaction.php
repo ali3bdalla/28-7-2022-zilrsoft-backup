@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Events\Models\Transaction\TransactionCreated;
 use App\Models\Traits\AccountingPeriodTrait;
+use App\ValueObjects\MoneyValueObject;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -14,6 +15,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed type
  * @property mixed user_id
  * @property mixed account_id
+ * @property mixed item_id
+ * @method static where(array $array)
  */
 class Transaction extends BaseModel
 {
@@ -24,7 +27,9 @@ class Transaction extends BaseModel
     protected $guarded = [];
 
     protected $casts = [
-        'amount' => 'float',
+        'amount' => MoneyValueObject::class,
+        'total_debit_amount' => MoneyValueObject::class,
+        'total_credit_amount' => MoneyValueObject::class,
     ];
 
 
@@ -52,10 +57,7 @@ class Transaction extends BaseModel
             if ($user) {
                 return $user->name;
             }
-
         }
-
-
         if (($account->slug == 'stock') && $this->item_id) {
             $item = Item::find($this->item_id);
             if ($item) {
@@ -63,7 +65,6 @@ class Transaction extends BaseModel
             }
 
         }
-
 
         return $this->account->locale_name;
     }

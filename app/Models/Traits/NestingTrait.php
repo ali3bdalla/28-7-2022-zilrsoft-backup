@@ -1,7 +1,10 @@
 <?php
+
 namespace App\Models\Traits;
 
 use App\Models\HashMap;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 trait NestingTrait
 {
@@ -11,12 +14,7 @@ trait NestingTrait
         return $query->has('children', '=', 0);
     }
 
-    public function hashMap()
-    {
-        return $this->morphOne(HashMap::class, 'mappable');
-    }
-
-    public function getParentsIncludeMe()
+    public function getParentsIncludeMe(): array
     {
         $result = $this->getParentsHashMap();
         $parents = [];
@@ -27,31 +25,15 @@ trait NestingTrait
 
         return $parents;
     }
+
     public function getParentsHashMap()
     {
         return $this->getHashMap()['parents'];
     }
 
-    public function getChildrenIncludeMe()
+    public function getHashMap(): array
     {
-        $result = $this->getChildrenHashMap();
-        $children = [];
-        foreach ($result as $value) {
-        	if($value != null && $value!="")
-                $children[] = (int)$value;
-        }
-        $children[] = $this->id;
-
-        return $children;
-    }
-    public function getChildrenHashMap()
-    {
-        return $this->getHashMap()['children'];
-    }
-
-    public function getHashMap()
-    {
-        $hashMap = $this->hashMap;
+        $hashMap = $this->load('hashMap')->hashMap;
         if ($hashMap === null) {
             $query = $this->createHashMap();
 
@@ -70,7 +52,7 @@ trait NestingTrait
         return $result;
     }
 
-    public function createHashMap()
+    public function createHashMap(): Model
     {
         $result = $this->_getParentsAndChildren();
 
@@ -80,6 +62,73 @@ trait NestingTrait
                 'parents' => $result['parents'] === [] ? null : implode(',', $result['parents']),
             ]
         );
+    }
+
+    public function _getParentsAndChildren(): array
+    {
+        return [
+            'children' => $this->_getChildrenList(),
+            'parents' => $this->_getParentsList(),
+        ];
+    }
+
+    public function _getChildrenList(): array
+    {
+        $list = [];
+
+        if ($this->children()->withTrashed()->count() >= 1) {
+            foreach ($this->children()->withTrashed()->get() as $child) {
+                $list[] = $child->id;
+                foreach ($child->_getChildrenList() as $id) {
+                    $list[] = $id;
+                }
+            }
+
+        }
+
+        // dd($list);
+
+        return $list;
+    }
+
+    public function _getParentsList(): array
+    {
+        $list = [];
+
+        if ($this->parent_id !== null) {
+            $list[] = $this->parent_id;
+        }
+
+        if ($this->parent) {
+            foreach (($this->parent()->withTrashed()->first())->_getParentsList() as $id) {
+                $list[] = $id;
+            }
+        }
+
+        return $list;
+    }
+
+    public function hashMap(): MorphOne
+    {
+        return $this->morphOne(HashMap::class, 'mappable');
+    }
+
+    public function getChildrenIncludeMe(): array
+    {
+        $result = $this->getChildrenHashMap();
+        $children = [];
+        foreach ($result as $value) {
+            if ($value != null && $value != "")
+                $children[] = (int)$value;
+        }
+        $children[] = $this->id;
+
+        return $children;
+    }
+
+    public function getChildrenHashMap()
+    {
+        return $this->getHashMap()['children'];
     }
 
     public function updateHashMap()
@@ -101,50 +150,6 @@ trait NestingTrait
                 'parents' => $result['parents'] === [] ? null : implode(',', $result['parents']),
             ]
         );
-    }
-
-    public function _getParentsAndChildren()
-    {
-        return [
-            'children' => $this->_getChildrenList(),
-            'parents' => $this->_getParentsList(),
-        ];
-    }
-
-    public function _getParentsList()
-    {
-        $list = [];
-
-        if ($this->parent_id !== null) {
-            $list[] = $this->parent_id;
-        }
-
-        if ($this->parent) {
-            foreach (($this->parent()->withTrashed()->first())->_getParentsList() as $id) {
-                $list[] = $id;
-            }
-        }
-
-        return $list;
-    }
-
-    public function _getChildrenList()
-    {
-        $list = [];
-
-        if ($this->children()->withTrashed()->count() >= 1) {
-            foreach ($this->children()->withTrashed()->get() as $child) {
-                $list[] = $child->id;
-                foreach ($child->_getChildrenList() as $id) {
-                    $list[] = $id;
-                }
-            }
-
-        }
-
-        // dd($list);
-
-        return $list;
     }
 
 }

@@ -86,7 +86,7 @@ export default {
       } else {
         account.is_expanded = true
 
-        axios.get('/api/accounts/' + account.id + '/children').then(response => {
+        axios.get('/api/accounts?parent_id=' + account.id).then(response => {
           const item = appVm.accounts_list[index]
           item.children = response.data
           item.is_expanded = true
@@ -110,7 +110,6 @@ export default {
   background-color: white;
   border-bottom: 1px solid #eee;
   padding-right: 40px !important;
-  /*padding-bottom: 1px;*/
 }
 
 .purple_class {

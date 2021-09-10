@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed is_manager
  * @property mixed is_vendor
  * @method static where(array $array)
+ * @method static find(mixed $user_id)
  */
 class User extends BaseAuthModel
 {

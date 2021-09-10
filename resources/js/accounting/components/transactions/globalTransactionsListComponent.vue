@@ -16,15 +16,6 @@
     <div class="panel-body">
       <table class="table table-bordered text-center">
         <thead>
-        <!--        <tr>-->
-        <!--          <th class="text-center"></th>-->
-        <!--          <th class="text-center"></th>-->
-        <!--          <th class="text-center"></th>-->
-        <!--          <th class="text-center"></th>-->
-        <!--          <th class="text-center" colspan="2">المجاميع</th>-->
-        <!--          <th class="text-center">الارصدة</th>-->
-        <!--        </tr>-->
-
         <tr>
           <th :class="{'orderBy':orderBy=='created_at'}" class="text-center" @click="setOrderByColumn('created_at')">
             التاريخ
@@ -116,15 +107,9 @@
               v-text="parseFloat(totalCreditAmount).toFixed(2)"
           ></th>
           <th class="text-center"></th>
-          <!--          <th class="text-center"></th>-->
         </tr>
         </tfoot>
       </table>
-      <tile
-          v-show="isLoading"
-          :color="app.primaryColor"
-          :loading="isLoading"
-      ></tile>
       <div class="table-paginations">
         <accounting-table-pagination-helper-layout-v2-component
             :data="paginationResponseData"
@@ -208,13 +193,8 @@ export default {
     },
 
     handleScroll (e) {
-      // console.log("scroll down" + window.pageYOffset);
-      // console.log("scroll isLoading" + document.documentElement.scrollTop);
       const bottomOfWindow =
           window.pageYOffset === document.documentElement.scrollTop
-
-      // Math.max(window.pageYOffset, document.documentElement.scrollTop,
-      // document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
 
       if (bottomOfWindow) {
         if (this.paginationResponseData != null && !this.isLoading) {
@@ -228,7 +208,7 @@ export default {
     },
 
     initJob () {
-      this.requestUrl = '/api/entities/' + this.account.id + '/transactions'
+      this.requestUrl = '/api/accounts/' + this.account.id + '/transactions'
       this.customDateShortcuts = [
         {
           key: 'day',
@@ -283,7 +263,7 @@ export default {
       ]
     },
     loadData: function () {
-      if (this.isLoading == false) {
+      if (!this.isLoading) {
         this.isLoading = true
         const params = {}
         const appVm = this
@@ -293,7 +273,6 @@ export default {
         params.order_by = this.orderBy
         params.order_type = this.orderType
 
-        // console.log(params);
         if (this.user != null) {
           params.user_id = this.user.id
         }
@@ -308,7 +287,6 @@ export default {
           this.totalDebitAmount = 0
           this.accountBalance = 0
         }
-        // console.log(this.item);
         axios
           .get(this.requestUrl, {
             params: params
@@ -343,13 +321,10 @@ export default {
                     appVm.totalCreditAmount + parseFloat(transaction.credit_amount)
               appVm.totalDebitAmount =
                     appVm.totalDebitAmount + parseFloat(transaction.debit_amount)
-              // transaction.total_debit_amount = appVm.totalDebitAmount;
-              // transaction.total_credit_amount = appVm.totalCreditAmount;
 
               responseData.push(transaction)
               appVm.transactions.push(transaction)
             }
-            // appVm.transactions.push(transaction);
             appVm.clearOldData = false
             appVm.paginationResponseData = response.data
           })

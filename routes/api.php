@@ -46,23 +46,11 @@ Route::middleware('auth')->group(
                 Route::patch('/{sale}', 'SaleController@storeReturnSale')->name('store.return');
             }
         );
-        Route::resource('accounts', 'AccountController');
-        Route::prefix('accounts')->name('accounts.')->group(
-            function () {
-                Route::prefix('reports')->name('reports.')->group(
-                    function () {
-                        Route::get('/{account}', 'AccountController@report')->name('report');
-                    }
-                );
-                Route::prefix('{account}')->group(
-                    function () {
-                        Route::get('/children', 'AccountController@children')->name('children');
-                        Route::get('/entities', 'AccountController@entities')->name('entities');
-                    }
-                );
-            }
-        );
-
+        Route::apiResource('accounts', 'AccountController');
+        Route::group(['prefix' => 'accounts/{account}', 'as' => 'accounts.'], function () {
+            Route::get('reports', 'AccountController@report')->name('report');
+            Route::get('transactions', 'AccountController@transactions')->name('transactions');
+        });
         Route::prefix('financial_statements')->name('financial_statements.')->group(
             function () {
                 Route::get('trial_balance', 'FinancialStatementController@trailBalance')->name('trial_balance');

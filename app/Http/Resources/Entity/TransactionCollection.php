@@ -15,10 +15,11 @@ class TransactionCollection extends ResourceCollection
      * @param Request $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
+
         return $this->collection->map(function ($item, $key) {
             return new TransactionResource($item, $key);
-        })->toArray($request);
+        })->toArray();
     }
 }

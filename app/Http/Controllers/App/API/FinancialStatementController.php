@@ -72,7 +72,7 @@
 					
 					
 					if($debitAmount > 0 || $creditAmount > 0) {
-						if($account->_isCredit()) {
+						if($account->isCredit()) {
 							$accountTotalAmount = $creditAmount - $debitAmount;
 							$accountCreditBalance = $accountTotalAmount > 0 ? $accountTotalAmount : 0;
 							$accountDebitBalance = $accountTotalAmount > 0 ? 0 : $accountTotalAmount * - 1;

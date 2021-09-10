@@ -1,100 +1,99 @@
 <?php
-	
-	namespace App\Http\Controllers\App\API;
-	
-	use App\Http\Controllers\Controller;
-	use App\Http\Requests\Account\FetchAccountsRequest;
-	use App\Http\Requests\Account\StoreAccountRequest;
-	use App\Http\Requests\Account\UpdateAccountRequest;
-	use App\Models\Account;
-	use Carbon\Carbon;
-	use Exception;
-	use Illuminate\Http\Request;
-	use Illuminate\Support\Facades\DB;
-	
-	class AccountController extends Controller
-	{
-		//
-		
-		public function index(FetchAccountsRequest $request)
-		{
-			return $request->getData();
-		}
-		
-		public function children(Account $account)
-		{
-			$children = $account->children()->withCount('children')->orderBy('sorting_number', 'desc')->orderBy('id', 'ASC')->get();
-			return $children;
-		}
-		
-		public function store(StoreAccountRequest $request)
-		{
-			// return 1;
-			return $request->store();
-		}
-		
-		public function show(Account $account)
-		{
-		
-		}
-		
-		public function update(UpdateAccountRequest $request, Account $account)
-		{
-		
-		}
-		
-		
-		/**
-		 * @param Account $account
-		 *
-		 * @return bool|null
-		 * @throws Exception
-		 */
-		public function destroy(Account $account)
-		{
-			$account->delete();
-			if($account->parent) {
-				$account->parent->updateHashMap();
-			}
-			
-		}
-		
-		
-		public function report(Account $account, Request $request)
-		{
-			$startDate = Carbon::parse($request->input('startDate'))->toDateString();
-			$endDate = Carbon::parse($request->input('endDate'))->toDateString();
-			
-			if($startDate == $endDate) {
-				$totalCredit = $account->transactions()->where('type', 'credit')->whereDate('created_at', $startDate)->sum('amount');
-				$totalDebit = $account->transactions()->where('type', 'debit')->whereDate('created_at', $startDate)->sum('amount');
-			} else {
-				$totalCredit = $account->transactions()->where('type', 'credit')->whereBetween(DB::raw("DATE(created_at)"), [$startDate, $endDate])->sum('amount');
-				$totalDebit = $account->transactions()->where('type', 'debit')->whereBetween(DB::raw("DATE(created_at)"), [$startDate, $endDate])->sum('amount');
-				
-			}
 
-//			return [
-//				$startDate->toDateString(),
-//				$endDate->toDateString(),
-//			];
-////
-//			$totalCredit = $account->snapshots()->whereBetween('created_at', [$startDate, $endDate])->sum('credit_amount');
-//			$totalDebit = $account->snapshots()->whereBetween('created_at', [$startDate, $endDate])->sum('debit_amount');
-//
-			
-			
-			if($account->type == 'credit') {
-				$balance = $totalCredit - $totalDebit;
-			} else {
-				$balance = $totalDebit - $totalCredit;
-			}
-			
-			
-			return [
-				'total_credit' => $totalCredit,
-				'total_debit' => $totalDebit,
-				'amount' => $balance,
-			];
-		}
-	}
+namespace App\Http\Controllers\App\API;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Account\FetchAccountsRequest;
+use App\Http\Requests\Account\FetchAccountTransactionRequest;
+use App\Http\Requests\Account\StoreAccountRequest;
+use App\Http\Resources\Entity\TransactionCollection;
+use App\Models\Account;
+use App\Repository\AccountRepositoryContract;
+use App\ValueObjects\AccountSearchValueObject;
+use App\ValueObjects\SortTransactionValueObject;
+use App\ValueObjects\TransactionSearchValueObject;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\DB;
+
+class AccountController extends Controller
+{
+
+    private AccountRepositoryContract $accountRepositoryContract;
+
+    public function __construct(AccountRepositoryContract $accountRepositoryContract)
+    {
+
+        $this->accountRepositoryContract = $accountRepositoryContract;
+    }
+
+    public function index(FetchAccountsRequest $request): Collection
+    {
+        $parentId = $request->getParentId();
+        $name = $request->getName();
+        return $this->accountRepositoryContract->getAccountsList(new AccountSearchValueObject($parentId, $name));
+    }
+
+    public function transactions(Account $account, FetchAccountTransactionRequest $accountTransactionRequest): AnonymousResourceCollection
+    {
+        $accountTransactionsSearchValueObject = new TransactionSearchValueObject(
+            $accountTransactionRequest->getAmountMoney(),
+            $accountTransactionRequest->getUserId(),
+            $accountTransactionRequest->getInvoiceId(),
+            $accountTransactionRequest->getItemId(),
+            $accountTransactionRequest->getStartAt(),
+            $accountTransactionRequest->getEndAt()
+        );
+        $sortTransactionValueObject = new SortTransactionValueObject($accountTransactionRequest->getSortColumn(),$accountTransactionRequest->getSortDirection());
+        return $this->accountRepositoryContract->getAccountTransactionsListPagination($account, $accountTransactionsSearchValueObject,$sortTransactionValueObject);
+    }
+
+    public function store(StoreAccountRequest $request)
+    {
+        return $request->store();
+    }
+
+
+    /**
+     * @param Account $account
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function destroy(Account $account)
+    {
+        $account->delete();
+        if ($account->parent) $account->parent->updateHashMap();
+    }
+
+
+    public function report(Account $account, Request $request): array
+    {
+        $startDate = Carbon::parse($request->input('startDate'))->toDateString();
+        $endDate = Carbon::parse($request->input('endDate'))->toDateString();
+
+        if ($startDate == $endDate) {
+            $totalCredit = $account->transactions()->where('type', 'credit')->whereDate('created_at', $startDate)->sum('amount');
+            $totalDebit = $account->transactions()->where('type', 'debit')->whereDate('created_at', $startDate)->sum('amount');
+        } else {
+            $totalCredit = $account->transactions()->where('type', 'credit')->whereBetween(DB::raw("DATE(created_at)"), [$startDate, $endDate])->sum('amount');
+            $totalDebit = $account->transactions()->where('type', 'debit')->whereBetween(DB::raw("DATE(created_at)"), [$startDate, $endDate])->sum('amount');
+
+        }
+        if ($account->type == 'credit') {
+            $balance = $totalCredit - $totalDebit;
+        } else {
+            $balance = $totalDebit - $totalCredit;
+        }
+
+
+        return [
+            'total_credit' => $totalCredit,
+            'total_debit' => $totalDebit,
+            'amount' => $balance,
+        ];
+    }
+}

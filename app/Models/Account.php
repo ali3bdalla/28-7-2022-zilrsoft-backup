@@ -59,17 +59,6 @@ class Account extends BaseModel
         'deleted' => AccountDeleted::class,
     ];
 
-    public function snapshots(): HasMany
-    {
-        return $this->hasMany(AccountSnapshot::class, 'account_id');
-    }
-
-
-    public function getSerialArrayAttribute($value)
-    {
-        return str_split($value);
-    }
-
     public static function getSystemAccount($slug = "")
     {
         return static::where([
@@ -79,6 +68,15 @@ class Account extends BaseModel
         )->first();
     }
 
+    public function snapshots(): HasMany
+    {
+        return $this->hasMany(AccountSnapshot::class, 'account_id');
+    }
+
+    public function getSerialArrayAttribute($value)
+    {
+        return str_split($value);
+    }
 
     public function payments(): HasMany
     {
@@ -127,14 +125,14 @@ class Account extends BaseModel
 
     public function getSingleAccountBalance(): float
     {
-        if ($this->_isCredit()) {
+        if ($this->isCredit()) {
             return ((float)$this->total_credit_amount - (float)$this->total_debit_amount);
         }
         return ((float)$this->total_debit_amount - (float)$this->total_credit_amount);
     }
 
 
-    public function _isCredit(): bool
+    public function isCredit(): bool
     {
         return $this->type == 'credit';
     }
@@ -149,7 +147,7 @@ class Account extends BaseModel
         return $balance;
     }
 
-    public function _isDebit(): bool
+    public function isDebit(): bool
     {
         return $this->type == 'debit';
     }
