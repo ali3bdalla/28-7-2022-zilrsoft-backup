@@ -7,6 +7,7 @@ use App\Models\Account;
 use App\Models\Transaction;
 use App\Repository\AccountRepositoryContract;
 use App\ValueObjects\AccountSearchValueObject;
+use App\ValueObjects\Contract\SearchValueObjectContract;
 use App\ValueObjects\Contract\SortingValueObjectContract;
 use App\ValueObjects\TransactionSearchValueObject;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,10 +21,10 @@ class AccountRepository extends BaseRepository implements AccountRepositoryContr
         parent::__construct($model);
     }
 
-    public function getAccountTransactionsListPagination(Account $account, TransactionSearchValueObject $transactionSearchValueObject, SortingValueObjectContract $sortingValueObjectContract): AnonymousResourceCollection
+    public function getAccountTransactionsListPagination(Account $account, SearchValueObjectContract $searchValueObjectContract, SortingValueObjectContract $sortingValueObjectContract): AnonymousResourceCollection
     {
         $queryBuilder = Transaction::whereAccountId($account->id)->with("account", 'invoice', 'user', 'item');
-        $queryBuilder = $transactionSearchValueObject->applyToQueryBuilder($queryBuilder);
+        $queryBuilder = $searchValueObjectContract->apply($queryBuilder);
         $queryBuilder = $sortingValueObjectContract->sort($queryBuilder);
         return TransactionResource::collection($queryBuilder->paginate(100));
 
@@ -39,7 +40,7 @@ class AccountRepository extends BaseRepository implements AccountRepositoryContr
 
     public function getAccountsList(AccountSearchValueObject $accountSearchValueObject = null): Collection
     {
-        $queryBuilder = $accountSearchValueObject->applyToQueryBuilder($this->model->query());
+        $queryBuilder = $accountSearchValueObject->apply($this->model->query());
         return $queryBuilder->withCount('children')->get();
     }
 }

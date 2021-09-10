@@ -25,7 +25,7 @@ class TransactionSearchValueObject implements SearchValueObjectContract
         $this->setEndAt($endAt);
     }
 
-    public function applyToQueryBuilder(Builder $builder): Builder
+    public function apply(Builder $builder): Builder
     {
         if ($this->hasMoney())
             $builder->whereAmount($this->getMoney()->getAmount());

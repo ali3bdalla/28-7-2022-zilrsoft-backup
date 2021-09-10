@@ -4,6 +4,7 @@ namespace App\ValueObjects;
 
 use App\ValueObjects\Contract\SearchValueObjectContract;
 use Illuminate\Database\Eloquent\Builder;
+
 class AccountSearchValueObject implements SearchValueObjectContract
 {
 
@@ -20,15 +21,16 @@ class AccountSearchValueObject implements SearchValueObjectContract
         $this->name = $name;
     }
 
-    public function applyToQueryBuilder(Builder $builder): Builder
+    public function apply(Builder $builder): Builder
     {
-        if ($this->getName())
+        if ($this->getName()) {
             $builder->where(function ($subQuery) {
                 return $subQuery->where('name', 'like', '%' . $this->getName() . '%')->orWhere('ar_name', 'like', '%' . $this->getName() . '%');
             });
-        if ($this->getParentId())
+        }
+        if ($this->getParentId()) {
             $builder->where('parent_id', $this->getParentId());
-
+        }
         return $builder;
     }
 
