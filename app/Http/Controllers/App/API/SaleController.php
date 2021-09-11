@@ -23,23 +23,23 @@ class SaleController extends Controller
 
     public function index(FetchSalesRequest $request): LengthAwarePaginator
     {
-        return $this->invoiceRepositoryContract->getInvoicesPagination(new InvoiceSearchValueObject(
-            $request->getInvoiceType(),
-            $request->getIsDraft(),
-            $request->getStartDate(),
-            $request->getEndDate(),
-            $request->getCreators(),
-            $request->getClients(),
-            $request->getSalesmen(),
-            $request->getAliceName(),
-            $request->getTitle(),
-            $request->getNet(),
-            $request->getTax(),
-            $request->getTotal(),
-            $request->getDiscount(),
-            $request->getSubtotal(),
-        ));
-//        return $request->getData();
+//        return $this->invoiceRepositoryContract->getInvoicesPagination(new InvoiceSearchValueObject(
+//            $request->getInvoiceType(),
+//            $request->getIsDraft(),
+//            $request->getStartDate(),
+//            $request->getEndDate(),
+//            $request->getCreators(),
+//            $request->getClients(),
+//            $request->getSalesmen(),
+//            $request->getAliceName(),
+//            $request->getTitle(),
+//            $request->getNet(),
+//            $request->getTax(),
+//            $request->getTotal(),
+//            $request->getDiscount(),
+//            $request->getSubtotal(),
+//        ));
+        return $request->getData();
     }
 
 
