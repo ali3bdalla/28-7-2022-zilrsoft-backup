@@ -48,12 +48,12 @@
 				if($entity) {
 					foreach($entity->transactions()->get() as $transaction) {
 						if($transaction->account->slug == 'vendors') {
-							dispatch_now(new UpdateVendorBalanceJob($transaction->user, $transaction->amount, 'decrease'));
+							dispatch_sync(new UpdateVendorBalanceJob($transaction->user, $transaction->amount, 'decrease'));
 						}
 						if($transaction->account->slug == 'clients') {
-							dispatch_now(new UpdateClientBalanceJob($transaction->user, $transaction->amount, 'decrease'));
+							dispatch_sync(new UpdateClientBalanceJob($transaction->user, $transaction->amount, 'decrease'));
 						}
-						dispatch_now(new UpdateAccountBalanceJob($transaction, false));
+						dispatch_sync(new UpdateAccountBalanceJob($transaction, false));
 						$transaction->forceDelete();
 					}
 					$entity->forceDelete();

@@ -151,10 +151,10 @@
 			if($user != null) {
 				if($type == 'client') {
 					$effect = $transactionType == 'debit' ? 'increase' : 'decrease';
-					dispatch_now(new UpdateClientBalanceJob($user, $amount, $effect));
+					dispatch_sync(new UpdateClientBalanceJob($user, $amount, $effect));
 				} else {
 					$effect = $transactionType == 'credit' ? 'increase' : 'decrease';
-					dispatch_now(new UpdateVendorBalanceJob($user, $amount, $effect));
+					dispatch_sync(new UpdateVendorBalanceJob($user, $amount, $effect));
 				}
 			}
 			

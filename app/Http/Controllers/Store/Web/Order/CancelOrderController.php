@@ -21,7 +21,7 @@ class CancelOrderController extends Controller
 			);
 		}
 
-		dispatch_now(new CancelOrderJob($order, true));
+		dispatch_sync(new CancelOrderJob($order, true));
 	}
 
 	public function showPage(Request $request, Order $order)

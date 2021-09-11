@@ -98,7 +98,7 @@ class StoreSaleTransactionsJob implements ShouldQueue
             $data['type'] = 'credit';
             $data['item_id'] = $item['item_id'];
             $this->stockAccount->transactions()->create($data);
-            dispatch_now(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'credit'));
+            dispatch_sync(new UpdateItemAccountingBalanceJob($item->item, $item->subtotal, 'credit'));
             $this->itemsTaxAmount += $item->tax;
             $this->itemsCostAmount += $amount;
             //            }
@@ -164,14 +164,14 @@ class StoreSaleTransactionsJob implements ShouldQueue
                     $data['user_id'] = $this->invoice->user_id;
                     $data['type'] = 'credit';
                     $this->clientAccount->transactions()->create($data);
-                    dispatch_now(new UpdateClientBalanceJob($this->invoice->sale->client, abs($variation), 'decrease'));
+                    dispatch_sync(new UpdateClientBalanceJob($this->invoice->sale->client, abs($variation), 'decrease'));
                 } else {
                     $data = $this->startupData;
                     $data['amount'] = abs($variation);
                     $data['user_id'] = $this->invoice->user_id;
                     $data['type'] = 'debit';
                     $this->clientAccount->transactions()->create($data);
-                    dispatch_now(new UpdateClientBalanceJob($this->invoice->sale->client, abs($variation), 'increase'));
+                    dispatch_sync(new UpdateClientBalanceJob($this->invoice->sale->client, abs($variation), 'increase'));
                 }
             }
         }

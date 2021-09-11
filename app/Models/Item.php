@@ -37,6 +37,7 @@ use Laravel\Scout\Searchable;
  * @property mixed weight
  * @property mixed category
  * @property mixed en_slug
+ * @property HasMany tags
  * @method static findOrFail($id)
  * @method static InRandomOrder()
  * @method static find($input)
@@ -95,12 +96,12 @@ class Item extends BaseModel
 
     public function getSlugAttribute()
     {
-        return app()->getLocale() == 'ar' ? $this->ar_slug : $this->en_slug;
+        return app()->getLocale() == 'ar' ? $this->getOriginal("ar_slug") : $this->getOriginal("en_slug");
     }
 
     public function getAvailableQtyAttribute($value): int
     {
-        if ($this->is_kit) return 2;
+        if ($this->getOriginal("is_kit")) return 2;
 
         return $value;
     }
@@ -173,10 +174,6 @@ class Item extends BaseModel
         return $this->hasMany(ItemSerials::class, 'item_id');
     }
 
-    public function piplineWithoutSorting(): HasMany
-    {
-        return $this->hasMany(InvoiceItems::class, 'item_id');
-    }
 
     public function pipeline(): HasMany
     {
@@ -284,10 +281,10 @@ class Item extends BaseModel
 
     public function shouldBeSearchable(): bool
     {
-        return ($this->is_category_available_online and
-            $this->available_qty > 0 and
-            $this->organization_id == 1 and
-            $this->is_available_online and
+        return ($this->getOriginal("is_category_available_online") and
+            $this->getOriginal("available_qty") > 0 and
+            $this->getOriginal("organization_id") == 1 and
+            $this->getOriginal("is_available_online") and
             $this->attachments()->count() >= 4);
     }
 
@@ -298,11 +295,8 @@ class Item extends BaseModel
 
     public function toSearchableArray(): array
     {
+        $this->load('tags', 'filters.filter');
         $array = $this->toArray();
-
-        $array = $this->transform($array);
-
-
         $modelFilter = $this->filters()->where('filter_id', 38)->first();
         if ($modelFilter && $modelFilter->value) {
             $modelName = $modelFilter->value->name;
@@ -313,19 +307,17 @@ class Item extends BaseModel
         $array['tags'] = $this->tags->map(function ($data) {
             return $data['tag'];
         })->toArray();
-
-
-        foreach ($this->filters as $filter) {
+        foreach ($this->filters()->get() as $filter) {
             if ($filter->value) {
                 $array['filters_' . $filter->filter->name][] = $filter->value->name;
                 $array['ar_filters_' . $filter->filter->ar_name][] = $filter->value->ar_name;
             }
         }
         $array['category_name'] = $this->category ? $this->category->description : "";
-        $array['category_id'] = $this->category_id;
+        $array['category_id'] = $this->getOriginal("category_id");
         $array['category_ar_name'] = $this->category ? $this->category->ar_description : "";
-        $array['ar_slug'] = $this->ar_slug;
-        $array['en_slug'] = $this->en_slug;
+        $array['ar_slug'] = $this->getOriginal("ar_slug");
+        $array['en_slug'] = $this->getOriginal("en_slug");
 
         return $array;
     }

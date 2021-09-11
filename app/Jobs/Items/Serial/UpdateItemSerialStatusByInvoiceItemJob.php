@@ -53,7 +53,7 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
                 ]);
 
                 if (!$this->isDraft)
-                    dispatch_now(new RegisterSerialHistoryJob($dbSerial, 'return_purchase', $this->invoiceItem->invoice));
+                    dispatch_sync(new RegisterSerialHistoryJob($dbSerial, 'return_purchase', $this->invoiceItem->invoice));
             }
         }
 
@@ -81,7 +81,7 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
                 $removedList[ ] = $dbSerial->id;
 
                 if (!$this->isDraft)
-                    dispatch_now(new RegisterSerialHistoryJob($dbSerial, 'inventory_adjustment', $this->invoiceItem->invoice));
+                    dispatch_sync(new RegisterSerialHistoryJob($dbSerial, 'inventory_adjustment', $this->invoiceItem->invoice));
             }
 
             $removedListItemQuery = $this->invoiceItem->item->serials()->whereNotIn('id',$removedList)->whereIn('status', ['in_stock', 'return_sale']);
@@ -114,7 +114,7 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
                     'return_sale_id' => $this->invoiceItem->invoice_id,
                 ]);
                 if (!$this->isDraft)
-                    dispatch_now(new RegisterSerialHistoryJob($dbSerial, 'return_sale', $this->invoiceItem->invoice));
+                    dispatch_sync(new RegisterSerialHistoryJob($dbSerial, 'return_sale', $this->invoiceItem->invoice));
             }
         }
 
@@ -127,7 +127,7 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
                     'sale_id' => $this->invoiceItem->invoice_id,
                 ]);
                 if (!$this->isDraft)
-                    dispatch_now(new RegisterSerialHistoryJob($dbSerial, 'sale', $this->invoiceItem->invoice));
+                    dispatch_sync(new RegisterSerialHistoryJob($dbSerial, 'sale', $this->invoiceItem->invoice));
             }
         }
     }

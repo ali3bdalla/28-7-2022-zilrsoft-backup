@@ -92,9 +92,9 @@ class StoreDraftSaleRequest extends FormRequest
 					'is_draft' => true
 				]
 			);
-			dispatch_now(new UpdateInvoiceNumberJob($invoice, 'QA-'));
-			dispatch_now(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true));
-			dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+			dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'QA-'));
+			dispatch_sync(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true));
+			dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
 
 			DB::commit();
 			return $invoice->load('items');
@@ -116,7 +116,7 @@ class StoreDraftSaleRequest extends FormRequest
 					throw ValidationException::withMessages(['item_serial' => 'serials count don\'t  match qty']);
 				}
 				foreach ($item['serials'] as $serial) {
-					dispatch_now(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase']));
+					dispatch_sync(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase']));
 				}
 			}
 		}

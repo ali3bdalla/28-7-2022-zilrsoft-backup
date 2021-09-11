@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(DailyUpdateItemsSlugCommand::class)->daily();
         $schedule->command(UpdateGoogleShippingCommand::class)->daily();
         $schedule->command('queue:retry all')->everyTenMinutes();
-        if ($this->app->environment('production')) {
+        if ($this->app->isProduction()) {
             $schedule->command('scout:import')->daily();
         }
     }
@@ -41,8 +41,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
-
+        $this->load(__DIR__ . '/Commands');
         require base_path('routes/console.php');
     }
 }

@@ -73,7 +73,7 @@ class StoreSaleRequest extends FormRequest
             $authUser = auth()->user();
             if ($this->has('without_creating_expenses_purchases') && $this->filled('without_creating_expenses_purchases')) {
             } else {
-                dispatch_now(new CreatePurchaseInvoiceForExpensesJob($this->input('items')));
+                dispatch_sync(new CreatePurchaseInvoiceForExpensesJob($this->input('items')));
             }
 
             $invoice = Invoice::create(
@@ -98,9 +98,9 @@ class StoreSaleRequest extends FormRequest
                     "prefix" => "S"
                 ]
             );
-            dispatch_now(new UpdateInvoiceNumberJob($invoice, 'S'));
-            dispatch_now(new StoreSaleItemsJob($invoice, (array)$this->input('items')), false, null, false, $isOnlineOrder);
-            dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+            dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'S'));
+            dispatch_sync(new StoreSaleItemsJob($invoice, (array)$this->input('items')), false, null, false, $isOnlineOrder);
+            dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             /**
              *
              * ========================================================
@@ -109,10 +109,10 @@ class StoreSaleRequest extends FormRequest
              *
              */
             $paymentsMethods = $this->validatePaymentsAndGetPaymentMethods($invoice, $isOnlineOrder);
-            dispatch_now(new StoreSalePaymentsJob($invoice, $paymentsMethods));
-            dispatch_now(new StoreSaleTransactionsJob($invoice));
-            dispatch_now(new SetDraftAsConvertedJob($this->input('quotation_id'), $invoice->id));
-            dispatch_now(new UpdateOnlineOrderStatus($this->input('quotation_id'), $invoice));
+            dispatch_sync(new StoreSalePaymentsJob($invoice, $paymentsMethods));
+            dispatch_sync(new StoreSaleTransactionsJob($invoice));
+            dispatch_sync(new SetDraftAsConvertedJob($this->input('quotation_id'), $invoice->id));
+            dispatch_sync(new UpdateOnlineOrderStatus($this->input('quotation_id'), $invoice));
             DB::commit();
             return $invoice;
         } catch (QueryException $queryException) {
@@ -153,7 +153,7 @@ class StoreSaleRequest extends FormRequest
                     throw ValidationException::withMessages(['item_serial' => 'serials count don\'t  match qty']);
                 }
                 foreach ($item['serials'] as $serial) {
-                    dispatch_now(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase'], ['in_stock', 'return_sale']));
+                    dispatch_sync(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase'], ['in_stock', 'return_sale']));
                 }
             }
         }

@@ -80,9 +80,9 @@ class StoreReturnSaleRequest extends FormRequest
 					"prefix" => "RSI-",
 				]
 			);
-			dispatch_now(new UpdateInvoiceNumberJob($invoice, 'RSI-'));
-			dispatch_now(new StoreReturnSaleItemsJob($invoice, $saleInvoice, $returnedItems));
-			dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+			dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'RSI-'));
+			dispatch_sync(new StoreReturnSaleItemsJob($invoice, $saleInvoice, $returnedItems));
+			dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
 
 			/**
 			 *
@@ -92,8 +92,8 @@ class StoreReturnSaleRequest extends FormRequest
 			 *
 			 */
 			$paymentsMethods = $this->validatePaymentsAndGetPaymentMethods($invoice->fresh());
-			dispatch_now(new StoreReturnSalePaymentsJob($invoice, $paymentsMethods));
-			dispatch_now(new StoreReturnSaleTransactionsJob($invoice));
+			dispatch_sync(new StoreReturnSalePaymentsJob($invoice, $paymentsMethods));
+			dispatch_sync(new StoreReturnSaleTransactionsJob($invoice));
 
 			DB::commit();
 			return $invoice;

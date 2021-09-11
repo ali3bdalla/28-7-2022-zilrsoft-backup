@@ -108,10 +108,10 @@ class CreatePurchaseInvoiceForExpensesJob implements ShouldQueue
             "prefix" => "PU-"
         ]);
 
-        dispatch_now(new UpdateInvoiceNumberJob($invoice, 'PU-'));
-        dispatch_now(new StorePurchaseItemsJob($invoice, [$dbData]));
-        dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
-        dispatch_now(new StorePurchaseTransactionsJob($invoice->fresh()));
+        dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'PU-'));
+        dispatch_sync(new StorePurchaseItemsJob($invoice, [$dbData]));
+        dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+        dispatch_sync(new StorePurchaseTransactionsJob($invoice->fresh()));
         return $invoice;
     }
 }

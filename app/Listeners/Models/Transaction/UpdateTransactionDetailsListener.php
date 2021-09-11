@@ -28,7 +28,7 @@ class UpdateTransactionDetailsListener
         //
         if($event->transaction->is_pending == false)
         {
-            dispatch_now(new UpdateAccountBalanceJob($event->transaction));
+            dispatch_sync(new UpdateAccountBalanceJob($event->transaction));
         }
     }
 }

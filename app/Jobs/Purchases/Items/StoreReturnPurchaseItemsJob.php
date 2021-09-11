@@ -87,7 +87,7 @@ class StoreReturnPurchaseItemsJob implements ShouldQueue
              * ==========================================================
              */
             if ($returnInvoiceItem->item->is_need_serial) {
-                dispatch_now(new UpdateItemSerialStatusByInvoiceItemJob($requestItemCollection->get('serials'), $returnInvoiceItem));
+                dispatch_sync(new UpdateItemSerialStatusByInvoiceItemJob($requestItemCollection->get('serials'), $returnInvoiceItem));
             }
             /**
              * ==========================================================
@@ -99,13 +99,13 @@ class StoreReturnPurchaseItemsJob implements ShouldQueue
              * update qty should be before update cost
              * ==========================================================
              */
-            dispatch_now(new UpdateAvailableQtyByInvoiceItemJob($returnInvoiceItem));
+            dispatch_sync(new UpdateAvailableQtyByInvoiceItemJob($returnInvoiceItem));
             /**
              * ==========================================================
              * we neeed for available qty and cost before new invoice item
              * ==========================================================
              */
-            dispatch_now(new UpdateItemCostByInvoiceItemJob($returnInvoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
+            dispatch_sync(new UpdateItemCostByInvoiceItemJob($returnInvoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
 
             /**
              * ==========================================================

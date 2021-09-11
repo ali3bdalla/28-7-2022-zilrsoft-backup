@@ -41,7 +41,7 @@ class AddExpensesPurchasesJob implements ShouldQueue
         if ($this->expensesItemsArray != null) {
             foreach ($this->expensesItemsArray as $expense) {
                 $dbItem = $dbItem = Item::findOrFail($expense['id']);
-                dispatch_now(new CreateExpensePurchaseJob($dbItem, $expense));
+                dispatch_sync(new CreateExpensePurchaseJob($dbItem, $expense));
             }
         }
 

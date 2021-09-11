@@ -23,7 +23,7 @@ class ItemController extends Controller
 
     public function search(Request $request): LengthAwarePaginator
     {
-        return Item::search("a",function (SearchIndex $algolia, string $query, array $options) {
+        return Item::search("a", function (SearchIndex $algolia, string $query, array $options) {
 //            $options['body']['query']['bool']['filter']['geo_distance'] = [
 //                'distance' => '1000km',
 //                'location' => ['lat' => 36, 'lon' => 111],
@@ -113,14 +113,9 @@ class ItemController extends Controller
     {
         $request->validate(
             [
-                'barcode' => 'required|string|min:4|organization_unique:App\Models\Item,barcode'
+                'barcode' => 'required|string|min:4|exists:items,barcode'
             ]
         );
-    }
-
-
-    public function getImages(Item $item)
-    {
     }
 
 
@@ -173,7 +168,7 @@ class ItemController extends Controller
         if ($request->has('item_id') && $request->filled('item_id')) {
             $item = Item::findOrFail($request->input('item_id'));
         }
-
+        $images = [];
         foreach ($request->file('images') as $requestImage)
             $images[] = $request->createImage_ReturnImageInstance($requestImage, $item);
         return $images;

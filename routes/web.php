@@ -16,6 +16,7 @@ use App\Http\Controllers\App\Web\ExpenseController;
 use App\Http\Controllers\App\Web\FilterController as WebFilterController;
 use App\Http\Controllers\App\Web\FilterValuesController as WebFilterValuesController;
 use App\Http\Controllers\App\Web\IdentitiesController as WebIdentitiesController;
+use App\Http\Controllers\App\Web\InventoryController as WebInventoryController;
 use App\Http\Controllers\App\Web\ItemController as WebItemController;
 use App\Http\Controllers\App\Web\ManagerController as WebManagerController;
 use App\Http\Controllers\App\Web\OrderController;
@@ -141,7 +142,7 @@ Route::prefix('/accounting')->name('accounting.')->group(
                 Route::get('{filter}/filter_values', [WebFilterValuesController::class, 'datatable'])->name('filter.values.datatable');
                 Route::get('identities', [WebIdentitiesController::class, 'datatable'])->name('identities.datatable');
                 Route::get('managers', [WebManagerController::class, 'datatable'])->name('managers.datatable');
-                Route::get('beginning_inventories', [WebIdentitiesController::class, 'beginning_datatable'])->name('beginning.datatable');
+                Route::get('beginning_inventories', [WebInventoryController::class, 'beginning_datatable'])->name('beginning.datatable');
             }
         );
     }

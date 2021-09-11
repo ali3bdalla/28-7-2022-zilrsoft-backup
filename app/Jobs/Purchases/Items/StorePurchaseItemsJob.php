@@ -79,7 +79,7 @@ class StorePurchaseItemsJob implements ShouldQueue
              * ==========================================================
              */
             if ($item->is_need_serial) {
-                dispatch_now(new AddItemSerialByInvoiceItemJob($requestItemCollection->get('serials'), $invoiceItem, $this->isDraft));
+                dispatch_sync(new AddItemSerialByInvoiceItemJob($requestItemCollection->get('serials'), $invoiceItem, $this->isDraft));
             }
             /**
              * ==========================================================
@@ -92,13 +92,13 @@ class StorePurchaseItemsJob implements ShouldQueue
                  * update qty should be before update cost
                  * ==========================================================
                  */
-                dispatch_now(new UpdateAvailableQtyByInvoiceItemJob($invoiceItem));
+                dispatch_sync(new UpdateAvailableQtyByInvoiceItemJob($invoiceItem));
                 /**
                  * ==========================================================
                  * we neeed for available qty and cost before new invoice item
                  * ==========================================================
                  */
-                dispatch_now(new UpdateItemCostByInvoiceItemJob($invoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
+                dispatch_sync(new UpdateItemCostByInvoiceItemJob($invoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
 
                 /**
                  * ==========================================================
@@ -106,10 +106,10 @@ class StorePurchaseItemsJob implements ShouldQueue
                  * ==========================================================
                  */
                 if ($this->invoice->invoice_type == 'purchase') {
-                    dispatch_now(new UpdateItemLastPurchasePriceJob($invoiceItem));
+                    dispatch_sync(new UpdateItemLastPurchasePriceJob($invoiceItem));
                     // To Do => update sales price
                     $salesPrice = (float)$requestItemCollection->get('price_with_tax');
-                    dispatch_now(new UpdateItemSalesPriceJob($invoiceItem, $salesPrice));
+                    dispatch_sync(new UpdateItemSalesPriceJob($invoiceItem, $salesPrice));
                 }
 
 

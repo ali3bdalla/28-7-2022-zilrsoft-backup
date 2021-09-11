@@ -83,12 +83,12 @@ class StoreOrderRequest extends FormRequest
                     'is_draft' => true
                 ]
             );
-            dispatch_now(new UpdateInvoiceNumberJob($invoice, 'ONLINE'));
-            dispatch_now(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true, $authUser, true));
-            dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+            dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'ONLINE'));
+            dispatch_sync(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true, $authUser, true));
+            dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             $order = CreateSalesOrderJob::dispatchNow($invoice->fresh(), $this);
-            dispatch_now(new HoldItemQtyJob($invoice, $order));
-            dispatch_now(new NotifyCustomerByNewOrderJob($order, "", $invoice));
+            dispatch_sync(new HoldItemQtyJob($invoice, $order));
+            dispatch_sync(new NotifyCustomerByNewOrderJob($order, "", $invoice));
             DB::commit();
             if ($this->acceptsJson())
                 return $invoice;

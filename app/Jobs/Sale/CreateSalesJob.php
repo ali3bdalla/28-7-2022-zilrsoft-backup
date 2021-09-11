@@ -72,9 +72,9 @@ class CreateSalesJob implements ShouldQueue
                 "prefix" => "S"
             ]
         );
-        dispatch_now(new UpdateInvoiceNumberJob($invoice, 'S'));
-        dispatch_now(new StoreSaleItemsJob($invoice, (array)$this->items));
-        dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+        dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'S'));
+        dispatch_sync(new StoreSaleItemsJob($invoice, (array)$this->items));
+        dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
         /**
          *
          * ========================================================
@@ -83,11 +83,11 @@ class CreateSalesJob implements ShouldQueue
          *
          */
         $paymentsMethods = $this->validatePaymentsAndGetPaymentMethods($invoice, $this->isOnlineOrder);
-        dispatch_now(new StoreSalePaymentsJob($invoice, $paymentsMethods));
-        dispatch_now(new StoreSaleTransactionsJob($invoice));
+        dispatch_sync(new StoreSalePaymentsJob($invoice, $paymentsMethods));
+        dispatch_sync(new StoreSaleTransactionsJob($invoice));
         if ($this->quatationId !== "") {
-            dispatch_now(new SetDraftAsConvertedJob($this->quatationId, $invoice->id));
-            dispatch_now(new UpdateOnlineOrderStatus($this->quatationId, $invoice));
+            dispatch_sync(new SetDraftAsConvertedJob($this->quatationId, $invoice->id));
+            dispatch_sync(new UpdateOnlineOrderStatus($this->quatationId, $invoice));
         }
     }
 

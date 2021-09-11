@@ -7,10 +7,12 @@ use App\Jobs\Inventory\Adjustments\Items\StoreInventoryAdjustmentItemsJob;
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
 use App\Models\Invoice;
+use App\Models\Manager;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class StoreInventoryAdjustmentRequest extends FormRequest
@@ -20,7 +22,7 @@ class StoreInventoryAdjustmentRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -30,20 +32,21 @@ class StoreInventoryAdjustmentRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
             'items' => 'required|array',
             'items.*.id' => 'required|organization_exists:App\Models\Item,id',
             'items.*.qty' => 'required|quantity|min:0',
             'items.*.serials' => 'nullable|array',
-            'items.*.serials.*' => 'nullable', //|organization_exists:App\Models\ItemSerials,serial
+            'items.*.serials.*' => 'nullable',
             'created_at' => "nullable"
         ];
     }
 
-
+    /**
+     * @throws Exception
+     */
     public function store()
     {
         DB::beginTransaction();
@@ -56,18 +59,17 @@ class StoreInventoryAdjustmentRequest extends FormRequest
             ])->first();
 
 
-
-            $authUser = auth()->user();
+            $authUser = $this->userLogged();
             $invoice = Invoice::create(
                 [
                     'invoice_type' => 'inventory_adjustment',
                     'notes' => "",
                     'creator_id' => $authUser->id,
                     'organization_id' => $authUser->organization_id,
-                    'branch_id' => $authUser->branch_id,
-                    'department_id' => $authUser->department_id,
-                    'user_id' =>    $user->id,
-                    'managed_by_id' =>    $authUser->id,
+                    'branch_id' => $authUser->getOriginal("branch_id"),
+                    'department_id' => $authUser->getOriginal("department_id"),
+                    'user_id' => $user->id,
+                    'managed_by_id' => $authUser->id,
                     'created_at' => $this->getCreatedAt(),
                     'updated_at' => $this->getCreatedAt()
                 ]
@@ -85,20 +87,23 @@ class StoreInventoryAdjustmentRequest extends FormRequest
                     'updated_at' => $this->getCreatedAt()
                 ]
             );
-            dispatch_now(new UpdateInvoiceNumberJob($invoice, 'IA'));
-            dispatch_now(new StoreInventoryAdjustmentItemsJob($invoice, (array)$this->input('items'), false, $this->getCreatedAt()));
-            dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
-            dispatch_now(new StoreInventoryAdjustmentTransactionsJob($invoice->fresh(), $this->getCreatedAt()));
-
+            dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'IA'));
+            dispatch_sync(new StoreInventoryAdjustmentItemsJob($invoice, (array)$this->input('items'), false, $this->getCreatedAt()));
+            dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+            dispatch_sync(new StoreInventoryAdjustmentTransactionsJob($invoice->fresh(), $this->getCreatedAt()));
             DB::commit();
         } catch (Exception $ex) {
             DB::rollBack();
-
             throw $ex;
         }
     }
 
-    public function getCreatedAt()
+    public function userLogged(): Manager
+    {
+        return Auth::user();
+    }
+
+    public function getCreatedAt(): Carbon
     {
         $createdAt = $this->input('created_at');
 

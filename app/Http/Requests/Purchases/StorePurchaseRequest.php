@@ -85,14 +85,14 @@ class StorePurchaseRequest extends FormRequest
                     "prefix" => 'PU-',
                 ]
             );
-            dispatch_now(new UpdateInvoiceNumberJob($invoice, 'PU-'));
+            dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'PU-'));
             if ($authUser->organization_id == 1) {
-                dispatch_now(new CreateDropboxSnapshotJob($invoice, $this->input('dropbox_snapshot')));
+                dispatch_sync(new CreateDropboxSnapshotJob($invoice, $this->input('dropbox_snapshot')));
             }
-            dispatch_now(new StorePurchaseItemsJob($invoice, (array)$this->input('items')));
-            dispatch_now(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
-            dispatch_now(new StorePurchasePaymentsJob($invoice, $this->input('methods')));
-            dispatch_now(new StorePurchaseTransactionsJob($invoice->fresh()));
+            dispatch_sync(new StorePurchaseItemsJob($invoice, (array)$this->input('items')));
+            dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
+            dispatch_sync(new StorePurchasePaymentsJob($invoice, $this->input('methods')));
+            dispatch_sync(new StorePurchaseTransactionsJob($invoice->fresh()));
             DB::commit();
             return response($invoice, 200);
         } catch (QueryException $e) {
@@ -112,7 +112,7 @@ class StorePurchaseRequest extends FormRequest
                     throw ValidationException::withMessages(['item_serial' => 'serials count don\'t  match qty']);
                 }
                 foreach ($item['serials'] as $serial) {
-                    dispatch_now(new ValidateItemSerialJob($dbItem, $serial, ['in_stock', 'return_sale']));
+                    dispatch_sync(new ValidateItemSerialJob($dbItem, $serial, ['in_stock', 'return_sale']));
                 }
             }
         }

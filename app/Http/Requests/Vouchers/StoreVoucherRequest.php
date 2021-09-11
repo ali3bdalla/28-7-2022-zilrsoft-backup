@@ -100,7 +100,7 @@ class StoreVoucherRequest extends FormRequest
                         'type' => 'debit',
                     ]
                 );
-                dispatch_now(new UpdateVendorBalanceJob($user, (float)$this->input('amount'), 'decrease'));
+                dispatch_sync(new UpdateVendorBalanceJob($user, (float)$this->input('amount'), 'decrease'));
             } else {
                 $organizationAccount->transactions()->create(
                     [
@@ -127,7 +127,7 @@ class StoreVoucherRequest extends FormRequest
 
                     ]
                 );
-                dispatch_now(new UpdateClientBalanceJob($user, (float)$this->input('amount'), 'decrease'));
+                dispatch_sync(new UpdateClientBalanceJob($user, (float)$this->input('amount'), 'decrease'));
 
             }
 

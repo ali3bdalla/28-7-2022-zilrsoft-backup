@@ -55,10 +55,10 @@ class deleteEntityTransactionAmount extends Command
             $transaction = Transaction::find($entityId);
             if ($transaction) {
                 if ($transaction->account->slug == 'vendors') {
-                    dispatch_now(new UpdateVendorBalanceJob($transaction->user, $amount, 'decrease'));
+                    dispatch_sync(new UpdateVendorBalanceJob($transaction->user, $amount, 'decrease'));
                 }
                 if ($transaction->account->slug == 'clients') {
-                    dispatch_now(new UpdateClientBalanceJob($transaction->user, $amount, 'decrease'));
+                    dispatch_sync(new UpdateClientBalanceJob($transaction->user, $amount, 'decrease'));
                 }
 
                 $diff = $transaction->amount - $amount;
@@ -66,13 +66,13 @@ class deleteEntityTransactionAmount extends Command
                     $transaction->update([
                         'amount' => $diff
                     ]);
-                    dispatch_now(new UpdateAccountBalanceJob($transaction, false, true, $amount));
+                    dispatch_sync(new UpdateAccountBalanceJob($transaction, false, true, $amount));
                 } else {
                     $transaction->update([
                         'amount' => abs($diff),
                         'type' => 'debit'
                     ]);
-                    dispatch_now(new UpdateAccountBalanceJob($transaction, true, true, $amount));
+                    dispatch_sync(new UpdateAccountBalanceJob($transaction, true, true, $amount));
                 }
             }
         }
