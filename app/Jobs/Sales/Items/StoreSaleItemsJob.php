@@ -40,11 +40,11 @@ class StoreSaleItemsJob implements ShouldQueue
      * @param null $loggedUser
      * @param bool $isOnlineOrder
      */
-    public function __construct(Invoice $invoice, $items, $isDraft = false, $loggedUser = null, $isOnlineOrder = false)
+    public function __construct(Invoice $invoice, $items, bool $isDraft = false, $loggedUser = null,bool $isOnlineOrder = false)
     {
         $this->items = $items;
         $this->invoice = $invoice;
-        $this->loggedUser = $loggedUser ? $loggedUser : auth()->user();
+        $this->loggedUser = $loggedUser ?: auth()->user();
         $this->isDraft = $isDraft;
         $this->isOnlineOrder = $isOnlineOrder;
     }

@@ -18,6 +18,7 @@ use Illuminate\Notifications\Notifiable;
  * @property mixed created_at
  * @property mixed branch_id
  * @property mixed department_id
+ * @property mixed organization
  */
 class Manager extends BaseAuthModel
 {

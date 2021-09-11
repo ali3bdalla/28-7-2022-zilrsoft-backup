@@ -18,7 +18,7 @@ class PurchaseController extends Controller
 
     public function index()
     {
-        $vendors = User::where('is_vendor', true)->get();
+        $vendors = User::whereIsVendor(true)->get();
         $creators = Manager::all();
         $is_pending = false;
         return view('accounting.purchases.index', compact('vendors', 'creators', 'is_pending'));

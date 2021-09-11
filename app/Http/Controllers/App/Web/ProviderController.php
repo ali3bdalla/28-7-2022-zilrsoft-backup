@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\App\Web;
 
-use App\Core\MathCore;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Accounting\Item\QueryItemsRequest;
-use App\Http\Requests\Accounting\Item\ValidateSerialRequest;
+use App\Http\Requests\Items\QueryItemsRequest;
+use App\Http\Requests\Items\ValidateSerialRequest;
 use App\Models\Account;
-use App\Models\Category;
 use App\Models\CategoryFilters;
 use App\Models\Item;
 use App\Models\Role;
@@ -19,14 +17,12 @@ use Illuminate\Validation\ValidationException;
 class ProviderController extends Controller
 {
     /**
-     * @param Category $category
-     *
-     * @return mixed
+     * @param Request $request
+     * @return array
      */
-    public function categories_filters(Request $request)
+    public function categories_filters(Request $request): array
     {
         $categories_ids = $request->input("categories_ids");
-//			return $categories_ids;
         if (empty($categories_ids))
             return [];
 
@@ -86,6 +82,7 @@ class ProviderController extends Controller
     /**
      * @param ValidateSerialRequest $request
      * @return void
+     * @throws ValidationException
      */
     public function query_validate_purchase_serial(ValidateSerialRequest $request)
     {
@@ -109,7 +106,6 @@ class ProviderController extends Controller
      */
     public function query_validate_return_sale_serial(ValidateSerialRequest $request)
     {
-//			return $request->good();
     }
 
     /**
@@ -117,10 +113,9 @@ class ProviderController extends Controller
      */
     public function query_validate_return_purchase_serial(ValidateSerialRequest $request)
     {
-//			return $request->good();
     }
 
-    public function get_kit_amounts(Item $kit, Request $request)
+    public function get_kit_amounts(Item $kit, Request $request): array
     {
         $children = $kit->items;
 
@@ -132,9 +127,6 @@ class ProviderController extends Controller
         $result['tax'] = 0;
         $result['discount'] = 0;
         $result['net'] = 0;
-
-
-//			$mathCore = new MathCore();
 
         foreach ($children as $item) {
 

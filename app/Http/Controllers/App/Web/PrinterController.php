@@ -36,9 +36,10 @@ class PrinterController extends Controller
     }
 
     /**
+     *
      * @return string
      */
-    public function sign_receipt_printer(Request $request)
+    public function sign_receipt_printer(Request $request): string
     {
         $KEY = public_path('accounting/key/private-key.pem');
         $req = $request->input('request');
@@ -50,6 +51,7 @@ class PrinterController extends Controller
 
             return base64_encode($signature);
         }
+        return "";
     }
 
     /**

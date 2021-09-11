@@ -22,6 +22,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 class StoreSaleRequest extends FormRequest
 {
@@ -99,7 +100,7 @@ class StoreSaleRequest extends FormRequest
                 ]
             );
             dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'S'));
-            dispatch_sync(new StoreSaleItemsJob($invoice, (array)$this->input('items')), false, null, false, $isOnlineOrder);
+            dispatch_sync(new StoreSaleItemsJob($invoice, (array)$this->input('items'), false, null,  $isOnlineOrder));
             dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             /**
              *
@@ -166,18 +167,12 @@ class StoreSaleRequest extends FormRequest
     {
         foreach ($this->input('items') as $kitFrontEndData) {
             $dbKit = Item::find($kitFrontEndData['id']);
-            // validate only if it's kit
             if ($dbKit->is_kit) {
-
-                // loop on kit items
                 foreach ($dbKit->items as $kitItem) {
-                    // kit item qty should (kit qty * kit item qty)
                     $kitItemInvoiceQty = $kitFrontEndData['qty'] * $kitItem->qty;
-                    // if qty not available throw an error
                     if ($kitItemInvoiceQty > $kitItem->item->available_qty) {
                         throw ValidationException::withMessages(['kit_item' => "invalid qty"]);
                     }
-                    // if item need serial, serials array contain valid serials
                     if ($kitItem->item->is_need_serial) {
 
                         $serials = collect(collect($kitFrontEndData['items'])->where('id', $kitItem->item_id)->first())->get('serials');
@@ -187,13 +182,10 @@ class StoreSaleRequest extends FormRequest
                             }
 
                             foreach ($serials as $serial) {
-                                $itemSerial = ItemSerials::where(
-                                    [
-                                        ['serial', $serial],
-                                        ['item_id', $kitItem->item_id],
-                                    ]
-                                )->whereIn('status', ['in_stock', 'return_sale'])->first();
-
+                                $itemSerial = ItemSerials::whereSerial($serial)
+                                    ->whereItemId($kitItem->item_id)
+                                    ->whereIn('status', ['in_stock', 'return_sale'])
+                                    ->first();
                                 if ($itemSerial == null) {
                                     throw ValidationException::withMessages(['kit_item' => "invalid serial"]);
                                 }
@@ -207,6 +199,9 @@ class StoreSaleRequest extends FormRequest
         }
     }
 
+    /**
+     * @throws ValidationException
+     */
     private function validateQuantities($items = [])
     {
         foreach ($items as $item) {
@@ -224,12 +219,15 @@ class StoreSaleRequest extends FormRequest
         return parent::user();
     }
 
+    /**
+     * @throws ValidationException
+     * @throws Throwable
+     */
     private function validatePaymentsAndGetPaymentMethods(Invoice $invoice, $isOnlineOrder = false)
     {
 
         if ($isOnlineOrder) {
             return [];
-            //            return $this->onlineOrderPayments();
         }
         $invoice = $invoice->fresh();
 
@@ -240,48 +238,21 @@ class StoreSaleRequest extends FormRequest
         if ($user->is_system_user) {
 
             if ($totalPaidAmount != $invoice->net) {
-                if ($paymentsMethodsCount < 1) {
-                    throw ValidationException::withMessages(['payments' => "summation of payments methods should match invoice net "]);
+                throw_if($paymentsMethodsCount < 1, ValidationException::withMessages(['payments' => "summation of payments methods should match invoice net "]));
+                $variationAmount = (float)$totalPaidAmount - (float)$invoice->fresh()->net;
+                $methods = $this->input('methods');
+                $firstAmount = $methods[0]['amount'];
+                if ($variationAmount > 0) {
+                    $newAmount = (float)$firstAmount - (float)abs($variationAmount);
                 } else {
-                    $variationAmount = (float)$totalPaidAmount - (float)$invoice->fresh()->net;
-                    $methods = $this->input('methods');
-                    $firstAmount = $methods[0]['amount'];
-                    if ($variationAmount > 0) {
-                        $newAmount = (float)$firstAmount - (float)abs($variationAmount);
-                    } else {
-                        $newAmount = (float)$firstAmount + (float)abs($variationAmount);
-                    }
-
-                    $methods[0]['amount'] = $newAmount;
-
-
-                    return $methods;
+                    $newAmount = (float)$firstAmount + (float)abs($variationAmount);
                 }
+                $methods[0]['amount'] = $newAmount;
+                return $methods;
             }
         }
         return $this->input('methods');
     }
 
 
-    public function onlineOrderPayments(): array
-    {
-        return [];
-        //        $draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->input('quotation_id'))->first();
-        //        if ($draft) {
-        //            $order = Order::where([
-        //                ['draft_id', $this->input('quotation_id')],
-        //                ['status', 'in_progress'],
-        //            ])->first();
-        //            if ($order) {
-        //                if ($order->paymentDetail) {
-        //                    $account = $order->paymentDetail->receivedBank->account;
-        //                    $account = $account->toArray();
-        //                    $account['amount'] = $order->net;
-        //                    return [$account];
-        //                }
-        //            }
-        //        }
-        //
-        //        throw ValidationException::withMessages(['payment' => 'order payment not exists']);
-    }
 }

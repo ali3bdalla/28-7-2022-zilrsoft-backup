@@ -17,6 +17,7 @@ use Illuminate\Queue\SerializesModels;
 class CreatePurchaseInvoiceForExpensesJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     /**
      * @var array
      */
@@ -61,7 +62,7 @@ class CreatePurchaseInvoiceForExpensesJob implements ShouldQueue
     {
         if ($this->expenses != null) {
             foreach ($this->expenses as $expense) {
-                $dbItem = $dbItem = Item::findOrFail($expense['id']);
+                $dbItem = Item::findOrFail($expense['id']);
                 $this->createExpenseInvoice($dbItem, $expense);
             }
         }

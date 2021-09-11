@@ -13,6 +13,7 @@ use App\Models\Item;
 use App\Models\Manager;
 use App\Models\ShippingAddress;
 use App\Models\ShippingMethod;
+use App\Models\User;
 use App\Rules\ExistsRule;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
@@ -27,7 +28,7 @@ class StoreOrderRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             "items" => "required|array",
@@ -44,11 +45,14 @@ class StoreOrderRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function store()
     {
         DB::beginTransaction();
@@ -57,7 +61,7 @@ class StoreOrderRequest extends FormRequest
 
             $this->validateQuantities($this->input('items'));
             $authUser = Manager::first();
-            $authClient = Auth::user("client");
+            $authClient = $this->loggedUser();
             $invoice = Invoice::create(
                 [
                     'invoice_type' => 'sale',
@@ -102,7 +106,9 @@ class StoreOrderRequest extends FormRequest
         }
     }
 
-
+    /**
+     * @throws ValidationException
+     */
     private function validateQuantities($items = [])
     {
         foreach ($items as $item) {
@@ -113,5 +119,10 @@ class StoreOrderRequest extends FormRequest
                 }
             }
         }
+    }
+
+    public function loggedUser(): User
+    {
+        return Auth::guard("client")->user();
     }
 }
