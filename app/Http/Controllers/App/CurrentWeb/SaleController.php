@@ -17,7 +17,6 @@ use Illuminate\View\View;
 
 class SaleController extends Controller
 {
-    //
     /**
      * Display a listing of the resource.
      * @return Application|Factory|View

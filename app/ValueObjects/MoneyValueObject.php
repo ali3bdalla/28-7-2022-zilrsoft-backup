@@ -82,8 +82,9 @@ class MoneyValueObject implements CastsAttributes
         return $this->getAmount($value);
     }
 
-    public function set($model, string $key, $value, array $attributes)
+    public function set($model, string $key, $value, array $attributes): float
     {
         $this->setAmount((float)$value);
+        return $this->getAmount();
     }
 }

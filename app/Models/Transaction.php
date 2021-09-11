@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Events\Models\Transaction\TransactionCreated;
 use App\ValueObjects\MoneyValueObject;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -20,6 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Transaction extends BaseModel
 {
     use  SoftDeletes;
+    use  HasFactory;
 
     protected $with = ['account'];
 
