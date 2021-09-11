@@ -111,11 +111,9 @@ class SaleController extends Controller
      */
     public function show(Invoice $sale)
     {
-
         $transactions = $sale->transactions()->with('account')->get();
-        $invoice = $sale;
-        $invoice->sale = $invoice->sale()->withoutGlobalScope(DraftScope::class)->first();
-
+        $invoice = $sale->load('payments.account', 'items.item');
+        $invoice->sale = $invoice->sale()->with('client', 'salesman')->withoutGlobalScope(DraftScope::class)->first();
         return view('sales.view', compact('invoice', 'transactions'));
     }
 

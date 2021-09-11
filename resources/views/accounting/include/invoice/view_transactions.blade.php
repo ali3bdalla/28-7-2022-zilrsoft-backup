@@ -49,15 +49,7 @@
         </thead>
 
 
-{{--        @if(moneyFormatter($total_debit)!=moneyFormatter($total_credit))--}}
-{{--            <script>--}}
-{{--                alert('توجد مشكلة بالعمليات المحاسبية لهذه الفاتورة')--}}
-{{--            </script>--}}
-{{--        @endif--}}
-
 
         </table>
-{{--        {{moneyFormatter($total_debit)}}--}}
-{{--        {{moneyFormatter($total_credit)}}--}}
     </div>
 @endcan
