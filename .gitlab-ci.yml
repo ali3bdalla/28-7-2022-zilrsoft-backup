@@ -70,40 +70,13 @@ test:
     # Run database seed
     - php artisan db:seed --env=testing
     - php artisan config:cache
+    - ./vendor/bin/phpstan --no-progress --xdebug
     # run laravel tests
-#    - ./vendor/bin/phpunit
+  #    - ./vendor/bin/phpunit
   when: on_success
 
 
-deploy_dev:
-  stage: deploy
-  script:
-    - eval $(ssh-agent -s)
-    - echo "$DEV_SSH_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - ~/.composer/vendor/bin/envoy run deploy --environment=development --commit="$CI_COMMIT_SHA" --cleanup
-  environment:
-    name: deployer
-    url: https://dev.zilrsoft.com
-  when: on_success
-  only:
-    - development
 
-deploy_next:
-  stage: deploy
-  script:
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - ~/.composer/vendor/bin/envoy run deploy --environment=next --commit="$CI_COMMIT_SHA" --cleanup
-  environment:
-    name: deployer
-    url: https://next.zilrsoft.com
-  when: on_success
-  only:
-    - next
 
 deploy_prod:
   stage: deploy

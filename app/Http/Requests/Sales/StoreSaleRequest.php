@@ -145,6 +145,9 @@ class StoreSaleRequest extends FormRequest
         $this->validateQuantities($this->input('items'));
     }
 
+    /**
+     * @throws ValidationException
+     */
     private function validateSerials()
     {
         foreach ($this->input('items') as $item) {
