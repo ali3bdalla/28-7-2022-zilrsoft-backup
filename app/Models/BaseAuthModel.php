@@ -16,10 +16,8 @@ class BaseAuthModel extends Authenticatable
     protected static function boot()
     {
         parent::boot();
-        if(Auth::check())
-        {
-            static::addGlobalScope(new OrganizationScope(Auth::user()->organization_id));
+        if (Auth::check()) {
+            static::addGlobalScope(new OrganizationScope((int)Auth::user()->getOriginal("organization_id")));
         }
-
     }
 }

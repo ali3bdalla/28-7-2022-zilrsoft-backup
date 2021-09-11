@@ -12,9 +12,10 @@ class LanguageMiddleware
      *
      * @param Request $request
      * @param Closure $next
+     * @param $lang
      * @return mixed
      */
-    public function handle($request, Closure $next, $lang)
+    public function handle(Request $request, Closure $next, $lang)
     {
         app()->setLocale($lang);
         return $next($request);

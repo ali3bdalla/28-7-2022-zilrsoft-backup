@@ -12,12 +12,10 @@ use App\Http\Controllers\App\CurrentWeb\ItemController;
 use App\Http\Controllers\App\CurrentWeb\PurchaseController;
 use App\Http\Controllers\App\CurrentWeb\SaleController;
 use App\Http\Controllers\App\CurrentWeb\VoucherController;
-use App\Http\Controllers\App\Web\ExpenseController;
 use App\Http\Controllers\App\Web\FilterController as WebFilterController;
 use App\Http\Controllers\App\Web\FilterValuesController as WebFilterValuesController;
 use App\Http\Controllers\App\Web\IdentitiesController as WebIdentitiesController;
 use App\Http\Controllers\App\Web\InventoryController as WebInventoryController;
-use App\Http\Controllers\App\Web\ItemController as WebItemController;
 use App\Http\Controllers\App\Web\ManagerController as WebManagerController;
 use App\Http\Controllers\App\Web\OrderController;
 use App\Http\Controllers\App\Web\ShippingController;
@@ -133,10 +131,8 @@ Route::prefix('filters')->name('filter')->group(
 );
 Route::prefix('/accounting')->name('accounting.')->group(
     function () {
-        Route::resource('expenses', ExpenseController::class);
         Route::prefix('/datatable')->group(
             function () {
-                Route::get('items', [WebItemController::class, 'datatable'])->name('items.datatable');
                 Route::get('vouchers', [VoucherController::class, 'datatable'])->name('vouchers.datatable');
                 Route::get('filters', [WebFilterController::class, 'datatable'])->name('filters.datatable');
                 Route::get('{filter}/filter_values', [WebFilterValuesController::class, 'datatable'])->name('filter.values.datatable');

@@ -30,7 +30,7 @@ class ItemController extends Controller
             $category['children'] = Category::getAllParentNestedChildren($category);
             $categories[] = $category;
         }
-        $vendors = User::where('is_vendor', true)->get();
+        $vendors = User::whereIsVendor(true)->get();
         return view('accounting.items.create', compact('categories', 'isClone', 'vendors'));
 
     }
@@ -45,7 +45,7 @@ class ItemController extends Controller
             $category['children'] = Category::getAllParentNestedChildren($category);
             $categories[] = $category;
         }
-        $vendors = User::where('is_vendor', true)->get();
+        $vendors = User::whereIsVendor(true)->get();
         $item['tags'] = $item->tags()->pluck('tag')->toArray();
         return view('accounting.items.edit', compact('categories', 'isClone', 'vendors', 'item'));
 
@@ -63,7 +63,7 @@ class ItemController extends Controller
             $category['children'] = Category::getAllParentNestedChildren($category);
             $categories[] = $category;
         }
-        $vendors = User::where('is_vendor', true)->get();
+        $vendors = User::whereIsVendor(true)->get();
         $item['tags'] = $item->tags()->pluck('tag')->toArray();
         return view('accounting.items.edit', compact('categories', 'isClone', 'vendors', 'item'));
 
