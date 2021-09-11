@@ -86,7 +86,7 @@ class StoreOrderRequest extends FormRequest
             dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'ONLINE'));
             dispatch_sync(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true, $authUser, true));
             dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
-            $order = CreateSalesOrderJob::dispatchNow($invoice->fresh(), $this);
+            $order = CreateSalesOrderJob::dispatchSync($invoice->fresh(), $this);
             dispatch_sync(new HoldItemQtyJob($invoice, $order));
             dispatch_sync(new NotifyCustomerByNewOrderJob($order, "", $invoice));
             DB::commit();

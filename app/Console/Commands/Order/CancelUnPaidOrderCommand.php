@@ -44,7 +44,7 @@ class CancelUnPaidOrderCommand extends Command
     {
         $orders = Order::where('status', 'issued')->whereDate('auto_cancel_at', '<=', Carbon::now())->whereTime('auto_cancel_at', '<=', Carbon::now())->get();
         foreach ($orders as $order) {
-            CancelOrderJob::dispatchNow($order);
+            CancelOrderJob::dispatchSync($order);
         }
 
     }

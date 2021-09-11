@@ -56,11 +56,11 @@ class AutoCreateShippingTransactionJob implements ShouldQueue
                     'boxes' => 1,
                     'weight' => $this->order->shipping_weight,
                 ];
-                $shippingTransaction = CreateShippingTransactionJob::dispatchNow($this->order->shippingMethod, $data);
+                $shippingTransaction = CreateShippingTransactionJob::dispatchSync($this->order->shippingMethod, $data);
                 $this->order->update([
                     'status' => 'ready_for_shipping'
                 ]);
-                CreateShippingTransactionShippingStatusJob::dispatchNow($shippingTransaction, $deliveryMan);
+                CreateShippingTransactionShippingStatusJob::dispatchSync($shippingTransaction, $deliveryMan);
             }
 
 

@@ -35,7 +35,7 @@ class NotifyCustomerOrderHasBeenShippedJob implements ShouldQueue
      */
     public function handle()
     {
-        $pdfUrl = CreateOrderPdfSnapshotJob::dispatchNow($this->order->invoice);
+        $pdfUrl = CreateOrderPdfSnapshotJob::dispatchSync($this->order->invoice);
 
         $phoneNumber = $this->order->user->international_phone_number;
         $deliveryMan = $this->order->deliveryMan;

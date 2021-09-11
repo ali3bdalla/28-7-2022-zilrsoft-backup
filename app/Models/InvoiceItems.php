@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Scopes\DraftScope;
-use Illuminate\Database\Eloquent\Builder;
+use App\ValueObjects\MoneyValueObject;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -42,26 +42,17 @@ class InvoiceItems extends BaseModel
         'invoice_url',
         'invoice_number',
         'r_qty'
-
     ];
     protected $casts = [
-        'tax' => 'float',
-        'total' => 'float',
-        'discount' => 'float',
-        'net' => 'float',
-        'price' => 'float',
-        'is_draft' => 'boolean'
+        'is_draft' => 'boolean',
+        'net' => MoneyValueObject::class,
+        'total' => MoneyValueObject::class,
+        'subtotal' => MoneyValueObject::class,
+        'tax' => MoneyValueObject::class,
+        'discount' => MoneyValueObject::class,
+        'price' => MoneyValueObject::class,
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-        if (auth()->check()) {
-            static::addGlobalScope('draft', function (Builder $builder) {
-                $builder->where('is_draft', false);
-            });
-        }
-    }
 
     public function getRQtyAttribute()
     {
@@ -124,10 +115,9 @@ class InvoiceItems extends BaseModel
 
     public function getInvoiceNumberAttribute()
     {
-        $invoice = $this->invoice()->withoutGlobalScope(DraftScope::class)->withoutGlobalScope('manager')->first();
+        $invoice = $this->invoice()->withoutGlobalScope(DraftScope::class)->first();
         if ($invoice)
-            return $invoice->invoice_number;
-
+            return $invoice->getOriginal("invoice_number");
         return "";
     }
 

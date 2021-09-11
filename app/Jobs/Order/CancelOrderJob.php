@@ -64,7 +64,7 @@ class CancelOrderJob implements ShouldQueue
     private function unHoldItemQuantity()
     {
         foreach ($this->order->itemsQtyHolders as $holdQty) {
-            UpdateAvailableQtyByInvoiceItemJob::dispatchNow($holdQty->invoiceItem, true);
+            UpdateAvailableQtyByInvoiceItemJob::dispatchSync($holdQty->invoiceItem, true);
             $holdQty->update(
                 [
                     'status' => 'destroyed'

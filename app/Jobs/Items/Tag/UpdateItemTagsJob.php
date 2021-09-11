@@ -40,7 +40,7 @@ class UpdateItemTagsJob implements ShouldQueue
                 if(!in_array($tag,$itemsTags))
                 {
                     $this->item->tags()->create([
-                        'tag' =>  $tag,//ReplaceArabicSensitiveCharJob::dispatchNow($tag)
+                        'tag' =>  $tag,//ReplaceArabicSensitiveCharJob::dispatchSync($tag)
                     ]);
                 }
 

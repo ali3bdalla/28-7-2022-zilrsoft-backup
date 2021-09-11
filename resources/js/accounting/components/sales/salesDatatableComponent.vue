@@ -353,7 +353,6 @@
         </table>
 
       </div>
-      <tile v-show="isLoading" :color="app.primaryColor" :loading="isLoading"></tile>
       <div class="table-paginations">
         <accounting-table-pagination-helper-layout-component
             :data="paginationResponseData"
@@ -488,11 +487,9 @@ export default {
       if (this.onlyQuotations == 1 || this.onlyQuotations == true) {
         params.is_draft = true
       }
-
       axios.get(this.requestUrl, {
         params: params
       }).then(function (response) {
-        console.log(response.data.data)
         appVm.table_rows = response.data.data
         appVm.isLoading = false
         appVm.paginationResponseData = response.data
@@ -517,9 +514,6 @@ export default {
       for (let i = 0; i < len; i++) {
         const row = items[i]
         if (row.invoice_type === 'sale') {
-          if (parseFloat(row.invoice_cost) == NaN) {
-            console.log(row)
-          }
           this.totals.net = ItemMath.sum(this.totals.net, row.net)
           this.totals.tax = ItemMath.sum(this.totals.tax, row.tax)
           this.totals.total = ItemMath.sum(this.totals.total, row.total)

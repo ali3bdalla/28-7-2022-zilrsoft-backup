@@ -43,7 +43,7 @@ class CreateShippingSalesInvoiceJob implements ShouldQueue
             $item->qty = 1;
             $item->price = moneyFormatter(($this->amount / 1.15));
             $item->discount = 0;
-            CreateSalesJob::dispatchNow($this->user->id, [$item->toArray()]);
+            CreateSalesJob::dispatchSync($this->user->id, [$item->toArray()]);
         }
     }
 }

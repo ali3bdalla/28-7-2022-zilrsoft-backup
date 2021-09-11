@@ -14,6 +14,7 @@ use App\Jobs\Sales\Payment\StoreSalePaymentsJob;
 use App\Models\Invoice;
 use App\Models\Item;
 use App\Models\ItemSerials;
+use App\Models\Manager;
 use App\Models\Order;
 use App\Models\User;
 use Exception;
@@ -29,11 +30,9 @@ class StoreSaleRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-
-
             "items" => "required|array",
             "items.*.id" => "required||organization_exists:App\Models\Item,id",
             "items.*.price" => "price|priceAndDiscount|min:0",
@@ -58,21 +57,22 @@ class StoreSaleRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function store()
     {
         DB::beginTransaction();
-        /** @var TYPE_NAME $exception */
         try {
             $isOnlineOrder = $this->isOnlineOrder();
             $this->requestValidation();
-            $authUser = auth()->user();
-            if ($this->has('without_creating_expenses_purchases') && $this->filled('without_creating_expenses_purchases')) {
-            } else {
+            $authUser = $this->loggedUser();
+            if (!$this->has('without_creating_expenses_purchases') || !$this->filled('without_creating_expenses_purchases')) {
                 dispatch_sync(new CreatePurchaseInvoiceForExpensesJob($this->input('items')));
             }
 
@@ -115,16 +115,13 @@ class StoreSaleRequest extends FormRequest
             dispatch_sync(new UpdateOnlineOrderStatus($this->input('quotation_id'), $invoice));
             DB::commit();
             return $invoice;
-        } catch (QueryException $queryException) {
-            DB::rollBack();
-            throw $queryException;
-        } catch (ValidationException | Exception $exception) {
+        } catch (QueryException | ValidationException | Exception $exception) {
             DB::rollBack();
             throw $exception;
         }
     }
 
-    private function isOnlineOrder()
+    private function isOnlineOrder(): bool
     {
         $draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->input('quotation_id'))->first();
         if ($draft) {
@@ -137,6 +134,9 @@ class StoreSaleRequest extends FormRequest
         return false;
     }
 
+    /**
+     * @throws ValidationException
+     */
     private function requestValidation()
     {
         $this->validateSerials();
@@ -159,6 +159,9 @@ class StoreSaleRequest extends FormRequest
         }
     }
 
+    /**
+     * @throws ValidationException
+     */
     private function validateKits()
     {
         foreach ($this->input('items') as $kitFrontEndData) {
@@ -216,6 +219,11 @@ class StoreSaleRequest extends FormRequest
         }
     }
 
+    public function loggedUser(): Manager
+    {
+        return parent::user();
+    }
+
     private function validatePaymentsAndGetPaymentMethods(Invoice $invoice, $isOnlineOrder = false)
     {
 
@@ -255,7 +263,7 @@ class StoreSaleRequest extends FormRequest
     }
 
 
-    public function onlineOrderPayments()
+    public function onlineOrderPayments(): array
     {
         return [];
         //        $draft = Invoice::withoutGlobalScopes(['draft', 'manager'])->where('id', $this->input('quotation_id'))->first();

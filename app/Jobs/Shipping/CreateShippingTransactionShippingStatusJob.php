@@ -51,9 +51,9 @@ class CreateShippingTransactionShippingStatusJob implements ShouldQueue
             'delivery_man_id' => $this->deliveryMan->id
         ]);
         if ($this->shippingTransaction->order && $this->shippingTransaction->order->status == 'ready_for_shipping') {
-            HandleOrderShippingJob::dispatchNow($this->shippingTransaction->order, $this->deliveryMan);
+            HandleOrderShippingJob::dispatchSync($this->shippingTransaction->order, $this->deliveryMan);
             if ($this->shippingTransaction->order->shipping_amount > 0)
-                CreateShippingSalesInvoiceJob::dispatchNow($this->shippingTransaction->order->user, $this->shippingTransaction, $this->shippingTransaction->order->shipping_amount);
+                CreateShippingSalesInvoiceJob::dispatchSync($this->shippingTransaction->order->user, $this->shippingTransaction, $this->shippingTransaction->order->shipping_amount);
         }
     }
 }

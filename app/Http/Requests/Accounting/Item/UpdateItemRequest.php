@@ -86,7 +86,7 @@ class UpdateItemRequest extends FormRequest
             'price_with_tax',
 
         );
-        $data['ar_name'] = ReplaceArabicSensitiveCharJob::dispatchNow($this->input('ar_name'));
+        $data['ar_name'] = ReplaceArabicSensitiveCharJob::dispatchSync($this->input('ar_name'));
 
         $item->update($data);
 
@@ -121,7 +121,7 @@ class UpdateItemRequest extends FormRequest
                 }
             }
         }
-        UpdateItemTagsJob::dispatchNow($item, (array)$this->input('tags'));
+        UpdateItemTagsJob::dispatchSync($item, (array)$this->input('tags'));
         if (auth()->user()->organization_id == 1 && $this->input('is_available_online')) {
 
             $requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();

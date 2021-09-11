@@ -70,7 +70,7 @@ class CreateItemRequest extends FormRequest
 			$data = $this->except('filters','tags','images');
 			$data['organization_id'] = $this->user()->organization_id;
 			$data['creator_id'] = $this->user()->id;
-			$data['ar_name'] = ReplaceArabicSensitiveCharJob::dispatchNow($this->input('ar_name'));
+			$data['ar_name'] = ReplaceArabicSensitiveCharJob::dispatchSync($this->input('ar_name'));
 			$data['is_kit'] = false;
 			$data['warranty_subscription_id'] = $this->warranty_subscription_id;
 
@@ -98,7 +98,7 @@ class CreateItemRequest extends FormRequest
 			}
             if($this->has('tags') && $this->filled('tags'))
             {
-                UpdateItemTagsJob::dispatchNow($item,$this->input('tags'));
+                UpdateItemTagsJob::dispatchSync($item,$this->input('tags'));
             }
 
 			if($this->filled('images'))

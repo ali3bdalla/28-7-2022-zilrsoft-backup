@@ -58,7 +58,7 @@ class OrderController extends Controller
         ]);
         if ($order->status === 'pending') {
             foreach ($order->itemsQtyHolders()->get() as $holdQty) {
-                UpdateAvailableQtyByInvoiceItemJob::dispatchNow($holdQty->invoiceItem, true);
+                UpdateAvailableQtyByInvoiceItemJob::dispatchSync($holdQty->invoiceItem, true);
             }
             $order->update(
                 [
@@ -67,9 +67,9 @@ class OrderController extends Controller
                     'payment_approved_by_id' => $request->user()->id
                 ]
             );
-            CreateReceivedPaymentFromClientJob::dispatchNow($order->user, $order->net, $request->input('account_id'));
+            CreateReceivedPaymentFromClientJob::dispatchSync($order->user, $order->net, $request->input('account_id'));
             event(new OrderPaymentConfirmedEvent($order));
-            NotifyCustomerByPaymentConfirmationJob::dispatchNow($order);
+            NotifyCustomerByPaymentConfirmationJob::dispatchSync($order);
         }
 
 
@@ -84,12 +84,12 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         foreach ($order->itemsQtyHolders()->get() as $holdQty) {
-            UpdateAvailableQtyByInvoiceItemJob::dispatchNow($holdQty->invoiceItem, true);
+            UpdateAvailableQtyByInvoiceItemJob::dispatchSync($holdQty->invoiceItem, true);
         }
         $order->update([
             'status' => "canceled"
         ]);
-        NotifyCustomerByOrderPaymentCancellationJob::dispatchNow($order);
+        NotifyCustomerByOrderPaymentCancellationJob::dispatchSync($order);
     }
 
 
@@ -128,7 +128,7 @@ class OrderController extends Controller
         ])->orderBy('id', 'desc')->first();
 
         if ($verification && $verification->verfication_code == $request->input('verification_code') && $order->status == 'ready_for_shipping') {
-            HandleOrderShippingJob::dispatchNow($order, $deliveryMan);
+            HandleOrderShippingJob::dispatchSync($order, $deliveryMan);
         } else {
 
             throw  ValidationValidationException::withMessages([]);

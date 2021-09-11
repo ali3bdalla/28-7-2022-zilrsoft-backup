@@ -9,9 +9,6 @@ use App\Scopes\PendingScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-/**
- * @property string ar_description
- */
 class BaseModel extends Model
 {
     use PostgresTimestamp;
@@ -20,7 +17,7 @@ class BaseModel extends Model
     {
         parent::boot();
         if (Auth::check()) {
-            static::addGlobalScope(new OrganizationScope(Auth::user()->organization_id));
+            static::addGlobalScope(new OrganizationScope(Auth::user()->getOriginal("organization_id")));
         } else {
             static::addGlobalScope(new OrganizationScope(1));
         }
@@ -31,18 +28,18 @@ class BaseModel extends Model
     public function getLocaleNameAttribute()
     {
         if (app()->isLocale('ar')) {
-            return $this->ar_name;
+            return $this->getOriginal("ar_name");
         }
 
-        return $this->name;
+        return $this->getOriginal("name");
     }
 
     public function getLocaleDescriptionAttribute()
     {
         if (app()->isLocale('ar')) {
-            return $this->ar_description;
+            return $this->getOriginal("ar_description");
         }
 
-        return $this->description;
+        return $this->getOriginal("description");
     }
 }

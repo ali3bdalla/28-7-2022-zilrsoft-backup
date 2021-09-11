@@ -68,7 +68,7 @@ class CreateShippingTransactionJob implements ShouldQueue
             }
 
             if ($this->shippingMethod->id == 2) // smsa
-                $data['tracking_number'] = SmsaCreateShippmentJob::dispatchNow($data);
+                $data['tracking_number'] = SmsaCreateShippmentJob::dispatchSync($data);
             else {
                 $data['tracking_number'] = rand(100000000000, 99999999999999);
             }

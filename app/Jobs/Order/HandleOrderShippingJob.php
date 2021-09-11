@@ -39,7 +39,7 @@ class HandleOrderShippingJob implements ShouldQueue
     {
         if ($this->order->status == 'ready_for_shipping') {
             if ($this->order->shippable instanceof ShippingMethod)
-                self::dispatchNow(new CreateOrderSmsaShippmentJob($this->order));
+                self::dispatchSync(new CreateOrderSmsaShippmentJob($this->order));
         }
     }
 }

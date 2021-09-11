@@ -10,7 +10,7 @@ trait ItemSearch
     public function apply(Builder $query)
     {
         if ($this->has('name') && $this->filled('name')) {
-            $searchKeywords = ReplaceArabicSensitiveCharJob::dispatchNow($this->input('name'));
+            $searchKeywords = ReplaceArabicSensitiveCharJob::dispatchSync($this->input('name'));
             $searchArray = explode(' ', $this->input('name'));
 
             if($this->has('search_via') && $this->filled('search_via') && $this->input('search_via') == 'tag')
@@ -23,7 +23,7 @@ trait ItemSearch
                     $qqq->where('tag', $searchKeywords);
                 })->orWhere(function ($subQueryLevel) use ($searchArray) {
                     foreach ($searchArray as $searchKey) {
-                        $searchKey = ReplaceArabicSensitiveCharJob::dispatchNow($searchKey);
+                        $searchKey = ReplaceArabicSensitiveCharJob::dispatchSync($searchKey);
                         $subQueryLevel->orWhere('ar_name', 'iLIKE', '%' . $searchKey . '%')->orWhere('name', 'iLIKE', '%' . $searchKey . '%');
                     }
                 });

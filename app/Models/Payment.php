@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use AliAbdalla\Tafqeet\Core\Tafqeet;
 use App\Enums\VoucherTypeEnum;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property mixed user
+ * @property HasOne user
  * @property mixed payment_type
  * @property mixed amount
  */
@@ -51,17 +52,17 @@ class Payment extends BaseModel
         return $this->user->phone_number;
     }
 
-    public function account()
+    public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class, 'account_id');
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function invoice()
+    public function invoice(): BelongsTo
     {
         return $this->belongsTo(Invoice::class, 'invoice_id');
     }

@@ -41,7 +41,6 @@ class UpdateIdentityRequest extends FormRequest
             'user_detail_vat' => 'nullable',
             'email' => 'nullable|email',
             'user_detail_cr' => 'nullable',
-            'email' => 'nullable',
             'user_detail_responser' => 'nullable',
             'user_detail_responser_phone' => 'nullable'
         ];

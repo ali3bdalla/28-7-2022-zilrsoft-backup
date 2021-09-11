@@ -40,11 +40,10 @@ Route::middleware('auth')->group(
 
         Route::resource('vouchers', 'VoucherController');
         Route::resource('sales', 'SaleController');
-        Route::prefix('sales')->name('sales.')->group(
-            function () {
-                Route::post('/draft', 'SaleController@storeDraft')->name('store.draft');
-                Route::patch('/{sale}', 'SaleController@storeReturnSale')->name('store.return');
-            }
+        Route::group(['prefix' => 'sales', 'as' => 'sales.'], function () {
+            Route::post('/draft', 'SaleController@storeDraft')->name('store.draft');
+            Route::patch('/{sale}', 'SaleController@storeReturnSale')->name('store.return');
+        }
         );
         Route::apiResource('accounts', 'AccountController');
         Route::group(['prefix' => 'accounts/{account}', 'as' => 'accounts.'], function () {

@@ -19,7 +19,7 @@ class ReplaceArabicSencetiveChars extends Migration
             $items = Item::all();
             foreach ($items as $item) {
                 $item->update([
-                    'ar_name' => ReplaceArabicSensitiveCharJob::dispatchNow($item->ar_name)
+                    'ar_name' => ReplaceArabicSensitiveCharJob::dispatchSync($item->ar_name)
                 ]);
             }
         });

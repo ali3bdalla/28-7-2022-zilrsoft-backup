@@ -79,7 +79,7 @@ class ShippingController extends Controller
 
     public function downloadTransaction(ShippingMethod $shipping, ShippingTransaction $transaction)
     {
-        if ($shipping->id == 2) return DownloadShippmentPdfJob::dispatchNow($transaction);
+        if ($shipping->id == 2) return DownloadShippmentPdfJob::dispatchSync($transaction);
 
         if ($transaction->order) return Storage::download($transaction->order->pdf_path);
     }
@@ -122,7 +122,7 @@ class ShippingController extends Controller
             "boxes",
             "weight",
         );
-        CreateShippingTransactionJob::dispatchNow($shipping, $data);
+        CreateShippingTransactionJob::dispatchSync($shipping, $data);
         return redirect(route('store.shipping.view_transactions', $shipping->id));
     }
 
@@ -172,7 +172,7 @@ code: ' . $otp;
             $transactions = ShippingTransaction::find($request->input('transactions'));
             foreach ($transactions as $key => $transaction) {
                 if ($transaction->status === 'issued') {
-                    CreateShippingTransactionShippingStatusJob::dispatchNow($transaction, $deliveryMan);
+                    CreateShippingTransactionShippingStatusJob::dispatchSync($transaction, $deliveryMan);
                 }
             }
         } else {

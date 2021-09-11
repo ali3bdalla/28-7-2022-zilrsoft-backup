@@ -8,7 +8,9 @@ use App\Repository\BaseRepositoryContract;
 use App\Repository\Eloquent\AccountRepository;
 use App\Repository\Eloquent\AccountsDailyRepository;
 use App\Repository\Eloquent\BaseRepository;
+use App\Repository\Eloquent\InvoiceRepository;
 use App\Repository\Eloquent\ManagerRepository;
+use App\Repository\InvoiceRepositoryContract;
 use App\Repository\ManagerRepositoryContract;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +27,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(AccountsDailyRepositoryContract::class, AccountsDailyRepository::class);
         $this->app->bind(ManagerRepositoryContract::class, ManagerRepository::class);
         $this->app->bind(AccountRepositoryContract::class, AccountRepository::class);
+        $this->app->bind(InvoiceRepositoryContract::class, InvoiceRepository::class);
     }
 
     /**

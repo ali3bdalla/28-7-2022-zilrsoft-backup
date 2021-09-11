@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\InvoiceTypeEnum;
 use App\Scopes\DraftScope;
+use App\ValueObjects\MoneyValueObject;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -14,7 +16,7 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed organization_id
  * @property mixed creator_id
  * @property mixed user_id
- * @property mixed invoice_type
+ * @property InvoiceTypeEnum invoice_type
  * @property mixed net
  * @property mixed tax
  * @property mixed id
@@ -43,6 +45,14 @@ class Invoice extends BaseModel
     protected $casts = [
         'printable_price' => 'boolean',
         'is_draft_converted' => 'boolean',
+        'invoice_type' => InvoiceTypeEnum::class . ':nullable',
+        'net' => MoneyValueObject::class,
+        'total' => MoneyValueObject::class,
+        'subtotal' => MoneyValueObject::class,
+        'tax' => MoneyValueObject::class,
+        'discount' => MoneyValueObject::class,
+        'vts' => MoneyValueObject::class,
+        'vtp' => MoneyValueObject::class,
     ];
 
     public static function getInvoiceByPublicIdHash($hash): Invoice

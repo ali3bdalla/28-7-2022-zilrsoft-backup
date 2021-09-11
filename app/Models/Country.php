@@ -3,22 +3,19 @@
 namespace App\Models;
 
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class Country extends BaseModel
 {
-	
-	protected $guarded = [];
-	
-	protected $appends = ['locale_name'];
-	public function banks()
-	{
-		return $this->hasMany(CountryBank::class,'country_id');
-	}
-	
-	
-	public function organizations()
-	{
-		return $this->hasMany(Organization::class,'country_id');
-	}
+
+    protected $guarded = [];
+
+    protected $appends = ['locale_name'];
+
+    public function organizations(): HasMany
+    {
+        return $this->hasMany(Organization::class, 'country_id');
+    }
     //
 }
 

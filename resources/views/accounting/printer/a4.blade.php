@@ -3,7 +3,6 @@
 <head>
     <title>{{$invoice->invoice_number }}</title>
 
-    <!-- Latest compiled and minified CSS -->
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700&subset=latin,latin-ext'
           rel='stylesheet' type='text/css'>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">

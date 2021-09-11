@@ -75,7 +75,7 @@ class UpdateOnlineOrderStatus implements ShouldQueue
                 );
 
                 if ($order->shippingMethod && $order->shippingMethod->deliver_when_invoice_created) {
-                    AutoCreateShippingTransactionJob::dispatchNow($order);
+                    AutoCreateShippingTransactionJob::dispatchSync($order);
                 }
             }
         }
