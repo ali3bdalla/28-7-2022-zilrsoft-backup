@@ -3,10 +3,7 @@
 namespace App\Http\Requests\Account;
 
 use App\Models\Account;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class StoreAccountRequest extends FormRequest
@@ -37,7 +34,7 @@ class StoreAccountRequest extends FormRequest
         ];
     }
 
-    public function store(): Redirector|Application|RedirectResponse
+    public function store()
     {
         $parent = Account::find($this->input("parent_id"));
 

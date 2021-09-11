@@ -25,6 +25,7 @@ class MoneyValueObject implements CastsAttributes
     }
 
     /**
+     * @param null $amount
      * @return float
      */
     public function getAmount($amount = null): float

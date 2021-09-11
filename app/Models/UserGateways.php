@@ -24,10 +24,7 @@ class UserGateways extends BaseModel
 
     public function getLocaleNameAttribute()
     {
-
-        return $this->detail;
-
+        return $this->getOriginal("detail");
     }
 
-    //
 }

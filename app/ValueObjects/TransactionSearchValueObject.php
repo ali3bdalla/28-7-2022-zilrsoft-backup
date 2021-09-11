@@ -58,17 +58,13 @@ class TransactionSearchValueObject implements SearchValueObjectContract
         return $this->startAt != null;
     }
 
-    /**
-     * @return ?Carbon
-     */
+
     public function getStartAt(): ?Carbon
     {
         return $this->startAt;
     }
 
-    /**
-     * @param Carbon|string|null $startAt
-     */
+
     public function setStartAt(?string $startAt): void
     {
         if ($startAt)
@@ -82,17 +78,11 @@ class TransactionSearchValueObject implements SearchValueObjectContract
         return $this->endAt != null;
     }
 
-    /**
-     * @return ?Carbon
-     */
     public function getEndAt(): ?Carbon
     {
         return $this->endAt;
     }
 
-    /**
-     * @param Carbon|string|null $endAt
-     */
     public function setEndAt(?string $endAt): void
     {
         if ($endAt)
@@ -106,9 +96,7 @@ class TransactionSearchValueObject implements SearchValueObjectContract
         return $this->userId != null;
     }
 
-    /**
-     * @return ?int
-     */
+
     public function getUserId(): ?int
     {
         return $this->userId;
@@ -118,10 +106,6 @@ class TransactionSearchValueObject implements SearchValueObjectContract
     {
         return $this->itemId != null;
     }
-
-    /**
-     * @return ?int
-     */
     public function getItemId(): ?int
     {
         return $this->itemId;
@@ -131,10 +115,6 @@ class TransactionSearchValueObject implements SearchValueObjectContract
     {
         return $this->invoiceId != null;
     }
-
-    /**
-     * @return ?int
-     */
     public function getInvoiceId(): ?int
     {
         return $this->invoiceId;

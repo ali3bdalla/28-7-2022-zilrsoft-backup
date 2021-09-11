@@ -62,12 +62,8 @@ class ValidatorServiceProvider extends ServiceProvider
                 $table = (new $model)->getTable();
 
 
-
-
                 if (!Schema::hasColumn($table, $parameters[1]))
                     return false;
-
-
 
 
                 return $model::where($parameters[1], $value)->count() > 0;
@@ -102,7 +98,6 @@ class ValidatorServiceProvider extends ServiceProvider
                 $str_attr = explode('.', $attribute);
                 $index = $str_attr[1];
                 $first = $str_attr[0];
-                $end = $str_attr[2];
                 $id = request()->input("{$first}.{$index}.id");
                 $item = Item::findOrFail($id);
                 if ($item->is_kit || $item->is_service || $item->is_expense) {
@@ -260,7 +255,7 @@ class ValidatorServiceProvider extends ServiceProvider
                         ['kit_id', $kitId],
                         ['item_id', $kitItemId]
                     ]
-                )->firstOrFail();
+                )->with('item')->firstOrFail();
 
                 $requestedQty = (float)$kitQty * $dbKitItem->qty;
                 if ($requestedQty > $dbKitItem->item->available_qty) {

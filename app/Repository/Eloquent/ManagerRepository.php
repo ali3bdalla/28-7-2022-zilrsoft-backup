@@ -17,7 +17,12 @@ class ManagerRepository extends BaseRepository implements ManagerRepositoryContr
 
     public function getCurrentManagerBanks(): Collection
     {
-        return Auth::user()->gateways()->get();
+        return $this->user()->gateways()->get();
+    }
+
+    public function user(): Manager
+    {
+        return Auth::user();
     }
 
     public function getAllManagersBanksExcept(array $managersId): array
