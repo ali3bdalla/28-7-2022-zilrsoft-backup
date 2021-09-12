@@ -2,19 +2,14 @@
 <html>
 <head>
     <title>{{$invoice->invoice_number }}</title>
-
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700&subset=latin,latin-ext'
           rel='stylesheet' type='text/css'>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta http-equiv="content-type" content="text-html; charset=utf-8">
     <link rel="stylesheet" href="{{ asset('template/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{ asset('template/css/pdf-rtl.css')}}">
-
     <link href="https://fonts.googleapis.com/css?family=El+Messiri&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="{{ asset('template/css/pdf.css') }}">
-
-
     <style>
         body {
             padding: 10px;
@@ -26,19 +21,9 @@
 
         tr th, tr td {
             padding: 4px !important;
-            /*font-size: 16px !important;*/
-            /*font-weight: bold !important;*/
             text-align: center !important;
 
         }
-
-        {{--.centerd_data {--}}
-        {{--    height: 200px;--}}
-        {{--    background: url({{ asset('template/images/paid.png') }}) no-repeat no-repeat center center;--}}
-        {{--    /*background-image: url();*/--}}
-        {{--    background-position: center center;--}}
-        {{--}--}}
-
 
         . {
             padding: 10px
@@ -117,7 +102,8 @@
             <h5 style="margin: 10px 0px !important;">الرقم الضريبي : {{$invoice->creator->organization->vat}}</h5>
 
             <h5 style="margin: 10px 0px !important;"> السجل التجاري : {{$invoice->creator->organization->cr}}</h5>
-            <h5 style="margin: 10px 0px !important;"> رقم الهاتف : {{$invoice->creator->organization->phone_number}}</h5>
+            <h5 style="margin: 10px 0px !important;"> رقم الهاتف
+                : {{$invoice->creator->organization->phone_number}}</h5>
 
         </div>
         <div class="text-right col-md-6">
@@ -174,9 +160,6 @@
                     <span>{{$invoice->manager_type }} : {{ $invoice->manager->locale_name
                     }}</span>
                 </div>
-                {{--                <div class="company-info"  style="margin-bottom: 8px">--}}
-                {{--                    <span>{{  __('pages/invoice.phone_number')  }} : {{  $invoice->creator->user->phone_number  }}</span>--}}
-                {{--                </div>--}}
                 <div class="company-info">
                     <span>{{ __('pages/invoice.department') }} :  {{ $invoice->department->locale_title  }}</span>
                 </div>
@@ -219,35 +202,35 @@
                     </tr>
                     </tbody>
                     <tbody class="body">
-					<?php $items_qty_count = 0; ?>
+                    <?php $items_qty_count = 0; ?>
                     @if(!empty($invoice->items))
                         @foreach($invoice->items as $item)
                             @if($item->belong_to_kit==false && $item->show_price_in_print_mode && $item->item != null)
-								<?php $items_qty_count = $items_qty_count + $item->qty; ?>
+                                <?php $items_qty_count = $items_qty_count + $item->qty; ?>
                                 @if($loop->index%2==0)
-									<?php $background_color = '#ffffff'; ?>
+                                    <?php $background_color = '#ffffff'; ?>
                                     <tr>
                                 @else
                                     <tr style="background-color: #8888">
-										<?php $background_color = '#eee'; ?>
+                                        <?php $background_color = '#eee'; ?>
                                         @endif
                                         <td class="no" style="width:30px !important;">{{$loop->index + 1}}</td>
                                         <td class="desc" style="width: 10%  !important;text-align: right !important;
                                                 font-weight: bold;font-size: 13px !important;color: black;background-color:
-										<?php echo $background_color; ?> !important;">{{mb_substr($item->item->locale_name, 0,55) }}</td>
+                                        <?php echo $background_color; ?> !important;">{{mb_substr($item->item->locale_name, 0,55) }}</td>
                                         <td class="total" style="background-color:
-										<?php echo $background_color; ?> !important;">{{ $item->qty }}</td>
+                                        <?php echo $background_color; ?> !important;">{{ $item->qty }}</td>
                                         @if($invoice->show_items_price_in_print_mode)
                                             <td class="total" style="background-color:
-											<?php echo $background_color; ?> !important;">{{ moneyFormatter($item->price) }}</td>
+                                            <?php echo $background_color; ?> !important;">{{ moneyFormatter($item->price) }}</td>
                                             <td class="total" style="background-color:
-											<?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->total) }}</td>
+                                            <?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->total) }}</td>
                                             <td class="total" style="background-color:
-											<?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->discount) }}</td>
+                                            <?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->discount) }}</td>
                                             <td class="total" style="background-color:
-											<?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->tax) }}</td>
+                                            <?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->tax) }}</td>
                                             <td class="total" style="background-color:
-											<?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->net) }}</td>
+                                            <?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->net) }}</td>
                                         @endif
                                     </tr>
                                     @if(!in_array($item->invoice_type,['purchase']))
@@ -269,40 +252,38 @@
                                                         style="width: 10%  !important;text-align: right !important;
                                                                 font-weight: bold;font-size: 10px !important;color: black;
                                                                 background-color:
-													    <?php echo $background_color; ?> !important;padding-right: 20px !important;">{{$serial->serial }}</td>
+                                                        <?php echo $background_color; ?> !important;padding-right: 20px !important;">{{$serial->serial }}</td>
                                                     <td class="total" style="background-color:
-													<?php echo $background_color; ?> !important;"></td>
+                                                    <?php echo $background_color; ?> !important;"></td>
                                                     @if($invoice->show_items_price_in_print_mode)
                                                         <td class="total" style="background-color:
-														<?php echo $background_color; ?> !important;"></td>
+                                                        <?php echo $background_color; ?> !important;"></td>
                                                         <td class="total" style="background-color:
-														<?php echo $background_color; ?> !important;"></td>
+                                                        <?php echo $background_color; ?> !important;"></td>
                                                         <td class="total" style="background-color:
-														<?php echo $background_color; ?> !important;"></td>
+                                                        <?php echo $background_color; ?> !important;"></td>
                                                         <td class="total" style="background-color:
-														<?php echo $background_color; ?> !important;"></td>
+                                                        <?php echo $background_color; ?> !important;"></td>
                                                         <td class="total" style="background-color:
-														<?php echo $background_color; ?> !important;"></td>
+                                                        <?php echo $background_color; ?> !important;"></td>
                                                     @endif
                                                 </tr>
-
                                             @endforeach
                                         @endif
                                     @endif
                                 @endif
                                 @endforeach
-
-
                             @endif
-
                     </tbody>
                 </table>
             </div>
 
         </div>
     </section>
-    <div class="">
-		<?php $show_price_in_print_mode_tax_net = $invoice->show_price_in_print_mode_tax_and_net; ?>
+    <div>
+        @php
+            $show_price_in_print_mode_tax_net = $invoice->show_price_in_print_mode_tax_and_net;
+        @endphp
         <div class="text-right total_numbers">
             <div class="">
                 <h4 style="color: white;font-size: 22px;padding: 4px">{{ __('pages/invoice.invoice_data') }}</h4>
@@ -348,7 +329,6 @@
 
 
     </div>
-
     <div class="text-right total_numbers " style="float:right;color: black !important;">
         <div class="">
             <h4 style="color: white;font-size: 22px;padding: 4px">{{ __('pages/invoice.invoice_data') }}</h4>
@@ -393,7 +373,7 @@
         </div>
 
     </div>
-
+    <div class="pull-left" style="margin-top:10px">{!! QrCode::size(100)->generate(route('accounting.public-invoice.show',$invoice->getEncryptedPublicId())); !!}</div>
 
 </div>
 
@@ -404,7 +384,7 @@
     <div class="">
         <div class="row" style="color: black !important;">
             <div class="stamp" style="">
-                    {!! QrCode::size(100)->generate(route('accounting.public-invoice.show',$invoice->getEncryptedPublicId())); !!}
+
             </div>
             <div class="issued_by">
                 @if($invoice->creator->organization->stamp != null)
@@ -423,12 +403,8 @@
         <div style="padding-top: 10px;text-align: center"> سعدنا بخدمتك</div>
     </div>
 </footer>
-
 </body>
-
 </html>
-{{--<script src="http://code.jquery.com/jquery-latest.min.js"></script>--}}
-{{--<script src="{{asset('accounting/js/jquery-barcode.min.js')}}"></script>--}}
 <script type="text/javascript">
-    print();
+  // print()
 </script>

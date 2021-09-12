@@ -25,7 +25,6 @@ class BaseModel extends Model
     public function getLocaleNameAttribute()
     {
         if (app()->isLocale('ar')) return $this->getOriginal("ar_name");
-
         return $this->getOriginal("name");
     }
 
