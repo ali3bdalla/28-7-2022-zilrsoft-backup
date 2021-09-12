@@ -26,11 +26,8 @@ class EcommerceMiddleware
             $activeLang = $request->input('web_active_lang');
             Session::put('webActiveLang', $activeLang);
         }
-
         app()->setlocale($activeLang);
-
         $itemsIndexSearchFilters = config('scout-items-index.attributesForFaceting');
-
         $searchFilters = [];
         foreach ($itemsIndexSearchFilters as $searchFilter) {
             if (!in_array($searchFilter, [
@@ -41,7 +38,6 @@ class EcommerceMiddleware
                 $searchFilters[] = str_replace(')', '', $searchFilter);
             }
         }
-
         Inertia::share(
             [
                 'active_logo' => 'ar' == $activeLang ? asset('images/logo_ar.png') : asset('images/logo_en.png'),
@@ -63,10 +59,9 @@ class EcommerceMiddleware
         return $next($request);
     }
 
-    public function getSearchCategories($request)
+    public function getSearchCategories($request): array
     {
         $result = [];
-
         if ($request->has('category_id') && $request->filled('category_id') && is_int((int)$request->input('category_id'))) {
             $category = Category::where('id', $request->input('category_id'))->first();
             if ($category) {
@@ -74,13 +69,12 @@ class EcommerceMiddleware
                 $list = $category->getChildrenHashMap();
                 if (is_array($list) && '' !== $list[0]) {
                     $categories = Category::find($list);
-                    foreach ($categories as $key => $sub) {
+                    foreach ($categories as $sub) {
                         $result[] = $sub->locale_name;
                     }
                 }
             }
         }
-
         return $result;
     }
 }

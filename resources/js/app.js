@@ -22,7 +22,7 @@ window.getIndex = function (needle, haystack) {
   for (let i = 0; i < length; i++) {
     if (haystack[i] === needle) return i
   }
-  return -1 // update latter
+  return -1
 }
 
 require('./accounting/load')

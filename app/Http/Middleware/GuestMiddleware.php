@@ -20,7 +20,6 @@ class GuestMiddleware
     public function handle(Request $request, Closure $next, string $guard = "", string $redirectTo = '/')
     {
         $isLogged = Auth::guard($guard)->check();
-
         if ($isLogged)
             return redirect($redirectTo);
 

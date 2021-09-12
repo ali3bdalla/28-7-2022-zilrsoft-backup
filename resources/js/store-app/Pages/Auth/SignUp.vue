@@ -10,22 +10,10 @@
                 <div class="flex flex-col">
                   <div class="flex-1 group-input  page__dir-left">
                     <label for="phone_number">{{ $page.$t.profile.phone_number}}</label>
-                    <VuePhoneNumberInput
-                        v-model="phone_number"
-                        :no-country-selector="false"
-                        :no-example="true"
-                        :only-countries="['SA']"
-                        :translations="{
-                        countrySelectorLabel: $page.$t.profile.country,
-                        countrySelectorError: 'Choisir un pays',
-                         phoneNumberLabel: '5XXXXXXXXX',
-                        example: 'ex: 5XXXXXXXXX',
-                      }"
-                        default-country-code="SA"
-                    />
-
+                    <InternationalPhoneNumberSelectorComponent
+                        v-model="phone_number"></InternationalPhoneNumberSelectorComponent>
                     <div
-                        v-if="$page.errors.phone_number"
+                        v-if="$page.errors && $page.errors.phone_number"
                         class="p-2 text-red-500"
                     >
                       {{ $page.errors.phone_number }}
@@ -41,7 +29,7 @@
 
                         type="password"
                     />
-                    <div v-if="$page.errors.password" class="p-2 text-red-500">
+                    <div v-if="$page.errors && $page.errors.password" class="p-2 text-red-500">
                       {{ $page.errors.password }}
                     </div>
                   </div>
@@ -57,7 +45,7 @@
                         type="text"
                     />
                     <div
-                        v-if="$page.errors.first_name"
+                        v-if="$page.errors && $page.errors.first_name"
                         class="p-2 text-red-500"
                     >
                       {{ $page.errors.first_name }}
@@ -71,7 +59,7 @@
 
                         type="text"
                     />
-                    <div v-if="$page.errors.last_name" class="p-2 text-red-500">
+                    <div v-if="$page.errors && $page.errors.last_name" class="p-2 text-red-500">
                       {{ $page.errors.last_name }}
                     </div>
                   </div>
@@ -95,13 +83,15 @@
 
 <script>
 import WebLayout from '../../Layouts/WebAppLayout'
-import VuePhoneNumberInput from 'vue-phone-number-input'
-import 'vue-phone-number-input/dist/vue-phone-number-input.css'
+import InternationalPhoneNumberSelectorComponent from '../../Components/Utility/InternationalPhoneNumberSelectorComponent'
 
 export default {
   name: 'Index',
 
-  components: { VuePhoneNumberInput, WebLayout },
+  components: {
+    InternationalPhoneNumberSelectorComponent,
+    WebLayout
+  },
   data () {
     return {
 
@@ -115,13 +105,13 @@ export default {
   methods: {
     submitSignUp () {
       this.$inertia.post(
-        '/web/sign_up',
-        {
-          phone_number: this.phone_number,
-          password: this.password,
-          first_name: this.first_name,
-          last_name: this.last_name
-        }
+          '/web/sign_up',
+          {
+            phone_number: this.phone_number,
+            password: this.password,
+            first_name: this.first_name,
+            last_name: this.last_name
+          }
       )
     }
   },

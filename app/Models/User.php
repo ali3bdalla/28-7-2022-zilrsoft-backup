@@ -21,6 +21,7 @@ use Propaganistas\LaravelPhone\PhoneNumber;
  * @property bool is_manager
  * @property bool is_vendor
  * @property string international_phone_number
+ * @property integer verification_code
  * @method static where(array $array)
  * @method static find(mixed $user_id)
  */
@@ -44,6 +45,7 @@ class User extends BaseAuthModel
         'can_make_credit' => 'boolean',
         'is_supervisor' => 'boolean',
         'is_manager' => 'boolean',
+        'verification_code' => 'integer'
     ];
 
     protected $hidden = [
@@ -99,11 +101,6 @@ class User extends BaseAuthModel
         return $this->hasMany(ShippingAddress::class, 'user_id');
     }
 
-    public function getInternationalPhoneNumberAttribute(): string
-    {
-        return (string)PhoneNumber::make($this->phone_number)->ofCountry($this->getOriginal("country_code", 'SA'));
-    }
-
     public function details(): HasOne
     {
         return $this->hasOne(UserDetails::class, 'user_id');
@@ -129,12 +126,25 @@ class User extends BaseAuthModel
         return $this->hasMany(UserGateways::class, 'user_id');
     }
 
-    public function useAsWhatsappTargetPhoneNumber(): string
+    public function whatsappPhoneNumber(): string
     {
         return $this->getInternationalPhoneNumberAttribute();
     }
 
-    public function useAsOurSmsTargetPhoneNumber(): string
+    public function getInternationalPhoneNumberAttribute(): string
+    {
+        return (string)PhoneNumber::make($this->phone_number)->ofCountry($this->getOriginal("country_code", 'SA'));
+    }
+
+    public function markPhoneNumberAsVerified()
+    {
+        $this->update([
+            'phone_number_verified_at' => now(),
+            'verification_code' => null
+        ]);
+    }
+
+    public function ourSmsPhoneNumber(): string
     {
         return $this->getInternationalPhoneNumberAttribute();
     }

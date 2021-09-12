@@ -9,51 +9,32 @@
 
               <form action="#">
                 <div class="flex flex-col">
-                    <div class="flex-1 group-input  page__dir-left">
+                  <div class="flex-1 group-input  page__dir-left">
                     <label for="phone_number">{{ $page.$t.profile.phone_number}}</label>
-                    <VuePhoneNumberInput
-                        v-model="phone_number"
-                        :no-country-selector="false"
-                        :no-example="true"
-                        :only-countries="['SA']"
-                        :translations="{
-                        countrySelectorLabel: $page.$t.profile.country,
-                        countrySelectorError: 'Choisir un pays',
-                         phoneNumberLabel: '5XXXXXXXXX',
-                        example: 'ex: 5XXXXXXXXX',
-                      }"
-                        default-country-code="SA"
-                    />
+                    <InternationalPhoneNumberSelectorComponent
+                        v-model="phone_number"></InternationalPhoneNumberSelectorComponent>
 
                     <div
-                      class="p-2 text-red-500"
-                      v-if="$page.errors.phone_number"
+                        v-if="$page.errors && $page.errors.phone_number"
+                        class="p-2 text-red-500"
                     >
                       {{ $page.errors.phone_number }}
                     </div>
                   </div>
 
                 </div>
-
-                <!-- <div class="group-input gi-check">
-                  <div class="gi-more">
-                    <a href="/web/forget_password" class="forget-pass"
-                      >{{ $page.$t.profile.forget_password}}</a
-                    >
-                  </div>
-                </div> -->
               </form>
 
               <button
+                  class="site-btn login-btn"
                   type="button"
                   @click="submitForm"
-                  class="site-btn login-btn"
-                >
+              >
                 {{ $page.$t.profile.forget_password}}
-                </button>
+              </button>
 
               <div class="switch-login">
-                <a href="/web/sign_in" class="or-login">{{ $page.$t.profile.login}}</a>
+                <a class="or-login" href="/web/sign_in">{{ $page.$t.profile.login}}</a>
               </div>
             </div>
           </div>
@@ -65,12 +46,15 @@
 
 <script>
 import WebLayout from '../../Layouts/WebAppLayout'
+import InternationalPhoneNumberSelectorComponent
+  from '../../Components/Utility/InternationalPhoneNumberSelectorComponent'
 
-import VuePhoneNumberInput from 'vue-phone-number-input'
-import 'vue-phone-number-input/dist/vue-phone-number-input.css'
 export default {
-  name: 'Index',
-  components: { VuePhoneNumberInput, WebLayout },
+  name: 'ForgetPassword',
+  components: {
+    InternationalPhoneNumberSelectorComponent,
+    WebLayout
+  },
   data () {
     return {
       phone_number: '',

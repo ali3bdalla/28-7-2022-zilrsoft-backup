@@ -24,10 +24,12 @@ class OurSmsChannel
             'auth_basic' => [config('services.our_sms.username'), config('services.our_sms.password')],
             'query' => [
                 'sender' => config('services.our_sms.sender'),
-                'message' => urlencode($message),
+                'message' => $message,
+                'username' => config('services.our_sms.username'),
+                'password' => config('services.our_sms.password'),
                 'unicode' => "E",
                 'return' => "full",
-                'numbers' => $notifiable->useAsOurSmsTargetPhoneNumber(),
+                'numbers' => $notifiable->ourSmsPhoneNumber(),
             ]
         ];
         try {

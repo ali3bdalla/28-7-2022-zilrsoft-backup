@@ -2,6 +2,7 @@
 
 namespace App\Channels;
 
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
@@ -18,12 +19,11 @@ class WhatsappMessageChannel
     public function send($notifiable, WhatsappMessageNotificationContract $notification)
     {
         $message = $notification->toWhatsappMessage($notifiable);
-        dd($notifiable->useAsWhatsappTargetPhoneNumber());
         $client = HttpClient::create();
         $data = [
             'query' => [
                 'body' => $message,
-                'phone' => $notifiable->useAsWhatsappTargetPhoneNumber(),
+                'phone' => $notifiable->whatsappPhoneNumber(),
                 'token' => config('services.whatsapp.token')
             ]
         ];
@@ -33,7 +33,7 @@ class WhatsappMessageChannel
                 'GET', config('services.whatsapp.base_url') . 'sendMessage' . "?token=" . config('services.whatsapp.token'), $data
             );
         } catch (TransportExceptionInterface | ClientException $e) {
-
+            Log::critical("whatsapp connection not working", $e->getTrace());
         }
 
     }

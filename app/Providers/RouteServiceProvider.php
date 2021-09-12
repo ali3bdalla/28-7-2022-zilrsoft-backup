@@ -91,9 +91,8 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapStoreRoutes()
     {
-        Route::middleware('web')
-            ->namespace('App\Http\Controllers\Store')
-            ->group(base_path('store-routes/web.php'));
+        Route::group(['middleware' => ["ecommerceMiddleware", "web"], 'as' => 'web.', 'namespace' => "App\Http\Controllers\Store\Web", 'prefix' => "web"],
+            base_path('store-routes/web.php'));
 
         Route::middleware('web')
             ->namespace('\App\Http\Controllers\Store\API')
@@ -112,7 +111,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapAppRoutes()
     {
-
+        Route::redirect('/', '/web');
         Route::middleware(['web'])
             ->group(base_path('routes/guest.php'));
 

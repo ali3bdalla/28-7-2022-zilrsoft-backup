@@ -2,6 +2,7 @@
 
 namespace App\Channels;
 
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
@@ -23,7 +24,7 @@ class WhatsappFileChannel
             'body' => [
                 'body' => $file['path'],
                 'filename' => $file['name'],
-                'phone' => $notifiable->useAsWhatsappTargetPhoneNumber(),
+                'phone' => $notifiable->whatsappPhoneNumber(),
             ]
         ];
         try {
@@ -31,6 +32,7 @@ class WhatsappFileChannel
                 'POST', config('services.whatsapp.base_url') . 'sendFile' . "?token=" . config('services.whatsapp.token'), $data
             );
         } catch (TransportExceptionInterface | ClientException $e) {
+            Log::critical("whatsapp connection not working", $e->getTrace());
         }
     }
 }

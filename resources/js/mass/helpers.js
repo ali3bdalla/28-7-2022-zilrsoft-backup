@@ -1,6 +1,6 @@
 const helpers = {
   isNumber (number) {
-    return parseFloat(number) != 'NaN' && parseFloat(number) != NaN
+    return parseFloat(number) !== 'NaN' && !isNaN(parseFloat(number))
   },
   convertEnToArabicNumber (en) {
     const response = []
@@ -8,25 +8,25 @@ const helpers = {
     for (let i = 0; i < en_arr.length; i++) {
       const num = en_arr[i]
 
-      if (num == 0) {
+      if (num === 0) {
         response.push('٠')
-      } else if (num == 1) {
+      } else if (num === 1) {
         response.push('١')
-      } else if (num == 2) {
+      } else if (num === 2) {
         response.push('٢')
-      } else if (num == 3) {
+      } else if (num === 3) {
         response.push('٣')
-      } else if (num == 4) {
+      } else if (num === 4) {
         response.push('٤')
-      } else if (num == 5) {
+      } else if (num === 5) {
         response.push('٥')
-      } else if (num == 6) {
+      } else if (num === 6) {
         response.push('٦')
-      } else if (num == 7) {
+      } else if (num === 7) {
         response.push('٧')
-      } else if (num == 8) {
+      } else if (num === 8) {
         response.push('٨')
-      } else if (num == 9) {
+      } else if (num === 9) {
         response.push('٩')
       } else {
         response.push(num)
@@ -38,7 +38,8 @@ const helpers = {
   searchInArrayByArOrEnName (name, arr) {
     const result = []
 
-    const len = arr.length; const str = String(name).toLowerCase()
+    const len = arr.length
+    const str = String(name).toLowerCase()
     const myReg = new RegExp(str)
     for (let i = 0; i < len; i++) {
       if (String(arr[i].name).toLowerCase().match(myReg) || String(arr[i].ar_name).toLowerCase().match(myReg)) {
@@ -61,10 +62,11 @@ const helpers = {
       sum = parseFloat(sum) + parseFloat(arr[i][column])
     }
 
-    if (column == 'net') { return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(sum) }
+    if (column === 'net') {
+      return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(sum)
+    }
 
     return sum
-    return helpers.showOnlyTwoAfterComma(sum)
   },
   // round  the float value into value with only two 2 digit
   // after the comma

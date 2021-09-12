@@ -11,17 +11,17 @@
                 <div class="flex flex-col">
                   <div class="flex-1 group-input">
                     <label for="password">{{
-                      $page.$t.profile.password
-                    }}</label>
+                        $page.$t.profile.password
+                      }}</label>
                     <input
-                      autocomplete="new-zilrsoft-password"
-                      auto-complete="new-zilrsoft-password"
-                      type="password"
-                      id="password"
-                      v-model="password"
+                        id="password"
+                        v-model="password"
+                        auto-complete="new-zilrsoft-password"
+                        autocomplete="new-zilrsoft-password"
+                        type="password"
 
                     />
-                    <div class="p-2 text-red-500" v-if="$page.errors.password">
+                    <div v-if="$page.errors && $page.errors.password" class="p-2 text-red-500">
                       {{ $page.errors.password }}
                     </div>
                   </div>
@@ -29,19 +29,19 @@
 
                 <div class="flex-1 group-input">
                   <label for="password">{{
-                    $page.$t.profile.password_confirmation
-                  }}</label>
+                      $page.$t.profile.password_confirmation
+                    }}</label>
                   <input
-                    autocomplete="new-zilrsoft-password"
-                    auto-complete="new-zilrsoft-password"
-                    type="password"
-                    id="password_confirmation"
-                    v-model="password_confirmation"
+                      id="password_confirmation"
+                      v-model="password_confirmation"
+                      auto-complete="new-zilrsoft-password"
+                      autocomplete="new-zilrsoft-password"
+                      type="password"
 
                   />
                   <div
-                    class="p-2 text-red-500"
-                    v-if="$page.errors.password_confirmation"
+                      v-if="$page.errors && $page.errors.password_confirmation"
+                      class="p-2 text-red-500"
                   >
                     {{ $page.errors.password_confirmation }}
                   </div>
@@ -49,9 +49,9 @@
               </form>
 
               <button
-                type="button"
-                @click="submitForm"
-                class="site-btn login-btn"
+                  class="site-btn login-btn"
+                  type="button"
+                  @click="submitForm"
               >
                 {{ $page.$t.profile.reset_password }}
               </button>
@@ -67,21 +67,26 @@
 <script>
 import WebLayout from '../../Layouts/WebAppLayout'
 import 'vue-phone-number-input/dist/vue-phone-number-input.css'
+
 export default {
   name: 'Index',
   components: { WebLayout },
+  props: {
+    queryString: {
+      required: true,
+      type: String
+    }
+  },
   data () {
     return {
-
       password: '',
       password_confirmation: ''
-
     }
   },
 
   methods: {
     submitForm () {
-      this.$inertia.post('/web/forget_password/reset', {
+      this.$inertia.post(`/web/forget_password/reset?${this.queryString}`, {
         password_confirmation: this.password_confirmation,
         password: this.password
       })
