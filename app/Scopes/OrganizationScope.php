@@ -13,7 +13,7 @@ class OrganizationScope implements Scope
 
     public function __construct($organizationId)
     {
-        $this->organizationId = $organizationId;
+        $this->organizationId = (int)$organizationId;
     }
 
     /**
@@ -26,7 +26,7 @@ class OrganizationScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         if (Schema::hasColumn($model->getTable(), 'organization_id')) {
-            $builder->where($builder->qualifyColumn('organization_id'), $this->organizationId);
+            $builder->whereOrganizationId($this->organizationId);
         }
     }
 }
