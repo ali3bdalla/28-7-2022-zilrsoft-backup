@@ -239,15 +239,15 @@
 										<?php echo $background_color; ?> !important;">{{ $item->qty }}</td>
                                         @if($invoice->show_items_price_in_print_mode)
                                             <td class="total" style="background-color:
-											<?php echo $background_color; ?> !important;">{{ roundMoney($item->price) }}</td>
+											<?php echo $background_color; ?> !important;">{{ moneyFormatter($item->price) }}</td>
                                             <td class="total" style="background-color:
-											<?php echo $background_color; ?> !important;"> {{ roundMoney($item->total) }}</td>
+											<?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->total) }}</td>
                                             <td class="total" style="background-color:
-											<?php echo $background_color; ?> !important;"> {{ roundMoney($item->discount) }}</td>
+											<?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->discount) }}</td>
                                             <td class="total" style="background-color:
-											<?php echo $background_color; ?> !important;"> {{ roundMoney($item->tax) }}</td>
+											<?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->tax) }}</td>
                                             <td class="total" style="background-color:
-											<?php echo $background_color; ?> !important;"> {{ roundMoney($item->net) }}</td>
+											<?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->net) }}</td>
                                         @endif
                                     </tr>
                                     @if(!in_array($item->invoice_type,['purchase']))
@@ -310,20 +310,20 @@
 
             <div class="number">
                 <div class="label">{{ __('pages/invoice.total') }} :</div>
-                <div class="value"> {{ roundMoney($invoice->total)
+                <div class="value"> {{ moneyFormatter($invoice->total)
         }}</div>
                 <div class="clear"></div>
             </div>
             <div class="number">
                 <div class="label">{{ __('pages/invoice.discount') }} :</div>
-                <div class="value">{{ roundMoney($invoice->discount)
+                <div class="value">{{ moneyFormatter($invoice->discount)
         }}</div>
                 <div class="clear"></div>
             </div>
 
             <div class="number">
                 <div class="label">{{ __('pages/invoice.subtotal') }} :</div>
-                <div class="value">{{roundMoney( $invoice->subtotal)}}</div>
+                <div class="value">{{moneyFormatter( $invoice->subtotal)}}</div>
                 <div
                         class="clear"></div>
             </div>
@@ -331,7 +331,7 @@
             <div class="number">
                 <div class="label">{{ __('pages/invoice.vat') }} (15%) :
                 </div>
-                <div class="value"> {{ roundMoney($invoice->tax)}}</div>
+                <div class="value"> {{ moneyFormatter($invoice->tax)}}</div>
                 {{--                ({{ $invoice->getVat('purchase') }}%)--}}
                 <div class="clear"></div>
             </div>
@@ -339,7 +339,7 @@
                 <div style="text-align: center;">الاجمالي</div>
                 <div style="margin: 10px;text-align: center;font-size: 25px">
                     <h3 class=><b>
-                            {{ roundMoney($invoice->net) }}</b></h3>
+                            {{ moneyFormatter($invoice->net) }}</b></h3>
                 </div>
                 <div class="clear"></div>
             </div>

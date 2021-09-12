@@ -18,6 +18,7 @@ class WhatsappMessageChannel
     public function send($notifiable, WhatsappMessageNotificationContract $notification)
     {
         $message = $notification->toWhatsappMessage($notifiable);
+        dd($notifiable->useAsWhatsappTargetPhoneNumber());
         $client = HttpClient::create();
         $data = [
             'query' => [

@@ -1,27 +1,18 @@
 <?php
 
-if (!function_exists('roundMoney')) {
+if (!function_exists('moneyFormatter')) {
 
-    function roundMoney($amount)
+    function moneyFormatter($amount)
     {
         return round($amount * 10) / 10;
     }
 }
 
 
-if (!function_exists('moneyFormatter')) {
-    function moneyFormatter($number, $decimal = 2)
-    {
-        return floatval(number_format(round($number, $decimal), $decimal, '.', ''));
-    }
-}
-
-
 if (!function_exists('generateOtp')) {
-
-    function generateOtp()
+    function generateOtp(): int
     {
-        return (int)(rand(1000, 9999));
+        return (rand(1000, 9999));
     }
 }
 

@@ -31,11 +31,11 @@ class OurSmsChannel
             ]
         ];
         try {
-             $client->request(
+            $client->request(
                 'GET', config('services.our_sms.base_url'), $options
             );
         } catch (TransportExceptionInterface | ClientException $e) {
-            Log::critical("Our Sms connection not working",$e->getTrace(),$e->getTrace());
+            Log::critical("Our Sms connection not working", $e->getTrace());
 
         }
     }

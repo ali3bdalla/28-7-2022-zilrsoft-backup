@@ -6,22 +6,27 @@ use App\Http\Controllers\Controller;
 use App\Models\Manager;
 use App\Models\OnlineUserPlaceholder;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class AuthController extends Controller
 {
 
-    public function signInPage()
+    public function signInPage(): Response
     {
         return Inertia::render('Auth/SignIn');
     }
 
 
-    public function signIn(Request $request)
+    /**
+     * @throws ValidationException
+     */
+    public function signIn(Request $request): RedirectResponse
     {
         $request->validate(
             [
@@ -30,25 +35,22 @@ class AuthController extends Controller
             ]
         );
 
-        User::where('phone_number', $request->input('phone_number'))->first();
-
+        User::wherePhoneNumber($request->input('phone_number'))->first();
         if (auth('client')->attempt(['phone_number' => $request->input('phone_number'), 'password' => $request->input('password')])) {
             return redirect()->intended('/web');
         }
-
-
         throw  ValidationException::withMessages(['phone_number' => __('store.common.invalid_user_data')]);
     }
 
 
-    public function signUpPage()
+    public function signUpPage(): Response
     {
         return Inertia::render('Auth/SignUp');
     }
 
     public function signUp(Request $request)
     {
-        $request->validate(
+        $userData = $request->validate(
             [
                 'first_name' => 'required|alpha',
                 'last_name' => 'required|alpha',
@@ -84,7 +86,7 @@ class AuthController extends Controller
     }
 
 
-    public function confirmSignUpPage()
+    public function confirmSignUpPage(): Response
     {
 
         return Inertia::render(
@@ -149,7 +151,7 @@ class AuthController extends Controller
     }
 
 
-    public function forgetPasswordPage()
+    public function forgetPasswordPage(): Response
     {
         return Inertia::render('Auth/ForgetPassword');
     }
@@ -190,7 +192,7 @@ class AuthController extends Controller
     }
 
 
-    public function confirmForgetPasswordPage()
+    public function confirmForgetPasswordPage(): Response
     {
 
         return Inertia::render(
@@ -226,7 +228,7 @@ class AuthController extends Controller
     }
 
 
-    public function resetPasswordPage()
+    public function resetPasswordPage(): Response
     {
 
         return Inertia::render(

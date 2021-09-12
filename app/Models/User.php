@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 /**
  * @property int id
@@ -35,7 +36,6 @@ class User extends BaseAuthModel
 
     protected $appends = [
         'locale_name',
-        'international_phone_number'
     ];
     protected $casts = [
         'is_vendor' => 'boolean',
@@ -101,7 +101,7 @@ class User extends BaseAuthModel
 
     public function getInternationalPhoneNumberAttribute(): string
     {
-        return '966' . $this->phone_number;
+        return (string)PhoneNumber::make($this->phone_number)->ofCountry($this->getOriginal("country_code", 'SA'));
     }
 
     public function details(): HasOne
@@ -131,10 +131,11 @@ class User extends BaseAuthModel
 
     public function useAsWhatsappTargetPhoneNumber(): string
     {
-        return $this->international_phone_number;
+        return $this->getInternationalPhoneNumberAttribute();
     }
+
     public function useAsOurSmsTargetPhoneNumber(): string
     {
-        return $this->international_phone_number;
+        return $this->getInternationalPhoneNumberAttribute();
     }
 }

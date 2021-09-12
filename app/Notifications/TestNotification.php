@@ -4,10 +4,12 @@ namespace App\Notifications;
 
 use App\Channels\OurSmsChannel;
 use App\Channels\OurSmsNotificationContract;
+use App\Channels\WhatsappMessageChannel;
+use App\Channels\WhatsappMessageNotificationContract;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
-class TestNotification extends Notification implements OurSmsNotificationContract
+class TestNotification extends Notification implements WhatsappMessageNotificationContract
 {
     use Queueable;
 
@@ -28,12 +30,17 @@ class TestNotification extends Notification implements OurSmsNotificationContrac
      */
     public function via($notifiable): array
     {
-        return [OurSmsChannel::class];
+        return [WhatsappMessageChannel::class];
     }
 
 
     public function toOurSms($notifiable): string
     {
         return "test-message";
+    }
+
+    public function toWhatsappMessage($notifiable): string
+    {
+        return "test";
     }
 }
