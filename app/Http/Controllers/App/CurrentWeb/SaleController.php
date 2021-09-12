@@ -98,7 +98,7 @@ class SaleController extends Controller
         $salesmen = Manager::all();
         $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get()->toArray();
         $expenses = Item::whereIsExpense(true)->get();
-        $gateways = Account::whereSlack("temp_reseller_account")->whereIsSystemAccount(true)->get();
+        $gateways = Account::whereSlug("temp_reseller_account")->whereIsSystemAccount(true)->get();
         $sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
         $isOrder = Order::where([['draft_id', $sale->id], ['status', 'in_progress']])->count() == 1;
         return view('sales.clone', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale', 'isOrder'));

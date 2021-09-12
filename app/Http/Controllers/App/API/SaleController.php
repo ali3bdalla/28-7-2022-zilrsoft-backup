@@ -9,11 +9,15 @@ use App\Http\Requests\Sales\StoreReturnSaleRequest;
 use App\Http\Requests\Sales\StoreSaleRequest;
 use App\Models\Invoice;
 use App\Repository\InvoiceRepositoryContract;
-use App\ValueObjects\InvoiceSearchValueObject;
+use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Validation\ValidationException;
 
 class SaleController extends Controller
 {
+    /**
+     * @var InvoiceRepositoryContract
+     */
     private InvoiceRepositoryContract $invoiceRepositoryContract;
 
     public function __construct(InvoiceRepositoryContract $invoiceRepositoryContract)
@@ -43,23 +47,32 @@ class SaleController extends Controller
     }
 
 
+    /**
+     * @throws ValidationException
+     */
     public function store(StoreSaleRequest $request)
     {
         return $request->store();
     }
 
+    /**
+     * @throws Exception
+     */
     public function storeDraft(StoreDraftSaleRequest $request)
     {
         return $request->store();
     }
 
 
+    /**
+     * @throws ValidationException
+     */
     public function storeReturnSale(Invoice $sale, StoreReturnSaleRequest $request)
     {
         return $request->store($sale);
     }
 
-    public function show(Invoice $purchase)
+    public function show(Invoice $purchase): Invoice
     {
         return $purchase;
     }

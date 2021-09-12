@@ -450,7 +450,8 @@
     </div>
 
     <div class="row" style="margin-top:15px">
-      <images :attachments="itemData.attachments" :item="itemData" :no-update-button="true" @descriptionUpdated="descriptionUpdated"
+      <images :attachments="itemData.attachments" :item="itemData" :no-update-button="true"
+              @descriptionUpdated="descriptionUpdated"
               @pushed="imagesPushed"></images>
 
     </div>
@@ -638,13 +639,13 @@ export default {
     loadWarrantySubscriptions () {
       const appVm = this
       axios
-        .get('/accounting/warranty_subscriptions')
-        .then((response) => {
-          appVm.warranty_subscriptions = response.data
-        })
-        .catch((error) => {
-          alert(error)
-        })
+          .get('/accounting/warranty_subscriptions')
+          .then((response) => {
+            appVm.warranty_subscriptions = response.data
+          })
+          .catch((error) => {
+            alert(error)
+          })
     },
     descriptionUpdated (e) {
       this.itemData.description = e.description
@@ -657,21 +658,21 @@ export default {
     validateBarcode (barcode) {
       const appVm = this
       axios
-        .get(appVm.app.BaseApiUrl + 'items/helper/validate_barcode', {
-          params: {
-            barcode: barcode
-          }
-        })
-        .then(function (response) {
-          if (appVm.errorFieldName === 'barcode') {
-            appVm.errorFieldName = ''
-          }
-        })
-        .catch(function (error) {
-          appVm.errorFieldName = 'barcode'
-          appVm.errorFieldMessage = error.response.data.message
-          appVm.itemData.barcode = ''
-        })
+          .get(appVm.app.BaseApiUrl + 'items/helper/validate_barcode', {
+            params: {
+              barcode: barcode
+            }
+          })
+          .then(function (response) {
+            if (appVm.errorFieldName === 'barcode') {
+              appVm.errorFieldName = ''
+            }
+          })
+          .catch(function (error) {
+            appVm.errorFieldName = 'barcode'
+            appVm.errorFieldMessage = error.response.data.message
+            appVm.itemData.barcode = ''
+          })
     },
     barcodeFieldEnterButtonClicked () {
       if (this.itemData.barcode != '') {
@@ -684,7 +685,7 @@ export default {
     // sales price and sales price with tax fields events
     salesPriceFieldUpdated (e) {
       if (
-        this.errorFieldName === 'salesPrice' ||
+          this.errorFieldName === 'salesPrice' ||
           this.errorFieldName === 'salesPriceWithTax'
       ) {
         this.errorFieldName = ''
@@ -692,8 +693,8 @@ export default {
       const val = e.target.value
       if (ItemValidator.validatePriceValue(val)) {
         this.itemData.salesPriceWithTax = ItemAccounting.getSalesPriceWithTaxFromSalesPriceAndVat(
-          val,
-          this.itemData.vts
+            val,
+            this.itemData.vts
         )
       } else {
         this.itemData.salesPriceWithTax = ''
@@ -701,7 +702,7 @@ export default {
     },
     salesPriceWithTaxFieldUpdated (e) {
       if (
-        this.errorFieldName === 'salesPrice' ||
+          this.errorFieldName === 'salesPrice' ||
           this.errorFieldName === 'salesPriceWithTax'
       ) {
         this.errorFieldName = ''
@@ -709,8 +710,8 @@ export default {
       const val = this.itemData.salesPriceWithTax
       if (ItemValidator.validatePriceValue(val)) {
         this.itemData.salesPrice = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(
-          val,
-          this.itemData.vts
+            val,
+            this.itemData.vts
         )
       } else {
         this.itemData.salesPrice = ''
@@ -805,32 +806,32 @@ export default {
       this.itemData.categoryId = node.id
 
       axios
-        .post(this.app.BaseApiUrl + 'categories/view/filters', {
-          categories_ids: [node.id]
-        })
-        .then(function (response) {
-          const filters = response.data
-          const data = []
-          for (let i = 0; i < filters.length; i++) {
-            const filter = filters[i]
-            filter.is_checked = true
-            data.push(filter)
-          }
-          appVm.filterList = data
+          .post(this.app.BaseApiUrl + 'categories/view/filters', {
+            categories_ids: [node.id]
+          })
+          .then(function (response) {
+            const filters = response.data
+            const data = []
+            for (let i = 0; i < filters.length; i++) {
+              const filter = filters[i]
+              filter.is_checked = true
+              data.push(filter)
+            }
+            appVm.filterList = data
 
-          if (appVm.editingItem != null && appVm.editingItem) {
-            appVm.updateSelectedValuesFromParentItem()
-          } else {
-            appVm.rebuildItemName()
-          }
-        })
-        .catch(function (error) {
-          const message = error.response.data[0][0][0]
-          if (message) {
-            this.$alert(this.message)
-          }
-          console.log(error.response)
-        })
+            if (appVm.editingItem != null && appVm.editingItem) {
+              appVm.updateSelectedValuesFromParentItem()
+            } else {
+              appVm.rebuildItemName()
+            }
+          })
+          .catch(function (error) {
+            const message = error.response.data[0][0][0]
+            if (message) {
+              this.$alert(this.message)
+            }
+            console.log(error.response)
+          })
     },
     loadCategoriesList (e) {
     },
@@ -850,8 +851,8 @@ export default {
             const value_id = this.selectedFilterValue.get(filter.id)
             if (value_id !== 0) {
               const value_data = helpers.getDataFromArrayById(
-                filter.values,
-                value_id
+                  filter.values,
+                  value_id
               )
               enName = enName.concat(' ' + value_data.name)
               arName = arName.concat(' ' + value_data.ar_name)
@@ -968,21 +969,21 @@ export default {
       const appVm = this
 
       if (
-        this.editingItem !== null &&
+          this.editingItem !== null &&
           this.editingItem &&
           !this.cloningItem
       ) {
         axios
-          .put(this.app.BaseApiUrl + 'items/' + this.editedItemData.id, data)
-          .then(function (response) {
-            loader.hide()
-            location.href = '/items'
-          })
-          .catch((error) => {
-            loader.hide()
-            console.log(error.response)
-            this.$alert('لم يتم حفظ البيانات راجع جميع الحقول')
-          })
+            .put(this.app.BaseApiUrl + 'items/' + this.editedItemData.id, data)
+            .then(function (response) {
+              loader.hide()
+              location.href = '/items'
+            })
+            .catch((error) => {
+              loader.hide()
+              console.log(error.response)
+              this.$alert('لم يتم حفظ البيانات راجع جميع الحقول')
+            })
 
         // simulate AJAX
         setTimeout(() => {
@@ -991,22 +992,22 @@ export default {
       } else {
         console.log(data)
         axios
-          .post(this.app.BaseApiUrl + 'items', data)
-          .then(function (response) {
-            loader.hide()
-            appVm.itemData.barcode = ''
-            appVm.itemData.salesPrice = 0
-            appVm.itemData.salesPriceWithTax = 0
+            .post(this.app.BaseApiUrl + 'items', data)
+            .then(function (response) {
+              loader.hide()
+              appVm.itemData.barcode = ''
+              appVm.itemData.salesPrice = 0
+              appVm.itemData.salesPriceWithTax = 0
 
-            if (redirect_to === 'clone') {
-              appVm.showPopSuccessMessage()
-            } else {
-              location.href = appVm.app.BaseApiUrl + 'items'
-            }
-          })
-          .catch((error) => {
-            this.$alert('لم يتم حفظ البيانات راجع جميع الحقول')
-          })
+              if (redirect_to === 'clone') {
+                appVm.showPopSuccessMessage()
+              } else {
+                location.href = appVm.app.BaseApiUrl + 'items'
+              }
+            })
+            .catch((error) => {
+              this.$alert('لم يتم حفظ البيانات راجع جميع الحقول')
+            })
 
         setTimeout(() => {
           loader.hide()
@@ -1018,8 +1019,8 @@ export default {
       for (let i = 0; i < filterLen; i++) {
         const filter_and_value = this.editedItemFilters[i]
         this.selectedFilterValue.set(
-          filter_and_value.filter_id,
-          filter_and_value.filter_value
+            filter_and_value.filter_id,
+            filter_and_value.filter_value
         )
       }
 
@@ -1061,11 +1062,11 @@ export default {
       }
 
       this.$dialog
-        .alert(this.app.messages.item_has_been_saved, options)
-        .then((dialog) => {
-        })
-        .catch(() => {
-        })
+          .alert(this.app.messages.item_has_been_saved, options)
+          .then((dialog) => {
+          })
+          .catch(() => {
+          })
     }
   }
 }

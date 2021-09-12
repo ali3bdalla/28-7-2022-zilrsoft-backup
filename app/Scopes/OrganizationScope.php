@@ -11,7 +11,7 @@ class OrganizationScope implements Scope
 {
     private int $organizationId;
 
-    public function __construct(int $organizationId)
+    public function __construct($organizationId)
     {
         $this->organizationId = $organizationId;
     }
