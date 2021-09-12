@@ -38,12 +38,12 @@
 <script>
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
-import moneyFormatter from "../Money/moneyFormatter";
+import DisplayMoney from "../Money/DisplayMoney";
 import Dropdown from "../Table/Dropdown";
 
 export default {
   name: "DeliveryMenTable",
-  components: {Dropdown, moneyFormatter, Loading},
+  components: {Dropdown, DisplayMoney, Loading},
   data() {
     return {
       loading: true,

@@ -230,10 +230,10 @@
 </template>
 
 <script>
-import moneyFormatter from '../../../components/BackEnd/Money/moneyFormatter.vue'
+import DisplayMoney from '../../../components/BackEnd/Money/DisplayMoney.vue'
 
 export default {
-  components: { moneyFormatter },
+  components: { DisplayMoney },
   props: [
     'categories',
     'canEdit',
