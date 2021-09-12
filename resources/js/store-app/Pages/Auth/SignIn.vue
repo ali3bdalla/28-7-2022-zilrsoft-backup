@@ -118,7 +118,7 @@ export default {
     return {
       activePage: null,
       phone_number: '',
-      password: '966324018',
+      password: '',
       first_name: '',
       last_name: ''
     }

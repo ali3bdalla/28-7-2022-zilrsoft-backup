@@ -1,12 +1,12 @@
 <template>
-<!--  :only-countries="['SA','EG','SD']"-->
+<!--  -->
   <VuePhoneNumberInput
       v-model="phoneNumber"
       :no-country-selector="false"
       :no-example="true"
-
+      :only-countries="['SA']"
       :translations="{countrySelectorLabel: $page.$t.profile.country,phoneNumberLabel: '5XXXXXXXXX',example: 'ex: 5XXXXXXXXX'}"
-      default-country-code="SD"
+      default-country-code="SA"
       @update="phoneNumberUpdated"
   />
 </template>
@@ -20,7 +20,7 @@ export default {
   components: { VuePhoneNumberInput },
   data () {
     return {
-      phoneNumber: '966324018'
+      phoneNumber: ''
     }
   },
   methods: {

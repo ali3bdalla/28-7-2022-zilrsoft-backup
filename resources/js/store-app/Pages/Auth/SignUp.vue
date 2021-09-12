@@ -5,11 +5,11 @@
         <div class="">
           <div class="col-lg-6 offset-lg-3">
             <div class="text-center login-form">
-              <h2>{{ $page.$t.profile.sign_up}}</h2>
+              <h2>{{ $page.$t.profile.sign_up }}</h2>
               <form action="#">
                 <div class="flex flex-col">
                   <div class="flex-1 group-input  page__dir-left">
-                    <label for="phone_number">{{ $page.$t.profile.phone_number}}</label>
+                    <label for="phone_number">{{ $page.$t.profile.phone_number }}</label>
                     <InternationalPhoneNumberSelectorComponent
                         v-model="phone_number"></InternationalPhoneNumberSelectorComponent>
                     <div
@@ -20,7 +20,7 @@
                     </div>
                   </div>
                   <div class="flex-1 group-input">
-                    <label for="password">{{ $page.$t.profile.password}}</label>
+                    <label for="password">{{ $page.$t.profile.password }}</label>
                     <input
                         id="password"
                         v-model="password"
@@ -37,7 +37,7 @@
 
                 <div class="flex">
                   <div class="flex-1 group-input">
-                    <label for="first_name">{{ $page.$t.profile.first_name}}</label>
+                    <label for="first_name">{{ $page.$t.profile.first_name }}</label>
                     <input
                         id="first_name"
                         v-model="first_name"
@@ -52,7 +52,7 @@
                     </div>
                   </div>
                   <div class="flex-1 group-input">
-                    <label for="last_name">{{ $page.$t.profile.last_name}}</label>
+                    <label for="last_name">{{ $page.$t.profile.last_name }}</label>
                     <input
                         id="last_name"
                         v-model="last_name"
@@ -69,7 +69,7 @@
                     type="button"
                     @click="submitSignUp"
                 >
-                  {{ $page.$t.profile.sign_up}}
+                  {{ $page.$t.profile.sign_up }}
                 </button>
               </form>
             </div>
@@ -83,7 +83,8 @@
 
 <script>
 import WebLayout from '../../Layouts/WebAppLayout'
-import InternationalPhoneNumberSelectorComponent from '../../Components/Utility/InternationalPhoneNumberSelectorComponent'
+import InternationalPhoneNumberSelectorComponent
+  from '../../Components/Utility/InternationalPhoneNumberSelectorComponent'
 
 export default {
   name: 'Index',
@@ -94,7 +95,6 @@ export default {
   },
   data () {
     return {
-
       phone_number: '',
       password: '',
       first_name: '',
