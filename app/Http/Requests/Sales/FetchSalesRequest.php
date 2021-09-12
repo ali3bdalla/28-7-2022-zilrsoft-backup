@@ -42,7 +42,7 @@ class FetchSalesRequest extends FormRequest
     {
         return [
             'invoice_type' => ['nullable', new EnumRule(InvoiceTypeEnum::class)],
-            'is_draft' => ['nullable', 'boolean'],
+            'is_draft' => ['nullable'],
             'startDate' => ['nullable', 'string'],
             'endDate' => ['nullable', 'string'],
             'creators' => ['nullable', 'array'],

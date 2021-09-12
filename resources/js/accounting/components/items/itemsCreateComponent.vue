@@ -3,15 +3,14 @@
     <div class="row">
       <div class="col-md-6">
         <div
-          :class="{ 'has-error': errorFieldName === 'arName' }"
-          class="form-group"
+            :class="{ 'has-error': errorFieldName === 'arName' }"
+            class="form-group"
         >
-          <!--                  readonly=""-->
           <input
-            v-model="itemData.arName"
-            :placeholder="app.trans.name_ar"
-            class="form-control has-error"
-            type="text"
+              v-model="itemData.arName"
+              :placeholder="app.trans.name_ar"
+              class="form-control has-error"
+              type="text"
           />
           <small v-show="errorFieldName === 'arName'" class="text-danger">
             {{ errorFieldMessage }}
@@ -23,14 +22,14 @@
 
       <div class="col-md-6">
         <div
-          :class="{ 'has-error': errorFieldName === 'enName' }"
-          class="form-group"
+            :class="{ 'has-error': errorFieldName === 'enName' }"
+            class="form-group"
         >
           <input
-            v-model="itemData.enName"
-            :placeholder="app.trans.name_en"
-            class="form-control has-error"
-            type="text"
+              v-model="itemData.enName"
+              :placeholder="app.trans.name_en"
+              class="form-control has-error"
+              type="text"
           />
           <small v-show="errorFieldName === 'enName'" class="text-danger">
             {{ errorFieldMessage }}
@@ -41,17 +40,17 @@
     <div class="row">
       <div class="col-md-4">
         <div
-          :class="{ 'has-error': errorFieldName === 'barcode' }"
-          class="form-group"
+            :class="{ 'has-error': errorFieldName === 'barcode' }"
+            class="form-group"
         >
           <input
-            v-model="itemData.barcode"
-            :class="{ 'is-danger': errorFieldName === 'barcode' }"
-            :placeholder="app.trans.barcode"
-            class="form-control"
-            type="text"
-            @blur="barcodeFieldChanged"
-            @keyup.13="barcodeFieldEnterButtonClicked"
+              v-model="itemData.barcode"
+              :class="{ 'is-danger': errorFieldName === 'barcode' }"
+              :placeholder="app.trans.barcode"
+              class="form-control"
+              type="text"
+              @blur="barcodeFieldChanged"
+              @keyup.13="barcodeFieldEnterButtonClicked"
           />
           <small v-show="errorFieldName === 'barcode'" class="text-danger">
             {{ errorFieldMessage }}
@@ -66,16 +65,16 @@
 
       <div class="col-md-3">
         <div
-          :class="{ 'has-error': errorFieldName === 'salesPrice' }"
-          class="form-group"
+            :class="{ 'has-error': errorFieldName === 'salesPrice' }"
+            class="form-group"
         >
           <input
-            v-model="itemData.salesPrice"
-            :class="{ 'is-danger': errorFieldName === 'salesPrice' }"
-            :placeholder="app.trans.price"
-            class="form-control"
-            type="text"
-            @keyup="salesPriceFieldUpdated"
+              v-model="itemData.salesPrice"
+              :class="{ 'is-danger': errorFieldName === 'salesPrice' }"
+              :placeholder="app.trans.price"
+              class="form-control"
+              type="text"
+              @keyup="salesPriceFieldUpdated"
           />
           <small v-show="errorFieldName === 'salesPrice'" class="text-danger">
             {{ errorFieldMessage }}
@@ -85,21 +84,21 @@
 
       <div class="col-md-3">
         <div
-          :class="{ 'has-error': errorFieldName === 'salesPriceWithTax' }"
-          class="form-group"
+            :class="{ 'has-error': errorFieldName === 'salesPriceWithTax' }"
+            class="form-group"
         >
           <input
-            ref="salesPriceWithTaxFieldRef"
-            v-model="itemData.salesPriceWithTax"
-            :class="{ 'is-danger': errorFieldName === 'salesPriceWithTax' }"
-            :placeholder="app.trans.price_tax"
-            class="form-control"
-            type="text"
-            @keyup="salesPriceWithTaxFieldUpdated"
+              ref="salesPriceWithTaxFieldRef"
+              v-model="itemData.salesPriceWithTax"
+              :class="{ 'is-danger': errorFieldName === 'salesPriceWithTax' }"
+              :placeholder="app.trans.price_tax"
+              class="form-control"
+              type="text"
+              @keyup="salesPriceWithTaxFieldUpdated"
           />
           <small
-            v-show="errorFieldName === 'salesPriceWithTax'"
-            class="text-danger"
+              v-show="errorFieldName === 'salesPriceWithTax'"
+              class="text-danger"
           >
             {{ errorFieldMessage }}
           </small>
@@ -109,95 +108,95 @@
     <div class="row">
       <div class="col-md-2">
         <toggle-button
-          v-model="itemData.hasVatSale"
-          :font-size="14"
-          :height="30"
-          :labels="{
+            v-model="itemData.hasVatSale"
+            :font-size="14"
+            :height="30"
+            :labels="{
             checked: reusable_translator.radio_checked,
             unchecked: reusable_translator.unchecked,
           }"
-          :sync="true"
-          :width="70"
-          @change="vatSaleValueToggleButtonChanged"
+            :sync="true"
+            :width="70"
+            @change="vatSaleValueToggleButtonChanged"
         />
         <label>{{ app.trans.has_vat_sale }}</label>
       </div>
 
       <div class="col-md-2">
         <toggle-button
-          v-model="itemData.hasVatPurchase"
-          :font-size="14"
-          :height="30"
-          :labels="{
+            v-model="itemData.hasVatPurchase"
+            :font-size="14"
+            :height="30"
+            :labels="{
             checked: reusable_translator.radio_checked,
             unchecked: reusable_translator.unchecked,
           }"
-          :sync="true"
-          :width="70"
-          @change="vatPurchaseValueToggleButtonChanged"
+            :sync="true"
+            :width="70"
+            @change="vatPurchaseValueToggleButtonChanged"
         />
         <label>{{ app.trans.has_vat_purchase }}</label>
       </div>
 
       <div class="col-md-2">
         <toggle-button
-          v-model="itemData.isNeedSerial"
-          :font-size="14"
-          :height="30"
-          :labels="{
+            v-model="itemData.isNeedSerial"
+            :font-size="14"
+            :height="30"
+            :labels="{
             checked: reusable_translator.radio_checked,
             unchecked: reusable_translator.unchecked,
           }"
-          :sync="true"
-          :width="70"
-          @change="isNeedSerialToggleButtonChanged"
+            :sync="true"
+            :width="70"
+            @change="isNeedSerialToggleButtonChanged"
         />
         <label>{{ app.trans.has_serial_number }}</label>
       </div>
 
       <div class="col-md-2">
         <toggle-button
-          v-model="itemData.hasFixedPrice"
-          :font-size="14"
-          :height="30"
-          :labels="{
+            v-model="itemData.hasFixedPrice"
+            :font-size="14"
+            :height="30"
+            :labels="{
             checked: reusable_translator.unchecked,
             unchecked: reusable_translator.radio_checked,
           }"
-          :sync="true"
-          :width="70"
+            :sync="true"
+            :width="70"
         />
         <label>{{ app.trans.is_fixed_price }}</label>
       </div>
 
       <div class="col-md-2">
         <toggle-button
-          v-model="itemData.isService"
-          :font-size="14"
-          :height="30"
-          :labels="{
+            v-model="itemData.isService"
+            :font-size="14"
+            :height="30"
+            :labels="{
             checked: reusable_translator.radio_checked,
             unchecked: reusable_translator.unchecked,
           }"
-          :sync="true"
-          :width="70"
-          @change="isServiceToggleButtonChanged"
+            :sync="true"
+            :width="70"
+            @change="isServiceToggleButtonChanged"
         />
         <label>{{ app.trans.is_service }}</label>
       </div>
 
       <div class="col-md-2">
         <toggle-button
-          v-model="itemData.isExpense"
-          :font-size="14"
-          :height="30"
-          :labels="{
+            v-model="itemData.isExpense"
+            :font-size="14"
+            :height="30"
+            :labels="{
             checked: reusable_translator.radio_checked,
             unchecked: reusable_translator.unchecked,
           }"
-          :sync="true"
-          :width="70"
-          @change="isExpenseToggleButtonChanged"
+            :sync="true"
+            :width="70"
+            @change="isExpenseToggleButtonChanged"
         />
         <label>{{ app.trans.is_expense }}</label>
       </div>
@@ -206,34 +205,34 @@
     <div class="row">
       <div class="col-md-2">
         <input
-          v-model="itemData.vts"
-          :disabled="!itemData.hasVatSale"
-          :placeholder="app.trans.vat_sale"
-          class="form-control"
-          type="text"
-          @keydown="vatSaleFieldUpdated"
+            v-model="itemData.vts"
+            :disabled="!itemData.hasVatSale"
+            :placeholder="app.trans.vat_sale"
+            class="form-control"
+            type="text"
+            @keydown="vatSaleFieldUpdated"
         />
       </div>
       <div class="col-md-2">
         <input
-          v-model="itemData.vtp"
-          :disabled="!itemData.hasVatPurchase"
-          :placeholder="app.trans.vat_purchase"
-          class="form-control"
-          type="text"
-          @keydown="vatPurchaseFieldUpdated"
+            v-model="itemData.vtp"
+            :disabled="!itemData.hasVatPurchase"
+            :placeholder="app.trans.vat_purchase"
+            class="form-control"
+            type="text"
+            @keydown="vatPurchaseFieldUpdated"
         />
       </div>
       <div class="col-md-2">
         <select
-          v-model="itemData.warranty_subscription_id"
-          class="form-control"
+            v-model="itemData.warranty_subscription_id"
+            class="form-control"
         >
           <option value="0">من غير ضمان</option>
           <option
-            v-for="warranty in warranty_subscriptions"
-            :key="warranty.id"
-            :value="warranty.id"
+              v-for="warranty in warranty_subscriptions"
+              :key="warranty.id"
+              :value="warranty.id"
           >
             {{ warranty.locale_name }}
           </option>
@@ -243,25 +242,25 @@
       <div class="col-md-2"></div>
       <div class="col-md-2">
         <div
-          v-show="itemData.isExpense"
-          :class="{ 'has-error': errorFieldName === 'expenseVendorId' }"
-          class="form-group"
+            v-show="itemData.isExpense"
+            :class="{ 'has-error': errorFieldName === 'expenseVendorId' }"
+            class="form-group"
         >
           <accounting-select-with-search-layout-component
-            :identity="10023749872394"
-            :no_all_option="true"
-            :options="vendors"
-            default="0"
-            label_text="locale_name"
-            placeholder="المورد"
-            title="المورد"
-            @valueUpdated="vendorListHasBeenUpdated"
+              :identity="10023749872394"
+              :no_all_option="true"
+              :options="vendors"
+              default="0"
+              label_text="locale_name"
+              placeholder="المورد"
+              title="المورد"
+              @valueUpdated="vendorListHasBeenUpdated"
           >
           </accounting-select-with-search-layout-component>
           <small
-            v-show="errorFieldName === 'expenseVendorId'"
-            class="text-danger"
-            >-->
+              v-show="errorFieldName === 'expenseVendorId'"
+              class="text-danger"
+          >-->
             {{ errorFieldMessage }}
           </small>
         </div>
@@ -274,20 +273,20 @@
       </div>
       <div class="col-md-2">
         <input
-          v-show="!itemData.hasVatSale"
-          v-model="itemData.vts_for_print"
-          :placeholder="app.trans.vat_sale"
-          class="form-control"
-          type="text"
+            v-show="!itemData.hasVatSale"
+            v-model="itemData.vts_for_print"
+            :placeholder="app.trans.vat_sale"
+            class="form-control"
+            type="text"
         />
       </div>
       <div class="col-md-2">
         <input
-          v-show="!itemData.hasVatPurchase"
-          v-model="itemData.vtp_for_print"
-          :placeholder="app.trans.vat_purchase"
-          class="form-control"
-          type="text"
+            v-show="!itemData.hasVatPurchase"
+            v-model="itemData.vtp_for_print"
+            :placeholder="app.trans.vat_purchase"
+            class="form-control"
+            type="text"
         />
       </div>
     </div>
@@ -300,15 +299,15 @@
         <div>
           <div :dir="app.appLocate === 'ar' ? 'rtl' : 'ltr'">
             <treeselect
-              v-model="itemData.categoryId"
-              :disable-branch-nodes="false"
-              :disabled="cloningItem === true"
-              :load-options="loadCategoriesList"
-              :options="categories"
-              :placeholder="app.trans.category"
-              :show-count="true"
-              :value="itemData.categoryId"
-              @select="categoryListUpdated"
+                v-model="itemData.categoryId"
+                :disable-branch-nodes="false"
+                :disabled="cloningItem === true"
+                :load-options="loadCategoriesList"
+                :options="categories"
+                :placeholder="app.trans.category"
+                :show-count="true"
+                :value="itemData.categoryId"
+                @select="categoryListUpdated"
             ></treeselect>
           </div>
         </div>
@@ -326,15 +325,15 @@
           :sync="true"
           :width="70"
           @change="categoryNameShouldBeInItemNameToggleUpdated"
-        >
-        </toggle-button>
+      >
+      </toggle-button>
       </div>
 
       <div class="col-md-1 text-center">
         <a
-          v-if="canCreateCategory === 1"
-          :href="app.BaseApiUrl + 'categories/create'"
-          target="_blank"
+            v-if="canCreateCategory === 1"
+            :href="app.BaseApiUrl + 'categories/create'"
+            target="_blank"
         >
           <button class="btn btn-custom-primary btn-sm">
             <i class="fa fa-plus-circle"></i>
@@ -345,75 +344,52 @@
 
     <div v-for="(filter, index) in filterList" v-bind:key="index">
       <accounting-filter-select-with-search-component
-        :app-trans="app.trans"
-        :can-create="canCreateFilter"
-        :can-edit="canEditFilter"
-        :default="selectedFilterValue.get(filter.id)"
-        :filter="filter"
-        :index="index"
-        :messages="messages"
-        :options="filter.values"
-        :reusable_translator="reusable_translator"
-        @updateItemName="rebuildItemName"
-        v-on:valueUpdated="filterValueListChanged"
+          :app-trans="app.trans"
+          :can-create="canCreateFilter"
+          :can-edit="canEditFilter"
+          :default="selectedFilterValue.get(filter.id)"
+          :filter="filter"
+          :index="index"
+          :messages="messages"
+          :options="filter.values"
+          :reusable_translator="reusable_translator"
+          @updateItemName="rebuildItemName"
+          v-on:valueUpdated="filterValueListChanged"
       >
       </accounting-filter-select-with-search-component>
     </div>
 
     <div style="margin-top: 35px; padding: 5px">
       <toggle-button
-        :disabled="!itemData.cost || !itemData.id"
-        v-model="itemData.isAvailableOnline"
-        @change="isAvailableOnlineChanged"
-        :font-size="14"
-        :height="30"
-        :labels="{ checked: 'متاح اونلاين', unchecked: 'غير متاح اونلاين' }"
-        :sync="true"
-        :width="150"
+          v-model="itemData.isAvailableOnline"
+          :disabled="!itemData.cost || !itemData.id"
+          :font-size="14"
+          :height="30"
+          :labels="{ checked: 'متاح اونلاين', unchecked: 'غير متاح اونلاين' }"
+          :sync="true"
+          :width="150"
+          @change="isAvailableOnlineChanged"
       />
 
       <div class="mt-" style="margin-top: 15p">
         <div class="row">
-          <!-- <div class="col-md-3">
-            <div
-              :class="{ 'has-error': errorFieldName === 'onlinePrice' }"
-              class="form-group"
-            >
-              <label>سعر الاونلاين </label>
-
-              <input
-                v-model="itemData.onlinePrice"
-                :class="{ 'is-danger': errorFieldName === 'onlinePrice' }"
-                class="form-control"
-                placeholder="سعر الاونلاين"
-                type="text"
-              />
-              <small
-                v-show="errorFieldName === 'onlinePrice'"
-                class="text-danger"
-              >
-                {{ errorFieldMessage }}
-              </small>
-            </div>
-          </div> -->
-
           <div class="col-md-3">
             <div
-              :class="{ 'has-error': errorFieldName === 'onlineOfferPrice' }"
-              class="form-group"
+                :class="{ 'has-error': errorFieldName === 'onlineOfferPrice' }"
+                class="form-group"
             >
               <label>سعر الاونلاين </label>
 
               <input
-                v-model="itemData.onlineOfferPrice"
-                :class="{ 'is-danger': errorFieldName === 'onlineOfferPrice' }"
-                class="form-control"
-                placeholder="سعر العرض"
-                type="text"
+                  v-model="itemData.onlineOfferPrice"
+                  :class="{ 'is-danger': errorFieldName === 'onlineOfferPrice' }"
+                  class="form-control"
+                  placeholder="سعر العرض"
+                  type="text"
               />
               <small
-                v-show="errorFieldName === 'onlineOfferPrice'"
-                class="text-danger"
+                  v-show="errorFieldName === 'onlineOfferPrice'"
+                  class="text-danger"
               >
                 {{ errorFieldMessage }}
               </small>
@@ -422,17 +398,17 @@
 
           <div class="col-md-3">
             <div
-              :class="{ 'has-error': errorFieldName === 'weight' }"
-              class="form-group"
+                :class="{ 'has-error': errorFieldName === 'weight' }"
+                class="form-group"
             >
               <label>الوزن </label>
 
               <input
-                v-model="itemData.weight"
-                :class="{ 'is-danger': errorFieldName === 'weight' }"
-                class="form-control"
-                placeholder="الوزن"
-                type="text"
+                  v-model="itemData.weight"
+                  :class="{ 'is-danger': errorFieldName === 'weight' }"
+                  class="form-control"
+                  placeholder="الوزن"
+                  type="text"
               />
               <small v-show="errorFieldName === 'weight'" class="text-danger">
                 {{ errorFieldMessage }}
@@ -442,20 +418,20 @@
 
           <div class="col-md-3">
             <div
-              :class="{ 'has-error': errorFieldName === 'shippingDiscount' }"
-              class="form-group"
+                :class="{ 'has-error': errorFieldName === 'shippingDiscount' }"
+                class="form-group"
             >
               <label>خصم الشحن</label>
               <input
-                v-model="itemData.shippingDiscount"
-                :class="{ 'is-danger': errorFieldName === 'shippingDiscount' }"
-                class="form-control"
-                placeholder="خصم الشحن"
-                type="text"
+                  v-model="itemData.shippingDiscount"
+                  :class="{ 'is-danger': errorFieldName === 'shippingDiscount' }"
+                  class="form-control"
+                  placeholder="خصم الشحن"
+                  type="text"
               />
               <small
-                v-show="errorFieldName === 'shippingDiscount'"
-                class="text-danger"
+                  v-show="errorFieldName === 'shippingDiscount'"
+                  class="text-danger"
               >
                 {{ errorFieldMessage }}
               </small>
@@ -465,40 +441,39 @@
 
         <div class="row">
           <vue-tags-input
-            v-model="tag"
-            :tags="itemData.tags"
-            @tags-changed="(newTags) => (itemData.tags = newTags)"
+              v-model="tag"
+              :tags="itemData.tags"
+              @tags-changed="(newTags) => (itemData.tags = newTags)"
           />
         </div>
       </div>
     </div>
 
     <div class="row" style="margin-top:15px">
-      <images :no-update-button="true" :item="itemData" @pushed="imagesPushed" :attachments="itemData.attachments" @descriptionUpdated="descriptionUpdated"></images>
+      <images :attachments="itemData.attachments" :item="itemData" :no-update-button="true" @descriptionUpdated="descriptionUpdated"
+              @pushed="imagesPushed"></images>
 
     </div>
 
-    <br />
-    <br />
-    <br />
+    <br/>
+    <br/>
+    <br/>
     <div class="form-group text-center">
       <button
-        v-if="editingItem != true || cloningItem === 1"
-        class="btn btn-custom-primary"
-        @click="sendDataToServer('clone')"
+          v-if="editingItem !== true || cloningItem === 1"
+          class="btn btn-custom-primary"
+          @click="sendDataToServer('clone')"
       >
         <i class="fa fa-check-circle"></i> &nbsp;&nbsp;{{
           app.trans.save_clone
         }}
       </button>
-      &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
       <button class="btn btn-custom-primary" @click="sendDataToServer('exit')">
         <i class="fa fa-door-open"></i>&nbsp;&nbsp;
         {{ app.trans.save_exit }}
       </button>
-      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
       <a :href="app.BaseApiUrl + 'items'" class="btn btn-custom-default"
-        ><i class="fa fa-undo-alt"></i> &nbsp;&nbsp;{{ app.trans.cancel }}</a
+      ><i class="fa fa-undo-alt"></i> &nbsp;&nbsp;{{ app.trans.cancel }}</a
       >
     </div>
   </div>
@@ -507,11 +482,7 @@
 <script>
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
-// import PreviewComponent from '../attachments/previewComponent'
-import {
-  accounting as ItemAccounting,
-  validator as ItemValidator
-} from '../../item'
+import { accounting as ItemAccounting, validator as ItemValidator } from '../../item'
 import Images from '../../../components/BackEnd/Product/Images'
 
 import VueTagsInput from '@johmun/vue-tags-input'
@@ -641,7 +612,7 @@ export default {
       this.itemData.categoryId = this.editedItemData.category_id
       this.itemData.attachments = this.editedItemData.attachments
       this.new_attachment_link =
-        '/items/' + this.editedItemData.id + '/attachments'
+          '/items/' + this.editedItemData.id + '/attachments'
 
       if (!this.editedItemData.name.includes(this.editedItemCategory.name)) {
         this.categoryNameShouldBeInItemName = false
@@ -714,7 +685,7 @@ export default {
     salesPriceFieldUpdated (e) {
       if (
         this.errorFieldName === 'salesPrice' ||
-        this.errorFieldName === 'salesPriceWithTax'
+          this.errorFieldName === 'salesPriceWithTax'
       ) {
         this.errorFieldName = ''
       }
@@ -731,7 +702,7 @@ export default {
     salesPriceWithTaxFieldUpdated (e) {
       if (
         this.errorFieldName === 'salesPrice' ||
-        this.errorFieldName === 'salesPriceWithTax'
+          this.errorFieldName === 'salesPriceWithTax'
       ) {
         this.errorFieldName = ''
       }
@@ -861,7 +832,8 @@ export default {
           console.log(error.response)
         })
     },
-    loadCategoriesList (e) {},
+    loadCategoriesList (e) {
+    },
     rebuildItemName () {
       let arName = ''
       let enName = ''
@@ -997,8 +969,8 @@ export default {
 
       if (
         this.editingItem !== null &&
-        this.editingItem &&
-        !this.cloningItem
+          this.editingItem &&
+          !this.cloningItem
       ) {
         axios
           .put(this.app.BaseApiUrl + 'items/' + this.editedItemData.id, data)
@@ -1033,14 +1005,7 @@ export default {
             }
           })
           .catch((error) => {
-            loader.hide()
-            console.log(error)
-            // const message = error.response.data[0][0][0]
-            // if (message) {
-            //   this.$alert(this.message)
             this.$alert('لم يتم حفظ البيانات راجع جميع الحقول')
-
-            // }
           })
 
         setTimeout(() => {
@@ -1097,8 +1062,10 @@ export default {
 
       this.$dialog
         .alert(this.app.messages.item_has_been_saved, options)
-        .then((dialog) => {})
-        .catch(() => {})
+        .then((dialog) => {
+        })
+        .catch(() => {
+        })
     }
   }
 }
