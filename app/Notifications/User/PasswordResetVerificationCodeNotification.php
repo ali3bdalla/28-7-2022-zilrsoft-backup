@@ -13,7 +13,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\URL;
 
-class PasswordResetVerificationCodeNotification extends Notification implements WhatsappMessageNotificationContract, OurSmsNotificationContract
+class PasswordResetVerificationCodeNotification extends Notification implements WhatsappMessageNotificationContract, OurSmsNotificationContract,ShouldQueue
 {
     use Queueable;
 

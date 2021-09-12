@@ -1,5 +1,4 @@
 <template>
-<!--  -->
   <VuePhoneNumberInput
       v-model="phoneNumber"
       :no-country-selector="false"

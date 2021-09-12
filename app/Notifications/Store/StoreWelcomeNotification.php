@@ -5,9 +5,10 @@ namespace App\Notifications\Store;
 use App\Channels\WhatsappMessageChannel;
 use App\Channels\WhatsappMessageNotificationContract;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class StoreWelcomeNotification extends Notification implements WhatsappMessageNotificationContract
+class StoreWelcomeNotification extends Notification implements WhatsappMessageNotificationContract,ShouldQueue
 {
     use Queueable;
 
