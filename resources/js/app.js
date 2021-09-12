@@ -26,6 +26,7 @@ window.getIndex = function (needle, haystack) {
 }
 
 require('./accounting/load')
+require('./store-app/func')
 Vue.use(Vuetify)
 Vue.use(ToggleButton)
 Vue.use(VModal)

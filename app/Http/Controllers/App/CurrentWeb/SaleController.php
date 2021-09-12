@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\App\CurrentWeb;
 
 use App\Http\Controllers\Controller;
-use App\Models\Account;
 use App\Models\Department;
 use App\Models\Invoice;
 use App\Models\Item;
 use App\Models\Manager;
 use App\Models\Order;
 use App\Models\User;
+use App\Repository\AccountRepositoryContract;
 use App\Scopes\DraftScope;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -17,6 +17,13 @@ use Illuminate\View\View;
 
 class SaleController extends Controller
 {
+    private AccountRepositoryContract $accountRepositoryContract;
+
+    public function __construct(AccountRepositoryContract $accountRepositoryContract)
+    {
+        $this->accountRepositoryContract = $accountRepositoryContract;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Application|Factory|View
@@ -38,8 +45,7 @@ class SaleController extends Controller
         $salesmen = Manager::all();
         $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get();
         $expenses = Item::whereIsExpense(true)->get();
-        $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
-
+        $gateways = $this->accountRepositoryContract->getPaymentMethodsAccountsListToAuthedManager();
         return view('sales.create', compact('clients', 'salesmen', 'gateways', 'expenses'));
     }
 
@@ -63,7 +69,7 @@ class SaleController extends Controller
         $salesmen = Manager::all();
         $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get();
         $expenses = Item::whereIsExpense(true)->get();
-        $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
+        $gateways = $this->accountRepositoryContract->getPaymentMethodsAccountsListToAuthedManager();
         return view('sales.create_draft', compact('clients', 'salesmen', 'gateways', 'expenses'));
     }
 
@@ -76,7 +82,7 @@ class SaleController extends Controller
         $salesmen = Manager::all();
         $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get();
         $services = Item::whereIsService(true)->get();
-        $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
+        $gateways = $this->accountRepositoryContract->getPaymentMethodsAccountsListToAuthedManager();
         return view('sales.create_draft_service', compact('clients', 'salesmen', 'gateways', 'services'));
     }
 
@@ -86,7 +92,7 @@ class SaleController extends Controller
         $salesmen = Manager::all();
         $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get();
         $expenses = Item::whereIsExpense(true)->get();
-        $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
+        $gateways = $this->accountRepositoryContract->getPaymentMethodsAccountsListToAuthedManager();
         $sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
         return view('sales.clone_draft', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale'));
     }
@@ -98,7 +104,7 @@ class SaleController extends Controller
         $salesmen = Manager::all();
         $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get()->toArray();
         $expenses = Item::whereIsExpense(true)->get();
-        $gateways = Account::whereSlug("temp_reseller_account")->whereIsSystemAccount(true)->get();
+        $gateways = $this->accountRepositoryContract->getPaymentMethodsAccountsListToAuthedManager();
         $sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
         $isOrder = Order::where([['draft_id', $sale->id], ['status', 'in_progress']])->count() == 1;
         return view('sales.clone', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale', 'isOrder'));
@@ -128,7 +134,6 @@ class SaleController extends Controller
         $sale = $invoice->sale;
         $items = [];
         $data_source_items = $invoice->items()->where('parent_kit_id', 0)->with('item')->get();
-
         foreach ($data_source_items as $item) {
             if ($item->item->is_need_serial) {
                 $item['serials'] = $item->item->serials()->sale($invoice->id)->get();
@@ -139,7 +144,7 @@ class SaleController extends Controller
             $items[] = $item;
         }
         $expenses = [];
-        $gateways = Account::where([['slug', 'temp_reseller_account'], ['is_system_account', true]])->get();
+        $gateways = $this->accountRepositoryContract->getPaymentMethodsAccountsListToAuthedManager();
         return view('sales.create_return', compact('sale', 'invoice', 'items', 'gateways', 'expenses'));
     }
 

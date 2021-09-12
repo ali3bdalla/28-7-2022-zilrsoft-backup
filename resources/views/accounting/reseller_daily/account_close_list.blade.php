@@ -27,7 +27,6 @@
 
                 @foreach($managerCloseAccountList as $transaction)
                     <tbody>
-                    {{--                    @if($transaction['transaction_type']=='close_account')--}}
                     <tr class="">
                         <td>CSH-{{ $transaction->id }}</td>
                         <td>{{ $transaction->from }}</td>
@@ -51,73 +50,6 @@
                             @endif
                         </td>
                     </tr>
-
-                    {{--                    @else--}}
-
-                    {{--                        <tr>--}}
-                    {{--                            <td>تحويل</td>--}}
-                    {{--                            <td>{{ $transaction->creator->locale_name }}</td>--}}
-                    {{--                            <td>{{ $transaction->receiver->locale_name }}</td>--}}
-                    {{--                            <td>{{ moneyFormatter($transaction->amount) }}</td>--}}
-                    {{--                            <td>--}}
-                    {{--                                @if($transaction->is_pending)--}}
-                    {{--                                    منتظرة--}}
-                    {{--                                @else--}}
-                    {{--                                    مقبولة--}}
-                    {{--                                @endif--}}
-                    {{--                            </td>--}}
-                    {{--                        </tr>--}}
-                    {{--                    @endif--}}
-                    {{--                    @foreach($transaction->container->transactions as $transaction)--}}
-
-                    {{--                        @if($transaction->amount>0)--}}
-                    {{--                            @if($transaction->debitable_type=="")--}}
-                    {{--                                <tr>--}}
-                    {{--                                    <td>{{ $transaction->creditable->locale_name }} </td>--}}
-                    {{--                                    <td>-</td>--}}
-                    {{--                                    <td>-</td>--}}
-                    {{--                                    <td>-{{ $transaction->amount }}</td>--}}
-                    {{--                                    <td></td>--}}
-                    {{--                                </tr>--}}
-                    {{--                            @else--}}
-                    {{--                                <tr>--}}
-                    {{--                                    <td>{{ $transaction->debitable->locale_name }} </td>--}}
-                    {{--                                    <td>-</td>--}}
-                    {{--                                    <td>-</td>--}}
-                    {{--                                    <td>+{{ $transaction->amount }}</td>--}}
-                    {{--                                    <td></td>--}}
-                    {{--                                </tr>--}}
-                    {{--                            @endif--}}
-
-                    {{--                        @endif--}}
-
-                    {{--                    @endforeach--}}
-
-                    {{--                    --}}
-                    {{--                    @if($transaction['transaction_type']=='close_account')--}}
-                    {{--                        <tr>--}}
-                    {{--                            <td>تقفيل الحساب</td>--}}
-                    {{--                            <td>{{ $transaction->close_account_start_date }}</td>--}}
-                    {{--                            <td>{{ $transaction->close_account_end_date }}</td>--}}
-                    {{--                            <td>{{ moneyFormatter($transaction->amount) }}</td>--}}
-                    {{--                            <td>{{ moneyFormatter($transaction->shortage_amount) }}</td>--}}
-                    {{--                        </tr>--}}
-                    {{--                    @else--}}
-                    {{--                        --}}{{----}}
-                    {{--                        <tr>--}}
-                    {{--                            <td>تحويل</td>--}}
-                    {{--                            <td>{{ $transaction->creator->locale_name }}</td>--}}
-                    {{--                            <td>{{ $transaction->receiver->locale_name }}</td>--}}
-                    {{--                            <td>{{ moneyFormatter($transaction->amount) }}</td>--}}
-                    {{--                            <td>--}}
-                    {{--                                @if($transaction->is_pending)--}}
-                    {{--                                    منتظرة--}}
-                    {{--                                @else--}}
-                    {{--                                    مقبولة--}}
-                    {{--                                @endif--}}
-                    {{--                            </td>--}}
-                    {{--                        </tr>--}}
-                    {{--                    @endif--}}
                     </tbody>
                 @endforeach
 

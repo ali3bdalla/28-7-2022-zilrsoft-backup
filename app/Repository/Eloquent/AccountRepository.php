@@ -4,6 +4,7 @@ namespace App\Repository\Eloquent;
 
 use App\Http\Resources\Entity\TransactionResource;
 use App\Models\Account;
+use App\Models\Manager;
 use App\Models\Transaction;
 use App\Repository\AccountRepositoryContract;
 use App\ValueObjects\AccountSearchValueObject;
@@ -49,5 +50,10 @@ class AccountRepository extends BaseRepository implements AccountRepositoryContr
         $creditAmount = $searchValueObjectContract->apply(Transaction::whereAccountId($account->id)->whereType('credit')->with("account", 'invoice', 'user', 'item'))->sum('amount');
         if ($account->isCredit()) return $creditAmount - $debitAmount;
         return $debitAmount - $creditAmount;
+    }
+
+    public function getPaymentMethodsAccountsListToAuthedManager(): Collection
+    {
+        return Account::whereSlug("temp_reseller_account")->whereIsSystemAccount(true)->get();
     }
 }

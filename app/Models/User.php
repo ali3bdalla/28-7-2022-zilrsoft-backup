@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\UserBalanceTrait;
-use App\Scopes\SortByScope;
-use App\ValueObjects\GenericSortByValueObject;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -31,7 +28,6 @@ class User extends BaseAuthModel
 
     use SoftDeletes;
     use Notifiable;
-
 
 
     protected $guarded = [];

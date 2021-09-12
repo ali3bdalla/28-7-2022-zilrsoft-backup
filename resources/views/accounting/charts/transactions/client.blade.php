@@ -46,8 +46,8 @@
                 </thead>
 
                 <tbody>
-			 
-			 
+
+
 			 <?php $balance = 0;?>
                 @foreach($transactions as $transaction)
 
@@ -81,7 +81,6 @@
                         @endif
                         <th class="text-center ">
                             @if($balance>0)
-
                                 {{moneyFormatter($balance)}}
                             @else
                                 0

@@ -3,8 +3,6 @@
 namespace App\Http\Requests\Accounting\Item;
 
 use App\Jobs\Items\Tag\UpdateItemTagsJob;
-use App\Jobs\Utility\Str\ReplaceArabicSensitiveCharJob;
-use App\Models\CategoryFilters;
 use App\Models\Filter;
 use App\Models\FilterValues;
 use App\Models\ItemFilters;
@@ -18,7 +16,7 @@ class UpdateItemRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return $this->user()->can('edit item');
     }
@@ -28,13 +26,13 @@ class UpdateItemRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => 'required|string',
             'ar_name' => 'required|string',
             'barcode' => 'required|min:4',
-            'category_id' => 'required|integer|exists:App\Models\Category,id',
+            'category_id' => 'required|integer|exists:categories,id',
             'is_fixed_price' => 'required',
             'is_has_vtp' => 'required',
             'is_has_vts' => 'required',
@@ -59,6 +57,9 @@ class UpdateItemRequest extends FormRequest
         ];
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function save($item)
     {
         $data = $this->only(
@@ -84,14 +85,10 @@ class UpdateItemRequest extends FormRequest
             'shipping_discount',
             'warranty_subscription_id',
             'price_with_tax',
-
         );
-        $data['ar_name'] = ReplaceArabicSensitiveCharJob::dispatchSync($this->input('ar_name'));
 
         $item->update($data);
-
         $item->filters()->delete();
-
         if ($item->attachments()->count() < 4 && $this->input('is_available_online')) {
             throw ValidationException::withMessages(
                 [

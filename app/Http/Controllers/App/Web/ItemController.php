@@ -15,6 +15,7 @@ use App\Models\Manager;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -89,6 +90,7 @@ class ItemController extends Controller
      * @param CreateItemRequest $request
      *
      * @return mixed
+     * @throws ValidationException
      */
     public function store(CreateItemRequest $request)
     {

@@ -13,6 +13,7 @@ class ReplaceArabicSensitiveCharJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $text;
+
     /**
      * Create a new job instance.
      *
@@ -26,25 +27,25 @@ class ReplaceArabicSensitiveCharJob implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @return void
+     * @return string
      */
-    public function handle()
+    public function handle(): string
     {
-        $searchArray = explode(' ', $this->text); 
+        $searchArray = explode(' ', $this->text);
 
 
         $result = [];
 
         foreach ($searchArray as $searchKey) {
-            $str = str_replace(['أ','إ','آ'],'ا',$searchKey);
+            $str = str_replace(['أ', 'إ', 'آ'], 'ا', $searchKey);
             // $str = str_replace( '/ه$/','ة',$str);
-            $str = preg_replace( '/ه$/','ة', $str);
+            $str = preg_replace('/ه$/', 'ة', $str);
 
             $result[] = $str;
         }
-        
 
-        return implode(' ',$result);
+
+        return implode(' ', $result);
 
 
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Events\Item\ItemCreatedEvent;
 use App\Scopes\StoreItemScope;
+use App\ValueObjects\MoneyValueObject;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -67,9 +68,12 @@ class Item extends BaseModel
         'is_service' => 'boolean',
         'is_need_serial' => 'boolean',
         'available_qty' => 'integer',
-        'price' => 'float',
-        'price_with_tax' => 'float',
+        'price' => MoneyValueObject::class,
+        'price_with_tax' => MoneyValueObject::class,
         'is_expense' => 'boolean',
+        'shipping_discount' => MoneyValueObject::class,
+        'online_price' => MoneyValueObject::class,
+        'online_offer_price' => MoneyValueObject::class,
     ];
     protected $guarded = [];
 
@@ -102,7 +106,6 @@ class Item extends BaseModel
     public function getAvailableQtyAttribute($value): int
     {
         if ($this->getOriginal("is_kit")) return 2;
-
         return $value;
     }
 
@@ -153,17 +156,6 @@ class Item extends BaseModel
         });
     }
 
-    public function getOnlineOfferPriceAttribute($value): float
-    {
-        if ($this->is_kit) return moneyFormatter($this->data ? $this->data->net : 0);
-        return moneyFormatter(round($value));
-    }
-
-    public function getOnlinePriceAttribute($value): float
-    {
-        return moneyFormatter($value);
-    }
-
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class, 'organization_id');
@@ -190,46 +182,6 @@ class Item extends BaseModel
         return $this->belongsTo(Manager::class, 'creator_id')->withTrashed();
     }
 
-    public function scopeLastFiveSearch($query, $search)
-    {
-        return $query
-            ->where('barcode', 'ILIKE', '%' . $search . '%')
-            ->orWhere('name', 'ILIKE', '%' . $search . '%')
-            ->orWhere('ar_name', 'ILIKE', '%' . $search . '%')
-            ->with('items', 'data')
-            ->take(5);
-    }
-
-    public function scopeItemBySerialSearch($query, $search): array
-    {
-        $productSerials = ItemSerials::where('serial', $search)->whereIn('current_status', ['available', 'return_sale'])->get();
-        $serials = [];
-        foreach ($productSerials as $serial) {
-            if (!empty($serial)) {
-                $item = $serial->item;
-                $item->has_init_serial = true;
-                $item->init_serial = $serial->fresh();
-                $serials[] = $item;
-            }
-        }
-
-        return $serials;
-    }
-
-    public function scopeChildrenHaveAvailableQty($query)
-    {
-        return $query->with(
-            ['items' => function ($query2) {
-                return $query2->with(
-                    [
-                        'item' => function ($query3) {
-                            return $query3->where('available_qty', '>', 0);
-                        }
-                    ]
-                );
-            }]
-        );
-    }
 
     public function addKitChildren($items)
     {

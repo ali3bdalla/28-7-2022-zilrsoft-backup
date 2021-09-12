@@ -23,63 +23,49 @@
             data-v-52728e8a=""
             data-v-a15fc63e="">
 
-        <div v-for="(attachment, index) in attachmentsList" :key="index">
-          <img
-              :src="$processedImageUrl(attachment.url, 300, 400)"
-              class="images-uploader__sub-image-preview"
-              @click="changeActiveImage(attachment)"
-          />
-          <div class="images-uploader__mt-3">
-            <button
-                class="images-uploader__delete-image"
-                @click="deleteImage(attachment.id)"
-            >
-              حذف
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-if="attachmentsList.length < 4" class="images-uploader__flex-1">
-      <label class="images-uploader__upload-area">
-        <div class="images-uploader__upload-area-container">
-          <div class="images-uploader__text-gray">
-            <div class="images-uploader__upload">
-              <img src="/accounting/images/cloud_upload.png" style="    width: 51px;"/>
-              <p class="lead">رفع المرفقات</p>
+          <div v-for="(attachment, index) in attachmentsList" :key="index">
+            <img
+                :src="$processedImageUrl(attachment.url, 300, 400)"
+                class="images-uploader__sub-image-preview"
+                @click="changeActiveImage(attachment)"
+            />
+            <div class="images-uploader__mt-3">
+              <button
+                  class="images-uploader__delete-image"
+                  @click="deleteImage(attachment.id)"
+              >
+                حذف
+              </button>
             </div>
           </div>
-          <input
-              ref="file"
-              accept="image/*"
-              multiple
-              style="display: none"
-              type="file"
-              @change="handleFiles"
-          />
         </div>
-      </label>
-      <div v-if="$page.errors" class="images-uploader__error">
-        {{ $page.errors.images }}
       </div>
-      <div v-if="$page.errors[`images.0`]" class="images-uploader__error">
-        {{ $page.errors[`images.0`] }}
-      </div>
-      <div v-if="$page.errors[`images.1`]" class="images-uploader__error">
-        {{ $page.errors[`images.1`] }}
-      </div>
-      <div v-if="$page.errors[`images.2`]" class="images-uploader__error">
-        {{ $page.errors[`images.2`] }}
-      </div>
-      <div v-if="$page.errors[`images.3`]" class="images-uploader__error">
-        {{ $page.errors[`images.3`] }}
+      <div v-if="attachmentsList.length < 4" class="images-uploader__flex-1">
+        <label class="images-uploader__upload-area">
+          <div class="images-uploader__upload-area-container">
+            <div class="images-uploader__text-gray">
+              <div class="images-uploader__upload">
+                <img src="/accounting/images/cloud_upload.png" style="    width: 51px;"/>
+                <p class="lead">رفع المرفقات</p>
+              </div>
+            </div>
+            <input
+                ref="file"
+                accept="image/*"
+                multiple
+                style="display: none"
+                type="file"
+                @change="handleFiles"
+            />
+          </div>
+        </label>
+
       </div>
     </div>
-  </div>
 
-  <div class=" images-uploader__mt-10">
-    <div class="images-uploader__content images-uploader__w-full images-uploader__gap-3">
-      <div class="images-uploader__flex-1 images-uploader__w-full">
+    <div class=" images-uploader__mt-10">
+      <div class="images-uploader__content images-uploader__w-full images-uploader__gap-3">
+        <div class="images-uploader__flex-1 images-uploader__w-full">
           <textarea
               v-model="description.ar_description"
               class="form-control images-uploader__text-right images-uploader__w-full  images-uploader__p-3"
@@ -88,14 +74,8 @@
               rows="5"
               @change="publishDescription"
           ></textarea>
-        <div
-            v-if="$page.errors.ar_description"
-            class="images-uploader__error"
-        >
-          {{ $page.errors.ar_description }}
         </div>
-      </div>
-      <div class="images-uploader__flex-1  images-uploader__w-full">
+        <div class="images-uploader__flex-1  images-uploader__w-full">
           <textarea
               v-model="description.description"
               class="form-control images-uploader__text-left  images-uploader__w-full images-uploader__p-3"
@@ -105,22 +85,16 @@
               style="direction:ltr"
               @change="publishDescription"
           ></textarea>
-        <div
-            v-if="$page.errors.description"
-            class="images-uploader__error"
-        >
-          {{ $page.errors.description }}
-        </div>
 
+        </div>
+      </div>
+
+      <div v-if="!noUpdateButton" class="images-uploader__mt-3">
+        <button class="images-uploader__update-button" @click="saveDescription">
+          تعديل الوصف
+        </button>
       </div>
     </div>
-
-    <div v-if="!noUpdateButton" class="images-uploader__mt-3">
-      <button class="images-uploader__update-button" @click="saveDescription">
-        تعديل الوصف
-      </button>
-    </div>
-  </div>
   </div>
 </template>
 
@@ -158,7 +132,6 @@ export default {
     this.attachmentsList = this.attachments
     const masterImage = this.attachments.find(p => p.is_main)
     this.activeImage = this.$processedImageUrl(masterImage ? masterImage.url : this.attachments[0] ? this.attachments[0].url : '', 300, 400)
-
     this.description.description = this.item.description
     this.description.ar_description = this.item.ar_description
   },
@@ -190,7 +163,7 @@ export default {
     changeActiveImage (image) {
       this.activeImage = this.$processedImageUrl(image.url, 300, 400)
       axios
-        .get(`/api/upload_images/${this.item.id}/${image.id}/set_master`)
+          .get(`/api/upload_images/${this.item.id}/${image.id}/set_master`)
     },
     deleteImage (id) {
       const appVm = this
@@ -221,28 +194,21 @@ export default {
       }
 
       axios
-        .post(this.item.id ? `/api/upload_images/${this.item.id}` : '/api/items/add_images', serverData)
-        .then((res) => {
-          this.$alert('تم الحفظ بنجاح')
-          res.data.forEach(element => {
-            this.attachmentsList.push(element)
+          .post(this.item.id ? `/api/upload_images/${this.item.id}` : '/api/items/add_images', serverData)
+          .then((res) => {
+            this.$alert('تم الحفظ بنجاح')
+            res.data.forEach(element => {
+              this.attachmentsList.push(element)
+            })
+            this.$emit('pushed', res.data)
           })
-          this.$emit('pushed', res.data)
-        })
-        .catch((errr) => {
-          this.$alert('لم يتم اضافة الصورة')
-        })
-        .finally(() => {
-          this.isLoading = false
-        })
-      // this.$inertia.post(`/api/upload_images/${this.item.id}`, serverData, {
-      //   onSuccess: page => {
-      //     if (Object.keys(page.props.errors).length == 0) { this.$alert('تم الحفظ بنجاح') }
-      //   },
-      //   onFinish: () => {
-      //     this.isLoading = false
-      //   }
-      // })
+          .catch((errr) => {
+            this.$alert('لم يتم اضافة الصورة')
+          })
+          .finally(() => {
+            this.isLoading = false
+          })
+
     }
   }
 }
@@ -439,8 +405,6 @@ export default {
   margin-top: 2.5rem;
 }
 
-/*@import url("/css/store.css");*/
-/*@import url("/css/rlt_store.css");*/
 label {
   width: 100%;
   height: 250px;
