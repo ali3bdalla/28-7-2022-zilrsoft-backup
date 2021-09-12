@@ -24,7 +24,7 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
             'first_name' => $firstName,
             'last_name' => $lastName,
             'name' => $this->createName($firstName, $lastName),
-            'ar_name' => $this->createName($firstName, $lastName),
+            'name_ar' => $this->createName($firstName, $lastName),
             'creator_id' => 1,
             'organization_id' => 1,
             'user_slug' => 'online_user',
@@ -87,7 +87,7 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
                 'password' => $password,
                 'user_slug' => 'online_user',
             ]) && $user) {
-            Auth::guard('client')->loginUsingId($user->id,true);
+            Auth::guard('client')->loginUsingId($user->id, true);
             return true;
         }
         return false;

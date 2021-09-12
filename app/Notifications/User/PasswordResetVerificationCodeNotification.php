@@ -8,12 +8,11 @@ use App\Channels\WhatsappMessageChannel;
 use App\Channels\WhatsappMessageNotificationContract;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\URL;
 
-class PasswordResetVerificationCodeNotification extends Notification implements WhatsappMessageNotificationContract, OurSmsNotificationContract,ShouldQueue
+class PasswordResetVerificationCodeNotification extends Notification implements WhatsappMessageNotificationContract, OurSmsNotificationContract, ShouldQueue
 {
     use Queueable;
 

@@ -22,6 +22,7 @@ use Propaganistas\LaravelPhone\PhoneNumber;
  * @property bool is_vendor
  * @property string international_phone_number
  * @property integer verification_code
+ * @property mixed name
  * @method static where(array $array)
  * @method static find(mixed $user_id)
  */
@@ -92,7 +93,7 @@ class User extends BaseAuthModel
 
     public function getLocaleNameAttribute(): string
     {
-        return $this->name_ar;
+        return $this->name;
     }
 
 
