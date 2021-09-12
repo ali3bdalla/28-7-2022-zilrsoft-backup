@@ -17,7 +17,7 @@ class BaseAuthModel extends Authenticatable
     {
         parent::boot();
         if (Auth::check()) {
-            static::addGlobalScope(new OrganizationScope((int)Auth::user()->getOriginal("organization_id")));
+            static::addGlobalScope(new OrganizationScope((int)Auth::user()->organization_id));
         }
     }
 }
