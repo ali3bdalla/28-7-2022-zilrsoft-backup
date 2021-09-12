@@ -113,7 +113,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapAppRoutes()
     {
 
-        Route::middleware(['guest', 'web', 'guest:manager,dashboard'])
+        Route::middleware(['web'])
             ->group(base_path('routes/guest.php'));
 
         Route::middleware(['web', 'auth'])

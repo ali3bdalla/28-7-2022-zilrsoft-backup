@@ -54,11 +54,8 @@
     <div class="raw">
 
         <div class="col-xs-12">
-            {{--            <div class="header_title">--}}
             <div align="center" style="font-size: 27px !important;">{{
                 $invoice->organization->title_ar }}</div>
-            {{--            </div>--}}
-            {{----}}
 
         </div>
 
@@ -78,14 +75,6 @@
         <div class="col-xs-6 text-left">
             {{ $invoice->sale->alice_name == "" ? $invoice->sale->client->locale_name :$invoice->sale->alice_name   }}</div>
     </div>
-    {{-- <div class="row">
-        <div class="col-xs-6"> الحالة</div>
-        <div class="col-xs-6 text-left">
-           {{ trans('pages/invoice.paid') }}
-           {{-- {{ $invoice->current_status=='paid' ?  --}}
-           {{-- :  trans('pages/invoice.credit') }} --}}
-        {{-- </div>
-    </div>  --}}
 
 
     <div class="row">
@@ -112,41 +101,11 @@
     </div>
 
     <br>
-    {{--    <br>--}}
-    {{--    <div>--}}
-    {{--        <div class="header_title">--}}
-    {{--            <span class="pull-right">العميل</span>--}}
-    {{--            <span class="pull-left"> {{ $invoice->sale->client->name }}</span>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
-
-
-    {{--    <div>--}}
-    {{--        <div class="header_title">--}}
-    {{--            <span class="pull-right"> التاريخ</span>--}}
-    {{--            <span class="pull-left">{{ $invoice->created_at }}</span>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
 
     <div class="row">
 
         <div class="col-xs-12">
             <table class="table" style="margin-right: 3px;border:none !important;">
-                <thead>
-                {{--                    <tr>--}}
-                {{--                        <td colspan="6"><span>الصنف</span>/<span>الرقم</span></td>--}}
-                {{--                    </tr>--}}
-
-                {{--                <tr>--}}
-                {{--                    <td><span>الكمية</span></td>--}}
-                {{--                    <td><span>السعر</span></td>--}}
-                {{--                    <td><span>المجموع</span></td>--}}
-                {{--                    <td><span>الخصم</span></td>--}}
-                {{--                    --}}{{--                        <td><span>الصافي</span></td>--}}
-                {{--                    <td><span>الضريبة</span></td>--}}
-                {{--                    <td><span>النهائي</span></td>--}}
-                {{--                </tr>--}}
-                </thead>
 
                 @foreach($invoice->items as $item)
                     @if($item->belong_to_kit==false  && $item->show_price_in_print_mode  && $item->item != null)
@@ -156,7 +115,6 @@
                     <tr style="">
 
                         <td colspan="6">
-                            {{--                            <br>--}}
                             <span>{{mb_substr($item->item->locale_name, 0,55) }}</span><br><span>{{$item->item->barcode}}</span>
                             <span class="pull-left">الكمية : {{ $item->qty }}</span>
                         </td>
@@ -167,7 +125,6 @@
                             <td><span>السعر</span></td>
                             <td><span>المجموع</span></td>
                             <td><span>الخصم</span></td>
-                            {{--                        <td><span>الصافي</span></td>--}}
                             <td><span>الضريبة </span></td>
                             <td><span>النهائي</span></td>
                         @endif
@@ -205,10 +162,7 @@
                             </tr>
                         @endforeach
                     @endif
-                    {{--                    <tr>--}}
-                    {{--                        <td colspan="6">--}}
-                    {{--                            <span></span></td>--}}
-                    {{--                    </tr>--}}
+
                     </tbody>
 
 
@@ -258,13 +212,6 @@
             </div>
         </div>
 
-        {{-- <div class="col-xs-12">
-            <div class="header_title">
-                <span class="pull-right"> المبتقي</span>
-                <span class="pull-left">  {{moneyFormatter($invoice->remaining) }}</span>
-            </div>
-        </div> --}}
-
 
     </div>
 
@@ -284,15 +231,9 @@
         </div>
     </div>
     <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
-{{--        <div class="col-md-12"><h3>الشروط والاحكام</h3></div>--}}
         <div class="col-md-12">* البضاعة المباعة لاترد ولا تستبدل بعد فتحها .</div>
         <div class="col-md-12">* الارجاع خلال ثلاثة أيام .</div>
         <div class="col-md-12">* التبديل خلال سبعة أيام .</div>
-{{--        @foreach($invoice->items as $item)--}}
-        {{--            @if($item->belong_to_kit==false && $item->printable && $item->item->warranty)--}}
-        {{--                <div class="col-md-12"> *المنتج  {{ $item->item->warranty->locale_name }} .</div>--}}
-        {{--            @endif--}}
-        {{--        @endforeach--}}
     </div>
 
     <div class="row">
@@ -328,6 +269,11 @@
         <div class="col-xs-12">
             <div class="text-center">
                 <span class="header_title total_header">سعدنا بخدمتكم</span>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="text-center">
+                {!! QrCode::size(100)->generate(route('accounting.public-invoice.show',$invoice->getEncryptedPublicId())); !!}
             </div>
         </div>
     </div>

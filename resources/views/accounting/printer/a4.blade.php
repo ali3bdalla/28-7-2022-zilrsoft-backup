@@ -377,14 +377,11 @@
 
 </div>
 
-
 <img src="{{ $invoice->getBackgroundAssetAttribute() }}">
-
 <footer style="">
     <div class="">
         <div class="row" style="color: black !important;">
             <div class="stamp" style="">
-
             </div>
             <div class="issued_by">
                 @if($invoice->creator->organization->stamp != null)
@@ -406,5 +403,5 @@
 </body>
 </html>
 <script type="text/javascript">
-  // print()
+  print()
 </script>
