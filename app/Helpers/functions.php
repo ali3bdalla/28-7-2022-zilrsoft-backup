@@ -32,7 +32,6 @@ if (!function_exists('sendOtp')) {
     {
         $phoneNumber = '966' . $phoneNumber;
         if (app()->environment(['production', 'local'])) {
-
             sendSms(__('store.common.verification_code') . ' ' . $otp, $phoneNumber);
         }
     }
