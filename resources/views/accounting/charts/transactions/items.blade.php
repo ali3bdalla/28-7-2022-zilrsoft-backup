@@ -39,10 +39,10 @@
                         <th class="text-center "><a
                                     href="{{ route('accounts.show.item',[ $account->id,$item['id']] ) }}">{{$item['locale_name'] }}</a>
                         </th>
-                        <th class="text-center ">{{displayMoney($item['total_debit_amount']) }}</th>
-                        <th class="text-center ">{{displayMoney($item['total_credit_amount'])}}</th>
-                        <th class="text-center ">{{ displayMoney($item['balance_debit']) }}</th>
-                        <th class="text-center ">{{displayMoney($item['balance_credit']) }}</th>
+                        <th class="text-center ">{{moneyFormatter($item['total_debit_amount']) }}</th>
+                        <th class="text-center ">{{moneyFormatter($item['total_credit_amount'])}}</th>
+                        <th class="text-center ">{{ moneyFormatter($item['balance_debit']) }}</th>
+                        <th class="text-center ">{{moneyFormatter($item['balance_credit']) }}</th>
                     </tr>
                 @endforeach
                 </tbody>

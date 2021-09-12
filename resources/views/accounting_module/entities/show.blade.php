@@ -32,11 +32,11 @@
                     <td>{{ $transaction->id }}</td>
                     <td>{{ $transaction->account_name }}</td>
                     @if($transaction->type == 'debit')
-                        <td>{{ displayMoney($transaction->amount) }}</td>
+                        <td>{{ moneyFormatter($transaction->amount) }}</td>
                         <td>0</td>
                     @else
                         <td>0</td>
-                        <td>{{ displayMoney($transaction->amount) }}</td>
+                        <td>{{ moneyFormatter($transaction->amount) }}</td>
                     @endif
 
                     <td>{{ $transaction->description }}</td>
@@ -46,8 +46,8 @@
             <tr class="bg-primary">
                 <th></th>
                 <th></th>
-                <th>{{displayMoney($entity->total_debit_amount)}}</th>
-                <th>{{displayMoney($entity->total_credit_amount)}}</th>
+                <th>{{moneyFormatter($entity->total_debit_amount)}}</th>
+                <th>{{moneyFormatter($entity->total_credit_amount)}}</th>
                 <th></th>
 
             </tr>

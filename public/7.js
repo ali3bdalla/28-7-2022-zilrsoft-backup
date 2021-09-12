@@ -116,7 +116,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _OrderStatusTagComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OrderStatusTagComponent */ "./resources/next/js/Web/Components/Order/OrderStatusTagComponent.vue");
 /* harmony import */ var _DataGrid_CreatedAt__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../DataGrid/CreatedAt */ "./resources/next/js/Web/Components/DataGrid/CreatedAt.vue");
-/* harmony import */ var _Components_Utility_DisplayMoney__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Components/Utility/DisplayMoney */ "./resources/next/js/Web/Components/Utility/DisplayMoney.vue");
+/* harmony import */ var _Components_Utility_moneyFormatter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Components/Utility/moneyFormatter */ "./resources/next/js/Web/Components/Utility/moneyFormatter.vue");
 //
 //
 //
@@ -154,7 +154,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'OrderDetailComponent',
   components: {
-    DisplayMoney: _Components_Utility_DisplayMoney__WEBPACK_IMPORTED_MODULE_2__["default"],
+    moneyFormatter: _Components_Utility_moneyFormatter__WEBPACK_IMPORTED_MODULE_2__["default"],
     CreatedAt: _DataGrid_CreatedAt__WEBPACK_IMPORTED_MODULE_1__["default"],
     OrderStatusTagComponent: _OrderStatusTagComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -181,7 +181,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Components_Utility_DisplayMoney__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Components/Utility/DisplayMoney */ "./resources/next/js/Web/Components/Utility/DisplayMoney.vue");
+/* harmony import */ var _Components_Utility_moneyFormatter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Components/Utility/moneyFormatter */ "./resources/next/js/Web/Components/Utility/moneyFormatter.vue");
 //
 //
 //
@@ -281,7 +281,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'OrderItemsComponent',
   components: {
-    DisplayMoney: _Components_Utility_DisplayMoney__WEBPACK_IMPORTED_MODULE_0__["default"]
+    moneyFormatter: _Components_Utility_moneyFormatter__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
     invoicesLang: {
@@ -585,7 +585,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Components_Utility_DisplayMoney__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Components/Utility/DisplayMoney */ "./resources/next/js/Web/Components/Utility/DisplayMoney.vue");
+/* harmony import */ var _Components_Utility_moneyFormatter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Components/Utility/moneyFormatter */ "./resources/next/js/Web/Components/Utility/moneyFormatter.vue");
 /* harmony import */ var _Utility_DisplayPhoneNumber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Utility/DisplayPhoneNumber */ "./resources/next/js/Web/Components/Utility/DisplayPhoneNumber.vue");
 //
 //
@@ -623,7 +623,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'OrderUserDetailComponent',
   components: {
     DisplayPhoneNumber: _Utility_DisplayPhoneNumber__WEBPACK_IMPORTED_MODULE_1__["default"],
-    DisplayMoney: _Components_Utility_DisplayMoney__WEBPACK_IMPORTED_MODULE_0__["default"]
+    moneyFormatter: _Components_Utility_moneyFormatter__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
     $getLang: {
@@ -974,7 +974,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "orders__amount" },
-          [_c("DisplayMoney", { attrs: { money: _vm.order.net } })],
+          [_c("moneyFormatter", { attrs: { money: _vm.order.net } })],
           1
         )
       ]),
@@ -988,7 +988,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "orders__amount" },
-          [_c("DisplayMoney", { attrs: { money: _vm.order.shipping_amount } })],
+          [_c("moneyFormatter", { attrs: { money: _vm.order.shipping_amount } })],
           1
         )
       ]),

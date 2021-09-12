@@ -1,8 +1,8 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Components/Utility/DisplayMoney.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Components/Utility/moneyFormatter.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/next/js/Web/Components/Utility/DisplayMoney.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/next/js/Web/Components/Utility/moneyFormatter.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -19,7 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'DisplayMoney',
+  name: 'moneyFormatter',
   props: {
     money: {
       type: [Number, String],
@@ -65,9 +65,9 @@ typeof b?b(this,a):a.format(this,Object.assign({},a,b))},toString:function(){var
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Components/Utility/DisplayMoney.vue?vue&type=template&id=5472814d&scoped=true&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Components/Utility/moneyFormatter.vue?vue&type=template&id=5472814d&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/next/js/Web/Components/Utility/DisplayMoney.vue?vue&type=template&id=5472814d&scoped=true& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/next/js/Web/Components/Utility/moneyFormatter.vue?vue&type=template&id=5472814d&scoped=true& ***!
   \********************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -333,17 +333,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/next/js/Web/Components/Utility/DisplayMoney.vue":
+/***/ "./resources/next/js/Web/Components/Utility/moneyFormatter.vue":
 /*!*******************************************************************!*\
-  !*** ./resources/next/js/Web/Components/Utility/DisplayMoney.vue ***!
+  !*** ./resources/next/js/Web/Components/Utility/moneyFormatter.vue ***!
   \*******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _DisplayMoney_vue_vue_type_template_id_5472814d_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DisplayMoney.vue?vue&type=template&id=5472814d&scoped=true& */ "./resources/next/js/Web/Components/Utility/DisplayMoney.vue?vue&type=template&id=5472814d&scoped=true&");
-/* harmony import */ var _DisplayMoney_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DisplayMoney.vue?vue&type=script&lang=js& */ "./resources/next/js/Web/Components/Utility/DisplayMoney.vue?vue&type=script&lang=js&");
+/* harmony import */ var _moneyFormatter_vue_vue_type_template_id_5472814d_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moneyFormatter.vue?vue&type=template&id=5472814d&scoped=true& */ "./resources/next/js/Web/Components/Utility/moneyFormatter.vue?vue&type=template&id=5472814d&scoped=true&");
+/* harmony import */ var _moneyFormatter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./moneyFormatter.vue?vue&type=script&lang=js& */ "./resources/next/js/Web/Components/Utility/moneyFormatter.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -353,9 +353,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _DisplayMoney_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _DisplayMoney_vue_vue_type_template_id_5472814d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _DisplayMoney_vue_vue_type_template_id_5472814d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _moneyFormatter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _moneyFormatter_vue_vue_type_template_id_5472814d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _moneyFormatter_vue_vue_type_template_id_5472814d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   "5472814d",
@@ -365,38 +365,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/next/js/Web/Components/Utility/DisplayMoney.vue"
+component.options.__file = "resources/next/js/Web/Components/Utility/moneyFormatter.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/next/js/Web/Components/Utility/DisplayMoney.vue?vue&type=script&lang=js&":
+/***/ "./resources/next/js/Web/Components/Utility/moneyFormatter.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************!*\
-  !*** ./resources/next/js/Web/Components/Utility/DisplayMoney.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/next/js/Web/Components/Utility/moneyFormatter.vue?vue&type=script&lang=js& ***!
   \********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DisplayMoney_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./DisplayMoney.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Components/Utility/DisplayMoney.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DisplayMoney_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_moneyFormatter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./moneyFormatter.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Components/Utility/moneyFormatter.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_moneyFormatter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/next/js/Web/Components/Utility/DisplayMoney.vue?vue&type=template&id=5472814d&scoped=true&":
+/***/ "./resources/next/js/Web/Components/Utility/moneyFormatter.vue?vue&type=template&id=5472814d&scoped=true&":
 /*!**************************************************************************************************************!*\
-  !*** ./resources/next/js/Web/Components/Utility/DisplayMoney.vue?vue&type=template&id=5472814d&scoped=true& ***!
+  !*** ./resources/next/js/Web/Components/Utility/moneyFormatter.vue?vue&type=template&id=5472814d&scoped=true& ***!
   \**************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DisplayMoney_vue_vue_type_template_id_5472814d_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./DisplayMoney.vue?vue&type=template&id=5472814d&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Components/Utility/DisplayMoney.vue?vue&type=template&id=5472814d&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DisplayMoney_vue_vue_type_template_id_5472814d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_moneyFormatter_vue_vue_type_template_id_5472814d_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./moneyFormatter.vue?vue&type=template&id=5472814d&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/next/js/Web/Components/Utility/moneyFormatter.vue?vue&type=template&id=5472814d&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_moneyFormatter_vue_vue_type_template_id_5472814d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DisplayMoney_vue_vue_type_template_id_5472814d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_moneyFormatter_vue_vue_type_template_id_5472814d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

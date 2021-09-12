@@ -60,7 +60,7 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
             'PAYMENT_URL' => $this->order->generatePayOrderUrl(),
             'DEADLINE_TIME' => Carbon::now()->addMinutes(config('app.store.cancel_unpaid_orders_after'))->format('H:i'),
             'DEADLINE_DATE' => Carbon::now()->toDateString(),
-            'AMOUNT' => displayMoney($this->order->net) . ' ' . __('store.products.sar'),
+            'AMOUNT' => moneyFormatter($this->order->net) . ' ' . __('store.products.sar'),
             'ORDER_ID' => $this->order->id,
         ]);
 
@@ -70,7 +70,7 @@ class NotifyCustomerByNewOrderJob implements ShouldQueue
             'PAYMENT_URL' => $this->order->generatePayOrderUrl(),
             'DEADLINE_TIME' => Carbon::now()->addMinutes(config('app.store.cancel_unpaid_orders_after'))->format('H:i'),
             'DEADLINE_DATE' => Carbon::now()->toDateString(),
-            'AMOUNT' => displayMoney($this->order->net) . ' ' . __('store.products.sar'),
+            'AMOUNT' => moneyFormatter($this->order->net) . ' ' . __('store.products.sar'),
             'ORDER_ID' => $this->order->id,
         ]);
         $paymentLinkMessage .= trans('store.common.customer_support_note');

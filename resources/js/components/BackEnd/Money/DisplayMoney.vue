@@ -19,7 +19,7 @@ export default {
         currencyFormatter: currencyFormatter
       }
   },
-  name: 'DisplayMoney'
+  name: 'moneyFormatter'
 }
 </script>
 

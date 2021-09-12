@@ -22,7 +22,7 @@
                     <td class="date_field_center">{{ $transaction->created_at }}</td>
                     <td>{{ $transaction->account_name}}</td>
                     <td></td>
-                    <td>{{ displayMoney($transaction->amount) }}</td>
+                    <td>{{ moneyFormatter($transaction->amount) }}</td>
                 </tr>
 
 
@@ -32,7 +32,7 @@
                 <tr>
                     <td class="date_field_center">{{ $transaction->created_at }}</td>
                     <td>{{  $transaction->account_name }}</td>
-                    <td>{{  displayMoney($transaction->amount) }}</td>
+                    <td>{{  moneyFormatter($transaction->amount) }}</td>
                     <td></td>
                 </tr>
 
@@ -44,8 +44,8 @@
         <thead>
         <th>المجموع</th>
         <th></th>
-        <th>{{ displayMoney($total_debit) }}</th>
-        <th>{{ displayMoney($total_credit) }}</th>
+        <th>{{ moneyFormatter($total_debit) }}</th>
+        <th>{{ moneyFormatter($total_credit) }}</th>
         </thead>
 
 

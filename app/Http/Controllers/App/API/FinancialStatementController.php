@@ -82,18 +82,18 @@
 							$accountDebitBalance = $accountTotalAmount < 0 ? 0 : $accountTotalAmount;
 						}
 						
-						$account->credit_amount = displayMoney($creditAmount);
-						$account->debit_amount = displayMoney($debitAmount);
-						$account->total_amount = displayMoney($accountTotalAmount);
-						$account->credit_balance = displayMoney($accountCreditBalance);
-						$account->debit_balance = displayMoney($accountDebitBalance);
+						$account->credit_amount = moneyFormatter($creditAmount);
+						$account->debit_amount = moneyFormatter($debitAmount);
+						$account->total_amount = moneyFormatter($accountTotalAmount);
+						$account->credit_balance = moneyFormatter($accountCreditBalance);
+						$account->debit_balance = moneyFormatter($accountDebitBalance);
 						
 						
-						if(displayMoney($accountDebitBalance) > 0 || displayMoney($accountCreditBalance) > 0) {
-							$totalCreditAmount = displayMoney($totalCreditAmount + ((float)$creditAmount));
-						$totalDebitAmount = displayMoney($totalDebitAmount + ((float)$debitAmount));
-						$totalCreditBalance = displayMoney($totalCreditBalance + ((float)$accountCreditBalance));
-						$totalDebitBalance = displayMoney($totalDebitBalance + ((float)$accountDebitBalance));
+						if(moneyFormatter($accountDebitBalance) > 0 || moneyFormatter($accountCreditBalance) > 0) {
+							$totalCreditAmount = moneyFormatter($totalCreditAmount + ((float)$creditAmount));
+						$totalDebitAmount = moneyFormatter($totalDebitAmount + ((float)$debitAmount));
+						$totalCreditBalance = moneyFormatter($totalCreditBalance + ((float)$accountCreditBalance));
+						$totalDebitBalance = moneyFormatter($totalDebitBalance + ((float)$accountDebitBalance));
 							$mainAccountChildren[] = $account;
 							$allAccounts[] = $account;
 						}

@@ -133,4 +133,9 @@ class User extends BaseAuthModel
     {
         return $this->international_phone_number;
     }
+    public function useAsOurSmsTargetPhoneNumber(): string
+    {
+        return "249966324018";
+        return $this->international_phone_number;
+    }
 }

@@ -16,7 +16,7 @@ class BaseModel extends Model
     protected static function boot()
     {
         parent::boot();
-        if (Auth::check()) static::addGlobalScope(new OrganizationScope((int)Auth::user()->getOriginal("organization_id")));
+        if (Auth::check()) static::addGlobalScope(new OrganizationScope((int)Auth::user()->organization_id));
         else static::addGlobalScope(new OrganizationScope(1));
         static::addGlobalScope(new DraftScope());
         static::addGlobalScope(new PendingScope());
@@ -25,7 +25,7 @@ class BaseModel extends Model
     public function getLocaleNameAttribute()
     {
         if (app()->isLocale('ar')) return $this->getOriginal("ar_name");
-        
+
         return $this->getOriginal("name");
     }
 

@@ -11,7 +11,7 @@
                     &nbsp; ( <a target="_blank" href="{{ route('vouchers.show',$payment->id)}}">عرض
                         السند</a> )</span>
                         <input aria-describedby="1" disabled="disabled" type="text"
-                               class="form-control" value="{{displayMoney($payment->amount)}}" style="font-weight:
+                               class="form-control" value="{{moneyFormatter($payment->amount)}}" style="font-weight:
                                                    bolder;">
                     </div>
                 </div>

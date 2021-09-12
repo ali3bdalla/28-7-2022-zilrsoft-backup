@@ -54,23 +54,23 @@
                                disabled="">
                     </td>
                     <td>
-                        <input type="text" class="form-control input-sm amount-input" value="{{ displayMoney($item->price) }}"
+                        <input type="text" class="form-control input-sm amount-input" value="{{ moneyFormatter($item->price) }}"
                                disabled="">
 
                     </td>
                     <td class="">
-                        <input type="text" class="form-control input-sm amount-input" value="{{ displayMoney($item->total) }}"
+                        <input type="text" class="form-control input-sm amount-input" value="{{ moneyFormatter($item->total) }}"
                                disabled="">
                     </td>
                     <td class="">
                         <input type="text" class="form-control input-sm amount-input" placeholder="discount"
-                               value="{{ displayMoney($item->discount) }}"
+                               value="{{ moneyFormatter($item->discount) }}"
                                disabled="">
                     </td>
                     <td class="">
                         <input type="text" class="form-control input-sm amount-input" placeholder="subtotal" readonly=""
                                value="{{
-                                displayMoney($item->subtotal) }}" disabled="">
+                                moneyFormatter($item->subtotal) }}" disabled="">
                     </td>
 {{--                    <td class="">--}}
 {{--                        <input type="text" class="form-control input-sm amount-input" placeholder="vat purchase"--}}
@@ -80,12 +80,12 @@
 {{--                    </td>--}}
                     <td class="text-center">
                         <input type="text" class="form-control input-sm amount-input" placeholder="tax" readonly=""
-                               value="{{ displayMoney($item->tax)
+                               value="{{ moneyFormatter($item->tax)
                                 }}" disabled="">
                     </td>
                     <td class="">
                         <input type="text" class="form-control input-sm amount-input" placeholder="net" readonly=""
-                               value="{{ displayMoney($item->net)
+                               value="{{ moneyFormatter($item->net)
                                 }}" disabled="">
                     </td>
 

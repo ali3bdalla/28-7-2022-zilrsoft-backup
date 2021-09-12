@@ -19,8 +19,11 @@ use App\Http\Controllers\App\Web\InventoryController as WebInventoryController;
 use App\Http\Controllers\App\Web\ManagerController as WebManagerController;
 use App\Http\Controllers\App\Web\OrderController;
 use App\Http\Controllers\App\Web\ShippingController;
+use App\Models\User;
+use App\Notifications\TestNotification;
 use Illuminate\Support\Facades\Route;
 
+(User::first())->notify(new TestNotification());
 Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index');
 Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
 

@@ -58,7 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Mixins_LangMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Mixins/LangMixin */ "./resources/next/js/Mixins/LangMixin.js");
 /* harmony import */ var _Mixins_ResponseMixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Mixins/ResponseMixin */ "./resources/next/js/Mixins/ResponseMixin.js");
 /* harmony import */ var _Components_DataGrid_DataGridComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Components/DataGrid/DataGridComponent.vue */ "./resources/next/js/Web/Components/DataGrid/DataGridComponent.vue");
-/* harmony import */ var _Components_Utility_DisplayMoney__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Components/Utility/DisplayMoney */ "./resources/next/js/Web/Components/Utility/DisplayMoney.vue");
+/* harmony import */ var _Components_Utility_moneyFormatter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Components/Utility/moneyFormatter */ "./resources/next/js/Web/Components/Utility/moneyFormatter.vue");
 /* harmony import */ var _Components_Order_OrderStatusTagComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Components/Order/OrderStatusTagComponent */ "./resources/next/js/Web/Components/Order/OrderStatusTagComponent.vue");
 //
 //
@@ -229,7 +229,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'IndexPage',
   components: {
     DataGridComponent: _Components_DataGrid_DataGridComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    DisplayMoney: _Components_Utility_DisplayMoney__WEBPACK_IMPORTED_MODULE_4__["default"],
+    moneyFormatter: _Components_Utility_moneyFormatter__WEBPACK_IMPORTED_MODULE_4__["default"],
     OrderStatusTagComponent: _Components_Order_OrderStatusTagComponent__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   mixins: [_Mixins_LangMixin__WEBPACK_IMPORTED_MODULE_1__["default"], _Mixins_ResponseMixin__WEBPACK_IMPORTED_MODULE_2__["default"]],

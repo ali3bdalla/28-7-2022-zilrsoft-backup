@@ -270,7 +270,7 @@
             <div class="col-md-6"></div>
 
             <div class="col-md-6">
-                <h5>{{__('pages/vouchers.amount_equ')}} {{ displayMoney($payment->amount) }}
+                <h5>{{__('pages/vouchers.amount_equ')}} {{ moneyFormatter($payment->amount) }}
                     ريال</h5>
             </div>
         </div>

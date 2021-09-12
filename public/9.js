@@ -143,7 +143,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Mixins_ResponseMixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Mixins/ResponseMixin */ "./resources/next/js/Mixins/ResponseMixin.js");
 /* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
 /* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _Components_Utility_DisplayMoney_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Components/Utility/DisplayMoney.vue */ "./resources/next/js/Web/Components/Utility/DisplayMoney.vue");
+/* harmony import */ var _Components_Utility_moneyFormatter_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Components/Utility/moneyFormatter.vue */ "./resources/next/js/Web/Components/Utility/moneyFormatter.vue");
 /* harmony import */ var _Components_Form_CurrencyInputComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Components/Form/CurrencyInputComponent.vue */ "./resources/next/js/Web/Components/Form/CurrencyInputComponent.vue");
 //
 //
@@ -234,7 +234,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'CreatePage',
   components: {
-    DisplayMoney: _Components_Utility_DisplayMoney_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    moneyFormatter: _Components_Utility_moneyFormatter_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     CurrencyInputComponent: _Components_Form_CurrencyInputComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   mixins: [_Mixins_LangMixin__WEBPACK_IMPORTED_MODULE_1__["default"], _Mixins_ResponseMixin__WEBPACK_IMPORTED_MODULE_2__["default"]],

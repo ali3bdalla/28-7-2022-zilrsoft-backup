@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-5"><label>{{ __('pages/invoice.total') }}</label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="{{ displayMoney($invoice->total) }}"
+                    <input type="text" class="form-control input-xs amount-input" value="{{ moneyFormatter($invoice->total) }}"
                            disabled="">
                 </div>
             </div>
@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-5"><label>{{ __('pages/invoice.discount') }}</label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="{{ displayMoney($invoice->discount) }}"
+                    <input type="text" class="form-control input-xs amount-input" value="{{ moneyFormatter($invoice->discount) }}"
                            disabled="">
                 </div>
             </div>
@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-md-5"><label>{{ __('pages/invoice.subtotal') }}</label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="{{displayMoney($invoice->subtotal) }}"
+                    <input type="text" class="form-control input-xs amount-input" value="{{moneyFormatter($invoice->subtotal) }}"
                            disabled="">
                 </div>
             </div>
@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col-md-5"><label>{{ __('pages/invoice.tax') }}</label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="{{ displayMoney($invoice->tax) }}"
+                    <input type="text" class="form-control input-xs amount-input" value="{{ moneyFormatter($invoice->tax) }}"
                            disabled="">
                 </div>
             </div>
@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="col-md-5"><label>{{ __('pages/invoice.net') }}</label></div>
                 <div class="col-md-5">
-                    <input type="text" class="form-control input-xs amount-input" value="{{ displayMoney($invoice->net) }}"
+                    <input type="text" class="form-control input-xs amount-input" value="{{ moneyFormatter($invoice->net) }}"
                            disabled="">
                 </div>
             </div>

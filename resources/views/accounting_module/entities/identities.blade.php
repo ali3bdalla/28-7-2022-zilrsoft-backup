@@ -29,10 +29,10 @@
                                     href="{{ route('accounts.show.identity',[ $account->id,$identity['id']] ) }}">{{$identity->locale_name}}</a>
                         </th>
                         {{-- @if($account->slug == 'vendors') --}}
-                            <th class="text-center">{{displayMoney($identity->getYearlyBalance($account)) }}</th>
-                            {{-- <th class="text-center">{{displayMoney($identity->vendor_balance) }}</th> --}}
+                            <th class="text-center">{{moneyFormatter($identity->getYearlyBalance($account)) }}</th>
+                            {{-- <th class="text-center">{{moneyFormatter($identity->vendor_balance) }}</th> --}}
                         {{-- @else
-                            <th class="text-center ">{{displayMoney($identity->balance) }}</th>
+                            <th class="text-center ">{{moneyFormatter($identity->balance) }}</th>
                         @endif --}}
                     </tr>
                 @endforeach

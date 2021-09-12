@@ -1,7 +1,7 @@
-import DisplayMoney from '../Money/DisplayMoney'
+import moneyFormatter from '../Money/moneyFormatter'
 
 export default {
-  components: { DisplayMoney },
+  components: { moneyFormatter },
   data () {
     return {
       notifications: []
