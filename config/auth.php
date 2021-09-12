@@ -40,11 +40,6 @@ return [
             'driver' => 'session',
             'provider' => 'managers',
         ],
-        'manager_api'=> [
-            'provider' => "managers",
-            'driver' => 'token',
-            'hash' => false
-        ],
         'web' => [
             'driver' => 'session',
             'provider' => 'managers',
@@ -54,7 +49,6 @@ return [
             'driver' => 'session',
             'provider' => 'clients',
         ],
-
         'api' => [
             'driver' => 'session',
             'provider' => 'managers',
@@ -109,6 +103,11 @@ return [
     'passwords' => [
         'managers' => [
             'provider' => 'managers',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'clients' => [
+            'provider' => 'clients',
             'table' => 'password_resets',
             'expire' => 60,
         ],

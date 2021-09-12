@@ -38,17 +38,14 @@ class AuthController extends Controller
         return Inertia::render('Auth/SignIn');
     }
 
-    /**
-     * @throws ClientInvalidAuthenticationCredentialsException
-     */
-    public function signIn(AuthLoginRequest $request): RedirectResponse
+    public function signIn(AuthLoginRequest $request)
     {
         $phoneNumber = $request->getPhoneNumber();
         $password = $request->getPassword();
         if ($this->userRepositoryContract->isLoggedAsOnlineUser($phoneNumber, $password)) {
             return redirect()->intended('/web');
         }
-        throw new ClientInvalidAuthenticationCredentialsException();
+        abort(403);
     }
 
 

@@ -82,12 +82,12 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
     public function isLoggedAsOnlineUser(string $phoneNumber, string $password): bool
     {
         $user = $this->getVerifiedOnlineUser($phoneNumber);
-        if (Auth::guard('client')->once([
+        if (Auth::guard('client')->validate([
                 'phone_number' => $phoneNumber,
                 'password' => $password,
                 'user_slug' => 'online_user',
             ]) && $user) {
-            Auth::guard('client')->login($user, true);
+            Auth::guard('client')->loginUsingId($user->id,true);
             return true;
         }
         return false;
