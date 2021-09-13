@@ -7,14 +7,14 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
-            <ShowEmptyCartComponent v-if="!this.$store.state.cart.length"></ShowEmptyCartComponent>
+            <ShowEmptyCartComponent v-if="!showCart"></ShowEmptyCartComponent>
             <CartItems
-              v-if="activePage === 'cart'"
+              v-if="activePage === 'cart' && showCart"
               :cartItemsList="cartItemsList"
             />
           </div>
           <div
-            v-if="$page.client && activePage === 'checkout'"
+            v-if="$page.client && activePage === 'checkout' && showCart"
             class="col-12"
           >
             <div class="w-full">
@@ -24,7 +24,7 @@
               />
             </div>
           </div>
-          <div>
+          <div v-if="showCart">
             <div class="page__mt-5 col-lg-12" v-if="activePage === 'cart'">
               <div class="my-4">
                 <el-select @change="loadShippingMethods" v-model="cityId" :filterable="true" :placeholder=" $page.$t.messages.select_city"
@@ -110,6 +110,9 @@ export default {
     CartShippingAddress
   },
   computed: {
+    showCart() {
+      return this.$store.state.cart.length;
+    },
     cartItemsList () {
       return this.$store.state.cart
     },

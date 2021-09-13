@@ -22,7 +22,7 @@ class StoreItemScope implements Scope
                 ->where([
                     [$builder->qualifyColumn('is_available_online'), true],
                     [$builder->qualifyColumn('available_qty'), '>', 0],
-                    [$builder->qualifyColumn('is_kit'), true],
+                    [$builder->qualifyColumn('is_kit'), false],
                 ])
                 ->with('category', 'attachments')
                 ->whereHas('category')

@@ -12,12 +12,13 @@ class FetchItemsUsingFiltersRequest extends FormRequest
 {
 
     use ItemSearch;
+
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -43,27 +44,22 @@ class FetchItemsUsingFiltersRequest extends FormRequest
         $table = (new Item())->getTable();
 
 
-
-
-
         if ($this->has('category_id') && $this->filled('category_id')) {
             $category = Category::find($this->input('category_id'));
 
             if ($category) {
-                $query  = $query->where('category_id', $this->input('category_id'));
+                $query = $query->where('category_id', $this->input('category_id'));
             }
         }
-
 
 
         if ($this->has('parent_category_id') && $this->filled('parent_category_id')) {
             $category = Category::find($this->input('parent_category_id'));
 
             if ($category) {
-                $query  = $query->whereIn('category_id', $category->getChildrenIncludeMe());
+                $query = $query->whereIn('category_id', $category->getChildrenIncludeMe());
             }
         }
-
 
 
         if ($this->has('filters_values')) {
@@ -74,23 +70,21 @@ class FetchItemsUsingFiltersRequest extends FormRequest
 
             $filterValuesGroupedByFilters = [];
 
-            foreach ($result  as $value) {
+            foreach ($result as $value) {
                 $filterValuesGroupedByFilters[$value->filter_id][] = $value->filter_value;
             }
             foreach ($filterValuesGroupedByFilters as $filterId => $values) {
-                $query  = $query->whereHas('filters', function ($query2) use ($filterId, $values) {
+                $query = $query->whereHas('filters', function ($query2) use ($filterId, $values) {
                     $query2->where([['filter_id', $filterId]])->whereIn('filter_value', $values);
                 });
             }
         }
 
 
-
         if ($this->has('available_only') && $this->filled('available_only') && $this->input('available_only') == 'yes') {
 
-            $query  = $query->where('available_qty', '>', 0);
+            $query = $query->where('available_qty', '>', 0);
         }
-
 
 
         $query->where(function ($subQuery) {
@@ -99,16 +93,16 @@ class FetchItemsUsingFiltersRequest extends FormRequest
 
         if ($this->has('order_by') && $this->filled('order_by') && Schema::hasColumn($table, $this->input('order_by'))) {
             if ($this->input('order_by') == "available_qty") {
-                $query  = $query->where('available_qty', '>=', 1);
-            } elseif($this->has('order_direction') && $this->filled('order_direction')) {
+                $query = $query->where('available_qty', '>=', 1);
+            } elseif ($this->has('order_direction') && $this->filled('order_direction')) {
                 $sortDirection = $this->input('order_direction');
 
                 if (!in_array($sortDirection, ['desc', 'asc'])) {
                     $sortDirection = 'desc';
                 }
-                $query  = $query->orderBy($this->input('order_by'), $sortDirection);
-            }else {
-                $query = $query->orderBy('available_qty','desc');
+                $query = $query->orderBy($this->input('order_by'), $sortDirection);
+            } else {
+                $query = $query->orderBy('available_qty', 'desc');
             }
         }
 

@@ -17,22 +17,17 @@ Route::middleware('auth')->group(
             }
         );
 
-        Route::prefix('notifications')->namespace('Notifications')->name('notifications.')->group(
+        Route::prefix('notifications')->name('notifications.')->group(
             function () {
-                Route::prefix('orders')->name('orders.')->group(
-                    function () {
-                        Route::get('/orders/', 'OrderController@notificationList')->name('order.list');
-                    }
-                );
                 Route::prefix('transactions')->name('transactions.')->group(
                     function () {
-                        Route::get('/issued', 'TransactionNotificationController@issued')->name('issued');
+                        Route::get('/issued', 'NotificationController@transactionIssued')->name('issued');
                     }
                 );
                 Route::prefix('orders')->name('orders.')->group(
                     function () {
-                        Route::get('pending', 'OrderNotificationController@pending')->name('pending');
-                        Route::get('paid', 'OrderNotificationController@paid')->name('paid');
+                        Route::get('pending', 'NotificationController@orderPending')->name('pending');
+                        Route::get('paid', 'NotificationController@orderPaid')->name('paid');
                     }
                 );
             }
