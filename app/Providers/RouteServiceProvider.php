@@ -93,13 +93,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group(['middleware' => ["web", "ecommerceMiddleware"], 'as' => 'web.', 'namespace' => "App\Http\Controllers\Store\Web", 'prefix' => "web"],
             base_path('store-routes/web.php'));
-
-        Route::middleware('web')
-            ->namespace('\App\Http\Controllers\Store\API')
-            ->as('api.web.')
-            ->middleware('ecommerceMiddleware')
-            ->prefix('api/web')
-            ->group(base_path('store-routes/api.php'));
+        Route::group(['middleware' => ['web', 'ecommerceMiddleware'], 'prefix' => 'api/web', 'as' => 'api.web.', 'namespace' => '\App\Http\Controllers\Store\API'], base_path('store-routes/api.php'));
     }
 
     /**

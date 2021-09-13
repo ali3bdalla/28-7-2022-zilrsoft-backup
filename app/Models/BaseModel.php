@@ -16,8 +16,12 @@ class BaseModel extends Model
     protected static function boot()
     {
         parent::boot();
-        if (Auth::check()) static::addGlobalScope(new OrganizationScope((int)Auth::user()->organization_id));
-        else static::addGlobalScope(new OrganizationScope(1));
+        if (Auth::guard('manager')->check()) {
+            $organizationId = Auth::user()->organization_id;
+            static::addGlobalScope(new OrganizationScope($organizationId));
+        } else {
+            static::addGlobalScope(new OrganizationScope());
+        }
         static::addGlobalScope(new DraftScope());
         static::addGlobalScope(new PendingScope());
     }

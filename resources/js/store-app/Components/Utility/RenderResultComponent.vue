@@ -5,7 +5,7 @@
         <div class=" px-4 pb-4 sm:p-6 sm:pb-4">
           <div class="">
             <div class="mt-3 text-center">
-              <i class="fa fa-check-circle text-green-500 mb-3" style="font-size: 82px"></i>
+              <i class="fa  mb-3" :class="{'fa-check-circle text-green-500':type === 'success','fa-exclamation-circle text-red-500':type === 'error'}" style="font-size: 82px"></i>
               <h3 id="modal-headline" class="text-xl md:text-3xl font-medium text-gray-900">
                 {{ title }}
               </h3>
@@ -35,6 +35,10 @@
 export default {
   name: 'RenderResultComponent',
   props: {
+    type: {
+      type: String,
+      default: "success"
+    },
     message: {
       required: true,
       type: String

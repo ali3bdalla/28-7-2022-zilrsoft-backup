@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Schema;
 
 class OrganizationScope implements Scope
 {
-    private int $organizationId;
+    private $organizationId;
 
-    public function __construct($organizationId)
+    public function __construct($organizationId = 1)
     {
-        $this->organizationId = (int)$organizationId;
+        $this->organizationId = $organizationId;
     }
 
     /**
@@ -25,8 +25,8 @@ class OrganizationScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        if (Schema::hasColumn($model->getTable(), 'organization_id')) {
-            $builder->whereOrganizationId($this->organizationId);
+        if (Schema::hasColumn($builder->getModel()->getTable(), 'organization_id')) {
+            $builder->whereOrganizationId((int)$this->organizationId);
         }
     }
 }

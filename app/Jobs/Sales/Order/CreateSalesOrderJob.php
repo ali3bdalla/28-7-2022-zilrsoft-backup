@@ -7,34 +7,31 @@ use App\Models\Order;
 use App\Models\ShippingMethod;
 use App\Scopes\DraftScope;
 use Carbon\Carbon;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Http\Request;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class CreateSalesOrderJob implements ShouldQueue
+class CreateSalesOrderJob
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, SerializesModels;
 
     /**
      * @var Invoice
      */
-    private $invoice;
+    private Invoice $invoice;
 
     /**
-     * @var Request
+     * @var array
      */
-    private $request;
+    private array $request;
 
     /**
      * Create a new job instance.
      *
      * @param Invoice $invoice
-     * @param Request $request
+     * @param array $request
      */
-    public function __construct(Invoice $invoice, Request $request)
+    public function __construct(Invoice $invoice, array $request)
     {
         $this->invoice = $invoice;
         $this->request = $request;
@@ -45,21 +42,23 @@ class CreateSalesOrderJob implements ShouldQueue
      *
      * @return Order|null
      */
-    public function handle()
+    public function handle(): ?Order
     {
-        $invoiceItems = $this->invoice->items()->withoutGlobalScope(DraftScope::class)->get();
+        $invoiceItems = $this->invoice->items()->with('item')->withoutGlobalScope(DraftScope::class)->get();
+        $shippingAmount = $this->getShippingAmount($invoiceItems);
+        $shippingCost = $this->getShippingCost($invoiceItems);
+        $shippingWeight = $this->getItemsTotalShippingWeight($invoiceItems);
         $order = new Order();
         $order->lang = app()->getLocale();
         $order->user_id = $this->invoice->user_id;
         $order->organization_id = $this->invoice->organization_id;
-        $order->shipping_address_id = $this->request->input('shipping_address_id');
-        $order->payment_method = $this->request->input('payment_method_id');
-        $order->shipping_method_id = $this->request->input('shipping_method_id');
+        $order->shipping_address_id = $this->request['shipping_address_id'];
+        $order->payment_method = $this->request['payment_method_id'];
+        $order->shipping_method_id = $this->request['shipping_method_id'];
         $order->draft_id = $this->invoice->id;
-        $shippingAmount = $this->getShippingAmount($invoiceItems);
         $order->shipping_amount = $shippingAmount;
-        $order->shipping_cost = $this->getShippingCost($invoiceItems);
-        $order->shipping_weight = $this->getItemsTotalShippingWeight($invoiceItems);
+        $order->shipping_cost = $shippingCost;
+        $order->shipping_weight = $shippingWeight;
         $order->net = (float)$this->invoice->net + (float)$shippingAmount;
         $order->auto_cancel_at = Carbon::now()->addMinutes(config('app.store.cancel_unpaid_orders_after', 30));
         $order->is_should_pay_notified = false;
@@ -68,11 +67,11 @@ class CreateSalesOrderJob implements ShouldQueue
         $order->delivery_man_code = (rand(100, 999));
         $order->status = 'issued';
         $order->save();
-        return $order->fresh();
+        return $order;
     }
 
     /**
-     * @param array $invoiceItems
+     * @param  $invoiceItems
      * @return int
      */
     private function getShippingAmount($invoiceItems = []): int
@@ -91,7 +90,7 @@ class CreateSalesOrderJob implements ShouldQueue
      */
     private function getShippingMethod()
     {
-        return ShippingMethod::find($this->request->input('shipping_method_id'));
+        return ShippingMethod::find($this->request['shipping_method_id']);
     }
 
     private function getItemsTotalShippingWeight($invoiceItems)
@@ -131,7 +130,7 @@ class CreateSalesOrderJob implements ShouldQueue
         return $shippingAmount;
     }
 
-    private function finalShippingAmount(int $shippingAmount)
+    private function finalShippingAmount(int $shippingAmount): float
     {
         if ($shippingAmount < 0) {
             $shippingAmount = 0;
