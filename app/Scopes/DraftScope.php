@@ -21,7 +21,7 @@ class DraftScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         if (Schema::hasColumn($model->getTable(), 'is_draft')) {
-            $builder->whereIsDraft(false);
+            $builder->where($builder->qualifyColumn('is_draft'),false);
         }
     }
 }

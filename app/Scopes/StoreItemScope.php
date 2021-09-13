@@ -19,13 +19,15 @@ class StoreItemScope implements Scope
     {
         if (strpos(url()->current(), 'web')) {
             $builder
-                ->whereIsAvailableOnline(true)
-                ->whereIsKit(false)
-                ->where($builder->qualifyColumn('available_qty'), '>', 0)
+                ->where([
+                    [$builder->qualifyColumn('is_available_online'), true],
+                    [$builder->qualifyColumn('available_qty'), '>', 0],
+                    [$builder->qualifyColumn('is_kit'), true],
+                ])
                 ->with('category', 'attachments')
                 ->whereHas('category')
                 ->whereHas('attachments')
-                ->orderBy('available_qty', 'desc');
+                ->orderBy($builder->qualifyColumn('available_qty'), 'desc');
         }
     }
 }

@@ -2,24 +2,18 @@
 
 namespace App\Http\Controllers\Store\Web;
 
-use App\Exceptions\ClientInvalidAuthenticationCredentialsException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Store\Web\AuthLoginRequest;
 use App\Http\Requests\Store\Web\ChangePasswordRequest;
 use App\Http\Requests\Store\Web\ForgetPasswordRequest;
 use App\Http\Requests\Store\Web\RegistrationRequest;
 use App\Http\Requests\Store\Web\VerifyVerificationCodeRequest;
-use App\Models\OnlineUserPlaceholder;
 use App\Models\User;
 use App\Notifications\Store\StoreWelcomeNotification;
 use App\Notifications\User\PasswordResetVerificationCodeNotification;
 use App\Notifications\User\SignUpPhoneNumberVerificationCodeNotification;
 use App\Repository\UserRepositoryContract;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use Inertia\Response;
 use Throwable;
@@ -117,9 +111,8 @@ class AuthController extends Controller
     {
         $verificationCode = $request->getVerificationCode();
         $password = $request->getPassword();
-        $id = $request->getId();
+        $user = User::findOrFail($request->getId());
         $request->ensureIsValidUrl();
-        $user = User::findOrFail($id);
         $this->userRepositoryContract->ensureIsValidVerificationCode($user, $verificationCode);
         $this->userRepositoryContract->changeUserPassword($user, $password);
         return Inertia::render('Auth/PasswordChanged');

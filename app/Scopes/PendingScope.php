@@ -21,7 +21,7 @@ class PendingScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         if (Schema::hasColumn($model->getTable(), 'is_pending')) {
-            $builder->whereIsPending(false);
+            $builder->where($builder->qualifyColumn('is_pending'),false);
         }
     }
 }
