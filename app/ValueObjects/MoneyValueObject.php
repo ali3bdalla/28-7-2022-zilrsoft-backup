@@ -89,3 +89,4 @@ class MoneyValueObject implements CastsAttributes
         return $this->getAmount();
     }
 }
+

@@ -104,10 +104,6 @@ class OrderController extends Controller
         $phoneNumber = $deliveryMan->phone_number;//
         $otp = generateOtp();
         sendOtp($phoneNumber, $otp);
-
-        // Whatsapp::sendMessage(
-        // 	"verification code for accepting order {$order->id} is: {$otp }", [$phoneNumber]
-        // );
         $deliveryMan->verfications()->create([
             'slug' => 'verify_signed_order_' . $order->id,
             'verfication_code' => $otp
