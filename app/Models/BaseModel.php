@@ -6,13 +6,14 @@ use App\Models\Traits\PostgresTimestamp;
 use App\Scopes\DraftScope;
 use App\Scopes\OrganizationScope;
 use App\Scopes\PendingScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 class BaseModel extends Model
 {
     use PostgresTimestamp;
-
+    use HasFactory;
     protected static function boot()
     {
         parent::boot();

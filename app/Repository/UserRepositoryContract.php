@@ -2,11 +2,12 @@
 
 namespace App\Repository;
 
+use App\Dto\UserDto;
 use App\Models\User;
 
 interface UserRepositoryContract extends BaseRepositoryContract
 {
-    public function createUser(string $phoneNumber, string $password, string $firstName, string $lastName, string $countryCode): User;
+    public function createUser(UserDto $userDto): User;
 
     public function getUnVerifiedOnlineUser(string $phoneNumber): ?User;
 

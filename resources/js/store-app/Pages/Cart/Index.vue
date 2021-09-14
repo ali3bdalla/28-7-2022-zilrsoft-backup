@@ -1,61 +1,62 @@
 <template>
   <web-layout>
     <section
-      class="shopping-cart spad cart"
-      style="padding-top: 0px !important"
+        class="shopping-cart spad cart"
+        style="padding-top: 0px !important"
     >
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
             <ShowEmptyCartComponent v-if="!showCart"></ShowEmptyCartComponent>
             <CartItems
-              v-if="activePage === 'cart' && showCart"
-              :cartItemsList="cartItemsList"
+                v-if="activePage === 'cart' && showCart"
+                :cartItemsList="cartItemsList"
             />
           </div>
           <div
-            v-if="$page.client && activePage === 'checkout' && showCart"
-            class="col-12"
+              v-if="$page.client && activePage === 'checkout' && showCart"
+              class="col-12"
           >
             <div class="w-full">
               <cart-shipping-address
-                :shippingAddressId="shippingAddressId"
-                @updateShippingId="updateShippingId"
+                  :shippingAddressId="shippingAddressId"
+                  @updateShippingId="updateShippingId"
               />
             </div>
           </div>
           <div v-if="showCart">
-            <div class="page__mt-5 col-lg-12" v-if="activePage === 'cart'">
+            <div v-if="activePage === 'cart'" class="page__mt-5 col-lg-12">
               <div class="my-4">
-                <el-select @change="loadShippingMethods" v-model="cityId" :filterable="true" :placeholder=" $page.$t.messages.select_city"
-                          class=""
-                          no-data-text="No" no-match-text="No Data">
-                <el-option
-                    v-for="city in $page.cities"
-                    :key="city.id"
-                    :label="city.locale_name"
-                    :value="city.id">
-                  {{ city.locale_name }}
-                </el-option>
-              </el-select>
+                <el-select v-model="cityId" :filterable="true" :placeholder=" $page.$t.messages.select_city"
+                           class=""
+                           no-data-text="No"
+                           no-match-text="No Data" @change="loadShippingMethods">
+                  <el-option
+                      v-for="city in $page.cities"
+                      :key="city.id"
+                      :label="city.locale_name"
+                      :value="city.id">
+                    {{ city.locale_name }}
+                  </el-option>
+                </el-select>
               </div>
               <h1 class="cart__shipping-method-title">
                 {{ $page.$t.cart.shipping_method }}
               </h1>
               <div class="cart__shipping-method-list">
                 <div
-                  class="cart__shipping-method-list-item bg-white"
-                  v-for="shippingMethod in shippingMethods"
-                  :key="shippingMethod.id"
+                    v-for="shippingMethod in shippingMethods"
+                    :key="shippingMethod.id"
+                    class="cart__shipping-method-list-item bg-white"
                 >
                   <el-image
-                    :src="shippingMethod.logo"
-                    class="cart__shipping-method-list-item-image object-contain"
+                      :src="shippingMethod.logo"
+                      class="cart__shipping-method-list-item-image object-contain"
                   ></el-image>
                   <el-radio
-                    v-model="shippingMethodId"
-                    :label="shippingMethod.id"
-                    >{{ shippingMethod.locale_name }}
+                      v-model="shippingMethodId"
+                      :label="shippingMethod.id"
+                  >{{ shippingMethod.locale_name }}
                   </el-radio>
                 </div>
               </div>
@@ -64,14 +65,14 @@
           <div class="cart__checkout">
             <div class="proceed-checkout">
               <CartActions
-               :getShippingMethod="getShippingMethod"
-                v-if="cartItemsList.length"
-                :shipping-method-id="shippingMethodId"
-                :shipping-address-id="shippingAddressId"
-                :active-page="activePage"
-                :cart-items-list="cartItemsList"
-                @changeActivePage="changeActivePage"
-                @issueOrder="issueOrder"
+                  v-if="cartItemsList.length"
+                  :active-page="activePage"
+                  :cart-items-list="cartItemsList"
+                  :getShippingMethod="getShippingMethod"
+                  :shipping-address-id="shippingAddressId"
+                  :shipping-method-id="shippingMethodId"
+                  @changeActivePage="changeActivePage"
+                  @issueOrder="issueOrder"
               />
             </div>
           </div>
@@ -87,6 +88,7 @@ import CartItems from './CartItems'
 import CartActions from './CartActions'
 import CartShippingAddress from './CartShippingAddress.vue'
 import ShowEmptyCartComponent from '../../Components/Cart/ShowEmptyCartComponent.vue'
+import { Inertia } from '@inertiajs/inertia'
 
 export default {
   name: 'Index',
@@ -110,8 +112,8 @@ export default {
     CartShippingAddress
   },
   computed: {
-    showCart() {
-      return this.$store.state.cart.length;
+    showCart () {
+      return this.$store.state.cart.length
     },
     cartItemsList () {
       return this.$store.state.cart
@@ -152,7 +154,7 @@ export default {
   methods: {
     getShippingMethod () {
       const shippingMethod = this.shippingMethods.find(
-        (p) => p.id === this.shippingMethodId
+          (p) => p.id === this.shippingMethodId
       )
       return shippingMethod || {}
     },
@@ -178,28 +180,27 @@ export default {
         cancelButtonText: this.$page.$t.messages.no
       }).then(() => {
         this.$loading.show({ delay: 0 })
-        this.$inertia.post(
-          '/api/web/orders',
-          {
-            shipping_address_id: this.shippingAddressId,
-            shipping_method_id: this.shippingMethodId,
-            payment_method_id: this.paymentMethodId,
-            items: this.cartItemsList
-          },
-          {
-            replace: true,
-            preserveState: (page) => Object.keys(page.props.errors).length,
-            preserveScroll: (page) => Object.keys(page.props.errors).length,
-            onSuccess: () => {
-              return Promise.all([
-                this.clearCart(),
-                this.alertUser()
-              ])
-            },
-            onFinish: () => {
-              this.$loading.hide()
+        Inertia.visit(
+            '/api/web/orders',
+            {
+              method: "post",
+              replace: true,
+              onSuccess: (page) => {
+                return Promise.all([
+                  this.clearCart(),
+                  this.alertUser()
+                ])
+              },
+              onFinish: (visit) => {
+                this.$loading.hide()
+              },
+              data: {
+                shipping_address_id: this.shippingAddressId,
+                shipping_method_id: this.shippingMethodId,
+                payment_method_id: this.paymentMethodId,
+                items: this.cartItemsList,
+              }
             }
-          }
         )
       })
     },
@@ -214,20 +215,21 @@ export default {
 
     alertUser () {
       const number = `${this.$page.client.international_phone_number}`.replace(
-        '+',
-        ''
+          '+',
+          ''
       )
 
       return new Promise((resolve, reject) => {
         this.$alert(
-          `${this.$page.$t.order.instructions_for_payment} ${number}`,
-          this.$page.$t.order.thanks_for_order,
-          'success',
-          {
-            confirmButtonText: this.$page.$t.messages.yes,
-            cancelButtonText: this.$page.$t.messages.no
-          }
-        ).then(() => {})
+            `${this.$page.$t.order.instructions_for_payment} ${number}`,
+            this.$page.$t.order.thanks_for_order,
+            'success',
+            {
+              confirmButtonText: this.$page.$t.messages.yes,
+              cancelButtonText: this.$page.$t.messages.no
+            }
+        ).then(() => {
+        })
         resolve()
       })
     }
@@ -243,6 +245,7 @@ export default {
 .el-radio__label {
   margin: 0px 5px;
 }
+
 .el-image__inner {
   object-fit: contain;
 }

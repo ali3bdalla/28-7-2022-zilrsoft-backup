@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Store\Web;
 
+use App\Dto\UserDto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Store\Web\AuthLoginRequest;
 use App\Http\Requests\Store\Web\ChangePasswordRequest;
 use App\Http\Requests\Store\Web\ForgetPasswordRequest;
 use App\Http\Requests\Store\Web\RegistrationRequest;
 use App\Http\Requests\Store\Web\VerifyVerificationCodeRequest;
+use App\Models\Manager;
 use App\Models\User;
 use App\Notifications\Store\StoreWelcomeNotification;
 use App\Notifications\User\PasswordResetVerificationCodeNotification;
@@ -16,6 +18,7 @@ use App\Repository\UserRepositoryContract;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
+use Propaganistas\LaravelPhone\PhoneNumber;
 use Throwable;
 
 class AuthController extends Controller
@@ -57,9 +60,17 @@ class AuthController extends Controller
         $password = $request->getPassword();
         $firstName = $request->getFirstName();
         $lastName = $request->getLastName();
-        $countryCode = $request->getCountryCode();
         $request->ensureIsValidPhoneNumber($this->userRepositoryContract);
-        $user = $this->userRepositoryContract->createUser($phoneNumber, $password, $firstName, $lastName, $countryCode);
+        $userDto = new UserDto(
+            Manager::find(1),
+            PhoneNumber::make($phoneNumber),
+            $firstName,
+            $lastName,
+            $password,
+            true,
+            false,
+        );
+        $user = $this->userRepositoryContract->createUser($userDto);
         $user->notify(new SignUpPhoneNumberVerificationCodeNotification());
         return Inertia::render('Auth/VerificationCodeSent');
     }

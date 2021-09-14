@@ -23,15 +23,15 @@ class AccountSearchValueObject implements SearchValueObjectContract
 
     public function apply(Builder $builder): Builder
     {
-        if ($this->getName()) {
-            $builder->where(function ($subQuery) {
-                return $subQuery->where('name', 'like', '%' . $this->getName() . '%')->orWhere('ar_name', 'like', '%' . $this->getName() . '%');
-            });
-        }
-        if ($this->getParentId()) {
-            $builder->where('parent_id', $this->getParentId());
-        }
-        return $builder;
+        return $builder->when(
+            $this->getName(),
+            fn($builder) => $builder->where(function ($subQuery) {
+                return $subQuery->where('name', 'ilike', '%' . $this->getName() . '%')->orWhere('ar_name', 'ilike', '%' . $this->getName() . '%');
+            })
+        )->when(
+            $this->getParentId(),
+            fn($builder) => $builder->where('parent_id', $this->getParentId())
+        );
     }
 
     /**

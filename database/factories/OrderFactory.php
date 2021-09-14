@@ -1,27 +1,57 @@
 <?php
 
-/** @var Factory $factory */
+namespace Database\Factories;
 
-use App\Model;
+use App\Dto\OrderDto;
+use App\Enums\OrderStatusEnum;
 use App\Models\Order;
-use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(
-    Order::class, function (Faker $faker) {
-    return [
-        'draft_id' => 1,
-        'invoice_id' => null,
-        'tracking_number' => null,
-        'managed_by_id' => null,
-        'shipping_method_id' => null,
-        'shipping_address_id' => null,
-        'auto_cancel_at' => null,
-        'should_pay_last_notification_at' => null,
-        'cancel_order_code' => null,
-        'is_should_pay_notified' => false,
-        'net' => 1,
-        'status' => 'issued',
-    ];
+class OrderFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Order::class;
+
+    public function setDto(OrderDto $orderDto): OrderFactory
+    {
+        return $this->state(function () use ($orderDto) {
+            return [
+                'draft_id' => $orderDto->getDraftInvoiceId(),
+                'status' => OrderStatusEnum::issued(),
+                'shipping_amount' => $orderDto->getShippingAmount(),
+                'payment_method' => $orderDto->getPaymentMethodId(),
+                'shipping_address_id' => $orderDto->getShippingAddressId(),
+                'net' => $orderDto->getOrderNet(),
+                'user_id' => $orderDto->getUserId(),
+                'shipping_cost' => $orderDto->getShippingCost(),
+                'shipping_weight' => $orderDto->getShippingWeight()
+            ];
+        });
+    }
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'draft_id' => null,
+            'status' => null,
+            'shipping_amount' => null,
+            'payment_method' => null,
+            'auto_cancel_at' => Carbon::now()->addMinutes(config('app.store.cancel_unpaid_orders_after', 30)),
+            'should_pay_last_notification_at' => Carbon::now()->addMinutes(config('app.store.notify_unpaid_orders_after', 25)),
+            'net' => null,
+            'user_id' => null,
+            'shipping_cost' => null,
+            'shipping_weight' => null,
+        ];
+    }
 }
-);

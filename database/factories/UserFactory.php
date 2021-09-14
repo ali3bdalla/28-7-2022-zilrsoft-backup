@@ -1,60 +1,61 @@
 <?php
-	
-	/** @var Factory $factory */
-	
-	use App\Models\Organization;
-	use App\Models\User;
-	use Faker\Generator as Faker;
-	use Illuminate\Database\Eloquent\Factory;
-	
-	/*
-	|--------------------------------------------------------------------------
-	| Model Factories
-	|--------------------------------------------------------------------------
-	|
-	| This directory should contain each of the model factory definitions for
-	| your application. Factories provide a convenient way to generate new
-	| model instances for testing / seeding your application's database.
-	|
-	 */
 
+namespace Database\Factories;
 
-// $table->integer('organization_id');
-// $table->string("email_address")->nullable();
-// $table->string("password")->nullable();
-// $table->integer('creator_id')->default(0);
-// $table->string('name');
-// $table->string('name_ar')->nullable();
-// $table->string('phone_number');
-// $table->string('user_slug')->nullable();
-// $table->string('country_code')->nullable();
-// $table->float('balance', 20, 8)->default(0);
-// $table->float('vendor_balance', 20, 8)->default(0);
-// $table->boolean('is_supervisor')->default(false);
-// $table->boolean('is_manager')->default(false);
-// $table->boolean('is_vendor')->default(false);
-// $table->boolean('is_client')->default(false);
-// $table->boolean('is_supplier')->default(false);
-// $table->integer('client_chart_id')->default(0);
-// $table->integer('vendor_chart_id')->default(0);
-// $table->integer('manager_chart_id')->default(0);
-// $table->integer('supplier_chart_id')->default(0);
-// $table->boolean('is_system_user')->default(false);
-// $table->boolean('can_make_credit')->default(false);
-// $table->enum('user_type', ['company', 'individual']);
-// $table->enum('user_title', ['mis', 'mr', 'company'])->default('mr');
-	
-	$factory->define(
-		User::class, function(Faker $faker) {
-		return [
-			'organization_id' => \factory(Organization::class)->create()->id,
-			'name' => $faker->userName,
-			'phone_number' => $faker->phoneNumber,
-			'email_address' => $faker->unique()->safeEmail,
-			'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-			'user_type' => 'individual',
-			'is_client' => true,
-			'is_vendor' => true
-		];
-	}
-	);
+use App\Dto\UserDto;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
+
+class UserFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = User::class;
+
+    public function setDto(UserDto $userDto): UserFactory
+    {
+        return $this->state(function () use ($userDto) {
+            return [
+                'creator_id' => $userDto->getManager()->id,
+                'organization_id' => $userDto->getManager()->organization_id,
+                'is_client' => $userDto->isClient(),
+                'is_vendor' => $userDto->isVendor(),
+                'name' => $userDto->getName(),
+                'name_ar' => $userDto->getName(),
+                'phone_number' => $userDto->getPhoneNumber(),
+                'country_code' => $userDto->getCountryCode(),
+                'password' => Hash::make($userDto->getPassword()),
+                'user_type' => $userDto->getUserType(),
+                'user_title' => $userDto->getUserTitle(),
+                'verification_code' => $userDto->getVerificationCode(),
+            ];
+        });
+    }
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'creator_id' => null,
+            'organization_id' => null,
+            'is_client' => null,
+            'is_vendor' => null,
+            'name' => null,
+            'name_ar' => null,
+            'phone_number' => null,
+            'country_code' => null,
+            'password' => null,
+            'user_type' => null,
+            'user_title' => null,
+            'verification_code' => null,
+        ];
+    }
+}

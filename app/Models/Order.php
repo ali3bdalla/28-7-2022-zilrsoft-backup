@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\OrderStatusEnum;
 use App\Scopes\DraftScope;
 use App\Scopes\OrganizationScope;
+use App\ValueObjects\MoneyValueObject;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -57,6 +59,11 @@ class Order extends BaseModel
     protected $guarded = [];
 
     protected $appends = ['pdf_url'];
+
+    protected $casts = [
+        'status' => OrderStatusEnum::class . ':nullable',
+        'net' => MoneyValueObject::class,
+    ];
 
     public function user(): BelongsTo
     {

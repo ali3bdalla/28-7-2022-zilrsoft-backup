@@ -2,6 +2,7 @@
 
 namespace App\Repository\Eloquent;
 
+use App\Dto\UserDto;
 use App\Models\User;
 use App\Repository\UserRepositoryContract;
 use Illuminate\Support\Facades\Auth;
@@ -15,34 +16,26 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
     }
 
 
-    public function createUser(string $phoneNumber, string $password, string $firstName, string $lastName, string $countryCode): User
+    public function createUser(UserDto $userDto): User
     {
-        $attributes = [
-            'country_code' => $countryCode,
-            'phone_number' => $phoneNumber,
-            'password' => Hash::make($password),
-            'first_name' => $firstName,
-            'last_name' => $lastName,
-            'name' => $this->createName($firstName, $lastName),
-            'name_ar' => $this->createName($firstName, $lastName),
-            'creator_id' => 1,
-            'organization_id' => 1,
-            'user_slug' => 'online_user',
-            'is_client' => true,
-            'user_type' => 'individual',
-            'user_title' => 'mr',
-            'verification_code' => $this->createVerificationCode()
-        ];
-        $user = $this->getUnVerifiedOnlineUser($phoneNumber);
-        if ($user) $user->update($attributes);
-        else $user = User::create($attributes);
+        $userDto->setVerificationCode($this->createVerificationCode());
+        $user = $this->getUnVerifiedOnlineUser($userDto->getPhoneNumber());
+        if ($user) $user->update(
+            [
+                'password' => Hash::make($userDto->getPassword()),
+                'first_name' => $userDto->getFirstName(),
+                'last_name' => $userDto->getLastName(),
+                'name' => $userDto->getName(),
+                'name_ar' => $userDto->getName(),
+                'user_slug' => 'online_user',
+                'is_client' => true,
+                'user_type' => 'individual',
+                'user_title' => 'mr',
+                'verification_code' => $userDto->getVerificationCode()
+            ]
+        );
+        else $user = User::factory()->setDto($user)->create();
         return $user;
-    }
-
-
-    private function createName(string $firstName, string $lastName): string
-    {
-        return $firstName . ' ' . $lastName;
     }
 
     private function createVerificationCode(): int
@@ -117,5 +110,10 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
             ]
         );
 
+    }
+
+    private function createName(string $firstName, string $lastName): string
+    {
+        return $firstName . ' ' . $lastName;
     }
 }

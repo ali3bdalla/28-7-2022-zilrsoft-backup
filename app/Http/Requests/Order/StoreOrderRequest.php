@@ -11,10 +11,11 @@ use App\Jobs\Sales\Order\CreateSalesOrderJob;
 use App\Models\Invoice;
 use App\Models\Item;
 use App\Models\Manager;
+use App\Models\ShippingAddress;
+use App\Models\ShippingMethod;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -32,13 +33,12 @@ class StoreOrderRequest extends FormRequest
         return [
             "items" => "required|array",
             "items.*.id" => ["required", "integer", Rule::exists('items', 'id')],
-            "items.*.quantity" => ["required", "integer", "min:1"],
-            'shipping_method_id' => ['required', Rule::exists('shipping_methods', 'id')],
-            'shipping_address_id' => ['required', Rule::exists('shipping_addresses', 'id')],
-            'payment_method_id' => ['required'],
+            "items.*.quantity" => ["required", "numeric", "min:1"],
+            'shipping_method_id' => ['nullable', Rule::exists('shipping_methods', 'id')],
+            'shipping_address_id' => ['nullable', Rule::exists('shipping_addresses', 'id')],
+            'payment_method_id' => ['nullable'],
         ];
     }
-
 
 
     /**
@@ -89,13 +89,11 @@ class StoreOrderRequest extends FormRequest
             dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'ONLINE'));
             dispatch_sync(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true, $authUser, true));
             dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
-            $order = CreateSalesOrderJob::dispatchSync($invoice,$this->all());
+            $order = CreateSalesOrderJob::dispatchSync($invoice, $this->all());
             dispatch_sync(new HoldItemQtyJob($invoice, $order));
             dispatch_sync(new NotifyCustomerByNewOrderJob($order, "", $invoice));
             DB::commit();
-            if ($this->acceptsJson())
-                return $invoice;
-            return redirect('/web/profile');
+            return $invoice->toArray();
         } catch (QueryException $queryException) {
             DB::rollBack();
             throw $queryException;
@@ -112,8 +110,7 @@ class StoreOrderRequest extends FormRequest
     {
         foreach ($this->getItems() as $item) {
             $dbItem = Item::findOrFail($item['id']);
-            if($dbItem)
-            {
+            if ($dbItem) {
                 if (!$dbItem->is_service && !$dbItem->is_expense && !$dbItem->is_kit) {
                     if ((float)$dbItem->available_qty < (float)$item['quantity']) {
                         throw ValidationException::withMessages(['item_available_quantity' => "you can't sale this items , qty not"]);
@@ -132,5 +129,20 @@ class StoreOrderRequest extends FormRequest
     public function loggedUser(): User
     {
         return Auth::guard("client")->user();
+    }
+
+    public function getShippingAddress(): ?ShippingAddress
+    {
+        return ShippingAddress::find($this->input('shipping_address_id'));
+    }
+
+    public function getShippingMethod(): ?ShippingMethod
+    {
+        return ShippingMethod::find($this->input('shipping_method_id'));
+    }
+
+    public function getPaymentMethodId()
+    {
+        return $this->input('payment_method_id');
     }
 }

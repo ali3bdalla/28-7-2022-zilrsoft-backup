@@ -17,7 +17,7 @@ class StoreItemScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        if (strpos(url()->current(), 'web')) {
+        if (strpos(url()->current(), 'web') && app()->isProduction()) {
             $builder
                 ->where([
                     [$builder->qualifyColumn('is_available_online'), true],

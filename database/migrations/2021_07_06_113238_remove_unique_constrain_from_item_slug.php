@@ -27,7 +27,7 @@ class RemoveUniqueConstrainFromItemSlug extends Migration
     public function down()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->unique("ar_lsug");
+            $table->unique("ar_slug");
             $table->unique("en_slug");
         });
     }

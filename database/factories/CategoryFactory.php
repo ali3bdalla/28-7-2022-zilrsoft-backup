@@ -1,18 +1,61 @@
 <?php
 
-/** @var Factory $factory */
+namespace Database\Factories;
 
+use App\Dto\CategoryDto;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
+class CategoryFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Category::class;
 
-$factory->define(Category::class, function (Faker $faker) {
-    return [
-        //
-        'organization_id'=>1,
-        'name'=>$faker->name,
-        'ar_name'=>$faker->name,
-        'creator_id'=>1,
-    ];
-});
+    public function setDto(CategoryDto $categoryDto): CategoryFactory
+    {
+        return $this->state(function () use ($categoryDto) {
+            return [
+                'organization_id' => $categoryDto->getOrganizationId(),
+                'creator_id' => $categoryDto->getManagerId(),
+                'name' => $categoryDto->getName(),
+                'ar_name' => $categoryDto->getArName(),
+                'description' => $categoryDto->getDescription(),
+                'ar_description' => $categoryDto->getArDescription(),
+                'parent_id' => $categoryDto->getParentId(),
+                'is_available_online' => $categoryDto->isAvailableOnline(),
+                'image' => $categoryDto->getImagePath(),
+                'cover' => $categoryDto->getCoverPath(),
+                'en_slug' => $categoryDto->getEnSlug(),
+                'ar_slug' => $categoryDto->getArSlug(),
+            ];
+        });
+    }
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            //
+            'organization_id' => null,
+            'creator_id' => null,
+            'name' => $this->faker->name,
+            'ar_name' => $this->faker->name,
+            'description' => $this->faker->sentence,
+            'ar_description' => $this->faker->sentence,
+            'parent_id' => 0,
+            'is_available_online' => $this->faker->boolean,
+            'image' => $this->faker->imageUrl(),
+            'cover' => $this->faker->imageUrl(),
+            'en_slug' => $this->faker->slug,
+            'ar_slug' => $this->faker->slug,
+        ];
+    }
+}

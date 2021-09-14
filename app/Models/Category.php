@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
  * @property string name
  * @property string image
  * @property string description
+ * @property mixed id
  */
 class Category extends BaseModel
 {

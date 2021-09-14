@@ -23,6 +23,8 @@ use Propaganistas\LaravelPhone\PhoneNumber;
  * @property string international_phone_number
  * @property integer verification_code
  * @property mixed name
+ * @property mixed creator_id
+ * @property mixed organization_id
  * @method static where(array $array)
  * @method static find(mixed $user_id)
  */

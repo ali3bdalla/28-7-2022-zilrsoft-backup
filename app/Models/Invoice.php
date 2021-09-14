@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\Dto\InvoiceItemDto;
 use App\Enums\InvoiceTypeEnum;
 use App\Scopes\DraftScope;
 use App\ValueObjects\MoneyValueObject;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -34,12 +37,17 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed has_dropbox_snapshot
  * @property mixed dropbox_snapshot
  * @property mixed user
+ * @property mixed creator
+ * @property mixed is_online
+ * @property mixed subtotal
+ * @property mixed discount
  *
  * @method static create(array $array)
  */
 class Invoice extends BaseModel
 {
     use SoftDeletes;
+    use HasFactory;
 
     protected $guarded = [];
     protected $casts = [
@@ -207,4 +215,29 @@ class Invoice extends BaseModel
 
         return '';
     }
+
+
+    public function addItems(Collection $items): Collection
+    {
+       return $items->each(function (InvoiceItemDto $invoiceItemDto) {
+            $invoiceItemDto->setInvoice($this);
+            $invoiceItem =  InvoiceItems::factory()
+                ->setDto($invoiceItemDto)
+                ->create();
+           $net = (float)$this->net  + (float)$invoiceItem->net;
+           $total = (float)$this->total  + (float)$invoiceItem->total;
+           $tax = (float)$this->tax  + (float)$invoiceItem->tax;
+           $discount = (float)$this->discount  + (float)$invoiceItem->discount;
+           $subtotal = (float)$this->subtotal  + (float)$invoiceItem->subtotal;
+           $this->update([
+               'net' => $net,
+               'total' => $total,
+               'subtotal' => $subtotal,
+               'discount' => $discount,
+               'tax' => $tax,
+           ]);
+           return $invoiceItem;
+        });
+    }
+
 }

@@ -1,15 +1,29 @@
 <?php
 
-/** @var Factory $factory */
+namespace Database\Factories;
 
 use App\Models\Type;
-use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Type::class, function (Faker $faker) {
-    return [
-        //
-        'name' => $faker->name,
-        'ar_name' => $faker->name,
-    ];
-});
+class TypeFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Type::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'name' => $this->faker->name,
+            'ar_name' => $this->faker->name,
+        ];
+    }
+}

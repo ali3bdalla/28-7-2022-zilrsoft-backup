@@ -26,7 +26,6 @@ class AccountController extends Controller
 
     public function __construct(AccountRepositoryContract $accountRepositoryContract)
     {
-
         $this->accountRepositoryContract = $accountRepositoryContract;
     }
 
