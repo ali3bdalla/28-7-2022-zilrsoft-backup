@@ -2,22 +2,10 @@
 
 namespace App\Http\Requests\Order;
 
-use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
-use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
-use App\Jobs\Order\HoldItemQtyJob;
-use App\Jobs\Order\NotifyCustomerByNewOrderJob;
-use App\Jobs\Sales\Items\StoreSaleItemsJob;
-use App\Jobs\Sales\Order\CreateSalesOrderJob;
-use App\Models\Invoice;
 use App\Models\Item;
-use App\Models\Manager;
 use App\Models\ShippingAddress;
 use App\Models\ShippingMethod;
-use App\Models\User;
-use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
@@ -72,7 +60,7 @@ class StoreOrderRequest extends FormRequest
     public function ensureQuantitiesAreValid()
     {
         foreach ($this->getItems() as $item) {
-            if (!(Item::find($item['id']))->isAvailableQuantityCanHandle((float)$item['quantity']))
+            if (!(Item::findOrFail($item['id']))->isAvailableQuantityCanHandle((float)$item['quantity']))
                 throw ValidationException::withMessages(['item_available_quantity' => "you can't sale this items , qty not"]);
         }
     }

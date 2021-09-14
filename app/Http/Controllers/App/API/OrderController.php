@@ -2,27 +2,23 @@
 
 namespace App\Http\Controllers\App\API;
 
-use AliAbdalla\Whatsapp\Whatsapp;
 use App\Events\Order\OrderPaymentConfirmedEvent;
 use App\Http\Controllers\Controller;
 use App\Jobs\Accounting\CreateReceivedPaymentFromClientJob;
 use App\Jobs\Items\AvailableQty\UpdateAvailableQtyByInvoiceItemJob;
-use App\Jobs\Order\ConfirmPaymentJob;
 use App\Jobs\Order\NotifyCustomerByOrderPaymentCancellationJob;
 use App\Jobs\Order\NotifyCustomerByPaymentConfirmationJob;
 use App\Jobs\Order\Shipping\HandleOrderShippingJob;
 use App\Models\DeliveryMan;
 use App\Models\Order;
-use Dotenv\Exception\ValidationException;
-use GuzzleHttp\Client;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException as ValidationValidationException;
 
 class OrderController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Request $request): LengthAwarePaginator
     {
         $query = Order::query();
         if (!$request->user('manager')->can('manage branches')) {
@@ -33,14 +29,10 @@ class OrderController extends Controller
 
     public function notificationList(Request $request)
     {
-        $orders = [];
         if ($request->user('manager')->can('manage branches')) {
-            $orders = Order::where('status', 'issued')->with('user', 'shippingAddress')->get();
-        } else {
-            $orders = Order::where('status', 'pending')->with('user', 'shippingAddress')->get();
+            return Order::where('status', 'issued')->with('user', 'shippingAddress')->get();
         }
-
-        return $orders;
+        return Order::where('status', 'pending')->with('user', 'shippingAddress')->get();
     }
 
 
@@ -111,6 +103,9 @@ class OrderController extends Controller
 
     }
 
+    /**
+     * @throws ValidationValidationException
+     */
     public function activateSignToDeliveryMan(Order $order, Request $request)
     {
         $request->validate([
@@ -133,8 +128,3 @@ class OrderController extends Controller
     }
 }
 
-
-
-// sign deliveryMan to order
-// create awb ui
-// whatsapp notification
