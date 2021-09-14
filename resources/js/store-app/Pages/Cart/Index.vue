@@ -88,7 +88,6 @@ import CartItems from './CartItems'
 import CartActions from './CartActions'
 import CartShippingAddress from './CartShippingAddress.vue'
 import ShowEmptyCartComponent from '../../Components/Cart/ShowEmptyCartComponent.vue'
-import { Inertia } from '@inertiajs/inertia'
 
 export default {
   name: 'Index',
@@ -180,28 +179,23 @@ export default {
         cancelButtonText: this.$page.$t.messages.no
       }).then(() => {
         this.$loading.show({ delay: 0 })
-        Inertia.visit(
-            '/api/web/orders',
+        axios.post('/api/web/orders',
             {
-              method: "post",
-              replace: true,
-              onSuccess: (page) => {
-                return Promise.all([
-                  this.clearCart(),
-                  this.alertUser()
-                ])
-              },
-              onFinish: (visit) => {
-                this.$loading.hide()
-              },
-              data: {
-                shipping_address_id: this.shippingAddressId,
-                shipping_method_id: this.shippingMethodId,
-                payment_method_id: this.paymentMethodId,
-                items: this.cartItemsList,
-              }
+              shipping_address_id: this.shippingAddressId,
+              shipping_method_id: this.shippingMethodId,
+              payment_method_id: this.paymentMethodId,
+              items: this.cartItemsList,
             }
-        )
+        ).then(res => {
+          Promise.all([
+            this.clearCart(),
+            this.alertUser()
+          ])
+        }).catch(error => {
+          console.log(error)
+        }).finally(() => {
+          this.$loading.hide()
+        })
       })
     },
     clearCart () {
@@ -218,7 +212,6 @@ export default {
           '+',
           ''
       )
-
       return new Promise((resolve, reject) => {
         this.$alert(
             `${this.$page.$t.order.instructions_for_payment} ${number}`,
@@ -229,6 +222,7 @@ export default {
               cancelButtonText: this.$page.$t.messages.no
             }
         ).then(() => {
+          location.href = '/web/profile'
         })
         resolve()
       })

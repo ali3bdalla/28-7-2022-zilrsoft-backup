@@ -40,21 +40,18 @@ class OrderController extends Controller
         $shippingMethod = $storeOrderRequest->getShippingMethod();
         $shippingAddress = $storeOrderRequest->getShippingAddress();
         $paymentMethodId = $storeOrderRequest->getPaymentMethodId();
-        $draftInvoice = new InvoiceDto(
-            Manager::find(1),
-            $client,
-            InvoiceTypeEnum::sale(),
-            $items,
-            true,
-            true);
-
-        $orderDto = new OrderDto(
-            $draftInvoice,
+        $order = $this->orderRepositoryContract->createOrder(new OrderDto(
+            new InvoiceDto(
+                Manager::find(1),
+                $client,
+                InvoiceTypeEnum::sale(),
+                $items,
+                true,
+                true),
             $shippingMethod,
             $shippingAddress,
             $paymentMethodId
-        );
-        $order = $this->orderRepositoryContract->createOrder($orderDto);
+        ));
         $this->orderRepositoryContract->issuedOrderNotifications($order);
         return $order;
     }
