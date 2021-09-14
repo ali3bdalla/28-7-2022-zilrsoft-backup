@@ -32,8 +32,9 @@ abstract class TestCase extends BaseTestCase
                 'organization_id' => $user->organization_id,
             ];
         })->create();
-        $items = Item::factory()->count($this->faker->randomDigit)->state(function () use ($category) {
+        $items = Item::factory()->count($this->faker->numberBetween(1,10))->state(function () use ($category) {
             return [
+                'available_qty' => 15000,
                 'is_kit' => false,
                 'is_available_online' => true,
                 'creator_id' => $category->creator_id,

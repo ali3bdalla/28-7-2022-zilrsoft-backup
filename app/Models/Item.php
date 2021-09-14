@@ -279,6 +279,17 @@ class Item extends BaseModel
         return $this->hasMany(ItemFilters::class, 'item_id');
     }
 
+    public function isAvailableQuantityCanHandle(float $quantity): bool
+    {
+        if (!$this->isQuantitiable()) return true;
+        return $this->available_qty >= $quantity;
+    }
+
+    public function isQuantitiable(): bool
+    {
+        return !$this->is_service && !$this->is_expense && !$this->is_kit;
+    }
+
     protected function makeAllSearchableUsing($query)
     {
         return $query->with('tags', 'serials');

@@ -12,7 +12,8 @@ use Illuminate\Support\Collection;
 
 class OrderDto
 {
-    private Invoice $draftInvoice;
+    private InvoiceDto $invoiceDto;
+    private ?Invoice $draftInvoice;
     private User $user;
     private ?ShippingAddress $shippingAddress;
     private ?string $paymentMethodId;
@@ -20,16 +21,16 @@ class OrderDto
     private Collection $orderItems;
 
     /**
-     * @param Invoice $draftInvoice
+     * @param InvoiceDto $invoiceDto
      * @param ShippingMethod|null $shippingMethod
      * @param ShippingAddress|null $shippingAddress
      * @param string|null $paymentMethodId
      */
-    public function __construct(Invoice $draftInvoice, ?ShippingMethod $shippingMethod = null, ?ShippingAddress $shippingAddress = null, ?string $paymentMethodId = null)
+    public function __construct(InvoiceDto $invoiceDto, ?ShippingMethod $shippingMethod = null, ?ShippingAddress $shippingAddress = null, ?string $paymentMethodId = null)
     {
-        $this->draftInvoice = $draftInvoice;
-        $this->orderItems = $draftInvoice->items()->with('item')->withoutGlobalScope(DraftScope::class)->get();
-        $this->user = $draftInvoice->user;
+
+        $this->user = $invoiceDto->getUser();
+        $this->invoiceDto = $invoiceDto;
         $this->shippingAddress = $shippingAddress;
         $this->paymentMethodId = $paymentMethodId;
         $this->shippingMethod = $shippingMethod;
@@ -87,6 +88,15 @@ class OrderDto
     }
 
     /**
+     * @param Invoice|null $draftInvoice
+     */
+    public function setDraftInvoice(?Invoice $draftInvoice): void
+    {
+        $this->draftInvoice = $draftInvoice;
+        $this->orderItems = $draftInvoice->items()->with('item')->withoutGlobalScope(DraftScope::class)->get();
+    }
+
+    /**
      * @return int|null
      */
     public function getShippingAddressId(): ?int
@@ -131,10 +141,17 @@ class OrderDto
         return $this->draftInvoice->organization_id;
     }
 
-
     public function getDraftInvoiceId(): int
     {
         return $this->draftInvoice->id;
+    }
+
+    /**
+     * @return InvoiceDto
+     */
+    public function getInvoiceDto(): InvoiceDto
+    {
+        return $this->invoiceDto;
     }
 
 

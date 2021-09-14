@@ -5,10 +5,7 @@ namespace Database\Factories;
 use App\Dto\InvoiceItemDto;
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
-use App\Models\Model;
-use App\Scopes\DraftScope;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\DB;
 
 class InvoiceItemsFactory extends Factory
 {
@@ -55,6 +52,10 @@ class InvoiceItemsFactory extends Factory
                 "invoice_type" => $invoiceItemDto->getInvoice()->invoice_type,
                 "item_id" => $invoiceItemDto->getItem()->id,
                 'price' => $invoiceItemDto->getPrice(),
+                'total' => $invoiceItemDto->getTotal(),
+                'tax' => $invoiceItemDto->getTax(),
+                'subtotal' => $invoiceItemDto->getSubtotal(),
+                'net' => $invoiceItemDto->getNet(),
                 'discount' => $invoiceItemDto->getDiscount(),
                 "belong_to_kit" => (bool)$invoiceItemDto->getParentKitId(),
                 "parent_kit_id" => $invoiceItemDto->getParentKitId(),
@@ -93,35 +94,9 @@ class InvoiceItemsFactory extends Factory
     public function configure(): InvoiceItemsFactory
     {
         return $this->afterMaking(function (InvoiceItems $invoiceItem) {
-            $invoiceItem->load('item');
-            $invoiceItem->total = $this->getTotal($invoiceItem);
-            $invoiceItem->subtotal = $this->getSubtotal($invoiceItem);
-            $invoiceItem->tax = $this->getTax($invoiceItem);
-            $invoiceItem->net = $this->getNet($invoiceItem);
             return $invoiceItem;
         });
     }
 
-
-    private function getTotal(InvoiceItems $invoiceItem): float
-    {
-        return (float)$invoiceItem->price * (float)$invoiceItem->qty;
-    }
-
-
-    private function getSubtotal(InvoiceItems $invoiceItem): float
-    {
-        return (float)$invoiceItem->total - (float)$invoiceItem->discount;
-    }
-
-    private function getTax(InvoiceItems $invoiceItem): float
-    {
-        return (float)$invoiceItem->subtotal * 0.15;
-    }
-
-    private function getNet(InvoiceItems $invoiceItem): float
-    {
-        return (float)$invoiceItem->tax + (float)$invoiceItem->subtotal;
-    }
 
 }

@@ -51,86 +51,6 @@ class StoreOrderRequest extends FormRequest
         return true;
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function store()
-    {
-        DB::beginTransaction();
-        try {
-            $this->validateQuantities();
-            $authUser = Manager::first();
-            $authClient = $this->loggedUser();
-            $invoice = Invoice::create(
-                [
-                    'invoice_type' => 'sale',
-                    'notes' => "",
-                    'creator_id' => $authUser->id,
-                    'organization_id' => $authUser->organization_id,
-                    'branch_id' => $authUser->branch_id,
-                    'department_id' => $authUser->department_id,
-                    'user_id' => $authClient->id,
-                    'managed_by_id' => $authUser->id,
-                    'is_online' => true,
-                    'is_draft' => true
-                ]
-            );
-            $invoice->sale()->create(
-                [
-                    'salesman_id' => $authUser->id,
-                    'client_id' => $authClient->id,
-                    'organization_id' => $authUser->organization_id,
-                    'invoice_type' => 'sale',
-                    'alice_name' => null,
-                    "prefix" => "O",
-                    'is_draft' => true
-                ]
-            );
-            dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'ONLINE'));
-            dispatch_sync(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true, $authUser, true));
-            dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
-            $order = CreateSalesOrderJob::dispatchSync($invoice, $this->all());
-            dispatch_sync(new HoldItemQtyJob($invoice, $order));
-            dispatch_sync(new NotifyCustomerByNewOrderJob($order, "", $invoice));
-            DB::commit();
-            return $invoice->toArray();
-        } catch (QueryException $queryException) {
-            DB::rollBack();
-            throw $queryException;
-        } catch (ValidationException $e) {
-            DB::rollBack();
-            throw $e;
-        }
-    }
-
-    /**
-     * @throws ValidationException
-     */
-    private function validateQuantities()
-    {
-        foreach ($this->getItems() as $item) {
-            $dbItem = Item::findOrFail($item['id']);
-            if ($dbItem) {
-                if (!$dbItem->is_service && !$dbItem->is_expense && !$dbItem->is_kit) {
-                    if ((float)$dbItem->available_qty < (float)$item['quantity']) {
-                        throw ValidationException::withMessages(['item_available_quantity' => "you can't sale this items , qty not"]);
-                    }
-                }
-            }
-
-        }
-    }
-
-    public function getItems()
-    {
-        return $this->input('items', []);
-    }
-
-    public function loggedUser(): User
-    {
-        return Auth::guard("client")->user();
-    }
-
     public function getShippingAddress(): ?ShippingAddress
     {
         return ShippingAddress::find($this->input('shipping_address_id'));
@@ -144,5 +64,21 @@ class StoreOrderRequest extends FormRequest
     public function getPaymentMethodId()
     {
         return $this->input('payment_method_id');
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function ensureQuantitiesAreValid()
+    {
+        foreach ($this->getItems() as $item) {
+            if (!(Item::find($item['id']))->isAvailableQuantityCanHandle((float)$item['quantity']))
+                throw ValidationException::withMessages(['item_available_quantity' => "you can't sale this items , qty not"]);
+        }
+    }
+
+    public function getItems()
+    {
+        return $this->input('items', []);
     }
 }
