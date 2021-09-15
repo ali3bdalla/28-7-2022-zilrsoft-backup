@@ -211,7 +211,7 @@
             <td v-text="index+1"></td>
             <td class="text-center" v-text="row.invoice_number"></td>
             <td class="text-center"
-                v-text="row.sale  == null || row.user_alice_name==null  || row.user_alice_name === '' ? row.user ? row.user.locale_name : ''"></td>
+                v-text="row.sale  == null || row.user_alice_name==null  || row.user_alice_name === '' ? row.user ? row.user.locale_name : '': ''"></td>
             <td v-text="row.created_at"></td>
             <td class="text-center" v-text="row.net"></td>
             <td v-if="canViewAccounting===1" class="text-center" v-text="row.subtotal"></td>
