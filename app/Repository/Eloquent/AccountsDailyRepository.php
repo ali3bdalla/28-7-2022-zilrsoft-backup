@@ -16,10 +16,6 @@ use Illuminate\Support\Facades\DB;
 class AccountsDailyRepository extends BaseRepository implements AccountsDailyRepositoryContract
 {
 
-    public function __construct(ResellerClosingAccount $model)
-    {
-        parent::__construct($model);
-    }
 
     public function createDailyCloseAccountAggregate(array $banks = [])
     {

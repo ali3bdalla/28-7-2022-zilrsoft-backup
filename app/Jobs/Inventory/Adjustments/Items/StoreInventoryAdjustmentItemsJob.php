@@ -18,28 +18,24 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
 
-
 class StoreInventoryAdjustmentItemsJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     private Invoice $invoice;
     private array $items;
     private Manager $loggedUser;
-    /**
-     * @var bool
-     */
+
     private bool $isDraft;
-    /**
-     */
+
     private $createdAt;
 
     /**
      * Create a new job instance.
      *
-     * @param Invoice $invoice
-     * @param array $items
-     * @param bool $isDraft
      * @param null $createdAt
      */
     public function __construct(Invoice $invoice, array $items, bool $isDraft = false, $createdAt = null)
@@ -53,8 +49,6 @@ class StoreInventoryAdjustmentItemsJob implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
     public function handle()
     {
@@ -64,13 +58,34 @@ class StoreInventoryAdjustmentItemsJob implements ShouldQueue
         }
     }
 
+    public function normalizeUpcomingPipeline($item, $invoiceItem)
+    {
+        $invoiceItemsAfter = $item->pipeline()->where([
+            ['created_at', '>', $this->createdAt],
+            ['id', '!=', $invoiceItem->id],
+        ])->orderBy('created_at', 'asc')->get();
+
+        foreach ($invoiceItemsAfter as $historyInvoiceItem) {
+            $availableQtyBeforeInvoiceItem = $historyInvoiceItem->item->available_qty;
+            $costBeforeInvoiceItem = $historyInvoiceItem->item->cost;
+
+            dispatch_sync(new UpdateAvailableQtyByInvoiceItemJob($historyInvoiceItem));
+            /*
+             * ==========================================================
+             * we neeed for available qty and cost before new invoice item
+             * ==========================================================
+             */
+            dispatch_sync(new UpdateItemCostByInvoiceItemJob($historyInvoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
+
+            $this->setCostAndAvailableQty($historyInvoiceItem);
+        }
+    }
 
     private function storeItem(Item $item, $requestItemData)
     {
-
         $requestItemCollection = collect($requestItemData);
 
-        $invoiceItemBefore = $item->pipeline()->where('created_at', '<', $this->createdAt)->withoutGlobalScopes(["manager"])->orderBy('created_at', 'desc')->first();
+        $invoiceItemBefore = $item->pipeline()->where('created_at', '<', $this->createdAt)->orderBy('created_at', 'desc')->first();
         $lastAvailableQtyBeforeNewTransaction = $invoiceItemBefore ? $invoiceItemBefore->available_qty : 0;  // 27
         $costBeforeInvoiceItem = $item->cost;
         $expectedQty = $item->is_need_serial ? count($requestItemCollection->get('serials')) : $requestItemCollection->get('qty'); // 8
@@ -79,15 +94,13 @@ class StoreInventoryAdjustmentItemsJob implements ShouldQueue
         $newAvailableQty = $lastAvailableQtyBeforeNewTransaction + $newTransactionQty;
         $invoiceItem = $this->createInvoiceItem($item, $requestItemCollection, $costBeforeInvoiceItem, $lastAvailableQtyBeforeNewTransaction, $newTransactionQty);
         if (!$this->isDraft) {
-
             if ($item->is_need_serial) {
                 dispatch_sync(new UpdateItemSerialStatusByInvoiceItemJob($requestItemCollection->get('serials'), $invoiceItem, $this->isDraft));
             }
 
-
             if (!$item->is_service) {
                 $item->update([
-                    'available_qty' => $newAvailableQty
+                    'available_qty' => $newAvailableQty,
                 ]);
                 dispatch_sync(new UpdateItemCostByInvoiceItemJob($invoiceItem, $lastAvailableQtyBeforeNewTransaction, $costBeforeInvoiceItem));
                 $this->setCostAndAvailableQty($invoiceItem);
@@ -99,14 +112,12 @@ class StoreInventoryAdjustmentItemsJob implements ShouldQueue
 
     private function createInvoiceItem(Item $item, $requestItemCollection, $costBeforeInvoiceItem, $availableQtyBeforeInvoiceItem, $newTransactionQty): Model
     {
-
-
         $isBelongToKit = false;
         $parentKitId = 0;
-        $price = (float)$costBeforeInvoiceItem;
-        $discount = (float)0;
+        $price = (float) $costBeforeInvoiceItem;
+        $discount = (float) 0;
 
-        $qty = (float)$newTransactionQty; // 2 - 27 = -25 //+ $availableQtyBeforeInvoiceItem
+        $qty = (float) $newTransactionQty; // 2 - 27 = -25 //+ $availableQtyBeforeInvoiceItem
         $total = $price * $qty;
         $subtotal = $total - $discount;
         $tax = 0;
@@ -128,6 +139,7 @@ class StoreInventoryAdjustmentItemsJob implements ShouldQueue
         $data['is_draft'] = $this->isDraft;
         $data['created_at'] = $this->createdAt;
         $data['updated_at'] = $this->createdAt;
+
         return $this->performDBCreation($data);
     }
 
@@ -142,32 +154,8 @@ class StoreInventoryAdjustmentItemsJob implements ShouldQueue
             [
                 'cost' => $invoiceItem->item->fresh()->cost,
                 'available_qty' => $invoiceItem->item->fresh()->available_qty,
-                'total_stock_cost_amount' => (float)$invoiceItem->item->fresh()->cost * (float)$invoiceItem->item->fresh()->available_qty,
+                'total_stock_cost_amount' => (float) $invoiceItem->item->fresh()->cost * (float) $invoiceItem->item->fresh()->available_qty,
             ]
         );
-    }
-
-    public function normalizeUpcomingPipeline($item, $invoiceItem)
-    {
-        $invoiceItemsAfter = $item->pipeline()->where([
-            ['created_at', '>', $this->createdAt],
-            ['id', '!=', $invoiceItem->id]
-        ])->orderBy('created_at', 'asc')->get();
-
-        foreach ($invoiceItemsAfter as $historyInvoiceItem) {
-            $availableQtyBeforeInvoiceItem = $historyInvoiceItem->item->available_qty;
-            $costBeforeInvoiceItem = $historyInvoiceItem->item->cost;
-
-            dispatch_sync(new UpdateAvailableQtyByInvoiceItemJob($historyInvoiceItem));
-            /**
-             * ==========================================================
-             * we neeed for available qty and cost before new invoice item
-             * ==========================================================
-             */
-            dispatch_sync(new UpdateItemCostByInvoiceItemJob($historyInvoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
-
-
-            $this->setCostAndAvailableQty($historyInvoiceItem);
-        }
     }
 }

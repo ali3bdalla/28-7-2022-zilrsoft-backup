@@ -49,10 +49,11 @@ class Invoice extends BaseModel
     use HasFactory;
 
     protected $guarded = [];
+
     protected $casts = [
         'printable_price' => 'boolean',
         'is_draft_converted' => 'boolean',
-        'invoice_type' => InvoiceTypeEnum::class . ':nullable',
+        'invoice_type' => InvoiceTypeEnum::class.':nullable',
         'net' => MoneyValueObject::class,
         'total' => MoneyValueObject::class,
         'subtotal' => MoneyValueObject::class,
@@ -65,15 +66,17 @@ class Invoice extends BaseModel
     public static function getInvoiceByPublicIdHash($hash): Invoice
     {
         $publicIdElements = Invoice::getDecryptedPublicIdElements($hash);
+
         return Invoice::where([
             'created_at' => $publicIdElements->get('created_at', null),
-            'id' => (int)$publicIdElements->get('id', 0),
+            'id' => (int) $publicIdElements->get('id', 0),
         ])->firstOrFail();
     }
 
     public static function getDecryptedPublicIdElements($hash): Collection
     {
         $decryptedText = base64_decode($hash);
+
         return collect(json_decode($decryptedText));
     }
 
@@ -107,7 +110,6 @@ class Invoice extends BaseModel
         return $this->belongsTo(Organization::class, 'organization_id');
     }
 
-
     public function creator()
     {
         return $this->belongsTo(Manager::class, 'creator_id')->withTrashed();
@@ -127,7 +129,6 @@ class Invoice extends BaseModel
     {
         return $this->hasMany(InvoiceItems::class, 'invoice_id')->withoutGlobalScope(DraftScope::class);
     }
-
 
     public function serial_history(): HasOne
     {
@@ -207,19 +208,19 @@ class Invoice extends BaseModel
         return '';
     }
 
-
     public function addItems(Collection $items): Collection
     {
         return $items->each(function (InvoiceItemDto $invoiceItemDto) {
             $invoiceItemDto->setInvoice($this);
             $invoiceItem = InvoiceItems::factory()
                 ->setDto($invoiceItemDto)
-                ->create();
-            $net = (float)$this->net + (float)$invoiceItem->net;
-            $total = (float)$this->total + (float)$invoiceItem->total;
-            $tax = (float)$this->tax + (float)$invoiceItem->tax;
-            $discount = (float)$this->discount + (float)$invoiceItem->discount;
-            $subtotal = (float)$this->subtotal + (float)$invoiceItem->subtotal;
+                ->create()
+            ;
+            $net = (float) $this->net + (float) $invoiceItem->net;
+            $total = (float) $this->total + (float) $invoiceItem->total;
+            $tax = (float) $this->tax + (float) $invoiceItem->tax;
+            $discount = (float) $this->discount + (float) $invoiceItem->discount;
+            $subtotal = (float) $this->subtotal + (float) $invoiceItem->subtotal;
             $this->update([
                 'net' => $net,
                 'total' => $total,
@@ -227,8 +228,8 @@ class Invoice extends BaseModel
                 'discount' => $discount,
                 'tax' => $tax,
             ]);
+
             return $invoiceItem;
         });
     }
-
 }

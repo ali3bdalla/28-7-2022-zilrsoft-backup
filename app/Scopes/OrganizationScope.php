@@ -18,15 +18,11 @@ class OrganizationScope implements Scope
 
     /**
      * Apply the scope to a given Eloquent query builder.
-     *
-     * @param Builder $builder
-     * @param Model $model
-     * @return void
      */
     public function apply(Builder $builder, Model $model)
     {
         if (Schema::hasColumn($builder->getModel()->getTable(), 'organization_id')) {
-            $builder->where($builder->qualifyColumn('organization_id'), (int)$this->organizationId);
+            $builder->where($builder->qualifyColumn('organization_id'), (int) $this->organizationId);
         }
     }
 }

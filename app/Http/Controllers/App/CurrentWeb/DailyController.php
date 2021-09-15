@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Auth;
 
 class DailyController extends Controller
 {
-
     private AccountsDailyRepositoryContract $accountsDailyRepositoryContract;
     private ManagerRepositoryContract $managerRepositoryContract;
 
@@ -28,6 +27,7 @@ class DailyController extends Controller
     public function resellerClosingAccountsIndex()
     {
         $managerCloseAccountList = ResellerClosingAccount::myDailyCloseAccounts()->orderBy('id', 'desc')->paginate(100);
+
         return view('accounting.reseller_daily.account_close_list', compact('managerCloseAccountList'));
     }
 
@@ -39,6 +39,7 @@ class DailyController extends Controller
         $remainingAccountsBalanceAmount = $loggedUser->remaining_accounts_balance;
         $accountsClosedAt = $loggedUser->accounts_closed_at;
         $gateways = $loggedUser->gateways()->get();
+
         return view('accounting.reseller_daily.account_close', compact('inAmount', 'loggedUser', 'accountsClosedAt', 'outAmount', 'gateways', 'remainingAccountsBalanceAmount'));
     }
 
@@ -47,8 +48,10 @@ class DailyController extends Controller
         $managerCloseAccountList = ResellerClosingAccount::where(
             [
                 ['creator_id', Auth::id()],
-                ['transaction_type', "transfer"],
-            ])->orWhere('receiver_id', Auth::id())->orderBy('id', 'desc')->paginate(15);
+                ['transaction_type', 'transfer'],
+            ]
+        )->orWhere('receiver_id', Auth::id())->orderBy('id', 'desc')->paginate(15);
+
         return view('accounting.reseller_daily.tranfers_list', compact('managerCloseAccountList'));
     }
 
@@ -56,15 +59,16 @@ class DailyController extends Controller
     {
         $manager_gateways = $this->managerRepositoryContract->getCurrentManagerBanks();
         $gateways = $this->managerRepositoryContract->getAllManagersBanksExcept([Auth::id()]);
+
         return view('accounting.reseller_daily.transfer_amounts', compact('gateways', 'manager_gateways'));
     }
 
     public function confirmResellerAccountTransaction($transaction): RedirectResponse
     {
-        $transaction = ResellerClosingAccount::where([["id", $transaction], ['receiver_id', Auth::id()], ['transaction_type', 'transfer']])->withoutGlobalScope('pending')->firstOrFail();
+        $transaction = ResellerClosingAccount::where([['id', $transaction], ['receiver_id', Auth::id()], ['transaction_type', 'transfer']])->withoutGlobalScope(PendingScope::class)->firstOrFail();
         $container = $transaction->container;
         dispatch_sync(new ActivateEntityJob($container));
-        $transaction->update(['is_pending' => false,]);
+        $transaction->update(['is_pending' => false]);
         $creator = Manager::find($transaction->creator_id);
         if ($creator) {
             $creator->update(
@@ -73,14 +77,15 @@ class DailyController extends Controller
                 ]
             );
         }
+
         return back();
     }
-
 
     public function deleteResellerAccountTransaction($transaction): RedirectResponse
     {
         $transaction = ResellerClosingAccount::whereId($transaction)->withoutGlobalScope(PendingScope::class)->firstOrFail();
         $transaction->delete();
+
         return back();
     }
 }

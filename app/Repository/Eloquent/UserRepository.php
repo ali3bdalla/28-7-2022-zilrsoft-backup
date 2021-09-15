@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository implements UserRepositoryContract
 {
-    public function __construct(User $model)
-    {
-        parent::__construct($model);
-    }
 
 
     public function createUser(UserDto $userDto): User

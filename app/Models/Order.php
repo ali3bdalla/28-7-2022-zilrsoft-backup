@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Enums\OrderStatusEnum;
 use App\Scopes\DraftScope;
-use App\Scopes\OrganizationScope;
 use App\ValueObjects\MoneyValueObject;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -61,7 +60,7 @@ class Order extends BaseModel
     protected $appends = ['pdf_url'];
 
     protected $casts = [
-        'status' => OrderStatusEnum::class . ':nullable',
+        'status' => OrderStatusEnum::class.':nullable',
         'net' => MoneyValueObject::class,
     ];
 
@@ -79,7 +78,6 @@ class Order extends BaseModel
     {
         return Storage::url($this->pdf_path);
     }
-
 
     public function activities(): HasMany
     {
@@ -99,19 +97,17 @@ class Order extends BaseModel
     public function shippable(): MorphTo
     {
         return $this->morphTo('shippable');
-
     }
 
     public function generatePayOrderUrl()
     {
-        return file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/web/orders/' . $this->id . '/confirm_payment?code=' . $this->order_secret_code));
+        return file_get_contents('http://tinyurl.com/api-create.php?url='.url('/web/orders/'.$this->id.'/confirm_payment?code='.$this->order_secret_code));
     }
 
     public function generateCancelOrderUrl()
     {
-        return file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/web/orders/' . $this->id . '/cancel?code=' . $this->order_secret_code));
+        return file_get_contents('http://tinyurl.com/api-create.php?url='.url('/web/orders/'.$this->id.'/cancel?code='.$this->order_secret_code));
     }
-
 
     public function paymentDetail(): HasOne
     {
@@ -120,7 +116,7 @@ class Order extends BaseModel
 
     public function shippingMethod(): BelongsTo
     {
-        return $this->belongsTo(ShippingMethod::class, 'shipping_method_id')->withoutGlobalScopes([OrganizationScope::class, DraftScope::class]);
+        return $this->belongsTo(ShippingMethod::class, 'shipping_method_id')->withoutGlobalScopes([DraftScope::class]);
     }
 
     public function deliveryMan(): BelongsTo
@@ -130,14 +126,11 @@ class Order extends BaseModel
 
     public function draftInvoice(): BelongsTo
     {
-        return $this->belongsTo(Invoice::class, 'draft_id')->withoutGlobalScopes([OrganizationScope::class, DraftScope::class]);
+        return $this->belongsTo(Invoice::class, 'draft_id')->withoutGlobalScopes([DraftScope::class]);
     }
 
     public function invoice(): BelongsTo
     {
-        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes([OrganizationScope::class, DraftScope::class]);
-
+        return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes([DraftScope::class]);
     }
-
-
 }

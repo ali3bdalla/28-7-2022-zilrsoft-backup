@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\Auth;
 class ManagerRepository extends BaseRepository implements ManagerRepositoryContract
 {
 
-    public function __construct(Manager $model)
-    {
-        parent::__construct($model);
-    }
 
     public function getCurrentManagerBanks(): Collection
     {

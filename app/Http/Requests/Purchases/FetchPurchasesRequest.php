@@ -26,25 +26,23 @@ class FetchPurchasesRequest extends FormRequest
     public function rules()
     {
         return [
-            //
         ];
     }
 
     public function getData()
     {
-
-        if ($this->has('isPending') && $this->filled('isPending') && $this->input("isPending") == 1) {
+        if ($this->has('isPending') && $this->filled('isPending') && 1 == $this->input('isPending')) {
             $query = Invoice::whereIn('invoice_type', ['return_purchase', 'purchase'])->where('is_draft', true);
         } else {
             $query = Invoice::whereIn('invoice_type', ['return_purchase', 'purchase'])->where('is_draft', false);
         }
 
         if (
-            $this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
-            $this->filled('endDate')
+            $this->has('startDate') && $this->filled('startDate') && $this->has('endDate')
+            && $this->filled('endDate')
         ) {
-            $_startDate = Carbon::parse($this->input("startDate"))->toDateString();
-            $_endDate = Carbon::parse($this->input("endDate"))->toDateString();
+            $_startDate = Carbon::parse($this->input('startDate'))->toDateString();
+            $_endDate = Carbon::parse($this->input('endDate'))->toDateString();
             if ($_endDate === $_startDate) {
                 $query = $query->whereDate('created_at', $_startDate);
             } else {
@@ -56,15 +54,15 @@ class FetchPurchasesRequest extends FormRequest
         }
 
         if ($this->has('creators') && $this->filled('creators')) {
-            $query = $query->whereIn('creator_id', $this->input("creators"));
+            $query = $query->whereIn('creator_id', $this->input('creators'));
         }
 
         if ($this->has('departments') && $this->filled('departments')) {
-            $query = $query->whereIn('department_id', $this->input("departments"));
+            $query = $query->whereIn('department_id', $this->input('departments'));
         }
 
         if ($this->has('vendors') && $this->filled('vendors')) {
-            $query = $query->whereIn('managed_by_id', $this->input("vendors"));
+            $query = $query->whereIn('managed_by_id', $this->input('vendors'));
         }
 
         if ($this->has('id') && $this->filled('id')) {
@@ -72,18 +70,18 @@ class FetchPurchasesRequest extends FormRequest
         }
 
         if ($this->has('title') && $this->filled('title')) {
-            $arr = explode("-", $this->input('title'));
+            $arr = explode('-', $this->input('title'));
             if (count($arr) >= 2) {
                 $number = $arr[1];
             } else {
                 $number = $this->input('title');
             }
 
-            $query = $query->where('id', (float)$number)->orWhere('invoice_number', 'iLIKE', $number)->withoutGlobalScopes(['accountingPeriod', 'manager']);
+            $query = $query->where('id', (float) $number)->orWhere('invoice_number', 'iLIKE', $number);
         }
 
         if ($this->has('net') && $this->filled('net')) {
-            $amount = explode("-", $this->net);
+            $amount = explode('-', $this->net);
             if (count($amount) >= 2) {
                 $startAmount = $amount[0];
                 $endAmount = $amount[1];
@@ -94,7 +92,7 @@ class FetchPurchasesRequest extends FormRequest
             $query = $query->whereBetween('net', [$startAmount, $endAmount]);
         }
         if ($this->has('tax') && $this->filled('tax')) {
-            $amount = explode("-", $this->tax);
+            $amount = explode('-', $this->tax);
             if (count($amount) >= 2) {
                 $startAmount = $amount[0];
                 $endAmount = $amount[1];
@@ -105,7 +103,7 @@ class FetchPurchasesRequest extends FormRequest
             $query = $query->whereBetween('tax', [$startAmount, $endAmount]);
         }
         if ($this->has('total') && $this->filled('total')) {
-            $amount = explode("-", $this->total);
+            $amount = explode('-', $this->total);
             if (count($amount) >= 2) {
                 $startAmount = $amount[0];
                 $endAmount = $amount[1];
@@ -116,7 +114,7 @@ class FetchPurchasesRequest extends FormRequest
             $query = $query->whereBetween('total', [$startAmount, $endAmount]);
         }
         if ($this->has('discount') && $this->filled('discount')) {
-            $amount = explode("-", $this->discount);
+            $amount = explode('-', $this->discount);
             if (count($amount) >= 2) {
                 $startAmount = $amount[0];
                 $endAmount = $amount[1];
@@ -127,7 +125,7 @@ class FetchPurchasesRequest extends FormRequest
             $query = $query->whereBetween('discount', [$startAmount, $endAmount]);
         }
         if ($this->has('subtotal') && $this->filled('subtotal')) {
-            $amount = explode("-", $this->subtotal);
+            $amount = explode('-', $this->subtotal);
             if (count($amount) >= 2) {
                 $startAmount = $amount[0];
                 $endAmount = $amount[1];
@@ -141,17 +139,16 @@ class FetchPurchasesRequest extends FormRequest
         if ($this->has('orderBy') && $this->filled('orderBy') && $this->has('orderType') && $this->filled('orderType')) {
             $query = $query->orderBy($this->orderBy, $this->orderType);
         } else {
-            $query = $query->orderByDesc("id");
+            $query = $query->orderByDesc('id');
         }
-
 
         $query = $query->with('creator', 'items', 'manager', 'user');
         if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval(
-            $this->input("itemsPerPage")
+            $this->input('itemsPerPage')
         ) >= 1 && intval($this->input('itemsPerPage')) <= 100) {
             return $query->paginate(intval($this->input('itemsPerPage')));
-        } else {
-            return $query->paginate(20);
         }
+
+        return $query->paginate(20);
     }
 }

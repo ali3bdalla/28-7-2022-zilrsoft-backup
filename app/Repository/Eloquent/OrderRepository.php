@@ -14,9 +14,8 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
 {
     private InvoiceRepositoryContract $invoiceRepositoryContract;
 
-    public function __construct(Order $model, InvoiceRepositoryContract $invoiceRepositoryContract)
+    public function __construct( InvoiceRepositoryContract $invoiceRepositoryContract)
     {
-        parent::__construct($model);
         $this->invoiceRepositoryContract = $invoiceRepositoryContract;
     }
 

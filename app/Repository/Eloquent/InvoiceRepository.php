@@ -11,10 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class InvoiceRepository extends BaseRepository implements InvoiceRepositoryContract
 {
-    public function __construct(Invoice $model)
-    {
-        parent::__construct($model);
-    }
 
     public function getInvoicesPagination(SearchValueObjectContract $searchValueObjectContract): LengthAwarePaginator
     {

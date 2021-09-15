@@ -10,14 +10,10 @@ use App\Http\Requests\Sales\StoreSaleRequest;
 use App\Models\Invoice;
 use App\Repository\InvoiceRepositoryContract;
 use Exception;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Validation\ValidationException;
 
 class SaleController extends Controller
 {
-    /**
-     * @var InvoiceRepositoryContract
-     */
     private InvoiceRepositoryContract $invoiceRepositoryContract;
 
     public function __construct(InvoiceRepositoryContract $invoiceRepositoryContract)
@@ -25,7 +21,7 @@ class SaleController extends Controller
         $this->invoiceRepositoryContract = $invoiceRepositoryContract;
     }
 
-    public function index(FetchSalesRequest $request): LengthAwarePaginator
+    public function index(FetchSalesRequest $request)
     {
 //        return $this->invoiceRepositoryContract->getInvoicesPagination(new InvoiceSearchValueObject(
 //            $request->getInvoiceType(),
@@ -46,7 +42,6 @@ class SaleController extends Controller
         return $request->getData();
     }
 
-
     /**
      * @throws ValidationException
      */
@@ -62,7 +57,6 @@ class SaleController extends Controller
     {
         return $request->store();
     }
-
 
     /**
      * @throws ValidationException

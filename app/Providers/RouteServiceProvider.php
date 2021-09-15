@@ -42,8 +42,6 @@ class RouteServiceProvider extends ServiceProvider
             if (is_numeric($value)) {
                 $query = $query->orWhere('id', $value);
             }
-
-
             return $query->firstOrFail();
         });
         Route::bind('kit', function ($value) {
@@ -111,7 +109,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware(['web', 'auth'])
             ->group(base_path('routes/web.php'));
 
-        Route::middleware('web')
+        Route::middleware(['web'])
             ->prefix('api')
             ->name('api.')
             ->namespace("$this->apiNamespace")

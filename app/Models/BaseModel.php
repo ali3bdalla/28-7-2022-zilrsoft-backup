@@ -13,10 +13,30 @@ use Illuminate\Support\Facades\Auth;
 class BaseModel extends Model
 {
     use HasFactory;
+    use PostgresTimestamp;
 
-    protected static function boot()
+    public function getLocaleNameAttribute()
     {
-        parent::boot();
+        if (app()->isLocale('ar')) {
+            return $this->getOriginal('ar_name');
+        }
+
+        return $this->getOriginal('name');
+    }
+
+    public function getLocaleDescriptionAttribute()
+    {
+        if (app()->isLocale('ar')) {
+            return $this->getOriginal('ar_description');
+        }
+
+        return $this->getOriginal('description');
+    }
+
+
+    protected static function booting()
+    {
+        parent::booting();
         if (Auth::guard('manager')->check()) {
             $organizationId = Auth::user()->organization_id;
             static::addGlobalScope(new OrganizationScope($organizationId));
@@ -25,19 +45,5 @@ class BaseModel extends Model
         }
         static::addGlobalScope(new DraftScope());
         static::addGlobalScope(new PendingScope());
-    }
-
-    public function getLocaleNameAttribute()
-    {
-        if (app()->isLocale('ar')) return $this->getOriginal("ar_name");
-        return $this->getOriginal("name");
-    }
-
-    public function getLocaleDescriptionAttribute()
-    {
-        if (app()->isLocale('ar')) {
-            return $this->getOriginal("ar_description");
-        }
-        return $this->getOriginal("description");
     }
 }

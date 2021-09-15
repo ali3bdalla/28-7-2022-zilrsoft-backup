@@ -16,10 +16,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 class AccountRepository extends BaseRepository implements AccountRepositoryContract
 {
 
-    public function __construct(Account $model)
-    {
-        parent::__construct($model);
-    }
+
 
     public function getAccountTransactionsListPagination(Account $account, SearchValueObjectContract $searchValueObjectContract, SortingValueObjectContract $sortingValueObjectContract): AnonymousResourceCollection
     {

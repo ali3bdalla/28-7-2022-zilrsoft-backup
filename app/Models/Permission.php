@@ -7,7 +7,5 @@ namespace App\Models;
 
     class Permission extends BasePermission
     {
-        //		protected $dateFormat = 'Y-m-d H:i:sO';
-
         use PostgresTimestamp;
     }
