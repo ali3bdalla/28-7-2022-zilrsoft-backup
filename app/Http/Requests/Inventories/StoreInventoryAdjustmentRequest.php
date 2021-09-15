@@ -74,19 +74,6 @@ class StoreInventoryAdjustmentRequest extends FormRequest
                     'updated_at' => $this->getCreatedAt()
                 ]
             );
-
-            $invoice->purchase()->create(
-                [
-                    'receiver_id' => $authUser->id,
-                    'vendor_id' => $user->id,
-                    'organization_id' => $authUser->organization_id,
-                    'vendor_invoice_id' => "",
-                    'invoice_type' => 'inventory_adjustment',
-                    "prefix" => 'IA-',
-                    'created_at' => $this->getCreatedAt(),
-                    'updated_at' => $this->getCreatedAt()
-                ]
-            );
             dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'IA'));
             dispatch_sync(new StoreInventoryAdjustmentItemsJob($invoice, (array)$this->input('items'), false, $this->getCreatedAt()));
             dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));

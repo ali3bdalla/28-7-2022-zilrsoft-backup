@@ -145,7 +145,7 @@ class FetchPurchasesRequest extends FormRequest
         }
 
 
-        $query = $query->with('creator', 'items', 'purchase.vendor', 'manager', 'user');
+        $query = $query->with('creator', 'items', 'manager', 'user');
         if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval(
             $this->input("itemsPerPage")
         ) >= 1 && intval($this->input('itemsPerPage')) <= 100) {

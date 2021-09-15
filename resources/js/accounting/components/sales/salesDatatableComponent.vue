@@ -1,7 +1,7 @@
 <template>
   <div class="table">
     <div class="table-posistion">
-      <div v-if="onlyQuotations==true">
+      <div v-if="onlyQuotations===true">
         <input ref="barcodeAndNameUpdated" v-model="filters.title"
                autofocus="autofocus"
                class="form-control"
@@ -85,12 +85,12 @@
                      type="text" @keyup="pushServerRequest">
             </div>
 
-            <div v-if="canViewAccounting==1" class="col-md-2">
+            <div v-if="canViewAccounting===1" class="col-md-2">
               <input v-model="filters.total" :placeholder="app.trans.total"
                      class="form-control"
                      type="text" @keyup="pushServerRequest">
             </div>
-            <div v-if="canViewAccounting==1" class="col-md-3">
+            <div v-if="canViewAccounting===1" class="col-md-3">
               <accounting-multi-select-with-search-layout-component
                   :options="creators"
                   :placeholder="app.trans.creator"
@@ -106,13 +106,13 @@
 
             </div>
 
-            <div v-if="canViewAccounting==1" class="col-md-3">
+            <div v-if="canViewAccounting===1" class="col-md-3">
               <input v-model="filters.tax" :placeholder="app.trans.tax"
                      class="form-control"
                      type="text" @keyup="pushServerRequest">
             </div>
 
-            <div v-if="canViewAccounting==1" class="col-md-3">
+            <div v-if="canViewAccounting===1" class="col-md-3">
               <accounting-multi-select-with-search-layout-component
                   :options="departments"
                   :placeholder="app.trans.department"
@@ -148,24 +148,24 @@
               {{ app.trans.id }}
             </th>
 
-            <th :class="{'orderBy':orderBy=='id'}" @click="setOrderByColumn('id')">
+            <th :class="{'orderBy':orderBy==='id'}" @click="setOrderByColumn('id')">
               {{ app.trans.invoice_number }}
             </th>
             <th>
               {{ app.trans.client }}
             </th>
 
-            <th :class="{'orderBy':orderBy=='created_at'}" width=""
+            <th :class="{'orderBy':orderBy==='created_at'}" width=""
                 @click="setOrderByColumn('created_at')">
               {{ app.trans.created_at }}
             </th>
 
-            <th :class="{'orderBy':orderBy=='net'}" width=""
+            <th :class="{'orderBy':orderBy==='net'}" width=""
                 @click="setOrderByColumn('net')">
               {{ app.trans.net }}
             </th>
 
-            <th v-if="canViewAccounting==1" :class="{'orderBy':orderBy=='subtotal'}"
+            <th v-if="canViewAccounting===1" :class="{'orderBy':orderBy==='subtotal'}"
                 width=""
                 @click="setOrderByColumn('subtotal')">
               {{ app.trans.subtotal }}
@@ -180,12 +180,12 @@
               {{ app.trans.profit }}
             </th>
 
-            <th :class="{'orderBy':orderBy=='invoice_type'}" width=""
+            <th :class="{'orderBy':orderBy==='invoice_type'}" width=""
                 @click="setOrderByColumn('invoice_type')">
               {{ app.trans.invoice_type }}
             </th>
 
-            <th v-if="canViewAccounting==1" :class="{'orderBy':orderBy=='creator_id'}"
+            <th v-if="canViewAccounting===1" :class="{'orderBy':orderBy==='creator_id'}"
                 width="" @click="setOrderByColumn('creator_id')">
               {{ app.trans.created_by }}
             </th>
@@ -195,7 +195,7 @@
               {{ app.trans.salesman }}
             </th>
 
-            <th v-if="canViewAccounting==1" :class="{'orderBy':orderBy=='tax'}"
+            <th v-if="canViewAccounting===1" :class="{'orderBy':orderBy==='tax'}"
                 width=""
                 @click="setOrderByColumn('tax')">
               {{ app.trans.tax }}
@@ -207,22 +207,22 @@
           <tbody>
 
           <tr v-for="(row,index) in table_rows" :key="row.id"
-              :class="{'bg-info':onlyQuotations == true && row.is_draft_converted}">
+              :class="{'bg-info':onlyQuotations === true && row.is_draft_converted}">
             <td v-text="index+1"></td>
             <td class="text-center" v-text="row.invoice_number"></td>
             <td class="text-center"
-                v-text="row.sale  == null || row.sale.alice_name==null  || row.sale.alice_name == '' ? row.sale.client.locale_name : row.sale.alice_name"></td>
+                v-text="row.sale  == null || row.user_alice_name==null  || row.user_alice_name === '' ? row.user.locale_name : row.user_alice_name"></td>
             <td v-text="row.created_at"></td>
             <td class="text-center" v-text="row.net"></td>
-            <td v-if="canViewAccounting==1" class="text-center" v-text="row.subtotal"></td>
-            <td v-if="canViewAccounting==1 && row.invoice_type=='sale'" class="text-center"
+            <td v-if="canViewAccounting===1" class="text-center" v-text="row.subtotal"></td>
+            <td v-if="canViewAccounting===1 && row.invoice_type==='sale'" class="text-center"
                 v-text="parseFloat(row.invoice_cost).toFixed(2)"></td>
-            <td v-if="canViewAccounting==1 && row.invoice_type=='return_sale'" class="text-center"
+            <td v-if="canViewAccounting===1 && row.invoice_type==='return_sale'" class="text-center"
                 v-text="parseFloat(-row.invoice_cost).toFixed(2)"></td>
 
-            <td v-if="canViewAccounting==1 && row.invoice_type=='sale'" class="text-center"
+            <td v-if="canViewAccounting===1 && row.invoice_type==='sale'" class="text-center"
                 v-text="parseFloat(row.subtotal - row.invoice_cost).toFixed(2)"></td>
-            <td v-if="canViewAccounting==1 && row.invoice_type=='return_sale'" class="text-center"
+            <td v-if="canViewAccounting===1 && row.invoice_type==='return_sale'" class="text-center"
                 v-text="-parseFloat(row.subtotal - row.invoice_cost).toFixed(2)"></td>
 
             <td class="text-center">
@@ -230,13 +230,13 @@
                 <span v-if="row.is_draft_converted">محولة</span>
                 <span v-else>غير محولة</span>
               </span>
-              <span v-else-if="row.invoice_type=='sale'">{{ app.trans.sale }}</span>
+              <span v-else-if="row.invoice_type==='sale'">{{ app.trans.sale }}</span>
 
               <span v-else>{{ app.trans.return_sale }}</span>
             </td>
-            <td v-if="canViewAccounting==1" class="text-center" v-text="row.creator.locale_name"></td>
-            <td class="text-center" v-text="row.sale.salesman.locale_name"></td>
-            <td v-if="canViewAccounting==1" class="text-center" v-text="row.tax"></td>
+            <td v-if="canViewAccounting===1" class="text-center" v-text="row.creator.locale_name"></td>
+            <td class="text-center" v-text="row.manager.locale_name"></td>
+            <td v-if="canViewAccounting===1" class="text-center" v-text="row.tax"></td>
             <td>
               <div class="dropdown">
                 <button :id="'dropDownOptions'
@@ -251,20 +251,20 @@
                   <li><a :href="baseUrl + row.id "
                          v-text="app.trans.view"></a></li>
 
-                  <li v-if="canEdit==1 && row.invoice_type=='sale' && row.is_deleted==0"><a
+                  <li v-if="canEdit===1 && row.invoice_type==='sale' && row.is_deleted===0"><a
                       :href="baseUrl + row.id + '/edit'" v-text="app.trans.return"></a></li>
 
-                  <li v-if="onlyQuotations==true"><a
+                  <li v-if="onlyQuotations===true"><a
                       :href="'/sales/drafts/' + row.id + '/to_invoice'">تحويل الى فاتورة</a></li>
 
-                  <li v-if="onlyQuotations==true"><a
+                  <li v-if="onlyQuotations===true"><a
                       :href="'/sales/drafts/' + row.id + '/clone'">نسخ</a></li>
                 </ul>
               </div>
             </td>
           </tr>
           </tbody>
-          <thead v-if="canViewAccounting==1 && onlyQuotations!=true">
+          <thead v-if="canViewAccounting===1 && onlyQuotations!==true">
           <tr>
             <th>
 
@@ -316,40 +316,40 @@
           </tr>
           </thead>
           <thead v-else>
-           <tr>
-               <th>
+          <tr>
+            <th>
 
-               </th>
+            </th>
 
-               <th>
+            <th>
 
-               </th>
-               <th>
+            </th>
+            <th>
 
-               </th>
+            </th>
 
-               <th>
+            <th>
 
-               </th>
+            </th>
 
-               <th>
-                   {{parseFloat(totals.net).toFixed(2) }}
-               </th>
+            <th>
+              {{ parseFloat(totals.net).toFixed(2) }}
+            </th>
 
-               <!-- <th>
+            <!-- <th>
 
-               </th> -->
+            </th> -->
 
-               <th>
-               </th>
+            <th>
+            </th>
 
-               <th>
+            <th>
 
-               </th>
+            </th>
 
-               <th></th>
-           </tr>
-           </thead>
+            <th></th>
+          </tr>
+          </thead>
         </table>
 
       </div>
@@ -376,7 +376,8 @@ import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
 
 export default {
   components: {
-    VueCtkDateTimePicker, Treeselect
+    VueCtkDateTimePicker,
+    Treeselect
 
   },
   props: [
@@ -453,7 +454,7 @@ export default {
   },
   mounted: function () {
     const appVm = this
-    if (this.creator.id == 7) {
+    if (this.creator.id === 7) {
       setInterval(function () {
         appVm.pushServerRequest()
       }, 40000)
@@ -465,16 +466,56 @@ export default {
       this.requestUrl = '/api/sales'
       this.baseUrl = this.app.trans.SaleBaseUrl + '/'
       this.customDateShortcuts = [
-        { key: 'day', label: this.app.datetimetrans.today, value: 'day' },
-        { key: '-day', label: this.app.datetimetrans.yesterday, value: '-day' },
-        { key: 'thisWeek', label: this.app.datetimetrans.thisWeek, value: 'isoWeek' },
-        { key: 'lastWeek', label: this.app.datetimetrans.lastWeek, value: '-isoWeek' },
-        { key: 'last7Days', label: this.app.datetimetrans.last7Days, value: 7 },
-        { key: 'last30Days', label: this.app.datetimetrans.last30Days, value: 30 },
-        { key: 'thisMonth', label: this.app.datetimetrans.thisMonth, value: 'month' },
-        { key: 'lastMonth', label: this.app.datetimetrans.lastMonth, value: '-month' },
-        { key: 'thisYear', label: this.app.datetimetrans.thisYear, value: 'year' },
-        { key: 'lastYear', label: this.app.datetimetrans.lastYear, value: '-year' }
+        {
+          key: 'day',
+          label: this.app.datetimetrans.today,
+          value: 'day'
+        },
+        {
+          key: '-day',
+          label: this.app.datetimetrans.yesterday,
+          value: '-day'
+        },
+        {
+          key: 'thisWeek',
+          label: this.app.datetimetrans.thisWeek,
+          value: 'isoWeek'
+        },
+        {
+          key: 'lastWeek',
+          label: this.app.datetimetrans.lastWeek,
+          value: '-isoWeek'
+        },
+        {
+          key: 'last7Days',
+          label: this.app.datetimetrans.last7Days,
+          value: 7
+        },
+        {
+          key: 'last30Days',
+          label: this.app.datetimetrans.last30Days,
+          value: 30
+        },
+        {
+          key: 'thisMonth',
+          label: this.app.datetimetrans.thisMonth,
+          value: 'month'
+        },
+        {
+          key: 'lastMonth',
+          label: this.app.datetimetrans.lastMonth,
+          value: '-month'
+        },
+        {
+          key: 'thisYear',
+          label: this.app.datetimetrans.thisYear,
+          value: 'year'
+        },
+        {
+          key: 'lastYear',
+          label: this.app.datetimetrans.lastYear,
+          value: '-year'
+        }
       ]
     },
     pushServerRequest: function () {
@@ -484,7 +525,7 @@ export default {
       params.orderBy = this.orderBy
       params.itemsPerPage = this.itemsPerPage
       params.orderType = this.orderType
-      if (this.onlyQuotations == 1 || this.onlyQuotations == true) {
+      if (this.onlyQuotations === 1 || this.onlyQuotations === true) {
         params.is_draft = true
       }
       axios.get(this.requestUrl, {
@@ -533,9 +574,13 @@ export default {
       }
     },
     setOrderByColumn (column_name) {
-      if (this.orderBy == column_name) {
+      if (this.orderBy === column_name) {
         // alert('hello')
-        if (this.orderType == 'asc') { this.orderType = 'desc' } else { this.orderType = 'asc' }
+        if (this.orderType === 'asc') {
+          this.orderType = 'desc'
+        } else {
+          this.orderType = 'asc'
+        }
       } else {
         this.orderBy = column_name
         this.orderType = 'asc'

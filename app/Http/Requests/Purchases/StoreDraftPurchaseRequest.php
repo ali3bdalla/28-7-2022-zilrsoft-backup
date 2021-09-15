@@ -63,15 +63,7 @@ class StoreDraftPurchaseRequest extends FormRequest
                 'is_draft' => true,
                 'managed_by_id' => $this->receiver_id,
             ]);
-            $invoice->purchase()->create([
-                'receiver_id' => $authUser->id,
-                'vendor_id' => $this->input('vendor_id'),
-                'organization_id' => $authUser->organization_id,
-                'vendor_invoice_id' => $this->input('vendor_invoice_id'),
-                'invoice_type' => 'purchase',
-                'is_draft' => true,
-                "prefix" => 'PU-',
-            ]);
+
             dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'DPU-'));
             dispatch_sync(new StorePurchaseItemsJob($invoice, (array) $this->input('items'), true));
             dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));

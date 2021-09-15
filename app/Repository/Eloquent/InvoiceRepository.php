@@ -18,11 +18,10 @@ class InvoiceRepository extends BaseRepository implements InvoiceRepositoryContr
 
     public function getInvoicesPagination(SearchValueObjectContract $searchValueObjectContract): LengthAwarePaginator
     {
-        $queryBuilder = Invoice::with('purchase.vendor', 'sale.client', 'items.item', "creator", 'sale.salesman')->withCount(
-            [
-                'items AS invoice_cost' => function ($query) {
-                    $query->select(DB::raw("SUM(cost * qty) as invoice_cost"));
-                },
+        $queryBuilder = Invoice::with('items.item', "creator", 'user')->withCount(
+            ['items AS invoice_cost' => function ($query) {
+                $query->select(DB::raw("SUM(cost * qty) as invoice_cost"));
+            },
             ]
         );
         $queryBuilder = $searchValueObjectContract->apply($queryBuilder);
@@ -36,7 +35,6 @@ class InvoiceRepository extends BaseRepository implements InvoiceRepositoryContr
             $invoice->addItems($invoiceDto->getItems());
             return $invoice;
         }, 3);
-
     }
 
 }

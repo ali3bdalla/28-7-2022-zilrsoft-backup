@@ -136,7 +136,7 @@ class StoreReturnPurchaseItemsJob implements ShouldQueue
 
         $data['price'] = $purchasePrice;
         $data['invoice_type'] = 'return_purchase';
-        $data['user_id'] = $this->returnPurchaseInvoice->purchase->vendor_id;
+        $data['user_id'] = $this->returnPurchaseInvoice->user_id;
         $data['qty'] = $returnedQty;
         $data['discount'] = 0;
         $data['total'] = $total;

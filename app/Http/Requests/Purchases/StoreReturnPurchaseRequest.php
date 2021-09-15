@@ -20,70 +20,6 @@ class StoreReturnPurchaseRequest extends FormRequest
 {
 
     /**
-     * @param Invoice $invoice
-     * @param $validateItem
-     */
-    private function validateItemsBelongsToInvoice(Invoice $invoice, $validateItem)
-    {
-        $actualInvoiceItems = $invoice->items()->pluck('id')->toArray();
-        foreach ($validateItem as $item) {
-            if (!in_array($item['id'], $actualInvoiceItems)) {
-                $error = ValidationException::withMessages([
-                    "invoice" => ['all items must belongs to current invoice'],
-                ]);
-                throw  $error;
-            }
-        }
-    }
-
-
-    private function getReturnItems($items = [])
-    {
-        $returnedItems = [];
-        foreach ($items as $item) {
-            if ((float)$item['returned_qty'] >= 1) {
-                $returnedItems[] = $item;
-            }
-        }
-
-        if (empty($returnedItems)) {
-            $error = ValidationException::withMessages([
-                "invoice" => ['returned items must be at lest one item'],
-            ]);
-            throw  $error;
-        }
-        return $returnedItems;
-    }
-
-
-    private function validateReturnedItemsData($items, $invoiceType = 'sale')
-    {
-
-        foreach ($items as $item) {
-            $dbInvoiceItem = InvoiceItems::find($item['id']);
-            $returnedQty = (float)$dbInvoiceItem->returned_qty + (float)$item['returned_qty'];
-            if ($returnedQty > $dbInvoiceItem->qty) {
-                $error = ValidationException::withMessages([
-                    "items.returned_qty" => ['item qty is not enough'],
-                ]);
-                throw $error;
-            }
-
-            if (!$dbInvoiceItem->item->is_service && !$dbInvoiceItem->item->is_kit) {
-                if ($dbInvoiceItem->invoice_type == 'purchase') {
-                    if ($returnedQty > $dbInvoiceItem->item->available_qty) {
-                        $error = ValidationException::withMessages([
-                            "items.returned_qty" => ['item qty is not enough'],
-                        ]);
-                        throw $error;
-                    }
-                }
-            }
-        }
-    }
-
-
-    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -131,15 +67,8 @@ class StoreReturnPurchaseRequest extends FormRequest
                 'department_id' => $purchaseInvoice->department_id,
                 'user_id' => $purchaseInvoice->user_id,
                 'managed_by_id' => $purchaseInvoice->managed_by_id,
-                'parent_id' => $purchaseInvoice->id
-            ]);
-            $invoice->purchase()->create([
-                'receiver_id' => $purchaseInvoice->managed_by_id,
-                'vendor_id' => $purchaseInvoice->user_id,
-                'organization_id' => $authUser->organization_id,
-                'vendor_invoice_id' => $purchaseInvoice->purchase->vendor_invoice_number,
-                'invoice_type' => 'return_purchase',
-                "prefix" => 'RPU-',
+                'parent_id' => $purchaseInvoice->id,
+                'vendor_invoice_id' => $purchaseInvoice->vendor_invoice_id,
             ]);
             dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'RPU-'));
             dispatch_sync(new StoreReturnPurchaseItemsJob($invoice, $purchaseInvoice, (array)$returnedItems));
@@ -154,6 +83,41 @@ class StoreReturnPurchaseRequest extends FormRequest
         }
     }
 
+    /**
+     * @param Invoice $invoice
+     * @param $validateItem
+     */
+    private function validateItemsBelongsToInvoice(Invoice $invoice, $validateItem)
+    {
+        $actualInvoiceItems = $invoice->items()->pluck('id')->toArray();
+        foreach ($validateItem as $item) {
+            if (!in_array($item['id'], $actualInvoiceItems)) {
+                $error = ValidationException::withMessages([
+                    "invoice" => ['all items must belongs to current invoice'],
+                ]);
+                throw  $error;
+            }
+        }
+    }
+
+    private function getReturnItems($items = [])
+    {
+        $returnedItems = [];
+        foreach ($items as $item) {
+            if ((float)$item['returned_qty'] >= 1) {
+                $returnedItems[] = $item;
+            }
+        }
+
+        if (empty($returnedItems)) {
+            $error = ValidationException::withMessages([
+                "invoice" => ['returned items must be at lest one item'],
+            ]);
+            throw  $error;
+        }
+        return $returnedItems;
+    }
+
     private function validateSerials($items)
     {
         foreach ($items as $item) {
@@ -166,6 +130,32 @@ class StoreReturnPurchaseRequest extends FormRequest
                 }
                 foreach ($item['serials'] as $serial) {
                     dispatch_sync(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase']));
+                }
+            }
+        }
+    }
+
+    private function validateReturnedItemsData($items, $invoiceType = 'sale')
+    {
+
+        foreach ($items as $item) {
+            $dbInvoiceItem = InvoiceItems::find($item['id']);
+            $returnedQty = (float)$dbInvoiceItem->returned_qty + (float)$item['returned_qty'];
+            if ($returnedQty > $dbInvoiceItem->qty) {
+                $error = ValidationException::withMessages([
+                    "items.returned_qty" => ['item qty is not enough'],
+                ]);
+                throw $error;
+            }
+
+            if (!$dbInvoiceItem->item->is_service && !$dbInvoiceItem->item->is_kit) {
+                if ($dbInvoiceItem->invoice_type == 'purchase') {
+                    if ($returnedQty > $dbInvoiceItem->item->available_qty) {
+                        $error = ValidationException::withMessages([
+                            "items.returned_qty" => ['item qty is not enough'],
+                        ]);
+                        throw $error;
+                    }
                 }
             }
         }

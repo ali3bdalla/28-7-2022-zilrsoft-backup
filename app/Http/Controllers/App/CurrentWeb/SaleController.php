@@ -10,7 +10,6 @@ use App\Models\Manager;
 use App\Models\Order;
 use App\Models\User;
 use App\Repository\AccountRepositoryContract;
-use App\Scopes\DraftScope;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -93,19 +92,18 @@ class SaleController extends Controller
         $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get();
         $expenses = Item::whereIsExpense(true)->get();
         $gateways = $this->accountRepositoryContract->getPaymentMethodsAccountsListToAuthedManager();
-        $sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
+        $sale = $sale->load('items.item.items.item', 'items.item.data');
         return view('sales.clone_draft', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale'));
     }
 
 
     function toInvoice(Invoice $sale)
     {
-        $sale->sale = $sale->sale()->withoutGlobalScope(DraftScope::class)->first();
         $salesmen = Manager::all();
         $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get()->toArray();
         $expenses = Item::whereIsExpense(true)->get();
         $gateways = $this->accountRepositoryContract->getPaymentMethodsAccountsListToAuthedManager();
-        $sale = $sale->load('items.item.items.item', 'items.item.data', 'sale.client', 'sale.salesman');
+        $sale = $sale->load('items.item.items.item', 'items.item.data');
         $isOrder = Order::where([['draft_id', $sale->id], ['status', 'in_progress']])->count() == 1;
         return view('sales.clone', compact('clients', 'salesmen', 'gateways', 'expenses', 'sale', 'isOrder'));
     }
@@ -119,7 +117,6 @@ class SaleController extends Controller
     {
         $transactions = $sale->transactions()->with('account')->get();
         $invoice = $sale->load('payments.account', 'items.item');
-        $invoice->sale = $invoice->sale()->with('client', 'salesman')->withoutGlobalScope(DraftScope::class)->first();
         return view('sales.view', compact('invoice', 'transactions'));
     }
 
@@ -131,7 +128,6 @@ class SaleController extends Controller
     public function edit(Invoice $sale)
     {
         $invoice = $sale;
-        $sale = $invoice->sale;
         $items = [];
         $data_source_items = $invoice->items()->where('parent_kit_id', 0)->with('item')->get();
         foreach ($data_source_items as $item) {
@@ -145,7 +141,7 @@ class SaleController extends Controller
         }
         $expenses = [];
         $gateways = $this->accountRepositoryContract->getPaymentMethodsAccountsListToAuthedManager();
-        return view('sales.create_return', compact('sale', 'invoice', 'items', 'gateways', 'expenses'));
+        return view('sales.create_return', compact('invoice', 'items', 'gateways', 'expenses'));
     }
 
 }

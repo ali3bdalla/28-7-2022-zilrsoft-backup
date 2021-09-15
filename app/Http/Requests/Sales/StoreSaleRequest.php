@@ -64,7 +64,7 @@ class StoreSaleRequest extends FormRequest
     }
 
     /**
-     * @throws ValidationException
+     * @throws ValidationException|Throwable
      */
     public function store()
     {
@@ -89,18 +89,9 @@ class StoreSaleRequest extends FormRequest
                     'managed_by_id' => $this->input('salesman_id'),
                 ]
             );
-            $invoice->sale()->create(
-                [
-                    'salesman_id' => $this->input('salesman_id'),
-                    'client_id' => $this->input('client_id'),
-                    'organization_id' => $authUser->organization_id,
-                    'invoice_type' => 'sale',
-                    'alice_name' => $this->input('alice_name'),
-                    "prefix" => "S"
-                ]
-            );
+
             dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'S'));
-            dispatch_sync(new StoreSaleItemsJob($invoice, (array)$this->input('items'), false, null,  $isOnlineOrder));
+            dispatch_sync(new StoreSaleItemsJob($invoice, (array)$this->input('items'), false, null, $isOnlineOrder));
             dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             /**
              *
@@ -239,7 +230,6 @@ class StoreSaleRequest extends FormRequest
         $totalPaidAmount = $methodsCollects->sum('amount');
         $user = User::find($this->input('client_id'));
         if ($user->is_system_user) {
-
             if ($totalPaidAmount != $invoice->net) {
                 throw_if($paymentsMethodsCount < 1, ValidationException::withMessages(['payments' => "summation of payments methods should match invoice net "]));
                 $variationAmount = (float)$totalPaidAmount - (float)$invoice->fresh()->net;

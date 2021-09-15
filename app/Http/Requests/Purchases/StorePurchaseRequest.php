@@ -73,16 +73,7 @@ class StorePurchaseRequest extends FormRequest
                     'department_id' => $authUser->department_id,
                     'user_id' => $this->input('vendor_id'),
                     'managed_by_id' => $this->input('receiver_id'),
-                ]
-            );
-            $invoice->purchase()->create(
-                [
-                    'receiver_id' => $this->input('receiver_id'),
-                    'vendor_id' => $this->input('vendor_id'),
-                    'organization_id' => $authUser->organization_id,
                     'vendor_invoice_id' => $this->input('vendor_invoice_id'),
-                    'invoice_type' => 'purchase',
-                    "prefix" => 'PU-',
                 ]
             );
             dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'PU-'));

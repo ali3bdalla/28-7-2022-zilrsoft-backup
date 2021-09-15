@@ -98,7 +98,6 @@
 
 
     <div class="panel-body">
-      <tile v-show="isLoading" :color="app.primaryColor" :loading="isLoading"></tile>
       <div class="table-posistion">
 
         <div class="table-filters">

@@ -114,10 +114,6 @@ class Organization extends BaseModel
         return $this->hasMany(Item::class, 'organization_id');
     }
 
-    public function sales(): HasMany
-    {
-        return $this->hasMany(Sale::class, 'organization_id');
-    }
 
     public function payments(): HasMany
     {

@@ -100,14 +100,7 @@ class CreatePurchaseInvoiceForExpensesJob implements ShouldQueue
             'user_id' => $item->expense_vendor_id,
             'managed_by_id' => $authUser->id
         ]);
-        $invoice->purchase()->create([
-            'receiver_id' => $authUser->id,
-            'vendor_id' => $item->expense_vendor_id,
-            'organization_id' => $authUser->organization_id,
-            'vendor_invoice_id' => uniqid(),
-            'invoice_type' => 'purchase',
-            "prefix" => "PU-"
-        ]);
+
 
         dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'PU-'));
         dispatch_sync(new StorePurchaseItemsJob($invoice, [$dbData]));

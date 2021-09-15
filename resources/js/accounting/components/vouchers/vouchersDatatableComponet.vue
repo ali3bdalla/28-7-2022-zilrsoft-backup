@@ -189,7 +189,6 @@
 
 
       </div>
-      <tile v-show="isLoading" :color="app.primaryColor" :loading="isLoading"></tile>
       <div class="table-paginations">
         <accounting-table-pagination-helper-layout-component
             :data="paginationResponseData"

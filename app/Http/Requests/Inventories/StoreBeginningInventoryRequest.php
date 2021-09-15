@@ -64,14 +64,7 @@ class StoreBeginningInventoryRequest extends FormRequest
                 'user_id' => $beginningInventoryUser->id,
                 'managed_by_id' => $authUser->id,
             ]);
-            $invoice->purchase()->create([
-                'receiver_id' => $authUser->id,
-                'vendor_id' => $beginningInventoryUser->id,
-                'organization_id' => $authUser->organization_id,
-                'vendor_invoice_id' => '',
-                'invoice_type' => 'beginning_inventory',
-                "prefix" => 'BGI-',
-            ]);
+
             dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'BGI-'));
             dispatch_sync(new StorePurchaseItemsJob($invoice, (array)$this->input('items'), false, 'beginning_inventory'));
             dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));

@@ -71,7 +71,7 @@ class StoreReturnPurchaseTransactionsJob implements ShouldQueue
         foreach ($items as $item) {
             $data = $this->startupData;
             $data['amount'] = $item->subtotal;
-            $data['user_id'] = $this->invoice->purchase->vendor_id;
+            $data['user_id'] = $this->invoice->user_id;
             $data['type'] = 'credit';
             $data['item_id'] = $item['item_id'];
             $this->stockAccount->transactions()->create($data);
@@ -108,9 +108,9 @@ class StoreReturnPurchaseTransactionsJob implements ShouldQueue
             }
 
             $data['amount'] = abs($unpaidAmount);
-            $data['user_id'] = $this->invoice->purchase->vendor_id;
+            $data['user_id'] = $this->invoice->user_id;
             $this->vendorAccount->transactions()->create($data);
-            dispatch_sync(new UpdateVendorBalanceJob($this->invoice->purchase->vendor, abs($unpaidAmount), $balanceUpdate));
+            dispatch_sync(new UpdateVendorBalanceJob($this->invoice->user, abs($unpaidAmount), $balanceUpdate));
 
         }
     }

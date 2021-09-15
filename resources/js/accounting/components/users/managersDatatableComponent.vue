@@ -1,6 +1,5 @@
 <template>
   <div class="table">
-    <tile v-show="isLoading" :color="primaryColor" :loading="isLoading"></tile>
     <div class="table-posistion">
 
       <div class="table-filters">
@@ -101,7 +100,7 @@
             <td class="text-center">
               {{ row.email }}
             </td>
-            <td class="text-center">{{ row.user ? row.user.phone_number : "" }}</td>
+            <td class="text-center">{{ row.user ? row.user.phone_number : '' }}</td>
             <td class="text-center">
                             <span v-if="row.department!=null">{{ row.branch.locale_name }} - {{
                                 row.department.locale_title
@@ -410,19 +409,19 @@ export default {
       const appVm = this
 
       this.$dialog
-        .confirm(this.messages.confirm_msg, options)
-        .then(dialog => {
-          axios.delete(appVm.BaseApiUrl + 'managers/' + identity.id)
-            .then(function (response) {
-              window.location.reload()
-            })
-            .catch(function (error) {
+          .confirm(this.messages.confirm_msg, options)
+          .then(dialog => {
+            axios.delete(appVm.BaseApiUrl + 'managers/' + identity.id)
+                .then(function (response) {
+                  window.location.reload()
+                })
+                .catch(function (error) {
 
-            })
-        })
-        .catch(() => {
+                })
+          })
+          .catch(() => {
 
-        })
+          })
     }
 
   },

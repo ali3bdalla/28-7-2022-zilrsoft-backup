@@ -68,7 +68,7 @@ class StoreBeginningInventoryTransactionsJob implements ShouldQueue
         foreach ($items as $item) {
             $data = $this->startupData;
             $data['amount'] = $item->subtotal;
-            $data['user_id'] = $this->invoice->purchase->vendor_id;
+            $data['user_id'] = $this->invoice->user_id;
             $data['type'] = 'debit';
             $data['item_id'] = $item['item_id'];
             $this->stockAccount->transactions()->create($data);

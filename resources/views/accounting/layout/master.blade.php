@@ -3,17 +3,12 @@
 <head>
     @includeIf("accounting.layout.head.meta")
     <title>@yield('title',config("app.name"))</title>
-
-    {{--    @includeIf("accounting.layout.head.defer_js")--}}
-
-
     <script defer>
         window.reusable_translator = `@json(trans('reusable'))`;
         window.messages = `@json(trans('messages'))`
         window._locale = '{{ app()->getLocale() }}';
         window._translations =  `@json($app_transactions)`;
     </script>
-
     @defer_js_asset('accounting/js/rsvp.min.js')
     @defer_js_asset('accounting/js/font_awesome.js')
     @defer_js_asset('js/app.js')

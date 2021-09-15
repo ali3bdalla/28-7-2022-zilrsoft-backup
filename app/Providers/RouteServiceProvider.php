@@ -91,8 +91,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapStoreRoutes()
     {
-        Route::group(['middleware' => ["web", "ecommerceMiddleware"], 'as' => 'web.', 'namespace' => "App\Http\Controllers\Store\Web", 'prefix' => "web"],
-            base_path('store-routes/web.php'));
+        Route::group(['middleware' => ["web", "ecommerceMiddleware"], 'as' => 'web.', 'namespace' => "App\Http\Controllers\Store\Web", 'prefix' => "web"],base_path('store-routes/web.php'));
         Route::group(['middleware' => ['web', 'ecommerceMiddleware'], 'prefix' => 'api/web', 'as' => 'api.web.', 'namespace' => '\App\Http\Controllers\Store\API'], base_path('store-routes/api.php'));
     }
 

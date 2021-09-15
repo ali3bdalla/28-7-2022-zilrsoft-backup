@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property mixed max_base_weight
- * @property mixed max_base_weight_price
- * @property mixed kg_rate_after_max_price
- * @property mixed kg_rate_after_max_cost
- * @property mixed max_base_weight_cost
- * @property mixed id
+ * @property float max_base_weight
+ * @property float max_base_weight_price
+ * @property float kg_rate_after_max_price
+ * @property float kg_rate_after_max_cost
+ * @property float max_base_weight_cost
+ * @property integer id
  */
 class ShippingMethod extends BaseModel
 {
@@ -65,18 +65,18 @@ class ShippingMethod extends BaseModel
         }
         return $shippingCost;
     }
+
     public function getShippingAmount(float $weight = 0, float $discount = 0): float
     {
         $kgAfterBase = $weight - $this->max_base_weight;
         $amount = $this->getBaseWeightPrice();
         if ($kgAfterBase)
             $amount += (float)($kgAfterBase * $this->kg_rate_after_max_price);
-
         if ($discount > $amount) return 0;
         return $amount - $discount;
     }
 
-    public function getBaseWeightPrice()
+    public function getBaseWeightPrice(): float
     {
         return $this->max_base_weight_price;
     }

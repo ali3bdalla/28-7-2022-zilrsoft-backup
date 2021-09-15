@@ -19,16 +19,16 @@ class CancelOrderJob implements ShouldQueue
     /**
      * @var Order
      */
-    private $order;
-    private $isManual;
+    private Order $order;
+    private bool $isManual;
 
     /**
      * Create a new job instance.
      *
      * @param Order $order
-     * @param $isManual
+     * @param bool $isManual
      */
-    public function __construct(Order $order, $isManual = false)
+    public function __construct(Order $order, bool $isManual = false)
     {
         //
         $this->order = $order;

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2fe83112ad3bc77703760ca96ca4fc15",
+    "content-hash": "056c5599579b40d6d6fe7c318ed6c75b",
     "packages": [
         {
             "name": "3li3bdalla/tafqeet",
@@ -2930,6 +2930,56 @@
                 "source": "https://github.com/guzzle/psr7/tree/1.8.2"
             },
             "time": "2021-04-26T09:17:50+00:00"
+        },
+        {
+            "name": "halivert/laravel-js-routes",
+            "version": "v4.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/halivert/laravel-js-routes.git",
+                "reference": "17a52af6184daa4668c19fc84ae7b33a2aa0ab4b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/halivert/laravel-js-routes/zipball/17a52af6184daa4668c19fc84ae7b33a2aa0ab4b",
+                "reference": "17a52af6184daa4668c19fc84ae7b33a2aa0ab4b",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">= 6.20.14 |>= 7.30.4|>= 8.40.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Halivert\\JSRoutes\\JSRoutesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Halivert\\JSRoutes\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Halí V.",
+                    "email": "halivelazquez@outlook.com"
+                }
+            ],
+            "description": "Command for use Laravel routes in JS",
+            "support": {
+                "issues": "https://github.com/halivert/laravel-js-routes/issues",
+                "source": "https://github.com/halivert/laravel-js-routes/tree/v4.2.3"
+            },
+            "time": "2021-07-14T03:53:47+00:00"
         },
         {
             "name": "inertiajs/inertia-laravel",
@@ -9996,6 +10046,72 @@
                 }
             ],
             "time": "2021-08-04T23:19:25+00:00"
+        },
+        {
+            "name": "tightenco/ziggy",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tighten/ziggy.git",
+                "reference": "9e709f5f9abbe3045d8034f6420e62efed1723ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tighten/ziggy/zipball/9e709f5f9abbe3045d8034f6420e62efed1723ed",
+                "reference": "9e709f5f9abbe3045d8034f6420e62efed1723ed",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.4@dev"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Tightenco\\Ziggy\\ZiggyServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Tightenco\\Ziggy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Coulbourne",
+                    "email": "daniel@tighten.co"
+                },
+                {
+                    "name": "Jake Bathman",
+                    "email": "jake@tighten.co"
+                },
+                {
+                    "name": "Jacob Baker-Kretzmar",
+                    "email": "jacob@tighten.co"
+                }
+            ],
+            "description": "Generates a Blade directive exporting all of your named Laravel routes. Also provides a nice route() helper function in JavaScript.",
+            "homepage": "https://github.com/tighten/ziggy",
+            "keywords": [
+                "Ziggy",
+                "javascript",
+                "laravel",
+                "routes"
+            ],
+            "support": {
+                "issues": "https://github.com/tighten/ziggy/issues",
+                "source": "https://github.com/tighten/ziggy/tree/v1.4.0"
+            },
+            "time": "2021-08-25T20:24:20+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

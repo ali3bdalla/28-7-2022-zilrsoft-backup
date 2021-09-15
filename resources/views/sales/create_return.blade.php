@@ -17,8 +17,7 @@
             :gateways='@json($gateways)'
             :creator='@json($invoice->creator)'
             :items='@json($items)'
-            :invoice='@json($invoice->load('department','branch'))'
-            :sale='@json($sale->load('client','salesman'))'>
+            :invoice='@json($invoice->load('department','branch'))'>
 
     </accounting-sales-return-component>
 

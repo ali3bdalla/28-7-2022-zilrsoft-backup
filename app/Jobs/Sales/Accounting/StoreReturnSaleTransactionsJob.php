@@ -131,7 +131,7 @@ class StoreReturnSaleTransactionsJob implements ShouldQueue
 		$netAmount = (float)$this->invoice->net;
 		if ($paidAmount != $netAmount) {
 			$variation = $paidAmount - $netAmount;
-			if ($this->invoice->sale->client->is_system_user) {
+			if ($this->invoice->user->is_system_user) {
 				$fistPayment = $this->invoice->payments()->first();
 				if ($fistPayment == null) {
 					throw ValidationException::withMessages(['payments' => "summation of payments methods should match invoice net "]);
@@ -159,14 +159,14 @@ class StoreReturnSaleTransactionsJob implements ShouldQueue
 					$data['user_id'] = $this->invoice->user_id;
 					$data['type'] = 'debit';
 					$this->clientAccount->transactions()->create($data);
-					dispatch_sync(new UpdateClientBalanceJob($this->invoice->sale->client, abs($variation), 'increase'));
+					dispatch_sync(new UpdateClientBalanceJob($this->invoice->user, abs($variation), 'increase'));
 				} else {
 					$data = $this->startupData;
 					$data['amount'] = abs($variation);
 					$data['user_id'] = $this->invoice->user_id;
 					$data['type'] = 'credit';
 					$this->clientAccount->transactions()->create($data);
-					dispatch_sync(new UpdateClientBalanceJob($this->invoice->sale->client, abs($variation), 'decrease'));
+					dispatch_sync(new UpdateClientBalanceJob($this->invoice->user, abs($variation), 'decrease'));
 				}
 			}
 		}

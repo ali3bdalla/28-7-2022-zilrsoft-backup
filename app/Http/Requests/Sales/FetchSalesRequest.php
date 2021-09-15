@@ -151,9 +151,7 @@ class FetchSalesRequest extends FormRequest
 
         $query = $query->with(
             [
-                'creator', 'items', 'sale' => function ($sale) {
-                return $sale->withoutGlobalScope(DraftScope::class)->withoutGlobalScope('manager');
-            }, 'sale.client', 'sale.salesman',
+                'creator', 'items',"user","manager"
             ]
         );
 

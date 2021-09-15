@@ -20,10 +20,6 @@
                         - @endif </th>
             @endif
 
-
-
-
-
         @else
 
             @if($invoice_transaction['description']=='to_item' || $invoice_transaction['description']=='to_tax')

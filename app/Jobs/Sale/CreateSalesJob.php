@@ -35,7 +35,7 @@ class CreateSalesJob implements ShouldQueue
         $this->clientId = $clientId;
         $this->items = $items;
         $this->paymentsMethods = $paymentsMethods;
-        $this->salesmanId = $salesmanId ? $salesmanId : auth('manager')->user()->id;
+        $this->salesmanId = $salesmanId ?? auth('manager')->user()->id;
         $this->aliasName = $aliasName;
         $this->quatationId = $quatationId;
         $this->isOnlineOrder = $isOnlineOrder;
@@ -62,16 +62,7 @@ class CreateSalesJob implements ShouldQueue
                 'managed_by_id' => $this->salesmanId,
             ]
         );
-        $invoice->sale()->create(
-            [
-                'salesman_id' => $this->salesmanId,
-                'client_id' => $this->clientId,
-                'organization_id' => $authUser->organization_id,
-                'invoice_type' => 'sale',
-                'alice_name' => $this->aliasName,
-                "prefix" => "S"
-            ]
-        );
+
         dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'S'));
         dispatch_sync(new StoreSaleItemsJob($invoice, (array)$this->items));
         dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));

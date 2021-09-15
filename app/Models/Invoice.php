@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -25,7 +24,6 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed id
  * @property mixed branch_id
  * @property mixed department_id
- * @property mixed sale
  * @property mixed purchase
  * @property mixed total
  * @property mixed invoice_number
@@ -41,6 +39,7 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed is_online
  * @property mixed subtotal
  * @property mixed discount
+ * @property mixed user_alice_name
  *
  * @method static create(array $array)
  */
@@ -108,10 +107,6 @@ class Invoice extends BaseModel
         return $this->belongsTo(Organization::class, 'organization_id');
     }
 
-    public function sale(): HasOne
-    {
-        return $this->hasOne(Sale::class, 'invoice_id');
-    }
 
     public function creator()
     {
@@ -133,10 +128,6 @@ class Invoice extends BaseModel
         return $this->hasMany(InvoiceItems::class, 'invoice_id')->withoutGlobalScope(DraftScope::class);
     }
 
-    public function purchase(): HasOne
-    {
-        return $this->hasOne(Purchase::class, 'invoice_id');
-    }
 
     public function serial_history(): HasOne
     {
@@ -195,8 +186,8 @@ class Invoice extends BaseModel
 
     public function getFinalUserNameAttribute()
     {
-        if (in_array($this->invoice_type, ['sale', 'return_sale']) && null != $this->sale->alice_name) {
-            return $this->sale->alice_name;
+        if (in_array($this->invoice_type, ['sale', 'return_sale']) && null != $this->user_alice_name) {
+            return $this->user_alice_name;
         }
 
         return $this->user->locale_name;
@@ -219,24 +210,24 @@ class Invoice extends BaseModel
 
     public function addItems(Collection $items): Collection
     {
-       return $items->each(function (InvoiceItemDto $invoiceItemDto) {
+        return $items->each(function (InvoiceItemDto $invoiceItemDto) {
             $invoiceItemDto->setInvoice($this);
-            $invoiceItem =  InvoiceItems::factory()
+            $invoiceItem = InvoiceItems::factory()
                 ->setDto($invoiceItemDto)
                 ->create();
-           $net = (float)$this->net  + (float)$invoiceItem->net;
-           $total = (float)$this->total  + (float)$invoiceItem->total;
-           $tax = (float)$this->tax  + (float)$invoiceItem->tax;
-           $discount = (float)$this->discount  + (float)$invoiceItem->discount;
-           $subtotal = (float)$this->subtotal  + (float)$invoiceItem->subtotal;
-           $this->update([
-               'net' => $net,
-               'total' => $total,
-               'subtotal' => $subtotal,
-               'discount' => $discount,
-               'tax' => $tax,
-           ]);
-           return $invoiceItem;
+            $net = (float)$this->net + (float)$invoiceItem->net;
+            $total = (float)$this->total + (float)$invoiceItem->total;
+            $tax = (float)$this->tax + (float)$invoiceItem->tax;
+            $discount = (float)$this->discount + (float)$invoiceItem->discount;
+            $subtotal = (float)$this->subtotal + (float)$invoiceItem->subtotal;
+            $this->update([
+                'net' => $net,
+                'total' => $total,
+                'subtotal' => $subtotal,
+                'discount' => $discount,
+                'tax' => $tax,
+            ]);
+            return $invoiceItem;
         });
     }
 

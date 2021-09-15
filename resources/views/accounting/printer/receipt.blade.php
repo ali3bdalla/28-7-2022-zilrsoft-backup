@@ -70,10 +70,10 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row">wb
         <div class="col-xs-6"> اسم العميل</div>
         <div class="col-xs-6 text-left">
-            {{ $invoice->sale->alice_name == "" ? $invoice->sale->client->locale_name :$invoice->sale->alice_name   }}</div>
+            {{ $invoice->user_alice_name == "" ? $invoice->user->locale_name :$invoice->user_alice_name   }}</div>
     </div>
 
 
@@ -97,7 +97,7 @@
 
     <div class="row">
         <div class="col-xs-6"> البائع</div>
-        <div class="col-xs-6 text-left " style="direction: ltr"> {{$invoice->sale->salesman->locale_name }}</div>
+        <div class="col-xs-6 text-left " style="direction: ltr"> {{$invoice->manager->locale_name }}</div>
     </div>
 
     <br>

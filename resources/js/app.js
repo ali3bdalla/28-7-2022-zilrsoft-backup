@@ -11,9 +11,11 @@ import VModal from 'vue-js-modal'
 import VueSimpleAlert from 'vue-simple-alert'
 import 'element-ui/lib/theme-chalk/index.css'
 import ToggleButton from 'vue-js-toggle-button'
+import { route } from './routes.js'
 
 require('./bootstrap')
 window.TextValidator = require('validator')
+window.route = route
 window.getRequestUrl = function (path) {
   return '/api/web/' + path + '?lang=ar'
 }
@@ -24,7 +26,6 @@ window.getIndex = function (needle, haystack) {
   }
   return -1
 }
-
 require('./accounting/load')
 require('./store-app/func')
 Vue.use(Vuetify)
