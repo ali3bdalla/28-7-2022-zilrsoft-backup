@@ -12,8 +12,9 @@ use Spatie\Permission\Traits\HasRoles;
 
 class BaseAuthModel extends Authenticatable
 {
-    use Notifiable, HasRoles, PostgresTimestamp;
+    use Notifiable, HasRoles;
     use HasFactory;
+
     protected static function boot()
     {
         parent::boot();

@@ -27,6 +27,7 @@ class Manager extends BaseAuthModel
     use SoftDeletes;
     use Notifiable;
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -85,13 +86,11 @@ class Manager extends BaseAuthModel
 
     public function department(): BelongsTo
     {
-        // return 1;
         return $this->belongsTo(Department::class, 'department_id');
     }
 
     public function branch(): BelongsTo
     {
-        // return 1;
         return $this->belongsTo(Branch::class, 'branch_id');
     }
 
@@ -129,17 +128,11 @@ class Manager extends BaseAuthModel
     }
 
 
-
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class, 'creator_id');
     }
 
-
-
-    /**
-     * @return mixed
-     */
     public function resellerClosingAccounts()
     {
         return $this->hasMany(ResellerClosingAccount::class, 'creator_id');

@@ -2,8 +2,6 @@
 
 @section('title',__('pages/invoice.view') . ' | '. $invoice->invoice_number )
 
-
-
 @section('page_css')
     @if($invoice->is_draft)
         <style>

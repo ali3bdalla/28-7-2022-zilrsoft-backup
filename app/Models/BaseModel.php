@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Auth;
 
 class BaseModel extends Model
 {
-    use PostgresTimestamp;
     use HasFactory;
+
     protected static function boot()
     {
         parent::boot();
@@ -38,7 +38,6 @@ class BaseModel extends Model
         if (app()->isLocale('ar')) {
             return $this->getOriginal("ar_description");
         }
-
         return $this->getOriginal("description");
     }
 }
