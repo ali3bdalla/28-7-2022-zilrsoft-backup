@@ -23,13 +23,13 @@ class ManagerRepository extends BaseRepository implements ManagerRepositoryContr
 
     public function getAllManagersBanksExcept(array $managersId): array
     {
-        $managers =Manager::whereNotIn('id', $managersId)->with('gateways')->get();
+        $managers =Manager::query()->whereNotIn('id', $managersId)->with('gateways')->get();
         $managerBanks = [];
         foreach ($managers as $manager) {
-            foreach ($manager->gateways as $gateway) {
+            foreach ($manager->gateways()->get() as $gateway) {
                 if ($gateway->is_gateway) {
                     $gateway['receiver_id'] = $manager['id'];
-                    $gateways[] = $gateway;
+                    $managerBanks[] = $gateway;
                 }
             }
         }

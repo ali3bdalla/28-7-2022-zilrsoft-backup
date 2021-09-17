@@ -112,8 +112,6 @@ Route::prefix('daily')->name('daily.')->group(
                     function () {
                         Route::get('/', [DailyController::class, 'resellerAccountsTransactionsIndex'])->name('index');
                         Route::get('/create', [DailyController::class, 'createResellerAccountTransaction'])->name('create');
-                        Route::get('/{transaction}/confirm', [DailyController::class, 'confirmResellerAccountTransaction'])->name('confirm');
-                        Route::get('/{transaction}/delete_transaction', [DailyController::class, 'deleteResellerAccountTransaction'])->name('confirm');
                     }
                 );
             }

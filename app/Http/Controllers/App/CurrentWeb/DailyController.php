@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\App\CurrentWeb;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\Accounting\Entity\ActivateEntityJob;
-use App\Models\Manager;
 use App\Models\ResellerClosingAccount;
 use App\Repository\AccountsDailyRepositoryContract;
 use App\Repository\ManagerRepositoryContract;
 use App\Scopes\PendingScope;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,7 +46,7 @@ class DailyController extends Controller
                 ['creator_id', Auth::id()],
                 ['transaction_type', 'transfer'],
             ]
-        )->orWhere('receiver_id', Auth::id())->orderBy('id', 'desc')->paginate(15);
+        )->orWhere('receiver_id', Auth::id())->withoutGlobalScope(PendingScope::class)->orderBy('id', 'desc')->paginate(15);
 
         return view('accounting.reseller_daily.tranfers_list', compact('managerCloseAccountList'));
     }
@@ -62,29 +59,4 @@ class DailyController extends Controller
         return view('accounting.reseller_daily.transfer_amounts', compact('gateways', 'manager_gateways'));
     }
 
-    public function confirmResellerAccountTransaction($transaction): RedirectResponse
-    {
-        $transaction = ResellerClosingAccount::where([['id', $transaction], ['receiver_id', Auth::id()], ['transaction_type', 'transfer']])->withoutGlobalScope(PendingScope::class)->firstOrFail();
-        $container = $transaction->container;
-        dispatch_sync(new ActivateEntityJob($container));
-        $transaction->update(['is_pending' => false]);
-        $creator = Manager::find($transaction->creator_id);
-        if ($creator) {
-            $creator->update(
-                [
-                    'remaining_accounts_balance' => $transaction->remaining_accounts_balance,
-                ]
-            );
-        }
-
-        return back();
-    }
-
-    public function deleteResellerAccountTransaction($transaction): RedirectResponse
-    {
-        $transaction = ResellerClosingAccount::whereId($transaction)->withoutGlobalScope(PendingScope::class)->firstOrFail();
-        $transaction->delete();
-
-        return back();
-    }
 }

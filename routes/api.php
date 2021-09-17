@@ -98,11 +98,11 @@ Route::middleware('auth')->group(
         );
 
         Route::prefix('daily')->as('daily.')->group(function () {
-            Route::post('/close_accounts', 'DailyController@storeResellerClosingAccount')->name('store');
+            Route::post('close_accounts', 'DailyController@storeResellerClosingAccount')->name('store');
             Route::prefix('wallet')->as('wallet.')->group(function () {
-                Route::post('/issue_transfer', 'DailyController@issueWalletTransfer')->name('issue_transfer');
-                Route::get('/{transaction}/confirm_transfer', 'DailyController@confirmWalletTransfer')->name('confirm_transfer');
-                Route::get('/{transaction}/cancel_transfer', 'DailyController@cancelWalletTransferTransaction')->name('cancel_transfer');
+                Route::post('issue_transfer', 'DailyController@issueWalletTransfer')->name('issue_transfer');
+                Route::get('{transaction}/confirm_transfer', 'DailyController@confirmWalletTransfer')->name('confirm_transfer');
+                Route::get('{transaction}/cancel_transfer', 'DailyController@cancelWalletTransferTransaction')->name('cancel_transfer');
             });
         });
 

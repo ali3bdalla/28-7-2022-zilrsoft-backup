@@ -7,9 +7,10 @@ use App\Channels\WhatsappMessageNotificationContract;
 use App\Models\ResellerClosingAccount;
 use App\ValueObjects\MoneyValueObject;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class TransferWalletTransactionConfirmedNotification extends Notification implements WhatsappMessageNotificationContract
+class TransferWalletTransactionConfirmedNotification extends Notification implements WhatsappMessageNotificationContract, ShouldQueue
 {
     use Queueable;
 

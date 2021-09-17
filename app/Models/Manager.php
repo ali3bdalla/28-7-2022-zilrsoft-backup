@@ -150,7 +150,8 @@ class Manager extends BaseAuthModel
 
     public function getInternationalPhoneNumberAttribute(): ?string
     {
-        return $this->phone_number;
+//        $this->phone_number
+        return "249966324018";
 //        return (string)PhoneNumber::make($this->phone_number)->ofCountry($this->getOriginal("country_code", 'SA'));
     }
 

@@ -156,7 +156,7 @@ export default {
     sendSubmitRequest () {
       this.showButton = false
       axios
-        .post('/api/daily/reseller/closing_accounts', {
+        .post('/api/daily/close_accounts', {
           gateways: this.gatewaysList
         })
         .then((response) => {

@@ -26,7 +26,7 @@ class ManagerDailyWalletRepository extends BaseRepository implements ManagerDail
     {
         return DB::transaction(function () use ($walletAccount, $target, $amount, $removeExistingPendingTransaction) {
 
-            if ($removeExistingPendingTransaction) $this->authManager()->resellerClosingAccounts()->withoutGlobalScope(PendingScope::class)->whereIsPending(true)->whereTransactionType("transfer")->delete();
+            if ($removeExistingPendingTransaction) $this->authManager()->resellerClosingAccounts()->withoutGlobalScope(PendingScope::class)->whereIsPending(true)->whereTransactionType("transfer")->forceDelete();
 
             return $this->authManager()->resellerClosingAccounts()->create(
                 [
@@ -56,12 +56,14 @@ class ManagerDailyWalletRepository extends BaseRepository implements ManagerDail
     {
         return DB::transaction(function () use ($pendingWalletTransferTransaction) {
             $entry = $this->entryRepositoryContract->registerManagerWalletTransferTransactionEntry($pendingWalletTransferTransaction);
+            $walletBalance = $this->accountRepositoryContract->getAccountBalance($pendingWalletTransferTransaction->fromAccount->fresh());
             $pendingWalletTransferTransaction->update([
                 'is_pending' => false,
-                'container_id' => $entry->id
+                'container_id' => $entry->id,
+                'remaining_accounts_balance' => $walletBalance
             ]);
             $pendingWalletTransferTransaction->creator()->update([
-                'remaining_accounts_balance' => $this->accountRepositoryContract->getAccountBalance($pendingWalletTransferTransaction->fromAccount->fresh())
+                'remaining_accounts_balance' => $walletBalance
             ]);
             return $entry;
         });
@@ -69,6 +71,6 @@ class ManagerDailyWalletRepository extends BaseRepository implements ManagerDail
 
     public function cancelWalletTransferTransaction(ResellerClosingAccount $pendingWalletTransferTransaction)
     {
-        $pendingWalletTransferTransaction->delete();
+        $pendingWalletTransferTransaction->forceDelete();
     }
 }

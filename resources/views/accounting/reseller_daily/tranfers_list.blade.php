@@ -30,20 +30,15 @@
                 </thead>
 
                 @foreach($managerCloseAccountList as $transaction)
-					<?php $total_amount = $transaction->container->transactions()->where([['type', 'debit']])
-						->withoutGlobalScope
-						(\App\Scopes\PendingScope::class)->sum('amount'); ?>
                     <tbody>
-
                     <tr class="">
                         <td>TRANS-{{ $transaction->creator->id }}</td>
                         <td>{{ $transaction->created_at }}</td>
-                        <td>{{ $transaction->creator->locale_name }}</td>
-                        <td>{{ $transaction->receiver->locale_name }}</td>
-                        <td>{{ moneyFormatter($total_amount)}}</td>
-
-                        <td>{{  moneyFormatter($transaction->amount) }}</td>
-                        <td>{{ moneyFormatter($total_amount - $transaction->amount) }}</td>
+                        <td>{{ $transaction->fromAccount->locale_name }}</td>
+                        <td>{{ $transaction->toAccount->locale_name }}</td>
+                        <td>{{ ($transaction->amount + $transaction->remaining_accounts_balance)  }}</td>
+                        <td>{{ $transaction->amount }}</td>
+                        <td>{{ $transaction->remaining_accounts_balance }}</td>
                         <td>
                             @if($transaction->is_pending)
                                 منتظرة
