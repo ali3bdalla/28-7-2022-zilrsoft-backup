@@ -35,6 +35,7 @@
 				'password' => 'nullable|string|min:7|confirmed',
 				'name' => 'required|string|min:2',
 				'name_ar' => 'required|string|min:2',
+				'phone_number' => 'required|string',
 				'branch_id' => 'required|integer|exists:branches,id',
 				'department_id' => 'required|integer|exists:departments,id',
 				'delivery_man_id' => 'nullable|integer|exists:delivery_men,id',
@@ -51,7 +52,7 @@
 			$user = null;
 			DB::beginTransaction();
 			try{
-				$data = $this->only('name','name_ar','email','department_id','branch_id','delivery_man_id');
+				$data = $this->only('name','name_ar','email','department_id','branch_id','delivery_man_id',"phone_number");
 				$data['password'] = $this->password == "" ? $manager->password : bcrypt($this->password);
 				$manager->update($data);
 

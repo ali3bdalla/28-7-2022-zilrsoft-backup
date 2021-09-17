@@ -143,15 +143,14 @@ class Manager extends BaseAuthModel
         return $this->hasMany(ResellerClosingAccount::class, 'creator_id');
     }
 
-    public function whatsappPhoneNumber(): string
+    public function whatsappPhoneNumber(): ?string
     {
         return $this->getInternationalPhoneNumberAttribute();
     }
 
     public function getInternationalPhoneNumberAttribute(): ?string
     {
-//        $this->phone_number
-        return "249966324018";
+        return $this->phone_number;
 //        return (string)PhoneNumber::make($this->phone_number)->ofCountry($this->getOriginal("country_code", 'SA'));
     }
 

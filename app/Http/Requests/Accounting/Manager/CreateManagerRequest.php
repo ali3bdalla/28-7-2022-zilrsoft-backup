@@ -33,6 +33,7 @@
                 'password'        => 'required|string|min:7|confirmed',
                 'name'            => 'required|string|min:2',
                 'name_ar'         => 'required|string|min:2',
+                'phone_number'         => 'required|string',
                 'branch_id'       => 'required|integer|organization_exists:App\Models\Branch,id',
                 'department_id'   => 'required|integer|organization_exists:App\Models\Department,id',
                 'delivery_man_id' => 'nullable|integer|exists:delivery_men,id',
@@ -67,6 +68,7 @@
                 $manager = $user->manager()->create([
                     'password'        => bcrypt($this->password),
                     'email'           => $this->email,
+                    'phone_number'           => $this->phone_number,
                     'delivery_man_id' => $this->delivery_man_id,
                     'name_ar'         => $this->name_ar,
                     'name'            => $this->name,

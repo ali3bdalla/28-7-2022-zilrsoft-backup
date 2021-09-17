@@ -25,7 +25,6 @@ class ManagerDailyWalletRepository extends BaseRepository implements ManagerDail
     public function createPendingWalletTransferTransaction(Account $walletAccount, Account $target, float $amount, bool $removeExistingPendingTransaction = false): ResellerClosingAccount
     {
         return DB::transaction(function () use ($walletAccount, $target, $amount, $removeExistingPendingTransaction) {
-
             if ($removeExistingPendingTransaction) $this->authManager()->resellerClosingAccounts()->withoutGlobalScope(PendingScope::class)->whereIsPending(true)->whereTransactionType("transfer")->forceDelete();
 
             return $this->authManager()->resellerClosingAccounts()->create(
