@@ -2,9 +2,9 @@
 
 namespace App\Repository\Eloquent;
 
+use App\Enums\AccountingTypeEnum;
 use App\Http\Resources\Entity\TransactionResource;
 use App\Models\Account;
-use App\Models\Manager;
 use App\Models\Transaction;
 use App\Repository\AccountRepositoryContract;
 use App\ValueObjects\AccountSearchValueObject;
@@ -17,14 +17,12 @@ class AccountRepository extends BaseRepository implements AccountRepositoryContr
 {
 
 
-
     public function getAccountTransactionsListPagination(Account $account, SearchValueObjectContract $searchValueObjectContract, SortingValueObjectContract $sortingValueObjectContract): AnonymousResourceCollection
     {
         $queryBuilder = Transaction::whereAccountId($account->id)->with("account", 'invoice', 'user', 'item');
         $queryBuilder = $searchValueObjectContract->apply($queryBuilder);
         $queryBuilder = $sortingValueObjectContract->sort($queryBuilder);
         return TransactionResource::collection($queryBuilder->paginate(100));
-
     }
 
     public function getAccountChildrenList(Account $account): Collection
@@ -37,14 +35,21 @@ class AccountRepository extends BaseRepository implements AccountRepositoryContr
 
     public function getAccountsList(AccountSearchValueObject $accountSearchValueObject = null): Collection
     {
-        $queryBuilder = $accountSearchValueObject->apply($this->model->query());
+        $queryBuilder = $accountSearchValueObject->apply(Account::query());
         return $queryBuilder->withCount('children')->get();
     }
 
-    public function getAccountBalance(Account $account, SearchValueObjectContract $searchValueObjectContract)
+    public function getAccountBalance(Account $account, ?SearchValueObjectContract $searchValueObjectContract = null)
     {
-        $debitAmount = $searchValueObjectContract->apply(Transaction::whereAccountId($account->id)->whereType('debit')->with("account", 'invoice', 'user', 'item'))->sum('amount');
-        $creditAmount = $searchValueObjectContract->apply(Transaction::whereAccountId($account->id)->whereType('credit')->with("account", 'invoice', 'user', 'item'))->sum('amount');
+        $query = Transaction::whereAccountId($account->id);
+        $debitQuery = Transaction::query()->whereAccountIdAndType($account->id, AccountingTypeEnum::debit());
+        $creditQuery = Transaction::query()->whereAccountIdAndType($account->id, AccountingTypeEnum::credit());
+        if ($searchValueObjectContract instanceof SearchValueObjectContract) {
+            $debitQuery = $searchValueObjectContract->apply($debitQuery);
+            $creditQuery = $searchValueObjectContract->apply($creditQuery);
+        }
+        $debitAmount = $debitQuery->whereType(AccountingTypeEnum::debit())->sum('amount');
+        $creditAmount = $creditQuery->whereType(AccountingTypeEnum::credit())->sum('amount');
         if ($account->isCredit()) return $creditAmount - $debitAmount;
         return $debitAmount - $creditAmount;
     }

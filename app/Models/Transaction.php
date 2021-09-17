@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\AccountingTypeEnum;
 use App\Events\Models\Transaction\TransactionCreated;
 use App\ValueObjects\MoneyValueObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,7 +24,7 @@ class Transaction extends BaseModel
     use  SoftDeletes;
     use  HasFactory;
 
-    protected $with = ['account'];
+    protected $with = ["account", 'invoice', 'user', 'item'];
 
     protected $guarded = [];
 
@@ -31,6 +32,7 @@ class Transaction extends BaseModel
         'amount' => MoneyValueObject::class,
         'total_debit_amount' => MoneyValueObject::class,
         'total_credit_amount' => MoneyValueObject::class,
+        'type' => AccountingTypeEnum::class . ":nullable"
     ];
 
 

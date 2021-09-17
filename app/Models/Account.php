@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
+use App\Enums\AccountingTypeEnum;
+use App\Enums\AccountSlugEnum;
 use App\Events\Models\Account\AccountCreated;
 use App\Events\Models\Account\AccountDeleted;
 use App\Events\Models\Account\AccountUpdated;
-use App\Models\Traits\AccountBalanceTrait;
 use App\Models\Traits\NestingTrait;
 use App\Scopes\SortByScope;
 use App\ValueObjects\GenericSortByValueObject;
 use Closure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -22,7 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed parent
  * @property mixed transactions
  * @property mixed locale_name
- * @property mixed type
+ * @property AccountingTypeEnum type
  * @property mixed ar_name
  * @property mixed name
  * @property mixed total_debit_amount
@@ -47,6 +49,8 @@ class Account extends BaseModel
     ];
     protected $casts = [
         'is_gateway' => 'boolean',
+        'type' => AccountingTypeEnum::class . ":nullable",
+        'slug' => AccountSlugEnum::class . ":nullable"
     ];
     /**
      * The event map for the model.
@@ -65,7 +69,7 @@ class Account extends BaseModel
                 ['is_system_account', true],
                 ['slug', $slug],
             ]
-        )->first();
+        )->firstOrFail();
     }
 
     protected static function boot()
@@ -140,7 +144,7 @@ class Account extends BaseModel
 
     public function isCredit(): bool
     {
-        return $this->type == 'credit';
+        return $this->type->equals(AccountingTypeEnum::credit());
     }
 
     public function getCurrentAmountAttribute(): float
@@ -150,6 +154,19 @@ class Account extends BaseModel
 
     public function isDebit(): bool
     {
-        return $this->type == 'debit';
+        return $this->type->equals(AccountingTypeEnum::debit());
+    }
+
+    public function managerGateways(): BelongsToMany
+    {
+        return
+            $this->belongsToMany(
+                Manager::class,
+                'manager_gateways',
+                'gateway_id',
+                'manager_id'
+            )
+                ->withPivot('order_number as order_number')
+                ->orderBy('order_number');
     }
 }

@@ -6,7 +6,7 @@ use App\Enums\VoucherTypeEnum;
 
 interface AccountsDailyRepositoryContract extends BaseRepositoryContract
 {
-    public function createDailyCloseAccountAggregate(array $banks = []);
+    public function closePeriodAccounts(array $banks = []);
 
     public function getResellerDailyBankIncomeAmount(bool $excludeVouchers, $accountId = null): float;
 

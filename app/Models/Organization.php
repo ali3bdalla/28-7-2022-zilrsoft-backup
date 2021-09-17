@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed description
  * @property mixed title_ar
  * @property mixed title
+ * @property mixed id
  */
 class Organization extends BaseModel
 {

@@ -97,24 +97,14 @@ Route::middleware('auth')->group(
             }
         );
 
-        Route::prefix('daily')->name('daily.')->group(
-            function () {
-                Route::prefix('reseller')->name('reseller.')->group(
-                    function () {
-                        Route::prefix('closing_accounts')->name('closing_account.')->group(
-                            function () {
-                                Route::post('/', 'DailyController@storeResellerClosingAccount')->name('store');
-                            }
-                        );
-                        Route::prefix('/accounts_transactions')->name('accounts_transactions.')->group(
-                            function () {
-                                Route::post('/', 'DailyController@storeResellerAccountTransaction')->name('store');
-                            }
-                        );
-                    }
-                );
-            }
-        );
+        Route::prefix('daily')->as('daily.')->group(function () {
+            Route::post('/close_accounts', 'DailyController@storeResellerClosingAccount')->name('store');
+            Route::prefix('wallet')->as('wallet.')->group(function () {
+                Route::post('/issue_transfer', 'DailyController@issueWalletTransfer')->name('issue_transfer');
+                Route::get('/{transaction}/confirm_transfer', 'DailyController@confirmWalletTransfer')->name('confirm_transfer');
+                Route::get('/{transaction}/cancel_transfer', 'DailyController@cancelWalletTransferTransaction')->name('cancel_transfer');
+            });
+        });
 
         Route::prefix('items/{item}')->name('items.')->group(
             function () {

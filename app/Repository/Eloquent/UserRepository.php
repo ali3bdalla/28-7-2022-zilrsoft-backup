@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository implements UserRepositoryContract
 {
-
-
     public function createUser(UserDto $userDto): User
     {
         $userDto->setVerificationCode($this->createVerificationCode());

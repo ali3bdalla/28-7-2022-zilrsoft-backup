@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Dto\InvoiceItemDto;
-use App\Enums\InvoiceTypeEnum;
+use App\Enums\AccountingTypeEnum;
 use App\Scopes\DraftScope;
 use App\ValueObjects\MoneyValueObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed organization_id
  * @property mixed creator_id
  * @property mixed user_id
- * @property InvoiceTypeEnum invoice_type
+ * @property AccountingTypeEnum invoice_type
  * @property mixed net
  * @property mixed tax
  * @property mixed id
@@ -53,7 +53,7 @@ class Invoice extends BaseModel
     protected $casts = [
         'printable_price' => 'boolean',
         'is_draft_converted' => 'boolean',
-        'invoice_type' => InvoiceTypeEnum::class.':nullable',
+        'invoice_type' => AccountingTypeEnum::class.':nullable',
         'net' => MoneyValueObject::class,
         'total' => MoneyValueObject::class,
         'subtotal' => MoneyValueObject::class,

@@ -26,6 +26,7 @@ class ManagerFactory extends Factory
                 'organization_id' =>  $managerDto->getOrganizationId(),
                 'user_id' => 1,
                 'department_id' =>  $managerDto->getDepartmentId(),
+                'phone_number' =>  $managerDto->getPhoneNumber(),
                 'name' => $managerDto->getName(),
                 'email' => $managerDto->getEmail(),
                 'email_verified_at' => now(),

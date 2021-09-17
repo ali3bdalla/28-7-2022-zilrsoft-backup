@@ -8,11 +8,15 @@ use App\Repository\BaseRepositoryContract;
 use App\Repository\Eloquent\AccountRepository;
 use App\Repository\Eloquent\AccountsDailyRepository;
 use App\Repository\Eloquent\BaseRepository;
+use App\Repository\Eloquent\EntryRepository;
 use App\Repository\Eloquent\InvoiceRepository;
+use App\Repository\Eloquent\ManagerDailyWalletRepository;
 use App\Repository\Eloquent\ManagerRepository;
 use App\Repository\Eloquent\OrderRepository;
 use App\Repository\Eloquent\UserRepository;
+use App\Repository\EntryRepositoryContract;
 use App\Repository\InvoiceRepositoryContract;
+use App\Repository\ManagerDailyWalletRepositoryContract;
 use App\Repository\ManagerRepositoryContract;
 use App\Repository\OrderRepositoryContract;
 use App\Repository\UserRepositoryContract;
@@ -34,6 +38,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(InvoiceRepositoryContract::class, InvoiceRepository::class);
         $this->app->bind(UserRepositoryContract::class, UserRepository::class);
         $this->app->bind(OrderRepositoryContract::class, OrderRepository::class);
+        $this->app->bind(ManagerDailyWalletRepositoryContract::class, ManagerDailyWalletRepository::class);
+        $this->app->bind(EntryRepositoryContract::class, EntryRepository::class);
     }
 
     /**

@@ -2,12 +2,13 @@
 
 namespace App\Repository\Eloquent;
 
+use App\Enums\EntryDto;
 use App\Enums\VoucherTypeEnum;
 use App\Models\Account;
 use App\Models\Manager;
-use App\Models\ResellerClosingAccount;
 use App\Models\TransactionsContainer;
 use App\Repository\AccountsDailyRepositoryContract;
+use App\Repository\EntryRepositoryContract;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -15,15 +16,22 @@ use Illuminate\Support\Facades\DB;
 
 class AccountsDailyRepository extends BaseRepository implements AccountsDailyRepositoryContract
 {
+    private EntryRepositoryContract $entryRepositoryContract;
 
+    public function __construct(EntryRepositoryContract $entryRepositoryContract)
+    {
+        $this->entryRepositoryContract = $entryRepositoryContract;
+    }
 
-    public function createDailyCloseAccountAggregate(array $banks = [])
+    public function closePeriodAccounts(array $banks = [])
     {
         return DB::transaction(function () use ($banks) {
             $transactions = array_merge($this->generateDebitSideTransactionsArray($banks), $this->generateCreditSideTransactionsArray());
-            $container = TransactionsContainer::createEntry(['description' => 'close_account'], $transactions);
-            $this->registerDailyAccountsReport($container, $banks);
-            return $container;
+            $entryDto = new EntryDto($this->authManager(), new Collection(), false, "close_account");
+            $entryDto->setTransactionsFromArray($transactions);
+            $entry = $this->entryRepositoryContract->createEntry($entryDto);
+            $this->registerDailyAccountsReport($entry, $banks);
+            return $entry;
         });
     }
 

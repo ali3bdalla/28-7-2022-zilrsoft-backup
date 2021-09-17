@@ -23,7 +23,7 @@ class ManagerRepository extends BaseRepository implements ManagerRepositoryContr
 
     public function getAllManagersBanksExcept(array $managersId): array
     {
-        $managers = $this->model->whereNotIn('id', $managersId)->with('gateways')->get();
+        $managers =Manager::whereNotIn('id', $managersId)->with('gateways')->get();
         $managerBanks = [];
         foreach ($managers as $manager) {
             foreach ($manager->gateways as $gateway) {

@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Dto\InvoiceDto;
-use App\Enums\InvoiceTypeEnum;
+use App\Enums\AccountingTypeEnum;
 use App\Models\Invoice;
 use App\Models\Manager;
 use App\Models\User;

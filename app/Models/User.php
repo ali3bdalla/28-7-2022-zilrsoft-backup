@@ -134,6 +134,10 @@ class User extends BaseAuthModel
         return $this->getInternationalPhoneNumberAttribute();
     }
 
+    public function ourSmsPhoneNumber(): string
+    {
+        return $this->getInternationalPhoneNumberAttribute();
+    }
     public function getInternationalPhoneNumberAttribute(): string
     {
         return (string)PhoneNumber::make($this->phone_number)->ofCountry($this->getOriginal("country_code", 'SA'));
@@ -147,8 +151,4 @@ class User extends BaseAuthModel
         ]);
     }
 
-    public function ourSmsPhoneNumber(): string
-    {
-        return $this->getInternationalPhoneNumberAttribute();
-    }
 }

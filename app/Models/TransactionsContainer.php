@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Enums\TransactionDto;
+use Database\Factories\EntryFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -12,6 +15,9 @@ use Illuminate\Support\Facades\Auth;
  * @property mixed created_at
  * @property mixed updated_at
  * @property mixed amount
+ * @property mixed organization_id
+ * @property mixed creator_id
+ * @property mixed is_pending
  * @method static create(array $array)
  */
 class TransactionsContainer extends BaseModel
@@ -19,33 +25,27 @@ class TransactionsContainer extends BaseModel
     protected $guarded = [];
     use SoftDeletes;
 
-    public static function createEntry(array $attributes = [], array $transactions = []): TransactionsContainer
+    protected static function newFactory(): EntryFactory
     {
-        $entry = static::create(array_merge($attributes, [
-            'organization_id' => Auth::user()->organization_id,
-            'creator_id' => Auth::id(),
-            'amount' => 0
-        ]));
-        $entry->addTransactions($transactions);
-        return $entry;
+        return new EntryFactory();
     }
 
-    public function addTransactions($transactions = [])
+    public function addTransactions(Collection $transactions): Collection
     {
-        $entryAmount = $this->amount;
-        foreach ($transactions as $transaction) {
-            $transaction = $this->transactions()->create(
-                array_merge($transaction, [
-                    'organization_id' => Auth::user()->organization_id,
-                    'creator_id' => Auth::id()
-                ])
-            );
-            if ($transaction->isDebit()) $entryAmount += (float)$transaction->amount;
-        }
-
-        $this->update([
-            'amount' => $entryAmount
-        ]);
+        return $transactions->map(function (TransactionDto $transactionDto) {
+            return $this->transactions()->create([
+                'creator_id' => Auth::id(),
+                'organization_id' => $this->organization_id,
+                'amount' => $transactionDto->getAmount(),
+                'type' => $transactionDto->getType(),
+                'is_pending' => $this->is_pending,
+                'account_id' => $transactionDto->getAccountId(),
+                'invoice_id' => $transactionDto->getInvoiceId(),
+                'user_id' => $transactionDto->getUserId(),
+                'item_id' => $transactionDto->getItemId(),
+                'is_manual' => $transactionDto->isManual()
+            ]);
+        });
     }
 
     public function transactions(): HasMany
@@ -77,4 +77,6 @@ class TransactionsContainer extends BaseModel
     {
         return $this->belongsTo(Manager::class, 'creator_id')->withTrashed();
     }
+
+
 }

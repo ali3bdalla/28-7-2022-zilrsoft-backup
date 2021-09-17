@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Sales;
 
-use App\Enums\InvoiceTypeEnum;
+use App\Enums\AccountingTypeEnum;
 use App\Models\Invoice;
 use App\Scopes\DraftScope;
 use Illuminate\Foundation\Http\FormRequest;
@@ -27,7 +27,7 @@ class FetchSalesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'invoice_type' => ['nullable', new EnumRule(InvoiceTypeEnum::class)],
+            'invoice_type' => ['nullable', new EnumRule(AccountingTypeEnum::class)],
             'is_draft' => ['nullable'],
             'startDate' => ['nullable', 'string'],
             'endDate' => ['nullable', 'string'],
@@ -47,9 +47,9 @@ class FetchSalesRequest extends FormRequest
         ];
     }
 
-    public function getInvoiceType(): InvoiceTypeEnum
+    public function getInvoiceType(): AccountingTypeEnum
     {
-        return InvoiceTypeEnum::from($this->input('invoice_type', 'sale'));
+        return AccountingTypeEnum::from($this->input('invoice_type', 'sale'));
     }
 
     public function getIsDraft()

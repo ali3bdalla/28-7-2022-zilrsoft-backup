@@ -2,7 +2,7 @@
 
 namespace App\Dto;
 
-use App\Enums\InvoiceTypeEnum;
+use App\Enums\AccountingTypeEnum;
 use App\Models\Manager;
 use App\Models\User;
 use Illuminate\Support\Collection;
@@ -11,7 +11,7 @@ class InvoiceDto
 {
     private Manager $manager;
     private User $user;
-    private InvoiceTypeEnum $invoiceType;
+    private AccountingTypeEnum $invoiceType;
     private bool $isDraft;
     private bool $isOnline;
     private array $items;
@@ -19,12 +19,12 @@ class InvoiceDto
     /**
      * @param Manager $manager
      * @param User $user
-     * @param InvoiceTypeEnum $invoiceType
+     * @param AccountingTypeEnum $invoiceType
      * @param array $items
      * @param bool $isDraft
      * @param bool $isOnline
      */
-    public function __construct(Manager $manager, User $user, InvoiceTypeEnum $invoiceType, array $items, bool $isDraft = false, bool $isOnline = false)
+    public function __construct(Manager $manager, User $user, AccountingTypeEnum $invoiceType, array $items, bool $isDraft = false, bool $isOnline = false)
     {
         $this->manager = $manager;
         $this->user = $user;
@@ -69,9 +69,9 @@ class InvoiceDto
     }
 
     /**
-     * @return InvoiceTypeEnum
+     * @return AccountingTypeEnum
      */
-    public function getInvoiceType(): InvoiceTypeEnum
+    public function getInvoiceType(): AccountingTypeEnum
     {
         return $this->invoiceType;
     }

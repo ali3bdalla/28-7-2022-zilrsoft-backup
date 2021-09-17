@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Dto\AccountDto;
 use App\Models\Account;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -13,6 +14,24 @@ class AccountFactory extends Factory
      * @var string
      */
     protected $model = Account::class;
+
+
+    public function setDto(AccountDto $accountDto): AccountFactory
+    {
+        return $this->state(function () use ($accountDto) {
+            return [
+                'organization_id' => $accountDto->getOrganizationId(),
+                'creator_id' => $accountDto->getManagerId(),
+                'parent_id' => $accountDto->getParentId(),
+                'name' => $accountDto->getName(),
+                'ar_name' => $accountDto->getArName(),
+                'is_gateway' => $accountDto->isGateway(),
+                'type' => $accountDto->getType(),
+                'slug' => $accountDto->getAccountSlug(),
+                'is_system_account' => $accountDto->isSystemAccount(),
+            ];
+        });
+    }
 
     /**
      * Define the model's default state.

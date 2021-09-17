@@ -8,11 +8,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * @property mixed receiver_id
- * @property mixed remaining_accounts_balance
+ * @property integer receiver_id
+ * @property float remaining_accounts_balance
  * @property mixed container
  * @property mixed transaction_type
- * @property mixed creator_id
+ * @property integer creator_id
+ * @property integer id
+ * @property float amount
+ * @property Account toAccount
+ * @property Manager creator
+ * @property Account fromAccount
  * @method static where(array $array)
  * @method static myDailyCloseAccounts()
  */
@@ -22,6 +27,9 @@ class ResellerClosingAccount extends BaseModel
     protected $guarded = [];
 
 
+    protected $casts = [
+      'amount' => "float"
+    ];
     /**
      * @param $builder
      * @return mixed

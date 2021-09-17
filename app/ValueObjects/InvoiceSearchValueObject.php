@@ -2,7 +2,7 @@
 
 namespace App\ValueObjects;
 
-use App\Enums\InvoiceTypeEnum;
+use App\Enums\AccountingTypeEnum;
 use App\Scopes\DraftScope;
 use App\ValueObjects\Contract\SearchValueObjectContract;
 use Illuminate\Database\Eloquent\Builder;
@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 
 class InvoiceSearchValueObject implements SearchValueObjectContract
 {
-    private ?InvoiceTypeEnum $invoiceTypeEnum;
+    private ?AccountingTypeEnum $invoiceTypeEnum;
     private ?bool $isDraft;
     private ?Carbon $startAt;
     private ?Carbon $endAt;
@@ -26,7 +26,7 @@ class InvoiceSearchValueObject implements SearchValueObjectContract
     private ?float $subtotal;
 
     /**
-     * @param InvoiceTypeEnum|null $invoiceTypeEnum
+     * @param AccountingTypeEnum|null $invoiceTypeEnum
      * @param bool|null $isDraft
      * @param Carbon|null $startAt
      * @param Carbon|null $endAt
@@ -41,7 +41,7 @@ class InvoiceSearchValueObject implements SearchValueObjectContract
      * @param float|null $discount
      * @param float|null $subtotal
      */
-    public function __construct(?InvoiceTypeEnum $invoiceTypeEnum, ?bool $isDraft, ?Carbon $startAt, ?Carbon $endAt, ?array $creators, ?array $clients, ?array $salesMen, ?string $aliceName, ?string $title, ?float $net, ?float $tax, ?float $total, ?float $discount, ?float $subtotal)
+    public function __construct(?AccountingTypeEnum $invoiceTypeEnum, ?bool $isDraft, ?Carbon $startAt, ?Carbon $endAt, ?array $creators, ?array $clients, ?array $salesMen, ?string $aliceName, ?string $title, ?float $net, ?float $tax, ?float $total, ?float $discount, ?float $subtotal)
     {
         $this->invoiceTypeEnum = $invoiceTypeEnum;
         $this->isDraft = $isDraft;
@@ -170,9 +170,9 @@ class InvoiceSearchValueObject implements SearchValueObjectContract
     }
 
     /**
-     * @return InvoiceTypeEnum|null
+     * @return AccountingTypeEnum|null
      */
-    public function getInvoiceTypeEnum(): ?InvoiceTypeEnum
+    public function getInvoiceTypeEnum(): ?AccountingTypeEnum
     {
         return $this->invoiceTypeEnum;
     }

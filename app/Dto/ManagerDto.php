@@ -3,11 +3,13 @@
 namespace App\Dto;
 
 use App\Models\Organization;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 class ManagerDto
 {
     private Organization $organization;
     private string $name;
+    private ?PhoneNumber $phoneNumber;
     private string $email;
     private string $password;
     private int $departmentId;
@@ -18,10 +20,11 @@ class ManagerDto
      * @param string $name
      * @param string $email
      * @param string $password
+     * @param PhoneNumber|null $phoneNumber
      * @param int $departmentId
      * @param int $brandId
      */
-    public function __construct(Organization $organization, string $name, string $email, string $password, int $departmentId = 1, int $brandId = 1)
+    public function __construct(Organization $organization, string $name, string $email, string $password, ?PhoneNumber $phoneNumber = null, int $departmentId = 1, int $brandId = 1)
     {
         $this->organization = $organization;
         $this->name = $name;
@@ -29,6 +32,15 @@ class ManagerDto
         $this->password = $password;
         $this->departmentId = $departmentId;
         $this->brandId = $brandId;
+        $this->phoneNumber = $phoneNumber;
+    }
+
+    /**
+     * @return PhoneNumber|null
+     */
+    public function getPhoneNumber(): ?PhoneNumber
+    {
+        return $this->phoneNumber;
     }
 
     /**
@@ -71,6 +83,7 @@ class ManagerDto
     {
         return $this->departmentId;
     }
+
     /**
      * @return int
      */

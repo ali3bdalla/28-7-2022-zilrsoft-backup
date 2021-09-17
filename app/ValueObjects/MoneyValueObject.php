@@ -18,10 +18,11 @@ class MoneyValueObject implements CastsAttributes
         $this->points = $points;
     }
 
-    public function getFormattedMoney(): string
+
+    public function isEqual(?float $amount): bool
     {
-        $fmt = numfmt_create('en_US', NumberFormatter::CURRENCY);
-        return numfmt_format_currency($fmt, $this->getAmount(), $this->getCurrency());
+        if (!$amount) return false;
+        return $this->getAmount() === $this->getAmount($amount);
     }
 
     /**
@@ -55,6 +56,12 @@ class MoneyValueObject implements CastsAttributes
     public function setPoints(int $points): void
     {
         $this->points = $points;
+    }
+
+    public function getFormattedMoney(): string
+    {
+        $fmt = numfmt_create('en_US', NumberFormatter::CURRENCY);
+        return numfmt_format_currency($fmt, $this->getAmount(), $this->getCurrency());
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Models\Account;
-use App\Models\Manager;
 use App\ValueObjects\AccountSearchValueObject;
 use App\ValueObjects\Contract\SearchValueObjectContract;
 use App\ValueObjects\Contract\SortingValueObjectContract;
@@ -16,7 +15,7 @@ interface AccountRepositoryContract extends BaseRepositoryContract
 
     public function getAccountsList(AccountSearchValueObject $accountSearchValueObject = null): Collection;
 
-    public function getAccountBalance(Account $account, SearchValueObjectContract $searchValueObjectContract);
+    public function getAccountBalance(Account $account, ?SearchValueObjectContract $searchValueObjectContract = null);
 
     public function getPaymentMethodsAccountsListToAuthedManager(): Collection;
 }

@@ -13,6 +13,7 @@ use App\Models\Organization;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Propaganistas\LaravelPhone\PhoneNumber;
@@ -20,7 +21,7 @@ use Propaganistas\LaravelPhone\PhoneNumber;
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
-    use DatabaseMigrations;
+    use RefreshDatabase;
     use WithFaker;
 
     public function makeInvoiceData(): array
@@ -32,7 +33,7 @@ abstract class TestCase extends BaseTestCase
                 'organization_id' => $user->organization_id,
             ];
         })->create();
-        $items = Item::factory()->count($this->faker->numberBetween(1,10))->state(function () use ($category) {
+        $items = Item::factory()->count($this->faker->numberBetween(1, 10))->state(function () use ($category) {
             return [
                 'available_qty' => 15000,
                 'is_kit' => false,
@@ -71,19 +72,20 @@ abstract class TestCase extends BaseTestCase
     {
         $attributes = collect($attributes);
         return Manager::factory()->setDto(new ManagerDto(
-            Organization::factory()->setDto(new OrganizationDto(
+            $attributes->get('organization', Organization::factory()->setDto(new OrganizationDto(
                 $this->faker->company,
                 $this->faker->city,
                 $this->faker->sentence,
                 $this->faker->creditCardNumber,
                 $this->faker->creditCardNumber,
-                PhoneNumber::make($this->faker->phoneNumber),
+                PhoneNumber::make("966324018", ['SD']),
                 Type::factory()->create(),
                 Country::factory()->create(),
-            ))->create(),
+            ))->create()),
             $attributes->get('name', $this->faker->userName),
             $attributes->get('email', $this->faker->safeEmail),
             $attributes->get('password', $this->faker->password),
+            PhoneNumber::make("966324018", ['SD'])
         ))->create();
     }
 }
