@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Dto\InvoiceItemDto;
 use App\Enums\AccountingTypeEnum;
+use App\Enums\InvoiceTypeEnum;
 use App\Scopes\DraftScope;
 use App\ValueObjects\MoneyValueObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -53,7 +54,7 @@ class Invoice extends BaseModel
     protected $casts = [
         'printable_price' => 'boolean',
         'is_draft_converted' => 'boolean',
-        'invoice_type' => AccountingTypeEnum::class.':nullable',
+        'invoice_type' => InvoiceTypeEnum::class.':nullable',
         'net' => MoneyValueObject::class,
         'total' => MoneyValueObject::class,
         'subtotal' => MoneyValueObject::class,
