@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Sales;
 
 use App\Enums\AccountingTypeEnum;
+use App\Enums\InvoiceTypeEnum;
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
 use App\Jobs\Sales\Accounting\StoreReturnSaleTransactionsJob;
@@ -105,7 +106,7 @@ class StoreReturnSaleRequest extends FormRequest
      */
     private function validateInvoiceType(Invoice $invoice)
     {
-        throw_if(!$invoice->invoice_type->equals(AccountingTypeEnum::sale()), ValidationException::withMessages(
+        throw_if(!$invoice->invoice_type->equals(InvoiceTypeEnum::sale()), ValidationException::withMessages(
             [
                 "invoice" => ['must be sales invoice'],
             ]

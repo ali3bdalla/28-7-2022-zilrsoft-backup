@@ -31,7 +31,7 @@
         <div class="input-group">
           <span class="input-group-addon">{{ app.trans.client }}</span>
           <input
-              v-model="sale.client.locale_name"
+              v-model="invoice.user.locale_name"
               aria-describedby="time-field"
               class="form-control"
               disabled
@@ -58,7 +58,7 @@
         <div class="input-group">
           <span class="input-group-addon">{{ app.trans.salesman }}</span>
           <input
-              v-model="sale.salesman.locale_name"
+              v-model="invoice.manager.locale_name"
               aria-describedby="time-field"
               class="form-control"
               disabled
@@ -326,30 +326,27 @@ import {
   math as ItemMath,
   query as ItemQuery,
   validator as ItemValidator,
-} from "../../item";
-import {sendGetKitAmountsRequest} from "../../api/kits";
+} from '../../item'
+import { sendGetKitAmountsRequest } from '../../api/kits'
 
 export default {
   props: [
-    "creator",
-    "client",
-    "salesman",
-    "items",
-    "invoice",
-    "sale",
-    "gateways",
-    "expenses",
+    'creator',
+    'items',
+    'invoice',
+    'gateways',
+    'expenses',
   ],
   data: function () {
     return {
       activateTestMode: false,
-      testRequestData: "",
+      testRequestData: '',
       everythingFineToSave: false,
       selectedItem: null,
       selectedItemIndex: null,
       invoiceData: {
         remaining: 0,
-        vendorIncCumber: "",
+        vendorIncCumber: '',
         clientId: 0,
         salesmanId: 0,
         methods: [],
@@ -359,373 +356,373 @@ export default {
         tax: 0,
         discount: 0,
         subtotal: 0,
-        status: "credit",
+        status: 'credit',
       },
       searchResultList: [],
       expensesList: [],
-      barcodeNameAndSerialField: "",
-      bc: new BroadcastChannel("item_barcode_copy_to_invoice"),
+      barcodeNameAndSerialField: '',
+      bc: new BroadcastChannel('item_barcode_copy_to_invoice'),
       app: {
-        primaryColor: metaHelper.getContent("primary-color"),
-        secondColor: metaHelper.getContent("second-color"),
-        appLocate: metaHelper.getContent("app-locate"),
-        trans: trans("invoices-page"),
-        messages: trans("messages"),
-        dateTimeTrans: trans("datetime"),
-        validation: trans("validation"),
-        datatableBaseUrl: metaHelper.getContent("datatableBaseUrl"),
-        BaseApiUrl: "/",
+        primaryColor: metaHelper.getContent('primary-color'),
+        secondColor: metaHelper.getContent('second-color'),
+        appLocate: metaHelper.getContent('app-locate'),
+        trans: trans('invoices-page'),
+        messages: trans('messages'),
+        dateTimeTrans: trans('datetime'),
+        validation: trans('validation'),
+        datatableBaseUrl: metaHelper.getContent('datatableBaseUrl'),
+        BaseApiUrl: '/',
         defaultVatSaleValue: 5,
         defaultVatPurchaseValue: 5,
       },
       LiveTimer:
           new Date().getFullYear() +
-          "-" +
+          '-' +
           (new Date().getMonth() + 1) +
-          "-" +
+          '-' +
           new Date().getDate() +
-          " " +
+          ' ' +
           new Date().getHours() +
-          ":" +
+          ':' +
           new Date().getMinutes() +
-          ":" +
+          ':' +
           new Date().getSeconds(),
-    };
+    }
   },
   created: function () {
     //
   },
 
   mounted: function () {
-    this.initItems();
+    this.initItems()
   },
 
   methods: {
-    handleItemWithSerialCanBeReturnedSerialCount(e) {
+    handleItemWithSerialCanBeReturnedSerialCount (e) {
       // alert(e);
       if (e.index != undefined && e.index != null) {
-        let index = e.index;
-        let item = db.model.findByIndex(this.invoiceData.items, index);
-        item.available_qty = e.count;
-        this.itemUpdater(item);
+        let index = e.index
+        let item = db.model.findByIndex(this.invoiceData.items, index)
+        item.available_qty = e.count
+        this.itemUpdater(item)
       }
     },
 
-    initItems() {
-      let len = this.items.length;
+    initItems () {
+      let len = this.items.length
       for (let i = 0; i < len; i++) {
-        let item = this.items[i];
-        item.is_expense = item.item.is_expense;
-        item.is_need_serial = item.item.is_need_serial;
-        item.locale_name = item.item.locale_name;
-        item.barcode = item.item.barcode;
-        item.vts = item.item.vts;
-        item.available_qty = item.qty - item.r_qty;
+        let item = this.items[i]
+        item.is_expense = item.item.is_expense
+        item.is_need_serial = item.item.is_need_serial
+        item.locale_name = item.item.locale_name
+        item.barcode = item.item.barcode
+        item.vts = item.item.vts
+        item.available_qty = item.qty - item.r_qty
 
         if (item.item.is_need_serial) {
-          let count = 0;
+          let count = 0
           item.serials.forEach(function (serial) {
-            if (["saled"].includes(serial.current_status)) {
-              count++;
+            if (['saled'].includes(serial.current_status)) {
+              count++
             }
-          });
+          })
 
-          item.available_qty = count;
+          item.available_qty = count
         }
 
-        item.init_discount = item.discount;
-        item.returned_qty = 0;
-        item.error = "";
-        item.total = 0;
-        item.subtotal = 0;
-        item.net = 0;
-        item.tax = 0;
+        item.init_discount = item.discount
+        item.returned_qty = 0
+        item.error = ''
+        item.total = 0
+        item.subtotal = 0
+        item.net = 0
+        item.tax = 0
         // console.log(item.id)
-        this.invoiceData.items.push(item);
+        this.invoiceData.items.push(item)
       }
     },
 
-    clientListChanged(event) {
-      this.invoiceData.clientId = event.value.id;
+    clientListChanged (event) {
+      this.invoiceData.clientId = event.value.id
     },
-    salesmanListChanged(event) {
-      this.invoiceData.salesmanId = event.value.id;
+    salesmanListChanged (event) {
+      this.invoiceData.salesmanId = event.value.id
     },
 
-    sendQueryRequestToFindItems() {
-      let appVm = this;
+    sendQueryRequestToFindItems () {
+      let appVm = this
       ItemQuery.sendQueryRequestToFindItems(
           this.barcodeNameAndSerialField,
-          "sale"
+          'sale'
       )
           .then((response) => {
             if (response.data.length === 1) {
-              appVm.validateAndPrepareItem(response.data[0]);
-              appVm.barcodeNameAndSerialField = "";
-              appVm.searchResultList = [];
+              appVm.validateAndPrepareItem(response.data[0])
+              appVm.barcodeNameAndSerialField = ''
+              appVm.searchResultList = []
             } else if (response.data.length === 0) {
-              appVm.$refs.barcodeNameAndSerialField.select();
-              appVm.searchResultList = [];
+              appVm.$refs.barcodeNameAndSerialField.select()
+              appVm.searchResultList = []
             } else {
-              appVm.searchResultList = response.data;
+              appVm.searchResultList = response.data
             }
           })
           .catch((error) => {
-            console.log(error);
-          });
+            console.log(error)
+          })
     },
-    validateAndPrepareItem(item) {
+    validateAndPrepareItem (item) {
       if (db.model.contain(this.invoiceData.items, item.id)) {
-        let parent = db.model.find(this.invoiceData.items, item.id);
+        let parent = db.model.find(this.invoiceData.items, item.id)
         if (!parent.is_need_serial) {
-          parent.qty = parseInt(parent.qty) + 1;
-          this.itemQtyUpdated(parent);
+          parent.qty = parseInt(parent.qty) + 1
+          this.itemQtyUpdated(parent)
         } else if (item.has_init_serial) {
-          this.itemWithSerialProccess(item, parent);
+          this.itemWithSerialProccess(item, parent)
         }
       } else if (item.has_init_serial) {
-        this.itemWithSerialProccess(item);
+        this.itemWithSerialProccess(item)
       } else {
-        let preparedItem = this.prepareDataInFirstUse(item);
-        this.appendItemToInvoiceItemsList(preparedItem);
+        let preparedItem = this.prepareDataInFirstUse(item)
+        this.appendItemToInvoiceItemsList(preparedItem)
       }
 
-      this.clearAndFocusOnBarcodeField();
+      this.clearAndFocusOnBarcodeField()
     },
 
-    itemWithSerialProccess(item, parent = null) {
-      let serial = item.init_serial.serial;
+    itemWithSerialProccess (item, parent = null) {
+      let serial = item.init_serial.serial
       if (parent == null) {
-        item.serials = [serial];
-        item.qty = 1;
+        item.serials = [serial]
+        item.qty = 1
 
-        item.discount = 0;
-        this.invoiceData.items.push(item);
-        let newItem = db.model.find(this.invoiceData.items, item.id);
-        this.itemUpdater(newItem);
+        item.discount = 0
+        this.invoiceData.items.push(item)
+        let newItem = db.model.find(this.invoiceData.items, item.id)
+        this.itemUpdater(newItem)
       } else {
         if (!db.model.contain(parent.serials, serial)) {
-          parent.serials = db.model.createUnique(parent.serials, serial);
-          parent.qty = parseInt(parent.qty) + 1;
+          parent.serials = db.model.createUnique(parent.serials, serial)
+          parent.qty = parseInt(parent.qty) + 1
           let element = {
             index: db.model.index(this.invoiceData.items, parent.id),
             serials: parent.serials,
-          };
-          this.handleItemSerialsUpdated(element);
+          }
+          this.handleItemSerialsUpdated(element)
         }
       }
 
-      this.$refs.barcodeNameAndSerialField.focus();
-      this.$refs.barcodeNameAndSerialField.select();
+      this.$refs.barcodeNameAndSerialField.focus()
+      this.$refs.barcodeNameAndSerialField.select()
 
-      this.updateInvoiceData();
+      this.updateInvoiceData()
     },
-    prepareDataInFirstUse(item) {
-      item.isOpen = false;
-      item.qty = 1;
+    prepareDataInFirstUse (item) {
+      item.isOpen = false
+      item.qty = 1
       if (item.is_need_serial) {
-        item.qty = 0;
-        item.serials = [];
+        item.qty = 0
+        item.serials = []
       }
 
       if (item.is_kit) {
-        item = ItemAccounting.getKitInformation(item);
+        item = ItemAccounting.getKitInformation(item)
       } else {
-        item.discount = 0;
+        item.discount = 0
       }
 
-      let newItem = this.itemUpdater(item);
-      return newItem;
+      let newItem = this.itemUpdater(item)
+      return newItem
     },
-    appendItemToInvoiceItemsList(item, index = null) {
+    appendItemToInvoiceItemsList (item, index = null) {
       if (index != null) {
-        this.invoiceData.items.splice(index, 1, item);
+        this.invoiceData.items.splice(index, 1, item)
       } else {
-        this.invoiceData.items.push(item);
+        this.invoiceData.items.push(item)
       }
 
-      this.updateInvoiceData();
+      this.updateInvoiceData()
     },
 
-    kitItemsDataUpdated(e) {
+    kitItemsDataUpdated (e) {
       // console.log(e);
-      let kit = e.kit;
-      this.invoiceData.items.splice(e.index, 1, kit);
+      let kit = e.kit
+      this.invoiceData.items.splice(e.index, 1, kit)
       //   console.log(kit);
     },
-    updateInvoiceData() {
-      this.invoiceData.total = db.model.sum(this.invoiceData.items, "total");
+    updateInvoiceData () {
+      this.invoiceData.total = db.model.sum(this.invoiceData.items, 'total')
       this.invoiceData.discount = db.model.sum(
           this.invoiceData.items,
-          "discount"
-      );
+          'discount'
+      )
       this.invoiceData.subtotal = db.model.sum(
           this.invoiceData.items,
-          "subtotal"
-      );
-      this.invoiceData.tax = db.model.sum(this.invoiceData.items, "tax");
-      this.invoiceData.net = db.model.sum(this.invoiceData.items, "net");
-      this.validateInvoiceData();
+          'subtotal'
+      )
+      this.invoiceData.tax = db.model.sum(this.invoiceData.items, 'tax')
+      this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net')
+      this.validateInvoiceData()
     },
 
-    validateInvoiceData() {
-      let everythingFineToSave = true;
+    validateInvoiceData () {
+      let everythingFineToSave = true
 
       let validating = db.model.validateAmounts(this.invoiceData.items, [
-        "purchase",
-        "tax",
-        "total",
-        "discount",
-        "net",
-      ]);
+        'purchase',
+        'tax',
+        'total',
+        'discount',
+        'net',
+      ])
 
       validating =
-          validating && ItemValidator.validateAmount(this.invoiceData.total);
+          validating && ItemValidator.validateAmount(this.invoiceData.total)
       validating =
-          validating && ItemValidator.validateAmount(this.invoiceData.subtotal);
+          validating && ItemValidator.validateAmount(this.invoiceData.subtotal)
       validating =
-          validating && ItemValidator.validateAmount(this.invoiceData.discount);
+          validating && ItemValidator.validateAmount(this.invoiceData.discount)
       validating =
-          validating && ItemValidator.validateAmount(this.invoiceData.net);
+          validating && ItemValidator.validateAmount(this.invoiceData.net)
 
-      this.everythingFineToSave = validating;
+      this.everythingFineToSave = validating
     },
-    clearAndFocusOnBarcodeField() {
-      this.barcodeNameAndSerialField = "";
-      this.searchResultList = [];
-      this.$refs.barcodeNameAndSerialField.focus();
+    clearAndFocusOnBarcodeField () {
+      this.barcodeNameAndSerialField = ''
+      this.searchResultList = []
+      this.$refs.barcodeNameAndSerialField.focus()
     },
-    kitQtyUpdated(kit) {
-      let appVm = this;
+    kitQtyUpdated (kit) {
+      let appVm = this
       sendGetKitAmountsRequest(kit.item.id, kit.returned_qty)
           .then((response) => {
-            kit.total = response.data.total;
-            kit.discount = response.data.discount;
-            kit.subtotal = response.data.subtotal;
-            kit.net = response.data.net;
+            kit.total = response.data.total
+            kit.discount = response.data.discount
+            kit.subtotal = response.data.subtotal
+            kit.net = response.data.net
             appVm.invoiceData.items.splice(
                 db.model.index(appVm.invoiceData.items, kit.id),
                 1,
                 kit
-            );
-            appVm.updateInvoiceData();
+            )
+            appVm.updateInvoiceData()
           })
           .catch((error) => {
-            console.log(error.response);
-          });
+            console.log(error.response)
+          })
     },
 
-    itemQtyUpdated(item, bySerial = false) {
-      item.returned_qty = parseInt(item.returned_qty);
+    itemQtyUpdated (item, bySerial = false) {
+      item.returned_qty = parseInt(item.returned_qty)
 
       if (item.item.is_kit) {
-        return this.kitQtyUpdated(item);
+        return this.kitQtyUpdated(item)
       }
       if (bySerial === false) {
-        let el = this.$refs["itemQty_" + item.id + "Ref"][0];
+        let el = this.$refs['itemQty_' + item.id + 'Ref'][0]
         if (!inputHelper.validateQty(item.returned_qty, el, item.qty, 0)) {
-          item.returned_qty = 0;
-          return this.itemUpdater(item);
+          item.returned_qty = 0
+          return this.itemUpdater(item)
         }
 
         if (
             !inputHelper.validateQty(item.returned_qty, el, item.available_qty, 0)
         ) {
-          item.returned_qty = 0;
-          return this.itemUpdater(item);
+          item.returned_qty = 0
+          return this.itemUpdater(item)
         }
       }
 
-      item = this.itemUpdater(item);
+      item = this.itemUpdater(item)
       this.appendItemToInvoiceItemsList(
           item,
           db.model.index(this.invoiceData.items, item.id)
-      );
+      )
     },
 
-    itemNetUpdated(item) {
-      let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts); //  1.05
-      item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2);
+    itemNetUpdated (item) {
+      let tax = ItemAccounting.convertVatPercentValueIntoFloatValue(item.vts) //  1.05
+      item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2)
       item.tax = parseFloat(
           ItemMath.dev(ItemMath.mult(item.subtotal, item.vts), 100)
-      ).toFixed(3);
+      ).toFixed(3)
       item.discount = parseFloat(
           ItemMath.sub(item.total, item.subtotal)
-      ).toFixed(2);
+      ).toFixed(2)
       // item.tax = ItemMath.sub(ItemMath.mult(item.subtotal, tax / 100), item.subtotal);
       // this.items.splice(db.model.index(this.invoiceData.items), 1, item);
       this.appendItemToInvoiceItemsList(
           item,
           db.model.index(this.invoiceData.items, item.id)
-      );
+      )
     },
 
-    itemUpdater(item) {
+    itemUpdater (item) {
       if (!item.is_kit) {
         if (!ItemValidator.validateQty(item.returned_qty, item.available_qty)) {
-          item.returned_qty = ItemMath.sub(item.returned_qty, 1);
-          return this.itemUpdater(item);
+          item.returned_qty = ItemMath.sub(item.returned_qty, 1)
+          return this.itemUpdater(item)
         }
       }
 
-      item.total = ItemAccounting.getTotal(item.price, item.returned_qty);
-      item.subtotal = ItemAccounting.getSubtotal(item.total, item.discount);
-      item.tax = ItemAccounting.getTax(item.subtotal, item.vts, true); // this for vat purchase => vtp
-      item.net = ItemAccounting.getNet(item.subtotal, item.tax, true);
-      return item;
+      item.total = ItemAccounting.getTotal(item.price, item.returned_qty)
+      item.subtotal = ItemAccounting.getSubtotal(item.total, item.discount)
+      item.tax = ItemAccounting.getTax(item.subtotal, item.vts, true) // this for vat purchase => vtp
+      item.net = ItemAccounting.getNet(item.subtotal, item.tax, true)
+      return item
     },
 
-    openItemSerialsModal(index, item) {
-      this.selectedItem = item;
-      this.selectedItemIndex = index;
+    openItemSerialsModal (index, item) {
+      this.selectedItem = item
+      this.selectedItemIndex = index
     },
 
-    handleItemSerialsUpdated(e) {
-      let index = e.index;
-      let item = db.model.findByIndex(this.invoiceData.items, index);
-      item.serials = e.serials;
-      item.returned_qty = e.serials.length;
-      this.itemQtyUpdated(item, true);
+    handleItemSerialsUpdated (e) {
+      let index = e.index
+      let item = db.model.findByIndex(this.invoiceData.items, index)
+      item.serials = e.serials
+      item.returned_qty = e.serials.length
+      this.itemQtyUpdated(item, true)
     },
-    handleItemSerialsClosed(e) {
-      this.selectedItem = null;
-      this.selectedItemIndex = null;
+    handleItemSerialsClosed (e) {
+      this.selectedItem = null
+      this.selectedItemIndex = null
     },
 
-    initExpensesList() {
+    initExpensesList () {
       for (let i = 0; i < this.expenses.length; i++) {
-        let expense = this.expenses[i];
-        expense.is_open = false;
-        expense.is_apended_to_net = false;
-        expense.amount = 0;
-        this.expensesList.push(expense);
+        let expense = this.expenses[i]
+        expense.is_open = false
+        expense.is_apended_to_net = false
+        expense.amount = 0
+        this.expensesList.push(expense)
       }
     },
 
-    updateGatewaysAmounts(e) {
-      this.invoiceData.status = e.status;
-      this.invoiceData.methods = [];
+    updateGatewaysAmounts (e) {
+      this.invoiceData.status = e.status
+      this.invoiceData.methods = []
       for (let i = 0; i < e.methods.length; i++) {
-        let method = e.methods[i];
+        let method = e.methods[i]
 
         if (parseFloat(method.amount) > 0) {
-          this.invoiceData.methods.push(method);
+          this.invoiceData.methods.push(method)
         }
       }
     },
 
-    pushDataToServer(doWork = null) {
-      let client = this.sale.client;
+    pushDataToServer (doWork = null) {
+      let client = this.invoice.user;
       if (client.is_system_user) {
         // can_make_credit === false
-        let amount = db.model.sum(this.invoiceData.methods, "amount");
+        let amount = db.model.sum(this.invoiceData.methods, 'amount')
         if (ItemMath.isBiggerThan(this.invoiceData.net, amount)) {
-          this.everythingFineToSave = false;
+          this.everythingFineToSave = false
           alert(
-              "هذا العميل لا يمكنه القيام بفواتير آجله الرجاء التحقق من وسائل الدفع واكمال المبلغ "
-          );
+              'هذا العميل لا يمكنه القيام بفواتير آجله الرجاء التحقق من وسائل الدفع واكمال المبلغ '
+          )
 
-          return;
+          return
         }
       }
 
@@ -733,35 +730,35 @@ export default {
         items: this.invoiceData.items,
         methods: this.invoiceData.methods,
         expenses: this.invoiceData.expenses,
-      };
-      let appVm = this;
+      }
+      let appVm = this
 
-      let invoice = this.invoice;
+      let invoice = this.invoice
       //
 
       //   console.log(data);
 
       if (this.activateTestMode) {
-        this.testRequestData = JSON.stringify(data);
+        this.testRequestData = JSON.stringify(data)
       } else {
         axios
-            .patch("/api/sales/" + invoice.id, data) //this.app.BaseApiUrl +
+            .patch('/api/sales/' + invoice.id, data) //this.app.BaseApiUrl +
             .then(function (response) {
-              if (doWork == "open") {
-                window.location.href = "/sales/" + response.data.id;
+              if (doWork == 'open') {
+                window.location.href = '/sales/' + response.data.id
               } else {
-                window.location.reload();
+                window.location.reload()
               }
             })
             .catch(function (error) {
-              console.log(error.response.data);
-              console.log(error.response.data.errors.items);
+              console.log(error.response.data)
+              console.log(error.response.data.errors.items)
 
-            });
+            })
       }
     },
   },
-};
+}
 </script>
 
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Store\API;
 
 use App\Dto\InvoiceDto;
 use App\Dto\OrderDto;
-use App\Enums\AccountingTypeEnum;
+use App\Enums\InvoiceTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\StoreOrderRequest;
 use App\Models\Manager;
@@ -44,7 +44,7 @@ class OrderController extends Controller
             new InvoiceDto(
                 Manager::find(1),
                 $client,
-                AccountingTypeEnum::sale(),
+                InvoiceTypeEnum::sale(),
                 $items,
                 true,
                 true),

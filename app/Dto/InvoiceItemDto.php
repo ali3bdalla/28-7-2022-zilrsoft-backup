@@ -2,9 +2,8 @@
 
 namespace App\Dto;
 
-use App\Enums\AccountingTypeEnum;
+use App\Enums\InvoiceTypeEnum;
 use App\Models\Invoice;
-use App\Models\InvoiceItems;
 use App\Models\Item;
 
 class InvoiceItemDto
@@ -13,7 +12,7 @@ class InvoiceItemDto
     private float $quantity;
     private float $price;
     private float $discount;
-    private AccountingTypeEnum $invoiceType;
+    private InvoiceTypeEnum $invoiceType;
     private array $serials;
     private ?Invoice $invoice;
     private bool $isKit;
@@ -21,7 +20,7 @@ class InvoiceItemDto
 
     /**
      * @param int $itemId
-     * @param AccountingTypeEnum $invoiceType
+     * @param InvoiceTypeEnum $invoiceType
      * @param float $quantity
      * @param float $price
      * @param float $discount
@@ -29,7 +28,7 @@ class InvoiceItemDto
      * @param bool $isKit
      * @param int $parentKitId
      */
-    public function __construct(int $itemId, AccountingTypeEnum $invoiceType, float $quantity, float $price = 0, float $discount = 0, array $serials = [], bool $isKit = false, int $parentKitId = 0)
+    public function __construct(int $itemId, InvoiceTypeEnum $invoiceType, float $quantity, float $price = 0, float $discount = 0, array $serials = [], bool $isKit = false, int $parentKitId = 0)
     {
         $this->item = Item::findOrFail($itemId);
         $this->invoiceType = $invoiceType;
@@ -75,9 +74,9 @@ class InvoiceItemDto
 
 
     /**
-     * @return AccountingTypeEnum
+     * @return InvoiceTypeEnum
      */
-    public function getInvoiceType(): AccountingTypeEnum
+    public function getInvoiceType(): InvoiceTypeEnum
     {
         return $this->invoiceType;
     }
@@ -124,7 +123,7 @@ class InvoiceItemDto
     public function getPrice(): float
     {
         if ($this->invoice && $this->invoice->is_online) return $this->item->online_offer_price;
-        if ($this->invoiceType->equals(AccountingTypeEnum::sale()) && $this->item->is_fixed_price)
+        if ($this->invoiceType->equals(InvoiceTypeEnum::sale()) && $this->item->is_fixed_price)
             return $this->item->price;
         return $this->price;
     }

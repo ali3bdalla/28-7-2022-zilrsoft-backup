@@ -27,7 +27,7 @@
                 <div class="input-group">
                     <span class="input-group-addon">{{ app.trans.vendor }}</span>
                     <input aria-describedby="time-field" class="form-control" disabled
-                           type="text" v-model="purchase.vendor.locale_name">
+                           type="text" v-model="invoice.user.locale_name">
 
                 </div>
             </div>
@@ -47,7 +47,7 @@
                 <div class="input-group">
                     <span class="input-group-addon">{{ app.trans.receiver }}</span>
                     <input aria-describedby="time-field" class="form-control" disabled
-                           type="text" v-model="purchase.receiver.locale_name">
+                           type="text" v-model="invoice.manager.locale_name">
 
                 </div>
             </div>
@@ -263,7 +263,7 @@
     import {sendGetKitAmountsRequest} from '../../api/kits';
 
     export default {
-        props: ['creator', 'items', 'invoice', 'purchase', 'gateways', 'expenses'],
+        props: ['creator', 'items', 'invoice',  'gateways', 'expenses'],
         data: function () {
             return {
                 activateTestMode: false,

@@ -48,8 +48,7 @@ class PurchaseController extends Controller
     public function edit(Invoice $purchase)
     {
 
-        $invoice = $purchase;
-        $purchase = $invoice->purchase;
+        $invoice = $purchase->load('manager','user','department','branch');
         $items = [];
         $data_source_items = $invoice->items()->with('item')->get();
         foreach ($data_source_items as $item) {
@@ -61,7 +60,7 @@ class PurchaseController extends Controller
         $gateways = [];
 
 
-        return view('accounting.purchases.edit', compact('purchase', 'invoice', 'items', 'gateways'));
+        return view('accounting.purchases.edit', compact( 'invoice', 'items', 'gateways'));
     }
 
     public function clone(Invoice $purchase)

@@ -127,7 +127,7 @@ class SaleController extends Controller
      */
     public function edit(Invoice $sale)
     {
-        $invoice = $sale;
+        $invoice = $sale->load("department", "branch", "user", "manager");
         $items = [];
         $data_source_items = $invoice->items()->where('parent_kit_id', 0)->with('item')->get();
         foreach ($data_source_items as $item) {

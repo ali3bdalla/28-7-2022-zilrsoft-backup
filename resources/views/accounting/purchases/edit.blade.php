@@ -24,7 +24,7 @@
             :gateways='@json($gateways)'
             :creator='@json($invoice->creator)'
             :items='@json($items)'
-            :invoice='@json($invoice->load('department','branch'))'>
+            :invoice='@json($invoice)'>
 
     </accounting-purchases-return-component>
 
