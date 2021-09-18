@@ -10,7 +10,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class TransferWalletTransactionCanceledNotification extends Notification implements WhatsappMessageNotificationContract,ShouldQueue
+class TransferWalletTransactionCanceledNotification extends Notification implements WhatsappMessageNotificationContract, ShouldQueue
 {
     use Queueable;
 
@@ -23,7 +23,6 @@ class TransferWalletTransactionCanceledNotification extends Notification impleme
      */
     public function __construct(ResellerClosingAccount $pendingWalletTransferTransaction)
     {
-        //
         $this->pendingWalletTransferTransaction = $pendingWalletTransferTransaction;
     }
 
@@ -33,7 +32,7 @@ class TransferWalletTransactionCanceledNotification extends Notification impleme
      * @param mixed $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return [WhatsappMessageChannel::class];
     }

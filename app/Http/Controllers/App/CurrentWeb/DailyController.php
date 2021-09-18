@@ -5,6 +5,7 @@ namespace App\Http\Controllers\App\CurrentWeb;
 use App\Http\Controllers\Controller;
 use App\Models\ResellerClosingAccount;
 use App\Repository\AccountsDailyRepositoryContract;
+use App\Repository\ManagerDailyWalletRepositoryContract;
 use App\Repository\ManagerRepositoryContract;
 use App\Scopes\DraftScope;
 use App\Scopes\PendingScope;
@@ -15,11 +16,13 @@ class DailyController extends Controller
 {
     private AccountsDailyRepositoryContract $accountsDailyRepositoryContract;
     private ManagerRepositoryContract $managerRepositoryContract;
+    private ManagerDailyWalletRepositoryContract $managerDailyWalletRepositoryContract;
 
-    public function __construct(AccountsDailyRepositoryContract $accountsDailyRepositoryContract, ManagerRepositoryContract $managerRepositoryContract)
+    public function __construct(AccountsDailyRepositoryContract $accountsDailyRepositoryContract, ManagerRepositoryContract $managerRepositoryContract, ManagerDailyWalletRepositoryContract $managerDailyWalletRepositoryContract)
     {
         $this->accountsDailyRepositoryContract = $accountsDailyRepositoryContract;
         $this->managerRepositoryContract = $managerRepositoryContract;
+        $this->managerDailyWalletRepositoryContract = $managerDailyWalletRepositoryContract;
     }
 
     public function resellerClosingAccountsIndex()
@@ -42,12 +45,7 @@ class DailyController extends Controller
 
     public function resellerAccountsTransactionsIndex()
     {
-        $managerCloseAccountList = ResellerClosingAccount::where(
-            [
-                ['creator_id', Auth::id()],
-                ['transaction_type', 'transfer'],
-            ]
-        )->orWhere('receiver_id', Auth::id())->withoutGlobalScope(PendingScope::class)->orderBy('id', 'desc')->paginate(15);
+        $managerCloseAccountList = $this->managerDailyWalletRepositoryContract->getWalletTransferPagination();
 
         return view('accounting.reseller_daily.tranfers_list', compact('managerCloseAccountList'));
     }

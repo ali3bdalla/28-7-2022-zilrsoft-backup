@@ -79,8 +79,9 @@ class DailyController extends Controller
         if (!in_array(Auth::id(), $allowedManagers)) {
             abort(404);
         }
-        $transaction->creator->notify(new TransferWalletTransactionCanceledNotification($transaction));
         $this->managerDailyWalletRepositoryContract->cancelWalletTransferTransaction($transaction);
+        $transaction->creator->notify(new TransferWalletTransactionCanceledNotification($transaction));
+
     }
 
 }

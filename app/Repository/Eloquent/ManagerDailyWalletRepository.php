@@ -9,6 +9,7 @@ use App\Repository\AccountRepositoryContract;
 use App\Repository\EntryRepositoryContract;
 use App\Repository\ManagerDailyWalletRepositoryContract;
 use App\Scopes\PendingScope;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ManagerDailyWalletRepository extends BaseRepository implements ManagerDailyWalletRepositoryContract
@@ -70,6 +71,14 @@ class ManagerDailyWalletRepository extends BaseRepository implements ManagerDail
 
     public function cancelWalletTransferTransaction(ResellerClosingAccount $pendingWalletTransferTransaction)
     {
-        $pendingWalletTransferTransaction->forceDelete();
+        $pendingWalletTransferTransaction->delete();
+    }
+
+    public function getWalletTransferPagination()
+    {
+        return ResellerClosingAccount::query()
+            ->whereCreatorIdAndTransactionTypeOrReceiverId($this->authManager()->id, 'transfer', $this->authManager()->id)
+            ->withoutGlobalScope(PendingScope::class)
+            ->orderBy('id', 'desc')->paginate(15);
     }
 }

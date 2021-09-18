@@ -70,7 +70,7 @@ test:
     # Run database seed
     - php artisan db:seed --env=testing
     - php artisan config:cache
-#    - ./vendor/bin/phpstan  --debug
+    #    - ./vendor/bin/phpstan  --debug
     # run laravel tests
   #    - ./vendor/bin/phpunit
   when: on_success

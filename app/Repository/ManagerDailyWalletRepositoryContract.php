@@ -10,6 +10,8 @@ interface ManagerDailyWalletRepositoryContract extends BaseRepositoryContract
 {
     public function hasPendingTransferTransactions(): bool;
 
+    public function getWalletTransferPagination();
+
     public function confirmWalletTransferTransaction(ResellerClosingAccount $pendingWalletTransferTransaction): TransactionsContainer;
 
     public function cancelWalletTransferTransaction(ResellerClosingAccount $pendingWalletTransferTransaction);
