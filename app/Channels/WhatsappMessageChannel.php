@@ -28,13 +28,18 @@ class WhatsappMessageChannel
             ]
         ];
 
-        try {
-            $client->request(
-                'GET', config('services.whatsapp.base_url') . 'sendMessage' . "?token=" . config('services.whatsapp.token'), $data
-            );
-        } catch (TransportExceptionInterface | ClientException $e) {
-            Log::critical("whatsapp connection not working", $e->getTrace());
+        if (config('services.whatsapp.server') === 'log') {
+            Log::info($message, $data);
+        } else {
+            try {
+                $client->request(
+                    'GET', config('services.whatsapp.base_url') . 'sendMessage' . "?token=" . config('services.whatsapp.token'), $data
+                );
+            } catch (TransportExceptionInterface | ClientException $e) {
+                Log::critical("whatsapp connection not working", $e->getTrace());
+            }
         }
+
 
     }
 }

@@ -41,15 +41,14 @@ class AccountRepository extends BaseRepository implements AccountRepositoryContr
 
     public function getAccountBalance(Account $account, ?SearchValueObjectContract $searchValueObjectContract = null)
     {
-        $query = Transaction::whereAccountId($account->id);
         $debitQuery = Transaction::query()->whereAccountIdAndType($account->id, AccountingTypeEnum::debit());
         $creditQuery = Transaction::query()->whereAccountIdAndType($account->id, AccountingTypeEnum::credit());
         if ($searchValueObjectContract instanceof SearchValueObjectContract) {
             $debitQuery = $searchValueObjectContract->apply($debitQuery);
             $creditQuery = $searchValueObjectContract->apply($creditQuery);
         }
-        $debitAmount = $debitQuery->whereType(AccountingTypeEnum::debit())->sum('amount');
-        $creditAmount = $creditQuery->whereType(AccountingTypeEnum::credit())->sum('amount');
+        $debitAmount = $debitQuery->sum('amount');
+        $creditAmount = $creditQuery->sum('amount');
         if ($account->isCredit()) return $creditAmount - $debitAmount;
         return $debitAmount - $creditAmount;
     }

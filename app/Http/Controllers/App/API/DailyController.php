@@ -59,8 +59,7 @@ class DailyController extends Controller
         $transaction = ResellerClosingAccount::query()
             ->whereIsPendingAndId(true, $transaction)
             ->withoutGlobalScope(PendingScope::class)->firstOrFail();
-
-        if (!in_array(Auth::id(), $transaction->toAccount->managerGateways()->pluck('managers.id')->toArray())) {
+        if (app()->isProduction() && !in_array(Auth::id(), $transaction->toAccount->managerGateways()->pluck('managers.id')->toArray())) {
             abort(404);
         }
         $this->managerDailyWalletRepositoryContract->confirmWalletTransferTransaction($transaction);
