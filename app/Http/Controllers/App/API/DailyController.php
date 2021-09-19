@@ -81,7 +81,6 @@ class DailyController extends Controller
         }
         $this->managerDailyWalletRepositoryContract->cancelWalletTransferTransaction($transaction);
         $transaction->creator->notify(new TransferWalletTransactionCanceledNotification($transaction));
-
     }
 
 }

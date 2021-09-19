@@ -130,4 +130,5 @@ class DailyControllerTest extends TestCase
         Notification::assertSentTo($issuerManager, TransferWalletTransactionCanceledNotification::class);
     }
 
+
 }

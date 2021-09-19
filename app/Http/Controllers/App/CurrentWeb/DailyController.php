@@ -7,8 +7,6 @@ use App\Models\ResellerClosingAccount;
 use App\Repository\AccountsDailyRepositoryContract;
 use App\Repository\ManagerDailyWalletRepositoryContract;
 use App\Repository\ManagerRepositoryContract;
-use App\Scopes\DraftScope;
-use App\Scopes\PendingScope;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

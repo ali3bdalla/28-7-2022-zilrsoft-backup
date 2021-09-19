@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Daily;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\ValidationException;
 
 class StoreResellerClosingAccountsRequest extends FormRequest
 {
@@ -35,5 +34,4 @@ class StoreResellerClosingAccountsRequest extends FormRequest
     {
         return $this->input('gateways');
     }
-
 }

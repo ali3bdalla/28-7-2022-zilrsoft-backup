@@ -9,7 +9,9 @@ use App\Models\Manager;
 use App\Models\TransactionsContainer;
 use App\Repository\AccountsDailyRepositoryContract;
 use App\Repository\EntryRepositoryContract;
-use Carbon\Carbon;
+use App\Repository\VoucherRepositoryContract;
+use App\ValueObjects\VoucherSearchValueObject;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,10 +19,12 @@ use Illuminate\Support\Facades\DB;
 class AccountsDailyRepository extends BaseRepository implements AccountsDailyRepositoryContract
 {
     private EntryRepositoryContract $entryRepositoryContract;
+    private VoucherRepositoryContract $voucherRepositoryContract;
 
-    public function __construct(EntryRepositoryContract $entryRepositoryContract)
+    public function __construct(EntryRepositoryContract $entryRepositoryContract, VoucherRepositoryContract $voucherRepositoryContract)
     {
         $this->entryRepositoryContract = $entryRepositoryContract;
+        $this->voucherRepositoryContract = $voucherRepositoryContract;
     }
 
     public function closePeriodAccounts(array $banks = [])
@@ -48,7 +52,7 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
     {
         $transactions = [];
         foreach ($banks as $bank) {
-            if ($bank['amount'] > 0) {
+            if ((float)$bank['amount']) {
                 $transactions[] = [
                     'account_id' => $bank['id'],
                     'description' => 'close_account',
@@ -62,34 +66,20 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
 
     private function getGatewayExpectedDailyAmount(float $amount, $accountId): float
     {
-        return $amount - ($this->getResellerDailyBankIncomeAmount(false, $accountId) - $this->getResellerDailyBankOutcomeAmount(false, $accountId));
+        $accountPeriodManualVouchersAmount = $this->voucherRepositoryContract->getAmount(new VoucherSearchValueObject(
+            false,
+            true,
+            $accountId,
+            VoucherTypeEnum::receipt(),
+            $this->getPeriodStartAt()
+        ));
+        return $amount - $accountPeriodManualVouchersAmount;
     }
 
-    public function getResellerDailyBankIncomeAmount($excludeVouchers = false, $accountId = null): float
-    {
-        return $this->getResellerDailyAmount(VoucherTypeEnum::receipt(), $excludeVouchers, $accountId);
-    }
-
-    public function getResellerDailyAmount(VoucherTypeEnum $voucherTypeEnum, $excludeVouchers = false, $accountId = null): float
-    {
-        $startAt = $this->user()->accounts_closed_at ?: $this->user()->created_at;
-        $query = $this->user()->payments()->where([
-            ['created_at', '>=', Carbon::parse($startAt)],
-            ['payment_type', $voucherTypeEnum->value]
-        ]);
-        if ($excludeVouchers) $query = $query->whereNotNull('invoice_id');
-        if ($accountId) $query = $query->where('account_id', $accountId);
-        return (float)$query->sum('amount');
-    }
 
     private function user(): Manager
     {
         return Auth::user();
-    }
-
-    public function getResellerDailyBankOutcomeAmount($excludeVouchers = false, $accountId = null): float
-    {
-        return $this->getResellerDailyAmount(VoucherTypeEnum::payment(), $excludeVouchers, $accountId);
     }
 
     private function getBanksShortageAmount($bank): float
@@ -104,7 +94,12 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
 
     private function getExpectedDailyAmount(): float
     {
-        return $this->getResellerDailyBankIncomeAmount(true) - $this->getResellerDailyBankOutcomeAmount(true);
+        return $this->getResellerDailyBankIncomeAmount(false) - $this->getResellerDailyBankOutcomeAmount(false);
+    }
+
+    private function getPeriodStartAt(): Carbon
+    {
+        return Carbon::parse($this->user()->accounts_closed_at ?: $this->user()->created_at);
     }
 
     private function generateShortageTransaction(float $shortShortageAmount): array
@@ -151,6 +146,29 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
     private function getTotalDailyWorthyAmount(): float
     {
         return $this->getResellerDailyBankIncomeAmount() - $this->getResellerDailyBankOutcomeAmount();
+    }
+
+    public function getResellerDailyBankIncomeAmount(bool $includeManualVouchers  = true,?int $accountId = null): float
+    {
+        return $this->voucherRepositoryContract->getAmount(new VoucherSearchValueObject(
+            true,
+            $includeManualVouchers,
+            $accountId,
+            VoucherTypeEnum::receipt(),
+            $this->getPeriodStartAt()
+        ));
+
+
+    }
+    public function getResellerDailyBankOutcomeAmount(bool $includeManualVouchers  = true,?int $accountId = null): float
+    {
+        return  $this->voucherRepositoryContract->getAmount(new VoucherSearchValueObject(
+            true,
+            $includeManualVouchers,
+            $accountId,
+            VoucherTypeEnum::payment(),
+            $this->getPeriodStartAt()
+        ));
     }
 
 }

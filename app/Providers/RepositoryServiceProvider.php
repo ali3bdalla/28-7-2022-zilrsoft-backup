@@ -14,12 +14,14 @@ use App\Repository\Eloquent\ManagerDailyWalletRepository;
 use App\Repository\Eloquent\ManagerRepository;
 use App\Repository\Eloquent\OrderRepository;
 use App\Repository\Eloquent\UserRepository;
+use App\Repository\Eloquent\VoucherRepository;
 use App\Repository\EntryRepositoryContract;
 use App\Repository\InvoiceRepositoryContract;
 use App\Repository\ManagerDailyWalletRepositoryContract;
 use App\Repository\ManagerRepositoryContract;
 use App\Repository\OrderRepositoryContract;
 use App\Repository\UserRepositoryContract;
+use App\Repository\VoucherRepositoryContract;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -40,6 +42,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(OrderRepositoryContract::class, OrderRepository::class);
         $this->app->bind(ManagerDailyWalletRepositoryContract::class, ManagerDailyWalletRepository::class);
         $this->app->bind(EntryRepositoryContract::class, EntryRepository::class);
+        $this->app->bind(VoucherRepositoryContract::class, VoucherRepository::class);
     }
 
     /**
