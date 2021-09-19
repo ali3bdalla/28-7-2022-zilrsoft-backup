@@ -9,7 +9,6 @@ use App\Repository\AccountRepositoryContract;
 use App\Repository\EntryRepositoryContract;
 use App\Repository\ManagerDailyWalletRepositoryContract;
 use App\Scopes\PendingScope;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ManagerDailyWalletRepository extends BaseRepository implements ManagerDailyWalletRepositoryContract
@@ -63,7 +62,7 @@ class ManagerDailyWalletRepository extends BaseRepository implements ManagerDail
                 'remaining_accounts_balance' => $walletBalance
             ]);
             $pendingWalletTransferTransaction->creator()->update([
-                'remaining_accounts_balance' => $walletBalance
+                'remaining_accounts_balance' => DB::raw("remaining_accounts_balance + $walletBalance")
             ]);
             return $entry;
         });

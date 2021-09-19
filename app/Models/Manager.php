@@ -24,6 +24,7 @@ use Propaganistas\LaravelPhone\PhoneNumber;
  * @property string phone_number
  * @property mixed name
  * @property mixed locale_name
+ * @property mixed remaining_accounts_balance
  */
 class Manager extends BaseAuthModel
 {
