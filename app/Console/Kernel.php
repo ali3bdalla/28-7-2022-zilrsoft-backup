@@ -26,7 +26,6 @@ class Kernel extends ConsoleKernel
     {
 
         if ($this->app->isProduction()) {
-            $schedule->command('telescope:prune')->daily();
             $schedule->command(NotifyUnPaidOrderCommand::class)->everyMinute();
             $schedule->command(CancelUnPaidOrderCommand::class)->everyMinute();
             $schedule->command(DailyUpdateAccountSnapshotCommand::class)->daily();
