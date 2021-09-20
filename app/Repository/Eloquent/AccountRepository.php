@@ -15,8 +15,6 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AccountRepository extends BaseRepository implements AccountRepositoryContract
 {
-
-
     public function getAccountTransactionsListPagination(Account $account, SearchValueObjectContract $searchValueObjectContract, SortingValueObjectContract $sortingValueObjectContract): AnonymousResourceCollection
     {
         $queryBuilder = Transaction::whereAccountId($account->id)->with("account", 'invoice', 'user', 'item');

@@ -1,20 +1,21 @@
 <template>
   <div class="">
     <h2 v-if="$page.shippingAddresses.length > 0" class="cart__shipping-method-title">
-      {{$page.$t.cart.select_shipping_address }} {{$page.$t.common.or }}
+      {{ $page.$t.cart.select_shipping_address }} {{ $page.$t.common.or }}
       <inertia-link class="text-blue-400" href="/web/profile/create-shipping-address">{{ $page.$t.common.add_new }}
       </inertia-link>
     </h2>
     <div v-else class="cart__shipping-method-title">
       <CreateShippingAddressFormComponent :return-object="true"
-                                    @created="shippingAddressCreated"></CreateShippingAddressFormComponent>
+                                          @created="shippingAddressCreated"></CreateShippingAddressFormComponent>
     </div>
 
     <div v-if="$page.shippingAddresses.length > 0" class="">
       <div class="cart__shipping-address">
         <div class="cart__shipping-address-list">
           <div class="cart__shipping-address-right w-full">
-            <el-select v-model="shippingAddressId" :allow-create="true" :filterable="true"
+            <el-select v-model="shippingAddressId"
+                       :allow-create="true" :filterable="true"
                        :placeholder="$page.$t.cart.select_shipping_address"
                        class="page__w-full"
                        no-data-text="No" no-match-text="No Data">
@@ -38,7 +39,7 @@
                         stroke-width="2"
                     />
                   </svg>
-                  {{$page.$t.cart.create_shipping_address}}
+                  {{ $page.$t.cart.create_shipping_address }}
                 </a>
               </template>
               <el-option
@@ -46,9 +47,10 @@
                   :key="shippingAddress.id"
                   :label="shippingAddress.first_name"
                   :value="shippingAddress.id">
-                {{ shippingAddress.first_name }} {{ shippingAddress.last_name }} - {{ shippingAddress.city.locale_name
+                {{ shippingAddress.first_name }} {{ shippingAddress.last_name }} - {{
+                  shippingAddress.city.locale_name
                 }} - {{
-                shippingAddress.phone_number
+                  shippingAddress.phone_number
                 }}
               </el-option>
             </el-select>

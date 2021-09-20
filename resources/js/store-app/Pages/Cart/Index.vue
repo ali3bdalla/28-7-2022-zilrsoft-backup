@@ -15,8 +15,7 @@
           </div>
           <div
               v-if="$page.client && activePage === 'checkout' && showCart"
-              class="col-12"
-          >
+              class="col-12">
             <div class="w-full">
               <cart-shipping-address
                   :shippingAddressId="shippingAddressId"
@@ -27,10 +26,11 @@
           <div v-if="showCart">
             <div v-if="activePage === 'cart'" class="page__mt-5 col-lg-12">
               <div class="my-4">
-                <el-select v-model="cityId" :filterable="true" :placeholder=" $page.$t.messages.select_city"
+                <el-select :default-first-option="true" v-model="cityId" :filterable="true" value-key="id" :placeholder="$page.$t.messages.select_city"
                            class=""
                            no-data-text="No"
-                           no-match-text="No Data" @change="loadShippingMethods">
+                           no-match-text="No Data"
+                           @change="loadShippingMethods">
                   <el-option
                       v-for="city in $page.cities"
                       :key="city.id"
@@ -167,7 +167,7 @@ export default {
       this.shippingAddress = e
       this.shippingAddressId = e.id
     },
-    updatecartItemsList (e) {
+    updateCartItemsList (e) {
       this.cartItemsList = e.items
     },
     changeActivePage (e) {

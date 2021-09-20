@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\URL;
 
-class SignUpPhoneNumberVerificationCodeNotification extends Notification implements WhatsappMessageNotificationContract, OurSmsNotificationContract,ShouldQueue
+class SignUpPhoneNumberVerificationCodeNotification extends Notification implements WhatsappMessageNotificationContract, OurSmsNotificationContract, ShouldQueue
 {
     use Queueable;
 
@@ -32,11 +32,6 @@ class SignUpPhoneNumberVerificationCodeNotification extends Notification impleme
         return 'click to verify : ' . $this->createVerificationUrl($notifiable);
     }
 
-    public function toWhatsappMessage($notifiable): string
-    {
-        return 'click to verify : ' . $this->createVerificationUrl($notifiable);
-    }
-
     private function createVerificationUrl($notifiable): string
     {
         return URL::temporarySignedRoute(
@@ -49,5 +44,10 @@ class SignUpPhoneNumberVerificationCodeNotification extends Notification impleme
             ]
         );
 
+    }
+
+    public function toWhatsappMessage($notifiable): string
+    {
+        return 'click to verify : ' . $this->createVerificationUrl($notifiable);
     }
 }

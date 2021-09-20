@@ -19,7 +19,6 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
         $this->invoiceRepositoryContract = $invoiceRepositoryContract;
     }
 
-
     public function createOrder(OrderDto $orderDto): ?Order
     {
         return DB::transaction(function () use ($orderDto) {

@@ -1,5 +1,12 @@
 <?php
 
+if (!function_exists('shortLink')) {
+    function shortLink($link = "")
+    {
+        return file_get_contents("http://tinyurl.com/api-create.php?url=$link");
+    }
+}
+
 if (!function_exists('moneyFormatter')) {
 
     function moneyFormatter($amount)
