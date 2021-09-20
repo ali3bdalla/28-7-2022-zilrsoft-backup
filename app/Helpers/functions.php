@@ -1,5 +1,7 @@
 <?php
 
+use App\ValueObjects\MoneyValueObject;
+
 if (!function_exists('shortLink')) {
     function shortLink($link = "")
     {
@@ -8,10 +10,9 @@ if (!function_exists('shortLink')) {
 }
 
 if (!function_exists('moneyFormatter')) {
-
-    function moneyFormatter($amount)
+    function moneyFormatter($amount): float
     {
-        return round($amount * 10) / 10;
+        return (new MoneyValueObject($amount, __('store.products.sar')))->getAmount();
     }
 }
 

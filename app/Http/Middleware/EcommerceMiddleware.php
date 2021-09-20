@@ -53,6 +53,7 @@ class EcommerceMiddleware
                 'algolia_app_key' => 'GM476AOG07',
                 'image_processing_url' => config('services.image_processing.url'),
                 'categories_search_list' => $this->getSearchCategories($request),
+                "errors" => []
             ]
         );
 

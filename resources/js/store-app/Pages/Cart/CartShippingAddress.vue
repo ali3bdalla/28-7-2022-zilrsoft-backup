@@ -43,7 +43,7 @@
                 </a>
               </template>
               <el-option
-                  v-for="shippingAddress in $page.shippingAddresses"
+                  v-for="shippingAddress in shippingAddressList"
                   :key="shippingAddress.id"
                   :label="shippingAddress.first_name"
                   :value="shippingAddress.id">
@@ -97,6 +97,11 @@ export default {
       shippingAddresses: this.$page.shippingAddresses,
       shippingAddressId: null,
       shippingAddress: null
+    }
+  },
+  computed: {
+    shippingAddressList () {
+      return this.$page.shippingAddresses.filter(p => p.city_id === localStorage.getItem('cart_shipping_city_id', null))
     }
   },
   methods: {

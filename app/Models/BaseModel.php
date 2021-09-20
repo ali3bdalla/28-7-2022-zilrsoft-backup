@@ -15,6 +15,19 @@ class BaseModel extends Model
     use HasFactory;
     use PostgresTimestamp;
 
+    protected static function boot()
+    {
+        parent::boot();
+        if (Auth::guard('manager')->check()) {
+            $organizationId = Auth::user()->organization_id;
+            static::addGlobalScope(new OrganizationScope($organizationId));
+        } else {
+            static::addGlobalScope(new OrganizationScope());
+        }
+        static::addGlobalScope(new DraftScope());
+        static::addGlobalScope(new PendingScope());
+    }
+
     public function getLocaleNameAttribute()
     {
         if (app()->isLocale('ar')) {
@@ -31,19 +44,5 @@ class BaseModel extends Model
         }
 
         return $this->getOriginal('description');
-    }
-
-
-    protected static function booting()
-    {
-        parent::booting();
-        if (Auth::guard('manager')->check()) {
-            $organizationId = Auth::user()->organization_id;
-            static::addGlobalScope(new OrganizationScope($organizationId));
-        } else {
-            static::addGlobalScope(new OrganizationScope());
-        }
-        static::addGlobalScope(new DraftScope());
-        static::addGlobalScope(new PendingScope());
     }
 }

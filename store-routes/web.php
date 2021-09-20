@@ -1,17 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 Route::prefix('content')->group(function () {
     Route::get('about', 'ContentController@about');
     Route::get('privacy', 'ContentController@privacy');
     Route::get('terms', 'ContentController@terms');
     Route::get('contact', 'ContentController@contact');
 });
-Route::get('/orders/{order}/cancel', 'Order\CancelOrderController@showPage');
-Route::get('/orders/auth', 'Order\CancelOrderController@auth');
-Route::post('/orders/{order}/cancel', 'Order\CancelOrderController@confirm');
-Route::get('/orders/{order}/confirm_payment', 'Order\ConfirmOrderPaymentController@showConfirmPaymentPage');
-Route::post('/orders/{order}/confirm_payment', 'Order\ConfirmOrderPaymentController@confirmPayment');
+Route::group(['prefix' => "orders"], function () {
+    Route::get('{order}/cancel', 'Order\CancelOrderController@showPage');
+    Route::get('{order}/confirm_payment', 'OrderController@confirmPayment');
+});
+
 Route::group(['middleware' => 'guest:client'], function () {
     Route::group(['as' => 'sign_in.', 'prefix' => 'sign_in'], function () {
         Route::get('/', 'AuthController@signInPage')->name('index');

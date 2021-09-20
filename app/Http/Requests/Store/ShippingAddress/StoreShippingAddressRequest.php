@@ -5,6 +5,7 @@ namespace App\Http\Requests\Store\ShippingAddress;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class StoreShippingAddressRequest extends FormRequest
 {
@@ -49,11 +50,12 @@ class StoreShippingAddressRequest extends FormRequest
                     'street_name', 'zip_code')
             );
             DB::commit();
+            return Inertia::location('/web/cart');
             if($this->has('return_object') && $this->input('return_object')) {
                 return $shippingAddress->load('city');
             }else
             {
-                return redirect('/web/cart');
+
             }
         } catch (QueryException $queryException) {
             DB::rollBack();

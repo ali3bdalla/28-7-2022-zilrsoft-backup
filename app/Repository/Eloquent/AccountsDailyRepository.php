@@ -65,8 +65,8 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
     private function getGatewayExpectedDailyAmount(float $amount, $accountId): float
     {
         $accountPeriodManualVouchersAmount = $this->voucherRepositoryContract->getAmount(new VoucherSearchValueObject(
-            false,
             true,
+            false,
             $accountId,
             VoucherTypeEnum::receipt(),
             $this->getPeriodStartAt()

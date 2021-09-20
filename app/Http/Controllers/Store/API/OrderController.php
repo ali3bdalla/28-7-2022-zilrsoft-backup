@@ -4,15 +4,23 @@ namespace App\Http\Controllers\Store\API;
 
 use App\Dto\InvoiceDto;
 use App\Dto\OrderDto;
+use App\Dto\OrderPaymentDto;
 use App\Enums\InvoiceTypeEnum;
+use App\Enums\OrderStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\StoreOrderRequest;
+use App\Http\Requests\Web\Order\ConfirmOrderPaymentRequest;
 use App\Models\Manager;
 use App\Models\Order;
+use App\Notifications\Store\CanceledOrderNotification;
+use App\Notifications\Store\UserConfirmedOrderPaymentNotification;
 use App\Repository\OrderRepositoryContract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class OrderController extends Controller
 {
@@ -44,6 +52,33 @@ class OrderController extends Controller
         $orderDto = new OrderDto($invoiceDto, $shippingMethod, $shippingAddress, $paymentMethodId);
         $order = $this->orderRepositoryContract->createOrder($orderDto);
         $this->orderRepositoryContract->issuedOrderNotifications($order);
-        return $order;
+        return $order->load('user');
+    }
+
+    public function cancelOrder(Order $order, Request $request)
+    {
+        $confirmationCode = (int)$request->input("code", 000);
+        $this->orderRepositoryContract->ensureUserCanManipulateOrder($order, $confirmationCode);
+        $this->orderRepositoryContract->changeOrderStatus($order, OrderStatusEnum::canceled());
+        $order->user()->notify(new CanceledOrderNotification($order, true));
+    }
+
+    public function confirmPayment(ConfirmOrderPaymentRequest $request, Order $order): Response
+    {
+        $confirmationCode = (int)$request->input("code", 000);
+        $this->orderRepositoryContract->ensureUserCanManipulateOrder($order, $confirmationCode);
+        $orderPaymentDto = new OrderPaymentDto(
+            $request->getFirstName(),
+            $request->getLastName(),
+            $request->getSendAccountId(),
+            $request->getReceiverBankId()
+        );
+        $this->orderRepositoryContract->confirmOrderPayment($order, $orderPaymentDto);
+        Notification::send(Manager::whereOrganizationId($order->organization_id)->get(), new UserConfirmedOrderPaymentNotification($order));
+        return Inertia::render(
+            'Order/PaymentConfirmed', [
+                'order' => $order
+            ]
+        );
     }
 }

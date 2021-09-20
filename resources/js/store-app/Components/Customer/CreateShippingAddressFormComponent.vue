@@ -17,7 +17,7 @@
                           type="text"
                       />
                       <div
-                          v-if="$page.errors.first_name"
+                          v-if="$page.errors && $page.errors.first_name"
                           class="p-2 text-red-500"
                       >
                         {{ $page.errors.first_name }}
@@ -33,7 +33,7 @@
                           type="text"
                       />
                       <div
-                          v-if="$page.errors.last_name"
+                          v-if="$page.errors && $page.errors.last_name"
                           class="p-2 text-red-500"
                       >
                         {{ $page.errors.last_name }}
@@ -58,7 +58,7 @@
 
                       <!--                        <input type="text" placeholder="Phone Number" v-model="phone_number">-->
                       <div
-                          v-if="$page.errors.phone_number"
+                          v-if="$page.errors && $page.errors.phone_number"
                           class="p-2 text-red-500"
                       >
                         {{ $page.errors.phone_number }}
@@ -103,7 +103,7 @@
                         </el-option>
                       </el-select>
                       <div
-                          v-if="$page.errors.city_id"
+                          v-if="$page.errors && $page.errors.city_id"
                           class="p-2 text-red-500"
                       >
                         {{ $page.errors.city_id }}
@@ -120,7 +120,7 @@
                           type="text"
                       />
                       <div
-                          v-if="$page.errors.description"
+                          v-if="$page.errors && $page.errors.description"
                           class="p-2 text-red-500"
                       >
                         {{ $page.errors.description }}
@@ -136,7 +136,7 @@
                           type="text"
                       />
                       <div
-                          v-if="$page.errors.description"
+                          v-if="$page.errors && $page.errors.description"
                           class="p-2 text-red-500"
                       >
                         {{ $page.errors.description }}
@@ -153,7 +153,7 @@
                           type="text"
                       />
                       <div
-                          v-if="$page.errors.description"
+                          v-if="$page.errors && $page.errors.description"
                           class="p-2 text-red-500"
                       >
                         {{ $page.errors.description }}
@@ -191,7 +191,7 @@ export default {
       area: '',
       zip_code: '',
       description: '',
-      city_id: ''
+      city_id: localStorage.getItem('cart_shipping_city_id', null)
     }
   },
   name: 'CreateShippingAddressFormComponent',

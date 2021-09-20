@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed shipping_address_id
  * @property mixed draft_id
  * @property mixed net
- * @property mixed|string status
+ * @property OrderStatusEnum status
  * @property mixed user_id
  * @property mixed auto_cancel_at
  * @property false|mixed is_should_pay_notified
@@ -101,12 +101,12 @@ class Order extends BaseModel
 
     public function generatePayOrderUrl()
     {
-        return file_get_contents('http://tinyurl.com/api-create.php?url='.url('/web/orders/'.$this->id.'/confirm_payment?code='.$this->order_secret_code));
+        return shortLink(url('/web/orders/'.$this->id.'/confirm_payment?code='.$this->order_secret_code));
     }
 
     public function generateCancelOrderUrl()
     {
-        return file_get_contents('http://tinyurl.com/api-create.php?url='.url('/web/orders/'.$this->id.'/cancel?code='.$this->order_secret_code));
+        return shortLink(url('/web/orders/'.$this->id.'/cancel?code='.$this->order_secret_code));
     }
 
     public function paymentDetail(): HasOne

@@ -42,7 +42,7 @@ export default {
   methods: {
 
     cancelOrder () {
-      this.$inertia.post('/web/orders/' + this.$page.order.id + '/cancel')
+      this.$inertia.post('/api/web/orders/' + this.$page.order.id + '/cancel')
     }
 
   }

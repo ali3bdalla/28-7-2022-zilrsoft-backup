@@ -17,7 +17,7 @@ class Payment extends BaseModel
     use SoftDeletes;
 
     protected $casts = [
-        'type' => VoucherTypeEnum::class . ':nullable'
+        'type' => VoucherTypeEnum::class . ':nullable',
     ];
     protected $guarded = [];
 

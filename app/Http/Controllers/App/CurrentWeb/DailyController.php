@@ -33,8 +33,8 @@ class DailyController extends Controller
     public function createResellerClosingAccount(Request $request)
     {
         $loggedUser = $request->user();
-        $inAmount = $this->accountsDailyRepositoryContract->getResellerDailyBankIncomeAmount();
         $outAmount = $this->accountsDailyRepositoryContract->getResellerDailyBankOutcomeAmount();
+        $inAmount = $this->accountsDailyRepositoryContract->getResellerDailyBankIncomeAmount();
         $remainingAccountsBalanceAmount = $loggedUser->remaining_accounts_balance;
         $accountsClosedAt = $loggedUser->accounts_closed_at;
         $gateways = $loggedUser->gateways()->get();

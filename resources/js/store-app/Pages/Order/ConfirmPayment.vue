@@ -167,7 +167,7 @@ export default {
     },
     confirmPayment () {
       this.$inertia.post(
-        '/web/orders/' +
+        '/api/web/orders/' +
           this.$page.order.id +
           '/confirm_payment?code=' +
           this.$page.code,

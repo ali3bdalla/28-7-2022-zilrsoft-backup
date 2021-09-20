@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::group(['prefix' => "orders"], function () {
+    Route::post('{order}/cancel', 'OrderController@cancelOrder');
+    Route::post('{order}/confirm_payment', 'OrderController@confirmPayment');
+});
 
 Route::prefix('items')->name('items.')->group(
     function () {

@@ -37,12 +37,12 @@ class VoucherSearchValueObject implements SearchValueObjectContract
 
     public function apply(Builder $builder): Builder
     {
-        if (!$this->includeInvoicesVouchers) $builder->whereNull('invoice_id');
-        if (!$this->includeManualVouchers) $builder->whereNotNull('invoice_id');
-        if ($this->accountId) $builder->whereAccountId($this->accountId);
-        if ($this->voucherType) $builder->wherePaymentType($this->voucherType);
-        if ($this->startAt) $builder->where('created_at', '>=', $this->startAt);
-        if ($this->endAt) $builder->where('created_at', '<=', $this->endAt);
+        if ($this->includeInvoicesVouchers === false) $builder->whereNull('invoice_id');
+        if ($this->includeManualVouchers === false ) $builder->whereNotNull('invoice_id');
+        if ($this->accountId !== null) $builder->whereAccountId($this->accountId);
+        if ($this->voucherType !== null) $builder->wherePaymentType($this->voucherType);
+        if ($this->startAt !== null) $builder->where(fn(Builder  $query) => $query->whereDate('created_at', '>=', $this->startAt)->whereTime('created_at', '>=', $this->startAt->toTimeString()));
+        if ($this->endAt !== null) $builder->where(fn(Builder  $query) => $query->whereDate('created_at', '<=', $this->endAt)->whereTime('created_at', '<=', $this->endAt->toTimeString()));
         return $builder;
     }
 }

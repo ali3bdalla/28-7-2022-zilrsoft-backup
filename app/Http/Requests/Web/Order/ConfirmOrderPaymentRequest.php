@@ -29,63 +29,26 @@ class ConfirmOrderPaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-
             'first_name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
             'sender_account_id' => 'required|integer|exists:user_gateways,id',
             'receiver_bank_id' => 'required|integer|exists:banks,id',
         ];
     }
-
-    public function confirm(Order $order)
+    public function getFirstName()
     {
-        DB::beginTransaction();
-
-        try {
-            $order->update(
-                [
-                    'status' => 'pending'
-                ]
-            );
-            foreach ($order->itemsQtyHolders as $holdQty) {
-                $holdQty->update(
-                    [
-                        'status' => 'pending'
-                    ]
-                );
-            }
-            $order->paymentDetail()->create(
-                [
-                    'user_id' => $order->user_id,
-                    'sender_account_id' => $this->input('sender_account_id'),
-                    'received_bank_id' => $this->input('receiver_bank_id'),
-                    'first_name' => $this->input('first_name'),
-                    'last_name' => $this->input('last_name'),
-                ]
-            );
-            $message = "عملية سداد جديدة
-اسم العميل: {$order->user->locale_name}
-رقم الطلب: $order->id
-المبلغ المفترض:  $order->net
-   رابط التاكيد : https://next.zilrsoft.com/web/orders/{$order->id}
-";
-            if (app()->environment('production')) {
-                Whatsapp::sendMessage($message, "966509025606", false);
-                Whatsapp::sendMessage($message, "966509362779", false);
-                Whatsapp::sendMessage($message, "966552243345", false);
-                Whatsapp::sendMessage($message, "966557704903", false);
-                Whatsapp::sendMessage($message, "966543696767", false);
-                Whatsapp::sendMessage($message, "966536753439", false);
-                Whatsapp::sendMessage($message, "966504950211", false);
-            } else {
-                Whatsapp::sendMessage($message, "0024966324018", false);
-            }
-            DB::commit();
-            event(new ClientUpdateOrderPaymentEvent($order));
-        } catch (QueryException $exception) {
-            DB::rollBack();
-            throw  $exception;
-        }
+        return $this->input('first_name');
+    }
+    public function getLastName()
+    {
+        return $this->input('last_name');
+    }
+    public function getSendAccountId()
+    {
+        return $this->input('sender_account_id');
+    }
+    public function getReceiverBankId()
+    {
+        return $this->input('receiver_bank_id');
     }
 }

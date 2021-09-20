@@ -43,7 +43,6 @@ class CancelOrderJob implements ShouldQueue
     public function handle()
     {
 
-        $message = __("store.messages.unpaid_order_canceled_message", ["CUSTOMER_NAME" => $this->order->user->name, "ORDERID" => $this->order->id, 'REASON' => $this->isManual ? __('store.messages.as_your_request') : __('store.messages.not_paid')]);
         $this->order->update(
             [
                 'status' => 'canceled'

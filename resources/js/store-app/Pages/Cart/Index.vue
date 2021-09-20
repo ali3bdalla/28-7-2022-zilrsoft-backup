@@ -26,10 +26,11 @@
           <div v-if="showCart">
             <div v-if="activePage === 'cart'" class="page__mt-5 col-lg-12">
               <div class="my-4">
-                <el-select :default-first-option="true" v-model="cityId" :filterable="true" value-key="id" :placeholder="$page.$t.messages.select_city"
+                <el-select v-model="cityId" :default-first-option="true" :filterable="true" :placeholder="$page.$t.messages.select_city"
                            class=""
                            no-data-text="No"
                            no-match-text="No Data"
+                           value-key="id"
                            @change="loadShippingMethods">
                   <el-option
                       v-for="city in $page.cities"
@@ -56,6 +57,7 @@
                   <el-radio
                       v-model="shippingMethodId"
                       :label="shippingMethod.id"
+                      @change="shippingMethodSelected"
                   >{{ shippingMethod.locale_name }}
                   </el-radio>
                 </div>
@@ -146,11 +148,15 @@ export default {
   },
   created () {
     this.cityId = localStorage.getItem('cart_shipping_city_id', null)
+    this.shippingMethodId = parseInt(localStorage.getItem('cart_shipping_method_id', 0))
     if (this.cityId) {
       this.loadShippingMethods(this.cityId)
     }
   },
   methods: {
+    shippingMethodSelected (e) {
+      localStorage.setItem('cart_shipping_method_id', e)
+    },
     getShippingMethod () {
       const shippingMethod = this.shippingMethods.find(
           (p) => p.id === this.shippingMethodId
@@ -189,7 +195,7 @@ export default {
         ).then(res => {
           Promise.all([
             this.clearCart(),
-            this.alertUser()
+            this.alertUser(res)
           ])
         }).catch(error => {
           console.log(error)
@@ -207,8 +213,9 @@ export default {
       })
     },
 
-    alertUser () {
-      const number = `${this.$page.client.international_phone_number}`.replace(
+    alertUser (res) {
+      console.log(res)
+      const number = `${res.data.user.phone_number}`.replace(
           '+',
           ''
       )

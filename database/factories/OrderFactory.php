@@ -21,6 +21,7 @@ class OrderFactory extends Factory
     {
         return $this->state(function () use ($orderDto) {
             return [
+                'organization_id' => $orderDto->getOrganizationId(),
                 'draft_id' => $orderDto->getDraftInvoiceId(),
                 'status' => OrderStatusEnum::issued(),
                 'shipping_amount' => $orderDto->getShippingAmount(),
