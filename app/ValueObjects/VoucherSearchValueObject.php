@@ -12,6 +12,7 @@ class VoucherSearchValueObject implements SearchValueObjectContract
 
     private bool $includeInvoicesVouchers;
     private bool $includeManualVouchers;
+    private ?int $managerId;
     private ?int $accountId;
     private ?VoucherTypeEnum $voucherType;
     private ?Carbon $startAt;
@@ -25,11 +26,12 @@ class VoucherSearchValueObject implements SearchValueObjectContract
      * @param Carbon|null $startAt
      * @param Carbon|null $endAt
      */
-    public function __construct(bool $includeInvoicesVouchers = true, bool $includeManualVouchers = true, ?int $accountId = null, ?VoucherTypeEnum $voucherType = null, ?Carbon $startAt = null, ?Carbon $endAt = null)
+    public function __construct(bool $includeInvoicesVouchers = true, bool $includeManualVouchers = true, ?int $accountId = null, ?int $managerId = null, ?VoucherTypeEnum $voucherType = null, ?Carbon $startAt = null, ?Carbon $endAt = null)
     {
         $this->includeInvoicesVouchers = $includeInvoicesVouchers;
         $this->includeManualVouchers = $includeManualVouchers;
         $this->accountId = $accountId;
+        $this->managerId = $managerId;
         $this->voucherType = $voucherType;
         $this->startAt = $startAt;
         $this->endAt = $endAt;
@@ -38,11 +40,12 @@ class VoucherSearchValueObject implements SearchValueObjectContract
     public function apply(Builder $builder): Builder
     {
         if ($this->includeInvoicesVouchers == false) $builder->whereNull('invoice_id');
-        if ($this->includeManualVouchers == false ) $builder->whereNotNull('invoice_id');
+        if ($this->includeManualVouchers == false) $builder->whereNotNull('invoice_id');
         if ($this->accountId !== null) $builder->whereAccountId($this->accountId);
+        if ($this->managerId !== null) $builder->whereCreatorId($this->managerId);
         if ($this->voucherType !== null) $builder->wherePaymentType($this->voucherType);
-        if ($this->startAt !== null) $builder->where(fn(Builder  $query) => $query->where('created_at', '>=', $this->startAt));
-        if ($this->endAt !== null) $builder->where(fn(Builder  $query) => $query->where('created_at', '<=', $this->endAt));
+        if ($this->startAt !== null) $builder->where(fn(Builder $query) => $query->where('created_at', '>=', $this->startAt));
+        if ($this->endAt !== null) $builder->where(fn(Builder $query) => $query->where('created_at', '<=', $this->endAt));
         return $builder;
     }
 }

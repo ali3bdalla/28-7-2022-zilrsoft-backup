@@ -68,6 +68,7 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
             false,
             true,
             $accountId,
+            $this->authManager()->id,
             VoucherTypeEnum::receipt(),
             $this->getPeriodStartAt()
         ));
@@ -100,6 +101,7 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
             true,
             $includeManualVouchers,
             $accountId,
+            $this->authManager()->id,
             VoucherTypeEnum::receipt(),
             $this->getPeriodStartAt()
         ));
@@ -112,6 +114,7 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
             true,
             $includeManualVouchers,
             $accountId,
+            $this->authManager()->id,
             VoucherTypeEnum::payment(),
             $this->getPeriodStartAt()
         ));
@@ -160,7 +163,7 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
 
     private function getTotalDailyWorthyAmount(): float
     {
-        return ($this->getResellerDailyBankIncomeAmount()  + $this->authManager()->remaining_accounts_balance) - $this->getResellerDailyBankOutcomeAmount();
+        return ($this->getResellerDailyBankIncomeAmount() + $this->authManager()->remaining_accounts_balance) - $this->getResellerDailyBankOutcomeAmount();
     }
 
 }
