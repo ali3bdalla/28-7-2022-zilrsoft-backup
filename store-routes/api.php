@@ -27,13 +27,11 @@ Route::prefix('cart')->name('cart.')->group(
         Route::match(['POST', 'GET'], '/get_items_details', 'CartController@getItemDetails')->name('get_items_details');
     }
 );
-
 Route::prefix('filters')->name('filters.')->group(
     function () {
         Route::match(['POST', 'GET'], '/', 'FilterController@apiGetFilters')->name('get_filters');
     }
 );
-
 Route::middleware('auth:client')->group(
     function () {
         Route::resource('orders', 'OrderController');

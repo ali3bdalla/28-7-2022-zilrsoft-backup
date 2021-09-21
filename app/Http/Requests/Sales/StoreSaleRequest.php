@@ -34,22 +34,39 @@ class StoreSaleRequest extends FormRequest
     {
         return [
             'items' => 'required|array',
-            'items.*.id' => 'required||organization_exists:App\\Models\\Item,id',
-            'items.*.price' => 'price|priceAndDiscount|min:0',
-            'items.*.discount' => 'priceAndDiscount',
+            'items.*.id' => 'required|exists:items,id',
+            'items.*.price' => 'price|min:0',
+            'items.*.discount' => 'price',
             'items.*.qty' => 'required|quantity|min:1|salesItemQty',
             'items.*.serials' => 'array|newInvoiceItemSerials',
-            'items.*.serials.*' => 'required|organization_exists:App\Models\ItemSerials,serial',
-            'items.*.items.*.id' => 'required|organization_exists:App\Models\Item,id',
+            'items.*.serials.*' => 'required|exists:serials,serial',
+            'items.*.items.*.id' => 'required|exists:items,id',
             'items.*.items.*.serials' => 'array',
-            'items.*.items.*.serials.*' => 'required|organization_exists:App\Models\ItemSerials,serial',
+            'items.*.items.*.serials.*' => 'required|exists:item_serials,serial',
             'items.*.items.*.qty' => 'required|quantity|salesKitItemValidator',
-            'client_id' => 'required|integer|organization_exists:App\\Models\\User,id',
-            'salesman_id' => 'required|integer|organization_exists:App\\Models\\Manager,id',
+            'client_id' => 'required|integer|exists:users,id',
+            'salesman_id' => 'required|integer|exists:managers,id',
             'methods' => 'array',
-            'methods.*.id' => 'required|integer|organization_exists:App\Models\Account,id',
+            'methods.*.id' => 'required|integer|exists:accounts,id',
             'methods.*.amount' => 'required|numeric',
         ];
+    }
+    public function getInvoiceClient(): User
+    {
+        return User::find($this->input('client_id'));
+    }
+    public function getSalesManId()
+    {
+        return $this->input('salesman_id');
+    }
+    public function getPaymentMethods(): array
+    {
+        return (array)$this->input('methods');
+    }
+
+    public function getItems(): array
+    {
+        return (array)$this->input('items');
     }
 
     /**
@@ -89,7 +106,7 @@ class StoreSaleRequest extends FormRequest
             );
 
             dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'S'));
-            dispatch_sync(new StoreSaleItemsJob($invoice, (array) $this->input('items'), false, null, $isOnlineOrder));
+            dispatch_sync(new StoreSaleItemsJob($invoice, (array)$this->input('items'), false, null, $isOnlineOrder));
             dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             /**
              * ========================================================
@@ -104,16 +121,11 @@ class StoreSaleRequest extends FormRequest
             DB::commit();
 
             return $invoice;
-        } catch (QueryException|ValidationException|Exception $exception) {
+        } catch (QueryException | ValidationException | Exception $exception) {
             DB::rollBack();
 
             throw $exception;
         }
-    }
-
-    public function loggedUser(): Manager
-    {
-        return parent::user();
     }
 
     private function isOnlineOrder(): bool
@@ -181,8 +193,7 @@ class StoreSaleRequest extends FormRequest
                                 $itemSerial = ItemSerials::whereSerial($serial)
                                     ->whereItemId($kitItem->item_id)
                                     ->whereIn('status', ['in_stock', 'return_sale'])
-                                    ->first()
-                                ;
+                                    ->first();
                                 if (null == $itemSerial) {
                                     throw ValidationException::withMessages(['kit_item' => 'invalid serial']);
                                 }
@@ -206,11 +217,16 @@ class StoreSaleRequest extends FormRequest
         foreach ($items as $item) {
             $dbItem = Item::find($item['id']);
             if (!$dbItem->is_service && !$dbItem->is_expense && !$dbItem->is_kit) {
-                if ((float) $dbItem->available_qty < (float) $item['qty']) {
+                if ((float)$dbItem->available_qty < (float)$item['qty']) {
                     throw ValidationException::withMessages(['item_available_quantity' => "you can't sale this items , qty not"]);
                 }
             }
         }
+    }
+
+    public function loggedUser(): Manager
+    {
+        return parent::user();
     }
 
     /**
@@ -233,13 +249,13 @@ class StoreSaleRequest extends FormRequest
         if ($user->is_system_user) {
             if ($totalPaidAmount != $invoice->net) {
                 throw_if($paymentsMethodsCount < 1, ValidationException::withMessages(['payments' => 'summation of payments methods should match invoice net ']));
-                $variationAmount = (float) $totalPaidAmount - (float) $invoice->fresh()->net;
+                $variationAmount = (float)$totalPaidAmount - (float)$invoice->fresh()->net;
                 $methods = $this->input('methods');
                 $firstAmount = $methods[0]['amount'];
                 if ($variationAmount > 0) {
-                    $newAmount = (float) $firstAmount - (float) abs($variationAmount);
+                    $newAmount = (float)$firstAmount - (float)abs($variationAmount);
                 } else {
-                    $newAmount = (float) $firstAmount + (float) abs($variationAmount);
+                    $newAmount = (float)$firstAmount + (float)abs($variationAmount);
                 }
                 $methods[0]['amount'] = $newAmount;
 

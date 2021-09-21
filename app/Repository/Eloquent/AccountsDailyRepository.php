@@ -64,14 +64,14 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
 
     private function getGatewayExpectedDailyAmount(float $amount, $accountId): float
     {
-        $accountPeriodManualVouchersAmount = $this->voucherRepositoryContract->getAmount(new VoucherSearchValueObject(
-            true,
+        $accountAlreadyRegisteredPeriodAmount = $this->voucherRepositoryContract->getAmount(new VoucherSearchValueObject(
             false,
+            true,
             $accountId,
             VoucherTypeEnum::receipt(),
             $this->getPeriodStartAt()
         ));
-        return $amount - $accountPeriodManualVouchersAmount;
+        return $amount - $accountAlreadyRegisteredPeriodAmount;
     }
 
     private function getPeriodStartAt(): Carbon
@@ -138,9 +138,9 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
 
     private function registerDailyAccountsReport(TransactionsContainer $entry, $banks)
     {
-        $actualAmount = collect($banks)->sum('amount');
+        $paidAmount = collect($banks)->sum('amount');
         $worthyAmount = $this->getTotalDailyWorthyAmount();
-        $shortageAmount = $actualAmount - $worthyAmount;
+        $shortageAmount = $paidAmount - $worthyAmount;
         $this->authManager()->resellerClosingAccounts()->create(
             [
                 'organization_id' => $this->authManager()->organization_id,
@@ -160,7 +160,7 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
 
     private function getTotalDailyWorthyAmount(): float
     {
-        return $this->getResellerDailyBankIncomeAmount() - $this->getResellerDailyBankOutcomeAmount();
+        return ($this->getResellerDailyBankIncomeAmount()  + $this->authManager()->remaining_accounts_balance) - $this->getResellerDailyBankOutcomeAmount();
     }
 
 }

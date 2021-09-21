@@ -54,7 +54,7 @@ class Invoice extends BaseModel
     protected $casts = [
         'printable_price' => 'boolean',
         'is_draft_converted' => 'boolean',
-        'invoice_type' => InvoiceTypeEnum::class.':nullable',
+        'invoice_type' => InvoiceTypeEnum::class . ':nullable',
         'net' => MoneyValueObject::class,
         'total' => MoneyValueObject::class,
         'subtotal' => MoneyValueObject::class,
@@ -70,7 +70,7 @@ class Invoice extends BaseModel
 
         return Invoice::where([
             'created_at' => $publicIdElements->get('created_at', null),
-            'id' => (int) $publicIdElements->get('id', 0),
+            'id' => (int)$publicIdElements->get('id', 0),
         ])->firstOrFail();
     }
 
@@ -215,13 +215,13 @@ class Invoice extends BaseModel
             $invoiceItemDto->setInvoice($this);
             $invoiceItem = InvoiceItems::factory()
                 ->setDto($invoiceItemDto)
-                ->create()
-            ;
-            $net = (float) $this->net + (float) $invoiceItem->net;
-            $total = (float) $this->total + (float) $invoiceItem->total;
-            $tax = (float) $this->tax + (float) $invoiceItem->tax;
-            $discount = (float) $this->discount + (float) $invoiceItem->discount;
-            $subtotal = (float) $this->subtotal + (float) $invoiceItem->subtotal;
+                ->create();
+//            $invoiceItem->syncSerials($invoiceItemDto->getSerials());
+            $net = (float)$this->net + (float)$invoiceItem->net;
+            $total = (float)$this->total + (float)$invoiceItem->total;
+            $tax = (float)$this->tax + (float)$invoiceItem->tax;
+            $discount = (float)$this->discount + (float)$invoiceItem->discount;
+            $subtotal = (float)$this->subtotal + (float)$invoiceItem->subtotal;
             $this->update([
                 'net' => $net,
                 'total' => $total,
@@ -229,7 +229,6 @@ class Invoice extends BaseModel
                 'discount' => $discount,
                 'tax' => $tax,
             ]);
-
             return $invoiceItem;
         });
     }

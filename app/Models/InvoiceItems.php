@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\InvoiceTypeEnum;
 use App\Scopes\DraftScope;
 use App\ValueObjects\MoneyValueObject;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,7 +24,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed belong_to_kit
  * @property mixed id
  * @property mixed subtotal
- * @property mixed invoice_type
+ * @property InvoiceTypeEnum invoice_type
  * @property mixed tax
  * @property mixed organization_id
  * @property mixed creator_id
@@ -126,5 +127,17 @@ class InvoiceItems extends BaseModel
     public function invoice(): BelongsTo
     {
         return $this->belongsTo(Invoice::class, 'invoice_id');
+    }
+
+    public function syncSerials(array $serials = [])
+    {
+//        if($this->invoice_type->equals(InvoiceTypeEnum::purchase(),InvoiceTypeEnum::beginning_inventory())) {
+//            foreach ($serials as $serial) {
+//                $this->item()->serials()->create([
+//                   'serial' => $serial,
+//                   'status' => $this->invoice_type
+//                ]);
+//            }
+//        }
     }
 }

@@ -2,10 +2,8 @@
 
 namespace App\Providers;
 
-use App\Events\Item\ItemCreatedEvent;
 use App\Events\Item\ItemUpdatedEvent;
 use App\Events\Models\Account\AccountCreated;
-use App\Events\Models\Account\AccountDeleted;
 use App\Events\Models\Account\AccountUpdated;
 use App\Events\Models\Category\CategoryCreated;
 use App\Events\Models\Transaction\TransactionCreated;
@@ -47,10 +45,6 @@ class EventServiceProvider extends ServiceProvider
         AccountUpdated::class => [
             UpdateAccountDetailsListener::class
         ],
-        AccountDeleted::class => [
-//				UpdateAccountDetailsListener::class
-        ],
-
         TransactionCreated::class => [
             UpdateTransactionDetailsListener::class
         ],
@@ -67,9 +61,6 @@ class EventServiceProvider extends ServiceProvider
         ItemUpdatedEvent::class => [
             UpdateItemSlugListener::class,
 //                UpdateGoogleRecordListener::class,
-        ],
-        ItemCreatedEvent::class => [
-            UpdateItemSlugListener::class,
         ],
 
     ];

@@ -18,8 +18,6 @@
             <div> يوجد طلب جديد : <span class="notification__dropdown-item__link">{{ notification.user.name }}</span>
             </div>
             <div> رقم الطلب : <span class="notification__dropdown-item__link">{{ notification.id }}</span></div>
-            <!--            <div> المبلغ : <span class="notification__dropdown-item__link"><display-money-->
-            <!--                :money="notification.draft_invoice.net"/> </span></div>-->
           </div>
 
           <div class="notification__buttons">
@@ -38,11 +36,6 @@ import NotificationMixin from "./NotificationMixin";
 export default {
   mixins: [NotificationMixin],
   name: "OrderPaymentConfirmedNotification",
-  mounted() {
-    window.Echo.private(`order-payment-confirmed`).listen('.order-payment-confirmed', (e) => {
-      this.addNotification(e.transaction);
-    });
-  },
   data() {
     return {
       url:"/api/notifications/orders/paid"

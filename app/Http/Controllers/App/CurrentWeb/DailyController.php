@@ -35,6 +35,7 @@ class DailyController extends Controller
         $loggedUser = $request->user();
         $outAmount = $this->accountsDailyRepositoryContract->getResellerDailyBankOutcomeAmount();
         $inAmount = $this->accountsDailyRepositoryContract->getResellerDailyBankIncomeAmount();
+//        dd($inAmount);
         $remainingAccountsBalanceAmount = $loggedUser->remaining_accounts_balance;
         $accountsClosedAt = $loggedUser->accounts_closed_at;
         $gateways = $loggedUser->gateways()->get();
