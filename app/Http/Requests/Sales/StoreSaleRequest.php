@@ -119,11 +119,9 @@ class StoreSaleRequest extends FormRequest
             dispatch_sync(new SetDraftAsConvertedJob($this->input('quotation_id'), $invoice->id));
             dispatch_sync(new UpdateOnlineOrderStatus($this->input('quotation_id'), $invoice));
             DB::commit();
-
             return $invoice;
         } catch (QueryException | ValidationException | Exception $exception) {
             DB::rollBack();
-
             throw $exception;
         }
     }
