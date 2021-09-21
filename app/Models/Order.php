@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed shipping_method_id
  * @property mixed shipping_address_id
  * @property mixed draft_id
- * @property mixed net
+ * @property float net
  * @property OrderStatusEnum status
  * @property mixed user_id
  * @property mixed auto_cancel_at

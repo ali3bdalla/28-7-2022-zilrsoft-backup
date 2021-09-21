@@ -60,7 +60,7 @@ class MoneyValueObject implements CastsAttributes
 
     public function getFormattedMoney(): string
     {
-        $fmt = numfmt_create('en_US', NumberFormatter::CURRENCY);
+        $fmt = numfmt_create('ar_SA', NumberFormatter::CURRENCY);
         return numfmt_format_currency($fmt, $this->getAmount(), $this->getCurrency());
     }
 

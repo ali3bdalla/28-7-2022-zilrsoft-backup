@@ -40,7 +40,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
             'PAYMENT_URL' => $order->generatePayOrderUrl(),
             'DEADLINE_TIME' => Carbon::now()->addMinutes(config('app.store.cancel_unpaid_orders_after'))->format('H:i'),
             'DEADLINE_DATE' => Carbon::now()->toDateString(),
-            'AMOUNT' => (new MoneyValueObject($order->net, __('store.products.sar')))->getFormattedMoney(),
+            'AMOUNT' => (new MoneyValueObject($order->net, "SAR"))->getFormattedMoney(),
             'ORDER_ID' => $order->id,
         ])));
         $user->notify(new IssuedOrderNotification(
@@ -62,7 +62,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
                 'PAYMENT_URL' => $order->generatePayOrderUrl(),
                 'DEADLINE_TIME' => Carbon::now()->addMinutes(config('app.store.cancel_unpaid_orders_after'))->format('H:i'),
                 'DEADLINE_DATE' => Carbon::now()->toDateString(),
-                'AMOUNT' => (new MoneyValueObject($order->net, __('store.products.sar')))->getFormattedMoney(),
+                'AMOUNT' => (new MoneyValueObject($order->net, "SAR"))->getFormattedMoney(),
                 'ORDER_ID' => $order->id,
             ])
         ));
