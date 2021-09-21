@@ -22,6 +22,7 @@ class VoucherSearchValueObject implements SearchValueObjectContract
      * @param bool $includeInvoicesVouchers
      * @param bool $includeManualVouchers
      * @param int|null $accountId
+     * @param int|null $managerId
      * @param VoucherTypeEnum|null $voucherType
      * @param Carbon|null $startAt
      * @param Carbon|null $endAt
