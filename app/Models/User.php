@@ -95,7 +95,7 @@ class User extends BaseAuthModel
 
     public function getLocaleNameAttribute(): string
     {
-        return $this->name;
+        return $this->name_ar ?? $this->name;
     }
 
 
@@ -134,13 +134,14 @@ class User extends BaseAuthModel
         return $this->getInternationalPhoneNumberAttribute();
     }
 
-    public function ourSmsPhoneNumber(): string
-    {
-        return $this->getInternationalPhoneNumberAttribute();
-    }
     public function getInternationalPhoneNumberAttribute(): string
     {
         return (string)PhoneNumber::make($this->phone_number)->ofCountry($this->getOriginal("country_code", 'SA'));
+    }
+
+    public function ourSmsPhoneNumber(): string
+    {
+        return $this->getInternationalPhoneNumberAttribute();
     }
 
     public function markPhoneNumberAsVerified()

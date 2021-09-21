@@ -51,6 +51,15 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request)
     {
+//        $invoiceDto = new InvoiceDto(
+//            Auth::user(),
+//            $request->getInvoiceClient(),
+//            InvoiceTypeEnum::sale(),
+//            $request->getItems(),
+//            false,
+//            false
+//        );
+//        $this->invoiceRepositoryContract->createInvoice($invoiceDto);
         return $request->store();
     }
 

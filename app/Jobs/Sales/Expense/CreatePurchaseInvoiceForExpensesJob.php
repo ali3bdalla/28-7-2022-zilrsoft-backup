@@ -88,8 +88,6 @@ class CreatePurchaseInvoiceForExpensesJob implements ShouldQueue
         $dbData['total'] = $dbData['subtotal'];
         $dbData['cost'] = (float)$itemData->get('purchase_price');
         $dbData['purchase_price'] = (float)$dbData['total'] / (float)$qty;
-        //        dd($dbData);
-
         $invoice = Invoice::create([
             'invoice_type' => 'purchase',
             'notes' => "",
@@ -100,8 +98,6 @@ class CreatePurchaseInvoiceForExpensesJob implements ShouldQueue
             'user_id' => $item->expense_vendor_id,
             'managed_by_id' => $authUser->id
         ]);
-
-
         dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'PU-'));
         dispatch_sync(new StorePurchaseItemsJob($invoice, [$dbData]));
         dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));

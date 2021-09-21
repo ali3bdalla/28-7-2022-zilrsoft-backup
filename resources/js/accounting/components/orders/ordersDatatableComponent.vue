@@ -2,227 +2,176 @@
   <div class="table">
     <div class="table-posistion">
       <div class="mb-3">
-        <input autofocus="autofocus" class="form-control" type="text" />
+        <input autofocus="autofocus" class="form-control" type="text"/>
       </div>
 
       <div v-show="!isLoading" class="table-content" style="overflow: scroll;">
         <table class="table table-striped table-bordered" width="100%">
           <thead>
-            <tr>
-              <th
+          <tr>
+            <th
                 :class="{ orderBy: orderBy == 'id' }"
                 width="25px"
                 @click="setOrderByColumn('id')"
-              >
-                {{ trans.id }}
-              </th>
-              <th
+            >
+              {{ trans.id }}
+            </th>
+            <th
                 :class="{ orderBy: orderBy == 'barcode' }"
                 width="100px"
                 @click="setOrderByColumn('barcode')"
-              >
-                العميل
-              </th>
-              <!-- <th
-                :class="{ orderBy: orderBy == 'name' }"
-                @click="setOrderByColumn('name')"
-              >
-                {{ trans.creator }}
-              </th> -->
+            >
+              العميل
+            </th>
 
-              <th
+
+            <th
                 :class="{ orderBy: orderBy == 'price' }"
                 width="100px"
                 @click="setOrderByColumn('price')"
-              >
-                قيمة الطلب
-              </th>
+            >
+              قيمة الطلب
+            </th>
 
-              <th
+            <th
                 :class="{ orderBy: orderBy == 'price_with_tax' }"
                 width="100px"
                 @click="setOrderByColumn('price_with_tax')"
-              >
-                وسيلة الشحن
-              </th>
-              <th
+            >
+              وسيلة الشحن
+            </th>
+            <th
                 :class="{ orderBy: orderBy == 'available_qty' }"
                 width="130px"
                 @click="setOrderByColumn('available_qty')"
-              >
-                رقم التتبع
-              </th>
+            >
+              رقم التتبع
+            </th>
             <th
                 :class="{ orderBy: orderBy == 'available_qty' }"
                 width="100px"
                 @click="setOrderByColumn('available_qty')"
-              >
-                المسؤل
-              </th>
+            >
+              المسؤل
+            </th>
 
-              <th
+            <th
                 :class="{ orderBy: orderBy == 'available_qty' }"
                 width="120px"
                 @click="setOrderByColumn('available_qty')"
-              >
-                مندوب التوصيل
-              </th>
-              <th
+            >
+              مندوب التوصيل
+            </th>
+            <th
                 :class="{ orderBy: orderBy == 'creator_id' }"
                 width="100px"
                 @click="setOrderByColumn('creator_id')"
-              >
-                التاريخ
-              </th>
-              <th
+            >
+              التاريخ
+            </th>
+            <th
                 :class="{ orderBy: orderBy == 'created_at' }"
                 width="70px"
                 @click="setOrderByColumn('created_at')"
-              >
-                الحالة
-              </th>
+            >
+              الحالة
+            </th>
 
-              <th width="100px" v-text="trans.options"></th>
-            </tr>
+            <th width="100px" v-text="trans.options"></th>
+          </tr>
           </thead>
           <tbody>
-            <tr v-for="row in table_rows" :key="row.id">
-              <td class="" v-text="row.id"></td>
-              <td class="" v-text="row.user.locale_name"></td>
-              <!-- <td class=""></td> -->
-              <td class="">
-                <display-money :money="row.net" />
-              </td>
-              <td class="">
-                {{  row.shipping_method.locale_name }}
-              </td>
+          <tr v-for="row in table_rows" :key="row.id">
+            <td class="" v-text="row.id"></td>
+            <td class="" v-text="row.user.locale_name"></td>
+            <!-- <td class=""></td> -->
+            <td class="">
+              <display-money :money="row.net"/>
+            </td>
+            <td class="">
+              {{ row.shipping_method.locale_name }}
+            </td>
 
-              <td class="" v-text="row.tracking_number"></td>
-              <td class="" v-text="row.managed_by ? row.managed_by.locale_name : '' "></td>
-              <td class="" v-text="row.delivery_man ? row.delivery_man.locale_name : ''"></td>
-              <td class="" v-text="row.created_at"></td>
-              <td class="" >{{storeTranslations.statuses[row.status]}}</td>
-              <!-- v-text="row.status" -->
-              <td class="">
-                <div class="dropdown">
-                  <button
+            <td class="" v-text="row.tracking_number"></td>
+            <td class="" v-text="row.managed_by ? row.managed_by.locale_name : '' "></td>
+            <td class="" v-text="row.delivery_man ? row.delivery_man.locale_name : ''"></td>
+            <td class="" v-text="row.created_at"></td>
+            <td class="">{{ storeTranslations.statuses[row.status] }}</td>
+            <!-- v-text="row.status" -->
+            <td class="">
+              <div class="dropdown">
+                <button
                     :id="'dropDownOptions' + row.id"
                     aria-expanded="false"
                     aria-haspopup="true"
                     class="btn btn-options dropdown-toggle"
                     data-toggle="dropdown"
                     type="button"
-                  >
-                    {{ trans.options }}
-                    <span class="caret"></span>
-                  </button>
-                  <ul
+                >
+                  {{ trans.options }}
+                  <span class="caret"></span>
+                </button>
+                <ul
                     :aria-labelledby="'dropDownOptions' + row.id"
                     class="dropdown-menu CustomDropDownOptions"
-                  >
-                    <li>
-                      <a
+                >
+                  <li>
+                    <a
                         :href="`/sales/${row.draft_id}`"
 
-                      > فاتورة الطلب</a>
-                    </li>
-                     <li>
-                      <a
+                    > فاتورة الطلب</a>
+                  </li>
+                  <li>
+                    <a
                         :href="`/store/orders/${row.id}/view-shipping`"
 
-                      >  عنوان الشحن</a>
-                    </li>
-                    <li v-if="row.status === 'pending'">
-                      <a
+                    > عنوان الشحن</a>
+                  </li>
+                  <li v-if="row.status === 'pending'">
+                    <a
                         :href="`/store/orders/${row.id}/view-payment`"
 
-                      >   تاكيد الدفع</a>
-                    </li>
-                    <li v-if="row.status === 'in_progress'">
-                      <a
+                    > تاكيد الدفع</a>
+                  </li>
+                  <li v-if="row.status === 'in_progress'">
+                    <a
                         :href="`/sales/drafts/${row.draft_id}/to_invoice`"
 
-                      > تحويل الى فاتورة</a>
-                    </li>
-                    <li v-if="row.invoice_id">
-                      <a
+                    > تحويل الى فاتورة</a>
+                  </li>
+                  <li v-if="row.invoice_id">
+                    <a
                         :href="`/sales/${row.invoice_id}`"
 
-                      > الفاتورة النهائية</a>
-                    </li>
+                    > الفاتورة النهائية</a>
+                  </li>
 
-                    <li v-if="row.status === 'issued'">
-                      <a
+                  <li v-if="row.status === 'issued'">
+                    <a
                         :href="row.payment_url"
 
-                      > رابط السداد</a>
-                    </li>
+                    > رابط السداد</a>
+                  </li>
 
-                    <li v-if="row.status === 'ready_for_shipping'">
-                      <a
+                  <li v-if="row.status === 'ready_for_shipping'">
+                    <a
                         :href="`/store/shipping/${row.shipping_method_id}/${row.id}/create-order-transaction`"
 
-                      >انشاء البوليصة</a>
-                    </li>
+                    >انشاء البوليصة</a>
+                  </li>
 
-                  </ul>
-                </div>
-                <!-- <a
-                  :href="`/store/orders/${row.id}`"
-                  class="data__table__dropdown__button"
-                >
-                  لوحة التحكم
-                </a> -->
-              </td>
+                </ul>
+              </div>
 
-              <!-- <td>
-
-              {{ row.id }}
             </td>
 
-            <td class="text-right-with-padding" v-text="row.user.locale_name"></td>
-            <td v-text="row.created_at"></td> -->
-              <!--                        <td>-->
-
-              <!-- <div class="dropdown">
-                                           <button :id="'dropDownOptions'
-                                           + row.id" aria-expanded="false" aria-haspopup="true"
-                                                   class="btn btn-options dropdown-toggle " data-toggle="dropdown"
-                                                   type="button">
-                                               {{ trans.options }}
-                                               <span class="caret"></span>
-                                            </button>
-                                           <ul :aria-labelledby="'dropDownOptions'
-                                           + row.id" class="dropdown-menu CustomDropDownOptions">
-                                               <li v-if="row.is_kit"><a :href="'/items/up_selling/kits/' + row.id"
-                                                                        v-text="trans.show"></a></li>
-                                               <li v-if="canCreate==1  && !row.is_kit"><a :href="baseUrl + row.id + '/clone'"
-                                                                                           v-text="trans.clone"></a></li>
-                                                <li v-if="!row.is_kit"><a :href="baseUrl + row.id +
-                                                '/transactions'"
-                                                                          v-text="trans.transactions"></a>
-                                                </li>
-                                                <li v-if="canEdit==1  && !row.is_kit"><a :href="baseUrl + row.id + '/edit'"
-                                                                                         v-text="trans.edit"></a></li>
-                                                <li v-if="row.is_need_serial==1  && !row.is_kit"><a
-                                                        :href="baseUrl + row.id + '/view_serials'"
-                                                        v-text="trans.view_serials"></a></li>
-                                                <li v-if="row.status=='pending' && canEdit==1"><a :href="baseUrl + row.id +
-                                                '/activate'" v-text="trans.activate"></a></li>
-
-                                                <li v-if="canDelete==1 && canViewAccounting==1"><a @click="deleteItemClicked(row)"
-                                                                                                   v-text="trans.delete"></a></li>
-                                            </ul>
-                                        </div>
-
-                                    </td> -->
-            </tr>
+          </tr>
           </tbody>
         </table>
       </div>
       <div class="table-paginations">
         <accounting-table-pagination-helper-layout-component
-          :data="paginationResponseData"
+            :data="paginationResponseData"
         ></accounting-table-pagination-helper-layout-component>
       </div>
     </div>
@@ -262,18 +211,19 @@ export default {
     fetch () {
       this.isLoading = true
       axios
-        .get('/api/orders')
-        .then((response) => {
-          this.table_rows = response.data.data
-          this.isLoading = false
-          this.paginationResponseData = response.data
-        })
-        .finally(() => {
-          this.isLoading = false
-        })
+          .get('/api/orders')
+          .then((response) => {
+            this.table_rows = response.data.data
+            this.isLoading = false
+            this.paginationResponseData = response.data
+          })
+          .finally(() => {
+            this.isLoading = false
+          })
     },
 
-    setOrderByColumn (column_name) {}
+    setOrderByColumn (column_name) {
+    }
   }
 }
 </script>
