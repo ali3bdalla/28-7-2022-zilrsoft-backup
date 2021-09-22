@@ -11,6 +11,13 @@ Route::group(['middleware' => 'guest:manager,dashboard'],function(){
     ]);
 
 });
+Route::middleware('lang:ar')
+    ->prefix('accounting')
+    ->namespace('\\App\\Http\\Controllers\\App\\Web')
+    ->name('accounting.')
+    ->group(function () {
+        Route::get('public-invoice/{invoicePublicIdElementsHash}', 'PrinterController@show_public_invoice')->name('public-invoice.show');
+    });
 Route::group(['prefix' => 'delivery_man'], function () {
     Route::get('/confirm/{hash}', 'DeliveryManController@confirm');
     Route::post('/confirm/{hash}/{transaction}', 'DeliveryManController@performConfirm');

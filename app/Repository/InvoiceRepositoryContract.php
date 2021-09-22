@@ -15,4 +15,5 @@ interface InvoiceRepositoryContract extends BaseRepositoryContract
     public function getInvoicesPagination(SearchValueObjectContract $searchValueObjectContract): LengthAwarePaginator;
 
     public function createInvoice(InvoiceDto $invoiceDto): ?Invoice;
+    public function getInvoiceFullDetails(Invoice $invoice);
 }

@@ -5,12 +5,20 @@ namespace App\Http\Controllers\App\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Payment;
+use App\Repository\InvoiceRepositoryContract;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PrinterController extends Controller
 {
+    private InvoiceRepositoryContract $invoiceRepositoryContract;
+
+    public function __construct(InvoiceRepositoryContract $invoiceRepositoryContract)
+    {
+        $this->invoiceRepositoryContract = $invoiceRepositoryContract;
+    }
+
     public function show_public_invoice($invoicePublicIdElementsHash)
     {
         $invoice = Invoice::getInvoiceByPublicIdHash($invoicePublicIdElementsHash);
@@ -27,10 +35,12 @@ class PrinterController extends Controller
 
     /**
      *
+     * @param Request $request
      * @return string
      */
     public function sign_receipt_printer(Request $request): string
     {
+
         $KEY = public_path('accounting/key/private-key.pem');
         $req = $request->input('request');
         $privateKey = openssl_get_privatekey(file_get_contents($KEY));
@@ -54,8 +64,7 @@ class PrinterController extends Controller
 
     public function print_receipt(Invoice $sale)
     {
-        $invoice = $sale;
-
+        $invoice = $this->invoiceRepositoryContract->getInvoiceFullDetails($sale);
         return view('accounting.printer.receipt', compact('invoice'));
     }
 

@@ -216,7 +216,6 @@ class Invoice extends BaseModel
             $invoiceItem = InvoiceItems::factory()
                 ->setDto($invoiceItemDto)
                 ->create();
-//            $invoiceItem->syncSerials($invoiceItemDto->getSerials());
             $net = (float)$this->net + (float)$invoiceItem->net;
             $total = (float)$this->total + (float)$invoiceItem->total;
             $tax = (float)$this->tax + (float)$invoiceItem->tax;
@@ -231,5 +230,10 @@ class Invoice extends BaseModel
             ]);
             return $invoiceItem;
         });
+    }
+
+    public function getUserNameAttribute()
+    {
+        return $this->user_alice_name ?? $this->user->locale_name;
     }
 }

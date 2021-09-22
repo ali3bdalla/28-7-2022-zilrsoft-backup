@@ -221,7 +221,7 @@ Route::middleware('lang:ar')
             });
         });
 
-        Route::get('public-invoice/{invoicePublicIdElementsHash}', 'PrinterController@show_public_invoice')->name('public-invoice.show');
+
     })
 ;
 
