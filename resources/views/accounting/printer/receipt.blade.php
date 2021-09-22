@@ -1,92 +1,167 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="{{ asset("css/static/invoice-receipt.css") }}" rel="stylesheet" type="text/css"></link>
-    <title>{{ $invoice->invoice_number }}</title>
-</head>
-<body>
-<div class="content">
-    <div class="organization_name">
-        <div>{{$invoice->organization->title_ar }}</div>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.css" rel="stylesheet"
+      id="bootstrap-css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+{{--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">--}}
+{{--<link href="https://fonts.googleapis.com/css?family=El+Messiri&display=swap" rel="stylesheet">--}}
+<style>
+
+
+    .invoice-title h2, .invoice-title h3 {
+        display: inline-block;
+    }
+
+    .table > tbody > tr > .no-line {
+        border-top: none;
+    }
+
+    .table > thead > tr > .no-line {
+        border-bottom: none;
+    }
+
+    .table > tbody > tr > .thick-line {
+        /*border-top: 2px solid;*/
+    }
+
+    * {
+        /*font-family: 'El Messiri', sans-serif !important;*/
+        font-size: 12px !important;
+        font-weight: bold !important;
+
+    }
+
+    .header_title span {
+        font-size: 18px;
+    }
+
+    .total_header {
+        font-size: 20px;
+    }
+
+    tbody {
+        border-bottom: 2px solid black !important;
+
+    }
+
+
+</style>
+
+
+<div class="container-fluid" id="container">
+
+    <div class="raw">
+
+        <div class="col-xs-12">
+            <div align="center" style="font-size: 27px !important;">{{
+                $invoice->organization->title_ar }}</div>
+
+        </div>
+
     </div>
-    <div class="attribute-raw">
-        <div class="attribute-title">
+
+    <div class="row">
+        <div class="col-sm-12 text-center">
             رقم الفاتورة
         </div>
-        <div class="attribute-value">
+        <div class="col-xs-12 text-center" style="font-size: 35px !important;">
             {{$invoice->invoice_number }}
         </div>
     </div>
-    <div class="attribute-raw">
-        <div class="attribute-title">
-            اسم العميل
-        </div>
-        <div class="attribute-value">
-            {{$invoice->user_name }}
-        </div>
-    </div>
-    <div class="attribute-raw">
-        <div class="attribute-title">
-            التاريخ
-        </div>
-        <div class="attribute-value">
-            {{$invoice->created_at }}
-        </div>
-    </div>
-    <div class="attribute-raw">
-        <div class="attribute-title">
-            البائع
-        </div>
-        <div class="attribute-value">
-            {{$invoice->manager->locale_name  }}
-        </div>
-    </div>
-    <table class="items-table">
-        @foreach($invoice->items as $item)
-            @if($item->belong_to_kit==false  && $item->show_price_in_print_mode  && $item->item != null)
-                <tbody>
-                <tr style="">
-                    <td colspan="6">
-                        <span>{{mb_substr($item->item->locale_name, 0,55) }}</span><br><span>{{$item->item->barcode}}</span>
-                        <span class="pull-left">الكمية : {{ $item->qty }}</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="margin-right: -2px;"><span>الكمية</span></td>
-                    @if($invoice->show_items_price_in_print_mode)
-                        <td><span>السعر</span></td>
-                        <td><span>المجموع</span></td>
-                        <td><span>الخصم</span></td>
-                        <td><span>الضريبة </span></td>
-                        <td><span>النهائي</span></td>
-                    @endif
-                </tr>
-                @if($invoice->show_items_price_in_print_mode)
-                    <tr>
-                        <td style="padding-right:10px;"><span>{{ $item->qty }}</span></td>
-                        <td><span>{{ $item->price }}</span></td>
-                        <td><span>{{ $item->total }}</span></td>
-                        <td><span>{{ $item->discount }}</span></td>
-                        <td><span>{{ $item->tax }}</span></td>
-                        <td><span>{{ $item->net }}</span></td>
-                    </tr>
-                @endif
-                @foreach($item->item->serials as $index => $serial )
-                    <tr>
-                        <td style="padding-right:10px;text-align: right"
-                            colspan="@if($invoice->show_items_price_in_print_mode) 6 @else 2 @endif">
-                            <span>{{ $serial->serial }}</span></td>
-                    </tr>
-                @endforeach
-                </tbody>
-            @endif
-        @endforeach
 
-    </table>
+    <div class="row">wb
+        <div class="col-xs-6"> اسم العميل</div>
+        <div class="col-xs-6 text-left">
+            {{ $invoice->user_alice_name == "" ? $invoice->user->locale_name :$invoice->user_alice_name   }}</div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-6"> التاريخ</div>
+        <div class="col-xs-6 text-left " style="direction: ltr"> {{$invoice->created_at }}</div>
+    </div>
+
+
+    <div class="row ">
+        <div class="col-xs-6"> الفرع</div>
+        <div class="col-xs-6 text-left " style="direction: ltr"> {{$invoice->creator->branch->locale_name }}</div>
+    </div>
+
+
+    <div class="row ">
+        <div class="col-xs-6"> القسم</div>
+        <div class="col-xs-6 text-left " style="direction: ltr"> {{$invoice->creator->department->locale_title }}</div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-6"> البائع</div>
+        <div class="col-xs-6 text-left " style="direction: ltr"> {{$invoice->manager->locale_name }}</div>
+    </div>
+
+    <br>
+
+    <div class="row">
+
+        <div class="col-xs-12">
+            <table class="table" style="margin-right: 3px;border:none !important;">
+
+                @foreach($invoice->items as $item)
+                    @if($item->belong_to_kit==false  && $item->show_price_in_print_mode  && $item->item != null)
+                        <tbody>
+
+
+                        <tr style="">
+
+                            <td colspan="6">
+                                <span>{{mb_substr($item->item->locale_name, 0,55) }}</span><br><span>{{$item->item->barcode}}</span>
+                                <span class="pull-left">الكمية : {{ $item->qty }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="margin-right: -2px;"><span>الكمية</span></td>
+                            @if($invoice->show_items_price_in_print_mode)
+                                <td><span>السعر</span></td>
+                                <td><span>المجموع</span></td>
+                                <td><span>الخصم</span></td>
+                                <td><span>الضريبة </span></td>
+                                <td><span>النهائي</span></td>
+                            @endif
+                        </tr>
+                        @if($invoice->show_items_price_in_print_mode)
+                            <tr>
+                                <td style="padding-right:10px;"><span>{{ $item->qty }}</span></td>
+
+                                <td><span>{{ $item->price }}</span></td>
+                                <td><span>{{ $item->total }}</span></td>
+                                <td><span>{{ $item->discount }}</span></td>
+                                {{--                            <td><span>{{ $item->subtotal }}</span></td>--}}
+                                <td><span>{{ $item->tax }}</span></td>
+                                <td><span>{{ $item->net }}</span></td>
+
+                            </tr>
+
+
+                        @endif
+                        @foreach($item->item->serials as $index => $serial)
+                            <tr>
+                                <td style="padding-right:10px;text-align: right"
+                                    colspan="@if($invoice->show_items_price_in_print_mode) 6 @else 2 @endif">
+                                    <span>{{ $serial->serial }}</span></td>
+
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+
+
+                    @endif
+                @endforeach
+
+            </table>
+        </div>
+    </div>
     <div class="row">
 
 
@@ -199,11 +274,12 @@
 
 <script>
   $('#barcode_demo').barcode(
-    "{{ $invoice->invoice_number }}",
-    'code39'
+    "{{ $invoice->invoice_number }}",// Value barcode (dependent on the type of barcode)
+
+    'code39' // type (string)
+
   )
+
+  // print();
 </script>
 
-
-</body>
-</html>
