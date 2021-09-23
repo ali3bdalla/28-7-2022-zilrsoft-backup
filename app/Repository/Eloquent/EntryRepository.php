@@ -21,10 +21,9 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
         $this->accountRepositoryContract = $accountRepositoryContract;
     }
 
-    public function registerManagerWalletTransferTransactionEntry(ResellerClosingAccount $pendingTransaction): TransactionsContainer
+    public function registerManagerWalletTransferTransactionEntry(ResellerClosingAccount $pendingTransaction,float $remainingWalletBalance = 0): TransactionsContainer
     {
         $totalSourceWalletBalance = $this->accountRepositoryContract->getAccountBalance($pendingTransaction->fromAccount->fresh());
-        $remainingWalletBalance = $totalSourceWalletBalance - $pendingTransaction->amount;
         $tempResellerAccount = Account::getSystemAccount("temp_reseller_account");
         $transactions = collect();
         $transactions->add(new TransactionDto(

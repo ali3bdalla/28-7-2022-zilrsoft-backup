@@ -10,5 +10,5 @@ interface EntryRepositoryContract extends BaseRepositoryContract
 {
     public function createEntry(EntryDto $entryDto): TransactionsContainer;
 
-    public function registerManagerWalletTransferTransactionEntry(ResellerClosingAccount $pendingTransaction): TransactionsContainer;
+    public function registerManagerWalletTransferTransactionEntry(ResellerClosingAccount $pendingTransaction,float $remainingWalletBalance): TransactionsContainer;
 }
