@@ -32,14 +32,7 @@ class InvoiceRepository extends BaseRepository implements InvoiceRepositoryContr
             return $invoice;
         }, 3);
     }
-    //        $item->item->serials()
-//            ->where([
-//                ["sale_id",$invoice->id],
-//            ])
-//            ->orWhere([["return_sale_id",$invoice->id]])
-//            ->orWhere([["return_purchase_id",$invoice->id]])
-//            ->orWhere([["purchase_id",$invoice->id]])
-//            ->get() as $index => $serial
+
     public function getInvoiceFullDetails(Invoice $invoice): Invoice
     {
         return $invoice->load([

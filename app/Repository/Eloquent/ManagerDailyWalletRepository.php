@@ -54,8 +54,8 @@ class ManagerDailyWalletRepository extends BaseRepository implements ManagerDail
     public function confirmWalletTransferTransaction(ResellerClosingAccount $pendingWalletTransferTransaction): TransactionsContainer
     {
         return DB::transaction(function () use ($pendingWalletTransferTransaction) {
-            $entry = $this->entryRepositoryContract->registerManagerWalletTransferTransactionEntry($pendingWalletTransferTransaction);
             $walletBalance = $this->accountRepositoryContract->getAccountBalance($pendingWalletTransferTransaction->fromAccount->fresh());
+            $entry = $this->entryRepositoryContract->registerManagerWalletTransferTransactionEntry($pendingWalletTransferTransaction);
             $pendingWalletTransferTransaction->update([
                 'is_pending' => false,
                 'container_id' => $entry->id,
