@@ -35,7 +35,6 @@ class DailyController extends Controller
         $loggedUser = $request->user();
         $outAmount = $this->accountsDailyRepositoryContract->getResellerDailyBankOutcomeAmount();
         $inAmount = $this->accountsDailyRepositoryContract->getResellerDailyBankIncomeAmount();
-//        dd($inAmount);
         $remainingAccountsBalanceAmount = $loggedUser->remaining_accounts_balance;
         $accountsClosedAt = $loggedUser->accounts_closed_at;
         $gateways = $loggedUser->gateways()->get();
@@ -45,7 +44,6 @@ class DailyController extends Controller
     public function resellerAccountsTransactionsIndex()
     {
         $managerCloseAccountList = $this->managerDailyWalletRepositoryContract->getWalletTransferPagination();
-
         return view('accounting.reseller_daily.tranfers_list', compact('managerCloseAccountList'));
     }
 
@@ -53,7 +51,6 @@ class DailyController extends Controller
     {
         $manager_gateways = $this->managerRepositoryContract->getCurrentManagerBanks();
         $gateways = $this->managerRepositoryContract->getAllManagersBanksExcept([Auth::id()]);
-
         return view('accounting.reseller_daily.transfer_amounts', compact('gateways', 'manager_gateways'));
     }
 

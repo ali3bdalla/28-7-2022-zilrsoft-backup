@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Models\Manager;
 use Illuminate\Database\Eloquent\Collection;
 
 interface ManagerRepositoryContract extends BaseRepositoryContract

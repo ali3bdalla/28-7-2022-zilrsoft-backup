@@ -8,8 +8,10 @@ use App\Events\Models\Account\AccountCreated;
 use App\Events\Models\Account\AccountDeleted;
 use App\Events\Models\Account\AccountUpdated;
 use App\Models\Traits\NestingTrait;
+use App\Repository\AccountRepositoryContract;
 use App\Scopes\SortByScope;
 use App\ValueObjects\GenericSortByValueObject;
+use App\ValueObjects\TransactionSearchValueObject;
 use Closure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -135,10 +137,7 @@ class Account extends BaseModel
 
     public function getSingleAccountBalance(): float
     {
-        if ($this->isCredit()) {
-            return ((float)$this->total_credit_amount - (float)$this->total_debit_amount);
-        }
-        return ((float)$this->total_debit_amount - (float)$this->total_credit_amount);
+        return app(AccountRepositoryContract::class)->getAccountBalance($this, new TransactionSearchValueObject());
     }
 
 

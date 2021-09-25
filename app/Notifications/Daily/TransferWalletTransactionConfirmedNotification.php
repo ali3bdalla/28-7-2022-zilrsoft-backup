@@ -42,8 +42,7 @@ class TransferWalletTransactionConfirmedNotification extends Notification implem
     public function toWhatsappMessage($notifiable): string
     {
         $formattedAmount = (new MoneyValueObject($this->pendingWalletTransferTransaction->amount, 'SAR'))->getFormattedMoney();
-        return "Your Transfer to {$this->pendingWalletTransferTransaction->toAccount->locale_name},
- amount: $formattedAmount
-has been *confirmed*";
+        return "تم قبول التحويل الى خزينة {$this->pendingWalletTransferTransaction->toAccount->locale_name},
+ المبلغ: $formattedAmount";
     }
 }

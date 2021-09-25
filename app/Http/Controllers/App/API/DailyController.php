@@ -19,7 +19,6 @@ use Throwable;
 
 class DailyController extends Controller
 {
-
     private AccountsDailyRepositoryContract $accountsDailyRepositoryContract;
     private ManagerDailyWalletRepositoryContract $managerDailyWalletRepositoryContract;
 

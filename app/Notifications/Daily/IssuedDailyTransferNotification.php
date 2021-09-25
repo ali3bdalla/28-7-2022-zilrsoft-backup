@@ -44,20 +44,17 @@ class IssuedDailyTransferNotification extends Notification implements WhatsappMe
 
     public function toWhatsappMessage($notifiable): string
     {
-        $confirmLink = route('api.daily.wallet.confirm_transfer', $this->pendingWalletTransaction->id);
-        $cancelLink = route('api.daily.wallet.cancel_transfer', $this->pendingWalletTransaction->id);
+        $confirmLink = shortLink(route('api.daily.wallet.confirm_transfer', $this->pendingWalletTransaction->id));
+        $cancelLink = shortLink(route('api.daily.wallet.cancel_transfer', $this->pendingWalletTransaction->id));
         $mangerName = $this->pendingWalletTransaction->creator->name;
         $formattedAmount = (new MoneyValueObject($this->pendingWalletTransaction->amount, 'SAR'))->getFormattedMoney();
-        return "*{$mangerName}* made new Transfer Transaction to account *{$this->pendingWalletTransaction->toAccount->locale_name}*, 
-       
-the amount is *{$formattedAmount}*,
+        return "تحويل من  *{$mangerName}* الى  *{$this->pendingWalletTransaction->toAccount->locale_name}*
+        
+المبلغ: *{$formattedAmount}*
+
+تاكيد : {$confirmLink}
 
 
-*confirm transaction*: {$confirmLink}
-
-
-
-*cancel transaction*: {$cancelLink}
-        ";
+الغاء: {$cancelLink}";
     }
 }
