@@ -28,7 +28,7 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
                 'verification_code' => $userDto->getVerificationCode()
             ]
         );
-        else $user = User::factory()->setDto($user)->create();
+        else $user = User::factory()->setDto($userDto)->create();
         return $user;
     }
 
