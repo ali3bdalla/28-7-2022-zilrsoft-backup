@@ -2,15 +2,13 @@
 
 namespace App\Notifications\Order;
 
-use App\Channels\WhatsappMessageChannel;
-use App\Channels\WhatsappMessageNotificationContract;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
-class NewPaidOrderNotification extends Notification implements WhatsappMessageNotificationContract, ShouldQueue
+class NewPaidOrderNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -35,7 +33,7 @@ class NewPaidOrderNotification extends Notification implements WhatsappMessageNo
      */
     public function via($notifiable): array
     {
-        return [WhatsappMessageChannel::class, 'database', "broadcast"];
+        return ['database', "broadcast"];
     }
 
     public function toBroadcast($notifiable): BroadcastMessage
@@ -54,11 +52,11 @@ class NewPaidOrderNotification extends Notification implements WhatsappMessageNo
         return [
             'message' => 'طلب من المتجر الاونلاين',
             'actions' => [
-               [
-                   "title" => "قبول",
-                   "action" => "/store/orders/{$this->order->id}/accept-order-as-manager",
-                   "method" => "post"
-               ],
+                [
+                    "title" => "قبول",
+                    "action" => "/store/orders/{$this->order->id}/accept-order-as-manager",
+                    "method" => "post"
+                ],
                 [
                     "title" => "اخفاء الاشعار",
                     "action" => "#",
@@ -69,11 +67,4 @@ class NewPaidOrderNotification extends Notification implements WhatsappMessageNo
     }
 
 
-    public function toWhatsappMessage($notifiable): string
-    {
-        $url = url("/store/orders/{$this->order->id}/accept-order-as-manager");
-        return "طلب جديد من المتجر الالكتروني
-قبول الطلب: $url
-        ";
-    }
 }

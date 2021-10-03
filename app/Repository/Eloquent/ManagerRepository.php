@@ -13,8 +13,9 @@ class ManagerRepository extends BaseRepository implements ManagerRepositoryContr
 
     public function getResellers()
     {
-        return Manager::whereId(8)->get();
+        return Manager::all();
     }
+
     public function getCurrentManagerBanks(): Collection
     {
         return $this->user()->gateways()->get();
@@ -27,7 +28,7 @@ class ManagerRepository extends BaseRepository implements ManagerRepositoryContr
 
     public function getAllManagersBanksExcept(array $managersId): array
     {
-        $managers =Manager::query()->whereNotIn('id', $managersId)->with('gateways')->get();
+        $managers = Manager::query()->whereNotIn('id', $managersId)->with('gateways')->get();
         $managerBanks = [];
         foreach ($managers as $manager) {
             foreach ($manager->gateways()->get() as $gateway) {
