@@ -232,6 +232,11 @@ class Invoice extends BaseModel
         });
     }
 
+    public function appShowUrl()
+    {
+        if($this->invoice_type->equals(InvoiceTypeEnum::sale(),InvoiceTypeEnum::return_sale())) return url('sales/' . $this->id);
+        return url('purchases/' . $this->id);
+    }
     public function getUserNameAttribute()
     {
         return $this->user_alice_name ?? $this->user->locale_name;

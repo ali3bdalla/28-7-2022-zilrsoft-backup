@@ -115,12 +115,12 @@ class Transaction extends BaseModel
 
     public function isCredit(): bool
     {
-        return $this->type === 'credit';
+        return $this->type->equals(AccountingTypeEnum::credit());
     }
 
     public function isDebit(): bool
     {
-        return $this->type === 'debit';
+        return $this->type->equals(AccountingTypeEnum::debit());
     }
 
 

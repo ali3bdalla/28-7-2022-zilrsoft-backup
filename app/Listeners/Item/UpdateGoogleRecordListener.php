@@ -4,8 +4,7 @@ namespace App\Listeners\Item;
 
 use App\Events\Item\ItemUpdatedEvent;
 use App\Jobs\Items\Google\UpdateGoogleShippingItemJob;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+
 
 class UpdateGoogleRecordListener
 {

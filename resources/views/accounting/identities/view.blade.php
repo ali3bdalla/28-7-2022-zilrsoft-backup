@@ -132,9 +132,9 @@
 
                             @if($identity->is_vendor)
                                 <p><strong>{{ trans('pages/users.vat_number') }}</strong> :
-                                    {{$identity->details ??  $identity->details->vat}} </p>
+                                    {{$identity->details ?  $identity->details->vat : ""}} </p>
                                 <p><strong>{{ trans('pages/users.cr_number') }}</strong> :
-                                    {{$identity->details ??  $identity->details->cr}} </p>
+                                    {{$identity->details ?  $identity->details->cr : "" }} </p>
                             @endif
 
                         </div>

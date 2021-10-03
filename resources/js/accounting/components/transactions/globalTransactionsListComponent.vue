@@ -52,19 +52,10 @@
             >
             <span v-else>-</span>
           </th>
-          <th v-if="transaction.invoice_id >= 1 && transaction.invoice != null" class="text-center">
+          <th v-if="transaction.invoice_number" class="text-center">
             <a
-                v-if="
-                  transaction.invoice.invoice_type == 'sale' ||
-                  transaction.invoice.invoice_type == 'return_sale'
-                "
-                :href="'/sales/' + transaction.invoice_id"
-                v-text="transaction.invoice.invoice_number"
-            ></a>
-            <a
-                v-else
-                :href="'/purchases/' + transaction.invoice_id"
-                v-text="transaction.invoice.invoice_number"
+                :href="transaction.invoice_url"
+                v-text="transaction.invoice_number"
             ></a>
           </th>
           <th v-else class="text-center">

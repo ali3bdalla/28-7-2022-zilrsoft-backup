@@ -46,6 +46,8 @@ class TransactionResource extends JsonResource
             "balance" => $this->key === 0 ? $this->getFirstItemBalance() : 0,
             "debit_amount" => $this->resource->isDebit() ? $this->resource->amount : 0,
             "credit_amount" => $this->resource->isCredit() ? $this->resource->amount : 0,
+            'invoice_number' => $this->resource->invoice ? $this->resource->invoice->invoice_number : "",
+            'invoice_url' => $this->resource->invoice ? $this->resource->invoice->appShowUrl() : "",
         ];
     }
 

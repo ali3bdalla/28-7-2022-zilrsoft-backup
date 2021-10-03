@@ -37,23 +37,6 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
      */
     public function handle()
     {
-
-        /*
-                'kind',
-                'channel', 'contentLanguage', 'offerId', 'targetCountry',
-                'title', 'description', 'link', 'imageLink', 'additionalImageLinks',
-                'adsGrouping', 'adsLabels', 'adsRedirect', 'adult', 'ageGroup',
-                'availability', 'availabilityDate', 'brand', 'color', 'condition', 'costOfGoodsSold',
-                'gender', 'googleProductCategory', 'gtin', 'itemGroupId', 'mpn',
-                'price', 'salePrice', 'salePriceEffectiveDate', 'sellOnGoogleQuantity', 'shipping', 'sizes', 'customAttributes',
-                'customLabel0', 'customLabel1', 'customLabel2', 'customLabel3', 'customLabel4',
-                'displayAdsId', 'displayAdsLink', 'displayAdsSimilarIds', 'displayAdsTitle', 'displayAdsValue',
-                'energyEfficiencyClass', 'excludedDestinations', 'expirationDate',
-                'identifierExists', 'includedDestinations', 'installment', 'isBundle',
-                'loyaltyPoints', 'material', 'maxEnergyEfficiencyClass', 'maxHandlingTime', 'minEnergyEfficiencyClass', 'minHandlingTime',
-                'mobileLink', 'multipack', 'pattern', 'productTypes', 'productHighlights',
-                'shippingHeight', 'shippingLabel', 'shippingLength', 'shippingWeight',
-                'sizeSystem', 'sizeType', 'taxCategory', 'taxes', 'transitTimeLabel', 'unitPricingBaseMeasure', 'unitPricingMeasure',*/
         if ($this->item->shouldBeSearchable() && $this->item->available_qty) {
             ProductApi::insert(function ($product) {
                 $filters = $this->item->filters()->with('value', 'filter')->get();

@@ -3,7 +3,6 @@
 namespace App\Console;
 
 use App\Console\Commands\Accounting\DailyUpdateAccountSnapshotCommand;
-use App\Console\Commands\Item\UpdateGoogleShippingCommand;
 use App\Console\Commands\Order\CancelUnPaidOrderCommand;
 use App\Console\Commands\Order\NotifyUnPaidOrderCommand;
 use Illuminate\Console\Scheduling\Schedule;
@@ -29,7 +28,7 @@ class Kernel extends ConsoleKernel
             $schedule->command(NotifyUnPaidOrderCommand::class)->everyMinute();
             $schedule->command(CancelUnPaidOrderCommand::class)->everyMinute();
             $schedule->command(DailyUpdateAccountSnapshotCommand::class)->daily();
-            $schedule->command(UpdateGoogleShippingCommand::class)->days(3);
+//            $schedule->command(UpdateGoogleShippingCommand::class)->days(3);
             $schedule->command('scout:import')->days(3);
         }
     }
