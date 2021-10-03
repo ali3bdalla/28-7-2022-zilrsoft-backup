@@ -89,7 +89,6 @@ class CreateReceivedPaymentFromClientJob implements ShouldQueue
                 'container_id' => $container->id,
                 'description' => 'client_balance',
                 'type' => 'credit',
-
             ]
         );
         UpdateClientBalanceJob::dispatchSync($this->client, $this->amount, 'decrease');

@@ -6,22 +6,26 @@ use App\Enums\AccountingTypeEnum;
 use App\Enums\EntryDto;
 use App\Enums\TransactionDto;
 use App\Models\Account;
+use App\Models\Payment;
 use App\Models\ResellerClosingAccount;
 use App\Models\TransactionsContainer;
 use App\Repository\AccountRepositoryContract;
 use App\Repository\EntryRepositoryContract;
+use App\Repository\UserRepositoryContract;
 use Illuminate\Support\Facades\DB;
 
 class EntryRepository extends BaseRepository implements EntryRepositoryContract
 {
     private AccountRepositoryContract $accountRepositoryContract;
+    private UserRepositoryContract $userRepositoryContract;
 
-    public function __construct(AccountRepositoryContract $accountRepositoryContract)
+    public function __construct(AccountRepositoryContract $accountRepositoryContract,UserRepositoryContract $userRepositoryContract)
     {
         $this->accountRepositoryContract = $accountRepositoryContract;
+        $this->userRepositoryContract = $userRepositoryContract;
     }
 
-    public function registerManagerWalletTransferTransactionEntry(ResellerClosingAccount $pendingTransaction,float $remainingWalletBalance = 0): TransactionsContainer
+    public function registerManagerWalletTransferTransactionEntry(ResellerClosingAccount $pendingTransaction, float $remainingWalletBalance = 0): TransactionsContainer
     {
         $totalSourceWalletBalance = $this->accountRepositoryContract->getAccountBalance($pendingTransaction->fromAccount->fresh());
         $tempResellerAccount = Account::getSystemAccount("temp_reseller_account");
@@ -65,5 +69,43 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
             $entry->addTransactions($entryDto->getTransactions());
             return $entry->load('transactions');
         });
+    }
+
+    public function registerReceiptVoucherEntry(Payment $voucher, Account $targetAccount): TransactionsContainer
+    {
+        $clientAccount = Account::getSystemAccount("clients");
+        $transactions = collect();
+        $transactions->add(new TransactionDto(
+            $clientAccount,
+            AccountingTypeEnum::credit(),
+            $voucher->amount,
+            false,
+            false,
+            null,
+            null,
+            $voucher->user_id
+        ));
+        $transactions->add(new TransactionDto(
+            $targetAccount,
+            AccountingTypeEnum::debit(),
+            $voucher->amount,
+            false,
+            false,
+            null,
+            null,
+            $voucher->user_id
+        ));
+        $entryDto = new EntryDto(
+            $this->authManager(),
+            $transactions,
+            false,
+            'customer receipt voucher',
+            null
+        );
+       return DB::transaction(function() use ($entryDto,$voucher){
+           $entry = $this->createEntry($entryDto);
+           $this->userRepositoryContract->addCustomerBalanceAmount($voucher->user,$voucher->amount);
+           return $entry;
+       });
     }
 }

@@ -64,6 +64,5 @@ return [
     ],
     'image_processing' => [
         'url' => env('IMAGE_PROCESSING_URL')
-    ]
-
+    ],
 ];

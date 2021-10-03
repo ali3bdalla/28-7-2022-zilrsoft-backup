@@ -4,19 +4,30 @@ namespace App\Http\Controllers\App\API;
 
 use App\Events\Order\OrderPaymentConfirmedEvent;
 use App\Http\Controllers\Controller;
-use App\Jobs\Accounting\CreateReceivedPaymentFromClientJob;
+use App\Http\Requests\API\AcceptOrderRequest;
 use App\Jobs\Items\AvailableQty\UpdateAvailableQtyByInvoiceItemJob;
 use App\Jobs\Order\NotifyCustomerByOrderPaymentCancellationJob;
-use App\Jobs\Order\NotifyCustomerByPaymentConfirmationJob;
 use App\Jobs\Order\Shipping\HandleOrderShippingJob;
 use App\Models\DeliveryMan;
+use App\Models\Manager;
 use App\Models\Order;
+use App\Notifications\Order\NewPaidOrderNotification;
+use App\Notifications\Order\OrderPaymentAcceptedNotification;
+use App\Repository\OrderRepositoryContract;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException as ValidationValidationException;
 
 class OrderController extends Controller
 {
+
+    private OrderRepositoryContract $orderRepositoryContract;
+
+    public function __construct(OrderRepositoryContract $orderRepositoryContract)
+    {
+        $this->orderRepositoryContract = $orderRepositoryContract;
+    }
 
     public function index(Request $request): LengthAwarePaginator
     {
@@ -35,36 +46,12 @@ class OrderController extends Controller
         return Order::where('status', 'pending')->with('user', 'shippingAddress')->get();
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param Order $order
-     * @return void
-     */
-    public function update(Request $request, Order $order)
+    public function acceptOrder(AcceptOrderRequest $request, Order $order)
     {
-        $request->validate([
-            'account_id' => 'required|integer|exists:accounts,id'
-        ]);
-        if ($order->status === 'pending') {
-            foreach ($order->itemsQtyHolders()->get() as $holdQty) {
-                UpdateAvailableQtyByInvoiceItemJob::dispatchSync($holdQty->invoiceItem, true);
-            }
-            $order->update(
-                [
-                    'status' => 'paid',
-                    'payment_approved_at' => now(),
-                    'payment_approved_by_id' => $request->user()->id
-                ]
-            );
-            CreateReceivedPaymentFromClientJob::dispatchSync($order->user, $order->net, $request->input('account_id'));
-            event(new OrderPaymentConfirmedEvent($order));
-            NotifyCustomerByPaymentConfirmationJob::dispatchSync($order);
-        }
-
-
+        if (!$order->isPending()) abort(403);
+        $this->orderRepositoryContract->acceptOrderPayment($order, $request->getTargetAccount());
+        $order->user->notify(new OrderPaymentAcceptedNotification($order));
+        Notification::send(Manager::all(), new NewPaidOrderNotification($order));
     }
 
     /**

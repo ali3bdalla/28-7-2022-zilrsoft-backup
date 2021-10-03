@@ -11,6 +11,10 @@ class ManagerRepository extends BaseRepository implements ManagerRepositoryContr
 {
 
 
+    public function getResellers()
+    {
+        return Manager::permission("");
+    }
     public function getCurrentManagerBanks(): Collection
     {
         return $this->user()->gateways()->get();

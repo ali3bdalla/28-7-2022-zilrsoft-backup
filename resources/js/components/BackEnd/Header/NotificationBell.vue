@@ -6,22 +6,18 @@ margin-bottom: -10px;"></i>
       <span class="label label-danger">{{ notificationCount }}</span>
     </a>
     <div class="dropdown-menu notification__dropdown">
-      <OrderPendingPaymentConfirmationNotification v-if="canManageManagers || canViewSystemEvents"  @addNotification="addNotification"
+      <OrderPendingPaymentConfirmationNotification v-if="canManageManagers || canViewSystemEvents"
+                                                   @addNotification="addNotification"
                                                    @removeNotification="removeNotification">
-
       </OrderPendingPaymentConfirmationNotification>
       <OrderPaymentConfirmedNotification v-if="!canManageManagers" @addNotification="addNotification"
                                          @removeNotification="removeNotification">
       </OrderPaymentConfirmedNotification>
-      <TransactionIssuedNotification @addNotification="addNotification"
-                                     :manager="manager"
+      <TransactionIssuedNotification
+                                  :manager="manager"
+                                     @addNotification="addNotification"
                                      @removeNotification="removeNotification">
       </TransactionIssuedNotification>
-
-      <!--      <TransactionCanceledNotification @addNotification="addNotification"-->
-      <!--                                       @removeNotification="removeNotification"></TransactionCanceledNotification>-->
-      <!--      <TransactionConfirmedNotification @addNotification="addNotification"-->
-      <!--                                        @removeNotification="removeNotification"></TransactionConfirmedNotification>-->
     </div>
   </li>
 </template>
@@ -30,8 +26,6 @@ margin-bottom: -10px;"></i>
 import OrderPendingPaymentConfirmationNotification from './OrderPendingPaymentConfirmationNotification'
 import OrderPaymentConfirmedNotification from './OrderPaymentConfirmedNotification'
 import TransactionIssuedNotification from './TransactionIssuedNotification'
-// import TransactionCanceledNotification from './TransactionCanceledNotification'
-// import TransactionConfirmedNotification from './TransactionConfirmedNotification'
 
 export default {
   name: 'OrderNotificationBell',
@@ -39,8 +33,6 @@ export default {
     OrderPendingPaymentConfirmationNotification,
     OrderPaymentConfirmedNotification,
     TransactionIssuedNotification
-    // TransactionCanceledNotification,
-    // TransactionConfirmedNotification
   },
   props: {
     canManageManagers: {
@@ -62,11 +54,9 @@ export default {
 
   methods: {
     addNotification () {
-      // this.$sound.play('order_issued_notification.mp3')
       this.notificationCount++
     },
     removeNotification () {
-      // this.$sound.play('order_issued_notification.mp3')
       this.notificationCount--
     }
 

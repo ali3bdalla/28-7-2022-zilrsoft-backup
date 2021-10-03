@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\VoucherTypeEnum;
+use Database\Factories\VoucherFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property HasOne user
  * @property mixed payment_type
  * @property mixed amount
+ * @property mixed user_id
  */
 class Payment extends BaseModel
 {
@@ -20,10 +22,14 @@ class Payment extends BaseModel
         'type' => VoucherTypeEnum::class . ':nullable',
     ];
     protected $guarded = [];
-
     protected $appends = [
         'amount_ar_words',
     ];
+
+    protected static function newFactory(): VoucherFactory
+    {
+        return new VoucherFactory();
+    }
 
     public function getAmountArWordsAttribute()
     {

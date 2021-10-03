@@ -38,7 +38,12 @@ import NotificationMixin from './NotificationMixin'
 export default {
   mixins: [NotificationMixin],
   name: 'OrderPendingPaymentConfirmationNotification',
-
+  created () {
+    // Echo.private('manager_notification_channel_.1')
+    //     .notification((notification) => {
+    //       console.log(notification.type);
+    //     });
+  },
   data () {
     return {
       url: '/api/notifications/orders/pending'

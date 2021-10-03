@@ -10,8 +10,10 @@ Route::group(['prefix' => 'v2', 'as' => 'v2.'], function () {
 Route::middleware('auth')->group(
     function () {
         Route::resource('orders', 'OrderController');
-        Route::prefix('orders/{order}')->name('orders.')->group(
+        Route::prefix('orders/{order}')->as('orders.')->group(
             function () {
+                Route::post('accept_order', 'OrderController@acceptOrder')->name('accept_order');
+                Route::post('reject_order', 'OrderController@acceptOrder')->name('accept_order');
                 Route::post('sign-to-delivery-man', 'OrderController@signToDeliveryMan');
                 Route::post('activate-sign-to-delivery-man', 'OrderController@activateSignToDeliveryMan');
             }

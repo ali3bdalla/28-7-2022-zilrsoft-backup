@@ -6,6 +6,7 @@ use App\Dto\UserDto;
 use App\Models\User;
 use App\Repository\UserRepositoryContract;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository implements UserRepositoryContract
@@ -104,6 +105,13 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
             ]
         );
 
+    }
+
+    public function addCustomerBalanceAmount(User $user, float $amount)
+    {
+        $user->update([
+            'balance' => DB::raw("balance + $amount")
+        ]);
     }
 
     private function createName(string $firstName, string $lastName): string

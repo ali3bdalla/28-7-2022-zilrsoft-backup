@@ -22,4 +22,6 @@ interface UserRepositoryContract extends BaseRepositoryContract
     public function changeUserPassword(User $user, string $password);
 
     public function createForgetPasswordVerificationCode(string $phoneNumber): ?User;
+
+    public function addCustomerBalanceAmount(User $user,float $amount);
 }

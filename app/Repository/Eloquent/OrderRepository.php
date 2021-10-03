@@ -4,9 +4,13 @@ namespace App\Repository\Eloquent;
 
 use App\Dto\OrderDto;
 use App\Dto\OrderPaymentDto;
+use App\Dto\VoucherDto;
 use App\Enums\OrderStatusEnum;
+use App\Enums\VoucherTypeEnum;
+use App\Models\Account;
 use App\Models\Order;
 use App\Notifications\Store\IssuedOrderNotification;
+use App\Repository\EntryRepositoryContract;
 use App\Repository\InvoiceRepositoryContract;
 use App\Repository\OrderRepositoryContract;
 use App\ValueObjects\MoneyValueObject;
@@ -16,10 +20,14 @@ use Illuminate\Support\Facades\DB;
 class OrderRepository extends BaseRepository implements OrderRepositoryContract
 {
     private InvoiceRepositoryContract $invoiceRepositoryContract;
+    private EntryRepositoryContract $entryRepositoryContract;
+    private VoucherRepository $voucherRepository;
 
-    public function __construct(InvoiceRepositoryContract $invoiceRepositoryContract)
+    public function __construct(InvoiceRepositoryContract $invoiceRepositoryContract, EntryRepositoryContract $entryRepositoryContract, VoucherRepository $voucherRepository)
     {
         $this->invoiceRepositoryContract = $invoiceRepositoryContract;
+        $this->entryRepositoryContract = $entryRepositoryContract;
+        $this->voucherRepository = $voucherRepository;
     }
 
     public function createOrder(OrderDto $orderDto): ?Order
@@ -75,7 +83,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
         }
     }
 
-    public function confirmOrderPayment(Order $order, OrderPaymentDto $orderPaymentDto)
+    public function registerOrderPayment(Order $order, OrderPaymentDto $orderPaymentDto)
     {
         return DB::transaction(function () use ($order, $orderPaymentDto) {
             $this->changeOrderStatus($order, OrderStatusEnum::pending());
@@ -91,5 +99,17 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
         $order->update([
             'status' => $orderStatusEnum
         ]);
+    }
+
+    public function acceptOrderPayment(Order $order, Account $account)
+    {
+        return DB::transaction(function () use ($order, $account) {
+            $this->changeOrderStatus($order, OrderStatusEnum::paid());
+            $order->update(['payment_approved_at' => now(), 'payment_approved_by_id' => $this->authManager()->id ]);
+            $voucherDto = new VoucherDto($this->authManager(), $order->user,$order->net,VoucherTypeEnum::receipt(),'ORDER PAYMENT');
+            $voucher = $this->voucherRepository->createVoucher($voucherDto);
+            $this->entryRepositoryContract->registerReceiptVoucherEntry($voucher, $account);
+            return $order;
+        });
     }
 }

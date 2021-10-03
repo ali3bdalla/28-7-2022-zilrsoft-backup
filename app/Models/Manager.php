@@ -159,4 +159,8 @@ class Manager extends BaseAuthModel
         return $this->getInternationalPhoneNumberAttribute();
     }
 
+    public function receivesBroadcastNotificationsOn(): string
+    {
+        return 'manager_notification_channel_.'.$this->id;
+    }
 }

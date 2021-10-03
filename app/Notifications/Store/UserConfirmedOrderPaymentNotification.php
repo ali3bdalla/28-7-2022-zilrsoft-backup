@@ -41,8 +41,8 @@ class UserConfirmedOrderPaymentNotification extends Notification implements What
     {
         return "عملية سداد جديدة
 اسم العميل: {$this->order->user->locale_name}
-رقم الطلب: $this->order->id
-المبلغ المفترض:  $this->order->net
+رقم الطلب: {$this->order->id}
+المبلغ المفترض:  {$this->order->net}
    رابط التاكيد : https://next.zilrsoft.com/web/orders/{$this->order->id}
 ";
     }

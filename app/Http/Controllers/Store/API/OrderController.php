@@ -73,7 +73,7 @@ class OrderController extends Controller
             $request->getSendAccountId(),
             $request->getReceiverBankId()
         );
-        $this->orderRepositoryContract->confirmOrderPayment($order, $orderPaymentDto);
+        $this->orderRepositoryContract->registerOrderPayment($order, $orderPaymentDto);
         Notification::send(Manager::whereOrganizationId($order->organization_id)->get(), new UserConfirmedOrderPaymentNotification($order));
         return Inertia::render(
             'Order/PaymentConfirmed', [
