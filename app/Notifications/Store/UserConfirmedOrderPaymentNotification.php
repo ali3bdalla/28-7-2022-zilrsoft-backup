@@ -32,7 +32,7 @@ class UserConfirmedOrderPaymentNotification extends Notification implements What
      * @param mixed $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return [WhatsappMessageChannel::class];
     }

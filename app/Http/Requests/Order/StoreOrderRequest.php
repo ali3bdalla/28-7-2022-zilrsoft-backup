@@ -22,8 +22,8 @@ class StoreOrderRequest extends FormRequest
             "items" => "required|array",
             "items.*.id" => ["required", "integer", Rule::exists('items', 'id')],
             "items.*.quantity" => ["required", "numeric", "min:1"],
-            'shipping_method_id' => ['nullable', Rule::exists('shipping_methods', 'id')],
-            'shipping_address_id' => ['nullable', Rule::exists('shipping_addresses', 'id')],
+            'shipping_method_id' => ['required', Rule::exists('shipping_methods', 'id')],
+            'shipping_address_id' => ['required', Rule::exists('shipping_addresses', 'id')],
             'payment_method_id' => ['nullable'],
         ];
     }
@@ -39,12 +39,12 @@ class StoreOrderRequest extends FormRequest
         return true;
     }
 
-    public function getShippingAddress(): ?ShippingAddress
+    public function getShippingAddress(): ShippingAddress
     {
         return ShippingAddress::find($this->input('shipping_address_id'));
     }
 
-    public function getShippingMethod(): ?ShippingMethod
+    public function getShippingMethod(): ShippingMethod
     {
         return ShippingMethod::find($this->input('shipping_method_id'));
     }

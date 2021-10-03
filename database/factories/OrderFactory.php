@@ -27,6 +27,7 @@ class OrderFactory extends Factory
                 'shipping_amount' => $orderDto->getShippingAmount(),
                 'payment_method' => $orderDto->getPaymentMethodId(),
                 'shipping_address_id' => $orderDto->getShippingAddressId(),
+                'shipping_method_id' => $orderDto->getShippingMethodId(),
                 'net' => $orderDto->getOrderNet(),
                 'user_id' => $orderDto->getUserId(),
                 'shipping_cost' => $orderDto->getShippingCost(),
