@@ -31,6 +31,6 @@ class AcceptOrderRequest extends FormRequest
 
     public function getTargetAccount(): Account
     {
-        return Account::fin($this->input('account_id'));
+        return Account::find($this->input('account_id'));
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Dto;
 
 use App\Enums\VoucherTypeEnum;
+use App\Models\Account;
 use App\Models\Manager;
 use App\Models\User;
 
@@ -13,21 +14,24 @@ class VoucherDto
     private float $amount;
     private VoucherTypeEnum $type;
     private ?string $description;
+    private Account $account;
 
     /**
+     * @param Account $account
      * @param Manager $manager
      * @param User $user
      * @param float $amount
      * @param VoucherTypeEnum $type
      * @param string|null $description
      */
-    public function __construct(Manager $manager, User $user, float $amount, VoucherTypeEnum $type, ?string $description = null)
+    public function __construct(Account  $account,Manager $manager, User $user, float $amount, VoucherTypeEnum $type, ?string $description = null)
     {
         $this->user = $user;
         $this->manager = $manager;
         $this->amount = $amount;
         $this->type = $type;
         $this->description = $description;
+        $this->account = $account;
     }
 
     /**
@@ -92,6 +96,14 @@ class VoucherDto
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAccountId(): int
+    {
+        return $this->account->id;
     }
 
 

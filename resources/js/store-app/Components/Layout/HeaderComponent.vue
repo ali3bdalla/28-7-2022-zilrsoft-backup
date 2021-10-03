@@ -101,28 +101,6 @@
       </div>
     </div>
 
-    <!-- <div class="nav-item">
-      <div class="container">
-        <div class="nav-depart">
-          <div class="depart-btn">
-            <i class="ti-menu"></i>
-            <span>{{ $page.$t.header.categories }}</span>
-            <ul class="depart-hover">
-              <li v-for="category in $page.main_categories" :key="category.id">
-                <a :href="`/web/categories/${category.id}`">{{
-                  category.locale_name
-                }}</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <nav class="nav-menu mobile-menu">
-          <ul style="margin-bottom: 0px">
-            <slot name="navbarListItems"></slot>
-          </ul>
-        </nav>
-      </div>
-    </div> -->
   </header>
 </template>
 

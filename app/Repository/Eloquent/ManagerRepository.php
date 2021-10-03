@@ -13,7 +13,7 @@ class ManagerRepository extends BaseRepository implements ManagerRepositoryContr
 
     public function getResellers()
     {
-        return Manager::permission("");
+        return Manager::whereId(8)->get();
     }
     public function getCurrentManagerBanks(): Collection
     {

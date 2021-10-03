@@ -106,7 +106,9 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
         return DB::transaction(function () use ($order, $account) {
             $this->changeOrderStatus($order, OrderStatusEnum::paid());
             $order->update(['payment_approved_at' => now(), 'payment_approved_by_id' => $this->authManager()->id ]);
-            $voucherDto = new VoucherDto($this->authManager(), $order->user,$order->net,VoucherTypeEnum::receipt(),'ORDER PAYMENT');
+            $voucherDto = new VoucherDto(
+                $account,
+                $this->authManager(), $order->user,$order->net,VoucherTypeEnum::receipt(),'ORDER PAYMENT');
             $voucher = $this->voucherRepository->createVoucher($voucherDto);
             $this->entryRepositoryContract->registerReceiptVoucherEntry($voucher, $account);
             return $order;

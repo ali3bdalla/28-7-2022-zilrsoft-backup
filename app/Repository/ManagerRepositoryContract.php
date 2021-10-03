@@ -9,4 +9,6 @@ interface ManagerRepositoryContract extends BaseRepositoryContract
     public function getCurrentManagerBanks(): Collection;
 
     public function getAllManagersBanksExcept(array $managersId): array;
+
+    public function getResellers();
 }

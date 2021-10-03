@@ -89,7 +89,7 @@
               <display-money :money="row.net"/>
             </td>
             <td class="">
-              {{ row.shipping_method.locale_name }}
+              {{ row.shipping_method ? row.shipping_method.locale_name : ""}}
             </td>
 
             <td class="" v-text="row.tracking_number"></td>

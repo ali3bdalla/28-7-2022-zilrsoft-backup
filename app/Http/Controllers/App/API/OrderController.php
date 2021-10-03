@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\App\API;
 
-use App\Events\Order\OrderPaymentConfirmedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\AcceptOrderRequest;
-use App\Jobs\Items\AvailableQty\UpdateAvailableQtyByInvoiceItemJob;
 use App\Jobs\Order\NotifyCustomerByOrderPaymentCancellationJob;
 use App\Jobs\Order\Shipping\HandleOrderShippingJob;
 use App\Models\DeliveryMan;
@@ -13,6 +11,7 @@ use App\Models\Manager;
 use App\Models\Order;
 use App\Notifications\Order\NewPaidOrderNotification;
 use App\Notifications\Order\OrderPaymentAcceptedNotification;
+use App\Repository\ManagerRepositoryContract;
 use App\Repository\OrderRepositoryContract;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
@@ -23,10 +22,12 @@ class OrderController extends Controller
 {
 
     private OrderRepositoryContract $orderRepositoryContract;
+    private ManagerRepositoryContract $managerRepositoryContract;
 
-    public function __construct(OrderRepositoryContract $orderRepositoryContract)
+    public function __construct(OrderRepositoryContract $orderRepositoryContract, ManagerRepositoryContract $managerRepositoryContract)
     {
         $this->orderRepositoryContract = $orderRepositoryContract;
+        $this->managerRepositoryContract = $managerRepositoryContract;
     }
 
     public function index(Request $request): LengthAwarePaginator
@@ -51,7 +52,7 @@ class OrderController extends Controller
         if (!$order->isPending()) abort(403);
         $this->orderRepositoryContract->acceptOrderPayment($order, $request->getTargetAccount());
         $order->user->notify(new OrderPaymentAcceptedNotification($order));
-        Notification::send(Manager::all(), new NewPaidOrderNotification($order));
+        Notification::send($this->managerRepositoryContract->getResellers(), new NewPaidOrderNotification($order));
     }
 
     /**
@@ -62,9 +63,6 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        foreach ($order->itemsQtyHolders()->get() as $holdQty) {
-            UpdateAvailableQtyByInvoiceItemJob::dispatchSync($holdQty->invoiceItem, true);
-        }
         $order->update([
             'status' => "canceled"
         ]);

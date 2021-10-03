@@ -39,10 +39,10 @@ export default {
   mixins: [NotificationMixin],
   name: 'OrderPendingPaymentConfirmationNotification',
   created () {
-    // Echo.private('manager_notification_channel_.1')
-    //     .notification((notification) => {
-    //       console.log(notification.type);
-    //     });
+    Echo.private('manager_notification_channel_.1')
+        .notification((notification) => {
+          console.log(notification.type);
+        });
   },
   data () {
     return {

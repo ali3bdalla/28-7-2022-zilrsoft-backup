@@ -133,4 +133,9 @@ class Order extends BaseModel
     {
         return $this->belongsTo(Invoice::class, 'invoice_id')->withoutGlobalScopes([DraftScope::class]);
     }
+
+    public function isPending(): bool
+    {
+        return $this->status->equals(OrderStatusEnum::pending());
+    }
 }

@@ -17,11 +17,12 @@ class VoucherFactory extends Factory
      */
     protected $model = Payment::class;
 
-    public function setDto(VoucherDto $voucherDto): OrderFactory
+    public function setDto(VoucherDto $voucherDto): VoucherFactory
     {
         return $this->state(function () use ($voucherDto) {
             return [
                 'organization_id' => $voucherDto->getOrganizationId(),
+                'account_id' => $voucherDto->getAccountId(),
                 'creator_id' => $voucherDto->getManagerId(),
                 'payment_type' => $voucherDto->getType(),
                 'amount' => $voucherDto->getAmount(),

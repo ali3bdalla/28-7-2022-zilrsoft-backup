@@ -40,25 +40,34 @@ class NewPaidOrderNotification extends Notification implements WhatsappMessageNo
 
     public function toBroadcast($notifiable): BroadcastMessage
     {
-        return new BroadcastMessage($this->getNotificationArray());
+        return new BroadcastMessage($this->toArray($notifiable));
     }
 
-    private function getNotificationArray(): array
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param mixed $notifiable
+     * @return array
+     */
+    public function toArray($notifiable): array
     {
         return [
             'message' => 'طلب من المتجر الاونلاين',
             'actions' => [
-                "title" => "قبول",
-                "action" => "/store/orders/{$this->order->id}/accept-order-as-manager",
-                "method" => "post"
+               [
+                   "title" => "قبول",
+                   "action" => "/store/orders/{$this->order->id}/accept-order-as-manager",
+                   "method" => "post"
+               ],
+                [
+                    "title" => "اخفاء الاشعار",
+                    "action" => "#",
+                    "method" => "post"
+                ]
             ]
         ];
     }
 
-    public function toDatabase()
-    {
-        return json_encode($this->getNotificationArray());
-    }
 
     public function toWhatsappMessage($notifiable): string
     {

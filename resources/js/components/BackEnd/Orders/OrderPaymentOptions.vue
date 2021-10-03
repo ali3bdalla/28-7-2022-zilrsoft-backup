@@ -44,7 +44,9 @@ export default {
     clientListChanged (account) { this.accountId = account.value.id },
     confirm () {
       this.$confirm('هل انت متاكد ؟', 'تاكيد الحوالة', 'success', { confirmButtonText: 'نعم', cancelButtonText: 'لا' }).then(() => {
-        axios.patch(`/api/orders/${this.order.id}?account_id=${this.accountId}`).then(response => {
+        axios.post(`/api/orders/${this.order.id}/accept_order`,{
+          account_id: this.accountId
+        }).then(response => {
           location.reload()
         }).catch(error => {
           this.$alert('يجب ان تقوم باختيار حساب', 'خطأ', 'error')
