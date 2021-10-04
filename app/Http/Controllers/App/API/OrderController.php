@@ -4,13 +4,12 @@ namespace App\Http\Controllers\App\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\AcceptOrderRequest;
-use App\Jobs\Order\NotifyCustomerByOrderPaymentCancellationJob;
 use App\Jobs\Order\Shipping\HandleOrderShippingJob;
 use App\Models\DeliveryMan;
-use App\Models\Manager;
 use App\Models\Order;
 use App\Notifications\Order\NewPaidOrderNotification;
 use App\Notifications\Order\OrderPaymentAcceptedNotification;
+use App\Notifications\Store\OrderHasBeenCanceledNotification;
 use App\Repository\ManagerRepositoryContract;
 use App\Repository\OrderRepositoryContract;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -63,10 +62,8 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        $order->update([
-            'status' => "canceled"
-        ]);
-        NotifyCustomerByOrderPaymentCancellationJob::dispatchSync($order);
+        $order->markAsCanceled();
+        $order->user->notify(new OrderHasBeenCanceledNotification($order, true));
     }
 
 

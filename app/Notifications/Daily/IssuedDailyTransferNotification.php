@@ -34,7 +34,7 @@ class IssuedDailyTransferNotification extends Notification implements WhatsappMe
      */
     public function via($notifiable): array
     {
-        return [WhatsappMessageChannel::class, 'database'];
+        return [WhatsappMessageChannel::class];
     }
 
     public function toDatabase(): array
