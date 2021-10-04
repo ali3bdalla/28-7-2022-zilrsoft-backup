@@ -2,10 +2,8 @@
 
 namespace App\Console\Commands\Order;
 
-use AliAbdalla\Whatsapp\Whatsapp;
-use App\Jobs\Order\CancelOrderJob;
-use App\Models\Order;
-use Carbon\Carbon;
+use App\Notifications\Store\OrderHasBeenCanceledNotification;
+use App\Repository\OrderRepositoryContract;
 use Illuminate\Console\Command;
 
 class CancelUnPaidOrderCommand extends Command
@@ -23,6 +21,7 @@ class CancelUnPaidOrderCommand extends Command
      * @var string
      */
     protected $description = 'This Command Is used to cancel Un Paid Order after it time finish';
+    private OrderRepositoryContract $orderRepositoryContract;
 
 
     /**
@@ -30,23 +29,25 @@ class CancelUnPaidOrderCommand extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(OrderRepositoryContract $orderRepositoryContract)
     {
         parent::__construct();
+        $this->orderRepositoryContract = $orderRepositoryContract;
     }
 
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
-        $orders = Order::where('status', 'issued')->whereDate('auto_cancel_at', '<=', Carbon::now())->whereTime('auto_cancel_at', '<=', Carbon::now())->get();
+        $orders = $this->orderRepositoryContract->getNotifiedUnPaidOrders();
         foreach ($orders as $order) {
-            CancelOrderJob::dispatchSync($order);
+            $order->markAsCanceled();
+            $order->user->notify(new OrderHasBeenCanceledNotification($order));
         }
-
+        return 0;
     }
 
 

@@ -114,4 +114,13 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
             return $order;
         });
     }
+
+    public function getUnNotifiedAutoCancellationOrders()
+    {
+        return Order::where([['status', 'issued'], ['is_should_pay_notified', false]])->whereDate('should_pay_last_notification_at', '<=', Carbon::now())->whereTime('should_pay_last_notification_at', '<=', Carbon::now())->get();
+    }
+    public function getNotifiedUnPaidOrders()
+    {
+        return Order::where('status', 'issued')->whereDate('auto_cancel_at', '<=', Carbon::now())->whereTime('auto_cancel_at', '<=', Carbon::now())->get();
+    }
 }

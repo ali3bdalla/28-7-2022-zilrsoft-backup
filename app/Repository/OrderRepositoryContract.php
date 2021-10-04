@@ -10,6 +10,10 @@ use App\Models\Order;
 
 interface OrderRepositoryContract extends BaseRepositoryContract
 {
+    public function getNotifiedUnPaidOrders();
+
+    public function getUnNotifiedAutoCancellationOrders();
+
     public function createOrder(OrderDto $orderDto): ?Order;
 
     public function acceptOrderPayment(Order  $order,Account  $account);

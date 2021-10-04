@@ -22,14 +22,14 @@ class SignUpPhoneNumberVerificationCodeNotification extends Notification impleme
      * @param mixed $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return [OurSmsChannel::class, WhatsappMessageChannel::class];
     }
 
     public function toOurSms($notifiable): string
     {
-        return 'click to verify : ' . $this->createVerificationUrl($notifiable);
+        return 'رابط تاكيد التسجيل : ' . shortLink($this->createVerificationUrl($notifiable));
     }
 
     private function createVerificationUrl($notifiable): string
@@ -48,6 +48,6 @@ class SignUpPhoneNumberVerificationCodeNotification extends Notification impleme
 
     public function toWhatsappMessage($notifiable): string
     {
-        return 'click to verify : ' . $this->createVerificationUrl($notifiable);
+        return $this->toOurSms($notifiable);
     }
 }

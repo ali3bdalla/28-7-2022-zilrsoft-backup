@@ -27,6 +27,6 @@ class StoreWelcomeNotification extends Notification implements WhatsappMessageNo
 
     public function toWhatsappMessage($notifiable): string
     {
-        return "welcome to our store : https://msbrshop.com";
+        return "شكراً لانضمامك لمتجر المسبار : https://msbrshop.com";
     }
 }

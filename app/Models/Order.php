@@ -60,7 +60,7 @@ class Order extends BaseModel
     protected $appends = ['pdf_url'];
 
     protected $casts = [
-        'status' => OrderStatusEnum::class.':nullable',
+        'status' => OrderStatusEnum::class . ':nullable',
         'net' => MoneyValueObject::class,
     ];
 
@@ -101,12 +101,12 @@ class Order extends BaseModel
 
     public function generatePayOrderUrl()
     {
-        return shortLink(url('/web/orders/'.$this->id.'/confirm_payment?code='.$this->order_secret_code));
+        return shortLink(url('/web/orders/' . $this->id . '/confirm_payment?code=' . $this->order_secret_code));
     }
 
     public function generateCancelOrderUrl()
     {
-        return shortLink(url('/web/orders/'.$this->id.'/cancel?code='.$this->order_secret_code));
+        return shortLink(url('/web/orders/' . $this->id . '/cancel?code=' . $this->order_secret_code));
     }
 
     public function paymentDetail(): HasOne
@@ -137,5 +137,23 @@ class Order extends BaseModel
     public function isPending(): bool
     {
         return $this->status->equals(OrderStatusEnum::pending());
+    }
+
+    public function markAsAutoCanceledNotified()
+    {
+        $this->update(
+            [
+                'is_should_pay_notified' => true
+            ]
+        );
+    }
+
+    public function markAsCanceled()
+    {
+        $this->update(
+            [
+                'status' => 'canceled'
+            ]
+        );
     }
 }
