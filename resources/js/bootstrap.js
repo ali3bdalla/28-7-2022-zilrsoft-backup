@@ -27,7 +27,7 @@ window.config = '{}'
 
 window.Echo = new Echo({
   broadcaster: 'pusher',
-  key: process.env.MIX_PUSHER_APP_KEY,
-  cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+  key: process.env.MIX_PUSHER_APP_KEY  ?? "602cb515adce8269bdfc",
+  cluster: process.env.MIX_PUSHER_APP_CLUSTER ?? "us2",
   forceTLS: true
 })

@@ -5,6 +5,7 @@ if (mix.inProduction()) {
   mix.js('resources/js/store-app/app.js', 'public/js/store-app/app.js')
     .sass('resources/sass/store.scss', 'public/css/')
     .sass('resources/sass/rtl_store.scss', 'public/css/')
+    .version()
 } else {
   mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/store-app/app.js', 'public/js/store-app/app.js')
@@ -15,10 +16,10 @@ if (mix.inProduction()) {
     .browserSync({
       proxy: 'http://zilrsoft.test'
     })
+    .version()
 }
 
-mix.version()
-  .options({
+mix.options({
     processCssUrls: false,
     postCss: [tailwindcss('./tailwind.config.js')]
   })
