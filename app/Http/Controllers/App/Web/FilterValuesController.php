@@ -42,7 +42,7 @@ class FilterValuesController extends Controller
      *
      * @return Response
      */
-    public function store(CreateFilterValueRequest $request): Response
+    public function store(CreateFilterValueRequest $request)
     {
         $this->middleware(['permission:edit filter|create filter']);
 
@@ -57,7 +57,7 @@ class FilterValuesController extends Controller
      * @param FilterValues $filterValue
      * @return Response
      */
-    public function update(UpdateFilterValueRequest $request, FilterValues $filterValue): Response
+    public function update(UpdateFilterValueRequest $request, FilterValues $filterValue)
     {
         $this->middleware(['permission:edit filter|create filter']);
 
