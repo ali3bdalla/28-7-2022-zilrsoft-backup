@@ -59,10 +59,11 @@ class DailyController extends Controller
             ->whereIsPendingAndId(true, $transaction)
             ->withoutGlobalScope(PendingScope::class)->firstOrFail();
         if (app()->isProduction() && !in_array(Auth::id(), $transaction->toAccount->managerGateways()->pluck('managers.id')->toArray())) {
-            abort(404);
+            abort(404,"Not Found");
         }
         $this->managerDailyWalletRepositoryContract->confirmWalletTransferTransaction($transaction);
         $transaction->creator->notify(new TransferWalletTransactionConfirmedNotification($transaction));
+        return "Confirmed";
     }
 
 
@@ -79,6 +80,7 @@ class DailyController extends Controller
         }
         $this->managerDailyWalletRepositoryContract->cancelWalletTransferTransaction($transaction);
         $transaction->creator->notify(new TransferWalletTransactionCanceledNotification($transaction));
+        return "Canceled";
     }
 
 }
