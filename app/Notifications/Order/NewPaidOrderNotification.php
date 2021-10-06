@@ -3,7 +3,6 @@
 namespace App\Notifications\Order;
 
 use App\Channels\BroadcastNotificationContract;
-use App\Dto\BroadcastNotificationDto;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

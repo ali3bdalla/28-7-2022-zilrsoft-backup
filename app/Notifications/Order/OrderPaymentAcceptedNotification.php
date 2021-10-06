@@ -7,7 +7,6 @@ use App\Channels\OurSmsChannel;
 use App\Channels\OurSmsNotificationContract;
 use App\Channels\WhatsappMessageChannel;
 use App\Channels\WhatsappMessageNotificationContract;
-use App\Dto\BroadcastNotificationDto;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -42,7 +41,7 @@ class OrderPaymentAcceptedNotification extends Notification implements
      */
     public function via($notifiable): array
     {
-        return [WhatsappMessageChannel::class,OurSmsChannel::class,'database','broadcast'];
+        return [WhatsappMessageChannel::class, OurSmsChannel::class, 'database', 'broadcast'];
     }
 
     public function toOurSms($notifiable): string
