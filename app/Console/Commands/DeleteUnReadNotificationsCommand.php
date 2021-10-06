@@ -39,7 +39,7 @@ class DeleteUnReadNotificationsCommand extends Command
      */
     public function handle(): int
     {
-        DatabaseNotification::where('created_at', '<', Carbon::now()->subWeek())->unread()->get()->markAsRead();
+        DatabaseNotification::where('created_at', '<', Carbon::now()->subDays(2))->unread()->get()->markAsRead();
         return 0;
     }
 }
