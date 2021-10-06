@@ -12,6 +12,7 @@ use App\ValueObjects\MoneyValueObject;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Channels\BroadcastChannel;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
 class TransferWalletTransactionConfirmedNotification extends Notification implements
@@ -57,10 +58,13 @@ class TransferWalletTransactionConfirmedNotification extends Notification implem
         return $this->toWhatsappMessage($notifiable);
     }
 
-    public function toBroadcast($notifiable): BroadcastNotificationDto
+    public function toBroadcast($notifiable): BroadcastMessage
     {
         $data = $this->toArray($notifiable);
-        return new BroadcastNotificationDto($data['message'], $data['actions']);
+        return new BroadcastMessage([
+            'message' => $data['message'],
+            'actions' => $data['actions']
+        ]);
     }
 
     /**

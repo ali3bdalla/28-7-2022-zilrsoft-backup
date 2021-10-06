@@ -2,9 +2,9 @@
 
 namespace App\Channels;
 
-use App\Dto\BroadcastNotificationDto;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 interface BroadcastNotificationContract
 {
-    public function toBroadcast($notifiable): BroadcastNotificationDto;
+    public function toBroadcast($notifiable): BroadcastMessage;
 }

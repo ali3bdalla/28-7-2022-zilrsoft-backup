@@ -11,6 +11,7 @@ use App\Dto\BroadcastNotificationDto;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
 class OrderPaymentAcceptedNotification extends Notification implements
@@ -57,11 +58,12 @@ class OrderPaymentAcceptedNotification extends Notification implements
         ]);
     }
 
-    public function toBroadcast($notifiable): BroadcastNotificationDto
+    public function toBroadcast($notifiable): BroadcastMessage
     {
-        return new BroadcastNotificationDto(
-            $this->toWhatsappMessage($notifiable),
-            []
-        );
+        return new BroadcastMessage([
+            'message' => $this->toWhatsappMessage($notifiable),
+            'actions' => []
+        ]);
+
     }
 }
