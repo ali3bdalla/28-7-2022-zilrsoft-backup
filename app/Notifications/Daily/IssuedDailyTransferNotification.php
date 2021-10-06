@@ -46,10 +46,6 @@ class IssuedDailyTransferNotification extends Notification implements
         return [WhatsappMessageChannel::class,OurSmsChannel::class,'database', "broadcast"];
     }
 
-    public function toDatabase(): array
-    {
-        return $this->pendingWalletTransaction->toArray();
-    }
 
     public function toWhatsappMessage($notifiable): string
     {
