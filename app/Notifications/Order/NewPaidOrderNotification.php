@@ -2,13 +2,14 @@
 
 namespace App\Notifications\Order;
 
+use App\Channels\BroadcastNotificationContract;
+use App\Dto\BroadcastNotificationDto;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
-class NewPaidOrderNotification extends Notification implements ShouldQueue
+class NewPaidOrderNotification extends Notification implements ShouldQueue, BroadcastNotificationContract
 {
     use Queueable;
 
@@ -21,7 +22,6 @@ class NewPaidOrderNotification extends Notification implements ShouldQueue
      */
     public function __construct(Order $order)
     {
-        //
         $this->order = $order;
     }
 
@@ -36,9 +36,10 @@ class NewPaidOrderNotification extends Notification implements ShouldQueue
         return ['database', "broadcast"];
     }
 
-    public function toBroadcast($notifiable): BroadcastMessage
+    public function toBroadcast($notifiable): BroadcastNotificationDto
     {
-        return new BroadcastMessage($this->toArray($notifiable));
+        $data = $this->toArray($notifiable);
+        return new BroadcastNotificationDto($data['message'], $data['actions']);
     }
 
     /**

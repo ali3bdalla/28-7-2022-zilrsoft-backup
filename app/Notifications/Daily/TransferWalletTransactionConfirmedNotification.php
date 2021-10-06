@@ -2,15 +2,23 @@
 
 namespace App\Notifications\Daily;
 
+use App\Channels\BroadcastNotificationContract;
+use App\Channels\OurSmsNotificationContract;
 use App\Channels\WhatsappMessageChannel;
 use App\Channels\WhatsappMessageNotificationContract;
+use App\Dto\BroadcastNotificationDto;
 use App\Models\ResellerClosingAccount;
 use App\ValueObjects\MoneyValueObject;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Channels\BroadcastChannel;
 use Illuminate\Notifications\Notification;
 
-class TransferWalletTransactionConfirmedNotification extends Notification implements WhatsappMessageNotificationContract, ShouldQueue
+class TransferWalletTransactionConfirmedNotification extends Notification implements
+    WhatsappMessageNotificationContract,
+    ShouldQueue,
+    OurSmsNotificationContract,
+    BroadcastNotificationContract
 {
     use Queueable;
 
@@ -24,7 +32,6 @@ class TransferWalletTransactionConfirmedNotification extends Notification implem
      */
     public function __construct(ResellerClosingAccount $pendingWalletTransferTransaction)
     {
-        //
         $this->pendingWalletTransferTransaction = $pendingWalletTransferTransaction;
     }
 
@@ -36,7 +43,7 @@ class TransferWalletTransactionConfirmedNotification extends Notification implem
      */
     public function via($notifiable)
     {
-        return [WhatsappMessageChannel::class];
+        return [WhatsappMessageChannel::class,OurSmsNotificationContract::class,'database', "broadcast"];
     }
 
     public function toWhatsappMessage($notifiable): string
@@ -44,5 +51,29 @@ class TransferWalletTransactionConfirmedNotification extends Notification implem
         $formattedAmount = (new MoneyValueObject($this->pendingWalletTransferTransaction->amount, 'SAR'))->getFormattedMoney();
         return "تم قبول التحويل الى خزينة {$this->pendingWalletTransferTransaction->toAccount->locale_name},
  المبلغ: $formattedAmount";
+    }
+    public function toOurSms($notifiable): string
+    {
+        return $this->toWhatsappMessage($notifiable);
+    }
+
+    public function toBroadcast($notifiable): BroadcastNotificationDto
+    {
+        $data = $this->toArray($notifiable);
+        return new BroadcastNotificationDto($data['message'], $data['actions']);
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param mixed $notifiable
+     * @return array
+     */
+    public function toArray($notifiable): array
+    {
+        return [
+            'message' => $this->toWhatsappMessage($notifiable),
+            'actions' => []
+        ];
     }
 }

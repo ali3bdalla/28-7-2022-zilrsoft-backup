@@ -2,14 +2,22 @@
 
 namespace App\Notifications\Order;
 
+use App\Channels\BroadcastNotificationContract;
+use App\Channels\OurSmsChannel;
+use App\Channels\OurSmsNotificationContract;
 use App\Channels\WhatsappMessageChannel;
 use App\Channels\WhatsappMessageNotificationContract;
+use App\Dto\BroadcastNotificationDto;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class OrderPaymentAcceptedNotification extends Notification implements WhatsappMessageNotificationContract, ShouldQueue
+class OrderPaymentAcceptedNotification extends Notification implements
+    OurSmsNotificationContract,
+    WhatsappMessageNotificationContract,
+    ShouldQueue,
+    BroadcastNotificationContract
 {
     use Queueable;
 
@@ -33,7 +41,12 @@ class OrderPaymentAcceptedNotification extends Notification implements WhatsappM
      */
     public function via($notifiable): array
     {
-        return [WhatsappMessageChannel::class];
+        return [WhatsappMessageChannel::class,OurSmsChannel::class,'database','broadcast'];
+    }
+
+    public function toOurSms($notifiable): string
+    {
+        return $this->toWhatsappMessage($notifiable);
     }
 
     public function toWhatsappMessage($notifiable): string
@@ -42,5 +55,13 @@ class OrderPaymentAcceptedNotification extends Notification implements WhatsappM
             'CUSTOMER_NAME' => $this->order->user->name,
             'ORDER_ID' => $this->order->id,
         ]);
+    }
+
+    public function toBroadcast($notifiable): BroadcastNotificationDto
+    {
+        return new BroadcastNotificationDto(
+            $this->toWhatsappMessage($notifiable),
+            []
+        );
     }
 }
