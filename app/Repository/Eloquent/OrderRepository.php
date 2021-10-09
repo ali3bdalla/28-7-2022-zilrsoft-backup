@@ -23,7 +23,11 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
     private EntryRepositoryContract $entryRepositoryContract;
     private VoucherRepository $voucherRepository;
 
-    public function __construct(InvoiceRepositoryContract $invoiceRepositoryContract, EntryRepositoryContract $entryRepositoryContract, VoucherRepository $voucherRepository)
+    public function __construct(
+        InvoiceRepositoryContract $invoiceRepositoryContract,
+        EntryRepositoryContract $entryRepositoryContract,
+        VoucherRepository $voucherRepository
+    )
     {
         $this->invoiceRepositoryContract = $invoiceRepositoryContract;
         $this->entryRepositoryContract = $entryRepositoryContract;

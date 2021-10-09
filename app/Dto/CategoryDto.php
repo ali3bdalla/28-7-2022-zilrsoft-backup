@@ -2,12 +2,13 @@
 
 namespace App\Dto;
 
+use App\Base\BaseDtoContract;
 use App\Models\Category;
 use App\Models\Manager;
 use App\ValueObjects\PhotoValueObject;
 use Illuminate\Support\Str;
 
-class CategoryDto
+class CategoryDto implements BaseDtoContract
 {
     private Manager $manager;
     private string $name;

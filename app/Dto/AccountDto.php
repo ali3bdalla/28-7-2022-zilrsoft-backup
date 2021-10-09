@@ -2,11 +2,12 @@
 
 namespace App\Dto;
 
+use App\Base\BaseDtoContract;
 use App\Enums\AccountingTypeEnum;
 use App\Enums\AccountSlugEnum;
 use App\Models\Manager;
 
-class AccountDto
+class AccountDto implements BaseDtoContract
 {
     private Manager $manager;
     private string $name;
@@ -22,6 +23,7 @@ class AccountDto
      * @param string $name
      * @param string $arName
      * @param AccountingTypeEnum $type
+     * @param AccountSlugEnum|null $accountSlug
      * @param int $parentId
      * @param bool $isSystemAccount
      * @param bool $isGateway

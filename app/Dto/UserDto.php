@@ -2,10 +2,11 @@
 
 namespace App\Dto;
 
+use App\Base\BaseDtoContract;
 use App\Models\Manager;
 use Propaganistas\LaravelPhone\PhoneNumber;
 
-class UserDto
+class UserDto  implements BaseDtoContract
 {
     private string $firstName;
     private string $lastName;

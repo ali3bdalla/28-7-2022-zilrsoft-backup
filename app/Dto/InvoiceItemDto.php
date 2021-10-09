@@ -2,11 +2,12 @@
 
 namespace App\Dto;
 
+use App\Base\BaseDtoContract;
 use App\Enums\InvoiceTypeEnum;
 use App\Models\Invoice;
 use App\Models\Item;
 
-class InvoiceItemDto
+class InvoiceItemDto  implements BaseDtoContract
 {
     private Item $item;
     private float $quantity;

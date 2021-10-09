@@ -87,12 +87,6 @@ class User extends BaseAuthModel
     {
         return $this->hasMany(Invoice::class, 'user_id');
     }
-
-    public function getNameAttribute($value)
-    {
-        return $value;
-    }
-
     public function getLocaleNameAttribute(): string
     {
         return $this->name_ar ?? $this->name;

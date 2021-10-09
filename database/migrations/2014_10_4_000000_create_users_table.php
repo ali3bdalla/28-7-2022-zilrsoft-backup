@@ -35,13 +35,8 @@ class CreateUsersTable extends Migration
             $table->boolean('can_make_credit')->default(false);
             $table->enum('user_type', ['company', 'individual']);
             $table->enum('user_title', ['mis', 'mr', 'company'])->default('mr');
-
-
             $table->float('total_credit_amount',20, 8)->default(0);
             $table->float('total_debit_amount',20, 8)->default(0);
-
-
-
             $table->timestamps();
             $table->softDeletes();
 

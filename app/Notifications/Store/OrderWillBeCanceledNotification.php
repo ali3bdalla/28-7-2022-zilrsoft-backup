@@ -41,6 +41,7 @@ class OrderWillBeCanceledNotification extends Notification implements WhatsappMe
 
     public function toWhatsappMessage($notifiable): string
     {
+        app()->setLocale($this->order->lang);
         return __('store.messages.notify_unpaid_order_message',
             ["ORDERID" => $this->order->id, 'DATE' => Carbon::parse($this->order->auto_cancel_at)->toDateString(), 'TIME' => Carbon::parse($this->order->auto_cancel_at)->toTimeString()]);
     }

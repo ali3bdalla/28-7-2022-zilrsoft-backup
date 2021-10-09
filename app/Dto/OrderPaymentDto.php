@@ -2,7 +2,9 @@
 
 namespace App\Dto;
 
-class OrderPaymentDto
+use App\Base\BaseDtoContract;
+
+class OrderPaymentDto  implements BaseDtoContract
 {
     private string $firstName;
     private string $lastName;

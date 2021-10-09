@@ -2,12 +2,13 @@
 
 namespace App\Dto;
 
+use App\Base\BaseDtoContract;
 use App\Models\Country;
 use App\Models\Type;
 use App\ValueObjects\PhotoValueObject;
 use Propaganistas\LaravelPhone\PhoneNumber;
 
-class OrganizationDto
+class OrganizationDto  implements BaseDtoContract
 {
     private string $title;
     private string $city;

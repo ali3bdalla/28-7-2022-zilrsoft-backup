@@ -2,11 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Base\BaseFactory;
 use App\Dto\AccountDto;
 use App\Models\Account;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Order;
 
-class AccountFactory extends Factory
+class AccountFactory extends BaseFactory
 {
     /**
      * The name of the factory's corresponding model.
@@ -50,5 +51,10 @@ class AccountFactory extends Factory
             'type' => $this->faker->randomElement(['credit', 'debit']),
             'is_system_account' => $this->faker->boolean
         ];
+    }
+
+    public function clone(Order $order)
+    {
+        // TODO: Implement clone() method.
     }
 }

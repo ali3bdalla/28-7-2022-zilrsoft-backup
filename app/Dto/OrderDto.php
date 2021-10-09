@@ -2,6 +2,7 @@
 
 namespace App\Dto;
 
+use App\Base\BaseDtoContract;
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
 use App\Models\ShippingAddress;
@@ -10,7 +11,7 @@ use App\Models\User;
 use App\Scopes\DraftScope;
 use Illuminate\Support\Collection;
 
-class OrderDto
+class OrderDto  implements BaseDtoContract
 {
     private InvoiceDto $invoiceDto;
     private ?Invoice $draftInvoice;

@@ -2,12 +2,13 @@
 
 namespace App\Dto;
 
+use App\Base\BaseDtoContract;
 use App\Enums\VoucherTypeEnum;
 use App\Models\Account;
 use App\Models\Manager;
 use App\Models\User;
 
-class VoucherDto
+class VoucherDto  implements BaseDtoContract
 {
     private Manager $manager;
     private User $user;

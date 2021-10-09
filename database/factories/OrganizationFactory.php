@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Dto\OrganizationDto;
+use App\Models\Order;
 use App\Models\Organization;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,6 +15,7 @@ class OrganizationFactory extends Factory
      * @var string
      */
     protected $model = Organization::class;
+
 
     public function setDto(OrganizationDto $organizationDto): OrganizationFactory
     {
@@ -29,7 +31,8 @@ class OrganizationFactory extends Factory
                 'city_ar' => $organizationDto->getCity(),
                 "cr" => $organizationDto->getCrNumber(),
                 "vat" => $organizationDto->getVatNumber(),
-                "phone_number" => $organizationDto->getPhoneNumber()
+                "phone_number" => $organizationDto->getPhoneNumber(),
+
             ];
         });
     }
@@ -54,7 +57,8 @@ class OrganizationFactory extends Factory
             'type_id' => 1,
             'phone_number' => $this->faker->phoneNumber,
             'cr' => $this->faker->uuid,
-            'vat' => $this->faker->creditCardNumber
+            'vat' => $this->faker->creditCardNumber,
+            'lang' => app()->getLocale()
         ];
     }
 }

@@ -2,12 +2,13 @@
 
 namespace App\Dto;
 
+use App\Base\BaseDtoContract;
 use App\Enums\InvoiceTypeEnum;
 use App\Models\Manager;
 use App\Models\User;
 use Illuminate\Support\Collection;
 
-class InvoiceDto
+class InvoiceDto  implements BaseDtoContract
 {
     private Manager $manager;
     private User $user;

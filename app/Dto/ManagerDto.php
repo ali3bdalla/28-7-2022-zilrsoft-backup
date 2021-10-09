@@ -2,10 +2,11 @@
 
 namespace App\Dto;
 
+use App\Base\BaseDtoContract;
 use App\Models\Organization;
 use Propaganistas\LaravelPhone\PhoneNumber;
 
-class ManagerDto
+class ManagerDto  implements BaseDtoContract
 {
     private Organization $organization;
     private string $name;

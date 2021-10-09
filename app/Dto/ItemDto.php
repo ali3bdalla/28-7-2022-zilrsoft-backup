@@ -2,11 +2,12 @@
 
 namespace App\Dto;
 
+use App\Base\BaseDtoContract;
 use App\Models\Category;
 use App\Models\Manager;
 use Illuminate\Support\Str;
 
-class ItemDto
+class ItemDto  implements BaseDtoContract
 {
     private Manager $manager;
     private Category $category;
