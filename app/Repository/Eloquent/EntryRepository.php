@@ -5,6 +5,7 @@ namespace App\Repository\Eloquent;
 use App\Enums\AccountingTypeEnum;
 use App\Enums\EntryDto;
 use App\Enums\TransactionDto;
+use App\Enums\VoucherTypeEnum;
 use App\Models\Account;
 use App\Models\Payment;
 use App\Models\ResellerClosingAccount;
@@ -19,7 +20,7 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
     private AccountRepositoryContract $accountRepositoryContract;
     private UserRepositoryContract $userRepositoryContract;
 
-    public function __construct(AccountRepositoryContract $accountRepositoryContract,UserRepositoryContract $userRepositoryContract)
+    public function __construct(AccountRepositoryContract $accountRepositoryContract, UserRepositoryContract $userRepositoryContract)
     {
         $this->accountRepositoryContract = $accountRepositoryContract;
         $this->userRepositoryContract = $userRepositoryContract;
@@ -71,13 +72,14 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
         });
     }
 
-    public function registerReceiptVoucherEntry(Payment $voucher, Account $targetAccount): TransactionsContainer
+    public function registerClientVoucherEntry(Payment $voucher, Account $targetAccount): TransactionsContainer
     {
         $clientAccount = Account::getSystemAccount("clients");
         $transactions = collect();
+        $addBalance = $voucher->payment_type->equals(VoucherTypeEnum::receipt());
         $transactions->add(new TransactionDto(
             $clientAccount,
-            AccountingTypeEnum::credit(),
+            $addBalance ? AccountingTypeEnum::credit() : AccountingTypeEnum::debit(),
             $voucher->amount,
             false,
             false,
@@ -87,7 +89,7 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
         ));
         $transactions->add(new TransactionDto(
             $targetAccount,
-            AccountingTypeEnum::debit(),
+            $addBalance ? AccountingTypeEnum::debit() : AccountingTypeEnum::credit(),
             $voucher->amount,
             false,
             false,
@@ -102,10 +104,49 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
             'customer receipt voucher',
             null
         );
-       return DB::transaction(function() use ($entryDto,$voucher){
-           $entry = $this->createEntry($entryDto);
-           $this->userRepositoryContract->addCustomerBalanceAmount($voucher->user,$voucher->amount);
-           return $entry;
-       });
+        return DB::transaction(function () use ($entryDto, $voucher, $addBalance) {
+            $entry = $this->createEntry($entryDto);
+            $this->userRepositoryContract->updateCustomerBalanceAmount($voucher->user, $voucher->amount, $addBalance);
+            return $entry;
+        });
+    }
+
+    public function registerVendorVoucherEntry(Payment $voucher, Account $targetAccount): TransactionsContainer
+    {
+        $account = Account::getSystemAccount("vendors");
+        $transactions = collect();
+        $addBalance = $voucher->payment_type->equals(VoucherTypeEnum::payment());
+        $transactions->add(new TransactionDto(
+            $account,
+            $addBalance ? AccountingTypeEnum::credit() : AccountingTypeEnum::debit(),
+            $voucher->amount,
+            false,
+            false,
+            null,
+            null,
+            $voucher->user_id
+        ));
+        $transactions->add(new TransactionDto(
+            $targetAccount,
+            $addBalance ? AccountingTypeEnum::debit() : AccountingTypeEnum::credit(),
+            $voucher->amount,
+            false,
+            false,
+            null,
+            null,
+            $voucher->user_id
+        ));
+        $entryDto = new EntryDto(
+            $this->authManager(),
+            $transactions,
+            false,
+            'vendor receipt voucher',
+            null
+        );
+        return DB::transaction(function () use ($entryDto, $voucher, $addBalance) {
+            $entry = $this->createEntry($entryDto);
+            $this->userRepositoryContract->updateVendorBalanceAmount($voucher->user, $voucher->amount, $addBalance);
+            return $entry;
+        });
     }
 }

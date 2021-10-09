@@ -14,5 +14,7 @@ interface EntryRepositoryContract extends BaseRepositoryContract
 
     public function registerManagerWalletTransferTransactionEntry(ResellerClosingAccount $pendingTransaction, float $remainingWalletBalance): TransactionsContainer;
 
-    public function registerReceiptVoucherEntry(Payment $voucher,Account  $targetAccount): TransactionsContainer;
+    public function registerClientVoucherEntry(Payment $voucher,Account  $targetAccount): TransactionsContainer;
+
+    public function registerVendorVoucherEntry(Payment $voucher,Account  $targetAccount): TransactionsContainer;
 }

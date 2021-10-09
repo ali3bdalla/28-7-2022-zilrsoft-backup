@@ -13,6 +13,7 @@ use App\Notifications\Store\IssuedOrderNotification;
 use App\Repository\EntryRepositoryContract;
 use App\Repository\InvoiceRepositoryContract;
 use App\Repository\OrderRepositoryContract;
+use App\Repository\VoucherRepositoryContract;
 use App\ValueObjects\MoneyValueObject;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -20,18 +21,15 @@ use Illuminate\Support\Facades\DB;
 class OrderRepository extends BaseRepository implements OrderRepositoryContract
 {
     private InvoiceRepositoryContract $invoiceRepositoryContract;
-    private EntryRepositoryContract $entryRepositoryContract;
-    private VoucherRepository $voucherRepository;
+    private VoucherRepositoryContract $voucherRepositoryContract;
 
     public function __construct(
         InvoiceRepositoryContract $invoiceRepositoryContract,
-        EntryRepositoryContract $entryRepositoryContract,
-        VoucherRepository $voucherRepository
+        VoucherRepositoryContract $voucherRepositoryContract
     )
     {
         $this->invoiceRepositoryContract = $invoiceRepositoryContract;
-        $this->entryRepositoryContract = $entryRepositoryContract;
-        $this->voucherRepository = $voucherRepository;
+        $this->voucherRepositoryContract = $voucherRepositoryContract;
     }
 
     public function createOrder(OrderDto $orderDto): ?Order
@@ -110,11 +108,9 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
         return DB::transaction(function () use ($order, $account) {
             $this->changeOrderStatus($order, OrderStatusEnum::paid());
             $order->update(['payment_approved_at' => now(), 'payment_approved_by_id' => $this->authManager()->id ]);
-            $voucherDto = new VoucherDto(
-                $account,
-                $this->authManager(), $order->user,$order->net,VoucherTypeEnum::receipt(),'ORDER PAYMENT');
-            $voucher = $this->voucherRepository->createVoucher($voucherDto);
-            $this->entryRepositoryContract->registerReceiptVoucherEntry($voucher, $account);
+            $userAccount = Account::getSystemAccount('clients');
+            $voucherDto = new VoucherDto($account,$userAccount, $this->authManager(), $order->user,$order->net,VoucherTypeEnum::receipt(),'ORDER PAYMENT');
+             $this->voucherRepositoryContract->createVoucher($voucherDto);
             return $order;
         });
     }

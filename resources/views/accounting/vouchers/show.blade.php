@@ -12,6 +12,11 @@
     <a target="_blank" href="{{ route('accounting.printer.voucher',$payment->id) }}" class="btn btn-custom-primary"><i
                 class="fa
     fa-print"></i> {{ __('reusable.print') }}</a>
+    @if($payment->isRefundable())
+        <a target="_blank" href="{{ route('api.vouchers.refund',$payment->id) }}" class="btn btn-danger" onclick="return confirm('متاكد من الغاء السند')"><i
+                    class="fa
+        fa-redo"></i>  الغاء السند وعكس المبلغ</a>
+    @endif
 @endsection
 
 @section('content')

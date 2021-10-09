@@ -12,4 +12,5 @@ interface VoucherRepositoryContract extends BaseRepositoryContract
     public function getAmount(SearchValueObjectContract $searchValueObjectContract): float;
 
     public function createVoucher(VoucherDto $voucherDto): Payment;
+    public function refundVoucher(Payment $voucher): Payment;
 }

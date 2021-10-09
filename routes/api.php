@@ -18,25 +18,16 @@ Route::middleware('auth')->group(
                 Route::post('activate-sign-to-delivery-man', 'OrderController@activateSignToDeliveryMan');
             }
         );
-        Route::prefix('notifications')->name('notifications.')->group( function () {
+        Route::prefix('notifications')->name('notifications.')->group(function () {
             Route::get('/', 'NotificationController@index')->name('index');
             Route::get('/{notification}/mark_as_read', 'NotificationController@markAsRead')->name('mark_as_read');
-
-//                Route::prefix('transactions')->name('transactions.')->group(
-//                    function () {
-//                        Route::get('/issued', 'NotificationController@transactionIssued')->name('issued');
-//                    }
-//                );
-//                Route::prefix('orders')->name('orders.')->group(
-//                    function () {
-//                        Route::get('pending', 'NotificationController@orderPending')->name('pending');
-//                        Route::get('paid', 'NotificationController@orderPaid')->name('paid');
-//                    }
-//                );
-            }
+        }
         );
-
         Route::resource('vouchers', 'VoucherController');
+        Route::group(['prefix' => 'vouchers/{voucher}', 'as' => 'vouchers.'], function () {
+            Route::get('refund', 'VoucherController@refund')->name('refund');
+        }
+        );
         Route::resource('sales', 'SaleController');
         Route::group(['prefix' => 'sales', 'as' => 'sales.'], function () {
             Route::post('/draft', 'SaleController@storeDraft')->name('store.draft');

@@ -16,16 +16,18 @@ class VoucherDto  implements BaseDtoContract
     private VoucherTypeEnum $type;
     private ?string $description;
     private Account $account;
+    private Account $userAccount;
 
     /**
      * @param Account $account
+     * @param Account $userAccount
      * @param Manager $manager
      * @param User $user
      * @param float $amount
      * @param VoucherTypeEnum $type
      * @param string|null $description
      */
-    public function __construct(Account  $account,Manager $manager, User $user, float $amount, VoucherTypeEnum $type, ?string $description = null)
+    public function __construct(Account  $account,Account  $userAccount,Manager $manager, User $user, float $amount, VoucherTypeEnum $type, ?string $description = null)
     {
         $this->user = $user;
         $this->manager = $manager;
@@ -33,6 +35,7 @@ class VoucherDto  implements BaseDtoContract
         $this->type = $type;
         $this->description = $description;
         $this->account = $account;
+        $this->userAccount = $userAccount;
     }
 
     /**
@@ -107,5 +110,27 @@ class VoucherDto  implements BaseDtoContract
         return $this->account->id;
     }
 
+    /**
+     * @return Account
+     */
+    public function getAccount(): Account
+    {
+        return $this->account;
+    }
 
+    /**
+     * @return Account
+     */
+    public function getUserAccount(): Account
+    {
+        return $this->userAccount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserAccountId(): int
+    {
+        return $this->userAccount->id;
+    }
 }
