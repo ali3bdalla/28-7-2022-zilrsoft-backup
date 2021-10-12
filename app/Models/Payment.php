@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use AliAbdalla\Tafqeet\Core\Tafqeet;
 use App\Enums\InvoiceTypeEnum;
 use App\Enums\VoucherTypeEnum;
 use Database\Factories\VoucherFactory;
@@ -44,7 +45,7 @@ class Payment extends BaseModel
 
     public function getAmountArWordsAttribute()
     {
-        return $this->amount;
+        return Tafqeet::arablic($this->amount);
     }
 
     /**
