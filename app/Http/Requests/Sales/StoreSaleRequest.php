@@ -102,6 +102,7 @@ class StoreSaleRequest extends FormRequest
                     'branch_id' => $authUser->branch_id,
                     'department_id' => $authUser->department_id,
                     'user_id' => $this->input('client_id'),
+                    'user_alice_name' => $this->input('alice_name'),
                     'managed_by_id' => $this->input('salesman_id'),
                 ]
             );
