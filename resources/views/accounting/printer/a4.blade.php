@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{$invoice->invoice_number }}</title>
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700&subset=latin,latin-ext'
-          rel='stylesheet' type='text/css'>
+    <title>{{ $invoice->invoice_number }}</title>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta http-equiv="content-type" content="text-html; charset=utf-8">
     <link rel="stylesheet" href="{{ asset('template/css/bootstrap.css')}}">
@@ -13,10 +12,6 @@
     <style>
         body {
             padding: 10px;
-            margin: 10px;
-            padding-bottom: 0px !important;
-            margin-bottom: 0px !important;
-
         }
 
         tr th, tr td {
@@ -91,10 +86,9 @@
 
 </head>
 
-<body lang="ar" style="">
-<div class="" style="margin:10px" id="app">
+<body lang="ar">
+<div id="app">
     <div class="row">
-
         <div class="col-md-6" style="float: left;padding-top: 10px;color: black !important;">
             <h5>{{ __('pages/invoice.branch') }} :
                 {{$invoice->branch->locale_name }}
@@ -390,8 +384,6 @@
 
                 @endif
                 <h3 style="margin-bottom: 9px">{{__('reusable.issued_by')}} {{ $invoice->creator->locale_name }}</h3>
-
-
             </div>
             <div class="clear"></div>
         </div>

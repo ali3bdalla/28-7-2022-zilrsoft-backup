@@ -29,12 +29,12 @@ class SignUpPhoneNumberVerificationCodeNotification extends Notification impleme
 
     public function toOurSms($notifiable): string
     {
-        return 'رابط تاكيد التسجيل : ' . shortLink($this->createVerificationUrl($notifiable));
+        return 'رابط تاكيد التسجيل : ' . $this->createVerificationUrl($notifiable);
     }
 
     private function createVerificationUrl($notifiable): string
     {
-        return URL::temporarySignedRoute(
+        return shortLink(URL::temporarySignedRoute(
             'web.sign_up.verify',
             Carbon::now()->addMinutes(15),
             [
@@ -42,12 +42,12 @@ class SignUpPhoneNumberVerificationCodeNotification extends Notification impleme
                 'verification_code' => $notifiable->verification_code,
                 'hash' => sha1($notifiable->phone_number),
             ]
-        );
+        ));
 
     }
 
     public function toWhatsappMessage($notifiable): string
     {
-        return $this->toOurSms($notifiable);
+        return 'رابط تاكيد التسجيل : ' . $this->createVerificationUrl($notifiable);
     }
 }

@@ -188,11 +188,7 @@ class Invoice extends BaseModel
 
     public function getFinalUserNameAttribute()
     {
-        if (in_array($this->invoice_type, ['sale', 'return_sale']) && null != $this->user_alice_name) {
-            return $this->user_alice_name;
-        }
-
-        return $this->user->locale_name;
+        return $this->user_alice_name ?? $this->user->locale_name;
     }
 
     public function getHasDropboxSnapshotAttribute(): bool
@@ -205,7 +201,6 @@ class Invoice extends BaseModel
         if ($this->has_dropbox_snapshot) {
             return Storage::disk('dropbox')->url($this->dropbox_snapshot);
         }
-
         return '';
     }
 
@@ -234,9 +229,10 @@ class Invoice extends BaseModel
 
     public function appShowUrl()
     {
-        if($this->invoice_type->equals(InvoiceTypeEnum::sale(),InvoiceTypeEnum::return_sale())) return url('sales/' . $this->id);
+        if ($this->invoice_type->equals(InvoiceTypeEnum::sale(), InvoiceTypeEnum::return_sale())) return url('sales/' . $this->id);
         return url('purchases/' . $this->id);
     }
+
     public function getUserNameAttribute()
     {
         return $this->user_alice_name ?? $this->user->locale_name;
