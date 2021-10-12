@@ -58,7 +58,7 @@
                     <div class="input-group">
                         <span id="vendors-list" class="input-group-addon">{{ trans('pages/invoice.vendor') }}</span>
                         <input type="text" name="" disabled="disabled"
-                               class="form-control" value="{{$invoice->purchase &&  $invoice->user ?
+                               class="form-control" value="{{  $invoice->user ?
                                $invoice->user->locale_name : null }}">
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                         <span id="vendors-list"
                               class="input-group-addon">{{ trans('pages/invoice.vendor_invoice_id') }}</span>
                         <input type="text" disabled="disabled"
-                               value="{{ $invoice->purchase ? $invoice->user_invoice_id : "" }}"
+                               value="{{ $invoice->vendor_invoice_id  }}"
                                class="form-control">
                     </div>
                 </div>
@@ -85,8 +85,7 @@
                     <div class="input-group">
                         <span id="vendors-list" class="input-group-addon">{{ trans('pages/invoice.receiver') }}</span>
                         <input type="text" name="" disabled="disabled"
-                               class="form-control" value="{{ $invoice->purchase && $invoice->manager ?
-                               $invoice->manager->locale_name : "" }}">
+                               class="form-control" value="{{  $invoice->manager ? $invoice->manager->locale_name : "" }}">
                     </div>
                 </div>
                 @if($invoice->has_dropbox_snapshot)

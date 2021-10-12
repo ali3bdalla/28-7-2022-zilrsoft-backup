@@ -155,7 +155,7 @@
             <td v-text="index+1"></td>
             <td class="text-center" v-text="row.invoice_number"></td>
             <td class="text-center"
-                v-text="row.user.name"></td>
+                v-text="row.user.locale_name"></td>
             <td v-text="row.created_at"></td>
             <td class="text-center" v-text="row.net"></td>
             <td class="text-center">
@@ -163,7 +163,7 @@
               <span v-else-if="row.invoice_type=='purchase' && row.is_draft == 1">متشريات منتظرة</span>
               <span v-else>{{ app.trans.return_purchase }}</span>
             </td>
-            <td class="text-center" v-text="row.creator.name"></td>
+            <td class="text-center" v-text="row.creator.locale_name"></td>
             <td class="text-center" v-text="row.tax"></td>
             <td>
               <div class="dropdown">
