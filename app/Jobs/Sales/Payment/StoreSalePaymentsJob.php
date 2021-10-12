@@ -45,6 +45,7 @@ class StoreSalePaymentsJob implements ShouldQueue
         if ($this->paymentsMethods != null) {
             foreach ((array)$this->paymentsMethods as $method) {
                 $dbAccount = Account::find($method['id']);
+                $clientAccount = Account::getSystemAccount("clients");
                 if ($dbAccount != null) {
                     $dbAccount->payments()->create([
                         'organization_id' => $this->invoice->organization_id,

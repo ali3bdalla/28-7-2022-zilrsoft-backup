@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\InvoiceTypeEnum;
 use App\Enums\VoucherTypeEnum;
 use Database\Factories\VoucherFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
  * @property VoucherTypeEnum type
  * @property mixed refund_payment_id
  * @property Account userAccount
+ * @property Invoice invoice
  */
 class Payment extends BaseModel
 {
@@ -81,10 +83,12 @@ class Payment extends BaseModel
     {
         return $this->belongsTo(Invoice::class, 'invoice_id');
     }
+
     public function userAccount(): BelongsTo
     {
         return $this->belongsTo(Account::class, 'user_account_id');
     }
+
     public function creator()
     {
         return $this->belongsTo(Manager::class, 'creator_id')->withTrashed();
@@ -99,6 +103,19 @@ class Payment extends BaseModel
 
     public function isRefundable(): bool
     {
-        return $this->refund_payment_id == null  && $this->refund_at == null && Auth::id() === $this->creator_id;
+        return $this->refund_payment_id == null && $this->refund_at == null && Auth::id() === $this->creator_id;
+    }
+
+    public function getUserAccount(): ?Account
+    {
+        $userAccount = $this->userAccount;
+        if ($userAccount) return $userAccount;
+        if ($this->invoice) {
+            $invoice = $this->invoice;
+            if ($invoice->invoice_type->equals(InvoiceTypeEnum::sale(), InvoiceTypeEnum::return_sale()))
+                return Account::getSystemAccount("clients");
+            else return Account::getSystemAccount("vendors");
+        }
+        return null;
     }
 }

@@ -92,7 +92,6 @@ class StoreSaleRequest extends FormRequest
             if (!$this->has('without_creating_expenses_purchases') || !$this->filled('without_creating_expenses_purchases')) {
                 dispatch_sync(new CreatePurchaseInvoiceForExpensesJob($this->input('items')));
             }
-
             $invoice = Invoice::create(
                 [
                     'invoice_type' => 'sale',

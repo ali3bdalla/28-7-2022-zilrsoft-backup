@@ -22,7 +22,7 @@ class VoucherFactory extends Factory
         $newVoucherType = $voucher->payment_type->equals(VoucherTypeEnum::receipt()) ? VoucherTypeEnum::payment() : VoucherTypeEnum::receipt();
         $voucherDto = new VoucherDto(
             $voucher->account,
-            $voucher->userAccount,
+            $voucher->getUserAccount(),
             Auth::user(),
             $voucher->user,
             $voucher->amount,

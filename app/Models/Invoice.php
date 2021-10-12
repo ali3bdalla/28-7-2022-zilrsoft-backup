@@ -237,4 +237,5 @@ class Invoice extends BaseModel
     {
         return $this->user_alice_name ?? $this->user->locale_name;
     }
+
 }
