@@ -8,6 +8,7 @@
             <div class="">
               <input
                 type="text"
+                style="direction: ltr !important;text-align: left !important;"
                 :placeholder="$page.$t.profile.phone_number"
                 v-model="$page.user.phone_number"
               />
@@ -20,6 +21,7 @@
           <div class="col-lg-12" v-if="optSent">
             <div class="">
               <input
+
                 type="number"
                 :placeholder="$page.$t.profile.confirm_otp"
                 v-model="otp"
