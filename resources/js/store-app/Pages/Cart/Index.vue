@@ -26,17 +26,17 @@
           <div v-if="showCart">
             <div v-if="activePage === 'cart'" class="page__mt-5 col-lg-12">
               <div class="my-4">
-                <el-select v-model="cityId" :default-first-option="true" :filterable="true" :placeholder="$page.$t.messages.select_city"
-                           class=""
+                <el-select v-model="cityId" :default-first-option="true" :filterable="true"
                            no-data-text="No"
                            no-match-text="No Data"
+                           :placeholder="selectedCityName"
                            value-key="id"
                            @change="loadShippingMethods">
                   <el-option
                       v-for="city in $page.cities"
                       :key="city.id"
                       :label="city.locale_name"
-                      :value="city.id">
+                      :value="city">
                     {{ city.locale_name }}
                   </el-option>
                 </el-select>
@@ -113,6 +113,11 @@ export default {
     CartShippingAddress
   },
   computed: {
+    selectedCityName () {
+      if(this.cityId)
+        return this.cityId.locale_name
+      return  this.$page.$t.messages.select_city;
+    },
     showCart () {
       return this.$store.state.cart.length
     },
@@ -147,9 +152,10 @@ export default {
     }
   },
   created () {
-    this.cityId = localStorage.getItem('cart_shipping_city_id', null)
+    const storedCityObject = localStorage.getItem('cart_shipping_city_id', null)
     this.shippingMethodId = parseInt(localStorage.getItem('cart_shipping_method_id', 0))
-    if (this.cityId) {
+    if (storedCityObject) {
+      this.cityId = JSON.parse(storedCityObject)
       this.loadShippingMethods(this.cityId)
     }
   },
@@ -164,8 +170,9 @@ export default {
       return shippingMethod || {}
     },
     loadShippingMethods (e) {
-      localStorage.setItem('cart_shipping_city_id', e)
-      axios.get(`/api/web/shipping_methods?city_id=${e}`).then(res => {
+      localStorage.setItem('cart_shipping_city_id', JSON.stringify(e))
+      let id = e.id ?? e
+      axios.get(`/api/web/shipping_methods?city_id=${id}`).then(res => {
         this.shippingMethods = res.data
       })
     },

@@ -235,7 +235,7 @@ class Invoice extends BaseModel
 
     public function getUserNameAttribute()
     {
-        return $this->user_alice_name ?? $this->user->locale_name;
+        return $this->user_alice_name ?: $this->user->locale_name;
     }
 
 }
