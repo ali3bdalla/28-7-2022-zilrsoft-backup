@@ -52,7 +52,7 @@ class OrderPaymentAcceptedNotification extends Notification implements
     public function toWhatsappMessage($notifiable): string
     {
         return __('store.messages.order_payment_confirmed', [
-            'CUSTOMER_NAME' => $this->order->user->name,
+            'CUSTOMER_NAME' => $this->order->user->locale_name,
             'ORDER_ID' => $this->order->id,
         ]);
     }

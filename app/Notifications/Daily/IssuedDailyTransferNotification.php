@@ -50,7 +50,7 @@ class IssuedDailyTransferNotification extends Notification implements
     {
         $confirmLink = shortLink(route('api.daily.wallet.confirm_transfer', $this->pendingWalletTransaction->id));
         $cancelLink = shortLink(route('api.daily.wallet.cancel_transfer', $this->pendingWalletTransaction->id));
-        $mangerName = $this->pendingWalletTransaction->creator->name;
+        $mangerName = $this->pendingWalletTransaction->creator->locale_name;
         $formattedAmount = (new MoneyValueObject($this->pendingWalletTransaction->amount, 'SAR'))->getFormattedMoney();
         return "تحويل من  *{$mangerName}* الى  *{$this->pendingWalletTransaction->toAccount->locale_name}*
         
@@ -86,7 +86,7 @@ class IssuedDailyTransferNotification extends Notification implements
     {
         $confirmLink = shortLink(route('api.daily.wallet.confirm_transfer', $this->pendingWalletTransaction->id));
         $cancelLink = shortLink(route('api.daily.wallet.cancel_transfer', $this->pendingWalletTransaction->id));
-        $mangerName = $this->pendingWalletTransaction->creator->name;
+        $mangerName = $this->pendingWalletTransaction->creator->locale_name;
         $formattedAmount = (new MoneyValueObject($this->pendingWalletTransaction->amount, 'SAR'))->getFormattedMoney();
         return [
             'message' => "تحويل من  {$mangerName} الى  {$this->pendingWalletTransaction->toAccount->locale_name} {$formattedAmount}",
