@@ -31,27 +31,26 @@ class UpdatePhoneNumberRequest extends FormRequest
         ];
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function change()
     {
-        try {
+        if ($this->has('otp') && $this->filled('otp')) {
 
-            if ($this->has('otp') && $this->filled('otp')) {
+            $this->preformChange();
 
-                $this->preformChange();
-
-            } else {
-                $this->send();
-            }
-
-        } catch (ValidationException $e) {
-            throw $e;
+        } else {
+            $this->send();
         }
     }
 
+    /**
+     * @throws ValidationException
+     */
     private function preformChange()
     {
         $oldRecord = OnlineUserPlaceholder::where([['phone_number', $this->input('phone_number')], ['otp', $this->input('otp')]])->first();
-
         if ($oldRecord) {
             $this->user()->update([
                 'phone_number' => $this->input('phone_number')

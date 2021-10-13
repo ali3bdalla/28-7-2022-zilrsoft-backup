@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\PostgresTimestamp;
 use App\Scopes\DraftScope;
 use App\Scopes\OrganizationScope;
 use App\Scopes\PendingScope;
@@ -14,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 class BaseModel extends Model
 {
     use HasFactory;
-    use PostgresTimestamp;
 
     protected static function boot()
     {

@@ -5,7 +5,7 @@ namespace Tests\Repository\Eloquent;
 use App\Dto\AccountDto;
 use App\Enums\AccountingTypeEnum;
 use App\Models\Account;
-use App\Models\Transaction;
+use App\Models\EntryTransaction;
 use App\Repository\AccountRepositoryContract;
 use Illuminate\Contracts\Foundation\Application;
 use Tests\TestCase;
@@ -27,7 +27,7 @@ class AccountRepositoryTest extends TestCase
         $account = Account::factory()->setDto(
             new AccountDto($manager, $this->faker->name, $this->faker->name, AccountingTypeEnum::from($this->faker->randomElement(AccountingTypeEnum::toValues())))
         )->create();
-        $transactions = Transaction::factory()->count($this->faker->numberBetween(1, 100))->state(function () use ($faker, $account) {
+        $transactions = EntryTransaction::factory()->count($this->faker->numberBetween(1, 100))->state(function () use ($faker, $account) {
             return [
                 'account_id' => $account->id,
                 'creator_id' => $account->creator_id,

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\EntryDto;
-use App\Models\TransactionsContainer;
+use App\Models\Entry;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EntryFactory extends Factory
@@ -13,7 +13,7 @@ class EntryFactory extends Factory
      *
      * @var string
      */
-    protected $model = TransactionsContainer::class;
+    protected $model = Entry::class;
 
     public function setDto(EntryDto $entryDto): EntryFactory
     {

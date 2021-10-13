@@ -4,7 +4,7 @@ namespace App\Repository\Eloquent;
 
 use App\Models\Account;
 use App\Models\ResellerClosingAccount;
-use App\Models\TransactionsContainer;
+use App\Models\Entry;
 use App\Repository\AccountRepositoryContract;
 use App\Repository\EntryRepositoryContract;
 use App\Repository\ManagerDailyWalletRepositoryContract;
@@ -51,7 +51,7 @@ class ManagerDailyWalletRepository extends BaseRepository implements ManagerDail
         return $this->authManager()->resellerClosingAccounts()->withoutGlobalScope(PendingScope::class)->whereTransactionType("transfer")->whereIsPending(true)->count() > 0;
     }
 
-    public function confirmWalletTransferTransaction(ResellerClosingAccount $pendingWalletTransferTransaction): TransactionsContainer
+    public function confirmWalletTransferTransaction(ResellerClosingAccount $pendingWalletTransferTransaction): Entry
     {
         return DB::transaction(function () use ($pendingWalletTransferTransaction) {
             $totalSourceWalletBalance = $this->accountRepositoryContract->getAccountBalance($pendingWalletTransferTransaction->fromAccount->fresh());

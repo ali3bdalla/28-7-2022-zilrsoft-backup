@@ -6,7 +6,7 @@ use App\Enums\VoucherTypeEnum;
 use App\Jobs\User\Balance\UpdateClientBalanceJob;
 use App\Jobs\User\Balance\UpdateVendorBalanceJob;
 use App\Models\Account;
-use App\Models\TransactionsContainer;
+use App\Models\Entry;
 use App\Models\User;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
@@ -100,7 +100,7 @@ class StoreVoucherRequest extends FormRequest
 //            $clientAccount = Account::where('slug', 'clients')->first();
 //            $loggedUser = $this->user();
 //            $organizationAccount = Account::findOrFail($this->input('org_account_id'));
-//            $container = TransactionsContainer::create(
+//            $container = Entry::create(
 //                [
 //                    'creator_id' => $loggedUser->id,
 //                    'description' => $this->input('description'),

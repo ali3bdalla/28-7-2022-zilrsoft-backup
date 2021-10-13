@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Accounting\Entity;
 
-use App\Models\TransactionsContainer;
+use App\Models\Entry;
 use App\Scopes\PendingScope;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -17,12 +17,12 @@ class ActivateEntityJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    private TransactionsContainer $transactionsContainer;
+    private Entry $transactionsContainer;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(TransactionsContainer $transactionsContainer)
+    public function __construct(Entry $transactionsContainer)
     {
         $this->transactionsContainer = $transactionsContainer;
     }

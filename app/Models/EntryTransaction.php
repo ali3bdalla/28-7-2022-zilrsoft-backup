@@ -19,10 +19,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed item_id
  * @method static where(array $array)
  */
-class Transaction extends BaseModel
+class EntryTransaction extends BaseModel
 {
     use  SoftDeletes;
     use  HasFactory;
+
+    protected $table = "transactions";
 
     protected $with = ["account", 'invoice', 'user', 'item'];
 
@@ -91,11 +93,11 @@ class Transaction extends BaseModel
 
     public function container(): BelongsTo
     {
-        return $this->belongsTo(TransactionsContainer::class, 'container_id');
+        return $this->belongsTo(Entry::class, 'container_id');
     }
 
 
-    public function getDescriptionAttribute($value)
+    public function getDescriptionAttribute($value): string
     {
         if ($value == 'close_account') {
             return 'اغلاق اليومية';

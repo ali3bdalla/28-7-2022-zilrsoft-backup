@@ -140,8 +140,6 @@ class ShippingController extends Controller
         $otp = generateOtp();
         $orders = ShippingTransaction::whereIn('id', $request->input('transactions'))->pluck('order_id')->toArray();
         $ordersIds = implode(',', $orders);
-        $messages = 'You picked up order (' . $ordersIds . ')
-code: ' . $otp;
         $messages = 'لقد استلمت الطلب (' . $ordersIds . ')
 الرمز: ' . $otp . '
 رابط استلام الطلبات ' . file_get_contents('http://tinyurl.com/api-create.php?url=' . url('/delivery_man/confirm/' . $deliveryMan->hash));
@@ -170,7 +168,7 @@ code: ' . $otp;
 
         if ($verification && $verification->verfication_code == $request->input('verification_code')) {
             $transactions = ShippingTransaction::find($request->input('transactions'));
-            foreach ($transactions as $key => $transaction) {
+            foreach ($transactions as $transaction) {
                 if ($transaction->status === 'issued') {
                     CreateShippingTransactionShippingStatusJob::dispatchSync($transaction, $deliveryMan);
                 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\App\CurrentWeb;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Item;
-use App\Models\TransactionsContainer;
+use App\Models\Entry;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -18,12 +18,12 @@ class EntityController extends Controller
      */
     public function index()
     {
-        $entities = TransactionsContainer::orderBy('created_at', 'desc')->paginate(15);
+        $entities = Entry::orderBy('created_at', 'desc')->paginate(15);
         return view('accounting.transactions.index', compact('entities'));
     }
 
 
-    public function show(TransactionsContainer $entity)
+    public function show(Entry $entity)
     {
 
         return view('accounting_module.entities.show', compact('entity'));

@@ -6,7 +6,7 @@ use App\Jobs\Items\Accounting\UpdateItemAccountingBalanceJob;
 use App\Jobs\User\Balance\UpdateClientBalanceJob;
 use App\Models\Account;
 use App\Models\Invoice;
-use App\Models\TransactionsContainer;
+use App\Models\Entry;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -50,7 +50,7 @@ class StoreSaleTransactionsJob implements ShouldQueue
         $this->loggedUser = auth()->user();
         $this->totalPaidAmount = 0;
         $this->invoiceItems = $invoice->items()->where('is_kit', false)->get();
-        $transactionContainer = new TransactionsContainer(
+        $transactionContainer = new Entry(
             [
                 'creator_id' => $this->loggedUser->id,
                 'organization_id' => $this->loggedUser->organization_id,

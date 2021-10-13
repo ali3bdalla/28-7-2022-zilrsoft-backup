@@ -144,7 +144,7 @@ class Invoice extends BaseModel
 
     public function transactions(): HasMany
     {
-        return $this->hasMany(Transaction::class, 'invoice_id');
+        return $this->hasMany(EntryTransaction::class, 'invoice_id');
     }
 
     public function payments(): HasMany

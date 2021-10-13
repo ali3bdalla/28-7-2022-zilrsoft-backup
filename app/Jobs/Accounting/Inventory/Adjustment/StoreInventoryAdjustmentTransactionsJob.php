@@ -6,7 +6,7 @@ use App\Jobs\Items\Accounting\UpdateItemAccountingBalanceJob;
 use App\Jobs\User\Balance\UpdateVendorBalanceJob;
 use App\Models\Account;
 use App\Models\Invoice;
-use App\Models\TransactionsContainer;
+use App\Models\Entry;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -37,7 +37,7 @@ class StoreInventoryAdjustmentTransactionsJob implements ShouldQueue
 
 
         $this->loggedUser = auth()->user();
-        $transactionContainer = new TransactionsContainer(
+        $transactionContainer = new Entry(
             [
                 'creator_id' => $this->loggedUser->id,
                 'organization_id' => $this->loggedUser->organization_id,

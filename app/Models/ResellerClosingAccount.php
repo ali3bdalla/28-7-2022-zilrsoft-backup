@@ -70,7 +70,7 @@ class ResellerClosingAccount extends BaseModel
 
     public function container(): BelongsTo
     {
-        return $this->belongsTo(TransactionsContainer::class, 'container_id')->withoutGlobalScope("pending");
+        return $this->belongsTo(Entry::class, 'container_id')->withoutGlobalScope("pending");
     }
 
 

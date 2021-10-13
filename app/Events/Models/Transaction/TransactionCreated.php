@@ -2,7 +2,7 @@
 
 namespace App\Events\Models\Transaction;
 
-use App\Models\Transaction;
+use App\Models\EntryTransaction;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -21,9 +21,9 @@ class TransactionCreated
     /**
      * Create a new event instance.
      *
-     * @param Transaction $transaction
+     * @param EntryTransaction $transaction
      */
-    public function __construct(Transaction $transaction)
+    public function __construct(EntryTransaction $transaction)
     {
         //
         $this->transaction = $transaction;

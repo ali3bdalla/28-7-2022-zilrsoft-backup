@@ -5,7 +5,7 @@ namespace App\Repository\Eloquent;
 use App\Enums\EntryDto;
 use App\Enums\VoucherTypeEnum;
 use App\Models\Account;
-use App\Models\TransactionsContainer;
+use App\Models\Entry;
 use App\Repository\AccountsDailyRepositoryContract;
 use App\Repository\EntryRepositoryContract;
 use App\Repository\VoucherRepositoryContract;
@@ -139,7 +139,7 @@ class AccountsDailyRepository extends BaseRepository implements AccountsDailyRep
         return [$transactionData];
     }
 
-    private function registerDailyAccountsReport(TransactionsContainer $entry, $banks)
+    private function registerDailyAccountsReport(Entry $entry, $banks)
     {
         $paidAmount = collect($banks)->sum('amount');
         $worthyAmount = $this->getTotalDailyWorthyAmount();

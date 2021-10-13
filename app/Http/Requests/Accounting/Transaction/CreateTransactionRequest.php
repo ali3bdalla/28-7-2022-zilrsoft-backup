@@ -4,7 +4,7 @@ namespace App\Http\Requests\Accounting\Transaction;
 
 use App\Models\Account;
 use App\Models\Manager;
-use App\Models\TransactionsContainer;
+use App\Models\Entry;
 use App\Models\User;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
@@ -116,12 +116,12 @@ class CreateTransactionRequest extends FormRequest
             throw  new ValidationException($validator, 'is required');
     }
 
-    private function toCreateStockTransaction($requestData, Account $account, TransactionsContainer $container)
+    private function toCreateStockTransaction($requestData, Account $account, Entry $container)
     {
 
     }
 
-    private function toCreateClientTransaction($requestData, Account $account, TransactionsContainer $container)
+    private function toCreateClientTransaction($requestData, Account $account, Entry $container)
     {
         $data = [];
         $data['creator_id'] = $this->loggedUser()->id;
@@ -141,7 +141,7 @@ class CreateTransactionRequest extends FormRequest
         $container->transactions()->create($data);
     }
 
-    private function toCreateVendorTransaction($requestData, Account $account, TransactionsContainer $container)
+    private function toCreateVendorTransaction($requestData, Account $account, Entry $container)
     {
 
         $vendor = User::find($requestData['vendor_id']);
@@ -166,7 +166,7 @@ class CreateTransactionRequest extends FormRequest
         $container->transactions()->create($data);
     }
 
-    private function toCreateAccountTransaction($requestData, Account $account, TransactionsContainer $container)
+    private function toCreateAccountTransaction($requestData, Account $account, Entry $container)
     {
         $data = [];
         $data['creator_id'] = $this->user()->id;

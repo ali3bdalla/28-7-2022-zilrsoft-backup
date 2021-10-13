@@ -148,7 +148,7 @@ class Organization extends BaseModel
 
     public function transactions_containers(): HasMany
     {
-        return $this->hasMany(TransactionsContainer::class, 'organization_id');
+        return $this->hasMany(Entry::class, 'organization_id');
     }
 
 }

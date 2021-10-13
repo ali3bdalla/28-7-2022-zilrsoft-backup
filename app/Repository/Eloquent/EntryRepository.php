@@ -9,7 +9,7 @@ use App\Enums\VoucherTypeEnum;
 use App\Models\Account;
 use App\Models\Voucher;
 use App\Models\ResellerClosingAccount;
-use App\Models\TransactionsContainer;
+use App\Models\Entry;
 use App\Repository\AccountRepositoryContract;
 use App\Repository\EntryRepositoryContract;
 use App\Repository\UserRepositoryContract;
@@ -26,7 +26,7 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
         $this->userRepositoryContract = $userRepositoryContract;
     }
 
-    public function registerManagerWalletTransferTransactionEntry(ResellerClosingAccount $pendingTransaction, float $remainingWalletBalance = 0): TransactionsContainer
+    public function registerManagerWalletTransferTransactionEntry(ResellerClosingAccount $pendingTransaction, float $remainingWalletBalance = 0): Entry
     {
         $totalSourceWalletBalance = $this->accountRepositoryContract->getAccountBalance($pendingTransaction->fromAccount->fresh());
         $tempResellerAccount = Account::getSystemAccount("temp_reseller_account");
@@ -63,16 +63,16 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
         return $this->createEntry($entryDto);
     }
 
-    public function createEntry(EntryDto $entryDto): TransactionsContainer
+    public function createEntry(EntryDto $entryDto): Entry
     {
         return DB::transaction(function () use ($entryDto) {
-            $entry = TransactionsContainer::factory()->setDto($entryDto)->create();
+            $entry = Entry::factory()->setDto($entryDto)->create();
             $entry->addTransactions($entryDto->getTransactions());
             return $entry->load('transactions');
         });
     }
 
-    public function registerClientVoucherEntry(Voucher $voucher, Account $targetAccount): TransactionsContainer
+    public function registerClientVoucherEntry(Voucher $voucher, Account $targetAccount): Entry
     {
         $clientAccount = Account::getSystemAccount("clients");
         $transactions = collect();
@@ -111,7 +111,7 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
         });
     }
 
-    public function registerVendorVoucherEntry(Voucher $voucher, Account $targetAccount): TransactionsContainer
+    public function registerVendorVoucherEntry(Voucher $voucher, Account $targetAccount): Entry
     {
         $account = Account::getSystemAccount("vendors");
         $transactions = collect();

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\PostgresTimestamp;
 use App\Scopes\OrganizationScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

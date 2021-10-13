@@ -78,7 +78,7 @@ class StoreResellerAccountTransactionRequest extends FormRequest
 //            $sourceGateway = Account::find($this->input('gateway_id'));
 //            $sourceGatewayAmount = (float)$sourceGateway->getSingleAccountBalance(); //5000
 //            $sourceGatewayRemainingAmount = $sourceGatewayAmount - (float)$this->input('amount'); //1000
-//            $container = TransactionsContainer::create(
+//            $container = Entry::create(
 //                [
 //                    'creator_id' => $loggedUser->id,
 //                    'description' => 'transfer_amount',

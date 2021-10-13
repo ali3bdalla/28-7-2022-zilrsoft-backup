@@ -142,14 +142,12 @@ class ValidatorServiceProvider extends ServiceProvider
                 $str_attr = explode('.', $attribute);
                 $index = $str_attr[1];
                 $first = $str_attr[0];
-                $end = $str_attr[2];
                 $id = request()->input("{$first}.{$index}.id");
                 $item = Item::findOrFail($id);
                 if ($item->is_expense) {
                     return $item->expense_vendor_id > 0;
                 }
                 return true;
-                //            return $item->is_expense ? is_numeric($value) && !empty($value) : true;
             }
         );
 

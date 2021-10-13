@@ -7,7 +7,7 @@ use App\Http\Requests\Account\FetchAccountsRequest;
 use App\Http\Requests\Account\FetchAccountTransactionRequest;
 use App\Http\Requests\Account\StoreAccountRequest;
 use App\Models\Account;
-use App\Models\Transaction;
+use App\Models\EntryTransaction;
 use App\Repository\AccountRepositoryContract;
 use App\ValueObjects\AccountSearchValueObject;
 use App\ValueObjects\GenericSortByValueObject;
@@ -46,7 +46,7 @@ class AccountController extends Controller
             $accountTransactionRequest->getStartAt(),
             $accountTransactionRequest->getEndAt()
         );
-        $sortTransactionValueObject = new GenericSortByValueObject(new Transaction(), $accountTransactionRequest->getSortColumn(), $accountTransactionRequest->getSortDirection());
+        $sortTransactionValueObject = new GenericSortByValueObject(new EntryTransaction(), $accountTransactionRequest->getSortColumn(), $accountTransactionRequest->getSortDirection());
         return $this->accountRepositoryContract->getAccountTransactionsListPagination($account, $accountTransactionsSearchValueObject, $sortTransactionValueObject);
     }
 

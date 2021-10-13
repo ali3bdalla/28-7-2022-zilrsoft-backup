@@ -24,6 +24,7 @@ use Illuminate\Notifications\Notifiable;
  * @property mixed name
  * @property mixed locale_name
  * @property mixed remaining_accounts_balance
+ * @property mixed name_ar
  */
 class Manager extends BaseAuthModel
 {

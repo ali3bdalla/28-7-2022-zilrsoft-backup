@@ -107,7 +107,7 @@ class Account extends BaseModel
 
     public function transactions(): HasMany
     {
-        return $this->hasMany(Transaction::class, 'account_id');
+        return $this->hasMany(EntryTransaction::class, 'account_id');
     }
 
 

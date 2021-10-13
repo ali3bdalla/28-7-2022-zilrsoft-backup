@@ -3,7 +3,7 @@
 namespace App\Jobs\Accounting\Entity;
 
 use App\Models\Account;
-use App\Models\Transaction;
+use App\Models\EntryTransaction;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,12 +32,12 @@ class UpdateAccountBalanceJob implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param Transaction $transaction
+     * @param EntryTransaction $transaction
      * @param bool $increase
      * @param bool $updateAmount
      * @param int $amount
      */
-    public function __construct(Transaction $transaction, $increase = true, $updateAmount = false, $amount = 0)
+    public function __construct(EntryTransaction $transaction, $increase = true, $updateAmount = false, $amount = 0)
     {
         //
         $this->transaction = $transaction;

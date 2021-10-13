@@ -1,18 +1,18 @@
 <?php
-	
+
 	namespace App\Http\Requests\Entities;
-	
+
 	use App\Jobs\User\Balance\UpdateClientBalanceJob;
 	use App\Jobs\User\Balance\UpdateVendorBalanceJob;
 	use App\Models\Account;
-	use App\Models\TransactionsContainer;
+	use App\Models\Entry;
 	use App\Models\User;
 	use Carbon\Carbon;
 	use Exception;
 	use Illuminate\Foundation\Http\FormRequest;
 	use Illuminate\Support\Facades\DB;
 	use Illuminate\Validation\ValidationException;
-	
+
 	class StoreEntityRequest extends FormRequest
 	{
 		/**
@@ -24,7 +24,7 @@
 		{
 			return true;
 		}
-		
+
 		/**
 		 * Get the validation rules that apply to the request.
 		 *
@@ -43,33 +43,33 @@
 				'created_at' => 'nullable',
 			];
 		}
-		
+
 		public function store()
 		{
-			
+
 			DB::beginTransaction();
 			try {
 				if($this->created_at != null) {
 					$createdAt = Carbon::parse($this->created_at);
-					
+
 				} else {
 					$createdAt = Carbon::now();
 				}
 				$loggedUser = $this->user();
 				$amount = $this->validateTransactions();
-				
-				$entity = new TransactionsContainer(
+
+				$entity = new Entry(
 					[
 						'organization_id' => $loggedUser->organization_id,
 						'creator_id' => $loggedUser->id,
 						'description' => $this->input("description"),
 						'amount' => $amount,
 						'created_at' => $createdAt,
-					
+
 					]
 				);
 				$entity->save();
-				
+
 				$transactionInitData = [
 					'creator_id' => $loggedUser->id,
 					'organization_id' => $loggedUser->organization_id,
@@ -83,7 +83,7 @@
 					$transactionData['is_manual'] = true;
 					$transactionData['account_id'] = $account->id;
 					$transactionData['created_at'] = $createdAt;
-					
+
 					if($account->slug == 'stock') {
 						$transactionData['item_id'] = $transaction['item_id'];
 					}
@@ -95,10 +95,10 @@
 						$transactionData['user_id'] = $transaction['user_id'];
 						$this->updateUserBalance('vendor', $transactionData, $account);
 					}
-					
+
 					$entity->transactions()->create($transactionData);
 				}
-				
+
 				DB::commit();
 				return $entity;
 			} catch(ValidationException $exception) {
@@ -109,21 +109,21 @@
 				return response($exception->getMessage(), 500);
 			}
 		}
-		
+
 		private function validateTransactions()
 		{
 			$creditAmount = 0;
 			$debitAmount = 0;
-			
+
 			foreach($this->input("transactions") as $transaction) {
 				if($transaction['type'] == 'credit') {
 					$creditAmount += (float)($transaction['amount']);
 				} else {
 					$debitAmount += (float)($transaction['amount']);
 				}
-				
+
 			}
-			
+
 			$variation = $creditAmount - $debitAmount;
 			if(round(abs($variation), 2) != 0) {
 				$error = ValidationException::withMessages(
@@ -133,20 +133,20 @@
 						],
 					]
 				);
-				
+
 				throw $error;
 			}
-			
+
 			return $creditAmount;
-			
+
 		}
-		
+
 		private function updateUserBalance($type = 'client', $transactionData, Account $account)
 		{
 			$transactionType = $transactionData['type'];
 			$amount = $transactionData['amount'];
 			$userId = $transactionData['user_id'];
-			
+
 			$user = User::find($userId);
 			if($user != null) {
 				if($type == 'client') {
@@ -157,6 +157,6 @@
 					dispatch_sync(new UpdateVendorBalanceJob($user, $amount, $effect));
 				}
 			}
-			
+
 		}
 	}

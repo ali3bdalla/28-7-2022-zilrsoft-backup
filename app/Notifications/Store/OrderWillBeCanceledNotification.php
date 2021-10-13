@@ -5,8 +5,6 @@ namespace App\Notifications\Store;
 use App\Channels\WhatsappMessageChannel;
 use App\Channels\WhatsappMessageNotificationContract;
 use App\Models\Order;
-use App\Models\User;
-use App\Package\Whatsapp;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -31,7 +29,7 @@ class OrderWillBeCanceledNotification extends Notification implements WhatsappMe
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function via($notifiable): array

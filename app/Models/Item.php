@@ -170,7 +170,7 @@ class Item extends BaseModel
 
     public function pipeline(): HasMany
     {
-        return $this->hasMany(InvoiceItems::class, 'item_id')->orderBy('created_at', 'asc');
+        return $this->hasMany(InvoiceItems::class, 'item_id')->orderBy('created_at');
     }
 
     public function category(): BelongsTo
@@ -216,20 +216,6 @@ class Item extends BaseModel
     public function data(): HasOne
     {
         return $this->hasOne(KitData::class, 'kit_id');
-    }
-
-    public function fetchKitData($qty, $kit_data): array
-    {
-
-
-        $data['total'] = $kit_data['total'];
-        $data['subtotal'] = $kit_data['subtotal'];
-        $data['tax'] = $kit_data['tax'];
-        $data['net'] = $kit_data['net'];
-        $data['price'] = $kit_data['price'];
-
-
-        return $data;
     }
 
     public function shouldBeSearchable(): bool
@@ -282,11 +268,11 @@ class Item extends BaseModel
 
     public function isAvailableQuantityCanHandle(float $quantity): bool
     {
-        if (!$this->isQuantitiable()) return true;
+        if (!$this->isQuantifiable()) return true;
         return $this->available_qty >= $quantity;
     }
 
-    public function isQuantitiable(): bool
+    public function isQuantifiable(): bool
     {
         return !$this->is_service && !$this->is_expense && !$this->is_kit;
     }

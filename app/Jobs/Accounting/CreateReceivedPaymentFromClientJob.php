@@ -4,7 +4,7 @@ namespace App\Jobs\Accounting;
 
 use App\Jobs\User\Balance\UpdateClientBalanceJob;
 use App\Models\Account;
-use App\Models\TransactionsContainer;
+use App\Models\Entry;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -59,7 +59,7 @@ class CreateReceivedPaymentFromClientJob implements ShouldQueue
         $clientAccount = Account::getSystemAccount("clients");
         $loggedUser = Auth::user();
         $organizationAccount = Account::findOrFail($this->accountId);
-        $container = TransactionsContainer::create(
+        $container = Entry::create(
             [
                 'creator_id' => $loggedUser->id,
                 'description' => $this->description,

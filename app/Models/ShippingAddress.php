@@ -1,23 +1,25 @@
 <?php
 
-	namespace App\Models;
+namespace App\Models;
 
 
-    /**
-     * @property mixed id
-     */
-    class ShippingAddress extends BaseModel
-	{
-		protected $guarded = [];
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-		public function user()
-		{
-			return $this->belongsTo(User::class, 'user_id');
-		}
+/**
+ * @property mixed id
+ */
+class ShippingAddress extends BaseModel
+{
+    protected $guarded = [];
 
-		public function city()
-		{
-			return $this->belongsTo(City::class, 'city_id')->with('country');
-		}
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
-	}
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class, 'city_id')->with('country');
+    }
+
+}

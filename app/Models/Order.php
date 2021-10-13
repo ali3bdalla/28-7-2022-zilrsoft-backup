@@ -8,9 +8,7 @@ use App\ValueObjects\MoneyValueObject;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
@@ -78,7 +76,6 @@ class Order extends BaseModel
     {
         return Storage::url($this->pdf_path);
     }
-
 
 
     public function shippingAddress(): BelongsTo

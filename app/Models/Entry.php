@@ -20,8 +20,10 @@ use Illuminate\Support\Facades\Auth;
  * @property mixed is_pending
  * @method static create(array $array)
  */
-class TransactionsContainer extends BaseModel
+class Entry extends BaseModel
 {
+    protected $table = 'transactions_containers';
+
     protected $guarded = [];
     use SoftDeletes;
 
@@ -50,7 +52,7 @@ class TransactionsContainer extends BaseModel
 
     public function transactions(): HasMany
     {
-        return $this->hasMany(Transaction::class, 'container_id');
+        return $this->hasMany(EntryTransaction::class, 'container_id');
     }
 
     public function getTotalCreditAmountAttribute()
@@ -65,7 +67,7 @@ class TransactionsContainer extends BaseModel
 
     public function entities(): HasMany
     {
-        return $this->hasMany(Transaction::class, 'container_id');
+        return $this->hasMany(EntryTransaction::class, 'container_id');
     }
 
     public function invoice(): BelongsTo

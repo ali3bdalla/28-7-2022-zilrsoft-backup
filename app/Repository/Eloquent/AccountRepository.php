@@ -5,7 +5,7 @@ namespace App\Repository\Eloquent;
 use App\Enums\AccountingTypeEnum;
 use App\Http\Resources\Entity\TransactionResource;
 use App\Models\Account;
-use App\Models\Transaction;
+use App\Models\EntryTransaction;
 use App\Repository\AccountRepositoryContract;
 use App\ValueObjects\AccountSearchValueObject;
 use App\ValueObjects\Contract\SearchValueObjectContract;
@@ -17,7 +17,7 @@ class AccountRepository extends BaseRepository implements AccountRepositoryContr
 {
     public function getAccountTransactionsListPagination(Account $account, SearchValueObjectContract $searchValueObjectContract, SortingValueObjectContract $sortingValueObjectContract): AnonymousResourceCollection
     {
-        $queryBuilder = Transaction::whereAccountId($account->id)->with("account", 'invoice', 'user', 'item');
+        $queryBuilder = EntryTransaction::whereAccountId($account->id)->with("account", 'invoice', 'user', 'item');
         $queryBuilder = $searchValueObjectContract->apply($queryBuilder);
         $queryBuilder = $sortingValueObjectContract->sort($queryBuilder);
         return TransactionResource::collection($queryBuilder->paginate(100));
@@ -39,8 +39,8 @@ class AccountRepository extends BaseRepository implements AccountRepositoryContr
 
     public function getAccountBalance(Account $account, ?SearchValueObjectContract $searchValueObjectContract = null)
     {
-        $debitQuery = Transaction::query()->whereAccountIdAndType($account->id, AccountingTypeEnum::debit());
-        $creditQuery = Transaction::query()->whereAccountIdAndType($account->id, AccountingTypeEnum::credit());
+        $debitQuery = EntryTransaction::query()->whereAccountIdAndType($account->id, AccountingTypeEnum::debit());
+        $creditQuery = EntryTransaction::query()->whereAccountIdAndType($account->id, AccountingTypeEnum::credit());
         if ($searchValueObjectContract instanceof SearchValueObjectContract) {
             $debitQuery = $searchValueObjectContract->apply($debitQuery);
             $creditQuery = $searchValueObjectContract->apply($creditQuery);

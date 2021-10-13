@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Accounting\Transaction;
 
-use App\Models\TransactionsContainer;
+use App\Models\Entry;
 use App\Scopes\PendingScope;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -33,7 +33,7 @@ class DeleteTransactionsRequest extends FormRequest
         ];
     }
 
-    public function erase(TransactionsContainer $transactionsContainer)
+    public function erase(Entry $transactionsContainer)
     {
 
         DB::beginTransaction();

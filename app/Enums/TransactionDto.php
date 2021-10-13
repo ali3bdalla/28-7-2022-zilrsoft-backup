@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use App\Models\Account;
 use App\Models\Manager;
-use App\Models\TransactionsContainer;
+use App\Models\Entry;
 
 class TransactionDto
 {

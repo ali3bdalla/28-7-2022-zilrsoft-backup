@@ -6,7 +6,7 @@ use App\Jobs\Items\Accounting\UpdateItemAccountingBalanceJob;
 use App\Jobs\User\Balance\UpdateVendorBalanceJob;
 use App\Models\Account;
 use App\Models\Invoice;
-use App\Models\TransactionsContainer;
+use App\Models\Entry;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -31,7 +31,7 @@ class StoreBeginningInventoryTransactionsJob implements ShouldQueue
         $this->stockAccount = Account::where('slug', 'stock')->first();
         $this->taxAccount = Account::where('slug', 'vat')->first();
         $this->loggedUser = auth()->user();
-        $transactionContainer = new TransactionsContainer(
+        $transactionContainer = new Entry(
             [
                 'creator_id' => $this->loggedUser->id,
                 'organization_id' => $this->loggedUser->organization_id,
