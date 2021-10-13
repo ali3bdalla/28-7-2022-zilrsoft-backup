@@ -135,7 +135,7 @@ class StoreReturnPurchaseRequest extends FormRequest
         }
     }
 
-    private function validateReturnedItemsData($items, $invoiceType = 'sale')
+    private function validateReturnedItemsData($items)
     {
 
         foreach ($items as $item) {

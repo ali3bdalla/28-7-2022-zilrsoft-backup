@@ -4,7 +4,6 @@ namespace App\Http\Requests\Sales;
 
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
-use App\Jobs\Items\Serial\ValidateItemSerialJob;
 use App\Jobs\Sales\Items\StoreSaleItemsJob;
 use App\Models\Invoice;
 use App\Models\Item;
@@ -22,7 +21,7 @@ class StoreDraftSaleRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
 
@@ -45,7 +44,7 @@ class StoreDraftSaleRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -54,11 +53,8 @@ class StoreDraftSaleRequest extends FormRequest
     {
         DB::beginTransaction();
         try {
-            //				$this->validateSerials();
             $this->validateKits();
-            //				$this->validateQuantities($this->input('items'));
             $authUser = auth()->user();
-
             $invoice = Invoice::create(
                 [
                     'invoice_type' => 'sale',
@@ -75,7 +71,6 @@ class StoreDraftSaleRequest extends FormRequest
             dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'QA-'));
             dispatch_sync(new StoreSaleItemsJob($invoice, (array)$this->input('items'), true));
             dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
-
             DB::commit();
             return $invoice->load('items');
         } catch (QueryException $queryException) {
@@ -132,30 +127,4 @@ class StoreDraftSaleRequest extends FormRequest
         }
     }
 
-    private function validateSerials()
-    {
-        foreach ($this->input('items') as $item) {
-            $dbItem = Item::find($item['id']);
-            if ($dbItem->is_need_serial) {
-                if (count($item['serials']) != $item['qty']) {
-                    throw ValidationException::withMessages(['item_serial' => 'serials count don\'t  match qty']);
-                }
-                foreach ($item['serials'] as $serial) {
-                    dispatch_sync(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase']));
-                }
-            }
-        }
-    }
-
-    private function validateQuantities($items = [])
-    {
-        foreach ($items as $item) {
-            $dbItem = Item::find($item['id']);
-            if (!$dbItem->is_service && !$dbItem->is_expense && !$dbItem->is_kit) {
-                if ((float)$dbItem->available_qty < (float)$item['qty']) {
-                    throw ValidationException::withMessages(['item_available_quantity' => "you can't sale this items , qty not"]);
-                }
-            }
-        }
-    }
 }

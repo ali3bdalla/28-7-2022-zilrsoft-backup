@@ -47,11 +47,8 @@ class DeleteTransactionsRequest extends FormRequest
             $transactionsContainer->delete();
             DB::commit();
             return response($response,200);
-        }catch (QueryException $e)
+        }catch (QueryException | Exception $e)
         {
-            DB::rollBack();
-            return response(['message' => $e->getMessage()],500);
-        } catch (Exception $e) {
             DB::rollBack();
             return response(['message' => $e->getMessage()],500);
         }

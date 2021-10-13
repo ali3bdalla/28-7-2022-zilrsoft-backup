@@ -36,16 +36,16 @@ class StoreSaleTransactionsJob implements ShouldQueue
     public function __construct(Invoice $invoice)
     {
         $this->invoice = $invoice;
-        $this->clientAccount = Account::where('slug', 'clients')->first();
-        $this->stockAccount = Account::where('slug', 'stock')->first();
-        $this->taxAccount = Account::where('slug', 'vat')->first();
-        $this->cogsAccount = Account::where('slug', 'cogs')->first();
-        $this->productsSalesAccount = Account::where('slug', 'products_sales')->first();
-        $this->servicesSalesAccount = Account::where('slug', 'services_sales')->first();
-        $this->otherServicesSalesAccount = Account::where('slug', 'other_services_sales')->first();
-        $this->productsSalesDiscountAccount = Account::where('slug', 'products_sales_discount')->first();
-        $this->servicesSalesDiscountAccount = Account::where('slug', 'services_sales_discount')->first();
-        $this->otherServicesSalesDiscountAccount = Account::where('slug', 'other_services_sales_discount')->first();
+        $this->clientAccount = Account::getSystemAccount( 'clients');
+        $this->stockAccount = Account::getSystemAccount( 'stock');
+        $this->taxAccount = Account::getSystemAccount( 'vat');
+        $this->cogsAccount = Account::getSystemAccount( 'cogs');
+        $this->productsSalesAccount = Account::getSystemAccount( 'products_sales');
+        $this->servicesSalesAccount = Account::getSystemAccount( 'services_sales');
+        $this->otherServicesSalesAccount = Account::getSystemAccount( 'other_services_sales');
+        $this->productsSalesDiscountAccount = Account::getSystemAccount( 'products_sales_discount');
+        $this->servicesSalesDiscountAccount = Account::getSystemAccount( 'services_sales_discount');
+        $this->otherServicesSalesDiscountAccount = Account::getSystemAccount( 'other_services_sales_discount');
 
         $this->loggedUser = auth()->user();
         $this->totalPaidAmount = 0;

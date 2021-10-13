@@ -21,7 +21,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $accounts = Account::where('parent_id', 0)->withCount('children')->get();
+        $accounts = Account::whereParentId(0)->withCount('children')->get();
         return view('accounting.charts.index', compact('accounts'));
     }
 

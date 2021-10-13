@@ -18,31 +18,9 @@ use Throwable;
 
 class SaleController extends Controller
 {
-    private InvoiceRepositoryContract $invoiceRepositoryContract;
-
-    public function __construct(InvoiceRepositoryContract $invoiceRepositoryContract)
-    {
-        $this->invoiceRepositoryContract = $invoiceRepositoryContract;
-    }
 
     public function index(FetchSalesRequest $request)
     {
-//        return $this->invoiceRepositoryContract->getInvoicesPagination(new InvoiceSearchValueObject(
-//            $request->getInvoiceType(),
-//            $request->getIsDraft(),
-//            $request->getStartDate(),
-//            $request->getEndDate(),
-//            $request->getCreators(),
-//            $request->getClients(),
-//            $request->getSalesmen(),
-//            $request->getAliceName(),
-//            $request->getTitle(),
-//            $request->getNet(),
-//            $request->getTax(),
-//            $request->getTotal(),
-//            $request->getDiscount(),
-//            $request->getSubtotal(),
-//        ));
         return $request->getData();
     }
 
@@ -51,15 +29,6 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request)
     {
-//        $invoiceDto = new InvoiceDto(
-//            Auth::user(),
-//            $request->getInvoiceClient(),
-//            InvoiceTypeEnum::sale(),
-//            $request->getItems(),
-//            false,
-//            false
-//        );
-//        $this->invoiceRepositoryContract->createInvoice($invoiceDto);
         return $request->store();
     }
 

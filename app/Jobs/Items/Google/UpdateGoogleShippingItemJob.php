@@ -39,12 +39,6 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
     {
         if ($this->item->shouldBeSearchable() && $this->item->available_qty) {
             ProductApi::insert(function ($product) {
-                $filters = $this->item->filters()->with('value', 'filter')->get();
-                $attributes = [];
-                foreach ($filters as $filter) {
-                    if ($filter->filter && $filter->value)
-                        $attributes[$filter->filter->locale_name] = $filter->value->locale_name;
-                }
                 $link = 'https://msbrshop.com/web/items/' . $this->item->ar_slug;
                 return $product
                     ->title($this->item->locale_name)
@@ -60,12 +54,9 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
                     ->additionalImageLinks($this->item->attachments()->pluck('actual_path')->map(function ($path) {
                         return $this->getImageUrl($path);
                     }))
-//                    ->customAttributes($attributes)
                     ->link($link)
                     ->contentLanguage('ar')
                     ->availability($this->item->available_qty >= 0 ? 'in stock' : 'out of stock');
-//            "in stock", "out of stock", or "preorder"
-//                    ->mobileLink($link);
             })->then(function ($response) {
                 echo 'Product inserted';
             })->catch(function ($erro) {

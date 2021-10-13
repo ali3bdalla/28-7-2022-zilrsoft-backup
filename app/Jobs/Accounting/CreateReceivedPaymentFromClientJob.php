@@ -56,7 +56,7 @@ class CreateReceivedPaymentFromClientJob implements ShouldQueue
      */
     public function handle()
     {
-        $clientAccount = Account::where('slug', 'clients')->first();
+        $clientAccount = Account::getSystemAccount("clients");
         $loggedUser = Auth::user();
         $organizationAccount = Account::findOrFail($this->accountId);
         $container = TransactionsContainer::create(
