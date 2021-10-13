@@ -81,14 +81,10 @@ class InvoiceItems extends BaseModel
             ->orWhere([['return_sale_id', $this->invoice_id], ['item_id', $this->item->id]])
             ->orWhere([['return_purchase_id', $this->invoice_id], ['item_id', $this->item->id]])
             ->orWhere([['purchase_id', $this->invoice_id], ['item_id', $this->item->id]])
-            ->get()
-        ;
+            ->get();
     }
 
-    public function orderQtyHolders(): HasMany
-    {
-        return $this->hasMany(OrderItemQtyHolder::class, 'item_id');
-    }
+
 
     public function creator()
     {
@@ -129,15 +125,4 @@ class InvoiceItems extends BaseModel
         return $this->belongsTo(Invoice::class, 'invoice_id');
     }
 
-    public function syncSerials(array $serials = [])
-    {
-//        if($this->invoice_type->equals(InvoiceTypeEnum::purchase(),InvoiceTypeEnum::beginning_inventory())) {
-//            foreach ($serials as $serial) {
-//                $this->item()->serials()->create([
-//                   'serial' => $serial,
-//                   'status' => $this->invoice_type
-//                ]);
-//            }
-//        }
-    }
 }

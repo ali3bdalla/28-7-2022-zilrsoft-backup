@@ -39,6 +39,7 @@ use Laravel\Scout\Searchable;
  * @property mixed category
  * @property mixed en_slug
  * @property HasMany tags
+ * @property mixed is_kit
  * @method static findOrFail($id)
  * @method static InRandomOrder()
  * @method static find($input)

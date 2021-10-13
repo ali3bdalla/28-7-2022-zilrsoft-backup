@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Purchases;
 
-use App\Http\Controllers\App\API\Traits\ReturnInvoiceTraits;
 use App\Jobs\Accounting\Purchase\StoreReturnPurchaseTransactionsJob;
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
@@ -34,28 +33,28 @@ class StoreReturnPurchaseRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'items' => 'required|array',
             'items.*.id' => 'integer|required|organization_exists:App\Models\InvoiceItems,id',
             'items.*.returned_qty' => 'required',
             'items.*.serials' => 'array',
-            //            'items.*.serials.*' => 'required|organization_exists:App\Models\ItemSerials,serial',
             'methods' => 'array',
-            'methods.*.id' => 'required|integer|organization_exists:App\Models\Account,id',
+            'methods.*.id' => 'required|integer|exists:accounts,id',
             'methods.*.amount' => 'required|numeric',
-            //            'methods.*.id' => 'integer|required|organization_exists:App\Models\Account,id',
         ];
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function store(Invoice $purchaseInvoice)
     {
         DB::beginTransaction();
         try {
             $this->validateItemsBelongsToInvoice($purchaseInvoice, $this->input('items'));
             $returnedItems = $this->getReturnItems($this->input('items'));
-
             $this->validateSerials($returnedItems);
             $this->validateReturnedItemsData($returnedItems);
             $authUser = auth()->user();
@@ -77,7 +76,7 @@ class StoreReturnPurchaseRequest extends FormRequest
             dispatch_sync(new StoreReturnPurchaseTransactionsJob($invoice->fresh()));
             DB::commit();
             return response($invoice, 200);
-        } catch (QueryException $e) {
+        } catch (QueryException | ValidationException $e) {
             DB::rollBack();
             throw $e;
         }
@@ -86,6 +85,7 @@ class StoreReturnPurchaseRequest extends FormRequest
     /**
      * @param Invoice $invoice
      * @param $validateItem
+     * @throws ValidationException
      */
     private function validateItemsBelongsToInvoice(Invoice $invoice, $validateItem)
     {

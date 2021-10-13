@@ -92,7 +92,6 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
             return $order->paymentDetail()->create(['user_id' => $order->user_id, 'sender_account_id' => $orderPaymentDto->getSenderAccountId(),
                     'received_bank_id' => $orderPaymentDto->getReceiverAccountId(), 'first_name' => $orderPaymentDto->getFirstName(), 'last_name' => $orderPaymentDto->getLastName(),]
             );
-
         });
     }
 

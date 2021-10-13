@@ -1,37 +1,39 @@
 <?php
-	
-	namespace App\Models;
-	
 
-	class ItemFilters extends BaseModel
-	{
-		
-		protected $guarded = [];
-		
-		//
-		protected $casts = [
-			'id' => 'integer',
-			'filter_value' => 'integer',
-			'filter_id' => 'integer',
-			'item_id' => 'integer'
-		
-		];
+namespace App\Models;
 
 
-        public function filter()
-        {
-            return $this->belongsTo(Filter::class,'filter_id');
-		}
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-        public function value()
-        {
-            return $this->belongsTo(FilterValues::class,'filter_value');
-        }
+class ItemFilters extends BaseModel
+{
 
-        public function item()
-        {
-            return $this->belongsTo(Item::class,'item_id');
-        }
+    protected $guarded = [];
 
-		
-	}
+    //
+    protected $casts = [
+        'id' => 'integer',
+        'filter_value' => 'integer',
+        'filter_id' => 'integer',
+        'item_id' => 'integer'
+
+    ];
+
+
+    public function filter(): BelongsTo
+    {
+        return $this->belongsTo(Filter::class, 'filter_id');
+    }
+
+    public function value(): BelongsTo
+    {
+        return $this->belongsTo(FilterValues::class, 'filter_value');
+    }
+
+    public function item(): BelongsTo
+    {
+        return $this->belongsTo(Item::class, 'item_id');
+    }
+
+
+}

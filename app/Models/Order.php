@@ -79,25 +79,13 @@ class Order extends BaseModel
         return Storage::url($this->pdf_path);
     }
 
-    public function activities(): HasMany
-    {
-        return $this->hasMany(OrderActivity::class, 'order_id');
-    }
 
-    public function itemsQtyHolders(): HasMany
-    {
-        return $this->hasMany(OrderItemQtyHolder::class, 'order_id');
-    }
 
     public function shippingAddress(): BelongsTo
     {
         return $this->belongsTo(ShippingAddress::class, 'shipping_address_id');
     }
 
-    public function shippable(): MorphTo
-    {
-        return $this->morphTo('shippable');
-    }
 
     public function generatePayOrderUrl()
     {

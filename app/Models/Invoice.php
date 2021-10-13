@@ -33,14 +33,15 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed vendor_invoice_number
  * @property mixed is_draft
  * @property mixed created_at
- * @property mixed has_dropbox_snapshot
- * @property mixed dropbox_snapshot
- * @property mixed user
- * @property mixed creator
- * @property mixed is_online
- * @property mixed subtotal
- * @property mixed discount
- * @property mixed user_alice_name
+ * @property bool has_dropbox_snapshot
+ * @property string dropbox_snapshot
+ * @property User user
+ * @property Manager creator
+ * @property bool is_online
+ * @property float subtotal
+ * @property float discount
+ * @property string user_alice_name
+ * @property int vendor_invoice_id
  *
  * @method static create(array $array)
  */
