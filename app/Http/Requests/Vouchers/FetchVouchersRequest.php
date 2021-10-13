@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Vouchers;
 
-use App\Models\Payment;
+use App\Models\Voucher;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -33,8 +33,7 @@ class FetchVouchersRequest extends FormRequest
     public function getData()
     {
 
-        $query = Payment::where('id', '!=', 0);
-
+        $query = Voucher::where('id', '!=', 0);
         if ($this->has('startDate') && $this->filled('startDate') && $this->has('endDate') &&
             $this->filled('endDate')) {
             $startDate = Carbon::parse($this->input("startDate"));
@@ -91,7 +90,7 @@ class FetchVouchersRequest extends FormRequest
         $query = $query->with('user', 'invoice', 'account', 'creator');
 
         if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval($this->input("itemsPerPage")
-        ) >= 1 && intval($this->input('itemsPerPage')) <= 100) {
+            ) >= 1 && intval($this->input('itemsPerPage')) <= 100) {
             return $query->paginate(intval($this->input('itemsPerPage')));
         } else {
             return $query->paginate(20);

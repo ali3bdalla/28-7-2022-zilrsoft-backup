@@ -26,10 +26,11 @@ use Illuminate\Support\Facades\Auth;
  * @property Account userAccount
  * @property Invoice invoice
  */
-class Payment extends BaseModel
+class Voucher extends BaseModel
 {
     use SoftDeletes;
 
+    protected $table = 'payments';
     protected $casts = [
         'payment_type' => VoucherTypeEnum::class . ':nullable',
     ];
@@ -47,29 +48,6 @@ class Payment extends BaseModel
     {
         return Tafqeet::arablic($this->amount);
     }
-
-    /**
-     * @return mixed
-     */
-    public function getSteakholderNameAttribute()
-    {
-        return $this->user->locale_name;
-    }
-
-    public function getSteakholderTypeAttribute()
-    {
-        if (in_array($this->payment_type, ['receipt'])) {
-            return __('pages/vouchers.client');
-        }
-
-        return __('pages/vouchers.vendor');
-    }
-
-    public function getSteakholderPhoneNumberAttribute()
-    {
-        return $this->user->phone_number;
-    }
-
     public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class, 'account_id');

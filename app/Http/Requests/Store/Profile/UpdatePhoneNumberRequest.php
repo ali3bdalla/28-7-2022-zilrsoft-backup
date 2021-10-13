@@ -13,7 +13,7 @@ class UpdatePhoneNumberRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -23,10 +23,9 @@ class UpdatePhoneNumberRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
             'phone_number' => 'required|mobileNumber|unique:users,phone_number',
             'otp' => 'nullable|integer'
         ];
@@ -41,7 +40,7 @@ class UpdatePhoneNumberRequest extends FormRequest
                 $this->preformChange();
 
             } else {
-               $this->send();
+                $this->send();
             }
 
         } catch (ValidationException $e) {
@@ -51,7 +50,7 @@ class UpdatePhoneNumberRequest extends FormRequest
 
     private function preformChange()
     {
-        $oldRecord = OnlineUserPlaceholder::where([['phone_number', $this->input('phone_number')], ['otp' , $this->input('otp')]])->first();
+        $oldRecord = OnlineUserPlaceholder::where([['phone_number', $this->input('phone_number')], ['otp', $this->input('otp')]])->first();
 
         if ($oldRecord) {
             $this->user()->update([

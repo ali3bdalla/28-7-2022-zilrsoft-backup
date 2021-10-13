@@ -239,10 +239,10 @@
                     </span>
                 </div>
                 <div class="company-info">
-                    <span>{{$payment->steakholder_type }} : {{ $payment->steakholder_name  }}</span>
+                    <span>المستفيد : {{ $payment->user->locale_name  }}</span>
                 </div>
                 <div class="company-info">
-                    <span>{{ __('pages/invoice.phone_number') }} :  {{ $payment->steakholder_phone_number  }}</span>
+                    <span>{{ __('pages/invoice.phone_number') }} :  {{ $payment->user->phone_number  }}</span>
                 </div>
 
             </div>

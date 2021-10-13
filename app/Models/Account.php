@@ -92,7 +92,7 @@ class Account extends BaseModel
 
     public function payments(): HasMany
     {
-        return $this->hasMany(Payment::class, 'account_id');
+        return $this->hasMany(Voucher::class, 'account_id');
     }
 
     public function parent(): BelongsTo

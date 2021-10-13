@@ -6,7 +6,7 @@ use App\Dto\VoucherDto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vouchers\FetchVouchersRequest;
 use App\Http\Requests\Vouchers\StoreVoucherRequest;
-use App\Models\Payment;
+use App\Models\Voucher;
 use App\Repository\VoucherRepositoryContract;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -30,7 +30,7 @@ class VoucherController extends Controller
     /**
      * @throws ValidationException
      */
-    public function store(StoreVoucherRequest $request): Payment
+    public function store(StoreVoucherRequest $request): Voucher
     {
         $request->ensureUserAccountExists();
         $userAccount = $request->getUserAccount();
@@ -43,7 +43,7 @@ class VoucherController extends Controller
         return $this->voucherRepositoryContract->createVoucher($voucherDto);
     }
 
-    public function refund(Payment $voucher)
+    public function refund(Voucher $voucher)
     {
         if (!$voucher->isRefundable()) abort(403);
         $refundVoucher = $this->voucherRepositoryContract->refundVoucher($voucher);

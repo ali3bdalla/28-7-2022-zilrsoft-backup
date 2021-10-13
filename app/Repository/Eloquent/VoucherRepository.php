@@ -4,7 +4,7 @@ namespace App\Repository\Eloquent;
 
 use App\Dto\VoucherDto;
 use App\Enums\VoucherTypeEnum;
-use App\Models\Payment;
+use App\Models\Voucher;
 use App\Repository\EntryRepositoryContract;
 use App\Repository\VoucherRepositoryContract;
 use App\ValueObjects\Contract\SearchValueObjectContract;
@@ -23,15 +23,15 @@ class VoucherRepository extends BaseRepository implements VoucherRepositoryContr
 
     public function getAmount(SearchValueObjectContract $searchValueObjectContract): float
     {
-        $query = Payment::query();
+        $query = Voucher::query();
         $query = $searchValueObjectContract->apply($query);
         return (float)$query->sum('amount');
     }
 
-    public function refundVoucher(Payment $voucher): Payment
+    public function refundVoucher(Voucher $voucher): Voucher
     {
         return DB::transaction(function () use ($voucher) {
-            $refundVoucher = Payment::factory()->refund($voucher)->create();
+            $refundVoucher = Voucher::factory()->refund($voucher)->create();
             if ($voucher->payment_type->equals(VoucherTypeEnum::receipt())) $this->entryRepositoryContract->registerClientVoucherEntry($refundVoucher, $refundVoucher->account);
             else  $this->entryRepositoryContract->registerVendorVoucherEntry($refundVoucher, $refundVoucher->account);
             $voucher->markAsRefunded();
@@ -39,10 +39,10 @@ class VoucherRepository extends BaseRepository implements VoucherRepositoryContr
         });
     }
 
-    public function createVoucher(VoucherDto $voucherDto): Payment
+    public function createVoucher(VoucherDto $voucherDto): Voucher
     {
         return DB::transaction(function () use ($voucherDto) {
-            $voucher = Payment::factory()->setDto($voucherDto)->create();
+            $voucher = Voucher::factory()->setDto($voucherDto)->create();
             if ($voucher->payment_type->equals(VoucherTypeEnum::receipt())) $this->entryRepositoryContract->registerClientVoucherEntry($voucher, $voucher->account);
             else  $this->entryRepositoryContract->registerVendorVoucherEntry($voucher, $voucher->account);
             return $voucher;

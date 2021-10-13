@@ -1,6 +1,6 @@
 <?php
-	
-	
+
+
 	return [
 		'save_and_print_receipt' => 'Save And Print Receipt',
 		'create' => 'Add Invoice',
@@ -29,7 +29,7 @@
 		'profit' => 'Profit',
 		'discount' => 'Discount',
 		'save_and_open' => ' Save And Open',
-		'update_payment' => 'Update Payment',
+		'update_payment' => 'Update Voucher',
 		'create_product' => 'Add Item',
 		'view_products' => 'View Items',
 		'cancel' => ' Back',
@@ -85,5 +85,5 @@
 		'make_note' => 'Note',
 		'type_here' => 'Type...',
 		'quotation' => 'Quotation '
-	
+
 	];

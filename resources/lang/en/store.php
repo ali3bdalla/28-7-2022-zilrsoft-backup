@@ -63,7 +63,7 @@ Dear *:CUSTOMER_NAME*
 Your payment has been confirmed for order :ORDER_ID
 Your order processing now, we will keep you in touch
 ',
-        'notify_unpaid_order_message' => "Reminder ..\nPayment deadline for order number (:ORDERID) is soon .\nPlease pay before\n:DATE\n:TIME",
+        'notify_unpaid_order_message' => "Reminder ..\nVoucher deadline for order number (:ORDERID) is soon .\nPlease pay before\n:DATE\n:TIME",
         'as_your_request' => '1- At Your Request',
         'not_paid' => '1- Not Paid.',
         'unpaid_order_canceled_message' => "Dear Customer *:CUSTOMER_NAME*,\n Sorry, Your Order #:ORDERID has been automatically cancelled \n\n Cancelled Reasons:\n :REASON . \n\n Customer Service (WhatsApp) \n Wa.me/065433",
@@ -78,11 +78,11 @@ Thank you for ordering form *Almesbar Shop*
 Order: *:ORDER_ID*
 Amount: *:AMOUNT*
 
-Payment via transfer to our account in Rajhi bank named: Bait Almesbar For Trading
+Voucher via transfer to our account in Rajhi bank named: Bait Almesbar For Trading
 
 
 
-Deadline for Payment
+Deadline for Voucher
     *:DEADLINE_DATE*
     *:DEADLINE_TIME*
 ',
@@ -96,7 +96,7 @@ Deadline for Payment
         'send_from_other_banks_via_iban' => 'From other banks (IBAN):',
         'invalid_order_payment' => '
 Dear *:CUSTOMER_NAME*
-Unfortunately, Your Payment For Order #:ORDER_ID is Invalid
+Unfortunately, Your Voucher For Order #:ORDER_ID is Invalid
 For more information, you can contact customer service via the following link',
 
         'order_shipped_with_shipping_method' => '
@@ -248,7 +248,7 @@ Receipt code :CODE
 
         'id' => 'Id',
         'amount' => 'Amount',
-        'payment_method' => 'Payment Method',
+        'payment_method' => 'Voucher Method',
         'tracking_number' => 'Tracking number',
         'shipping_method' => 'Shipping method',
         'created_at' => 'Created at',
@@ -279,9 +279,9 @@ Receipt code :CODE
         'thanks_for_order' => 'Thank You',
         'created' => 'Success',
         'instructions_for_payment' => 'You will receive a WhatsApp message including bank account & payment confirmation link to mobile number',
-        'payment_confirmation' => 'Payment Confirmation',
+        'payment_confirmation' => 'Voucher Confirmation',
         'order' => 'Order',
-        'remmning_time_to_auto_cancel_order' => 'Payment Deadline',
+        'remmning_time_to_auto_cancel_order' => 'Voucher Deadline',
         'transmitter_name' => 'Transmitter Name',
         'to_blank' => 'Beneficiary Bank',
         'payment_confirmed' => 'we have received your payment confirmation request',
@@ -386,7 +386,7 @@ Receipt code :CODE
         5. There is no shipping for digital products, unless you buy the cartoon products, it requires shipping.
         6. All fees are calculated in Saudi riyals. You must pay all fees due on your operations on the site in addition to any other expenses added by the Almesbar Shop, provided that payment is made by the approved means.
         7. In the event that you are not obligated to pay the fees or expenses calculated on your operations on the site and the period exceeds 3 working days, the Almesbar Shop, without any legal liability, reserves the right to cancel your purchase order.
-         <h4 class='content__title'>(5) Payment for purchases</h4>
+         <h4 class='content__title'>(5) Voucher for purchases</h4>
         1. The payment system in the Almesbar Shop can be done entirely online through the payment options available on the Almesbar Shop, which are the payment by credit cards or through any payment method provided by the Almesbar Shop from time to time.
         2. Almesbar Shop has all the powers to choose the offered product and the appropriate price for each product as the site deems appropriate.
         3. The role of Almesbar Shop ends as soon as you receive your purchases. In the event of an exchange or return, you must address the store directly.

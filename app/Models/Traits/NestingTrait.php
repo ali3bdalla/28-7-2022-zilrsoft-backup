@@ -85,9 +85,6 @@ trait NestingTrait
             }
 
         }
-
-        // dd($list);
-
         return $list;
     }
 

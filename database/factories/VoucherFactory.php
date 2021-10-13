@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Dto\VoucherDto;
 use App\Enums\VoucherTypeEnum;
-use App\Models\Payment;
+use App\Models\Voucher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,9 +15,9 @@ class VoucherFactory extends Factory
      *
      * @var string
      */
-    protected $model = Payment::class;
+    protected $model = Voucher::class;
 
-    public function refund(Payment $voucher): VoucherFactory
+    public function refund(Voucher $voucher): VoucherFactory
     {
         $newVoucherType = $voucher->payment_type->equals(VoucherTypeEnum::receipt()) ? VoucherTypeEnum::payment() : VoucherTypeEnum::receipt();
         $voucherDto = new VoucherDto(

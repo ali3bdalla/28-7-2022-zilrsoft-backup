@@ -149,7 +149,7 @@ class Invoice extends BaseModel
 
     public function payments(): HasMany
     {
-        return $this->hasMany(Payment::class, 'invoice_id');
+        return $this->hasMany(Voucher::class, 'invoice_id');
     }
 
     public function getUserTypeAttribute()

@@ -7,7 +7,7 @@ use App\Enums\EntryDto;
 use App\Enums\TransactionDto;
 use App\Enums\VoucherTypeEnum;
 use App\Models\Account;
-use App\Models\Payment;
+use App\Models\Voucher;
 use App\Models\ResellerClosingAccount;
 use App\Models\TransactionsContainer;
 use App\Repository\AccountRepositoryContract;
@@ -72,7 +72,7 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
         });
     }
 
-    public function registerClientVoucherEntry(Payment $voucher, Account $targetAccount): TransactionsContainer
+    public function registerClientVoucherEntry(Voucher $voucher, Account $targetAccount): TransactionsContainer
     {
         $clientAccount = Account::getSystemAccount("clients");
         $transactions = collect();
@@ -111,7 +111,7 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
         });
     }
 
-    public function registerVendorVoucherEntry(Payment $voucher, Account $targetAccount): TransactionsContainer
+    public function registerVendorVoucherEntry(Voucher $voucher, Account $targetAccount): TransactionsContainer
     {
         $account = Account::getSystemAccount("vendors");
         $transactions = collect();

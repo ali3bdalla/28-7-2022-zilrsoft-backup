@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Accounting\Voucher\DatatableRequest;
 use App\Models\Account;
 use App\Models\Manager;
-use App\Models\Payment;
+use App\Models\Voucher;
 use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -35,10 +35,10 @@ class VoucherController extends Controller
     }
 
     /**
-     * @param Payment $voucher
+     * @param Voucher $voucher
      * @return Factory|View
      */
-    public function show(Payment $voucher)
+    public function show(Voucher $voucher)
     {
         $payment = $voucher;
         return view('accounting.vouchers.show', compact('payment'));

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\App\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
-use App\Models\Payment;
+use App\Models\Voucher;
 use App\Repository\InvoiceRepositoryContract;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -68,7 +68,7 @@ class PrinterController extends Controller
         return view('accounting.printer.receipt', compact('invoice'));
     }
 
-    public function voucher(Payment $voucher)
+    public function voucher(Voucher $voucher)
     {
         $payment = $voucher;
 

@@ -135,7 +135,7 @@ class Manager extends BaseAuthModel
 
     public function payments(): HasMany
     {
-        return $this->hasMany(Payment::class, 'creator_id');
+        return $this->hasMany(Voucher::class, 'creator_id');
     }
 
     public function resellerClosingAccounts(): HasMany
@@ -151,7 +151,6 @@ class Manager extends BaseAuthModel
     public function getInternationalPhoneNumberAttribute(): ?string
     {
         return $this->phone_number;
-//        return (string)PhoneNumber::make($this->phone_number)->ofCountry($this->getOriginal("country_code", 'SA'));
     }
 
     public function ourSmsPhoneNumber(): string
@@ -161,6 +160,6 @@ class Manager extends BaseAuthModel
 
     public function receivesBroadcastNotificationsOn(): string
     {
-        return 'manager_notification_channel_.'.$this->id;
+        return 'manager_notification_channel_.' . $this->id;
     }
 }

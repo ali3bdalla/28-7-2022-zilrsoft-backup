@@ -118,7 +118,7 @@ class Organization extends BaseModel
 
     public function payments(): HasMany
     {
-        return $this->hasMany(Payment::class, 'organization_id');
+        return $this->hasMany(Voucher::class, 'organization_id');
     }
 
     public function users(): HasMany

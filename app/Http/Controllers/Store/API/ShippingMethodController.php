@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class ShippingMethodController extends Controller
 {
-    //
     public function index(Request $request)
     {
         $shippingMethodsIds = ShippingMethodCity::where('city_id', $request->input('city_id'))->pluck('shipping_method_id')->toArray();

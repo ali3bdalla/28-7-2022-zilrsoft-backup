@@ -7,7 +7,5 @@ namespace App\Models;
 
     class Role extends BaseRole
     {
-        //		protected $dateFormat = 'Y-m-d H:i:sO';
-
         use PostgresTimestamp;
     }
