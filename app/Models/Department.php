@@ -3,10 +3,12 @@
 namespace App\Models;
 
 
+/**
+ * @property mixed title
+ * @property mixed ar_title
+ */
 class Department extends BaseModel
 {
-    //
-
 
     protected $guarded = [];
 
@@ -18,8 +20,6 @@ class Department extends BaseModel
     {
         if (app()->isLocale('ar'))
             return $this->ar_title;
-
         return $this->title;
-
     }
 }

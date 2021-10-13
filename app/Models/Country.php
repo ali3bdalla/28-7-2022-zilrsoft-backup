@@ -16,7 +16,6 @@ class Country extends BaseModel
     {
         return $this->hasMany(Organization::class, 'country_id');
     }
-    //
 }
 
 
