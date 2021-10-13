@@ -25,6 +25,7 @@ use Propaganistas\LaravelPhone\PhoneNumber;
  * @property mixed name
  * @property mixed creator_id
  * @property mixed organization_id
+ * @property mixed locale_name
  * @method static where(array $array)
  * @method static find(mixed $user_id)
  */

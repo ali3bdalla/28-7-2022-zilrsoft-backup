@@ -2,24 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CategoryFilterValues extends BaseModel
 {
-    protected $guarded =[];
+    protected $guarded = [];
 
-    public function filter()
+    public function filter(): BelongsTo
     {
-        return $this->belongsTo(Filter::class,'filter_id');
+        return $this->belongsTo(Filter::class, 'filter_id');
     }
 
-    public function category()
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class,'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function value()
+    public function value(): BelongsTo
     {
-        return $this->belongsTo(FilterValues::class,'value_id');
+        return $this->belongsTo(FilterValues::class, 'value_id');
     }
 }

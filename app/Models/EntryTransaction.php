@@ -110,7 +110,6 @@ class EntryTransaction extends BaseModel
             return 'رصيد المورد';
         }
 
-
         return $value;
     }
 

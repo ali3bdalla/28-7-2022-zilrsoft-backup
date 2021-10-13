@@ -215,8 +215,8 @@ class Invoice extends BaseModel
             $net = (float)$this->net + (float)$invoiceItem->net;
             $total = (float)$this->total + (float)$invoiceItem->total;
             $tax = (float)$this->tax + (float)$invoiceItem->tax;
-            $discount = (float)$this->discount + (float)$invoiceItem->discount;
-            $subtotal = (float)$this->subtotal + (float)$invoiceItem->subtotal;
+            $discount = $this->discount + (float)$invoiceItem->discount;
+            $subtotal = $this->subtotal + (float)$invoiceItem->subtotal;
             $this->update([
                 'net' => $net,
                 'total' => $total,
