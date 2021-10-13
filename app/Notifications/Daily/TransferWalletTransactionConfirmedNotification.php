@@ -3,6 +3,7 @@
 namespace App\Notifications\Daily;
 
 use App\Channels\BroadcastNotificationContract;
+use App\Channels\OurSmsChannel;
 use App\Channels\OurSmsNotificationContract;
 use App\Channels\WhatsappMessageChannel;
 use App\Channels\WhatsappMessageNotificationContract;
@@ -42,7 +43,7 @@ class TransferWalletTransactionConfirmedNotification extends Notification implem
      */
     public function via($notifiable)
     {
-        return [WhatsappMessageChannel::class, OurSmsNotificationContract::class, 'database', "broadcast"];
+        return [WhatsappMessageChannel::class, OurSmsChannel::class, 'database', "broadcast"];
     }
 
     public function toOurSms($notifiable): string
