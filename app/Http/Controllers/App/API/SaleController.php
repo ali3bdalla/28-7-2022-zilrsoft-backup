@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\App\API;
 
-use App\Dto\InvoiceDto;
-use App\Enums\InvoiceTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sales\FetchSalesRequest;
 use App\Http\Requests\Sales\StoreDraftSaleRequest;
 use App\Http\Requests\Sales\StoreReturnSaleRequest;
 use App\Http\Requests\Sales\StoreSaleRequest;
 use App\Models\Invoice;
-use App\Repository\InvoiceRepositoryContract;
 use Exception;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
