@@ -128,9 +128,9 @@ class StoreReturnPurchaseRequest extends FormRequest
                 if (count($item->get("serials")) != (float)$item->get('returned_qty')) {
                     throw ValidationException::withMessages(['item_serial' => 'serials count don\'t  match returned qty']);
                 }
-                foreach ($item['serials'] as $serial) {
-                    dispatch_sync(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase']));
-                }
+//                foreach ($item['serials'] as $serial) {
+//                    dispatch_sync(new ValidateItemSerialJob($dbItem, $serial, ['sold', 'return_purchase']));
+//                }
             }
         }
     }

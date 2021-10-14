@@ -98,7 +98,7 @@ class PurchaseController extends Controller
         $transactions = $purchase->transactions()->with('account')->get();
         return view(
             'accounting.purchases.show', [
-                'invoice' => $purchase, 'transactions' => $transactions
+                'invoice' => $purchase->load(['items.item','user','manager']), 'transactions' => $transactions
             ]
         );
     }
