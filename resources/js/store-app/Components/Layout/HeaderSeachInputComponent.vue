@@ -12,7 +12,7 @@
         style="padding: 3px 10px; width: 100%;"
         v-if="pagePath !== '/web/items/search/results'"
         v-model="searchKey"
-        :placeholder="$page.$t.header.search_placeholder"
+        :placeholder="$page.props.$t.header.search_placeholder"
         type="text"
         class="text-gray-800"
         @keypress="getItems"
@@ -37,7 +37,7 @@ export default {
       items: [],
       categoriesGroup: [],
       categories: [],
-      searchKey: this.$page.name,
+      searchKey: this.$page.props.name,
       call: _.debounce(
         (e) => {
           axios
@@ -70,7 +70,7 @@ export default {
     },
 
     getItems (e) {
-      location.href = `/web/items/search/results?${this.$page.algolia_items_search_as}%5Bquery%5D=${e.target.value}`
+      location.href = `/web/items/search/results?${this.$page.props.algolia_items_search_as}%5Bquery%5D=${e.target.value}`
     }
   }
 }

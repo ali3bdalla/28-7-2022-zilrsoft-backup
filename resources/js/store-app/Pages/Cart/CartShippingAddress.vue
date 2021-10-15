@@ -1,8 +1,8 @@
 <template>
   <div class="">
-    <h2 v-if="$page.shippingAddresses.length > 0" class="cart__shipping-method-title">
-      {{ $page.$t.cart.select_shipping_address }} {{ $page.$t.common.or }}
-      <inertia-link class="text-blue-400" href="/web/profile/create-shipping-address">{{ $page.$t.common.add_new }}
+    <h2 v-if="$page.props.shippingAddresses.length > 0" class="cart__shipping-method-title">
+      {{ $page.props.$t.cart.select_shipping_address }} {{ $page.props.$t.common.or }}
+      <inertia-link class="text-blue-400" href="/web/profile/create-shipping-address">{{ $page.props.$t.common.add_new }}
       </inertia-link>
     </h2>
     <div v-else class="cart__shipping-method-title">
@@ -10,13 +10,13 @@
                                           @created="shippingAddressCreated"></CreateShippingAddressFormComponent>
     </div>
 
-    <div v-if="$page.shippingAddresses.length > 0" class="">
+    <div v-if="$page.props.shippingAddresses.length > 0" class="">
       <div class="cart__shipping-address">
         <div class="cart__shipping-address-list">
           <div class="cart__shipping-address-right w-full">
             <el-select v-model="shippingAddressId"
                        :allow-create="true" :filterable="true"
-                       :placeholder="$page.$t.cart.select_shipping_address"
+                       :placeholder="$page.props.$t.cart.select_shipping_address"
                        class="page__w-full"
                        no-data-text="No" no-match-text="No Data">
               <template #empty>
@@ -39,7 +39,7 @@
                         stroke-width="2"
                     />
                   </svg>
-                  {{ $page.$t.cart.create_shipping_address }}
+                  {{ $page.props.$t.cart.create_shipping_address }}
                 </a>
               </template>
               <el-option
@@ -74,7 +74,7 @@
             </div>
 
             <div class="cart__shipping-address-title">
-              {{ $page.$t.common.internationalKey }}{{ shippingAddress.phone_number }}
+              {{ $page.props.$t.common.internationalKey }}{{ shippingAddress.phone_number }}
             </div>
           </el-card>
         </div>
@@ -94,14 +94,14 @@ export default {
   components: { CreateShippingAddressFormComponent },
   data () {
     return {
-      shippingAddresses: this.$page.shippingAddresses,
+      shippingAddresses: this.$page.props.shippingAddresses,
       shippingAddressId: null,
       shippingAddress: null
     }
   },
   computed: {
     shippingAddressList () {
-      return this.$page.shippingAddresses.filter(p => p.city_id === localStorage.getItem('cart_shipping_city_id', null))
+      return this.$page.props.shippingAddresses.filter(p => p.city_id === localStorage.getItem('cart_shipping_city_id', null))
     }
   },
   methods: {

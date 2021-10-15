@@ -34,6 +34,7 @@ class Handler extends ExceptionHandler
      *
      * @param Throwable $exception
      * @return void
+     * @throws Throwable
      */
     public function report(Throwable $exception)
     {
@@ -60,7 +61,6 @@ class Handler extends ExceptionHandler
                 'message' => 'The page expired, please try again.',
             ]);
         }
-
         return $response;
     }
 }

@@ -3,17 +3,17 @@
     <ais-search-box
       @change="startTyping"
       class=""
-      :placeholder="$page.$t.header.search_placeholder"
+      :placeholder="$page.props.$t.header.search_placeholder"
       :autofocus="true"
       :show-loading-indicator="false"
     >
       <div
         slot="submit-icon"
         class="search_in_category"
-        :style="$page.active_locale == 'ar' ? 'direction: rtl' : '' "
-        v-if="$page.categories_search_list.length > 0"
+        :style="$page.props.active_locale == 'ar' ? 'direction: rtl' : '' "
+        v-if="$page.props.categories_search_list.length > 0"
       >
-       <div class="truncate"> {{ $page.$t.common.search_in }} {{ $page.categories_search_list[0] }}</div>
+       <div class="truncate"> {{ $page.props.$t.common.search_in }} {{ $page.props.categories_search_list[0] }}</div>
       </div>
     </ais-search-box>
   </div>

@@ -5,26 +5,26 @@
         <div class="row">
           <div class="col-lg-6 offset-lg-3">
             <div v-if="activePage === 'login'" class="text-center login-form">
-              <h2>{{ $page.$t.profile.login }}</h2>
+              <h2>{{ $page.props.$t.profile.login }}</h2>
 
               <form action="#">
                 <div class="flex flex-col">
                   <div class="flex-1 group-input page__dir-left">
                     <label for="phone_number">{{
-                        $page.$t.profile.phone_number
+                        $page.props.$t.profile.phone_number
                       }}</label>
                     <InternationalPhoneNumberSelectorComponent
                         v-model="phone_number"></InternationalPhoneNumberSelectorComponent>
                     <div
-                        v-if="$page.errors && $page.errors.phone_number"
+                        v-if="$page.props.errors && $page.props.errors.phone_number"
                         class="p-2 text-red-500 mt-2"
                     >
-                      {{ $page.errors.phone_number }}
+                      {{ $page.props.errors.phone_number }}
                     </div>
                   </div>
                   <div class="flex-1 group-input">
                     <label for="password">{{
-                        $page.$t.profile.password
+                        $page.props.$t.profile.password
                       }}</label>
                     <input
                         id="password"
@@ -34,10 +34,10 @@
                         type="password"
                     />
                     <div
-                        v-if="$page.errors && $page.errors.password"
+                        v-if="$page.props.errors && $page.props.errors.password"
                         class="p-2 text-red-500 mt-2"
                     >
-                      {{ $page.errors.password }}
+                      {{ $page.props.errors.password }}
                     </div>
                   </div>
                 </div>
@@ -45,18 +45,18 @@
                 <div class="group-input gi-check flex items-center justify-between">
                   <div class="gi-more">
                     <a
-                        :style="$page.active_locale === 'en' ? 'float:left' : ''"
+                        :style="$page.props.active_locale === 'en' ? 'float:left' : ''"
                         class="forget-pass"
                         href="/web/forget_password"
-                    >{{ $page.$t.profile.forget_password }}</a
+                    >{{ $page.props.$t.profile.forget_password }}</a
                     >
                   </div>
                   <div class="gi-more">
                     <a
-                        :style="$page.active_locale == 'en' ? 'float:right' : ''"
+                        :style="$page.props.active_locale == 'en' ? 'float:right' : ''"
                         class="forget-pass"
                         href="/web/sign_up"
-                    >{{ $page.$t.profile.or_create_new_account }}</a
+                    >{{ $page.props.$t.profile.or_create_new_account }}</a
                     >
                   </div>
                 </div>
@@ -67,7 +67,7 @@
                   type="button"
                   @click="submitForm"
               >
-                {{ $page.$t.profile.login }}
+                {{ $page.props.$t.profile.login }}
               </button>
             </div>
             <div v-else class="text-center login-form">
@@ -80,7 +80,7 @@
                 >
                   <i class="fa fa-user-circle  text-yellow-600  text-6xl"></i>
                   <span class="text-xl">{{
-                      $page.$t.profile.exists_customer
+                      $page.props.$t.profile.exists_customer
                     }}</span>
                 </button>
 
@@ -90,7 +90,7 @@
                 >
                   <i class="fa fa-user-plus text-yellow-600  text-6xl"></i>
                   <span class="text-xl">{{
-                      $page.$t.profile.new_customer
+                      $page.props.$t.profile.new_customer
                     }}</span>
                 </inertia-link>
               </div>

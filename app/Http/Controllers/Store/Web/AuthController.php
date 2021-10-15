@@ -42,7 +42,7 @@ class AuthController extends Controller
         if ($this->userRepositoryContract->isLoggedAsOnlineUser($phoneNumber, $password)) {
             return redirect()->intended('/web');
         }
-        abort(403);
+        return Inertia::render('Auth/AccountUnverified');
     }
 
 
@@ -86,7 +86,7 @@ class AuthController extends Controller
         $verifiedUser = $this->userRepositoryContract->verifyUser($userId, $verificationCode);
         $verifiedUser->notify(new StoreWelcomeNotification());
         Auth::guard('client')->login($verifiedUser);
-        return Inertia::render('Auth/Verified');
+        return Inertia::render('Auth/AccountVerified');
     }
 
     public function forgetPasswordPage(): Response

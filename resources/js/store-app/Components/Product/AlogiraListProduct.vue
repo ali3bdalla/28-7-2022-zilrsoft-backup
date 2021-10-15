@@ -5,7 +5,7 @@
     style="border-color: #d2e8ff !important; border-width: 3px !important"
   >
     <div class="product__list-item-image-container">
-      <a :href="`/web/items/${$page.active_logo === 'en' ? item.en_slug : item.ar_slug}`"><img
+      <a :href="`/web/items/${$page.props.active_logo === 'en' ? item.en_slug : item.ar_slug}`"><img
           :src="$processedImageUrl(getUrl,334,250,false,false)"
           class="product__list-item-image"
         /></a>
@@ -15,7 +15,7 @@
         class="product__list-item-category-name product__list-item-category-name__out-of-stock"
         v-if="item.available_qty <= 0 || item.category_name == null"
       >
-        <span> {{ $page.$t.products.out_of_stock }} </span>
+        <span> {{ $page.props.$t.products.out_of_stock }} </span>
       </h3>
       <!-- -->
       <a
@@ -27,14 +27,14 @@
         </h3>
       </a>
       <a
-        :href="`/web/items/${$page.active_logo === 'en' ? item.en_slug : item.ar_slug}`"
+        :href="`/web/items/${$page.props.active_logo === 'en' ? item.en_slug : item.ar_slug}`"
         class="product__list-item-name"
       >
         {{ productName }}
 
       </a>
       <h6 class="product__list-item-model-number">
-        {{ $page.$t.products.model }} : {{ item.model_number }}
+        {{ $page.props.$t.products.model }} : {{ item.model_number }}
       </h6>
       <ProductRatingComponent
         :item="item"
@@ -45,14 +45,14 @@
       <!--        {{ parseFloat(item.online_price).toFixed(2) }}-->
       <!--      </h4>-->
       <!--      <span class="product__list-item-currency">{{-->
-      <!--        $page.$t.products.sar-->
+      <!--        $page.props.$t.products.sar-->
       <!--      }}</span>-->
       <!--      <div>-->
       <!--        <h4 class="product__list-item-old-price">-->
       <!--          {{ parseFloat(item.online_offer_price).toFixed(2) }}-->
       <!--        </h4>-->
       <!--        <span class="product__list-item-currency">{{-->
-      <!--          $page.$t.products.sar-->
+      <!--          $page.props.$t.products.sar-->
       <!--        }}</span>-->
       <!--      </div>-->
 
@@ -60,18 +60,18 @@
       <!--        {{ parseFloat(item.online_price).toFixed(2) }}-->
       <!--      </h4>-->
       <!--      <span class="product__list-item-currency">{{-->
-      <!--        $page.$t.products.sar-->
+      <!--        $page.props.$t.products.sar-->
       <!--      }}</span>-->
       <div>
         <h4 class="product__list-item-old-price">
           {{ parseFloat(item.online_offer_price).toFixed(2) }}
         </h4>
         <span class="product__list-item-currency">{{
-            $page.$t.products.sar
+            $page.props.$t.products.sar
           }}</span>
       </div>
       <p class="product__list-item-including-tax">
-        {{ $page.$t.products.inc }}
+        {{ $page.props.$t.products.inc }}
       </p>
       <ToggleCartItemButtonComponent
         :item="item"
@@ -93,7 +93,7 @@ export default {
     productName () {
       const modelNumber = this.item.model_number
       const name =
-        this.$page.active_locale === 'ar' ? this.item.ar_name : this.item.name
+        this.$page.props.active_locale === 'ar' ? this.item.ar_name : this.item.name
 
       if (modelNumber !== '') {
         return name.replace(modelNumber, '')
@@ -102,7 +102,7 @@ export default {
       return name
     },
     getCategoryName () {
-      if (this.$page.active_locale === 'en') return this.item.category_name
+      if (this.$page.props.active_locale === 'en') return this.item.category_name
 
       return this.item.category_ar_name
     },
@@ -110,7 +110,7 @@ export default {
       if (
         this.item.item_image_url === 'https://zilrsoft.com/images/logo_ar.png'
       ) {
-        if (this.$page.active_locale === 'en') {
+        if (this.$page.props.active_locale === 'en') {
           return 'https://zilrsoft.com/images/logo_en.png'
         }
 

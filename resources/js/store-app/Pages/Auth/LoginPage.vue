@@ -221,7 +221,7 @@
               v-model="form.email"
               placeholder="Email Address"
             />
-            <div class="p-2 text-red-500" v-if="$page.errors.email">{{ $page.errors.email }}</div>
+            <div class="p-2 text-red-500" v-if="$page.props.errors.email">{{ $page.props.errors.email }}</div>
 
           </div>
           <div class="mt-8">
@@ -243,7 +243,7 @@
               v-model="form.password"
               placeholder="Enter your password"
             />
-            <div class="p-2 text-red-500" v-if="$page.errors.password">{{ $page.errors.password }}</div>
+            <div class="p-2 text-red-500" v-if="$page.props.errors.password">{{ $page.props.errors.password }}</div>
 
           </div>
           <div class="mt-10">

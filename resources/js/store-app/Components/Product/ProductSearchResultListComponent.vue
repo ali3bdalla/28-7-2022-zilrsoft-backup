@@ -4,15 +4,15 @@
     <div class="product__search-page">
       <div class="page__mt-2">
         <ais-configure
-          v-if="$page.categories_search_list.length && $page.active_locale == 'ar'"
+          v-if="$page.props.categories_search_list.length && $page.props.active_locale == 'ar'"
           :disjunctive-facets-refinements.camel="{
-            category_ar_name: $page.categories_search_list
+            category_ar_name: $page.props.categories_search_list
           }"
         />
          <ais-configure
-          v-if="$page.categories_search_list.length  && $page.active_locale == 'en'"
+          v-if="$page.props.categories_search_list.length  && $page.props.active_locale == 'en'"
           :disjunctive-facets-refinements.camel="{
-            category_name: $page.categories_search_list
+            category_name: $page.props.categories_search_list
           }"
         />
 
@@ -23,7 +23,7 @@
             attribute="available_qty"
             :items="[
               {
-                label: `${$page.$t.products.sorting_only_available}`,
+                label: `${$page.props.$t.products.sorting_only_available}`,
                 start: 1,
               },
             ]"
@@ -40,8 +40,8 @@
                     :width="120"
                     v-model="item.isRefined"
                     :labels="{
-                      checked: $page.$t.products.sorting_only_available,
-                      unchecked: $page.$t.products.sorting_only_available,
+                      checked: $page.props.$t.products.sorting_only_available,
+                      unchecked: $page.props.$t.products.sorting_only_available,
                     }"
                   />
                 </div>
@@ -60,7 +60,7 @@
         attribute="available_qty"
         :items="[
           {
-            label: `${$page.$t.products.sorting_only_available}`,
+            label: `${$page.props.$t.products.sorting_only_available}`,
             start: 1,
           },
         ]"
@@ -77,8 +77,8 @@
                 :width="120"
                 v-model="item.isRefined"
                 :labels="{
-                  checked: $page.$t.products.sorting_only_available,
-                  unchecked: $page.$t.products.sorting_only_available,
+                  checked: $page.props.$t.products.sorting_only_available,
+                  unchecked: $page.props.$t.products.sorting_only_available,
                 }"
               />
             </div>
@@ -120,7 +120,7 @@
                     {{ refinement.label }} ({{ refinement.count }})
                   </el-tag>
                   <!-- <el-tag @close="item.refine(refinement)" v-if="refinement.attribute == 'available_qty'" effect="dark" closable>
-                    {{ $page.$t.products.sorting_only_available }}
+                    {{ $page.props.$t.products.sorting_only_available }}
                   </el-tag> -->
                                       <!-- v-if="refinement.attribute !== 'available_qty'" -->
 
@@ -129,14 +129,14 @@
 
               <ais-clear-refinements>
                 <span slot-scope="{ canRefine, refine, createURL }">
-                  <inertia-link  v-if="$page.categories_search_list.length == 0 && canRefine" :href="createURL()">
+                  <inertia-link  v-if="$page.props.categories_search_list.length == 0 && canRefine" :href="createURL()">
                     <el-tag effect="dark" type="danger">
-                      {{ $page.$t.products.remove_all }}
+                      {{ $page.props.$t.products.remove_all }}
                     </el-tag>
                   </inertia-link>
                   <inertia-link  v-else-if="canRefine" href="/web/items/search/results">
                     <el-tag effect="dark" type="danger">
-                      {{ $page.$t.products.remove_all }}
+                      {{ $page.props.$t.products.remove_all }}
                     </el-tag>
                   </inertia-link>
                 </span>
@@ -159,7 +159,7 @@
               query,
             }"
           >
-            {{ $page.$t.products.products_count }} ({{ nbHits }})
+            {{ $page.props.$t.products.products_count }} ({{ nbHits }})
           </p>
         </ais-stats>
       </h1> -->
@@ -175,7 +175,7 @@
               query,
             }"
           >
-            {{ $page.$t.products.products_count }} ({{ nbHits }})
+            {{ $page.props.$t.products.products_count }} ({{ nbHits }})
 
             <div
               slot="no-results"
@@ -238,7 +238,7 @@
                       class="product__show-more-button"
                       @click="refineNext"
                     >
-                      {{ $page.$t.products.show_more }}
+                      {{ $page.props.$t.products.show_more }}
                     </button>
                   </div>
                 </div>

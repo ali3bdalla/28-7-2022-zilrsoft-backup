@@ -5,71 +5,57 @@
         <div class="">
           <div class="col-lg-6 offset-lg-3">
             <div class="text-center login-form">
-              <h2>{{ $page.$t.profile.sign_up }}</h2>
-              <form action="#">
+              <h2>{{ $page.props.$t.profile.sign_up }}</h2>
+              <form @submit.prevent="form.post('/web/sign_up')">
                 <div class="flex flex-col">
                   <div class="flex-1 group-input  page__dir-left">
-                    <label for="phone_number">{{ $page.$t.profile.phone_number }}</label>
+                    <label>{{ $page.props.$t.profile.phone_number }}</label>
                     <InternationalPhoneNumberSelectorComponent
-                        v-model="phone_number"></InternationalPhoneNumberSelectorComponent>
+                        v-model="form.phone_number"></InternationalPhoneNumberSelectorComponent>
                     <div
-                        v-if="$page.errors && $page.errors.phone_number"
+                        v-if="form.errors.phone_number"
                         class="p-2 text-red-500"
                     >
-                      {{ $page.errors.phone_number }}
+                      {{ form.errors.phone_number }}
                     </div>
                   </div>
                   <div class="flex-1 group-input">
-                    <label for="password">{{ $page.$t.profile.password }}</label>
+                    <label>{{ $page.props.$t.profile.password }}</label>
                     <input
-                        id="password"
-                        v-model="password"
-                        auto-complete="new-zilrsoft-password"
-                        autocomplete="new-zilrsoft-password"
-
+                        v-model="form.password"
                         type="password"
                     />
-                    <div v-if="$page.errors && $page.errors.password" class="p-2 text-red-500">
-                      {{ $page.errors.password }}
+                    <div v-if="form.errors.password" class="p-2 text-red-500">
+                      {{ form.errors.password }}
                     </div>
                   </div>
                 </div>
 
                 <div class="flex">
                   <div class="flex-1 group-input">
-                    <label for="first_name">{{ $page.$t.profile.first_name }}</label>
+                    <label>{{ $page.props.$t.profile.first_name }}</label>
                     <input
-                        id="first_name"
-                        v-model="first_name"
-
-                        type="text"
-                    />
+                        v-model="form.first_name"
+                        type="text"/>
                     <div
-                        v-if="$page.errors && $page.errors.first_name"
+                        v-if="form.errors.first_name"
                         class="p-2 text-red-500"
                     >
-                      {{ $page.errors.first_name }}
+                      {{ form.errors.first_name }}
                     </div>
                   </div>
                   <div class="flex-1 group-input">
-                    <label for="last_name">{{ $page.$t.profile.last_name }}</label>
+                    <label>{{ $page.props.$t.profile.last_name }}</label>
                     <input
-                        id="last_name"
-                        v-model="last_name"
-
-                        type="text"
-                    />
-                    <div v-if="$page.errors && $page.errors.last_name" class="p-2 text-red-500">
-                      {{ $page.errors.last_name }}
+                        v-model="form.last_name"
+                        type="text"/>
+                    <div v-if="form.errors.last_name" class="p-2 text-red-500">
+                      {{ form.errors.last_name }}
                     </div>
                   </div>
                 </div>
-                <button
-                    class="site-btn login-btn"
-                    type="button"
-                    @click="submitSignUp"
-                >
-                  {{ $page.$t.profile.sign_up }}
+                <button class="site-btn login-btn" type="submit"  :disabled="form.processing">
+                  {{ $page.props.$t.profile.sign_up }}
                 </button>
               </form>
             </div>
@@ -95,28 +81,13 @@ export default {
   },
   data () {
     return {
-      phone_number: '',
-      password: '',
-      first_name: '',
-      last_name: ''
+      form: this.$inertia.form({
+        phone_number: '',
+        password: '',
+        first_name: '',
+        last_name: ''
+      }),
     }
   },
-
-  methods: {
-    submitSignUp () {
-      this.$inertia.post(
-          '/web/sign_up',
-          {
-            phone_number: this.phone_number,
-            password: this.password,
-            first_name: this.first_name,
-            last_name: this.last_name
-          }
-      )
-    }
-  },
-
-  computed: {},
-  watch: {}
 }
 </script>

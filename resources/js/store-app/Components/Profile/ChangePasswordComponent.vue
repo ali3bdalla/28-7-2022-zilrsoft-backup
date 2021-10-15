@@ -8,7 +8,7 @@
             <div class="">
               <input
                 type="password"
-                :placeholder="$page.$t.profile.password"
+                :placeholder="$page.props.$t.profile.password"
                 v-model="old_password"
               />
               <div class="p-2 text-red-500" v-if="errors.old_password">
@@ -21,7 +21,7 @@
             <div class="">
               <input
                 type="password"
-                :placeholder="$page.$t.profile.new_password"
+                :placeholder="$page.props.$t.profile.new_password"
                 v-model="password"
               />
               <div class="p-2 text-red-500" v-if="errors.password">
@@ -35,7 +35,7 @@
               <input
                 type="password"
                 v-model="password_confirmation"
-                :placeholder="$page.$t.profile.password_confirmation"
+                :placeholder="$page.props.$t.profile.password_confirmation"
               />
               <div class="p-2 text-red-500" v-if="errors.password_confirmation">
                 {{ errors.password_confirmation }}
@@ -45,7 +45,7 @@
 
           <div class="col-lg-12">
             <button type="submit" class="site-btn" @click="saveData">
-              {{ $page.$t.common.update }}
+              {{ $page.props.$t.common.update }}
             </button>
           </div>
         </div>
@@ -71,8 +71,8 @@ export default {
         .post('/web/profile/update-password', this.$data)
         .then((res) => {
           this.$fire({
-            title: this.$page.$t.messages.success,
-            text: this.$page.$t.messages.password_has_been_changed,
+            title: this.$page.props.$t.messages.success,
+            text: this.$page.props.$t.messages.password_has_been_changed,
             type: 'success',
             timer: 3000
           }).then((r) => {

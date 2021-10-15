@@ -1,7 +1,6 @@
 <template>
   <WebAppLayout>
-    <RenderResultComponent message="verification code has been sent,please check your whatsapp/sms notifications"
-                           title="sent"></RenderResultComponent>
+    <RenderResultComponent :message="$page.props.$t.messages.verification_code_sent"  :title="$page.props.$t.common.done"></RenderResultComponent>
   </WebAppLayout>
 </template>
 

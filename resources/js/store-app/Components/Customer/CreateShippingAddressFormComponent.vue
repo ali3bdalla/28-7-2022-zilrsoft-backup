@@ -5,22 +5,22 @@
         <div class="col-lg-12">
           <div class="contact-form">
             <div class="leave-comment">
-              <h4>{{ $page.$t.cart.create_shipping_address }}</h4>
+              <h4>{{ $page.props.$t.cart.create_shipping_address }}</h4>
               <div action="#" class="comment-form">
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="form-group">
                       <input
                           v-model="first_name"
-                          :placeholder="$page.$t.profile.first_name"
+                          :placeholder="$page.props.$t.profile.first_name"
                           class="px-2"
                           type="text"
                       />
                       <div
-                          v-if="$page.errors && $page.errors.first_name"
+                          v-if="$page.props.errors && $page.props.errors.first_name"
                           class="p-2 text-red-500"
                       >
-                        {{ $page.errors.first_name }}
+                        {{ $page.props.errors.first_name }}
                       </div>
                     </div>
                   </div>
@@ -28,15 +28,15 @@
                     <div class="form-group">
                       <input
                           v-model="last_name"
-                          :placeholder="$page.$t.profile.last_name"
+                          :placeholder="$page.props.$t.profile.last_name"
                           class="px-2"
                           type="text"
                       />
                       <div
-                          v-if="$page.errors && $page.errors.last_name"
+                          v-if="$page.props.errors && $page.props.errors.last_name"
                           class="p-2 text-red-500"
                       >
-                        {{ $page.errors.last_name }}
+                        {{ $page.props.errors.last_name }}
                       </div>
                     </div>
                   </div>
@@ -48,7 +48,7 @@
                           :no-example="true"
                           :only-countries="['SA']"
                           :translations="{
-                            countrySelectorLabel: $page.$t.profile.country,
+                            countrySelectorLabel: $page.props.$t.profile.country,
                             countrySelectorError: 'Choisir un pays',
                             phoneNumberLabel: '5XXXXXXXXX',
                             example: 'ex: 5XXXXXXXXX',
@@ -58,16 +58,16 @@
 
                       <!--                        <input type="text" placeholder="Phone Number" v-model="phone_number">-->
                       <div
-                          v-if="$page.errors && $page.errors.phone_number"
+                          v-if="$page.props.errors && $page.props.errors.phone_number"
                           class="p-2 text-red-500"
                       >
-                        {{ $page.errors.phone_number }}
+                        {{ $page.props.errors.phone_number }}
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-6">
                     <div class="form-group">
-                      <el-select v-model="city_id" :filterable="true" :placeholder=" $page.$t.messages.select_city"
+                      <el-select v-model="city_id" :filterable="true" :placeholder=" $page.props.$t.messages.select_city"
                                  class="page__w-full"
                                  no-data-text="No" no-match-text="No Data">
                         <!-- <template #prefix>Click Me</template> -->
@@ -91,11 +91,11 @@
                                   stroke-width="2"
                               />
                             </svg>
-                            {{ $page.$t.messages.select_city }}
+                            {{ $page.props.$t.messages.select_city }}
                           </a>
                         </template>
                         <el-option
-                            v-for="city in $page.cities"
+                            v-for="city in $page.props.cities"
                             :key="city.id"
                             :label="city.locale_name"
                             :value="city.id">
@@ -103,10 +103,10 @@
                         </el-option>
                       </el-select>
                       <div
-                          v-if="$page.errors && $page.errors.city_id"
+                          v-if="$page.props.errors && $page.props.errors.city_id"
                           class="p-2 text-red-500"
                       >
-                        {{ $page.errors.city_id }}
+                        {{ $page.props.errors.city_id }}
                       </div>
                     </div>
                   </div>
@@ -115,15 +115,15 @@
                     <div class="form-group">
                       <input
                           v-model="street_name"
-                          :placeholder="$page.$t.profile.street_name"
+                          :placeholder="$page.props.$t.profile.street_name"
                           class="px-2"
                           type="text"
                       />
                       <div
-                          v-if="$page.errors && $page.errors.description"
+                          v-if="$page.props.errors && $page.props.errors.description"
                           class="p-2 text-red-500"
                       >
-                        {{ $page.errors.description }}
+                        {{ $page.props.errors.description }}
                       </div>
                     </div>
                   </div>
@@ -131,15 +131,15 @@
                     <div class="form-group">
                       <input
                           v-model="area"
-                          :placeholder="$page.$t.profile.area"
+                          :placeholder="$page.props.$t.profile.area"
                           class="px-2"
                           type="text"
                       />
                       <div
-                          v-if="$page.errors && $page.errors.description"
+                          v-if="$page.props.errors && $page.props.errors.description"
                           class="p-2 text-red-500"
                       >
-                        {{ $page.errors.description }}
+                        {{ $page.props.errors.description }}
                       </div>
 
                     </div>
@@ -148,20 +148,20 @@
                     <div class="form-group">
                       <input
                           v-model="description"
-                          :placeholder="$page.$t.profile.address"
+                          :placeholder="$page.props.$t.profile.address"
                           class="px-2"
                           type="text"
                       />
                       <div
-                          v-if="$page.errors && $page.errors.description"
+                          v-if="$page.props.errors && $page.props.errors.description"
                           class="p-2 text-red-500"
                       >
-                        {{ $page.errors.description }}
+                        {{ $page.props.errors.description }}
                       </div>
 
                     </div>
                     <button class="site-btn" type="submit" @click="saveData">
-                      {{ $page.$t.common.save }}
+                      {{ $page.props.$t.common.save }}
                     </button>
                   </div>
 
@@ -183,9 +183,9 @@ import 'vue-phone-number-input/dist/vue-phone-number-input.css'
 export default {
   data () {
     return {
-      first_name: this.$page.client.first_name,
-      last_name: this.$page.client.last_name,
-      phone_number: this.$page.client.phone_number,
+      first_name: this.$page.props.client.first_name,
+      last_name: this.$page.props.client.last_name,
+      phone_number: this.$page.props.client.phone_number,
       building_number: '',
       street_name: '',
       area: '',

@@ -10,9 +10,9 @@
                   <a href="/web">
                     <img
                       alt=""
-                      :src="$page.active_logo"
+                      :src="$page.props.active_logo"
                       :style="
-                        $page.active_locale == 'en'
+                        $page.props.active_locale == 'en'
                           ? 'width: 6rem; padding-top: 2px'
                           : 'width: 5rem; padding-top: 2px'
                       "
@@ -33,20 +33,20 @@
             <a
               class="page__header-buttons__item login-panel"
               href="/web/sign_in"
-              v-if="!$page.client_logged"
+              v-if="!$page.props.client_logged"
               ><i class="fa fa-user" style="font-size: 22px"></i> &nbsp;
-              {{ $page.$t.profile.login }}</a
+              {{ $page.props.$t.profile.login }}</a
             >
             <el-dropdown v-else>
               <el-button>
-                {{ $page.client.name }} <i class="el-icon-arrow-down el-icon--right"></i>
+                {{ $page.props.client.name }} <i class="el-icon-arrow-down el-icon--right"></i>
               </el-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
-                  <inertia-link href="/web/profile">{{ $page.$t.profile.profile }}</inertia-link>
+                  <inertia-link href="/web/profile">{{ $page.props.$t.profile.profile }}</inertia-link>
                 </el-dropdown-item>
                 <el-dropdown-item>
-                  <inertia-link href="/web/logout">{{ $page.$t.profile.logout }}</inertia-link>
+                  <inertia-link href="/web/logout">{{ $page.props.$t.profile.logout }}</inertia-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -55,7 +55,7 @@
               class="page__header-buttons__item login-panel"
               href="/web/profile"
               ><i class="fa fa-user" style="font-size: 22px"></i> &nbsp;
-              {{ $page.client.name }}</a
+              {{ $page.props.client.name }}</a
             > -->
           </div>
 
@@ -73,9 +73,9 @@
                 <a href="/web">
                   <img
                     alt=""
-                    :src="$page.active_logo"
+                    :src="$page.props.active_logo"
                     :style="
-                      $page.active_locale == 'en'
+                      $page.props.active_locale == 'en'
                         ? 'width: 7rem; padding-top: 2px'
                         : 'width: 6rem; padding-top: 2px'
                     "

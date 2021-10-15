@@ -12,7 +12,7 @@
 export default {
   computed: {
     activateLang () {
-      return this.langs[this.$page.active_locale]
+      return this.langs[this.$page.props.active_locale]
     }
   },
   data () {

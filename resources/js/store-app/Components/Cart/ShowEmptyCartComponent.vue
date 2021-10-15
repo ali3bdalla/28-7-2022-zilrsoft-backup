@@ -18,10 +18,10 @@
         </svg>
       </div>
      <div>
-        <h1 class="text-4xl text-gray-600">{{$page.$t.cart.cart_empty}}</h1>
+        <h1 class="text-4xl text-gray-600">{{$page.props.$t.cart.cart_empty}}</h1>
      </div>
      <div class="mt-5">
-         <inertia-link href="/web" class="bg-gray-800 text-white px-4 py-2 rounded-full shadow-lg text-lg uppercase">{{$page.$t.cart.shopping_here}}</inertia-link>
+         <inertia-link href="/web" class="bg-gray-800 text-white px-4 py-2 rounded-full shadow-lg text-lg uppercase">{{$page.props.$t.cart.shopping_here}}</inertia-link>
      </div>
     </div>
   </div>

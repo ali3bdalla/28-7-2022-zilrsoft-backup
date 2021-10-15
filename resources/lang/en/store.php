@@ -30,7 +30,7 @@ return [
         'select_account' => 'Select Account',
         'create_new_account' => 'Add Account',
         'select_or_create_account' => 'Select/Add Account',
-
+        "done" => "Done",
         'back' => 'Back',
         'save' => 'Save',
         'back_to_home' => 'Back to home',
@@ -55,6 +55,9 @@ return [
     ],
 
     'messages' => [
+        "account_not_verified" => "Your account has not been verified yet, if you have any issue with receiving otp, Preregister again",
+        "account_verified" => "Your account has been verified",
+        "verification_code_sent" => "verification code has been sent",
         'order_has_been_shipping' => '
 Success delivered,
 Happy to serve you',

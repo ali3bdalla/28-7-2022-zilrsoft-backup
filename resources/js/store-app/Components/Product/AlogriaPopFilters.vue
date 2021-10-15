@@ -19,7 +19,7 @@
           d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
         />
       </svg>
-      {{ $page.$t.products.filters }}
+      {{ $page.props.$t.products.filters }}
     </button>
     <div
       ref="filters_pop_model"
@@ -33,7 +33,7 @@
           <div class="row page__mt-5">
             <div class="col-md-6 col-6 text-center">
               <button @click="hide" class="btn btn-primary applyBtn px-5">
-                {{ $page.$t.products.apply }}
+                {{ $page.props.$t.products.apply }}
               </button>
             </div>
             <div class="col-md-6 col-6 text-center">
@@ -41,7 +41,7 @@
                 @click="hide"
                 class="btn btn-default resetBtn bg-web-primary px-5"
               >
-                {{ $page.$t.products.reset }}
+                {{ $page.props.$t.products.reset }}
               </button>
             </div>
           </div>
@@ -54,26 +54,26 @@
                 attribute="online_offer_price"
                 :items="[
                   {
-                    label: `${$page.$t.products.all} ${$page.$t.products.prices}`,
+                    label: `${$page.props.$t.products.all} ${$page.props.$t.products.prices}`,
                   },
-                  { label: `1-100 ${$page.$t.products.sar}`, end: 100 },
+                  { label: `1-100 ${$page.props.$t.products.sar}`, end: 100 },
                   {
-                    label: `101-1000 ${$page.$t.products.sar}`,
+                    label: `101-1000 ${$page.props.$t.products.sar}`,
                     start: 101,
                     end: 1000,
                   },
                   {
-                    label: `1001-2000 ${$page.$t.products.sar}`,
+                    label: `1001-2000 ${$page.props.$t.products.sar}`,
                     start: 1001,
                     end: 2000,
                   },
                   {
-                    label: `2001-4000 ${$page.$t.products.sar}`,
+                    label: `2001-4000 ${$page.props.$t.products.sar}`,
                     start: 2001,
                     end: 4000,
                   },
                   {
-                    label: `${$page.$t.products.more_than} 4000 ${$page.$t.products.sar}`,
+                    label: `${$page.props.$t.products.more_than} 4000 ${$page.props.$t.products.sar}`,
                     start: 4001,
                   },
                 ]"
@@ -91,7 +91,7 @@
                       border-width: 2px !important;
                     "
                   >
-                    {{ $page.$t.products.price }}
+                    {{ $page.props.$t.products.price }}
                   </h6>
                   <div
                     class="mb-1 fw-brand-check pt-3 grid grid-cols-1 md:grid-cols-4 gap-0 md:gap-2"
@@ -134,7 +134,7 @@
                 :transform-items="applyTransformation"
                 :show-more="false"
                 :attribute="
-                  $page.active_locale == 'en'
+                  $page.props.active_locale == 'en'
                     ? 'category_name'
                     : 'category_ar_name'
                 "
@@ -165,7 +165,7 @@
                       border-width: 2px !important;
                     "
                   >
-                    {{ $page.$t.products.category }}
+                    {{ $page.props.$t.products.category }}
                   </h6>
                   <div
                     class="mb-1 fw-brand-check pt-3 grid grid-cols-1 md:grid-cols-4 gap-0 md:gap-2"
@@ -197,7 +197,7 @@
 
             <div
               v-if="shouldBeAvailable(filter)"
-              v-for="filter in $page.algolia_search_filters"
+              v-for="filter in $page.props.algolia_search_filters"
               :key="filter"
               class="w-full"
             >
@@ -281,14 +281,14 @@ export default {
       }))
     },
     actulFilterName (filename) {
-      if (this.$page.active_locale === 'ar') {
+      if (this.$page.props.active_locale === 'ar') {
         return `${filename}`.replace('ar_filters_', '')
       }
       return `${filename}`.replace('filters_', '')
     },
 
     shouldBeAvailable (filter) {
-      if (this.$page.active_locale === 'ar') {
+      if (this.$page.props.active_locale === 'ar') {
         return !filter.indexOf('ar_filters_') && filter !== 'category_name'
       }
 

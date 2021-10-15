@@ -23,9 +23,9 @@
         <div class="row">
           <div class="col-lg-5">
             <div class="contact-title">
-              <h4>{{ $page.$t.common.contact_us }}</h4>
+              <h4>{{ $page.props.$t.common.contact_us }}</h4>
               <!-- <p>
-               {{ $page.$t.common.contact_us_message }}
+               {{ $page.props.$t.common.contact_us_message }}
               </p> -->
             </div>
             <div class="contact-widget">
@@ -34,8 +34,8 @@
                   <i class="ti-location-pin"></i>
                 </div>
                 <div class="ci-text">
-                  <span>{{ $page.$t.profile.address }}:</span>
-                  <p>{{ $page.app.msbrshop.address[$page.active_locale] }}</p>
+                  <span>{{ $page.props.$t.profile.address }}:</span>
+                  <p>{{ $page.props.app.msbrshop.address[$page.props.active_locale] }}</p>
                 </div>
               </div>
               <div class="cw-item">
@@ -43,8 +43,8 @@
                   <i class="ti-mobile"></i>
                 </div>
                 <div class="ci-text">
-                  <span>{{ $page.$t.profile.tel }}:</span>
-                  <p class="direction: ltr !important">{{ $page.app.msbrshop.phone_number }}</p>
+                  <span>{{ $page.props.$t.profile.tel }}:</span>
+                  <p class="direction: ltr !important">{{ $page.props.app.msbrshop.phone_number }}</p>
                 </div>
               </div>
               <div class="cw-item">
@@ -52,8 +52,8 @@
                   <i class="fa fa-message"></i>
                 </div>
                 <div class="ci-text">
-                  <span>{{ $page.$t.profile.email_address }}:</span>
-                  <p>{{ $page.app.msbrshop.email_address }}</p>
+                  <span>{{ $page.props.$t.profile.email_address }}:</span>
+                  <p>{{ $page.props.app.msbrshop.email_address }}</p>
                 </div>
               </div>
             </div>
@@ -61,20 +61,20 @@
           <div class="col-lg-6 offset-lg-1" style="margin-right:0px !important">
             <div class="contact-form">
               <div class="leave-comment">
-                <h4>{{$page.$t.common.keep_message}}</h4>
+                <h4>{{$page.props.$t.common.keep_message}}</h4>
                 <!-- <p>Our staff will call back later and answer your questions.</p> -->
                 <form action="#" class="comment-form">
                   <div class="row">
                     <div class="col-lg-6">
-                      <input type="text" :placeholder="$page.$t.contact.name" />
+                      <input type="text" :placeholder="$page.props.$t.contact.name" />
                     </div>
                     <div class="col-lg-6">
-                      <input type="text" :placeholder="$page.$t.contact.email" />
+                      <input type="text" :placeholder="$page.props.$t.contact.email" />
                     </div>
                     <div class="col-lg-12">
-                      <textarea :placeholder="$page.$t.contact.message"></textarea>
+                      <textarea :placeholder="$page.props.$t.contact.message"></textarea>
                       <button type="submit" class="site-btn w-full">
-                        {{  $page.$t.contact.send }}
+                        {{  $page.props.$t.contact.send }}
                       </button>
                     </div>
                   </div>

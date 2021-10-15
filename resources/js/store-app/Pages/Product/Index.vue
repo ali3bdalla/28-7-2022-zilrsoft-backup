@@ -5,11 +5,11 @@
         <div class="page__mt-2" v-if="items.length > 2">
           <div class="product__search-options">
             <filters-pop
-              v-if="$page.categoryId"
+              v-if="$page.props.categoryId"
               :items="items"
-              :search-name="$page.name"
+              :search-name="$page.props.name"
               @subCategoryHasBeenUpdated="subCategoryHasBeenUpdated"
-              :category-id="$page.categoryId"
+              :category-id="$page.props.categoryId"
               @selectedAttributesHasBeenUpdated="
                 selectedAttributesHasBeenUpdated
               "
@@ -61,7 +61,7 @@ export default {
     return {
       isLoading: false,
       filterValues: [],
-      filters: this.$page.filters,
+      filters: this.$page.props.filters,
       items: [],
       priceRange: {},
       orderBy: 'available_qty',
@@ -76,9 +76,9 @@ export default {
     params () {
       return {
         available_only: this.available_only,
-        search_via: this.$page.search_via,
-        category_id: this.$page.categoryId,
-        name: this.$page.name,
+        search_via: this.$page.props.search_via,
+        category_id: this.$page.props.categoryId,
+        name: this.$page.props.name,
         order_by: this.orderBy,
         order_direction: this.orderDirection,
         filters_values: this.filterValues,
@@ -120,7 +120,7 @@ export default {
     },
 
     expandFilterValues (filterIndex, expand = true) {
-      const filters = this.$page.filters
+      const filters = this.$page.props.filters
       filters[filterIndex].expand_values = true
       this.filters = filters
     },

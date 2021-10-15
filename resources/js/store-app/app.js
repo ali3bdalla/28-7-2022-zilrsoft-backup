@@ -1,4 +1,5 @@
-import { InertiaApp } from '@inertiajs/inertia-vue'
+import { createInertiaApp,Link as inertiaLink} from '@inertiajs/inertia-vue'
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueLogger from 'vuejs-logger'
@@ -85,15 +86,14 @@ Vue.use(Dialog, {
   background: 'rgba(0, 0, 0, 0.5)'
 })
 Vue.use(vClickOutside)
-Vue.use(InertiaApp)
+Vue.component('InertiaLink', inertiaLink)
+createInertiaApp({
+  resolve: name => require(`./Pages/${name}`),
+  setup({ el, App, props }) {
+    new Vue({
+      store: new Vuex.Store(require('./state')),
+      render: h => h(App, props),
+    }).$mount(el)
+  },
+})
 
-new Vue({
-  store: new Vuex.Store(require('./state')),
-  render: h =>
-    h(InertiaApp, {
-      props: {
-        initialPage: JSON.parse(app.dataset.page),
-        resolveComponent: name => require(`./Pages/${name}`).default
-      }
-    })
-}).$mount(app)

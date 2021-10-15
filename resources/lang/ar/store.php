@@ -23,7 +23,7 @@ return [
         'select_account' => 'اختر حساب',
         'create_new_account' => 'اضافة حساب',
         'select_or_create_account' => 'اختر او اضف حساب',
-
+        "done" => "نجاح",
         'save' => 'حفظ',
         'back_to_home' => 'عودة للصفحة الرئيسية',
         'completed_message' => 'تم تعديل البيانات  بنجاح',
@@ -55,6 +55,9 @@ return [
     ],
 
     'messages' => [
+        "account_not_verified" => "لم يتم تاكيد الحساب بعد، عزراً لا يمكنك تسجيل الدخول الا بعد اكمال تاكيد الحساب,  اذا واجهتك مشكلة في استلام الرمز ، قم باعادة انشاء الحساب مجدداً",
+        "account_verified" => "تم تاكيد حسابك بنجاح",
+        "verification_code_sent" => "تم ارسال رمز التاكيد",
         'notify_unpaid_order_message' => "تذكير..\n سوف تنتهي مهلة سداد الطلب رقم (:ORDERID) قريبا \n يرجى السداد قبل \n:DATE\n:TIME",
         'as_your_request' => '1- بناء على طلبك',
         'not_paid' => '1- إنتهاء مهلة السداد',

@@ -19,8 +19,8 @@
             stroke-width="2"
         />
       </svg>
-      <span v-if="item.available_qty">{{ $page.$t.products.add_to_cart }}</span>
-      <span v-else>{{ $page.$t.products.add_to_favourite }}</span>
+      <span v-if="item.available_qty">{{ $page.props.$t.products.add_to_cart }}</span>
+      <span v-else>{{ $page.props.$t.products.add_to_favourite }}</span>
     </button>
     <button v-else class="product__remove-from-cart-button" @click="removeItem">
       <svg
@@ -37,8 +37,8 @@
             stroke-width="2"
         />
       </svg>
-      <span v-if="item.available_qty">{{ $page.$t.products.remove_to_cart }}</span>
-      <span v-else>{{ $page.$t.products.remove_from_favourite }}</span>
+      <span v-if="item.available_qty">{{ $page.props.$t.products.remove_to_cart }}</span>
+      <span v-else>{{ $page.props.$t.products.remove_from_favourite }}</span>
     </button>
   </div>
 </template>

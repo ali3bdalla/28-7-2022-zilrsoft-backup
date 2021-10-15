@@ -14,7 +14,7 @@
             />
           </div>
           <div
-              v-if="$page.client && activePage === 'checkout' && showCart"
+              v-if="$page.props.client && activePage === 'checkout' && showCart"
               class="col-12">
             <div class="w-full">
               <cart-shipping-address
@@ -33,7 +33,7 @@
                            value-key="id"
                            @change="loadShippingMethods">
                   <el-option
-                      v-for="city in $page.cities"
+                      v-for="city in $page.props.cities"
                       :key="city.id"
                       :label="city.locale_name"
                       :value="city">
@@ -42,7 +42,7 @@
                 </el-select>
               </div>
               <h1 class="cart__shipping-method-title">
-                {{ $page.$t.cart.shipping_method }}
+                {{ $page.props.$t.cart.shipping_method }}
               </h1>
               <div class="cart__shipping-method-list">
                 <div
@@ -116,7 +116,7 @@ export default {
     selectedCityName () {
       if(this.cityId)
         return this.cityId.locale_name
-      return  this.$page.$t.messages.select_city;
+      return  this.$page.props.$t.messages.select_city;
     },
     showCart () {
       return this.$store.state.cart.length
@@ -187,9 +187,9 @@ export default {
       this.activePage = e.page
     },
     issueOrder () {
-      this.$confirm('', this.$page.$t.messages.are_you_sure, 'success', {
-        confirmButtonText: this.$page.$t.messages.yes,
-        cancelButtonText: this.$page.$t.messages.no
+      this.$confirm('', this.$page.props.$t.messages.are_you_sure, 'success', {
+        confirmButtonText: this.$page.props.$t.messages.yes,
+        cancelButtonText: this.$page.props.$t.messages.no
       }).then(() => {
         this.$loading.show({ delay: 0 })
         axios.post('/api/web/orders',
@@ -228,12 +228,12 @@ export default {
       )
       return new Promise((resolve, reject) => {
         this.$alert(
-            `${this.$page.$t.order.instructions_for_payment} ${number}`,
-            this.$page.$t.order.thanks_for_order,
+            `${this.$page.props.$t.order.instructions_for_payment} ${number}`,
+            this.$page.props.$t.order.thanks_for_order,
             'success',
             {
-              confirmButtonText: this.$page.$t.messages.yes,
-              cancelButtonText: this.$page.$t.messages.no
+              confirmButtonText: this.$page.props.$t.messages.yes,
+              cancelButtonText: this.$page.props.$t.messages.no
             }
         ).then(() => {
           location.href = '/web/profile'

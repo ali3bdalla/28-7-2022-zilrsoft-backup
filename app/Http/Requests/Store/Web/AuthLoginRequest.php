@@ -31,9 +31,9 @@ class AuthLoginRequest extends FormRequest
         ];
     }
 
-    public function getPhoneNumber(): PhoneNumber
+    public function getPhoneNumber(): string
     {
-        return PhoneNumber::make($this->input('phone_number'))->ofCountry("SA");
+        return $this->input('phone_number');
     }
 
     public function getPassword()

@@ -19,7 +19,7 @@
           d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
         />
       </svg>
-      {{ $page.$t.products.sorting_via }}
+      {{ $page.props.$t.products.sorting_via }}
 
     </button>
 
@@ -45,29 +45,29 @@ export default {
       },
       list: [
         {
-          title: this.$page.$t.products.sorting_low_price,
+          title: this.$page.props.$t.products.sorting_low_price,
           key: 'online_offer_price',
           direction: 'asc'
         },
         {
-          title: this.$page.$t.products.sorting_high_price,
+          title: this.$page.props.$t.products.sorting_high_price,
           key: 'online_offer_price',
           direction: 'desc'
         },
 
         {
-          title: this.$page.$t.products.sorting_lastest,
+          title: this.$page.props.$t.products.sorting_lastest,
           key: 'id',
           direction: 'desc'
         },
 
         {
-          title: this.$page.$t.products.sorting_oldest,
+          title: this.$page.props.$t.products.sorting_oldest,
           key: 'id',
           direction: 'asc'
         }
         // {
-        //   title: this.$page.$t.products.sorting_only_available,
+        //   title: this.$page.props.$t.products.sorting_only_available,
         //   key: 'available_qty',
         //   direction: 'asc'
         // }

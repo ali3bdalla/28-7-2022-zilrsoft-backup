@@ -5,13 +5,13 @@
         <div class="row">
           <div class="text-center col-lg-6 offset-lg-3">
             <div class="login-form">
-              <h2>{{ $page.$t.profile.reset_password }}</h2>
+              <h2>{{ $page.props.$t.profile.reset_password }}</h2>
 
               <form action="#">
                 <div class="flex flex-col">
                   <div class="flex-1 group-input">
                     <label for="password">{{
-                        $page.$t.profile.password
+                        $page.props.$t.profile.password
                       }}</label>
                     <input
                         id="password"
@@ -21,15 +21,15 @@
                         type="password"
 
                     />
-                    <div v-if="$page.errors && $page.errors.password" class="p-2 text-red-500">
-                      {{ $page.errors.password }}
+                    <div v-if="$page.props.errors && $page.props.errors.password" class="p-2 text-red-500">
+                      {{ $page.props.errors.password }}
                     </div>
                   </div>
                 </div>
 
                 <div class="flex-1 group-input">
                   <label for="password">{{
-                      $page.$t.profile.password_confirmation
+                      $page.props.$t.profile.password_confirmation
                     }}</label>
                   <input
                       id="password_confirmation"
@@ -40,10 +40,10 @@
 
                   />
                   <div
-                      v-if="$page.errors && $page.errors.password_confirmation"
+                      v-if="$page.props.errors && $page.props.errors.password_confirmation"
                       class="p-2 text-red-500"
                   >
-                    {{ $page.errors.password_confirmation }}
+                    {{ $page.props.errors.password_confirmation }}
                   </div>
                 </div>
               </form>
@@ -53,7 +53,7 @@
                   type="button"
                   @click="submitForm"
               >
-                {{ $page.$t.profile.reset_password }}
+                {{ $page.props.$t.profile.reset_password }}
               </button>
 
             </div>

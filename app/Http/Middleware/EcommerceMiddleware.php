@@ -3,23 +3,41 @@
 namespace App\Http\Middleware;
 
 use App\Models\Category;
-use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Inertia\Inertia;
+use Inertia\Middleware;
 
-class EcommerceMiddleware
+class EcommerceMiddleware extends Middleware
 {
     /**
-     * Handle an incoming request.
+     * The root template that's loaded on the first page visit.
      *
-     * @param Request $request
-     *
-     * @return mixed
+     * @see https://inertiajs.com/server-side-setup#root-template
+     * @var string
      */
-    public function handle($request, Closure $next)
+    protected $rootView = 'web';
+
+    /**
+     * Determines the current asset version.
+     *
+     * @see https://inertiajs.com/asset-versioning
+     * @param  \Illuminate\Http\Request  $request
+     * @return string|null
+     */
+    public function version(Request $request)
     {
-        Inertia::setRootView('web');
+        return parent::version($request);
+    }
+
+    /**
+     * Defines the props that are shared by default.
+     *
+     * @see https://inertiajs.com/shared-data
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function share(Request $request)
+    {
         $activeLang = Session::get('webActiveLang', 'ar');
         $langs = ['ar', 'en'];
         if ($request->has('web_active_lang') && $request->filled('web_active_lang') && in_array($request->input('web_active_lang'), $langs)) {
@@ -38,26 +56,21 @@ class EcommerceMiddleware
                 $searchFilters[] = str_replace(')', '', $searchFilter);
             }
         }
-        Inertia::share(
-            [
-                'active_logo' => 'ar' == $activeLang ? asset('images/logo_ar.png') : asset('images/logo_en.png'),
-                'active_locale' => app()->getLocale(),
-                'client_logged' => auth('client')->check(),
-                'client' => auth('client')->user(),
-                'app' => config('app'),
-                '$t' => __('store'),
-                'main_categories' => Category::where('parent_id', 0)->get(),
-                'algolia_items_search_as' => 'items_index',
-                'aloglia_daily_search_key' => '3b92b3e1e70e7c12777604f891614933',
-                'algolia_search_filters' => $searchFilters,
-                'algolia_app_key' => 'GM476AOG07',
-                'image_processing_url' => config('services.image_processing.url'),
-                'categories_search_list' => $this->getSearchCategories($request),
-                "errors" => []
-            ]
-        );
-
-        return $next($request);
+        return array_merge(parent::share($request), [
+            'active_logo' => 'ar' == $activeLang ? asset('images/logo_ar.png') : asset('images/logo_en.png'),
+            'active_locale' => app()->getLocale(),
+            'client_logged' => auth('client')->check(),
+            'client' => auth('client')->user(),
+            'app' => config('app'),
+            '$t' => __('store'),
+            'main_categories' => Category::where('parent_id', 0)->get(),
+            'algolia_items_search_as' => 'items_index',
+            'aloglia_daily_search_key' => '3b92b3e1e70e7c12777604f891614933',
+            'algolia_search_filters' => $searchFilters,
+            'algolia_app_key' => 'GM476AOG07',
+            'image_processing_url' => config('services.image_processing.url'),
+            'categories_search_list' => $this->getSearchCategories($request),
+        ]);
     }
 
     public function getSearchCategories($request): array

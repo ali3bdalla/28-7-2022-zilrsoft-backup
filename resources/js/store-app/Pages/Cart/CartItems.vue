@@ -14,7 +14,7 @@
                     {{ getItemNamme(item) }}
                   </p>
                   <p class="uppercase text-xl text-center">
-                    {{ item.online_offer_price }} {{ $page.$t.products.sar }}
+                    {{ item.online_offer_price }} {{ $page.props.$t.products.sar }}
                   </p>
                 </div>
                 <div class="prod-img border p-2 w-32 mx-auto">
@@ -38,8 +38,8 @@
                       :step="1"
                     ></el-input-number>
                     <div class="font-bold mt-2 text-xl">
-                      {{ $page.$t.products.total }}: &nbsp;
-                      {{ getCartProductTotal(item) }} {{ $page.$t.products.sar }}
+                      {{ $page.props.$t.products.total }}: &nbsp;
+                      {{ getCartProductTotal(item) }} {{ $page.props.$t.products.sar }}
                     </div>
                   </div>
                 </div>
@@ -65,11 +65,11 @@
         <thead>
           <tr>
             <th></th>
-            <th class="p-name">{{ $page.$t.products.name }}</th>
-            <th>{{ $page.$t.products.price }}</th>
-            <th>{{ $page.$t.products.quantity }}</th>
-            <th>{{ $page.$t.products.total }}</th>
-            <th v-if="$page.client_logged">
+            <th class="p-name">{{ $page.props.$t.products.name }}</th>
+            <th>{{ $page.props.$t.products.price }}</th>
+            <th>{{ $page.props.$t.products.quantity }}</th>
+            <th>{{ $page.props.$t.products.total }}</th>
+            <th v-if="$page.props.client_logged">
             <i v-if="cartItemsList.length >= 1" class="ti-close"></i>
             </th>
           </tr>
@@ -146,7 +146,7 @@ export default {
       return getProductTotal(product, { price: 'online_offer_price' })
     },
     getItemNamme (item) {
-      if (this.$page.active_locale === 'en') return item.name
+      if (this.$page.props.active_locale === 'en') return item.name
       return item.ar_name
     },
     updateProduct (payload) {
@@ -175,9 +175,9 @@ export default {
     },
 
     removeCartItem (item) {
-      this.$confirm(this.$page.$t.messages.are_you_sure, '', 'error', {
-        confirmButtonText: this.$page.$t.messages.yes,
-        cancelButtonText: this.$page.$t.messages.no
+      this.$confirm(this.$page.props.$t.messages.are_you_sure, '', 'error', {
+        confirmButtonText: this.$page.props.$t.messages.yes,
+        cancelButtonText: this.$page.props.$t.messages.no
       }).then(() => {
         this.$store.commit('removeFromCart', item)
       })

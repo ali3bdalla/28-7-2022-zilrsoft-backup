@@ -22,7 +22,7 @@
       </infinite-loading>
       <div v-else class="product__show-more-button-container">
         <button class="product__show-more-button" @click="infiniteHandler">
-          {{ $page.$t.products.show_more }}
+          {{ $page.props.$t.products.show_more }}
         </button>
       </div>
     </div>

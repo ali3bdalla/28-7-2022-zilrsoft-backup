@@ -48,6 +48,6 @@ class SignUpPhoneNumberVerificationCodeNotification extends Notification impleme
 
     public function toWhatsappMessage($notifiable): string
     {
-        return 'رابط تاكيد التسجيل : ' . $this->createVerificationUrl($notifiable);
+        return 'رابط تاكيد الحساب : ' . $this->createVerificationUrl($notifiable);
     }
 }

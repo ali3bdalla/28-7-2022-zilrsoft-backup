@@ -4,7 +4,7 @@
       <div class="breadcrumb-text breadcrumb-text-disable-last">
         <a
           :href="page.url"
-          v-for="(page, index) in $page.breadcrumb"
+          v-for="(page, index) in $page.props.breadcrumb"
           :key="index"
           >{{ page.title }}</a
         >
@@ -13,16 +13,16 @@
         <!--  -->
         <div class="product__search-options" v-if="items.length > 0">
           <filters-pop
-            v-if="this.$page.subcategories.length === 0"
+            v-if="this.$page.props.subcategories.length === 0"
             :items="items"
-            :search-name="$page.name"
+            :search-name="$page.props.name"
 
-            :category-id="$page.categoryId"
+            :category-id="$page.props.categoryId"
             @selectedAttributesHasBeenUpdated="selectedAttributesHasBeenUpdated"
           ></filters-pop>
           <CategoriesFilterPanelComponent
-              :category="$page.category"
-            :categories="this.$page.subcategories"
+              :category="$page.props.category"
+            :categories="this.$page.props.subcategories"
             v-else
             :show-subcategories="true"
           ></CategoriesFilterPanelComponent>
@@ -33,7 +33,7 @@
 
       <div
         class="product__search-page"
-        v-if="this.$page.category.products_count > 0"
+        v-if="this.$page.props.category.products_count > 0"
       >
         <div class="page__mt-2">
           <div class="product__search-options items-center">
@@ -46,10 +46,10 @@
       </div>
       <div class="page__mt-2 mt-4">
         <h1
-          v-if="this.$page.category.products_count > 0"
+          v-if="this.$page.props.category.products_count > 0"
           class="home__products-count"
         >
-          {{ this.$page.$t.products.products_count }} ({{ totalItems }})
+          {{ this.$page.props.$t.products.products_count }} ({{ totalItems }})
         </h1>
         <AutoReloadProductListComponent
           @listUpdated="listUpdated"
@@ -81,11 +81,11 @@ export default {
   },
   data () {
     return {
-      // params: { parent_category_id: this.$page.category.id },
+      // params: { parent_category_id: this.$page.props.category.id },
       images: [],
       items: [],
       filterValues: [],
-      totalItems: this.$page.category.products_count,
+      totalItems: this.$page.props.category.products_count,
       forceUpdate: 0
     }
   },
@@ -96,9 +96,9 @@ export default {
     params () {
       return {
         available_only: this.available_only,
-        search_via: this.$page.search_via,
-        parent_category_id: this.$page.category.id,
-        name: this.$page.name,
+        search_via: this.$page.props.search_via,
+        parent_category_id: this.$page.props.category.id,
+        name: this.$page.props.name,
         order_by: this.orderBy,
         order_direction: this.orderDirection,
         filters_values: this.filterValues,

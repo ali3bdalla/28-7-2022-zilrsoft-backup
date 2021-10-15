@@ -19,7 +19,7 @@
           d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
         />
       </svg>
-      {{ $page.$t.products.filters }}
+      {{ $page.props.$t.products.filters }}
     </button>
 
     <modal
@@ -34,7 +34,7 @@
       <div style="overflow-y: scroll; height: 100vh !important">
         <div class="closeBtnClass">
           <i @click="quiteModel" class="fa fa-close"></i>
-          {{ $page.$t.products.filters_for_search }} {{ searchName }} ({{
+          {{ $page.props.$t.products.filters_for_search }} {{ searchName }} ({{
             selectedValues.length
           }})
         </div>
@@ -45,7 +45,7 @@
                 @click="applyFilters"
                 class="btn btn-primary applyBtn px-5"
               >
-                {{ $page.$t.products.apply }}
+                {{ $page.props.$t.products.apply }}
               </button>
             </div>
             <div class="col-md-6 col-6 text-center">
@@ -54,7 +54,7 @@
                 :disabled="selectedValues.length == 0"
                 class="btn btn-default resetBtn bg-web-primary px-5"
               >
-                {{ $page.$t.products.reset }}
+                {{ $page.props.$t.products.reset }}
               </button>
             </div>
           </div>
@@ -171,7 +171,7 @@ export default {
       this.isSubCategoriesPanelOpen = !this.isSubCategoriesPanelOpen
     },
     getSelectedCategory () {
-      return this.$page.categoryId
+      return this.$page.props.categoryId
     },
 
     getSelectedFiltersMap () {

@@ -1,6 +1,6 @@
 <template>
   <div
-    :style="$page.active_locale === 'ar' ? 'direction:rtl' : 'direction:ltr'"
+    :style="$page.props.active_locale === 'ar' ? 'direction:rtl' : 'direction:ltr'"
     class="product__list-item"
     style="border-color: #d2e8ff !important; border-width: 3px !important;"
   >
@@ -17,7 +17,7 @@
         v-if="item.available_qty <= 0 || item.category == null"
         class="product__list-item-category-name product__list-item-category-name__out-of-stock"
       >
-        <span> {{ $page.$t.products.out_of_stock }} </span>
+        <span> {{ $page.props.$t.products.out_of_stock }} </span>
       </h3>
       <a
         v-else
@@ -35,7 +35,7 @@
         {{ productName }}
       </a>
       <h6 class="product__list-item-model-number">
-        {{ $page.$t.products.model }} : {{ modelNumber }}
+        {{ $page.props.$t.products.model }} : {{ modelNumber }}
       </h6>
       <ProductRatingComponent
         :item="item"
@@ -46,11 +46,11 @@
           {{ parseFloat(item.online_offer_price).toFixed(2) }}
         </h4>
         <span class="product__list-item-currency">{{
-            $page.$t.products.sar
+            $page.props.$t.products.sar
           }}</span>
       </div>
       <p class="product__list-item-including-tax">
-        {{ $page.$t.products.inc }}
+        {{ $page.props.$t.products.inc }}
       </p>
       <ToggleCartItemButtonComponent
         :item="item"

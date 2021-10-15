@@ -5,7 +5,7 @@
       style="width: 24rem"
   >
     <button
-        v-if="activeCategory && this.$page.category.id != activeCategory.id"
+        v-if="activeCategory && this.$page.props.category.id != activeCategory.id"
         class="product__search-option-button"
         @click="fetchSubcategories(activeCategory.parent_id)"
     >
@@ -17,7 +17,7 @@
           xmlns="http://www.w3.org/2000/svg"
       >
         <path
-            v-if="$page.active_locale == 'ar'"
+            v-if="$page.props.active_locale == 'ar'"
             d="M9 5l7 7-7 7"
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -32,7 +32,7 @@
         ></path>
       </svg>
 
-      {{ $page.$t.common.back }}
+      {{ $page.props.$t.common.back }}
     </button>
 
     <button v-else class="product__search-option-button" @click="toggleList">
@@ -51,14 +51,14 @@
         />
       </svg>
 
-      {{ $page.$t.products.subcategories }}
+      {{ $page.props.$t.products.subcategories }}
     </button>
 
     <div v-if="isOpen" class="product__search-sorting-panel">
       <div class="product__search-sorting-panel-content">
         <div class="product__search-sorting-list">
           <div
-              v-if="activeCategory && this.$page.category.id != activeCategory.id"
+              v-if="activeCategory && this.$page.props.category.id != activeCategory.id"
               class="product__search-sorting-list-item flex items-center justify-between gap-2 border-b bg-gray-100"
               style=""
               @click="redirectTo(activeCategory)"
@@ -77,9 +77,9 @@
                       activeCategory.search_keywords
                     }}</span>
                   <span v-if="showSubcategories !== true">
-                    {{ $page.$t.products.in }} -
+                    {{ $page.props.$t.products.in }} -
                   </span>
-                  <span class="">{{ $page.$t.products.all_of_them }}</span>
+                  <span class="">{{ $page.props.$t.products.all_of_them }}</span>
                   <!--                  {{ activeCategory.locale_name }}-->
 
                   <span v-if="showSubcategories !== true" class=""
@@ -96,7 +96,7 @@
               style=""
               @click="fetchSubcategories(subcategory.id, subcategory)"
           >
-            <!--            :href="showSubcategories === true ?`/web/categories/${subcategory.id}` : `/web/items?category_id=${subcategory.id}&&name=${$page.name}&&search_via=${$page.search_via}`"-->
+            <!--            :href="showSubcategories === true ?`/web/categories/${subcategory.id}` : `/web/items?category_id=${subcategory.id}&&name=${$page.props.name}&&search_via=${$page.props.search_via}`"-->
             <!--            <div>-->
             <div class="page__categories__list-item">
               <div class="page__categories__name">
@@ -104,7 +104,7 @@
                     subcategory.search_keywords
                   }}</span>
                 <span v-if="showSubcategories !== true">
-                  {{ $page.$t.products.in }} -
+                  {{ $page.props.$t.products.in }} -
                 </span>
                 <span class="">{{ subcategory.locale_name }}</span>
 
@@ -126,7 +126,7 @@
                   xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                    v-if="$page.active_locale === 'en'"
+                    v-if="$page.props.active_locale === 'en'"
                     d="M9 5l7 7-7 7"
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -187,7 +187,7 @@ export default {
       this.$inertia.visit(
         this.showSubcategories === true && subcategory
           ? `/web/items/search/results?category_id=${subcategory.id}`
-          : `/web/items?category_id=${subcategory.id}&&name=${this.$page.name}&&search_via=${this.$page.search_via}`
+          : `/web/items?category_id=${subcategory.id}&&name=${this.$page.props.name}&&search_via=${this.$page.props.search_via}`
       )
     },
     closePanel () {

@@ -5,20 +5,20 @@
         <div class="row">
           <div class="col-lg-6 offset-lg-3">
             <div class="text-center login-form">
-              <h2>{{ $page.$t.profile.forget_password}}</h2>
+              <h2>{{ $page.props.$t.profile.forget_password}}</h2>
 
               <form action="#">
                 <div class="flex flex-col">
                   <div class="flex-1 group-input  page__dir-left">
-                    <label for="phone_number">{{ $page.$t.profile.phone_number}}</label>
+                    <label for="phone_number">{{ $page.props.$t.profile.phone_number}}</label>
                     <InternationalPhoneNumberSelectorComponent
                         v-model="phone_number"></InternationalPhoneNumberSelectorComponent>
 
                     <div
-                        v-if="$page.errors && $page.errors.phone_number"
+                        v-if="$page.props.errors && $page.props.errors.phone_number"
                         class="p-2 text-red-500"
                     >
-                      {{ $page.errors.phone_number }}
+                      {{ $page.props.errors.phone_number }}
                     </div>
                   </div>
 
@@ -30,11 +30,11 @@
                   type="button"
                   @click="submitForm"
               >
-                {{ $page.$t.profile.forget_password}}
+                {{ $page.props.$t.profile.forget_password}}
               </button>
 
               <div class="switch-login">
-                <a class="or-login" href="/web/sign_in">{{ $page.$t.profile.login}}</a>
+                <a class="or-login" href="/web/sign_in">{{ $page.props.$t.profile.login}}</a>
               </div>
             </div>
           </div>

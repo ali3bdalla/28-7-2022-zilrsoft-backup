@@ -5,7 +5,7 @@
         <!-- <a href="#"><i class="fa fa-home"></i> Home</a> -->
         <a
           :href="page.url"
-          v-for="(page, index) in $page.breadcrumb"
+          v-for="(page, index) in $page.props.breadcrumb"
           :key="index"
           >{{ page.title }}</a
         >
@@ -22,29 +22,29 @@
                 {{ productName }}
               </h1>
               <h1 class="product__show__details-model-number">
-                {{ $page.$t.products.model }} : {{ modelNumber }}
+                {{ $page.props.$t.products.model }} : {{ modelNumber }}
               </h1>
               <div class="page__mt-2">
                 <div>
                   <h4 class="product__show__details-price">
-                    {{ parseFloat($page.item.online_offer_price).toFixed(2) }}
+                    {{ parseFloat($page.props.item.online_offer_price).toFixed(2) }}
                   </h4>
                   <span class="product__show__details-currency">{{
-                    $page.$t.products.sar
+                    $page.props.$t.products.sar
                   }}</span>
                 </div>
                 <p class="product__list-item-including-tax">
-                  {{ $page.$t.products.inc }}
+                  {{ $page.props.$t.products.inc }}
                 </p>
                 <!--            text-xl text-web-primary font-bold-->
                 <div class="product__show__details-actions">
                     <ToggleCartItemButtonComponent
-                    :item="$page.item"
+                    :item="$page.props.item"
                     class="page__mt-2"
                   ></ToggleCartItemButtonComponent>
 
                   <div class="text-center flex items-center justify-center mt-2 md:hidden">
-                    <a :href="`whatsapp://send?text=${$page.item.locale_name}+${$page.itemUrl}`" data-action="share/whatsapp/share">
+                    <a :href="`whatsapp://send?text=${$page.props.item.locale_name}+${$page.props.itemUrl}`" data-action="share/whatsapp/share">
                       <img class="w-8 h-8" src="https://pcdn.sharethis.com/wp-content/uploads/2017/05/WhatsApp.png"/>
                     </a>
                   </div>
@@ -62,11 +62,11 @@
                       colspan="2"
                       class="p-2 text-center text-black product__show__details-specification-table-title-cell product__show__details-specification-title"
                     >
-                      {{ $page.$t.products.product_specifications }}
+                      {{ $page.props.$t.products.product_specifications }}
                     </td>
                   </tr>
                   <tr
-                    v-for="filter in $page.item.filters"
+                    v-for="filter in $page.props.item.filters"
                     :key="filter.id"
                     class="product__show__details-specification-table-raw"
                   >
@@ -86,27 +86,27 @@
                     <td
                       class="product__show__details-specification-table-title-cell"
                     >
-                      {{ $page.$t.products.barcode }}
+                      {{ $page.props.$t.products.barcode }}
                     </td>
                     <td
                       class="product__show__details-specification-table-value-cell"
                     >
-                      {{ $page.item.barcode }}
+                      {{ $page.props.item.barcode }}
                     </td>
                   </tr>
                   <tr
                     class="product__show__details-specification-table-raw"
-                    v-if="$page.item.warranty_subscription"
+                    v-if="$page.props.item.warranty_subscription"
                   >
                     <td
                       class="product__show__details-specification-table-title-cell"
                     >
-                      {{ $page.$t.products.warranty_subscription }}
+                      {{ $page.props.$t.products.warranty_subscription }}
                     </td>
                     <td
                       class="product__show__details-specification-table-value-cell"
                     >
-                      {{ $page.item.warranty_subscription.locale_name }}
+                      {{ $page.props.item.warranty_subscription.locale_name }}
                     </td>
                   </tr>
                 </tbody>
@@ -142,7 +142,7 @@
                 "
               >
                 <div
-                  v-for="image in $page.item.attachments"
+                  v-for="image in $page.props.item.attachments"
                   :key="image.id"
                   class=""
                   @click="changeActiveImage(image.url)"
@@ -172,11 +172,11 @@
                     colspan="2"
                     class="product__show__details-specification-table-title-cell product__show__details-specification-title"
                   >
-                    {{ $page.$t.products.product_specifications }}
+                    {{ $page.props.$t.products.product_specifications }}
                   </td>
                 </tr>
                 <tr
-                  v-for="filter in $page.item.filters"
+                  v-for="filter in $page.props.item.filters"
                   :key="filter.id"
                   class="product__show__details-specification-table-raw"
                 >
@@ -195,28 +195,28 @@
                   <td
                     class="product__show__details-specification-table-title-cell"
                   >
-                    {{ $page.$t.products.barcode }}
+                    {{ $page.props.$t.products.barcode }}
                   </td>
                   <td
                     class="product__show__details-specification-table-value-cell"
                   >
-                    {{ $page.item.barcode }}
+                    {{ $page.props.item.barcode }}
                   </td>
                 </tr>
 
                 <tr
                   class="product__show__details-specification-table-raw"
-                  v-if="$page.item.warranty_subscription"
+                  v-if="$page.props.item.warranty_subscription"
                 >
                   <td
                     class="product__show__details-specification-table-title-cell"
                   >
-                    {{ $page.$t.products.warranty_subscription }}
+                    {{ $page.props.$t.products.warranty_subscription }}
                   </td>
                   <td
                     class="product__show__details-specification-table-value-cell"
                   >
-                    {{ $page.item.warranty_subscription.locale_name }}
+                    {{ $page.props.item.warranty_subscription.locale_name }}
                   </td>
                 </tr>
               </tbody>
@@ -231,7 +231,7 @@
                   <td
                     class="product__show__details-specification-table-title-cell product__show__details-specification-title"
                   >
-                    {{ $page.$t.products.description }}
+                    {{ $page.props.$t.products.description }}
                   </td>
                 </tr>
 
@@ -239,7 +239,7 @@
                   <td
                     class="product__show__details-specification-table-value-cell"
                   >
-                    {{ $page.item.locale_description }}
+                    {{ $page.props.item.locale_description }}
                   </td>
                 </tr>
               </tbody>
@@ -248,12 +248,12 @@
         </div>
         <div class="mt-2 bg-white p-3">
           <div class="filter-widget pb-0 mb-0">
-            <h4 class="fw-title">{{ $page.$t.products.tags }}</h4>
+            <h4 class="fw-title">{{ $page.props.$t.products.tags }}</h4>
             <div class="fw-tags">
               <inertia-link
                 :href="'/web/items?search_via=tag&&name=' + tag.tag"
                 style="background-color: rgb(249, 249, 249)"
-                v-for="tag in $page.item.tags"
+                v-for="tag in $page.props.item.tags"
                 :key="tag.id"
                 >{{ tag.tag }}</inertia-link
               >
@@ -276,7 +276,7 @@
               border-radius: 5px;
             "
           >
-            {{ $page.$t.products.related_products }}
+            {{ $page.props.$t.products.related_products }}
           </h3>
 
           <vue-horizontal
@@ -289,7 +289,7 @@
             class="products-grid"
           >
             <div
-              v-for="(item, index) in $page.relatedItems"
+              v-for="(item, index) in $page.props.relatedItems"
               :key="item.id"
               style="direction: ltr"
             >
@@ -315,7 +315,7 @@ import WebLayout from '../../Layouts/WebAppLayout'
 export default {
   data () {
     return {
-      activeImage: this.$page.item.item_image_url
+      activeImage: this.$page.props.item.item_image_url
     }
   },
   components: {
@@ -328,13 +328,13 @@ export default {
     productName () {
       const modelNumber = this.modelNumber
       if (modelNumber != '') {
-        return this.$page.item.locale_name.replace(modelNumber, '')
+        return this.$page.props.item.locale_name.replace(modelNumber, '')
       }
 
-      return this.$page.item.locale_name
+      return this.$page.props.item.locale_name
     },
     modelNumber () {
-      const modelNumber = this.$page.item.filters.find(
+      const modelNumber = this.$page.props.item.filters.find(
         (p) => p.filter_id == 38
       )
 
@@ -345,7 +345,7 @@ export default {
     }
   },
   created () {
-    document.title = this.$page.item.locale_name
+    document.title = this.$page.props.item.locale_name
   },
   methods: {
     changeActiveImage (url) {

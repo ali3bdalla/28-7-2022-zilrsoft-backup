@@ -5,8 +5,8 @@
       <div class="">
         <div class="col-lg-6 offset-lg-3">
           <div class="login-form">
-            <h2>{{ $page.$t.order.payment_confirmation }}</h2>
-            <h2>{{ $page.$t.order.order }} #{{ $page.order.id }}</h2>
+            <h2>{{ $page.props.$t.order.payment_confirmation }}</h2>
+            <h2>{{ $page.props.$t.order.order }} #{{ $page.props.order.id }}</h2>
             <div class="flex">
               <div
                   class="flex-1 group-input text-center"
@@ -14,12 +14,12 @@
               >
                 <div>
                   <label for="first_name">{{
-                      $page.$t.order.remmning_time_to_auto_cancel_order
+                      $page.props.$t.order.remmning_time_to_auto_cancel_order
                     }}</label>
                 </div>
                 <br/>
                 <flip-countdown
-                    :deadline="$page.order.auto_cancel_at"
+                    :deadline="$page.props.order.auto_cancel_at"
                     :showDays="false"
                     :showHours="false"
                 ></flip-countdown>
@@ -30,16 +30,16 @@
               <div class="flex">
                 <div class="flex-1 group-input">
                   <label for="first_name">{{
-                      $page.$t.order.transmitter_name
+                      $page.props.$t.order.transmitter_name
                     }}</label>
                   <input
                       id="first_name"
                       v-model="form.firstName"
-                      :placeholder="$page.$t.profile.first_name"
+                      :placeholder="$page.props.$t.profile.first_name"
                       type="text"
                   />
-                  <div v-if="$page.errors.first_name" class="p-2 text-red-500">
-                    {{ $page.errors.first_name }}
+                  <div v-if="$page.props.errors.first_name" class="p-2 text-red-500">
+                    {{ $page.props.errors.first_name }}
                   </div>
                 </div>
                 <div class="flex-1 group-input">
@@ -48,11 +48,11 @@
                   <input
                       id="last_name"
                       v-model="form.lastName"
-                      :placeholder="$page.$t.profile.last_name"
+                      :placeholder="$page.props.$t.profile.last_name"
                       type="text"
                   />
-                  <div v-if="$page.errors.last_name" class="p-2 text-red-500">
-                    {{ $page.errors.last_name }}
+                  <div v-if="$page.props.errors.last_name" class="p-2 text-red-500">
+                    {{ $page.props.errors.last_name }}
                   </div>
                 </div>
               </div>
@@ -62,18 +62,18 @@
                   <div>
                     <select v-model="form.bankId" class="">
                       <option :value="null">
-                        {{ $page.$t.common.select_sender_bank }}
+                        {{ $page.props.$t.common.select_sender_bank }}
                       </option>
                       <option
-                          v-for="bank in $page.banks"
+                          v-for="bank in $page.props.banks"
                           :key="bank.id"
                           :value="bank.id"
                       >
                         {{ bank.locale_name }}
                       </option>
                     </select>
-                    <div v-if="$page.errors.bank_id" class="p-2 text-red-500">
-                      {{ $page.errors.bank_id }}
+                    <div v-if="$page.props.errors.bank_id" class="p-2 text-red-500">
+                      {{ $page.props.errors.bank_id }}
                     </div>
                   </div>
                 </div>
@@ -82,28 +82,28 @@
                     id="sender_account_number"
                     v-model="form.accountNumber"
                     max-length="30"
-                    :placeholder="$page.$t.profile.account_number"
+                    :placeholder="$page.props.$t.profile.account_number"
                     type="text"
                   />
-                  <div v-if="$page.errors.detail" class="p-2 text-red-500">
-                    {{ $page.errors.detail }}
+                  <div v-if="$page.props.errors.detail" class="p-2 text-red-500">
+                    {{ $page.props.errors.detail }}
                   </div>
                 </div> -->
               </div>
 
               <div class="flex mt-3 border-t pt-4">
                 <div class="flex-1 group-input">
-                  <label for="first_name">{{ $page.$t.order.to_blank }}</label>
+                  <label for="first_name">{{ $page.props.$t.order.to_blank }}</label>
                   <div
                       class="flex flex-col text-center items-center justify-between"
                   >
-                    <div>{{ $page.receivedBank.locale_name }}</div>
+                    <div>{{ $page.props.receivedBank.locale_name }}</div>
                     <div>SA7280000122608010398991</div>
                   </div>
                 </div>
               </div>
               <button class="site-btn login-btn" type="button" @click="submit">
-                {{ $page.$t.messages.confirm }}
+                {{ $page.props.$t.messages.confirm }}
               </button>
             </form>
           </div>
@@ -129,8 +129,8 @@ export default {
       form: {
         accountNumber: '',
         bankId: null,
-        firstName: this.$page.user.first_name,
-        lastName: this.$page.user.last_name
+        firstName: this.$page.props.user.first_name,
+        lastName: this.$page.props.user.last_name
       },
       senderAccountId: null,
       receiverAccountBankId: 1
@@ -146,7 +146,7 @@ export default {
     },
     addNewAccount () {
       this.$inertia.post(
-          `/api/web/${this.$page.order.user_id}/payment_accounts`,
+          `/api/web/${this.$page.props.order.user_id}/payment_accounts`,
           {
             detail: '00000000',
             first_name: this.form.firstName,
@@ -168,9 +168,9 @@ export default {
     confirmPayment () {
       this.$inertia.post(
         '/api/web/orders/' +
-          this.$page.order.id +
+          this.$page.props.order.id +
           '/confirm_payment?code=' +
-          this.$page.code,
+          this.$page.props.code,
         {
           sender_account_id: this.senderAccountId,
           receiver_bank_id: this.receiverAccountBankId,
@@ -182,7 +182,7 @@ export default {
   },
   created () {
     axios
-      .get(`/api/web/${this.$page.order.user_id}/payment_accounts`)
+      .get(`/api/web/${this.$page.props.order.user_id}/payment_accounts`)
       .then((res) => {
         this.accounts = res.data
       })

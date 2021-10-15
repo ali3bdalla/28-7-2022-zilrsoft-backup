@@ -25,23 +25,23 @@ export default {
       list: [
         {
           value: 'items_index',
-          label: this.$page.$t.products.sorting_via
+          label: this.$page.props.$t.products.sorting_via
         },
         {
           value: 'items_index_price_desc',
-          label: this.$page.$t.products.sorting_high_price
+          label: this.$page.props.$t.products.sorting_high_price
         },
         {
           value: 'items_index_price_asc',
-          label: this.$page.$t.products.sorting_low_price
+          label: this.$page.props.$t.products.sorting_low_price
         },
         {
           value: 'items_index_latest',
-          label: this.$page.$t.products.sorting_lastest
+          label: this.$page.props.$t.products.sorting_lastest
         },
         {
           value: 'items_index_oldest',
-          label: this.$page.$t.products.sorting_oldest
+          label: this.$page.props.$t.products.sorting_oldest
         }
       ],
       sortingValue: 'items_index'

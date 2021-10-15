@@ -6,7 +6,7 @@
         <a
           class="home__categories-list-item"
           :href="`/web/categories/${category.id}`"
-          v-for="(category, index) in $page.main_categories"
+          v-for="(category, index) in $page.props.main_categories"
           :key="index"
         >
           <SubategoryListItemComponent
@@ -26,7 +26,7 @@
             border-radius: 5px;
           "
         >
-          {{ $page.$t.products.new_arrival }}
+          {{ $page.props.$t.products.new_arrival }}
         </h3>
 
         <vue-horizontal
@@ -39,7 +39,7 @@
           class="products-grid"
         >
           <div
-            v-for="(item, index) in $page.latest"
+            v-for="(item, index) in $page.props.latest"
             :key="item.id"
             style="direction: ltr"
           >
@@ -58,7 +58,7 @@
           <div class="col-lg-3">
             <div class="categories__text flex items-center justify-center">
               <h2 class="flex items-center justify-center h-full">
-                {{ $page.$t.products.agent_warrnaty }}
+                {{ $page.props.$t.products.agent_warrnaty }}
               </h2>
             </div>
           </div>
@@ -75,31 +75,31 @@
                   {{ offerItem.online_offer_price }}
                 </h5>
                 <span style="margin-bottom: 0px">
-                  {{ $page.$t.products.sar }}</span
+                  {{ $page.props.$t.products.sar }}</span
                 >
               </div>
             </div>
           </div>
           <div class="col-lg-5">
             <div class="categories__deal__countdown text-center">
-              <span class="title">{{ $page.$t.products.special_offer }}</span>
+              <span class="title">{{ $page.props.$t.products.special_offer }}</span>
               <h2>{{ productName }}</h2>
               <div class="categories__deal__countdown__timer" id="countdown">
                 <div class="cd-item">
                   <span>0</span>
-                  <p>{{ $page.$t.products.time_days }}</p>
+                  <p>{{ $page.props.$t.products.time_days }}</p>
                 </div>
                 <div class="cd-item">
                   <span>0</span>
-                  <p>{{ $page.$t.products.time_hrs }}</p>
+                  <p>{{ $page.props.$t.products.time_hrs }}</p>
                 </div>
                 <div class="cd-item">
                   <span>0</span>
-                  <p>{{ $page.$t.products.time_mins }}</p>
+                  <p>{{ $page.props.$t.products.time_mins }}</p>
                 </div>
                 <div class="cd-item">
                   <span>0</span>
-                  <p>{{ $page.$t.products.time_secs }}</p>
+                  <p>{{ $page.props.$t.products.time_secs }}</p>
                 </div>
               </div>
               <!-- <a href="#" class="primary-btn">Shop now</a> -->
@@ -122,7 +122,7 @@
             border-radius: 5px;
           "
         >
-          {{ $page.$t.products.sorting_most_sellers }}
+          {{ $page.props.$t.products.sorting_most_sellers }}
         </h3>
 
         <vue-horizontal
@@ -135,7 +135,7 @@
           class="products-grid"
         >
           <div
-            v-for="(item, index) in $page.heigest_price"
+            v-for="(item, index) in $page.props.heigest_price"
             :key="item.id"
             style="direction: ltr"
           >
@@ -169,10 +169,10 @@ export default {
   },
   computed: {
     offerItem () {
-      return this.$page.offer_item ?? {}
+      return this.$page.props.offer_item ?? {}
     },
     productName () {
-      return this.$page.active_locale === 'en'
+      return this.$page.props.active_locale === 'en'
         ? this.offerItem.name
         : this.offerItem.ar_name
     }

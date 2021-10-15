@@ -7,7 +7,7 @@
       :opacity="1"
     ></loading>
     <ais-instant-search
-      :index-name="$page.algolia_items_search_as"
+      :index-name="$page.props.algolia_items_search_as"
       :search-client="searchClient"
     >
       <div>
@@ -66,21 +66,21 @@
                   <div class="footer-logo">
                     <a href="#"
                       ><img
-                        :src="$page.active_logo"
+                        :src="$page.props.active_logo"
                         class="page__footer-icon"
                         alt=""
                     /></a>
                   </div>
                   <ul>
                     <li>
-                      {{ $page.$t.footer.phone }}:
+                      {{ $page.props.$t.footer.phone }}:
                       <div style="direction: ltr !important">
-                        {{ $page.app.msbrshop.phone_number }}
+                        {{ $page.props.app.msbrshop.phone_number }}
                       </div>
                     </li>
                     <li class="mt-2">
-                      {{ $page.$t.footer.email }}:
-                      <div>{{ $page.app.msbrshop.email_address }}</div>
+                      {{ $page.props.$t.footer.email }}:
+                      <div>{{ $page.props.app.msbrshop.email_address }}</div>
                     </li>
                   </ul>
                 </div>
@@ -111,7 +111,7 @@
 
                         "
                         class="footer_item"
-                        >{{ $page.$t.footer.about_us }}</a
+                        >{{ $page.props.$t.footer.about_us }}</a
                       >
                     </li>
                     <li class="">
@@ -121,7 +121,7 @@
                           font-size: 18px;
                         "
                         class="footer_item"
-                        >{{ $page.$t.footer.contact }}</a
+                        >{{ $page.props.$t.footer.contact }}</a
                       >
                     </li>
                     <li class="">
@@ -131,7 +131,7 @@
                           font-size: 18px;
                         "
                         class="footer_item"
-                        >{{ $page.$t.footer.privacy }}</a
+                        >{{ $page.props.$t.footer.privacy }}</a
                       >
                     </li>
                     <li class="">
@@ -141,7 +141,7 @@
                           font-size: 18px;
                         "
                         class="footer_item"
-                        >{{ $page.$t.footer.terms }}</a
+                        >{{ $page.props.$t.footer.terms }}</a
                       >
                     </li>
                     <li style="" class="flex items-center justify-center mt-2">
@@ -153,14 +153,14 @@
               </div>
               <div class="col-lg-3">
                 <div class="newslatter-item">
-                  <p>{{ $page.$t.footer.join_news_letter_bio }}</p>
+                  <p>{{ $page.props.$t.footer.join_news_letter_bio }}</p>
                   <form action="#" class="subscribe-form">
                     <input
                       type="text"
-                      :placeholder="$page.$t.footer.your_email"
+                      :placeholder="$page.props.$t.footer.your_email"
                     />
                     <button type="button">
-                      {{ $page.$t.footer.subscribe }}
+                      {{ $page.props.$t.footer.subscribe }}
                     </button>
                   </form>
                 </div>
@@ -181,7 +181,7 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="copyright-text">
-                    {{ $page.$t.footer.copyright_saved }}
+                    {{ $page.props.$t.footer.copyright_saved }}
                   </div>
                   <div
                     class="flex items-center justify-center payment-pic"
@@ -216,8 +216,8 @@ export default {
   data () {
     return {
       searchClient: algoliasearch(
-        this.$page.algolia_app_key,
-        this.$page.aloglia_daily_search_key
+        this.$page.props.algolia_app_key,
+        this.$page.props.aloglia_daily_search_key
       ),
       routing: {
         router: historyRouter(),

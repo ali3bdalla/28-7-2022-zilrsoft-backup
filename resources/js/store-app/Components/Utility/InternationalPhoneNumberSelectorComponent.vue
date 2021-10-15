@@ -3,8 +3,8 @@
       v-model="phoneNumber"
       :no-country-selector="false"
       :no-example="true"
-      :only-countries="['SA']"
-      :translations="{countrySelectorLabel: $page.$t.profile.country,phoneNumberLabel: '5XXXXXXXXX',example: 'ex: 5XXXXXXXXX'}"
+      :only-countries="['SA','SD']"
+      :translations="{countrySelectorLabel: $page.props.$t.profile.country,phoneNumberLabel: '5XXXXXXXXX',example: 'ex: 5XXXXXXXXX'}"
       default-country-code="SA"
       @update="phoneNumberUpdated"
   />

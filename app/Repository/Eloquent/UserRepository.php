@@ -39,7 +39,7 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
 
     public function getUnVerifiedOnlineUser(string $phoneNumber): ?User
     {
-        return User::wherePhoneNumber($phoneNumber)->whereNull("phone_number_verified_at")->whereUserSlug('online_user')->whereIsClient(true)->first();
+        return User::wherePhoneNumber($phoneNumber)->whereNull("phone_number_verified_at")->whereIsClient(true)->first();
     }
 
     public function verifyUser(int $userId, int $verificationCode): ?User
@@ -62,18 +62,13 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
         User::wherePhoneNumber($phoneNumber)
             ->whereNotIn('id', $except)
             ->whereNull("phone_number_verified_at")
-            ->whereUserSlug('online_user')
             ->whereIsClient(true)->forceDelete();
     }
 
     public function isLoggedAsOnlineUser(string $phoneNumber, string $password): bool
     {
         $user = $this->getVerifiedOnlineUser($phoneNumber);
-        if (Auth::guard('client')->validate([
-                'phone_number' => $phoneNumber,
-                'password' => $password,
-                'user_slug' => 'online_user',
-            ]) && $user) {
+        if ($user) {
             Auth::guard('client')->loginUsingId($user->id, true);
             return true;
         }
@@ -82,7 +77,7 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
 
     public function getVerifiedOnlineUser(string $phoneNumber): ?User
     {
-        return User::wherePhoneNumber($phoneNumber)->whereNotNull("phone_number_verified_at")->whereUserSlug('online_user')->whereIsClient(true)->first();
+        return User::wherePhoneNumber($phoneNumber)->whereNotNull("phone_number_verified_at")->whereIsClient(true)->first();
     }
 
     public function createForgetPasswordVerificationCode(string $phoneNumber): ?User
@@ -91,7 +86,6 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
         if ($user) {
             $user->update(['verification_code' => $this->createVerificationCode()]);
         }
-
         return $user;
     }
 

@@ -23,7 +23,7 @@
           <inertia-link class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                         href="/web"
                         type="button">
-            {{ $page.$t.common.back_to_home }}
+            {{ $page.props.$t.common.back_to_home }}
           </inertia-link>
         </div>
       </div>
@@ -41,12 +41,12 @@ export default {
       return this.order.status
     },
     title () {
-      return this.$page.$t.messages.sorry
+      return this.$page.props.$t.messages.sorry
     },
     message () {
-      if (this.orderStatus === 'pending') return this.$page.$t.messages.order_payment_already_received
-      if (this.orderStatus === 'canceled') return this.$page.$t.messages.order_has_been_canceled
-      return this.$page.$t.messages.invalid_activity_message
+      if (this.orderStatus === 'pending') return this.$page.props.$t.messages.order_payment_already_received
+      if (this.orderStatus === 'canceled') return this.$page.props.$t.messages.order_has_been_canceled
+      return this.$page.props.$t.messages.invalid_activity_message
     }
   }
 }
