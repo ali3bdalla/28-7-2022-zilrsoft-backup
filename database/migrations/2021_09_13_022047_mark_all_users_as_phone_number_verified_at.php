@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class MarkAllUsersAsPhoneNumberVerifiedAt extends Migration
 {
@@ -13,7 +12,7 @@ class MarkAllUsersAsPhoneNumberVerifiedAt extends Migration
      */
     public function up()
     {
-        \Illuminate\Support\Facades\DB::table('users')->update([
+        DB::table('users')->update([
             'phone_number_verified_at' => now()
         ]);
     }
@@ -25,6 +24,5 @@ class MarkAllUsersAsPhoneNumberVerifiedAt extends Migration
      */
     public function down()
     {
-        //
     }
 }

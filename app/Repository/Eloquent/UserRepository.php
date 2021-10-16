@@ -39,7 +39,7 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
 
     public function getUnVerifiedOnlineUser(string $phoneNumber): ?User
     {
-        return User::wherePhoneNumber($phoneNumber)->whereNull("phone_number_verified_at")->whereIsClient(true)->first();
+        return User::wherePhoneNumber($phoneNumber)->whereNull("phone_number_verified_at")->whereIsClient(true)->latest()->first();
     }
 
     public function verifyUser(int $userId, int $verificationCode): ?User
@@ -77,7 +77,7 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
 
     public function getVerifiedOnlineUser(string $phoneNumber): ?User
     {
-        return User::wherePhoneNumber($phoneNumber)->whereNotNull("phone_number_verified_at")->whereIsClient(true)->first();
+        return User::wherePhoneNumber($phoneNumber)->whereNotNull("phone_number_verified_at")->whereIsClient(true)->latest()->first();
     }
 
     public function createForgetPasswordVerificationCode(string $phoneNumber): ?User

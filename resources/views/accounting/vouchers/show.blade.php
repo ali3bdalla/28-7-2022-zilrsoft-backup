@@ -55,7 +55,7 @@
                                 ('pages/vouchers.client')}}
                                 </span>
                     <input placeholder="{{__('pages/vouchers.client')}}" disabled
-                           value="{{ $payment->user->locale_name }}"
+                           value="{{ $payment->user ? $payment->user->locale_name : "" }}"
                            type="text" class="form-control">
                 </div>
 
@@ -78,9 +78,6 @@
                                     }}"
                            type="text" class="form-control">
 
-                    {{--                            @if($payment->account->parent_id>=1){{--}}
-                    {{--                                   $payment->account->parent->locale_name--}}
-                    {{--                                   }} - @endif--}}
                 </div>
 
             </div>
