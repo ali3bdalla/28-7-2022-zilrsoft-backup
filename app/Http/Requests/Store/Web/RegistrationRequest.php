@@ -36,7 +36,7 @@ class RegistrationRequest extends AuthLoginRequest
     {
         $user = $userRepositoryContract->getVerifiedOnlineUser($this->getPhoneNumber());
         throw_if(!$this->getPhoneNumber() || $user, ValidationException::withMessages([
-            'phone_number' => 'should be unique'
+            'phone_number' => __("validation.unique",['attribute' => __("validation.attributes.phone_number")])
         ]));
     }
 
