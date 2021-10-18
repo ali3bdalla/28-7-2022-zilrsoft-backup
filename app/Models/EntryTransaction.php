@@ -97,7 +97,7 @@ class EntryTransaction extends BaseModel
     }
 
 
-    public function getDescriptionAttribute($value): string
+    public function getDescriptionAttribute($value)
     {
         if ($value == 'close_account') {
             return 'اغلاق اليومية';

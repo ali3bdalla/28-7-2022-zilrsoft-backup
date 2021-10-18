@@ -35,7 +35,7 @@ class RegistrationRequest extends AuthLoginRequest
     public function ensureIsValidPhoneNumber(UserRepositoryContract $userRepositoryContract)
     {
         $user = $userRepositoryContract->getVerifiedOnlineUser($this->getPhoneNumber());
-        throw_if(!$this->getPhoneNumber()->numberLooksInternational() || $user, ValidationException::withMessages([
+        throw_if(!$this->getPhoneNumber() || $user, ValidationException::withMessages([
             'phone_number' => 'should be unique'
         ]));
     }
