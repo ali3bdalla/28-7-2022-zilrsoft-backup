@@ -106,7 +106,7 @@ export default {
   },
   data () {
     return {
-      acceptTermsAndPrivacyPolicy: true
+      acceptTermsAndPrivacyPolicy: false
     }
   },
   computed: {

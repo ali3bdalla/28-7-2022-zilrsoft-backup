@@ -67,10 +67,12 @@
                   </div>
                   <div class="col-lg-6">
                     <div class="form-group">
-                      <el-select v-model="city_id" :filterable="true" :placeholder=" $page.props.$t.messages.select_city"
+                      <el-select v-model="city_id"
+
+                                 :filterable="true"
+                                 :placeholder="selectCityPlaceholder"
                                  class="page__w-full"
                                  no-data-text="No" no-match-text="No Data">
-                        <!-- <template #prefix>Click Me</template> -->
                         <template #empty>
                           <a
                               class="checkout__edit-icon"
@@ -191,7 +193,8 @@ export default {
       area: '',
       zip_code: '',
       description: '',
-      city_id: localStorage.getItem('cart_shipping_city_id', null)
+      city_id: null,
+      cityObject: null
     }
   },
   name: 'CreateShippingAddressFormComponent',
@@ -202,7 +205,19 @@ export default {
       default: false
     }
   },
+  created() {
+    const storedCityObject = localStorage.getItem('cart_shipping_city_id', null)
+    if (storedCityObject) {
+      this.cityObject = JSON.parse(storedCityObject)
+      this.city_id = this.cityObject.id;
+    }
+  },
   computed: {
+    selectCityPlaceholder() {
+      if(this.cityId)
+        return this.cityObject.locale_name
+      return  this.$page.props.$t.messages.select_city;
+    },
     getAddress () {
       return this.area + ' - ' + this.street_name + ' - ' + this.description
     }
@@ -228,16 +243,6 @@ export default {
 </script>
 
 <style>
-/* select {
-  width: 100%;
-  font-size: 16px;
-  color: #636363;
-  height: 50px;
-  border: 1px solid #ebebeb;
-  border-radius: 5px;
-  padding-left: 20px;
-} */
-
 .add-address .contact-form .leave-comment .comment-form input,
 .add-address .contact-form .leave-comment .comment-form textarea {
   margin-bottom: 0px;
