@@ -44,7 +44,7 @@ class StoreInventoryAdjustmentItemsJob implements ShouldQueue
         $this->invoice = $invoice;
         $this->loggedUser = Auth::user();
         $this->isDraft = $isDraft;
-        $this->createdAt = $createdAt ? $createdAt : Carbon::now();
+        $this->createdAt = $createdAt ?? Carbon::now();
     }
 
     /**
@@ -52,7 +52,7 @@ class StoreInventoryAdjustmentItemsJob implements ShouldQueue
      */
     public function handle()
     {
-        foreach ($this->items as $key => $value) {
+        foreach ($this->items as  $value) {
             $item = Item::find($value['id']);
             $this->storeItem($item, $value);
         }
@@ -84,9 +84,8 @@ class StoreInventoryAdjustmentItemsJob implements ShouldQueue
     private function storeItem(Item $item, $requestItemData)
     {
         $requestItemCollection = collect($requestItemData);
-
-        $invoiceItemBefore = $item->pipeline()->where('created_at', '<', $this->createdAt)->orderBy('created_at', 'desc')->first();
-        $lastAvailableQtyBeforeNewTransaction = $invoiceItemBefore ? $invoiceItemBefore->available_qty : 0;  // 27
+        $invoiceItemBefore = $item->pipeline()->where('created_at', '<=', $this->createdAt)->orderBy('created_at', 'desc')->first();
+        $lastAvailableQtyBeforeNewTransaction = $invoiceItemBefore ? $invoiceItemBefore->available_qty : 0;  //6
         $costBeforeInvoiceItem = $item->cost;
         $expectedQty = $item->is_need_serial ? count($requestItemCollection->get('serials')) : $requestItemCollection->get('qty'); // 8
         $availableQty = $item->available_qty;
@@ -116,8 +115,7 @@ class StoreInventoryAdjustmentItemsJob implements ShouldQueue
         $parentKitId = 0;
         $price = (float) $costBeforeInvoiceItem;
         $discount = (float) 0;
-
-        $qty = (float) $newTransactionQty; // 2 - 27 = -25 //+ $availableQtyBeforeInvoiceItem
+        $qty = (float) $newTransactionQty;
         $total = $price * $qty;
         $subtotal = $total - $discount;
         $tax = 0;

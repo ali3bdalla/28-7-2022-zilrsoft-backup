@@ -32,10 +32,7 @@ class StoreInventoryAdjustmentTransactionsJob implements ShouldQueue
         $this->invoice = $invoice;
         $this->inventoryAdjustmentAccount = Account::where('slug', 'inventory_adjustment')->first();
         $this->stockAccount = Account::where('slug', 'stock')->first();
-        $this->createdAt = $createdAt ? $createdAt : Carbon::now();
-
-
-
+        $this->createdAt = $createdAt ?? Carbon::now();
         $this->loggedUser = auth()->user();
         $transactionContainer = new Entry(
             [
@@ -57,7 +54,6 @@ class StoreInventoryAdjustmentTransactionsJob implements ShouldQueue
             'created_at' => $this->createdAt,
             'updated_at' => $this->createdAt,
         ];
-        //
     }
 
     /**

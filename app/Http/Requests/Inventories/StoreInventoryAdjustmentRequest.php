@@ -57,8 +57,6 @@ class StoreInventoryAdjustmentRequest extends FormRequest
                 ['user_slug', 'beginning-inventory'],
                 ['is_system_user', true]
             ])->first();
-
-
             $authUser = $this->userLogged();
             $invoice = Invoice::create(
                 [
@@ -93,10 +91,8 @@ class StoreInventoryAdjustmentRequest extends FormRequest
     public function getCreatedAt(): Carbon
     {
         $createdAt = $this->input('created_at');
-
         if ($createdAt)
             return Carbon::parse($createdAt);
-
         return Carbon::now();
     }
 }

@@ -132,51 +132,10 @@
               />
               <p v-else>{{ item.qty }}</p>
             </th>
-            <!--                    <th class="has-text-white">-->
-            <!--                        <input-->
-            <!--                                :ref="'itemPrice_' + item.id + 'Ref'"-->
-            <!--                                @change="itemPriceUpdated(item)"-->
-            <!--                                @focus="$event.target.select()"-->
-            <!--                                class="form-control"-->
-            <!--                                type="text"-->
-            <!--                                v-model="item.purchase_price">-->
-
-            <!--                    </th>-->
-            <!--                    <th class="has-text-white">-->
-            <!--                        <input @focus="$event.target.select()"-->
-            <!--                               class="form-control"-->
-            <!--                               disabled-->
-            <!--                               type="text" v-model="item.total">-->
-            <!--                    </th>-->
           </tr>
         </tbody>
       </table>
     </div>
-
-    <!--        <div class="form-group">-->
-    <!--            <div class="row">-->
-    <!--                <div class="col-md-8"></div>-->
-    <!--                <div class="col-md-4">-->
-    <!--                    <div class="panel">-->
-    <!--                        <div class="panel-heading">-->
-    <!--                            {{ app.trans.invoice_data }}-->
-    <!--                        </div>-->
-    <!--                        <div class="panel-body text-center">-->
-    <!--                            <div class="row">-->
-    <!--                                <div class="col-md-6"><label>{{ app.trans.total }}</label></div>-->
-    <!--                                <div class="col-md-6">-->
-    <!--                                    <input :placeholder="app.trans.total"-->
-    <!--                                           class="form-control  input-xs amount-input"-->
-    <!--                                           disabled type="text"-->
-    <!--                                           v-model="invoiceData.total">-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
 
     <accounting-invoice-item-serials-list-layout-component
       :item="selectedItem"

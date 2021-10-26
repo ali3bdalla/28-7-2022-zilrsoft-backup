@@ -99,9 +99,12 @@ export default {
       shippingAddress: null
     }
   },
+
   computed: {
     shippingAddressList () {
-      return this.$page.props.shippingAddresses.filter(p => p.city_id === localStorage.getItem('cart_shipping_city_id', null))
+      let city = JSON.parse(localStorage.getItem('cart_shipping_city_id', "{}"));
+      console.log(this.$page.props.shippingAddresses)
+      return this.$page.props.shippingAddresses.filter(p => p.city_id == city.id)
     }
   },
   methods: {
@@ -110,7 +113,7 @@ export default {
       this.updateShippingId(e.id)
     },
     updateShippingId (id) {
-      this.shippingAddress = this.shippingAddresses.find(p => p.id === id)
+      this.shippingAddress = this.shippingAddresses.find(p => p.id == id)
       this.$emit('updateShippingId', this.shippingAddress)
     }
 
