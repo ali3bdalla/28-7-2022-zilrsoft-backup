@@ -18,6 +18,10 @@ class InvoiceItemDto implements BaseDtoContract
     private ?Invoice $invoice;
     private bool $isKit;
     private int $parentKitId;
+    /**
+     * @var false
+     */
+    private bool $isOnline;
 
     /**
      * @param int $itemId
@@ -29,7 +33,7 @@ class InvoiceItemDto implements BaseDtoContract
      * @param bool $isKit
      * @param int $parentKitId
      */
-    public function __construct(int $itemId, InvoiceTypeEnum $invoiceType, float $quantity, float $price = 0, float $discount = 0, array $serials = [], bool $isKit = false, int $parentKitId = 0)
+    public function __construct(int $itemId, InvoiceTypeEnum $invoiceType, float $quantity, float $price = 0, float $discount = 0, array $serials = [], bool $isKit = false, int $parentKitId = 0,$isOnline = false)
     {
         $this->item = Item::findOrFail($itemId);
         $this->invoiceType = $invoiceType;
@@ -39,6 +43,7 @@ class InvoiceItemDto implements BaseDtoContract
         $this->serials = $serials;
         $this->isKit = $isKit;
         $this->parentKitId = $parentKitId;
+        $this->isOnline = $isOnline;
     }
 
     /**
@@ -115,9 +120,9 @@ class InvoiceItemDto implements BaseDtoContract
      */
     public function getPrice(): float
     {
-        if ($this->invoice && $this->invoice->is_online) {
+        if (($this->invoice && $this->invoice->is_online) || $this->isOnline) {
             $priceWithTax = $this->item->online_offer_price;
-            return $priceWithTax / (1 + ($this->getItem()->vts / 100));
+            return $priceWithTax /  (1 + ($this->getItem()->vts / 100));
         }
         if ($this->invoiceType->equals(InvoiceTypeEnum::sale()) && $this->item->is_fixed_price)
             return $this->item->price;

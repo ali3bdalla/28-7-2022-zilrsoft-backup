@@ -47,7 +47,6 @@ class ItemController extends Controller
     {
 
         $relatedItems = $itemSlug->category->items()->with('category', 'filters.filter', 'filters.value')->where('available_qty', '>', 0)->inRandomOrder()->take(20)->get();
-        return $itemSlug;
         $this->breadcrumb [] = [
             'title' => trans('store.header.home'),
             "url" => '/web'

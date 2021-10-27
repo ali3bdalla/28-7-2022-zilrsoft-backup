@@ -49,6 +49,9 @@ class InvoiceDto  implements BaseDtoContract
                 (float)$item->get('price', 0),
                 (float)$item->get('discount', 0),
                 (array)$item->get('serials', []),
+                false,
+                0,
+                $this->isOnline()
             );
         });
     }
