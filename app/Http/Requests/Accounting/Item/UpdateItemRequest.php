@@ -49,8 +49,8 @@ class UpdateItemRequest extends FormRequest
             'is_available_online' => 'required_if:is_available_online,true',
             'weight' => 'required_if:is_available_online,true',
             'shipping_discount' => 'required_if:is_available_online,true',
-            "description" => "required_if:is_available_online,true|string",
-            "ar_description" => "required_if:is_available_online,true|string",
+            "description" => "required_if:is_available_online,true",
+            "ar_description" => "required_if:is_available_online,true",
             'tags' => 'nullable|array',
             'tags.*' => 'required|string'
 
