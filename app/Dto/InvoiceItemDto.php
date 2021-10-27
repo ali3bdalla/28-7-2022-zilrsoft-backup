@@ -7,7 +7,7 @@ use App\Enums\InvoiceTypeEnum;
 use App\Models\Invoice;
 use App\Models\Item;
 
-class InvoiceItemDto  implements BaseDtoContract
+class InvoiceItemDto implements BaseDtoContract
 {
     private Item $item;
     private float $quantity;
@@ -83,14 +83,6 @@ class InvoiceItemDto  implements BaseDtoContract
     }
 
     /**
-     * @return Item
-     */
-    public function getItem(): Item
-    {
-        return $this->item;
-    }
-
-    /**
      * @return array
      */
     public function getSerials(): array
@@ -123,10 +115,21 @@ class InvoiceItemDto  implements BaseDtoContract
      */
     public function getPrice(): float
     {
-        if ($this->invoice && $this->invoice->is_online) return $this->item->online_offer_price;
+        if ($this->invoice && $this->invoice->is_online) {
+            $priceWithTax = $this->item->online_offer_price;
+            return $priceWithTax / (1 + ($this->getItem()->vts / 100));
+        }
         if ($this->invoiceType->equals(InvoiceTypeEnum::sale()) && $this->item->is_fixed_price)
             return $this->item->price;
         return $this->price;
+    }
+
+    /**
+     * @return Item
+     */
+    public function getItem(): Item
+    {
+        return $this->item;
     }
 
     /**

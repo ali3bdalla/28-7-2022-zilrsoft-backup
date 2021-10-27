@@ -40,6 +40,7 @@ use Laravel\Scout\Searchable;
  * @property mixed en_slug
  * @property HasMany tags
  * @property mixed is_kit
+ * @property mixed locale_name
  * @method static findOrFail($id)
  * @method static InRandomOrder()
  * @method static find($input)
