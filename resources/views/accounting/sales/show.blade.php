@@ -109,11 +109,14 @@
                 <div class="col-md-3">
                     @includeIf('accounting.include.invoice.view_amounts')
                 </div>
+
+
                 @if($invoice->invoice_type!='quotation')
                     <div class="col-md-9">
                         <div class="row">
 
                             <div class="col-md-12">
+
                                 @includeIf('accounting.include.invoice.view_payments')
                             </div>
                         </div>

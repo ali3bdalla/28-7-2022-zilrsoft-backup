@@ -114,25 +114,30 @@
                 <div class="col-md-3">
                     @includeIf('accounting.include.invoice.view_amounts')
                 </div>
-                @if($invoice->invoice_type!='quotation')
-                    <div class="col-md-9">
-                        <div class="row">
-
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-primary">
+                                <h4 class="panel-heading">ملاحظات</h4>
+                                <div class="panel-body">
+                                    {{ $invoice->notes }}
+                                </div>
+                            </div>
+                        </div>
+                        @if($invoice->invoice_type!='quotation')
                             <div class="col-md-12">
                                 @includeIf('accounting.include.invoice.view_payments')
                             </div>
-                        </div>
-
-                        <div class="row">
-
-                            <div class="col-md-12">
-                                @includeIf('accounting.include.invoice.view_transactions')
-                            </div>
-
-                        </div>
-
                     </div>
-                @endif
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            @includeIf('accounting.include.invoice.view_transactions')
+                        </div>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>

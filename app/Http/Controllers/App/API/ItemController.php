@@ -24,11 +24,6 @@ class ItemController extends Controller
     public function search(Request $request): LengthAwarePaginator
     {
         return Item::search("a", function (SearchIndex $algolia, string $query, array $options) {
-//            $options['body']['query']['bool']['filter']['geo_distance'] = [
-//                'distance' => '1000km',
-//                'location' => ['lat' => 36, 'lon' => 111],
-//            ];
-
             return $algolia->search($query, $options);
         })->within('items_index')->paginate(20);
     }

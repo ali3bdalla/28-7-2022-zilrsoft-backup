@@ -107,17 +107,23 @@
             </div>
 
 
-            <div class="col-md-3  text-center" v-if="canViewItems==1">
+            <div class="col-md-2  text-center" v-if="canViewItems==1">
                 <a :href="app.BaseApiUrl +
                     'items?selectable=true'" class="btn btn-custom-primary"
                    target="_blank">{{ app.trans.view_products}}</a>
 
             </div>
-            <div class="col-md-3  text-center" v-if="canCreateItem==1">
+            <div class="col-md-2  text-center" v-if="canCreateItem==1">
                 <a :href="app.BaseApiUrl + 'items/create'" class="btn btn-custom-primary"
                    target="_blank">{{app.trans.create_product}}</a>
             </div>
-
+          <div class="col-md-2 text-center">
+            <button
+                class="btn btn-custom-primary"
+                @click="modalsInfo.showNoteModal = true"
+            >{{ app.trans.make_note }}</button
+            >
+          </div>
 
         </div>
 
@@ -383,6 +389,37 @@
         </div>
         <!--        invoice other client name  Modal-->
 
+      <!--invoice Note Modal-->
+      <div v-if="modalsInfo.showNoteModal === true">
+        <transition name="modal">
+          <div class="modal-mask">
+            <div class="modal-wrapper">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button
+                        class="pull-left btn btn-custom-primary"
+                        type="button"
+                        @click="modalsInfo.showNoteModal = false"
+                    >
+                      اغلاق
+                    </button>
+                    <h4 class="modal-title">{{ app.trans.make_note }}</h4>
+                  </div>
+                  <div class="modal-body">
+                  <textarea
+                      v-model="invoiceData.notes"
+                      :placeholder="app.trans.type_here"
+                      class="form-control"
+                  ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </transition>
+      </div>
+      <!--invoice Note Modal-->
 
     </div>
 
@@ -404,6 +441,7 @@
         props: ['creator', 'clients','cloning', 'quotation',  'salesmen', 'gateways', 'expenses', 'canViewItems', 'canCreateItem'],
         data: function () {
             return {
+
                 clientModal: {
                     clientName: "",
                     clientArName: "",
