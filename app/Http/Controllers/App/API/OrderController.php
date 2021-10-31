@@ -103,7 +103,6 @@ class OrderController extends Controller
         if ($verification && $verification->verfication_code == $request->input('verification_code') && $order->status == 'ready_for_shipping') {
             HandleOrderShippingJob::dispatchSync($order, $deliveryMan);
         } else {
-
             throw  ValidationValidationException::withMessages([]);
         }
 

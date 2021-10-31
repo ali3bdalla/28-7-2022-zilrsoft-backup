@@ -34,7 +34,6 @@ class CreateItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
             'name' => 'required|string',
             'ar_name' => 'required|string',
             'barcode' => 'required',
@@ -153,8 +152,6 @@ class CreateItemRequest extends FormRequest
                 'is_published' => $itemDb->shouldBeSearchable()
             ]);
         }
-
         return $item;
-
     }
 }

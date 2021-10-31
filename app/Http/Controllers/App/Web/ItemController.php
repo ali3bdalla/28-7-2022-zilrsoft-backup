@@ -83,7 +83,7 @@ class ItemController extends Controller
         $request->validate([
             'barcode' => 'required|string|min:4|organization_unique:App\Models\Item,barcode'
         ]);
-        return Item::where('barcode', $request->barcode)->get();
+        return Item::where('barcode', $request->input("barcode"))->get();
     }
 
     /**

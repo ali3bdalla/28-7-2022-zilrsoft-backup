@@ -10,7 +10,6 @@ use App\Enums\VoucherTypeEnum;
 use App\Models\Account;
 use App\Models\Order;
 use App\Notifications\Store\IssuedOrderNotification;
-use App\Repository\EntryRepositoryContract;
 use App\Repository\InvoiceRepositoryContract;
 use App\Repository\OrderRepositoryContract;
 use App\Repository\VoucherRepositoryContract;
@@ -106,10 +105,10 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
     {
         return DB::transaction(function () use ($order, $account) {
             $this->changeOrderStatus($order, OrderStatusEnum::paid());
-            $order->update(['payment_approved_at' => now(), 'payment_approved_by_id' => $this->authManager()->id ]);
+            $order->update(['payment_approved_at' => now(), 'payment_approved_by_id' => $this->authManager()->id]);
             $userAccount = Account::getSystemAccount('clients');
-            $voucherDto = new VoucherDto($account,$userAccount, $this->authManager(), $order->user,$order->net,VoucherTypeEnum::receipt(),'ORDER PAYMENT');
-             $this->voucherRepositoryContract->createVoucher($voucherDto);
+            $voucherDto = new VoucherDto($account, $userAccount, $this->authManager(), $order->user, $order->net, VoucherTypeEnum::receipt(), 'ORDER PAYMENT');
+            $this->voucherRepositoryContract->createVoucher($voucherDto);
             return $order;
         });
     }
@@ -118,6 +117,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
     {
         return Order::where([['status', 'issued'], ['is_should_pay_notified', false]])->whereDate('should_pay_last_notification_at', '<=', Carbon::now())->whereTime('should_pay_last_notification_at', '<=', Carbon::now())->get();
     }
+
     public function getNotifiedUnPaidOrders()
     {
         return Order::where('status', 'issued')->whereDate('auto_cancel_at', '<=', Carbon::now())->whereTime('auto_cancel_at', '<=', Carbon::now())->get();

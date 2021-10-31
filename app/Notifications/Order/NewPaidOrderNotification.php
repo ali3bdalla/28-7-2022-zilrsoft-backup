@@ -12,7 +12,6 @@ use Illuminate\Notifications\Notification;
 class NewPaidOrderNotification extends Notification implements ShouldQueue, BroadcastNotificationContract
 {
     use Queueable;
-
     private Order $order;
 
     /**
