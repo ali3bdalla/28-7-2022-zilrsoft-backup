@@ -18,7 +18,6 @@
     "aws/aws-sdk-php": "^3.172",
     "barryvdh/laravel-dompdf": "^0.8.7",
     "benjamincrozat/laravel-dropbox-driver": "^2.0",
-    "laravel-notification-channels/pusher-push-notifications": "^2.3",
     "codedredd/laravel-soap": "^v2.0.0-rc.0",
     "fideloper/proxy": "^4.0",
     "guzzlehttp/guzzle": "^7.0.1",
