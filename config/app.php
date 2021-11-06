@@ -274,7 +274,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-
+        'DebugBar' => Barryvdh\Debugbar\Facade::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
 
 

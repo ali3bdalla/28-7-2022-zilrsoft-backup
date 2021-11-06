@@ -2,25 +2,18 @@
 
 namespace App\Notifications\Order;
 
-use App\Channels\BroadcastNotificationContract;
-use App\Channels\OurSmsChannel;
-use App\Channels\OurSmsNotificationContract;
 use App\Channels\WhatsappMessageChannel;
 use App\Channels\WhatsappMessageNotificationContract;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
 class OrderPaymentAcceptedNotification extends Notification implements
-    OurSmsNotificationContract,
     WhatsappMessageNotificationContract,
-    ShouldQueue,
-    BroadcastNotificationContract
+    ShouldQueue
 {
     use Queueable;
-
     private Order $order;
 
     /**
@@ -41,13 +34,9 @@ class OrderPaymentAcceptedNotification extends Notification implements
      */
     public function via($notifiable): array
     {
-        return [WhatsappMessageChannel::class, OurSmsChannel::class, 'database', 'broadcast'];
+        return [WhatsappMessageChannel::class];
     }
 
-    public function toOurSms($notifiable): string
-    {
-        return $this->toWhatsappMessage($notifiable);
-    }
 
     public function toWhatsappMessage($notifiable): string
     {
@@ -57,12 +46,4 @@ class OrderPaymentAcceptedNotification extends Notification implements
         ]);
     }
 
-    public function toBroadcast($notifiable): BroadcastMessage
-    {
-        return new BroadcastMessage([
-            'message' => $this->toWhatsappMessage($notifiable),
-            'actions' => []
-        ]);
-
-    }
 }
