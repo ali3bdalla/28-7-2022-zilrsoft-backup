@@ -14,8 +14,6 @@
             ></accounting-select-with-search-layout-component>
           </div>
           <div class="col-md-6">
-<!--            :behaviour="{time: {nearestIfDisabled: true}}"-->
-
             <VueCtkDateTimePicker
                 v-model="date_range"
                 :auto-close="true"
@@ -97,7 +95,7 @@ export default {
         let params = {}, appVm = this;
         params.startDate = this.startDate;
         params.endDate = this.endDate;
-        axios.get("/api/accounts/reports/" + this.account.id , {
+        axios.get(`/api/accounts/${this.account.id}/reports` , {
           params: params
         }).then(response => {
           console.log(response.data)
@@ -134,15 +132,9 @@ export default {
         this.startDate = value.start;
         this.endDate = value.end;
       }
-      // this.pushServerRequest();
-
       this.loadData();
     },
 
   }
 }
 </script>
-
-<style scoped>
-
-</style>
