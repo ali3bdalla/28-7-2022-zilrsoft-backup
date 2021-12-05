@@ -196,78 +196,73 @@
                     </tr>
                     </tbody>
                     <tbody class="body">
-                    <?php $items_qty_count = 0; ?>
-                    @if(!empty($invoice->items))
-                        @foreach($invoice->items as $item)
-                            @if($item->belong_to_kit==false && $item->show_price_in_print_mode && $item->item != null)
-                                <?php $items_qty_count = $items_qty_count + $item->qty; ?>
-                                @if($loop->index%2==0)
-                                    <?php $background_color = '#ffffff'; ?>
-                                    <tr>
-                                @else
-                                    <tr style="background-color: #8888">
-                                        <?php $background_color = '#eee'; ?>
-                                        @endif
-                                        <td class="no" style="width:30px !important;">{{$loop->index + 1}}</td>
-                                        <td class="desc" style="width: 10%  !important;text-align: right !important;
-                                                font-weight: bold;font-size: 13px !important;color: black;background-color:
-                                        <?php echo $background_color; ?> !important;">{{mb_substr($item->item->locale_name, 0,55) }}</td>
-                                        <td class="total" style="background-color:
-                                        <?php echo $background_color; ?> !important;">{{ $item->qty }}</td>
-                                        @if($invoice->show_items_price_in_print_mode)
-                                            <td class="total" style="background-color:
-                                            <?php echo $background_color; ?> !important;">{{ moneyFormatter($item->price) }}</td>
-                                            <td class="total" style="background-color:
-                                            <?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->total) }}</td>
-                                            <td class="total" style="background-color:
-                                            <?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->discount) }}</td>
-                                            <td class="total" style="background-color:
-                                            <?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->tax) }}</td>
-                                            <td class="total" style="background-color:
-                                            <?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->net) }}</td>
-                                        @endif
-                                    </tr>
-                                    @if(!in_array($item->invoice_type,['purchase']))
-                                        @if($item->item->is_need_serial)
-                                            @foreach($item->item->serials()
-                                           ->where([
-                                           ["sale_id",$invoice->id],
-                                           ["item_id",$item->item->id],
-                                           ])
-                                           ->orWhere([["return_sale_id",$invoice->id],["item_id",$item->item->id]])
-                                           ->orWhere([["return_purchase_id",$invoice->id],["item_id",$item->item->id]])
-                                           ->orWhere([["purchase_id",$invoice->id],["item_id",$item->item->id]])
-                                           ->get() as $index => $serial
-                                           )
-                                                <tr style="background-color: #8888">
-
-                                                    <td class="" style="width:30px !important;">S/N</td>
-                                                    <td class="desc"
-                                                        style="width: 10%  !important;text-align: right !important;
-                                                                font-weight: bold;font-size: 10px !important;color: black;
-                                                                background-color:
-                                                        <?php echo $background_color; ?> !important;padding-right: 20px !important;">{{$serial->serial }}</td>
-                                                    <td class="total" style="background-color:
-                                                    <?php echo $background_color; ?> !important;"></td>
-                                                    @if($invoice->show_items_price_in_print_mode)
-                                                        <td class="total" style="background-color:
-                                                        <?php echo $background_color; ?> !important;"></td>
-                                                        <td class="total" style="background-color:
-                                                        <?php echo $background_color; ?> !important;"></td>
-                                                        <td class="total" style="background-color:
-                                                        <?php echo $background_color; ?> !important;"></td>
-                                                        <td class="total" style="background-color:
-                                                        <?php echo $background_color; ?> !important;"></td>
-                                                        <td class="total" style="background-color:
-                                                        <?php echo $background_color; ?> !important;"></td>
-                                                    @endif
-                                                </tr>
-                                            @endforeach
-                                        @endif
-                                    @endif
-                                @endif
-                                @endforeach
+                        @foreach($invoice->printedItems() as $item)
+                            @if($loop->index%2==0)
+                                <?php $background_color = '#ffffff'; ?>
+                                <tr>
+                            @else
+                                <tr style="background-color: #8888">
+                                <?php $background_color = '#eee'; ?>
                             @endif
+
+                                <td class="no" style="width:30px !important;">{{$loop->index + 1}}</td>
+                                <td class="desc" style="width: 10%  !important;text-align: right !important;
+                                        font-weight: bold;font-size: 13px !important;color: black;background-color:
+                                <?php echo $background_color; ?> !important;">{{mb_substr($item->item->locale_name, 0,55) }}</td>
+                                <td class="total" style="background-color:
+                                <?php echo $background_color; ?> !important;">{{ $item->qty }}</td>
+                                @if($invoice->show_items_price_in_print_mode)
+                                    <td class="total" style="background-color:
+                                    <?php echo $background_color; ?> !important;">{{ moneyFormatter($item->price) }}</td>
+                                    <td class="total" style="background-color:
+                                    <?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->total) }}</td>
+                                    <td class="total" style="background-color:
+                                    <?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->discount) }}</td>
+                                    <td class="total" style="background-color:
+                                    <?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->tax) }}</td>
+                                    <td class="total" style="background-color:
+                                    <?php echo $background_color; ?> !important;"> {{ moneyFormatter($item->net) }}</td>
+                                @endif
+                            </tr>
+                            @if(!in_array($item->invoice_type,['purchase']))
+                                @if($item->item->is_need_serial)
+                                    @foreach($item->item->serials()
+                                    ->where([
+                                    ["sale_id",$invoice->id],
+                                    ["item_id",$item->item->id],
+                                    ])
+                                    ->orWhere([["return_sale_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["return_purchase_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->orWhere([["purchase_id",$invoice->id],["item_id",$item->item->id]])
+                                    ->get() as $index => $serial
+                                    )
+                                        <tr style="background-color: #8888">
+
+                                            <td class="" style="width:30px !important;">S/N</td>
+                                            <td class="desc"
+                                                style="width: 10%  !important;text-align: right !important;
+                                                        font-weight: bold;font-size: 10px !important;color: black;
+                                                        background-color:
+                                                <?php echo $background_color; ?> !important;padding-right: 20px !important;">{{$serial->serial }}</td>
+                                            <td class="total" style="background-color:
+                                            <?php echo $background_color; ?> !important;"></td>
+                                            @if($invoice->show_items_price_in_print_mode)
+                                                <td class="total" style="background-color:
+                                                <?php echo $background_color; ?> !important;"></td>
+                                                <td class="total" style="background-color:
+                                                <?php echo $background_color; ?> !important;"></td>
+                                                <td class="total" style="background-color:
+                                                <?php echo $background_color; ?> !important;"></td>
+                                                <td class="total" style="background-color:
+                                                <?php echo $background_color; ?> !important;"></td>
+                                                <td class="total" style="background-color:
+                                                <?php echo $background_color; ?> !important;"></td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            @endif
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -336,7 +331,7 @@
         </div>
         <div class="number">
             <div class="label">{{ __('pages/invoice.items_qty_count') }} :</div>
-            <div class="value">{{$items_qty_count}}</div>
+            <div class="value">{{$invoice->printedItemsQuantity()}}</div>
             <div class="clear"></div>
         </div>
 
@@ -371,10 +366,10 @@
 </div>
 
 <img src="{{ $invoice->getBackgroundAssetAttribute() }}">
-<footer style="">
-    <div class="">
+<footer>
+    <div>
         <div class="row" style="color: black !important;">
-            <div class="stamp" style="">
+            <div class="stamp">
             </div>
             <div class="issued_by">
                 @if($invoice->creator->organization->stamp != null)
@@ -386,8 +381,7 @@
             </div>
             <div class="clear"></div>
         </div>
-        <div class="end" style="padding-top: 10px"> {{ $invoice->creator->organization->city_ar }}
-            - {{ $invoice->creator->organization->address_ar }}</div>
+        <div class="end" style="padding-top: 10px"> {{ $invoice->creator->organization->city_ar }} - {{ $invoice->creator->organization->address_ar }}</div>
         <div style="padding-top: 10px;text-align: center"> سعدنا بخدمتك</div>
     </div>
 </footer>

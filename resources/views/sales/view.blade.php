@@ -68,14 +68,18 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="input-group">
                         <span id="vendors-list" class="input-group-addon">{{ trans('pages/invoice.client') }}</span>
                         <input type="text" name="" disabled="disabled"
                                class="form-control" value="{{
                                $invoice->user_alice_name=="" ?$invoice->user->locale_name:
                                $invoice->user_alice_name}}">
+
                     </div>
+                </div>
+                <div class="col-md-2">
+                    <invoice-alice-name-form-pop :invoice-id="{{$invoice->id}}"  alice-name="{{$invoice->user_alice_name}}"></invoice-alice-name-form-pop>
                 </div>
 
                 <div class="col-md-6">

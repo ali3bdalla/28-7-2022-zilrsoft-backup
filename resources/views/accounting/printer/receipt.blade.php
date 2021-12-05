@@ -50,7 +50,14 @@
 
 
 <div class="container-fluid" id="container">
+     <div class="raw">
 
+        <div class="col-xs-12">
+            <div align="center" style="font-size: 27px !important;">فاتورة ضريبة مبسطة</div>
+        </div>
+
+    </div>
+    <br/>
     <div class="raw">
 
         <div class="col-xs-12">

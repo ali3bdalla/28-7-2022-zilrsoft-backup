@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-
 Route::group(['prefix' => 'v2', 'as' => 'v2.'], function () {
     Route::get('items/search', 'ItemController@search');
 });
@@ -18,21 +17,27 @@ Route::middleware('auth')->group(
                 Route::post('activate-sign-to-delivery-man', 'OrderController@activateSignToDeliveryMan');
             }
         );
-        Route::prefix('notifications')->name('notifications.')->group(function () {
-            Route::get('/', 'NotificationController@index')->name('index');
-            Route::get('/{notification}/mark_as_read', 'NotificationController@markAsRead')->name('mark_as_read');
-        }
+        Route::prefix('notifications')->name('notifications.')->group(
+            function () {
+                Route::get('/', 'NotificationController@index')->name('index');
+                Route::get('/{notification}/mark_as_read', 'NotificationController@markAsRead')->name('mark_as_read');
+            }
         );
         Route::resource('vouchers', 'VoucherController');
-        Route::group(['prefix' => 'vouchers/{voucher}', 'as' => 'vouchers.'], function () {
-            Route::get('refund', 'VoucherController@refund')->name('refund');
-        }
+        Route::group(
+            ['prefix' => 'vouchers/{voucher}', 'as' => 'vouchers.'],
+            function () {
+                Route::get('refund', 'VoucherController@refund')->name('refund');
+            }
         );
         Route::resource('sales', 'SaleController');
-        Route::group(['prefix' => 'sales', 'as' => 'sales.'], function () {
-            Route::post('/draft', 'SaleController@storeDraft')->name('store.draft');
-            Route::patch('/{sale}', 'SaleController@storeReturnSale')->name('store.return');
-        }
+        Route::group(
+            ['prefix' => 'sales', 'as' => 'sales.'],
+            function () {
+                Route::post('/draft', 'SaleController@storeDraft')->name('store.draft');
+                Route::patch('/{sale}', 'SaleController@storeReturnSale')->name('store.return');
+                Route::patch('/{sale}/alice_name', 'SaleController@updateAliceName')->name('update.alice_name');
+            }
         );
         Route::apiResource('accounts', 'AccountController');
         Route::group(['prefix' => 'accounts/{account}', 'as' => 'accounts.'], function () {
@@ -115,4 +120,3 @@ Route::middleware('auth')->group(
         );
     }
 );
-

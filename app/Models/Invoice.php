@@ -261,4 +261,20 @@ class Invoice extends BaseModel
     {
         return $this->user_alice_name ?: $this->user->locale_name;
     }
+
+    public function printedItems()
+    {
+        return $this->items()->where([
+            ['belong_to_kit', false],
+            ['show_price_in_print_mode', true],
+        ])->whereHas('item')->get();
+    }
+
+    public function printedItemsQuantity(): float
+    {
+        return $this->items()->where([
+            ['belong_to_kit', false],
+            ['show_price_in_print_mode', true],
+        ])->whereHas('item')->sum('qty');
+    }
 }

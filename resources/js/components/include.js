@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import DeliveryMenTable from './BackEnd/DeliveryMen/DeliveryMenTable'
-
+import AliceNameFormPop from './Invoice/AliceNameFormPop';
 const OrderPaymentOptions = require('./BackEnd/Orders/OrderPaymentOptions')
 const OnlineOrdersTable = require('./BackEnd/Orders/OnlineOrdersTable')
 const ShippingMethodTransctionsTable = require('./BackEnd/ShippingMethod/ShippingMethodTransctions')
@@ -15,3 +15,4 @@ Vue.component('order-payment-options', OrderPaymentOptions.default)
 Vue.component('order-shipping-options', OrderShippingOptions.default)
 Vue.component('shipping-transactions-asgin', DeliveryMenAsign.default)
 Vue.component('shipping-method-transactions-table', ShippingMethodTransctionsTable.default)
+Vue.component('invoice-alice-name-form-pop',AliceNameFormPop)

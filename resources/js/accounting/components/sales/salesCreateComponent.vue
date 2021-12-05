@@ -55,11 +55,7 @@
         </accounting-select-with-search-layout-component>
       </div>
       <div class="col-md-4">
-        <a
-          class="btn btn-custom-primary btn-sm"
-          @click="modalsInfo.showAliceNameModal = true"
-          >{{ app.trans.make_alice_name }}</a
-        >
+        <alice-name-form-pop @updated="e => invoiceData.aliceName = e.alice_name"></alice-name-form-pop>
 
         <a
           class="btn btn-custom-primary btn-sm"
@@ -661,9 +657,10 @@ import {
   validator as ItemValidator
 } from '../../item'
 import { sendGetKitAmountsRequest } from '../../api/kits'
+import AliceNameFormPop from '../../../components/Invoice/AliceNameFormPop.vue'
 
 export default {
-  components: {},
+  components: {AliceNameFormPop},
   props: [
     'creator',
     'clients',

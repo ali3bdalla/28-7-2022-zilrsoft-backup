@@ -14,7 +14,7 @@ if (mix.inProduction()) {
     .sass('resources/sass/store.scss', 'public/css/')
     .sass('resources/sass/rtl_store.scss', 'public/css/')
     .browserSync({
-      proxy: 'http://zilrsoft.test'
+      proxy: 'http://127.0.0.1:8000'
     })
     .version()
 }

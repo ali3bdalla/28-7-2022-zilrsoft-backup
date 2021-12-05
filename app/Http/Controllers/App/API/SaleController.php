@@ -7,6 +7,7 @@ use App\Http\Requests\Sales\FetchSalesRequest;
 use App\Http\Requests\Sales\StoreDraftSaleRequest;
 use App\Http\Requests\Sales\StoreReturnSaleRequest;
 use App\Http\Requests\Sales\StoreSaleRequest;
+use App\Http\Requests\Sales\UpdateAliceNameRequest;
 use App\Models\Invoice;
 use Exception;
 use Illuminate\Validation\ValidationException;
@@ -14,14 +15,13 @@ use Throwable;
 
 class SaleController extends Controller
 {
-
     public function index(FetchSalesRequest $request)
     {
         return $request->getData();
     }
 
     /**
-     * @throws ValidationException|Throwable
+     * @throws Throwable|ValidationException
      */
     public function store(StoreSaleRequest $request)
     {
@@ -47,5 +47,12 @@ class SaleController extends Controller
     public function show(Invoice $purchase): Invoice
     {
         return $purchase;
+    }
+
+    public function updateAliceName(Invoice $sale, UpdateAliceNameRequest $updateAliceNameRequest)
+    {
+        $sale->update([
+            'user_alice_name' => $updateAliceNameRequest->getAliceName(),
+        ]);
     }
 }

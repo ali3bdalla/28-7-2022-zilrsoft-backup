@@ -18,7 +18,6 @@
 @section('buttons')
 
     @if(auth()->user()->id != 19)
-
         <a href="{{route('accounting.printer.a4',$invoice->id)}}" target="_blank" class="btn btn-default">
             <i class="fa fa-print"></i> {{ __('pages/invoice.price_a4') }}
         </a>
@@ -70,6 +69,7 @@
                                class="form-control" value="{{
                                $invoice->user_alice_name=="" ?$invoice->user->locale_name:
                                $invoice->user_alice_name}}">
+                        <InvoiceAliceNameFormPop :alice_name="{{$invoice->user_alice_name}}"></InvoiceAliceNameFormPop>
                     </div>
                 </div>
 
