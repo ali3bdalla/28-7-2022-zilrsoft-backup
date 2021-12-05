@@ -367,8 +367,7 @@
         </div>
 
     </div>
-    <div class="pull-left" style="margin-top:10px">{!! QrCode::size(100)->generate(route('accounting.public-invoice.show',$invoice->getEncryptedPublicId())); !!}</div>
-
+    <div class="pull-left" style="margin-top:10px">{!! $invoice->tlvQrCode(); !!}</div>
 </div>
 
 <img src="{{ $invoice->getBackgroundAssetAttribute() }}">
@@ -395,5 +394,5 @@
 </body>
 </html>
 <script type="text/javascript">
-  print()
+//   print()
 </script>

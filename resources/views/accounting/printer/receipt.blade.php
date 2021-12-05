@@ -249,8 +249,7 @@
 
 
         <div class="col-xs-12">
-            <div align="center" style="font-size: 13px !important;"> الرقم الضريبي : {{$invoice->organization->vat
-                }}</div>
+            <div align="center" style="font-size: 13px !important;"> الرقم الضريبي : {{$invoice->organization->vat}}</div>
 
             <p align="center" style="font-size: 13px !important;margin-top: 0px !important;"> السجل التجاري :
                 {{$invoice->organization->cr
@@ -263,7 +262,7 @@
         </div>
         <div class="col-xs-12">
             <div class="text-center">
-                {!! QrCode::size(100)->generate(route('accounting.public-invoice.show',$invoice->getEncryptedPublicId())); !!}
+                {!! $invoice->tlvQrCode(); !!}
             </div>
         </div>
     </div>

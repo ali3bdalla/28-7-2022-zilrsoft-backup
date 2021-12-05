@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode as FacadesQrCode;
 
 /**
  * @property mixed organization_id
@@ -55,7 +56,7 @@ class Invoice extends BaseModel
     protected $casts = [
         'printable_price' => 'boolean',
         'is_draft_converted' => 'boolean',
-        'invoice_type' => InvoiceTypeEnum::class . ':nullable',
+        'invoice_type' => InvoiceTypeEnum::class.':nullable',
         'net' => MoneyValueObject::class,
         'total' => MoneyValueObject::class,
         'subtotal' => MoneyValueObject::class,
@@ -71,7 +72,7 @@ class Invoice extends BaseModel
 
         return Invoice::where([
             'created_at' => $publicIdElements->get('created_at', null),
-            'id' => (int)$publicIdElements->get('id', 0),
+            'id' => (int) $publicIdElements->get('id', 0),
         ])->firstOrFail();
     }
 
@@ -202,6 +203,7 @@ class Invoice extends BaseModel
         if ($this->has_dropbox_snapshot) {
             return Storage::disk('dropbox')->url($this->dropbox_snapshot);
         }
+
         return '';
     }
 
@@ -211,12 +213,13 @@ class Invoice extends BaseModel
             $invoiceItemDto->setInvoice($this);
             $invoiceItem = InvoiceItems::factory()
                 ->setDto($invoiceItemDto)
-                ->create();
-            $net = (float)$this->net + (float)$invoiceItem->net;
-            $total = (float)$this->total + (float)$invoiceItem->total;
-            $tax = (float)$this->tax + (float)$invoiceItem->tax;
-            $discount = $this->discount + (float)$invoiceItem->discount;
-            $subtotal = $this->subtotal + (float)$invoiceItem->subtotal;
+                ->create()
+            ;
+            $net = (float) $this->net + (float) $invoiceItem->net;
+            $total = (float) $this->total + (float) $invoiceItem->total;
+            $tax = (float) $this->tax + (float) $invoiceItem->tax;
+            $discount = $this->discount + (float) $invoiceItem->discount;
+            $subtotal = $this->subtotal + (float) $invoiceItem->subtotal;
             $this->update([
                 'net' => $net,
                 'total' => $total,
@@ -224,19 +227,38 @@ class Invoice extends BaseModel
                 'discount' => $discount,
                 'tax' => $tax,
             ]);
+
             return $invoiceItem;
         });
     }
 
+    public function tlvQrCode()
+    {
+        $tlv = '';
+        foreach ([
+            1 => "{$this->organization->locale_title}",
+            2 => "{$this->organization->vat}",
+            3 => "{$this->created_at}",
+            4 => "{$this->net}",
+            5 => "{$this->tax}",
+        ] as $tag => $value) {
+            $tlv .= pack('H*', sprintf('%02X', $tag)).pack('H*', sprintf('%02X', strlen($value))).$value;
+        }
+
+        return FacadesQrCode::size(100)->generate(base64_encode($tlv));
+    }
+
     public function appShowUrl()
     {
-        if ($this->invoice_type->equals(InvoiceTypeEnum::sale(), InvoiceTypeEnum::return_sale())) return url('sales/' . $this->id);
-        return url('purchases/' . $this->id);
+        if ($this->invoice_type->equals(InvoiceTypeEnum::sale(), InvoiceTypeEnum::return_sale())) {
+            return url('sales/'.$this->id);
+        }
+
+        return url('purchases/'.$this->id);
     }
 
     public function getUserNameAttribute()
     {
         return $this->user_alice_name ?: $this->user->locale_name;
     }
-
 }
