@@ -2,35 +2,34 @@ version: "3.7"
 services:
   app:
     build:
-      context: ./
-      dockerfile: Dockerfile.Dev
-    image: zilrsoft
-    container_name: app
+      context: "."
+      dockerfile: "./devops/Dev/Dockerfile"
+    image: zilrsoft_dev
+    container_name: zilrsoft_app
     restart: unless-stopped
-    working_dir: /var/www/
+    working_dir: /var/www/html
     volumes:
-      - ./:/var/www
+      - ./:/var/www/html
+    ports:
+      - "8080:8080"
+      - "3005:3000"
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: postgres
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
     networks:
       - zilrsoft
   postgres:
-      image: postgres:13
-      container_name: db
-      restart: unless-stopped
-      environment:
-        POSTGRES_DB: postgres
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_USER: postgres
-      networks:
-        - zilrsoft
-  nginx:
-    image: nginx:alpine
-    container_name: nginx
+    image: postgres:13
+    container_name: db
     restart: unless-stopped
-    ports:
-      - 8009:80
-    volumes:
-      - ./:/var/www
-      - ./docker/nginx:/etc/nginx/conf.d/
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
     networks:
       - zilrsoft
 

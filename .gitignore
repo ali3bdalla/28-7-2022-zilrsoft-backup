@@ -8,7 +8,6 @@
 /storage/framework/sessions/*
 /storage/framework/views/*
 /storage/framework/cache/*
-/storage/framework/sessions/*
 /vendor
 /.idea
 /.vscode
@@ -21,7 +20,7 @@ yarn-error.log
 .phpunit.result.cache
 .DS_store
 .env.testing
-
+/database/*.sql
 
 public/js/online-store.js
 

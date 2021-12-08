@@ -15,11 +15,9 @@ if (mix.inProduction()) {
     .sass('resources/sass/store.scss', 'public/css/')
     .sass('resources/sass/rtl_store.scss', 'public/css/')
     .browserSync({
-      proxy: "http://zilrsoft.test"
+      proxy: 'http://localhost:8080'
     })
-
 }
-
 mix.options({
   processCssUrls: false,
   postCss: [tailwindcss('./tailwind.config.js')]
