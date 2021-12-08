@@ -4,6 +4,10 @@
 
 
 @section('content')
+{{--    <invoice-form--}}
+{{--            :logged-manager='@json($loggedManager)'--}}
+{{--    ></invoice-form>--}}
+{{--    --}}
     <accounting-sales-create-component
             :can-create-item="{{ auth()->user()->canDo('create item') }}"
             :can-view-items="{{ auth()->user()->canDo('view item')  }}"

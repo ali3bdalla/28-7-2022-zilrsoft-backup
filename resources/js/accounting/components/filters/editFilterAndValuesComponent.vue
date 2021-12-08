@@ -458,7 +458,6 @@ export default {
         container: this.fullPage ? null : this.$refs.formContainer,
       });
       let url =  "/api/filters/" + this.filterData.id + "/update";
-      console.log(url);
       axios.post(url,
           {
             is_required_filter: this.isRequiredFilter,
@@ -467,14 +466,12 @@ export default {
           })
           .then(function (response) {
 
-            // var
             loader.hide();
 
 
           })
           .catch(function (error) {
             loader.hide();
-            console.log()
             alert(error.response.data.message);
           });
 

@@ -303,16 +303,8 @@ export default {
     }
   },
   created: function () {
-    // console.log(JSON.parse(window.translator));
     this.translator = JSON.parse(window.translator)
-    // console.log("Fine");
-
-    // this.messages = JSON.parse(window.messages);
-    console.log('Fine')
-
     this.reusable_translator = JSON.parse(window.reusable_translator)
-    console.log('Fine')
-
     if (this.editingKit) {
       this.loadInitData()
     }
@@ -445,7 +437,6 @@ export default {
             }
           })
           .catch(function (error) {
-            console.log(error.response)
           })
           .then(function () {
             // always executed
@@ -539,8 +530,6 @@ export default {
           }
           //
 
-          // console.log(parseFloat(total_for_editable));
-
           const new_item_net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(Math.round(item_widget * (this.net - none_editable_net)))
           var new_vat = 1 + parseFloat(item.vts) / 100 //  1.05
           item.subtotal = helpers.roundTheFloatValueTo2DigitOnlyAfterComma((parseFloat(new_item_net) /
@@ -614,9 +603,7 @@ export default {
       this.runUpdater(item)
     },
     runUpdater (item) {
-      // console.log(item);
       const index = this.items.indexOf(item)
-      // validate the value
       item.total = this.updateTotalForOneItem(item)
       item.subtotal = this.updateSubtotalForOneItem(item)
       item.tax = this.updateTaxForOneItem(item)
@@ -632,7 +619,6 @@ export default {
     },
     updateVariationForOneItem (item) {
       const vig = parseFloat(item.price) - parseFloat(item.temp_p_price)
-      // console.log(item.temp_p_price);
       return helpers.roundTheFloatValueTo2DigitOnlyAfterComma(vig)
     },
     updateSubtotalForOneItem (item) {
@@ -712,12 +698,9 @@ export default {
 
       axios.post('/accounting/kits', data_to)
         .then(function (response) {
-          console.log(response.data)
-          console.log(response)
           location.href = '/accounting/kits'
         })
         .catch(function (error) {
-          console.log(error.response.data)
         })
     },
 
@@ -747,7 +730,6 @@ export default {
           location.href = '/accounting/kits'
         })
         .catch(function (error) {
-          console.log(error.response.data)
         })
     }
   },
@@ -755,7 +737,6 @@ export default {
   watch: {
 
     user: function (value) {
-      // console.log(value);
       this.client = value.id
     },
     total: function (newTotal) {
@@ -769,8 +750,6 @@ export default {
       this.subtotal = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(parseFloat(this.total) - parseFloat(newDiscount))
     },
     net: function (value) {
-      // this.net = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(value);
-
       let sum = 0
       const arr = this.items
       for (let i = arr.length - 1; i >= 0; i--) {

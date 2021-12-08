@@ -46,7 +46,6 @@ export default {
               categoryId: this.categoryId
             })
             .then((res) => {
-              console.log(res.data)
               this.items = res.data.items
               this.categoriesGroup = res.data.categories_group
             })

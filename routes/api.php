@@ -9,6 +9,8 @@ Route::group(['prefix' => 'v2', 'as' => 'v2.'], function () {
 Route::middleware('auth')->group(
     function () {
         Route::resource('orders', 'OrderController');
+        Route::apiResource('users', 'UserController');
+        Route::apiResource('managers', 'ManagerController');
         Route::prefix('orders/{order}')->as('orders.')->group(
             function () {
                 Route::post('accept_order', 'OrderController@acceptOrder')->name('accept_order');

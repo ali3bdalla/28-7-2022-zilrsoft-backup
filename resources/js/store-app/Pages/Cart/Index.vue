@@ -205,7 +205,6 @@ export default {
             this.alertUser(res)
           ])
         }).catch(error => {
-          console.log(error)
         }).finally(() => {
           this.$loading.hide()
         })
@@ -221,7 +220,6 @@ export default {
     },
 
     alertUser (res) {
-      console.log(res)
       const number = `${res.data.user.phone_number}`.replace(
           '+',
           ''

@@ -1,0 +1,16 @@
+FROM php:7.4-fpm
+
+ARG user=ali
+ARG uid=533
+
+WORKDIR /var/www/html/
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get install -yqq libpq-dev libcurl4-gnutls-dev libicu-dev zlib1g-dev libpng-dev libxml2-dev libzip-dev libbz2-dev
+RUN docker-php-ext-install pdo_pgsql curl json intl gd xml zip bz2 opcache
+
+RUN useradd -G www-data,root -u $uid -d /home/$user $user
+RUN mkdir -p /home/$user/.composer && \
+    chown -R $user:$user /home/$user
+
+USER $user

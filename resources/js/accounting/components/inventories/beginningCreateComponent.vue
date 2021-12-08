@@ -307,7 +307,6 @@ export default {
         }
 
       }).catch(error => {
-        console.log(error);
       })
     },
     validateAndPrepareItem(item) {
@@ -337,13 +336,6 @@ export default {
       var item = db.model.findByIndex(this.invoiceData.items, index);
 
       let ref = 'itemQty_' + item.id + 'Ref';
-
-      // console.log(inputHelper.getReference(ref));
-      // if (item.is_need_serial) {
-      // console.log(this.$refs['itemQty_52Ref']);
-      // } else {
-      //     this.$refs['itemQty_' + item.id + 'Ref'].focus();
-      // }
     },
     prepareDataInFirstUse(item,) {
       item.isOpen = false;

@@ -11,11 +11,10 @@ import VModal from 'vue-js-modal'
 import VueSimpleAlert from 'vue-simple-alert'
 import 'element-ui/lib/theme-chalk/index.css'
 import ToggleButton from 'vue-js-toggle-button'
-import { route } from './routes.js'
-
+import Vuex from 'vuex'
+import VueState from './state'
 require('./bootstrap')
 window.TextValidator = require('validator')
-window.route = route
 window.getRequestUrl = function (path) {
   return '/api/web/' + path + '?lang=ar'
 }
@@ -40,7 +39,7 @@ export default new Vuetify({
   },
   theme: { dark: true }
 })
-
+Vue.use(Vuex)
 Vue.use(CxltToastr, {
   position: 'top right',
   showDuration: 2000
@@ -49,5 +48,6 @@ Vue.use(Loading)
 Vue.use(VueSimpleAlert)
 require('./components/include')
 new Vue({
+  store: new Vuex.Store(VueState),
   el: '#app'
 })

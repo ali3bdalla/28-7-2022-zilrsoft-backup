@@ -140,7 +140,6 @@ export default {
     }
   },
   created () {
-    console.log(this.items)
     this.getApiFilters()
   },
   watch: {
@@ -226,7 +225,6 @@ export default {
       } else {
         tempSelectedValues.splice(tempSelectedValues.indexOf(valueId), 1)
       }
-      console.log(tempSelectedValues)
 
       this.selectedValues = tempSelectedValues
     },

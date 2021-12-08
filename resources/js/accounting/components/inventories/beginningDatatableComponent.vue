@@ -332,7 +332,6 @@
 
                         axios.delete(appVm.app.BaseApiUrl + 'inventories/beginning/' + itemData.id)
                             .then(function (response) {
-                                // console.log(response.data);
                                 window.location.reload();
                             })
                             .catch(function (error) {

@@ -72,7 +72,6 @@ export default {
   },
   methods: {
     handleClick () {
-      console.log('click')
     },
     fetch () {
       axios
@@ -86,7 +85,6 @@ export default {
           this.last_page = response.data.last_page
         })
         .catch((error) => {
-          console.log(error.message)
         })
     }
   }

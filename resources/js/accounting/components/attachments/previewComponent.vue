@@ -55,17 +55,10 @@ export default {
   },
   methods: {
     deleteAttachment (id, index) {
-      //   const appVm = this
-      //   axios.delete(this.new_attachment_link + '/' + id).then(response => {
-      //     appVm.attachments_list = db.model.deleteByIndex(appVm.attachments_list, index)
-      //   }).catch(error => {
-      //     console.log(error.response)
-      //     console.log(error.response.message)
-      //   })
+
     },
     attachmentsUploaded (e) {
-      //   this.attachments_list.push(e.attachment)
-      // console.log(e.attachment);
+
     }
   }
 }

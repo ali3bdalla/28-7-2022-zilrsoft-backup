@@ -76,7 +76,6 @@ export default {
           this.errors = {}
         })
         .catch((err) => {
-          console.log(err.response.data.errors.phone_number)
           if (err.response.data.errors.phone_number) {
             this.errors = {
               phone_number: err.response.data.errors.phone_number

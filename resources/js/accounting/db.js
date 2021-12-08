@@ -24,9 +24,8 @@ exports.db = {
         contain: function (arr, id) {
             if (arr.some(obj => obj.id === id)) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         },
         in_array: function (arr, value, type = null) {
             let len = arr.length;

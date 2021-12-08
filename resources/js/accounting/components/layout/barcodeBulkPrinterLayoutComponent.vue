@@ -119,7 +119,6 @@ export default {
           appVm.itemsGeneratedImage.push(dataUrl)
         })
           .catch(function (error) {
-            console.log(error)
           })
       }
     },

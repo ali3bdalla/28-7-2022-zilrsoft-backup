@@ -200,7 +200,6 @@ export default {
   },
   methods: {
     add_new_transaction_row(e) {
-      // console.log(e.value);
       this.init_new_transaction(e.value);
     },
 
@@ -284,7 +283,6 @@ export default {
       axios
         .post("/api/entities", data)
         .then((response) => {
-          console.log(response)
           window.location = "/entities";
         })
         .catch((error) => {

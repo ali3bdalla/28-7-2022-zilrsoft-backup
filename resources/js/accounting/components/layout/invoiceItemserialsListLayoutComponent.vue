@@ -133,8 +133,6 @@ export default {
             appVm.publishUpdated();
           })
           .catch((error) => {
-            console.log(error.response);
-
             alert(error);
           });
       } else if (this.invoiceType === "sale") {
@@ -148,7 +146,6 @@ export default {
               appVm.$refs.serialInput.focus();
               appVm.$refs.serialInput.select();
             } else {
-              console.log(this.$data.serials);
               appVm.serials = db.model.createUnique(
                 this.serials,
                 appVm.serialInput
@@ -158,8 +155,6 @@ export default {
             }
           })
           .catch((error) => {
-            console.log(error);
-
             alert(error);
           });
       } else if (this.invoiceType === "return_sale") {
@@ -182,7 +177,6 @@ export default {
             }
           })
           .catch((error) => {
-            console.log(error);
             alert(error);
           });
       } else if (this.invoiceType === "return_purchase") {
@@ -205,8 +199,6 @@ export default {
             }
           })
           .catch((error) => {
-            console.log(error.data);
-
             alert(error);
           });
       } else {

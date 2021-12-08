@@ -160,13 +160,9 @@ export default {
           gateways: this.gatewaysList
         })
         .then((response) => {
-          console.log(response.data)
           window.location = '/daily/reseller/closing_accounts'
         })
         .catch((error) => {
-          console.log(error)
-          console.log(error.response.data)
-          console.log(error.data)
         })
     }
   }

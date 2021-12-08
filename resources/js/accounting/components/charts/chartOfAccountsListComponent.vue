@@ -64,8 +64,6 @@ export default {
   },
   computed: {
     manageChartOfAccounts () {
-      // console.log(parseInt(this.loggedUserId) !== 19);
-      // console.log(typeof parseInt(this.loggedUserId),typeof 19);
       return parseInt(this.loggedUserId) !== 19
     }
   },

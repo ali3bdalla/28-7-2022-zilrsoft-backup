@@ -13,10 +13,7 @@ exports.trans = function (file) {
   return JSON.parse(lang)
 }
 
-exports.route = function (route = '') {
-  const lang = metaHelper.getContent('routes')
-  return JSON.parse(lang)
-}
+
 
 exports.inputHelper = {
   validateQty: function (qty = 0, el, max = null, min = null) {

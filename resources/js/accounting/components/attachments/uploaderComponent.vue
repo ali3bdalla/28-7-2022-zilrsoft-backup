@@ -56,8 +56,6 @@ export default {
           attachment: response.data
         })
       }).catch(error => {
-        console.log(error.response)
-        console.log(error.response.data)
       }).finally(() => {
         appVm.isLoading = false
       })

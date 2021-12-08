@@ -147,6 +147,9 @@
                 }
 
             },
+            options: function(value) {
+              this.items = value;
+            },
             default_id: function (value) {
                 if (value != null && value) {
 

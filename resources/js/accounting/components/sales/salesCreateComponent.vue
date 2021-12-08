@@ -753,7 +753,7 @@ export default {
   mounted: function () {
     this.clientList = this.clients
     this.itemsTabsPusherHandler()
-    this.$refs.barcodeNameAndSerialField.focus()
+    // this.$refs.barcodeNameAndSerialField.focus()
     this.defaultClientId = this.quotation
       ? this.quotation.user_id
       : this.clientList[0].id
@@ -1019,8 +1019,7 @@ export default {
         item.discount = 0
       }
 
-      const newItem = this.itemUpdater(item)
-      return newItem
+      return this.itemUpdater(item)
     },
     appendItemToInvoiceItemsList (item, index = null) {
       if (index != null) {

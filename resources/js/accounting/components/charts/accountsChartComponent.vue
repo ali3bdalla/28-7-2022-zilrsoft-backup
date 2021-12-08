@@ -86,7 +86,6 @@ export default {
           location.href = "/accounts/" + account.id + "/delete";
         })
         .catch(() => {
-          console.log("Delete aborted");
         });
     },
   },

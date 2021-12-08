@@ -290,7 +290,6 @@ export default {
           appVm.searchResultList = response.data
         }
       }).catch(error => {
-        console.log(error)
       })
     },
     validateAndPrepareItem (item) {
@@ -315,12 +314,6 @@ export default {
 
       const ref = 'itemQty_' + item.id + 'Ref'
 
-      // console.log(inputHelper.getReference(ref));
-      // if (item.is_need_serial) {
-      // console.log(this.$refs['itemQty_52Ref']);
-      // } else {
-      //     this.$refs['itemQty_' + item.id + 'Ref'].focus();
-      // }
     },
     prepareDataInFirstUse (item) {
       item.isOpen = false

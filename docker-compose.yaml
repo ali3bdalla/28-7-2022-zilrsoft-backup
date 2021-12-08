@@ -2,39 +2,29 @@ version: "3.7"
 services:
   app:
     build:
-      # args:
-      #   user: sammy
-      #   uid: 1000
       context: ./
-      dockerfile: Development.Dockerfile
+      dockerfile: Dockerfile.Dev
     image: zilrsoft
-    container_name: zilrsoft-app
+    container_name: app
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
       - ./:/var/www
     networks:
       - zilrsoft
-      - postgres-server_postgres-sever-networks
-  # postgres:
-  #   image: postgres:13
-  #   container_name: zilrsoft-postgres-db
-  #   restart: unless-stopped
-  #   environment:
-  #     POSTGRES_DB: postgres
-  #     POSTGRES_PASSWORD: postgres
-  #     POSTGRES_USER: postgres
-  #   volumes:
-  #     - ./postgres/data:/var/lib/postgresql/data
-  #   networks:
-  #     - zilrsoft
-
-  #   ports: 
-  #     - 5432:5432
-
+  postgres:
+      image: postgres:13
+      container_name: db
+      restart: unless-stopped
+      environment:
+        POSTGRES_DB: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_USER: postgres
+      networks:
+        - zilrsoft
   nginx:
     image: nginx:alpine
-    container_name: zilrsoft-nginx
+    container_name: nginx
     restart: unless-stopped
     ports:
       - 8009:80
@@ -47,6 +37,3 @@ services:
 networks:
   zilrsoft:
     driver: bridge
-  postgres-server_postgres-sever-networks:
-     external:
-            name: postgres-server_postgres-sever-networks

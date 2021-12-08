@@ -185,7 +185,6 @@ export default {
     }
   },
   created: function () {
-    // console.log(this.$props)
     if (this.disabled) {
       this.viewOnly = true
     }
@@ -202,7 +201,6 @@ export default {
       this.setFilterValue(this.options[0].id)
     }
 
-    // http://196.202.134.90/SMSbulk/webacc.aspx
   },
   methods: {
     activeList (e) {
@@ -276,18 +274,14 @@ export default {
             vm.showCreateValueDialog = false
             vm.valueArName = ''
             vm.valueEnName = ''
-            // console.log(response.data);
             loader.hide()
             vm.items.push(response.data)
-            // vm.allItems.push(response.data);
             vm.search = response.data.locale_name
             vm.setFilterValue(response.data.id, appVm.activeIndex)
-            // console.log(response.data);
           })
           .catch(function (error) {
             loader.hide()
             alert(error.response.data.message)
-            // console.log(error.response);
           })
       } else {
         axios.put(this.app.BaseApiUrl + 'filter_values/' + this.selected,
@@ -324,7 +318,6 @@ export default {
         this.items = helpers.searchInArrayByArOrEnName(this.search, this.allItems)
       }
 
-      // console.lo/g(this.search);
     },
 
     focusOnField () {

@@ -236,7 +236,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
         });
     },
     validateAndPrepareItem(item) {
@@ -261,12 +260,6 @@ export default {
 
       let ref = "itemQty_" + item.id + "Ref";
 
-      // console.log(inputHelper.getReference(ref));
-      // if (item.is_need_serial) {
-      // console.log(this.$refs['itemQty_52Ref']);
-      // } else {
-      //     this.$refs['itemQty_' + item.id + 'Ref'].focus();
-      // }
     },
     prepareDataInFirstUse(item) {
       item.isOpen = false;
@@ -392,12 +385,9 @@ export default {
       axios
         .post("/api/inventory/adjustments", data)
         .then(function (response) {
-          console.log(response.data);
           window.location.reload();
         })
         .catch(function (error) {
-          console.log(error);
-          console.log(error.response);
 
         });
     },

@@ -103,7 +103,6 @@ export default {
   computed: {
     shippingAddressList () {
       let city = JSON.parse(localStorage.getItem('cart_shipping_city_id', "{}"));
-      console.log(this.$page.props.shippingAddresses)
       return this.$page.props.shippingAddresses.filter(p => p.city_id == city.id)
     }
   },

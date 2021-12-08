@@ -453,7 +453,6 @@ export default {
           }
         })
         .then((response) => {
-          console.log(response.data)
 
           vm.paginationResponseData = response.data
           vm.histories = response.data.data
@@ -462,11 +461,6 @@ export default {
           vm.histories.forEach(function (item) {
             vm.total_profit += parseFloat(item.profit)
           })
-          // vm.stock_value = response.data.totals.total_stock_amount;
-          // vm.stock_qty = response.data.totals.total_stock_qty;
-          // vm.cost = response.data.totals.current_stock_item_cost;
-          // vm.profits = response.data.totals.total_sales_profits;
-          // vm.cost = response.data.cost;
         })
     },
 

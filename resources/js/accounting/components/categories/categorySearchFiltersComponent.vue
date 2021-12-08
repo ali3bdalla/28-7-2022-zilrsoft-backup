@@ -139,11 +139,6 @@
             getApiFilters() {
                 this.isSendingApiRequest = true;
                 let appVm = this;
-                console.log({
-                    'filters': this.getSelectedFiltersMap(),
-                    'values': this.getSelectedValues(),
-                    'category_id': this.getSelectedCategory()
-                });
                 axios.post(getRequestUrl(`filters`), {
                     'filters': this.getSelectedFiltersMap(),
                     'values': this.getSelectedValues(),

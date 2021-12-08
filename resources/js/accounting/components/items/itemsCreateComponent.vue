@@ -725,8 +725,6 @@ export default {
       if (this.editingItem && this.editedItemData.cost) {
         const itemCost = parseFloat(this.editedItemData.cost)
         const costWithTax = parseFloat(itemCost + parseFloat((itemCost * this.editedItemData.vts) / 100))
-        console.log(itemCost)
-        console.log(costWithTax)
         this.itemData.onlineOfferPrice = (costWithTax + parseFloat(this.itemData.salesPriceWithTax)) / 2
 
         let shippingDiscount = parseFloat((this.itemData.onlineOfferPrice - parseFloat(costWithTax)) / 4).toFixed(2)
@@ -737,7 +735,6 @@ export default {
         this.itemData.shippingDiscount = shippingDiscount
       }
     },
-    // toggle buttons events
     vatSaleValueToggleButtonChanged (e) {
       if (this.itemData.hasVatSale === false) {
         this.itemData.vts = 0
@@ -830,7 +827,6 @@ export default {
             if (message) {
               this.$alert(this.message)
             }
-            console.log(error.response)
           })
     },
     loadCategoriesList (e) {
@@ -981,7 +977,6 @@ export default {
             })
             .catch((error) => {
               loader.hide()
-              console.log(error.response)
               this.$alert('لم يتم حفظ البيانات راجع جميع الحقول')
             })
 
@@ -990,7 +985,6 @@ export default {
           loader.hide()
         }, 5000)
       } else {
-        console.log(data)
         axios
             .post(this.app.BaseApiUrl + 'items', data)
             .then(function (response) {

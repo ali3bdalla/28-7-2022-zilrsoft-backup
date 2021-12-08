@@ -149,13 +149,11 @@
             this.initUi();
             this.pushServerReques();
 
-            // console.log(this.isDeleted)
         },
         methods: {
 
 
             initUi() {
-                // this.requestUrl = this.app.datatableBaseUrl + 'adjust_stock_inventories';
                 this.requestUrl = "/api/inventory/adjustments/";
                 this.baseUrl = "/inventory/adjustments/";
                 this.customDateShortcuts = [
@@ -178,9 +176,7 @@
                 params.orderType = this.orderType;
                 params.isDeleted = this.isDeleted;
                 axios.get(this.requestUrl, {
-                    // params: params
                 }).then(function (response) {
-                    console.log(response.data);
                 appVm.table_rows = response.data.data;
 
                     appVm.paginationResponseData = response.data;
@@ -305,8 +301,8 @@
 
                         axios.delete(appVm.app.BaseApiUrl + 'inventories/beginning/' + itemData.id)
                             .then(function (response) {
-                                // console.log(response.data);
                                 window.location.reload();
+
                             })
                             .catch(function (error) {
 

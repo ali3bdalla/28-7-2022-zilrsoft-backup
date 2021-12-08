@@ -107,21 +107,16 @@
                     return item['name'].indexOf(this.search_keyword_in_all) > -1 || item['ar_name'].indexOf(this.search_keyword_in_all) > -1;
                 });
 
-                // console.log(this.category_filters);
             },
             removeFromCategoryFilters(filter, index) {
-                // console.log(index);
                 this.category_filters.splice(index, 1);
                 this.all_filters.push(filter);
             },
 
 
             addFromCategoryFilters(filter, index) {
-                // console.log(index);
-                // this.all_filters.splice(this.all_filters.indexOf(filter),1);
                 this.all_filters.splice(index, 1);
                 this.category_filters.push(filter);
-                // console.log(this.category_filters);
             },
 
 
