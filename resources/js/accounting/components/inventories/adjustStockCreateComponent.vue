@@ -18,19 +18,7 @@
         >
       </div>
 
-      <div class="col-md-3">
-        <div class="panel-footer">
-          <VueCtkDateTimePicker
-            v-model="createdAt"
-            :auto-close="true"
-            :behaviour="{ time: { nearestIfDisabled: true } }"
-            :only-date="true"
-            :range="false"
-            label="التاريخ"
-            locale="en"
-          />
-        </div>
-      </div>
+
     </div>
 
     <!-- start search field -->

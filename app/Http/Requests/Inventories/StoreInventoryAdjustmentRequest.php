@@ -95,4 +95,9 @@ class StoreInventoryAdjustmentRequest extends FormRequest
             return Carbon::parse($createdAt);
         return Carbon::now();
     }
+
+    public function getItems()
+    {
+        return $this->input('items', []);
+    }
 }

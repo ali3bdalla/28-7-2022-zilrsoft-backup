@@ -6,10 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Inventory\FetchInventoryAdjustmentsRequest;
 use App\Http\Requests\Inventories\StoreBeginningInventoryRequest;
 use App\Http\Requests\Inventories\StoreInventoryAdjustmentRequest;
+use App\Repository\InventoryRepositoryContract;
+use Exception;
 
 class InventoryController extends Controller
 {
     //
+    private InventoryRepositoryContract $inventoryRepositoryContract;
+
+    public function __construct(InventoryRepositoryContract $inventoryRepositoryContract)
+    {
+        $this->inventoryRepositoryContract = $inventoryRepositoryContract;
+    }
 
     public function storeBeginning(StoreBeginningInventoryRequest $request)
     {
@@ -17,9 +25,15 @@ class InventoryController extends Controller
     }
 
 
+    /**
+     * @throws Exception
+     */
     public function storeAdjustment(StoreInventoryAdjustmentRequest $request)
     {
-        return $request->store();
+        $items = $request->getItems();
+        $createdAt = $request->getCreatedAt();
+        $this->inventoryRepositoryContract->createAdjustment($items);
+//        return $request->store();
     }
 
 
