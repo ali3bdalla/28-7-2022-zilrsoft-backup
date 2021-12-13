@@ -49,7 +49,6 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode as FacadesQrCode;
 class Invoice extends BaseModel
 {
     use SoftDeletes;
-    use HasFactory;
 
     protected $guarded = [];
 
