@@ -20,7 +20,8 @@ yarn-error.log
 .phpunit.result.cache
 .DS_store
 .env.testing
-/database/*.sql
+database/*.sql
+database/dev/
 
 public/js/online-store.js
 

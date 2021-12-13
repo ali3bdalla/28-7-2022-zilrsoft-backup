@@ -32,7 +32,8 @@ services:
       POSTGRES_USER: postgres
     networks:
       - zilrsoft
-
+    volumes:
+     - "./database/dev:/var/lib/postgresql"
 networks:
   zilrsoft:
     driver: bridge

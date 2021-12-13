@@ -2,78 +2,6 @@
     <div class="table">
 
         <div class="table-posistion">
-
-            <!--            <div class="table-filters">-->
-            <!--                <div @click="openOrCloseSearchPanel" class="text-right search-text" style="cursor: pointer;"><i-->
-            <!--                        class="fa fa-search-plus"></i>-->
-            <!--                    {{trans.search_by_filters }}-->
-            <!--                </div>-->
-
-            <!--                <div v-show="isOpenSearchPanel">-->
-            <!--                    <div class="row">-->
-            <!--                        <div class="col-md-3">-->
-            <!--                            <VueCtkDateTimePicker-->
-            <!--                                    :behaviour="{time: {nearestIfDisabled: true}}"-->
-            <!--                                    :custom-shortcuts="customDateShortcuts" :label="trans.created_at"-->
-            <!--                                    :only-date="true"-->
-            <!--                                    :range="true" locale="en" v-model="date_range"/>-->
-            <!--                        </div>-->
-            <!--                        <div class="col-md-3">-->
-            <!--                            <input :placeholder="trans.barcode" @keyup.enter="pushServerRequest" class="form-control"-->
-            <!--                                   type="text" v-model="filters.barcode">-->
-            <!--                        </div>-->
-            <!--                        <div class="col-md-3">-->
-            <!--                            <input :placeholder="trans.price_placeholder" @keyup="pushServerRequest"-->
-            <!--                                   class="form-control"-->
-            <!--                                   type="text" v-model="filters.price">-->
-            <!--                        </div>-->
-            <!--                        <div class="col-md-3">-->
-            <!--                            <select @change="pushServerRequest" class="form-control" v-model="filters.current_status">-->
-            <!--                                <option value="all">{{ trans.status }}</option>-->
-            <!--                                <option value="active">{{ trans.active }}</option>-->
-            <!--                                <option value="pending">{{ trans.pending }}</option>-->
-            <!--                            </select>-->
-            <!--                        </div>-->
-            <!--                        <div class="col-md-3">-->
-            <!--                            <input :placeholder="trans.price_tax_placeholder" @keyup="pushServerRequest"-->
-            <!--                                   class="form-control"-->
-            <!--                                   type="text" v-model="filters.price_with_tax">-->
-            <!--                        </div>-->
-            <!--                        <div class="col-md-3">-->
-            <!--                            <input :placeholder="trans.qty" @keyup="pushServerRequest" class="form-control"-->
-            <!--                                   type="text" v-model="filters.available_qty">-->
-            <!--                        </div>-->
-            <!--                        <div class="col-md-3">-->
-            <!--                            <accounting-multi-select-with-search-layout-component-->
-            <!--                                    :options="creators"-->
-            <!--                                    :placeholder="trans.creator"-->
-            <!--                                    :title="trans.creator"-->
-            <!--                                    @valueUpdated="creatorListUpdated"-->
-            <!--                                    default="0"-->
-            <!--                                    identity="000000001"-->
-            <!--                                    label_text="name"-->
-
-            <!--                            >-->
-
-            <!--                            </accounting-multi-select-with-search-layout-component>-->
-
-            <!--                        </div>-->
-            <!--                        <div class="col-md-3">-->
-            <!--                            <input :placeholder="trans.name" @keyup="pushServerRequest" class="form-control"-->
-            <!--                                   type="text" v-model="filters.name">-->
-            <!--                        </div>-->
-
-            <!--                    </div>-->
-
-            <!--                    <div class="table-advanced-search">-->
-            <!--                        <accounting-table-filter-search-component-->
-            <!--                                :categories="categories"-->
-            <!--                                :trans="trans"-->
-            <!--                                @filterValuesUpdated="advancedSearchUpdated"></accounting-table-filter-search-component>-->
-            <!--                    </div>-->
-
-            <!--                </div>-->
-            <!--            </div>-->
             <div class="table-multi-task-buttons" v-show="showMultiTaskButtons">
                 <button @click="activateListItems" class="btn btn-default">{{ trans.activate }}</button>
             </div>
@@ -297,7 +225,7 @@
 
 
             initUi() {
-                this.requestUrl = this.datatableBaseUrl + 'items';
+                this.requestUrl = "api/items";
                 this.baseUrl = this.trans.KitBaseUrl + "/";
                 this.customDateShortcuts = [
                     {key: 'thisWeek', label: this.datetimetrans.thisWeek, value: 'isoWeek'},
