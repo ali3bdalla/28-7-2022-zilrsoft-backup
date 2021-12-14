@@ -9,12 +9,18 @@ use App\Http\Requests\Sales\StoreReturnSaleRequest;
 use App\Http\Requests\Sales\StoreSaleRequest;
 use App\Http\Requests\Sales\UpdateAliceNameRequest;
 use App\Models\Invoice;
+use App\Repository\InvoiceRepositoryContract;
 use Exception;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class SaleController extends Controller
 {
+
+    public function __construct(InvoiceRepositoryContract $invoiceRepositoryContract)
+    {
+    }
+
     public function index(FetchSalesRequest $request)
     {
         return $request->getData();

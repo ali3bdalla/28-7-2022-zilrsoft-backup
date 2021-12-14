@@ -33,7 +33,7 @@ services:
     networks:
       - zilrsoft
     volumes:
-     - "./database/dev:/var/lib/postgresql"
+     - "./database/db-data:/var/lib/postgresql"
 networks:
   zilrsoft:
     driver: bridge

@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\DB;
 
 class UpdateInvoiceNumberJob implements ShouldQueue
 {
@@ -76,9 +77,12 @@ class UpdateInvoiceNumberJob implements ShouldQueue
      */
     public function handle()
     {
-        $nextedInvoiceNumber = (Invoice::whereYear('created_at', Carbon::now()->format('Y'))->where('invoice_type', $this->invoice->invoice_type)->withTrashed()->withoutGlobalScopes([DraftScope::class])->count() + 1);
+        $nextedInvoiceNumber = DB::table('invoices')->whereYear('created_at', Carbon::now()->format('Y'))->where([
+                ['invoice_type', $this->invoice->invoice_type],
+                ['organization_id', $this->invoice->organization_id],
+            ])->count() + 1;
         $this->invoice->update([
-            'invoice_number' => $this->prefix.Carbon::now()->format('Y').$nextedInvoiceNumber,
+            'invoice_number' => $this->prefix . Carbon::now()->format('Y') . $nextedInvoiceNumber,
         ]);
     }
 }
