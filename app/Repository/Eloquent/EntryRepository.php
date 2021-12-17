@@ -118,7 +118,7 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
         $addBalance = $voucher->payment_type->equals(VoucherTypeEnum::payment());
         $transactions->add(new TransactionDto(
             $account,
-            $addBalance ? AccountingTypeEnum::credit() : AccountingTypeEnum::debit(),
+            $addBalance ? AccountingTypeEnum::debit() : AccountingTypeEnum::credit(),
             $voucher->amount,
             false,
             false,
@@ -128,7 +128,7 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
         ));
         $transactions->add(new TransactionDto(
             $targetAccount,
-            $addBalance ? AccountingTypeEnum::debit() : AccountingTypeEnum::credit(),
+            $addBalance ? AccountingTypeEnum::credit() : AccountingTypeEnum::debit(),
             $voucher->amount,
             false,
             false,
