@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Entity;
 
+use App\Enums\AccountingTypeEnum;
+use App\Enums\AccountSlugEnum;
 use App\Repository\AccountRepositoryContract;
 use App\ValueObjects\TransactionSearchValueObject;
 use Carbon\Carbon;
@@ -36,8 +38,6 @@ class TransactionResource extends JsonResource
             'container_id' => $this->resource->container_id,
             'account_id' => $this->resource->account_id,
             'amount' => $this->resource->amount,
-            'total_debit_amount' => $this->resource->total_debit_amount,
-            'total_credit_amount' => $this->resource->total_credit_amount,
             'created_at' => Carbon::parse($this->resource->created_at)->toDateTimeString(),
             'account_name' => $this->resource->account_name,
             'invoice_id' => $this->resource->invoice_id,
@@ -53,8 +53,9 @@ class TransactionResource extends JsonResource
 
     private function getFirstItemBalance(): float
     {
+        $userId = $this->resource->account->slug->equals(AccountSlugEnum::vendors()) || $this->resource->account->slug->equals(AccountSlugEnum::clients()) ? $this->resource->user_id : null;
         $repo = app(AccountRepositoryContract::class);
-        $transactionSearchValueObject = new TransactionSearchValueObject(null, null, null, null, $this->resource->created_at);
+        $transactionSearchValueObject = new TransactionSearchValueObject(null, $userId, null, null,null, $this->resource->created_at);
         return $repo->getAccountBalance($this->resource->account, $transactionSearchValueObject);
     }
 

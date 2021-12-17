@@ -19,7 +19,6 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
 {
     private AccountRepositoryContract $accountRepositoryContract;
     private UserRepositoryContract $userRepositoryContract;
-
     public function __construct(AccountRepositoryContract $accountRepositoryContract, UserRepositoryContract $userRepositoryContract)
     {
         $this->accountRepositoryContract = $accountRepositoryContract;

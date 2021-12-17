@@ -279,49 +279,40 @@ export default {
           this.accountBalance = 0
         }
         axios
-          .get(this.requestUrl, {
-            params: params
-          })
-          .then((response) => {
-            appVm.isLoading = false
-            const len = response.data.data.length
-            const responseData = []
-
-            for (let index = 0; index < len; index++) {
-              const transaction = response.data.data[index]
-
-              if (index === 0) {
-                transaction.page = true
-                if (parseInt(response.data.meta.current_page) === 1) {
-                  console.log(transaction.balance)
-                  this.accountBalance = transaction.balance
+            .get(this.requestUrl, {
+              params: params
+            })
+            .then((response) => {
+              appVm.isLoading = false
+              const len = response.data.data.length
+              const responseData = []
+              for (let index = 0; index < len; index++) {
+                const transaction = response.data.data[index]
+                if (index === 0) {
+                  transaction.page = true
+                } else {
+                  transaction.page = false
                 }
-              } else {
-                transaction.page = false
-              }
-
-              if (transaction.type == appVm.account.type) {
-                appVm.accountBalance += parseFloat(transaction.amount)
-              } else {
-                appVm.accountBalance -= parseFloat(transaction.amount)
-              }
-
-              transaction.balance = appVm.accountBalance
-
-              appVm.totalCreditAmount =
+                if (transaction.type == appVm.account.type) {
+                  this.accountBalance += parseFloat(transaction.amount)
+                } else {
+                  this.accountBalance -= parseFloat(transaction.amount)
+                }
+                transaction.balance = appVm.accountBalance
+                appVm.totalCreditAmount =
                     appVm.totalCreditAmount + parseFloat(transaction.credit_amount)
-              appVm.totalDebitAmount =
+                appVm.totalDebitAmount =
                     appVm.totalDebitAmount + parseFloat(transaction.debit_amount)
 
-              responseData.push(transaction)
-              appVm.transactions.push(transaction)
-            }
-            appVm.clearOldData = false
-            appVm.paginationResponseData = response.data
-          })
-          .catch((error) => {
+                responseData.push(transaction)
+                appVm.transactions.push(transaction)
+              }
+              appVm.clearOldData = false
+              appVm.paginationResponseData = response.data
+            })
+            .catch((error) => {
 
-          })
+            })
       }
     },
 
