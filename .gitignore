@@ -26,3 +26,4 @@ database/dev/
 public/js/online-store.js
 
 public/css/store.css
+database/prod-backup.sql

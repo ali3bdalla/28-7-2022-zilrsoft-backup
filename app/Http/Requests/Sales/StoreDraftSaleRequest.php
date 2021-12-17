@@ -24,8 +24,6 @@ class StoreDraftSaleRequest extends FormRequest
     public function rules(): array
     {
         return [
-
-
             "items" => "required|array",
             "items.*.id" => "required|integer|organization_exists:App\Models\Item,id",
             "items.*.price" => "price|priceAndDiscount|min:0",
@@ -35,7 +33,6 @@ class StoreDraftSaleRequest extends FormRequest
             'items.*.items.*.qty' => 'required|quantity|salesKitItemValidator',
             "client_id" => "required|integer|exists:users,id",
             "salesman_id" => "required|integer|exists:managers,id",
-
         ];
     }
 

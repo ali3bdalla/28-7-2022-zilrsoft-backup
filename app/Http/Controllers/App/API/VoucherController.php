@@ -32,7 +32,6 @@ class VoucherController extends Controller
      */
     public function store(StoreVoucherRequest $request): Voucher
     {
-        $request->ensureUserAccountExists();
         $userAccount = $request->getUserAccount();
         $walletAccount = $request->getOrganizationAccount();
         $user = $request->getUser();
