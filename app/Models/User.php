@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use DebugBar\DebugBar;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -89,6 +88,7 @@ class User extends BaseAuthModel
     {
         return $this->hasMany(Invoice::class, 'user_id');
     }
+
     public function getLocaleNameAttribute(): string
     {
         return $this->name_ar ?? $this->name;
@@ -132,8 +132,6 @@ class User extends BaseAuthModel
 
     public function getInternationalPhoneNumberAttribute(): string
     {
-        if($this->phone_number == "+966556045415") return "+249966324018";
-
         return (string)PhoneNumber::make($this->phone_number)->ofCountry($this->getOriginal("country_code", 'SA'));
     }
 

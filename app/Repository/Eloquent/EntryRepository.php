@@ -75,7 +75,7 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
     {
         $clientAccount = Account::getSystemAccount("clients");
         $transactions = collect();
-        $addBalance = $voucher->payment_type->equals(VoucherTypeEnum::receipt());
+        $addBalance = $voucher->payment_type->equals(VoucherTypeEnum::payment());
         $transactions->add(new TransactionDto(
             $clientAccount,
             $addBalance ? AccountingTypeEnum::credit() : AccountingTypeEnum::debit(),
@@ -114,7 +114,7 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
     {
         $account = Account::getSystemAccount("vendors");
         $transactions = collect();
-        $addBalance = $voucher->payment_type->equals(VoucherTypeEnum::payment());
+        $addBalance = $voucher->payment_type->equals(VoucherTypeEnum::receipt());
         $transactions->add(new TransactionDto(
             $account,
             $addBalance ? AccountingTypeEnum::debit() : AccountingTypeEnum::credit(),
