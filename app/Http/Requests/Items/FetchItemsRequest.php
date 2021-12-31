@@ -157,7 +157,7 @@ class FetchItemsRequest extends FormRequest
 				if (in_array($this->input("current_status"),['active','pending'])){
 					$query = $query->where('status',$this->input("current_status"));
 				}else if ($this->input("current_status") == 'kits'){
-					$query = $query->where('is_kit',true);
+					$query = $query->with('data')->where('is_kit',true);
 				}
 
 			}

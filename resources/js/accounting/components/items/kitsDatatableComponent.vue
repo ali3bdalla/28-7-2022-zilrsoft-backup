@@ -2,57 +2,57 @@
   <div class="table">
 
     <div class="table-posistion">
-      <div class="table-multi-task-buttons" v-show="showMultiTaskButtons">
-        <button @click="activateListItems" class="btn btn-default">{{ trans.activate }}</button>
+      <div v-show="showMultiTaskButtons" class="table-multi-task-buttons">
+        <button class="btn btn-default" @click="activateListItems">{{ trans.activate }}</button>
       </div>
-      <div class="table-content " v-show="!isLoading">
+      <div v-show="!isLoading" class="table-content ">
         <table class="table table-striped table-bordered" width="100%">
           <thead>
           <tr>
-            <th width="2%"><input @click="checkAndUncheckAllRowsCheckBoxChanged" type="checkbox"/></th>
-            <th :class="{'orderBy':orderBy=='id'}" @click="setOrderByColumn('id')" width="4%">
+            <th width="2%"><input type="checkbox" @click="checkAndUncheckAllRowsCheckBoxChanged"/></th>
+            <th :class="{'orderBy':orderBy=='id'}" width="4%" @click="setOrderByColumn('id')">
               {{ trans.id }}
             </th>
-            <th :class="{'orderBy':orderBy=='barcode'}" @click="setOrderByColumn('barcode')" width="13%">
+            <th :class="{'orderBy':orderBy=='barcode'}" width="13%" @click="setOrderByColumn('barcode')">
               {{ trans.barcode }}
             </th>
             <th :class="{'orderBy':orderBy=='name'}" @click="setOrderByColumn('name')">
               {{ trans.name }}
             </th>
-            <th :class="{'orderBy':orderBy=='net'}" @click="setOrderByColumn('net')" width="13%">
+            <th :class="{'orderBy':orderBy=='net'}" width="13%" @click="setOrderByColumn('net')">
               {{ trans.net }}
             </th>
 
 
-            <th :class="{'orderBy':orderBy=='creator_id'}" @click="setOrderByColumn('creator_id')"
-                width="13%">
+            <th :class="{'orderBy':orderBy=='creator_id'}" width="13%"
+                @click="setOrderByColumn('creator_id')">
               {{ trans.created_by }}
             </th>
-            <th :class="{'orderBy':orderBy=='created_at'}" @click="setOrderByColumn('created_at')"
-                width="10%">
+            <th :class="{'orderBy':orderBy=='created_at'}" width="10%"
+                @click="setOrderByColumn('created_at')">
               {{ trans.created_at }}
             </th>
 
-            <th v-text="trans.options" width="8%"></th>
+            <th width="8%" v-text="trans.options"></th>
           </tr>
           </thead>
           <tbody>
-          <tr :key="row.id" v-for="(row,index) in table_rows">
-            <td><input @change="rowSelectCheckBoxUpdated(row)" type="checkbox"
-                       v-model="row.tb_row_selected"/>
+          <tr v-for="(row,index) in table_rows" :key="row.id">
+            <td><input v-model="row.tb_row_selected" type="checkbox"
+                       @change="rowSelectCheckBoxUpdated(row)"/>
             </td>
             <td v-text="getRowColumnIndex(index + 1)"></td>
-            <td @click="sendItemToOpenInvoice(row)" style="text-align:left;cursor: pointer">
-              &nbsp;<span :style="{'color' :primaryColor}" v-if="row.is_need_serial">{{ row.barcode }}
+            <td style="text-align:left;cursor: pointer" @click="sendItemToOpenInvoice(row)">
+              &nbsp;<span v-if="row.is_need_serial" :style="{'color' :primaryColor}">{{ row.barcode }}
                             </span>
 
               <span v-else>{{ row.barcode }}</span> &nbsp;
-              <i :style="{'color':primaryColor}" class="fa fa-check-circle pull-left"
-                 style="margin-top: 3px;" v-show="row.status=='active'"></i>
+              <i v-show="row.status=='active'" :style="{'color':primaryColor}"
+                 class="fa fa-check-circle pull-left" style="margin-top: 3px;"></i>
             </td>
 
             <td class="text-right-with-padding">{{ row.ar_name }}<p align="left">{{ row.name }}</p></td>
-            <td class="text-center">{{ parseFloat(row.data.net).toFixed(2) }}</td>
+            <td class="text-center">{{ parseFloat(row.data ? row.data.net : 0).toFixed(2) }}</td>
 
             <td class="text-right-with-padding" v-text="row.creator.locale_name"></td>
             <td v-text="row.created_at"></td>
@@ -70,10 +70,9 @@
                                 + row.id" class="dropdown-menu CustomDropDownOptions">
                   <li><a :href="baseUrl + row.id" v-text="trans.show"></a></li>
                   <li><a :href="baseUrl + row.id + '/edit'" v-text="trans.edit"></a></li>
-                  <li @click="deleteKitClicked(row)" v-if="canDelete==1"><a
-                      v-text="trans.delete"></a></li>
-
-
+                  <li v-if="canDelete==1" @click="deleteKitClicked(row)"><a
+                      v-text="trans.delete"></a>
+                  </li>
                 </ul>
               </div>
 
@@ -87,7 +86,6 @@
 
       <div class="table-paginations">
         <accounting-table-pagination-helper-layout-component :data="paginationResponseData"
-
                                                              @pagePerItemsUpdated="pagePerItemsUpdated"
                                                              @paginateUpdatePage="paginateUpdatePage"
         ></accounting-table-pagination-helper-layout-component>

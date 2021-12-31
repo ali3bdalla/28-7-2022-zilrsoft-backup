@@ -78,10 +78,10 @@ class User extends BaseAuthModel
             ]
         )->sum('amount');
 
-        if ($account->type == 'credit')
+        if ($account->type == 'credit') // vendors
             return $creditAmount - $debitAmount;
 
-        return $debitAmount - $creditAmount;
+        return $debitAmount - $creditAmount; // clients
     }
 
     public function invoices(): HasMany
