@@ -43,9 +43,7 @@
             </td>
             <td v-text="getRowColumnIndex(index + 1)"></td>
             <td style="text-align:left;cursor: pointer" @click="sendItemToOpenInvoice(row)">
-              &nbsp;<span v-if="row.is_need_serial" :style="{'color' :primaryColor}">{{ row.barcode }}
-                            </span>
-
+              &nbsp;<span v-if="row.is_need_serial" :style="{'color' :primaryColor}">{{ row.barcode }}</span>
               <span v-else>{{ row.barcode }}</span> &nbsp;
               <i v-show="row.status=='active'" :style="{'color':primaryColor}"
                  class="fa fa-check-circle pull-left" style="margin-top: 3px;"></i>
