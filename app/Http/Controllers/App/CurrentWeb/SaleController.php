@@ -45,6 +45,7 @@ class SaleController extends Controller
         $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get();
         $expenses = Item::whereIsExpense(true)->get();
         $gateways = $this->accountRepositoryContract->getPaymentMethodsAccountsListToAuthedManager();
+//        return $clients;
         return view('sales.create', compact('clients', 'salesmen', 'gateways', 'expenses'));
     }
 

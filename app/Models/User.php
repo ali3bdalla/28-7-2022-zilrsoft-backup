@@ -62,10 +62,12 @@ class User extends BaseAuthModel
         return $this->hasMany(Order::class, 'user_id');
     }
 
-    public function getBalanceAttribute()
-    {
-        return $this->getYearlyBalance(Account::getSystemAccount('clients'));
-    }
+//    public function getBalanceAttribute($value)
+//    {
+//        if ($this->is_client)
+//            return $this->getYearlyBalance(Account::getSystemAccount('clients'));
+//        return 0;
+//    }
 
     public function getYearlyBalance(Account $account)
     {
@@ -89,10 +91,12 @@ class User extends BaseAuthModel
         return $debitAmount - $creditAmount; // clients
     }
 
-    public function getVendorBalanceAttribute()
-    {
-        return $this->getYearlyBalance(Account::getSystemAccount('vendors'));
-    }
+//    public function getVendorBalanceAttribute($value)
+//    {
+//        if ($this->is_vendor)
+//            return $this->getYearlyBalance(Account::getSystemAccount('vendors'));
+//        return 0;
+//    }
 
     public function invoices(): HasMany
     {
