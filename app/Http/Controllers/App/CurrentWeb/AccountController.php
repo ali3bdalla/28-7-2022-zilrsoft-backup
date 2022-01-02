@@ -36,7 +36,6 @@ class AccountController extends Controller
         $request->validate(
             [
                 'parent_id' => 'nullable|integer',
-                // |organization_exists:App\Models\Account,id
             ]
         );
 
@@ -64,8 +63,6 @@ class AccountController extends Controller
             $items = Item::paginate(50);
             return view('accounting.charts.transactions.items', compact('items', 'account'));
         }
-
-
         if ($account->slug == 'vendors') {
             $identities = User::where(
                 [

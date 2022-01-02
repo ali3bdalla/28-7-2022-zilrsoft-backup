@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * @property mixed clients_chart_account_id
@@ -21,6 +22,7 @@ class Organization extends BaseModel
 
     use HasFactory;
 
+    protected $appends = ['working_years'];
     /**
      * The attributes that are mass assignable.
      *
@@ -151,4 +153,9 @@ class Organization extends BaseModel
         return $this->hasMany(Entry::class, 'organization_id');
     }
 
+
+    public function getWorkingYearsAttribute(): array
+    {
+        return range(Carbon::parse($this->created_at)->year, Carbon::now()->year);
+    }
 }

@@ -9,6 +9,7 @@ use App\Events\Models\Account\AccountDeleted;
 use App\Events\Models\Account\AccountUpdated;
 use App\Models\Traits\NestingTrait;
 use App\Repository\AccountRepositoryContract;
+use App\Repository\Eloquent\AccountRepository;
 use App\Scopes\SortByScope;
 use App\ValueObjects\GenericSortByValueObject;
 use App\ValueObjects\TransactionSearchValueObject;
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -65,6 +67,10 @@ class Account extends BaseModel
         'deleted' => AccountDeleted::class,
     ];
 
+    public function annualBalances(): MorphMany
+    {
+        return $this->morphMany(AnnualBalance::class, 'account');
+    }
     public static function getSystemAccount($slug = "")
     {
         return static::where([
@@ -137,7 +143,7 @@ class Account extends BaseModel
 
     public function getSingleAccountBalance(): float
     {
-        return app(AccountRepositoryContract::class)->getAccountBalance($this, new TransactionSearchValueObject());
+        return (new AccountRepository())->getAccountBalance($this, new TransactionSearchValueObject());
     }
 
 

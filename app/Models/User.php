@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Propaganistas\LaravelPhone\PhoneNumber;
@@ -57,17 +58,15 @@ class User extends BaseAuthModel
     ];
 
 
+    public function annualBalances(): MorphMany
+    {
+        return $this->morphMany(AnnualBalance::class, 'account');
+    }
+
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class, 'user_id');
     }
-
-//    public function getBalanceAttribute($value)
-//    {
-//        if ($this->is_client)
-//            return $this->getYearlyBalance(Account::getSystemAccount('clients'));
-//        return 0;
-//    }
 
     public function getYearlyBalance(Account $account)
     {
@@ -91,12 +90,6 @@ class User extends BaseAuthModel
         return $debitAmount - $creditAmount; // clients
     }
 
-//    public function getVendorBalanceAttribute($value)
-//    {
-//        if ($this->is_vendor)
-//            return $this->getYearlyBalance(Account::getSystemAccount('vendors'));
-//        return 0;
-//    }
 
     public function invoices(): HasMany
     {

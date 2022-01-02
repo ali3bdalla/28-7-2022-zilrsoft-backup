@@ -65,6 +65,7 @@ class Invoice extends BaseModel
         'vtp' => MoneyValueObject::class,
     ];
 
+
     public static function getInvoiceByPublicIdHash($hash): Invoice
     {
         $publicIdElements = Invoice::getDecryptedPublicIdElements($hash);

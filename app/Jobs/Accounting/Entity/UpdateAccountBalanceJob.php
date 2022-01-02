@@ -65,8 +65,6 @@ class UpdateAccountBalanceJob implements ShouldQueue
             );
 
         }
-
-
         if ($this->updateAmount)
             $amount = $this->amount;
         else

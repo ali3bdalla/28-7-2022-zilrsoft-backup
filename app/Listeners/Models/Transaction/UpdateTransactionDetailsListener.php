@@ -20,14 +20,12 @@ class UpdateTransactionDetailsListener
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param object $event
      * @return void
      */
     public function handle($event)
     {
-        //
-        if($event->transaction->is_pending == false)
-        {
+        if ($event->transaction->is_pending == false) {
             dispatch_sync(new UpdateAccountBalanceJob($event->transaction));
         }
     }

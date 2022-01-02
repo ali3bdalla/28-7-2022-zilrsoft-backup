@@ -22,6 +22,7 @@ use App\Http\Controllers\App\Web\ShippingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index');
+Route::post('dashboard', [HomeController::class, 'changeSettings'])->name('dashboard.change_settings');
 Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
 Route::resource('sales', SaleController::class);
 Route::prefix('sales')->name('sales.')->group(
