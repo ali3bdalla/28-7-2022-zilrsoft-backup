@@ -23,7 +23,6 @@ class TransactionCreated
      */
     public function __construct(EntryTransaction $transaction)
     {
-        //
         $this->transaction = $transaction;
     }
 

@@ -5,9 +5,10 @@ namespace App\Models;
 use App\Dto\InvoiceItemDto;
 use App\Enums\AccountingTypeEnum;
 use App\Enums\InvoiceTypeEnum;
+use App\Models\Traits\AnnuallyScoped;
+use App\Scopes\ActiveYearScope;
 use App\Scopes\DraftScope;
 use App\ValueObjects\MoneyValueObject;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -49,13 +50,13 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode as FacadesQrCode;
 class Invoice extends BaseModel
 {
     use SoftDeletes;
-
+    use AnnuallyScoped;
     protected $guarded = [];
 
     protected $casts = [
         'printable_price' => 'boolean',
         'is_draft_converted' => 'boolean',
-        'invoice_type' => InvoiceTypeEnum::class.':nullable',
+        'invoice_type' => InvoiceTypeEnum::class . ':nullable',
         'net' => MoneyValueObject::class,
         'total' => MoneyValueObject::class,
         'subtotal' => MoneyValueObject::class,
@@ -65,23 +66,21 @@ class Invoice extends BaseModel
         'vtp' => MoneyValueObject::class,
     ];
 
-
     public static function getInvoiceByPublicIdHash($hash): Invoice
     {
         $publicIdElements = Invoice::getDecryptedPublicIdElements($hash);
-
         return Invoice::where([
             'created_at' => $publicIdElements->get('created_at', null),
-            'id' => (int) $publicIdElements->get('id', 0),
+            'id' => (int)$publicIdElements->get('id', 0),
         ])->firstOrFail();
     }
 
     public static function getDecryptedPublicIdElements($hash): Collection
     {
         $decryptedText = base64_decode($hash);
-
         return collect(json_decode($decryptedText));
     }
+
 
     public function getEncryptedPublicId(): string
     {
@@ -126,11 +125,6 @@ class Invoice extends BaseModel
     public function branch(): BelongsTo
     {
         return $this->belongsTo(Branch::class, 'branch_id');
-    }
-
-    public function items(): HasMany
-    {
-        return $this->hasMany(InvoiceItems::class, 'invoice_id')->withoutGlobalScope(DraftScope::class);
     }
 
     public function serial_history(): HasOne
@@ -213,13 +207,12 @@ class Invoice extends BaseModel
             $invoiceItemDto->setInvoice($this);
             $invoiceItem = InvoiceItems::factory()
                 ->setDto($invoiceItemDto)
-                ->create()
-            ;
-            $net = (float) $this->net + (float) $invoiceItem->net;
-            $total = (float) $this->total + (float) $invoiceItem->total;
-            $tax = (float) $this->tax + (float) $invoiceItem->tax;
-            $discount = $this->discount + (float) $invoiceItem->discount;
-            $subtotal = $this->subtotal + (float) $invoiceItem->subtotal;
+                ->create();
+            $net = (float)$this->net + (float)$invoiceItem->net;
+            $total = (float)$this->total + (float)$invoiceItem->total;
+            $tax = (float)$this->tax + (float)$invoiceItem->tax;
+            $discount = $this->discount + (float)$invoiceItem->discount;
+            $subtotal = $this->subtotal + (float)$invoiceItem->subtotal;
             $this->update([
                 'net' => $net,
                 'total' => $total,
@@ -235,14 +228,13 @@ class Invoice extends BaseModel
     public function tlvQrCode()
     {
         $tlv = '';
-        foreach ([
-            1 => "{$this->organization->locale_title}",
-            2 => "{$this->organization->vat}",
-            3 => "{$this->created_at}",
-            4 => "{$this->net}",
-            5 => "{$this->tax}",
-        ] as $tag => $value) {
-            $tlv .= pack('H*', sprintf('%02X', $tag)).pack('H*', sprintf('%02X', strlen($value))).$value;
+        foreach ([ 1 => "{$this->organization->locale_title}",
+                     2 => "{$this->organization->vat}",
+                     3 => "{$this->created_at}",
+                     4 => "{$this->net}",
+                     5 => "{$this->tax}",
+                 ] as $tag => $value) {
+            $tlv .= pack('H*', sprintf('%02X', $tag)) . pack('H*', sprintf('%02X', strlen($value))) . $value;
         }
 
         return FacadesQrCode::size(100)->generate(base64_encode($tlv));
@@ -251,10 +243,10 @@ class Invoice extends BaseModel
     public function appShowUrl()
     {
         if ($this->invoice_type->equals(InvoiceTypeEnum::sale(), InvoiceTypeEnum::return_sale())) {
-            return url('sales/'.$this->id);
+            return url('sales/' . $this->id);
         }
 
-        return url('purchases/'.$this->id);
+        return url('purchases/' . $this->id);
     }
 
     public function getUserNameAttribute()
@@ -268,6 +260,11 @@ class Invoice extends BaseModel
             ['belong_to_kit', false],
             ['show_price_in_print_mode', true],
         ])->whereHas('item')->get();
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(InvoiceItems::class, 'invoice_id')->withoutGlobalScope(DraftScope::class);
     }
 
     public function printedItemsQuantity(): float

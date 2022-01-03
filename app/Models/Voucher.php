@@ -5,6 +5,8 @@ namespace App\Models;
 use AliAbdalla\Tafqeet\Core\Tafqeet;
 use App\Enums\InvoiceTypeEnum;
 use App\Enums\VoucherTypeEnum;
+use App\Models\Traits\AnnuallyScoped;
+use App\Scopes\ActiveYearScope;
 use Database\Factories\VoucherFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -29,7 +31,7 @@ use Illuminate\Support\Facades\Auth;
 class Voucher extends BaseModel
 {
     use SoftDeletes;
-
+    use AnnuallyScoped;
     protected $table = 'payments';
     protected $casts = [
         'payment_type' => VoucherTypeEnum::class . ':nullable',
@@ -38,6 +40,8 @@ class Voucher extends BaseModel
     protected $appends = [
         'amount_ar_words',
     ];
+
+
 
     protected static function newFactory(): VoucherFactory
     {
