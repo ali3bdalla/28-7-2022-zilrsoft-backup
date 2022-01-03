@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Enums\TransactionDto;
 use App\Models\Traits\AnnuallyScoped;
-use App\Scopes\ActiveYearScope;
 use Database\Factories\EntryFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;

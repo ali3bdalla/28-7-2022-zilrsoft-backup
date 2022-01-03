@@ -6,7 +6,6 @@ use App\Dto\InvoiceItemDto;
 use App\Enums\AccountingTypeEnum;
 use App\Enums\InvoiceTypeEnum;
 use App\Models\Traits\AnnuallyScoped;
-use App\Scopes\ActiveYearScope;
 use App\Scopes\DraftScope;
 use App\ValueObjects\MoneyValueObject;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

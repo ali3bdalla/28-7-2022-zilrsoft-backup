@@ -6,7 +6,6 @@ use AliAbdalla\Tafqeet\Core\Tafqeet;
 use App\Enums\InvoiceTypeEnum;
 use App\Enums\VoucherTypeEnum;
 use App\Models\Traits\AnnuallyScoped;
-use App\Scopes\ActiveYearScope;
 use Database\Factories\VoucherFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;

@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Enums\AccountingTypeEnum;
 use App\Events\Models\Transaction\TransactionCreated;
 use App\Models\Traits\AnnuallyScoped;
-use App\Scopes\ActiveYearScope;
 use App\ValueObjects\MoneyValueObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,6 +25,7 @@ class EntryTransaction extends BaseModel
     use  SoftDeletes;
     use  HasFactory;
     use AnnuallyScoped;
+
     protected $table = "transactions";
     protected $with = ["account", 'invoice', 'user', 'item'];
     protected $guarded = [];
@@ -43,7 +43,6 @@ class EntryTransaction extends BaseModel
     protected $dispatchesEvents = [
         'created' => TransactionCreated::class,
     ];
-
 
 
     public function account(): BelongsTo
