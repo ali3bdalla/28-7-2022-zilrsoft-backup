@@ -16,9 +16,11 @@ trait AnnuallyScoped
         if (Auth::user() && Auth::user()->active_year) {
             $activeYear = Auth::user()->active_year;
             static::creating(function (Model $model) use ($activeYear) {
-                $creatingAt = Carbon::parse($model->created_at);
-                if ($creatingAt->year != $activeYear)
-                    $model->created_at = Carbon::createFromDate($activeYear, '12', '31');
+                if (!$model->invoice_id) {
+                    $creatingAt = Carbon::parse($model->created_at);
+                    if ($creatingAt->year != $activeYear)
+                        $model->created_at = Carbon::createFromDate($activeYear, '12', '31');
+                }
             });
         }
     }

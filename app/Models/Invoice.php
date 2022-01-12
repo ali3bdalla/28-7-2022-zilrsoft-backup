@@ -49,7 +49,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode as FacadesQrCode;
 class Invoice extends BaseModel
 {
     use SoftDeletes;
-    use AnnuallyScoped;
+
     protected $guarded = [];
 
     protected $casts = [
@@ -227,7 +227,7 @@ class Invoice extends BaseModel
     public function tlvQrCode()
     {
         $tlv = '';
-        foreach ([ 1 => "{$this->organization->locale_title}",
+        foreach ([1 => "{$this->organization->locale_title}",
                      2 => "{$this->organization->vat}",
                      3 => "{$this->created_at}",
                      4 => "{$this->net}",

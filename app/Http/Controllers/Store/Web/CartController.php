@@ -15,6 +15,7 @@ class CartController extends Controller
 
         $data = [];
 
+
         if (auth('client')->check()) {
             $data['shippingAddresses'] = $request->user('client')->shippingAddresses()->with('city')->get(); //)
         }
@@ -27,7 +28,7 @@ class CartController extends Controller
         );
     }
 
-    public function redirectToLogin(Request  $request)
+    public function redirectToLogin(Request $request)
     {
         $request->session()->put('url.intended', '/web/cart');
         return redirect('/web/sign_in');

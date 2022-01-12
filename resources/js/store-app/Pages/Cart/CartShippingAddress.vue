@@ -2,7 +2,9 @@
   <div class="">
     <h2 v-if="$page.props.shippingAddresses.length > 0" class="cart__shipping-method-title">
       {{ $page.props.$t.cart.select_shipping_address }} {{ $page.props.$t.common.or }}
-      <inertia-link class="text-blue-400" href="/web/profile/create-shipping-address">{{ $page.props.$t.common.add_new }}
+      <inertia-link class="text-blue-400" href="/web/profile/create-shipping-address">{{
+          $page.props.$t.common.add_new
+        }}
       </inertia-link>
     </h2>
     <div v-else class="cart__shipping-method-title">
@@ -102,7 +104,7 @@ export default {
 
   computed: {
     shippingAddressList () {
-      let city = JSON.parse(localStorage.getItem('cart_shipping_city_id', "{}"));
+      let city = JSON.parse(localStorage.getItem('cart_shipping_city_id', '{}'))
       return this.$page.props.shippingAddresses.filter(p => p.city_id == city.id)
     }
   },
