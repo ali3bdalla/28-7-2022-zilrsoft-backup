@@ -26,6 +26,7 @@
     "jeroennoten/laravel-adminlte": "^3.7",
     "laravel/envoy": "^2.4",
     "laravel/framework": "^v8.58.0",
+    "laravel/horizon": "^5.8",
     "laravel/scout": "^9.2",
     "laravel/tinker": "^2.0",
     "laravel/ui": "^3.3",
@@ -91,6 +92,10 @@
     ],
     "post-root-package-install": [
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-install-cmd": [
+      "@php artisan telescope:publish --ansi",
+      "@php artisan horizon:publish --ansi"
     ],
     "post-create-project-cmd": [
       "@php artisan key:generate --ansi"
