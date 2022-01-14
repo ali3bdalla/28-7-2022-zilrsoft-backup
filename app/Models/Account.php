@@ -42,14 +42,11 @@ class Account extends BaseModel
     use SoftDeletes;
     use NestingTrait;
     use HasFactory;
-
     protected $guarded = [];
     protected $appends = [
         'locale_name',
-        'current_amount',
         'label',
-        'is_expanded',
-        'balance'
+        'is_expanded'
     ];
     protected $casts = [
         'is_gateway' => 'boolean',

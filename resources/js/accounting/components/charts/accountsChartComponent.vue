@@ -3,7 +3,7 @@
     class="list-group"
     style="border-right: 1px solid #999;padding-right: 14px;list-style: none;margin-top: 3px;"
   >
-    <li class item="account" v-for="(account, index)  in accountslist" :key="account.id">
+    <li class item="account" v-for="(account, index)  in  accounts" :key="account.id">
       <span
         :class="{'bold_class':account.children.length>=1}"
         @click="openChartAccount(account)"
@@ -30,15 +30,7 @@
 <script>
 export default {
   props: ["accounts", "baseUrl"],
-  data: function () {
-    return {
-      accountslist: [],
-    };
-  },
-  created: function () {
-    this.accountslist = this.accounts;
-  },
-  computed: {},
+
   methods: {
     openChartAccount(account) {
       location.href = "/accounts/" + account.id;
