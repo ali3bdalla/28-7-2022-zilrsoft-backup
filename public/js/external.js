@@ -17759,7 +17759,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/resources/js/external/app.js */"./resources/js/external/app.js");
+module.exports = __webpack_require__(/*! /Users/ali/projects/zilrsoft/resources/js/external/app.js */"./resources/js/external/app.js");
 
 
 /***/ })
