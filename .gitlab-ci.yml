@@ -38,6 +38,7 @@ build:
   stage: build
   script:
     - docker-php-ext-install soap
+    - docker-php-ext-install pcntl
     # Install Composer dependencies
     - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
     # Copy over testing configuration

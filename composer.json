@@ -93,7 +93,7 @@
     "post-root-package-install": [
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
     ],
-    "post-install-cmd": [
+    "post-update-cmd": [
       "@php artisan telescope:publish --ansi",
       "@php artisan horizon:publish --ansi"
     ],
