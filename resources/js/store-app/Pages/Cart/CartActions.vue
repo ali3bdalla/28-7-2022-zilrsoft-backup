@@ -3,14 +3,12 @@
     <div class="cart__total-amount">
       <span>
         {{ $page.props.$t.cart.total }} (
-        <span class="inc_tax">
-          {{
-          $page.props.$t.cart.inc_vat
-          }} 15%
-        </span>)
+        <span class="inc_tax"> {{ $page.props.$t.cart.inc_vat }} 15% </span>)
       </span>
       <div>
-        <RenderMoneyComponent :money="getOrderTotalAmount()"></RenderMoneyComponent>
+        <RenderMoneyComponent
+          :money="getOrderTotalAmount()"
+        ></RenderMoneyComponent>
         {{ $page.props.$t.products.sar }}
       </div>
     </div>
@@ -26,7 +24,9 @@
         <span>{{ $page.props.$t.cart.shipping_total }}</span>
 
         <div v-if="shippingSubtotal > 0">
-          <RenderMoneyComponent :money="shippingSubtotal"></RenderMoneyComponent>
+          <RenderMoneyComponent
+            :money="shippingSubtotal"
+          ></RenderMoneyComponent>
         </div>
         <span v-else>{{ $page.props.$t.cart.free }}</span>
       </div>
@@ -42,16 +42,20 @@
           v-if="$page.props.client_logged"
           class="proceed-btn"
           @click="changeActivePage('checkout')"
-        >{{ $page.props.$t.cart.checkout }} ({{ cartItemsList.length }})
+        >
+          {{ $page.props.$t.cart.checkout }} ({{ cartItemsList.length }})
         </button>
         <button v-else class="proceed-btn" @click="loginToCheckout">
           {{ $page.props.$t.cart.login_to_checkout }}
         </button>
       </div>
-      <div  v-if="activePage === 'checkout'">
+      <div v-if="activePage === 'checkout'">
         <div class="py-3 my-1">
-          <input type="checkbox" v-model="acceptTermsAndPrivacyPolicy"/>
-          {{$page.props.$t.cart.i_agree_to }} <a href="/web/content/terms" class="text-blue-500">{{$page.props.$t.cart.terms_and_conditions}}</a>
+          <input type="checkbox" v-model="acceptTermsAndPrivacyPolicy" />
+          {{ $page.props.$t.cart.i_agree_to }}
+          <a href="/web/content/terms" class="text-blue-500">{{
+            $page.props.$t.cart.terms_and_conditions
+          }}</a>
         </div>
         <button
           :disabled="!shippingAddressId || !acceptTermsAndPrivacyPolicy"
@@ -61,9 +65,9 @@
           {{ $page.props.$t.cart.confirm_order }}
         </button>
         <button
-            class="text-center flex items-center justify-center mt-2 text-gray-900 text-sm w-full"
-            @click="changeActivePage('cart')"
-          >
+          class="text-center flex items-center justify-center mt-2 text-gray-900 text-sm w-full"
+          @click="changeActivePage('cart')"
+        >
           {{ $page.props.$t.common.back }}
         </button>
       </div>
@@ -72,72 +76,72 @@
 </template>
 
 <script>
-import RenderMoneyComponent from '../../Components/Utility/RenderMoneyComponent.vue'
-import { getOrderTotal, getOrderNet } from '../../../repository/orders'
+import RenderMoneyComponent from "../../Components/Utility/RenderMoneyComponent.vue";
+import { getOrderTotal, getOrderNet } from "../../../repository/orders";
 import {
   getProductsWeight,
-  getShippingSubtotal
-} from '../../../repository/shipping'
+  getShippingSubtotal,
+} from "../../../repository/shipping";
 
 export default {
   components: { RenderMoneyComponent },
-  name: 'CartActions',
+  name: "CartActions",
   props: {
     cartItemsList: {
       type: Array,
-      required: true
+      required: true,
     },
     getShippingMethod: {
       type: Function,
-      required: true
+      required: true,
     },
     shippingMethodId: {
       required: true,
-      type: Number
+      type: Number,
     },
     shippingAddressId: {
       required: true,
-      type: Number
+      type: Number,
     },
     activePage: {
       required: true,
-      type: String
-    }
+      type: String,
+    },
   },
-  data () {
+  data() {
     return {
-      acceptTermsAndPrivacyPolicy: false
-    }
+      acceptTermsAndPrivacyPolicy: false,
+    };
   },
   computed: {
-    shippingWeight () {
-      return getProductsWeight(this.cartItemsList)
+    shippingWeight() {
+      return getProductsWeight(this.cartItemsList);
     },
-    orderNetAmount () {
+    orderNetAmount() {
       return getOrderNet(this.getShippingMethod(), this.cartItemsList, {
-        price: 'online_offer_price'
-      })
+        price: "online_offer_price",
+      });
     },
-    shippingSubtotal () {
-      return getShippingSubtotal(this.getShippingMethod(), this.cartItemsList)
-    }
+    shippingSubtotal() {
+      return getShippingSubtotal(this.getShippingMethod(), this.cartItemsList);
+    },
   },
   methods: {
-    getOrderTotalAmount () {
-      const items = this.cartItemsList
-      return getOrderTotal(items, { price: 'online_offer_price' })
+    getOrderTotalAmount() {
+      const items = this.cartItemsList;
+      return getOrderTotal(items, { price: "online_offer_price" });
     },
-    loginToCheckout () {
-      location.href = '/web/cart/redirect'
+    loginToCheckout() {
+      location.href = "/web/cart/redirect";
     },
-    changeActivePage (page) {
-      this.$emit('changeActivePage', { page: page })
+    changeActivePage(page) {
+      this.$emit("changeActivePage", { page: page });
     },
-    issueOrder () {
-      this.$emit('issueOrder')
-    }
-  }
-}
+    issueOrder() {
+      this.$emit("issueOrder");
+    },
+  },
+};
 </script>
 
 <style scoped>

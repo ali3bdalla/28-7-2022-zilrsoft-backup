@@ -1,7 +1,7 @@
 <template>
   <div>
     <button
-        v-if="!$store.state.cart.find((product) => product.id === item.id)"
+        v-if="!existsCartItem"
         class="product__add-to-cart-button"
         @click="addItem"
     >
@@ -46,15 +46,25 @@
 <script>
 export default {
   props: ['item'],
+  computed: {
+    existsCartItem() {
+      return this.$page.props.cart_items.find((product) => product.item_id === this.item.id);
+    }
+  },
   methods: {
     addItem () {
-      this.$store.commit('addToCart', {
-        item: this.item,
-        quantity: 1
+      axios.post('/api/web/cart/add_item',{
+        item_id: this.item.id
+      }).then(res => {
+        this.$page.props.cart_items.push(res.data);
       })
     },
     removeItem () {
-      this.$store.commit('removeFromCart', this.item)
+      axios.delete('/api/web/cart/remove_item',{
+        params: {cart_item_id: this.existsCartItem?.id}
+      }).then(res => {
+        this.$page.props.cart_items.splice(this.existsCartItem);
+      })
     }
   }
 }

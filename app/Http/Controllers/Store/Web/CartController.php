@@ -12,19 +12,8 @@ class CartController extends Controller
 {
     public function index(Request $request)
     {
-
-        $data = [];
-
-
-        if (auth('client')->check()) {
-            $data['shippingAddresses'] = $request->user('client')->shippingAddresses()->with('city')->get(); //)
-        }
-
-        $data['cities'] = City::where('country_id', 1)->get();
-
         return Inertia::render(
-            'Cart/Index',
-            $data
+            'Cart/Checkout'
         );
     }
 

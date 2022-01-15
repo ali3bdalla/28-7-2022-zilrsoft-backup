@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Store\API\CartController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => "orders"], function () {
@@ -25,6 +26,9 @@ Route::prefix('categories')->name('categories.')->group(
 Route::prefix('cart')->name('cart.')->group(
     function () {
         Route::match(['POST', 'GET'], '/get_items_details', 'CartController@getItemDetails')->name('get_items_details');
+        Route::post('add_item', [CartController::class, 'addItem']);
+        Route::delete('remove_item', [CartController::class, 'removeItem']);
+        Route::put('update_quantity', [CartController::class, 'updateQuantity']);
     }
 );
 Route::prefix('filters')->name('filters.')->group(

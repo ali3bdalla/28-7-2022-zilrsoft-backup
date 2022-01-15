@@ -5,7 +5,7 @@
       <li class="cart-icon page__header-cart-icon-container">
         <a
             :class="applyClass"
-            :href="[$store.state.cartCount === 0 ? '#' : '/web/cart']"
+            :href="[cartItemsCount === 0 ? '#' : '/web/cart']"
         >
           <svg
               class="page__header-cart-icon"
@@ -34,7 +34,7 @@
               display: flex;
               align-items: center;
             "
-          >{{ $store.state.cartCount }}</span
+          >{{ cartItemsCount }}</span
           >
         </a>
       </li>
@@ -52,8 +52,11 @@ export default {
       applyClass: ''
     }
   },
-  computed: mapState(['cartCount']),
-
+  computed: {
+    cartItemsCount() {
+      return this.$page.props.cart_items.length;
+    }
+  },
   watch: {
     cartCount: function (oldValue, NewValue) {
       this.applyClass = 'animate__animated animate__rubberBand '

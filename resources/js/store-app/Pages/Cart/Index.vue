@@ -42,7 +42,7 @@
                 </el-select>
               </div>
               <h1 class="cart__shipping-method-title">
-                {{ $page.props.$t.cart.shipping_method }}
+                {{ $page.props.$t.cart.shipping_method }} 
               </h1>
               <div class="cart__shipping-method-list">
                 <div
@@ -114,8 +114,7 @@ export default {
   },
   computed: {
     selectedCityName () {
-      if(this.cityId)
-        return this.cityId.locale_name
+      if(this.cityId) return this.cityId.locale_name;
       return  this.$page.props.$t.messages.select_city;
     },
     showCart () {
