@@ -29,6 +29,8 @@ Route::prefix('cart')->name('cart.')->group(
         Route::post('add_item', [CartController::class, 'addItem']);
         Route::delete('remove_item', [CartController::class, 'removeItem']);
         Route::put('update_quantity', [CartController::class, 'updateQuantity']);
+        Route::put('city', [CartController::class, 'updateCity']);
+        Route::put('shipping_method', [CartController::class, 'updateShippingMethod']);
     }
 );
 Route::prefix('filters')->name('filters.')->group(

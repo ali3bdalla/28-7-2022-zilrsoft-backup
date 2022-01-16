@@ -12,7 +12,7 @@ export default {
   computed: {
     cartTotal() {
       return parseFloat(
-        this.$page.props.cart_items.reduce(
+        this.$page.props.cart.items.reduce(
           (c, n) => c + parseFloat(n.quantity * n.price),
           0
         )

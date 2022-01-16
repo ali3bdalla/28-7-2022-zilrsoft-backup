@@ -156,7 +156,7 @@ export default {
   },
   computed: {
     cartItems() {
-      return this.$page.props.cart_items;
+      return this.$page.props.cart.items;
     },
   },
   methods: {

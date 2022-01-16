@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -58,7 +59,7 @@ class EcommerceMiddleware extends Middleware
             }
         }
         return array_merge(parent::share($request), [
-            'cart_items' => CartItem::sessionItems(),
+            'cart' => Cart::getSessionCart(),
             'active_logo' => 'ar' == $activeLang ? asset('images/logo_ar.png') : asset('images/logo_en.png'),
             'active_locale' => app()->getLocale(),
             'client_logged' => auth('client')->check(),

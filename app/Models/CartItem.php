@@ -24,7 +24,10 @@ class CartItem extends Model
         return $this->belongsTo(Item::class, 'item_id');
     }
 
-
+    public function cart(): BelongsTo
+    {
+        return $this->belongsTo(Cart::class, 'cart_id');
+    }
 
     public static function sessionItems()
     {

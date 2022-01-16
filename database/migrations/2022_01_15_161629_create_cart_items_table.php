@@ -15,7 +15,7 @@ class CreateCartItemsTable extends Migration
     {
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
-            $table->string('session_id')->nullable();
+            $table->integer('cart_id')->nullable();
             $table->integer('item_id')->nullable();
             $table->float('price')->nullable();
             $table->float('quantity')->nullable();

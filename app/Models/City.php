@@ -13,4 +13,8 @@ class City extends BaseModel
     {
         return $this->belongsTo(Country::class, 'country_id');
     }
+    public function allowedShippingMethods()
+    {
+        return $this->hasMany(ShippingMethodCity::class, 'city_id')->with('shippingMethod')->whereHas("shippingMethod");
+    }
 }
