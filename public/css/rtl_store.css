@@ -2250,7 +2250,8 @@ a:hover {
   margin-left: 5px;
 }
 
-.contact-form .leave-comment .comment-form input, .contact-form .leave-comment .comment-form textarea {
+.contact-form .leave-comment .comment-form input,
+.contact-form .leave-comment .comment-form textarea {
   padding-right: 15px;
 }
 
@@ -2274,6 +2275,11 @@ a:hover {
 
 .el-tag .el-icon-close {
   right: 5px !important;
+}
+
+.el-step.is-center .el-step__line {
+  left: -50% !important;
+  right: 50% !important;
 }
 
 .cart-table table tr th, .cart-table table tr th.p-name {

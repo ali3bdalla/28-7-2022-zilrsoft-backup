@@ -9,15 +9,20 @@
           <div class="col-lg-12">
             <ShowEmptyCartComponent v-if="isEmpty"></ShowEmptyCartComponent>
             <div v-else>
+              <CartProgress :active="0" />
               <CartItems />
-              <div class="cart__totals-buttons">
+              <div class="page__mt-5 col-lg-12">
                 <CartAmount :total="true" />
-                <inertia-link
-                  class="cart__submit-btn"
-                  href="/web/cart/shipping_method"
-                >
-                  {{ $page.props.$t.cart.checkout }}
-                </inertia-link>
+                <div class="flex justify-content-center">
+                  <div class="cart__totals-buttons">
+                    <button
+                      class="cart__submit-btn"
+                      @click="$inertia.visit('/web/cart/shipping_method')"
+                    >
+                      {{ $page.props.$t.cart.checkout }}
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -29,13 +34,20 @@
 
 <script>
 import CartItems from "./../../Components/Cart/CartItems";
+import CartProgress from "./../../Components/Cart/CartProgress";
 import CartAmount from "./../../Components/Cart/CartAmount";
 import WebLayout from "../../Layouts/WebAppLayout";
 
 import ShowEmptyCartComponent from "./../../Components/Cart/ShowEmptyCartComponent.vue";
 export default {
   name: "Checkout",
-  components: { CartItems, CartAmount, ShowEmptyCartComponent, WebLayout },
+  components: {
+    CartItems,
+    CartProgress,
+    CartAmount,
+    ShowEmptyCartComponent,
+    WebLayout,
+  },
   computed: {
     isEmpty() {
       return this.$page.props.cart.items_count == 0;

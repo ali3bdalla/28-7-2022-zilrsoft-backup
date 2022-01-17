@@ -38,8 +38,12 @@
                   <div
                     class="mt-1 flex flex-col gap-2 justify-between items-center text-gray-900"
                   >
+                    <div :name="`quantity-label-${cartItem.id}`">
+                      {{ cartItem.quantity }}
+                    </div>
                     <el-input-number
-                      :min="0"
+                      :min="1"
+                      v-if="!disable"
                       :max="parseFloat(cartItem.item.available_qty)"
                       style="text-align: center !important"
                       class="text-center"
@@ -50,7 +54,7 @@
                     ></el-input-number>
                     <div class="font-bold mt-2 text-xl">
                       {{ $page.props.$t.products.total }}: &nbsp;
-                      {{ getCartProductTotal(cartItem) }}
+                      {{ getCartItemTotal(cartItem) }}
                       {{ $page.props.$t.products.sar }}
                     </div>
                   </div>
@@ -81,7 +85,7 @@
             <th>{{ $page.props.$t.products.price }}</th>
             <th>{{ $page.props.$t.products.quantity }}</th>
             <th>{{ $page.props.$t.products.total }}</th>
-            <th v-if="$page.props.client_logged">
+            <th v-if="!disable">
               <i v-if="cartItems.length >= 1" class="ti-close"></i>
             </th>
           </tr>
@@ -108,7 +112,7 @@
             </td>
             <td class="qua-col first-row">
               <div class="quantity">
-                <div class="pro-qty">
+                <div class="pro-qty" v-if="!disable">
                   <button
                     class="dec qtybtn"
                     @click="updateOrderProductQuantity(cartItem, 'dec')"
@@ -127,12 +131,15 @@
                     +
                   </button>
                 </div>
+                <div v-else>
+                  {{ cartItem.quantity }}
+                </div>
               </div>
             </td>
             <td class="total-price first-row">
-              {{ cartItem.item.total }}
+              {{ getCartItemTotal(cartItem) }}
             </td>
-            <td class="close-td first-row">
+            <td class="close-td first-row" v-if="!disable">
               <i class="fa fa-remove" @click="removeCartItem(cartItem)"></i>
             </td>
           </tr>
@@ -146,13 +153,11 @@
 import { getProductTotal } from "./../../../repository/products";
 export default {
   name: "CartItems",
-  data() {
-    return {
-      select_all: false,
-      shippingAddressMethod: 1,
-      shippingAddressId: 0,
-      cart: [],
-    };
+  props: {
+    disable: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     cartItems() {
@@ -160,10 +165,11 @@ export default {
     },
   },
   methods: {
-    getCartProductTotal(product) {
-      return 0;
+    getCartItemTotal(cartItem) {
+      return parseFloat(
+        parseFloat(cartItem.quantity) * parseFloat(cartItem.price)
+      ).toFixed(2);
     },
-
     async updateOrderProductQuantity(cartItem, type) {
       let quantity = parseFloat(cartItem.quantity);
       if (type === "inc") {

@@ -35,6 +35,9 @@ class CartController extends Controller
             return redirect('/web/sign_in');
         }
 
+        if (!Cart::needShippingAddress()) {
+            return redirect('/web/cart/checkout');
+        }
         return Inertia::render("Cart/shippingAddress", [
             'shippingAddresses' => ShippingAddress::where([
                 ['city_id', Cart::getSessionCart()->city_id],
@@ -43,9 +46,11 @@ class CartController extends Controller
         ]);
     }
 
-    public function redirectToLogin(Request $request)
+    public function checkout()
     {
-        $request->session()->put('url.intended', '/web/cart/shipping_address');
-        return redirect('/web/sign_in');
+        if (!Cart::isReady()) {
+            return back();
+        }
+        return Inertia::render("Cart/Checkout");
     }
 }

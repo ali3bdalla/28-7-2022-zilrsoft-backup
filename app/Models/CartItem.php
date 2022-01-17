@@ -33,4 +33,9 @@ class CartItem extends Model
     {
         return self::where('session_id', Session::getId())->with("item")->get();
     }
+
+    public function canBeHandled()
+    {
+        return $this->item->isAvailableQuantityCanHandle($this->quantity);
+    }
 }

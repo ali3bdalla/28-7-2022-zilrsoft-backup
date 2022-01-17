@@ -5,18 +5,11 @@ object-assign
 */
 
 /*!
- * Pusher JavaScript Library v5.1.1
+ * Pusher JavaScript Library v7.0.3
  * https://pusher.com/
  *
- * Copyright 2017, Pusher
+ * Copyright 2020, Pusher
  * Released under the MIT licence.
- */
-
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <http://feross.org>
- * @license  MIT
  */
 
 /*!
@@ -64,8 +57,6 @@ object-assign
  */
 
 /*! algoliasearch-lite.umd.js | 4.8.4 | © Algolia, inc. | https://github.com/algolia/algoliasearch-client-javascript */
-
-/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /**
  * @license

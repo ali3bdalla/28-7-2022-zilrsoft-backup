@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests\Order;
 
+use App\Models\Cart;
 use App\Models\Item;
 use App\Models\ShippingAddress;
 use App\Models\ShippingMethod;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
@@ -18,14 +20,7 @@ class StoreOrderRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            "items" => "required|array",
-            "items.*.id" => ["required", "integer", Rule::exists('items', 'id')],
-            "items.*.quantity" => ["required", "numeric", "min:1"],
-            'shipping_method_id' => ['required', Rule::exists('shipping_methods', 'id')],
-            'shipping_address_id' => ['required', Rule::exists('shipping_addresses', 'id')],
-            'payment_method_id' => ['nullable'],
-        ];
+        return [];
     }
 
 
@@ -36,37 +31,6 @@ class StoreOrderRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
-    }
-
-    public function getShippingAddress(): ShippingAddress
-    {
-        return ShippingAddress::find($this->input('shipping_address_id'));
-    }
-
-    public function getShippingMethod(): ShippingMethod
-    {
-        return ShippingMethod::find($this->input('shipping_method_id'));
-    }
-
-    public function getPaymentMethodId()
-    {
-        return $this->input('payment_method_id');
-    }
-
-    /**
-     * @throws ValidationException
-     */
-    public function ensureQuantitiesAreValid()
-    {
-        foreach ($this->getItems() as $item) {
-            if (!(Item::findOrFail($item['id']))->isAvailableQuantityCanHandle((float)$item['quantity']))
-                throw ValidationException::withMessages(['item_available_quantity' => "you can't sale this items , qty not"]);
-        }
-    }
-
-    public function getItems()
-    {
-        return $this->input('items', []);
+        return Auth::guard('client')->check() && Cart::isReady();
     }
 }

@@ -32,7 +32,9 @@ import {
   Tag,
   Dropdown,
   DropdownItem,
-  DropdownMenu
+  DropdownMenu,
+  Steps,
+  Step
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -54,6 +56,8 @@ Vue.use(DropdownItem)
 Vue.use(DropdownMenu)
 Vue.use(Table)
 Vue.use(Option)
+Vue.use(Step)
+Vue.use(Steps)
 Vue.use(Select)
 Vue.use(InputNumber)
 Vue.use(Slider)

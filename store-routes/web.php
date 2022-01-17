@@ -35,7 +35,7 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::get('/', 'CartController@index')->name('index');
     Route::get('shipping_method', 'CartController@shippingMethod')->name('shipping_method');
     Route::get('shipping_address', 'CartController@shippingAddress')->name('shipping_address');
-    Route::get('redirect', 'CartController@redirectToLogin')->name('redirect');
+    Route::get('checkout', 'CartController@checkout')->name('checkout');
 });
 
 Route::get('/', 'HomeController@index')->name('index');

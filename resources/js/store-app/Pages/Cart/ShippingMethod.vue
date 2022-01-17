@@ -5,6 +5,7 @@
       style="padding-top: 0px !important"
     >
       <div class="container">
+        <CartProgress :active="1" />
         <div class="page__mt-5 col-lg-12">
           <div class="my-4">
             <el-select
@@ -30,7 +31,7 @@
           <h1 class="cart__shipping-method-title" v-if="pickedCity">
             {{ $page.props.$t.cart.shipping_method }}
           </h1>
-          <div class="cart__shipping-method-list" v-if="pickedCity">
+          <div class="cart__shipping-method-list" v-if="pickedCity != null">
             <div
               v-for="cityMethod in pickedCity.allowed_shipping_methods"
               :key="cityMethod.shipping_method_id"
@@ -50,15 +51,20 @@
           </div>
         </div>
         <div class="page__mt-5 col-lg-12">
-          <div class="">
+          <CartAmount
+            :total="true"
+            :shipping="true"
+            :shippingMethod="pickedShippingMethod"
+          />
+          <div class="flex justify-content-center">
             <div class="cart__totals-buttons">
-              <CartAmount :total="true" />
-              <inertia-link
+              <button
+                :disable="!canMoveToNext"
                 class="cart__submit-btn"
-                href="/web/cart/shipping_address"
+                @click="$inertia.visit('/web/cart/shipping_address')"
               >
                 {{ $page.props.$t.cart.checkout }}
-              </inertia-link>
+              </button>
             </div>
           </div>
         </div>
@@ -68,18 +74,32 @@
 </template>
 
 <script>
+import CartProgress from "./../../Components/Cart/CartProgress";
 import CartAmount from "./../../Components/Cart/CartAmount";
 import WebLayout from "../../Layouts/WebAppLayout";
 
 export default {
   name: "ShippingMethod",
-  components: { CartAmount, WebLayout },
+  components: { CartAmount, WebLayout, CartProgress },
   computed: {
     cities() {
       return this.$page.props.cities_with_shipping_methods;
     },
-    isEmpty() {
-      return this.$page.props.cart_items.length === 0;
+    canMoveToNext() {
+      return (
+        this.activeCityId &&
+        this.pickedCity &&
+        this.activeShippingMethodId &&
+        this.pickedShippingMethod
+      );
+    },
+    pickedShippingMethod() {
+      const shippingMethod = this.pickedCity
+        ? this.pickedCity.allowed_shipping_methods.find(
+            (p) => p.shipping_method_id == this.activeShippingMethodId
+          )
+        : null;
+      return shippingMethod ? shippingMethod.shipping_method : null;
     },
   },
   data() {
@@ -98,9 +118,22 @@ export default {
   },
   methods: {
     updateCity(e) {
-      axios.put("/api/web/cart/city", {
-        city_id: e.id,
-      });
+      axios
+        .put("/api/web/cart/city", {
+          city_id: e.id,
+        })
+        .then((res) => {
+          if (
+            e.allowed_shipping_methods.length === 1 &&
+            e.allowed_shipping_methods[0].shipping_method_id !=
+              this.activeShippingMethodId
+          ) {
+            this.activeShippingMethodId =
+              e.allowed_shipping_methods[0].shipping_method_id;
+
+            this.updateShippingMethod(this.activeShippingMethodId);
+          }
+        });
     },
     updateShippingMethod(e) {
       axios.put("/api/web/cart/shipping_method", {

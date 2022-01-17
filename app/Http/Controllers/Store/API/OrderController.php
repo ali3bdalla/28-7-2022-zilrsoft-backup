@@ -10,6 +10,8 @@ use App\Enums\OrderStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\StoreOrderRequest;
 use App\Http\Requests\Web\Order\ConfirmOrderPaymentRequest;
+use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Manager;
 use App\Models\Order;
 use App\Notifications\Store\CanceledOrderNotification;
@@ -17,6 +19,7 @@ use App\Notifications\Store\UserConfirmedOrderPaymentNotification;
 use App\Repository\OrderRepositoryContract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
@@ -42,17 +45,37 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $storeOrderRequest): ?Order
     {
-        $storeOrderRequest->ensureQuantitiesAreValid();
-        $client = Auth::guard('client')->user();
-        $items = $storeOrderRequest->getItems();
-        $shippingMethod = $storeOrderRequest->getShippingMethod();
-        $shippingAddress = $storeOrderRequest->getShippingAddress();
-        $paymentMethodId = $storeOrderRequest->getPaymentMethodId();
-        $invoiceDto = new InvoiceDto(Manager::find(1), $client, InvoiceTypeEnum::sale(), $items, true, true);
-        $orderDto = new OrderDto($invoiceDto, $shippingMethod, $shippingAddress, $paymentMethodId);
-        $order = $this->orderRepositoryContract->createOrder($orderDto);
-        $this->orderRepositoryContract->issuedOrderNotifications($order);
-        return $order->load('user');
+        return DB::transaction(function () {
+            if (!Cart::canBeHandled() || !Cart::isReady()) {
+                throw ValidationException::withMessages(['item_available_quantity' => "you can't sale this items , qty not"]);
+            }
+            $client = Auth::guard('client')->user();
+            $cart = Cart::getSessionCart();
+            $invoiceDto = new InvoiceDto(
+                Manager::find(1),
+                $client,
+                InvoiceTypeEnum::sale(),
+                Cart::list()->map(function (CartItem $cartItem) {
+                    return [
+                        'id' => $cartItem->item_id,
+                        'price' => $cartItem->price,
+                        'quantity' =>  $cartItem->quantity
+                    ];
+                })->toArray(),
+                true,
+                true
+            );
+            $orderDto = new OrderDto(
+                $invoiceDto,
+                $cart->shippingMethod,
+                $cart->shippingAddress,
+                "bank_transfer"
+            );
+            $order = $this->orderRepositoryContract->createOrder($orderDto);
+            $this->orderRepositoryContract->issuedOrderNotifications($order);
+            Cart::earse();
+            return $order->load('user');
+        });
     }
 
     public function cancelOrder(Order $order, Request $request)
@@ -76,7 +99,8 @@ class OrderController extends Controller
         $this->orderRepositoryContract->registerOrderPayment($order, $orderPaymentDto);
         Notification::send(Manager::whereOrganizationId($order->organization_id)->get(), new UserConfirmedOrderPaymentNotification($order));
         return Inertia::render(
-            'Order/PaymentConfirmed', [
+            'Order/PaymentConfirmed',
+            [
                 'order' => $order
             ]
         );
