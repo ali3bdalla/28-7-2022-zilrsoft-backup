@@ -14,36 +14,25 @@ class CreateShippingMethodsTable extends Migration
     public function up()
     {
         Schema::create(
-            'shipping_methods', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name')->nullable();
-            $table->string('ar_name')->nullable();
-            $table->string('logo')->nullable();
-            $table->float('max_base_weight')->default(15);
+            'shipping_methods',
+            function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('name')->nullable();
+                $table->string('ar_name')->nullable();
+                $table->string('logo')->nullable();
+                $table->float('max_base_weight')->default(15);
+                $table->boolean('is_required_shipping_address')->default(true);
 
-            $table->float('max_base_weight_cost')->default(30);
-            $table->float('kg_after_max_weight_cost')->default(2);
+                $table->float('max_base_weight_cost')->default(30);
+                $table->float('kg_after_max_weight_cost')->default(2);
 
-            $table->float('max_base_weight_price')->default(30);
-            $table->float('kg_rate_after_max_price')->default(2);
+                $table->float('max_base_weight_price')->default(30);
+                $table->float('kg_rate_after_max_price')->default(2);
 
-            $table->integer('item_id')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
-
-//
-//
-// DROP TABLE public.delivery_men;
-// DROP TABLE public.orders;
-// DROP TABLE public.shipping_methods;
-// DROP TABLE public.shipping_addresses;
-
-// DELETE from public.migrations WHERE migration = '2020_11_28_204551_create_delivery_men_table';
-// DELETE from public.migrations WHERE migration = '2020_11_02_161625_create_orders_table';
-// DELETE from public.migrations WHERE migration = '2020_11_05_160436_create_shipping_methods_table';
-// DELETE from public.migrations WHERE migration = '2020_11_02_161223_create_shipping_addresses_table';
-// DELETE from public.migrations WHERE migration = '2020_12_10_165224_add_shipping_amount_cost_to_order';
-        }
+                $table->integer('item_id')->nullable();
+                $table->softDeletes();
+                $table->timestamps();
+            }
         );
     }
 
