@@ -4,7 +4,11 @@
       <div>
         <div class="container flex justify-center items-center md:hidden">
           <div class="mx-auto w-full">
-            <div v-for="(item, index) in $store.state.cart" :key="index" class="bg-white">
+            <div
+              v-for="(item, index) in $store.state.cart"
+              :key="index"
+              class="bg-white"
+            >
               <div
                 class="border mt-2 flex flex-col justify-center p-2 pb-0  rounded-lg shadow-sm"
                 style="border-color: #d2e8ff !important"
@@ -14,12 +18,15 @@
                     {{ getItemNamme(item) }}
                   </p>
                   <p class="uppercase text-xl text-center">
-                    {{ item.online_offer_price }} {{ $page.props.$t.products.sar }}
+                    {{ item.online_offer_price }}
+                    {{ $page.props.$t.products.sar }}
                   </p>
                 </div>
                 <div class="prod-img border p-2 w-32 mx-auto">
                   <img
-                    :src="$processedImageUrl(item.item_image_url,90 * 5,90 * 5)"
+                    :src="
+                      $processedImageUrl(item.item_image_url, 90 * 5, 90 * 5)
+                    "
                     class="w-full object-cover object-center h-20"
                   />
                 </div>
@@ -39,7 +46,8 @@
                     ></el-input-number>
                     <div class="font-bold mt-2 text-xl">
                       {{ $page.props.$t.products.total }}: &nbsp;
-                      {{ getCartProductTotal(item) }} {{ $page.props.$t.products.sar }}
+                      {{ getCartProductTotal(item) }}
+                      {{ $page.props.$t.products.sar }}
                     </div>
                   </div>
                 </div>
@@ -70,17 +78,17 @@
             <th>{{ $page.props.$t.products.quantity }}</th>
             <th>{{ $page.props.$t.products.total }}</th>
             <th v-if="$page.props.client_logged">
-            <i v-if="cartItemsList.length >= 1" class="ti-close"></i>
+              <i v-if="cartItemsList.length >= 1" class="ti-close"></i>
             </th>
           </tr>
         </thead>
         <tbody v-for="(item, index) in cartItemsList" :key="index">
-          <tr
-            class="cart__table-raw"
-
-          >
+          <tr class="cart__table-raw">
             <td class="text-center cart-pic first-row">
-              <img class="cart__item-image" :src="$processedImageUrl(item.item_image_url,90 * 5 , 90 * 5)" />
+              <img
+                class="cart__item-image"
+                :src="$processedImageUrl(item.item_image_url, 90 * 5, 90 * 5)"
+              />
             </td>
             <td class="cart-title first-row" style="font-size: 15px !important">
               {{ getItemNamme(item) }}
@@ -88,7 +96,7 @@
             <td class="p-price first-row">
               {{ parseFloat(item.online_offer_price).toFixed(2) }}
             </td>
-            <td  class="qua-col first-row">
+            <td class="qua-col first-row">
               <div class="quantity">
                 <div class="pro-qty">
                   <button
@@ -111,7 +119,9 @@
                 </div>
               </div>
             </td>
-            <td class="total-price first-row">{{ getCartProductTotal(item) }}</td>
+            <td class="total-price first-row">
+              {{ getCartProductTotal(item) }}
+            </td>
             <td class="close-td first-row">
               <i class="fa fa-remove" @click="removeCartItem(item)"></i>
             </td>
@@ -123,68 +133,67 @@
 </template>
 
 <script>
-import { getProductTotal } from './../../../repository/products'
+import { getProductTotal } from "./../../../repository/products";
 export default {
-  name: 'CartItems',
+  name: "CartItems",
   props: {
     cartItemsList: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
-  data () {
+  data() {
     return {
       select_all: false,
       shippingAddressMethod: 1,
       shippingAddressId: 0,
-      cart: []
-    }
+      cart: [],
+    };
   },
 
   methods: {
-    getCartProductTotal (product) {
-      return getProductTotal(product, { price: 'online_offer_price' })
+    getCartProductTotal(product) {
+      return getProductTotal(product, { price: "online_offer_price" });
     },
-    getItemNamme (item) {
-      if (this.$page.props.active_locale === 'en') return item.name
-      return item.ar_name
+    getItemNamme(item) {
+      if (this.$page.props.active_locale === "en") return item.name;
+      return item.ar_name;
     },
-    updateProduct (payload) {
-      this.$store.commit('addToCart', payload)
+    updateProduct(payload) {
+      this.$store.commit("addToCart", payload);
     },
-    updateOrderProductQuantity (product, type) {
-      let quantity = parseFloat(product.quantity)
-      if (type === 'inc') {
-        quantity += 1
+    updateOrderProductQuantity(product, type) {
+      let quantity = parseFloat(product.quantity);
+      if (type === "inc") {
+        quantity += 1;
       } else {
-        quantity -= 1
+        quantity -= 1;
       }
       this.updateProduct({
         item: product,
-        quantity: quantity
-      })
+        quantity: quantity,
+      });
     },
-    async itemQtyUpdated (item) {
-      const quantity = parseInt(item.quantity)
+    async itemQtyUpdated(item) {
+      const quantity = parseInt(item.quantity);
       if (quantity >= 0) {
-        await this.$store.commit('addToCart', {
+        await this.$store.commit("addToCart", {
           item: item,
-          quantity: quantity
-        })
+          quantity: quantity,
+        });
       }
     },
 
-    removeCartItem (item) {
-      this.$confirm(this.$page.props.$t.messages.are_you_sure, '', 'error', {
+    removeCartItem(item) {
+      this.$confirm(this.$page.props.$t.messages.are_you_sure, "", "error", {
         confirmButtonText: this.$page.props.$t.messages.yes,
-        cancelButtonText: this.$page.props.$t.messages.no
+        cancelButtonText: this.$page.props.$t.messages.no,
       }).then(() => {
-        this.$store.commit('removeFromCart', item)
-      })
-    }
-
-  }
-}
+        this.$store.commit("removeFromCart", item);
+      });
+    },
+  },
+};
 </script>
 
 <style>

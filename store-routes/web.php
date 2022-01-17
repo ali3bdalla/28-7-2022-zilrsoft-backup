@@ -33,7 +33,9 @@ Route::group(['middleware' => 'guest:client'], function () {
 
 Route::prefix('cart')->name('cart.')->group(function () {
     Route::get('/', 'CartController@index')->name('index');
-    Route::get('redirect', 'CartController@redirectToLogin')->name('redirect');
+    Route::get('shipping_method', 'CartController@shippingMethod')->name('shipping_method');
+    Route::get('shipping_address', 'CartController@shippingAddress')->name('shipping_address');
+    Route::get('checkout', 'CartController@checkout')->name('checkout');
 });
 
 Route::get('/', 'HomeController@index')->name('index');
@@ -69,4 +71,3 @@ Route::middleware('auth:client')->group(
         });
     }
 );
-

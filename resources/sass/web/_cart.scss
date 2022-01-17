@@ -3,6 +3,12 @@
     @apply w-5 h-6;
   }
 
+  &__submit-btn {
+    width: 100% !important;
+    background: $secondaryColor !important;
+    @apply py-1 rounded text-white px-2 py-1;
+  }
+
   &__item-checkbox-container {
     @apply w-1/12;
   }
@@ -24,7 +30,6 @@
     }
   }
 
-
   &__totals-buttons {
     @apply w-64 p-3;
   }
@@ -33,12 +38,10 @@
     float: right;
     @apply font-bold shadow;
     font-weight: bolder;
-    .proceed-btn
-    {
+    .proceed-btn {
       width: 100% !important;
       background: $secondaryColor !important;
     }
-
   }
 
   &__total-amount {
@@ -47,7 +50,8 @@
 
   &__shipping-address {
     @apply flex flex-col gap-5;
-    .el-select-dropdown , .el-popper {
+    .el-select-dropdown,
+    .el-popper {
       top: 409px !important;
     }
     .el-input__inner {
@@ -55,23 +59,22 @@
     }
   }
 
-
   &__shipping-address-list {
     @apply flex;
   }
 
   &__shipping-address-right {
-    @apply w-7/12 ;
+    @apply w-7/12;
     @screen md {
       @apply w-10/12;
     }
   }
 
   &__shipping-address-left {
-    @apply flex items-center justify-center w-5/12 text-sm ;
+    @apply flex items-center justify-center w-5/12 text-sm;
 
     @screen md {
-      @apply w-2/12
+      @apply w-2/12;
     }
   }
 
@@ -79,13 +82,12 @@
     @apply text-xl font-bold text-gray-900;
   }
 
-
   &__shipping-method-title {
     @apply mb-3 text-xl text-gray-900;
   }
 
   &__shipping-method-list {
-    @apply  grid grid-cols-2 gap-2 ;
+    @apply grid grid-cols-2 gap-2;
     @screen md {
       @apply grid-cols-4;
     }
@@ -99,10 +101,10 @@
     @apply object-cover h-32;
 
     &__hidden {
-      @apply opacity-50
+      @apply opacity-50;
     }
   }
-  &__shipping-methods-list  {
+  &__shipping-methods-list {
     @apply grid grid-cols-2 gap-2;
 
     @screen md {
@@ -110,28 +112,22 @@
     }
   }
 
-
   &__checkout {
     @apply flex items-center justify-center w-full mt-5;
   }
-
-
 }
-
 
 .cart-table table tr td.qua-col .pro-qty .qtybtn {
   &:focus {
-    @apply outline-none
+    @apply outline-none;
   }
-
-  
 }
 
 .cart-table table tr td.qua-col .pro-qty {
   height: 33px !important;
-
 }
 
-.cart-table table tr td.qua-col .pro-qty .qtybtn,.cart-table table tr td.qua-col .pro-qty input {
-  line-height: 28px  !important;
+.cart-table table tr td.qua-col .pro-qty .qtybtn,
+.cart-table table tr td.qua-col .pro-qty input {
+  line-height: 28px !important;
 }

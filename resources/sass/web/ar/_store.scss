@@ -1,141 +1,132 @@
 @import url(//cdn.rawgit.com/rtaibah/dubai-font-cdn/master/dubai-font.css);
 
 html {
-    direction:rtl;
-    font-family: 'Dubai-Bold', sans-serif;
-    font-size:18px;
+  direction: rtl;
+  font-family: "Dubai-Bold", sans-serif;
+  font-size: 18px;
 }
-
-
-
 
 *:not(i) {
-    font-family: 'Dubai-Bold', sans-serif !important;
+  font-family: "Dubai-Bold", sans-serif !important;
 }
-
 
 input {
-    text-align: right !important;
+  text-align: right !important;
 }
 .inner-header .logo {
-    text-align: right;
+  text-align: right;
 }
 
 .header-top .ht-right .login-panel i {
-    margin-right: 0px;
-    margin-left: 8px;
+  margin-right: 0px;
+  margin-left: 8px;
 }
-
 
 .inner-header .advanced-search {
-    background-color: white;
+  background-color: white;
 }
 .inner-header .advanced-search .category-btn {
-    float: right;
-    padding-left: 0px;
-    padding-right: 13px;
-    width: 30%;
+  float: right;
+  padding-left: 0px;
+  padding-right: 13px;
+  width: 30%;
 }
 
 .inner-header .advanced-search .input-group button {
-    right: auto !important;
-    left: 0px;
-
+  right: auto !important;
+  left: 0px;
 }
 
 .inner-header .advanced-search .input-group {
-    // padding-top: 7px !important;
-    // padding-right: 10px;
+  // padding-top: 7px !important;
+  // padding-right: 10px;
 }
 
 .country-selector.has-value .country-selector__input {
-
-     border-top-left-radius: 0px !important;
-     border-bottom-left-radius:0px  !important;
-    border-color: yellowgreen;
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  border-color: yellowgreen;
 }
 
-
 .input-tel__input {
- 
- 
-    border-top-right-radius: 0px !important;
-    border-bottom-right-radius:0px  !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
 }
 
 .nav-item .nav-depart {
-    float: right;
+  float: right;
 }
 
 .newslatter-item .subscribe-form button {
-    right: auto;
-    left: 0;
-
+  right: auto;
+  left: 0;
 }
 
 .newslatter-item .subscribe-form input {
-    padding-right: 20px;
+  padding-right: 20px;
 }
 
 .inner-header .advanced-search .input-group input {
-    padding-right: 20px
+  padding-right: 20px;
 }
-
 
 a:hover {
-    text-decoration: none
+  text-decoration: none;
 }
 
-
 .breadcrumb-text a:after {
-    content: ">" !important;
+  content: ">" !important;
 }
 
 .breadcrumb-text a:first-child:after {
-    content: "" !important;
+  content: "" !important;
 }
 .breadcrumb-text a:last-child:after {
-    content: ">" !important;
-  }
+  content: ">" !important;
+}
 .breadcrumb-text a {
-    margin-right: 15px;
-    margin-left: 0px;
-    font-size: 13px;
-    color: #777777;
-  }
+  margin-right: 15px;
+  margin-left: 0px;
+  font-size: 13px;
+  color: #777777;
+}
 
 .el-tabs__nav {
-    float: right !important;
+  float: right !important;
 }
 
 .el-tabs__nav i {
-    margin-left: 5px
+  margin-left: 5px;
 }
 
-.contact-form .leave-comment .comment-form input ,.contact-form .leave-comment .comment-form textarea {
-    padding-right: 15px
+.contact-form .leave-comment .comment-form input,
+.contact-form .leave-comment .comment-form textarea {
+  padding-right: 15px;
 }
 
 .contact-widget .cw-item .ci-text {
-    padding-left: 0px;
-    padding-right: 30px;
+  padding-left: 0px;
+  padding-right: 30px;
 }
 .page__categories__name {
-    direction: rtl
+  direction: rtl;
 }
 
-
-.breadcrumb-text-disable-last a:last-child
-{
-    pointer-events: none;
-   cursor: default;
+.breadcrumb-text-disable-last a:last-child {
+  pointer-events: none;
+  cursor: default;
 }
 
 .contact-widget .cw-item .ci-text p {
-    direction: ltr !important
+  direction: ltr !important;
 }
 
 .el-tag .el-icon-close {
-    right:5px !important
-  }
+  right: 5px !important;
+}
+
+.el-step.is-center .el-step__line {
+  left: -50% !important;
+  right: 50% !important;
+}
 @import "./product";

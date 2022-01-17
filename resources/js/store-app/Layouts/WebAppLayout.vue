@@ -58,7 +58,7 @@
           </ais-state-results>
         </div>
 
-        <footer class="text-center footer-section">
+        <footer class="text-center footer-section" v-if="!isLoading">
           <div class="container">
             <div class="row">
               <div class="col-lg-3">
@@ -89,11 +89,18 @@
                 <div class="footer-widget">
                   <ul>
                     <li class="text-center flex items-center justify-center">
-                      <a href="https://maps.app.goo.gl/ZwuXJRrZkMhYt5wY6" class="text-center flex items-center justify-center" target="_blank">
+                      <a
+                        href="https://maps.app.goo.gl/ZwuXJRrZkMhYt5wY6"
+                        class="text-center flex items-center justify-center"
+                        target="_blank"
+                      >
                         <img
-                        :src="$asset('web_assets/template/img/our-location.png')" class="object-cover"
-                        alt=""
-                      />
+                          :src="
+                            $asset('web_assets/template/img/our-location.png')
+                          "
+                          class="object-cover"
+                          alt=""
+                        />
                       </a>
                     </li>
                   </ul>
@@ -146,7 +153,11 @@
                     </li>
                     <li style="" class="flex items-center justify-center mt-2">
                       <img
-                        :src="$asset('web_assets/template/img/payment-method.png')" alt=""/>
+                        :src="
+                          $asset('web_assets/template/img/payment-method.png')
+                        "
+                        alt=""
+                      />
                     </li>
                   </ul>
                 </div>
@@ -197,23 +208,23 @@
 </template>
 
 <script>
-import HeaderComponent from '../Components/Layout/HeaderComponent'
-import algoliasearch from 'algoliasearch/lite'
-import { history as historyRouter } from 'instantsearch.js/es/lib/routers'
-import { simple as simpleStateMapping } from 'instantsearch.js/es/lib/stateMappings'
-import 'instantsearch.css/themes/algolia-min.css'
-import ProductSearchResultListComponent from '../Components/Product/ProductSearchResultListComponent.vue'
-import Loading from 'vue-loading-overlay'
-import 'vue-loading-overlay/dist/vue-loading.css'
+import HeaderComponent from "../Components/Layout/HeaderComponent";
+import algoliasearch from "algoliasearch/lite";
+import { history as historyRouter } from "instantsearch.js/es/lib/routers";
+import { simple as simpleStateMapping } from "instantsearch.js/es/lib/stateMappings";
+import "instantsearch.css/themes/algolia-min.css";
+import ProductSearchResultListComponent from "../Components/Product/ProductSearchResultListComponent.vue";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
   components: {
     HeaderComponent,
     ProductSearchResultListComponent,
-    Loading
+    Loading,
   },
-  name: 'WebAppLayout',
-  data () {
+  name: "WebAppLayout",
+  data() {
     return {
       searchClient: algoliasearch(
         this.$page.props.algolia_app_key,
@@ -221,31 +232,29 @@ export default {
       ),
       routing: {
         router: historyRouter(),
-        stateMapping: simpleStateMapping()
+        stateMapping: simpleStateMapping(),
       },
       isLoading: true,
-      isPageLoading: true
-    }
+      isPageLoading: true,
+    };
   },
-  mounted () {
-    setTimeout(() => {
-      this.isPageLoading = false
-    }, 750)
+  mounted() {
+    this.isPageLoading = false;
   },
   methods: {
-    isSearchPage (
+    isSearchPage(
       hierarchicalFacetsRefinements,
       numericRefinements,
       tagRefinements,
       query,
       hits
     ) {
-      const isSearchPage = !query.length
-      this.isLoading = false
-      return isSearchPage
-    }
-  }
-}
+      const isSearchPage = !query.length;
+      this.isLoading = false;
+      return isSearchPage;
+    },
+  },
+};
 </script>
 
 <style>

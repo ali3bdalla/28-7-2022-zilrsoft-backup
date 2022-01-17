@@ -50,13 +50,6 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <!-- <a
-
-              class="page__header-buttons__item login-panel"
-              href="/web/profile"
-              ><i class="fa fa-user" style="font-size: 22px"></i> &nbsp;
-              {{ $page.props.client.name }}</a
-            > -->
           </div>
 
           <LanguageSwitcher></LanguageSwitcher>

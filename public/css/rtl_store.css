@@ -745,6 +745,21 @@ body {
   height: 1.5rem;
 }
 
+.cart__submit-btn {
+  width: 100% !important;
+  background: #192a56 !important;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-radius: 0.25rem;
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
 .cart__item-checkbox-container {
   width: 8.333333%;
 }
@@ -821,7 +836,8 @@ body {
   gap: 1.25rem;
 }
 
-.cart__shipping-address .el-select-dropdown, .cart__shipping-address .el-popper {
+.cart__shipping-address .el-select-dropdown,
+.cart__shipping-address .el-popper {
   top: 409px !important;
 }
 
@@ -940,7 +956,8 @@ body {
   height: 33px !important;
 }
 
-.cart-table table tr td.qua-col .pro-qty .qtybtn, .cart-table table tr td.qua-col .pro-qty input {
+.cart-table table tr td.qua-col .pro-qty .qtybtn,
+.cart-table table tr td.qua-col .pro-qty input {
   line-height: 28px !important;
 }
 
@@ -2233,7 +2250,8 @@ a:hover {
   margin-left: 5px;
 }
 
-.contact-form .leave-comment .comment-form input, .contact-form .leave-comment .comment-form textarea {
+.contact-form .leave-comment .comment-form input,
+.contact-form .leave-comment .comment-form textarea {
   padding-right: 15px;
 }
 
@@ -2257,6 +2275,11 @@ a:hover {
 
 .el-tag .el-icon-close {
   right: 5px !important;
+}
+
+.el-step.is-center .el-step__line {
+  left: -50% !important;
+  right: 50% !important;
 }
 
 .cart-table table tr th, .cart-table table tr th.p-name {

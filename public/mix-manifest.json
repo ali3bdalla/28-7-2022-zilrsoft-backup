@@ -1,8 +1,16 @@
 {
+<<<<<<< HEAD
     "/js/app.js": "/js/app.js?id=d907f0ff7eedeceb5b02",
+=======
+    "/js/app.js": "/js/app.js?id=eee2b8e1cda7d42973cf",
+>>>>>>> refactor_cart
     "/css/main.css": "/css/main.css?id=f9bde3d90c3ebf7dc270",
-    "/css/store.css": "/css/store.css?id=8ab2c6318b18cdd37edd",
-    "/css/rtl_store.css": "/css/rtl_store.css?id=74e7126323d007be7315",
+    "/css/store.css": "/css/store.css?id=54ff44b4b3eda965601e",
+    "/css/rtl_store.css": "/css/rtl_store.css?id=ab0e29e5a6db3c80f5d5",
     "/js/external.js": "/js/external.js?id=6ed13a70c14e2fcfe32e",
+<<<<<<< HEAD
     "/js/store-app/app.js": "/js/store-app/app.js?id=d375a9dfed7545dc777f"
+=======
+    "/js/store-app/app.js": "/js/store-app/app.js?id=d023016e1cc2c2e12ac4"
+>>>>>>> refactor_cart
 }
