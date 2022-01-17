@@ -5,7 +5,7 @@
       style="padding-top: 0px !important"
     >
       <div class="container">
-        <CartProgress :active="4" />
+        <CartProgress :active="3" />
         <CartItems :disable="true" />
         <div class="page__mt-5 col-lg-12">
           <CartAmount
@@ -15,7 +15,7 @@
           <div class="flex justify-content-center">
             <div class="cart__totals-buttons">
               <button class="cart__submit-btn" @click="checkout">
-                {{ $page.props.$t.cart.checkout }}
+                {{ $page.props.$t.cart.confirm_order }}
               </button>
             </div>
           </div>

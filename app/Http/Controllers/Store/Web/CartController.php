@@ -41,14 +41,14 @@ class CartController extends Controller
         return Inertia::render("Cart/shippingAddress", [
             'shippingAddresses' => ShippingAddress::where([
                 ['city_id', Cart::getSessionCart()->city_id],
-                ['user_id', Auth::id()]
-            ])->get()
+                ['user_id', Auth::guard('client')->user()->id]
+            ])->with("city")->get()
         ]);
     }
 
     public function checkout()
     {
-        if (!Cart::isReady()) {
+        if (!Cart::isReady() || !Cart::canBeHandled()) {
             return back();
         }
         return Inertia::render("Cart/Checkout");

@@ -31,6 +31,7 @@ Route::prefix('cart')->name('cart.')->group(
         Route::put('update_quantity', [CartController::class, 'updateQuantity']);
         Route::put('city', [CartController::class, 'updateCity']);
         Route::put('shipping_method', [CartController::class, 'updateShippingMethod']);
+        Route::put('shipping_address', [CartController::class, 'updateShippingAddress']);
     }
 );
 Route::prefix('filters')->name('filters.')->group(

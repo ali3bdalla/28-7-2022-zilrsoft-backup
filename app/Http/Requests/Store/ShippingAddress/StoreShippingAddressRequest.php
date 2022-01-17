@@ -46,16 +46,22 @@ class StoreShippingAddressRequest extends FormRequest
             $loggedUser = auth('client')->user();
 
             $shippingAddress = $loggedUser->shippingAddresses()->create(
-                $this->only('city_id', 'first_name', 'last_name', 'phone_number', 'building_number', 'description',
-                    'street_name', 'zip_code')
+                $this->only(
+                    'city_id',
+                    'first_name',
+                    'last_name',
+                    'phone_number',
+                    'building_number',
+                    'description',
+                    'street_name',
+                    'zip_code'
+                )
             );
             DB::commit();
-            return Inertia::location('/web/cart');
-            if($this->has('return_object') && $this->input('return_object')) {
+            return Inertia::location('/web/cart/shipinng_address');
+            if ($this->has('return_object') && $this->input('return_object')) {
                 return $shippingAddress->load('city');
-            }else
-            {
-
+            } else {
             }
         } catch (QueryException $queryException) {
             DB::rollBack();

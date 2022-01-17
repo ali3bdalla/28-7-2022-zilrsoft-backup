@@ -26,6 +26,13 @@
           <span v-else>{{ $page.props.$t.cart.free }}</span>
         </div>
       </div>
+      <div class="cart__total-amount" v-if="all">
+        <span>{{ $page.props.$t.cart.net }}</span>
+        <div>
+          <RenderMoneyComponent :money="orderNetAmount"></RenderMoneyComponent>
+          {{ $page.props.$t.products.sar }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +47,11 @@ import {
 export default {
   components: { RenderMoneyComponent },
   computed: {
+    orderNetAmount() {
+      if (this.shippingMethod)
+        return getOrderNet(this.shippingMethod, this.itemsList);
+      return 0;
+    },
     itemsList() {
       return this.$page.props.cart.items.map((cartItem) => {
         cartItem.item.quantity = cartItem.quantity;
@@ -47,6 +59,7 @@ export default {
       });
     },
     shippingSubtotal() {
+      if (!this.shippingMethod) return 0;
       return getShippingSubtotal(this.shippingMethod, this.itemsList);
     },
     shippingWeight() {

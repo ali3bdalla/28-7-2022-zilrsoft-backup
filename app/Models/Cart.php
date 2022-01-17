@@ -25,6 +25,10 @@ class Cart extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
     public function item(): BelongsTo
     {
         return $this->belongsTo(Item::class, 'item_id');
@@ -40,7 +44,7 @@ class Cart extends Model
         $cart = self::query()->firstOrCreate([
             'session_id' => $key
         ], []);
-        return $cart->load("items.item", "shippingMethod")->loadCount("items");
+        return $cart->load("items.item", "shippingMethod", "shippingAddress.city", "city")->loadCount("items");
     }
     public static function removeItem($id)
     {

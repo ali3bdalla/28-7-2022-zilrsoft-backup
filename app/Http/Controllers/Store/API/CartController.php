@@ -67,4 +67,13 @@ class CartController extends Controller
 			'shipping_method_id' => $request->input('shipping_method_id')
 		]);
 	}
+	public function updateShippingAddress(Request $request)
+	{
+		$request->validate([
+			'shipping_address_id' => 'required|integer|exists:shipping_addresses,id'
+		]);
+		Cart::getSessionCart()->update([
+			'shipping_address_id' => $request->input('shipping_address_id')
+		]);
+	}
 }

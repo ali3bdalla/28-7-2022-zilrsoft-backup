@@ -21,5 +21,4 @@ class ShippingAddress extends BaseModel
     {
         return $this->belongsTo(City::class, 'city_id')->with('country');
     }
-
 }
