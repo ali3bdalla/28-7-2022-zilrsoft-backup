@@ -34,6 +34,7 @@ class ManagerRepository extends BaseRepository implements ManagerRepositoryContr
             foreach ($manager->gateways()->get() as $gateway) {
                 if ($gateway->is_gateway) {
                     $gateway['receiver_id'] = $manager['id'];
+                    $gateway['current_amount'] = $gateway->current_amount;
                     $managerBanks[] = $gateway;
                 }
             }

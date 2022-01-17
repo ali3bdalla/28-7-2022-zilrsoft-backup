@@ -19,6 +19,8 @@ use App\Http\Controllers\App\Web\InventoryController as WebInventoryController;
 use App\Http\Controllers\App\Web\ManagerController as WebManagerController;
 use App\Http\Controllers\App\Web\OrderController;
 use App\Http\Controllers\App\Web\ShippingController;
+use App\Models\Account;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index');
@@ -198,8 +200,7 @@ Route::middleware('lang:ar')
 
         Route::prefix('gateways')->name('gateways.')->group(function () {
             Route::get('get_gateways_like_to_manager_name', 'ProviderController@get_gateways_like_to_manager_name')
-                ->name('load_manager_gateway')
-            ;
+                ->name('load_manager_gateway');
         });
 
         Route::prefix('reseller_daily')->name('reseller_daily.')->group(function () {
@@ -221,10 +222,7 @@ Route::middleware('lang:ar')
                 Route::get('voucher/{voucher}', 'PrinterController@voucher')->name('voucher');
             });
         });
-
-
-    })
-;
+    });
 
 Route::group(['as' => 'store.', 'prefix' => 'store'], function () {
     Route::prefix('orders')->name('orders.')->group(

@@ -38,6 +38,7 @@ class DailyController extends Controller
         $remainingAccountsBalanceAmount = $loggedUser->remaining_accounts_balance;
         $accountsClosedAt = $loggedUser->accounts_closed_at;
         $gateways = $loggedUser->gateways()->get();
+
         return view('accounting.reseller_daily.account_close', compact('inAmount', 'loggedUser', 'accountsClosedAt', 'outAmount', 'gateways', 'remainingAccountsBalanceAmount'));
     }
 
@@ -49,9 +50,8 @@ class DailyController extends Controller
 
     public function createResellerAccountTransaction()
     {
-        $manager_gateways = $this->managerRepositoryContract->getCurrentManagerBanks();
+        $manager_gateways = $this->managerRepositoryContract->getCurrentManagerBanks()->append('current_amount');
         $gateways = $this->managerRepositoryContract->getAllManagersBanksExcept([Auth::id()]);
         return view('accounting.reseller_daily.transfer_amounts', compact('gateways', 'manager_gateways'));
     }
-
 }
