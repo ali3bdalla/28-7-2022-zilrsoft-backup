@@ -14,6 +14,8 @@ import ToggleButton from 'vue-js-toggle-button'
 import InfiniteLoading from 'vue-infinite-loading'
 import VueProgressBar from 'vue-progressbar'
 import InstantSearch from 'vue-instantsearch'
+import AdvancedSearch from "vue-advanced-search";
+require('vue-advanced-search/dist/AdvancedSearch.css');
 import {
   Button,
   TableColumn,
@@ -67,6 +69,7 @@ Vue.use(Checkbox)
 Vue.use(InstantSearch)
 Vue.use(Tag)
 Vue.use(Switch)
+Vue.component('advanced-search',AdvancedSearch)
 Vue.use(VueProgressBar, {
   color: 'rgb(143, 255, 199)',
   failedColor: 'red',

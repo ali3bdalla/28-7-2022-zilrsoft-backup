@@ -6,7 +6,7 @@
       finish-status="success"
       class="w-full"
     >
-      <el-step title="المنتجات"></el-step>
+      <el-step title="السلة"></el-step>
       <el-step title="وسيلة الشحن"></el-step>
       <el-step title="العنوان"></el-step>
       <el-step title="اكمال"></el-step>

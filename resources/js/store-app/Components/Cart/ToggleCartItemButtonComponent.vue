@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button>See Me</button>
     <button
       v-if="!existsCartItem"
       class="product__add-to-cart-button"

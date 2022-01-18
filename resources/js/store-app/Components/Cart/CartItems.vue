@@ -38,12 +38,12 @@
                   <div
                     class="mt-1 flex flex-col gap-2 justify-between items-center text-gray-900"
                   >
-                    <div :name="`quantity-label-${cartItem.id}`">
+                    <div :name="`quantity-label-${cartItem.id}`" v-if="disable">
                       {{ cartItem.quantity }}
                     </div>
                     <el-input-number
                       :min="1"
-                      v-if="!disable"
+                      v-else
                       :max="parseFloat(cartItem.item.available_qty)"
                       style="text-align: center !important"
                       class="text-center"
@@ -61,6 +61,7 @@
                 </div>
 
                 <div
+                  v-if="!disable"
                   class="mt-3 w-full mx-auto flex justify-between items-center text-gray-900"
                 >
                   <el-button
@@ -151,6 +152,7 @@
 
 <script>
 import { getProductTotal } from "./../../../repository/products";
+
 export default {
   name: "CartItems",
   props: {

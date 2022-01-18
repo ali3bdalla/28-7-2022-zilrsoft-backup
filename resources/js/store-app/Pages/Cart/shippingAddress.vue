@@ -61,7 +61,7 @@
                   class="cart__submit-btn"
                   @click="$inertia.visit('/web/cart/checkout')"
                 >
-                  {{ $page.props.$t.cart.checkout }}
+                  {{ $page.props.$t.common.next }}
                 </button>
               </div>
             </div>

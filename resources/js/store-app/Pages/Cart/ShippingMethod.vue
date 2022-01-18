@@ -8,6 +8,9 @@
         <CartProgress :active="1" />
         <div class="page__mt-5 col-lg-12">
           <div class="my-4">
+            <h3 class="text-lg mb-2">
+              {{ $page.props.$t.messages.select_city }}
+            </h3>
             <el-select
               v-model="pickedCity"
               :default-first-option="true"
@@ -63,7 +66,7 @@
                 class="cart__submit-btn"
                 @click="$inertia.visit('/web/cart/shipping_address')"
               >
-                {{ $page.props.$t.cart.checkout }}
+                {{ $page.props.$t.common.next }}
               </button>
             </div>
           </div>
