@@ -16,8 +16,7 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    protected $commands = [
-    ];
+    protected $commands = [];
 
     /**
      * Define the application's command schedule.
@@ -26,12 +25,12 @@ class Kernel extends ConsoleKernel
     {
 
         $schedule->command(DeleteUnReadNotificationsCommand::class)->daily();
-        $schedule->command('telescope:prune')->daily();
+        $schedule->command('telescope:prune --hours=3')->daily();
         if ($this->app->isProduction()) {
             $schedule->command(NotifyUnPaidOrderCommand::class)->everyMinute();
             $schedule->command(CancelUnPaidOrderCommand::class)->everyMinute();
             $schedule->command(DailyUpdateAccountSnapshotCommand::class)->daily();
-            $schedule->command('scout:import')->days(3);
+            $schedule->command('scout:import')->daily();
         }
     }
 
