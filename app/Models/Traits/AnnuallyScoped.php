@@ -14,17 +14,16 @@ trait AnnuallyScoped
     {
         static::addGlobalScope(new ActiveYearScope());
         if (Auth::user() && Auth::user()->active_year) {
-            $activeYear = Auth::user()->active_year;
-            static::creating(function (Model $model) use ($activeYear) {
+            $sysActiveYear = Auth::user()->active_year;
+            static::creating(function (Model $model) use ($sysActiveYear) {
                 if (empty($model->invoice_id)) {
                     $creatingAt = Carbon::parse($model->created_at);
-                    if ($creatingAt->year != $activeYear)
-                        $date = Carbon::createFromDate($activeYear, '12', '31')->endOfDay();
-                        $model->created_at = $date;
-                        $model->updated_at = $date;
+                    if ($creatingAt->year != $sysActiveYear)
+                        $creatingAt = Carbon::createFromDate($sysActiveYear, '12', '31')->endOfDay();
+                    $model->created_at = $creatingAt;
+                    $model->updated_at = $creatingAt;
                 }
             });
         }
     }
-
 }
