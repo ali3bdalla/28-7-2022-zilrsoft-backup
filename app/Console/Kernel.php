@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     {
 
         $schedule->command(DeleteUnReadNotificationsCommand::class)->daily();
-        $schedule->command('telescope:prune --hours=3')->daily();
+        $schedule->command('telescope:prune --hours=3')->hourly();
         if ($this->app->isProduction()) {
             $schedule->command(NotifyUnPaidOrderCommand::class)->everyMinute();
             $schedule->command(CancelUnPaidOrderCommand::class)->everyMinute();
