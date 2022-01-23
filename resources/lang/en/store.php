@@ -214,6 +214,8 @@ Receipt code :CODE
         'price' => 'Price',
         'quantity' => 'Quantity',
         'total' => 'Total',
+        'total_include_tax' => 'Total Including Tax',
+
         'login_to_checkout' => 'Checkout',
         'inc_vat' => 'Inc Vat',
         'shipping_address' => 'Shipping Address',

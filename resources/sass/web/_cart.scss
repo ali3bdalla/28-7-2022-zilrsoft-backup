@@ -7,6 +7,11 @@
     width: 100% !important;
     background: $secondaryColor !important;
     @apply py-1 rounded text-white px-2 py-1;
+
+    &:disabled {
+      background-color: #eee !important;
+      color: #777;
+    }
   }
 
   &__item-checkbox-container {

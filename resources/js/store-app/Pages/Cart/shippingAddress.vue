@@ -22,8 +22,8 @@
                 v-model="pickedShippingAddress"
                 :default-first-option="true"
                 :filterable="true"
-                no-data-text="No"
-                no-match-text="No Data"
+                no-data-text=""
+                no-match-text=""
                 value-key="id"
                 :placeholder="
                   `${
@@ -57,7 +57,7 @@
             <div class="flex justify-content-center">
               <div class="cart__totals-buttons">
                 <button
-                  :disable="!canMoveToNext"
+                  :disabled="!this.shippingAddressId"
                   class="cart__submit-btn"
                   @click="$inertia.visit('/web/cart/checkout')"
                 >
@@ -98,11 +98,6 @@ export default {
         .then((res) => {
           this.pickedShippingAddress = e;
         });
-    },
-  },
-  computed: {
-    canMoveToNext() {
-      return this.shippingAddressId;
     },
   },
 };

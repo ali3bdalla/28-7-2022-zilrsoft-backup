@@ -15,7 +15,7 @@ class CartController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Cart/Show');
+        return Inertia::render('Cart/Index');
     }
 
     public function shippingMethod()

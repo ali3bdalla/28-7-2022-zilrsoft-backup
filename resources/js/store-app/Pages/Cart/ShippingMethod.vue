@@ -15,8 +15,8 @@
               v-model="pickedCity"
               :default-first-option="true"
               :filterable="true"
-              no-data-text="No"
-              no-match-text="No Data"
+              no-data-text=""
+              no-match-text=""
               value-key="id"
               :placeholder="`${pickedCity ? pickedCity.locale_name : ''}`"
               @change="updateCity"
@@ -62,7 +62,7 @@
           <div class="flex justify-content-center">
             <div class="cart__totals-buttons">
               <button
-                :disable="!canMoveToNext"
+                :disabled="!canMoveToNext()"
                 class="cart__submit-btn"
                 @click="$inertia.visit('/web/cart/shipping_address')"
               >
@@ -88,14 +88,6 @@ export default {
     cities() {
       return this.$page.props.cities_with_shipping_methods;
     },
-    canMoveToNext() {
-      return (
-        this.activeCityId &&
-        this.pickedCity &&
-        this.activeShippingMethodId &&
-        this.pickedShippingMethod
-      );
-    },
     pickedShippingMethod() {
       const shippingMethod = this.pickedCity
         ? this.pickedCity.allowed_shipping_methods.find(
@@ -107,6 +99,7 @@ export default {
   },
   data() {
     return {
+      justSelected: false,
       activeShippingMethodId: null,
       activeCityId: null,
       pickedCity: null,
@@ -120,6 +113,15 @@ export default {
     }
   },
   methods: {
+    canMoveToNext() {
+      return (
+        this.justSelected ||
+        (this.activeCityId &&
+          this.pickedCity &&
+          this.activeShippingMethodId &&
+          this.pickedShippingMethod)
+      );
+    },
     updateCity(e) {
       axios
         .put("/api/web/cart/city", {
@@ -139,9 +141,13 @@ export default {
         });
     },
     updateShippingMethod(e) {
-      axios.put("/api/web/cart/shipping_method", {
-        shipping_method_id: e,
-      });
+      axios
+        .put("/api/web/cart/shipping_method", {
+          shipping_method_id: e,
+        })
+        .then((res) => {
+          this.justSelected = true;
+        });
     },
   },
 };

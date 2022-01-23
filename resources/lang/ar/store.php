@@ -259,6 +259,7 @@ return [
         'price' => 'السعر',
         'quantity' => 'الكمية',
         'total' => 'الإجمالي',
+        'total_include_tax' => 'الاجمالي شامل الضريبة',
         'login_to_checkout' => 'إتمام الشراء',
         'inc_vat' => 'شامل الضريبة',
         'shipping_address' => 'عنوان الشحن',
@@ -306,6 +307,7 @@ return [
         'quantity' => 'الكمية',
         'price' => 'السعر',
         'total' => 'الاجمالي',
+
         'model' => 'الموديل',
         'description' => 'الوصف',
         'filters' => 'فلاتر البحث',

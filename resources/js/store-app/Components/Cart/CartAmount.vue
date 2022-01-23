@@ -2,7 +2,7 @@
   <div class="flex justify-content-center">
     <div class="cart__totals-buttons">
       <div class="cart__total-amount" v-if="shouldRenderTotal">
-        <span>{{ $page.props.$t.cart.total }}</span>
+        <span>{{ $page.props.$t.cart.total_include_tax }}</span>
         <div>
           <RenderMoneyComponent :money="cartTotal"></RenderMoneyComponent>
           {{ $page.props.$t.products.sar }}

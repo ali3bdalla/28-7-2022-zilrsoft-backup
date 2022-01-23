@@ -760,6 +760,11 @@ body {
   padding-bottom: 0.25rem;
 }
 
+.cart__submit-btn:disabled {
+  background-color: #eee !important;
+  color: #777;
+}
+
 .cart__item-checkbox-container {
   width: 8.333333%;
 }
