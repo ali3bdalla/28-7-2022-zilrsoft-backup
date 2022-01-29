@@ -31,6 +31,7 @@ class Voucher extends BaseModel
 {
     use SoftDeletes;
     use AnnuallyScoped;
+    use \App\Traits\OrganizationTarget;
     protected $table = 'payments';
     protected $casts = [
         'payment_type' => VoucherTypeEnum::class . ':nullable',

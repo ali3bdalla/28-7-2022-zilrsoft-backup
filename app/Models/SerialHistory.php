@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class SerialHistory extends BaseModel
 {
     protected $guarded = [];
-
+    use \App\Traits\OrganizationTarget;
 
     public function serial(): BelongsTo
     {

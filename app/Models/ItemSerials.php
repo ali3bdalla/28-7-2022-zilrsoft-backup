@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class ItemSerials extends BaseModel
 {
-
+    use \App\Traits\OrganizationTarget;
     protected $guarded = [];
     protected $appends = [
         'status_description'

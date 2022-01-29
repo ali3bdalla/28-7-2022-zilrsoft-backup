@@ -9,7 +9,7 @@ namespace App\Models;
  */
 class Department extends BaseModel
 {
-
+    use \App\Traits\OrganizationTarget;
     protected $guarded = [];
 
     protected $appends = [

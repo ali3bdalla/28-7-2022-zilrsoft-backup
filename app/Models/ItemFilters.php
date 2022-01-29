@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ItemFilters extends BaseModel
 {
-
+    use \App\Traits\OrganizationTarget;
     protected $guarded = [];
 
     //
@@ -34,6 +34,4 @@ class ItemFilters extends BaseModel
     {
         return $this->belongsTo(Item::class, 'item_id');
     }
-
-
 }

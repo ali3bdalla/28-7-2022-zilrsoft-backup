@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Branch extends BaseModel
 {
+    use \App\Traits\OrganizationTarget;
     protected $guarded = [];
 
     protected $appends = [
@@ -31,5 +32,4 @@ class Branch extends BaseModel
     {
         return $this->hasMany(Department::class, 'branch_id');
     }
-
 }

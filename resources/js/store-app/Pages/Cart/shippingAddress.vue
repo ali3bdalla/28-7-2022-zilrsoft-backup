@@ -97,6 +97,7 @@ export default {
         })
         .then((res) => {
           this.pickedShippingAddress = e;
+          this.shippingAddressId = e.id;
         });
     },
   },

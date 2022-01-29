@@ -16,7 +16,7 @@ use Illuminate\Support\Carbon;
  */
 class ShippingTransaction extends BaseModel
 {
-
+    use \App\Traits\OrganizationTarget;
     protected $guarded = [];
 
     protected $appends = ['delivery_time'];

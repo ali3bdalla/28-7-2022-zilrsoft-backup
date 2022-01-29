@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Storage;
 class Category extends BaseModel
 {
     use  SoftDeletes, NestingTrait;
-
+    use \App\Traits\OrganizationTarget;
 
     protected $appends = [
         'locale_name',

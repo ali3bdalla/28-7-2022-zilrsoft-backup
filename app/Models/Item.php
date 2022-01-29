@@ -50,7 +50,7 @@ class Item extends BaseModel
 {
 
     use SoftDeletes, Searchable;
-
+    use \App\Traits\OrganizationTarget;
     protected $dispatchesEvents = [
         'created' => ItemCreatedEvent::class
     ];

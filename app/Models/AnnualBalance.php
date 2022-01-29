@@ -13,7 +13,6 @@ class AnnualBalance extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
     protected $casts = [
         'debit' => 'float',
         'credit' => 'float',
@@ -24,9 +23,8 @@ class AnnualBalance extends Model
     protected static function boot()
     {
         parent::boot();
-        if(Auth::user() && Auth::user()->active_year)
-        {
-            static::addGlobalScope('annual', function ( $builder) {
+        if (Auth::user() && Auth::user()->active_year) {
+            static::addGlobalScope('annual', function ($builder) {
                 $builder->where('year', Auth::user()->active_year);
             });
         }
@@ -36,5 +34,4 @@ class AnnualBalance extends Model
     {
         return $this->morphTo("account");
     }
-
 }

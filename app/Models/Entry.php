@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
  */
 class Entry extends BaseModel
 {
+    use \App\Traits\OrganizationTarget;
     protected $table = 'transactions_containers';
     use AnnuallyScoped;
     protected $guarded = [];

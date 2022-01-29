@@ -15,7 +15,7 @@ use Propaganistas\LaravelPhone\PhoneNumber;
  */
 class DeliveryMan extends BaseModel
 {
-
+    use \App\Traits\OrganizationTarget;
     protected $guarded = [];
     protected $appends = ['locale_name'];
 
@@ -44,5 +44,4 @@ class DeliveryMan extends BaseModel
     {
         return $this->belongsTo(ShippingMethod::class, 'shipping_method_id');
     }
-
 }

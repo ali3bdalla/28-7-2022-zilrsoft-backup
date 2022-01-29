@@ -35,7 +35,7 @@ class User extends BaseAuthModel
 
     use SoftDeletes;
     use Notifiable;
-
+    use \App\Traits\OrganizationTarget;
 
     protected $guarded = [];
 
@@ -154,5 +154,4 @@ class User extends BaseAuthModel
             'verification_code' => null
         ]);
     }
-
 }

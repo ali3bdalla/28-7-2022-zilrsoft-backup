@@ -28,7 +28,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class Manager extends BaseAuthModel
 {
-
+    use \App\Traits\OrganizationTarget;
     use SoftDeletes;
     use Notifiable;
     use HasFactory;
@@ -74,7 +74,6 @@ class Manager extends BaseAuthModel
     public function canDo($option): int
     {
         return $this->can($option) == true ? 1 : 0;
-
     }
 
     public function organization(): BelongsTo
@@ -129,8 +128,8 @@ class Manager extends BaseAuthModel
                 'manager_id',
                 'gateway_id'
             )
-                ->withPivot('order_number as order_number')
-                ->orderBy('order_number');
+            ->withPivot('order_number as order_number')
+            ->orderBy('order_number');
     }
 
 

@@ -11,6 +11,7 @@ use App\Models\Traits\NestingTrait;
 use App\Repository\AccountRepositoryContract;
 use App\Repository\Eloquent\AccountRepository;
 use App\Scopes\SortByScope;
+use App\Traits\OrganizationTarget;
 use App\ValueObjects\GenericSortByValueObject;
 use App\ValueObjects\TransactionSearchValueObject;
 use Closure;
@@ -42,6 +43,7 @@ class Account extends BaseModel
     use SoftDeletes;
     use NestingTrait;
     use HasFactory;
+    use OrganizationTarget;
     protected $guarded = [];
     protected $appends = [
         'locale_name',
@@ -70,7 +72,8 @@ class Account extends BaseModel
     }
     public static function getSystemAccount($slug = "")
     {
-        return static::where([
+        return static::where(
+            [
                 ['is_system_account', true],
                 ['slug', $slug],
             ]
@@ -168,7 +171,7 @@ class Account extends BaseModel
                 'gateway_id',
                 'manager_id'
             )
-                ->withPivot('order_number as order_number')
-                ->orderBy('order_number');
+            ->withPivot('order_number as order_number')
+            ->orderBy('order_number');
     }
 }

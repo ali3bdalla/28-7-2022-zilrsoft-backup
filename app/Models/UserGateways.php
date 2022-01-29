@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class UserGateways extends BaseModel
 {
-
+    use \App\Traits\OrganizationTarget;
     protected $guarded = [];
 
     protected $appends = [
@@ -26,5 +26,4 @@ class UserGateways extends BaseModel
     {
         return $this->getOriginal("detail");
     }
-
 }

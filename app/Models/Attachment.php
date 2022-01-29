@@ -44,5 +44,4 @@ class Attachment extends BaseModel
     {
         return $this->morphTo();
     }
-
 }

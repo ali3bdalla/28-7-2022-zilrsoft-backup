@@ -37,7 +37,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class InvoiceItems extends BaseModel
 {
     protected $guarded = [];
-
+    use \App\Traits\OrganizationTarget;
     protected $appends = [
         'description',
         'invoice_url',
@@ -124,5 +124,4 @@ class InvoiceItems extends BaseModel
     {
         return $this->belongsTo(Invoice::class, 'invoice_id');
     }
-
 }

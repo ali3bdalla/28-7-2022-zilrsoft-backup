@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class AccountSnapshot extends BaseModel
 {
     use SoftDeletes;
-
+    use \App\Traits\OrganizationTarget;
     protected $guarded = [];
 
 

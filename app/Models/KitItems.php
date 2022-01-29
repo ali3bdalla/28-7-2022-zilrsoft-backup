@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class KitItems extends BaseModel
 {
 
-
+    use \App\Traits\OrganizationTarget;
     protected $guarded = [];
 
     public function item(): BelongsTo
@@ -20,6 +20,4 @@ class KitItems extends BaseModel
     {
         return $this->belongsTo(Item::class, 'kit_id');
     }
-
-
 }

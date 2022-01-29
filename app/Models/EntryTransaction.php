@@ -25,7 +25,7 @@ class EntryTransaction extends BaseModel
     use  SoftDeletes;
     use  HasFactory;
     use AnnuallyScoped;
-
+    use \App\Traits\OrganizationTarget;
     protected $table = "transactions";
     protected $with = ["account", 'invoice', 'user', 'item'];
     protected $guarded = [];
@@ -65,7 +65,6 @@ class EntryTransaction extends BaseModel
             if ($item) {
                 return $item->locale_name;
             }
-
         }
 
         return $this->account->locale_name;
@@ -120,6 +119,4 @@ class EntryTransaction extends BaseModel
     {
         return $this->type->equals(AccountingTypeEnum::debit());
     }
-
-
 }

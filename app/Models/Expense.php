@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Expense extends BaseModel
 {
     use SoftDeletes;
-
+    use \App\Traits\OrganizationTarget;
     protected $guarded = [];
 
     protected $appends = [
@@ -26,7 +26,6 @@ class Expense extends BaseModel
             return $this->ar_name;
 
         return $this->name;
-
     }
 
     public function creator()

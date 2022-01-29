@@ -6,12 +6,11 @@ namespace App\Models;
 class Filter extends BaseModel
 {
     //
-
+    use \App\Traits\OrganizationTarget;
     protected $appends = [
         'locale_name',
     ];
-    protected $guarded = [
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         'is_required_filter' => 'boolean'
@@ -42,5 +41,4 @@ class Filter extends BaseModel
     {
         return $this->hasMany(FilterValues::class, 'filter_id')->orderByDesc('filter_values.updated_at');
     }
-
 }
