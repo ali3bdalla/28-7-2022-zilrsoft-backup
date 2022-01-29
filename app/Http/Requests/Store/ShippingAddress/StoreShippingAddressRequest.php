@@ -27,45 +27,32 @@ class StoreShippingAddressRequest extends FormRequest
     public function rules()
     {
         return [
-            //
             'city_id' => 'required|integer|exists:cities,id',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'phone_number' => 'required|mobileNumber',
-            'description' => 'required|string|max:100',
+            'area' => 'required|string|max:100',
             'return_object' => 'nullable|boolean'
         ];
     }
 
     public function store()
     {
-        DB::beginTransaction();
-
-
-        try {
+        return DB::transaction(function () {
             $loggedUser = auth('client')->user();
-
-            $shippingAddress = $loggedUser->shippingAddresses()->create(
-                $this->only(
-                    'city_id',
-                    'first_name',
-                    'last_name',
-                    'phone_number',
-                    'building_number',
-                    'description',
-                    'street_name',
-                    'zip_code'
-                )
+            $data = $this->only(
+                'city_id',
+                'first_name',
+                'last_name',
+                'phone_number',
+                'building_number',
+                'street_name',
+                'zip_code'
             );
+            $data['description'] = $this->input('area') . " " . $this->input('street_name');
+            $loggedUser->shippingAddresses()->create($data);
             DB::commit();
-            return Inertia::location('/web/cart/shipinng_address');
-            if ($this->has('return_object') && $this->input('return_object')) {
-                return $shippingAddress->load('city');
-            } else {
-            }
-        } catch (QueryException $queryException) {
-            DB::rollBack();
-            throw  $queryException;
-        }
+            return Inertia::location('/web/cart/shipping_address');
+        });
     }
 }

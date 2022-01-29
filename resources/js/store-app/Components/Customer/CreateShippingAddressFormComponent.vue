@@ -121,7 +121,22 @@
                       </div>
                     </div>
                   </div>
-
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <input
+                        v-model="area"
+                        :placeholder="$page.props.$t.profile.area"
+                        class="px-2"
+                        type="text"
+                      />
+                      <div
+                        v-if="$page.props.errors && $page.props.errors.area"
+                        class="p-2 text-red-500"
+                      >
+                        {{ $page.props.errors.area }}
+                      </div>
+                    </div>
+                  </div>
                   <div class="col-lg-6">
                     <div class="form-group">
                       <input
@@ -132,49 +147,16 @@
                       />
                       <div
                         v-if="
-                          $page.props.errors && $page.props.errors.description
+                          $page.props.errors && $page.props.errors.street_name
                         "
                         class="p-2 text-red-500"
                       >
-                        {{ $page.props.errors.description }}
+                        {{ $page.props.errors.street_name }}
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <input
-                        v-model="area"
-                        :placeholder="$page.props.$t.profile.area"
-                        class="px-2"
-                        type="text"
-                      />
-                      <div
-                        v-if="
-                          $page.props.errors && $page.props.errors.description
-                        "
-                        class="p-2 text-red-500"
-                      >
-                        {{ $page.props.errors.description }}
-                      </div>
-                    </div>
-                  </div>
+
                   <div class="col-lg-12">
-                    <div class="form-group">
-                      <input
-                        v-model="description"
-                        :placeholder="$page.props.$t.profile.address"
-                        class="px-2"
-                        type="text"
-                      />
-                      <div
-                        v-if="
-                          $page.props.errors && $page.props.errors.description
-                        "
-                        class="p-2 text-red-500"
-                      >
-                        {{ $page.props.errors.description }}
-                      </div>
-                    </div>
                     <button class="site-btn" type="submit" @click="saveData">
                       {{ $page.props.$t.common.save }}
                     </button>
@@ -203,7 +185,6 @@ export default {
       street_name: "",
       area: "",
       zip_code: "",
-      description: "",
       city_id: null,
       cityObject: null,
     };
@@ -229,14 +210,10 @@ export default {
       if (this.cityId) return this.cityObject.locale_name;
       return this.$page.props.$t.messages.select_city;
     },
-    getAddress() {
-      return this.area + " - " + this.street_name + " - " + this.description;
-    },
   },
   methods: {
     saveData() {
       const data = this.$data;
-      data.description = this.getAddress;
       data.return_object = this.returnObject;
       this.$inertia.post("/web/profile/create-shipping-address", data);
       this.$inertia.on("invalid", (e) => {
