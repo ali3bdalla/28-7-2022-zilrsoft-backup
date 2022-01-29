@@ -40,7 +40,7 @@ class QueryItemsRequest extends FormRequest
         if ($this->has('invoice_type') && $this->filled('invoice_type') && $this->input('invoice_type') == 'dashboard') {
             $limit = 10;
         }
-        $query = Item::where('is_expense', false)->with('data', 'items')->withCount(['pipeline' => function (Builder $query) {
+        $query = Item::where('is_expense', false)->with('data', 'items', "attachments")->withCount(['pipeline' => function (Builder $query) {
             $query->where('invoice_type', 'sale');
         }])->orderBy('pipeline_count', 'desc')->limit($limit);
 

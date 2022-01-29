@@ -10,6 +10,7 @@ use App\Repository\EntryRepositoryContract;
 use App\Repository\ManagerDailyWalletRepositoryContract;
 use App\Scopes\PendingScope;
 use Illuminate\Support\Facades\DB;
+use Monolog\Logger;
 
 class ManagerDailyWalletRepository extends BaseRepository implements ManagerDailyWalletRepositoryContract
 {
@@ -43,7 +44,6 @@ class ManagerDailyWalletRepository extends BaseRepository implements ManagerDail
                 ]
             );
         });
-
     }
 
     public function hasPendingTransferTransactions(): bool
