@@ -40,7 +40,7 @@ class StoreSaleItemsJob implements ShouldQueue
      * @param null $loggedUser
      * @param bool $isOnlineOrder
      */
-    public function __construct(Invoice $invoice, $items, bool $isDraft = false, $loggedUser = null,bool $isOnlineOrder = false)
+    public function __construct(Invoice $invoice, $items, bool $isDraft = false, $loggedUser = null, bool $isOnlineOrder = false)
     {
         $this->items = $items;
         $this->invoice = $invoice;
@@ -191,16 +191,14 @@ class StoreSaleItemsJob implements ShouldQueue
         }
     }
 
-    public function createOnlineOrderItem(Item $item, $requestItemCollection)
+    public function createOnlineOrderItem(Item $item, $requestItemCollection): Model
     {
-
-
         $discount = 0;
         $qty = (float)$requestItemCollection->get('quantity'); // 10
         $net = moneyFormatter((float)$item->online_offer_price * $qty);
         $total = moneyFormatter($net / (1 + ($item->vts / 100)));
         $subtotal = $total;
-        $price = moneyFormatter((float)$total / $qty);
+        $price = $qty > 0 ? moneyFormatter((float)$total / $qty) : 0;
 
 
         $tax = $net - $total;

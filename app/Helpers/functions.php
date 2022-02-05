@@ -1,6 +1,10 @@
 <?php
 
 use App\ValueObjects\MoneyValueObject;
+use Money\Currencies\ISOCurrencies;
+use Money\Currency;
+use Money\Formatter\IntlMoneyFormatter;
+use Money\Money;
 
 if (!function_exists('shortLink')) {
     function shortLink($link = "")
@@ -36,7 +40,16 @@ if (!function_exists('sendOtp')) {
     }
 }
 
-
+if (!function_exists('showMoney')) {
+    function showMoney($money, $current = 'SAR'): string
+    {
+        $money = new Money(round($money * 100), new Currency($current));
+        $currencies = new ISOCurrencies();
+        $numberFormatter = new NumberFormatter('ar_SA', NumberFormatter::CURRENCY);
+        $moneyFormatter = new IntlMoneyFormatter($numberFormatter, $currencies);
+        return $moneyFormatter->format($money);
+    }
+}
 if (!function_exists('sendSms')) {
     function sendSms($messageContent, $mobileNumber)
     {

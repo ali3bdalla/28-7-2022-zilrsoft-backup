@@ -4,9 +4,9 @@ namespace App\Models;
 
 use App\Enums\InvoiceTypeEnum;
 use App\Scopes\DraftScope;
+use App\Traits\OrganizationTarget;
 use App\ValueObjects\MoneyValueObject;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property mixed item
@@ -37,7 +37,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class InvoiceItems extends BaseModel
 {
     protected $guarded = [];
-    use \App\Traits\OrganizationTarget;
+    use OrganizationTarget;
+
     protected $appends = [
         'description',
         'invoice_url',
@@ -85,7 +86,6 @@ class InvoiceItems extends BaseModel
     }
 
 
-
     public function creator()
     {
         return $this->belongsTo(Manager::class, 'creator_id')->withTrashed();
@@ -123,5 +123,25 @@ class InvoiceItems extends BaseModel
     public function invoice(): BelongsTo
     {
         return $this->belongsTo(Invoice::class, 'invoice_id');
+    }
+
+    public function getSubtotalAttribute()
+    {
+        return $this->total - $this->discount;
+    }
+
+    public function getSalesTaxAttribute(): float
+    {
+        return round($this->subtotal  * 15 / 100,2);
+    }
+
+    public function getSalesNetAttribute()
+    {
+        return $this->sales_tax + $this->subtotal;
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->qty * $this->price;
     }
 }

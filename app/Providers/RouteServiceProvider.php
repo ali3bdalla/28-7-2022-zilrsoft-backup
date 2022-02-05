@@ -73,7 +73,6 @@ class RouteServiceProvider extends ServiceProvider
                 ->whereIn('invoice_type', ['return_sale', 'sale'])
                 ->withoutGlobalScopes([DraftScope::class])->first();
         });
-//
     }
 
     /**
@@ -89,7 +88,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapStoreRoutes()
     {
-        Route::group(['middleware' => ["web", "ecommerceMiddleware"], 'as' => 'web.', 'namespace' => "App\Http\Controllers\Store\Web", 'prefix' => "web"],base_path('store-routes/web.php'));
+        Route::group(['middleware' => ["web", "ecommerceMiddleware"], 'as' => 'web.', 'namespace' => "App\Http\Controllers\Store\Web", 'prefix' => "web"], base_path('store-routes/web.php'));
         Route::group(['middleware' => ['web', 'ecommerceMiddleware'], 'prefix' => 'api/web', 'as' => 'api.web.', 'namespace' => '\App\Http\Controllers\Store\API'], base_path('store-routes/api.php'));
     }
 
@@ -106,6 +105,11 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware(['web'])
             ->group(base_path('routes/guest.php'));
 
+        Route::middleware(['web', 'quickbooks','auth'])
+            ->prefix("quickbooks")
+            ->group(base_path('routes/quickbooks.php'));
+
+
         Route::middleware(['web', 'auth'])
             ->group(base_path('routes/web.php'));
 
@@ -114,8 +118,5 @@ class RouteServiceProvider extends ServiceProvider
             ->name('api.')
             ->namespace("$this->apiNamespace")
             ->group(base_path('routes/api.php'));
-
-
     }
-
 }

@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
-
+use Spinen\QuickBooks\HasQuickBooksToken;
+use Spinen\QuickBooks\Token;
 
 /**
  * @property mixed organization_id
@@ -32,6 +33,7 @@ class Manager extends BaseAuthModel
     use SoftDeletes;
     use Notifiable;
     use HasFactory;
+    use HasQuickBooksToken;
 
     /**
      * The attributes that are mass assignable.
@@ -161,5 +163,15 @@ class Manager extends BaseAuthModel
     public function receivesBroadcastNotificationsOn(): string
     {
         return 'manager_notification_channel_.' . $this->id;
+    }
+
+    /**
+     * Have a quickBooksToken.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function quickBooksToken()
+    {
+        return $this->hasOne(Token::class, 'user_id');
     }
 }
