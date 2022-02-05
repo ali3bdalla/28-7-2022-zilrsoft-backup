@@ -45,6 +45,7 @@ class CreateSalesJob implements ShouldQueue
      * Execute the job.
      *
      * @return void
+     * @throws ValidationException
      */
     public function handle()
     {

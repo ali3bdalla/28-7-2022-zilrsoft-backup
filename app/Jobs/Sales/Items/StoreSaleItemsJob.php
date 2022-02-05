@@ -10,6 +10,7 @@ use App\Jobs\Items\Serial\UpdateItemSerialStatusByInvoiceItemJob;
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
 use App\Models\Item;
+use App\Models\Manager;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
@@ -21,15 +22,17 @@ class StoreSaleItemsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $invoice, $items, $loggedUser;
+    private $items;
+    private Invoice $invoice;
+    private Manager $loggedUser;
     /**
      * @var bool
      */
-    private $isDraft;
+    private bool $isDraft;
     /**
      * @var bool
      */
-    private $isOnlineOrder;
+    private bool $isOnlineOrder;
 
     /**
      * Create a new job instance.
@@ -40,7 +43,7 @@ class StoreSaleItemsJob implements ShouldQueue
      * @param null $loggedUser
      * @param bool $isOnlineOrder
      */
-    public function __construct(Invoice $invoice, $items, bool $isDraft = false, $loggedUser = null,bool $isOnlineOrder = false)
+    public function __construct(Invoice $invoice, $items, bool $isDraft = false, $loggedUser = null, bool $isOnlineOrder = false)
     {
         $this->items = $items;
         $this->invoice = $invoice;
@@ -191,12 +194,12 @@ class StoreSaleItemsJob implements ShouldQueue
         }
     }
 
-    public function createOnlineOrderItem(Item $item, $requestItemCollection)
+    public function createOnlineOrderItem(Item $item, $requestItemCollection): Model
     {
 
 
         $discount = 0;
-        $qty = (float)$requestItemCollection->get('quantity'); // 10
+        $qty = (float)$requestItemCollection->get('qty'); // 10
         $net = moneyFormatter((float)$item->online_offer_price * $qty);
         $total = moneyFormatter($net / (1 + ($item->vts / 100)));
         $subtotal = $total;
