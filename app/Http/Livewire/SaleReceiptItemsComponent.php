@@ -14,6 +14,7 @@ class SaleReceiptItemsComponent extends Component
     public function invoiceLineUpdatedEvent(array $data)
     {
         $this->items[$data['index']] = $data['invoiceLine'];
+        $this->broadcast();
     }
 
     public function itemPicked(Item $item)
@@ -26,11 +27,15 @@ class SaleReceiptItemsComponent extends Component
             $invoiceItem->discount = 0;
             $invoiceItem->item = $item;
             $this->items[] = $invoiceItem->toArray();
+            $this->broadcast();
         }
 
     }
 
-
+    public function broadcast()
+    {
+        $this->emitUp("itemsUpdated",$this->items);
+    }
     public function removeItem(InvoiceItems $invoiceItem)
     {
 
