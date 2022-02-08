@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Rules\QuantityValidationRule;
 use GuzzleHttp\Client;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,7 +30,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extendImplicit('quantity', QuantityValidationRule::class);
-        //        Model::preventLazyLoading(!app()->isProduction());
 
     }
 }

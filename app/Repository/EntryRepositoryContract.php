@@ -7,6 +7,7 @@ use App\Models\Account;
 use App\Models\Voucher;
 use App\Models\ResellerClosingAccount;
 use App\Models\Entry;
+use App\Models\Invoice;
 
 interface EntryRepositoryContract extends BaseRepositoryContract
 {
@@ -17,4 +18,6 @@ interface EntryRepositoryContract extends BaseRepositoryContract
     public function registerClientVoucherEntry(Voucher $voucher, Account $targetAccount): Entry;
 
     public function registerVendorVoucherEntry(Voucher $voucher, Account $targetAccount): Entry;
+
+    public function registerSalesReceipt(Invoice $invoice);
 }

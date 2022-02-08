@@ -12,6 +12,7 @@ class CustomersSelectorComponent extends Component
         return User::where('is_client',true)->get();
     }
 
+
     public function updatedSelectedCustomer($value)
     {
         $this->emitUp("customerIdUpdated",$value);

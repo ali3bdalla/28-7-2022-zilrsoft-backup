@@ -6,10 +6,12 @@ use App\Enums\AccountingTypeEnum;
 use App\Enums\EntryDto;
 use App\Enums\TransactionDto;
 use App\Enums\VoucherTypeEnum;
+use App\Jobs\Accounting\Sale\StoreSaleTransactionsJob;
 use App\Models\Account;
-use App\Models\Voucher;
-use App\Models\ResellerClosingAccount;
 use App\Models\Entry;
+use App\Models\Invoice;
+use App\Models\ResellerClosingAccount;
+use App\Models\Voucher;
 use App\Repository\AccountRepositoryContract;
 use App\Repository\EntryRepositoryContract;
 use App\Repository\UserRepositoryContract;
@@ -19,6 +21,7 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
 {
     private AccountRepositoryContract $accountRepositoryContract;
     private UserRepositoryContract $userRepositoryContract;
+
     public function __construct(AccountRepositoryContract $accountRepositoryContract, UserRepositoryContract $userRepositoryContract)
     {
         $this->accountRepositoryContract = $accountRepositoryContract;
@@ -147,5 +150,10 @@ class EntryRepository extends BaseRepository implements EntryRepositoryContract
             $this->userRepositoryContract->updateVendorBalanceAmount($voucher->user, $voucher->amount, !$vendorHasBeenPaid);
             return $entry;
         });
+    }
+
+    public function registerSalesReceipt(Invoice $invoice)
+    {
+        StoreSaleTransactionsJob::dispatch($invoice);
     }
 }

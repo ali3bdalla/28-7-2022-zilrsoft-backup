@@ -14,7 +14,7 @@ class ItemPickerComponent extends Component
         if ($this->search == null) {
             return [];
         }
-        $list = Item::search($this->search)->take(5)->get();
+        $list = Item::search($this->search)->where('is_kit', 0)->where('is_need_serial', 0)->take(20)->get();
         if (count($list) == 1) {
             $this->broadcastPickedItem($list->first());
             return [];
