@@ -5,6 +5,15 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v2', 'as' => 'v2.'], function () {
     Route::get('items/search', 'ItemController@search');
 });
+Route::prefix("upload_images/{item}")->group(
+    function () {
+        Route::get('/', 'ItemController@getImages');
+        Route::post('/', 'ItemController@uploadImages');
+        Route::post('/update_description', 'ItemController@updateDescription');
+        Route::get('/{image}', 'ItemController@deleteImage');
+        Route::get('/{image}/set_master', 'ItemController@setMaster');
+    }
+);
 
 Route::middleware('auth')->group(
     function () {
