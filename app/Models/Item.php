@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Events\Item\ItemCreatedEvent;
 use App\Scopes\StoreItemScope;
+use App\Traits\OrganizationTarget;
 use App\ValueObjects\MoneyValueObject;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -50,13 +51,13 @@ class Item extends BaseModel
 {
 
     use SoftDeletes, Searchable;
-    use \App\Traits\OrganizationTarget;
+    use OrganizationTarget;
+
     protected $dispatchesEvents = [
         'created' => ItemCreatedEvent::class
     ];
     protected $touches = ['category', 'filters', 'tags', 'attachments'];
     protected $appends = [
-        'slug',
         'locale_name',
         'locale_description',
         'item_image_url'
@@ -85,6 +86,19 @@ class Item extends BaseModel
         static::addGlobalScope(new StoreItemScope());
     }
 
+    public function setIsPublishedAttribute(bool $value)
+    {
+        $this->attributes['is_published'] = $this->shouldBeSearchable();
+    }
+
+    public function shouldBeSearchable(): bool
+    {
+        return ($this->getOriginal("is_category_available_online")
+            && $this->getOriginal("available_qty") > 0
+            && $this->getOriginal("organization_id") == 1
+            && $this->getOriginal("is_available_online"));
+    }
+
     public function warrantySubscription(): BelongsTo
     {
         return $this->belongsTo(WarrantySubscription::class, 'warranty_subscription_id');
@@ -100,10 +114,6 @@ class Item extends BaseModel
         return round($value);
     }
 
-    public function getSlugAttribute()
-    {
-        return app()->getLocale() == 'ar' ? $this->getOriginal("ar_slug") : $this->getOriginal("en_slug");
-    }
 
     public function getAvailableQtyAttribute($value): int
     {
@@ -116,18 +126,13 @@ class Item extends BaseModel
         return $query->where('is_published', true);
     }
 
+
     public function getItemImageUrlAttribute()
     {
-
         $main = $this->attachments()->where('is_main', true)->first();
         if ($main) return $main->url;
-
-
         $images = $this->attachments()->get()->toArray();
-
         if ($images && count($images) >= 1) return $images[0]['url'];
-
-
         return "https://zilrsoft-cdn.fra1.digitaloceanspaces.com/images/no_image.png";
     }
 
@@ -168,7 +173,6 @@ class Item extends BaseModel
         return $this->hasMany(ItemSerials::class, 'item_id');
     }
 
-
     public function pipeline(): HasMany
     {
         return $this->hasMany(InvoiceItems::class, 'item_id')->orderBy('created_at');
@@ -183,7 +187,6 @@ class Item extends BaseModel
     {
         return $this->belongsTo(Manager::class, 'creator_id')->withTrashed();
     }
-
 
     public function addKitChildren($items)
     {
@@ -219,15 +222,6 @@ class Item extends BaseModel
         return $this->hasOne(KitData::class, 'kit_id');
     }
 
-    public function shouldBeSearchable(): bool
-    {
-        return ($this->getOriginal("is_category_available_online") and
-            $this->getOriginal("available_qty") > 0 and
-            $this->getOriginal("organization_id") == 1 and
-            $this->getOriginal("is_available_online") and
-            $this->attachments()->count() >= 4);
-    }
-
     public function searchableAs(): string
     {
         return 'items_index';
@@ -256,9 +250,6 @@ class Item extends BaseModel
         $array['category_name'] = $this->category ? $this->category->description : "";
         $array['category_id'] = $this->getOriginal("category_id");
         $array['category_ar_name'] = $this->category ? $this->category->ar_description : "";
-        $array['ar_slug'] = $this->getOriginal("ar_slug");
-        $array['en_slug'] = $this->getOriginal("en_slug");
-
         return $array;
     }
 

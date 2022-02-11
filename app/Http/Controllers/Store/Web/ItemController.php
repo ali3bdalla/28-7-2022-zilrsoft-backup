@@ -23,7 +23,6 @@ class ItemController extends Controller
 
         }
 
-
         return Inertia::render(
             'Product/Index',
             [
@@ -66,8 +65,6 @@ class ItemController extends Controller
             ]
         );
     }
-
-    //
 
     private function fillBreadcrumb($category)
     {

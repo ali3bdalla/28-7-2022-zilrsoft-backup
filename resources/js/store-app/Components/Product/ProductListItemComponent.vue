@@ -30,7 +30,6 @@
           {{ item.category ? item.category.locale_name : "" }}
         </h3>
       </a>
-
       <a :href="`/web/items/${item.slug}`" class="product__list-item-name">
         {{ productName }}
       </a>
@@ -45,9 +44,7 @@
         <h4 class="product__list-item-old-price">
           {{ parseFloat(item.online_offer_price).toFixed(2) }}
         </h4>
-        <span class="product__list-item-currency">{{
-          $page.props.$t.products.sar
-        }}</span>
+        <span class="product__list-item-currency">{{ $page.props.$t.products.sar }}</span>
       </div>
       <p class="product__list-item-including-tax">
         {{ $page.props.$t.products.inc }}

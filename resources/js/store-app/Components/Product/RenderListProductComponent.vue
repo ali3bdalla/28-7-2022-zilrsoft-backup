@@ -4,7 +4,7 @@
     style="border-color: #d2e8ff !important; border-width: 3px !important"
   >
     <div class="product__list-item-image-container">
-      <a :href="`/web/items/${$page.props.active_logo === 'en' ? item.en_slug : item.ar_slug}`"><img
+      <a :href="`/web/items/${item.slug}`"><img
           :src="$processedImageUrl(getUrl,334,250,false,false)"
           class="product__list-item-image"
         /></a>
@@ -25,7 +25,7 @@
         </h3>
       </a>
       <a
-        :href="`/web/items/${$page.props.active_logo === 'en' ? item.en_slug : item.ar_slug}`"
+        :href="`/web/items/${item.slug}`"
         class="product__list-item-name"
       >
         {{ productName }}
