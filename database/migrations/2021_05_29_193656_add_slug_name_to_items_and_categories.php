@@ -29,8 +29,6 @@ class AddSlugNameToItemsAndCategories extends Migration
                 'ar_slug' => str_replace(' ', '-', $item->ar_name . '-' . ' ' . $item->id),
             ]);
         }
-
-
         $categories = DB::table('categories')->get();
         foreach ($categories as $category) {
             DB::table('categories')->where('id', $category->id)->update([

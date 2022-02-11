@@ -8,6 +8,7 @@ use App\Models\FilterValues;
 use App\Models\ItemFilters;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class UpdateItemRequest extends FormRequest
@@ -96,6 +97,7 @@ class UpdateItemRequest extends FormRequest
                 'warranty_subscription_id',
                 'price_with_tax',
             );
+            $data['slug'] = Str::of($data['name'])->append(" ",$item->id);
             $item->update($data);
             $item->filters()->delete();
             if (!empty($this->filters)) {
@@ -119,10 +121,8 @@ class UpdateItemRequest extends FormRequest
             }
             UpdateItemTagsJob::dispatchSync($item, (array)$this->input('tags'));
             if (auth()->user()->organization_id == 1 && $this->input('is_available_online')) {
-
                 $requiredFilter = Filter::where('is_required_filter', true)->pluck('id')->toArray();
                 $itemFilters = ItemFilters::where('item_id', $item->id)->pluck('filter_id')->toArray();
-
                 foreach ($requiredFilter as $filterId) {
                     if (!in_array($filterId, $itemFilters)) {
                         throw ValidationException::withMessages(
@@ -145,7 +145,6 @@ class UpdateItemRequest extends FormRequest
                     'is_published' => $itemDb->shouldBeSearchable()
                 ]);
             }
-
             return $item;
         });
     }

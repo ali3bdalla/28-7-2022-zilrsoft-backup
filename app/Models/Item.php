@@ -38,7 +38,6 @@ use Laravel\Scout\Searchable;
  * @property mixed online_offer_price
  * @property mixed weight
  * @property mixed category
- * @property mixed en_slug
  * @property HasMany tags
  * @property mixed is_kit
  * @property mixed locale_name
