@@ -37,58 +37,58 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
     public function handle()
     {
 
-//        [
-//    {
-//        "Description": "Pest Control Services",
-//      "DetailType": "SalesItemLineDetail",
-//      "SalesItemLineDetail": {
-//        "TaxCodeRef": {
-//            "value": "NON"
-//        },
-//        "Qty": 1,
-//        "UnitPrice": 35,
-//        "ItemRef": {
-//            "name": "Pest Control",
-//          "value": "10"
-//        }
-//      },
-//      "LineNum": 1,
-//      "Amount": 35.0,
-//      "Id": "1"
-//    }
-//  ]
+        //        [
+        //    {
+        //        "Description": "Pest Control Services",
+        //      "DetailType": "SalesItemLineDetail",
+        //      "SalesItemLineDetail": {
+        //        "TaxCodeRef": {
+        //            "value": "NON"
+        //        },
+        //        "Qty": 1,
+        //        "UnitPrice": 35,
+        //        "ItemRef": {
+        //            "name": "Pest Control",
+        //          "value": "10"
+        //        }
+        //      },
+        //      "LineNum": 1,
+        //      "Amount": 35.0,
+        //      "Id": "1"
+        //    }
+        //  ]
         $quickBooks = app('QuickBooks');
         dd($quickBooks->getDataService()->Query("SELECT * FROM Item"));
         $this->invoice->items()->get()->each(function (InvoiceItems $item) {
-            dd(Item::create([
+            Item::create([
                 "Name" => $item->item->locale_name,
                 "Sku" => $item->item->barcode,
                 "Description" => $item->item->locale_description,
                 "Type" => "Inventory"
-            ]));
-//            return [
-//                "Description" => $item->item->locale_description,
-//                "Amount" => $item->subtotal,
-//                "Id" => "3",
-//                "DetailType" => "SalesItemLineDetail",
-//                "SalesItemLineDetail" => [
-//                    "DiscountAmt" => $item->discount,
-//                    "TaxInclusiveAmt" => $item->net,
-//                    "Qty" => $item->qty,
-//                    "UnitPrice" => $item->price,
-//                    "ItemRef" => [
-//                        "name" => $item->item->locale_name,
-//                        "value" => $item->item->id
-//                    ]
-//                ]
-//            ];
+            ]);
+            //            return [
+            //                "Description" => $item->item->locale_description,
+            //                "Amount" => $item->subtotal,
+            //                "Id" => "3",
+            //                "DetailType" => "SalesItemLineDetail",
+            //                "SalesItemLineDetail" => [
+            //                    "DiscountAmt" => $item->discount,
+            //                    "TaxInclusiveAmt" => $item->net,
+            //                    "Qty" => $item->qty,
+            //                    "UnitPrice" => $item->price,
+            //                    "ItemRef" => [
+            //                        "name" => $item->item->locale_name,
+            //                        "value" => $item->item->id
+            //                    ]
+            //                ]
+            //            ];
 
         });
-//        SalesReceipt::create(
-//            [
-//                "DocNumber" => $this->invoice->invoice_number,
-//                "Line" => $items
-//            ]
-//        );
+        //        SalesReceipt::create(
+        //            [
+        //                "DocNumber" => $this->invoice->invoice_number,
+        //                "Line" => $items
+        //            ]
+        //        );
     }
 }
