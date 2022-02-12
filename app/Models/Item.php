@@ -220,6 +220,7 @@ class Item extends BaseModel
             'id' => $this->id,
             'online_offer_price' => $this->online_offer_price,
             'barcode' => $this->barcode,
+            'available_qty' => $this->available_qty,
             'name' => $this->getOriginal('name'),
             'ar_name' => $this->getOriginal("ar_name"),
             'tags' => $this->tags()->pluck('tag')->toArray(),
