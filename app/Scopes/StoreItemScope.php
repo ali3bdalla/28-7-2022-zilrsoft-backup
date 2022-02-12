@@ -19,7 +19,7 @@ class StoreItemScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
 
-        if (Route::current()->gatherMiddleware() && in_array("ecommerceMiddleware", Route::current()->gatherMiddleware())) {
+        if (Route::current() && in_array("ecommerceMiddleware", Route::current()->gatherMiddleware())) {
             $builder
                 ->where([
                     [$builder->qualifyColumn('is_available_online'), true],
