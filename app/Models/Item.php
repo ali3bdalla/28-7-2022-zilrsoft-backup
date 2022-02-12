@@ -97,7 +97,6 @@ class Item extends BaseModel
     {
         return
             $this->getOriginal("is_category_available_online") == true
-            && $this->getOriginal("available_qty") > 0
             && $this->getOriginal("organization_id") == 1
             && $this->getOriginal("is_available_online") == true
             && $this->attachments()->count() > 3;
