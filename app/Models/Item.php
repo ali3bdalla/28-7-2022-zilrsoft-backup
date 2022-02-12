@@ -217,6 +217,7 @@ class Item extends BaseModel
     public function toSearchableArray(): array
     {
         return array_merge([
+            "view_url" => $this->view_url,
             'id' => $this->id,
             'online_offer_price' => $this->online_offer_price,
             'barcode' => $this->barcode,
