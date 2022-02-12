@@ -97,7 +97,8 @@ class UpdateItemRequest extends FormRequest
                 'warranty_subscription_id',
                 'price_with_tax',
             );
-            $data['slug'] = Str::of($data['name'])->append(" ",$item->id)->slug();
+            $data['slug'] = Str::of($data['name'])->append(" ", $item->id)->slug();
+            $data['online_offer_price'] = round($data["online_offer_price"]);
             $item->update($data);
             $item->filters()->delete();
             if (!empty($this->filters)) {
