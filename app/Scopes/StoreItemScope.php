@@ -18,7 +18,8 @@ class StoreItemScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        if (in_array("ecommerceMiddleware", Route::current()->gatherMiddleware())) {
+
+        if (Route::current()->gatherMiddleware() && in_array("ecommerceMiddleware", Route::current()->gatherMiddleware())) {
             $builder
                 ->where([
                     [$builder->qualifyColumn('is_available_online'), true],
@@ -26,7 +27,7 @@ class StoreItemScope implements Scope
                     [$builder->qualifyColumn('is_kit'), false],
                 ])
                 ->whereHas('category')
-                ->whereHas('attachments', function(Builder  $builder) {
+                ->whereHas('attachments', function (Builder $builder) {
 
                 })
                 ->orderBy($builder->qualifyColumn('available_qty'), 'desc');
