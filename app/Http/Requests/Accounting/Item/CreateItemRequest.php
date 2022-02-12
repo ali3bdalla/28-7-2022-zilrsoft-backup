@@ -9,6 +9,7 @@ use App\Models\FilterValues;
 use App\Models\Item;
 use App\Models\ItemFilters;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -95,6 +96,7 @@ class CreateItemRequest extends FormRequest
         $data['creator_id'] = $this->user()->id;
         $data['is_kit'] = false;
         $data['warranty_subscription_id'] = $this->warranty_subscription_id;
+        $data['slug'] = Str::of($data['name'])->append(" ", rand(1000, 9999))->slug();
         if (!$this->user()->can('edit item')) {
             $data['status'] = 'pending';
         }
