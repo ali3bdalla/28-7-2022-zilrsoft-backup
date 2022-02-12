@@ -86,7 +86,7 @@ export default {
       return this.item.category_ar_name
     },
     getUrl () {
-      return `local:///com.zilrsoft/storage/app/public/${this.item.logo}`
+      return `local:///com.zilrsoft/storage/app/public/${this.item.photo}`
     }
   }
 }
