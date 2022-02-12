@@ -207,8 +207,8 @@ class Item extends BaseModel
 
     public function getPhotoAttribute(): string
     {
-        $attachment = $this->attachments()->where('is_main', true)->first();
-        if (!$attachment) {
+        $attachment = $this->attachments()->whereIsMain(true)->first();
+        if (!$attachment instanceof Attachment) {
             $attachment = $this->attachments()->first();
         }
         return $attachment ? $attachment->actual_path : "";
@@ -219,6 +219,7 @@ class Item extends BaseModel
         return array_merge([
             'id' => $this->id,
             'online_offer_price' => $this->online_offer_price,
+            'barcode' => $this->barcode,
             'name' => $this->getOriginal('name'),
             'ar_name' => $this->getOriginal("ar_name"),
             'tags' => $this->tags()->pluck('tag')->toArray(),
