@@ -16,6 +16,7 @@ Vue.prototype.$sound = {
   }
 }
 Vue.prototype.$processedImageUrl = (url, height, width, isPublic = true, isLocale = true) => {
+  // return "https://msbrshop.com/storage/" + url;
   const path = isLocale ? 'local:///com.zilrsoft/' : ''
   const finalLink = isPublic && isLocale
     ? `https://images.zilrsoft.com/api/enrypt/fit/${width}/${height}/sm/0/plain/${path}/storage/app/public/${url}`

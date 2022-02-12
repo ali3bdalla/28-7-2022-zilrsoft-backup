@@ -56,11 +56,14 @@ class Item extends BaseModel
         'created' => ItemCreatedEvent::class
     ];
     protected $touches = ['category', 'filters', 'tags', 'attachments'];
+
     protected $appends = [
         'locale_name',
         'locale_description',
-        'item_image_url'
+        "view_url",
+        'photo'
     ];
+
     protected $casts = [
         'id' => 'integer',
         'is_has_vts' => 'boolean',
@@ -85,17 +88,24 @@ class Item extends BaseModel
         static::addGlobalScope(new StoreItemScope());
     }
 
-    public function setIsPublishedAttribute(bool $value)
+    public function setIsPublishedAttribute()
     {
         $this->attributes['is_published'] = $this->shouldBeSearchable();
     }
 
     public function shouldBeSearchable(): bool
     {
-        return ($this->getOriginal("is_category_available_online")
+        return
+            $this->getOriginal("is_category_available_online") == true
             && $this->getOriginal("available_qty") > 0
             && $this->getOriginal("organization_id") == 1
-            && $this->getOriginal("is_available_online"));
+            && $this->getOriginal("is_available_online") == true
+            && $this->attachments()->count() > 3;
+    }
+
+    public function attachments(): MorphMany
+    {
+        return $this->morphMany(Attachment::class, 'attachable');
     }
 
     public function warrantySubscription(): BelongsTo
@@ -108,46 +118,15 @@ class Item extends BaseModel
         return $query->where('available_qty', '>', 0);
     }
 
-    public function getShippingDiscountAttribute($value): float
-    {
-        return round($value);
-    }
-
-
-    public function getAvailableQtyAttribute($value): int
-    {
-        if ($this->getOriginal("is_kit")) return 2;
-        return $value;
-    }
-
     public function scopePublished($query)
     {
         return $query->where('is_published', true);
     }
 
 
-    public function getItemImageUrlAttribute()
-    {
-        $main = $this->attachments()->where('is_main', true)->first();
-        if ($main) return $main->url;
-        $images = $this->attachments()->get()->toArray();
-        if ($images && count($images) >= 1) return $images[0]['url'];
-        return "https://zilrsoft-cdn.fra1.digitaloceanspaces.com/images/no_image.png";
-    }
-
-    public function attachments(): MorphMany
-    {
-        return $this->morphMany(Attachment::class, 'attachable');
-    }
-
     public function scopeKits($query)
     {
         return $query->where('is_kit', true);
-    }
-
-    public function tags(): HasMany
-    {
-        return $this->hasMany(ItemTag::class);
     }
 
     public function scopeIncludingModelNumber($query)
@@ -221,40 +200,76 @@ class Item extends BaseModel
         return $this->hasOne(KitData::class, 'kit_id');
     }
 
-    public function searchableAs(): string
+    public function getViewUrlAttribute(): string
     {
-        return 'items_index';
+        return route('web.items.show', $this->slug);
+    }
+
+    public function getPhotoAttribute(): string
+    {
+        $attachment = $this->attachments()->where('is_main', true)->first();
+        if (!$attachment) {
+            $attachment = $this->attachments()->first();
+        }
+        return $attachment ? $attachment->actual_path : "";
     }
 
     public function toSearchableArray(): array
     {
-        $this->load('tags', 'filters.filter');
-        $array = $this->toArray();
-        $modelFilter = $this->filters()->where('filter_id', 38)->first();
+        return array_merge([
+            'id' => $this->id,
+            'online_offer_price' => $this->online_offer_price,
+            'name' => $this->getOriginal('name'),
+            'ar_name' => $this->getOriginal("ar_name"),
+            'tags' => $this->tags()->pluck('tag')->toArray(),
+            'url' => $this->view_url,
+            "category_id" => $this->category_id,
+            'photo' => $this->photo,
+            'model_number' => $this->modelNumber()
+        ], $this->searhCategoryDetails(), $this->searchFilters());
+
+
+    }
+
+    public function tags(): HasMany
+    {
+        return $this->hasMany(ItemTag::class);
+    }
+
+    public function modelNumber()
+    {
+        $modelFilter = $this->filters()->with("value")->where('filter_id', 38)->first();
         if ($modelFilter && $modelFilter->value) {
-            $modelName = $modelFilter->value->name;
-        } else {
-            $modelName = "";
+            return $modelFilter->value->name;
         }
-        $array['model_number'] = $modelName;
-        $array['tags'] = $this->tags->map(function ($data) {
-            return $data['tag'];
-        })->toArray();
-        foreach ($this->filters()->get() as $filter) {
-            if ($filter->value) {
-                $array['filters_' . $filter->filter->name][] = $filter->value->name;
-                $array['ar_filters_' . $filter->filter->ar_name][] = $filter->value->ar_name;
-            }
-        }
-        $array['category_name'] = $this->category ? $this->category->description : "";
-        $array['category_id'] = $this->getOriginal("category_id");
-        $array['category_ar_name'] = $this->category ? $this->category->ar_description : "";
-        return $array;
+        return "";
     }
 
     public function filters(): HasMany
     {
         return $this->hasMany(ItemFilters::class, 'item_id');
+    }
+
+    public function searhCategoryDetails(): array
+    {
+        if ($this->category)
+            return [
+                "category_name" => $this->category->description,
+                "category_ar_name" => $this->category->ar_description];
+        return [];
+    }
+
+    public function searchFilters(): array
+    {
+
+        $filters = [];
+        foreach ($this->filters()->whereHas("value")->whereHas("filter")->with("value", "filter")->get() as $itemFilter) {
+            $filters['filters_' . $itemFilter->filter->name][] = $itemFilter->value->name;
+            $filters['ar_filters_' . $itemFilter->filter->ar_name][] = $itemFilter->value->ar_name;
+        }
+
+        return $filters;
+
     }
 
     public function isAvailableQuantityCanHandle(float $quantity): bool

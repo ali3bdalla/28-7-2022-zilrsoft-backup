@@ -315,7 +315,7 @@ import WebLayout from '../../Layouts/WebAppLayout'
 export default {
   data () {
     return {
-      activeImage: this.$page.props.item.item_image_url
+      activeImage: this.$page.props.item.photo
     }
   },
   components: {

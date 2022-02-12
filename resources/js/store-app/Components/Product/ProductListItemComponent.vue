@@ -7,10 +7,10 @@
     style="border-color: #d2e8ff !important; border-width: 3px !important;"
   >
     <div class="product__list-item-image-container">
-      <a :href="`/web/items/${item.slug}`"
+      <a :href="`${item.view_url}`"
         ><img
           :alt="item.locale_name"
-          :src="$processedImageUrl(item.item_image_url, 200, 180)"
+          :src="$processedImageUrl(item.photo, 200, 180)"
           class="product__list-item-image"
         />
       </a>

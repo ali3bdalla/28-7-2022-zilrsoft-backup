@@ -25,7 +25,7 @@ class ItemController extends Controller
     {
         return Item::search("a", function (SearchIndex $algolia, string $query, array $options) {
             return $algolia->search($query, $options);
-        })->within('items_index')->paginate(20);
+        })->paginate(20);
     }
 
     public function index(FetchItemsRequest $request)
