@@ -25,7 +25,7 @@
         </h3>
       </a>
       <a
-          :href="`/web/items/${item.slug}`"
+          :href="`${item.view_url}`"
           class="product__list-item-name"
       >
         {{ productName }}

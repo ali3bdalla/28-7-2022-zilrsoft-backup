@@ -30,7 +30,7 @@
           {{ item.category ? item.category.locale_name : '' }}
         </h3>
       </a>
-      <a :href="`/web/items/${item.slug}`" class="product__list-item-name">
+      <a :href="`${item.view_url}`" class="product__list-item-name">
         {{ productName }}
       </a>
       <h6 class="product__list-item-model-number">
