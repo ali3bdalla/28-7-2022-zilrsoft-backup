@@ -65,7 +65,7 @@
           <div class="col-lg-4">
             <div class="categories__hot__deal">
               <img
-                :src="$processedImageUrl(offerItem.item_image_url, 350, 260)"
+                :src="$processedImageUrl(offerItem.photo, 350, 260)"
                 alt=""
               />
               <div

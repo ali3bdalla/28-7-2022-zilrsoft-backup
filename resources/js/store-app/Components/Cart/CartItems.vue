@@ -26,7 +26,7 @@
                   <img
                     :src="
                       $processedImageUrl(
-                        cartItem.item.item_image_url,
+                        cartItem.item.photo,
                         90 * 5,
                         90 * 5
                       )
@@ -98,7 +98,7 @@
                 class="cart__item-image"
                 :src="
                   $processedImageUrl(
-                    cartItem.item.item_image_url,
+                    cartItem.item.photo,
                     90 * 5,
                     90 * 5
                   )
