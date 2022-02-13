@@ -1,5 +1,8 @@
 {
-    "/js/store-app/app.js": "/js/store-app/app.js?id=cd30dac856283528cdc0",
-    "/css/store.css": "/css/store.css?id=958a56e252623084eaca",
-    "/css/rtl_store.css": "/css/rtl_store.css?id=0ede89fdd209d3bd5302"
+    "/js/app.js": "/js/app.js?id=0ce5b1e431d71078690f",
+    "/css/main.css": "/css/main.css?id=f9bde3d90c3ebf7dc270",
+    "/css/store.css": "/css/store.css?id=1f6607ab7b52990f6234",
+    "/css/rtl_store.css": "/css/rtl_store.css?id=9519b3597f0769365c4e",
+    "/js/external.js": "/js/external.js?id=6ed13a70c14e2fcfe32e",
+    "/js/store-app/app.js": "/js/store-app/app.js?id=3caeef8f4c5a02011e3e"
 }

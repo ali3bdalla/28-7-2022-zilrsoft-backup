@@ -224,7 +224,7 @@ class Item extends BaseModel
             'name' => $this->getOriginal('name'),
             'ar_name' => $this->getOriginal("ar_name"),
             'tags' => $this->tags()->pluck('tag')->toArray(),
-            'url' => $this->view_url,
+            'view_url' => $this->view_url,
             "category_id" => $this->category_id,
             'photo' => $this->photo,
             'model_number' => $this->modelNumber()
