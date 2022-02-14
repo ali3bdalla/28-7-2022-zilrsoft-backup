@@ -39,7 +39,7 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
     {
         if ($this->item->shouldBeSearchable() && $this->item->available_qty) {
             ProductApi::insert(function ($product) {
-                $link = 'https://msbrshop.com/web/items/' . $this->item->ar_slug;
+                $link = $this->item->view_url;
                 return $product
                     ->title($this->item->locale_name)
                     ->offerId($this->item->barcode)
@@ -71,7 +71,7 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
                     if ($filter->filter && $filter->value)
                         $attributes[$filter->filter->name] = $filter->value->name;
                 }
-                $link = 'https://msbrshop.com/web/items/' . $this->item->id;
+                $link = $this->item->view_url;
                 return $product
                     ->title($this->item->name)
                     ->offerId($this->item->barcode)
@@ -86,19 +86,17 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
                     ->additionalImageLinks($this->item->attachments()->pluck('actual_path')->map(function ($path) {
                         return $this->getImageUrl($path);
                     }))
-//                    ->customAttributes($attributes)
+                    //                    ->customAttributes($attributes)
                     ->link($link)
                     ->contentLanguage('en')
                     ->availability($this->item->available_qty >= 0 ? 'in stock' : 'out of stock');
-//            "in stock", "out of stock", or "preorder"
-//                    ->mobileLink($link);
+                //            "in stock", "out of stock", or "preorder"
+                //                    ->mobileLink($link);
             })->then(function ($response) {
                 echo 'Product inserted';
             })->catch(function ($erro) {
                 var_dump($erro);
             });
-
-
         } else {
 
             ProductApi::delete(function ($product) {
@@ -117,8 +115,6 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
             })->catch(function ($erro) {
             });
         }
-
-
     }
 
     public function getImageUrl($path)
@@ -141,4 +137,3 @@ class UpdateGoogleShippingItemJob implements ShouldQueue
         return 0;
     }
 }
-
