@@ -10,13 +10,10 @@ class UserController extends Controller
 {
     public function index(FilterUsersRequest $request)
     {
-        $userQuery = User::query();
-        $userQuery = $userQuery->when($request->customerOnly(), function ($query) {
-            return $query->whereIsClient(true);
-        });
-        $userQuery = $userQuery->when($request->vendorOnly(), function ($query) {
+        return User::query()->when($request->vendorOnly(), function ($query) {
             return $query->whereIsVendor(true);
-        });
-        return $userQuery->get();
+        })->when($request->customerOnly(), function ($query) {
+            return $query->whereIsClient(true);
+        })->get();
     }
 }
