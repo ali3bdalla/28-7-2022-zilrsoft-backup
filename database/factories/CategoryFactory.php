@@ -29,8 +29,7 @@ class CategoryFactory extends Factory
                 'is_available_online' => $categoryDto->isAvailableOnline(),
                 'image' => $categoryDto->getImagePath(),
                 'cover' => $categoryDto->getCoverPath(),
-                'en_slug' => $categoryDto->getEnSlug(),
-                'ar_slug' => $categoryDto->getArSlug(),
+                'slug' => $categoryDto->getEnSlug()
             ];
         });
     }
@@ -54,8 +53,7 @@ class CategoryFactory extends Factory
             'is_available_online' => $this->faker->boolean,
             'image' => $this->faker->imageUrl(),
             'cover' => $this->faker->imageUrl(),
-            'en_slug' => $this->faker->slug,
-            'ar_slug' => $this->faker->slug,
+            'slug' => $this->faker->slug,
         ];
     }
 }

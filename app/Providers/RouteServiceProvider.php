@@ -28,26 +28,18 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
-
         $this->registerBindings();
     }
 
     protected function registerBindings()
     {
         Route::bind('itemSlug', function ($value) {
-            $query = Item::where('en_slug', $value)->orWhere('ar_slug', $value);
-            if (is_numeric($value)) {
-                $query = $query->orWhere('id', $value);
-            }
-            return $query->firstOrFail();
+            return Item::where('slug', (string)$value)->firstOrFail();
         });
         Route::bind('kit', function ($value) {
             return Item::whereIsKit(true)->whereId($value)->firstOrFail();
         });
-
         Route::bind('sale', function ($value) {
             return Invoice::whereId($value)
                 ->whereIn('invoice_type', ['return_sale', 'sale'])
@@ -57,15 +49,12 @@ class RouteServiceProvider extends ServiceProvider
             return Invoice::whereId($value)
                 ->whereIn('invoice_type', ['return_purchase', 'purchase', 'beginning_inventory', 'inventory_adjustment'])->first();
         });
-
         Route::bind('returnPurchase', function ($value) {
             return Invoice::whereId($value)->whereInvoiceType('return_purchase')->first();
         });
-
         Route::bind('invoice', function ($value) {
             return Invoice::whereId($value)->withoutGlobalScopes([DraftScope::class])->first();
         });
-
         Route::bind('quotation', function ($value) {
             return Invoice::where([
                 ['id', $value],

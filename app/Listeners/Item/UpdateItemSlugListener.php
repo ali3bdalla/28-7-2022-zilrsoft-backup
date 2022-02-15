@@ -2,6 +2,8 @@
 
 namespace App\Listeners\Item;
 
+use Illuminate\Support\Str;
+
 class UpdateItemSlugListener
 {
     /**
@@ -25,8 +27,7 @@ class UpdateItemSlugListener
         $item = $event->item;
         if ($item) {
             $item->update([
-                'en_slug' => urlencode(str_replace('/','-',str_replace(' ', '-', $item->getOriginal('name') . '-' . ' ' . $item->id))),
-                'ar_slug' => urlencode(str_replace('/','-',str_replace(' ', '-', $item->getOriginal('ar_name') . '-' . ' ' . $item->id))),
+                'slug' => Str::of($item->getOriginal('name'))->append(" ", $item->id)
             ]);
         }
 

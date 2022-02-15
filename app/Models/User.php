@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\OrganizationTarget;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -35,7 +36,7 @@ class User extends BaseAuthModel
 
     use SoftDeletes;
     use Notifiable;
-    use \App\Traits\OrganizationTarget;
+    use OrganizationTarget;
 
     protected $guarded = [];
 

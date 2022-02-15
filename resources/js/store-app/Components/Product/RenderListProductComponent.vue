@@ -4,7 +4,7 @@
     style="border-color: #d2e8ff !important; border-width: 3px !important"
   >
     <div class="product__list-item-image-container">
-      <a :href="`/web/items/${$page.props.active_logo === 'en' ? item.en_slug : item.ar_slug}`"><img
+      <a :href="`${item.view_url}`"><img
           :src="$processedImageUrl(getUrl,334,250,false,false)"
           class="product__list-item-image"
         /></a>
@@ -25,7 +25,7 @@
         </h3>
       </a>
       <a
-        :href="`/web/items/${$page.props.active_logo === 'en' ? item.en_slug : item.ar_slug}`"
+        :href="`/web/items/${item.slug}`"
         class="product__list-item-name"
       >
         {{ productName }}
@@ -86,15 +86,7 @@ export default {
       return this.item.category_ar_name
     },
     getUrl () {
-      if (
-        this.item.item_image_url === 'https://zilrsoft.com/images/logo_ar.png'
-      ) {
-        if (this.$page.props.active_locale === 'en') {
-          return 'https://zilrsoft.com/images/logo_en.png'
-        }
-        return 'https://zilrsoft.com/images/logo_ar.png'
-      }
-      return `local:///com.zilrsoft/storage/app/public/${this.item.item_image_url}`
+      return `local:///com.zilrsoft/storage/app/public/${this.item.photo}`
     }
   }
 }

@@ -67,7 +67,7 @@ class EcommerceMiddleware extends Middleware
             'app' => config('app'),
             '$t' => __('store'),
             'main_categories' => Category::where('parent_id', 0)->get(),
-            'algolia_items_search_as' => 'items_index',
+            'algolia_items_search_as' => 'items',
             'aloglia_daily_search_key' => '3b92b3e1e70e7c12777604f891614933',
             'algolia_search_filters' => $searchFilters,
             'algolia_app_key' => 'GM476AOG07',

@@ -1,19 +1,19 @@
 <template>
   <div class="w-full">
     <ais-search-box
-      @change="startTyping"
-      class=""
-      :placeholder="$page.props.$t.header.search_placeholder"
-      :autofocus="true"
-      :show-loading-indicator="false"
+        :autofocus="true"
+        :placeholder="$page.props.$t.header.search_placeholder"
+        :show-loading-indicator="false"
+        class=""
+        @change="startTyping"
     >
       <div
-        slot="submit-icon"
-        class="search_in_category"
-        :style="$page.props.active_locale == 'ar' ? 'direction: rtl' : '' "
-        v-if="$page.props.categories_search_list.length > 0"
+          v-if="$page.props.categories_search_list.length > 0"
+          slot="submit-icon"
+          :style="$page.props.active_locale === 'ar' ? 'direction: rtl' : '' "
+          class="search_in_category"
       >
-       <div class="truncate"> {{ $page.props.$t.common.search_in }} {{ $page.props.categories_search_list[0] }}</div>
+        <div class="truncate"> {{ $page.props.$t.common.search_in }} {{ $page.props.categories_search_list[0] }}</div>
       </div>
     </ais-search-box>
   </div>
@@ -37,6 +37,7 @@ export default {
 .inner-header .advanced-search .input-group input {
   width: 100% !important;
 }
+
 .ais-SearchBox-loadingIndicator,
 .ais-SearchBox-reset,
 .ais-SearchBox-submit {

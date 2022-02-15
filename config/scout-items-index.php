@@ -285,6 +285,4 @@ return [
         'custom',
     ],
 
-    // 'desc(online_offer_price)',
-    // 'desc(created_at)',
 ];
