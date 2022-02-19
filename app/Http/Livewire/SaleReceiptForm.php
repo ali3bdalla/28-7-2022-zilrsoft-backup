@@ -21,7 +21,6 @@ class SaleReceiptForm extends Component
 
     public function mount()
     {
-        CreateQuickBooksSalesReceiptJob::dispatch(Invoice::orderBy('id', 'desc')->first());
         $this->items = new Collection();
     }
 

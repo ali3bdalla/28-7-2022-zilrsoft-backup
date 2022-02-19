@@ -3,12 +3,16 @@
 namespace App\Providers;
 
 use App\Events\Item\ItemUpdatedEvent;
+use App\Events\ItemCreatedEvent;
 use App\Events\Models\Account\AccountCreated;
 use App\Events\Models\Account\AccountUpdated;
 use App\Events\Models\Transaction\TransactionCreated;
+use App\Events\UserCreatedEvent;
 use App\Listeners\Item\UpdateItemSlugListener;
 use App\Listeners\Models\Account\UpdateAccountDetailsListener;
 use App\Listeners\Models\Transaction\UpdateTransactionDetailsListener;
+use App\Listeners\PushQuickBooksItemListener;
+use App\Listeners\PushQuickBooksUserListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -40,6 +44,12 @@ class EventServiceProvider extends ServiceProvider
         ItemUpdatedEvent::class => [
             UpdateItemSlugListener::class,
         ],
+        UserCreatedEvent::class => [
+            PushQuickBooksUserListener::class
+        ],
+        ItemCreatedEvent::class =>[
+            PushQuickBooksItemListener::class
+        ]
 
     ];
 

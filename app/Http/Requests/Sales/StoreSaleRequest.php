@@ -6,6 +6,7 @@ use App\Jobs\Accounting\Sale\StoreSaleTransactionsJob;
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
 use App\Jobs\Items\Serial\ValidateItemSerialJob;
+use App\Jobs\QuickBook\CreateQuickBooksSalesReceiptJob;
 use App\Jobs\Sales\Draft\SetDraftAsConvertedJob;
 use App\Jobs\Sales\Expense\CreatePurchaseInvoiceForExpensesJob;
 use App\Jobs\Sales\Items\StoreSaleItemsJob;
@@ -21,6 +22,7 @@ use App\Scopes\DraftScope;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Throwable;
@@ -52,14 +54,17 @@ class StoreSaleRequest extends FormRequest
             'methods.*.amount' => 'required|numeric',
         ];
     }
+
     public function getInvoiceClient(): User
     {
         return User::find($this->input('client_id'));
     }
+
     public function getSalesManId()
     {
         return $this->input('salesman_id');
     }
+
     public function getPaymentMethods(): array
     {
         return (array)$this->input('methods');
@@ -119,6 +124,7 @@ class StoreSaleRequest extends FormRequest
             dispatch_sync(new StoreSaleTransactionsJob($invoice));
             dispatch_sync(new SetDraftAsConvertedJob($this->input('quotation_id'), $invoice->id));
             dispatch_sync(new UpdateOnlineOrderStatus($this->input('quotation_id'), $invoice));
+            dispatch(new CreateQuickBooksSalesReceiptJob($invoice, Auth::user()));
             DB::commit();
             return $invoice;
         } catch (QueryException | ValidationException | Exception $exception) {

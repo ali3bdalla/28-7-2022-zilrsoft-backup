@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\UserCreatedEvent;
 use App\Traits\OrganizationTarget;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -40,6 +41,9 @@ class User extends BaseAuthModel
 
     protected $guarded = [];
 
+    protected $dispatchesEvents = [
+        "created" => UserCreatedEvent::class
+    ];
 
     protected $appends = [
         'locale_name',

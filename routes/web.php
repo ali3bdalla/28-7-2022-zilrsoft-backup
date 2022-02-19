@@ -19,9 +19,13 @@ use App\Http\Controllers\App\Web\InventoryController as WebInventoryController;
 use App\Http\Controllers\App\Web\ManagerController as WebManagerController;
 use App\Http\Controllers\App\Web\OrderController;
 use App\Http\Controllers\App\Web\ShippingController;
+use App\Jobs\QuickBook\CreateQuickBooksSalesReceiptJob;
 use App\Models\Account;
+use App\Models\Invoice;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index');
 Route::post('dashboard', [HomeController::class, 'changeSettings'])->name('dashboard.change_settings');

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Middleware\QuickBooksAuthenticationMiddleware;
 use App\Models\Invoice;
 use App\Models\Item;
 use App\Scopes\DraftScope;
@@ -99,7 +100,7 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/quickbooks.php'));
 
 
-        Route::middleware(['web', 'auth'])
+        Route::middleware(['web', 'auth',QuickBooksAuthenticationMiddleware::class])
             ->group(base_path('routes/web.php'));
 
         Route::middleware(['web'])

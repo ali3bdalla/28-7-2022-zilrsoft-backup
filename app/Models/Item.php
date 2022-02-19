@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
+use QuickBooksOnline\API\Facades\Item as QuickBooksItem;
 
 /**
  * @property mixed is_fixed_price
@@ -283,6 +284,18 @@ class Item extends BaseModel
     public function isQuantifiable(): bool
     {
         return !$this->is_service && !$this->is_expense && !$this->is_kit;
+    }
+
+    public function syncInQuickBooks()
+    {
+         $item = QuickBooksItem::create([
+             "Name" => $this->locale_name,
+             "Sku" => $this->barcode,
+             "Description" => $this->locale_description,
+             "Type" => "Service"
+         ]);
+         return app('QuickBooks')->getDataService()->Add($item);
+//         dd( app('QuickBooks')->getDataService()->getLastError());
     }
 
     protected function makeAllSearchableUsing($query)
