@@ -97,6 +97,9 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
             $this->invoice->update([
                 'quickbooks_id' => $createdQuickBooksInvoice->Id
             ]);
+            dd($createdQuickBooksInvoice);
+        }else {
+            dd($quickBooksDataService->getLastError());
         }
     }
 }

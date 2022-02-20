@@ -7,7 +7,6 @@ use App\Models\Manager;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -52,14 +51,11 @@ class ItemSyncJob implements ShouldQueue
             $quickBooksDataService = $quickBooks->getDataService();
             $salesIncomesAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE AccountSubType='SalesOfProductIncome'"))->offsetGet(0));
             $expensesAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE AccountSubType='SuppliesMaterialsCogs'"))->offsetGet(0));
-            $assetsAccount = collect();
-            if (!$this->item->is_service) {
-                $assetsAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE AccountSubType='Inventory'"))->offsetGet(0));
-            }
-            $quickBooksItem = \QuickBooksOnline\API\Facades\Item::create([
+            $data = [
                 "TrackQtyOnHand" => $this->item->is_service == false,
                 "Name" => $this->item->locale_name,
                 "QtyOnHand" => $this->item->available_qty,
+                "Sku" => $this->item->barcode,
                 "InvStartDate" => Carbon::parse($this->item->created_at)->format("Y-m-d"),
                 "Type" => $this->item->is_service ? "Service" : "Inventory",
                 "UnitPrice" => $this->item->price,
@@ -71,10 +67,11 @@ class ItemSyncJob implements ShouldQueue
                 "IncomeAccountRef" => [
                     "value" => $salesIncomesAccount->get('Id')
                 ],
-                "AssetAccountRef" => [
-                    "value" => $assetsAccount->get('Id')
-                ],
-            ]);
+            ];
+            if (!$this->item->is_service) {
+                $data["AssetAccountRef"]["value"] = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE AccountSubType='Inventory'"))->offsetGet(0))->get("Id");
+            }
+            $quickBooksItem = \QuickBooksOnline\API\Facades\Item::create();
             $item = $quickBooks->getDataService()->Add($quickBooksItem);
             if ($item) {
                 $this->item->update([

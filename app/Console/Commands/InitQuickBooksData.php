@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Jobs\QuickBooks\CustomerSyncJob;
 use App\Jobs\QuickBooks\ItemSyncJob;
+use App\Models\Item;
 use App\Models\Manager;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -15,7 +16,7 @@ class InitQuickBooksData extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'InitQuickBooksData';
 
     /**
      * The console command description.
@@ -44,7 +45,7 @@ class InitQuickBooksData extends Command
         foreach (User::whereIsClient(true)->with("organization")->get() as $user) {
             dispatch(new CustomerSyncJob($user, Manager::whereEmail("ali@msbrshop.com")->first()));
         }
-        foreach (\App\Models\Item::whereIsKit(false)->with("organization")->get() as $item) {
+        foreach (Item::whereIsKit(false)->with("organization")->get() as $item) {
             dispatch(new ItemSyncJob($item, Manager::whereEmail("ali@msbrshop.com")->first()));
         }
         return Command::SUCCESS;
