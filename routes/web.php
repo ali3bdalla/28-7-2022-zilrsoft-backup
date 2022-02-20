@@ -26,7 +26,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-
+Route::get('test',function(){
+    $data = new CreateQuickBooksSalesReceiptJob(Invoice::inRandomOrder()->first(),Auth::user());
+    return $data->handle();
+});
 Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index');
 Route::post('dashboard', [HomeController::class, 'changeSettings'])->name('dashboard.change_settings');
 Route::post('/logout', [HomeController::class, 'logout'])->name('logout');

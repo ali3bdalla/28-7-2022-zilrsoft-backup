@@ -55,13 +55,13 @@ class ShippingMethod extends BaseModel
         return $this->hasMany(ShippingMethodCity::class, 'shipping_method_id');
     }
 
-    public function getShippingCost(float $weight)
+    public function getShippingCost(float $totalOrderWeight)
     {
         $maxShippingMethodWeight = $this->max_base_weight;
         $shippingCost = $this->max_base_weight_cost;
-        if ($weight > $maxShippingMethodWeight) {
-            $kgAfterBase = $weight - $maxShippingMethodWeight;
-            $shippingCost += $kgAfterBase * $this->kg_rate_after_max_cost;
+        if ($totalOrderWeight > $maxShippingMethodWeight) {
+            $kgAfterBase = $totalOrderWeight - $maxShippingMethodWeight;
+            $shippingCost = $shippingCost + ($kgAfterBase * $this->kg_rate_after_max_cost);
         }
         return $shippingCost;
     }
@@ -69,13 +69,16 @@ class ShippingMethod extends BaseModel
     public function getShippingAmount(float $weight = 0, float $discount = 0): float
     {
         $kgAfterBase = $weight - $this->max_base_weight;
-        $amount = $this->getBaseWeightPrice();
-        if ($kgAfterBase)
-            $amount += (float)($kgAfterBase * $this->kg_rate_after_max_price);
+        $amount = $this->max_base_weight_price;
+        if ($kgAfterBase > 0)
+            $amount = $amount + (float)($kgAfterBase * $this->kg_rate_after_max_price);
         if ($discount > $amount) return 0;
         return $amount - $discount;
     }
 
+    /*
+     * TODO: remove this  method, make sure noting is broken
+     * */
     public function getBaseWeightPrice(): float
     {
         return $this->max_base_weight_price;

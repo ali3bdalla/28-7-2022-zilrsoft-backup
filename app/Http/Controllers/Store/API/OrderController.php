@@ -37,11 +37,10 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        return $request->user()->orders()->with("shippingMethod")->orderBy('id', 'desc')->paginate(50);
+        return $request->user()->orders()->whereHas("shippingMethod")->with("shippingMethod")->orderBy('id', 'desc')->paginate(50);
     }
 
     /**
-     * @throws ValidationException
      */
     public function store(StoreOrderRequest $storeOrderRequest): ?Order
     {
@@ -59,7 +58,7 @@ class OrderController extends Controller
                     return [
                         'id' => $cartItem->item_id,
                         'price' => $cartItem->price,
-                        'quantity' =>  $cartItem->quantity
+                        'quantity' => $cartItem->quantity
                     ];
                 })->toArray(),
                 true,

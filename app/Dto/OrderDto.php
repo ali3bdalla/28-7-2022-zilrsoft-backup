@@ -4,14 +4,13 @@ namespace App\Dto;
 
 use App\Base\BaseDtoContract;
 use App\Models\Invoice;
-use App\Models\InvoiceItems;
 use App\Models\ShippingAddress;
 use App\Models\ShippingMethod;
 use App\Models\User;
 use App\Scopes\DraftScope;
 use Illuminate\Support\Collection;
 
-class OrderDto  implements BaseDtoContract
+class OrderDto implements BaseDtoContract
 {
     private InvoiceDto $invoiceDto;
     private ?Invoice $draftInvoice;
@@ -53,9 +52,11 @@ class OrderDto  implements BaseDtoContract
 
     public function getShippingWeight(): float
     {
-        return $this->orderItems->reduce(function ($result, InvoiceItems $invoiceItem, $key) {
-            return $result + (float)($invoiceItem->item->weight * $invoiceItem->qty);
-        }, 0);
+        $result = 0;
+        foreach ($this->orderItems as $orderItem) {
+            $result = $result + (float)($orderItem->item->weight * $orderItem->qty);
+        }
+        return $result;
     }
 
     public function getOrderNet(): float
@@ -75,9 +76,11 @@ class OrderDto  implements BaseDtoContract
 
     public function getShippingDiscount(): float
     {
-        return $this->orderItems->reduce(function ($result, InvoiceItems $invoiceItem, $key) {
-            return $result + (float)($invoiceItem->item->shipping_discount * $invoiceItem->qty);
-        }, 0);
+        $result = 0;
+        foreach ($this->orderItems as $invoiceItem) {
+            $result = $result + (float)($invoiceItem->item->shipping_discount * $invoiceItem->qty);
+        }
+        return $result;
     }
 
     /**

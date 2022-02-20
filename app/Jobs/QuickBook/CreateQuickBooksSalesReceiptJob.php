@@ -44,8 +44,7 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
         if (!$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return;
         $quickBooks = new Client(config('quickbooks'), $this->manager->quickBooksToken);
         $quickBooksDataService = $quickBooks->getDataService();
-        $OtherCurrentAssets = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE AccountSubType='OtherCurrentAssets'"))->offsetGet(0));
-
+        $castAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Name='Cash and cash equivalents'"))->offsetGet(0));
         $salesReceiptLines = $this->invoice->items()->with("item")->whereHas("item", function ($query) {
             return $query->where('is_kit', false);
         })->get()->map(function (InvoiceItems $invoiceItems, $index) {
@@ -58,7 +57,6 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
                     "UnitPrice" => $invoiceItems->price,
 
                 ],
-
                 "LineNum" => ($index + 1),
                 "Amount" => $invoiceItems->total,
             ];
@@ -75,7 +73,7 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
             "TotalAmt" => $this->invoice->subtotal,
             "TxnDate" => Carbon::parse($this->invoice->created_at)->toDateString(),
             "DepositToAccountRef" => [
-                "value" => $OtherCurrentAssets->get("Id")
+                "value" => $castAccount->get("Id")
             ],
             "TxnTaxDetail" => [
                 "TotalTax" => $this->invoice->tax
@@ -87,11 +85,9 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
             "PaymentRefNum" => "#" . $this->invoice->invoice_number,
             "Line" => $salesReceiptLines,
         ];
-        if (!$this->invoice->user->is_system_user) {
-            $data["CustomerRef"] = [
-                "value" => $this->invoice->user->quickbooks_customer_id
-            ];
-        }
+        $data["CustomerRef"] = [
+            "value" => $this->invoice->user->quickbooks_customer_id
+        ];
 
         $salesReceipt = SalesReceipt::create(
             $data
