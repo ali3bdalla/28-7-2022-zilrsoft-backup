@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Str;
 use QuickBooksOnline\API\Facades\SalesReceipt;
 use Spinen\QuickBooks\Client;
 
@@ -72,6 +73,9 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
             "DocNumber" => $this->invoice->invoice_number,
             "TotalAmt" => $this->invoice->subtotal,
             "TxnDate" => Carbon::parse($this->invoice->created_at)->toDateString(),
+            "ClassRef" => [
+                "value" => Str::slug($this->manager->quickbooks_class_id)
+            ],
             "DepositToAccountRef" => [
                 "value" => $castAccount->get("Id")
             ],
@@ -98,7 +102,7 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
                 'quickbooks_id' => $createdQuickBooksInvoice->Id
             ]);
             dd($createdQuickBooksInvoice);
-        }else {
+        } else {
             dd($quickBooksDataService->getLastError());
         }
     }
