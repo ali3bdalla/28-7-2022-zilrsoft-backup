@@ -124,7 +124,7 @@ class StoreSaleRequest extends FormRequest
             dispatch_sync(new StoreSaleTransactionsJob($invoice));
             dispatch_sync(new SetDraftAsConvertedJob($this->input('quotation_id'), $invoice->id));
             dispatch_sync(new UpdateOnlineOrderStatus($this->input('quotation_id'), $invoice));
-            dispatch(new CreateQuickBooksSalesReceiptJob($invoice, Auth::user()));
+//            dispatch(new CreateQuickBooksSalesReceiptJob($invoice, Auth::user()));
             DB::commit();
             return $invoice;
         } catch (QueryException | ValidationException | Exception $exception) {
