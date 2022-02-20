@@ -71,7 +71,7 @@ class ItemSyncJob implements ShouldQueue
             if (!$this->item->is_service) {
                 $data["AssetAccountRef"]["value"] = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE AccountSubType='Inventory'"))->offsetGet(0))->get("Id");
             }
-            $quickBooksItem = \QuickBooksOnline\API\Facades\Item::create();
+            $quickBooksItem = \QuickBooksOnline\API\Facades\Item::create($data);
             $item = $quickBooks->getDataService()->Add($quickBooksItem);
             if ($item) {
                 $this->item->update([

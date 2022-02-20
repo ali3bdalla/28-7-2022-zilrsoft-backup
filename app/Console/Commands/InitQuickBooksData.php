@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Jobs\QuickBooks\CustomerSyncJob;
 use App\Jobs\QuickBooks\ItemSyncJob;
+use App\Jobs\SyncQuickBooksClassJob;
 use App\Models\Item;
 use App\Models\Manager;
 use App\Models\User;
@@ -44,6 +45,9 @@ class InitQuickBooksData extends Command
     {
         foreach (User::whereIsClient(true)->with("organization")->get() as $user) {
             dispatch(new CustomerSyncJob($user, Manager::whereEmail("ali@msbrshop.com")->first()));
+        }
+        foreach (Manager::query()->get() as $user) {
+            dispatch(new SyncQuickBooksClassJob($user, Manager::whereEmail("ali@msbrshop.com")->first()));
         }
         foreach (Item::whereIsKit(false)->with("organization")->get() as $item) {
             dispatch(new ItemSyncJob($item, Manager::whereEmail("ali@msbrshop.com")->first()));
