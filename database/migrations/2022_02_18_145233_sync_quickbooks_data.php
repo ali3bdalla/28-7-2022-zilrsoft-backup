@@ -28,9 +28,7 @@ class SyncQuickbooksData extends Migration
         DB::table('organizations')->where('id', 1)->update([
             'has_quickbooks' => true
         ]);
-        foreach (User::whereIsClient(true)->with("organization")->get() as $user) {
-            dispatch_sync(new CustomerSyncJob($user, Manager::whereEmail("ali@msbrshop.com")->first()));
-        }
+
     }
 
     /**
