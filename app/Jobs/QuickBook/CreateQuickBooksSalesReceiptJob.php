@@ -42,10 +42,12 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
      */
     public function handle()
     {
+
         if (!$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return;
         $quickBooks = new Client(config('quickbooks'), $this->manager->quickBooksToken);
         $quickBooksDataService = $quickBooks->getDataService();
-        $castAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Name='Cash and cash equivalents'"))->offsetGet(0));
+        $castAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Name='Cash and cash equivalents'"))->first());
+        $taxAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Type='Expenses' And Name='Loss on discontinued operations, net of tax'"))->offsetGet(0));
         $salesReceiptLines = $this->invoice->items()->with("item")->whereHas("item", function ($query) {
             return $query->where('is_kit', false);
         })->get()->map(function (InvoiceItems $invoiceItems, $index) {
@@ -75,6 +77,20 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
             "TxnDate" => Carbon::parse($this->invoice->created_at)->toDateString(),
             "ClassRef" => [
                 "value" => Str::slug($this->manager->quickbooks_class_id)
+            ],
+            "TaxLine" => [
+                [
+                    "DetailType" => "TaxLineDetail",
+                    "Amount" => $this->invoice->tax,
+                    "TaxLineDetail" => [
+                        "NetAmountTaxable" => $this->invoice->net,
+                        "TaxPercent" => 15,
+                        "TaxRateRef" => [
+                            "value" => $taxAccount->Id
+                        ],
+                        "PercentBased" => true
+                    ]
+                ]
             ],
             "DepositToAccountRef" => [
                 "value" => $castAccount->get("Id")
