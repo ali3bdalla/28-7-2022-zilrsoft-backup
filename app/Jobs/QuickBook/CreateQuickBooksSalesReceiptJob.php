@@ -43,7 +43,7 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
     public function handle()
     {
 
-        if (!$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return;
+        if (!$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return "UnAuthorized";
         $quickBooks = new Client(config('quickbooks'), $this->manager->quickBooksToken);
         $quickBooksDataService = $quickBooks->getDataService();
         $castAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Name='Cash and cash equivalents'"))->first());
@@ -117,7 +117,7 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
             $this->invoice->update([
                 'quickbooks_id' => $createdQuickBooksInvoice->Id
             ]);
-            dd($createdQuickBooksInvoice);
+            dd('created', $createdQuickBooksInvoice);
         } else {
             dd($quickBooksDataService->getLastError());
         }
