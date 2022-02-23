@@ -46,8 +46,8 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
         if (!$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return "UnAuthorized";
         $quickBooks = new Client(config('quickbooks'), $this->manager->quickBooksToken);
         $quickBooksDataService = $quickBooks->getDataService();
-        $castAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Name='Cash and cash equivalents'"))->first());
-        $taxAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Type='Expenses' And Name='Loss on discontinued operations, net of tax'"))->offsetGet(0));
+        $castAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Type='Cash and cash equivalents'"))->first());
+        $taxAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Name='Loss on discontinued operations, net of tax'"))->offsetGet(0));
         $salesReceiptLines = $this->invoice->items()->with("item")->whereHas("item", function ($query) {
             return $query->where('is_kit', false);
         })->get()->map(function (InvoiceItems $invoiceItems, $index) {
