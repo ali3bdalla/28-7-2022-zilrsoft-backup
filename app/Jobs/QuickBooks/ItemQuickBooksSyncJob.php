@@ -62,7 +62,7 @@ class ItemQuickBooksSyncJob implements ShouldQueue
                 "value" => config('zilrsoft_quickbooks.incomes_account_id')
             ],
         ];
-        if ($this->item->category->quickbooks_id) {
+        if ($this->item->category && $this->item->category->quickbooks_id) {
             $data["SubItem"] = true;
             $data['ParentRef'] = [
                 "value" => $this->item->category->quickbooks_id
@@ -78,6 +78,5 @@ class ItemQuickBooksSyncJob implements ShouldQueue
                 'quickbooks_id' => $item->Id
             ]);
         }
-
     }
 }
