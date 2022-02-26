@@ -48,10 +48,9 @@ class CustomerQuickBooksSyncJob implements ShouldQueue
             "PrimaryEmailAddr" => [
                 "Address" => $this->user->email_address
             ],
-            "Email" => $this->user->email_address,
             "DisplayName" => $this->user->locale_name,
             "Title" => $this->user->user_title,
-            "FirstName" => $this->user->name,
+//            "FirstName" => $this->user->name,
             "FamilyName" => $this->user->name,
             "MiddleName" => $this->user->ar_name,
             "PrimaryPhone" => [
