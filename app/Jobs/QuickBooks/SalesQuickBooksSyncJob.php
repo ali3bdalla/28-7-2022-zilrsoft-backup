@@ -104,6 +104,10 @@ class SalesQuickBooksSyncJob implements ShouldQueue
         }
 
 //        FaultHandler::class;
-        return $quickBooksDataService->getLastError()->getResponseBody();
+        return [
+            $quickBooksDataService->getLastError()->getResponseBody(),
+            $quickBooksDataService->getLastError()->getIntuitErrorMessage(),
+            $quickBooksDataService->getLastError()->getIntuitErrorDetail(),
+        ];
     }
 }
