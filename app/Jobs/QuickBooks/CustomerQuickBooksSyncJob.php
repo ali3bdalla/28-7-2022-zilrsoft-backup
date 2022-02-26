@@ -56,6 +56,10 @@ class CustomerQuickBooksSyncJob implements ShouldQueue
             "PrimaryPhone" => [
                 "FreeFormNumber" => $this->user->phone_number
             ],
+            "MetaData" => [
+                "CreateTime" => $this->user->created_at,
+                "LastUpdatedTime" => $this->user->updated_at
+            ],
         ]);
         $customer = $quickBooksDataService->Add($quickBooksCustomer);
         if ($customer) {

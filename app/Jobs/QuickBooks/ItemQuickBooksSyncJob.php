@@ -11,7 +11,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use QuickBooksOnline\API\Exception\ServiceException;
 
 class ItemQuickBooksSyncJob implements ShouldQueue
 {
@@ -36,7 +35,7 @@ class ItemQuickBooksSyncJob implements ShouldQueue
      * Execute the job.
      *
      * @return void
-     * @throws ServiceException|Exception
+     * @throws Exception
      */
     public function handle()
     {
@@ -47,6 +46,7 @@ class ItemQuickBooksSyncJob implements ShouldQueue
         $data = [
             "TrackQtyOnHand" => $this->item->is_service == false,
             "Name" => $this->item->locale_name,
+            "FullyQualifiedName" => $this->item->locale_description,
             "QtyOnHand" => $this->item->available_qty,
             "Sku" => $this->item->barcode,
             "InvStartDate" => Carbon::parse($this->item->created_at)->format("Y-m-d"),
@@ -57,16 +57,21 @@ class ItemQuickBooksSyncJob implements ShouldQueue
             "ExpenseAccountRef" => [
                 "value" => config('zilrsoft_quickbooks.expenses_account_id')
             ],
-            "SubItem" => true,
             "IncomeAccountRef" => [
                 "value" => config('zilrsoft_quickbooks.incomes_account_id')
             ],
+            "MetaData" => [
+                "CreateTime" => $this->item->created_at,
+                "LastUpdatedTime" => $this->item->updated_at
+            ],
         ];
         if ($this->item->category && $this->item->category->quickbooks_id) {
-            $data["SubItem"] = true;
-            $data['ParentRef'] = [
-                "value" => $this->item->category->quickbooks_id
-            ];
+            $data = array_merge($data, [
+                "SubItem" => true,
+                "ParentRef" => [
+                    "value" => $this->item->category->quickbooks_id
+                ]
+            ]);
         }
         if (!$this->item->is_service) {
             $data["AssetAccountRef"]["value"] = config('zilrsoft_quickbooks.inventory_account_id');
@@ -77,6 +82,10 @@ class ItemQuickBooksSyncJob implements ShouldQueue
             $this->item->update([
                 'quickbooks_id' => $item->Id
             ]);
+        } else {
+//            $lastError = $quickBooksDataService->getLastError();
+//            if (!in_array($lastError->getIntuitErrorCode(), [6240]))
+//                throw new Exception($lastError->getIntuitErrorMessage());
         }
     }
 }

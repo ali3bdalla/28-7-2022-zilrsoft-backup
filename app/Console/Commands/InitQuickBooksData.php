@@ -44,25 +44,26 @@ class InitQuickBooksData extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
 
         $manager = Manager::whereEmail("ali@msbrshop.com")->first();
-        foreach (User::whereIsClient(true)->with("organization")->get() as $user) {
+        foreach (User::query()->whereOrganizationId(1)->whereIsClient(true)->with("organization")->get() as $user) {
             dispatch(new CustomerQuickBooksSyncJob($user, $manager));
         }
-        foreach (Manager::query()->get() as $user) {
-            dispatch(new ClassificationQuickBooksSyncJob($user, $manager));
-        }
-          foreach (Category::query()->with('organization')->get() as $category) {
-              dispatch(new CategoryQuickBooksSyncJob($category,$manager));
-          }
-        foreach (Item::whereIsKit(false)->with("organization",'category')->get() as $item) {
-            dispatch(new ItemQuickBooksSyncJob($item, $manager));
-        }
-        foreach (User::whereIsVendor(false)->with("organization",'details')->get() as $user) {
+        foreach (User::whereIsVendor(false)->whereOrganizationId(1)->with("organization", 'details')->get() as $user) {
             dispatch(new VendorQuickBooksSyncJob($user, $manager));
         }
-        return Command::SUCCESS;
+        foreach (Manager::query()->whereOrganizationId(1)->get() as $user) {
+            dispatch(new ClassificationQuickBooksSyncJob($user, $manager));
+        }
+        foreach (Category::query()->whereOrganizationId(1)->with('organization')->get() as $category) {
+            dispatch(new CategoryQuickBooksSyncJob($category, $manager));
+        }
+        foreach (Item::whereIsKit(false)->whereOrganizationId(1)->with("organization", 'category')->get() as $item) {
+            dispatch(new ItemQuickBooksSyncJob($item, $manager));
+        }
+
+        return 0;
     }
 }

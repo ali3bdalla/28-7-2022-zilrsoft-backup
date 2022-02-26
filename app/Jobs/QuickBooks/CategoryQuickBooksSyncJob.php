@@ -47,8 +47,12 @@ class CategoryQuickBooksSyncJob implements ShouldQueue
             "TrackQtyOnHand" => false,
             "Name" => $this->category->locale_name,
             "InvStartDate" => Carbon::parse($this->category->created_at)->format("Y-m-d"),
-            "Type" => "category",
+            "Type" => "Category",
             "Taxable" => false,
+            "MetaData" => [
+                "CreateTime" => $this->category->created_at,
+                "LastUpdatedTime" => $this->category->updated_at
+            ],
         ];
         $quickBooksItem = Item::create($data);
         $item = $quickBooksDataService->Add($quickBooksItem);
@@ -56,7 +60,9 @@ class CategoryQuickBooksSyncJob implements ShouldQueue
             $this->category->update([
                 'quickbooks_id' => $item->Id
             ]);
+//            dd($item);
         }
+
 
     }
 }

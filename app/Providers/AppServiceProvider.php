@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Manager;
 use App\Rules\QuantityValidationRule;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +18,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('quickbooksDataService', function ($app, $params = null) {
-
             $manager = $params['manager'] ?? Auth::user();
             return (new \Spinen\QuickBooks\Client(config('quickbooks'), $manager->quickBooksToken))->getDataService();
         });
@@ -36,6 +34,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extendImplicit('quantity', QuantityValidationRule::class);
-
     }
 }
