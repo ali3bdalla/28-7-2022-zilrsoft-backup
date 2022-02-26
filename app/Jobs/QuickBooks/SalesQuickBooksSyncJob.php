@@ -105,7 +105,7 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             ]);
             return response($createdQuickBooksInvoice);
         }
-        dd($quickBooksDataService->getLastError(),$this->invoice->user->quickbooks_customer_id,$this->manager->quickbooks_class_id,collect($data)->pluck("Id"));
+//        dd($quickBooksDataService->getLastError(),$this->invoice->user->quickbooks_customer_id,$this->manager->quickbooks_class_id,collect($data)->pluck("Id"));
 //        return [
 //            $quickBooksDataService->getLastError()->getResponseBody(),
 //            $quickBooksDataService->getLastError()->getIntuitErrorMessage(),
