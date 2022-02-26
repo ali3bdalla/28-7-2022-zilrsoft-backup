@@ -20,6 +20,7 @@ use App\Http\Controllers\App\Web\ManagerController as WebManagerController;
 use App\Http\Controllers\App\Web\OrderController;
 use App\Http\Controllers\App\Web\ShippingController;
 use App\Jobs\QuickBook\CreateQuickBooksSalesReceiptJob;
+use App\Jobs\QuickBooks\SalesQuickBooksSyncJob;
 use App\Models\Account;
 use App\Models\Invoice;
 use App\Models\User;
@@ -27,7 +28,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('test',function(){
-    $data = new CreateQuickBooksSalesReceiptJob(Invoice::inRandomOrder()->first(),Auth::user());
+    $data = new SalesQuickBooksSyncJob(Invoice::inRandomOrder()->first(),Auth::user());
     return $data->handle();
 });
 Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index');

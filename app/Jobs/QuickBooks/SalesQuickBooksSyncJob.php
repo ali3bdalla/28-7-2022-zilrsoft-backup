@@ -12,8 +12,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Str;
-use QuickBooksOnline\API\Facades\SalesReceipt;
 
 class SalesQuickBooksSyncJob implements ShouldQueue
 {
@@ -46,10 +44,11 @@ class SalesQuickBooksSyncJob implements ShouldQueue
         $quickBooksDataService = app("quickbooksDataService", [
             "manager" => $this->manager
         ]);
+        $taxCode = collect(collect($quickBooksDataService->Query("Select * From TaxCode WHERE Active=true"))->offsetGet(0));
         $salesReceiptLines = $this->invoice->items()->with("item")->whereHas("item", function ($query) {
             return $query->where('is_kit', false);
-        })->get()->map(function (InvoiceItems $invoiceItems, $index) {
-            return [
+        })->get()->map(function (InvoiceItems $invoiceItems, $index) use($taxCode) {
+            $data = [
                 "Description" => $invoiceItems->item->locale_name,
                 "DetailType" => "SalesItemLineDetail",
                 "SalesItemLineDetail" => [
@@ -57,38 +56,42 @@ class SalesQuickBooksSyncJob implements ShouldQueue
                     "Qty" => $invoiceItems->qty,
                     "UnitPrice" => $invoiceItems->price,
                     "TaxCodeRef" => [
-                        "value" => config('zilrsoft_quickbooks.tax_code_account_id')
+                        "value" => $taxCode->get("Id")
                     ],
-                    "ItemRef" => [
-                        "name" => $invoiceItems->item->locale_name,
-                        "value" => $invoiceItems->item->quickbooks_id
-                    ]
                 ],
                 "Id" => $invoiceItems->id,
                 "LineNum" => ($index + 1),
                 "Amount" => $invoiceItems->total,
             ];
+
+            if ($invoiceItems->item->quickbooks_id) {
+                $data["SalesItemLineDetail"]["ItemRef"] = [
+                    "name" => $invoiceItems->item->locale_name,
+                    "value" => $invoiceItems->item->quickbooks_id
+                ];
+
+            }
+            return $data;
         })->toArray();
         $data = [
             "ApplyTaxAfterDiscount" => true,
             "DocNumber" => $this->invoice->invoice_number,
             "TotalAmt" => $this->invoice->subtotal,
             "TxnDate" => Carbon::parse($this->invoice->created_at)->toDateString(),
-            "ClassRef" => [
-                "value" => Str::slug($this->manager->quickbooks_class_id)
-            ],
             "DepositToAccountRef" => [
                 "value" => config('zilrsoft_quickbooks.cash_equivalents_account_id')
             ],
             "PaymentRefNum" => "#" . $this->invoice->invoice_number,
             "Line" => $salesReceiptLines,
+            "ClassRef" => [
+                "value" => $this->manager->quickbooks_class_id
+            ],
+            "CustomerRef" => [
+                "value" => "{$this->invoice->user->quickbooks_customer_id}"
+            ]
         ];
 
-        $data["CustomerRef"] = [
-            "value" => $this->invoice->user->quickbooks_customer_id
-        ];
-
-        $salesReceipt = SalesReceipt::create(
+        $salesReceipt = \QuickBooksOnline\API\Facades\Invoice::create(
             $data
         );
         $createdQuickBooksInvoice = $quickBooksDataService->Add($salesReceipt);
