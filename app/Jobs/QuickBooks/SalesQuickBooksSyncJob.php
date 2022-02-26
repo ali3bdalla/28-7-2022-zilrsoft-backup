@@ -99,6 +99,9 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             $this->invoice->update([
                 'quickbooks_id' => $createdQuickBooksInvoice->Id
             ]);
+            return $createdQuickBooksInvoice;
         }
+
+        return $quickBooksDataService->getLastError();
     }
 }
