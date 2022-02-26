@@ -91,7 +91,7 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             ]
         ];
 
-        $salesReceipt = \QuickBooksOnline\API\Facades\Invoice::create(
+        $salesReceipt = \QuickBooksOnline\API\Facades\SalesReceipt::create(
             $data
         );
         $createdQuickBooksInvoice = $quickBooksDataService->Add($salesReceipt);
