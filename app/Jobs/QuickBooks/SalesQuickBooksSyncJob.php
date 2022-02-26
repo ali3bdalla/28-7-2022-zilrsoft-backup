@@ -12,8 +12,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use QuickBooksOnline\API\Core\HttpClients\FaultHandler;
 use QuickBooksOnline\API\Facades\SalesReceipt;
+
 class SalesQuickBooksSyncJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -48,7 +48,7 @@ class SalesQuickBooksSyncJob implements ShouldQueue
         $taxCode = collect(collect($quickBooksDataService->Query("Select * From TaxCode WHERE Active=true"))->offsetGet(0));
         $salesReceiptLines = $this->invoice->items()->with("item")->whereHas("item", function ($query) {
             return $query->where('is_kit', false);
-        })->get()->map(function (InvoiceItems $invoiceItems, $index) use($taxCode) {
+        })->get()->map(function (InvoiceItems $invoiceItems, $index) use ($taxCode) {
             $data = [
                 "Description" => $invoiceItems->item->locale_name,
                 "DetailType" => "SalesItemLineDetail",
@@ -83,15 +83,18 @@ class SalesQuickBooksSyncJob implements ShouldQueue
                 "value" => config('zilrsoft_quickbooks.cash_equivalents_account_id')
             ],
             "PaymentRefNum" => "#" . $this->invoice->invoice_number,
-            "Line" => $salesReceiptLines,
-            "ClassRef" => [
-                "value" => $this->manager->quickbooks_class_id
-            ],
-            "CustomerRef" => [
-                "value" => "{$this->invoice->user->quickbooks_customer_id}"
-            ]
+            "Line" => $salesReceiptLines
         ];
-
+        if ($this->manager->quickbooks_class_id) {
+            $data["ClassRef"] = [
+                "value" => "{$this->manager->quickbooks_class_id}"
+            ];
+        }
+        if ($this->invoice->user->quickbooks_customer_id) {
+            $data["CustomerRef"] = [
+                "value" => "{$this->invoice->user->quickbooks_customer_id}"
+            ];
+        }
         $salesReceipt = SalesReceipt::create(
             $data
         );
@@ -102,12 +105,11 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             ]);
             return response($createdQuickBooksInvoice);
         }
-
-//        FaultHandler::class;
-        return [
-            $quickBooksDataService->getLastError()->getResponseBody(),
-            $quickBooksDataService->getLastError()->getIntuitErrorMessage(),
-            $quickBooksDataService->getLastError()->getIntuitErrorDetail(),
-        ];
+        dd($quickBooksDataService->getLastError());
+//        return [
+//            $quickBooksDataService->getLastError()->getResponseBody(),
+//            $quickBooksDataService->getLastError()->getIntuitErrorMessage(),
+//            $quickBooksDataService->getLastError()->getIntuitErrorDetail(),
+//        ];
     }
 }
