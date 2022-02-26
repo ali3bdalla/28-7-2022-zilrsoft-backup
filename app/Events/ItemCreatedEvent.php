@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Item;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -14,14 +15,17 @@ class ItemCreatedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public Item $item;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Item $item)
     {
         //
+        $this->item = $item;
     }
 
     /**

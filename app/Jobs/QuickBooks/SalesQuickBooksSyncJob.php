@@ -46,9 +46,7 @@ class SalesQuickBooksSyncJob implements ShouldQueue
         if (!$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return "UnAuthorized";
         $quickBooks = new Client(config('quickbooks'), $this->manager->quickBooksToken);
         $quickBooksDataService = $quickBooks->getDataService();
-
         $castAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Name='Cash and cash equivalents'"))->offsetGet(0));
-        $taxAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Name='Loss on discontinued operations, net of tax'"))->offsetGet(0));
 
         $salesReceiptLines = $this->invoice->items()->with("item")->whereHas("item", function ($query) {
             return $query->where('is_kit', false);
@@ -61,7 +59,7 @@ class SalesQuickBooksSyncJob implements ShouldQueue
                     "Qty" => $invoiceItems->qty,
                     "UnitPrice" => $invoiceItems->price,
                     "TaxCodeRef" => [
-                        "value" => "28"
+                        "value" => config('zilrsoft_quickbooks.tax_code_account_id')
                     ],
                     "ItemRef" => [
                         "name" => $invoiceItems->item->locale_name,
@@ -100,9 +98,6 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             $this->invoice->update([
                 'quickbooks_id' => $createdQuickBooksInvoice->Id
             ]);
-            dd('created', $createdQuickBooksInvoice);
-        } else {
-            dd($quickBooksDataService->getLastError());
         }
     }
 }

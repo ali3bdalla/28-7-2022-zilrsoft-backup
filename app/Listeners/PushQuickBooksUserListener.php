@@ -3,9 +3,9 @@
 namespace App\Listeners;
 
 use App\Events\UserCreatedEvent;
+use App\Jobs\QuickBooks\CustomerQuickBooksSyncJob;
 use App\Jobs\QuickBooks\CustomerSyncJob;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Jobs\QuickBooks\VendorQuickBooksSyncJob;
 use Illuminate\Support\Facades\Auth;
 
 class PushQuickBooksUserListener
@@ -14,7 +14,7 @@ class PushQuickBooksUserListener
     /**
      * Handle the event.
      *
-     * @param object $event
+     * @param UserCreatedEvent $event
      * @return void
      */
     public function handle(UserCreatedEvent $event)
@@ -30,6 +30,7 @@ class PushQuickBooksUserListener
 
         if (!$manager) return;
 
-        if ($event->user->is_client) dispatch(new CustomerSyncJob($event->user, $manager));
+        if ($event->user->is_client) dispatch(new CustomerQuickBooksSyncJob($event->user, $manager));
+        if ($event->user->is_vendor) dispatch(new VendorQuickBooksSyncJob($event->user, $manager));
     }
 }
