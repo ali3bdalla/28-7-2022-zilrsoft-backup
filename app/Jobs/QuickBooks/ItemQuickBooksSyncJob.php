@@ -47,7 +47,7 @@ class ItemQuickBooksSyncJob implements ShouldQueue
         $data = [
             "TrackQtyOnHand" => $this->item->is_service == false,
             "Name" => $this->item->locale_name,
-            "QtyOnHand" => 0,
+            "QtyOnHand" => $this->item->available_qty,
             "Sku" => $this->item->barcode,
             "InvStartDate" => Carbon::parse($this->item->created_at)->format("Y-m-d"),
             "Type" => $this->item->is_service ? "Service" : "Inventory",

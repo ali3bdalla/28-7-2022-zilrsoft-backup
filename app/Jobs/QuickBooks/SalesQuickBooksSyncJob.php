@@ -14,7 +14,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
 use QuickBooksOnline\API\Facades\SalesReceipt;
-use Spinen\QuickBooks\Client;
 
 class SalesQuickBooksSyncJob implements ShouldQueue
 {
@@ -44,10 +43,9 @@ class SalesQuickBooksSyncJob implements ShouldQueue
     {
 
         if (!$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return "UnAuthorized";
-        $quickBooks = new Client(config('quickbooks'), $this->manager->quickBooksToken);
-        $quickBooksDataService = $quickBooks->getDataService();
-        $castAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Name='Cash and cash equivalents'"))->offsetGet(0));
-
+        $quickBooksDataService = app("quickbooksDataService", [
+            "manager" => $this->manager
+        ]);
         $salesReceiptLines = $this->invoice->items()->with("item")->whereHas("item", function ($query) {
             return $query->where('is_kit', false);
         })->get()->map(function (InvoiceItems $invoiceItems, $index) {
@@ -80,7 +78,7 @@ class SalesQuickBooksSyncJob implements ShouldQueue
                 "value" => Str::slug($this->manager->quickbooks_class_id)
             ],
             "DepositToAccountRef" => [
-                "value" => $castAccount->get("Id")
+                "value" => config('zilrsoft_quickbooks.cash_equivalents_account_id')
             ],
             "PaymentRefNum" => "#" . $this->invoice->invoice_number,
             "Line" => $salesReceiptLines,
