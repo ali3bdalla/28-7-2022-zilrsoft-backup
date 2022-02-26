@@ -46,29 +46,32 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
         if (!$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return "UnAuthorized";
         $quickBooks = new Client(config('quickbooks'), $this->manager->quickBooksToken);
         $quickBooksDataService = $quickBooks->getDataService();
-        $castAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Type='Cash and cash equivalents'"))->first());
+
+        $castAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Name='Cash and cash equivalents'"))->offsetGet(0));
         $taxAccount = collect(collect($quickBooksDataService->Query("SELECT Id FROM Account WHERE Name='Loss on discontinued operations, net of tax'"))->offsetGet(0));
+
         $salesReceiptLines = $this->invoice->items()->with("item")->whereHas("item", function ($query) {
             return $query->where('is_kit', false);
         })->get()->map(function (InvoiceItems $invoiceItems, $index) {
-            $data = [
+            return [
                 "Description" => $invoiceItems->item->locale_name,
                 "DetailType" => "SalesItemLineDetail",
                 "SalesItemLineDetail" => [
                     "DiscountAmt" => $invoiceItems->discount,
                     "Qty" => $invoiceItems->qty,
                     "UnitPrice" => $invoiceItems->price,
-
+                    "TaxCodeRef" => [
+                        "value" => "28"
+                    ],
+                    "ItemRef" => [
+                        "name" => $invoiceItems->item->locale_name,
+                        "value" => $invoiceItems->item->quickbooks_id
+                    ]
                 ],
+                "Id" => $invoiceItems->id,
                 "LineNum" => ($index + 1),
                 "Amount" => $invoiceItems->total,
             ];
-            if ($invoiceItems->item->quickbooks_id) {
-                $data["SalesItemLineDetail"]["ItemRef"] = [
-                    "value" => $invoiceItems->item->quickbooks_id
-                ];
-            }
-            return $data;
         })->toArray();
         $data = [
             "ApplyTaxAfterDiscount" => true,
@@ -78,33 +81,13 @@ class CreateQuickBooksSalesReceiptJob implements ShouldQueue
             "ClassRef" => [
                 "value" => Str::slug($this->manager->quickbooks_class_id)
             ],
-            "TaxLine" => [
-                [
-                    "DetailType" => "TaxLineDetail",
-                    "Amount" => $this->invoice->tax,
-                    "TaxLineDetail" => [
-                        "NetAmountTaxable" => $this->invoice->net,
-                        "TaxPercent" => 15,
-                        "TaxRateRef" => [
-                            "value" => $taxAccount->Id
-                        ],
-                        "PercentBased" => true
-                    ]
-                ]
-            ],
             "DepositToAccountRef" => [
                 "value" => $castAccount->get("Id")
-            ],
-            "TxnTaxDetail" => [
-                "TotalTax" => $this->invoice->tax
-            ],
-            "MetaData" => [
-                "CreateTime" => $this->invoice->created_at,
-                "LastUpdatedTime" => $this->invoice->updated_at
             ],
             "PaymentRefNum" => "#" . $this->invoice->invoice_number,
             "Line" => $salesReceiptLines,
         ];
+
         $data["CustomerRef"] = [
             "value" => $this->invoice->user->quickbooks_customer_id
         ];
