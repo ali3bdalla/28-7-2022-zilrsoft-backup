@@ -12,7 +12,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-
+use QuickBooksOnline\API\Core\HttpClients\FaultHandler;
+use QuickBooksOnline\API\Facades\SalesReceipt;
 class SalesQuickBooksSyncJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -91,7 +92,7 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             ]
         ];
 
-        $salesReceipt = \QuickBooksOnline\API\Facades\SalesReceipt::create(
+        $salesReceipt = SalesReceipt::create(
             $data
         );
         $createdQuickBooksInvoice = $quickBooksDataService->Add($salesReceipt);
@@ -99,9 +100,10 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             $this->invoice->update([
                 'quickbooks_id' => $createdQuickBooksInvoice->Id
             ]);
-            return $createdQuickBooksInvoice;
+            return response($createdQuickBooksInvoice);
         }
 
-        return $quickBooksDataService->getLastError();
+//        FaultHandler::class;
+        return $quickBooksDataService->getLastError()->getResponseBody();
     }
 }
