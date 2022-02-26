@@ -85,16 +85,16 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             "PaymentRefNum" => "#" . $this->invoice->invoice_number,
             "Line" => $salesReceiptLines
         ];
-        if ($this->manager->quickbooks_class_id) {
-            $data["ClassRef"] = [
-                "value" => "{$this->manager->quickbooks_class_id}"
-            ];
-        }
-        if ($this->invoice->user->quickbooks_customer_id) {
-            $data["CustomerRef"] = [
-                "value" => "{$this->invoice->user->quickbooks_customer_id}"
-            ];
-        }
+//        if ($this->manager->quickbooks_class_id) {
+//            $data["ClassRef"] = [
+//                "value" => "{$this->manager->quickbooks_class_id}"
+//            ];
+//        }
+//        if ($this->invoice->user->quickbooks_customer_id) {
+//            $data["CustomerRef"] = [
+//                "value" => "{$this->invoice->user->quickbooks_customer_id}"
+//            ];
+//        }
         $salesReceipt = SalesReceipt::create(
             $data
         );
@@ -105,7 +105,7 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             ]);
             return response($createdQuickBooksInvoice);
         }
-        dd($quickBooksDataService->getLastError());
+        dd($quickBooksDataService->getLastError(),$this->invoice->user->quickbooks_customer_id,$this->manager->quickbooks_class_id,collect($data)->pluck("Id"));
 //        return [
 //            $quickBooksDataService->getLastError()->getResponseBody(),
 //            $quickBooksDataService->getLastError()->getIntuitErrorMessage(),
