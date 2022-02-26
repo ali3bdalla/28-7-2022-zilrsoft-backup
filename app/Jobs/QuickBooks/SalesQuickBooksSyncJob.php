@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\QuickBook;
+namespace App\Jobs\QuickBooks;
 
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 use QuickBooksOnline\API\Facades\SalesReceipt;
 use Spinen\QuickBooks\Client;
 
-class CreateQuickBooksSalesReceiptJob implements ShouldQueue
+class SalesQuickBooksSyncJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 

@@ -6,17 +6,13 @@ use App\Models\Manager;
 use App\Models\User;
 use Exception;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Auth;
-use QuickBooksOnline\API\Facades\Customer;
-use QuickBooksOnline\API\Facades\SalesReceipt;
-use Spinen\QuickBooks\Client;
+use QuickBooksOnline\API\Facades\Vendor;
 
-class CustomerSyncJob implements ShouldQueue
+class VendorQuickBooksSyncJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -44,14 +40,17 @@ class CustomerSyncJob implements ShouldQueue
     public function handle()
     {
         if (!$this->user->organization->has_quickbooks || !$this->manager->quickBooksToken) return;
-        $quickBooks = new Client(config('quickbooks'), $this->manager->quickBooksToken);
-        $quickBooksCustomer = Customer::create([
+        $quickBooksDataService = app("quickbooksDataService", [
+            "manager" => $this->manager
+        ]);
+        $quickBooksCustomer = Vendor::create([
             "FullyQualifiedName" => $this->user->locale_name,
             "PrimaryEmailAddr" => [
                 "Address" => $this->user->email_address
             ],
-//            "Email" => $this->user->email_address,
+            "TaxIdentifier" => $this->user->details ? $this->user->details->vat : "",
             "DisplayName" => $this->user->locale_name,
+            "CompanyName" => $this->user->details ? $this->user->details->responsible_name : $this->user->locale_name,
             "Title" => $this->user->user_title,
             "FamilyName" => $this->user->name,
             "MiddleName" => $this->user->ar_name,
@@ -59,10 +58,10 @@ class CustomerSyncJob implements ShouldQueue
                 "FreeFormNumber" => $this->user->phone_number
             ],
         ]);
-        $customer = $quickBooks->getDataService()->Add($quickBooksCustomer);
-        if ($customer) {
+        $user = $quickBooksDataService->Add($quickBooksCustomer);
+        if ($user) {
             $this->user->update([
-                'quickbooks_customer_id' => $customer->Id
+                'quickbooks_vendor_id' => $user->Id
             ]);
         }
 

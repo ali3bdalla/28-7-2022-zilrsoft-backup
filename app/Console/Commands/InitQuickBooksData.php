@@ -2,9 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\QuickBooks\CustomerSyncJob;
-use App\Jobs\QuickBooks\ItemSyncJob;
-use App\Jobs\SyncQuickBooksClassJob;
+use App\Jobs\QuickBooks\CategoryQuickBooksSyncJob;
+use App\Jobs\QuickBooks\ClassificationQuickBooksSyncJob;
+use App\Jobs\QuickBooks\CustomerQuickBooksSyncJob;
+use App\Jobs\QuickBooks\ItemQuickBooksSyncJob;
+use App\Jobs\QuickBooks\VendorQuickBooksSyncJob;
+use App\Models\Category;
 use App\Models\Item;
 use App\Models\Manager;
 use App\Models\User;
@@ -43,14 +46,22 @@ class InitQuickBooksData extends Command
      */
     public function handle()
     {
+
+        $manager = Manager::whereEmail("ali@msbrshop.com")->first();
         foreach (User::whereIsClient(true)->with("organization")->get() as $user) {
-            dispatch(new CustomerSyncJob($user, Manager::whereEmail("ali@msbrshop.com")->first()));
+            dispatch(new CustomerQuickBooksSyncJob($user, $manager));
         }
         foreach (Manager::query()->get() as $user) {
-            dispatch(new SyncQuickBooksClassJob($user, Manager::whereEmail("ali@msbrshop.com")->first()));
+            dispatch(new ClassificationQuickBooksSyncJob($user, $manager));
         }
-        foreach (Item::whereIsKit(false)->with("organization")->get() as $item) {
-            dispatch(new ItemSyncJob($item, Manager::whereEmail("ali@msbrshop.com")->first()));
+          foreach (Category::query()->with('organization')->get() as $category) {
+              dispatch(new CategoryQuickBooksSyncJob($category,$manager));
+          }
+        foreach (Item::whereIsKit(false)->with("organization",'category')->get() as $item) {
+            dispatch(new ItemQuickBooksSyncJob($item, $manager));
+        }
+        foreach (User::whereIsVendor(false)->with("organization",'details')->get() as $user) {
+            dispatch(new VendorQuickBooksSyncJob($user, $manager));
         }
         return Command::SUCCESS;
     }

@@ -3,7 +3,9 @@
 namespace App\Traits;
 
 use App\Models\Manager;
+use App\Models\Organization;
 use App\Scopes\OrganizationScope;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
 
 trait OrganizationTarget
@@ -16,5 +18,10 @@ trait OrganizationTarget
         } elseif (get_called_class() !== Manager::class) {
             static::addGlobalScope(new OrganizationScope());
         }
+    }
+
+    public function organization(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class);
     }
 }
