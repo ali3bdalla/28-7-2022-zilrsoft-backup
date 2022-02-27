@@ -48,22 +48,22 @@ class InitQuickBooksData extends Command
     {
 
         $manager = Manager::whereEmail("ali@msbrshop.com")->first();
-        foreach (User::query()->whereOrganizationId(1)->whereIsClient(true)->with("organization")->get() as $user) {
+        foreach (User::query()->whereNull("quickbooks_customer_id")->whereOrganizationId(1)->whereIsClient(true)->with("organization")->get() as $user) {
             dispatch(new CustomerQuickBooksSyncJob($user, $manager));
         }
-        foreach (User::whereIsVendor(false)->whereOrganizationId(1)->with("organization", 'details')->get() as $user) {
+        foreach (User::whereIsVendor(false)->whereNull("quickbooks_vendor_id")->whereOrganizationId(1)->with("organization", 'details')->get() as $user) {
             dispatch(new VendorQuickBooksSyncJob($user, $manager));
         }
-        foreach (Manager::query()->whereOrganizationId(1)->get() as $user) {
+        foreach (Manager::query()->whereNull("quickbooks_class_id")->whereOrganizationId(1)->get() as $user) {
             dispatch_sync(new ClassificationQuickBooksSyncJob($user, $manager));
         }
-        foreach (Category::query()->whereOrganizationId(1)->with('organization')->get() as $category) {
+        foreach (Category::query()->whereNull("quickbooks_id")->whereOrganizationId(1)->with('organization')->get() as $category) {
             dispatch(new CategoryQuickBooksSyncJob($category, $manager));
         }
-        foreach (Item::whereIsService(true)->whereIsKit(false)->whereOrganizationId(1)->with("organization", 'category')->get() as $item) {
+        foreach (Item::whereIsService(true)->whereNull("quickbooks_id")->whereIsKit(false)->whereOrganizationId(1)->with("organization", 'category')->get() as $item) {
             dispatch(new ItemQuickBooksSyncJob($item, $manager));
         }
-        foreach (Item::whereIsService(false)->whereIsKit(false)->whereOrganizationId(1)->with("organization", 'category')->get() as $item) {
+        foreach (Item::whereIsService(false)->whereNull("quickbooks_id")->whereIsKit(false)->whereOrganizationId(1)->with("organization", 'category')->get() as $item) {
             dispatch(new ItemQuickBooksSyncJob($item, $manager));
         }
         return 0;
