@@ -59,7 +59,7 @@ class ClassificationQuickBooksSyncJob implements ShouldQueue
 
         $error = $quickBooksDataService->getLastError();
         if ($error) {
-            throw  ValidationException::withMessages([
+            throw  new Exception([
                 $error->getIntuitErrorMessage(),
                 $error->getIntuitErrorDetail(),
                 $error->getIntuitErrorElement(),
