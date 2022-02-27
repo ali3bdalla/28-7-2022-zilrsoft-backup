@@ -47,7 +47,7 @@ class CategoryQuickBooksSyncJob implements ShouldQueue
         ]);
         $data = [
             "TrackQtyOnHand" => false,
-            "Name" => $this->category->locale_name,
+            "Name" => $this->category->locale_name . " " . $this->category->id,
             "InvStartDate" => Carbon::parse($this->category->created_at)->format("Y-m-d"),
             "Type" => "Category",
             "Taxable" => false,

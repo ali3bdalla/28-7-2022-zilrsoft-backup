@@ -55,10 +55,10 @@ class InitQuickBooksData extends Command
             dispatch(new VendorQuickBooksSyncJob($user, $manager));
         }
         foreach (Manager::query()->whereOrganizationId(1)->get() as $user) {
-            dispatch(new ClassificationQuickBooksSyncJob($user, $manager));
+            dispatch_sync(new ClassificationQuickBooksSyncJob($user, $manager));
         }
         foreach (Category::query()->whereOrganizationId(1)->with('organization')->get() as $category) {
-            dispatch_sync(new CategoryQuickBooksSyncJob($category, $manager));
+            dispatch(new CategoryQuickBooksSyncJob($category, $manager));
         }
         foreach (Item::whereIsService(true)->whereIsKit(false)->whereOrganizationId(1)->with("organization", 'category')->get() as $item) {
             dispatch(new ItemQuickBooksSyncJob($item, $manager));
