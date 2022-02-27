@@ -83,7 +83,6 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             "DepositToAccountRef" => [
                 "value" => config('zilrsoft_quickbooks.cash_equivalents_account_id')
             ],
-            "Id" => $this->invoice->id,
             "PaymentRefNum" => "#" . $this->invoice->invoice_number,
             "Line" => $salesReceiptLines,
             "ClassRef" => [
@@ -113,6 +112,8 @@ class SalesQuickBooksSyncJob implements ShouldQueue
                 $error->getIntuitErrorDetail(),
                 $error->getIntuitErrorElement(),
                 $error->getIntuitErrorCode(),
+                $this->invoice->toArray(),
+                $this->invoice->items()->pluck("id")->toArray()
             ]));
         }
 

@@ -44,10 +44,13 @@ class SyncTodaySalesCommand extends Command
     public function handle()
     {
         $manager = Manager::whereEmail("ali@msbrshop.com")->first();
-        foreach (Invoice::whereDate('created_at', Carbon::today())->whereInvoiceType(InvoiceTypeEnum::return_sale())->whereOrganizationId(1)->get() as $invoice) {
+        foreach (Invoice::whereDate('created_at', Carbon::today()->subDay())->whereNull('quickbooks_id')->whereIn('invoice_type',[InvoiceTypeEnum::sale()])->whereOrganizationId(1)->get() as $invoice) {
             dispatch_sync(new SalesQuickBooksSyncJob($invoice, $manager));
+        }
+        foreach (Invoice::whereDate('created_at', Carbon::today()->subDay())->whereNull('quickbooks_id')->whereIn('invoice_type',[InvoiceTypeEnum::return_sale()])->whereOrganizationId(1)->get() as $invoice) {
             dispatch_sync(new RefundSalesQuickBooksSyncJob($invoice, $manager));
         }
+
         return Command::SUCCESS;
     }
 }
