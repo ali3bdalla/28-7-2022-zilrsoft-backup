@@ -136,6 +136,11 @@ class Invoice extends BaseModel
         return $this->belongsTo(Invoice::class, 'parent_invoice_id');
     }
 
+    public function parent(): BelongsTo
+    {
+        return $this->hasOne(Invoice::class, 'parent_invoice_id');
+    }
+
     public function transactions(): HasMany
     {
         return $this->hasMany(EntryTransaction::class, 'invoice_id');

@@ -13,13 +13,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use QuickBooksOnline\API\Facades\SalesReceipt;
+use QuickBooksOnline\API\Facades\RefundReceipt;
 
-class SalesQuickBooksSyncJob implements ShouldQueue
+class RefundSalesQuickBooksSyncJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private Invoice $invoice;
+    private Invoice $refundInvoice;
     private Manager $manager;
 
     /**
@@ -27,9 +27,9 @@ class SalesQuickBooksSyncJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Invoice $invoice, Manager $manager)
+    public function __construct(Invoice $refundInvoice, Manager $manager)
     {
-        $this->invoice = $invoice;
+        $this->refundInvoice = $refundInvoice;
         $this->manager = $manager;
     }
 
@@ -42,12 +42,12 @@ class SalesQuickBooksSyncJob implements ShouldQueue
     public function handle()
     {
 
-        if (!$this->refundInvoice->invoice_type->equals(InvoiceTypeEnum::sale()) || !$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return "UnAuthorized";
+        if (!$this->refundInvoice->invoice_type->equals(InvoiceTypeEnum::return_sale()) || !$this->refundInvoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->refundInvoice->is_draft) return "UnAuthorized";
         $quickBooksDataService = app("quickbooksDataService", [
             "manager" => $this->manager
         ]);
         $taxCode = collect(collect($quickBooksDataService->Query("Select * From TaxCode WHERE Active=true"))->offsetGet(0));
-        $salesReceiptLines = $this->invoice->items()->with("item")->whereHas("item", function ($query) {
+        $salesReceiptLines = $this->refundInvoice->items()->with("item")->whereHas("item", function ($query) {
             return $query->where('is_kit', false);
         })->get()->map(function (InvoiceItems $invoiceItems, $index) use ($taxCode) {
             $data = [
@@ -65,7 +65,6 @@ class SalesQuickBooksSyncJob implements ShouldQueue
                 "LineNum" => ($index + 1),
                 "Amount" => $invoiceItems->total,
             ];
-
             if ($invoiceItems->item->quickbooks_id) {
                 $data["SalesItemLineDetail"]["ItemRef"] = [
                     "name" => $invoiceItems->item->locale_name,
@@ -77,30 +76,29 @@ class SalesQuickBooksSyncJob implements ShouldQueue
         })->toArray();
         $data = [
             "ApplyTaxAfterDiscount" => true,
-            "DocNumber" => $this->invoice->invoice_number . ":" . $this->invoice->id,
-            "TotalAmt" => $this->invoice->subtotal,
-            "TxnDate" => Carbon::parse($this->invoice->created_at)->toDateString(),
+            "DocNumber" => $this->refundInvoice->invoice_number,
+            "TotalAmt" => $this->refundInvoice->subtotal,
+            "TxnDate" => Carbon::parse($this->refundInvoice->created_at)->toDateString(),
             "DepositToAccountRef" => [
                 "value" => config('zilrsoft_quickbooks.cash_equivalents_account_id')
             ],
-            "Id" => $this->invoice->id,
-            "PaymentRefNum" => "#" . $this->invoice->invoice_number,
+            "PaymentRefNum" => "#" . $this->refundInvoice->invoice_number,
             "Line" => $salesReceiptLines,
             "ClassRef" => [
                 "value" => $this->manager->quickbooks_class_id
             ]
         ];
-        if ($this->invoice->user->quickbooks_customer_id) {
+        if ($this->refundInvoice->user->quickbooks_customer_id) {
             $data["CustomerRef"] = [
-                "value" => $this->invoice->user->quickbooks_customer_id
+                "value" => $this->refundInvoice->user->quickbooks_customer_id
             ];
         }
-        $salesReceipt = SalesReceipt::create(
+        $salesReceipt = RefundReceipt::create(
             $data
         );
         $createdQuickBooksInvoice = $quickBooksDataService->Add($salesReceipt);
         if ($createdQuickBooksInvoice) {
-            $this->invoice->update([
+            $this->refundInvoice->update([
                 'quickbooks_id' => $createdQuickBooksInvoice->Id
             ]);
             return;

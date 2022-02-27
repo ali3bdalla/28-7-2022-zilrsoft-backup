@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Sales;
 
-use App\Enums\AccountingTypeEnum;
 use App\Enums\InvoiceTypeEnum;
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
+use App\Jobs\QuickBooks\RefundSalesQuickBooksSyncJob;
 use App\Jobs\Sales\Accounting\StoreReturnSaleTransactionsJob;
 use App\Jobs\Sales\Items\StoreReturnSaleItemsJob;
 use App\Jobs\Sales\Payment\StoreReturnSalePaymentsJob;
@@ -15,6 +15,7 @@ use App\Models\Sale;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Throwable;
@@ -88,6 +89,7 @@ class StoreReturnSaleRequest extends FormRequest
             dispatch_sync(new StoreReturnSalePaymentsJob($invoice, $paymentsMethods));
             dispatch_sync(new StoreReturnSaleTransactionsJob($invoice));
             DB::commit();
+            dispatch(new RefundSalesQuickBooksSyncJob($invoice, Auth::user()));
             return $invoice;
         } catch (QueryException $queryException) {
             DB::rollBack();
