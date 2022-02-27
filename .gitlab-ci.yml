@@ -34,47 +34,47 @@ cache:
     - .npm/
     - vendor/
 
-build:
-  stage: build
-  script:
-    - docker-php-ext-install soap
-    - docker-php-ext-install pcntl
-    # Install Composer dependencies
-    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-    # Copy over testing configuration
-    - cp .env.example .env
-
-    # Generate an application key, re-cache.
-    - php artisan key:generate
-    - php artisan config:cache
-
-    - php artisan migrate --env=testing
-    # Run database seed
-    - php artisan db:seed --env=testing
-    # Install Node dependencies
-    - npm install
-    # ci --cache .npm --prefer-offline --quiet
-
-    # Run npm build
-    - npm run dev
-
-
-test:
-  stage: test
-  dependencies:
-    - build
-  script:
-    - cp .env.example .env.testing
-    - php artisan key:generate --env=testing
-    # Run database migrations
-    - php artisan migrate --env=testing
-    # Run database seed
-    - php artisan db:seed --env=testing
-    - php artisan config:cache
-    #    - ./vendor/bin/phpstan  --debug
-    # run laravel tests
-  #    - ./vendor/bin/phpunit
-  when: on_success
+#build:
+#  stage: build
+#  script:
+#    - docker-php-ext-install soap
+#    - docker-php-ext-install pcntl
+#    # Install Composer dependencies
+#    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+#    # Copy over testing configuration
+#    - cp .env.example .env
+#
+#    # Generate an application key, re-cache.
+#    - php artisan key:generate
+#    - php artisan config:cache
+#
+#    - php artisan migrate --env=testing
+#    # Run database seed
+#    - php artisan db:seed --env=testing
+#    # Install Node dependencies
+#    - npm install
+#    # ci --cache .npm --prefer-offline --quiet
+#
+#    # Run npm build
+#    - npm run dev
+#
+#
+#test:
+#  stage: test
+#  dependencies:
+#    - build
+#  script:
+#    - cp .env.example .env.testing
+#    - php artisan key:generate --env=testing
+#    # Run database migrations
+#    - php artisan migrate --env=testing
+#    # Run database seed
+#    - php artisan db:seed --env=testing
+#    - php artisan config:cache
+#    #    - ./vendor/bin/phpstan  --debug
+#    # run laravel tests
+#  #    - ./vendor/bin/phpunit
+#  when: on_success
 
 
 
