@@ -40,7 +40,7 @@ class CustomerQuickBooksSyncJob implements ShouldQueue
      */
     public function handle()
     {
-        if (!$this->user->organization->has_quickbooks || !$this->manager->quickBooksToken) return;
+        if ($this->user->quickbooks_customer_id != null || !$this->user->organization->has_quickbooks || !$this->manager->quickBooksToken) return;
         $quickBooksDataService = app("quickbooksDataService", [
             "manager" => $this->manager
         ]);

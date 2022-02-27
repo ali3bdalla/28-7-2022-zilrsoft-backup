@@ -5,12 +5,12 @@ namespace App\Jobs\QuickBooks;
 use App\Models\Category;
 use App\Models\Manager;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Validation\ValidationException;
 use QuickBooksOnline\API\Facades\Item;
 
 class CategoryQuickBooksSyncJob implements ShouldQueue
@@ -37,11 +37,11 @@ class CategoryQuickBooksSyncJob implements ShouldQueue
      * Execute the job.
      *
      * @return void
-     * @throws ValidationException
+     * @throws Exception
      */
     public function handle()
     {
-        if ($this->category->organization && !$this->category->organization->has_quickbooks || !$this->manager->quickBooksToken) return;
+        if ($this->category->quickbooks_id != null || $this->category->organization && !$this->category->organization->has_quickbooks || !$this->manager->quickBooksToken) return;
         $quickBooksDataService = app("quickbooksDataService", [
             "manager" => $this->manager
         ]);
@@ -63,11 +63,10 @@ class CategoryQuickBooksSyncJob implements ShouldQueue
                 'quickbooks_id' => $item->Id
             ]);
             return;
-//            dd($item);
         }
         $error = $quickBooksDataService->getLastError();
         if ($error) {
-            throw  new \Exception(json_encode([
+            throw  new Exception(json_encode([
                 $error->getIntuitErrorMessage(),
                 $error->getIntuitErrorDetail(),
                 $error->getIntuitErrorElement(),

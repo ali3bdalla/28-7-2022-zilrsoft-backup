@@ -40,7 +40,7 @@ class ItemQuickBooksSyncJob implements ShouldQueue
      */
     public function handle()
     {
-        if (!$this->item->organization->has_quickbooks || !$this->manager->quickBooksToken) return;
+        if ($this->item->quickbooks_id != null || !$this->item->organization->has_quickbooks || !$this->manager->quickBooksToken) return;
         $quickBooksDataService = app("quickbooksDataService", [
             "manager" => $this->manager
         ]);
