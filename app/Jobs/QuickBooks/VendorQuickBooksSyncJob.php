@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Validation\ValidationException;
 use QuickBooksOnline\API\Facades\Vendor;
 
 class VendorQuickBooksSyncJob implements ShouldQueue
@@ -66,6 +67,16 @@ class VendorQuickBooksSyncJob implements ShouldQueue
         if ($user) {
             $this->user->update([
                 'quickbooks_vendor_id' => $user->Id
+            ]);
+            return;
+        }
+        $error = $quickBooksDataService->getLastError();
+        if ($error) {
+            throw  ValidationException::withMessages([
+                $error->getIntuitErrorMessage(),
+                $error->getIntuitErrorDetail(),
+                $error->getIntuitErrorElement(),
+                $error->getIntuitErrorCode(),
             ]);
         }
 

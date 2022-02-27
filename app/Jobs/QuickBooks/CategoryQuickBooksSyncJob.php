@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Validation\ValidationException;
 use QuickBooksOnline\API\Facades\Item;
 
 class CategoryQuickBooksSyncJob implements ShouldQueue
@@ -36,6 +37,7 @@ class CategoryQuickBooksSyncJob implements ShouldQueue
      * Execute the job.
      *
      * @return void
+     * @throws ValidationException
      */
     public function handle()
     {
@@ -60,9 +62,18 @@ class CategoryQuickBooksSyncJob implements ShouldQueue
             $this->category->update([
                 'quickbooks_id' => $item->Id
             ]);
+            return;
 //            dd($item);
         }
-
+        $error = $quickBooksDataService->getLastError();
+        if ($error) {
+            throw  ValidationException::withMessages([
+                $error->getIntuitErrorMessage(),
+                $error->getIntuitErrorDetail(),
+                $error->getIntuitErrorElement(),
+                $error->getIntuitErrorCode(),
+            ]);
+        }
 
     }
 }

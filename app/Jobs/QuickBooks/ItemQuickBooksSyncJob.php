@@ -11,6 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Validation\ValidationException;
 
 class ItemQuickBooksSyncJob implements ShouldQueue
 {
@@ -82,10 +83,16 @@ class ItemQuickBooksSyncJob implements ShouldQueue
             $this->item->update([
                 'quickbooks_id' => $item->Id
             ]);
-        } else {
-//            $lastError = $quickBooksDataService->getLastError();
-//            if (!in_array($lastError->getIntuitErrorCode(), [6240]))
-//                throw new Exception($lastError->getIntuitErrorMessage());
+            return;
+        }
+        $error = $quickBooksDataService->getLastError();
+        if ($error) {
+            throw  ValidationException::withMessages([
+                $error->getIntuitErrorMessage(),
+                $error->getIntuitErrorDetail(),
+                $error->getIntuitErrorElement(),
+                $error->getIntuitErrorCode(),
+            ]);
         }
     }
 }

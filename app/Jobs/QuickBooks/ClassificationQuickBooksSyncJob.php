@@ -3,12 +3,14 @@
 namespace App\Jobs\QuickBooks;
 
 use App\Models\Manager;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use QuickBooksOnline\API\Facades\FacadeHelper;
 
 class ClassificationQuickBooksSyncJob implements ShouldQueue
@@ -35,6 +37,7 @@ class ClassificationQuickBooksSyncJob implements ShouldQueue
      * Execute the job.
      *
      * @return void
+     * @throws Exception
      */
     public function handle()
     {
@@ -43,13 +46,24 @@ class ClassificationQuickBooksSyncJob implements ShouldQueue
             "manager" => $this->manager
         ]);
         $quickBooksItem = FacadeHelper::reflectArrayToObject("Class", [
-            "Name" => Str::slug($this->manager->name),
-            "FullyQualifiedName" => $this->manager->locale_name,
+            "Name" => Str::slug($this->class->name),
+            "FullyQualifiedName" => $this->class->locale_name,
         ]);
         $class = $quickBooksDataService->Add($quickBooksItem);
         if ($class) {
-            $this->manager->update([
+            $this->class->update([
                 'quickbooks_class_id' => $class->Id
+            ]);
+            return;
+        }
+
+        $error = $quickBooksDataService->getLastError();
+        if ($error) {
+            throw  ValidationException::withMessages([
+                $error->getIntuitErrorMessage(),
+                $error->getIntuitErrorDetail(),
+                $error->getIntuitErrorElement(),
+                $error->getIntuitErrorCode(),
             ]);
         }
 

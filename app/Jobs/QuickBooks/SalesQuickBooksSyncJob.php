@@ -12,6 +12,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Validation\ValidationException;
+use QuickBooksOnline\API\Core\HttpClients\FaultHandler;
 use QuickBooksOnline\API\Facades\SalesReceipt;
 
 class SalesQuickBooksSyncJob implements ShouldQueue
@@ -41,72 +43,78 @@ class SalesQuickBooksSyncJob implements ShouldQueue
     public function handle()
     {
 
-        try {
-            if (!$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return "UnAuthorized";
-            $quickBooksDataService = app("quickbooksDataService", [
-                "manager" => $this->manager
-            ]);
-            $taxCode = collect(collect($quickBooksDataService->Query("Select * From TaxCode WHERE Active=true"))->offsetGet(0));
-            $salesReceiptLines = $this->invoice->items()->with("item")->whereHas("item", function ($query) {
-                return $query->where('is_kit', false);
-            })->get()->map(function (InvoiceItems $invoiceItems, $index) use ($taxCode) {
-                $data = [
-                    "Description" => $invoiceItems->item->locale_name,
-                    "DetailType" => "SalesItemLineDetail",
-                    "SalesItemLineDetail" => [
-                        "DiscountAmt" => $invoiceItems->discount,
-                        "Qty" => $invoiceItems->qty,
-                        "UnitPrice" => $invoiceItems->price,
-                        "TaxCodeRef" => [
-                            "value" => $taxCode->get("Id")
-                        ],
+        if (!$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return "UnAuthorized";
+        $quickBooksDataService = app("quickbooksDataService", [
+            "manager" => $this->manager
+        ]);
+        $taxCode = collect(collect($quickBooksDataService->Query("Select * From TaxCode WHERE Active=true"))->offsetGet(0));
+        $salesReceiptLines = $this->invoice->items()->with("item")->whereHas("item", function ($query) {
+            return $query->where('is_kit', false);
+        })->get()->map(function (InvoiceItems $invoiceItems, $index) use ($taxCode) {
+            $data = [
+                "Description" => $invoiceItems->item->locale_name,
+                "DetailType" => "SalesItemLineDetail",
+                "SalesItemLineDetail" => [
+                    "DiscountAmt" => $invoiceItems->discount,
+                    "Qty" => $invoiceItems->qty,
+                    "UnitPrice" => $invoiceItems->price,
+                    "TaxCodeRef" => [
+                        "value" => $taxCode->get("Id")
                     ],
-                    "Id" => $invoiceItems->id,
-                    "LineNum" => ($index + 1),
-                    "Amount" => $invoiceItems->total,
+                ],
+                "Id" => $invoiceItems->id,
+                "LineNum" => ($index + 1),
+                "Amount" => $invoiceItems->total,
+            ];
+
+            if ($invoiceItems->item->quickbooks_id) {
+                $data["SalesItemLineDetail"]["ItemRef"] = [
+                    "name" => $invoiceItems->item->locale_name,
+                    "value" => $invoiceItems->item->quickbooks_id
                 ];
 
-                if ($invoiceItems->item->quickbooks_id) {
-                    $data["SalesItemLineDetail"]["ItemRef"] = [
-                        "name" => $invoiceItems->item->locale_name,
-                        "value" => $invoiceItems->item->quickbooks_id
-                    ];
-
-                }
-                return $data;
-            })->toArray();
-            $data = [
-                "ApplyTaxAfterDiscount" => true,
-                "DocNumber" => $this->invoice->invoice_number,
-                "TotalAmt" => $this->invoice->subtotal,
-                "TxnDate" => Carbon::parse($this->invoice->created_at)->toDateString(),
-                "DepositToAccountRef" => [
-                    "value" => config('zilrsoft_quickbooks.cash_equivalents_account_id')
-                ],
-                "PaymentRefNum" => "#" . $this->invoice->invoice_number,
-                "Line" => $salesReceiptLines
-            ];
-//        if ($this->manager->quickbooks_class_id) {
-//            $data["ClassRef"] = [
-//                "value" => "{$this->manager->quickbooks_class_id}"
-//            ];
-//        }
-//            if ($this->invoice->user->quickbooks_customer_id) {
-//                $data["CustomerRef"] = [
-//                    "value" => $this->invoice->user->quickbooks_customer_id
-//                ];
-//            }
-            $salesReceipt = SalesReceipt::create(
-                $data
-            );
-            $createdQuickBooksInvoice = $quickBooksDataService->Add($salesReceipt);
-            if ($createdQuickBooksInvoice) {
-                $this->invoice->update([
-                    'quickbooks_id' => $createdQuickBooksInvoice->Id
-                ]);
             }
-        } catch (Exception $exception) {
-            throw new $exception;
+            return $data;
+        })->toArray();
+        $data = [
+            "ApplyTaxAfterDiscount" => true,
+            "DocNumber" => $this->invoice->invoice_number,
+            "TotalAmt" => $this->invoice->subtotal,
+            "TxnDate" => Carbon::parse($this->invoice->created_at)->toDateString(),
+            "DepositToAccountRef" => [
+                "value" => config('zilrsoft_quickbooks.cash_equivalents_account_id')
+            ],
+            "PaymentRefNum" => "#" . $this->invoice->invoice_number,
+            "Line" => $salesReceiptLines,
+            $data["ClassRef"] = [
+                "value" => $this->manager->quickbooks_class_id
+            ]
+        ];
+        if ($this->invoice->user->quickbooks_customer_id) {
+            $data["CustomerRef"] = [
+                "value" => $this->invoice->user->quickbooks_customer_id
+            ];
         }
+        $salesReceipt = SalesReceipt::create(
+            $data
+        );
+        $createdQuickBooksInvoice = $quickBooksDataService->Add($salesReceipt);
+        if ($createdQuickBooksInvoice) {
+            $this->invoice->update([
+                'quickbooks_id' => $createdQuickBooksInvoice->Id
+            ]);
+            return;
+        }
+
+        $error = $quickBooksDataService->getLastError();
+        if($error) {
+            throw  ValidationException::withMessages([
+                $error->getIntuitErrorMessage(),
+                $error->getIntuitErrorDetail(),
+                $error->getIntuitErrorElement(),
+                $error->getIntuitErrorCode(),
+            ]);
+        }
+
     }
 }
