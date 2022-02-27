@@ -42,7 +42,7 @@ class RefundSalesQuickBooksSyncJob implements ShouldQueue
     public function handle()
     {
 
-        if (!$this->refundInvoice->invoice_type->equals(InvoiceTypeEnum::return_sale()) || !$this->refundInvoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->refundInvoice->is_draft) return "UnAuthorized";
+        if ($this->refundInvoice->quickbooks_id != null || !$this->refundInvoice->invoice_type->equals(InvoiceTypeEnum::return_sale()) || !$this->refundInvoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->refundInvoice->is_draft) return "UnAuthorized";
         $quickBooksDataService = app("quickbooksDataService", [
             "manager" => $this->manager
         ]);
