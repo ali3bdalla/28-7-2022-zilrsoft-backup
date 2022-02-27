@@ -84,7 +84,7 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             ],
             "PaymentRefNum" => "#" . $this->invoice->invoice_number,
             "Line" => $salesReceiptLines,
-            $data["ClassRef"] = [
+            "ClassRef" => [
                 "value" => $this->manager->quickbooks_class_id
             ]
         ];

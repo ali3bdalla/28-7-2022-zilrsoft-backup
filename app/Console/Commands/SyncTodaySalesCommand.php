@@ -43,7 +43,7 @@ class SyncTodaySalesCommand extends Command
     {
         $manager = Manager::whereEmail("ali@msbrshop.com")->first();
         foreach(Invoice::whereDate('created_at',Carbon::today())->whereOrganizationId(1)->get() as $invoice) {
-            dispatch(new SalesQuickBooksSyncJob($invoice,$manager ));
+            dispatch_sync(new SalesQuickBooksSyncJob($invoice,$manager ));
         }
         return Command::SUCCESS;
     }
