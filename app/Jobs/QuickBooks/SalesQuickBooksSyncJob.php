@@ -106,13 +106,12 @@ class SalesQuickBooksSyncJob implements ShouldQueue
 
         $error = $quickBooksDataService->getLastError();
         if ($error) {
-            throw  new Exception([
-
+            throw  new \Exception(json_encode([
                 $error->getIntuitErrorMessage(),
                 $error->getIntuitErrorDetail(),
                 $error->getIntuitErrorElement(),
                 $error->getIntuitErrorCode(),
-            ]);
+            ]));
         }
 
     }
