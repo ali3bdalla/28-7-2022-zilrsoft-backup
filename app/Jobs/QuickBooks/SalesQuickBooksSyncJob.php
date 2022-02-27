@@ -12,8 +12,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Validation\ValidationException;
-use QuickBooksOnline\API\Core\HttpClients\FaultHandler;
 use QuickBooksOnline\API\Facades\SalesReceipt;
 
 class SalesQuickBooksSyncJob implements ShouldQueue
@@ -107,8 +105,9 @@ class SalesQuickBooksSyncJob implements ShouldQueue
         }
 
         $error = $quickBooksDataService->getLastError();
-        if($error) {
-            throw  ValidationException::withMessages([
+        if ($error) {
+            throw  new Exception([
+
                 $error->getIntuitErrorMessage(),
                 $error->getIntuitErrorDetail(),
                 $error->getIntuitErrorElement(),

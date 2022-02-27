@@ -51,7 +51,6 @@ class CustomerQuickBooksSyncJob implements ShouldQueue
             ],
             "DisplayName" => $this->user->locale_name,
             "Title" => $this->user->user_title,
-//            "FirstName" => $this->user->name,
             "FamilyName" => $this->user->name,
             "MiddleName" => $this->user->ar_name,
             "PrimaryPhone" => [
@@ -71,7 +70,7 @@ class CustomerQuickBooksSyncJob implements ShouldQueue
         }
         $error = $quickBooksDataService->getLastError();
         if ($error) {
-            throw  new Exception([
+            throw  new \Exception([
                 $error->getIntuitErrorMessage(),
                 $error->getIntuitErrorDetail(),
                 $error->getIntuitErrorElement(),
