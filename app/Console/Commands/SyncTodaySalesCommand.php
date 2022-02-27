@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\InvoiceTypeEnum;
 use App\Jobs\QuickBooks\SalesQuickBooksSyncJob;
 use App\Models\Invoice;
 use App\Models\Manager;
@@ -42,8 +43,8 @@ class SyncTodaySalesCommand extends Command
     public function handle()
     {
         $manager = Manager::whereEmail("ali@msbrshop.com")->first();
-        foreach(Invoice::whereDate('created_at',Carbon::today())->whereOrganizationId(1)->get() as $invoice) {
-            dispatch(new SalesQuickBooksSyncJob($invoice,$manager ));
+        foreach (Invoice::whereDate('created_at', Carbon::today())->whereInvoiceType(InvoiceTypeEnum::sale())->whereOrganizationId(1)->get() as $invoice) {
+            dispatch(new SalesQuickBooksSyncJob($invoice, $manager));
         }
         return Command::SUCCESS;
     }
