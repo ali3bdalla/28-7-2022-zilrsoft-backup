@@ -45,13 +45,13 @@ class CustomerQuickBooksSyncJob implements ShouldQueue
             "manager" => $this->manager
         ]);
         $quickBooksCustomer = Customer::create([
-            "FullyQualifiedName" => $this->user->locale_name,
+            "FullyQualifiedName" => $this->user->locale_name. " " .  $this->user->id,
             "PrimaryEmailAddr" => [
                 "Address" => $this->user->email_address
             ],
-            "DisplayName" => $this->user->locale_name,
+            "DisplayName" => $this->user->locale_name. " " .  $this->user->id,
             "Title" => $this->user->user_title,
-            "FamilyName" => $this->user->name,
+            "FamilyName" => $this->user->name. " " .  $this->user->id,
             "MiddleName" => $this->user->ar_name,
             "PrimaryPhone" => [
                 "FreeFormNumber" => $this->user->phone_number

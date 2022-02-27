@@ -45,12 +45,12 @@ class VendorQuickBooksSyncJob implements ShouldQueue
             "manager" => $this->manager
         ]);
         $quickBooksCustomer = Vendor::create([
-            "FullyQualifiedName" => $this->user->locale_name,
+            "FullyQualifiedName" => $this->user->locale_name . " " .  $this->user->id,
             "PrimaryEmailAddr" => [
                 "Address" => $this->user->email_address
             ],
             "TaxIdentifier" => $this->user->details ? $this->user->details->vat : "",
-            "DisplayName" => $this->user->locale_name,
+            "DisplayName" => $this->user->locale_name. " " .  $this->user->id,
             "CompanyName" => $this->user->details ? $this->user->details->responsible_name : $this->user->locale_name,
             "Title" => $this->user->user_title,
             "FamilyName" => $this->user->name,

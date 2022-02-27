@@ -46,7 +46,7 @@ class ClassificationQuickBooksSyncJob implements ShouldQueue
             "manager" => $this->manager
         ]);
         $quickBooksItem = FacadeHelper::reflectArrayToObject("Class", [
-            "Name" => Str::slug($this->class->name),
+            "Name" => Str::slug($this->class->name . " " .  $this->class->id),
             "FullyQualifiedName" => $this->class->locale_name,
         ]);
         $class = $quickBooksDataService->Add($quickBooksItem);
