@@ -47,12 +47,24 @@ class BillPaymentQuickBooksSyncJob implements ShouldQueue
         ]);
 
         $data = [
+            "Id" => $this->voucher->id,
             "TotalAmt" => $this->voucher->amount,
             "PrivateNote" => $this->voucher->description,
             "TxnDate" => Carbon::parse($this->voucher->created_at)->toDateString(),
             "MetaData" => [
                 "CreateTime" => $this->voucher->created_at,
                 "LastUpdatedTime" => $this->voucher->updated_at
+            ],
+            "Line" => [
+                [
+                    "Amount" => $this->voucher->amount,
+                    "LinkedTxn" => [
+                        [
+                            "TxnId" => "234",
+                            "TxnType" => "Bill"
+                        ]
+                    ]
+                ]
             ],
             "PayType" => "Check",
             "CheckPayment" => [
