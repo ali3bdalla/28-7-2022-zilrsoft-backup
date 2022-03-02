@@ -51,7 +51,7 @@ class InitQuickBooksData extends Command
         foreach (User::query()->whereNull("quickbooks_customer_id")->whereOrganizationId(1)->whereIsClient(true)->with("organization")->get() as $user) {
             dispatch(new CustomerQuickBooksSyncJob($user, $manager));
         }
-        foreach (User::whereIsVendor(false)->whereNull("quickbooks_vendor_id")->whereOrganizationId(1)->with("organization", 'details')->get() as $user) {
+        foreach (User::whereIsVendor(true)->whereNull("quickbooks_vendor_id")->whereOrganizationId(1)->with("organization", 'details')->get() as $user) {
             dispatch(new VendorQuickBooksSyncJob($user, $manager));
         }
         foreach (Manager::query()->whereNull("quickbooks_class_id")->whereOrganizationId(1)->get() as $user) {
