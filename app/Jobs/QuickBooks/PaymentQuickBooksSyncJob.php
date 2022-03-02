@@ -47,9 +47,9 @@ class PaymentQuickBooksSyncJob implements ShouldQueue
         ]);
 
         $data = [
-            "ClassRef" => [
-                "value" => $this->manager->quickbooks_class_id
-            ],
+//            "ClassRef" => [
+//                "value" => $this->manager->quickbooks_class_id
+//            ],
             "TotalAmt" => $this->voucher->amount,
             "TxnDate" => Carbon::parse($this->voucher->created_at)->toDateString(),
             "MetaData" => [
