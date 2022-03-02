@@ -75,12 +75,12 @@ class RefundBillQuickBooksSyncJob implements ShouldQueue
             return $data;
         })->toArray();
         $data = [
-            "DocNumber" => $this->invoice->invoice_number,
-            "TotalAmt" => $this->invoice->subtotal,
-            "TxnDate" => Carbon::parse($this->invoice->created_at)->toDateString(),
+            "DocNumber" => $this->refundInvoice->invoice_number,
+            "TotalAmt" => $this->refundInvoice->subtotal,
+            "TxnDate" => Carbon::parse($this->refundInvoice->created_at)->toDateString(),
             "Line" => $billLines,
             "VendorRef" => [
-                "value" => $this->invoice->user->quickbooks_vendor_id
+                "value" => $this->refundInvoice->user->quickbooks_vendor_id
             ]
         ];
 
@@ -102,8 +102,8 @@ class RefundBillQuickBooksSyncJob implements ShouldQueue
                 $error->getIntuitErrorDetail(),
                 $error->getIntuitErrorElement(),
                 $error->getIntuitErrorCode(),
-                $this->invoice->toArray(),
-                $this->invoice->items()->pluck("id")->toArray()
+                $this->refundInvoice->toArray(),
+                $this->refundInvoice->items()->pluck("id")->toArray()
             ]));
         }
 

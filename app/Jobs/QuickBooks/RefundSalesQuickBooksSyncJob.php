@@ -111,8 +111,8 @@ class RefundSalesQuickBooksSyncJob implements ShouldQueue
                 $error->getIntuitErrorDetail(),
                 $error->getIntuitErrorElement(),
                 $error->getIntuitErrorCode(),
-                $this->invoice->toArray(),
-                $this->invoice->items()->pluck("id")->toArray()
+                $this->refundInvoice->toArray(),
+                $this->refundInvoice->items()->pluck("id")->toArray()
             ]));
         }
 
