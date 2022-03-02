@@ -51,10 +51,11 @@ class VendorQuickBooksSyncJob implements ShouldQueue
             ],
             "TaxIdentifier" => $this->user->details ? $this->user->details->vat : "",
             "DisplayName" => $this->user->locale_name. " " .  $this->user->id,
-            "CompanyName" => $this->user->details ? $this->user->details->responsible_name : $this->user->locale_name,
+            "GivenName" => $this->user->locale_name. " " .  $this->user->id,
+            "CompanyName" => $this->user->details ? $this->user->details->responsible_name : $this->user->locale_name . " " .  $this->user->id,
             "Title" => $this->user->user_title,
-            "FamilyName" => $this->user->name,
-            "MiddleName" => $this->user->ar_name,
+            "FamilyName" => $this->user->name. " " .  $this->user->id,
+            "MiddleName" => $this->user->ar_name. " " .  $this->user->id,
             "PrimaryPhone" => [
                 "FreeFormNumber" => $this->user->phone_number
             ],

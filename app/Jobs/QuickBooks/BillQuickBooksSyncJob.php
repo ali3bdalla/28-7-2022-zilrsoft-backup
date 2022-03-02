@@ -60,6 +60,9 @@ class BillQuickBooksSyncJob implements ShouldQueue
                     "TaxCodeRef" => [
                         "value" => $taxCode->get("Id")
                     ],
+                    "ClassRef" => [
+                        "value" => $this->manager->quickbooks_class_id
+                    ]
                 ],
                 "Id" => $invoiceItems->id,
                 "LineNum" => ($index + 1),
@@ -67,7 +70,7 @@ class BillQuickBooksSyncJob implements ShouldQueue
             ];
 
             if ($invoiceItems->item->quickbooks_id) {
-                $data["AccountBasedExpenseLineDetail"]["ItemRef"] = [
+                $data["ItemBasedExpenseLineDetail"]["ItemRef"] = [
                     "name" => $invoiceItems->item->locale_name,
                     "value" => $invoiceItems->item->quickbooks_id
                 ];
@@ -79,10 +82,7 @@ class BillQuickBooksSyncJob implements ShouldQueue
             "DocNumber" => $this->invoice->invoice_number,
             "TotalAmt" => $this->invoice->subtotal,
             "TxnDate" => Carbon::parse($this->invoice->created_at)->toDateString(),
-            "Line" => $billLines,
-            "ClassRef" => [
-                "value" => $this->manager->quickbooks_class_id
-            ]
+            "Line" => $billLines
         ];
         if ($this->invoice->user->quickbooks_vendor_id) {
             $data["VendorRef"] = [
