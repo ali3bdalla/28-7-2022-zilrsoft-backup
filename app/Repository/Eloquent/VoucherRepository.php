@@ -9,7 +9,6 @@ use App\Models\Voucher;
 use App\Repository\EntryRepositoryContract;
 use App\Repository\VoucherRepositoryContract;
 use App\ValueObjects\Contract\SearchValueObjectContract;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class VoucherRepository extends BaseRepository implements VoucherRepositoryContract
@@ -43,18 +42,19 @@ class VoucherRepository extends BaseRepository implements VoucherRepositoryContr
 
     public function createVoucher(VoucherDto $voucherDto): Voucher
     {
-        return DB::transaction(function () use ($voucherDto) {
+        $voucher = DB::transaction(function () use ($voucherDto) {
             $voucher = Voucher::factory()->setDto($voucherDto)->create();
             if ($voucher->payment_type->equals(VoucherTypeEnum::receipt())) {
                 $this->entryRepositoryContract->registerClientVoucherEntry($voucher, $voucher->account);
-                dispatch(new PaymentQuickBooksSyncJob($voucher,$voucher->creator));
-            }
-            else {
+            } else {
                 $this->entryRepositoryContract->registerVendorVoucherEntry($voucher, $voucher->account);
-//                dispatch(new PaymentQuickBooksSyncJob($voucher));
             }
             return $voucher;
         });
+        if ($voucher->payment_type->equals(VoucherTypeEnum::receipt())) {
+            dispatch(new PaymentQuickBooksSyncJob($voucher, $voucher->creator));
+        }
+        return $voucher;
     }
 
 }
