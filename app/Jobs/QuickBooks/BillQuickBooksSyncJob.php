@@ -82,13 +82,12 @@ class BillQuickBooksSyncJob implements ShouldQueue
             "DocNumber" => $this->invoice->invoice_number,
             "TotalAmt" => $this->invoice->subtotal,
             "TxnDate" => Carbon::parse($this->invoice->created_at)->toDateString(),
-            "Line" => $billLines
-        ];
-        if ($this->invoice->user->quickbooks_vendor_id) {
-            $data["VendorRef"] = [
+            "Line" => $billLines,
+            "VendorRef" => [
                 "value" => $this->invoice->user->quickbooks_vendor_id
-            ];
-        }
+            ]
+        ];
+       
         $bill = Bill::create(
             $data
         );

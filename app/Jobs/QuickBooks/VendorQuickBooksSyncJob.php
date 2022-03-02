@@ -4,7 +4,6 @@ namespace App\Jobs\QuickBooks;
 
 use App\Models\Manager;
 use App\Models\User;
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,7 +11,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
 use QuickBooksOnline\API\Facades\Vendor;
 
 class VendorQuickBooksSyncJob implements ShouldQueue
@@ -48,9 +46,9 @@ class VendorQuickBooksSyncJob implements ShouldQueue
         ]);
         $quickBooksCustomer = Vendor::create([
             "FullyQualifiedName" => $this->user->locale_name . " " . Str::random(5),
-            "PrimaryEmailAddr" => [
-                "Address" => $this->user->email_address
-            ],
+//            "PrimaryEmailAddr" => [
+//                "Address" => $this->user->email_address
+//            ],
             "TaxIdentifier" => $this->user->details ? $this->user->details->vat : "",
             "DisplayName" => $this->user->locale_name. " " . Str::random(5),
             "GivenName" => $this->user->locale_name. " " .  Str::random(5),

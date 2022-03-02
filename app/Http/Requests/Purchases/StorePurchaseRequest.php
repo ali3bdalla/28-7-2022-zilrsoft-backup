@@ -9,6 +9,7 @@ use App\Jobs\Items\Serial\ValidateItemSerialJob;
 use App\Jobs\Purchases\Dropbox\CreateDropboxSnapshotJob;
 use App\Jobs\Purchases\Items\StorePurchaseItemsJob;
 use App\Jobs\Purchases\Payment\StorePurchasePaymentsJob;
+use App\Jobs\QuickBooks\BillQuickBooksSyncJob;
 use App\Models\Invoice;
 use App\Models\Item;
 use Illuminate\Database\QueryException;
@@ -85,6 +86,7 @@ class StorePurchaseRequest extends FormRequest
             dispatch_sync(new StorePurchasePaymentsJob($invoice, $this->input('methods')));
             dispatch_sync(new StorePurchaseTransactionsJob($invoice->fresh()));
             DB::commit();
+            dispatch(new BillQuickBooksSyncJob($invoice, $this->user()));
             return response($invoice, 200);
         } catch (QueryException $e) {
             DB::rollBack();

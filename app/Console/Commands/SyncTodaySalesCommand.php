@@ -44,7 +44,9 @@ class SyncTodaySalesCommand extends Command
     {
         $manager = Manager::whereEmail("ali@msbrshop.com")->first();
 //        whereDate('created_at', Carbon::today()->subDay())
-        foreach (Invoice::query()->whereNull('quickbooks_id')->whereIn('invoice_type', [InvoiceTypeEnum::purchase()])->whereOrganizationId(1)->take(1)->get() as $invoice) {
+        foreach (Invoice::query()->whereNull('quickbooks_id')->whereHas("user",function($subQuery) {
+            return $subQuery->whereNotNull('quickbooks_vendor_id');
+        })->whereIn('invoice_type', [InvoiceTypeEnum::purchase()])->whereOrganizationId(1)->take(1)->get() as $invoice) {
             dispatch_sync(new BillQuickBooksSyncJob($invoice, $manager));
         }
 //        foreach (Invoice::whereDate('created_at', Carbon::today()->subDay())->whereNull('quickbooks_id')->whereIn('invoice_type',[InvoiceTypeEnum::sale()])->whereOrganizationId(1)->get() as $invoice) {

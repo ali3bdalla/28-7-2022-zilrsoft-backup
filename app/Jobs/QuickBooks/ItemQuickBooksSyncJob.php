@@ -11,6 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class ItemQuickBooksSyncJob implements ShouldQueue
@@ -46,8 +47,8 @@ class ItemQuickBooksSyncJob implements ShouldQueue
         ]);
         $data = [
             "TrackQtyOnHand" => $this->item->is_service == false,
-            "Name" => $this->item->locale_name ? $this->item->locale_name. " " .  $this->item->id : Carbon::now()->toDateString(),
-            "FullyQualifiedName" => $this->item->locale_description ?? Carbon::now()->toDateTimeString() ,
+            "Name" => $this->item->locale_name. " " .  $this->item->id . Str::random(5),
+            "FullyQualifiedName" => $this->item->locale_description  . Str::random(5) ,
             "QtyOnHand" => $this->item->available_qty,
             "Sku" => $this->item->barcode. " " .  $this->item->id,
             "InvStartDate" => Carbon::parse($this->item->created_at)->format("Y-m-d"),
