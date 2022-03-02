@@ -80,7 +80,10 @@ class ItemController extends Controller
 
     public function serials(Item $item)
     {
-        $serials = $item->serials()->paginate(20);
+        $queryOrder = "CASE WHEN status = 'in_stock' THEN 1 ";
+        $queryOrder .= "WHEN status = 'return_sale' THEN 2 ";
+        $queryOrder .= "ELSE 3 END";
+        $serials = $item->serials()->orderByRaw($queryOrder)->paginate(20);
         return view('accounting.items.view_serials', compact('item', 'serials'));
     }
 
