@@ -55,7 +55,7 @@ class VoucherRepository extends BaseRepository implements VoucherRepositoryContr
         if ($voucher->payment_type->equals(VoucherTypeEnum::receipt())) {
             dispatch(new PaymentQuickBooksSyncJob($voucher, $voucher->creator));
         }else {
-            dispatch(new BillPaymentQuickBooksSyncJob($voucher,$voucher->creator));
+//            dispatch(new BillPaymentQuickBooksSyncJob($voucher,$voucher->creator));
         }
         return $voucher;
     }
