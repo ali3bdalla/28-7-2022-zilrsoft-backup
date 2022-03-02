@@ -47,7 +47,7 @@ class VoucherRepository extends BaseRepository implements VoucherRepositoryContr
             $voucher = Voucher::factory()->setDto($voucherDto)->create();
             if ($voucher->payment_type->equals(VoucherTypeEnum::receipt())) {
                 $this->entryRepositoryContract->registerClientVoucherEntry($voucher, $voucher->account);
-                dispatch(new PaymentQuickBooksSyncJob($voucher,Auth::user()));
+                dispatch(new PaymentQuickBooksSyncJob($voucher,$voucher->creator));
             }
             else {
                 $this->entryRepositoryContract->registerVendorVoucherEntry($voucher, $voucher->account);
