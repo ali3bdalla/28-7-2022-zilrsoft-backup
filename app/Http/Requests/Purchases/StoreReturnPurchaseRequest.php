@@ -5,9 +5,9 @@ namespace App\Http\Requests\Purchases;
 use App\Jobs\Accounting\Purchase\StoreReturnPurchaseTransactionsJob;
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
-use App\Jobs\Items\Serial\ValidateItemSerialJob;
 use App\Jobs\Purchases\Items\StoreReturnPurchaseItemsJob;
 use App\Jobs\Purchases\Payment\StoreReturnPurchasePaymentsJob;
+use App\Jobs\QuickBooks\RefundBillQuickBooksSyncJob;
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
 use Illuminate\Database\QueryException;
@@ -75,6 +75,7 @@ class StoreReturnPurchaseRequest extends FormRequest
             dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
             dispatch_sync(new StoreReturnPurchaseTransactionsJob($invoice->fresh()));
             DB::commit();
+            dispatch(new RefundBillQuickBooksSyncJob($invoice, $this->user()));
             return response($invoice, 200);
         } catch (QueryException | ValidationException $e) {
             DB::rollBack();
