@@ -3,8 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Enums\InvoiceTypeEnum;
-use App\Jobs\QuickBooks\RefundSalesQuickBooksSyncJob;
-use App\Jobs\QuickBooks\SalesQuickBooksSyncJob;
+use App\Jobs\QuickBooks\BillQuickBooksSyncJob;
 use App\Models\Invoice;
 use App\Models\Manager;
 use Carbon\Carbon;
@@ -44,12 +43,16 @@ class SyncTodaySalesCommand extends Command
     public function handle()
     {
         $manager = Manager::whereEmail("ali@msbrshop.com")->first();
-        foreach (Invoice::whereDate('created_at', Carbon::today()->subDay())->whereNull('quickbooks_id')->whereIn('invoice_type',[InvoiceTypeEnum::sale()])->whereOrganizationId(1)->get() as $invoice) {
-            dispatch_sync(new SalesQuickBooksSyncJob($invoice, $manager));
+//        whereDate('created_at', Carbon::today()->subDay())
+        foreach (Invoice::query()->whereNull('quickbooks_id')->whereIn('invoice_type', [InvoiceTypeEnum::purchase()])->whereOrganizationId(1)->take(1)->get() as $invoice) {
+            dispatch_sync(new BillQuickBooksSyncJob($invoice, $manager));
         }
-        foreach (Invoice::whereDate('created_at', Carbon::today()->subDay())->whereNull('quickbooks_id')->whereIn('invoice_type',[InvoiceTypeEnum::return_sale()])->whereOrganizationId(1)->get() as $invoice) {
-            dispatch_sync(new RefundSalesQuickBooksSyncJob($invoice, $manager));
-        }
+//        foreach (Invoice::whereDate('created_at', Carbon::today()->subDay())->whereNull('quickbooks_id')->whereIn('invoice_type',[InvoiceTypeEnum::sale()])->whereOrganizationId(1)->get() as $invoice) {
+//            dispatch_sync(new SalesQuickBooksSyncJob($invoice, $manager));
+//        }
+//        foreach (Invoice::whereDate('created_at', Carbon::today()->subDay())->whereNull('quickbooks_id')->whereIn('invoice_type',[InvoiceTypeEnum::return_sale()])->whereOrganizationId(1)->get() as $invoice) {
+//            dispatch_sync(new RefundSalesQuickBooksSyncJob($invoice, $manager));
+//        }
 
         return Command::SUCCESS;
     }
