@@ -56,15 +56,6 @@ class BillPaymentQuickBooksSyncJob implements ShouldQueue
                 "LastUpdatedTime" => $this->voucher->updated_at
             ],
             "Line" => [
-                [
-                    "Amount" => $this->voucher->amount,
-                    "LinkedTxn" => [
-                        [
-                            "TxnId" => "234",
-                            "TxnType" => "Bill"
-                        ]
-                    ]
-                ]
             ],
             "PayType" => "Check",
             "CheckPayment" => [
