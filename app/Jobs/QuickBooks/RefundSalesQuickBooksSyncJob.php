@@ -85,7 +85,7 @@ class RefundSalesQuickBooksSyncJob implements ShouldQueue
             "PaymentRefNum" => "#" . $this->refundInvoice->invoice_number,
             "Line" => $salesReceiptLines,
             "ClassRef" => [
-                "value" => $this->manager->quickbooks_class_id
+                "value" => $this->refundInvoice->creator->quickbooks_class_id
             ]
         ];
         if ($this->refundInvoice->user->quickbooks_customer_id) {

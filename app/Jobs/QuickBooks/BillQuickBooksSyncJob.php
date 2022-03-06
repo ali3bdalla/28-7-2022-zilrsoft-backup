@@ -61,7 +61,7 @@ class BillQuickBooksSyncJob implements ShouldQueue
                         "value" => $taxCode->get("Id")
                     ],
                     "ClassRef" => [
-                        "value" => $this->manager->quickbooks_class_id
+                        "value" => $this->invoice->creator->quickbooks_class_id
                     ]
                 ],
                 "Id" => $invoiceItems->id,
@@ -87,7 +87,7 @@ class BillQuickBooksSyncJob implements ShouldQueue
                 "value" => $this->invoice->user->quickbooks_vendor_id
             ]
         ];
-       
+
         $bill = Bill::create(
             $data
         );
