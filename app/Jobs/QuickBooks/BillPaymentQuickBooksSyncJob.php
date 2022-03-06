@@ -45,18 +45,29 @@ class BillPaymentQuickBooksSyncJob implements ShouldQueue
         $quickBooksDataService = app("quickbooksDataService", [
             "manager" => $this->manager
         ]);
-
+//        $releatedTranascation =
         $data = [
-            "Id" => $this->voucher->id,
             "TotalAmt" => $this->voucher->amount,
             "PrivateNote" => $this->voucher->description,
+            "DocNumber" => $this->voucher->id,
             "TxnDate" => Carbon::parse($this->voucher->created_at)->toDateString(),
             "MetaData" => [
                 "CreateTime" => $this->voucher->created_at,
                 "LastUpdatedTime" => $this->voucher->updated_at
             ],
             "Line" => [
-            ],
+                [
+                    "Amount" => $this->voucher->amount,
+//                    "LineNum" => $this->voucher->id,
+//                    "Description" => $this->voucher->description,
+
+//                    "LinkedTxn" => [
+//                        [
+//                            "TxnId" => "10427",
+//                            "TxnType" => "Bill"
+//                        ]
+//                    ]
+                ]],
             "PayType" => "Check",
             "CheckPayment" => [
                 "BankAccountRef" => [
@@ -80,6 +91,7 @@ class BillPaymentQuickBooksSyncJob implements ShouldQueue
         }
 
         $error = $quickBooksDataService->getLastError();
+        dd($error);
         if ($error) {
             throw  new Exception(json_encode([
                 $error->getIntuitErrorMessage(),
