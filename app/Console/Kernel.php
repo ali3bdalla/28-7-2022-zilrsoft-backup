@@ -7,6 +7,7 @@ use App\Console\Commands\DeleteUnReadNotificationsCommand;
 use App\Console\Commands\InitQuickBooksData;
 use App\Console\Commands\Order\CancelUnPaidOrderCommand;
 use App\Console\Commands\Order\NotifyUnPaidOrderCommand;
+use App\Console\Commands\ToQuickbooksCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -31,7 +32,8 @@ class Kernel extends ConsoleKernel
             $schedule->command(NotifyUnPaidOrderCommand::class)->everyMinute();
             $schedule->command(CancelUnPaidOrderCommand::class)->everyMinute();
             $schedule->command(DailyUpdateAccountSnapshotCommand::class)->daily();
-            $schedule->command(InitQuickBooksData::class)->daily();
+//            $schedule->command(InitQuickBooksData::class)->daily();
+            $schedule->command(ToQuickbooksCommand::class)->everyThirtyMinutes();
             $schedule->command('scout:import')->daily();
         }
     }
