@@ -8,6 +8,7 @@ use App\Models\InvoiceItems;
 use App\Models\Manager;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -75,9 +76,13 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             }
             return $data;
         })->toArray();
+        $documentNumber = $this->invoice->invoice_number;
+        if(Str::contains($documentNumber,"2021")) {
+            $documentNumber = $documentNumber . " " . Str::random(3);
+        }
         $data = [
             "ApplyTaxAfterDiscount" => true,
-            "DocNumber" => $this->invoice->invoice_number,
+            "DocNumber" => $documentNumber,
             "TotalAmt" => $this->invoice->subtotal,
             "TxnDate" => Carbon::parse($this->invoice->created_at)->toDateString(),
             "DepositToAccountRef" => [

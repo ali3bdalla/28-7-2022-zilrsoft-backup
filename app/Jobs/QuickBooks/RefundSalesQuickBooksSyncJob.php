@@ -8,6 +8,7 @@ use App\Models\InvoiceItems;
 use App\Models\Manager;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -74,9 +75,13 @@ class RefundSalesQuickBooksSyncJob implements ShouldQueue
             }
             return $data;
         })->toArray();
+        $documentNumber = $this->refundInvoice->invoice_number;
+        if(Str::contains($documentNumber,"2021")) {
+            $documentNumber = $documentNumber . " " . Str::random(3);
+        }
         $data = [
             "ApplyTaxAfterDiscount" => true,
-            "DocNumber" => $this->refundInvoice->invoice_number,
+            "DocNumber" => $documentNumber,
             "TotalAmt" => $this->refundInvoice->subtotal,
             "TxnDate" => Carbon::parse($this->refundInvoice->created_at)->toDateString(),
             "DepositToAccountRef" => [

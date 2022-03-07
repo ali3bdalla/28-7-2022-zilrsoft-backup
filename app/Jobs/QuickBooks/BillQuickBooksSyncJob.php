@@ -9,12 +9,12 @@ use App\Models\Manager;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Str;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use QuickBooksOnline\API\Facades\Bill;
-
 class BillQuickBooksSyncJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -78,8 +78,12 @@ class BillQuickBooksSyncJob implements ShouldQueue
             }
             return $data;
         })->toArray();
+        $documentNumber = $this->invoice->invoice_number;
+        if(Str::contains($documentNumber,"2021")) {
+            $documentNumber = $documentNumber . " " . Str::random(3);
+        }
         $data = [
-            "DocNumber" => $this->invoice->invoice_number,
+            "DocNumber" => $documentNumber,
             "TotalAmt" => $this->invoice->subtotal,
             "TxnDate" => Carbon::parse($this->invoice->created_at)->toDateString(),
             "Line" => $billLines,
