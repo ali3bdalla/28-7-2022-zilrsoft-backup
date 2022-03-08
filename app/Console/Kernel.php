@@ -27,13 +27,13 @@ class Kernel extends ConsoleKernel
     {
 
         $schedule->command(DeleteUnReadNotificationsCommand::class)->daily();
-        $schedule->command('telescope:prune --hours=3')->hourly();
+        $schedule->command('telescope:prune --hours=6')->hourly();
         if ($this->app->isProduction()) {
             $schedule->command(NotifyUnPaidOrderCommand::class)->everyMinute();
             $schedule->command(CancelUnPaidOrderCommand::class)->everyMinute();
             $schedule->command(DailyUpdateAccountSnapshotCommand::class)->daily();
 //            $schedule->command(InitQuickBooksData::class)->daily();
-            $schedule->command(ToQuickbooksCommand::class)->everyFifteenMinutes();
+//            $schedule->command(ToQuickbooksCommand::class)->everyFifteenMinutes();
             $schedule->command('scout:import')->daily();
         }
     }

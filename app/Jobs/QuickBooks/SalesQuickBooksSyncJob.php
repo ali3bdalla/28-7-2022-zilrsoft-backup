@@ -15,6 +15,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use QuickBooksOnline\API\Facades\SalesReceipt;
+use QuickBooksOnline\API\Facades\Invoice as QuickbooksInvoice;
 
 class SalesQuickBooksSyncJob implements ShouldQueue
 {
@@ -77,9 +78,14 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             return $data;
         })->toArray();
         $documentNumber = $this->invoice->invoice_number;
-        if(Str::contains($documentNumber,"2021")) {
+        if (Str::contains($documentNumber, "2021")) {
             $documentNumber = $documentNumber . " " . Str::random(3);
         }
+        $depositAmount = $this->invoice->payments()->sum("amount");
+        if ((int)$depositAmount >= (int)$this->invoice->net) {
+            $depositAmount = $this->invoice->net;
+        }
+
         $data = [
             "ApplyTaxAfterDiscount" => true,
             "DocNumber" => $documentNumber,
@@ -92,14 +98,15 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             "Line" => $salesReceiptLines,
             "ClassRef" => [
                 "value" => $this->invoice->creator->quickbooks_class_id
-            ]
+            ],
+            "Deposit" => $depositAmount
         ];
         if ($this->invoice->user->quickbooks_customer_id) {
             $data["CustomerRef"] = [
                 "value" => $this->invoice->user->quickbooks_customer_id
             ];
         }
-        $salesReceipt = SalesReceipt::create(
+        $salesReceipt = QuickbooksInvoice::create(
             $data
         );
         $createdQuickBooksInvoice = $quickBooksDataService->Add($salesReceipt);
