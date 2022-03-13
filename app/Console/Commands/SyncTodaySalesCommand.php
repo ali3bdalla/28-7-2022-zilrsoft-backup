@@ -6,6 +6,7 @@ use App\Enums\InvoiceTypeEnum;
 use App\Enums\VoucherTypeEnum;
 use App\Jobs\QuickBooks\BillPaymentQuickBooksSyncJob;
 use App\Jobs\QuickBooks\BillQuickBooksSyncJob;
+use App\Jobs\QuickBooks\DeleteSalesQuickBooksSyncJob;
 use App\Jobs\QuickBooks\RefundBillQuickBooksSyncJob;
 use App\Jobs\QuickBooks\SalesQuickBooksSyncJob;
 use App\Models\Invoice;
@@ -13,6 +14,7 @@ use App\Models\Manager;
 use App\Models\Voucher;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class SyncTodaySalesCommand extends Command
 {
@@ -48,6 +50,7 @@ class SyncTodaySalesCommand extends Command
     public function handle()
     {
         $manager = Manager::whereEmail("ali@msbrshop.com")->first();
+
 //        dd($manager->quickBooksToken);
 //        dd($manager->acc);
 //        whereDate('created_at', Carbon::today()->subDay())
@@ -61,9 +64,16 @@ class SyncTodaySalesCommand extends Command
 //        })->whereIn('invoice_type', [InvoiceTypeEnum::return_sale()])->whereOrganizationId(1)->take(1)->get() as $invoice) {
 //            dispatch_sync(new RefundBillQuickBooksSyncJob($invoice, $manager));
 //        }
-//        foreach (Invoice::query()->whereNull('quickbooks_id')->whereIn('invoice_type',[InvoiceTypeEnum::sale()])->whereOrganizationId(1)->get() as $invoice) {
-//            dispatch_sync(new SalesQuickBooksSyncJob($invoice, $manager));
-//        }
+        $invoices = Invoice::query()
+            ->whereNull('quickbooks_id')
+            ->withSum("payments","amount")
+            ->whereIn('invoice_type',[InvoiceTypeEnum::sale()])
+            ->where("organization_id",1)
+            ->where(DB::raw("round(net)"), round(DB::table('payments')->where('invoice_id',DB::raw('id'))->sum('amount')))->get();
+        foreach ($invoices as $invoice) {
+            dispatch_sync(new DeleteSalesQuickBooksSyncJob($invoice, $manager));
+//            dispatch_sync()
+        }
 //        foreach (Invoice::whereDate('created_at', Carbon::today()->subDay())->whereNull('quickbooks_id')->whereIn('invoice_type',[InvoiceTypeEnum::return_sale()])->whereOrganizationId(1)->get() as $invoice) {
 //            dispatch_sync(new RefundSalesQuickBooksSyncJob($invoice, $manager));
 //        }

@@ -82,7 +82,7 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             $documentNumber = $documentNumber . " " . Str::random(3);
         }
         $depositAmount = $this->invoice->payments()->sum("amount");
-        if ((int)$depositAmount >= (int)$this->invoice->net) {
+        if ((int)round($depositAmount) >= (int)round($this->invoice->net)) {
             $depositAmount = $this->invoice->net;
         }
 

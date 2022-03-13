@@ -5,6 +5,8 @@ namespace App\Repository\Eloquent;
 use App\Dto\VoucherDto;
 use App\Enums\VoucherTypeEnum;
 use App\Jobs\QuickBooks\BillPaymentQuickBooksSyncJob;
+use App\Jobs\QuickBooks\DeleteBillPaymentQuickBooksSyncJob;
+use App\Jobs\QuickBooks\DeletePaymentQuickBooksSyncJob;
 use App\Jobs\QuickBooks\PaymentQuickBooksSyncJob;
 use App\Models\Voucher;
 use App\Repository\EntryRepositoryContract;
@@ -37,6 +39,11 @@ class VoucherRepository extends BaseRepository implements VoucherRepositoryContr
             if ($voucher->payment_type->equals(VoucherTypeEnum::receipt())) $this->entryRepositoryContract->registerClientVoucherEntry($refundVoucher, $refundVoucher->account);
             else  $this->entryRepositoryContract->registerVendorVoucherEntry($refundVoucher, $refundVoucher->account);
             $voucher->markAsRefunded();
+            if ($voucher->payment_type->equals(VoucherTypeEnum::receipt())) {
+                dispatch(new DeletePaymentQuickBooksSyncJob($voucher, $voucher->creator));
+            }else {
+                dispatch(new DeleteBillPaymentQuickBooksSyncJob($voucher,$voucher->creator));
+            }
             return $refundVoucher;
         });
     }
