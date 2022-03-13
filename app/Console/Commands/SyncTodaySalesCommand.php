@@ -6,6 +6,7 @@ use App\Enums\InvoiceTypeEnum;
 use App\Enums\VoucherTypeEnum;
 use App\Jobs\QuickBooks\BillPaymentQuickBooksSyncJob;
 use App\Jobs\QuickBooks\BillQuickBooksSyncJob;
+use App\Jobs\QuickBooks\DeletePaymentQuickBooksSyncJob;
 use App\Jobs\QuickBooks\DeleteSalesQuickBooksSyncJob;
 use App\Jobs\QuickBooks\PaymentQuickBooksSyncJob;
 use App\Jobs\QuickBooks\RefundBillQuickBooksSyncJob;
@@ -59,21 +60,14 @@ class SyncTodaySalesCommand extends Command
 //            ->where('payment_type',VoucherTypeEnum::receipt())->whereYear("created_at", ">=", "2021")->where('organization_id',1)->get();
 //        foreach($vouchers as $voucher) {
 //            dispatch(new PaymentQuickBooksSyncJob($voucher,$manager));
-//        }
-//        $invoices = Invoice::query()
-//            ->whereNull('quickbooks_id')
-//            ->whereYear("created_at", ">=", "2021")
-//            ->withSum("payments", "amount")
-//            ->whereIn('invoice_type', [InvoiceTypeEnum::sale()])
-//            ->where("organization_id", 1)
-//            ->get();
+//        $invoices = Invoice::query()->whereNotNull('quickbooks_id')->whereYear("created_at", "<", "2021")->whereIn('invoice_type', [InvoiceTypeEnum::sale()])->where("organization_id", 1)->get();
+////        }
 //        foreach ($invoices as $invoice) {
-//            if (round($invoice->net) > round($invoice->payments_sum_amount)) {
-//                dispatch_sync(new DeleteSalesQuickBooksSyncJob($invoice, $manager));
-////                dispatch(new SalesQuickBooksSyncJob($invoice, $manager));
-//                echo $invoice->invoice_number . "\n";
-//            }
+//            dispatch_sync(new DeleteSalesQuickBooksSyncJob($invoice, $manager));
+//            echo $invoice->invoice_number . "\n";
 //        }
+        $vouchers = Voucher::query()->whereHas("user", function ($user) {return $user->whereNotNull('quickbooks_customer_id');})->whereNotNull("quickbooks_id")->where('payment_type', VoucherTypeEnum::receipt())->whereYear("created_at", ">=", "2021")->where('organization_id', 1)->get();
+        foreach ($vouchers as $voucher) {dispatch_sync(new DeletePaymentQuickBooksSyncJob($voucher, $manager));}
         return 0;
     }
 }
