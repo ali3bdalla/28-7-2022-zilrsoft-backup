@@ -54,8 +54,7 @@ class DeleteSalesQuickBooksSyncJob implements ShouldQueue
         $salesReceipt = QuickbooksInvoice::create(
             $data
         );
-        $createdQuickBooksInvoice = $quickBooksDataService->Delete($salesReceipt);
-        dd($createdQuickBooksInvoice);
+        $quickBooksDataService->Delete($salesReceipt);
         $this->invoice->update([
             'quickbooks_id' => null
         ]);

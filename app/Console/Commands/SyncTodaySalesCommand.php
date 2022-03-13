@@ -7,6 +7,7 @@ use App\Enums\VoucherTypeEnum;
 use App\Jobs\QuickBooks\BillPaymentQuickBooksSyncJob;
 use App\Jobs\QuickBooks\BillQuickBooksSyncJob;
 use App\Jobs\QuickBooks\DeleteSalesQuickBooksSyncJob;
+use App\Jobs\QuickBooks\PaymentQuickBooksSyncJob;
 use App\Jobs\QuickBooks\RefundBillQuickBooksSyncJob;
 use App\Jobs\QuickBooks\SalesQuickBooksSyncJob;
 use App\Models\Invoice;
@@ -47,37 +48,32 @@ class SyncTodaySalesCommand extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $manager = Manager::whereEmail("ali@msbrshop.com")->first();
 
-//        dd($manager->quickBooksToken);
-//        dd($manager->acc);
-//        whereDate('created_at', Carbon::today()->subDay())
-//        foreach (Voucher::query()->whereNull('quickbooks_id')->whereHas("user", function ($subQuery) {
-//            return $subQuery->whereNotNull('quickbooks_vendor_id');
-//        })->whereIn('payment_type', [VoucherTypeEnum::payment()])->whereOrganizationId(1)->take(1)->get() as $voucher) {
-//            dispatch_sync(new BillPaymentQuickBooksSyncJob($voucher, $manager));
-//        }
-//        foreach (Invoice::query()->whereNull('quickbooks_id')->whereHas("user",function($subQuery) {
-//            return $subQuery->whereNotNull('quickbooks_vendor_id');
-//        })->whereIn('invoice_type', [InvoiceTypeEnum::return_sale()])->whereOrganizationId(1)->take(1)->get() as $invoice) {
-//            dispatch_sync(new RefundBillQuickBooksSyncJob($invoice, $manager));
-//        }
-        $invoices = Invoice::query()
-            ->whereNull('quickbooks_id')
-            ->withSum("payments","amount")
-            ->whereIn('invoice_type',[InvoiceTypeEnum::sale()])
-            ->where("organization_id",1)
-            ->where(DB::raw("round(net)"), round(DB::table('payments')->where('invoice_id',DB::raw('id'))->sum('amount')))->get();
-        foreach ($invoices as $invoice) {
-            dispatch_sync(new DeleteSalesQuickBooksSyncJob($invoice, $manager));
-//            dispatch_sync()
+        $vouchers = Voucher::query()->whereHas("user",function($user){
+            return $user->whereNotNull('quickbooks_customer_id');
+        })
+            ->whereNull("quickbooks_id")
+            ->where('payment_type',VoucherTypeEnum::receipt())->whereYear("created_at", ">=", "2021")->where('organization_id',1)->get();
+        foreach($vouchers as $voucher) {
+            dispatch(new PaymentQuickBooksSyncJob($voucher,$manager));
         }
-//        foreach (Invoice::whereDate('created_at', Carbon::today()->subDay())->whereNull('quickbooks_id')->whereIn('invoice_type',[InvoiceTypeEnum::return_sale()])->whereOrganizationId(1)->get() as $invoice) {
-//            dispatch_sync(new RefundSalesQuickBooksSyncJob($invoice, $manager));
+//        $invoices = Invoice::query()
+//            ->whereNotNull('quickbooks_id')
+//            ->whereYear("created_at", ">=", "2021")
+//            ->withSum("payments", "amount")
+//            ->whereIn('invoice_type', [InvoiceTypeEnum::sale()])
+//            ->where("organization_id", 1)
+//            ->get();
+//        foreach ($invoices as $invoice) {
+//            if (round($invoice->net) > round($invoice->payments_sum_amount)) {
+//                dispatch_sync(new DeleteSalesQuickBooksSyncJob($invoice, $manager));
+//                dispatch(new SalesQuickBooksSyncJob($invoice, $manager));
+//                echo $invoice->invoice_number . "\n";
+//            }
 //        }
-
-        return Command::SUCCESS;
+        return 0;
     }
 }
