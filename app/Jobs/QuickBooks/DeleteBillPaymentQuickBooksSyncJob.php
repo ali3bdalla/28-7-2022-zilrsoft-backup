@@ -46,7 +46,8 @@ class DeleteBillPaymentQuickBooksSyncJob implements ShouldQueue
             "manager" => $this->manager
         ]);
         $data = [
-            "Id" => $this->voucher->quickbooks_id
+            "Id" => $this->voucher->quickbooks_id,
+            "SyncToken" => "0"
         ];
 
         $bill = BillPayment::create(
@@ -55,13 +56,12 @@ class DeleteBillPaymentQuickBooksSyncJob implements ShouldQueue
         $created = $quickBooksDataService->Delete($bill);
         if ($created) {
             $this->voucher->update([
-               'quickbooks_id' => null
+               'quickbooks_id'
             ]);
             return;
         }
 
         $error = $quickBooksDataService->getLastError();
-        dd($error);
         if ($error) {
             throw  new Exception(json_encode([
                 $error->getIntuitErrorMessage(),

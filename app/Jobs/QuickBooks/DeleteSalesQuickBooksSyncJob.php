@@ -50,6 +50,7 @@ class DeleteSalesQuickBooksSyncJob implements ShouldQueue
         ]);
         $data = [
             "Id" => $this->invoice->quickbooks_id,
+            "SyncToken" => "0"
         ];
         $salesReceipt = QuickbooksInvoice::create(
             $data
@@ -58,6 +59,18 @@ class DeleteSalesQuickBooksSyncJob implements ShouldQueue
         $this->invoice->update([
             'quickbooks_id' => null
         ]);
+        $error = $quickBooksDataService->getLastError();
+        if ($error) {
+
+            throw  new Exception(json_encode([
+                $error->getIntuitErrorMessage(),
+                $error->getIntuitErrorDetail(),
+                $error->getIntuitErrorElement(),
+                $error->getIntuitErrorCode(),
+                $this->invoice->toArray(),
+                $this->invoice->items()->pluck("id")->toArray()
+            ]));
+        }
 
     }
 }

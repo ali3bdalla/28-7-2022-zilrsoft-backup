@@ -47,7 +47,8 @@ class DeletePaymentQuickBooksSyncJob implements ShouldQueue
         ]);
 
         $data = [
-            "Id" => $this->voucher->quickbooks_id
+            "Id" => $this->voucher->quickbooks_id,
+            "SyncToken" => "0"
         ];
 
         $bill = Payment::create(

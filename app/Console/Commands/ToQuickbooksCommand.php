@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Enums\InvoiceTypeEnum;
 use App\Enums\VoucherTypeEnum;
 use App\Jobs\QuickBooks\BillQuickBooksSyncJob;
+use App\Jobs\QuickBooks\DeleteSalesQuickBooksSyncJob;
 use App\Jobs\QuickBooks\PaymentQuickBooksSyncJob;
 use App\Jobs\QuickBooks\RefundBillQuickBooksSyncJob;
 use App\Jobs\QuickBooks\RefundSalesQuickBooksSyncJob;
@@ -49,14 +50,25 @@ class ToQuickbooksCommand extends Command
     {
         $manager = Manager::whereEmail("ali@msbrshop.com")->first();
         $vouchers = Voucher::query()
-            ->whereHas("user",function($user){
-            return $user->whereNotNull('quickbooks_customer_id');
+            ->whereHas("user", function ($user) {
+                return $user->whereNotNull('quickbooks_customer_id');
             })
             ->whereNull("quickbooks_id")
-            ->where('payment_type',VoucherTypeEnum::receipt())
-            ->whereYear("created_at", ">=", "2021")->where('organization_id',1)->get();
-        foreach($vouchers as $voucher) {
-            dispatch(new PaymentQuickBooksSyncJob($voucher,$manager));
+            ->where('payment_type', VoucherTypeEnum::receipt())
+            ->whereYear("created_at", ">=", "2021")->where('organization_id', 1)->get();
+        foreach ($vouchers as $voucher) {
+            dispatch(new PaymentQuickBooksSyncJob($voucher, $manager));
+        }
+        foreach (Invoice::query()
+                     ->whereNull('quickbooks_id')
+                     ->whereYear("created_at", ">=", "2021")
+                     ->withSum("payments", "amount")
+                     ->whereIn('invoice_type', [InvoiceTypeEnum::sale()])
+                     ->where("organization_id", 1)
+                     ->get() as $invoice) {
+            if (round($invoice->net) > round($invoice->payments_sum_amount)) {
+                dispatch(new SalesQuickBooksSyncJob($invoice, $manager));
+            }
         }
 //        foreach (Invoice::query()->whereNull('quickbooks_id')->whereHas("user", function ($subQuery) {
 //            return $subQuery->whereNotNull('quickbooks_vendor_id');

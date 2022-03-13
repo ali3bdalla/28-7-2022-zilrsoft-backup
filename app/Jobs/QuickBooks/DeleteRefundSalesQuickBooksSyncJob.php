@@ -50,6 +50,7 @@ class DeleteRefundSalesQuickBooksSyncJob implements ShouldQueue
 
         $data = [
             "Id" => $this->refundInvoice->quickbooks_id,
+            "SyncToken" => "0"
         ];
         $salesReceipt = RefundReceipt::create(
             $data
