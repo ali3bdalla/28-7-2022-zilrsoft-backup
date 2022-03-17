@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Str;
 use QuickBooksOnline\API\Facades\BillPayment;
 
 class DeleteBillPaymentQuickBooksSyncJob implements ShouldQueue
@@ -63,6 +64,15 @@ class DeleteBillPaymentQuickBooksSyncJob implements ShouldQueue
 
         $error = $quickBooksDataService->getLastError();
         if ($error) {
+            if ($error->getIntuitErrorCode() == "6140") {
+                $id = (string)Str::of($error->getIntuitErrorDetail())->after("TxnId=");
+                if ($id && (int)($id)) {
+                    $this->voucher->update([
+                        'quickbooks_id' => $id
+                    ]);
+                    return;
+                }
+            }
             throw  new Exception(json_encode([
                 $error->getIntuitErrorMessage(),
                 $error->getIntuitErrorDetail(),

@@ -8,6 +8,7 @@ use App\Models\InvoiceItems;
 use App\Models\Manager;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -88,7 +89,7 @@ class SalesQuickBooksSyncJob implements ShouldQueue
 
         $data = [
             "ApplyTaxAfterDiscount" => true,
-            "DocNumber" => $documentNumber,
+            "DocNumber" => "S20223611",
             "TotalAmt" => $this->invoice->subtotal,
             "TxnDate" => Carbon::parse($this->invoice->created_at)->toDateString(),
             "DepositToAccountRef" => [
@@ -119,7 +120,17 @@ class SalesQuickBooksSyncJob implements ShouldQueue
 
         $error = $quickBooksDataService->getLastError();
         if ($error) {
+            if ($error->getIntuitErrorCode() == "6140") {
+                $id = (string)Str::of($error->getIntuitErrorDetail())->after("TxnId=");
+                if ($id && (int)($id)) {
+                    $this->invoice->update([
+                        'quickbooks_id' => $id
+                    ]);
+                    return;
+                }
+            }
             throw  new Exception(json_encode([
+                $error->getIntuitTid(),
                 $error->getIntuitErrorMessage(),
                 $error->getIntuitErrorDetail(),
                 $error->getIntuitErrorElement(),

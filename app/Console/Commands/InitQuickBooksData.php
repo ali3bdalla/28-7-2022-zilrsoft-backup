@@ -2,15 +2,24 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\InvoiceTypeEnum;
+use App\Enums\VoucherTypeEnum;
+use App\Jobs\QuickBooks\BillQuickBooksSyncJob;
 use App\Jobs\QuickBooks\CategoryQuickBooksSyncJob;
 use App\Jobs\QuickBooks\ClassificationQuickBooksSyncJob;
 use App\Jobs\QuickBooks\CustomerQuickBooksSyncJob;
 use App\Jobs\QuickBooks\ItemQuickBooksSyncJob;
+use App\Jobs\QuickBooks\PaymentQuickBooksSyncJob;
+use App\Jobs\QuickBooks\RefundBillQuickBooksSyncJob;
+use App\Jobs\QuickBooks\RefundSalesQuickBooksSyncJob;
+use App\Jobs\QuickBooks\SalesQuickBooksSyncJob;
 use App\Jobs\QuickBooks\VendorQuickBooksSyncJob;
 use App\Models\Category;
+use App\Models\Invoice;
 use App\Models\Item;
 use App\Models\Manager;
 use App\Models\User;
+use App\Models\Voucher;
 use Illuminate\Console\Command;
 
 class InitQuickBooksData extends Command
@@ -65,6 +74,50 @@ class InitQuickBooksData extends Command
         }
         foreach (Item::whereIsService(false)->whereNull("quickbooks_id")->whereIsKit(false)->whereOrganizationId(1)->with("organization", 'category')->get() as $item) {
             dispatch(new ItemQuickBooksSyncJob($item, $manager));
+        }
+        foreach (Invoice::query()
+                     ->whereNull('quickbooks_id')
+                     ->whereYear("created_at", ">=", "2021")
+                     ->whereIn('invoice_type', [InvoiceTypeEnum::sale()])
+                     ->where("organization_id", 1)
+                     ->get() as $invoice) {
+            dispatch(new SalesQuickBooksSyncJob($invoice, $manager));
+        }
+
+        foreach (Invoice::query()
+                     ->whereNull('quickbooks_id')
+                     ->whereYear("created_at", ">=", "2021")
+                     ->whereIn('invoice_type', [InvoiceTypeEnum::purchase()])
+                     ->where("organization_id", 1)
+                     ->get() as $invoice) {
+            dispatch(new BillQuickBooksSyncJob($invoice, $manager));
+        }
+        foreach (Invoice::query()
+                     ->whereNull('quickbooks_id')
+                     ->whereYear("created_at", ">=", "2021")
+                     ->whereIn('invoice_type', [InvoiceTypeEnum::return_purchase()])
+                     ->where("organization_id", 1)
+                     ->get() as $invoice) {
+            dispatch(new RefundBillQuickBooksSyncJob($invoice, $manager));
+        }
+        foreach (Invoice::query()
+                     ->whereNull('quickbooks_id')
+                     ->whereYear("created_at", ">=", "2021")
+                     ->whereIn('invoice_type', [InvoiceTypeEnum::return_sale()])
+                     ->where("organization_id", 1)
+                     ->get() as $invoice) {
+            dispatch(new RefundSalesQuickBooksSyncJob($invoice, $manager));
+        }
+
+        foreach (Voucher::query()
+                     ->whereHas("user", function ($user) {
+                         return $user->whereNotNull('quickbooks_customer_id');
+                     })
+                     ->whereNull("quickbooks_id")
+                     ->whereNull("invoice_id")
+                     ->where('payment_type', VoucherTypeEnum::receipt())
+                     ->whereYear("created_at", ">=", "2021")->where('organization_id', 1)->get() as $voucher) {
+            dispatch(new PaymentQuickBooksSyncJob($voucher, $manager));
         }
         return 0;
     }
