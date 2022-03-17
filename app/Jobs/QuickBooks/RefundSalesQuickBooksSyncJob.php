@@ -75,13 +75,10 @@ class RefundSalesQuickBooksSyncJob implements ShouldQueue
             }
             return $data;
         })->toArray();
-        $documentNumber = $this->refundInvoice->invoice_number;
-        if(Str::contains($documentNumber,"2021")) {
-            $documentNumber = $documentNumber . " " . Str::random(3);
-        }
+
         $data = [
             "ApplyTaxAfterDiscount" => true,
-            "DocNumber" => $documentNumber,
+            "DocNumber" => $this->refundInvoice->invoice_number . ' '. Carbon::parse($this->refundInvoice->created_at)->toDateString(),
             "TotalAmt" => $this->refundInvoice->subtotal,
             "TxnDate" => Carbon::parse($this->refundInvoice->created_at)->toDateString(),
             "DepositToAccountRef" => [

@@ -45,7 +45,7 @@ class SalesQuickBooksSyncJob implements ShouldQueue
     public function handle()
     {
 
-        if ($this->invoice->quickbooks_id != null || !$this->invoice->invoice_type->equals(InvoiceTypeEnum::sale()) || !$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return "UnAuthorized";
+        if ($this->invoice->quickbooks_id != null || $this->invoice->user == null || !$this->invoice->invoice_type->equals(InvoiceTypeEnum::sale()) || !$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return "UnAuthorized";
         $quickBooksDataService = app("quickbooksDataService", [
             "manager" => $this->manager
         ]);
@@ -82,6 +82,7 @@ class SalesQuickBooksSyncJob implements ShouldQueue
         if (Str::contains($documentNumber, "2021")) {
             $documentNumber = $documentNumber . " " . Str::random(3);
         }
+
         $depositAmount = $this->invoice->payments()->sum("amount");
         if ((int)round($depositAmount) >= (int)round($this->invoice->net)) {
             $depositAmount = $this->invoice->net;
