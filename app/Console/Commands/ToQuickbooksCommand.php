@@ -50,7 +50,6 @@ class ToQuickbooksCommand extends Command
     public function handle(): int
     {
         $manager = Manager::whereEmail("ali@msbrshop.com")->first();
-
 //        $vouchers = Voucher::query()
 //            ->whereHas("user", function ($user) {
 //                return $user->whereNotNull('quickbooks_customer_id');

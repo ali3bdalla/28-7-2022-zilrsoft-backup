@@ -57,16 +57,15 @@ class SalesQuickBooksSyncJob implements ShouldQueue
                 "Description" => $invoiceItems->item->locale_name,
                 "DetailType" => "SalesItemLineDetail",
                 "SalesItemLineDetail" => [
-                    "DiscountAmt" => $invoiceItems->discount,
                     "Qty" => $invoiceItems->qty,
-                    "UnitPrice" => $invoiceItems->price,
+                    "UnitPrice" => $invoiceItems->qty > 0 ? $invoiceItems->subtotal / $invoiceItems->qty : $invoiceItems->price,
                     "TaxCodeRef" => [
                         "value" => $taxCode->get("Id")
                     ],
                 ],
                 "Id" => $invoiceItems->id,
                 "LineNum" => ($index + 1),
-                "Amount" => $invoiceItems->total,
+                "Amount" => $invoiceItems->subtotal,
             ];
 
             if ($invoiceItems->item->quickbooks_id) {
@@ -84,10 +83,6 @@ class SalesQuickBooksSyncJob implements ShouldQueue
         }
 
         $depositAmount = $this->invoice->payments()->sum("amount");
-        if ((int)round($depositAmount) >= (int)round($this->invoice->net)) {
-            $depositAmount = $this->invoice->net;
-        }
-
         $data = [
             "ApplyTaxAfterDiscount" => true,
             "DocNumber" => $documentNumber,
@@ -100,17 +95,21 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             "Line" => $salesReceiptLines,
             "ClassRef" => [
                 "value" => $this->invoice->creator->quickbooks_class_id
-            ],
-            "Deposit" => $depositAmount
+            ]
         ];
         if ($this->invoice->user->quickbooks_customer_id) {
             $data["CustomerRef"] = [
                 "value" => $this->invoice->user->quickbooks_customer_id
             ];
         }
-        $salesReceipt = QuickbooksInvoice::create(
-            $data
-        );
+        if (abs((float)$depositAmount - (float)$this->invoice->net) > 1) {
+            $data["Deposit"] = $depositAmount;
+            $salesReceipt = QuickbooksInvoice::create($data);
+        } else {
+            $salesReceipt = SalesReceipt::create(
+                $data
+            );
+        }
         $createdQuickBooksInvoice = $quickBooksDataService->Add($salesReceipt);
         if ($createdQuickBooksInvoice) {
             $this->invoice->update([

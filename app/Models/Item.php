@@ -202,7 +202,9 @@ class Item extends BaseModel
 
     public function getViewUrlAttribute(): string
     {
-        return route('web.items.show', $this->slug);
+        if($this->slug)
+            return route('web.items.show', $this->slug);
+        return route('web.index');
     }
 
     public function getPhotoAttribute(): string
@@ -217,7 +219,6 @@ class Item extends BaseModel
     public function toSearchableArray(): array
     {
         return array_merge([
-            "view_url" => $this->view_url,
             'id' => $this->id,
             'online_offer_price' => $this->online_offer_price,
             'barcode' => $this->barcode,
@@ -295,7 +296,6 @@ class Item extends BaseModel
              "Type" => "Service"
          ]);
          return app('QuickBooks')->getDataService()->Add($item);
-//         dd( app('QuickBooks')->getDataService()->getLastError());
     }
 
     protected function makeAllSearchableUsing($query)
