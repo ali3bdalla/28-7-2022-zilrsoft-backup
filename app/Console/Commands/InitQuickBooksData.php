@@ -56,7 +56,7 @@ class InitQuickBooksData extends Command
     public function handle(): int
     {
 
-        $manager = Manager::whereEmail("ali@msbrshop.com")->first();
+        $manager = Manager::whereEmail("mahmoud@msbrshop.com")->first();
         foreach (User::query()->whereNull("quickbooks_customer_id")->whereOrganizationId(1)->whereIsClient(true)->with("organization")->get() as $user) {
             dispatch(new CustomerQuickBooksSyncJob($user, $manager));
         }
