@@ -42,7 +42,7 @@ class BillQuickBooksSyncJob implements ShouldQueue
     public function handle()
     {
 
-        if ($this->invoice->quickbooks_id != null || !$this->invoice->invoice_type->equals(InvoiceTypeEnum::purchase()) || !$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return "UnAuthorized";
+        if ($this->invoice->user == null || $this->invoice->quickbooks_id != null || !$this->invoice->invoice_type->equals(InvoiceTypeEnum::purchase()) || !$this->invoice->organization->has_quickbooks || !$this->manager->quickBooksToken || $this->invoice->is_draft) return "UnAuthorized";
         $quickBooksDataService = app("quickbooksDataService", [
             "manager" => $this->manager
         ]);
