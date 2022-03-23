@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Inventory\FetchInventoryAdjustmentsRequest;
 use App\Http\Requests\Inventories\StoreBeginningInventoryRequest;
 use App\Http\Requests\Inventories\StoreInventoryAdjustmentRequest;
+use App\Jobs\QuickBooks\ItemInventoryAdjustmentQuickBooksJob;
+use App\Jobs\QuickBooks\ItemQuickBooksSyncJob;
 use App\Repository\InventoryRepositoryContract;
 use Exception;
 
@@ -31,9 +33,11 @@ class InventoryController extends Controller
     public function storeAdjustment(StoreInventoryAdjustmentRequest $request)
     {
         $items = $request->getItems();
-        $createdAt = $request->getCreatedAt();
-        $this->inventoryRepositoryContract->createAdjustment($items);
-//        return $request->store();
+        $invoice = $this->inventoryRepositoryContract->createAdjustment($items);
+        foreach ($invoice->items()->with("creator", "item")->get() as $item) {
+            $this->dispatch(new ItemQuickBooksSyncJob($item->item, $item->creator));
+        }
+        return $invoice;
     }
 
 

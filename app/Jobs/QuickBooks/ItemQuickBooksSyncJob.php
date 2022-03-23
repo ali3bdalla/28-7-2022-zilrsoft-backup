@@ -41,16 +41,17 @@ class ItemQuickBooksSyncJob implements ShouldQueue
      */
     public function handle()
     {
-        if ($this->item->quickbooks_id != null || !$this->item->organization->has_quickbooks || !$this->manager->quickBooksToken) return;
+        if (!$this->item->organization->has_quickbooks || !$this->manager->quickBooksToken) return 22;
         $quickBooksDataService = app("quickbooksDataService", [
             "manager" => $this->manager
         ]);
+
         $data = [
             "TrackQtyOnHand" => $this->item->is_service == false,
-            "Name" => $this->item->locale_name. " " .  $this->item->id . Str::random(5),
-            "FullyQualifiedName" => $this->item->locale_description  . Str::random(5) ,
+            "Name" => $this->item->locale_name . " " . $this->item->id,
+            "FullyQualifiedName" => $this->item->locale_name,
             "QtyOnHand" => $this->item->available_qty,
-            "Sku" => $this->item->barcode. " " .  $this->item->id,
+            "Sku" => $this->item->barcode . " " . $this->item->id,
             "InvStartDate" => Carbon::parse($this->item->created_at)->format("Y-m-d"),
             "Type" => $this->item->is_service ? "Service" : "Inventory",
             "UnitPrice" => $this->item->price,
@@ -67,6 +68,11 @@ class ItemQuickBooksSyncJob implements ShouldQueue
                 "LastUpdatedTime" => $this->item->updated_at
             ],
         ];
+        if ($this->item->quickbooks_id) {
+            $fetchedQuickBooksItem = $quickBooksDataService->FindById("Item",$this->item->quickbooks_id);
+            $data["SyncToken"] = $fetchedQuickBooksItem->SyncToken;
+            $data["Id"] = $this->item->quickbooks_id;
+        }
         if ($this->item->category && $this->item->category->quickbooks_id) {
             $data = array_merge($data, [
                 "SubItem" => true,
@@ -79,16 +85,20 @@ class ItemQuickBooksSyncJob implements ShouldQueue
             $data["AssetAccountRef"]["value"] = config('zilrsoft_quickbooks.inventory_account_id');
         }
         $quickBooksItem = \QuickBooksOnline\API\Facades\Item::create($data);
-        $item = $quickBooksDataService->Add($quickBooksItem);
-        if ($item) {
-            $this->item->update([
-                'quickbooks_id' => $item->Id
-            ]);
-            return;
+        if ($this->item->quickbooks_id) {
+            $quickBooksDataService->Update($quickBooksItem);
+        } else {
+            $item = $quickBooksDataService->Add($quickBooksItem);
+            if ($item) {
+                $this->item->update([
+                    'quickbooks_id' => $item->Id
+                ]);
+                return;
+            }
         }
         $error = $quickBooksDataService->getLastError();
         if ($error) {
-            if ($error->getIntuitErrorCode() == "6140") {
+            if ($error->getIntuitErrorCode() == "6140" && $this->item->quickbooks_id == null) {
                 $id = (string)Str::of($error->getIntuitErrorDetail())->after("TxnId=");
                 if ($id && (int)($id)) {
                     $this->item->update([
@@ -98,7 +108,7 @@ class ItemQuickBooksSyncJob implements ShouldQueue
                 }
             }
 
-            throw  new \Exception(json_encode([
+            throw  new Exception(json_encode([
                 $error->getIntuitErrorMessage(),
                 $error->getIntuitErrorDetail(),
                 $error->getIntuitErrorElement(),
