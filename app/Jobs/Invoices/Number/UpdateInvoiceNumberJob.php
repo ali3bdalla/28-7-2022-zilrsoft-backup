@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateInvoiceNumberJob implements ShouldQueue
 {
@@ -82,7 +83,7 @@ class UpdateInvoiceNumberJob implements ShouldQueue
                 ['organization_id', $this->invoice->organization_id],
             ])->count() + 1;
         $this->invoice->update([
-            'invoice_number' => $this->prefix . Carbon::now()->format('Y') . $nextedInvoiceNumber,
+            'invoice_number' => $this->prefix . Carbon::now()->format('Yhs') . Auth::id() . $nextedInvoiceNumber,
         ]);
     }
 }
