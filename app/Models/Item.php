@@ -42,6 +42,11 @@ use QuickBooksOnline\API\Facades\Item as QuickBooksItem;
  * @property HasMany tags
  * @property mixed is_kit
  * @property mixed locale_name
+ * @property mixed $created_at
+ * @property mixed $quickbooks_id
+ * @property mixed $updated_at
+ * @property mixed $barcode
+ * @property mixed $organization
  * @method static findOrFail($id)
  * @method static InRandomOrder()
  * @method static find($input)
@@ -202,7 +207,7 @@ class Item extends BaseModel
 
     public function getViewUrlAttribute(): string
     {
-        if($this->slug)
+        if ($this->slug)
             return route('web.items.show', $this->slug);
         return route('web.index');
     }
@@ -289,13 +294,13 @@ class Item extends BaseModel
 
     public function syncInQuickBooks()
     {
-         $item = QuickBooksItem::create([
-             "Name" => $this->locale_name,
-             "Sku" => $this->barcode,
-             "Description" => $this->locale_description,
-             "Type" => "Service"
-         ]);
-         return app('QuickBooks')->getDataService()->Add($item);
+        $item = QuickBooksItem::create([
+            "Name" => $this->locale_name,
+            "Sku" => $this->barcode,
+            "Description" => $this->locale_description,
+            "Type" => "Service"
+        ]);
+        return app('QuickBooks')->getDataService()->Add($item);
     }
 
     protected function makeAllSearchableUsing($query)

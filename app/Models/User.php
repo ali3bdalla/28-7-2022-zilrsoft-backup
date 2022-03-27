@@ -29,6 +29,7 @@ use Propaganistas\LaravelPhone\PhoneNumber;
  * @property mixed creator_id
  * @property mixed organization_id
  * @property mixed locale_name
+ * @property mixed $quickbooks_customer_id
  * @method static where(array $array)
  * @method static find(mixed $user_id)
  */

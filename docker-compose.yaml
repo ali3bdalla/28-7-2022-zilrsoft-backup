@@ -17,9 +17,17 @@ services:
       DB_CONNECTION: pgsql
       DB_HOST: zilrsoft-db
       DB_PORT: 5432
-      DB_DATABASE: postgres
+      DB_DATABASE: zilrsoft
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
+    networks:
+      - zilrsoft
+  redis:
+    image: redis:6-alpine
+    container_name: zilrsoft-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
     networks:
       - zilrsoft
   postgres:
@@ -27,13 +35,13 @@ services:
     container_name: zilrsoft-db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: postgres
+      POSTGRES_DB: zilrsoft
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
     networks:
       - zilrsoft
     volumes:
-     - "./database/db-data:/var/lib/postgresql"
+     - "./../database/docker:/var/lib/postgresql"
 networks:
   zilrsoft:
     driver: bridge

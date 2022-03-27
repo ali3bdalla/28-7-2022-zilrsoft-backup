@@ -12,7 +12,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
 
 class ItemQuickBooksSyncJob implements ShouldQueue
 {
@@ -28,7 +27,6 @@ class ItemQuickBooksSyncJob implements ShouldQueue
      */
     public function __construct(Item $item, Manager $manager)
     {
-        //
         $this->item = $item;
         $this->manager = $manager;
     }
@@ -41,18 +39,20 @@ class ItemQuickBooksSyncJob implements ShouldQueue
      */
     public function handle()
     {
-        if (!$this->item->organization->has_quickbooks || !$this->manager->quickBooksToken) return 22;
+        if (!$this->item->organization->has_quickbooks
+            || !$this->manager->quickBooksToken)
+            return "Unhandled";
         $quickBooksDataService = app("quickbooksDataService", [
             "manager" => $this->manager
         ]);
-
         $data = [
             "TrackQtyOnHand" => $this->item->is_service == false,
             "Name" => $this->item->locale_name . " " . $this->item->id,
             "FullyQualifiedName" => $this->item->locale_name,
             "QtyOnHand" => $this->item->available_qty,
             "Sku" => $this->item->barcode . " " . $this->item->id,
-            "InvStartDate" => Carbon::parse($this->item->created_at)->format("Y-m-d"),
+            "InvStartDate" => Carbon::parse($this->item->created_at)
+                ->format("Y-m-d"),
             "Type" => $this->item->is_service ? "Service" : "Inventory",
             "UnitPrice" => $this->item->price,
             "PurchaseCost" => $this->item->cost,
@@ -69,7 +69,8 @@ class ItemQuickBooksSyncJob implements ShouldQueue
             ],
         ];
         if ($this->item->quickbooks_id) {
-            $fetchedQuickBooksItem = $quickBooksDataService->FindById("Item",$this->item->quickbooks_id);
+            $fetchedQuickBooksItem = $quickBooksDataService
+                ->FindById("Item", $this->item->quickbooks_id);
             $data["SyncToken"] = $fetchedQuickBooksItem->SyncToken;
             $data["Id"] = $this->item->quickbooks_id;
         }
@@ -82,7 +83,8 @@ class ItemQuickBooksSyncJob implements ShouldQueue
             ]);
         }
         if (!$this->item->is_service) {
-            $data["AssetAccountRef"]["value"] = config('zilrsoft_quickbooks.inventory_account_id');
+            $data["AssetAccountRef"]["value"] =
+                config('zilrsoft_quickbooks.inventory_account_id');
         }
         $quickBooksItem = \QuickBooksOnline\API\Facades\Item::create($data);
         if ($this->item->quickbooks_id) {
@@ -98,8 +100,10 @@ class ItemQuickBooksSyncJob implements ShouldQueue
         }
         $error = $quickBooksDataService->getLastError();
         if ($error) {
-            if ($error->getIntuitErrorCode() == "6140" && $this->item->quickbooks_id == null) {
-                $id = (string)Str::of($error->getIntuitErrorDetail())->after("TxnId=");
+            if ($error->getIntuitErrorCode() == "6140" && $this->
+                item->quickbooks_id == null) {
+                $id = (string)Str::of($error->getIntuitErrorDetail())
+                    ->after("TxnId=");
                 if ($id && (int)($id)) {
                     $this->item->update([
                         'quickbooks_id' => $id
@@ -107,7 +111,6 @@ class ItemQuickBooksSyncJob implements ShouldQueue
                     return;
                 }
             }
-
             throw  new Exception(json_encode([
                 $error->getIntuitErrorMessage(),
                 $error->getIntuitErrorDetail(),

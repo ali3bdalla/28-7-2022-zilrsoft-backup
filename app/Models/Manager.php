@@ -26,6 +26,8 @@ use Spinen\QuickBooks\Token;
  * @property mixed locale_name
  * @property mixed remaining_accounts_balance
  * @property mixed name_ar
+ * @property mixed $quickBooksToken
+ * @property mixed $quickbooks_class_id
  */
 class Manager extends BaseAuthModel
 {
