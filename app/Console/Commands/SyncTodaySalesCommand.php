@@ -68,8 +68,7 @@ class SyncTodaySalesCommand extends Command
                 echo "start at : " . $count . "\n";
             }
             $count = $count + 100;
-
-            sleep(1);
+            sleep(2);
         }
 
         //        $vouchers = Voucher::query()->whereHas("user",function($user){
