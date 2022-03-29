@@ -85,12 +85,12 @@ class SyncTodaySalesCommand extends Command
         //            dispatch_sync(new DeleteSalesQuickBooksSyncJob($invoice, $manager));
         //            echo $invoice->invoice_number . "\n";
         //        }
-        $vouchers = Voucher::query()->whereHas("user", function ($user) {
-            return $user->whereNotNull('quickbooks_customer_id');
-        })->whereNotNull("quickbooks_id")->where('payment_type', VoucherTypeEnum::receipt())->whereYear("created_at", ">=", "2021")->where('organization_id', 1)->get();
-        foreach ($vouchers as $voucher) {
-            dispatch(new DeletePaymentQuickBooksSyncJob($voucher, $manager));
-        }
+//        $vouchers = Voucher::query()->whereHas("user", function ($user) {
+//            return $user->whereNotNull('quickbooks_customer_id');
+//        })->whereNotNull("quickbooks_id")->where('payment_type', VoucherTypeEnum::receipt())->whereYear("created_at", ">=", "2021")->where('organization_id', 1)->get();
+//        foreach ($vouchers as $voucher) {
+//            dispatch(new DeletePaymentQuickBooksSyncJob($voucher, $manager));
+//        }
         return 0;
     }
 }
