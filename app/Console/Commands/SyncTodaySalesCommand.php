@@ -57,39 +57,13 @@ class SyncTodaySalesCommand extends Command
         $quickBooksDataService = app("quickbooksDataService", [
             "manager" => $manager
         ]);
-        $count = 0;
-        while ($count < 7000) {
-            $temp = $quickBooksDataService->Query("SELECT * FROM Payment WHERE CustomerRef='4602'", $count, ($count + 100));
-            if (is_array($temp)) {
-                foreach ($temp as $item) {
-                    if ($item->UnappliedAmt == $item->TotalAmt)
-                        dispatch(new DeleteQuickbooksPaymentByIdJob($item->Id, $item->SyncToken, $manager));
-                }
-                echo "start at : " . $count . "\n";
+        $temp = $quickBooksDataService->Query("SELECT * FROM Payment WHERE CustomerRef='4602'");
+        if (is_array($temp)) {
+            foreach ($temp as $item) {
+                if ($item->UnappliedAmt == $item->TotalAmt)
+                    dispatch(new DeleteQuickbooksPaymentByIdJob($item->Id, $item->SyncToken, $manager));
             }
-            $count = $count + 100;
-            sleep(2);
         }
-
-        //        $vouchers = Voucher::query()->whereHas("user",function($user){
-        //            return $user->whereNotNull('quickbooks_customer_id');
-        //        })
-        //            ->whereNull("quickbooks_id")
-        //            ->where('payment_type',VoucherTypeEnum::receipt())->whereYear("created_at", ">=", "2021")->where('organization_id',1)->get();
-        //        foreach($vouchers as $voucher) {
-        //            dispatch(new PaymentQuickBooksSyncJob($voucher,$manager));
-        //        $invoices = Invoice::query()->whereNotNull('quickbooks_id')->whereYear("created_at", "<", "2021")->whereIn('invoice_type', [InvoiceTypeEnum::sale()])->where("organization_id", 1)->get();
-        ////        }
-        //        foreach ($invoices as $invoice) {
-        //            dispatch_sync(new DeleteSalesQuickBooksSyncJob($invoice, $manager));
-        //            echo $invoice->invoice_number . "\n";
-        //        }
-//        $vouchers = Voucher::query()->whereHas("user", function ($user) {
-//            return $user->whereNotNull('quickbooks_customer_id');
-//        })->whereNotNull("quickbooks_id")->where('payment_type', VoucherTypeEnum::receipt())->whereYear("created_at", ">=", "2021")->where('organization_id', 1)->get();
-//        foreach ($vouchers as $voucher) {
-//            dispatch(new DeletePaymentQuickBooksSyncJob($voucher, $manager));
-//        }
         return 0;
     }
 }

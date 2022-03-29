@@ -45,7 +45,6 @@ class DeleteQuickbooksPaymentByIdJob implements ShouldQueue
         $bill = Payment::create(
             $data
         );
-        sleep(1);
         $quickBooksDataService->Delete($bill);
         $error = $quickBooksDataService->getLastError();
         if ($error) {
