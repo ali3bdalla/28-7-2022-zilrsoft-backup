@@ -41,7 +41,7 @@ class ItemQuickBooksSyncJob implements ShouldQueue
     {
         if (!$this->item->organization->has_quickbooks
             || !$this->manager->quickBooksToken)
-            return "Unhandled";
+            return;
         $quickBooksDataService = app("quickbooksDataService", [
             "manager" => $this->manager
         ]);
@@ -51,8 +51,6 @@ class ItemQuickBooksSyncJob implements ShouldQueue
             "FullyQualifiedName" => $this->item->locale_name,
             "QtyOnHand" => $this->item->available_qty,
             "Sku" => $this->item->barcode . " " . $this->item->id,
-            "InvStartDate" => Carbon::parse($this->item->created_at)
-                ->format("Y-m-d"),
             "Type" => $this->item->is_service ? "Service" : "Inventory",
             "UnitPrice" => $this->item->price,
             "PurchaseCost" => $this->item->cost,
@@ -73,6 +71,8 @@ class ItemQuickBooksSyncJob implements ShouldQueue
                 ->FindById("Item", $this->item->quickbooks_id);
             $data["SyncToken"] = $fetchedQuickBooksItem->SyncToken;
             $data["Id"] = $this->item->quickbooks_id;
+        }else {
+            $data["InvStartDate"] = Carbon::parse($this->item->created_at)->format("Y-m-d");
         }
         if ($this->item->category && $this->item->category->quickbooks_id) {
             $data = array_merge($data, [
