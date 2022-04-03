@@ -21,7 +21,9 @@ services:
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
     networks:
-      - zilrsoft
+      zilrsoft:
+        aliases:
+          - zilrsoft.test
   redis:
     image: redis:6-alpine
     container_name: zilrsoft-redis
@@ -41,7 +43,7 @@ services:
     networks:
       - zilrsoft
     volumes:
-     - "./../database/docker:/var/lib/postgresql"
+      - "./../database/docker:/var/lib/postgresql/data"
 networks:
   zilrsoft:
     driver: bridge

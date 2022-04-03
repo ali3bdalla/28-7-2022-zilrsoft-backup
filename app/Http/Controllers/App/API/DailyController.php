@@ -14,6 +14,7 @@ use App\Repository\ManagerDailyWalletRepositoryContract;
 use App\Scopes\PendingScope;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Throwable;
 
@@ -53,13 +54,14 @@ class DailyController extends Controller
     }
 
 
-    public function confirmWalletTransfer($transaction)
+    public function confirmWalletTransfer($transaction): string
     {
         $transaction = ResellerClosingAccount::query()
-            ->whereIsPendingAndId(true, $transaction)
+            ->where('is_pending', true)
+            ->where('id', $transaction)
             ->withoutGlobalScope(PendingScope::class)->firstOrFail();
         if (app()->isProduction() && !in_array(Auth::id(), $transaction->toAccount->managerGateways()->pluck('managers.id')->toArray())) {
-            abort(404,"Not Found");
+            abort(404, "Not Found");
         }
         $this->managerDailyWalletRepositoryContract->confirmWalletTransferTransaction($transaction);
         $transaction->creator->notify(new TransferWalletTransactionConfirmedNotification($transaction));
@@ -67,10 +69,11 @@ class DailyController extends Controller
     }
 
 
-    public function cancelWalletTransferTransaction($transaction)
+    public function cancelWalletTransferTransaction($transaction): string
     {
         $transaction = ResellerClosingAccount::query()
-            ->whereIsPendingAndId(true, $transaction)
+            ->where('is_pending', true)
+            ->where('id', $transaction)
             ->withoutGlobalScope(PendingScope::class)->firstOrFail();
 
         $allowedManagers = $transaction->toAccount->managerGateways()->pluck('managers.id')->toArray();

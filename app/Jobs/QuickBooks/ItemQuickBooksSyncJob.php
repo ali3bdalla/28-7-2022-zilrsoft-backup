@@ -65,13 +65,14 @@ class ItemQuickBooksSyncJob implements ShouldQueue
                 "CreateTime" => $this->item->created_at,
                 "LastUpdatedTime" => $this->item->updated_at
             ],
+            "SyncToken" => 0
         ];
         if ($this->item->quickbooks_id) {
             $fetchedQuickBooksItem = $quickBooksDataService
                 ->FindById("Item", $this->item->quickbooks_id);
             $data["SyncToken"] = $fetchedQuickBooksItem->SyncToken;
             $data["Id"] = $this->item->quickbooks_id;
-        }else {
+        } else {
             $data["InvStartDate"] = Carbon::parse($this->item->created_at)->format("Y-m-d");
         }
         if ($this->item->category && $this->item->category->quickbooks_id) {
@@ -100,8 +101,7 @@ class ItemQuickBooksSyncJob implements ShouldQueue
         }
         $error = $quickBooksDataService->getLastError();
         if ($error) {
-            if ($error->getIntuitErrorCode() == "6140" && $this->
-                item->quickbooks_id == null) {
+            if ($error->getIntuitErrorCode() == "6140" && $this->item->quickbooks_id == null) {
                 $id = (string)Str::of($error->getIntuitErrorDetail())
                     ->after("TxnId=");
                 if ($id && (int)($id)) {

@@ -15,6 +15,7 @@ use App\Models\Invoice;
 use App\Models\Manager;
 use App\Models\Voucher;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class ToQuickbooksCommand extends Command
 {
@@ -50,6 +51,15 @@ class ToQuickbooksCommand extends Command
     public function handle(): int
     {
         $manager = Manager::whereEmail("ali@msbrshop.com")->first();
+        $invoices = Invoice::query()
+            ->where('invoice_type', InvoiceTypeEnum::sale())
+            ->whereYear('created_at', "2021")
+            ->whereNull('quickbooks_id')
+            ->where('is_draft', false)
+            ->get();
+        foreach ($invoices as $invoice) {
+            dispatch(new SalesQuickBooksSyncJob($invoice, $manager));
+        }
 //        $vouchers = Voucher::query()
 //            ->whereHas("user", function ($user) {
 //                return $user->whereNotNull('quickbooks_customer_id');
