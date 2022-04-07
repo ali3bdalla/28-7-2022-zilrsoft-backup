@@ -6,7 +6,6 @@ use App\Jobs\Accounting\Sale\StoreSaleTransactionsJob;
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
 use App\Jobs\Items\Serial\ValidateItemSerialJob;
-use App\Jobs\QuickBook\CreateQuickBooksSalesReceiptJob;
 use App\Jobs\QuickBooks\SalesQuickBooksSyncJob;
 use App\Jobs\Sales\Draft\SetDraftAsConvertedJob;
 use App\Jobs\Sales\Expense\CreatePurchaseInvoiceForExpensesJob;
