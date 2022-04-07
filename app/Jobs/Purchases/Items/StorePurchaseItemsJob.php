@@ -12,6 +12,7 @@ use App\Models\InvoiceItems;
 use App\Models\Item;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -95,7 +96,7 @@ class StorePurchaseItemsJob implements ShouldQueue
                 dispatch_sync(new UpdateAvailableQtyByInvoiceItemJob($invoiceItem));
                 /**
                  * ==========================================================
-                 * we neeed for available qty and cost before new invoice item
+                 * we need for available qty and cost before new invoice item
                  * ==========================================================
                  */
                 dispatch_sync(new UpdateItemCostByInvoiceItemJob($invoiceItem, $availableQtyBeforeInvoiceItem, $costBeforeInvoiceItem));
@@ -107,7 +108,6 @@ class StorePurchaseItemsJob implements ShouldQueue
                  */
                 if ($this->invoice->invoice_type == 'purchase') {
                     dispatch_sync(new UpdateItemLastPurchasePriceJob($invoiceItem));
-                    // To Do => update sales price
                     $salesPrice = (float)$requestItemCollection->get('price_with_tax');
                     dispatch_sync(new UpdateItemSalesPriceJob($invoiceItem, $salesPrice));
                 }
@@ -128,7 +128,7 @@ class StorePurchaseItemsJob implements ShouldQueue
         }
     }
 
-    private function createInvoiceItem(Item $item, $requestItemCollection)
+    private function createInvoiceItem(Item $item, $requestItemCollection): Model
     {
 
         $purchasePrice = (float)$requestItemCollection->get('purchase_price');
@@ -152,7 +152,7 @@ class StorePurchaseItemsJob implements ShouldQueue
         $data['invoice_type'] = $this->invoiceType;
         $data['user_id'] = $this->invoice->user_id;
         $data['qty'] = $qty;
-        $data['discount'] = 0; //$discount
+        $data['discount'] = 0;
         $data['total'] = $total;
         $data['subtotal'] = $subtotal;
         $data['tax'] = $tax;
