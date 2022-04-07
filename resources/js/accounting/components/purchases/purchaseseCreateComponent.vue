@@ -1,23 +1,16 @@
 <template>
-  <!-- startup box -->
   <div class="">
-
-
     <div class="row">
       <div class="col-md-6">
         <button :disabled="!everythingFineToSave" class="btn btn-custom-primary" @click="pushDataToServer"><i
             class="fa fa-save"></i> {{ app.trans.save }}
         </button>
-
       </div>
       <div class="col-md-6">
         <a class="btn btn-default " href="/purchases"><i
             class="fa fa-redo"></i> {{ app.trans.cancel }}</a>
       </div>
-
     </div>
-
-
     <div class="row">
       <div class="col-md-4">
         <accounting-select-with-search-layout-component
@@ -32,59 +25,30 @@
             label_text="locale_name"
             @valueUpdated="vendorListChanged"
         >
-
         </accounting-select-with-search-layout-component>
-
       </div>
       <div class="col-md-2">
-        <a class="btn btn-custom-primary btn-lg btn-block" @click="modalsInfo.showCreateVendorModal=true">{{
-            app.trans
-                .create_identity
-          }}</a>
-
+        <a class="btn btn-custom-primary btn-lg btn-block" @click="modalsInfo.showCreateVendorModal=true">{{ app.trans.create_identity }}</a>
       </div>
       <div :class="[creator.organization_id == 1 ? 'col-md-3' : 'col-md-6']">
         <div class="input-group">
           <span class="input-group-addon">{{ app.trans.vendor_invoice_id }}</span>
           <input v-model="invoiceData.vendorIncCumber" aria-describedby="time-field"
                  class="form-control" type="text">
-
         </div>
       </div>
       <div v-if="creator.organization_id == 1" class="col-md-3">
         <div class="input-group">
           <span class="input-group-addon">صورة الفاتورة</span>
-          <!--          <input v-model="invoiceData.vendorIncCumber" aria-describedby="time-field"-->
-          <!--                 class="form-control" type="text">-->
-
           <select v-model="purchaseDropboxSnapshot" class="form-control h-25" @click="fetchPendingDropBoxPurchases">
             <option value="">----</option>
             <option v-for="(pendingPurchase,index) in dropBoxPendingPurchases" :key="index" :value="pendingPurchase">
               {{ pendingPurchase }}
             </option>
           </select>
-
-
         </div>
-
-        <!--        <accounting-select-with-search-layout-component-->
-        <!--            :default="invoiceData.vendorId"-->
-        <!--            :default-index="invoiceData.vendorId"-->
-        <!--            :no_all_option="true"-->
-        <!--            :options="vendorsList"-->
-        <!--            :placeholder="app.trans.vendor"-->
-        <!--            :title="app.trans.vendor"-->
-        <!--            identity="001"-->
-        <!--            index="001"-->
-        <!--            label_text="locale_name"-->
-        <!--            @valueUpdated="vendorListChanged"-->
-        <!--        >-->
-
-        <!--        </accounting-select-with-search-layout-component>-->
       </div>
     </div>
-
-
     <div class="row">
       <div class="col-md-6">
         <accounting-select-with-search-layout-component
@@ -98,22 +62,16 @@
             label_text="locale_name"
             @valueUpdated="receiverListChanged"
         >
-
         </accounting-select-with-search-layout-component>
-
       </div>
       <div class="col-md-6">
         <div class="input-group">
           <span class="input-group-addon">{{ app.trans.department }}</span>
           <input v-model="creator.department.locale_title" aria-describedby="time-field" class="form-control"
                  disabled type="text">
-
         </div>
       </div>
     </div>
-
-
-    <!-- start search field -->
     <div class="row">
       <div class="col-md-8">
         <div id="seach_area" class="product_search">
@@ -130,65 +88,46 @@
               <h4 class="title has-text-white">{{ item.locale_name }}
                 <small class="has-text-white">{{ item.barcode }} - {{ item.price }}</small>
               </h4>
-
             </div>
           </div>
         </div>
       </div>
-
-
       <div v-if="canViewItems==1" class="col-md-2">
         <a :href="'/items?selectable=true&&is_purchase=true'" class="btn btn-custom-primary btn-lg"
            target="_blank">{{ app.trans.view_products }}</a>
-
       </div>
       <div v-if="canCreateItem==1" class="col-md-2">
         <a :href="'/items/create'" class="btn btn-custom-primary btn-lg"
            target="_blank">{{ app.trans.create_product }}</a>
       </div>
-
-
     </div>
-
-
     <div class="panel panel-primary">
       <table class="table table-bordered text-center  table-striped">
         <thead class="panel-heading">
         <tr>
           <th></th>
           <th></th>
-          <!-- <th class="has-text-white"></th> -->
           <th>{{ app.trans.barcode }}</th>
           <th>{{ app.trans.item_name }}</th>
           <th>{{ app.trans.qty }}</th>
           <th>{{ app.trans.sales_price }}</th>
           <th>{{ app.trans.purchase_price }}</th>
           <th>{{ app.trans.total }}</th>
-          <!--<th>{{ app.trans.discount }}</th>
-          <th>{{ app.trans.subtotal }}</th>-->
           <th>{{ app.trans.tax }}</th>
           <th>{{ app.trans.net }}</th>
           <th>- / +</th>
-
         </tr>
-
-
         </thead>
-
         <tbody>
-
-
         <tr v-for="(item,index) in invoiceData.items" :key="item.id">
           <td><input v-model="item.is_printable" type="checkbox"></td>
           <td>
-
             <button class="btn btn-danger btn-xs" @click="deleteItemFromList(item)"><i
                 class="fa fa-trash"></i></button>
             <button v-if="item.is_need_serial"
                     class="btn btn-success btn-xs"
                     @click="openItemSerialsModal(index,item)"><i class="fa fa-pen"></i> &nbsp;
             </button>
-
           </td>
           <td v-text="item.barcode"></td>
           <td v-text="item.locale_name"></td>
@@ -205,8 +144,6 @@
             >
             <p v-else>{{ item.qty }}</p>
           </td>
-
-
           <td>
             <input
                 :ref="'itemSalePrice_' + item.id + 'Ref'"
@@ -215,40 +152,20 @@
                 class="form-control input-xs amount-input"
                 type="text"
                 @focus="$event.target.select()">
-
           </td>
-
           <td>
             <input :ref="'itemPrice_' + item.id + 'Ref'"
                    v-model="item.purchase_price"
-
                    class="form-control input-xs amount-input"
                    type="text"
                    @change="itemPriceUpdated(item)"
                    @focus="$event.target.select()" @keyup.enter="clearAndFocusOnBarcodeField">
-
           </td>
-
-
           <td>
             <input v-model="item.total" class="form-control input-xs amount-input" disabled
                    type="text"
                    @focus="$event.target.select()">
           </td>
-          <!--<td>
-              <input :ref="'itemDiscount_' + item.id + 'Ref'"
-                     @focus="$event.target.select()"
-                     @keyup="itemDiscountUpdated(item)"
-                     class="form-control input-xs amount-input" placeholder="discount" type="text"
-                     v-model="item.discount">
-          </td>
-          <td>
-              <input @focus="$event.target.select()" class="form-control input-xs amount-input" disabled=""
-                     placeholder="subtotal"
-
-                     type="text" v-model="item.subtotal">
-          </td>-->
-
           <td>
             <input v-model="item.tax" class="form-control input-xs amount-input" disabled=""
                    placeholder="tax"
@@ -258,10 +175,10 @@
             <input v-model="item.net"
                    class="form-control input-xs amount-input"
                    placeholder="net"
-
-                   type="text" @change="itemNetUpdated(item)" @focus="$event.target.select()">
+                   disabled
+                   type="text"
+                   @focus="$event.target.select()">
           </td>
-
           <td>
             <input v-model="item.variation"
                    :class="{'is-danger':item.variation>0,'is-primary':item.variation<=0}"
@@ -270,9 +187,7 @@
                    placeholder="variation"
                    type="text">
           </td>
-
         </tr>
-
         </tbody>
       </table>
     </div>
@@ -293,26 +208,6 @@
                          type="text">
                 </div>
               </div>
-              <!--<div class="row">
-                  <div class="col-md-6"><label>{{ app.trans.discount }}</label></div>
-                  <div class="col-md-6">
-                      <input :placeholder="app.trans.discount"
-                             class="form-control  input-xs amount-input"
-                             disabled type="text"
-                             v-model="invoiceData.discount">
-                  </div>
-              </div>
-
-              <div class="row">
-                  <div class="col-md-6"><label>{{ app.trans.subtotal }}</label></div>
-                  <div class="col-md-6">
-                      <input :placeholder="app.trans.subtotal"
-                             class="form-control  input-xs amount-input"
-                             disabled type="text"
-                             v-model="invoiceData.subtotal">
-                  </div>
-              </div>-->
-
               <div class="row">
                 <div class="col-md-6"><label>{{ app.trans.tax }}</label></div>
                 <div class="col-md-6">
@@ -331,19 +226,15 @@
                          type="text">
                 </div>
               </div>
-
             </div>
           </div>
-          <!--                    <textarea v-model="code_tester"></textarea>-->
           <accounting-invoice-embedded-purchase-expenses-layout
               :expenses="expensesList"
               @expenseDeIncludeInNet="expenseDeIncludeInNet"
               @expenseIncludeInNet="expenseIncludeInNet"
               @expensesUpdated="expensesListUpdated"
           >
-
           </accounting-invoice-embedded-purchase-expenses-layout>
-
         </div>
         <div class="col-md-9">
           <accounting-invoice-embedded-payments-gateway-layout
@@ -354,11 +245,8 @@
           >
           </accounting-invoice-embedded-payments-gateway-layout>
         </div>
-
       </div>
     </div>
-
-
     <accounting-invoice-item-serials-list-layout-component
         :item="selectedItem"
         :item-index="selectedItemIndex"
@@ -366,10 +254,7 @@
         @panelClosed="handleItemSerialsClosed"
         @publishUpdated="handleItemSerialsUpdated"
     >
-
     </accounting-invoice-item-serials-list-layout-component>
-
-
     <accounting-barcode-bulk-printer-layout-component
         :hide-btn="true"
         :invoice-id="invoiceId"
@@ -377,9 +262,6 @@
         @CompletePrintProcess="reloadPageAfterPrintBarcode"
     >
     </accounting-barcode-bulk-printer-layout-component>
-
-
-    <!--invoice Note Modal-->
     <div v-show="modalsInfo.showCreateVendorModal===true">
       <transition name="modal">
         <div class="modal-mask">
@@ -439,24 +321,16 @@
         </div>
       </transition>
     </div>
-    <!--invoice create Modal-->
-
-
     <textarea v-if="activateTestMode" v-model="testRequestData" class="form-control"></textarea>
   </div>
-
-
 </template>
-
 <script>
-
 import {
   accounting as ItemAccounting,
   math as ItemMath,
   query as ItemQuery,
   validator as ItemValidator
 } from '../../item';
-
 export default {
   props: ['creator', 'vendors', 'receivers', 'gateways', 'expenses', 'canViewItems',
     'canCreateItem', 'initPurchase', 'initInvoice', 'initItems'],
@@ -569,18 +443,6 @@ export default {
         this.appendItemToInvoiceItemsList(item);
       }
     },
-    itemNetUpdated(item) {
-      item.net = parseFloat(item.net).toFixed(2);
-      item.total = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(item.net, item.vtp);
-      item.purchase_price = parseFloat(parseFloat(item.qty) === 0 ? 0 : parseFloat(item.total) / parseFloat(item.qty)).toFixed(3);
-      item.subtotal = item.total;
-      item.tax = ItemAccounting.getTax(item.subtotal, item.vtp, true);
-      item.discount = 0;
-      this.appendItemToInvoiceItemsList(item, db.model.index(this.invoiceData.items, item.id));
-
-    },
-
-
     pushVendorData() {
 
       let user_type;
