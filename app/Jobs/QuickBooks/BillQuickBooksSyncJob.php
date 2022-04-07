@@ -56,7 +56,7 @@ class BillQuickBooksSyncJob implements ShouldQueue
                 "ItemBasedExpenseLineDetail" => [
                     "TaxInclusiveAmt" => $invoiceItems->net,
                     "Qty" => $invoiceItems->qty,
-                    "UnitPrice" => $invoiceItems->price,
+                    "UnitPrice" => $invoiceItems->qty > 0 ? $invoiceItems->subtotal / $invoiceItems->qty : $invoiceItems->price,
                     "TaxCodeRef" => [
                         "value" => $taxCode->get("Id")
                     ],
