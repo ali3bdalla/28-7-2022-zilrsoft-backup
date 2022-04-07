@@ -48,7 +48,7 @@ class StoreResellerAccountTransactionRequest extends FormRequest
 
     public function getAmount(): float
     {
-        return (float)$this->input('amount');
+        return round((float)$this->input('amount'), 2);
     }
 
     /**

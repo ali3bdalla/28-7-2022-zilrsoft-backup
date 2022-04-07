@@ -4,16 +4,16 @@
       <div class="row">
         <div class="col-md-6">
           <label>من</label>
-          <br />
+          <br/>
           <select
-            v-model="activeGateway"
-            class="form-control"
-            @change="updateGateway"
+              v-model="activeGateway"
+              class="form-control"
+              @change="updateGateway"
           >
             <option
-              v-for="gateway in gateways"
-              :key="gateway.id"
-              :value="gateway"
+                v-for="gateway in gateways"
+                :key="gateway.id"
+                :value="gateway"
             >
               {{ gateway.locale_name }} {{ gateway.current_amount }}
             </option>
@@ -22,16 +22,16 @@
 
         <div class="col-md-6">
           <label>الى</label>
-          <br />
+          <br/>
           <select
-            v-model="receiveGateway"
-            class="form-control"
-            @change="toUpdateReceiverGateway"
+              v-model="receiveGateway"
+              class="form-control"
+              @change="toUpdateReceiverGateway"
           >
             <option
-              v-for="(gateway, index) in toGateways"
-              :key="index"
-              :value="gateway"
+                v-for="(gateway, index) in toGateways"
+                :key="index"
+                :value="gateway"
             >
               {{ gateway.locale_name }}
             </option>
@@ -42,23 +42,23 @@
       <div class="row">
         <div class="col-md-6">
           <label>المبلغ</label>
-          <br />
+          <br/>
           <input
-            v-model.number="amount"
-            class="form-control"
-            type="text"
-            @keyup="toUpdateAmount"
+              v-model.number="amount"
+              class="form-control"
+              type="text"
+              @keyup="toUpdateAmount"
           />
         </div>
 
         <div class="col-md-6">
           <label>المتبقي</label>
-          <br />
+          <br/>
           <input
-            v-model="remaining"
-            class="form-control"
-            disabled
-            type="text"
+              v-model="remaining"
+              class="form-control"
+              disabled
+              type="text"
           />
         </div>
       </div>
@@ -76,7 +76,7 @@
 <script>
 export default {
   props: ["gateways", "toGateways"],
-  data: function() {
+  data: function () {
     return {
       removeExists: false,
       activeGateway: {
@@ -101,7 +101,7 @@ export default {
 
     toUpdateAmount() {
       if (this.activeGateway !== null) {
-        this.remaining = this.activeGateway.current_amount - this.amount;
+        this.remaining = parseFloat(parseFloat(this.activeGateway.current_amount) - parseFloat(this.amount)).toFixed(2);
       }
     },
 
@@ -111,44 +111,44 @@ export default {
     },
     toPushDataToServer() {
       axios
-        .post("/api/daily/wallet/issue_transfer", {
-          amount: this.amount,
-          gateway_id: this.gateway_id,
-          remove_existing_pending_transactions: this.removeExists,
-          receiver_gateway_id: this.receiver_gateway_id,
-          receiver_id: this.receiver_id,
-        })
-        .then((response) => {
-          window.location = "/daily/reseller/accounts_transactions";
-        })
-        .catch((error) => {
-          if (error.response.data.errors) {
-            if (error.response.data.errors.exists_pending_transactions) {
-              this.$confirm(
-                "يوجد عمليات تحويل سابقة لم يتم تاكيدها حتى الان ، يجب حذفها اولاً ، هل تريد حذفها ؟ ",
-                "حذف عمليات التحويل المعلقة ؟ ",
-                "warning",
-                {
-                  confirmButtonText: "نعم",
-                  cancelButtonText: "لا",
-                }
-              )
-                .then(() => {
-                  this.removeExists = true;
-                  this.toPushDataToServer();
-                })
-                .catch((error) => {
-                  location.reload();
-                });
+          .post("/api/daily/wallet/issue_transfer", {
+            amount: this.amount,
+            gateway_id: this.gateway_id,
+            remove_existing_pending_transactions: this.removeExists,
+            receiver_gateway_id: this.receiver_gateway_id,
+            receiver_id: this.receiver_id,
+          })
+          .then((response) => {
+            window.location = "/daily/reseller/accounts_transactions";
+          })
+          .catch((error) => {
+            if (error.response.data.errors) {
+              if (error.response.data.errors.exists_pending_transactions) {
+                this.$confirm(
+                    "يوجد عمليات تحويل سابقة لم يتم تاكيدها حتى الان ، يجب حذفها اولاً ، هل تريد حذفها ؟ ",
+                    "حذف عمليات التحويل المعلقة ؟ ",
+                    "warning",
+                    {
+                      confirmButtonText: "نعم",
+                      cancelButtonText: "لا",
+                    }
+                )
+                    .then(() => {
+                      this.removeExists = true;
+                      this.toPushDataToServer();
+                    })
+                    .catch((error) => {
+                      location.reload();
+                    });
+              } else {
+                alert(error.response.data.errors[0][0]);
+              }
             } else {
-              alert(error.response.data.errors[0][0]);
+              alert(error.response.data.message);
             }
-          } else {
-            alert(error.response.data.message);
-          }
 
-          console.log(error.response.data.errors);
-        });
+            console.log(error.response.data.errors);
+          });
     },
   },
 };
