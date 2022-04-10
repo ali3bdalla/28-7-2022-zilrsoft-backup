@@ -77,15 +77,12 @@ class SalesQuickBooksSyncJob implements ShouldQueue
             }
             return $data;
         })->toArray();
-        $documentNumber = $this->invoice->invoice_number;
-        if (Str::contains($documentNumber, "2021")) {
-            $documentNumber = $documentNumber . " " . Str::random(3);
-        }
+
 
         $depositAmount = $this->invoice->payments()->sum("amount");
         $data = [
             "ApplyTaxAfterDiscount" => true,
-            "DocNumber" => $documentNumber,
+            "DocNumber" => $this->invoice->invoice_number,
             "TotalAmt" => $this->invoice->subtotal,
             "TxnDate" => Carbon::parse($this->invoice->created_at)->toDateString(),
             "DepositToAccountRef" => [

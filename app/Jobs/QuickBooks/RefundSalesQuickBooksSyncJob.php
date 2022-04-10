@@ -75,16 +75,15 @@ class RefundSalesQuickBooksSyncJob implements ShouldQueue
             }
             return $data;
         })->toArray();
-        $randStr = Str::random(5);
         $data = [
             "ApplyTaxAfterDiscount" => true,
-            "DocNumber" => $this->refundInvoice->invoice_number . '-'. $randStr,
+            "DocNumber" => $this->refundInvoice->invoice_number,
             "TotalAmt" => $this->refundInvoice->subtotal,
             "TxnDate" => Carbon::parse($this->refundInvoice->created_at)->toDateString(),
             "DepositToAccountRef" => [
                 "value" => config('zilrsoft_quickbooks.cash_equivalents_account_id')
             ],
-            "PaymentRefNum" => "#" . $this->refundInvoice->invoice_number . " " . $randStr,
+            "PaymentRefNum" => "#" . $this->refundInvoice->invoice_number,
             "Line" => $salesReceiptLines,
             "ClassRef" => [
                 "value" => $this->refundInvoice->creator->quickbooks_class_id
