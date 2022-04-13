@@ -11,6 +11,7 @@ use App\Http\Requests\Sales\UpdateAliceNameRequest;
 use App\Models\Invoice;
 use App\Repository\InvoiceRepositoryContract;
 use Exception;
+use Illuminate\Support\Carbon;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
@@ -21,6 +22,41 @@ class SaleController extends Controller
     {
     }
 
+    public function report(FetchSalesRequest  $fetchSalesRequest)
+    {
+        $query = Invoice::query();
+        if (
+            $fetchSalesRequest->has('startDate') && $fetchSalesRequest->filled('startDate') && $fetchSalesRequest->has('endDate')
+            && $fetchSalesRequest->filled('endDate')
+        ) {
+            $_startDate = Carbon::parse($fetchSalesRequest->input('startDate'));
+            $_endDate = Carbon::parse($fetchSalesRequest->input('endDate'));
+
+            if ($_endDate === $_startDate) {
+                $query = $query->whereDate('created_at', $_startDate);
+            } else {
+                $query = $query->whereBetween(
+                    'created_at',
+                    [
+                        $_startDate,
+                        $_endDate,
+                    ]
+                );
+            }
+        }
+
+        if($fetchSalesRequest->has('invoice_type'))
+        {
+            $query = $query->where('invoice_type',$fetchSalesRequest->input('invoice_type'));
+        }
+        return [
+          'net' => round($query->sum('net'),2),
+          'total' => round($query->sum('total'),2),
+          'subtotal' => round($query->sum('subtotal'),2),
+          'discount' => round($query->sum('discount'),2),
+          'tax' => round($query->sum('tax'),2),
+        ];
+    }
     public function index(FetchSalesRequest $request)
     {
         return $request->getData();

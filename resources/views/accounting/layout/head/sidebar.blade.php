@@ -151,7 +151,10 @@
                             </a>
                         </li>
                     @endcan
-
+                        <li>
+                            <a href="/invoices/reports"><i class="fa fa-sun"></i>
+                               تقارير
+                            </a></li>
                     @can('manage inventory')
                         <li>
                             <a href="{{route('inventory.index')}}"><i class="fa fa-sun"></i>

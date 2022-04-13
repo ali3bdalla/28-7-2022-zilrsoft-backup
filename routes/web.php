@@ -27,14 +27,12 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('test',function(){
-    $data = new SalesQuickBooksSyncJob(Invoice::inRandomOrder()->first(),Auth::user());
-    return $data->handle();
-});
+
 Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index');
 Route::post('dashboard', [HomeController::class, 'changeSettings'])->name('dashboard.change_settings');
 Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
 Route::resource('sales', SaleController::class);
+Route::get('invoices/reports',[SaleController::class,'report']);
 Route::prefix('sales')->name('sales.')->group(
     function () {
         Route::prefix('drafts')->name('drafts.')->group(

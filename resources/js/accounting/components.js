@@ -33,6 +33,7 @@ import AccountingInvoiceEmbeddedPaymentsGatewayLayout from './components/layout/
 import AccountingInvoiceEmbeddedPurchaseExpensesLayoutComponent
   from './components/layout/invoiceEmbeddedPurchaseExpensesLayoutComponent'
 import AccountingSalesDatatableComponent from './components/sales/salesDatatableComponent'
+import AccountingInvoicesReportComponent from './components/sales/invoicesReportComponent'
 import AccountingSalesCreateComponent from './components/sales/salesCreateComponent'
 import AccountingSalesReturnComponent from './components/sales/salesReturnComponent'
 import AccountingKitsDatatableComponent from './components/items/kitsDatatableComponent'
@@ -215,6 +216,10 @@ Vue.component(
 Vue.component(
   'accounting-sales-datatable-component',
   AccountingSalesDatatableComponent
+)
+Vue.component(
+  'accounting-invoices-report-component',
+  AccountingInvoicesReportComponent
 )
 Vue.component(
   'accounting-sales-create-component',

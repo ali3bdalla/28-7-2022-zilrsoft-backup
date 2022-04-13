@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\App\API\SaleController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v2', 'as' => 'v2.'], function () {
@@ -42,6 +43,7 @@ Route::middleware('auth')->group(
             }
         );
         Route::resource('sales', 'SaleController');
+        Route::get('invoices/report', 'SaleController@report');
         Route::group(
             ['prefix' => 'sales', 'as' => 'sales.'],
             function () {

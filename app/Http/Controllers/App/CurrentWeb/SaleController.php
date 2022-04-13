@@ -23,6 +23,11 @@ class SaleController extends Controller
         $this->accountRepositoryContract = $accountRepositoryContract;
     }
 
+    public function report()
+    {
+        return view('sales.report');
+
+    }
     /**
      * Display a listing of the resource.
      * @return Application|Factory|View
