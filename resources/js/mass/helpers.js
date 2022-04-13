@@ -71,7 +71,7 @@ const helpers = {
   // round  the float value into value with only two 2 digit
   // after the comma
   roundTheFloatValueTo2DigitOnlyAfterComma: function (val) {
-    return parseFloat(val).toFixed(2)
+    return parseFloat(val).toFixed(4)
   },
 
   showOnlyTwoAfterComma (val) {

@@ -74,7 +74,6 @@ class BillQuickBooksSyncJob implements ShouldQueue
                     "name" => $invoiceItems->item->locale_name,
                     "value" => $invoiceItems->item->quickbooks_id
                 ];
-
             }
             return $data;
         })->toArray();

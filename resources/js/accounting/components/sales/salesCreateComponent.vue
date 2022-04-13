@@ -1198,7 +1198,7 @@ export default {
           return this.itemUpdater(item)
         }
       }
-
+      item.price = parseFloat(item.price).toFixed(4);
       item.total = ItemAccounting.getTotal(item.price, item.qty)
       item.subtotal = ItemAccounting.getSubtotal(item.total, item.discount)
       //

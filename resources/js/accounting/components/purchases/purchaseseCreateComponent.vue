@@ -28,7 +28,8 @@
         </accounting-select-with-search-layout-component>
       </div>
       <div class="col-md-2">
-        <a class="btn btn-custom-primary btn-lg btn-block" @click="modalsInfo.showCreateVendorModal=true">{{ app.trans.create_identity }}</a>
+        <a class="btn btn-custom-primary btn-lg btn-block"
+           @click="modalsInfo.showCreateVendorModal=true">{{ app.trans.create_identity }}</a>
       </div>
       <div :class="[creator.organization_id == 1 ? 'col-md-3' : 'col-md-6']">
         <div class="input-group">
@@ -331,6 +332,7 @@ import {
   query as ItemQuery,
   validator as ItemValidator
 } from '../../item';
+
 export default {
   props: ['creator', 'vendors', 'receivers', 'gateways', 'expenses', 'canViewItems',
     'canCreateItem', 'initPurchase', 'initInvoice', 'initItems'],
@@ -679,6 +681,7 @@ export default {
 
 
     itemUpdater(item) {
+      item.purchase_price = parseFloat(item.purchase_price).toFixed(4);
       item.total = ItemAccounting.getTotal(item.purchase_price, item.qty);
       item.subtotal = ItemAccounting.getSubtotal(item.total, item.discount);
       item.tax = ItemAccounting.getTax(item.subtotal, item.vtp);// this for vat purchase => vtp

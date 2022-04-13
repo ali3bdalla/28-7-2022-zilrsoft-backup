@@ -234,11 +234,7 @@ class StoreSaleItemsJob implements ShouldQueue
 
         $isBelongToKit = (bool)$requestItemCollection->get('belong_to_kit');
         $parentKitId = (int)$requestItemCollection->get('parent_kit_id');
-        // if (!$isBelongToKit && $item->is_fixed_price) {
-        //     $price = (float)$item->price;
-        // } else {
         $price = (float)$requestItemCollection->get('price');
-        // }
 
         $discount = (float)$requestItemCollection->get('discount');
         $qty = (float)$requestItemCollection->get('qty'); // 10

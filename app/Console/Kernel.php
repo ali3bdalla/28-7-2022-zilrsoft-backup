@@ -34,7 +34,7 @@ class Kernel extends ConsoleKernel
             $schedule->command(CancelUnPaidOrderCommand::class)->everyMinute();
             $schedule->command(DailyUpdateAccountSnapshotCommand::class)->daily();
             $schedule->command(InitQuickBooksData::class)->hourly();
-            $schedule->command(SyncTodaySalesCommand::class)->everyMinute();
+//            $schedule->command(SyncTodaySalesCommand::class)->everyMinute();
             $schedule->command('scout:import')->daily();
         }
     }
