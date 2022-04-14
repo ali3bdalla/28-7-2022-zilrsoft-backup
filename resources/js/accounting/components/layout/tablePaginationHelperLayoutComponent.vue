@@ -11,10 +11,10 @@
                         <option value="100">100</option>
                       <option value="250">250</option>
                       <option value="300">300</option>
+                      <option value="500">500</option>
+                      <option value="1000">1000</option>
+                      <option value="2000">2000</option>
                     </select>
-                    <!--                    <input @keyup="updateItemsPerPageValue" class="form-control" placeholder="عدد العناصر في الصفحة"-->
-                    <!--                           type="text"-->
-                    <!--                           v-model="itemsPerPage">-->
                 </div>
             </div>
             <div class="col-md-10">
