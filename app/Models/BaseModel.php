@@ -21,15 +21,15 @@ class BaseModel extends Model
         static::addGlobalScope(new PendingScope());
     }
 
-    public function getUpdatedAtAttribute($value): string
-    {
-        return Carbon::parse($value)->toDateTimeString();
-    }
+//    public function getUpdatedAtAttribute($value): string
+//    {
+//        return Carbon::parse($value)->toDateTimeString();
+//    }
 
-    public function getCreatedAtAttribute($value): string
-    {
-        return Carbon::parse($value)->toDateTimeString();
-    }
+//    public function getCreatedAtAttribute($value): string
+//    {
+//        return Carbon::parse($value)->toDateTimeString();
+//    }
 
     public function getLocaleNameAttribute()
     {
