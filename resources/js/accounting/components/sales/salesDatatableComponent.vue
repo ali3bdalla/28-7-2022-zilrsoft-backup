@@ -148,7 +148,7 @@
               {{ app.trans.id }}
             </th>
 
-            <th :class="{'orderBy':orderBy==='id'}" @click="setOrderByColumn('id')">
+            <th :class="{'orderBy':orderBy==='invoice_number'}" @click="setOrderByColumn('invoice_number')">
               {{ app.trans.invoice_number }}
             </th>
             <th>
