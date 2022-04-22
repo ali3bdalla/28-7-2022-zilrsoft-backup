@@ -24,14 +24,14 @@ services:
       zilrsoft:
         aliases:
           - zilrsoft.test
-#  redis:
-#    image: redis:6-alpine
-#    container_name: zilrsoft-redis
-#    restart: unless-stopped
-#    ports:
-#      - "6379:6379"
-#    networks:
-#      - zilrsoft
+  redis:
+    image: redis:6-alpine
+    container_name: zilrsoft-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - zilrsoft
   postgres:
     image: postgres:13
     container_name: zilrsoft-db

@@ -67,6 +67,7 @@ class ItemQuickBooksSyncJob implements ShouldQueue
             ],
             "SyncToken" => 0
         ];
+        $fetchedQuickBooksItem = null;
         if ($this->item->quickbooks_id) {
             $fetchedQuickBooksItem = $quickBooksDataService
                 ->FindById("Item", $this->item->quickbooks_id);
@@ -88,8 +89,9 @@ class ItemQuickBooksSyncJob implements ShouldQueue
                 config('zilrsoft_quickbooks.inventory_account_id');
         }
         $quickBooksItem = \QuickBooksOnline\API\Facades\Item::create($data);
-        if ($this->item->quickbooks_id) {
-            $quickBooksDataService->Update($quickBooksItem);
+        if ($this->item->quickbooks_id && $fetchedQuickBooksItem) {
+            $updateItem = \QuickBooksOnline\API\Facades\Item::update($fetchedQuickBooksItem,$data);
+            $quickBooksDataService->Update($updateItem);
         } else {
             $item = $quickBooksDataService->Add($quickBooksItem);
             if ($item) {
