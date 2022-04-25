@@ -108,7 +108,7 @@ class ItemController extends Controller
     {
         $request->validate(
             [
-                'barcode' => 'required|string|min:4|exists:items,barcode'
+                'barcode' => 'required|string|min:4|unique:items,barcode'
             ]
         );
     }
