@@ -43,6 +43,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode as FacadesQrCode;
  * @property float discount
  * @property string user_alice_name
  * @property int vendor_invoice_id
+ * @property mixed $department
  *
  * @method static create(array $array)
  */

@@ -90,7 +90,11 @@ class BillQuickBooksSyncJob implements ShouldQueue
                 "value" => $this->invoice->user->quickbooks_vendor_id
             ]
         ];
-
+        if ($this->manager->department->quickbooks_id) {
+            $data["DepartmentRef"] = [
+                "value" => $this->manager->department->quickbooks_id
+            ];
+        }
         $bill = Bill::create(
             $data
         );

@@ -88,7 +88,11 @@ class RefundBillQuickBooksSyncJob implements ShouldQueue
                 "value" => $this->refundInvoice->user->quickbooks_vendor_id
             ]
         ];
-
+        if ($this->manager->department->quickbooks_id) {
+            $data["DepartmentRef"] = [
+                "value" => $this->manager->department->quickbooks_id
+            ];
+        }
         $vendorCredit = VendorCredit::create(
             $data
         );

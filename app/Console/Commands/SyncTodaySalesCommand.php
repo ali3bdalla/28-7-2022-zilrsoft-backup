@@ -9,9 +9,11 @@ use App\Jobs\QuickBooks\BillQuickBooksSyncJob;
 use App\Jobs\QuickBooks\DeletePaymentQuickBooksSyncJob;
 use App\Jobs\QuickBooks\DeleteQuickbooksPaymentByIdJob;
 use App\Jobs\QuickBooks\DeleteSalesQuickBooksSyncJob;
+use App\Jobs\QuickBooks\DepartmentQuickbooksSyncJob;
 use App\Jobs\QuickBooks\PaymentQuickBooksSyncJob;
 use App\Jobs\QuickBooks\RefundBillQuickBooksSyncJob;
 use App\Jobs\QuickBooks\SalesQuickBooksSyncJob;
+use App\Models\Department;
 use App\Models\Invoice;
 use App\Models\Manager;
 use App\Models\Voucher;
@@ -54,15 +56,9 @@ class SyncTodaySalesCommand extends Command
     public function handle(): int
     {
         $manager = Manager::whereEmail("ali@msbrshop.com")->first();
-        $quickBooksDataService = app("quickbooksDataService", [
-            "manager" => $manager
-        ]);
-        $temp = $quickBooksDataService->Query("SELECT * FROM Payment WHERE CustomerRef='4602'");
-        if (is_array($temp)) {
-            foreach ($temp as $item) {
-                if ($item->UnappliedAmt == $item->TotalAmt)
-                    dispatch(new DeleteQuickbooksPaymentByIdJob($item->Id, $item->SyncToken, $manager));
-            }
+        foreach(Department::all() as $department)
+        {
+            dispatch_sync(new DepartmentQuickbooksSyncJob($department, $manager));
         }
         return 0;
     }
