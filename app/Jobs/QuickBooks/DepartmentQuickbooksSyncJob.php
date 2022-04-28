@@ -47,8 +47,8 @@ class DepartmentQuickbooksSyncJob implements ShouldQueue
             "manager" => $this->manager
         ]);
         $quickBooksItem = FacadeHelper::reflectArrayToObject("Department", [
-            "Name" => $this->class->name,
-            "FullyQualifiedName" => $this->class->locale_name,
+            "Name" => $this->class->title,
+            "FullyQualifiedName" => $this->class->locale_title,
         ]);
         $class = $quickBooksDataService->Add($quickBooksItem);
         if ($class) {

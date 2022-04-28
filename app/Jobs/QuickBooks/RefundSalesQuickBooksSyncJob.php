@@ -94,9 +94,9 @@ class RefundSalesQuickBooksSyncJob implements ShouldQueue
                 "value" => $this->refundInvoice->user->quickbooks_customer_id
             ];
         }
-        if ($this->manager->department->quickbooks_id) {
+        if ($this->refundInvoice->department->quickbooks_id) {
             $data["DepartmentRef"] = [
-                "value" => $this->manager->department->quickbooks_id
+                "value" => $this->refundInvoice->department->quickbooks_id
             ];
         }
         $salesReceipt = RefundReceipt::create(

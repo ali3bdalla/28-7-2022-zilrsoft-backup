@@ -46,11 +46,11 @@ class SaleController extends Controller
      */
     public function create()
     {
-        $salesmen = Manager::all();
+        $departments = Department::all();
         $clients = User::whereIsClient(true)->orderBy('id', 'asc')->get();
         $expenses = Item::whereIsExpense(true)->get();
         $gateways = $this->accountRepositoryContract->getPaymentMethodsAccountsListToAuthedManager();
-        return view('sales.create', compact('clients', 'salesmen', 'gateways', 'expenses'));
+        return view('sales.create', compact('clients', 'departments', 'gateways', 'expenses'));
     }
 
     /**

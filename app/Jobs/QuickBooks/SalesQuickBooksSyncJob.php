@@ -99,9 +99,9 @@ class SalesQuickBooksSyncJob implements ShouldQueue
                 "value" => $this->invoice->user->quickbooks_customer_id
             ];
         }
-        if ($this->manager->department->quickbooks_id) {
+        if ($this->invoice->department->quickbooks_id) {
             $data["DepartmentRef"] = [
-                "value" => $this->manager->department->quickbooks_id
+                "value" => $this->invoice->department->quickbooks_id
             ];
         }
         if (abs((float)$depositAmount - (float)$this->invoice->net) > 1) {

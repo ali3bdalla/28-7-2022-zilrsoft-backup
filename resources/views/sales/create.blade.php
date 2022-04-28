@@ -14,7 +14,7 @@
             :expenses='@json($expenses)'
             :clients='@json($clients)'
             :gateways='@json($gateways)'
-            :salesmen='@json($salesmen)'
+            :departments='@json($departments)'
 
             :creator='@json($loggedManager)'
     ></accounting-sales-create-component>

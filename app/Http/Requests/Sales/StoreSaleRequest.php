@@ -39,6 +39,7 @@ class StoreSaleRequest extends FormRequest
             'items.*.id' => 'required|exists:items,id',
             'items.*.price' => 'price|min:0',
             'items.*.discount' => 'price',
+            "department_id" => "nullable|exists:departments,id",
             'items.*.qty' => 'required|quantity|min:1|salesItemQty',
             'items.*.serials' => 'array|newInvoiceItemSerials',
             'items.*.serials.*' => 'required|exists:item_serials,serial',
@@ -104,7 +105,7 @@ class StoreSaleRequest extends FormRequest
                     'creator_id' => $authUser->id,
                     'organization_id' => $authUser->organization_id,
                     'branch_id' => $authUser->branch_id,
-                    'department_id' => $authUser->department_id,
+                    'department_id' => $this->input('department_id', $authUser->department_id),
                     'user_id' => $this->input('client_id'),
                     'user_alice_name' => $this->input('alice_name'),
                     'managed_by_id' => $this->input('salesman_id'),
@@ -127,7 +128,7 @@ class StoreSaleRequest extends FormRequest
             DB::commit();
             dispatch(new SalesQuickBooksSyncJob($invoice, Auth::user()));
             return $invoice;
-        } catch (QueryException | ValidationException | Exception $exception) {
+        } catch (QueryException|ValidationException|Exception $exception) {
             DB::rollBack();
             throw $exception;
         }

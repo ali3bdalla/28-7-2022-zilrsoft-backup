@@ -4,37 +4,37 @@
     <div class="row">
       <div class="col-md-6">
         <button
-          :disabled="!everythingFineToSave"
-          class="btn btn-custom-primary"
-          @click="pushDataToServer"
+            :disabled="!everythingFineToSave"
+            class="btn btn-custom-primary"
+            @click="pushDataToServer"
         >
           <i class="fa fa-save"></i> {{ app.trans.save }}
         </button>
         <button
-          ref="saveAndPrintReceiptBarcode"
-          :disabled="!everythingFineToSave"
-          class="btn btn-custom-primary"
-          @click="pushDataToServer('print')"
+            ref="saveAndPrintReceiptBarcode"
+            :disabled="!everythingFineToSave"
+            class="btn btn-custom-primary"
+            @click="pushDataToServer('print')"
         >
           <i class="fa fa-print"></i> {{ app.trans.save_and_print_receipt }}
         </button>
 
         <accounting-print-receipt-layout-component
-          :direct="true"
-          :invoice-id="createdInvoiceId"
+            :direct="true"
+            :invoice-id="createdInvoiceId"
         ></accounting-print-receipt-layout-component>
 
         <button
-          :disabled="!everythingFineToSave"
-          class="btn btn-custom-primary"
-          @click="pushDataToServer('open')"
+            :disabled="!everythingFineToSave"
+            class="btn btn-custom-primary"
+            @click="pushDataToServer('open')"
         >
           <i class="fa fa-save"></i> {{ app.trans.save_and_open }}
         </button>
       </div>
       <div class="col-md-6">
         <a class="btn btn-default" href="/sales"
-          ><i class="fa fa-redo"></i> {{ app.trans.cancel }}</a
+        ><i class="fa fa-redo"></i> {{ app.trans.cancel }}</a
         >
       </div>
     </div>
@@ -42,15 +42,15 @@
     <div class="row">
       <div class="col-md-4">
         <accounting-select-with-search-layout-component
-          :default-index="defaultClientId"
-          :no_all_option="true"
-          :options="clientList"
-          :placeholder="app.trans.client"
-          :title="app.trans.client"
-          identity="001"
-          index="001"
-          label_text="locale_name"
-          @valueUpdated="clientListChanged"
+            :default-index="defaultClientId"
+            :no_all_option="true"
+            :options="clientList"
+            :placeholder="app.trans.client"
+            :title="app.trans.client"
+            identity="001"
+            index="001"
+            label_text="locale_name"
+            @valueUpdated="clientListChanged"
         >
         </accounting-select-with-search-layout-component>
       </div>
@@ -58,25 +58,25 @@
         <alice-name-form-pop @updated="e => invoiceData.aliceName = e.alice_name"></alice-name-form-pop>
 
         <a
-          class="btn btn-custom-primary btn-sm"
-          @click="modalsInfo.showCreateClientModal = true"
-          >{{ app.trans.create_identity }}</a
+            class="btn btn-custom-primary btn-sm"
+            @click="modalsInfo.showCreateClientModal = true"
+        >{{ app.trans.create_identity }}</a
         >
       </div>
       <div class="col-md-4">
         <div class="input-group">
           <span id="time-field" class="input-group-addon">{{
-            app.trans.date
-          }}</span>
+              app.trans.date
+            }}</span>
           <input
-            v-model="LiveTimer"
-            aria-describedby="time-field"
-            class="form-control"
-            disabled
-            name=""
-            readonly
-            style="direction: ltr !important"
-            type="text"
+              v-model="LiveTimer"
+              aria-describedby="time-field"
+              class="form-control"
+              disabled
+              name=""
+              readonly
+              style="direction: ltr !important"
+              type="text"
           />
         </div>
       </div>
@@ -84,30 +84,33 @@
 
     <div class="row">
       <div class="col-md-6">
-        <accounting-select-with-search-layout-component
-          :default-index="creator.id"
-          :no_all_option="true"
-          :options="salesmen"
-          :placeholder="app.trans.salesman"
-          :title="app.trans.salesman"
-          identity="002"
-          index="002"
-          label_text="locale_name"
-          @valueUpdated="salesmanListChanged"
-        >
-        </accounting-select-with-search-layout-component>
-      </div>
-      <div class="col-md-6">
         <div class="input-group">
-          <span class="input-group-addon">{{ app.trans.department }}</span>
+          <span class="input-group-addon">{{ app.trans.salesman }}</span>
           <input
-            v-model="creator.department.locale_title"
-            aria-describedby="time-field"
-            class="form-control"
-            disabled
-            type="text"
+              v-model="creator.locale_name"
+              aria-describedby="time-field"
+              class="form-control"
+              disabled
+              type="text"
           />
         </div>
+      </div>
+      <div class="col-md-6">
+
+
+        <accounting-select-with-search-layout-component
+            :default-index="creator.department_id"
+            :no_all_option="true"
+            :options="departments"
+            :placeholder="app.trans.department"
+            :title="app.trans.department"
+            identity="002"
+            index="002"
+            label_text="locale_title"
+            @valueUpdated="departmentChanged"
+        >
+        </accounting-select-with-search-layout-component>
+
       </div>
     </div>
 
@@ -117,30 +120,30 @@
         <div id="seach_area" class="product_search">
           <div class="">
             <input
-              ref="barcodeNameAndSerialField"
-              v-model="barcodeNameAndSerialField"
-              :placeholder="app.trans.search_barcode"
-              class="form-control"
-              tabindex="1"
-              type="text"
-              @keyup.enter="sendQueryRequestToFindItems"
+                ref="barcodeNameAndSerialField"
+                v-model="barcodeNameAndSerialField"
+                :placeholder="app.trans.search_barcode"
+                class="form-control"
+                tabindex="1"
+                type="text"
+                @keyup.enter="sendQueryRequestToFindItems"
             />
           </div>
           <div
-            v-show="searchResultList.length >= 1"
-            class="live-vue-search panel"
+              v-show="searchResultList.length >= 1"
+              class="live-vue-search panel"
           >
             <div
-              v-for="item in searchResultList"
-              :key="item.id"
-              class="panel-footer"
-              href="#"
-              @click="validateAndPrepareItem(item)"
+                v-for="item in searchResultList"
+                :key="item.id"
+                class="panel-footer"
+                href="#"
+                @click="validateAndPrepareItem(item)"
             >
               <h4 class="title has-text-white">
                 {{ item.locale_name }}
                 <small class="has-text-white"
-                  >{{ item.barcode }} - {{ item.price_with_tax }}</small
+                >{{ item.barcode }} - {{ item.price_with_tax }}</small
                 >
               </h4>
             </div>
@@ -150,26 +153,26 @@
 
       <div v-if="canViewItems == 1" class="col-md-2 text-center">
         <a
-          class="btn btn-custom-primary"
-          href="/items?selectable=true"
-          target="_blank"
-          >{{ app.trans.view_products }}</a
+            class="btn btn-custom-primary"
+            href="/items?selectable=true"
+            target="_blank"
+        >{{ app.trans.view_products }}</a
         >
       </div>
       <div v-if="canCreateItem == 1" class="col-md-2 text-center">
         <a
-          class="btn btn-custom-primary"
-          href="/items/create"
-          target="_blank"
-          >{{ app.trans.create_product }}</a
+            class="btn btn-custom-primary"
+            href="/items/create"
+            target="_blank"
+        >{{ app.trans.create_product }}</a
         >
       </div>
 
       <div class="col-md-2 text-center">
         <a
-          class="btn btn-custom-primary"
-          @click="modalsInfo.showNoteModal = true"
-          >{{ app.trans.make_note }}</a
+            class="btn btn-custom-primary"
+            @click="modalsInfo.showNoteModal = true"
+        >{{ app.trans.make_note }}</a
         >
       </div>
     </div>
@@ -177,93 +180,93 @@
     <div class="panel panel-primary">
       <table class="table table-bordered text-center table-striped">
         <thead class="panel-heading">
-          <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <!-- <th class="has-text-white"></th> -->
-            <th>{{ app.trans.barcode }}</th>
-            <th>{{ app.trans.item_name }}</th>
-            <th>{{ app.trans.item_available_qty }}</th>
-            <th>{{ app.trans.qty }}</th>
-            <th>{{ app.trans.sales_price }}</th>
-            <th>{{ app.trans.total }}</th>
-            <!--                    <th>{{ app.trans.discount }}</th>-->
-            <th>{{ app.trans.subtotal }}</th>
-            <th>{{ app.trans.tax }}</th>
-            <th>{{ app.trans.net }}</th>
-          </tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <!-- <th class="has-text-white"></th> -->
+          <th>{{ app.trans.barcode }}</th>
+          <th>{{ app.trans.item_name }}</th>
+          <th>{{ app.trans.item_available_qty }}</th>
+          <th>{{ app.trans.qty }}</th>
+          <th>{{ app.trans.sales_price }}</th>
+          <th>{{ app.trans.total }}</th>
+          <!--                    <th>{{ app.trans.discount }}</th>-->
+          <th>{{ app.trans.subtotal }}</th>
+          <th>{{ app.trans.tax }}</th>
+          <th>{{ app.trans.net }}</th>
+        </tr>
         </thead>
 
         <tbody>
-          <tr
+        <tr
             v-for="(item, index) in invoiceData.items"
             v-if="item.is_expense != 1"
             :key="item.id"
-          >
-            <td>
-              <button
+        >
+          <td>
+            <button
                 class="btn btn-danger btn-xs"
                 @click="deleteItemFromList(item)"
-              >
-                <i class="fa fa-trash"></i>
-              </button>
-            </td>
-            <td>
-              <button
+            >
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+          <td>
+            <button
                 v-if="item.is_need_serial"
                 class="btn btn-success btn-xs"
                 @click="openItemSerialsModal(index, item)"
-              >
-                <i class="fa fa-bars"></i> &nbsp;
-              </button>
+            >
+              <i class="fa fa-bars"></i> &nbsp;
+            </button>
 
-              <accounting-kit-items-layout-component
+            <accounting-kit-items-layout-component
                 v-if="item.is_kit === true"
                 :index="index"
                 :kit="item"
                 :qty="item.qty"
                 @kitUpdated="kitItemsDataUpdated"
-              >
-              </accounting-kit-items-layout-component>
-            </td>
-            <td>
-              <button
+            >
+            </accounting-kit-items-layout-component>
+          </td>
+          <td>
+            <button
                 v-show="item.printable"
                 class="btn btn-success btn-xs"
                 @click="updateItemPrintable(false, item)"
-              >
-                <i class="fa fa-eye"></i> &nbsp;
-              </button>
-              <button
+            >
+              <i class="fa fa-eye"></i> &nbsp;
+            </button>
+            <button
                 v-show="!item.printable"
                 class="btn btn-danger btn-xs"
                 @click="updateItemPrintable(true, item)"
-              >
-                <i class="fa fa-eye-slash"></i> &nbsp;
-              </button>
-            </td>
-            <td data-app>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <span v-on="on">{{ item.barcode }}</span>
-                </template>
-                <span>{{
+            >
+              <i class="fa fa-eye-slash"></i> &nbsp;
+            </button>
+          </td>
+          <td data-app>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <span v-on="on">{{ item.barcode }}</span>
+              </template>
+              <span>{{
                   parseFloat(item.cost * (1 + item.vtp / 100)).toFixed(2)
                 }}</span>
-              </v-tooltip>
-            </td>
-            <td>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <span v-on="on">{{ item.locale_name }}</span>
-                </template>
-                <span>{{ item.warranty_title }}</span>
-              </v-tooltip>
-            </td>
-            <td v-text="item.available_qty"></td>
-            <td>
-              <input
+            </v-tooltip>
+          </td>
+          <td>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <span v-on="on">{{ item.locale_name }}</span>
+              </template>
+              <span>{{ item.warranty_title }}</span>
+            </v-tooltip>
+          </td>
+          <td v-text="item.available_qty"></td>
+          <td>
+            <input
                 v-if="!item.is_need_serial"
                 :ref="'itemQty_' + item.id + 'Ref'"
                 v-model="item.qty"
@@ -273,12 +276,12 @@
                 type="text"
                 @focus="$event.target.select()"
                 @change="itemQtyUpdated(item)"
-              />
-              <p v-else>{{ item.qty }}</p>
-            </td>
+            />
+            <p v-else>{{ item.qty }}</p>
+          </td>
 
-            <td>
-              <input
+          <td>
+            <input
                 :ref="'itemPrice_' + item.id + 'Ref'"
                 v-model="item.price"
                 :disabled="item.is_fixed_price || item.is_service"
@@ -287,41 +290,41 @@
                 @change="itemPriceUpdated(item)"
                 @focus="$event.target.select()"
                 @keyup.enter="clearAndFocusOnBarcodeField"
-              />
-            </td>
+            />
+          </td>
 
-            <td>
-              <input
+          <td>
+            <input
                 v-model="item.total"
                 class="form-control input-xs amount-input"
                 disabled
                 type="text"
                 @focus="$event.target.select()"
-              />
-            </td>
-            <td>
-              <input
+            />
+          </td>
+          <td>
+            <input
                 v-model="item.subtotal"
                 class="form-control input-xs amount-input"
                 disabled=""
                 placeholder="subtotal"
                 type="text"
                 @focus="$event.target.select()"
-              />
-            </td>
+            />
+          </td>
 
-            <td>
-              <input
+          <td>
+            <input
                 v-model="item.tax"
                 class="form-control input-xs amount-input"
                 disabled=""
                 placeholder="tax"
                 type="text"
                 @focus="$event.target.select()"
-              />
-            </td>
-            <td>
-              <input
+            />
+          </td>
+          <td>
+            <input
                 v-model="item.net"
                 :disabled="item.is_fixed_price"
                 class="form-control input-xs amount-input"
@@ -329,9 +332,9 @@
                 type="text"
                 @change="itemNetUpdated(item)"
                 @focus="$event.target.select()"
-              />
-            </td>
-          </tr>
+            />
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>
@@ -349,11 +352,11 @@
                 </div>
                 <div class="col-md-6">
                   <input
-                    v-model="invoiceData.total"
-                    :placeholder="app.trans.total"
-                    class="form-control input-xs amount-input"
-                    disabled
-                    type="text"
+                      v-model="invoiceData.total"
+                      :placeholder="app.trans.total"
+                      class="form-control input-xs amount-input"
+                      disabled
+                      type="text"
                   />
                 </div>
               </div>
@@ -364,11 +367,11 @@
                 </div>
                 <div class="col-md-6">
                   <input
-                    v-model="invoiceData.subtotal"
-                    :placeholder="app.trans.subtotal"
-                    class="form-control input-xs amount-input"
-                    disabled
-                    type="text"
+                      v-model="invoiceData.subtotal"
+                      :placeholder="app.trans.subtotal"
+                      class="form-control input-xs amount-input"
+                      disabled
+                      type="text"
                   />
                 </div>
               </div>
@@ -379,11 +382,11 @@
                 </div>
                 <div class="col-md-6">
                   <input
-                    v-model="invoiceData.tax"
-                    :placeholder="app.trans.tax"
-                    class="form-control input-xs amount-input"
-                    disabled
-                    type="text"
+                      v-model="invoiceData.tax"
+                      :placeholder="app.trans.tax"
+                      class="form-control input-xs amount-input"
+                      disabled
+                      type="text"
                   />
                 </div>
               </div>
@@ -393,11 +396,11 @@
                 </div>
                 <div class="col-md-6">
                   <input
-                    v-model="invoiceData.net"
-                    :placeholder="app.trans.net"
-                    class="form-control input-xs amount-input"
-                    disabled
-                    type="text"
+                      v-model="invoiceData.net"
+                      :placeholder="app.trans.net"
+                      class="form-control input-xs amount-input"
+                      disabled
+                      type="text"
                   />
                 </div>
               </div>
@@ -413,8 +416,8 @@
                 </div>
                 <div class="col-md-4">
                   <button
-                    class="btn btn-custom-primary"
-                    @click="addExpenseToInvoice"
+                      class="btn btn-custom-primary"
+                      @click="addExpenseToInvoice"
                   >
                     <i class="fa fa-plus-circle"></i>
                   </button>
@@ -423,9 +426,9 @@
 
               <div class="">
                 <div
-                  v-for="expense in invoiceData.items"
-                  v-show="expense.is_expense" :key="expense.id"
-                  class="panel panel-primary"
+                    v-for="expense in invoiceData.items"
+                    v-show="expense.is_expense" :key="expense.id"
+                    class="panel panel-primary"
                 >
                   <div class="panel-heading">{{ expense.locale_name }}</div>
                   <div class="panel-body">
@@ -434,15 +437,15 @@
                         <div class="input-group">
                           <span class="input-group-addon">السعر الضريبة</span>
                           <input
-                            :ref="'itemNet_' + expense.id + 'Ref'"
-                            v-model="expense.net"
-                            class="form-control"
-                            name=""
-                            placeholder="القيمة بالضريبة"
-                            style="direction: ltr !important"
-                            type="text"
-                            @focus="$event.target.select()"
-                            @keyup="itemNetUpdated(expense)"
+                              :ref="'itemNet_' + expense.id + 'Ref'"
+                              v-model="expense.net"
+                              class="form-control"
+                              name=""
+                              placeholder="القيمة بالضريبة"
+                              style="direction: ltr !important"
+                              type="text"
+                              @focus="$event.target.select()"
+                              @keyup="itemNetUpdated(expense)"
                           />
                         </div>
                       </div>
@@ -450,10 +453,10 @@
                         <div class="input-group">
                           <span class="input-group-addon">سعر الشراء</span>
                           <input
-                            v-model="expense.purchase_price"
-                            class="form-control"
-                            placeholder="سعر الشراء"
-                            type="text"
+                              v-model="expense.purchase_price"
+                              class="form-control"
+                              placeholder="سعر الشراء"
+                              type="text"
                           />
                         </div>
                       </div>
@@ -466,11 +469,11 @@
         </div>
         <div class="col-md-9">
           <accounting-invoice-embedded-payments-gateway-layout
-            v-if="!isOrder"
-            :gateways="gateways"
-            :net-amount="invoiceData.net"
-            invoice-type="sale"
-            @updateGatewaysAmounts="updateGatewaysAmounts"
+              v-if="!isOrder"
+              :gateways="gateways"
+              :net-amount="invoiceData.net"
+              invoice-type="sale"
+              @updateGatewaysAmounts="updateGatewaysAmounts"
           >
           </accounting-invoice-embedded-payments-gateway-layout>
         </div>
@@ -478,11 +481,11 @@
     </div>
 
     <accounting-invoice-item-serials-list-layout-component
-      :item="selectedItem"
-      :item-index="selectedItemIndex"
-      invoice-type="sale"
-      @panelClosed="handleItemSerialsClosed"
-      @publishUpdated="handleItemSerialsUpdated"
+        :item="selectedItem"
+        :item-index="selectedItemIndex"
+        invoice-type="sale"
+        @panelClosed="handleItemSerialsClosed"
+        @publishUpdated="handleItemSerialsUpdated"
     >
     </accounting-invoice-item-serials-list-layout-component>
 
@@ -495,9 +498,9 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button
-                    class="pull-left btn btn-custom-primary"
-                    type="button"
-                    @click="modalsInfo.showNoteModal = false"
+                      class="pull-left btn btn-custom-primary"
+                      type="button"
+                      @click="modalsInfo.showNoteModal = false"
                   >
                     اغلاق
                   </button>
@@ -505,9 +508,9 @@
                 </div>
                 <div class="modal-body">
                   <textarea
-                    v-model="invoiceData.notes"
-                    :placeholder="app.trans.type_here"
-                    class="form-control"
+                      v-model="invoiceData.notes"
+                      :placeholder="app.trans.type_here"
+                      class="form-control"
                   ></textarea>
                 </div>
               </div>
@@ -527,9 +530,9 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button
-                    class="pull-left btn btn-custom-primary"
-                    type="button"
-                    @click="modalsInfo.showAliceNameModal = false"
+                      class="pull-left btn btn-custom-primary"
+                      type="button"
+                      @click="modalsInfo.showAliceNameModal = false"
                   >
                     اغلاق
                   </button>
@@ -537,10 +540,10 @@
                 </div>
                 <div class="modal-body">
                   <input
-                    v-model="invoiceData.aliceName"
-                    :placeholder="app.trans.type_here"
-                    class="form-control"
-                    type="text"
+                      v-model="invoiceData.aliceName"
+                      :placeholder="app.trans.type_here"
+                      class="form-control"
+                      type="text"
                   />
                 </div>
               </div>
@@ -560,9 +563,9 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button
-                    class="pull-left btn btn-custom-primary"
-                    type="button"
-                    @click="modalsInfo.showCreateClientModal = false"
+                      class="pull-left btn btn-custom-primary"
+                      type="button"
+                      @click="modalsInfo.showCreateClientModal = false"
                   >
                     اغلاق
                   </button>
@@ -572,52 +575,52 @@
                   <div class="row">
                     <div class="col-md-4">
                       <toggle-button
-                        v-model="clientModal.isIndividual"
-                        :font-size="19"
-                        :height="30"
-                        :labels="{ checked: 'فرد', unchecked: 'منشأة' }"
-                        :sync="true"
-                        :width="150"
+                          v-model="clientModal.isIndividual"
+                          :font-size="19"
+                          :height="30"
+                          :labels="{ checked: 'فرد', unchecked: 'منشأة' }"
+                          :sync="true"
+                          :width="150"
                       />
                     </div>
                     <div class="col-md-4">
                       <toggle-button
-                        v-show="clientModal.isIndividual"
-                        v-model="clientModal.isMsr"
-                        :font-size="19"
-                        :height="30"
-                        :labels="{ checked: 'السيد', unchecked: 'السيد' }"
-                        :sync="true"
-                        :width="150"
+                          v-show="clientModal.isIndividual"
+                          v-model="clientModal.isMsr"
+                          :font-size="19"
+                          :height="30"
+                          :labels="{ checked: 'السيد', unchecked: 'السيد' }"
+                          :sync="true"
+                          :width="150"
                       />
                     </div>
                     <div class="col-md-4">
                       <toggle-button
-                        v-model="clientModal.canMakeCredit"
-                        :font-size="19"
-                        :height="30"
-                        :labels="{
+                          v-model="clientModal.canMakeCredit"
+                          :font-size="19"
+                          :height="30"
+                          :labels="{
                           checked: 'فواتير اجله',
                           unchecked: 'سداد فقط',
                         }"
-                        :sync="true"
-                        :width="150"
+                          :sync="true"
+                          :width="150"
                       />
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6">
                       <input
-                        v-model="clientModal.clientArName"
-                        class="form-control"
-                        placeholder="اسم العميل"
+                          v-model="clientModal.clientArName"
+                          class="form-control"
+                          placeholder="اسم العميل"
                       />
                     </div>
                     <div class="col-md-6">
                       <input
-                        v-model="clientModal.clientName"
-                        class="form-control"
-                        placeholder="اسم العميل (انجليزي)"
+                          v-model="clientModal.clientName"
+                          class="form-control"
+                          placeholder="اسم العميل (انجليزي)"
                       />
                     </div>
                   </div>
@@ -625,8 +628,8 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div
-                        class="btn btn-custom-primary"
-                        @click="pushClientData"
+                          class="btn btn-custom-primary"
+                          @click="pushClientData"
                       >
                         حفظ
                       </div>
@@ -642,9 +645,9 @@
     <!--invoice create Modal-->
 
     <textarea
-      v-if="activateTestMode"
-      v-model="testRequestData"
-      class="form-control"
+        v-if="activateTestMode"
+        v-model="testRequestData"
+        class="form-control"
     ></textarea>
   </div>
 </template>
@@ -656,7 +659,7 @@ import {
   query as ItemQuery,
   validator as ItemValidator
 } from '../../item'
-import { sendGetKitAmountsRequest } from '../../api/kits'
+import {sendGetKitAmountsRequest} from '../../api/kits'
 import AliceNameFormPop from '../../../components/Invoice/AliceNameFormPop.vue'
 
 export default {
@@ -666,7 +669,7 @@ export default {
     'clients',
     'cloning',
     'quotation',
-    'salesmen',
+    'departments',
     'gateways',
     'expenses',
     'canViewItems',
@@ -704,13 +707,14 @@ export default {
         notes: '',
         vendorIncCumber: '',
         clientId: 0,
-        salesmanId: 0,
+        salesmanId: this.creator.id,
         methods: [],
         items: [],
         total: 0,
         net: 0,
         tax: 0,
         discount: 0,
+        department_id: this.creator.department_id,
         subtotal: 0,
         status: 'credit'
       },
@@ -725,17 +729,17 @@ export default {
         defaultVatPurchaseValue: 15
       },
       LiveTimer:
-        new Date().getFullYear() +
-        '-' +
-        (new Date().getMonth() + 1) +
-        '-' +
-        new Date().getDate() +
-        ' ' +
-        new Date().getHours() +
-        ':' +
-        new Date().getMinutes() +
-        ':' +
-        new Date().getSeconds()
+          new Date().getFullYear() +
+          '-' +
+          (new Date().getMonth() + 1) +
+          '-' +
+          new Date().getDate() +
+          ' ' +
+          new Date().getHours() +
+          ':' +
+          new Date().getMinutes() +
+          ':' +
+          new Date().getSeconds()
     }
   },
   created: function () {
@@ -746,8 +750,8 @@ export default {
       this.handleCloningEvent()
     }
     this.defaultClientId = this.quotation
-      ? this.quotation.user_id
-      : this.clientList[0].id
+        ? this.quotation.user_id
+        : this.clientList[0].id
   },
 
   mounted: function () {
@@ -755,12 +759,12 @@ export default {
     this.itemsTabsPusherHandler()
     // this.$refs.barcodeNameAndSerialField.focus()
     this.defaultClientId = this.quotation
-      ? this.quotation.user_id
-      : this.clientList[0].id
+        ? this.quotation.user_id
+        : this.clientList[0].id
   },
 
   methods: {
-    toCheckMakePrintableOption (item) {
+    toCheckMakePrintableOption(item) {
       let canMakeItPrintable = false
       const len = this.invoiceData.items.length
 
@@ -776,7 +780,7 @@ export default {
 
       return canMakeItPrintable
     },
-    updateItemPrintable (printable, item) {
+    updateItemPrintable(printable, item) {
       if (!printable) {
         if (this.toCheckMakePrintableOption(item)) {
           this.toRealChangePrintableStatus(printable, item)
@@ -785,15 +789,15 @@ export default {
         this.toRealChangePrintableStatus(printable, item)
       }
     },
-    toRealChangePrintableStatus (printable, item) {
+    toRealChangePrintableStatus(printable, item) {
       item.printable = printable
       this.invoiceData.items = db.model.replace(
-        this.invoiceData.items,
-        db.model.index(this.invoiceData.items, item.id),
-        item
+          this.invoiceData.items,
+          db.model.index(this.invoiceData.items, item.id),
+          item
       )
     },
-    handleCloningEvent () {
+    handleCloningEvent() {
       const items = this.quotation.items
       this.quotationId = this.quotation.id
       const appVm = this
@@ -818,10 +822,11 @@ export default {
       })
 
       this.invoiceData.salesmanId = this.quotation.managed_by_id
+      this.invoiceData.department_id = this.quotation.department_id
       this.invoiceData.clientId = this.quotation.user_id
       this.updateInvoiceData()
     },
-    pushClientData () {
+    pushClientData() {
       this.modalsInfo.showCreateclientModal = false
       let user_type = ''
       if (this.clientModal.isIndividual) {
@@ -864,27 +869,27 @@ export default {
       }
       const appVm = this
       axios
-        .post('/accounting/identities', data)
-        .then((response) => {
-          alert('تم التسجيل بنجاح')
-          appVm.clientList.push(response.data)
-          appVm.modalsInfo.showCreateclientModal = false
-          appVm.invoiceData.clientId = response.data.id
-          appVm.clientModal.clientArName = ''
-          appVm.clientModal.clientName = ''
-          appVm.clientListChanged({
-            value: {
-              id: response.data.id
-            }
+          .post('/accounting/identities', data)
+          .then((response) => {
+            alert('تم التسجيل بنجاح')
+            appVm.clientList.push(response.data)
+            appVm.modalsInfo.showCreateclientModal = false
+            appVm.invoiceData.clientId = response.data.id
+            appVm.clientModal.clientArName = ''
+            appVm.clientModal.clientName = ''
+            appVm.clientListChanged({
+              value: {
+                id: response.data.id
+              }
+            })
           })
-        })
-        .catch((error) => {
-          console.log(error.response)
-          console.log(error.response.messages)
-          console.log(error.message)
-        })
+          .catch((error) => {
+            console.log(error.response)
+            console.log(error.response.messages)
+            console.log(error.message)
+          })
     },
-    addExpenseToInvoice () {
+    addExpenseToInvoice() {
       if (this.selectedExpense != null) {
         const new_expense = this.selectedExpense
         new_expense.available_qty = 1
@@ -901,22 +906,22 @@ export default {
       }
     },
 
-    updatedItemsList (event) {
+    updatedItemsList(event) {
       this.invoiceData.items = event.items
     },
-    initLiveTimer () {
+    initLiveTimer() {
       const appVm = this
       setInterval(function () {
         appVm.LiveTimer = helpers.getFullDateAndTime()
       }, 1000)
     },
-    clientListChanged (event) {
+    clientListChanged(event) {
       this.invoiceData.clientId = event.value.id
     },
-    salesmanListChanged (event) {
-      this.invoiceData.salesmanId = event.value.id
+    departmentChanged(event) {
+      this.invoiceData.department_id = event.value.id
     },
-    itemsTabsPusherHandler () {
+    itemsTabsPusherHandler() {
       const appVm = this
       this.bc.onmessage = function (ev) {
         if (ev.isTrusted) {
@@ -925,7 +930,7 @@ export default {
         }
       }
     },
-    sendQueryRequestToFindItems () {
+    sendQueryRequestToFindItems() {
       // when we activate this code one press will make multi invoice
       if (this.barcodeNameAndSerialField === '') {
         if (this.invoiceData.items.length >= 1) {
@@ -935,26 +940,26 @@ export default {
       }
       const appVm = this
       ItemQuery.sendQueryRequestToFindItems(
-        this.barcodeNameAndSerialField,
-        'sale'
+          this.barcodeNameAndSerialField,
+          'sale'
       )
-        .then((response) => {
-          if (response.data.length === 1) {
-            appVm.validateAndPrepareItem(response.data[0])
-            appVm.barcodeNameAndSerialField = ''
-            appVm.searchResultList = []
-          } else if (response.data.length === 0) {
-            appVm.$refs.barcodeNameAndSerialField.select()
-            appVm.searchResultList = []
-          } else {
-            appVm.searchResultList = response.data
-          }
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+          .then((response) => {
+            if (response.data.length === 1) {
+              appVm.validateAndPrepareItem(response.data[0])
+              appVm.barcodeNameAndSerialField = ''
+              appVm.searchResultList = []
+            } else if (response.data.length === 0) {
+              appVm.$refs.barcodeNameAndSerialField.select()
+              appVm.searchResultList = []
+            } else {
+              appVm.searchResultList = response.data
+            }
+          })
+          .catch((error) => {
+            console.log(error)
+          })
     },
-    validateAndPrepareItem (item) {
+    validateAndPrepareItem(item) {
       item.price = helpers.roundTheFloatValueTo2DigitOnlyAfterComma(item.price)
       item.printable = true
       this.searchResultList = []
@@ -978,7 +983,7 @@ export default {
 
       this.clearAndFocusOnBarcodeField()
     },
-    itemWithSerialProccess (item, parent = null) {
+    itemWithSerialProccess(item, parent = null) {
       const serial = item.init_serial.serial
       if (parent == null) {
         item.serials = [serial]
@@ -1005,7 +1010,7 @@ export default {
 
       this.updateInvoiceData()
     },
-    prepareDataInFirstUse (item) {
+    prepareDataInFirstUse(item) {
       item.isOpen = false
       item.qty = 1
       if (item.is_need_serial) {
@@ -1021,7 +1026,7 @@ export default {
 
       return this.itemUpdater(item)
     },
-    appendItemToInvoiceItemsList (item, index = null) {
+    appendItemToInvoiceItemsList(item, index = null) {
       if (index != null) {
         this.invoiceData.items.splice(index, 1, item)
       } else {
@@ -1031,26 +1036,26 @@ export default {
       this.updateInvoiceData()
     },
 
-    kitItemsDataUpdated (e) {
+    kitItemsDataUpdated(e) {
       const kit = e.kit
       this.invoiceData.items.splice(e.index, 1, kit)
     },
-    updateInvoiceData () {
+    updateInvoiceData() {
       this.invoiceData.total = db.model.sum(this.invoiceData.items, 'total')
       this.invoiceData.discount = db.model.sum(
-        this.invoiceData.items,
-        'discount'
+          this.invoiceData.items,
+          'discount'
       )
       this.invoiceData.subtotal = db.model.sum(
-        this.invoiceData.items,
-        'subtotal'
+          this.invoiceData.items,
+          'subtotal'
       )
       this.invoiceData.tax = db.model.sum(this.invoiceData.items, 'tax')
       this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net')
       this.validateInvoiceData(focus)
     },
 
-    validateInvoiceData () {
+    validateInvoiceData() {
       let validating = db.model.validateAmounts(this.invoiceData.items, [
         'purchase',
         'tax',
@@ -1060,22 +1065,22 @@ export default {
       ])
 
       validating =
-        validating && ItemValidator.validateAmount(this.invoiceData.total)
+          validating && ItemValidator.validateAmount(this.invoiceData.total)
       validating =
-        validating && ItemValidator.validateAmount(this.invoiceData.subtotal)
+          validating && ItemValidator.validateAmount(this.invoiceData.subtotal)
       validating =
-        validating && ItemValidator.validateAmount(this.invoiceData.discount)
+          validating && ItemValidator.validateAmount(this.invoiceData.discount)
       validating =
-        validating && ItemValidator.validateAmount(this.invoiceData.net)
+          validating && ItemValidator.validateAmount(this.invoiceData.net)
 
       this.everythingFineToSave = validating
     },
-    clearAndFocusOnBarcodeField () {
+    clearAndFocusOnBarcodeField() {
       this.barcodeNameAndSerialField = ''
       this.searchResultList = []
       this.$refs.barcodeNameAndSerialField.focus()
     },
-    itemQtyUpdated (item, bySerial = false) {
+    itemQtyUpdated(item, bySerial = false) {
       item.qty = parseFloat(item.qty)
       if (item.is_kit) {
         return this.kitQtyUpdated(item)
@@ -1089,45 +1094,45 @@ export default {
 
       item = this.itemUpdater(item)
       this.appendItemToInvoiceItemsList(
-        item,
-        db.model.index(this.invoiceData.items, item.id)
+          item,
+          db.model.index(this.invoiceData.items, item.id)
       )
     },
 
-    kitQtyUpdated (kit) {
+    kitQtyUpdated(kit) {
       const appVm = this
       sendGetKitAmountsRequest(kit.id, kit.qty)
-        .then((response) => {
-          kit.total = response.data.total
-          kit.discount = response.data.discount
-          kit.subtotal = response.data.subtotal
-          kit.tax = response.data.tax
-          kit.net = response.data.net
-          appVm.invoiceData.items.splice(
-            db.model.index(appVm.invoiceData.items, kit.id),
-            1,
-            kit
-          )
-          appVm.updateInvoiceData()
-        })
-        .catch((error) => {
-          alert(error)
-        })
+          .then((response) => {
+            kit.total = response.data.total
+            kit.discount = response.data.discount
+            kit.subtotal = response.data.subtotal
+            kit.tax = response.data.tax
+            kit.net = response.data.net
+            appVm.invoiceData.items.splice(
+                db.model.index(appVm.invoiceData.items, kit.id),
+                1,
+                kit
+            )
+            appVm.updateInvoiceData()
+          })
+          .catch((error) => {
+            alert(error)
+          })
     },
 
-    itemPriceUpdated (item) {
+    itemPriceUpdated(item) {
       const el = this.$refs['itemPrice_' + item.id + 'Ref'][0]
       if (!inputHelper.validatePrice(item.price, el)) {
         return false
       }
       item = this.itemUpdater(item)
       this.appendItemToInvoiceItemsList(
-        item,
-        db.model.index(this.invoiceData.items, item.id)
+          item,
+          db.model.index(this.invoiceData.items, item.id)
       )
     },
 
-    itemDiscountUpdated (item) {
+    itemDiscountUpdated(item) {
       item.discount = parseFloat(item.discount).toFixed(2)
       const el = this.$refs['itemDiscount_' + item.id + 'Ref'][0]
       if (!inputHelper.validateDiscount(item.discount, el)) {
@@ -1135,16 +1140,16 @@ export default {
       }
       item = this.itemUpdater(item)
       this.appendItemToInvoiceItemsList(
-        item,
-        db.model.index(this.invoiceData.items, item.id)
+          item,
+          db.model.index(this.invoiceData.items, item.id)
       )
     },
 
-    itemNetUpdated (item) {
+    itemNetUpdated(item) {
       if (item.is_service || item.is_expense) {
         item.price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(
-          item.net,
-          item.vts
+            item.net,
+            item.vts
         )
         item.total = item.price
         item.subtotal = item.price
@@ -1152,11 +1157,11 @@ export default {
         item.discount = 0
       } else {
         const tax = ItemAccounting.convertVatPercentValueIntoFloatValue(
-          item.vts
+            item.vts
         ) //  1.05
         item.subtotal = parseFloat(ItemMath.dev(item.net, tax)).toFixed(2)
         item.tax = parseFloat(
-          ItemMath.dev(ItemMath.mult(item.subtotal, item.vts), 100)
+            ItemMath.dev(ItemMath.mult(item.subtotal, item.vts), 100)
         ).toFixed(3)
         // item.total = ItemMath.sub(item.total, item.subtotal);
 
@@ -1173,15 +1178,15 @@ export default {
         item = this.itemNetToUpdatePriceWithoutTax(item)
       }
       this.appendItemToInvoiceItemsList(
-        item,
-        db.model.index(this.invoiceData.items, item.id)
+          item,
+          db.model.index(this.invoiceData.items, item.id)
       )
     },
 
-    itemNetToUpdatePriceWithoutTax (item) {
+    itemNetToUpdatePriceWithoutTax(item) {
       item.price = ItemAccounting.getSalesPriceFromSalesPriceWithTaxAndVat(
-        item.net,
-        item.vtp
+          item.net,
+          item.vtp
       )
       item.total = parseFloat(item.price) * parseFloat(item.qty)
       item.subtotal = item.total
@@ -1191,7 +1196,7 @@ export default {
       return item
     },
 
-    itemUpdater (item) {
+    itemUpdater(item) {
       if (!item.is_kit && !item.is_service) {
         if (!ItemValidator.validateQty(item.qty, item.available_qty)) {
           item.qty = ItemMath.sub(item.qty, 1)
@@ -1203,48 +1208,48 @@ export default {
       item.subtotal = ItemAccounting.getSubtotal(item.total, item.discount)
       //
       item.tax = item.is_kit
-        ? item.data.tax
-        : ItemAccounting.getTax(item.subtotal, item.vts, true) // this for vat purchase => vtp
+          ? item.data.tax
+          : ItemAccounting.getTax(item.subtotal, item.vts, true) // this for vat purchase => vtp
       item.net = ItemAccounting.getNet(item.subtotal, item.tax, true)
       return item
     },
 
-    deleteItemFromList (item) {
+    deleteItemFromList(item) {
       this.invoiceData.items = db.model.delete(this.invoiceData.items, item.id)
       this.updateInvoiceData()
     },
 
-    openItemSerialsModal (index, item) {
+    openItemSerialsModal(index, item) {
       this.selectedItem = item
       this.selectedItemIndex = index
     },
 
-    handleItemSerialsUpdated (e) {
+    handleItemSerialsUpdated(e) {
       const index = e.index
       const item = db.model.findByIndex(this.invoiceData.items, index)
       item.serials = e.serials
       item.qty = e.serials.length
       this.itemQtyUpdated(item, true)
     },
-    handleItemSerialsClosed (e) {
+    handleItemSerialsClosed(e) {
       this.selectedItem = null
       this.selectedItemIndex = null
     },
 
-    updateListItemsWidgets () {
+    updateListItemsWidgets() {
       for (let i = 0; i < this.invoiceData.items.length; i++) {
         const item = this.invoiceData.items[i]
         const itemWidget = ItemMath.dev(item.total, this.invoiceData.total)
         item.widget = itemWidget
         this.invoiceData.items = db.model.replace(
-          this.invoiceData.items,
-          i,
-          item
+            this.invoiceData.items,
+            i,
+            item
         )
       }
     },
 
-    initExpensesList () {
+    initExpensesList() {
       for (let i = 0; i < this.expenses.length; i++) {
         const expense = this.expenses[i]
         expense.is_open = false
@@ -1254,7 +1259,7 @@ export default {
       }
     },
 
-    updateGatewaysAmounts (e) {
+    updateGatewaysAmounts(e) {
       this.invoiceData.status = e.status
       this.invoiceData.methods = []
       for (let i = 0; i < e.methods.length; i++) {
@@ -1266,32 +1271,32 @@ export default {
       }
     },
 
-    expensesListUpdated (e) {
+    expensesListUpdated(e) {
       if (parseFloat(e.expense.amount) > 0) {
         this.expensesList.splice(e.index, 1, e.expense)
         this.updateNetAfterExpenses()
       }
     },
 
-    expenseIncludeInNet (e) {
+    expenseIncludeInNet(e) {
       this.invoiceData.net = ItemMath.sum(
-        this.invoiceData.net,
-        e.expense.amount
+          this.invoiceData.net,
+          e.expense.amount
       )
       this.expensesList.splice(e.index, 1, e.expense)
       this.updateListItemsWidgets()
     },
 
-    expenseDeIncludeInNet (e) {
+    expenseDeIncludeInNet(e) {
       this.invoiceData.net = ItemMath.sub(
-        this.invoiceData.net,
-        e.expense.amount
+          this.invoiceData.net,
+          e.expense.amount
       )
       this.expensesList.splice(e.index, 1, e.expense)
       this.updateListItemsWidgets()
     },
 
-    updateNetAfterExpenses () {
+    updateNetAfterExpenses() {
       let total = 0
       for (let i = 0; i < this.expensesList.length; i++) {
         const expense = this.expensesList[i]
@@ -1303,22 +1308,22 @@ export default {
 
       if (total > 0) {
         this.invoiceData.net = ItemMath.sum(
-          total,
-          db.model.sum(this.invoiceData.items, 'net')
+            total,
+            db.model.sum(this.invoiceData.items, 'net')
         )
       } else {
         this.invoiceData.net = db.model.sum(this.invoiceData.items, 'net')
       }
     },
 
-    pushDataToServer (doWork = null) {
+    pushDataToServer(doWork = null) {
       this.everythingFineToSave = false
       const client = db.model.find(this.clientList, this.invoiceData.clientId)
       if (client.is_system_user) {
         const amount = db.model.sum(this.invoiceData.methods, 'amount')
         if (ItemMath.isBiggerThan(this.invoiceData.net, amount)) {
           alert(
-            'هذا العميل لا يمكنه القيام بفواتير آجله الرجاء التحقق من وسائل الدفع واكمال المبلغ '
+              'هذا العميل لا يمكنه القيام بفواتير آجله الرجاء التحقق من وسائل الدفع واكمال المبلغ '
           )
 
           return
@@ -1328,7 +1333,6 @@ export default {
       const data = {
         quotation_id: this.quotationId,
         items: this.invoiceData.items,
-        salesman_id: this.invoiceData.salesmanId,
         alice_name: this.invoiceData.aliceName,
         client_id: this.invoiceData.clientId,
         notes: this.invoiceData.notes,
@@ -1343,7 +1347,8 @@ export default {
         current_status: this.invoiceData.status,
         issued_status: this.invoiceData.status,
         remaining: this.invoiceData.remaining,
-        department_id: this.creator.department_id,
+        department_id: this.invoiceData.department_id,
+        salesman_id: this.invoiceData.salesmanId,
         invoice_type: 'sale',
         branch_id: this.creator.branch_id,
         creator_id: this.creator.id
@@ -1355,50 +1360,50 @@ export default {
         this.testRequestData = JSON.stringify(data)
       } else {
         axios
-          .post('/api/sales', data)
-          .then(function (response) {
-            if (doWork === 'open') {
-              window.location.href = '/sales/' + response.data.id
-            } else if (doWork === 'print') {
-              appVm.everythingFineToSave = false
-              appVm.createdInvoiceId = response.data.id
-              const salesman = appVm.invoiceData.salesmanId
-              const clientId = appVm.invoiceData.clientId
+            .post('/api/sales', data)
+            .then(function (response) {
+              if (doWork === 'open') {
+                window.location.href = '/sales/' + response.data.id
+              } else if (doWork === 'print') {
+                appVm.everythingFineToSave = false
+                appVm.createdInvoiceId = response.data.id
+                const salesman = appVm.invoiceData.salesmanId
+                const clientId = appVm.invoiceData.clientId
 
-              appVm.invoiceData = {
-                remaining: 0,
-                vendorIncCumber: '',
-                clientId: clientId,
-                salesmanId: salesman,
-                methods: [],
-                items: [],
-                total: 0,
-                net: 0,
-                tax: 0,
-                discount: 0,
-                subtotal: 0,
-                status: 'credit'
-              }
+                appVm.invoiceData = {
+                  remaining: 0,
+                  vendorIncCumber: '',
+                  clientId: clientId,
+                  salesmanId: salesman,
+                  methods: [],
+                  items: [],
+                  total: 0,
+                  net: 0,
+                  tax: 0,
+                  discount: 0,
+                  subtotal: 0,
+                  status: 'credit'
+                }
 
-              setInterval(function () {
+                setInterval(function () {
+                  if (appVm.cloning) {
+                    window.location.href = '/sales/' + response.data.id
+                  } else {
+                    window.location.reload()
+                  }
+                }, 1000)
+              } else {
                 if (appVm.cloning) {
                   window.location.href = '/sales/' + response.data.id
                 } else {
                   window.location.reload()
                 }
-              }, 1000)
-            } else {
-              if (appVm.cloning) {
-                window.location.href = '/sales/' + response.data.id
-              } else {
-                window.location.reload()
               }
-            }
-          })
-          .catch(function (error) {
-            alert(error.response.data.message)
-            console.log(error.response.data)
-          })
+            })
+            .catch(function (error) {
+              alert(error.response.data.message)
+              console.log(error.response.data)
+            })
       }
     }
   }
