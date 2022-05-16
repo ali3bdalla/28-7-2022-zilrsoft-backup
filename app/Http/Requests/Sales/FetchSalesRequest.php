@@ -6,6 +6,8 @@ use App\Enums\InvoiceTypeEnum;
 use App\Models\Invoice;
 use App\Scopes\DraftScope;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Spatie\Enum\Laravel\Rules\EnumRule;
@@ -271,12 +273,19 @@ class FetchSalesRequest extends FormRequest
             ]
         );
 
-        if ($this->has('itemsPerPage') && $this->filled('itemsPerPage') && intval($this->input('itemsPerPage')) >= 1) {
-            $result = $query->paginate(intval($this->input('itemsPerPage')));
-        } else {
-            $result = $query->paginate(50);
-        }
+        $page = (int)$this->input('page',1);
+        $perPage = (int)$this->input('itemsPerPage',50);
+        $skip = ($page - 1) * $perPage;
+        $totalItems = $query->count();
+        $data = $query->skip($skip)->take($perPage)->get()->map(function($row){
+            $row->net = round($row->net,2);
+            $row->total = round($row->total,2);
+            $row->subtotal = round($row->subtotal,2);
+            $row->tax = round($row->tax,2);
+            $row->discount = round($row->discount,2);
+            return $row;
+        })->toArray();
+        return new LengthAwarePaginator($data,$totalItems, $perPage, $page);
 
-        return $result;
     }
 }
