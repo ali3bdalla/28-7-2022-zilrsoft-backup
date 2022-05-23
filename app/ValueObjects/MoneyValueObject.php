@@ -11,7 +11,7 @@ class MoneyValueObject implements CastsAttributes
     private ?float $amount;
     private int $points;
 
-    public function __construct(?float $amount = 0, ?string $currency = "USD", int $points = 4)
+    public function __construct(?float $amount = 0, ?string $currency = "USD", int $points = 2)
     {
         $this->amount = $amount;
         $this->currency = $currency;
