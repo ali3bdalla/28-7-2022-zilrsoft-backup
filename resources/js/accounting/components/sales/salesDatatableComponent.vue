@@ -185,10 +185,6 @@
               {{ app.trans.invoice_type }}
             </th>
 
-            <th v-if="canViewAccounting===1" :class="{'orderBy':orderBy==='creator_id'}"
-                width="" @click="setOrderByColumn('creator_id')">
-              {{ app.trans.created_by }}
-            </th>
 
             <th
                 width="">
@@ -207,7 +203,7 @@
           <tbody>
 
           <tr v-for="(row,index) in table_rows" :key="row.id"
-              :class="{'bg-info':onlyQuotations === true && row.is_draft_converted}">
+              :class="{'bg-info':onlyQuotations === true && row.is_draft_converted,'quickbooksNotExists': row.quickbooks_id == '' || row.quickbooks_id == null}">
             <td v-text="index+1"></td>
             <td class="text-center" v-text="row.invoice_number"></td>
             <td class="text-center"
@@ -234,7 +230,6 @@
 
               <span v-else>{{ app.trans.return_sale }}</span>
             </td>
-            <td v-if="canViewAccounting===1" class="text-center" v-text="row.creator ? row.creator.locale_name : ''"></td>
             <td class="text-center" v-text="row.creator ? row.creator.locale_name : ''"></td>
             <td v-if="canViewAccounting===1" class="text-center" v-text="row.tax"></td>
             <td>
@@ -294,16 +289,9 @@
               {{ parseFloat(totals.profit).toFixed(2) }}
             </th>
 
-            <!--                        <th>-->
-
-            <!--                        </th>-->
-
             <th>
             </th>
 
-            <th>
-
-            </th>
             <th>
 
             </th>
@@ -685,7 +673,9 @@ export default {
 }
 </script>
 <style scoped>
-
+.quickbooksNotExists {
+  background: #f1c40f !important;
+}
 .orderBy {
   background-color: #eee
 }
