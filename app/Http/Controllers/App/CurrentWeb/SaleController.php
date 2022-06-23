@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\App\CurrentWeb;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\QuickBooks\SalesQuickBooksSyncJob;
 use App\Models\Department;
 use App\Models\Invoice;
 use App\Models\Item;
@@ -12,6 +13,7 @@ use App\Models\User;
 use App\Repository\AccountRepositoryContract;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class SaleController extends Controller
@@ -23,10 +25,18 @@ class SaleController extends Controller
         $this->accountRepositoryContract = $accountRepositoryContract;
     }
 
+    public function uploadToQuickbooks(Invoice $sale)
+    {
+        if ($sale->quickbook_id) {
+            return back();
+        }
+        dispatch_sync(new SalesQuickBooksSyncJob($sale, Auth::user()));
+        return back();
+    }
+
     public function report()
     {
         return view('sales.report');
-
     }
     /**
      * Display a listing of the resource.
@@ -148,5 +158,4 @@ class SaleController extends Controller
         $gateways = $this->accountRepositoryContract->getPaymentMethodsAccountsListToAuthedManager();
         return view('sales.create_return', compact('invoice', 'items', 'gateways', 'expenses'));
     }
-
 }

@@ -32,9 +32,10 @@ Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index
 Route::post('dashboard', [HomeController::class, 'changeSettings'])->name('dashboard.change_settings');
 Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
 Route::resource('sales', SaleController::class);
-Route::get('invoices/reports',[SaleController::class,'report']);
+Route::get('invoices/reports', [SaleController::class, 'report']);
 Route::prefix('sales')->name('sales.')->group(
     function () {
+        Route::get('/{sale}/upload_to_quick_books', [SaleController::class, 'uploadToQuickbooks'])->name('upload_to_quick_books');
         Route::prefix('drafts')->name('drafts.')->group(
             function () {
                 Route::get('/index', [SaleController::class, 'drafts'])->name('index');
