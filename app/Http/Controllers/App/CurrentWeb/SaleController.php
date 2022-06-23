@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\App\CurrentWeb;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\QuickBooks\RefundSalesQuickBooksSyncJob;
 use App\Jobs\QuickBooks\SalesQuickBooksSyncJob;
 use App\Models\Department;
 use App\Models\Invoice;
@@ -27,10 +28,13 @@ class SaleController extends Controller
 
     public function uploadToQuickbooks(Invoice $sale)
     {
-        if ($sale->quickbook_id) {
+        if ($sale->quickbook_id || $sale->is_draft) {
             return back();
         }
-        dispatch_sync(new SalesQuickBooksSyncJob($sale, Auth::user()));
+        if ($sale->invoice_type == 'sale')
+            dispatch_sync(new SalesQuickBooksSyncJob($sale, Auth::user()));
+        elseif ($sale->invoice_type == 'return_sale')
+            dispatch_sync(new RefundSalesQuickBooksSyncJob($sale, Auth::user()));
         return back();
     }
 
