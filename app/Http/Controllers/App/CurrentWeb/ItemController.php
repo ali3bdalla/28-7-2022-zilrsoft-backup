@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Item;
 use App\Models\Manager;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
@@ -78,13 +79,21 @@ class ItemController extends Controller
     }
 
 
-    public function serials(Item $item)
+    public function serials(Item $item,Request $request)
     {
+        $request->validate([
+           'status' => 'nullable|in:in_stock,return_sale,return_purchase,sold'
+        ]);
+        $status = $request->input("status");
+
         $queryOrder = "CASE WHEN status = 'in_stock' THEN 1 ";
         $queryOrder .= "WHEN status = 'return_sale' THEN 2 ";
         $queryOrder .= "ELSE 3 END";
-        $serials = $item->serials()->orderByRaw($queryOrder)->paginate(20);
-        return view('accounting.items.view_serials', compact('item', 'serials'));
+
+        $serials = $item->serials()->when($status,function($subQuery) use($status){
+            $subQuery->where('status',$status);
+        })->orderByRaw($queryOrder)->paginate(20);
+        return view('accounting.items.view_serials', compact('item', 'serials','status'));
     }
 
 
