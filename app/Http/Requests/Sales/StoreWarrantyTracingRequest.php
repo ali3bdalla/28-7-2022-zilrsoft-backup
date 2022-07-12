@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Sales;
 
+use App\Enums\InvoiceItemStatusEnum;
 use App\Enums\InvoiceTypeEnum;
 use App\Jobs\Invoices\Balance\UpdateInvoiceBalancesByInvoiceItemsJob;
 use App\Jobs\Invoices\Number\UpdateInvoiceNumberJob;
@@ -11,6 +12,7 @@ use App\Jobs\Sales\Items\StoreReturnSaleItemsJob;
 use App\Jobs\Sales\Payment\StoreReturnSalePaymentsJob;
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
+use App\Notifications\WarrantyTracing\WarrantyTracingUpdateNotification;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;
@@ -19,14 +21,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
-class StoreReturnSaleRequest extends FormRequest
+class StoreWarrantyTracingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -36,59 +38,35 @@ class StoreReturnSaleRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
-        return [
-            'items' => 'required|array',
-            'items.*.id' => 'integer|required|organization_exists:App\Models\InvoiceItems,id',
-            'items.*.returned_qty' => 'required',
-            'items.*.serials' => 'nullable|array',
-            "methods" => 'nullable|array',
-            'methods.*.id' => 'integer|required|organization_exists:App\Models\Account,id',
-        ];
+        return ['items' => 'required|array', 'items.*.id' => 'integer|required|organization_exists:App\Models\InvoiceItems,id', 'items.*.returned_qty' => 'required', 'items.*.serials' => 'nullable|array', "methods" => 'nullable|array', 'methods.*.id' => 'integer|required|organization_exists:App\Models\Account,id',];
     }
 
     /**
-     * @throws ValidationException
+     * @throws ValidationException|Throwable
      */
     public function store(Invoice $saleInvoice)
     {
         DB::beginTransaction();
         try {
+            $tracingStatus = InvoiceItemStatusEnum::warranty_tracing_received();
             $this->validateInvoiceType($saleInvoice);
             $returnedItems = $this->getReturnedItems();
             $this->validateItems($returnedItems, $saleInvoice);
             $authUser = auth()->user();
-            $invoice = Invoice::create(
-                [
-                    'invoice_type' => 'return_sale',
-                    'notes' => $this->has('notes') ? $this->input('notes') : "",
-                    'creator_id' => $authUser->id,
-                    'organization_id' => $saleInvoice->organization_id,
-                    'branch_id' => $saleInvoice->branch_id,
-                    'department_id' => $saleInvoice->department_id,
-                    'parent_id' => $saleInvoice->id,
-                    'user_id' => $saleInvoice->user_id,
-                    'managed_by_id' => $saleInvoice->managed_by_id,
-                    "user_alice_name" => $saleInvoice->user_alice_name
-                ]
-            );
-            dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'RSI-'));
-            dispatch_sync(new StoreReturnSaleItemsJob($invoice, $saleInvoice, $returnedItems));
+            $invoice = Invoice::create(['invoice_type' => InvoiceTypeEnum::warranty_tracing(),'status' => $tracingStatus, 'notes' => $this->has('notes') ? $this->input('notes') : "", 'creator_id' => $authUser->id, 'organization_id' => $saleInvoice->organization_id, 'branch_id' => $saleInvoice->branch_id, 'department_id' => $saleInvoice->department_id, 'parent_id' => $saleInvoice->id, 'user_id' => $saleInvoice->user_id, 'managed_by_id' => $saleInvoice->managed_by_id, "user_alice_name" => $saleInvoice->user_alice_name]);
+            dispatch_sync(new UpdateInvoiceNumberJob($invoice, 'WT-'));
+            dispatch_sync(new StoreReturnSaleItemsJob($invoice, $saleInvoice, $returnedItems,false,$tracingStatus));
             dispatch_sync(new UpdateInvoiceBalancesByInvoiceItemsJob($invoice));
-
-            /**
-             *
-             * ========================================================
-             * validate payments amount should be after updating invoice totals
-             * ========================================================
-             *
-             */
-            $paymentsMethods = $this->validatePaymentsAndGetPaymentMethods($invoice->fresh());
-            dispatch_sync(new StoreReturnSalePaymentsJob($invoice, $paymentsMethods));
-            dispatch_sync(new StoreReturnSaleTransactionsJob($invoice));
+            $invoice->warrantyTracingHistories()->create([
+               'creator_id'  => $authUser->id,
+                'status' => $tracingStatus
+            ]);
             DB::commit();
-            dispatch(new RefundSalesQuickBooksSyncJob($invoice, Auth::user()));
+            if(!$saleInvoice->user->is_system_user) {
+                $saleInvoice->user->notify(new WarrantyTracingUpdateNotification($invoice,$tracingStatus));
+            }
             return $invoice;
         } catch (QueryException $queryException) {
             DB::rollBack();
@@ -107,17 +85,13 @@ class StoreReturnSaleRequest extends FormRequest
      */
     private function validateInvoiceType(Invoice $invoice)
     {
-        throw_if(!$invoice->invoice_type->equals(InvoiceTypeEnum::sale()), ValidationException::withMessages(
-            [
-                "invoice" => ['must be sales invoice'],
-            ]
-        ));
+        throw_if(!$invoice->invoice_type->equals(InvoiceTypeEnum::sale()), ValidationException::withMessages(["invoice" => ['must be sales invoice'],]));
     }
 
     /**
      * @throws ValidationException
      */
-    private function getReturnedItems()
+    private function getReturnedItems(): array
     {
         $items = [];
         foreach ($this->input('items') as $item) {
@@ -127,11 +101,7 @@ class StoreReturnSaleRequest extends FormRequest
         }
 
         if (empty($items)) {
-            throw ValidationException::withMessages(
-                [
-                    "invoice" => ['returned items must be at lest one item'],
-                ]
-            );
+            throw ValidationException::withMessages(["invoice" => ['returned items must be at lest one item'],]);
         }
         return $items;
     }
@@ -165,11 +135,7 @@ class StoreReturnSaleRequest extends FormRequest
     private function validateBelongToInvoice(Invoice $sale, InvoiceItems $invoiceItem)
     {
         if ($invoiceItem->invoice_id != $sale->id) {
-            throw ValidationException::withMessages(
-                [
-                    "invoice" => ['all items must belongs to current invoice'],
-                ]
-            );
+            throw ValidationException::withMessages(["invoice" => ['all items must belongs to current invoice'],]);
         }
     }
 
@@ -181,12 +147,7 @@ class StoreReturnSaleRequest extends FormRequest
 
         $requestKitChildren = collect($requestItem->get('items'));
 
-        $kitItems = $invoiceItem->invoice->items()->where(
-            [
-                ['belong_to_kit', true],
-                ['parent_kit_id', $invoiceItem->id],
-            ]
-        )->get();
+        $kitItems = $invoiceItem->invoice->items()->where([['belong_to_kit', true], ['parent_kit_id', $invoiceItem->id],])->get();
 
 
         foreach ($kitItems as $kitItem) {
@@ -211,11 +172,7 @@ class StoreReturnSaleRequest extends FormRequest
         $returnedQty = $invoiceItem->returned_qty + $requestItem->get('returned_qty');
 
         if ($returnedQty < 0) {
-            $error = ValidationException::withMessages(
-                [
-                    "items" => ['item qty should be greater than returned qty'],
-                ]
-            );
+            $error = ValidationException::withMessages(["items" => ['item qty should be greater than returned qty'],]);
             throw $error;
         }
     }
@@ -227,40 +184,22 @@ class StoreReturnSaleRequest extends FormRequest
         $serials = (array)$requestItem->get('serials');
 
         if ($serials == null) {
-            $error = ValidationException::withMessages(
-                [
-                    "items" => ['serials should not be null for this item '],
-                ]
-            );
+            $error = ValidationException::withMessages(["items" => ['serials should not be null for this item '],]);
 
             throw $error;
         }
 
         if (count($serials) != $returnedQty) {
-            $error = ValidationException::withMessages(
-                [
-                    "items" => ['serials count should match item returned '],
-                ]
-            );
+            $error = ValidationException::withMessages(["items" => ['serials count should match item returned '],]);
 
             throw $error;
         }
 
         foreach ($serials as $serial) {
-            $dbSerial = $invoiceItem->item->serials()->where(
-                [
-                    ['sale_id', $invoiceItem->invoice_id],
-                    ['status', 'sold'],
-                    ['serial', $serial],
-                ]
-            )->first();
+            $dbSerial = $invoiceItem->item->serials()->where([['sale_id', $invoiceItem->invoice_id], ['status', 'sold'], ['serial', $serial],])->first();
 
             if ($dbSerial == null) {
-                $error = ValidationException::withMessages(
-                    [
-                        "items" => ['invalid item serial'],
-                    ]
-                );
+                $error = ValidationException::withMessages(["items" => ['invalid item serial'],]);
 
                 throw $error;
             }

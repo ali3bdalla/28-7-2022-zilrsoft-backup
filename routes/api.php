@@ -47,8 +47,10 @@ Route::middleware('auth')->group(
         Route::group(
             ['prefix' => 'sales', 'as' => 'sales.'],
             function () {
+                Route::get('/warranty_tracing/list', 'SaleController@warrantyTracing')->name('warranty_tracing.list');
                 Route::post('/draft', 'SaleController@storeDraft')->name('store.draft');
                 Route::patch('/{sale}', 'SaleController@storeReturnSale')->name('store.return');
+                Route::post('/{sale}/warranty_tracing', 'SaleController@storeWarrantyTracing')->name('store.warranty_tracing');
                 Route::patch('/{sale}/alice_name', 'SaleController@updateAliceName')->name('update.alice_name');
             }
         );

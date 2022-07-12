@@ -95,6 +95,27 @@ class UpdateItemSerialStatusByInvoiceItemJob implements ShouldQueue
 
 
 
+        if ($this->invoiceItem->invoice_type == 'warranty_tracing') {
+            foreach ((array)$this->serials as $serial) {
+                $dbSerial = $this->invoiceItem->item->serials()->where([
+                    [
+                        'sale_id', $this->invoiceItem->invoice->parent_id,
+                    ],
+                    [
+                        'status', 'sold',
+                    ],
+                    [
+                        'serial', $serial,
+                    ],
+                ])->first();
+                $dbSerial->update([
+                    'warranty_tracing_id' => $this->invoiceItem->invoice_id,
+                ]);
+                if (!$this->isDraft)
+                    dispatch_sync(new RegisterSerialHistoryJob($dbSerial, 'warranty_tracing', $this->invoiceItem->invoice));
+            }
+        }
+
 
         if ($this->invoiceItem->invoice_type == 'return_sale') {
             foreach ((array)$this->serials as $serial) {

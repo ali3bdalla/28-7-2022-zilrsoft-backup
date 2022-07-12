@@ -6,6 +6,7 @@ use Spatie\Enum\Laravel\Enum;
 /**
  * @method static self sale()
  * @method static self purchase()
+ * @method static self warranty_tracing()
  * @method static self return_purchase()
  * @method static self return_sale()
  * @method static self beginning_inventory()
