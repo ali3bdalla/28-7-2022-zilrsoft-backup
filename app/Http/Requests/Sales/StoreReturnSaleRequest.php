@@ -11,7 +11,6 @@ use App\Jobs\Sales\Items\StoreReturnSaleItemsJob;
 use App\Jobs\Sales\Payment\StoreReturnSalePaymentsJob;
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
-use App\Models\Sale;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\FormRequest;

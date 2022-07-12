@@ -5,6 +5,7 @@ namespace App\Http\Controllers\App\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sales\FetchSalesRequest;
 use App\Http\Requests\Sales\StoreDraftSaleRequest;
+use App\Http\Requests\Sales\StoreReturnSaleRequest;
 use App\Http\Requests\Sales\StoreWarrantyTracingRequest;
 use App\Http\Requests\Sales\StoreSaleRequest;
 use App\Http\Requests\Sales\UpdateAliceNameRequest;
@@ -71,7 +72,7 @@ class SaleController extends Controller
      * @throws ValidationException
      * @throws Throwable
      */
-    public function storeReturnSale(Invoice $sale, StoreWarrantyTracingRequest $request)
+    public function storeReturnSale(Invoice $sale, StoreReturnSaleRequest $request)
     {
         return $request->store($sale);
     }
